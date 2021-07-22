@@ -23,6 +23,7 @@ namespace NppDarkMode
 		COLORREF text = 0;
 		COLORREF darkerText = 0;
 		COLORREF disabledText = 0;
+		COLORREF linkText = 0;
 		COLORREF edge = 0;
 	};
 
@@ -73,6 +74,8 @@ namespace NppDarkMode
 	COLORREF getTextColor();
 	COLORREF getDarkerTextColor();
 	COLORREF getDisabledTextColor();
+	COLORREF getLinkTextColor();
+
 	COLORREF getEdgeColor();
 
 	HBRUSH getBackgroundBrush();
@@ -92,6 +95,7 @@ namespace NppDarkMode
 	void setTextColor(COLORREF c);
 	void setDarkerTextColor(COLORREF c);
 	void setDisabledTextColor(COLORREF c);
+	void setLinkTextColor(COLORREF c);
 	void setEdgeColor(COLORREF c);
 
 	Colors getDarkModeDefaultColors();

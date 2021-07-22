@@ -93,6 +93,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x646464)	// edgeColor
 	};
 
@@ -106,6 +107,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x908080)	// edgeColor
 	};
 
@@ -119,6 +121,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x809080)	// edgeColor
 	};
 
@@ -132,6 +135,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x8080A0)	// edgeColor
 	};
 
@@ -145,6 +149,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x9080A0)	// edgeColor
 	};
 
@@ -158,6 +163,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x8090A0)	// edgeColor
 	};
 
@@ -171,6 +177,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x909080)	// edgeColor
 	};
 
@@ -184,6 +191,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
+		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x646464)	// edgeColor
 	};
 
@@ -366,6 +374,7 @@ namespace NppDarkMode
 	COLORREF getTextColor()               { return getTheme()._colors.text; }
 	COLORREF getDarkerTextColor()         { return getTheme()._colors.darkerText; }
 	COLORREF getDisabledTextColor()       { return getTheme()._colors.disabledText; }
+	COLORREF getLinkTextColor()           { return getTheme()._colors.linkText; }
 	COLORREF getEdgeColor()               { return getTheme()._colors.edge; }
 
 	HBRUSH getBackgroundBrush()           { return getTheme()._brushes.background; }
@@ -430,6 +439,13 @@ namespace NppDarkMode
 	{
 		Colors clrs = getTheme()._colors;
 		clrs.disabledText = c;
+		getTheme().change(clrs);
+	}
+
+	void setLinkTextColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.linkText = c;
 		getTheme().change(clrs);
 	}
 
@@ -1512,8 +1528,8 @@ namespace NppDarkMode
 
 		if (NppDarkMode::isEnabled())
 		{
-			scheme.clrBtnHighlight = NppDarkMode::getBackgroundColor();
-			scheme.clrBtnShadow = NppDarkMode::getBackgroundColor();
+			scheme.clrBtnHighlight = NppDarkMode::getDarkerBackgroundColor();
+			scheme.clrBtnShadow = NppDarkMode::getDarkerBackgroundColor();
 		}
 		else
 		{

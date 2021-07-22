@@ -1269,6 +1269,8 @@ Pode reativar esta janela de diálogo na janela de Preferências mais tarde." />
             <ColumnType name="Tipo"/>
             <ColumnSize name="Tamanho"/>
             <NbDocsTotal name="total de documentos:"/>
+            <MenuCopyName name="Copiar nome(s)"/>
+            <MenuCopyPath name="Copiar nome do caminho(s)"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Painel de Inserção ASCII"/>
@@ -1464,6 +1466,7 @@ Procurar em todos os ficheiros, exceto exe, obj &amp;&amp; log:
     </Native-Langue>
 </NotepadPlus>
 
+
 <!--
 Updated by:
 
@@ -1483,7 +1486,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-14/07/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2)
+22/07/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

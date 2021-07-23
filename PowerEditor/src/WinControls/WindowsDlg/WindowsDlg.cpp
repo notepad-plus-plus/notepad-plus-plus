@@ -239,6 +239,8 @@ BEGIN_WINDOW_MAP(WindowsDlgMap)
 	ENDGROUP()
 END_WINDOW_MAP()
 
+LONG_PTR WindowsDlg::originalListViewProc = NULL;
+
 RECT WindowsDlg::_lastKnownLocation;
 
 WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap)
@@ -268,7 +270,36 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(getHSelf());
+			NppDarkMode::setDarkListView(_hList);
+			return TRUE;
 		}
 
 		case WM_COMMAND :
@@ -552,6 +583,16 @@ BOOL WindowsDlg::onInitDialog()
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hList);
 	exStyle |= LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_DOUBLEBUFFER;
 	ListView_SetExtendedListViewStyle(_hList, exStyle);
+
+	NppDarkMode::setDarkListView(_hList);
+	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
+	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+
+	ListView_SetBkColor(_hList, bgColor);
+	ListView_SetTextBkColor(_hList, bgColor);
+	ListView_SetTextColor(_hList, fgColor);
+
+	originalListViewProc = ::SetWindowLongPtr(_hList, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(listViewProc));
 
 	RECT rc;
 	GetClientRect(_hList, &rc);
@@ -988,6 +1029,41 @@ Buffer* WindowsDlg::getBuffer(int index) const
 	return MainFileManager.getBufferByID(bufID);
 }
 
+LRESULT CALLBACK WindowsDlg::listViewProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
+{
+	switch (Message)
+	{
+		case WM_NOTIFY:
+		{
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
+			{
+				case NM_CUSTOMDRAW:
+				{
+					LPNMCUSTOMDRAW nmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+					switch (nmcd->dwDrawStage)
+					{
+						case CDDS_PREPAINT:
+						{
+							return CDRF_NOTIFYITEMDRAW;
+						}
+
+						case CDDS_ITEMPREPAINT:
+						{
+							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported();
+							::SetTextColor(nmcd->hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
+							return CDRF_DODEFAULT;
+						}
+						break;
+					}
+				}
+				break;
+			}
+		}
+		break;
+	}
+	return CallWindowProc(reinterpret_cast<WNDPROC>(originalListViewProc), hwnd, Message, wParam, lParam);
+}
+
 WindowsMenu::WindowsMenu()
 {}
 
@@ -1070,4 +1146,3 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 		}
 	}
 }
-

@@ -1233,11 +1233,11 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
 <ClipboardHistory>
   <PanelTitle name="클립보드 사용 기록"/>
   </ClipboardHistory>
-<DocSwitcher>
+<DocList>
   <PanelTitle name="문서 전환"/>
   <ColumnName name="이름"/>
   <ColumnExt name="확장자"/>
-  </DocSwitcher>
+  </DocList>
 <WindowsDlg>
   <ColumnName name="이름"/>
   <ColumnPath name="경로"/>

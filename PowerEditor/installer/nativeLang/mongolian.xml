@@ -847,11 +847,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Түр санах ойн түүх"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Баримт хооронд шилжигч"/>
 			<ColumnName name="Нэр"/>
 			<ColumnExt name="Өргөтгөл"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII оруулах талбар"/>
 			<ColumnVal name="Утга"/>

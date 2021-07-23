@@ -1096,11 +1096,11 @@ Kenderc'hel ganti?"/>
         <ClipboardHistory>
             <PanelTitle name="Roll-istor ar golver"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Gwinter teuliadoù"/>
             <ColumnName name="Anv"/>
             <ColumnExt name="Astenn"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Anv"/>
             <ColumnPath name="Hent"/>

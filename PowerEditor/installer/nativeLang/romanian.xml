@@ -1078,11 +1078,11 @@ Doriți să lansați Notepad++ în mod Administrator?"/>
         <ClipboardHistory>
             <PanelTitle name="Istoric Clipboard"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Comutare document"/>
             <ColumnName name="Nume"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>
             <ColumnPath name="Path"/>

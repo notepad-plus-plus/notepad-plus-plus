@@ -926,11 +926,11 @@ Pärast faili salvestamist tuleb muudatuste rakendamiseks Notepad++ uuesti käiv
         <ClipboardHistory>
             <PanelTitle name="Lõikepuhvri ajalugu"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Dokumentide vahetamine"/>
             <ColumnName name="Nimi"/>
             <ColumnExt name="Laiend"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="Tähemärkide sisestamine"/>
             <ColumnVal name="Väärtus"/>

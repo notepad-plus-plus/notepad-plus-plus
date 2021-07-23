@@ -1260,11 +1260,11 @@ To pogovorno okno lahko pozneje znova aktivirate v pogovornem oknu Nastavitve." 
 		<ClipboardHistory>
 			<PanelTitle name="Zgodovina odložišča"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Preklopnik dokumenta"/>
 			<ColumnName name="Ime"/>
 			<ColumnExt name="Ekst."/>
-		</DocSwitcher>
+		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Ime"/>
 			<ColumnPath name="Pot"/>

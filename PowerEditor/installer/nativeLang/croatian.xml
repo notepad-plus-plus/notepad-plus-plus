@@ -1337,11 +1337,11 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama." /> <!-- HowToRepro
             <ClipboardHistory>
                     <PanelTitle name="Povijest međuspremnika"/>
             </ClipboardHistory>
-            <DocSwitcher>
+            <DocList>
                     <PanelTitle name="Promjena dokumenta"/>
                     <ColumnName name="Ime"/>
                     <ColumnExt name="Nast."/>
-            </DocSwitcher>
+            </DocList>
         <WindowsDlg>
             <ColumnName name="Ime"/>
             <ColumnPath name="Put"/>

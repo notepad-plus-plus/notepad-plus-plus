@@ -1042,11 +1042,11 @@ Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
         <ClipboardHistory>
             <PanelTitle name="Mainų srities istorija"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Dok. perjungimas"/>
             <ColumnName name="Pavadinimas"/>
             <ColumnExt name="Išplėtimas"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Pavadinimas"/>
             <ColumnPath name="Kelias"/>

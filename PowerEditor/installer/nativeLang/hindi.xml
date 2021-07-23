@@ -1085,11 +1085,11 @@
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
     </ClipboardHistory>
-    <DocSwitcher>
+    <DocList>
       <PanelTitle name="डॉक स्विचर (Doc Switcher)"/>
       <ColumnName name="नाम"/>
       <ColumnExt name="Ext."/>
-    </DocSwitcher>
+    </DocList>
     <WindowsDlg>
       <ColumnName name="नाम"/>
       <ColumnPath name="पाथ"/>

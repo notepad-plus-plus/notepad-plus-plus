@@ -1246,11 +1246,11 @@ Updated to v8.1.2:
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Документы"/>
 			<ColumnName name="Имя"/>
 			<ColumnExt  name="Расш."/>
-		</DocSwitcher>
+		</DocList>
 		<WindowsDlg>
 			<ColumnName  name="Имя"/>
 			<ColumnPath  name="Путь"/>

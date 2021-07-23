@@ -1220,11 +1220,11 @@
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="文件切換器"/>
             <ColumnName name="名稱"/>
             <ColumnExt name="副檔名"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="名稱"/>
             <ColumnPath name="路徑"/>

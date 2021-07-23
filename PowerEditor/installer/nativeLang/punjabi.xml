@@ -874,11 +874,11 @@
        <ClipboardHistory>
             <PanelTitle name="ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਅਤੀਤ"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="ਡਾਕ (Doc) ਸਵਿੱਚਰ"/>
             <ColumnName name="ਨਾਮੇ "/>
             <ColumnExt name="ਏਕ੍ਸਟ  (Ext.)"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="ASCII ਇੰਸੇਰ੍ਤਿਓਂ  ਪੈਨੇਲ "/>
             <ColumnVal name="ਵਾਲੁਏ"/>

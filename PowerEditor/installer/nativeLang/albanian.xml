@@ -873,11 +873,11 @@
         <ClipboardHistory>
             <PanelTitle name="Historia e Clipboard"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Shkëmbyesi Doc"/>
             <ColumnName name="Emri"/>
             <ColumnExt name="Ekst."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="Paneli i futjes ASCII"/>
             <ColumnVal name="Vlera"/>

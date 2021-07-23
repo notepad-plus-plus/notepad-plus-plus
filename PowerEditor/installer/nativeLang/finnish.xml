@@ -1215,11 +1215,11 @@ Updated to v8.0.0:
         <ClipboardHistory>
             <PanelTitle name="Leikepöydän historia"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Dokumentin vaihtaminen"/>
             <ColumnName name="Nimi"/>
             <ColumnExt name="pääte"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nimi"/>
             <ColumnPath name="Polku"/>

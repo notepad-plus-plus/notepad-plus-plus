@@ -463,9 +463,6 @@
 				<Item id = "2909" name = "Dokola"/>
 			</FindCharsInRange>
 
-			<DocSwitcher title = "Přepínač dokumentů...">
-			</DocSwitcher>
-
 			<GoToLine title = "Přejít na ...">
 				<Item id = "2007" name = "Řádek"/>
 				<Item id = "2008" name = "Pozici (file-offset)"/>
@@ -1281,11 +1278,11 @@ Toto dialogové okno můžete později znovu aktivovat v Nastavení." /> <!-- Ho
 			<PanelTitle name = "Historie Schránky"/>
 		</ClipboardHistory>
 		
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name = "Přepínač dokumentů"/>
 			<ColumnName name = "Jméno"/>
 			<ColumnExt name = "Příp."/>
-		</DocSwitcher>
+		</DocList>
 		
 		<WindowsDlg>
 			<ColumnName name = "Jméno"/>

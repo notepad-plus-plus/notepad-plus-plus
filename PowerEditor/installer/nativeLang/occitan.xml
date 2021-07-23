@@ -1025,11 +1025,11 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 		<ClipboardHistory>
 			<PanelTitle name="Istoric del quichapapièrs"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Cambiaire de documents"/>
 			<ColumnName name="Nom"/>
 			<ColumnExt name="Ext."/>
-		</DocSwitcher>
+		</DocList>
 		<AsciiInsertion>
 			<PanelTitle name="Panèl d'insercion ASCII"/>
 			<ColumnVal name="Valor"/>

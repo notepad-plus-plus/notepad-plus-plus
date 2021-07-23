@@ -1023,11 +1023,11 @@
         <ClipboardHistory>
             <PanelTitle name="Ipboardclay Istoryhay"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Ocday Itchersway"/>
             <ColumnName name="Amenay"/>
             <ColumnExt name="Extyay."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Amenay"/>
             <ColumnPath name="Athpay"/>

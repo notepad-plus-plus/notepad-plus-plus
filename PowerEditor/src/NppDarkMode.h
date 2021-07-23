@@ -31,7 +31,7 @@ namespace NppDarkMode
 		bool enable = false;
 		bool enableMenubar = false;
 	};
-	
+
 	enum class ToolTipsType
 	{
 		tooltip,
@@ -81,6 +81,7 @@ namespace NppDarkMode
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();
 
+	HPEN getDarkerTextPen();
 	HPEN getEdgePen();
 
 	void setBackgroundColor(COLORREF c);
@@ -118,6 +119,7 @@ namespace NppDarkMode
 	void subclassGroupboxControl(HWND hwnd);
 	void subclassToolbarControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
+	void subclassComboBoxControl(HWND hwnd);
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
@@ -131,4 +133,9 @@ namespace NppDarkMode
 
 	void disableVisualStyle(HWND hwnd, bool doDisable);
 	void setTreeViewStyle(HWND hwnd);
+
+	LRESULT onCtlColor(HDC hdc);
+	LRESULT onCtlColorSofter(HDC hdc);
+	LRESULT onCtlColorDarker(HDC hdc);
+	LRESULT onCtlColorError(HDC hdc);
 }

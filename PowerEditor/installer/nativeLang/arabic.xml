@@ -1057,11 +1057,11 @@
         <ClipboardHistory>
             <PanelTitle name="سجل الذاكرة"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="مبدل المستند"/>
             <ColumnName name="الاسم"/>
             <ColumnExt name="الامتداد"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="الاسم"/>
             <ColumnPath name="المسار"/>

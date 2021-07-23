@@ -1256,11 +1256,11 @@ Toto dialógové okno môžete neskôr znovu aktivovať v dialógovom okne Prefe
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Prepínač dokumentov"/>
             <ColumnName name="Názov"/>
             <ColumnExt name="Prípona"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Názov"/>
             <ColumnPath name="Cesta"/>

@@ -1236,11 +1236,11 @@ Jarraitu?"/>
         <ClipboardHistory>
              <PanelTitle name="Arbelaren Historia"/>
          </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
              <PanelTitle name="Dokumentu Aldatzailea"/>
              <ColumnName name="Izena"/>
              <ColumnExt name="Luzap."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>
             <ColumnPath name="Path"/>

@@ -898,11 +898,11 @@
         <ClipboardHistory>
             <PanelTitle name="تاریخچه کلیپ برد"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="تعویض کننده سند"/>
             <ColumnName name="نام"/>
             <ColumnExt name="پسوند."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="پسوند."/>
             <ColumnVal name="مقدار"/>

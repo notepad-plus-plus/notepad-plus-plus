@@ -1511,16 +1511,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_SETEDITORBORDEREDGE:
 		{
 			bool withBorderEdge = (lParam == 1);
-			if (NppDarkMode::isEnabled()) 
-			{
-				_mainEditView.setBorderEdge(false);
-				_subEditView.setBorderEdge(false);
-			}
-			else
-			{
-				_mainEditView.setBorderEdge(withBorderEdge);
-				_subEditView.setBorderEdge(withBorderEdge);
-			}
+			_mainEditView.setBorderEdge(withBorderEdge);
+			_subEditView.setBorderEdge(withBorderEdge);
 			return TRUE;
 		}
 
@@ -2446,7 +2438,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
-		case NPPM_DOCSWITCHERDISABLECOLUMN:
+		case NPPM_DOCLISTDISABLECOLUMN:
 		{
 			BOOL isOff = static_cast<BOOL>(lParam);
 			NppGUI & nppGUI = nppParam.getNppGUI();
@@ -2468,7 +2460,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					:(NppParameters::getInstance()).getCurrentDefaultBgColor());
 		}
 
-		case NPPM_SHOWDOCSWITCHER:
+		case NPPM_SHOWDOCLIST:
 		{
 			BOOL toShow = static_cast<BOOL>(lParam);
 			if (toShow)
@@ -2484,7 +2476,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_ISDOCSWITCHERSHOWN:
+		case NPPM_ISDOCLISTSHOWN:
 		{
 			if (!_pFileSwitcherPanel)
 				return FALSE;
@@ -2746,4 +2738,3 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 	_pluginsManager.relayNppMessages(message, wParam, lParam);
 	return result;
 }
-

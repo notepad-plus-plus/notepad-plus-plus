@@ -1,4 +1,4 @@
-#include "nppDarkMode.h"
+﻿#include "NppDarkMode.h"
 
 #include "DarkMode/DarkMode.h"
 #include "DarkMode/UAHMenuBar.h"
@@ -45,7 +45,7 @@ namespace NppDarkMode
 			::DeleteObject(background);
 			::DeleteObject(softerBackground);
 			::DeleteObject(hotBackground);
-			::DeleteObject(pureBackground);	
+			::DeleteObject(pureBackground);
 			::DeleteObject(errorBackground);
 
 			background = ::CreateSolidBrush(colors.background);
@@ -58,21 +58,26 @@ namespace NppDarkMode
 
 	struct Pens
 	{
+		HPEN darkerTextPen = nullptr;
 		HPEN edgePen = nullptr;
 
 		Pens(const Colors& colors)
-			: edgePen(::CreatePen(PS_SOLID, 1, colors.edge))
+			: darkerTextPen(::CreatePen(PS_SOLID, 1, colors.darkerText))
+			, edgePen(::CreatePen(PS_SOLID, 1, colors.edge))
 		{}
 
 		~Pens()
 		{
-			::DeleteObject(edgePen);	edgePen = nullptr;
+			::DeleteObject(darkerTextPen);	darkerTextPen = nullptr;
+			::DeleteObject(edgePen);		edgePen = nullptr;
 		}
 
 		void change(const Colors& colors)
 		{
+			::DeleteObject(darkerTextPen);
 			::DeleteObject(edgePen);
 
+			darkerTextPen = ::CreatePen(PS_SOLID, 1, colors.darkerText);
 			edgePen = ::CreatePen(PS_SOLID, 1, colors.edge);
 		}
 
@@ -88,7 +93,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x808080)	// edgeColor
+		HEXRGB(0x646464)	// edgeColor
 	};
 
 	// red tone
@@ -103,7 +108,7 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0x908080)	// edgeColor
 	};
-	
+
 	// green tone
 	static const Colors darkGreenColors{
 		HEXRGB(0x203020),	// background
@@ -116,7 +121,6 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0x809080)	// edgeColor
 	};
-	
 
 	// blue tone
 	static const Colors darkBlueColors{
@@ -130,7 +134,7 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0x8080A0)	// edgeColor
 	};
-	
+
 	// purple tone
 	static const Colors darkPurpleColors{
 		HEXRGB(0x302040),	// background
@@ -180,7 +184,7 @@ namespace NppDarkMode
 		HEXRGB(0xE0E0E0),	// textColor
 		HEXRGB(0xC0C0C0),	// darkerTextColor
 		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0x808080)	// edgeColor
+		HEXRGB(0x646464)	// edgeColor
 	};
 
 	ColorTone g_colorToneChoice = blackTone;
@@ -219,7 +223,7 @@ namespace NppDarkMode
 	Theme tO(darkOliveColors);
 
 	Theme tCustom(darkCustomizedColors);
-	
+
 
 	Theme& getTheme()
 	{
@@ -370,10 +374,11 @@ namespace NppDarkMode
 	HBRUSH getDarkerBackgroundBrush()     { return getTheme()._brushes.pureBackground; }
 	HBRUSH getErrorBackgroundBrush()      { return getTheme()._brushes.errorBackground; }
 
+	HPEN getDarkerTextPen()               { return getTheme()._pens.darkerTextPen; }
 	HPEN getEdgePen()                     { return getTheme()._pens.edgePen; }
 
 	void setBackgroundColor(COLORREF c)
-	{ 
+	{
 		Colors clrs = getTheme()._colors;
 		clrs.background = c;
 		getTheme().change(clrs);
@@ -792,14 +797,14 @@ namespace NppDarkMode
 
 		if (nState & BST_CHECKED)		iStateID += 4;
 
-		if (BufferedPaintRenderAnimation(hwnd, hdc)) 
+		if (BufferedPaintRenderAnimation(hwnd, hdc))
 		{
 			return;
 		}
 
 		BP_ANIMATIONPARAMS animParams = { sizeof(animParams) };
 		animParams.style = BPAS_LINEAR;
-		if (iStateID != buttonData.iStateID) 
+		if (iStateID != buttonData.iStateID)
 		{
 			GetThemeTransitionDuration(buttonData.hTheme, iPartID, buttonData.iStateID, iStateID, TMT_TRANSITIONDURATIONS, &animParams.dwDuration);
 		}
@@ -978,7 +983,7 @@ namespace NppDarkMode
 		GetThemeBackgroundContentRect(buttonData.hTheme, hdc, BP_GROUPBOX, iStateID, &rcBackground, &rcContent);
 		ExcludeClipRect(hdc, rcContent.left, rcContent.top, rcContent.right, rcContent.bottom);
 
-		DrawThemeParentBackground(hwnd, hdc, &rcClient);
+		//DrawThemeParentBackground(hwnd, hdc, &rcClient);
 		DrawThemeBackground(buttonData.hTheme, hdc, BP_GROUPBOX, iStateID, &rcBackground, nullptr);
 
 		SelectClipRgn(hdc, nullptr);
@@ -1124,8 +1129,8 @@ namespace NppDarkMode
 			}
 
 			PAINTSTRUCT ps;
-			HDC hdc = BeginPaint(hWnd, &ps);
-			FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
+			HDC hdc = ::BeginPaint(hWnd, &ps);
+			::FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
 
 			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
 
@@ -1144,7 +1149,7 @@ namespace NppDarkMode
 			ScreenToClient(hWnd, &ptCursor);
 
 			int nTabs = TabCtrl_GetItemCount(hWnd);
-			
+
 			int nSelTab = TabCtrl_GetCurSel(hWnd);
 			for (int i = 0; i < nTabs; ++i)
 			{
@@ -1169,7 +1174,11 @@ namespace NppDarkMode
 
 					SetTextColor(hdc, (bHot || (i == nSelTab) ) ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
 
-					FillRect(hdc, &rcItem, (i == nSelTab) ? NppDarkMode::getBackgroundBrush() : NppDarkMode::getSofterBackgroundBrush());
+					// for consistency getBackgroundBrush() 
+					// would be better, than getSofterBackgroundBrush(),
+					// however default getBackgroundBrush() has same color
+					// as getDarkerBackgroundBrush()
+					::FillRect(hdc, &rcItem, (i == nSelTab) ? NppDarkMode::getDarkerBackgroundBrush() : NppDarkMode::getSofterBackgroundBrush());
 
 					SetBkMode(hdc, TRANSPARENT);
 
@@ -1185,7 +1194,8 @@ namespace NppDarkMode
 					rcText.left += NppParameters::getInstance()._dpiManager.scaleX(6);
 					rcText.right -= NppParameters::getInstance()._dpiManager.scaleX(3);
 
-					if (i == nSelTab) {
+					if (i == nSelTab)
+					{
 						rcText.bottom -= NppParameters::getInstance()._dpiManager.scaleX(4);
 					}
 
@@ -1223,6 +1233,119 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
 	}
 
+	constexpr UINT_PTR g_comboBoxSubclassID = 42;
+
+	LRESULT CALLBACK ComboBoxSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR /*dwRefData*/
+	)
+	{
+		switch (uMsg)
+		{
+			case WM_PAINT:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				RECT rc = { 0 };
+				::GetClientRect(hWnd, &rc);
+
+				PAINTSTRUCT ps;
+				auto hdc = ::BeginPaint(hWnd, &ps);
+				
+				auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
+				::SelectObject(hdc, reinterpret_cast<HFONT>(::SendMessage(hWnd, WM_GETFONT, 0, 0)));
+				::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
+
+				::SelectObject(hdc, ::GetStockObject(NULL_BRUSH)); // to avoid text flicker, use only border
+				::Rectangle(hdc, 0, 0, rc.right, rc.bottom);
+
+				auto holdBrush = ::SelectObject(hdc, NppDarkMode::getDarkerBackgroundBrush());
+
+				RECT arrowRc = {
+				rc.right - NppParameters::getInstance()._dpiManager.scaleX(17), rc.top + 1,
+				rc.right - 1, rc.bottom - 1
+				};
+
+				// CBS_DROPDOWN text is handled by parent by WM_CTLCOLOREDIT
+				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+				if ((style & CBS_DROPDOWNLIST) == CBS_DROPDOWNLIST)
+				{
+					RECT bkRc = rc;
+					bkRc.left += 1;
+					bkRc.top += 1;
+					bkRc.right = arrowRc.left - 1;
+					bkRc.bottom -= 1;
+					::FillRect(hdc, &bkRc, NppDarkMode::getBackgroundBrush()); // erase background on item change
+
+					auto index = static_cast<int>(::SendMessage(hWnd, CB_GETCURSEL, 0, 0));
+					if (index != CB_ERR)
+					{
+						::SetTextColor(hdc, NppDarkMode::getTextColor());
+						::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
+						auto bufferLen = static_cast<size_t>(::SendMessage(hWnd, CB_GETLBTEXTLEN, index, 0));
+						TCHAR* buffer = new TCHAR[(bufferLen + 1)];
+						::SendMessage(hWnd, CB_GETLBTEXT, index, reinterpret_cast<LPARAM>(buffer));
+
+						RECT textRc = rc;
+						textRc.left += 4;
+						textRc.right = arrowRc.left - 5;
+
+						::DrawText(hdc, buffer, -1, &textRc, DT_NOPREFIX | DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+						delete[]buffer;
+					}
+				}
+
+				POINT ptCursor = { 0 };
+				::GetCursorPos(&ptCursor);
+				ScreenToClient(hWnd, &ptCursor);
+
+				bool isHot = PtInRect(&rc, ptCursor);
+
+				::SetTextColor(hdc, isHot ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+				::SetBkColor(hdc, isHot ? NppDarkMode::getHotBackgroundColor() : NppDarkMode::getBackgroundColor());
+				::ExtTextOut(hdc,
+					arrowRc.left + (arrowRc.right - arrowRc.left) / 2 - NppParameters::getInstance()._dpiManager.scaleX(4),
+					arrowRc.top + 3,
+					ETO_OPAQUE | ETO_CLIPPED,
+					&arrowRc, L"˅",
+					1,
+					nullptr);
+				::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
+
+				POINT edge[] = {
+					{arrowRc.left - 1, arrowRc.top},
+					{arrowRc.left - 1, arrowRc.bottom}
+				};
+				::Polyline(hdc, edge, _countof(edge));
+
+				::SelectObject(hdc, holdPen);
+				::SelectObject(hdc, holdBrush);
+
+				::EndPaint(hWnd, &ps);
+				return 0;
+			}
+
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, ComboBoxSubclass, uIdSubclass);
+				break;
+			}
+		}
+		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void subclassComboBoxControl(HWND hwnd)
+	{
+		SetWindowSubclass(hwnd, ComboBoxSubclass, g_comboBoxSubclassID, 0);
+	}
+
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
 	{
 		struct Params
@@ -1232,45 +1355,94 @@ namespace NppDarkMode
 			bool theme = false;
 		};
 
-		Params p{ 
-			NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : L"Button" 
+		Params p{
+			NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr
 			, subclass
 			, theme
 		};
-		
+
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) {
 			auto& p = *reinterpret_cast<Params*>(lParam);
-			wchar_t className[16] = { 0 };
-			GetClassName(hwnd, className, 9);
-			if (wcscmp(className, L"Button"))
+			const size_t classNameLen = 16;
+			TCHAR className[classNameLen] = { 0 };
+			GetClassName(hwnd, className, classNameLen);
+
+			if (wcscmp(className, WC_COMBOBOX) == 0)
 			{
+				auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+
+				if ((style & CBS_DROPDOWNLIST) == CBS_DROPDOWNLIST || (style & CBS_DROPDOWN) == CBS_DROPDOWN)
+				{
+					COMBOBOXINFO cbi = {};
+					cbi.cbSize = sizeof(COMBOBOXINFO);
+					BOOL result = GetComboBoxInfo(hwnd, &cbi);
+					if (result == TRUE)
+					{
+						if (p.theme && cbi.hwndList)
+						{
+							//dark scrollbar for listbox of combobox
+							SetWindowTheme(cbi.hwndList, p.themeClassName, nullptr);
+						}
+					}
+
+					NppDarkMode::subclassComboBoxControl(hwnd);
+				}
 				return TRUE;
 			}
-			DWORD nButtonStyle = (DWORD)GetWindowLong(hwnd, GWL_STYLE) & 0xF;
-			switch (nButtonStyle) 
+
+			if (wcscmp(className, WC_LISTBOX) == 0)
 			{
-			case BS_CHECKBOX:
-			case BS_AUTOCHECKBOX:
-			case BS_RADIOBUTTON:
-			case BS_AUTORADIOBUTTON:
-				if (p.subclass)
-				{
-					NppDarkMode::subclassButtonControl(hwnd);
-				}
-				break;
-			case BS_GROUPBOX:
-				if (p.subclass)
-				{
-					NppDarkMode::subclassGroupboxControl(hwnd);
-				}
-				break;
-			case BS_DEFPUSHBUTTON:
-			case BS_PUSHBUTTON:
 				if (p.theme)
 				{
+					//dark scrollbar for listbox
 					SetWindowTheme(hwnd, p.themeClassName, nullptr);
 				}
-				break;
+
+				return TRUE;
+			}
+
+			if (wcscmp(className, WC_EDIT) == 0)
+			{
+				auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+				bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
+				if (p.theme && hasScrollBar)
+				{
+					//dark scrollbar for edit control
+					SetWindowTheme(hwnd, p.themeClassName, nullptr);
+				}
+
+				return TRUE;
+			}
+
+			if (wcscmp(className, WC_BUTTON) == 0)
+			{
+				auto nButtonStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE) & 0xF;
+				switch (nButtonStyle)
+				{
+					case BS_CHECKBOX:
+					case BS_AUTOCHECKBOX:
+					case BS_RADIOBUTTON:
+					case BS_AUTORADIOBUTTON:
+						if (p.subclass)
+						{
+							NppDarkMode::subclassButtonControl(hwnd);
+						}
+						break;
+					case BS_GROUPBOX:
+						if (p.subclass)
+						{
+							NppDarkMode::subclassGroupboxControl(hwnd);
+						}
+						break;
+					case BS_DEFPUSHBUTTON:
+					case BS_PUSHBUTTON:
+						if (p.theme)
+						{
+							SetWindowTheme(hwnd, p.themeClassName, nullptr);
+						}
+						break;
+				}
+				return TRUE;
 			}
 			return TRUE;
 		}, reinterpret_cast<LPARAM>(&p));
@@ -1278,7 +1450,7 @@ namespace NppDarkMode
 
 	void autoThemeChildControls(HWND hwndParent)
 	{
-		autoSubclassAndThemeChildControls(hwndParent, false, true); 
+		autoSubclassAndThemeChildControls(hwndParent, false, true);
 	}
 
 	void setDarkTitleBar(HWND hwnd)
@@ -1380,5 +1552,33 @@ namespace NppDarkMode
 	void setTreeViewStyle(HWND hwnd)
 	{
 		SetWindowTheme(hwnd, nullptr, nullptr);
+	}
+
+	LRESULT onCtlColor(HDC hdc)
+	{
+		::SetTextColor(hdc, NppDarkMode::getTextColor());
+		::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
+		return reinterpret_cast<LRESULT>(NppDarkMode::getBackgroundBrush());
+	}
+
+	LRESULT onCtlColorSofter(HDC hdc)
+	{
+		::SetTextColor(hdc, NppDarkMode::getTextColor());
+		::SetBkColor(hdc, NppDarkMode::getSofterBackgroundColor());
+		return reinterpret_cast<LRESULT>(NppDarkMode::getSofterBackgroundBrush());
+	}
+
+	LRESULT onCtlColorDarker(HDC hdc)
+	{
+		::SetTextColor(hdc, NppDarkMode::getTextColor());
+		::SetBkColor(hdc, NppDarkMode::getDarkerBackgroundColor());
+		return reinterpret_cast<LRESULT>(NppDarkMode::getDarkerBackgroundBrush());
+	}
+
+	LRESULT onCtlColorError(HDC hdc)
+	{
+		::SetTextColor(hdc, NppDarkMode::getTextColor());
+		::SetBkColor(hdc, NppDarkMode::getErrorBackgroundColor());
+		return reinterpret_cast<LRESULT>(NppDarkMode::getErrorBackgroundBrush());
 	}
 }

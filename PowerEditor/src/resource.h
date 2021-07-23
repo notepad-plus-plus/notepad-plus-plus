@@ -19,12 +19,12 @@
 //
 // Notepad++ version: begin
 //
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.1.1")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.1.2")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("8.11\0")
-#define VERSION_DIGITALVALUE 8, 1, 1, 0
+#define VERSION_VALUE TEXT("8.12\0")
+#define VERSION_DIGITALVALUE 8, 1, 2, 0
 
 // Notepad++ version: end
 
@@ -89,6 +89,7 @@
 #define IDI_VIEW_FILEBROWSER_ICON         243
 #define IDI_VIEW_FUNCLIST_ICON            244
 #define IDI_VIEW_MONITORING_ICON          245
+#define IDI_VIEW_DOCLIST_ICON             392 //continuing from IDI_VIEW_DOCLIST_ICON_DM2's ID
 
 //
 // TOOLBAR ICO - set 1, Dark Mode
@@ -138,6 +139,7 @@
 #define IDI_VIEW_FILEBROWSER_ICON_DM      288
 #define IDI_VIEW_FUNCLIST_ICON_DM         289
 #define IDI_VIEW_MONITORING_ICON_DM       290
+#define IDI_VIEW_DOCLIST_ICON_DM          393 //continuing from IDI_VIEW_DOCLIST_ICON's ID
 
 //
 // TOOLBAR ICO - set 2
@@ -187,6 +189,7 @@
 #define IDI_VIEW_FILEBROWSER_ICON2        343
 #define IDI_VIEW_FUNCLIST_ICON2           344
 #define IDI_VIEW_MONITORING_ICON2         345
+#define IDI_VIEW_DOCLIST_ICON2            394 //continuing from IDI_VIEW_DOCLIST_ICON_DM's ID
 
 //
 // TOOLBAR ICO - set 2, Dark Mode
@@ -236,6 +239,7 @@
 #define IDI_VIEW_FILEBROWSER_ICON_DM2     388
 #define IDI_VIEW_FUNCLIST_ICON_DM2        389
 #define IDI_VIEW_MONITORING_ICON_DM2      390
+#define IDI_VIEW_DOCLIST_ICON_DM2         391
 
 
 
@@ -337,6 +341,8 @@
 #define IDR_CLOSETAB_INACT_DM  1543
 #define IDR_CLOSETAB_HOVER_DM  1544
 #define IDR_CLOSETAB_PUSH_DM   1545
+#define IDR_DOCLIST            1546
+#define IDR_DOCLIST_ICO        1547
 
 #define ID_MACRO 20000
 #define ID_MACRO_LIMIT 20200
@@ -478,7 +484,7 @@
 //#define IDD_FINDCHARACTERS      2900
 
 //See VerticalFileSwitcher_rc.h
-//#define IDD_FILESWITCHER_PANEL      3000
+//#define IDD_DOCLIST      3000
 
 //See ProjectPanel_rc.h
 //#define IDD_PROJECTPANEL      3100

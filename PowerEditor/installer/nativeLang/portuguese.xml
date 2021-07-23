@@ -1258,11 +1258,11 @@ Pode reativar esta janela de diálogo na janela de Preferências mais tarde." />
         <ClipboardHistory>
             <PanelTitle name="Histórico da Área de Transferência"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Mudança de Documento"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
             <ColumnPath name="Caminho"/>

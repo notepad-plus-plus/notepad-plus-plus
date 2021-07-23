@@ -820,11 +820,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Historial del portapapeles"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Alternar Doc"/>
 			<ColumnName name="Nombre"/>
 			<ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="Panel de inserción Códigos ASCII"/>
 			<ColumnVal name="Valor"/>

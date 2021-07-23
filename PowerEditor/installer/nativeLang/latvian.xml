@@ -863,11 +863,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Starpliktuves vēsture"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Failu saraksts"/>
 			<ColumnName name="Vārds"/>
 			<ColumnExt name="pap."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII simboli"/>
 			<ColumnVal name="Dec."/>

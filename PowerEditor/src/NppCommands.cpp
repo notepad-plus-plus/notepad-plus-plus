@@ -737,22 +737,22 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_VIEW_FILESWITCHER_PANEL:
+		case IDM_VIEW_DOCLIST:
 		{
 			if (_pFileSwitcherPanel && (!_pFileSwitcherPanel->isClosed()))
 			{
 				_pFileSwitcherPanel->display(false);
 				_pFileSwitcherPanel->setClosed(true);
-				checkMenuItem(IDM_VIEW_FILESWITCHER_PANEL, false);
-				_toolBar.setCheck(IDM_VIEW_FILESWITCHER_PANEL, false);
+				checkMenuItem(IDM_VIEW_DOCLIST, false);
+				_toolBar.setCheck(IDM_VIEW_DOCLIST, false);
 			}
 			else
 			{
 				launchFileSwitcherPanel();
 				if (_pFileSwitcherPanel)
 				{
-					checkMenuItem(IDM_VIEW_FILESWITCHER_PANEL, true);
-					_toolBar.setCheck(IDM_VIEW_FILESWITCHER_PANEL, true);
+					checkMenuItem(IDM_VIEW_DOCLIST, true);
+					_toolBar.setCheck(IDM_VIEW_DOCLIST, true);
 					_pFileSwitcherPanel->setClosed(false);
 				}
 			}

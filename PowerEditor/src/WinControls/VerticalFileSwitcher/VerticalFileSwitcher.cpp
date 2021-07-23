@@ -84,7 +84,7 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 			{
 				case DMN_CLOSE:
 				{
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FILESWITCHER_PANEL, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DOCLIST, 0);
 					return TRUE;
 				}
 

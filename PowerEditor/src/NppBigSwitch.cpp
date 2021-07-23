@@ -2446,7 +2446,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
-		case NPPM_DOCSWITCHERDISABLECOLUMN:
+		case NPPM_DOCLISTDISABLECOLUMN:
 		{
 			BOOL isOff = static_cast<BOOL>(lParam);
 			NppGUI & nppGUI = nppParam.getNppGUI();
@@ -2468,7 +2468,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					:(NppParameters::getInstance()).getCurrentDefaultBgColor());
 		}
 
-		case NPPM_SHOWDOCSWITCHER:
+		case NPPM_SHOWDOCLIST:
 		{
 			BOOL toShow = static_cast<BOOL>(lParam);
 			if (toShow)
@@ -2484,7 +2484,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_ISDOCSWITCHERSHOWN:
+		case NPPM_ISDOCLISTSHOWN:
 		{
 			if (!_pFileSwitcherPanel)
 				return FALSE;

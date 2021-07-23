@@ -1,24 +1,24 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
-    <!-- <localization work version="7.8.1~7.9.5" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> -->
-<Native-Langue name="한국어" filename="korean.xml" version="7.9.5">
-<Menu>
-<Main>
-<!--  Main Menu Entries -->
-<Entries>
-  <Item menuId="file" name="파일(&amp;F)"/>
-  <Item menuId="edit" name="편집(&amp;E)"/>
-  <Item menuId="search" name="찾기(&amp;S)"/>
-  <Item menuId="view" name="보기(&amp;V)"/>
-  <Item menuId="encoding" name="인코딩(&amp;N)"/>
-  <Item menuId="language" name="언어(&amp;L)"/>
-  <Item menuId="settings" name="설정(&amp;T)"/>
-  <Item menuId="tools" name="도구(&amp;O)"/>
-  <Item menuId="macro" name="매크로"/>
-  <Item menuId="run" name="실행"/>
-  <Item idName="Plugins" name="플러그인"/>
-  <Item idName="Window" name="창 관리"/>
-</Entries>
+    <!-- <localization work version="7.8.1~8.1.2" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> -->
+    <Native-Langue name="한국어" filename="korean.xml" version="8.1.3">
+    <Menu>
+    <Main>
+        <!--  Main Menu Entries -->
+        <Entries>
+            <Item menuId="file" name="파일(&amp;F)"/>
+            <Item menuId="edit" name="편집(&amp;E)"/>
+            <Item menuId="search" name="찾기(&amp;S)"/>
+            <Item menuId="view" name="보기(&amp;V)"/>
+            <Item menuId="encoding" name="인코딩(&amp;N)"/>
+            <Item menuId="language" name="언어(&amp;L)"/>
+            <Item menuId="settings" name="설정(&amp;T)"/>
+            <Item menuId="tools" name="도구(&amp;O)"/>
+            <Item menuId="macro" name="매크로"/>
+            <Item menuId="run" name="실행"/>
+            <Item idName="Plugins" name="플러그인"/>
+            <Item idName="Window" name="창 관리"/>
+        </Entries>
 <!--  Sub Menu Entries -->
 <SubEntries>
   <Item subMenuId="file-openFolder" name="현재 폴더 열기(&amp;F)"/>
@@ -258,6 +258,7 @@
   <Item id="44031" name="현재 단계 펼치기"/>
   <Item id="44049" name="요약..."/>
   <Item id="44080" name="문서 구조"/>
+  <Item id="44070" name="문서 목록"/>
   <Item id="44084" name="함수 목록"/>
   <Item id="44085" name="작업 영역으로 폴더 지정"/>
   <Item id="44086" name="1번 탭"/>
@@ -606,6 +607,7 @@
     <Item id="44083" name="프로젝트 영역3 표시 상태 전환"/>
     <Item id="44085" name="작업 영역으로 폴더 지정 표시 상태 전환"/>
     <Item id="44080" name="문서 맵 표시 상태 전환"/>
+    <Item id="44070" name="문서 목록 표시 상태 전환"/>
     <Item id="44084" name="함수 목록 표시 상태 전환"/>
     <Item id="50005" name="매크로 기록 상태 전환"/>
     <Item id="44104" name="프로젝트 영역1로 전환"/>
@@ -824,7 +826,6 @@
   <Item id="6123" name="표시 언어"/>
 
   <Item id="6125" name="문서 목록 영역"/>
-  <Item id="6126" name="표시"/>
   <Item id="6127" name="확장 열 숨기기"/>
   <Item id="6128" name="대체 아이콘"/>
 </Global>
@@ -848,7 +849,24 @@
 
   <DarkMode title="다크모드">
     <Item id="7101" name="다크모드 활성화"/>
-    <Item id="7106" name="* 완벽한 적용을 위해서는 Notepad++ 재시작이 필요합니다"/>
+    <Item id="7102" name="검은 색조"/>
+    <Item id="7103" name="붉은 색조"/>
+    <Item id="7104" name="초록 색조"/>
+    <Item id="7105" name="파란 색조"/>
+    <Item id="7107" name="보라 색조"/>
+    <Item id="7108" name="청록 색조"/>
+    <Item id="7109" name="올리브 색조"/>
+    <Item id="7115" name="사용자 정의 색조"/>
+    <Item id="7116" name="맨 위"/>
+    <Item id="7117" name="관심 메뉴"/>
+    <Item id="7118" name="활성화"/>
+    <Item id="7119" name="기본"/>
+    <Item id="7120" name="오류"/>
+    <Item id="7121" name="글씨"/>
+    <Item id="7122" name="더 어두운 글씨"/>
+    <Item id="7123" name="비활성화된 글씨"/>
+    <Item id="7124" name="가장자리"/>
+    <Item id="7130" name="재설정"/>
   </DarkMode>
 
 <MarginsBorderEdge title="여백/경계선/가장자리">
@@ -1081,6 +1099,7 @@
   <Item id="6345" name="탭 엿보기"/>
   <Item id="6346" name="문서 맵에서 엿보기"/>
   <Item id="6360" name="모든 효과음 끄기"/>
+  <Item id="6361" name="모두 저장 확인 대화상자 활성화"/>
   </MISC>
 </Preference>
 <MultiMacro title="매크로 반복 실행">
@@ -1229,12 +1248,16 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
 모든 작업이 종료된 다음 Notepad++를 재시작합니다.
 계속하시겠습니까?"/>
   <NeedToRestartToLoadPlugins title="Notepad++ 재시작이 필요합니다" message="설치한 플러그인을 사용하려면 Notepad++을 재시작해야 합니다."/>  <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+  <SaveAllConfirm title="모두 저장하기 확인" message="모든 문서를 저장하시겠습니까?
+
+항상 &quot;예&quot;로 대답하고 이 질문을 다시 받지 않으려면 &quot;취소&quot; 를 선택하세요.
+설정창에서 이 대화상자를 다시 활성화할 수 있습니다." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 </MessageBox>
 <ClipboardHistory>
   <PanelTitle name="클립보드 사용 기록"/>
   </ClipboardHistory>
 <DocList>
-  <PanelTitle name="문서 전환"/>
+  <PanelTitle name="문서 목록"/>
   <ColumnName name="이름"/>
   <ColumnExt name="확장자"/>
   </DocList>
@@ -1244,6 +1267,8 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
   <ColumnType name="종류"/>
   <ColumnSize name="크기"/>
   <NbDocsTotal name="총 문서:"/>
+  <MenuCopyName name="이름 복사하기"/>
+  <MenuCopyPath name="경로 복사하기"/>
 </WindowsDlg>
 <AsciiInsertion>
   <PanelTitle name="ASCII 코드 삽입 영역"/>
@@ -1338,7 +1363,8 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
 <cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>
 <cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하세요"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 <shift-change-direction-tip value="반대쪽으로 검색하려면 Shift+Enter를 사용하십시오."/>
-    <two-find-buttons-tip value="2 find buttons mode"/>
+    <two-find-buttons-tip value="찾기 버튼을 2개로 분할"/>
+    <file-rename-title value="이름 바꾸기"/>
         <find-in-files-filter-tip value="cpp, cxx, h, hxx &amp;&amp; hpp 파일에서 찾기:
 *.cpp *.cxx *.h *.hxx *.hpp
 

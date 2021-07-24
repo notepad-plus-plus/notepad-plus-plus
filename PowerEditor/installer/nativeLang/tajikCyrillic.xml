@@ -866,11 +866,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Таърихи миёнгири табодул"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Таъвизи санад"/>
 			<ColumnName name="Ном"/>
 			<ColumnExt name="Пасв."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="Ҷадвали аломатҳои ASCII"/>
 			<ColumnVal name="Арзиш"/>

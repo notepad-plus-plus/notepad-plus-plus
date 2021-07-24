@@ -1082,11 +1082,11 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
         <ClipboardHistory>
             <PanelTitle name="Bufer tarixi"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Fayllar"/>
             <ColumnName name="Nomi"/>
             <ColumnExt name="Keng."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nomi"/>
             <ColumnPath name="Yoʻlagi"/>

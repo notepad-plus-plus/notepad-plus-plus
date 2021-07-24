@@ -1258,11 +1258,11 @@ Você pode reabilitar esta caixa de diálogo na caixa de diálogo Preferências 
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Alternador de Doc"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
             <ColumnPath name="Caminho"/>

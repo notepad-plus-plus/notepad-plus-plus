@@ -1246,11 +1246,11 @@ Kontynuować?"/>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Przełączanie dokumentów"/>
             <ColumnName name="Nazwa"/>
             <ColumnExt name="Rozsz."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nazwa"/>
             <ColumnPath name="Ścieżka"/>

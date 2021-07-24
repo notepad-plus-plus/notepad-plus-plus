@@ -833,11 +833,11 @@
         <ClipboardHistory>
 			<PanelTitle name="ক্লিপবোর্ড ইতিহাস"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="ডকুমেন্ট পরিবর্তনকারী"/>
 			<ColumnName name="নাম"/>
 			<ColumnExt name="প্রসার(Ext.)"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="একটিগুলিগআমি(ASCII) সন্নিবেশ প্যানেল"/>
 			<ColumnVal name="মূল্য"/>

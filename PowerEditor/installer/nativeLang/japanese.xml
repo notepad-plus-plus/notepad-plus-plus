@@ -1263,11 +1263,11 @@ Notepad++ を管理者権限で立ち上げますか？"/>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="文書切り替え"/>
             <ColumnName name="名前"/>
             <ColumnExt name="拡張子"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="ファイル名"/>
             <ColumnPath name="パス"/>

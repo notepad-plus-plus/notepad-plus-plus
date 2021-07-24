@@ -1043,11 +1043,11 @@ By Hiro5 <groccat at gmail>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Documents"/>
 			<ColumnName name="Nom"/>
 			<ColumnExt name="Ext."/>
-		</DocSwitcher>
+		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Nom"/>
 			<ColumnPath name="Camí"/>

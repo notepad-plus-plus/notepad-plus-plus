@@ -697,8 +697,8 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			}
 
 			PAINTSTRUCT ps;
-			HDC hdc = BeginPaint(hwnd, &ps);
-			FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
+			HDC hdc = ::BeginPaint(hwnd, &ps);
+			::FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
 
 			UINT id = ::GetDlgCtrlID(hwnd);
 
@@ -733,23 +733,25 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				RECT rcIntersect = { 0 };
 				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
 				{
+					dis.rcItem.top += NppParameters::getInstance()._dpiManager.scaleY(1);
+					dis.rcItem.right -= 1;
+					dis.rcItem.bottom += 2;
+
 					if (i == 0)
 					{
 						POINT edges[] = {
 							{dis.rcItem.left - 1, dis.rcItem.top},
-							{dis.rcItem.left - 1, dis.rcItem.bottom + 2}
+							{dis.rcItem.left - 1, dis.rcItem.bottom}
 						};
 						Polyline(hdc, edges, _countof(edges));
 					}
 					
 					{
 						POINT edges[] = {
-							{dis.rcItem.right - 1, dis.rcItem.top},
-							{dis.rcItem.right - 1, dis.rcItem.bottom + 2}
+							{dis.rcItem.right, dis.rcItem.top},
+							{dis.rcItem.right, dis.rcItem.bottom}
 						};
 						Polyline(hdc, edges, _countof(edges));
-						dis.rcItem.right -= 1;
-						dis.rcItem.bottom += 2;
 					}
 
 					HRGN hClip = CreateRectRgnIndirect(&dis.rcItem);
@@ -984,16 +986,20 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	rc.top += ::GetSystemMetrics(SM_CYEDGE);
 
 	::SetBkMode(hDc, TRANSPARENT);
-	HBRUSH hBrush;
 
-	if (NppDarkMode::isEnabled() && isSelected)
+	if (NppDarkMode::isEnabled())
 	{
 		RECT selectedRect = rc;
-		selectedRect.top -= NppParameters::getInstance()._dpiManager.scaleY(2);
-		selectedRect.bottom += NppParameters::getInstance()._dpiManager.scaleX(4);
-		hBrush = ::CreateSolidBrush(NppDarkMode::getSofterBackgroundColor());
-		::FillRect(hDc, &selectedRect, hBrush);
-		::DeleteObject((HGDIOBJ)hBrush);
+		selectedRect.top -= 2;
+		selectedRect.bottom += 2;
+		if (isSelected)
+		{
+			::FillRect(hDc, &selectedRect, NppDarkMode::getSofterBackgroundBrush());
+		}
+		else
+		{
+			::FillRect(hDc, &selectedRect, NppDarkMode::getBackgroundBrush());
+		}
 	}
 
 	// draw orange bar
@@ -1002,9 +1008,9 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		RECT barRect = rc;
 		barRect.top += rc.bottom - 4;
 
-		hBrush = ::CreateSolidBrush(RGB(250, 170, 60));
+		HBRUSH hBrush = ::CreateSolidBrush(RGB(250, 170, 60));
 		::FillRect(hDc, &barRect, hBrush);
-		::DeleteObject((HGDIOBJ)hBrush);
+		::DeleteObject(hBrush);
 	}
 
 	// draw icon if enabled
@@ -1021,8 +1027,14 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			
 			ImageList_GetImageInfo(hImageList, iPosImage, &info);
 
-			int iconDpiDynamicalY = NppParameters::getInstance()._dpiManager.scaleY(7);
-			ImageList_Draw(hImageList, iPosImage, hDc, rc.left + 3, iconDpiDynamicalY, ILD_NORMAL);
+			int darkPaddingX = NppDarkMode::isEnabled() ? 1 : 0;
+			int darkPaddingY = NppDarkMode::isEnabled() ? 2 : (isSelected ? 1 : 0);
+
+			int iconDpiDynamicalX = isSelected ? rc.left + 3
+				: rc.left + (rc.right - rc.left - imageRect.right + imageRect.left) / 2 + darkPaddingX;
+			int iconDpiDynamicalY = NppParameters::getInstance()._dpiManager.scaleY(5) + darkPaddingY;
+
+			ImageList_Draw(hImageList, iPosImage, hDc, iconDpiDynamicalX, iconDpiDynamicalY, ILD_NORMAL);
 
 			if (isSelected)
 			{
@@ -1076,7 +1088,7 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wndTabProc)));
 
 			// set min tab width
-			int tabDpiDynamicalMinWidth = NppParameters::getInstance()._dpiManager.scaleY(24);
+			int tabDpiDynamicalMinWidth = NppParameters::getInstance()._dpiManager.scaleX(24);
 			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiDynamicalMinWidth);
 
 			break;
@@ -1095,7 +1107,7 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			}
 			RECT rc = { 0 };
 			getClientRect(rc);
-			FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 			return TRUE;
 		}
 
@@ -1182,7 +1194,7 @@ void DockingCont::onSize()
 	if (iItemCnt >= 1)
 	{
 		// resize to docked window
-		int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(24);
+		int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(16) + 8;
 		if (_isFloating == false)
 		{
 			// draw caption
@@ -1640,4 +1652,3 @@ LPARAM DockingCont::NotifyParent(UINT message)
 {
 	return ::SendMessage(_hParent, message, 0, reinterpret_cast<LPARAM>(this));
 }
-

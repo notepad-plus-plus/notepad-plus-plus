@@ -1181,11 +1181,11 @@ Notepad++ se reiniciará después de que finalicen todas las operaciones.
 		<ClipboardHistory>
 			<PanelTitle name="Historial de portapapeles"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Cambiar documento"/>
 			<ColumnName name="Nombre"/>
 			<ColumnExt name="Ext."/>
-		</DocSwitcher>
+		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Nombre"/>
 			<ColumnPath name="Ruta"/>

@@ -1476,11 +1476,11 @@
 			<ReloadTip name="Презареждане"/>
 		</FunctionList>
 			<!-- Меню "Настройки" - "Основни" - "Панел с документи" -->
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Панел с документи"/>
 			<ColumnName name="Име"/>
 			<ColumnExt name="Разш."/>
-		</DocSwitcher>
+		</DocList>
 			<!-- Меню "Прозорци" - "Прозорци..." -->
 		<WindowsDlg>
 			<NbDocsTotal name="общо документи:"/>

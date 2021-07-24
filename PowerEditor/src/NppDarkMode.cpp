@@ -1563,7 +1563,7 @@ namespace NppDarkMode
 
 		HWND hHeader = ListView_GetHeader(hwnd);
 		NppDarkMode::allowDarkModeForWindow(hHeader, useDark);
-		SetWindowTheme(hHeader, L"ItemsView", nullptr);
+		SetWindowTheme(hHeader, useDark ? L"ItemsView" : nullptr, nullptr);
 
 		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
 		SetWindowTheme(hwnd, L"Explorer", nullptr);
@@ -1585,6 +1585,30 @@ namespace NppDarkMode
 	void setTreeViewStyle(HWND hwnd)
 	{
 		SetWindowTheme(hwnd, nullptr, nullptr);
+	}
+
+	void setBorder(HWND hwnd, bool border)
+	{
+		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
+		bool hasBorder = (style & WS_BORDER) == WS_BORDER;
+		bool change = false;
+
+		if (!hasBorder && border)
+		{
+			style |= WS_BORDER;
+			change = true;
+		}
+		else if (hasBorder && !border)
+		{
+			style &= ~WS_BORDER;
+			change = true;
+		}
+
+		if (change)
+		{
+			::SetWindowLongPtr(hwnd, GWL_STYLE, style);
+			::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+		}
 	}
 
 	LRESULT onCtlColor(HDC hdc)

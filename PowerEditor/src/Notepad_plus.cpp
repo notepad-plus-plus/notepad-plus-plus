@@ -7575,6 +7575,9 @@ void Notepad_plus::refreshDarkMode()
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 	SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
 
+	::SendMessage(_findInFinderDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	::RedrawWindow(_findInFinderDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+
 	toolBarStatusType state = _toolBar.getState();
 	switch (state)
 	{

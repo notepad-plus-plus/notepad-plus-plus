@@ -153,6 +153,7 @@ namespace NppDarkMode
 
 	void disableVisualStyle(HWND hwnd, bool doDisable);
 	void setTreeViewStyle(HWND hwnd);
+	void setBorder(HWND hwnd, bool border = true);
 
 	LRESULT onCtlColor(HDC hdc);
 	LRESULT onCtlColorSofter(HDC hdc);

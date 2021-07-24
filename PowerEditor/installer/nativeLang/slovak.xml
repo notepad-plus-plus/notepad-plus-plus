@@ -260,6 +260,7 @@
                     <Item id="44031" name="Rozbaliť aktuálnu úroveň"/>
                     <Item id="44049" name="Súhrnné informácie..."/>
                     <Item id="44080" name="Mapa dokumentu"/>
+                    <Item id="44081" name="Zoznam dokumentov"/>
                     <Item id="44084" name="Zoznam funkcií"/>
                     <Item id="44085" name="&amp;Pracovný priestor"/>
                     <Item id="44086" name="1. karta"/>
@@ -825,7 +826,6 @@
                     <Item id="6123" name="Lokalizácia"/>
 
                     <Item id="6125" name="Panel prepínača dokumentov"/>
-                    <Item id="6126" name="Zobraziť"/>
                     <Item id="6127" name="Nepoužívať stĺpec prípon"/>
 
                     <Item id="6128" name="Alternatívne ikony"/>
@@ -1256,11 +1256,11 @@ Toto dialógové okno môžete neskôr znovu aktivovať v dialógovom okne Prefe
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>
         </ClipboardHistory>
-        <DocSwitcher>
-            <PanelTitle name="Prepínač dokumentov"/>
+        <DocList>
+            <PanelTitle name="Zoznam dokumentov"/>
             <ColumnName name="Názov"/>
             <ColumnExt name="Prípona"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Názov"/>
             <ColumnPath name="Cesta"/>

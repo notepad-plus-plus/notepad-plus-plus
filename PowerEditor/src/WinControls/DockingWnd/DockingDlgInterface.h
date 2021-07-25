@@ -104,8 +104,8 @@ protected :
 
 				RECT rc = { 0 };
 				getClientRect(rc);
-				FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
-				return 1;
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
 			}
 			case WM_NOTIFY: 
 			{

@@ -260,7 +260,7 @@
                     <Item id="44031" name="Rozbaliť aktuálnu úroveň"/>
                     <Item id="44049" name="Súhrnné informácie..."/>
                     <Item id="44080" name="Mapa dokumentu"/>
-                    <Item id="44081" name="Zoznam dokumentov"/>
+                    <Item id="44070" name="Zoznam dokumentov"/>
                     <Item id="44084" name="Zoznam funkcií"/>
                     <Item id="44085" name="&amp;Pracovný priestor"/>
                     <Item id="44086" name="1. karta"/>
@@ -608,6 +608,7 @@
                     <Item id="44082" name="Prepnúť panel projektu 2"/>
                     <Item id="44085" name="Prepnúť priečinok ako pracovný priestor"/>
                     <Item id="44080" name="Prepnúť mapu dokumentu"/>
+                    <Item id="44070" name="Prepnúť zoznam dokumentov"/>
                     <Item id="44084" name="Prepnúť zoznam funkcií"/>
                     <Item id="50005" name="Prepnúť nahrávanie makra"/>
                     <Item id="44104" name="Prepnúť na Panel projektu 1"/>

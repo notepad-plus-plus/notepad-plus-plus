@@ -4821,6 +4821,9 @@ HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 	if (!_hActiveState)
 		return NULL;
 
+	if (!hCallerWnd)
+		return NULL;
+
 	_hCallerWnd = hCallerWnd;
 
 	for (HWND hwnd = _hCallerWnd; hwnd; hwnd = ::GetParent(hwnd))
@@ -4905,6 +4908,8 @@ int Progress::thread()
 
 int Progress::createProgressWindow()
 {
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+
 	_hwnd = ::CreateWindowEx(
 		WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW,
 		cClassName, _header, WS_POPUP | WS_CAPTION,
@@ -4914,26 +4919,38 @@ int Progress::createProgressWindow()
 		return -1;
 
 	int width = cPBwidth + 10;
-	int height = cPBheight + cBTNheight + 35;
-	RECT win = adjustSizeAndPos(width, height);
-	::MoveWindow(_hwnd, win.left, win.top,
-		win.right - win.left, win.bottom - win.top, TRUE);
+	int height = cPBheight + cBTNheight + dpiManager.scaleX(35);
 
-	::GetClientRect(_hwnd, &win);
-	width = win.right - win.left;
-	height = win.bottom - win.top;
+	POINT center;
+	RECT callerRect;
+	::GetWindowRect(_hCallerWnd, &callerRect);
+	center.x = (callerRect.left + callerRect.right) / 2;
+	center.y = (callerRect.top + callerRect.bottom) / 2;
+
+	int x = center.x - dpiManager.scaleX(width) / 2;
+	int y = center.y - dpiManager.scaleY(height) / 2;
+	::MoveWindow(_hwnd, x, y, dpiManager.scaleX(width), dpiManager.scaleY(height), TRUE);
+
+	RECT rect;
+	::GetClientRect(_hwnd, &rect);
+	width = rect.right - rect.left;
+	height = rect.bottom - rect.top;
+
 
 	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE | BS_TEXT | SS_PATHELLIPSIS,
-		5, 5,
-		width - 10, 20, _hwnd, NULL, _hInst, NULL);
+		dpiManager.scaleX(5), dpiManager.scaleY(5),
+		width - dpiManager.scaleX(10), dpiManager.scaleY(20),
+		_hwnd, NULL, _hInst, NULL);
+
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
 		::SendMessage(_hPText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
 		WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
-		5, 25, width - 10, cPBheight,
+		dpiManager.scaleX(5), dpiManager.scaleY(5 + 25),
+		width - dpiManager.scaleX(10), dpiManager.scaleY(cPBheight),
 		_hwnd, NULL, _hInst, NULL);
 	SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 
@@ -4950,8 +4967,8 @@ int Progress::createProgressWindow()
 
 	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), TEXT("Cancel"),
 		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | BS_TEXT,
-		(width - cBTNwidth) / 2, height - cBTNheight - 5,
-		cBTNwidth, cBTNheight, _hwnd, NULL, _hInst, NULL);
+		(width - dpiManager.scaleX(cBTNwidth)) / 2, height - dpiManager.scaleY(cBTNheight + 5),
+		dpiManager.scaleX(cBTNwidth), dpiManager.scaleY(cBTNheight), _hwnd, NULL, _hInst, NULL);
 
 	if (hf)
 		::SendMessage(_hBtn, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
@@ -4963,79 +4980,6 @@ int Progress::createProgressWindow()
 	::UpdateWindow(_hwnd);
 
 	return 0;
-}
-
-
-RECT Progress::adjustSizeAndPos(int width, int height)
-{
-	RECT maxWin;
-	maxWin.left		= ::GetSystemMetrics(SM_XVIRTUALSCREEN);
-	maxWin.top		= ::GetSystemMetrics(SM_YVIRTUALSCREEN);
-	maxWin.right	= ::GetSystemMetrics(SM_CXVIRTUALSCREEN) + maxWin.left;
-	maxWin.bottom	= ::GetSystemMetrics(SM_CYVIRTUALSCREEN) + maxWin.top;
-
-	POINT center;
-
-	if (_hCallerWnd)
-	{
-		RECT biasWin;
-		::GetWindowRect(_hCallerWnd, &biasWin);
-		center.x = (biasWin.left + biasWin.right) / 2;
-		center.y = (biasWin.top + biasWin.bottom) / 2;
-	}
-	else
-	{
-		center.x = (maxWin.left + maxWin.right) / 2;
-		center.y = (maxWin.top + maxWin.bottom) / 2;
-	}
-
-	RECT win = maxWin;
-	win.right = win.left + width;
-	win.bottom = win.top + height;
-
-	DWORD style = static_cast<DWORD>(::GetWindowLongPtr(_hwnd, GWL_EXSTYLE));
-	::AdjustWindowRectEx(&win, static_cast<DWORD>(::GetWindowLongPtr(_hwnd, GWL_STYLE)), FALSE, style);
-
-	width = win.right - win.left;
-	height = win.bottom - win.top;
-
-	if (width < maxWin.right - maxWin.left)
-	{
-		win.left = center.x - width / 2;
-		if (win.left < maxWin.left)
-			win.left = maxWin.left;
-		win.right = win.left + width;
-		if (win.right > maxWin.right)
-		{
-			win.right = maxWin.right;
-			win.left = win.right - width;
-		}
-	}
-	else
-	{
-		win.left = maxWin.left;
-		win.right = maxWin.right;
-	}
-
-	if (height < maxWin.bottom - maxWin.top)
-	{
-		win.top = center.y - height / 2;
-		if (win.top < maxWin.top)
-			win.top = maxWin.top;
-		win.bottom = win.top + height;
-		if (win.bottom > maxWin.bottom)
-		{
-			win.bottom = maxWin.bottom;
-			win.top = win.bottom - height;
-		}
-	}
-	else
-	{
-		win.top = maxWin.top;
-		win.bottom = maxWin.bottom;
-	}
-
-	return win;
 }
 
 

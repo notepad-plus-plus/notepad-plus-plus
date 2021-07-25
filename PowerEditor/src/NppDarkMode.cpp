@@ -984,22 +984,28 @@ namespace NppDarkMode
 			hFont = hCreatedFont;
 		}
 
-		if (!hFont) {
+		if (!hFont)
+		{
 			hFont = reinterpret_cast<HFONT>(SendMessage(hwnd, WM_GETFONT, 0, 0));
 		}
 
-		SelectObject(hdc, hFont);
-
+		hOldFont = static_cast<HFONT>(::SelectObject(hdc, hFont));
 
 		WCHAR szText[256] = { 0 };
 		GetWindowText(hwnd, szText, _countof(szText));
+
+		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
+		bool isCenter = (style & BS_CENTER) == BS_CENTER;
 
 		if (szText[0])
 		{
 			SIZE textSize = { 0 };
 			GetTextExtentPoint32(hdc, szText, static_cast<int>(wcslen(szText)), &textSize);
+
+			int centerPosX = isCenter ? ((rcClient.right - rcClient.left - textSize.cx) / 2) : 7;
+
 			rcBackground.top += textSize.cy / 2;
-			rcText.left += 7;
+			rcText.left += centerPosX;
 			rcText.bottom = rcText.top + textSize.cy;
 			rcText.right = rcText.left + textSize.cx + 4;
 
@@ -1029,7 +1035,9 @@ namespace NppDarkMode
 			DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
 			dtto.crText = NppDarkMode::getTextColor();
 
-			DrawThemeTextEx(buttonData.hTheme, hdc, BP_GROUPBOX, iStateID, szText, -1, DT_LEFT | DT_SINGLELINE, &rcText, &dtto);
+			DWORD textFlags = isCenter ? DT_CENTER : DT_LEFT;
+
+			DrawThemeTextEx(buttonData.hTheme, hdc, BP_GROUPBOX, iStateID, szText, -1, textFlags | DT_SINGLELINE, &rcText, &dtto);
 		}
 
 		if (hCreatedFont) DeleteObject(hCreatedFont);
@@ -1393,6 +1401,8 @@ namespace NppDarkMode
 			, subclass
 			, theme
 		};
+
+		::EnableThemeDialogTexture(hwndParent, theme ? ETDT_ENABLETAB : ETDT_DISABLE);
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) {
 			auto& p = *reinterpret_cast<Params*>(lParam);

@@ -247,6 +247,53 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 			return ::SendMessage(_hParent, message, wParam, lParam);
 		}
 
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = { 0 };
+				getClientRect(rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_COMMAND : 
 		{
 			switch (wParam)
@@ -368,6 +415,8 @@ void RunDlg::doDialog(bool isRTL)
 {
 	if (!isCreated())
 		create(IDD_RUN_DLG, isRTL);
+
+	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
     // Adjust the position in the center
 	goToCenter();

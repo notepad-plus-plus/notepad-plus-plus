@@ -4767,10 +4767,10 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 const TCHAR Progress::cClassName[] = TEXT("NppProgressClass");
 const TCHAR Progress::cDefaultHeader[] = TEXT("Operation progress...");
 const int Progress::cBackgroundColor = COLOR_3DFACE;
-const int Progress::cPBwidth = 600;
-const int Progress::cPBheight = 10;
-const int Progress::cBTNwidth = 80;
-const int Progress::cBTNheight = 25;
+const int Progress::cPBwidth = NppParameters::getInstance()._dpiManager.scaleX(550);
+const int Progress::cPBheight = NppParameters::getInstance()._dpiManager.scaleY(10);
+const int Progress::cBTNwidth = NppParameters::getInstance()._dpiManager.scaleX(80);
+const int Progress::cBTNheight = NppParameters::getInstance()._dpiManager.scaleY(25);
 
 
 volatile LONG Progress::refCount = 0;
@@ -4918,8 +4918,14 @@ int Progress::createProgressWindow()
 	if (!_hwnd)
 		return -1;
 
-	int width = cPBwidth + 10;
-	int height = cPBheight + cBTNheight + dpiManager.scaleX(35);
+	int widthPadding = dpiManager.scaleX(15);
+	int width = cPBwidth + widthPadding;
+
+	int textHeight = dpiManager.scaleY(20);
+	int progressBarPadding = dpiManager.scaleY(10);
+	int morePadding = dpiManager.scaleY(45);
+	int height = cPBheight + cBTNheight + textHeight + progressBarPadding + morePadding;
+
 
 	POINT center;
 	RECT callerRect;
@@ -4927,21 +4933,17 @@ int Progress::createProgressWindow()
 	center.x = (callerRect.left + callerRect.right) / 2;
 	center.y = (callerRect.top + callerRect.bottom) / 2;
 
-	int x = center.x - dpiManager.scaleX(width) / 2;
-	int y = center.y - dpiManager.scaleY(height) / 2;
-	::MoveWindow(_hwnd, x, y, dpiManager.scaleX(width), dpiManager.scaleY(height), TRUE);
-
-	RECT rect;
-	::GetClientRect(_hwnd, &rect);
-	width = rect.right - rect.left;
-	height = rect.bottom - rect.top;
+	int x = center.x - width / 2;
+	int y = center.y - height / 2;
+	::MoveWindow(_hwnd, x, y, width, height, TRUE);
 
 
+	int xStartPos = dpiManager.scaleX(5);
+	int yTextPos = dpiManager.scaleY(5);
 	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE | BS_TEXT | SS_PATHELLIPSIS,
-		dpiManager.scaleX(5), dpiManager.scaleY(5),
-		width - dpiManager.scaleX(10), dpiManager.scaleY(20),
-		_hwnd, NULL, _hInst, NULL);
+		xStartPos, yTextPos,
+		width - widthPadding, textHeight, _hwnd, NULL, _hInst, NULL);
 
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
@@ -4949,32 +4951,20 @@ int Progress::createProgressWindow()
 
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
 		WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
-		dpiManager.scaleX(5), dpiManager.scaleY(5 + 25),
-		width - dpiManager.scaleX(10), dpiManager.scaleY(cPBheight),
+		xStartPos, yTextPos + textHeight,
+		width - widthPadding, cPBheight,
 		_hwnd, NULL, _hInst, NULL);
 	SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 
-	// Set border so user can distinguish easier progress bar,
-	// especially, when getBackgroundColor is very similar or same 
-	// as getDarkerBackgroundColor
-	NppDarkMode::setBorder(_hPBar, NppDarkMode::isEnabled()); 
-	NppDarkMode::disableVisualStyle(_hPBar, NppDarkMode::isEnabled());
-	if (NppDarkMode::isEnabled())
-	{
-		::SendMessage(_hPBar, PBM_SETBKCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getBackgroundColor()));
-		::SendMessage(_hPBar, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getDarkerTextColor()));
-	}
 
 	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), TEXT("Cancel"),
 		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | BS_TEXT,
-		(width - dpiManager.scaleX(cBTNwidth)) / 2, height - dpiManager.scaleY(cBTNheight + 5),
-		dpiManager.scaleX(cBTNwidth), dpiManager.scaleY(cBTNheight), _hwnd, NULL, _hInst, NULL);
+		(width - cBTNwidth) / 2, yTextPos + textHeight + cPBheight + progressBarPadding,
+		cBTNwidth, cBTNheight,
+		_hwnd, NULL, _hInst, NULL);
 
 	if (hf)
 		::SendMessage(_hBtn, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-
-	NppDarkMode::autoSubclassAndThemeChildControls(_hwnd);
-	NppDarkMode::setDarkTitleBar(_hwnd);
 
 	::ShowWindow(_hwnd, SW_SHOWNORMAL);
 	::UpdateWindow(_hwnd);

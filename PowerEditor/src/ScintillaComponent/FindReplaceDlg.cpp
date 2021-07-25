@@ -4767,10 +4767,10 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 const TCHAR Progress::cClassName[] = TEXT("NppProgressClass");
 const TCHAR Progress::cDefaultHeader[] = TEXT("Operation progress...");
 const int Progress::cBackgroundColor = COLOR_3DFACE;
-const int Progress::cPBwidth = 600;
-const int Progress::cPBheight = 10;
-const int Progress::cBTNwidth = 80;
-const int Progress::cBTNheight = 25;
+const int Progress::cPBwidth = NppParameters::getInstance()._dpiManager.scaleX(550);
+const int Progress::cPBheight = NppParameters::getInstance()._dpiManager.scaleY(10);
+const int Progress::cBTNwidth = NppParameters::getInstance()._dpiManager.scaleX(80);
+const int Progress::cBTNheight = NppParameters::getInstance()._dpiManager.scaleY(25);
 
 
 volatile LONG Progress::refCount = 0;
@@ -4819,6 +4819,9 @@ HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 	// Create manually reset non-signalled event
 	_hActiveState = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	if (!_hActiveState)
+		return NULL;
+
+	if (!hCallerWnd)
 		return NULL;
 
 	_hCallerWnd = hCallerWnd;
@@ -4905,6 +4908,8 @@ int Progress::thread()
 
 int Progress::createProgressWindow()
 {
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+
 	_hwnd = ::CreateWindowEx(
 		WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW,
 		cClassName, _header, WS_POPUP | WS_CAPTION,
@@ -4913,129 +4918,58 @@ int Progress::createProgressWindow()
 	if (!_hwnd)
 		return -1;
 
-	int width = cPBwidth + 10;
-	int height = cPBheight + cBTNheight + 35;
-	RECT win = adjustSizeAndPos(width, height);
-	::MoveWindow(_hwnd, win.left, win.top,
-		win.right - win.left, win.bottom - win.top, TRUE);
+	int widthPadding = dpiManager.scaleX(15);
+	int width = cPBwidth + widthPadding;
 
-	::GetClientRect(_hwnd, &win);
-	width = win.right - win.left;
-	height = win.bottom - win.top;
+	int textHeight = dpiManager.scaleY(20);
+	int progressBarPadding = dpiManager.scaleY(10);
+	int morePadding = dpiManager.scaleY(45);
+	int height = cPBheight + cBTNheight + textHeight + progressBarPadding + morePadding;
 
+
+	POINT center;
+	RECT callerRect;
+	::GetWindowRect(_hCallerWnd, &callerRect);
+	center.x = (callerRect.left + callerRect.right) / 2;
+	center.y = (callerRect.top + callerRect.bottom) / 2;
+
+	int x = center.x - width / 2;
+	int y = center.y - height / 2;
+	::MoveWindow(_hwnd, x, y, width, height, TRUE);
+
+
+	int xStartPos = dpiManager.scaleX(5);
+	int yTextPos = dpiManager.scaleY(5);
 	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE | BS_TEXT | SS_PATHELLIPSIS,
-		5, 5,
-		width - 10, 20, _hwnd, NULL, _hInst, NULL);
+		xStartPos, yTextPos,
+		width - widthPadding, textHeight, _hwnd, NULL, _hInst, NULL);
+
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
 		::SendMessage(_hPText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
 		WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
-		5, 25, width - 10, cPBheight,
+		xStartPos, yTextPos + textHeight,
+		width - widthPadding, cPBheight,
 		_hwnd, NULL, _hInst, NULL);
 	SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 
-	// Set border so user can distinguish easier progress bar,
-	// especially, when getBackgroundColor is very similar or same 
-	// as getDarkerBackgroundColor
-	NppDarkMode::setBorder(_hPBar, NppDarkMode::isEnabled()); 
-	NppDarkMode::disableVisualStyle(_hPBar, NppDarkMode::isEnabled());
-	if (NppDarkMode::isEnabled())
-	{
-		::SendMessage(_hPBar, PBM_SETBKCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getBackgroundColor()));
-		::SendMessage(_hPBar, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getDarkerTextColor()));
-	}
 
 	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), TEXT("Cancel"),
 		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | BS_TEXT,
-		(width - cBTNwidth) / 2, height - cBTNheight - 5,
-		cBTNwidth, cBTNheight, _hwnd, NULL, _hInst, NULL);
+		(width - cBTNwidth) / 2, yTextPos + textHeight + cPBheight + progressBarPadding,
+		cBTNwidth, cBTNheight,
+		_hwnd, NULL, _hInst, NULL);
 
 	if (hf)
 		::SendMessage(_hBtn, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-
-	NppDarkMode::autoSubclassAndThemeChildControls(_hwnd);
-	NppDarkMode::setDarkTitleBar(_hwnd);
 
 	::ShowWindow(_hwnd, SW_SHOWNORMAL);
 	::UpdateWindow(_hwnd);
 
 	return 0;
-}
-
-
-RECT Progress::adjustSizeAndPos(int width, int height)
-{
-	RECT maxWin;
-	maxWin.left		= ::GetSystemMetrics(SM_XVIRTUALSCREEN);
-	maxWin.top		= ::GetSystemMetrics(SM_YVIRTUALSCREEN);
-	maxWin.right	= ::GetSystemMetrics(SM_CXVIRTUALSCREEN) + maxWin.left;
-	maxWin.bottom	= ::GetSystemMetrics(SM_CYVIRTUALSCREEN) + maxWin.top;
-
-	POINT center;
-
-	if (_hCallerWnd)
-	{
-		RECT biasWin;
-		::GetWindowRect(_hCallerWnd, &biasWin);
-		center.x = (biasWin.left + biasWin.right) / 2;
-		center.y = (biasWin.top + biasWin.bottom) / 2;
-	}
-	else
-	{
-		center.x = (maxWin.left + maxWin.right) / 2;
-		center.y = (maxWin.top + maxWin.bottom) / 2;
-	}
-
-	RECT win = maxWin;
-	win.right = win.left + width;
-	win.bottom = win.top + height;
-
-	DWORD style = static_cast<DWORD>(::GetWindowLongPtr(_hwnd, GWL_EXSTYLE));
-	::AdjustWindowRectEx(&win, static_cast<DWORD>(::GetWindowLongPtr(_hwnd, GWL_STYLE)), FALSE, style);
-
-	width = win.right - win.left;
-	height = win.bottom - win.top;
-
-	if (width < maxWin.right - maxWin.left)
-	{
-		win.left = center.x - width / 2;
-		if (win.left < maxWin.left)
-			win.left = maxWin.left;
-		win.right = win.left + width;
-		if (win.right > maxWin.right)
-		{
-			win.right = maxWin.right;
-			win.left = win.right - width;
-		}
-	}
-	else
-	{
-		win.left = maxWin.left;
-		win.right = maxWin.right;
-	}
-
-	if (height < maxWin.bottom - maxWin.top)
-	{
-		win.top = center.y - height / 2;
-		if (win.top < maxWin.top)
-			win.top = maxWin.top;
-		win.bottom = win.top + height;
-		if (win.bottom > maxWin.bottom)
-		{
-			win.bottom = maxWin.bottom;
-			win.top = win.bottom - height;
-		}
-	}
-	else
-	{
-		win.top = maxWin.top;
-		win.bottom = maxWin.bottom;
-	}
-
-	return win;
 }
 
 

@@ -818,7 +818,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 		if (NppDarkMode::isEnabled())
 		{
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
 			nmtbcd->clrText = NppDarkMode::getTextColor();
 			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW | TBCDRF_HILITEHOTTRACK);

@@ -618,7 +618,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 		if (NppDarkMode::isEnabled())
 		{
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
 		}
 	}
 }

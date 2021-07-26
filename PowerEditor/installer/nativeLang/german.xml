@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-07-22 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-07-26 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -270,6 +270,7 @@
 					<Item id="44031" name="Textblock öff&amp;nen"/>
 					<Item id="44049" name="Datei-&amp;Info …"/>
 					<Item id="44080" name="&amp;Miniaturansicht"/>
+					<Item id="44070" name="&amp;Dokumentenliste"/>
 					<Item id="44084" name="&amp;Funktionsliste"/>
 					<Item id="44085" name="Verzeichnis als Arbeitsbereich"/>
 					<Item id="44086" name="&amp;1. Tab"/>
@@ -617,7 +618,8 @@
 					<Item id="44082" name="Zum Projektfenster 2 umschalten"/>
 					<Item id="44083" name="Zum Projektfenster 3 umschalten"/>
 					<Item id="44085" name="Zum Ordner als Arbeitsbereich umschalten"/>
-					<Item id="44080" name="Zur Dokumentenliste umschalten"/>
+					<Item id="44080" name="Zur Miniaturansicht umschalten"/>
+					<Item id="44070" name="Zur Dokumentenliste umschalten"/>
 					<Item id="44084" name="Zur Funktionsliste umschalten"/>
 					<Item id="50005" name="Zur Makro-Aufzeichung umschalten"/>
 					<Item id="44104" name="Zum Projektfenster 1 wechseln"/>
@@ -836,7 +838,6 @@
 					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
 
 					<Item id="6125" name="Liste der geöffneten Dateien"/>
-					<Item id="6126" name="Anzeigen"/>
 					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
 
 					<Item id="6128" name="Alternative Symbole"/>
@@ -1268,11 +1269,11 @@ Diese Antwort kann in den Einstellungen jederzeit wieder geändert werden." /> <
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
 		</ClipboardHistory>
-		<DocSwitcher>
-			<PanelTitle name="Geöffnete Dateien"/>
+		<DocList>
+			<PanelTitle name="Dokumentenliste"/>
 			<ColumnName name="Name"/>
 			<ColumnExt name="Erw."/>
-		</DocSwitcher>
+		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Name"/>
 			<ColumnPath name="Pfad"/>

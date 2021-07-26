@@ -1247,11 +1247,11 @@ Updated to v8.1.2:
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
 		</ClipboardHistory>
-		<DocList>
+		<DocSwitcher>
 			<PanelTitle name="Список Документов"/>
 			<ColumnName name="Имя"/>
 			<ColumnExt  name="Расш."/>
-		</DocList>
+		</DocSwitcher>
 		<WindowsDlg>
 			<ColumnName   name="Имя"/>
 			<ColumnPath   name="Путь"/>

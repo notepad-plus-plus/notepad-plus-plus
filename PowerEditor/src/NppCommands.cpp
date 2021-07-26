@@ -171,19 +171,19 @@ void Notepad_plus::command(int id)
 			fileReload();
 			break;
 
-		case IDM_FILESWITCHER_FILESCLOSE:
-		case IDM_FILESWITCHER_FILESCLOSEOTHERS:
-			if (_pFileSwitcherPanel)
+		case IDM_DOCLIST_FILESCLOSE:
+		case IDM_DOCLIST_FILESCLOSEOTHERS:
+			if (_pDocumentListPanel)
 			{
-				vector<SwitcherFileInfo> files = _pFileSwitcherPanel->getSelectedFiles(id == IDM_FILESWITCHER_FILESCLOSEOTHERS);
+				vector<SwitcherFileInfo> files = _pDocumentListPanel->getSelectedFiles(id == IDM_DOCLIST_FILESCLOSEOTHERS);
 				for (size_t i = 0, len = files.size(); i < len; ++i)
 				{
 					fileClose((BufferID)files[i]._bufID, files[i]._iView);
 				}
-				if (id == IDM_FILESWITCHER_FILESCLOSEOTHERS)
+				if (id == IDM_DOCLIST_FILESCLOSEOTHERS)
 				{
 					// Get current buffer and its view
-					_pFileSwitcherPanel->activateItem(_pEditView->getCurrentBufferID(), currentView());
+					_pDocumentListPanel->activateItem(_pEditView->getCurrentBufferID(), currentView());
 				}
 			}
 			break;
@@ -737,23 +737,39 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_SWITCHTO_DOCLIST:
+		{
+			if (_pDocumentListPanel && _pDocumentListPanel->isVisible())
+			{
+				_pDocumentListPanel->getFocus();
+			}
+			else
+			{
+				checkMenuItem(IDM_VIEW_DOCLIST, true);
+				_toolBar.setCheck(IDM_VIEW_DOCLIST, true);
+				launchDocumentListPanel();
+				_pDocumentListPanel->setClosed(false);
+			}
+		}
+		break;
+
 		case IDM_VIEW_DOCLIST:
 		{
-			if (_pFileSwitcherPanel && (!_pFileSwitcherPanel->isClosed()))
+			if (_pDocumentListPanel && (!_pDocumentListPanel->isClosed()))
 			{
-				_pFileSwitcherPanel->display(false);
-				_pFileSwitcherPanel->setClosed(true);
+				_pDocumentListPanel->display(false);
+				_pDocumentListPanel->setClosed(true);
 				checkMenuItem(IDM_VIEW_DOCLIST, false);
 				_toolBar.setCheck(IDM_VIEW_DOCLIST, false);
 			}
 			else
 			{
-				launchFileSwitcherPanel();
-				if (_pFileSwitcherPanel)
+				launchDocumentListPanel();
+				if (_pDocumentListPanel)
 				{
 					checkMenuItem(IDM_VIEW_DOCLIST, true);
 					_toolBar.setCheck(IDM_VIEW_DOCLIST, true);
-					_pFileSwitcherPanel->setClosed(false);
+					_pDocumentListPanel->setClosed(false);
 				}
 			}
 		}
@@ -876,7 +892,7 @@ void Notepad_plus::command(int id)
 			}
 		}
 		break;
-		
+
 		case IDM_VIEW_FUNC_LIST:
 		{
 			if (_pFuncList && (!_pFuncList->isClosed()))

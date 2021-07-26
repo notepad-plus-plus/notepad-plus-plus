@@ -548,9 +548,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DOCORDERCHANGED :
 		{
-			if (_pFileSwitcherPanel)
+			if (_pDocumentListPanel)
 			{
-				_pFileSwitcherPanel->updateTabOrder();
+				_pDocumentListPanel->updateTabOrder();
 			}
 			
 			BufferID id = _pEditView->getCurrentBufferID();
@@ -1811,10 +1811,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_pAnsiCharPanel->setForegroundColor(style._fgColor);
 			}
 
-			if (_pFileSwitcherPanel)
+			if (_pDocumentListPanel)
 			{
-				_pFileSwitcherPanel->setBackgroundColor(style._bgColor);
-				_pFileSwitcherPanel->setForegroundColor(style._fgColor);
+				_pDocumentListPanel->setBackgroundColor(style._bgColor);
+				_pDocumentListPanel->setForegroundColor(style._fgColor);
 			}
 
 			if (_pClipboardHistoryPanel)
@@ -2444,9 +2444,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
 
-			if (_pFileSwitcherPanel)
+			if (_pDocumentListPanel)
 			{
-				_pFileSwitcherPanel->reload();
+				_pDocumentListPanel->reload();
 			}
 			// else nothing to do
 			return TRUE;
@@ -2465,22 +2465,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			BOOL toShow = static_cast<BOOL>(lParam);
 			if (toShow)
 			{
-				if (!_pFileSwitcherPanel || !_pFileSwitcherPanel->isVisible())
-					launchFileSwitcherPanel();
+				if (!_pDocumentListPanel || !_pDocumentListPanel->isVisible())
+					launchDocumentListPanel();
 			}
 			else
 			{
-				if (_pFileSwitcherPanel)
-					_pFileSwitcherPanel->display(false);
+				if (_pDocumentListPanel)
+					_pDocumentListPanel->display(false);
 			}
 			return TRUE;
 		}
 
 		case NPPM_ISDOCLISTSHOWN:
 		{
-			if (!_pFileSwitcherPanel)
+			if (!_pDocumentListPanel)
 				return FALSE;
-			return _pFileSwitcherPanel->isVisible();
+			return _pDocumentListPanel->isVisible();
 		}
 
 		// OLD BEHAVIOUR:

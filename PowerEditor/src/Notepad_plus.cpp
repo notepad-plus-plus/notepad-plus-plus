@@ -181,7 +181,7 @@ Notepad_plus::~Notepad_plus()
 	delete _pTrayIco;
 	delete _pAnsiCharPanel;
 	delete _pClipboardHistoryPanel;
-	delete _pFileSwitcherPanel;
+	delete _pDocumentListPanel;
 	delete _pProjectPanel_1;
 	delete _pProjectPanel_2;
 	delete _pProjectPanel_3;
@@ -4025,8 +4025,8 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 		tabToOpen->setBuffer(0, id);	//index 0 since only one open
 		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
 		MainFileManager.closeBuffer(idToClose, viewToOpen);	//delete the buffer
-		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->closeItem(idToClose, whichOne);
+		if (_pDocumentListPanel)
+			_pDocumentListPanel->closeItem(idToClose, whichOne);
 	}
 	else
 	{
@@ -5907,8 +5907,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 	}
 
-	if (_pFileSwitcherPanel)
-		_pFileSwitcherPanel->setItemIconStatus(buffer);
+	if (_pDocumentListPanel)
+		_pDocumentListPanel->setItemIconStatus(buffer);
 
 	if (!mainActive && !subActive)
 	{
@@ -6006,9 +6006,9 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	scnN.nmhdr.idFrom = (uptr_t)bufid;
 	_pluginsManager.notify(&scnN);
 
-	if (_pFileSwitcherPanel)
+	if (_pDocumentListPanel)
 	{
-		_pFileSwitcherPanel->activateItem(bufid, currentView());
+		_pDocumentListPanel->activateItem(bufid, currentView());
 	}
 
 	if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
@@ -6540,19 +6540,19 @@ void Notepad_plus::launchClipboardHistoryPanel()
 }
 
 
-void Notepad_plus::launchFileSwitcherPanel()
+void Notepad_plus::launchDocumentListPanel()
 {
-	if (!_pFileSwitcherPanel)
+	if (!_pDocumentListPanel)
 	{
-		_pFileSwitcherPanel = new VerticalFileSwitcher;
+		_pDocumentListPanel = new VerticalFileSwitcher;
 		HIMAGELIST hImgLst = _docTabIconList.getHandle();
-		_pFileSwitcherPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
+		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data = {0};
-		_pFileSwitcherPanel->create(&data, isRTL);
+		_pDocumentListPanel->create(&data, isRTL);
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileSwitcherPanel->getHSelf()));
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocumentListPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCLIST_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -6575,10 +6575,10 @@ void Notepad_plus::launchFileSwitcherPanel()
 		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
 		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
 
-		_pFileSwitcherPanel->setBackgroundColor(bgColor);
-		_pFileSwitcherPanel->setForegroundColor(fgColor);
+		_pDocumentListPanel->setBackgroundColor(bgColor);
+		_pDocumentListPanel->setForegroundColor(fgColor);
 	}
-	_pFileSwitcherPanel->display();
+	_pDocumentListPanel->display();
 }
 
 
@@ -7555,9 +7555,9 @@ void Notepad_plus::refreshDarkMode()
 	{
 		::SendMessage(_pAnsiCharPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	}
-	if (_pFileSwitcherPanel)
+	if (_pDocumentListPanel)
 	{
-		::SendMessage(_pFileSwitcherPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+		::SendMessage(_pDocumentListPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	}
 
 	if (_pClipboardHistoryPanel)

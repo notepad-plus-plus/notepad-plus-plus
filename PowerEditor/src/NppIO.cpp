@@ -392,8 +392,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         // Notify plugins that current file is just opened
         scnN.nmhdr.code = NPPN_FILEOPENED;
         _pluginsManager.notify(&scnN);
-        if (_pFileSwitcherPanel)
-            _pFileSwitcherPanel->newItem(buf, currentView());
+        if (_pDocumentListPanel)
+            _pDocumentListPanel->newItem(buf, currentView());
     }
     else
     {
@@ -728,8 +728,8 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		// if the current activated buffer is in this view,
 		// then get buffer ID to remove the entry from File Switcher Pannel
 		hiddenBufferID = reinterpret_cast<BufferID>(::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETBUFFERIDFROMPOS, 0, whichOne));
-		if (!isBufRemoved && hiddenBufferID != BUFFER_INVALID && _pFileSwitcherPanel)
-			_pFileSwitcherPanel->closeItem(hiddenBufferID, whichOne);
+		if (!isBufRemoved && hiddenBufferID != BUFFER_INVALID && _pDocumentListPanel)
+			_pDocumentListPanel->closeItem(hiddenBufferID, whichOne);
 	}
 
 	// Notify plugins that current file is closed
@@ -740,12 +740,12 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 
 		// The document could be clonned.
 		// if the same buffer ID is not found then remove the entry from File Switcher Panel
-		if (_pFileSwitcherPanel)
+		if (_pDocumentListPanel)
 		{
-			_pFileSwitcherPanel->closeItem(id, whichOne);
+			_pDocumentListPanel->closeItem(id, whichOne);
 
 			if (hiddenBufferID != BUFFER_INVALID)
-				_pFileSwitcherPanel->closeItem(hiddenBufferID, whichOne);
+				_pDocumentListPanel->closeItem(hiddenBufferID, whichOne);
 		}
 
 		// Add to recent file only if file is removed and does not exist in any of the views
@@ -2223,8 +2223,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 	else if (canHideView(currentView()))
 		hideView(currentView());
 
-	if (_pFileSwitcherPanel)
-		_pFileSwitcherPanel->reload();
+	if (_pDocumentListPanel)
+		_pDocumentListPanel->reload();
 
 	if (shouldLoadFileBrowser && !session._fileBrowserRoots.empty())
 	{

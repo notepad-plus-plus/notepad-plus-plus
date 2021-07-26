@@ -402,7 +402,7 @@ private:
 
 	AnsiCharPanel* _pAnsiCharPanel = nullptr;
 	ClipboardHistoryPanel* _pClipboardHistoryPanel = nullptr;
-	VerticalFileSwitcher* _pFileSwitcherPanel = nullptr;
+	VerticalFileSwitcher* _pDocumentListPanel = nullptr;
 	ProjectPanel* _pProjectPanel_1 = nullptr;
 	ProjectPanel* _pProjectPanel_2 = nullptr;
 	ProjectPanel* _pProjectPanel_3 = nullptr;
@@ -608,7 +608,7 @@ private:
 	void removeDuplicateLines();
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
-	void launchFileSwitcherPanel();
+	void launchDocumentListPanel();
 	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();

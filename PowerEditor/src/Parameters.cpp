@@ -312,6 +312,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_SWITCHTO_PROJECT_PANEL_3,            false, false, false, TEXT("Switch to Project Panel 3") },
 	{ VK_NULL,    IDM_VIEW_SWITCHTO_FILEBROWSER,                false, false, false, TEXT("Switch to Folder as Workspace") },
 	{ VK_NULL,    IDM_VIEW_SWITCHTO_FUNC_LIST,                  false, false, false, TEXT("Switch to Function List") },
+	{ VK_NULL,    IDM_VIEW_SWITCHTO_DOCLIST,                    false, false, false, TEXT("Switch to Document List") },
 	{ VK_NULL,    IDM_VIEW_SYNSCROLLV,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_SYNSCROLLH,                          false, false, false, nullptr },
 	{ VK_R,       IDM_EDIT_RTL,                                 true,  true,  false, nullptr },

@@ -102,6 +102,7 @@ IDI_SYNCV_DISABLE_ICON          ICON      "icons/syncV_dis.ico"
 IDI_SYNCH_ICON                  ICON      "icons/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON          ICON      "icons/syncH_dis.ico"
 IDI_VIEW_DOC_MAP_ICON           ICON      "icons/docMap_off.ico" 
+IDI_VIEW_DOCLIST_ICON           ICON      "icons/docList_off.ico" 
 IDI_VIEW_FUNCLIST_ICON          ICON      "icons/funcList_off.ico" 
 IDI_VIEW_FILEBROWSER_ICON       ICON      "icons/fileBrowser_off.ico" 
 IDI_VIEW_MONITORING_ICON        ICON      "icons/monitoring_off.ico"
@@ -151,6 +152,7 @@ IDI_SYNCV_DISABLE_ICON2         ICON      "icons/filledFluentUI/syncV_dis.ico"
 IDI_SYNCH_ICON2                 ICON      "icons/filledFluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON2         ICON      "icons/filledFluentUI/syncH_dis.ico"
 IDI_VIEW_DOC_MAP_ICON2          ICON      "icons/filledFluentUI/docMap_off.ico" 
+IDI_VIEW_DOCLIST_ICON2          ICON      "icons/filledFluentUI/docList_off.ico" 
 IDI_VIEW_FUNCLIST_ICON2         ICON      "icons/filledFluentUI/funcList_off.ico" 
 IDI_VIEW_FILEBROWSER_ICON2      ICON      "icons/filledFluentUI/fileBrowser_off.ico" 
 IDI_VIEW_MONITORING_ICON2       ICON      "icons/filledFluentUI/monitoring_off.ico"
@@ -200,6 +202,7 @@ IDI_SYNCV_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/sy
 IDI_SYNCH_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/syncH_dis.ico"
 IDI_VIEW_DOC_MAP_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docMap_off.ico" 
+IDI_VIEW_DOCLIST_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docList_off.ico" 
 IDI_VIEW_FUNCLIST_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/funcList_off.ico" 
 IDI_VIEW_FILEBROWSER_ICON_DM       ICON      "icons/darkMode/toolbar/FluentUI/fileBrowser_off.ico" 
 IDI_VIEW_MONITORING_ICON_DM        ICON      "icons/darkMode/toolbar/FluentUI/monitoring_off.ico"
@@ -249,6 +252,7 @@ IDI_SYNCV_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluen
 IDI_SYNCH_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/syncH_dis.ico"
 IDI_VIEW_DOC_MAP_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docMap_off.ico" 
+IDI_VIEW_DOCLIST_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docList_off.ico" 
 IDI_VIEW_FUNCLIST_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/funcList_off.ico" 
 IDI_VIEW_FILEBROWSER_ICON_DM2      ICON      "icons/darkMode/toolbar/filledFluentUI/fileBrowser_off.ico" 
 IDI_VIEW_MONITORING_ICON_DM2       ICON      "icons/darkMode/toolbar/filledFluentUI/monitoring_off.ico"
@@ -313,11 +317,13 @@ IDR_CLOSETAB_INACT_DM           BITMAP    "icons/darkMode/tabbar/closeTabButton_
 IDR_CLOSETAB_HOVER_DM           BITMAP    "icons/darkMode/tabbar/closeTabButton_hover.bmp"
 IDR_CLOSETAB_PUSH_DM            BITMAP    "icons/darkMode/tabbar/closeTabButton_push.bmp"
 IDR_DOCMAP                      BITMAP    "icons/docMap.bmp"
+IDR_DOCLIST                     BITMAP    "icons/docList.bmp"
 IDR_FUNC_LIST                   BITMAP    "icons/functionList.bmp"
 IDR_FILEBROWSER                 BITMAP    "icons/fileBrowser.bmp"
 IDR_FILEMONITORING              BITMAP    "icons/fileMonitoring.bmp"
 
 IDR_DOCMAP_ICO                  ICON      "icons/docMap.ico"
+IDR_DOCLIST_ICO                 ICON      "icons/docList.ico"
 IDR_FUNC_LIST_ICO               ICON      "icons/functionList.ico"
 IDR_PROJECTPANEL_ICO            ICON      "icons/projectPanel.ico"
 IDR_FILEBROWSER_ICO             ICON      "icons/fileBrowser.ico"
@@ -705,6 +711,7 @@ BEGIN
             END
         MENUITEM "Folder as Workspace",   IDM_VIEW_FILEBROWSER
         MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
+        MENUITEM "Document List",         IDM_VIEW_DOCLIST
         MENUITEM "Function List",         IDM_VIEW_FUNC_LIST
         MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",      IDM_VIEW_SYNSCROLLV
@@ -1228,11 +1235,11 @@ END
 
 IDD_VALUE_DLG DIALOGEX 0, 0, 74, 17
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW
+EXSTYLE WS_EX_DLGMODALFRAME
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
     LTEXT             "STATIC :",IDC_VALUE_STATIC,6,4,45,8
-    EDITTEXT        IDC_VALUE_EDIT,49,2,18,14,ES_NUMBER,WS_EX_DLGMODALFRAME
+    EDITTEXT        IDC_VALUE_EDIT,49,3,18,11,ES_NUMBER
 END
 
 IDD_BUTTON_DLG DIALOGEX 0, 0, 12, 10

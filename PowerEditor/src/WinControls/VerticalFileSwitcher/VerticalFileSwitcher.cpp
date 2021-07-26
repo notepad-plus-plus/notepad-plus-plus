@@ -82,6 +82,12 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 		{
 			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
 			{
+				case DMN_CLOSE:
+				{
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DOCLIST, 0);
+					return TRUE;
+				}
+
 				case NM_DBLCLK:
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;

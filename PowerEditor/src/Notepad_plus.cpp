@@ -102,6 +102,7 @@ ToolBarButtonUnit toolBarIcons[] = {
     {IDM_VIEW_INDENT_GUIDE,            IDI_VIEW_INDENT_ICON,       IDI_VIEW_INDENT_ICON,          IDI_VIEW_INDENT_ICON2,      IDI_VIEW_INDENT_ICON2,         IDI_VIEW_INDENT_ICON_DM,       IDI_VIEW_INDENT_ICON_DM,          IDI_VIEW_INDENT_ICON_DM2,      IDI_VIEW_INDENT_ICON_DM2,         IDR_INDENTGUIDE},
     {IDM_LANG_USER_DLG,                IDI_VIEW_UD_DLG_ICON,       IDI_VIEW_UD_DLG_ICON,          IDI_VIEW_UD_DLG_ICON2,      IDI_VIEW_UD_DLG_ICON2,         IDI_VIEW_UD_DLG_ICON_DM,       IDI_VIEW_UD_DLG_ICON_DM,          IDI_VIEW_UD_DLG_ICON_DM2,      IDI_VIEW_UD_DLG_ICON_DM2,         IDR_SHOWPANNEL},
     {IDM_VIEW_DOC_MAP,                 IDI_VIEW_DOC_MAP_ICON,      IDI_VIEW_DOC_MAP_ICON,         IDI_VIEW_DOC_MAP_ICON2,     IDI_VIEW_DOC_MAP_ICON2,        IDI_VIEW_DOC_MAP_ICON_DM,      IDI_VIEW_DOC_MAP_ICON_DM,         IDI_VIEW_DOC_MAP_ICON_DM2,     IDI_VIEW_DOC_MAP_ICON_DM2,        IDR_DOCMAP},
+    {IDM_VIEW_DOCLIST,                 IDI_VIEW_DOCLIST_ICON,      IDI_VIEW_DOCLIST_ICON,         IDI_VIEW_DOCLIST_ICON2,     IDI_VIEW_DOCLIST_ICON2,        IDI_VIEW_DOCLIST_ICON_DM,      IDI_VIEW_DOCLIST_ICON_DM,         IDI_VIEW_DOCLIST_ICON_DM2,     IDI_VIEW_DOCLIST_ICON_DM2,        IDR_DOCLIST},
     {IDM_VIEW_FUNC_LIST,               IDI_VIEW_FUNCLIST_ICON,     IDI_VIEW_FUNCLIST_ICON,        IDI_VIEW_FUNCLIST_ICON2,    IDI_VIEW_FUNCLIST_ICON2,       IDI_VIEW_FUNCLIST_ICON_DM,     IDI_VIEW_FUNCLIST_ICON_DM,        IDI_VIEW_FUNCLIST_ICON_DM2,    IDI_VIEW_FUNCLIST_ICON_DM2,       IDR_FUNC_LIST},
     {IDM_VIEW_FILEBROWSER,             IDI_VIEW_FILEBROWSER_ICON,  IDI_VIEW_FILEBROWSER_ICON,     IDI_VIEW_FILEBROWSER_ICON2, IDI_VIEW_FILEBROWSER_ICON2,    IDI_VIEW_FILEBROWSER_ICON_DM,  IDI_VIEW_FILEBROWSER_ICON_DM,     IDI_VIEW_FILEBROWSER_ICON_DM2, IDI_VIEW_FILEBROWSER_ICON_DM2,    IDR_FILEBROWSER},
     {IDM_VIEW_MONITORING,              IDI_VIEW_MONITORING_ICON,   IDI_VIEW_MONITORING_ICON,      IDI_VIEW_MONITORING_ICON2,  IDI_VIEW_MONITORING_ICON2,     IDI_VIEW_MONITORING_ICON_DM,   IDI_VIEW_MONITORING_ICON_DM,      IDI_VIEW_MONITORING_ICON_DM2,  IDI_VIEW_MONITORING_ICON_DM2,     IDR_FILEMONITORING},
@@ -284,16 +285,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 	}
 
-	if (NppDarkMode::isEnabled())
-	{
-		_mainEditView.setBorderEdge(false);
-		_subEditView.setBorderEdge(false);
-	}
-	else
-	{
-		_mainEditView.setBorderEdge(svp._showBorderEdge);
-		_subEditView.setBorderEdge(svp._showBorderEdge);
-	}
+	_mainEditView.setBorderEdge(svp._showBorderEdge);
+	_subEditView.setBorderEdge(svp._showBorderEdge);
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
@@ -377,8 +370,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//--Splitter Section--//
 	bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
 
+	int splitterSizeDyn = nppParam._dpiManager.scaleX(splitterSize);
 	_subSplitter.init(_pPublicInterface->getHinst(), hwnd);
-	_subSplitter.create(&_mainDocTab, &_subDocTab, 8, SplitterMode::DYNAMIC, 50, isVertical);
+	_subSplitter.create(&_mainDocTab, &_subDocTab, splitterSizeDyn, SplitterMode::DYNAMIC, 50, isVertical);
 
 	//--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
@@ -4165,8 +4159,8 @@ void Notepad_plus::dockUserDlg()
             pWindow = &_subSplitter;
         else
             pWindow = _pDocTab;
-
-        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), 8, SplitterMode::RIGHT_FIX, 45);
+		int splitterSizeDyn = NppParameters::getInstance()._dpiManager.scaleX(splitterSize);
+        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
     }
 
     if (bothActive())
@@ -6561,15 +6555,15 @@ void Notepad_plus::launchFileSwitcherPanel()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileSwitcherPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCSWITCHER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCLIST_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
-		data.dlgID = IDM_VIEW_FILESWITCHER_PANEL;
+		data.dlgID = IDM_VIEW_DOCLIST;
 
-		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocSwitcher", "PanelTitle");
+		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocList", "PanelTitle");
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
@@ -7528,6 +7522,8 @@ void Notepad_plus::refreshDarkMode()
 	for (auto &hwndDlg : _hModelessDlgs)
 	{
 		NppDarkMode::setDarkTitleBar(hwndDlg);
+		::SendMessage(hwndDlg, NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+		::RedrawWindow(hwndDlg, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 	}
 	for (auto &docCont : _dockingManager.getContainerInfo())
 	{
@@ -7575,11 +7571,12 @@ void Notepad_plus::refreshDarkMode()
 	::SendMessage(_mainDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	::SendMessage(_subDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 
-	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
-	RedrawWindow(_findReplaceDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 	SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
+
+	::SendMessage(_findInFinderDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	::RedrawWindow(_findInFinderDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 
 	toolBarStatusType state = _toolBar.getState();
 	switch (state)

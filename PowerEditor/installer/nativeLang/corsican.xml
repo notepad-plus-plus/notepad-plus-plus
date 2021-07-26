@@ -1261,11 +1261,11 @@ Cuntinuà ?"/>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Cambiamentu di ducumentu"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Est."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
             <ColumnPath name="Chjassu"/>

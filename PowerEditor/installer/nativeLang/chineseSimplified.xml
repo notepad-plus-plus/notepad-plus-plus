@@ -1208,11 +1208,11 @@ Notepad++会在所有安装结束后重新启动。
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="文件列表"/>
             <ColumnName name="文件名"/>
             <ColumnExt name="扩展名"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="文件名"/>
             <ColumnPath name="路径"/>

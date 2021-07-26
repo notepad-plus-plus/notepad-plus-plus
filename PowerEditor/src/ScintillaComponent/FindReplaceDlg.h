@@ -487,7 +487,7 @@ public:
 	Progress(const Progress&) = delete;
 	const Progress& operator=(const Progress&) = delete;
 
-	HWND open(HWND hCallerWnd = NULL, const TCHAR* header = NULL);
+	HWND open(HWND hCallerWnd, const TCHAR* header = NULL);
 	void close();
 
 	bool isCancelled() const
@@ -521,7 +521,6 @@ private:
 
 	int thread();
 	int createProgressWindow();
-	RECT adjustSizeAndPos(int width, int height);
 
 	HINSTANCE _hInst = nullptr;
 	volatile HWND _hwnd = nullptr;

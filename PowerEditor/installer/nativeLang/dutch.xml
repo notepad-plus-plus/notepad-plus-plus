@@ -1263,11 +1263,11 @@ U kunt dit dialoogvenster later opnieuw activeren in het voorkeurenvenster." /> 
         <ClipboardHistory>
             <PanelTitle name="Geschiedenis van klembord"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Documentenlijst"/>
             <ColumnName name="Naam"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Naam"/>
             <ColumnPath name="Pad"/>

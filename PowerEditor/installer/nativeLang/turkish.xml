@@ -1237,11 +1237,11 @@ Devam edilsin mi?"/>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Belge Anahtarlayıcı"/>
 			<ColumnName name="İsim"/>
 			<ColumnExt name="Uzantı"/>
-		</DocSwitcher>
+		</DocList>
         <WindowsDlg>
             <ColumnName name="İsim"/>
             <ColumnPath name="Yol"/>

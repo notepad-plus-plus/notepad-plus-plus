@@ -1240,11 +1240,11 @@ Vuto continuare?"/>
         <ClipboardHistory>
             <PanelTitle name="Cronoƚogia Scarabòci"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Documenti"/>
             <ColumnName name="Nòme"/>
             <ColumnExt name="Est."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nòme"/>
             <ColumnPath name="Percorso"/>

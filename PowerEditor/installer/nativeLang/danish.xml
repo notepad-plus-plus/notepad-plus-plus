@@ -1175,11 +1175,11 @@ Fortsæt?"/>
         <ClipboardHistory>
             <PanelTitle name="Historik for udklipsholder"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Dokumentskifter"/>
             <ColumnName name="Navn"/>
             <ColumnExt name="Filtype"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Navn"/>
             <ColumnPath name="Sti"/>

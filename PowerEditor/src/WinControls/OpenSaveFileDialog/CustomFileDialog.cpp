@@ -465,14 +465,14 @@ private:
 		const int bufferLen = MAX_PATH;
 		static TCHAR buffer[bufferLen];
 
-		if (GetClassName(hwnd, buffer, bufferLen) != 0)
+		if (IsWindowEnabled(hwnd) && GetClassName(hwnd, buffer, bufferLen) != 0)
 		{
 			if (lstrcmpi(buffer, _T("ComboBox")) == 0)
 			{
 				// The edit box of interest is a child of the combo box and has empty window text.
-				// Note that file type dropdown is a combo box also (but without an edit box).
+				// Note that there might be other combo boxes (file type dropdown, address bar, etc).
 				HWND hwndChild = FindWindowEx(hwnd, nullptr, _T("Edit"), _T(""));
-				if (hwndChild)
+				if (hwndChild && !_staticThis->_hwndNameEdit)
 				{
 					_staticThis->_fileNameProc = (WNDPROC)SetWindowLongPtr(hwndChild, GWLP_WNDPROC, (LPARAM)&FileNameWndProc);
 					_staticThis->_hwndNameEdit = hwndChild;
@@ -486,7 +486,7 @@ private:
 				// Dialog could have other buttons ("Cancel", "Help", etc).
 				// Don't rely on the order of the EnumChildWindows() traversal since it could be changed.
 				LONG style = GetWindowLong(hwnd, GWL_STYLE);
-				if (IsWindowEnabled(hwnd) && (style & (WS_CHILDWINDOW | WS_GROUP)))
+				if (style & (WS_CHILDWINDOW | WS_GROUP))
 				{
 					DWORD type = style & 0xF;
 					DWORD appearance = style & 0xF0;

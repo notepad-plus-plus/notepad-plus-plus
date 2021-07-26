@@ -1309,11 +1309,11 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="文件切換"/>
             <ColumnName name="檔名"/>
             <ColumnExt name="副檔名"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="檔名"/>
             <ColumnPath name="路徑"/>

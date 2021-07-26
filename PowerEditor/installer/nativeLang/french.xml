@@ -1224,11 +1224,11 @@ Voulez-vous les poursuivez ?"/>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papiers"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Commutateur de documents"/>
             <ColumnName name="Nom"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nom"/>
             <ColumnPath name="Chemin"/>

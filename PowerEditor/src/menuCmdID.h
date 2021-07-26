@@ -319,7 +319,7 @@
         #define    IDM_VIEW_UNFOLD_7    (IDM_VIEW_UNFOLD + 7)
         #define    IDM_VIEW_UNFOLD_8    (IDM_VIEW_UNFOLD + 8)
     
-    #define    IDM_VIEW_FILESWITCHER_PANEL        (IDM_VIEW + 70)
+    #define    IDM_VIEW_DOCLIST                   (IDM_VIEW + 70)
     #define    IDM_VIEW_SWITCHTO_OTHER_VIEW       (IDM_VIEW + 72)
     #define    IDM_EXPORT_FUNC_LIST_AND_QUIT      (IDM_VIEW + 73)
 

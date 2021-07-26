@@ -1,3 +1,19 @@
+// This file is part of Notepad++ project
+// Copyright (c) 2021 adzm / Adam D. Walling
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #pragma once
 
 #include <Windows.h>
@@ -23,6 +39,7 @@ namespace NppDarkMode
 		COLORREF text = 0;
 		COLORREF darkerText = 0;
 		COLORREF disabledText = 0;
+		COLORREF linkText = 0;
 		COLORREF edge = 0;
 	};
 
@@ -31,7 +48,7 @@ namespace NppDarkMode
 		bool enable = false;
 		bool enableMenubar = false;
 	};
-	
+
 	enum class ToolTipsType
 	{
 		tooltip,
@@ -73,6 +90,8 @@ namespace NppDarkMode
 	COLORREF getTextColor();
 	COLORREF getDarkerTextColor();
 	COLORREF getDisabledTextColor();
+	COLORREF getLinkTextColor();
+
 	COLORREF getEdgeColor();
 
 	HBRUSH getBackgroundBrush();
@@ -81,6 +100,7 @@ namespace NppDarkMode
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();
 
+	HPEN getDarkerTextPen();
 	HPEN getEdgePen();
 
 	void setBackgroundColor(COLORREF c);
@@ -91,6 +111,7 @@ namespace NppDarkMode
 	void setTextColor(COLORREF c);
 	void setDarkerTextColor(COLORREF c);
 	void setDisabledTextColor(COLORREF c);
+	void setLinkTextColor(COLORREF c);
 	void setEdgeColor(COLORREF c);
 
 	Colors getDarkModeDefaultColors();
@@ -118,6 +139,7 @@ namespace NppDarkMode
 	void subclassGroupboxControl(HWND hwnd);
 	void subclassToolbarControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
+	void subclassComboBoxControl(HWND hwnd);
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
@@ -131,4 +153,10 @@ namespace NppDarkMode
 
 	void disableVisualStyle(HWND hwnd, bool doDisable);
 	void setTreeViewStyle(HWND hwnd);
+	void setBorder(HWND hwnd, bool border = true);
+
+	LRESULT onCtlColor(HDC hdc);
+	LRESULT onCtlColorSofter(HDC hdc);
+	LRESULT onCtlColorDarker(HDC hdc);
+	LRESULT onCtlColorError(HDC hdc);
 }

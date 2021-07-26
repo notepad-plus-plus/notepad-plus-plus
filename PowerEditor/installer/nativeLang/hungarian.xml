@@ -1244,11 +1244,11 @@ Folytatja?"/>
         <ClipboardHistory>
             <PanelTitle name="Vágólap előzmények"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Dokumentum listázó"/>
             <ColumnName name="Név"/>
             <ColumnExt name="Kiterj."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Név"/>
             <ColumnPath name="Elérési út"/>

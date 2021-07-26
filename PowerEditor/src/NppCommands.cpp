@@ -737,9 +737,25 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_VIEW_FILESWITCHER_PANEL:
+		case IDM_VIEW_DOCLIST:
 		{
-			launchFileSwitcherPanel();
+			if (_pFileSwitcherPanel && (!_pFileSwitcherPanel->isClosed()))
+			{
+				_pFileSwitcherPanel->display(false);
+				_pFileSwitcherPanel->setClosed(true);
+				checkMenuItem(IDM_VIEW_DOCLIST, false);
+				_toolBar.setCheck(IDM_VIEW_DOCLIST, false);
+			}
+			else
+			{
+				launchFileSwitcherPanel();
+				if (_pFileSwitcherPanel)
+				{
+					checkMenuItem(IDM_VIEW_DOCLIST, true);
+					_toolBar.setCheck(IDM_VIEW_DOCLIST, true);
+					_pFileSwitcherPanel->setClosed(false);
+				}
+			}
 		}
 		break;
 
@@ -1545,8 +1561,8 @@ void Notepad_plus::command(int id)
                             pWindow = &_subSplitter;
                         else
                             pWindow = _pDocTab;
-
-                        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), 8, SplitterMode::RIGHT_FIX, 45);
+						int splitterSizeDyn = NppParameters::getInstance()._dpiManager.scaleX(splitterSize);
+                        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
                     }
 
 					_pMainWindow = _pMainSplitter;

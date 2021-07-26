@@ -16,6 +16,7 @@
 
 
 #include "URLCtrl.h"
+#include "NppDarkMode.h"
 
 static BYTE XORMask[128] =
 {
@@ -200,7 +201,19 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = ::BeginPaint(hwnd, &ps);
 
-            ::SetTextColor(hdc, _linkColor);
+			if ((_linkColor == _visitedColor) || (_linkColor == NppDarkMode::getDarkerTextColor()))
+			{
+				_linkColor = NppDarkMode::isEnabled() ? NppDarkMode::getDarkerTextColor() : _visitedColor;
+				::SetTextColor(hdc, _linkColor);
+			}
+			else if (NppDarkMode::isEnabled())
+			{
+				::SetTextColor(hdc, NppDarkMode::getLinkTextColor());
+			}
+			else
+			{
+				::SetTextColor(hdc, _linkColor);
+			}
 
             ::SetBkColor(hdc, getCtrlBgColor(GetParent(hwnd))); ///*::GetSysColor(COLOR_3DFACE)*/);
 

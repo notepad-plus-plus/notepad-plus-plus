@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
 #include <shlobj.h>
 #include <uxtheme.h>
 
@@ -31,6 +30,8 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 	{
         case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
 			generic_string buildTime = TEXT("Build time : ");
 
@@ -67,6 +68,22 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 				redraw();
 			}
 
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -120,6 +137,8 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 		case WM_INITDIALOG:
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			// Notepad++ version
 			_debugInfoStr = NOTEPAD_PLUS_VERSION;
@@ -270,6 +289,22 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			return TRUE;
 		}
 
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
 			switch (wParam)
@@ -354,11 +389,23 @@ INT_PTR CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			changeLang();
 			::EnableWindow(::GetDlgItem(_hSelf, IDRETRY), _isMulti);
 			::EnableWindow(::GetDlgItem(_hSelf, IDIGNORE), _isMulti);
 			goToCenter();
 			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
 		}
 
 		case WM_COMMAND:
@@ -404,4 +451,5 @@ INT_PTR CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		default:
 			return FALSE;
 	}
+	return FALSE;
 }

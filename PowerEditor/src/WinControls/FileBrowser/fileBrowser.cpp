@@ -111,11 +111,11 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			TBBUTTON tbButtons[3];
 			// Add the bmap image into toolbar's imagelist
 			TBADDBITMAP addbmp = { _hInst, 0 };
-			addbmp.nID = IDI_FB_SELECTCURRENTFILE;
+			addbmp.nID = NppDarkMode::isEnabled() ? IDI_FB_SELECTCURRENTFILE_DM : IDI_FB_SELECTCURRENTFILE;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
-			addbmp.nID = IDI_FB_FOLDALL;
+			addbmp.nID = NppDarkMode::isEnabled() ? IDI_FB_FOLDALL_DM : IDI_FB_FOLDALL;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
-			addbmp.nID = IDI_FB_EXPANDALL;
+			addbmp.nID = NppDarkMode::isEnabled() ? IDI_FB_EXPANDALL_DM : IDI_FB_EXPANDALL;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 			tbButtons[0].idCommand = FB_CMD_AIMFILE;
 			tbButtons[0].iBitmap = 0;
@@ -144,6 +144,8 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			::SendMessage(_hToolbarMenu, TB_SETPADDING, 0, MAKELONG(20, 0));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
+			
+			::SendMessage(_hToolbarMenu, TB_GETIMAGELIST, 0, 0);
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			FileBrowser::initPopupMenus();

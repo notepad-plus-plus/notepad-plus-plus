@@ -478,14 +478,15 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 {
 	DockingDlgInterface::init(hInst, hPere);
 	_ppEditView = ppEditView;
+	NppParameters& nppParams = NppParameters::getInstance();
 
-	generic_string funcListXmlPath = (NppParameters::getInstance()).getUserPath();
+	generic_string funcListXmlPath = nppParams.getUserPath();
 	PathAppend(funcListXmlPath, TEXT("functionList"));
 
-	generic_string funcListDefaultXmlPath = (NppParameters::getInstance()).getNppPath();
+	generic_string funcListDefaultXmlPath = nppParams.getNppPath();
 	PathAppend(funcListDefaultXmlPath, TEXT("functionList"));
 
-	bool doLocalConf = (NppParameters::getInstance()).isLocal();
+	bool doLocalConf = nppParams.isLocal();
 
 	if (!doLocalConf)
 	{
@@ -504,7 +505,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	}
 	else
 	{
-		generic_string funcListDefaultXmlPath = (NppParameters::getInstance()).getNppPath();
+		generic_string funcListDefaultXmlPath = nppParams.getNppPath();
 		PathAppend(funcListDefaultXmlPath, TEXT("functionList"));
 		if (PathFileExists(funcListDefaultXmlPath.c_str()))
 		{
@@ -816,9 +817,11 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 		case WM_INITDIALOG :
 		{
-			int editWidth = NppParameters::getInstance()._dpiManager.scaleX(100);
-			int editWidthSep = NppParameters::getInstance()._dpiManager.scaleX(105); //editWidth + 5
-			int editHeight = NppParameters::getInstance()._dpiManager.scaleY(20);
+			NppParameters& nppParams = NppParameters::getInstance();
+
+			int editWidth = nppParams._dpiManager.scaleX(100);
+			int editWidthSep = nppParams._dpiManager.scaleX(105); //editWidth + 5
+			int editHeight = nppParams._dpiManager.scaleY(20);
 
 			// Create toolbar menu
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
@@ -832,10 +835,22 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			TBBUTTON tbButtons[3];
 
 			// Add the bmap image into toolbar's imagelist
+			int icoID0 = IDI_FUNCLIST_SORTBUTTON;
+			int icoID1 = IDI_FUNCLIST_RELOADBUTTON;
+			if (NppDarkMode::isEnabled())
+			{
+				icoID0 = IDI_FUNCLIST_SORTBUTTON_DM;
+				icoID1 = IDI_FUNCLIST_RELOADBUTTON_DM;
+			}
+			else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			{
+				icoID0 = IDI_FUNCLIST_SORTBUTTON2;
+				icoID1 = IDI_FUNCLIST_RELOADBUTTON2;
+			}
 			TBADDBITMAP addbmp = {_hInst, 0};
-			addbmp.nID = IDI_FUNCLIST_SORTBUTTON;
+			addbmp.nID = icoID0;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
-			addbmp.nID = IDI_FUNCLIST_RELOADBUTTON;
+			addbmp.nID = icoID1;
 			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 
 			// Place holder of search text field
@@ -865,7 +880,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			// tips text for toolbar buttons
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
 			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 

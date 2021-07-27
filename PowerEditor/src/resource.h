@@ -258,26 +258,32 @@
 #define IDI_DELETE_ICON          525
 
 
-#define IDI_PROJECT_WORKSPACE        601
-#define IDI_PROJECT_WORKSPACEDIRTY    602
+#define IDI_PROJECT_WORKSPACE          601
+#define IDI_PROJECT_WORKSPACEDIRTY     602
 #define IDI_PROJECT_PROJECT            603
-#define IDI_PROJECT_FOLDEROPEN        604
+#define IDI_PROJECT_FOLDEROPEN         604
 #define IDI_PROJECT_FOLDERCLOSE        605
-#define IDI_PROJECT_FILE            606
+#define IDI_PROJECT_FILE               606
 #define IDI_PROJECT_FILEINVALID        607
-#define IDI_FB_ROOTOPEN        608
-#define IDI_FB_ROOTCLOSE        609
-#define IDI_FB_SELECTCURRENTFILE        610
-#define IDI_FB_FOLDALL                  611
-#define IDI_FB_EXPANDALL                612
+#define IDI_FB_ROOTOPEN                608
+#define IDI_FB_ROOTCLOSE               609
+#define IDI_FB_SELECTCURRENTFILE       610
+#define IDI_FB_FOLDALL                 611
+#define IDI_FB_EXPANDALL               612
+#define IDI_FB_SELECTCURRENTFILE_DM    613
+#define IDI_FB_FOLDALL_DM              614
+#define IDI_FB_EXPANDALL_DM            615
 
-#define IDI_FUNCLIST_ROOT            620
-#define IDI_FUNCLIST_NODE            621
-#define IDI_FUNCLIST_LEAF            622
+#define IDI_FUNCLIST_ROOT              620
+#define IDI_FUNCLIST_NODE              621
+#define IDI_FUNCLIST_LEAF              622
 
 #define IDI_FUNCLIST_SORTBUTTON        631
-#define IDI_FUNCLIST_RELOADBUTTON    632
-
+#define IDI_FUNCLIST_RELOADBUTTON      632
+#define IDI_FUNCLIST_SORTBUTTON2       633
+#define IDI_FUNCLIST_RELOADBUTTON2     634
+#define IDI_FUNCLIST_SORTBUTTON_DM     635
+#define IDI_FUNCLIST_RELOADBUTTON_DM   636
 
 
 
@@ -343,6 +349,21 @@
 #define IDR_CLOSETAB_PUSH_DM   1545
 #define IDR_DOCLIST            1546
 #define IDR_DOCLIST_ICO        1547
+
+#define IDR_FILEBROWSER_ICO2      1550
+#define IDR_FILEBROWSER_ICO_DM    1551
+#define IDR_FUNC_LIST_ICO2        1552
+#define IDR_FUNC_LIST_ICO_DM      1553
+#define IDR_DOCMAP_ICO2           1554
+#define IDR_DOCMAP_ICO_DM         1555
+#define IDR_DOCLIST_ICO2          1556
+#define IDR_DOCLIST_ICO_DM        1557
+#define IDR_PROJECTPANEL_ICO2     1558
+#define IDR_PROJECTPANEL_ICO_DM   1559
+#define IDR_CLIPBOARDPANEL_ICO2   1560
+#define IDR_CLIPBOARDPANEL_ICO_DM 1561
+#define IDR_ASCIIPANEL_ICO2       1562
+#define IDR_ASCIIPANEL_ICO_DM     1563
 
 #define ID_MACRO 20000
 #define ID_MACRO_LIMIT 20200

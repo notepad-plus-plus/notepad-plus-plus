@@ -149,7 +149,7 @@ Notepad_plus::Notepad_plus()
 
 	// Determine if user is administrator.
 	BOOL is_admin;
-	winVer ver = NppParameters::getInstance().getWinVersion();
+	winVer ver = nppParam.getWinVersion();
 	if (ver >= WV_VISTA || ver == WV_UNKNOWN)
 	{
 		SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;
@@ -759,7 +759,8 @@ void Notepad_plus::killAllChildren()
 
 bool Notepad_plus::saveGUIParams()
 {
-	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
+	NppParameters& nppParams = NppParameters::getInstance();
+	NppGUI & nppGUI = nppParams.getNppGUI();
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
@@ -802,28 +803,30 @@ bool Notepad_plus::saveGUIParams()
 	}
 
 	saveDockingParams();
-	(NppParameters::getInstance()).createXmlTreeFromGUIParams();
+	nppParams.createXmlTreeFromGUIParams();
 	return true;
 }
 
 bool Notepad_plus::saveProjectPanelsParams()
 {
+	NppParameters& nppParams = NppParameters::getInstance();
+
 	if (_pProjectPanel_1)
 	{
 		if (!_pProjectPanel_1->checkIfNeedSave()) return false;
-		(NppParameters::getInstance()).setWorkSpaceFilePath(0, _pProjectPanel_1->getWorkSpaceFilePath());
+		nppParams.setWorkSpaceFilePath(0, _pProjectPanel_1->getWorkSpaceFilePath());
 	}
 	if (_pProjectPanel_2)
 	{
 		if (!_pProjectPanel_2->checkIfNeedSave()) return false;
-		(NppParameters::getInstance()).setWorkSpaceFilePath(1, _pProjectPanel_2->getWorkSpaceFilePath());
+		nppParams.setWorkSpaceFilePath(1, _pProjectPanel_2->getWorkSpaceFilePath());
 	}
 	if (_pProjectPanel_3)
 	{
 		if (!_pProjectPanel_3->checkIfNeedSave()) return false;
-		(NppParameters::getInstance()).setWorkSpaceFilePath(2, _pProjectPanel_3->getWorkSpaceFilePath());
+		nppParams.setWorkSpaceFilePath(2, _pProjectPanel_3->getWorkSpaceFilePath());
 	}
-	return (NppParameters::getInstance()).writeProjectPanelsSettings();
+	return nppParams.writeProjectPanelsSettings();
 }
 
 bool Notepad_plus::saveFileBrowserParam()
@@ -2332,10 +2335,11 @@ void Notepad_plus::checkLangsMenu(int id) const
 
 generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 {
+	NppParameters& nppParams = NppParameters::getInstance();
 
-	if ((langType >= L_EXTERNAL) && (langType < NppParameters::getInstance().L_END))
+	if ((langType >= L_EXTERNAL) && (langType < nppParams.L_END))
 	{
-		ExternalLangContainer & elc = NppParameters::getInstance().getELCFromIndex(langType - L_EXTERNAL);
+		ExternalLangContainer & elc = nppParams.getELCFromIndex(langType - L_EXTERNAL);
 		if (getName)
 			return generic_string(elc._name);
 		else
@@ -3461,7 +3465,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
 
 void Notepad_plus::setTitle()
 {
-	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
+	NppParameters& nppParams = NppParameters::getInstance();
+	const NppGUI & nppGUI = nppParams.getNppGUI();
 	//Get the buffer
 	Buffer * buf = _pEditView->getCurrentBuffer();
 
@@ -3485,7 +3490,7 @@ void Notepad_plus::setTitle()
 	if (_isAdministrator)
 		result += TEXT(" [Administrator]");
 
-	generic_string tbAdd = (NppParameters::getInstance()).getTitleBarAdd();
+	generic_string tbAdd = nppParams.getTitleBarAdd();
 	if (!tbAdd.empty())
 	{
 		result += TEXT(" - ");
@@ -4334,7 +4339,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 {
-	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	bool isSnapshotMode = nppGui.isSnapshotMode();
 	if (isSnapshotMode)
 	{
 		// Before switching off, synchronize backup file
@@ -4377,7 +4383,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 
 	notifyBufferActivated(id, whichOne);
 
-	bool isCurrBuffDetection = (NppParameters::getInstance().getNppGUI()._fileAutoDetection & cdEnabledNew) ? true : false;
+	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabledNew) ? true : false;
 	if (!reload && isCurrBuffDetection)
 	{
 		// Buffer has been activated, now check for file modification
@@ -6037,7 +6043,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	if (pCmdParams->_isSessionFile && fnss.size() == 1)
 	{
 		Session session2Load;
-		if ((NppParameters::getInstance()).loadSession(session2Load, fnss.getFileName(0)))
+		if (nppParams.loadSession(session2Load, fnss.getFileName(0)))
 		{
 			const bool isSnapshotMode = false;
 			const bool shouldLoadFileBrowser = true;
@@ -6153,7 +6159,7 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 		}
 		else
 		{
-			ext = NppParameters::getInstance().getLangExtFromLangType(lt);
+			ext = nppParam.getLangExtFromLangType(lt);
 		}
 
 		if (ext && ext[0])
@@ -6498,13 +6504,14 @@ bool Notepad_plus::reloadLang()
 
 void Notepad_plus::launchClipboardHistoryPanel()
 {
+	NppParameters& nppParams = NppParameters::getInstance();
 	if (!_pClipboardHistoryPanel)
 	{
 		_pClipboardHistoryPanel = new ClipboardHistoryPanel();
 
 		_pClipboardHistoryPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data = {0};
 		_pClipboardHistoryPanel->create(&data, isRTL);
@@ -6512,7 +6519,14 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pClipboardHistoryPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_CLIPBOARDPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_CLIPBOARDPANEL_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_CLIPBOARDPANEL_ICO_DM;
+		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_CLIPBOARDPANEL_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6529,8 +6543,8 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParams.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParams.getCurrentDefaultBgColor();
 
 		_pClipboardHistoryPanel->setBackgroundColor(bgColor);
 		_pClipboardHistoryPanel->setForegroundColor(fgColor);
@@ -6544,10 +6558,12 @@ void Notepad_plus::launchDocumentListPanel()
 {
 	if (!_pDocumentListPanel)
 	{
+		NppParameters& nppParams = NppParameters::getInstance();
+
 		_pDocumentListPanel = new VerticalFileSwitcher;
 		HIMAGELIST hImgLst = _docTabIconList.getHandle();
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data = {0};
 		_pDocumentListPanel->create(&data, isRTL);
@@ -6555,7 +6571,14 @@ void Notepad_plus::launchDocumentListPanel()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocumentListPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCLIST_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_DOCLIST_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_DOCLIST_ICO_DM;
+		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_DOCLIST_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6572,8 +6595,8 @@ void Notepad_plus::launchDocumentListPanel()
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParams.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParams.getCurrentDefaultBgColor();
 
 		_pDocumentListPanel->setBackgroundColor(bgColor);
 		_pDocumentListPanel->setForegroundColor(fgColor);
@@ -6588,8 +6611,10 @@ void Notepad_plus::launchAnsiCharPanel()
 	{
 		_pAnsiCharPanel = new AnsiCharPanel();
 		_pAnsiCharPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
+		
+		NppParameters& nppParams = NppParameters::getInstance();
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data = {0};
 		_pAnsiCharPanel->create(&data, isRTL);
@@ -6597,7 +6622,14 @@ void Notepad_plus::launchAnsiCharPanel()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pAnsiCharPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_ASCIIPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_ASCIIPANEL_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_ASCIIPANEL_ICO_DM;
+		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_ASCIIPANEL_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6614,8 +6646,8 @@ void Notepad_plus::launchAnsiCharPanel()
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParams.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParams.getCurrentDefaultBgColor();
 
 		_pAnsiCharPanel->setBackgroundColor(bgColor);
 		_pAnsiCharPanel->setForegroundColor(fgColor);
@@ -6636,10 +6668,19 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		_pFileBrowser->create(&data, _nativeLangSpeaker.isRTL());
 		data.pszName = TEXT("ST");
 
+		NppParameters& nppParams = NppParameters::getInstance();
+
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileBrowser->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_FILEBROWSER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		
+		int icoID = IDR_FILEBROWSER_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_FILEBROWSER_ICO_DM;
+		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_FILEBROWSER_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6647,7 +6688,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_FILEBROWSER;
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FB_PANELTITLE, FOLDERASWORKSPACE_NODE, "PanelTitle");
 
 		static TCHAR title[32];
@@ -6658,8 +6699,8 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParams.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParams.getCurrentDefaultBgColor();
 
 		_pFileBrowser->setBackgroundColor(bgColor);
 		_pFileBrowser->setForegroundColor(fgColor);
@@ -6730,7 +6771,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		(*pProjPanel) = new ProjectPanel;
 		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), panelID);
 		(*pProjPanel)->setWorkSpaceFilePath(nppParam.getWorkSpaceFilePath(panelID));
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data;
 		memset(&data, 0, sizeof(data));
@@ -6740,7 +6781,14 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>((*pProjPanel)->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_PROJECTPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_PROJECTPANEL_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_PROJECTPANEL_ICO_DM;
+		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_PROJECTPANEL_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6754,8 +6802,8 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		data.pszName = (*pProjPanel)->getPanelTitle();
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParam.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParam.getCurrentDefaultBgColor();
 
 		(*pProjPanel)->setBackgroundColor(bgColor);
 		(*pProjPanel)->setForegroundColor(fgColor);
@@ -6774,7 +6822,8 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 
 void Notepad_plus::launchDocMap()
 {
-	if (!(NppParameters::getInstance()).isTransparentAvailable())
+	NppParameters& nppParam = NppParameters::getInstance();
+	if (!nppParam.isTransparentAvailable())
 	{
 		_nativeLangSpeaker.messageBox("PrehistoricSystemDetected",
 			_pPublicInterface->getHSelf(),
@@ -6796,7 +6845,14 @@ void Notepad_plus::launchDocMap()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocMap->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCMAP_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_DOCMAP_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_DOCMAP_ICO_DM;
+		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_DOCMAP_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6804,7 +6860,7 @@ void Notepad_plus::launchDocMap()
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_DOC_MAP;
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(DM_PANELTITLE, "DocumentMap", "PanelTitle");
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
@@ -6836,14 +6892,24 @@ void Notepad_plus::launchFunctionList()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFuncList->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_FUNC_LIST_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		
+		NppParameters& nppParam = NppParameters::getInstance();
+
+		int icoID = IDR_FUNC_LIST_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_FUNC_LIST_ICO_DM;
+		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_FUNC_LIST_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_FUNC_LIST;
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FL_PANELTITLE, FL_FUCTIONLISTROOTNODE, "PanelTitle");
 
 		static TCHAR title[32];
@@ -6854,8 +6920,8 @@ void Notepad_plus::launchFunctionList()
 		}
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParam.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParam.getCurrentDefaultBgColor();
 
 		_pFuncList->setBackgroundColor(bgColor);
 		_pFuncList->setForegroundColor(fgColor);
@@ -7512,7 +7578,9 @@ void Notepad_plus::restoreMinimizeDialogs()
 
 void Notepad_plus::refreshDarkMode()
 {
-	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
+	NppParameters& nppParams = NppParameters::getInstance();
+
+	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, nppParams.getSVP()._showBorderEdge);
 	if (NppDarkMode::isExperimentalSupported())
 	{
 		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
@@ -7604,8 +7672,6 @@ void Notepad_plus::refreshDarkMode()
 		break;
 	}
 
-
-	NppParameters& nppParams = NppParameters::getInstance();
 	ThemeSwitcher & themeSwitcher = nppParams.getThemeSwitcher();
 	generic_string themePath;
 	generic_string themeName;

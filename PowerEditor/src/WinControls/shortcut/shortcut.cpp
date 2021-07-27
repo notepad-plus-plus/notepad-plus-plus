@@ -369,12 +369,14 @@ void Shortcut::updateConflictState(const bool endSession) const
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CONFLICT_STATIC), isConflict ? SW_SHOW : SW_HIDE);
 }
 
-INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
 {
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _canModifyName ? getMenuName() : getName());	//display the menu name, with ampersands, for macros
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
@@ -403,6 +405,55 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
 			goToCenter();
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_NAME_EDIT)
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -476,6 +527,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		default :
 			return FALSE;
 	}
+	return FALSE;
 }
 
 // return true if one of CommandShortcuts is deleted. Otherwise false.
@@ -990,13 +1042,15 @@ void ScintillaKeyMap::updateListItem(int index)
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, index+1, 0);
 }
 
-INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
 {
 	
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _name);
 			_keyCombo = _keyCombos[0];
 
@@ -1020,6 +1074,46 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
 			goToCenter();
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_NAME_EDIT)
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -1123,8 +1217,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 		default :
 			return FALSE;
 	}
-
-	//return FALSE;
+	return FALSE;
 }
 
 CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)

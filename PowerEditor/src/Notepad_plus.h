@@ -264,7 +264,7 @@ public:
 	void minimizeDialogs();
 	void restoreMinimizeDialogs();
 
-	void refreshDarkMode();
+	void refreshDarkMode(bool resetStyle = false);
 
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.1.2:
+Updated to v8.1.3:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.1.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.1.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -321,6 +321,7 @@ Updated to v8.1.2:
 
 					<Item id="44085" name="Папка как Проект"/>
 					<Item id="44080" name="Карта Документа"/>
+					<Item id="44070" name="Список Документов"/>
 					<Item id="44084" name="Список Функций"/>
 					<Item id="44035" name="Синхрониз. вертикальную прокрутку"/>
 					<Item id="44036" name="Синхрониз. горизонтальную прокрутку"/>
@@ -644,6 +645,7 @@ Updated to v8.1.2:
 					<Item id="44083" name="Вкл./Выкл. Проект-панель 3"/>
 					<Item id="44085" name="Вкл./Выкл. Папка как Проект"/>
 					<Item id="44080" name="Вкл./Выкл. Карты Документа"/>
+					<Item id="44070" name="Вкл./Выкл. Список Документов"/>
 					<Item id="44084" name="Вкл./Выкл. Список Функций"/>
 					<Item id="50005" name="Запись Макроса  (старт/стоп)"/>
 					<Item id="44104" name="Перекл. на Проект-панель 1"/>
@@ -864,8 +866,7 @@ Updated to v8.1.2:
 					<Item id="6121" name="Выходить при закр. послед. вкладки"/>
 					<Item id="6122" name="Скрыть Главное Меню (Alt или F10 для выбора)"/>
 					<Item id="6123" name="Язык интерфейса"/>
-					<Item id="6125" name="Панель Списка Документов"/>
-					<Item id="6126" name="Отображать"/>
+					<Item id="6125" name="Панель со Списком Документов"/>
 					<Item id="6127" name="Отключить колонку расширения"/>
 					<Item id="6128" name="Альтернативные иконки"/>
 				</Global>
@@ -888,7 +889,7 @@ Updated to v8.1.2:
 				</Scintillas>
 
 				<DarkMode title="Тёмный Режим">
-					<Item id="7101" name="Включить 'Тёмный Режим'"/>
+					<Item id="7101" name="Включить Тёмный Режим"/>
 					<Item id="7102" name="Чёрная тема"/>
 					<Item id="7103" name="Красная тема"/>
 					<Item id="7104" name="Зелёная тема"/>
@@ -900,13 +901,13 @@ Updated to v8.1.2:
 					<Item id="7115" name="Настраиваемая тема"/>
 					<Item id="7116" name="Панель"/>
 					<Item id="7117" name="Текущий выбор"/>
-					<Item id="7118" name="Активная"/>
+					<Item id="7118" name="Вкладки"/>
 					<Item id="7119" name="Основа"/>
 					<Item id="7120" name="Ошибка"/>
 					<Item id="7121" name="Текст"/>
-					<Item id="7122" name="Темный текст"/>
-					<Item id="7123" name="Отключенный текст"/>
-					<Item id="7124" name="Край вкладки"/>  <!-- ??? -->
+					<Item id="7122" name="Текст 2"/>
+					<Item id="7123" name="Неактивное"/>
+					<Item id="7124" name="Разделитель"/>
 					<Item id="7130" name="Сбросить"/>
 				</DarkMode>
 
@@ -988,7 +989,7 @@ Updated to v8.1.2:
 					<Item id="6728" name="Колонтитулы"/>
 				</Print>
 				<Searching title="Поиск">
-					<Item id="6901" name="Не заполнять поле в окне Поиска выделенным текстом"/>
+					<Item id="6901" name="Не заполнять поле выделенным текстом в окне Поиска"/>
 					<Item id="6902" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
 					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
@@ -1132,7 +1133,7 @@ Updated to v8.1.2:
 			</Preference>
 				<MultiMacro title = "Многократный запуск ...">
 				<Item id="1"    name="Запуск"/>
-				<Item id="2"    name="Отмена"/>
+				<Item id="2"    name="Закрыть"/>
 				<Item id="8006" name="Макрос:"/>
 				<Item id="8001" name="Выполнить"/>
 				<Item id="8005" name="раз(а)"/>
@@ -1247,16 +1248,18 @@ Updated to v8.1.2:
 			<PanelTitle name="История Буфера"/>
 		</ClipboardHistory>
 		<DocList>
-			<PanelTitle name="Документы"/>
+			<PanelTitle name="Список Документов"/>
 			<ColumnName name="Имя"/>
 			<ColumnExt  name="Расш."/>
 		</DocList>
 		<WindowsDlg>
-			<ColumnName  name="Имя"/>
-			<ColumnPath  name="Путь"/>
-			<ColumnType  name="Тип"/>
-			<ColumnSize  name="Размер"/>
-			<NbDocsTotal name="всего :"/>
+			<ColumnName   name="Имя"/>
+			<ColumnPath   name="Путь"/>
+			<ColumnType   name="Тип"/>
+			<ColumnSize   name="Размер"/>
+			<NbDocsTotal  name="всего :"/>
+			<MenuCopyName name="Копировать Имена"/>
+			<MenuCopyPath name="Копировать Путь"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle       name="Таблица символов ASCII"/>
@@ -1294,7 +1297,7 @@ Updated to v8.1.2:
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>
-			<PanelTitle name="Проект"/>
+			<PanelTitle        name="Проект"/>
 			<WorkspaceRootName name="Рабочая область"/>
 			<NewProjectName    name="Имя проекта"/>
 			<NewFolderName     name="Имя папки"/>
@@ -1391,9 +1394,9 @@ Updated to v8.1.2:
 			<finder-uncollapse-all       value="Развернуть всё"/>
 			<finder-copy                 value="Копировать (выбранные строки)"/>
 			<finder-copy-verbatim        value="Копировать"/>
-			<finder-copy-paths           value="Копировать путь(и)"/>
+			<finder-copy-paths           value="Копировать путь файла(ов)"/>
 			<finder-select-all           value="Выделить всё"/>
-			<finder-clear-all            value="Очистить всё"/>
+			<finder-clear-all            value="Очистить всё найденное"/>
 			<finder-open-all             value="Открыть все файлы"/>
 			<finder-wrap-long-lines      value="Перенос слов длинных строк"/>
 			<common-ok                   value="ОК"/>

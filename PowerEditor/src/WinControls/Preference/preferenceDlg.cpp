@@ -1123,7 +1123,8 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_OLIVE), enableDarkMode);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_CUSTOMIZED), enableDarkMode);
 
-					enableCustomizedColorCtrls(enableDarkMode&& nppGUI._darkmode._colorTone == NppDarkMode::customizedTone);
+					doEnableCustomizedColorCtrls = enableDarkMode && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone;
+					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
 					// Maintain the coherence in preferences
 					if (nppGUI._darkmode._isEnabled)
@@ -1293,6 +1294,7 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							NppDarkMode::setDarkTone(nppGUI._darkmode._colorTone);
 							changed = true;
 							forceRefresh = true;
+							doEnableCustomizedColorCtrls = true;
 						}
 						break;
 
@@ -1305,6 +1307,24 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			if (changed)
 			{
+				if (!doEnableCustomizedColorCtrls)
+				{
+					COLORREF disabledColor = nppGUI._darkmode._isEnabled ? NppDarkMode::getDarkerBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
+
+					_pBackgroundColorPicker->setColour(disabledColor);
+					_pSofterBackgroundColorPicker->setColour(disabledColor);
+					_pHotBackgroundColorPicker->setColour(disabledColor);
+					_pPureBackgroundColorPicker->setColour(disabledColor);
+					_pErrorBackgroundColorPicker->setColour(disabledColor);
+					_pTextColorPicker->setColour(disabledColor);
+					_pDarkerTextColorPicker->setColour(disabledColor);
+					_pDisabledTextColorPicker->setColour(disabledColor);
+					_pEdgeColorPicker->setColour(disabledColor);
+					_pLinkColorPicker->setColour(disabledColor);
+
+					redraw();
+				}
+
 				NppDarkMode::refreshDarkMode(_hSelf, forceRefresh);
 				getFocus(); // to make black mode title bar appear
 				return TRUE;

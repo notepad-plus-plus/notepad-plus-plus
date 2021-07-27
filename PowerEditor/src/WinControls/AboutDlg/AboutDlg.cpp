@@ -91,12 +91,12 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		{
 			DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 
-			HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON), IMAGE_ICON, dpiManager.scaleX(64), dpiManager.scaleY(64), LR_DEFAULTSIZE);
+			HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_JESUISCHARLIE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GILETJAUNE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_SAMESEXMARRIAGE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			DRAWITEMSTRUCT *pdis = (DRAWITEMSTRUCT *)lParam;
-			::DrawIconEx(pdis->hDC, 0, 0, hIcon, dpiManager.scaleX(64), dpiManager.scaleY(64), 0, NULL, DI_NORMAL);
+			::DrawIconEx(pdis->hDC, 0, 0, hIcon, dpiManager.scaleX(48), dpiManager.scaleY(48), 0, NULL, DI_NORMAL);
 			return TRUE;
 		}
 

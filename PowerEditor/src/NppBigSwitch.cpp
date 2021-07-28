@@ -199,7 +199,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			refreshDarkMode();
+			refreshDarkMode(static_cast<bool>(wParam));
 			return TRUE;
 		}
 

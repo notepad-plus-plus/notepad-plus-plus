@@ -332,7 +332,9 @@ namespace NppDarkMode
 		}
 
 		HWND hwndRoot = GetAncestor(hwnd, GA_ROOTOWNER);
-		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+
+		// wParam == true, will reset style and toolbar icon
+		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, static_cast<WPARAM>(!forceRefresh), 0);
 	}
 
 	bool isEnabled()
@@ -1402,7 +1404,10 @@ namespace NppDarkMode
 			, theme
 		};
 
-		::EnableThemeDialogTexture(hwndParent, theme ? ETDT_ENABLETAB : ETDT_DISABLE);
+		if (subclass)
+		{
+			::EnableThemeDialogTexture(hwndParent, theme ? ETDT_ENABLETAB : ETDT_DISABLE);
+		}
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) {
 			auto& p = *reinterpret_cast<Params*>(lParam);

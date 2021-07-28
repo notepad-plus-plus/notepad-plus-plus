@@ -46,7 +46,7 @@ static HWND hWndServer = NULL;
 static HHOOK hook = NULL;
 static winVer windowsVersion = WV_UNKNOWN;
 
-static LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam);
+static LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam);
 
 class TaskListDlg : public StaticDialog
 {
@@ -74,4 +74,3 @@ private :
 public:
 	static int _instanceCount;
 };
-

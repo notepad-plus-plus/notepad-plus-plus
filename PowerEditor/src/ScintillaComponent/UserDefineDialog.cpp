@@ -106,6 +106,34 @@ INT_PTR CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam
             return TRUE;
         }
 
+        case WM_CTLCOLOREDIT:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+            }
+            break;
+        }
+
+        case WM_CTLCOLORDLG:
+        case WM_CTLCOLORSTATIC:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+            }
+            break;
+        }
+
+        case WM_PRINTCLIENT:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return TRUE;
+            }
+            break;
+        }
+
         case WM_COMMAND :
         {
             if (HIWORD(wParam) == EN_CHANGE)
@@ -946,7 +974,9 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
             _pUserLang = _pCurrentUserLang;
 
             _ctrlTab.init(_hInst, _hSelf, false);
-			int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(13);
+            NppDarkMode::subclassTabControl(_ctrlTab.getHSelf());
+
+            int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(13);
             _ctrlTab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
             _folderStyleDlg.init(_hInst, _hSelf);
@@ -1026,6 +1056,53 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
             ::SetWindowText(_hSelf, udlVersion.c_str());
 
+            NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+            NppDarkMode::setDarkScrollBar(_hSelf);
+
+            return TRUE;
+        }
+
+        case WM_CTLCOLOREDIT:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+            }
+            break;
+        }
+
+        case WM_CTLCOLORLISTBOX:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+            }
+            break;
+        }
+
+        case WM_CTLCOLORDLG:
+        case WM_CTLCOLORSTATIC:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+            }
+            break;
+        }
+
+        case WM_PRINTCLIENT:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return TRUE;
+            }
+            break;
+        }
+
+        case NPPM_INTERNAL_REFRESHDARKMODE:
+        {
+            NppDarkMode::autoThemeChildControls(_hSelf);
+            NppDarkMode::setDarkScrollBar(_hSelf);
             return TRUE;
         }
 
@@ -1628,6 +1705,9 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
     {
         case WM_INITDIALOG :
         {
+            NppDarkMode::setDarkTitleBar(hwnd);
+            NppDarkMode::autoSubclassAndThemeChildControls(hwnd);
+
             NativeLangSpeaker *pNativeLangSpeaker = nppParam.getNativeLangSpeaker();
             pNativeLangSpeaker->changeUserDefineLangPopupDlg(hwnd);
 
@@ -1719,6 +1799,51 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
                 ::SendDlgItemMessage(hwnd, iter->first, BM_SETCHECK, style._nesting & iter->second, 0);
                 ::EnableWindow(::GetDlgItem(hwnd, iter->first), dlg->_enabledNesters & iter->second);
             }
+            return TRUE;
+        }
+
+        case WM_CTLCOLOREDIT:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+            }
+            break;
+        }
+
+        case WM_CTLCOLORLISTBOX:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+            }
+            break;
+        }
+
+        case WM_CTLCOLORDLG:
+        case WM_CTLCOLORSTATIC:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+            }
+            break;
+        }
+
+        case WM_PRINTCLIENT:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                return TRUE;
+            }
+            break;
+        }
+
+        case NPPM_INTERNAL_REFRESHDARKMODE:
+        {
+            NppDarkMode::setDarkTitleBar(hwnd);
+            NppDarkMode::autoThemeChildControls(hwnd);
+            ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
             return TRUE;
         }
 
@@ -1832,4 +1957,5 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
         default :
             return FALSE;
     }
+    return FALSE;
 }

@@ -1696,6 +1696,19 @@ void StringDlg::HandlePaste(HWND hEdit)
 	}
 }
 
+void StylerDlg::move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
+{
+    POINT p;
+    RECT rc;
+    ::GetWindowRect(::GetDlgItem(hwndDlg, ctrlID), &rc);
+
+    p.x = rc.right + NppParameters::getInstance()._dpiManager.scaleX(5);
+    p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
+
+    ::ScreenToClient(hwndDlg, &p);
+    ::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
+}
+
 INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     StylerDlg * dlg = (StylerDlg *)::GetProp(hwnd, TEXT("Styler dialog prop"));
@@ -1755,9 +1768,6 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
                 i = 0;
             ::SendMessage(hFontNameCombo, CB_SETCURSEL, i, 0);
 
-            HWND hFgColourStaticText = ::GetDlgItem(hwnd, IDC_STYLER_FG_STATIC);
-            HWND hBgColourStaticText = ::GetDlgItem(hwnd, IDC_STYLER_BG_STATIC);
-
             if (style._fgColor == COLORREF(-1))
                 style._fgColor = black;
 
@@ -1769,26 +1779,12 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             dlg->_pBgColour->init(dlg->_hInst, hwnd);
             dlg->_pBgColour->setColour(style._bgColor);
 
-            POINT p1, p2;
-            RECT rc1, rc2;
+            int w = nppParam._dpiManager.scaleX(30);
+            int h = nppParam._dpiManager.scaleY(30);
 
-            ::GetWindowRect(hFgColourStaticText, &rc1);
-            ::GetWindowRect(hBgColourStaticText, &rc2);
+            dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), w, h);
+            dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), w, h);
 
-            p1.x = rc1.left;    p1.y = rc1.top;
-            p2.x = rc2.left;    p2.y = rc2.top;
-
-            p1.x += rc1.right - rc1.left;
-            p2.x += rc2.right - rc2.left;
-
-            ::ScreenToClient(hwnd, &p1);
-            ::ScreenToClient(hwnd, &p2);
-
-            p1.x += 10; p2.x += 10;
-            p1.y -= 6; p2.y -= 6;
-
-            ::MoveWindow(dlg->_pFgColour->getHSelf(), p1.x, p1.y, 30, 30, TRUE);
-            ::MoveWindow(dlg->_pBgColour->getHSelf(), p2.x, p2.y, 30, 30, TRUE);
 
             dlg->_pFgColour->display();
             dlg->_pBgColour->display();

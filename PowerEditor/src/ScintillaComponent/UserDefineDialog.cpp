@@ -1779,8 +1779,8 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             dlg->_pBgColour->init(dlg->_hInst, hwnd);
             dlg->_pBgColour->setColour(style._bgColor);
 
-            int w = nppParam._dpiManager.scaleX(30);
-            int h = nppParam._dpiManager.scaleY(30);
+            int w = nppParam._dpiManager.scaleX(25);
+            int h = nppParam._dpiManager.scaleY(25);
 
             dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), w, h);
             dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), w, h);

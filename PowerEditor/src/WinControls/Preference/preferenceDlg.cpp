@@ -931,6 +931,19 @@ void DarkModeSubDlg::enableCustomizedColorCtrls(bool doEnable)
 	}
 }
 
+void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
+{
+	POINT p;
+	RECT rc;
+	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
+
+	p.x = rc.left - NppParameters::getInstance()._dpiManager.scaleX(5) - handle2MoveWidth;
+	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
+
+	::ScreenToClient(_hSelf, &p);
+	::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
+}
+
 INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);
@@ -993,42 +1006,19 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_pEdgeColorPicker->init(_hInst, _hSelf);
 			_pLinkColorPicker->init(_hInst, _hSelf);
 
-			POINT p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR1_STATIC), _pPureBackgroundColorPicker->getHSelf(), PosAlign::left, p1);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR2_STATIC), _pHotBackgroundColorPicker->getHSelf(), PosAlign::left, p2);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR3_STATIC), _pSofterBackgroundColorPicker->getHSelf(), PosAlign::left, p3);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR4_STATIC), _pBackgroundColorPicker->getHSelf(), PosAlign::left, p4);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR5_STATIC), _pErrorBackgroundColorPicker->getHSelf(), PosAlign::left, p5);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR6_STATIC), _pTextColorPicker->getHSelf(), PosAlign::left, p6);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR7_STATIC), _pDarkerTextColorPicker->getHSelf(), PosAlign::left, p7);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR8_STATIC), _pDisabledTextColorPicker->getHSelf(), PosAlign::left, p8);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR9_STATIC), _pEdgeColorPicker->getHSelf(), PosAlign::left, p9);
-			alignWith(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR10_STATIC), _pLinkColorPicker->getHSelf(), PosAlign::left, p10);
-
 			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
 			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
 
-			p1.x -= cpDynamicalWidth ; p1.y -= cpDynamicalHeight / 6;
-			p2.x -= cpDynamicalWidth ; p2.y -= cpDynamicalHeight / 6;
-			p3.x -= cpDynamicalWidth ; p3.y -= cpDynamicalHeight / 6;
-			p4.x -= cpDynamicalWidth ; p4.y -= cpDynamicalHeight / 6;
-			p5.x -= cpDynamicalWidth ; p5.y -= cpDynamicalHeight / 6;
-			p6.x -= cpDynamicalWidth ; p6.y -= cpDynamicalHeight / 6;
-			p7.x -= cpDynamicalWidth ; p7.y -= cpDynamicalHeight / 6;
-			p8.x -= cpDynamicalWidth ; p8.y -= cpDynamicalHeight / 6;
-			p9.x -= cpDynamicalWidth ; p9.y -= cpDynamicalHeight / 6;
-			p10.x -= cpDynamicalWidth; p10.y -= cpDynamicalHeight / 6;
-
-			::MoveWindow(reinterpret_cast<HWND>(_pPureBackgroundColorPicker->getHSelf()), p1.x, p1.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pHotBackgroundColorPicker->getHSelf()), p2.x, p2.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pSofterBackgroundColorPicker->getHSelf()), p3.x, p3.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pBackgroundColorPicker->getHSelf()), p4.x, p4.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pErrorBackgroundColorPicker->getHSelf()), p5.x, p5.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pTextColorPicker->getHSelf()), p6.x, p6.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pDarkerTextColorPicker->getHSelf()), p7.x, p7.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pDisabledTextColorPicker->getHSelf()), p8.x, p8.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pEdgeColorPicker->getHSelf()), p9.x, p9.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pLinkColorPicker->getHSelf()), p10.x, p10.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR3_STATIC, _pSofterBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR4_STATIC, _pBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR5_STATIC, _pErrorBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR6_STATIC, _pTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR7_STATIC, _pDarkerTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR8_STATIC, _pDisabledTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
 
 			_pBackgroundColorPicker->display();
 			_pSofterBackgroundColorPicker->display();

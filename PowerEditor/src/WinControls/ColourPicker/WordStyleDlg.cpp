@@ -90,8 +90,6 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_hFontSizeCombo = ::GetDlgItem(_hSelf, IDC_FONTSIZE_COMBO);
 			_hSwitch2ThemeCombo = ::GetDlgItem(_hSelf, IDC_SWITCH2THEME_COMBO);
 
-			_hFgColourStaticText = ::GetDlgItem(_hSelf, IDC_FG_STATIC);
-			_hBgColourStaticText = ::GetDlgItem(_hSelf, IDC_BG_STATIC);
 			_hFontNameStaticText = ::GetDlgItem(_hSelf, IDC_FONTNAME_STATIC);
 			_hFontSizeStaticText = ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC);
 			_hStyleInfoStaticText = ::GetDlgItem(_hSelf, IDC_STYLEDESCRIPTION_STATIC);
@@ -137,22 +135,14 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_pFgColour->init(_hInst, _hSelf);
 			_pBgColour->init(_hInst, _hSelf);
 
-			POINT p1, p2;
-			alignWith(_hFgColourStaticText, _pFgColour->getHSelf(), PosAlign::right, p1);
-			alignWith(_hBgColourStaticText, _pBgColour->getHSelf(), PosAlign::right, p2);
-
-			p1.x = p2.x = ((p1.x > p2.x)?p1.x:p2.x) + 10;
-			p1.y -= 4; p2.y -= 4;
-
 			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
 			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
 
-			::MoveWindow(reinterpret_cast<HWND>(_pFgColour->getHSelf()), p1.x, p1.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pBgColour->getHSelf()), p2.x, p2.y, cpDynamicalWidth, cpDynamicalHeight, TRUE);
+			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
 
 			_pFgColour->display();
 			_pBgColour->display();
-
 
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), _isDirty);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
@@ -529,6 +519,19 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			return FALSE;
 	}
 	return FALSE;
+}
+
+void WordStyleDlg::move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
+{
+	POINT p;
+	RECT rc;
+	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
+
+	p.x = rc.right + NppParameters::getInstance()._dpiManager.scaleX(5);
+	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
+
+	::ScreenToClient(_hSelf, &p);
+	::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
 }
 
 void WordStyleDlg::loadLangListFromNppParam()

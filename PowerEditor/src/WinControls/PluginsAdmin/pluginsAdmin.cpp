@@ -259,7 +259,9 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
-	int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+
+	int tabDpiDynamicalHeight = dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
 	const TCHAR *available = TEXT("Available");
@@ -270,19 +272,18 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
 
-	rect.bottom -= 100;
+	rect.bottom -= dpiManager.scaleX(100);
 	_tab.reSizeTo(rect);
 	_tab.display();
 
-	const long marge = 10;
-
-	const int topMarge = 42;
+	const long marge = dpiManager.scaleX(10);
+	const int topMarge = dpiManager.scaleY(42);
 
 	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_STATIC);
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
-	researchLabelRect.left = rect.left + 10;
-	researchLabelRect.top = topMarge + 4;
+	researchLabelRect.left = rect.left + marge;
+	researchLabelRect.top = topMarge + dpiManager.scaleY(4);
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
 
@@ -290,7 +291,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT researchEditRect;
 	::GetClientRect(hResearchEdit, &researchEditRect);
 	researchEditRect.left = researchLabelRect.right + marge;
-	researchEditRect.top = topMarge + 2;
+	researchEditRect.top = topMarge + dpiManager.scaleX(2);
 	::MoveWindow(hResearchEdit, researchEditRect.left, researchEditRect.top, researchEditRect.right, researchEditRect.bottom, TRUE);
 	::InvalidateRect(hResearchEdit, nullptr, TRUE);
 
@@ -319,7 +320,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
 	::InvalidateRect(hActionButton, nullptr, TRUE);
 
-	long actionZoneHeight = 50;
+	long actionZoneHeight = dpiManager.scaleY(50);
 	rect.top += actionZoneHeight;
 	rect.bottom -= actionZoneHeight;
 

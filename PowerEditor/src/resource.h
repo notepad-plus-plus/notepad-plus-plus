@@ -365,24 +365,57 @@
 #define IDR_ASCIIPANEL_ICO2       1562
 #define IDR_ASCIIPANEL_ICO_DM     1563
 
-#define ID_MACRO 20000
-#define ID_MACRO_LIMIT 20200
+#define ID_MACRO                           20000
+//                                     O     .
+//                                     C     .
+//                                     C     .
+//                                     U     .
+//                                     P     .
+//                                     I     .
+//                                     E     .
+//                                     D     .
+#define ID_MACRO_LIMIT                     20499
 
-#define ID_USER_CMD 21000
-#define ID_USER_CMD_LIMIT 21200
 
-#define ID_PLUGINS_CMD 22000
-#define ID_PLUGINS_CMD_LIMIT 22500
+#define ID_USER_CMD                        21000
+//                                     O     .
+//                                     C     .
+//                                     C     .
+//                                     U     .
+//                                     P     .
+//                                     I     .
+//                                     E     .
+//                                     D     .
+#define ID_USER_CMD_LIMIT                  21499
 
-#define ID_PLUGINS_CMD_DYNAMIC       23000
-#define ID_PLUGINS_CMD_DYNAMIC_LIMIT 24999
+
+#define ID_PLUGINS_CMD                     22000
+//                                     O     .
+//                                     C     .
+//                                     C     .
+//                                     U     .
+//                                     P     .
+//                                     I     .
+//                                     E     .
+//                                     D     .
+#define ID_PLUGINS_CMD_LIMIT               22999
+
+
+#define ID_PLUGINS_CMD_DYNAMIC             23000
+//                                     O     .
+//                                     C     .
+//                                     C     .
+//                                     U     .
+//                                     P     .
+//                                     I     .
+//                                     E     .
+//                                     D     .
+#define ID_PLUGINS_CMD_DYNAMIC_LIMIT       24999
+
 
 #define MARKER_PLUGINS          3
 #define MARKER_PLUGINS_LIMIT   19
-/*UNLOAD
-#define ID_PLUGINS_REMOVING 22501
-#define ID_PLUGINS_REMOVING_END 22600
-*/
+
 
 
 //#define IDM 40000

@@ -35,6 +35,7 @@
 
 #define IDI_M30ICON             100
 #define IDI_CHAMELEON           101
+#define IDI_CHAMELEON_DM        102
 //#define IDI_JESUISCHARLIE     102
 //#define IDI_GILETJAUNE        102
 //#define IDI_SAMESEXMARRIAGE   102

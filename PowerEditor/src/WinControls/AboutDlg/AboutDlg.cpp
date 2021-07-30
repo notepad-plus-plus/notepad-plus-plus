@@ -90,13 +90,21 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		case WM_DRAWITEM :
 		{
 			DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+			int iconSideSize = 64;
+			int w = dpiManager.scaleX(iconSideSize);
+			int h = dpiManager.scaleY(iconSideSize);
 
-			HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
+			HICON hIcon;
+			if (NppDarkMode::isEnabled())
+				hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON_DM), IMAGE_ICON, w, h, LR_DEFAULTSIZE);
+			else
+				hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON), IMAGE_ICON, w, h, LR_DEFAULTSIZE);
+
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_JESUISCHARLIE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GILETJAUNE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_SAMESEXMARRIAGE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			DRAWITEMSTRUCT *pdis = (DRAWITEMSTRUCT *)lParam;
-			::DrawIconEx(pdis->hDC, 0, 0, hIcon, dpiManager.scaleX(48), dpiManager.scaleY(48), 0, NULL, DI_NORMAL);
+			::DrawIconEx(pdis->hDC, 0, 0, hIcon, w, h, 0, NULL, DI_NORMAL);
 			return TRUE;
 		}
 

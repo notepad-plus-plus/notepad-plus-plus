@@ -340,8 +340,6 @@ void ToolBar::reset(bool create)
 			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
 			HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 			addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
-
-			//addbmp.nID = _toolBarIcons.getStdIconAt(i);
 			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 		}
 		if (_nbDynButtons > 0)
@@ -357,7 +355,7 @@ void ToolBar::reset(bool create)
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
 		_nbCurrentButtons = _nbTotalButtons;
-		WORD btnSize = (_state == TB_LARGE?32:16);
+		WORD btnSize = (_state == TB_LARGE ? 32 : 16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB));
 	}

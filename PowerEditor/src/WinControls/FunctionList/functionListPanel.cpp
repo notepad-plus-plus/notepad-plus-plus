@@ -832,28 +832,26 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
 
 			oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstToolbarProc)));
-			TBBUTTON tbButtons[3];
 
 			// Add the bmap image into toolbar's imagelist
-			int icoID0 = IDI_FUNCLIST_SORTBUTTON;
-			int icoID1 = IDI_FUNCLIST_RELOADBUTTON;
-			if (NppDarkMode::isEnabled())
+			int iconSizeDyn = nppParams._dpiManager.scaleX(16);
+			::SendMessage(_hToolbarMenu, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconSizeDyn, iconSizeDyn));
+
+			TBADDBITMAP addbmp = { 0, 0 };
+			const int nbIcons = 2;
+			int iconIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON };
+			int iconDarkModeIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON_DM, IDI_FUNCLIST_RELOADBUTTON_DM };
+			for (size_t i = 0; i < nbIcons; ++i)
 			{
-				icoID0 = IDI_FUNCLIST_SORTBUTTON_DM;
-				icoID1 = IDI_FUNCLIST_RELOADBUTTON_DM;
+				int icoID = NppDarkMode::isEnabled() ? iconDarkModeIDs[i] : iconIDs[i];
+				HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconSizeDyn, iconSizeDyn, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+				addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
+				::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 			}
-			else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
-			{
-				icoID0 = IDI_FUNCLIST_SORTBUTTON2;
-				icoID1 = IDI_FUNCLIST_RELOADBUTTON2;
-			}
-			TBADDBITMAP addbmp = {_hInst, 0};
-			addbmp.nID = icoID0;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
-			addbmp.nID = icoID1;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 
 			// Place holder of search text field
+			TBBUTTON tbButtons[1 + nbIcons];
+
 			tbButtons[0].idCommand = 0;
 			tbButtons[0].iBitmap = editWidthSep;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
@@ -873,7 +871,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			tbButtons[2].iString = reinterpret_cast<INT_PTR>(TEXT(""));
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
-			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(16, 16));
+			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParams._dpiManager.scaleX(16), nppParams._dpiManager.scaleY(16)));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
 

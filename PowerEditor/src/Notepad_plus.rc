@@ -368,8 +368,6 @@ IDI_FUNCLIST_LEAF               BITMAP      "icons/funcList_leaf.bmp"
 
 IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons/funclstSort.bmp"
 IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons/funclstReload.bmp"
-IDI_FUNCLIST_SORTBUTTON2        BITMAP      "icons/funclstSort2.bmp"
-IDI_FUNCLIST_RELOADBUTTON2      BITMAP      "icons/funclstReload2.bmp"
 IDI_FUNCLIST_SORTBUTTON_DM      BITMAP      "icons/darkMode/panels/funclstSort.bmp"
 IDI_FUNCLIST_RELOADBUTTON_DM    BITMAP      "icons/darkMode/panels/funclstReload.bmp"
 

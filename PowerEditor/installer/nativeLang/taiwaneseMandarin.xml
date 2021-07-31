@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.2">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -257,6 +257,7 @@
                     <Item id="44031" name="展開此層"/>
                     <Item id="44049" name="統計摘要..."/>
                     <Item id="44080" name="文件地圖"/>
+                    <Item id="44070" name="文件切換器"/>
                     <Item id="44084" name="函式清單"/>
                     <Item id="44085" name="資料夾為工作區"/>
                     <Item id="44086" name="頁籤1"/>
@@ -602,6 +603,7 @@
                     <Item id="44083" name="切換開關專案管理員 3"/>
                     <Item id="44085" name="切換開關資料夾工作區"/>
                     <Item id="44080" name="切換開關文件導覽"/>
+                    <Item id="44070" name="切換開關文件切換器"/>
                     <Item id="44084" name="切換開關函式清單"/>
                     <Item id="50005" name="啟動/停止巨集錄製"/>
                     <Item id="44104" name="切換至專案管理員 1"/>
@@ -825,7 +827,6 @@
                     <Item id="6122" name="隱藏（用 Alt 或 F10 切換）"/>
                     <Item id="6123" name="語言"/>
                     <Item id="6125" name="文件切換器"/>
-                    <Item id="6126" name="顯示"/>
                     <Item id="6127" name="停用副檔名欄"/>
                 </Global>
 
@@ -1231,6 +1232,8 @@
             <ColumnType name="類型"/>
             <ColumnSize name="長度"/>
             <NbDocsTotal name="文件數："/>
+            <MenuCopyName name="複製檔名"/>
+            <MenuCopyPath name="複製檔案路徑"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII 插入面板"/>

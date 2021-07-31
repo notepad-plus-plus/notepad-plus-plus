@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.1.2">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.1.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -259,8 +259,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44030" name="Ocultar Nível Atual"/>
                     <Item id="44031" name="Expandir Nível Atual"/>
                     <Item id="44049" name="Resumo..."/>
-                    <Item id="44080" name="Mapa Documento"/>
-                    <Item id="44084" name="Lista Função"/>
+                    <Item id="44080" name="Mapa de Documentos"/>
+                    <Item id="44070" name="Lista de Documentos"/>
+                    <Item id="44084" name="Lista de Funções"/>
                     <Item id="44085" name="Pasta Como Área de Trabalho"/>
                     <Item id="44086" name="1º Separador"/>
                     <Item id="44087" name="2º Separador"/>
@@ -607,7 +608,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44082" name="Alternar Painel do Projeto 2"/>
                     <Item id="44083" name="Alternar Painel do Projeto 3"/>
                     <Item id="44085" name="Alternar Pasta como área de trabalho"/>
-                    <Item id="44080" name="Alternar Mapa do Documento"/>
+                    <Item id="44080" name="Alternar Mapa de Documentos"/>
+                    <Item id="44070" name="Alternar Lista de Documentos"/>
                     <Item id="44084" name="Alternar Lista de Funções"/>
                     <Item id="50005" name="Alternar Gravação de Macro"/>
                     <Item id="44104" name="Mudar Painel do Projeto 1"/>
@@ -826,7 +828,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6123" name="Localização"/>
 
                     <Item id="6125" name="Painel Lista Documento"/>
-                    <Item id="6126" name="Mostrar"/>
                     <Item id="6127" name="Desativar coluna da extensão"/>
 
                     <Item id="6128" name="Alternar ícones"/>
@@ -1258,11 +1259,11 @@ Pode reativar esta janela de diálogo na janela de Preferências mais tarde." />
         <ClipboardHistory>
             <PanelTitle name="Histórico da Área de Transferência"/>
         </ClipboardHistory>
-        <DocSwitcher>
-            <PanelTitle name="Mudança de Documento"/>
+        <DocList>
+            <PanelTitle name="Lista de Documentos"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
             <ColumnPath name="Caminho"/>
@@ -1486,7 +1487,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-22/07/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2)
+31/07/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2, 8.1.3)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

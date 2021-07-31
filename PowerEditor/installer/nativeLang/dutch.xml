@@ -5,10 +5,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2021-07-23 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-07-31 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.2">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -265,7 +265,7 @@ Last modified on 2021-07-23 by Thomas De Rocker (RockyTDR).
                     <Item id="44031" name="Huidig niveau uitvouwen"/>
                     <Item id="44049" name="Samenvatting..."/>
                     <Item id="44080" name="Overzichtskaart van document"/>
-                    <Item id="44081" name="Documentenlijst"/>
+                    <Item id="44070" name="Documentenlijst"/>
                     <Item id="44084" name="Functielijst"/>
                     <Item id="44085" name="Map als werkruimte"/>
                     <Item id="44086" name="Tabblad 1"/>
@@ -614,7 +614,7 @@ Last modified on 2021-07-23 by Thomas De Rocker (RockyTDR).
                     <Item id="44083" name="Projectpaneel 3 aan/uit"/>
                     <Item id="44085" name="Map als werkruimte aan/uit"/>
                     <Item id="44080" name="Overzichtskaart van document aan/uit"/>
-                    <Item id="44081" name="Documentenlijst aan/uit"/>
+                    <Item id="44070" name="Documentenlijst aan/uit"/>
                     <Item id="44084" name="Functielijst aan/uit"/>
                     <Item id="50005" name="Macro-opname aan/uit"/>
                     <Item id="44104" name="Wisselen naar projectpaneel 1"/>

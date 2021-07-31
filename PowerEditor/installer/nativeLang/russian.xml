@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.1.2:
+Updated to v8.1.3:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.1.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.1.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1133,7 +1133,7 @@ Updated to v8.1.2:
 			</Preference>
 				<MultiMacro title = "Многократный запуск ...">
 				<Item id="1"    name="Запуск"/>
-				<Item id="2"    name="Отмена"/>
+				<Item id="2"    name="Закрыть"/>
 				<Item id="8006" name="Макрос:"/>
 				<Item id="8001" name="Выполнить"/>
 				<Item id="8005" name="раз(а)"/>
@@ -1396,7 +1396,7 @@ Updated to v8.1.2:
 			<finder-copy-verbatim        value="Копировать"/>
 			<finder-copy-paths           value="Копировать путь файла(ов)"/>
 			<finder-select-all           value="Выделить всё"/>
-			<finder-clear-all            value="Очистить всё"/>
+			<finder-clear-all            value="Очистить всё найденное"/>
 			<finder-open-all             value="Открыть все файлы"/>
 			<finder-wrap-long-lines      value="Перенос слов длинных строк"/>
 			<common-ok                   value="ОК"/>

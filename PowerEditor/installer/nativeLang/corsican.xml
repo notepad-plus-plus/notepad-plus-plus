@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on July 30th, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
+		- Updated on July 31st, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 14th, 2021 for version 8.0.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 20th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 12th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
@@ -852,7 +852,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6123" name="Lingua"/>
 
                     <Item id="6125" name="Pannellu di lista di ducumentu"/>
-                    <Item id="6126" name="Affissà"/>
                     <Item id="6127" name="Disattivà a culonna d’estensione"/>
 
                     <Item id="6128" name="Icone alternative"/>
@@ -1279,6 +1278,7 @@ Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
 Cuntinuà ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <SaveAllConfirm title="Cunfirmazione di l’arregistramentu di tutti i schedarii" message="Site sicuru di vulè arregistrà tutti i ducumenti ?
+
 Sciglite « Abbandunà » s’è a vostra risposta serà sempre « Iè » è cusì ùn viderete più sta dumanda.
 Pudete attivà torna st’ozzione in u dialogu di e preferenze." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>

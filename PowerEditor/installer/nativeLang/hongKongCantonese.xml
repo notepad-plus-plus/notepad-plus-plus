@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.1.2">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.1.3">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -285,7 +285,7 @@
                     <Item id="44031" name="展開呢層"/>
                     <Item id="44049" name="統計資料..."/>
                     <Item id="44080" name="文件地圖"/>
-                    <Item id="44070" name="文件清單"/> <!-- #new #next -->
+                    <Item id="44070" name="文件清單"/> <!-- #new v8.1.3 -->
                     <Item id="44084" name="函式清單"/>
                     <Item id="44085" name="資料夾工作區"/>
                     <Item id="44086" name="1st"/>
@@ -666,7 +666,7 @@
                     <Item id="44083" name="開/閂 Project Panel 3"/>
                     <Item id="44085" name="開/閂資料夾工作區"/>
                     <Item id="44080" name="開/閂文件地圖"/>
-                    <Item id="44070" name="開/閂文件清單"/> <!-- #new #next -->
+                    <Item id="44070" name="開/閂文件清單"/> <!-- #new v8.1.3 -->
                     <Item id="44084" name="開/閂函式清單"/>
                     <Item id="50005" name="開始/停止錄製 macro"/>
                     <Item id="44104" name="跳去 Project Panel 1"/>
@@ -1339,8 +1339,8 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <ColumnType name="類型"/>
             <ColumnSize name="Size"/>
             <NbDocsTotal name="文件數量："/> <!-- #new v7.9.2 -->
-            <MenuCopyName name="抄低檔名"/> <!-- #new #next -->
-            <MenuCopyPath name="抄低路徑"/> <!-- #new #next -->
+            <MenuCopyName name="抄低檔名"/> <!-- #new v8.1.3 -->
+            <MenuCopyPath name="抄低路徑"/> <!-- #new v8.1.3 -->
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII 字元表"/>

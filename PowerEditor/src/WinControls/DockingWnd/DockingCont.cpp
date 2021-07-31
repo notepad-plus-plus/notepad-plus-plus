@@ -1099,16 +1099,26 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			onSize();
 			break;
 		}
+
+		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
 		case WM_ERASEBKGND:
 		{
-			if (!NppDarkMode::isEnabled())
+			if (NppDarkMode::isEnabled())
 			{
-				break;
+				RECT rc = { 0 };
+				getClientRect(rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
 			}
-			RECT rc = { 0 };
-			getClientRect(rc);
-			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
-			return TRUE;
+			break;
 		}
 
 		case WM_DRAWITEM :

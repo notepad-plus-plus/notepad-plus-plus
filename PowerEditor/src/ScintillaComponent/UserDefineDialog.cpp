@@ -134,6 +134,18 @@ INT_PTR CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam
             break;
         }
 
+        case WM_ERASEBKGND:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                RECT rc = { 0 };
+                getClientRect(rc);
+                ::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+                return TRUE;
+            }
+            break;
+        }
+
         case WM_COMMAND :
         {
             if (HIWORD(wParam) == EN_CHANGE)
@@ -1099,6 +1111,18 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
             break;
         }
 
+        case WM_ERASEBKGND:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                RECT rc = { 0 };
+                getClientRect(rc);
+                ::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+                return TRUE;
+            }
+            break;
+        }
+
         case NPPM_INTERNAL_REFRESHDARKMODE:
         {
             NppDarkMode::autoThemeChildControls(_hSelf);
@@ -1830,6 +1854,18 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
         {
             if (NppDarkMode::isEnabled())
             {
+                return TRUE;
+            }
+            break;
+        }
+
+        case WM_ERASEBKGND:
+        {
+            if (NppDarkMode::isEnabled())
+            {
+                RECT rc = { 0 };
+                GetClientRect(hwnd, &rc);
+                ::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
                 return TRUE;
             }
             break;

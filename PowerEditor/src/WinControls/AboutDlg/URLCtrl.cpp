@@ -215,7 +215,8 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 				::SetTextColor(hdc, _linkColor);
 			}
 
-            ::SetBkColor(hdc, getCtrlBgColor(GetParent(hwnd))); ///*::GetSysColor(COLOR_3DFACE)*/);
+			//::SetBkColor(hdc, getCtrlBgColor(GetParent(hwnd))); ///*::GetSysColor(COLOR_3DFACE)*/);
+			::SetBkMode(hdc, TRANSPARENT);
 
 		    // Create an underline font
 		    if (_hfUnderlined == 0)

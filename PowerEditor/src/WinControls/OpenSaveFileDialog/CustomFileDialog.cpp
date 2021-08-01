@@ -743,10 +743,16 @@ public:
 
 	bool show()
 	{
+		// Allow only one instance of the dialog to be active at a time.
+		static bool isActive = false;
+		if (isActive)
+			return false;
+
 		assert(_dialog);
 		if (!_dialog)
 			return false;
 
+		isActive = true;
 		HRESULT hr = S_OK;
 		DWORD dwCookie = 0;
 		com_ptr<IFileDialogEvents> dialogEvents = _events;
@@ -774,6 +780,8 @@ public:
 
 		if (dialogEvents)
 			_dialog->Unadvise(dwCookie);
+
+		isActive = false;
 
 		return okPressed;
 	}

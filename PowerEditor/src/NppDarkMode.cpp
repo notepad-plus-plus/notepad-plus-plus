@@ -28,6 +28,10 @@
 
 #include <Shlwapi.h>
 
+#ifdef __MINGW32__
+#include <cmath>
+#endif
+
 #pragma comment(lib, "uxtheme.lib")
 
 namespace NppDarkMode
@@ -397,7 +401,7 @@ namespace NppDarkMode
 			colorChannel /= 255.0;
 			if (colorChannel <= 0.04045)
 				return colorChannel / 12.92;
-			return pow(((colorChannel + 0.055) / 1.055), 2.4);
+			return std::pow(((colorChannel + 0.055) / 1.055), 2.4);
 		};
 
 		double r = linearValue(static_cast<double>(GetRValue(c)));
@@ -406,7 +410,7 @@ namespace NppDarkMode
 
 		double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
-		double lighness = (luminance <= 216.0 / 24389.0) ? (luminance * 24389.0 / 27.0) : (pow(luminance, (1.0 / 3.0)) * 116.0 - 16.0);
+		double lighness = (luminance <= 216.0 / 24389.0) ? (luminance * 24389.0 / 27.0) : (std::pow(luminance, (1.0 / 3.0)) * 116.0 - 16.0);
 		return lighness;
 	}
 

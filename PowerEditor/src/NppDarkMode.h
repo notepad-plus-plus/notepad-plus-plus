@@ -69,6 +69,13 @@ namespace NppDarkMode
 		customizedTone = 32
 	};
 
+	enum class TreeViewStyle
+	{
+		classic = 0,
+		light = 1,
+		dark = 2
+	};
+
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
 
@@ -78,6 +85,7 @@ namespace NppDarkMode
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
+	double calculatePerceivedLighness(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);
 
@@ -152,6 +160,7 @@ namespace NppDarkMode
 	void setDarkListView(HWND hwnd);
 
 	void disableVisualStyle(HWND hwnd, bool doDisable);
+	void calculateTreeViewStyle();
 	void setTreeViewStyle(HWND hwnd);
 	void setBorder(HWND hwnd, bool border = true);
 

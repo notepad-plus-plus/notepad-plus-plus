@@ -162,6 +162,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				NppDarkMode::drawUAHMenuNCBottomLine(hwnd);
 			}
+
+			NppDarkMode::calculateTreeViewStyle();
 			return result;
 		}
 
@@ -1798,11 +1800,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			(NppParameters::getInstance()).setCurrentDefaultFgColor(style._fgColor);
 			(NppParameters::getInstance()).setCurrentDefaultBgColor(style._bgColor);
 
+			NppDarkMode::calculateTreeViewStyle();
+			auto refreshOnlyTreeView = static_cast<LPARAM>(TRUE);
+
 			// Set default fg/bg colors on internal docking dialog
 			if (_pFuncList)
 			{
 				_pFuncList->setBackgroundColor(style._bgColor);
 				_pFuncList->setForegroundColor(style._fgColor);
+				::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pAnsiCharPanel)
@@ -1828,24 +1834,28 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				_pProjectPanel_1->setBackgroundColor(style._bgColor);
 				_pProjectPanel_1->setForegroundColor(style._fgColor);
+				::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pProjectPanel_2)
 			{
 				_pProjectPanel_2->setBackgroundColor(style._bgColor);
 				_pProjectPanel_2->setForegroundColor(style._fgColor);
+				::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pProjectPanel_3)
 			{
 				_pProjectPanel_3->setBackgroundColor(style._bgColor);
 				_pProjectPanel_3->setForegroundColor(style._fgColor);
+				::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pFileBrowser)
 			{
 				_pFileBrowser->setBackgroundColor(style._bgColor);
 				_pFileBrowser->setForegroundColor(style._fgColor);
+				::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pDocMap)

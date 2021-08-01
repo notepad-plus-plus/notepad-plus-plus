@@ -28,6 +28,10 @@
 
 #include <Shlwapi.h>
 
+#ifdef __MINGW32__
+#include <cmath>
+#endif
+
 #pragma comment(lib, "uxtheme.lib")
 
 namespace NppDarkMode
@@ -383,6 +387,31 @@ namespace NppDarkMode
 		COLORREF invert_c = ColorHLSToRGB(h, l, s);
 
 		return invert_c;
+	}
+
+	TreeViewStyle treeViewStyle = TreeViewStyle::classic;
+	COLORREF treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
+	double lighnessTreeView = 50.0;
+
+	// adapted from https://stackoverflow.com/a/56678483
+	double calculatePerceivedLighness(COLORREF c)
+	{
+		auto linearValue = [](double colorChannel) -> double
+		{
+			colorChannel /= 255.0;
+			if (colorChannel <= 0.04045)
+				return colorChannel / 12.92;
+			return std::pow(((colorChannel + 0.055) / 1.055), 2.4);
+		};
+
+		double r = linearValue(static_cast<double>(GetRValue(c)));
+		double g = linearValue(static_cast<double>(GetGValue(c)));
+		double b = linearValue(static_cast<double>(GetBValue(c)));
+
+		double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+		double lighness = (luminance <= 216.0 / 24389.0) ? (luminance * 24389.0 / 27.0) : (std::pow(luminance, (1.0 / 3.0)) * 116.0 - 16.0);
+		return lighness;
 	}
 
 	COLORREF getBackgroundColor()         { return getTheme()._colors.background; }
@@ -1596,10 +1625,76 @@ namespace NppDarkMode
 		}
 	}
 
-	// force scrollbar redraw
+	// range to determine when it should be better to use classic style
+	constexpr double middleGrayRange = 2.0;
+
+	void calculateTreeViewStyle()
+	{
+		COLORREF bgColor = NppParameters::getInstance().getCurrentDefaultBgColor();
+
+		if (treeViewBg != bgColor || lighnessTreeView == 50.0)
+		{
+			lighnessTreeView = calculatePerceivedLighness(bgColor);
+			treeViewBg = bgColor;
+		}
+
+		if (lighnessTreeView < (50.0 - middleGrayRange))
+		{
+			treeViewStyle = TreeViewStyle::dark;
+		}
+		else if (lighnessTreeView > (50.0 + middleGrayRange))
+		{
+			treeViewStyle = TreeViewStyle::light;
+		}
+		else
+		{
+			treeViewStyle = TreeViewStyle::classic;
+		}
+	}
+
 	void setTreeViewStyle(HWND hwnd)
 	{
-		SetWindowTheme(hwnd, nullptr, nullptr);
+		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
+		bool hasHotStyle = (style & TVS_TRACKSELECT) == TVS_TRACKSELECT;
+		bool change = false;
+		switch (treeViewStyle)
+		{
+			case TreeViewStyle::light:
+			{
+				if (!hasHotStyle)
+				{
+					style |= TVS_TRACKSELECT;
+					change = true;
+				}
+				SetWindowTheme(hwnd, L"Explorer", nullptr);
+				break;
+			}
+			case TreeViewStyle::dark:
+			{
+				if (!hasHotStyle)
+				{
+					style |= TVS_TRACKSELECT;
+					change = true;
+				}
+				SetWindowTheme(hwnd, L"DarkMode_Explorer", nullptr);
+				break;
+			}
+			default:
+			{
+				if (hasHotStyle)
+				{
+					style &= ~TVS_TRACKSELECT;
+					change = true;
+				}
+				SetWindowTheme(hwnd, nullptr, nullptr);
+				break;
+			}
+		}
+
+		if (change)
+		{
+			::SetWindowLongPtr(hwnd, GWL_STYLE, style);
+		}
 	}
 
 	void setBorder(HWND hwnd, bool border)

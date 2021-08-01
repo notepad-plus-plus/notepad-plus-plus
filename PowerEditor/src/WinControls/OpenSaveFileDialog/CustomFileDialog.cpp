@@ -180,6 +180,15 @@ namespace // anonymous
 		return {};
 	}
 
+	LRESULT callWindowClassProc(const TCHAR* className, HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+	{
+		WNDCLASSEX wndclass = {};
+		wndclass.cbSize = sizeof(wndclass);
+		if (GetClassInfoEx(nullptr, className, &wndclass) && wndclass.lpfnWndProc)
+			return CallWindowProc(wndclass.lpfnWndProc, hwnd, msg, wparam, lparam);
+		return FALSE;
+	}
+
 	// Backs up the current directory in constructor and restores it in destructor.
 	// This is needed in case dialog changes the current directory.
 	class CurrentDirBackup
@@ -348,12 +357,10 @@ public:
 		: _cRef(1), _dialog(dlg), _customize(dlg), _filterSpec(filterSpec), _currentType(fileIndex + 1),
 		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
 	{
-		_staticThis = this;
 	}
 
 	~FileDialogEventHandler()
 	{
-		_staticThis = nullptr;
 	}
 
 	const generic_string& getLastUsedFolder() const { return _lastUsedFolder; }
@@ -376,9 +383,12 @@ private:
 			HRESULT hr = pOleWnd->GetWindow(&hwndDlg);
 			if (SUCCEEDED(hr) && hwndDlg)
 			{
-				EnumChildWindows(hwndDlg, &EnumChildProc, 0);
-				if (_staticThis->_hwndButton)
-					_staticThis->_okButtonProc = (WNDPROC)SetWindowLongPtr(_staticThis->_hwndButton, GWLP_WNDPROC, (LPARAM)&OkButtonWndProc);
+				EnumChildWindows(hwndDlg, &EnumChildProc, reinterpret_cast<LPARAM>(this));
+				if (_hwndButton && !GetWindowLongPtr(_hwndButton, GWLP_USERDATA))
+				{
+					SetWindowLongPtr(_hwndButton, GWLP_USERDATA, reinterpret_cast<LPARAM>(this));
+					_okButtonProc = (WNDPROC)SetWindowLongPtr(_hwndButton, GWLP_WNDPROC, (LPARAM)&OkButtonWndProc);
+				}
 			}
 		}
 	}
@@ -460,22 +470,27 @@ private:
 
 	// Enumerates the child windows of a dialog.
 	// Sets up window procedure overrides for "OK" button and file name edit box.
-	static BOOL CALLBACK EnumChildProc(HWND hwnd, LPARAM)
+	static BOOL CALLBACK EnumChildProc(HWND hwnd, LPARAM param)
 	{
 		const int bufferLen = MAX_PATH;
 		static TCHAR buffer[bufferLen];
+
+		auto* inst = reinterpret_cast<FileDialogEventHandler*>(param);
+		if (!inst)
+			return FALSE;
 
 		if (IsWindowEnabled(hwnd) && GetClassName(hwnd, buffer, bufferLen) != 0)
 		{
 			if (lstrcmpi(buffer, _T("ComboBox")) == 0)
 			{
 				// The edit box of interest is a child of the combo box and has empty window text.
-				// Note that there might be other combo boxes (file type dropdown, address bar, etc).
+				// We use the first combo box, but there might be the others (file type dropdown, address bar, etc).
 				HWND hwndChild = FindWindowEx(hwnd, nullptr, _T("Edit"), _T(""));
-				if (hwndChild && !_staticThis->_hwndNameEdit)
+				if (hwndChild && !inst->_hwndNameEdit && !GetWindowLongPtr(hwndChild, GWLP_USERDATA))
 				{
-					_staticThis->_fileNameProc = (WNDPROC)SetWindowLongPtr(hwndChild, GWLP_WNDPROC, (LPARAM)&FileNameWndProc);
-					_staticThis->_hwndNameEdit = hwndChild;
+					SetWindowLongPtr(hwndChild, GWLP_USERDATA, reinterpret_cast<LPARAM>(inst));
+					inst->_fileNameProc = (WNDPROC)SetWindowLongPtr(hwndChild, GWLP_WNDPROC, reinterpret_cast<LPARAM>(&FileNameWndProc));
+					inst->_hwndNameEdit = hwndChild;
 				}
 			}
 			else if (lstrcmpi(buffer, _T("Button")) == 0)
@@ -493,19 +508,19 @@ private:
 					if ((type == BS_PUSHBUTTON || type == BS_DEFPUSHBUTTON) && (appearance == BS_TEXT))
 					{
 						// Get the leftmost button.
-						if (_staticThis->_hwndButton)
+						if (inst->_hwndButton)
 						{
 							RECT rc1 = {};
 							RECT rc2 = {};
-							if (GetWindowRect(hwnd, &rc1) && GetWindowRect(_staticThis->_hwndButton, &rc2))
+							if (GetWindowRect(hwnd, &rc1) && GetWindowRect(inst->_hwndButton, &rc2))
 							{
 								if (rc1.left < rc2.left)
-									_staticThis->_hwndButton = hwnd;
+									inst->_hwndButton = hwnd;
 							}
 						}
 						else
 						{
-							_staticThis->_hwndButton = hwnd;
+							inst->_hwndButton = hwnd;
 						}
 					}
 				}
@@ -532,13 +547,22 @@ private:
 			pressed = (wparam == VK_RETURN);
 			break;
 		}
-		if (pressed)
-			_staticThis->onPreFileOk();
-		return CallWindowProc(_staticThis->_okButtonProc, hwnd, msg, wparam, lparam);
+		auto* inst = reinterpret_cast<FileDialogEventHandler*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		if (inst)
+		{
+			if (pressed)
+				inst->onPreFileOk();
+			return CallWindowProc(inst->_okButtonProc, hwnd, msg, wparam, lparam);
+		}
+		return callWindowClassProc(_T("Button"), hwnd, msg, wparam, lparam);
 	}
 
 	static LRESULT CALLBACK FileNameWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
+		auto* inst = reinterpret_cast<FileDialogEventHandler*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		if (!inst)
+			return callWindowClassProc(_T("Edit"), hwnd, msg, wparam, lparam);
+
 		// WM_KEYDOWN with wparam == VK_RETURN isn't delivered here.
 		// So watch for the keyboard input while the control has focus.
 		// Initially, the control has focus.
@@ -547,29 +571,27 @@ private:
 		switch (msg)
 		{
 		case WM_SETFOCUS:
-			_staticThis->_monitorKeyboard = true;
+			inst->_monitorKeyboard = true;
 			break;
 		case WM_KILLFOCUS:
-			_staticThis->_monitorKeyboard = false;
+			inst->_monitorKeyboard = false;
 			break;
 		}
 		// Avoid unnecessary processing by polling keyboard only on some messages.
 		bool checkMsg = msg > WM_USER;
-		if (_staticThis->_monitorKeyboard && !processingReturn && checkMsg)
+		if (inst->_monitorKeyboard && !processingReturn && checkMsg)
 		{
 			SHORT state = GetAsyncKeyState(VK_RETURN);
 			if (state & 0x8000)
 			{
 				// Avoid re-entrance because the call might generate some messages.
 				processingReturn = true;
-				_staticThis->onPreFileOk();
+				inst->onPreFileOk();
 				processingReturn = false;
 			}
 		}
-		return CallWindowProc(_staticThis->_fileNameProc, hwnd, msg, wparam, lparam);
+		return CallWindowProc(inst->_fileNameProc, hwnd, msg, wparam, lparam);
 	}
-
-	static FileDialogEventHandler* _staticThis;
 
 	long _cRef;
 	com_ptr<IFileDialog> _dialog;
@@ -585,8 +607,6 @@ private:
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
 	bool _monitorKeyboard = true;
 };
-
-FileDialogEventHandler* FileDialogEventHandler::_staticThis;
 
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.9.5">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.1.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -258,6 +258,7 @@
 					<Item id="44031" name="Geçerli Blok Seviyesini Genişlet"/>
 					<Item id="44049" name="Özet…"/>
 					<Item id="44080" name="Belge &amp;Haritası"/>
+					<Item id="44070" name="Dosya Listesi"/>
 					<Item id="44084" name="&amp;Fonksiyon Listesi"/>
 					<Item id="44085" name="&amp;Çalışma Alanı Klasörleri"/>
 					<Item id="44086" name="1. Sekme"/>
@@ -609,6 +610,7 @@
                     <Item id="44083" name="Proje Paneli 3'ü Değiştir"/>
                     <Item id="44085" name="Çalışma Alanı Olarak Klasörü Değiştir"/>
                     <Item id="44080" name="Dosya Haritasını Değiştir"/>
+                    <Item id="44070" name="Dosya Listesini Değiştir"/>
                     <Item id="44084" name="Fonksiyon Listesini Değiştir"/>
                     <Item id="50005" name="Makro Kaydını Değiştir"/>
                     <Item id="44104" name="Proje Paneli 1'e Geç"/>
@@ -827,7 +829,6 @@
 					<Item id="6123" name="Yerelleştir"/>
 
 					<Item id="6125" name="Belge Listesi Paneli"/>
-					<Item id="6126" name="Göster"/>
 					<Item id="6127" name="Uzantı Sütununu Devre Dışı Bırak"/>
 					
 					<Item id="6128" name="Alternatif Simgeler"/>
@@ -1259,17 +1260,19 @@ Bu uyarıyı, Tercihler penceresinde başka bir zaman tekrar etkinleştirebilirs
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
 		</ClipboardHistory>
-		<DocSwitcher>
-			<PanelTitle name="Belge Anahtarlayıcı"/>
+		<DocList>
+			<PanelTitle name="Belge Listesi"/>
 			<ColumnName name="İsim"/>
 			<ColumnExt name="Uzantı"/>
-		</DocSwitcher>
+		</DocList>
         <WindowsDlg>
             <ColumnName name="İsim"/>
             <ColumnPath name="Yol"/>
             <ColumnType name="Tür"/>
             <ColumnSize name="Boyut"/>
             <NbDocsTotal name="toplam dosyalar:"/>
+            <MenuCopyName name="İsim(ler)i Kopyala"/>
+            <MenuCopyPath name="Yol Ad(lar)ını Kopyala"/>
         </WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Kodu Ekleme Paneli"/>

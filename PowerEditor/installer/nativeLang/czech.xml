@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.1.2  19/Jul/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.1.3  1/Aug/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.2">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -274,13 +274,14 @@
 					<Item id = "44041" name = "Zobrazit zalamovací znaky"/>
 					<Item id = "44042" name = "Skrýt řádky"/>
 					<Item id = "44049" name = "Souhrnné informace..."/>
+					<Item id = "44070" name = "Seznam dokumentů"/>
 					<Item id = "44072" name = "Přejít na další náhled"/>
-					<Item id = "44085" name = "Složka jako pracovní plocha"/>
 					<Item id = "44080" name = "Přehledná mapa dokumentu"/>
 					<Item id = "44081" name = "Panel 1"/>
 					<Item id = "44082" name = "Panel 2"/>
 					<Item id = "44083" name = "Panel 3"/>
 					<Item id = "44084" name = "Seznam funkcí"/>
+					<Item id = "44085" name = "Složka jako pracovní plocha"/>
 					<Item id = "44086" name = "1. karta"/>
 					<Item id = "44087" name = "2. karta"/>
 					<Item id = "44088" name = "3. karta"/>
@@ -463,9 +464,6 @@
 				<Item id = "2909" name = "Dokola"/>
 			</FindCharsInRange>
 
-			<DocSwitcher title = "Přepínač dokumentů...">
-			</DocSwitcher>
-
 			<GoToLine title = "Přejít na ...">
 				<Item id = "2007" name = "Řádek"/>
 				<Item id = "2008" name = "Pozici (file-offset)"/>
@@ -612,8 +610,8 @@
 					<Item id = "44101" name = "Zobrazit aktuální soubor v Chrome"/>
 					<Item id = "44103" name = "Zobrazit aktuální soubor v IE"/>
 					<Item id = "44102" name = "Zobrazit aktuální soubor v Edge"/>
-					<Item id = "50003" name = "Přepnout na předchozí dokument"/>
-					<Item id = "50004" name = "Přepnout na další dokument"/>
+					<Item id = "50003" name = "Přejít na předchozí dokument"/>
+					<Item id = "50004" name = "Přejít na další dokument"/>
 					<Item id = "44051" name = "Sbalit Úroveň 1"/>
 					<Item id = "44052" name = "Sbalit Úroveň 2"/>
 					<Item id = "44053" name = "Sbalit Úroveň 3"/>
@@ -630,10 +628,11 @@
 					<Item id = "44066" name = "Rozbalit Úroveň 6"/>
 					<Item id = "44067" name = "Rozbalit Úroveň 7"/>
 					<Item id = "44068" name = "Rozbalit Úroveň 8"/>
-					<Item id = "44081" name = "Přepnout na Projektový panel 1"/>
-					<Item id = "44082" name = "Přepnout na Projektový panel 2"/>
-					<Item id = "44083" name = "Přepnout na Projektový panel 3"/>
-					<Item id = "44085" name = "Přepnout na Složku jako Pracovní plochu"/>
+					<Item id = "44070" name = "Přepnout Seznam dokumentů"/>
+					<Item id = "44081" name = "Přepnout Projektový panel 1"/>
+					<Item id = "44082" name = "Přepnout Projektový panel 2"/>
+					<Item id = "44083" name = "Přepnout Projektový panel 3"/>
+					<Item id = "44085" name = "Přepnout Složka jako Pracovní plocha"/>
 					<Item id = "44080" name = "Přepnout Mapu dokumentů"/>
 					<Item id = "44084" name = "Přepnout Seznam funkcí"/>
 					<Item id = "50005" name = "Přepnout Nahrávání makra"/>
@@ -884,7 +883,6 @@
 					<Item id = "6122" name = "Skrýt hl. menu (klávesa Alt nebo F10 slouží k přepínání)"/>
 					<Item id = "6123" name = "Lokalizace"/>
 					<Item id = "6125" name = "Přepínač dokumentů"/>
-					<Item id = "6126" name = "Zobrazit"/>
 					<Item id = "6127" name = "Nepoužívat sloupec s extenzemi"/>
 					<Item id = "6128" name = "Alternativní ikony"/>
 					<Item id = "6129" name = "Fluent UI: malé ikony s výplní"/>
@@ -1281,11 +1279,11 @@ Toto dialogové okno můžete později znovu aktivovat v Nastavení." /> <!-- Ho
 			<PanelTitle name = "Historie Schránky"/>
 		</ClipboardHistory>
 		
-		<DocSwitcher>
-			<PanelTitle name = "Přepínač dokumentů"/>
+		<DocList>
+			<PanelTitle name = "Seznam dokumentů"/>
 			<ColumnName name = "Jméno"/>
 			<ColumnExt name = "Příp."/>
-		</DocSwitcher>
+		</DocList>
 		
 		<WindowsDlg>
 			<ColumnName name = "Jméno"/>
@@ -1293,6 +1291,8 @@ Toto dialogové okno můžete později znovu aktivovat v Nastavení." /> <!-- Ho
 			<ColumnType name = "Typ"/>
 			<ColumnSize name = "Velikost"/>
 			<NbDocsTotal name = "celkem dokumentů:"/>
+			<MenuCopyName name = "Kopírovat jméno(a)"/>
+	  		<MenuCopyPath name = "Kopírovat cestu(y)"/>
 		</WindowsDlg>
 		
 		<AsciiInsertion>

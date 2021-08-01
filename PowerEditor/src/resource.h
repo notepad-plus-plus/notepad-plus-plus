@@ -33,6 +33,7 @@
 #define IDC_STATIC    -1
 #endif
 
+#define IDI_NPPABOUT_LOGO        99
 #define IDI_M30ICON             100
 #define IDI_CHAMELEON           101
 #define IDI_CHAMELEON_DM        102

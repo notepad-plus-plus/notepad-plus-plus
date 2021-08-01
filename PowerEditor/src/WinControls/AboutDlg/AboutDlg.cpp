@@ -90,7 +90,7 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		case WM_DRAWITEM :
 		{
 			DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
-			int iconSideSize = 64;
+			int iconSideSize = 80;
 			int w = dpiManager.scaleX(iconSideSize);
 			int h = dpiManager.scaleY(iconSideSize);
 

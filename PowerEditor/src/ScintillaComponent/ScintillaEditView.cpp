@@ -2453,11 +2453,12 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
 	}
 	else
 	{
-		int width = 3;
+		DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+		int width = dpiManager.scaleX(3);
 		if (whichMarge == _SC_MARGE_SYBOLE)
-			width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 20 : 16;
+			width = dpiManager.scaleX(16);
 		else if (whichMarge == _SC_MARGE_FOLDER)
-			width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 18 : 14;
+			width = dpiManager.scaleX(14);
 		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 	}
 }

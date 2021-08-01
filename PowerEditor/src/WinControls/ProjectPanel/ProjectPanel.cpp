@@ -100,10 +100,13 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
+			if (static_cast<BOOL>(lParam) != TRUE)
+			{
+				NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+				NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
 
-			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+				NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
 		}

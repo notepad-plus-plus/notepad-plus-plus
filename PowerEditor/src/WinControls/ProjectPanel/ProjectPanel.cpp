@@ -100,10 +100,13 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
+			if (static_cast<BOOL>(lParam) != TRUE)
+			{
+				NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+				NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
 
-			NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+				NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
 		}
@@ -818,7 +821,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 		if (NppDarkMode::isEnabled())
 		{
 			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-			FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
+			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
 			nmtbcd->clrText = NppDarkMode::getTextColor();
 			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
 			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW | TBCDRF_HILITEHOTTRACK);

@@ -1166,11 +1166,11 @@
 		<ClipboardHistory>
             <PanelTitle name="Абуфер Аҭоурых"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Адокументқәа"/>
             <ColumnName name="Ахьӡ"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Ахьӡ"/>
             <ColumnPath name="Амҩа"/>

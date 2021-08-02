@@ -1236,11 +1236,11 @@ Vuoi continuare?"/>
         <ClipboardHistory>
             <PanelTitle name="Cronologia Appunti"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Documenti"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Est."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
             <ColumnPath name="Percorso"/>

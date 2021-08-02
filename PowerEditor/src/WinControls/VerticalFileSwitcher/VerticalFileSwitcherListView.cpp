@@ -20,7 +20,7 @@
 #include "Buffer.h"
 #include "localization.h"
 
-#define FS_ROOTNODE					"DocSwitcher"
+#define FS_ROOTNODE					"DocList"
 #define FS_CLMNNAME					"ColumnName"
 #define FS_CLMNEXT					"ColumnExt"
 
@@ -396,8 +396,9 @@ void VerticalFileSwitcherListView::resizeColumns(int totalWidth)
 	bool isExtColumn = !nppParams.getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
-		ListView_SetColumnWidth(_hSelf, 0, totalWidth - 50);
-		ListView_SetColumnWidth(_hSelf, 1, 50);
+		int extWidthDyn = nppParams._dpiManager.scaleX(50);
+		ListView_SetColumnWidth(_hSelf, 0, totalWidth - extWidthDyn);
+		ListView_SetColumnWidth(_hSelf, 1, extWidthDyn);
 	}
 	else
 	{

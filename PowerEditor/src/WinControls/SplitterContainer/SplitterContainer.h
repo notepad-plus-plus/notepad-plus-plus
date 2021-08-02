@@ -38,7 +38,7 @@ class SplitterContainer : public Window
 public :
 	virtual ~SplitterContainer() = default;
 
-	void create(Window *pWin0, Window *pWin1, int splitterSize = 4,
+	void create(Window *pWin0, Window *pWin1, int splitterSize,
 		SplitterMode mode = SplitterMode::DYNAMIC, int ratio = 50, bool _isVertical = true);
 
 	void destroy();

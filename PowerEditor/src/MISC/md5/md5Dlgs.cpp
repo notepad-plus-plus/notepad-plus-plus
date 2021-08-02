@@ -22,13 +22,16 @@
 #include "CustomFileDialog.h"
 #include "Parameters.h"
 #include <shlwapi.h>
+#include "resource.h"
 
-INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
 		case WM_INITDIALOG:
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			int fontDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
 			HFONT hFont = ::CreateFontA(fontDpiDynamicalHeight, 0, 0, 0, 0, FALSE, FALSE, FALSE, ANSI_CHARSET,
 				OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
@@ -47,6 +50,38 @@ INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			_oldHashResultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(hHashResult, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(HashResultStaticProc)));
 		}
 		return TRUE;
+
+		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				HWND hwnd = reinterpret_cast<HWND>(lParam);
+				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT) || hwnd == ::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT))
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				else
+				{
+					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				}
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
 
 		case WM_COMMAND : 
 		{
@@ -292,12 +327,14 @@ void HashFromTextDlg::generateHashPerLine()
 	}
 }
 
-INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
 		case WM_INITDIALOG:
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			int fontDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
 			HFONT hFont = ::CreateFontA(fontDpiDynamicalHeight, 0, 0, 0, 0, FALSE, FALSE, FALSE, ANSI_CHARSET,
 				OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
@@ -316,6 +353,64 @@ INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_oldHashResultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(hHashResult, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(HashResultStaticProc)));
 		}
 		return TRUE;
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				HWND hwnd = reinterpret_cast<HWND>(lParam);
+				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT))
+				{
+					return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+				}
+				else
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				HWND hwnd = reinterpret_cast<HWND>(lParam);
+				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT))
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				else
+				{
+					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				}
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
 
 		case WM_COMMAND : 
 		{

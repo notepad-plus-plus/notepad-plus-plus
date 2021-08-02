@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -257,6 +257,7 @@
                     <Item id="44031" name="カーソル位置のレベルで展開"/>
                     <Item id="44049" name="概要..."/>
                     <Item id="44080" name="文書マップ"/>
+                    <Item id="44070" name="文書一覧"/>
                     <Item id="44084" name="関数リスト"/>
                     <Item id="44085" name="ワークスペース フォルダー"/>
                     <Item id="44086" name="タブ1"/>
@@ -611,6 +612,7 @@
                     <Item id="44083" name="プロジェクトパネル3を表示・非表示"/>
                     <Item id="44085" name="ワークスペースフォルダーを表示・非表示"/>
                     <Item id="44080" name="文書マップを表示・非表示"/>
+                    <Item id="44070" name="文書一覧を表示・非表示"/>
                     <Item id="44084" name="関数リストを表示・非表示"/>
                     <Item id="50005" name="マクロ記録を切り替え"/>
                     <Item id="44104" name="プロジェクトパネル1を表示"/>
@@ -830,7 +832,6 @@
                     <Item id="6123" name="言語"/>
 
                     <Item id="6125" name="文書一覧"/>
-                    <Item id="6126" name="表示"/>
                     <Item id="6127" name="拡張子の列を表示しない"/>
                     
                     <Item id="6128" name="別デザインのアイコンを使用する"/>
@@ -871,7 +872,7 @@
                     <Item id="7121" name="文字"/>
                     <Item id="7122" name="濃い文字"/>
                     <Item id="7123" name="無効部分の文字"/>
-                    <Item id="7124" name="タブのフチ"/>
+                    <Item id="7124" name="フチ"/>
                     <Item id="7130" name="リセット"/>
                 </DarkMode>
 
@@ -1263,17 +1264,19 @@ Notepad++ を管理者権限で立ち上げますか？"/>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
         </ClipboardHistory>
-        <DocSwitcher>
-            <PanelTitle name="文書切り替え"/>
+        <DocList>
+            <PanelTitle name="文書一覧"/>
             <ColumnName name="名前"/>
             <ColumnExt name="拡張子"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="ファイル名"/>
             <ColumnPath name="パス"/>
             <ColumnType name="種類"/>
             <ColumnSize name="サイズ"/>
             <NbDocsTotal name="文書数："/>
+            <MenuCopyName name="ファイル名をコピー"/>
+            <MenuCopyPath name="パスをコピー"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII文字挿入パネル"/>

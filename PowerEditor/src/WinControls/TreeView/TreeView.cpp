@@ -43,6 +43,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 							_hInst,
 							nullptr);
 
+	NppDarkMode::setTreeViewStyle(_hSelf);
 	NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::treeview);
 
 	int itemHeight = NppParameters::getInstance()._dpiManager.scaleY(CY_ITEMHEIGHT);

@@ -955,11 +955,11 @@
         <ClipboardHistory>
             <PanelTitle name="Riwayat Papan klip"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Penukar Dok."/>
             <ColumnName name="Nama"/>
             <ColumnExt name="Ekst."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nama"/>
             <ColumnPath name="Jalur"/>

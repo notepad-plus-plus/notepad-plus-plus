@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.1.2">
+    <Native-Langue name="English" filename="english.xml" version="8.1.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -260,6 +260,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44031" name="Uncollapse Current Level"/>
                     <Item id="44049" name="Summary..."/>
                     <Item id="44080" name="Document Map"/>
+                    <Item id="44070" name="Document List"/>
                     <Item id="44084" name="Function List"/>
                     <Item id="44085" name="Folder as Workspace"/>
                     <Item id="44086" name="1st Tab"/>
@@ -608,6 +609,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44083" name="Toggle Project Panel 3"/>
                     <Item id="44085" name="Toggle Folder as Workspace"/>
                     <Item id="44080" name="Toggle Document Map"/>
+                    <Item id="44070" name="Toggle Document List"/>
                     <Item id="44084" name="Toggle Function List"/>
                     <Item id="50005" name="Toggle macro recording"/>
                     <Item id="44104" name="Switch to Project Panel 1"/>
@@ -826,7 +828,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6123" name="Localization"/>
 
                     <Item id="6125" name="Document List Panel"/>
-                    <Item id="6126" name="Show"/>
                     <Item id="6127" name="Disable extension column"/>
 
                     <Item id="6128" name="Alternate icons"/>
@@ -1258,17 +1259,19 @@ You can re-activate this dialog in Preferences dialog later." /> <!-- HowToRepro
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
         </ClipboardHistory>
-        <DocSwitcher>
-            <PanelTitle name="Doc Switcher"/>
+        <DocList>
+            <PanelTitle name="Document List"/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>
             <ColumnPath name="Path"/>
             <ColumnType name="Type"/>
             <ColumnSize name="Size"/>
             <NbDocsTotal name="total documents:"/>
+            <MenuCopyName name="Copy Name(s)"/>
+            <MenuCopyPath name="Copy Pathname(s)"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII Codes Insertion Panel"/>

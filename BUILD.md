@@ -15,7 +15,7 @@ Notepad++ is always built **with** Boost regex PCRE support instead of default c
 ## Build `notepad++.exe`:
 
  1. Open [`PowerEditor\visual.net\notepadPlus.sln`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.sln)
- 2. Select a solution configuration (Unicode Debug or Unicode Release) and a solution platform (x64 or Win32 or ARM64)
+ 2. Select a solution configuration (Debug or Release) and a solution platform (x64 or Win32 or ARM64)
  3. Build Notepad++ solution like a normal Visual Studio project. This will also build the dependent SciLexer project.
 
 ## Build `libSciLexer.lib`:

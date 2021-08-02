@@ -258,7 +258,10 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT rect;
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
-	int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
+	NppDarkMode::subclassTabControl(_tab.getHSelf());
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+
+	int tabDpiDynamicalHeight = dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
 	const TCHAR *available = TEXT("Available");
@@ -269,19 +272,18 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
 
-	rect.bottom -= 100;
+	rect.bottom -= dpiManager.scaleX(100);
 	_tab.reSizeTo(rect);
 	_tab.display();
 
-	const long marge = 10;
-
-	const int topMarge = 42;
+	const long marge = dpiManager.scaleX(10);
+	const int topMarge = dpiManager.scaleY(42);
 
 	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_STATIC);
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
-	researchLabelRect.left = rect.left + 10;
-	researchLabelRect.top = topMarge + 4;
+	researchLabelRect.left = rect.left + marge;
+	researchLabelRect.top = topMarge + dpiManager.scaleY(4);
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
 
@@ -289,7 +291,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT researchEditRect;
 	::GetClientRect(hResearchEdit, &researchEditRect);
 	researchEditRect.left = researchLabelRect.right + marge;
-	researchEditRect.top = topMarge + 2;
+	researchEditRect.top = topMarge + dpiManager.scaleX(2);
 	::MoveWindow(hResearchEdit, researchEditRect.left, researchEditRect.top, researchEditRect.right, researchEditRect.bottom, TRUE);
 	::InvalidateRect(hResearchEdit, nullptr, TRUE);
 
@@ -318,7 +320,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
 	::InvalidateRect(hActionButton, nullptr, TRUE);
 
-	long actionZoneHeight = 50;
+	long actionZoneHeight = dpiManager.scaleY(50);
 	rect.top += actionZoneHeight;
 	rect.bottom -= actionZoneHeight;
 
@@ -349,7 +351,15 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	//_availableList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
+	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
+	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+
 	_availableList.initView(_hInst, _hSelf);
+
+	ListView_SetBkColor(_availableList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_availableList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_availableList.getViewHwnd(), fgColor);
+
 	_availableList.reSizeView(listRect);
 	
 	_updateList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
@@ -358,6 +368,11 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_updateList.initView(_hInst, _hSelf);
+
+	ListView_SetBkColor(_updateList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_updateList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_updateList.getViewHwnd(), fgColor);
+
 	_updateList.reSizeView(listRect);
 
 	_installedList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
@@ -366,6 +381,11 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_installedList.initView(_hInst, _hSelf);
+
+	ListView_SetBkColor(_installedList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_installedList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_installedList.getViewHwnd(), fgColor);
+
 	_installedList.reSizeView(listRect);
 
 	HWND hDesc = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
@@ -1102,6 +1122,62 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
         case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				HWND hwnd = reinterpret_cast<HWND>(lParam);
+				if (hwnd == ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT))
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				else
+				{
+					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				}
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+
+			NppDarkMode::setDarkListView(_availableList.getViewHwnd());
+			NppDarkMode::setDarkListView(_updateList.getViewHwnd());
+			NppDarkMode::setDarkListView(_installedList.getViewHwnd());
+
 			return TRUE;
 		}
 
@@ -1220,4 +1296,3 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	}
 	return FALSE;
 }
-

@@ -448,7 +448,8 @@ public:
     };
 
     static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-public:
+
+private:
     HINSTANCE _hInst;
     HWND _parent;
     int _stylerIndex;
@@ -456,4 +457,6 @@ public:
     ColourPicker * _pFgColour;
     ColourPicker * _pBgColour;
     Style _initialStyle;
+
+    void move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 };

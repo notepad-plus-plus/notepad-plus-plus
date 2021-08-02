@@ -1268,11 +1268,11 @@ Diese Antwort kann in den Einstellungen jederzeit wieder geändert werden." /> <
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Geöffnete Dateien"/>
 			<ColumnName name="Name"/>
 			<ColumnExt name="Erw."/>
-		</DocSwitcher>
+		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Name"/>
 			<ColumnPath name="Pfad"/>

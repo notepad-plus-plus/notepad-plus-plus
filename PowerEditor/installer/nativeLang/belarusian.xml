@@ -1098,11 +1098,11 @@
         <ClipboardHistory>
             <PanelTitle name="Гісторыя буфера"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Пераключальнік дакумента"/>
             <ColumnName name="Назва"/>
             <ColumnExt name="Пашыр."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Назва"/>
             <ColumnPath name="Шлях"/>

@@ -33,8 +33,10 @@
 #define IDC_STATIC    -1
 #endif
 
+#define IDI_NPPABOUT_LOGO        99
 #define IDI_M30ICON             100
 #define IDI_CHAMELEON           101
+#define IDI_CHAMELEON_DM        102
 //#define IDI_JESUISCHARLIE     102
 //#define IDI_GILETJAUNE        102
 //#define IDI_SAMESEXMARRIAGE   102
@@ -89,6 +91,7 @@
 #define IDI_VIEW_FILEBROWSER_ICON         243
 #define IDI_VIEW_FUNCLIST_ICON            244
 #define IDI_VIEW_MONITORING_ICON          245
+#define IDI_VIEW_DOCLIST_ICON             392 //continuing from IDI_VIEW_DOCLIST_ICON_DM2's ID
 
 //
 // TOOLBAR ICO - set 1, Dark Mode
@@ -138,6 +141,7 @@
 #define IDI_VIEW_FILEBROWSER_ICON_DM      288
 #define IDI_VIEW_FUNCLIST_ICON_DM         289
 #define IDI_VIEW_MONITORING_ICON_DM       290
+#define IDI_VIEW_DOCLIST_ICON_DM          393 //continuing from IDI_VIEW_DOCLIST_ICON's ID
 
 //
 // TOOLBAR ICO - set 2
@@ -187,6 +191,7 @@
 #define IDI_VIEW_FILEBROWSER_ICON2        343
 #define IDI_VIEW_FUNCLIST_ICON2           344
 #define IDI_VIEW_MONITORING_ICON2         345
+#define IDI_VIEW_DOCLIST_ICON2            394 //continuing from IDI_VIEW_DOCLIST_ICON_DM's ID
 
 //
 // TOOLBAR ICO - set 2, Dark Mode
@@ -236,6 +241,7 @@
 #define IDI_VIEW_FILEBROWSER_ICON_DM2     388
 #define IDI_VIEW_FUNCLIST_ICON_DM2        389
 #define IDI_VIEW_MONITORING_ICON_DM2      390
+#define IDI_VIEW_DOCLIST_ICON_DM2         391
 
 
 
@@ -254,26 +260,30 @@
 #define IDI_DELETE_ICON          525
 
 
-#define IDI_PROJECT_WORKSPACE        601
-#define IDI_PROJECT_WORKSPACEDIRTY    602
+#define IDI_PROJECT_WORKSPACE          601
+#define IDI_PROJECT_WORKSPACEDIRTY     602
 #define IDI_PROJECT_PROJECT            603
-#define IDI_PROJECT_FOLDEROPEN        604
+#define IDI_PROJECT_FOLDEROPEN         604
 #define IDI_PROJECT_FOLDERCLOSE        605
-#define IDI_PROJECT_FILE            606
+#define IDI_PROJECT_FILE               606
 #define IDI_PROJECT_FILEINVALID        607
-#define IDI_FB_ROOTOPEN        608
-#define IDI_FB_ROOTCLOSE        609
-#define IDI_FB_SELECTCURRENTFILE        610
-#define IDI_FB_FOLDALL                  611
-#define IDI_FB_EXPANDALL                612
+#define IDI_FB_ROOTOPEN                608
+#define IDI_FB_ROOTCLOSE               609
+#define IDI_FB_SELECTCURRENTFILE       610
+#define IDI_FB_FOLDALL                 611
+#define IDI_FB_EXPANDALL               612
+#define IDI_FB_SELECTCURRENTFILE_DM    613
+#define IDI_FB_FOLDALL_DM              614
+#define IDI_FB_EXPANDALL_DM            615
 
-#define IDI_FUNCLIST_ROOT            620
-#define IDI_FUNCLIST_NODE            621
-#define IDI_FUNCLIST_LEAF            622
+#define IDI_FUNCLIST_ROOT              620
+#define IDI_FUNCLIST_NODE              621
+#define IDI_FUNCLIST_LEAF              622
 
 #define IDI_FUNCLIST_SORTBUTTON        631
-#define IDI_FUNCLIST_RELOADBUTTON    632
-
+#define IDI_FUNCLIST_RELOADBUTTON      632
+#define IDI_FUNCLIST_SORTBUTTON_DM     633
+#define IDI_FUNCLIST_RELOADBUTTON_DM   634
 
 
 
@@ -337,25 +347,75 @@
 #define IDR_CLOSETAB_INACT_DM  1543
 #define IDR_CLOSETAB_HOVER_DM  1544
 #define IDR_CLOSETAB_PUSH_DM   1545
+#define IDR_DOCLIST            1546
+#define IDR_DOCLIST_ICO        1547
 
-#define ID_MACRO 20000
-#define ID_MACRO_LIMIT 20200
+#define IDR_FILEBROWSER_ICO2      1550
+#define IDR_FILEBROWSER_ICO_DM    1551
+#define IDR_FUNC_LIST_ICO2        1552
+#define IDR_FUNC_LIST_ICO_DM      1553
+#define IDR_DOCMAP_ICO2           1554
+#define IDR_DOCMAP_ICO_DM         1555
+#define IDR_DOCLIST_ICO2          1556
+#define IDR_DOCLIST_ICO_DM        1557
+#define IDR_PROJECTPANEL_ICO2     1558
+#define IDR_PROJECTPANEL_ICO_DM   1559
+#define IDR_CLIPBOARDPANEL_ICO2   1560
+#define IDR_CLIPBOARDPANEL_ICO_DM 1561
+#define IDR_ASCIIPANEL_ICO2       1562
+#define IDR_ASCIIPANEL_ICO_DM     1563
 
-#define ID_USER_CMD 21000
-#define ID_USER_CMD_LIMIT 21200
+#define ID_MACRO                           20000
+//                                     O     .
+//                                     C     .
+//                                     C     .
+//                                     U     .
+//                                     P     .
+//                                     I     .
+//                                     E     .
+//                                     D     .
+#define ID_MACRO_LIMIT                     20499
 
-#define ID_PLUGINS_CMD 22000
-#define ID_PLUGINS_CMD_LIMIT 22500
 
-#define ID_PLUGINS_CMD_DYNAMIC       23000
-#define ID_PLUGINS_CMD_DYNAMIC_LIMIT 24999
+#define ID_USER_CMD                        21000
+//                                     O     .
+//                                     C     .
+//                                     C     .
+//                                     U     .
+//                                     P     .
+//                                     I     .
+//                                     E     .
+//                                     D     .
+#define ID_USER_CMD_LIMIT                  21499
+
+
+#define ID_PLUGINS_CMD                     22000
+//                                     O     .
+//                                     C     .
+//                                     C     .
+//                                     U     .
+//                                     P     .
+//                                     I     .
+//                                     E     .
+//                                     D     .
+#define ID_PLUGINS_CMD_LIMIT               22999
+
+
+#define ID_PLUGINS_CMD_DYNAMIC             23000
+//                                     O     .
+//                                     C     .
+//                                     C     .
+//                                     U     .
+//                                     P     .
+//                                     I     .
+//                                     E     .
+//                                     D     .
+#define ID_PLUGINS_CMD_DYNAMIC_LIMIT       24999
+
 
 #define MARKER_PLUGINS          3
 #define MARKER_PLUGINS_LIMIT   19
-/*UNLOAD
-#define ID_PLUGINS_REMOVING 22501
-#define ID_PLUGINS_REMOVING_END 22600
-*/
+
 
 
 //#define IDM 40000
@@ -478,7 +538,7 @@
 //#define IDD_FINDCHARACTERS      2900
 
 //See VerticalFileSwitcher_rc.h
-//#define IDD_FILESWITCHER_PANEL      3000
+//#define IDD_DOCLIST      3000
 
 //See ProjectPanel_rc.h
 //#define IDD_PROJECTPANEL      3100

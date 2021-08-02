@@ -847,11 +847,11 @@
         <ClipboardHistory>
 			<PanelTitle name="ಕ್ಲಿಪ್‌ಬೋರ್ಡ್ ಹಿಸ್ಟರೀ"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="ಡಾಕ್ ಸ್ವಿತ್ಚೇರ್"/>
 			<ColumnName name="ನೇಮ್"/>
 			<ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII ಇನ್ಸರ್‌ಶನ್ ಪ್ಯಾನಲ್"/>
 			<ColumnVal name="ವ್ಯಾಲ್ಯೂ"/>

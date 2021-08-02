@@ -2453,11 +2453,12 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
 	}
 	else
 	{
-		int width = 3;
+		DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+		int width = dpiManager.scaleX(3);
 		if (whichMarge == _SC_MARGE_SYBOLE)
-			width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 20 : 16;
+			width = dpiManager.scaleX(16);
 		else if (whichMarge == _SC_MARGE_FOLDER)
-			width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 18 : 14;
+			width = dpiManager.scaleX(14);
 		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 	}
 }
@@ -3705,13 +3706,29 @@ generic_string ScintillaEditView::getEOLString()
 
 void ScintillaEditView::setBorderEdge(bool doWithBorderEdge)
 {
+	long style = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_STYLE));
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
 
-	if (doWithBorderEdge)
-		exStyle |= WS_EX_CLIENTEDGE;
-	else
+	if (NppDarkMode::isEnabled())
+	{
 		exStyle &= ~WS_EX_CLIENTEDGE;
 
+		if (doWithBorderEdge)
+			style |= WS_BORDER;
+		else
+			style &= ~WS_BORDER;
+	}
+	else
+	{
+		style &= ~WS_BORDER;
+
+		if (doWithBorderEdge)
+			exStyle |= WS_EX_CLIENTEDGE;
+		else
+			exStyle &= ~WS_EX_CLIENTEDGE;
+	}
+
+	::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
 	::SetWindowPos(_hSelf, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 }

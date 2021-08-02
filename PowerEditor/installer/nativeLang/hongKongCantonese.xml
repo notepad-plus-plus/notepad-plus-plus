@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.1.2">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.1.3">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -285,6 +285,7 @@
                     <Item id="44031" name="展開呢層"/>
                     <Item id="44049" name="統計資料..."/>
                     <Item id="44080" name="文件地圖"/>
+                    <Item id="44070" name="文件清單"/> <!-- #new v8.1.3 -->
                     <Item id="44084" name="函式清單"/>
                     <Item id="44085" name="資料夾工作區"/>
                     <Item id="44086" name="1st"/>
@@ -665,6 +666,7 @@
                     <Item id="44083" name="開/閂 Project Panel 3"/>
                     <Item id="44085" name="開/閂資料夾工作區"/>
                     <Item id="44080" name="開/閂文件地圖"/>
+                    <Item id="44070" name="開/閂文件清單"/> <!-- #new v8.1.3 -->
                     <Item id="44084" name="開/閂函式清單"/>
                     <Item id="50005" name="開始/停止錄製 macro"/>
                     <Item id="44104" name="跳去 Project Panel 1"/>
@@ -888,7 +890,7 @@
                     <Item id="6122" name="隱藏 menu bar（撳 Alt 或者 F10 切換）"/>
                     <Item id="6123" name="本土化"/>
                     <Item id="6125" name="文件切換 Panel"/>
-                    <Item id="6126" name="顯示"/>
+                    <Item id="6126" name="顯示"/> <!-- #legacy v8.1.2 -->
                     <Item id="6127" name="停用副檔名欄"/>
                     <Item id="6128" name="另類圖示"/> <!-- #new v7.9.1 -->
                 </Global>
@@ -913,7 +915,24 @@
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
                     <Item id="7101" name="啟用 dark mode"/> <!-- #new v7.9.6 -->
-                    <Item id="7106" name="* 重新啟動 Notepad++ 先至會完整生效"/> <!-- #new v7.9.6 -->
+                    <Item id="7102" name="黑色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7103" name="紅色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7104" name="綠色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7105" name="藍色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7107" name="紫色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7108" name="青色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7109" name="橄欖色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7115" name="自訂色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7116" name="頂部"/> <!-- #new v8.1.2 -->
+                    <Item id="7117" name="Menu 追踪顯示"/> <!-- #new v8.1.2 -->
+                    <Item id="7118" name="用緊嘅部分"/> <!-- #new v8.1.2 -->
+                    <Item id="7119" name="主要部分"/> <!-- #new v8.1.2 -->
+                    <Item id="7120" name="Error"/> <!-- #new v8.1.2 -->
+                    <Item id="7121" name="文字"/> <!-- #new v8.1.2 -->
+                    <Item id="7122" name="再暗啲嘅字"/> <!-- #new v8.1.2 -->
+                    <Item id="7123" name="停用咗嘅字"/> <!-- #new v8.1.2 -->
+                    <Item id="7124" name="邊緣線"/> <!-- #new v8.1.2 -->
+                    <Item id="7130" name="重新設定"/> <!-- #new v8.1.2 -->
                 </DarkMode>
 
                 <MarginsBorderEdge title="邊界／邊框／邊緣線">
@@ -1309,17 +1328,19 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
         </ClipboardHistory>
-        <DocSwitcher>
-            <PanelTitle name="文件切換"/>
+        <DocList>
+            <PanelTitle name="文件清單"/>
             <ColumnName name="檔名"/>
             <ColumnExt name="副檔名"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="檔名"/>
             <ColumnPath name="路徑"/>
             <ColumnType name="類型"/>
             <ColumnSize name="Size"/>
             <NbDocsTotal name="文件數量："/> <!-- #new v7.9.2 -->
+            <MenuCopyName name="抄低檔名"/> <!-- #new v8.1.3 -->
+            <MenuCopyPath name="抄低路徑"/> <!-- #new v8.1.3 -->
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII 字元表"/>

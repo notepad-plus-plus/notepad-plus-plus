@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
     <!-- <localization work version="7.8.1~8.1.2" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> -->
-    <Native-Langue name="한국어" filename="korean.xml" version="8.1.2">
+    <Native-Langue name="한국어" filename="korean.xml" version="8.1.3">
     <Menu>
     <Main>
         <!--  Main Menu Entries -->
@@ -258,6 +258,7 @@
   <Item id="44031" name="현재 단계 펼치기"/>
   <Item id="44049" name="요약..."/>
   <Item id="44080" name="문서 구조"/>
+  <Item id="44070" name="문서 목록"/>
   <Item id="44084" name="함수 목록"/>
   <Item id="44085" name="작업 영역으로 폴더 지정"/>
   <Item id="44086" name="1번 탭"/>
@@ -606,6 +607,7 @@
     <Item id="44083" name="프로젝트 영역3 표시 상태 전환"/>
     <Item id="44085" name="작업 영역으로 폴더 지정 표시 상태 전환"/>
     <Item id="44080" name="문서 맵 표시 상태 전환"/>
+    <Item id="44070" name="문서 목록 표시 상태 전환"/>
     <Item id="44084" name="함수 목록 표시 상태 전환"/>
     <Item id="50005" name="매크로 기록 상태 전환"/>
     <Item id="44104" name="프로젝트 영역1로 전환"/>
@@ -824,7 +826,6 @@
   <Item id="6123" name="표시 언어"/>
 
   <Item id="6125" name="문서 목록 영역"/>
-  <Item id="6126" name="표시"/>
   <Item id="6127" name="확장 열 숨기기"/>
   <Item id="6128" name="대체 아이콘"/>
 </Global>
@@ -1255,11 +1256,11 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
 <ClipboardHistory>
   <PanelTitle name="클립보드 사용 기록"/>
   </ClipboardHistory>
-<DocSwitcher>
-  <PanelTitle name="문서 전환"/>
+<DocList>
+  <PanelTitle name="문서 목록"/>
   <ColumnName name="이름"/>
   <ColumnExt name="확장자"/>
-  </DocSwitcher>
+  </DocList>
 <WindowsDlg>
   <ColumnName name="이름"/>
   <ColumnPath name="경로"/>

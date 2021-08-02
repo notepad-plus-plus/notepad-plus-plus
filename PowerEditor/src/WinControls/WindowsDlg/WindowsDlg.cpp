@@ -984,6 +984,7 @@ void WindowsDlg::putItemsToClipboard(bool isFullPath)
 	constexpr int pathColumn = 1;
 
 	TCHAR str[MAX_PATH] = {};
+	const generic_string crlf = _T("\r\n");
 
 	generic_string selection;
 	for (int i = -1, j = 0; ; ++j)
@@ -1008,9 +1009,8 @@ void WindowsDlg::putItemsToClipboard(bool isFullPath)
 			if (fileName)
 				selection += fileName;
 		}
-
-		if (!selection.empty() && selection.back() != '\n')
-			selection += '\n';
+		if (!selection.empty() && !endsWith(selection, crlf))
+			selection += crlf;
 	}
 	if (!selection.empty())
 		str2Clipboard(selection, _hList);

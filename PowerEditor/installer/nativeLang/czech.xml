@@ -882,7 +882,7 @@
 					<Item id = "6121" name = "Ukončit při uzavření poslední karty"/>
 					<Item id = "6122" name = "Skrýt hl. menu (klávesa Alt nebo F10 slouží k přepínání)"/>
 					<Item id = "6123" name = "Lokalizace"/>
-					<Item id = "6125" name = "Přepínač dokumentů"/>
+					<Item id = "6125" name = "Seznam dokumentů (panel)"/>
 					<Item id = "6127" name = "Nepoužívat sloupec s extenzemi"/>
 					<Item id = "6128" name = "Alternativní ikony"/>
 					<Item id = "6129" name = "Fluent UI: malé ikony s výplní"/>

@@ -1057,6 +1057,10 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 							NppParameters& nppParam = NppParameters::getInstance();
 							const size_t currentIndex = LOWORD(lParam) - 1;
+
+							// In case of using filter will make the filtered items change index, so here we get its real index
+							size_t realIndexOfSelectedItem = _shortcutIndex[currentIndex];
+
 							generic_string conflictInfo;
 
 							switch (_currentState)
@@ -1064,37 +1068,37 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								case STATE_MENU:
 								{
 									vector<CommandShortcut> & vShortcuts = nppParam.getUserShortcuts();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyCombo(), realIndexOfSelectedItem);
 								}
 								break;
 
 								case STATE_MACRO:
 								{
 									vector<MacroShortcut> & vShortcuts = nppParam.getMacroList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyCombo(), realIndexOfSelectedItem);
 								}
 								break;
 
 								case STATE_USER:
 								{
 									vector<UserCommand> & vShortcuts = nppParam.getUserCommandList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyCombo(), realIndexOfSelectedItem);
 								}
 								break;
 
 								case STATE_PLUGIN:
 								{
 									vector<PluginCmdShortcut> & vShortcuts = nppParam.getPluginCommandList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyCombo(), realIndexOfSelectedItem);
 								}
 								break;
 
 								case STATE_SCINTILLA:
 								{
 									vector<ScintillaKeyMap> & vShortcuts = nppParam.getScintillaKeyList();
-									size_t sciCombos = vShortcuts[currentIndex].getSize();
+									size_t sciCombos = vShortcuts[realIndexOfSelectedItem].getSize();
 									for (size_t sciIndex = 0; sciIndex < sciCombos; ++sciIndex)
-										findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyComboByIndex(sciIndex), currentIndex);
+										findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyComboByIndex(sciIndex), realIndexOfSelectedItem);
 								}
 								break;
 							}

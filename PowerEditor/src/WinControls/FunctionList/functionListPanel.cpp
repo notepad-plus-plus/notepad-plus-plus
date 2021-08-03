@@ -53,7 +53,7 @@ void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText
 		itemParent = _treeView.searchSubItemByName(nodeName, root);
 		if (!itemParent)
 		{
-			generic_string* invalidValueStr = new generic_string(TEXT("-1"));
+			generic_string* invalidValueStr = new generic_string(posStr);
 			posStrs.push_back(invalidValueStr);
 			LPARAM lParamInvalidPosStr = reinterpret_cast<LPARAM>(invalidValueStr);
 
@@ -213,7 +213,7 @@ void FunctionListPanel::sortOrUnsort()
 
 		if (text2search[0] == '\0') // main view
 		{
-			reload();
+			_pTreeView->customSorting(_pTreeView->getRoot(), categorySortFunc, 0, true);
 		}
 		else // aux view
 		{
@@ -239,6 +239,18 @@ void FunctionListPanel::sortOrUnsort()
 	}
 }
 
+int CALLBACK FunctionListPanel::categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/)
+{
+	generic_string* posString1 = reinterpret_cast<generic_string*>(lParam1);
+	generic_string* posString2 = reinterpret_cast<generic_string*>(lParam2);
+	
+	size_t pos1 = generic_atoi(posString1->c_str());
+	size_t pos2 = generic_atoi(posString2->c_str());
+	if (pos1 > pos2)
+		return 1;
+	else 
+		return -1;
+}
 
 bool FunctionListPanel::serialize(const generic_string & outputFilename)
 {
@@ -392,12 +404,12 @@ void FunctionListPanel::reload()
 		{
 			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>((previousParams->_searchParameters)._text2Find.c_str()));
 
-			_treeView.restoreFoldingStateFrom(previousParams->_treeState, root);
-
 			bool isSort = (previousParams->_searchParameters)._doSort;
 			setSort(isSort);
 			if (isSort)
 				_pTreeView->sort(_pTreeView->getRoot(), true);
+
+			_treeView.restoreFoldingStateFrom(previousParams->_treeState, root);
 		}
 	}
 

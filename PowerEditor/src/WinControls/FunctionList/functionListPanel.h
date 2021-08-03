@@ -90,6 +90,7 @@ public:
     };
 	
 	// functionalities
+	static int CALLBACK categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/);
 	void sortOrUnsort();
 	void reload();
 	void markEntry();

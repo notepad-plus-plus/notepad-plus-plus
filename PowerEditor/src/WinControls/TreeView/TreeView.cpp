@@ -670,23 +670,6 @@ bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, 
 	if (!treeviewNode)
 		return false;
 
-	TCHAR textBuffer[MAX_PATH];
-	TVITEM tvItem;
-	tvItem.hItem = treeviewNode;
-	tvItem.pszText = textBuffer;
-	tvItem.cchTextMax = MAX_PATH;
-	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_STATE;
-	SendMessage(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-
-	if (treeState2Compare._label != textBuffer)
-		return false;
-
-	if (tvItem.lParam)
-	{
-		if (treeState2Compare._extraData != *(reinterpret_cast<generic_string *>(tvItem.lParam)))
-			return false;
-	}
-
 	if (treeState2Compare._isExpanded) //= (tvItem.state & TVIS_EXPANDED) != 0;
 		expand(treeviewNode);
 	else
@@ -720,7 +703,7 @@ void TreeView::sort(HTREEITEM hTreeItem, bool isRecusive)
 }
 
 
-void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam)
+void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecusive)
 {
 	TVSORTCB treeViewSortCB;
 	treeViewSortCB.hParent = hTreeItem;
@@ -728,4 +711,9 @@ void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFu
 	treeViewSortCB.lParam = lParam;
 
 	::SendMessage(_hSelf, TVM_SORTCHILDRENCB, 0, reinterpret_cast<LPARAM>(&treeViewSortCB));
+	if (!isRecusive)
+		return;
+
+	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
+		customSorting(hItem, sortingCallbackFunc, lParam, isRecusive);
 }

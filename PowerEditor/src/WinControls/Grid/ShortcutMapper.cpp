@@ -552,7 +552,10 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			generic_string conflictInfo;
 
-			const bool isConflict = findKeyConflicts(&conflictInfo, *reinterpret_cast<KeyCombo*>(wParam), _babygrid.getSelectedRow() - 1);
+			// In case of using filter will make the filtered items change index, so here we get its real index
+			size_t realIndexOfSelectedItem = _shortcutIndex[_babygrid.getSelectedRow() - 1];
+
+			const bool isConflict = findKeyConflicts(&conflictInfo, *reinterpret_cast<KeyCombo*>(wParam), realIndexOfSelectedItem);
 			*reinterpret_cast<bool*>(lParam) = isConflict;
 
 			if (isConflict)

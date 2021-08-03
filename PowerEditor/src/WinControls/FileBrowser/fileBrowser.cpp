@@ -1300,7 +1300,7 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 				_treeView.addItem(file.c_str(), node, INDEX_LEAF, reinterpret_cast<LPARAM>(customData));
 			}
 		}
-		_treeView.customSorting(node, categorySortFunc, 0);
+		_treeView.customSorting(node, categorySortFunc, 0, false);
 		return true;
 	}
 	else
@@ -1491,7 +1491,7 @@ bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, c
 	_treeView.renameItem(foundItem, renameTo.c_str());
 	SortingData4lParam* compareData = reinterpret_cast<SortingData4lParam*>(_treeView.getItemParam(foundItem));
 	compareData->_label = renameTo;
-	_treeView.customSorting(_treeView.getParent(foundItem), categorySortFunc, 0);
+	_treeView.customSorting(_treeView.getParent(foundItem), categorySortFunc, 0, false);
 
 	return true;
 }

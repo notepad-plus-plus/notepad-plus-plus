@@ -4956,6 +4956,16 @@ int Progress::createProgressWindow()
 		_hwnd, NULL, _hInst, NULL);
 	SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 
+	// Set border so user can distinguish easier progress bar,
+	// especially, when getBackgroundColor is very similar or same 
+	// as getDarkerBackgroundColor
+	NppDarkMode::setBorder(_hPBar, NppDarkMode::isEnabled()); 
+	NppDarkMode::disableVisualStyle(_hPBar, NppDarkMode::isEnabled());
+	if (NppDarkMode::isEnabled())
+	{
+		::SendMessage(_hPBar, PBM_SETBKCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getBackgroundColor()));
+		::SendMessage(_hPBar, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getDarkerTextColor()));
+	}
 
 	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), TEXT("Cancel"),
 		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | BS_TEXT,
@@ -4965,6 +4975,9 @@ int Progress::createProgressWindow()
 
 	if (hf)
 		::SendMessage(_hBtn, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+
+	NppDarkMode::autoSubclassAndThemeChildControls(_hwnd);
+	NppDarkMode::setDarkTitleBar(_hwnd);
 
 	::ShowWindow(_hwnd, SW_SHOWNORMAL);
 	::UpdateWindow(_hwnd);

@@ -677,7 +677,7 @@ bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, 
 
 	if (treeState2Compare._isSelected) //= (tvItem.state & TVIS_SELECTED) != 0;
 		selectItem(treeviewNode);
-	
+
 	size_t i = 0;
 	bool isOk = true;
 	for (HTREEITEM hItem = getChildFrom(treeviewNode); hItem != NULL; hItem = getNextSibling(hItem))

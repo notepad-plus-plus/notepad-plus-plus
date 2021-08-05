@@ -1548,6 +1548,14 @@ sptr_t ScintillaWin::KeyMessage(unsigned int iMessage, uptr_t wParam, sptr_t lPa
 			// KeyboardIsKeyDown(VK_CONTROL) ? 'C' : '-',
 			// KeyboardIsKeyDown(VK_MENU) ? 'A' : '-',
 			// wParam, lParam);
+			DWORD hwndExStyle = (DWORD)GetWindowLongPtr(MainHWND(), GWL_EXSTYLE);
+			if (hwndExStyle & WS_EX_LAYOUTRTL) //if RTL layout, swap arrow keys
+			{
+				if (wParam == VK_LEFT)
+					wParam = VK_RIGHT;
+				else if (wParam == VK_RIGHT)
+					wParam = VK_LEFT;
+			}
 			lastKeyDownConsumed = false;
 			const bool altDown = KeyboardIsKeyDown(VK_MENU);
 			if (altDown && KeyboardIsNumericKeypadFunction(wParam, lParam)) {

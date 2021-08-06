@@ -345,6 +345,12 @@ copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package
 If ErrorLevel 1 goto End
 copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package.releaseArm64\userDefineLangs\
 If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml" .\zipped.package.release\userDefineLangs\
+If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml" .\zipped.package.release64\userDefineLangs\
+If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml" .\zipped.package.releaseArm64\userDefineLangs\
+If ErrorLevel 1 goto End
 
 rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\themes\*.xml" .\zipped.package.release\themes\

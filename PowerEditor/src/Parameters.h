@@ -1083,7 +1083,8 @@ public:
 		init();
 	}
 
-	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer)
+	UserLangContainer(const TCHAR *name, const TCHAR *ext, bool isDarkModeTheme, const TCHAR *udlVer):
+		_name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer)
 	{
 		init();
 	}
@@ -1094,6 +1095,7 @@ public:
 		{
 			this->_name = ulc._name;
 			this->_ext = ulc._ext;
+			this->_isDarkModeTheme = ulc._isDarkModeTheme;
 			this->_udlVersion = ulc._udlVersion;
 			this->_isCaseIgnored = ulc._isCaseIgnored;
 			this->_styleArray = ulc._styleArray;
@@ -1129,6 +1131,7 @@ private:
 	generic_string _name;
 	generic_string _ext;
 	generic_string _udlVersion;
+	bool _isDarkModeTheme = false;
 
 	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
 	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS];

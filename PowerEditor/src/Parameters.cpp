@@ -1536,17 +1536,34 @@ const TCHAR* NppParameters::getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *ful
 		return nullptr;
 
 	std::vector<generic_string> extVect;
+	int iMatched = -1;
 	for (int i = 0 ; i < _nbUserLang ; ++i)
 	{
 		extVect.clear();
 		cutString(_userLangArray[i]->_ext.c_str(), extVect);
 
+		// Force to use dark mode UDL in dark mode or to use  light mode UDL in light mode
 		for (size_t j = 0, len = extVect.size(); j < len; ++j)
 		{
 			if (!generic_stricmp(extVect[j].c_str(), ext) || (_tcschr(fullName, '.') && !generic_stricmp(extVect[j].c_str(), fullName)))
-				return _userLangArray[i]->_name.c_str();
+			{
+				// preserve ext matched UDL
+				iMatched = i;
+
+				if (((NppDarkMode::isEnabled() && _userLangArray[i]->_isDarkModeTheme)) ||
+					((!NppDarkMode::isEnabled() && !_userLangArray[i]->_isDarkModeTheme)))
+					return _userLangArray[i]->_name.c_str();
+			}
 		}
 	}
+
+	// In case that we are in dark mode but no dark UDL or we are in light mode but no light UDL
+	// We use it anyway
+	if (iMatched >= 0)
+	{
+		return _userLangArray[iMatched]->_name.c_str();
+	}
+
 	return nullptr;
 }
 
@@ -2715,9 +2732,10 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		childNode && (_nbUserLang < NB_MAX_USER_LANG);
 		childNode = childNode->NextSibling(TEXT("UserLang")) )
 	{
-		const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
-		const TCHAR *ext = (childNode->ToElement())->Attribute(TEXT("ext"));
-		const TCHAR *udlVersion = (childNode->ToElement())->Attribute(TEXT("udlVersion"));
+		const TCHAR* name = (childNode->ToElement())->Attribute(TEXT("name"));
+		const TCHAR* ext = (childNode->ToElement())->Attribute(TEXT("ext"));
+		const TCHAR* darkModeTheme = (childNode->ToElement())->Attribute(TEXT("darkModeTheme"));
+		const TCHAR* udlVersion = (childNode->ToElement())->Attribute(TEXT("udlVersion"));
 
 		if (!name || !name[0] || !ext)
 		{
@@ -2725,11 +2743,16 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			continue;
 		}
 
+		bool isDarkModeTheme = false;
+
+		if (darkModeTheme && darkModeTheme[0])
+		{
+			isDarkModeTheme = (lstrcmp(TEXT("yes"), darkModeTheme) == 0);
+		}
+
 		try {
-			if (!udlVersion)
-				_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, TEXT(""));
-			else
-				_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, udlVersion);
+			_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, isDarkModeTheme, udlVersion ? udlVersion : TEXT(""));
+
 			++_nbUserLang;
 
 			TiXmlNode *settingsRoot = childNode->FirstChildElement(TEXT("Settings"));

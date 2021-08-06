@@ -244,6 +244,7 @@ Section Uninstall
 	Delete "$INSTDIR\userDefinedLang-markdown.default.modern.xml"
 	Delete "$INSTDIR\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 	Delete "$INSTDIR\userDefineLangs\markdown._preinstalled.udl.xml"
+	Delete "$INSTDIR\userDefineLangs\markdown._preinstalled_DM.udl.xml"
 	Delete "$INSTDIR\doLocalConf.xml"
 	Delete "$INSTDIR\uninstall.ini"
 	
@@ -266,6 +267,7 @@ Section Uninstall
 		Delete "$APPDATA\${APPNAME}\insertExt.ini"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled.udl.xml"
+		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled_DM.udl.xml"
 		RMDir /r "$APPDATA\${APPNAME}\plugins\"
 		RMDir /r "$APPDATA\${APPNAME}\backup\"	; Remove backup folder recursively if not empty
 		RMDir "$APPDATA\${APPNAME}\themes\"	; has no effect as not empty at this moment, but it is taken care at un.onUninstSuccess

@@ -11,7 +11,7 @@ Copyright (c) Edditoria. Open source under the MIT license:
 https://github.com/Edditoria/markdown-plus-plus/blob/master/LICENSE.txt
 //-->
 <NotepadPlus>
-    <UserLang name="Markdown (Zenburn)" ext="md markdown" darkModeTheme="yes" udlVersion="2.1">
+    <UserLang name="Markdown (preinstalled dark mode)" ext="md markdown" darkModeTheme="yes" udlVersion="2.1">
         <Settings>
             <Global caseIgnored="yes" allowFoldOfComments="no" foldCompact="no" forcePureLC="2" decimalSeparator="0" />
             <Prefix Keywords1="yes" Keywords2="yes" Keywords3="yes" Keywords4="yes" Keywords5="yes" Keywords6="yes" Keywords7="yes" Keywords8="no" />

@@ -559,7 +559,7 @@ BEGIN
         MENUITEM "Mar&k...",                    IDM_SEARCH_MARK
         MENUITEM SEPARATOR
 
-        POPUP "Mark &All"
+        POPUP "Style &All Occurrences of Token"
         BEGIN
             MENUITEM "Using 1st Style",    IDM_SEARCH_MARKALLEXT1
             MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKALLEXT2
@@ -567,7 +567,7 @@ BEGIN
             MENUITEM "Using 4th Style",    IDM_SEARCH_MARKALLEXT4
             MENUITEM "Using 5th Style",    IDM_SEARCH_MARKALLEXT5
         END
-        POPUP "Mark &One"
+        POPUP "Style &One Token"
         BEGIN
             MENUITEM "Using 1st Style",    IDM_SEARCH_MARKONEEXT1
             MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKONEEXT2
@@ -575,7 +575,7 @@ BEGIN
             MENUITEM "Using 4th Style",    IDM_SEARCH_MARKONEEXT4
             MENUITEM "Using 5th Style",    IDM_SEARCH_MARKONEEXT5
         END
-        POPUP "&Unmark All"
+        POPUP "Clear Style"
         BEGIN
             MENUITEM "Clear 1st Style",     IDM_SEARCH_UNMARKALLEXT1
             MENUITEM "Clear 2nd Style",     IDM_SEARCH_UNMARKALLEXT2

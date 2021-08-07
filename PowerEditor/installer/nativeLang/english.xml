@@ -36,9 +36,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-blankOperations" name="&amp;Blank Operations"/>
                     <Item subMenuId="edit-pasteSpecial" name="&amp;Paste Special"/>
                     <Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
-                    <Item subMenuId="search-markAll" name="Mark &amp;All"/>
-                    <Item subMenuId="search-markOne" name="Mark &amp;One"/>
-                    <Item subMenuId="search-unmarkAll" name="&amp;Unmark All"/>
+                    <Item subMenuId="search-markAll" name="Style &amp;All Occurrences of Token"/>
+                    <Item subMenuId="search-markOne" name="Style &amp;One Token"/>
+                    <Item subMenuId="search-unmarkAll" name="Clear Style"/>
                     <Item subMenuId="search-jumpUp" name="&amp;Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump &amp;Down"/>
                     <Item subMenuId="search-copyStyledText" name="&amp;Copy Styled Text"/>
@@ -547,41 +547,41 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
                     <Item id="45002" name="EOL Conversion to Unix (LF)"/>
                     <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
-                    <Item id="43022" name="Mark all using 1st style"/>
-                    <Item id="43024" name="Mark all using 2nd style"/>
-                    <Item id="43026" name="Mark all using 3rd style"/>
-                    <Item id="43028" name="Mark all using 4th style"/>
-                    <Item id="43030" name="Mark all using 5th style"/>
-                    <Item id="43062" name="Mark one using 1st style"/>
-                    <Item id="43063" name="Mark one using 2nd style"/>
-                    <Item id="43064" name="Mark one using 3rd style"/>
-                    <Item id="43065" name="Mark one using 4th style"/>
-                    <Item id="43066" name="Mark one using 5th style"/>
-                    <Item id="43023" name="Clear marks using 1st style"/>
-                    <Item id="43025" name="Clear marks using 2nd style"/>
-                    <Item id="43027" name="Clear marks using 3rd style"/>
-                    <Item id="43029" name="Clear marks using 4th style"/>
-                    <Item id="43031" name="Clear marks using 5th style"/>
-                    <Item id="43032" name="Clear marks using any style"/>
-                    <Item id="43033" name="Previous mark using 1st style"/>
-                    <Item id="43034" name="Previous mark using 2nd style"/>
-                    <Item id="43035" name="Previous mark using 3rd style"/>
-                    <Item id="43036" name="Previous mark using 4th style"/>
-                    <Item id="43037" name="Previous mark using 5th style"/>
-                    <Item id="43038" name="Previous mark created with Mark"/>
-                    <Item id="43039" name="Next mark using 1st style"/>
-                    <Item id="43040" name="Next mark using 2nd style"/>
-                    <Item id="43041" name="Next mark using 3rd style"/>
-                    <Item id="43042" name="Next mark using 4th style"/>
-                    <Item id="43043" name="Next mark using 5th style"/>
-                    <Item id="43044" name="Next mark created with Mark"/>
-                    <Item id="43055" name="Copy Styled Text - 1st Style"/>
-                    <Item id="43056" name="Copy Styled Text - 2nd Style"/>
-                    <Item id="43057" name="Copy Styled Text - 3rd Style"/>
-                    <Item id="43058" name="Copy Styled Text - 4th Style"/>
-                    <Item id="43059" name="Copy Styled Text - 5th Style"/>
-                    <Item id="43060" name="Copy Styled Text - All Styles"/>
-                    <Item id="43061" name="Copy Styled Text - Find Style (Marked)"/>
+                    <Item id="43022" name="Style all using 1st style"/>
+                    <Item id="43024" name="Style all using 2nd style"/>
+                    <Item id="43026" name="Style all using 3rd style"/>
+                    <Item id="43028" name="Style all using 4th style"/>
+                    <Item id="43030" name="Style all using 5th style"/>
+                    <Item id="43062" name="Style one using 1st style"/>
+                    <Item id="43063" name="Style one using 2nd style"/>
+                    <Item id="43064" name="Style one using 3rd style"/>
+                    <Item id="43065" name="Style one using 4th style"/>
+                    <Item id="43066" name="Style one using 5th style"/>
+                    <Item id="43023" name="Clear 1st style"/>
+                    <Item id="43025" name="Clear 2nd style"/>
+                    <Item id="43027" name="Clear 3rd style"/>
+                    <Item id="43029" name="Clear 4th style"/>
+                    <Item id="43031" name="Clear 5th style"/>
+                    <Item id="43032" name="Clear all styles"/>
+                    <Item id="43033" name="Previous style of 1st style"/>
+                    <Item id="43034" name="Previous style of 2nd style"/>
+                    <Item id="43035" name="Previous style of 3rd style"/>
+                    <Item id="43036" name="Previous style of 4th style"/>
+                    <Item id="43037" name="Previous style of 5th style"/>
+                    <Item id="43038" name="Previous style of Mark (Find dialog)"/>
+                    <Item id="43039" name="Next style of 1st style"/>
+                    <Item id="43040" name="Next style of 2nd style"/>
+                    <Item id="43041" name="Next style of 3rd style"/>
+                    <Item id="43042" name="Next style of 4th style"/>
+                    <Item id="43043" name="Next style of 5th style"/>
+                    <Item id="43044" name="Next style of Mark (Find dialog)"/>
+                    <Item id="43055" name="Copy Styled Text of 1st Style"/>
+                    <Item id="43056" name="Copy Styled Text of 2nd Style"/>
+                    <Item id="43057" name="Copy Styled Text of 3rd Style"/>
+                    <Item id="43058" name="Copy Styled Text of 4th Style"/>
+                    <Item id="43059" name="Copy Styled Text of 5th Style"/>
+                    <Item id="43060" name="Copy Styled Text of All Styles"/>
+                    <Item id="43061" name="Copy Styled Text of Mark (Find dialog)"/>
                     <Item id="44100" name="View current file in Firefox"/>
                     <Item id="44101" name="View current file in Chrome"/>
                     <Item id="44103" name="View current file in IE"/>
@@ -616,6 +616,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44105" name="Switch to Project Panel 2"/>
                     <Item id="44106" name="Switch to Project Panel 3"/>
                     <Item id="44107" name="Switch to Folder as Workspace"/>
+                    <Item id="44109" name="Switch to Document List"/>
                     <Item id="44108" name="Switch to Function List"/>
                 </MainCommandNames>
             </ShortcutMapper>
@@ -937,7 +938,7 @@ You can define several column markers by using white space to separate the diffe
                 </Language>
 
                 <Highlighting title="Highlighting">
-                    <Item id="6351" name="Mark All"/>
+                    <Item id="6351" name="Style All Occurrences of Token"/>
                     <Item id="6352" name="Match case"/>
                     <Item id="6353" name="Match whole word only"/>
                     <Item id="6333" name="Smart Highlighting"/>

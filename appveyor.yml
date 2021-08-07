@@ -35,14 +35,14 @@ build_script:
           Write-Output "Platform: $env:PLATFORM"
 
     - cd "%APPVEYOR_BUILD_FOLDER%"\scintilla\win32
-    #- if "%configuration%"=="Debug" set scintilla_debug=DEBUG=1
-    #- if "%configuration%"=="Release" set scintilla_debug=
+    - if "%configuration%"=="Debug" set build_debug=DEBUG=1
+    - if "%configuration%"=="Release" set build_debug=
     #- if "%archi%"=="x86" nmake %scintilla_debug% BOOSTPATH=C:\Libraries\boost_1_69_0\ BOOSTREGEXLIBPATH=C:\Libraries\boost_1_69_0\lib32-msvc-14.1\ -f scintilla.mak
     #- if "%archi%"=="amd64" nmake %scintilla_debug% BOOSTPATH=C:\Libraries\boost_1_69_0\ BOOSTREGEXLIBPATH=C:\Libraries\boost_1_69_0\lib64-msvc-14.1\ -f scintilla.mak
-    - if "%Platform%"=="mingw-w64_810_X64" mingw32-make %scintilla_debug% -j%NUMBER_OF_PROCESSORS%
+    - if "%Platform%"=="mingw-w64_810_X64" mingw32-make %build_debug% -j%NUMBER_OF_PROCESSORS%
     - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
     - if "%archi%" NEQ "" msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make %scintilla_debug% -j%NUMBER_OF_PROCESSORS%
+    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make %build_debug% -j%NUMBER_OF_PROCESSORS%
 
 
 after_build:
@@ -103,9 +103,11 @@ after_build:
             Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ($env:PLATFORM_INPUT -eq "mingw") {
-            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP.exe" -FileName "$nppFileName"
-            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP.exe_dynamic" -FileName "$nppFileName_dynamic"
+        if ($env:PLATFORM_INPUT -eq "mingw" -and $env:CONFIGURATION -eq "Release") {
+            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP-release.exe" -FileName "$nppFileName"
         }
 
+        if ($env:PLATFORM_INPUT -eq "mingw" -and $env:CONFIGURATION -eq "Debug") {
+            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP-debug.exe" -FileName "$nppFileName"
+        }
 

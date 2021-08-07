@@ -4,24 +4,24 @@
 
 //GetLongPathName = 410
 //Multimonitor: 410
-#define _WIN32_WINDOWS 0x0410
+//#define _WIN32_WINDOWS 0x0410
 //Toolbar imagelist = 300
 //TCS_BOTTOM = 300
 //LVS_EX_BORDERSELECT = 500
 //TBSTYLE_EX_HIDECLIPPEDBUTTONS = 501
 //#define _WIN32_IE 0x501
 //Theme (uxtheme)
-#define _WIN32_WINNT 0x0600
+//#define _WIN32_WINNT 0x0600
 
 //#include <windows.h>
 
-#if (_WIN32_IE >= 0x0400)
-#define TCN_GETOBJECT           (TCN_FIRST - 3)
-#endif 
+//#if (_WIN32_IE >= 0x0400)
+//#define TCN_GETOBJECT           (TCN_FIRST - 3)
+//#endif
 
-#if (_WIN32_IE >= 0x0500)
-#define RBN_CHEVRONPUSHED   (RBN_FIRST - 10)
-#endif      // _WIN32_IE >= 0x0500
+//#if (_WIN32_IE >= 0x0500)
+//#define RBN_CHEVRONPUSHED   (RBN_FIRST - 10)
+//#endif      // _WIN32_IE >= 0x0500
 /*
 #ifndef max
 #define max(a,b)            (((a) > (b)) ? (a) : (b))
@@ -48,5 +48,5 @@ static inline int min(unsigned int a, unsigned int b) {
 //double _wtof(const wchar_t * string);
 
 // from MinGW include/driverspecs.h
-#define __inout
-#define __inout_opt
+//#define __inout
+//#define __inout_opt

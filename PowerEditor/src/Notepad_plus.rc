@@ -591,7 +591,7 @@ BEGIN
             MENUITEM "3rd Style",     IDM_SEARCH_GOPREVMARKER3
             MENUITEM "4th Style",     IDM_SEARCH_GOPREVMARKER4
             MENUITEM "5th Style",     IDM_SEARCH_GOPREVMARKER5
-            MENUITEM "Find Style",    IDM_SEARCH_GOPREVMARKER_DEF
+            MENUITEM "Find Mark Style",    IDM_SEARCH_GOPREVMARKER_DEF
         END
         POPUP "Jump &Down"
         BEGIN
@@ -600,7 +600,7 @@ BEGIN
             MENUITEM "3rd Style",      IDM_SEARCH_GONEXTMARKER3
             MENUITEM "4th Style",      IDM_SEARCH_GONEXTMARKER4
             MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
-            MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
+            MENUITEM "Find Mark Style",     IDM_SEARCH_GONEXTMARKER_DEF
         END
         POPUP "&Copy Styled Text"
         BEGIN
@@ -610,7 +610,7 @@ BEGIN
             MENUITEM "4th Style",               IDM_SEARCH_STYLE4TOCLIP
             MENUITEM "5th Style",               IDM_SEARCH_STYLE5TOCLIP
             MENUITEM "All Styles",              IDM_SEARCH_ALLSTYLESTOCLIP
-            MENUITEM "Find Style (Marked)",     IDM_SEARCH_MARKEDTOCLIP
+            MENUITEM "Find Mark Style",     IDM_SEARCH_MARKEDTOCLIP
         END
         MENUITEM SEPARATOR
         POPUP "&Bookmark"

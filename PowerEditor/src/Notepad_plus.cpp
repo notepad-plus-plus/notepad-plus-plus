@@ -3795,10 +3795,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 	{
 		// Determinate in which view the file(s) is (are) dropped
 		POINT p;
-		::GetCursorPos(&p);
-		HWND hWnd = WindowFromPoint(p);
-		::MapWindowPoints(NULL, hWnd, &p, 1);
-		HWND hWin = ::RealChildWindowFromPoint(hWnd, p);
+		::DragQueryPoint(hdrop, &p);
+		HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 		if (!hWin) return;
 
 		if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))

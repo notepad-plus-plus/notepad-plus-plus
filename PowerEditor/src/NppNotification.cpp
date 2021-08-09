@@ -907,9 +907,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				POINT p;
 				::GetCursorPos(&p);
-				HWND hWnd = WindowFromPoint(p);
-				::MapWindowPoints(NULL, hWnd, &p, 1);
-				HWND hWin = ::RealChildWindowFromPoint(hWnd, p);
+				::MapWindowPoints(NULL, _pPublicInterface->getHSelf(), &p, 1);
+				HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 				const int tipMaxLen = 1024;
 				static TCHAR docTip[tipMaxLen];
 				docTip[0] = '\0';

@@ -95,6 +95,7 @@
 			<association id= "spice.xml"		 langID= "82"/>	
 			<association id= "txt2tags.xml"		 langID= "83"/>
 			<association id= "visualprolog.xml"  langID= "84"/>
+			<association id= "typescript.xml"  	 langID= "85"/>
 
 			If you create your own parse rule of supported languages (above) for your specific need,
 			you can copy it without modifying the original one, and make it point to your rule.

@@ -1433,10 +1433,7 @@ namespace NppDarkMode
 			, theme
 		};
 
-		if (subclass)
-		{
-			::EnableThemeDialogTexture(hwndParent, theme ? ETDT_ENABLETAB : ETDT_DISABLE);
-		}
+		::EnableThemeDialogTexture(hwndParent, theme && !NppDarkMode::isEnabled() ? ETDT_ENABLETAB : ETDT_DISABLE);
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) {
 			auto& p = *reinterpret_cast<Params*>(lParam);

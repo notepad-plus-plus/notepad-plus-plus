@@ -22,7 +22,6 @@
 #include <cctype>
 #include <shlobj.h>
 #include <shlwapi.h>
-#include <uxtheme.h>
 #include "pluginsAdmin.h"
 #include "ScintillaEditView.h"
 #include "localization.h"
@@ -393,10 +392,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	::InvalidateRect(hDesc, nullptr, TRUE);
 
 	switchDialog(0);
-
-	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
-	if (enableDlgTheme)
-		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 	goToCenter();
 }

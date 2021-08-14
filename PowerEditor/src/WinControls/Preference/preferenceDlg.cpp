@@ -15,8 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <shlwapi.h>
-#include <shlobj.h>
-#include <uxtheme.h>
 #include "preferenceDlg.h"
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
@@ -205,11 +203,6 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_delimiterSubDlg.reSizeTo(rc);
 			_cloudAndLinkSubDlg.reSizeTo(rc);
 			_searchEngineSubDlg.reSizeTo(rc);
-
-			NppParameters& nppParam = NppParameters::getInstance();
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
@@ -502,10 +495,6 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			if (index != CB_ERR)
                 ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_SETCURSEL, index, 0);
 
-			ETDTProc enableDlgTheme = reinterpret_cast<ETDTProc>(nppParam.getEnableThemeDlgTexture());
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-
 			return TRUE;
 		}
 
@@ -769,10 +758,7 @@ INT_PTR CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 
 			initScintParam();
-			
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+
 			return TRUE;
 		}
 
@@ -1041,10 +1027,7 @@ INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_CUSTOMIZED), nppGUI._darkmode._isEnabled);
 
 			enableCustomizedColorCtrls(nppGUI._darkmode._isEnabled && id == IDC_RADIO_DARKMODE_CUSTOMIZED);
-			
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+
 			return TRUE;
 		}
 
@@ -1424,10 +1407,7 @@ INT_PTR CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPara
 			::SetDlgItemInt(_hSelf, IDC_DISTRACTIONFREEVAL_STATIC, svp._distractionFreeDivPart, FALSE);
 
 			initScintParam();
-			
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+
 			return TRUE;
 		}
 
@@ -1642,10 +1622,6 @@ INT_PTR CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHORTTITLE, BM_SETCHECK, nppGUI._shortTitlebar, 0);
-
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 			return TRUE;
 		}
@@ -1966,12 +1942,6 @@ INT_PTR CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			}
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_SETCURSEL, index, 0);
 
-			//
-			// To avoid the white control background to be displayed in dialog
-			//
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -2125,13 +2095,6 @@ INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT), shouldActivated);
 			::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), shouldActivated);
 
-			//
-			// To avoid the white control background to be displayed in dialog
-			//
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-
 			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_CHECK_DRROPFOLDEROPENFILES, BM_SETCHECK, nppGUI._isFolderDroppedOpenFiles ? BST_CHECKED : BST_UNCHECKED, 0);
 		}
 
@@ -2258,13 +2221,6 @@ INT_PTR CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPar
 			::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, length, FALSE);
 			_customLenVal.init(_hInst, _hSelf);
 			_customLenVal.create(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), nullptr);
-
-			//
-			// To avoid the white control background to be displayed in dialog
-			//
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 		}
 
 		case WM_CTLCOLORDLG:
@@ -2433,10 +2389,6 @@ INT_PTR CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), SW_HIDE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), FALSE);
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
-
-			ETDTProc enableDlgTheme = reinterpret_cast<ETDTProc>(nppParam.getEnableThemeDlgTexture());
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL, BM_SETCHECK, nppGUI._backSlashIsEscapeCharacterForSql, 0);
 
@@ -2844,10 +2796,6 @@ INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS), nppGUI._enableSmartHilite);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEANOTHERRVIEW), nppGUI._enableSmartHilite);
 
-			ETDTProc enableDlgTheme = reinterpret_cast<ETDTProc>(nppParam.getEnableThemeDlgTexture());
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-
 			return TRUE;
 		}
 
@@ -3084,11 +3032,6 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			}
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_SETCURSEL, 0, 0);
 
-
-
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 			break;
 		}
 

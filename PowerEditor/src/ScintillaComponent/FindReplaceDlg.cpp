@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #include <shlwapi.h>
-#include <uxtheme.h>
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
@@ -299,10 +299,6 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_initialWindowRect.left = 0;
 	_initialWindowRect.bottom = _initialWindowRect.bottom - _initialWindowRect.top;
 	_initialWindowRect.top = 0;
-
-	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
-	if (enableDlgTheme)
-		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
@@ -713,7 +709,6 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			pNativeSpeaker->changeDlgLang(_hSelf, "FindInFinder");
 
-			EnableThemeDialogTexture(_hSelf, ETDT_ENABLETAB);
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			initFromOptions();

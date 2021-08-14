@@ -15,9 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <shlobj.h>
-#include <uxtheme.h>
-
 #include "AboutDlg.h"
 #include "Parameters.h"
 #include "localization.h"
@@ -60,13 +57,6 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
             _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/"));
 
 			getClientRect(_rc);
-
-			ETDTProc enableDlgTheme = (ETDTProc)nppParam.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-			{
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-				redraw();
-			}
 
 			return TRUE;
 		}

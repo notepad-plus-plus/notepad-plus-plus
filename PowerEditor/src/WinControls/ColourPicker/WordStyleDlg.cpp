@@ -15,9 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <shlobj.h>
 #include <shlwapi.h>
-#include <uxtheme.h>
 #include "WordStyleDlg.h"
 #include "ScintillaEditView.h"
 
@@ -146,13 +144,6 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), _isDirty);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
-
-			ETDTProc enableDlgTheme = (ETDTProc)nppParamInst.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-			{
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-				redraw();
-			}
 
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();

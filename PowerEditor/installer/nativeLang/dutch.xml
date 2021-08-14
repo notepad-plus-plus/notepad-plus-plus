@@ -5,7 +5,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2021-07-31 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-08-14 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.3">
@@ -41,9 +41,9 @@ Last modified on 2021-07-31 by Thomas De Rocker (RockyTDR).
                     <Item subMenuId="edit-blankOperations" name="&amp;Witruimte-bewerkingen"/>
                     <Item subMenuId="edit-pasteSpecial" name="&amp;Plakken speciaal"/>
                     <Item subMenuId="edit-onSelection" name="&amp;Voor selectie"/>
-                    <Item subMenuId="search-markAll" name="&amp;Alles markeren"/>
-                    <Item subMenuId="search-markOne" name="&amp;Eén markeren"/>
-                    <Item subMenuId="search-unmarkAll" name="Alle &amp;markeringen wissen"/>
+                    <Item subMenuId="search-markAll" name="&amp;Alle overeenkomsten van token stileren"/>
+                    <Item subMenuId="search-markOne" name="&amp;Eén token stileren"/>
+                    <Item subMenuId="search-unmarkAll" name="Stijl wissen"/>
                     <Item subMenuId="search-jumpUp" name="Om&amp;hoog springen"/>
                     <Item subMenuId="search-jumpDown" name="Om&amp;laag springen"/>
                     <Item subMenuId="search-copyStyledText" name="Tekst met &amp;stijl kopiëren"/>
@@ -225,20 +225,20 @@ Last modified on 2021-07-31 by Thomas De Rocker (RockyTDR).
                     <Item id="43035" name="Stijl 3"/>
                     <Item id="43036" name="Stijl 4"/>
                     <Item id="43037" name="Stijl 5"/>
-                    <Item id="43038" name="Stijl zoeken"/>
+                    <Item id="43038" name="Markeerstijl zoeken"/>
                     <Item id="43039" name="Stijl 1"/>
                     <Item id="43040" name="Stijl 2"/>
                     <Item id="43041" name="Stijl 3"/>
                     <Item id="43042" name="Stijl 4"/>
                     <Item id="43043" name="Stijl 5"/>
-                    <Item id="43044" name="Stijl zoeken"/>
+                    <Item id="43044" name="Markeerstijl zoeken"/>
                     <Item id="43055" name="Stijl 1"/>
                     <Item id="43056" name="Stijl 2"/>
                     <Item id="43057" name="Stijl 3"/>
                     <Item id="43058" name="Stijl 4"/>
                     <Item id="43059" name="Stijl 5"/>
                     <Item id="43060" name="Alle stijlen"/>
-                    <Item id="43061" name="Stijl zoeken (gemarkeerd)"/>
+                    <Item id="43061" name="Markeerstijl zoeken"/>
                     <Item id="43062" name="Met stijl 1"/>
                     <Item id="43063" name="Met stijl 2"/>
                     <Item id="43064" name="Met stijl 3"/>
@@ -552,41 +552,41 @@ Last modified on 2021-07-31 by Thomas De Rocker (RockyTDR).
                     <Item id="45001" name="Regeleinde-conversie naar Windows (CR LF)"/>
                     <Item id="45002" name="Regeleinde-conversie naar Unix (LF)"/>
                     <Item id="45003" name="Regeleinde-conversie naar Macintosh (CR)"/>
-                    <Item id="43022" name="Alles markeren met stijl 1"/>
-                    <Item id="43024" name="Alles markeren met stijl 2"/>
-                    <Item id="43026" name="Alles markeren met stijl 3"/>
-                    <Item id="43028" name="Alles markeren met stijl 4"/>
-                    <Item id="43030" name="Alles markeren met stijl 5"/>
-                    <Item id="43062" name="Eén markeren met stijl 1"/>
-                    <Item id="43063" name="Eén markeren met stijl 2"/>
-                    <Item id="43064" name="Eén markeren met stijl 3"/>
-                    <Item id="43065" name="Eén markeren met stijl 4"/>
-                    <Item id="43066" name="Eén markeren met stijl 5"/>
-                    <Item id="43023" name="Markeringen met stijl 1 wissen"/>
-                    <Item id="43025" name="Markeringen met stijl 2 wissen"/>
-                    <Item id="43027" name="Markeringen met stijl 3 wissen"/>
-                    <Item id="43029" name="Markeringen met stijl 4 wissen"/>
-                    <Item id="43031" name="Markeringen met stijl 5 wissen"/>
-                    <Item id="43032" name="Markeringen met om het even welke stijl wissen"/>
-                    <Item id="43033" name="Vorige markering met stijl 1"/>
-                    <Item id="43034" name="Vorige markering met stijl 2"/>
-                    <Item id="43035" name="Vorige markering met stijl 3"/>
-                    <Item id="43036" name="Vorige markering met stijl 4"/>
-                    <Item id="43037" name="Vorige markering met stijl 5"/>
-                    <Item id="43038" name="Vorige markering aangemaakt met 'markeren'"/>
-                    <Item id="43039" name="Volgende markering met stijl 1"/>
-                    <Item id="43040" name="Volgende markering met stijl 2"/>
-                    <Item id="43041" name="Volgende markering met stijl 3"/>
-                    <Item id="43042" name="Volgende markering met stijl 4"/>
-                    <Item id="43043" name="Volgende markering met stijl 5"/>
-                    <Item id="43044" name="Volgende markering aangemaakt met 'markeren'"/>
-                    <Item id="43055" name="Tekst met stijl kopiëren - stijl 1"/>
-                    <Item id="43056" name="Tekst met stijl kopiëren - stijl 2"/>
-                    <Item id="43057" name="Tekst met stijl kopiëren - stijl 3"/>
-                    <Item id="43058" name="Tekst met stijl kopiëren - stijl 4"/>
-                    <Item id="43059" name="Tekst met stijl kopiëren - stijl 5"/>
-                    <Item id="43060" name="Tekst met stijl kopiëren - alle stijlen"/>
-                    <Item id="43061" name="Tekst met stijl kopiëren - stijl zoeken (gemarkeerd)"/>
+                    <Item id="43022" name="Alles stileren met stijl 1"/>
+                    <Item id="43024" name="Alles stileren met stijl 2"/>
+                    <Item id="43026" name="Alles stileren met stijl 3"/>
+                    <Item id="43028" name="Alles stileren met stijl 4"/>
+                    <Item id="43030" name="Alles stileren met stijl 5"/>
+                    <Item id="43062" name="Eén stileren met stijl 1"/>
+                    <Item id="43063" name="Eén stileren met stijl 2"/>
+                    <Item id="43064" name="Eén stileren met stijl 3"/>
+                    <Item id="43065" name="Eén stileren met stijl 4"/>
+                    <Item id="43066" name="Eén stileren met stijl 5"/>
+                    <Item id="43023" name="Stijl 1 wissen"/>
+                    <Item id="43025" name="Stijl 2 wissen"/>
+                    <Item id="43027" name="Stijl 3 wissen"/>
+                    <Item id="43029" name="Stijl 4 wissen"/>
+                    <Item id="43031" name="Stijl 5 wissen"/>
+                    <Item id="43032" name="Alle stijlen wissen"/>
+                    <Item id="43033" name="Vorige stijl van stijl 1"/>
+                    <Item id="43034" name="Vorige stijl van stijl 2"/>
+                    <Item id="43035" name="Vorige stijl van stijl 3"/>
+                    <Item id="43036" name="Vorige stijl van stijl 4"/>
+                    <Item id="43037" name="Vorige stijl van stijl 5"/>
+                    <Item id="43038" name="Vorige stijl van 'markeerstijl zoeken'"/>
+                    <Item id="43039" name="Volgende stijl van stijl 1"/>
+                    <Item id="43040" name="Volgende stijl van stijl 2"/>
+                    <Item id="43041" name="Volgende stijl van stijl 3"/>
+                    <Item id="43042" name="Volgende stijl van stijl 4"/>
+                    <Item id="43043" name="Volgende stijl van stijl 5"/>
+                    <Item id="43044" name="Volgende stijl van 'markeerstijl zoeken'"/>
+                    <Item id="43055" name="Gestileerde tekst van stijl 1 kopiëren"/>
+                    <Item id="43056" name="Gestileerde tekst van stijl 2 kopiëren"/>
+                    <Item id="43057" name="Gestileerde tekst van stijl 3 kopiëren"/>
+                    <Item id="43058" name="Gestileerde tekst van stijl 4 kopiëren"/>
+                    <Item id="43059" name="Gestileerde tekst van stijl 5 kopiëren"/>
+                    <Item id="43060" name="Gestileerde tekst van alle stijlen kopiëren"/>
+                    <Item id="43061" name="Gestileerde tekst van 'markeerstijl zoeken' kopiëren"/>
                     <Item id="44100" name="Huidig bestand weergeven in Firefox"/>
                     <Item id="44101" name="Huidig bestand weergeven in Chrome"/>
                     <Item id="44103" name="Huidig bestand weergeven in IE"/>
@@ -621,6 +621,7 @@ Last modified on 2021-07-31 by Thomas De Rocker (RockyTDR).
                     <Item id="44105" name="Wisselen naar projectpaneel 2"/>
                     <Item id="44106" name="Wisselen naar projectpaneel 3"/>
                     <Item id="44107" name="Wisselen naar map als werkruimte"/>
+                    <Item id="44109" name="Wisselen naar documentenlijst"/>
                     <Item id="44108" name="Wisselen naar functielijst"/>
                 </MainCommandNames>
             </ShortcutMapper>
@@ -942,7 +943,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 </Language>
 
                 <Highlighting title="Markeren">
-                    <Item id="6351" name="Alles markeren"/>
+                    <Item id="6351" name="Alle overeenkomsten van token stileren"/>
                     <Item id="6352" name="Hoofdlettergevoelig"/>
                     <Item id="6353" name="Alleen volledige woorden"/>
                     <Item id="6333" name="Slim markeren"/>

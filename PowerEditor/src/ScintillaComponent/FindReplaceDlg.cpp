@@ -14,8 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <shlobj.h>
+#include <shlwapi.h>
 #include <uxtheme.h>
+#include "Common.h"
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
@@ -1822,9 +1823,19 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					if (findHistory._isFolderFollowDoc)
 					{
-						NppParameters& nppParam = NppParameters::getInstance();
-						const TCHAR * dir = nppParam.getWorkingDir();
-						::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
+						// Working directory depends on "Default Directory" preferences.
+						// It might be set to an absolute path value.
+						// So try to get the current buffer's path first.
+						generic_string currPath;
+						const Buffer* buf = (*_ppEditView)->getCurrentBuffer();
+						if (!(buf->getStatus() & (DOC_UNNAMED | DOC_DELETED)))
+						{
+							currPath = buf->getFullPathName();
+							PathRemoveFileSpec(currPath);
+						}
+						if (currPath.empty() || !PathIsDirectory(currPath.c_str()))
+							currPath = NppParameters::getInstance().getWorkingDir();
+						::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, currPath.c_str());
 					}
 
 				}

@@ -381,7 +381,35 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON ab
 		DynamicCmdIcoBmp dynList;
 		dynList._message = messageID;
 		dynList._hBmp = iconHandles->hToolbarBmp;
-		dynList._hIcon = iconHandles->hToolbarIcon ? iconHandles->hToolbarIcon : absentIco;
+
+		if (iconHandles->hToolbarIcon)
+		{
+			dynList._hIcon = iconHandles->hToolbarIcon;
+		}
+		else
+		{
+			BITMAP bmp;
+			int nbByteBmp = ::GetObject(dynList._hBmp, sizeof(BITMAP), &bmp);
+			if (!nbByteBmp)
+			{
+				dynList._hIcon = absentIco;
+			}
+			else
+			{
+				HBITMAP hbmMask = ::CreateCompatibleBitmap(::GetDC(NULL), bmp.bmWidth, bmp.bmHeight);
+
+				ICONINFO iconinfoDest = { 0 };
+				iconinfoDest.fIcon = TRUE;
+				iconinfoDest.hbmColor = iconHandles->hToolbarBmp;
+				iconinfoDest.hbmMask = hbmMask;
+
+				dynList._hIcon = ::CreateIconIndirect(&iconinfoDest);
+				::DeleteObject(hbmMask);
+			}
+		}
+
+		dynList._hIcon_DM = dynList._hIcon;
+
 		_vDynBtnReg.push_back(dynList);
 	}
 }

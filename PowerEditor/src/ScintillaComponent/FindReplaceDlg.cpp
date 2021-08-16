@@ -16,7 +16,6 @@
 
 #include <shlwapi.h>
 #include <uxtheme.h>
-#include "Common.h"
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"

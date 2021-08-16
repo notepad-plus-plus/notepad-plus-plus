@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -23,6 +23,7 @@
                     <Item subMenuId="file-openFolder" name="このファイルのあるフォルダーを開く(&amp;F)"/>
                     <Item subMenuId="file-closeMore" name="他のファイルを閉じる(&amp;M)"/>
                     <Item subMenuId="file-recentFiles" name="最近使用したファイル(&amp;R)"/>
+                    <Item subMenuId="edit-insert" name="挿入"/>
                     <Item subMenuId="edit-copyToClipboard" name="クリップボードにコピー(&amp;Y)"/>
                     <Item subMenuId="edit-indent" name="インデント(&amp;I)"/>
                     <Item subMenuId="edit-convertCaseTo" name="大文字/小文字変換(&amp;V)"/>
@@ -33,12 +34,12 @@
                     <Item subMenuId="edit-blankOperations" name="空白文字の操作(&amp;B)"/>
                     <Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け(&amp;P)"/>
                     <Item subMenuId="edit-onSelection" name="選択した文字列を(&amp;O)"/>
-                    <Item subMenuId="search-markAll" name="すべてマーク(&amp;A)"/>
-                    <Item subMenuId="search-markOne" name="一つだけマーク(&amp;O)"/>
-                    <Item subMenuId="search-unmarkAll" name="マークをすべて解除(&amp;U)"/>
-                    <Item subMenuId="search-jumpUp" name="前のマークに移動(&amp;J)"/>
-                    <Item subMenuId="search-jumpDown" name="次のマークに移動(&amp;D)"/>
-                    <Item subMenuId="search-copyStyledText" name="スタイル付きの文字列をコピー(&amp;C)"/>
+                    <Item subMenuId="search-markAll" name="選択した語をすべて色づけ(&amp;A)"/>
+                    <Item subMenuId="search-markOne" name="選択した語を一つだけ色づけ(&amp;O)"/>
+                    <Item subMenuId="search-unmarkAll" name="色づけを解除"/>
+                    <Item subMenuId="search-jumpUp" name="前の色づけ/マークに移動(&amp;J)"/>
+                    <Item subMenuId="search-jumpDown" name="次の色づけ/マークに移動(&amp;D)"/>
+                    <Item subMenuId="search-copyStyledText" name="色づけ/マークした文字列をコピー(&amp;C)"/>
                     <Item subMenuId="search-bookmark" name="ブックマーク(&amp;B)"/>
                     <Item subMenuId="view-currentFileIn" name="ブラウザーで開く"/>
                     <Item subMenuId="view-showSymbol" name="制御文字の表示"/>
@@ -107,6 +108,8 @@
                     <Item id="42006" name="削除(&amp;D)"/>
                     <Item id="42007" name="すべて選択(&amp;S)"/>
                     <Item id="42020" name="選択を開始/終了(&amp;S)"/>
+                    <Item id="42084" name="日時(短い形式)"/>
+                    <Item id="42085" name="日時(長い形式)"/>
                     <Item id="42008" name="インデントを増やす"/>
                     <Item id="42009" name="インデントを減らす"/>
                     <Item id="42010" name="カーソル行を複製"/>
@@ -217,20 +220,20 @@
                     <Item id="43035" name="スタイル3"/>
                     <Item id="43036" name="スタイル4"/>
                     <Item id="43037" name="スタイル5"/>
-                    <Item id="43038" name="マーク画面で作成されたマーク"/>
+                    <Item id="43038" name="マーク"/>
                     <Item id="43039" name="スタイル1"/>
                     <Item id="43040" name="スタイル2"/>
                     <Item id="43041" name="スタイル3"/>
                     <Item id="43042" name="スタイル4"/>
                     <Item id="43043" name="スタイル5"/>
-                    <Item id="43044" name="マーク画面で作成されたマーク"/>
+                    <Item id="43044" name="マーク"/>
                     <Item id="43055" name="スタイル1"/>
                     <Item id="43056" name="スタイル2"/>
                     <Item id="43057" name="スタイル3"/>
                     <Item id="43058" name="スタイル4"/>
                     <Item id="43059" name="スタイル5"/>
                     <Item id="43060" name="すべてのスタイル"/>
-                    <Item id="43061" name="マーク画面で作成されたマーク"/>
+                    <Item id="43061" name="マーク"/>
                     <Item id="43062" name="スタイル1を適用"/>
                     <Item id="43063" name="スタイル2を適用"/>
                     <Item id="43064" name="スタイル3を適用"/>
@@ -550,41 +553,41 @@
                     <Item id="45001" name="改行コードを Windows (CR LF) に変換"/>
                     <Item id="45002" name="改行コードを Unix (LF) に変換"/>
                     <Item id="45003" name="改行コードを Macintosh (CR) に変換"/>
-                    <Item id="43022" name="スタイル1ですべてマーク"/>
-                    <Item id="43024" name="スタイル2ですべてマーク"/>
-                    <Item id="43026" name="スタイル3ですべてマーク"/>
-                    <Item id="43028" name="スタイル4ですべてマーク"/>
-                    <Item id="43030" name="スタイル5ですべてマーク"/>
-                    <Item id="43062" name="スタイル1で一つのみマーク"/>
-                    <Item id="43063" name="スタイル2で一つのみマーク"/>
-                    <Item id="43064" name="スタイル3で一つのみマーク"/>
-                    <Item id="43065" name="スタイル4で一つのみマーク"/>
-                    <Item id="43066" name="スタイル5で一つのみマーク"/>
-                    <Item id="43023" name="スタイル1のマークを解除"/>
-                    <Item id="43025" name="スタイル2のマークを解除"/>
-                    <Item id="43027" name="スタイル3のマークを解除"/>
-                    <Item id="43029" name="スタイル4のマークを解除"/>
-                    <Item id="43031" name="スタイル5のマークを解除"/>
-                    <Item id="43032" name="すべてのスタイルのマークを解除"/>
-                    <Item id="43033" name="スタイル1を使う前のマーク"/>
-                    <Item id="43034" name="スタイル2を使う前のマーク"/>
-                    <Item id="43035" name="スタイル3を使う前のマーク"/>
-                    <Item id="43036" name="スタイル4を使う前のマーク"/>
-                    <Item id="43037" name="スタイル5を使う前のマーク"/>
-                    <Item id="43038" name="マーク画面で作成された前のマーク"/>
-                    <Item id="43039" name="スタイル1を使う次のマーク"/>
-                    <Item id="43040" name="スタイル2を使う次のマーク"/>
-                    <Item id="43041" name="スタイル3を使う次のマーク"/>
-                    <Item id="43042" name="スタイル4を使う次のマーク"/>
-                    <Item id="43043" name="スタイル5を使う次のマーク"/>
-                    <Item id="43044" name="マーク画面で作成された次のマーク"/>
+                    <Item id="43022" name="スタイル1ですべて色づけ"/>
+                    <Item id="43024" name="スタイル2ですべて色づけ"/>
+                    <Item id="43026" name="スタイル3ですべて色づけ"/>
+                    <Item id="43028" name="スタイル4ですべて色づけ"/>
+                    <Item id="43030" name="スタイル5ですべて色づけ"/>
+                    <Item id="43062" name="スタイル1で一つのみ色づけ"/>
+                    <Item id="43063" name="スタイル2で一つのみ色づけ"/>
+                    <Item id="43064" name="スタイル3で一つのみ色づけ"/>
+                    <Item id="43065" name="スタイル4で一つのみ色づけ"/>
+                    <Item id="43066" name="スタイル5で一つのみ色づけ"/>
+                    <Item id="43023" name="スタイル1を解除"/>
+                    <Item id="43025" name="スタイル2を解除"/>
+                    <Item id="43027" name="スタイル3を解除"/>
+                    <Item id="43029" name="スタイル4を解除"/>
+                    <Item id="43031" name="スタイル5を解除"/>
+                    <Item id="43032" name="すべてのスタイルを解除"/>
+                    <Item id="43033" name="前の スタイル1へ移動"/>
+                    <Item id="43034" name="前の スタイル2へ移動"/>
+                    <Item id="43035" name="前の スタイル3へ移動"/>
+                    <Item id="43036" name="前の スタイル4へ移動"/>
+                    <Item id="43037" name="前の スタイル5へ移動"/>
+                    <Item id="43038" name="前の マークへ移動"/>
+                    <Item id="43039" name="次の スタイル1へ移動"/>
+                    <Item id="43040" name="次の スタイル2へ移動"/>
+                    <Item id="43041" name="次の スタイル3へ移動"/>
+                    <Item id="43042" name="次の スタイル4へ移動"/>
+                    <Item id="43043" name="次の スタイル5へ移動"/>
+                    <Item id="43044" name="次の マークへ移動"/>
                     <Item id="43055" name="スタイル1の文字列をコピー"/>
                     <Item id="43056" name="スタイル2の文字列をコピー"/>
                     <Item id="43057" name="スタイル3の文字列をコピー"/>
                     <Item id="43058" name="スタイル4の文字列をコピー"/>
                     <Item id="43059" name="スタイル5の文字列をコピー"/>
                     <Item id="43060" name="すべてのスタイルの文字列をコピー"/>
-                    <Item id="43061" name="マーク画面でマークされた文字列をコピー"/>
+                    <Item id="43061" name="マークされた文字列をコピー"/>
                     <Item id="44100" name="Firefox で開く"/>
                     <Item id="44101" name="Chrome で開く"/>
                     <Item id="44103" name="IE で開く"/>
@@ -619,6 +622,7 @@
                     <Item id="44105" name="プロジェクトパネル2を表示"/>
                     <Item id="44106" name="プロジェクトパネル3を表示"/>
                     <Item id="44107" name="ワークスペースフォルダーを表示"/>
+                    <Item id="44109" name="文書一覧を表示"/>
                     <Item id="44108" name="関数リストを表示"/>
                 </MainCommandNames>
             </ShortcutMapper>
@@ -941,7 +945,7 @@
                 </Language>
 
                 <Highlighting title="強調表示">
-                    <Item id="6351" name="すべてマーク"/>
+                    <Item id="6351" name="選択した語をすべて色づけ"/>
                     <Item id="6352" name="大/小文字を区別"/>
                     <Item id="6353" name="単語単位"/>
                     <Item id="6333" name="スマート強調表示"/>

@@ -465,6 +465,7 @@ private:
 	{
 		const int bufferLen = MAX_PATH;
 		static TCHAR buffer[bufferLen];
+		static bool isRTL = false;
 
 		auto* inst = reinterpret_cast<FileDialogEventHandler*>(param);
 		if (!inst)
@@ -487,10 +488,19 @@ private:
 			else if (lstrcmpi(buffer, _T("Button")) == 0)
 			{
 				// Find the OK button.
+				// Preconditions:
 				// Label could be "Open" or "Save".
 				// Label could be localized (that's why can't search by window text).
 				// Dialog could have other buttons ("Cancel", "Help", etc).
-				// Don't rely on the order of the EnumChildWindows() traversal since it could be changed.
+				// The order of the EnumChildWindows() traversal may change.
+				// Solutions:
+				// 1. Find the leftmost (or the rightmost if RTL) button. The current solution.
+				// 2. Find by text. Get the localized text from windows resource DLL.
+				//    Problem: Resource ID might be changed or relocated to a different DLL.
+				// 3. Find by text. Set the localized text for the OK button beforehand (IFileDialog::SetOkButtonLabel). 
+				//    Problem: Localization might be not installed; need to use the OS language not the app language.
+				// 4. Just get the first button found. Save/Open button has control ID value lower than Cancel button. 
+				//    Problem: It may work or may not, depending on the initialization order or other environment factors.
 				LONG style = GetWindowLong(hwnd, GWL_STYLE);
 				if (style & (WS_CHILDWINDOW | WS_GROUP))
 				{
@@ -505,12 +515,14 @@ private:
 							RECT rc2 = {};
 							if (GetWindowRect(hwnd, &rc1) && GetWindowRect(inst->_hwndButton, &rc2))
 							{
-								if (rc1.left < rc2.left)
+								const bool isLess = isRTL ? (rc1.right > rc2.right) : (rc1.left < rc2.left);
+								if (isLess)
 									inst->_hwndButton = hwnd;
 							}
 						}
 						else
 						{
+							isRTL = GetWindowLong(hwnd, GWL_EXSTYLE) & WS_EX_LAYOUTRTL;
 							inst->_hwndButton = hwnd;
 						}
 					}

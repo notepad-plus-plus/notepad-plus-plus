@@ -428,6 +428,11 @@ BEGIN
         MENUITEM "&Select All",                      IDM_EDIT_SELECTALL
         MENUITEM "Begin/End &Select",                IDM_EDIT_BEGINENDSELECT
         MENUITEM SEPARATOR
+        POPUP "Insert"
+        BEGIN
+                MENUITEM "Date Time (short)", IDM_EDIT_INSERT_DATETIME_SHORT
+                MENUITEM "Date Time (long)",  IDM_EDIT_INSERT_DATETIME_LONG
+        END
         POPUP "Cop&y to Clipboard"
         BEGIN
                 MENUITEM "Current Full File path to Clipboard",    IDM_EDIT_FULLPATHTOCLIP

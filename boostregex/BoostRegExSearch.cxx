@@ -417,9 +417,7 @@ void BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::compileRegex
 {
 	if (_lastCompileFlags != compileFlags || _lastRegexString != regex)
 	{
-		std::locale l = std::locale::global(std::locale(""));
 		_regex = Regex(CharTPtr(regex), static_cast<regex_constants::syntax_option_type>(compileFlags));
-		std::locale::global(l);
 		_lastRegexString = regex;
 		_lastCompileFlags = compileFlags;
 	}
@@ -449,11 +447,9 @@ bool BoostRegexSearch::SearchParameters::isLineEnd(Sci::Position position)
 
 const char *BoostRegexSearch::SubstituteByPosition(Document* doc, const char *text, Sci::Position *length) {
 	delete[] _substituted;
-	std::locale l = std::locale::global(std::locale(""));
 	_substituted = (doc->CodePage() == SC_CP_UTF8)
 		? _utf8.SubstituteByPosition(text, length)
 		: _ansi.SubstituteByPosition(text, length);
-	std::locale::global(l);
 	return _substituted;
 }
 

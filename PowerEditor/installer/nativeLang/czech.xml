@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.1.3  2/Aug/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.1.4  19/Aug/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.3">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -40,9 +40,9 @@
 					<Item subMenuId = "edit-blankOperations" name = "Operace s &amp;prázdnými znaky"/>
 					<Item subMenuId = "edit-pasteSpecial" name = "Vložit &amp;nestandardně"/>
 					<Item subMenuId = "edit-onSelection" name = "Vybraný te&amp;xt"/>
-					<Item subMenuId = "search-markAll" name = "Označ&amp;it vše"/>
-					<Item subMenuId = "search-markOne" name = "Označ&amp;it jeden"/>
-					<Item subMenuId = "search-unmarkAll" name = "Odznač&amp;it vše"/>
+					<Item subMenuId = "search-markAll" name = "Ozn&amp;ačit všechny výskyty tokenu stylem"/>
+					<Item subMenuId = "search-markOne" name = "&amp;Označit token (jeden) stylem"/>
+					<Item subMenuId = "search-unmarkAll" name = "Odstranit označení stylem u všech tokenů"/>
 					<Item subMenuId = "search-jumpUp" name = "S&amp;kočit nahoru"/>
 					<Item subMenuId = "search-jumpDown" name = "S&amp;kočit dolů"/>
 					<Item subMenuId = "search-copyStyledText" name = "Kopírovat stylizovaný te&amp;xt"/>
@@ -224,13 +224,13 @@
 					<Item id = "43035" name = "3. styl"/>
 					<Item id = "43036" name = "4. styl"/>
 					<Item id = "43037" name = "5. styl"/>
-					<Item id = "43038" name = "Najít styl"/>
+					<Item id = "43038" name = "Najít označení stylem"/>
 					<Item id = "43039" name = "1. styl"/>
 					<Item id = "43040" name = "2. styl"/>
 					<Item id = "43041" name = "3. styl"/>
 					<Item id = "43042" name = "4. styl"/>
 					<Item id = "43043" name = "5. styl"/>
-					<Item id = "43044" name = "Najít styl"/>
+					<Item id = "43044" name = "Najít označení stylem"/>
 					<Item id = "43045" name = "Okno &amp;s výsledky vyhledávání"/>
 					<Item id = "43046" name = "D&amp;alší vyhledaný výsledek"/>
 					<Item id = "43047" name = "Př&amp;edchozí vyhledaný výsledek"/>
@@ -247,7 +247,7 @@
 					<Item id = "43058" name = "4. styl"/>
 					<Item id = "43059" name = "5. styl"/>
 					<Item id = "43060" name = "Všechny styly"/>
-					<Item id = "43061" name = "Najít styl (označený)"/>
+					<Item id = "43061" name = "Najít označení stylem"/>
 					<Item id = "43062" name = "Použít 1. styl"/>
 					<Item id = "43063" name = "Použít 2. styl"/>
 					<Item id = "43064" name = "Použít 3. styl"/>
@@ -449,7 +449,7 @@
 				<Item id = "1721" name = "▲"/> 
 				<Item id = "1722" name = "Zpětný směr"/>
 				<Item id = "1723" name = "▼ Najít další"/>
-				<Item id = "1725" name = "Kopírovat označený text do Schránky"/>
+				<Item id = "1725" name = "Kopírovat označený text"/>
 			</Find>
 
 			<FindCharsInRange title = "Najít znaky z rozsahu...">
@@ -594,13 +594,13 @@
 					<Item id = "43042" name = "Další označení 4. stylem"/>
 					<Item id = "43043" name = "Další označení 5. stylem"/>
 					<Item id = "43044" name = "Další označení vytvořené se Značkou"/>
-					<Item id = "43055" name = "Kopírovat stylizovaný text - 1. stylem"/>
-					<Item id = "43056" name = "Kopírovat stylizovaný text - 2. stylem"/>
-					<Item id = "43057" name = "Kopírovat stylizovaný text - 3. stylem"/>
-					<Item id = "43058" name = "Kopírovat stylizovaný text - 4. stylem"/>
-					<Item id = "43059" name = "Kopírovat stylizovaný text - 5. stylem"/>
-					<Item id = "43060" name = "Kopírovat stylizovaný text - Všemi styly"/>
-					<Item id = "43061" name = "Kopírovat stylizovaný text - Nalezený styl (označený)"/>
+					<Item id = "43055" name = "Kopírovat označený text - 1. stylem"/>
+					<Item id = "43056" name = "Kopírovat označený text - 2. stylem"/>
+					<Item id = "43057" name = "Kopírovat označený text - 3. stylem"/>
+					<Item id = "43058" name = "Kopírovat označený text - 4. stylem"/>
+					<Item id = "43059" name = "Kopírovat označený text - 5. stylem"/>
+					<Item id = "43060" name = "Kopírovat označený text - Všemi styly"/>
+					<Item id = "43061" name = "Kopírovat označený text - Nalezený styl (označený)"/>
 					<Item id = "43062" name = "Označit jeden 1. stylem"/>
 					<Item id = "43063" name = "Označit jeden 2. stylem"/>
 					<Item id = "43064" name = "Označit jeden 3. stylem"/>
@@ -641,6 +641,7 @@
 					<Item id = "44106" name = "Přejít na Projektový panel 3"/>
 					<Item id = "44107" name = "Přejít na Složka jako Pracovní plocha"/>
 					<Item id = "44108" name = "Přejít na Seznam funkcí"/>
+					<Item id = "44109" name = "Přejít na Seznam dokumentů"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			
@@ -998,7 +999,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6340" name = "Zvýraznění v jiném pohledu"/>
 					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
 					<Item id = "6330" name = "Zvýrazňování zón komentářů/php/asp"/>
-					<Item id = "6351" name = "Označit vše"/>
+					<Item id = "6351" name = "Označování výskytů tokenů styly"/>
 					<Item id = "6352" name = "Rozlišovat velká a malá písmena"/>
 					<Item id = "6353" name = "Rozlišovat pouze celá slova"/>
 					<Item id = "6354" name = "Rozlišování"/>

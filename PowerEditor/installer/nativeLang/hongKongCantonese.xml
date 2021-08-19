@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="7.9.6">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.1.3">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -285,6 +285,7 @@
                     <Item id="44031" name="展開呢層"/>
                     <Item id="44049" name="統計資料..."/>
                     <Item id="44080" name="文件地圖"/>
+                    <Item id="44070" name="文件清單"/> <!-- #new v8.1.3 -->
                     <Item id="44084" name="函式清單"/>
                     <Item id="44085" name="資料夾工作區"/>
                     <Item id="44086" name="1st"/>
@@ -354,7 +355,7 @@
                     <Item id="47010" name="Command line 參數..."/>
                     <Item id="47001" name="Notepad++ 官方網站"/>
                     <Item id="47002" name="Notepad++ 開發源碼網站"/>
-                    <Item id="47003" name="線上文件"/>
+                    <Item id="47003" name="Notepad++ 網上用戶手冊"/>
                     <Item id="47004" name="Notepad++ 社群論壇"/>
                     <Item id="47012" name="除錯資訊 (debug info)..."/>
                     <Item id="47005" name="搵外掛"/>
@@ -665,6 +666,7 @@
                     <Item id="44083" name="開/閂 Project Panel 3"/>
                     <Item id="44085" name="開/閂資料夾工作區"/>
                     <Item id="44080" name="開/閂文件地圖"/>
+                    <Item id="44070" name="開/閂文件清單"/> <!-- #new v8.1.3 -->
                     <Item id="44084" name="開/閂函式清單"/>
                     <Item id="50005" name="開始/停止錄製 macro"/>
                     <Item id="44104" name="跳去 Project Panel 1"/>
@@ -888,7 +890,7 @@
                     <Item id="6122" name="隱藏 menu bar（撳 Alt 或者 F10 切換）"/>
                     <Item id="6123" name="本土化"/>
                     <Item id="6125" name="文件切換 Panel"/>
-                    <Item id="6126" name="顯示"/>
+                    <Item id="6126" name="顯示"/> <!-- #legacy v8.1.2 -->
                     <Item id="6127" name="停用副檔名欄"/>
                     <Item id="6128" name="另類圖示"/> <!-- #new v7.9.1 -->
                 </Global>
@@ -913,7 +915,24 @@
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
                     <Item id="7101" name="啟用 dark mode"/> <!-- #new v7.9.6 -->
-                    <Item id="7106" name="* 重新啟動 Notepad++ 先至會完整生效"/> <!-- #new v7.9.6 -->
+                    <Item id="7102" name="黑色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7103" name="紅色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7104" name="綠色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7105" name="藍色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7107" name="紫色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7108" name="青色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7109" name="橄欖色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7115" name="自訂色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7116" name="頂部"/> <!-- #new v8.1.2 -->
+                    <Item id="7117" name="Menu 追踪顯示"/> <!-- #new v8.1.2 -->
+                    <Item id="7118" name="用緊嘅部分"/> <!-- #new v8.1.2 -->
+                    <Item id="7119" name="主要部分"/> <!-- #new v8.1.2 -->
+                    <Item id="7120" name="Error"/> <!-- #new v8.1.2 -->
+                    <Item id="7121" name="文字"/> <!-- #new v8.1.2 -->
+                    <Item id="7122" name="再暗啲嘅字"/> <!-- #new v8.1.2 -->
+                    <Item id="7123" name="停用咗嘅字"/> <!-- #new v8.1.2 -->
+                    <Item id="7124" name="邊緣線"/> <!-- #new v8.1.2 -->
+                    <Item id="7130" name="重新設定"/> <!-- #new v8.1.2 -->
                 </DarkMode>
 
                 <MarginsBorderEdge title="邊界／邊框／邊緣線">
@@ -1032,7 +1051,7 @@
                     <Item id="6901" name="撳搵嘢／取代嗰陣，唔好將揀咗嘅字自動輸入去對話框"/>
                     <Item id="6902" name="搵／取代對話框啲字用等寬字型（需要重開 Notepad++）"/>
                     <Item id="6903" name="搵完嘢，保持開著個對話框"/>
-                    <Item id="6904" name="喺所有打開咗嘅文件執行取代之前，要再次確認"/>
+                    <Item id="6904" name="喺所有打開咗嘅文件執行取代之前，要先做確認"/>
                     <Item id="6905" name="取代完唔好跳去另一個關鍵字"/> <!-- #new v7.9.6 -->
                 </Searching>
 
@@ -1147,6 +1166,7 @@
                     <Item id="6345" name="喺 tab 度偷睇"/>
                     <Item id="6346" name="喺文件地圖度偷睇"/>
                     <Item id="6360" name="靜音"/> <!-- #new v7.9.4 -->
+                    <Item id="6361" name="做「Save 晒所有檔案」之前要先做確認"/> <!-- #new v8.1.2 -->
                 </MISC>
             </Preference>
 
@@ -1300,21 +1320,27 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 搞掂晒安裝程序，Notepad++ 就會重新啟動。
 係咪繼續？"/>
             <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至可以 load 啲外掛。"/>
+            <SaveAllConfirm title="確認 save 晒所有檔案" message="係咪真係要 save 晒所有檔案佢？
+
+留意返，撳「取消」嘅話會直接 save 晒啲檔案，另外以後都唔會再問你，
+之後你亦可以喺偏好設定重新啟用呢個確認對話框。" /> <!-- #new v8.1.2 -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
         </ClipboardHistory>
-        <DocSwitcher>
-            <PanelTitle name="文件切換"/>
+        <DocList>
+            <PanelTitle name="文件清單"/>
             <ColumnName name="檔名"/>
             <ColumnExt name="副檔名"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="檔名"/>
             <ColumnPath name="路徑"/>
             <ColumnType name="類型"/>
             <ColumnSize name="Size"/>
             <NbDocsTotal name="文件數量："/> <!-- #new v7.9.2 -->
+            <MenuCopyName name="抄低檔名"/> <!-- #new v8.1.3 -->
+            <MenuCopyPath name="抄低路徑"/> <!-- #new v8.1.3 -->
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII 字元表"/>
@@ -1410,6 +1436,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <cloud-select-folder value="揀返個資料夾，畀 Notepad++ 讀取/寫入設定。"/>
             <shift-change-direction-tip value="用「Shift + Enter」掣嚟反方向咁搵"/>
             <two-find-buttons-tip value="用上、落兩個掣代替「搵下一個」"/>
+            <file-rename-title value="改名"/> <!-- #new v8.1.2 -->
             <find-in-files-filter-tip value="只係喺 cpp, cxx, h, hxx &amp;&amp; hpp 嘅檔案度搵：
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1503,6 +1530,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <session-save-folder-as-workspace value="Save 埋資料夾工作區" /> <!-- #new v7.9.3 -->
             <tab-untitled-string value="new " /> <!-- #new v7.9.6 -->
             <file-save-assign-type value="追加副檔名(&amp;A)" /> <!-- #new v7.9.6 -->
+            <close-panel-tip value="閂" /> <!-- #new v8.0.0 -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1197,11 +1197,11 @@ Notepad++ перезапуститься після завершення всі�
         <ClipboardHistory>
             <PanelTitle name="Історія буфера"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Перемикач документа"/>
             <ColumnName name="Назва"/>
             <ColumnExt name="Розш."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Назва"/>
             <ColumnPath name="Шлях"/>

@@ -102,6 +102,7 @@ ToolBarButtonUnit toolBarIcons[] = {
     {IDM_VIEW_INDENT_GUIDE,            IDI_VIEW_INDENT_ICON,       IDI_VIEW_INDENT_ICON,          IDI_VIEW_INDENT_ICON2,      IDI_VIEW_INDENT_ICON2,         IDI_VIEW_INDENT_ICON_DM,       IDI_VIEW_INDENT_ICON_DM,          IDI_VIEW_INDENT_ICON_DM2,      IDI_VIEW_INDENT_ICON_DM2,         IDR_INDENTGUIDE},
     {IDM_LANG_USER_DLG,                IDI_VIEW_UD_DLG_ICON,       IDI_VIEW_UD_DLG_ICON,          IDI_VIEW_UD_DLG_ICON2,      IDI_VIEW_UD_DLG_ICON2,         IDI_VIEW_UD_DLG_ICON_DM,       IDI_VIEW_UD_DLG_ICON_DM,          IDI_VIEW_UD_DLG_ICON_DM2,      IDI_VIEW_UD_DLG_ICON_DM2,         IDR_SHOWPANNEL},
     {IDM_VIEW_DOC_MAP,                 IDI_VIEW_DOC_MAP_ICON,      IDI_VIEW_DOC_MAP_ICON,         IDI_VIEW_DOC_MAP_ICON2,     IDI_VIEW_DOC_MAP_ICON2,        IDI_VIEW_DOC_MAP_ICON_DM,      IDI_VIEW_DOC_MAP_ICON_DM,         IDI_VIEW_DOC_MAP_ICON_DM2,     IDI_VIEW_DOC_MAP_ICON_DM2,        IDR_DOCMAP},
+    {IDM_VIEW_DOCLIST,                 IDI_VIEW_DOCLIST_ICON,      IDI_VIEW_DOCLIST_ICON,         IDI_VIEW_DOCLIST_ICON2,     IDI_VIEW_DOCLIST_ICON2,        IDI_VIEW_DOCLIST_ICON_DM,      IDI_VIEW_DOCLIST_ICON_DM,         IDI_VIEW_DOCLIST_ICON_DM2,     IDI_VIEW_DOCLIST_ICON_DM2,        IDR_DOCLIST},
     {IDM_VIEW_FUNC_LIST,               IDI_VIEW_FUNCLIST_ICON,     IDI_VIEW_FUNCLIST_ICON,        IDI_VIEW_FUNCLIST_ICON2,    IDI_VIEW_FUNCLIST_ICON2,       IDI_VIEW_FUNCLIST_ICON_DM,     IDI_VIEW_FUNCLIST_ICON_DM,        IDI_VIEW_FUNCLIST_ICON_DM2,    IDI_VIEW_FUNCLIST_ICON_DM2,       IDR_FUNC_LIST},
     {IDM_VIEW_FILEBROWSER,             IDI_VIEW_FILEBROWSER_ICON,  IDI_VIEW_FILEBROWSER_ICON,     IDI_VIEW_FILEBROWSER_ICON2, IDI_VIEW_FILEBROWSER_ICON2,    IDI_VIEW_FILEBROWSER_ICON_DM,  IDI_VIEW_FILEBROWSER_ICON_DM,     IDI_VIEW_FILEBROWSER_ICON_DM2, IDI_VIEW_FILEBROWSER_ICON_DM2,    IDR_FILEBROWSER},
     {IDM_VIEW_MONITORING,              IDI_VIEW_MONITORING_ICON,   IDI_VIEW_MONITORING_ICON,      IDI_VIEW_MONITORING_ICON2,  IDI_VIEW_MONITORING_ICON2,     IDI_VIEW_MONITORING_ICON_DM,   IDI_VIEW_MONITORING_ICON_DM,      IDI_VIEW_MONITORING_ICON_DM2,  IDI_VIEW_MONITORING_ICON_DM2,     IDR_FILEMONITORING},
@@ -148,7 +149,7 @@ Notepad_plus::Notepad_plus()
 
 	// Determine if user is administrator.
 	BOOL is_admin;
-	winVer ver = NppParameters::getInstance().getWinVersion();
+	winVer ver = nppParam.getWinVersion();
 	if (ver >= WV_VISTA || ver == WV_UNKNOWN)
 	{
 		SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;
@@ -180,7 +181,7 @@ Notepad_plus::~Notepad_plus()
 	delete _pTrayIco;
 	delete _pAnsiCharPanel;
 	delete _pClipboardHistoryPanel;
-	delete _pFileSwitcherPanel;
+	delete _pDocumentListPanel;
 	delete _pProjectPanel_1;
 	delete _pProjectPanel_2;
 	delete _pProjectPanel_3;
@@ -284,16 +285,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 	}
 
-	if (NppDarkMode::isEnabled())
-	{
-		_mainEditView.setBorderEdge(false);
-		_subEditView.setBorderEdge(false);
-	}
-	else
-	{
-		_mainEditView.setBorderEdge(svp._showBorderEdge);
-		_subEditView.setBorderEdge(svp._showBorderEdge);
-	}
+	_mainEditView.setBorderEdge(svp._showBorderEdge);
+	_subEditView.setBorderEdge(svp._showBorderEdge);
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
@@ -377,8 +370,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//--Splitter Section--//
 	bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
 
+	int splitterSizeDyn = nppParam._dpiManager.scaleX(splitterSize);
 	_subSplitter.init(_pPublicInterface->getHinst(), hwnd);
-	_subSplitter.create(&_mainDocTab, &_subDocTab, 8, SplitterMode::DYNAMIC, 50, isVertical);
+	_subSplitter.create(&_mainDocTab, &_subDocTab, splitterSizeDyn, SplitterMode::DYNAMIC, 50, isVertical);
 
 	//--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
@@ -534,6 +528,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 	_pluginsManager.setMenu(_mainMenuHandle, NULL, enablePluginAdmin);
 
+	//Search menu
+	//disable "Search Results Window" under Search Menu 
+	::EnableMenuItem(_mainMenuHandle, IDM_FOCUS_ON_FOUND_RESULTS, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
 
 	//Main menu is loaded, now load context menu items
 	nppParam.getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
@@ -762,7 +759,8 @@ void Notepad_plus::killAllChildren()
 
 bool Notepad_plus::saveGUIParams()
 {
-	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
+	NppParameters& nppParams = NppParameters::getInstance();
+	NppGUI & nppGUI = nppParams.getNppGUI();
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
@@ -805,28 +803,30 @@ bool Notepad_plus::saveGUIParams()
 	}
 
 	saveDockingParams();
-	(NppParameters::getInstance()).createXmlTreeFromGUIParams();
+	nppParams.createXmlTreeFromGUIParams();
 	return true;
 }
 
 bool Notepad_plus::saveProjectPanelsParams()
 {
+	NppParameters& nppParams = NppParameters::getInstance();
+
 	if (_pProjectPanel_1)
 	{
 		if (!_pProjectPanel_1->checkIfNeedSave()) return false;
-		(NppParameters::getInstance()).setWorkSpaceFilePath(0, _pProjectPanel_1->getWorkSpaceFilePath());
+		nppParams.setWorkSpaceFilePath(0, _pProjectPanel_1->getWorkSpaceFilePath());
 	}
 	if (_pProjectPanel_2)
 	{
 		if (!_pProjectPanel_2->checkIfNeedSave()) return false;
-		(NppParameters::getInstance()).setWorkSpaceFilePath(1, _pProjectPanel_2->getWorkSpaceFilePath());
+		nppParams.setWorkSpaceFilePath(1, _pProjectPanel_2->getWorkSpaceFilePath());
 	}
 	if (_pProjectPanel_3)
 	{
 		if (!_pProjectPanel_3->checkIfNeedSave()) return false;
-		(NppParameters::getInstance()).setWorkSpaceFilePath(2, _pProjectPanel_3->getWorkSpaceFilePath());
+		nppParams.setWorkSpaceFilePath(2, _pProjectPanel_3->getWorkSpaceFilePath());
 	}
-	return (NppParameters::getInstance()).writeProjectPanelsSettings();
+	return nppParams.writeProjectPanelsSettings();
 }
 
 bool Notepad_plus::saveFileBrowserParam()
@@ -2335,10 +2335,11 @@ void Notepad_plus::checkLangsMenu(int id) const
 
 generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 {
+	NppParameters& nppParams = NppParameters::getInstance();
 
-	if ((langType >= L_EXTERNAL) && (langType < NppParameters::getInstance().L_END))
+	if ((langType >= L_EXTERNAL) && (langType < nppParams.L_END))
 	{
-		ExternalLangContainer & elc = NppParameters::getInstance().getELCFromIndex(langType - L_EXTERNAL);
+		ExternalLangContainer & elc = nppParams.getELCFromIndex(langType - L_EXTERNAL);
 		if (getName)
 			return generic_string(elc._name);
 		else
@@ -2617,15 +2618,19 @@ void Notepad_plus::setUniModeText()
 		int cmdID = em.getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
-			//printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
+			assert(!"Encoding problem. Encoding is not added in encoding_table?");
 			return;
 		}
 		cmdID += IDM_FORMAT_ENCODE;
 
 		const int itemSize = 64;
-		TCHAR uniModeText[itemSize];
+		TCHAR uniModeText[itemSize] = {};
 		::GetMenuString(_mainMenuHandle, cmdID, uniModeText, itemSize, MF_BYCOMMAND);
 		uniModeTextString = uniModeText;
+		// Remove the shortcut text from the menu text.
+		const size_t tabPos = uniModeTextString.find_last_of('\t');
+		if (tabPos != generic_string::npos)
+			uniModeTextString.resize(tabPos);
 	}
 	_statusBar.setText(uniModeTextString.c_str(), STATUSBAR_UNICODE_TYPE);
 }
@@ -2656,7 +2661,7 @@ bool isUrlTextChar(TCHAR const c)
 		case '{':
 		case '}':
 		case '?':
-		case '\0x7f':
+		case '\u007F':
 			return false;
 	}
 	return true;
@@ -3443,7 +3448,9 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_TXT2TAGS;
         case IDM_LANG_VISUALPROLOG:
             return L_VISUALPROLOG;
-		case IDM_LANG_USER :
+        case IDM_LANG_TYPESCRIPT:
+            return L_TYPESCRIPT;
+        case IDM_LANG_USER:
             return L_USER;
 		default:
 		{
@@ -3460,7 +3467,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
 
 void Notepad_plus::setTitle()
 {
-	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
+	NppParameters& nppParams = NppParameters::getInstance();
+	const NppGUI & nppGUI = nppParams.getNppGUI();
 	//Get the buffer
 	Buffer * buf = _pEditView->getCurrentBuffer();
 
@@ -3484,7 +3492,7 @@ void Notepad_plus::setTitle()
 	if (_isAdministrator)
 		result += TEXT(" [Administrator]");
 
-	generic_string tbAdd = (NppParameters::getInstance()).getTitleBarAdd();
+	generic_string tbAdd = nppParams.getTitleBarAdd();
 	if (!tbAdd.empty())
 	{
 		result += TEXT(" - ");
@@ -3790,7 +3798,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		// Determinate in which view the file(s) is (are) dropped
 		POINT p;
 		::DragQueryPoint(hdrop, &p);
-		HWND hWin = ::RealChildWindowFromPoint(_pPublicInterface->getHSelf(), p);
+		HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 		if (!hWin) return;
 
 		if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
@@ -4024,8 +4032,8 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 		tabToOpen->setBuffer(0, id);	//index 0 since only one open
 		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
 		MainFileManager.closeBuffer(idToClose, viewToOpen);	//delete the buffer
-		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->closeItem(idToClose, whichOne);
+		if (_pDocumentListPanel)
+			_pDocumentListPanel->closeItem(idToClose, whichOne);
 	}
 	else
 	{
@@ -4158,8 +4166,8 @@ void Notepad_plus::dockUserDlg()
             pWindow = &_subSplitter;
         else
             pWindow = _pDocTab;
-
-        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), 8, SplitterMode::RIGHT_FIX, 45);
+		int splitterSizeDyn = NppParameters::getInstance()._dpiManager.scaleX(splitterSize);
+        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
     }
 
     if (bothActive())
@@ -4333,7 +4341,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 {
-	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	bool isSnapshotMode = nppGui.isSnapshotMode();
 	if (isSnapshotMode)
 	{
 		// Before switching off, synchronize backup file
@@ -4376,7 +4385,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 
 	notifyBufferActivated(id, whichOne);
 
-	bool isCurrBuffDetection = (NppParameters::getInstance().getNppGUI()._fileAutoDetection & cdEnabledNew) ? true : false;
+	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabledNew) ? true : false;
 	if (!reload && isCurrBuffDetection)
 	{
 		// Buffer has been activated, now check for file modification
@@ -5906,8 +5915,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 	}
 
-	if (_pFileSwitcherPanel)
-		_pFileSwitcherPanel->setItemIconStatus(buffer);
+	if (_pDocumentListPanel)
+		_pDocumentListPanel->setItemIconStatus(buffer);
 
 	if (!mainActive && !subActive)
 	{
@@ -6005,9 +6014,9 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	scnN.nmhdr.idFrom = (uptr_t)bufid;
 	_pluginsManager.notify(&scnN);
 
-	if (_pFileSwitcherPanel)
+	if (_pDocumentListPanel)
 	{
-		_pFileSwitcherPanel->activateItem(bufid, currentView());
+		_pDocumentListPanel->activateItem(bufid, currentView());
 	}
 
 	if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
@@ -6036,7 +6045,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	if (pCmdParams->_isSessionFile && fnss.size() == 1)
 	{
 		Session session2Load;
-		if ((NppParameters::getInstance()).loadSession(session2Load, fnss.getFileName(0)))
+		if (nppParams.loadSession(session2Load, fnss.getFileName(0)))
 		{
 			const bool isSnapshotMode = false;
 			const bool shouldLoadFileBrowser = true;
@@ -6046,6 +6055,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	}
 
  	LangType lt = pCmdParams->_langType;
+	generic_string udl = pCmdParams->_udlName;
 	int lineNumber =  pCmdParams->_line2go;
 	int columnNumber = pCmdParams->_column2go;
 	int positionNumber = pCmdParams->_pos2go;
@@ -6071,10 +6081,14 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			continue;
 
 		lastOpened = bufID;
+		Buffer* pBuf = MainFileManager.getBufferByID(bufID);
 
-		if (lt != L_EXTERNAL && lt < nppParams.L_END)
+		if (!udl.empty())
 		{
-			Buffer * pBuf = MainFileManager.getBufferByID(bufID);
+			pBuf->setLangType(L_USER, udl.c_str());
+		}
+		else if (lt != L_EXTERNAL && lt < nppParams.L_END)
+		{
 			pBuf->setLangType(lt);
 		}
 
@@ -6147,7 +6161,7 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 		}
 		else
 		{
-			ext = NppParameters::getInstance().getLangExtFromLangType(lt);
+			ext = nppParam.getLangExtFromLangType(lt);
 		}
 
 		if (ext && ext[0])
@@ -6492,13 +6506,14 @@ bool Notepad_plus::reloadLang()
 
 void Notepad_plus::launchClipboardHistoryPanel()
 {
+	NppParameters& nppParams = NppParameters::getInstance();
 	if (!_pClipboardHistoryPanel)
 	{
 		_pClipboardHistoryPanel = new ClipboardHistoryPanel();
 
 		_pClipboardHistoryPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data = {0};
 		_pClipboardHistoryPanel->create(&data, isRTL);
@@ -6506,7 +6521,14 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pClipboardHistoryPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_CLIPBOARDPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_CLIPBOARDPANEL_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_CLIPBOARDPANEL_ICO_DM;
+		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_CLIPBOARDPANEL_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6523,8 +6545,8 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParams.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParams.getCurrentDefaultBgColor();
 
 		_pClipboardHistoryPanel->setBackgroundColor(bgColor);
 		_pClipboardHistoryPanel->setForegroundColor(fgColor);
@@ -6534,30 +6556,39 @@ void Notepad_plus::launchClipboardHistoryPanel()
 }
 
 
-void Notepad_plus::launchFileSwitcherPanel()
+void Notepad_plus::launchDocumentListPanel()
 {
-	if (!_pFileSwitcherPanel)
+	if (!_pDocumentListPanel)
 	{
-		_pFileSwitcherPanel = new VerticalFileSwitcher;
+		NppParameters& nppParams = NppParameters::getInstance();
+
+		_pDocumentListPanel = new VerticalFileSwitcher;
 		HIMAGELIST hImgLst = _docTabIconList.getHandle();
-		_pFileSwitcherPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
+		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data = {0};
-		_pFileSwitcherPanel->create(&data, isRTL);
+		_pDocumentListPanel->create(&data, isRTL);
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileSwitcherPanel->getHSelf()));
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocumentListPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCSWITCHER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_DOCLIST_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_DOCLIST_ICO_DM;
+		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_DOCLIST_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
-		data.dlgID = IDM_VIEW_FILESWITCHER_PANEL;
+		data.dlgID = IDM_VIEW_DOCLIST;
 
-		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocSwitcher", "PanelTitle");
+		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocList", "PanelTitle");
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
 		{
@@ -6566,13 +6597,13 @@ void Notepad_plus::launchFileSwitcherPanel()
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParams.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParams.getCurrentDefaultBgColor();
 
-		_pFileSwitcherPanel->setBackgroundColor(bgColor);
-		_pFileSwitcherPanel->setForegroundColor(fgColor);
+		_pDocumentListPanel->setBackgroundColor(bgColor);
+		_pDocumentListPanel->setForegroundColor(fgColor);
 	}
-	_pFileSwitcherPanel->display();
+	_pDocumentListPanel->display();
 }
 
 
@@ -6582,8 +6613,10 @@ void Notepad_plus::launchAnsiCharPanel()
 	{
 		_pAnsiCharPanel = new AnsiCharPanel();
 		_pAnsiCharPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
+		
+		NppParameters& nppParams = NppParameters::getInstance();
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data = {0};
 		_pAnsiCharPanel->create(&data, isRTL);
@@ -6591,7 +6624,14 @@ void Notepad_plus::launchAnsiCharPanel()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pAnsiCharPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_ASCIIPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_ASCIIPANEL_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_ASCIIPANEL_ICO_DM;
+		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_ASCIIPANEL_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6608,8 +6648,8 @@ void Notepad_plus::launchAnsiCharPanel()
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParams.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParams.getCurrentDefaultBgColor();
 
 		_pAnsiCharPanel->setBackgroundColor(bgColor);
 		_pAnsiCharPanel->setForegroundColor(fgColor);
@@ -6630,10 +6670,19 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		_pFileBrowser->create(&data, _nativeLangSpeaker.isRTL());
 		data.pszName = TEXT("ST");
 
+		NppParameters& nppParams = NppParameters::getInstance();
+
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileBrowser->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_FILEBROWSER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		
+		int icoID = IDR_FILEBROWSER_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_FILEBROWSER_ICO_DM;
+		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_FILEBROWSER_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6641,7 +6690,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_FILEBROWSER;
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FB_PANELTITLE, FOLDERASWORKSPACE_NODE, "PanelTitle");
 
 		static TCHAR title[32];
@@ -6652,8 +6701,8 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParams.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParams.getCurrentDefaultBgColor();
 
 		_pFileBrowser->setBackgroundColor(bgColor);
 		_pFileBrowser->setForegroundColor(fgColor);
@@ -6724,7 +6773,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		(*pProjPanel) = new ProjectPanel;
 		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), panelID);
 		(*pProjPanel)->setWorkSpaceFilePath(nppParam.getWorkSpaceFilePath(panelID));
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data;
 		memset(&data, 0, sizeof(data));
@@ -6734,7 +6783,14 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>((*pProjPanel)->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_PROJECTPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_PROJECTPANEL_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_PROJECTPANEL_ICO_DM;
+		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_PROJECTPANEL_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6748,8 +6804,8 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		data.pszName = (*pProjPanel)->getPanelTitle();
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParam.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParam.getCurrentDefaultBgColor();
 
 		(*pProjPanel)->setBackgroundColor(bgColor);
 		(*pProjPanel)->setForegroundColor(fgColor);
@@ -6768,7 +6824,8 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 
 void Notepad_plus::launchDocMap()
 {
-	if (!(NppParameters::getInstance()).isTransparentAvailable())
+	NppParameters& nppParam = NppParameters::getInstance();
+	if (!nppParam.isTransparentAvailable())
 	{
 		_nativeLangSpeaker.messageBox("PrehistoricSystemDetected",
 			_pPublicInterface->getHSelf(),
@@ -6790,7 +6847,14 @@ void Notepad_plus::launchDocMap()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocMap->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCMAP_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		int icoID = IDR_DOCMAP_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_DOCMAP_ICO_DM;
+		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_DOCMAP_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -6798,7 +6862,7 @@ void Notepad_plus::launchDocMap()
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_DOC_MAP;
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(DM_PANELTITLE, "DocumentMap", "PanelTitle");
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
@@ -6830,14 +6894,24 @@ void Notepad_plus::launchFunctionList()
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFuncList->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_FUNC_LIST_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		
+		NppParameters& nppParam = NppParameters::getInstance();
+
+		int icoID = IDR_FUNC_LIST_ICO;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_FUNC_LIST_ICO_DM;
+		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_FUNC_LIST_ICO2;
+
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_FUNC_LIST;
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FL_PANELTITLE, FL_FUCTIONLISTROOTNODE, "PanelTitle");
 
 		static TCHAR title[32];
@@ -6848,8 +6922,8 @@ void Notepad_plus::launchFunctionList()
 		}
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
-		COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+		COLORREF fgColor = nppParam.getCurrentDefaultFgColor();
+		COLORREF bgColor = nppParam.getCurrentDefaultBgColor();
 
 		_pFuncList->setBackgroundColor(bgColor);
 		_pFuncList->setForegroundColor(fgColor);
@@ -6922,7 +6996,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #7"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("I need a six month holiday, TWICE A YEAR!")},
 	{TEXT("Anonymous #8"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Everything is a knife if you're strong enough.")},
 	{TEXT("Anonymous #9"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala.")},
-	{TEXT("Anonymous #10"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!")},
+	{TEXT("Anonymous #10"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Etc.\n\n(Abb.) End of Thinking Capacity.\n")},
 	{TEXT("Anonymous #11"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("We stopped checking for monsters under our bed, when we realized they were inside us.")},
 	{TEXT("Anonymous #12"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I would rather check my facebook than face my checkbook.")},
 	{TEXT("Anonymous #13"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper.")},
@@ -6938,7 +7012,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #23"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("A programmer is told to \"go to hell\".\nHe finds the worst part of that statement is the \"go to\".")},
 	{TEXT("Anonymous #24"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("An Architect's dream is an Engineer's nightmare.")},
 	{TEXT("Anonymous #25"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history.")},
-	{TEXT("Anonymous #26"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one.")},
+	{TEXT("Anonymous #26"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Q: What's the difference between git and github?\nA: It's the difference between porn and pornhub.\n")},
 	{TEXT("Anonymous #27"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I don't have a problem with caffeine.\nI have a problem without caffeine.")},
 	{TEXT("Anonymous #28"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Why 6 afraid of 7?\nBecause 7 8 9 while 6 and 9 were flirting.")},
 	{TEXT("Anonymous #29"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("How do you comfort a JavaScript bug?\nYou console it.")},
@@ -6967,7 +7041,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #52"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("What's the difference between religion and bullshit?\nThe bull.")},
 	{TEXT("Anonymous #53"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML")},
 	{TEXT("Anonymous #54"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Decimal: 1 + 1 = 2\nBinary:  1 + 1 = 10\nBoolean: 1 + 1 = 1\nJavaScript(hold my beer) : 1 + 1 = 11\n")},
-	{TEXT("Anonymous #55"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Violent video games won't change our behaviour.\nIf people were influenced by video games, then the majority of Facebook users would be farmers right now.")},
+	{TEXT("Anonymous #55"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Don't be ashamed of who you are.\nThat's your parents job.")},
 	{TEXT("Anonymous #56"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Religion is like circumcision.\nIf you wait until someone is 21 to tell them about it they probably won't be interested.")},
 	{TEXT("Anonymous #57"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("No, no, no, I'm not insulting you.\nI'm describing you.")},
 	{TEXT("Anonymous #58"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I bought a dog once. Named him \"Stay\".\n\"Come here, Stay.\"\nHe's insane now.")},
@@ -6990,7 +7064,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #75"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("I think therefore I am\nnot religious.")},
 	{TEXT("Anonymous #76"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Even if being gay were a choice, so what?\nPeople choose to be assholes and they can get married.")},
 	{TEXT("Anonymous #77"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Governments are like diapers.\nThey should be changed often, and for the same reason.")},
-	{TEXT("Anonymous #78"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If you expect the world to be fair with you because you are fair, you're fooling yourself.\nThat's like expecting the lion not to eat you because you didn't eat him.")},
+	{TEXT("Anonymous #78"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Mathématiquement, un cocu est un entier qui partage sa moitié avec un tiers.")},
 	{TEXT("Anonymous #79"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("I'm a creationist.\nI believe man created God.")},
 	{TEXT("Anonymous #80"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Let's eat kids.\nLet's eat, kids.\n\nUse a comma.\nSave lives.")},
 	{TEXT("Anonymous #81"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A male engineering student was crossing a road one day when a frog called out to him and said, \"If you kiss me, I'll turn into a beautiful princess.\" He bent over, picked up the frog, and put it in his pocket.\n\nThe frog spoke up again and said, \"If you kiss me and turn me back into a beautiful princess, I will stay with you for one week.\" The engineering student took the frog out of his pocket, smiled at it; and returned it to his pocket.\n\nThe frog then cried out, \"If you kiss me and turn me back into a princess, I'll stay with you and do ANYTHING you want.\" Again the boy took the frog out, smiled at it, and put it back into his pocket.\n\nFinally, the frog asked, \"What is the matter? I've told you I'm a beautiful princess, that I'll stay with you for a week and do anything you want. Why won't you kiss me?\" The boy said, \"Look I'm an engineer. I don't have time for a girlfriend, but a talking frog is cool.\"\n")},
@@ -7000,7 +7074,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #85"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met.")},
 	{TEXT("Anonymous #86"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Farts are just the ghosts of the things we eat.")},
 	{TEXT("Anonymous #87"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word.")},
-	{TEXT("Anonymous #88"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\".")},
+	{TEXT("Anonymous #88"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Si un jour une chaise te dit que t'as un joli cul, tu trouveras ça bizarre mais c'est juste un compliment d'objet direct.")},
 	{TEXT("Anonymous #89"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("The biggest step in any relationship isn't the first kiss.\nIt's the first fart.")},
 	{TEXT("Anonymous #90"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments.")},
 	{TEXT("Anonymous #91"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("CV: ctrl-C, ctrl-V")},
@@ -7022,7 +7096,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #108"), QuoteParams::rapid, true, SC_CP_UTF8, L_CSS, TEXT("#your-mom {\n	width: 100000000000000000000px;\n	float: nope;\n}\n")},
 	{TEXT("Anonymous #109"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("What's the best thing about UDP jokes?\nI don't care if you get them.")},
 	{TEXT("Anonymous #110"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems")},
-	{TEXT("Anonymous #111"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul.")},
+	{TEXT("Anonymous #111"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I'VE NEVER BEEN VERY GOOD AT GEOGRAPHY.\nBUT I CAN NAME AT LEAST ONE CITY IN FRANCE, WHICH IS NICE.")},
 	{TEXT("Anonymous #112"), QuoteParams::rapid, true, SC_CP_UTF8, L_CSS, TEXT("#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}\n")},
 	{TEXT("Anonymous #113"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("A colon can completely change the meaning of a sentence. For example:\n- Jane ate her friend's sandwich.\n- Jane ate her friend's colon.")},
 	{TEXT("Anonymous #114"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("How can you face your problem if your problem is your face?")},
@@ -7039,7 +7113,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #125"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Pooping with the door opened is the meaning of true freedom.")},
 	{TEXT("Anonymous #126"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Social media does not make people stupid.\nIt just makes stupid people more visible.")},
 	{TEXT("Anonymous #127"), QuoteParams::rapid, false, SC_CP_UTF8, L_SQL, TEXT("SELECT finger\nFROM hand\nWHERE id = 2 ;\n")},
-	{TEXT("Anonymous #128"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life.")},
+	{TEXT("Anonymous #128"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("3 men are on a boat. They have 4 cigarettes, but nothing to light them with.\nSo they throw a cigarette overboard and the whole boat becomes a cigarette lighter.")},
 	{TEXT("Anonymous #129"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("What is the most used language in programming?\n\nProfanity\n")},
 	{TEXT("Anonymous #130"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Common sense is so rare, it's kinda like a superpower...")},
 	{TEXT("Anonymous #131"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("The best thing about a boolean is even if you are wrong, you are only off by a bit.")},
@@ -7073,7 +7147,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #159"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("I love anal\n-yzing all data before making assumptions.")},
 	{TEXT("Anonymous #160"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("So I took off her shirt. Then she said,\n\"Take off my shirt.\"\nI took off her shirt.\n\"Take off my shoes.\"\nI took off her shoes.\n\"Now take off my bra and panties.\"\nand so I took them off.\nThen she looked at me and said\n\"I don't want to catch you wearing my things ever again.\"")},
 	{TEXT("Anonymous #161"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Do you know:\nSpiders are the only web developers in the world that enjoy finding bugs.") },
-	{TEXT("Anonymous #162"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Psychologist: Lie down please.\n8: No, thank you.If I do, this session will never reach the end.") },
+	{TEXT("Anonymous #162"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Psychologist: Lie down please.\n8: No, thank you. If I do, this session will never reach the end.") },
 	{TEXT("Anonymous #163"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("I love the way the earth rotates,\nit really makes my day.") },
 	{TEXT("Anonymous #164"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Homonyms are a waist of thyme.") },
 	{TEXT("Anonymous #165"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("What's the difference between a police officer and a bullet?\nWhen a bullet kills someone else, you know it's been fired.") },
@@ -7082,10 +7156,15 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #168"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never let your computer know that you are in a hurry.\nComputers can smell fear.\nThey slow down if they know that you are running out of time.") },
 	{TEXT("Anonymous #169"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("JavaScript is not a language.\nIt's a programming jokes generator.") },
 	{TEXT("Anonymous #170"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("A journalist asked Linus Torvalds what makes code bad.\nHe replied : No comment.") },
+	{TEXT("Anonymous #171"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing.") },
+	{TEXT("Anonymous #172"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Programming in Javascript is like looking both ways before you cross the street, and then getting hit by an airplane.") },
+	{TEXT("Anonymous #173"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Q: Why do we need a backend, why not just connect front end to database???\n\nA: Yeah! And why do we eat and go to the bathroom while we can throw the food directly in the toilet? Because stuff needs to get processed. ;)\n") },
+	{TEXT("Anonymous #174"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Someday, once humans are extinct from covid-19. I hope whatever species rules Earth makes chicken nuggets in the shape of us, like we did for dinosaurs.") },
+	{TEXT("Anonymous #175"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Linkedin is basically a reversed Tinder.\nHot girls write to nerd guys and they didn't reply.") },
+	{TEXT("xkcd"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never have I felt so close to another soul\nAnd yet so helplessly alone\nAs when I Google an error\nAnd there's one result\nA thread by someone with the same problem\nAnd no answer\nLast posted to in 2003\n\n\"Who were you, DenverCoder9?\"\n\"What did you see?!\"\n\n(ref: https://xkcd.com/979/)") },
 	{TEXT("A developer"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("No hugs & kisses.\nOnly bugs & fixes.") },
 	{TEXT("Elon Musk"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Don't set your password as your child's name.\nName your child after your password.") },
 	{TEXT("OOP"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("If you want to treat women as objects,\ndo it with class.")},
-	{TEXT("Internet #1"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing.")},
 	{TEXT("Internet #404"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Quote not Found")},
 	{TEXT("Mary Oliver"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift.")},
 	{TEXT("Floor"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("If you fall, I will be there.")},
@@ -7096,7 +7175,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Sam Redwine"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Software and cathedrals are much the same - first we build them, then we pray.")},
 	{TEXT("Jan L. A. van de Snepscheut"),  QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("In theory, there is no difference between theory and practice. But, in practice, there is.")},
 	{TEXT("Jessica Gaston"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("One man's crappy software is another man's full time job.")},
-	{TEXT("Barack Obama"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Yes, we scan!")},
+	{TEXT("Raymond Devos"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Mon pied droit est jaloux de mon pied gauche. Quand l'un avance, l'autre veut le dépasser.\nEt moi, comme un imbécile, je marche !")},
 	{TEXT("xkcd.com"), QuoteParams::rapid, false, SC_CP_UTF8, L_C, TEXT("int getRandomNumber()\n{\n    return 4; //chosen by fair dice roll, guaranteed to be random.\n}\n")},
 	{TEXT("Gandhi"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Earth provides enough to satisfy every man's need, but not every man's greed.")},
 	{TEXT("R. D. Laing"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Life is a sexually transmitted disease and the mortality rate is one hundred percent.")},
@@ -7108,6 +7187,8 @@ static const QuoteParams quotes[] =
 	{TEXT("Dennis Ritchie"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Empty your memory, with a free(), like a pointer.\nIf you cast a pointer to a integer, it becomes the integer.\nIf you cast a pointer to a struct, it becomes the struct.\nThe pointer can crash, and can overflow.\nBe a pointer my friend.")},
 	{TEXT("Chewbacca"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Uuuuuuuuuur Ahhhhrrrrrr\nUhrrrr Ahhhhrrrrrr\nAaaarhg...")},
 	{TEXT("Alexandria Ocasio-Cortez"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("No one ever makes a billion dollars.\nYou TAKE a billion dollars.")},
+	{TEXT("Freddy Krueger"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Never stop dreaming.\n")},
+	{TEXT("Francis bacon"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Knowledge is power. France is bacon.\n\nWhen I was young my father said to me: \"Knowledge is power, Francis Bacon.\" I understood it as \"Knowledge is power, France is bacon.\"\n\nFor more than a decade I wondered over the meaning of the second part and what was the surreal linkage between the two. If I said the quote to someone, \"Knowledge is power, France is Bacon\", they nodded knowingly. Or someone might say, \"Knowledge is power\" and I'd finish the quote \"France is Bacon\" and they wouldn't look at me like I'd said something very odd, but thoughtfully agree. I did ask a teacher what did \"Knowledge is power, France is bacon\" mean and got a full 10-minute explanation of the \"knowledge is power\" bit but nothing on \"France is bacon\". When I prompted further explanation by saying \"France is bacon?\" in a questioning tone I just got a \"yes\". At 12 I didn't have the confidence to press it further. I just accepted it as something I'd never understand.\n\nIt wasn't until years later I saw it written down that the penny dropped.\n")},
 	{TEXT("Space Invaders"), QuoteParams::speedOfLight, false, SC_CP_UTF8, L_TEXT, TEXT("\n\n       ▄██▄\n     ▄██████▄           █   █  █▀▀▀\n     ██▄██▄██           █   █  █▄▄\n      ▄▀▄▄▀▄            █ █ █  █\n     ▀ ▀  ▀ ▀           ▀▀ ▀▀  ▀▀▀▀\n\n      ▀▄   ▄▀           ▄█▀▀▀  ▄█▀▀█▄  █▀▄▀█  █▀▀▀\n     ▄█▀███▀█▄          █      █    █  █ ▀ █  █▄▄\n    █ █▀▀▀▀▀█ █         █▄     █▄  ▄█  █   █  █\n       ▀▀ ▀▀             ▀▀▀▀   ▀▀▀▀   ▀   ▀  ▀▀▀▀\n\n     ▄▄█████▄▄          ▀█▀  █▀▄  █\n    ██▀▀███▀▀██          █   █ ▀▄ █\n    ▀▀██▀▀▀██▀▀          █   █  ▀▄█\n    ▄█▀ ▀▀▀ ▀█▄         ▀▀▀  ▀   ▀▀\n\n      ▄▄████▄▄          █▀▀█  █▀▀▀  ▄▀▀▄  ▄█▀▀▀  █▀▀▀\n    ▄██████████▄        █▄▄█  █▄▄   █▄▄█  █      █▄▄ \n  ▄██▄██▄██▄██▄██▄      █     █     █  █  █▄     █   \n    ▀█▀  ▀▀  ▀█▀        ▀     ▀▀▀▀  ▀  ▀   ▀▀▀▀  ▀▀▀▀\n\n") },
 	{TEXT("#JeSuisCharlie"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Freedom of expression is like the air we breathe, we don't feel it, until people take it away from us.\n\nFor this reason, Je suis Charlie, not because I endorse everything they published, but because I cherish the right to speak out freely without risk even when it offends others.\nAnd no, you cannot just take someone's life for whatever he/she expressed.\n\nHence this \"Je suis Charlie\" edition.\n")}
 };
@@ -7503,107 +7584,157 @@ void Notepad_plus::restoreMinimizeDialogs()
 	}
 }
 
-void Notepad_plus::refreshDarkMode()
+void Notepad_plus::refreshDarkMode(bool resetStyle)
 {
-	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, NppParameters::getInstance().getSVP()._showBorderEdge);
-	if (NppDarkMode::isExperimentalEnabled())
+	NppParameters& nppParams = NppParameters::getInstance();
+
+	SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, nppParams.getSVP()._showBorderEdge);
+
+	if (resetStyle && NppDarkMode::isExperimentalSupported())
 	{
 		NppDarkMode::allowDarkModeForApp(NppDarkMode::isEnabled());
-		NppDarkMode::allowDarkModeForWindow(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::allowDarkModeForWindow(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::setTitleBarThemeColor(_pPublicInterface->getHSelf(), NppDarkMode::isEnabled());
-		NppDarkMode::setTitleBarThemeColor(_findReplaceDlg.getHSelf(), NppDarkMode::isEnabled());
-	}
-	SendMessage(_findReplaceDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
-	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
-	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
-	RedrawWindow(_findReplaceDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
-	SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
 
-	toolBarStatusType state = _toolBar.getState();
-	switch (state)
-	{
-		case TB_SMALL:
-			_toolBar.reduce();
-		break;
+		NppDarkMode::setDarkTitleBar(_pPublicInterface->getHSelf());
+		::SetWindowPos(_pPublicInterface->getHSelf(), nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 
-		case TB_LARGE:
-			_toolBar.enlarge();
-		break;
+		for (auto& docCont : _dockingManager.getContainerInfo())
+		{
+			NppDarkMode::setDarkTitleBar(docCont->getCaptionWnd());
+			::SetWindowPos(docCont->getCaptionWnd(), nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+		}
 
-		case TB_SMALL2:
-			_toolBar.reduceToSet2();
-		break;
-
-		case TB_LARGE2:
-			_toolBar.enlargeToSet2();
-		break;
-		
-		case TB_STANDARD:
-			// Force standard colorful icon to Fluent UI small icon in dark mode
-			if (NppDarkMode::isEnabled())
-				_toolBar.reduce();
-		break;
-	}
-
-
-	NppParameters& nppParams = NppParameters::getInstance();
-	ThemeSwitcher & themeSwitcher = nppParams.getThemeSwitcher();
-	generic_string themePath;
-	generic_string themeName;
-	const TCHAR darkModeXmlFileName[] = TEXT("DarkModeDefault.xml");
-	if (NppDarkMode::isEnabled())
-	{
-		themePath = themeSwitcher.getThemeDirPath();
-		PathAppend(themePath, darkModeXmlFileName);
-
-		themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
+		for (auto& hwndDlg : _hModelessDlgs)
+		{
+			NppDarkMode::setDarkTitleBar(hwndDlg);
+			::SendMessage(hwndDlg, NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+			::RedrawWindow(hwndDlg, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+			::SetWindowPos(hwndDlg, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+		}
 	}
 	else
 	{
-		//use _stylerPath;
-		
-		pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(0);
-		themePath = themeInfo.second;
-		themeName = themeSwitcher.getDefaultThemeLabel();
+		for (auto& hwndDlg : _hModelessDlgs)
+		{
+			::SendMessage(hwndDlg, NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+			::RedrawWindow(hwndDlg, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+		}
 	}
 
-	if (::PathFileExists(themePath.c_str()))
+	if (_pProjectPanel_1)
 	{
-		nppParams.getNppGUI()._themeName = themePath;
+		::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pProjectPanel_2)
+	{
+		::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pProjectPanel_3)
+	{
+		::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pFuncList)
+	{
+		::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pFileBrowser)
+	{
+		::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
 
-		if (_configStyleDlg.isCreated())
+	if (_pAnsiCharPanel)
+	{
+		::SendMessage(_pAnsiCharPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+	if (_pDocumentListPanel)
+	{
+		::SendMessage(_pDocumentListPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+
+	if (_pClipboardHistoryPanel)
+	{
+		::SendMessage(_pClipboardHistoryPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	}
+
+	::SendMessage(_subEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	::SendMessage(_mainEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+
+	::SendMessage(_mainDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	::SendMessage(_subDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+
+	SendMessage(_incrementFindDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+	SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
+
+	::SendMessage(_findInFinderDlg.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+	::RedrawWindow(_findInFinderDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+	if (resetStyle && NppDarkMode::isExperimentalSupported())
+	{
+		NppDarkMode::setDarkTitleBar(_findInFinderDlg.getHSelf());
+		::SetWindowPos(_findInFinderDlg.getHSelf(), nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+	}
+
+	if (resetStyle)
+	{
+		toolBarStatusType state = _toolBar.getState();
+		switch (state)
 		{
-			_configStyleDlg.selectThemeByName(themeName.c_str());
+			case TB_SMALL:
+				_toolBar.reduce();
+				break;
+
+			case TB_LARGE:
+				_toolBar.enlarge();
+				break;
+
+			case TB_SMALL2:
+				_toolBar.reduceToSet2();
+				break;
+
+			case TB_LARGE2:
+				_toolBar.enlargeToSet2();
+				break;
+
+			case TB_STANDARD:
+				// Force standard colorful icon to Fluent UI small icon in dark mode
+				if (NppDarkMode::isEnabled())
+					_toolBar.reduce();
+				break;
+		}
+
+		ThemeSwitcher& themeSwitcher = nppParams.getThemeSwitcher();
+		generic_string themePath;
+		generic_string themeName;
+		const TCHAR darkModeXmlFileName[] = TEXT("DarkModeDefault.xml");
+		if (NppDarkMode::isEnabled())
+		{
+			themePath = themeSwitcher.getThemeDirPath();
+			PathAppend(themePath, darkModeXmlFileName);
+
+			themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
 		}
 		else
 		{
-			nppParams.reloadStylers(themePath.c_str());
-			::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
+			//use _stylerPath;
+
+			pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(0);
+			themePath = themeInfo.second;
+			themeName = themeSwitcher.getDefaultThemeLabel();
 		}
-	}
 
-	if (NppDarkMode::isExperimentalEnabled())
-	{
-		RECT rcClient;
-		
-		GetWindowRect(_pPublicInterface->getHSelf(), &rcClient);
+		if (::PathFileExists(themePath.c_str()))
+		{
+			nppParams.getNppGUI()._themeName = themePath;
 
-		// Inform application of the frame change.
-		SetWindowPos(_pPublicInterface->getHSelf(),
-			NULL,
-			rcClient.left, rcClient.top,
-			rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
-			SWP_FRAMECHANGED);
-
-		GetWindowRect(_findReplaceDlg.getHSelf(), &rcClient);
-
-		// Inform application of the frame change.
-		SetWindowPos(_findReplaceDlg.getHSelf(),
-			NULL,
-			rcClient.left, rcClient.top,
-			rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
-			SWP_FRAMECHANGED);
+			if (_configStyleDlg.isCreated())
+			{
+				_configStyleDlg.selectThemeByName(themeName.c_str());
+			}
+			else
+			{
+				nppParams.reloadStylers(themePath.c_str());
+				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
+			}
+		}
 	}
 }
 

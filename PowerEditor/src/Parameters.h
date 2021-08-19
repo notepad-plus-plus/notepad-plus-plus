@@ -29,6 +29,7 @@
 #include "NppDarkMode.h"
 #include <assert.h>
 #include <tchar.h>
+#include <map>
 
 #ifdef _WIN64
 
@@ -237,6 +238,7 @@ struct CmdLineParams
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
+	generic_string _udlName;
 
 	generic_string _easterEggName;
 	unsigned char _quoteType = '\0';
@@ -268,6 +270,7 @@ struct CmdLineParamsDTO
 	int _pos2go = 0;
 
 	LangType _langType = L_EXTERNAL;
+	generic_string _udlName;
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{
@@ -283,7 +286,7 @@ struct CmdLineParamsDTO
 		dto._pos2go = params._pos2go;
 		
 		dto._langType = params._langType;
-
+		dto._udlName = params._udlName;
 		return dto;
 	}
 };
@@ -774,6 +777,12 @@ public:
 	bool _doDoubleQuotes = false;
 };
 
+struct DarkModeConf final
+{
+	bool _isEnabled = false;
+	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
+	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
+};
 
 struct NppGUI final
 {
@@ -830,6 +839,7 @@ struct NppGUI final
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _detectEncoding = true;
+	bool _saveAllConfirm = true;
 	bool _setSaveDlgExtFiltToAllTypes = false;
 	bool _doTaskList = true;
 	bool _maitainIndent = true;
@@ -927,7 +937,7 @@ struct NppGUI final
 	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
 
-	NppDarkMode::Options _darkmode;
+	DarkModeConf _darkmode;
 };
 
 struct ScintillaViewParams
@@ -1073,7 +1083,8 @@ public:
 		init();
 	}
 
-	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer)
+	UserLangContainer(const TCHAR *name, const TCHAR *ext, bool isDarkModeTheme, const TCHAR *udlVer):
+		_name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer)
 	{
 		init();
 	}
@@ -1084,6 +1095,7 @@ public:
 		{
 			this->_name = ulc._name;
 			this->_ext = ulc._ext;
+			this->_isDarkModeTheme = ulc._isDarkModeTheme;
 			this->_udlVersion = ulc._udlVersion;
 			this->_isCaseIgnored = ulc._isCaseIgnored;
 			this->_styleArray = ulc._styleArray;
@@ -1119,6 +1131,7 @@ private:
 	generic_string _name;
 	generic_string _ext;
 	generic_string _udlVersion;
+	bool _isDarkModeTheme = false;
 
 	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
 	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS];
@@ -1270,40 +1283,34 @@ class ThemeSwitcher final
 friend class NppParameters;
 
 public:
-	void addThemeFromXml(const generic_string& xmlFullPath)
-	{
+	void addThemeFromXml(const generic_string& xmlFullPath) {
 		_themeList.push_back(std::pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
 	}
 
-	void addDefaultThemeFromXml(const generic_string& xmlFullPath)
-	{
+	void addDefaultThemeFromXml(const generic_string& xmlFullPath) {
 		_themeList.push_back(std::pair<generic_string, generic_string>(_defaultThemeLabel, xmlFullPath));
 	}
 
 	generic_string getThemeFromXmlFileName(const TCHAR *fn) const;
 
-	generic_string getXmlFilePathFromThemeName(const TCHAR *themeName) const
-	{
+	generic_string getXmlFilePathFromThemeName(const TCHAR *themeName) const {
 		if (!themeName || themeName[0])
 			return generic_string();
 		generic_string themePath = _stylesXmlPath;
 		return themePath;
 	}
 
-	bool themeNameExists(const TCHAR *themeName)
-	{
+	bool themeNameExists(const TCHAR *themeName) {
 		for (size_t i = 0; i < _themeList.size(); ++i )
 		{
-			if (! (getElementFromIndex(i)).first.compare(themeName))
+			auto themeNameOnList = getElementFromIndex(i).first;
+			if (lstrcmp(themeName, themeNameOnList.c_str()) == 0)
 				return true;
 		}
 		return false;
 	}
 
-	size_t size() const
-	{
-		return _themeList.size();
-	}
+	size_t size() const { return _themeList.size(); }
 
 
 	std::pair<generic_string, generic_string> & getElementFromIndex(size_t index)
@@ -1317,8 +1324,25 @@ public:
 
 	generic_string getDefaultThemeLabel() const { return _defaultThemeLabel; }
 
+	generic_string getSavePathFrom(const generic_string& path) const {
+		const auto iter = _themeStylerSavePath.find(path);
+		if (iter == _themeStylerSavePath.end())
+		{
+			return TEXT("");
+		}
+		else
+		{
+			return iter->second;
+		}
+	};
+
+	void addThemeStylerSavePath(generic_string key, generic_string val) {
+		_themeStylerSavePath[key] = val;
+	};
+
 private:
 	std::vector<std::pair<generic_string, generic_string>> _themeList;
+	std::map<generic_string, generic_string> _themeStylerSavePath;
 	generic_string _themeDirPath;
 	const generic_string _defaultThemeLabel = TEXT("Default (stylers.xml)");
 	generic_string _stylesXmlPath;
@@ -1469,7 +1493,7 @@ public:
 	bool writeScintillaParams();
 	void createXmlTreeFromGUIParams();
 
-	void writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers);
+	generic_string writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers); // return "" if saving file succeeds, otherwise return the new saved file path
 	bool insertTabInfo(const TCHAR *langName, int tabInfo);
 
 	LexerStylerArray & getLStylerArray() {return _lexerStylerArray;};
@@ -1809,7 +1833,6 @@ private:
 	bool _isx64 = false; // by default 32-bit
 
 	generic_string _cmdSettingsDir;
-
 	generic_string _titleBarAdditional;
 
 public:

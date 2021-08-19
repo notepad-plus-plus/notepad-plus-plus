@@ -16,116 +16,115 @@
 
 
 SectionGroup "Themes" Themes
-	SetOverwrite off
-	; UPDATE_PATH: the value is $INSTDIR if doLocalConf.xml exit,
-	;              otherwise the value is $APPDATA\${APPNAME}
+	SetOverwrite on
+
 	Section "-Dark Mode Default" DarkModeDefault
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\DarkModeDefault.xml"
 	SectionEnd
 	
 	${MementoSection} "Black Board" BlackBoard
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Black board.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Choco" Choco
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Choco.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Hello Kitty" HelloKitty
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Hello Kitty.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Mono Industrial" MonoIndustrial
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Mono Industrial.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Monokai" Monokai
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Monokai.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Obsidian" Obsidian
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\obsidian.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Plastic Code Wrap" PlasticCodeWrap
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Plastic Code Wrap.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Ruby Blue" RubyBlue
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Ruby Blue.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Twilight" Twilight
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Twilight.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Vibrant Ink" VibrantInk
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Vibrant Ink.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Deep Black" DeepBlack
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Deep Black.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "vim Dark Blue" vimDarkBlue
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\vim Dark Blue.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Bespin" Bespin
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Bespin.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Zenburn" Zenburn
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Zenburn.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Solarized" Solarized
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Solarized.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Solarized Light" Solarized-light
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Solarized-light.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Hot Fudge Sundae" HotFudgeSundae
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\HotFudgeSundae.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "khaki" khaki
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\khaki.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Mossy Lawn" MossyLawn
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\MossyLawn.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Navajo" Navajo
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Navajo.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "DansLeRuSH Dark" DansLeRuSHDark
-		SetOutPath "$UPDATE_PATH\themes"
+		SetOutPath "$INSTDIR\themes"
 		File ".\themes\DansLeRuSH-Dark.xml"
 	${MementoSectionEnd}
 SectionGroupEnd

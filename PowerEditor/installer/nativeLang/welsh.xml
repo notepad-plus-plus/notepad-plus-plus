@@ -847,11 +847,11 @@ gan/by Aled Powell
         <ClipboardHistory>
 			<PanelTitle name="Hanes Clipfwrdd"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Newidydd Dogfennau"/>
 			<ColumnName name="Enw"/>
 			<ColumnExt name="Est."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="Panel Mewnosod ASCII"/>
 			<ColumnVal name="Gwerth"/>

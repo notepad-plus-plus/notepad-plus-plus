@@ -21,7 +21,7 @@
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 
-#define FS_PROJECTPANELTITLE		TEXT("Doc Switcher")
+#define FS_PROJECTPANELTITLE		TEXT("Document List")
 
 struct sortCompareData {
   HWND hListView;
@@ -31,7 +31,7 @@ struct sortCompareData {
 
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:
-	VerticalFileSwitcher(): DockingDlgInterface(IDD_FILESWITCHER_PANEL) {};
+	VerticalFileSwitcher(): DockingDlgInterface(IDD_DOCLIST) {};
 
 	void init(HINSTANCE hInst, HWND hPere, HIMAGELIST hImaLst) {
 		DockingDlgInterface::init(hInst, hPere);

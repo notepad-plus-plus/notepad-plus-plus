@@ -19,6 +19,7 @@
 #include "VerticalFileSwitcher.h"
 #include "menuCmdID.h"
 #include "Parameters.h"
+#include "resource.h"
 
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
@@ -59,21 +60,34 @@ void VerticalFileSwitcher::startColumnSort()
 
 INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
 			_fileListView.init(_hInst, _hSelf, _hImaLst);
 			_fileListView.initList();
 			_fileListView.display();
 
-            return TRUE;
-        }
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkListView(_fileListView.getHSelf());
+			NppDarkMode::setDarkTooltips(_fileListView.getHSelf(), NppDarkMode::ToolTipsType::listview);
+			return TRUE;
+		}
 
 		case WM_NOTIFY:
 		{
-			switch (((LPNMHDR)lParam)->code)
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
 			{
+				case DMN_CLOSE:
+				{
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DOCLIST, 0);
+					return TRUE;
+				}
+
 				case NM_DBLCLK:
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;

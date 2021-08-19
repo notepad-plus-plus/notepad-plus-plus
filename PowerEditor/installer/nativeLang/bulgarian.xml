@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 03.06.2021 by Rusi Dimitrov <astral_86[at]mail[dot]bg>
+|   Last revision:...: 25.07.2021 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -338,6 +338,7 @@
 					<!-- Меню "Изглед" -->
 					<Item id="44085" name="Директория като работно място"/>
 					<Item id="44080" name="Карта на документа"/>
+					<Item id="44070" name="Списък с документи"/>
 					<Item id="44084" name="Списък с функции"/>
 					<Item id="44035" name="Синхрон при вертикално превъртане"/>
 					<Item id="44036" name="Синхрон при хоризонтално превъртане"/>
@@ -414,7 +415,7 @@
 					<Item id="47001" name="Notepad++ домашна страница"/>
 					<Item id="47002" name="Notepad++ страница на проекта"/>
 					<Item id="47004" name="Notepad++ общност (Форум)"/>
-					<Item id="47003" name="Онлайн документация"/>
+					<Item id="47003" name="Notepad++ онлайн ръководство"/>
 					<Item id="47006" name="Обновяване на Notepad++"/>
 					<Item id="47009" name="Задаване на прокси за обновяване..."/>
 					<Item id="47012" name="Инфо за отстраняване на грешки..."/>
@@ -757,8 +758,7 @@
 					<Item id="6129" name="Fluent UI: малки запълнени"/>
 					<Item id="6130" name="Fluent UI: големи запълнени"/>
 					<Item id="6105" name="Стандартни: малки икони"/>
-					<Item id="6125" name="Панел с документи"/>
-					<Item id="6126" name="Включено"/>
+					<Item id="6125" name="Списък с документи"/>
 					<Item id="6127" name="Без колона с разширенията"/>
 					<Item id="6111" name="Показване лента на състоянието"/>
 					<Item id="6106" name="Лента с отворени раздели"/>
@@ -796,7 +796,24 @@
 					<!-- Тъмен режим -->
 				<DarkMode title="Тъмен режим">
 					<Item id="7101" name="Включване на тъмен режим"/>
-					<Item id="7106" name="* Изисква се рестартиране на Notepad++"/>
+					<Item id="7102" name="Черен нюанс"/>
+					<Item id="7103" name="Червен нюанс"/>
+					<Item id="7104" name="Зелен нюанс"/>
+					<Item id="7105" name="Син нюанс"/>
+					<Item id="7107" name="Пурпурен нюанс"/>
+					<Item id="7108" name="Синьо-зелен нюанс"/>
+					<Item id="7109" name="Маслинов нюанс"/>
+					<Item id="7115" name="Персонализирани цветове"/>
+					<Item id="7116" name="Най-горе"/>
+					<Item id="7117" name="Избрано меню"/>
+					<Item id="7118" name="Активно"/>
+					<Item id="7119" name="Основа"/>
+					<Item id="7120" name="Грешка"/>
+					<Item id="7121" name="Текст"/>
+					<Item id="7122" name="По-тъмен текст"/>
+					<Item id="7123" name="Неактивна опция"/>
+					<Item id="7124" name="Разделител"/>
+					<Item id="7130" name="Нулиране"/>
 				</DarkMode>
 					<!-- Полета/Граница/Ръб -->
 				<MarginsBorderEdge title="Полета/Граница/Ръб">
@@ -995,7 +1012,7 @@
 					<Item id="6319" name="Включено"/>
 					<Item id="6320" name="Без подчертаване"/>
 					<Item id="6350" name="Цветен фон"/>
-					<Item id="6264" name="URI потребителски схеми:"/>
+					<Item id="6264" name="Персонализирани URI схеми:"/>
 				</Cloud>
 					<!-- Търсеща машина -->
 				<SearchEngine title="Търсеща машина">
@@ -1024,6 +1041,7 @@
 					<Item id="6308" name="Намаляване в системната област"/>
 					<Item id="6331" name="Показване само името на файла в заглавната лента"/>
 					<Item id="6349" name="Използване на DirectWrite за изобразяване на текст (изисква се рестартиране на Notepad++)"/>
+					<Item id="6361" name="Диалогов прозорец за потвърждение при &quot;Запис на всички&quot;"/>
 					<Item id="6324" name="Превключване между раздели (Ctrl + Tab)"/>
 					<Item id="6114" name="Включено"/>
 					<Item id="6117" name="Приоритет на последно използваните"/>
@@ -1167,6 +1185,7 @@
 					<Item id="44085" name="Директория като работно място"/>
 					<Item id="44107" name="Превключване към Директория като работно място"/>
 					<Item id="44080" name="Карта на документа"/>
+					<Item id="44070" name="Превключване към Списък с документи"/>
 					<Item id="44084" name="Списък с функции"/>
 					<Item id="44108" name="Превключване към Списък с функции"/>
 						<!-- Меню "Макроси" -->
@@ -1328,17 +1347,11 @@
 			</Menus>
 		</FolderAsWorkspace>
 		<MiscStrings>
-				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
-				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
-			<word-chars-list-tip value="Позволява добавяне на допълнителни символи към дума, чрез двойно щракане върху нея или при включена опция за търсене на &quot;Само цели думи&quot;"/>
-			<word-chars-list-warning-begin value="Бъдете внимателни: "/>
-			<word-chars-list-space-warning value="$INT_REPLACE$ интервал(а)"/>
-			<word-chars-list-tab-warning value="$INT_REPLACE$ отстъп(а)"/>
-			<word-chars-list-warning-end value="  в списъкa със символи."/>
-				<!-- Меню "Настройки" - "Предпочитания..." - "Облак" -->
-			<cloud-invalid-warning value="Невалиден път"/>
-			<cloud-restart-warning value="Изисква се рестартиране на Notepad++"/>
-			<cloud-select-folder value="Избор на папка, от/в която Notepad++ ще чете/пише настройките си"/>
+		<!-- $INT_REPLACE$ и $STR_REPLACE$ са контейнери, не се превеждат -->
+				<!-- Меню "Файл" прозорци за запазване-->
+			<session-save-folder-as-workspace value="&amp;Запис на &quot;Директория като работно място&quot;"/>
+			<file-save-assign-type value="&amp;Добавяне на разширение"/>
+			<file-rename-title value="Преименуване"/>
 				<!-- Меню "Търсене" - "Търсене", "Замяна", "Търсене във файлове", "Търсене в проекти", "Маркиране" -->
 			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter"/>
 			<two-find-buttons-tip value="Режим за търсене с два бутона"/>
@@ -1400,20 +1413,17 @@
 			<find-result-line-prefix value="Ред"/>
 			<find-regex-zero-length-match value="повторение с нулева дължина"/>
 			<find-in-files-progress-title value="Намиране във файлове..."/>
-				<!-- Дясно щракане върху раздел -->
-			<tabrename-title value="Преименуване на раздела"/>
-			<tabrename-newname value="Ново име:"/>
-			<common-ok value="Добре"/>
-			<common-cancel value="Отказ"/>
-				<!-- Меню "Синтаксис" - "Дефиниране на синтаксис..." -->
-			<userdefined-title-new value="Създаване на нов синтаксис..."/>
-			<userdefined-title-save value="Запазване на текущият синтаксис като..."/>
-			<userdefined-title-rename value="Преименуване на синтаксиса"/>
-			<common-name value="Име:"/>
-				<!-- Меню "Настройки" - "Предпочитания..." -->
-			<recent-file-history-maxfile value="Макс. файла:"/>
-			<language-tabsize value="Размер:"/>
-			<autocomplete-nb-char value="Брой знаци:"/>
+				<!-- Меню "Търсене" - "Замяна" - "Замяна на всичко във всички отворени" -->
+			<replace-in-open-docs-confirm-title value="Сигурни ли сте?"/>
+			<replace-in-open-docs-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички повторения във всички отворени документи?"/>
+				<!-- Меню "Търсене" - "Търсене във файлове" - "Замяна във файловете" -->
+			<replace-in-files-confirm-title value="Сигурни ли сте?"/>
+			<replace-in-files-confirm-directory value="Сигурни ли сте, че искате да бъдат заменени всички повторения в:"/>
+			<replace-in-files-confirm-filetype value="За типа файл:"/>
+			<replace-in-files-progress-title value="Замяна във файлове..."/>
+				<!-- Меню "Търсене" - "Търсене в проекти" - "Замяна в проектите" -->
+			<replace-in-projects-confirm-title value="Сигурни ли сте?"/>
+			<replace-in-projects-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички повторения във всички документи в избраните проектни панели?"/>
 				<!-- Меню "Изглед" - "Информация за файла..." -->
 			<summary value="Резюме"/>
 			<summary-filepath value="Пълен път на файла: "/>
@@ -1426,20 +1436,31 @@
 			<summary-nbsel1 value=" маркиран(и) символ(а) ("/>
 			<summary-nbsel2 value=" байта) в "/>
 			<summary-nbrange value=" обхват(а)"/>
-				<!-- "Замяна" - "Замяна на всичко във всички отворени" -->
-			<replace-in-open-docs-confirm-title value="Сигурни ли сте?"/>
-			<replace-in-open-docs-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички повторения във всички отворени документи?"/>
-				<!-- "Търсене във файлове" - "Замяна във файловете" -->
-			<replace-in-files-confirm-title value="Сигурни ли сте?"/>
-			<replace-in-files-confirm-directory value="Сигурни ли сте, че искате да бъдат заменени всички повторения в:"/>
-			<replace-in-files-confirm-filetype value="За типа файл:"/>
-			<replace-in-files-progress-title value="Замяна във файлове..."/>
-				<!-- "Търсене в проекти" - "Замяна в проектите" -->
-			<replace-in-projects-confirm-title value="Сигурни ли сте?"/>
-			<replace-in-projects-confirm-message value="Сигурни ли сте, че искате да бъдат заменени всички повторения във всички документи в избраните проектни панели?"/>
+				<!-- Меню "Синтаксис" - "Дефиниране на синтаксис..." -->
+			<userdefined-title-new value="Създаване на нов синтаксис..."/>
+			<userdefined-title-save value="Запазване на синтаксиса като..."/>
+			<userdefined-title-rename value="Преименуване на синтаксиса"/>
+			<common-name value="Име:"/>
+				<!-- Меню "Настройки" - "Предпочитания..." - "Разделител" -->
+			<word-chars-list-tip value="Позволява добавяне на допълнителни символи към дума, чрез двойно щракане върху нея или при включена опция за търсене на &quot;Само цели думи&quot;"/>
+			<word-chars-list-warning-begin value="Бъдете внимателни: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ интервал(а)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ отстъп(а)"/>
+			<word-chars-list-warning-end value=" в списъкa със символи."/>
+				<!-- Меню "Настройки" - "Предпочитания..." - "Облак и връзка" -->
+			<cloud-invalid-warning value="Невалиден път"/>
+			<cloud-restart-warning value="Изисква се рестартиране на Notepad++"/>
+			<cloud-select-folder value="Избор на папка, от/в която Notepad++ ще чете/пише настройките си"/>
+				<!-- Меню "Настройки" - "Предпочитания..." -->
+			<recent-file-history-maxfile value="Макс. файла:"/>
+			<language-tabsize value="Размер:"/>
+			<autocomplete-nb-char value="Брой знаци:"/>
+				<!-- Дясно щракане върху раздел - "Преименуване..." -->
+			<tabrename-title value="Преименуване на раздела"/>
+			<tabrename-newname value="Ново име:"/>
+			<common-ok value="Добре"/>
+			<common-cancel value="Отказ"/>
 				<!-- Други -->
-			<session-save-folder-as-workspace value="&amp;Запис на &quot;Директория като работно място&quot;"/>
-			<file-save-assign-type value="&amp;Добавяне на разширение"/>
 			<splitter-rotate-left value="Завъртане наляво"/>
 			<splitter-rotate-right value="Завъртане надясно"/>
 			<tab-untitled-string value="нов "/>
@@ -1455,12 +1476,12 @@
 			<SortTip name="Подреждане"/>
 			<ReloadTip name="Презареждане"/>
 		</FunctionList>
-			<!-- Меню "Настройки" - "Основни" - "Панел с документи" -->
-		<DocSwitcher>
-			<PanelTitle name="Панел с документи"/>
+			<!-- Меню "Настройки" - "Основни" - "Списък с документи" -->
+		<DocList>
+			<PanelTitle name="Списък с документи"/>
 			<ColumnName name="Име"/>
 			<ColumnExt name="Разш."/>
-		</DocSwitcher>
+		</DocList>
 			<!-- Меню "Прозорци" - "Прозорци..." -->
 		<WindowsDlg>
 			<NbDocsTotal name="общо документи:"/>
@@ -1468,11 +1489,12 @@
 			<ColumnPath name="Път"/>
 			<ColumnType name="Тип"/>
 			<ColumnSize name="Размер"/>
+			<MenuCopyName name="Копиране на име(на)"/>
+			<MenuCopyPath name="Копиране на път(ища)"/>
 		</WindowsDlg>
-			<!-- Прозорци със съобщения -->
+			<!-- Диалогови прозорци със съобщения -->
 		<MessageBox>
-				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
-				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
+		<!-- $INT_REPLACE$ и $STR_REPLACE$ са контейнери, не се превеждат -->
 			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на Notepad++
 
 Изисква се рестартиране на Notepad++"/>
@@ -1591,6 +1613,11 @@
 Продължаване?"/>
 			<NeedToRestartToLoadPlugins title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира за да зареди инсталираните добавки"/>
 			<GUpProxyConfNeedAdminMode title="Настройка на прокси" message="За настройка на прокси, рестартирайте Notepad++ с администраторски права"/>
+			<SaveAllConfirm title="Потвърждение за запис на всички" message="Сигурни ли сте, че искате да бъдат запазени всички документи?
+
+Изберете &quot;Отказ&quot; (Cancel), ако отговорът ви винаги ще бъде &quot;Да&quot; (Yes) и този въпрос няма да се показва отново.
+
+Можете по-късно да активирате отново този диалогов прозорец в &quot;Предпочитания&quot;."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

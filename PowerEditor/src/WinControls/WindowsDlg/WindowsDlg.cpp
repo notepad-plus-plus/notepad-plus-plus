@@ -39,6 +39,8 @@ using namespace std;
 #define WD_CLMNTYPE					"ColumnType"
 #define WD_CLMNSIZE					"ColumnSize"
 #define WD_NBDOCSTOTAL				"NbDocsTotal"
+#define WD_MENUCOPYNAME				"MenuCopyName"
+#define WD_MENUCOPYPATH				"MenuCopyPath"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -237,6 +239,8 @@ BEGIN_WINDOW_MAP(WindowsDlgMap)
 	ENDGROUP()
 END_WINDOW_MAP()
 
+LONG_PTR WindowsDlg::originalListViewProc = NULL;
+
 RECT WindowsDlg::_lastKnownLocation;
 
 WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap)
@@ -266,7 +270,36 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(getHSelf());
+			NppDarkMode::setDarkListView(_hList);
+			return TRUE;
 		}
 
 		case WM_COMMAND :
@@ -313,6 +346,22 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					doColumnSort();
 					break;
 				}
+
+				default:
+					if (HIWORD(wParam) == 0)
+					{
+						// Menu
+						switch (LOWORD(wParam))
+						{
+						case IDM_WINDOW_COPY_NAME:
+							putItemsToClipboard(false);
+							break;
+						case IDM_WINDOW_COPY_PATH:
+							putItemsToClipboard(true);
+							break;
+						}
+					}
+					break;
 			}
 			break;
 		}
@@ -335,34 +384,20 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					if (pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
-						size_t index = pLvdi->item.iItem;
-						if (index >= _pTab->nbItem() || index >= _idxMap.size())
+						Buffer* buf = getBuffer(pLvdi->item.iItem);
+						if (!buf)
 							return FALSE;
-						index = _idxMap[index];
-
-						//const Buffer& buffer = _pView->getBufferAt(index);
-						BufferID bufID = _pTab->getBufferByIndex(index);
-						Buffer * buf = MainFileManager.getBufferByID(bufID);
+						generic_string text;
 						if (pLvdi->item.iSubItem == 0) // file name
 						{
-							int len = pLvdi->item.cchTextMax;
-							const TCHAR *fileName = buf->getFileName();
-							generic_strncpy(pLvdi->item.pszText, fileName, len-1);
-							pLvdi->item.pszText[len-1] = 0;
-							len = lstrlen(pLvdi->item.pszText);
+							text = buf->getFileName();
 							if (buf->isDirty())
 							{
-								if (len < pLvdi->item.cchTextMax)
-								{
-									pLvdi->item.pszText[len++] = '*';
-									pLvdi->item.pszText[len] = 0;
-								}
+								text += '*';
 							}
 							else if (buf->isReadOnly())
 							{
-								len += lstrlen(readonlyString);
-								if (len <= pLvdi->item.cchTextMax)
-									wcscat_s(pLvdi->item.pszText, pLvdi->item.cchTextMax, readonlyString);
+								text += readonlyString;
 							}
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory
@@ -374,30 +409,27 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 								len = 1;
 								fullName = TEXT("");
 							}
-							if (pLvdi->item.cchTextMax < len)
-								len = pLvdi->item.cchTextMax;
-							generic_strncpy(pLvdi->item.pszText, fullName, len-1);
-							pLvdi->item.pszText[len-1] = 0;
+							text.assign(fullName, len);
 						}
 						else if (pLvdi->item.iSubItem == 2) // Type
 						{
-							int len = pLvdi->item.cchTextMax;
 							NppParameters& nppParameters = NppParameters::getInstance();
 							Lang *lang = nppParameters.getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
-								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
+								text = lang->getLangName();
 							}
 						}
 						else if (pLvdi->item.iSubItem == 3) // size
 						{
 							int docSize = buf->docLength();
 							string docSizeText = to_string(docSize);
-							wstring wstr = wstring(docSizeText.begin(), docSizeText.end());
-							const wchar_t * wstrp = wstr.c_str();
-							int docSizeTextLen = lstrlen(wstrp);
-							generic_strncpy(pLvdi->item.pszText, wstrp, docSizeTextLen);
-							pLvdi->item.pszText[docSizeTextLen] = 0;
+							text = wstring(docSizeText.begin(), docSizeText.end());
+						}
+						if (static_cast<int>(text.length()) < pLvdi->item.cchTextMax)
+						{
+							// Copy the resulting text to destination with a null terminator.
+							_tcscpy_s(pLvdi->item.pszText, text.length() + 1, text.c_str());
 						}
 					}
 					return TRUE;
@@ -438,20 +470,49 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				else if (pNMHDR->code == LVN_KEYDOWN)
 				{
 					NMLVKEYDOWN *lvkd = (NMLVKEYDOWN *)pNMHDR;
-					// Ctrl+A
 					short ctrl = GetKeyState(VK_CONTROL);
 					short alt = GetKeyState(VK_MENU);
 					short shift = GetKeyState(VK_SHIFT);
-					if (lvkd->wVKey == 0x41/*a*/ && ctrl<0 && alt>=0 && shift>=0)
+					if (lvkd->wVKey == 'A' && ctrl<0 && alt>=0 && shift>=0)
 					{
+						// Ctrl + A
 						for (int i=0, n=ListView_GetItemCount(_hList); i<n; ++i)
 							ListView_SetItemState(_hList, i, LVIS_SELECTED, LVIS_SELECTED);
+					}
+					else if (lvkd->wVKey == 'C' && ctrl & 0x80)
+					{
+						// Ctrl + C
+						if (ListView_GetSelectedCount(_hList) != 0)
+							putItemsToClipboard(true);
 					}
 					return TRUE;
 				}
 			}
 			break;
 		}
+
+		case WM_CONTEXTMENU:
+			{
+				if (!_listMenu.isCreated())
+				{
+					NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+					const std::vector<MenuItemUnit> itemUnitArray
+					{
+						{IDM_WINDOW_COPY_NAME, pNativeSpeaker->getAttrNameStr(TEXT("Copy Name(s)"), WD_ROOTNODE, WD_MENUCOPYNAME)},
+						{IDM_WINDOW_COPY_PATH, pNativeSpeaker->getAttrNameStr(TEXT("Copy Pathname(s)"), WD_ROOTNODE, WD_MENUCOPYPATH)}
+					};
+					_listMenu.create(_hSelf, itemUnitArray);
+				}
+
+				const bool enableMenu = ListView_GetSelectedCount(_hList) != 0;
+				_listMenu.enableItem(IDM_WINDOW_COPY_NAME, enableMenu);
+				_listMenu.enableItem(IDM_WINDOW_COPY_PATH, enableMenu);
+
+				POINT p = {};
+				::GetCursorPos(&p);
+				_listMenu.display(p);
+			}
+			return TRUE;
 	}
 	return MyBaseClass::run_dlgProc(message, wParam, lParam);
 }
@@ -522,6 +583,16 @@ BOOL WindowsDlg::onInitDialog()
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hList);
 	exStyle |= LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_DOUBLEBUFFER;
 	ListView_SetExtendedListViewStyle(_hList, exStyle);
+
+	NppDarkMode::setDarkListView(_hList);
+	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
+	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+
+	ListView_SetBkColor(_hList, bgColor);
+	ListView_SetTextBkColor(_hList, bgColor);
+	ListView_SetTextColor(_hList, fgColor);
+
+	originalListViewProc = ::SetWindowLongPtr(_hList, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(listViewProc));
 
 	RECT rc;
 	GetClientRect(_hList, &rc);
@@ -907,6 +978,92 @@ void WindowsDlg::doSortToTabs()
 	delete[] nmdlg.Items;
 }
 
+void WindowsDlg::putItemsToClipboard(bool isFullPath)
+{
+	constexpr int nameColumn = 0;
+	constexpr int pathColumn = 1;
+
+	TCHAR str[MAX_PATH] = {};
+	const generic_string crlf = _T("\r\n");
+
+	generic_string selection;
+	for (int i = -1, j = 0; ; ++j)
+	{
+		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
+		if (i < 0)
+			break;
+		if (isFullPath)
+		{
+			// Get the directory path (2nd column).
+			ListView_GetItemText(_hList, i, pathColumn, str, sizeof(str));
+			if (str[0])
+				selection += str;
+		}
+
+		// Get the file name.
+		// Do not use ListView_GetItemText() because 1st column may contain "*" or "[Read Only]".
+		Buffer* buf = getBuffer(i);
+		if (buf)
+		{
+			const TCHAR* fileName = buf->getFileName();
+			if (fileName)
+				selection += fileName;
+		}
+		if (!selection.empty() && !endsWith(selection, crlf))
+			selection += crlf;
+	}
+	if (!selection.empty())
+		str2Clipboard(selection, _hList);
+}
+
+Buffer* WindowsDlg::getBuffer(int index) const
+{
+	if (index < 0 || index >= static_cast<int>(_idxMap.size()))
+		return nullptr;
+
+	index = _idxMap[index];
+	if (index < 0 || !_pTab || index >= static_cast<int>(_pTab->nbItem()))
+		return nullptr;
+
+	BufferID bufID = _pTab->getBufferByIndex(index);
+	return MainFileManager.getBufferByID(bufID);
+}
+
+LRESULT CALLBACK WindowsDlg::listViewProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
+{
+	switch (Message)
+	{
+		case WM_NOTIFY:
+		{
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
+			{
+				case NM_CUSTOMDRAW:
+				{
+					LPNMCUSTOMDRAW nmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+					switch (nmcd->dwDrawStage)
+					{
+						case CDDS_PREPAINT:
+						{
+							return CDRF_NOTIFYITEMDRAW;
+						}
+
+						case CDDS_ITEMPREPAINT:
+						{
+							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported();
+							::SetTextColor(nmcd->hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
+							return CDRF_DODEFAULT;
+						}
+						break;
+					}
+				}
+				break;
+			}
+		}
+		break;
+	}
+	return CallWindowProc(reinterpret_cast<WNDPROC>(originalListViewProc), hwnd, Message, wParam, lParam);
+}
+
 WindowsMenu::WindowsMenu()
 {}
 
@@ -989,4 +1146,3 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 		}
 	}
 }
-

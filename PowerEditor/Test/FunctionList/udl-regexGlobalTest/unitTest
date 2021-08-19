@@ -1,0 +1,28 @@
++++
+title = "Make Your Business Card with Notepad++"
+description = ""
+date = "2011-12-25"
+menu = "main"
++++
+
+2011-12-25
+
+Notepad++ is not just a text/code editor, you can use it to make your business card:
+
+
+![Business Card](/news/images/npp.businessCard.jpg)
+
+Here are some tips/instructions to help you make your original business card with Notepad++:
+
+1. Hide menu, tab bar and status bar (you probably want to hide tool bar if you have more content to show) via the General tab of Preferences dialog.
+2. Hide folder margin, bookmark margin, line number margin and current line highlighting via the Editing tab of Preference dialog.
+3. Check "Show only filename in title bar" via "MISC." tab of Preference Dialog, this removes the full path and keep only the file name on the caption bar.
+4. Resize Notepad++ to fit the size of your empty business card to print. (I made the Notepad++ size on screen just fit my card)
+5.Type the content of your business card with your favorite programming language (html, xml, php, c, c++, etc...) then set the language's syntax highlighting via menu Language (type "Alt" to show menu).
+6. Launch "Style Configurator" Dialog (via menu "Settings") to tune up the syntax highlighting of your language of choice (for the bg/fg colour, font style and font size). You can choose the theme (on the top) as well to have the different look & feel. Save & close it.
+7. Print your card - Do the screen capture by "Alt + Print Screen", Then paste it into Word to print.
+8. That's it. Enjoy making your geek business card!
+
+The original idea came from [Albert Hwang's Notepad Business Card](https://www.albert-hwang.com/blog/2011/12/re-my-business-card).
+
+Happy Isaac Newton's Birthday!

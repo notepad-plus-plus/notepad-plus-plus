@@ -585,7 +585,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
 {
 	bool ownDoc = false;
-	if (doc == NULL)
+	if (!doc)
 	{
 		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);
 		ownDoc = true;

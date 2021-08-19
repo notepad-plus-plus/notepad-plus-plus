@@ -200,13 +200,12 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	//  Get themes from both npp install themes dir and app data themes dir with the per user
 	//  overriding default themes of the same name.
 
-	generic_string themeDir;
+	generic_string appDataThemeDir;
     if (nppParams.getAppDataNppDir() && nppParams.getAppDataNppDir()[0])
     {
-        themeDir = nppParams.getAppDataNppDir();
-	    PathAppend(themeDir, TEXT("themes\\"));
-		themeSwitcher.setThemeDirPath(themeDir);
-	    _notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
+		appDataThemeDir = nppParams.getAppDataNppDir();
+	    PathAppend(appDataThemeDir, TEXT("themes\\"));
+	    _notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), patterns, fileNames, false, false);
 	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
 	    {
 		    themeSwitcher.addThemeFromXml(fileNames[i]);
@@ -214,20 +213,35 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
     }
 
 	fileNames.clear();
-	themeDir.clear();
-	themeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
-	PathAppend(themeDir, TEXT("themes\\"));
 
-	if (themeSwitcher.getThemeDirPath().empty())
-		themeSwitcher.setThemeDirPath(themeDir);
+	generic_string nppThemeDir;
+	nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
+	PathAppend(nppThemeDir, TEXT("themes\\"));
 
-	_notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
+	// Set theme directory to their installation directory
+	themeSwitcher.setThemeDirPath(nppThemeDir);
+
+	_notepad_plus_plus_core.getMatchedFileNames(nppThemeDir.c_str(), patterns, fileNames, false, false);
 	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{
 		generic_string themeName( themeSwitcher.getThemeFromXmlFileName(fileNames[i].c_str()) );
-		if (! themeSwitcher.themeNameExists(themeName.c_str()) )
+		if (!themeSwitcher.themeNameExists(themeName.c_str()) )
 		{
 			themeSwitcher.addThemeFromXml(fileNames[i]);
+			
+			if (!appDataThemeDir.empty())
+			{
+				generic_string appDataThemePath = appDataThemeDir;
+
+				if (!::PathFileExists(appDataThemePath.c_str()))
+				{
+					::CreateDirectory(appDataThemePath.c_str(), NULL);
+				}
+
+				TCHAR* fn = PathFindFileName(fileNames[i].c_str());
+				PathAppend(appDataThemePath, fn);
+				themeSwitcher.addThemeStylerSavePath(fileNames[i], appDataThemePath);
+			}
 		}
 	}
 

@@ -173,6 +173,11 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\rust.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "TypeScript" TypeScript_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\typescript.xml"
+	${MementoSectionEnd}
+
 	SetOverwrite off
 	${MementoSection} "Override Map" OverrideMap_FL
 		SetOutPath "$INSTDIR\functionList"
@@ -309,6 +314,10 @@ SectionGroup un.functionListComponent
 
 	Section un.Rust_FL
 		Delete "$INSTDIR\functionList\rust.xml"
+	SectionEnd
+
+	Section un.TypeScript_FL
+		Delete "$INSTDIR\functionList\typescript.xml"
 	SectionEnd
 
 

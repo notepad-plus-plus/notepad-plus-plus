@@ -340,8 +340,6 @@ void ToolBar::reset(bool create)
 			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
 			HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 			addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
-
-			//addbmp.nID = _toolBarIcons.getStdIconAt(i);
 			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 		}
 		if (_nbDynButtons > 0)
@@ -357,7 +355,7 @@ void ToolBar::reset(bool create)
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
 		_nbCurrentButtons = _nbTotalButtons;
-		WORD btnSize = (_state == TB_LARGE?32:16);
+		WORD btnSize = (_state == TB_LARGE ? 32 : 16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB));
 	}
@@ -383,7 +381,35 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON ab
 		DynamicCmdIcoBmp dynList;
 		dynList._message = messageID;
 		dynList._hBmp = iconHandles->hToolbarBmp;
-		dynList._hIcon = iconHandles->hToolbarIcon ? iconHandles->hToolbarIcon : absentIco;
+
+		if (iconHandles->hToolbarIcon)
+		{
+			dynList._hIcon = iconHandles->hToolbarIcon;
+		}
+		else
+		{
+			BITMAP bmp;
+			int nbByteBmp = ::GetObject(dynList._hBmp, sizeof(BITMAP), &bmp);
+			if (!nbByteBmp)
+			{
+				dynList._hIcon = absentIco;
+			}
+			else
+			{
+				HBITMAP hbmMask = ::CreateCompatibleBitmap(::GetDC(NULL), bmp.bmWidth, bmp.bmHeight);
+
+				ICONINFO iconinfoDest = { 0 };
+				iconinfoDest.fIcon = TRUE;
+				iconinfoDest.hbmColor = iconHandles->hToolbarBmp;
+				iconinfoDest.hbmMask = hbmMask;
+
+				dynList._hIcon = ::CreateIconIndirect(&iconinfoDest);
+				::DeleteObject(hbmMask);
+			}
+		}
+
+		dynList._hIcon_DM = dynList._hIcon;
+
 		_vDynBtnReg.push_back(dynList);
 	}
 }

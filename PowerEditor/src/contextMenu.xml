@@ -42,12 +42,12 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
         <Item FolderName="Style one token" id="43065"/>
         <Item FolderName="Style one token" id="43066"/>
 		
-        <Item FolderName="Remove style" id="43023"/>
-        <Item FolderName="Remove style" id="43025"/>
-        <Item FolderName="Remove style" id="43027"/>
-        <Item FolderName="Remove style" id="43029"/>
-        <Item FolderName="Remove style" id="43031"/>
-        <Item FolderName="Remove style" id="43032"/>
+        <Item FolderName="Clear style" id="43023"/>
+        <Item FolderName="Clear style" id="43025"/>
+        <Item FolderName="Clear style" id="43027"/>
+        <Item FolderName="Clear style" id="43029"/>
+        <Item FolderName="Clear style" id="43031"/>
+        <Item FolderName="Clear style" id="43032"/>
         <Item id="0"/>
 		
 		<!--

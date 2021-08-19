@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 7.9.6 (13.05.2021)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.1.3 (02.08.2021)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
     
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="7.9.6">
+    <Native-Langue name="polski" filename="polish.xml" version="8.1.3">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -140,7 +140,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42065" name="Sortuj rosnąco jako liczby dziesiętne z kropką"/>
                     <Item id="42066" name="Sortuj malejąco jako liczby dziesiętne z kropką"/>
                     <Item id="42083" name="Odwróć kolejność linii"/>
-                    <Item id="42078" name="Sortuj linie losowo"/>
+                    <Item id="42078" name="Losowa kolejność linii"/>
                     <Item id="42016" name="&amp;MAJUSKUŁY"/>
                     <Item id="42017" name="mi&amp;nuskuły"/>
                     <Item id="42067" name="Jak Nazwy &amp;Własne"/>
@@ -270,6 +270,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44031" name="Rozwiń bieżący poziom"/>
                     <Item id="44049" name="Informacje o pliku..."/>
                     <Item id="44080" name="Mapa dokumentu"/>
+                    <Item id="44070" name="Lista dokumentów"/>
                     <Item id="44084" name="Lista funkcji"/>
                     <Item id="44085" name="Obszar roboczy"/>
                     <Item id="44086" name="1. karta"/>
@@ -618,6 +619,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44083" name="Przełącz panel 3. projektu"/>
                     <Item id="44085" name="Przełącz obszar roboczy"/>
                     <Item id="44080" name="Przełącz mapę dokumentu"/>
+                    <Item id="44070" name="Przełącz listę dokumentów"/>
                     <Item id="44084" name="Przełącz listę funkcji"/>
                     <Item id="50005" name="Przełącz nagrywanie makra"/>
                     <Item id="44104" name="Przejdź do panelu 1. projektu"/>
@@ -836,7 +838,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6123" name="Język interfejsu"/>
 
                     <Item id="6125" name="Lista dokumentów"/>
-                    <Item id="6126" name="Pokazuj"/>
                     <Item id="6127" name="Bez kolumny z rozszerzeniami"/>
 
                     <Item id="6128" name="Alternatywne ikony"/>
@@ -861,7 +862,24 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <DarkMode title="Tryb ciemny">
                     <Item id="7101" name="Włącz tryb ciemny"/>
-                    <Item id="7106" name="* Notepad ++ musi zostać ponownie uruchomiony, aby całkowicie zastosować te zmiany."/>
+                    <Item id="7102" name="Czarny odcień"/>
+                    <Item id="7103" name="Czerwony odcień"/>
+                    <Item id="7104" name="Zielony odcień"/>
+                    <Item id="7105" name="Niebieski odcień"/>
+                    <Item id="7107" name="Purpurowy odcień"/>
+                    <Item id="7108" name="Cyjanowy odcień"/>
+                    <Item id="7109" name="Oliwkowy odcień"/>
+                    <Item id="7115" name="Własny odcień"/>
+                    <Item id="7116" name="Top"/>
+                    <Item id="7117" name="Menu hot track"/>
+                    <Item id="7118" name="Active"/>
+                    <Item id="7119" name="Main"/>
+                    <Item id="7120" name="Error"/>
+                    <Item id="7121" name="Text"/>
+                    <Item id="7122" name="Darker text"/>
+                    <Item id="7123" name="Disabled text"/>
+                    <Item id="7124" name="Edge"/>
+                    <Item id="7130" name="Resetuj"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Marginesy i Krawędzie"> <!-- Marginesy/Ramka/Krawędź -->
@@ -921,7 +939,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6506" name="Wyłączone"/>
                     <Item id="6507" name="Kompaktowe menu języków"/>
                     <Item id="6508" name="Menu języków"/>
-                    <Item id="6301" name="Ustawienia kart"/>
+                    <Item id="6301" name="Ustawienia tabulacji"/>
                     <Item id="6302" name="Zastąp spacją"/>
                     <Item id="6303" name="Rozmiar tabulacji:"/>
                     <Item id="6510" name="Używaj domyślnej wartości"/>
@@ -1094,6 +1112,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6345" name="Po najechaniu na kartę"/>
                     <Item id="6346" name="Po najechaniu na mapę dokumentu"/>
                     <Item id="6360" name="Wycisz wszystkie dźwięki"/>
+                    <Item id="6361" name="Potwierdź operację „Zapisz wszystko”"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Uruchom makro wielokrotnie">
@@ -1242,21 +1261,27 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
 Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
 Kontynuować?"/>
             <NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <SaveAllConfirm title="Potwierdzenie operacji „Zapisz wszystko”" message="Czy na pewno chcesz zapisać wszystkie pliki?
+
+Wybierz &quot;Anuluj&quot; jeśli twoją odpowiedzią zawsze będzie &quot;Tak&quot; i nie będziesz pytany o to ponownie.
+W oknie preferencji możesz przywócić to potwierdzenie w dowolnym momencie." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
         </ClipboardHistory>
-        <DocSwitcher>
-            <PanelTitle name="Przełączanie dokumentów"/>
+        <DocList>
+            <PanelTitle name="Lista dokumentów"/>
             <ColumnName name="Nazwa"/>
             <ColumnExt name="Rozsz."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nazwa"/>
             <ColumnPath name="Ścieżka"/>
             <ColumnType name="Typ"/>
             <ColumnSize name="Rozmiar"/>
             <NbDocsTotal name="wszystkie dokumenty:"/>
+            <MenuCopyName name="Kopiuj nazwę lub nazwy (po zaznaczeniu)"/>
+            <MenuCopyPath name="Kopiuj ścieżkę lub ścieżki (po zaznaczeniu)"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Tablica znaków ASCII"/>
@@ -1353,6 +1378,7 @@ Kontynuować?"/>
             <cloud-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać do zapisu i odczytu swoich ustawień."/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Shift+Enter pozwala wyszukiwać w drugą stronę."/>
             <two-find-buttons-tip value="Tryb dwóch przycisków szukania"/>
+            <file-rename-title value="Zmiana nazwy"/>
             <find-in-files-filter-tip value="Szukaj wśród plików cpp, cxx, h, hxx i hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1399,7 +1425,7 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <finder-select-all value="Zaznacz wszystko"/>
             <finder-clear-all value="Usuń wszystko"/>
             <finder-open-all value="Otwórz wszystko"/>
-            <finder-purge-for-every-search value="Wyczyść dla każdego wyszukiwania"/>
+            <finder-purge-for-every-search value="Opróżnij przed każdym wyszukiwaniem"/>
             <finder-wrap-long-lines value="Zawijaj długie wiersze"/>
             <common-ok value="OK"/>
             <common-cancel value="Anuluj"/>
@@ -1446,6 +1472,7 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <session-save-folder-as-workspace value="Zapisz obszar roboczy" />
             <tab-untitled-string value="nowy " />
             <file-save-assign-type value="&amp;Dodaj rozszerzenie" />
+            <close-panel-tip value="Zamknij" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

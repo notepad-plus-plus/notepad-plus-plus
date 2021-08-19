@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="7.9.4">
+    <Native-Langue name="français" filename="french.xml" version="8.1.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -279,6 +279,7 @@
                     <Item id="44082" name="Panneau de Projet #2"/>
                     <Item id="44083" name="Panneau de Projet #3"/>
                     <Item id="44080" name="Plan du document"/>
+                    <Item id="44070" name="Commutateur de documents"/>
                     <Item id="44084" name="Liste des fonctions"/>
                     <Item id="44085" name="Dossier en tant qu'espace de travail"/>
                     <Item id="44086" name="Onglet 1"/>
@@ -598,6 +599,7 @@
                     <Item id="44083" name="Afficher/fermer Panneau de Projet 3"/>
                     <Item id="44085" name="Afficher/fermer Dossier en tant qu'Espace de travail"/>
                     <Item id="44080" name="Afficher/fermer Plan du document"/>
+                    <Item id="44070" name="Afficher/fermer Commutateur de documents"/>
                     <Item id="44084" name="Afficher/fermer Liste des fonctions"/>
                     <Item id="50005" name="Démarer/arrêter macro recording"/>
                     <Item id="44104" name="Basculer vers Panneau de Projet 1"/>
@@ -812,7 +814,6 @@
                     <Item id="6122" name="Cachée (Alt ou F10 pour afficher)"/>
                     <Item id="6123" name="Langue"/>
                     <Item id="6125" name="Commutateur de documents"/>
-                    <Item id="6126" name="Montrer"/>
                     <Item id="6127" name="Désactiver la colonne d'extension"/>
                 </Global>
 
@@ -836,7 +837,24 @@
 
                 <DarkMode title="Mode Sombre">
                     <Item id="7101" name="Activer mode sombre"/>
-                    <Item id="7106" name="* Il faut redémarrer Notepad++ pour avoir l'effet complet."/>
+                    <Item id="7102" name="Ton noir"/>
+                    <Item id="7103" name="Ton rouge"/>
+                    <Item id="7104" name="Ton vert"/>
+                    <Item id="7105" name="Ton bleu"/>
+                    <Item id="7107" name="Ton violet"/>
+                    <Item id="7108" name="Ton cyan"/>
+                    <Item id="7109" name="Ton olive"/>
+                    <Item id="7115" name="Personnaliser"/>
+                    <Item id="7116" name="Haut"/>
+                    <Item id="7117" name="Surbrillance (menu)"/>
+                    <Item id="7118" name="Activé"/>
+                    <Item id="7119" name="Principale"/>
+                    <Item id="7120" name="Erreur"/>
+                    <Item id="7121" name="Texte"/>
+                    <Item id="7122" name="Texte plus sombre"/>
+                    <Item id="7123" name="Texte désactivé"/>
+                    <Item id="7124" name="Bord"/>
+                    <Item id="7130" name="Réinitialiser"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Marges et Bordure">
@@ -1207,17 +1225,19 @@ Voulez-vous les poursuivez ?"/>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papiers"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Commutateur de documents"/>
             <ColumnName name="Nom"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nom"/>
             <ColumnPath name="Chemin"/>
             <ColumnType name="Type"/>
             <ColumnSize name="Taille"/>
             <NbDocsTotal name="nombre de documents :"/>
+            <MenuCopyName name="Copier le(s) nom(s)"/>
+            <MenuCopyPath name="Copier le(s) chemin(s) complet(s)"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Panneau des codes ASCII"/>

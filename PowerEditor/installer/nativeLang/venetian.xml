@@ -842,7 +842,7 @@
                     <Item id="6219" name="Veƚosità:"/>
                     <Item id="6221" name="V"/>
                     <Item id="6222" name="Ƚ"/>
-                    <Item id="6225" name="Abìƚita (Ctrl+clic/seƚesion)"/>
+                    <Item id="6225" name="Abìƚita Seƚesion Multipla (Ctrl+clic/seƚesion)"/>
                     <Item id="6227" name="A Capo Otomàtico"/>
                     <Item id="6228" name="Predefinìo"/>
                     <Item id="6229" name="Aƚineà"/>
@@ -1240,11 +1240,11 @@ Vuto continuare?"/>
         <ClipboardHistory>
             <PanelTitle name="Cronoƚogia Scarabòci"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Documenti"/>
             <ColumnName name="Nòme"/>
             <ColumnExt name="Est."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nòme"/>
             <ColumnPath name="Percorso"/>

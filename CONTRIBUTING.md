@@ -168,7 +168,7 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Good:
     ```cpp
-    if (not string.empty())
+    if (!string.empty())
     ...
     ```
 

@@ -1102,11 +1102,11 @@ ContextMenu.xML परिमार्जन गरेपछि प्रभा�
         <ClipboardHistory>
             <PanelTitle Name="क्लिपबोर्ड ईतिहास"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle Name="कागजात स्विचर"/>
             <ColumnName Name="नाम"/>
             <ColumnExt Name="अतिरिक्त."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName Name="नाम"/>
             <ColumnPath Name="पथ"/>

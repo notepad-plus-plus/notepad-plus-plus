@@ -831,11 +831,11 @@
         <ClipboardHistory>
 			<PanelTitle name="ક્લિપબોર્ડ હિસ્ટ્ર"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="ડોક્યુમેન્ટ સ્વીચર"/>
 			<ColumnName name="નામ"/>
 			<ColumnExt name="એક્ષ્તેન્શન(Ext.)"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="આસ્કી(ASCII) ઇન્સર્શન પેનલ"/>
 			<ColumnVal name="કિંમત"/>

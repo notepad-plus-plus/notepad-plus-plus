@@ -90,6 +90,7 @@ public:
     };
 	
 	// functionalities
+	static int CALLBACK categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/);
 	void sortOrUnsort();
 	void reload();
 	void markEntry();
@@ -109,6 +110,7 @@ private:
 	TreeView _treeView;
 	TreeView _treeViewSearchResult;
 
+	SCROLLINFO si;
 	long _findLine = -1;
 	long _findEndLine = -1;
 	HTREEITEM _findItem;

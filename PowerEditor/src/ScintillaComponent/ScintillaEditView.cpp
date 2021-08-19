@@ -59,7 +59,7 @@ const int ScintillaEditView::_markersArray[][NB_FOLDER_STATE] = {
 
 // Array with all the names of all languages
 // The order of lang type (enum LangType) must be respected
-LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
+LanguageName ScintillaEditView::langNames[L_EXTERNAL + 1] = {
 {TEXT("normal"),		TEXT("Normal text"),		TEXT("Normal text file"),								L_TEXT,			SCLEX_NULL},
 {TEXT("php"),			TEXT("PHP"),				TEXT("PHP Hypertext Preprocessor file"),				L_PHP,			SCLEX_HTML},
 {TEXT("c"),				TEXT("C"),					TEXT("C source file"),									L_C,			SCLEX_CPP},
@@ -145,6 +145,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("spice"),			TEXT("Spice"),				TEXT("spice file"),										L_SPICE,		SCLEX_SPICE},
 {TEXT("txt2tags"),		TEXT("txt2tags"),			TEXT("txt2tags file"),									L_TXT2TAGS,		SCLEX_TXT2TAGS},
 {TEXT("visualprolog"),	TEXT("Visual Prolog"),		TEXT("Visual Prolog file"),								L_VISUALPROLOG,	SCLEX_VISUALPROLOG},
+{TEXT("typescript"),	TEXT("TypeScript"),			TEXT("TypeScript file"),								L_TYPESCRIPT,	SCLEX_CPP},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -187,7 +188,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	}
 
 	Window::init(hInst, hPere);
-   _hSelf = ::CreateWindowEx(
+	_hSelf = ::CreateWindowEx(
 					0,\
 					TEXT("Scintilla"),\
 					TEXT("Notepad++"),\
@@ -203,10 +204,12 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		throw std::runtime_error("ScintillaEditView::init : CreateWindowEx() function return null");
 	}
 
+	NppDarkMode::setDarkScrollBar(_hSelf);
+
 	_pScintillaFunc = (SCINTILLA_FUNC)::SendMessage(_hSelf, SCI_GETDIRECTFUNCTION, 0, 0);
 	_pScintillaPtr = (SCINTILLA_PTR)::SendMessage(_hSelf, SCI_GETDIRECTPOINTER, 0, 0);
 
-    _userDefineDlg.init(_hInst, _hParent, this);
+	_userDefineDlg.init(_hInst, _hParent, this);
 
 	if (!_pScintillaFunc)
 	{
@@ -218,10 +221,10 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		throw std::runtime_error("ScintillaEditView::init : SCI_GETDIRECTPOINTER message failed");
 	}
 
-    execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
-    showMargin(_SC_MARGE_FOLDER, true);
+	execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
+	showMargin(_SC_MARGE_FOLDER, true);
 
-    execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND) | (1<<MARK_HIDELINESUNDERLINE));
+	execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND) | (1<<MARK_HIDELINESUNDERLINE));
 
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
 
@@ -344,9 +347,15 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 {
 	switch (Message)
 	{
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkScrollBar(_hSelf);
+			return TRUE;
+		}
+
 		case WM_MOUSEHWHEEL :
 		{
-			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) > 0)?SB_LINERIGHT:SB_LINELEFT, NULL);
+			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) > 0)?SB_LINERIGHT:SB_LINELEFT, 0);
 			break;
 		}
 
@@ -361,9 +370,9 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			if (LOWORD(wParam) & MK_SHIFT)
 			{
 				// move 3 columns at a time
-				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, NULL);
-				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, NULL);
-				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, NULL);
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, 0);
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, 0);
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) < 0) ? SB_LINERIGHT : SB_LINELEFT, 0);
 				return TRUE;
 			}
 
@@ -1158,6 +1167,50 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 }
 
+void ScintillaEditView::setTypeScriptLexer()
+{
+	const TCHAR* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
+	execute(SCI_SETLEXER, SCLEX_CPP);
+	
+	if (doxygenKeyWords)
+	{
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char* doxygenKeyWords_char = wmc.wchar2char(doxygenKeyWords, CP_ACP);
+		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
+	}
+
+	const TCHAR* pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	makeStyle(L_TYPESCRIPT, pKwArray);
+
+	auto getKeywordList = [&pKwArray](const int i) 
+	{
+		if (pKwArray[i])
+		{
+			basic_string<wchar_t> kwlW = pKwArray[i];
+			return wstring2string(kwlW, CP_ACP);
+		}
+		return basic_string<char>("");
+	};
+
+	auto keywordListInstruction = getKeywordList(LANG_INDEX_INSTR);
+	const char* tsInstructions = getCompleteKeywordList(keywordListInstruction, L_TYPESCRIPT, LANG_INDEX_INSTR);
+
+	string keywordListType = getKeywordList(LANG_INDEX_TYPE);
+	const char* tsTypes = getCompleteKeywordList(keywordListType, L_TYPESCRIPT, LANG_INDEX_TYPE);
+
+	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(tsInstructions));
+	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(tsTypes));
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.track.preprocessor"), reinterpret_cast<LPARAM>("0"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("1"));
+}
+
 void ScintillaEditView::setKeywords(LangType langType, const char *keywords, int index)
 {
 	std::basic_string<char> wordList;
@@ -1702,6 +1755,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_VISUALPROLOG:
 			setVisualPrologLexer(); break;
+
+		case L_TYPESCRIPT:
+			setTypeScriptLexer(); break;
 
 		case L_TEXT :
 		default :
@@ -2445,11 +2501,12 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
 	}
 	else
 	{
-		int width = 3;
+		DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+		int width = dpiManager.scaleX(3);
 		if (whichMarge == _SC_MARGE_SYBOLE)
-			width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 20 : 16;
+			width = dpiManager.scaleX(16);
 		else if (whichMarge == _SC_MARGE_FOLDER)
-			width = NppParameters::getInstance()._dpiManager.scaleX(100) >= 150 ? 18 : 14;
+			width = dpiManager.scaleX(14);
 		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 	}
 }
@@ -2822,7 +2879,7 @@ void ScintillaEditView::currentLinesDown() const
 
 void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const
 {
-	if (strWToConvert == nullptr || nbChars == NULL)
+	if (strWToConvert == nullptr || nbChars == 0)
 		return;
 
 	switch (caseToConvert)
@@ -2831,7 +2888,7 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 		{
 			for (int i = 0; i < nbChars; ++i)
 			{
-				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case UPPERCASE
@@ -2839,7 +2896,7 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 		{
 			for (int i = 0; i < nbChars; ++i)
 			{
-				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case LOWERCASE
@@ -2851,12 +2908,12 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 				if (::IsCharAlphaW(strWToConvert[i]))
 				{
 					if ((i < 1) ? true : !::IsCharAlphaNumericW(strWToConvert[i - 1]))
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					else if (caseToConvert == TITLECASE_FORCE)
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					//An exception
 					if ((i < 2) ? false : (strWToConvert[i - 1] == L'\'' && ::IsCharAlphaW(strWToConvert[i - 2])))
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				}
 			}
 			break; 
@@ -2873,12 +2930,12 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 				{
 					if (isNewSentence)
 					{
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 						isNewSentence = false;
 					}
 					else if (caseToConvert == SENTENCECASE_FORCE)
 					{
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					}
 					wasEolR = false;
 					wasEolN = false;
@@ -2919,9 +2976,9 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 			for (int i = 0; i < nbChars; ++i)
 			{
 				if (::IsCharLowerW(strWToConvert[i]))
-					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				else
-					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case INVERTCASE
@@ -2932,9 +2989,9 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 				if (::IsCharAlphaW(strWToConvert[i]))
 				{
 					if (std::rand() & true)
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					else
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				}
 			}
 			break; 
@@ -3697,13 +3754,29 @@ generic_string ScintillaEditView::getEOLString()
 
 void ScintillaEditView::setBorderEdge(bool doWithBorderEdge)
 {
+	long style = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_STYLE));
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
 
-	if (doWithBorderEdge)
-		exStyle |= WS_EX_CLIENTEDGE;
-	else
+	if (NppDarkMode::isEnabled())
+	{
 		exStyle &= ~WS_EX_CLIENTEDGE;
 
+		if (doWithBorderEdge)
+			style |= WS_BORDER;
+		else
+			style &= ~WS_BORDER;
+	}
+	else
+	{
+		style &= ~WS_BORDER;
+
+		if (doWithBorderEdge)
+			exStyle |= WS_EX_CLIENTEDGE;
+		else
+			exStyle &= ~WS_EX_CLIENTEDGE;
+	}
+
+	::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
 	::SetWindowPos(_hSelf, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 }

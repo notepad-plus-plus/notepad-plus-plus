@@ -323,7 +323,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
     SCNotification scnN;
     scnN.nmhdr.code = NPPN_FILEBEFORELOAD;
     scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-    scnN.nmhdr.idFrom = NULL;
+    scnN.nmhdr.idFrom = 0;
     _pluginsManager.notify(&scnN);
 
     if (encoding == -1)
@@ -392,8 +392,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         // Notify plugins that current file is just opened
         scnN.nmhdr.code = NPPN_FILEOPENED;
         _pluginsManager.notify(&scnN);
-        if (_pFileSwitcherPanel)
-            _pFileSwitcherPanel->newItem(buf, currentView());
+        if (_pDocumentListPanel)
+            _pDocumentListPanel->newItem(buf, currentView());
     }
     else
     {
@@ -740,8 +740,8 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		// if the current activated buffer is in this view,
 		// then get buffer ID to remove the entry from File Switcher Pannel
 		hiddenBufferID = reinterpret_cast<BufferID>(::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETBUFFERIDFROMPOS, 0, whichOne));
-		if (!isBufRemoved && hiddenBufferID != BUFFER_INVALID && _pFileSwitcherPanel)
-			_pFileSwitcherPanel->closeItem(hiddenBufferID, whichOne);
+		if (!isBufRemoved && hiddenBufferID != BUFFER_INVALID && _pDocumentListPanel)
+			_pDocumentListPanel->closeItem(hiddenBufferID, whichOne);
 	}
 
 	// Notify plugins that current file is closed
@@ -752,12 +752,12 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 
 		// The document could be clonned.
 		// if the same buffer ID is not found then remove the entry from File Switcher Panel
-		if (_pFileSwitcherPanel)
+		if (_pDocumentListPanel)
 		{
-			_pFileSwitcherPanel->closeItem(id, whichOne);
+			_pDocumentListPanel->closeItem(id, whichOne);
 
 			if (hiddenBufferID != BUFFER_INVALID)
-				_pFileSwitcherPanel->closeItem(hiddenBufferID, whichOne);
+				_pDocumentListPanel->closeItem(hiddenBufferID, whichOne);
 		}
 
 		// Add to recent file only if file is removed and does not exist in any of the views
@@ -1610,26 +1610,62 @@ bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
 	}
 }
 
-bool Notepad_plus::fileSaveAll()
+bool Notepad_plus::fileSaveAllConfirm()
 {
-	if (viewVisible(MAIN_VIEW))
+	bool confirmed = false;
+
+	if (NppParameters::getInstance().getNppGUI()._saveAllConfirm)
 	{
-		for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+		int answer = _nativeLangSpeaker.messageBox("SaveAllConfirm",
+			_pPublicInterface->getHSelf(),
+			TEXT("Are you sure you want to save all documents?\r\rChoose \"Cancel\" if your answer will always be \"Yes\" and you won't be asked this question again.\rYou can re-activate this dialog in Preferences dialog later."),
+			TEXT("Save All Confirmation"),
+			MB_YESNOCANCEL | MB_DEFBUTTON2);
+
+		if (answer == IDYES)
 		{
-			BufferID idToSave = _mainDocTab.getBufferByIndex(i);
-			fileSave(idToSave);
+			confirmed = true;
 		}
+
+		if (answer == IDCANCEL)
+		{
+			NppParameters::getInstance().getNppGUI()._saveAllConfirm = false;
+			//uncheck the "Enable save all confirm dialog" checkbox in Preference-> MISC settings
+			_preference._miscSubDlg.setChecked(IDC_CHECK_SAVEALLCONFIRM, false);
+			confirmed = true;
+		}
+	}
+	else
+	{
+		confirmed = true;
 	}
 
-	if (viewVisible(SUB_VIEW))
+	return confirmed;
+}
+
+bool Notepad_plus::fileSaveAll()
+{
+	if ( fileSaveAllConfirm() )
 	{
-		for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+		if (viewVisible(MAIN_VIEW))
 		{
-			BufferID idToSave = _subDocTab.getBufferByIndex(i);
-			fileSave(idToSave);
+			for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+			{
+				BufferID idToSave = _mainDocTab.getBufferByIndex(i);
+				fileSave(idToSave);
+			}
 		}
+
+		if (viewVisible(SUB_VIEW))
+		{
+			for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+			{
+				BufferID idToSave = _subDocTab.getBufferByIndex(i);
+				fileSave(idToSave);
+			}
+		}
+		checkDocState();
 	}
-	checkDocState();
 	return true;
 }
 
@@ -1729,8 +1765,12 @@ bool Notepad_plus::fileRename(BufferID id)
 
 		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 		setFileOpenSaveDlgFilters(fDlg, false);
-
+		fDlg.setFolder(buf->getFullPathName());
 		fDlg.setDefFileName(buf->getFileName());
+
+		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("file-rename-title", TEXT("Rename"));
+		fDlg.setTitle(title.c_str());
+
 		generic_string fn = fDlg.doSaveDlg();
 
 		if (!fn.empty())
@@ -1745,10 +1785,10 @@ bool Notepad_plus::fileRename(BufferID id)
 		// Reserved characters: < > : " / \ | ? *
 		std::wstring reservedChars = TEXT("<>:\"/\\|\?*");
 
-		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));
 		generic_string staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", TEXT("New Name: "));
 
 		StringDlg strDlg;
+		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));
 		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), 0, reservedChars.c_str(), true);
 
 		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
@@ -2195,8 +2235,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 	else if (canHideView(currentView()))
 		hideView(currentView());
 
-	if (_pFileSwitcherPanel)
-		_pFileSwitcherPanel->reload();
+	if (_pDocumentListPanel)
+		_pDocumentListPanel->reload();
 
 	if (shouldLoadFileBrowser && !session._fileBrowserRoots.empty())
 	{

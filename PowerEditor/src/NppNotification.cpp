@@ -479,17 +479,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				return TRUE;
 			}
-			else if (_pFileSwitcherPanel && notification->nmhdr.hwndFrom == _pFileSwitcherPanel->getHSelf())
+			else if (_pDocumentListPanel && notification->nmhdr.hwndFrom == _pDocumentListPanel->getHSelf())
 			{
 				// Already switched, so do nothing here.
 
-				if (_pFileSwitcherPanel->nbSelectedFiles() > 1)
+				if (_pDocumentListPanel->nbSelectedFiles() > 1)
 				{
 					if (!_fileSwitcherMultiFilePopupMenu.isCreated())
 					{
 						vector<MenuItemUnit> itemUnitArray;
-						itemUnitArray.push_back(MenuItemUnit(IDM_FILESWITCHER_FILESCLOSE, TEXT("Close Selected files")));
-						itemUnitArray.push_back(MenuItemUnit(IDM_FILESWITCHER_FILESCLOSEOTHERS, TEXT("Close others files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSE, TEXT("Close Selected files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERS, TEXT("Close others files")));
 
 						_fileSwitcherMultiFilePopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
 						_nativeLangSpeaker.changeLangTabContextMenu(_fileSwitcherMultiFilePopupMenu.getMenuHandle());
@@ -907,8 +907,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				POINT p;
 				::GetCursorPos(&p);
-				::ScreenToClient(_pPublicInterface->getHSelf(), &p);
-				HWND hWin = ::RealChildWindowFromPoint(_pPublicInterface->getHSelf(), p);
+				::MapWindowPoints(NULL, _pPublicInterface->getHSelf(), &p, 1);
+				HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 				const int tipMaxLen = 1024;
 				static TCHAR docTip[tipMaxLen];
 				docTip[0] = '\0';

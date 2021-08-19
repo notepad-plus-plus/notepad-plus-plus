@@ -104,6 +104,7 @@ Function copyCommonFiles
 	SetOutPath "$UPDATE_PATH\userDefineLangs\"
 	Delete "$UPDATE_PATH\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 	File "..\bin\userDefineLangs\markdown._preinstalled.udl.xml"
+	File "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml"
 
 	; Localization
 	; Default language English 

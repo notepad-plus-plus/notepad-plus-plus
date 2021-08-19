@@ -138,7 +138,7 @@ private :
 	GlobalOverride _gOverride2restored;
 	bool _restoreInvalid = false;
 
-	ColourStaticTextHooker colourHooker;
+	ColourStaticTextHooker _colourHooker;
 
 	bool _isDirty = false;
 	bool _isThemeDirty = false;
@@ -164,7 +164,7 @@ private :
 	};
 
 	int whichTabColourIndex();
-
+	void move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	void updateColour(bool which);
 	void updateFontStyleStatus(fontStyleType whitchStyle);
 	void updateExtension();

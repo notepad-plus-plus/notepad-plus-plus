@@ -13,5 +13,5 @@ bool IsColorSchemeChangeMessage(LPARAM lParam);
 bool IsColorSchemeChangeMessage(UINT message, LPARAM lParam);
 void AllowDarkModeForApp(bool allow);
 void EnableDarkScrollBarForWindowAndChildren(HWND hwnd);
-void InitDarkMode(bool fixDarkScrollbar, bool dark);
-
+void InitDarkMode();
+void SetDarkMode(bool useDarkMode, bool fixDarkScrollbar);

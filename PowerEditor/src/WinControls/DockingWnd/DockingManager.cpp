@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
 #include <stdexcept>
 #include "DockingManager.h"
 #include "DockingSplitter.h"
@@ -559,8 +558,8 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 		// create image list if not exist
 		if (_hImageList == NULL)
 		{
-			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleY(14);
-			_hImageList = ::ImageList_Create(iconDpiDynamicalSize,iconDpiDynamicalSize,ILC_COLOR8, 0, 0);
+			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleY(12) + 2;
+			_hImageList = ::ImageList_Create(iconDpiDynamicalSize, iconDpiDynamicalSize, ILC_COLOR32 | ILC_MASK, 0, 0);
 		}
 
 		// add icon
@@ -971,5 +970,3 @@ int DockingManager::FindEmptyContainer()
     // search for empty arrays
     return iRetCont;
 }
-
-

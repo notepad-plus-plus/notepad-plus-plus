@@ -84,10 +84,14 @@ PowerEditor/installer/zipped.package.release64/
 PowerEditor/installer/zipped.package.releaseArm64/
 PowerEditor/visual.net/Unicode Debug/
 PowerEditor/visual.net/Unicode Release/
+PowerEditor/visual.net/Debug/
+PowerEditor/visual.net/Release/
 PowerEditor/visual.net/notepadPlus.sln
 PowerEditor/visual.net/notepadPlus.vcxproj.filters
 PowerEditor/visual.net/x64/Unicode Debug/
 PowerEditor/visual.net/x64/Unicode Release/
+PowerEditor/visual.net/x64/Debug/
+PowerEditor/visual.net/x64/Release/
 PowerEditor/visual.net/ARM64
 PowerEditor/src/tools/NppShell/build_ARM64
 PowerEditor/src/tools/NppShell/build_Win32
@@ -105,6 +109,8 @@ scintilla/win32/ScintRes.res
 scintilla/win32/ARM64
 scintilla/win32/Unicode Release/
 scintilla/win32/Unicode Debug/
+scintilla/win32/Release/
+scintilla/win32/Debug/
 scintilla/boostregex/bin
 scintilla/boostregex/boostpath.mak
 

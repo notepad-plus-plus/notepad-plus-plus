@@ -182,6 +182,7 @@ public:
 	bool fileCloseAllToRight();
 	bool fileCloseAllUnchanged();
 	bool fileSave(BufferID id = BUFFER_INVALID);
+	bool fileSaveAllConfirm();
 	bool fileSaveAll();
 	bool fileSaveSpecific(const generic_string& fileNameToSave);
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
@@ -263,7 +264,7 @@ public:
 	void minimizeDialogs();
 	void restoreMinimizeDialogs();
 
-	void refreshDarkMode();
+	void refreshDarkMode(bool resetStyle = false);
 
 private:
 	Notepad_plus_Window *_pPublicInterface = nullptr;
@@ -401,7 +402,7 @@ private:
 
 	AnsiCharPanel* _pAnsiCharPanel = nullptr;
 	ClipboardHistoryPanel* _pClipboardHistoryPanel = nullptr;
-	VerticalFileSwitcher* _pFileSwitcherPanel = nullptr;
+	VerticalFileSwitcher* _pDocumentListPanel = nullptr;
 	ProjectPanel* _pProjectPanel_1 = nullptr;
 	ProjectPanel* _pProjectPanel_2 = nullptr;
 	ProjectPanel* _pProjectPanel_3 = nullptr;
@@ -437,11 +438,11 @@ private:
 		return _activeView;
 	}
 
-	int otherView(){
+	int otherView() {
 		return (_activeView == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
 	}
 
-	int otherFromView(int whichOne){
+	int otherFromView(int whichOne) {
 		return (whichOne == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
 	}
 
@@ -507,32 +508,28 @@ private:
 
 	void addHotSpot(ScintillaEditView* view = NULL);
 
-    void bookmarkAdd(int lineno) const
-	{
+    void bookmarkAdd(int lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		if (!bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
 	}
 
-    void bookmarkDelete(int lineno) const
-	{
+    void bookmarkDelete(int lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		while (bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
 	}
 
-    bool bookmarkPresent(int lineno) const
-	{
+    bool bookmarkPresent(int lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
 
-    void bookmarkToggle(int lineno) const
-	{
+    void bookmarkToggle(int lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 
@@ -543,8 +540,7 @@ private:
 	}
 
     void bookmarkNext(bool forwardScan);
-	void bookmarkClearAll() const
-	{
+	void bookmarkClearAll() const {
 		_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 	}
 
@@ -596,8 +592,7 @@ private:
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();
 
-	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams)
-	{
+	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams) {
 		const CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(*pCmdParams);
 		return loadCommandlineParams(commandLine, &dto);
 	}
@@ -613,7 +608,7 @@ private:
 	void removeDuplicateLines();
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
-	void launchFileSwitcherPanel();
+	void launchDocumentListPanel();
 	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
@@ -627,8 +622,7 @@ private:
 	static bool deleteForward(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool selectBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
 
-	static int getRandomNumber(int rangeMax = -1)
-	{
+	static int getRandomNumber(int rangeMax = -1) {
 		int randomNumber = rand();
 		if (rangeMax == -1)
 			return randomNumber;
@@ -648,5 +642,3 @@ private:
 	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
 	void updateCommandShortcuts();
 };
-
-

@@ -835,11 +835,11 @@
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Doc Switcher"/>
 			<ColumnName name="Name"/>
 			<ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII Insertion Panel"/>
 			<ColumnVal name="Value"/>

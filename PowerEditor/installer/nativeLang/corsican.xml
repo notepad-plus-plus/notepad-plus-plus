@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on July 31st, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 14th, 2021 for version 8.0.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 20th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 12th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
@@ -25,7 +26,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.0.0">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -282,6 +283,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44031" name="Spiegà u livellu attuale"/>
                     <Item id="44049" name="Riassuntu…"/>
                     <Item id="44080" name="Cartugrafia di u ducumentu"/>
+                    <Item id="44070" name="Lista di i ducumenti"/>
                     <Item id="44084" name="Lista di e funzioni"/>
                     <Item id="44085" name="Cartulare cum’è spaziu di travagliu"/>
                     <Item id="44086" name="1ᵃ unghjetta"/>
@@ -341,7 +343,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="47010" name="Argumenti di linea di cummanda…"/>
                     <Item id="47001" name="Pagina d’accolta di Notepad++…"/>
                     <Item id="47002" name="Pagina di prughjettu Notepad++"/>
-                    <Item id="47003" name="Documentazione in linea"/>
+                    <Item id="47003" name="Manuale in linea di l’utilizatore"/>
                     <Item id="47004" name="Cumunità Notepad++ (Foru)"/>
                     <Item id="47012" name="Infurmazioni di diagnosticu…"/>
                     <Item id="47005" name="Ottene più d’estensioni"/>
@@ -632,6 +634,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44083" name="Attivà o disattivà u pannellu di prughjettu 3"/>
                     <Item id="44085" name="Attivà o disattivà u cartulare cum’è spaziu di travagliu"/>
                     <Item id="44080" name="Attivà o disattivà a cartugrafia di u ducumentu"/>
+                    <Item id="44070" name="Attivà o disattivà a lista di i ducumenti"/>
                     <Item id="44084" name="Attivà o disattivà a lista di e funzioni"/>
                     <Item id="50005" name="Attivà o disattivà l’arregistramentu d’una macro"/>
                     <Item id="44104" name="Passà à u pannellu di prughjettu 1"/>
@@ -849,7 +852,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6123" name="Lingua"/>
 
                     <Item id="6125" name="Pannellu di lista di ducumentu"/>
-                    <Item id="6126" name="Affissà"/>
                     <Item id="6127" name="Disattivà a culonna d’estensione"/>
 
                     <Item id="6128" name="Icone alternative"/>
@@ -874,7 +876,24 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <DarkMode title="Modu scuru">
                     <Item id="7101" name="Attivà u modu scuru"/>
-                    <Item id="7106" name="* Notepad++ deve esse rilanciatu per piglià stu cambiamentu in contu"/>
+                    <Item id="7102" name="Tonu neru"/>
+                    <Item id="7103" name="Tonu rossu"/>
+                    <Item id="7104" name="Tonu verde"/>
+                    <Item id="7105" name="Tonu turchinu"/>
+                    <Item id="7107" name="Tonu purpura"/>
+                    <Item id="7108" name="Tonu cianu"/>
+                    <Item id="7109" name="Tonu aliva"/>
+                    <Item id="7115" name="Tonu persunalizatu"/>
+                    <Item id="7116" name="Altu"/>
+                    <Item id="7117" name="Listinu di messa in evidenza"/>
+                    <Item id="7118" name="Attivu"/>
+                    <Item id="7119" name="Principale"/>
+                    <Item id="7120" name="Sbagliu"/>
+                    <Item id="7121" name="Testu"/>
+                    <Item id="7122" name="Testu più oscuru"/>
+                    <Item id="7123" name="Testu disattivatu"/>
+                    <Item id="7124" name="Bordu"/>
+                    <Item id="7130" name="Reinizià"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margine è bordu">
@@ -1109,6 +1128,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6345" name="Fighjata da l’unghjetta"/>
                     <Item id="6346" name="Fighjata da a cartugrafia di ducumentu"/>
                     <Item id="6360" name="Ammutulisce tutti i soni"/>
+                    <Item id="6361" name="Attivà u dialogu per cunfirmà l’arregistramentu di tutti i schedarii"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Eseguisce una macro parechje volte">
@@ -1257,21 +1277,27 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
 Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
 Cuntinuà ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <SaveAllConfirm title="Cunfirmazione di l’arregistramentu di tutti i schedarii" message="Site sicuru di vulè arregistrà tutti i ducumenti ?
+
+Sciglite « Abbandunà » s’è a vostra risposta serà sempre « Iè » è cusì ùn viderete più sta dumanda.
+Pudete attivà torna st’ozzione in u dialogu di e preferenze." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>
         </ClipboardHistory>
-        <DocSwitcher>
-            <PanelTitle name="Cambiamentu di ducumentu"/>
+        <DocList>
+            <PanelTitle name="Lista di i ducumenti"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Est."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
             <ColumnPath name="Chjassu"/>
             <ColumnType name="Tipu"/>
             <ColumnSize name="Dimensione"/>
             <NbDocsTotal name="numeru di ducumenti :"/>
+            <MenuCopyName name="Cupià u(i) nome(i)"/>
+            <MenuCopyPath name="Cupià u(i) nome(i) di chjassu"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Pannellu d’inserzione di codice ASCII"/>
@@ -1368,6 +1394,7 @@ Cuntinuà ?"/>
             <cloud-select-folder value="Selezziunà un cartulare induve Notepad++ leghje è scrive e so preferenze"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Impiegà Maiusc+Entre per circà in a direzzione opposta."/>
             <two-find-buttons-tip value="Modu di 2 buttoni per circà"/>
+            <file-rename-title value="Rinuminà"/>
             <find-in-files-filter-tip value="Circà tramezu cpp, cxx, h, hxx è hpp :
 *.cpp *.cxx *.h *.hxx *.hpp
 

@@ -1097,11 +1097,11 @@ Fortsätta?"/>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Dokumentbläddrare"/>
 			<ColumnName name="Namn"/>
 			<ColumnExt name="Ext."/>
-		</DocSwitcher>
+		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Namn"/>
 			<ColumnPath name="Sökväg"/>

@@ -70,7 +70,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message,
 			pM30ide->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pM30ide));
 
-			if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled() && NppDarkMode::isScrollbarHackEnabled())
+			if (NppDarkMode::isExperimentalSupported())
 			{
 				NppDarkMode::enableDarkScrollBarForWindowAndChildren(hwnd);
 			}
@@ -94,16 +94,12 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		{
 			try
 			{
-				if (NppDarkMode::isExperimentalEnabled())
-				{
-					NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
-					NppDarkMode::setTitleBarThemeColor(hwnd, NppDarkMode::isEnabled());
-				}
+				NppDarkMode::setDarkTitleBar(hwnd);
 
 				_notepad_plus_plus_core._pPublicInterface = this;
 				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);
 
-				if (NppDarkMode::isExperimentalEnabled() && NppDarkMode::isEnabled())
+				if (NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported())
 				{
 					RECT rcClient;
 					GetWindowRect(hwnd, &rcClient);
@@ -166,6 +162,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				NppDarkMode::drawUAHMenuNCBottomLine(hwnd);
 			}
+
+			NppDarkMode::calculateTreeViewStyle();
 			return result;
 		}
 
@@ -185,7 +183,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				RECT rc = { 0 };
 				GetClientRect(hwnd, &rc);
-				FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return 0;
 			}
 			else
@@ -203,7 +201,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			refreshDarkMode();
+			refreshDarkMode(static_cast<bool>(wParam));
 			return TRUE;
 		}
 
@@ -552,9 +550,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DOCORDERCHANGED :
 		{
-			if (_pFileSwitcherPanel)
+			if (_pDocumentListPanel)
 			{
-				_pFileSwitcherPanel->updateTabOrder();
+				_pDocumentListPanel->updateTabOrder();
 			}
 			
 			BufferID id = _pEditView->getCurrentBufferID();
@@ -1335,7 +1333,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_CREATESCINTILLAHANDLE:
 		{
-			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?hwnd:reinterpret_cast<HWND>(lParam)));
+			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam ? reinterpret_cast<HWND>(lParam) : hwnd));
 		}
 
 		case NPPM_INTERNAL_GETSCINTEDTVIEW:
@@ -1515,16 +1513,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_SETEDITORBORDEREDGE:
 		{
 			bool withBorderEdge = (lParam == 1);
-			if (NppDarkMode::isEnabled()) 
-			{
-				_mainEditView.setBorderEdge(false);
-				_subEditView.setBorderEdge(false);
-			}
-			else
-			{
-				_mainEditView.setBorderEdge(withBorderEdge);
-				_subEditView.setBorderEdge(withBorderEdge);
-			}
+			_mainEditView.setBorderEdge(withBorderEdge);
+			_subEditView.setBorderEdge(withBorderEdge);
 			return TRUE;
 		}
 
@@ -1810,11 +1800,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			(NppParameters::getInstance()).setCurrentDefaultFgColor(style._fgColor);
 			(NppParameters::getInstance()).setCurrentDefaultBgColor(style._bgColor);
 
+			NppDarkMode::calculateTreeViewStyle();
+			auto refreshOnlyTreeView = static_cast<LPARAM>(TRUE);
+
 			// Set default fg/bg colors on internal docking dialog
 			if (_pFuncList)
 			{
 				_pFuncList->setBackgroundColor(style._bgColor);
 				_pFuncList->setForegroundColor(style._fgColor);
+				::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pAnsiCharPanel)
@@ -1823,10 +1817,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_pAnsiCharPanel->setForegroundColor(style._fgColor);
 			}
 
-			if (_pFileSwitcherPanel)
+			if (_pDocumentListPanel)
 			{
-				_pFileSwitcherPanel->setBackgroundColor(style._bgColor);
-				_pFileSwitcherPanel->setForegroundColor(style._fgColor);
+				_pDocumentListPanel->setBackgroundColor(style._bgColor);
+				_pDocumentListPanel->setForegroundColor(style._fgColor);
 			}
 
 			if (_pClipboardHistoryPanel)
@@ -1840,24 +1834,28 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				_pProjectPanel_1->setBackgroundColor(style._bgColor);
 				_pProjectPanel_1->setForegroundColor(style._fgColor);
+				::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pProjectPanel_2)
 			{
 				_pProjectPanel_2->setBackgroundColor(style._bgColor);
 				_pProjectPanel_2->setForegroundColor(style._fgColor);
+				::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pProjectPanel_3)
 			{
 				_pProjectPanel_3->setBackgroundColor(style._bgColor);
 				_pProjectPanel_3->setForegroundColor(style._fgColor);
+				::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pFileBrowser)
 			{
 				_pFileBrowser->setBackgroundColor(style._bgColor);
 				_pFileBrowser->setForegroundColor(style._fgColor);
+				::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
 			if (_pDocMap)
@@ -2450,15 +2448,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
-		case NPPM_DOCSWITCHERDISABLECOLUMN:
+		case NPPM_DOCLISTDISABLECOLUMN:
 		{
 			BOOL isOff = static_cast<BOOL>(lParam);
 			NppGUI & nppGUI = nppParam.getNppGUI();
 			nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
 
-			if (_pFileSwitcherPanel)
+			if (_pDocumentListPanel)
 			{
-				_pFileSwitcherPanel->reload();
+				_pDocumentListPanel->reload();
 			}
 			// else nothing to do
 			return TRUE;
@@ -2472,27 +2470,27 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					:(NppParameters::getInstance()).getCurrentDefaultBgColor());
 		}
 
-		case NPPM_SHOWDOCSWITCHER:
+		case NPPM_SHOWDOCLIST:
 		{
 			BOOL toShow = static_cast<BOOL>(lParam);
 			if (toShow)
 			{
-				if (!_pFileSwitcherPanel || !_pFileSwitcherPanel->isVisible())
-					launchFileSwitcherPanel();
+				if (!_pDocumentListPanel || !_pDocumentListPanel->isVisible())
+					launchDocumentListPanel();
 			}
 			else
 			{
-				if (_pFileSwitcherPanel)
-					_pFileSwitcherPanel->display(false);
+				if (_pDocumentListPanel)
+					_pDocumentListPanel->display(false);
 			}
 			return TRUE;
 		}
 
-		case NPPM_ISDOCSWITCHERSHOWN:
+		case NPPM_ISDOCLISTSHOWN:
 		{
-			if (!_pFileSwitcherPanel)
+			if (!_pDocumentListPanel)
 				return FALSE;
-			return _pFileSwitcherPanel->isVisible();
+			return _pDocumentListPanel->isVisible();
 		}
 
 		// OLD BEHAVIOUR:
@@ -2750,4 +2748,3 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 	_pluginsManager.relayNppMessages(message, wParam, lParam);
 	return result;
 }
-

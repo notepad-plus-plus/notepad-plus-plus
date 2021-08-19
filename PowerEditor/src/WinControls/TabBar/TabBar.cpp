@@ -14,12 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
-
 #include <stdexcept>
 #include "TabBar.h"
 #include "Parameters.h"
-#include "NppDarkMode.h"
 
 #define	IDC_DRAG_TAB     1404
 #define	IDC_DRAG_INTERDIT_TAB 1405
@@ -59,7 +56,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 	int multiLine = isMultiLine ? TCS_MULTILINE : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
-        TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
+		TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
 
 	_hSelf = ::CreateWindowEx(
 				0,
@@ -128,12 +125,12 @@ void TabBar::setFont(const TCHAR *fontName, int fontSize)
 		::DeleteObject(_hFont);
 
 	_hFont = ::CreateFont( fontSize, 0,
-						  (_isVertical) ? 900:0,
-						  (_isVertical) ? 900:0,
-		                   FW_NORMAL,
-			               0, 0, 0, 0,
-			               0, 0, 0, 0,
-				           fontName);
+						(_isVertical) ? 900:0,
+						(_isVertical) ? 900:0,
+						FW_NORMAL,
+						0, 0, 0, 0,
+						0, 0, 0, 0,
+						fontName);
 	if (_hFont)
 		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 }
@@ -467,6 +464,12 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::tabbar);
+			return TRUE;
+		}
+
 		case WM_MOUSEWHEEL:
 		{
 			// ..............................................................................
@@ -601,20 +604,20 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
-            ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
+			::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 			int currentTabOn = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
 			if (wParam == 2)
 				return TRUE;
 
-            if (_doDragNDrop)
-            {
+			if (_doDragNDrop)
+			{
 				_mightBeDragging = true;
-            }
+			}
 
 			notify(NM_CLICK, currentTabOn);
 
-            return TRUE;
+			return TRUE;
 		}
 
 		case WM_RBUTTONDOWN :	//rightclick selects tab aswell
@@ -668,13 +671,13 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			if (_isDragging)
 			{
-                exchangeItemData(p);
+				exchangeItemData(p);
 
 				// Get cursor position of "Screen"
 				// For using the function "WindowFromPoint" afterward!!!
 				::GetCursorPos(&_draggingPoint);
 				draggingCursor(_draggingPoint);
-			    return TRUE;
+				return TRUE;
 			}
 			else
 			{
@@ -893,9 +896,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			UINT id = ::GetDlgCtrlID(hwnd);
 
-			static HPEN g_hpen = CreatePen(PS_SOLID, 1, NppDarkMode::getEdgeColor());
-
-			HPEN holdPen = (HPEN)SelectObject(hdc, g_hpen);
+			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
 
 			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
 			if (1 != GetClipRgn(hdc, holdClip))
@@ -1271,8 +1272,8 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 		}
 		else if (isPointInParentZone(screenPoint))
 			::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_INTERDIT_TAB)));
-        else // drag out of application
-            ::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_OUT_TAB)));
+		else // drag out of application
+			::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_OUT_TAB)));
 	}
 }
 

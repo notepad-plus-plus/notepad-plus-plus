@@ -837,7 +837,7 @@
                     <Item id="6219" name="Velocità:"/>
                     <Item id="6221" name="V"/>
                     <Item id="6222" name="L"/>
-                    <Item id="6225" name="Abilita (Ctrl+clic/selezione)"/>
+                    <Item id="6225" name="Abilita Selezione Multipla (Ctrl+clic/selezione)"/>
                     <Item id="6227" name="A Capo Automatico"/>
                     <Item id="6228" name="Predefinito"/>
                     <Item id="6229" name="Allineato"/>
@@ -1236,11 +1236,11 @@ Vuoi continuare?"/>
         <ClipboardHistory>
             <PanelTitle name="Cronologia Appunti"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Documenti"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Est."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
             <ColumnPath name="Percorso"/>

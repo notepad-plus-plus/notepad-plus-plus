@@ -60,7 +60,20 @@ public:
 	DarkModeSubDlg() = default;
 
 private:
+	ColourPicker* _pBackgroundColorPicker = nullptr;
+	ColourPicker* _pSofterBackgroundColorPicker = nullptr;
+	ColourPicker* _pHotBackgroundColorPicker = nullptr;
+	ColourPicker* _pPureBackgroundColorPicker = nullptr;
+	ColourPicker* _pErrorBackgroundColorPicker = nullptr;
+	ColourPicker* _pTextColorPicker = nullptr;
+	ColourPicker* _pDarkerTextColorPicker = nullptr;
+	ColourPicker* _pDisabledTextColorPicker = nullptr;
+	ColourPicker* _pEdgeColorPicker = nullptr;
+	ColourPicker* _pLinkColorPicker = nullptr;
+
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void enableCustomizedColorCtrls(bool doEnable);
+	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 };
 
 class MarginsBorderEdgeSubDlg : public StaticDialog
@@ -242,7 +255,7 @@ private :
 class PreferenceDlg : public StaticDialog
 {
 friend class NativeLangSpeaker;
-
+friend class Notepad_plus;
 public :
 	PreferenceDlg() = default;
 

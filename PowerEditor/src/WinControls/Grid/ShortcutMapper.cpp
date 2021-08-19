@@ -55,8 +55,22 @@ void ShortcutMapper::getClientRect(RECT & rc) const
 {
 		Window::getClientRect(rc);
 
-		rc.top += NppParameters::getInstance()._dpiManager.scaleY(30);
-		rc.bottom -= NppParameters::getInstance()._dpiManager.scaleY(108);
+		RECT tabRect, btnRect;
+		::GetClientRect(::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR), &tabRect);
+		int tabH = tabRect.bottom - tabRect.top;
+		int paddingTop = tabH / 2;
+		rc.top += tabH + paddingTop;
+
+		RECT infoRect, filterRect;
+		::GetClientRect(::GetDlgItem(_hSelf, IDC_BABYGRID_INFO), &infoRect);
+		::GetClientRect(::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER), &filterRect);
+		::GetClientRect(::GetDlgItem(_hSelf, IDOK), &btnRect);
+		int infoH = infoRect.bottom - infoRect.top;
+		int filterH = filterRect.bottom - filterRect.top;
+		int btnH = btnRect.bottom - btnRect.top;
+		int paddingBottom = btnH;
+		rc.bottom -= btnH + filterH + infoH + paddingBottom;
+
 		rc.left += NppParameters::getInstance()._dpiManager.scaleX(5);
 		rc.right -= NppParameters::getInstance()._dpiManager.scaleX(5);
 }
@@ -141,18 +155,15 @@ generic_string ShortcutMapper::getTextFromCombo(HWND hCombo)
 
 bool ShortcutMapper::isFilterValid(Shortcut sc)
 {
-	bool match = false;
-	generic_string shortcut_name = stringToLower(generic_string(sc.getName()));
 	if (_shortcutFilter.empty())
-	{
 		return true;
-	}
-	// test the filter on the shortcut name
-	size_t match_pos = shortcut_name.find(_shortcutFilter);
-	if (match_pos != std::string::npos){
-		match = true;
-	}
-	return match;
+
+	generic_string shortcut_name = stringToLower(generic_string(sc.getName()));
+	generic_string shortcut_value = stringToLower(sc.toString());
+
+	// test the filter on the shortcut name and value
+	return (shortcut_name.find(_shortcutFilter) != std::string::npos) || 
+		(shortcut_value.find(_shortcutFilter) != std::string::npos);
 }
 
 bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc)
@@ -541,7 +552,10 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			generic_string conflictInfo;
 
-			const bool isConflict = findKeyConflicts(&conflictInfo, *reinterpret_cast<KeyCombo*>(wParam), _babygrid.getSelectedRow() - 1);
+			// In case of using filter will make the filtered items change index, so here we get its real index
+			size_t realIndexOfSelectedItem = _shortcutIndex[_babygrid.getSelectedRow() - 1];
+
+			const bool isConflict = findKeyConflicts(&conflictInfo, *reinterpret_cast<KeyCombo*>(wParam), realIndexOfSelectedItem);
 			*reinterpret_cast<bool*>(lParam) = isConflict;
 
 			if (isConflict)
@@ -1046,6 +1060,10 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 							NppParameters& nppParam = NppParameters::getInstance();
 							const size_t currentIndex = LOWORD(lParam) - 1;
+
+							// In case of using filter will make the filtered items change index, so here we get its real index
+							size_t realIndexOfSelectedItem = _shortcutIndex[currentIndex];
+
 							generic_string conflictInfo;
 
 							switch (_currentState)
@@ -1053,37 +1071,37 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								case STATE_MENU:
 								{
 									vector<CommandShortcut> & vShortcuts = nppParam.getUserShortcuts();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyCombo(), realIndexOfSelectedItem);
 								}
 								break;
 
 								case STATE_MACRO:
 								{
 									vector<MacroShortcut> & vShortcuts = nppParam.getMacroList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyCombo(), realIndexOfSelectedItem);
 								}
 								break;
 
 								case STATE_USER:
 								{
 									vector<UserCommand> & vShortcuts = nppParam.getUserCommandList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyCombo(), realIndexOfSelectedItem);
 								}
 								break;
 
 								case STATE_PLUGIN:
 								{
 									vector<PluginCmdShortcut> & vShortcuts = nppParam.getPluginCommandList();
-									findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyCombo(), currentIndex);
+									findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyCombo(), realIndexOfSelectedItem);
 								}
 								break;
 
 								case STATE_SCINTILLA:
 								{
 									vector<ScintillaKeyMap> & vShortcuts = nppParam.getScintillaKeyList();
-									size_t sciCombos = vShortcuts[currentIndex].getSize();
+									size_t sciCombos = vShortcuts[realIndexOfSelectedItem].getSize();
 									for (size_t sciIndex = 0; sciIndex < sciCombos; ++sciIndex)
-										findKeyConflicts(&conflictInfo, vShortcuts[currentIndex].getKeyComboByIndex(sciIndex), currentIndex);
+										findKeyConflicts(&conflictInfo, vShortcuts[realIndexOfSelectedItem].getKeyComboByIndex(sciIndex), realIndexOfSelectedItem);
 								}
 								break;
 							}
@@ -1119,7 +1137,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
 										const KeyCombo & itemKeyComboToTest, const size_t & itemIndexToTest) const
 {
-	if (itemKeyComboToTest._key == NULL) //no key assignment
+	if (itemKeyComboToTest._key == 0) //no key assignment
 		return false;
 
 	bool retIsConflict = false; //returns true when a conflict is found

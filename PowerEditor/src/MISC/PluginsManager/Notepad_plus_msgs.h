@@ -32,7 +32,7 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_ASN1, L_AVS, L_BLITZBASIC, L_PUREBASIC, L_FREEBASIC, \
 			   L_CSOUND, L_ERLANG, L_ESCRIPT, L_FORTH, L_LATEX, \
 			   L_MMIXAL, L_NIM, L_NNCRONTAB, L_OSCRIPT, L_REBOL, \
-			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG,\
+			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG, L_TYPESCRIPT,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};
@@ -346,7 +346,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	#define NPPM_ALLOCATEMARKER  (NPPMSG + 82)
     // BOOL NPPM_ALLOCATEMARKER(int numberRequested, int* startNumber)
     // sets startNumber to the initial command ID if successful
-    // Allocates a marker number to a plugin
+    // Allocates a marker number to a plugin: if a plugin need to add a marker on Notepad++'s Scintilla marker margin,
+	// it has to use this message to get marker number, in order to prevent from the conflict with the other plugins.
     // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
 
 	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
@@ -365,14 +366,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGEDESC function the 2nd time
 	// by passing allocated buffer as argument langDesc
 
-	#define NPPM_SHOWDOCSWITCHER    (NPPMSG + 85)
-	// VOID NPPM_SHOWDOCSWITCHER(0, BOOL toShowOrNot)
-	// Send this message to show or hide doc switcher.
-	// if toShowOrNot is TRUE then show doc switcher, otherwise hide it.
+	#define NPPM_SHOWDOCLIST    (NPPMSG + 85)
+	// VOID NPPM_SHOWDOCLIST(0, BOOL toShowOrNot)
+	// Send this message to show or hide Document List.
+	// if toShowOrNot is TRUE then show Document List, otherwise hide it.
 
-	#define NPPM_ISDOCSWITCHERSHOWN    (NPPMSG + 86)
-	// BOOL NPPM_ISDOCSWITCHERSHOWN(0, 0)
-	// Check to see if doc switcher is shown.
+	#define NPPM_ISDOCLISTSHOWN    (NPPMSG + 86)
+	// BOOL NPPM_ISDOCLISTSHOWN(0, 0)
+	// Check to see if Document List is shown.
 
 	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
 	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
@@ -382,9 +383,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// INT NPPM_GETCURRENTVIEW(0, 0)
 	// Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
 
-	#define NPPM_DOCSWITCHERDISABLECOLUMN    (NPPMSG + 89)
-	// VOID NPPM_DOCSWITCHERDISABLECOLUMN(0, BOOL disableOrNot)
-	// Disable or enable extension column of doc switcher
+	#define NPPM_DOCLISTDISABLECOLUMN    (NPPMSG + 89)
+	// VOID NPPM_DOCLISTDISABLECOLUMN(0, BOOL disableOrNot)
+	// Disable or enable extension column of Document List
 
 	#define NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR    (NPPMSG + 90)
 	// INT NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR(0, 0)

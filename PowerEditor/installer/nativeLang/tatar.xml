@@ -905,11 +905,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Буфер тарихы"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Документны алыштыру"/>
 			<ColumnName name="Исем"/>
 			<ColumnExt name="Төре"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII символлар җәдвәле"/>
 			<ColumnVal name="Билге"/>

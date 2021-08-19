@@ -23,7 +23,6 @@
 #include "RunDlg.h"
 #include "ReadDirectoryChanges.h"
 #include "menuCmdID.h"
-#include "Parameters.h"
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16
@@ -98,25 +97,34 @@ bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_strin
 
 INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS | TBSTYLE_CUSTOMERASE;
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
 
 			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
 
-			TBBUTTON tbButtons[3];
 			// Add the bmap image into toolbar's imagelist
-			TBADDBITMAP addbmp = { _hInst, 0 };
-			addbmp.nID = IDI_FB_SELECTCURRENTFILE;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
-			addbmp.nID = IDI_FB_FOLDALL;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
-			addbmp.nID = IDI_FB_EXPANDALL;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+			int iconSizeDyn = nppParam._dpiManager.scaleX(16);
+			::SendMessage(_hToolbarMenu, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconSizeDyn, iconSizeDyn));
+
+			TBADDBITMAP addbmp = { 0, 0 };
+			const int nbIcons = 3;
+			int iconIDs[nbIcons] = { IDI_FB_SELECTCURRENTFILE, IDI_FB_FOLDALL, IDI_FB_EXPANDALL};
+			int iconDarkModeIDs[nbIcons] = { IDI_FB_SELECTCURRENTFILE_DM, IDI_FB_FOLDALL_DM, IDI_FB_EXPANDALL_DM};
+			for (size_t i = 0; i < nbIcons; ++i)
+			{
+				int icoID = NppDarkMode::isEnabled() ? iconDarkModeIDs[i] : iconIDs[i];
+				HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconSizeDyn, iconSizeDyn, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+				addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
+				::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+			}
+
+			TBBUTTON tbButtons[nbIcons];
 			tbButtons[0].idCommand = FB_CMD_AIMFILE;
 			tbButtons[0].iBitmap = 0;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
@@ -141,9 +149,11 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParam._dpiManager.scaleX(20), nppParam._dpiManager.scaleY(20)));
-			::SendMessage(_hToolbarMenu, TB_SETPADDING, 0, MAKELONG(20, 0));
+			::SendMessage(_hToolbarMenu, TB_SETPADDING, 0, MAKELONG(nppParam._dpiManager.scaleX(10), 0));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
+			
+			::SendMessage(_hToolbarMenu, TB_GETIMAGELIST, 0, 0);
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			FileBrowser::initPopupMenus();
@@ -166,8 +176,21 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_treeView.makeLabelEditable(false);
 			_treeView.display();
 
-            return TRUE;
-        }
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			if (static_cast<BOOL>(lParam) != TRUE)
+			{
+				NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
+				NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+
+				NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			}
+			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			return TRUE;
+		}
 
 		case WM_MOUSEMOVE:
 			if (_treeView.isDragging())
@@ -187,10 +210,10 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		}
 		return TRUE;
 
-        case WM_SIZE:
-        {
-            int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
+		case WM_SIZE:
+		{
+			int width = LOWORD(lParam);
+			int height = HIWORD(lParam);
 			int extraValue = NppParameters::getInstance()._dpiManager.scaleX(4);
 
 			RECT toolbarMenuRect;
@@ -201,13 +224,13 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
 				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + extraValue, width, height - toolbarMenuRect.bottom - extraValue, TRUE);
-            break;
-        }
+			break;
+		}
 
-        case WM_CONTEXTMENU:
+		case WM_CONTEXTMENU:
 			if (!_treeView.isDragging())
 				showContextMenu(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
-        return TRUE;
+		return TRUE;
 
 		case WM_COMMAND:
 		{
@@ -238,12 +261,12 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		}
 
 		case WM_DESTROY:
-        {
+		{
 			::DestroyWindow(_hToolbarMenu);
 			_treeView.destroy();
 			destroyMenus();
-            break;
-        }
+			break;
+		}
 
 		case FB_ADDFILE:
 		{
@@ -302,9 +325,9 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			break;
 		}
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default :
+			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
@@ -708,20 +731,10 @@ void FileBrowser::notified(LPNMHDR notification)
 	}
 	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
-		NMTBCUSTOMDRAW* nmtbcd = reinterpret_cast<NMTBCUSTOMDRAW*>(notification);
-		if (nmtbcd->nmcd.dwDrawStage == CDDS_PREERASE)
+		if (NppDarkMode::isEnabled())
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getBackgroundBrush());
-				nmtbcd->clrText = NppDarkMode::getTextColor();
-				SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_SKIPDEFAULT);
-			}
-			else
-			{
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_DODEFAULT);
-			}
+			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
 		}
 	}
 }
@@ -739,7 +752,7 @@ BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 		return browserNodeType_file;
 	}
 	// Root
-	else if (tvItem.lParam != NULL && !reinterpret_cast<SortingData4lParam*>(tvItem.lParam)->_rootPath.empty())
+	else if (tvItem.lParam && !reinterpret_cast<SortingData4lParam*>(tvItem.lParam)->_rootPath.empty())
 	{
 		return browserNodeType_root;
 	}
@@ -1052,7 +1065,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 	}
 
 	std::vector<generic_string> patterns2Match;
- 	patterns2Match.push_back(TEXT("*.*"));
+	patterns2Match.push_back(TEXT("*.*"));
 
 	TCHAR *label = ::PathFindFileName(rootFolderPath.c_str());
 	TCHAR rootLabel[MAX_PATH];
@@ -1287,7 +1300,7 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 				_treeView.addItem(file.c_str(), node, INDEX_LEAF, reinterpret_cast<LPARAM>(customData));
 			}
 		}
-		_treeView.customSorting(node, categorySortFunc, 0);
+		_treeView.customSorting(node, categorySortFunc, 0, false);
 		return true;
 	}
 	else
@@ -1478,7 +1491,7 @@ bool FileBrowser::renameInTree(const generic_string& rootPath, HTREEITEM node, c
 	_treeView.renameItem(foundItem, renameTo.c_str());
 	SortingData4lParam* compareData = reinterpret_cast<SortingData4lParam*>(_treeView.getItemParam(foundItem));
 	compareData->_label = renameTo;
-	_treeView.customSorting(_treeView.getParent(foundItem), categorySortFunc, 0);
+	_treeView.customSorting(_treeView.getParent(foundItem), categorySortFunc, 0, false);
 
 	return true;
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.0.0  3/Jun/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.1.3  2/Aug/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.0.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -274,13 +274,14 @@
 					<Item id = "44041" name = "Zobrazit zalamovací znaky"/>
 					<Item id = "44042" name = "Skrýt řádky"/>
 					<Item id = "44049" name = "Souhrnné informace..."/>
+					<Item id = "44070" name = "Seznam dokumentů"/>
 					<Item id = "44072" name = "Přejít na další náhled"/>
-					<Item id = "44085" name = "Složka jako pracovní plocha"/>
 					<Item id = "44080" name = "Přehledná mapa dokumentu"/>
 					<Item id = "44081" name = "Panel 1"/>
 					<Item id = "44082" name = "Panel 2"/>
 					<Item id = "44083" name = "Panel 3"/>
 					<Item id = "44084" name = "Seznam funkcí"/>
+					<Item id = "44085" name = "Složka jako pracovní plocha"/>
 					<Item id = "44086" name = "1. karta"/>
 					<Item id = "44087" name = "2. karta"/>
 					<Item id = "44088" name = "3. karta"/>
@@ -330,8 +331,8 @@
 					<Item id = "47000" name = "O Notepadu++ ..."/>
 					<Item id = "47001" name = "N++ - domovská stránka"/>
 					<Item id = "47002" name = "N++ - stránka projektu"/>
-					<Item id = "47003" name = "N++ Wiki - online nápověda"/>
-					<Item id = "47004" name = "N++ Community - Diskuzní fórum"/>
+					<Item id = "47003" name = "N++ - online příručka pro uživatele"/>
+					<Item id = "47004" name = "N++ - Community (diskuzní fórum)"/>
 					<Item id = "47005" name = "Získat další pluginy"/>
 					<Item id = "47006" name = "Aktualizovat Notepad++"/>
 					<Item id = "47007" name = "Wiki FAQ"/>
@@ -462,9 +463,6 @@
 				<Item id = "2908" name = "Směr"/>
 				<Item id = "2909" name = "Dokola"/>
 			</FindCharsInRange>
-
-			<DocSwitcher title = "Přepínač dokumentů...">
-			</DocSwitcher>
 
 			<GoToLine title = "Přejít na ...">
 				<Item id = "2007" name = "Řádek"/>
@@ -612,8 +610,8 @@
 					<Item id = "44101" name = "Zobrazit aktuální soubor v Chrome"/>
 					<Item id = "44103" name = "Zobrazit aktuální soubor v IE"/>
 					<Item id = "44102" name = "Zobrazit aktuální soubor v Edge"/>
-					<Item id = "50003" name = "Přepnout na předchozí dokument"/>
-					<Item id = "50004" name = "Přepnout na další dokument"/>
+					<Item id = "50003" name = "Přejít na předchozí dokument"/>
+					<Item id = "50004" name = "Přejít na další dokument"/>
 					<Item id = "44051" name = "Sbalit Úroveň 1"/>
 					<Item id = "44052" name = "Sbalit Úroveň 2"/>
 					<Item id = "44053" name = "Sbalit Úroveň 3"/>
@@ -630,10 +628,11 @@
 					<Item id = "44066" name = "Rozbalit Úroveň 6"/>
 					<Item id = "44067" name = "Rozbalit Úroveň 7"/>
 					<Item id = "44068" name = "Rozbalit Úroveň 8"/>
-					<Item id = "44081" name = "Přepnout na Projektový panel 1"/>
-					<Item id = "44082" name = "Přepnout na Projektový panel 2"/>
-					<Item id = "44083" name = "Přepnout na Projektový panel 3"/>
-					<Item id = "44085" name = "Přepnout na Složku jako Pracovní plochu"/>
+					<Item id = "44070" name = "Přepnout Seznam dokumentů"/>
+					<Item id = "44081" name = "Přepnout Projektový panel 1"/>
+					<Item id = "44082" name = "Přepnout Projektový panel 2"/>
+					<Item id = "44083" name = "Přepnout Projektový panel 3"/>
+					<Item id = "44085" name = "Přepnout Složka jako Pracovní plocha"/>
 					<Item id = "44080" name = "Přepnout Mapu dokumentů"/>
 					<Item id = "44084" name = "Přepnout Seznam funkcí"/>
 					<Item id = "50005" name = "Přepnout Nahrávání makra"/>
@@ -883,8 +882,7 @@
 					<Item id = "6121" name = "Ukončit při uzavření poslední karty"/>
 					<Item id = "6122" name = "Skrýt hl. menu (klávesa Alt nebo F10 slouží k přepínání)"/>
 					<Item id = "6123" name = "Lokalizace"/>
-					<Item id = "6125" name = "Přepínač dokumentů"/>
-					<Item id = "6126" name = "Zobrazit"/>
+					<Item id = "6125" name = "Seznam dokumentů (panel)"/>
 					<Item id = "6127" name = "Nepoužívat sloupec s extenzemi"/>
 					<Item id = "6128" name = "Alternativní ikony"/>
 					<Item id = "6129" name = "Fluent UI: malé ikony s výplní"/>
@@ -908,8 +906,25 @@
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 				</Scintillas>
 				<DarkMode title="Tmavý režim">
-					<Item id="7101" name="Povolit tmavý režim"/>
-					<Item id="7106" name="* Notepad++ musí být restartován, aby se efekt projevil kompletně"/>
+					<Item id = "7101" name = "Povolit tmavý režim"/>
+					<Item id = "7102" name = "Černý odstín"/>
+					<Item id = "7103" name = "Červený odstín"/>
+					<Item id = "7104" name = "Zelený odstín"/>
+					<Item id = "7105" name = "Modný odstín"/>
+					<Item id = "7107" name = "Fialový odstín"/>
+					<Item id = "7108" name = "Modrozelený odstín"/>
+					<Item id = "7109" name = "Olivový odstín"/>
+					<Item id = "7115" name = "Vlastní odstín"/>
+					<Item id = "7116" name = "Horní panel"/>
+					<Item id = "7117" name = "Aktuální (hot-track) pol."/>
+					<Item id = "7118" name = "Aktivní položky"/>
+					<Item id = "7119" name = "Hlavní položky"/>
+					<Item id = "7120" name = "Chyby"/>
+					<Item id = "7121" name = "Text"/>
+					<Item id = "7122" name = "Tmavší text"/>
+					<Item id = "7123" name = "Dezaktivovaný text"/>
+					<Item id = "7124" name = "Okraje"/>
+					<Item id = "7130" name = "Obnovit"/>
 				</DarkMode>
 				<MarginsBorderEdge title="Okraje/Lem/Hrana">
 					<Item id = "6201" name = "Styl sbalovače na okraji"/>
@@ -1059,6 +1074,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
 					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
 					<Item id = "6360" name = "Ztlumit všechny zvuky"/>
+					<Item id = "6361" name = "Povolit potvrzovací dialog 'Uložit všechny'"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -1253,17 +1269,21 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
 			<ExitToUpdatePlugins title = "Notepad++ má být ukončen" message = "Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
 			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Musíte restartovat Notepad++, aby mohly být zavedeny nainstalované zásuvné moduly."/>
+			<SaveAllConfirm title = "Potvrzení pro 'Uložit všechny'" message = "Opravdu chcete uložit všechny dokumenty?
+
+Zvolte &quot;Storno&quot;, pokud bude vaše odpověď vždy &quot;Ano&quot; a nebudete již znovu dotázováni na tuto otázku.
+Toto dialogové okno můžete později znovu aktivovat v Nastavení." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</MessageBox>
 		
 		<ClipboardHistory>
 			<PanelTitle name = "Historie Schránky"/>
 		</ClipboardHistory>
 		
-		<DocSwitcher>
-			<PanelTitle name = "Přepínač dokumentů"/>
+		<DocList>
+			<PanelTitle name = "Seznam dokumentů"/>
 			<ColumnName name = "Jméno"/>
 			<ColumnExt name = "Příp."/>
-		</DocSwitcher>
+		</DocList>
 		
 		<WindowsDlg>
 			<ColumnName name = "Jméno"/>
@@ -1271,6 +1291,8 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<ColumnType name = "Typ"/>
 			<ColumnSize name = "Velikost"/>
 			<NbDocsTotal name = "celkem dokumentů:"/>
+			<MenuCopyName name = "Kopírovat jméno(a)"/>
+	  		<MenuCopyPath name = "Kopírovat cestu(y)"/>
 		</WindowsDlg>
 		
 		<AsciiInsertion>
@@ -1371,7 +1393,8 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
 			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
-			<two-find-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
+			<two-find-buttons-tip value = "Mód se dvěma vyhledávacími tlačítky"/>
+			<file-rename-title value = "Přejmenovat"/>
 			<find-in-files-filter-tip value="Najít v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 Najít ve všech souborech mimo exe, obj &amp;&amp; log:

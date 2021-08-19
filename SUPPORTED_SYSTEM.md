@@ -17,7 +17,7 @@
 | **Windows Vista**       | YES                             |          NO               |
 | **Windows Server 2008** | YES                             |          NO               |
 | **Windows 7**           | YES                             |          NO               |
-| **Windows 8**           | YES                             |          YES              |
+| **Windows 8**           | YES                             |          No               |
 | **Windows 8.1**         | YES                             |          YES              |
 | **Windows 10**          | YES                             |          YES              |
 

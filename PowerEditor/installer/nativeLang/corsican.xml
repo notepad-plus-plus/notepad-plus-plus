@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on July 31st, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 14th, 2021 for version 8.0.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 20th, 2021 for version 7.9.6 by Patriccollu di Santa Maria è Sichè
@@ -26,7 +27,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.3">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -49,6 +50,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="file-openFolder" name="A&amp;pre u cartulare cuntenendu u schedariu"/>
                     <Item subMenuId="file-closeMore" name="C&amp;hjode altrimente"/>
                     <Item subMenuId="file-recentFiles" name="Schedarii &amp;recenti"/>
+                    <Item subMenuId="edit-insert" name="Framette"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Cupià in u &amp;preme’papei"/>
                     <Item subMenuId="edit-indent" name="I&amp;ndentazione"/>
                     <Item subMenuId="edit-convertCaseTo" name="Cun&amp;vertisce i caratteri"/>
@@ -59,9 +61,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-blankOperations" name="&amp;Operazioni nant’à u spaziu"/>
                     <Item subMenuId="edit-pasteSpecial" name="Incullatura spe&amp;ziale"/>
                     <Item subMenuId="edit-onSelection" name="Per &amp;a selezzione"/>
-                    <Item subMenuId="search-markAll" name="&amp;Tuttu marcà"/>
-                    <Item subMenuId="search-markOne" name="Ma&amp;rcane una"/>
-                    <Item subMenuId="search-unmarkAll" name="S&amp;quassà tutte e marche"/>
+                    <Item subMenuId="search-markAll" name="Marcà &amp;tutte l’occurenze di testu"/>
+                    <Item subMenuId="search-markOne" name="Stilizà una occu&amp;renza di testu"/>
+                    <Item subMenuId="search-unmarkAll" name="Nettà tutti i stili"/>
                     <Item subMenuId="search-jumpUp" name="And&amp;à insù"/>
                     <Item subMenuId="search-jumpDown" name="Andà in&amp;ghjò"/>
                     <Item subMenuId="search-copyStyledText" name="Cupià u t&amp;estu di stilu"/>
@@ -133,6 +135,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Squassà"/>
                     <Item id="42007" name="T&amp;uttu selezziunà"/>
                     <Item id="42020" name="Principiu è &amp;fine di a selezzione"/>
+                    <Item id="42084" name="A data è l’ora (corta)"/>
+                    <Item id="42085" name="A data è l’ora (longa)"/>
                     <Item id="42008" name="Aghjunghje una tabulazione nant’à a linea"/>
                     <Item id="42009" name="Caccià una tabulazione da a linea"/>
                     <Item id="42010" name="Duplicà a linea attuale"/>
@@ -243,20 +247,20 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43035" name="3ᵘ stilu"/>
                     <Item id="43036" name="4ᵘ stilu"/>
                     <Item id="43037" name="5ᵘ stilu"/>
-                    <Item id="43038" name="Circà u stilu"/>
+                    <Item id="43038" name="Stilu di marca di ricerca"/>
                     <Item id="43039" name="1ᵘ stilu"/>
                     <Item id="43040" name="2ᵘ stilu"/>
                     <Item id="43041" name="3ᵘ stilu"/>
                     <Item id="43042" name="4ᵘ stilu"/>
                     <Item id="43043" name="5ᵘ stilu"/>
-                    <Item id="43044" name="Circà u stilu"/>
+                    <Item id="43044" name="Stilu di marca di ricerca"/>
                     <Item id="43055" name="1ᵘ stilu"/>
                     <Item id="43056" name="2ᵘ stilu"/>
                     <Item id="43057" name="3ᵘ stilu"/>
                     <Item id="43058" name="4ᵘ stilu"/>
                     <Item id="43059" name="5ᵘ stilu"/>
                     <Item id="43060" name="Tutti i stili"/>
-                    <Item id="43061" name="Circà u stilu (marcatu)"/>
+                    <Item id="43061" name="Stilu di marca di ricerca"/>
                     <Item id="43062" name="Impieghendu u 1ᵘ stilu"/>
                     <Item id="43063" name="Impieghendu u 2ᵘ stilu"/>
                     <Item id="43064" name="Impieghendu u 3ᵘ stilu"/>
@@ -517,7 +521,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Chjode"/>
             </PluginsAdminDlg>
 
-            <StyleConfig title="Cunfiguratore di u stilu">
+            <StyleConfig title="Cunfiguratore di stilu">
                 <Item id="2"    name="Abbandunà"/>
                 <Item id="2301" name="Arregistrà è chjode"/>
                 <Item id="2303" name="Trasparenza"/>
@@ -572,41 +576,41 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="Cunversione di fine di linea à u furmatu Windows (CR LF)"/>
                     <Item id="45002" name="Cunversione di fine di linea à u furmatu Unix (LF)"/>
                     <Item id="45003" name="Cunversione di fine di linea à u furmatu Macintosh (CR)"/>
-                    <Item id="43022" name="Tuttu marcà impieghendu u 1ᵘ stilu"/>
-                    <Item id="43024" name="Tuttu marcà impieghendu u 2ᵘ stilu"/>
-                    <Item id="43026" name="Tuttu marcà impieghendu u 3ᵘ stilu"/>
-                    <Item id="43028" name="Tuttu marcà impieghendu u 4ᵘ stilu"/>
-                    <Item id="43030" name="Tuttu marcà impieghendu u 5ᵘ stilu"/>
-                    <Item id="43062" name="Marcane una impieghendu u 1ᵘ stilu"/>
-                    <Item id="43063" name="Marcane una impieghendu u 2ᵘ stilu"/>
-                    <Item id="43064" name="Marcane una impieghendu u 3ᵘ stilu"/>
-                    <Item id="43065" name="Marcane una impieghendu u 4ᵘ stilu"/>
-                    <Item id="43066" name="Marcane una impieghendu u 5ᵘ stilu"/>
-                    <Item id="43023" name="Squassà e marche impieghendu u 1ᵘ stilu"/>
-                    <Item id="43025" name="Squassà e marche impieghendu u 2ᵘ stilu"/>
-                    <Item id="43027" name="Squassà e marche impieghendu u 3ᵘ stilu"/>
-                    <Item id="43029" name="Squassà e marche impieghendu u 4ᵘ stilu"/>
-                    <Item id="43031" name="Squassà e marche impieghendu u 5ᵘ stilu"/>
-                    <Item id="43032" name="Squassà e marche impieghendu tutti i stili"/>
-                    <Item id="43033" name="Marca precedente impieghendu u 1ᵘ stilu"/>
-                    <Item id="43034" name="Marca precedente impieghendu u 2ᵘ stilu"/>
-                    <Item id="43035" name="Marca precedente impieghendu u 3ᵘ stilu"/>
-                    <Item id="43036" name="Marca precedente impieghendu u 4ᵘ stilu"/>
-                    <Item id="43037" name="Marca precedente impieghendu u 5ᵘ stilu"/>
-                    <Item id="43038" name="Marca precedente creata cù Marcà"/>
-                    <Item id="43039" name="Marca seguente impieghendu u 1ᵘ stilu"/>
-                    <Item id="43040" name="Marca seguente impieghendu u 2ᵘ stilu"/>
-                    <Item id="43041" name="Marca seguente impieghendu u 3ᵘ stilu"/>
-                    <Item id="43042" name="Marca seguente impieghendu u 4ᵘ stilu"/>
-                    <Item id="43043" name="Marca seguente impieghendu u 5ᵘ stilu"/>
-                    <Item id="43044" name="Marca seguente creata cù Marcà"/>
-                    <Item id="43055" name="Cupià u testu cù 1ᵘ stilu"/>
-                    <Item id="43056" name="Cupià u testu cù 2ᵘ stilu"/>
-                    <Item id="43057" name="Cupià u testu cù 3ᵘ stilu"/>
-                    <Item id="43058" name="Cupià u testu cù 4ᵘ stilu"/>
-                    <Item id="43059" name="Cupià u testu cù 5ᵘ stilu"/>
-                    <Item id="43060" name="Cupià u testu cù tutti i stili"/>
-                    <Item id="43061" name="Cupià u testu - Circà u stilu (marcatu)"/>
+                    <Item id="43022" name="Stilizà tutte l’occurenze impieghendu u 1ᵘ stilu"/>
+                    <Item id="43024" name="Stilizà tutte l’occurenze impieghendu u 2ᵘ stilu"/>
+                    <Item id="43026" name="Stilizà tutte l’occurenze impieghendu u 3ᵘ stilu"/>
+                    <Item id="43028" name="Stilizà tutte l’occurenze impieghendu u 4ᵘ stilu"/>
+                    <Item id="43030" name="Stilizà tutte l’occurenze impieghendu u 5ᵘ stilu"/>
+                    <Item id="43062" name="Stilizà una occurenza impieghendu u 1ᵘ stilu"/>
+                    <Item id="43063" name="Stilizà una occurenza impieghendu u 2ᵘ stilu"/>
+                    <Item id="43064" name="Stilizà una occurenza impieghendu u 3ᵘ stilu"/>
+                    <Item id="43065" name="Stilizà una occurenza impieghendu u 4ᵘ stilu"/>
+                    <Item id="43066" name="Stilizà una occurenza impieghendu u 5ᵘ stilu"/>
+                    <Item id="43023" name="Nettà u 1ᵘ stilu"/>
+                    <Item id="43025" name="Nettà u 1ᵘ stilu"/>
+                    <Item id="43027" name="Nettà u 1ᵘ stilu"/>
+                    <Item id="43029" name="Nettà u 1ᵘ stilu"/>
+                    <Item id="43031" name="Nettà u 1ᵘ stilu"/>
+                    <Item id="43032" name="Nettà tutti i stili"/>
+                    <Item id="43033" name="Stilizazione precedente impieghendu u 1ᵘ stilu"/>
+                    <Item id="43034" name="Stilizazione precedente impieghendu u 2ᵘ stilu"/>
+                    <Item id="43035" name="Stilizazione precedente impieghendu u 3ᵘ stilu"/>
+                    <Item id="43036" name="Stilizazione precedente impieghendu u 4ᵘ stilu"/>
+                    <Item id="43037" name="Stilizazione precedente impieghendu u 5ᵘ stilu"/>
+                    <Item id="43038" name="Stilizazione precedente impieghendu u stilu di marca di ricerca"/>
+                    <Item id="43039" name="Stilizazione seguente impieghendu u 1ᵘ stilu"/>
+                    <Item id="43040" name="Stilizazione seguente impieghendu u 2ᵘ stilu"/>
+                    <Item id="43041" name="Stilizazione seguente impieghendu u 3ᵘ stilu"/>
+                    <Item id="43042" name="Stilizazione seguente impieghendu u 4ᵘ stilu"/>
+                    <Item id="43043" name="Stilizazione seguente impieghendu u 5ᵘ stilu"/>
+                    <Item id="43044" name="Stilizazione seguente impieghendu u stilu di marca di ricerca"/>
+                    <Item id="43055" name="Cupià u testu stilizatu da 1ᵘ stilu"/>
+                    <Item id="43056" name="Cupià u testu stilizatu da 2ᵘ stilu"/>
+                    <Item id="43057" name="Cupià u testu stilizatu da 3ᵘ stilu"/>
+                    <Item id="43058" name="Cupià u testu stilizatu da 4ᵘ stilu"/>
+                    <Item id="43059" name="Cupià u testu stilizatu da 5ᵘ stilu"/>
+                    <Item id="43060" name="Cupià u testu stilizatu da tutti i stili"/>
+                    <Item id="43061" name="Cupià u testu stilizatu da u stilu di marca di ricerca"/>
                     <Item id="44100" name="Fighjà u schedariu attuale cù Firefox"/>
                     <Item id="44101" name="Fighjà u schedariu attuale cù Chrome"/>
                     <Item id="44103" name="Fighjà u schedariu attuale cù Internet Explorer"/>
@@ -642,6 +646,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44106" name="Passà à u pannellu di prughjettu 3"/>
                     <Item id="44107" name="Passà à u cartulare cum’è spaziu di travagliu"/>
                     <Item id="44108" name="Passà à a lista di e funzioni"/>
+                    <Item id="44109" name="Passà à a lista di i ducumenti"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Accurtatoghju">
@@ -961,7 +966,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Language>
 
                 <Highlighting title="Sopralineamentu">
-                    <Item id="6351" name="Tuttu marcà"/>
+                    <Item id="6351" name="Stilizà tutte l’occurenze di testu"/>
                     <Item id="6352" name="Rispettà Maiuscule è minuscule"/>
                     <Item id="6353" name="Parolla sana deve currisponde"/>
                     <Item id="6333" name="Sopralineamentu astutu"/>

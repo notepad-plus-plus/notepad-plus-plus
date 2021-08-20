@@ -5,10 +5,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2021-08-14 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-08-20 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.3">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -31,7 +31,8 @@ Last modified on 2021-08-14 by Thomas De Rocker (RockyTDR).
                     <Item subMenuId="file-openFolder" name="&amp;Bevattende map openen"/>
                     <Item subMenuId="file-closeMore" name="&amp;Meerdere sluiten"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Recente bestanden"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Naar &amp;klembord kopiëren"/>
+                    <Item subMenuId="edit-insert" name="Invoegen"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Naar &amp;klembord kopiëren"/>
                     <Item subMenuId="edit-indent" name="&amp;Inspringing tekst"/>
                     <Item subMenuId="edit-convertCaseTo" name="&amp;Hoofdlettergebruik"/>
                     <Item subMenuId="edit-lineOperations" name="&amp;Regels bewerken"/>
@@ -115,6 +116,8 @@ Last modified on 2021-08-14 by Thomas De Rocker (RockyTDR).
                     <Item id="42006" name="&amp;Verwijderen"/>
                     <Item id="42007" name="&amp;Alles selecteren"/>
                     <Item id="42020" name="&amp;Selectie starten/stoppen"/>
+                    <Item id="42084" name="Datum/tijd (kort)"/>
+                    <Item id="42085" name="Datum/tijd (long)"/>
                     <Item id="42008" name="Inspringing van regel vergroten"/>
                     <Item id="42009" name="Inspringing van regel verkleinen"/>
                     <Item id="42010" name="Huidige regel dupliceren"/>

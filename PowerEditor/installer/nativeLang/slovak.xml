@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.3">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -26,7 +26,8 @@
                     <Item subMenuId="file-openFolder" name="Otvoriť priečinok &amp;súboru"/>
                     <Item subMenuId="file-closeMore" name="Zavrieť &amp;viacero súborov"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Naposledy otvorené súbory"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Skopírovať do s&amp;chránky"/>
+                    <Item subMenuId="edit-insert" name="Vložiť"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Skopírovať do s&amp;chránky"/>
                     <Item subMenuId="edit-indent" name="&amp;Odsadiť"/>
                     <Item subMenuId="edit-convertCaseTo" name="&amp;Konverzia znakov"/>
                     <Item subMenuId="edit-lineOperations" name="Operácie s &amp;riadkom"/>
@@ -36,9 +37,9 @@
                     <Item subMenuId="edit-blankOperations" name="Operácie s &amp;prázdnym znakom"/>
                     <Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciá&amp;lne"/>
                     <Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
-                    <Item subMenuId="search-markAll" name="Označiť vše&amp;tko"/>
-                    <Item subMenuId="search-markOne" name="Označiť &amp;jeden"/>
-                    <Item subMenuId="search-unmarkAll" name="Odznač&amp;iť všetko"/>
+                    <Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
+                    <Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>
+                    <Item subMenuId="search-unmarkAll" name="Vymazať štýl"/>
                     <Item subMenuId="search-jumpUp" name="Skok na&amp;hor"/>
                     <Item subMenuId="search-jumpDown" name="Skok na&amp;dol"/>
                     <Item subMenuId="search-copyStyledText" name="Kopírovať štylizovaný te&amp;xt"/>
@@ -110,6 +111,8 @@
                     <Item id="42006" name="O&amp;dstrániť"/>
                     <Item id="42007" name="V&amp;ybrať všetko"/>
                     <Item id="42020" name="Vybrať Začiatok/Konie&amp;c"/>
+                    <Item id="42084" name="Dátum čas (krátky)"/>
+                    <Item id="42085" name="Dátum čas (dlhý)"/>
                     <Item id="42008" name="Zväčšiť odsadenie riadka"/>
                     <Item id="42009" name="Zmenšiť odsadenie riadka"/>
                     <Item id="42010" name="Duplikovať aktuálny riadok"/>
@@ -220,20 +223,20 @@
                     <Item id="43035" name="3. štýl"/>
                     <Item id="43036" name="4. štýl"/>
                     <Item id="43037" name="5. štýl"/>
-                    <Item id="43038" name="Hľadať štýl"/>
+                    <Item id="43038" name="Hľadať štýl označenia"/>
                     <Item id="43039" name="1. štýl"/>
                     <Item id="43040" name="2. štýl"/>
                     <Item id="43041" name="3. štýl"/>
                     <Item id="43042" name="4. štýl"/>
                     <Item id="43043" name="5. štýl"/>
-                    <Item id="43044" name="Hľadať štýl"/>
+                    <Item id="43044" name="Hľadať štýl označenia"/>
                     <Item id="43055" name="1. štýl"/>
                     <Item id="43056" name="2. štýl"/>
                     <Item id="43057" name="3. štýl"/>
                     <Item id="43058" name="4. štýl"/>
                     <Item id="43059" name="5. štýl"/>
                     <Item id="43060" name="Všetky štýly"/>
-                    <Item id="43061" name="Nájsť štýl (Označené)"/>
+                    <Item id="43061" name="Hľadať štýl označenia"/>
                     <Item id="43062" name="Pomocou 1. štýlu"/>
                     <Item id="43063" name="Pomocou 2. štýlu"/>
                     <Item id="43064" name="Pomocou 3. štýlu"/>
@@ -547,41 +550,41 @@
                     <Item id="45001" name="Konvertovať do formátu Windows (CR LF)"/>
                     <Item id="45002" name="Konvertovať do formátu Unix (LF)"/>
                     <Item id="45003" name="Konvertovať do formátu Macintosh (CR)"/>
-                    <Item id="43022" name="Označiť všetko pomocou 1. štýlu"/>
-                    <Item id="43024" name="Označiť všetko pomocou 2. štýlu"/>
-                    <Item id="43026" name="Označiť všetko pomocou 3. štýlu"/>
-                    <Item id="43028" name="Označiť všetko pomocou 4. štýlu"/>
-                    <Item id="43030" name="Označiť všetko pomocou 5. štýlu"/>
-                    <Item id="43062" name="Označiť jeden pomocou 1. štýlu"/>
-                    <Item id="43063" name="Označiť jeden pomocou 2. štýlu"/>
-                    <Item id="43064" name="Označiť jeden pomocou 3. štýlu"/>
-                    <Item id="43065" name="Označiť jeden pomocou 4. štýlu"/>
-                    <Item id="43066" name="Označiť jeden pomocou 5. štýlu"/>
-                    <Item id="43023" name="Odstrániť označenie 1. štýlu"/>
-                    <Item id="43025" name="Odstrániť označenie 2. štýlu"/>
-                    <Item id="43027" name="Odstrániť označenie 3. štýlu"/>
-                    <Item id="43029" name="Odstrániť označenie 4. štýlu"/>
-                    <Item id="43031" name="Odstrániť označenie 5. štýlu"/>
-                    <Item id="43032" name="Odstrániť označenie ľubovolného štýlu"/>
-                    <Item id="43033" name="Prechádzajúce označenie pomocou 1. štýlu"/>
-                    <Item id="43034" name="Prechádzajúce označenie pomocou 2. štýlu"/>
-                    <Item id="43035" name="Prechádzajúce označenie pomocou 3. štýlu"/>
-                    <Item id="43036" name="Prechádzajúce označenie pomocou 4. štýlu"/>
-                    <Item id="43037" name="Prechádzajúce označenie pomocou 5. štýlu"/>
-                    <Item id="43038" name="Prechádzajúce označenie vytvorené cez Označiť…"/>
-                    <Item id="43039" name="Ďalšie označenie pomocou 1. štýlu"/>
-                    <Item id="43040" name="Ďalšie označenie pomocou 2. štýlu"/>
-                    <Item id="43041" name="Ďalšie označenie pomocou 3. štýlu"/>
-                    <Item id="43042" name="Ďalšie označenie pomocou 4. štýlu"/>
-                    <Item id="43043" name="Ďalšie označenie pomocou 5. štýlu"/>
-                    <Item id="43044" name="Ďalšie označenie vytvorené cez Označiť…"/>
-                    <Item id="43055" name="Kopírovať štylizovaný text - 1. štýl"/>
-                    <Item id="43056" name="Kopírovať štylizovaný text - 2. štýl"/>
-                    <Item id="43057" name="Kopírovať štylizovaný text - 3. štýl"/>
-                    <Item id="43058" name="Kopírovať štylizovaný text - 4. štýl"/>
-                    <Item id="43059" name="Kopírovať štylizovaný text - 5. štýl"/>
-                    <Item id="43060" name="Kopírovať štylizovaný text - Všetky štýly"/>
-                    <Item id="43061" name="Kopírovať štylizovaný text - Nájsť štýl (Označené)"/>
+                    <Item id="43022" name="Použiť štýl pomocou 1. štýlu"/>
+                    <Item id="43024" name="Použiť štýl pomocou 2. štýlu"/>
+                    <Item id="43026" name="Použiť štýl pomocou 3. štýlu"/>
+                    <Item id="43028" name="Použiť štýl pomocou 4. štýlu"/>
+                    <Item id="43030" name="Použiť štýl pomocou 5. štýlu"/>
+                    <Item id="43062" name="Použiť štýl na jeden pomocou 1. štýlu"/>
+                    <Item id="43063" name="Použiť štýl na jeden pomocou 2. štýlu"/>
+                    <Item id="43064" name="Použiť štýl na jeden pomocou 3. štýlu"/>
+                    <Item id="43065" name="Použiť štýl na jeden pomocou 4. štýlu"/>
+                    <Item id="43066" name="Použiť štýl na jeden pomocou 5. štýlu"/>
+                    <Item id="43023" name="Vymazať 1. štýl"/>
+                    <Item id="43025" name="Vymazať 2. štýl"/>
+                    <Item id="43027" name="Vymazať 3. štýl"/>
+                    <Item id="43029" name="Vymazať 4. štýl"/>
+                    <Item id="43031" name="Vymazať 5. štýl"/>
+                    <Item id="43032" name="Odstrániť všetky štýly"/>
+                    <Item id="43033" name="Prechádzajúci štýl 1. štýlu"/>
+                    <Item id="43034" name="Prechádzajúci štýl 2. štýlu"/>
+                    <Item id="43035" name="Prechádzajúci štýl 3. štýlu"/>
+                    <Item id="43036" name="Prechádzajúci štýl 4. štýlu"/>
+                    <Item id="43037" name="Prechádzajúci štýl 5. štýlu"/>
+                    <Item id="43038" name="Prechádzajúci štýl Hľadať štýl označenia…"/>
+                    <Item id="43039" name="Ďalší štýl 1. štýlu"/>
+                    <Item id="43040" name="Ďalší štýl 2. štýlu"/>
+                    <Item id="43041" name="Ďalší štýl 3. štýlu"/>
+                    <Item id="43042" name="Ďalší štýl 4. štýlu"/>
+                    <Item id="43043" name="Ďalší štýl 5. štýlu"/>
+                    <Item id="43044" name="Ďalší štýl Hľadať štýl označenia…"/>
+                    <Item id="43055" name="Kopírovať štylizovaný text 1. štýlu"/>
+                    <Item id="43056" name="Kopírovať štylizovaný text 2. štýlu"/>
+                    <Item id="43057" name="Kopírovať štylizovaný text 3. štýlu"/>
+                    <Item id="43058" name="Kopírovať štylizovaný text 4. štýlu"/>
+                    <Item id="43059" name="Kopírovať štylizovaný text 5. štýlu"/>
+                    <Item id="43060" name="Kopírovať štylizovaný text Všetkých štýlov"/>
+                    <Item id="43061" name="Kopírovať štylizovaný text Hľadať štýl označenia"/>
                     <Item id="44100" name="Zobraziť aktuálny súbor vo Firefoxe"/>
                     <Item id="44101" name="Zobraziť aktuálny súbor v Chrome"/>
                     <Item id="44103" name="Zobraziť aktuálny súbor v IE"/>
@@ -615,6 +618,7 @@
                     <Item id="44105" name="Prepnúť na Panel projektu 2"/>
                     <Item id="44106" name="Prepnúť na Panel projektu 3"/>
                     <Item id="44107" name="Prepnúť na Priečinok ako pracovný priestor"/>
+                    <Item id="44109" name="Prepnúť na Zoznam dokumentov"/>
                     <Item id="44108" name="Prepnúť na Zoznam funkcií"/>
                 </MainCommandNames>
             </ShortcutMapper>
@@ -936,7 +940,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                 </Language>
 
                 <Highlighting title="Zvýrazňovanie">
-                    <Item id="6351" name="Označiť všetko"/>
+                    <Item id="6351" name="Použiť štýl na všetky výskyty tokenu"/>
                     <Item id="6352" name="Rovnaká veľkosť písmen"/>
                     <Item id="6353" name="Iba celé slová"/>
                     <Item id="6333" name="Inteligentné zvýrazňovanie"/>

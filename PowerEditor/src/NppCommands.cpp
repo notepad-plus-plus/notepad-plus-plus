@@ -66,6 +66,28 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_INSERT_DATETIME_SHORT:
+		case IDM_EDIT_INSERT_DATETIME_LONG:
+		{
+			SYSTEMTIME st = { 0 };
+			::GetLocalTime(&st);
+
+			wchar_t dateStr[128] = { 0 };
+			wchar_t timeStr[128] = { 0 };
+
+			int dateFlag = (id == IDM_EDIT_INSERT_DATETIME_SHORT) ? DATE_SHORTDATE : DATE_LONGDATE;
+			GetDateFormatEx(LOCALE_NAME_USER_DEFAULT, dateFlag, &st, NULL, dateStr, sizeof(dateStr) / sizeof(dateStr[0]), NULL);
+			GetTimeFormatEx(LOCALE_NAME_USER_DEFAULT, TIME_NOSECONDS, &st, NULL, timeStr, sizeof(timeStr) / sizeof(timeStr[0]));
+
+			generic_string dateTimeStr = timeStr;
+			dateTimeStr += TEXT(" ");
+			dateTimeStr += dateStr;
+
+			_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+			_pEditView->addGenericText(dateTimeStr.c_str());
+		}
+		break;
+
 		case IDM_FILE_OPEN:
 		{
 			fileOpen();

@@ -147,6 +147,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\cobol.xml"
 	${MementoSectionEnd}
+
+	${MementoSection} "TypeScript" TypeScript
+		SetOutPath "$INSTDIR\autoCompletion"
+		File ".\APIs\typescript.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 
@@ -248,12 +253,16 @@ SectionGroup un.autoCompletionComponent
 		Delete "$INSTDIR\autoCompletion\lua.xml"
 	SectionEnd
 
-	Section un.autoit
+	Section un.AutoIt
 		Delete "$INSTDIR\autoCompletion\autoit.xml"
 	SectionEnd
 
-	Section un.cobol
+	Section un.COBOL
 		Delete "$INSTDIR\autoCompletion\cobol.xml"
+	SectionEnd
+
+	Section un.TypeScript
+		Delete "$INSTDIR\autoCompletion\typescript.xml"
 	SectionEnd
 
 SectionGroupEnd

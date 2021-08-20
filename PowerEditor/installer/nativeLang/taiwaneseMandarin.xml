@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.3">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -23,6 +23,7 @@
                     <Item subMenuId="file-openFolder" name="開啟檔案資料夾(&amp;F)"/>
                     <Item subMenuId="file-closeMore" name="關閉多個檔案(&amp;M)"/>
                     <Item subMenuId="file-recentFiles" name="最近使用的檔案(&amp;R)"/>
+                    <Item subMenuId="edit-insert" name="插入"/>
                     <Item subMenuId="edit-copyToClipboard"  name="複製到剪貼簿(&amp;Y)"/>
                     <Item subMenuId="edit-indent" name="縮排(&amp;I)"/>
                     <Item subMenuId="edit-convertCaseTo" name="轉換大小寫(&amp;V)"/>
@@ -107,6 +108,8 @@
                     <Item id="42006" name="刪除(&amp;D)"/>
                     <Item id="42007" name="全選(&amp;S)"/>
                     <Item id="42020" name="選取頭尾(&amp;S)"/>
+                    <Item id="42084" name="時間日期(簡短格式)"/>
+                    <Item id="42085" name="時間日期(完整格式)"/>
                     <Item id="42008" name="增加縮排"/>
                     <Item id="42009" name="減少縮排"/>
                     <Item id="42010" name="重複此行"/>

@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.1.3">
+    <Native-Langue name="English" filename="english.xml" version="8.1.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -26,7 +26,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="file-openFolder" name="Open Containing &amp;Folder"/>
                     <Item subMenuId="file-closeMore" name="Close &amp;More"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Recent Files"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Cop&amp;y to Clipboard"/>
+                    <Item subMenuId="edit-insert" name="Insert"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Cop&amp;y to Clipboard"/>
                     <Item subMenuId="edit-indent" name="&amp;Indent"/>
                     <Item subMenuId="edit-convertCaseTo" name="Con&amp;vert Case to"/>
                     <Item subMenuId="edit-lineOperations" name="&amp;Line Operations"/>
@@ -110,6 +111,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Delete"/>
                     <Item id="42007" name="&amp;Select All"/>
                     <Item id="42020" name="Begin/End &amp;Select"/>
+                    <Item id="42084" name="Date Time (short)"/>
+                    <Item id="42085" name="Date Time (long)"/>
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>

@@ -2671,6 +2671,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_REFRESHWORKDIR:
+		{
+			const Buffer* buf = _pEditView->getCurrentBuffer();
+			generic_string path = buf ? buf->getFullPathName() : _T("");
+			PathRemoveFileSpec(path);
+			setWorkingDir(path.c_str());
+			return TRUE;
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

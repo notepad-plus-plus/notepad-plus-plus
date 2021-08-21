@@ -1793,6 +1793,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			drawTabbarColoursFromStylerArray();
 
+			drawDocumentMapColoursFromStylerArray();
+
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
 			StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
 			int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);

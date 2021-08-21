@@ -5943,9 +5943,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			command(IDM_VIEW_REFRESHTABAR);
 		checkDocState();
 		setTitle();
-		generic_string dir(buffer->getFullPathName());
-		PathRemoveFileSpec(dir);
-		setWorkingDir(dir.c_str());
+		setWorkingDir(buffer);
 	}
 
 	if (mask & (BufferChangeLanguage))
@@ -6000,9 +5998,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	setUniModeText();
 	setDisplayFormat(buf->getEolFormat());
 	enableConvertMenuItems(buf->getEolFormat());
-	generic_string dir(buf->getFullPathName());
-	PathRemoveFileSpec(dir);
-	setWorkingDir(dir.c_str());
+	setWorkingDir(buf);
 	setTitle();
 	//Make sure the colors of the tab controls match
 	::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
@@ -6281,6 +6277,14 @@ void Notepad_plus::setWorkingDir(const TCHAR *dir)
 	{
 		params.setWorkingDir(dir);
 	}
+}
+
+void Notepad_plus::setWorkingDir(const Buffer* buf)
+{
+	assert(buf);
+	generic_string dir(buf->getFullPathName());
+	PathRemoveFileSpec(dir);
+	setWorkingDir(dir.c_str());
 }
 
 int Notepad_plus::getLangFromMenuName(const TCHAR * langName)

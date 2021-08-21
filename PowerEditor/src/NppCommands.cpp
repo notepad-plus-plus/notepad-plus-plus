@@ -3594,6 +3594,14 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDC_REFRESH_WORK_DIR:
+		{
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			if (buf)
+				setWorkingDir(buf);
+		}
+		break;
+
 		default :
 			if (id > IDM_FILEMENU_LASTONE && id < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1))
 			{

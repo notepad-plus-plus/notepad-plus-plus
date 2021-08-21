@@ -580,6 +580,7 @@ private:
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);
+	void setWorkingDir(const Buffer* buf);
 	bool str2Cliboard(const generic_string & str2cpy);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);

@@ -431,6 +431,7 @@
     //#define IDC_KEY_END                        (IDCMD+7)
     //#define IDC_KEY_SELECT_2_HOME            (IDCMD+8)
     //#define IDC_KEY_SELECT_2_END            (IDCMD+9)
+    #define IDC_REFRESH_WORK_DIR           (IDCMD+10)
 
 #define IDCMD_LIMIT                        (IDCMD+20)
 

@@ -431,6 +431,12 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1725" name="Copy Marked Text"/>
             </Find>
 
+            <IncrementalFind title="">
+                <Item id="1681" name="Find"/>
+                <Item id="1685" name="Match case"/>
+                <Item id="1690" name="Highlight all"/>
+            </IncrementalFind>
+
             <FindCharsInRange title="Find Characters in Range...">
                 <Item id="2" name="Close"/>
                 <Item id="2901" name="Non-ASCII Characters (128-255)"/>
@@ -1472,6 +1478,10 @@ Find in all files except exe, obj &amp;&amp; log:
             <tab-untitled-string value="new " />
             <file-save-assign-type value="&amp;Append extension" />
             <close-panel-tip value="Close" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ matches" />
+            <IncrementalFind-FSNotFound value="Phrase not found" />
+            <IncrementalFind-FSTopReached value="Reached top of page, continued from bottom" />
+            <IncrementalFind-FSEndReached value="Reached end of page, continued from top" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

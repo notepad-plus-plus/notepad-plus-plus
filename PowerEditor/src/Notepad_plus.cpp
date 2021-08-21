@@ -6498,6 +6498,11 @@ bool Notepad_plus::reloadLang()
 		_nativeLangSpeaker.changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
 	}
 
+	if (_incrementFindDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_incrementFindDlg.getHSelf(), "IncrementalFind");
+	}
+
 	if (_findCharsInRangeDlg.isCreated())
 	{
 		_nativeLangSpeaker.changeDlgLang(_findCharsInRangeDlg.getHSelf(), "FindCharsInRange");

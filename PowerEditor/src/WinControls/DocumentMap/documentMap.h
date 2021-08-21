@@ -26,6 +26,8 @@
 #define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 2)
 #define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
 
+const TCHAR VIEWZONE_DOCUMENTMAP[64] = TEXT("Document map");
+
 class ScintillaEditView;
 class Buffer;
 struct MapPosition;
@@ -43,6 +45,11 @@ class ViewZoneDlg : public StaticDialog
 {
 public :
 	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(NULL), _canvasDefaultProc(nullptr), _higherY(0), _lowerY(0) {}
+
+	enum class ViewZoneColorIndex {
+		focus,
+		frost
+	};
 
 	void doDialog();
 
@@ -63,11 +70,16 @@ public :
 		return (_lowerY - _higherY)/2 + _higherY;
 	};
 
+	static void setColour(COLORREF colour2Set, ViewZoneColorIndex i);
+
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+	static COLORREF _focus;
+	static COLORREF _frost;
 
 	void drawPreviewZone(DRAWITEMSTRUCT *pdis);
 

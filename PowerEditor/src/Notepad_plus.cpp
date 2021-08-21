@@ -367,6 +367,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
 
+	// Document Map
+	drawDocumentMapColoursFromStylerArray();
+
 	//--Splitter Section--//
 	bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
 
@@ -5796,6 +5799,15 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText);
 	if (stInact && stInact->_bgColor != -1)
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
+}
+
+void Notepad_plus::drawDocumentMapColoursFromStylerArray()
+{
+	Style* docMap = getStyleFromName(VIEWZONE_DOCUMENTMAP);
+	if (docMap && docMap->_fgColor != -1)
+		ViewZoneDlg::setColour(docMap->_fgColor, ViewZoneDlg::ViewZoneColorIndex::focus);
+	if (docMap && docMap->_bgColor != -1)
+		ViewZoneDlg::setColour(docMap->_bgColor, ViewZoneDlg::ViewZoneColorIndex::frost);
 }
 
 void Notepad_plus::prepareBufferChangedDialog(Buffer * buffer)

@@ -345,7 +345,9 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_pMapView->showMargin(1, false);
 			_pMapView->showMargin(2, false);
 			_pMapView->showMargin(3, false);
-			
+
+			NppDarkMode::setBorder(_hwndScintilla);
+
             return TRUE;
         }
 
@@ -442,14 +444,36 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
+COLORREF ViewZoneDlg::_focus = RGB(0xFF, 0x80, 0x00);
+COLORREF ViewZoneDlg::_frost = RGB(0xFF, 0xFF, 0xFF);
+
+void ViewZoneDlg::setColour(COLORREF colour2Set, ViewZoneColorIndex i)
+{
+	switch (i)
+	{
+		case ViewZoneColorIndex::focus:
+		{
+			_focus = colour2Set;
+			break;
+		}
+
+		case ViewZoneColorIndex::frost:
+		{
+			_frost = colour2Set;
+			break;
+		}
+
+		default:
+			return;
+	}
+}
+
 void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT *pdis)
 {
 	RECT rc = pdis->rcItem;
-	
-	const COLORREF orange = RGB(0xFF, 0x80, 0x00);
-	const COLORREF white = RGB(0xFF, 0xFF, 0xFF);
-	HBRUSH hbrushFg = CreateSolidBrush(orange);
-	HBRUSH hbrushBg = CreateSolidBrush(white);					
+
+	HBRUSH hbrushFg = CreateSolidBrush(ViewZoneDlg::_focus);
+	HBRUSH hbrushBg = CreateSolidBrush(ViewZoneDlg::_frost);
 	FillRect(pdis->hDC, &rc, hbrushBg);
 
 	rc.top = _higherY;

@@ -18,6 +18,7 @@
 #include <shlwapi.h>
 #include "WordStyleDlg.h"
 #include "ScintillaEditView.h"
+#include "documentMap.h"
 
 using namespace std;
 
@@ -476,6 +477,10 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 									{
 										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
 									}
+									else if (isDocumentMapStyle())
+									{
+										ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
+									}
 									apply();
 									return TRUE;
 								}
@@ -488,6 +493,10 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 									{
 										tabColourIndex = (tabColourIndex == TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
 										TabBarPlus::setColour(_pBgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
+									}
+									else if (isDocumentMapStyle())
+									{
+										ViewZoneDlg::setColour(_pBgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::frost);
 									}
 									apply();
 									return TRUE;
@@ -579,6 +588,23 @@ int WordStyleDlg::whichTabColourIndex()
 		return TabBarPlus::inactiveText;
 
 	return -1;
+}
+
+bool WordStyleDlg::isDocumentMapStyle()
+{
+	const auto i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
+	if (i == LB_ERR)
+		return false;
+
+	constexpr size_t styleNameLen = 128;
+	TCHAR styleName[styleNameLen + 1] = { 0 };
+	const auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
+	if (lbTextLen > styleNameLen)
+		return false;
+
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
+
+	return (lstrcmp(styleName, VIEWZONE_DOCUMENTMAP) == 0);
 }
 
 void WordStyleDlg::updateColour(bool which)

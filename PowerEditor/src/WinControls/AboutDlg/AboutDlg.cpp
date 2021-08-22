@@ -477,7 +477,7 @@ void DoSaveAllBox::changeLang()
 
 	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
 	{
-		const unsigned char len = 255;
+		const size_t len = 1024;
 		TCHAR text[len];
 		::GetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, text, len);
 		msg = text;

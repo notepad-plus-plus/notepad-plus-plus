@@ -1604,18 +1604,14 @@ bool Notepad_plus::fileSaveAllConfirm()
 
 	if (NppParameters::getInstance().getNppGUI()._saveAllConfirm)
 	{
-		int answer = _nativeLangSpeaker.messageBox("SaveAllConfirm",
-			_pPublicInterface->getHSelf(),
-			TEXT("Are you sure you want to save all documents?\r\rChoose \"Cancel\" if your answer will always be \"Yes\" and you won't be asked this question again.\rYou can re-activate this dialog in Preferences dialog later."),
-			TEXT("Save All Confirmation"),
-			MB_YESNOCANCEL | MB_DEFBUTTON2);
+		int answer = doSaveAll();
 
 		if (answer == IDYES)
 		{
 			confirmed = true;
 		}
 
-		if (answer == IDCANCEL)
+		if (answer == IDRETRY)
 		{
 			NppParameters::getInstance().getNppGUI()._saveAllConfirm = false;
 			//uncheck the "Enable save all confirm dialog" checkbox in Preference-> MISC settings

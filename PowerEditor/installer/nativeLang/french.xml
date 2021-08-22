@@ -1085,6 +1085,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6345" name="Aperçu à onglet"/>
                     <Item id="6346" name="Aperçu à commutateur de documents"/>
                     <Item id="6360" name="Chut !"/>
+                    <Item id="6361" name="Activer la confirmation pour la command &quot;Enregistrer tout&quot;"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">
@@ -1138,6 +1139,15 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 <Item id="4" name="Oui pour &amp;tout"/>
                 <Item id="5" name="Non &amp;pour tout"/>
             </DoSaveOrNot>
+            <DoSaveAll title="Confirmer de tout enregistrer">
+                <Item id="1766" name="Voulez-vous vraiment enregistrer tous les documents modifiés?
+
+Choisissez &quot;Toujours Oui&quot; si vous ne voulez plus répondre cette question.
+Vous pouvez réactiver cette boîte de dialogue dans les Préférences ultérieurement."/>
+                <Item id="6" name="&amp;Oui"/>
+                <Item id="7" name="&amp;Non"/>
+                <Item id="4" name="Toujours Oui"/>
+            </DoSaveAll>
         </Dialog>
         <MessageBox>
             <CannotMoveDoc title="Déplacement vers une nouvelle instance Notepad++" message="Le document est en cours d'utilisation, le sauvegarder puis réessayer."/>

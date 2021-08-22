@@ -372,7 +372,7 @@ void DoSaveOrNotBox::changeLang()
 	{
 		const unsigned char len = 255;
 		TCHAR text[len];
-		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEX, text, len);
+		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, text, len);
 		msg = text;
 	}
 
@@ -380,7 +380,7 @@ void DoSaveOrNotBox::changeLang()
 		msg = defaultMessage;
 
 	msg = stringReplace(msg, TEXT("$STR_REPLACE$"), _fn);
-	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEX, msg.c_str());
+	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, msg.c_str());
 }
 
 INT_PTR CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
@@ -450,6 +450,103 @@ INT_PTR CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		}
 		default:
 			return FALSE;
+	}
+	return FALSE;
+}
+
+
+void DoSaveAllBox::doDialog(bool isRTL)
+{
+
+	if (isRTL)
+	{
+		DLGTEMPLATE* pMyDlgTemplate = NULL;
+		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_DOSAVEALLBOX, &pMyDlgTemplate);
+		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+		::GlobalFree(hMyDlgTemplate);
+	}
+	else
+		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_DOSAVEALLBOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+}
+
+void DoSaveAllBox::changeLang()
+{
+	generic_string msg;
+	generic_string defaultMessage = TEXT("Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if your don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.");
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
+	{
+		const size_t len = 1024;
+		TCHAR text[len];
+		::GetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, text, len);
+		msg = text;
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	::SetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, msg.c_str());
+}
+
+INT_PTR CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+	case WM_INITDIALOG:
+	{
+		NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+		changeLang();
+		goToCenter();
+		return TRUE;
+	}
+
+	case WM_CTLCOLORDLG:
+	case WM_CTLCOLORSTATIC:
+	{
+		if (NppDarkMode::isEnabled())
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+		break;
+	}
+
+	case WM_COMMAND:
+	{
+		switch (LOWORD(wParam))
+		{
+			case IDCANCEL:
+			{
+				::EndDialog(_hSelf, -1);
+				clickedButtonId = IDCANCEL;
+				return TRUE;
+			}
+
+			case IDYES:
+			{
+				::EndDialog(_hSelf, 0);
+				clickedButtonId = IDYES;
+				return TRUE;
+			}
+
+			case IDNO:
+			{
+				::EndDialog(_hSelf, 0);
+				clickedButtonId = IDNO;
+				return TRUE;
+			}
+
+			case IDRETRY:
+			{
+				::EndDialog(_hSelf, 0);
+				clickedButtonId = IDRETRY;
+				return TRUE;
+			}
+		}
+	}
+	default:
+		return FALSE;
 	}
 	return FALSE;
 }

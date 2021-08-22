@@ -2040,6 +2040,26 @@ int Notepad_plus::doSaveOrNot(const TCHAR* fn, bool isMulti)
 	return buttonID;
 }
 
+int Notepad_plus::doSaveAll()
+{
+	// In case Notepad++ is iconized into notification zone
+	if (!::IsWindowVisible(_pPublicInterface->getHSelf()))
+	{
+		::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
+
+		// Send sizing info to make window fit (specially to show tool bar.)
+		::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+	}
+
+	DoSaveAllBox doSaveAllBox;
+	doSaveAllBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
+	doSaveAllBox.doDialog(_nativeLangSpeaker.isRTL());
+	int buttonID = doSaveAllBox.getClickedButtonId();
+	doSaveAllBox.destroy();
+
+	return buttonID;
+}
+
 int Notepad_plus::doReloadOrNot(const TCHAR *fn, bool dirty)
 {
 	if (dirty)

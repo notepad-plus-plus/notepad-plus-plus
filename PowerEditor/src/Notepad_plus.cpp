@@ -6281,10 +6281,16 @@ void Notepad_plus::setWorkingDir(const TCHAR *dir)
 
 void Notepad_plus::setWorkingDir(const Buffer* buf)
 {
-	assert(buf);
-	generic_string dir(buf->getFullPathName());
-	PathRemoveFileSpec(dir);
-	setWorkingDir(dir.c_str());
+	if (buf)
+	{
+		generic_string dir(buf->getFullPathName());
+		PathRemoveFileSpec(dir);
+		setWorkingDir(dir.c_str());
+	}
+	else
+	{
+		setWorkingDir(static_cast<const TCHAR*>(nullptr));
+	}
 }
 
 int Notepad_plus::getLangFromMenuName(const TCHAR * langName)

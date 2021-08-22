@@ -2159,6 +2159,7 @@ INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam
 					return TRUE;
 				case IDC_OPENSAVEDIR_ALWAYSON_RADIO:
 					nppGUI._openSaveDir = dir_userDef;
+					::SendMessage(_hParent, WM_COMMAND, IDC_REFRESH_WORK_DIR, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT), true);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), true);
 					return TRUE;

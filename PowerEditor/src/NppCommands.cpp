@@ -3596,9 +3596,7 @@ void Notepad_plus::command(int id)
 
 		case IDC_REFRESH_WORK_DIR:
 		{
-			Buffer* buf = _pEditView->getCurrentBuffer();
-			if (buf)
-				setWorkingDir(buf);
+			setWorkingDir(_pEditView->getCurrentBuffer());
 		}
 		break;
 

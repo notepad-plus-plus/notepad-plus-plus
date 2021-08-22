@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-08-03 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-08-22 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.4">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -35,6 +35,7 @@
 					<Item subMenuId="file-openFolder" name="Aktuellen &amp;Ordner öffnen"/>
 					<Item subMenuId="file-closeMore" name="&amp;Mehrere schließen"/>
 					<Item subMenuId="file-recentFiles" name="Zuletzt &amp;verwendet"/>
+					<Item subMenuId="edit-insert" name="Einfügen"/>
 					<Item subMenuId="edit-copyToClipboard" name="Datei&amp;pfad kopieren"/>
 					<Item subMenuId="edit-indent" name="E&amp;inrückung"/>
 					<Item subMenuId="edit-convertCaseTo" name="&amp;Groß-/Kleinschreibung"/>
@@ -45,9 +46,9 @@
 					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="edit-pasteSpecial" name= "Einf&amp;ügen spezial"/>
 					<Item subMenuId="edit-onSelection" name="Bei Auswahl"/>
-					<Item subMenuId="search-markAll" name="Alle &amp;Vorkommnisse hervorheben"/>
-					<Item subMenuId="search-markOne" name="Ein Vorkommen hervorheben"/>
-					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
+					<Item subMenuId="search-markAll" name="Stil '&amp;Alle Vorkommen einer Marke'"/>
+					<Item subMenuId="search-markOne" name="Stil '&amp;Eine Marke'"/>
+					<Item subMenuId="search-unmarkAll" name="Stil &amp;löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
 					<Item subMenuId="search-copyStyledText" name="Gestylten Text kopieren"/>
@@ -119,6 +120,8 @@
 					<Item id="42006" name="&amp;Löschen"/>
 					<Item id="42007" name="&amp;Alles auswählen"/>
 					<Item id="42020" name="Auswa&amp;hl beginnen/beenden"/>
+					<Item id="42084" name="Datum/Zeit (kurz)"/>
+					<Item id="42085" name="Datum/Zeit (lang)"/>
 					<Item id="42008" name="Zeileneinzug v&amp;ergrößern"/>
 					<Item id="42009" name="Zeileneinzug ver&amp;kleinern"/>
 					<Item id="42010" name="Zeile &amp;duplizieren"/>
@@ -230,20 +233,20 @@
 					<Item id="43035" name="Hervorhebung &amp;3"/>
 					<Item id="43036" name="Hervorhebung &amp;4"/>
 					<Item id="43037" name="Hervorhebung &amp;5"/>
-					<Item id="43038" name="Hervorhebung aus &amp;Suche"/>
+					<Item id="43038" name="Markierungs-&amp;Stil finden"/>
 					<Item id="43039" name="Hervorhebung &amp;1"/>
 					<Item id="43040" name="Hervorhebung &amp;2"/>
 					<Item id="43041" name="Hervorhebung &amp;3"/>
 					<Item id="43042" name="Hervorhebung &amp;4"/>
 					<Item id="43043" name="Hervorhebung &amp;5"/>
-					<Item id="43044" name="Hervorhebung aus &amp;Suche"/>
+					<Item id="43044" name="Markierungs-&amp;Stil finden"/>
 					<Item id="43055" name="1. Stil"/>
 					<Item id="43056" name="2. Stil"/>
 					<Item id="43057" name="3. Stil"/>
 					<Item id="43058" name="4. Stil"/>
 					<Item id="43059" name="5. Stil"/>
 					<Item id="43060" name="Alle Stile"/>
-					<Item id="43061" name="Stil finden (markiert)"/>
+					<Item id="43061" name="Markierungs-&amp;Stil finden"/>
 					<Item id="43062" name="Verwende 1. Stil"/>
 					<Item id="43063" name="Verwende 2. Stil"/>
 					<Item id="43064" name="Verwende 3. Stil"/>
@@ -572,26 +575,26 @@
 					<Item id="43027" name="Entferne die Hervorhebungen im Stil 3"/>
 					<Item id="43029" name="Entferne die Hervorhebungen im Stil 4"/>
 					<Item id="43031" name="Entferne die Hervorhebungen im Stil 5"/>
-					<Item id="43032" name="Entferne die Hervorhebungen in allen Stilen"/>
+					<Item id="43032" name="Alle Stile entfernen"/>
 					<Item id="43033" name="Markiere vorherige im Stil 1"/>
 					<Item id="43034" name="Markiere vorherige im Stil 2"/>
 					<Item id="43035" name="Markiere vorherige im Stil 3"/>
 					<Item id="43036" name="Markiere vorherige im Stil 4"/>
 					<Item id="43037" name="Markiere vorherige im Stil 5"/>
-					<Item id="43038" name="Vorherige Marke erstellt mit Marke"/>
+					<Item id="43038" name="Vorherige Hervorhebung erstellt mit Marke"/>
 					<Item id="43039" name="Markiere nächste im Stil 1"/>
 					<Item id="43040" name="Markiere nächste im Stil 2"/>
 					<Item id="43041" name="Markiere nächste im Stil 3"/>
 					<Item id="43042" name="Markiere nächste im Stil 4"/>
 					<Item id="43043" name="Markiere nächste im Stil 5"/>
-					<Item id="43044" name="Nächste Marke erstellt mit Marke"/>
+					<Item id="43044" name="Nächste Hervorhebung erstellt mit Marke"/>
 					<Item id="43055" name="Gestylten Text kopieren - 1. Stil"/>
 					<Item id="43056" name="Gestylten Text kopieren - 2. Stil"/>
 					<Item id="43057" name="Gestylten Text kopieren - 3. Stil"/>
 					<Item id="43058" name="Gestylten Text kopieren - 4. Stil"/>
 					<Item id="43059" name="Gestylten Text kopieren - 5. Stil"/>
 					<Item id="43060" name="Gestylten Text kopieren - Alle Stile"/>
-					<Item id="43061" name="Gestylten Text kopieren - Stil finden (markiert)"/>
+					<Item id="43061" name="Gestylten und markierten Text kopieren"/>
 					<Item id="44100" name="Aktuelle Datei in Firefox betrachten"/>
 					<Item id="44101" name="Aktuelle Datei in Chrome betrachten"/>
 					<Item id="44103" name="Aktuelle Datei im IE betrachten"/>
@@ -626,6 +629,7 @@
 					<Item id="44105" name="Zum Projektfenster 2 wechseln"/>
 					<Item id="44106" name="Zum Projektfenster 3 wechseln"/>
 					<Item id="44107" name="Zum Ordner als Arbeitsbereich wechseln"/>
+					<Item id="44109" name="Zur Dokumentenliste wechseln"/>
 					<Item id="44108" name="Zur Funktionsliste wechseln"/>
 				</MainCommandNames>
 			</ShortcutMapper>
@@ -947,7 +951,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 				</Language>
 
 				<Highlighting title="Hervorhebung">
-					<Item id="6351" name="Alle markieren"/>
+					<Item id="6351" name="Alle Vorkommen der Markierung stilisieren"/>
 					<Item id="6352" name="Übereinstimmung der Groß-/Kleinschreibung"/>
 					<Item id="6353" name="Übereinstimmung ganzes Wort"/>
 					<Item id="6333" name="Automatische Hervorhebung bei Auswahl"/>

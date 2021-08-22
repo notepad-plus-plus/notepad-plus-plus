@@ -116,3 +116,25 @@ private:
 	generic_string _fn;
 	bool _isMulti = false;
 };
+
+class DoSaveAllBox : public StaticDialog
+{
+public:
+	DoSaveAllBox() = default;
+
+	void doDialog(bool isRTL = false);
+
+	virtual void destroy() {};
+
+	int getClickedButtonId() const {
+		return clickedButtonId;
+	};
+
+	void changeLang();
+
+protected:
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	int clickedButtonId = -1;
+};

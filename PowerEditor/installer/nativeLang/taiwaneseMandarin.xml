@@ -1160,7 +1160,7 @@
 您可以稍後在「偏好設定」中重新開啟此對話框。"/>
                 <Item id="6" name="確定(&amp;Y)"/>
                 <Item id="7" name="不要(&amp;N)"/>
-                <Item id="2" name="始終確定"/>
+                <Item id="4" name="始終確定"/>
             </DoSaveAll>
         </Dialog>
         <MessageBox>

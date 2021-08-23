@@ -1167,7 +1167,7 @@ Choose &quot;Always Yes&quot; if your answer will always be &quot;Yes&quot; and 
 You can re-activate this dialog in Preferences dialog later."/>
                 <Item id="6" name="&amp;Yes"/>
                 <Item id="7" name="&amp;No"/>
-                <Item id="2" name="Always Yes"/>
+                <Item id="4" name="Always Yes"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->

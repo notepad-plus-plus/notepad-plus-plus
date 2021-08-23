@@ -536,6 +536,13 @@ INT_PTR CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 				clickedButtonId = IDNO;
 				return TRUE;
 			}
+
+			case IDRETRY:
+			{
+				::EndDialog(_hSelf, 0);
+				clickedButtonId = IDRETRY;
+				return TRUE;
+			}
 		}
 	}
 	default:

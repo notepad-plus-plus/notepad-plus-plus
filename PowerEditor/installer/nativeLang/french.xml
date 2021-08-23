@@ -1146,7 +1146,7 @@ Choisissez &quot;Toujours Oui&quot; si votre réponse sera toujours &quot;Oui&qu
 Vous pouvez réactiver cette boîte de dialogue dans la boîte de dialogue Préférences ultérieurement."/>
                 <Item id="6" name="&amp;Oui"/>
                 <Item id="7" name="&amp;Non"/>
-                <Item id="2" name="Toujours Oui"/>
+                <Item id="4" name="Toujours Oui"/>
             </DoSaveAll>
         </Dialog>
         <MessageBox>

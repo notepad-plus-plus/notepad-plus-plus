@@ -1611,7 +1611,7 @@ bool Notepad_plus::fileSaveAllConfirm()
 			confirmed = true;
 		}
 
-		if (answer == IDCANCEL)
+		if (answer == IDRETRY)
 		{
 			NppParameters::getInstance().getNppGUI()._saveAllConfirm = false;
 			//uncheck the "Enable save all confirm dialog" checkbox in Preference-> MISC settings

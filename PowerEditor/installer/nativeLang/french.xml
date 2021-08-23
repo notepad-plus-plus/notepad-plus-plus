@@ -1142,8 +1142,8 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
             <DoSaveAll title="Confirmer de tout enregistrer">
                 <Item id="1766" name="Voulez-vous vraiment enregistrer tous les documents modifiés?
 
-Choisissez &quot;Toujours Oui&quot; si votre réponse sera toujours &quot;Oui&quot; et que cette question ne vous sera plus posée.
-Vous pouvez réactiver cette boîte de dialogue dans la boîte de dialogue Préférences ultérieurement."/>
+Choisissez &quot;Toujours Oui&quot; si vous ne voulez plus répondre cette question.
+Vous pouvez réactiver cette boîte de dialogue dans les Préférences ultérieurement."/>
                 <Item id="6" name="&amp;Oui"/>
                 <Item id="7" name="&amp;Non"/>
                 <Item id="4" name="Toujours Oui"/>

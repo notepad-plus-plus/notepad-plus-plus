@@ -1161,10 +1161,10 @@ You can define several column markers by using white space to separate the diffe
                 <Item id="5" name="N&amp;o to all"/>
             </DoSaveOrNot>
             <DoSaveAll title="Save All Confirmation">
-                <Item id="1766" name="Are you sure you want to save all documents?
+                <Item id="1766" name="Are you sure you want to save all modified documents?
 
-Choose &quot;Always Yes&quot; if your answer will always be &quot;Yes&quot; and you won't be asked this question again.
-You can re-activate this dialog in Preferences dialog later."/>
+Choose &quot;Always Yes&quot; if your don't want to see this dialog again.
+You can re-activate this dialog in Preferences later."/>
                 <Item id="6" name="&amp;Yes"/>
                 <Item id="7" name="&amp;No"/>
                 <Item id="4" name="Always Yes"/>

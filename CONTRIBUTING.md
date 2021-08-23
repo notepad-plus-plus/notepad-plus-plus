@@ -106,6 +106,7 @@ In short: The easier the code review is, the better the chance your pull request
   * ###### Bad:
     ```cpp
     foo ();
+    myObject.foo ( 24);
     ```
 
 6. ##### Keywords are separated from the first parenthesis by one space.

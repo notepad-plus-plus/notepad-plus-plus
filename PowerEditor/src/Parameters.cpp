@@ -2047,9 +2047,9 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 }
 
 
-void NppParameters::setWorkingDir(const TCHAR * newPath)
+void NppParameters::setWorkingDir(const generic_string& newPath)
 {
-	if (newPath && newPath[0])
+	if (!newPath.empty())
 	{
 		_currentDirectory = newPath;
 	}

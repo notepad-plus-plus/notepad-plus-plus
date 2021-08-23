@@ -5943,7 +5943,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			command(IDM_VIEW_REFRESHTABAR);
 		checkDocState();
 		setTitle();
-		setWorkingDir(buffer);
+		setWorkingDir(buffer->getFullPathName());
 	}
 
 	if (mask & (BufferChangeLanguage))
@@ -5998,7 +5998,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	setUniModeText();
 	setDisplayFormat(buf->getEolFormat());
 	enableConvertMenuItems(buf->getEolFormat());
-	setWorkingDir(buf);
+	setWorkingDir(buf->getFullPathName());
 	setTitle();
 	//Make sure the colors of the tab controls match
 	::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
@@ -6271,25 +6271,14 @@ void Notepad_plus::setWorkingDir(const TCHAR *dir)
 		return;
 	if (params.getNppGUI()._openSaveDir == dir_userDef)
 	{
-		params.setWorkingDir(NULL);
+		params.setWorkingDir(_T(""));
 	}
-	else if (dir && PathIsDirectory(dir))
+	else if (dir)
 	{
-		params.setWorkingDir(dir);
-	}
-}
-
-void Notepad_plus::setWorkingDir(const Buffer* buf)
-{
-	if (buf)
-	{
-		generic_string dir(buf->getFullPathName());
-		PathRemoveFileSpec(dir);
-		setWorkingDir(dir.c_str());
-	}
-	else
-	{
-		setWorkingDir(static_cast<const TCHAR*>(nullptr));
+		generic_string directory = dir;
+		PathRemoveFileSpec(directory);
+		if (PathIsDirectory(directory.c_str()))
+			params.setWorkingDir(directory);
 	}
 }
 

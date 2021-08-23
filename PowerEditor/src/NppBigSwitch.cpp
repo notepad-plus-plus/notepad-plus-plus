@@ -2669,6 +2669,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_REFRESHWORKDIR:
+		{
+			const Buffer* buf = _pEditView->getCurrentBuffer();
+			setWorkingDir(buf ? buf->getFullPathName() : nullptr);
+		}
+		return TRUE;
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

@@ -431,7 +431,6 @@
     //#define IDC_KEY_END                        (IDCMD+7)
     //#define IDC_KEY_SELECT_2_HOME            (IDCMD+8)
     //#define IDC_KEY_SELECT_2_END            (IDCMD+9)
-    #define IDC_REFRESH_WORK_DIR           (IDCMD+10)
 
 #define IDCMD_LIMIT                        (IDCMD+20)
 
@@ -630,6 +629,7 @@
 	#define NPPM_INTERNAL_UPDATETEXTZONEPADDING         (NOTEPADPLUS_USER_INTERNAL + 58)
 	#define NPPM_INTERNAL_REFRESHDARKMODE				(NOTEPADPLUS_USER_INTERNAL + 59)
 	#define NPPM_INTERNAL_SCINTILLAFINDERCOPYPATHS      (NOTEPADPLUS_USER_INTERNAL + 60)
+	#define NPPM_INTERNAL_REFRESHWORKDIR                (NOTEPADPLUS_USER_INTERNAL + 61)
 
 // See Notepad_plus_msgs.h
 //#define NOTEPADPLUS_USER   (WM_USER + 1000)

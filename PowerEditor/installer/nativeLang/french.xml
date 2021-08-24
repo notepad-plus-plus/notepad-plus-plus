@@ -427,7 +427,11 @@
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Suivant"/>
             </Find>
-
+            <IncrementalFind title="">
+                <Item id="1681" name="Rechercher :"/>
+                <Item id="1685" name="Sensible à la casse"/>
+                <Item id="1690" name="Surligner tout"/>
+            </IncrementalFind>
             <FindCharsInRange title="Rechercher des caractères dans une plage">
                 <Item id="2" name="Fermer"/>
                 <Item id="2901" name="Caractères non-ASCII (128-255)"/>
@@ -1424,6 +1428,10 @@ Rechercher dans tous les fichiers sauf exe, obj &amp;&amp; log:
             <find-regex-zero-length-match value="la chaîne vide trouvée" />
             <session-save-folder-as-workspace value="&quot;Dossier en tant qu'espace de travail&quot; inclus" />
             <tab-untitled-string value="nouveau " />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ correspondances" />
+            <IncrementalFind-FSNotFound value="Expression introuvable" />
+            <IncrementalFind-FSTopReached value="Haut de page atteint, continuer en partant du bas" />
+            <IncrementalFind-FSEndReached value="Fin de page atteinte, continuer en partant du haut" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

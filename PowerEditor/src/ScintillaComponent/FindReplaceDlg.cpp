@@ -4717,20 +4717,55 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 
 void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 {
-	static TCHAR findCount[128] = TEXT("");
-	static const TCHAR * const findStatus[] = { findCount, // FSFound
-		TEXT("Phrase not found"), //FSNotFound
-		TEXT("Reached top of page, continued from bottom"), // FSTopReached
-		TEXT("Reached end of page, continued from top")}; // FSEndReached
-	if (nbCounted <= 0)
-		findCount[0] = '\0';
-	else if (nbCounted == 1)
-		wsprintf(findCount, TEXT("%d match."), nbCounted);
-	else
-		wsprintf(findCount, TEXT("%s matches."), commafyInt(nbCounted).c_str());
+	generic_string statusStr2Display;
 
-	if (iStatus<0 || iStatus >= sizeof(findStatus)/sizeof(findStatus[0]))
-		return; // out of range
+	static const TCHAR* const strFSNotFound = TEXT("Phrase not found");
+	static const TCHAR* const strFSTopReached = TEXT("Reached top of page, continued from bottom");
+	static const TCHAR* const strFSEndReached = TEXT("Reached end of page, continued from top");
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	if (nbCounted >= 0)
+	{
+		statusStr2Display = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSFound", TEXT(""));
+
+		if (statusStr2Display.empty())
+		{
+			TCHAR strFindFSFound[128] = TEXT("");
+
+			if (nbCounted == 1)
+				wsprintf(strFindFSFound, TEXT("%d match"), nbCounted);
+			else
+				wsprintf(strFindFSFound, TEXT("%s matches"), commafyInt(nbCounted).c_str());
+			statusStr2Display = strFindFSFound;
+		}
+		else
+		{
+			statusStr2Display = stringReplace(statusStr2Display, TEXT("$INT_REPLACE$"), std::to_wstring(nbCounted));
+		}
+	}
+
+
+	switch (iStatus)
+	{
+		case FindStatus::FSNotFound:
+			statusStr2Display = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSNotFound", strFSNotFound);
+			break;
+
+		case FindStatus::FSTopReached:
+			statusStr2Display = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSTopReached", strFSTopReached);
+			break;
+
+		case FindStatus::FSEndReached:
+			statusStr2Display = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSEndReached", strFSEndReached);
+			break;
+
+		case FindStatus::FSFound:
+			break;
+
+		default:
+			return; // out of range
+	}
 
 	_findStatus = iStatus;
 
@@ -4739,7 +4774,8 @@ void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 
 	// invalidate the editor rect
 	::InvalidateRect(hEditor, NULL, TRUE);
-	::SendDlgItemMessage(_hSelf, IDC_INCFINDSTATUS, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(findStatus[iStatus]));
+
+	::SendDlgItemMessage(_hSelf, IDC_INCFINDSTATUS, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(statusStr2Display.c_str()));
 }
 
 void FindIncrementDlg::addToRebar(ReBar * rebar)

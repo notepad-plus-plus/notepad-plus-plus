@@ -2673,8 +2673,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			const Buffer* buf = _pEditView->getCurrentBuffer();
 			setWorkingDir(buf ? buf->getFullPathName() : nullptr);
+			return TRUE;
 		}
-		return TRUE;
 
 		default:
 		{

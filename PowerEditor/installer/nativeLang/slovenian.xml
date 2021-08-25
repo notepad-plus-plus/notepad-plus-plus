@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.1.2
-        Last modified 20. July 2021 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.1.4
+        Last modified 25. Aug 2021 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.1.2">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.1.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -17,7 +17,7 @@
                     <Item menuId="encoding" name="K&amp;odiranje"/>
                     <Item menuId="language" name="&amp;Sintaksa jezika"/>
                     <Item menuId="settings" name="Nas&amp;tavitve"/>
-					<Item menuId="tools" name="Oro&amp;dja"/>	
+                    <Item menuId="tools" name="Oro&amp;dja"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="&amp;Poženi"/>
                     <Item idName="Plugins" name="&amp;Vtičniki"/>
@@ -28,6 +28,7 @@
                     <Item subMenuId="file-openFolder" name="Odpri vsebino mape"/>
 					<Item subMenuId="file-closeMore" name="Zapri &amp;na več načinov"/>
 					<Item subMenuId="file-recentFiles" name="&amp;Nedavne datoteke"/>
+                    <Item subMenuId="edit-insert" name="Vstavi"/>
 					<Item subMenuId="edit-copyToClipboard" name="Kop&amp;iraj v odložišče"/>
 					<Item subMenuId="edit-indent" name="&amp;Zamik"/>
 					<Item subMenuId="edit-convertCaseTo" name="Pre&amp;tvori VELIKE/male črke"/>
@@ -38,12 +39,12 @@
 					<Item subMenuId="edit-blankOperations" name="&amp;Obravnava praznin"/>
 					<Item subMenuId="edit-pasteSpecial" name="&amp;Posebno lepljenje"/>
 					<Item subMenuId="edit-onSelection" name="&amp;Na izbiro"/>
-					<Item subMenuId="search-markAll" name="Označi &amp;vse"/>
-                    <Item subMenuId="search-markOne" name="Označi &amp;eno"/>
-					<Item subMenuId="search-unmarkAll" name="Odznači &amp;vse"/>
+					<Item subMenuId="search-markAll" name="Oblikuj &amp;vse pojavnosti žetona"/>
+                    <Item subMenuId="search-markOne" name="Oblikuj &amp;en žeton"/>
+					<Item subMenuId="search-unmarkAll" name="Počisti &amp;slog"/>
 					<Item subMenuId="search-jumpUp" name="&amp;Skoči navzgor"/>
 					<Item subMenuId="search-jumpDown" name="Skoči &amp;navzdol"/>
-					<Item subMenuId="search-copyStyledText" name="&amp;Kopirajte stilizirano besedilo"/>
+					<Item subMenuId="search-copyStyledText" name="&amp;Kopiraj stilizirano besedilo"/>
 					<Item subMenuId="search-bookmark" name="&amp;Zaznamek"/>
 					<Item subMenuId="view-currentFileIn" name="Ogled trenutne datoteke v"/>
 					<Item subMenuId="view-showSymbol" name="Pokaži simbol"/>
@@ -112,6 +113,8 @@
                     <Item id="42006" name="I&amp;zbriši"/>
                     <Item id="42007" name="&amp;Izberi vse"/>
 					<Item id="42020" name="I&amp;zberi Začetek/Konec"/>
+                    <Item id="42084" name="Datum in ura (kratko)"/>
+                    <Item id="42085" name="Datum in čas (dolgo)"/>					
                     <Item id="42008" name="Povečaj zamik vrstice"/>
                     <Item id="42009" name="Zmanjšaj zamik vrstice"/>
                     <Item id="42010" name="Podvoji trenutno vrstico"/>
@@ -222,20 +225,20 @@
                     <Item id="43035" name="3. slog"/>
                     <Item id="43036" name="4. slog"/>
                     <Item id="43037" name="5. slog"/>
-                    <Item id="43038" name="Najdi slog"/>
+                    <Item id="43038" name="Najdi označen slog"/>
                     <Item id="43039" name="1. slog"/>
                     <Item id="43040" name="2. slog"/>
                     <Item id="43041" name="3. slog"/>
                     <Item id="43042" name="4. slog"/>
                     <Item id="43043" name="5. slog"/>
-                    <Item id="43044" name="Najdi slog"/>
+                    <Item id="43044" name="Najdi označen slog"/>
                     <Item id="43055" name="1. slog"/>
                     <Item id="43056" name="2. slog"/>
                     <Item id="43057" name="3. slog"/>
                     <Item id="43058" name="4. slog"/>
                     <Item id="43059" name="5. slog"/>
                     <Item id="43060" name="Vsi slogi"/>
-                    <Item id="43061" name="Najdi slog (označeno)"/>
+                    <Item id="43061" name="Najdi označen slog"/>
                     <Item id="43062" name="Uporabi 1. slog"/>
                     <Item id="43063" name="Uporabi 2. slog"/>
                     <Item id="43064" name="Uporabi 3. slog"/>
@@ -262,6 +265,7 @@
                     <Item id="44031" name="Razgrni trenutno raven"/>                   
 					<Item id="44049" name="Povzetek..."/>
 					<Item id="44080" name="Mapa dokumenta"/>
+                    <Item id="44070" name="Seznam dokumentov"/>					 <Item id="44070" name="Document List"/>
                     <Item id="44084" name="Seznam funkcij"/>
 					<Item id="44085" name="Mapa kot delovni prostor"/>
                     <Item id="44086" name="1. tabulator"/>
@@ -548,41 +552,41 @@
                     <Item id="45001" name="EOL pretvorba v Windows (CR LF)"/>
                     <Item id="45002" name="EOL pretvorba v Unix (LF)"/>
                     <Item id="45003" name="EOL pretvorba v Macintosh (CR)"/>
-                    <Item id="43022" name="Označi vse z uporabo 1.sloga"/>
-                    <Item id="43024" name="Označi vse z uporabo 2.sloga"/>
-                    <Item id="43026" name="Označi vse z uporabo 3.sloga"/>
-                    <Item id="43028" name="Označi vse z uporabo 4.sloga"/>
-					<Item id="43030" name="Označi vse z uporabo 5.sloga"/>
-                    <Item id="43062" name="Označi eno z uporabo 1. sloga"/>
-                    <Item id="43063" name="Označi eno z uporabo 2. sloga"/>
-                    <Item id="43064" name="Označi eno z uporabo 3. sloga"/>
-                    <Item id="43065" name="Označi eno z uporabo 4. sloga"/>
-                    <Item id="43066" name="Označi eno z uporabo 5. sloga"/>					
-                    <Item id="43023" name="Počisti oznake z uporabo 1.sloga"/>
-                    <Item id="43025" name="Počisti oznake z uporabo 2.sloga"/>
-                    <Item id="43027" name="Počisti oznake z uporabo 3.sloga"/>
-                    <Item id="43029" name="Počisti oznake z uporabo 4.sloga"/>
-                    <Item id="43031" name="Počisti oznake z uporabo 5.sloga"/>
-                    <Item id="43032" name="Počisti oznake z uporabo poljubnega sloga"/>
-                    <Item id="43033" name="Predhodna oznaka z uporabo 1.sloga"/>
-                    <Item id="43034" name="Predhodna oznaka z uporabo 2.sloga"/>
-                    <Item id="43035" name="Predhodna oznaka z uporabo 3.sloga"/>
-                    <Item id="43036" name="Predhodna oznaka z uporabo 4.sloga"/>
-                    <Item id="43037" name="Predhodna oznaka z uporabo 5.sloga"/>
-                    <Item id="43038" name="Predhodna oznaka ustvarjena z Mark"/>
-                    <Item id="43039" name="Naslednja oznaka z uporabo 1.sloga"/>
-                    <Item id="43040" name="Naslednja oznaka z uporabo 2.sloga"/>
-                    <Item id="43041" name="Naslednja oznaka z uporabo 3.sloga"/>
-                    <Item id="43042" name="Naslednja oznaka z uporabo 4.sloga"/>
-                    <Item id="43043" name="Naslednja oznaka z uporabo 5.sloga"/>
-                    <Item id="43044" name="Naslednja oznaka ustvarjena z Mark"/>
-                    <Item id="43055" name="Kopiraj stilizirano besedilo - 1. slog"/>
-                    <Item id="43056" name="Kopiraj stilizirano besedilo - 2. slog"/>
-                    <Item id="43057" name="Kopiraj stilizirano besedilo - 3. slog"/>
-                    <Item id="43058" name="Kopiraj stilizirano besedilo - 4. slog"/>
-                    <Item id="43059" name="Kopiraj stilizirano besedilo - 5. slog"/>
-                    <Item id="43060" name="Kopiraj stilizirano besedilo - Vsi slogi"/>
-                    <Item id="43061" name="Kopiraj stilizirano besedilo - Najdi slog (označeno)"/>
+                    <Item id="43022" name="Oblikuj vse z uporabo 1.sloga"/>
+                    <Item id="43024" name="Oblikuj vse z uporabo 2.sloga"/>
+                    <Item id="43026" name="Oblikuj vse z uporabo 3.sloga"/>
+                    <Item id="43028" name="Oblikuj vse z uporabo 4.sloga"/>
+					<Item id="43030" name="Oblikuj vse z uporabo 5.sloga"/>
+                    <Item id="43062" name="Oblikuj eno z uporabo 1. sloga"/>
+                    <Item id="43063" name="Oblikuj eno z uporabo 2. sloga"/>
+                    <Item id="43064" name="Oblikuj eno z uporabo 3. sloga"/>
+                    <Item id="43065" name="Oblikuj eno z uporabo 4. sloga"/>
+                    <Item id="43066" name="Oblikuj eno z uporabo 5. sloga"/>					
+                    <Item id="43023" name="Počisti 1.slog"/>
+                    <Item id="43025" name="Počisti 2.slog"/>
+                    <Item id="43027" name="Počisti 3.slog"/>
+                    <Item id="43029" name="Počisti 4.slog"/>
+                    <Item id="43031" name="Počisti 5.slog"/>
+                    <Item id="43032" name="Počisti vse sloge"/>
+                    <Item id="43033" name="Predhodni slog od 1.sloga"/>
+                    <Item id="43034" name="Predhodni slog od 2.sloga"/>
+                    <Item id="43035" name="Predhodni slog od 3.sloga"/>
+                    <Item id="43036" name="Predhodni slog od 4.sloga"/>
+                    <Item id="43037" name="Predhodni slog od 5.sloga"/>
+                    <Item id="43038" name="Predhodni slog najdenega označenega sloga"/>
+                    <Item id="43039" name="Naslednji slog od 1.sloga"/>
+                    <Item id="43040" name="Naslednji slog od 2.sloga"/>
+                    <Item id="43041" name="Naslednji slog od 3.sloga"/>
+                    <Item id="43042" name="Naslednji slog od 4.sloga"/>
+                    <Item id="43043" name="Naslednji slog od 5.sloga"/>
+                    <Item id="43044" name="Naslednji slog najdenega označenega sloga"/>
+                    <Item id="43055" name="Kopiraj stilizirano besedilo od 1. sloga"/>
+                    <Item id="43056" name="Kopiraj stilizirano besedilo od 2. sloga"/>
+                    <Item id="43057" name="Kopiraj stilizirano besedilo od 3. sloga"/>
+                    <Item id="43058" name="Kopiraj stilizirano besedilo od 4. sloga"/>
+                    <Item id="43059" name="Kopiraj stilizirano besedilo od 5. sloga"/>
+                    <Item id="43060" name="Kopiraj stilizirano besedilo od vseh slogov"/>
+                    <Item id="43061" name="Kopiraj stilizirano besedilo od najdenega označenega sloga"/>
                     <Item id="44100" name="Poglej trenutno datoteko v Firefox"/>
                     <Item id="44101" name="Poglej trenutno datoteko v Chrome"/>
                     <Item id="44103" name="Poglej trenutno datoteko v IE"/>
@@ -610,13 +614,15 @@
                     <Item id="44083" name="Vklopi projektni panel 3"/>
                     <Item id="44085" name="Vklopi mapo kot delovni prostor"/>
                     <Item id="44080" name="Vklopi mapo dokumentov"/>
+                    <Item id="44070" name="Vklopi seznam dokumentov"/>					
                     <Item id="44084" name="Vklopi seznam funkcij"/>
                     <Item id="50005" name="Vklopi snemanje makra"/>
                     <Item id="44104" name="Preklopi v projektni panel 1"/>
                     <Item id="44105" name="Preklopi v projektni panel 2"/>
                     <Item id="44106" name="Preklopi v projektni panel 3"/>
                     <Item id="44107" name="Preklopi v mapo kot delovni prostor"/>
-                    <Item id="44108" name="Preklopi v seznam funkcij"/>
+                    <Item id="44109" name="Preklopi v seznam dokumentov"/>      
+					<Item id="44108" name="Preklopi v seznam funkcij"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Bližnjica">
@@ -828,7 +834,6 @@
 					<Item id="6123" name="Lokalizacija"/>
 					
 					<Item id="6125" name="Panel seznama dokumenta"/>
-					<Item id="6126" name="Prikaži"/>
 					<Item id="6127" name="Onemogoči stolpec pripone"/>
 
                     <Item id="6128" name="Nadomestne ikone"/>					
@@ -938,7 +943,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 			   	</Language>
 
                 <Highlighting title="Poudarjanje">
-                    <Item id="6351" name="Označi vse"/>
+                    <Item id="6351" name="Oblikuj vse pojavnosti žetona"/>
                     <Item id="6352" name="Upoštevaj izbrano"/>
                     <Item id="6353" name="Upoštevaj samo cele besede"/>				
                     <Item id="6333" name="Pametno poudarjanje"/>
@@ -1259,18 +1264,20 @@ To pogovorno okno lahko pozneje znova aktivirate v pogovornem oknu Nastavitve." 
 		</MessageBox>        
 		<ClipboardHistory>
 			<PanelTitle name="Zgodovina odložišča"/>
-		</ClipboardHistory>
-		<DocList>
-			<PanelTitle name="Preklopnik dokumenta"/>
+		</ClipboardHistory>		
+        <DocList>
+			<PanelTitle name="Seznam dokumentov"/>
 			<ColumnName name="Ime"/>
-			<ColumnExt name="Ekst."/>
-		</DocList>
+			<ColumnExt name="Ekst."/>			
+        </DocList>
 		<WindowsDlg>
 			<ColumnName name="Ime"/>
 			<ColumnPath name="Pot"/>
 			<ColumnType name="Vrsta"/>
 			<ColumnSize name="Velikost"/>
-            <NbDocsTotal name="skupaj dokumentov:"/>			
+            <NbDocsTotal name="skupaj dokumentov:"/>
+            <MenuCopyName name="Kopiraj ime(na)"/>
+            <MenuCopyPath name="Kopiraj ime(na) poti"/>			
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Panel za vstavljanje ASCII kod"/>

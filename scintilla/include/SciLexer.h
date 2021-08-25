@@ -229,7 +229,7 @@
 #define SCE_USER_STYLE_IDENTIFIER           24
 #define SCE_USER_STYLE_TOTAL_STYLES         SCE_USER_STYLE_IDENTIFIER
 #define SCE_USER_STYLE_MAPPER_TOTAL         17
-#define SCE_STYLE_ARRAY_SIZE                31     // must cover sizes of NppParameters::_lexerStyler and NppParameters::_widgetStyle
+#define SCE_STYLE_ARRAY_SIZE                38     // must cover sizes of NppParameters::_lexerStyler
 
 #define SCE_USER_MASK_NESTING_NONE                          0
 #define SCE_USER_MASK_NESTING_DELIMITER1                    0x1

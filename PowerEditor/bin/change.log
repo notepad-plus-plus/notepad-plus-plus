@@ -1,26 +1,20 @@
-Notepad++ v8.1.3 new features, enhancements & bug-fixes:
+Notepad++ v8.1.4 new features, enhancements & bug-fixes:
 
-1.  Dark mode enhancement: 95% dialogs are dark-modable.
-2.  Improve GUI display under high DPI.
-3.  Add Markdown UDL of dark mode in release packages.
-4.  Fix crash issue when several instances of the save dialogs are shown.
-5.  Fix save dialog not working on Windows Vista.
-6.  Add the capacity to switch among Find/Replace/FiF/Mark via their shortcuts.  
-7.  Make Document List Panel togglable via View menu and shortcutable (+ "Switch to" command) in shortcut mapper.
-8.  Fix Function list current empty lost issue while Sort/Unsort/Save/Reload.
-9.  Fix Functions list scrolling to the top on file save issue.
-10. Fix wrong path in tooltip of tab in RTL mode.
-11. Fix the file drag and drop bug in RTL mode.
-12. Add filter capacity in Shortcut mapper by shortcut key combination.
-13. Add copy file names capacity from Windows dialog.
-14. Fix shortcut conflict detection error in Shortcut mapper while filtering.
-15. Increase macro, user command and plugin command number capacity.
-
+1.  Fix regression of find/replace and file open performance issue.
+2.  Make dark mode compatible with Windows 11.
+3.  Make current existing plugins' toolbar icons display in both light and dark mode.
+4.  Support TypeScript language (syntax highlighting, auto-completion & function list).
+5.  Fix security flaw issue in uninstaller.
+6.  Add Insert Date Time commands for both short & long format.
+7.  Fix file dialog append extension issue with RTL languages.
+8.  Fix Find-in-Files "Follow current doc" not working issue when Default Directory is set.
+9.  Enhance dialogs visual look & feel.
+10. Fix LICENSE text display problem in installer.
 
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.1.3/
+https://notepad-plus-plus.org/downloads/v8.1.4/
 
 
 Included plugins:

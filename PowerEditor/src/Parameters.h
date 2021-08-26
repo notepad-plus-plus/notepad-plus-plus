@@ -1623,7 +1623,7 @@ public:
 
 	void setWorkSpaceFilePath(int i, const TCHAR *wsFile);
 
-	void setWorkingDir(const generic_string& newPath);
+	void setWorkingDir(const TCHAR * newPath);
 
 	void setStartWithLocFileName(const generic_string& locPath) {
 		_startWithLocFileName = locPath;

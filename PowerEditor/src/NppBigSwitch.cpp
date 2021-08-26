@@ -2672,7 +2672,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_REFRESHWORKDIR:
 		{
 			const Buffer* buf = _pEditView->getCurrentBuffer();
-			setWorkingDir(buf ? buf->getFullPathName() : nullptr);
+			generic_string path = buf ? buf->getFullPathName() : _T("");
+			PathRemoveFileSpec(path);
+			setWorkingDir(path.c_str());
 			return TRUE;
 		}
 

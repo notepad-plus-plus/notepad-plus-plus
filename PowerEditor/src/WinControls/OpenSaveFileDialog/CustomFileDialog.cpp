@@ -777,7 +777,7 @@ public:
 			{
 				// Note: IFileDialog doesn't modify the current directory.
 				// At least, after it is hidden, the current directory is the same as before it was shown.
-				params.setWorkingDir(_events->getLastUsedFolder());
+				params.setWorkingDir(_events->getLastUsedFolder().c_str());
 			}
 		}
 

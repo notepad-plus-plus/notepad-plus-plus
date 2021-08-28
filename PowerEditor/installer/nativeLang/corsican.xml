@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on August 28th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on July 31st, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 14th, 2021 for version 8.0.0 by Patriccollu di Santa Maria è Sichè
@@ -27,7 +28,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.4">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -108,10 +109,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41025" name="Cartulare cum’è spaziu di travagliu"/>
                     <Item id="41003" name="&amp;Chjode"/>
                     <Item id="41004" name="Chjodeli &amp;tutti"/>
-                    <Item id="41005" name="Chjode tuttu FOR di u ducumentu attuale"/>
-                    <Item id="41009" name="Chjode tuttu ciò chì hè à manu manca"/>
-                    <Item id="41018" name="Chjode tuttu ciò chì hè à manu diritta"/>
-                    <Item id="41024" name="Chjode tuttu ciò ch’ùn hè micca cambiatu"/>
+                    <Item id="41005" name="Tuttu chjode FOR di u ducumentu attuale"/>
+                    <Item id="41009" name="Tuttu chjode ciò chì hè à manu manca"/>
+                    <Item id="41018" name="Tuttu chjode ciò chì hè à manu diritta"/>
+                    <Item id="41024" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
                     <Item id="41006" name="Arre&amp;gistrà"/>
                     <Item id="41007" name="Arregistra&amp;lli tutti"/>
                     <Item id="41008" name="Arregistrà cù &amp;u nome…"/>
@@ -384,7 +385,7 @@ The comments are here for explanation, it's not necessary to translate them.
             </Splitter>
             <TabBar>
                     <Item CMID="0" name="Chjode"/>
-                    <Item CMID="1" name="Chjode tuttu for di què"/>
+                    <Item CMID="1" name="Tuttu chjode for di què"/>
                     <Item CMID="2" name="Arregistrà"/>
                     <Item CMID="3" name="Arregistrà cù u nome…"/>
                     <Item CMID="4" name="Stampà…"/>
@@ -400,12 +401,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="14" name="Dispiazzà in una nova finestra"/>
                     <Item CMID="15" name="Apre in una nova finestra"/>
                     <Item CMID="16" name="Ricaricà"/>
-                    <Item CMID="17" name="Chjode tuttu à manu manca"/>
-                    <Item CMID="18" name="Chjode tuttu à manu diritta"/>
+                    <Item CMID="17" name="Tuttu chjode ciò chì hè à manu manca"/>
+                    <Item CMID="18" name="Tuttu chjode ciò chì hè à manu diritta"/>
                     <Item CMID="19" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
                     <Item CMID="20" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
                     <Item CMID="21" name="Apre in l’appiecazione predefinita"/>
-                    <Item CMID="22" name="Chjode tuttu ciò ch’ùn hè micca cambiatu"/>
+                    <Item CMID="22" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
                     <Item CMID="23" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
             </TabBar>
         </Menu>
@@ -456,7 +457,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1723" name="▼ Circà a seguente"/>
                 <Item id="1725" name="Cupià u testu marcatu"/>
             </Find>
-
+            <IncrementalFind title="">
+                <Item id="1681" name="Circà"/>
+                <Item id="1685" name="Rispettà Maiuscule è minuscule"/>
+                <Item id="1690" name="Tuttu sopralineà"/>
+            </IncrementalFind>
             <FindCharsInRange title="Circà caratteri in una stesa…">
                 <Item id="2" name="Chjode"/>
                 <Item id="2901" name="Caratteri micca ASCII (128-255)"/>
@@ -1187,6 +1192,15 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Item id="4" name="Iè per &amp;tutti"/>
                 <Item id="5" name="Innò &amp;per tutti"/>
             </DoSaveOrNot>
+            <DoSaveAll title="Cunfirmazione di l’arregistramentu di tutti i schedarii">
+                <Item id="1766" name="Are you sure you want to save all modified documents?
+
+Site sicuru di vulè arregistrà tutti i ducumenti mudificati ?
+Sciglite « Sempre iè » s’è ùn vulete più risponde à sta dumanda."/>
+                <Item id="6" name="&amp;Iè"/>
+                <Item id="7" name="I&amp;nnò"/>
+                <Item id="4" name="Sempre iè"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Mudificazione di u listinu cuntestuale" message="A mudificazione di contextMenu.xml vi permette di cambià l’ozzioni di u listinu cuntestuale di Notepad++.
@@ -1265,7 +1279,7 @@ Pare chì u schedariu à apre ùn hè micca un schedariu di prughjettu accettevu
 Site sicuru di vulè caccià stu cartulare da u prughjettu ?"/>
             <ProjectPanelRemoveFileFromProject title="Caccià u schedariu da u prughjettu" message="Site sicuru di vulè caccià stu schedariu da u prughjettu ?"/>
             <ProjectPanelReloadError title="Ricaricà u spaziu di travagliu" message="Ùn pò micca truvà u schedariu à ricaricà."/>
-            <ProjectPanelReloadDirty title="Ricaricà u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Un ricaricamentu scaccierà tutte e mudificazioni.
+            <ProjectPanelReloadDirty title="Ricaricà u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Un ricaricamentu scarterà tutte e mudificazioni.
 Vulete cuntinuà ?"/>
             <UDLNewNameError title="Sbagliu UDL" message="Stu nome hè impiegatu da un altru linguaghju,
 ci vole à dà un altru."/>
@@ -1282,10 +1296,6 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
 Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
 Cuntinuà ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <SaveAllConfirm title="Cunfirmazione di l’arregistramentu di tutti i schedarii" message="Site sicuru di vulè arregistrà tutti i ducumenti ?
-
-Sciglite « Abbandunà » s’è a vostra risposta serà sempre « Iè » è cusì ùn viderete più sta dumanda.
-Pudete attivà torna st’ozzione in u dialogu di e preferenze." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1494,6 +1504,10 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <tab-untitled-string value="novu "/>
             <file-save-assign-type value="&amp;Aghjunghje un’estensione"/>
             <close-panel-tip value="Chjode"/>
+            <IncrementalFind-FSFound value="$INT_REPLACE$ cuncurdanze" />
+            <IncrementalFind-FSNotFound value="Espressione micca trova" />
+            <IncrementalFind-FSTopReached value="Principiu di pagina toccu, cuntinuatu partendu da u bassu" />
+            <IncrementalFind-FSEndReached value="Bassu di pagina toccu, cuntinuatu partendu da u principiu" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

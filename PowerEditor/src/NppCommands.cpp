@@ -81,19 +81,19 @@ void Notepad_plus::command(int id)
 			GetTimeFormatEx(LOCALE_NAME_USER_DEFAULT, TIME_NOSECONDS, &currentTime, NULL, timeStr, sizeof(timeStr) / sizeof(timeStr[0]));
 
 			generic_string dateTimeStr;
-			if (!NppParameters::getInstance().getNppGUI()._dateTimeReverseDefaultOrder)
-			{
-				// default: TIME + DATE (Microsoft Notepad behaviour)
-				dateTimeStr = timeStr;
-				dateTimeStr += TEXT(" ");
-				dateTimeStr += dateStr;
-			}
-			else
+			if (NppParameters::getInstance().getNppGUI()._dateTimeReverseDefaultOrder)
 			{
 				// reverse default order: DATE + TIME
 				dateTimeStr = dateStr;
 				dateTimeStr += TEXT(" ");
 				dateTimeStr += timeStr;
+			}
+			else
+			{
+				// default: TIME + DATE (Microsoft Notepad behaviour)
+				dateTimeStr = timeStr;
+				dateTimeStr += TEXT(" ");
+				dateTimeStr += dateStr;
 			}
 
 			_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));

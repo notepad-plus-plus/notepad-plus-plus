@@ -17,7 +17,7 @@
 
 //#if (_WIN32_IE >= 0x0400)
 //#define TCN_GETOBJECT           (TCN_FIRST - 3)
-//#endif 
+//#endif
 
 //#if (_WIN32_IE >= 0x0500)
 //#define RBN_CHEVRONPUSHED   (RBN_FIRST - 10)

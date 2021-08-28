@@ -430,8 +430,9 @@ BEGIN
         MENUITEM SEPARATOR
         POPUP "Insert"
         BEGIN
-                MENUITEM "Date Time (short)", IDM_EDIT_INSERT_DATETIME_SHORT
-                MENUITEM "Date Time (long)",  IDM_EDIT_INSERT_DATETIME_LONG
+                MENUITEM "Date Time (short)",        IDM_EDIT_INSERT_DATETIME_SHORT
+                MENUITEM "Date Time (long)",         IDM_EDIT_INSERT_DATETIME_LONG
+                MENUITEM "Date Time (customized)",   IDM_EDIT_INSERT_DATETIME_CUSTOMIZED
         END
         POPUP "Cop&y to Clipboard"
         BEGIN

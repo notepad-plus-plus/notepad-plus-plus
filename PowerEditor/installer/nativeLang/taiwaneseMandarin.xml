@@ -108,8 +108,9 @@
                     <Item id="42006" name="刪除(&amp;D)"/>
                     <Item id="42007" name="全選(&amp;S)"/>
                     <Item id="42020" name="選取頭尾(&amp;S)"/>
-                    <Item id="42084" name="時間日期(簡短格式)"/>
-                    <Item id="42085" name="時間日期(完整格式)"/>
+                    <Item id="42084" name="日期時間(簡短格式)"/>
+                    <Item id="42085" name="日期時間(完整格式)"/>
+                    <Item id="42086" name="日期時間(自訂格式)"/>
                     <Item id="42008" name="增加縮排"/>
                     <Item id="42009" name="減少縮排"/>
                     <Item id="42010" name="重複此行"/>
@@ -1040,12 +1041,17 @@
                     <Item id="6863" name="自訂括弧 2："/>
                     <Item id="6866" name="自訂括弧 3："/>
                 </AutoCompletion>
-                <MultiInstance title="多重實體">
+                <MultiInstance title="多重實體與日期時間">
                     <Item id="6151" name="多重 Notepad++ 實體設定"/>
                     <Item id="6152" name="在新的 Notepad++ 實體開啟工作階段"/>
                     <Item id="6153" name="允許多重實體"/>
                     <Item id="6154" name="禁止多重實體（預設）"/>
                     <Item id="6155" name="（重新啟動 Notepad++ 以使變更生效。）"/>
+                    <Item id="6171" name="插入日期時間自訂"/>
+                    <Item id="6175" name="顛倒日期時間內定順序（簡短與完整格式）"/>
+                    <Item id="6172" name="自訂格式："/>
+					
+					
                 </MultiInstance>
 
                 <Delimiter title="分隔字元">

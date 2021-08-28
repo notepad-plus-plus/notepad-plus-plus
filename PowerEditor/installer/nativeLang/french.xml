@@ -114,6 +114,7 @@
                     <Item id="42020" name="Début/Fin Sélection"/>
                     <Item id="42084" name="La date et l'heure (format court)"/>
                     <Item id="42085" name="La date et l'heure (format long)"/>
+                    <Item id="42086" name="La date et l'heure (format personnalisé)"/>
                     <Item id="42008" name="Augmenter l’indentation"/>
                     <Item id="42009" name="Réduire l’indentation"/>
                     <Item id="42010" name="Dupliquer la ligne actuelle"/>
@@ -1025,12 +1026,15 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6866" name="paire #3 :"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Instance Multiple">
+                <MultiInstance title="Instance Multiple &amp; Date">
                     <Item id="6151" name="Options d'instance multiple"/>
                     <Item id="6152" name="Ouverture de session dans une nouvelle instance"/>
                     <Item id="6153" name="Toujours en mode instance multiple"/>
                     <Item id="6154" name="Défaut (instance unique)"/>
                     <Item id="6155" name="* Redémarrez Notepad++ pour prendre en compte la modification"/>
+                    <Item id="6171" name="Personnalisation d'insertion de la date et l'heure"/>
+                    <Item id="6175" name="Inverser l'ordre de la date et l'heure par défaut (format court && long)"/>
+                    <Item id="6172" name="Format personnalisé :"/>
                 </MultiInstance>
 
                 <Delimiter title="Délimiteur">

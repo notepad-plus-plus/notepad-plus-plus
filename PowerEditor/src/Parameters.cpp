@@ -4604,6 +4604,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+
 		else if (!lstrcmp(nm, TEXT("ScintillaViewsSplitter")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -4619,6 +4620,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+
 		else if (!lstrcmp(nm, TEXT("UserDefineDlg")))
 		{
 			bool isFailed = false;
@@ -4652,6 +4654,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (isFailed)
 				_nppGUI._userDefineDlgStatus = oldValue;
 		}
+
 		else if (!lstrcmp(nm, TEXT("TabSetting")))
 		{
 			int i;
@@ -4808,6 +4811,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = (lstrcmp(val, TEXT("yes")) == 0);
 
 		}
+
 		else if (!lstrcmp(nm, TEXT("langsExcluded")))
 		{
 			// TODO
@@ -5201,6 +5205,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._matchedPairConf._matchedPairsInit.push_back(pair<char, char>(char(open), char(close)));
 			}
 		}
+
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -5211,6 +5216,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._definedSessionExt = val;
 			}
 		}
+
 		else if (!lstrcmp(nm, TEXT("workspaceExt")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -5221,6 +5227,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._definedWorkspaceExt = val;
 			}
 		}
+
 		else if (!lstrcmp(nm, TEXT("noUpdate")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -5240,6 +5247,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._autoUpdateOpt._nextUpdateDate = Date(val);
 			}
 		}
+
 		else if (!lstrcmp(nm, TEXT("openSaveDir")))
 		{
 			const TCHAR * value = element->Attribute(TEXT("value"));
@@ -5260,6 +5268,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
 			}
  		}
+
 		else if (!lstrcmp(nm, TEXT("titleBar")))
 		{
 			const TCHAR * value = element->Attribute(TEXT("short"));
@@ -5272,12 +5281,30 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._shortTitlebar = false;
 			}
 		}
+
 		else if (!lstrcmp(nm, TEXT("stylerTheme")))
 		{
 			const TCHAR *themePath = element->Attribute(TEXT("path"));
 			if (themePath != NULL && themePath[0])
 				_nppGUI._themeName.assign(themePath);
 		}
+
+		else if (!lstrcmp(nm, TEXT("insertDateTime")))
+		{
+			const TCHAR* customFormat = element->Attribute(TEXT("customizedFormat"));
+			if (customFormat != NULL && customFormat[0])
+				_nppGUI._dateTimeFormat = customFormat;
+
+			const TCHAR* value = element->Attribute(TEXT("reverseDefaultOrder"));
+			if (value && value[0])
+			{
+				if (lstrcmp(value, TEXT("yes")) == 0)
+					_nppGUI._dateTimeReverseDefaultOrder = true;
+				else if (lstrcmp(value, TEXT("no")) == 0)
+					_nppGUI._dateTimeReverseDefaultOrder = false;
+			}
+		}
+
 		else if (!lstrcmp(nm, TEXT("wordCharList")))
 		{
 			const TCHAR * value = element->Attribute(TEXT("useDefault"));
@@ -6380,6 +6407,15 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("stylerTheme"));
 		GUIConfigElement->SetAttribute(TEXT("path"), _nppGUI._themeName.c_str());
+	}
+
+	// <GUIConfig name="insertDateTime" path="C:\sources\notepad-plus-plus\PowerEditor\visual.net\..\bin\stylers.xml" />
+	{
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("insertDateTime"));
+		GUIConfigElement->SetAttribute(TEXT("customizedFormat"), _nppGUI._dateTimeFormat.c_str());
+		const TCHAR* pStr = (_nppGUI._dateTimeReverseDefaultOrder) ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("reverseDefaultOrder"), pStr);
 	}
 
 	// <GUIConfig name="wordCharList" useDefault="yes" charsAdded=".$%"  />

@@ -167,6 +167,7 @@
     #define    IDM_EDIT_SORTLINES_REVERSE_ORDER                 (IDM_EDIT + 83)
     #define    IDM_EDIT_INSERT_DATETIME_SHORT                   (IDM_EDIT + 84)
     #define    IDM_EDIT_INSERT_DATETIME_LONG                    (IDM_EDIT + 85)
+    #define    IDM_EDIT_INSERT_DATETIME_CUSTOMIZED              (IDM_EDIT + 86)
 
     #define    IDM_EDIT_AUTOCOMPLETE                            (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE                (50000 + 1)

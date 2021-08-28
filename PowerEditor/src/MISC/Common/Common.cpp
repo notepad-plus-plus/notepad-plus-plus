@@ -1328,3 +1328,26 @@ int nbDigitsFromNbLines(size_t nbLines)
 	}
 	return nbDigits;
 }
+
+generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
+{
+	generic_string dateTimeStr = dateTimeFormat;
+	dateTimeStr = stringReplace(dateTimeStr, TEXT("Y"), std::to_wstring(st.wYear));
+	wchar_t buf[3];
+	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wMonth);
+	dateTimeStr = stringReplace(dateTimeStr, TEXT("M"), buf);
+
+	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wDay);
+	dateTimeStr = stringReplace(dateTimeStr, TEXT("D"), buf);
+
+	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wHour);
+	dateTimeStr = stringReplace(dateTimeStr, TEXT("h"), buf);
+
+	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wMinute);
+	dateTimeStr = stringReplace(dateTimeStr, TEXT("m"), buf);
+
+	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wSecond);
+	dateTimeStr = stringReplace(dateTimeStr, TEXT("s"), buf);
+
+	return dateTimeStr;
+}

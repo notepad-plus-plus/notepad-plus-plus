@@ -211,6 +211,7 @@ public :
 	MultiInstanceSubDlg() = default;
 
 private :
+	const SYSTEMTIME _BTTF_time = {1985, 10, 6, 26, 01, 24, 0, 0};
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 

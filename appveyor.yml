@@ -34,15 +34,15 @@ build_script:
           Write-Output "Configuration: $env:CONFIGURATION"
           Write-Output "Platform: $env:PLATFORM"
 
-    - cd "%APPVEYOR_BUILD_FOLDER%"\scintilla\win32
-    - if "%configuration%"=="Debug" set build_debug=DEBUG=1
-    - if "%configuration%"=="Release" set build_debug=
+    #- cd "%APPVEYOR_BUILD_FOLDER%"\scintilla\win32
+    - if "%configuration%"=="Debug" set build_options=DEBUG=1
+    - if "%configuration%"=="Release" set build_options=
     #- if "%archi%"=="x86" nmake %scintilla_debug% BOOSTPATH=C:\Libraries\boost_1_69_0\ BOOSTREGEXLIBPATH=C:\Libraries\boost_1_69_0\lib32-msvc-14.1\ -f scintilla.mak
     #- if "%archi%"=="amd64" nmake %scintilla_debug% BOOSTPATH=C:\Libraries\boost_1_69_0\ BOOSTREGEXLIBPATH=C:\Libraries\boost_1_69_0\lib64-msvc-14.1\ -f scintilla.mak
-    - if "%Platform%"=="mingw-w64_810_X64" mingw32-make %build_debug% -j%NUMBER_OF_PROCESSORS%
+    #- if "%Platform%"=="mingw-w64_810_X64" mingw32-make %build_options% -j%NUMBER_OF_PROCESSORS%
     - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
     - if "%archi%" NEQ "" msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make %build_debug% -j%NUMBER_OF_PROCESSORS%
+    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make -j%NUMBER_OF_PROCESSORS% VERBOSE=1 %build_options%
 
 
 after_build:
@@ -82,14 +82,14 @@ after_build:
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\shortcuts.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\contextMenu.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
-           
+
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\regexGlobalTest.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\overrideMap.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
 
             cd .\PowerEditor\Test\FunctionList\
             .\unitTestLauncher.ps1
             if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
-            
+
             #ATTENTION: current working dir is no longer at APPVEYOR_BUILD_FOLDER
             cd ..\UrlDetection
             .\verifyUrlDetection.ps1

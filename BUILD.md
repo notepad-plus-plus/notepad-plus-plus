@@ -32,7 +32,7 @@ Boost is taken from [boost 1.76.0](https://www.boost.org/users/history/version_1
 3. Build the same configuration as notepad++:
    - Release: `nmake -f scintilla.mak`
    - Debug: `nmake DEBUG=1 -f scintilla.mak`
-   - Example: 
+   - Example:
    `nmake -f scintilla.mak`
 
 ## History:
@@ -47,6 +47,8 @@ If you have installed [MinGW-w64](https://mingw-w64.org/doku.php/start), then yo
 
 * Compile libscilexer.a
 
+This step is not necessary anymore as it will be build in the process of compiling the Notepad++ binary. It is here just for completeness sake as this option is still available.
+
 1. Launch cmd.
 2. Change dir into `notepad-plus-plus\scintilla\win32`.
 3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
@@ -57,12 +59,15 @@ If you have installed [MinGW-w64](https://mingw-w64.org/doku.php/start), then yo
 1. Launch cmd.
 2. Change dir into `notepad-plus-plus\PowerEditor\gcc`.
 3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
-4. `NotepadPP.exe` is generated in `notepad-plus-plus\PowerEditor\bin\`.
+4. `NotepadPP-release.exe` is generated in `notepad-plus-plus\PowerEditor\bin\`.
 
+To have a debug build just add `DEBUG=1` to the `mingw32-make.exe` invocation. The binary will be called `NotepadPP-debug.exe` in this case.
+
+To see commands being executed add `VERBOSE=1` to the same command.
 
 You can download MinGW-w64 from https://sourceforge.net/projects/mingw-w64/files/. On Notepad++ Github page (this project), the build system use [MinGW 8.1](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z).
 
 
-Note 1: if you use MinGW from the package (7z), you need manually add the MinGW/bin folder path to system Path variable to make mingw32-make.exe invoke works (or you can use command :`set PATH=%PATH%;C:\xxxx\mingw64\bin` for adding it on each time you launch cmd). 
+Note 1: if you use MinGW from the package (7z), you need manually add the MinGW/bin folder path to system Path variable to make mingw32-make.exe invoke works (or you can use command :`set PATH=%PATH%;C:\xxxx\mingw64\bin` for adding it on each time you launch cmd).
 
-Note 2: For 32-bit build, https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/i686-8.1.0-release-posix-sjlj-rt_v6-rev0.7z could be used. The rest of the instructions are still valid. 
+Note 2: For 32-bit build, https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/i686-8.1.0-release-posix-sjlj-rt_v6-rev0.7z could be used. The rest of the instructions are still valid.

@@ -90,9 +90,4 @@ protected:
 	int add(BufferID bufferID, int iView);
 	void remove(int index);
 	void removeAll();
-
-private:
-	std::vector<generic_string> columnIndex;
-	int extColIndex;
-	int pathColIndex;
 };

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-08-22 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-08-29 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -440,6 +440,12 @@
 				<Item id="1723" name="▼ Nächstes finden"/>
 				<Item id="1725" name="Markierten Text kopieren"/>
 			</Find>
+
+			<IncrementalFind title="">
+				<Item id="1681" name="Suchen"/>
+				<Item id="1685" name="Übereinstimmung"/>
+				<Item id="1690" name="Alle markieren"/>
+			</IncrementalFind>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
 				<Item id="2"    name="S&amp;chließen"/>
@@ -1170,6 +1176,15 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 				<Item id="4" name="Ja für a&amp;lle"/>
 				<Item id="5" name="N&amp;ein für alle"/>
 			</DoSaveOrNot>
+			<DoSaveAll title="Save All Confirmation">
+				<Item id="1766" name="Sollen wirklich alle geänderten Dokumente gespeichert werden?
+
+Wähle 'Immer Ja' um diesen Dialog nicht mehr anzuzeigen.
+Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
+				<Item id="6" name="&amp;Ja"/>
+				<Item id="7" name="&amp;Nein"/>
+				<Item id="4" name="Immer Ja"/>
+			</DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.
@@ -1267,7 +1282,7 @@ Fortsetzen?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ zum Laden der Plugins ist erforderlich."/>
 			<SaveAllConfirm title="'Alles Speichern' Bestätigung" message="Sollen wirklich alle Dokumente gespeichert werden?
 
-&quot;Abbrechen&quot; wählen wenn die Antwort immer &quot;Ja&quot; lautet und die Frage nicht mehr gestellt werden soll.
+'Abbrechen' wählen wenn die Antwort immer 'Ja' lautet und die Frage nicht mehr gestellt werden soll.
 Diese Antwort kann in den Einstellungen jederzeit wieder geändert werden." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</MessageBox>
 		<ClipboardHistory>
@@ -1477,6 +1492,10 @@ Finde in allen Dateien außer exe, obj &amp;&amp; log:
 			<tab-untitled-string value="neu " />
 			<file-save-assign-type value="Erweiterung &amp;anfügen" />
 			<close-panel-tip value="Schließen" />
+			<IncrementalFind-FSFound value="$INT_REPLACE$ Übereinstimmungen" />
+			<IncrementalFind-FSNotFound value="Ausdruck nicht gefunden" />
+			<IncrementalFind-FSTopReached value="Anfang der Seite erreicht, Fortsetzung von unten" />
+			<IncrementalFind-FSEndReached value="Ende der Seite erreicht, Fortsetzung von oben" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

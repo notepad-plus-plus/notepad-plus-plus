@@ -387,8 +387,8 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     GROUPBOX        "Multi-instance settings",IDC_MULTIINST_GB_STATIC,89,3,268,89,BS_CENTER
     CONTROL         "Open session in a new instance of Notepad++",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON,122,17,226,10
-    CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,36,218,10
-    CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,55,196,10
+    CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,34,218,10
+    CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,51,196,10
     LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,110,70,239,20
     GROUPBOX        "Customize insert Date Time",IDC_DATETIMEFORMAT_GB_STATIC,90,97,268,105,BS_CENTER
     CONTROL         "Reverse default date time order (short && long formats)",IDD_DATETIMEFORMAT_REVERSEORDER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,103,113,241,10
@@ -396,7 +396,7 @@ BEGIN
     LTEXT           "1985-10-26 01:24:00\n01:24:00 26/10/1985\n10 26, 1985 01:24",IDC_STATIC,234,142,94,25
     RTEXT           "Custom format:",IDD_DATETIMEFORMAT_STATIC,92,172,71,8
     EDITTEXT        IDC_DATETIMEFORMAT_EDIT,164,170,179,14,ES_AUTOHSCROLL
-    LTEXT           "",IDD_DATETIMEFORMAT_RESULT_STATIC,166,187,200,8
+    LTEXT           "",IDD_DATETIMEFORMAT_RESULT_STATIC,166,187,180,8
 END
 
 

@@ -113,6 +113,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42020" name="Begin/End &amp;Select"/>
                     <Item id="42084" name="Date Time (short)"/>
                     <Item id="42085" name="Date Time (long)"/>
+                    <Item id="42086" name="Date Time (customized)"/>
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
@@ -1048,12 +1049,15 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6866" name="Matched pair 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Multi-Instance">
+                <MultiInstance title="Multi-Instance &amp; Date">
                     <Item id="6151" name="Multi-instance settings"/>
                     <Item id="6152" name="Open session in a new instance of Notepad++"/>
                     <Item id="6153" name="Always in multi-instance mode"/>
                     <Item id="6154" name="Default (mono-instance)"/>
                     <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+                    <Item id="6171" name="Customize insert Date Time"/>
+                    <Item id="6175" name="Reverse default date time order (short && long formats)"/>
+                    <Item id="6172" name="Custom format:"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimiter">

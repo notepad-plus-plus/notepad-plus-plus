@@ -1176,7 +1176,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 				<Item id="4" name="Ja für a&amp;lle"/>
 				<Item id="5" name="N&amp;ein für alle"/>
 			</DoSaveOrNot>
-			<DoSaveAll title="Save All Confirmation">
+			<DoSaveAll title="Bestätigung 'Alle Speichern'">
 				<Item id="1766" name="Sollen wirklich alle geänderten Dokumente gespeichert werden?
 
 Wähle 'Immer Ja' um diesen Dialog nicht mehr anzuzeigen.

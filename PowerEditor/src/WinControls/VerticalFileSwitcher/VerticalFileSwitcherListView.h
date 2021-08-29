@@ -55,7 +55,7 @@ public:
 	generic_string getFullFilePath(size_t i) const;
 	
 	void insertColumn(const TCHAR *name, int width, int index);
-	void resizeColumns(int totalWidth);
+	void resizeColumns(bool isExtColumn, bool isPathColumn);
 	void deleteColumn(size_t i) {
 		ListView_DeleteColumn(_hSelf, i);
 	};
@@ -90,4 +90,9 @@ protected:
 	int add(BufferID bufferID, int iView);
 	void remove(int index);
 	void removeAll();
+
+private:
+	std::vector<generic_string> columnIndex;
+	int extColIndex;
+	int pathColIndex;
 };

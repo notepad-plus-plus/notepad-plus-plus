@@ -2450,11 +2450,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
-		case NPPM_DOCLISTDISABLECOLUMN:
+		case NPPM_DOCLISTDISABLEEXTCOLUMN:
+		case NPPM_DOCLISTDISABLEPATHCOLUMN:
 		{
 			BOOL isOff = static_cast<BOOL>(lParam);
 			NppGUI & nppGUI = nppParam.getNppGUI();
-			nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
+			if(message == NPPM_DOCLISTDISABLEEXTCOLUMN)
+				nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
+			else if(message == NPPM_DOCLISTDISABLEPATHCOLUMN)
+				nppGUI._fileSwitcherWithoutPathColumn = isOff == TRUE;
 
 			if (_pDocumentListPanel)
 			{

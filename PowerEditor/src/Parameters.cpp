@@ -5360,6 +5360,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optName)
 				_nppGUI._fileSwitcherWithoutExtColumn = (lstrcmp(optName, TEXT("yes")) == 0);
 
+			const TCHAR * optNamePath = element->Attribute(TEXT("fileSwitcherWithoutPathColumn"));
+			if (optNamePath)
+				_nppGUI._fileSwitcherWithoutPathColumn = (lstrcmp(optNamePath, TEXT("yes")) == 0);
+
 			const TCHAR * optNameBackSlashEscape = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
 			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, TEXT("no")))
 				_nppGUI._backSlashIsEscapeCharacterForSql = false;
@@ -6414,6 +6418,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
 
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutPathColumn"), _nppGUI._fileSwitcherWithoutPathColumn ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("writeTechnologyEngine"), _nppGUI._writeTechnologyEngine);
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));

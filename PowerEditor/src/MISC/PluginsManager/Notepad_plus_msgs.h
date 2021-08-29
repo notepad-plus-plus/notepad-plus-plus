@@ -383,8 +383,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// INT NPPM_GETCURRENTVIEW(0, 0)
 	// Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
 
-	#define NPPM_DOCLISTDISABLECOLUMN    (NPPMSG + 89)
-	// VOID NPPM_DOCLISTDISABLECOLUMN(0, BOOL disableOrNot)
+	#define NPPM_DOCLISTDISABLEEXTCOLUMN    (NPPMSG + 89)
+	// VOID NPPM_DOCLISTDISABLEEXTCOLUMN(0, BOOL disableOrNot)
 	// Disable or enable extension column of Document List
 
 	#define NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR    (NPPMSG + 90)
@@ -444,6 +444,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// Use NPPM_ADDTOOLBARICON_FORDARKMODE instead obsolete NPPM_ADDTOOLBARICON which doesn't support the dark mode
 	// 2 formats / 3 icons are needed:  1 * BMP + 2 * ICO 
 	// All 3 handles below should be set so the icon will be displayed correctly if toolbar icon sets are changed by users, also in dark mode
+	
+	#define NPPM_DOCLISTDISABLEPATHCOLUMN (NPPMSG + 102)
+	// VOID NPPM_DOCLISTDISABLEPATHCOLUMN(0, BOOL disableOrNot)
+	// Disable or enable extension column of Document List
+
 	struct toolbarIconsWithDarkMode {
 		HBITMAP	hToolbarBmp;
 		HICON	hToolbarIcon;

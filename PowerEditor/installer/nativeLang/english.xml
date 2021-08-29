@@ -839,6 +839,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
                     <Item id="6125" name="Document List Panel"/>
                     <Item id="6127" name="Disable extension column"/>
+                    <Item id="6131" name="Disable file path column"/>
 
                     <Item id="6128" name="Alternate icons"/>
                 </Global>
@@ -1278,6 +1279,7 @@ Continue?"/>
             <PanelTitle name="Document List"/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
+            <ColumnExt name="Path."/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>

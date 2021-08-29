@@ -476,6 +476,7 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDEMENUBAR, BM_SETCHECK, !showMenu, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCLIST_NOEXTCOLUMN, BM_SETCHECK, nppGUI._fileSwitcherWithoutExtColumn, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCLIST_NOPATHCOLUMN, BM_SETCHECK, nppGUI._fileSwitcherWithoutPathColumn, 0);
 
 			LocalizationSwitcher & localizationSwitcher = nppParam.getLocalizationSwitcher();
 
@@ -547,7 +548,14 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_DOCLIST_NOEXTCOLUMN :
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCLIST_NOEXTCOLUMN, BM_GETCHECK, 0, 0));
-					::SendMessage(::GetParent(_hParent), NPPM_DOCLISTDISABLECOLUMN, 0, isChecked?TRUE:FALSE);
+					::SendMessage(::GetParent(_hParent), NPPM_DOCLISTDISABLEEXTCOLUMN, 0, isChecked?TRUE:FALSE);
+				}
+				return TRUE;
+
+				case IDC_CHECK_DOCLIST_NOPATHCOLUMN :
+				{
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCLIST_NOPATHCOLUMN, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_DOCLISTDISABLEPATHCOLUMN, 0, isChecked?TRUE:FALSE);
 				}
 				return TRUE;
 

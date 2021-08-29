@@ -218,7 +218,6 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
             int width = LOWORD(lParam);
             int height = HIWORD(lParam);
 			::MoveWindow(_fileListView.getHSelf(), 0, 0, width, height, TRUE);
-			_fileListView.resizeColumns(width);
             break;
         }
         

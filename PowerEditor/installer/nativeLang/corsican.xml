@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on August 28th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
+		- Updated on August 30th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on July 31st, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 14th, 2021 for version 8.0.0 by Patriccollu di Santa Maria è Sichè
@@ -138,6 +138,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42020" name="Principiu è &amp;fine di a selezzione"/>
                     <Item id="42084" name="A data è l’ora (corta)"/>
                     <Item id="42085" name="A data è l’ora (longa)"/>
+                    <Item id="42086" name="A data è l’ora (furmatu persunalizatu)"/>
                     <Item id="42008" name="Aghjunghje una tabulazione nant’à a linea"/>
                     <Item id="42009" name="Caccià una tabulazione da a linea"/>
                     <Item id="42010" name="Duplicà a linea attuale"/>
@@ -165,7 +166,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42068" name="Maiuscula À Ogni &amp;Parolla (IgnUrà L’altRi)"/>
                     <Item id="42069" name="Maiuscula in capu di &amp;frasa"/>
                     <Item id="42070" name="Maiuscula in capu di frasa (IgnUrà l’alTri)"/>
-                    <Item id="42071" name="&amp;aRRITRUSÀ maiuscula è MINUSCULA"/>
+                    <Item id="42071" name="&amp;iNVERTISCE maiuscula è MINUSCULA"/>
                     <Item id="42072" name="À l’A&amp;zarDU"/>
                     <Item id="42073" name="Apre u schedariu"/>
                     <Item id="42074" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
@@ -223,7 +224,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43020" name="Incullà (per rimpiazzà) e linee indettate"/>
                     <Item id="43021" name="Caccià e linee indettate"/>
                     <Item id="43051" name="Caccià e linee senza marca"/>
-                    <Item id="43050" name="Arritrusà l’indette"/>
+                    <Item id="43050" name="Invertisce l’indette"/>
                     <Item id="43052" name="Circà caratteri in &amp;una stesa…"/>
                     <Item id="43053" name="Tuttu selezziunà trà e parentesi chì currisp&amp;ondenu"/>
                     <Item id="43009" name="A&amp;ndà à a parentesi chì currisponde"/>
@@ -991,7 +992,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6601" name="Stampà u numeru di linea"/>
                     <Item id="6602" name="Ozzioni di culore"/>
                     <Item id="6603" name="Tale è quale (WYSIWYG)"/>
-                    <Item id="6604" name="Arritrusà"/>
+                    <Item id="6604" name="Invertisce"/>
                     <Item id="6605" name="Neru nant’à biancu"/>
                     <Item id="6606" name="Senza culore di fondu"/>
                     <Item id="6607" name="Preferenze di margine (Unita : mm)"/>
@@ -1072,12 +1073,15 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6866" name="Paghju 3 :"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Multi-finestra">
+                <MultiInstance title="Multi-finestra è data">
                     <Item id="6151" name="Preferenze di multi-finestra"/>
                     <Item id="6152" name="Apre una sessione in una nova finestra Notepad++"/>
                     <Item id="6153" name="Sempre in modu multi-finestra"/>
                     <Item id="6154" name="Predefinitu (mono-finestra)"/>
                     <Item id="6155" name="* A mudificazione di sta preferenza richiede di rilancià Notepad++"/>
+                    <Item id="6171" name="Persunalizazione d’inserzione di a data è l’ora"/>
+                    <Item id="6175" name="Invertisce l’ordine predefinitu di a data è l’ora (furmatu cortu è longu)"/>
+                    <Item id="6172" name="persunalizatu :"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimitatore">

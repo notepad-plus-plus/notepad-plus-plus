@@ -147,12 +147,16 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 
 						activateDoc(tlfs);
 					}
-					// Redirect NM_RCLICK message to Notepad_plus handle
-					NMHDR	nmhdr;
-					nmhdr.code = NM_RCLICK;
-					nmhdr.hwndFrom = _hSelf;
-					nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
-					::SendMessage(_hParent, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
+
+					if (nbSelectedFiles() >= 1)
+					{
+						// Redirect NM_RCLICK message to Notepad_plus handle
+						NMHDR	nmhdr;
+						nmhdr.code = NM_RCLICK;
+						nmhdr.hwndFrom = _hSelf;
+						nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
+						::SendMessage(_hParent, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
+					}
 					return TRUE;
 				}
 

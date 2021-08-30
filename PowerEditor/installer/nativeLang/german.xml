@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.4">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -35,6 +35,7 @@
 					<Item subMenuId="file-openFolder" name="Aktuellen &amp;Ordner öffnen"/>
 					<Item subMenuId="file-closeMore" name="&amp;Mehrere schließen"/>
 					<Item subMenuId="file-recentFiles" name="Zuletzt &amp;verwendet"/>
+					<Item subMenuId="edit-insert" name="Einfügen"/>
 					<Item subMenuId="edit-copyToClipboard" name="Datei&amp;pfad kopieren"/>
 					<Item subMenuId="edit-indent" name="E&amp;inrückung"/>
 					<Item subMenuId="edit-convertCaseTo" name="&amp;Groß-/Kleinschreibung"/>
@@ -119,6 +120,8 @@
 					<Item id="42006" name="&amp;Löschen"/>
 					<Item id="42007" name="&amp;Alles auswählen"/>
 					<Item id="42020" name="Auswa&amp;hl beginnen/beenden"/>
+					<Item id="42084" name="Datum u. Zeit (kurz)"/>
+					<Item id="42085" name="Datum u. Zeit (lang)"/>
 					<Item id="42008" name="Zeileneinzug v&amp;ergrößern"/>
 					<Item id="42009" name="Zeileneinzug ver&amp;kleinern"/>
 					<Item id="42010" name="Zeile &amp;duplizieren"/>
@@ -614,19 +617,20 @@
 					<Item id="44066" name="Level 6 öffnen"/>
 					<Item id="44067" name="Level 7 öffnen"/>
 					<Item id="44068" name="Level 8 öffnen"/>
-					<Item id="44081" name="Zum Projektfenster 1 umschalten"/>
-					<Item id="44082" name="Zum Projektfenster 2 umschalten"/>
-					<Item id="44083" name="Zum Projektfenster 3 umschalten"/>
-					<Item id="44085" name="Zum Ordner als Arbeitsbereich umschalten"/>
-					<Item id="44080" name="Zur Miniaturansicht umschalten"/>
-					<Item id="44070" name="Zur Dokumentenliste umschalten"/>
-					<Item id="44084" name="Zur Funktionsliste umschalten"/>
-					<Item id="50005" name="Zur Makro-Aufzeichung umschalten"/>
+					<Item id="44081" name="Projektfenster 1 ein/aus"/>
+					<Item id="44082" name="Projektfenster 2 ein/aus"/>
+					<Item id="44083" name="Projektfenster 3 ein/aus"/>
+					<Item id="44085" name="Ordner als Arbeitsbereich ein/aus"/>
+					<Item id="44080" name="Miniaturansicht ein/aus"/>
+					<Item id="44070" name="Dokumentenliste ein/aus"/>
+					<Item id="44084" name="Funktionsliste ein/aus"/>
+					<Item id="50005" name="Makro-Aufzeichung ein/aus"/>
 					<Item id="44104" name="Zum Projektfenster 1 wechseln"/>
 					<Item id="44105" name="Zum Projektfenster 2 wechseln"/>
 					<Item id="44106" name="Zum Projektfenster 3 wechseln"/>
 					<Item id="44107" name="Zum Ordner als Arbeitsbereich wechseln"/>
 					<Item id="44108" name="Zur Funktionsliste wechseln"/>
+					<Item id="44109" name="Zur Dokumentenliste wechseln"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Tastenkombi">
@@ -948,8 +952,8 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 
 				<Highlighting title="Hervorhebung">
 					<Item id="6351" name="Alle markieren"/>
-					<Item id="6352" name="Übereinstimmung der Groß-/Kleinschreibung"/>
-					<Item id="6353" name="Übereinstimmung ganzes Wort"/>
+					<Item id="6352" name="Groß-/Kleinschreibung beachten"/>
+					<Item id="6353" name="Übereinstimmung mit ganzem Wort"/>
 					<Item id="6333" name="Automatische Hervorhebung bei Auswahl"/>
 					<Item id="6326" name="Hervorhebung aktivieren"/>
 					<Item id="6354" name="Übereinstimmung"/>
@@ -998,7 +1002,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
-					<Item id="6905" name="Ersetzen: Folgendes Vorkommen nicht verschieben"/>
+					<Item id="6905" name="Ersetzen: Nicht zum folgenden Vorkommen springen"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1385,7 +1389,7 @@ Diese Antwort kann in den Einstellungen jederzeit wieder geändert werden." /> <
 Finde in allen Dateien außer exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
-			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>			
+			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-replaceinfiles-re-malformed value="Ersetzen in geöffneten Dateien: Der Ausdruck ist nicht passend"/>

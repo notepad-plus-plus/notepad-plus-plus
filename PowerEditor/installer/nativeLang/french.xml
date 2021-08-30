@@ -1033,7 +1033,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6154" name="Défaut (instance unique)"/>
                     <Item id="6155" name="* Redémarrez Notepad++ pour prendre en compte la modification"/>
                     <Item id="6171" name="Personnalisation d'insertion de la date et l'heure"/>
-                    <Item id="6175" name="Inverser l'ordre de la date et l'heure par défaut (format court && long)"/>
+                    <Item id="6175" name="Inverser l'ordre de la date et l'heure par défaut (format court &amp;&amp; long)"/>
                     <Item id="6172" name="Format personnalisé :"/>
                 </MultiInstance>
 

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-08-29 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-08-30 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.4">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.5">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -1280,10 +1280,6 @@ Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 Notepad++ wird neu gestartet.
 Fortsetzen?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ zum Laden der Plugins ist erforderlich."/>
-			<SaveAllConfirm title="'Alles Speichern' Bestätigung" message="Sollen wirklich alle Dokumente gespeichert werden?
-
-'Abbrechen' wählen wenn die Antwort immer 'Ja' lautet und die Frage nicht mehr gestellt werden soll.
-Diese Antwort kann in den Einstellungen jederzeit wieder geändert werden." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

@@ -1763,7 +1763,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 				::SendMessage(hFontNameCombo, CB_SETITEMDATA, k, reinterpret_cast<LPARAM>(fontlist[j].c_str()));
             }
 
-			i = ::SendMessage(hFontNameCombo, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(style._fontName));
+			i = ::SendMessage(hFontNameCombo, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(style._fontName.c_str()));
             if (i == CB_ERR)
                 i = 0;
             ::SendMessage(hFontNameCombo, CB_SETCURSEL, i, 0);

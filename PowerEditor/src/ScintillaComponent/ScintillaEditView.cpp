@@ -513,7 +513,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
     if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
 	    execute(SCI_STYLESETBACK, styleID, styleToSet._bgColor);
 
-    if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
+    if (!styleToSet._fontName.empty())
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
@@ -523,7 +523,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 		}
 		else
 		{
-			const char * fontNameA = wmc.wchar2char(styleToSet._fontName, CP_UTF8);
+			const char * fontNameA = wmc.wchar2char(styleToSet._fontName.c_str(), CP_UTF8);
 			execute(SCI_STYLESETFONT, styleID, reinterpret_cast<LPARAM>(fontNameA));
 		}
 	}
@@ -595,7 +595,7 @@ void ScintillaEditView::setStyle(Style styleToSet)
 						styleToSet._colorStyle &= ~COLORSTYLE_BACKGROUND;
 				}
 			}
-			if (go.enableFont && style._fontName && style._fontName[0])
+			if (go.enableFont && !style._fontName.empty())
 				styleToSet._fontName = style._fontName;
 			if (go.enableFontSize && (style._fontSize > 0))
 				styleToSet._fontSize = style._fontSize;
@@ -902,9 +902,9 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 			if (style._keywordClass >= 0 && style._keywordClass <= KEYWORDSET_MAX)
 			{
 				basic_string<char> keywordList("");
-				if (style._keywords)
+				if (!style._keywords.empty())
 				{
-					keywordList = wstring2string(*(style._keywords), CP_ACP);
+					keywordList = wstring2string(style._keywords, CP_ACP);
 				}
 				execute(SCI_SETKEYWORDS, style._keywordClass, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, typeDoc, style._keywordClass)));
 			}
@@ -1299,8 +1299,8 @@ void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 			setStyle(style);
 			if (keywordArray)
 			{
-				if ((style._keywordClass != STYLE_NOT_USED) && (style._keywords))
-					keywordArray[style._keywordClass] = style._keywords->c_str();
+				if ((style._keywordClass != STYLE_NOT_USED) && (!style._keywords.empty()))
+					keywordArray[style._keywordClass] = style._keywords.c_str();
 			}
 		}
 	}

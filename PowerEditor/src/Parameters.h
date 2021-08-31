@@ -383,78 +383,18 @@ const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
 struct Style
 {
 	int _styleID = -1;
-	const TCHAR* _styleDesc = nullptr;
+	generic_string _styleDesc;
 
 	COLORREF _fgColor = COLORREF(STYLE_NOT_USED);
 	COLORREF _bgColor = COLORREF(STYLE_NOT_USED);
 	int _colorStyle = COLORSTYLE_ALL;
-	const TCHAR* _fontName = nullptr;
+	generic_string _fontName;
 	int _fontStyle = FONTSTYLE_NONE;
 	int _fontSize = STYLE_NOT_USED;
 	int _nesting = FONTSTYLE_NONE;
 
 	int _keywordClass = STYLE_NOT_USED;
-	generic_string* _keywords = nullptr;
-
-
-	Style() = default;
-
-	Style(const Style & style)
-	{
-		_styleID	  = style._styleID;
-		_styleDesc	= style._styleDesc;
-		_fgColor	  = style._fgColor;
-		_bgColor	  = style._bgColor;
-		_colorStyle   = style._colorStyle;
-		_fontName	 = style._fontName;
-		_fontSize	 = style._fontSize;
-		_fontStyle	= style._fontStyle;
-		_keywordClass = style._keywordClass;
-		_nesting	  = style._nesting;
-		_keywords	 = (style._keywords) ? new generic_string(*(style._keywords)) : nullptr;
-	}
-
-	~Style()
-	{
-		delete _keywords;
-	}
-
-
-	Style& operator = (const Style & style)
-	{
-		if (this != &style)
-		{
-			_styleID	  = style._styleID;
-			_styleDesc	= style._styleDesc;
-			_fgColor	  = style._fgColor;
-			_bgColor	  = style._bgColor;
-			_colorStyle   = style._colorStyle;
-			_fontName	 = style._fontName;
-			_fontSize	 = style._fontSize;
-			_fontStyle	= style._fontStyle;
-			_keywordClass = style._keywordClass;
-			_nesting	  = style._nesting;
-
-			if (!(_keywords) && style._keywords)
-				_keywords = new generic_string(*(style._keywords));
-			else if (_keywords && style._keywords)
-				_keywords->assign(*(style._keywords));
-			else if (_keywords && !(style._keywords))
-			{
-				delete (_keywords);
-				_keywords = nullptr;
-			}
-		}
-		return *this;
-	}
-
-	void setKeywords(const TCHAR *str)
-	{
-		if (!_keywords)
-			_keywords = new generic_string(str);
-		else
-			*_keywords = str;
-	}
+	generic_string _keywords;
 };
 
 
@@ -519,13 +459,13 @@ public:
 		return -1;
 	}
 
-	int getStylerIndexByName(const TCHAR *name) const
+	int getStylerIndexByName(const generic_string & name) const
 	{
-		if (!name)
+		if (name.empty())
 			return -1;
 		for (int i = 0 ; i < _nbStyler ; ++i)
 		{
-			if (!lstrcmp(_styleVect[i]._styleDesc, name))
+			if (_styleVect[i]._styleDesc == name)
 				return i;
 		}
 		return -1;
@@ -1375,8 +1315,6 @@ struct UdlXmlFileState final {
 };
 
 const int NB_LANG = 100;
-const bool DUP = true;
-const bool FREE = false;
 
 const int RECENTFILES_SHOWFULLPATH = -1;
 const int RECENTFILES_SHOWONLYFILENAME = 0;
@@ -1965,7 +1903,6 @@ private:
 	void insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd);
 	void insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
 	void insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
-	void stylerStrOp(bool op);
 	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHAR *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);

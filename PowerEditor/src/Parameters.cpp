@@ -3098,12 +3098,8 @@ void NppParameters::writeNonDefaultUDL()
 
 void NppParameters::writeNeed2SaveUDL()
 {
-	stylerStrOp(DUP);
-
 	writeDefaultUDL();
 	writeNonDefaultUDL();
-	
-	stylerStrOp(FREE);
 }
 
 
@@ -3711,7 +3707,10 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		}
 
 		str = element->Attribute(TEXT("fontName"));
-		_styleVect[index]._fontName = str;
+		if (str)
+		{
+			_styleVect[index]._fontName = str;
+		}
 
 		str = element->Attribute(TEXT("fontStyle"));
 		if (str)
@@ -3740,7 +3739,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		TiXmlNode *v = styleNode->FirstChild();
 		if (v)
 		{
-			_styleVect[index]._keywords = new generic_string(v->Value());
+			_styleVect[index]._keywords = v->Value();
 		}
 	}
 	++_nbStyler;
@@ -7217,10 +7216,10 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
 		element->SetAttribute(TEXT("colorStyle"), style2Write._colorStyle);
 	}
 
-	if (style2Write._fontName)
+	if (!style2Write._fontName.empty())
 	{
-		const TCHAR *oldFontName = element->Attribute(TEXT("fontName"));
-		if (lstrcmp(oldFontName, style2Write._fontName))
+		const generic_string oldFontName = element->Attribute(TEXT("fontName"));
+		if (oldFontName != style2Write._fontName)
 		{
 			element->SetAttribute(TEXT("fontName"), style2Write._fontName);
 			style2Sync._fontName = style2Write._fontName = element->Attribute(TEXT("fontName"));
@@ -7241,14 +7240,14 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
 	}
 
 
-	if (style2Write._keywords)
+	if (!style2Write._keywords.empty())
 	{
 		TiXmlNode *teteDeNoeud = element->LastChild();
 
 		if (teteDeNoeud)
-			teteDeNoeud->SetValue(style2Write._keywords->c_str());
+			teteDeNoeud->SetValue(style2Write._keywords.c_str());
 		else
-			element->InsertEndChild(TiXmlText(style2Write._keywords->c_str()));
+			element->InsertEndChild(TiXmlText(style2Write._keywords.c_str()));
 	}
 }
 
@@ -7322,7 +7321,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 			styleElement->SetAttribute(TEXT("colorStyle"), style2Write._colorStyle);
 		}
 
-		if (style2Write._fontName)
+		if (!style2Write._fontName.empty())
 		{
 			styleElement->SetAttribute(TEXT("fontName"), style2Write._fontName);
 		}
@@ -7345,43 +7344,6 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 		}
 
 		styleElement->SetAttribute(TEXT("nesting"), style2Write._nesting);
-	}
-}
-
-void NppParameters::stylerStrOp(bool op)
-{
-	for (int i = 0 ; i < _nbUserLang ; ++i)
-	{
-		for (int j = 0 ; j < SCE_USER_STYLE_TOTAL_STYLES ; ++j)
-		{
-			Style & style = _userLangArray[i]->_styles.getStyler(j);
-
-			if (op == DUP)
-			{
-				const size_t strLen = lstrlen(style._styleDesc) + 1;
-				TCHAR *str = new TCHAR[strLen];
-				wcscpy_s(str, strLen, style._styleDesc);
-				style._styleDesc = str;
-				if (style._fontName)
-				{
-					const size_t strLen2 = lstrlen(style._fontName) + 1;
-					str = new TCHAR[strLen2];
-					wcscpy_s(str, strLen2, style._fontName);
-					style._fontName = str;
-				}
-				else
-				{
-					str = new TCHAR[2];
-					str[0] = str[1] = '\0';
-					style._fontName = str;
-				}
-			}
-			else
-			{
-				delete [] style._styleDesc;
-				delete [] style._fontName;
-			}
-		}
 	}
 }
 

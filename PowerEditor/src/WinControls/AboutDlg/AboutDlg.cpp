@@ -472,7 +472,7 @@ void DoSaveAllBox::doDialog(bool isRTL)
 void DoSaveAllBox::changeLang()
 {
 	generic_string msg;
-	generic_string defaultMessage = TEXT("Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if your don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.");
+	generic_string defaultMessage = TEXT("Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.");
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))

@@ -5,7 +5,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2021-08-20 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-08-31 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.4">
@@ -435,6 +435,12 @@ Last modified on 2021-08-20 by Thomas De Rocker (RockyTDR).
                 <Item id="1723" name="▼ Volgende"/>
                 <Item id="1725" name="Gemarkeerde tekst kopiëren"/>
             </Find>
+
+            <IncrementalFind title="">
+                <Item id="1681" name="Zoeken"/>
+                <Item id="1685" name="Hoofdlettergevoelig"/>
+                <Item id="1690" name="Alles markeren"/>
+            </IncrementalFind>
 
             <FindCharsInRange title="Tekens zoeken in bereik...">
                 <Item id="2" name="Sluiten"/>
@@ -1165,6 +1171,15 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 <Item id="4" name="J&amp;a op alles"/>
                 <Item id="5" name="N&amp;ee op alles"/>
             </DoSaveOrNot>
+            <DoSaveAll title="Bevestiging voor alles opslaan">
+                <Item id="1766" name="Weet u zeker dat u alle gewijzigde documenten wilt opslaan?
+
+Kies &quot;altijd ja&quot; als u dit dialoogvenster niet meer wilt zien.
+U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
+                <Item id="6" name="&amp;Ja"/>
+                <Item id="7" name="&amp;Nee"/>
+                <Item id="4" name="Altijd ja"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Contextmenu wijzigen" message="Met het wijzigen van het contextmenu kunt u Notepad++ aan uw persoonlijke voorkeur aanpassen.
@@ -1260,10 +1275,6 @@ Wilt u Notepad++ starten in beheerdersmodus?"/>
 Notepad++ zal opnieuw starten nadat alle acties afgewerkt zijn.
 Doorgaan?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om de geïnstalleerde plug-ins te laden."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <SaveAllConfirm title="Bevestiging voor alles opslaan" message="Weet u zeker dat u alle documenten wilt opslaan?
-
-&quot;Annuleren&quot; kiezen als uw antwoord altijd &quot;ja&quot; zal zijn en deze vraag zal u niet meer gesteld worden.
-U kunt dit dialoogvenster later opnieuw activeren in het voorkeurenvenster." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Geschiedenis van klembord"/>
@@ -1472,6 +1483,10 @@ In alle bestanden behalve exe, obj en log zoeken:
             <tab-untitled-string value="nieuw " />
             <file-save-assign-type value="&amp;Extensie toevoegen" />
             <close-panel-tip value="Sluiten" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ overeenkomsten" />
+            <IncrementalFind-FSNotFound value="Zin niet gevonden" />
+            <IncrementalFind-FSTopReached value="Bovenkant van pagina bereikt. Verdergegaan vanaf onderkant" />
+            <IncrementalFind-FSEndReached value="Einde van pagina bereikt. Verdergegaan vanaf bovenkant" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

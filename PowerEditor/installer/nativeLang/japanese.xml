@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.4">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -110,6 +110,7 @@
                     <Item id="42020" name="選択を開始/終了(&amp;S)"/>
                     <Item id="42084" name="日時(短い形式)"/>
                     <Item id="42085" name="日時(長い形式)"/>
+                    <Item id="42086" name="日時(カスタム)"/>
                     <Item id="42008" name="インデントを増やす"/>
                     <Item id="42009" name="インデントを減らす"/>
                     <Item id="42010" name="カーソル行を複製"/>
@@ -433,6 +434,12 @@
                 <Item id="1723" name="▼ 次を検索"/>
                 <Item id="1725" name="マークした文字列をコピー"/>
             </Find>
+
+            <IncrementalFind title="">
+                <Item id="1681" name="検索文字列:"/>
+                <Item id="1685" name="大/小文字を区別"/>
+                <Item id="1690" name="すべてハイライト"/>
+            </IncrementalFind>
 
             <FindCharsInRange title="文字範囲を指定して検索...">
                 <Item id="2" name="閉じる"/>
@@ -835,9 +842,6 @@
                     <Item id="6122" name="メインメニューを隠す(表示するには Alt か F10 を押す)"/>
                     <Item id="6123" name="言語"/>
 
-                    <Item id="6125" name="文書一覧"/>
-                    <Item id="6127" name="拡張子の列を表示しない"/>
-                    
                     <Item id="6128" name="別デザインのアイコンを使用する"/>
                 </Global>
                 <Scintillas title="編集画面">
@@ -1047,12 +1051,15 @@
                     <Item id="6866" name="一致させるペア3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="マルチインスタンス">
-                    <Item id="6151" name="マルチインスタンス設定"/>
+                <MultiInstance title="複数起動、日時書式">
+                    <Item id="6151" name="複数起動（マルチインスタンス）の設定"/>
                     <Item id="6152" name="セッションをNotepad++の新しいインスタンスで開く"/>
                     <Item id="6153" name="常にマルチインスタンスモードとする"/>
                     <Item id="6154" name="デフォルト(1つのインスタンス)"/>
                     <Item id="6155" name="* この変更を有効にするにはNotepad++の再起動が必要です"/>
+                    <Item id="6171" name="挿入する日時の書式設定"/>
+                    <Item id="6175" name="日付と時刻の順序を逆にする（短い形式、長い形式の場合）"/>
+                    <Item id="6172" name="カスタム書式:"/>
                 </MultiInstance>
 
                 <Delimiter title="区切り記号">
@@ -1165,6 +1172,15 @@
                 <Item id="4" name="すべて はい(&amp;A)"/>
                 <Item id="5" name="すべて いいえ(&amp;O)"/>
             </DoSaveOrNot>
+            <DoSaveAll title="すべて保存">
+                <Item id="1766" name="すべての編集済み文書が保存されます。よろしいですか？
+
+「常にはい」を選ぶと、次回以降、この画面は表示されません。
+環境設定から、再度、この画面を表示するよう変更できます。"/>
+                <Item id="6" name="はい(&amp;Y)"/>
+                <Item id="7" name="いいえ(&amp;N)"/>
+                <Item id="4" name="常に はい"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
@@ -1260,10 +1276,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 すべての作業が完了すると Notepad++ は再起動します。
 処理を続けますか？"/>
             <NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
-            <SaveAllConfirm title="すべて保存 の確認" message="すべてのファイルを保存しようとしています。よろしいですか？
-
-「キャンセル」を押すと、今後、この確認画面が表示されなくなります。
-環境設定から、再度、この画面を表示するよう変更できます。" /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1272,6 +1284,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <PanelTitle name="文書一覧"/>
             <ColumnName name="名前"/>
             <ColumnExt name="拡張子"/>
+            <ColumnPath name="パス"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="ファイル名"/>
@@ -1471,6 +1484,10 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <tab-untitled-string value="新規" />
             <file-save-assign-type value="拡張子をつける(&amp;A)" />
             <close-panel-tip value="閉じる" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ 件の一致" />
+            <IncrementalFind-FSNotFound value="見つかりません" />
+            <IncrementalFind-FSTopReached value="文書の先頭に達したため、末尾から検索しました" />
+            <IncrementalFind-FSEndReached value="文書の末尾に達したため、先頭から検索しました" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

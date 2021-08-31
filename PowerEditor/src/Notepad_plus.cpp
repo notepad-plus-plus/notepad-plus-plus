@@ -928,14 +928,17 @@ void Notepad_plus::saveDockingParams()
 			else
 				floatCont = nppGUI._dockingData._pluginDockInfo[i]._prevContainer;
 
-			if (floatContArray[floatCont] == 0)
+			if (floatCont >= 0)
 			{
-				RECT rc;
-				if (nppGUI._dockingData.getFloatingRCFrom(floatCont, rc))
+				if (floatContArray[floatCont] == 0)
 				{
-					vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, rc.left, rc.top, rc.right, rc.bottom));
+					RECT rc;
+					if (nppGUI._dockingData.getFloatingRCFrom(floatCont, rc))
+					{
+						vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, rc.left, rc.top, rc.right, rc.bottom));
+					}
+					floatContArray[floatCont] = 1;
 				}
-				floatContArray[floatCont] = 1;
 			}
 			if (i < nppGUI._dockingData._pluginDockInfo.size()) // to prevent from crash in debug mode
 				vPluginDockInfo.push_back(nppGUI._dockingData._pluginDockInfo[i]);

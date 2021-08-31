@@ -1331,23 +1331,68 @@ int nbDigitsFromNbLines(size_t nbLines)
 
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
 {
-	generic_string dateTimeStr = dateTimeFormat;
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("Y"), std::to_wstring(st.wYear));
-	wchar_t buf[3];
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wMonth);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("M"), buf);
+	const TCHAR* localeName = LOCALE_NAME_USER_DEFAULT;
+	const DWORD flags = 0;
 
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wDay);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("D"), buf);
+	constexpr int bufferSize = MAX_PATH;
+	TCHAR buffer[bufferSize] = {};
+	int ret = 0;
 
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wHour);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("h"), buf);
+	// 1. Escape 'tt' that means AM/PM or 't' that means A/M.
+	// This is needed to avoid conflict with 'M' date format that stands for month.
+	generic_string newFormat = dateTimeFormat;
+	const TCHAR escapedChar = 0x1;
+	bool hasMidday = false;
+	for (auto& ch : newFormat)
+	{
+		if (ch == 't')
+		{
+			ch = escapedChar;
+			hasMidday = true;
+		}
+	}
 
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wMinute);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("m"), buf);
+	// 2. Format the AM/PM string.
+	generic_string midday = _T("tt");
+	if (hasMidday)
+	{
+		ret = GetTimeFormatEx(localeName, flags, &st, midday.c_str(), &midday[0], static_cast<int>(midday.size()));
+		if (ret == 0)
+			midday = _T("tt");
+	}
 
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wSecond);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("s"), buf);
+	// 3. Format the time (h/m/s/t/H).
+	ret = GetTimeFormatEx(localeName, flags, &st, newFormat.c_str(), buffer, bufferSize);
+	if (ret != 0)
+	{
+		// 4. Format the date (d/y/g/M). 
+		// Now use the buffer as a format string to process the format specifiers not recognized by GetTimeFormatEx().
+		ret = GetDateFormatEx(localeName, flags, &st, buffer, buffer, bufferSize, nullptr);
+	}
 
-	return dateTimeStr;
+	if (ret != 0)
+	{
+		// 5. Now format only the AM/PM string.
+		if (hasMidday && !midday.empty())
+		{
+			// 'ret' holds the actual length of the string
+			for (int i = 0; i < ret; ++i)
+			{
+				if (buffer[i] == escapedChar)
+				{
+					// 't' => 'A' or 'P'
+					buffer[i] = midday[0];
+					if (((i + 1) < ret) && (buffer[i + 1] == escapedChar))
+					{
+						// 'tt' => 'AM' or 'PM'
+						++i;
+						buffer[i] = midday[1];
+					}
+				}
+			}
+		}
+		return buffer;
+	}
+
+	return {};
 }

@@ -513,18 +513,16 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
     if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
 	    execute(SCI_STYLESETBACK, styleID, styleToSet._bgColor);
 
-    if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
+    if (!styleToSet._fontName.empty())
 	{
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-
 		if (!NppParameters::getInstance().isInFontList(styleToSet._fontName))
 		{
 			execute(SCI_STYLESETFONT, styleID, reinterpret_cast<LPARAM>(DEFAULT_FONT_NAME));
 		}
 		else
 		{
-			const char * fontNameA = wmc.wchar2char(styleToSet._fontName, CP_UTF8);
-			execute(SCI_STYLESETFONT, styleID, reinterpret_cast<LPARAM>(fontNameA));
+			std::string fontNameA = wstring2string(styleToSet._fontName, CP_UTF8);
+			execute(SCI_STYLESETFONT, styleID, reinterpret_cast<LPARAM>(fontNameA.c_str()));
 		}
 	}
 	int fontStyle = styleToSet._fontStyle;
@@ -558,18 +556,15 @@ void ScintillaEditView::setStyle(Style styleToSet)
 
 	if (go.isEnable())
 	{
-		StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
-		int i = stylers.getStylerIndexByName(TEXT("Global override"));
-		if (i != -1)
+		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByName(TEXT("Global override"));
+		if (pStyle)
 		{
-			Style & style = stylers.getStyler(i);
-
 			if (go.enableFg)
 			{
-				if (style._colorStyle & COLORSTYLE_FOREGROUND)
+				if (pStyle->_colorStyle & COLORSTYLE_FOREGROUND)
 				{
 					styleToSet._colorStyle |= COLORSTYLE_FOREGROUND;
-					styleToSet._fgColor = style._fgColor;
+					styleToSet._fgColor = pStyle->_fgColor;
 				}
 				else
 				{
@@ -582,10 +577,10 @@ void ScintillaEditView::setStyle(Style styleToSet)
 
 			if (go.enableBg)
 			{
-				if (style._colorStyle & COLORSTYLE_BACKGROUND)
+				if (pStyle->_colorStyle & COLORSTYLE_BACKGROUND)
 				{
 					styleToSet._colorStyle |= COLORSTYLE_BACKGROUND;
-					styleToSet._bgColor = style._bgColor;
+					styleToSet._bgColor = pStyle->_bgColor;
 				}
 				else
 				{
@@ -595,30 +590,30 @@ void ScintillaEditView::setStyle(Style styleToSet)
 						styleToSet._colorStyle &= ~COLORSTYLE_BACKGROUND;
 				}
 			}
-			if (go.enableFont && style._fontName && style._fontName[0])
-				styleToSet._fontName = style._fontName;
-			if (go.enableFontSize && (style._fontSize > 0))
-				styleToSet._fontSize = style._fontSize;
+			if (go.enableFont && !pStyle->_fontName.empty())
+				styleToSet._fontName = pStyle->_fontName;
+			if (go.enableFontSize && (pStyle->_fontSize > 0))
+				styleToSet._fontSize = pStyle->_fontSize;
 
-			if (style._fontStyle != STYLE_NOT_USED)
+			if (pStyle->_fontStyle != STYLE_NOT_USED)
 			{
 				if (go.enableBold)
 				{
-					if (style._fontStyle & FONTSTYLE_BOLD)
+					if (pStyle->_fontStyle & FONTSTYLE_BOLD)
 						styleToSet._fontStyle |= FONTSTYLE_BOLD;
 					else
 						styleToSet._fontStyle &= ~FONTSTYLE_BOLD;
 				}
 				if (go.enableItalic)
 				{
-					if (style._fontStyle & FONTSTYLE_ITALIC)
+					if (pStyle->_fontStyle & FONTSTYLE_ITALIC)
 						styleToSet._fontStyle |= FONTSTYLE_ITALIC;
 					else
 						styleToSet._fontStyle &= ~FONTSTYLE_ITALIC;
 				}
 				if (go.enableUnderLine)
 				{
-					if (style._fontStyle & FONTSTYLE_UNDERLINE)
+					if (pStyle->_fontStyle & FONTSTYLE_UNDERLINE)
 						styleToSet._fontStyle |= FONTSTYLE_UNDERLINE;
 					else
 						styleToSet._fontStyle &= ~FONTSTYLE_UNDERLINE;
@@ -864,15 +859,13 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 	sprintf(intBuffer, "%" PRIuPTR, reinterpret_cast<uintptr_t>(_currentBufferID)); // use numeric value of BufferID pointer
     execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.currentBufferID"), reinterpret_cast<LPARAM>(intBuffer));
 
-	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
+	for (const Style & style : userLangContainer->_styles)
 	{
-		Style & style = userLangContainer->_styles.getStyler(i);
-
 		if (style._styleID == STYLE_NOT_USED)
 			continue;
 
 		char nestingBuffer[32];
-		sprintf(nestingBuffer, "userDefine.nesting.%02d", i );
+		sprintf(nestingBuffer, "userDefine.nesting.%02d", style._styleID);
 		sprintf(intBuffer, "%d", style._nesting);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>(nestingBuffer), reinterpret_cast<LPARAM>(intBuffer));
 
@@ -893,18 +886,16 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(name);
 	if (pStyler)
 	{
-		for (int i = 0 ; i < pStyler->getNbStyler() ; ++i)
+		for (const Style & style : *pStyler)
 		{
-			Style & style = pStyler->getStyler(i);
-
 			setStyle(style);
 
 			if (style._keywordClass >= 0 && style._keywordClass <= KEYWORDSET_MAX)
 			{
 				basic_string<char> keywordList("");
-				if (style._keywords)
+				if (!style._keywords.empty())
 				{
-					keywordList = wstring2string(*(style._keywords), CP_ACP);
+					keywordList = wstring2string(style._keywords, CP_ACP);
 				}
 				execute(SCI_SETKEYWORDS, style._keywordClass, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, typeDoc, style._keywordClass)));
 			}
@@ -982,9 +973,8 @@ void ScintillaEditView::setJsLexer()
 	LexerStyler *pNewStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(newLexerName);
 	if (pNewStyler) // New js styler is available, so we can use it do more modern styling
 	{
-		for (int i = 0, nb = pNewStyler->getNbStyler(); i < nb; ++i)
+		for (const Style & style : *pNewStyler)
 		{
-			Style & style = pNewStyler->getStyler(i);
 			setStyle(style);
 		}
 
@@ -1024,9 +1014,8 @@ void ScintillaEditView::setJsLexer()
 
 		if (pOldStyler)
 		{
-			for (int i = 0, nb = pOldStyler->getNbStyler(); i < nb; ++i)
+			for (Style style : *pOldStyler) //not by reference, but copy
 			{
-				Style style = pOldStyler->getStyler(i);	//not by reference, but copy
 				int cppID = style._styleID;
 
 				switch (style._styleID)
@@ -1293,14 +1282,13 @@ void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
-		for (int i = 0, nb = pStyler->getNbStyler(); i < nb ; ++i)
+		for (const Style & style : *pStyler)
 		{
-			Style & style = pStyler->getStyler(i);
 			setStyle(style);
 			if (keywordArray)
 			{
-				if ((style._keywordClass != STYLE_NOT_USED) && (style._keywords))
-					keywordArray[style._keywordClass] = style._keywords->c_str();
+				if ((style._keywordClass != STYLE_NOT_USED) && (!style._keywords.empty()))
+					keywordArray[style._keywordClass] = style._keywords.c_str();
 			}
 		}
 	}
@@ -1359,120 +1347,69 @@ void ScintillaEditView::setWordChars()
 
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
-    StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
-    int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
-    if (iStyleDefault != -1)
-    {
-        Style & styleDefault = stylers.getStyler(iStyleDefault);
-		styleDefault._colorStyle = COLORSTYLE_ALL;	//override transparency
-	    setStyle(styleDefault);
-    }
+	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
+	Style * pStyleDefault = stylers.findByID(STYLE_DEFAULT);
+	if (pStyleDefault)
+	{
+		pStyleDefault->_colorStyle = COLORSTYLE_ALL;	//override transparency
+		setStyle(*pStyleDefault);
+	}
 
-    execute(SCI_STYLECLEARALL);
+	execute(SCI_STYLECLEARALL);
 
-	Style *pStyle;
 	Style defaultIndicatorStyle;
+	const Style * pStyle;
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE;
 	defaultIndicatorStyle._bgColor = red;
-	pStyle = &defaultIndicatorStyle;
-    int iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_SMART;
 	defaultIndicatorStyle._bgColor = liteGreen;
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_SMART);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_INC;
 	defaultIndicatorStyle._bgColor = blue;
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_INC);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_TAGMATCH;
 	defaultIndicatorStyle._bgColor = RGB(0x80, 0x00, 0xFF);
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGMATCH);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_TAGATTR;
 	defaultIndicatorStyle._bgColor = yellow;
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGATTR);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT1;
 	defaultIndicatorStyle._bgColor = cyan;
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT1);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT2;
 	defaultIndicatorStyle._bgColor = orange;
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT2);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT3;
 	defaultIndicatorStyle._bgColor = yellow;
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT3);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT4;
 	defaultIndicatorStyle._bgColor = purple;
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT4);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 	defaultIndicatorStyle._bgColor = darkGreen;
-	pStyle = &defaultIndicatorStyle;
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT5);
-    if (iFind != -1)
-    {
-        pStyle = &(stylers.getStyler(iFind));
-    }
-	setSpecialIndicator(*pStyle);
+	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
+	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
     // Il faut surtout faire un test ici avant d'exécuter SCI_SETCODEPAGE
     // Sinon y'aura un soucis de performance!
@@ -1554,13 +1491,12 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 			if (pStyler)
 			{
-				int i = pStyler->getStylerIndexByName(TEXT("DEFAULT"));
-				if (i != -1)
+				const Style * pStyle = pStyler->findByName(TEXT("DEFAULT"));
+				if (pStyle)
 				{
-					Style & style = pStyler->getStyler(i);
-					nfoStyle._bgColor = style._bgColor;
-					nfoStyle._fgColor = style._fgColor;
-					nfoStyle._colorStyle = style._colorStyle;
+					nfoStyle._bgColor = pStyle->_bgColor;
+					nfoStyle._fgColor = pStyle->_fgColor;
+					nfoStyle._colorStyle = pStyle->_colorStyle;
 				}
 			}
 			setSpecialStyle(nfoStyle);
@@ -1769,32 +1705,28 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 	}
 	//All the global styles should put here
-	int indexOfIndentGuide = stylers.getStylerIndexByID(STYLE_INDENTGUIDE);
-	if (indexOfIndentGuide != -1)
-    {
-        Style & styleIG = stylers.getStyler(indexOfIndentGuide);
-	    setStyle(styleIG);
-    }
-	int indexOfBraceLight = stylers.getStylerIndexByID(STYLE_BRACELIGHT);
-	if (indexOfBraceLight != -1)
-    {
-        Style & styleBL = stylers.getStyler(indexOfBraceLight);
-	    setStyle(styleBL);
-    }
+	pStyle = stylers.findByID(STYLE_INDENTGUIDE);
+	if (pStyle)
+	{
+		setStyle(*pStyle);
+	}
+	pStyle = stylers.findByID(STYLE_BRACELIGHT);
+	if (pStyle)
+	{
+		setStyle(*pStyle);
+	}
 	//setStyle(STYLE_CONTROLCHAR, liteGrey);
-	int indexBadBrace = stylers.getStylerIndexByID(STYLE_BRACEBAD);
-	if (indexBadBrace != -1)
-    {
-        Style & styleBB = stylers.getStyler(indexBadBrace);
-	    setStyle(styleBB);
-    }
-	int indexLineNumber = stylers.getStylerIndexByID(STYLE_LINENUMBER);
-	if (indexLineNumber != -1)
-    {
-        Style & styleLN = stylers.getStyler(indexLineNumber);
-	    setSpecialStyle(styleLN);
-    }
-    setTabSettings(NppParameters::getInstance().getLangFromID(typeDoc));
+	pStyle = stylers.findByID(STYLE_BRACEBAD);
+	if (pStyle)
+	{
+		setStyle(*pStyle);
+	}
+	pStyle = stylers.findByID(STYLE_LINENUMBER);
+	if (pStyle)
+	{
+		setSpecialStyle(*pStyle);
+	}
+	setTabSettings(NppParameters::getInstance().getLangFromID(typeDoc));
 	
 	if (svp._indentGuideLineShow)
 	{
@@ -2617,21 +2549,19 @@ void ScintillaEditView::performGlobalStyles()
 	NppParameters& nppParams = NppParameters::getInstance();
 	StyleArray & stylers = nppParams.getMiscStylerArray();
 
-	int i = stylers.getStylerIndexByName(TEXT("Current line background colour"));
-	if (i != -1)
+	const Style * pStyle = stylers.findByName(TEXT("Current line background colour"));
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		execute(SCI_SETCARETLINEBACK, style._bgColor);
+		execute(SCI_SETCARETLINEBACK, pStyle->_bgColor);
 	}
 
 	COLORREF selectColorBack = grey;
 	COLORREF selectColorFore = black;
-	i = stylers.getStylerIndexByName(TEXT("Selected text colour"));
-	if (i != -1)
+	pStyle = stylers.findByName(TEXT("Selected text colour"));
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		selectColorBack = style._bgColor;
-		selectColorFore = style._fgColor;
+		selectColorBack = pStyle->_bgColor;
+		selectColorFore = pStyle->_fgColor;
 	}
 	execute(SCI_SETSELBACK, 1, selectColorBack);
 
@@ -2639,61 +2569,55 @@ void ScintillaEditView::performGlobalStyles()
 		execute(SCI_SETSELFORE, 1, selectColorFore);
 
 	COLORREF caretColor = black;
-	i = stylers.getStylerIndexByID(SCI_SETCARETFORE);
-	if (i != -1)
+	pStyle = stylers.findByID(SCI_SETCARETFORE);
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		caretColor = style._fgColor;
+		caretColor = pStyle->_fgColor;
 	}
 	execute(SCI_SETCARETFORE, caretColor);
 
 	COLORREF edgeColor = liteGrey;
-	i = stylers.getStylerIndexByName(TEXT("Edge colour"));
-	if (i != -1)
+	pStyle = stylers.findByName(TEXT("Edge colour"));
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		edgeColor = style._fgColor;
+		edgeColor = pStyle->_fgColor;
 	}
 	execute(SCI_SETEDGECOLOUR, edgeColor);
 	::SendMessage(_hParent, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 
 	COLORREF foldMarginColor = grey;
 	COLORREF foldMarginHiColor = white;
-	i = stylers.getStylerIndexByName(TEXT("Fold margin"));
-	if (i != -1)
+	pStyle = stylers.findByName(TEXT("Fold margin"));
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		foldMarginHiColor = style._fgColor;
-		foldMarginColor = style._bgColor;
+		foldMarginHiColor = pStyle->_fgColor;
+		foldMarginColor = pStyle->_bgColor;
 	}
 	execute(SCI_SETFOLDMARGINCOLOUR, true, foldMarginColor);
 	execute(SCI_SETFOLDMARGINHICOLOUR, true, foldMarginHiColor);
 
 	COLORREF bookmarkMarginColor = veryLiteGrey;
-	i = stylers.getStylerIndexByName(TEXT("Bookmark margin"));
-	if (i == -1)
+	pStyle = stylers.findByName(TEXT("Bookmark margin"));
+	if (!pStyle)
 	{
-		int j = stylers.getStylerIndexByName(TEXT("Line number margin"));
-		if (j != -1)
+		pStyle = stylers.findByName(TEXT("Line number margin"));
+		if (pStyle)
 		{
-			Style & style = stylers.getStyler(j);
-			bookmarkMarginColor = style._bgColor;
+			bookmarkMarginColor = pStyle->_bgColor;
 		}
 	}
 	else
 	{
-		Style & style = stylers.getStyler(i);
-		bookmarkMarginColor = style._bgColor;
+		bookmarkMarginColor = pStyle->_bgColor;
 	}
 	execute(SCI_SETMARGINTYPEN, _SC_MARGE_SYBOLE, SC_MARGIN_COLOUR);
 	execute(SCI_SETMARGINBACKN, _SC_MARGE_SYBOLE, bookmarkMarginColor);
 
 	COLORREF urlHoveredFG = grey;
-	i = stylers.getStylerIndexByName(TEXT("URL hovered"));
-	if (i != -1)
+	pStyle = stylers.findByName(TEXT("URL hovered"));
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		urlHoveredFG = style._fgColor;
+		urlHoveredFG = pStyle->_fgColor;
 	}
 	execute(SCI_INDICSETHOVERFORE, URL_INDIC, urlHoveredFG);
 
@@ -2707,11 +2631,10 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_MARKERENABLEHIGHLIGHT, true);
 
 	COLORREF wsSymbolFgColor = black;
-	i = stylers.getStylerIndexByName(TEXT("White space symbol"));
-	if (i != -1)
+	pStyle = stylers.findByName(TEXT("White space symbol"));
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		wsSymbolFgColor = style._fgColor;
+		wsSymbolFgColor = pStyle->_fgColor;
 	}
 	execute(SCI_SETWHITESPACEFORE, true, wsSymbolFgColor);
 }
@@ -3785,19 +3708,17 @@ void ScintillaEditView::getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLOR
 {
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
 
-	int i = stylers.getStylerIndexByName(TEXT("Fold"));
-	if (i != -1)
+	const Style * pStyle = stylers.findByName(TEXT("Fold"));
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		fgColor = style._bgColor;
-		bgColor = style._fgColor;
+		fgColor = pStyle->_bgColor;
+		bgColor = pStyle->_fgColor;
 	}
 
-	i = stylers.getStylerIndexByName(TEXT("Fold active"));
-	if (i != -1)
+	pStyle = stylers.findByName(TEXT("Fold active"));
+	if (pStyle)
 	{
-		Style & style = stylers.getStyler(i);
-		activeFgColor = style._fgColor;
+		activeFgColor = pStyle->_fgColor;
 	}
 }
 

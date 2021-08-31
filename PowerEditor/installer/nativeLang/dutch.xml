@@ -117,7 +117,8 @@ Last modified on 2021-08-31 by Thomas De Rocker (RockyTDR).
                     <Item id="42007" name="&amp;Alles selecteren"/>
                     <Item id="42020" name="&amp;Selectie starten/stoppen"/>
                     <Item id="42084" name="Datum/tijd (kort)"/>
-                    <Item id="42085" name="Datum/tijd (long)"/>
+                    <Item id="42085" name="Datum/tijd (lang)"/>
+                    <Item id="42086" name="Datum/tijd (aangepast)"/>
                     <Item id="42008" name="Inspringing van regel vergroten"/>
                     <Item id="42009" name="Inspringing van regel verkleinen"/>
                     <Item id="42010" name="Huidige regel dupliceren"/>
@@ -1053,12 +1054,15 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6866" name="Gekoppeld paar 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Meerdere instanties">
+                <MultiInstance title="Meerdere instanties en datum">
                     <Item id="6151" name="Instellingen voor meerdere instanties"/>
                     <Item id="6152" name="Sessies openen in een nieuwe instantie van Notepad++"/>
                     <Item id="6153" name="Altijd in modus meerdere instanties"/>
                     <Item id="6154" name="Standaard (enkele instantie)"/>
                     <Item id="6155" name="* Wijziging van deze instelling vereist een herstart van Notepad++"/>
+                    <Item id="6171" name="Datum/tijd invoegen aanpassen"/>
+                    <Item id="6175" name="Standaardvolgorde datum/tijd omkeren (korte en lange formaten)"/>
+                    <Item id="6172" name="Aangepast formaat:"/>
                 </MultiInstance>
 
                 <Delimiter title="Scheidingstekens">

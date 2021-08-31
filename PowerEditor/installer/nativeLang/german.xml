@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-08-30 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-08-31 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -46,9 +46,9 @@
 					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="edit-pasteSpecial" name= "Einf&amp;ügen spezial"/>
 					<Item subMenuId="edit-onSelection" name="Bei Auswahl"/>
-					<Item subMenuId="search-markAll" name="Stil '&amp;Alle Vorkommen einer Marke'"/>
-					<Item subMenuId="search-markOne" name="Stil '&amp;Eine Marke'"/>
-					<Item subMenuId="search-unmarkAll" name="Stil &amp;löschen"/>
+					<Item subMenuId="search-markAll" name="&amp;Alle Hervorhebungen"/>
+					<Item subMenuId="search-markOne" name="&amp;Eine Hervorhebung"/>
+					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
 					<Item subMenuId="search-copyStyledText" name="Gestylten Text kopieren"/>
@@ -233,20 +233,20 @@
 					<Item id="43035" name="Hervorhebung &amp;3"/>
 					<Item id="43036" name="Hervorhebung &amp;4"/>
 					<Item id="43037" name="Hervorhebung &amp;5"/>
-					<Item id="43038" name="Markierungs-&amp;Stil finden"/>
+					<Item id="43038" name="Hervorhebung aus &amp;Suche"/>
 					<Item id="43039" name="Hervorhebung &amp;1"/>
 					<Item id="43040" name="Hervorhebung &amp;2"/>
 					<Item id="43041" name="Hervorhebung &amp;3"/>
 					<Item id="43042" name="Hervorhebung &amp;4"/>
 					<Item id="43043" name="Hervorhebung &amp;5"/>
-					<Item id="43044" name="Markierungs-&amp;Stil finden"/>
+					<Item id="43044" name="Hervorhebung aus &amp;Suche"/>
 					<Item id="43055" name="1. Stil"/>
 					<Item id="43056" name="2. Stil"/>
 					<Item id="43057" name="3. Stil"/>
 					<Item id="43058" name="4. Stil"/>
 					<Item id="43059" name="5. Stil"/>
 					<Item id="43060" name="Alle Stile"/>
-					<Item id="43061" name="Markierungs-&amp;Stil finden"/>
+					<Item id="43061" name="Hervorhebung aus &amp;Suche"/>
 					<Item id="43062" name="Verwende 1. Stil"/>
 					<Item id="43063" name="Verwende 2. Stil"/>
 					<Item id="43064" name="Verwende 3. Stil"/>
@@ -443,7 +443,7 @@
 
 			<IncrementalFind title="">
 				<Item id="1681" name="Suchen"/>
-				<Item id="1685" name="Übereinstimmung"/>
+				<Item id="1685" name="Groß-/Kleinschreibung beachten"/>
 				<Item id="1690" name="Alle markieren"/>
 			</IncrementalFind>
 
@@ -581,26 +581,26 @@
 					<Item id="43027" name="Entferne die Hervorhebungen im Stil 3"/>
 					<Item id="43029" name="Entferne die Hervorhebungen im Stil 4"/>
 					<Item id="43031" name="Entferne die Hervorhebungen im Stil 5"/>
-					<Item id="43032" name="Alle Stile entfernen"/>
-					<Item id="43033" name="Markiere vorherige im Stil 1"/>
-					<Item id="43034" name="Markiere vorherige im Stil 2"/>
-					<Item id="43035" name="Markiere vorherige im Stil 3"/>
-					<Item id="43036" name="Markiere vorherige im Stil 4"/>
-					<Item id="43037" name="Markiere vorherige im Stil 5"/>
-					<Item id="43038" name="Vorherige Hervorhebung erstellt mit Marke"/>
-					<Item id="43039" name="Markiere nächste im Stil 1"/>
-					<Item id="43040" name="Markiere nächste im Stil 2"/>
-					<Item id="43041" name="Markiere nächste im Stil 3"/>
-					<Item id="43042" name="Markiere nächste im Stil 4"/>
-					<Item id="43043" name="Markiere nächste im Stil 5"/>
-					<Item id="43044" name="Nächste Hervorhebung erstellt mit Marke"/>
-					<Item id="43055" name="Gestylten Text kopieren - 1. Stil"/>
-					<Item id="43056" name="Gestylten Text kopieren - 2. Stil"/>
-					<Item id="43057" name="Gestylten Text kopieren - 3. Stil"/>
-					<Item id="43058" name="Gestylten Text kopieren - 4. Stil"/>
-					<Item id="43059" name="Gestylten Text kopieren - 5. Stil"/>
-					<Item id="43060" name="Gestylten Text kopieren - Alle Stile"/>
-					<Item id="43061" name="Gestylten und markierten Text kopieren"/>
+					<Item id="43032" name="Alle Hervorhebungen entfernen"/>
+					<Item id="43033" name="Springe zur vorherigen Hervorhebung im Stil 1"/>
+					<Item id="43034" name="Springe zur vorherigen Hervorhebung im Stil 2"/>
+					<Item id="43035" name="Springe zur vorherigen Hervorhebung im Stil 3"/>
+					<Item id="43036" name="Springe zur vorherigen Hervorhebung im Stil 4"/>
+					<Item id="43037" name="Springe zur vorherigen Hervorhebung im Stil 5"/>
+					<Item id="43038" name="Springe zur vorherigen Hervorhebung aus Suche"/>
+					<Item id="43039" name="Springe zur nächsten Hervorhebung im Stil 1"/>
+					<Item id="43040" name="Springe zur nächsten Hervorhebung im Stil 2"/>
+					<Item id="43041" name="Springe zur nächsten Hervorhebung im Stil 3"/>
+					<Item id="43042" name="Springe zur nächsten Hervorhebung im Stil 4"/>
+					<Item id="43043" name="Springe zur nächsten Hervorhebung im Stil 5"/>
+					<Item id="43044" name="Springe zur nächsten Hervorhebung aus Suche"/>
+					<Item id="43055" name="Hervorgehobenen Text kopieren - Stil 1"/>
+					<Item id="43056" name="Hervorgehobenen Text kopieren - Stil 2"/>
+					<Item id="43057" name="Hervorgehobenen Text kopieren - Stil 3"/>
+					<Item id="43058" name="Hervorgehobenen Text kopieren - Stil 4"/>
+					<Item id="43059" name="Hervorgehobenen Text kopieren - Stil 5"/>
+					<Item id="43060" name="Hervorgehobenen Text kopieren - Alle Stile"/>
+					<Item id="43061" name="Hervorgehobenen Text aus Suche kopieren"/>
 					<Item id="44100" name="Aktuelle Datei in Firefox betrachten"/>
 					<Item id="44101" name="Aktuelle Datei in Chrome betrachten"/>
 					<Item id="44103" name="Aktuelle Datei im IE betrachten"/>
@@ -623,20 +623,20 @@
 					<Item id="44066" name="Level 6 öffnen"/>
 					<Item id="44067" name="Level 7 öffnen"/>
 					<Item id="44068" name="Level 8 öffnen"/>
-					<Item id="44081" name="Zum Projektfenster 1 umschalten"/>
-					<Item id="44082" name="Zum Projektfenster 2 umschalten"/>
-					<Item id="44083" name="Zum Projektfenster 3 umschalten"/>
-					<Item id="44085" name="Zum Ordner als Arbeitsbereich umschalten"/>
-					<Item id="44080" name="Zur Miniaturansicht umschalten"/>
-					<Item id="44070" name="Zur Dokumentenliste umschalten"/>
-					<Item id="44084" name="Zur Funktionsliste umschalten"/>
-					<Item id="50005" name="Zur Makro-Aufzeichung umschalten"/>
+					<Item id="44081" name="Projektfenster 1 ein/aus"/>
+					<Item id="44082" name="Projektfenster 2 ein/aus"/>
+					<Item id="44083" name="Projektfenster 3 ein/aus"/>
+					<Item id="44085" name="Ordner als Arbeitsbereich ein/aus"/>
+					<Item id="44080" name="Miniaturansicht ein/aus"/>
+					<Item id="44070" name="Dokumentenliste ein/aus"/>
+					<Item id="44084" name="Funktionsliste ein/aus"/>
+					<Item id="50005" name="Makro-Aufzeichung ein/aus"/>
 					<Item id="44104" name="Zum Projektfenster 1 wechseln"/>
 					<Item id="44105" name="Zum Projektfenster 2 wechseln"/>
 					<Item id="44106" name="Zum Projektfenster 3 wechseln"/>
 					<Item id="44107" name="Zum Ordner als Arbeitsbereich wechseln"/>
-					<Item id="44109" name="Zur Dokumentenliste wechseln"/>
 					<Item id="44108" name="Zur Funktionsliste wechseln"/>
+					<Item id="44109" name="Zur Dokumentenliste wechseln"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Tastenkombi">
@@ -957,9 +957,9 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 				</Language>
 
 				<Highlighting title="Hervorhebung">
-					<Item id="6351" name="Alle Vorkommen der Markierung stilisieren"/>
-					<Item id="6352" name="Übereinstimmung der Groß-/Kleinschreibung"/>
-					<Item id="6353" name="Übereinstimmung ganzes Wort"/>
+					<Item id="6351" name="Alle Hervorheben"/>
+					<Item id="6352" name="Groß-/Kleinschreibung beachten"/>
+					<Item id="6353" name="Übereinstimmung mit ganzem Wort"/>
 					<Item id="6333" name="Automatische Hervorhebung bei Auswahl"/>
 					<Item id="6326" name="Hervorhebung aktivieren"/>
 					<Item id="6354" name="Übereinstimmung"/>
@@ -1008,7 +1008,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
-					<Item id="6905" name="Ersetzen: Folgendes Vorkommen nicht verschieben"/>
+					<Item id="6905" name="Ersetzen: Nicht zum folgenden Vorkommen springen"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1400,7 +1400,7 @@ Fortsetzen?"/>
 Finde in allen Dateien außer exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log"/>
 			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
-			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>			
+			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-replaceinfiles-re-malformed value="Ersetzen in geöffneten Dateien: Der Ausdruck ist nicht passend"/>

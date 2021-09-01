@@ -378,7 +378,7 @@ const int COLORSTYLE_FOREGROUND = 0x01;
 const int COLORSTYLE_BACKGROUND = 0x02;
 const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
 
-const size_t INDEX_UNDEFINED = std::string::npos;
+
 
 struct Style final
 {
@@ -439,26 +439,26 @@ struct StyleArray
 		s._bgColor = white;
 	}
 
-	size_t getStylerIndexByID(int id) const
+	int getStylerIndexByID(int id) const
 	{
 		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
 			if (_styleVect[i]._styleID == id)
 				return i;
 		}
-		return INDEX_UNDEFINED;
+		return -1;
 	}
 
-	size_t getStylerIndexByName(const generic_string & name) const
+	int getStylerIndexByName(const generic_string & name) const
 	{
 		if (name.empty())
-			return INDEX_UNDEFINED;
+			return -1;
 		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
 			if (_styleVect[i]._styleDesc == name)
 				return i;
 		}
-		return INDEX_UNDEFINED;
+		return -1;
 	}
 
 protected:
@@ -513,14 +513,14 @@ struct LexerStylerArray
 	size_t getNbLexer() const { return _lexerStylerVect.size(); }
 	void clear() { _lexerStylerVect.clear(); }
 
-	LexerStyler & getLexerFromIndex(int index)
+	LexerStyler & getLexerFromIndex(size_t index)
 	{
 		assert(index < _lexerStylerVect.size());
 		return _lexerStylerVect[index];
 	};
 
-	const TCHAR * getLexerNameFromIndex(int index) const {return _lexerStylerVect[index].getLexerName();}
-	const TCHAR * getLexerDescFromIndex(int index) const {return _lexerStylerVect[index].getLexerDesc();}
+	const TCHAR * getLexerNameFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerName(); }
+	const TCHAR * getLexerDescFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerDesc(); }
 
 	LexerStyler * getLexerStylerByName(const TCHAR *lexerName) {
 		if (!lexerName) return nullptr;

@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.4">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -26,7 +26,7 @@
                     <Item subMenuId="file-openFolder" name="Otvoriť priečinok &amp;súboru"/>
                     <Item subMenuId="file-closeMore" name="Zavrieť &amp;viacero súborov"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Naposledy otvorené súbory"/>
-                    <Item subMenuId="edit-insert" name="Vložiť"/>
+                    <Item subMenuId="edit-insert" name="Prilepiť"/>
                     <Item subMenuId="edit-copyToClipboard" name="Skopírovať do s&amp;chránky"/>
                     <Item subMenuId="edit-indent" name="&amp;Odsadiť"/>
                     <Item subMenuId="edit-convertCaseTo" name="&amp;Konverzia znakov"/>
@@ -113,6 +113,7 @@
                     <Item id="42020" name="Vybrať Začiatok/Konie&amp;c"/>
                     <Item id="42084" name="Dátum čas (krátky)"/>
                     <Item id="42085" name="Dátum čas (dlhý)"/>
+                    <Item id="42086" name="Dátum čas (vlastný)"/>
                     <Item id="42008" name="Zväčšiť odsadenie riadka"/>
                     <Item id="42009" name="Zmenšiť odsadenie riadka"/>
                     <Item id="42010" name="Duplikovať aktuálny riadok"/>
@@ -430,6 +431,12 @@
                 <Item id="1723" name="▼ Hľadať ďalší"/>
                 <Item id="1725" name="Kopírovať označený text"/>
             </Find>
+
+            <IncrementalFind title="">
+                <Item id="1681" name="Hľadať"/>
+                <Item id="1685" name="Rozlišovať malé/VEĽKÉ písmená"/>
+                <Item id="1690" name="Zvýrazniť všetky"/>
+            </IncrementalFind>
 
             <FindCharsInRange title = "Hľadať znaky v rozsahu">
                 <Item id="2" name="Zavrieť"/>
@@ -830,9 +837,6 @@
                     <Item id="6122" name="Skryť panel menu (Na prepínanie použite klávesu Alt alebo F10)"/>
                     <Item id="6123" name="Lokalizácia"/>
 
-                    <Item id="6125" name="Panel prepínača dokumentov"/>
-                    <Item id="6127" name="Nepoužívať stĺpec prípon"/>
-
                     <Item id="6128" name="Alternatívne ikony"/>
                 </Global>
                 <Scintillas title="Editor">
@@ -1041,12 +1045,15 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6866" name="Párové znaky 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Viacnásobné spustenie">
+                <MultiInstance title="Viacnásobné spustenie a dátum">
                     <Item id="6151" name="Nastavenie viacnásobného spustenia"/>
                     <Item id="6152" name="Otvárať reláciu v novej inštancii programu Notepad++"/>
                     <Item id="6153" name="Režim viacerých inštancií programu"/>
                     <Item id="6154" name="Len jedna inštancia programu (Predvolené)"/>
                     <Item id="6155" name="* Zmena nastavení vyžaduje reštart programu"/>
+                    <Item id="6171" name="Prispôsobiť vloženie dátumu a času"/>
+                    <Item id="6175" name="Obrátiť predvolené poradie dátumu a času (krátke a dlhé formáty)"/>
+                    <Item id="6172" name="Vlastný formát:"/>
                 </MultiInstance>
 
                 <Delimiter title="Oddeľovací znak">
@@ -1159,6 +1166,14 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                 <Item id="4" name="Áno pre &amp;všetky"/>
                 <Item id="5" name="N&amp;ie pre všetky"/>
             </DoSaveOrNot>
+            <DoSaveAll title="Potvrdenie Uložiť všetko">
+                <Item id="1766" name="Naozaj chcete uložiť všetky upravené dokumenty?
+Zvoľte &quot;Áno všetky&quot; ak nechcete znova zobraziť tento dialóg.
+Toto dialógové okno môžete neskôr znovu aktivovať v Preferenciách."/>
+                <Item id="6" name="&amp;Áno"/>
+                <Item id="7" name="&amp;Nie"/>
+                <Item id="4" name="Vždy áno"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Úprava kontextového menu" message="Úpravou súboru contextMenu.xml zmeníte vyskakovacie kontextové menu programu.
@@ -1250,13 +1265,10 @@ Chcete spustiť Notepad++ v režime správcu?"/>
 Chcete spustiť Notepad++ v režime správcu?"/>
             <OpenInAdminModeFailed title="Otvorenie v režime správcu zlyhalo" message="Notepad++ nie je možné spustiť v režime správcu."/>
             <ViewInBrowser title="Zobrazenie aktuálneho súboru v prehliadači" message="Aplikácia sa v systéme nenašla."/>
-            <ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
-Notepad++ will be restarted after all the operations are terminated.
-Continue?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
-            <SaveAllConfirm title="Potvrdenie Uložiť všetko" message="Naozaj chcete uložiť všetky dokumenty?
-Vyberte &quot;Zrušiť&quot; ak vaša odpoveď bude vždy &quot;Áno&quot; a nechcete túto otázku znova zobrazovať.
-Toto dialógové okno môžete neskôr znovu aktivovať v dialógovom okne Preferencie." />
+            <ExitToUpdatePlugins title="Notepad++ sa chystá ukončiť" message="Ak kliknete na ÁNO, ukončíte Notepad++ a budete môcť pokračovať v operáciách.
+Notepad++ sa reštartuje po ukončení všetkých operácií.
+Pokračovať?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných pluginov je potrebné Notepad++ reštartovať."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>
@@ -1265,6 +1277,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v dialógovom okne Prefe
             <PanelTitle name="Zoznam dokumentov"/>
             <ColumnName name="Názov"/>
             <ColumnExt name="Prípona"/>
+            <ColumnPath name="Cesta"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Názov"/>
@@ -1464,6 +1477,10 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <tab-untitled-string value="nový " />
             <file-save-assign-type value="&amp;Pripojiť príponu" />
             <close-panel-tip value="Zavrieť" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ výskytov" />
+            <IncrementalFind-FSNotFound value="Fráza sa nenašla" />
+            <IncrementalFind-FSTopReached value="Dosiahnutý začiatok strany, pokračovanie zdola" />
+            <IncrementalFind-FSEndReached value="Dosiahnutý koniec strany, pokračovanie zhora" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

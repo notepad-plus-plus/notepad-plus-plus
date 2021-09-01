@@ -1596,7 +1596,7 @@ COLORREF NppParameters::getCurLineHilitingColour()
 {
 	const Style * pStyle = _widgetStyleArray.getStylerByName(TEXT("Current line background colour"));
 	if (!pStyle)
-		return -1;
+		return ~COLORREF();
 	return pStyle->_bgColor;
 }
 

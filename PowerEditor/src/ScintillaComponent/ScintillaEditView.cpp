@@ -977,7 +977,7 @@ void ScintillaEditView::setJsLexer()
 	LexerStyler *pNewStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(newLexerName);
 	if (pNewStyler) // New js styler is available, so we can use it do more modern styling
 	{
-		for (int i = 0, nb = pNewStyler->getNbStyler(); i < nb; ++i)
+		for (size_t i = 0, nb = pNewStyler->getNbStyler(); i < nb; ++i)
 		{
 			Style & style = pNewStyler->getStyler(i);
 			setStyle(style);
@@ -1019,7 +1019,7 @@ void ScintillaEditView::setJsLexer()
 
 		if (pOldStyler)
 		{
-			for (int i = 0, nb = pOldStyler->getNbStyler(); i < nb; ++i)
+			for (size_t i = 0, nb = pOldStyler->getNbStyler(); i < nb; ++i)
 			{
 				Style style = pOldStyler->getStyler(i);	//not by reference, but copy
 				int cppID = style._styleID;
@@ -1288,7 +1288,7 @@ void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
-		for (int i = 0, nb = pStyler->getNbStyler(); i < nb ; ++i)
+		for (size_t i = 0, nb = pStyler->getNbStyler(); i < nb ; ++i)
 		{
 			Style & style = pStyler->getStyler(i);
 			setStyle(style);

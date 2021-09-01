@@ -27,6 +27,10 @@ typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrie
 #define SORT_DIRECTION_UP     0
 #define SORT_DIRECTION_DOWN   1
 
+#define FS_ROOTNODE					"DocList"
+#define FS_CLMNNAME					"ColumnName"
+#define FS_CLMNEXT					"ColumnExt"
+
 struct SwitcherFileInfo {
 	BufferID _bufID;
 	int _iView;

@@ -927,7 +927,7 @@ bool NppParameters::reloadStylers(const TCHAR* stylePath)
 		return false;
 	}
 	_lexerStylerVect.eraseAll();
-	_widgetStyleArray.setNbStyler( 0 );
+	_widgetStyleArray.clear();
 
 	getUserStylersFromXmlTree();
 
@@ -3593,8 +3593,6 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		 childNode ;
 		 childNode = childNode->NextSibling(TEXT("WidgetStyle")) )
 	{
-	 	if (!_widgetStyleArray.hasEnoughSpace()) return false;
-
 		TiXmlElement *element = childNode->ToElement();
 		const TCHAR *styleIDStr = element->Attribute(TEXT("styleID"));
 
@@ -3621,9 +3619,6 @@ void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexer
 		 childNode ;
 		 childNode = childNode->NextSibling(TEXT("WordsStyle")) )
 	{
-		if (!ls.hasEnoughSpace())
-			return;
-
 		TiXmlElement *element = childNode->ToElement();
 		const TCHAR *styleIDStr = element->Attribute(TEXT("styleID"));
 
@@ -3643,7 +3638,7 @@ void LexerStylerArray::eraseAll()
 
 	for (int i = 0 ; i < _nbLexerStyler ; ++i)
 	{
-		_lexerStylerVect[i].setNbStyler( 0 );
+		_lexerStylerVect[i].clear();
 	}
 
 	_nbLexerStyler = 0;
@@ -3651,22 +3646,16 @@ void LexerStylerArray::eraseAll()
 
 void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 {
-	int index = _nbStyler;
 	bool isUser = styleID >> 16 == L_USER;
 	if (isUser)
 	{
 		styleID = (styleID & 0xFFFF);
-		index = styleID;
-		if (index >= SCE_USER_STYLE_TOTAL_STYLES || _styleVect[index]._styleID != -1)
-			return;
-	}
-	else
-	{
-		if (index >= STYLE_ARR_MAX_SIZE)
+		if (styleID >= SCE_USER_STYLE_TOTAL_STYLES)
 			return;
 	}
 
-	_styleVect[index]._styleID = styleID;
+	Style & s = _styleVect.emplace_back();
+	s._styleID = styleID;
 
 	if (styleNode)
 	{
@@ -3680,16 +3669,16 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		if (str)
 		{
 			if (isUser)
-				_styleVect[index]._styleDesc = globalMappper().styleNameMapper[index].c_str();
+				s._styleDesc = globalMappper().styleNameMapper[styleID];
 			else
-				_styleVect[index]._styleDesc = str;
+				s._styleDesc = str;
 		}
 
 		str = element->Attribute(TEXT("fgColor"));
 		if (str)
 		{
 			unsigned long result = hexStrVal(str);
-			_styleVect[index]._fgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
+			s._fgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 
 		}
 
@@ -3697,52 +3686,51 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		if (str)
 		{
 			unsigned long result = hexStrVal(str);
-			_styleVect[index]._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
+			s._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 		}
 
 		str = element->Attribute(TEXT("colorStyle"));
 		if (str)
 		{
-			_styleVect[index]._colorStyle = decStrVal(str);
+			s._colorStyle = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("fontName"));
 		if (str)
 		{
-			_styleVect[index]._fontName = str;
+			s._fontName = str;
 		}
 
 		str = element->Attribute(TEXT("fontStyle"));
 		if (str)
 		{
-			_styleVect[index]._fontStyle = decStrVal(str);
+			s._fontStyle = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("fontSize"));
 		if (str)
 		{
-			_styleVect[index]._fontSize = decStrVal(str);
+			s._fontSize = decStrVal(str);
 		}
 		str = element->Attribute(TEXT("nesting"));
 
 		if (str)
 		{
-			_styleVect[index]._nesting = decStrVal(str);
+			s._nesting = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("keywordClass"));
 		if (str)
 		{
-			_styleVect[index]._keywordClass = getKwClassFromName(str);
+			s._keywordClass = getKwClassFromName(str);
 		}
 
 		TiXmlNode *v = styleNode->FirstChild();
 		if (v)
 		{
-			_styleVect[index]._keywords = v->Value();
+			s._keywords = v->Value();
 		}
 	}
-	++_nbStyler;
 }
 
 bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
@@ -7222,7 +7210,7 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
 		if (oldFontName != style2Write._fontName)
 		{
 			element->SetAttribute(TEXT("fontName"), style2Write._fontName);
-			style2Sync._fontName = style2Write._fontName = element->Attribute(TEXT("fontName"));
+			style2Sync._fontName = style2Write._fontName;
 		}
 	}
 

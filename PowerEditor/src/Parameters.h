@@ -380,9 +380,9 @@ const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
 
 
 
-struct Style
+struct Style final
 {
-	int _styleID = -1;
+	int _styleID = STYLE_NOT_USED;
 	generic_string _styleDesc;
 
 	COLORREF _fgColor = COLORREF(STYLE_NOT_USED);
@@ -410,48 +410,31 @@ struct GlobalOverride final
 	bool enableUnderLine = false;
 };
 
-const int STYLE_ARR_MAX_SIZE = 31;
-
 struct StyleArray
 {
-public:
-	StyleArray & operator=(const StyleArray & sa)
-	{
-		if (this != &sa)
-		{
-			this->_nbStyler = sa._nbStyler;
-			for (int i = 0 ; i < _nbStyler ; ++i)
-			{
-				this->_styleVect[i] = sa._styleVect[i];
-			}
-		}
-		return *this;
-	}
-
-	int getNbStyler() const {return _nbStyler;};
-	void setNbStyler(int nb) {_nbStyler = nb;};
+	int getNbStyler() const { return _styleVect.size(); }
+	void clear() { _styleVect.clear(); }
 
 	Style& getStyler(size_t index)
 	{
-		assert(index < STYLE_ARR_MAX_SIZE);
+		assert(index < _styleVect.size());
 		return _styleVect[index];
 	}
 
-	bool hasEnoughSpace() {return (_nbStyler < STYLE_ARR_MAX_SIZE);};
 	void addStyler(int styleID, TiXmlNode *styleNode);
 
-	void addStyler(int styleID, const TCHAR *styleName)
+	void addStyler(int styleID, const generic_string & styleName)
 	{
-		_styleVect[styleID]._styleID = styleID;
-		_styleVect[styleID]._styleDesc = styleName;
-		_styleVect[styleID]._fgColor = black;
-		_styleVect[styleID]._bgColor = white;
-		++_nbStyler;
+		Style & s = _styleVect.emplace_back();
+		s._styleID = styleID;
+		s._styleDesc = styleName;
+		s._fgColor = black;
+		s._bgColor = white;
 	}
 
-	int getStylerIndexByID(int id)
+	size_t getStylerIndexByID(int id) const
 	{
-		for (int i = 0 ; i < _nbStyler ; ++i)
+		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
 			if (_styleVect[i]._styleID == id)
 				return i;
@@ -459,11 +442,11 @@ public:
 		return -1;
 	}
 
-	int getStylerIndexByName(const generic_string & name) const
+	size_t getStylerIndexByName(const generic_string & name) const
 	{
 		if (name.empty())
 			return -1;
-		for (int i = 0 ; i < _nbStyler ; ++i)
+		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
 			if (_styleVect[i]._styleDesc == name)
 				return i;
@@ -472,8 +455,7 @@ public:
 	}
 
 protected:
-	std::vector<Style> _styleVect = std::vector<Style>(STYLE_ARR_MAX_SIZE);
-	int _nbStyler = 0;
+	std::vector<Style> _styleVect;
 };
 
 

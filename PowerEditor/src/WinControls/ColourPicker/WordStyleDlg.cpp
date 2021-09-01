@@ -146,11 +146,11 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), _isDirty);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
 
+			loadLangListFromNppParam();
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();
 			goToCenter();
 
-			loadLangListFromNppParam();
 			return TRUE;
 		}
 

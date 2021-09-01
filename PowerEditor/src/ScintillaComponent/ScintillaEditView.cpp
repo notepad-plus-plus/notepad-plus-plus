@@ -515,16 +515,14 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 
     if (!styleToSet._fontName.empty())
 	{
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-
 		if (!NppParameters::getInstance().isInFontList(styleToSet._fontName))
 		{
 			execute(SCI_STYLESETFONT, styleID, reinterpret_cast<LPARAM>(DEFAULT_FONT_NAME));
 		}
 		else
 		{
-			const char * fontNameA = wmc.wchar2char(styleToSet._fontName.c_str(), CP_UTF8);
-			execute(SCI_STYLESETFONT, styleID, reinterpret_cast<LPARAM>(fontNameA));
+			std::string fontNameA = wstring2string(styleToSet._fontName, CP_UTF8);
+			execute(SCI_STYLESETFONT, styleID, reinterpret_cast<LPARAM>(fontNameA.c_str()));
 		}
 	}
 	int fontStyle = styleToSet._fontStyle;

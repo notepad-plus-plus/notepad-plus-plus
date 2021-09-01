@@ -412,12 +412,18 @@ struct GlobalOverride final
 
 struct StyleArray
 {
-	int getNbStyler() const { return _styleVect.size(); }
+	size_t getNbStyler() const { return _styleVect.size(); }
 	void clear() { _styleVect.clear(); }
 
 	Style& getStyler(size_t index)
 	{
 		assert(index < _styleVect.size());
+		// FIXME: there are callers that expect to get something even for out-of-bounds requests
+		if (index >= _styleVect.size())
+		{
+			static Style empty;
+			return empty;
+		}
 		return _styleVect[index];
 	}
 
@@ -501,28 +507,14 @@ private :
 
 
 
-const int MAX_LEXER_STYLE = 100;
-
 struct LexerStylerArray
 {
-public :
-	LexerStylerArray() : _nbLexerStyler(0){};
-
-	LexerStylerArray & operator=(const LexerStylerArray & lsa)
-	{
-		if (this != &lsa)
-		{
-			this->_nbLexerStyler = lsa._nbLexerStyler;
-			for (int i = 0 ; i < this->_nbLexerStyler ; ++i)
-				this->_lexerStylerVect[i] = lsa._lexerStylerVect[i];
-		}
-		return *this;
-	}
-
-	int getNbLexer() const {return _nbLexerStyler;};
+	size_t getNbLexer() const { return _lexerStylerVect.size(); }
+	void clear() { _lexerStylerVect.clear(); }
 
 	LexerStyler & getLexerFromIndex(int index)
 	{
+		assert(index < _lexerStylerVect.size());
 		return _lexerStylerVect[index];
 	};
 
@@ -530,20 +522,18 @@ public :
 	const TCHAR * getLexerDescFromIndex(int index) const {return _lexerStylerVect[index].getLexerDesc();}
 
 	LexerStyler * getLexerStylerByName(const TCHAR *lexerName) {
-		if (!lexerName) return NULL;
-		for (int i = 0 ; i < _nbLexerStyler ; ++i)
+		if (!lexerName) return nullptr;
+		for (size_t i = 0 ; i < _lexerStylerVect.size() ; ++i)
 		{
 			if (!lstrcmp(_lexerStylerVect[i].getLexerName(), lexerName))
 				return &(_lexerStylerVect[i]);
 		}
-		return NULL;
+		return nullptr;
 	};
-	bool hasEnoughSpace() {return (_nbLexerStyler < MAX_LEXER_STYLE);};
 	void addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt, TiXmlNode *lexerNode);
-	void eraseAll();
+
 private :
-	std::vector<LexerStyler> _lexerStylerVect = std::vector<LexerStyler>(MAX_LEXER_STYLE);
-	int _nbLexerStyler;
+	std::vector<LexerStyler> _lexerStylerVect;
 };
 
 

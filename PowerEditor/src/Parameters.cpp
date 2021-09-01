@@ -926,7 +926,7 @@ bool NppParameters::reloadStylers(const TCHAR* stylePath)
 		_pXmlUserStylerDoc = NULL;
 		return false;
 	}
-	_lexerStylerVect.eraseAll();
+	_lexerStylerVect.clear();
 	_widgetStyleArray.clear();
 
 	getUserStylersFromXmlTree();
@@ -3566,8 +3566,6 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		 childNode ;
 		 childNode = childNode->NextSibling(TEXT("LexerType")) )
 	{
-	 	if (!_lexerStylerVect.hasEnoughSpace()) return false;
-
 		TiXmlElement *element = childNode->ToElement();
 		const TCHAR *lexerName = element->Attribute(TEXT("name"));
 		const TCHAR *lexerDesc = element->Attribute(TEXT("desc"));
@@ -3607,7 +3605,7 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 
 void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt , TiXmlNode *lexerNode)
 {
-	LexerStyler & ls = _lexerStylerVect[_nbLexerStyler++];
+	LexerStyler & ls = _lexerStylerVect.emplace_back();
 	ls.setLexerName(lexerName);
 	if (lexerDesc)
 		ls.setLexerDesc(lexerDesc);
@@ -3631,17 +3629,6 @@ void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexer
 			}
 		}
 	}
-}
-
-void LexerStylerArray::eraseAll()
-{
-
-	for (int i = 0 ; i < _nbLexerStyler ; ++i)
-	{
-		_lexerStylerVect[i].clear();
-	}
-
-	_nbLexerStyler = 0;
 }
 
 void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)

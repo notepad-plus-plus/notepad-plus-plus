@@ -415,10 +415,10 @@ struct StyleArray
 	size_t getNbStyler() const { return _styleVect.size(); }
 	void clear() { _styleVect.clear(); }
 
-	Style& getStyler(size_t index)
+	Style & getStyler(size_t index)
 	{
 		assert(index < _styleVect.size());
-		// FIXME: there are callers that expect to get something even for out-of-bounds requests
+		// FIXME: there may be callers that expect to get something even for out-of-bounds requests
 		if (index >= _styleVect.size())
 		{
 			static Style empty;
@@ -439,26 +439,24 @@ struct StyleArray
 		s._bgColor = white;
 	}
 
-	int getStylerIndexByID(int id) const
+	Style * getStylerByID(int id)
 	{
 		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
 			if (_styleVect[i]._styleID == id)
-				return i;
+				return &(_styleVect[i]);
 		}
-		return -1;
+		return nullptr;
 	}
 
-	int getStylerIndexByName(const generic_string & name) const
+	Style * getStylerByName(const generic_string & name)
 	{
-		if (name.empty())
-			return -1;
 		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
 			if (_styleVect[i]._styleDesc == name)
-				return i;
+				return &(_styleVect[i]);
 		}
-		return -1;
+		return nullptr;
 	}
 
 protected:
@@ -1020,8 +1018,8 @@ public:
 			this->_forcePureLC = ulc._forcePureLC;
 			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
-			int nbStyler = this->_styles.getNbStyler();
-			for (int i = 0 ; i < nbStyler ; ++i)
+			size_t nbStyler = this->_styles.getNbStyler();
+			for (size_t i = 0 ; i < nbStyler ; ++i)
 			{
 				Style & st = this->_styles.getStyler(i);
 				if (st._bgColor == COLORREF(-1))
@@ -1869,7 +1867,7 @@ private:
 	void getActions(TiXmlNode *node, Macro & macro);
 	bool getShortcuts(TiXmlNode *node, Shortcut & sc);
 
-	void writeStyle2Element(Style & style2Write, Style & style2Sync, TiXmlElement *element);
+	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
 	void insertCmd(TiXmlNode *cmdRoot, const CommandShortcut & cmd);
 	void insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro);

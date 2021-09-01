@@ -1594,22 +1594,19 @@ UserLangContainer* NppParameters::getULCFromName(const TCHAR *userLangName)
 
 COLORREF NppParameters::getCurLineHilitingColour()
 {
-	int i = _widgetStyleArray.getStylerIndexByName(TEXT("Current line background colour"));
-	if (i == -1)
-		return i;
-	Style & style = _widgetStyleArray.getStyler(i);
-	return style._bgColor;
+	const Style * pStyle = _widgetStyleArray.getStylerByName(TEXT("Current line background colour"));
+	if (!pStyle)
+		return -1;
+	return pStyle->_bgColor;
 }
 
 
 void NppParameters::setCurLineHilitingColour(COLORREF colour2Set)
 {
-	int i = _widgetStyleArray.getStylerIndexByName(TEXT("Current line background colour"));
-	if (i == -1)
+	Style * pStyle = _widgetStyleArray.getStylerByName(TEXT("Current line background colour"));
+	if (!pStyle)
 		return;
-
-	Style& style = _widgetStyleArray.getStyler(i);
-	style._bgColor = colour2Set;
+	pStyle->_bgColor = colour2Set;
 }
 
 
@@ -7065,14 +7062,11 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 			{
 				TiXmlElement *grElement = grChildNode->ToElement();
 				const TCHAR *styleName = grElement->Attribute(TEXT("name"));
-
-				int i = pLs->getStylerIndexByName(styleName);
-				if (i != -1)
+				const Style * pStyle = pLs->getStylerByName(styleName);
+				Style * pStyle2Sync = pLs2 ? pLs2->getStylerByName(styleName) : nullptr;
+				if (pStyle && pStyle2Sync)
 				{
-					Style & style = pLs->getStyler(i);
-					Style & style2Sync = pLs2->getStyler(i);
-
-					writeStyle2Element(style, style2Sync, grElement);
+					writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
 				}
 			}
 		}
@@ -7102,14 +7096,11 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 				{
 					TiXmlElement *grElement = grChildNode->ToElement();
 					const TCHAR *styleName = grElement->Attribute(TEXT("name"));
-
-					int i = pLs->getStylerIndexByName(styleName);
-					if (i != -1)
+					const Style * pStyle = pLs->getStylerByName(styleName);
+					Style * pStyle2Sync = pLs2 ? pLs2->getStylerByName(styleName) : nullptr;
+					if (pStyle && pStyle2Sync)
 					{
-						Style & style = pLs->getStyler(i);
-						Style & style2Sync = pLs2->getStyler(i);
-
-						writeStyle2Element(style, style2Sync, grElement);
+						writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
 					}
 				}
 			}
@@ -7125,14 +7116,11 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 	{
 		TiXmlElement *pElement = childNode->ToElement();
 		const TCHAR *styleName = pElement->Attribute(TEXT("name"));
-		int i = _widgetStyleArray.getStylerIndexByName(styleName);
-
-		if (i != -1)
+		const Style * pStyle = _widgetStyleArray.getStylerByName(styleName);
+		Style * pStyle2Sync = globalStylers.getStylerByName(styleName);
+		if (pStyle && pStyle2Sync)
 		{
-			Style & style = _widgetStyleArray.getStyler(i);
-			Style & style2Sync = globalStylers.getStyler(i);
-
-			writeStyle2Element(style, style2Sync, pElement);
+			writeStyle2Element(*pStyle, *pStyle2Sync, pElement);
 		}
 	}
 
@@ -7170,7 +7158,7 @@ bool NppParameters::insertTabInfo(const TCHAR *langName, int tabInfo)
 	return false;
 }
 
-void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, TiXmlElement *element)
+void NppParameters::writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element)
 {
 	if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
 	{

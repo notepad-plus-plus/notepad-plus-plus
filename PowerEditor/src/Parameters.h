@@ -378,7 +378,7 @@ const int COLORSTYLE_FOREGROUND = 0x01;
 const int COLORSTYLE_BACKGROUND = 0x02;
 const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
 
-
+const size_t INDEX_UNDEFINED = std::string::npos;
 
 struct Style final
 {
@@ -431,7 +431,8 @@ struct StyleArray
 
 	void addStyler(int styleID, const generic_string & styleName)
 	{
-		Style & s = _styleVect.emplace_back();
+		_styleVect.emplace_back();
+		Style & s = _styleVect.back();
 		s._styleID = styleID;
 		s._styleDesc = styleName;
 		s._fgColor = black;
@@ -445,19 +446,19 @@ struct StyleArray
 			if (_styleVect[i]._styleID == id)
 				return i;
 		}
-		return -1;
+		return INDEX_UNDEFINED;
 	}
 
 	size_t getStylerIndexByName(const generic_string & name) const
 	{
 		if (name.empty())
-			return -1;
+			return INDEX_UNDEFINED;
 		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
 			if (_styleVect[i]._styleDesc == name)
 				return i;
 		}
-		return -1;
+		return INDEX_UNDEFINED;
 	}
 
 protected:

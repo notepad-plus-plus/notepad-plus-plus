@@ -3605,7 +3605,8 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 
 void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt , TiXmlNode *lexerNode)
 {
-	LexerStyler & ls = _lexerStylerVect.emplace_back();
+	_lexerStylerVect.emplace_back();
+	LexerStyler & ls = _lexerStylerVect.back();
 	ls.setLexerName(lexerName);
 	if (lexerDesc)
 		ls.setLexerDesc(lexerDesc);
@@ -3641,7 +3642,8 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 			return;
 	}
 
-	Style & s = _styleVect.emplace_back();
+	_styleVect.emplace_back();
+	Style & s = _styleVect.back();
 	s._styleID = styleID;
 
 	if (styleNode)

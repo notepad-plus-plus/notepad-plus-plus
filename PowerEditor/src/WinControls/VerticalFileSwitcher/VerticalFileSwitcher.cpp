@@ -20,6 +20,12 @@
 #include "menuCmdID.h"
 #include "Parameters.h"
 #include "resource.h"
+#include "localization.h"
+
+#define GET_X_LPARAM(lp) static_cast<short>(LOWORD(lp))
+#define GET_Y_LPARAM(lp) static_cast<short>(HIWORD(lp))
+
+#define CLMNEXT_ID     1
 
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
@@ -64,6 +70,8 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 	{
 		case WM_INITDIALOG :
 		{
+			VerticalFileSwitcher::initPopupMenus();
+
 			_fileListView.init(_hInst, _hSelf, _hImaLst);
 			_fileListView.initList();
 			_fileListView.display();
@@ -127,7 +135,7 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 
 					if (lpnmitem->hdr.hwndFrom != _fileListView.getHSelf())
 					{
-						// Do nothing
+						colHeaderRClick = true;
 						return TRUE;
 					}
 
@@ -226,9 +234,26 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
             break;
         }
         
+		case WM_CONTEXTMENU:
+		{
+			if (nbSelectedFiles() == 0 || colHeaderRClick)
+			{
+				::TrackPopupMenu(_hGlobalMenu, TPM_LEFTALIGN, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), 0, _hSelf, NULL);
+				colHeaderRClick = false;
+			}
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			popupMenuCmd(LOWORD(wParam));
+			break;
+		}
+
 		case WM_DESTROY:
         {
 			_fileListView.destroy();
+			::DestroyMenu(_hGlobalMenu);
             break;
         }
 
@@ -238,6 +263,33 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
+void VerticalFileSwitcher::initPopupMenus()
+{
+	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
+
+	_hGlobalMenu = ::CreatePopupMenu();
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNEXT_ID, extStr.c_str());
+
+	bool isExtColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutExtColumn;
+	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
+}
+
+void VerticalFileSwitcher::popupMenuCmd(int cmdID)
+{
+	switch (cmdID)
+	{
+		case CLMNEXT_ID:
+		{
+			bool& isExtColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutExtColumn;
+			isExtColumn = !isExtColumn;
+			::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
+			reload();
+		}
+		break;
+	}
+}
 
 void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 {

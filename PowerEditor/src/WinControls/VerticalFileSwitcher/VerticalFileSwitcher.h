@@ -101,8 +101,13 @@ public:
 		_fileListView.setForegroundColor(fgColour);
     };
 protected:
+	HMENU _hGlobalMenu = NULL;
+
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void initPopupMenus();
+	void popupMenuCmd(int cmdID);
 private:
+	bool colHeaderRClick = false;
 	int _lastSortingColumn = 0;
 	int _lastSortingDirection = SORT_DIRECTION_NONE;
 	VerticalFileSwitcherListView _fileListView;

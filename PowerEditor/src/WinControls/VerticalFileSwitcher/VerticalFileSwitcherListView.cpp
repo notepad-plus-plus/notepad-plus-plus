@@ -20,10 +20,6 @@
 #include "Buffer.h"
 #include "localization.h"
 
-#define FS_ROOTNODE					"DocList"
-#define FS_CLMNNAME					"ColumnName"
-#define FS_CLMNEXT					"ColumnExt"
-
 void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst)
 {
 	Window::init(hInst, parent);

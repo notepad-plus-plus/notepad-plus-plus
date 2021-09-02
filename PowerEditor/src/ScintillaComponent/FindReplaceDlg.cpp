@@ -4259,7 +4259,7 @@ void Finder::setFinderStyle()
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
-		const Style * pStyle = pStyler->getStylerByID(SCE_SEARCHRESULT_CURRENT_LINE);
+		const Style * pStyle = pStyler->findByID(SCE_SEARCHRESULT_CURRENT_LINE);
 		if (pStyle)
 		{
 			_scintView.execute(SCI_SETCARETLINEBACK, pStyle->_bgColor);
@@ -4269,7 +4269,7 @@ void Finder::setFinderStyle()
 
 	// Override foreground & background colour by default foreground & background coulour
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
-	Style * pStyleDefault = stylers.getStylerByID(STYLE_DEFAULT);
+	Style * pStyleDefault = stylers.findByID(STYLE_DEFAULT);
 	if (pStyleDefault)
 	{
 		_scintView.setStyle(*pStyleDefault);
@@ -4277,7 +4277,7 @@ void Finder::setFinderStyle()
 		GlobalOverride & go = NppParameters::getInstance().getGlobalOverrideStyle();
 		if (go.isEnable())
 		{
-			const Style * pStyleGlobalOverride = stylers.getStylerByName(TEXT("Global override"));
+			const Style * pStyleGlobalOverride = stylers.findByName(TEXT("Global override"));
 			if (pStyleGlobalOverride)
 			{
 				if (go.enableFg)

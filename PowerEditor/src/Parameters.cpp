@@ -1594,16 +1594,16 @@ UserLangContainer* NppParameters::getULCFromName(const TCHAR *userLangName)
 
 COLORREF NppParameters::getCurLineHilitingColour()
 {
-	const Style * pStyle = _widgetStyleArray.getStylerByName(TEXT("Current line background colour"));
+	const Style * pStyle = _widgetStyleArray.findByName(TEXT("Current line background colour"));
 	if (!pStyle)
-		return ~COLORREF();
+		return COLORREF(-1);
 	return pStyle->_bgColor;
 }
 
 
 void NppParameters::setCurLineHilitingColour(COLORREF colour2Set)
 {
-	Style * pStyle = _widgetStyleArray.getStylerByName(TEXT("Current line background colour"));
+	Style * pStyle = _widgetStyleArray.findByName(TEXT("Current line background colour"));
 	if (!pStyle)
 		return;
 	pStyle->_bgColor = colour2Set;
@@ -2771,11 +2771,11 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			feedUserStyles(stylesRoot);
 
 			// styles that were not read from xml file should get default values
-			for (int i=0; i<SCE_USER_STYLE_TOTAL_STYLES; ++i)
+			for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
 			{
-				Style & style = _userLangArray[_nbUserLang - 1]->_styles.getStyler(i);
-				if (style._styleID == -1)
-					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, globalMappper().styleNameMapper[i].c_str());
+				const Style * pStyle = _userLangArray[_nbUserLang - 1]->_styles.findByID(i);
+				if (!pStyle)
+					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, globalMappper().styleNameMapper[i]);
 			}
 
 		}
@@ -3635,7 +3635,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 	if (isUser)
 	{
 		styleID = (styleID & 0xFFFF);
-		if (styleID >= SCE_USER_STYLE_TOTAL_STYLES)
+		if (styleID >= SCE_USER_STYLE_TOTAL_STYLES || findByID(styleID))
 			return;
 	}
 
@@ -7062,8 +7062,8 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 			{
 				TiXmlElement *grElement = grChildNode->ToElement();
 				const TCHAR *styleName = grElement->Attribute(TEXT("name"));
-				const Style * pStyle = pLs->getStylerByName(styleName);
-				Style * pStyle2Sync = pLs2 ? pLs2->getStylerByName(styleName) : nullptr;
+				const Style * pStyle = pLs->findByName(styleName);
+				Style * pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
 				if (pStyle && pStyle2Sync)
 				{
 					writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
@@ -7096,8 +7096,8 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 				{
 					TiXmlElement *grElement = grChildNode->ToElement();
 					const TCHAR *styleName = grElement->Attribute(TEXT("name"));
-					const Style * pStyle = pLs->getStylerByName(styleName);
-					Style * pStyle2Sync = pLs2 ? pLs2->getStylerByName(styleName) : nullptr;
+					const Style * pStyle = pLs->findByName(styleName);
+					Style * pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
 					if (pStyle && pStyle2Sync)
 					{
 						writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
@@ -7116,8 +7116,8 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 	{
 		TiXmlElement *pElement = childNode->ToElement();
 		const TCHAR *styleName = pElement->Attribute(TEXT("name"));
-		const Style * pStyle = _widgetStyleArray.getStylerByName(styleName);
-		Style * pStyle2Sync = globalStylers.getStylerByName(styleName);
+		const Style * pStyle = _widgetStyleArray.findByName(styleName);
+		Style * pStyle2Sync = globalStylers.findByName(styleName);
 		if (pStyle && pStyle2Sync)
 		{
 			writeStyle2Element(*pStyle, *pStyle2Sync, pElement);
@@ -7183,8 +7183,8 @@ void NppParameters::writeStyle2Element(const Style & style2Write, Style & style2
 
 	if (!style2Write._fontName.empty())
 	{
-		const generic_string oldFontName = element->Attribute(TEXT("fontName"));
-		if (oldFontName != style2Write._fontName)
+		const TCHAR * oldFontName = element->Attribute(TEXT("fontName"));
+		if (oldFontName && oldFontName != style2Write._fontName)
 		{
 			element->SetAttribute(TEXT("fontName"), style2Write._fontName);
 			style2Sync._fontName = style2Write._fontName;
@@ -7255,10 +7255,9 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 	TiXmlElement *styleRootElement = (rootElement->InsertEndChild(TiXmlElement(TEXT("Styles"))))->ToElement();
 
-	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
+	for (const Style & style2Write : userLang->_styles)
 	{
 		TiXmlElement *styleElement = (styleRootElement->InsertEndChild(TiXmlElement(TEXT("WordsStyle"))))->ToElement();
-		Style style2Write = userLang->_styles.getStyler(i);
 
 		if (style2Write._styleID == -1)
 			continue;

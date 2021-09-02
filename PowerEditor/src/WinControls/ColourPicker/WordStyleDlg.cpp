@@ -808,9 +808,8 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
 	StyleArray & lexerStyler = index?_lsArray.getLexerFromIndex(index-1):_globalStyles;
 
-	for (size_t i = 0, nb = lexerStyler.getNbStyler() ; i < nb ; ++i)
+	for (const Style & style : lexerStyler)
 	{
-		Style & style = lexerStyler.getStyler(i);
 		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(style._styleDesc.c_str()));
 	}
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, 0, 0);

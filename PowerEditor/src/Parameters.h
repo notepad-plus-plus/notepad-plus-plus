@@ -412,18 +412,14 @@ struct GlobalOverride final
 
 struct StyleArray
 {
-	size_t getNbStyler() const { return _styleVect.size(); }
+	//auto size() const { return _styleVect.size(); }
+	auto begin() { return _styleVect.begin(); }
+	auto end() { return _styleVect.end(); }
 	void clear() { _styleVect.clear(); }
 
 	Style & getStyler(size_t index)
 	{
 		assert(index < _styleVect.size());
-		// FIXME: there may be callers that expect to get something even for out-of-bounds requests
-		if (index >= _styleVect.size())
-		{
-			static Style empty;
-			return empty;
-		}
 		return _styleVect[index];
 	}
 
@@ -439,7 +435,7 @@ struct StyleArray
 		s._bgColor = white;
 	}
 
-	Style * getStylerByID(int id)
+	Style * findByID(int id)
 	{
 		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
@@ -449,7 +445,7 @@ struct StyleArray
 		return nullptr;
 	}
 
-	Style * getStylerByName(const generic_string & name)
+	Style * findByName(const generic_string & name)
 	{
 		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
 		{
@@ -1018,10 +1014,8 @@ public:
 			this->_forcePureLC = ulc._forcePureLC;
 			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
-			size_t nbStyler = this->_styles.getNbStyler();
-			for (size_t i = 0 ; i < nbStyler ; ++i)
+			for (Style & st : this->_styles)
 			{
-				Style & st = this->_styles.getStyler(i);
 				if (st._bgColor == COLORREF(-1))
 					st._bgColor = white;
 				if (st._fgColor == COLORREF(-1))

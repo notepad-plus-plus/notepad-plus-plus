@@ -681,7 +681,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Initialize the default foreground & background color
 	//
 	{
-		const Style * pStyle = nppParam.getGlobalStylers().getStylerByID(STYLE_DEFAULT);
+		const Style * pStyle = nppParam.getGlobalStylers().findByID(STYLE_DEFAULT);
 		if (pStyle)
 		{
 			nppParam.setCurrentDefaultFgColor(pStyle->_fgColor);
@@ -2257,7 +2257,7 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 
 	for (int j = 0; j < sizeof(bitmapOnStyleMenuItemsInfo) / sizeof(bitmapOnStyleMenuItemsInfo[0]); ++j)
 	{
-		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().getStylerByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
+		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
 		if (pStyle)
 		{
 
@@ -6364,7 +6364,7 @@ generic_string Notepad_plus::getLangFromMenu(const Buffer * buf)
 
 Style * Notepad_plus::getStyleFromName(const TCHAR *styleName)
 {
-	return NppParameters::getInstance().getMiscStylerArray().getStylerByName(styleName);
+	return NppParameters::getInstance().getMiscStylerArray().findByName(styleName);
 }
 
 bool Notepad_plus::noOpenedDoc() const

@@ -1796,7 +1796,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			drawDocumentMapColoursFromStylerArray();
 
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
-			const Style * pStyle = NppParameters::getInstance().getGlobalStylers().getStylerByID(STYLE_DEFAULT);
+			const Style * pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
 			if (pStyle)
 			{
 				NppParameters::getInstance().setCurrentDefaultFgColor(pStyle->_fgColor);
@@ -2536,7 +2536,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 
 			COLORREF multiEdgeColor = liteGrey;
-			const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().getStylerByName(TEXT("Edge colour"));
+			const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByName(TEXT("Edge colour"));
 			if (pStyle)
 			{
 				multiEdgeColor = pStyle->_fgColor;

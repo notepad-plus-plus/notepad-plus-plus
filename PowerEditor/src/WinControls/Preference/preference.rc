@@ -392,8 +392,8 @@ BEGIN
     LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,110,70,239,20
     GROUPBOX        "Customize insert Date Time",IDC_DATETIMEFORMAT_GB_STATIC,90,97,268,105,BS_CENTER
     CONTROL         "Reverse default date time order (short && long formats)",IDD_DATETIMEFORMAT_REVERSEORDER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,103,113,241,10
-    RTEXT           "Y-M-D h:m:s\nh:m:s D/M/Y\nM D, Y h:m",IDC_STATIC,134,142,77,25
-    LTEXT           "1985-10-26 01:24:00\n01:24:00 26/10/1985\n10 26, 1985 01:24",IDC_STATIC,234,142,94,25
+    RTEXT           "yyyy-MM-dd HH:mm:ss\nHH:mm:ss dd/MMM/yy\nMM dd, yyyy h:m",IDC_STATIC,134,142,77,25
+    LTEXT           "1985-10-26 01:24:00\n01:24:00 26/Oct/85\n10 26, 1985 1:24",IDC_STATIC,234,142,94,25
     RTEXT           "Custom format:",IDD_DATETIMEFORMAT_STATIC,92,172,71,8
     EDITTEXT        IDC_DATETIMEFORMAT_EDIT,164,170,179,14,ES_AUTOHSCROLL
     LTEXT           "",IDD_DATETIMEFORMAT_RESULT_STATIC,166,187,180,8

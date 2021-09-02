@@ -1338,60 +1338,29 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	TCHAR buffer[bufferSize] = {};
 	int ret = 0;
 
-	// 1. Escape 'tt' that means AM/PM or 't' that means A/M.
-	// This is needed to avoid conflict with 'M' date format that stands for month.
+	// 1. Remove format specifiers that we don't support:
+	//    - 'tt' that means AM/PM or 't' that means A/M
+	//    - 'g', 'gg' that means B.C. or A.D.
+	// Note: If 'tt' is supported it will need to be properly escaped
+	// to avoid conflict with 'M' date format that stands for month.
 	generic_string newFormat = dateTimeFormat;
-	const TCHAR escapedChar = 0x1;
-	bool hasMidday = false;
-	for (auto& ch : newFormat)
-	{
-		if (ch == 't')
-		{
-			ch = escapedChar;
-			hasMidday = true;
-		}
-	}
+	auto it = std::remove_if(newFormat.begin(), newFormat.end(),
+		[](generic_string::value_type x) { return x == 't' || x == 'g'; });
+	newFormat.erase(it, newFormat.end());
 
-	// 2. Format the AM/PM string.
-	generic_string midday = _T("tt");
-	if (hasMidday)
-	{
-		ret = GetTimeFormatEx(localeName, flags, &st, midday.c_str(), &midday[0], static_cast<int>(midday.size()));
-		if (ret == 0)
-			midday = _T("tt");
-	}
-
-	// 3. Format the time (h/m/s/t/H).
+	// 2. Format the time (h/m/s/t/H).
 	ret = GetTimeFormatEx(localeName, flags, &st, newFormat.c_str(), buffer, bufferSize);
 	if (ret != 0)
 	{
-		// 4. Format the date (d/y/g/M). 
+		// 3. Format the date (d/y/g/M).
 		// Now use the buffer as a format string to process the format specifiers not recognized by GetTimeFormatEx().
 		ret = GetDateFormatEx(localeName, flags, &st, buffer, buffer, bufferSize, nullptr);
 	}
 
 	if (ret != 0)
 	{
-		// 5. Now format only the AM/PM string.
-		if (hasMidday && !midday.empty())
-		{
-			// 'ret' holds the actual length of the string
-			for (int i = 0; i < ret; ++i)
-			{
-				if (buffer[i] == escapedChar)
-				{
-					// 't' => 'A' or 'P'
-					buffer[i] = midday[0];
-					if (((i + 1) < ret) && (buffer[i + 1] == escapedChar))
-					{
-						// 'tt' => 'AM' or 'PM'
-						++i;
-						buffer[i] = midday[1];
-					}
-				}
-			}
-		}
-		return buffer;
+		// 'ret' holds the actual length of the string
+		return generic_string(buffer, buffer + ret);
 	}
 
 	return {};

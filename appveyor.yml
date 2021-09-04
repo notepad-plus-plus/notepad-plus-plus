@@ -4,63 +4,64 @@ image: Visual Studio 2019
 environment:
   matrix:
     - compiler: msc
-      platform: Win32
+      architecture: Win32
       PYTHON: "C:\\Python38"
 
     - compiler: msc
-      platform: x64
+      architecture: x64
 
     - compiler: msc
-      platform: arm64
+      architecture: arm64
 
     - compiler: gcc
-      platform: i686
+      architecture: i686
 
     - compiler: gcc
-      platform: x86_64
+      architecture: x86_64
 
 configuration:
     - Release
     - Debug
 
 install:
-    - if "%COMPILER%/%PLATFORM%" EQU "msc/Win32" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
-    - if "%COMPILER%/%PLATFORM%" EQU "msc/x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
-    - if "%COMPILER%/%PLATFORM%" EQU "msc/arm64" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64_arm64
-    - if "%COMPILER%/%PLATFORM%" EQU "gcc/i686" set PATH=C:\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin;%PATH:C:\Program Files\Git\usr\bin;=%
-    - if "%COMPILER%/%PLATFORM%" EQU "gcc/x86_64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+    - if "%compiler%/%architecture%" EQU "msc/Win32" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
+    - if "%compiler%/%architecture%" EQU "msc/x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64
+    - if "%compiler%/%architecture%" EQU "msc/arm64" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64_arm64
+    - if "%compiler%/%architecture%" EQU "gcc/i686" set PATH=C:\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+    - if "%compiler%/%architecture%" EQU "gcc/x86_64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
 
 build_script:
     - ps: |
-          Write-Output "Compiler: $env:COMPILER"
-          Write-Output "Platform: $env:PLATFORM"
-          Write-Output "Configuration: $env:CONFIGURATION"
+          Write-Output "Compiler: $env:compiler"
+          Write-Output "Architecture: $env:architecture"
+          Write-Output "Configuration: $env:configuration"
 
-    - if "%COMPILER%" EQU "msc" cd %APPVEYOR_BUILD_FOLDER%\PowerEditor\visual.net\ & msbuild /m notepadPlus.sln /p:configuration="%CONFIGURATION%" /p:platform="%PLATFORM%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-    - if "%COMPILER%/%CONFIGURATION%" EQU "gcc/Debug" set GCC_OPTIONS=VERBOSE=1 DEBUG=1
-    - if "%COMPILER%" EQU "gcc" cd %APPVEYOR_BUILD_FOLDER%\PowerEditor\gcc\ & mingw32-make %GCC_OPTIONS%
+    - if "%compiler%" EQU "msc" cd %APPVEYOR_BUILD_FOLDER%\PowerEditor\visual.net\ & msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%architecture%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    - if "%compiler%/%configuration%" EQU "gcc/Debug" set GCC_OPTIONS=VERBOSE=1 DEBUG=1
+    - if "%compiler%" EQU "gcc" cd %APPVEYOR_BUILD_FOLDER%\PowerEditor\gcc\ & mingw32-make %GCC_OPTIONS%
 
 after_build:
     - cd "%APPVEYOR_BUILD_FOLDER%"
+
     #xml files syntax checks
-    - if "%COMPILER%/%PLATFORM%/%CONFIGURATION%" EQU "msc/Win32/Debug" SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-    - if "%COMPILER%/%PLATFORM%/%CONFIGURATION%" EQU "msc/Win32/Debug" python -m pip install requests rfc3987 pywin32 lxml
-    - if "%COMPILER%/%PLATFORM%/%CONFIGURATION%" EQU "msc/Win32/Debug" call python PowerEditor\Test\xmlValidator\validator_xml.py
+    - if "%compiler%/%architecture%/%configuration%" EQU "msc/Win32/Debug" SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+    - if "%compiler%/%architecture%/%configuration%" EQU "msc/Win32/Debug" python -m pip install requests rfc3987 pywin32 lxml
+    - if "%compiler%/%architecture%/%configuration%" EQU "msc/Win32/Debug" call python PowerEditor\Test\xmlValidator\validator_xml.py
 
     - ps: >-
-        if ($env:CONFIGURATION -eq "Release") {
-            $nppFileName = "Notepad++.$env:COMPILER.$env:PLATFORM.Release.exe"
+        if ($env:configuration -eq "Release") {
+            $nppFileName = "Notepad++.$env:compiler.$env:architecture.Release.exe"
         }
         else
         {
-            $nppFileName = "Notepad++.$env:COMPILER.$env:PLATFORM.Debug.exe"
+            $nppFileName = "Notepad++.$env:compiler.$env:architecture.Debug.exe"
         }
 
-        if ("$env:COMPILER/$env:PLATFORM/$env:CONFIGURATION" -eq "msc/Win32/Release") {
+        if ("$env:compiler/$env:architecture/$env:configuration" -eq "msc/Win32/Release") {
             Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ("$env:COMPILER/$env:PLATFORM/$env:CONFIGURATION" -eq "msc/Win32/Debug") {
+        if ("$env:compiler/$env:architecture/$env:configuration" -eq "msc/Win32/Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
 
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
@@ -83,26 +84,26 @@ after_build:
             cd "$env:APPVEYOR_BUILD_FOLDER"
         }
 
-        if ("$env:COMPILER/$env:PLATFORM/$env:CONFIGURATION" -eq "msc/x64/Release") {
+        if ("$env:compiler/$env:architecture/$env:configuration" -eq "msc/x64/Release") {
             Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ("$env:COMPILER/$env:PLATFORM/$env:CONFIGURATION" -eq "msc/x64/Debug") {
+        if ("$env:compiler/$env:architecture/$env:configuration" -eq "msc/x64/Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\x64\Debug\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ("$env:COMPILER/$env:PLATFORM/$env:CONFIGURATION" -eq "msc/arm64/Release") {
+        if ("$env:compiler/$env:architecture/$env:configuration" -eq "msc/arm64/Release") {
             Push-AppveyorArtifact "PowerEditor\binarm64\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ("$env:COMPILER/$env:PLATFORM/$env:CONFIGURATION" -eq "msc/arm64/Debug") {
+        if ("$env:compiler/$env:architecture/$env:configuration" -eq "msc/arm64/Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
         }
 
-        if ("$env:COMPILER/$env:CONFIGURATION" -eq "gcc/Release") {
+        if ("$env:compiler/$env:configuration" -eq "gcc/Release") {
             Push-AppveyorArtifact "PowerEditor\bin\NotepadPP-release.exe" -FileName "$nppFileName"
         }
 
-        if ("$env:COMPILER/$env:CONFIGURATION" -eq "gcc/Debug") {
+        if ("$env:compiler/$env:configuration" -eq "gcc/Debug") {
             Push-AppveyorArtifact "PowerEditor\bin\NotepadPP-debug.exe" -FileName "$nppFileName"
         }

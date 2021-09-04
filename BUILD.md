@@ -73,7 +73,7 @@ Note 1: if you use MinGW from a package (7z), you need to manually add the `$Min
 
 Building a 32-bit binary of Notepad++ was tested with [MinGW 8.1 i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z).
 
-All instructions from the *Building 64-bit binaries with GCC* section are applicable. However building 32-bit binaries currently requires `SensApi.dll` to be available as `%windir%\System32\SensApi.dll`. If this is the case, add `PLATFORM=i686` to the `mingw32-make` command line and everything will just work. The requirement exists because available 32-bit versions of MinGW are missing the linking library for this DLL and it is generated in the build process.
+All instructions from the *Building 64-bit binaries with GCC* section are applicable. However building 32-bit binaries currently requires `SensApi.dll` to be available as `%windir%\System32\SensApi.dll`. If this is the case, add `architecture=i686` to the `mingw32-make` command line and everything will just work. The requirement exists because the available 32-bit versions of MinGW don't have the linking library for this DLL and it is generated in the build process.
 
 The missing linking library can also be generated manually to fix a MinGW installation permanently by executing the following commands via `cmd` in writable directory with `$MinGW-root$\bin` added to `PATH`:
 

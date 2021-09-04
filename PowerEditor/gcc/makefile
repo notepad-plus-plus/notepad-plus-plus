@@ -128,7 +128,7 @@ $(RC_TARGETS): $(BUILD_DIR)/%.res: %.rc
 	$(AT)$(RC) $(RCFLAGS) $(addprefix -D,$(DEFINES)) $(addprefix -I,$(INCLUDES))  -O coff -o $@ -i $<
 
 $(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET)
-ifeq "$(PLATFORM)" "i686"
+ifeq "$(architecture)" "i686"
 	@echo generating libsensapi.a
 	$(AT)gendef $(windir)\System32\SensApi.dll
 	$(AT)dlltool -d SensApi.def -k -l $(BUILD_DIR)/libsensapi.a

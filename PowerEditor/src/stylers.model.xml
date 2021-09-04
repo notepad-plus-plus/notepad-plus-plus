@@ -349,7 +349,8 @@
             <!--WordsStyle name="IDENTIFIER3" styleID="17" fgColor="00A0E0" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" /-->
             <WordsStyle name="PSEUDOELEMENT" styleID="18" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type3"/>
             <!--WordsStyle name="EXTENDED_IDENTIFIER" styleID="19" fgColor="7F7F00" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" /-->
-            <WordsStyle name="EXTENDED_PSEUDOCLASS" styleID="20" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type5" />
+            <!-- LEGACY_PSEUDOELEMENT == EXTENDED_PSEUDOCLASS -->
+            <WordsStyle name="LEGACY_PSEUDOELEMENT" styleID="20" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type5" />
             <!--WordsStyle name="EXTENDED_PSEUDOELEMENT" styleID="21" fgColor="7F7F00" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" /-->
             <WordsStyle name="MEDIA" styleID="22" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="23" fgColor="DD9900" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />

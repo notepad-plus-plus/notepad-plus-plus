@@ -674,7 +674,7 @@ protected:
 
 	//Simple lexers
 	void setCssLexer() {
-		setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1);
+		setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1 | LIST_4 | LIST_6);
 	};
 
 	void setLuaLexer() {

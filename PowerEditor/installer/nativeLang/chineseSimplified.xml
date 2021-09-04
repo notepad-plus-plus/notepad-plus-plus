@@ -133,7 +133,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="降序排列小数（逗号作为小数点）"/>
                     <Item id="42065" name="升序排列小数（句点作为小数点）"/>
                     <Item id="42066" name="降序排列小数（句点作为小数点）"/>
-                    <Item id="42083" name="倒序排列行"/>
+                    <Item id="42083" name="逆序排列行"/>
                     <Item id="42078" name="随机排列行"/>
                     <Item id="42016" name="转成大写(&amp;U)"/>
                     <Item id="42017" name="转成小写(&amp;L)"/>
@@ -251,7 +251,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43054" name="标记(&amp;K)..."/>
                     <Item id="44009" name="便签模式"/>
                     <Item id="44010" name="折叠所有层次"/>
-                    <Item id="44011" name="无干扰模式"/>
+                    <Item id="44011" name="沉浸模式"/>
                     <Item id="44019" name="显示所有字符"/>
                     <Item id="44020" name="显示缩进参考线"/>
                     <Item id="44022" name="自动换行"/>
@@ -869,14 +869,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7109" name="橄榄色调"/>
                     <Item id="7115" name="自定义色调"/>
                     <Item id="7116" name="顶部"/>
-                    <Item id="7117" name="窗口标题栏"/>
-                    <Item id="7118" name="激活区域"/>
+                    <Item id="7117" name="菜单栏高亮"/>
+                    <Item id="7118" name="激活项"/>
                     <Item id="7119" name="主区域"/>
                     <Item id="7120" name="错误"/>
                     <Item id="7121" name="文字"/>
                     <Item id="7122" name="深色文字"/>
                     <Item id="7123" name="禁用文字"/>
-                    <Item id="7124" name="边缘"/>
+                    <Item id="7124" name="边框"/>
                     <Item id="7130" name="重置"/>
                 </DarkMode>
 
@@ -901,7 +901,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6208" name="边距"/>
                     <Item id="6209" name="左"/>
                     <Item id="6210" name="右"/>
-                    <Item id="6212" name="无干扰模式"/>
+                    <Item id="6212" name="沉浸模式"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="新建">
@@ -996,7 +996,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6902" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
                     <Item id="6903" name="搜索输出到结果窗口后，保持查找对话框开启"/>
                     <Item id="6904" name="替换所有打开文件前需确认"/>
-                    <Item id="6905" name="替换：不移动到下列匹配项"/>
+                    <Item id="6905" name="替换后不移动到下一个匹配项"/>
                 </Searching>
 
                 <RecentFilesHistory title="最近文件记录">

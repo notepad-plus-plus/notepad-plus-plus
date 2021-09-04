@@ -25,7 +25,7 @@ GCC_DIR := .
 SCINTILLA_DIR := ../../scintilla
 
 CXX := $(CROSS_COMPILE)g++
-CXXFLAGS := -include $(GCC_DIR)/include/various.h -std=c++17 -fpermissive -Wno-conversion-null
+CXXFLAGS := -include $(GCC_DIR)/include/various.h -std=c++17 -Wno-conversion-null
 RC := $(CROSS_COMPILE)windres
 RCFLAGS :=
 DEFINES := UNICODE _UNICODE _WIN32_WINNT=0x0600 TIXML_USE_STL TIXMLA_USE_STL
@@ -86,10 +86,10 @@ SOURCE_DIR_TREE := $(patsubst $(SOURCE_DIR)/%,%,$(filter-out $(SOURCE_EXCLUDE),$
 INCLUDES += $(addprefix $(SOURCE_DIR)/,$(sort $(dir $(filter %.h %.hpp,$(SOURCE_DIR_TREE)))))
 
 vpath %.cpp $(GCC_DIR) $(SOURCE_DIR)
-CXX_TARGETS := $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(sort $(filter %.cpp,$(GCC_DIR_TREE)) $(filter %.cpp,$(SOURCE_DIR_TREE))))
+CXX_TARGETS := $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(sort $(filter %.cpp,$(GCC_DIR_TREE) $(SOURCE_DIR_TREE))))
 
 vpath %.rc $(GCC_DIR) $(SOURCE_DIR)
-RC_TARGETS := $(patsubst %.rc,$(BUILD_DIR)/%.res,$(sort $(filter %.rc,$(GCC_DIR_TREE)) $(filter %.rc,$(SOURCE_DIR_TREE))))
+RC_TARGETS := $(patsubst %.rc,$(BUILD_DIR)/%.res,$(sort $(filter %.rc,$(GCC_DIR_TREE) $(SOURCE_DIR_TREE))))
 
 CONFIG_TARGETS := $(addprefix $(TARGET_DIR)/,$(CONFIG_FILES))
 
@@ -100,6 +100,7 @@ CONFIG_TARGETS := $(addprefix $(TARGET_DIR)/,$(CONFIG_FILES))
 GOALS := $(addprefix $(MAKELEVEL)-,$(if $(MAKECMDGOALS),$(MAKECMDGOALS),all))
 
 ifneq "$(filter 0-all,$(GOALS))" ""
+SUBMAKEFLAGS += $(if $(NUMBER_OF_PROCESSORS),-j$(NUMBER_OF_PROCESSORS),)
 .NOTPARALLEL:
 all: $(SCINTILLA_TARGET)
 	$(AT)$(MAKE) $(SUBMAKEFLAGS) binary
@@ -127,8 +128,14 @@ $(RC_TARGETS): $(BUILD_DIR)/%.res: %.rc
 	$(AT)$(RC) $(RCFLAGS) $(addprefix -D,$(DEFINES)) $(addprefix -I,$(INCLUDES))  -O coff -o $@ -i $<
 
 $(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET)
+ifeq "$(PLATFORM)" "i686"
+	@echo generating libsensapi.a
+	$(AT)gendef $(windir)\System32\SensApi.dll
+	$(AT)dlltool -d SensApi.def -k -l $(BUILD_DIR)/libsensapi.a
+	$(AT)$(RM) SensApi.def
+endif
 	@echo linking $@
-	$(AT)$(LD) $(LDFLAGS) $^ $(addprefix -l,$(LIBRARIES) $(SCINTILLA_LIBRARIES)) -static -o $@
+	$(AT)$(LD) $(LDFLAGS) $^ -L$(BUILD_DIR) $(addprefix -l,$(LIBRARIES) $(SCINTILLA_LIBRARIES)) -static -o $@
 
 $(CONFIG_TARGETS): $(TARGET_DIR)/%.xml: $(SOURCE_DIR)/%.xml
 	@echo config $@

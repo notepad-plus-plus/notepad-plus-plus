@@ -28,8 +28,11 @@
 
 #include <Shlwapi.h>
 
-#ifdef __MINGW32__
+#ifdef __GNUC__
 #include <cmath>
+#define LAMBDA_WINAPI WINAPI
+#else
+#define LAMBDA_WINAPI
 #endif
 
 #pragma comment(lib, "uxtheme.lib")
@@ -1435,7 +1438,7 @@ namespace NppDarkMode
 
 		::EnableThemeDialogTexture(hwndParent, theme && !NppDarkMode::isEnabled() ? ETDT_ENABLETAB : ETDT_DISABLE);
 
-		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) {
+		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) LAMBDA_WINAPI {
 			auto& p = *reinterpret_cast<Params*>(lParam);
 			const size_t classNameLen = 16;
 			TCHAR className[classNameLen] = { 0 };

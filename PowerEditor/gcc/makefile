@@ -14,58 +14,127 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Definitions:
-SOURCE_DIR := ../src
-SOURCE_EXCLUDE := $(SOURCE_DIR)/tools/%
-TARGET_DIR := ../bin
-TARGET_BASE := NotepadPP
-TARGET_SUFFIX := .exe
-CONFIG_FILES := langs.model.xml stylers.model.xml shortcuts.xml contextMenu.xml
-GCC_DIR := .
-SCINTILLA_DIR := ../../scintilla
+#
+# definitions
+#
+
+GCC_DIRECTORY := ../gcc
+GCC_EXCLUDE := $(GCC_DIRECTORY)/gcc-%
+SRC_DIRECTORY := ../src
+SRC_EXCLUDE := $(SRC_DIRECTORY)/tools/%
+BIN_DIRECTORY := ../bin
+INSTALLER_DIRECTORY := ../installer
+
+TARGET_BINARY := notepad++.exe
+SRC_DATA := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml
+BIN_DATA := change.log doLocalConf.xml readme.txt userDefineLangs/
+INSTALLER_DATA := autoCompletion/ functionList/ localization/ themes/
+
+SCINTILLA_DIRECTORY := ../../scintilla
+SCINTILLA_TARGET := libscilexer.a
 
 CXX := $(CROSS_COMPILE)g++
-CXXFLAGS := -include $(GCC_DIR)/include/various.h -std=c++17 -fpermissive -Wno-conversion-null
+CXXFLAGS := -include $(GCC_DIRECTORY)/gcc-fixes.h -std=c++17 -Wno-conversion-null
 RC := $(CROSS_COMPILE)windres
 RCFLAGS :=
-DEFINES := UNICODE _UNICODE _WIN32_WINNT=0x0600 TIXML_USE_STL TIXMLA_USE_STL
-INCLUDES := $(SCINTILLA_DIR)/include
-LD := $(CROSS_COMPILE)g++
+CPP_PATH := $(SCINTILLA_DIRECTORY)/include
+CPP_DEFINE := UNICODE _UNICODE _WIN32_WINNT=0x0600 TIXML_USE_STL TIXMLA_USE_STL
+LD := $(CXX)
 LDFLAGS := -municode -mwindows
-LIBRARIES := comctl32 crypt32 dbghelp ole32 sensapi shlwapi uuid uxtheme version wininet wintrust
-SCINTILLA_TARGET := $(SCINTILLA_DIR)/bin/libscilexer.a
-SCINTILLA_LIBRARIES := imm32 msimg32 oleaut32
+LD_PATH :=
+LD_LINK := comctl32 crypt32 dbghelp ole32 sensapi shlwapi uuid uxtheme version wininet wintrust
+LD_LINK += $(patsubst lib%.a,%,$(SCINTILLA_TARGET)) imm32 msimg32 ole32 oleaut32
 SUBMAKEFLAGS := -O --no-print-directory
 
-ifeq "$(strip $(DEBUG))" ""
+# detect a request for a debug build
+ifeq "$(filter-out 0,$(DEBUG))" ""
+BUILD_TYPE := release
+BUILD_SUFFIX :=
 CXXFLAGS += -O2 -Os
+CPP_DEFINE += NDEBUG
 LDFLAGS += -s
-DEFINES += NDEBUG
-BUILD_TYPE := $(CROSS_COMPILE)release
 else
-CXXFLAGS += -g -Wall -Wpedantic -Wconversion-null
-#DEFINES += DEBUG
-BUILD_TYPE := $(CROSS_COMPILE)debug
+BUILD_TYPE := debug
+BUILD_SUFFIX := -debug
+CXXFLAGS += -Og -g -Wall -Wpedantic -Wconversion-null
+#CPP_DEFINE += DEBUG
 endif
 
-BUILD_DIR := $(BUILD_TYPE).build
-TARGET_BINARY := $(TARGET_DIR)/$(TARGET_BASE)-$(BUILD_TYPE)$(TARGET_SUFFIX)
+#
+# preparations
+#
 
-# Preparations:
-ifeq "$(strip $(VERBOSE))" ""
+# detect target CPU
+TARGET_CPU := $(firstword $(subst -, ,$(shell $(CXX) -dumpmachine)))
+ifeq "$(TARGET_CPU)" ""
+$(error TARGET_CPU detection failed)
+endif
+ifneq "$(filter-out x86_64 i686,$(TARGET_CPU))" ""
+$(error $(TARGET_CPU) build is unsupported)
+endif
+ifeq "$(TARGET_CPU)" "i686"
+# for some reason i686 versions of MinGW-w64 GCC don't include a linking library for SensApi.dll
+# thus it is generated on the fly, but first check if the DLL is available
+ifeq "$(wildcard $(windir)/system32/SensApi.dll)" ""
+$(error $(TARGET_CPU) build requires "%windir%/system32/SensApi.dll" to be present)
+endif
+# detect explicit definition of TARGET_CPU via command line to force a 32-bit build
+ifeq "$(origin TARGET_CPU)" "command line"
+export CXX += -m32
+export LD += -m32
+export RC += -Fpe-i386
+endif
+endif
+
+# define target and build directories and update dependent variables
+TARGET_DIRECTORY := bin.$(TARGET_CPU)$(BUILD_SUFFIX)
+BUILD_DIRECTORY := $(TARGET_DIRECTORY).build
+
+TARGET_BINARY := $(TARGET_DIRECTORY)/$(TARGET_BINARY)
+SRC_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(SRC_DATA))
+BIN_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(BIN_DATA))
+INSTALLER_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(INSTALLER_DATA))
+
+SCINTILLA_TARGET := $(BUILD_DIRECTORY)/$(SCINTILLA_TARGET)
+
+LD_PATH += $(BUILD_DIRECTORY)
+
+# detect a build outside of PowerEditor/gcc and update dependent variables
+MAKEFILE_DIRECTORY := $(patsubst %/,%,$(dir $(subst \,/,$(firstword $(MAKEFILE_LIST)))))
+ifneq "$(MAKEFILE_DIRECTORY)" "."
+MAKEFILE_PARENT := $(patsubst %/,%,$(dir $(MAKEFILE_DIRECTORY)))
+
+BIN_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(BIN_DIRECTORY))
+GCC_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(GCC_DIRECTORY))
+GCC_EXCLUDE := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(GCC_EXCLUDE))
+SRC_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(SRC_DIRECTORY))
+SRC_EXCLUDE := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(SRC_EXCLUDE))
+INSTALLER_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(INSTALLER_DIRECTORY))
+
+SCINTILLA_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(SCINTILLA_DIRECTORY))
+
+CXXFLAGS := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(CXXFLAGS))
+CPP_PATH := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(CPP_PATH))
+endif
+
+# detect a request for a verbose output
+ifeq "$(filter-out 0,$(VERBOSE))" ""
 AT := @
 endif
 
-ifeq "$(strip $(windir))" ""
+# detect the current operating system
+ifeq "$(windir)" ""
 # not a Windows system
 MKDIR := mkdir -p
+CPDIR := cp -r
 RMDIR := rm -rf
 CP := cp
 RM := rm -f
 normalize-path = $1
 else ifneq "$(wildcard $(dir $(SHELL))ls.exe)" ""
-# a Windows system with UNIX-like shell
+# a Windows system with a proper shell
 MKDIR := $(dir $(SHELL))mkdir.exe -p
+CPDIR := $(dir $(SHELL))cp.exe -r
 RMDIR := $(dir $(SHELL))rm.exe -rf
 CP := $(dir $(SHELL))cp.exe
 RM := $(dir $(SHELL))rm.exe -f
@@ -73,72 +142,116 @@ normalize-path = $1
 else
 # a standard Windows system
 MKDIR := mkdir
+CPDIR := xcopy /q /e /i /y
 RMDIR := rmdir /q /s
 CP := copy /y
 RM := del /q
 normalize-path = $(subst /,\,$1)
 endif
 
-list-subtree = $(foreach entry,$(wildcard $1/*),$(entry) $(call list-subtree,$(entry)))
-GCC_DIR_TREE := $(patsubst $(GCC_DIR)/%,%,$(call list-subtree,$(GCC_DIR)))
-SOURCE_DIR_TREE := $(patsubst $(SOURCE_DIR)/%,%,$(filter-out $(SOURCE_EXCLUDE),$(call list-subtree,$(SOURCE_DIR))))
+# discover files
+list-subtree = $(foreach i,$(wildcard $1/*),$i $(call list-subtree,$i))
 
-INCLUDES += $(addprefix $(SOURCE_DIR)/,$(sort $(dir $(filter %.h %.hpp,$(SOURCE_DIR_TREE)))))
+GCC_SUBTREE := $(patsubst $(GCC_DIRECTORY)/%,%,$(filter-out $(GCC_EXCLUDE),$(call list-subtree,$(GCC_DIRECTORY))))
+SRC_SUBTREE := $(patsubst $(SRC_DIRECTORY)/%,%,$(filter-out $(SRC_EXCLUDE),$(call list-subtree,$(SRC_DIRECTORY))))
 
-vpath %.cpp $(GCC_DIR) $(SOURCE_DIR)
-CXX_TARGETS := $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(sort $(filter %.cpp,$(GCC_DIR_TREE)) $(filter %.cpp,$(SOURCE_DIR_TREE))))
+CPP_PATH += $(addprefix $(GCC_DIRECTORY)/,$(sort $(patsubst %/,%,$(dir $(filter %.h %.hpp,$(GCC_SUBTREE))))))
+CPP_PATH += $(addprefix $(SRC_DIRECTORY)/,$(sort $(patsubst %/,%,$(dir $(filter %.h %.hpp,$(SRC_SUBTREE))))))
 
-vpath %.rc $(GCC_DIR) $(SOURCE_DIR)
-RC_TARGETS := $(patsubst %.rc,$(BUILD_DIR)/%.res,$(sort $(filter %.rc,$(GCC_DIR_TREE)) $(filter %.rc,$(SOURCE_DIR_TREE))))
+vpath %.cpp $(GCC_DIRECTORY) $(SRC_DIRECTORY)
+CXX_TARGETS := $(patsubst %.cpp,$(BUILD_DIRECTORY)/%.o,$(sort $(filter %.cpp,$(GCC_SUBTREE) $(SRC_SUBTREE))))
 
-CONFIG_TARGETS := $(addprefix $(TARGET_DIR)/,$(CONFIG_FILES))
+vpath %.rc $(GCC_DIRECTORY) $(SRC_DIRECTORY)
+RC_TARGETS := $(patsubst %.rc,$(BUILD_DIRECTORY)/%.res,$(sort $(filter %.rc,$(GCC_SUBTREE) $(SRC_SUBTREE))))
 
-# Actions:
-.PHONY: .force all binary clean
-.force:
+#
+# actions
+#
 
 GOALS := $(addprefix $(MAKELEVEL)-,$(if $(MAKECMDGOALS),$(MAKECMDGOALS),all))
 
+.PHONY: .force all binary data clean fullclean
+.force:
+
 ifneq "$(filter 0-all,$(GOALS))" ""
+SUBMAKEFLAGS += $(if $(NUMBER_OF_PROCESSORS),-j$(NUMBER_OF_PROCESSORS),)
 .NOTPARALLEL:
 all: $(SCINTILLA_TARGET)
-	$(AT)$(MAKE) $(SUBMAKEFLAGS) binary
+	$(AT)$(MAKE) -f $(firstword $(MAKEFILE_LIST)) $(SUBMAKEFLAGS) binary
 else
 all: binary
 endif
+ifeq "$(filter 1-binary,$(GOALS))" ""
+$(SCINTILLA_TARGET): .force
+endif
 
-$(SCINTILLA_TARGET): $(if $(filter 1-binary,$(GOALS)),,.force)
-	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIR)/win32 $(SCINTILLA_TARGET:$(SCINTILLA_DIR)/%=../%)
+$(BUILD_DIRECTORY):
+	@echo * creating BUILD_DIRECTORY $@
+	$(AT)$(MKDIR) $(call normalize-path,$(sort $@ $(patsubst %/,%,$(dir $(CXX_TARGETS) $(RC_TARGETS)))))
 
-binary: $(TARGET_BINARY) $(CONFIG_TARGETS)
+$(SCINTILLA_TARGET): | $(BUILD_DIRECTORY)
+	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 LIBLEX=$(CURDIR)/$(SCINTILLA_TARGET) $(CURDIR)/$(SCINTILLA_TARGET)
 
-$(BUILD_DIR):
-	@echo BUILD_DIR = $@
-	$(AT)$(MKDIR) $(call normalize-path,$(sort $(BUILD_DIR)/ $(dir $(CXX_TARGETS) $(dir $(RC_TARGETS)))))
+binary: $(TARGET_BINARY) data
+	@echo *** $(TARGET_CPU) $(BUILD_TYPE) : $(CURDIR)/$(TARGET_BINARY) ***
 
-$(CXX_TARGETS): | $(BUILD_DIR)
-$(CXX_TARGETS): $(BUILD_DIR)/%.o: %.cpp
-	@echo compiling $<
-	$(AT)$(CXX) $(CXXFLAGS) $(addprefix -D,$(DEFINES)) $(addprefix -I,$(INCLUDES)) -MMD -c -o $@ $<
+$(CXX_TARGETS): $(BUILD_DIRECTORY)/%.o: %.cpp | $(BUILD_DIRECTORY)
+	@echo * compiling $<
+	$(AT)$(CXX) $(CXXFLAGS) $(addprefix -I,$(CPP_PATH)) $(addprefix -D,$(CPP_DEFINE)) -MMD -c -o $@ $<
 
-$(RC_TARGETS): | $(BUILD_DIR)
-$(RC_TARGETS): $(BUILD_DIR)/%.res: %.rc
-	@echo compiling $<
-	$(AT)$(RC) $(RCFLAGS) $(addprefix -D,$(DEFINES)) $(addprefix -I,$(INCLUDES))  -O coff -o $@ -i $<
+$(RC_TARGETS): $(BUILD_DIRECTORY)/%.res: %.rc | $(BUILD_DIRECTORY)
+	@echo * compiling $<
+	$(AT)$(RC) $(RCFLAGS) $(addprefix -I,$(CPP_PATH)) $(addprefix -D,$(CPP_DEFINE)) -O coff -o $@ -i $<
 
-$(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET)
-	@echo linking $@
-	$(AT)$(LD) $(LDFLAGS) $^ $(addprefix -l,$(LIBRARIES) $(SCINTILLA_LIBRARIES)) -static -o $@
+ifeq "$(TARGET_CPU)" "i686"
+$(TARGET_BINARY): $(BUILD_DIRECTORY)/libsensapi.a
+$(BUILD_DIRECTORY)/libsensapi.a: | $(BUILD_DIRECTORY)
+	@echo * generating $@
+	$(AT)gendef $(call normalize-path,$(firstword $(wildcard $(windir)/syswow64/SensApi.dll $(windir)/system32/SensApi.dll)))
+	$(AT)dlltool -mi386 -f--32 -d SensApi.def -k -l $(call normalize-path,$@)
+	$(AT)$(RM) SensApi.def
+endif
 
-$(CONFIG_TARGETS): $(TARGET_DIR)/%.xml: $(SOURCE_DIR)/%.xml
-	@echo config $@
+$(TARGET_DIRECTORY):
+	@echo * creating TARGET_DIRECTORY $@
+	$(AT)$(MKDIR) $(call normalize-path,$@)
+
+$(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET) | $(TARGET_DIRECTORY)
+	@echo * linking $@
+	$(AT)$(LD) $(LDFLAGS) $(filter-out %.a,$^) $(addprefix -L,$(LD_PATH)) $(addprefix -l,$(LD_LINK)) -static -o $@
+
+data: $(patsubst %/,%,$(SRC_DATA) $(BIN_DATA) $(INSTALLER_DATA))
+
+$(patsubst %/,%,$(filter %/,$(SRC_DATA))): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
+	@echo * copying $@
+	$(AT)$(CPDIR) $(call normalize-path,$< $@)
+$(filter-out %/,$(SRC_DATA)): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
+	@echo * copying $@
+	$(AT)$(CP) $(call normalize-path,$< $@)
+
+$(patsubst %/,%,$(filter %/,$(BIN_DATA))): $(TARGET_DIRECTORY)/%: $(BIN_DIRECTORY)/% | $(TARGET_DIRECTORY)
+	@echo * copying $@
+	$(AT)$(CPDIR) $(call normalize-path,$< $@)
+$(filter-out %/,$(BIN_DATA)): $(TARGET_DIRECTORY)/%: $(BIN_DIRECTORY)/% | $(TARGET_DIRECTORY)
+	@echo * copying $@
+	$(AT)$(CP) $(call normalize-path,$< $@)
+
+$(TARGET_DIRECTORY)/autoCompletion: $(INSTALLER_DIRECTORY)/APIs
+$(TARGET_DIRECTORY)/functionList: $(INSTALLER_DIRECTORY)/functionList
+$(TARGET_DIRECTORY)/localization: $(INSTALLER_DIRECTORY)/nativeLang
+$(TARGET_DIRECTORY)/themes: $(INSTALLER_DIRECTORY)/themes
+$(patsubst %/,%,$(filter %/,$(INSTALLER_DATA))): | $(TARGET_DIRECTORY)
+	@echo * copying $@
+	$(AT)$(CPDIR) $(call normalize-path,$< $@)
+$(filter-out %/,$(INSTALLER_DATA)): | $(TARGET_DIRECTORY)
+	@echo * copying $@
 	$(AT)$(CP) $(call normalize-path,$< $@)
 
 clean:
-	-$(AT)$(RM) $(call normalize-path,$(TARGET_BINARY) $(CONFIG_TARGETS))
-	-$(AT)$(RMDIR) $(call normalize-path,$(BUILD_DIR))
-	-$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIR)/win32 $@
-# the `clean` target of Scintilla leaves some artifacts, thus clean up after it
-	-$(AT)$(RM) $(call normalize-path,$(SCINTILLA_DIR)/bin/*.a $(SCINTILLA_DIR)/bin/*.dll)
+	-$(AT)$(RMDIR) $(call normalize-path,$(BUILD_DIRECTORY))
+	-$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 $@
+
+fullclean: clean
+	-$(AT)$(RMDIR) $(call normalize-path,$(TARGET_DIRECTORY))
 
 -include $(CXX_TARGETS:%.o=%.d)

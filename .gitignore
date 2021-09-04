@@ -149,18 +149,11 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 *.zip
 
 #-------------------------------------------------------------------------------
-# GNU GCC MinGW
+# MinGW-w64 GCC
 
-#-- Generated during makefile build
-PowerEditor/gcc/*.build/
-PowerEditor/bin/NotepadPP*.exe
+bin.*
 scintilla/win32/*.o
-scintilla/bin/libscilexer.a
 
-#-- Generated manually to make Notepad++ execute properly on Linux using Wine
-/PowerEditor/bin/libgcc_s_sjlj-1.dll
-/PowerEditor/bin/libstdc++-6.dll
-/PowerEditor/bin/libwinpthread-1.dll
 
 PowerEditor/src/MISC/md5/RCa06792
 *.db

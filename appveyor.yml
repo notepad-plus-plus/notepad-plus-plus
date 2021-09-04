@@ -34,12 +34,10 @@ build_script:
           Write-Output "Configuration: $env:CONFIGURATION"
           Write-Output "Platform: $env:PLATFORM"
 
+    - if "%archi%" NEQ "" cd %APPVEYOR_BUILD_FOLDER%\PowerEditor\visual.net\ & msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     - if "%configuration%"=="Debug" set build_options=DEBUG=1
     - if "%configuration%"=="Release" set build_options=
-    - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
-    - if "%archi%" NEQ "" msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make -j%NUMBER_OF_PROCESSORS% VERBOSE=1 %build_options%
-
+    - if "%Platform_input%"=="mingw" cd %APPVEYOR_BUILD_FOLDER%\PowerEditor\gcc\ & mingw32-make VERBOSE=1 %build_options%
 
 after_build:
     - cd "%APPVEYOR_BUILD_FOLDER%"

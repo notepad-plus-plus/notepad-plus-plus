@@ -221,7 +221,7 @@ void FixDarkScrollBar()
 			DWORD oldProtect;
 			if (VirtualProtect(addr, sizeof(IMAGE_THUNK_DATA), PAGE_READWRITE, &oldProtect) && _OpenNcThemeData)
 			{
-				auto MyOpenThemeData = [](HWND hWnd, LPCWSTR classList) -> HTHEME {
+				auto MyOpenThemeData = [](HWND hWnd, LPCWSTR classList) WINAPI -> HTHEME {
 					if (wcscmp(classList, L"ScrollBar") == 0)
 					{
 						if (IsWindowOrParentUsingDarkScrollBar(hWnd)) {

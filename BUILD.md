@@ -41,33 +41,44 @@ More about the previous build process: https://community.notepad-plus-plus.org/t
 Since `Notepad++` version 6.0 - 7.9.5, the build of dynamic linked `SciLexer.dll` that is distributed
 uses features from Boost's `Boost.Regex` library.
 
-## Build 64 bits binaries with GCC:
+# Building 64-bit binaries with GCC
 
-If you have installed [MinGW-w64](https://mingw-w64.org/doku.php/start), then you can compile Notepad++ & libscilexer.a 64 bits binaries with GCC.
+If you have [MinGW-w64](https://mingw-w64.org/doku.php/start) installed, then you can compile Notepad++ and optionally libscilexer.a 64-bit binaries with GCC.
 
-* Compile libscilexer.a
+You can download MinGW-w64 from https://sourceforge.net/projects/mingw-w64/files/. Notepad++ uses [MinGW 8.1 x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z).
 
-This step is not necessary anymore as it will be build in the process of compiling the Notepad++ binary. It is here just for completeness sake as this option is still available.
+## Compile libscilexer.a (optional)
 
-1. Launch cmd.
+This step is not necessary anymore as the library will be build in the process of compiling the Notepad++ binary. It is here just for completeness sake as this option is still available.
+
+1. Launch `cmd`.
 2. Change dir into `notepad-plus-plus\scintilla\win32`.
-3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
+3. Type `mingw32-make -j%NUMBER_OF_PROCESSORS%`
 4. `libscilexer.a` is generated in `notepad-plus-plus\scintilla\bin\`.
 
-* Compile Notepad++ binary
+## Compile Notepad++ binary
 
-1. Launch cmd.
+1. Launch `cmd`.
 2. Change dir into `notepad-plus-plus\PowerEditor\gcc`.
-3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
+3. Type `mingw32-make
 4. `NotepadPP-release.exe` is generated in `notepad-plus-plus\PowerEditor\bin\`.
 
-To have a debug build just add `DEBUG=1` to the `mingw32-make.exe` invocation. The binary will be called `NotepadPP-debug.exe` in this case.
+To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation. The binary will be called `NotepadPP-debug.exe` in this case.
 
 To see commands being executed add `VERBOSE=1` to the same command.
 
-You can download MinGW-w64 from https://sourceforge.net/projects/mingw-w64/files/. On Notepad++ Github page (this project), the build system use [MinGW 8.1](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z).
+Note 1: if you use MinGW from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for `mingw32-make` invocation to work (one can use a command like `set PATH=%PATH%;$MinGW-root$\bin` each time `cmd` is launched).
 
+# Building 32-bit binaries with GCC
 
-Note 1: if you use MinGW from the package (7z), you need manually add the MinGW/bin folder path to system Path variable to make mingw32-make.exe invoke works (or you can use command :`set PATH=%PATH%;C:\xxxx\mingw64\bin` for adding it on each time you launch cmd).
+It's currently impossible with available 32-bit versions of MinGW due to missing library for `SensApi.dll`. However the required file can be created manually by executing the following commands via `cmd` in writable directory with `$MinGW-root$\bin` added to `PATH`:
 
-Note 2: For 32-bit build, https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/i686-8.1.0-release-posix-sjlj-rt_v6-rev0.7z could be used. The rest of the instructions are still valid.
+```
+gendef %windir%\System32\SensApi.dll
+dlltool -d SensApi.def -k -l libsensapi.a
+del SensApi.def
+```
+
+The resulting `libsensapi.a` then can be moved from the current directory to `$MinGW-root$\i686-w64-mingw32\lib`.
+
+Notepad++ was tested with [MinGW 8.1 i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z). After getting the missing library, all instructions from the *Building 64-bit binaries with GCC* section are applicable.

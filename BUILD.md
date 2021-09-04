@@ -1,5 +1,4 @@
-How to build Notepad++
-----------------------
+# Building Notepad++ with Microsoft Visual Studio
 
 **Pre-requisites:**
 
@@ -41,33 +40,25 @@ More about the previous build process: https://community.notepad-plus-plus.org/t
 Since `Notepad++` version 6.0 - 7.9.5, the build of dynamic linked `SciLexer.dll` that is distributed
 uses features from Boost's `Boost.Regex` library.
 
-## Build 64 bits binaries with GCC:
+# Building Notepad++ with GCC
 
-If you have installed [MinGW-w64](https://mingw-w64.org/doku.php/start), then you can compile Notepad++ & libscilexer.a 64 bits binaries with GCC.
+If you have [MinGW-w64](https://mingw-w64.org/doku.php/start) installed, then you can compile Notepad++ with GCC.
 
-* Compile libscilexer.a
+MinGW-w64 can be downloaded from [SourceForge](https://sourceforge.net/projects/mingw-w64/files/). Notepad++ is regularly tested with [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) and with [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z). Other versions of compilers may also work but are untested.
 
-This step is not necessary anymore as it will be build in the process of compiling the Notepad++ binary. It is here just for completeness sake as this option is still available.
+**Note:** if you use MinGW-w64 GCC from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work (one can use a command like `set PATH=%PATH%;$MinGW-root$\bin` each time `cmd` is launched).
 
-1. Launch cmd.
-2. Change dir into `notepad-plus-plus\scintilla\win32`.
-3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
-4. `libscilexer.a` is generated in `notepad-plus-plus\scintilla\bin\`.
+## Comping Notepad++ binary
 
-* Compile Notepad++ binary
+1. Launch `cmd` and add `$MinGW-root$\bin` to `PATH` if necessary.
+2. `cd` into `notepad-plus-plus\PowerEditor\gcc`.
+3. Run `mingw32-make`.
+4. The file `notepad++.exe` will be generated in `bin.x86_64` or in `bin.i686` depending on the compiler used. The path to the directory is displayed at the end of the build process.
 
-1. Launch cmd.
-2. Change dir into `notepad-plus-plus\PowerEditor\gcc`.
-3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
-4. `NotepadPP-release.exe` is generated in `notepad-plus-plus\PowerEditor\bin\`.
-
-To have a debug build just add `DEBUG=1` to the `mingw32-make.exe` invocation. The binary will be called `NotepadPP-debug.exe` in this case.
+To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
 
 To see commands being executed add `VERBOSE=1` to the same command.
 
-You can download MinGW-w64 from https://sourceforge.net/projects/mingw-w64/files/. On Notepad++ Github page (this project), the build system use [MinGW 8.1](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z).
+### Notes on using GCC targeting `i686`
 
-
-Note 1: if you use MinGW from the package (7z), you need manually add the MinGW/bin folder path to system Path variable to make mingw32-make.exe invoke works (or you can use command :`set PATH=%PATH%;C:\xxxx\mingw64\bin` for adding it on each time you launch cmd).
-
-Note 2: For 32-bit build, https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/i686-8.1.0-release-posix-sjlj-rt_v6-rev0.7z could be used. The rest of the instructions are still valid.
+Building the 32-bit binary of Notepad++ currently works only on Windows because `%windir%\system32\SensApi.dll` is required for the build process to succeed — the tested `i686` version of GCC doesn't have a linking library for this system DLL, so it is generated during the build process.

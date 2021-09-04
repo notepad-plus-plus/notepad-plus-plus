@@ -1,77 +1,60 @@
 version: 8.1.{build}
 image: Visual Studio 2019
 
+#skip_commits:
+#  files:
+#    - PowerEditor/bin/*/*.xml
+#    - PowerEditor/installer/*/*.xml
 
 environment:
   matrix:
-    - platform: Win32
-      archi: x86
-      platform_input: Win32
-      PYTHON: "C:\\Python38"
+    - compiler: MSC
+      platform: Win32
 
-    - platform: x64
-      archi: amd64
-      platform_input: x64
+    - compiler: MSC
+      platform: x64
 
-    - platform: mingw-w64_810_X64
-      platform_input: mingw
+    - compiler: MSC
+      platform: arm64
 
-    - platform: arm64
-      archi: amd64_arm64
-      platform_input: arm64
+    - compiler: GCC
+      platform: i686
 
+    - compiler: GCC
+      platform: x86_64
 
 configuration:
     - Release
     - Debug
 
-install:
-    - if "%Platform%"=="mingw-w64_810_X64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
-    - if "%archi%" NEQ "" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
+matrix:
+  exclude:
+    - compiler: GCC
+      configuration: Debug
 
-build_script:
+before_build:
     - ps: |
-          Write-Output "Configuration: $env:CONFIGURATION"
-          Write-Output "Platform: $env:PLATFORM"
+        Write-Output "Compiler : $env:compiler"
+        Write-Output "Platform : $env:platform"
+        Write-Output "Configuration : $env:configuration"
 
-    - if "%configuration%"=="Debug" set build_options=DEBUG=1
-    - if "%configuration%"=="Release" set build_options=
-    - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
-    - if "%archi%" NEQ "" msbuild /m notepadPlus.sln /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make -j%NUMBER_OF_PROCESSORS% VERBOSE=1 %build_options%
-
-
-after_build:
-    - cd "%APPVEYOR_BUILD_FOLDER%"
+for:
+- matrix:
+    only:
+      - compiler: MSC
+  build:
+    parallel: true
+    project: PowerEditor\visual.net\notepadPlus.sln
+  artifacts:
+    - path: '**\Notepad++.exe'
+      name: Notepad++.$(platform).$(configuration).exe
+  after_build:
     #xml files syntax checks
-    - if "%platform_input%"=="Win32" if "%configuration%"=="Debug" SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-    - if "%platform_input%"=="Win32" if "%configuration%"=="Debug" python -m pip install requests rfc3987 pywin32 lxml
-    - if "%platform_input%"=="Win32" if "%configuration%"=="Debug" call python PowerEditor\Test\xmlValidator\validator_xml.py
-
-    - ps: >-
-        if ($env:CONFIGURATION -eq "Release") {
-            $nppFileName = "Notepad++.$env:PLATFORM_INPUT.Release.exe"
-        }
-        else
-        {
-            $nppFileName = "Notepad++.$env:PLATFORM_INPUT.Debug.exe"
-        }
-
-        if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Release") {
-            Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
-        }
-
-        if ($env:PLATFORM_INPUT -eq "x64" -and $env:CONFIGURATION -eq "Debug") {
-            Push-AppveyorArtifact "PowerEditor\visual.net\x64\Debug\Notepad++.exe" -FileName "$nppFileName"
-        }
-
-        if ($env:PLATFORM_INPUT -eq "Win32" -and $env:CONFIGURATION -eq "Release") {
-            Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
-        }
-
-        if ($env:PLATFORM_INPUT -eq "Win32" -and $env:CONFIGURATION -eq "Debug") {
-            Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
-
+    - if "%platform%/%configuration%" EQU "Win32/Debug" set PATH=C:\Python38;C:\Python38\Scripts;%PATH%
+    - if "%platform%/%configuration%" EQU "Win32/Debug" python -m pip install requests rfc3987 pywin32 lxml
+    - if "%platform%/%configuration%" EQU "Win32/Debug" python PowerEditor\Test\xmlValidator\validator_xml.py
+    - ps: |
+        if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
@@ -86,24 +69,20 @@ after_build:
             .\unitTestLauncher.ps1
             if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
 
-            #ATTENTION: current working dir is no longer at APPVEYOR_BUILD_FOLDER
             cd ..\UrlDetection
             .\verifyUrlDetection.ps1
+
+            cd "$env:APPVEYOR_BUILD_FOLDER"
         }
 
-        if ($env:PLATFORM_INPUT -eq "arm64" -and $env:CONFIGURATION -eq "Release") {
-            Push-AppveyorArtifact "PowerEditor\binarm64\Notepad++.exe" -FileName "$nppFileName"
-        }
-
-        if ($env:PLATFORM_INPUT -eq "arm64" -and $env:CONFIGURATION -eq "Debug") {
-            Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
-        }
-
-        if ($env:PLATFORM_INPUT -eq "mingw" -and $env:CONFIGURATION -eq "Release") {
-            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP-release.exe" -FileName "$nppFileName"
-        }
-
-        if ($env:PLATFORM_INPUT -eq "mingw" -and $env:CONFIGURATION -eq "Debug") {
-            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP-debug.exe" -FileName "$nppFileName"
-        }
-
+- matrix:
+    only:
+      - compiler: GCC
+  install:
+    - if "%platform%" EQU "i686" set PATH=C:\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+    - if "%platform%" EQU "x86_64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+  build_script:
+    - mingw32-make -f PowerEditor\gcc\makefile
+  artifacts:
+    - path: bin.*\notepad++.exe
+      name: Notepad++.$(compiler).$(platform).$(configuration).exe

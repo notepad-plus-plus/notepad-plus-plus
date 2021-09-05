@@ -127,15 +127,18 @@ $(RC_TARGETS): $(BUILD_DIR)/%.res: %.rc
 	@echo compiling $<
 	$(AT)$(RC) $(RCFLAGS) $(addprefix -D,$(DEFINES)) $(addprefix -I,$(INCLUDES))  -O coff -o $@ -i $<
 
+ifeq "$(target)" "i686"
+LDFLAGS += -L$(BUILD_DIR)
+endif
 $(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET)
-ifeq "$(architecture)" "i686"
+ifeq "$(target)" "i686"
 	@echo generating libsensapi.a
 	$(AT)gendef $(windir)\System32\SensApi.dll
 	$(AT)dlltool -d SensApi.def -k -l $(BUILD_DIR)/libsensapi.a
 	$(AT)$(RM) SensApi.def
 endif
 	@echo linking $@
-	$(AT)$(LD) $(LDFLAGS) $^ -L$(BUILD_DIR) $(addprefix -l,$(LIBRARIES) $(SCINTILLA_LIBRARIES)) -static -o $@
+	$(AT)$(LD) $(LDFLAGS) $^ $(addprefix -l,$(LIBRARIES) $(SCINTILLA_LIBRARIES)) -static -o $@
 
 $(CONFIG_TARGETS): $(TARGET_DIR)/%.xml: $(SOURCE_DIR)/%.xml
 	@echo config $@

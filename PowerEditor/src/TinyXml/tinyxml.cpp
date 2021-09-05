@@ -906,7 +906,7 @@ void TiXmlComment::Print( FILE* cfile, int depth ) const
 {
 	for ( int i=0; i<depth; i++ )
 	{
-		fputs( "    ", cfile );
+		generic_fprintf( cfile, TEXT("    ") );
 	}
 	generic_fprintf( cfile, TEXT("<!--%ls-->"), value.c_str() );
 }

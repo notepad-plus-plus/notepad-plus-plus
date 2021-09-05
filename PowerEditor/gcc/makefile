@@ -48,7 +48,7 @@ CXXFLAGS += -g -Wall -Wpedantic -Wconversion-null
 BUILD_TYPE := $(CROSS_COMPILE)debug
 endif
 
-BUILD_DIR := $(GCC_DIR)/$(BUILD_TYPE)
+BUILD_DIR := $(BUILD_TYPE).build
 TARGET_BINARY := $(TARGET_DIR)/$(TARGET_BASE)-$(BUILD_TYPE)$(TARGET_SUFFIX)
 
 # Preparations:

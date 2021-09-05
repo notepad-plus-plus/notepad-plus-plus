@@ -152,8 +152,7 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 # GNU GCC MinGW
 
 #-- Generated during makefile build
-PowerEditor/gcc/*release/
-PowerEditor/gcc/*debug/
+PowerEditor/gcc/*.build/
 PowerEditor/bin/NotepadPP*.exe
 scintilla/win32/*.o
 scintilla/bin/libscilexer.a

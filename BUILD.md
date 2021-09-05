@@ -1,5 +1,4 @@
-How to build Notepad++
-----------------------
+# How to build Notepad++ with Microsoft Visual Studio
 
 **Pre-requisites:**
 
@@ -60,22 +59,22 @@ This step is not necessary anymore as the library will be build in the process o
 
 1. Launch `cmd`.
 2. Change dir into `notepad-plus-plus\PowerEditor\gcc`.
-3. Type `mingw32-make
+3. Type `mingw32-make`
 4. `NotepadPP-release.exe` is generated in `notepad-plus-plus\PowerEditor\bin\`.
 
 To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation. The binary will be called `NotepadPP-debug.exe` in this case.
 
 To see commands being executed add `VERBOSE=1` to the same command.
 
-Note 1: if you use MinGW from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for `mingw32-make` invocation to work (one can use a command like `set PATH=%PATH%;$MinGW-root$\bin` each time `cmd` is launched).
+**Note:** if you use MinGW from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for `mingw32-make` invocation to work (one can use a command like `set PATH=%PATH%;$MinGW-root$\bin` each time `cmd` is launched).
 
 # Building 32-bit binaries with GCC
 
 Building a 32-bit binary of Notepad++ is tested with [MinGW 8.1 i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z).
 
-All instructions from the *Building 64-bit binaries with GCC* section are applicable. However building 32-bit binaries currently requires `SensApi.dll` to be available as `%windir%\System32\SensApi.dll`. If this is the case, add `target=i686` to the `mingw32-make` command line and everything will just work. The requirement exists because the available 32-bit versions of MinGW don't have the linking library for this DLL and it is generated in the build process.
+All instructions from the ***Building 64-bit binaries with GCC*** section are applicable. However building 32-bit binaries currently requires `SensApi.dll` to be available as `%windir%\System32\SensApi.dll`. If this is the case, add `target=i686` to the `mingw32-make` command line and everything will just work. The requirement exists because the available 32-bit versions of MinGW don't have the linking library for this DLL and it is generated in the build process.
 
-The missing linking library can also be generated manually to fix a MinGW installation permanently by executing the following commands via `cmd` in writable directory with `$MinGW-root$\bin` added to `PATH`:
+The missing linking library can also be generated manually to fix a MinGW installation permanently by executing the following commands via `cmd` in a writable directory with `$MinGW-root$\bin` added to `PATH`:
 
 ```
 gendef %windir%\System32\SensApi.dll

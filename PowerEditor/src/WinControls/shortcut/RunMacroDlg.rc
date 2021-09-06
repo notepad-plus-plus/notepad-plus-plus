@@ -16,8 +16,6 @@
 
 // created by Daniel Volk mordorpost@volkarts.com
 
-#pragma once
-
 #include <windows.h>
 #include "RunMacroDlg_rc.h"
 

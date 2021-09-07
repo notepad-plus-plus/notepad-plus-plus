@@ -1796,68 +1796,67 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			drawDocumentMapColoursFromStylerArray();
 
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
-			const Style * pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
-			if (pStyle)
-			{
-				NppParameters::getInstance().setCurrentDefaultFgColor(pStyle->_fgColor);
-				NppParameters::getInstance().setCurrentDefaultBgColor(pStyle->_bgColor);
-			}
+			StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
+			int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
+			Style & style = globalStyles.getStyler(i);
+			(NppParameters::getInstance()).setCurrentDefaultFgColor(style._fgColor);
+			(NppParameters::getInstance()).setCurrentDefaultBgColor(style._bgColor);
 
 			NppDarkMode::calculateTreeViewStyle();
 			auto refreshOnlyTreeView = static_cast<LPARAM>(TRUE);
 
 			// Set default fg/bg colors on internal docking dialog
-			if (pStyle && _pFuncList)
+			if (_pFuncList)
 			{
-				_pFuncList->setBackgroundColor(pStyle->_bgColor);
-				_pFuncList->setForegroundColor(pStyle->_fgColor);
+				_pFuncList->setBackgroundColor(style._bgColor);
+				_pFuncList->setForegroundColor(style._fgColor);
 				::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
-			if (pStyle && _pAnsiCharPanel)
+			if (_pAnsiCharPanel)
 			{
-				_pAnsiCharPanel->setBackgroundColor(pStyle->_bgColor);
-				_pAnsiCharPanel->setForegroundColor(pStyle->_fgColor);
+				_pAnsiCharPanel->setBackgroundColor(style._bgColor);
+				_pAnsiCharPanel->setForegroundColor(style._fgColor);
 			}
 
-			if (pStyle && _pDocumentListPanel)
+			if (_pDocumentListPanel)
 			{
-				_pDocumentListPanel->setBackgroundColor(pStyle->_bgColor);
-				_pDocumentListPanel->setForegroundColor(pStyle->_fgColor);
+				_pDocumentListPanel->setBackgroundColor(style._bgColor);
+				_pDocumentListPanel->setForegroundColor(style._fgColor);
 			}
 
-			if (pStyle && _pClipboardHistoryPanel)
+			if (_pClipboardHistoryPanel)
 			{
-				_pClipboardHistoryPanel->setBackgroundColor(pStyle->_bgColor);
-				_pClipboardHistoryPanel->setForegroundColor(pStyle->_fgColor);
+				_pClipboardHistoryPanel->setBackgroundColor(style._bgColor);
+				_pClipboardHistoryPanel->setForegroundColor(style._fgColor);
 				_pClipboardHistoryPanel->redraw(true);
 			}
 
-			if (pStyle && _pProjectPanel_1)
+			if (_pProjectPanel_1)
 			{
-				_pProjectPanel_1->setBackgroundColor(pStyle->_bgColor);
-				_pProjectPanel_1->setForegroundColor(pStyle->_fgColor);
+				_pProjectPanel_1->setBackgroundColor(style._bgColor);
+				_pProjectPanel_1->setForegroundColor(style._fgColor);
 				::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
-			if (pStyle && _pProjectPanel_2)
+			if (_pProjectPanel_2)
 			{
-				_pProjectPanel_2->setBackgroundColor(pStyle->_bgColor);
-				_pProjectPanel_2->setForegroundColor(pStyle->_fgColor);
+				_pProjectPanel_2->setBackgroundColor(style._bgColor);
+				_pProjectPanel_2->setForegroundColor(style._fgColor);
 				::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
-			if (pStyle && _pProjectPanel_3)
+			if (_pProjectPanel_3)
 			{
-				_pProjectPanel_3->setBackgroundColor(pStyle->_bgColor);
-				_pProjectPanel_3->setForegroundColor(pStyle->_fgColor);
+				_pProjectPanel_3->setBackgroundColor(style._bgColor);
+				_pProjectPanel_3->setForegroundColor(style._fgColor);
 				::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
-			if (pStyle && _pFileBrowser)
+			if (_pFileBrowser)
 			{
-				_pFileBrowser->setBackgroundColor(pStyle->_bgColor);
-				_pFileBrowser->setForegroundColor(pStyle->_fgColor);
+				_pFileBrowser->setBackgroundColor(style._bgColor);
+				_pFileBrowser->setForegroundColor(style._fgColor);
 				::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
@@ -2535,11 +2534,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 
+			StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
 			COLORREF multiEdgeColor = liteGrey;
-			const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByName(TEXT("Edge colour"));
-			if (pStyle)
+			int i = stylers.getStylerIndexByName(TEXT("Edge colour"));
+			if (i != -1)
 			{
-				multiEdgeColor = pStyle->_fgColor;
+				Style & style = stylers.getStyler(i);
+				multiEdgeColor = style._fgColor;
 			}
 
 			const size_t twoPower13 = 8192;

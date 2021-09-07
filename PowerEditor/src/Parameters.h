@@ -44,7 +44,6 @@
 
 #endif
 
-
 class NativeLangSpeaker;
 
 const bool POS_VERTICAL = true;
@@ -380,21 +379,81 @@ const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
 
 
 
-struct Style final
+struct Style
 {
-	int _styleID = STYLE_NOT_USED;
-	generic_string _styleDesc;
+	int _styleID = -1;
+	const TCHAR* _styleDesc = nullptr;
 
 	COLORREF _fgColor = COLORREF(STYLE_NOT_USED);
 	COLORREF _bgColor = COLORREF(STYLE_NOT_USED);
 	int _colorStyle = COLORSTYLE_ALL;
-	generic_string _fontName;
+	const TCHAR* _fontName = nullptr;
 	int _fontStyle = FONTSTYLE_NONE;
 	int _fontSize = STYLE_NOT_USED;
 	int _nesting = FONTSTYLE_NONE;
 
 	int _keywordClass = STYLE_NOT_USED;
-	generic_string _keywords;
+	generic_string* _keywords = nullptr;
+
+
+	Style() = default;
+
+	Style(const Style & style)
+	{
+		_styleID	  = style._styleID;
+		_styleDesc	= style._styleDesc;
+		_fgColor	  = style._fgColor;
+		_bgColor	  = style._bgColor;
+		_colorStyle   = style._colorStyle;
+		_fontName	 = style._fontName;
+		_fontSize	 = style._fontSize;
+		_fontStyle	= style._fontStyle;
+		_keywordClass = style._keywordClass;
+		_nesting	  = style._nesting;
+		_keywords	 = (style._keywords) ? new generic_string(*(style._keywords)) : nullptr;
+	}
+
+	~Style()
+	{
+		delete _keywords;
+	}
+
+
+	Style& operator = (const Style & style)
+	{
+		if (this != &style)
+		{
+			_styleID	  = style._styleID;
+			_styleDesc	= style._styleDesc;
+			_fgColor	  = style._fgColor;
+			_bgColor	  = style._bgColor;
+			_colorStyle   = style._colorStyle;
+			_fontName	 = style._fontName;
+			_fontSize	 = style._fontSize;
+			_fontStyle	= style._fontStyle;
+			_keywordClass = style._keywordClass;
+			_nesting	  = style._nesting;
+
+			if (!(_keywords) && style._keywords)
+				_keywords = new generic_string(*(style._keywords));
+			else if (_keywords && style._keywords)
+				_keywords->assign(*(style._keywords));
+			else if (_keywords && !(style._keywords))
+			{
+				delete (_keywords);
+				_keywords = nullptr;
+			}
+		}
+		return *this;
+	}
+
+	void setKeywords(const TCHAR *str)
+	{
+		if (!_keywords)
+			_keywords = new generic_string(str);
+		else
+			*_keywords = str;
+	}
 };
 
 
@@ -410,53 +469,69 @@ struct GlobalOverride final
 	bool enableUnderLine = false;
 };
 
+
 struct StyleArray
 {
-	//auto size() const { return _styleVect.size(); }
-	auto begin() { return _styleVect.begin(); }
-	auto end() { return _styleVect.end(); }
-	void clear() { _styleVect.clear(); }
-
-	Style & getStyler(size_t index)
+public:
+	StyleArray & operator=(const StyleArray & sa)
 	{
-		assert(index < _styleVect.size());
-		return _styleVect[index];
+		if (this != &sa)
+		{
+			this->_nbStyler = sa._nbStyler;
+			for (int i = 0 ; i < _nbStyler ; ++i)
+			{
+				this->_styleArray[i] = sa._styleArray[i];
+			}
+		}
+		return *this;
 	}
 
+	int getNbStyler() const {return _nbStyler;};
+	void setNbStyler(int nb) {_nbStyler = nb;};
+
+	Style& getStyler(size_t index)
+	{
+		assert(index < SCE_STYLE_ARRAY_SIZE);
+		return _styleArray[index];
+	}
+
+	bool hasEnoughSpace() {return (_nbStyler < SCE_STYLE_ARRAY_SIZE);};
 	void addStyler(int styleID, TiXmlNode *styleNode);
 
-	void addStyler(int styleID, const generic_string & styleName)
+	void addStyler(int styleID, const TCHAR *styleName)
 	{
-		_styleVect.emplace_back();
-		Style & s = _styleVect.back();
-		s._styleID = styleID;
-		s._styleDesc = styleName;
-		s._fgColor = black;
-		s._bgColor = white;
+		_styleArray[styleID]._styleID = styleID;
+		_styleArray[styleID]._styleDesc = styleName;
+		_styleArray[styleID]._fgColor = black;
+		_styleArray[styleID]._bgColor = white;
+		++_nbStyler;
 	}
 
-	Style * findByID(int id)
+	int getStylerIndexByID(int id)
 	{
-		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
+		for (int i = 0 ; i < _nbStyler ; ++i)
 		{
-			if (_styleVect[i]._styleID == id)
-				return &(_styleVect[i]);
+			if (_styleArray[i]._styleID == id)
+				return i;
 		}
-		return nullptr;
+		return -1;
 	}
 
-	Style * findByName(const generic_string & name)
+	int getStylerIndexByName(const TCHAR *name) const
 	{
-		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
+		if (!name)
+			return -1;
+		for (int i = 0 ; i < _nbStyler ; ++i)
 		{
-			if (_styleVect[i]._styleDesc == name)
-				return &(_styleVect[i]);
+			if (!lstrcmp(_styleArray[i]._styleDesc, name))
+				return i;
 		}
-		return nullptr;
+		return -1;
 	}
 
 protected:
-	std::vector<Style> _styleVect;
+	Style _styleArray[SCE_STYLE_ARRAY_SIZE];
+	int _nbStyler = 0;
 };
 
 
@@ -502,33 +577,49 @@ private :
 
 
 
+const int MAX_LEXER_STYLE = 100;
+
 struct LexerStylerArray
 {
-	size_t getNbLexer() const { return _lexerStylerVect.size(); }
-	void clear() { _lexerStylerVect.clear(); }
+public :
+	LexerStylerArray() : _nbLexerStyler(0){};
 
-	LexerStyler & getLexerFromIndex(size_t index)
+	LexerStylerArray & operator=(const LexerStylerArray & lsa)
 	{
-		assert(index < _lexerStylerVect.size());
-		return _lexerStylerVect[index];
+		if (this != &lsa)
+		{
+			this->_nbLexerStyler = lsa._nbLexerStyler;
+			for (int i = 0 ; i < this->_nbLexerStyler ; ++i)
+				this->_lexerStylerArray[i] = lsa._lexerStylerArray[i];
+		}
+		return *this;
+	}
+
+	int getNbLexer() const {return _nbLexerStyler;};
+
+	LexerStyler & getLexerFromIndex(int index)
+	{
+		return _lexerStylerArray[index];
 	};
 
-	const TCHAR * getLexerNameFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerName(); }
-	const TCHAR * getLexerDescFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerDesc(); }
+	const TCHAR * getLexerNameFromIndex(int index) const {return _lexerStylerArray[index].getLexerName();}
+	const TCHAR * getLexerDescFromIndex(int index) const {return _lexerStylerArray[index].getLexerDesc();}
 
 	LexerStyler * getLexerStylerByName(const TCHAR *lexerName) {
-		if (!lexerName) return nullptr;
-		for (size_t i = 0 ; i < _lexerStylerVect.size() ; ++i)
+		if (!lexerName) return NULL;
+		for (int i = 0 ; i < _nbLexerStyler ; ++i)
 		{
-			if (!lstrcmp(_lexerStylerVect[i].getLexerName(), lexerName))
-				return &(_lexerStylerVect[i]);
+			if (!lstrcmp(_lexerStylerArray[i].getLexerName(), lexerName))
+				return &(_lexerStylerArray[i]);
 		}
-		return nullptr;
+		return NULL;
 	};
+	bool hasEnoughSpace() {return (_nbLexerStyler < MAX_LEXER_STYLE);};
 	void addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt, TiXmlNode *lexerNode);
-
+	void eraseAll();
 private :
-	std::vector<LexerStyler> _lexerStylerVect;
+	LexerStyler _lexerStylerArray[MAX_LEXER_STYLE];
+	int _nbLexerStyler;
 };
 
 
@@ -1009,13 +1100,15 @@ public:
 			this->_isDarkModeTheme = ulc._isDarkModeTheme;
 			this->_udlVersion = ulc._udlVersion;
 			this->_isCaseIgnored = ulc._isCaseIgnored;
-			this->_styles = ulc._styles;
+			this->_styleArray = ulc._styleArray;
 			this->_allowFoldOfComments = ulc._allowFoldOfComments;
 			this->_forcePureLC = ulc._forcePureLC;
 			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
-			for (Style & st : this->_styles)
+			int nbStyler = this->_styleArray.getNbStyler();
+			for (int i = 0 ; i < nbStyler ; ++i)
 			{
+				Style & st = this->_styleArray.getStyler(i);
 				if (st._bgColor == COLORREF(-1))
 					st._bgColor = white;
 				if (st._fgColor == COLORREF(-1))
@@ -1036,7 +1129,7 @@ public:
 	const TCHAR * getUdlVersion() {return _udlVersion.c_str();};
 
 private:
-	StyleArray _styles;
+	StyleArray _styleArray;
 	generic_string _name;
 	generic_string _ext;
 	generic_string _udlVersion;
@@ -1280,6 +1373,8 @@ struct UdlXmlFileState final {
 };
 
 const int NB_LANG = 100;
+const bool DUP = true;
+const bool FREE = false;
 
 const int RECENTFILES_SHOWFULLPATH = -1;
 const int RECENTFILES_SHOWONLYFILENAME = 0;
@@ -1403,7 +1498,7 @@ public:
 	generic_string writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers); // return "" if saving file succeeds, otherwise return the new saved file path
 	bool insertTabInfo(const TCHAR *langName, int tabInfo);
 
-	LexerStylerArray & getLStylerArray() {return _lexerStylerVect;};
+	LexerStylerArray & getLStylerArray() {return _lexerStylerArray;};
 	StyleArray & getGlobalStylers() {return _widgetStyleArray;};
 
 	StyleArray & getMiscStylerArray() {return _widgetStyleArray;};
@@ -1725,7 +1820,7 @@ private:
 	int _fileSaveDlgFilterIndex = -1;
 
 	// All Styles (colours & fonts)
-	LexerStylerArray _lexerStylerVect;
+	LexerStylerArray _lexerStylerArray;
 	StyleArray _widgetStyleArray;
 
 	std::vector<generic_string> _fontlist;
@@ -1861,13 +1956,14 @@ private:
 	void getActions(TiXmlNode *node, Macro & macro);
 	bool getShortcuts(TiXmlNode *node, Shortcut & sc);
 
-	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);
+	void writeStyle2Element(Style & style2Write, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
 	void insertCmd(TiXmlNode *cmdRoot, const CommandShortcut & cmd);
 	void insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro);
 	void insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd);
 	void insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
 	void insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
+	void stylerStrOp(bool op);
 	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHAR *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);

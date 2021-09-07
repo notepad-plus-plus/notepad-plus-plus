@@ -681,11 +681,13 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Initialize the default foreground & background color
 	//
 	{
-		const Style * pStyle = nppParam.getGlobalStylers().findByID(STYLE_DEFAULT);
-		if (pStyle)
+		StyleArray & globalStyles = nppParam.getGlobalStylers();
+		int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
+		if (i != -1)
 		{
-			nppParam.setCurrentDefaultFgColor(pStyle->_fgColor);
-			nppParam.setCurrentDefaultBgColor(pStyle->_bgColor);
+			Style & style = globalStyles.getStyler(i);
+			nppParam.setCurrentDefaultFgColor(style._fgColor);
+			nppParam.setCurrentDefaultBgColor(style._bgColor);
 		}
 	}
 
@@ -2257,9 +2259,12 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 
 	for (int j = 0; j < sizeof(bitmapOnStyleMenuItemsInfo) / sizeof(bitmapOnStyleMenuItemsInfo[0]); ++j)
 	{
-		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
-		if (pStyle)
+		StyleArray& stylers = NppParameters::getInstance().getMiscStylerArray();
+		int iFind = stylers.getStylerIndexByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
+		
+		if (iFind != -1)
 		{
+			Style const* pStyle = &(stylers.getStyler(iFind));
 
 			HDC hDC = GetDC(NULL);
 			const int bitmapXYsize = 16;
@@ -6364,7 +6369,16 @@ generic_string Notepad_plus::getLangFromMenu(const Buffer * buf)
 
 Style * Notepad_plus::getStyleFromName(const TCHAR *styleName)
 {
-	return NppParameters::getInstance().getMiscStylerArray().findByName(styleName);
+	StyleArray & stylers = (NppParameters::getInstance()).getMiscStylerArray();
+
+	int i = stylers.getStylerIndexByName(styleName);
+	Style * st = NULL;
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		st = &style;
+	}
+	return st;
 }
 
 bool Notepad_plus::noOpenedDoc() const

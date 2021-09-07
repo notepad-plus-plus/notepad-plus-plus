@@ -4259,40 +4259,43 @@ void Finder::setFinderStyle()
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
-		const Style * pStyle = pStyler->findByID(SCE_SEARCHRESULT_CURRENT_LINE);
-		if (pStyle)
+		int i = pStyler->getStylerIndexByID(SCE_SEARCHRESULT_CURRENT_LINE);
+		if (i != -1)
 		{
-			_scintView.execute(SCI_SETCARETLINEBACK, pStyle->_bgColor);
+			Style & style = pStyler->getStyler(i);
+			_scintView.execute(SCI_SETCARETLINEBACK, style._bgColor);
 		}
 	}
 	_scintView.setSearchResultLexer();
 
 	// Override foreground & background colour by default foreground & background coulour
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
-	Style * pStyleDefault = stylers.findByID(STYLE_DEFAULT);
-	if (pStyleDefault)
+	int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
+	if (iStyleDefault != -1)
 	{
-		_scintView.setStyle(*pStyleDefault);
+		Style & styleDefault = stylers.getStyler(iStyleDefault);
+		_scintView.setStyle(styleDefault);
 
 		GlobalOverride & go = NppParameters::getInstance().getGlobalOverrideStyle();
 		if (go.isEnable())
 		{
-			const Style * pStyleGlobalOverride = stylers.findByName(TEXT("Global override"));
-			if (pStyleGlobalOverride)
+			int iGlobalOverride = stylers.getStylerIndexByName(TEXT("Global override"));
+			if (iGlobalOverride != -1)
 			{
+				Style & styleGlobalOverride = stylers.getStyler(iGlobalOverride);
 				if (go.enableFg)
 				{
-					pStyleDefault->_fgColor = pStyleGlobalOverride->_fgColor;
+					styleDefault._fgColor = styleGlobalOverride._fgColor;
 				}
 				if (go.enableBg)
 				{
-					pStyleDefault->_bgColor = pStyleGlobalOverride->_bgColor;
+					styleDefault._bgColor = styleGlobalOverride._bgColor;
 				}
 			}
 		}
 
-		_scintView.execute(SCI_STYLESETFORE, SCE_SEARCHRESULT_DEFAULT, pStyleDefault->_fgColor);
-		_scintView.execute(SCI_STYLESETBACK, SCE_SEARCHRESULT_DEFAULT, pStyleDefault->_bgColor);
+		_scintView.execute(SCI_STYLESETFORE, SCE_SEARCHRESULT_DEFAULT, styleDefault._fgColor);
+		_scintView.execute(SCI_STYLESETBACK, SCE_SEARCHRESULT_DEFAULT, styleDefault._bgColor);
 	}
 
 	_scintView.execute(SCI_COLOURISE, 0, -1);

@@ -433,7 +433,7 @@ public:
         _hInst(hInst), _parent(parent), _stylerIndex(stylerIndex), _enabledNesters(enabledNesters) {
         _pFgColour = new ColourPicker;
         _pBgColour = new ColourPicker;
-        _initialStyle = SharedParametersDialog::_pUserLang->_styles.getStyler(stylerIndex);
+        _initialStyle = SharedParametersDialog::_pUserLang->_styles->getStyler(stylerIndex);
     };
 
     ~StylerDlg() {

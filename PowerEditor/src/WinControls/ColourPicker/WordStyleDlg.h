@@ -82,7 +82,7 @@ public :
 
 	void prepare2Cancel() {
 		_styles2restored = (NppParameters::getInstance()).getLStylerArray();
-		_gstyles2restored = (NppParameters::getInstance()).getGlobalStylers();
+		*_gstyles2restored = (NppParameters::getInstance()).getGlobalStylers();
 		_gOverride2restored = (NppParameters::getInstance()).getGlobalOverrideStyle();
 	};
 
@@ -130,11 +130,11 @@ private :
 	HWND _hStyleInfoStaticText = nullptr;
 
 	LexerStylerArray _lsArray;
-    StyleArray _globalStyles;
+    StyleArray* _globalStyles = new StyleArray;
 	generic_string _themeName;
 
 	LexerStylerArray _styles2restored;
-	StyleArray _gstyles2restored;
+	StyleArray* _gstyles2restored = new StyleArray;
 	GlobalOverride _gOverride2restored;
 	bool _restoreInvalid = false;
 
@@ -154,7 +154,7 @@ private :
 
         if (_currentLexerIndex == 0)
 		{
-            return _globalStyles.getStyler(styleIndex);
+            return _globalStyles->getStyler(styleIndex);
 		}
         else
         {

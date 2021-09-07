@@ -927,7 +927,7 @@ bool NppParameters::reloadStylers(const TCHAR* stylePath)
 		return false;
 	}
 	_lexerStylerVect.clear();
-	_widgetStyleArray.clear();
+	_widgetStyleArray->clear();
 
 	getUserStylersFromXmlTree();
 
@@ -1594,7 +1594,7 @@ UserLangContainer* NppParameters::getULCFromName(const TCHAR *userLangName)
 
 COLORREF NppParameters::getCurLineHilitingColour()
 {
-	const Style * pStyle = _widgetStyleArray.findByName(TEXT("Current line background colour"));
+	const Style * pStyle = _widgetStyleArray->findByName(TEXT("Current line background colour"));
 	if (!pStyle)
 		return COLORREF(-1);
 	return pStyle->_bgColor;
@@ -1603,7 +1603,7 @@ COLORREF NppParameters::getCurLineHilitingColour()
 
 void NppParameters::setCurLineHilitingColour(COLORREF colour2Set)
 {
-	Style * pStyle = _widgetStyleArray.findByName(TEXT("Current line background colour"));
+	Style * pStyle = _widgetStyleArray->findByName(TEXT("Current line background colour"));
 	if (!pStyle)
 		return;
 	pStyle->_bgColor = colour2Set;
@@ -2773,9 +2773,9 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			// styles that were not read from xml file should get default values
 			for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
 			{
-				const Style * pStyle = _userLangArray[_nbUserLang - 1]->_styles.findByID(i);
+				const Style * pStyle = _userLangArray[_nbUserLang - 1]->_styles->findByID(i);
 				if (!pStyle)
-					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, globalMappper().styleNameMapper[i]);
+					_userLangArray[_nbUserLang - 1]->_styles->addStyler(i, globalMappper().styleNameMapper[i]);
 			}
 
 		}
@@ -3547,7 +3547,7 @@ void NppParameters::feedUserStyles(TiXmlNode *node)
 			if (globalMappper().styleIdMapper.find(styleName) != globalMappper().styleIdMapper.end())
 			{
 				id = globalMappper().styleIdMapper[styleName];
-				_userLangArray[_nbUserLang - 1]->_styles.addStyler((id | L_USER << 16), childNode);
+				_userLangArray[_nbUserLang - 1]->_styles->addStyler((id | L_USER << 16), childNode);
 			}
 		}
 	}
@@ -3594,7 +3594,7 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		int styleID = -1;
 		if ((styleID = decStrVal(styleIDStr)) != -1)
 		{
-			_widgetStyleArray.addStyler(styleID, childNode);
+			_widgetStyleArray->addStyler(styleID, childNode);
 		}
 	}
 	return true;
@@ -7116,7 +7116,7 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 	{
 		TiXmlElement *pElement = childNode->ToElement();
 		const TCHAR *styleName = pElement->Attribute(TEXT("name"));
-		const Style * pStyle = _widgetStyleArray.findByName(styleName);
+		const Style * pStyle = _widgetStyleArray->findByName(styleName);
 		Style * pStyle2Sync = globalStylers.findByName(styleName);
 		if (pStyle && pStyle2Sync)
 		{
@@ -7255,7 +7255,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 	TiXmlElement *styleRootElement = (rootElement->InsertEndChild(TiXmlElement(TEXT("Styles"))))->ToElement();
 
-	for (const Style & style2Write : userLang->_styles)
+	for (const Style & style2Write : *(userLang->_styles))
 	{
 		TiXmlElement *styleElement = (styleRootElement->InsertEndChild(TiXmlElement(TEXT("WordsStyle"))))->ToElement();
 

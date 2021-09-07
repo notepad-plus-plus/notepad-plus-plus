@@ -298,11 +298,13 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							if (_restoreInvalid)
 							{
 								_lsArray = _styles2restored = lsArray;
-								_globalStyles = _gstyles2restored = globalStyles;
+								*_globalStyles = globalStyles;
+								*_gstyles2restored =  globalStyles;
 							}
 							else
 							{
-								globalStyles = _globalStyles = _gstyles2restored;
+								globalStyles = *_gstyles2restored;
+								*_globalStyles = *_gstyles2restored;
 								lsArray = _lsArray = _styles2restored;
 							}
 
@@ -331,7 +333,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
 
 							_lsArray = lsa;
-							_globalStyles = globalStyles;
+							*_globalStyles = globalStyles;
 							updateThemeName(_themeName);
 							_restoreInvalid = false;
 
@@ -340,7 +342,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							_isDirty = false;
 						}
 						_isThemeDirty = false;
-						auto newSavedFilePath = (NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
+						auto newSavedFilePath = (NppParameters::getInstance()).writeStyles(_lsArray, *_globalStyles);
 						if (!newSavedFilePath.empty())
 							updateThemeName(newSavedFilePath);
 
@@ -538,7 +540,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	_lsArray = nppParamInst.getLStylerArray();
-	_globalStyles = nppParamInst.getGlobalStylers();
+	*_globalStyles = nppParamInst.getGlobalStylers();
 
 	// Clean up Language List
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_RESETCONTENT, 0, 0);
@@ -743,7 +745,7 @@ void WordStyleDlg::switchToTheme()
 				themeFileName,
 				MB_ICONWARNING | MB_YESNO | MB_APPLMODAL | MB_SETFOREGROUND );
 		if ( mb_response == IDYES )
-			(NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
+			(NppParameters::getInstance()).writeStyles(_lsArray, *_globalStyles);
 	}
 	nppParamInst.reloadStylers(_themeName.c_str());
 
@@ -806,7 +808,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_USER_EXT_STATIC), index?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_PLUSSYMBOL2_STATIC), index?SW_SHOW:SW_HIDE);
 
-	StyleArray & lexerStyler = index?_lsArray.getLexerFromIndex(index-1):_globalStyles;
+	StyleArray & lexerStyler = index?_lsArray.getLexerFromIndex(index-1):*_globalStyles;
 
 	for (const Style & style : lexerStyler)
 	{
@@ -1001,7 +1003,7 @@ void WordStyleDlg::apply()
 	StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
 
 	lsa = _lsArray;
-	globalStyles = _globalStyles;
+	globalStyles = *_globalStyles;
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);

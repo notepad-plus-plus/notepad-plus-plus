@@ -859,7 +859,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 	sprintf(intBuffer, "%" PRIuPTR, reinterpret_cast<uintptr_t>(_currentBufferID)); // use numeric value of BufferID pointer
     execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.currentBufferID"), reinterpret_cast<LPARAM>(intBuffer));
 
-	for (const Style & style : userLangContainer->_styles)
+	for (const Style & style : *(userLangContainer->_styles))
 	{
 		if (style._styleID == STYLE_NOT_USED)
 			continue;

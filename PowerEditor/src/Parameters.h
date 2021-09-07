@@ -1014,7 +1014,7 @@ public:
 			this->_forcePureLC = ulc._forcePureLC;
 			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
-			for (Style & st : this->_styles)
+			for (Style & st : *(this->_styles))
 			{
 				if (st._bgColor == COLORREF(-1))
 					st._bgColor = white;
@@ -1036,7 +1036,7 @@ public:
 	const TCHAR * getUdlVersion() {return _udlVersion.c_str();};
 
 private:
-	StyleArray _styles;
+	StyleArray* _styles = new StyleArray;
 	generic_string _name;
 	generic_string _ext;
 	generic_string _udlVersion;
@@ -1404,9 +1404,9 @@ public:
 	bool insertTabInfo(const TCHAR *langName, int tabInfo);
 
 	LexerStylerArray & getLStylerArray() {return _lexerStylerVect;};
-	StyleArray & getGlobalStylers() {return _widgetStyleArray;};
+	StyleArray & getGlobalStylers() {return *_widgetStyleArray;};
 
-	StyleArray & getMiscStylerArray() {return _widgetStyleArray;};
+	StyleArray & getMiscStylerArray() {return *_widgetStyleArray;};
 	GlobalOverride & getGlobalOverrideStyle() {return _nppGUI._globalOverride;};
 
 	COLORREF getCurLineHilitingColour();
@@ -1712,7 +1712,7 @@ private:
 
 	FindHistory _findHistory;
 
-	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
+	UserLangContainer* _userLangArray[NB_MAX_USER_LANG];
 	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
 	generic_string _userDefineLangsFolderPath;
 	generic_string _userDefineLangPath;
@@ -1726,7 +1726,7 @@ private:
 
 	// All Styles (colours & fonts)
 	LexerStylerArray _lexerStylerVect;
-	StyleArray _widgetStyleArray;
+	StyleArray* _widgetStyleArray = new StyleArray;
 
 	std::vector<generic_string> _fontlist;
 	std::vector<generic_string> _blacklist;

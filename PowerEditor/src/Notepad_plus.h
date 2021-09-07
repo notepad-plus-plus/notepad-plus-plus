@@ -398,7 +398,7 @@ private:
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
 	std::vector<std::pair<int, int> > _hideLinesMarks;
-	StyleArray _hotspotStyles;
+	StyleArray* _hotspotStyles = new StyleArray;
 
 	AnsiCharPanel* _pAnsiCharPanel = nullptr;
 	ClipboardHistoryPanel* _pClipboardHistoryPanel = nullptr;

@@ -44,7 +44,6 @@
 
 #endif
 
-
 class NativeLangSpeaker;
 
 const bool POS_VERTICAL = true;
@@ -470,7 +469,6 @@ struct GlobalOverride final
 	bool enableUnderLine = false;
 };
 
-const int STYLE_ARR_MAX_SIZE = 31;
 
 struct StyleArray
 {
@@ -482,7 +480,7 @@ public:
 			this->_nbStyler = sa._nbStyler;
 			for (int i = 0 ; i < _nbStyler ; ++i)
 			{
-				this->_styleVect[i] = sa._styleVect[i];
+				this->_styleArray[i] = sa._styleArray[i];
 			}
 		}
 		return *this;
@@ -493,19 +491,19 @@ public:
 
 	Style& getStyler(size_t index)
 	{
-		assert(index < STYLE_ARR_MAX_SIZE);
-		return _styleVect[index];
+		assert(index < SCE_STYLE_ARRAY_SIZE);
+		return _styleArray[index];
 	}
 
-	bool hasEnoughSpace() {return (_nbStyler < STYLE_ARR_MAX_SIZE);};
+	bool hasEnoughSpace() {return (_nbStyler < SCE_STYLE_ARRAY_SIZE);};
 	void addStyler(int styleID, TiXmlNode *styleNode);
 
 	void addStyler(int styleID, const TCHAR *styleName)
 	{
-		_styleVect[styleID]._styleID = styleID;
-		_styleVect[styleID]._styleDesc = styleName;
-		_styleVect[styleID]._fgColor = black;
-		_styleVect[styleID]._bgColor = white;
+		_styleArray[styleID]._styleID = styleID;
+		_styleArray[styleID]._styleDesc = styleName;
+		_styleArray[styleID]._fgColor = black;
+		_styleArray[styleID]._bgColor = white;
 		++_nbStyler;
 	}
 
@@ -513,7 +511,7 @@ public:
 	{
 		for (int i = 0 ; i < _nbStyler ; ++i)
 		{
-			if (_styleVect[i]._styleID == id)
+			if (_styleArray[i]._styleID == id)
 				return i;
 		}
 		return -1;
@@ -525,14 +523,14 @@ public:
 			return -1;
 		for (int i = 0 ; i < _nbStyler ; ++i)
 		{
-			if (!lstrcmp(_styleVect[i]._styleDesc, name))
+			if (!lstrcmp(_styleArray[i]._styleDesc, name))
 				return i;
 		}
 		return -1;
 	}
 
 protected:
-	std::vector<Style> _styleVect = std::vector<Style>(STYLE_ARR_MAX_SIZE);
+	Style _styleArray[SCE_STYLE_ARRAY_SIZE];
 	int _nbStyler = 0;
 };
 
@@ -592,7 +590,7 @@ public :
 		{
 			this->_nbLexerStyler = lsa._nbLexerStyler;
 			for (int i = 0 ; i < this->_nbLexerStyler ; ++i)
-				this->_lexerStylerVect[i] = lsa._lexerStylerVect[i];
+				this->_lexerStylerArray[i] = lsa._lexerStylerArray[i];
 		}
 		return *this;
 	}
@@ -601,18 +599,18 @@ public :
 
 	LexerStyler & getLexerFromIndex(int index)
 	{
-		return _lexerStylerVect[index];
+		return _lexerStylerArray[index];
 	};
 
-	const TCHAR * getLexerNameFromIndex(int index) const {return _lexerStylerVect[index].getLexerName();}
-	const TCHAR * getLexerDescFromIndex(int index) const {return _lexerStylerVect[index].getLexerDesc();}
+	const TCHAR * getLexerNameFromIndex(int index) const {return _lexerStylerArray[index].getLexerName();}
+	const TCHAR * getLexerDescFromIndex(int index) const {return _lexerStylerArray[index].getLexerDesc();}
 
 	LexerStyler * getLexerStylerByName(const TCHAR *lexerName) {
 		if (!lexerName) return NULL;
 		for (int i = 0 ; i < _nbLexerStyler ; ++i)
 		{
-			if (!lstrcmp(_lexerStylerVect[i].getLexerName(), lexerName))
-				return &(_lexerStylerVect[i]);
+			if (!lstrcmp(_lexerStylerArray[i].getLexerName(), lexerName))
+				return &(_lexerStylerArray[i]);
 		}
 		return NULL;
 	};
@@ -620,7 +618,7 @@ public :
 	void addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt, TiXmlNode *lexerNode);
 	void eraseAll();
 private :
-	std::vector<LexerStyler> _lexerStylerVect = std::vector<LexerStyler>(MAX_LEXER_STYLE);
+	LexerStyler _lexerStylerArray[MAX_LEXER_STYLE];
 	int _nbLexerStyler;
 };
 
@@ -1102,15 +1100,15 @@ public:
 			this->_isDarkModeTheme = ulc._isDarkModeTheme;
 			this->_udlVersion = ulc._udlVersion;
 			this->_isCaseIgnored = ulc._isCaseIgnored;
-			this->_styles = ulc._styles;
+			this->_styleArray = ulc._styleArray;
 			this->_allowFoldOfComments = ulc._allowFoldOfComments;
 			this->_forcePureLC = ulc._forcePureLC;
 			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
-			int nbStyler = this->_styles.getNbStyler();
+			int nbStyler = this->_styleArray.getNbStyler();
 			for (int i = 0 ; i < nbStyler ; ++i)
 			{
-				Style & st = this->_styles.getStyler(i);
+				Style & st = this->_styleArray.getStyler(i);
 				if (st._bgColor == COLORREF(-1))
 					st._bgColor = white;
 				if (st._fgColor == COLORREF(-1))
@@ -1131,7 +1129,7 @@ public:
 	const TCHAR * getUdlVersion() {return _udlVersion.c_str();};
 
 private:
-	StyleArray _styles;
+	StyleArray _styleArray;
 	generic_string _name;
 	generic_string _ext;
 	generic_string _udlVersion;
@@ -1500,7 +1498,7 @@ public:
 	generic_string writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers); // return "" if saving file succeeds, otherwise return the new saved file path
 	bool insertTabInfo(const TCHAR *langName, int tabInfo);
 
-	LexerStylerArray & getLStylerArray() {return _lexerStylerVect;};
+	LexerStylerArray & getLStylerArray() {return _lexerStylerArray;};
 	StyleArray & getGlobalStylers() {return _widgetStyleArray;};
 
 	StyleArray & getMiscStylerArray() {return _widgetStyleArray;};
@@ -1822,7 +1820,7 @@ private:
 	int _fileSaveDlgFilterIndex = -1;
 
 	// All Styles (colours & fonts)
-	LexerStylerArray _lexerStylerVect;
+	LexerStylerArray _lexerStylerArray;
 	StyleArray _widgetStyleArray;
 
 	std::vector<generic_string> _fontlist;

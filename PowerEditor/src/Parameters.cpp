@@ -926,7 +926,7 @@ bool NppParameters::reloadStylers(const TCHAR* stylePath)
 		_pXmlUserStylerDoc = NULL;
 		return false;
 	}
-	_lexerStylerVect.eraseAll();
+	_lexerStylerArray.eraseAll();
 	_widgetStyleArray.setNbStyler( 0 );
 
 	getUserStylersFromXmlTree();
@@ -2776,9 +2776,9 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			// styles that were not read from xml file should get default values
 			for (int i=0; i<SCE_USER_STYLE_TOTAL_STYLES; ++i)
 			{
-				Style & style = _userLangArray[_nbUserLang - 1]->_styles.getStyler(i);
+				Style & style = _userLangArray[_nbUserLang - 1]->_styleArray.getStyler(i);
 				if (style._styleID == -1)
-					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, globalMappper().styleNameMapper[i].c_str());
+					_userLangArray[_nbUserLang - 1]->_styleArray.addStyler(i, globalMappper().styleNameMapper[i].c_str());
 			}
 
 		}
@@ -3554,7 +3554,7 @@ void NppParameters::feedUserStyles(TiXmlNode *node)
 			if (globalMappper().styleIdMapper.find(styleName) != globalMappper().styleIdMapper.end())
 			{
 				id = globalMappper().styleIdMapper[styleName];
-				_userLangArray[_nbUserLang - 1]->_styles.addStyler((id | L_USER << 16), childNode);
+				_userLangArray[_nbUserLang - 1]->_styleArray.addStyler((id | L_USER << 16), childNode);
 			}
 		}
 	}
@@ -3570,7 +3570,7 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		 childNode ;
 		 childNode = childNode->NextSibling(TEXT("LexerType")) )
 	{
-	 	if (!_lexerStylerVect.hasEnoughSpace()) return false;
+	 	if (!_lexerStylerArray.hasEnoughSpace()) return false;
 
 		TiXmlElement *element = childNode->ToElement();
 		const TCHAR *lexerName = element->Attribute(TEXT("name"));
@@ -3579,7 +3579,7 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		const TCHAR *lexerExcluded = element->Attribute(TEXT("excluded"));
 		if (lexerName)
 		{
-			_lexerStylerVect.addLexerStyler(lexerName, lexerDesc, lexerUserExt, childNode);
+			_lexerStylerArray.addLexerStyler(lexerName, lexerDesc, lexerUserExt, childNode);
 			if (lexerExcluded != NULL && (lstrcmp(lexerExcluded, TEXT("yes")) == 0))
 			{
 				int index = getExternalLangIndexFromName(lexerName);
@@ -3613,7 +3613,7 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 
 void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt , TiXmlNode *lexerNode)
 {
-	LexerStyler & ls = _lexerStylerVect[_nbLexerStyler++];
+	LexerStyler & ls = _lexerStylerArray[_nbLexerStyler++];
 	ls.setLexerName(lexerName);
 	if (lexerDesc)
 		ls.setLexerDesc(lexerDesc);
@@ -3647,7 +3647,7 @@ void LexerStylerArray::eraseAll()
 
 	for (int i = 0 ; i < _nbLexerStyler ; ++i)
 	{
-		_lexerStylerVect[i].setNbStyler( 0 );
+		_lexerStylerArray[i].setNbStyler( 0 );
 	}
 
 	_nbLexerStyler = 0;
@@ -3661,16 +3661,11 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 	{
 		styleID = (styleID & 0xFFFF);
 		index = styleID;
-		if (index >= SCE_USER_STYLE_TOTAL_STYLES || _styleVect[index]._styleID != -1)
-			return;
-	}
-	else
-	{
-		if (index >= STYLE_ARR_MAX_SIZE)
+		if (index >= SCE_USER_STYLE_TOTAL_STYLES || _styleArray[index]._styleID != -1)
 			return;
 	}
 
-	_styleVect[index]._styleID = styleID;
+	_styleArray[index]._styleID = styleID;
 
 	if (styleNode)
 	{
@@ -3684,16 +3679,16 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		if (str)
 		{
 			if (isUser)
-				_styleVect[index]._styleDesc = globalMappper().styleNameMapper[index].c_str();
+				_styleArray[index]._styleDesc = globalMappper().styleNameMapper[index].c_str();
 			else
-				_styleVect[index]._styleDesc = str;
+				_styleArray[index]._styleDesc = str;
 		}
 
 		str = element->Attribute(TEXT("fgColor"));
 		if (str)
 		{
 			unsigned long result = hexStrVal(str);
-			_styleVect[index]._fgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
+			_styleArray[index]._fgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 
 		}
 
@@ -3701,46 +3696,46 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		if (str)
 		{
 			unsigned long result = hexStrVal(str);
-			_styleVect[index]._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
+			_styleArray[index]._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 		}
 
 		str = element->Attribute(TEXT("colorStyle"));
 		if (str)
 		{
-			_styleVect[index]._colorStyle = decStrVal(str);
+			_styleArray[index]._colorStyle = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("fontName"));
-		_styleVect[index]._fontName = str;
+		_styleArray[index]._fontName = str;
 
 		str = element->Attribute(TEXT("fontStyle"));
 		if (str)
 		{
-			_styleVect[index]._fontStyle = decStrVal(str);
+			_styleArray[index]._fontStyle = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("fontSize"));
 		if (str)
 		{
-			_styleVect[index]._fontSize = decStrVal(str);
+			_styleArray[index]._fontSize = decStrVal(str);
 		}
 		str = element->Attribute(TEXT("nesting"));
 
 		if (str)
 		{
-			_styleVect[index]._nesting = decStrVal(str);
+			_styleArray[index]._nesting = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("keywordClass"));
 		if (str)
 		{
-			_styleVect[index]._keywordClass = getKwClassFromName(str);
+			_styleArray[index]._keywordClass = getKwClassFromName(str);
 		}
 
 		TiXmlNode *v = styleNode->FirstChild();
 		if (v)
 		{
-			_styleVect[index]._keywords = new generic_string(v->Value());
+			_styleArray[index]._keywords = new generic_string(v->Value());
 		}
 	}
 	++_nbStyler;
@@ -7076,7 +7071,7 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 		TiXmlElement *element = childNode->ToElement();
 		const TCHAR *nm = element->Attribute(TEXT("name"));
 
-		LexerStyler *pLs = _lexerStylerVect.getLexerStylerByName(nm);
+		LexerStyler *pLs = _lexerStylerArray.getLexerStylerByName(nm);
 		LexerStyler *pLs2 = lexersStylers.getLexerStylerByName(nm);
 
 		if (pLs)
@@ -7112,7 +7107,7 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 			TiXmlElement *element = childNode->ToElement();
 			const TCHAR *nm = element->Attribute(TEXT("name"));
 
-			LexerStyler *pLs = _lexerStylerVect.getLexerStylerByName(nm);
+			LexerStyler *pLs = _lexerStylerArray.getLexerStylerByName(nm);
 			LexerStyler *pLs2 = lexersStylers.getLexerStylerByName(nm);
 
 			if (pLs)
@@ -7294,7 +7289,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
 	{
 		TiXmlElement *styleElement = (styleRootElement->InsertEndChild(TiXmlElement(TEXT("WordsStyle"))))->ToElement();
-		Style style2Write = userLang->_styles.getStyler(i);
+		Style style2Write = userLang->_styleArray.getStyler(i);
 
 		if (style2Write._styleID == -1)
 			continue;
@@ -7354,7 +7349,7 @@ void NppParameters::stylerStrOp(bool op)
 	{
 		for (int j = 0 ; j < SCE_USER_STYLE_TOTAL_STYLES ; ++j)
 		{
-			Style & style = _userLangArray[i]->_styles.getStyler(j);
+			Style & style = _userLangArray[i]->_styleArray.getStyler(j);
 
 			if (op == DUP)
 			{

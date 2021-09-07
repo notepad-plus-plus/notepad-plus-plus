@@ -866,7 +866,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 
 	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
 	{
-		Style & style = userLangContainer->_styles.getStyler(i);
+		Style & style = userLangContainer->_styleArray.getStyler(i);
 
 		if (style._styleID == STYLE_NOT_USED)
 			continue;

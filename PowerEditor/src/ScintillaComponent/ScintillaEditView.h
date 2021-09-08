@@ -199,10 +199,6 @@ public:
 
 			for (BufferStyleMap::iterator it(_hotspotStyles.begin()); it != _hotspotStyles.end(); ++it )
 			{
-				for (StyleMap::iterator it2(it->second->begin()) ; it2 != it->second->end() ; ++it2)
-				{
-					delete [] it2->second._fontName;
-				}
 				delete it->second;
 			}
 		}

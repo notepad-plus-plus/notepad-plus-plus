@@ -1198,9 +1198,12 @@ void Notepad_plus::command(int id)
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
-			bool isFirstTime = !_incrementFindDlg.isCreated();
+			static bool isFirstTime = true;
 			if (isFirstTime)
+			{
 				_nativeLangSpeaker.changeDlgLang(_incrementFindDlg.getHSelf(), "IncrementalFind");
+				isFirstTime = false;
+			}
 
 			_pEditView->getGenericSelectedText(str, strSize, false);
 			if (0 != str[0])         // the selected text is not empty, then use it

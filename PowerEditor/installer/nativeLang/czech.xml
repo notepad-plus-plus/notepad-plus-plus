@@ -1221,7 +1221,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			</DoSaveOrNot>
 			
 			<DoSaveAll title="Potvrzení pro 'Uložit všechny'">
-				<Item id = "1766" name = "Jste si jistí, že chcete uložit všechny modifikovanéé dokumenty?
+				<Item id = "1766" name = "Jste si jistí, že chcete uložit všechny modifikované dokumenty?
 
 Vyberte &quot;Pokaždé ano&quot;, jestliže nechcete znovu vidět tento dialog.
 Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>

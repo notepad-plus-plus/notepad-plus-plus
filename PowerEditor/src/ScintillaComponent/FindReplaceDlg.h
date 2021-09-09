@@ -363,8 +363,8 @@ protected :
 
 private :
 	RECT _initialWindowRect;
-	LONG _deltaWidth;
-	LONG _initialClientWidth;
+	LONG _deltaWidth = 0;
+	LONG _initialClientWidth = 0;
 
 	DIALOG_TYPE _currentStatus;
 	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos, _markClosePos;

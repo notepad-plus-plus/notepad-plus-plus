@@ -57,11 +57,6 @@ filePath : file or folder name to open (absolute or relative path name)\r\
 class Notepad_plus_Window : public Window
 {
 public:
-	static Notepad_plus_Window & getInstance() {
-		static Notepad_plus_Window * instance = new Notepad_plus_Window;
-		return *instance;
-	}
-
 	void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
 
 	bool isDlgsMsg(MSG *msg) const;

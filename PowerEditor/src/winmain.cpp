@@ -609,7 +609,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
         }
 	}
 
-	Notepad_plus_Window notepad_plus_plus;
+	Notepad_plus_Window & notepad_plus_plus = Notepad_plus_Window::getInstance();
 
 	generic_string updaterDir = nppParameters.getNppPath();
 	updaterDir += TEXT("\\updater\\");

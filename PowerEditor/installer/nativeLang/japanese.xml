@@ -842,9 +842,6 @@
                     <Item id="6122" name="メインメニューを隠す(表示するには Alt か F10 を押す)"/>
                     <Item id="6123" name="言語"/>
 
-                    <Item id="6125" name="文書一覧"/>
-                    <Item id="6127" name="拡張子の列を表示しない"/>
-                    
                     <Item id="6128" name="別デザインのアイコンを使用する"/>
                 </Global>
                 <Scintillas title="編集画面">

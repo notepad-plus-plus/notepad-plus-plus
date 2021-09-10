@@ -238,7 +238,9 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 		{
 			if (nbSelectedFiles() == 0 || colHeaderRClick)
 			{
-				::TrackPopupMenu(_hGlobalMenu, TPM_LEFTALIGN, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), 0, _hSelf, NULL);
+				::TrackPopupMenu(_hGlobalMenu, 
+					NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+					GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), 0, _hSelf, NULL);
 				colHeaderRClick = false;
 			}
 			return TRUE;

@@ -777,7 +777,9 @@ void FileBrowser::showContextMenu(int x, int y)
 
 	if (tvHitInfo.hItem == nullptr)
 	{
-		TrackPopupMenu(_hGlobalMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
+		TrackPopupMenu(_hGlobalMenu, 
+			NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+			x, y, 0, _hSelf, NULL);
 	}
 	else
 	{
@@ -794,7 +796,9 @@ void FileBrowser::showContextMenu(int x, int y)
 		else //nodeType_file
 			hMenu = _hFileMenu;
 
-		TrackPopupMenu(hMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
+		TrackPopupMenu(hMenu, 
+			NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+			x, y, 0, _hSelf, NULL);
 	}
 }
 

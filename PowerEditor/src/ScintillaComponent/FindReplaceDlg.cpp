@@ -4453,7 +4453,9 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
 
-				scintillaContextmenu.display(p);
+				::TrackPopupMenu(scintillaContextmenu.getMenuHandle(),
+					NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+					p.x, p.y, 0, _hSelf, NULL);
 				return TRUE;
 			}
 			return ::DefWindowProc(_hSelf, message, wParam, lParam);

@@ -95,14 +95,15 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 {
 	if (!isCreated())
 	{
-		create(IDD_CONTAINER_DLG);
+		NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+		create(IDD_CONTAINER_DLG, pNativeSpeaker->isRTL());
 
 		_isFloating  = isFloating;
 
 		if (_isFloating)
 		{
 			::SetWindowLongPtr(_hSelf, GWL_STYLE, POPUP_STYLES);
-			::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, POPUP_EXSTYLES);
+			::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, pNativeSpeaker->isRTL()? POPUP_EXSTYLES | WS_EX_LAYOUTRTL : POPUP_EXSTYLES);
 			::ShowWindow(_hCaption, SW_HIDE);
 		}
 		else
@@ -633,7 +634,7 @@ eMousePos DockingCont::isInRect(HWND hwnd, int x, int y)
 	eMousePos	ret	= posOutside;
 
 	::GetWindowRect(hwnd, &rc);
-	ScreenRectToClientRect(hwnd, &rc);
+	::MapWindowPoints(NULL, hwnd, (LPPOINT)&rc, 2);
 
 	if (_isTopCaption == TRUE)
 	{

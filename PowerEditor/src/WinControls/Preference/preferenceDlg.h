@@ -99,7 +99,6 @@ public :
 	NewDocumentSubDlg() = default;
 
 private :
-	std::vector<LangID_Name> _langList;
 	void makeOpenAnsiAsUtf8(bool doIt){
 		if (!doIt)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
@@ -128,7 +127,6 @@ public :
 private :
 	URLCtrl _nbHistoryVal;
 	URLCtrl _customLenVal;
-	std::vector<LangID_Name> _langList;
 	void setCustomLen(int val);
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };

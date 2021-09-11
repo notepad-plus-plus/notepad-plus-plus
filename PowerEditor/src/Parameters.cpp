@@ -5365,7 +5365,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optName)
 				_nppGUI._fileSwitcherWithoutExtColumn = (lstrcmp(optName, TEXT("yes")) == 0);
 			
-			int i;
+			int i = 0;
 			if (element->Attribute(TEXT("fileSwitcherExtWidth"), &i))
 				_nppGUI._fileSwitcherExtWidth = i;
 

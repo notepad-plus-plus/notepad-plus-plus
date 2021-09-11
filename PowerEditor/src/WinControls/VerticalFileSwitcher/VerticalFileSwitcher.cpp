@@ -290,6 +290,7 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 void VerticalFileSwitcher::initPopupMenus()
 {
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
 	generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
 	generic_string pathStr = pNativeSpeaker->getAttrNameStr(TEXT("Path"), FS_ROOTNODE, FS_CLMNPATH);
@@ -298,9 +299,9 @@ void VerticalFileSwitcher::initPopupMenus()
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNEXT_ID, extStr.c_str());
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNPATH_ID, pathStr.c_str());
 
-	bool isExtColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutExtColumn;
+	bool isExtColumn = nppGUI._fileSwitcherWithoutExtColumn;
 	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
-	bool isPathColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutPathColumn;
+	bool isPathColumn = nppGUI._fileSwitcherWithoutPathColumn;
 	::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | isPathColumn ? MF_UNCHECKED : MF_CHECKED);
 }
 

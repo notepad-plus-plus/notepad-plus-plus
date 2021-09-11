@@ -2457,7 +2457,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			BOOL isOff = static_cast<BOOL>(lParam);
 			NppGUI & nppGUI = nppParam.getNppGUI();
 
-			if(message == NPPM_DOCLISTDISABLEEXTCOLUMN)
+			if (message == NPPM_DOCLISTDISABLEEXTCOLUMN)
 				nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
 			else
 				nppGUI._fileSwitcherWithoutPathColumn = isOff == TRUE;

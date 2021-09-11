@@ -833,6 +833,9 @@ struct NppGUI final
 	generic_string _themeName;
 	MultiInstSetting _multiInstSetting = monoInst;
 	bool _fileSwitcherWithoutExtColumn = false;
+	int _fileSwitcherExtWidth = 50;
+	bool _fileSwitcherWithoutPathColumn = false;
+	int _fileSwitcherPathWidth = 50;
 	bool isSnapshotMode() const {return _isSnapshotMode && _rememberLastSession && !_isCmdlineNosessionActivated;};
 	bool _isSnapshotMode = true;
 	size_t _snapshotBackupTiming = 7000;

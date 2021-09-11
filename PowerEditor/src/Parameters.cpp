@@ -5364,6 +5364,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * optName = element->Attribute(TEXT("fileSwitcherWithoutExtColumn"));
 			if (optName)
 				_nppGUI._fileSwitcherWithoutExtColumn = (lstrcmp(optName, TEXT("yes")) == 0);
+			
+			int i;
+			if (element->Attribute(TEXT("fileSwitcherExtWidth"), &i))
+				_nppGUI._fileSwitcherExtWidth = i;
+
+			const TCHAR * optNamePath = element->Attribute(TEXT("fileSwitcherWithoutPathColumn"));
+			if (optNamePath)
+				_nppGUI._fileSwitcherWithoutPathColumn = (lstrcmp(optNamePath, TEXT("yes")) == 0);
+
+			if (element->Attribute(TEXT("fileSwitcherPathWidth"), &i))
+				_nppGUI._fileSwitcherPathWidth = i;
 
 			const TCHAR * optNameBackSlashEscape = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
 			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, TEXT("no")))
@@ -6428,6 +6439,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
 
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("fileSwitcherExtWidth"), _nppGUI._fileSwitcherExtWidth);
+		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutPathColumn"), _nppGUI._fileSwitcherWithoutPathColumn ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("fileSwitcherPathWidth"), _nppGUI._fileSwitcherPathWidth);
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("writeTechnologyEngine"), _nppGUI._writeTechnologyEngine);
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));

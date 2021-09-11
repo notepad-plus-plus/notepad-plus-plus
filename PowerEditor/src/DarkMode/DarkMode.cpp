@@ -10,10 +10,12 @@
 #include <unordered_set>
 #include <mutex>
 
-#ifdef __GNUC__
-#define LAMBDA_WINAPI WINAPI
+#if defined(__GNUC__) && __GNUC__ > 8
+#define WINAPI_LAMBDA_RETURN(return_t) -> return_t WINAPI
+#elif defined(__GNUC__)
+#define WINAPI_LAMBDA_RETURN(return_t) WINAPI -> return_t
 #else
-#define LAMBDA_WINAPI
+#define WINAPI_LAMBDA_RETURN(return_t) -> return_t
 #endif
 
 enum IMMERSIVE_HC_CACHE_MODE
@@ -227,7 +229,7 @@ void FixDarkScrollBar()
 			DWORD oldProtect;
 			if (VirtualProtect(addr, sizeof(IMAGE_THUNK_DATA), PAGE_READWRITE, &oldProtect) && _OpenNcThemeData)
 			{
-				auto MyOpenThemeData = [](HWND hWnd, LPCWSTR classList) LAMBDA_WINAPI -> HTHEME {
+				auto MyOpenThemeData = [](HWND hWnd, LPCWSTR classList) WINAPI_LAMBDA_RETURN(HTHEME) {
 					if (wcscmp(classList, L"ScrollBar") == 0)
 					{
 						if (IsWindowOrParentUsingDarkScrollBar(hWnd)) {

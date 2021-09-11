@@ -1,4 +1,4 @@
-# How to build Notepad++ with Microsoft Visual Studio
+# Building Notepad++ with Microsoft Visual Studio
 
 **Pre-requisites:**
 
@@ -40,46 +40,25 @@ More about the previous build process: https://community.notepad-plus-plus.org/t
 Since `Notepad++` version 6.0 - 7.9.5, the build of dynamic linked `SciLexer.dll` that is distributed
 uses features from Boost's `Boost.Regex` library.
 
-# Building 64-bit binaries with GCC
+# Building Notepad++ with GCC
 
-If you have [MinGW-w64](https://mingw-w64.org/doku.php/start) installed, then you can compile Notepad++ and optionally libscilexer.a 64-bit binaries with GCC.
+If you have [MinGW-w64](https://mingw-w64.org/doku.php/start) installed, then you can compile Notepad++ with GCC.
 
-You can download MinGW-w64 from https://sourceforge.net/projects/mingw-w64/files/. Notepad++ uses [MinGW 8.1 x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z).
+MinGW-w64 can be downloaded from [SourceForge](https://sourceforge.net/projects/mingw-w64/files/). Notepad++ is regularly tested with [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) and with [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z). Other versions of compilers may also work but are untested.
 
-## Compile libscilexer.a (optional)
+**Note:** if you use MinGW-w64 GCC from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work (one can use a command like `set PATH=%PATH%;$MinGW-root$\bin` each time `cmd` is launched).
 
-This step is not necessary anymore as the library will be build in the process of compiling the Notepad++ binary. It is here just for completeness sake as this option is still available.
+## Comping Notepad++ binary
 
-1. Launch `cmd`.
-2. Change dir into `notepad-plus-plus\scintilla\win32`.
-3. Type `mingw32-make -j%NUMBER_OF_PROCESSORS%`
-4. `libscilexer.a` is generated in `notepad-plus-plus\scintilla\bin\`.
+1. Launch `cmd` and add `$MinGW-root$\bin` to `PATH` if necessary.
+2. `cd` into `notepad-plus-plus\PowerEditor\gcc`.
+3. Run `mingw32-make`.
+4. The file `notepad++.exe` will be generated in `bin.x86_64` or in `bin.i686` depending on the compiler used. The path to the directory is displayed at the end of the build process.
 
-## Compile Notepad++ binary
-
-1. Launch `cmd`.
-2. Change dir into `notepad-plus-plus\PowerEditor\gcc`.
-3. Type `mingw32-make`
-4. `NotepadPP-release.exe` is generated in `notepad-plus-plus\PowerEditor\bin\`.
-
-To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation. The binary will be called `NotepadPP-debug.exe` in this case.
+To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
 
 To see commands being executed add `VERBOSE=1` to the same command.
 
-**Note:** if you use MinGW from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for `mingw32-make` invocation to work (one can use a command like `set PATH=%PATH%;$MinGW-root$\bin` each time `cmd` is launched).
+### Notes on using GCC targeting `i686`
 
-# Building 32-bit binaries with GCC
-
-Building a 32-bit binary of Notepad++ is tested with [MinGW 8.1 i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z).
-
-All instructions from the ***Building 64-bit binaries with GCC*** section are applicable. However building 32-bit binaries currently requires `SensApi.dll` to be available as `%windir%\System32\SensApi.dll`. If this is the case, add `target=i686` to the `mingw32-make` command line and everything will just work. The requirement exists because the available 32-bit versions of MinGW don't have the linking library for this DLL and it is generated in the build process.
-
-The missing linking library can also be generated manually to fix a MinGW installation permanently by executing the following commands via `cmd` in a writable directory with `$MinGW-root$\bin` added to `PATH`:
-
-```
-gendef %windir%\System32\SensApi.dll
-dlltool -d SensApi.def -k -l libsensapi.a
-del SensApi.def
-```
-
-The resulting `libsensapi.a` then can be moved from the current directory to `$MinGW-root$\i686-w64-mingw32\lib`.
+Building the 32-bit binary of Notepad++ currently works only on Windows because `%windir%\system32\SensApi.dll` is required for the build process to succeed — the tested `i686` version of GCC doesn't have a linking library for this system DLL, so it is generated during the build process.

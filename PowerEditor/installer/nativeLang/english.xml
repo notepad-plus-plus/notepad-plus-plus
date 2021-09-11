@@ -1279,6 +1279,7 @@ Continue?"/>
             <PanelTitle name="Document List"/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
+            <ColumnPath name="Path"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>

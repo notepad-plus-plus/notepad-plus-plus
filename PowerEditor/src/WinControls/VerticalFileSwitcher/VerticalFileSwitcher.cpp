@@ -26,6 +26,7 @@
 #define GET_Y_LPARAM(lp) static_cast<short>(HIWORD(lp))
 
 #define CLMNEXT_ID     1
+#define CLMNPATH_ID    2
 
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
@@ -195,6 +196,29 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 					}
 					return TRUE;
 				}
+				case HDN_DIVIDERDBLCLICK:
+				case HDN_ENDTRACK:
+				{
+					NppParameters& nppParams = NppParameters::getInstance();
+					NativeLangSpeaker* pNativeSpeaker = nppParams.getNativeLangSpeaker();
+					
+					LPNMHEADER test = (LPNMHEADER)lParam;
+					HWND hwndHD = ListView_GetHeader(_fileListView.getHSelf());
+					TCHAR HDtext[MAX_PATH];
+					HDITEM hdi = { 0 };
+					hdi.mask = HDI_TEXT | HDI_WIDTH;
+					hdi.pszText = HDtext;
+					hdi.cchTextMax = MAX_PATH;
+					Header_GetItem(hwndHD, test->iItem, &hdi);
+
+					// storing column width data
+					if (hdi.pszText == pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT))
+						nppParams.getNppGUI()._fileSwitcherExtWidth = hdi.cxy;
+					else if (hdi.pszText == pNativeSpeaker->getAttrNameStr(TEXT("Path"), FS_ROOTNODE, FS_CLMNPATH))
+						nppParams.getNppGUI()._fileSwitcherPathWidth = hdi.cxy;
+
+					return TRUE;
+				}
 				case LVN_KEYDOWN:
 				{
 					switch (((LPNMLVKEYDOWN)lParam)->wVKey)
@@ -227,7 +251,7 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 
         case WM_SIZE:
         {
-            int width = LOWORD(lParam);
+			int width = LOWORD(lParam);
             int height = HIWORD(lParam);
 			::MoveWindow(_fileListView.getHSelf(), 0, 0, width, height, TRUE);
 			_fileListView.resizeColumns(width);
@@ -266,14 +290,19 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 void VerticalFileSwitcher::initPopupMenus()
 {
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
 	generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
+	generic_string pathStr = pNativeSpeaker->getAttrNameStr(TEXT("Path"), FS_ROOTNODE, FS_CLMNPATH);
 
 	_hGlobalMenu = ::CreatePopupMenu();
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNEXT_ID, extStr.c_str());
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNPATH_ID, pathStr.c_str());
 
-	bool isExtColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutExtColumn;
+	bool isExtColumn = nppGUI._fileSwitcherWithoutExtColumn;
 	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
+	bool isPathColumn = nppGUI._fileSwitcherWithoutPathColumn;
+	::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | isPathColumn ? MF_UNCHECKED : MF_CHECKED);
 }
 
 void VerticalFileSwitcher::popupMenuCmd(int cmdID)
@@ -285,6 +314,14 @@ void VerticalFileSwitcher::popupMenuCmd(int cmdID)
 			bool& isExtColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutExtColumn;
 			isExtColumn = !isExtColumn;
 			::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
+			reload();
+		}
+		break;
+		case CLMNPATH_ID:
+		{
+			bool& isPathColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutPathColumn;
+			isPathColumn = !isPathColumn;
+			::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | isPathColumn ? MF_UNCHECKED : MF_CHECKED);
 			reload();
 		}
 		break;

@@ -1134,7 +1134,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
         {
             if (HIWORD(wParam) == EN_CHANGE)
             {
-                TCHAR ext[extsLenMax];
+                TCHAR ext[extsLenMax] = { '\0' };
 				::SendDlgItemMessage(_hSelf, IDC_EXT_EDIT, WM_GETTEXT, extsLenMax, reinterpret_cast<LPARAM>(ext));
                 _pUserLang->_ext = ext;
                 return TRUE;

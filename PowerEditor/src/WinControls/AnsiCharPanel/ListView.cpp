@@ -119,7 +119,7 @@ size_t ListView::findAlphabeticalOrderPos(const generic_string& string2Cmp, Sort
 
 	for (size_t i = 0; i < nbItem; ++i)
 	{
-		TCHAR str[MAX_PATH];
+		TCHAR str[MAX_PATH] = { '\0' };
 		ListView_GetItemText(_hSelf, i, 0, str, sizeof(str));
 
 		int res = lstrcmp(string2Cmp.c_str(), str);

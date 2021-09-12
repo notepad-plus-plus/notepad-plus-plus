@@ -664,7 +664,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 	}
 	else if ((notification->hwndFrom == _treeView.getHSelf()))
 	{
-		TCHAR textBuffer[MAX_PATH];
+		TCHAR textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem;
 		tvItem.mask = TVIF_TEXT | TVIF_PARAM;
 		tvItem.pszText = textBuffer;

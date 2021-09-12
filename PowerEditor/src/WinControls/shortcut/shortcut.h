@@ -208,7 +208,7 @@ public:
 	int getMenuCmdID() const {return _menuCmdID;};
 	size_t toKeyDef(size_t index) const {
 		KeyCombo kc = _keyCombos[index];
-		int keymod = (kc._isCtrl?SCMOD_CTRL:0) | (kc._isAlt?SCMOD_ALT:0) | (kc._isShift?SCMOD_SHIFT:0);
+		size_t keymod = (kc._isCtrl ? SCMOD_CTRL : 0) | (kc._isAlt ? SCMOD_ALT : 0) | (kc._isShift ? SCMOD_SHIFT : 0);
 		return keyTranslate(kc._key) + (keymod << 16);
 	};
 

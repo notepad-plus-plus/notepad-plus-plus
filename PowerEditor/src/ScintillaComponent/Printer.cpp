@@ -326,7 +326,7 @@ size_t Printer::doPrint(bool justDoIt)
 	if (!nppGUI._printSettings._printLineNumber)
 		_pSEView->showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, false);
 
-	size_t pageNum = 1;
+	int pageNum = 1;
 	const TCHAR pageVar[] = TEXT("$(CURRENT_PRINTING_PAGE)");
 
 	_pSEView->execute(SCI_SETPRINTCOLOURMODE, nppGUI._printSettings._printOption); // setting mode once is enough

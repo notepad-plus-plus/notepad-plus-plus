@@ -252,7 +252,13 @@ constexpr bool CheckBuildNumber(DWORD buildNumber)
 
 void InitDarkMode()
 {
-	auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandle(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
+	fnRtlGetNtVersionNumbers RtlGetNtVersionNumbers = nullptr;
+	HMODULE hNtdllModule = GetModuleHandle(L"ntdll.dll");
+	if (hNtdllModule)
+	{
+		RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(hNtdllModule, "RtlGetNtVersionNumbers"));
+	}
+
 	if (RtlGetNtVersionNumbers)
 	{
 		DWORD major, minor;
@@ -278,7 +284,11 @@ void InitDarkMode()
 				_FlushMenuThemes = reinterpret_cast<fnFlushMenuThemes>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(136)));
 				_IsDarkModeAllowedForWindow = reinterpret_cast<fnIsDarkModeAllowedForWindow>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(137)));
 
-				_SetWindowCompositionAttribute = reinterpret_cast<fnSetWindowCompositionAttribute>(GetProcAddress(GetModuleHandleW(L"user32.dll"), "SetWindowCompositionAttribute"));
+				HMODULE hUser32Module = GetModuleHandleW(L"user32.dll");
+				if (hUser32Module)
+				{
+					_SetWindowCompositionAttribute = reinterpret_cast<fnSetWindowCompositionAttribute>(GetProcAddress(hUser32Module, "SetWindowCompositionAttribute"));
+				}
 
 				if (_OpenNcThemeData &&
 					_RefreshImmersiveColorPolicyState &&

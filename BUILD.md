@@ -53,7 +53,7 @@ MinGW-w64 can be downloaded from [SourceForge](https://sourceforge.net/projects/
 1. Launch `cmd` and add `$MinGW-root$\bin` to `PATH` if necessary.
 2. `cd` into `notepad-plus-plus\PowerEditor\gcc`.
 3. Run `mingw32-make`.
-4. The file `notepad++.exe` will be generated in `bin.x86_64` or in `bin.i686` depending on the compiler used. The path to the directory is displayed at the end of the build process.
+4. `notepad++.exe` will be generated either in `bin.x86_64` or in `bin.i686` depending on the compiler used. The path to the directory is displayed at the end of the build process and it will contain everything needed for Notepad++ to run.
 
 To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
 

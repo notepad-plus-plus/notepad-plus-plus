@@ -26,7 +26,9 @@ GCC_EXCLUDE := $(GCC_DIRECTORY)/gcc-%
 SRC_DIRECTORY := ../src
 SRC_EXCLUDE := $(SRC_DIRECTORY)/tools/%
 TARGET_FILE := notepad++.exe
-DATA_FILES := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml
+
+SRC_DATA := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml
+INSTALLER_DATA := autoCompletion/ functionList/ localization/ themes/
 
 CXX := $(CROSS_COMPILE)g++
 CXXFLAGS := -std=c++17 -Wno-conversion-null
@@ -77,7 +79,10 @@ BUILD_DIRECTORY := $(TARGET_DIRECTORY).build
 
 SCINTILLA_TARGET := $(BUILD_DIRECTORY)/$(SCINTILLA_TARGET)
 
-# detect an out-of-source-tree build
+SRC_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(SRC_DATA))
+INSTALLER_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(INSTALLER_DATA))
+
+# detect a build outside of PowerEditor/gcc
 MAKEFILE_DIRECTORY := $(patsubst %/,%,$(dir $(subst \,/,$(firstword $(MAKEFILE_LIST)))))
 ifneq "$(MAKEFILE_DIRECTORY)" "."
 PREFIX := $(patsubst %/,%,$(dir $(MAKEFILE_DIRECTORY)))
@@ -147,7 +152,7 @@ RC_TARGETS := $(patsubst %.rc,$(BUILD_DIRECTORY)/%.res,$(sort $(filter %.rc,$(GC
 
 GOALS := $(addprefix $(MAKELEVEL)-,$(if $(MAKECMDGOALS),$(MAKECMDGOALS),all))
 
-.PHONY: .force all binary data clean distclean
+.PHONY: .force all binary data clean fullclean
 .force:
 
 ifneq "$(filter 0-all,$(GOALS))" ""
@@ -194,25 +199,31 @@ $(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET) | $(TARGET_DI
 	@echo * linking $@
 	$(AT)$(LD) $(LDFLAGS) $^ $(addprefix -L,$(LINK_DIRECTORIES)) $(addprefix -l,$(LINK_LIBRARIES)) -static -o $@
 
-data: $(addprefix $(TARGET_DIRECTORY)/,$(DATA_FILES)) | $(addprefix $(TARGET_DIRECTORY)/,autoCompletion functionList localization themes)
+data: $(patsubst %/,%,$(SRC_DATA) $(INSTALLER_DATA))
 
-$(addprefix $(TARGET_DIRECTORY)/,$(DATA_FILES)): $(TARGET_DIRECTORY)/%.xml: $(SRC_DIRECTORY)/%.xml | $(TARGET_DIRECTORY)
-	@echo * data $@
+$(patsubst %/,%,$(filter %/,$(SRC_DATA))): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
+	@echo * copying $@
+	$(AT)$(CPDIR) $(call normalize-path,$< $@)
+$(filter-out %/,$(SRC_DATA)): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
+	@echo * copying $@
 	$(AT)$(CP) $(call normalize-path,$< $@)
 
 $(TARGET_DIRECTORY)/autoCompletion: $(INSTALLER_DIRECTORY)/APIs
 $(TARGET_DIRECTORY)/functionList: $(INSTALLER_DIRECTORY)/functionList
 $(TARGET_DIRECTORY)/localization: $(INSTALLER_DIRECTORY)/nativeLang
 $(TARGET_DIRECTORY)/themes: $(INSTALLER_DIRECTORY)/themes
-$(addprefix $(TARGET_DIRECTORY)/,autoCompletion functionList localization themes): | $(TARGET_DIRECTORY)
-	@echo * data $@
+$(patsubst %/,%,$(filter %/,$(INSTALLER_DATA))): | $(TARGET_DIRECTORY)
+	@echo * copying $@
 	$(AT)$(CPDIR) $(call normalize-path,$< $@)
+$(filter-out %/,$(INSTALLER_DATA)): | $(TARGET_DIRECTORY)
+	@echo * copying $@
+	$(AT)$(CP) $(call normalize-path,$< $@)
 
 clean:
 	-$(AT)$(RMDIR) $(call normalize-path,$(BUILD_DIRECTORY))
 	-$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 $@
 
-distclean: clean
+fullclean: clean
 	-$(AT)$(RMDIR) $(call normalize-path,$(TARGET_DIRECTORY))
 
 -include $(CXX_TARGETS:%.o=%.d)

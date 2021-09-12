@@ -45,14 +45,33 @@ for:
   build:
     parallel: true
     project: PowerEditor\visual.net\notepadPlus.sln
-  artifacts:
-    - path: '**\Notepad++.exe'
-      name: Notepad++.$(platform).$(configuration).exe
   after_build:
-    #xml files syntax checks
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        if ("$env:platform/$env:configuration" -eq "Win32/Release") {
+            Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x64/Release") {
+            Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x64/Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\x64\Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "arm64/Release") {
+            Push-AppveyorArtifact "PowerEditor\binarm64\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "arm64/Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+    # xml files syntax checks
     - if "%platform%/%configuration%" EQU "Win32/Debug" set PATH=C:\Python38;C:\Python38\Scripts;%PATH%
     - if "%platform%/%configuration%" EQU "Win32/Debug" python -m pip install requests rfc3987 pywin32 lxml
     - if "%platform%/%configuration%" EQU "Win32/Debug" python PowerEditor\Test\xmlValidator\validator_xml.py
+    # tests
     - ps: |
         if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
             Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
@@ -83,6 +102,13 @@ for:
     - if "%platform%" EQU "x86_64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
   build_script:
     - mingw32-make -f PowerEditor\gcc\makefile
-  artifacts:
-    - path: bin.*\notepad++.exe
-      name: Notepad++.$(compiler).$(platform).$(configuration).exe
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:compiler.$env:platform.$env:configuration.exe"
+        if ("$env:platform/$env:configuration" -eq "i686/Release") {
+            Push-AppveyorArtifact "bin.i686\notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x86_64/Release") {
+            Push-AppveyorArtifact "bin.x86_64\notepad++.exe" -FileName "$nppFileName"
+        }

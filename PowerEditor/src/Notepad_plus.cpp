@@ -2458,6 +2458,7 @@ void Notepad_plus::pasteToMarkedLines()
 	HANDLE clipboardData = ::GetClipboardData(clipFormat);
 	::GlobalSize(clipboardData);
 	LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
+	if (!clipboardDataPtr) return;
 
 	generic_string clipboardStr = (const TCHAR *)clipboardDataPtr;
 
@@ -5768,7 +5769,7 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix)
 			somedirty = true;
 
 		const TCHAR * unitext = (docbuf->getUnicodeMode() != uni8Bit)?TEXT("_utf8"):TEXT("");
-		wsprintf(savePath, TEXT("%s\\%s%03d%s.dump"), outdir, fileprefix, i, unitext);
+		wsprintf(savePath, TEXT("%s\\%s%03d%s.dump"), outdir, fileprefix, static_cast<int>(i), unitext);
 
 		SavingStatus res = MainFileManager.saveBuffer(docbuf->getID(), savePath);
 
@@ -7579,7 +7580,8 @@ void Notepad_plus::showQuote(const QuoteParams* quote) const
 	params._pCurrentView = _pEditView;
 
 	HANDLE hThread = ::CreateThread(NULL, 0, threadTextPlayer, &params, 0, NULL);
-	::CloseHandle(hThread);
+	if (hThread)
+		::CloseHandle(hThread);
 }
 
 void Notepad_plus::minimizeDialogs()

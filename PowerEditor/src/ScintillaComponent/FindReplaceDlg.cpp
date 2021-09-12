@@ -46,7 +46,7 @@ void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 
 generic_string getTextFromCombo(HWND hCombo)
 {
-	TCHAR str[FINDREPLACE_MAXLENGTH];
+	TCHAR str[FINDREPLACE_MAXLENGTH] = { '\0' };
 	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
 	return generic_string(str);
 };
@@ -429,7 +429,7 @@ void FindReplaceDlg::saveFindHistory()
 
 int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string> & strings, bool saveEmpty)
 {
-	TCHAR text[FINDREPLACE_MAXLENGTH];
+	TCHAR text[FINDREPLACE_MAXLENGTH] = { '\0' };
 	HWND hCombo = ::GetDlgItem(_hSelf, id);
 	int count = static_cast<int32_t>(::SendMessage(hCombo, CB_GETCOUNT, 0, 0));
 	count = min(count, maxcount);
@@ -970,6 +970,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			// Change handler of edit element in the comboboxes to support Ctrl+Backspace
 			COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
 			GetComboBoxInfo(hFindCombo, &cbinfo);
+			if (!cbinfo.hwndItem) return FALSE;
+
 			originalComboEditProc = SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
 			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
 			GetComboBoxInfo(hReplaceCombo, &cbinfo);
@@ -4036,7 +4038,7 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 	str += TEXT(" ");
 
 	TCHAR lnb[16];
-	wsprintf(lnb, TEXT("%d"), fi._lineNumber);
+	wsprintf(lnb, TEXT("%d"), static_cast<int>(fi._lineNumber));
 	str += lnb;
 	str += TEXT(": ");
 	mi._start += static_cast<int32_t>(str.length());

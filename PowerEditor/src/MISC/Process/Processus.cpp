@@ -37,8 +37,14 @@ unsigned long Process::runSync(bool isElevationRequired) const
 	ShExecInfo.lpDirectory = _curDir.c_str();
 	ShExecInfo.nShow = SW_SHOWNORMAL;
 	ShExecInfo.hInstApp = NULL;
-	
+
 	ShellExecuteEx(&ShExecInfo);
+	if (!ShExecInfo.hProcess)
+	{
+		// throw exception
+		throw GetLastErrorAsString(GetLastError());
+	}
+
 	WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
 
 	unsigned long exitCode;

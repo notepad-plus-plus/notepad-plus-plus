@@ -772,7 +772,7 @@ namespace NppDarkMode
 			hFont = reinterpret_cast<HFONT>(SendMessage(hwnd, WM_GETFONT, 0, 0));
 		}
 
-		SelectObject(hdc, hFont);
+		hOldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
 
 		DWORD dtFlags = DT_LEFT; // DT_LEFT is 0
 		dtFlags |= (nStyle & BS_MULTILINE) ? DT_WORDBREAK : DT_SINGLELINE;

@@ -568,7 +568,7 @@ int WordStyleDlg::whichTabColourIndex()
 	if (i == LB_ERR)
 		return -1;
 	const size_t styleNameLen = 128;
-	TCHAR styleName[styleNameLen + 1];
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
 	if (lbTextLen > styleNameLen)
 		return -1;
@@ -673,7 +673,8 @@ void WordStyleDlg::updateUserKeywords()
 	//TCHAR kw[NB_MAX];
 	auto len = ::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXTLENGTH, 0, 0);
 	len += 1;
-	TCHAR *kw = new TCHAR[len];
+	TCHAR* kw = new TCHAR[len];
+	::memset(kw, 0, len * sizeof(TCHAR));
 	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, reinterpret_cast<LPARAM>(kw));
 	style._keywords = kw;
 
@@ -833,7 +834,7 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	COLORREF c = NppDarkMode::isEnabled() ? NppDarkMode::getLinkTextColor() : RGB(0x00, 0x00, 0xFF);
 	const size_t strLen = 256;
-	TCHAR str[strLen + 1];
+	TCHAR str[strLen + 1] = { '\0' };
 
 	str[0] = '\0';
 
@@ -850,7 +851,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (i == LB_ERR)
 		return;
 	const size_t styleNameLen = 64;
-	TCHAR styleName[styleNameLen + 1];
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
 	if (lbTextLen > styleNameLen)
 		return;

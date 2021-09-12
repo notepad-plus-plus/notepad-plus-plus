@@ -229,7 +229,7 @@ struct CmdLineParams
 	int _column2go = -1;
 	int _pos2go = -1;
 
-	POINT _point;
+	POINT _point = { 0 };
 	bool _isPointXValid = false;
 	bool _isPointYValid = false;
 
@@ -242,7 +242,7 @@ struct CmdLineParams
 	generic_string _udlName;
 
 	generic_string _easterEggName;
-	unsigned char _quoteType = '\0';
+	unsigned char _quoteType = 0;
 	int _ghostTypingSpeed = -1; // -1: initial value  1: slow  2: fast  3: speed of light
 
 	CmdLineParams()
@@ -294,8 +294,8 @@ struct CmdLineParamsDTO
 
 struct FloatingWindowInfo
 {
-	int _cont;
-	RECT _pos;
+	int _cont = 0;
+	RECT _pos = { 0 };
 
 	FloatingWindowInfo(int cont, int x, int y, int w, int h)
 		: _cont(cont)
@@ -544,8 +544,8 @@ struct NewDocDefaultSettings final
 
 struct LangMenuItem final
 {
-	LangType _langType;
-	int	_cmdID;
+	LangType _langType = L_TEXT;
+	int	_cmdID = -1;
 	generic_string _langName;
 
 	LangMenuItem(LangType lt, int cmdID = 0, const generic_string& langName = TEXT("")):
@@ -570,7 +570,7 @@ struct PrintSettings final {
 	int _footerFontStyle = 0;
 	int _footerFontSize = 0;
 
-	RECT _marge;
+	RECT _marge = {0};
 
 	PrintSettings() {
 		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
@@ -739,9 +739,9 @@ struct NppGUI final
 
 	bool _checkHistoryFiles = false;
 
-	RECT _appPos;
+	RECT _appPos = {0};
 
-	RECT _findWindowPos;
+	RECT _findWindowPos = { 0 };
 
 	bool _isMaximized = false;
 	bool _isMinimizedToTray = false;
@@ -916,11 +916,11 @@ struct Lang final
 {
 	LangType _langID = L_TEXT;
 	generic_string _langName;
-	const TCHAR *_defaultExtList = nullptr;
-	const TCHAR *_langKeyWordList[NB_LIST];
-	const TCHAR *_pCommentLineSymbol = nullptr;
-	const TCHAR *_pCommentStart = nullptr;
-	const TCHAR *_pCommentEnd = nullptr;
+	const TCHAR* _defaultExtList = nullptr;
+	const TCHAR* _langKeyWordList[NB_LIST];
+	const TCHAR* _pCommentLineSymbol = nullptr;
+	const TCHAR* _pCommentStart = nullptr;
+	const TCHAR* _pCommentEnd = nullptr;
 
 	bool _isTabReplacedBySpace = false;
 	int _tabSize = -1;
@@ -989,15 +989,13 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer() :_name(TEXT("new user define")), _ext(TEXT("")), _udlVersion(TEXT(""))
-	{
-		init();
+	UserLangContainer() :_name(TEXT("new user define")), _ext(TEXT("")), _udlVersion(TEXT("")) {
+		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
 
 	UserLangContainer(const TCHAR *name, const TCHAR *ext, bool isDarkModeTheme, const TCHAR *udlVer):
-		_name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer)
-	{
-		init();
+		_name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer) {
+		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
 
 	UserLangContainer & operator = (const UserLangContainer & ulc)
@@ -1043,13 +1041,13 @@ private:
 	bool _isDarkModeTheme = false;
 
 	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
-	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS];
+	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS] = {false};
 
-	bool _isCaseIgnored;
-	bool _allowFoldOfComments;
-	int  _forcePureLC;
-	int _decimalSeparator;
-	bool _foldCompact;
+	bool _isCaseIgnored = false;
+	bool _allowFoldOfComments = false;
+	int  _forcePureLC = PURE_LC_NONE;
+	int _decimalSeparator = DECSEP_DOT;
+	bool _foldCompact = false;
 
 	// nakama zone
 	friend class Notepad_plus;
@@ -1063,21 +1061,6 @@ private:
 	friend class SymbolsStyleDialog;
 	friend class UserDefineDialog;
 	friend class StylerDlg;
-
-	void init()
-	{
-		_forcePureLC = PURE_LC_NONE;
-		_decimalSeparator = DECSEP_DOT;
-		_foldCompact = false;
-		_isCaseIgnored = false;
-		_allowFoldOfComments = false;
-
-		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i)
-			*_keywordLists[i] = '\0';
-
-		for (int i = 0; i < SCE_USER_TOTAL_KEYWORD_GROUPS; ++i)
-			_isPrefix[i] = false;
-	}
 };
 
 #define MAX_EXTERNAL_LEXER_NAME_LEN 16
@@ -1147,8 +1130,8 @@ friend class NppParameters;
 public:
 	struct LocalizationDefinition
 	{
-		const wchar_t *_langName;
-		const wchar_t *_xmlFileName;
+		const wchar_t *_langName = nullptr;
+		const wchar_t *_xmlFileName = nullptr;
 	};
 
 	bool addLanguageFromXml(const std::wstring& xmlFullPath);
@@ -1698,11 +1681,11 @@ private:
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
-	Lang *_langList[NB_LANG] = {};
+	Lang* _langList[NB_LANG] = { nullptr };
 	int _nbLang = 0;
 
 	// Recent File History
-	generic_string *_LRFileList[NB_MAX_LRF_FILE];
+	generic_string* _LRFileList[NB_MAX_LRF_FILE] = { nullptr };
 	int _nbRecentFile = 0;
 	int _nbMaxRecentFile = 10;
 	bool _putRecentFileInSubMenu = false;
@@ -1712,11 +1695,11 @@ private:
 
 	FindHistory _findHistory;
 
-	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
+	UserLangContainer* _userLangArray[NB_MAX_USER_LANG] = { nullptr };
 	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
 	generic_string _userDefineLangsFolderPath;
 	generic_string _userDefineLangPath;
-	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
+	ExternalLangContainer* _externalLangArray[NB_MAX_EXTERNAL_LANG] = { nullptr };
 	int _nbExternalLang = 0;
 
 	CmdLineParamsDTO _cmdLineParams;
@@ -1736,7 +1719,7 @@ private:
 
 	WNDPROC _transparentFuncAddr = nullptr;
 	WNDPROC _enableThemeDialogTextureFuncAddr = nullptr;
-	bool _isLocal;
+	bool _isLocal = false;
 	bool _isx64 = false; // by default 32-bit
 
 	generic_string _cmdSettingsDir;
@@ -1788,19 +1771,19 @@ private:
 	std::vector<generic_string> _fileBrowserRoot;
 	generic_string _fileBrowserSelectedItemPath;
 
-	Accelerator *_pAccelerator;
-	ScintillaAccelerator * _pScintAccelerator;
+	Accelerator* _pAccelerator = nullptr;
+	ScintillaAccelerator* _pScintAccelerator = nullptr;
 
 	FindDlgTabTitiles _findDlgTabTitiles;
 	bool _asNotepadStyle = false;
 
-	winVer _winVersion;
-	Platform _platForm;
+	winVer _winVersion = WV_UNKNOWN;
+	Platform _platForm = PF_UNKNOWN;
 
 	NativeLangSpeaker *_pNativeLangSpeaker = nullptr;
 
-	COLORREF _currentDefaultBgColor;
-	COLORREF _currentDefaultFgColor;
+	COLORREF _currentDefaultBgColor = RGB(0xFF, 0xFF, 0xFF);
+	COLORREF _currentDefaultFgColor = RGB(0x00, 0x00, 0x00);
 
 	generic_string _initialCloudChoice;
 

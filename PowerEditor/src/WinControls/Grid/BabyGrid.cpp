@@ -1732,7 +1732,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                        //count lines
                            {
                                int count=1;
-                               TCHAR tbuffer[255];
+                               TCHAR tbuffer[255] = { '\0' };
 							   wcscpy_s(tbuffer,(TCHAR*)lParam);
                                for(int j=0;j<(int)lstrlen(tbuffer);j++)
                                    {

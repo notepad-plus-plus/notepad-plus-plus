@@ -1530,7 +1530,7 @@ INT_PTR CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPara
 						{
 							if (LOWORD(wParam) == IDC_COLUMNPOS_EDIT)
 							{
-								TCHAR text[MAX_PATH];
+								TCHAR text[MAX_PATH] = {'\0'};
 								::SendDlgItemMessage(_hSelf, IDC_COLUMNPOS_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text));
 
 								if (str2numberVector(text, svp._edgeMultiColumnPos))
@@ -2138,7 +2138,7 @@ INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam
 				{
 					case  IDC_OPENSAVEDIR_ALWAYSON_EDIT:
 					{
-						TCHAR inputDir[MAX_PATH];
+						TCHAR inputDir[MAX_PATH] = { '\0' };
 						::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(inputDir));
 						wcscpy_s(nppGUI._defaultDir, inputDir);
 						::ExpandEnvironmentStrings(nppGUI._defaultDir, nppGUI._defaultDirExp, _countof(nppGUI._defaultDirExp));
@@ -2988,7 +2988,7 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SetDlgItemText(_hSelf, IDC_EDIT_FRIGHT, nppGUI._printSettings._footerRight.c_str());
 
 			TCHAR intStr[5];
-			for (size_t i = 6 ; i < 15 ; ++i)
+			for (int i = 6 ; i < 15 ; ++i)
 			{
 				wsprintf(intStr, TEXT("%d"), i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTSIZE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(intStr));
@@ -3383,7 +3383,7 @@ INT_PTR CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				{
 					case  IDC_BACKUPDIR_EDIT:
 					{
-						TCHAR inputDir[MAX_PATH];
+						TCHAR inputDir[MAX_PATH] = {'\0'};
 						::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(inputDir));
 						nppGUI._backupDir = inputDir;
 						return TRUE;
@@ -4195,14 +4195,14 @@ INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					case  IDC_EDIT_OPENDELIMITER:
 					{
-						TCHAR opener[2];
+						TCHAR opener[2] = { '\0' };
 						::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(opener));
 						nppGUI._leftmostDelimiter =  static_cast<char>(opener[0]);
 						return TRUE;
 					}
 					case  IDC_EDIT_CLOSEDELIMITER:
 					{
-						TCHAR closer[2];
+						TCHAR closer[2] = { '\0' };
 						::SendDlgItemMessage(_hSelf, IDC_EDIT_CLOSEDELIMITER, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(closer));
 						nppGUI._rightmostDelimiter =  static_cast<char>(closer[0]);
 						return TRUE;

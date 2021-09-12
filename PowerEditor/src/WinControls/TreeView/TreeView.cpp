@@ -140,7 +140,7 @@ generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
 	if (!Item2Set)
 		return TEXT("");
-	TCHAR textBuffer[MAX_PATH];
+	TCHAR textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem;
 	tvItem.hItem = Item2Set;
 	tvItem.mask = TVIF_TEXT;
@@ -245,7 +245,7 @@ HTREEITEM TreeView::searchSubItemByName(const TCHAR *itemName, HTREEITEM hParent
 
 	for ( ; hItem != NULL; hItem = getNextSibling(hItem))
 	{
-		TCHAR textBuffer[MAX_PATH];
+		TCHAR textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem;
 		tvItem.hItem = hItem;
 		tvItem.pszText = textBuffer;
@@ -596,7 +596,7 @@ bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const gene
 	if (!tree2Search)
 		return false;
 
-	TCHAR textBuffer[MAX_PATH];
+	TCHAR textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem;
 	tvItem.hItem = tree2Search;
 	tvItem.pszText = textBuffer;
@@ -638,7 +638,7 @@ bool TreeView::retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREE
 	if (!treeviewNode)
 		return false;
 
-	TCHAR textBuffer[MAX_PATH];
+	TCHAR textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem;
 	tvItem.hItem = treeviewNode;
 	tvItem.pszText = textBuffer;

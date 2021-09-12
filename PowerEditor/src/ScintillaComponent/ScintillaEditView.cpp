@@ -3549,7 +3549,9 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 
 void ScintillaEditView::setTabSettings(Lang *lang)
 {
-    if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
+	if (!lang) return;
+
+    if (lang->_tabSize != -1 && lang->_tabSize != 0)
     {
 		if (lang->_langID == L_JAVASCRIPT)
 		{

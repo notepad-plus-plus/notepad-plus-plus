@@ -30,8 +30,8 @@
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
 	sortCompareData* sortData = (sortCompareData*)lParamSort;
-	TCHAR str1[MAX_PATH];
-	TCHAR str2[MAX_PATH];
+	TCHAR str1[MAX_PATH] = { '\0' };
+	TCHAR str2[MAX_PATH] = { '\0' };
 
 	ListView_GetItemText(sortData->hListView, lParam1, sortData->columnIndex, str1, sizeof(str1));
 	ListView_GetItemText(sortData->hListView, lParam2, sortData->columnIndex, str2, sizeof(str2));
@@ -273,7 +273,7 @@ void VerticalFileSwitcher::initPopupMenus()
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNEXT_ID, extStr.c_str());
 
 	bool isExtColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutExtColumn;
-	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
+	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | (isExtColumn ? MF_UNCHECKED : MF_CHECKED));
 }
 
 void VerticalFileSwitcher::popupMenuCmd(int cmdID)
@@ -284,7 +284,7 @@ void VerticalFileSwitcher::popupMenuCmd(int cmdID)
 		{
 			bool& isExtColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutExtColumn;
 			isExtColumn = !isExtColumn;
-			::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
+			::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | (isExtColumn ? MF_UNCHECKED : MF_CHECKED));
 			reload();
 		}
 		break;

@@ -140,10 +140,10 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 				}
 				else
 				{
-					TCHAR expandedStr[CURRENTWORD_MAXLENGTH];
+					TCHAR expandedStr[CURRENTWORD_MAXLENGTH] = { '\0' };
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
-						auto lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
+						int lineNumber = static_cast<int>(::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0));
 						wsprintf(expandedStr, TEXT("%d"), lineNumber);
 					}
 					else

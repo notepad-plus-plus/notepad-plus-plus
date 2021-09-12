@@ -496,7 +496,7 @@ void Gripper::doTabReordering(POINT pt)
 	}
 
 	// select the tab only in source tab window
-	if ((_hTab == _hTabSource) && (_iItem != -1))
+	if ((_hTab != nullptr && _hTab == _hTabSource) && (_iItem != -1))
 	{
 		::SendMessage(_hTab, TCM_SETCURSEL, _iItem, 0);
 	}

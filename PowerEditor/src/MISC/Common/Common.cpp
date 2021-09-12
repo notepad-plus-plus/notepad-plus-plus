@@ -1068,10 +1068,12 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 	HCERTSTORE hStore = NULL;
 	HCRYPTMSG hMsg = NULL;
 	PCCERT_CONTEXT pCertContext = NULL;
-	BOOL result;
-	DWORD dwEncoding, dwContentType, dwFormatType;
+	BOOL result = FALSE;
+	DWORD dwEncoding = 0;
+	DWORD dwContentType = 0;
+	DWORD dwFormatType = 0;
 	PCMSG_SIGNER_INFO pSignerInfo = NULL;
-	DWORD dwSignerInfo;
+	DWORD dwSignerInfo = 0;
 	CERT_INFO CertInfo;
 	LPTSTR szName = NULL;
 

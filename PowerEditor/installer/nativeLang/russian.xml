@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.1.4:
+Updated to v8.1.5:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.1.4">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.1.5">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -112,6 +112,7 @@ Updated to v8.1.4:
 
 					<Item id="42084" name="Дата и Время (короткое)"/>
 					<Item id="42085" name="Дата и Время (длинное)"/>
+					<Item id="42086" name="Дата и Время (польз.)"/>
 
 					<Item id="42003" name="Отмена"/>
 					<Item id="42004" name="Повтор"/>
@@ -474,6 +475,11 @@ Updated to v8.1.4:
 				<Item id="1723" name="▼"/>
 				<Item id="1725" name="Коп. Помеченный Текст"/>
 			</Find>
+			<IncrementalFind title="">
+				<Item id="1681" name="Найти"/>
+				<Item id="1685" name="Учитывать регистр"/>
+				<Item id="1690" name="Подсветка всех"/>
+			</IncrementalFind>
 			<FindCharsInRange title = "Найти символы в диапазоне....">
 				<Item id="2"    name="Закрыть"/>
 				<Item id="2901" name="Не-ASCII символы (128-255)"/>
@@ -871,9 +877,9 @@ Updated to v8.1.4:
 					<Item id="6121" name="Выходить при закр. послед. вкладки"/>
 					<Item id="6122" name="Скрыть Главное Меню (Alt или F10 для выбора)"/>
 					<Item id="6123" name="Язык интерфейса"/>
-					<Item id="6125" name="Панель со Списком Документов"/>
-					<Item id="6127" name="Отключить колонку расширения"/>
 					<Item id="6128" name="Альтернативные иконки"/>
+				<!-- 	<Item id="6125" name="Панель со Списком Документов"/>
+					<Item id="6127" name="Отключить колонку расширения"/> -->
 				</Global>
 				<Scintillas title = "Правка">
 					<Item id="6214" name="Подсветка текущей строки"/>
@@ -1061,14 +1067,17 @@ Updated to v8.1.4:
 					<Item id="6346" name="Отображать в Карте Документа"/>
 					<Item id="6349" name="Использ. DirectWrite (это может улучшить отображение спецсимволов, требуется перезапуск)"/>
 					<Item id="6360" name="Отключить все звуки"/>
-					<Item id="6361" name="Включить подтверждение Сохранить Все"/>
+					<Item id="6361" name="Включить запрос подтверждения Сохранить Все"/>
 				</MISC>
-				<MultiInstance title = "Режимы Запуска">
+				<MultiInstance title = "Режим Откр. и Дата">
 					<Item id="6151" name="Режим Открытия Файлов"/>
 					<Item id="6152" name="Только сессии открываются в новом окне"/>
 					<Item id="6153" name="Каждый файл открывается в новом окне"/>
 					<Item id="6154" name="Все файлы открываются в одном окне"/>
 					<Item id="6155" name="* Изменения вступят в силу после перезапуска Notepad++"/>
+					<Item id="6171" name="Настроить дату и время вставки"/>
+					<Item id="6175" name="Обратный порядок даты и времени (короткий и длинный формат)"/>
+					<Item id="6172" name="Польз. формат:"/>
 				</MultiInstance>
 				<Delimiter title = "Разделитель">
 					<Item id="6251" name="Параметры разделителя  (Ctrl + 2 щелчка Мыши)"/>
@@ -1188,6 +1197,12 @@ Updated to v8.1.4:
 				<Item id="4"    name="Д&amp;а, для всех"/>
 				<Item id="5"    name="Н&amp;ет, для всех"/>
 			</DoSaveOrNot>
+			<DoSaveAll title="Подтверждение - Сохранить Все">
+				<Item id="1766" name="Вы уверены, что хотите сохранить все изменённые файлы?&#x0A;&#x0A;Выберите &quot;Всегда Да&quot; если вы больше не хотите видеть это окно.&#x0A;Вы можете повторно активировать это окно позже в Настройках."/>
+				<Item id="6" name="&amp;Да"/>
+				<Item id="7" name="&amp;Нет"/>
+				<Item id="4" name="Всегда Да"/>
+			</DoSaveAll>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning  title="Редактирование contextMenu"            message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
@@ -1248,7 +1263,6 @@ Updated to v8.1.4:
 			<ViewInBrowser                       title="Открыть текущий файл в Браузере"            message="Приложение не найдено в вашей системе."/>
 			<ExitToUpdatePlugins                 title="Завершение работы Notepad++"                message="Notepad++ завершит работу для продолжения операции.&#x0A;Программа будет перезапущена после завершения всех операций.&#x0A;Продолжить?"/>
 			<NeedToRestartToLoadPlugins          title="Необходимо перезапустить Notepad++"         message="Необходимо перезапустить Notepad++ для установки загруженных плагинов."/>
-			<SaveAllConfirm                      title="Подтверждение Сохранить Все"                message="Вы уверены, что хотите сохранить все документы?&#x0A;&#x0A;Выберите &quot;Отмена&quot; если ваш ответ всегда будет &quot;Да&quot; и вам больше не будет задаться этот вопрос.&#x0A;Вы можете повторно активировать это диалоговое окно в опциях меню Настройки."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1257,6 +1271,7 @@ Updated to v8.1.4:
 			<PanelTitle name="Список Документов"/>
 			<ColumnName name="Имя"/>
 			<ColumnExt  name="Расш."/>
+			<ColumnPath name="Путь"/>
 		</DocList>
 		<WindowsDlg>
 			<ColumnName   name="Имя"/>
@@ -1454,6 +1469,10 @@ Updated to v8.1.4:
 			<file-save-assign-type                value="&amp;Добавлять расширение"/>
 			<file-rename-title                    value="Переименовать"/>
 			<close-panel-tip                      value="Закрыть"/>
+			<IncrementalFind-FSFound              value="$INT_REPLACE$ совпадений" />
+			<IncrementalFind-FSNotFound           value="Фраза не найдена" />
+			<IncrementalFind-FSTopReached         value="Выше совпадений нет, продолжено снизу" />
+			<IncrementalFind-FSEndReached         value="Ниже совпадений нет, продолжено сверху" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

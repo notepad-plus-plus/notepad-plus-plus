@@ -11,4 +11,4 @@ static constexpr unsigned int min(unsigned int a, unsigned int b) {
 
 // __try and __except are unknown to GCC, so convert them to something eligible
 #define __try try
-#define __except(x)	catch(...)
+#define __except(x) catch(...)

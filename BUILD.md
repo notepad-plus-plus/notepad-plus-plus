@@ -42,18 +42,18 @@ uses features from Boost's `Boost.Regex` library.
 
 # Building Notepad++ with GCC
 
-If you have [MinGW-w64](https://mingw-w64.org/doku.php/start) installed, then you can compile Notepad++ with GCC.
+If you have [MinGW-w64](https://www.mingw-w64.org/) installed, you can compile Notepad++ with GCC.
 
 MinGW-w64 can be downloaded from [SourceForge](https://sourceforge.net/projects/mingw-w64/files/). Notepad++ is regularly tested with [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) and with [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z). Other versions of compilers may also work but are untested.
 
-**Note:** if you use MinGW-w64 GCC from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work (one can use a command like `set PATH=%PATH%;$MinGW-root$\bin` each time `cmd` is launched).
+**Note:** If you use MinGW-w64 GCC from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work. One can use a command like `set PATH=$MinGW-root$\bin;%PATH%` each time `cmd` is launched. But beware that if `PATH` contains several versions of MinGW-w64 GCC, only the first one will be usable.
 
 ## Comping Notepad++ binary
 
 1. Launch `cmd` and add `$MinGW-root$\bin` to `PATH` if necessary.
 2. `cd` into `notepad-plus-plus\PowerEditor\gcc`.
 3. Run `mingw32-make`.
-4. `notepad++.exe` will be generated either in `bin.x86_64` or in `bin.i686` depending on the compiler used. The path to the directory is displayed at the end of the build process and it will contain everything needed for Notepad++ to run.
+4. The binary `notepad++.exe` will be generated either in `bin.x86_64` or in `bin.i686` directory depending on the target CPU of the compiler — look for the full path to the resulting binary at the end of the build process. The directory with the binary will contain everything needed for Notepad++ to start.
 
 To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
 
@@ -61,4 +61,4 @@ To see commands being executed add `VERBOSE=1` to the same command.
 
 ### Notes on using GCC targeting `i686`
 
-Building the 32-bit binary of Notepad++ currently works only on Windows because `%windir%\system32\SensApi.dll` is required for the build process to succeed — the tested `i686` version of GCC doesn't have a linking library for this system DLL, so it is generated during the build process.
+Building a 32-bit version of Notepad++ currently works only on Windows because `%windir%\system32\SensApi.dll` is required for the build process to succeed — the tested `i686` version of GCC doesn't have a linking library for this system DLL, so it is generated during the build process.

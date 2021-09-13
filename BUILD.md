@@ -44,7 +44,7 @@ uses features from Boost's `Boost.Regex` library.
 
 If you have [MinGW-w64](https://www.mingw-w64.org/) installed, you can compile Notepad++ with GCC.
 
-MinGW-w64 can be downloaded from [SourceForge](https://sourceforge.net/projects/mingw-w64/files/). Notepad++ is regularly tested with [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) and with [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z). Other versions of compilers may also work but are untested.
+MinGW-w64 can be downloaded from [SourceForge](https://sourceforge.net/projects/mingw-w64/files/). Building Notepad++ is regularly tested on a Windows system with [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) and with [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z) versions of MinGW-w64 GCC. Other versions may also work but are untested.
 
 **Note:** If you use MinGW-w64 GCC from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work. One can use a command like `set PATH=$MinGW-root$\bin;%PATH%` each time `cmd` is launched. But beware that if `PATH` contains several versions of MinGW-w64 GCC, only the first one will be usable.
 
@@ -59,7 +59,3 @@ MinGW-w64 can be downloaded from [SourceForge](https://sourceforge.net/projects/
 * To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
 * To see commands being executed add `VERBOSE=1` to the same command.
 * When switching between compilers or between release/debug modes, `mingw32-make clean` must be executed first.
-
-### Notes on using GCC targeting `i686`
-
-Building a 32-bit version of Notepad++ currently works only on Windows because `%windir%\system32\SensApi.dll` is required for the build process to succeed — the tested `i686` version of GCC doesn't have a linking library for this system DLL, so it is generated during the build process.

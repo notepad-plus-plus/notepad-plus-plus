@@ -73,6 +73,8 @@ ifneq "$(filter-out x86_64 i686,$(TARGET_CPU))" ""
 $(error $(TARGET_CPU) build is unsupported)
 endif
 ifeq "$(TARGET_CPU)" "i686"
+# for some reason i686 versions of MinGW-w64 GCC don't include a linking library for SensApi.dll
+# thus it is generated on the fly, but first check if the DLL is available
 ifeq "$(wildcard $(windir)/system32/SensApi.dll)" ""
 $(error $(TARGET_CPU) build requires "%windir%/system32/SensApi.dll" to be present)
 endif
@@ -148,7 +150,7 @@ normalize-path = $(subst /,\,$1)
 endif
 
 # discover files
-list-subtree = $(foreach entry,$(wildcard $1/*),$(entry) $(call list-subtree,$(entry)))
+list-subtree = $(foreach i,$(wildcard $1/*),$i $(call list-subtree,$i))
 
 GCC_SUBTREE := $(patsubst $(GCC_DIRECTORY)/%,%,$(filter-out $(GCC_EXCLUDE),$(call list-subtree,$(GCC_DIRECTORY))))
 SRC_SUBTREE := $(patsubst $(SRC_DIRECTORY)/%,%,$(filter-out $(SRC_EXCLUDE),$(call list-subtree,$(SRC_DIRECTORY))))
@@ -179,12 +181,15 @@ all: $(SCINTILLA_TARGET)
 else
 all: binary
 endif
+ifneq "$(filter 1-binary,$(GOALS))" ""
+$(SCINTILLA_TARGET): .force
+endif
 
 $(BUILD_DIRECTORY):
 	@echo * creating BUILD_DIRECTORY $@
 	$(AT)$(MKDIR) $(call normalize-path,$(sort $@ $(patsubst %/,%,$(dir $(CXX_TARGETS) $(RC_TARGETS)))))
 
-$(SCINTILLA_TARGET): $(if $(filter 1-binary,$(GOALS)),,.force) | $(BUILD_DIRECTORY)
+$(SCINTILLA_TARGET): | $(BUILD_DIRECTORY)
 	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 LIBLEX=$(CURDIR)/$(SCINTILLA_TARGET) $(CURDIR)/$(SCINTILLA_TARGET)
 
 binary: $(TARGET_BINARY) data

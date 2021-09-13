@@ -145,11 +145,11 @@ public:
 	unsigned int GetThreadId() { return m_dwThreadId; }
 
 protected:
-	ReadDirectoryChangesPrivate::CReadChangesServer* m_pServer;
+	ReadDirectoryChangesPrivate::CReadChangesServer* m_pServer = nullptr;
 
-	HANDLE m_hThread;
+	HANDLE m_hThread = nullptr;
 
-	unsigned int m_dwThreadId;
+	unsigned int m_dwThreadId = 0;
 
 	CThreadSafeQueue<TDirectoryChangeNotification> m_Notifications;
 };

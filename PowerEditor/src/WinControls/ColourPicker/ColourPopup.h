@@ -58,9 +58,8 @@ public :
 	COLORREF getSelColour(){return _colour;};
 
 private :
-	RECT _rc;
-	COLORREF _colour;
-	//bool isColourChooserLaunched = false;
+	RECT _rc = {0};
+	COLORREF _colour = RGB(0xFF, 0xFF, 0xFF);
 
 	static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

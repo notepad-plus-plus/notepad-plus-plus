@@ -91,7 +91,7 @@ public :
 	};
 
 private :
-	ScintillaEditView *_pView;
+	ScintillaEditView *_pView = nullptr;
 	static bool _hideTabBarStatus;
 
 	std::vector<IconList *> _pIconListVector;

@@ -23,16 +23,16 @@ enum class PosAlign { left, right, top, bottom };
 
 struct DLGTEMPLATEEX
 {
-      WORD   dlgVer;
-      WORD   signature;
-      DWORD  helpID;
-      DWORD  exStyle;
-      DWORD  style;
-      WORD   cDlgItems;
-      short  x;
-      short  y;
-      short  cx;
-      short  cy;
+      WORD   dlgVer = 0;
+      WORD   signature = 0;
+      DWORD  helpID = 0;
+      DWORD  exStyle = 0;
+      DWORD  style = 0;
+      WORD   cDlgItems = 0;
+      short  x = 0;
+      short  y = 0;
+      short  cx = 0;
+      short  cy = 0;
       // The structure has more fields but are variable length
 };
 
@@ -68,7 +68,7 @@ public :
     virtual void destroy() override;
 
 protected:
-	RECT _rc;
+	RECT _rc = { 0 };
 	static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 

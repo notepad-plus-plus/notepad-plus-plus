@@ -33,8 +33,8 @@ typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrie
 #define FS_CLMNPATH					"ColumnPath"
 
 struct SwitcherFileInfo {
-	BufferID _bufID;
-	int _iView;
+	BufferID _bufID = 0;
+	int _iView = 0;
 
 	SwitcherFileInfo() = delete;
 	SwitcherFileInfo(BufferID buf, int view) : _bufID(buf), _iView(view){};

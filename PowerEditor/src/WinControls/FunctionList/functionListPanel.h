@@ -50,10 +50,7 @@ root
 
 struct SearchParameters {
 	generic_string _text2Find;
-	bool _doSort;
-
-	SearchParameters(): _text2Find(TEXT("")), _doSort(false){
-	};
+	bool _doSort = false;
 
 	bool hasParams()const{
 		return (_text2Find != TEXT("") || _doSort);
@@ -113,7 +110,7 @@ private:
 	SCROLLINFO si;
 	long _findLine = -1;
 	long _findEndLine = -1;
-	HTREEITEM _findItem;
+	HTREEITEM _findItem = nullptr;
 
 	generic_string _sortTipStr = TEXT("Sort");
 	generic_string _reloadTipStr = TEXT("Reload");
@@ -126,7 +123,7 @@ private:
 	FunctionParsersManager _funcParserMgr;
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
-	HIMAGELIST _hTreeViewImaLst;
+	HIMAGELIST _hTreeViewImaLst = nullptr;
 
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);

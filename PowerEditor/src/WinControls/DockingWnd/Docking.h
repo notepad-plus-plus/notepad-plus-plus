@@ -47,25 +47,25 @@
 
 
 typedef struct {
-	HWND		hClient;		// client Window Handle
-	const TCHAR	*pszName;		// name of plugin (shown in window)
-	int			dlgID;			// a funcItem provides the function pointer to start a dialog. Please parse here these ID
+	HWND hClient = nullptr;                // client Window Handle
+	const TCHAR* pszName = nullptr;        // name of plugin (shown in window)
+	int dlgID = 0;                         // a funcItem provides the function pointer to start a dialog. Please parse here these ID
 
 	// user modifications
-	UINT		uMask;			// mask params: look to above defines
-	HICON		hIconTab;		// icon for tabs
-	const TCHAR *pszAddInfo;		// for plugin to display additional informations
+	UINT uMask = 0;                        // mask params: look to above defines
+	HICON hIconTab = nullptr;              // icon for tabs
+	const TCHAR* pszAddInfo = nullptr;     // for plugin to display additional informations
 
 	// internal data, do not use !!!
-	RECT		rcFloat;		// floating position
-	int			iPrevCont;		// stores the privious container (toggling between float and dock)
-	const TCHAR*	pszModuleName;	// it's the plugin file name. It's used to identify the plugin
+	RECT rcFloat = {0};                    // floating position
+	int iPrevCont = 0;                     // stores the privious container (toggling between float and dock)
+	const TCHAR* pszModuleName = nullptr;  // it's the plugin file name. It's used to identify the plugin
 } tTbData;
 
 
 typedef struct {
-	HWND		hWnd;							// the docking manager wnd
-	RECT		rcRegion[DOCKCONT_MAX];			// position of docked dialogs
+	HWND hWnd = nullptr;                   // the docking manager wnd
+	RECT rcRegion[DOCKCONT_MAX] = {{0}};   // position of docked dialogs
 } tDockMgr;
 
 

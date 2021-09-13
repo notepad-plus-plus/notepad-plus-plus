@@ -84,12 +84,12 @@ struct PluginUpdateInfo
 
 struct NppCurrentStatus
 {
-	bool _isAdminMode;              // can launch gitup en Admin mode directly
+	bool _isAdminMode = false;         // can launch gitup en Admin mode directly
 
-	bool _isInProgramFiles;         // true: install/update/remove on "Program files" (ADMIN MODE)
-									// false: install/update/remove on NPP_INST or install on %APPDATA%, update/remove on %APPDATA% & NPP_INST (NORMAL MODE)
+	bool _isInProgramFiles = true;     // true: install/update/remove on "Program files" (ADMIN MODE)
+	                                   // false: install/update/remove on NPP_INST or install on %APPDATA%, update/remove on %APPDATA% & NPP_INST (NORMAL MODE)
 									
-	bool _isAppDataPluginsAllowed;  // true: install on %APPDATA%, update / remove on %APPDATA% & "Program files" or NPP_INST
+	bool _isAppDataPluginsAllowed = false;  // true: install on %APPDATA%, update / remove on %APPDATA% & "Program files" or NPP_INST
 
 	generic_string _nppInstallPath;
 	generic_string _appdataPath;

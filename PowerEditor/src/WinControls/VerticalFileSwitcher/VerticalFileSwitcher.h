@@ -24,9 +24,9 @@
 #define FS_PROJECTPANELTITLE		TEXT("Document List")
 
 struct sortCompareData {
-  HWND hListView;
-  int columnIndex;
-  int sortDirection;
+  HWND hListView = nullptr;
+  int columnIndex = 0;
+  int sortDirection = 0;
 };
 
 class VerticalFileSwitcher : public DockingDlgInterface {

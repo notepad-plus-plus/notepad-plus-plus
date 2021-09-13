@@ -362,13 +362,13 @@ protected :
 private :
     ControlsTab _ctrlTab;
     WindowVector _wVector;
-    UserLangContainer *_pCurrentUserLang;
+    UserLangContainer *_pCurrentUserLang = nullptr;
     FolderStyleDialog       _folderStyleDlg;
     KeyWordsStyleDialog     _keyWordsStyleDlg;
     CommentStyleDialog      _commentStyleDlg;
     SymbolsStyleDialog      _symbolsStyleDlg;
     bool _status = UNDOCK;
-    RECT _dlgPos;
+    RECT _dlgPos = { 0 };
     int _currentHight = 0;
     int _yScrollPos = 0;
     int _prevHightVal = 0;
@@ -450,12 +450,12 @@ public:
     static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-    HINSTANCE _hInst;
-    HWND _parent;
-    int _stylerIndex;
-    int _enabledNesters;
-    ColourPicker * _pFgColour;
-    ColourPicker * _pBgColour;
+    HINSTANCE _hInst = nullptr;
+    HWND _parent = nullptr;
+    int _stylerIndex = 0;
+    int _enabledNesters = 0;
+    ColourPicker * _pFgColour = nullptr;
+    ColourPicker * _pBgColour = nullptr;
     Style _initialStyle;
 
     void move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);

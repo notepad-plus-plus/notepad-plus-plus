@@ -88,7 +88,7 @@ private :
 
 struct LangID_Name
 {
-	LangType _id;
+	LangType _id = L_TEXT;
 	generic_string _name;
 	LangID_Name(LangType id, const generic_string& name) : _id(id), _name(name){};
 };
@@ -224,7 +224,8 @@ public :
 
 private :
 	POINT _singleLineModePoint, _multiLineModePoint;
-	RECT _closerRect, _closerLabelRect;
+	RECT _closerRect = { 0 };
+	RECT _closerLabelRect = { 0 };
 	HWND _tip = nullptr;
 
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

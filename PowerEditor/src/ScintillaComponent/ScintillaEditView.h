@@ -134,14 +134,13 @@ const bool L2R = true;
 const bool R2L = false;
 
 struct ColumnModeInfo {
-	int _selLpos;
-	int _selRpos;
-	int _order; // 0 based index
-	bool _direction; // L2R or R2L
-	int _nbVirtualCaretSpc;
-	int _nbVirtualAnchorSpc;
+	int _selLpos = 0;
+	int _selRpos = 0;
+	int _order = -1; // 0 based index
+	bool _direction = L2R; // L2R or R2L
+	int _nbVirtualCaretSpc = 0;
+	int _nbVirtualAnchorSpc = 0;
 
-	ColumnModeInfo() : _selLpos(0), _selRpos(0), _order(-1), _direction(L2R), _nbVirtualAnchorSpc(0), _nbVirtualCaretSpc(0){};
 	ColumnModeInfo(int lPos, int rPos, int order, bool dir = L2R, int vAnchorNbSpc = 0, int vCaretNbSpc = 0)
 		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualAnchorSpc(vAnchorNbSpc), _nbVirtualCaretSpc(vCaretNbSpc){};
 
@@ -171,11 +170,11 @@ struct SortInPositionOrder {
 typedef std::vector<ColumnModeInfo> ColumnModeInfos;
 
 struct LanguageName {
-	const TCHAR * lexerName;
-	const TCHAR * shortName;
-	const TCHAR * longName;
-	LangType LangID;
-	int lexerID;
+	const TCHAR * lexerName = nullptr;
+	const TCHAR * shortName = nullptr;
+	const TCHAR * longName = nullptr;
+	LangType LangID = L_TEXT;
+	int lexerID = 0;
 };
 
 #define URL_INDIC 8

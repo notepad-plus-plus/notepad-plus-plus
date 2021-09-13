@@ -14,9 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
-#ifndef NPP_SORTERS_H
-#define NPP_SORTERS_H
+#pragma once
 
 #include <algorithm>
 #include <utility>
@@ -26,8 +24,9 @@
 class ISorter
 {
 private:
-	bool _isDescending;
-	size_t _fromColumn, _toColumn;
+	bool _isDescending = true;
+	size_t _fromColumn = 0;
+	size_t _toColumn = 0;
 
 protected:
 	bool isDescending() const
@@ -453,4 +452,3 @@ public:
 	}
 };
 
-#endif //NPP_SORTERS_H

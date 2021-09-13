@@ -21,11 +21,11 @@
 
 
 struct NPP_RangeToFormat {
-	HDC hdc;
-	HDC hdcTarget;
-	RECT rc;
-	RECT rcPage;
-	Sci_CharacterRange chrg;
+	HDC hdc = nullptr;
+	HDC hdcTarget = nullptr;
+	RECT rc = { 0 };
+	RECT rcPage = { 0 };
+	Sci_CharacterRange chrg = { 0 };
 };
 
 class Printer

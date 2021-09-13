@@ -22,9 +22,6 @@
 
 class URLCtrl : public Window {
 public:
-    URLCtrl():_hfUnderlined(0),_hCursor(0), _msgDest(NULL), _cmdID(0), _oldproc(NULL), \
-		_linkColor(), _visitedColor(), _clicking(false), _URL(TEXT("")){};
-
     void create(HWND itemHandle, const TCHAR * link, COLORREF linkColor = RGB(0,0,255));
 	void create(HWND itemHandle, int cmd, HWND msgDest = NULL);
     void destroy();
@@ -32,16 +29,16 @@ private:
 	void action();
 protected :
     generic_string _URL;
-    HFONT	_hfUnderlined;
-    HCURSOR	_hCursor;
+    HFONT _hfUnderlined = nullptr;
+    HCURSOR _hCursor = nullptr;
 
-	HWND _msgDest;
-	unsigned long _cmdID;
+	HWND _msgDest = nullptr;
+	unsigned long _cmdID = 0;
 
-    WNDPROC  _oldproc;
-    COLORREF _linkColor;			
-    COLORREF _visitedColor;
-    bool  _clicking;
+    WNDPROC  _oldproc = nullptr;
+    COLORREF _linkColor = RGB(0xFF, 0xFF, 0xFF);			
+    COLORREF _visitedColor = RGB(0xFF, 0xFF, 0xFF);
+    bool  _clicking = false;
 
     static LRESULT CALLBACK URLCtrlProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
         return ((URLCtrl *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam);

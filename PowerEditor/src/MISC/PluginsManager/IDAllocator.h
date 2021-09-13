@@ -30,8 +30,8 @@ public:
 	bool isInRange(int id) { return (id >= _start && id < _nextID); }
 
 private:
-	int _start;
-	int _nextID;
-	int _maximumID;
+	int _start = 0;
+	int _nextID = 0;
+	int _maximumID = 0;
 };
 

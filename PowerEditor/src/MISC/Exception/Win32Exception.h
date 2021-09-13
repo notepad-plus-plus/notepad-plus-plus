@@ -42,11 +42,11 @@ protected:
     static void			translate(unsigned code, EXCEPTION_POINTERS * info);
 
 private:
-    const char * _event;
+    const char * _event = nullptr;
     ExceptionAddress _location;
-    unsigned int _code;
+    unsigned int _code = 0;
 
-	EXCEPTION_POINTERS * _info;
+	EXCEPTION_POINTERS * _info = nullptr;
 };
 
 
@@ -58,7 +58,7 @@ public:
 private:
     explicit Win32AccessViolation(EXCEPTION_POINTERS * info);
 
-    bool _isWrite;
+    bool _isWrite = false;
     ExceptionAddress _badAddress;
 
     friend void Win32Exception::translate(unsigned code, EXCEPTION_POINTERS* info);

@@ -45,8 +45,8 @@ public :
 		_oldProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(staticHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 	};
 private :
-	COLORREF _colour;
-	WNDPROC _oldProc;
+	COLORREF _colour = RGB(0xFF, 0xFF, 0xFF);
+	WNDPROC _oldProc = nullptr;
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
 		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));

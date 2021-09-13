@@ -34,8 +34,8 @@ enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_SMALL2, TB_LARGE2, TB_STANDARD};
 
 
 struct iconLocator {
-	int listIndex;
-	int iconIndex;
+	int listIndex = 0;
+	int iconIndex = 0;
 	generic_string iconLocation;
 
 	iconLocator(int iList, int iIcon, const generic_string& iconLoc)

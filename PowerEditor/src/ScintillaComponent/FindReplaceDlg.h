@@ -362,11 +362,11 @@ protected :
     void combo2ExtendedMode(int comboID);
 
 private :
-	RECT _initialWindowRect;
+	RECT _initialWindowRect = {0};
 	LONG _deltaWidth = 0;
 	LONG _initialClientWidth = 0;
 
-	DIALOG_TYPE _currentStatus;
+	DIALOG_TYPE _currentStatus = FIND_DLG;
 	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos, _markClosePos;
 	RECT _countInSelFramePos, _replaceInSelFramePos;
 	RECT _countInSelCheckPos, _replaceInSelCheckPos;
@@ -384,10 +384,10 @@ private :
 	bool _isRTL = false;
 
 	int _findAllResult;
-	TCHAR _findAllResultStr[1024];
+	TCHAR _findAllResultStr[1024] = {'\0'};
 
 	int _fileNameLenMax = 1024;
-	char *_uniFileName;
+	char *_uniFileName = nullptr;
 
 	TabBar _tab;
 	winVer _winVer = winVer::WV_UNKNOWN;
@@ -453,7 +453,7 @@ public :
 	virtual void destroy();
 	virtual void display(bool toShow = true) const;
 
-	void setSearchText(const TCHAR * txt2find, bool) {
+	void setSearchText(const TCHAR* txt2find, bool) {
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
 	};
 
@@ -463,13 +463,13 @@ public :
 		return _findStatus;
 	}
 
-	void addToRebar(ReBar * rebar);
+	void addToRebar(ReBar* rebar);
 private :
 	bool _isRTL = false;
 	FindReplaceDlg *_pFRDlg = nullptr;
 	FindStatus _findStatus = FSFound;
 
-	ReBar * _pRebar = nullptr;
+	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand;
 
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

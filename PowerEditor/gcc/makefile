@@ -181,7 +181,7 @@ all: $(SCINTILLA_TARGET)
 else
 all: binary
 endif
-ifneq "$(filter 1-binary,$(GOALS))" ""
+ifeq "$(filter 1-binary,$(GOALS))" ""
 $(SCINTILLA_TARGET): .force
 endif
 

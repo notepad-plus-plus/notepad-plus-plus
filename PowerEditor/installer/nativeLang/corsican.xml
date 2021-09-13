@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on August 30th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
+		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on July 31st, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 14th, 2021 for version 8.0.0 by Patriccollu di Santa Maria è Sichè
@@ -862,9 +862,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6122" name="Piattà a barra di listinu (impiegà Alt o F10 per attivà/disattivà)"/>
                     <Item id="6123" name="Lingua"/>
 
-                    <Item id="6125" name="Pannellu di lista di ducumentu"/>
-                    <Item id="6127" name="Disattivà a culonna d’estensione"/>
-
                     <Item id="6128" name="Icone alternative"/>
                 </Global>
                 <Scintillas title="Mudificazione">
@@ -1308,6 +1305,7 @@ Cuntinuà ?"/>
             <PanelTitle name="Lista di i ducumenti"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Est."/>
+            <ColumnPath name="Chjassu"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>

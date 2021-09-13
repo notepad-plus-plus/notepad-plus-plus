@@ -1280,6 +1280,7 @@ Pokračovať?"/>
             <PanelTitle name="Zoznam dokumentov"/>
             <ColumnName name="Názov"/>
             <ColumnExt name="Prípona"/>
+            <ColumnPath name="Cesta"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Názov"/>

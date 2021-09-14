@@ -1288,6 +1288,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <PanelTitle name="文書一覧"/>
             <ColumnName name="名前"/>
             <ColumnExt name="拡張子"/>
+            <ColumnPath name="パス"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="ファイル名"/>

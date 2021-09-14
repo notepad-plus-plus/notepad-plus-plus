@@ -1329,6 +1329,75 @@ int nbDigitsFromNbLines(size_t nbLines)
 	return nbDigits;
 }
 
+namespace
+{
+	constexpr TCHAR timeFmtEscapeChar = 0x1;
+	constexpr TCHAR middayFormat[] = _T("tt");
+
+	// Returns AM/PM string defined by the system locale for the specified time.
+	// This string may be empty or customized.
+	generic_string getMiddayString(const TCHAR* localeName, const SYSTEMTIME& st)
+	{
+		generic_string midday;
+		// Obtain the length of the resulting string first.
+		int ret = GetTimeFormatEx(localeName, 0, &st, middayFormat, nullptr, 0);
+		if (ret > 0)
+		{
+			midday.resize(ret);
+			ret = GetTimeFormatEx(localeName, 0, &st, middayFormat, &midday[0], static_cast<int>(midday.size()));
+			if (ret != 0)
+				midday.resize(ret - 1); // Remove the null-terminator.
+		}
+		if (ret == 0 || midday[0] == '\0')
+			midday.clear();
+		return midday;
+	}
+
+	// Replaces conflicting time format specifiers by a special character.
+	bool escapeTimeFormat(generic_string& format)
+	{
+		bool modified = false;
+		for (auto& ch : format)
+		{
+			if (ch == middayFormat[0])
+			{
+				ch = timeFmtEscapeChar;
+				modified = true;
+			}
+		}
+		return modified;
+	}
+
+	// Replaces special time format characters by actual AM/PM string.
+	void unescapeTimeFormat(generic_string& format, const generic_string& midday)
+	{
+		if (midday.empty())
+		{
+			auto it = std::remove(format.begin(), format.end(), timeFmtEscapeChar);
+			if (it != format.end())
+				format.erase(it, format.end());
+		}
+		else
+		{
+			size_t i = 0;
+			while ((i = format.find(timeFmtEscapeChar, i)) != generic_string::npos)
+			{
+				if (i + 1 < format.size() && format[i + 1] == timeFmtEscapeChar)
+				{
+					// 'tt' => AM/PM
+					format.erase(i, std::size(middayFormat) - 1);
+					format.insert(i, midday);
+				}
+				else
+				{
+					// 't' => A/P
+					format[i] = midday[0];
+				}
+			}
+		}
+	}
+}
+
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
 {
 	const TCHAR* localeName = LOCALE_NAME_USER_DEFAULT;
@@ -1338,29 +1407,33 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	TCHAR buffer[bufferSize] = {};
 	int ret = 0;
 
-	// 1. Remove format specifiers that we don't support:
-	//    - 'tt' that means AM/PM or 't' that means A/M
-	//    - 'g', 'gg' that means B.C. or A.D.
-	// Note: If 'tt' is supported it will need to be properly escaped
-	// to avoid conflict with 'M' date format that stands for month.
-	generic_string newFormat = dateTimeFormat;
-	auto it = std::remove_if(newFormat.begin(), newFormat.end(),
-		[](generic_string::value_type x) { return x == 't' || x == 'g'; });
-	newFormat.erase(it, newFormat.end());
+	// 1. Get the AM/PM string.
+	const generic_string midday = getMiddayString(localeName, st);
 
-	// 2. Format the time (h/m/s/t/H).
+	// 2. Escape 'tt' that means AM/PM or 't' that means A/P.
+	// This is needed to avoid conflict with 'M' date format that stands for month.
+	generic_string newFormat = dateTimeFormat;
+	const bool hasMiddayFormat = escapeTimeFormat(newFormat);
+
+	// 3. Format the time (h/m/s/t/H).
 	ret = GetTimeFormatEx(localeName, flags, &st, newFormat.c_str(), buffer, bufferSize);
 	if (ret != 0)
 	{
-		// 3. Format the date (d/y/g/M).
+		// 4. Format the date (d/y/g/M). 
 		// Now use the buffer as a format string to process the format specifiers not recognized by GetTimeFormatEx().
 		ret = GetDateFormatEx(localeName, flags, &st, buffer, buffer, bufferSize, nullptr);
 	}
 
 	if (ret != 0)
 	{
-		// 'ret' holds the actual length of the string
-		return generic_string(buffer, buffer + ret);
+		if (hasMiddayFormat)
+		{
+			// 5. Now format only the AM/PM string.
+			generic_string result = buffer;
+			unescapeTimeFormat(result, midday);
+			return result;
+		}
+		return buffer;
 	}
 
 	return {};

@@ -1330,7 +1330,7 @@ int nbDigitsFromNbLines(size_t nbLines)
 	}
 	return nbDigits;
 }
-
+/*
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
 {
 	generic_string dateTimeStr = dateTimeFormat;
@@ -1350,6 +1350,36 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 
 	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wSecond);
 	dateTimeStr = stringReplace(dateTimeStr, TEXT("s"), buf);
+
+	return dateTimeStr;
+}
+*/
+
+generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
+{
+	const TCHAR* localeName = LOCALE_NAME_USER_DEFAULT;
+	const DWORD flags = 0;
+
+	const int bufferSize = MAX_PATH;
+	TCHAR buffer[bufferSize] = {};
+
+	GetTimeFormatEx(localeName, flags, &st, dateTimeFormat.c_str(), buffer, bufferSize);
+	GetDateFormatEx(localeName, flags, &st, buffer, buffer, bufferSize, nullptr);
+
+	const int M_numberSize = 4;
+	TCHAR M_number[M_numberSize] = {};
+	GetDateFormatEx(localeName, flags, &st, TEXT("M"), M_number, M_numberSize, nullptr);
+
+	generic_string dateTimeStr = buffer;
+
+	generic_string AM_number = TEXT("A");
+	AM_number += M_number;
+
+	generic_string PM_number = TEXT("P");
+	PM_number += M_number;
+
+	dateTimeStr = stringReplace(dateTimeStr, AM_number, TEXT("AM"));
+	dateTimeStr = stringReplace(dateTimeStr, PM_number, TEXT("PM"));
 
 	return dateTimeStr;
 }

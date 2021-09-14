@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.4">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1249,6 +1249,7 @@
             <PanelTitle name="文件切換器"/>
             <ColumnName name="名稱"/>
             <ColumnExt name="副檔名"/>
+            <ColumnPath name="文件夾路徑"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="名稱"/>

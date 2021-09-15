@@ -1330,30 +1330,6 @@ int nbDigitsFromNbLines(size_t nbLines)
 	}
 	return nbDigits;
 }
-/*
-generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
-{
-	generic_string dateTimeStr = dateTimeFormat;
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("Y"), std::to_wstring(st.wYear));
-	wchar_t buf[3];
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wMonth);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("M"), buf);
-
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wDay);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("D"), buf);
-
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wHour);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("h"), buf);
-
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wMinute);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("m"), buf);
-
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wSecond);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("s"), buf);
-
-	return dateTimeStr;
-}
-*/
 
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
 {
@@ -1370,6 +1346,10 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	TCHAR M_number[M_numberSize] = {};
 	GetDateFormatEx(localeName, flags, &st, TEXT("M"), M_number, M_numberSize, nullptr);
 
+	// "tt" will be translated to "AM" or "PM" by GetTimeFormatEx(),
+	// then 'M' in "AM" or "PM" will be transformed to a number 1-12 by GetDateFormatEx().
+	// So if user provides "tt", it will be A1-A12 or P1-P12 in the buffer.
+	// Here we search A1-A12 or P1-P12 and restore them back to AM or PM.
 	generic_string dateTimeStr = buffer;
 
 	generic_string AM_number = TEXT("A");

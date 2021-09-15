@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-08-31 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-09-15 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -847,9 +847,6 @@
 					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
 					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
 
-					<Item id="6125" name="Liste der geöffneten Dateien"/>
-					<Item id="6127" name="Erweiterungsspalte ausblenden"/>
-
 					<Item id="6128" name="Alternative Symbole"/>
 				</Global>
 				<Scintillas title="Bearbeiten">
@@ -1288,6 +1285,7 @@ Fortsetzen?"/>
 			<PanelTitle name="Dokumentenliste"/>
 			<ColumnName name="Name"/>
 			<ColumnExt name="Erw."/>
+			<ColumnPath name="Pfad"/>
 		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Name"/>

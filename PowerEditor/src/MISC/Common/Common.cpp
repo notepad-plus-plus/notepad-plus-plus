@@ -1333,23 +1333,103 @@ int nbDigitsFromNbLines(size_t nbLines)
 
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
 {
-	generic_string dateTimeStr = dateTimeFormat;
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("Y"), std::to_wstring(st.wYear));
-	wchar_t buf[3];
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wMonth);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("M"), buf);
+	const TCHAR* localeName = LOCALE_NAME_USER_DEFAULT;
+	const DWORD flags = 0;
 
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wDay);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("D"), buf);
+	const int bufferSize = MAX_PATH;
+	TCHAR buffer[bufferSize] = {};
 
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wHour);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("h"), buf);
+	generic_string formatEx = dateTimeFormat;
+	size_t findPos = 0;
+	size_t tResultLength = std::string::npos;
+	bool tResultNeedsEscaping = false;
+	while ((findPos = formatEx.find_first_of(L"'t", findPos)) != std::string::npos)
+	{
+		if (formatEx[findPos] == L'\'')
+		{
+			// single quotation mark escape
+			size_t findEnd = findPos + 1;
+			while ((findEnd = formatEx.find_first_of(L'\'', findEnd)) != std::string::npos)
+			{
+				if (findEnd + 1 < formatEx.length() && formatEx[findEnd + 1] == L'\'')
+				{
+					formatEx.insert(findEnd, 2, L'\'');
+					findEnd += 4;
+					continue;
+				}
+				break;
+			}
+			if (findEnd == std::string::npos)
+			{
+				// no closing single quotation mark
+				formatEx.push_back(L'\'');
+				findEnd = formatEx.length();
+			}
+			formatEx.insert(findEnd, 2, L'\'');
+			formatEx.insert(findPos, 2, L'\'');
+			findPos = findEnd + 4 + 1;
+			tResultNeedsEscaping = true;
+		}
+		else
+		{
+			// time marker
+			if (tResultLength == std::string::npos)
+			{
+				// if time marker is defined in locale...
+				GetTimeFormatEx(localeName, flags, &st, L"tt", buffer, bufferSize);
+				tResultLength = wcslen(buffer);
+				tResultNeedsEscaping = tResultNeedsEscaping || wcschr(buffer, L'\'') != nullptr;
+			}
+			size_t findEnd = formatEx.find_first_not_of(L't', findPos + 1);
+			if (findEnd == std::string::npos)
+				findEnd = formatEx.length();
+			if (tResultLength)
+			{
+				// ...then escape its result and mark it for a second escape round if needed...
+				if (tResultNeedsEscaping) formatEx.insert(findEnd, 1, L'\2');
+				formatEx.insert(findEnd, 4, L'\'');
+				formatEx.insert(findPos, 4, L'\'');
+				if (tResultNeedsEscaping) formatEx.insert(findPos, 1, L'\1');
+				findPos = findEnd + 8 + 2 * tResultNeedsEscaping;
+			}
+			else
+			{
+				// ...or remove it with leading spaces if any
+				// its somewhat magical removal by GetTimeFormatEx() breaks escaping
+				while (findPos != 0 && formatEx[findPos - 1] == ' ') findPos -= 1;
+				formatEx.erase(findPos, findEnd - findPos);
+			}
+		}
+	}
+	GetTimeFormatEx(localeName, flags, &st, formatEx.c_str(), buffer, bufferSize);
 
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wMinute);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("m"), buf);
+	formatEx = buffer;
+	findPos = 0;
+	if (tResultNeedsEscaping) while ((findPos = formatEx.find(L"\1'", findPos)) != std::string::npos)
+	{
+		size_t findEnd = formatEx.find(L"'\2", findPos + 2);
+		if (findEnd == std::string::npos) break; // something weird happened
 
-	_snwprintf(buf, sizeof(buf), TEXT("%02d"), st.wSecond);
-	dateTimeStr = stringReplace(dateTimeStr, TEXT("s"), buf);
+		//formatEx.erase(findPos, 1);
+		//formatEx.erase(findEnd, 1);
+		//findEnd -= 1;
 
-	return dateTimeStr;
+		findPos += 2;
+		while ((findPos = formatEx.find(L'\'', findPos)) < findEnd)
+		{
+			formatEx.insert(findPos, 1, L'\'');
+			findPos += 2;
+			findEnd += 1;
+		}
+		findPos += 2;
+	}
+	GetDateFormatEx(localeName, flags, &st, formatEx.c_str(), buffer, bufferSize, nullptr);
+
+	formatEx = buffer;
+	findPos = 0;
+	if (tResultNeedsEscaping) while ((findPos = formatEx.find_first_of(L"\1\2", findPos)) != std::string::npos)
+	{
+		formatEx.erase(findPos, 1);
+	}
+	return formatEx;
 }

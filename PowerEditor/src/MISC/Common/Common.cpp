@@ -1339,16 +1339,11 @@ namespace
 	generic_string getMiddayString(const TCHAR* localeName, const SYSTEMTIME& st)
 	{
 		generic_string midday;
-		// Obtain the length of the resulting string first.
-		int ret = GetTimeFormatEx(localeName, 0, &st, middayFormat, nullptr, 0);
+		midday.resize(MAX_PATH);
+		int ret = GetTimeFormatEx(localeName, 0, &st, middayFormat, &midday[0], static_cast<int>(midday.size()));
 		if (ret > 0)
-		{
-			midday.resize(ret);
-			ret = GetTimeFormatEx(localeName, 0, &st, middayFormat, &midday[0], static_cast<int>(midday.size()));
-			if (ret != 0)
-				midday.resize(ret - 1); // Remove the null-terminator.
-		}
-		if (ret == 0 || midday[0] == '\0')
+			midday.resize(ret - 1); // Remove the null-terminator.
+		else
 			midday.clear();
 		return midday;
 	}
@@ -1407,19 +1402,17 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	TCHAR buffer[bufferSize] = {};
 	int ret = 0;
 
-	// 1. Get the AM/PM string.
-	const generic_string midday = getMiddayString(localeName, st);
 
-	// 2. Escape 'tt' that means AM/PM or 't' that means A/P.
+	// 1. Escape 'tt' that means AM/PM or 't' that means A/P.
 	// This is needed to avoid conflict with 'M' date format that stands for month.
 	generic_string newFormat = dateTimeFormat;
 	const bool hasMiddayFormat = escapeTimeFormat(newFormat);
 
-	// 3. Format the time (h/m/s/t/H).
+	// 2. Format the time (h/m/s/t/H).
 	ret = GetTimeFormatEx(localeName, flags, &st, newFormat.c_str(), buffer, bufferSize);
 	if (ret != 0)
 	{
-		// 4. Format the date (d/y/g/M). 
+		// 3. Format the date (d/y/g/M). 
 		// Now use the buffer as a format string to process the format specifiers not recognized by GetTimeFormatEx().
 		ret = GetDateFormatEx(localeName, flags, &st, buffer, buffer, bufferSize, nullptr);
 	}
@@ -1428,7 +1421,8 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	{
 		if (hasMiddayFormat)
 		{
-			// 5. Now format only the AM/PM string.
+			// 4. Now format only the AM/PM string.
+			const generic_string midday = getMiddayString(localeName, st);
 			generic_string result = buffer;
 			unescapeTimeFormat(result, midday);
 			return result;

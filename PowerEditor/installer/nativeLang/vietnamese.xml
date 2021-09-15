@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Tiếng Việt" filename="vietnamese.xml" version="8.1.4">
+    <Native-Langue name="Tiếng Việt" filename="vietnamese.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1046,7 +1046,7 @@ Bạn có thể định nghĩa một vài mốc đánh dấu bằng cách sử d
                     <Item id="6866" name="Cặp khớp 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Đa-hiện-thể">
+                <MultiInstance title="Đa-hiện-thể &amp; Ngày giờ">
                     <Item id="6151" name="Thiết đặt đa-hiện-thể"/>
                     <Item id="6152" name="Mở phiên trong một hiện thể Notepad++ mới"/>
                     <Item id="6153" name="Luôn ở trong chế độ đa-hiện-thể"/>

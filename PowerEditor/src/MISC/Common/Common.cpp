@@ -1386,7 +1386,8 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 				findEnd = formatEx.length();
 			if (tResultLength)
 			{
-				// ...then escape its result and mark it for a second escape round if needed...
+//				// ...then escape its result and mark it for a second escape round if needed...
+				// ...then escape its result...
 //				if (tResultNeedsEscaping) formatEx.insert(findEnd, 1, L'\2');
 				formatEx.insert(findEnd, 4, L'\'');
 				formatEx.insert(findPos, 4, L'\'');
@@ -1397,7 +1398,7 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 			else
 			{
 				// ...or remove it with leading spaces if any
-				// its somewhat magical removal by GetTimeFormatEx() breaks escaping
+				// GetTimeFormatEx() in case of an empty time marker in locale settings removes everything preceding it up to a valid TIME format token; so in case a time marker is the first time format token with date format tokens before it, the output will contain only tokens after this time marker
 				while (findPos != 0 && formatEx[findPos - 1] == ' ')
 					findPos -= 1;
 				formatEx.erase(findPos, findEnd - findPos);

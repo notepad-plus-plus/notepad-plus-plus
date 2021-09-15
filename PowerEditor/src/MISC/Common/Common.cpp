@@ -1396,7 +1396,8 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 			{
 				// ...or remove it with leading spaces if any
 				// its somewhat magical removal by GetTimeFormatEx() breaks escaping
-				while (findPos != 0 && formatEx[findPos - 1] == ' ') findPos -= 1;
+				while (findPos != 0 && formatEx[findPos - 1] == ' ')
+					findPos -= 1;
 				formatEx.erase(findPos, findEnd - findPos);
 			}
 		}
@@ -1409,10 +1410,6 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	{
 		size_t findEnd = formatEx.find(L"'\2", findPos + 2);
 		if (findEnd == std::string::npos) break; // something weird happened
-
-		//formatEx.erase(findPos, 1);
-		//formatEx.erase(findEnd, 1);
-		//findEnd -= 1;
 
 		findPos += 2;
 		while ((findPos = formatEx.find(L'\'', findPos)) < findEnd)

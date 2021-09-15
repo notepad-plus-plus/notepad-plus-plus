@@ -3873,8 +3873,14 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 			::SendDlgItemMessage(_hSelf, IDD_DATETIMEFORMAT_REVERSEORDER_CHECK, BM_SETCHECK, nppGUI._dateTimeReverseDefaultOrder ? BST_CHECKED : BST_UNCHECKED, 0);
 
+			const size_t datetimeExampleSize = PATH_MAX;
+			TCHAR datetimeExample[datetimeExampleSize] = {};
+			::GetDlgItemText(_hSelf, IDD_DATETIMEFORMAT_EXAMPLE_SRC_STATIC, datetimeExample, datetimeExampleSize - 1);
+			generic_string datetimeStr = getDateTimeStrFrom(datetimeExample, _BTTF_time);
+			::SetDlgItemText(_hSelf, IDD_DATETIMEFORMAT_EXAMPLE_TGT_STATIC, datetimeStr.c_str());
+
 			::SetDlgItemText(_hSelf, IDC_DATETIMEFORMAT_EDIT, nppGUI._dateTimeFormat.c_str());
-			generic_string datetimeStr = getDateTimeStrFrom(nppGUI._dateTimeFormat, _BTTF_time);
+			datetimeStr = getDateTimeStrFrom(nppGUI._dateTimeFormat, _BTTF_time);
 			::SetDlgItemText(_hSelf, IDD_DATETIMEFORMAT_RESULT_STATIC, datetimeStr.c_str());
 		}
 		break;

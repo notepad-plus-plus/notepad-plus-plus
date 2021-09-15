@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.4">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1058,7 +1058,7 @@
                     <Item id="6154" name="デフォルト(1つのインスタンス)"/>
                     <Item id="6155" name="* この変更を有効にするにはNotepad++の再起動が必要です"/>
                     <Item id="6171" name="挿入する日時の書式設定"/>
-                    <Item id="6175" name="日付と時刻の順序を逆にする（短い書式、長い書式の場合）"/>
+                    <Item id="6175" name="日付と時刻の順序を逆にする（短い形式、長い形式の場合）"/>
                     <Item id="6172" name="カスタム書式:"/>
                 </MultiInstance>
 
@@ -1276,10 +1276,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 すべての作業が完了すると Notepad++ は再起動します。
 処理を続けますか？"/>
             <NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
-            <SaveAllConfirm title="すべて保存 の確認" message="すべてのファイルを保存しようとしています。よろしいですか？
-
-「キャンセル」を押すと、今後、この確認画面が表示されなくなります。
-環境設定から、再度、この画面を表示するよう変更できます。" /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>

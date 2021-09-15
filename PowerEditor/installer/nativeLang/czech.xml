@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.1.5  7/Sep/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.1.5  15/Sep/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -456,7 +456,7 @@
 				<Item id = "1725" name = "Kopírovat označený text"/>
 			</Find>
 
-			<IncrementalFind title ="">
+			<IncrementalFind title = "">
 				<Item id = "1681" name = "Najít"/>
 				<Item id = "1685" name = "Rozlišovat velká a malá p."/>
 				<Item id = "1690" name = "Zvýraznit všechny"/>
@@ -1120,11 +1120,11 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6863" name = "Párové znaky 2:"/>
 					<Item id = "6866" name = "Párové znaky 3:"/>
 				</AutoCompletion>
-				<MultiInstance title = "Multi-instance &amp; Datum">
-					<Item id = "6151" name = "Nastavení multi-instančního módu"/>
+				<MultiInstance title = "Více instancí &amp; Datum">
+					<Item id = "6151" name = "Nastavení víceinstančního módu"/>
 					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++"/>
-					<Item id = "6153" name = "Vždy v multi-instančním módu"/>
-					<Item id = "6154" name = "Implicitní (mono-instanční mód)"/>
+					<Item id = "6153" name = "Vždy ve víceinstančním módu"/>
+					<Item id = "6154" name = "Implicitní (jednoinstanční) mód"/>
 					<Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
 					<Item id = "6171" name = "Přizpůsobení vkládaného aktuálního datumu a času"/>
 					<Item id = "6175" name = "Obrátit implicitní pořadí vkládaných údajů (pro kratší i delší verzi)"/>
@@ -1197,7 +1197,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 				<Item id = "2" name = "Storno"/>
 			</ColumnEditor>
 
-			<FindInFinder title="Najít ve výsledcích vyhledávání">
+			<FindInFinder title = "Najít ve výsledcích vyhledávání">
 				<Item id = "1" name = "N&amp;ajít vše"/>
 				<Item id = "2" name = "&amp;Zavřít"/>
 				<Item id = "1711" name = "Najít &amp;co:"/>
@@ -1211,7 +1211,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 				<Item id = "1720" name = "&amp;. označuje nový ř."/>
 			</FindInFinder>
 			
-			<DoSaveOrNot title="Ukládání"> 
+			<DoSaveOrNot title = "Ukládání"> 
 				<Item id = "1761" name = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
 				<Item id = "6" name = "&amp;Ano"/>
 				<Item id = "7" name = "&amp;Ne"/>
@@ -1220,7 +1220,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 				<Item id = "5" name = "N&amp;e pro všechny"/>
 			</DoSaveOrNot>
 			
-			<DoSaveAll title="Potvrzení pro 'Uložit všechny'">
+			<DoSaveAll title = "Potvrzení pro 'Uložit všechny'">
 				<Item id = "1766" name = "Jste si jistí, že chcete uložit všechny modifikované dokumenty?
 
 Vyberte &quot;Pokaždé ano&quot;, jestliže nechcete znovu vidět tento dialog.
@@ -1301,6 +1301,7 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<PanelTitle name = "Seznam dokumentů"/>
 			<ColumnName name = "Jméno"/>
 			<ColumnExt name = "Příp."/>
+			<ColumnPath name = "Cesta"/>
 		</DocList>
 		
 		<WindowsDlg>
@@ -1508,8 +1509,8 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<close-panel-tip value = "Zavřít" />
 			<IncrementalFind-FSFound value = "$INT_REPLACE$ výskytů" />
 			<IncrementalFind-FSNotFound value = "Výraz nenalezen." />
-			<IncrementalFind-FSTopReached value = "Bylo dosaženo začátku stránky, pokračuji odspodu" />
-			<IncrementalFind-FSEndReached value = "Bylo dosaženo konce stránky, pokračuji odshora" />
+			<IncrementalFind-FSTopReached value = "Bylo dosaženo začátku stránky, pokračování odspodu" />
+			<IncrementalFind-FSEndReached value = "Bylo dosaženo konce stránky, pokračování odshora" />
 		</MiscStrings>
 
 	</Native-Langue>

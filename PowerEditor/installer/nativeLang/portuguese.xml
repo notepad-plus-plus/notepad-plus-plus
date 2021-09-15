@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.1.4">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -113,6 +113,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42020" name="Selecionar Início/Fim"/>
                     <Item id="42084" name="Data e Hora (curto)"/>
                     <Item id="42085" name="Data e Hora (longo)"/>
+                    <Item id="42086" name="Data e Hora (personalizado)"/>
                     <Item id="42008" name="Aumentar Indentação da Linha"/>
                     <Item id="42009" name="Diminuir Indentação da Linha"/>
                     <Item id="42010" name="Duplicar Linha Atual"/>
@@ -286,34 +287,34 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44035" name="Sincronizar Deslocamento Vertical"/>
                     <Item id="44036" name="Sincronizar Deslocamento Horizontal"/>
                     <Item id="44041" name="Mostrar Símbolo de Moldar Texto"/>
-                    <Item id="44072" name="Alternar Separador"/>
+                    <Item id="44072" name="Focar noutra visão"/>
                     <Item id="44081" name="Painel do Projeto 1"/>
                     <Item id="44082" name="Painel do Projeto 2"/>
                     <Item id="44083" name="Painel do Projeto 3"/>
-                    <Item id="45001" name="Converter para o Formato do Windows"/>
-                    <Item id="45002" name="Converter para o Formato UNIX"/>
-                    <Item id="45003" name="Converter para o Formato MAC"/>
+                    <Item id="45001" name="Windows (CR LF)"/>
+                    <Item id="45002" name="Unix (LF)"/>
+                    <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="Codificar em ANSI"/>
-                    <Item id="45005" name="Codificar em UTF-8-BOM"/>
-                    <Item id="45006" name="Codificar em UTF-16 BE BOM"/>
-                    <Item id="45007" name="Codificar em UTF-16 LE BOM"/>
-                    <Item id="45008" name="Codificar em UTF-8"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UTF-16 BE BOM"/>
+                    <Item id="45007" name="UTF-16 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Converter para ANSI"/>
                     <Item id="45010" name="Converter para UTF-8"/>
                     <Item id="45011" name="Converter para UTF-8-BOM"/>
                     <Item id="45012" name="Converter para UTF-16 BE BOM"/>
                     <Item id="45013" name="Converter para UTF-16 LE BOM"/>
-                    <Item id="45060" name="Codificar em Big5 (Tradicional)"/>
-                    <Item id="45061" name="Codificar em GB2312 (Simplificado)"/>
-                    <Item id="45054" name="Codificar em OEM 861: Islandês"/>
-                    <Item id="45057" name="Codificar em OEM 865: Nórdico"/>
-                    <Item id="45053" name="Codificar em OEM 860: Português"/>
-                    <Item id="45056" name="Codificar em OEM 863: Francês"/>
+                    <Item id="45060" name="Big5 (Tradicional)"/>
+                    <Item id="45061" name="GB2312 (Simplificado)"/>
+                    <Item id="45054" name="OEM 861: Islandês"/>
+                    <Item id="45057" name="OEM 865: Nórdico"/>
+                    <Item id="45053" name="OEM 860: Português"/>
+                    <Item id="45056" name="OEM 863: Francês"/>
 
-                    <Item id="10001" name="Mostrar Separador Lado-a-Lado"/>
-                    <Item id="10002" name="Clonar para Outro Separador"/>
-                    <Item id="10003" name="Mover para a Nova Instância"/>
-                    <Item id="10004" name="Abrir numa Nova Instância"/>
+                    <Item id="10001" name="Mudar para outra vista"/>
+                    <Item id="10002" name="Clonar para outra vista"/>
+                    <Item id="10003" name="Mover para a nova instância"/>
+                    <Item id="10004" name="Abrir numa nova instância"/>
 
                     <Item id="46001" name="Configurador do Estilo..."/>
                     <Item id="46250" name="Defina o seu idioma..."/>
@@ -814,31 +815,28 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="Geral">
                     <Item id="6101" name="Barra de Ferramentas"/>
                     <Item id="6102" name="Ocultar"/>
-                    <Item id="6103" name="Fluent UI: ícones pequenos"/>
-                    <Item id="6104" name="Fluent UI: ícones grandes"/>
-                    <Item id="6129" name="Filled Fluent UI: ícones pequenos"/>
-                    <Item id="6130" name="Filled Fluent UI: ícones grandes"/>
-                    <Item id="6105" name="Padrão: ícones pequenos"/>
+                    <Item id="6103" name="Fluent UI: pequenos"/>
+                    <Item id="6104" name="Fluent UI: grandes"/>
+                    <Item id="6129" name="Filled Fluent UI: pequenos"/>
+                    <Item id="6130" name="Filled Fluent UI: grandes"/>
+                    <Item id="6105" name="Ícones predefinidos: pequenos"/>
 
-                    <Item id="6106" name="Barra do Separador "/>
-                    <Item id="6107" name="Diminuir Tamanho"/>
+                    <Item id="6106" name="Barra do Separador"/>
+                    <Item id="6107" name="Reduzir"/>
                     <Item id="6108" name="Bloquear (não arrastar e largar)"/>
                     <Item id="6109" name="Escurecer separadores inativos"/>
-                    <Item id="6110" name="Mostrar barra colorida no Separador ativo"/>
+                    <Item id="6110" name="Mostrar barra colorida no separador ativo"/>
 
                     <Item id="6111" name="Mostrar Barra de Estado"/>
-                    <Item id="6112" name="Mostrar botão fechar nos Separadores"/>
+                    <Item id="6112" name="Mostrar botão fechar em cada separador"/>
                     <Item id="6113" name="Clique duplo para fechar documento"/>
                     <Item id="6118" name="Ocultar"/>
                     <Item id="6119" name="Múltiplas linhas"/>
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Sair ao fechar o último separador"/>
 
-                    <Item id="6122" name="Ocultar (utilizar Alt ou F10 para alternar)"/>
+                    <Item id="6122" name="Ocultar barra de menu (utilizar Alt ou F10 para alternar)"/>
                     <Item id="6123" name="Localização"/>
-
-                    <Item id="6125" name="Painel Lista Documento"/>
-                    <Item id="6127" name="Desativar coluna da extensão"/>
 
                     <Item id="6128" name="Alternar ícones"/>
                 </Global>
@@ -1048,12 +1046,15 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6866" name="Par 3 Correspondido:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Múltiplas Instâncias">
+                <MultiInstance title="Múltiplas Instâncias e Data">
                     <Item id="6151" name="Definições das Múltiplas Instâncias"/>
                     <Item id="6152" name="Abrir sessão numa nova instância do Notepad++"/>
                     <Item id="6153" name="Sempre no modo de Múltiplas Instâncias"/>
                     <Item id="6154" name="Predefinição (Uma Instância)"/>
                     <Item id="6155" name="* Deve reiniciar o Notepad++ depois de modificar estas definições"/>
+                    <Item id="6171" name="Personalizar inserção de Data e Hora"/>
+                    <Item id="6175" name="Inverter ordem predefenida de data e hora (formatos curto e longo)"/>
+                    <Item id="6172" name="Formato personalizado:"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimitador">
@@ -1278,6 +1279,7 @@ Continuar?"/>
             <PanelTitle name="Lista de Documentos"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Ext."/>
+            <ColumnPath name="Caminho"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
@@ -1506,7 +1508,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-29/08/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2, 8.1.3, 8.1.4)
+15/09/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2, 8.1.3, 8.1.4, 8.1.5)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.	

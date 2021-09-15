@@ -837,9 +837,6 @@
                     <Item id="6122" name="Skryť panel menu (Na prepínanie použite klávesu Alt alebo F10)"/>
                     <Item id="6123" name="Lokalizácia"/>
 
-                    <Item id="6125" name="Panel prepínača dokumentov"/>
-                    <Item id="6127" name="Nepoužívať stĺpec prípon"/>
-
                     <Item id="6128" name="Alternatívne ikony"/>
                 </Global>
                 <Scintillas title="Editor">

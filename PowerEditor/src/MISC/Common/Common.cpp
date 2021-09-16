@@ -1341,7 +1341,7 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 
 	generic_string ttResult;
 	bool ttResultParsed = false;
-	bool ttComplexProcessing = false; // activated only if a format string or a time-marker value contains a single quotation mark (escape delimiters)
+	bool ttComplexProcessing = false; // activated only if either a format string or a time-marker value contain a single quotation mark (an escape delimiter)
 
 	generic_string dtString = dateTimeFormat;
 	size_t findPos = 0;
@@ -1386,8 +1386,8 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 				if (ttComplexProcessing)
 				{
 					// ...then replace its token with a placeholder...
-					dtString.replace(findPos, findEnd - findPos, std::min({static_cast<size_t>(2), findEnd - findPos}), L'\1');
-					findPos += std::min({static_cast<size_t>(2), findEnd - findPos}) + 1;
+					dtString.replace(findPos, findEnd - findPos, min(2, findEnd - findPos), L'\1');
+					findPos += min(static_cast<size_t>(2), findEnd - findPos) + 1;
 				}
 				else
 				{

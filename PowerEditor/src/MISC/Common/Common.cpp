@@ -1339,29 +1339,30 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	const int bufferSize = MAX_PATH;
 	TCHAR buffer[bufferSize] = {};
 
-	generic_string formatEx = dateTimeFormat;
-	size_t findPos = 0;
+	bool ttComplexProcessing = false; // activated only if a format string or a time-marker value contains a single quotation mark (escape sequences)
 	size_t ttResultLength = std::string::npos;
-	bool ttComplexProcessing = false; // activated only if a format string or a time-marker value contains a single quotation mark (used for escape sequences)
-	while ((findPos = formatEx.find_first_of(L"'t", findPos)) != std::string::npos)
+
+	generic_string dtString = dateTimeFormat;
+	size_t findPos = 0;
+	while ((findPos = dtString.find_first_of(L"'t", findPos)) != std::string::npos)
 	{
 		// an escape sequence
-		if (formatEx[findPos] == L'\'')
+		if (dtString[findPos] == L'\'')
 		{
 			size_t findEnd = findPos + 1;
-			while ((findEnd = formatEx.find_first_of(L'\'', findEnd)) != std::string::npos)
+			while ((findEnd = dtString.find_first_of(L'\'', findEnd)) != std::string::npos)
 			{
-				if (findEnd + 1 == formatEx.length() || formatEx[findEnd + 1] != L'\'') break;
-				formatEx.insert(findEnd, 2, L'\'');
+				if (findEnd + 1 == dtString.length() || dtString[findEnd + 1] != L'\'') break;
+				dtString.insert(findEnd, 2, L'\'');
 				findEnd += 4;
 			}
 			if (findEnd == std::string::npos)
 			{
-				formatEx.push_back(L'\'');
-				findEnd = formatEx.length();
+				dtString.push_back(L'\'');
+				findEnd = dtString.length();
 			}
-			formatEx.insert(findEnd, 2, L'\'');
-			formatEx.insert(findPos, 2, L'\'');
+			dtString.insert(findEnd, 2, L'\'');
+			dtString.insert(findPos, 2, L'\'');
 			findPos = findEnd + 4 + 1;
 			ttComplexProcessing = true;
 		}
@@ -1370,63 +1371,57 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 		{
 			if (ttResultLength == std::string::npos)
 			{
-				GetTimeFormatEx(localeName, flags, &st, L"tt", buffer, bufferSize);
+				::GetTimeFormatEx(localeName, flags, &st, L"tt", buffer, bufferSize);
 				ttResultLength = wcslen(buffer);
 				ttComplexProcessing = ttComplexProcessing || wcschr(buffer, L'\'') != nullptr;
 			}
-			size_t findEnd = formatEx.find_first_not_of(L't', findPos + 1);
+			size_t findEnd = dtString.find_first_not_of(L't', findPos + 1);
 			if (findEnd == std::string::npos)
-				findEnd = formatEx.length();
+				findEnd = dtString.length();
 			// if a time-marker value is defined in locale settings...
 			if (ttResultLength)
 			{
 				// ...then enclose its token in "escape tokens"...
-				if (ttComplexProcessing) formatEx.insert(findEnd, 1, L'\2');
-				formatEx.insert(findEnd, 4, L'\'');
-				formatEx.insert(findPos, 4, L'\'');
-				if (ttComplexProcessing) formatEx.insert(findPos, 1, L'\1');
+				if (ttComplexProcessing) dtString.insert(findEnd, 1, L'\2');
+				dtString.insert(findEnd, 4, L'\'');
+				dtString.insert(findPos, 4, L'\'');
+				if (ttComplexProcessing) dtString.insert(findPos, 1, L'\1');
 				findPos = findEnd + 8 + 2 * ttComplexProcessing;
 			}
 			else
 			{
-				// ...or remove its token with leading spaces if any
+				// ...or remove its token with leading or trailing spaces if any
 				// GetTimeFormatEx(), in case of an empty time-marker value in locale settings, removes everything preceding a time-marker token up to another time token; so if a time-marker token is the first time token with only date tokens before it, the output will have only tokens after the time-marker one
-				while (findPos != 0 && formatEx[findPos - 1] == ' ')
+				while (findPos != 0 && dtString[findPos - 1] == L' ')
 					findPos -= 1;
-				formatEx.erase(findPos, findEnd - findPos);
+				while (findPos == 0 && findEnd != dtString.length() && dtString[findEnd] == L' ')
+					findEnd += 1;
+				dtString.erase(findPos, findEnd - findPos);
 			}
 		}
 	}
-	GetTimeFormatEx(localeName, flags, &st, formatEx.c_str(), buffer, bufferSize);
+	::GetTimeFormatEx(localeName, flags, &st, dtString.c_str(), buffer, bufferSize);
 
-	formatEx = buffer;
-	if (ttComplexProcessing)
+	dtString = buffer;
+	findPos = 0;
+	while (ttComplexProcessing && (findPos = dtString.find(L"\1'", findPos)) != std::string::npos)
 	{
-		findPos = 0;
-		while ((findPos = formatEx.find(L"\1'", findPos)) != std::string::npos)
+		size_t findEnd = dtString.find(L"'\2", findPos + 2);
+		if (findEnd == std::string::npos) break; // something weird happened
+		findPos += 2;
+		while ((findPos = dtString.find(L'\'', findPos)) < findEnd)
 		{
-			size_t findEnd = formatEx.find(L"'\2", findPos + 2);
-			if (findEnd == std::string::npos) break; // something weird happened
+			dtString.insert(findPos, 1, L'\'');
 			findPos += 2;
-			while ((findPos = formatEx.find(L'\'', findPos)) < findEnd)
-			{
-				formatEx.insert(findPos, 1, L'\'');
-				findPos += 2;
-				findEnd += 1;
-			}
-			findPos += 2;
+			findEnd += 1;
 		}
+		findPos += 2;
 	}
-	GetDateFormatEx(localeName, flags, &st, formatEx.c_str(), buffer, bufferSize, nullptr);
+	::GetDateFormatEx(localeName, flags, &st, dtString.c_str(), buffer, bufferSize, nullptr);
 
-	formatEx = buffer;
-	if (ttComplexProcessing)
-	{
-		findPos = 0;
-		while ((findPos = formatEx.find_first_of(L"\1\2", findPos)) != std::string::npos)
-		{
-			formatEx.erase(findPos, 1);
-		}
-	}
-	return formatEx;
+	dtString = buffer;
+	findPos = 0;
+	while (ttComplexProcessing && (findPos = dtString.find_first_of(L"\1\2", findPos)) != std::string::npos)
+		dtString.erase(findPos, 1);
+	return dtString;
 }

@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.1.4">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1279,6 +1279,7 @@ Notepad++会在所有安装结束后重新启动。
             <PanelTitle name="文件列表"/>
             <ColumnName name="文件名"/>
             <ColumnExt name="扩展名"/>
+            <ColumnPath name="路径"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="文件名"/>

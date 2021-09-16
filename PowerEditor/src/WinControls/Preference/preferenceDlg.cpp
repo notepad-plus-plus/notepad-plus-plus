@@ -3875,7 +3875,7 @@ INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 			const size_t datetimeExampleSize = MAX_PATH;
 			TCHAR datetimeExample[datetimeExampleSize] = {};
-			::GetDlgItemText(_hSelf, IDD_DATETIMEFORMAT_EXAMPLE_SRC_STATIC, datetimeExample, datetimeExampleSize - 1);
+			::GetDlgItemText(_hSelf, IDD_DATETIMEFORMAT_EXAMPLE_SRC_STATIC, datetimeExample, datetimeExampleSize);
 			generic_string datetimeStr = getDateTimeStrFrom(datetimeExample, _BTTF_time);
 			::SetDlgItemText(_hSelf, IDD_DATETIMEFORMAT_EXAMPLE_TGT_STATIC, datetimeStr.c_str());
 

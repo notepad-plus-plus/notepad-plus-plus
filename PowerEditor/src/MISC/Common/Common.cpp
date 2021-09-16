@@ -1339,15 +1339,16 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	const int bufferSize = MAX_PATH;
 	TCHAR buffer[bufferSize] = {};
 
+	// `t` or `tt` processing in a format string requires special handling because GetTimeFormatEx(), in case of an empty time-marker value in locale settings, removes everything preceding a time-marker token up to another Time token; so if a time-marker token is the first Time token in a string with only Date tokens before it, the output will have only results of tokens after that time-marker token
 	generic_string ttResult;
 	bool ttResultParsed = false;
-	bool ttComplexProcessing = false; // activated if either a format string or a time-marker value contain a single quotation mark (an escape delimiter)
+	bool ttComplexProcessing = false; // activated if either a format string or a time-marker value contain a single quotation mark (a verbatim string delimiter)
 
 	generic_string dtString = dateTimeFormat;
 	size_t findPos = 0;
 	while ((findPos = dtString.find_first_of(L"'t", findPos)) != std::string::npos)
 	{
-		// an escape delimiter
+		// a verbatim string delimiter
 		if (dtString[findPos] == L'\'')
 		{
 			size_t findEnd = findPos + 1;
@@ -1384,18 +1385,18 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 			// if a time-marker value is defined in locale settings...
 			if (!ttResult.empty())
 			{
-				if (ttComplexProcessing)
+				if (!ttComplexProcessing)
 				{
-					// ...then its token is replaced with a placeholder...
-					dtString.replace(findPos, findEnd - findPos, min(2, findEnd - findPos), L'\1');
-					findPos += min(static_cast<size_t>(2), findEnd - findPos) + 1;
-				}
-				else
-				{
-					// ...or is enclosed in 4 escape delimiters (which will turn into one delimiter)...
+					// ...then its token is enclosed in 4 verbatim string delimiters (which will turn into one after GetTimeFormatEx() call)...
 					dtString.insert(findEnd, 4, L'\'');
 					dtString.insert(findPos, 4, L'\'');
 					findPos = findEnd + 8;
+				}
+				else
+				{
+					// ...or is replaced with a placeholder...
+					dtString.replace(findPos, findEnd - findPos, min(2, findEnd - findPos), L'\1');
+					findPos += min(2, findEnd - findPos) + 1;
 				}
 			}
 			else
@@ -1405,19 +1406,18 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 					findPos -= 1;
 				while (findPos == 0 && findEnd != dtString.length() && dtString[findEnd] == L' ')
 					findEnd += 1;
-				if (ttComplexProcessing)
+				if (!ttComplexProcessing)
+					// ...is removed...
+					dtString.erase(findPos, findEnd - findPos);
+				else
 				{
-					// ...is replaced with a placeholder...
+					// ...or is replaced with a placeholder (not to accidentally concatenate two verbatim strings in a format string)
 					dtString.replace(findPos, findEnd - findPos, 1, L'\1');
 					findPos += 1;
 				}
-				else
-					// ...or is removed
-					dtString.erase(findPos, findEnd - findPos);
 			}
 		}
 	}
-	// NB: GetTimeFormatEx(), in case of an empty time-marker value in locale settings, removes everything preceding and succeeding a time-marker token up to another time token; so if a time-marker token is the first time token in a string with only date tokens before it, the output will have only tokens after the time-marker one
 	::GetTimeFormatEx(localeName, flags, &st, dtString.c_str(), buffer, bufferSize);
 
 	dtString = buffer;

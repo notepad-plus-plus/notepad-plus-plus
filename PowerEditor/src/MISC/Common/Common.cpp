@@ -1340,93 +1340,70 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	TCHAR buffer[bufferSize] = {};
 
 	// `t` or `tt` processing in a format string requires special handling because GetTimeFormatEx(), in case of an empty time-marker value in locale settings, removes everything preceding a time-marker token up to another Time token; so if a time-marker token is the first Time token in a string with only Date tokens before it, the output will have only results of tokens after that time-marker token
-	generic_string ttResult;
-	bool ttResultParsed = false;
-	bool ttComplexProcessing = false; // activated if either a format string or a time-marker value contain a single quotation mark (a verbatim string delimiter)
+	generic_string timeMarkerValue;
+	bool timeMarkerPresent = false;
 
-	generic_string dtString = dateTimeFormat;
-	size_t findPos = 0;
-	while ((findPos = dtString.find_first_of(L"'t", findPos)) != std::string::npos)
+	generic_string result = dateTimeFormat;
+	size_t charPos = 0;
+	while ((charPos = result.find_first_of(L"'t", charPos)) != generic_string::npos)
 	{
-		// a verbatim string delimiter
-		if (dtString[findPos] == L'\'')
-		{
-			size_t findEnd = findPos + 1;
-			while ((findEnd = dtString.find_first_of(L'\'', findEnd)) != std::string::npos)
-			{
-				if (findEnd + 1 == dtString.length() || dtString[findEnd + 1] != L'\'') break;
-				dtString.insert(findEnd, 2, L'\'');
-				findEnd += 4;
-			}
-			if (findEnd == std::string::npos)
-			{
-				dtString.push_back(L'\'');
-				findEnd = dtString.length();
-			}
-			dtString.insert(findEnd, 2, L'\'');
-			dtString.insert(findPos, 2, L'\'');
-			findPos = findEnd + 4 + 1;
-			ttComplexProcessing = true;
-		}
 		// a time-marker token
-		else
+		if (result[charPos] == L't')
 		{
-			if (!ttResultParsed)
+			if (!timeMarkerPresent)
 			{
 				::GetTimeFormatEx(localeName, flags, &st, L"tt", buffer, bufferSize);
-				ttResult = buffer;
-				ttResultParsed = true;
-				ttComplexProcessing = ttComplexProcessing || ttResult.find_first_of(L'\'') != std::string::npos;
+				timeMarkerValue = buffer;
+				timeMarkerPresent = true;
 			}
 
-			size_t findEnd = dtString.find_first_not_of(L't', findPos + 1);
-			if (findEnd == std::string::npos)
-				findEnd = dtString.length();
-			// if a time-marker value is defined in locale settings...
-			if (!ttResult.empty())
+			size_t afterPos = result.find_first_not_of(L't', charPos + 1);
+			if (afterPos == generic_string::npos)
+				afterPos = result.length();
+			if (!timeMarkerValue.empty())
 			{
-				if (!ttComplexProcessing)
-				{
-					// ...then its token is enclosed in 4 verbatim string delimiters (which will turn into one after GetTimeFormatEx() call)...
-					dtString.insert(findEnd, 4, L'\'');
-					dtString.insert(findPos, 4, L'\'');
-					findPos = findEnd + 8;
-				}
-				else
-				{
-					// ...or is replaced with a placeholder...
-					dtString.replace(findPos, findEnd - findPos, min(2, findEnd - findPos), L'\1');
-					findPos += min(2, findEnd - findPos) + 1;
-				}
+				result.replace(charPos, afterPos - charPos, min(2, afterPos - charPos), L'\1');
+				charPos += min(2, afterPos - charPos) + 1;
 			}
 			else
 			{
-				// ...otherwise its token with leading or trailing spaces if any...
-				while (findPos != 0 && dtString[findPos - 1] == L' ')
-					findPos -= 1;
-				while (findPos == 0 && findEnd != dtString.length() && dtString[findEnd] == L' ')
-					findEnd += 1;
-				if (!ttComplexProcessing)
-					// ...is removed...
-					dtString.erase(findPos, findEnd - findPos);
-				else
-				{
-					// ...or is replaced with a placeholder (not to accidentally concatenate two verbatim strings in a format string)
-					dtString.replace(findPos, findEnd - findPos, 1, L'\1');
-					findPos += 1;
-				}
+				while ((afterPos == result.length() || result[afterPos] == L' ') && charPos != 0 && result[charPos - 1] == L' ')
+					charPos -= 1;
+				while (charPos == 0 && result[charPos] != L' ' && afterPos != result.length() && result[afterPos] == L' ')
+					afterPos += 1;
+				result.replace(charPos, afterPos - charPos, 1, L'\1');
+				charPos += 1;
 			}
 		}
+		// a verbatim string delimiter
+		else if (result[charPos] == L'\'')
+		{
+			size_t quotePos = charPos + 1;
+			while ((quotePos = result.find(L'\'', quotePos)) != generic_string::npos)
+			{
+				if (quotePos + 1 == result.length() || result[quotePos + 1] != L'\'') break;
+				result.insert(quotePos + 1, 2, L'\'');
+				quotePos += 4;
+			}
+			if (quotePos == std::string::npos)
+			{
+				quotePos = result.length();
+				result.push_back(L'\'');
+			}
+			result.insert(quotePos, 2, L'\'');
+			result.insert(charPos + 1, 2, L'\'');
+			charPos = quotePos + 4 + 1;
+		}
 	}
-	::GetTimeFormatEx(localeName, flags, &st, dtString.c_str(), buffer, bufferSize);
+	::GetTimeFormatEx(localeName, flags, &st, result.c_str(), buffer, bufferSize);
 
-	dtString = buffer;
-	::GetDateFormatEx(localeName, flags, &st, dtString.c_str(), buffer, bufferSize, nullptr);
+	result = buffer;
+	::GetDateFormatEx(localeName, flags, &st, result.c_str(), buffer, bufferSize, nullptr);
 
-	dtString = buffer;
-	if (ttComplexProcessing && !ttResult.empty())
-		dtString = stringReplace(dtString, L"\1\1", ttResult);
-	if (ttComplexProcessing)
-		dtString = stringReplace(dtString, L"\1", ttResult.substr(0, 1));
-	return dtString;
+	result = buffer;
+	if (timeMarkerPresent & !timeMarkerValue.empty())
+		result = stringReplace(result, L"\1\1", timeMarkerValue);
+	if (timeMarkerPresent)
+		result = stringReplace(result, L"\1", timeMarkerValue.substr(0, 1));
+	return result;
 }

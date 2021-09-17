@@ -146,11 +146,11 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), _isDirty);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
 
+			loadLangListFromNppParam();
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();
 			goToCenter();
 
-			loadLangListFromNppParam();
 			return TRUE;
 		}
 
@@ -545,7 +545,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Global Styles")));
 	// All the lexers
-	for (int i = 0, nb = _lsArray.getNbLexer() ; i < nb ; ++i)
+	for (size_t i = 0, nb = _lsArray.getNbLexer() ; i < nb ; ++i)
 	{
 		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_lsArray.getLexerDescFromIndex(i)));
 	}
@@ -568,7 +568,7 @@ int WordStyleDlg::whichTabColourIndex()
 	if (i == LB_ERR)
 		return -1;
 	const size_t styleNameLen = 128;
-	TCHAR styleName[styleNameLen + 1];
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
 	if (lbTextLen > styleNameLen)
 		return -1;
@@ -673,9 +673,10 @@ void WordStyleDlg::updateUserKeywords()
 	//TCHAR kw[NB_MAX];
 	auto len = ::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXTLENGTH, 0, 0);
 	len += 1;
-	TCHAR *kw = new TCHAR[len];
+	TCHAR* kw = new TCHAR[len];
+	::memset(kw, 0, len * sizeof(TCHAR));
 	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, reinterpret_cast<LPARAM>(kw));
-	style.setKeywords(kw);
+	style._keywords = kw;
 
 	delete [] kw;
 }
@@ -808,10 +809,9 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
 	StyleArray & lexerStyler = index?_lsArray.getLexerFromIndex(index-1):_globalStyles;
 
-	for (int i = 0, nb = lexerStyler.getNbStyler(); i < nb ; ++i)
+	for (const Style & style : lexerStyler)
 	{
-		Style & style = lexerStyler.getStyler(i);
-		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(style._styleDesc));
+		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(style._styleDesc.c_str()));
 	}
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, 0, 0);
 	setVisualFromStyleList();
@@ -824,7 +824,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	Style & style = getCurrentStyler();
 
 	// Global override style
-	if (style._styleDesc && lstrcmp(style._styleDesc, TEXT("Global override")) == 0)
+	if (style._styleDesc == TEXT("Global override"))
 	{
 		showGlobalOverrideCtrls(true);
 	}
@@ -834,7 +834,7 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	COLORREF c = NppDarkMode::isEnabled() ? NppDarkMode::getLinkTextColor() : RGB(0x00, 0x00, 0xFF);
 	const size_t strLen = 256;
-	TCHAR str[strLen + 1];
+	TCHAR str[strLen + 1] = { '\0' };
 
 	str[0] = '\0';
 
@@ -851,7 +851,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (i == LB_ERR)
 		return;
 	const size_t styleNameLen = 64;
-	TCHAR styleName[styleNameLen + 1];
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
 	if (lbTextLen > styleNameLen)
 		return;
@@ -874,7 +874,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	}
 
 	// Selected text colour style
-	if (style._styleDesc && lstrcmp(style._styleDesc, TEXT("Selected text colour")) == 0)
+	if (style._styleDesc == TEXT("Selected text colour"))
 	{
 		isEnable = false; // disable by default for "Selected text colour" style
 
@@ -895,9 +895,9 @@ void WordStyleDlg::setVisualFromStyleList()
 	//-- font name
 	isEnable = false;
 	LRESULT iFontName;
-	if (style._fontName != NULL)
+	if (!style._fontName.empty())
 	{
-		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(style._fontName));
+		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(style._fontName.c_str()));
 		if (iFontName == CB_ERR)
 			iFontName = 0;
 		isEnable = true;
@@ -964,7 +964,7 @@ void WordStyleDlg::setVisualFromStyleList()
 			kws = TEXT("");
 		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(kws));
 
-		const TCHAR *ckwStr = (style._keywords)?style._keywords->c_str():TEXT("");
+		const TCHAR *ckwStr = style._keywords.c_str();
 		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ckwStr));
 	}
 

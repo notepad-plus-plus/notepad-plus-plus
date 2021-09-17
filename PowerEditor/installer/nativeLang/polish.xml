@@ -5,15 +5,15 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.1.3 (02.08.2021)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.1.5 (15.09.2021)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
-    
+
     The most recent version of this file can usually be downloaded from:
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.1.3">
+    <Native-Langue name="polski" filename="polish.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -36,6 +36,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="file-openFolder" name="Otwórz folder zawierający"/>
                     <Item subMenuId="file-closeMore" name="Zamknij więcej"/>
                     <Item subMenuId="file-recentFiles" name="Ostatnio zamknięte &amp;pliki"/>
+                    <Item subMenuId="edit-insert" name="Wstaw"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Kopiuj do schowka"/>
                     <Item subMenuId="edit-indent" name="Wcięcie"/>
                     <Item subMenuId="edit-convertCaseTo" name="Wielkość liter"/>
@@ -120,6 +121,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Wyczyść"/>
                     <Item id="42007" name="&amp;Zaznacz wszystko"/>
                     <Item id="42020" name="Rozpocznij lub zakończ zaznaczanie"/>
+                    <Item id="42084" name="Data i czas (krótko)"/>
+                    <Item id="42085" name="Data i czas (długo)"/>
+                    <Item id="42086" name="Data i czas (własne)"/>
                     <Item id="42008" name="Zwiększ wcięcie"/>
                     <Item id="42009" name="Zmniejsz wcięcie"/>
                     <Item id="42010" name="Powtórz bieżącą linię"/>
@@ -438,6 +442,12 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1725" name="Kopiuj oznaczony tekst"/>
             </Find>
 
+            <IncrementalFind title="">
+                <Item id="1681" name="Znajdź"/>
+                <Item id="1685" name="Uwzględnij wielkość liter"/>
+                <Item id="1690" name="Podświetl wszystkie"/>
+            </IncrementalFind>
+
             <FindCharsInRange title="Zakres zestawu znaków...">
                 <Item id="2" name="Zamknij"/>
                 <Item id="2901" name="Znaki spoza zakresu ASCII (128-255)"/>
@@ -478,7 +488,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1934" name="Kopiuj do schowka"/>
                 <Item id="2"    name="Anuluj"/>
             </MD5FromTextDlg>
-            
+
             <SHA256FromFilesDlg title="Generowanie skrótu SHA-256 z plików">
                 <Item id="1922" name="Wybierz pliki..."/>
                 <Item id="1924" name="Kopiuj do schowka"/>
@@ -490,7 +500,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1934" name="Kopiuj do schowka"/>
                 <Item id="2"    name="Anuluj"/>
             </SHA256FromTextDlg>
-            
+
             <PluginsAdminDlg title="Zarządzanie wtyczkami" titleAvailable = "Dostępne" titleUpdates = "Aktualizacje" titleInstalled = "Zainstalowane">
                 <ColumnPlugin   name="Wtyczka"/>
                 <ColumnVersion  name="Wersja"/>
@@ -626,6 +636,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44105" name="Przejdź do panelu 2. projektu"/>
                     <Item id="44106" name="Przejdź do panelu 3. projektu"/>
                     <Item id="44107" name="Przejdź do panelu roboczego"/>
+                    <Item id="44109" name="Przejdź do listy dokumentów"/>
                     <Item id="44108" name="Przejdź do listy funkcji"/>
                 </MainCommandNames>
             </ShortcutMapper>
@@ -830,15 +841,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6112" name="Pokazuj przycisk zamknięcia na kartach"/>
                     <Item id="6113" name="Podwójne kliknięcie zamyka kartę"/>
                     <Item id="6118" name="Ukryty"/>
-                    <Item id="6119" name="Wielolinowy"/>
+                    <Item id="6119" name="Wieloliniowy"/>
                     <Item id="6120" name="Pionowy"/>
                     <Item id="6121" name="Zamknięcie ostatniej karty zamyka Notepad++"/>
 
                     <Item id="6122" name="Ukryj pasek menu (Alt lub F10 przełączają)"/>
                     <Item id="6123" name="Język interfejsu"/>
-
-                    <Item id="6125" name="Lista dokumentów"/>
-                    <Item id="6127" name="Bez kolumny z rozszerzeniami"/>
 
                     <Item id="6128" name="Alternatywne ikony"/>
                 </Global>
@@ -1048,12 +1056,15 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6866" name="Pasująca para 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Wieloinstancyjność">
+                <MultiInstance title="Wiele instancji i Data"> <!-- Wieloinstancyjność -->
                     <Item id="6151" name="Ustawienia wieloinstancyjności"/>
                     <Item id="6152" name="Otwieraj sesje w nowych instancjach Notepad++"/>
                     <Item id="6153" name="Zawsze w trybie wieloinstancyjności"/>
                     <Item id="6154" name="Domyślne (jedna instancja)"/>
                     <Item id="6155" name="Zmiana tego ustawienia wymaga ponownego uruchomienia Notepad++."/>
+                    <Item id="6171" name="Dostosuj wstawianą datę i czas"/>
+                    <Item id="6175" name="Odwróć domyślną kolejność daty i czasu (krótki i długi format)"/>
+                    <Item id="6172" name="Własny format:"/>
                 </MultiInstance>
 
                 <Delimiter title="Separator">
@@ -1104,7 +1115,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
                     <Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
                     <Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
-                    <Item id="6349" name="Użyj DirectWrite (może poprawić wyświetlanie znaków specjalnych, wymagany restart Notepad++)"/>      
+                    <Item id="6349" name="Użyj DirectWrite (może poprawić wyświetlanie znaków specjalnych, wymagany restart Notepad++)"/>
                     <Item id="6337" name="Rozszerzenie pliku projektu:"/>
                     <Item id="6114" name="Włącz"/>
                     <Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>
@@ -1166,6 +1177,15 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                 <Item id="4" name="Zapisz &amp;wszystkie"/>
                 <Item id="5" name="Nie &amp;zapisuj nic"/> <!-- Nie &amp;zapisuj żadnego -->
             </DoSaveOrNot>
+            <DoSaveAll title="Potwierdzenie operacji „Zapisz wszystko”">
+                <Item id="1766" name="Czy na pewno chcesz zapisać wszystkie zmodyfikowane pliki?
+
+Wybierz &quot;Zawsze Tak&quot; jeśli nie chcesz widzieć tego pytania ponownie.
+W oknie preferencji możesz przywrócić to potwierdzenie w dowolnym momencie."/>
+                <Item id="6" name="&amp;Tak"/>
+                <Item id="7" name="&amp;Nie"/>
+                <Item id="4" name="Zawsze Tak"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu kontekstowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
@@ -1261,10 +1281,6 @@ Czy chcesz uruchomić Notepad++ jako Administrator?"/>
 Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
 Kontynuować?"/>
             <NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <SaveAllConfirm title="Potwierdzenie operacji „Zapisz wszystko”" message="Czy na pewno chcesz zapisać wszystkie pliki?
-
-Wybierz &quot;Anuluj&quot; jeśli twoją odpowiedzią zawsze będzie &quot;Tak&quot; i nie będziesz pytany o to ponownie.
-W oknie preferencji możesz przywócić to potwierdzenie w dowolnym momencie." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
@@ -1273,6 +1289,7 @@ W oknie preferencji możesz przywócić to potwierdzenie w dowolnym momencie." /
             <PanelTitle name="Lista dokumentów"/>
             <ColumnName name="Nazwa"/>
             <ColumnExt name="Rozsz."/>
+            <ColumnPath name="Ścieżka"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nazwa"/>
@@ -1473,6 +1490,10 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <tab-untitled-string value="nowy " />
             <file-save-assign-type value="&amp;Dodaj rozszerzenie" />
             <close-panel-tip value="Zamknij" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ trafień" />
+            <IncrementalFind-FSNotFound value="Nie znaleziono frazy" />
+            <IncrementalFind-FSTopReached value="Osiągnięto początek dokumentu, kontynuacja od końca" />
+            <IncrementalFind-FSEndReached value="Osiągnięto koniec dokumentu, kontynuacja od początku" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

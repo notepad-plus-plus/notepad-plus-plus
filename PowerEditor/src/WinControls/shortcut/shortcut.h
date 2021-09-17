@@ -58,10 +58,10 @@ static size_t keyTranslate(size_t keyIn) {
 };
 
 struct KeyCombo {
-	bool _isCtrl;
-	bool _isAlt;
-	bool _isShift;
-	UCHAR _key;
+	bool _isCtrl = false;
+	bool _isAlt = false;
+	bool _isShift = false;
+	UCHAR _key = 0;
 };
 
 class Shortcut  : public StaticDialog {
@@ -175,9 +175,9 @@ public:
 protected :
 	KeyCombo _keyCombo;
 	virtual INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	bool _canModifyName;
-	TCHAR _name[nameLenMax];		//normal name is plain text (for display purposes)
-	TCHAR _menuName[nameLenMax];	//menu name has ampersands for quick keys
+	bool _canModifyName = false;
+	TCHAR _name[nameLenMax] = {'\0'};		//normal name is plain text (for display purposes)
+	TCHAR _menuName[nameLenMax] = { '\0' };	//menu name has ampersands for quick keys
 	void updateConflictState(const bool endSession = false) const;
 };
 		 
@@ -208,7 +208,7 @@ public:
 	int getMenuCmdID() const {return _menuCmdID;};
 	size_t toKeyDef(size_t index) const {
 		KeyCombo kc = _keyCombos[index];
-		int keymod = (kc._isCtrl?SCMOD_CTRL:0) | (kc._isAlt?SCMOD_ALT:0) | (kc._isShift?SCMOD_SHIFT:0);
+		size_t keymod = (kc._isCtrl ? SCMOD_CTRL : 0) | (kc._isAlt ? SCMOD_ALT : 0) | (kc._isShift ? SCMOD_SHIFT : 0);
 		return keyTranslate(kc._key) + (keymod << 16);
 	};
 

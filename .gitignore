@@ -100,11 +100,8 @@ PowerEditor/src/tools/NppShell/build_x64
 # scintilla - generated files
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
-scintilla/bin/libscilexer.a
-scintilla/bin/libscintilla.a
 scintilla/bin/libscintilla.lib
 scintilla/win32/*.lib
-scintilla/win32/Lexers.a
 scintilla/win32/ScintRes.res
 scintilla/win32/ARM64
 scintilla/win32/Unicode Release/
@@ -152,19 +149,11 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 *.zip
 
 #-------------------------------------------------------------------------------
-# GNU GCC MinGW
+# MinGW-w64 GCC
 
-#-- Generated during makefile build
-*.d
-*.o
-/PowerEditor/gcc/resources.res
-/PowerEditor/bin/NotepadPP.exe
-/PowerEditor/bin/NotepadPP.exe_dynamic
+bin.*
+scintilla/win32/*.o
 
-#-- Generated manually to make Notepad++ execute properly on Linux using Wine
-/PowerEditor/bin/libgcc_s_sjlj-1.dll
-/PowerEditor/bin/libstdc++-6.dll
-/PowerEditor/bin/libwinpthread-1.dll
 
 PowerEditor/src/MISC/md5/RCa06792
 *.db

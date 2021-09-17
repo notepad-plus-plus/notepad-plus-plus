@@ -87,8 +87,8 @@ private :
 	HWND _viewZoneCanvas = nullptr;
 	WNDPROC _canvasDefaultProc = nullptr;
 	
-	long _higherY;
-	long _lowerY;
+	long _higherY = 0;
+	long _lowerY = 0;
 };
 
 
@@ -141,8 +141,8 @@ protected:
 	bool needToRecomputeWith(const ScintillaEditView *editView = nullptr);
 
 private:
-	ScintillaEditView **_ppEditView = nullptr;
-	ScintillaEditView *_pMapView = nullptr;
+	ScintillaEditView**_ppEditView = nullptr;
+	ScintillaEditView*_pMapView = nullptr;
 	ViewZoneDlg _vzDlg;
 	HWND _hwndScintilla;
 	bool _isTemporarilyShowing = false;

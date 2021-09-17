@@ -559,7 +559,7 @@ void TiXmlElement::Print( FILE* cfile, int depth ) const
 		generic_fprintf( cfile, TEXT("    ") );
 	}
 
-	generic_fprintf( cfile, TEXT("<%s"), value.c_str() );
+	generic_fprintf( cfile, TEXT("<%ls"), value.c_str() );
 
 	TiXmlAttribute* attrib;
 	for ( attrib = attributeSet.First(); attrib; attrib = attrib->Next() )
@@ -581,7 +581,7 @@ void TiXmlElement::Print( FILE* cfile, int depth ) const
 	{
 		generic_fprintf( cfile, TEXT(">") );
 		firstChild->Print( cfile, depth + 1 );
-		generic_fprintf( cfile, TEXT("</%s>"), value.c_str() );
+		generic_fprintf( cfile, TEXT("</%ls>"), value.c_str() );
 	}
 	else
 	{
@@ -598,7 +598,7 @@ void TiXmlElement::Print( FILE* cfile, int depth ) const
 		generic_fprintf( cfile, TEXT("\n") );
 		for( i=0; i<depth; ++i )
 		generic_fprintf( cfile, TEXT("    ") );
-		generic_fprintf( cfile, TEXT("</%s>"), value.c_str() );
+		generic_fprintf( cfile, TEXT("</%ls>"), value.c_str() );
 	}
 }
 
@@ -840,9 +840,9 @@ void TiXmlAttribute::Print( FILE* cfile, int /*depth*/ ) const
 	PutString( Value(), &v );
 
 	if (value.find ('\"') == TIXML_STRING::npos)
-		generic_fprintf (cfile, TEXT("%s=\"%s\""), n.c_str(), v.c_str() );
+		generic_fprintf (cfile, TEXT("%ls=\"%ls\""), n.c_str(), v.c_str() );
 	else
-		generic_fprintf (cfile, TEXT("%s='%s'"), n.c_str(), v.c_str() );
+		generic_fprintf (cfile, TEXT("%ls='%ls'"), n.c_str(), v.c_str() );
 }
 
 
@@ -906,9 +906,9 @@ void TiXmlComment::Print( FILE* cfile, int depth ) const
 {
 	for ( int i=0; i<depth; i++ )
 	{
-		fputs( "    ", cfile );
+		generic_fprintf( cfile, TEXT("    ") );
 	}
-	generic_fprintf( cfile, TEXT("<!--%s-->"), value.c_str() );
+	generic_fprintf( cfile, TEXT("<!--%ls-->"), value.c_str() );
 }
 
 void TiXmlComment::StreamOut( TIXML_OSTREAM * stream ) const
@@ -934,7 +934,7 @@ void TiXmlText::Print( FILE* cfile, int /*depth*/ ) const
 {
 	TIXML_STRING buffer;
 	PutString( value, &buffer );
-	generic_fprintf( cfile, TEXT("%s"), buffer.c_str() );
+	generic_fprintf( cfile, TEXT("%ls"), buffer.c_str() );
 }
 
 
@@ -973,11 +973,11 @@ void TiXmlDeclaration::Print( FILE* cfile, int /*depth*/ ) const
 	generic_fprintf (cfile, TEXT("<?xml "));
 
 	if ( !version.empty() )
-		generic_fprintf (cfile, TEXT("version=\"%s\" "), version.c_str ());
+		generic_fprintf (cfile, TEXT("version=\"%ls\" "), version.c_str ());
 	if ( !encoding.empty() )
-		generic_fprintf (cfile, TEXT("encoding=\"%s\" "), encoding.c_str ());
+		generic_fprintf (cfile, TEXT("encoding=\"%ls\" "), encoding.c_str ());
 	if ( !standalone.empty() )
-		generic_fprintf (cfile, TEXT("standalone=\"%s\" "), standalone.c_str ());
+		generic_fprintf (cfile, TEXT("standalone=\"%ls\" "), standalone.c_str ());
 	generic_fprintf (cfile, TEXT("?>"));
 }
 
@@ -1025,7 +1025,7 @@ void TiXmlUnknown::Print( FILE* cfile, int depth ) const
 {
 	for ( int i=0; i<depth; i++ )
 		generic_fprintf( cfile, TEXT("    ") );
-	generic_fprintf( cfile, TEXT("%s"), value.c_str() );
+	generic_fprintf( cfile, TEXT("%ls"), value.c_str() );
 }
 
 void TiXmlUnknown::StreamOut( TIXML_OSTREAM * stream ) const

@@ -28,8 +28,11 @@
 
 #include <Shlwapi.h>
 
-#ifdef __MINGW32__
+#ifdef __GNUC__
 #include <cmath>
+#define WINAPI_LAMBDA WINAPI
+#else
+#define WINAPI_LAMBDA
 #endif
 
 #pragma comment(lib, "uxtheme.lib")
@@ -772,7 +775,7 @@ namespace NppDarkMode
 			hFont = reinterpret_cast<HFONT>(SendMessage(hwnd, WM_GETFONT, 0, 0));
 		}
 
-		SelectObject(hdc, hFont);
+		hOldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
 
 		DWORD dtFlags = DT_LEFT; // DT_LEFT is 0
 		dtFlags |= (nStyle & BS_MULTILINE) ? DT_WORDBREAK : DT_SINGLELINE;
@@ -1435,7 +1438,7 @@ namespace NppDarkMode
 
 		::EnableThemeDialogTexture(hwndParent, theme && !NppDarkMode::isEnabled() ? ETDT_ENABLETAB : ETDT_DISABLE);
 
-		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) {
+		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
 			auto& p = *reinterpret_cast<Params*>(lParam);
 			const size_t classNameLen = 16;
 			TCHAR className[classNameLen] = { 0 };

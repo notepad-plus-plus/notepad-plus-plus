@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="8.1.4">
+    <Native-Langue name="français" filename="french.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1250,6 +1250,7 @@ Voulez-vous les poursuivez ?"/>
             <PanelTitle name="Commutateur de documents"/>
             <ColumnName name="Nom"/>
             <ColumnExt name="Ext."/>
+            <ColumnPath name="Dossier"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nom"/>

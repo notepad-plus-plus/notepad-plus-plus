@@ -94,16 +94,11 @@ struct VisibleGUIConf final
 	bool _isStatusbarShown = true;
 
 	//used by fullscreen
-	WINDOWPLACEMENT _winPlace;
+	WINDOWPLACEMENT _winPlace = {0};
 
 	//used by distractionFree
 	bool _was2ViewModeOn = false;
 	std::vector<DockingCont*> _pVisibleDockingContainers;
-
-	VisibleGUIConf()
-	{
-		memset(&_winPlace, 0x0, sizeof(_winPlace));
-	}
 };
 
 struct QuoteParams
@@ -267,8 +262,8 @@ public:
 	void refreshDarkMode(bool resetStyle = false);
 
 private:
-	Notepad_plus_Window *_pPublicInterface = nullptr;
-    Window *_pMainWindow = nullptr;
+	Notepad_plus_Window* _pPublicInterface = nullptr;
+    Window* _pMainWindow = nullptr;
 	DockingManager _dockingManager;
 	std::vector<int> _internalFuncIDs;
 
@@ -331,8 +326,6 @@ private:
 
 	LastRecentFileList _lastRecentFileList;
 
-	//vector<iconLocator> _customIconVect;
-
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle = NULL;
 
@@ -355,7 +348,7 @@ private:
 	RunMacroDlg _runMacroDlg;
 
 	// For conflict detection when saving Macros or RunCommands
-	ShortcutMapper * _pShortcutMapper = nullptr;
+	ShortcutMapper* _pShortcutMapper = nullptr;
 
 	// For hotspot
 	bool _linkTriggered = true;

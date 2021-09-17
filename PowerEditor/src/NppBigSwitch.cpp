@@ -785,7 +785,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETNAMEPART:
 		case NPPM_GETEXTPART:
 		{
-			TCHAR str[MAX_PATH];
+			TCHAR str[MAX_PATH] = { '\0' };
 			// par defaut : NPPM_GETCURRENTDIRECTORY
 			wcscpy_s(str, _pEditView->getCurrentBuffer()->getFullPathName());
 			TCHAR* fileStr = str;
@@ -1796,67 +1796,68 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			drawDocumentMapColoursFromStylerArray();
 
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
-			StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
-			int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
-			Style & style = globalStyles.getStyler(i);
-			(NppParameters::getInstance()).setCurrentDefaultFgColor(style._fgColor);
-			(NppParameters::getInstance()).setCurrentDefaultBgColor(style._bgColor);
+			const Style * pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
+			if (pStyle)
+			{
+				NppParameters::getInstance().setCurrentDefaultFgColor(pStyle->_fgColor);
+				NppParameters::getInstance().setCurrentDefaultBgColor(pStyle->_bgColor);
+			}
 
 			NppDarkMode::calculateTreeViewStyle();
 			auto refreshOnlyTreeView = static_cast<LPARAM>(TRUE);
 
 			// Set default fg/bg colors on internal docking dialog
-			if (_pFuncList)
+			if (pStyle && _pFuncList)
 			{
-				_pFuncList->setBackgroundColor(style._bgColor);
-				_pFuncList->setForegroundColor(style._fgColor);
+				_pFuncList->setBackgroundColor(pStyle->_bgColor);
+				_pFuncList->setForegroundColor(pStyle->_fgColor);
 				::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
-			if (_pAnsiCharPanel)
+			if (pStyle && _pAnsiCharPanel)
 			{
-				_pAnsiCharPanel->setBackgroundColor(style._bgColor);
-				_pAnsiCharPanel->setForegroundColor(style._fgColor);
+				_pAnsiCharPanel->setBackgroundColor(pStyle->_bgColor);
+				_pAnsiCharPanel->setForegroundColor(pStyle->_fgColor);
 			}
 
-			if (_pDocumentListPanel)
+			if (pStyle && _pDocumentListPanel)
 			{
-				_pDocumentListPanel->setBackgroundColor(style._bgColor);
-				_pDocumentListPanel->setForegroundColor(style._fgColor);
+				_pDocumentListPanel->setBackgroundColor(pStyle->_bgColor);
+				_pDocumentListPanel->setForegroundColor(pStyle->_fgColor);
 			}
 
-			if (_pClipboardHistoryPanel)
+			if (pStyle && _pClipboardHistoryPanel)
 			{
-				_pClipboardHistoryPanel->setBackgroundColor(style._bgColor);
-				_pClipboardHistoryPanel->setForegroundColor(style._fgColor);
+				_pClipboardHistoryPanel->setBackgroundColor(pStyle->_bgColor);
+				_pClipboardHistoryPanel->setForegroundColor(pStyle->_fgColor);
 				_pClipboardHistoryPanel->redraw(true);
 			}
 
-			if (_pProjectPanel_1)
+			if (pStyle && _pProjectPanel_1)
 			{
-				_pProjectPanel_1->setBackgroundColor(style._bgColor);
-				_pProjectPanel_1->setForegroundColor(style._fgColor);
+				_pProjectPanel_1->setBackgroundColor(pStyle->_bgColor);
+				_pProjectPanel_1->setForegroundColor(pStyle->_fgColor);
 				::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
-			if (_pProjectPanel_2)
+			if (pStyle && _pProjectPanel_2)
 			{
-				_pProjectPanel_2->setBackgroundColor(style._bgColor);
-				_pProjectPanel_2->setForegroundColor(style._fgColor);
+				_pProjectPanel_2->setBackgroundColor(pStyle->_bgColor);
+				_pProjectPanel_2->setForegroundColor(pStyle->_fgColor);
 				::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
-			if (_pProjectPanel_3)
+			if (pStyle && _pProjectPanel_3)
 			{
-				_pProjectPanel_3->setBackgroundColor(style._bgColor);
-				_pProjectPanel_3->setForegroundColor(style._fgColor);
+				_pProjectPanel_3->setBackgroundColor(pStyle->_bgColor);
+				_pProjectPanel_3->setForegroundColor(pStyle->_fgColor);
 				::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
-			if (_pFileBrowser)
+			if (pStyle && _pFileBrowser)
 			{
-				_pFileBrowser->setBackgroundColor(style._bgColor);
-				_pFileBrowser->setForegroundColor(style._fgColor);
+				_pFileBrowser->setBackgroundColor(pStyle->_bgColor);
+				_pFileBrowser->setForegroundColor(pStyle->_fgColor);
 				::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 			}
 
@@ -2450,11 +2451,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
-		case NPPM_DOCLISTDISABLECOLUMN:
+		case NPPM_DOCLISTDISABLEPATHCOLUMN:
+		case NPPM_DOCLISTDISABLEEXTCOLUMN:
 		{
 			BOOL isOff = static_cast<BOOL>(lParam);
 			NppGUI & nppGUI = nppParam.getNppGUI();
-			nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
+
+			if (message == NPPM_DOCLISTDISABLEEXTCOLUMN)
+				nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
+			else
+				nppGUI._fileSwitcherWithoutPathColumn = isOff == TRUE;
 
 			if (_pDocumentListPanel)
 			{
@@ -2534,13 +2540,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 
-			StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
 			COLORREF multiEdgeColor = liteGrey;
-			int i = stylers.getStylerIndexByName(TEXT("Edge colour"));
-			if (i != -1)
+			const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByName(TEXT("Edge colour"));
+			if (pStyle)
 			{
-				Style & style = stylers.getStyler(i);
-				multiEdgeColor = style._fgColor;
+				multiEdgeColor = pStyle->_fgColor;
 			}
 
 			const size_t twoPower13 = 8192;

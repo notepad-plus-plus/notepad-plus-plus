@@ -681,13 +681,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Initialize the default foreground & background color
 	//
 	{
-		StyleArray & globalStyles = nppParam.getGlobalStylers();
-		int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
-		if (i != -1)
+		const Style * pStyle = nppParam.getGlobalStylers().findByID(STYLE_DEFAULT);
+		if (pStyle)
 		{
-			Style & style = globalStyles.getStyler(i);
-			nppParam.setCurrentDefaultFgColor(style._fgColor);
-			nppParam.setCurrentDefaultBgColor(style._bgColor);
+			nppParam.setCurrentDefaultFgColor(pStyle->_fgColor);
+			nppParam.setCurrentDefaultBgColor(pStyle->_bgColor);
 		}
 	}
 
@@ -928,14 +926,17 @@ void Notepad_plus::saveDockingParams()
 			else
 				floatCont = nppGUI._dockingData._pluginDockInfo[i]._prevContainer;
 
-			if (floatContArray[floatCont] == 0)
+			if (floatCont >= 0)
 			{
-				RECT rc;
-				if (nppGUI._dockingData.getFloatingRCFrom(floatCont, rc))
+				if (floatContArray[floatCont] == 0)
 				{
-					vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, rc.left, rc.top, rc.right, rc.bottom));
+					RECT rc;
+					if (nppGUI._dockingData.getFloatingRCFrom(floatCont, rc))
+					{
+						vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, rc.left, rc.top, rc.right, rc.bottom));
+					}
+					floatContArray[floatCont] = 1;
 				}
-				floatContArray[floatCont] = 1;
 			}
 			if (i < nppGUI._dockingData._pluginDockInfo.size()) // to prevent from crash in debug mode
 				vPluginDockInfo.push_back(nppGUI._dockingData._pluginDockInfo[i]);
@@ -2256,12 +2257,9 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 
 	for (int j = 0; j < sizeof(bitmapOnStyleMenuItemsInfo) / sizeof(bitmapOnStyleMenuItemsInfo[0]); ++j)
 	{
-		StyleArray& stylers = NppParameters::getInstance().getMiscStylerArray();
-		int iFind = stylers.getStylerIndexByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
-		
-		if (iFind != -1)
+		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
+		if (pStyle)
 		{
-			Style const* pStyle = &(stylers.getStyler(iFind));
 
 			HDC hDC = GetDC(NULL);
 			const int bitmapXYsize = 16;
@@ -2460,6 +2458,7 @@ void Notepad_plus::pasteToMarkedLines()
 	HANDLE clipboardData = ::GetClipboardData(clipFormat);
 	::GlobalSize(clipboardData);
 	LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
+	if (!clipboardDataPtr) return;
 
 	generic_string clipboardStr = (const TCHAR *)clipboardDataPtr;
 
@@ -5770,7 +5769,7 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix)
 			somedirty = true;
 
 		const TCHAR * unitext = (docbuf->getUnicodeMode() != uni8Bit)?TEXT("_utf8"):TEXT("");
-		wsprintf(savePath, TEXT("%s\\%s%03d%s.dump"), outdir, fileprefix, i, unitext);
+		wsprintf(savePath, TEXT("%s\\%s%03d%s.dump"), outdir, fileprefix, static_cast<int>(i), unitext);
 
 		SavingStatus res = MainFileManager.saveBuffer(docbuf->getID(), savePath);
 
@@ -6366,16 +6365,7 @@ generic_string Notepad_plus::getLangFromMenu(const Buffer * buf)
 
 Style * Notepad_plus::getStyleFromName(const TCHAR *styleName)
 {
-	StyleArray & stylers = (NppParameters::getInstance()).getMiscStylerArray();
-
-	int i = stylers.getStylerIndexByName(styleName);
-	Style * st = NULL;
-	if (i != -1)
-	{
-		Style & style = stylers.getStyler(i);
-		st = &style;
-	}
-	return st;
+	return NppParameters::getInstance().getMiscStylerArray().findByName(styleName);
 }
 
 bool Notepad_plus::noOpenedDoc() const
@@ -7590,7 +7580,8 @@ void Notepad_plus::showQuote(const QuoteParams* quote) const
 	params._pCurrentView = _pEditView;
 
 	HANDLE hThread = ::CreateThread(NULL, 0, threadTextPlayer, &params, 0, NULL);
-	::CloseHandle(hThread);
+	if (hThread)
+		::CloseHandle(hThread);
 }
 
 void Notepad_plus::minimizeDialogs()

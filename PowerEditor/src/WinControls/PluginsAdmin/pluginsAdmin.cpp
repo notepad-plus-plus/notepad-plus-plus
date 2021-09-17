@@ -72,6 +72,9 @@ void Version::setVersionFrom(const generic_string& filePath)
 		DWORD handle = 0;
 		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &handle);
 
+		if (handle == 0)
+			return;
+
 		if (bufferSize <= 0)
 			return;
 

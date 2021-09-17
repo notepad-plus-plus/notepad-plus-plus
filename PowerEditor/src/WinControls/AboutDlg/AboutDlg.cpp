@@ -155,6 +155,14 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			_debugInfoStr += buildTime;
 			_debugInfoStr += TEXT("\r\n");
 
+#if defined(__GNUC__)
+			_debugInfoStr += TEXT("Built with : GCC ");
+			_debugInfoStr += wmc.char2wchar(__VERSION__, CP_ACP);
+			_debugInfoStr += TEXT("\r\n");
+#elif !defined(_MSC_VER)
+			_debugInfoStr += TEXT("Built with : (unknown)\r\n");
+#endif
+
 			// Binary path
 			_debugInfoStr += TEXT("Path : ");
 			TCHAR nppFullPath[MAX_PATH];
@@ -264,8 +272,14 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			}
 
 			// Detect WINE
-			PWINEGETVERSION pWGV = (PWINEGETVERSION)GetProcAddress(GetModuleHandle(TEXT("ntdll.dll")), "wine_get_version");
-			if (pWGV != NULL)
+			PWINEGETVERSION pWGV = nullptr;
+			HMODULE hNtdllModule = GetModuleHandle(L"ntdll.dll");
+			if (hNtdllModule)
+			{
+				pWGV = (PWINEGETVERSION)GetProcAddress(hNtdllModule, "wine_get_version");
+			}
+
+			if (pWGV != nullptr)
 			{
 				TCHAR szWINEVersion[32];
 				generic_sprintf(szWINEVersion, TEXT("%hs"), pWGV());
@@ -472,7 +486,7 @@ void DoSaveAllBox::doDialog(bool isRTL)
 void DoSaveAllBox::changeLang()
 {
 	generic_string msg;
-	generic_string defaultMessage = TEXT("Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if your don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.");
+	generic_string defaultMessage = TEXT("Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.");
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))

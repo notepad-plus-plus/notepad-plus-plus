@@ -926,8 +926,8 @@ bool NppParameters::reloadStylers(const TCHAR* stylePath)
 		_pXmlUserStylerDoc = NULL;
 		return false;
 	}
-	_lexerStylerVect.eraseAll();
-	_widgetStyleArray.setNbStyler( 0 );
+	_lexerStylerVect.clear();
+	_widgetStyleArray.clear();
 
 	getUserStylersFromXmlTree();
 
@@ -1594,22 +1594,19 @@ UserLangContainer* NppParameters::getULCFromName(const TCHAR *userLangName)
 
 COLORREF NppParameters::getCurLineHilitingColour()
 {
-	int i = _widgetStyleArray.getStylerIndexByName(TEXT("Current line background colour"));
-	if (i == -1)
-		return i;
-	Style & style = _widgetStyleArray.getStyler(i);
-	return style._bgColor;
+	const Style * pStyle = _widgetStyleArray.findByName(TEXT("Current line background colour"));
+	if (!pStyle)
+		return COLORREF(-1);
+	return pStyle->_bgColor;
 }
 
 
 void NppParameters::setCurLineHilitingColour(COLORREF colour2Set)
 {
-	int i = _widgetStyleArray.getStylerIndexByName(TEXT("Current line background colour"));
-	if (i == -1)
+	Style * pStyle = _widgetStyleArray.findByName(TEXT("Current line background colour"));
+	if (!pStyle)
 		return;
-
-	Style& style = _widgetStyleArray.getStyler(i);
-	style._bgColor = colour2Set;
+	pStyle->_bgColor = colour2Set;
 }
 
 
@@ -2774,11 +2771,11 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			feedUserStyles(stylesRoot);
 
 			// styles that were not read from xml file should get default values
-			for (int i=0; i<SCE_USER_STYLE_TOTAL_STYLES; ++i)
+			for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
 			{
-				Style & style = _userLangArray[_nbUserLang - 1]->_styles.getStyler(i);
-				if (style._styleID == -1)
-					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, globalMappper().styleNameMapper[i].c_str());
+				const Style * pStyle = _userLangArray[_nbUserLang - 1]->_styles.findByID(i);
+				if (!pStyle)
+					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, globalMappper().styleNameMapper[i]);
 			}
 
 		}
@@ -3098,12 +3095,8 @@ void NppParameters::writeNonDefaultUDL()
 
 void NppParameters::writeNeed2SaveUDL()
 {
-	stylerStrOp(DUP);
-
 	writeDefaultUDL();
 	writeNonDefaultUDL();
-	
-	stylerStrOp(FREE);
 }
 
 
@@ -3570,8 +3563,6 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		 childNode ;
 		 childNode = childNode->NextSibling(TEXT("LexerType")) )
 	{
-	 	if (!_lexerStylerVect.hasEnoughSpace()) return false;
-
 		TiXmlElement *element = childNode->ToElement();
 		const TCHAR *lexerName = element->Attribute(TEXT("name"));
 		const TCHAR *lexerDesc = element->Attribute(TEXT("desc"));
@@ -3597,8 +3588,6 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		 childNode ;
 		 childNode = childNode->NextSibling(TEXT("WidgetStyle")) )
 	{
-	 	if (!_widgetStyleArray.hasEnoughSpace()) return false;
-
 		TiXmlElement *element = childNode->ToElement();
 		const TCHAR *styleIDStr = element->Attribute(TEXT("styleID"));
 
@@ -3613,7 +3602,8 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 
 void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt , TiXmlNode *lexerNode)
 {
-	LexerStyler & ls = _lexerStylerVect[_nbLexerStyler++];
+	_lexerStylerVect.emplace_back();
+	LexerStyler & ls = _lexerStylerVect.back();
 	ls.setLexerName(lexerName);
 	if (lexerDesc)
 		ls.setLexerDesc(lexerDesc);
@@ -3625,9 +3615,6 @@ void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexer
 		 childNode ;
 		 childNode = childNode->NextSibling(TEXT("WordsStyle")) )
 	{
-		if (!ls.hasEnoughSpace())
-			return;
-
 		TiXmlElement *element = childNode->ToElement();
 		const TCHAR *styleIDStr = element->Attribute(TEXT("styleID"));
 
@@ -3642,35 +3629,19 @@ void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexer
 	}
 }
 
-void LexerStylerArray::eraseAll()
-{
-
-	for (int i = 0 ; i < _nbLexerStyler ; ++i)
-	{
-		_lexerStylerVect[i].setNbStyler( 0 );
-	}
-
-	_nbLexerStyler = 0;
-}
-
 void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 {
-	int index = _nbStyler;
 	bool isUser = styleID >> 16 == L_USER;
 	if (isUser)
 	{
 		styleID = (styleID & 0xFFFF);
-		index = styleID;
-		if (index >= SCE_USER_STYLE_TOTAL_STYLES || _styleVect[index]._styleID != -1)
-			return;
-	}
-	else
-	{
-		if (index >= STYLE_ARR_MAX_SIZE)
+		if (styleID >= SCE_USER_STYLE_TOTAL_STYLES || findByID(styleID))
 			return;
 	}
 
-	_styleVect[index]._styleID = styleID;
+	_styleVect.emplace_back();
+	Style & s = _styleVect.back();
+	s._styleID = styleID;
 
 	if (styleNode)
 	{
@@ -3684,16 +3655,16 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		if (str)
 		{
 			if (isUser)
-				_styleVect[index]._styleDesc = globalMappper().styleNameMapper[index].c_str();
+				s._styleDesc = globalMappper().styleNameMapper[styleID];
 			else
-				_styleVect[index]._styleDesc = str;
+				s._styleDesc = str;
 		}
 
 		str = element->Attribute(TEXT("fgColor"));
 		if (str)
 		{
 			unsigned long result = hexStrVal(str);
-			_styleVect[index]._fgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
+			s._fgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 
 		}
 
@@ -3701,49 +3672,51 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		if (str)
 		{
 			unsigned long result = hexStrVal(str);
-			_styleVect[index]._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
+			s._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 		}
 
 		str = element->Attribute(TEXT("colorStyle"));
 		if (str)
 		{
-			_styleVect[index]._colorStyle = decStrVal(str);
+			s._colorStyle = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("fontName"));
-		_styleVect[index]._fontName = str;
+		if (str)
+		{
+			s._fontName = str;
+		}
 
 		str = element->Attribute(TEXT("fontStyle"));
 		if (str)
 		{
-			_styleVect[index]._fontStyle = decStrVal(str);
+			s._fontStyle = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("fontSize"));
 		if (str)
 		{
-			_styleVect[index]._fontSize = decStrVal(str);
+			s._fontSize = decStrVal(str);
 		}
 		str = element->Attribute(TEXT("nesting"));
 
 		if (str)
 		{
-			_styleVect[index]._nesting = decStrVal(str);
+			s._nesting = decStrVal(str);
 		}
 
 		str = element->Attribute(TEXT("keywordClass"));
 		if (str)
 		{
-			_styleVect[index]._keywordClass = getKwClassFromName(str);
+			s._keywordClass = getKwClassFromName(str);
 		}
 
 		TiXmlNode *v = styleNode->FirstChild();
 		if (v)
 		{
-			_styleVect[index]._keywords = new generic_string(v->Value());
+			s._keywords = v->Value();
 		}
 	}
-	++_nbStyler;
 }
 
 bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
@@ -5391,6 +5364,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * optName = element->Attribute(TEXT("fileSwitcherWithoutExtColumn"));
 			if (optName)
 				_nppGUI._fileSwitcherWithoutExtColumn = (lstrcmp(optName, TEXT("yes")) == 0);
+			
+			int i = 0;
+			if (element->Attribute(TEXT("fileSwitcherExtWidth"), &i))
+				_nppGUI._fileSwitcherExtWidth = i;
+
+			const TCHAR * optNamePath = element->Attribute(TEXT("fileSwitcherWithoutPathColumn"));
+			if (optNamePath)
+				_nppGUI._fileSwitcherWithoutPathColumn = (lstrcmp(optNamePath, TEXT("yes")) == 0);
+
+			if (element->Attribute(TEXT("fileSwitcherPathWidth"), &i))
+				_nppGUI._fileSwitcherPathWidth = i;
 
 			const TCHAR * optNameBackSlashEscape = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
 			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, TEXT("no")))
@@ -6455,6 +6439,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
 
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("fileSwitcherExtWidth"), _nppGUI._fileSwitcherExtWidth);
+		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutPathColumn"), _nppGUI._fileSwitcherWithoutPathColumn ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("fileSwitcherPathWidth"), _nppGUI._fileSwitcherPathWidth);
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("writeTechnologyEngine"), _nppGUI._writeTechnologyEngine);
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
@@ -7089,14 +7076,11 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 			{
 				TiXmlElement *grElement = grChildNode->ToElement();
 				const TCHAR *styleName = grElement->Attribute(TEXT("name"));
-
-				int i = pLs->getStylerIndexByName(styleName);
-				if (i != -1)
+				const Style * pStyle = pLs->findByName(styleName);
+				Style * pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
+				if (pStyle && pStyle2Sync)
 				{
-					Style & style = pLs->getStyler(i);
-					Style & style2Sync = pLs2->getStyler(i);
-
-					writeStyle2Element(style, style2Sync, grElement);
+					writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
 				}
 			}
 		}
@@ -7126,14 +7110,11 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 				{
 					TiXmlElement *grElement = grChildNode->ToElement();
 					const TCHAR *styleName = grElement->Attribute(TEXT("name"));
-
-					int i = pLs->getStylerIndexByName(styleName);
-					if (i != -1)
+					const Style * pStyle = pLs->findByName(styleName);
+					Style * pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
+					if (pStyle && pStyle2Sync)
 					{
-						Style & style = pLs->getStyler(i);
-						Style & style2Sync = pLs2->getStyler(i);
-
-						writeStyle2Element(style, style2Sync, grElement);
+						writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
 					}
 				}
 			}
@@ -7149,14 +7130,11 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 	{
 		TiXmlElement *pElement = childNode->ToElement();
 		const TCHAR *styleName = pElement->Attribute(TEXT("name"));
-		int i = _widgetStyleArray.getStylerIndexByName(styleName);
-
-		if (i != -1)
+		const Style * pStyle = _widgetStyleArray.findByName(styleName);
+		Style * pStyle2Sync = globalStylers.findByName(styleName);
+		if (pStyle && pStyle2Sync)
 		{
-			Style & style = _widgetStyleArray.getStyler(i);
-			Style & style2Sync = globalStylers.getStyler(i);
-
-			writeStyle2Element(style, style2Sync, pElement);
+			writeStyle2Element(*pStyle, *pStyle2Sync, pElement);
 		}
 	}
 
@@ -7194,7 +7172,7 @@ bool NppParameters::insertTabInfo(const TCHAR *langName, int tabInfo)
 	return false;
 }
 
-void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, TiXmlElement *element)
+void NppParameters::writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element)
 {
 	if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
 	{
@@ -7217,13 +7195,13 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
 		element->SetAttribute(TEXT("colorStyle"), style2Write._colorStyle);
 	}
 
-	if (style2Write._fontName)
+	if (!style2Write._fontName.empty())
 	{
-		const TCHAR *oldFontName = element->Attribute(TEXT("fontName"));
-		if (lstrcmp(oldFontName, style2Write._fontName))
+		const TCHAR * oldFontName = element->Attribute(TEXT("fontName"));
+		if (oldFontName && oldFontName != style2Write._fontName)
 		{
 			element->SetAttribute(TEXT("fontName"), style2Write._fontName);
-			style2Sync._fontName = style2Write._fontName = element->Attribute(TEXT("fontName"));
+			style2Sync._fontName = style2Write._fontName;
 		}
 	}
 
@@ -7241,14 +7219,14 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
 	}
 
 
-	if (style2Write._keywords)
+	if (!style2Write._keywords.empty())
 	{
 		TiXmlNode *teteDeNoeud = element->LastChild();
 
 		if (teteDeNoeud)
-			teteDeNoeud->SetValue(style2Write._keywords->c_str());
+			teteDeNoeud->SetValue(style2Write._keywords.c_str());
 		else
-			element->InsertEndChild(TiXmlText(style2Write._keywords->c_str()));
+			element->InsertEndChild(TiXmlText(style2Write._keywords.c_str()));
 	}
 }
 
@@ -7291,10 +7269,9 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 	TiXmlElement *styleRootElement = (rootElement->InsertEndChild(TiXmlElement(TEXT("Styles"))))->ToElement();
 
-	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
+	for (const Style & style2Write : userLang->_styles)
 	{
 		TiXmlElement *styleElement = (styleRootElement->InsertEndChild(TiXmlElement(TEXT("WordsStyle"))))->ToElement();
-		Style style2Write = userLang->_styles.getStyler(i);
 
 		if (style2Write._styleID == -1)
 			continue;
@@ -7322,7 +7299,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 			styleElement->SetAttribute(TEXT("colorStyle"), style2Write._colorStyle);
 		}
 
-		if (style2Write._fontName)
+		if (!style2Write._fontName.empty())
 		{
 			styleElement->SetAttribute(TEXT("fontName"), style2Write._fontName);
 		}
@@ -7345,43 +7322,6 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 		}
 
 		styleElement->SetAttribute(TEXT("nesting"), style2Write._nesting);
-	}
-}
-
-void NppParameters::stylerStrOp(bool op)
-{
-	for (int i = 0 ; i < _nbUserLang ; ++i)
-	{
-		for (int j = 0 ; j < SCE_USER_STYLE_TOTAL_STYLES ; ++j)
-		{
-			Style & style = _userLangArray[i]->_styles.getStyler(j);
-
-			if (op == DUP)
-			{
-				const size_t strLen = lstrlen(style._styleDesc) + 1;
-				TCHAR *str = new TCHAR[strLen];
-				wcscpy_s(str, strLen, style._styleDesc);
-				style._styleDesc = str;
-				if (style._fontName)
-				{
-					const size_t strLen2 = lstrlen(style._fontName) + 1;
-					str = new TCHAR[strLen2];
-					wcscpy_s(str, strLen2, style._fontName);
-					style._fontName = str;
-				}
-				else
-				{
-					str = new TCHAR[2];
-					str[0] = str[1] = '\0';
-					style._fontName = str;
-				}
-			}
-			else
-			{
-				delete [] style._styleDesc;
-				delete [] style._fontName;
-			}
-		}
 	}
 }
 

@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.1.4">
+    <Native-Langue name="English" filename="english.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -838,9 +838,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
 
-                    <Item id="6125" name="Document List Panel"/>
-                    <Item id="6127" name="Disable extension column"/>
-
                     <Item id="6128" name="Alternate icons"/>
                 </Global>
                 <Scintillas title="Editing">
@@ -1173,7 +1170,7 @@ You can define several column markers by using white space to separate the diffe
             <DoSaveAll title="Save All Confirmation">
                 <Item id="1766" name="Are you sure you want to save all modified documents?
 
-Choose &quot;Always Yes&quot; if your don't want to see this dialog again.
+Choose &quot;Always Yes&quot; if you don't want to see this dialog again.
 You can re-activate this dialog in Preferences later."/>
                 <Item id="6" name="&amp;Yes"/>
                 <Item id="7" name="&amp;No"/>
@@ -1282,6 +1279,7 @@ Continue?"/>
             <PanelTitle name="Document List"/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
+            <ColumnPath name="Path"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>

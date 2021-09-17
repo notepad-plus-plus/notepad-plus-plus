@@ -257,7 +257,7 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					if (i != LB_ERR)
 					{
 						const size_t itemNameLen = 32;
-						TCHAR itemName[itemNameLen + 1];
+						TCHAR itemName[itemNameLen + 1] = { '\0' };
 						auto lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETTEXTLEN, i, 0);
 						if (lbTextLen > itemNameLen)
 							return TRUE;

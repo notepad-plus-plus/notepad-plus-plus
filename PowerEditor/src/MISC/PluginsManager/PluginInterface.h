@@ -26,9 +26,9 @@ typedef const TCHAR * (__cdecl * PFUNCGETNAME)();
 
 struct NppData
 {
-	HWND _nppHandle;
-	HWND _scintillaMainHandle;
-	HWND _scintillaSecondHandle;
+	HWND _nppHandle = nullptr;
+	HWND _scintillaMainHandle = nullptr;
+	HWND _scintillaSecondHandle = nullptr;
 };
 
 typedef void (__cdecl * PFUNCSETINFO)(NppData);
@@ -39,19 +39,19 @@ typedef LRESULT (__cdecl * PMESSAGEPROC)(UINT Message, WPARAM wParam, LPARAM lPa
 
 struct ShortcutKey
 {
-	bool _isCtrl;
-	bool _isAlt;
-	bool _isShift;
-	UCHAR _key;
+	bool _isCtrl = false;
+	bool _isAlt = false;
+	bool _isShift = false;
+	UCHAR _key = 0;
 };
 
 struct FuncItem
 {
-	TCHAR _itemName[nbChar];
-	PFUNCPLUGINCMD _pFunc;
-	int _cmdID;
-	bool _init2Check;
-	ShortcutKey *_pShKey;
+	TCHAR _itemName[nbChar] = { '\0' };
+	PFUNCPLUGINCMD _pFunc = nullptr;
+	int _cmdID = 0;
+	bool _init2Check = false;
+	ShortcutKey *_pShKey = nullptr;
 };
 
 typedef FuncItem * (__cdecl * PFUNCGETFUNCSARRAY)(int *);

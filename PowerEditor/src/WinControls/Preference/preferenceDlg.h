@@ -88,7 +88,7 @@ private :
 
 struct LangID_Name
 {
-	LangType _id;
+	LangType _id = L_TEXT;
 	generic_string _name;
 	LangID_Name(LangType id, const generic_string& name) : _id(id), _name(name){};
 };
@@ -99,7 +99,6 @@ public :
 	NewDocumentSubDlg() = default;
 
 private :
-	std::vector<LangID_Name> _langList;
 	void makeOpenAnsiAsUtf8(bool doIt){
 		if (!doIt)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
@@ -128,7 +127,6 @@ public :
 private :
 	URLCtrl _nbHistoryVal;
 	URLCtrl _customLenVal;
-	std::vector<LangID_Name> _langList;
 	void setCustomLen(int val);
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
@@ -211,7 +209,7 @@ public :
 	MultiInstanceSubDlg() = default;
 
 private :
-	const SYSTEMTIME _BTTF_time = {1985, 10, 6, 26, 01, 24, 0, 0};
+	const SYSTEMTIME _BTTF_time = {1985, 10, 6, 26, 16, 24, 42, 0};
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
@@ -226,7 +224,8 @@ public :
 
 private :
 	POINT _singleLineModePoint, _multiLineModePoint;
-	RECT _closerRect, _closerLabelRect;
+	RECT _closerRect = { 0 };
+	RECT _closerLabelRect = { 0 };
 	HWND _tip = nullptr;
 
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

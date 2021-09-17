@@ -10,6 +10,14 @@
 #include <unordered_set>
 #include <mutex>
 
+#if defined(__GNUC__) && __GNUC__ > 8
+#define WINAPI_LAMBDA_RETURN(return_t) -> return_t WINAPI
+#elif defined(__GNUC__)
+#define WINAPI_LAMBDA_RETURN(return_t) WINAPI -> return_t
+#else
+#define WINAPI_LAMBDA_RETURN(return_t) -> return_t
+#endif
+
 enum IMMERSIVE_HC_CACHE_MODE
 {
 	IHCM_USE_CACHED_VALUE,
@@ -221,7 +229,7 @@ void FixDarkScrollBar()
 			DWORD oldProtect;
 			if (VirtualProtect(addr, sizeof(IMAGE_THUNK_DATA), PAGE_READWRITE, &oldProtect) && _OpenNcThemeData)
 			{
-				auto MyOpenThemeData = [](HWND hWnd, LPCWSTR classList) -> HTHEME {
+				auto MyOpenThemeData = [](HWND hWnd, LPCWSTR classList) WINAPI_LAMBDA_RETURN(HTHEME) {
 					if (wcscmp(classList, L"ScrollBar") == 0)
 					{
 						if (IsWindowOrParentUsingDarkScrollBar(hWnd)) {
@@ -252,7 +260,13 @@ constexpr bool CheckBuildNumber(DWORD buildNumber)
 
 void InitDarkMode()
 {
-	auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandle(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
+	fnRtlGetNtVersionNumbers RtlGetNtVersionNumbers = nullptr;
+	HMODULE hNtdllModule = GetModuleHandle(L"ntdll.dll");
+	if (hNtdllModule)
+	{
+		RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(hNtdllModule, "RtlGetNtVersionNumbers"));
+	}
+
 	if (RtlGetNtVersionNumbers)
 	{
 		DWORD major, minor;
@@ -278,7 +292,11 @@ void InitDarkMode()
 				_FlushMenuThemes = reinterpret_cast<fnFlushMenuThemes>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(136)));
 				_IsDarkModeAllowedForWindow = reinterpret_cast<fnIsDarkModeAllowedForWindow>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(137)));
 
-				_SetWindowCompositionAttribute = reinterpret_cast<fnSetWindowCompositionAttribute>(GetProcAddress(GetModuleHandleW(L"user32.dll"), "SetWindowCompositionAttribute"));
+				HMODULE hUser32Module = GetModuleHandleW(L"user32.dll");
+				if (hUser32Module)
+				{
+					_SetWindowCompositionAttribute = reinterpret_cast<fnSetWindowCompositionAttribute>(GetProcAddress(hUser32Module, "SetWindowCompositionAttribute"));
+				}
 
 				if (_OpenNcThemeData &&
 					_RefreshImmersiveColorPolicyState &&

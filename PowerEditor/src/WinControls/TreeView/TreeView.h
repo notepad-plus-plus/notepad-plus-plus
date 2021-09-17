@@ -24,8 +24,8 @@
 struct TreeStateNode {
 	generic_string _label;
 	generic_string _extraData;
-	bool _isExpanded;
-	bool _isSelected;
+	bool _isExpanded = false;
+	bool _isSelected = false;
 	std::vector<TreeStateNode> _children;
 };
 
@@ -118,7 +118,7 @@ public:
 	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive);
 
 protected:
-	WNDPROC _defaultProc;
+	WNDPROC _defaultProc = nullptr;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
@@ -129,8 +129,8 @@ protected:
 	bool searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const generic_string & text2Search, int index2Search, HTREEITEM tree2Search);
 
 	// Drag and Drop operations
-	HTREEITEM _draggedItem;
-	HIMAGELIST _draggedImageList;
+	HTREEITEM _draggedItem = nullptr;
+	HIMAGELIST _draggedImageList = nullptr;
 	bool _isItemDragged = false;
 	std::vector<int> _canNotDragOutList;
 	std::vector<int> _canNotDropInList;

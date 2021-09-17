@@ -124,7 +124,7 @@ void resolveLinkFile(generic_string& linkFilePath)
 {
 	IShellLink* psl;
 	WCHAR targetFilePath[MAX_PATH];
-	WIN32_FIND_DATA wfd;
+	WIN32_FIND_DATA wfd = {0};
 
 	HRESULT hres = CoInitialize(NULL);
 	if (SUCCEEDED(hres))
@@ -569,9 +569,18 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 	}
 	else if (res == SavingStatus::SaveOpenFailed)
 	{
-		// try to open Notepad++ in admin mode
-		if (!_isAdministrator)
+		if (_isAdministrator)
 		{
+			// Already in admin mode? File is probably locked.
+			_nativeLangSpeaker.messageBox("FileLockedWarning",
+				_pPublicInterface->getHSelf(),
+				TEXT("Please check whether if this file is opened in another program"),
+				TEXT("Save failed"),
+				MB_OK | MB_ICONWARNING);
+		}
+		else
+		{
+			// try to open Notepad++ in admin mode
 			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 			if (isSnapshotMode) // if both rememberSession && backup mode are enabled
 			{                   // Open the 2nd Notepad++ instance in Admin mode, then close the 1st instance.

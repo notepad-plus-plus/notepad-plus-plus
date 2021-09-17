@@ -418,7 +418,7 @@ bool FileBrowser::selectItemFromPath(const generic_string& itemPath) const
 
 bool FileBrowser::selectCurrentEditingFile() const
 {
-	TCHAR currentDocPath[MAX_PATH] = { '0' };
+	TCHAR currentDocPath[MAX_PATH] = { '\0' };
 	::SendMessage(_hParent, NPPM_GETFULLCURRENTPATH, MAX_PATH, reinterpret_cast<LPARAM>(currentDocPath));
 	generic_string currentDocPathStr = currentDocPath;
 
@@ -567,7 +567,7 @@ void FileBrowser::notified(LPNMHDR notification)
 	}
 	else if ((notification->hwndFrom == _treeView.getHSelf()))
 	{
-		TCHAR textBuffer[MAX_PATH];
+		TCHAR textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem;
 		tvItem.mask = TVIF_TEXT | TVIF_PARAM;
 		tvItem.pszText = textBuffer;
@@ -777,7 +777,9 @@ void FileBrowser::showContextMenu(int x, int y)
 
 	if (tvHitInfo.hItem == nullptr)
 	{
-		TrackPopupMenu(_hGlobalMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
+		TrackPopupMenu(_hGlobalMenu, 
+			NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+			x, y, 0, _hSelf, NULL);
 	}
 	else
 	{
@@ -794,7 +796,9 @@ void FileBrowser::showContextMenu(int x, int y)
 		else //nodeType_file
 			hMenu = _hFileMenu;
 
-		TrackPopupMenu(hMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
+		TrackPopupMenu(hMenu, 
+			NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+			x, y, 0, _hSelf, NULL);
 	}
 }
 
@@ -1068,7 +1072,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 	patterns2Match.push_back(TEXT("*.*"));
 
 	TCHAR *label = ::PathFindFileName(rootFolderPath.c_str());
-	TCHAR rootLabel[MAX_PATH];
+	TCHAR rootLabel[MAX_PATH] = {'\0'};
 	wcscpy_s(rootLabel, label);
 	size_t len = lstrlen(rootLabel);
 	if (rootLabel[len - 1] == '\\')
@@ -1087,7 +1091,7 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 	HTREEITEM hFolderItem = nullptr;
 	if (directoryStructure._parent == nullptr && hParentItem == nullptr)
 	{
-		TCHAR rootPath[MAX_PATH];
+		TCHAR rootPath[MAX_PATH] = { '\0' };
 		wcscpy_s(rootPath, directoryStructure._rootPath.c_str());
 		size_t len = lstrlen(rootPath);
 		if (rootPath[len - 1] == '\\')
@@ -1149,7 +1153,7 @@ HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, const generic_str
 		hItemNode != NULL;
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
-		TCHAR textBuffer[MAX_PATH];
+		TCHAR textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem;
 		tvItem.mask = TVIF_TEXT;
 		tvItem.pszText = textBuffer;
@@ -1309,7 +1313,7 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 			hItemNode != NULL;
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
-			TCHAR textBuffer[MAX_PATH];
+			TCHAR textBuffer[MAX_PATH] = { '\0' };
 			TVITEM tvItem;
 			tvItem.mask = TVIF_TEXT;
 			tvItem.pszText = textBuffer;
@@ -1370,7 +1374,7 @@ HTREEITEM FileBrowser::findInTree(const generic_string& rootPath, HTREEITEM node
 			hItemNode != NULL;
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
-			TCHAR textBuffer[MAX_PATH];
+			TCHAR textBuffer[MAX_PATH] = { '\0' };
 			TVITEM tvItem;
 			tvItem.mask = TVIF_TEXT;
 			tvItem.pszText = textBuffer;
@@ -1411,7 +1415,7 @@ std::vector<HTREEITEM> FileBrowser::findInTree(FilesToChange & group, HTREEITEM 
 			hItemNode != NULL;
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
-			TCHAR textBuffer[MAX_PATH];
+			TCHAR textBuffer[MAX_PATH] = {'\0'};
 			TVITEM tvItem;
 			tvItem.mask = TVIF_TEXT;
 			tvItem.pszText = textBuffer;

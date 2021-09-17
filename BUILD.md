@@ -1,5 +1,4 @@
-How to build Notepad++
-----------------------
+# Building Notepad++ with Microsoft Visual Studio
 
 **Pre-requisites:**
 
@@ -32,7 +31,7 @@ Boost is taken from [boost 1.76.0](https://www.boost.org/users/history/version_1
 3. Build the same configuration as notepad++:
    - Release: `nmake -f scintilla.mak`
    - Debug: `nmake DEBUG=1 -f scintilla.mak`
-   - Example: 
+   - Example:
    `nmake -f scintilla.mak`
 
 ## History:
@@ -41,28 +40,22 @@ More about the previous build process: https://community.notepad-plus-plus.org/t
 Since `Notepad++` version 6.0 - 7.9.5, the build of dynamic linked `SciLexer.dll` that is distributed
 uses features from Boost's `Boost.Regex` library.
 
-## Build 64 bits binaries with GCC:
+# Building Notepad++ with GCC
 
-If you have installed [MinGW-w64](https://mingw-w64.org/doku.php/start), then you can compile Notepad++ & libscilexer.a 64 bits binaries with GCC.
+If you have [MinGW-w64](https://www.mingw-w64.org/) installed, you can compile Notepad++ with GCC.
 
-* Compile libscilexer.a
+MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/files/). Building Notepad++ is regularly tested on a Windows system with [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) for building 64-bits binary and with [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z) versions for building 32-bits binary. Other versions may also work but are untested.
 
-1. Launch cmd.
-2. Change dir into `notepad-plus-plus\scintilla\win32`.
-3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
-4. `libscilexer.a` is generated in `notepad-plus-plus\scintilla\bin\`.
+**Note:** If you use MinGW-w64 GCC from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work. One can use a command like `set PATH=$MinGW-root$\bin;%PATH%` each time `cmd` is launched. But beware that if `PATH` contains several versions of MinGW-w64 GCC, only the first one will be usable.
 
-* Compile Notepad++ binary
+## Compiling Notepad++ binary
 
-1. Launch cmd.
-2. Change dir into `notepad-plus-plus\PowerEditor\gcc`.
-3. Type `mingw32-make.exe -j%NUMBER_OF_PROCESSORS%`
-4. `NotepadPP.exe` is generated in `notepad-plus-plus\PowerEditor\bin\`.
+1. Launch `cmd` and add `$MinGW-root$\bin` to `PATH` if necessary.
+2. `cd` into `notepad-plus-plus\PowerEditor\gcc`.
+3. Run `mingw32-make`.
+4. The 32-bit or 64-bit `notepad++.exe` will be generated either in `bin.i686` or in `bin.x86_64` directory respectively, depending on the target CPU of the compiler — look for the full path to the resulting binary at the end of the build process.
 
-
-You can download MinGW-w64 from https://sourceforge.net/projects/mingw-w64/files/. On Notepad++ Github page (this project), the build system use [MinGW 8.1](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z).
-
-
-Note 1: if you use MinGW from the package (7z), you need manually add the MinGW/bin folder path to system Path variable to make mingw32-make.exe invoke works (or you can use command :`set PATH=%PATH%;C:\xxxx\mingw64\bin` for adding it on each time you launch cmd). 
-
-Note 2: For 32-bit build, https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/i686-8.1.0-release-posix-sjlj-rt_v6-rev0.7z could be used. The rest of the instructions are still valid. 
+* The directory containing `notepad++.exe` will also contain everything needed for Notepad++ to start.
+* To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
+* To see commands being executed add `VERBOSE=1` to the same command.
+* When switching between compilers or between release/debug modes, `mingw32-make clean` must be executed first.

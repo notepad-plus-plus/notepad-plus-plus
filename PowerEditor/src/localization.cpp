@@ -1201,18 +1201,16 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 		int id;
 		element->Attribute("id", &id);
 		HWND hCombo = ::GetDlgItem(hDlg, id);
+		if (!hCombo) return false;
 
-		if (hCombo)
+		for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
+			gChildNode;
+			gChildNode = gChildNode->NextSibling("Element"))
 		{
-			for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
-				gChildNode;
-				gChildNode = gChildNode->NextSibling("Element"))
-			{
-				TiXmlElementA *comBoelement = gChildNode->ToElement();
-				const char *name = comBoelement->Attribute("name");
-				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
-				comboElms.push_back(nameW);
-			}
+			TiXmlElementA *comBoelement = gChildNode->ToElement();
+			const char *name = comBoelement->Attribute("name");
+			const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+			comboElms.push_back(nameW);
 		}
 
 		size_t count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);

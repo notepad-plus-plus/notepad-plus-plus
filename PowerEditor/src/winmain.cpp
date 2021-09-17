@@ -20,6 +20,7 @@
 #include "MiniDumper.h"			//Write dump files
 #include "verifySignedfile.h"
 #include "NppDarkMode.h"
+#include <memory>
 
 typedef std::vector<generic_string> ParamVector;
 
@@ -609,7 +610,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
         }
 	}
 
-	Notepad_plus_Window notepad_plus_plus;
+	auto upNotepadWindow = std::make_unique<Notepad_plus_Window>();
+	Notepad_plus_Window & notepad_plus_plus = *upNotepadWindow.get();
 
 	generic_string updaterDir = nppParameters.getNppPath();
 	updaterDir += TEXT("\\updater\\");

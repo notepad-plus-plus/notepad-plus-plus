@@ -46,7 +46,7 @@ void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 
 generic_string getTextFromCombo(HWND hCombo)
 {
-	TCHAR str[FINDREPLACE_MAXLENGTH];
+	TCHAR str[FINDREPLACE_MAXLENGTH] = { '\0' };
 	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
 	return generic_string(str);
 };
@@ -429,7 +429,7 @@ void FindReplaceDlg::saveFindHistory()
 
 int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string> & strings, bool saveEmpty)
 {
-	TCHAR text[FINDREPLACE_MAXLENGTH];
+	TCHAR text[FINDREPLACE_MAXLENGTH] = { '\0' };
 	HWND hCombo = ::GetDlgItem(_hSelf, id);
 	int count = static_cast<int32_t>(::SendMessage(hCombo, CB_GETCOUNT, 0, 0));
 	count = min(count, maxcount);
@@ -970,6 +970,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			// Change handler of edit element in the comboboxes to support Ctrl+Backspace
 			COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
 			GetComboBoxInfo(hFindCombo, &cbinfo);
+			if (!cbinfo.hwndItem) return FALSE;
+
 			originalComboEditProc = SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
 			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
 			GetComboBoxInfo(hReplaceCombo, &cbinfo);
@@ -4036,7 +4038,7 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 	str += TEXT(" ");
 
 	TCHAR lnb[16];
-	wsprintf(lnb, TEXT("%d"), fi._lineNumber);
+	wsprintf(lnb, TEXT("%d"), static_cast<int>(fi._lineNumber));
 	str += lnb;
 	str += TEXT(": ");
 	mi._start += static_cast<int32_t>(str.length());
@@ -4259,43 +4261,40 @@ void Finder::setFinderStyle()
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
-		int i = pStyler->getStylerIndexByID(SCE_SEARCHRESULT_CURRENT_LINE);
-		if (i != -1)
+		const Style * pStyle = pStyler->findByID(SCE_SEARCHRESULT_CURRENT_LINE);
+		if (pStyle)
 		{
-			Style & style = pStyler->getStyler(i);
-			_scintView.execute(SCI_SETCARETLINEBACK, style._bgColor);
+			_scintView.execute(SCI_SETCARETLINEBACK, pStyle->_bgColor);
 		}
 	}
 	_scintView.setSearchResultLexer();
 
 	// Override foreground & background colour by default foreground & background coulour
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
-	int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
-	if (iStyleDefault != -1)
+	Style * pStyleDefault = stylers.findByID(STYLE_DEFAULT);
+	if (pStyleDefault)
 	{
-		Style & styleDefault = stylers.getStyler(iStyleDefault);
-		_scintView.setStyle(styleDefault);
+		_scintView.setStyle(*pStyleDefault);
 
 		GlobalOverride & go = NppParameters::getInstance().getGlobalOverrideStyle();
 		if (go.isEnable())
 		{
-			int iGlobalOverride = stylers.getStylerIndexByName(TEXT("Global override"));
-			if (iGlobalOverride != -1)
+			const Style * pStyleGlobalOverride = stylers.findByName(TEXT("Global override"));
+			if (pStyleGlobalOverride)
 			{
-				Style & styleGlobalOverride = stylers.getStyler(iGlobalOverride);
 				if (go.enableFg)
 				{
-					styleDefault._fgColor = styleGlobalOverride._fgColor;
+					pStyleDefault->_fgColor = pStyleGlobalOverride->_fgColor;
 				}
 				if (go.enableBg)
 				{
-					styleDefault._bgColor = styleGlobalOverride._bgColor;
+					pStyleDefault->_bgColor = pStyleGlobalOverride->_bgColor;
 				}
 			}
 		}
 
-		_scintView.execute(SCI_STYLESETFORE, SCE_SEARCHRESULT_DEFAULT, styleDefault._fgColor);
-		_scintView.execute(SCI_STYLESETBACK, SCE_SEARCHRESULT_DEFAULT, styleDefault._bgColor);
+		_scintView.execute(SCI_STYLESETFORE, SCE_SEARCHRESULT_DEFAULT, pStyleDefault->_fgColor);
+		_scintView.execute(SCI_STYLESETBACK, SCE_SEARCHRESULT_DEFAULT, pStyleDefault->_bgColor);
 	}
 
 	_scintView.execute(SCI_COLOURISE, 0, -1);
@@ -4454,7 +4453,9 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
 
-				scintillaContextmenu.display(p);
+				::TrackPopupMenu(scintillaContextmenu.getMenuHandle(),
+					NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+					p.x, p.y, 0, _hSelf, NULL);
 				return TRUE;
 			}
 			return ::DefWindowProc(_hSelf, message, wParam, lParam);

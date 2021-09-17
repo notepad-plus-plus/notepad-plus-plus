@@ -34,11 +34,11 @@ typedef enum {
 
 struct NMWINDLG : public NMHDR {
 
-	BOOL processed;
-	WinDlgNotifyType type;
-	UINT curSel;
-	UINT nItems;
-	UINT *Items;
+	BOOL processed = FALSE;
+	WinDlgNotifyType type = WDT_ACTIVATE;
+	UINT curSel = 0;
+	UINT nItems = 0;
+	UINT *Items = 0;
 
 	// ctor: initialize to zeroes
 	NMWINDLG() { memset(this,0,sizeof(NMWINDLG)); }
@@ -83,8 +83,8 @@ protected :
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;
-	SIZE _szMinButton;
-	SIZE _szMinListCtrl;
+	SIZE _szMinButton = { 0 };
+	SIZE _szMinListCtrl = { 0 };
 	DocTabView *_pTab = nullptr;
 	std::vector<int> _idxMap;
 	int _currentColumn = -1;

@@ -88,11 +88,11 @@ private:
 		GFONT_ROWS,
 		MAX_GRID_FONTS
 	};
-	LONG _clientWidth;
-	LONG _clientHeight;
-	LONG _initClientWidth;
-	LONG _initClientHeight;
-	bool _dialogInitDone;
+	LONG _clientWidth = 0;
+	LONG _clientHeight = 0;
+	LONG _initClientWidth = 0;
+	LONG _initClientHeight = 0;
+	bool _dialogInitDone = false;
 
 	void initTabs();
 	void initBabyGrid();

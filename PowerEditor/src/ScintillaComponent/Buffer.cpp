@@ -207,6 +207,10 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 	doNotify(BufferChangeFilename | BufferChangeTimestamp);
 }
 
+bool Buffer::isDocDeleted() const 
+{
+	return getStatus() == DocFileStatus::DOC_DELETED;
+}
 
 bool Buffer::checkFileState() // returns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
 {

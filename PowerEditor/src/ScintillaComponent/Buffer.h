@@ -177,6 +177,8 @@ public:
 
 	long getRecentTag() const { return _recentTag; }
 
+	bool isDocDeleted() const;
+
 	bool checkFileState();
 
 	bool isDirty() const {

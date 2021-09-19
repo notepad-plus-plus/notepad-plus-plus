@@ -7242,6 +7242,8 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 	rootElement->SetAttribute(TEXT("name"), userLang->_name);
 	rootElement->SetAttribute(TEXT("ext"), userLang->_ext);
+	if (userLang->_isDarkModeTheme)
+		rootElement->SetAttribute(TEXT("darkModeTheme"), TEXT("yes"));
 	rootElement->SetAttribute(TEXT("udlVersion"), udlVersion.c_str());
 
 	TiXmlElement *settingsElement = (rootElement->InsertEndChild(TiXmlElement(TEXT("Settings"))))->ToElement();

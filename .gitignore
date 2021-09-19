@@ -151,7 +151,7 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 #-------------------------------------------------------------------------------
 # MinGW-w64 GCC
 
-bin.*
+bin.*/
 scintilla/win32/*.o
 
 

@@ -44,6 +44,7 @@
         #define    IDC_WEB_HELP_STATIC                      (IDC_DEFAULT + 4)
         #define    IDC_WEB_HELP_DESCGROUP_STATIC            (IDC_DEFAULT + 5)
         #define    IDC_FOLDER_FOLD_COMPACT                  (IDC_DEFAULT + 6)
+        #define    IDC_FOR_DARK_MODE                        (IDC_DEFAULT + 7)
 
     #define    IDC_FOLDER_IN_CODE1                          (IDD_FOLDER_STYLE_DLG + 200)
         #define IDC_FOLDER_IN_CODE1_DESCGROUP_STATIC            (IDC_FOLDER_IN_CODE1 + 20)

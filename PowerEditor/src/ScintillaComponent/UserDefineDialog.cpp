@@ -166,6 +166,10 @@ INT_PTR CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPA
         {
             switch (wParam)
             {
+                case IDC_FOR_DARK_MODE :
+                {
+                    return setPropertyByCheck(_hSelf, wParam, _pUserLang->_isDarkModeTheme);
+                }
                 case IDC_FOLDER_FOLD_COMPACT :
                 {
                     return setPropertyByCheck(_hSelf, wParam, _pUserLang->_foldCompact);
@@ -228,6 +232,7 @@ void FolderStyleDialog::setKeywords2List(int id)
 
 void FolderStyleDialog::updateDlg()
 {
+    ::SendDlgItemMessage(_hSelf, IDC_FOR_DARK_MODE,                 BM_SETCHECK, _pUserLang->_isDarkModeTheme, 0);
     ::SendDlgItemMessage(_hSelf, IDC_FOLDER_FOLD_COMPACT,           BM_SETCHECK, _pUserLang->_foldCompact, 0);
 
     ::SendDlgItemMessage(_hSelf, IDC_FOLDER_IN_CODE1_OPEN_EDIT,     WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN]));

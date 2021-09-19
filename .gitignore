@@ -151,8 +151,7 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 #-------------------------------------------------------------------------------
 # MinGW-w64 GCC
 
-bin.*
-scintilla/win32/*.o
+bin.*/
 
 
 PowerEditor/src/MISC/md5/RCa06792

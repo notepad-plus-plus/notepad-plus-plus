@@ -4307,6 +4307,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					isFailed = true;
 			}
 
+			val = element->Attribute(TEXT("confirmCloseAll"));
+			if(val)
+			{
+				if(!lstrcmp(val, TEXT("yes")))
+					_nppGUI._tabStatus |= TAB_CONFIRMCLOSEALL;
+				else if(!lstrcmp(val, TEXT("no")))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
+
 			val = element->Attribute(TEXT("iconSetNumber"));
 			if (val)
 			{
@@ -6076,6 +6087,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = (_nppGUI._tabStatus & TAB_ALTICONS) ? TEXT("1") : TEXT("0");
 		GUIConfigElement->SetAttribute(TEXT("iconSetNumber"), pStr);
+
+		pStr = (_nppGUI._tabStatus & TAB_CONFIRMCLOSEALL) ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("confirmCloseAll"), pStr);
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>

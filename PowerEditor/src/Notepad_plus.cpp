@@ -775,7 +775,8 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0) |\
 						(nppGUI._tabStatus & TAB_HIDE) | \
 						(nppGUI._tabStatus & TAB_QUITONEMPTY) | \
-						(nppGUI._tabStatus & TAB_ALTICONS);
+						(nppGUI._tabStatus & TAB_ALTICONS) | \
+						(nppGUI._tabStatus & TAB_CONFIRMCLOSEALL);
 	nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 	bool b = udd->isDocked();

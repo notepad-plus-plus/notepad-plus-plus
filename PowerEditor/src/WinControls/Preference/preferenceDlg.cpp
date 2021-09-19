@@ -469,6 +469,7 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_MULTILINE, BM_SETCHECK, tabBarStatus & TAB_MULTILINE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_LAST_EXIT, BM_SETCHECK, tabBarStatus & TAB_QUITONEMPTY, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, tabBarStatus & TAB_ALTICONS, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_CLOSEALL, BM_SETCHECK, tabBarStatus & TAB_CONFIRMCLOSEALL, 0);
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_HIDE, BM_SETCHECK, tabBarStatus & TAB_HIDE, 0);
 			::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
@@ -581,6 +582,12 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					nppGUI._tabStatus ^= TAB_ALTICONS;
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, 0, isChecked ? 1 : 0);
+					return TRUE;
+				}
+				case IDC_CHECK_TAB_CLOSEALL:
+				{
+					NppGUI& nppGUI = nppParam.getNppGUI();
+					nppGUI._tabStatus ^= TAB_CONFIRMCLOSEALL;
 					return TRUE;
 				}
 

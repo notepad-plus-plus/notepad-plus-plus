@@ -1129,6 +1129,20 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		}
 	}
 
+	NppParameters& params = NppParameters::getInstance();
+	const NppGUI& nppGUI = params.getNppGUI();
+	if((nppGUI._tabStatus & TAB_CONFIRMCLOSEALL) == TAB_CONFIRMCLOSEALL)
+	{
+		// if we are attempting to close the application, close event received
+		// just proceed and close the docs, but if we aren't attempting to close the application, confirm the action
+		if(!_isAttemptingCloseOnQuit)
+		{
+			int doCloseAll = _nativeLangSpeaker.messageBox("CloseAllConfirmation", _pPublicInterface->getHSelf(), TEXT("Do you want to close all open tabs?"), TEXT("Close all confirmation"), MB_YESNOCANCEL);
+			if(doCloseAll != IDYES)
+				return false;
+		}
+	}
+
 	//Then start closing, inactive view first so the active is left open
     if (bothActive())
     {

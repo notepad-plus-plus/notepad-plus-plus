@@ -47,11 +47,12 @@ If you have [MinGW-w64](https://www.mingw-w64.org/) installed, you can compile N
 MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/files/). Building Notepad++ is regularly tested on a Windows system using:
 * [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) for building a 64-bit binary;
 * [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z) for building a 32-bit binary.
+
 Other versions may also work but are untested.
 
 **Note:** If you use MinGW-w64 GCC from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work. One can use a command like `set PATH=$MinGW-root$\bin;%PATH%` each time `cmd` is launched. But beware that if `PATH` contains several versions of MinGW-w64 GCC, only the first one will be usable.
 
-## Building `notepad++.exe`
+## Building `notepad++.exe`:
 
 1. Launch `cmd` and add `$MinGW-root$\bin` to `PATH` if necessary.
 2. `cd` into `notepad-plus-plus\PowerEditor\gcc`.

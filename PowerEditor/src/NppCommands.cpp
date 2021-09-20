@@ -3868,5 +3868,27 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_IN_IE      :
 				_macro.push_back(recordedMacroStep(id));
 				break;
+
+			// The following 3 commands will insert date time string during the recording:
+			// SCI_REPLACESEL will be recorded firstly, then SCI_ADDTEXT (for adding date time string)
+			// So we erase these 2 unwanted commanded for recording these 3 following commands.
+			case IDM_EDIT_INSERT_DATETIME_SHORT:
+			case IDM_EDIT_INSERT_DATETIME_LONG:
+			case IDM_EDIT_INSERT_DATETIME_CUSTOMIZED:
+			{
+				size_t lastIndex = _macro.size();
+				if (lastIndex >= 2)
+				{
+					--lastIndex;
+					if (_macro[lastIndex]._message == SCI_ADDTEXT && _macro[lastIndex - 1]._message == SCI_REPLACESEL)
+					{
+						_macro.erase(_macro.begin() + lastIndex);
+						--lastIndex;
+						_macro.erase(_macro.begin() + lastIndex);
+					}
+				}
+				_macro.push_back(recordedMacroStep(id));
+			}
+			break;
 		}
 }

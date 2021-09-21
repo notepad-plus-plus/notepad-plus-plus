@@ -31,6 +31,8 @@ void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags
 	_flags = flags;
 
 	WNDCLASS wc;
+	DWORD hwndExStyle = (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+	isRTL = hwndExStyle & WS_EX_LAYOUTRTL;
 
 	if (flags & DMS_HORIZONTAL)
 	{
@@ -137,7 +139,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 				}
 				else if (_ptOldPos.x != pt.x)
 				{
-					::SendMessage(_hMessage, DMM_MOVE_SPLITTER, _ptOldPos.x - pt.x, reinterpret_cast<LPARAM>(_hSelf));
+					::SendMessage(_hMessage, DMM_MOVE_SPLITTER, isRTL ? pt.x - _ptOldPos.x : _ptOldPos.x - pt.x, reinterpret_cast<LPARAM>(_hSelf));
 				}
 				_ptOldPos = pt;
 			}

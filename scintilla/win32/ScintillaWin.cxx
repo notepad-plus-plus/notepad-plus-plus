@@ -2561,7 +2561,7 @@ void ScintillaWin::Paste() {
 	// Use CF_UNICODETEXT if available
 	GlobalMemory memUSelection(::GetClipboardData(CF_UNICODETEXT));
 	if (const wchar_t *uptr = static_cast<const wchar_t *>(memUSelection.ptr)) {
-		const std::string putf = EncodeWString(uptr);
+		const std::string putf = EncodeWString(std::wstring_view(uptr,memUSelection.Size()/sizeof(wchar_t)));
 		InsertPasteShape(putf.c_str(), putf.length(), pasteShape);
 		memUSelection.Unlock();
 	}

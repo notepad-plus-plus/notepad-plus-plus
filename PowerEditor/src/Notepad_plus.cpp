@@ -2456,11 +2456,11 @@ void Notepad_plus::pasteToMarkedLines()
 
 	::OpenClipboard(_pPublicInterface->getHSelf());
 	HANDLE clipboardData = ::GetClipboardData(clipFormat);
-	::GlobalSize(clipboardData);
+	SIZE_T clipboardDataSize = ::GlobalSize(clipboardData);
 	LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
 	if (!clipboardDataPtr) return;
 
-	generic_string clipboardStr = (const TCHAR *)clipboardDataPtr;
+	const generic_string clipboardStr((const TCHAR *)clipboardDataPtr, clipboardDataSize/sizeof(wchar_t));
 
 	::GlobalUnlock(clipboardData);
 	::CloseClipboard();

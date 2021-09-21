@@ -1683,12 +1683,14 @@ void StringDlg::HandlePaste(HWND hEdit)
 		HANDLE hClipboardData = GetClipboardData(CF_UNICODETEXT);
 		if (NULL != hClipboardData)
 		{
-			LPTSTR pszText = reinterpret_cast<LPTSTR>(GlobalLock(hClipboardData));
-			if (NULL != pszText && isAllowed(pszText))
+			if (LPTSTR pszText = reinterpret_cast<LPTSTR>(GlobalLock(hClipboardData)))
 			{
-				SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(pszText));
+				const generic_string text(pszText,GlobalSize(hClipboardData)/sizeof(wchar_t));
+				if (isAllowed(pszText))
+				{
+					SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(text.c_str()));
+				}
 			}
-
 			GlobalUnlock(hClipboardData);
 		}
 

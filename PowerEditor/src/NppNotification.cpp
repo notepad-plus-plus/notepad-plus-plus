@@ -123,8 +123,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 			if (isSnapshotMode && !isDirty)
 			{
+				DocFileStatus status = buf->getStatus();
+				bool isDocDeleted = status == DOC_DELETED;
+				bool isDocModified = status == DOC_MODIFIED;
+				bool isDocRegular = status == DOC_REGULAR;
+
 				bool canUndo = _pEditView->execute(SCI_CANUNDO) == TRUE;
 				if (!canUndo && buf->isLoadedDirty() && buf->isDirty())
+					isDirty = true;
+				else if(canUndo && (isDocDeleted || isDocModified) && !isDocRegular && buf->isDirty())
 					isDirty = true;
 			}
 			buf->setDirty(isDirty);

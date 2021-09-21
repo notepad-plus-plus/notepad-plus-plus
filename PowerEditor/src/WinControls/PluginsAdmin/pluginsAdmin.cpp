@@ -69,17 +69,14 @@ void Version::setVersionFrom(const generic_string& filePath)
 {
 	if (!filePath.empty() && ::PathFileExists(filePath.c_str()))
 	{
-		DWORD handle = 0;
-		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &handle);
-
-		if (handle == 0)
-			return;
+		DWORD uselessArg = 0; // this variable is for passing the ignored argument to the functions
+		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &uselessArg);
 
 		if (bufferSize <= 0)
 			return;
 
 		unsigned char* buffer = new unsigned char[bufferSize];
-		::GetFileVersionInfo(filePath.c_str(), handle, bufferSize, buffer);
+		::GetFileVersionInfo(filePath.c_str(), uselessArg, bufferSize, buffer);
 
 		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
 		UINT cbFileInfo = 0;

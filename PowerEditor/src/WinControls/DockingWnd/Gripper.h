@@ -48,6 +48,8 @@ public:
 	void init(HINSTANCE hInst, HWND hParent) {
 		_hInst   = hInst;	
 		_hParent = hParent;
+		DWORD hwndExStyle = (DWORD)GetWindowLongPtr(_hParent, GWL_EXSTYLE);
+		isRTL = hwndExStyle & WS_EX_LAYOUTRTL;
 	};
 
 	void startGrip(DockingCont* pCont, DockingManager* pDockMgr);
@@ -97,8 +99,8 @@ protected :
 		ShrinkRcToSize(rc);
 	};
 	void ShrinkRcToSize(RECT *rc) {
-		rc->right	-= rc->left;
-		rc->bottom	-= rc->top;
+		isRTL ? rc->right = rc->left - rc->right : rc->right = rc->left;
+		rc->bottom -= rc->top;
 	};
 	void DoCalcGripperRect(RECT* rc, RECT rcCorr, POINT pt) {
 		if ((rc->left + rc->right) < pt.x)
@@ -142,5 +144,8 @@ private:
 
 	// is class registered
 	static BOOL _isRegistered;
+
+	// get layout direction
+	bool isRTL;
 };
 

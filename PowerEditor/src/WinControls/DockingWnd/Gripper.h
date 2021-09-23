@@ -99,7 +99,7 @@ protected :
 		ShrinkRcToSize(rc);
 	};
 	void ShrinkRcToSize(RECT *rc) {
-		isRTL ? rc->right = rc->left - rc->right : rc->right = rc->left;
+		isRTL ? rc->right = rc->left - rc->right : rc->right -= rc->left;
 		rc->bottom -= rc->top;
 	};
 	void DoCalcGripperRect(RECT* rc, RECT rcCorr, POINT pt) {

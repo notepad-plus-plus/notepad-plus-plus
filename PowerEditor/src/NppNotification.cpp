@@ -120,6 +120,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 
 			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
+
+			const DocFileStatus status = buf->getStatus();
+			const bool deleted	= (status == DOC_DELETED);
+			const bool modified = (status == DOC_MODIFIED);
+
+			if(deleted || modified)
+				isDirty = true;
+
 			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 			if (isSnapshotMode && !isDirty)
 			{

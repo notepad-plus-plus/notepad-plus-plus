@@ -72,7 +72,7 @@ private:
 			set(m._document, m.position(), m.endPosition());
 			return *this;
 		}
-		Match& operator=(int /*nullptr*/) {
+		Match& operator=(void* /*nullptr*/) {
 			_position = -1;
 			return *this;
 		}
@@ -270,7 +270,7 @@ Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosit
 		search._document = doc;
 		
 		if (startPosition > endPosition
-			|| startPosition == endPosition && _lastDirection < 0)  // If we search in an empty region, suppose the direction is the same as last search (this is only important to verify if there can be an empty match in that empty region).
+			|| (startPosition == endPosition && _lastDirection < 0))  // If we search in an empty region, suppose the direction is the same as last search (this is only important to verify if there can be an empty match in that empty region).
 		{
 			search._startPosition = endPosition;
 			search._endPosition = startPosition;
@@ -303,7 +303,7 @@ Sci::Position BoostRegexSearch::FindText(Document* doc, Sci::Position startPosit
 		search._is_allowed_empty_at_start_position = search._is_allowed_empty && 
 			(allow_empty_at_start
 			|| !_lastMatch.isContinuationSearch(doc, startPosition, search._direction)
-			|| empty_match_style == SCFIND_REGEXP_EMPTYMATCH_ALL && !_lastMatch.isEmpty()	// If last match is empty and this is a continuation, then we would have same empty match at start position, if it was allowed.
+			|| (empty_match_style == SCFIND_REGEXP_EMPTYMATCH_ALL && !_lastMatch.isEmpty())	// If last match is empty and this is a continuation, then we would have same empty match at start position, if it was allowed.
 			);
 		search._skip_windows_line_end_as_one_character = (sciSearchFlags & SCFIND_REGEXP_SKIPCRLFASONE) != 0;
 		
@@ -435,14 +435,14 @@ bool BoostRegexSearch::SearchParameters::isLineStart(Sci::Position position)
 {
 	return (position == 0)
 		|| _document->CharAt(position-1) == '\n'
-		|| _document->CharAt(position-1) == '\r' && _document->CharAt(position) != '\n';
+		|| (_document->CharAt(position-1) == '\r' && _document->CharAt(position) != '\n');
 }
 
 bool BoostRegexSearch::SearchParameters::isLineEnd(Sci::Position position)
 {
 	return (position == _document->Length())
 		|| _document->CharAt(position) == '\r'
-		|| _document->CharAt(position) == '\n' && (position == 0 || _document->CharAt(position-1) != '\n');
+		|| (_document->CharAt(position) == '\n' && (position == 0 || _document->CharAt(position-1) != '\n'));
 }
 
 const char *BoostRegexSearch::SubstituteByPosition(Document* doc, const char *text, Sci::Position *length) {

@@ -1066,6 +1066,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();
+		buffer->setUserReloadDecision(true);
+		buffer->setNeedReload(false);
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 

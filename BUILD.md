@@ -44,18 +44,23 @@ uses features from Boost's `Boost.Regex` library.
 
 If you have [MinGW-w64](https://www.mingw-w64.org/) installed, you can compile Notepad++ with GCC.
 
-MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/files/). Building Notepad++ is regularly tested on a Windows system with [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) for building 64-bits binary and with [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z) versions for building 32-bits binary. Other versions may also work but are untested.
+MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/files/). Building Notepad++ is regularly tested on a Windows system:
+* with [x86_64-8.1.0-release-posix-seh-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z) to produce 64-bit binaries;
+* with [i686-8.1.0-release-posix-dwarf-rt_v6-rev0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z) to produce 32-bit binaries.
+* Other versions may also work but are untested.
 
-**Note:** If you use MinGW-w64 GCC from a package (7z), you need to manually add the `$MinGW-root$\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work. One can use a command like `set PATH=$MinGW-root$\bin;%PATH%` each time `cmd` is launched. But beware that if `PATH` contains several versions of MinGW-w64 GCC, only the first one will be usable.
+**Note:** If you are using GCC from a MinGW-w64 package (7z-archive), you need to manually add the `<package-root>\bin` directory to the system `PATH` environment variable for the `mingw32-make` invocation below to work. One can use a command like `set PATH=<package-root>\bin;%PATH%` each time `cmd` is launched. But beware: if `PATH` contains several versions of GCC, only the first one will be usable.
 
-## Compiling Notepad++ binary
+## Building `notepad++.exe`:
 
-1. Launch `cmd` and add `$MinGW-root$\bin` to `PATH` if necessary.
+1. Launch `cmd` and add `<package-root>\bin` to `PATH` if necessary.
 2. `cd` into `notepad-plus-plus\PowerEditor\gcc`.
 3. Run `mingw32-make`.
-4. The 32-bit or 64-bit `notepad++.exe` will be generated either in `bin.i686` or in `bin.x86_64` directory respectively, depending on the target CPU of the compiler — look for the full path to the resulting binary at the end of the build process.
+4. Wait for the compilation to finish. The 64-bit or 32-bit `notepad++.exe` will be generated either in the `bin.x86_64` or in the `bin.i686` directory respectively, depending on the target CPU of the compiler — look for the full path to the resulting binary at the end of the build process.
 
+Additional information:
 * The directory containing `notepad++.exe` will also contain everything needed for Notepad++ to start.
-* To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
-* To see commands being executed add `VERBOSE=1` to the same command.
-* When switching between compilers or between release/debug modes, `mingw32-make clean` must be executed first.
+* To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The resulting directory then will be suffixed with `-debug`. But beware: the binary will be huge and won't be equivalent for the testing purposes to the one built with the Microsoft compiler.
+* To see the commands being executed add `VERBOSE=1` to the same invocation.
+* Running `mingw32-make clean` will delete temporary files so building can be started anew. The directory with `notepad++.exe` won't be affected.
+* Running `mingw32-make fullclean` will delete everything generated during a build including the resulting directory containing `notepad++.exe`. The directories of other build configurations won't be affected.

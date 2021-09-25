@@ -678,6 +678,14 @@ bool FileManager::reloadBuffer(BufferID id)
 
 	if (res)
 	{
+		// file has been successfully reloaded, we can now unset the reload flag
+		if(buf->getNeedReload())
+		{
+			buf->setNeedReload(false);
+			buf->setUserReloadDecision(true);
+			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
+			_pscratchTilla->execute(SCI_SETSAVEPOINT);
+		}
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
 	return res;

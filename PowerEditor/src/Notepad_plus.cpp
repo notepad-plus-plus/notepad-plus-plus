@@ -4372,7 +4372,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	}
 	Buffer * pBuf = MainFileManager.getBufferByID(id);
 	bool reload = pBuf->getNeedReload();
-	if (reload)
+	if (reload && pBuf->getUserReloadDecision())
 	{
 		MainFileManager.reloadBuffer(id);
 		pBuf->setNeedReload(false);
@@ -5873,6 +5873,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					{
 						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
 						buffer->setDirty(true);
+						buffer->setNeedReload(true);
+						buffer->setUserReloadDecision(false);
 
 						break;	//abort
 					}

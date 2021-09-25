@@ -209,6 +209,18 @@ public:
 		doNotify(BufferChangeReadonly);
 	}
 
+	bool getUserReloadDecision() const
+	{
+		return _userReloadDecision;
+	}
+
+	void setUserReloadDecision(bool userReloadDecision)
+	{
+		// if the user's reload decision is true, reload the document
+		// otherwise, if its false, dont reload.
+		_userReloadDecision = userReloadDecision;
+	}
+
 	EolType getEolFormat() const {
 		return _eolFormat;
 	}
@@ -396,6 +408,9 @@ private:
 	UniMode _unicodeMode = uniUTF8;
 	int _encoding = -1;
 	bool _isUserReadOnly = false;
+
+	bool _userReloadDecision = true;
+
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 	//these properties have to be duplicated because of multiple references
 	//All the vectors must have the same size at all times

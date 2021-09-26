@@ -1539,32 +1539,16 @@ const TCHAR* NppParameters::getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *ful
 		return nullptr;
 
 	std::vector<generic_string> extVect;
-	int iMatched = -1;
 	for (int i = 0 ; i < _nbUserLang ; ++i)
 	{
 		extVect.clear();
 		cutString(_userLangArray[i]->_ext.c_str(), extVect);
 
-		// Force to use dark mode UDL in dark mode or to use  light mode UDL in light mode
-		for (size_t j = 0, len = extVect.size(); j < len; ++j)
+		for (auto& extItem : extVect)
 		{
-			if (!generic_stricmp(extVect[j].c_str(), ext) || (_tcschr(fullName, '.') && !generic_stricmp(extVect[j].c_str(), fullName)))
-			{
-				// preserve ext matched UDL
-				iMatched = i;
-
-				if (((NppDarkMode::isEnabled() && _userLangArray[i]->_isDarkModeTheme)) ||
-					((!NppDarkMode::isEnabled() && !_userLangArray[i]->_isDarkModeTheme)))
-					return _userLangArray[i]->_name.c_str();
-			}
+			if (!generic_stricmp(extItem.c_str(), ext) || (_tcschr(fullName, '.') && !generic_stricmp(extItem.c_str(), fullName)))
+				return _userLangArray[i]->_name.c_str();
 		}
-	}
-
-	// In case that we are in dark mode but no dark UDL or we are in light mode but no light UDL
-	// We use it anyway
-	if (iMatched >= 0)
-	{
-		return _userLangArray[iMatched]->_name.c_str();
 	}
 
 	return nullptr;
@@ -2734,7 +2718,6 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 	{
 		const TCHAR* name = (childNode->ToElement())->Attribute(TEXT("name"));
 		const TCHAR* ext = (childNode->ToElement())->Attribute(TEXT("ext"));
-		const TCHAR* darkModeTheme = (childNode->ToElement())->Attribute(TEXT("darkModeTheme"));
 		const TCHAR* udlVersion = (childNode->ToElement())->Attribute(TEXT("udlVersion"));
 
 		if (!name || !name[0] || !ext)
@@ -2743,15 +2726,8 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			continue;
 		}
 
-		bool isDarkModeTheme = false;
-
-		if (darkModeTheme && darkModeTheme[0])
-		{
-			isDarkModeTheme = (lstrcmp(TEXT("yes"), darkModeTheme) == 0);
-		}
-
 		try {
-			_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, isDarkModeTheme, udlVersion ? udlVersion : TEXT(""));
+			_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, udlVersion ? udlVersion : TEXT(""));
 
 			++_nbUserLang;
 
@@ -3650,10 +3626,6 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 	{
 		TiXmlElement *element = styleNode->ToElement();
 
-		// TODO: translate to English
-		// Pour _fgColor, _bgColor :
-		// RGB() | (result & 0xFF000000) c'est pour le cas de -1 (0xFFFFFFFF)
-		// retourné par hexStrVal(str)
 		const TCHAR *str = element->Attribute(TEXT("name"));
 		if (str)
 		{
@@ -3663,19 +3635,32 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 				s._styleDesc = str;
 		}
 
+		// TODO: translate to English
+		// Pour _fgColor, _bgColor :
+		// RGB() | (result & 0xFF000000) c'est pour le cas de -1 (0xFFFFFFFF)
+		// retourné par hexStrVal(str)
 		str = element->Attribute(TEXT("fgColor"));
 		if (str)
 		{
-			unsigned long result = hexStrVal(str);
-			s._fgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
-
+			s._fgColor = { flipRGB(hexStrVal(str)) };
 		}
 
 		str = element->Attribute(TEXT("bgColor"));
 		if (str)
 		{
-			unsigned long result = hexStrVal(str);
-			s._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
+			s._bgColor = { flipRGB(hexStrVal(str)) };
+		}
+
+		str = element->Attribute(TEXT("fgDark"));
+		if (str)
+		{
+			s._fgColor[true] = flipRGB(hexStrVal(str));
+		}
+
+		str = element->Attribute(TEXT("bgDark"));
+		if (str)
+		{
+			s._bgColor[true] = flipRGB(hexStrVal(str));
 		}
 
 		str = element->Attribute(TEXT("colorStyle"));
@@ -3701,8 +3686,8 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		{
 			s._fontSize = decStrVal(str);
 		}
-		str = element->Attribute(TEXT("nesting"));
 
+		str = element->Attribute(TEXT("nesting"));
 		if (str)
 		{
 			s._nesting = decStrVal(str);
@@ -6785,11 +6770,6 @@ TiXmlElement * NppParameters::insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHA
 	return GUIConfigElement;
 }
 
-int RGB2int(COLORREF color)
-{
-	return (((((DWORD)color) & 0x0000FF) << 16) | ((((DWORD)color) & 0x00FF00)) | ((((DWORD)color) & 0xFF0000) >> 16));
-}
-
 int NppParameters::langTypeToCommandID(LangType lt) const
 {
 	int id;
@@ -7175,61 +7155,94 @@ bool NppParameters::insertTabInfo(const TCHAR *langName, int tabInfo)
 	return false;
 }
 
-void NppParameters::writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element)
+void NppParameters::writeStyle2Element(const Style & style2Write, Style & /*style2Sync*/, TiXmlElement *element)
 {
-	if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
+	TCHAR hexStr[7] = { 0 };
+
+	if (style2Write._fgColor[false] != COLORREF(-1))
 	{
-		int rgbVal = RGB2int(style2Write._fgColor);
-		TCHAR fgStr[7];
-		wsprintf(fgStr, TEXT("%.6X"), rgbVal);
-		element->SetAttribute(TEXT("fgColor"), fgStr);
+		wsprintf(hexStr, TEXT("%.6X"), flipRGB(style2Write._fgColor[false]));
+		element->SetAttribute(TEXT("fgColor"), hexStr);
+	}
+	else if (element->Attribute(TEXT("fgColor")))
+	{
+		element->RemoveAttribute(TEXT("fgColor"));
 	}
 
-	if (HIBYTE(HIWORD(style2Write._bgColor)) != 0xFF)
+	if (style2Write._bgColor[false] != COLORREF(-1))
 	{
-		int rgbVal = RGB2int(style2Write._bgColor);
-		TCHAR bgStr[7];
-		wsprintf(bgStr, TEXT("%.6X"), rgbVal);
-		element->SetAttribute(TEXT("bgColor"), bgStr);
+		wsprintf(hexStr, TEXT("%.6X"), flipRGB(style2Write._bgColor[false]));
+		element->SetAttribute(TEXT("bgColor"), hexStr);
+	}
+	else if (element->Attribute(TEXT("bgColor")))
+	{
+		element->RemoveAttribute(TEXT("bgColor"));
+	}
+
+	if (style2Write._fgColor[true] != COLORREF(-1) && style2Write._fgColor[true] != style2Write._fgColor[false])
+	{
+		wsprintf(hexStr, TEXT("%.6X"), flipRGB(style2Write._fgColor[true]));
+		element->SetAttribute(TEXT("fgDark"), hexStr);
+	}
+	else if (element->Attribute(TEXT("fgDark")))
+	{
+		element->RemoveAttribute(TEXT("fgDark"));
+	}
+
+	if (style2Write._bgColor[true] != COLORREF(-1) && style2Write._bgColor[true] != style2Write._bgColor[false])
+	{
+		wsprintf(hexStr, TEXT("%.6X"), flipRGB(style2Write._bgColor[true]));
+		element->SetAttribute(TEXT("bgDark"), hexStr);
+	}
+	else if (element->Attribute(TEXT("bgDark")))
+	{
+		element->RemoveAttribute(TEXT("bgDark"));
 	}
 
 	if (style2Write._colorStyle != COLORSTYLE_ALL)
 	{
 		element->SetAttribute(TEXT("colorStyle"), style2Write._colorStyle);
 	}
+	else if (element->Attribute(TEXT("colorStyle")))
+	{
+		element->RemoveAttribute(TEXT("colorStyle"));
+	}
 
 	if (!style2Write._fontName.empty())
 	{
-		const TCHAR * oldFontName = element->Attribute(TEXT("fontName"));
-		if (oldFontName && oldFontName != style2Write._fontName)
-		{
-			element->SetAttribute(TEXT("fontName"), style2Write._fontName);
-			style2Sync._fontName = style2Write._fontName;
-		}
+		element->SetAttribute(TEXT("fontName"), style2Write._fontName);
+	}
+	else if (element->Attribute(TEXT("fontName")))
+	{
+		element->SetAttribute(TEXT("fontName"), TEXT(""));
 	}
 
-	if (style2Write._fontSize != STYLE_NOT_USED)
+	if (style2Write._fontSize != STYLE_NOT_USED && style2Write._fontSize)
 	{
-		if (!style2Write._fontSize)
-			element->SetAttribute(TEXT("fontSize"), TEXT(""));
-		else
-			element->SetAttribute(TEXT("fontSize"), style2Write._fontSize);
+		element->SetAttribute(TEXT("fontSize"), style2Write._fontSize);
+	}
+	else if (style2Write._fontSize != STYLE_NOT_USED)
+	{
+		element->SetAttribute(TEXT("fontSize"), TEXT(""));
+	}
+	else if (element->Attribute(TEXT("fontSize")))
+	{
+		element->RemoveAttribute(TEXT("fontSize"));
 	}
 
 	if (style2Write._fontStyle != STYLE_NOT_USED)
 	{
 		element->SetAttribute(TEXT("fontStyle"), style2Write._fontStyle);
 	}
+	else if (element->Attribute(TEXT("_fontStyle")))
+	{
+		element->RemoveAttribute(TEXT("fontStyle"));
+	}
 
-
+	element->Clear();
 	if (!style2Write._keywords.empty())
 	{
-		TiXmlNode *teteDeNoeud = element->LastChild();
-
-		if (teteDeNoeud)
-			teteDeNoeud->SetValue(style2Write._keywords.c_str());
-		else
-			element->InsertEndChild(TiXmlText(style2Write._keywords.c_str()));
+		element->InsertEndChild(TiXmlText(style2Write._keywords));
 	}
 }
 
@@ -7245,8 +7258,6 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 	rootElement->SetAttribute(TEXT("name"), userLang->_name);
 	rootElement->SetAttribute(TEXT("ext"), userLang->_ext);
-	if (userLang->_isDarkModeTheme)
-		rootElement->SetAttribute(TEXT("darkModeTheme"), TEXT("yes"));
 	rootElement->SetAttribute(TEXT("udlVersion"), udlVersion.c_str());
 
 	TiXmlElement *settingsElement = (rootElement->InsertEndChild(TiXmlElement(TEXT("Settings"))))->ToElement();
@@ -7283,20 +7294,30 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 		styleElement->SetAttribute(TEXT("name"), style2Write._styleDesc);
 
-		//if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
+		TCHAR hexStr[7] = { 0 };
+
+		if (style2Write._fgColor[false] != COLORREF(-1))
 		{
-			int rgbVal = RGB2int(style2Write._fgColor);
-			TCHAR fgStr[7];
-			wsprintf(fgStr, TEXT("%.6X"), rgbVal);
-			styleElement->SetAttribute(TEXT("fgColor"), fgStr);
+			wsprintf(hexStr, TEXT("%.6X"), flipRGB(style2Write._fgColor[false]));
+			styleElement->SetAttribute(TEXT("fgColor"), hexStr);
 		}
 
-		//if (HIBYTE(HIWORD(style2Write._bgColor)) != 0xFF)
+		if (style2Write._bgColor[false] != COLORREF(-1))
 		{
-			int rgbVal = RGB2int(style2Write._bgColor);
-			TCHAR bgStr[7];
-			wsprintf(bgStr, TEXT("%.6X"), rgbVal);
-			styleElement->SetAttribute(TEXT("bgColor"), bgStr);
+			wsprintf(hexStr, TEXT("%.6X"), flipRGB(style2Write._bgColor[false]));
+			styleElement->SetAttribute(TEXT("bgColor"), hexStr);
+		}
+
+		if (style2Write._fgColor[true] != COLORREF(-1) && style2Write._fgColor[true] != style2Write._fgColor[false])
+		{
+			wsprintf(hexStr, TEXT("%.6X"), flipRGB(style2Write._fgColor[true]));
+			styleElement->SetAttribute(TEXT("fgDark"), hexStr);
+		}
+
+		if (style2Write._bgColor[true] != COLORREF(-1) && style2Write._bgColor[true] != style2Write._bgColor[false])
+		{
+			wsprintf(hexStr, TEXT("%.6X"), flipRGB(style2Write._bgColor[true]));
+			styleElement->SetAttribute(TEXT("bgDark"), hexStr);
 		}
 
 		if (style2Write._colorStyle != COLORSTYLE_ALL)
@@ -7309,6 +7330,11 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 			styleElement->SetAttribute(TEXT("fontName"), style2Write._fontName);
 		}
 
+		if (style2Write._fontSize != STYLE_NOT_USED)
+		{
+			styleElement->SetAttribute(TEXT("fontSize"), style2Write._fontSize);
+		}
+
 		if (style2Write._fontStyle == STYLE_NOT_USED)
 		{
 			styleElement->SetAttribute(TEXT("fontStyle"), TEXT("0"));
@@ -7316,14 +7342,6 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 		else
 		{
 			styleElement->SetAttribute(TEXT("fontStyle"), style2Write._fontStyle);
-		}
-
-		if (style2Write._fontSize != STYLE_NOT_USED)
-		{
-			if (!style2Write._fontSize)
-				styleElement->SetAttribute(TEXT("fontSize"), TEXT(""));
-			else
-				styleElement->SetAttribute(TEXT("fontSize"), style2Write._fontSize);
 		}
 
 		styleElement->SetAttribute(TEXT("nesting"), style2Write._nesting);

@@ -7730,40 +7730,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 				break;
 		}
 
-		ThemeSwitcher& themeSwitcher = nppParams.getThemeSwitcher();
-		generic_string themePath;
-		generic_string themeName;
-		const TCHAR darkModeXmlFileName[] = TEXT("DarkModeDefault.xml");
-		if (NppDarkMode::isEnabled())
-		{
-			themePath = themeSwitcher.getThemeDirPath();
-			PathAppend(themePath, darkModeXmlFileName);
-
-			themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
-		}
-		else
-		{
-			//use _stylerPath;
-
-			pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(0);
-			themePath = themeInfo.second;
-			themeName = themeSwitcher.getDefaultThemeLabel();
-		}
-
-		if (::PathFileExists(themePath.c_str()))
-		{
-			nppParams.getNppGUI()._themeName = themePath;
-
-			if (_configStyleDlg.isCreated())
-			{
-				_configStyleDlg.selectThemeByName(themeName.c_str());
-			}
-			else
-			{
-				nppParams.reloadStylers(themePath.c_str());
-				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
-			}
-		}
+		::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
 	}
 }
 

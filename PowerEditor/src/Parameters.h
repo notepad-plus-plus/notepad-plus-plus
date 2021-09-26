@@ -367,6 +367,12 @@ struct DockingManagerData final
 
 
 
+// from 0xRRGGBB to 0xBBGGRR and back
+constexpr DWORD flipRGB(DWORD rgb, bool keepHighByte = true) {
+	return ((rgb & 0xFF0000) >> 16) | (rgb & 0x00FF00) | ((rgb & 0x0000FF) << 16) | (!keepHighByte ? 0 : rgb & 0xFF000000);
+}
+
+
 const int FONTSTYLE_NONE = 0;
 const int FONTSTYLE_BOLD = 1;
 const int FONTSTYLE_ITALIC = 2;
@@ -382,14 +388,36 @@ const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
 
 struct Style final
 {
+	template<typename ValueType, bool predicate()>
+	struct Switcher final
+	{
+		ValueType _values[2];
+
+		constexpr Switcher(const ValueType & ifFalse, const ValueType & ifTrue) : _values{ ifFalse, ifTrue } {}
+
+		constexpr operator const ValueType &() const { return _values[predicate()]; }
+		constexpr const ValueType & operator[](bool predicateResult) const { return _values[predicateResult]; }
+		constexpr ValueType & operator[](bool predicateResult) { return _values[predicateResult]; }
+		constexpr const ValueType & operator=(const ValueType & rightSide) { return _values[predicate()] = rightSide; }
+		constexpr void operator=(std::initializer_list<ValueType> rightSide)
+		{
+			auto it = rightSide.begin();
+			if (it == rightSide.end()) return;
+			_values[0] = *it++;
+			if (it == rightSide.end())
+				--it;
+			_values[1] = *it;
+		}
+	};
+
 	int _styleID = STYLE_NOT_USED;
 	generic_string _styleDesc;
 
-	COLORREF _fgColor = COLORREF(STYLE_NOT_USED);
-	COLORREF _bgColor = COLORREF(STYLE_NOT_USED);
+	Switcher<COLORREF, NppDarkMode::isEnabled> _fgColor = { COLORREF(-1), COLORREF(-1) };
+	Switcher<COLORREF, NppDarkMode::isEnabled> _bgColor = { COLORREF(-1), COLORREF(-1) };
 	int _colorStyle = COLORSTYLE_ALL;
 	generic_string _fontName;
-	int _fontStyle = FONTSTYLE_NONE;
+	int _fontStyle = STYLE_NOT_USED;
 	int _fontSize = STYLE_NOT_USED;
 	int _nesting = FONTSTYLE_NONE;
 
@@ -431,26 +459,26 @@ struct StyleArray
 		Style & s = _styleVect.back();
 		s._styleID = styleID;
 		s._styleDesc = styleName;
-		s._fgColor = black;
-		s._bgColor = white;
+		s._fgColor = { black, white };
+		s._bgColor = { white, black };
 	}
 
 	Style * findByID(int id)
 	{
-		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
+		for (auto& st : _styleVect)
 		{
-			if (_styleVect[i]._styleID == id)
-				return &(_styleVect[i]);
+			if (st._styleID == id)
+				return &st;
 		}
 		return nullptr;
 	}
 
 	Style * findByName(const generic_string & name)
 	{
-		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
+		for (auto& st : _styleVect)
 		{
-			if (_styleVect[i]._styleDesc == name)
-				return &(_styleVect[i]);
+			if (st._styleDesc == name)
+				return &st;
 		}
 		return nullptr;
 	}
@@ -996,8 +1024,8 @@ public:
 		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
 
-	UserLangContainer(const TCHAR *name, const TCHAR *ext, bool isDarkModeTheme, const TCHAR *udlVer):
-		_name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer) {
+	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer):
+		_name(name), _ext(ext), _udlVersion(udlVer) {
 		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
 
@@ -1007,7 +1035,6 @@ public:
 		{
 			this->_name = ulc._name;
 			this->_ext = ulc._ext;
-			this->_isDarkModeTheme = ulc._isDarkModeTheme;
 			this->_udlVersion = ulc._udlVersion;
 			this->_isCaseIgnored = ulc._isCaseIgnored;
 			this->_styles = ulc._styles;
@@ -1015,13 +1042,6 @@ public:
 			this->_forcePureLC = ulc._forcePureLC;
 			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
-			for (Style & st : this->_styles)
-			{
-				if (st._bgColor == COLORREF(-1))
-					st._bgColor = white;
-				if (st._fgColor == COLORREF(-1))
-					st._fgColor = black;
-			}
 
 			for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 				wcscpy_s(this->_keywordLists[i], ulc._keywordLists[i]);
@@ -1041,7 +1061,6 @@ private:
 	generic_string _name;
 	generic_string _ext;
 	generic_string _udlVersion;
-	bool _isDarkModeTheme = false;
 
 	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
 	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS] = {false};

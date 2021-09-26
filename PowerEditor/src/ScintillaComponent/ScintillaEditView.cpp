@@ -3549,10 +3549,8 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 
 void ScintillaEditView::setTabSettings(Lang *lang)
 {
-	if (!lang) return;
-
-    if (lang->_tabSize != -1 && lang->_tabSize != 0)
-    {
+	if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
+	{
 		if (lang->_langID == L_JAVASCRIPT)
 		{
 			Lang *ljs = NppParameters::getInstance().getLangFromID(L_JS);
@@ -3560,15 +3558,15 @@ void ScintillaEditView::setTabSettings(Lang *lang)
 			execute(SCI_SETUSETABS, !ljs->_isTabReplacedBySpace);
 			return;
 		}
-        execute(SCI_SETTABWIDTH, lang->_tabSize);
-        execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
-    }
+		execute(SCI_SETTABWIDTH, lang->_tabSize);
+		execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
+	}
     else
-    {
-        const NppGUI & nppgui = NppParameters::getInstance().getNppGUI();
-        execute(SCI_SETTABWIDTH, nppgui._tabSize  > 0 ? nppgui._tabSize : lang->_tabSize);
+	{
+		const NppGUI & nppgui = NppParameters::getInstance().getNppGUI();
+		execute(SCI_SETTABWIDTH, nppgui._tabSize  > 0 ? nppgui._tabSize : 4);
 		execute(SCI_SETUSETABS, !nppgui._tabReplacedBySpace);
-    }
+	}
 }
 
 void ScintillaEditView::insertNewLineAboveCurrentLine()

@@ -74,36 +74,6 @@ static LRESULT CALLBACK hookProcKeyboard(int nCode, WPARAM wParam, LPARAM lParam
 	return ::CallNextHookEx(hookKeyboard, nCode, wParam, lParam);
 }
 
-Gripper::Gripper()
-{
-	_hInst			= NULL;
-	_hParent		= NULL;
-	_hSelf			= NULL;
-	_pDockMgr		= NULL;
-	_pCont			= NULL;
-
-	_ptOffset.x		= 0;
-	_ptOffset.y		= 0;
-
-	_ptOld.x		= 0;
-	_ptOld.y		= 0;
-	_bPtOldValid		= FALSE;
-
-	_hTab			= NULL;
-	_hTabSource		= NULL;
-	_startMovingFromTab	= FALSE;
-	_iItem			= 0;
-
-	_hdc			= NULL;
-	_hbm			= NULL;
-	_hbrush			= NULL;
-
-	memset(&_rcPrev, 0, sizeof(RECT));
-	memset(&_rcItem, 0, sizeof(RECT));
-	memset(&_tcItem, 0, sizeof(TCITEM));
-	memset(&_dockData, 0, sizeof(tDockMgr));
-}
-
 
 void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr)
 {

@@ -40,16 +40,16 @@ static const WORD DotPattern[] =
 #define MDLG_CLASS_NAME TEXT("moveDlg")
 
 
-class Gripper
+class Gripper final
 {
 public:
-	Gripper();
+	Gripper() = default;;
     
 	void init(HINSTANCE hInst, HWND hParent) {
 		_hInst   = hInst;	
 		_hParent = hParent;
 		DWORD hwndExStyle = (DWORD)GetWindowLongPtr(_hParent, GWL_EXSTYLE);
-		isRTL = hwndExStyle & WS_EX_LAYOUTRTL;
+		_isRTL = hwndExStyle & WS_EX_LAYOUTRTL;
 	};
 
 	void startGrip(DockingCont* pCont, DockingManager* pDockMgr);
@@ -99,7 +99,7 @@ protected :
 		ShrinkRcToSize(rc);
 	};
 	void ShrinkRcToSize(RECT *rc) {
-		isRTL ? rc->right = rc->left - rc->right : rc->right -= rc->left;
+		_isRTL ? rc->right = rc->left - rc->right : rc->right -= rc->left;
 		rc->bottom -= rc->top;
 	};
 	void DoCalcGripperRect(RECT* rc, RECT rcCorr, POINT pt) {
@@ -111,41 +111,41 @@ protected :
 
 private:
 	// Handle
-	HINSTANCE _hInst;
-	HWND _hParent;
-	HWND _hSelf;
+	HINSTANCE _hInst = nullptr;
+	HWND _hParent = nullptr;
+	HWND _hSelf = nullptr;
 
 	// data of container
 	tDockMgr _dockData;
-	DockingManager *_pDockMgr;
-	DockingCont *_pCont;
+	DockingManager *_pDockMgr = nullptr;
+	DockingCont *_pCont = nullptr;
 
 	// mouse offset in moving rectangle
-	POINT _ptOffset;
+	POINT _ptOffset = { 0 };
 
 	// remembers old mouse point
-	POINT _ptOld;
-	BOOL _bPtOldValid;
+	POINT _ptOld = { 0 };
+	BOOL _bPtOldValid = FALSE;
 
 	// remember last drawn rectangle (jg)
-	RECT _rcPrev;
+	RECT _rcPrev = { 0 };
 
 	// for sorting tabs
-	HWND _hTab;
-	HWND _hTabSource;
-	BOOL _startMovingFromTab;
-	int	_iItem;
-	RECT _rcItem;
+	HWND _hTab = nullptr;
+	HWND _hTabSource = nullptr;
+	BOOL _startMovingFromTab = FALSE;
+	int	_iItem = 0;
+	RECT _rcItem = { 0 };
 	TCITEM _tcItem;
 
-	HDC _hdc;
-	HBITMAP _hbm;
-	HBRUSH _hbrush;
+	HDC _hdc = nullptr;
+	HBITMAP _hbm = nullptr;
+	HBRUSH _hbrush = nullptr;
 
 	// is class registered
 	static BOOL _isRegistered;
 
 	// get layout direction
-	bool isRTL;
+	bool _isRTL = false;
 };
 

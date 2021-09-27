@@ -51,6 +51,6 @@ private:
 	static BOOL _isHoriReg;
 
 	// get layout direction
-	bool isRTL;
+	bool _isRTL = false;
 };
 

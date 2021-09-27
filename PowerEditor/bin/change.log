@@ -1,20 +1,24 @@
-Notepad++ v8.1.4 new features, enhancements & bug-fixes:
+Notepad++ v8.1.5 new features, enhancements & bug-fixes:
 
-1.  Fix regression of find/replace and file open performance issue.
-2.  Make dark mode compatible with Windows 11.
-3.  Make current existing plugins' toolbar icons display in both light and dark mode.
-4.  Support TypeScript language (syntax highlighting, auto-completion & function list).
-5.  Fix security flaw issue in uninstaller.
-6.  Add Insert Date Time commands for both short & long format.
-7.  Fix file dialog append extension issue with RTL languages.
-8.  Fix Find-in-Files "Follow current doc" not working issue when Default Directory is set.
-9.  Enhance dialogs visual look & feel.
-10. Fix LICENSE text display problem in installer.
+1.  Make Insert date time customizable.
+2.  Make date time order reversible for short & long format.
+3.  Add Insert Date/Time commands shortcut & macro capacities.
+4.  Fix regression: no error message when locked file could not be saved - Show file locked warning now.
+5.  Make "Confirm Save All" dialog more clear: use "Always Yes" button instead of "Cancel".
+6.  Improve JSON, PHP, PYTHON, CSS, BANNC and VHDL syntax highlighting in dark mode.
+7.  Fix inconsistency of Document List context menu.
+8.  Enable/disable ext column via Document list context menu directly.
+9.  Add path column in Document list panel.
+10. Allow custom color for Document Map.
+11. Fix docked/float panels in RTL layout issue.
+12. Fix CSS pseudo-elements not recognized issue. Update CSS keywords and add new styles.
+13. Fix issue that current directory not been applied after changing current directory option in preferences.
+14. Sort Default language combobox of "New Document" section in Preferences. 
 
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.1.4/
+https://notepad-plus-plus.org/downloads/v8.1.5/
 
 
 Included plugins:

@@ -1023,7 +1023,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
                     <Item id="6315" name="Ingen"/>
                     <Item id="6316" name="Enkel säkerhetskopia"/>
                     <Item id="6317" name="Detaljerad säkerhetskopia"/>
-                    <Item id="6804" name="Anpassad mapp för säkerhetskopiering"/>
+                    <Item id="6804" name="Anpassad mapp för säkerhetskopior"/>
                     <Item id="6803" name="Mapp:"/>
                 </Backup>
 

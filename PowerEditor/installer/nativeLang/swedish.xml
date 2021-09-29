@@ -1232,7 +1232,7 @@ Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versione
             <DocTooDirtyToMonitor title="Övervakningsproblem" message="Dokumentet har ändrats. Spara ändringarna innan du övervakar den."/>
             <DocNoExistToMonitor title="Övervakningsproblem" message="Filen måste finnas för att kunna övervakas."/>
             <FileTooBigToOpen title="Problem med filstorleken" message="Filen är för stor för att öppnas med Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
-            <CreateNewFileOrNot title="Skapa ny fil" message="&quot;$STR_REPLACE$&quot finns inte. Vill du skapa den?"/>
+            <CreateNewFileOrNot title="Skapa ny fil" message="&quot;$STR_REPLACE$&quot; finns inte. Vill du skapa den?"/>
             <CreateNewFileError title="Skapa ny fil" message="Kan inte skapa filen &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="FEL" message="Kan inte öppna filen &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="Misslyckades att säkerhetskopiera fil" message="Den föregående versionen av filen kunde inte sparas i säkerhetskopieringsmappen &quot;$STR_REPLACE$&quot;.

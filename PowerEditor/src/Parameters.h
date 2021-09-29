@@ -1179,7 +1179,7 @@ friend class NppParameters;
 
 public:
 	void addThemeFromXml(const generic_string& xmlFullPath) {
-		_themeList.push_back(std::pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
+		_themeList.emplace_back(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath);
 	}
 
 	void addDefaultThemeFromXml(const generic_string& xmlFullPath) {

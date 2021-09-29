@@ -345,7 +345,7 @@ static bool IsValidIdentifier(const std::string& identifier) {
 }
 
 static bool IsValidNumber(const std::string& number) {
-	size_t hashPos = number.find("#");
+	size_t hashPos = number.find('#');
 	bool seenDot = false;
 
 	size_t i = 0;

@@ -347,7 +347,6 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 			{
 				generic_string pluginsFullPathFilter2 = pluginsFolder;
 				PathAppend(pluginsFullPathFilter2, foundFileName2);
-				generic_string pluginsFolderPath2 = pluginsFullPathFilter2;
 				generic_string  dllName2 = foundFileName2;
 				dllName2 += TEXT(".dll");
 				PathAppend(pluginsFullPathFilter2, dllName2);

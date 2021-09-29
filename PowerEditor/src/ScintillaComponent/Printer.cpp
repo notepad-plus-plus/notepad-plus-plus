@@ -328,6 +328,7 @@ size_t Printer::doPrint(bool justDoIt)
 
 	int pageNum = 1;
 	const TCHAR pageVar[] = TEXT("$(CURRENT_PRINTING_PAGE)");
+	const int pageLength = lstrlen(pageVar);
 
 	_pSEView->execute(SCI_SETPRINTCOLOURMODE, nppGUI._printSettings._printOption); // setting mode once is enough
 	while (lengthPrinted < lengthDoc) 
@@ -367,7 +368,7 @@ size_t Printer::doPrint(bool justDoIt)
 					size_t pos = headerLeft.find(pageVar);
 
 					if (pos != headerLeft.npos)
-						headerLeft.replace(pos, lstrlen(pageVar), pageString);
+						headerLeft.replace(pos, pageLength, pageString);
 
 					::ExtTextOut(_pdlg.hDC, frPrint.rc.left + 5, frPrint.rc.top - headerLineHeight / 2,
 						ETO_OPAQUE, &rcw, headerLeft.c_str(), static_cast<int>(headerLeft.length()), NULL);

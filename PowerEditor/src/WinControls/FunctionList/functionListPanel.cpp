@@ -97,6 +97,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 	int targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
 	int targetEnd = 0;
+	const int length = lstrlen(bodyOpenSymbol);
 
 	do
 	{
@@ -105,7 +106,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 			targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
 
 			// Now we determinate the symbol (open or close)
-			int tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
+			int tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, length, targetStart, targetEnd);
 			if (tmpStart >= 0) // open symbol found
 			{
 				++cntOpen;

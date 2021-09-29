@@ -1064,8 +1064,7 @@ LRESULT CALLBACK WindowsDlg::listViewProc(HWND hwnd, UINT Message, WPARAM wParam
 	return CallWindowProc(reinterpret_cast<WNDPROC>(originalListViewProc), hwnd, Message, wParam, lParam);
 }
 
-WindowsMenu::WindowsMenu()
-{}
+WindowsMenu::WindowsMenu() = default;
 
 WindowsMenu::~WindowsMenu()
 {

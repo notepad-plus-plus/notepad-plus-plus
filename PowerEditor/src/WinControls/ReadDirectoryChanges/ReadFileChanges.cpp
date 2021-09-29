@@ -9,9 +9,7 @@ CReadFileChanges::CReadFileChanges()
 }
 
 
-CReadFileChanges::~CReadFileChanges()
-{
-}
+CReadFileChanges::~CReadFileChanges() = default;
 
 
 BOOL CReadFileChanges::DetectChanges() {

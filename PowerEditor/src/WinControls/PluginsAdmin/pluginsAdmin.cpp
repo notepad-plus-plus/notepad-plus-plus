@@ -500,7 +500,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 			generic_string folderName = i->_folderName;
 			if (folderName.empty())
 			{
-				auto lastindex = i->_displayName.find_last_of(TEXT("."));
+				auto lastindex = i->_displayName.find_last_of(TEXT('.'));
 				if (lastindex != generic_string::npos)
 					folderName = i->_displayName.substr(0, lastindex);
 				else

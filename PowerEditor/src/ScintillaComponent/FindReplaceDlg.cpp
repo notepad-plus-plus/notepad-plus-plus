@@ -4133,7 +4133,7 @@ bool Finder::isLineActualSearchResult(const generic_string & s) const
 {
 	// actual-search-result lines are the only type that start with a tab character
 	// sample: "\tLine 123: xxxxxxHITxxxxxx"
-	return (s.find(TEXT("\t")) == 0);
+	return (s.find(TEXT('\t')) == 0);
 }
 
 generic_string & Finder::prepareStringForClipboard(generic_string & s) const

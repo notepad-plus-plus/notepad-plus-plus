@@ -228,7 +228,7 @@ static bool getRawPath(const generic_string& input, generic_string &rawPath_out)
 	// The alphabetic character must, in turn, be preceded by nothing, or by whitespace, or by
 	// a quotation mark.
 	locale loc;
-	size_t lastOccurrence = input.rfind(L":");
+	size_t lastOccurrence = input.rfind(L':');
 	if (lastOccurrence == std::string::npos) // No match.
 		return false;
 	else if (lastOccurrence == 0)
@@ -261,7 +261,7 @@ static bool getPathsForPathCompletion(const generic_string& input, generic_strin
 	}
 	else
 	{
-		size_t last_occurrence = rawPath.rfind(L"\\");
+		size_t last_occurrence = rawPath.rfind(L'\\');
 		if (last_occurrence == std::string::npos) // No match.
 			return false;
 		else

@@ -1734,7 +1734,8 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                                int count=1;
                                TCHAR tbuffer[255] = { '\0' };
 							   wcscpy_s(tbuffer,(TCHAR*)lParam);
-                               for(int j=0;j<(int)lstrlen(tbuffer);j++)
+                               const int length = lstrlen(tbuffer);
+                               for(int j=0;j<length;j++)
                                    {
                                    if(tbuffer[j]=='\n'){count++;}
                                    }

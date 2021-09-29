@@ -105,7 +105,7 @@ struct QuoteParams
 {
 	enum Speed { slow = 0, rapid, speedOfLight };
 
-	QuoteParams() {};
+	QuoteParams() = default;
 	QuoteParams(const wchar_t* quoter, Speed speed, bool shouldBeTrolling, int encoding, LangType lang, const wchar_t* quote) :
 		_quoter(quoter), _speed(speed), _shouldBeTrolling(shouldBeTrolling), _encoding(encoding), _lang(lang), _quote(quote) {}
 

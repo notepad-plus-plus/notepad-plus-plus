@@ -224,7 +224,6 @@ const char* TiXmlBaseA::ReadName( const char* p, TIXMLA_STRING * name )
 const char* TiXmlBaseA::GetEntity( const char* p, char* value )
 {
 	// Presume an entity, and pull it out.
-    TIXMLA_STRING ent;
 	int i;
 
 	// Handle the &#x entities.

@@ -529,6 +529,7 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 	(*ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 	int targetStart = (*ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
 	LRESULT targetEnd = 0;
+	const int length = lstrlen(bodyOpenSymbol);
 
 	do
 	{
@@ -540,7 +541,7 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 			if (!isInZones(targetStart, commentZones))
 			{
 				// Now we determinate the symbol (open or close)
-				int tmpStart = (*ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
+				int tmpStart = (*ppEditView)->searchInTarget(bodyOpenSymbol, length, targetStart, targetEnd);
 				if (tmpStart >= 0) // open symbol found 
 				{
 					++cntOpen;

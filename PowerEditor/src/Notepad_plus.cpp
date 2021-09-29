@@ -231,6 +231,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_docTabIconListDarkMode.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_darkMode, sizeof(docTabIconIDs_darkMode) / sizeof(int));
 	
 	vector<IconList *> pIconListVector;
+	pIconListVector.reserve(3);
 	pIconListVector.push_back(&_docTabIconList);        // 0
 	pIconListVector.push_back(&_docTabIconListAlt);     // 1
 	pIconListVector.push_back(&_docTabIconListDarkMode);// 2
@@ -6279,7 +6280,7 @@ vector<generic_string> Notepad_plus::addNppPlugins(const TCHAR *extFilterName, c
                 generic_string destName = destDirName;
 				
 				generic_string nameExt = ::PathFindFileName(fns.at(i).c_str());
-				auto pos = nameExt.find_last_of(TEXT("."));
+				auto pos = nameExt.find_last_of(TEXT('.'));
 				if (pos == generic_string::npos)
 					continue;
 

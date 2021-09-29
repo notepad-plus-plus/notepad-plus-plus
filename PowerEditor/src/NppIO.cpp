@@ -201,7 +201,6 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
     _lastRecentFileList.remove(longFileName);
 
 	generic_string fileName2Find;
-	generic_string gs_fileName{ targetFileName };
 
 
 	// "fileName" could be:
@@ -1510,7 +1509,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				// Get the custom directory, make sure it has a trailing slash
 				fn_bak = nppgui._backupDir;
 				if (fn_bak.back() != TEXT('\\'))
-					fn_bak += TEXT("\\");
+					fn_bak += TEXT('\\');
 			}
 			else
 			{
@@ -1518,7 +1517,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				generic_string path = fn;
 				::PathRemoveFileSpec(path);
 				fn_bak = path.c_str();
-				fn_bak += TEXT("\\");
+				fn_bak += TEXT('\\');
 
 				// If verbose, save it in a sub folder
 				if (backup == bak_verbose)

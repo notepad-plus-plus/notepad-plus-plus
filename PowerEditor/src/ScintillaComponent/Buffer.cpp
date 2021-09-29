@@ -1197,8 +1197,8 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	std::string buf2Test = std::string((const char *)data + i, longestLength);
 
 	// Is there a \r or \n in the buffer? If so, truncate it
-	auto cr = buf2Test.find("\r");
-	auto nl = buf2Test.find("\n");
+	auto cr = buf2Test.find('\r');
+	auto nl = buf2Test.find('\n');
 	auto crnl = min(cr, nl);
 	if (crnl != std::string::npos && crnl < longestLength)
 		buf2Test = std::string((const char *)data + i, crnl);

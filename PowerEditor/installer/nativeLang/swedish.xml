@@ -373,7 +373,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMID="10" name="Byt namn på fil..."/>
                 <Item CMID="11" name="Flytta till papperskorgen"/>
                 <Item CMID="12" name="Skrivskydda"/>
-                <Item CMID="13" name="Inaktivera skrivskyddet"/>
+                <Item CMID="13" name="Inaktivera skrivskydd"/>
                 <Item CMID="14" name="Flytta till ny instans"/>
                 <Item CMID="15" name="Klona till ny instans"/>
                 <Item CMID="16" name="Ladda om"/>

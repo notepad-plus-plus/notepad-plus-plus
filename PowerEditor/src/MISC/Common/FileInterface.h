@@ -51,6 +51,10 @@ public:
 	unsigned long read(void *rbuf, unsigned long buf_size);
 	bool write(const void *wbuf, unsigned long buf_size);
 
+	bool writeStr(const char* str) {
+		return write(str, static_cast<unsigned long>(strlen(str)));
+	};
+
 private:
 	HANDLE	_hFile		{INVALID_HANDLE_VALUE};
 	Mode	_hMode		{Mode::READ};

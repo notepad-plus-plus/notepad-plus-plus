@@ -118,7 +118,7 @@ void writeFileContent(const TCHAR *file2write, const char *content2write)
 	Win32_IO_File file(file2write, Win32_IO_File::Mode::WRITE);
 
 	if (file.isOpened())
-		file.write(content2write, static_cast<unsigned long>(strlen(content2write)));
+		file.writeStr(content2write);
 }
 
 
@@ -127,7 +127,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 	Win32_IO_File file(logFileName, Win32_IO_File::Mode::APPEND);
 
 	if (file.isOpened())
-		file.write(log2write, static_cast<unsigned long>(strlen(log2write)));
+		file.writeStr(log2write);
 }
 
 

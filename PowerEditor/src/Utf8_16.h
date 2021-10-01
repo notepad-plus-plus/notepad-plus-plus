@@ -139,16 +139,16 @@ public:
 
 	void setEncoding(UniMode eType);
 
-	bool fopen(const TCHAR *name);
-	unsigned long fwrite(const void* p, unsigned long _size);
-	void fclose();
+	bool openFile(const TCHAR *name);
+	bool writeFile(const void* p, unsigned long _size);
+	void closeFile();
 
 	size_t convert(char* p, size_t _size);
 	char* getNewBuf() { return reinterpret_cast<char*>(m_pNewBuf); }
 
 protected:
 	UniMode m_eEncoding;
-	std::unique_ptr<CFile> m_pFile;
+	std::unique_ptr<Win32_IO_File> m_pFile;
 	ubyte* m_pNewBuf;
 	size_t m_nBufSize;
 	bool m_bFirstWrite;

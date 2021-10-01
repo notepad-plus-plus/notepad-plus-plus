@@ -115,19 +115,19 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 
 void writeFileContent(const TCHAR *file2write, const char *content2write)
 {
-	CFile file(file2write, CFile::Mode::WRITE);
+	Win32_IO_File file(file2write, Win32_IO_File::Mode::WRITE);
 
-	if (file.IsOpened())
-		file.Write(content2write, static_cast<unsigned long>(strlen(content2write)));
+	if (file.isOpened())
+		file.write(content2write, static_cast<unsigned long>(strlen(content2write)));
 }
 
 
 void writeLog(const TCHAR *logFileName, const char *log2write)
 {
-	CFile file(logFileName, CFile::Mode::APPEND);
+	Win32_IO_File file(logFileName, Win32_IO_File::Mode::APPEND);
 
-	if (file.IsOpened())
-		file.Write(log2write, static_cast<unsigned long>(strlen(log2write)));
+	if (file.isOpened())
+		file.write(log2write, static_cast<unsigned long>(strlen(log2write)));
 }
 
 

@@ -285,17 +285,17 @@ Utf8_16_Write::Utf8_16_Write()
 
 Utf8_16_Write::~Utf8_16_Write()
 {
-	fclose();
+	closeFile();
 }
 
-bool Utf8_16_Write::fopen(const TCHAR *name)
+bool Utf8_16_Write::openFile(const TCHAR *name)
 {
-	m_pFile = std::make_unique<CFile>(name, CFile::Mode::WRITE);
+	m_pFile = std::make_unique<Win32_IO_File>(name, Win32_IO_File::Mode::WRITE);
 
 	if (!m_pFile)
 		return false;
 
-	if (!m_pFile->IsOpened())
+	if (!m_pFile->isOpened())
 	{
 		m_pFile = nullptr;
 		return false;
@@ -306,12 +306,12 @@ bool Utf8_16_Write::fopen(const TCHAR *name)
 	return true;
 }
 
-unsigned long Utf8_16_Write::fwrite(const void* p, unsigned long _size)
+bool Utf8_16_Write::writeFile(const void* p, unsigned long _size)
 {
     // no file open
 	if (!m_pFile)
     {
-		return 0;
+		return false;
 	}
 
 	if (m_bFirstWrite)
@@ -319,14 +319,14 @@ unsigned long Utf8_16_Write::fwrite(const void* p, unsigned long _size)
         switch (m_eEncoding)
         {
             case uniUTF8: {
-                if (!m_pFile->Write(k_Boms[m_eEncoding], 3))
-					return 0;
+                if (!m_pFile->write(k_Boms[m_eEncoding], 3))
+					return false;
                 break;
             }    
             case uni16BE:
             case uni16LE:
-                if (!m_pFile->Write(k_Boms[m_eEncoding], 2))
-					return 0;
+                if (!m_pFile->write(k_Boms[m_eEncoding], 2))
+					return false;
                 break;
             default:
                 // nothing to do
@@ -335,7 +335,7 @@ unsigned long Utf8_16_Write::fwrite(const void* p, unsigned long _size)
 		m_bFirstWrite = false;
     }
 
-    unsigned long ret = 0;
+    bool isOK = false;
 
     switch (m_eEncoding)
     {
@@ -344,8 +344,8 @@ unsigned long Utf8_16_Write::fwrite(const void* p, unsigned long _size)
         case uniCookie:
         case uniUTF8: {
             // Normal write
-			if (m_pFile->Write(p, _size))
-				ret = 1;
+			if (m_pFile->write(p, _size))
+				isOK = true;
             break;
         }
         case uni16BE_NoBOM:
@@ -365,18 +365,18 @@ unsigned long Utf8_16_Write::fwrite(const void* p, unsigned long _size)
 					iter8.get(&buf [bufIndex++]);
 
 				if (bufIndex == bufSize || !iter8) {
-					if (!m_pFile->Write(buf, bufIndex*sizeof(utf16))) return 0;
+					if (!m_pFile->write(buf, bufIndex*sizeof(utf16))) return 0;
 					bufIndex = 0;
 				}
 			}
-            ret = 1;
+			isOK = true;
             break;
         }    
         default:
             break;
     }
 
-    return ret;
+    return isOK;
 }
 
 
@@ -448,7 +448,7 @@ void Utf8_16_Write::setEncoding(UniMode eType)
 }
 
 
-void Utf8_16_Write::fclose()
+void Utf8_16_Write::closeFile()
 {
 	if (m_pNewBuf)
 	{

@@ -551,35 +551,24 @@ void TiXmlElement::SetAttribute( const TCHAR * name, const TCHAR * _value )
 	}
 }
 
-const char one_ws[] = " ";
-const char four_ws[] = "    ";
-const char eol[] = "\r\n";
-
-const generic_string tagOpenSymb = TEXT("<");
-const generic_string tagOpenSlash = TEXT("</");
-const generic_string tagCloseSymb = TEXT(">");
-
-const char tagCloseChar[] = ">";
-const char tagCloseSymbFinal[] = " />";
-
-void TiXmlElement::Print( CFile& cfile, int depth ) const
+void TiXmlElement::Print( Win32_IO_File& cfile, int depth ) const
 {
 	int i;
 	for ( i=0; i<depth; i++ )
 	{
-		cfile.Write(four_ws, 4);
+		cfile.writeStr("    ");
 		//generic_fprintf( cfile, TEXT("    ") );
 	}
 
-	generic_string tagOpenValue = tagOpenSymb + value;
-	std::string tagOpenValueA = wstring2string(tagOpenValue, CP_UTF8);
-	cfile.Write(tagOpenValueA.c_str(), static_cast<unsigned long>(tagOpenValueA.length()));
+	std::string tagOpenValue = "<";
+	tagOpenValue += wstring2string(value, CP_UTF8);
+	cfile.writeStr(tagOpenValue);
 	//generic_fprintf( cfile, TEXT("<%ls"), value.c_str() );
 
 	TiXmlAttribute* attrib;
 	for ( attrib = attributeSet.First(); attrib; attrib = attrib->Next() )
 	{
-		cfile.Write(one_ws, 1);
+		cfile.writeStr(" ");
 		//generic_fprintf(cfile, TEXT(" "));
 
 		attrib->Print( cfile, depth );
@@ -592,45 +581,45 @@ void TiXmlElement::Print( CFile& cfile, int depth ) const
 	TiXmlNode* node;
 	if ( !firstChild )
 	{
-		cfile.Write(tagCloseSymbFinal, 3);
+		cfile.writeStr(" />");
 		//generic_fprintf( cfile, TEXT(" />") );
 	}
 	else if ( firstChild == lastChild && firstChild->ToText() )
 	{
-		cfile.Write(tagCloseChar, 1);
+		cfile.writeStr(">");
 		//generic_fprintf( cfile, TEXT(">") );
 
 		firstChild->Print( cfile, depth + 1 );
 
-		generic_string tagCloseWithValue = tagOpenSlash + value + tagCloseSymb;
-		std::string tagCloseWithValueA = wstring2string(tagCloseWithValue, CP_UTF8);
-		cfile.Write(tagCloseWithValueA.c_str(), static_cast<unsigned long>(tagCloseWithValueA.length()));
+		std::string tagCloseWithValue = "</";
+		tagCloseWithValue += wstring2string(value, CP_UTF8) + ">";
+		cfile.writeStr(tagCloseWithValue);
 		//generic_fprintf( cfile, TEXT("</%ls>"), value.c_str() );
 	}
 	else
 	{
-		cfile.Write(tagCloseChar, 1);
+		cfile.writeStr(">");
 		//generic_fprintf( cfile, TEXT(">") );
 
 		for ( node = firstChild; node; node=node->NextSibling() )
 		{
 			if ( !node->ToText() )
 			{
-				cfile.Write(eol, 2);
+				cfile.writeStr("\r\n");
 				//generic_fprintf( cfile, TEXT("\n") );
 			}
 			node->Print( cfile, depth+1 );
 		}
-		cfile.Write(eol, 2);
+		cfile.writeStr("\r\n");
 		//generic_fprintf( cfile, TEXT("\n") );
 
 		for( i=0; i<depth; ++i )
-			cfile.Write(four_ws, 4);
+			cfile.writeStr("    ");
 			// generic_fprintf( cfile, TEXT("    ") );
 
-		generic_string tagCloseWithValue = tagOpenSlash + value + tagCloseSymb;
-		std::string tagCloseWithValueA = wstring2string(tagCloseWithValue, CP_UTF8);
-		cfile.Write(tagCloseWithValueA.c_str(), static_cast<unsigned long>(tagCloseWithValueA.length()));
+		std::string tagCloseWithValue = "</";
+		tagCloseWithValue += wstring2string(value, CP_UTF8) + ">";
+		cfile.writeStr(tagCloseWithValue);
 		//generic_fprintf( cfile, TEXT("</%ls>"), value.c_str() );
 	}
 }
@@ -747,7 +736,7 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 
 	if ( file )
 	{
-		// Get the file size, so we can pre-allocate the generic_string. HUGE speed impact.
+		// Get the file size, so we can pre-allocate the string. HUGE speed impact.
 		long length = 0;
 		fseek( file, 0, SEEK_END );
 		length = ftell( file );
@@ -800,9 +789,9 @@ bool TiXmlDocument::SaveFile( const TCHAR * filename ) const
 	return false;
 	*/
 
-	CFile file(filename, CFile::Mode::WRITE);
+	Win32_IO_File file(filename, Win32_IO_File::Mode::WRITE);
 
-	if (file.IsOpened())
+	if (file.isOpened())
 	{
 		Print(file, 0);
 		return true;
@@ -831,14 +820,14 @@ TiXmlNode* TiXmlDocument::Clone() const
 }
 
 
-void TiXmlDocument::Print( CFile& cfile, int depth ) const
+void TiXmlDocument::Print( Win32_IO_File& cfile, int depth ) const
 {
 	TiXmlNode* node;
 	for ( node=FirstChild(); node; node=node->NextSibling() )
 	{
 		node->Print( cfile, depth );
 
-		cfile.Write(eol, 2);
+		cfile.writeStr("\r\n");
 		//generic_fprintf( cfile, TEXT("\n") );
 	}
 }
@@ -879,30 +868,29 @@ TiXmlAttribute* TiXmlAttribute::Previous() const
 }
 
 
-void TiXmlAttribute::Print( CFile& cfile, int /*depth*/ ) const
+void TiXmlAttribute::Print( Win32_IO_File& cfile, int /*depth*/ ) const
 {
 	TIXML_STRING n, v;
 
 	PutString( Name(), &n );
 	PutString( Value(), &v );
 
-	generic_string attrVsValue = n;
+	std::string attrVsValue = wstring2string(n, CP_UTF8);
 	if (value.find('\"') == TIXML_STRING::npos)
 	{
-		attrVsValue += TEXT("=\"");
-		attrVsValue += v;
-		attrVsValue += TEXT("\"");
+		attrVsValue += "=\"";
+		attrVsValue += wstring2string(v, CP_UTF8);
+		attrVsValue += "\"";
 		//generic_fprintf(cfile, TEXT("%ls=\"%ls\""), n.c_str(), v.c_str());
 	}
 	else
 	{
-		attrVsValue += TEXT("='");
-		attrVsValue += v;
-		attrVsValue += TEXT("'");
+		attrVsValue += "='";
+		attrVsValue += wstring2string(v, CP_UTF8);
+		attrVsValue += "'";
 		//generic_fprintf(cfile, TEXT("%ls='%ls'"), n.c_str(), v.c_str());
 	}
-	std::string attrVsValueA = wstring2string(attrVsValue, CP_UTF8);
-	cfile.Write(attrVsValueA.c_str(), static_cast<unsigned long>(attrVsValueA.length()));
+	cfile.writeStr(attrVsValue);
 }
 
 
@@ -962,19 +950,18 @@ const double  TiXmlAttribute::DoubleValue() const
 	return generic_atof (value.c_str ());
 }
 
-void TiXmlComment::Print( CFile& cfile, int depth ) const
+void TiXmlComment::Print( Win32_IO_File& cfile, int depth ) const
 {
 	for ( int i=0; i<depth; i++ )
 	{
-		cfile.Write(four_ws, 4);
+		cfile.writeStr("    ");
 		//generic_fprintf( cfile, TEXT("    ") );
 	}
 
-	generic_string comment = TEXT("<!--");
-	comment += value;
-	comment += TEXT("-->");
-	std::string commentA = wstring2string(comment, CP_UTF8);
-	cfile.Write(commentA.c_str(), static_cast<unsigned long>(commentA.length()));
+	std::string comment = "<!--";
+	comment += wstring2string(value, CP_UTF8);
+	comment += "-->";
+	cfile.writeStr(comment);
 	//generic_fprintf( cfile, TEXT("<!--%ls-->"), value.c_str() );
 }
 
@@ -997,13 +984,12 @@ TiXmlNode* TiXmlComment::Clone() const
 }
 
 
-void TiXmlText::Print( CFile& cfile, int /*depth*/ ) const
+void TiXmlText::Print( Win32_IO_File& cfile, int /*depth*/ ) const
 {
 	TIXML_STRING buffer;
 	PutString( value, &buffer );
 
-	std::string bufferA = wstring2string(buffer, CP_UTF8);
-	cfile.Write(bufferA.c_str(), static_cast<unsigned long>(bufferA.length()));
+	cfile.writeStr(wstring2string(buffer, CP_UTF8));
 	//generic_fprintf( cfile, TEXT("%ls"), buffer.c_str() );
 }
 
@@ -1037,43 +1023,38 @@ TiXmlDeclaration::TiXmlDeclaration( const TCHAR * _version,
 	standalone = _standalone;
 }
 
-const generic_string xmlDclOpen = TEXT("<?xml ");
-const generic_string xmlDclClose = TEXT("?>");
-
-
-void TiXmlDeclaration::Print( CFile& cfile, int /*depth*/ ) const
+void TiXmlDeclaration::Print( Win32_IO_File& cfile, int /*depth*/ ) const
 {
-	generic_string xmlDcl = xmlDclOpen;
+	std::string xmlDcl = "<?xml ";
 	//generic_fprintf (cfile, TEXT("<?xml "));
 
 	if (!version.empty())
 	{
-		xmlDcl += TEXT("version=\"");
-		xmlDcl += version;
-		xmlDcl += TEXT("\" ");
+		xmlDcl += "version=\"";
+		xmlDcl += wstring2string(version, CP_UTF8);
+		xmlDcl += "\" ";
 		//generic_fprintf(cfile, TEXT("version=\"%ls\" "), version.c_str());
 	}
 
 	if (!encoding.empty())
 	{
-		xmlDcl += TEXT("encoding=\"");
-		xmlDcl += encoding;
-		xmlDcl += TEXT("\" ");
+		xmlDcl += "encoding=\"";
+		xmlDcl += wstring2string(encoding, CP_UTF8);
+		xmlDcl += "\" ";
 		//generic_fprintf(cfile, TEXT("encoding=\"%ls\" "), encoding.c_str());
 	}
 	if (!standalone.empty())
 	{
-		xmlDcl += TEXT("standalone=\"");
-		xmlDcl += standalone;
-		xmlDcl += TEXT("\" ");
+		xmlDcl += "standalone=\"";
+		xmlDcl += wstring2string(standalone, CP_UTF8);
+		xmlDcl += "\" ";
 		//generic_fprintf(cfile, TEXT("standalone=\"%ls\" "), standalone.c_str());
 	}
 
-	xmlDcl += xmlDclClose;
+	xmlDcl += "?>";
 	//generic_fprintf (cfile, TEXT("?>"));
 
-	std::string xmlDclA = wstring2string(xmlDcl, CP_UTF8);
-	cfile.Write(xmlDclA.c_str(), static_cast<unsigned long>(xmlDclA.length()));
+	cfile.writeStr(xmlDcl);
 }
 
 void TiXmlDeclaration::StreamOut( TIXML_OSTREAM * stream ) const
@@ -1116,14 +1097,13 @@ TiXmlNode* TiXmlDeclaration::Clone() const
 }
 
 
-void TiXmlUnknown::Print( CFile& cfile, int depth ) const
+void TiXmlUnknown::Print( Win32_IO_File& cfile, int depth ) const
 {
 	for ( int i=0; i<depth; i++ )
-		cfile.Write(four_ws, 4);
+		cfile.writeStr("    ");
 		//generic_fprintf( cfile, TEXT("    ") );
 
-	std::string valueA = wstring2string(value, CP_UTF8);
-	cfile.Write(valueA.c_str(), static_cast<unsigned long>(valueA.length()));
+	cfile.writeStr(wstring2string(value, CP_UTF8));
 	//generic_fprintf( cfile, TEXT("%ls"), value.c_str() );
 }
 

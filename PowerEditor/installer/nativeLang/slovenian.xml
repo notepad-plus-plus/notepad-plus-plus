@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.1.4
-        Last modified 25. Aug 2021 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.1.5
+        Last modified 01. Oct 2021 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.1.4">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -114,7 +114,8 @@
                     <Item id="42007" name="&amp;Izberi vse"/>
 					<Item id="42020" name="I&amp;zberi Začetek/Konec"/>
                     <Item id="42084" name="Datum in ura (kratko)"/>
-                    <Item id="42085" name="Datum in čas (dolgo)"/>					
+                    <Item id="42085" name="Datum in čas (dolgo)"/>
+                    <Item id="42086" name="Datum in čas (po meri)"/>					
                     <Item id="42008" name="Povečaj zamik vrstice"/>
                     <Item id="42009" name="Zmanjšaj zamik vrstice"/>
                     <Item id="42010" name="Podvoji trenutno vrstico"/>
@@ -432,6 +433,12 @@
                 <Item id="1723" name="▼ Najdi naprej"/>
                 <Item id="1725" name="Kopiraj označeno besedilo"/>				
 			</Find>
+
+            <IncrementalFind title="">
+                <Item id="1681" name="Najdi"/>
+                <Item id="1685" name="Upoštevaj izbrano"/>
+                <Item id="1690" name="Poudari vse"/>
+            </IncrementalFind>
 				
             <FindCharsInRange title="Najdi znake v območju...">
 				<Item id="2" name="Zapri"/>
@@ -833,9 +840,6 @@
 					<Item id="6122" name="Skrij menijsko vrstico (uporabite tipko Alt ali F10 za preklop)"/>
 					<Item id="6123" name="Lokalizacija"/>
 					
-					<Item id="6125" name="Panel seznama dokumenta"/>
-					<Item id="6127" name="Onemogoči stolpec pripone"/>
-
                     <Item id="6128" name="Nadomestne ikone"/>					
 				</Global>
 				<Scintillas title="Urejanje">
@@ -1044,13 +1048,16 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6866" name="Usklajen par 3:"/>
 				</AutoCompletion>
                 
-				<MultiInstance title="Večpojavnost">
+				<MultiInstance title="Večpojavnost &amp; Date">
 					<Item id="6151" name="Nastavitve večpojavnosti"/>
                     <Item id="6152" name="Odpri sejo v novem primerku Notepad++"/>
                     <Item id="6153" name="Vedno v načinu večpojavnosti"/>
                     <Item id="6154" name="Privzeto (enopojavnost)"/>
                     <Item id="6155" name="* Sprememba te nastavitve zahteva ponovni zagon Notepad++"/>
-                </MultiInstance>
+                    <Item id="6171" name="Prilagodi datum in čas vstavitve"/>
+                    <Item id="6175" name="Obrni privzeti vrstni red datuma in časa (kratki &amp;&amp; dolgi formati)"/>
+                    <Item id="6172" name="Format po meri:"/> 
+               </MultiInstance>
 				
 				<Delimiter title="Razmejilnik">
                     <Item id="6251" name="Nastavitve izbora razmejilnika (Ctrl + dvoklik miške)"/>
@@ -1162,6 +1169,15 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
                 <Item id="4" name="Da za &amp;vse"/>
                 <Item id="5" name="N&amp;e za vse"/>
             </DoSaveOrNot>
+            <DoSaveAll title="Shrani vse potrditve">
+                <Item id="1766" name="Ali ste prepričani, da želite shraniti vse spremenjene dokumente?
+
+Izberite &quot;Vedno da&quot; če ne želite več videti tega pogovornega okna.
+To pogovorno okno lahko pozneje znova aktivirate v nastavitvah."/>
+                <Item id="6" name="&amp;Da"/>
+                <Item id="7" name="&amp;Ne"/>
+                <Item id="4" name="Vedno da"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->			
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Urejanje Kontekstnega menija" message="Urejanje contextMenu.xml vam omogoča, da spremenite Notepad++ pojavni kontekstni meni.
@@ -1257,10 +1273,6 @@ izberite katerokoli drugo."/>
 Po zaključku vseh operacij se bo Notepad++ znova zagnal.
 Nadaljujem?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ je treba znova zagnati" message="Če želite naložiti vtičnike, morate znova zagnati Notepad++."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <SaveAllConfirm title="Shrani vse potrditve" message="Ali ste prepričani, da želite shraniti vse dokumente?
-
-Izberite &quot;Prekliči&quot; če bo vaš odgovor vedno &quot;Da&quot; in to vprašanje ne bo več postavljeno.
-To pogovorno okno lahko pozneje znova aktivirate v pogovornem oknu Nastavitve." /> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->			
 		</MessageBox>        
 		<ClipboardHistory>
 			<PanelTitle name="Zgodovina odložišča"/>
@@ -1268,7 +1280,8 @@ To pogovorno okno lahko pozneje znova aktivirate v pogovornem oknu Nastavitve." 
         <DocList>
 			<PanelTitle name="Seznam dokumentov"/>
 			<ColumnName name="Ime"/>
-			<ColumnExt name="Ekst."/>			
+			<ColumnExt name="Ekst."/>
+            <ColumnPath name="Pot"/>			
         </DocList>
 		<WindowsDlg>
 			<ColumnName name="Ime"/>
@@ -1449,7 +1462,7 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" razponu"/>
             <find-in-files-progress-title value="Potek iskanja v datotekah..."/>
-		   <replace-in-files-confirm-title value="Ali ste prepričani?"/>
+		    <replace-in-files-confirm-title value="Ali ste prepričani?"/>
             <replace-in-files-confirm-directory value="Ali ste prepričani, da želite zamenjati vse pojavitve v :"/>
             <replace-in-files-confirm-filetype value="Za vrsto datoteke :"/>
             <replace-in-files-progress-title value="Potek zamenjave v datotekah..."/>		
@@ -1468,7 +1481,11 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
             <session-save-folder-as-workspace value="Shrani mapo kot delovni prostor" />
             <tab-untitled-string value="nov " />
             <file-save-assign-type value="&amp;Dodaj razširitev" />
-            <close-panel-tip value="Zapri" />			
+            <close-panel-tip value="Zapri" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ se ujema" />
+            <IncrementalFind-FSNotFound value="Fraze ni mogoče najti" />
+            <IncrementalFind-FSTopReached value="Dosežen vrh strani, nadaljevanje od spodaj" />
+            <IncrementalFind-FSEndReached value="Dosežen konec strani, nadaljevanje od zgoraj" />			
 		</MiscStrings>					
     </Native-Langue>
 </NotepadPlus>

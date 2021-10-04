@@ -127,6 +127,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (!canUndo && buf->isLoadedDirty() && buf->isDirty())
 					isDirty = true;
 			}
+
+			if (buf->isUnsync()) // buffer in Notepad++ is not syncronized with the file on disk - in this case the buffer is always dirty 
+				isDirty = true;
+
 			buf->setDirty(isDirty);
 			break;
 		}

@@ -27,8 +27,7 @@ typedef Buffer* BufferID;	//each buffer has unique ID by which it can be retriev
 
 typedef sptr_t Document;
 
-enum DocFileStatus
-{
+enum DocFileStatus {
 	DOC_REGULAR    = 0x01, // should not be combined with anything
 	DOC_UNNAMED    = 0x02, // not saved (new ##)
 	DOC_DELETED    = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
@@ -36,8 +35,7 @@ enum DocFileStatus
 	DOC_NEEDRELOAD = 0x10  // File is modified & needed to be reload (by log monitoring)
 };
 
-enum BufferStatusInfo
-{
+enum BufferStatusInfo {
 	BufferChangeLanguage	= 0x001,  // Language was altered
 	BufferChangeDirty		= 0x002,  // Buffer has changed dirty state
 	BufferChangeFormat		= 0x004,  // EOL type was changed
@@ -51,8 +49,7 @@ enum BufferStatusInfo
 	BufferChangeMask		= 0x3FF   // Mask: covers all changes
 };
 
-enum SavingStatus
-{
+enum SavingStatus {
 	SaveOK             = 0,
 	SaveOpenFailed     = 1,
 	SaveWrittingFailed = 2
@@ -61,8 +58,7 @@ enum SavingStatus
 const TCHAR UNTITLED_STR[] = TEXT("new ");
 
 //File manager class maintains all buffers
-class FileManager final
-{
+class FileManager final {
 public:
 	void init(Notepad_plus* pNotepadPlus, ScintillaEditView* pscratchTilla);
 
@@ -108,7 +104,6 @@ public:
 	int docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
-
 private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;
@@ -144,8 +139,7 @@ private:
 
 #define MainFileManager FileManager::getInstance()
 
-class Buffer final
-{
+class Buffer final {
 	friend class FileManager;
 public:
 	//Loading a document:
@@ -162,9 +156,7 @@ public:
 	//             3. gets the last modified time
 	void setFileName(const TCHAR *fn, LangType defaultLang = L_TEXT);
 
-	const TCHAR * getFullPathName() const {
-		return _fullPathName.c_str();
-	}
+	const TCHAR * getFullPathName() const { return _fullPathName.c_str(); }
 
 	const TCHAR * getFileName() const { return _fileName; }
 
@@ -179,70 +171,48 @@ public:
 
 	bool checkFileState();
 
-	bool isDirty() const {
-		return _isDirty;
-	}
+	bool isDirty() const { return _isDirty; }
 
-	bool isReadOnly() const {
-		return (_isUserReadOnly || _isFileReadOnly);
-	};
+	bool isReadOnly() const { return (_isUserReadOnly || _isFileReadOnly); };
 
-	bool isUntitled() const {
-		return (_currentStatus == DOC_UNNAMED);
-	}
+	bool isUntitled() const { return (_currentStatus == DOC_UNNAMED); }
 
-	bool getFileReadOnly() const {
-		return _isFileReadOnly;
-	}
+	bool getFileReadOnly() const { return _isFileReadOnly; }
 
 	void setFileReadOnly(bool ro) {
 		_isFileReadOnly = ro;
 		doNotify(BufferChangeReadonly);
 	}
 
-	bool getUserReadOnly() const {
-		return _isUserReadOnly;
-	}
+	bool getUserReadOnly() const { return _isUserReadOnly; }
 
 	void setUserReadOnly(bool ro) {
 		_isUserReadOnly = ro;
 		doNotify(BufferChangeReadonly);
 	}
 
-	EolType getEolFormat() const {
-		return _eolFormat;
-	}
+	EolType getEolFormat() const { return _eolFormat; }
 
 	void setEolFormat(EolType format) {
 		_eolFormat = format;
 		doNotify(BufferChangeFormat);
 	}
 
-	LangType getLangType() const {
-		return _lang;
-	}
+	LangType getLangType() const { return _lang; }
 
 	void setLangType(LangType lang, const TCHAR * userLangName = TEXT(""));
 
-	UniMode getUnicodeMode() const {
-		return _unicodeMode;
-	}
+	UniMode getUnicodeMode() const { return _unicodeMode; }
 
 	void setUnicodeMode(UniMode mode);
 
-	int getEncoding() const {
-		return _encoding;
-	}
+	int getEncoding() const { return _encoding; }
 
 	void setEncoding(int encoding);
 
-	DocFileStatus getStatus() const {
-		return _currentStatus;
-	}
+	DocFileStatus getStatus() const { return _currentStatus; }
 
-	Document getDocument() {
-		return _doc;
-	}
+	Document getDocument() { return _doc; }
 
 	void setDirty(bool dirty);
 
@@ -252,47 +222,34 @@ public:
 	void setHeaderLineState(const std::vector<size_t> & folds, ScintillaEditView * identifier);
 	const std::vector<size_t> & getHeaderLineState(const ScintillaEditView * identifier) const;
 
-	bool isUserDefineLangExt() const
-	{
-		return (_userLangExt[0] != '\0');
-	}
+	bool isUserDefineLangExt() const { return (_userLangExt[0] != '\0'); }
 
-	const TCHAR * getUserDefineLangName() const
-	{
-		return _userLangExt.c_str();
-	}
+	const TCHAR * getUserDefineLangName() const	{ return _userLangExt.c_str(); }
 
-	const TCHAR * getCommentLineSymbol() const
-	{
+	const TCHAR * getCommentLineSymbol() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentLineSymbol;
 	}
 
-	const TCHAR * getCommentStart() const
-	{
+	const TCHAR * getCommentStart() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentStart;
 	}
 
-	const TCHAR * getCommentEnd() const
-	{
+	const TCHAR * getCommentEnd() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentEnd;
 	}
 
-	bool getNeedsLexing() const
-	{
-		return _needLexer;
-	}
+	bool getNeedsLexing() const { return _needLexer; }
 
-	void setNeedsLexing(bool lex)
-	{
+	void setNeedsLexing(bool lex) {
 		_needLexer = lex;
 		doNotify(BufferChangeLexing);
 	}
@@ -305,18 +262,10 @@ public:
 
 	void setDeferredReload();
 
-	bool getNeedReload()
-	{
-		return _needReloading;
-	}
+	bool getNeedReload() const { return _needReloading; }
+	void setNeedReload(bool reload) { _needReloading = reload; }
 
-	void setNeedReload(bool reload)
-	{
-		_needReloading = reload;
-	}
-
-	int docLength() const
-	{
+	int docLength() const {
 		assert(_pManager != nullptr);
 		return _pManager->docLength(_id);
 	}
@@ -330,28 +279,24 @@ public:
 
 	bool isModified() const { return _isModified; }
 	void setModifiedStatus(bool isModified) { _isModified = isModified; }
+
 	generic_string getBackupFileName() const { return _backupFileName; }
 	void setBackupFileName(const generic_string& fileName) { _backupFileName = fileName; }
+
 	FILETIME getLastModifiedTimestamp() const { return _timeStamp; }
 
-	bool isLoadedDirty() const
-	{
-		return _isLoadedDirty;
-	}
+	bool isLoadedDirty() const { return _isLoadedDirty; }
+	void setLoadedDirty(bool val) {	_isLoadedDirty = val; }
 
-	void setLoadedDirty(bool val)
-	{
-		_isLoadedDirty = val;
-	}
+	bool isUnsync() const { return _isUnsync; }
+	void setUnsync(bool val) { _isUnsync = val; }
 
 	void startMonitoring() { 
 		_isMonitoringOn = true; 
 		_eventHandle = ::CreateEvent(nullptr, TRUE, FALSE, nullptr);
 	};
 
-	HANDLE getMonitoringEvent() const {
-		return _eventHandle;
-	};
+	HANDLE getMonitoringEvent() const { return _eventHandle; };
 
 	void stopMonitoring() { 
 		_isMonitoringOn = false;
@@ -419,6 +364,13 @@ private:
 	generic_string _backupFileName;
 	bool _isModified = false;
 	bool _isLoadedDirty = false; // it's the indicator for finding buffer's initial state
+
+	bool _isUnsync = false; // Buffer should be always dirty (with any undo/redo operation) if the editing buffer is unsyncronized with file on disk.
+	                        // By "unsyncronized" it means :
+	                        // 1. the file is deleted outside but the buffer in Notepad++ is kept.
+	                        // 2. the file is modified by another app but the buffer is not reloaded in Notepad++.
+	                        // Note that if the buffer is untitled, there's no correspondent file on the disk so the buffer is considered as independent therefore synchronized.
+
 
 	// For the monitoring
 	HANDLE _eventHandle = nullptr;

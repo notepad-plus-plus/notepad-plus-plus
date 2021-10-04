@@ -5874,11 +5874,18 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
 						buffer->setDirty(true);
 
+						// buffer in Notepad++ is not syncronized anymore with the file on disk
+						buffer->setUnsync(true);
+
 						break;	//abort
 					}
 				}
 				// Set _isLoadedDirty false so when the document clean state is reached the icon will be set to blue
 				buffer->setLoadedDirty(false);
+
+				// buffer in Notepad++ is syncronized with the file on disk
+				buffer->setUnsync(false);
+
 				doReload(buffer->getID(), false);
 				if (mainActive || subActive)
 				{
@@ -5924,6 +5931,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					doClose(buffer->getID(), currentView(), isSnapshotMode);
 					return;
 				}
+				else
+				{
+					// buffer in Notepad++ is not syncronized anymore with the file on disk
+					buffer->setUnsync(true);
+				}
+
 				break;
 			}
 		}

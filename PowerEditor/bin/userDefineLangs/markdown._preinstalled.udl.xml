@@ -50,30 +50,30 @@ https://github.com/Edditoria/markdown-plus-plus/blob/master/LICENSE.txt
             <Keywords name="Delimiters">00![ 00[ 01\ 02] 02] 03``` 03` 03~~~ 04\ 05``` 05((EOL `)) 05~~~ 06*** 07\ 08((EOL ***)) 09** 10\ 11((EOL **)) 12* 13\ 14((EOL *)) 15** 16\ 17((EOL **)) 18* 19\ 20((EOL *)) 21 22 23</Keywords>
         </KeywordLists>
         <Styles>
-            <WordsStyle name="DEFAULT" fgColor="333333" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
-            <WordsStyle name="COMMENTS" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="2" nesting="0" />
-            <WordsStyle name="LINE COMMENTS" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="1" nesting="0" />
-            <WordsStyle name="NUMBERS" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
-            <WordsStyle name="KEYWORDS1" fgColor="8000FF" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
-            <WordsStyle name="KEYWORDS2" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="1" nesting="0" />
-            <WordsStyle name="KEYWORDS3" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="3" nesting="0" />
-            <WordsStyle name="KEYWORDS4" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="1" nesting="0" />
-            <WordsStyle name="KEYWORDS5" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="2" nesting="0" />
-            <WordsStyle name="KEYWORDS6" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="3" nesting="0" />
-            <WordsStyle name="KEYWORDS7" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="3" nesting="0" />
-            <WordsStyle name="KEYWORDS8" fgColor="333333" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
-            <WordsStyle name="OPERATORS" fgColor="8080FF" bgColor="FFFFFF" fontName="" fontStyle="1" nesting="0" />
-            <WordsStyle name="FOLDER IN CODE1" fgColor="333333" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
-            <WordsStyle name="FOLDER IN CODE2" fgColor="333333" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
-            <WordsStyle name="FOLDER IN COMMENT" fgColor="333333" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
-            <WordsStyle name="DELIMITERS1" fgColor="8000FF" bgColor="FFFFFF" fontName="" fontStyle="2" nesting="0" />
-            <WordsStyle name="DELIMITERS2" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
-            <WordsStyle name="DELIMITERS3" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="3" nesting="0" />
-            <WordsStyle name="DELIMITERS4" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="1" nesting="65600" />
-            <WordsStyle name="DELIMITERS5" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="2" nesting="32800" />
-            <WordsStyle name="DELIMITERS6" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="3" nesting="0" />
-            <WordsStyle name="DELIMITERS7" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="3" nesting="0" />
-            <WordsStyle name="DELIMITERS8" fgColor="333333" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DEFAULT" fgColor="333333" bgColor="FFFFFF" colorStyle="0" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="COMMENTS" fgColor="808080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="2" nesting="0" />
+            <WordsStyle name="LINE COMMENTS" fgColor="FF8000" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="1" nesting="0" />
+            <WordsStyle name="NUMBERS" fgColor="0080FF" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS1" fgColor="8000FF" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS2" fgColor="FF8000" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="1" nesting="0" />
+            <WordsStyle name="KEYWORDS3" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="3" nesting="0" />
+            <WordsStyle name="KEYWORDS4" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="1" nesting="0" />
+            <WordsStyle name="KEYWORDS5" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="2" nesting="0" />
+            <WordsStyle name="KEYWORDS6" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="3" nesting="0" />
+            <WordsStyle name="KEYWORDS7" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="3" nesting="0" />
+            <WordsStyle name="KEYWORDS8" fgColor="333333" bgColor="FFFFFF" colorStyle="0" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="OPERATORS" fgColor="8080FF" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="1" nesting="0" />
+            <WordsStyle name="FOLDER IN CODE1" fgColor="333333" bgColor="FFFFFF" colorStyle="0" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="FOLDER IN CODE2" fgColor="333333" bgColor="FFFFFF" colorStyle="0" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="FOLDER IN COMMENT" fgColor="333333" bgColor="FFFFFF" colorStyle="0" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS1" fgColor="8000FF" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="2" nesting="0" />
+            <WordsStyle name="DELIMITERS2" fgColor="008000" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS3" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="3" nesting="0" />
+            <WordsStyle name="DELIMITERS4" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="1" nesting="65600" />
+            <WordsStyle name="DELIMITERS5" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="2" nesting="32800" />
+            <WordsStyle name="DELIMITERS6" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="3" nesting="0" />
+            <WordsStyle name="DELIMITERS7" fgColor="000080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="3" nesting="0" />
+            <WordsStyle name="DELIMITERS8" fgColor="333333" bgColor="FFFFFF" colorStyle="0" fontName="" fontStyle="0" nesting="0" />
         </Styles>
     </UserLang>
 </NotepadPlus>

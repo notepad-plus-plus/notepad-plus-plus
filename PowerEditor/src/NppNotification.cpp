@@ -124,9 +124,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (isSnapshotMode && !isDirty)
 			{
 				bool canUndo = _pEditView->execute(SCI_CANUNDO) == TRUE;
-				if ((!canUndo && buf->isLoadedDirty() && buf->isDirty()) || buf->isUnsync())
+				if (!canUndo && buf->isLoadedDirty() && buf->isDirty())
 					isDirty = true;
 			}
+
+			if (buf->isUnsync()) // buffer in Notepad++ is not syncronized with the file on disk - in this case the buffer is always dirty 
+				isDirty = true;
+
 			buf->setDirty(isDirty);
 			break;
 		}

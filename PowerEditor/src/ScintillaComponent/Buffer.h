@@ -334,24 +334,18 @@ public:
 	void setBackupFileName(const generic_string& fileName) { _backupFileName = fileName; }
 	FILETIME getLastModifiedTimestamp() const { return _timeStamp; }
 
-	bool isLoadedDirty() const
-	{
-		return _isLoadedDirty;
-	}
+	bool isLoadedDirty() const { return _isLoadedDirty; }
+	void setLoadedDirty(bool val) {	_isLoadedDirty = val; }
 
-	void setLoadedDirty(bool val)
-	{
-		_isLoadedDirty = val;
-	}
+	bool isUnsync() const { return _isUnsync; }
+	void setUnsync(bool val) { _isUnsync = val; }
 
 	void startMonitoring() { 
 		_isMonitoringOn = true; 
 		_eventHandle = ::CreateEvent(nullptr, TRUE, FALSE, nullptr);
 	};
 
-	HANDLE getMonitoringEvent() const {
-		return _eventHandle;
-	};
+	HANDLE getMonitoringEvent() const { return _eventHandle; };
 
 	void stopMonitoring() { 
 		_isMonitoringOn = false;
@@ -419,6 +413,7 @@ private:
 	generic_string _backupFileName;
 	bool _isModified = false;
 	bool _isLoadedDirty = false; // it's the indicator for finding buffer's initial state
+	bool _isUnsync = false;
 
 	// For the monitoring
 	HANDLE _eventHandle = nullptr;

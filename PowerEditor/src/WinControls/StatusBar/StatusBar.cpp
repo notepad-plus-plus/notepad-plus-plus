@@ -154,8 +154,9 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 				DWORD cchText = 0;
 				cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
-				str.resize(cchText + 1);
-				LRESULT lr = SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)str.data());
+				str.resize(cchText + 1); // technically the std::wstring might not have an internal null character at the end of the buffer, so add one
+				LRESULT lr = SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)&str[0]);
+				str.resize(cchText); // remove the extra NULL character
 				bool ownerDraw = false;
 				if (cchText == 0 && (lr & ~(SBT_NOBORDERS | SBT_POPOUT | SBT_RTLREADING)) != 0)
 				{

@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2021 Don HO <don.h@free.fr>
+// Copyright (C)2021 Pavel Nedev (pg.nedev@gmail.com)
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 #include "FileInterface.h"
 
 
-CFile::CFile(const char *fname, Mode fmode) : _hMode(fmode)
+Win32_IO_File::Win32_IO_File(const char *fname, Mode fmode) : _hMode(fmode)
 {
 	if (fname)
 	{
@@ -38,7 +38,7 @@ CFile::CFile(const char *fname, Mode fmode) : _hMode(fmode)
 }
 
 
-CFile::CFile(const wchar_t *fname, Mode fmode) : _hMode(fmode)
+Win32_IO_File::Win32_IO_File(const wchar_t *fname, Mode fmode) : _hMode(fmode)
 {
 	if (fname)
 	{
@@ -58,9 +58,9 @@ CFile::CFile(const wchar_t *fname, Mode fmode) : _hMode(fmode)
 }
 
 
-void CFile::Close()
+void Win32_IO_File::close()
 {
-	if (IsOpened())
+	if (isOpened())
 	{
 		if (_written)
 		{
@@ -75,21 +75,21 @@ void CFile::Close()
 }
 
 
-int_fast64_t CFile::GetSize()
+int_fast64_t Win32_IO_File::getSize()
 {
 	LARGE_INTEGER r;
 	r.QuadPart = -1;
 
-	if (IsOpened())
+	if (isOpened())
 		::GetFileSizeEx(_hFile, &r);
 
 	return static_cast<int_fast64_t>(r.QuadPart);
 }
 
 
-unsigned long CFile::Read(void *rbuf, unsigned long buf_size)
+unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 {
-	if (!IsOpened() || (rbuf == nullptr) || (buf_size == 0))
+	if (!isOpened() || (rbuf == nullptr) || (buf_size == 0))
 		return 0;
 
 	DWORD bytes_read = 0;
@@ -100,10 +100,9 @@ unsigned long CFile::Read(void *rbuf, unsigned long buf_size)
 	return bytes_read;
 }
 
-
-bool CFile::Write(const void *wbuf, unsigned long buf_size)
+bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 {
-	if (!IsOpened() || (wbuf == nullptr) || (buf_size == 0) || ((_hMode != Mode::WRITE) && (_hMode != Mode::APPEND)))
+	if (!isOpened() || (wbuf == nullptr) || (buf_size == 0) || ((_hMode != Mode::WRITE) && (_hMode != Mode::APPEND)))
 		return false;
 
 	DWORD bytes_written = 0;
@@ -119,7 +118,7 @@ bool CFile::Write(const void *wbuf, unsigned long buf_size)
 
 
 // Helper function to auto-fill CreateFile params optimized for Notepad++ usage.
-void CFile::fillCreateParams(DWORD &access, DWORD &share, DWORD &disp, DWORD &attrib)
+void Win32_IO_File::fillCreateParams(DWORD &access, DWORD &share, DWORD &disp, DWORD &attrib)
 {
 	access	= GENERIC_READ;
 	attrib	= FILE_ATTRIBUTE_NORMAL | FILE_FLAG_POSIX_SEMANTICS; // Distinguish between upper/lower case in name

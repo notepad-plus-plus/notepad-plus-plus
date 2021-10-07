@@ -5,10 +5,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2021-08-31 by Thomas De Rocker (RockyTDR).
+Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.4">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -843,9 +843,6 @@ Last modified on 2021-08-31 by Thomas De Rocker (RockyTDR).
                     <Item id="6122" name="Menubalk verbergen (tonen met Alt of F10)"/>
                     <Item id="6123" name="Taal"/>
 
-                    <Item id="6125" name="Documentenlijst-paneel"/>
-                    <Item id="6127" name="Extensiekolom verbergen"/>
-
                     <Item id="6128" name="Alternatieve pictogrammen"/>
                 </Global>
                 <Scintillas title="Bewerken">
@@ -1287,6 +1284,7 @@ Doorgaan?"/>
             <PanelTitle name="Documentenlijst"/>
             <ColumnName name="Naam"/>
             <ColumnExt name="Ext."/>
+            <ColumnPath name="Pad"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Naam"/>

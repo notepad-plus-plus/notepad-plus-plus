@@ -141,6 +141,16 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		::SetWindowPlacement(_hSelf,&posInfo);
 	}
 
+	//when npp starts up in dark mode, draw dark background to client area temporarily.
+	if (NppDarkMode::isEnabled())
+	{
+		RECT windowClientArea;
+		HDC hdc = GetDCEx(_hSelf, NULL, DCX_CACHE | DCX_LOCKWINDOWUPDATE); //lock window update flag due to line 36 and 111 in this file
+		GetClientRect(_hSelf, &windowClientArea);
+		FillRect(hdc, &windowClientArea, CreateSolidBrush(NppDarkMode::getBackgroundColor()));
+		ReleaseDC(_hSelf, hdc);
+	}
+
 	if ((nppGUI._tabStatus & TAB_MULTILINE) != 0)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
 

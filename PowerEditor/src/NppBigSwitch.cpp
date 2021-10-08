@@ -1319,7 +1319,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						currLine += deltaCurrLine;
 
 						// eof?
-						if ((currLine >= lastLine) || (currLine < 0)
+						if ((currLine > lastLine) || (currLine < 0)
 							|| ((deltaCurrLine == 0) && (currLine == 0) && ((deltaLastLine >= 0) || cursorMovedUp)))
 						{
 							break;

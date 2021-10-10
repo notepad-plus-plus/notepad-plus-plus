@@ -792,13 +792,13 @@ DockingCont* Gripper::workHitTest(POINT pt, RECT *rc)
 				default:
 					break;
 			}
-			ClientRectToScreenRect(_dockData.hWnd, &rcCont);
+			::MapWindowPoints(_dockData.hWnd, NULL, (LPPOINT)(&rcCont), 2);
 
 			if (::PtInRect(&rcCont, pt) == TRUE)
 			{
 				if (rc != NULL)
 				{
-					ClientRectToScreenRect(_dockData.hWnd, rc);
+					::MapWindowPoints(_dockData.hWnd, NULL, (LPPOINT)(rc), 2);
 					rc->right  -= rc->left;
 					rc->bottom -= rc->top;
 				}

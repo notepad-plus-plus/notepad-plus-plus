@@ -185,7 +185,7 @@ generic_string GetLastErrorAsString(DWORD errorCode = 0);
 generic_string intToString(int val);
 generic_string uintToString(unsigned int val);
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText, bool isRTL);
 HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszText, const RECT rc);
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);

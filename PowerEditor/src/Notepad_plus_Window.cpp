@@ -52,6 +52,14 @@ namespace // anonymous
 } // anonymous namespace
 
 
+void Notepad_plus_Window::setStartupBgColor(COLORREF BgColor)
+{
+	RECT windowClientArea;
+	HDC hdc = GetDCEx(_hSelf, NULL, DCX_CACHE | DCX_LOCKWINDOWUPDATE); //lock window update flag due to PaintLocker
+	GetClientRect(_hSelf, &windowClientArea);
+	FillRect(hdc, &windowClientArea, CreateSolidBrush(BgColor));
+	ReleaseDC(_hSelf, hdc);
+}
 
 
 
@@ -139,16 +147,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 		//SetWindowPlacement will take care of situations, where saved position was in no longer available monitor
 		::SetWindowPlacement(_hSelf,&posInfo);
-	}
-
-	//when npp starts up in dark mode, draw dark background to client area temporarily.
-	if (NppDarkMode::isEnabled())
-	{
-		RECT windowClientArea;
-		HDC hdc = GetDCEx(_hSelf, NULL, DCX_CACHE | DCX_LOCKWINDOWUPDATE); //lock window update flag due to line 36 and 111 in this file
-		GetClientRect(_hSelf, &windowClientArea);
-		FillRect(hdc, &windowClientArea, CreateSolidBrush(NppDarkMode::getBackgroundColor()));
-		ReleaseDC(_hSelf, hdc);
+		
+		if (NppDarkMode::isEnabled())
+			setStartupBgColor(NppDarkMode::getBackgroundColor()); //draw dark background when opening Npp without position data
 	}
 
 	if ((nppGUI._tabStatus & TAB_MULTILINE) != 0)
@@ -190,6 +191,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core._pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, NPPM_INTERNAL_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 		_notepad_plus_plus_core._pTrayIco->doTrayIcon(ADD);
 	}
+
+	if(cmdLineParams->isPointValid() && NppDarkMode::isEnabled())
+		setStartupBgColor(NppDarkMode::getBackgroundColor()); //draw dark background when opening Npp through cmd with position data
+
 	std::vector<generic_string> fileNames;
 	std::vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));

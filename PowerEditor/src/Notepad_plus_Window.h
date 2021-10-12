@@ -97,6 +97,7 @@ public:
 
 	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
 
+	void setStartupBgColor(COLORREF BgColor);
 
 private:
 	Notepad_plus _notepad_plus_plus_core;

@@ -1,24 +1,18 @@
-Notepad++ v8.1.5 new features, enhancements & bug-fixes:
+Notepad++ v8.1.6 bug-fixes:
 
-1.  Make Insert date time customizable.
-2.  Make date time order reversible for short & long format.
-3.  Add Insert Date/Time commands shortcut & macro capacities.
-4.  Fix regression: no error message when locked file could not be saved - Show file locked warning now.
-5.  Make "Confirm Save All" dialog more clear: use "Always Yes" button instead of "Cancel".
-6.  Improve JSON, PHP, PYTHON, CSS, BANNC and VHDL syntax highlighting in dark mode.
-7.  Fix inconsistency of Document List context menu.
-8.  Enable/disable ext column via Document list context menu directly.
-9.  Add path column in Document list panel.
-10. Allow custom color for Document Map.
-11. Fix docked/float panels in RTL layout issue.
-12. Fix CSS pseudo-elements not recognized issue. Update CSS keywords and add new styles.
-13. Fix issue that current directory not been applied after changing current directory option in preferences.
-14. Sort Default language combobox of "New Document" section in Preferences. 
-
+1.  Fix NUL file-corruption issue after system shutting down brutally (power cuts).
+2.  Fix session lost issue after MS update restarting Windows.
+3.  Make Markdown UDL work in every dark theme.
+4.  Fix file can be marked as saved even it's been deleted outside. 
+5.  Fix white flash on Notepad++ startup in dark mode issue.
+6.  Fix status bar text display glitchy in dark mode.
+7.  Fix docked window sizing problem in RTL mode.
+8.  Fix floating panel movement problem in RTL mode.
+9.  Fix Print GUI bug in Preferences dialog.
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.1.5/
+https://notepad-plus-plus.org/downloads/v8.1.6/
 
 
 Included plugins:
@@ -30,4 +24,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.2
+* WinGup (for Notepad++) v5.2.1

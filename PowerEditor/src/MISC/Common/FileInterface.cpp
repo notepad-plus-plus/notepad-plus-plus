@@ -102,7 +102,7 @@ unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 
 bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 {
-	if (!isOpened() || (wbuf == nullptr) || (buf_size == 0) || ((_hMode != Mode::WRITE) && (_hMode != Mode::APPEND)))
+	if (!isOpened() || (wbuf == nullptr) || ((_hMode != Mode::WRITE) && (_hMode != Mode::APPEND)))
 		return false;
 
 	DWORD bytes_written = 0;
@@ -110,7 +110,7 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 	if (::WriteFile(_hFile, wbuf, buf_size, &bytes_written, NULL) == FALSE)
 		return false;
 
-	if (!_written && (bytes_written != 0))
+	if (!_written)
 		_written = true;
 
 	return (bytes_written == buf_size);

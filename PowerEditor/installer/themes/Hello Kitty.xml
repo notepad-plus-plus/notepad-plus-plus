@@ -298,7 +298,7 @@ so your enhanced file can be included in Notepad++ future release.
         <LexerType name="ini" desc="ini file" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SECTION" styleID="2" fgColor="8000FF" bgColor="F2F4FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="SECTION" styleID="2" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="ASSIGNMENT" styleID="3" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="DEFVAL" styleID="4" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
@@ -336,19 +336,35 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="008080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="javascript" desc="JavaScript" ext="">
-            <WordsStyle name="DEFAULT" styleID="41" fgColor="000000" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="NUMBER" styleID="45" fgColor="FF0000" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="WORD" styleID="46" fgColor="000000" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="KEYWORD" styleID="47" fgColor="000080" bgColor="F2F4FF" fontName="" fontStyle="3" fontSize="" keywordClass="instre1" />
-            <WordsStyle name="STRINGRAW" styleID="20" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SINGLESTRING" styleID="49" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SYMBOLS" styleID="50" fgColor="000000" bgColor="F2F4FF" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="STRINGEOL" styleID="51" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="REGEX" styleID="52" fgColor="8000FF" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="COMMENT" styleID="42" fgColor="008000" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="COMMENTLINE" styleID="43" fgColor="008000" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="COMMENTDOC" styleID="44" fgColor="008080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT" styleID="41" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="45" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="WORD" styleID="46" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="47" fgColor="000080" bgColor="FFB0FF" fontName="" fontStyle="3" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SINGLESTRING" styleID="49" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SYMBOLS" styleID="50" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="51" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="REGEX" styleID="52" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="42" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENTLINE" styleID="43" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENTDOC" styleID="44" fgColor="008080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+        </LexerType>
+        <LexerType name="json" desc="JSON" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="1" fgColor="FF8000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="2" fgColor="800000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING EOL" styleID="3" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PROPERTY NAME" styleID="4" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ESCAPE SEQUENCE" styleID="5" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="LINE COMMENT" styleID="6" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BLOCK COMMENT" styleID="7" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="8" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="URI" styleID="9" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMPACT IRI" styleID="10" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="11" fgColor="18AF8A" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
+            <WordsStyle name="LD KEYWORD" styleID="12" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="kix" desc="KiXtart" ext="">
             <!--
@@ -524,7 +540,7 @@ so your enhanced file can be included in Notepad++ future release.
         <LexerType name="props" desc="Properties file" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SECTION" styleID="2" fgColor="8000FF" bgColor="F2F4FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="SECTION" styleID="2" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="ASSIGNMENT" styleID="3" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="DEFVAL" styleID="4" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
@@ -670,7 +686,7 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE BANG" styleID="3" fgColor="008080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING EOL" styleID="12" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="STRING EOL" styleID="12" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="USER" styleID="19" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="vhdl" desc="VHDL" ext="">

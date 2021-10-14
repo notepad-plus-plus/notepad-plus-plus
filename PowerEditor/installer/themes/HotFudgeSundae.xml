@@ -454,6 +454,22 @@ Installation:
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="0088CE" bgColor="2B0F01" fontName="" fontStyle="3" fontSize="">param @projectDescription projectDescription @param</WordsStyle>
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="FF00FF" bgColor="2B0F01" fontName="" fontStyle="3" fontSize="" />
         </LexerType>
+        <LexerType name="json" desc="JSON" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="C3BE98" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="1" fgColor="FF8000" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="2" fgColor="DCDCCC" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING EOL" styleID="3" fgColor="808080" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PROPERTY NAME" styleID="4" fgColor="8CD0D3" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ESCAPE SEQUENCE" styleID="5" fgColor="0000FF" bgColor="2B0F01" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="LINE COMMENT" styleID="6" fgColor="008000" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BLOCK COMMENT" styleID="7" fgColor="008000" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="8" fgColor="E3CEAB" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="URI" styleID="9" fgColor="FFFF80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMPACT IRI" styleID="10" fgColor="0000FF" bgColor="2B0F01" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="11" fgColor="18AF8A" bgColor="2B0F01" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
+            <WordsStyle name="LD KEYWORD" styleID="12" fgColor="FF0000" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />		
+		</LexerType>
         <LexerType name="kix" desc="KiXtart" ext="">
             <WordsStyle name="DEFAULT" styleID="31" fgColor="B7975D" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="208008" bgColor="2B0F01" fontName="" fontStyle="2" fontSize="" />

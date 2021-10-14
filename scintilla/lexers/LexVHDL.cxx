@@ -580,6 +580,6 @@ LexerModule lmVHDL(SCLEX_VHDL, ColouriseVHDLDoc, "vhdl", FoldVHDLDoc, VHDLWordLi
 // Std Types:
 //    boolean bit character severity_level integer real time delay_length natural positive string bit_vector
 //    file_open_kind file_open_status line text side width std_ulogic std_ulogic_vector std_logic
-//    std_logic_vector X01 X01Z UX01 UX01Z unsigned signed unresolved_unsigned unresolved_signed u_unsigned u_signed
+//    std_logic_vector X01 X01Z UX01 UX01Z unsigned signed
 //
 

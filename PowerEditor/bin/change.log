@@ -1,3 +1,13 @@
+Notepad++ v8.1.7 bug-fixes:
+
+1.  Fix empty file not being saved regression.
+2.  Fix white flash in dark mode on CMD launch with position parameters.
+3.  Enhance dark themes for some programming languages (JSON, Python & Makefile).
+4.  Fix "Run macro until the end of file" command skipping the last line issue.
+5.  Fix tooltip layout and position in RTL mode.
+6.  Fix docking problem for dockable panel in RTL mode.
+
+
 Notepad++ v8.1.6 bug-fixes:
 
 1.  Fix NUL file-corruption issue after system shutting down brutally (power cuts).
@@ -12,7 +22,7 @@ Notepad++ v8.1.6 bug-fixes:
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.1.6/
+https://notepad-plus-plus.org/downloads/v8.1.7/
 
 
 Included plugins:

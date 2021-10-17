@@ -364,6 +364,11 @@ namespace NppDarkMode
 		return g_darkModeSupported;
 	}
 
+	bool isWindows11()
+	{
+		return IsWindows11();
+	}
+
 	COLORREF invertLightness(COLORREF c)
 	{
 		WORD h = 0;
@@ -1144,34 +1149,6 @@ namespace NppDarkMode
 	{
 		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
 		SetWindowSubclass(hwnd, GroupboxSubclass, g_groupboxSubclassID, pButtonData);
-	}
-
-	constexpr UINT_PTR g_toolbarSubclassID = 42;
-
-	LRESULT CALLBACK ToolbarSubclass(
-		HWND hWnd,
-		UINT uMsg,
-		WPARAM wParam,
-		LPARAM lParam,
-		UINT_PTR uIdSubclass,
-		DWORD_PTR dwRefData
-	)
-	{
-		UNREFERENCED_PARAMETER(uIdSubclass);
-		UNREFERENCED_PARAMETER(dwRefData);
-
-		switch (uMsg)
-		{
-			case WM_NCDESTROY:
-				RemoveWindowSubclass(hWnd, ToolbarSubclass, g_toolbarSubclassID);
-				break;
-		}
-		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
-	}
-
-	void subclassToolbarControl(HWND hwnd)
-	{
-		SetWindowSubclass(hwnd, ToolbarSubclass, g_toolbarSubclassID, 0);
 	}
 
 	constexpr UINT_PTR g_tabSubclassID = 42;

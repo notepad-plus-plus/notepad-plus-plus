@@ -258,6 +258,11 @@ constexpr bool CheckBuildNumber(DWORD buildNumber)
 		buildNumber >= 22000);  // Windows 11 insider builds
 }
 
+bool IsWindows11() // or later OS version
+{
+	return (g_buildNumber >= 22000);
+}
+
 void InitDarkMode()
 {
 	fnRtlGetNtVersionNumbers RtlGetNtVersionNumbers = nullptr;

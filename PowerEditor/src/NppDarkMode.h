@@ -83,6 +83,8 @@ namespace NppDarkMode
 	bool isDarkMenuEnabled();
 	bool isExperimentalSupported();
 
+	bool isWindows11();
+
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
 	double calculatePerceivedLighness(COLORREF c);
@@ -145,7 +147,6 @@ namespace NppDarkMode
 
 	void subclassButtonControl(HWND hwnd);
 	void subclassGroupboxControl(HWND hwnd);
-	void subclassToolbarControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
 	void subclassComboBoxControl(HWND hwnd);
 

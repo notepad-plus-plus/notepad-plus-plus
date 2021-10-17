@@ -145,7 +145,6 @@ namespace NppDarkMode
 
 	void subclassButtonControl(HWND hwnd);
 	void subclassGroupboxControl(HWND hwnd);
-	void subclassToolbarControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
 	void subclassComboBoxControl(HWND hwnd);
 

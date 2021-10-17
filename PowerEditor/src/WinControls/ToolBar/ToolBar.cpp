@@ -306,6 +306,10 @@ void ToolBar::reset(bool create)
 			{
 				setDefaultImageListDM();
 				setDisableImageListDM();
+				//if (w11)
+				{
+					setHoveredImageListDM();
+				}
 			}
 			else
 			{
@@ -319,6 +323,10 @@ void ToolBar::reset(bool create)
 			{
 				setDefaultImageListDM2();
 				setDisableImageListDM2();
+				//if (w11)
+				{
+					setHoveredImageListDM2();
+				}
 			}
 			else
 			{
@@ -534,8 +542,7 @@ void ReBar::init(HINSTANCE hInst, HWND hPere)
 	_hSelf = CreateWindowEx(WS_EX_TOOLWINDOW,
 							REBARCLASSNAME,
 							NULL,
-							WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|WS_CLIPCHILDREN|RBS_VARHEIGHT|
-							CCS_NODIVIDER | CCS_NOPARENTALIGN,
+							WS_CHILD|WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_VARHEIGHT | CCS_NODIVIDER | CCS_NOPARENTALIGN,
 							0,0,0,0, _hParent, NULL, _hInst, NULL);
 
 	SetWindowSubclass(_hSelf, RebarSubclass, g_rebarSubclassID, 0);

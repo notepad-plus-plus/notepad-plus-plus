@@ -290,6 +290,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							{
 								generic_string str(nppParamInst.getNppGUI()._themeName);
 								nppParamInst.reloadStylers(str.c_str());
+								loadLangListFromNppParam();
 							}
 
 							LexerStylerArray & lsArray = nppParamInst.getLStylerArray();

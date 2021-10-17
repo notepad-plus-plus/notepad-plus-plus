@@ -364,6 +364,11 @@ namespace NppDarkMode
 		return g_darkModeSupported;
 	}
 
+	bool isWindows11()
+	{
+		return IsWindows11();
+	}
+
 	COLORREF invertLightness(COLORREF c)
 	{
 		WORD h = 0;

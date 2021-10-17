@@ -83,6 +83,8 @@ namespace NppDarkMode
 	bool isDarkMenuEnabled();
 	bool isExperimentalSupported();
 
+	bool isWindows11();
+
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
 	double calculatePerceivedLighness(COLORREF c);

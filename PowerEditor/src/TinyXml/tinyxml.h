@@ -132,7 +132,7 @@ public:
 		
 		(For an unformatted stream, use the << operator.)
 	*/
-	virtual void Print( Win32_IO_File& cfile, int depth ) const = 0;
+	virtual void Print( std::string& outputStream, int depth ) const = 0;
 
 	/**	The world does not agree on whether white space should be kept or
 		not. In order to make everyone happy, these global, static functions
@@ -640,7 +640,7 @@ public:
 	virtual const TCHAR* Parse( const TCHAR* p, TiXmlParsingData* data );
 
 	// [internal use]
-	virtual void Print( Win32_IO_File& cfile, int depth ) const;
+	virtual void Print( std::string& outputStream, int depth ) const;
 
 	virtual void StreamOut( TIXML_OSTREAM * out ) const;
 	// [internal use]
@@ -784,7 +784,7 @@ public:
 	virtual TiXmlNode* Clone() const;
 	// [internal use]
 
-	virtual void Print( Win32_IO_File& cfile, int depth ) const;
+	virtual void Print( std::string& outputStream, int depth ) const;
 
 protected:
 
@@ -823,7 +823,7 @@ public:
 	// [internal use] Creates a new Element and returs it.
 	virtual TiXmlNode* Clone() const;
 	// [internal use]
-	virtual void Print( Win32_IO_File& cfile, int depth ) const;
+	virtual void Print( std::string& outputStream, int depth ) const;
 protected:
 	// used to be public
 	#ifdef TIXML_USE_STL
@@ -860,7 +860,7 @@ public:
 	#endif
 
 	// [internal use]
-	virtual void Print( Win32_IO_File& cfile, int depth ) const;
+	virtual void Print( std::string& outputStream, int depth ) const;
 
 protected :
 	// [internal use] Creates a new Element and returns it.
@@ -929,7 +929,7 @@ public:
 	// [internal use] Creates a new Element and returs it.
 	virtual TiXmlNode* Clone() const;
 	// [internal use]
-	virtual void Print( Win32_IO_File& cfile, int depth ) const;
+	virtual void Print( std::string& outputStream, int depth ) const;
 
 protected:
 	// used to be public
@@ -964,7 +964,7 @@ public:
 	// [internal use]
 	virtual TiXmlNode* Clone() const;
 	// [internal use]
-	virtual void Print( Win32_IO_File& cfile, int depth ) const;
+	virtual void Print( std::string& outputStream, int depth ) const;
 protected:
 	#ifdef TIXML_USE_STL
 	    virtual void StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag );
@@ -1101,7 +1101,7 @@ public:
 	void Print() const						{ /*Print(stdout, 0);*/ }
 
 	// [internal use]
-	virtual void Print( Win32_IO_File& cfile, int depth = 0 ) const;
+	virtual void Print( std::string& outputStream, int depth = 0 ) const;
 	// [internal use]
 	void SetError( int err, const TCHAR* errorLocation, TiXmlParsingData* prevData );
 

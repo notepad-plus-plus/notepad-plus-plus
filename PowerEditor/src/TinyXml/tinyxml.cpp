@@ -23,6 +23,7 @@ distribution.
 */
 
 #include <sstream>
+#include <memory>
 #include "tinyxml.h"
 
 bool TiXmlBase::condenseWhiteSpace = true;
@@ -551,27 +552,27 @@ void TiXmlElement::SetAttribute( const TCHAR * name, const TCHAR * _value )
 	}
 }
 
-void TiXmlElement::Print( Win32_IO_File& cfile, int depth ) const
+void TiXmlElement::Print( std::string& outputStream, int depth ) const
 {
 	int i;
 	for ( i=0; i<depth; i++ )
 	{
-		cfile.writeStr("    ");
+		outputStream += "    ";
 		//generic_fprintf( cfile, TEXT("    ") );
 	}
 
 	std::string tagOpenValue = "<";
 	tagOpenValue += wstring2string(value, CP_UTF8);
-	cfile.writeStr(tagOpenValue);
+	outputStream += tagOpenValue;
 	//generic_fprintf( cfile, TEXT("<%ls"), value.c_str() );
 
 	TiXmlAttribute* attrib;
 	for ( attrib = attributeSet.First(); attrib; attrib = attrib->Next() )
 	{
-		cfile.writeStr(" ");
+		outputStream += " ";
 		//generic_fprintf(cfile, TEXT(" "));
 
-		attrib->Print( cfile, depth );
+		attrib->Print(outputStream, depth );
 	}
 
 	// There are 3 different formatting approaches:
@@ -581,45 +582,45 @@ void TiXmlElement::Print( Win32_IO_File& cfile, int depth ) const
 	TiXmlNode* node;
 	if ( !firstChild )
 	{
-		cfile.writeStr(" />");
+		outputStream += " />";
 		//generic_fprintf( cfile, TEXT(" />") );
 	}
 	else if ( firstChild == lastChild && firstChild->ToText() )
 	{
-		cfile.writeStr(">");
+		outputStream += ">";
 		//generic_fprintf( cfile, TEXT(">") );
 
-		firstChild->Print( cfile, depth + 1 );
+		firstChild->Print(outputStream, depth + 1 );
 
 		std::string tagCloseWithValue = "</";
 		tagCloseWithValue += wstring2string(value, CP_UTF8) + ">";
-		cfile.writeStr(tagCloseWithValue);
+		outputStream += tagCloseWithValue;
 		//generic_fprintf( cfile, TEXT("</%ls>"), value.c_str() );
 	}
 	else
 	{
-		cfile.writeStr(">");
+		outputStream += ">";
 		//generic_fprintf( cfile, TEXT(">") );
 
 		for ( node = firstChild; node; node=node->NextSibling() )
 		{
 			if ( !node->ToText() )
 			{
-				cfile.writeStr("\r\n");
+				outputStream += "\r\n";
 				//generic_fprintf( cfile, TEXT("\n") );
 			}
-			node->Print( cfile, depth+1 );
+			node->Print(outputStream, depth+1 );
 		}
-		cfile.writeStr("\r\n");
+		outputStream += "\r\n";
 		//generic_fprintf( cfile, TEXT("\n") );
 
 		for( i=0; i<depth; ++i )
-			cfile.writeStr("    ");
+			outputStream += "    ";
 			// generic_fprintf( cfile, TEXT("    ") );
 
 		std::string tagCloseWithValue = "</";
 		tagCloseWithValue += wstring2string(value, CP_UTF8) + ">";
-		cfile.writeStr(tagCloseWithValue);
+		outputStream += tagCloseWithValue;
 		//generic_fprintf( cfile, TEXT("</%ls>"), value.c_str() );
 	}
 }
@@ -793,7 +794,10 @@ bool TiXmlDocument::SaveFile( const TCHAR * filename ) const
 
 	if (file.isOpened())
 	{
-		Print(file, 0);
+		std::unique_ptr<std::string> outputStr = std::make_unique<std::string>();
+		Print(*outputStr, 0);
+		if (!outputStr->empty())
+			file.writeStr(*outputStr);
 		return true;
 	}
 
@@ -820,14 +824,14 @@ TiXmlNode* TiXmlDocument::Clone() const
 }
 
 
-void TiXmlDocument::Print( Win32_IO_File& cfile, int depth ) const
+void TiXmlDocument::Print( std::string& outputStream, int depth ) const
 {
 	TiXmlNode* node;
 	for ( node=FirstChild(); node; node=node->NextSibling() )
 	{
-		node->Print( cfile, depth );
+		node->Print(outputStream, depth );
 
-		cfile.writeStr("\r\n");
+		outputStream += "\r\n";
 		//generic_fprintf( cfile, TEXT("\n") );
 	}
 }
@@ -868,7 +872,7 @@ TiXmlAttribute* TiXmlAttribute::Previous() const
 }
 
 
-void TiXmlAttribute::Print( Win32_IO_File& cfile, int /*depth*/ ) const
+void TiXmlAttribute::Print( std::string& outputStream, int /*depth*/ ) const
 {
 	TIXML_STRING n, v;
 
@@ -890,7 +894,7 @@ void TiXmlAttribute::Print( Win32_IO_File& cfile, int /*depth*/ ) const
 		attrVsValue += "'";
 		//generic_fprintf(cfile, TEXT("%ls='%ls'"), n.c_str(), v.c_str());
 	}
-	cfile.writeStr(attrVsValue);
+	outputStream += attrVsValue;
 }
 
 
@@ -950,18 +954,18 @@ const double  TiXmlAttribute::DoubleValue() const
 	return generic_atof (value.c_str ());
 }
 
-void TiXmlComment::Print( Win32_IO_File& cfile, int depth ) const
+void TiXmlComment::Print( std::string& outputStream, int depth ) const
 {
 	for ( int i=0; i<depth; i++ )
 	{
-		cfile.writeStr("    ");
+		outputStream += "    ";
 		//generic_fprintf( cfile, TEXT("    ") );
 	}
 
 	std::string comment = "<!--";
 	comment += wstring2string(value, CP_UTF8);
 	comment += "-->";
-	cfile.writeStr(comment);
+	outputStream += comment;
 	//generic_fprintf( cfile, TEXT("<!--%ls-->"), value.c_str() );
 }
 
@@ -984,12 +988,12 @@ TiXmlNode* TiXmlComment::Clone() const
 }
 
 
-void TiXmlText::Print( Win32_IO_File& cfile, int /*depth*/ ) const
+void TiXmlText::Print( std::string& outputStream, int /*depth*/ ) const
 {
 	TIXML_STRING buffer;
 	PutString( value, &buffer );
 
-	cfile.writeStr(wstring2string(buffer, CP_UTF8));
+	outputStream += wstring2string(buffer, CP_UTF8);
 	//generic_fprintf( cfile, TEXT("%ls"), buffer.c_str() );
 }
 
@@ -1023,7 +1027,7 @@ TiXmlDeclaration::TiXmlDeclaration( const TCHAR * _version,
 	standalone = _standalone;
 }
 
-void TiXmlDeclaration::Print( Win32_IO_File& cfile, int /*depth*/ ) const
+void TiXmlDeclaration::Print( std::string& outputStream, int /*depth*/ ) const
 {
 	std::string xmlDcl = "<?xml ";
 	//generic_fprintf (cfile, TEXT("<?xml "));
@@ -1054,7 +1058,7 @@ void TiXmlDeclaration::Print( Win32_IO_File& cfile, int /*depth*/ ) const
 	xmlDcl += "?>";
 	//generic_fprintf (cfile, TEXT("?>"));
 
-	cfile.writeStr(xmlDcl);
+	outputStream += xmlDcl;
 }
 
 void TiXmlDeclaration::StreamOut( TIXML_OSTREAM * stream ) const
@@ -1097,13 +1101,13 @@ TiXmlNode* TiXmlDeclaration::Clone() const
 }
 
 
-void TiXmlUnknown::Print( Win32_IO_File& cfile, int depth ) const
+void TiXmlUnknown::Print( std::string& outputStream, int depth ) const
 {
 	for ( int i=0; i<depth; i++ )
-		cfile.writeStr("    ");
+		outputStream += "    ";
 		//generic_fprintf( cfile, TEXT("    ") );
 
-	cfile.writeStr(wstring2string(value, CP_UTF8));
+	outputStream += wstring2string(value, CP_UTF8);
 	//generic_fprintf( cfile, TEXT("%ls"), value.c_str() );
 }
 

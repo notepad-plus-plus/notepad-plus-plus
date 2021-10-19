@@ -1,3 +1,9 @@
+Notepad++ v8.1.8 bug-fixes:
+
+1.  Fix config files (XML) saving performance regression.
+2.  Workaround Microsoft dark mode API bug of Windows 11.
+
+
 Notepad++ v8.1.7 bug-fixes:
 
 1.  Fix empty file not being saved regression.
@@ -22,7 +28,7 @@ Notepad++ v8.1.6 bug-fixes:
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.1.7/
+https://notepad-plus-plus.org/downloads/v8.1.8/
 
 
 Included plugins:

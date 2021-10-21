@@ -1,3 +1,9 @@
+Notepad++ v8.1.9 bug-fixes:
+
+1.  Fix empty file with non-Unicode encoding cannot be saved issue.
+2.  Fix language list in Style Configurator not being reloaded issue.
+
+
 Notepad++ v8.1.8 bug-fixes:
 
 1.  Fix config files (XML) saving performance regression.

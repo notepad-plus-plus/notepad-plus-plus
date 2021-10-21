@@ -1010,21 +1010,26 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		else
 		{
 			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-			int grabSize;
-			for (int i = 0; i < lengthDoc; i += grabSize)
-			{
-				grabSize = lengthDoc - i;
-				if (grabSize > blockSize)
-					grabSize = blockSize;
-
-				int newDataLen = 0;
-				int incompleteMultibyteChar = 0;
-				const char *newData = wmc.encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
-				grabSize -= incompleteMultibyteChar;
-				isWrittenSuccessful = UnicodeConvertor.writeFile(newData, static_cast<unsigned long>(newDataLen));
-			}
 			if (lengthDoc == 0)
-				isWrittenSuccessful = true;
+			{
+				isWrittenSuccessful = UnicodeConvertor.writeFile(buf, 0);
+			}
+			else
+			{
+				int grabSize;
+				for (int i = 0; i < lengthDoc; i += grabSize)
+				{
+					grabSize = lengthDoc - i;
+					if (grabSize > blockSize)
+						grabSize = blockSize;
+
+					int newDataLen = 0;
+					int incompleteMultibyteChar = 0;
+					const char* newData = wmc.encode(SC_CP_UTF8, encoding, buf + i, grabSize, &newDataLen, &incompleteMultibyteChar);
+					grabSize -= incompleteMultibyteChar;
+					isWrittenSuccessful = UnicodeConvertor.writeFile(newData, static_cast<unsigned long>(newDataLen));
+				}
+			}
 		}
 
 		// check the language du fichier

@@ -23,9 +23,6 @@
 #include "localization.h"
 #include "Parameters.h"
 
-#define CX_BITMAP         16
-#define CY_BITMAP         16
-
 #define INDEX_CLEAN_ROOT     0
 #define INDEX_DIRTY_ROOT     1
 #define INDEX_PROJECT        2
@@ -82,8 +79,8 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
+			_treeView.setImageList(CX_BITMAP, CY_BITMAP, 7, IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
 
-			setImageList(IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
 			_treeView.addCanNotDropInList(INDEX_LEAF);
 			_treeView.addCanNotDropInList(INDEX_LEAF_INVALID);
 
@@ -298,70 +295,6 @@ void ProjectPanel::initMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, edit_remove.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MODIFYFILEPATH, edit_modifyfile.c_str());
 }
-
-
-BOOL ProjectPanel::setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id) 
-{
-	HBITMAP hbmp;
-	COLORREF maskColour = RGB(192, 192, 192);
-	const int nbBitmaps = 7;
-
-	// Creation of image list
-	if ((_hImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL) 
-		return FALSE;
-
-	// Add the bmp in the list
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_clean_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_dirty_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(project_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_node_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(closed_node_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(ivalid_leaf_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	if (ImageList_GetImageCount(_hImaLst) < nbBitmaps)
-		return FALSE;
-
-	// Set image list to the tree view
-	TreeView_SetImageList(_treeView.getHSelf(), _hImaLst, TVSIL_NORMAL);
-
-	return TRUE;
-}
-
 
 void ProjectPanel::destroyMenus() 
 {

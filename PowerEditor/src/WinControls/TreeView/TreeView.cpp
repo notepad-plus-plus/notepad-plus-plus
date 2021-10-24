@@ -261,6 +261,42 @@ HTREEITEM TreeView::searchSubItemByName(const TCHAR *itemName, HTREEITEM hParent
 	return NULL;
 }
 
+BOOL TreeView::setImageList(int w, int h, int nbImage, int image_id, ...)
+{
+	HBITMAP hbmp;
+	COLORREF maskColour = RGB(192, 192, 192);
+
+	// Creation of image list
+	int bmDpiDynW = NppParameters::getInstance()._dpiManager.scaleX(w);
+	int bmDpiDynH = NppParameters::getInstance()._dpiManager.scaleY(h);
+	if ((_hImaLst = ImageList_Create(bmDpiDynW, bmDpiDynH, ILC_COLOR32 | ILC_MASK, nbImage, 0)) == NULL)
+		return FALSE;
+
+	// Add the bmp in the list
+	va_list argLst;
+	va_start(argLst, image_id);
+	int imageID = image_id;
+
+	for (int i = 0; i < nbImage; i++)
+	{
+		if (i > 0)
+			imageID = va_arg(argLst, int);
+
+		hbmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(imageID), IMAGE_BITMAP, bmDpiDynW, bmDpiDynH, 0);
+		if (hbmp == NULL)
+			return FALSE;
+		ImageList_AddMasked(_hImaLst, hbmp, maskColour);
+		DeleteObject(hbmp);
+	}
+	va_end(argLst);
+
+	// Set image list to the tree view
+	TreeView_SetImageList(_hSelf, _hImaLst, TVSIL_NORMAL);
+	//TreeView_SetImageList(_treeViewSearchResult.getHSelf(), _hTreeViewImaLst, TVSIL_NORMAL);
+
+	return TRUE;
+}
+
 void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 {
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))

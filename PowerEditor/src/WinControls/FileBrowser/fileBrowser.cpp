@@ -24,9 +24,6 @@
 #include "ReadDirectoryChanges.h"
 #include "menuCmdID.h"
 
-#define CX_BITMAP         16
-#define CY_BITMAP         16
-
 #define INDEX_OPEN_ROOT      0
 #define INDEX_CLOSE_ROOT     1
 #define INDEX_OPEN_NODE	     2
@@ -159,7 +156,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			FileBrowser::initPopupMenus();
 
 			_treeView.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW);
-			setImageList(IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE);
+			_treeView.setImageList(CX_BITMAP, CY_BITMAP, 5, IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE);
 
 			_treeView.addCanNotDropInList(INDEX_OPEN_ROOT);
 			_treeView.addCanNotDropInList(INDEX_CLOSE_ROOT);
@@ -424,57 +421,6 @@ bool FileBrowser::selectCurrentEditingFile() const
 
 	return selectItemFromPath(currentDocPathStr);
 }
-
-BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int open_node_id, int closed_node_id, int leaf_id) 
-{
-	HBITMAP hbmp;
-	COLORREF maskColour = RGB(192, 192, 192);
-	const int nbBitmaps = 5;
-
-	// Creation of image list
-	if ((_hImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL) 
-		return FALSE;
-
-	// Add the bmp in the list
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_clean_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_dirty_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_node_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(closed_node_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	if (ImageList_GetImageCount(_hImaLst) < nbBitmaps)
-		return FALSE;
-
-	// Set image list to the tree view
-	TreeView_SetImageList(_treeView.getHSelf(), _hImaLst, TVSIL_NORMAL);
-
-	return TRUE;
-}
-
 
 void FileBrowser::destroyMenus() 
 {

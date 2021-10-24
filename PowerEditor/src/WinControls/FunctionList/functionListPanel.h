@@ -130,7 +130,6 @@ private:
 	void notified(LPNMHDR notification);
 	void addInStateArray(TreeStateNode tree2Update, const TCHAR *searchText, bool isSorted);
 	TreeParams* getFromStateArray(generic_string fullFilePath);
-	BOOL setTreeViewImageList(int root_id, int node_id, int leaf_id);
 	bool openSelection(const TreeView &treeView);
 	bool shouldSort();
 	void setSort(bool isEnabled);

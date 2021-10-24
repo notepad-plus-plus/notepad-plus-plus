@@ -182,7 +182,6 @@ protected:
 
 	void initPopupMenus();
 	void destroyMenus();
-	BOOL setImageList(int root_open_id, int root_close_id, int open_node_id, int closed_node_id, int leaf_id);
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);

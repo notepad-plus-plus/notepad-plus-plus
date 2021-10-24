@@ -120,7 +120,6 @@ protected:
 
 	void initMenus();
 	void destroyMenus();
-	BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
 	void addFiles(HTREEITEM hTreeItem);
 	void addFilesFromDirectory(HTREEITEM hTreeItem);
 	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);

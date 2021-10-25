@@ -205,7 +205,10 @@ void DockingManager::showFloatingContainers(bool show)
 	{
 		size_t iElementCnt = _vContainer[i]->getElementCnt();
 		if (iElementCnt > 0)
-			_vContainer[i]->display(show);
+		{
+			if (0 < ::SendMessage(_vContainer[i]->getTabWnd(), TCM_GETITEMCOUNT, 0, 0)) // any real item(s)?
+				_vContainer[i]->display(show);
+		}
 	}
 }
 

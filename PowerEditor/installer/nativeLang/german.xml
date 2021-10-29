@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-09-15 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-10-29 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -90,6 +90,7 @@
 					<Item id="41002" name="&amp;Öffnen …"/>
 					<Item id="41019" name="E&amp;xplorer"/>
 					<Item id="41020" name="&amp;Eingabeaufforderung"/>
+					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="41003" name="S&amp;chließen"/>
 					<Item id="41004" name="All&amp;e schließen"/>
 					<Item id="41005" name="Alle schließen bis auf &amp;aktuelle Datei"/>
@@ -111,7 +112,6 @@
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
 					<Item id="41022" name="Verzeichnis als Arbeitsbereich öffnen"/>
 					<Item id="41023" name="Im Standard-Betrachter öffnen"/>
-					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="42001" name="Aus&amp;schneiden"/>
 					<Item id="42002" name="&amp;Kopieren"/>
 					<Item id="42003" name="&amp;Rückgängig"/>
@@ -122,6 +122,7 @@
 					<Item id="42020" name="Auswa&amp;hl beginnen/beenden"/>
 					<Item id="42084" name="Datum/Zeit (kurz)"/>
 					<Item id="42085" name="Datum/Zeit (lang)"/>
+					<Item id="42086" name="Datum/Zeit (benutzerdefiniert)"/>
 					<Item id="42008" name="Zeileneinzug v&amp;ergrößern"/>
 					<Item id="42009" name="Zeileneinzug ver&amp;kleinern"/>
 					<Item id="42010" name="Zeile &amp;duplizieren"/>
@@ -141,8 +142,8 @@
 					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
 					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
 					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
-					<Item id="42083" name="Sortierreihenfolge der Zeilen umkehren"/>
-					<Item id="42078" name="Zeilen zufällig sortieren"/>
+					<Item id="42083" name="Reihenfolge der Zeilen umkehren"/>
+					<Item id="42078" name="Zeilen zufällig anordnen"/>
 					<Item id="42016" name="In &amp;GROSSBUCHSTABEN umwandeln"/>
 					<Item id="42017" name="In &amp;kleinbuchstaben umwandeln"/>
 					<Item id="42067" name="&amp;Überschriftenstil"/>
@@ -186,7 +187,6 @@
 					<Item id="42029" name="Vollständigen &amp;Pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
-					<Item id="42079" name="Markierten Text in die Zwischenablage"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
 					<Item id="42033" name="Schreibschutz-Attribut l&amp;öschen"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
@@ -635,8 +635,8 @@
 					<Item id="44105" name="Zum Projektfenster 2 wechseln"/>
 					<Item id="44106" name="Zum Projektfenster 3 wechseln"/>
 					<Item id="44107" name="Zum Ordner als Arbeitsbereich wechseln"/>
-					<Item id="44108" name="Zur Funktionsliste wechseln"/>
 					<Item id="44109" name="Zur Dokumentenliste wechseln"/>
+					<Item id="44108" name="Zur Funktionsliste wechseln"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Tastenkombi">
@@ -1055,12 +1055,15 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6866" name="Zeichenpaar 3:"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Mehrere Instanzen">
+				<MultiInstance title="Mehrere Instanzen &amp; Datum">
 					<Item id="6151" name="Mehrere Instanzen"/>
 					<Item id="6152" name="Sitzungsdateien in einer neuen Instanz öffnen"/>
 					<Item id="6153" name="Immer im Mehrinstanzmodus"/>
 					<Item id="6154" name="Standard (nur eine Instanz)"/>
 					<Item id="6155" name="Nach Änderung der Einstellung muss Notepad++ neu gestartet werden."/>
+					<Item id="6171" name="Einfügen von Datum/Zeit anpassen"/>
+					<Item id="6175" name="Vorgegebene Datum/Zeit Reihenfolge umkehren (kurzes &amp;&amp; langes Format)"/>
+					<Item id="6172" name="Benutzerdefiniertes Format:"/>
 				</MultiInstance>
 
 				<Delimiter title="Trennzeichen">

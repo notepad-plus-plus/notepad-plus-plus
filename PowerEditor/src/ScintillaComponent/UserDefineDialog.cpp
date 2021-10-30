@@ -1776,8 +1776,10 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 
             dlg->_pFgColour->init(dlg->_hInst, hwnd);
             dlg->_pFgColour->setColour(style._fgColor);
+            dlg->_pFgColour->setEnabled((style._colorStyle & COLORSTYLE_FOREGROUND) != 0);
             dlg->_pBgColour->init(dlg->_hInst, hwnd);
             dlg->_pBgColour->setColour(style._bgColor);
+            dlg->_pBgColour->setEnabled((style._colorStyle & COLORSTYLE_BACKGROUND) != 0);
 
             int w = nppParam._dpiManager.scaleX(25);
             int h = nppParam._dpiManager.scaleY(25);

@@ -1915,15 +1915,46 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
                 style._fgColor = dlg->_pFgColour->getColour();
                 style._bgColor = dlg->_pBgColour->getColour();
 
-                if (dlg->_pFgColour->isEnabled())
-                    style._colorStyle |= COLORSTYLE_FOREGROUND;
-                else
-                    style._colorStyle &= ~COLORSTYLE_FOREGROUND;
-                if (dlg->_pBgColour->isEnabled())
-                    style._colorStyle |= COLORSTYLE_BACKGROUND;
-                else
-                    style._colorStyle &= ~COLORSTYLE_BACKGROUND;
+				if (wParam == IDC_STYLER_CHECK_FG_TRANSPARENT || wParam == IDC_STYLER_CHECK_BG_TRANSPARENT)
+				{
+					if (wParam == IDC_STYLER_CHECK_FG_TRANSPARENT)
+					{
+						bool isTransparent = (BST_CHECKED == ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_GETCHECK, 0, 0));
+						dlg->_pFgColour->setEnabled(!isTransparent);
+						dlg->_pFgColour->redraw();
+						style._colorStyle &= ~COLORSTYLE_FOREGROUND;
+					}
 
+					if (wParam == IDC_STYLER_CHECK_BG_TRANSPARENT)
+					{
+						bool isTransparent = (BST_CHECKED == ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_GETCHECK, 0, 0));
+						dlg->_pBgColour->setEnabled(!isTransparent);
+						dlg->_pBgColour->redraw();
+						style._colorStyle &= ~COLORSTYLE_BACKGROUND;
+					}
+				}
+				else
+				{
+					if (dlg->_pFgColour->isEnabled())
+					{
+						style._colorStyle |= COLORSTYLE_FOREGROUND;
+					}
+					else
+					{
+						style._colorStyle &= ~COLORSTYLE_FOREGROUND;
+					}
+					::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_SETCHECK, !dlg->_pFgColour->isEnabled(), 0);
+
+					if (dlg->_pBgColour->isEnabled())
+					{
+						style._colorStyle |= COLORSTYLE_BACKGROUND;
+					}
+					else
+					{
+						style._colorStyle &= ~COLORSTYLE_BACKGROUND;
+					}
+					::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_SETCHECK, !dlg->_pBgColour->isEnabled(), 0);
+				}
                 style._fontStyle = FONTSTYLE_NONE;
                 if (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, IDC_STYLER_CHECK_BOLD), BM_GETCHECK, 0, 0))
                     style._fontStyle |= FONTSTYLE_BOLD;

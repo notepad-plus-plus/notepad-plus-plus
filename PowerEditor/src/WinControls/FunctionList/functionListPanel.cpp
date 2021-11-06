@@ -395,6 +395,7 @@ void FunctionListPanel::reload()
 		{
 			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 			setSort(false);
+            _pTreeView->sort(_pTreeView->getRoot(), true);
 			_treeView.expand(root);
 		}
 		else

@@ -980,7 +980,6 @@ void WindowsDlg::doSortToTabs()
 
 void WindowsDlg::putItemsToClipboard(bool isFullPath)
 {
-	constexpr int nameColumn = 0;
 	constexpr int pathColumn = 1;
 
 	TCHAR str[MAX_PATH] = {};

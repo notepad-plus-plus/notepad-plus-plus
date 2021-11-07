@@ -1743,6 +1743,7 @@ bool Notepad_plus::fileRename(BufferID id)
 	if (id == BUFFER_INVALID)
 		bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
+	LangType bufLang = buf->getLangType();
 
 	SCNotification scnN;
 	scnN.nmhdr.code = NPPN_FILEBEFORERENAME;
@@ -1756,12 +1757,25 @@ bool Notepad_plus::fileRename(BufferID id)
 	{
 		CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 
-		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
+		for (auto item : ScintillaEditView::langNames)
+		{
+			if (bufLang == item.LangID)
+			{
+				fDlg.setExtFilter(item.longName, item.lexerName);
+			}
+		}
+
 		setFileOpenSaveDlgFilters(fDlg, false);
 		fDlg.setFolder(buf->getFullPathName());
 		fDlg.setDefFileName(buf->getFileName());
 
 		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("file-rename-title", TEXT("Rename"));
+		
+		const bool defaultAllTypes = NppParameters::getInstance().getNppGUI()._setSaveDlgExtFiltToAllTypes;
+		const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
+			TEXT("&Append extension"));
+		fDlg.enableFileTypeCheckbox(checkboxLabel, !defaultAllTypes);
+
 		fDlg.setTitle(title.c_str());
 
 		generic_string fn = fDlg.doSaveDlg();

@@ -376,6 +376,8 @@ copy /Y ..\bin\updater\LICENSE .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\README.md .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\updater\updater.ico .\zipped.package.release\updater\
+If ErrorLevel 1 goto End
 
 rem For disabling auto-updater
 copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release64\config.xml
@@ -392,6 +394,8 @@ copy /Y ..\bin64\updater\LICENSE .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\README.md .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
+copy /Y ..\bin64\updater\updater.ico .\zipped.package.release64\updater\
+If ErrorLevel 1 goto End
 
 rem For disabling auto-updater
 copy /Y ..\src\config.4zipPackage.xml .\zipped.package.releaseArm64\config.xml
@@ -407,6 +411,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\binarm64\updater\LICENSE .\zipped.package.releaseArm64\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\updater\README.md .\zipped.package.releaseArm64\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\binarm64\updater\updater.ico .\zipped.package.releaseArm64\updater\
 If ErrorLevel 1 goto End
 
 

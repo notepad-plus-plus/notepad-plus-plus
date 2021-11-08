@@ -1448,7 +1448,7 @@ bool NppParameters::load()
 
 	//-------------------------------------------------------------//
 	// enableSelectFgColor.xml : for per user                      //
-	// This empty xmj file is optional - user adds this empty file //
+	// This empty xml file is optional - user adds this empty file //
 	// manually in order to set selected text's foreground color.  //
 	//-------------------------------------------------------------//
 	generic_string enableSelectFgColorPath = _userPath;

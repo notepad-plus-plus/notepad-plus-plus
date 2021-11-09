@@ -121,18 +121,17 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 void Win32_IO_File::fillCreateParams(DWORD &access, DWORD &share, DWORD &disp, DWORD &attrib)
 {
 	access	= GENERIC_READ;
+	share = FILE_SHARE_READ;
 	attrib	= FILE_ATTRIBUTE_NORMAL | FILE_FLAG_POSIX_SEMANTICS; // Distinguish between upper/lower case in name
 
 	if (_hMode == Mode::READ)
 	{
-		share	=	FILE_SHARE_READ;
 		disp	=	OPEN_EXISTING; // Open only if file exists and is not locked by other process
 
 		attrib	|=	FILE_FLAG_SEQUENTIAL_SCAN; // Optimize caching for sequential read
 	}
 	else
 	{
-		share	=	0;
 		disp	=	OPEN_ALWAYS; // Open existing file for writing without destroying it or create new
 
 		access	|=	GENERIC_WRITE;

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.1.5:
-- added new lines
+Updated to v8.1.9:
+- minor fix
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.1.5">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.1.9">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -721,6 +721,8 @@ Updated to v8.1.5:
 					<Item id="25026" name="Оператор 1"/>
 					<Item id="25027" name="Оператор 2"/>
 					<Item id="25028" name="Числа"/>
+					<Item id="25033" name="Прозрачный"/>
+					<Item id="25034" name="Прозрачный"/>
 				</StylerDialog>
 				<Folder title="Стандартный">
 					<Item id="21101" name="Стиль по-умолчанию"/>
@@ -1279,8 +1281,8 @@ Updated to v8.1.5:
 			<ColumnType   name="Тип"/>
 			<ColumnSize   name="Размер"/>
 			<NbDocsTotal  name="всего :"/>
-			<MenuCopyName name="Копировать Имена"/>
-			<MenuCopyPath name="Копировать Путь"/>
+			<MenuCopyName name="Имя Файла в буфер"/>
+			<MenuCopyPath name="Путь и Имя в буфер"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle       name="Таблица символов ASCII"/>
@@ -1415,7 +1417,7 @@ Updated to v8.1.5:
 			<finder-uncollapse-all       value="Развернуть всё"/>
 			<finder-copy                 value="Копировать (выбранные строки)"/>
 			<finder-copy-verbatim        value="Копировать"/>
-			<finder-copy-paths           value="Копировать путь файла(ов)"/>
+			<finder-copy-paths           value="Путь и Имя файла (в буфер)"/>
 			<finder-select-all           value="Выделить всё"/>
 			<finder-clear-all            value="Очистить всё найденное"/>
 			<finder-open-all             value="Открыть все файлы"/>

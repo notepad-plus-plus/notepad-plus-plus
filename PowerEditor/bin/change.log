@@ -1,3 +1,13 @@
+Notepad++ v8.1.9.1 bug-fixes and new enhancement:
+
+1.  Fix a regression of saving problem.
+2.  Fix a regression of reloading false alarm from the network drive.
+3.  Make Function list/Project panel/Folder as Workspace icon display correct under high DPI.
+4.  Make UDL generic dark mode (working for all dark theme) possible via UDL UI.
+5.  Fix phantom docked panels issue after restoring from systray.
+6.  Enable backup on save (simple) feature by default (only for the new installation).
+
+
 Notepad++ v8.1.9 bug-fixes:
 
 1.  Fix empty file with non-Unicode encoding cannot be saved issue.
@@ -34,7 +44,7 @@ Notepad++ v8.1.6 bug-fixes:
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.1.8/
+https://notepad-plus-plus.org/downloads/v8.1.9.1/
 
 
 Included plugins:
@@ -46,4 +56,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.2.1
+* WinGup (for Notepad++) v5.2.2

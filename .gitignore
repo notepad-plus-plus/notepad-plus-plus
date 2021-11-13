@@ -52,6 +52,7 @@ UpgradeLog*.htm
 .builds
 *.pidb
 *.vcxproj.filters
+*.bak
 
 PowerEditor/bin/notepad++.exe
 PowerEditor/bin/SciLexer.dll

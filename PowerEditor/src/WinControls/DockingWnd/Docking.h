@@ -46,7 +46,7 @@
 #define DWS_DF_FLOATING		0x80000000			// default state is floating
 
 
-typedef struct {
+struct tTbData {
 	HWND hClient = nullptr;                // client Window Handle
 	const TCHAR* pszName = nullptr;        // name of plugin (shown in window)
 	int dlgID = 0;                         // a funcItem provides the function pointer to start a dialog. Please parse here these ID
@@ -60,13 +60,13 @@ typedef struct {
 	RECT rcFloat = {0};                    // floating position
 	int iPrevCont = 0;                     // stores the privious container (toggling between float and dock)
 	const TCHAR* pszModuleName = nullptr;  // it's the plugin file name. It's used to identify the plugin
-} tTbData;
+};
 
 
-typedef struct {
+struct tDockMgr {
 	HWND hWnd = nullptr;                   // the docking manager wnd
 	RECT rcRegion[DOCKCONT_MAX] = {{0}};   // position of docked dialogs
-} tDockMgr;
+};
 
 
 #define	HIT_TEST_THICKNESS		20

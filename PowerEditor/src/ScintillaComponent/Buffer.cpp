@@ -132,18 +132,24 @@ void Buffer::setLangType(LangType lang, const TCHAR* userLangName)
 
 void Buffer::updateTimeStamp()
 {
-	FILETIME timeStamp = {};
+	FILETIME timeStampLive = {};
 	WIN32_FILE_ATTRIBUTE_DATA attributes;
 	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
-		timeStamp = attributes.ftLastWriteTime;
+		timeStampLive = attributes.ftLastWriteTime;
 	}
 
-	if (CompareFileTime(&_timeStamp, &timeStamp) != 0)
+	LONG res = CompareFileTime(&_timeStamp, &timeStampLive);
+	if (res == -1) // timeStampLive is later, it means the file has been modified outside of Notepad++
 	{
-		_timeStamp = timeStamp;
+		_timeStamp = timeStampLive;
 		doNotify(BufferChangeTimestamp);
 	}
+	else if (res == 1) // timeStampLive (get directly from the file on disk) is earlier than buffer's timestamp - abnormal case 
+	{
+		// This absurd case can be ignored
+	}
+	// else res == 0 => nothing to change
 }
 
 
@@ -263,13 +269,20 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 			_isFileReadOnly = isFileReadOnly;
 			mask |= BufferChangeReadonly;
 		}
-		if (CompareFileTime(&_timeStamp, &attributes.ftLastWriteTime) != 0)
+
+		LONG res = CompareFileTime(&_timeStamp, &attributes.ftLastWriteTime);
+		if (res == -1) // // attributes.ftLastWriteTime is later, it means the file has been modified outside of Notepad++
 		{
 			_timeStamp = attributes.ftLastWriteTime;
 			mask |= BufferChangeTimestamp;
 			_currentStatus = DOC_MODIFIED;
 			mask |= BufferChangeStatus;	//status always 'changes', even if from modified to modified
 		}
+		else if (res == 1) // The timestamp get directly from the file on disk is earlier than buffer's timestamp - abnormal case
+		{
+			// This absurd case can be ignored
+		}
+		// else res == 0 => nothing to change
 
 		if (mask != 0)
 		{
@@ -628,8 +641,9 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 				newBuf->_currentStatus = DOC_UNNAMED;
 		}
 
-		const FILETIME zeroTime = {};
-		if (CompareFileTime(&fileNameTimestamp, &zeroTime) != 0)
+		const FILETIME zeroTimeStamp = {};
+		LONG res = CompareFileTime(&fileNameTimestamp, &zeroTimeStamp);
+		if (res != 0) // res == 1 or res == -1
 			newBuf->_timeStamp = fileNameTimestamp;
 
 		_buffers.push_back(newBuf);

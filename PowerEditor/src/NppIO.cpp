@@ -1751,25 +1751,24 @@ bool Notepad_plus::fileRename(BufferID id)
 	_pluginsManager.notify(&scnN);
 
 	bool success = false;
-	bool defaultExt = true;
 	bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
 	if (isFileExisting)
 	{
 		CustomFileDialog fDlg(_pPublicInterface->getHSelf());
+		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
+		const int langTypeIndex = setFileOpenSaveDlgFilters(fDlg, false, bufLang);
 
 		for (auto item : ScintillaEditView::langNames)
 		{
 			if (bufLang == item.LangID)
 			{
-				fDlg.setExtFilter(item.longName, item.lexerName);
-				defaultExt = false;
+				fDlg.setExtIndex(langTypeIndex + 1);
+				const bool defaultAllTypes = NppParameters::getInstance().getNppGUI()._setSaveDlgExtFiltToAllTypes;
+				const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
+					TEXT("&Append extension"));
+				fDlg.enableFileTypeCheckbox(checkboxLabel, !defaultAllTypes);
 				break;
 			}
-		}
-
-		if (defaultExt)
-		{
-			fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 		}
 
 		setFileOpenSaveDlgFilters(fDlg, false);
@@ -1778,10 +1777,6 @@ bool Notepad_plus::fileRename(BufferID id)
 
 		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("file-rename-title", TEXT("Rename"));
 
-		const bool defaultAllTypes = NppParameters::getInstance().getNppGUI()._setSaveDlgExtFiltToAllTypes;
-		const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
-			TEXT("&Append extension"));
-		fDlg.enableFileTypeCheckbox(checkboxLabel, !defaultAllTypes);
 		fDlg.setTitle(title.c_str());
 
 		generic_string fn = fDlg.doSaveDlg();

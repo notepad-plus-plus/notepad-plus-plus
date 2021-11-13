@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 12.09.2021 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 13.11.2021 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -613,7 +613,9 @@
 					<Item id="25002" name="Курсив"/>
 					<Item id="25003" name="Подчертан"/>
 					<Item id="25006" name="Цвят на текста"/>
+					<Item id="25033" name="Прозрачно"/>
 					<Item id="25007" name="Фон на текста"/>
+					<Item id="25034" name="Прозрачно"/>
 					<Item id="25029" name="Вместване"/>
 					<Item id="25008" name="Разграничител 1"/>
 					<Item id="25009" name="Разграничител 2"/>

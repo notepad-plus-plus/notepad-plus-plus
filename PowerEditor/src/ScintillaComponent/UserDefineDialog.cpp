@@ -1776,10 +1776,14 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 
             dlg->_pFgColour->init(dlg->_hInst, hwnd);
             dlg->_pFgColour->setColour(style._fgColor);
-            dlg->_pFgColour->setEnabled((style._colorStyle & COLORSTYLE_FOREGROUND) != 0);
+            bool isFgEnabled = (style._colorStyle & COLORSTYLE_FOREGROUND) != 0;
+            dlg->_pFgColour->setEnabled(isFgEnabled);
+            ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_SETCHECK, !isFgEnabled, 0);
             dlg->_pBgColour->init(dlg->_hInst, hwnd);
             dlg->_pBgColour->setColour(style._bgColor);
-            dlg->_pBgColour->setEnabled((style._colorStyle & COLORSTYLE_BACKGROUND) != 0);
+            bool isBgEnabled = (style._colorStyle & COLORSTYLE_BACKGROUND) != 0;
+            dlg->_pBgColour->setEnabled(isBgEnabled);
+            ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_SETCHECK, !isBgEnabled, 0);
 
             int w = nppParam._dpiManager.scaleX(25);
             int h = nppParam._dpiManager.scaleY(25);
@@ -1922,7 +1926,10 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 						bool isTransparent = (BST_CHECKED == ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_GETCHECK, 0, 0));
 						dlg->_pFgColour->setEnabled(!isTransparent);
 						dlg->_pFgColour->redraw();
-						style._colorStyle &= ~COLORSTYLE_FOREGROUND;
+                        if (isTransparent)
+						    style._colorStyle &= ~COLORSTYLE_FOREGROUND;
+                        else
+                            style._colorStyle |= COLORSTYLE_FOREGROUND;
 					}
 
 					if (wParam == IDC_STYLER_CHECK_BG_TRANSPARENT)
@@ -1930,7 +1937,10 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 						bool isTransparent = (BST_CHECKED == ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_GETCHECK, 0, 0));
 						dlg->_pBgColour->setEnabled(!isTransparent);
 						dlg->_pBgColour->redraw();
-						style._colorStyle &= ~COLORSTYLE_BACKGROUND;
+                        if (isTransparent)
+						    style._colorStyle &= ~COLORSTYLE_BACKGROUND;
+                        else
+						    style._colorStyle |= COLORSTYLE_BACKGROUND;
 					}
 				}
 				else

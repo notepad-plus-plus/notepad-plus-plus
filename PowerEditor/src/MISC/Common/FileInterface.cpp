@@ -133,7 +133,7 @@ void Win32_IO_File::fillCreateParams(DWORD &access, DWORD &share, DWORD &disp, D
 	else
 	{
 		disp	=	OPEN_ALWAYS; // Open existing file for writing without destroying it or create new
-
+		share	|=	FILE_SHARE_WRITE;
 		access	|=	GENERIC_WRITE;
 		attrib	|=	FILE_FLAG_WRITE_THROUGH; // Write cached data directly to disk (no lazy writer)
 	}

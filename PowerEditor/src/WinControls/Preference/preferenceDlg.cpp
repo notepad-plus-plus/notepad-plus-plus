@@ -580,7 +580,7 @@ INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					NppGUI& nppGUI = nppParam.getNppGUI();
 					nppGUI._tabStatus ^= TAB_ALTICONS;
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_GETCHECK, 0, 0));
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, 0, isChecked ? 1 : 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, 0, isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0));
 					return TRUE;
 				}
 

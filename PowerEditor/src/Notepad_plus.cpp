@@ -8153,7 +8153,7 @@ void Notepad_plus::handleEnvironmentSettingChange(LPARAM lParam)
 								strValue += *i;
 							}
 
-							DWORD dwRet = ::GetEnvironmentVariable(strName.c_str(), szBuf, BUFSIZE);
+							DWORD dwRet = ::GetEnvironmentVariable(strName.c_str(), szBuf, BUFMAXLEN + 1);
 							if (0 == dwRet)
 							{
 								if (ERROR_ENVVAR_NOT_FOUND == ::GetLastError())

@@ -8090,3 +8090,101 @@ void Notepad_plus::updateCommandShortcuts()
 		csc.setName(menuName.c_str(), shortcutName.c_str());
 	}
 }
+
+
+// shell32!RegenerateUserEnvironment
+typedef BOOL(WINAPI* REGENERATEUSERENVIRONMENT)(LPVOID *lpEnvironment, BOOL bUpdateSelf);
+
+void Notepad_plus::handleEnvironmentSettingChange(LPARAM lParam)
+{
+	if (!lParam || (0 != lstrcmpi(reinterpret_cast<LPCWCH>(lParam), L"Environment")))
+		return; // not an environment change
+
+	HMODULE hmShell32 = ::LoadLibrary(TEXT("shell32.dll"));
+	if (hmShell32)
+	{
+		REGENERATEUSERENVIRONMENT pfnRegenerateUserEnvironment = (REGENERATEUSERENVIRONMENT)::GetProcAddress(hmShell32, "RegenerateUserEnvironment");
+		if (pfnRegenerateUserEnvironment)
+		{
+			const UINT BUFMAXLEN = 1023; // the GetEnvironmentVariable call will be satisfied here even with the BUFMAXLEN=1, but for a possible error message we need a usable one
+			const size_t BUFSIZE = (BUFMAXLEN + 1) * sizeof(TCHAR);
+			TCHAR szBuf[BUFMAXLEN + 1];
+			::ZeroMemory(szBuf, BUFSIZE);
+
+			LPTCH lpCurProcEnvBak = ::GetEnvironmentStrings(); // backup the current process environment set 1st
+			if (!lpCurProcEnvBak)
+			{
+				::OutputDebugString(TEXT("ERROR: Notepad_plus::handleEnvironmentSettingChange, GetEnvironmentStrings WINAPI failed!"));
+			}
+			else
+			{
+				LPVOID lpEnvironment = NULL;
+				if (!((*pfnRegenerateUserEnvironment)(&lpEnvironment, TRUE)))
+				{
+					if (-1 == _stprintf_s(szBuf, _countof(szBuf), TEXT("ERROR: Notepad_plus::handleEnvironmentSettingChange, RegenerateUserEnvironment WINAPI failed! (ErrorCode: %u)"), ::GetLastError()))
+						::OutputDebugString(TEXT("ERROR: Notepad_plus::handleEnvironmentSettingChange, RegenerateUserEnvironment WINAPI failed!"));
+					else
+						::OutputDebugString(szBuf);
+				}
+				else
+				{
+					// N++ process environment set has been successfully updated with the global system and user variables,
+					// now we need to return back any possible missing local N++ environment variable (but respect
+					// all the possible RegenerateUserEnvironment changes to the environment variables)
+					// -> drawback = any globally deleted variable will be back in the current N++ process environment
+					
+					LPTSTR lpszEnvVariable = lpCurProcEnvBak; // lpszEnvVariable ... VarX=ValueX\0
+					while (*lpszEnvVariable)
+					{
+						int iLen = lstrlen(lpszEnvVariable);
+						if (iLen > 0)
+						{
+							std::basic_string<TCHAR> strName, strValue;
+							LPTCH i = lpszEnvVariable;
+							int iPos = 1;
+							for (; ( ((*i != _T('=')) || (1 == iPos)) && (iPos <= iLen) ); ++i) // the variable name can start with the '=' char too...
+							{
+								strName += *i;
+								++iPos;
+							}
+							++i; // skip the middle '='
+							for (; (*i != _T('\0')); ++i)
+							{
+								strValue += *i;
+							}
+
+							DWORD dwRet = ::GetEnvironmentVariable(strName.c_str(), szBuf, BUFSIZE);
+							if (0 == dwRet)
+							{
+								if (ERROR_ENVVAR_NOT_FOUND == ::GetLastError())
+								{
+									// this variable no longer exists in the current N++ process environment, so we have to put it back
+									if (!::SetEnvironmentVariable(strName.c_str(), strValue.c_str()))
+									{
+										if (-1 == _stprintf_s(szBuf, _countof(szBuf), TEXT("ERROR: Notepad_plus::handleEnvironmentSettingChange, SetEnvironmentVariable WINAPI failed! (ErrorCode: %u)"), ::GetLastError()))
+											::OutputDebugString(TEXT("ERROR: Notepad_plus::handleEnvironmentSettingChange, SetEnvironmentVariable WINAPI failed!"));
+										else
+											::OutputDebugString(szBuf);
+									}
+								}
+							}
+							else
+							{
+								// this variable exists in the current N++ process environment
+								// and we will respect its RegenerateUserEnvironment value whatewer it is
+								// -> drawback = if we changed e.g. the PATH value before from within the N++ process, it is now overwritten
+							}
+						}
+
+						lpszEnvVariable += iLen + 1; // fetch the next variable and its value from the environment backup
+					}
+				}
+				
+				::FreeEnvironmentStrings(lpCurProcEnvBak);
+				lpCurProcEnvBak = NULL;
+			}
+		}
+
+		::FreeLibrary(hmShell32);
+	}
+}

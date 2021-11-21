@@ -1,3 +1,13 @@
+Notepad++ v8.1.9.2 bug-fixes:
+
+1.  Fix failure of erasing & saving server logs (of network drive) regression.
+2.  Fix dark mode not working on Windows 10 2H22.
+3.  Fix crash in regex search.
+4.  Fix UDL folding breaking with delimiters issue if UNIX EOL applied.
+5.  Fix UDL generic dark mode via UDL UI not working issue.
+6.  Fix disabling alternative icons on tab in dark mode issue.
+
+
 Notepad++ v8.1.9.1 bug-fixes and new enhancement:
 
 1.  Fix a regression of saving problem.
@@ -44,7 +54,7 @@ Notepad++ v8.1.6 bug-fixes:
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.1.9.1/
+https://notepad-plus-plus.org/downloads/v8.1.9.2/
 
 
 Included plugins:

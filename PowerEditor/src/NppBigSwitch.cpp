@@ -195,6 +195,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_SETTINGCHANGE:
 		{
 			NppDarkMode::handleSettingChange(hwnd, lParam);
+			
+			handleEnvironmentSettingChange(lParam);
 
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}

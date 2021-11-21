@@ -636,4 +636,6 @@ private:
 
 	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
 	void updateCommandShortcuts();
+	
+	void handleEnvironmentSettingChange(LPARAM lParam);
 };

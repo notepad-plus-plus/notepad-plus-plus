@@ -3410,6 +3410,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_LANG_UDLCOLLECTION_PROJECT_SITE:
+		{
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://github.com/notepad-plus-plus/userDefinedLanguages"), NULL, NULL, SW_SHOWNORMAL);
+			break;
+		}
+
         case IDC_PREV_DOC :
         case IDC_NEXT_DOC :
         {

@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.1.5">
+    <Native-Langue name="English" filename="english.xml" version="8.1.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -319,6 +319,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="46001" name="Style Configurator..."/>
                     <Item id="46250" name="Define your language..."/>
                     <Item id="46300" name="Open User Defined Language folder..."/>
+                    <Item id="46301" name="Notepad++ User Defined Languages Collection"/>
                     <Item id="46180" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++"/>
                     <Item id="47010" name="Command Line Arguments..."/>

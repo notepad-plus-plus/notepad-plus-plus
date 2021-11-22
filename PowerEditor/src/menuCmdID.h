@@ -529,6 +529,7 @@
     #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 210)     //46210: Ajust with IDM_LANG_USER
     #define    IDM_LANG_USER_DLG           (IDM_LANG + 250)     //46250: Used for translation
     #define    IDM_LANG_OPENUDLDIR         (IDM_LANG + 300)
+    #define    IDM_LANG_UDLCOLLECTION_PROJECT_SITE   (IDM_LANG + 301)
 
 
 

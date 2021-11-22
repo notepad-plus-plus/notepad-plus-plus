@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on November 22nd, 2021 for version 8.1.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on July 31st, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
@@ -28,7 +29,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.5">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -72,7 +73,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="view-currentFileIn" name="Fighjà u schedariu attuale in"/>
                     <Item subMenuId="view-showSymbol"  name="Affissà i simbuli"/>
                     <Item subMenuId="view-zoom"  name="Ingrandamentu"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Dispiazzà o duplicà u ducumentu attuale"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Dispiazzà o duppià u ducumentu attuale"/>
                     <Item subMenuId="view-tab"  name="Unghjetta"/>
                     <Item subMenuId="view-collapseLevel" name="Ripiegà u livellu"/>
                     <Item subMenuId="view-uncollapseLevel" name="Spiegà u livellu"/>
@@ -93,7 +94,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="encoding-thai" name="Tailandese"/>
                     <Item subMenuId="encoding-turkish" name="Turcu"/>
                     <Item subMenuId="encoding-westernEuropean" name="Europeanu di u punente"/>
-                    <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamianu"/>
                     <Item subMenuId="language-userDefinedLanguage" name="Linguaghju definitu da l’utilizatore"/>
                     <Item subMenuId="settings-import"  name="Impurtà"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
@@ -141,7 +142,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42086" name="A data è l’ora (furmatu persunalizatu)"/>
                     <Item id="42008" name="Aghjunghje una tabulazione nant’à a linea"/>
                     <Item id="42009" name="Caccià una tabulazione da a linea"/>
-                    <Item id="42010" name="Duplicà a linea attuale"/>
+                    <Item id="42010" name="Duppià a linea attuale"/>
                     <Item id="42079" name="Caccià e linee in doppiu"/>
                     <Item id="42077" name="Caccià e linee in doppiu chì si seguitanu"/>
                     <Item id="42012" name="Frazziunà in parechje linee"/>
@@ -337,7 +338,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45056" name="OEM 863 : Francese"/>
 
                     <Item id="10001" name="Dispiazzà in l’altra vista"/>
-                    <Item id="10002" name="Duplicà in l’altra vista"/>
+                    <Item id="10002" name="Duppià in l’altra vista"/>
                     <Item id="10003" name="Dispiazzà in una nova finestra"/>
                     <Item id="10004" name="Apre in una nova finestra"/>
 
@@ -346,7 +347,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="46300" name="Apre u cartulare di i linguaghji definiti da l’utilizatore…"/>
                     <Item id="46180" name="Definitu da l’utilizatore"/>
                     <Item id="47000" name="Apprupositu di Notepad++"/>
-                    <Item id="47010" name="Argumenti di linea di cummanda…"/>
+                    <Item id="47010" name="Argumenti di linea di cumanda…"/>
                     <Item id="47001" name="Pagina d’accolta di Notepad++…"/>
                     <Item id="47002" name="Pagina di prughjettu Notepad++"/>
                     <Item id="47003" name="Manuale in linea di l’utilizatore"/>
@@ -477,7 +478,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
             <GoToLine title="Andà à…">
                 <Item id="2007" name="&amp;Linea"/>
-                <Item id="2008" name="&amp;Offset"/>
+                <Item id="2008" name="&amp;Staccamentu"/>
                 <Item id="1"    name="&amp;Andà"/>
                 <Item id="2"    name="Ùn vocu inlocu"/>
                 <Item id="2004" name="Site quì :"/>
@@ -1135,9 +1136,9 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6337" name="Estensione di spaziu di travagliu :"/>
                     <Item id="6114" name="Attivà"/>
                     <Item id="6117" name="Impiegà a lista MRU recente di schedarii"/>
-                    <Item id="6344" name="Fighjata di ducumentu"/>
-                    <Item id="6345" name="Fighjata da l’unghjetta"/>
-                    <Item id="6346" name="Fighjata da a cartugrafia di ducumentu"/>
+                    <Item id="6344" name="Fighjulata di u ducumentu"/>
+                    <Item id="6345" name="Fighjulata à l’unghjetta"/>
+                    <Item id="6346" name="Fighjulata à a cartugrafia di u ducumentu"/>
                     <Item id="6360" name="Ammutulisce tutti i soni"/>
                     <Item id="6361" name="Attivà u dialogu per cunfirmà l’arregistramentu di tutti i schedarii"/>
                 </MISC>
@@ -1216,9 +1217,9 @@ Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
 Cuntinuà ?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Dispiazzà in una nova finestra Notepad++" message="U ducumentu hè mudificatu, arregistratellu è pruvate torna."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Ricaricà" message="Site sicuru di vulè ricaricà u schedariu currente è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
-            <FileLockedWarning title="Arregistramentu fiascu" message="Ci vole à verificà s’è stu schedariu hè dighjà apertu in un altru prugramma"/>
+            <FileLockedWarning title="Arregistramentu fiascatu" message="Ci vole à verificà s’è stu schedariu hè dighjà apertu in un altru prugramma"/>
             <FileAlreadyOpenedInNpp title="" message="U schedariu hè dighjà apertu in Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
-            <RenameTabTemporaryNameAlreadyInUse title="Rinuminazione fiasca" message="U nome specificatu hè dighjà impiegatu in un’altra unghjetta."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+            <RenameTabTemporaryNameAlreadyInUse title="Rinuminazione fiascata" message="U nome specificatu hè dighjà impiegatu in un’altra unghjetta."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Squassatura di schedariu" message="Fiascu di a squassatura di u schedariu"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii devenu esse aperti.
@@ -1232,7 +1233,7 @@ E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un val
 Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu » in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
             <SortingError title="Sbagliu di classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+selez. cù topu » o « Alt+Maiusc+fleccia » per passà à u modu culonna."/>
-            <BufferInvalidWarning title="Arregistramentu fiascu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <BufferInvalidWarning title="Arregistramentu fiascatu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
 Cunservà stu schedariu in l’editore ?"/>
             <DoDeleteOrNot title="Squassà u schedariu" message="U schedariu « $STR_REPLACE$ »
@@ -1262,10 +1263,10 @@ Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?
             <FileBackupFailed title="Fiascu di salvaguardia di schedariu" message="A versione precedente di u schedariu ùn pò micca esse arregistrata in u cartulare di salvaguardia : « $STR_REPLACE$ ».
 
 Vulete arregistrà u schedariu attuale quantunque ?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <LoadStylersFailed title="Caricamentu fiascu di stylers.xml" message="Caricamentu fiascu di « $STR_REPLACE$ » !"/>
-            <LoadLangsFailed title="Cunfiguratore" message="Caricamentu fiascu di langs.xml !
+            <LoadStylersFailed title="Caricamentu fiascatu di stylers.xml" message="Caricamentu fiascatu di « $STR_REPLACE$ » !"/>
+            <LoadLangsFailed title="Cunfiguratore" message="Caricamentu fiascatu di langs.xml !
 Vulete ricuperà u vostru langs.xml ?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-            <LoadLangsFailedFinal title="Cunfiguratore" message="Caricamentu fiascu di langs.xml !"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+            <LoadLangsFailedFinal title="Cunfiguratore" message="Caricamentu fiascatu di langs.xml !"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
             <FolderAsWorspaceSubfolderExists title="Penseru à l’aghjuntu di cartulare cum’è spaziu di travagliu" message="Un sottu-cartulare di u cartulare chì voi vulete aghjunghje esiste dighjà.
 Ci vole à caccià a so radica da u pannellu nanzu d’aghjunghje u cartulare « $STR_REPLACE$ »."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1286,12 +1287,12 @@ Vulete cuntinuà ?"/>
 ci vole à dà un altru."/>
             <UDLRemoveCurrentLang title="Caccià u linguaghju attuale" message="Site sicuru ?"/>
             <SCMapperDoDeleteOrNot title="Cunfirmazione" message="Site sicuru di vulè squassà st’accurtatoghju ?"/>
-            <FindCharRangeValueError title="Penseru di valore di stesa" message="Ci vole à scrive trà 0 è 255."/>
-            <OpenInAdminMode title="Arregistramentu fiascu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
+            <FindCharRangeValueError title="Penseru di valore di stesa" message="Ci vole à stampittà trà 0 è 255."/>
+            <OpenInAdminMode title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
 Vulete dimarrà Notepad++ in modu Amministratore ?"/>
-            <OpenInAdminModeWithoutCloseCurrent title="Arregistramentu fiascu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
+            <OpenInAdminModeWithoutCloseCurrent title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
 Vulete dimarrà Notepad++ in modu Amministratore ?"/>
-            <OpenInAdminModeFailed title="Apertura fiasca in modu Amministratore" message="Notepad++ ùn pò micca esse apertu in modu Amministratore."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+            <OpenInAdminModeFailed title="Apertura fiascata in modu Amministratore" message="Notepad++ ùn pò micca esse apertu in modu Amministratore."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
             <ViewInBrowser title="Fighjà u schedariu attuale in u navigatore" message="L’appiecazione ùn si trova micca in u sistema."/>
             <ExitToUpdatePlugins title="Notepad++ hè prontu à esce" message="S’è vo cliccate Iè, Notepad++ hà da piantà per cuntinuà l’operazioni.
 Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
@@ -1369,7 +1370,7 @@ Cuntinuà ?"/>
                     <Item id="3126" name="Arregistrà cù u nome…"/>
                     <Item id="3127" name="Arregistrà una copia cù u nome…"/>
                     <Item id="3121" name="Aghjunghje un novu prughjettu"/>
-                    <Item id="3128" name="Circà in prughjetti…"/>
+                    <Item id="3128" name="Circà in i prughjetti…"/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Rinuminà"/>
@@ -1426,7 +1427,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <find-status-replaceinopenedfiles-nb-replaced value="Rimpiazzà in schedarii aperti : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
             <find-status-mark-re-malformed value="Marcà : A spressione regulare per ricercà hè mal’cuncilia"/>
             <find-status-invalid-re value="Circà : Espressione regulare inaccettevule"/>
-			<find-status-search-failed value="Circà : Ricerca fiasca"/>
+			<find-status-search-failed value="Circà : Ricerca fiascata"/>
             <find-status-mark-1-match value="Marca : 1 cuncurdanza"/>
             <find-status-mark-nb-matches value="Marca : $INT_REPLACE$ cuncurdanze"/>
             <find-status-count-re-malformed value="Cuntà : A spressione regulare per ricercà hè mal’cuncilia"/>
@@ -1501,7 +1502,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
             <find-result-hits value="($INT_REPLACE$ risultati)"/>
             <find-result-line-prefix value="Linea"/> <!-- Must not begin with space or tab character -->
-            <find-regex-zero-length-match value="currispondenza di longhezza à zeru"/>
+            <find-regex-zero-length-match value="currispundenza di longhezza à zeru"/>
             <session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
             <tab-untitled-string value="novu "/>
             <file-save-assign-type value="&amp;Aghjunghje un’estensione"/>

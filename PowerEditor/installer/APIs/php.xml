@@ -217,17 +217,17 @@
 				<Param name="callback key_compare_func"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="array_key_exists" func="yes">
+			<Overload retVal="bool">
+				<Param name="mixed key"/>
+				<Param name="array search"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="array_keys" func="yes">
 			<Overload retVal="array">
 				<Param name="array input"/>
 				<Param name="[mixed search_value"/>
 				<Param name="[bool strict=false]]"/>
-			</Overload>
-		</KeyWord>
-		<KeyWord name="array_key_exists" func="yes">
-			<Overload retVal="bool">
-				<Param name="mixed key"/>
-				<Param name="array search"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="array_map" func="yes">

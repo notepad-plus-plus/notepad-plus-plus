@@ -327,7 +327,8 @@
 
 					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
-					<Item id="46300" name="Verzeichnis mit benutzerdefinierte Sprache öffnen …"/>
+					<Item id="46300" name="Verzeichnis mit benutzerdefinierten Sprachen öffnen …"/>
+					<Item id="46301" name="Notepad++ Sammlung benutzerdefinierter Sprachen"/>
 					<Item id="46180" name="Benutzerdefiniert"/>
 					<Item id="47000" name="&amp;Info …"/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>

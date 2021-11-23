@@ -846,7 +846,7 @@
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 
 					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
-					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
+					<Item id="6123" name="Sprache"/>
 
 					<Item id="6128" name="Alternative Symbole"/>
 				</Global>

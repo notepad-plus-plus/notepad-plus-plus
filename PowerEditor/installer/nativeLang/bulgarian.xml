@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 13.11.2021 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 24.11.2021 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -377,6 +377,7 @@
 				<!-- Меню "Синтаксис" начало -->
 					<Item id="46250" name="Дефиниране на синтаксис..."/>
 					<Item id="46300" name="Отваряне на папката със синтаксиси..."/>
+					<Item id="46301" name="Notepad++ колекция със синтаксиси"/>
 					<Item id="46180" name="Дефиниран от потребителя"/>
 				<!-- Меню "Синтаксис" край -->
 				<!-- Меню "Настройки" начало -->

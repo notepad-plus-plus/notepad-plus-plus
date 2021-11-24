@@ -684,6 +684,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Numbers"/>
+                    <Item id="25033" name="Transparent"/>
+                    <Item id="25034" name="Transparent"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Cancel"/>
                 </StylerDialog>

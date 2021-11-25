@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.5">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -319,6 +319,7 @@
                     <Item id="46001" name="Nastavenie štýlov..."/>
                     <Item id="46250" name="Definovať vlastný jazyk..."/>
                     <Item id="46300" name="Otvoriť priečinok Užívateľom definovaný jazyk..."/>
+                    <Item id="46301" name="Zbierka užívateľom definovaných jazykov programu Notepad++"/>
                     <Item id="46180" name="Definovaný používateľom"/>
                     <Item id="47000" name="O Notepade++…"/>
                     <Item id="47010" name="Parametre príkazového riadka..."/>
@@ -682,6 +683,8 @@
                     <Item id="25026" name="Operátor 1"/>
                     <Item id="25027" name="Operátor 2"/>
                     <Item id="25028" name="Čísla"/>
+                    <Item id="25033" name="Priehľadné"/>
+                    <Item id="25034" name="Priehľadné"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Zrušiť"/>
                 </StylerDialog>
@@ -1464,20 +1467,20 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <replace-in-projects-confirm-title value="Ste si istý?"/>
             <replace-in-projects-confirm-message value="Chcete nahradiť všetky výskyty vo všetkých dokumentoch vo vybraných paneloch projektu?"/>
             <replace-in-open-docs-confirm-title value="Naozaj?"/>
-            <replace-in-open-docs-confirm-message value="Naozaj chcete nahradiť všetky výskyty vo všetkých otvorených dokumentoch"/>
+            <replace-in-open-docs-confirm-message value="Naozaj chcete nahradiť všetky výskyty vo všetkých otvorených dokumentoch?"/>
             <find-result-caption value="Výsledky vyhľadávania"/>
             <find-result-title value="Hľadať"/>
             <find-result-title-info value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ súboroch z $INT_REPLACE3$ prehľadávaných)"/>
             <find-result-title-info-selections value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ výberoch z $INT_REPLACE3$ nájdených)"/>
             <find-result-title-info-extra value=" - Režim filtrovania riadka: zobraziť iba filtrované výsledky"/>
-            <find-result-hits value="($INT_REPLACE$ výskytov)"/>
+            <find-result-hits value="(Počet výskytov: $INT_REPLACE$)"/>
             <find-result-line-prefix value="Riadok"/>
             <find-regex-zero-length-match value="výskyt nulovej dĺžky" />
             <session-save-folder-as-workspace value="Uložiť priečinok ako pracovný priestor" />
             <tab-untitled-string value="nový " />
             <file-save-assign-type value="&amp;Pripojiť príponu" />
             <close-panel-tip value="Zavrieť" />
-            <IncrementalFind-FSFound value="$INT_REPLACE$ výskytov" />
+            <IncrementalFind-FSFound value="Počet výskytov: $INT_REPLACE$" />
             <IncrementalFind-FSNotFound value="Fráza sa nenašla" />
             <IncrementalFind-FSTopReached value="Dosiahnutý začiatok strany, pokračovanie zdola" />
             <IncrementalFind-FSEndReached value="Dosiahnutý koniec strany, pokračovanie zhora" />

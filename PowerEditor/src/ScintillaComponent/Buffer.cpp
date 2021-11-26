@@ -140,16 +140,17 @@ void Buffer::updateTimeStamp()
 	}
 
 	LONG res = CompareFileTime(&_timeStamp, &timeStampLive);
-	if (res == -1) // timeStampLive is later, it means the file has been modified outside of Notepad++
+	if (res == -1 || res == 1)
+	// (res == -1) => timeStampLive is later, it means the file has been modified outside of Notepad++ - usual case
+	// 
+	// (res == 1) => timeStampLive (get directly from the file on disk) is earlier than buffer's timestamp - unusual case
+	//               It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
+	//               Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
 	{
 		_timeStamp = timeStampLive;
 		doNotify(BufferChangeTimestamp);
 	}
-	else if (res == 1) // timeStampLive (get directly from the file on disk) is earlier than buffer's timestamp - abnormal case 
-	{
-		// This absurd case can be ignored
-	}
-	// else res == 0 => nothing to change
+	// else (res == 0) => nothing to change
 }
 
 
@@ -271,16 +272,18 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		}
 
 		LONG res = CompareFileTime(&_timeStamp, &attributes.ftLastWriteTime);
-		if (res == -1) // // attributes.ftLastWriteTime is later, it means the file has been modified outside of Notepad++
+
+		if (res == -1 || res == 1)
+		// (res == -1) => attributes.ftLastWriteTime is later, it means the file has been modified outside of Notepad++ - usual case
+		// 
+		// (res == 1)  => The timestamp get directly from the file on disk is earlier than buffer's timestamp - unusual case
+		//                It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
+		//                Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
 		{
 			_timeStamp = attributes.ftLastWriteTime;
 			mask |= BufferChangeTimestamp;
 			_currentStatus = DOC_MODIFIED;
 			mask |= BufferChangeStatus;	//status always 'changes', even if from modified to modified
-		}
-		else if (res == 1) // The timestamp get directly from the file on disk is earlier than buffer's timestamp - abnormal case
-		{
-			// This absurd case can be ignored
 		}
 		// else res == 0 => nothing to change
 

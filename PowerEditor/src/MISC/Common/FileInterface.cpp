@@ -22,10 +22,7 @@ Win32_IO_File::Win32_IO_File(const char *fname, Mode fmode) : _hMode(fmode)
 {
 	if (fname)
 	{
-		DWORD access, share, disp, attrib;
-		fillCreateParams(access, share, disp, attrib);
-
-		_hFile = ::CreateFileA(fname, access, share, NULL, disp, attrib, NULL);
+		_hFile = ::CreateFileA(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
 	}
 
 	if ((_hFile != INVALID_HANDLE_VALUE) && (_hMode == Mode::APPEND))
@@ -42,10 +39,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname, Mode fmode) : _hMode(fmode)
 {
 	if (fname)
 	{
-		DWORD access, share, disp, attrib;
-		fillCreateParams(access, share, disp, attrib);
-
-		_hFile = ::CreateFileW(fname, access, share, NULL, disp, attrib, NULL);
+		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
 	}
 
 	if ((_hFile != INVALID_HANDLE_VALUE) && (_hMode == Mode::APPEND))
@@ -74,7 +68,7 @@ void Win32_IO_File::close()
 	}
 }
 
-
+/*
 int_fast64_t Win32_IO_File::getSize()
 {
 	LARGE_INTEGER r;
@@ -85,7 +79,7 @@ int_fast64_t Win32_IO_File::getSize()
 
 	return static_cast<int_fast64_t>(r.QuadPart);
 }
-
+*/
 
 unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 {
@@ -102,7 +96,7 @@ unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 
 bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 {
-	if (!isOpened() || (wbuf == nullptr) || ((_hMode != Mode::WRITE) && (_hMode != Mode::APPEND)))
+	if (!isOpened() || (wbuf == nullptr))
 		return false;
 
 	DWORD bytes_written = 0;
@@ -116,25 +110,3 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 	return (bytes_written == buf_size);
 }
 
-
-// Helper function to auto-fill CreateFile params optimized for Notepad++ usage.
-void Win32_IO_File::fillCreateParams(DWORD &access, DWORD &share, DWORD &disp, DWORD &attrib)
-{
-	access	= GENERIC_READ;
-	share = FILE_SHARE_READ;
-	attrib	= FILE_ATTRIBUTE_NORMAL | FILE_FLAG_POSIX_SEMANTICS; // Distinguish between upper/lower case in name
-
-	if (_hMode == Mode::READ)
-	{
-		disp	=	OPEN_EXISTING; // Open only if file exists and is not locked by other process
-
-		attrib	|=	FILE_FLAG_SEQUENTIAL_SCAN; // Optimize caching for sequential read
-	}
-	else
-	{
-		disp	=	OPEN_ALWAYS; // Open existing file for writing without destroying it or create new
-		share	|=	FILE_SHARE_WRITE;
-		access	|=	GENERIC_WRITE;
-		attrib	|=	FILE_FLAG_WRITE_THROUGH; // Write cached data directly to disk (no lazy writer)
-	}
-}

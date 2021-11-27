@@ -27,13 +27,12 @@ class Win32_IO_File final
 {
 public:
 	enum class Mode {
-		READ,
 		WRITE,
 		APPEND
 	};
 
-	Win32_IO_File(const char *fname, Mode fmode = Mode::READ);
-	Win32_IO_File(const wchar_t *fname, Mode fmode = Mode::READ);
+	Win32_IO_File(const char *fname, Mode fmode);
+	Win32_IO_File(const wchar_t *fname, Mode fmode);
 
 	Win32_IO_File() = delete;
 	Win32_IO_File(const Win32_IO_File&) = delete;
@@ -48,7 +47,7 @@ public:
 	};
 
 	void close();
-	int_fast64_t getSize();
+	//int_fast64_t getSize();
 	unsigned long read(void *rbuf, unsigned long buf_size);
 	bool write(const void *wbuf, unsigned long buf_size);
 
@@ -58,8 +57,11 @@ public:
 
 private:
 	HANDLE	_hFile		{INVALID_HANDLE_VALUE};
-	Mode	_hMode		{Mode::READ};
+	Mode	_hMode		{Mode::WRITE};
 	bool	_written	{false};
 
-	void fillCreateParams(DWORD& access, DWORD& share, DWORD& disp, DWORD& attrib);
+	const DWORD _accessParam  { GENERIC_READ | GENERIC_WRITE };
+	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE };
+	const DWORD _dispParam    { OPEN_ALWAYS }; // Open existing file for writing without destroying it or create new
+	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL | FILE_FLAG_POSIX_SEMANTICS | FILE_FLAG_WRITE_THROUGH }; // FILE_FLAG_POSIX_SEMANTICS: distinguish between upper/lower case in name
 };

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-10-29 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-11-27 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.5">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.9.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -328,6 +328,7 @@
 					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
 					<Item id="46300" name="Verzeichnis mit benutzerdefinierte Sprache öffnen …"/>
+					<Item id="46301" name="Sammlung benutzderdefinierter Sprachen für Notepad++"/>
 					<Item id="46180" name="Benutzerdefiniert"/>
 					<Item id="47000" name="&amp;Info …"/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>
@@ -692,6 +693,8 @@
 					<Item id="25026" name="Operatoren 1"/>
 					<Item id="25027" name="Operatoren 2"/>
 					<Item id="25028" name="Zahlen"/>
+					<Item id="25033" name="Transparent"/>
+					<Item id="25034" name="Transparent"/>
 					<Item id="1"     name="&amp;OK"/>
 					<Item id="2"     name="A&amp;bbrechen"/>
 				</StylerDialog>

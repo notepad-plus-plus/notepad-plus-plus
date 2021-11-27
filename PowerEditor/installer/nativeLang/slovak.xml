@@ -683,6 +683,8 @@
                     <Item id="25026" name="Operátor 1"/>
                     <Item id="25027" name="Operátor 2"/>
                     <Item id="25028" name="Čísla"/>
+                    <Item id="25033" name="Priehľadné"/>
+                    <Item id="25034" name="Priehľadné"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Zrušiť"/>
                 </StylerDialog>

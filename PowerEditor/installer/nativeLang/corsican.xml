@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on November 25th, 2021 for version 8.1.9.2 by Patriccollu di Santa Maria è Sichè
+		- Updated on November 27th, 2021 for version 8.1.9.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on July 31st, 2021 for version 8.1.3 by Patriccollu di Santa Maria è Sichè
@@ -393,7 +393,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="3" name="Arregistrà cù u nome…"/>
                     <Item CMID="4" name="Stampà…"/>
                     <Item CMID="5" name="Dispiazzà in l’altra vista"/>
-                    <Item CMID="6" name="Cupià in l’altra vista"/>
+                    <Item CMID="6" name="Duppià in l’altra vista"/>
                     <Item CMID="7" name="Chjassu cumpletu in u preme’papei"/>
                     <Item CMID="8" name="Nome di schedariu in u preme’papei"/>
                     <Item CMID="9" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
@@ -595,10 +595,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43065" name="Stilizà una occurenza impieghendu u 4ᵘ stilu"/>
                     <Item id="43066" name="Stilizà una occurenza impieghendu u 5ᵘ stilu"/>
                     <Item id="43023" name="Nettà u 1ᵘ stilu"/>
-                    <Item id="43025" name="Nettà u 1ᵘ stilu"/>
-                    <Item id="43027" name="Nettà u 1ᵘ stilu"/>
-                    <Item id="43029" name="Nettà u 1ᵘ stilu"/>
-                    <Item id="43031" name="Nettà u 1ᵘ stilu"/>
+                    <Item id="43025" name="Nettà u 2ᵘ stilu"/>
+                    <Item id="43027" name="Nettà u 3ᵘ stilu"/>
+                    <Item id="43029" name="Nettà u 4ᵘ stilu"/>
+                    <Item id="43031" name="Nettà u 5ᵘ stilu"/>
                     <Item id="43032" name="Nettà tutti i stili"/>
                     <Item id="43033" name="Stilizazione precedente impieghendu u 1ᵘ stilu"/>
                     <Item id="43034" name="Stilizazione precedente impieghendu u 2ᵘ stilu"/>
@@ -623,8 +623,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44101" name="Fighjà u schedariu attuale cù Chrome"/>
                     <Item id="44103" name="Fighjà u schedariu attuale cù Internet Explorer"/>
                     <Item id="44102" name="Fighjà u schedariu attuale cù Edge"/>
-                    <Item id="50003" name="Andà à u ducumentu precedente"/>
-                    <Item id="50004" name="Andà à u ducumentu seguente"/>
+                    <Item id="50003" name="Passà à u ducumentu precedente"/>
+                    <Item id="50004" name="Passà à u ducumentu seguente"/>
                     <Item id="44051" name="Ripiegà u livellu 1"/>
                     <Item id="44052" name="Ripiegà u livellu 2"/>
                     <Item id="44053" name="Ripiegà u livellu 3"/>
@@ -710,6 +710,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25026" name="Operatore 1"/>
                     <Item id="25027" name="Operatore 2"/>
                     <Item id="25028" name="Numeri"/>
+                    <Item id="25033" name="Trasparenza"/>
+                    <Item id="25034" name="Trasparenza"/>
                     <Item id="1" name="Vai"/>
                     <Item id="2" name="Abbandunà"/>
                 </StylerDialog>
@@ -1074,7 +1076,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 
                 <MultiInstance title="Multi-finestra è data">
                     <Item id="6151" name="Preferenze di multi-finestra"/>
-                    <Item id="6152" name="Apre una sessione in una nova finestra Notepad++"/>
+                    <Item id="6152" name="Apre una sessione in una nova finestra di Notepad++"/>
                     <Item id="6153" name="Sempre in modu multi-finestra"/>
                     <Item id="6154" name="Predefinitu (mono-finestra)"/>
                     <Item id="6155" name="* A mudificazione di sta preferenza richiede di rilancià Notepad++"/>
@@ -1185,7 +1187,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Item id="1717" name="&amp;Nurmale"/>
                 <Item id="1719" name="&amp;Spressione regulare"/>
                 <Item id="1718" name="&amp;Allungatu (\n, \r, \t, \0, \x…)"/>
-                <Item id="1720" name="&amp;. cum’è nova linea"/>
+                <Item id="1720" name=". cum’è n&amp;ova linea"/>
             </FindInFinder>
             <DoSaveOrNot title="Arregistrà">
                 <Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
@@ -1196,12 +1198,12 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Item id="5" name="Innò &amp;per tutti"/>
             </DoSaveOrNot>
             <DoSaveAll title="Cunfirmazione di l’arregistramentu di tutti i schedarii">
-                <Item id="1766" name="Are you sure you want to save all modified documents?
+                <Item id="1766" name="Site sicuru di vulè arregistrà tutti i ducumenti mudificati ?
 
-Site sicuru di vulè arregistrà tutti i ducumenti mudificati ?
-Sciglite « Sempre iè » s’è ùn vulete più risponde à sta dumanda."/>
+Sciglite « Sempre iè » s’è ùn vulete più risponde à sta dumanda.
+Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
                 <Item id="6" name="&amp;Iè"/>
-                <Item id="7" name="I&amp;nnò"/>
+                <Item id="7" name="In&amp;nò"/>
                 <Item id="4" name="Sempre iè"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
@@ -1216,7 +1218,7 @@ Cuntinuà ?"/> <!-- HowToReproduce: when you openned file is modified but unsav
 Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
 
 Cuntinuà ?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-            <CannotMoveDoc title="Dispiazzà in una nova finestra Notepad++" message="U ducumentu hè mudificatu, arregistratellu è pruvate torna."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+            <CannotMoveDoc title="Dispiazzà in una nova finestra Notepad++" message="U ducumentu hè mudificatu, arregistratelu è pruvate torna."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Ricaricà" message="Site sicuru di vulè ricaricà u schedariu currente è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
             <FileLockedWarning title="Arregistramentu fiascatu" message="Ci vole à verificà s’è stu schedariu hè dighjà apertu in un altru prugramma"/>
             <FileAlreadyOpenedInNpp title="" message="U schedariu hè dighjà apertu in Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
@@ -1272,7 +1274,7 @@ Vulete ricuperà u vostru langs.xml ?"/> <!-- HowToReproduce: Close Notepad++. 
 Ci vole à caccià a so radica da u pannellu nanzu d’aghjunghje u cartulare « $STR_REPLACE$ »."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="U spaziu di travagliu hè statu mudificatu. Vulete arregistrallu ?"/>
-            <ProjectPanelSaveError title="$STR_REPLACE$" message="Un sbagliu hè accadutu à a scrittura di u schedariu di u spaziu di travagliu..
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Un sbagliu hè accadutu à a scrittura di u schedariu di u spaziu di travagliu.
 U vostru spaziu di travagliu ùn hè micca statu arregistratu."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Apre u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Novu spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
@@ -1418,7 +1420,7 @@ Cuntinuà ?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Circà in tutti i schedarii fora di exe, obj è log :
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
             <find-status-top-reached value="Circà : 1ᵃ occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
             <find-status-end-reached value="Circà : 1ᵃ occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
             <find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>
@@ -1473,7 +1475,7 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <language-tabsize value="Dimens. tabul. : "/>
             <userdefined-title-new value="Creà un novu linguaghju…"/>
             <userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
-            <userdefined-title-rename value="Rinuminà u nome di u linguaghju attuale"/>
+            <userdefined-title-rename value="Rinuminà u linguaghju attuale"/>
             <autocomplete-nb-char value="N° carat. : "/>
             <edit-verticaledge-nb-col value="N° di culonne :"/>
             <summary value="Statistiche"/>
@@ -1498,8 +1500,8 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <replace-in-open-docs-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i ducumenti aperti ?"/>
             <find-result-caption value="Risultati di ricerca"/>
             <find-result-title value="Circà"/> <!-- Must not begin with space or tab character -->
-            <find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti frà $INT_REPLACE3$ ducumenti circati)"/>
-            <find-result-title-info-selections value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ selezzioni frà $INT_REPLACE3$ ducumenti circati)"/>
+            <find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti frà i $INT_REPLACE3$ ducumenti circati)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ selezzioni frà i $INT_REPLACE3$ ducumenti circati)"/>
             <find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
             <find-result-hits value="($INT_REPLACE$ risultati)"/>
             <find-result-line-prefix value="Linea"/> <!-- Must not begin with space or tab character -->

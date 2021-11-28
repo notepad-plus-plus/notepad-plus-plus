@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.5">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -322,6 +322,7 @@
                     <Item id="46001" name="スタイル設定..."/>
                     <Item id="46250" name="言語を定義..."/>
                     <Item id="46300" name="言語定義のフォルダーを開く..."/>
+                    <Item id="46301" name="Notepad++ ユーザー言語定義コレクション"/>
                     <Item id="46180" name="ユーザー定義"/>
                     <Item id="47000" name="Notepad++について"/>
                     <Item id="47010" name="コマンドライン引数..."/>
@@ -686,6 +687,8 @@
                     <Item id="25026" name="演算子1"/>
                     <Item id="25027" name="演算子2"/>
                     <Item id="25028" name="数字"/>
+                    <Item id="25033" name="透明"/>
+                    <Item id="25034" name="透明"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="キャンセル"/>
                 </StylerDialog>

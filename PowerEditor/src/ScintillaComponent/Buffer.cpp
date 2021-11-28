@@ -147,6 +147,21 @@ void Buffer::updateTimeStamp()
 	//               It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
 	//               Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
 	{
+		if (res == 1)
+		{
+			if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
+			{
+				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+				nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
+				nppLogNetworkDriveIssueLog += TEXT(".log");
+
+				std::string msg = std::string(_fullPathName.begin(), _fullPathName.end());
+				char buf[1024];
+				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%u/%u) < _timeStamp (%u/%u)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+				msg += buf;
+				writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+			}
+		}
 		_timeStamp = timeStampLive;
 		doNotify(BufferChangeTimestamp);
 	}
@@ -280,6 +295,21 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		//                It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
 		//                Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
 		{
+			if (res == 1)
+			{
+				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
+				{
+					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
+					nppLogNetworkDriveIssueLog += TEXT(".log");
+
+					std::string msg = std::string(_fullPathName.begin(), _fullPathName.end());
+					char buf[1024];
+					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%u/%u) < _timeStamp (%u/%u)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+					msg += buf;
+					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+				}
+			}
 			_timeStamp = attributes.ftLastWriteTime;
 			mask |= BufferChangeTimestamp;
 			_currentStatus = DOC_MODIFIED;
@@ -1499,7 +1529,7 @@ BufferID FileManager::getBufferFromDocument(Document doc)
 
 bool FileManager::createEmptyFile(const TCHAR * path)
 {
-	Win32_IO_File file(path, Win32_IO_File::Mode::WRITE);
+	Win32_IO_File file(path);
 	return file.isOpened();
 }
 

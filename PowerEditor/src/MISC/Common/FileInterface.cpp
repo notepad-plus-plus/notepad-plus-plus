@@ -16,38 +16,26 @@
 
 
 #include "FileInterface.h"
+#include "Parameters.h"
 
 
-Win32_IO_File::Win32_IO_File(const char *fname, Mode fmode) : _hMode(fmode)
+Win32_IO_File::Win32_IO_File(const char *fname)
 {
 	if (fname)
 	{
+		_path = fname;
 		_hFile = ::CreateFileA(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
-	}
-
-	if ((_hFile != INVALID_HANDLE_VALUE) && (_hMode == Mode::APPEND))
-	{
-		LARGE_INTEGER offset;
-		offset.QuadPart = 0;
-
-		::SetFilePointerEx(_hFile, offset, NULL, FILE_END);
 	}
 }
 
 
-Win32_IO_File::Win32_IO_File(const wchar_t *fname, Mode fmode) : _hMode(fmode)
+Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 {
 	if (fname)
 	{
+		generic_string fn = fname;
+		_path = std::string(fn.begin(), fn.end());
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
-	}
-
-	if ((_hFile != INVALID_HANDLE_VALUE) && (_hMode == Mode::APPEND))
-	{
-		LARGE_INTEGER offset;
-		offset.QuadPart = 0;
-
-		::SetFilePointerEx(_hFile, offset, NULL, FILE_END);
 	}
 }
 
@@ -58,8 +46,22 @@ void Win32_IO_File::close()
 	{
 		if (_written)
 		{
-			::SetEndOfFile(_hFile);
-			::FlushFileBuffers(_hFile);
+			BOOL isOK = ::FlushFileBuffers(_hFile);
+			if (!isOK)
+			{
+				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
+				{
+					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
+					nppLogNetworkDriveIssueLog += TEXT(".log");
+
+					std::string msg = _path;
+					msg += "  FlushFileBuffers call failed: ";
+					generic_string lastErrorMsg = GetLastErrorAsString(::GetLastError());
+					msg += std::string(lastErrorMsg.begin(), lastErrorMsg.end());
+					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+				}
+			}
 		}
 
 		::CloseHandle(_hFile);

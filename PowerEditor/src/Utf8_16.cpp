@@ -290,7 +290,7 @@ Utf8_16_Write::~Utf8_16_Write()
 
 bool Utf8_16_Write::openFile(const TCHAR *name)
 {
-	m_pFile = std::make_unique<Win32_IO_File>(name, Win32_IO_File::Mode::WRITE);
+	m_pFile = std::make_unique<Win32_IO_File>(name);
 
 	if (!m_pFile)
 		return false;

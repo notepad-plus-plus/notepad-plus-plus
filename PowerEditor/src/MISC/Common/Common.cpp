@@ -145,7 +145,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 		log2writeStr += "\n";
 
 		DWORD bytes_written = 0;
-		::WriteFile(hFile, log2writeStr.c_str(), log2writeStr.length(), &bytes_written, NULL);
+		::WriteFile(hFile, log2writeStr.c_str(), static_cast<DWORD>(log2writeStr.length()), &bytes_written, NULL);
 	}
 }
 

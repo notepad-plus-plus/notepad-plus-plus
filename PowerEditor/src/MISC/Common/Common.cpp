@@ -115,7 +115,7 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 
 void writeFileContent(const TCHAR *file2write, const char *content2write)
 {
-	Win32_IO_File file(file2write, Win32_IO_File::Mode::WRITE);
+	Win32_IO_File file(file2write);
 
 	if (file.isOpened())
 		file.writeStr(content2write);
@@ -124,10 +124,29 @@ void writeFileContent(const TCHAR *file2write, const char *content2write)
 
 void writeLog(const TCHAR *logFileName, const char *log2write)
 {
-	Win32_IO_File file(logFileName, Win32_IO_File::Mode::APPEND);
+	const DWORD accessParam{ GENERIC_READ | GENERIC_WRITE };
+	const DWORD shareParam{ FILE_SHARE_READ | FILE_SHARE_WRITE };
+	const DWORD dispParam{ OPEN_ALWAYS };
+	const DWORD attribParam{ FILE_ATTRIBUTE_NORMAL | FILE_FLAG_POSIX_SEMANTICS | FILE_FLAG_WRITE_THROUGH };
+	HANDLE hFile = ::CreateFileW(logFileName, accessParam, shareParam, NULL, dispParam, attribParam, NULL);
 
-	if (file.isOpened())
-		file.writeStr(log2write);
+	if (hFile != INVALID_HANDLE_VALUE)
+	{
+		LARGE_INTEGER offset;
+		offset.QuadPart = 0;
+		::SetFilePointerEx(hFile, offset, NULL, FILE_END);
+
+		SYSTEMTIME currentTime = { 0 };
+		::GetLocalTime(&currentTime);
+		generic_string dateTimeStrW = getDateTimeStrFrom(TEXT("yyyy-MM-dd HH:mm:ss"), currentTime);
+		std::string log2writeStr(dateTimeStrW.begin(), dateTimeStrW.end());
+		log2writeStr += "  ";
+		log2writeStr += log2write;
+		log2writeStr += "\n";
+
+		DWORD bytes_written = 0;
+		::WriteFile(hFile, log2writeStr.c_str(), log2writeStr.length(), &bytes_written, NULL);
+	}
 }
 
 

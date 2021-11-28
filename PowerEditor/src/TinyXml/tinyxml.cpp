@@ -790,7 +790,7 @@ bool TiXmlDocument::SaveFile( const TCHAR * filename ) const
 	return false;
 	*/
 
-	Win32_IO_File file(filename, Win32_IO_File::Mode::WRITE);
+	Win32_IO_File file(filename);
 
 	if (file.isOpened())
 	{

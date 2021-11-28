@@ -26,13 +26,8 @@
 class Win32_IO_File final
 {
 public:
-	enum class Mode {
-		WRITE,
-		APPEND
-	};
-
-	Win32_IO_File(const char *fname, Mode fmode);
-	Win32_IO_File(const wchar_t *fname, Mode fmode);
+	Win32_IO_File(const char *fname);
+	Win32_IO_File(const wchar_t *fname);
 
 	Win32_IO_File() = delete;
 	Win32_IO_File(const Win32_IO_File&) = delete;
@@ -57,8 +52,8 @@ public:
 
 private:
 	HANDLE	_hFile		{INVALID_HANDLE_VALUE};
-	Mode	_hMode		{Mode::WRITE};
 	bool	_written	{false};
+	std::string _path;
 
 	const DWORD _accessParam  { GENERIC_READ | GENERIC_WRITE };
 	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE };

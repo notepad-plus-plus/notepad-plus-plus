@@ -1458,6 +1458,23 @@ bool NppParameters::load()
 	{
 		_isSelectFgColorEnabled = true;
 	}
+
+
+	generic_string nppLogNetworkDriveIssueFilePath(_nppPath);
+	generic_string nppLogNetworkDriveIssueFile = nppLogNetworkDriveIssue;
+	nppLogNetworkDriveIssueFile += TEXT(".xml");
+	PathAppend(nppLogNetworkDriveIssueFilePath, nppLogNetworkDriveIssueFile);
+	bool doNppLogNetworkDriveIssue = (PathFileExists(nppLogNetworkDriveIssueFilePath.c_str()) == TRUE);
+	if (!doNppLogNetworkDriveIssue)
+	{
+		generic_string nppLogNetworkDriveIssueFilePath2(_userPath);
+		PathAppend(nppLogNetworkDriveIssueFilePath2, nppLogNetworkDriveIssueFile);
+		doNppLogNetworkDriveIssue = (PathFileExists(nppLogNetworkDriveIssueFilePath2.c_str()) == TRUE);
+	}
+
+	_doNppLogNetworkDriveIssue = doNppLogNetworkDriveIssue;
+
+
 	return isAllLaoded;
 }
 

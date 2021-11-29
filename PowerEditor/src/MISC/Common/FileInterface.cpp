@@ -46,7 +46,24 @@ void Win32_IO_File::close()
 	{
 		if (_written)
 		{
-			BOOL isOK = ::SetEndOfFile(_hFile);
+			BOOL isOK = ::FlushFileBuffers(_hFile);
+			if (!isOK)
+			{
+				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
+				{
+					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
+					nppLogNetworkDriveIssueLog += TEXT(".log");
+
+					std::string msg = _path;
+					msg += "  FlushFileBuffers call failed: ";
+					generic_string lastErrorMsg = GetLastErrorAsString(::GetLastError());
+					msg += std::string(lastErrorMsg.begin(), lastErrorMsg.end());
+					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+				}
+			}
+
+			isOK = ::SetEndOfFile(_hFile);
 			if (!isOK)
 			{
 				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
@@ -62,7 +79,6 @@ void Win32_IO_File::close()
 					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
 				}
 			}
-			::FlushFileBuffers(_hFile);
 		}
 
 		::CloseHandle(_hFile);

@@ -27,11 +27,6 @@
 #include "ILoader.h"
 #include "ILexer.h"
 
-#ifdef SCI_LEXER
-#include "SciLexer.h"
-#include "PropSetSimple.h"
-#endif
-
 #include "CharacterCategory.h"
 #include "Position.h"
 #include "UniqueString.h"

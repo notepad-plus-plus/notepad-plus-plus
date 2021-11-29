@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # WidgetGen.py - regenerate the ScintillaWidgetCpp.cpp and ScintillaWidgetCpp.h files
 # Check that API includes all gtkscintilla2 functions
 

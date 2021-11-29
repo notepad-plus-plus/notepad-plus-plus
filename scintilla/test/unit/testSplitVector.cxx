@@ -168,6 +168,27 @@ TEST_CASE("SplitVector") {
 		}
 	}
 
+	SECTION("InsertEmpty") {
+		sv.InsertEmpty(0, 0);
+		REQUIRE(0 == sv.Length());
+		int *pi = sv.InsertEmpty(0, 2);
+		REQUIRE(2 == sv.Length());
+		REQUIRE(0 == sv.ValueAt(0));
+		REQUIRE(0 == sv.ValueAt(1));
+		pi[0] = 4;
+		pi[1] = 5;
+		REQUIRE(4 == sv.ValueAt(0));
+		REQUIRE(5 == sv.ValueAt(1));
+		pi = sv.InsertEmpty(1, 2);
+		pi[0] = 6;
+		pi[1] = 7;
+		REQUIRE(4 == sv.Length());
+		REQUIRE(4 == sv.ValueAt(0));
+		REQUIRE(6 == sv.ValueAt(1));
+		REQUIRE(7 == sv.ValueAt(2));
+		REQUIRE(5 == sv.ValueAt(3));
+	}
+
 	SECTION("SetValue") {
 		sv.InsertValue(0, 10, 0);
 		sv.SetValueAt(5, 3);

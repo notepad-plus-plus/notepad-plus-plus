@@ -1,33 +1,25 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #include <iostream>
 #include <stdexcept>
 #include <windows.h>
 #include "Splitter.h"
+#include "Parameters.h"
+#include "NppDarkMode.h"
 
 bool Splitter::_isHorizontalRegistered = false;
 bool Splitter::_isVerticalRegistered = false;
@@ -121,10 +113,10 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSpli
 	{
 		wcex.hCursor		= ::LoadCursor(NULL, IDC_ARROW);
 		// if fixed spliter then choose default cursor type.
-        if (_dwFlags & SV_HORIZONTAL)
-		    wcex.lpszClassName	= TEXT("fxdnsspliter");
-        else
-            wcex.lpszClassName	= TEXT("fxdwespliter");
+		if (_dwFlags & SV_HORIZONTAL)
+			wcex.lpszClassName	= TEXT("fxdnsspliter");
+		else
+			wcex.lpszClassName	= TEXT("fxdwespliter");
 	}
 	else
 	{
@@ -156,16 +148,16 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSpli
 		RegisterClassEx(&wcex);
 		_isVerticalRegistered = true;
 	}
-    else if ((_dwFlags & SV_HORIZONTAL)&&(!_isHorizontalFixedRegistered))
-    {
-        RegisterClassEx(&wcex);
-        _isHorizontalFixedRegistered = true;
-    }
-    else if (isVertical()&&(!_isVerticalFixedRegistered))
-    {
-        RegisterClassEx(&wcex);
-        _isVerticalFixedRegistered = true;
-    }
+	else if ((_dwFlags & SV_HORIZONTAL)&&(!_isHorizontalFixedRegistered))
+	{
+		RegisterClassEx(&wcex);
+		_isHorizontalFixedRegistered = true;
+	}
+	else if (isVertical()&&(!_isVerticalFixedRegistered))
+	{
+		RegisterClassEx(&wcex);
+		_isVerticalFixedRegistered = true;
+	}
 
 	_hSelf = CreateWindowEx(dwExStyle, wcex.lpszClassName,
 		TEXT(""),
@@ -292,7 +284,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 			if (isInLeftTopZone(p) || isInRightBottomZone(p))
 			{
 				//::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_UP_ARROW)));
-				::SetCursor(::LoadCursor(NULL, IDC_ARROW));
+				::SetCursor(::LoadCursor(NULL, IDC_HAND));
 				return TRUE;
 			}
 
@@ -359,7 +351,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 			RECT r;
 			::GetClientRect(_hParent, &r);
 
-			if (_dwFlags & SV_HORIZONTAL) 
+			if (_dwFlags & SV_HORIZONTAL)
 			{
 				_rect.top = (r.bottom - _splitterSize) / 2;
 			}
@@ -369,7 +361,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 			}
 
 			_splitPercent = 50;
-			
+
 			::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);
 			::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, FALSE);
 			redraw();
@@ -396,6 +388,21 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 				_isDraged = false;
 			}
 			return 0;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			RECT rc = { 0 };
+			getClientRect(rc);
+
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+
+			return 1;
 		}
 
 		case WM_PAINT:
@@ -515,7 +522,29 @@ void Splitter::drawSplitter()
 	HDC hdc = ::BeginPaint(_hSelf, &ps);
 	getClientRect(rc);
 
-	if ((_splitterSize >= 4) && (_dwFlags & SV_RESIZEWTHPERCNT))
+	bool isDarkMode = NppDarkMode::isEnabled();
+
+	HBRUSH hBrush = nullptr;
+	HBRUSH hBrushTop = nullptr;
+
+	HPEN holdPen = nullptr;
+	if (isDarkMode)
+	{
+		hBrush = NppDarkMode::getBackgroundBrush();
+		hBrushTop = NppDarkMode::getSofterBackgroundBrush();
+
+		holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getDarkerTextPen()));
+		::FillRect(hdc, &rc, NppDarkMode::getDarkerBackgroundBrush());
+	}
+	else
+	{
+		hBrush = ::CreateSolidBrush(RGB(0xFF, 0xFF, 0xFF));
+		hBrushTop = ::GetSysColorBrush(COLOR_3DSHADOW);
+	}
+
+	DPIManager& dpiMgr = NppParameters::getInstance()._dpiManager;
+
+	if ((_splitterSize >= dpiMgr.scaleX(4)) && (_dwFlags & SV_RESIZEWTHPERCNT))
 	{
 		adjustZoneToDraw(TLrc, ZONE_TYPE::topLeft);
 		adjustZoneToDraw(BRrc, ZONE_TYPE::bottomRight);
@@ -525,18 +554,18 @@ void Splitter::drawSplitter()
 	if (isVertical())
 	{
 		rcToDraw2.top    = (_dwFlags & SV_RESIZEWTHPERCNT) ? _clickZone2TL.bottom : 0;
-		rcToDraw2.bottom = rcToDraw2.top + 2;
+		rcToDraw2.bottom = rcToDraw2.top + dpiMgr.scaleX(2);
 
-		rcToDraw1.top    = rcToDraw2.top + 1;
-		rcToDraw1.bottom = rcToDraw1.top + 2;
+		rcToDraw1.top    = rcToDraw2.top + dpiMgr.scaleX(1);
+		rcToDraw1.bottom = rcToDraw1.top + dpiMgr.scaleX(2);
 	}
 	else
 	{
-		rcToDraw2.top    = 1;
-		rcToDraw2.bottom = 3;
+		rcToDraw2.top    = dpiMgr.scaleX(1);
+		rcToDraw2.bottom = dpiMgr.scaleX(3);
 
-		rcToDraw1.top    = 2;
-		rcToDraw1.bottom = 4;
+		rcToDraw1.top    = dpiMgr.scaleX(2);
+		rcToDraw1.bottom = dpiMgr.scaleX(4);
 	}
 
 	int bottom = 0;
@@ -549,40 +578,50 @@ void Splitter::drawSplitter()
 	{
 		if (isVertical())
 		{
-			rcToDraw2.left  = 1;
-			rcToDraw2.right = 3;
+			rcToDraw2.left  = dpiMgr.scaleX(1);
+			rcToDraw2.right = dpiMgr.scaleX(3);
 
-			rcToDraw1.left  = 2;
-			rcToDraw1.right = 4;
+			rcToDraw1.left  = dpiMgr.scaleX(2);
+			rcToDraw1.right = dpiMgr.scaleX(4);
 		}
 		else
 		{
 			rcToDraw2.left = _clickZone2TL.right;
-			rcToDraw2.right = rcToDraw2.left + 2;
+			rcToDraw2.right = rcToDraw2.left + dpiMgr.scaleX(2);
 
 			rcToDraw1.left = rcToDraw2.left;
-			rcToDraw1.right = rcToDraw1.left + 2;
+			rcToDraw1.right = rcToDraw1.left + dpiMgr.scaleX(2);
 		}
 
+		int n = dpiMgr.scaleX(4);
 		while (rcToDraw1.right <= (isVertical() ? rc.right : rc.right - _clickZone2BR.right))
 		{
-			::FillRect(hdc, &rcToDraw1, (HBRUSH)(RGB(0xFF, 0xFF, 0xFF)));
-			::FillRect(hdc, &rcToDraw2, (HBRUSH)(COLOR_3DSHADOW+1));
+			::FillRect(hdc, &rcToDraw1, hBrush);
+			::FillRect(hdc, &rcToDraw2, hBrushTop);
 
-			rcToDraw2.left += 4;
-			rcToDraw2.right += 4;
-			rcToDraw1.left += 4;
-			rcToDraw1.right += 4;
+			rcToDraw2.left  += n;
+			rcToDraw2.right += n;
+			rcToDraw1.left  += n;
+			rcToDraw1.right += n;
 		}
 
-		rcToDraw2.top += 4;
-		rcToDraw2.bottom += 4;
-		rcToDraw1.top += 4;
-		rcToDraw1.bottom += 4;
+		rcToDraw2.top    += n;
+		rcToDraw2.bottom += n;
+		rcToDraw1.top    += n;
+		rcToDraw1.bottom += n;
 	}
 
-	if ((_splitterSize >= 4) && (_dwFlags & SV_RESIZEWTHPERCNT))
+	if ((_splitterSize >= dpiMgr.scaleX(4)) && (_dwFlags & SV_RESIZEWTHPERCNT))
 		paintArrow(hdc, BRrc, isVertical() ? Arrow::right : Arrow::down);
+
+	if (isDarkMode)
+	{
+		::SelectObject(hdc, holdPen);
+	}
+	else
+	{
+		::DeleteObject(hBrush);
+	}
 
 	::EndPaint(_hSelf, &ps);
 }
@@ -613,8 +652,10 @@ void Splitter::rotate()
 void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 {
 	RECT rc;
-	rc.left = rect.left; rc.top = rect.top;
-	rc.right = rect.right; rc.bottom = rect.bottom;
+	rc.left = rect.left;
+	rc.top = rect.top;
+	rc.right = rect.right;
+	rc.bottom = rect.bottom;
 
 	switch (arrowDir)
 	{
@@ -623,7 +664,6 @@ void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 			int x = rc.right;
 			int y = rc.top;
 
-			//::MoveToEx(hdc, x, y, NULL);
 			for (; (x > rc.left) && (y != rc.bottom) ; --x)
 			{
 				::MoveToEx(hdc, x, y++, NULL);
@@ -637,7 +677,6 @@ void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 			int x = rc.left;
 			int y = rc.top;
 
-			//::MoveToEx(hdc, x, y, NULL);
 			for (; (x < rc.right) && (y != rc.bottom) ; ++x)
 			{
 				::MoveToEx(hdc, x, y++, NULL);
@@ -651,7 +690,6 @@ void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 			int x = rc.left;
 			int y = rc.bottom;
 
-			//::MoveToEx(hdc, x, y, NULL);
 			for (; (y > rc.top) && (x != rc.right) ; --y)
 			{
 				::MoveToEx(hdc, x++, y, NULL);
@@ -665,7 +703,6 @@ void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 			int x = rc.left;
 			int y = rc.top;
 
-			//::MoveToEx(hdc, x, y, NULL);
 			for (; (y < rc.bottom) && (x != rc.right) ; ++y)
 			{
 				::MoveToEx(hdc, x++, y, NULL);
@@ -735,4 +772,3 @@ void Splitter::adjustZoneToDraw(RECT& rc2def, ZONE_TYPE whichZone)
 	rc2def.right = x1;
 	rc2def.bottom = y1;
 }
-

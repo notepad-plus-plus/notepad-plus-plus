@@ -216,12 +216,13 @@ class LexerVerilog : public DefaultLexer {
 
 public:
 	LexerVerilog() :
+		DefaultLexer("verilog", SCLEX_VERILOG),
 		setWord(CharacterSet::setAlphaNum, "._", 0x80, true),
 		subStyles(styleSubable, 0x80, 0x40, activeFlag) {
 		}
 	virtual ~LexerVerilog() {}
 	int SCI_METHOD Version() const override {
-		return lvRelease4;
+		return lvRelease5;
 	}
 	void SCI_METHOD Release() override {
 		delete this;
@@ -237,6 +238,9 @@ public:
 	}
 	Sci_Position SCI_METHOD PropertySet(const char* key, const char* val) override {
 	    return osVerilog.PropertySet(&options, key, val);
+	}
+	const char * SCI_METHOD PropertyGet(const char *key) override {
+		return osVerilog.PropertyGet(key);
 	}
 	const char* SCI_METHOD DescribeWordListSets() override {
 		return osVerilog.DescribeWordListSets();
@@ -279,7 +283,7 @@ public:
 	const char * SCI_METHOD GetSubStyleBases() override {
 		return styleSubable;
 	}
-	static ILexer4* LexerFactoryVerilog() {
+	static ILexer5* LexerFactoryVerilog() {
 		return new LexerVerilog();
 	}
 	static int MaskActive(int style) {

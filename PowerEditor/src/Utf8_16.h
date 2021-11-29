@@ -27,6 +27,10 @@
 #pragma warning(disable: 4514) // nreferenced inline function has been removed
 #endif
 
+#include <memory>
+#include "FileInterface.h"
+
+
 class Utf8_16 {
 public:
 	typedef unsigned short utf16; // 16 bits
@@ -40,27 +44,29 @@ class Utf16_Iter : public Utf8_16 {
 public:
 	enum eState {
 	    eStart,
-	    e2Bytes2,
-	    e3Bytes2,
-	    e3Bytes3
+		eSurrogate
 	};
 
 	Utf16_Iter();
 	void reset();
 	void set(const ubyte* pBuf, size_t nLen, UniMode eEncoding);
-	utf8 get() const { return m_nCur; };
+	bool get(utf8 *c);
 	void operator++();
 	eState getState() { return m_eState; };
-	operator bool() { return m_pRead <= m_pEnd; };
+	operator bool() { return (m_pRead < m_pEnd) || (m_out1st != m_outLst); };
 
 protected:
-	void toStart(); // Put to start state, swap bytes if necessary
+	void read();
+	void pushout(ubyte c);
 
 protected:
 	UniMode m_eEncoding;
 	eState m_eState;
-	utf8 m_nCur;
+	utf8 m_out [16];
+	int m_out1st;
+	int m_outLst;
 	utf16 m_nCur16;
+	utf16 m_highSurrogate;
 	const ubyte* m_pBuf;
 	const ubyte* m_pRead;
 	const ubyte* m_pEnd;
@@ -72,29 +78,22 @@ public:
 	Utf8_Iter();
 	void reset();
 	void set(const ubyte* pBuf, size_t nLen, UniMode eEncoding);
-	utf16 get() const {
-#ifdef _DEBUG
-		assert(m_eState == eStart);
-#endif
-		return m_nCur;
-	}
-	bool canGet() const { return m_eState == eStart; }
+	bool get(utf16* c);
+	bool canGet() const { return m_out1st != m_outLst; }
+	void toStart();
 	void operator++();
-	operator bool() { return m_pRead <= m_pEnd; }
+	operator bool() { return (m_pRead < m_pEnd) || (m_out1st != m_outLst); }
 
 protected:
-	void swap();
-	void toStart(); // Put to start state, swap bytes if necessary
-	enum eState {
-	    eStart,
-	    e2Bytes_Byte2,
-	    e3Bytes_Byte2,
-	    e3Bytes_Byte3
-	};
+	enum eState {eStart, eFollow};
+	void pushout(utf16 c);
 protected:
 	UniMode m_eEncoding;
 	eState m_eState;
-	utf16 m_nCur;
+	int m_code;
+	int m_count;
+	utf16 m_out [4];
+	int m_out1st, m_outLst;
 	const ubyte* m_pBuf;
 	const ubyte* m_pRead;
 	const ubyte* m_pEnd;
@@ -112,7 +111,6 @@ public:
 	size_t getNewSize() const { return m_nNewBufSize; }
 
 	UniMode getEncoding() const { return m_eEncoding; }
-	size_t calcCurPos(size_t pos);
     static UniMode determineEncoding(const unsigned char *buf, size_t bufLen);
 
 protected:
@@ -141,17 +139,16 @@ public:
 
 	void setEncoding(UniMode eType);
 
-	FILE * fopen(const TCHAR *_name, const TCHAR *_type);
-	size_t fwrite(const void* p, size_t _size);
-	void   fclose();
+	bool openFile(const TCHAR *name);
+	bool writeFile(const void* p, unsigned long _size);
+	void closeFile();
 
 	size_t convert(char* p, size_t _size);
 	char* getNewBuf() { return reinterpret_cast<char*>(m_pNewBuf); }
-	size_t calcCurPos(size_t pos);
 
 protected:
 	UniMode m_eEncoding;
-	FILE* m_pFile;
+	std::unique_ptr<Win32_IO_File> m_pFile;
 	ubyte* m_pNewBuf;
 	size_t m_nBufSize;
 	bool m_bFirstWrite;

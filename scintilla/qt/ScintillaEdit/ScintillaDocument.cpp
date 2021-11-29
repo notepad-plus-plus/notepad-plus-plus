@@ -46,7 +46,7 @@ public:
     void NotifySavePoint(Document *doc, void *userData, bool atSavePoint) override;
     void NotifyModified(Document *doc, DocModification mh, void *userData) override;
     void NotifyDeleted(Document *doc, void *userData) noexcept override;
-    void NotifyStyleNeeded(Document *doc, void *userData, Sci::Position endPos);
+    void NotifyStyleNeeded(Document *doc, void *userData, Sci::Position endPos) override;
     void NotifyLexerChanged(Document *doc, void *userData) override;
     void NotifyErrorOccurred(Document *doc, void *userData, int status) override;
 };
@@ -90,7 +90,7 @@ void WatcherHelper::NotifyErrorOccurred(Document *, void *, int status) {
 }
 
 ScintillaDocument::ScintillaDocument(QObject *parent, void *pdoc_) :
-    QObject(parent), pdoc(pdoc_), docWatcher(0) {
+    QObject(parent), pdoc(pdoc_), docWatcher(nullptr) {
     if (!pdoc) {
         pdoc = new Document(SC_DOCUMENTOPTION_DEFAULT);
     }
@@ -105,9 +105,9 @@ ScintillaDocument::~ScintillaDocument() {
         doc->RemoveWatcher(docWatcher, doc);
         doc->Release();
     }
-    pdoc = NULL;
+    pdoc = nullptr;
     delete docWatcher;
-    docWatcher = NULL;
+    docWatcher = nullptr;
 }
 
 void *ScintillaDocument::pointer() {
@@ -274,5 +274,5 @@ int ScintillaDocument::move_position_outside_char(int pos, int move_dir, bool ch
 }
 
 int ScintillaDocument::get_character(int pos) {
-    return (static_cast<Document *>(pdoc))->GetCharacterAndWidth(pos, NULL);
+    return (static_cast<Document *>(pdoc))->GetCharacterAndWidth(pos, nullptr);
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ========================================================= [ PL/SQL ] -->
+		<parser id="plsql_function" displayName="PL/SQL" commentExpr="((/\*.*?\*)/|(//.*?$))">
+				<function
+				mainExpr="((PROCEDURE)|(FUNCTION))[\s]+[A-Za-z][\w_]*([\s]*\([^\)]*\)[\s]*)?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"
+				displayMode="$className->$functionName"
+			>
+				<functionName>
+					<nameExpr expr="[\s]+[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"/>
+					<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"/>
+					<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]+(RETURN)([\s]+[\w%\.]+)+))*"/>
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

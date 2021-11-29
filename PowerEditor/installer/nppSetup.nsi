@@ -1,29 +1,18 @@
-; this file is part of installer for Notepad++
-; Copyright (C)2016 Don HO <don.h@free.fr>
+; This file is part of Notepad++ project
+; Copyright (C)2021 Don HO <don.h@free.fr>
 ;
-; This program is free software; you can redistribute it and/or
-; modify it under the terms of the GNU General Public License
-; as published by the Free Software Foundation; either
-; version 2 of the License, or (at your option) any later version.
-;
-; Note that the GPL places important restrictions on "derived works", yet
-; it does not provide a detailed definition of that term.  To avoid      
-; misunderstandings, we consider an application to constitute a          
-; "derivative work" for the purpose of this license if it does any of the
-; following:                                                             
-; 1. Integrates source code from Notepad++.
-; 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-;    installer, such as those produced by InstallShield.
-; 3. Links to a library or executes a program that does any of the above.
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; at your option any later version.
 ;
 ; This program is distributed in the hope that it will be useful,
 ; but WITHOUT ANY WARRANTY; without even the implied warranty of
-; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ; GNU General Public License for more details.
-; 
+;
 ; You should have received a copy of the GNU General Public License
-; along with this program; if not, write to the Free Software
-; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 ; NSIS includes
@@ -48,6 +37,8 @@ ManifestDPIAware true
 
 !ifdef ARCH64
 OutFile ".\build\npp.${APPVERSION}.Installer.x64.exe"
+!else ifdef ARCHARM64
+OutFile ".\build\npp.${APPVERSION}.Installer.arm64.exe"
 !else
 OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !endif
@@ -110,7 +101,7 @@ SectionEnd
 
 !include "nsisInclude\autoCompletion.nsh"
 
-
+!include "nsisInclude\functionList.nsh"
 
 !include "nsisInclude\binariesComponents.nsh"
 
@@ -153,7 +144,7 @@ updaterDone:
 		
 	!insertmacro MUI_LANGDLL_DISPLAY
 
-!ifdef ARCH64
+!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
 	${If} ${RunningX64}
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
@@ -179,6 +170,7 @@ noDelete32:
 		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and install Notepad++ 32-bit version instead."
 		Abort
 	${EndIf}
+
 !else ; 32-bit installer
 	${If} ${RunningX64}
 		; check if 64-bit version has been installed if yes, ask user to remove it
@@ -232,10 +224,12 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	
 	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
 	; But in 32bit installer both the Dlls are required
-	; 	As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
+	; As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
 	
 	!ifdef ARCH64
 		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+	!else ifdef ARCHARM64
+		File /oname=$INSTDIR\NppShell_06.dll "..\binarm64\NppShell64.dll"
 	!else
 		${If} ${RunningX64}
 			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
@@ -252,7 +246,11 @@ ${MementoSectionDone}
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
     !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
+    !insertmacro MUI_DESCRIPTION_TEXT ${functionListComponent} 'Install the function list files you need for the function list feature (Ctrl+Space).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${NppExport} 'Copy your syntax highlighted source code as HTML/RTF into clipboard, or save them as HTML/RTF files.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${MimeTools} 'Encode/decode selected text with Base64, Quoted-printable, URL encoding, and SAML.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Converter} 'Convert ASCII to binary, octal, hexadecimal and decimal string.'
     !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'

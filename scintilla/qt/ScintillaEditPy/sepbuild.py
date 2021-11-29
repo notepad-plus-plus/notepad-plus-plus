@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 import distutils.sysconfig
 import getopt
 import glob
@@ -7,6 +8,9 @@ import shutil
 import subprocess
 import stat
 import sys
+
+# ScintillaEditPy can only be built against Python 2.x so fail if Python 3.x
+assert sys.version_info < (3,0), "sepbuild.py requires Python 2.x"
 
 sys.path.append(os.path.join("..", "ScintillaEdit"))
 import WidgetGen
@@ -39,6 +43,7 @@ def textFromRun(args):
 	proc = subprocess.Popen(args, shell=isinstance(args, str), stdout=subprocess.PIPE)
 	(stdoutdata, stderrdata) = proc.communicate()
 	if proc.returncode:
+		print("Warning  - failed to run '" + " ".join(args) + "'")
 		raise OSError(proc.returncode)
 	return stdoutdata
 
@@ -235,7 +240,7 @@ class SepBuilder:
 		print(" ".join(args))
 		retcode = subprocess.call(" ".join(args), shell=True, stderr=subprocess.STDOUT)
 		if retcode:
-			print("Failed in generatorrunner", retcode)
+			print("Error - failed in generatorrunner " + str(retcode))
 			sys.exit()
 
 	def writeVariables(self):

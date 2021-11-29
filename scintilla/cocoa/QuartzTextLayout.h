@@ -8,8 +8,8 @@
  *
  */
 
-#ifndef _QUARTZ_TEXT_LAYOUT_H
-#define _QUARTZ_TEXT_LAYOUT_H
+#ifndef QUARTZTEXTLAYOUT_H
+#define QUARTZTEXTLAYOUT_H
 
 #include <Cocoa/Cocoa.h>
 

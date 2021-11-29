@@ -283,7 +283,6 @@
                     <Item id="47002" name="Notepad++ Ojectpray Agepay"/>
                     <Item id="47003" name="Onlineyay Ocumentationday"/>
                     <Item id="47004" name="Notepad++ Ommunitycay (Orumfay)"/>
-                    <Item id="47011" name="Ivelay Upportsay"/>
                     <Item id="47012" name="Ebugday Infoyay..."/>
                     <Item id="47005" name="Etgay Oremay Uginsplay"/>
                     <Item id="47006" name="Updateyay Notepad++"/>
@@ -757,7 +756,6 @@
                     <Item id="6413" name="Efaultday Irectoryday (Openyay/Avesay)"/>
                     <Item id="6414" name="Ollowfay urrentcay ocumentday"/>
                     <Item id="6415" name="Ememberray astlay usedyay irectoryday"/>
-                    <Item id="6430" name="Useyay ewnay ylestay ialogday (ithoutway ilefay extensionyay eaturefay - Unixyay ylestay athpay apacitycay)"/>
                     <Item id="6431" name="Openyay allyay ilesfay ofyay olderfay insteadyay ofyay aunchinglay Olderfay asyay Orkspaceway onyay olderfay oppingdray"/>
                 </DefaultDir>
 
@@ -1025,11 +1023,11 @@
         <ClipboardHistory>
             <PanelTitle name="Ipboardclay Istoryhay"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Ocday Itchersway"/>
             <ColumnName name="Amenay"/>
             <ColumnExt name="Extyay."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Amenay"/>
             <ColumnPath name="Athpay"/>

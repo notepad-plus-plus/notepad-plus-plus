@@ -1,29 +1,18 @@
-; this file is part of installer for Notepad++
-; Copyright (C)2016 Don HO <don.h@free.fr>
+; This file is part of Notepad++ project
+; Copyright (C)2021 Don HO <don.h@free.fr>
 ;
-; This program is free software; you can redistribute it and/or
-; modify it under the terms of the GNU General Public License
-; as published by the Free Software Foundation; either
-; version 2 of the License, or (at your option) any later version.
-;
-; Note that the GPL places important restrictions on "derived works", yet
-; it does not provide a detailed definition of that term.  To avoid      
-; misunderstandings, we consider an application to constitute a          
-; "derivative work" for the purpose of this license if it does any of the
-; following:                                                             
-; 1. Integrates source code from Notepad++.
-; 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-;    installer, such as those produced by InstallShield.
-; 3. Links to a library or executes a program that does any of the above.
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; at your option any later version.
 ;
 ; This program is distributed in the hope that it will be useful,
 ; but WITHOUT ANY WARRANTY; without even the implied warranty of
-; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ; GNU General Public License for more details.
-; 
+;
 ; You should have received a copy of the GNU General Public License
-; along with this program; if not, write to the Free Software
-; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 SectionGroup "Plugins" Plugins
@@ -37,6 +26,8 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$PLUGIN_INST_PATH\NppExport"
 !ifdef ARCH64
 		File "..\bin64\plugins\NppExport\NppExport.dll"
+!else ifdef ARCHARM64
+		File "..\binarm64\plugins\NppExport\NppExport.dll"
 !else
 		File "..\bin\plugins\NppExport\NppExport.dll"
 !endif
@@ -51,6 +42,8 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$PLUGIN_INST_PATH\mimeTools"
 !ifdef ARCH64
 		File "..\bin64\plugins\mimeTools\mimeTools.dll"
+!else ifdef ARCHARM64
+		File "..\binarm64\plugins\mimeTools\mimeTools.dll"
 !else
 		File "..\bin\plugins\mimeTools\mimeTools.dll"
 !endif
@@ -64,6 +57,8 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$PLUGIN_INST_PATH\NppConverter"
 !ifdef ARCH64
 		File "..\bin64\plugins\NppConverter\NppConverter.dll"
+!else ifdef ARCHARM64
+		File "..\binarm64\plugins\NppConverter\NppConverter.dll"
 !else
 		File "..\bin\plugins\NppConverter\NppConverter.dll"
 !endif
@@ -80,13 +75,24 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin64\updater\gup.xml"
 	File "..\bin64\updater\LICENSE"
 	File "..\bin64\updater\README.md"
+	File "..\bin64\updater\updater.ico"
+!else ifdef ARCHARM64
+	File "..\binarm64\updater\GUP.exe"
+	File "..\binarm64\updater\libcurl.dll"
+	File "..\binarm64\updater\gup.xml"
+	File "..\binarm64\updater\LICENSE"
+	File "..\binarm64\updater\README.md"
+	File "..\binarm64\updater\updater.ico"
 !else
 	File "..\bin\updater\GUP.exe"
 	File "..\bin\updater\libcurl.dll"
 	File "..\bin\updater\gup.xml"
 	File "..\bin\updater\LICENSE"
 	File "..\bin\updater\README.md"
+	File "..\bin\updater\updater.ico"
 !endif
+	SetOutPath "$PLUGINSDIR\gupLocalization"
+	File "..\bin\updater\translations\"
 ${MementoSectionEnd}
 
 ${MementoSection} "Plugins Admin" PluginsAdmin
@@ -94,6 +100,8 @@ ${MementoSection} "Plugins Admin" PluginsAdmin
 	SetOutPath $ALLUSERS_PLUGIN_CONF_PATH
 !ifdef ARCH64
 	File "..\bin64\plugins\Config\nppPluginList.dll"
+!else ifdef ARCHARM64
+	File "..\binarm64\plugins\Config\nppPluginList.dll"
 !else
 	File "..\bin\plugins\Config\nppPluginList.dll"
 !endif
@@ -153,7 +161,9 @@ Section un.AutoUpdater
 	Delete "$INSTDIR\updater\gpl.txt"
 	Delete "$INSTDIR\updater\readme.txt"
 	Delete "$INSTDIR\updater\README.md"
+	Delete "$INSTDIR\updater\updater.ico"
 	Delete "$INSTDIR\updater\getDownLoadUrl.php"
+	Delete "$INSTDIR\updater\nativeLang.xml"
 	RMDir "$INSTDIR\updater"
 SectionEnd
 

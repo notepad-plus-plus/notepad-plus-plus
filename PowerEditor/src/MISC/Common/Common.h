@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <vector>
 #include <string>
@@ -31,6 +20,8 @@
 #include <windows.h>
 #include <iso646.h>
 #include <cstdint>
+#include <unordered_set>
+#include <algorithm>
 
 
 const bool dirUp = true;
@@ -194,7 +185,8 @@ generic_string GetLastErrorAsString(DWORD errorCode = 0);
 generic_string intToString(int val);
 generic_string uintToString(unsigned int val);
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText, bool isRTL);
+HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszText, const RECT rc);
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
 bool isAssoCommandExisting(LPCTSTR FullPathName);
@@ -205,3 +197,36 @@ std::string ws2s(const std::wstring& wstr);
 bool deleteFileOrFolder(const generic_string& f2delete);
 
 void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder);
+
+template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSorted = false, bool canSort = false)
+{
+	if (!isSorted && canSort)
+	{
+		std::sort(vec.begin(), vec.end());
+		isSorted = true;
+	}
+
+	if (isSorted)
+	{
+		typename std::vector<T>::iterator it;
+		it = std::unique(vec.begin(), vec.end());
+		vec.resize(distance(vec.begin(), it));  // unique() does not shrink the vector
+	}
+	else
+	{
+		std::unordered_set<T> seen;
+		auto newEnd = std::remove_if(vec.begin(), vec.end(), [&seen](const T& value)
+			{
+				return !seen.insert(value).second;
+			});
+		vec.erase(newEnd, vec.end());
+	}
+	return vec.size();
+}
+
+void trim(generic_string& str);
+bool endsWith(const generic_string& s, const generic_string& suffix);
+
+int nbDigitsFromNbLines(size_t nbLines);
+
+generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st);

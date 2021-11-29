@@ -1,33 +1,24 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <iostream>
 #include <stdexcept>
 #include <windows.h>
 #include "SplitterContainer.h"
+#include "Parameters.h"
+#include "localization.h"
 #include <cassert>
 
 
@@ -190,12 +181,12 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			switch (LOWORD(wParam))
 			{
-				case ROTATION_A_GAUCHE:
+				case ROTATION_LEFT:
 				{
 					rotateTo(DIRECTION::LEFT);
 					break;
 				}
-				case ROTATION_A_DROITE:
+				case ROTATION_RIGHT:
 				{
 					rotateTo(DIRECTION::RIGHT);
 					break;
@@ -251,8 +242,15 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 				if (!_hPopupMenu)
 				{
 					_hPopupMenu = ::CreatePopupMenu();
-					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_A_GAUCHE, TEXT("Rotate to left"));
-					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_A_DROITE, TEXT("Rotate to right"));
+
+					NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+					const generic_string textLeft =
+						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-left", TEXT("Rotate to left"));
+					const generic_string textRight =
+						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-right", TEXT("Rotate to right"));
+
+					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_LEFT, textLeft.c_str());
+					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_RIGHT, textRight.c_str());
 				}
 
 				::TrackPopupMenu(_hPopupMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);

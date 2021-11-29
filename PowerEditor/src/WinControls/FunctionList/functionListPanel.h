@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
@@ -33,12 +22,7 @@
 #include "TreeView.h"
 
 #define FL_PANELTITLE     TEXT("Function List")
-#define FL_SORTTIP        TEXT("sort")
-#define FL_RELOADTIP      TEXT("Reload")
-
 #define FL_FUCTIONLISTROOTNODE "FunctionList"
-#define FL_SORTLOCALNODENAME   "SortTip"
-#define FL_RELOADLOCALNODENAME "ReloadTip"
 
 class ScintillaEditView;
 
@@ -66,10 +50,7 @@ root
 
 struct SearchParameters {
 	generic_string _text2Find;
-	bool _doSort;
-
-	SearchParameters(): _text2Find(TEXT("")), _doSort(false){
-	};
+	bool _doSort = false;
 
 	bool hasParams()const{
 		return (_text2Find != TEXT("") || _doSort);
@@ -83,8 +64,7 @@ struct TreeParams {
 
 class FunctionListPanel : public DockingDlgInterface {
 public:
-	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),
-	_reloadTipStr(TEXT("Reload")), _sortTipStr(TEXT("Sort")) {};
+	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _pTreeView(&_treeView) {};
 	~FunctionListPanel();
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
@@ -107,6 +87,7 @@ public:
     };
 	
 	// functionalities
+	static int CALLBACK categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/);
 	void sortOrUnsort();
 	void reload();
 	void markEntry();
@@ -119,35 +100,36 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	HWND _hToolbarMenu;
-	HWND _hSearchEdit;
+	HWND _hToolbarMenu = nullptr;
+	HWND _hSearchEdit = nullptr;
 
-	TreeView *_pTreeView;
+	TreeView *_pTreeView = nullptr;
 	TreeView _treeView;
 	TreeView _treeViewSearchResult;
 
+	SCROLLINFO si;
 	long _findLine = -1;
 	long _findEndLine = -1;
-	HTREEITEM _findItem;
+	HTREEITEM _findItem = nullptr;
 
-	generic_string _sortTipStr;
-	generic_string _reloadTipStr;
+	generic_string _sortTipStr = TEXT("Sort");
+	generic_string _reloadTipStr = TEXT("Reload");
 
 	std::vector<foundInfo> _foundFuncInfos;
 
 	std::vector<generic_string*> posStrs;
 
-	ScintillaEditView **_ppEditView;
+	ScintillaEditView **_ppEditView = nullptr;
 	FunctionParsersManager _funcParserMgr;
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
-	HIMAGELIST _hTreeViewImaLst;
+	HIMAGELIST _hTreeViewImaLst = nullptr;
+
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
 	void notified(LPNMHDR notification);
 	void addInStateArray(TreeStateNode tree2Update, const TCHAR *searchText, bool isSorted);
 	TreeParams* getFromStateArray(generic_string fullFilePath);
-	BOOL setTreeViewImageList(int root_id, int node_id, int leaf_id);
 	bool openSelection(const TreeView &treeView);
 	bool shouldSort();
 	void setSort(bool isEnabled);

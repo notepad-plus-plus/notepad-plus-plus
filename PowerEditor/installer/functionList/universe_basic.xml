@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ============================================== [ UniVerse BASIC ] -->
+
+		<!--
+		|   Based on:
+		|       https://notepad-plus-plus.org/community/topic/12742/functionlist-different-results-with-different-line-endings
+		\-->
+		<parser
+			displayName="UniVerse BASIC"
+			id         ="universe_basic"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m-s:
+								(?:^|;)                                     # at start-of-line or after end-of-statement
+								\h*                                         # optional leading whitespace
+								(?-i:REM\b|\x24\x2A|[\x21\x2A])             # Single Line Comment 1..4
+								.*$                                         # whatever, until end-of-line
+							)
+						|	(?:\x22[^\x22\r\n]*\x22)                        # String Literal - Double Quoted
+						|	(?:\x27[^\x27\r\n]*\x27)                        # String Literal - Single Quoted
+						|	(?:\x5C[^\x5C\r\n]*\x5C)                        # String Literal - Backslash Quoted
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m-i)^                                             # case-sensitive, NO leading whitespace
+						(?:
+							\d+\b(?=:?)                                     # completely numeric label, colon optional + discarded
+						|	[A-Za-z_][\w.$%]*(?=:)                          # alphanumeric label, colon required + discarded
+						)
+					"
+			/>
+		</parser>
+	</functionList>
+</NotepadPlus>

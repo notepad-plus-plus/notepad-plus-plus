@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #include "documentMap.h"
@@ -97,7 +86,7 @@ bool DocumentMap::needToRecomputeWith(const ScintillaEditView *editView)
 	if (_displayZoom != currentZoom)
 		return true;
 
-	int currentTextZoneWidth = getEditorTextZoneWidth(editView);
+	int currentTextZoneWidth = pEditView->getTextZoneWidth();
 	if (_displayWidth != currentTextZoneWidth)
 		return true;
 
@@ -174,7 +163,7 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 	if (pEditView->isWrap())
 	{
 		// get current scintilla width W1
-		int editZoneWidth = getEditorTextZoneWidth(editView);
+		int editZoneWidth = pEditView->getTextZoneWidth();
 
 		// update the wrap needed data
 		_displayWidth = editZoneWidth;
@@ -190,23 +179,18 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 		// sync wrapping indent mode
 		_pMapView->execute(SCI_SETWRAPINDENTMODE, pEditView->execute(SCI_GETWRAPINDENTMODE));
 
+		const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+
+		if (svp._paddingLeft || svp._paddingRight)
+		{
+			int paddingMapLeft = static_cast<int>(svp._paddingLeft / (editZoneWidth / docMapWidth));
+			int paddingMapRight = static_cast<int>(svp._paddingRight / (editZoneWidth / docMapWidth));
+			_pMapView->execute(SCI_SETMARGINLEFT, 0, paddingMapLeft);
+			_pMapView->execute(SCI_SETMARGINRIGHT, 0, paddingMapRight);
+		}
 	}
+
 	doMove();
-}
-
-int DocumentMap::getEditorTextZoneWidth(const ScintillaEditView *editView)
-{
-	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
-
-	RECT editorRect;
-	pEditView->getClientRect(editorRect);
-
-	int marginWidths = 0;
-	for (int m = 0; m < 4; ++m)
-	{
-		marginWidths += static_cast<int32_t>(pEditView->execute(SCI_GETMARGINWIDTHN, m));
-	}
-	return editorRect.right - editorRect.left - marginWidths;
 }
 
 void DocumentMap::scrollMap()
@@ -231,7 +215,7 @@ void DocumentMap::scrollMap()
 		// Get bottom position of orange marker window
 		LRESULT lowerY = 0;
 		LRESULT lineHeightMapView  = _pMapView->execute(SCI_TEXTHEIGHT, 0);
-		if (not (*_ppEditView)->isWrap())
+		if (!(*_ppEditView)->isWrap())
 		{ // not wrapped: mimic height of edit view
 			LRESULT lineHeightEditView = (*_ppEditView)->execute(SCI_TEXTHEIGHT, 0);
 			lowerY = higherY + lineHeightMapView * (rcEditView.bottom - rcEditView.top) / lineHeightEditView;
@@ -272,7 +256,7 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos)
 		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
 		LRESULT higherY = 0;
 		LRESULT lowerY = 0;
-		if (not mapPos._isWrap)
+		if (!mapPos._isWrap)
 		{
 			auto higherPos = _pMapView->execute(SCI_POSITIONFROMLINE, mapPos._firstVisibleDocLine);
 			auto lowerPos = _pMapView->execute(SCI_POSITIONFROMLINE, mapPos._lastVisibleDocLine);
@@ -361,7 +345,9 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_pMapView->showMargin(1, false);
 			_pMapView->showMargin(2, false);
 			_pMapView->showMargin(3, false);
-			
+
+			NppDarkMode::setBorder(_hwndScintilla);
+
             return TRUE;
         }
 
@@ -458,14 +444,36 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
+COLORREF ViewZoneDlg::_focus = RGB(0xFF, 0x80, 0x00);
+COLORREF ViewZoneDlg::_frost = RGB(0xFF, 0xFF, 0xFF);
+
+void ViewZoneDlg::setColour(COLORREF colour2Set, ViewZoneColorIndex i)
+{
+	switch (i)
+	{
+		case ViewZoneColorIndex::focus:
+		{
+			_focus = colour2Set;
+			break;
+		}
+
+		case ViewZoneColorIndex::frost:
+		{
+			_frost = colour2Set;
+			break;
+		}
+
+		default:
+			return;
+	}
+}
+
 void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT *pdis)
 {
 	RECT rc = pdis->rcItem;
-	
-	const COLORREF orange = RGB(0xFF, 0x80, 0x00);
-	const COLORREF white = RGB(0xFF, 0xFF, 0xFF);
-	HBRUSH hbrushFg = CreateSolidBrush(orange);
-	HBRUSH hbrushBg = CreateSolidBrush(white);					
+
+	HBRUSH hbrushFg = CreateSolidBrush(ViewZoneDlg::_focus);
+	HBRUSH hbrushBg = CreateSolidBrush(ViewZoneDlg::_frost);
 	FillRect(pdis->hDC, &rc, hbrushBg);
 
 	rc.top = _higherY;

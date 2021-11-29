@@ -18,7 +18,7 @@ public:
 	bool on;
 	int period;
 
-	Caret();
+	Caret() noexcept;
 };
 
 class EditModel {
@@ -64,11 +64,11 @@ public:
 	virtual Point GetVisibleOriginInMain() const = 0;
 	virtual Sci::Line LinesOnScreen() const = 0;
 	virtual Range GetHotSpotRange() const noexcept = 0;
-	bool BidirectionalEnabled() const;
-	bool BidirectionalR2L() const;
+	bool BidirectionalEnabled() const noexcept;
+	bool BidirectionalR2L() const noexcept;
 	void SetDefaultFoldDisplayText(const char *text);
 	const char *GetDefaultFoldDisplayText() const noexcept;
-	const char *GetFoldDisplayText(Sci::Line lineDoc) const;
+	const char *GetFoldDisplayText(Sci::Line lineDoc) const noexcept;
 };
 
 }

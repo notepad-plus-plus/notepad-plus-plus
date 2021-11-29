@@ -1,36 +1,24 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <shlobj.h>
 #include <shlwapi.h>
-#include <uxtheme.h>
 #include "WordStyleDlg.h"
 #include "ScintillaEditView.h"
+#include "documentMap.h"
 
 using namespace std;
 
@@ -47,6 +35,11 @@ LRESULT CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Messag
 			HDC hdc = ::BeginPaint(hwnd, &ps);
 
 			::SetTextColor(hdc, _colour);
+
+			if (NppDarkMode::isEnabled())
+			{
+				::SetBkColor(hdc, NppDarkMode::getDarkerBackgroundColor());
+			}
 
 			// Get the default GUI font
 			HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
@@ -87,6 +80,8 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 		{
 			NppParameters& nppParamInst = NppParameters::getInstance();
 
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			_hCheckBold = ::GetDlgItem(_hSelf, IDC_BOLD_CHECK);
 			_hCheckItalic = ::GetDlgItem(_hSelf, IDC_ITALIC_CHECK);
 			_hCheckUnderline = ::GetDlgItem(_hSelf, IDC_UNDERLINE_CHECK);
@@ -94,14 +89,12 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_hFontSizeCombo = ::GetDlgItem(_hSelf, IDC_FONTSIZE_COMBO);
 			_hSwitch2ThemeCombo = ::GetDlgItem(_hSelf, IDC_SWITCH2THEME_COMBO);
 
-			_hFgColourStaticText = ::GetDlgItem(_hSelf, IDC_FG_STATIC);
-			_hBgColourStaticText = ::GetDlgItem(_hSelf, IDC_BG_STATIC);
 			_hFontNameStaticText = ::GetDlgItem(_hSelf, IDC_FONTNAME_STATIC);
 			_hFontSizeStaticText = ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC);
 			_hStyleInfoStaticText = ::GetDlgItem(_hSelf, IDC_STYLEDESCRIPTION_STATIC);
 
-			colourHooker.setColour(RGB(0xFF, 0x00, 0x00));
-			colourHooker.hookOn(_hStyleInfoStaticText);
+			_colourHooker.setColour(RGB(0xFF, 0x00, 0x00));
+			_colourHooker.hookOn(_hStyleInfoStaticText);
 
 			_currentThemeIndex = -1;
 			int defaultThemeIndex = 0;
@@ -141,34 +134,92 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_pFgColour->init(_hInst, _hSelf);
 			_pBgColour->init(_hInst, _hSelf);
 
-			POINT p1, p2;
-			alignWith(_hFgColourStaticText, _pFgColour->getHSelf(), PosAlign::right, p1);
-			alignWith(_hBgColourStaticText, _pBgColour->getHSelf(), PosAlign::right, p2);
+			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
+			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
 
-			p1.x = p2.x = ((p1.x > p2.x)?p1.x:p2.x) + 10;
-			p1.y -= 4; p2.y -= 4;
+			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
 
-			::MoveWindow(reinterpret_cast<HWND>(_pFgColour->getHSelf()), p1.x, p1.y, 25, 25, TRUE);
-			::MoveWindow(reinterpret_cast<HWND>(_pBgColour->getHSelf()), p2.x, p2.y, 25, 25, TRUE);
 			_pFgColour->display();
 			_pBgColour->display();
-
 
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), _isDirty);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
 
-			ETDTProc enableDlgTheme = (ETDTProc)nppParamInst.getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-			{
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-				redraw();
-			}
-
+			loadLangListFromNppParam();
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();
 			goToCenter();
 
-			loadLangListFromNppParam();
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				HWND hwnd = reinterpret_cast<HWND>(lParam);
+				if (hwnd == ::GetDlgItem(_hSelf, IDC_USER_EXT_EDIT) || hwnd == ::GetDlgItem(_hSelf, IDC_USER_KEYWORDS_EDIT))
+				{
+					return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+				}
+				else
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				HWND hwnd = reinterpret_cast<HWND>(lParam);
+				if (hwnd == ::GetDlgItem(_hSelf, IDC_DEF_EXT_EDIT) || hwnd == ::GetDlgItem(_hSelf, IDC_DEF_KEYWORDS_EDIT))
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				else
+				{
+					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				}
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			::SendMessage(_pFgColour->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+			::SendMessage(_pBgColour->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 			return TRUE;
 		}
 
@@ -237,8 +288,9 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							NppParameters& nppParamInst = NppParameters::getInstance();
 							if (_restoreInvalid)
 							{
-								generic_string str( nppParamInst.getNppGUI()._themeName );
-								nppParamInst.reloadStylers( &str[0] );
+								generic_string str(nppParamInst.getNppGUI()._themeName);
+								nppParamInst.reloadStylers(str.c_str());
+								loadLangListFromNppParam();
 							}
 
 							LexerStylerArray & lsArray = nppParamInst.getLStylerArray();
@@ -266,6 +318,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							//(nppParamInst.getNppGUI())._themeName
 							::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+							::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 						}
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
 						display(false);
@@ -288,11 +341,15 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 							_isDirty = false;
 						}
 						_isThemeDirty = false;
-						(NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
+						auto newSavedFilePath = (NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
+						if (!newSavedFilePath.empty())
+							updateThemeName(newSavedFilePath);
+
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE);
 						//_isSync = true;
 						display(false);
 						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 						return TRUE;
 					}
 
@@ -404,11 +461,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 										break;
 
 									case IDC_SWITCH2THEME_COMBO :
-										switchToTheme();
-										setVisualFromStyleList();
-										notifyDataModified();
-										_isThemeDirty = false;
-										apply();
+										applyCurrentSelectedThemeAndUpdateUI();
 										break;
 								}
 								return TRUE;
@@ -425,6 +478,10 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 									{
 										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
 									}
+									else if (isDocumentMapStyle())
+									{
+										ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
+									}
 									apply();
 									return TRUE;
 								}
@@ -437,6 +494,10 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 									{
 										tabColourIndex = (tabColourIndex == TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
 										TabBarPlus::setColour(_pBgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
+									}
+									else if (isDocumentMapStyle())
+									{
+										ViewZoneDlg::setColour(_pBgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::frost);
 									}
 									apply();
 									return TRUE;
@@ -458,7 +519,20 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 		default :
 			return FALSE;
 	}
-	//return FALSE;
+	return FALSE;
+}
+
+void WordStyleDlg::move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
+{
+	POINT p;
+	RECT rc;
+	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
+
+	p.x = rc.right + NppParameters::getInstance()._dpiManager.scaleX(5);
+	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
+
+	::ScreenToClient(_hSelf, &p);
+	::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
 }
 
 void WordStyleDlg::loadLangListFromNppParam()
@@ -472,7 +546,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Global Styles")));
 	// All the lexers
-	for (int i = 0, nb = _lsArray.getNbLexer() ; i < nb ; ++i)
+	for (size_t i = 0, nb = _lsArray.getNbLexer() ; i < nb ; ++i)
 	{
 		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_lsArray.getLexerDescFromIndex(i)));
 	}
@@ -495,7 +569,7 @@ int WordStyleDlg::whichTabColourIndex()
 	if (i == LB_ERR)
 		return -1;
 	const size_t styleNameLen = 128;
-	TCHAR styleName[styleNameLen + 1];
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
 	if (lbTextLen > styleNameLen)
 		return -1;
@@ -515,6 +589,23 @@ int WordStyleDlg::whichTabColourIndex()
 		return TabBarPlus::inactiveText;
 
 	return -1;
+}
+
+bool WordStyleDlg::isDocumentMapStyle()
+{
+	const auto i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
+	if (i == LB_ERR)
+		return false;
+
+	constexpr size_t styleNameLen = 128;
+	TCHAR styleName[styleNameLen + 1] = { 0 };
+	const auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
+	if (lbTextLen > styleNameLen)
+		return false;
+
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
+
+	return (lstrcmp(styleName, VIEWZONE_DOCUMENTMAP) == 0);
 }
 
 void WordStyleDlg::updateColour(bool which)
@@ -583,9 +674,10 @@ void WordStyleDlg::updateUserKeywords()
 	//TCHAR kw[NB_MAX];
 	auto len = ::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXTLENGTH, 0, 0);
 	len += 1;
-	TCHAR *kw = new TCHAR[len];
+	TCHAR* kw = new TCHAR[len];
+	::memset(kw, 0, len * sizeof(TCHAR));
 	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, reinterpret_cast<LPARAM>(kw));
-	style.setKeywords(kw);
+	style._keywords = kw;
 
 	delete [] kw;
 }
@@ -655,11 +747,33 @@ void WordStyleDlg::switchToTheme()
 		if ( mb_response == IDYES )
 			(NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
 	}
-	nppParamInst.reloadStylers(&_themeName[0]);
+	nppParamInst.reloadStylers(_themeName.c_str());
 
 	loadLangListFromNppParam();
 	_restoreInvalid = true;
 
+}
+
+void WordStyleDlg::applyCurrentSelectedThemeAndUpdateUI()
+{
+	switchToTheme();
+	setVisualFromStyleList();
+	notifyDataModified();
+	_isThemeDirty = false;
+	apply();
+}
+
+bool WordStyleDlg::selectThemeByName(const TCHAR* themeName)
+{
+	LRESULT iTheme = ::SendMessage(_hSwitch2ThemeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(themeName));
+	if (iTheme == CB_ERR)
+		return false;
+
+	::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, iTheme, 0);
+
+	applyCurrentSelectedThemeAndUpdateUI();
+
+	return true;
 }
 
 void WordStyleDlg::setStyleListFromLexer(int index)
@@ -696,10 +810,9 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
 	StyleArray & lexerStyler = index?_lsArray.getLexerFromIndex(index-1):_globalStyles;
 
-	for (int i = 0, nb = lexerStyler.getNbStyler(); i < nb ; ++i)
+	for (const Style & style : lexerStyler)
 	{
-		Style & style = lexerStyler.getStyler(i);
-		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(style._styleDesc));
+		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(style._styleDesc.c_str()));
 	}
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, 0, 0);
 	setVisualFromStyleList();
@@ -712,7 +825,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	Style & style = getCurrentStyler();
 
 	// Global override style
-	if (style._styleDesc && lstrcmp(style._styleDesc, TEXT("Global override")) == 0)
+	if (style._styleDesc == TEXT("Global override"))
 	{
 		showGlobalOverrideCtrls(true);
 	}
@@ -720,9 +833,9 @@ void WordStyleDlg::setVisualFromStyleList()
 	//--Warning text
 	//bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;
 
-	COLORREF c = RGB(0x00, 0x00, 0xFF);
+	COLORREF c = NppDarkMode::isEnabled() ? NppDarkMode::getLinkTextColor() : RGB(0x00, 0x00, 0xFF);
 	const size_t strLen = 256;
-	TCHAR str[strLen + 1];
+	TCHAR str[strLen + 1] = { '\0' };
 
 	str[0] = '\0';
 
@@ -739,7 +852,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (i == LB_ERR)
 		return;
 	const size_t styleNameLen = 64;
-	TCHAR styleName[styleNameLen + 1];
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
 	if (lbTextLen > styleNameLen)
 		return;
@@ -749,7 +862,7 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	// PAD for fix a display glitch
 	wcscat_s(str, TEXT("          "));
-	colourHooker.setColour(c);
+	_colourHooker.setColour(c);
 	::SetWindowText(_hStyleInfoStaticText, str);
 
 	//-- 2 couleurs : fg et bg
@@ -759,6 +872,15 @@ void WordStyleDlg::setVisualFromStyleList()
 		_pFgColour->setColour(style._fgColor);
 		_pFgColour->setEnabled((style._colorStyle & COLORSTYLE_FOREGROUND) != 0);
 		isEnable = true;
+	}
+
+	// Selected text colour style
+	if (style._styleDesc == TEXT("Selected text colour"))
+	{
+		isEnable = false; // disable by default for "Selected text colour" style
+
+		if (NppParameters::getInstance().isSelectFgColorEnabled())
+			isEnable = true;
 	}
 	enableFg(isEnable);
 
@@ -774,9 +896,9 @@ void WordStyleDlg::setVisualFromStyleList()
 	//-- font name
 	isEnable = false;
 	LRESULT iFontName;
-	if (style._fontName != NULL)
+	if (!style._fontName.empty())
 	{
-		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(style._fontName));
+		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(style._fontName.c_str()));
 		if (iFontName == CB_ERR)
 			iFontName = 0;
 		isEnable = true;
@@ -843,7 +965,7 @@ void WordStyleDlg::setVisualFromStyleList()
 			kws = TEXT("");
 		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(kws));
 
-		const TCHAR *ckwStr = (style._keywords)?style._keywords->c_str():TEXT("");
+		const TCHAR *ckwStr = style._keywords.c_str();
 		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ckwStr));
 	}
 
@@ -885,4 +1007,5 @@ void WordStyleDlg::apply()
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+	::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 }

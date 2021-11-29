@@ -1,33 +1,25 @@
-; this file is part of installer for Notepad++
-; Copyright (C)2016 Don HO <don.h@free.fr>
+; This file is part of Notepad++ project
+; Copyright (C)2021 Don HO <don.h@free.fr>
 ;
-; This program is free software; you can redistribute it and/or
-; modify it under the terms of the GNU General Public License
-; as published by the Free Software Foundation; either
-; version 2 of the License, or (at your option) any later version.
-;
-; Note that the GPL places important restrictions on "derived works", yet
-; it does not provide a detailed definition of that term.  To avoid      
-; misunderstandings, we consider an application to constitute a          
-; "derivative work" for the purpose of this license if it does any of the
-; following:                                                             
-; 1. Integrates source code from Notepad++.
-; 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-;    installer, such as those produced by InstallShield.
-; 3. Links to a library or executes a program that does any of the above.
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; at your option any later version.
 ;
 ; This program is distributed in the hope that it will be useful,
 ; but WITHOUT ANY WARRANTY; without even the implied warranty of
-; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ; GNU General Public License for more details.
-; 
+;
 ; You should have received a copy of the GNU General Public License
-; along with this program; if not, write to the Free Software
-; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 SectionGroup "Localization" localization
 	SetOverwrite on
+	${MementoUnselectedSection} "Abkhazian" abkhazian
+		CopyFiles "$PLUGINSDIR\nppLocalization\abkhazian.xml" "$INSTDIR\localization\abkhazian.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Afrikaans" afrikaans
 		CopyFiles "$PLUGINSDIR\nppLocalization\afrikaans.xml" "$INSTDIR\localization\afrikaans.xml"
 	${MementoSectionEnd}
@@ -69,9 +61,6 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Catalan" catalan
 		CopyFiles "$PLUGINSDIR\nppLocalization\catalan.xml" "$INSTDIR\localization\catalan.xml"
-	${MementoSectionEnd}
-	${MementoUnselectedSection} "Taiwanese Mandarin" chineseTraditional
-		CopyFiles "$PLUGINSDIR\nppLocalization\taiwaneseMandarin.xml" "$INSTDIR\localization\taiwaneseMandarin.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Chinese (Simplified)" chineseSimplified
 		CopyFiles "$PLUGINSDIR\nppLocalization\chineseSimplified.xml" "$INSTDIR\localization\chineseSimplified.xml"
@@ -136,11 +125,17 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Hindi" hindi
 		CopyFiles "$PLUGINSDIR\nppLocalization\hindi.xml" "$INSTDIR\localization\hindi.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Hong Kong Cantonese" hongKongCantonese
+		CopyFiles "$PLUGINSDIR\nppLocalization\hongKongCantonese.xml" "$INSTDIR\localization\hongKongCantonese.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Hungarian" hungarian
 		CopyFiles "$PLUGINSDIR\nppLocalization\hungarian.xml" "$INSTDIR\localization\hungarian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Indonesian" indonesian
 		CopyFiles "$PLUGINSDIR\nppLocalization\indonesian.xml" "$INSTDIR\localization\indonesian.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Irish" irish
+		CopyFiles "$PLUGINSDIR\nppLocalization\iriish.xml" "$INSTDIR\localization\irish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Italian" italian
 		CopyFiles "$PLUGINSDIR\nppLocalization\italian.xml" "$INSTDIR\localization\italian.xml"
@@ -156,6 +151,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Korean" korean
 		CopyFiles "$PLUGINSDIR\nppLocalization\korean.xml" "$INSTDIR\localization\korean.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Kurdish" kurdish
+		CopyFiles "$PLUGINSDIR\nppLocalization\kurdish.xml" "$INSTDIR\localization\kurdish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kyrgyz" kyrgyz
 		CopyFiles "$PLUGINSDIR\nppLocalization\kyrgyz.xml" "$INSTDIR\localization\kyrgyz.xml"
@@ -184,6 +182,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Mongolian" mongolian
 		CopyFiles "$PLUGINSDIR\nppLocalization\mongolian.xml" "$INSTDIR\localization\mongolian.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Nepali" nepali
+		CopyFiles "$PLUGINSDIR\nppLocalization\nepali.xml" "$INSTDIR\localization\nepali.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Norwegian" norwegian
 		CopyFiles "$PLUGINSDIR\nppLocalization\norwegian.xml" "$INSTDIR\localization\norwegian.xml"
 	${MementoSectionEnd}
@@ -192,6 +193,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Occitan" occitan
 		CopyFiles "$PLUGINSDIR\nppLocalization\occitan.xml" "$INSTDIR\localization\occitan.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Piglatin" piglatin
+		CopyFiles "$PLUGINSDIR\nppLocalization\piglatin.xml" "$INSTDIR\localization\piglatin.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Polish" polish
 		CopyFiles "$PLUGINSDIR\nppLocalization\polish.xml" "$INSTDIR\localization\polish.xml"
@@ -241,6 +245,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Tagalog" tagalog
 		CopyFiles "$PLUGINSDIR\nppLocalization\tagalog.xml" "$INSTDIR\localization\tagalog.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Taiwanese Mandarin" chineseTraditional
+		CopyFiles "$PLUGINSDIR\nppLocalization\taiwaneseMandarin.xml" "$INSTDIR\localization\taiwaneseMandarin.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Tajik" tajik
 		CopyFiles "$PLUGINSDIR\nppLocalization\tajikCyrillic.xml" "$INSTDIR\localization\tajikCyrillic.xml"
 	${MementoSectionEnd}
@@ -274,33 +281,25 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Uzbek (Cyrillic)" uzbekCyrillic
 		CopyFiles "$PLUGINSDIR\nppLocalization\uzbekCyrillic.xml" "$INSTDIR\localization\uzbekCyrillic.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Venetian" venetian
+		CopyFiles "$PLUGINSDIR\nppLocalization\venetian.xml" "$INSTDIR\localization\venetian.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Vietnamese" vietnamese
 		CopyFiles "$PLUGINSDIR\nppLocalization\vietnamese.xml" "$INSTDIR\localization\vietnamese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Welsh" welsh
 		CopyFiles "$PLUGINSDIR\nppLocalization\welsh.xml" "$INSTDIR\localization\welsh.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Kurdish" kurdish
-		CopyFiles "$PLUGINSDIR\nppLocalization\kurdish.xml" "$INSTDIR\localization\kurdish.xml"
-	${MementoSectionEnd}
-	${MementoUnselectedSection} "Irish" irish
-		CopyFiles "$PLUGINSDIR\nppLocalization\iriish.xml" "$INSTDIR\localization\irish.xml"
-	${MementoSectionEnd}
-	${MementoUnselectedSection} "Piglatin" piglatin
-		CopyFiles "$PLUGINSDIR\nppLocalization\piglatin.xml" "$INSTDIR\localization\piglatin.xml"
-	${MementoSectionEnd}
 	${MementoUnselectedSection} "Zulu" zulu
 		CopyFiles "$PLUGINSDIR\nppLocalization\zulu.xml" "$INSTDIR\localization\zulu.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Venetian" venetian
-		CopyFiles "$PLUGINSDIR\nppLocalization\venetian.xml" "$INSTDIR\localization\venetian.xml"
-	${MementoSectionEnd}
-	${MementoUnselectedSection} "Nepali" nepali
-		CopyFiles "$PLUGINSDIR\nppLocalization\nepali.xml" "$INSTDIR\localization\nepali.xml"
-	${MementoSectionEnd}
+
 SectionGroupEnd
 
 SectionGroup un.localization
+	Section un.abkhazian
+		Delete "$INSTDIR\localization\abkhazian.xml"
+	SectionEnd
 	Section un.afrikaans
 		Delete "$INSTDIR\localization\afrikaans.xml"
 	SectionEnd
@@ -571,5 +570,8 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.nepali
 		Delete "$INSTDIR\localization\nepali.xml"
+	SectionEnd
+	Section un.hongKongCantonese
+		Delete "$INSTDIR\localization\hongKongCantonese.xml"
 	SectionEnd
 SectionGroupEnd

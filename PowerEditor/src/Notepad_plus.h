@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
@@ -61,8 +50,6 @@
 #define MENU 0x01
 #define TOOLBAR 0x02
 
-#define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
-
 enum FileTransferMode {
 	TransferClone		= 0x01,
 	TransferMove		= 0x02
@@ -93,26 +80,25 @@ struct TaskListInfo;
 
 struct VisibleGUIConf final
 {
-	bool isPostIt = false;
-	bool isFullScreen = false;
+	bool _isPostIt = false;
+	bool _isFullScreen = false;
+	bool _isDistractionFree = false;
 
-	//Used by both views
-	bool isMenuShown = true;
-	//bool isToolbarShown;	//toolbar forcefully hidden by hiding rebar
-	DWORD_PTR preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
+	//Used by postit & fullscreen
+	bool _isMenuShown = true;
+	DWORD_PTR _preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
-	//used by postit only
-	bool isTabbarShown = true;
-	bool isAlwaysOnTop = false;
-	bool isStatusbarShown = true;
+	//used by postit
+	bool _isTabbarShown = true;
+	bool _isAlwaysOnTop = false;
+	bool _isStatusbarShown = true;
 
-	//used by fullscreen only
-	WINDOWPLACEMENT _winPlace;
+	//used by fullscreen
+	WINDOWPLACEMENT _winPlace = {0};
 
-	VisibleGUIConf()
-	{
-		memset(&_winPlace, 0x0, sizeof(_winPlace));
-	}
+	//used by distractionFree
+	bool _was2ViewModeOn = false;
+	std::vector<DockingCont*> _pVisibleDockingContainers;
 };
 
 struct QuoteParams
@@ -140,7 +126,7 @@ struct QuoteParams
 	const wchar_t* _quote = nullptr;
 };
 
-class FileDialog;
+class CustomFileDialog;
 class Notepad_plus_Window;
 class AnsiCharPanel;
 class ClipboardHistoryPanel;
@@ -191,6 +177,7 @@ public:
 	bool fileCloseAllToRight();
 	bool fileCloseAllUnchanged();
 	bool fileSave(BufferID id = BUFFER_INVALID);
+	bool fileSaveAllConfirm();
 	bool fileSaveAll();
 	bool fileSaveSpecific(const generic_string& fileNameToSave);
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
@@ -218,7 +205,7 @@ public:
 	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);
 
 	bool fileLoadSession(const TCHAR* fn = nullptr);
-	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);
+	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save, bool includeFileBrowser = false);
 	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR** fileNames = nullptr);
 	void changeToolBarIcons();
 
@@ -230,13 +217,21 @@ public:
 	void macroPlayback(Macro);
 
     void loadLastSession();
-	bool loadSession(Session & session, bool isSnapshotMode = false);
+	bool loadSession(Session & session, bool isSnapshotMode = false, bool shouldLoadFileBrowser = false);
 
 	void prepareBufferChangedDialog(Buffer * buffer);
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFinderFiles(FindersInfo *findInFolderInfo);
+
+	bool createFilelistForFiles(std::vector<generic_string> & fileNames);
+	bool createFilelistForProjects(std::vector<generic_string> & fileNames);
 	bool findInFiles();
+	bool findInProjects();
+	bool findInFilelist(std::vector<generic_string> & fileList);
 	bool replaceInFiles();
+	bool replaceInProjects();
+	bool replaceInFilelist(std::vector<generic_string> & fileList);
+
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
 	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
 	std::vector<generic_string> addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter);
@@ -261,9 +256,14 @@ public:
 		return _pluginsAdminDlg.getPluginListVerStr();
 	};
 
+	void minimizeDialogs();
+	void restoreMinimizeDialogs();
+
+	void refreshDarkMode(bool resetStyle = false);
+
 private:
-	Notepad_plus_Window *_pPublicInterface = nullptr;
-    Window *_pMainWindow = nullptr;
+	Notepad_plus_Window* _pPublicInterface = nullptr;
+    Window* _pMainWindow = nullptr;
 	DockingManager _dockingManager;
 	std::vector<int> _internalFuncIDs;
 
@@ -293,6 +293,8 @@ private:
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
+	IconList _docTabIconListAlt;
+	IconList _docTabIconListDarkMode;
 
     StatusBar _statusBar;
 	bool _toReduceTabBar = false;
@@ -324,8 +326,6 @@ private:
 
 	LastRecentFileList _lastRecentFileList;
 
-	//vector<iconLocator> _customIconVect;
-
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle = NULL;
 
@@ -334,10 +334,11 @@ private:
 	// make sure we don't recursively call doClose when closing the last file with -quitOnEmpty
 	bool _isAttemptingCloseOnQuit = false;
 
-	// For FullScreen/PostIt features
+	// For FullScreen/PostIt/DistractionFree features
 	VisibleGUIConf	_beforeSpecialView;
 	void fullScreenToggle();
 	void postItToggle();
+	void distractionFreeToggle();
 
 	// Keystroke macro recording and playback
 	Macro _macro;
@@ -347,7 +348,7 @@ private:
 	RunMacroDlg _runMacroDlg;
 
 	// For conflict detection when saving Macros or RunCommands
-	ShortcutMapper * _pShortcutMapper = nullptr;
+	ShortcutMapper* _pShortcutMapper = nullptr;
 
 	// For hotspot
 	bool _linkTriggered = true;
@@ -394,7 +395,7 @@ private:
 
 	AnsiCharPanel* _pAnsiCharPanel = nullptr;
 	ClipboardHistoryPanel* _pClipboardHistoryPanel = nullptr;
-	VerticalFileSwitcher* _pFileSwitcherPanel = nullptr;
+	VerticalFileSwitcher* _pDocumentListPanel = nullptr;
 	ProjectPanel* _pProjectPanel_1 = nullptr;
 	ProjectPanel* _pProjectPanel_2 = nullptr;
 	ProjectPanel* _pProjectPanel_3 = nullptr;
@@ -403,6 +404,8 @@ private:
 
 	DocumentMap* _pDocMap = nullptr;
 	FunctionListPanel* _pFuncList = nullptr;
+
+	std::vector<HWND> _sysTrayHiddenHwnd;
 
 	BOOL notify(SCNotification *notification);
 	void command(int id);
@@ -428,11 +431,11 @@ private:
 		return _activeView;
 	}
 
-	int otherView(){
+	int otherView() {
 		return (_activeView == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
 	}
 
-	int otherFromView(int whichOne){
+	int otherFromView(int whichOne) {
 		return (whichOne == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
 	}
 
@@ -457,6 +460,7 @@ private:
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
 	int doDeleteOrNot(const TCHAR *fn);
+	int doSaveAll();
 
 	void enableMenu(int cmdID, bool doEnable) const;
 	void enableCommand(int cmdID, bool doEnable, int which) const;
@@ -465,6 +469,7 @@ private:
 	void checkUndoState();
 	void checkMacroState();
 	void checkSyncState();
+	void setupColorSampleBitmapsOnMainMenuItems();
 	void dropFiles(HDROP hdrop);
 	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);
 
@@ -497,32 +502,28 @@ private:
 
 	void addHotSpot(ScintillaEditView* view = NULL);
 
-    void bookmarkAdd(int lineno) const
-	{
+    void bookmarkAdd(int lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		if (!bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
 	}
 
-    void bookmarkDelete(int lineno) const
-	{
+    void bookmarkDelete(int lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		while (bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
 	}
 
-    bool bookmarkPresent(int lineno) const
-	{
+    bool bookmarkPresent(int lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
 
-    void bookmarkToggle(int lineno) const
-	{
+    void bookmarkToggle(int lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 
@@ -533,8 +534,7 @@ private:
 	}
 
     void bookmarkNext(bool forwardScan);
-	void bookmarkClearAll() const
-	{
+	void bookmarkClearAll() const {
 		_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 	}
 
@@ -566,6 +566,7 @@ private:
 	void showPathCompletion();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+	void setCodePageForInvisibleView(Buffer const* pBuffer);
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
 	bool findInCurrentFile(bool isEntireDoc);
@@ -580,13 +581,13 @@ private:
 	generic_string getLangFromMenu(const Buffer * buf);
 
     generic_string exts2Filters(const generic_string& exts, int maxExtsLen = -1) const; // maxExtsLen default value -1 makes no limit of whole exts length
-	int setFileOpenSaveDlgFilters(FileDialog & fDlg, bool showAllExt, int langType = -1); // showAllExt should be true if it's used for open file dialog - all set exts should be used for filtering files
+	int setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAllExt, int langType = -1); // showAllExt should be true if it's used for open file dialog - all set exts should be used for filtering files
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();
+	void drawDocumentMapColoursFromStylerArray();
 
-	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams)
-	{
+	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams) {
 		const CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(*pCmdParams);
 		return loadCommandlineParams(commandLine, &dto);
 	}
@@ -602,12 +603,12 @@ private:
 	void removeDuplicateLines();
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
-	void launchFileSwitcherPanel();
+	void launchDocumentListPanel();
 	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<generic_string> & folders, bool fromScratch = false);
+	void launchFileBrowser(const std::vector<generic_string> & folders, const generic_string& selectedItemPath, bool fromScratch = false);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -616,8 +617,7 @@ private:
 	static bool deleteForward(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool selectBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
 
-	static int getRandomNumber(int rangeMax = -1)
-	{
+	static int getRandomNumber(int rangeMax = -1) {
 		int randomNumber = rand();
 		if (rangeMax == -1)
 			return randomNumber;
@@ -637,5 +637,3 @@ private:
 	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
 	void updateCommandShortcuts();
 };
-
-

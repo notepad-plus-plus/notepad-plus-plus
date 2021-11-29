@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ================================================== [ PowerShell ] -->
+
+		<parser
+			displayName="PowerShell"
+			id         ="powershell_function"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?s:\x3C\x23(?:[^\x23]|\x23[^\x3E])*\x23\x3E)   # Multi Line Comment
+						|	(?m-s:\x23.*$)                                  # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						\b
+						(?:function|filter)
+						\s+
+						(?:
+							[A-Za-z_]\w*
+							:
+						)?
+						[A-Za-z_][\w\-]*
+						\s*
+						[({]
+					"
+			>
+				<functionName>
+					<nameExpr expr="[A-Za-z_][\w\-]*(?=\s*[({])" />
+				</functionName>
+				<className>
+					<nameExpr expr="[A-Za-z_]\w*(?=:)" />
+				</className>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

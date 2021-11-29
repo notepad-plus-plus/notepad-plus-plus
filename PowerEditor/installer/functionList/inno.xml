@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ================================================== [ Inno Setup ] -->
+
+		<parser
+			displayName="Inno Setup"
+			id         ="innosetup_syntax"
+		>
+			<classRange
+				mainExpr    ="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?ms)
+						(?'SECTION_HEADER'
+							^                                               # header starts at beginning of a line
+							\[                                              # start of section header
+							(?-i:Code)                                      # `Code` section name
+							]                                               # end of section header
+						)
+						.*?                                                 # whatever, up till...
+						(?=                                                 # ...next valid section header or...
+							^                                               #    +-- header starts at beginning of a line
+							\[                                              #    +-- start-of-header indicator
+							(?-i:
+								Components|(?:Custom)?Messages
+							|	Dirs
+							|	Files
+							|	I(?:cons|nstallDelete)
+							|	Languages
+							|	R(?:egistry|un)
+							|	Setup
+							|	T(?:asks|ypes)
+							|	Uninstall(?:Delete|Run)
+							)                                               #    +-- valid section name
+							]                                               #    \-- end-of-header indicator
+						|	\Z                                              # ...end-of-file
+						)
+					"
+			>
+				<className>
+					<nameExpr expr="^\[\K[^\h\]]+(?=])" />
+				</className>
+				<function
+					mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m-s)^\h*                                      # optional leading whitespace
+							(?i:FUNCTION\h+)
+							(?'VALID_ID'
+								[A-Za-z_]\w*
+							)
+							\s*\(                                           # start-of-parameter-list indicator
+							[^()]*                                          # parameter list
+							\s*\)                                           # end-of-parameter-list indicator
+							\s*:                                            # type indicator
+							\s*[A-Za-z_]\w*                                 # type identifier
+							\s*;                                            # end-of-statement indicator
+						"
+				>
+					<functionName>
+						<funcNameExpr expr="(?i:FUNCTION\h+)\K[A-Za-z_]\w*\s*\([^()]*\)" />
+						<!-- comment out the following node to display the method with its parameters -->
+						<funcNameExpr expr="[A-Za-z_]\w*" />
+					</functionName>
+				</function>
+			</classRange>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?ms)
+						(?'SECTION_HEADER'
+							^                                               # header starts at beginning of a line
+							\[                                              # start-of-header indicator
+							(?-i:
+								Components|(?:Custom)?Messages
+							|	Dirs
+							|	Files
+							|	I(?:cons|nstallDelete)
+							|	Languages
+							|	R(?:egistry|un)
+							|	Setup
+							|	T(?:asks|ypes)
+							|	Uninstall(?:Delete|Run)
+							)                                               # valid section name
+							]                                               # end-of-header indicator
+						)
+						.*?                                                 # whatever, up till...
+						(?=
+							(?&amp;SECTION_HEADER)                          # ...next valid section header,...
+						|	^\[(?-i:Code)]                                  # ...`Code` section header or...
+						|	\Z                                              # ...end-of-file
+						)
+					"
+			>
+				<functionName>
+					<nameExpr expr="^\[\K[^\]]+(?=])" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

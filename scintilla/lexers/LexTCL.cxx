@@ -45,7 +45,8 @@ static inline bool IsANumberChar(int ch) {
 
 static void ColouriseTCLDoc(Sci_PositionU startPos, Sci_Position length, int , WordList *keywordlists[], Accessor &styler) {
 #define  isComment(s) (s==SCE_TCL_COMMENT || s==SCE_TCL_COMMENTLINE || s==SCE_TCL_COMMENT_BOX || s==SCE_TCL_BLOCK_COMMENT)
-	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
+	const bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
+	const bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	bool commentLevel = false;
 	bool subBrace = false; // substitution begin with a brace ${.....}
 	enum tLineState {LS_DEFAULT, LS_OPEN_COMMENT, LS_OPEN_DOUBLE_QUOTE, LS_COMMENT_BOX, LS_MASK_STATE = 0xf,
@@ -199,7 +200,7 @@ next:
 				}
 			}
 			int flag = 0;
-			if (!visibleChars)
+			if (!visibleChars && foldCompact)
 				flag = SC_FOLDLEVELWHITEFLAG;
 			if (currentLevel > previousLevel)
 				flag = SC_FOLDLEVELHEADERFLAG;

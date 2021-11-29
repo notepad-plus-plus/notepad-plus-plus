@@ -1,0 +1,10 @@
+﻿=== URLs which can be handled better ===
+
+International characters directly before URL:
+
+u ähttp://test.com u
+m 0000000000000000 m
+
+u домhttp://test.com u
+m 000000000000000000 m
+

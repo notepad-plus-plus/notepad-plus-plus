@@ -1,0 +1,25 @@
+def invisible_function1(): # invisible because at file start
+    pass
+
+class VisibleClass1:
+    def __init__(self):
+        pass
+
+
+
+
+
+def invisible_function2(): # invisible because nothing but linebreaks between VisibleClass1 and invisible_function2
+    pass
+
+class VisibleClass2:
+    def __init__(self):
+        pass
+
+
+
+
+
+# visible because there is something between VisibleClass2 and visible_function
+def visible_function():
+    pass

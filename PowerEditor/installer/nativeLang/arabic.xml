@@ -296,7 +296,6 @@
                     <Item id="47002" name="صفحة المشروع Notepad++"/>
                     <Item id="47003" name="المستندات على الإنترنت"/>
                     <Item id="47004" name="مجتمع Notepad++ (المنتدى)"/>
-                    <Item id="47011" name="الدعم المباشر"/>
                     <Item id="47012" name="معلومات تصحيح الأخطاء..."/>
                     <Item id="47005" name="الحصول على المزيد من الإضافات"/>
                     <Item id="47006" name="تحديث Notepad++"/>
@@ -775,7 +774,6 @@
                     <Item id="6413" name="الدليل الافتراضي (فتح / حفظ)"/>
                     <Item id="6414" name="اتبع المستند الحالي"/>
                     <Item id="6415" name="تذكر آخر دليل تم استخدامه"/>
-                    <Item id="6430" name="استخدام مربع حوار بالنمط الجديد (بدون ميزة تنسيق الملف وخاصية نمط مسار Unix)"/>
                     <Item id="6431" name="فتح جميع الملفات في المجلد بدلاً من فتح المجلد كمساحدة عمل عند إفلات المجلد"/>
                 </DefaultDir>
 
@@ -1059,11 +1057,11 @@
         <ClipboardHistory>
             <PanelTitle name="سجل الذاكرة"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="مبدل المستند"/>
             <ColumnName name="الاسم"/>
             <ColumnExt name="الامتداد"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="الاسم"/>
             <ColumnPath name="المسار"/>

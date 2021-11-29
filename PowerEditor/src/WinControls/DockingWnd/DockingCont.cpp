@@ -1,29 +1,18 @@
-//this file is part of docking functionality for Notepad++
-//Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
+// This file is part of Notepad++ project
+// Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
-//This program is free software; you can redistribute it and/or
-//modify it under the terms of the GNU General Public License
-//as published by the Free Software Foundation; either
-//version 2 of the License, or (at your option) any later version.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
 //
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
-//
-//This program is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//GNU General Public License for more details.
-//
-//You should have received a copy of the GNU General Public License
-//along with this program; if not, write to the Free Software
-//Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "dockingResource.h"
 #include "DockingCont.h"
@@ -31,6 +20,7 @@
 #include "SplitterContainer.h"
 #include "ToolTip.h"
 #include "Parameters.h"
+#include "localization.h"
 
 using namespace std;
 
@@ -105,14 +95,15 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 {
 	if (!isCreated())
 	{
-		create(IDD_CONTAINER_DLG);
+		NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+		create(IDD_CONTAINER_DLG, pNativeSpeaker->isRTL());
 
 		_isFloating  = isFloating;
 
 		if (_isFloating)
 		{
 			::SetWindowLongPtr(_hSelf, GWL_STYLE, POPUP_STYLES);
-			::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, POPUP_EXSTYLES);
+			::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, pNativeSpeaker->isRTL()? POPUP_EXSTYLES | WS_EX_LAYOUTRTL : POPUP_EXSTYLES);
 			::ShowWindow(_hCaption, SW_HIDE);
 		}
 		else
@@ -147,7 +138,7 @@ tTbData* DockingCont::createToolbar(tTbData data)
 	}
 
 	// set attached child window
-    ::SetParent(pTbData->hClient, ::GetDlgItem(_hSelf, IDC_CLIENT_TAB));
+	::SetParent(pTbData->hClient, ::GetDlgItem(_hSelf, IDC_CLIENT_TAB));
 
 	// set names for captions and view toolbar
 	viewToolbar(pTbData);
@@ -325,7 +316,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 
 				if (_isMouseOver == TRUE)
 				{
-					doClose();
+					doClose(GetKeyState(VK_SHIFT) < 0);
 				}
 				_isMouseClose	= FALSE;
 				_isMouseOver	= FALSE;
@@ -354,21 +345,21 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 			{
 				if (_isMouseClose == FALSE)
 				{
-                    // keep sure that button is still down and within caption
-                    if ((wParam == MK_LBUTTON) && (isInRect(hwnd, pt.x, pt.y) == posCaption))
-                    {
-    					_dragFromTab = FALSE;
-    					NotifyParent(DMM_MOVE);
-    					_isMouseDown = FALSE;
-                    }
-                    else
-                    {
-                        _isMouseDown = FALSE;
-                    }
+					// keep sure that button is still down and within caption
+					if ((wParam == MK_LBUTTON) && (isInRect(hwnd, pt.x, pt.y) == posCaption))
+					{
+						_dragFromTab = FALSE;
+						NotifyParent(DMM_MOVE);
+						_isMouseDown = FALSE;
+					}
+					else
+					{
+						_isMouseDown = FALSE;
+					}
 				}
 				else
 				{
-					BOOL    isMouseOver	= _isMouseOver;
+					BOOL isMouseOver = _isMouseOver;
 					_isMouseOver = (isInRect(hwnd, pt.x, pt.y) == posClose ? TRUE : FALSE);
 
 					// if state is changed draw new
@@ -417,7 +408,9 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 			}
 			else
 			{
-				toolTip.Show(rc, TEXT("Close"), pt.x, pt.y + 20);
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+				generic_string tip = pNativeSpeaker->getLocalizedStrFromID("close-panel-tip", TEXT("Close"));
+				toolTip.Show(rc, tip.c_str(), pt.x, pt.y + 20);
 			}
 			return TRUE;
 		}
@@ -463,14 +456,24 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	// begin with paint
 	::SetBkMode(hDc, TRANSPARENT);
 
-	if (_isActive == TRUE)
+	auto holdPen = static_cast<HPEN>(::SelectObject(hDc, NppDarkMode::isEnabled() ? NppDarkMode::getEdgePen() : hPen));
+
+	if (NppDarkMode::isEnabled())
 	{
-		bgbrush = ::CreateSolidBrush(::GetSysColor(COLOR_ACTIVECAPTION));
-		::SetTextColor(hDc, ::GetSysColor(COLOR_CAPTIONTEXT));
+		bgbrush = ::CreateSolidBrush(_isActive ? NppDarkMode::getSofterBackgroundColor() : NppDarkMode::getBackgroundColor());
+		SetTextColor(hDc, NppDarkMode::getTextColor());
 	}
 	else
 	{
-		bgbrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
+		if (_isActive == TRUE)
+		{
+			bgbrush = ::CreateSolidBrush(::GetSysColor(COLOR_ACTIVECAPTION));
+			::SetTextColor(hDc, ::GetSysColor(COLOR_CAPTIONTEXT));
+		}
+		else
+		{
+			bgbrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
+		}
 	}
 
 	// set text and/or caption grid
@@ -565,35 +568,62 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		::SelectObject(hDc, hOldFont);
 		::DeleteObject(hFont);
 	}
+	::SelectObject(hDc, holdPen);
 	::DeleteObject(hPen);
 	::DeleteObject(bgbrush);
 
 	// draw button
-	HDC dcMem = ::CreateCompatibleDC(NULL);
 
-	// select correct bitmap
-	if ((_isMouseOver == TRUE) && (_isMouseDown == TRUE))
-		hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_DOWN), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
+	if (NppDarkMode::isEnabled())
+	{
+		::SelectObject(hDc, NppParameters::getInstance().getDefaultUIFont());
+
+		rc = pDrawItemStruct->rcItem;
+		if (_isTopCaption == TRUE)
+		{
+			rc.left = rc.right - _closeButtonWidth - _closeButtonPosLeftDynamic;
+		}
+		else
+		{
+			rc.bottom = rc.top + _closeButtonWidth + _closeButtonPosLeftDynamic; // non-dark uses Left instead of Top for the button pos so being consistent
+		}
+
+		if ((_isMouseOver == TRUE) && (_isMouseDown == TRUE))
+		{
+			::SetTextColor(hDc, RGB(0xFF, 0xFF, 0xFF));
+		}
+
+		::DrawText(hDc, L"x", 1, &rc, DT_VCENTER | DT_CENTER | DT_SINGLELINE);
+	}
 	else
-		hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_UP), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
+	{
 
-	// blit bitmap into the destination
-	::GetObject(hBmpCur, sizeof(bmp), &bmp);
-	hBmpOld = (HBITMAP)::SelectObject(dcMem, hBmpCur);
-	hBmpNew = ::CreateCompatibleBitmap(dcMem, bmp.bmWidth, bmp.bmHeight);
+		HDC dcMem = ::CreateCompatibleDC(NULL);
 
-	rc = pDrawItemStruct->rcItem;
-	::SelectObject(hDc, hBmpNew);
+		// select correct bitmap
+		if ((_isMouseOver == TRUE) && (_isMouseDown == TRUE))
+			hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_DOWN), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
+		else
+			hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_UP), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
 
-	if (_isTopCaption == TRUE)
-		::BitBlt(hDc, rc.right - bmp.bmWidth - _closeButtonPosLeftDynamic, _closeButtonPosTopDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
-	else
-		::BitBlt(hDc, _closeButtonPosLeftDynamic, _closeButtonPosLeftDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
+		// blit bitmap into the destination
+		::GetObject(hBmpCur, sizeof(bmp), &bmp);
+		hBmpOld = (HBITMAP)::SelectObject(dcMem, hBmpCur);
+		hBmpNew = ::CreateCompatibleBitmap(dcMem, bmp.bmWidth, bmp.bmHeight);
 
-	::SelectObject(dcMem, hBmpOld);
-	::DeleteObject(hBmpCur);
-	::DeleteObject(hBmpNew);
-	::DeleteDC(dcMem);
+		rc = pDrawItemStruct->rcItem;
+		::SelectObject(hDc, hBmpNew);
+
+		if (_isTopCaption == TRUE)
+			::BitBlt(hDc, rc.right - bmp.bmWidth - _closeButtonPosLeftDynamic, _closeButtonPosTopDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
+		else
+			::BitBlt(hDc, _closeButtonPosLeftDynamic, _closeButtonPosLeftDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
+
+		::SelectObject(dcMem, hBmpOld);
+		::DeleteObject(hBmpCur);
+		::DeleteObject(hBmpNew);
+		::DeleteDC(dcMem);
+	}
 
 	::RestoreDC(hDc, nSavedDC);
 }
@@ -604,7 +634,7 @@ eMousePos DockingCont::isInRect(HWND hwnd, int x, int y)
 	eMousePos	ret	= posOutside;
 
 	::GetWindowRect(hwnd, &rc);
-	ScreenRectToClientRect(hwnd, &rc);
+	::MapWindowPoints(NULL, hwnd, (LPPOINT)&rc, 2);
 
 	if (_isTopCaption == TRUE)
 	{
@@ -644,6 +674,112 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 	switch (Message)
 	{
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			return TRUE;
+		}
+
+		case WM_PAINT:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
+			if (!(dwStyle & TCS_OWNERDRAWFIXED))
+			{
+				break;
+			}
+
+			PAINTSTRUCT ps;
+			HDC hdc = ::BeginPaint(hwnd, &ps);
+			::FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
+
+			UINT id = ::GetDlgCtrlID(hwnd);
+
+			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
+
+			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
+			if (1 != GetClipRgn(hdc, holdClip))
+			{
+				DeleteObject(holdClip);
+				holdClip = nullptr;
+			}
+
+			int nTabs = TabCtrl_GetItemCount(hwnd);
+			int nFocusTab = TabCtrl_GetCurFocus(hwnd);
+			int nSelTab = TabCtrl_GetCurSel(hwnd);
+			for (int i = 0; i < nTabs; ++i)
+			{
+				DRAWITEMSTRUCT dis = { ODT_TAB, id, (UINT)i, ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc };
+				TabCtrl_GetItemRect(hwnd, i, &dis.rcItem);
+
+				if (i == nFocusTab)
+				{
+					dis.itemState |= ODS_FOCUS;
+				}
+				if (i == nSelTab)
+				{
+					dis.itemState |= ODS_SELECTED;
+				}
+
+				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
+
+				RECT rcIntersect = { 0 };
+				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
+				{
+					dis.rcItem.top += NppParameters::getInstance()._dpiManager.scaleY(1);
+					dis.rcItem.right -= 1;
+					dis.rcItem.bottom += 2;
+
+					if (i == 0)
+					{
+						POINT edges[] = {
+							{dis.rcItem.left - 1, dis.rcItem.top},
+							{dis.rcItem.left - 1, dis.rcItem.bottom}
+						};
+						Polyline(hdc, edges, _countof(edges));
+					}
+					
+					{
+						POINT edges[] = {
+							{dis.rcItem.right, dis.rcItem.top},
+							{dis.rcItem.right, dis.rcItem.bottom}
+						};
+						Polyline(hdc, edges, _countof(edges));
+					}
+
+					HRGN hClip = CreateRectRgnIndirect(&dis.rcItem);
+
+					SelectClipRgn(hdc, hClip);
+
+					drawTabItem(&dis);
+
+					DeleteObject(hClip);
+
+					SelectClipRgn(hdc, holdClip);
+				}
+			}
+
+			SelectClipRgn(hdc, holdClip);
+			if (holdClip)
+			{
+				DeleteObject(holdClip);
+				holdClip = nullptr;
+			}
+
+			SelectObject(hdc, holdPen);
+
+			EndPaint(hwnd, &ps);
+			return 0;
+		}
+
 		case WM_LBUTTONDOWN:
 		{
 			_beginDrag	= TRUE;
@@ -715,8 +851,8 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				NotifyParent(DMM_MOVE);
 				_beginDrag = FALSE;
 			}
-            else
-            {
+			else
+			{
 				int	iItemSel = static_cast<int32_t>(::SendMessage(hwnd, TCM_GETCURSEL, 0, 0));
 
 				if ((_bTabTTHover == FALSE) && (iItem != iItemSel))
@@ -851,20 +987,31 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	rc.top += ::GetSystemMetrics(SM_CYEDGE);
 
 	::SetBkMode(hDc, TRANSPARENT);
-	HBRUSH hBrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
-	::FillRect(hDc, &rc, hBrush);
-	::DeleteObject((HGDIOBJ)hBrush);
+
+	if (NppDarkMode::isEnabled())
+	{
+		RECT selectedRect = rc;
+		selectedRect.top -= 2;
+		selectedRect.bottom += 2;
+		if (isSelected)
+		{
+			::FillRect(hDc, &selectedRect, NppDarkMode::getSofterBackgroundBrush());
+		}
+		else
+		{
+			::FillRect(hDc, &selectedRect, NppDarkMode::getBackgroundBrush());
+		}
+	}
 
 	// draw orange bar
-	if (_bDrawOgLine && isSelected)
+	if (!NppDarkMode::isEnabled() && _bDrawOgLine && isSelected)
 	{
-		RECT barRect  = rc;
-		barRect.top  += rc.bottom - 4;
+		RECT barRect = rc;
+		barRect.top += rc.bottom - 4;
 
-		hBrush = ::CreateSolidBrush(RGB(250, 170, 60));
+		HBRUSH hBrush = ::CreateSolidBrush(RGB(250, 170, 60));
 		::FillRect(hDc, &barRect, hBrush);
-		::DeleteObject((HGDIOBJ)hBrush);
-
+		::DeleteObject(hBrush);
 	}
 
 	// draw icon if enabled
@@ -881,8 +1028,14 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			
 			ImageList_GetImageInfo(hImageList, iPosImage, &info);
 
-			int iconDpiDynamicalY = NppParameters::getInstance()._dpiManager.scaleY(7);
-			ImageList_Draw(hImageList, iPosImage, hDc, rc.left + 3, iconDpiDynamicalY, ILD_NORMAL);
+			int darkPaddingX = NppDarkMode::isEnabled() ? 1 : 0;
+			int darkPaddingY = NppDarkMode::isEnabled() ? 2 : (isSelected ? 1 : 0);
+
+			int iconDpiDynamicalX = isSelected ? rc.left + 3
+				: rc.left + (rc.right - rc.left - imageRect.right + imageRect.left) / 2 + darkPaddingX;
+			int iconDpiDynamicalY = NppParameters::getInstance()._dpiManager.scaleY(5) + darkPaddingY;
+
+			ImageList_Draw(hImageList, iPosImage, hDc, iconDpiDynamicalX, iconDpiDynamicalY, ILD_NORMAL);
 
 			if (isSelected)
 			{
@@ -894,7 +1047,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (isSelected)
 	{
 		COLORREF _unselectedColor = RGB(0, 0, 0);
-		::SetTextColor(hDc, _unselectedColor);
+		::SetTextColor(hDc, NppDarkMode::isEnabled() ? NppDarkMode::getTextColor() : _unselectedColor);
 
 		// draw text
 		rc.top -= ::GetSystemMetrics(SM_CYEDGE);
@@ -936,7 +1089,7 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wndTabProc)));
 
 			// set min tab width
-			int tabDpiDynamicalMinWidth = NppParameters::getInstance()._dpiManager.scaleY(24);
+			int tabDpiDynamicalMinWidth = NppParameters::getInstance()._dpiManager.scaleX(24);
 			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiDynamicalMinWidth);
 
 			break;
@@ -947,13 +1100,29 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			onSize();
 			break;
 		}
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+			RECT rc = { 0 };
+			getClientRect(rc);
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+			return TRUE;
+		}
+
 		case WM_DRAWITEM :
 		{
 			// draw tab or caption
 			if (reinterpret_cast<DRAWITEMSTRUCT *>(lParam)->CtlID == IDC_TAB_CONT)
 			{
-				drawTabItem(reinterpret_cast<DRAWITEMSTRUCT *>(lParam));
-				return TRUE;
+				if (!NppDarkMode::isEnabled())
+				{
+					drawTabItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
+					return TRUE;
+				}
+				break;
 			}
 			else
 			{
@@ -999,7 +1168,7 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			switch (LOWORD(wParam))
 			{   
 				case IDCANCEL:
-					doClose();
+					doClose(GetKeyState(VK_SHIFT) < 0);
 					return TRUE;
 				default :
 					break;
@@ -1026,7 +1195,7 @@ void DockingCont::onSize()
 	if (iItemCnt >= 1)
 	{
 		// resize to docked window
-		int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(24);
+		int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(16) + 8;
 		if (_isFloating == false)
 		{
 			// draw caption
@@ -1134,13 +1303,13 @@ void DockingCont::onSize()
 	}
 }
 
-void DockingCont::doClose()
+void DockingCont::doClose(BOOL closeAll)
 {
 	int	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+
+	// Always close active tab first
 	int iItemCur = getActiveTb();
-
-	TCITEM		tcItem		= {0};
-
+	TCITEM	tcItem	= {0};
 	tcItem.mask	= TCIF_PARAM;
 	::SendMessage(_hContTab, TCM_GETITEM, iItemCur, reinterpret_cast<LPARAM>(&tcItem));
 	if (tcItem.lParam)
@@ -1153,6 +1322,35 @@ void DockingCont::doClose()
 		}
 	}
 
+	// Close all other tabs if requested
+	if (closeAll)
+	{
+		iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+		int iItemOff = 0;
+		for (int iItem = 0; iItem < iItemCnt; ++iItem)
+		{
+			TCITEM	tcItem	= {0};
+			// get item data
+			selectTab(iItemOff);
+			tcItem.mask	= TCIF_PARAM;
+			::SendMessage(_hContTab, TCM_GETITEM, iItemOff, reinterpret_cast<LPARAM>(&tcItem));
+			if (!tcItem.lParam)
+				continue;
+
+			// notify child windows
+			if (NotifyParent(DMM_CLOSE) == 0)
+			{
+				// delete tab
+				hideToolbar((tTbData*)tcItem.lParam);
+			}
+			else
+			{
+				++iItemOff;
+			}
+		}
+	}
+
+	// Hide dialog window if all tabs closed
 	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 	if (iItemCnt == 0)
 	{
@@ -1455,4 +1653,3 @@ LPARAM DockingCont::NotifyParent(UINT message)
 {
 	return ::SendMessage(_hParent, message, 0, reinterpret_cast<LPARAM>(this));
 }
-

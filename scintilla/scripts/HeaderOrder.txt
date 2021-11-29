@@ -9,11 +9,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include <time.h>
-#include <math.h>
 #include <assert.h>
 #include <ctype.h>
-#include <limits.h>
 
 // C++ wrappers of C standard library
 #include <cstddef>
@@ -32,11 +29,9 @@
 #include <stdexcept>
 #include <new>
 #include <utility>
-#include <tuple>
 #include <string>
 #include <string_view>
 #include <vector>
-#include <deque>
 #include <map>
 #include <set>
 #include <forward_list>
@@ -49,11 +44,15 @@
 #include <regex>
 #include <iostream>
 #include <sstream>
+#include <fstream>
+#include <mutex>
+#include <filesystem>
 
 // POSIX
+#include <dlfcn.h>
 #include <sys/time.h>
 
-// GTK+ headers
+// GTK headers
 #include <glib.h>
 #include <gmodule.h>
 #include <gdk/gdk.h>
@@ -104,6 +103,7 @@
 #include "CharacterSet.h"
 #include "CharacterCategory.h"
 #include "LexerModule.h"
+#include "CatalogueModules.h"
 #include "OptionSet.h"
 #include "SparseState.h"
 #include "SubStyles.h"
@@ -153,6 +153,10 @@
 #include "ScintillaBase.h"
 
 #include "ExternalLexer.h"
+
+#include "Lexilla.h"
+#include "TestDocument.h"
+#include "LexillaAccess.h"
 
 // Platform-specific headers
 

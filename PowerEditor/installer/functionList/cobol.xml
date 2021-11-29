@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- Variant for COBOL fixed-form reference format -->
+		<parser id="cobol_section_fixed" displayName="COBOL fixed-form reference format">
+			<function
+				mainExpr="(?x)                                             # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+					(?m-s)(^.{6}[ D])                                      # ignore first 6 columns, 7 must be empty or D (debug-line)
+					([\t ]{0,3})                                           # don't start after column 12
+					(?!exit\s)[\w_-]+(\.|((?'seps'([\t ]|\*&gt;.*|([\n\r]+(.{6}([ D]|\*.*)|.{0,6}$)))+)section(\.|((?&amp;seps)(\.|[\w_-]+\.)))))
+																			# all names that come before `section` but not `exit section`
+					"
+			>
+				<functionName>
+					<nameExpr expr="[\w_-]+((?=\.)|((?'seps'([\t ]|\*&gt;.*|([\n\r]+(.{6}([ D]|\*.*)|.{0,6}$)))+)section((?=\.)|(?&amp;seps)((?=\.)|[\w_-]+(?=\.)))))"/>
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -292,7 +292,6 @@
                     <Item id="47002" name="Pagină proiect Notepad++"/>
                     <Item id="47003" name="Documentație online"/>
                     <Item id="47004" name="Comunitatea Notepad++ (Forum)"/>
-                    <Item id="47011" name="Suport Live"/>
                     <Item id="47012" name="Informații depanare"/>
                     <Item id="47005" name="Descărcaţi mai multe module"/>
                     <Item id="47006" name="Actualizare Notepad++"/>
@@ -771,7 +770,6 @@
                     <Item id="6413" name="Folder implicit (Deschidere/Salvare)"/>
                     <Item id="6414" name="Folder document curent"/>
                     <Item id="6415" name="Memorare ultimul folder folosit"/>
-                    <Item id="6430" name="Utilizare stil nou dialog salvare (fără extensii fişiere predefinite &amp;&amp; stil cale tip Unix disponibil)" />
                     <Item id="6431" name="La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru"/>
                 </DefaultDir>
 
@@ -1080,11 +1078,11 @@ Doriți să lansați Notepad++ în mod Administrator?"/>
         <ClipboardHistory>
             <PanelTitle name="Istoric Clipboard"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Comutare document"/>
             <ColumnName name="Nume"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>
             <ColumnPath name="Path"/>

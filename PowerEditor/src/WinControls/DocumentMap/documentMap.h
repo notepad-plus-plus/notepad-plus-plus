@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #pragma once
@@ -36,6 +25,8 @@
 #define DOCUMENTMAP_SCROLL        (WM_USER + 1)
 #define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 2)
 #define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
+
+const TCHAR VIEWZONE_DOCUMENTMAP[64] = TEXT("Document map");
 
 class ScintillaEditView;
 class Buffer;
@@ -54,6 +45,11 @@ class ViewZoneDlg : public StaticDialog
 {
 public :
 	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(NULL), _canvasDefaultProc(nullptr), _higherY(0), _lowerY(0) {}
+
+	enum class ViewZoneColorIndex {
+		focus,
+		frost
+	};
 
 	void doDialog();
 
@@ -74,11 +70,16 @@ public :
 		return (_lowerY - _higherY)/2 + _higherY;
 	};
 
+	static void setColour(COLORREF colour2Set, ViewZoneColorIndex i);
+
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+	static COLORREF _focus;
+	static COLORREF _frost;
 
 	void drawPreviewZone(DRAWITEMSTRUCT *pdis);
 
@@ -86,8 +87,8 @@ private :
 	HWND _viewZoneCanvas = nullptr;
 	WNDPROC _canvasDefaultProc = nullptr;
 	
-	long _higherY;
-	long _lowerY;
+	long _higherY = 0;
+	long _lowerY = 0;
 };
 
 
@@ -138,11 +139,10 @@ public:
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool needToRecomputeWith(const ScintillaEditView *editView = nullptr);
-	int getEditorTextZoneWidth(const ScintillaEditView *editView = nullptr);
 
 private:
-	ScintillaEditView **_ppEditView = nullptr;
-	ScintillaEditView *_pMapView = nullptr;
+	ScintillaEditView**_ppEditView = nullptr;
+	ScintillaEditView*_pMapView = nullptr;
 	ViewZoneDlg _vzDlg;
 	HWND _hwndScintilla;
 	bool _isTemporarilyShowing = false;

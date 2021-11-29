@@ -1,0 +1,10 @@
+\begin{lstlisting}[language=make]
+# If no BOARD is found in the environment, use this default:
+BOARD ?= bluepill
+
+# To use chinese st-link v2 and ch340 dongle with bluepill
+ifeq ($(BOARD),bluepill)
+STLINK_VERSION=2
+PORT_LINUX=/dev/ttyUSB0
+endif
+\end{lstlisting}

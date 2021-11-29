@@ -1,29 +1,18 @@
-// this file is part of docking functionality for Notepad++
+// This file is part of Notepad++ project
 // Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
-// 
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-// 
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #pragma once
@@ -51,14 +40,16 @@ static const WORD DotPattern[] =
 #define MDLG_CLASS_NAME TEXT("moveDlg")
 
 
-class Gripper
+class Gripper final
 {
 public:
-	Gripper();
+	Gripper() = default;;
     
 	void init(HINSTANCE hInst, HWND hParent) {
 		_hInst   = hInst;	
 		_hParent = hParent;
+		DWORD hwndExStyle = (DWORD)GetWindowLongPtr(_hParent, GWL_EXSTYLE);
+		_isRTL = hwndExStyle & WS_EX_LAYOUTRTL;
 	};
 
 	void startGrip(DockingCont* pCont, DockingManager* pDockMgr);
@@ -108,8 +99,8 @@ protected :
 		ShrinkRcToSize(rc);
 	};
 	void ShrinkRcToSize(RECT *rc) {
-		rc->right	-= rc->left;
-		rc->bottom	-= rc->top;
+		_isRTL ? rc->right = rc->left - rc->right : rc->right -= rc->left;
+		rc->bottom -= rc->top;
 	};
 	void DoCalcGripperRect(RECT* rc, RECT rcCorr, POINT pt) {
 		if ((rc->left + rc->right) < pt.x)
@@ -120,38 +111,41 @@ protected :
 
 private:
 	// Handle
-	HINSTANCE _hInst;
-	HWND _hParent;
-	HWND _hSelf;
+	HINSTANCE _hInst = nullptr;
+	HWND _hParent = nullptr;
+	HWND _hSelf = nullptr;
 
 	// data of container
 	tDockMgr _dockData;
-	DockingManager *_pDockMgr;
-	DockingCont *_pCont;
+	DockingManager *_pDockMgr = nullptr;
+	DockingCont *_pCont = nullptr;
 
 	// mouse offset in moving rectangle
-	POINT _ptOffset;
+	POINT _ptOffset = { 0 };
 
 	// remembers old mouse point
-	POINT _ptOld;
-	BOOL _bPtOldValid;
+	POINT _ptOld = { 0 };
+	BOOL _bPtOldValid = FALSE;
 
 	// remember last drawn rectangle (jg)
-	RECT _rcPrev;
+	RECT _rcPrev = { 0 };
 
 	// for sorting tabs
-	HWND _hTab;
-	HWND _hTabSource;
-	BOOL _startMovingFromTab;
-	int	_iItem;
-	RECT _rcItem;
+	HWND _hTab = nullptr;
+	HWND _hTabSource = nullptr;
+	BOOL _startMovingFromTab = FALSE;
+	int	_iItem = 0;
+	RECT _rcItem = { 0 };
 	TCITEM _tcItem;
 
-	HDC _hdc;
-	HBITMAP _hbm;
-	HBRUSH _hbrush;
+	HDC _hdc = nullptr;
+	HBITMAP _hbm = nullptr;
+	HBRUSH _hbrush = nullptr;
 
 	// is class registered
 	static BOOL _isRegistered;
+
+	// get layout direction
+	bool _isRTL = false;
 };
 

@@ -1,6 +1,7 @@
 
 /**
  * Implementation of the native Cocoa View that serves as container for the scintilla parts.
+ * @file ScintillaView.mm
  *
  * Created by Mike Lischke.
  *

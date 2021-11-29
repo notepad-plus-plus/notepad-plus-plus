@@ -1,23 +1,22 @@
-//this file is part of notepad++
-//Copyright (C)2020 Don HO ( donho@altern.org )
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
-//This program is free software; you can redistribute it and/or
-//modify it under the terms of the GNU General Public License
-//as published by the Free Software Foundation; either
-//version 2 of the License, or (at your option) any later version.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
 //
-//This program is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//GNU General Public License for more details.
-//
-//You should have received a copy of the GNU General Public License
-//along with this program; if not, write to the Free Software
-//Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "StaticDialog.h"
 #include "RunDlg.h"
-#include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "Notepad_plus_msgs.h"
 #include "shortcut.h"
 #include "Parameters.h"
@@ -141,10 +140,10 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 				}
 				else
 				{
-					TCHAR expandedStr[CURRENTWORD_MAXLENGTH];
+					TCHAR expandedStr[CURRENTWORD_MAXLENGTH] = { '\0' };
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
-						auto lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
+						int lineNumber = static_cast<int>(::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0));
 						wsprintf(expandedStr, TEXT("%d"), lineNumber);
 					}
 					else
@@ -248,6 +247,53 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 			return ::SendMessage(_hParent, message, wParam, lParam);
 		}
 
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = { 0 };
+				getClientRect(rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_COMMAND : 
 		{
 			switch (wParam)
@@ -319,13 +365,14 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				case IDC_BUTTON_FILE_BROWSER :
 				{
-					FileDialog fd(_hSelf, _hInst);
-					fd.setExtFilter(TEXT("Executable file : "), TEXT(".exe"), TEXT(".com"), TEXT(".cmd"), TEXT(".bat"), NULL);
-					fd.setExtFilter(TEXT("All files : "), TEXT(".*"), NULL);
+					CustomFileDialog fd(_hSelf);
+					fd.setExtFilter(TEXT("Executable file : "), { TEXT(".exe"), TEXT(".com"), TEXT(".cmd"), TEXT(".bat") });
+					fd.setExtFilter(TEXT("All files : "), TEXT(".*"));
 
-					if (const TCHAR *fn = fd.doOpenSingleFileDlg())
+					generic_string fn = fd.doOpenSingleFileDlg();
+					if (!fn.empty())
 					{
-						if (wcschr(fn, ' ') != NULL)
+						if (fn.find(' ') != generic_string::npos)
 						{
 							generic_string fn_quotes(fn);
 							fn_quotes = TEXT("\"") + fn_quotes + TEXT("\"");
@@ -333,7 +380,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 						}
 						else
 						{
-							addTextToCombo(fn);
+							addTextToCombo(fn.c_str());
 						}
 					}
 					return TRUE;
@@ -368,6 +415,8 @@ void RunDlg::doDialog(bool isRTL)
 {
 	if (!isCreated())
 		create(IDD_RUN_DLG, isRTL);
+
+	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
     // Adjust the position in the center
 	goToCenter();

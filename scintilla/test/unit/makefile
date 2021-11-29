@@ -3,7 +3,7 @@
 # On Windows g++ is used, on OS X clang, and on Linux G++ is used by default
 # but clang can be used by defining CLANG when invoking make
 # clang works only with libc++, not libstdc++
-# Tested with clang 3.3 and g++ 4.8
+# Tested with clang 9 and g++ 9
 
 CXXSTD=c++17
 
@@ -54,6 +54,7 @@ TESTEDSRC=\
  ../../src/CharClassify.cxx \
  ../../src/ContractionState.cxx \
  ../../src/Decoration.cxx \
+ ../../src/PerLine.cxx \
  ../../src/RunStyles.cxx \
  ../../src/UniConversion.cxx \
  ../../src/UniqueString.cxx

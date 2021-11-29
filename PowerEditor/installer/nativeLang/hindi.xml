@@ -296,7 +296,6 @@
           <Item id="47002" name="Notepad++ प्रोजेक्ट पेज"/>
           <Item id="47003" name="ऑनलाइन डॉक्युमेंटेशन"/>
           <Item id="47004" name="Notepad++ कम्युनिटी (फोरम)"/>
-          <Item id="47011" name="लाइव सपोर्ट (Live Support)"/>
           <Item id="47012" name="डिबग इन्फो (Debug Info)..."/>
           <Item id="47005" name="और प्लग-इन पायें"/>
           <Item id="47006" name="Notepad++ अपडेट करें"/>
@@ -778,7 +777,6 @@
           <Item id="6413" name="डिफ़ॉल्ट डायरेक्टरी (खोलें/सेव करें)"/>
           <Item id="6414" name="वर्तमान दस्तावेज़ का अनुसरण करें"/>
           <Item id="6415" name="पिछली इस्तेमाल डायरेक्टरी याद रखें"/>
-          <Item id="6430" name="नए स्टाइल डायलॉग का प्रयोग करें (बिना फाइल ext के; Unix स्टाइल पाथ कैपेसिटी)"/>
           <Item id="6431" name="फोल्डर ड्रैग करने पर, फोल्डर एज वर्कस्पेस की बजाय फोल्डर की सभी फाइलें खोलें"/>
         </DefaultDir>
 
@@ -1087,11 +1085,11 @@
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
     </ClipboardHistory>
-    <DocSwitcher>
+    <DocList>
       <PanelTitle name="डॉक स्विचर (Doc Switcher)"/>
       <ColumnName name="नाम"/>
       <ColumnExt name="Ext."/>
-    </DocSwitcher>
+    </DocList>
     <WindowsDlg>
       <ColumnName name="नाम"/>
       <ColumnPath name="पाथ"/>

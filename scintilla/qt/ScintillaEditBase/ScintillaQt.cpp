@@ -10,10 +10,6 @@
 
 #include "ScintillaQt.h"
 #include "PlatQt.h"
-#ifdef SCI_LEXER
-#include "LexerModule.h"
-#include "ExternalLexer.h"
-#endif
 
 #include <QApplication>
 #include <QDrag>
@@ -41,7 +37,7 @@ ScintillaQt::ScintillaQt(QAbstractScrollArea *parent)
 	// On OS X drawing text into a pixmap moves it around 1 pixel to
 	// the right compared to drawing it directly onto a window.
 	// Buffered drawing turned off by default to avoid this.
-	WndProc(SCI_SETBUFFEREDDRAW, false, 0);
+	view.bufferedDraw = false;
 
 	Init();
 
@@ -52,10 +48,8 @@ ScintillaQt::ScintillaQt(QAbstractScrollArea *parent)
 
 ScintillaQt::~ScintillaQt()
 {
-	for (TickReason tr = tickCaret; tr <= tickDwell; tr = static_cast<TickReason>(tr + 1)) {
-		FineTickerCancel(tr);
-	}
-	SetIdle(false);
+	CancelTimers();
+	ChangeIdle(false);
 }
 
 void ScintillaQt::execCommand(QAction *action)
@@ -67,6 +61,8 @@ void ScintillaQt::execCommand(QAction *action)
 #if defined(Q_OS_WIN)
 static const QString sMSDEVColumnSelect("MSDEVColumnSelect");
 static const QString sWrappedMSDEVColumnSelect("application/x-qt-windows-mime;value=\"MSDEVColumnSelect\"");
+static const QString sVSEditorLineCutCopy("VisualStudioEditorOperationsLineCutCopyClipboardTag");
+static const QString sWrappedVSEditorLineCutCopy("application/x-qt-windows-mime;value=\"VisualStudioEditorOperationsLineCutCopyClipboardTag\"");
 #elif defined(Q_OS_MAC)
 static const QString sScintillaRecPboardType("com.scintilla.utf16-plain-text.rectangular");
 static const QString sScintillaRecMimeType("text/x-scintilla.utf16-plain-text.rectangular");
@@ -145,9 +141,7 @@ void ScintillaQt::Init()
 
 void ScintillaQt::Finalise()
 {
-	for (TickReason tr = tickCaret; tr <= tickDwell; tr = static_cast<TickReason>(tr + 1)) {
-		FineTickerCancel(tr);
-	}
+	CancelTimers();
 	ScintillaBase::Finalise();
 }
 
@@ -179,7 +173,7 @@ static QString StringFromSelectedText(const SelectionText &selectedText)
 	}
 }
 
-static void AddRectangularToMime(QMimeData *mimeData, QString su)
+static void AddRectangularToMime(QMimeData *mimeData, [[maybe_unused]] QString su)
 {
 #if defined(Q_OS_WIN)
 	// Add an empty marker
@@ -190,10 +184,17 @@ static void AddRectangularToMime(QMimeData *mimeData, QString su)
 	// clipboard format is supposed to be UTF-16, not UTF-8.
 	mimeData->setData(sScintillaRecMimeType, su.toUtf8());
 #else
-	Q_UNUSED(su);
 	// Linux
 	// Add an empty marker
 	mimeData->setData(sMimeRectangularMarker, QByteArray());
+#endif
+}
+
+static void AddLineCutCopyToMime([[maybe_unused]] QMimeData *mimeData)
+{
+#if defined(Q_OS_WIN)
+	// Add an empty marker
+	mimeData->setData(sVSEditorLineCutCopy, QByteArray());
 #endif
 }
 
@@ -215,6 +216,23 @@ static bool IsRectangularInMime(const QMimeData *mimeData)
 #else
 		// Linux
 		if (formats[i] == sMimeRectangularMarker)
+			return true;
+#endif
+	}
+	return false;
+}
+
+static bool IsLineCutCopyInMime(const QMimeData *mimeData)
+{
+	QStringList formats = mimeData->formats();
+	for (int i = 0; i < formats.size(); ++i) {
+#if defined(Q_OS_WIN)
+		// Visual Studio Line Cut/Copy markers
+		// If line cut/copy made by this application, see base name.
+		if (formats[i] == sVSEditorLineCutCopy)
+			return true;
+		// Otherwise see wrapped name.
+		if (formats[i] == sWrappedVSEditorLineCutCopy)
 			return true;
 #endif
 	}
@@ -303,12 +321,15 @@ void ScintillaQt::ReconfigureScrollBars()
 void ScintillaQt::CopyToModeClipboard(const SelectionText &selectedText, QClipboard::Mode clipboardMode_)
 {
 	QClipboard *clipboard = QApplication::clipboard();
-	clipboard->clear(clipboardMode_);
 	QString su = StringFromSelectedText(selectedText);
 	QMimeData *mimeData = new QMimeData();
 	mimeData->setText(su);
 	if (selectedText.rectangular) {
 		AddRectangularToMime(mimeData, su);
+	}
+
+	if (selectedText.lineCopy) {
+		AddLineCutCopyToMime(mimeData);
 	}
 
 	// Allow client code to add additional data (e.g rich text).
@@ -336,6 +357,7 @@ void ScintillaQt::PasteFromMode(QClipboard::Mode clipboardMode_)
 	QClipboard *clipboard = QApplication::clipboard();
 	const QMimeData *mimeData = clipboard->mimeData(clipboardMode_);
 	bool isRectangular = IsRectangularInMime(mimeData);
+	bool isLine = SelectionEmpty() && IsLineCutCopyInMime(mimeData);
 	QString text = clipboard->text(clipboardMode_);
 	QByteArray utext = BytesForDocument(text);
 	std::string dest(utext.constData(), utext.length());
@@ -345,7 +367,7 @@ void ScintillaQt::PasteFromMode(QClipboard::Mode clipboardMode_)
 	UndoGroup ug(pdoc);
 	ClearSelection(multiPasteMode == SC_MULTIPASTE_EACH);
 	InsertPasteShape(selText.Data(), selText.Length(),
-		selText.rectangular ? pasteRectangular : pasteStream);
+		isRectangular ? pasteRectangular : (isLine ? pasteLine : pasteStream));
 	EnsureCaretVisible();
 }
 
@@ -417,6 +439,18 @@ void ScintillaQt::FineTickerStart(TickReason reason, int millis, int /* toleranc
 	timers[reason] = startTimer(millis);
 }
 
+// CancelTimers cleans up all fine-ticker timers and is non-virtual to avoid warnings when
+// called during destruction.
+void ScintillaQt::CancelTimers()
+{
+	for (TickReason tr = tickCaret; tr <= tickDwell; tr = static_cast<TickReason>(tr + 1)) {
+		if (timers[tr]) {
+			killTimer(timers[tr]);
+			timers[tr] = 0;
+		}
+	}
+}
+
 void ScintillaQt::FineTickerCancel(TickReason reason)
 {
 	if (timers[reason]) {
@@ -433,7 +467,7 @@ void ScintillaQt::onIdle()
 	}
 }
 
-bool ScintillaQt::SetIdle(bool on)
+bool ScintillaQt::ChangeIdle(bool on)
 {
 	QTimer *qIdle;
 	if (on) {
@@ -451,12 +485,17 @@ bool ScintillaQt::SetIdle(bool on)
 			idler.state = false;
 			qIdle = static_cast<QTimer *>(idler.idlerID);
 			qIdle->stop();
-			disconnect(qIdle, SIGNAL(timeout()), 0, 0);
+			disconnect(qIdle, SIGNAL(timeout()), nullptr, nullptr);
 			delete qIdle;
-			idler.idlerID = 0;
+			idler.idlerID = {};
 		}
 	}
 	return true;
+}
+
+bool ScintillaQt::SetIdle(bool on)
+{
+	return ChangeIdle(on);
 }
 
 int ScintillaQt::CharacterSetOfDocument() const
@@ -532,12 +571,14 @@ CaseFolder *ScintillaQt::CaseFolderForEncoding()
 				// Only for single byte encodings
 				for (int i=0x80; i<0x100; i++) {
 					char sCharacter[2] = "A";
-					sCharacter[0] = i;
+					sCharacter[0] = static_cast<char>(i);
 					QString su = codec->toUnicode(sCharacter, 1);
 					QString suFolded = su.toCaseFolded();
-					QByteArray bytesFolded = codec->fromUnicode(suFolded);
-					if (bytesFolded.length() == 1) {
-						pcf->SetTranslation(sCharacter[0], bytesFolded[0]);
+					if (codec->canEncode(suFolded)) {
+						QByteArray bytesFolded = codec->fromUnicode(suFolded);
+						if (bytesFolded.length() == 1) {
+							pcf->SetTranslation(sCharacter[0], bytesFolded[0]);
+						}
 					}
 				}
 				return pcf;
@@ -545,7 +586,7 @@ CaseFolder *ScintillaQt::CaseFolderForEncoding()
 				return new CaseFolderDBCS(QTextCodec::codecForName(charSetBuffer));
 			}
 		}
-		return 0;
+		return nullptr;
 	}
 }
 
@@ -690,12 +731,6 @@ sptr_t ScintillaQt::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam)
 
 		case SCI_GETDIRECTPOINTER:
 			return reinterpret_cast<sptr_t>(this);
-
-#ifdef SCI_LEXER
-		case SCI_LOADLEXERLIBRARY:
-			LexerManager::GetInstance()->Load(reinterpret_cast<const char *>(lParam));
-			break;
-#endif
 
 		default:
 			return ScintillaBase::WndProc(iMessage, wParam, lParam);

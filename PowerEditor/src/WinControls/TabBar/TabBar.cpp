@@ -1,31 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stdexcept>
 #include "TabBar.h"
@@ -69,7 +56,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 	int multiLine = isMultiLine ? TCS_MULTILINE : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
-        TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
+		TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
 
 	_hSelf = ::CreateWindowEx(
 				0,
@@ -138,12 +125,12 @@ void TabBar::setFont(const TCHAR *fontName, int fontSize)
 		::DeleteObject(_hFont);
 
 	_hFont = ::CreateFont( fontSize, 0,
-						  (_isVertical) ? 900:0,
-						  (_isVertical) ? 900:0,
-		                   FW_NORMAL,
-			               0, 0, 0, 0,
-			               0, 0, 0, 0,
-				           fontName);
+						(_isVertical) ? 900:0,
+						(_isVertical) ? 900:0,
+						FW_NORMAL,
+						0, 0, 0, 0,
+						0, 0, 0, 0,
+						fontName);
 	if (_hFont)
 		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 }
@@ -313,6 +300,9 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	{
 		throw std::runtime_error("TabBarPlus::init : tooltip CreateWindowEx() function return null");
 	}
+
+	NppDarkMode::setDarkTooltips(_tooltips, NppDarkMode::ToolTipsType::tooltip);
+
 	::SendMessage(_hSelf, TCM_SETTOOLTIPS, reinterpret_cast<WPARAM>(_tooltips), 0);
 
 	if (!_hwndArray[_nbCtrl])
@@ -474,6 +464,12 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::tabbar);
+			return TRUE;
+		}
+
 		case WM_MOUSEWHEEL:
 		{
 			// ..............................................................................
@@ -540,7 +536,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 				setActiveTab(tabIndex);
 			}
-			else if (not _isMultiLine) // don't scroll if in multi-line mode
+			else if (!_isMultiLine) // don't scroll if in multi-line mode
 			{
 				RECT rcTabCtrl, rcLastTab;
 				::SendMessage(_hSelf, TCM_GETITEMRECT, lastTabIndex, reinterpret_cast<LPARAM>(&rcLastTab));
@@ -560,7 +556,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				LONG maxLengthUpDownCtrl = NppParameters::getInstance()._dpiManager.scaleX(44); // sufficient static value
 
 				// scroll forward as long as the last tab is hidden; scroll backward till the first tab
-				if ((_isVertical ? ((rcTabCtrl.bottom - rcLastTab.bottom) < maxLengthUpDownCtrl) : ((rcTabCtrl.right - rcLastTab.right) < maxLengthUpDownCtrl)) || not isForward)
+				if ((_isVertical ? ((rcTabCtrl.bottom - rcLastTab.bottom) < maxLengthUpDownCtrl) : ((rcTabCtrl.right - rcLastTab.right) < maxLengthUpDownCtrl)) || !isForward)
 				{
 					if (isForward)
 						++scrollTabIndex;
@@ -608,20 +604,20 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
-            ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
+			::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 			int currentTabOn = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
 			if (wParam == 2)
 				return TRUE;
 
-            if (_doDragNDrop)
-            {
+			if (_doDragNDrop)
+			{
 				_mightBeDragging = true;
-            }
+			}
 
 			notify(NM_CLICK, currentTabOn);
 
-            return TRUE;
+			return TRUE;
 		}
 
 		case WM_RBUTTONDOWN :	//rightclick selects tab aswell
@@ -675,13 +671,13 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			if (_isDragging)
 			{
-                exchangeItemData(p);
+				exchangeItemData(p);
 
 				// Get cursor position of "Screen"
 				// For using the function "WindowFromPoint" afterward!!!
 				::GetCursorPos(&_draggingPoint);
 				draggingCursor(_draggingPoint);
-			    return TRUE;
+				return TRUE;
 			}
 			else
 			{
@@ -709,6 +705,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				else if (iTabNow != -1 && _currentHoverTabItem != -1 && _currentHoverTabItem != iTabNow) // mouse is being moved from a tab and entering into another tab
 				{
 					isFromTabToTab = true;
+					_whichCloseClickDown = -1;
 
 					// set current hovered
 					_currentHoverTabItem = iTabNow;
@@ -766,6 +763,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
 
 			_currentHoverTabItem = -1;
+			_whichCloseClickDown = -1;
 			SetRectEmpty(&_currentHoverTabRect);
 			_isCloseHover = false;
 
@@ -864,13 +862,131 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 			return TRUE;
 		}
+
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			RECT rc = { 0 };
+			GetClientRect(hwnd, &rc);
+			FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
+
+			return 1;
+		}
+
+		case WM_PAINT:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
+			if (!(dwStyle & TCS_OWNERDRAWFIXED))
+			{
+				break;
+			}
+
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(hwnd, &ps);
+			FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
+
+			UINT id = ::GetDlgCtrlID(hwnd);
+
+			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
+
+			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
+			if (1 != GetClipRgn(hdc, holdClip))
+			{
+				DeleteObject(holdClip);
+				holdClip = nullptr;
+			}
+
+			int topBarHeight = NppParameters::getInstance()._dpiManager.scaleX(4);
+
+			int nTabs = TabCtrl_GetItemCount(hwnd);
+			int nFocusTab = TabCtrl_GetCurFocus(hwnd);
+			int nSelTab = TabCtrl_GetCurSel(hwnd);
+			for (int i = 0; i < nTabs; ++i)
+			{
+				DRAWITEMSTRUCT dis = { ODT_TAB, id, (UINT)i, ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc };
+				TabCtrl_GetItemRect(hwnd, i, &dis.rcItem);
+
+				if (i == nFocusTab)
+				{
+					dis.itemState |= ODS_FOCUS;
+				}
+				if (i == nSelTab)
+				{
+					dis.itemState |= ODS_SELECTED;
+				}
+
+				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
+
+				RECT rcIntersect = { 0 };
+				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
+				{
+					if (dwStyle & TCS_VERTICAL)
+					{
+						POINT edges[] = {
+							{dis.rcItem.left, dis.rcItem.bottom - 1},
+							{dis.rcItem.right, dis.rcItem.bottom - 1}
+						};
+						if (i != nSelTab && (i != nSelTab - 1))
+						{
+							edges[0].x += topBarHeight;
+						}
+						Polyline(hdc, edges, _countof(edges));
+						dis.rcItem.bottom -= 1;
+					}
+					else
+					{
+						POINT edges[] = {
+							{dis.rcItem.right - 1, dis.rcItem.top},
+							{dis.rcItem.right - 1, dis.rcItem.bottom}
+						};
+						if (i != nSelTab && (i != nSelTab - 1))
+						{
+							edges[0].y += topBarHeight;
+						}
+						Polyline(hdc, edges, _countof(edges));
+						dis.rcItem.right -= 1;
+					}
+
+					HRGN hClip = CreateRectRgnIndirect(&dis.rcItem);
+
+					SelectClipRgn(hdc, hClip);
+
+					drawItem(&dis, true);
+
+					DeleteObject(hClip);
+
+					SelectClipRgn(hdc, holdClip);
+				}
+			}
+
+			SelectClipRgn(hdc, holdClip);
+			if (holdClip)
+			{
+				DeleteObject(holdClip);
+				holdClip = nullptr;
+			}
+
+			SelectObject(hdc, holdPen);
+
+			EndPaint(hwnd, &ps);
+			return 0;
+		}
 	}
 
 	return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 }
 
 
-void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
+void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 {
 	RECT rect = pDrawItemStruct->rcItem;
 
@@ -896,14 +1012,14 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	int nSavedDC = ::SaveDC(hDC);
 
 	::SetBkMode(hDC, TRANSPARENT);
-	HBRUSH hBrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
+	HBRUSH hBrush = ::CreateSolidBrush(!isDarkMode ? ::GetSysColor(COLOR_BTNFACE) : NppDarkMode::getBackgroundColor());
 	::FillRect(hDC, &rect, hBrush);
 	::DeleteObject((HGDIOBJ)hBrush);
 	
 	// equalize drawing areas of active and inactive tabs
 	int paddingDynamicTwoX = NppParameters::getInstance()._dpiManager.scaleX(2);
 	int paddingDynamicTwoY = NppParameters::getInstance()._dpiManager.scaleY(2);
-	if (isSelected)
+	if (isSelected && !isDarkMode)
 	{
 		// the drawing area of the active tab extends on all borders by default
 		rect.top += ::GetSystemMetrics(SM_CYEDGE);
@@ -957,6 +1073,10 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	RECT barRect = rect;
 	if (isSelected)
 	{
+		if (isDarkMode)
+		{
+			::FillRect(hDC, &barRect, NppDarkMode::getSofterBackgroundBrush());
+		}
 		if (_drawTopBar)
 		{
 			int topBarHeight = NppParameters::getInstance()._dpiManager.scaleX(4);
@@ -984,7 +1104,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	{
 		if (_drawInactiveTab)
 		{
-			hBrush = ::CreateSolidBrush(_inactiveBgColour);
+			hBrush = ::CreateSolidBrush(!isDarkMode ? _inactiveBgColour : NppDarkMode::getBackgroundColor());
 			::FillRect(hDC, &barRect, hBrush);
 			::DeleteObject((HGDIOBJ)hBrush);
 		}
@@ -998,11 +1118,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		int idCloseImg;
 
 		if (_isCloseHover && (_currentHoverTabItem == nTab) && (_whichCloseClickDown == -1)) // hover
-			idCloseImg = IDR_CLOSETAB_HOVER;
+			idCloseImg = isDarkMode ? IDR_CLOSETAB_HOVER_DM : IDR_CLOSETAB_HOVER;
 		else if (_isCloseHover && (_currentHoverTabItem == nTab) && (_whichCloseClickDown == _currentHoverTabItem)) // pushed
-			idCloseImg = IDR_CLOSETAB_PUSH;
+			idCloseImg = isDarkMode ? IDR_CLOSETAB_PUSH_DM : IDR_CLOSETAB_PUSH;
 		else
-			idCloseImg = isSelected?IDR_CLOSETAB:IDR_CLOSETAB_INACT;
+			idCloseImg = isSelected ? (isDarkMode ? IDR_CLOSETAB_DM : IDR_CLOSETAB) : (isDarkMode ? IDR_CLOSETAB_INACT_DM : IDR_CLOSETAB_INACT);
 
 		HDC hdcMemory;
 		hdcMemory = ::CreateCompatibleDC(hDC);
@@ -1121,7 +1241,13 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		rect.left += spaceUnit;
 	}
 
-	::SetTextColor(hDC, isSelected ? _activeTextColour : _inactiveTextColour);
+	COLORREF textColor = isSelected ? _activeTextColour : _inactiveTextColour;
+	if (isDarkMode)
+	{
+		textColor = NppDarkMode::invertLightnessSofter(textColor);
+	}
+
+	::SetTextColor(hDC, textColor);
 
 	::DrawText(hDC, decodedLabel, lstrlen(decodedLabel), &rect, Flags);
 	::RestoreDC(hDC, nSavedDC);
@@ -1146,8 +1272,8 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 		}
 		else if (isPointInParentZone(screenPoint))
 			::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_INTERDIT_TAB)));
-        else // drag out of application
-            ::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_OUT_TAB)));
+		else // drag out of application
+			::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_OUT_TAB)));
 	}
 }
 

@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 
@@ -57,7 +46,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	{
 		case SCN_MODIFIED:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			static bool prevWasEdit = false;
@@ -138,6 +127,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (!canUndo && buf->isLoadedDirty() && buf->isDirty())
 					isDirty = true;
 			}
+
+			if (buf->isUnsync()) // buffer in Notepad++ is not syncronized with the file on disk - in this case the buffer is always dirty 
+				isDirty = true;
+
 			buf->setDirty(isDirty);
 			break;
 		}
@@ -490,17 +483,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				return TRUE;
 			}
-			else if (_pFileSwitcherPanel && notification->nmhdr.hwndFrom == _pFileSwitcherPanel->getHSelf())
+			else if (_pDocumentListPanel && notification->nmhdr.hwndFrom == _pDocumentListPanel->getHSelf())
 			{
 				// Already switched, so do nothing here.
 
-				if (_pFileSwitcherPanel->nbSelectedFiles() > 1)
+				if (_pDocumentListPanel->nbSelectedFiles() > 1)
 				{
 					if (!_fileSwitcherMultiFilePopupMenu.isCreated())
 					{
 						vector<MenuItemUnit> itemUnitArray;
-						itemUnitArray.push_back(MenuItemUnit(IDM_FILESWITCHER_FILESCLOSE, TEXT("Close Selected files")));
-						itemUnitArray.push_back(MenuItemUnit(IDM_FILESWITCHER_FILESCLOSEOTHERS, TEXT("Close others files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSE, TEXT("Close Selected files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERS, TEXT("Close others files")));
 
 						_fileSwitcherMultiFilePopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
 						_nativeLangSpeaker.changeLangTabContextMenu(_fileSwitcherMultiFilePopupMenu.getMenuHandle());
@@ -531,6 +524,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CONTAININGFOLDERASWORKSPACE, TEXT("Open Containing Folder as Workspace")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, TEXT("Open in Default Viewer")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
@@ -559,7 +553,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY, isUserReadOnly);
 
 			bool isSysReadOnly = buf->getFileReadOnly();
-			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, not isSysReadOnly && not buf->isMonitoringOn());
+			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly && !buf->isMonitoringOn());
 			_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
 
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
@@ -669,7 +663,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_DOUBLECLICK:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			if (notification->modifiers == SCMOD_CTRL)
@@ -820,10 +814,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{ // Double click with no modifiers
 				// Check wether cursor is within URL
 				auto indicMsk = notifyView->execute(SCI_INDICATORALLONFOR, notification->position);
-				if (!(indicMsk & (1 << URL_INDIC))) break;
+				if (!(indicMsk & (1 << URL_INDIC)))
+					break;
+				
 				auto startPos = notifyView->execute(SCI_INDICATORSTART, URL_INDIC, notification->position);
 				auto endPos = notifyView->execute(SCI_INDICATOREND, URL_INDIC, notification->position);
-				if ((notification->position < startPos) || (notification->position > endPos)) break;
+				if ((notification->position < startPos) || (notification->position > endPos))
+					break;
 
 				// WM_LBUTTONUP goes to opening browser instead of Scintilla here, because the mouse is not captured.
 				// The missing message causes mouse cursor flicker as soon as the mouse cursor is moved to a position outside the text editing area.
@@ -842,16 +839,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_UPDATEUI:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			NppParameters& nppParam = NppParameters::getInstance();
-			NppGUI & nppGui = const_cast<NppGUI &>(nppParam.getNppGUI());
+			NppGUI & nppGui = nppParam.getNppGUI();
 
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)
 			{
-				addHotSpot();
+				addHotSpot(notifyView);
 			}
 
 			// if it's searching/replacing, then do nothing
@@ -861,8 +858,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
 			{
 				//ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
-				if (nppGui._smartHiliteOnAnotherView &&
-					_pEditView->getCurrentBufferID() != notifyView->getCurrentBufferID())
+				if (nppGui._smartHiliteOnAnotherView)
 				{
 					TCHAR selectedText[1024];
 					_pEditView->getGenericSelectedText(selectedText, sizeof(selectedText)/sizeof(TCHAR), false);
@@ -890,7 +886,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 			}
 
-			updateStatusBar();
+			bool selectionIsChanged = (notification->updated & SC_UPDATE_SELECTION) != 0;
+			// note: changing insert/overwrite mode will cause Scintilla to notify with SC_UPDATE_SELECTION
+			bool contentIsChanged = (notification->updated & SC_UPDATE_CONTENT) != 0;
+			if (selectionIsChanged || contentIsChanged)
+			{
+				updateStatusBar();
+			}
+
 			if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 				_pFuncList->markEntry();
 			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
@@ -904,14 +907,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			try
 			{
 				LPTOOLTIPTEXT lpttt = (LPTOOLTIPTEXT)notification;
-
-				//Joce's fix
 				lpttt->hinst = NULL;
 
 				POINT p;
 				::GetCursorPos(&p);
-				::ScreenToClient(_pPublicInterface->getHSelf(), &p);
-				HWND hWin = ::RealChildWindowFromPoint(_pPublicInterface->getHSelf(), p);
+				::MapWindowPoints(NULL, _pPublicInterface->getHSelf(), &p, 1);
+				HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 				const int tipMaxLen = 1024;
 				static TCHAR docTip[tipMaxLen];
 				docTip[0] = '\0';
@@ -965,7 +966,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_ZOOM:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
@@ -988,7 +989,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_PAINTED:
 		{
-			if (not notifyView)
+			if (!notifyView)
 				return FALSE;
 
 			// Check if a restore position is needed. 
@@ -1009,7 +1010,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_subEditView.restoreCurrentPosPreStep();
 				_subEditView.setWrapRestoreNeeded(false);
 			}
+
 			notifyView->updateLineNumberWidth();
+
 			if (_syncInfo.doSync())
 				doSynScorll(HWND(notification->nmhdr.hwndFrom));
 
@@ -1022,7 +1025,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_linkTriggered = false;
 			}
 
-			if (_pDocMap && (not _pDocMap->isClosed()) && _pDocMap->isVisible() && not _pDocMap->isTemporarilyShowing())
+			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible() && !_pDocMap->isTemporarilyShowing())
 			{
 				_pDocMap->wrapMap();
 				_pDocMap->scrollMap();

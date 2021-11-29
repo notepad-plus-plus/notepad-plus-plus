@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "json.hpp"
 #include <algorithm>
@@ -33,7 +22,6 @@
 #include <cctype>
 #include <shlobj.h>
 #include <shlwapi.h>
-#include <uxtheme.h>
 #include "pluginsAdmin.h"
 #include "ScintillaEditView.h"
 #include "localization.h"
@@ -79,16 +67,16 @@ Version::Version(const generic_string& versionStr)
 
 void Version::setVersionFrom(const generic_string& filePath)
 {
-	if (not filePath.empty() && ::PathFileExists(filePath.c_str()))
+	if (!filePath.empty() && ::PathFileExists(filePath.c_str()))
 	{
-		DWORD handle = 0;
-		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &handle);
+		DWORD uselessArg = 0; // this variable is for passing the ignored argument to the functions
+		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &uselessArg);
 
 		if (bufferSize <= 0)
 			return;
 
 		unsigned char* buffer = new unsigned char[bufferSize];
-		::GetFileVersionInfo(filePath.c_str(), handle, bufferSize, buffer);
+		::GetFileVersionInfo(filePath.c_str(), uselessArg, bufferSize, buffer);
 
 		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
 		UINT cbFileInfo = 0;
@@ -180,20 +168,20 @@ generic_string PluginUpdateInfo::describe()
 {
 	generic_string desc;
 	const TCHAR *EOL = TEXT("\r\n");
-	if (not _description.empty())
+	if (!_description.empty())
 	{
 		desc = _description;
 		desc += EOL;
 	}
 
-	if (not _author.empty())
+	if (!_author.empty())
 	{
 		desc += TEXT("Author: ");
 		desc += _author;
 		desc += EOL;
 	}
 
-	if (not _homepage.empty())
+	if (!_homepage.empty())
 	{
 		desc += TEXT("Homepage: ");
 		desc += _homepage;
@@ -269,7 +257,10 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT rect;
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
-	int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
+	NppDarkMode::subclassTabControl(_tab.getHSelf());
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+
+	int tabDpiDynamicalHeight = dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
 	const TCHAR *available = TEXT("Available");
@@ -280,19 +271,18 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
 
-	rect.bottom -= 100;
+	rect.bottom -= dpiManager.scaleX(100);
 	_tab.reSizeTo(rect);
 	_tab.display();
 
-	const long marge = 10;
-
-	const int topMarge = 42;
+	const long marge = dpiManager.scaleX(10);
+	const int topMarge = dpiManager.scaleY(42);
 
 	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_STATIC);
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
-	researchLabelRect.left = rect.left + 10;
-	researchLabelRect.top = topMarge + 4;
+	researchLabelRect.left = rect.left + marge;
+	researchLabelRect.top = topMarge + dpiManager.scaleY(4);
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
 
@@ -300,7 +290,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT researchEditRect;
 	::GetClientRect(hResearchEdit, &researchEditRect);
 	researchEditRect.left = researchLabelRect.right + marge;
-	researchEditRect.top = topMarge + 2;
+	researchEditRect.top = topMarge + dpiManager.scaleX(2);
 	::MoveWindow(hResearchEdit, researchEditRect.left, researchEditRect.top, researchEditRect.right, researchEditRect.bottom, TRUE);
 	::InvalidateRect(hResearchEdit, nullptr, TRUE);
 
@@ -329,7 +319,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
 	::InvalidateRect(hActionButton, nullptr, TRUE);
 
-	long actionZoneHeight = 50;
+	long actionZoneHeight = dpiManager.scaleY(50);
 	rect.top += actionZoneHeight;
 	rect.bottom -= actionZoneHeight;
 
@@ -360,7 +350,15 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	//_availableList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
+	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
+	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+
 	_availableList.initView(_hInst, _hSelf);
+
+	ListView_SetBkColor(_availableList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_availableList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_availableList.getViewHwnd(), fgColor);
+
 	_availableList.reSizeView(listRect);
 	
 	_updateList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
@@ -369,6 +367,11 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_updateList.initView(_hInst, _hSelf);
+
+	ListView_SetBkColor(_updateList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_updateList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_updateList.getViewHwnd(), fgColor);
+
 	_updateList.reSizeView(listRect);
 
 	_installedList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
@@ -377,6 +380,11 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	_installedList.initView(_hInst, _hSelf);
+
+	ListView_SetBkColor(_installedList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_installedList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_installedList.getViewHwnd(), fgColor);
+
 	_installedList.reSizeView(listRect);
 
 	HWND hDesc = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
@@ -384,10 +392,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	::InvalidateRect(hDesc, nullptr, TRUE);
 
 	switchDialog(0);
-
-	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
-	if (enableDlgTheme)
-		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 	goToCenter();
 }
@@ -656,10 +660,10 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 			pi->_displayName = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("author").get<std::string>();
-			pi->_author = wmc.char2wchar(valStr.c_str(), CP_ACP);
+			pi->_author = wmc.char2wchar(valStr.c_str(), CP_UTF8);
 
 			valStr = i.at("description").get<std::string>();
-			pi->_description = wmc.char2wchar(valStr.c_str(), CP_ACP);
+			pi->_description = wmc.char2wchar(valStr.c_str(), CP_UTF8);
 
 			valStr = i.at("id").get<std::string>();
 			pi->_id = wmc.char2wchar(valStr.c_str(), CP_ACP);
@@ -1113,6 +1117,62 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
         case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				HWND hwnd = reinterpret_cast<HWND>(lParam);
+				if (hwnd == ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT))
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				else
+				{
+					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				}
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+
+			NppDarkMode::setDarkListView(_availableList.getViewHwnd());
+			NppDarkMode::setDarkListView(_updateList.getViewHwnd());
+			NppDarkMode::setDarkListView(_installedList.getViewHwnd());
+
 			return TRUE;
 		}
 
@@ -1231,4 +1291,3 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	}
 	return FALSE;
 }
-

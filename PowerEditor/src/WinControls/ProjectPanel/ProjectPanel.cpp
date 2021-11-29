@@ -1,41 +1,27 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <windowsx.h>
 
 #include "ProjectPanel.h"
 #include "resource.h"
 #include "tinyxml.h"
-#include "FileDialog.h"
+#include "CustomFileDialog.h"
 #include "localization.h"
 #include "Parameters.h"
-
-#define CX_BITMAP         16
-#define CY_BITMAP         16
 
 #define INDEX_CLEAN_ROOT     0
 #define INDEX_DIRTY_ROOT     1
@@ -55,16 +41,20 @@ ProjectPanel::~ProjectPanel()
 
 INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
 			ProjectPanel::initMenus();
 
 			// Create toolbar menu
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf, nullptr, _hInst, nullptr);
+
+			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+			NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
+
 			TBBUTTON tbButtons[2];
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
@@ -89,8 +79,8 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
+			_treeView.setImageList(CX_BITMAP, CY_BITMAP, 7, IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
 
-			setImageList(IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
 			_treeView.addCanNotDropInList(INDEX_LEAF);
 			_treeView.addCanNotDropInList(INDEX_LEAF_INVALID);
 
@@ -102,10 +92,22 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			if (!openWorkSpace(_workSpaceFilePath.c_str(), true))
 				newWorkSpace();
 
-            return TRUE;
-        }
+			return TRUE;
+		}
 
-		
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			if (static_cast<BOOL>(lParam) != TRUE)
+			{
+				NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
+				NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
+
+				NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+			}
+			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			return TRUE;
+		}
+
 		case WM_MOUSEMOVE:
 			if (_treeView.isDragging())
 				_treeView.dragItem(_hSelf, LOWORD(lParam), HIWORD(lParam));
@@ -122,22 +124,22 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		}
 		return TRUE;
 
-        case WM_SIZE:
-        {
-            int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
-            RECT toolbarMenuRect;
-            ::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
+		case WM_SIZE:
+		{
+			int width = LOWORD(lParam);
+			int height = HIWORD(lParam);
+			RECT toolbarMenuRect;
+			::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
 
-            ::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
+			::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
 
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
 				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
-            break;
-        }
+			break;
+		}
 
-        case WM_CONTEXTMENU:
+		case WM_CONTEXTMENU:
 			if (!_treeView.isDragging())
 			{
 				int xPos = GET_X_LPARAM(lParam);
@@ -163,7 +165,7 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					showContextMenu(xPos, yPos);
 				}
 			}
-        return TRUE;
+		return TRUE;
 
 		case WM_COMMAND:
 		{
@@ -172,16 +174,16 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		}
 
 		case WM_DESTROY:
-        {
+		{
 			_treeView.destroy();
 			destroyMenus();
 			::DestroyWindow(_hToolbarMenu);
-            break;
-        }
+			break;
+		}
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default :
+			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
@@ -202,13 +204,7 @@ bool ProjectPanel::checkIfNeedSave()
 		if (res == IDYES)
 		{
 			if (!saveWorkSpace())
-				pNativeSpeaker->messageBox("ProjectPanelChangedSaveError",
-					_hSelf,
-					TEXT("Your workspace has not been saved."),
-					TEXT("$STR_REPLACE$"),
-					MB_OK | MB_ICONERROR,
-					0,
-					title);
+				return false;
 		}
 		else if (res == IDNO)
 		{
@@ -236,6 +232,7 @@ void ProjectPanel::initMenus()
 	generic_string saveas_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_SAVEASWS, PM_SAVEASWORKSPACE);
 	generic_string saveacopyas_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_SAVEACOPYASWS, PM_SAVEACOPYASWORKSPACE);
 	generic_string newproject_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_NEWPROJECT, PM_NEWPROJECTWORKSPACE);
+	generic_string findinprojects_workspace = pNativeSpeaker->getProjectPanelLangMenuStr("WorkspaceMenu", IDM_PROJECT_FINDINPROJECTSWS, PM_FINDINFILESWORKSPACE);
 
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWWS, new_workspace.c_str());
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENWS, open_workspace.c_str());
@@ -245,6 +242,8 @@ void ProjectPanel::initMenus()
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEACOPYASWS, saveacopyas_workspace.c_str());
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWPROJECT, newproject_workspace.c_str());
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_FINDINPROJECTSWS, findinprojects_workspace.c_str());
 
 	generic_string edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_MOVEUP, PM_MOVEUPENTRY);
 	generic_string edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_MOVEDOWN, PM_MOVEDOWNENTRY);
@@ -296,70 +295,6 @@ void ProjectPanel::initMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, edit_remove.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MODIFYFILEPATH, edit_modifyfile.c_str());
 }
-
-
-BOOL ProjectPanel::setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id) 
-{
-	HBITMAP hbmp;
-	COLORREF maskColour = RGB(192, 192, 192);
-	const int nbBitmaps = 7;
-
-	// Creation of image list
-	if ((_hImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL) 
-		return FALSE;
-
-	// Add the bmp in the list
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_clean_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_dirty_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(project_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_node_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(closed_node_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(ivalid_leaf_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	if (ImageList_GetImageCount(_hImaLst) < nbBitmaps)
-		return FALSE;
-
-	// Set image list to the tree view
-	TreeView_SetImageList(_treeView.getHSelf(), _hImaLst, TVSIL_NORMAL);
-
-	return TRUE;
-}
-
 
 void ProjectPanel::destroyMenus() 
 {
@@ -444,46 +379,60 @@ bool ProjectPanel::saveWorkSpace()
 	}
 	else
 	{
-		writeWorkSpace();
+		if (!writeWorkSpace())
+			return false;
+
 		setWorkSpaceDirty(false);
 		return true;
 	} 
 }
 
-bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
+bool ProjectPanel::writeWorkSpace(const TCHAR *projectFileName)
 {
-    //write <NotepadPlus>: use the default file name if new file name is not given
+	//write <NotepadPlus>: use the default file name if new file name is not given
 	const TCHAR * fn2write = projectFileName?projectFileName:_workSpaceFilePath.c_str();
 	TiXmlDocument projDoc(fn2write);
-    TiXmlNode *root = projDoc.InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+	TiXmlNode *root = projDoc.InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
-    tvItem.mask = TVIF_TEXT;
-    tvItem.pszText = textBuffer;
-    tvItem.cchTextMax = MAX_PATH;
+	tvItem.mask = TVIF_TEXT;
+	tvItem.pszText = textBuffer;
+	tvItem.cchTextMax = MAX_PATH;
 
-    //for each project, write <Project>
-    HTREEITEM tvRoot = _treeView.getRoot();
-    if (!tvRoot)
-      return false;
+	//for each project, write <Project>
+	HTREEITEM tvRoot = _treeView.getRoot();
+	if (!tvRoot)
+		return false;
 
-	TCHAR * fileName = PathFindFileName(fn2write);
-	_treeView.renameItem(tvRoot, fileName);
-
-    for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
-        tvProj != NULL;
-        tvProj = _treeView.getNextSibling(tvProj))
-    {        
-        tvItem.hItem = tvProj;
+	for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
+		tvProj != NULL;
+		tvProj = _treeView.getNextSibling(tvProj))
+	{
+		tvItem.hItem = tvProj;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-        //printStr(tvItem.pszText);
+		//printStr(tvItem.pszText);
 
 		TiXmlNode *projRoot = root->InsertEndChild(TiXmlElement(TEXT("Project")));
 		projRoot->ToElement()->SetAttribute(TEXT("name"), tvItem.pszText);
 		buildProjectXml(projRoot, tvProj, fn2write);
-    }
-    projDoc.SaveFile();
+	}
+
+	if (!projDoc.SaveFile())
+	{
+		const TCHAR * title = _workSpaceFilePath.length() > 0 ? PathFindFileName (_workSpaceFilePath.c_str()) : _panelTitle.c_str();
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		pNativeSpeaker->messageBox("ProjectPanelSaveError",
+		_hSelf,
+		TEXT("An error occurred while writing your workspace file.\nYour workspace has not been saved."),
+		TEXT("$STR_REPLACE$"),
+		MB_OK | MB_ICONERROR,
+		0,
+		title);
+		return false;
+	}
+	TCHAR * fileName = PathFindFileName(fn2write);
+	_treeView.renameItem(tvRoot, fileName);
 	return true;
 }
 
@@ -495,13 +444,13 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 	tvItem.pszText = textBuffer;
 	tvItem.cchTextMax = MAX_PATH;
 
-    for (HTREEITEM hItemNode = _treeView.getChildFrom(hItem);
+	for (HTREEITEM hItemNode = _treeView.getChildFrom(hItem);
 		hItemNode != NULL;
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-		if (tvItem.lParam != NULL)
+		if (tvItem.lParam)
 		{
 			generic_string *fn = (generic_string *)tvItem.lParam;
 			generic_string newFn = getRelativePath(*fn, fn2write);
@@ -515,6 +464,39 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 			buildProjectXml(folderNode, hItemNode, fn2write);
 		}
 	}
+}
+
+bool ProjectPanel::enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames)
+{
+	TCHAR textBuffer[MAX_PATH];
+	TVITEM tvItem;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM;
+	tvItem.pszText = textBuffer;
+	tvItem.cchTextMax = MAX_PATH;
+
+	HTREEITEM tvRoot = tvFrom ? tvFrom : _treeView.getRoot();
+	if (!tvRoot) return false;
+
+	for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
+		tvProj != NULL;
+		tvProj = _treeView.getNextSibling(tvProj))
+	{
+		tvItem.hItem = tvProj;
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+		if (tvItem.lParam)
+		{
+			if (matchInList(tvItem.pszText, patterns))
+			{
+				generic_string *fn = (generic_string *)tvItem.lParam;
+				fileNames.push_back (*fn);
+			}
+		}
+		else
+		{
+			if (!enumWorkSpaceFiles (tvProj, patterns, fileNames)) return false;
+		}
+	}
+	return true;
 }
 
 generic_string ProjectPanel::getRelativePath(const generic_string & filePath, const TCHAR *workSpaceFileName)
@@ -615,7 +597,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 	}
 	else if ((notification->hwndFrom == _treeView.getHSelf()))
 	{
-		TCHAR textBuffer[MAX_PATH];
+		TCHAR textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem;
 		tvItem.mask = TVIF_TEXT | TVIF_PARAM;
 		tvItem.pszText = textBuffer;
@@ -627,6 +609,10 @@ void ProjectPanel::notified(LPNMHDR notification)
 			{
 				openSelectFile();
 			}
+			break;
+
+			case NM_RETURN:
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1);
 			break;
 	
 			case TVN_ENDLABELEDIT:
@@ -758,11 +744,20 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 			case TVN_BEGINDRAG:
 			{
-				//printStr(TEXT("hello"));
 				_treeView.beginDrag((LPNMTREEVIEW)notification);
-				
 			}
 			break;
+		}
+	}
+	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	{
+		if (NppDarkMode::isEnabled())
+		{
+			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+			nmtbcd->clrText = NppDarkMode::getTextColor();
+			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
+			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW | TBCDRF_HILITEHOTTRACK);
 		}
 	}
 }
@@ -792,7 +787,7 @@ NodeType ProjectPanel::getNodeType(HTREEITEM hItem)
 		return nodeType_project;
 	}
 	// Folder
-	else if (tvItem.lParam == NULL)
+	else if (!tvItem.lParam)
 	{
 		return nodeType_folder;
 	}
@@ -820,7 +815,9 @@ void ProjectPanel::showContextMenu(int x, int y)
 		// Make item selected
 		_treeView.selectItem(tvHitInfo.hItem);
 		HMENU hMenu = getMenuHandler(tvHitInfo.hItem);
-		TrackPopupMenu(hMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
+		TrackPopupMenu(hMenu,
+			NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+			x, y, 0, _hSelf, NULL);
 	}
 }
 
@@ -835,7 +832,9 @@ void ProjectPanel::showContextMenuFromMenuKey(HTREEITEM selectedItem, int x, int
 	if (selectedItem != NULL)
 	{
 		HMENU hMenu = getMenuHandler(selectedItem);
-		TrackPopupMenu(hMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
+		TrackPopupMenu(hMenu,
+			NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+			x, y, 0, _hSelf, NULL);
 	}
 }
 
@@ -925,7 +924,9 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDB_PROJECT_BTN:
 		{
 		  POINT p = getMenuDisplayPoint(0);
-		  TrackPopupMenu(_hWorkSpaceMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
+		  TrackPopupMenu(_hWorkSpaceMenu,
+			  NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+			  p.x, p.y, 0, _hSelf, NULL);
 		}
 		break;
 
@@ -941,7 +942,9 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			else if (nodeType == nodeType_file)
 				hMenu = _hFileMenu;
 			if (hMenu)
-				TrackPopupMenu(hMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
+				TrackPopupMenu(hMenu,
+					NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+					p.x, p.y, 0, _hSelf, NULL);
 		}
 		break;
 
@@ -1039,11 +1042,12 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			if (!saveWorkspaceRequest())
 				break;
 
-			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+			CustomFileDialog fDlg(_hSelf);
 			setFileExtFilter(fDlg);
-			if (TCHAR *fn = fDlg.doOpenSingleFileDlg())
+			const generic_string fn = fDlg.doOpenSingleFileDlg();
+			if (!fn.empty())
 			{
-				if (!openWorkSpace(fn, true))
+				if (!openWorkSpace(fn.c_str(), true))
 				{
 					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 					pNativeSpeaker->messageBox("ProjectPanelOpenFailed",
@@ -1060,6 +1064,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDM_PROJECT_RELOADWS:
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			bool forceOpen = false;
 			if (_isDirty)
 			{
 				int res = pNativeSpeaker->messageBox("ProjectPanelReloadDirty",
@@ -1070,7 +1075,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 				if (res == IDYES)
 				{
-					// Do nothing
+					forceOpen = true;
 				}
 				else if (res == IDNO)
 				{
@@ -1080,7 +1085,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 			if (::PathFileExists(_workSpaceFilePath.c_str()))
 			{
-				openWorkSpace(_workSpaceFilePath.c_str());
+				openWorkSpace(_workSpaceFilePath.c_str(), forceOpen);
 			}
 			else
 			{
@@ -1101,6 +1106,12 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDM_PROJECT_SAVEASWS:
 		{
 			saveWorkSpaceAs(cmdID == IDM_PROJECT_SAVEACOPYASWS);
+		}
+		break;
+
+		case IDM_PROJECT_FINDINPROJECTSWS:
+		{
+			::SendMessage(_hParent, NPPM_INTERNAL_FINDINPROJECTS, (WPARAM) 1 << _panelID, 0);
 		}
 		break;
 
@@ -1190,24 +1201,26 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 {
-	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+	CustomFileDialog fDlg(_hSelf);
 	setFileExtFilter(fDlg);
 	fDlg.setExtIndex(0);		// 0 index for "custom extention" type if any else for "All types *.*"
 
-	if (TCHAR *fn = fDlg.doSaveDlg())
+	const generic_string fn = fDlg.doSaveDlg();
+	if (fn.empty())
+		return false;
+
+	if (!writeWorkSpace(fn.c_str()))
+		return false;
+
+	if (!saveCopyAs)
 	{
-		writeWorkSpace(fn);
-		if (!saveCopyAs)
-		{
-			_workSpaceFilePath = fn;
-			setWorkSpaceDirty(false);
-		}
-		return true;
+		_workSpaceFilePath = fn;
+		setWorkSpaceDirty(false);
 	}
-	return false;
+	return true;
 }
 
-void ProjectPanel::setFileExtFilter(FileDialog & fDlg)
+void ProjectPanel::setFileExtFilter(CustomFileDialog & fDlg)
 {
 	const TCHAR *ext = NppParameters::getInstance().getNppGUI()._definedWorkspaceExt.c_str();
 	generic_string workspaceExt = TEXT("");
@@ -1216,25 +1229,26 @@ void ProjectPanel::setFileExtFilter(FileDialog & fDlg)
 		if (*ext != '.')
 			workspaceExt += TEXT(".");
 		workspaceExt += ext;
-		fDlg.setExtFilter(TEXT("Workspace file"), workspaceExt.c_str(), NULL);
+		fDlg.setExtFilter(TEXT("Workspace file"), workspaceExt.c_str());
 		fDlg.setDefExt(ext);
 	}
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 }
 
 void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 {
-	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+	CustomFileDialog fDlg(_hSelf);
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 
-	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
+	const auto& fns = fDlg.doOpenMultiFilesDlg();
+	if (!fns.empty())
 	{
-		size_t sz = pfns->size();
+		size_t sz = fns.size();
 		for (size_t i = 0 ; i < sz ; ++i)
 		{
-			TCHAR *strValueLabel = ::PathFindFileName(pfns->at(i).c_str());
+			TCHAR *strValueLabel = ::PathFindFileName(fns.at(i).c_str());
 
-			generic_string* pathFileStr = new generic_string(pfns->at(i));
+			generic_string* pathFileStr = new generic_string(fns.at(i));
 			fullPathStrs.push_back(pathFileStr);
 			LPARAM lParamPathFileStr = reinterpret_cast<LPARAM>(pathFileStr);
 

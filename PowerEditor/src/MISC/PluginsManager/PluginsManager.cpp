@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #include <shlwapi.h>
@@ -37,16 +26,6 @@ using namespace std;
 
 const TCHAR * USERMSG = TEXT(" is not compatible with the current version of Notepad++.\n\n\
 Do you want to remove this plugin from the plugins directory to prevent this message from the next launch?");
-
-#ifdef _WIN64
-#define ARCH_TYPE IMAGE_FILE_MACHINE_AMD64
-const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 32-bit plugin.");
-#else
-#define ARCH_TYPE IMAGE_FILE_MACHINE_I386
-const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 64-bit plugin.");
-#endif
-
-
 
 
 bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
@@ -131,9 +110,17 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	try
 	{
 		pi->_moduleName = pluginFileName;
+		int archType = nppParams.archType();
+		if (getBinaryArchitectureType(pluginFilePath) != archType)
+		{
+			const TCHAR *archErrMsg = TEXT("Cannot load 64-bit plugin."); // IMAGE_FILE_MACHINE_I386 by default
+			if (archType == IMAGE_FILE_MACHINE_ARM64)
+				archErrMsg = TEXT("Cannot load 32-bit or non-ARM64 plugin.");
+			else if(archType == IMAGE_FILE_MACHINE_AMD64)
+				archErrMsg = TEXT("Cannot load 32-bit plugin.");
 
-		if (getBinaryArchitectureType(pluginFilePath) != ARCH_TYPE)
-			throw generic_string(ARCH_ERR_MSG);
+			throw generic_string(archErrMsg);
+		}
 
         const DWORD dwFlags = GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "AddDllDirectory") != NULL ? LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS : 0;
         pi->_hLib = ::LoadLibraryEx(pluginFilePath, NULL, dwFlags);
@@ -275,10 +262,14 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 		s += USERMSG;
 		if (::MessageBox(NULL, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
+			if (pi && pi->_hLib)
+			{
+				::FreeLibrary(pi->_hLib);
+			}
 			::DeleteFile(pluginFilePath);
 		}
 		delete pi;
-        return -1;
+		return -1;
 	}
 	catch (...)
 	{
@@ -288,10 +279,14 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 		msg += USERMSG;
 		if (::MessageBox(NULL, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
+			if (pi && pi->_hLib)
+			{
+				::FreeLibrary(pi->_hLib);
+			}
 			::DeleteFile(pluginFilePath);
 		}
 		delete pi;
-        return -1;
+		return -1;
 	}
 }
 

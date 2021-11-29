@@ -293,7 +293,6 @@
 					 <Item id="47002" name="Ikhasi lephrojekthi le-Notepad ++"/>
 					 <Item id="47003" name="I-Document Document Online"/>
 					 <Item id="47004" name="Umphakathi we-Notepad ++ (Iforamu)"/>
-					 <Item id="47011" name="Ukusekela okubukhoma"/>
 					 <Item id="47012" name="Ulwazi lokuguqula..."/>
 					 <Item id="47005" name="Thola amaphuzu amaningi"/>
 					 <Item id="47006" name="Buyekeza i-Notepad ++"/>
@@ -754,7 +753,6 @@
                     <Item id="6413" name="I-Directory yangaphandle (Vula / Gcina)"/>
                     <Item id="6414" name="Landela idokhumenti yamanje"/>
                     <Item id="6415" name="Khumbula isiqondisi sokugcina esasetshenziswa"/>
-                    <Item id="6430" name="Sebenzisaingxoxoyesitayelaesisha(ngaphandle kwesici sokwandiswa kwefayili &amp;umzila wesitayela se-Unix)"/>
                     <Item id="6431" name="Vula wonke amafolda wefolda esikhundleni sokuqala ifolda njengendawo yokusebenzela kwifolda yehla"/>
                 </DefaultDir>
 
@@ -1047,11 +1045,11 @@ Ingabe ufuna ukuqala i-Notepad ++ kwimodi ye-Administrator?"/>
         <ClipboardHistory>
             <PanelTitle name="Umlando we-Clipboard"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="I-Doc Switcher"/>
             <ColumnName name="Igama"/>
             <ColumnExt name="I-Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Igama"/>
             <ColumnPath name="Indlela"/>

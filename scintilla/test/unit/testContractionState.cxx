@@ -148,12 +148,18 @@ TEST_CASE("ContractionState") {
 
 	SECTION("SetFoldDisplayText") {
 		pcs->InsertLines(0, 4);
+		REQUIRE(5 == pcs->LinesInDoc());
 		pcs->SetFoldDisplayText(1, "abc");
 		REQUIRE(strcmp(pcs->GetFoldDisplayText(1), "abc") == 0);
 		pcs->SetFoldDisplayText(1, "def");
 		REQUIRE(strcmp(pcs->GetFoldDisplayText(1), "def") == 0);
 		pcs->SetFoldDisplayText(1, nullptr);
 		REQUIRE(static_cast<const char *>(nullptr) == pcs->GetFoldDisplayText(1));
+		// At end
+		pcs->SetFoldDisplayText(5, "xyz");
+		REQUIRE(strcmp(pcs->GetFoldDisplayText(5), "xyz") == 0);
+		pcs->DeleteLines(4, 1);
+		REQUIRE(strcmp(pcs->GetFoldDisplayText(4), "xyz") == 0);
 	}
 
 }

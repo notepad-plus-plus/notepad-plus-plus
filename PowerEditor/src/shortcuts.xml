@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
     <InternalCommands />
     <Macros>
@@ -7,20 +8,9 @@
         </Macro>
     </Macros>
     <UserDefinedCommands>
-		<!--
-		The following shortcuts are dangerous if your computer is compromised.
-		(But if your computer is compromised, EVERYTHING IS DANGEROUS!)
-		Remove the comment and use them at your own risk!!!
-
-        <Command name="Launch in Firefox" Ctrl="yes" Alt="yes" Shift="yes" Key="88">firefox &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Launch in IE" Ctrl="yes" Alt="yes" Shift="yes" Key="73">iexplore &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Launch in Chrome" Ctrl="yes" Alt="yes" Shift="yes" Key="82">chrome &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Launch in Safari" Ctrl="yes" Alt="yes" Shift="yes" Key="65">safari &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Send via Outlook" Ctrl="yes" Alt="yes" Shift="yes" Key="79">outlook /a &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-		-->
         <Command name="Get PHP help" Ctrl="no" Alt="yes" Shift="no" Key="112">https://www.php.net/$(CURRENT_WORD)</Command>
         <Command name="Wikipedia Search" Ctrl="no" Alt="yes" Shift="no" Key="114">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>
-        <Command name="Open file in another instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>
+        <Command name="Open selected file path in new instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>
     </UserDefinedCommands>
     <PluginCommands />
     <ScintillaKeys />

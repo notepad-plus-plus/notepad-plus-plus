@@ -42,7 +42,7 @@
 using namespace Scintilla;
 
 ScintillaEditBase::ScintillaEditBase(QWidget *parent)
-: QAbstractScrollArea(parent), sqt(0), preeditPos(-1), wheelDelta(0)
+: QAbstractScrollArea(parent), sqt(nullptr), preeditPos(-1), wheelDelta(0)
 {
 	sqt = new ScintillaQt(this);
 

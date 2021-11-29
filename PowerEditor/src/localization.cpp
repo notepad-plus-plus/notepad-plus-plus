@@ -1,35 +1,25 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #include "Notepad_plus.h"
 #include "ShortcutMapper.h"
 #include "EncodingMapper.h"
 #include "localization.h"
+#include "fileBrowser.h"
 
 using namespace std;
 
@@ -54,31 +44,34 @@ MenuPosition menuPos[] = {
 	{ 0, 13, -1, "file-closeMore" },
 	{ 0, 22, -1, "file-recentFiles" },
 
-	{ 1, 10, -1, "edit-copyToClipboard" },
-	{ 1, 11, -1, "edit-indent" },
-	{ 1, 12, -1, "edit-convertCaseTo" },
-	{ 1, 13, -1, "edit-lineOperations" },
-	{ 1, 14, -1, "edit-comment" },
-	{ 1, 15, -1, "edit-autoCompletion" },
-	{ 1, 16, -1, "edit-eolConversion" },
-	{ 1, 17, -1, "edit-blankOperations" },
-	{ 1, 18, -1, "edit-pasteSpecial" },
-	{ 1, 19, -1, "edit-onSelection" },
+	{ 1, 10, -1, "edit-insert" },
+	{ 1, 11, -1, "edit-copyToClipboard" },
+	{ 1, 12, -1, "edit-indent" },
+	{ 1, 13, -1, "edit-convertCaseTo" },
+	{ 1, 14, -1, "edit-lineOperations" },
+	{ 1, 15, -1, "edit-comment" },
+	{ 1, 16, -1, "edit-autoCompletion" },
+	{ 1, 17, -1, "edit-eolConversion" },
+	{ 1, 18, -1, "edit-blankOperations" },
+	{ 1, 19, -1, "edit-pasteSpecial" },
+	{ 1, 20, -1, "edit-onSelection" },
 
 	{ 2, 18, -1, "search-markAll" },
-	{ 2, 19, -1, "search-unmarkAll" },
-	{ 2, 20, -1, "search-jumpUp" },
-	{ 2, 21, -1, "search-jumpDown" },
-	{ 2, 23, -1, "search-bookmark" },
+	{ 2, 19, -1, "search-markOne" },
+	{ 2, 20, -1, "search-unmarkAll" },
+	{ 2, 21, -1, "search-jumpUp" },
+	{ 2, 22, -1, "search-jumpDown" },
+	{ 2, 23, -1, "search-copyStyledText" },
+	{ 2, 25, -1, "search-bookmark" },
 
-	{ 3,  4, -1, "view-currentFileIn" },
-	{ 3,  6, -1, "view-showSymbol" },
-	{ 3,  7, -1, "view-zoom" },
-	{ 3,  8, -1, "view-moveCloneDocument" },
-	{ 3,  9, -1, "view-tab" },
-	{ 3, 18, -1, "view-collapseLevel" },
-	{ 3, 19, -1, "view-uncollapseLevel" },
-	{ 3, 23, -1, "view-project" },
+	{ 3,  5, -1, "view-currentFileIn" },
+	{ 3,  7, -1, "view-showSymbol" },
+	{ 3,  8, -1, "view-zoom" },
+	{ 3,  9, -1, "view-moveCloneDocument" },
+	{ 3, 10, -1, "view-tab" },
+	{ 3, 19, -1, "view-collapseLevel" },
+	{ 3, 20, -1, "view-uncollapseLevel" },
+	{ 3, 24, -1, "view-project" },
 
 	{ 4,  5, -1, "encoding-characterSets" },
 	{ 4,  5,  0, "encoding-arabic" },
@@ -98,7 +91,7 @@ MenuPosition menuPos[] = {
 	{ 4,  5, 14, "encoding-westernEuropean" },
 	{ 4,  5, 15, "encoding-vietnamese" },
 
-	{ 5, 23, -1, "language-userDefinedLanguage" },
+	{ 5, 25, -1, "language-userDefinedLanguage" },
 
 	{ 6,  4, -1, "settings-import" },
 
@@ -247,22 +240,22 @@ generic_string NativeLangSpeaker::getShortcutNameString(int itemID) const
 
 generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const
 {
-	if (not _nativeLangA)
+	if (!_nativeLangA)
 		return defaultString;
 
-	if (not strID)
+	if (!strID)
 		return defaultString;
 
 	TiXmlNodeA *node = _nativeLangA->FirstChild("MiscStrings");
-	if (not node) return defaultString;
+	if (!node) return defaultString;
 
 	node = node->FirstChild(strID);
-	if (not node) return defaultString;
+	if (!node) return defaultString;
 
 	TiXmlElementA *element = node->ToElement();
 
 	const char *value = element->Attribute("value");
-	if (not value) return defaultString;
+	if (!value) return defaultString;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	return wmc.char2wchar(value, _nativeLangEncoding);
@@ -404,32 +397,33 @@ static const int tabContextMenuItemPos[] =
 {
 //  +-------------- The order in tab menu (NppNotification.cpp : if (!_tabPopupMenu.isCreated())
 //  |
-//  |       +------ Number in english.xml (<language>.xml) : <TabBar>
-//  |       |
-    0,   // 0 : Close
-    1,   // 1 : Close ALL BUT This
-    5,   // 2 : Save
-    6,   // 3 : Save As
-    10,  // 4 : Print
-    24,  // 5 : Move to Other View
-    25,  // 6 : Clone to Other View
-    20,  // 7 : Full File Path to Clipboard
-    21,  // 8 : Filename to Clipboard
-    22,  // 9 : Current Dir. Path to Clipboard
+//  |        +------ Number in english.xml (<language>.xml) : <TabBar>
+//  |        |
+    0,   //  0: Close
+    1,   //  1: Close ALL BUT This
+    5,   //  2: Save
+    6,   //  3: Save As
+   10,   //  4: Print
+   25,   //  5: Move to Other View
+   26,   //  6: Clone to Other View
+   21,   //  7: Full File Path to Clipboard
+   22,   //  8: Filename to Clipboard
+   23,   //  9: Current Dir. Path to Clipboard
     7,   // 10: Rename
     8,   // 11: Move to Recycle Bin
-    17,  // 12: Read-Only
-    18,  // 13: Clear Read-Only Flag
-    26,  // 14: Move to New Instance
-    27,  // 15: Open to New Instance
+   18,   // 12: Read-Only
+   19,   // 13: Clear Read-Only Flag
+   27,   // 14: Move to New Instance
+   28,   // 15: Open to New Instance
     9,   // 16: Reload
     2,   // 17: Close ALL to the Left
     3,   // 18: Close ALL to the Right
-    12,  // 19: Open Containing Folder in Explorer
-    13,  // 20: Open Containing Folder in cmd
-    15,  // 21: Open in Default Viewer
+   12,   // 19: Open Containing Folder in Explorer
+   13,   // 20: Open Containing Folder in cmd
+   16,   // 21: Open in Default Viewer
     4,   // 22: Close ALL Unchanged
-    -1   //-------End
+   14,   // 23: Open Containing Folder as Workspace
+   -1    //-------End
 };
 
 
@@ -759,7 +753,8 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 				const char *titre1 = (dlgNode->ToElement())->Attribute("titleFind");
 				const char *titre2 = (dlgNode->ToElement())->Attribute("titleReplace");
 				const char *titre3 = (dlgNode->ToElement())->Attribute("titleFindInFiles");
-				const char *titre4 = (dlgNode->ToElement())->Attribute("titleMark");
+				const char *titre4 = (dlgNode->ToElement())->Attribute("titleFindInProjects");
+				const char *titre5 = (dlgNode->ToElement())->Attribute("titleMark");
 
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
@@ -784,6 +779,12 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 				if (titre4 && titre4[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
+					nppParam.getFindDlgTabTitiles()._findInProjects = nameW;
+					findReplaceDlg.changeTabName(FINDINPROJECTS_DLG, nppParam.getFindDlgTabTitiles()._findInProjects.c_str());
+				}
+				if (titre5 && titre5[0])
+				{
+					basic_string<wchar_t> nameW = wmc.char2wchar(titre5, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitiles()._mark = nameW;
 					findReplaceDlg.changeTabName(MARK_DLG, nppParam.getFindDlgTabTitiles()._mark.c_str());
 				}
@@ -861,34 +862,49 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const size_t titreMaxSize = 128;
 	char titre[titreMaxSize];
-	changeDlgLang(preference._barsDlg.getHSelf(), "Global", titre, titreMaxSize);
+	changeDlgLang(preference._generalSubDlg.getHSelf(), "Global", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Global"), nameW);
 	}
-	changeDlgLang(preference._marginsDlg.getHSelf(), "Scintillas", titre, titreMaxSize);
+
+	changeDlgLang(preference._editingSubDlg.getHSelf(), "Scintillas", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Scintillas"), nameW);
 	}
 
-	changeDlgLang(preference._defaultNewDocDlg.getHSelf(), "NewDoc", titre, titreMaxSize);
+	changeDlgLang(preference._darkModeSubDlg.getHSelf(), "DarkMode", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("DarkMode"), nameW);
+	}
+
+	changeDlgLang(preference._marginsBorderEdgeSubDlg.getHSelf(), "MarginsBorderEdge", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("MarginsBorderEdge"), nameW);
+	}
+
+	changeDlgLang(preference._newDocumentSubDlg.getHSelf(), "NewDoc", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("NewDoc"), nameW);
 	}
 
-	changeDlgLang(preference._defaultDirectoryDlg.getHSelf(), "DefaultDir", titre, titreMaxSize);
+	changeDlgLang(preference._defaultDirectorySubDlg.getHSelf(), "DefaultDir", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("DefaultDir"), nameW);
 	}
 
-	changeDlgLang(preference._recentFilesHistoryDlg.getHSelf(), "RecentFilesHistory", titre, titreMaxSize);
+	changeDlgLang(preference._recentFilesHistorySubDlg.getHSelf(), "RecentFilesHistory", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
@@ -902,76 +918,76 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("FileAssoc"), nameW);
 	}
 
-	changeDlgLang(preference._langMenuDlg.getHSelf(), "Language", titre, titreMaxSize);
+	changeDlgLang(preference._languageSubDlg.getHSelf(), "Language", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Language"), nameW);
 	}
 
-	changeDlgLang(preference._highlighting.getHSelf(), "Highlighting", titre, titreMaxSize);
+	changeDlgLang(preference._highlightingSubDlg.getHSelf(), "Highlighting", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Highlighting"), nameW);
 	}
 
-	changeDlgLang(preference._printSettingsDlg.getHSelf(), "Print", titre, titreMaxSize);
+	changeDlgLang(preference._printSubDlg.getHSelf(), "Print", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Print"), nameW);
 	}
 
-	changeDlgLang(preference._searchingSettingsDlg.getHSelf(), "Searching", titre, titreMaxSize);
+	changeDlgLang(preference._searchingSubDlg.getHSelf(), "Searching", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Searching"), nameW);
 	}
 
-	changeDlgLang(preference._settingsDlg.getHSelf(), "MISC", titre, titreMaxSize);
+	changeDlgLang(preference._miscSubDlg.getHSelf(), "MISC", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("MISC"), nameW);
 	}
-	changeDlgLang(preference._backupDlg.getHSelf(), "Backup", titre, titreMaxSize);
+	changeDlgLang(preference._backupSubDlg.getHSelf(), "Backup", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Backup"), nameW);
 	}
 
-	changeDlgLang(preference._autoCompletionDlg.getHSelf(), "AutoCompletion", titre, titreMaxSize);
+	changeDlgLang(preference._autoCompletionSubDlg.getHSelf(), "AutoCompletion", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("AutoCompletion"), nameW);
 	}
 
-	changeDlgLang(preference._multiInstDlg.getHSelf(), "MultiInstance", titre, titreMaxSize);
+	changeDlgLang(preference._multiInstanceSubDlg.getHSelf(), "MultiInstance", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("MultiInstance"), nameW);
 	}
 
-	changeDlgLang(preference._delimiterSettingsDlg.getHSelf(), "Delimiter", titre, titreMaxSize);
+	changeDlgLang(preference._delimiterSubDlg.getHSelf(), "Delimiter", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Delimiter"), nameW);
 	}
 
-	changeDlgLang(preference._settingsOnCloudDlg.getHSelf(), "Cloud", titre, titreMaxSize);
+	changeDlgLang(preference._cloudAndLinkSubDlg.getHSelf(), "Cloud", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Cloud"), nameW);
 	}
 
-	changeDlgLang(preference._searchEngineDlg.getHSelf(), "SearchEngine", titre, titreMaxSize);
+	changeDlgLang(preference._searchEngineSubDlg.getHSelf(), "SearchEngine", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
@@ -1185,18 +1201,16 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 		int id;
 		element->Attribute("id", &id);
 		HWND hCombo = ::GetDlgItem(hDlg, id);
+		if (!hCombo) return false;
 
-		if (hCombo)
+		for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
+			gChildNode;
+			gChildNode = gChildNode->NextSibling("Element"))
 		{
-			for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
-				gChildNode;
-				gChildNode = gChildNode->NextSibling("Element"))
-			{
-				TiXmlElementA *comBoelement = gChildNode->ToElement();
-				const char *name = comBoelement->Attribute("name");
-				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
-				comboElms.push_back(nameW);
-			}
+			TiXmlElementA *comBoelement = gChildNode->ToElement();
+			const char *name = comBoelement->Attribute("name");
+			const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+			comboElms.push_back(nameW);
 		}
 
 		size_t count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
@@ -1252,7 +1266,7 @@ generic_string NativeLangSpeaker::getFileBrowserLangMenuStr(int cmdID, const TCH
 {
 	if (!_nativeLangA) return defaultStr;
 
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("FolderAsWorkspace");
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild(FOLDERASWORKSPACE_NODE);
 	if (!targetNode) return defaultStr;
 
 	targetNode = targetNode->FirstChild("Menus");
@@ -1319,7 +1333,7 @@ generic_string NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeNa
 	return defaultStr;
 }
 
-generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name) const
+generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name) const
 {
 	if (!_nativeLangA) return defaultStr;
 
@@ -1330,7 +1344,7 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 
 	if (!targetNode) return defaultStr;
 
-	const char *name = (targetNode->ToElement())->Attribute("name");
+	const char *name = (targetNode->ToElement())->Attribute(nodeL3Name);
 	if (name && name[0])
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();

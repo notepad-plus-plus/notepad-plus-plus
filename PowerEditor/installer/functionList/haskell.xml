@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!--
+		|   Based on:
+		|       https://notepad-plus-plus.org/community/topic/12972/trouble-with-defining-a-function-list-entry/7
+		|
+		|   By convention, the style of comment is indicated by the file extension,
+		|   with ".hs"  indicating a "usual"  Haskell file
+		|   and  ".lhs" indicating a literate Haskell file.
+		\-->
+		<parser
+			displayName="Haskell"
+			id         ="haskell_function"
+			commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?s:                                            # Multi Line Comment (nesting allowed)
+								\{-                                         # - start-of-comment indicator
+								(?>                                         # - followed by zero or more characters...
+									[^{-]                                   #   ...not part of the start indicator,
+								|	\{(?!-)                                 #   ...not being a start-of-comment indicator,
+								|	-(?!\})                                 #   ...not being an end-of-comment indicator and
+								|	(?R)                                    #   ...balancing through recursion (nesting)
+								)*
+								-\}                                         # - end-of-comment indicator
+							)
+						|	(?m-s:-{2}.*?$)                                 # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+						(?m-s)                                              # ^ and $ match at line breaks, dot does not
+						^                                                   # NO leading whitespace at start-of-line
+						[A-Za-z][\w\x27]*                                   # valid character combination for identifiers
+						\x20+::\x20
+						.*?$                                                # whatever, until end-of-line
+					"
+			>
+				<functionName>
+					<nameExpr expr="[A-Za-z][\w\x27]*" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- Variant for COBOL free-form reference format -->
+		<parser id="cobol_section_free" displayName="COBOL free-form reference format">
+			<!-- working comment Expression:
+					 commentExpr="(?m-s)(?:\*&gt;).*$"
+				 cannot be used because problems with comment boundaries
+				 in current FunctionList implementation, for details see
+				 https://sourceforge.net/p/notepad-plus/patches/597/
+			-->
+			<!-- Variant with paragraphs (don't work with comment lines
+				 before section/paragraph header, can be activated when
+				 comment boundaries work and the commentExpr is used) -->
+			<!--
+			<function
+				mainExpr="(?m-s)(?<=\.)\s*(?!exit\s)[\w_-]+(\s+section(\s*|(\s+[\w_-]+)?))(?=\.)"
+					"
+			>
+				<functionName>
+					<nameExpr expr="(?m-s)(?<=[\s\.])[\w_-]+(\s*section\s*([\w_-]+)?)?"/>
+				</functionName>
+			</function>
+			-->
+			<!-- Variant without paragraphs (works with comment lines before section header) -->
+			<function
+				mainExpr="(?x)                                                  # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+					[\s\.](?!exit\s)[\w_-]+\s+section(\s*|(\s+[\w_-]+)?)(?=\.)  # all names that come before `section` but not `exit section`
+					"
+			>
+				<functionName>
+					<nameExpr expr="[\w_-]+\s*section"/>
+			   </functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

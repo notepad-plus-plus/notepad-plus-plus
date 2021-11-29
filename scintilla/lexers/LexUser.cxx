@@ -786,20 +786,20 @@ static inline void ReColoringCheck(Sci_PositionU & startPos, int & nestedLevel, 
                                    int & isCommentLine, bool & isInComment, Accessor & styler, vector<nestedInfo> & lastNestedGroup,
                                    vector<nestedInfo> & nestedVector, /* vector<int> & foldVector, */ int & continueCommentBlock)
 {
-    // re-coloring always starts at line beginning !!
-
-    // special exception for multipart keywords
-    initStyle = styler.StyleAt(startPos-1); // check style of previous new line character
-    if ( (initStyle >= SCE_USER_STYLE_KEYWORD1 && initStyle < (SCE_USER_STYLE_KEYWORD1+SCE_USER_TOTAL_KEYWORD_GROUPS))    // keywords1-8
-          || initStyle == SCE_USER_STYLE_FOLDER_IN_COMMENT
-          || initStyle == SCE_USER_STYLE_FOLDER_IN_CODE2 )
+    if (startPos > 0)
     {
-        // we are in middle of multi-part keyword that contains newline characters, go back until current style ends
-        while (startPos >= 0 && styler.StyleAt(--startPos) == initStyle);
-    }
+        // re-coloring always starts at line beginning !!
 
-    if (static_cast<int>(startPos) < 0)
-        startPos = 0;
+        // special exception for multipart keywords
+        initStyle = styler.StyleAt(startPos-1); // check style of previous new line character
+        if ( (initStyle >= SCE_USER_STYLE_KEYWORD1 && initStyle < (SCE_USER_STYLE_KEYWORD1+SCE_USER_TOTAL_KEYWORD_GROUPS))    // keywords1-8
+              || initStyle == SCE_USER_STYLE_FOLDER_IN_COMMENT
+              || initStyle == SCE_USER_STYLE_FOLDER_IN_CODE2 )
+        {
+            // we are in middle of multi-part keyword that contains newline characters, go back until current style ends
+            while (startPos > 0 && styler.StyleAt(--startPos) == initStyle);
+        }
+    }
 
     if (startPos > 0)
     {
@@ -808,8 +808,6 @@ static inline void ReColoringCheck(Sci_PositionU & startPos, int & nestedLevel, 
         do
         {
             ch = styler.SafeGetCharAt(--startPos);
-            if (startPos == -1)
-                startPos = 0;
         }
         while(ch != '\r' && ch != '\n' && startPos > 0);
 
@@ -1712,6 +1710,8 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                             sc.Forward(iter->length());
                         if (sc.atLineStart)
                             checkEOL = EOL_FORCE_CHECK;
+                        else if (sc.atLineEnd)
+                            checkEOL = EOL_SKIP_CHECK;
 
                         // paint end of delimiter sequence
                         sc.SetState(newState);

@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #pragma once
@@ -33,7 +22,8 @@
 #include "Parameters.h"
 
 
-#define WM_UPDATESCINTILLAS			(WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 
@@ -55,8 +45,8 @@ public :
 		_oldProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(staticHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 	};
 private :
-	COLORREF _colour;
-	WNDPROC _oldProc;
+	COLORREF _colour = RGB(0xFF, 0xFF, 0xFF);
+	WNDPROC _oldProc = nullptr;
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
 		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
@@ -117,6 +107,7 @@ public :
 	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str()));
     };
 
+	bool selectThemeByName(const TCHAR* themeName);
 
 private :
     ColourPicker *_pFgColour = nullptr;
@@ -147,7 +138,7 @@ private :
 	GlobalOverride _gOverride2restored;
 	bool _restoreInvalid = false;
 
-	ColourStaticTextHooker colourHooker;
+	ColourStaticTextHooker _colourHooker;
 
 	bool _isDirty = false;
 	bool _isThemeDirty = false;
@@ -173,7 +164,8 @@ private :
 	};
 
 	int whichTabColourIndex();
-
+	bool isDocumentMapStyle();
+	void move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	void updateColour(bool which);
 	void updateFontStyleStatus(fontStyleType whitchStyle);
 	void updateExtension();
@@ -235,4 +227,6 @@ private :
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK), show?SW_SHOW:SW_HIDE);
 		_isShownGOCtrls = show;
 	};
+
+	void applyCurrentSelectedThemeAndUpdateUI();
 };

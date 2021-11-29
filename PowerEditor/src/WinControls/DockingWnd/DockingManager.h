@@ -1,29 +1,18 @@
-// this file is part of docking functionality for Notepad++
+// This file is part of Notepad++ project
 // Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
-// 
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-// 
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
@@ -53,12 +42,7 @@ public :
 		_ppMainWindow = ppWin;
 	};
 
-	void showContainer(HWND hCont, bool display = true);
-
-	void showContainer(size_t uCont, bool display = true) {
-		_vContainer[uCont]->doDialog(display);
-		onSize();
-	}
+	void showFloatingContainers(bool show);
 
 	void updateContainerInfo(HWND hClient);
 	void createDockableDlg(tTbData data, int iCont = CONT_LEFT, bool isVisible = false);
@@ -97,12 +81,25 @@ public :
 	int getDockedContSize(int iCont);
 	void setDockedContSize(int iCont, int iSize);
 	virtual void destroy();
+	void resize();
 
 private :
+	Window						**_ppWindow = nullptr;
+	RECT						_rcWork = { 0 };
+	RECT						_rect = { 0 };
+	Window						**_ppMainWindow = nullptr;
+	std::vector<HWND>			_vImageList;
+	HIMAGELIST					_hImageList = nullptr;
+	std::vector<DockingCont*>	_vContainer;
+	tDockMgr					_dockData;
+	static BOOL					_isRegistered;
+	BOOL						_isInitialized = FALSE;
+	int							_iContMap[CONT_MAP_MAX] = { 0 };
+	std::vector<DockingSplitter*>	_vSplitter;
+
 
 	static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-	void onSize();
 
 	void	toggleTb(DockingCont* pContSrc, DockingCont* pContTgt, tTbData TbData);
 
@@ -111,18 +108,6 @@ private :
 	int	 FindEmptyContainer();
 	LRESULT SendNotify(HWND hWnd, UINT message);
 	
-private:
-	Window						**_ppWindow = nullptr;
-	RECT						_rcWork;
-	RECT						_rect;
-	Window						**_ppMainWindow = nullptr;
-	std::vector<HWND>			_vImageList;
-	HIMAGELIST					_hImageList = nullptr;
-	std::vector<DockingCont*>	_vContainer;
-	tDockMgr					_dockData;
-	static BOOL					_isRegistered;
-	BOOL						_isInitialized = FALSE;
-	int							_iContMap[CONT_MAP_MAX];
-	std::vector<DockingSplitter *>	_vSplitter;
+
 };
 

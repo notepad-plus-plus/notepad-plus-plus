@@ -1,33 +1,20 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
-#ifndef NPP_SORTERS_H
-#define NPP_SORTERS_H
+#pragma once
 
 #include <algorithm>
 #include <utility>
@@ -37,8 +24,9 @@
 class ISorter
 {
 private:
-	bool _isDescending;
-	size_t _fromColumn, _toColumn;
+	bool _isDescending = true;
+	size_t _fromColumn = 0;
+	size_t _toColumn = 0;
 
 protected:
 	bool isDescending() const
@@ -94,7 +82,7 @@ public:
 	
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		// Note that both branches here are equivalent in the sense that they give always give the same answer.
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
@@ -130,6 +118,49 @@ public:
 	}
 };
 
+// Implementation of lexicographic sorting of lines, ignoring character casing
+class LexicographicCaseInsensitiveSorter : public ISorter
+{
+public:
+	LexicographicCaseInsensitiveSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override
+	{
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
+		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
+		// getSortKey() so many times.
+		if (isSortingSpecificColumns())
+		{
+			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+				{
+					if (isDescending())
+					{
+						return OrdinalIgnoreCaseCompareStrings(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
+					}
+					else
+					{
+						return OrdinalIgnoreCaseCompareStrings(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
+					}
+				});
+		}
+		else
+		{
+			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+				{
+					if (isDescending())
+					{
+						return OrdinalIgnoreCaseCompareStrings(a.c_str(), b.c_str()) > 0;
+					}
+					else
+					{
+						return OrdinalIgnoreCaseCompareStrings(a.c_str(), b.c_str()) < 0;
+					}
+				});
+		}
+		return lines;
+	}
+};
+
 // Treat consecutive numerals as one number
 // Otherwise it is a lexicographic sort
 class NaturalSorter : public ISorter
@@ -139,7 +170,7 @@ public:
 
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		// Note that both branches here are equivalent in the sense that they give always give the same answer.
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
@@ -394,6 +425,18 @@ protected:
 	}
 };
 
+class ReverseSorter : public ISorter
+{
+public:
+	ReverseSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override
+	{
+		std::reverse(lines.begin(), lines.end());
+		return lines;
+	}
+};
+
 class RandomSorter : public ISorter
 {
 public:
@@ -409,4 +452,3 @@ public:
 	}
 };
 
-#endif //NPP_SORTERS_H

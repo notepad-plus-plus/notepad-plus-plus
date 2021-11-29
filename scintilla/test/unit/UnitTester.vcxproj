@@ -87,7 +87,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS=1;_HAS_AUTO_PTR_ETC=1;_SCL_SECURE_NO_WARNINGS=1;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS=1;_HAS_AUTO_PTR_ETC=1;_SCL_SECURE_NO_WARNINGS=1;CHECK_CORRECTNESS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\include\;..\..\src\;..\..\lexlib\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -102,7 +102,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS=1;_HAS_AUTO_PTR_ETC=1;_SCL_SECURE_NO_WARNINGS=1;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS=1;_HAS_AUTO_PTR_ETC=1;_SCL_SECURE_NO_WARNINGS=1;CHECK_CORRECTNESS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\include\;..\..\src\;..\..\lexlib\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -119,7 +119,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS=1;_HAS_AUTO_PTR_ETC=1;_SCL_SECURE_NO_WARNINGS=1;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS=1;_HAS_AUTO_PTR_ETC=1;_SCL_SECURE_NO_WARNINGS=1;CHECK_CORRECTNESS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\include\;..\..\src\;..\..\lexlib\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -138,7 +138,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS=1;_HAS_AUTO_PTR_ETC=1;_SCL_SECURE_NO_WARNINGS=1;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS=1;_HAS_AUTO_PTR_ETC=1;_SCL_SECURE_NO_WARNINGS=1;CHECK_CORRECTNESS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\include\;..\..\src\;..\..\lexlib\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -155,6 +155,7 @@
     <ClCompile Include="..\..\src\CharClassify.cxx" />
     <ClCompile Include="..\..\src\ContractionState.cxx" />
     <ClCompile Include="..\..\src\Decoration.cxx" />
+    <ClCompile Include="..\..\src\PerLine.cxx" />
     <ClCompile Include="..\..\src\RunStyles.cxx" />
     <ClCompile Include="..\..\src\UniConversion.cxx" />
     <ClCompile Include="..\..\src\UniqueString.cxx" />

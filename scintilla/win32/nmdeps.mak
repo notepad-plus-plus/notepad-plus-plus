@@ -1,4 +1,4 @@
-# Created by DepGen.py. To recreate, run 'python DepGen.py'.
+# Created by DepGen.py. To recreate, run DepGen.py.
 $(DIR_O)/HanjaDic.obj: \
 	HanjaDic.cxx \
 	../src/UniConversion.h \
@@ -23,9 +23,7 @@ $(DIR_O)/ScintillaWin.obj: \
 	../include/Sci_Position.h \
 	../include/ILexer.h \
 	../include/Scintilla.h \
-	../include/SciLexer.h \
 	../lexlib/CharacterCategory.h \
-	../lexlib/LexerModule.h \
 	../src/Position.h \
 	../src/UniqueString.h \
 	../src/SplitVector.h \
@@ -54,49 +52,6 @@ $(DIR_O)/ScintillaWin.obj: \
 	../src/ElapsedPeriod.h \
 	../src/AutoComplete.h \
 	../src/ScintillaBase.h \
-	../src/ExternalLexer.h \
-	PlatWin.h \
-	HanjaDic.h \
-	ScintillaWin.h
-$(DIR_O)/ScintillaWinL.obj: \
-	ScintillaWin.cxx \
-	../include/Platform.h \
-	../include/ILoader.h \
-	../include/Sci_Position.h \
-	../include/ILexer.h \
-	../include/Scintilla.h \
-	../include/SciLexer.h \
-	../lexlib/CharacterCategory.h \
-	../lexlib/LexerModule.h \
-	../src/Position.h \
-	../src/UniqueString.h \
-	../src/SplitVector.h \
-	../src/Partitioning.h \
-	../src/RunStyles.h \
-	../src/ContractionState.h \
-	../src/CellBuffer.h \
-	../src/CallTip.h \
-	../src/KeyMap.h \
-	../src/Indicator.h \
-	../src/LineMarker.h \
-	../src/Style.h \
-	../src/ViewStyle.h \
-	../src/CharClassify.h \
-	../src/Decoration.h \
-	../src/CaseFolder.h \
-	../src/Document.h \
-	../src/CaseConvert.h \
-	../src/UniConversion.h \
-	../src/Selection.h \
-	../src/PositionCache.h \
-	../src/EditModel.h \
-	../src/MarginView.h \
-	../src/EditView.h \
-	../src/Editor.h \
-	../src/ElapsedPeriod.h \
-	../src/AutoComplete.h \
-	../src/ScintillaBase.h \
-	../src/ExternalLexer.h \
 	PlatWin.h \
 	HanjaDic.h \
 	ScintillaWin.h
@@ -131,6 +86,16 @@ $(DIR_O)/Catalogue.obj: \
 	../include/Scintilla.h \
 	../include/SciLexer.h \
 	../lexlib/LexerModule.h \
+	../lexlib/CatalogueModules.h \
+	../src/Catalogue.h
+$(DIR_O)/CatalogueL.obj: \
+	../src/Catalogue.cxx \
+	../include/ILexer.h \
+	../include/Sci_Position.h \
+	../include/Scintilla.h \
+	../include/SciLexer.h \
+	../lexlib/LexerModule.h \
+	../lexlib/CatalogueModules.h \
 	../src/Catalogue.h
 $(DIR_O)/CellBuffer.obj: \
 	../src/CellBuffer.cxx \
@@ -437,7 +402,8 @@ $(DIR_O)/ScintillaBase.obj: \
 	../src/EditView.h \
 	../src/Editor.h \
 	../src/AutoComplete.h \
-	../src/ScintillaBase.h
+	../src/ScintillaBase.h \
+	../src/ExternalLexer.h
 $(DIR_O)/ScintillaBaseL.obj: \
 	../src/ScintillaBase.cxx \
 	../include/Platform.h \
@@ -474,7 +440,8 @@ $(DIR_O)/ScintillaBaseL.obj: \
 	../src/EditView.h \
 	../src/Editor.h \
 	../src/AutoComplete.h \
-	../src/ScintillaBase.h
+	../src/ScintillaBase.h \
+	../src/ExternalLexer.h
 $(DIR_O)/Selection.obj: \
 	../src/Selection.cxx \
 	../include/Platform.h \
@@ -1163,6 +1130,19 @@ $(DIR_O)/LexHex.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/LexHollywood.obj: \
+	../lexers/LexHollywood.cxx \
+	../include/ILexer.h \
+	../include/Sci_Position.h \
+	../include/Scintilla.h \
+	../include/SciLexer.h \
+	../lexlib/WordList.h \
+	../lexlib/LexAccessor.h \
+	../lexlib/StyleContext.h \
+	../lexlib/CharacterSet.h \
+	../lexlib/LexerModule.h \
+	../lexlib/OptionSet.h \
+	../lexlib/DefaultLexer.h
 $(DIR_O)/LexHTML.obj: \
 	../lexers/LexHTML.cxx \
 	../include/ILexer.h \
@@ -1662,6 +1642,20 @@ $(DIR_O)/LexR.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/LexRaku.obj: \
+	../lexers/LexRaku.cxx \
+	../include/ILexer.h \
+	../include/Sci_Position.h \
+	../include/Scintilla.h \
+	../include/SciLexer.h \
+	../lexlib/WordList.h \
+	../lexlib/LexAccessor.h \
+	../lexlib/StyleContext.h \
+	../lexlib/CharacterSet.h \
+	../lexlib/CharacterCategory.h \
+	../lexlib/LexerModule.h \
+	../lexlib/OptionSet.h \
+	../lexlib/DefaultLexer.h
 $(DIR_O)/LexRebol.obj: \
 	../lexers/LexRebol.cxx \
 	../include/ILexer.h \

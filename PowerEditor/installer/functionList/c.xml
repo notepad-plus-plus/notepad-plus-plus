@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- =========================================================== [ C ] -->
+		<parser
+			displayName="C"
+			id         ="c_function"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?s:\x2F\x2A.*?\x2A\x2F)                        # Multi Line Comment
+						|	(?m-s:\x2F{2}.*$)                               # Single Line Comment
+						|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)             # String Literal - Double Quoted
+						|	(?s:\x27(?:[^\x27\x5C]|\x5C.)*\x27)             # String Literal - Single Quoted
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?:                                                 # Declaration specifiers
+							\b
+							(?:
+								(?-i:auto|register|static|extern|typedef)   # Storage class specifier
+							|	(?:                                         # Type specifier
+									(?-i:void|char|short|int|long|float|double|(?:un)?signed)
+								|	(?-i:struct|union|enum)
+									\s+
+									(?&amp;VALID_ID)                        # Struct, Union or Enum Specifier (simplified)
+								|	(?&amp;VALID_ID)                        # Type-definition name
+								)
+							|	(?'TYPE_QUALIFIER'(?-i:const|volatile))
+							)
+							\b
+							\s*
+						)*
+						(?'DECLARATOR'
+							(?'POINTER'
+								\*
+								\s*
+								(?:
+									\b(?&amp;TYPE_QUALIFIER)\b
+									\s*
+								)*
+								(?:(?&amp;POINTER))?                        # Boost::Regex 1.58-1.59 do not correctly handle quantifiers on subroutine calls
+							)?
+							(?:                                             # 'DIRECT_DECLARATOR'
+								\s*
+								(?'VALID_ID'                                # valid identifier, use as subroutine
+									\b(?!(?-i:
+										auto
+									|	break
+									|	c(?:ase|har|on(?:st|ntinue))
+									|	d(?:efault|o(?:uble)?)
+									|	e(?:lse|num|xtern)
+									|	f(?:loat|or)
+									|	goto
+									|	i(?:f|n(?:t|line))
+									|	long
+									|	while
+									|	re(?:gister|strict|turn)
+									|	s(?:hort|i(?:gned|zeof)|t(?:atic|ruct)|witch)
+									|	typedef
+									|	un(?:ion|signed)
+									|	vo(?:id|latile)
+									|	_(?:
+											A(?:lignas|lignof|tomic)
+										|	Bool
+										|	Complex
+										|	Generic
+										|	Imaginary
+										|	Noreturn
+										|	Static_assert
+										|	Thread_local
+										)
+									)\b)                                    # keywords, not to be used as identifier
+									[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*        # valid character combination for identifiers
+								)
+							|	\s*\(
+								(?&amp;DECLARATOR)
+								\)
+							|	\s*(?&amp;VALID_ID)
+								\s*\[
+								[^[\];{]*?
+								\]
+							|	\s*(?&amp;VALID_ID)
+								\s*\(
+								[^();{]*?
+								\)
+							)
+							\s*
+						)
+						(?=\{)                                              # start of function body
+					"
+			>
+				<functionName>
+					<nameExpr expr="(?x)                                    # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*
+							\s*\(                                           # start of parameters
+							(?s:.*?)                                        # whatever, until...
+							\)                                              # end   of parameters
+						" />
+					<!-- comment out the following node to display the method with its parameters -->
+<!--						<nameExpr expr="[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*" /> -->
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

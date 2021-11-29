@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #pragma once
@@ -32,14 +21,13 @@
 #include <windows.h>
 #include <commctrl.h>
 
-const int nbMax = 45;
 #define	IDI_SEPARATOR_ICON -1
 
 class IconList
 {
 public :
 	IconList() = default;
-	void create(HINSTANCE hInst, int iconSize);
+	void init(HINSTANCE hInst, int iconSize);
 	void create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize);
 
 	void destroy() {
@@ -47,8 +35,11 @@ public :
 	};
 	HIMAGELIST getHandle() const {return _hImglst;};
 	void addIcon(int iconID) const;
+	void addIcon(HICON hIcon) const;
+
 	bool changeIcon(int index, const TCHAR *iconLocation) const;
-	void setIconSize(int size) const;
+	void addIcons(int size) const;
+
 
 private :
 	HIMAGELIST _hImglst = nullptr;
@@ -63,76 +54,103 @@ typedef struct
 	int _cmdID;
 
 	int _defaultIcon;
-	int _hotIcon;
 	int _grayIcon;
+
+	int _defaultIcon2;
+	int _grayIcon2;
+
+	int _defaultDarkModeIcon;
+	int _grayDarkModeIcon;
+
+	int _defaultDarkModeIcon2;
+	int _grayDarkModeIcon2;
 
 	int _stdIcon;
 } ToolBarButtonUnit;
 
-typedef std::vector<ToolBarButtonUnit> ToolBarIconIDs;
-
-typedef std::vector<IconList> IconListVector;
-
-class IconLists
-{
-public :
-	IconLists() = default;
-	HIMAGELIST getImageListHandle(int index) const {
-		return _iconListVector[index].getHandle();
-	};
-
-protected :
-	IconListVector _iconListVector;
+struct DynamicCmdIcoBmp {
+	UINT _message = 0;         // identification of icon in tool bar (menu ID)
+	HBITMAP _hBmp = nullptr;   // bitmap for toolbar
+	HICON _hIcon = nullptr;    // icon for toolbar
+	HICON _hIcon_DM = nullptr; // dark mode icon for toolbar
 };
 
-const int HLIST_DEFAULT = 0;
-const int HLIST_HOT = 1;
-const int HLIST_DISABLE = 2;
+typedef std::vector<ToolBarButtonUnit> ToolBarIconIDs;
 
-class ToolBarIcons : public IconLists
+// Light Mode list
+const int HLIST_DEFAULT = 0;
+const int HLIST_DISABLE = 1;
+const int HLIST_DEFAULT2 = 2;
+const int HLIST_DISABLE2 = 3;
+// Dark Mode list
+const int HLIST_DEFAULT_DM = 4;
+const int HLIST_DISABLE_DM = 5;
+const int HLIST_DEFAULT_DM2 = 6;
+const int HLIST_DISABLE_DM2 = 7;
+
+class ToolBarIcons
 {
 public :
 	ToolBarIcons() = default;
 
-	void init(ToolBarButtonUnit *buttonUnitArray, int arraySize);
+	void init(ToolBarButtonUnit *buttonUnitArray, int arraySize, std::vector<DynamicCmdIcoBmp> cmds2add);
 	void create(HINSTANCE hInst, int iconSize);
 	void destroy();
 
 	HIMAGELIST getDefaultLst() const {
-		return IconLists::getImageListHandle(HLIST_DEFAULT);
-	};
-
-	HIMAGELIST getHotLst() const {
-		return IconLists::getImageListHandle(HLIST_HOT);
+		return _iconListVector[HLIST_DEFAULT].getHandle();
 	};
 
 	HIMAGELIST getDisableLst() const {
-		return IconLists::getImageListHandle(HLIST_DISABLE);
+		return _iconListVector[HLIST_DISABLE].getHandle();
 	};
 
-	unsigned int getNbCommand() const {return _nbCmd;};
+	HIMAGELIST getDefaultLstSet2() const {
+		return _iconListVector[HLIST_DEFAULT2].getHandle();
+	};
+
+	HIMAGELIST getDisableLstSet2() const {
+		return _iconListVector[HLIST_DISABLE2].getHandle();
+	};
+
+	HIMAGELIST getDefaultLstDM() const {
+		return _iconListVector[HLIST_DEFAULT_DM].getHandle();
+	};
+
+	HIMAGELIST getDisableLstDM() const {
+		return _iconListVector[HLIST_DISABLE_DM].getHandle();
+	};
+
+	HIMAGELIST getDefaultLstSetDM2() const {
+		return _iconListVector[HLIST_DEFAULT_DM2].getHandle();
+	};
+
+	HIMAGELIST getDisableLstSetDM2() const {
+		return _iconListVector[HLIST_DISABLE_DM2].getHandle();
+	};
+
 	void resizeIcon(int size) {
 		reInit(size);
 	};
 
 	void reInit(int size);
 
-	int getNbIcon() const {
-		return int(_tbiis.size());
-	};
-
 	int getStdIconAt(int i) const {
 		return _tbiis[i]._stdIcon;
 	};
 
 	bool replaceIcon(int witchList, int iconIndex, const TCHAR *iconLocation) const {
-		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_HOT) && (witchList != HLIST_DISABLE))
+		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_DISABLE) && 
+			(witchList != HLIST_DEFAULT2) && (witchList != HLIST_DISABLE2))
 			return false;
+
 		return _iconListVector[witchList].changeIcon(iconIndex, iconLocation);
 	};
 
 private :
 	ToolBarIconIDs _tbiis;
-	unsigned int _nbCmd = 0;
+	std::vector<DynamicCmdIcoBmp> _moreCmds;
+
+	std::vector<IconList> _iconListVector;
 };
 

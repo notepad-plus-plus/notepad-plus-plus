@@ -30,18 +30,24 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
 		Use FolderName (optional) to create sub-menu. FolderName can be used in any type of item.
 		FolderName value can be in any language.
 		-->
-        <Item FolderName="Style token" id="43022"/>
-        <Item FolderName="Style token" id="43024"/>
-        <Item FolderName="Style token" id="43026"/>
-        <Item FolderName="Style token" id="43028"/>
-        <Item FolderName="Style token" id="43030"/>
+        <Item FolderName="Style all occurrences of token" id="43022"/>
+        <Item FolderName="Style all occurrences of token" id="43024"/>
+        <Item FolderName="Style all occurrences of token" id="43026"/>
+        <Item FolderName="Style all occurrences of token" id="43028"/>
+        <Item FolderName="Style all occurrences of token" id="43030"/>
 		
-        <Item FolderName="Remove style" id="43023"/>
-        <Item FolderName="Remove style" id="43025"/>
-        <Item FolderName="Remove style" id="43027"/>
-        <Item FolderName="Remove style" id="43029"/>
-        <Item FolderName="Remove style" id="43031"/>
-        <Item FolderName="Remove style" id="43032"/>
+        <Item FolderName="Style one token" id="43062"/>
+        <Item FolderName="Style one token" id="43063"/>
+        <Item FolderName="Style one token" id="43064"/>
+        <Item FolderName="Style one token" id="43065"/>
+        <Item FolderName="Style one token" id="43066"/>
+		
+        <Item FolderName="Clear style" id="43023"/>
+        <Item FolderName="Clear style" id="43025"/>
+        <Item FolderName="Clear style" id="43027"/>
+        <Item FolderName="Clear style" id="43029"/>
+        <Item FolderName="Clear style" id="43031"/>
+        <Item FolderName="Clear style" id="43032"/>
         <Item id="0"/>
 		
 		<!--

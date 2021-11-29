@@ -23,7 +23,7 @@
 
 #include <QAbstractScrollArea>
 #include <QMimeData>
-#include <QTime>
+#include <QElapsedTimer>
 
 namespace Scintilla {
 
@@ -145,7 +145,7 @@ protected:
 private:
 	Scintilla::ScintillaQt *sqt;
 
-	QTime time;
+	QElapsedTimer time;
 
 	int preeditPos;
 	QString preeditString;

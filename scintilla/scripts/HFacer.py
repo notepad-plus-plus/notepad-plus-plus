@@ -1,11 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # HFacer.py - regenerate the Scintilla.h and SciLexer.h files from the Scintilla.iface interface
 # definition file.
 # Implemented 2000 by Neil Hodgson neilh@scintilla.org
-# Requires Python 2.5 or later
+# Requires Python 3.6 or later
 
-import sys
-import os
+import pathlib
 import Face
 
 from FileGenerator import UpdateFile, Generate, Regenerate, UpdateLineInFile, lineEnd
@@ -45,9 +44,9 @@ def printHFile(f):
 
 def RegenerateAll(root, showMaxID):
 	f = Face.Face()
-	f.ReadFromFile(root + "include/Scintilla.iface")
-	Regenerate(root + "include/Scintilla.h", "/* ", printHFile(f))
-	Regenerate(root + "include/SciLexer.h", "/* ", printLexHFile(f))
+	f.ReadFromFile(root / "include/Scintilla.iface")
+	Regenerate(root / "include/Scintilla.h", "/* ", printHFile(f))
+	Regenerate(root / "include/SciLexer.h", "/* ", printLexHFile(f))
 	if showMaxID:
 		valueSet = set(int(x) for x in f.values if int(x) < 3000)
 		maximumID = max(valueSet)
@@ -58,4 +57,4 @@ def RegenerateAll(root, showMaxID):
 			#~ print(v)
 
 if __name__ == "__main__":
-	RegenerateAll("../", True)
+	RegenerateAll(pathlib.Path(__file__).resolve().parent.parent, True)

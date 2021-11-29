@@ -16,7 +16,7 @@ struct LexicalClass;
 
 typedef void (*LexerFunction)(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,
                   WordList *keywordlists[], Accessor &styler);
-typedef ILexer4 *(*LexerFactoryFunction)();
+typedef ILexer5 *(*LexerFactoryFunction)();
 
 /**
  * A LexerModule is responsible for lexing and folding a particular language.
@@ -43,32 +43,31 @@ public:
 		LexerFunction fnFolder_= nullptr,
 		const char * const wordListDescriptions_[]=nullptr,
 		const LexicalClass *lexClasses_=nullptr,
-		size_t nClasses_=0);
+		size_t nClasses_=0) noexcept;
 	LexerModule(
 		int language_,
 		LexerFactoryFunction fnFactory_,
 		const char *languageName_,
-		const char * const wordListDescriptions_[]=nullptr);
-	virtual ~LexerModule();
-	int GetLanguage() const;
+		const char * const wordListDescriptions_[]=nullptr) noexcept;
+	int GetLanguage() const noexcept;
 
 	// -1 is returned if no WordList information is available
-	int GetNumWordLists() const;
-	const char *GetWordListDescription(int index) const;
-	const LexicalClass *LexClasses() const;
-	size_t NamedStyles() const;
+	int GetNumWordLists() const noexcept;
+	const char *GetWordListDescription(int index) const noexcept;
+	const LexicalClass *LexClasses() const noexcept;
+	size_t NamedStyles() const noexcept;
 
-	ILexer4 *Create() const;
+	ILexer5 *Create() const;
 
-	virtual void Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,
+	void Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,
                   WordList *keywordlists[], Accessor &styler) const;
-	virtual void Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,
+	void Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,
                   WordList *keywordlists[], Accessor &styler) const;
 
-	friend class Catalogue;
+	friend class CatalogueModules;
 };
 
-inline int Maximum(int a, int b) {
+inline int Maximum(int a, int b) noexcept {
 	return (a > b) ? a : b;
 }
 
@@ -80,6 +79,12 @@ inline int Maximum(int a, int b) {
 // Turn off shadow warnings for lexers as may be maintained by others
 #if defined(__GNUC__)
 #pragma GCC diagnostic ignored "-Wshadow"
+#endif
+
+// Clang doesn't like omitting braces in array initialization but they just add
+// noise to LexicalClass arrays in lexers
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wmissing-braces"
 #endif
 
 }

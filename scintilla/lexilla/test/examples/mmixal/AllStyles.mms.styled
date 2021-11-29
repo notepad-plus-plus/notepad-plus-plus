@@ -1,0 +1,74 @@
+{1}% Demonstrate each possible style. Does not make sense as code.
+{0}
+{1}% A comment 1
+% Comment
+{0}
+
+{1}% Whitespace 0
+{0}        
+
+
+{1}% Label 2
+{2}label{4}
+{0}
+
+{1}% Not Validated Opcode 3 appears to always validate to either 5 or 6
+% so is never seen on screen.
+{0}
+
+{1}% Division between Label and Opcode 4
+{2}la{4}      
+{0}
+
+{1}% Valid Opcode 5
+{0}        {5}TRAP{7}
+{0}
+
+{1}% Invalid Opcode 6
+{0}        {6}UNKNOWN{7}
+{0}
+
+{1}% Division between Opcode and Operands 7
+{0}        {5}LOC{7}   
+{0}
+
+{1}% Division of Operands 8
+{0}        {5}LOC{7}   {9}0{8}.{1}
+{0}
+
+{1}% Number 9
+{0}        {5}BYTE{7}  {9}0{1}
+{0}
+
+{1}% Reference 10
+{0}        {5}JMP{7} {10}@label{1}
+{0}
+
+{1}% Char 11
+{0}        {5}BYTE{7} {11}'a'{1}
+{0}
+
+{1}% String 12
+{0}        {5}BYTE{7} {12}"Hello, world!"{1}
+{0}
+
+{1}% Register 13
+{0}        {5}BYTE{7} {13}rA{1}
+{0}
+
+{1}% Hexadecimal Number 14
+{0}        {5}BYTE{7} {14}#FF{1}
+{0}
+
+{1}% Operator 15
+{0}        {5}BYTE{7}  {15}+{1}
+{0}
+
+{1}% Symbol 16
+{0}        {5}TRAP{7}  {16}Fputs{1}
+{0}
+
+{1}% Preprocessor 17
+{17}@include a.mms
+{0}
+

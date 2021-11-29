@@ -1,42 +1,32 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <algorithm>
 #include <stdexcept>
 #include <shlwapi.h>
-#include <shlobj.h>
 #include <uxtheme.h>
 #include <cassert>
 #include <codecvt>
 #include <locale>
 
 #include "StaticDialog.h"
+#include "CustomFileDialog.h"
 
+#include "FileInterface.h"
 #include "Common.h"
-#include "../Utf8.h"
+#include "Utf8.h"
 #include <Parameters.h>
 
 void printInt(int int2print)
@@ -125,130 +115,52 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 
 void writeFileContent(const TCHAR *file2write, const char *content2write)
 {
-	FILE *f = generic_fopen(file2write, TEXT("w+"));
-	fwrite(content2write, sizeof(content2write[0]), strlen(content2write), f);
-	fflush(f);
-	fclose(f);
+	Win32_IO_File file(file2write, Win32_IO_File::Mode::WRITE);
+
+	if (file.isOpened())
+		file.writeStr(content2write);
 }
 
 
 void writeLog(const TCHAR *logFileName, const char *log2write)
 {
-	FILE *f = generic_fopen(logFileName, TEXT("a+"));
-	fwrite(log2write, sizeof(log2write[0]), strlen(log2write), f);
-	fputc('\n', f);
-	fflush(f);
-	fclose(f);
+	Win32_IO_File file(logFileName, Win32_IO_File::Mode::APPEND);
+
+	if (file.isOpened())
+		file.writeStr(log2write);
 }
-
-
-// Set a call back with the handle after init to set the path.
-// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/reference/callbackfunctions/browsecallbackproc.asp
-static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pData)
-{
-	if (uMsg == BFFM_INITIALIZED && pData != 0)
-		::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, pData);
-	return 0;
-};
 
 
 generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const TCHAR *defaultStr)
 {
-	generic_string dirStr;
+	generic_string folderName;
+	CustomFileDialog dlg(parent);
+	dlg.setTitle(title.c_str());
 
-	// This code was copied and slightly modifed from:
-	// http://www.bcbdev.com/faqs/faq62.htm
+	// Get an initial directory from the edit control or from argument provided
+	TCHAR directory[MAX_PATH] = {};
+	if (outputCtrlID != 0)
+		::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
+	directory[_countof(directory) - 1] = '\0';
+	if (!directory[0] && defaultStr)
+		dlg.setFolder(defaultStr);
+	else if (directory[0])
+		dlg.setFolder(directory);
 
-	// SHBrowseForFolder returns a PIDL. The memory for the PIDL is
-	// allocated by the shell. Eventually, we will need to free this
-	// memory, so we need to get a pointer to the shell malloc COM
-	// object that will free the PIDL later on.
-	LPMALLOC pShellMalloc = 0;
-	if (::SHGetMalloc(&pShellMalloc) == NO_ERROR)
+	folderName = dlg.pickFolder();
+	if (!folderName.empty())
 	{
-		// If we were able to get the shell malloc object,
-		// then proceed by initializing the BROWSEINFO stuct
-		BROWSEINFO info;
-		memset(&info, 0, sizeof(info));
-		info.hwndOwner = parent;
-		info.pidlRoot = NULL;
-		TCHAR szDisplayName[MAX_PATH];
-		info.pszDisplayName = szDisplayName;
-		info.lpszTitle = title.c_str();
-		info.ulFlags = BIF_USENEWUI | BIF_NONEWFOLDERBUTTON;
-		info.lpfn = BrowseCallbackProc;
-
-		TCHAR directory[MAX_PATH];
+		// Send the result back to the edit control
 		if (outputCtrlID != 0)
-			::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
-		directory[_countof(directory) - 1] = '\0';
-
-		if (!directory[0] && defaultStr)
-			info.lParam = reinterpret_cast<LPARAM>(defaultStr);
-		else
-			info.lParam = reinterpret_cast<LPARAM>(directory);
-
-		// Execute the browsing dialog.
-		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);
-
-		// pidl will be null if they cancel the browse dialog.
-		// pidl will be not null when they select a folder.
-		if (pidl)
-		{
-			// Try to convert the pidl to a display generic_string.
-			// Return is true if success.
-			TCHAR szDir[MAX_PATH];
-			if (::SHGetPathFromIDList(pidl, szDir))
-			{
-				// Set edit control to the directory path.
-				if (outputCtrlID != 0)
-					::SetDlgItemText(parent, outputCtrlID, szDir);
-				dirStr = szDir;
-			}
-			pShellMalloc->Free(pidl);
-		}
-		pShellMalloc->Release();
+			::SetDlgItemText(parent, outputCtrlID, folderName.c_str());
 	}
-	return dirStr;
+	return folderName;
 }
 
 
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
 {
-	generic_string folderName;
-	LPMALLOC pShellMalloc = 0;
-
-	if (::SHGetMalloc(&pShellMalloc) == NO_ERROR)
-	{
-		BROWSEINFO info;
-		memset(&info, 0, sizeof(info));
-		info.hwndOwner = parent;
-		info.pidlRoot = NULL;
-		TCHAR szDisplayName[MAX_PATH];
-		info.pszDisplayName = szDisplayName;
-		info.lpszTitle = TEXT("Select a folder");
-		info.ulFlags = 0;
-		info.lpfn = BrowseCallbackProc;
-		info.lParam = reinterpret_cast<LPARAM>(defaultDir);
-
-		// Execute the browsing dialog.
-		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);
-
-		// pidl will be null if they cancel the browse dialog.
-		// pidl will be not null when they select a folder.
-		if (pidl)
-		{
-			// Try to convert the pidl to a display generic_string.
-			// Return is true if success.
-			TCHAR szDir[MAX_PATH];
-			if (::SHGetPathFromIDList(pidl, szDir))
-				// Set edit control to the directory path.
-				folderName = szDir;
-			pShellMalloc->Free(pidl);
-		}
-		pShellMalloc->Release();
-	}
-	return folderName;
+	return folderBrowser(parent, TEXT("Select a folder"), 0, defaultDir);
 }
 
 
@@ -705,21 +617,21 @@ generic_string PathAppend(generic_string& strDest, const generic_string& str2app
 		return strDest;
 	}
 
-	if (strDest.empty() && not str2append.empty()) // "" + titi
+	if (strDest.empty() && !str2append.empty()) // "" + titi
 	{
 		strDest = str2append;
 		return strDest;
 	}
 
-	if (strDest[strDest.length() - 1] == '\\' && (not str2append.empty() && str2append[0] == '\\')) // toto\ + \titi
+	if (strDest[strDest.length() - 1] == '\\' && (!str2append.empty() && str2append[0] == '\\')) // toto\ + \titi
 	{
 		strDest.erase(strDest.length() - 1, 1);
 		strDest += str2append;
 		return strDest;
 	}
 
-	if ((strDest[strDest.length() - 1] == '\\' && (not str2append.empty() && str2append[0] != '\\')) // toto\ + titi
-		|| (strDest[strDest.length() - 1] != '\\' && (not str2append.empty() && str2append[0] == '\\'))) // toto + \titi
+	if ((strDest[strDest.length() - 1] == '\\' && (!str2append.empty() && str2append[0] != '\\')) // toto\ + titi
+		|| (strDest[strDest.length() - 1] != '\\' && (!str2append.empty() && str2append[0] == '\\'))) // toto + \titi
 	{
 		strDest += str2append;
 		return strDest;
@@ -1034,7 +946,7 @@ bool allPatternsAreExclusion(const std::vector<generic_string> patterns)
 			break;
 		}
 	}
-	return not oneInclusionPatternFound;
+	return !oneInclusionPatternFound;
 }
 
 generic_string GetLastErrorAsString(DWORD errorCode)
@@ -1059,7 +971,7 @@ generic_string GetLastErrorAsString(DWORD errorCode)
 	return errorMsg;
 }
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText, bool isRTL)
 {
 	if (!toolID || !hDlg || !pszText)
 	{
@@ -1074,7 +986,7 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
 	}
 
 	// Create the tooltip. g_hInst is the global instance handle.
-	HWND hwndTip = CreateWindowEx(0, TOOLTIPS_CLASS, NULL,
+	HWND hwndTip = CreateWindowEx(isRTL ? WS_EX_LAYOUTRTL : 0, TOOLTIPS_CLASS, NULL,
 		WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		CW_USEDEFAULT, CW_USEDEFAULT,
@@ -1085,6 +997,8 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
 	{
 		return NULL;
 	}
+
+	NppDarkMode::setDarkTooltips(hwndTip, NppDarkMode::ToolTipsType::tooltip);
 
 	// Associate the tooltip with the tool.
 	TOOLINFO toolInfo = { 0 };
@@ -1107,16 +1021,60 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
 	return hwndTip;
 }
 
+HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszText, const RECT rc)
+{
+	if (!toolID || !hWnd || !pszText)
+	{
+		return NULL;
+	}
+
+	// Create the tooltip. g_hInst is the global instance handle.
+	HWND hwndTip = CreateWindowEx(0, TOOLTIPS_CLASS, NULL,
+		WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		hWnd, NULL,
+		hInst, NULL);
+
+	if (!hwndTip)
+	{
+		return NULL;
+	}
+
+	// Associate the tooltip with the tool.
+	TOOLINFO toolInfo = { 0 };
+	toolInfo.cbSize = sizeof(toolInfo);
+	toolInfo.hwnd = hWnd;
+	toolInfo.uFlags = TTF_SUBCLASS;
+	toolInfo.uId = toolID;
+	toolInfo.lpszText = pszText;
+	toolInfo.rect = rc;
+	if (!SendMessage(hwndTip, TTM_ADDTOOL, 0, (LPARAM)&toolInfo))
+	{
+		DestroyWindow(hwndTip);
+		return NULL;
+	}
+
+	SendMessage(hwndTip, TTM_ACTIVATE, TRUE, 0);
+	SendMessage(hwndTip, TTM_SETMAXTIPWIDTH, 0, 200);
+	// Make tip stay 15 seconds
+	SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
+
+	return hwndTip;
+}
+
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check)
 {
 	bool isOK = false;
 	HCERTSTORE hStore = NULL;
 	HCRYPTMSG hMsg = NULL;
 	PCCERT_CONTEXT pCertContext = NULL;
-	BOOL result;
-	DWORD dwEncoding, dwContentType, dwFormatType;
+	BOOL result = FALSE;
+	DWORD dwEncoding = 0;
+	DWORD dwContentType = 0;
+	DWORD dwFormatType = 0;
 	PCMSG_SIGNER_INFO pSignerInfo = NULL;
-	DWORD dwSignerInfo;
+	DWORD dwSignerInfo = 0;
 	CERT_INFO CertInfo;
 	LPTSTR szName = NULL;
 
@@ -1176,7 +1134,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		CertInfo.SerialNumber = pSignerInfo->SerialNumber;
 
 		pCertContext = CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&CertInfo, NULL);
-		if (not pCertContext)
+		if (!pCertContext)
 		{
 			generic_string errorMessage = TEXT("Certificate context: ");
 			errorMessage += GetLastErrorAsString(GetLastError());
@@ -1265,7 +1223,7 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 std::wstring s2ws(const std::string& str)
 {
 	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
+	std::wstring_convert<convert_typeX, wchar_t> converterX("Error in N++ string conversion s2ws!", L"Error in N++ string conversion s2ws!");
 
 	return converterX.from_bytes(str);
 }
@@ -1273,7 +1231,7 @@ std::wstring s2ws(const std::string& str)
 std::string ws2s(const std::wstring& wstr)
 {
 	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
+	std::wstring_convert<convert_typeX, wchar_t> converterX("Error in N++ string conversion ws2s!", L"Error in N++ string conversion ws2s!");
 
 	return converterX.to_bytes(wstr);
 }
@@ -1327,3 +1285,153 @@ void getFilesInFolder(std::vector<generic_string>& files, const generic_string& 
 	::FindClose(hFindFile);
 }
 
+void trim(generic_string& str)
+{
+	// remove any leading or trailing spaces from str
+
+	generic_string::size_type pos = str.find_last_not_of(' ');
+
+	if (pos != generic_string::npos)
+	{
+		str.erase(pos + 1);
+		pos = str.find_first_not_of(' ');
+		if (pos != generic_string::npos) str.erase(0, pos);
+	}
+	else str.erase(str.begin(), str.end());
+}
+
+bool endsWith(const generic_string& s, const generic_string& suffix)
+{
+#if defined(_MSVC_LANG) && (_MSVC_LANG > 201402L)
+#error Replace this function with basic_string::ends_with
+#endif
+	size_t pos = s.find(suffix);
+	return pos != s.npos && ((s.length() - pos) == suffix.length());
+}
+
+int nbDigitsFromNbLines(size_t nbLines)
+{
+	int nbDigits = 0; // minimum number of digit should be 4
+	if (nbLines < 10) nbDigits = 1;
+	else if (nbLines < 100) nbDigits = 2;
+	else if (nbLines < 1000) nbDigits = 3;
+	else if (nbLines < 10000) nbDigits = 4;
+	else if (nbLines < 100000) nbDigits = 5;
+	else if (nbLines < 1000000) nbDigits = 6;
+	else // rare case
+	{
+		nbDigits = 7;
+		nbLines /= 1000000;
+
+		while (nbLines)
+		{
+			nbLines /= 10;
+			++nbDigits;
+		}
+	}
+	return nbDigits;
+}
+
+namespace
+{
+	constexpr TCHAR timeFmtEscapeChar = 0x1;
+	constexpr TCHAR middayFormat[] = _T("tt");
+
+	// Returns AM/PM string defined by the system locale for the specified time.
+	// This string may be empty or customized.
+	generic_string getMiddayString(const TCHAR* localeName, const SYSTEMTIME& st)
+	{
+		generic_string midday;
+		midday.resize(MAX_PATH);
+		int ret = GetTimeFormatEx(localeName, 0, &st, middayFormat, &midday[0], static_cast<int>(midday.size()));
+		if (ret > 0)
+			midday.resize(ret - 1); // Remove the null-terminator.
+		else
+			midday.clear();
+		return midday;
+	}
+
+	// Replaces conflicting time format specifiers by a special character.
+	bool escapeTimeFormat(generic_string& format)
+	{
+		bool modified = false;
+		for (auto& ch : format)
+		{
+			if (ch == middayFormat[0])
+			{
+				ch = timeFmtEscapeChar;
+				modified = true;
+			}
+		}
+		return modified;
+	}
+
+	// Replaces special time format characters by actual AM/PM string.
+	void unescapeTimeFormat(generic_string& format, const generic_string& midday)
+	{
+		if (midday.empty())
+		{
+			auto it = std::remove(format.begin(), format.end(), timeFmtEscapeChar);
+			if (it != format.end())
+				format.erase(it, format.end());
+		}
+		else
+		{
+			size_t i = 0;
+			while ((i = format.find(timeFmtEscapeChar, i)) != generic_string::npos)
+			{
+				if (i + 1 < format.size() && format[i + 1] == timeFmtEscapeChar)
+				{
+					// 'tt' => AM/PM
+					format.erase(i, std::size(middayFormat) - 1);
+					format.insert(i, midday);
+				}
+				else
+				{
+					// 't' => A/P
+					format[i] = midday[0];
+				}
+			}
+		}
+	}
+}
+
+generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
+{
+	const TCHAR* localeName = LOCALE_NAME_USER_DEFAULT;
+	const DWORD flags = 0;
+
+	constexpr int bufferSize = MAX_PATH;
+	TCHAR buffer[bufferSize] = {};
+	int ret = 0;
+
+
+	// 1. Escape 'tt' that means AM/PM or 't' that means A/P.
+	// This is needed to avoid conflict with 'M' date format that stands for month.
+	generic_string newFormat = dateTimeFormat;
+	const bool hasMiddayFormat = escapeTimeFormat(newFormat);
+
+	// 2. Format the time (h/m/s/t/H).
+	ret = GetTimeFormatEx(localeName, flags, &st, newFormat.c_str(), buffer, bufferSize);
+	if (ret != 0)
+	{
+		// 3. Format the date (d/y/g/M). 
+		// Now use the buffer as a format string to process the format specifiers not recognized by GetTimeFormatEx().
+		ret = GetDateFormatEx(localeName, flags, &st, buffer, buffer, bufferSize, nullptr);
+	}
+
+	if (ret != 0)
+	{
+		if (hasMiddayFormat)
+		{
+			// 4. Now format only the AM/PM string.
+			const generic_string midday = getMiddayString(localeName, st);
+			generic_string result = buffer;
+			unescapeTimeFormat(result, midday);
+			return result;
+		}
+		return buffer;
+	}
+
+	return {};
+}

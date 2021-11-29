@@ -6,12 +6,9 @@
 // Copyright 1998-2005 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
 
 #include <utility>
 #include <string>
@@ -144,10 +141,10 @@ BracketPair FindBracketPair(std::vector<std::string> &tokens) {
 void highlightTaskMarker(StyleContext &sc, LexAccessor &styler,
 		int activity, const WordList &markerList, bool caseSensitive){
 	if ((isoperator(sc.chPrev) || IsASpace(sc.chPrev)) && markerList.Length()) {
-		const int lengthMarker = 50;
+		constexpr Sci_PositionU lengthMarker = 50;
 		char marker[lengthMarker+1] = "";
-		const Sci_Position currPos = sc.currentPos;
-		int i = 0;
+		const Sci_PositionU currPos = sc.currentPos;
+		Sci_PositionU i = 0;
 		while (i < lengthMarker) {
 			const char ch = styler.SafeGetCharAt(currPos + i);
 			if (IsASpace(ch) || isoperator(ch)) {
@@ -166,18 +163,14 @@ void highlightTaskMarker(StyleContext &sc, LexAccessor &styler,
 	}
 }
 
-struct EscapeSequence {
-	int digitsLeft;
-	CharacterSet setHexDigits;
-	CharacterSet setOctDigits;
-	CharacterSet setNoneNumeric;
-	CharacterSet *escapeSetValid;
-	EscapeSequence() {
-		digitsLeft = 0;
-		escapeSetValid = nullptr;
-		setHexDigits = CharacterSet(CharacterSet::setDigits, "ABCDEFabcdef");
-		setOctDigits = CharacterSet(CharacterSet::setNone, "01234567");
-	}
+class EscapeSequence {
+	const CharacterSet setHexDigits = CharacterSet(CharacterSet::setDigits, "ABCDEFabcdef");
+	const CharacterSet setOctDigits = CharacterSet(CharacterSet::setNone, "01234567");
+	const CharacterSet setNoneNumeric;
+	const CharacterSet *escapeSetValid = nullptr;
+	int digitsLeft = 0;
+public:
+	EscapeSequence() = default;
 	void resetEscapeState(int nextChar) {
 		digitsLeft = 0;
 		escapeSetValid = &setNoneNumeric;
@@ -197,6 +190,9 @@ struct EscapeSequence {
 	}
 	bool atEscapeEnd(int currChar) const {
 		return (digitsLeft <= 0) || !escapeSetValid->Contains(currChar);
+	}
+	void consumeDigit() noexcept {
+		digitsLeft--;
 	}
 };
 
@@ -245,7 +241,7 @@ struct PPDefinition {
 	}
 };
 
-const int inactiveFlag = 0x40;
+constexpr int inactiveFlag = 0x40;
 
 class LinePPState {
 	// Track the state of preprocessor conditionals to allow showing active and inactive
@@ -318,7 +314,7 @@ public:
 class PPStates {
 	std::vector<LinePPState> vlls;
 public:
-	LinePPState ForLine(Sci_Position line) const {
+	LinePPState ForLine(Sci_Position line) const noexcept {
 		if ((line > 0) && (vlls.size() > static_cast<size_t>(line))) {
 			return vlls[line];
 		} else {
@@ -501,7 +497,7 @@ const int sizeLexicalClasses = static_cast<int>(std::size(lexicalClasses));
 
 }
 
-class LexerCPP : public ILexer4 {
+class LexerCPP : public ILexer5 {
 	bool caseSensitive;
 	CharacterSet setWord;
 	CharacterSet setNegationOp;
@@ -564,7 +560,7 @@ public:
 		delete this;
 	}
 	int SCI_METHOD Version() const noexcept override {
-		return lvRelease4;
+		return lvRelease5;
 	}
 	const char * SCI_METHOD PropertyNames() override {
 		return osCPP.PropertyNames();
@@ -674,10 +670,19 @@ public:
 		return "";
 	}
 
-	static ILexer4 *LexerFactoryCPP() {
+	// ILexer5 methods
+	const char * SCI_METHOD GetName() override {
+		return caseSensitive ? "cpp" : "cppnocase";
+	}
+	int SCI_METHOD  GetIdentifier() override {
+		return caseSensitive ? SCLEX_CPP : SCLEX_CPPNOCASE;
+	}
+	const char * SCI_METHOD PropertyGet(const char *key) override;
+
+	static ILexer5 *LexerFactoryCPP() {
 		return new LexerCPP(true);
 	}
-	static ILexer4 *LexerFactoryCPPInsensitive() {
+	static ILexer5 *LexerFactoryCPPInsensitive() {
 		return new LexerCPP(false);
 	}
 	constexpr static int MaskActive(int style) noexcept {
@@ -699,6 +704,10 @@ Sci_Position SCI_METHOD LexerCPP::PropertySet(const char *key, const char *val) 
 		return 0;
 	}
 	return -1;
+}
+
+const char * SCI_METHOD LexerCPP::PropertyGet(const char *key) {
+	return osCPP.PropertyGet(key);
 }
 
 Sci_Position SCI_METHOD LexerCPP::WordListSet(int n, const char *wl) {
@@ -822,7 +831,7 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 		ppDefineHistory.clear();
 
 	std::vector<PPDefinition>::iterator itInvalid = std::find_if(ppDefineHistory.begin(), ppDefineHistory.end(),
-		[lineCurrent](const PPDefinition &p) { return p.line >= lineCurrent; });
+		[lineCurrent](const PPDefinition &p) noexcept { return p.line >= lineCurrent; });
 	if (itInvalid != ppDefineHistory.end()) {
 		ppDefineHistory.erase(itInvalid, ppDefineHistory.end());
 		definitionsChanged = true;
@@ -1097,7 +1106,7 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 				}
 				break;
 			case SCE_C_ESCAPESEQUENCE:
-				escapeSeq.digitsLeft--;
+				escapeSeq.consumeDigit();
 				if (!escapeSeq.atEscapeEnd(sc.ch)) {
 					break;
 				}
@@ -1149,9 +1158,9 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 			case SCE_C_REGEX:
 				if (sc.atLineStart) {
 					sc.SetState(SCE_C_DEFAULT|activitySet);
-				} else if (! inRERange && sc.ch == '/') {
+				} else if (!inRERange && sc.ch == '/') {
 					sc.Forward();
-					while ((sc.ch < 0x80) && islower(sc.ch))
+					while (IsLowerCase(sc.ch))
 						sc.Forward();    // gobble regex flags
 					sc.SetState(SCE_C_DEFAULT|activitySet);
 				} else if (sc.ch == '\\' && ((sc.currentPos+1) < lineEndNext)) {
@@ -1577,7 +1586,7 @@ void LexerCPP::EvaluateTokens(std::vector<std::string> &tokens, const SymbolTabl
 	}
 
 	// Evaluate identifiers
-	const size_t maxIterations = 100;
+	constexpr size_t maxIterations = 100;
 	size_t iterations = 0;	// Limit number of iterations in case there is a recursive macro.
 	for (size_t i = 0; (i<tokens.size()) && (iterations < maxIterations);) {
 		iterations++;

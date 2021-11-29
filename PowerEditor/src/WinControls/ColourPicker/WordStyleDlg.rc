@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #include "windows.h"
@@ -34,8 +23,8 @@
 #endif
 
 IDD_STYLER_DLG DIALOGEX 36, 44, 500, 246
-STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Style Configurator"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
@@ -65,7 +54,7 @@ BEGIN
     LTEXT           "+",IDC_PLUSSYMBOL_STATIC,335,166,8,8
     PUSHBUTTON      "Cancel",IDCANCEL,332,222,57,14
     PUSHBUTTON      "Save && Close",IDC_SAVECLOSE_BUTTON,255,222,69,14
-    CONTROL         "",IDC_SC_PERCENTAGE_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | NOT WS_VISIBLE | WS_TABSTOP,441,235,53,10
+    CONTROL         "",IDC_SC_PERCENTAGE_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TRANSPARENTBKGND | NOT WS_VISIBLE | WS_TABSTOP,441,235,53,10
     CONTROL         "Transparency",IDC_SC_TRANSPARENT_CHECK,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,431,221,63,10
     LISTBOX         IDC_LANGUAGES_LIST,17,46,59,146,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LISTBOX         IDC_STYLES_LIST,87,46,76,146,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
@@ -86,6 +75,4 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,328,179,135,10
     CONTROL         "Enable global underline font style",IDC_GLOBAL_UNDERLINE_CHECK,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,328,194,135,10
-
 END
-

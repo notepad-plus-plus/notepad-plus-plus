@@ -297,7 +297,6 @@
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
                     <Item id="47004" name="Notepad++ Community (Forum)"/>
-                    <Item id="47011" name="Tacaíocht bheo"/>
                     <Item id="47012" name="Debug Info..."/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Nuashonraigh Notepad++"/>
@@ -840,7 +839,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6413" name="Default Directory (Oscail/Save)"/>
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
-                    <Item id="6430" name="Use new style dialog (without Unix style path capacity)"/>
                     <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
                 </DefaultDir>
 
@@ -1164,11 +1162,11 @@ Continue?"/>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Doc Switcher"/>
             <ColumnName name="Ainm"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Ainm"/>
             <ColumnPath name="Conair"/>

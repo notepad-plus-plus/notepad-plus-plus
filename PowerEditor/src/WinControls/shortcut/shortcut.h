@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #pragma once
@@ -69,10 +58,10 @@ static size_t keyTranslate(size_t keyIn) {
 };
 
 struct KeyCombo {
-	bool _isCtrl;
-	bool _isAlt;
-	bool _isShift;
-	UCHAR _key;
+	bool _isCtrl = false;
+	bool _isAlt = false;
+	bool _isShift = false;
+	UCHAR _key = 0;
 };
 
 class Shortcut  : public StaticDialog {
@@ -186,9 +175,9 @@ public:
 protected :
 	KeyCombo _keyCombo;
 	virtual INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	bool _canModifyName;
-	TCHAR _name[nameLenMax];		//normal name is plain text (for display purposes)
-	TCHAR _menuName[nameLenMax];	//menu name has ampersands for quick keys
+	bool _canModifyName = false;
+	TCHAR _name[nameLenMax] = {'\0'};		//normal name is plain text (for display purposes)
+	TCHAR _menuName[nameLenMax] = { '\0' };	//menu name has ampersands for quick keys
 	void updateConflictState(const bool endSession = false) const;
 };
 		 
@@ -219,7 +208,7 @@ public:
 	int getMenuCmdID() const {return _menuCmdID;};
 	size_t toKeyDef(size_t index) const {
 		KeyCombo kc = _keyCombos[index];
-		int keymod = (kc._isCtrl?SCMOD_CTRL:0) | (kc._isAlt?SCMOD_ALT:0) | (kc._isShift?SCMOD_SHIFT:0);
+		size_t keymod = (kc._isCtrl ? SCMOD_CTRL : 0) | (kc._isAlt ? SCMOD_ALT : 0) | (kc._isShift ? SCMOD_SHIFT : 0);
 		return keyTranslate(kc._key) + (keymod << 16);
 	};
 

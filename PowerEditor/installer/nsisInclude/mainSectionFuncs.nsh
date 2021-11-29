@@ -1,29 +1,18 @@
-; this file is part of installer for Notepad++
-; Copyright (C)2016 Don HO <don.h@free.fr>
+; This file is part of Notepad++ project
+; Copyright (C)2021 Don HO <don.h@free.fr>
 ;
-; This program is free software; you can redistribute it and/or
-; modify it under the terms of the GNU General Public License
-; as published by the Free Software Foundation; either
-; version 2 of the License, or (at your option) any later version.
-;
-; Note that the GPL places important restrictions on "derived works", yet
-; it does not provide a detailed definition of that term.  To avoid      
-; misunderstandings, we consider an application to constitute a          
-; "derivative work" for the purpose of this license if it does any of the
-; following:                                                             
-; 1. Integrates source code from Notepad++.
-; 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-;    installer, such as those produced by InstallShield.
-; 3. Links to a library or executes a program that does any of the above.
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; at your option any later version.
 ;
 ; This program is distributed in the hope that it will be useful,
 ; but WITHOUT ANY WARRANTY; without even the implied warranty of
-; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ; GNU General Public License for more details.
-; 
+;
 ; You should have received a copy of the GNU General Public License
-; along with this program; if not, write to the Free Software
-; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Var UPDATE_PATH
 Var PLUGIN_INST_PATH
@@ -85,14 +74,12 @@ Function copyCommonFiles
 	SetOverwrite off
 	SetOutPath "$UPDATE_PATH\"
 	File "..\bin\contextMenu.xml"
-	File "..\bin\functionList.xml"
 	
 	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
 	File "..\bin\stylers.model.xml"
 	File "..\bin\contextMenu.xml"
-	File "..\bin\functionList.xml"
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
@@ -106,16 +93,18 @@ Function copyCommonFiles
 	File "..\bin\readme.txt"
 	
 !ifdef ARCH64
-	File "..\bin64\SciLexer.dll"
 	File "..\bin64\notepad++.exe"
+!else ifdef ARCHARM64
+	File "..\binarm64\notepad++.exe"
 !else
-	File "..\bin\SciLexer.dll"
 	File "..\bin\notepad++.exe"
 !endif
 
 	; Markdown in user defined languages
 	SetOutPath "$UPDATE_PATH\userDefineLangs\"
-	File "..\bin\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+	Delete "$UPDATE_PATH\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+	File "..\bin\userDefineLangs\markdown._preinstalled.udl.xml"
+	File "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml"
 
 	; Localization
 	; Default language English 
@@ -133,14 +122,121 @@ Function copyCommonFiles
 	IfFileExists "$INSTDIR\nativeLang.xml" 0 +2
 		Delete "$INSTDIR\nativeLang.xml"
 
-	StrCmp $LANGUAGE ${LANG_ENGLISH} +3 0
+	StrCmp $LANGUAGE ${LANG_ENGLISH} +5 0
 	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
 	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
+	IfFileExists "$PLUGINSDIR\gupLocalization\$(langFileName)" 0 +2
+		CopyFiles "$PLUGINSDIR\gupLocalization\$(langFileName)" "$INSTDIR\updater\nativeLang.xml"
 FunctionEnd
 
-	
-Function removeUnstablePlugins
+; Source from: https://nsis.sourceforge.io/VersionCompare
+Function VersionCompare
+	!define VersionCompare `!insertmacro VersionCompareCall`
+ 
+	!macro VersionCompareCall _VER1 _VER2 _RESULT
+		Push `${_VER1}`
+		Push `${_VER2}`
+		Call VersionCompare
+		Pop ${_RESULT}
+	!macroend
+ 
+	Exch $1
+	Exch
+	Exch $0
+	Exch
+	Push $2
+	Push $3
+	Push $4
+	Push $5
+	Push $6
+	Push $7
+ 
+	begin:
+	StrCpy $2 -1
+	IntOp $2 $2 + 1
+	StrCpy $3 $0 1 $2
+	StrCmp $3 '' +2
+	StrCmp $3 '.' 0 -3
+	StrCpy $4 $0 $2
+	IntOp $2 $2 + 1
+	StrCpy $0 $0 '' $2
+ 
+	StrCpy $2 -1
+	IntOp $2 $2 + 1
+	StrCpy $3 $1 1 $2
+	StrCmp $3 '' +2
+	StrCmp $3 '.' 0 -3
+	StrCpy $5 $1 $2
+	IntOp $2 $2 + 1
+	StrCpy $1 $1 '' $2
+ 
+	StrCmp $4$5 '' equal
+ 
+	StrCpy $6 -1
+	IntOp $6 $6 + 1
+	StrCpy $3 $4 1 $6
+	StrCmp $3 '0' -2
+	StrCmp $3 '' 0 +2
+	StrCpy $4 0
+ 
+	StrCpy $7 -1
+	IntOp $7 $7 + 1
+	StrCpy $3 $5 1 $7
+	StrCmp $3 '0' -2
+	StrCmp $3 '' 0 +2
+	StrCpy $5 0
+ 
+	StrCmp $4 0 0 +2
+	StrCmp $5 0 begin newer2
+	StrCmp $5 0 newer1
+	IntCmp $6 $7 0 newer1 newer2
+ 
+	StrCpy $4 '1$4'
+	StrCpy $5 '1$5'
+	IntCmp $4 $5 begin newer2 newer1
+ 
+	equal:
+	StrCpy $0 0
+	goto end
+	newer1:
+	StrCpy $0 1
+	goto end
+	newer2:
+	StrCpy $0 2
+ 
+	end:
+	Pop $7
+	Pop $6
+	Pop $5
+	Pop $4
+	Pop $3
+	Pop $2
+	Pop $1
+	Exch $0
+FunctionEnd
 
+Function removeUnstablePlugins
+	; remove unstable plugins
+	CreateDirectory "$INSTDIR\plugins\disabled"
+	
+	; NppSaveAsAdmin makes Notepad++ crash. "1.0.211.0" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" 0 NppSaveAsAdminTestEnd
+		${GetFileVersion} "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" $R0
+		${VersionCompare} $R0 "1.0.211.0" $R1 ;   0: equal to 1.0.211.0   1: $R0 is newer   2: 1.0.211.0 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to NppSaveAsAdmin plugin's incompatibility issue in version $R0, NppSaveAsAdmin.dll will be deleted. Use Plugins Admin to add back (the latest version of) NppSaveAsAdmin." /SD IDOK
+		Rename "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" "$INSTDIR\plugins\disabled\NppSaveAsAdmin.dll"
+		Delete "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll"
+	NppSaveAsAdminTestEnd:
+	
+	; https://github.com/chcg/NPP_HexEdit/issues/51
+	IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 HexEditorTestEnd
+		MessageBox MB_OK "Due to HexEditor plugin's crash issue on Notepad++ v8 (and later versions), HexEditor.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
+		Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
+	HexEditorTestEnd:
+	
 FunctionEnd
 
 Function removeOldContextMenu

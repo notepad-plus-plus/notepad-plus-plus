@@ -1,29 +1,18 @@
-; this file is part of installer for Notepad++
-; Copyright (C)2016 Don HO <don.h@free.fr>
+; This file is part of Notepad++ project
+; Copyright (C)2021 Don HO <don.h@free.fr>
 ;
-; This program is free software; you can redistribute it and/or
-; modify it under the terms of the GNU General Public License
-; as published by the Free Software Foundation; either
-; version 2 of the License, or (at your option) any later version.
-;
-; Note that the GPL places important restrictions on "derived works", yet
-; it does not provide a detailed definition of that term.  To avoid      
-; misunderstandings, we consider an application to constitute a          
-; "derivative work" for the purpose of this license if it does any of the
-; following:                                                             
-; 1. Integrates source code from Notepad++.
-; 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-;    installer, such as those produced by InstallShield.
-; 3. Links to a library or executes a program that does any of the above.
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; at your option any later version.
 ;
 ; This program is distributed in the hope that it will be useful,
 ; but WITHOUT ANY WARRANTY; without even the implied warranty of
-; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ; GNU General Public License for more details.
-; 
+;
 ; You should have received a copy of the GNU General Public License
-; along with this program; if not, write to the Free Software
-; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Var installPath
 Var doLocalConf
@@ -150,6 +139,8 @@ FunctionEnd
 	;Remove from registry...
 !ifdef ARCH64
 	SetRegView 32
+!else ifdef ARCHARM64
+	SetRegView 32
 !else
 	SetRegView 64
 !endif
@@ -157,6 +148,8 @@ FunctionEnd
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
 	;DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
 !ifdef ARCH64
+	SetRegView 64
+!else ifdef ARCHARM64
 	SetRegView 64
 !else
 	SetRegView 32
@@ -184,6 +177,8 @@ FunctionEnd
 
 Section Uninstall
 !ifdef ARCH64
+	SetRegView 64
+!else ifdef ARCHARM64
 	SetRegView 64
 !else
 	SetRegView 32
@@ -248,6 +243,8 @@ Section Uninstall
 	Delete "$INSTDIR\NppHelp.chm"
 	Delete "$INSTDIR\userDefinedLang-markdown.default.modern.xml"
 	Delete "$INSTDIR\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+	Delete "$INSTDIR\userDefineLangs\markdown._preinstalled.udl.xml"
+	Delete "$INSTDIR\userDefineLangs\markdown._preinstalled_DM.udl.xml"
 	Delete "$INSTDIR\doLocalConf.xml"
 	Delete "$INSTDIR\uninstall.ini"
 	
@@ -269,6 +266,8 @@ Section Uninstall
 		Delete "$APPDATA\${APPNAME}\userDefineLang.xml"
 		Delete "$APPDATA\${APPNAME}\insertExt.ini"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
+		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled.udl.xml"
+		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled_DM.udl.xml"
 		RMDir /r "$APPDATA\${APPNAME}\plugins\"
 		RMDir /r "$APPDATA\${APPNAME}\backup\"	; Remove backup folder recursively if not empty
 		RMDir "$APPDATA\${APPNAME}\themes\"	; has no effect as not empty at this moment, but it is taken care at un.onUninstSuccess

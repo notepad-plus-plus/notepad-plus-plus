@@ -1,36 +1,24 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #include <iostream>
 #include <stdexcept>
 #include "ColourPicker.h"
 #include "ColourPopup.h"
-
-
-
+#include "NppDarkMode.h"
 
 void ColourPicker::init(HINSTANCE hInst, HWND parent)
 {
@@ -71,7 +59,16 @@ void ColourPicker::drawBackground(HDC hDC)
 	getClientRect(rc);
 	hbrush = ::CreateSolidBrush(_currentColour);
 	HGDIOBJ oldObj = ::SelectObject(hDC, hbrush);
+	HPEN holdPen = nullptr;
+	if (NppDarkMode::isEnabled())
+	{
+		holdPen = static_cast<HPEN>(::SelectObject(hDC, NppDarkMode::getEdgePen()));
+	}
 	::Rectangle(hDC, 0, 0, rc.right, rc.bottom);
+	if (NppDarkMode::isEnabled() && holdPen)
+	{
+		::SelectObject(hDC, holdPen);
+	}
 	::SelectObject(hDC, oldObj);
 	//FillRect(hDC, &rc, hbrush);
 	::DeleteObject(hbrush);
@@ -142,6 +139,15 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			if (_pColourPopup)
+			{
+				::SendMessage(_pColourPopup->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+			}
+			return TRUE;
+		}
+
 		case WM_ERASEBKGND:
 		{
 			HDC dc = (HDC)wParam;
@@ -172,7 +178,7 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 		{
 			if ((BOOL)wParam == FALSE)
 			{
-				_currentColour = ::GetSysColor(COLOR_3DFACE);
+				_currentColour = NppDarkMode::isEnabled() ? NppDarkMode::getDarkerBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
 				redraw();
 			}
 			return TRUE;

@@ -19,7 +19,7 @@ public:
 	void Set(const char *key, const char *val, size_t lenKey, size_t lenVal);
 	void SetMultiple(const char *);
 	const char *Get(const char *key) const;
-	int GetExpanded(const char *key, char *result) const;
+	size_t GetExpanded(const char *key, char *result) const;
 	int GetInt(const char *key, int defaultValue=0) const;
 };
 

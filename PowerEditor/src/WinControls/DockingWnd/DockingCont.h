@@ -1,29 +1,18 @@
-// this file is part of docking functionality for Notepad++
-// Copyright (C)2005 Jens Lorenz <jens.plugin.npp@gmx.de>
-// 
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-// 
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// This file is part of Notepad++ project
+// Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #pragma once
@@ -166,7 +155,7 @@ protected :
 	eMousePos isInRect(HWND hwnd, int x, int y);
 
 	// handling of toolbars
-	void doClose();
+	void doClose(BOOL closeAll);
 
 	// return new item
 	int  searchPosInTab(tTbData* pTbData);
@@ -183,55 +172,55 @@ protected :
 
 private:
 	// handles
-	BOOL					_isActive;
-	bool					_isFloating;
-	HWND					_hCaption;
-	HWND					_hContTab;
+	BOOL _isActive = FALSE;
+	bool _isFloating = FALSE;
+	HWND _hCaption = nullptr;
+	HWND _hContTab = nullptr;
 
 	// horizontal font for caption and tab
-	HFONT					_hFont;
+	HFONT _hFont = nullptr;
 
 	// caption params
-	BOOL					_isTopCaption;
-	generic_string		    _pszCaption;
+	BOOL _isTopCaption = FALSE;
+	generic_string _pszCaption;
 
-	BOOL					_isMouseDown;
-	BOOL					_isMouseClose;
-	BOOL					_isMouseOver;
-	RECT					_rcCaption;
+	BOOL _isMouseDown = FALSE;
+	BOOL _isMouseClose = FALSE;
+	BOOL _isMouseOver = FALSE;
+	RECT _rcCaption = {0};
 	
 	// tab style
-	BOOL					_bDrawOgLine;
+	BOOL _bDrawOgLine = FALSE;
 
 	// Important value for DlgMoving class
-	BOOL					_dragFromTab;
+	BOOL _dragFromTab = FALSE;
 
 	// subclassing handle for caption
-	WNDPROC					_hDefaultCaptionProc;
+	WNDPROC _hDefaultCaptionProc = nullptr;
 
 	// subclassing handle for tab
-	WNDPROC					_hDefaultTabProc;
+	WNDPROC _hDefaultTabProc = nullptr;
 
 	// for moving and reordering
-	UINT					_prevItem;
-	BOOL					_beginDrag;
+	UINT _prevItem = 0;
+	BOOL _beginDrag = FALSE;
 
 	// Is tooltip
-	BOOL					_bTabTTHover;
-	INT						_iLastHovered;
+	BOOL _bTabTTHover = FALSE;
+	INT _iLastHovered = 0;
 
-	BOOL					_bCaptionTT;
-	BOOL					_bCapTTHover;
-	eMousePos				_hoverMPos;
+	BOOL _bCaptionTT = FALSE;
+	BOOL _bCapTTHover = FALSE;
+	eMousePos _hoverMPos = posOutside;
 
 	int _captionHeightDynamic = HIGH_CAPTION;
 	int _captionGapDynamic = CAPTION_GAP;
 	int _closeButtonPosLeftDynamic = CLOSEBTN_POS_LEFT;
 	int _closeButtonPosTopDynamic = CLOSEBTN_POS_TOP;
-	int _closeButtonWidth;
-	int _closeButtonHeight;
+	int _closeButtonWidth = 12;
+	int _closeButtonHeight = 12;
 
 	// data of added windows
-	std::vector<tTbData *>		_vTbData;
+	std::vector<tTbData *> _vTbData;
 };
 

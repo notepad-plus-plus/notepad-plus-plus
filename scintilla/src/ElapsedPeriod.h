@@ -18,7 +18,7 @@ public:
 	ElapsedPeriod() noexcept : tp(std::chrono::high_resolution_clock::now()) {
 	}
 	/// Return duration as floating point seconds
-	double Duration(bool reset=false) {
+	double Duration(bool reset=false) noexcept {
 		const std::chrono::high_resolution_clock::time_point tpNow =
 			std::chrono::high_resolution_clock::now();
 		const std::chrono::duration<double> stylingDuration =

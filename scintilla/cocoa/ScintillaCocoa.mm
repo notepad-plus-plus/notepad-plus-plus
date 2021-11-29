@@ -1,7 +1,7 @@
 
 /**
  * Scintilla source code edit control
- * ScintillaCocoa.mm - Cocoa subclass of ScintillaBase
+ * @file ScintillaCocoa.mm - Cocoa subclass of ScintillaBase
  *
  * Written by Mike Lischke <mlischke@sun.com>
  *
@@ -423,7 +423,6 @@ ScintillaCocoa::~ScintillaCocoa() {
  * Core initialization of the control. Everything that needs to be set up happens here.
  */
 void ScintillaCocoa::Init() {
-	Scintilla_LinkLexers();
 
 	// Tell Scintilla not to buffer: Quartz buffers drawing for us.
 	WndProc(SCI_SETBUFFEREDDRAW, 0, 0);
@@ -1598,15 +1597,15 @@ bool ScintillaCocoa::GetPasteboardData(NSPasteboard *board, SelectionText *selec
 // Returns the target converted to UTF8.
 // Return the length in bytes.
 Sci::Position ScintillaCocoa::TargetAsUTF8(char *text) const {
-	const Sci::Position targetLength = targetEnd - targetStart;
+	const Sci::Position targetLength = targetRange.Length();
 	if (IsUnicodeMode()) {
 		if (text)
-			pdoc->GetCharRange(text, targetStart, targetLength);
+			pdoc->GetCharRange(text, targetRange.start.Position(), targetLength);
 	} else {
 		// Need to convert
 		const CFStringEncoding encoding = EncodingFromCharacterSet(IsUnicodeMode(),
 						  vs.styles[STYLE_DEFAULT].characterSet);
-		const std::string s = RangeText(targetStart, targetEnd);
+		const std::string s = RangeText(targetRange.start.Position(), targetRange.end.Position());
 		CFStringRef cfsVal = CFStringFromString(s.c_str(), s.length(), encoding);
 		if (!cfsVal) {
 			return 0;

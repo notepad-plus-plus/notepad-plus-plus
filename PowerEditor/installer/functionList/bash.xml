@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ======================================================== [ Bash ] -->
+		<!-- BASH - Bourne-Again Shell                                         -->
+
+		<parser
+			displayName="Bash"
+			id         ="bash_function"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?-s:(?:^\x23[^!]|^\h*\x23|\h+\x23).*$)         # Single Line Comment
+						|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)             # String Literal - Double Quoted
+						|	(?s:\x27[^\x27]*\x27)                           # String Literal - Single Quoted
+						|	(?s:                                            # Here Document (Type 1) and Here String
+								\x3C{2,3}\h*(?'HD1ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\b)[^\r\n]*\R
+								(?s:.*?)
+								\R\k'HD1ID'                                 # close with exactly the same identifier, in the first column
+							)
+						|	(?s:                                            # Here Document (Type 2)
+								\x3C{2}-\h*(?'HD2ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\b)[^\r\n]*\R
+								(?s:.*?)
+								\R\h*\k'HD2ID'                              # close with exactly the same identifier
+							)
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m)^\h*                                            # optional leading whitespace
+						(?:
+							(?-i:function\s+)
+							(?'VALID_ID'                                    # valid identifier, use as subroutine
+								\b(?!(?-i:
+									do(?:ne)?
+								|	el(?:if|se)|esac
+								|	f(?:i|or|unction)
+								|	i[fn]
+								|	select
+								|	t(?:hen|ime)
+								|	until
+								|	while
+								)\b)                                        # keywords, not to be used as identifier
+								[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*            # valid character combination for identifiers
+							)
+							(?:\s*\([^)]*?\))?                              # parentheses and parameters optional
+						|
+							(?&amp;VALID_ID)
+							\s*\([^)]*?\)                                   # parentheses required, parameters optional
+						)
+						[^{;]*?\{                                           # no semi-colon until start of body
+					"
+			>
+				<functionName>
+					<nameExpr expr="\b(?!function\b)\w+(?:\s*\([^)]*\))?" />
+					<!-- comment out the following node to display the function with its parameters -->
+					<nameExpr expr="\w+(?=\b)" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

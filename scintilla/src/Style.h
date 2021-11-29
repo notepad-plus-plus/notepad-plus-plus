@@ -33,9 +33,9 @@ struct FontSpecification {
 class FontAlias : public Font {
 public:
 	FontAlias() noexcept;
-	// FontAlias objects can not be assigned except for initialization
+	// FontAlias objects can be copy or move constructed but not be assigned
 	FontAlias(const FontAlias &) noexcept;
-	FontAlias(FontAlias &&)  = delete;
+	FontAlias(FontAlias &&) noexcept;
 	FontAlias &operator=(const FontAlias &) = delete;
 	FontAlias &operator=(FontAlias &&) = delete;
 	~FontAlias() override;
@@ -71,19 +71,19 @@ public:
 	FontAlias font;
 
 	Style();
-	Style(const Style &source);
-	Style(Style &&) = delete;
+	Style(const Style &source) noexcept;
+	Style(Style &&) noexcept = default;
 	~Style();
-	Style &operator=(const Style &source);
+	Style &operator=(const Style &source) noexcept;
 	Style &operator=(Style &&) = delete;
 	void Clear(ColourDesired fore_, ColourDesired back_,
 	           int size_,
 	           const char *fontName_, int characterSet_,
 	           int weight_, bool italic_, bool eolFilled_,
 	           bool underline_, ecaseForced caseForce_,
-	           bool visible_, bool changeable_, bool hotspot_);
-	void ClearTo(const Style &source);
-	void Copy(Font &font_, const FontMeasurements &fm_);
+	           bool visible_, bool changeable_, bool hotspot_) noexcept;
+	void ClearTo(const Style &source) noexcept;
+	void Copy(const Font &font_, const FontMeasurements &fm_) noexcept;
 	bool IsProtected() const noexcept { return !(changeable && visible);}
 };
 

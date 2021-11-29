@@ -285,7 +285,6 @@
                     <Item id="47002" name="Laman Proyek Notepad++"/>
                     <Item id="47003" name="Dokumentasi Daring"/>
                     <Item id="47004" name="Forum"/>
-                    <Item id="47011" name="Dukungan Langsung"/>
                     <Item id="47012" name="Info Debug..."/>
                     <Item id="47005" name="Dapatkan Plugin Lain"/>
                     <Item id="47006" name="Perbarui Notepad++"/>
@@ -737,7 +736,6 @@
                     <Item id="6413" name="Direktori Baku (Buka/Simpan)"/>
                     <Item id="6414" name="Ikuti dokumen aktif"/>
                     <Item id="6415" name="Ingat direktori terakhir"/>
-                    <Item id="6430" name="Gunakan dialog gaya baru (tanpa fitur ekstensi file dan kapasitas jalur gaya Unix)"/>
                     <Item id="6431" name="Buka semua file dari folder bukan meluncurkan folder sebagai Ruang kerja saat menjatuhkan folder"/>
                 </DefaultDir>
 
@@ -957,11 +955,11 @@
         <ClipboardHistory>
             <PanelTitle name="Riwayat Papan klip"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Penukar Dok."/>
             <ColumnName name="Nama"/>
             <ColumnExt name="Ekst."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nama"/>
             <ColumnPath name="Jalur"/>

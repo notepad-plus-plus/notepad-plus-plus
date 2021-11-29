@@ -1,35 +1,27 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stdexcept>
 #include "ToolBar.h"
 #include "shortcut.h"
 #include "Parameters.h"
 #include "FindReplaceDlg_rc.h"
+
+#include "NppDarkMode.h"
+#include "resource.h"
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
@@ -105,10 +97,11 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
 	Window::init(hInst, hPere);
+	
 	_state = type;
-	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE?32:16);
+	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
-	_toolBarIcons.init(buttonUnitArray, arraySize);
+	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
 	_toolBarIcons.create(_hInst, iconSize);
 	
 	INITCOMMONCONTROLSEX icex;
@@ -138,7 +131,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			style = BTNS_SEP;
 		}
 
-		_pTBB[i].iBitmap = (cmd != 0?bmpIndex:0);
+		_pTBB[i].iBitmap = (cmd != 0 ? bmpIndex : 0);
 		_pTBB[i].idCommand = cmd;
 		_pTBB[i].fsState = TBSTATE_ENABLED;
 		_pTBB[i].fsStyle = (BYTE)style; 
@@ -156,10 +149,11 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
 		++i;
+
 		//add plugin buttons
 		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
 		{
-			cmd = _vDynBtnReg[j].message;
+			cmd = _vDynBtnReg[j]._message;
 			++bmpIndex;
 
 			_pTBB[i].iBitmap = bmpIndex;
@@ -211,34 +205,43 @@ int ToolBar::getHeight() const
 
 void ToolBar::reduce() 
 {
-	if (_state == TB_SMALL)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD || _state == TB_LARGE);
 	setState(TB_SMALL);
-	reset(recreate);	//recreate toolbar if previous state was Std icons or Big icons
+	reset(true);	//recreate toolbar if previous state was Std icons or Big icons
 	Window::redraw();
 }
 
 void ToolBar::enlarge()
 {
-	if (_state == TB_LARGE)
-		return;
-
 	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD || _state == TB_SMALL);
 	setState(TB_LARGE);
-	reset(recreate);	//recreate toolbar if previous state was Std icons or Small icons
+	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
 	Window::redraw();
 }
 
-void ToolBar::setToUglyIcons()
+void ToolBar::reduceToSet2()
 {
-	if (_state == TB_STANDARD) 
-		return;
+	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+
+	setState(TB_SMALL2);
+	reset(true);
+	Window::redraw();
+}
+
+void ToolBar::enlargeToSet2()
+{
+	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	setState(TB_LARGE2);
+	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
+	Window::redraw();
+}
+
+void ToolBar::setToBmpIcons()
+{
 	bool recreate = true;
 	setState(TB_STANDARD);
 	reset(recreate);	//must recreate toolbar if setting to internal bitmaps
@@ -246,7 +249,7 @@ void ToolBar::setToUglyIcons()
 }
 
 
-void ToolBar::reset(bool create) 
+void ToolBar::reset(bool create)
 {
 
 	if (create && _hSelf)
@@ -264,17 +267,26 @@ void ToolBar::reset(bool create)
 
 	if (!_hSelf)
 	{
+		DWORD dwExtraStyle = 0;
+		if (NppDarkMode::isEnabled())
+		{
+			dwExtraStyle = TBSTYLE_CUSTOMERASE;
+		}
+
 		_hSelf = ::CreateWindowEx(
 					WS_EX_PALETTEWINDOW,
 					TOOLBARCLASSNAME,
 					TEXT(""),
-					WS_TOOLBARSTYLE,
+					WS_TOOLBARSTYLE | dwExtraStyle,
 					0, 0,
 					0, 0,
 					_hParent,
 					NULL,
 					_hInst,
 					0);
+
+		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::toolbar);
+
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
 		// backward compatibility.
 		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
@@ -286,12 +298,44 @@ void ToolBar::reset(bool create)
 		throw std::runtime_error("ToolBar::reset : CreateWindowEx() function return null");
 	}
 
-	if (_state != TB_STANDARD)
+	if (_state != TB_STANDARD) //If non standard icons, use custom imagelists
 	{
-		//If non standard icons, use custom imagelists
-		setDefaultImageList();
-		setHotImageList();
-		setDisableImageList();
+		if (_state == TB_SMALL || _state == TB_LARGE)
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM();
+				setDisableImageListDM();
+
+				if (NppDarkMode::isWindows11())
+				{
+					setHoveredImageListDM();
+				}
+			}
+			else
+			{
+				setDefaultImageList();
+				setDisableImageList();
+			}
+		}
+		else
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM2();
+				setDisableImageListDM2();
+
+				if (NppDarkMode::isWindows11())
+				{
+					setHoveredImageListDM2();
+				}
+			}
+			else
+			{
+				setDefaultImageList2();
+				setDisableImageList2();
+			}
+		}
 	}
 	else
 	{
@@ -299,7 +343,6 @@ void ToolBar::reset(bool create)
 		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
 		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
 
-		//TBADDBITMAP addbmp = {_hInst, 0};
 		TBADDBITMAP addbmp = {0, 0};
 		TBADDBITMAP addbmpdyn = {0, 0};
 		for (size_t i = 0 ; i < _nbButtons ; ++i)
@@ -307,15 +350,13 @@ void ToolBar::reset(bool create)
 			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
 			HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 			addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
-
-			//addbmp.nID = _toolBarIcons.getStdIconAt(i);
 			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 		}
 		if (_nbDynButtons > 0)
 		{
 			for (size_t j = 0; j < _nbDynButtons; ++j)
 			{
-				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j).hBmp);
+				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
 				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 			}
 		}
@@ -323,11 +364,10 @@ void ToolBar::reset(bool create)
 
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
-		size_t nbBtnToAdd = (_state == TB_STANDARD?_nbTotalButtons:_nbButtons);
-		_nbCurrentButtons = nbBtnToAdd;
-		WORD btnSize = (_state == TB_LARGE?32:16);
+		_nbCurrentButtons = _nbTotalButtons;
+		WORD btnSize = (_state == TB_LARGE ? 32 : 16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
-		::SendMessage(_hSelf, TB_ADDBUTTONS, nbBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
+		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB));
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
 
@@ -343,15 +383,58 @@ void ToolBar::reset(bool create)
 	}
 }
 
-void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
+void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON absentIco)
 {
 	// Note: Register of buttons only possible before init!
-	if ((_hSelf == NULL) && (messageID != 0) && (tIcon->hToolbarBmp != NULL))
+	if ((_hSelf == NULL) && (messageID != 0) && (iconHandles->hToolbarBmp != NULL))
 	{
-		tDynamicList		dynList;
-		dynList.message		= messageID;
-		dynList.hBmp		= tIcon->hToolbarBmp;
-		dynList.hIcon		= tIcon->hToolbarIcon;
+		DynamicCmdIcoBmp dynList;
+		dynList._message = messageID;
+		dynList._hBmp = iconHandles->hToolbarBmp;
+
+		if (iconHandles->hToolbarIcon)
+		{
+			dynList._hIcon = iconHandles->hToolbarIcon;
+		}
+		else
+		{
+			BITMAP bmp;
+			int nbByteBmp = ::GetObject(dynList._hBmp, sizeof(BITMAP), &bmp);
+			if (!nbByteBmp)
+			{
+				dynList._hIcon = absentIco;
+			}
+			else
+			{
+				HBITMAP hbmMask = ::CreateCompatibleBitmap(::GetDC(NULL), bmp.bmWidth, bmp.bmHeight);
+
+				ICONINFO iconinfoDest = { 0 };
+				iconinfoDest.fIcon = TRUE;
+				iconinfoDest.hbmColor = iconHandles->hToolbarBmp;
+				iconinfoDest.hbmMask = hbmMask;
+
+				dynList._hIcon = ::CreateIconIndirect(&iconinfoDest);
+				::DeleteObject(hbmMask);
+			}
+		}
+
+		dynList._hIcon_DM = dynList._hIcon;
+
+		_vDynBtnReg.push_back(dynList);
+	}
+}
+
+void ToolBar::registerDynBtnDM(UINT messageID, toolbarIconsWithDarkMode* iconHandles)
+{
+	// Note: Register of buttons only possible before init!
+	if ((_hSelf == NULL) && (messageID != 0) && (iconHandles->hToolbarBmp != NULL) && 
+		(iconHandles->hToolbarIcon != NULL) && (iconHandles->hToolbarIconDarkMode != NULL))
+	{
+		DynamicCmdIcoBmp dynList;
+		dynList._message = messageID;
+		dynList._hBmp = iconHandles->hToolbarBmp;
+		dynList._hIcon = iconHandles->hToolbarIcon;
+		dynList._hIcon_DM = iconHandles->hToolbarIconDarkMode;
 		_vDynBtnReg.push_back(dynList);
 	}
 }
@@ -419,16 +502,52 @@ void ToolBar::addToRebar(ReBar * rebar)
 	_rbBand.fMask   = RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_IDEALSIZE | RBBIM_SIZE;
 }
 
+constexpr UINT_PTR g_rebarSubclassID = 42;
+
+LRESULT CALLBACK RebarSubclass(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	UNREFERENCED_PARAMETER(dwRefData);
+	UNREFERENCED_PARAMETER(uIdSubclass);
+
+	switch (uMsg)
+	{
+		case WM_ERASEBKGND:
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc;
+				GetClientRect(hWnd, &rc);
+				FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			else
+			{
+				break;
+			}
+
+		case WM_NCDESTROY:
+			RemoveWindowSubclass(hWnd, RebarSubclass, g_rebarSubclassID);
+			break;
+	}
+	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
 void ReBar::init(HINSTANCE hInst, HWND hPere)
 {
 	Window::init(hInst, hPere);
-	
 	_hSelf = CreateWindowEx(WS_EX_TOOLWINDOW,
 							REBARCLASSNAME,
 							NULL,
-							WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|WS_CLIPCHILDREN|RBS_VARHEIGHT|
-							RBS_BANDBORDERS | CCS_NODIVIDER | CCS_NOPARENTALIGN,
+							WS_CHILD|WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_VARHEIGHT | CCS_NODIVIDER | CCS_NOPARENTALIGN,
 							0,0,0,0, _hParent, NULL, _hInst, NULL);
+
+	SetWindowSubclass(_hSelf, RebarSubclass, g_rebarSubclassID, 0);
 
 	REBARINFO rbi;
 	ZeroMemory(&rbi, sizeof(REBARINFO));

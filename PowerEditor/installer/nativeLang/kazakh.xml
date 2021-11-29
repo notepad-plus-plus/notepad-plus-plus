@@ -9,13 +9,13 @@
 					<Item menuId="edit" name = "Өңдеу"/>
 					<Item menuId="search" name = "Іздеу"/>
 					<Item menuId="view" name = "Көрініс"/>
-					<Item menuId="encoding" name = "Пішім"/>
+					<Item menuId="encoding" name = "Кодтау"/>
 					<Item menuId="language" name = "Бағдарламалық тіл"/>
 					<Item menuId="settings" name = "Теңшеу"/>
 					<Item menuId="macro" name = "Макростар"/>
 					<Item menuId="run" name = "Жегу"/>
 					<Item idName = "Plugins" name = "Қондырмалар"/>
-					<Item idName = "Window" name = "Терезелер"/>
+					<Item idName = "Window" name = "Терезе"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->

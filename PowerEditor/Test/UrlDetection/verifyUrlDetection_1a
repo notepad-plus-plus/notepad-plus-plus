@@ -1,0 +1,507 @@
+﻿=== URLs which are handled OK so far ===
+
+u http://test.com u
+m 111111111111111 m
+
+u HTTP://UPCASE.UP u
+m 1111111111111111 m
+
+u http: u
+m 00000 m
+
+u mailto: u
+m 0000000 m
+
+
+
+Preceding none-whitespace characters:
+
+u !http://test.com u
+m 0111111111111111 m
+
+u "http://test.com u
+m 0111111111111111 m
+
+u #http://test.com u
+m 0111111111111111 m
+
+u $http://test.com u
+m 0111111111111111 m
+
+u %http://test.com u
+m 0111111111111111 m
+
+u &http://test.com u
+m 0111111111111111 m
+
+u 'http://test.com u
+m 0111111111111111 m
+
+u (http://test.com u
+m 0111111111111111 m
+
+u )http://test.com u
+m 0111111111111111 m
+
+u *http://test.com u
+m 0111111111111111 m
+
+u +http://test.com u
+m 0111111111111111 m
+
+u ,http://test.com u
+m 0111111111111111 m
+
+u -http://test.com u
+m 0111111111111111 m
+
+u .http://test.com u
+m 0111111111111111 m
+
+u /http://test.com u
+m 0111111111111111 m
+
+u 1http://test.com u
+m 0000000000000000 m
+
+u 9http://test.com u
+m 0000000000000000 m
+
+u :http://test.com u
+m 0111111111111111 m
+
+u ;http://test.com u
+m 0111111111111111 m
+
+u <http://test.com u
+m 0111111111111111 m
+
+u >http://test.com u
+m 0111111111111111 m
+
+u ?http://test.com u
+m 0111111111111111 m
+
+u @http://test.com u
+m 0111111111111111 m
+
+u Ahttp://test.com u
+m 0000000000000000 m
+
+u Zhttp://test.com u
+m 0000000000000000 m
+
+u [http://test.com u
+m 0111111111111111 m
+
+u \http://test.com u
+m 0111111111111111 m
+
+u ]http://test.com u
+m 0111111111111111 m
+
+u ^http://test.com u
+m 0111111111111111 m
+
+u _http://test.com u
+m 0000000000000000 m
+
+u `http://test.com u
+m 0111111111111111 m
+
+u ahttp://test.com u
+m 0000000000000000 m
+
+u zhttp://test.com u
+m 0000000000000000 m
+
+u {http://test.com u
+m 0111111111111111 m
+
+u |http://test.com u
+m 0111111111111111 m
+
+u }http://test.com u
+m 0111111111111111 m
+
+u ~http://test.com u
+m 0111111111111111 m
+
+
+
+Query parsing:
+
+u https://duckduckgo.com/?q=windows+delete+"GameBarPresenceWriter.exe" u
+m 11111111111111111111111111111111111111111111111111111111111111111111 m
+
+u "https://duckduckgo.com/?q=windows+delete+"GameBarPresenceWriter.exe"" u
+m 0111111111111111111111111111111111111111111111111111111111111111111110 m
+
+u "https://duckduckgo.com/?q=windows+delete+"GameBarPresenceWriter.exe" u
+m 011111111111111111111111111111111111111111111111111111111111111111111 m
+
+u "https://duckduckgo/com/?q=windows+delete+GameBarPresenceWriter.exe" u
+m 01111111111111111111111111111111111111111111111111111111111111111110 m
+
+u "https://duckduckgo.com/?q=windows+delete+""GameBarPresenceWriter.exe" u
+m 0111111111111111111111111111111111111111111100000000000000000000000000 m
+
+u https://www.youtube.com/watch?v=VmcftreqQ6E&list=PnQIRE5O5JpiLL&index=xxx u
+m 1111111111111111111111111111111111111111111111111111111111111111111111111 m
+
+
+
+Space detection:
+
+u "http://github.com/notepad-plus-plus/notepad-plus-plus" u
+m 0111111111111111111111111111111111111111111111111111110 m
+
+u "https://github.com /notepad-plus-plus/notepad-plus-plus" u
+m 011111111111111111100000000000000000000000000000000000000 m
+
+u "https://github.com/notepad plus plus/notepad-plus-plus" u
+m 01111111111111111111111111100000000000000000000000000000 m
+
+
+
+Unwanted trailing character removal:
+
+u (https://github.com/notepad-plus-plus/notepad-plus-plus) u
+m 01111111111111111111111111111111111111111111111111111110 m
+
+u [https://github.com/notepad-plus-plus/notepad-plus-plus] u
+m 01111111111111111111111111111111111111111111111111111110 m
+
+u https://github.com/notepad-plus-plus/notepad-plus-plus; u
+m 1111111111111111111111111111111111111111111111111111110 m
+
+u https://github.com/notepad-plus-plus/notepad-plus-plus? u
+m 1111111111111111111111111111111111111111111111111111110 m
+
+u https://github.com/notepad-plus-plus/notepad-plus-plus! u
+m 1111111111111111111111111111111111111111111111111111110 m
+
+u https://github.com/notepad-plus-plus/notepad-plus-plus# u
+m 1111111111111111111111111111111111111111111111111111110 m
+
+u http://github.com/notepad-plus-plus/notepad-plus-plus#fragment u
+m 11111111111111111111111111111111111111111111111111111111111111 m
+
+u (e.g., https://en.wikipedia.org/wiki/Saw_(2003_film))? u
+m 000000011111111111111111111111111111111111111111111100 m
+
+u (https://en.wikipedia.org/wiki/Saw_(2003_film)) u
+m 01111111111111111111111111111111111111111111110 m
+
+u (https://en.wikipedia.org/wiki/Saw_2003_film) u
+m 011111111111111111111111111111111111111111110 m
+
+u [https://en.wikipedia.org/wiki/Saw_[2003_film]] u
+m 01111111111111111111111111111111111111111111110 m
+
+
+
+International characters:
+
+u https://apache-windows.ru/как-установить-сервер-apache-c-php-mysql-и-phpmyadmin-на-windows/ u
+m 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 m
+
+u https://www.rnids.rs/национални-домени/регистрација-националних-домена u
+m 1111111111111111111111111111111111111111111111111111111111111111111111 m
+
+u https://www.morfix.co.il/שלום u
+m 11111111111111111111111111111 m
+
+u https://www.amazon.fr/GRÜNTEK-Ebrancheur-Cisailles-crémaillère-SATISFAIT/dp/B01COZUA4E/ u
+m 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 m
+
+u https://www.amazon.fr/Gardena-coupe-branches-TeleCut-520-670-télescopiques/dp/B07JLJ4N44/ u
+m 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 m
+
+
+
+Instagram links:
+
+u https://ig.com/?query=c761&vars={"id":"0815","first":100} u
+m 111111111111111111111111111111111111111111111111111111111 m
+
+u {https://ig.com/?query=c761&vars={"id":"0815","first":100}} u
+m 01111111111111111111111111111111111111111111111111111111110 m
+
+u [https://ig.com/?query=c761&vars={"id":"0815","first":100}] u
+m 01111111111111111111111111111111111111111111111111111111110 m
+
+u "https://ig.com/?query=c761&vars={"id":"0815","first":100}" u
+m 01111111111111111111111111111111111111111111111111111111110 m
+
+
+
+Links in LaTeX:
+
+u \href{https://weblink.com/}{click me} u
+m 0000001111111111111111111100000000000 m
+
+u \href{https://ig.com/?query=c761&vars={"id":"0815","first":100}}{click me} u
+m 00000011111111111111111111111111111111111111111111111111111111100000000000 m
+
+========
+
+Quotation mark
+- forbidden in name and path (delimiter)
+- parsed in query part as quoting character, 
+  overriding all other quoting characters
+
+u http://xxx.xxx/xxx"xxx" u
+m 11111111111111111100000 m
+
+u http://xxx.xxx/?q="A"+"B"" u
+m 11111111111111111111111110 m
+
+u http://xxx.xxx/?q="A'+'B{}`'"" u
+m 111111111111111111111111111110 m
+
+========
+
+Apostrophe
+- allowed unrestricted in name and path
+- parsed in query part as quoting character, 
+  overriding all other quoting characters
+
+u https://en.wikipedia.org/wiki/Murphy's_law u
+m 111111111111111111111111111111111111111111 m
+
+u http://xxx.xxx/xxx'xxx' u
+m 11111111111111111111111 m
+
+u http://xxx.xxx/xxx'xxx'' u
+m 111111111111111111111111 m
+
+u http://xxx.xxx/?q='A'+'B'' u
+m 11111111111111111111111110 m
+
+u http://xxx.xxx/?q='A'+'B'' u
+m 11111111111111111111111110 m
+
+u http://xxx.xxx/?q='A'+'B"{}`'' u
+m 111111111111111111111111111110 m
+
+========
+
+Grave accent
+- allowed unrestricted in name and path
+- parsed in query part as quoting character, 
+  overriding all other quoting characters
+
+u http://xxx.xxx/Tom`s_sisters u
+m 1111111111111111111111111111 m
+
+u http://xxx.xxx/Tom`s%20sisters` u
+m 1111111111111111111111111111111 m
+
+u http://xxx.xxx/Tom`s%20sisters`` u
+m 11111111111111111111111111111111 m
+
+u http://xxx.xxx/?q=`A`+`B` u
+m 1111111111111111111111111 m
+
+u http://xxx.xxx/?q=`A`+`B`` u
+m 11111111111111111111111110 m
+
+u http://xxx.xxx/?q=`A"{}()'`` u
+m 1111111111111111111111111110 m
+
+========
+
+Parentheses
+- allowed in name and path
+- closing parenthesis at end of path is removed,
+  if there are no other parentheses in path,
+  except pairing parentheses
+- parsed in query part as quoting character, 
+  overriding all other quoting characters
+
+- no other parentheses in path, remove last closing parenthesis
+u http://xxx.xxx/xxx) u
+m 1111111111111111110 m
+
+- pairing parentheses in path: remove last closing unpaired parenthesis
+u http://xxx.xxx/xxx(xxx)) u
+m 111111111111111111111110 m
+
+- pairing parentheses in path: remove last closing unpaired parenthesis
+u http://xxx.xxx/xxx((xxx))) u 
+m 11111111111111111111111110 m
+
+- pairing parenthesis in path: keep last closing paired parenthesis
+u http://xxx.xxx/xxx(xxx) u
+m 11111111111111111111111 m
+
+- pairing parentheses in path: remove last closing unpaired parenthesis
+u http://xxx.xxx/xxx()xxx) u
+m 111111111111111111111110 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx)) u
+m 11111111111111111111 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx)(xxx) u
+m 111111111111111111111111 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx)(xxx)) u
+m 1111111111111111111111111 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx((xxx) u
+m 111111111111111111111111 m
+
+- arbitrary parentheses in path: keep last closing parenthesis
+u http://xxx.xxx/xxx)((xxx) u
+m 1111111111111111111111111 m
+
+- parentheses in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=(xxx)) u
+m 111111111111111111111111110 m
+
+- parentheses in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=(xxx)( u
+m 111111111111111111111111110 m
+
+- parentheses in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=(xxx)( u
+m 111111111111111111111111110 m
+
+- parentheses in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=(xxx)&(xxx)( u
+m 111111111111111111111111111111110 m
+
+========
+
+ Square brackets
+- allowed in name and path
+- closing square bracket at end of path is removed,
+  if there are no other square brackets in path,
+  except pairing square brackets
+- parsed in query part as quoting characters, 
+  overriding all other quoting characters
+
+- no other square brackets in path, remove last closing square bracket
+u http://xxx.xxx/xxx] u
+m 1111111111111111110 m
+
+- pairing square brackets in path: remove last closing unpaired square bracket
+u http://xxx.xxx/xxx[xxx]] u
+m 111111111111111111111110 m
+
+- pairing square brackets in path: remove last closing unpaired square bracket
+u http://xxx.xxx/xxx[[xxx]]] u 
+m 11111111111111111111111110 m
+
+- pairing square brackets in path: keep last closing paired square bracket
+u http://xxx.xxx/xxx[xxx] u
+m 11111111111111111111111 m
+
+- pairing square brackets in path: remove last closing unpaired square bracket
+u http://xxx.xxx/xxx[]xxx] u
+m 111111111111111111111110 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx]] u
+m 11111111111111111111 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx][xxx] u
+m 111111111111111111111111 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx][xxx]] u
+m 1111111111111111111111111 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx[[xxx] u
+m 111111111111111111111111 m
+
+- arbitrary square brackets in path: keep last closing square bracket
+u http://xxx.xxx/xxx][[xxx] u
+m 1111111111111111111111111 m
+
+- square brackets in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=[xxx]] u
+m 111111111111111111111111110 m
+
+- square brackets in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=[xxx][ u
+m 111111111111111111111111110 m
+
+- square brackets in query part: end after last closing quote of query part
+u )http://xxx.xxx/xxx?q=[xxx][ u
+m 0111111111111111111111111110 m
+
+- square brackets in query part: end after last closing quote of query part
+u http://xxx.xxx/xxx?q=[xxx]&[xxx][ u
+m 111111111111111111111111111111110 m
+
+========
+
+Curly brackets
+- forbidden in name and path, because of LaTeX
+- parsed in query part as quoting characters, 
+  overriding all other quoting characters
+
+u http://xxx.xxx/xxx{xxx}} u
+m 111111111111111111000000 m
+
+u http://xxx.xxx/xxx{xxx} u
+m 11111111111111111100000 m
+
+u http://xxx.xxx/xxx?q={xxx}} u
+m 111111111111111111111111110 m
+
+u http://xxx.xxx/xxx?q={xxx};{"[]()''`}} u
+m 11111111111111111111111111111111111110 m
+
+========
+
+Mail:
+
+u mailto:don.h@free.fr u
+m 11111111111111111111 m
+
+u <don.h@free.fr> u
+m 000000000000000 m
+
+u <mailto:don.h@free.fr> u
+m 0111111111111111111110 m
+
+u http:don.h@free.fr u
+m 000000000000000000 m
+
+
+
+FTP:
+
+u <ftp://ds.internic.net/rfc/rfc977.txt> u
+m 01111111111111111111111111111111111110 m
+
+u ftp://host:444/0a_gopher_selector%09%09some_gplus_stuff u
+m 1111111111111111111111111111111111111111111111111111111 m
+
+u ftp://host:abc/0a_gopher_selector%09%09some_gplus_stuff u
+m 0000000000000000000000000000000000000000000000000000000 m
+
+
+
+FILE:
+
+u file://Hello%20world.txt u
+m 111111111111111111111111 m
+
+u "file://Hello%20world.txt" u
+m 01111111111111111111111110 m
+
+u "file://Hello world.txt" u
+m 011111111111100000000000 m
+
+u file://127.0.0.1/c$/Tools\Npp%20Test%20Data/Test3/3812.pdf u
+m 1111111111111111111111111111111111111111111111111111111111 m

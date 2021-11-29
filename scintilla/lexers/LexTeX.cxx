@@ -1,6 +1,6 @@
 // Scintilla source code edit control
 
-// File: LexTeX.cxx - general context conformant tex coloring scheme
+// @file LexTeX.cxx - general context conformant tex coloring scheme
 // Author: Hans Hagen - PRAGMA ADE - Hasselt NL - www.pragma-ade.com
 // Version: September 28, 2003
 

@@ -1,41 +1,31 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
-// "derivative work" for the purpose of this license if it does any of the
-// following:
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stdio.h>
 #include <windows.h>
 #include "StaticDialog.h"
 #include "Common.h"
+#include "NppDarkMode.h"
 
 StaticDialog::~StaticDialog()
 {
 	if (isCreated())
 	{
 		// Prevent run_dlgProc from doing anything, since its virtual
-		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, NULL);
+		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, 0);
 		destroy();
 	}
 }
@@ -200,11 +190,16 @@ HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplat
 	// Duplicate Dlg Template resource
 	unsigned long sizeDlg = ::SizeofResource(_hInst, hDialogRC);
 	HGLOBAL hMyDlgTemplate = ::GlobalAlloc(GPTR, sizeDlg);
+	if (!hMyDlgTemplate) return nullptr;
+
 	*ppMyDlgTemplate = static_cast<DLGTEMPLATE *>(::GlobalLock(hMyDlgTemplate));
+	if (!*ppMyDlgTemplate) return nullptr;
 
 	::memcpy(*ppMyDlgTemplate, pDlgTemplate, sizeDlg);
 
-	DLGTEMPLATEEX *pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX *>(*ppMyDlgTemplate);
+	DLGTEMPLATEEX* pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX *>(*ppMyDlgTemplate);
+	if (!pMyDlgTemplateEx) return nullptr;
+
 	if (pMyDlgTemplateEx->signature == 0xFFFF)
 		pMyDlgTemplateEx->exStyle |= WS_EX_LAYOUTRTL;
 	else
@@ -233,6 +228,8 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 		return;
 	}
 
+	NppDarkMode::setDarkTitleBar(_hSelf);
+
 	// if the destination of message NPPM_MODELESSDIALOG is not its parent, then it's the grand-parent
 	::SendMessage(msgDestParent ? _hParent : (::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, reinterpret_cast<WPARAM>(_hSelf));
 }
@@ -243,6 +240,8 @@ INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, L
 	{
 		case WM_INITDIALOG:
 		{
+			NppDarkMode::setDarkTitleBar(hwnd);
+
 			StaticDialog *pStaticDlg = reinterpret_cast<StaticDialog *>(lParam);
 			pStaticDlg->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, static_cast<LONG_PTR>(lParam));
@@ -262,41 +261,3 @@ INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, L
 	}
 }
 
-void StaticDialog::alignWith(HWND handle, HWND handle2Align, PosAlign pos, POINT & point)
-{
-	RECT rc, rc2;
-	::GetWindowRect(handle, &rc);
-
-	point.x = rc.left;
-	point.y = rc.top;
-
-	switch (pos)
-	{
-		case PosAlign::left:
-		{
-			::GetWindowRect(handle2Align, &rc2);
-			point.x -= rc2.right - rc2.left;
-			break;
-		}
-		case PosAlign::right:
-		{
-			::GetWindowRect(handle, &rc2);
-			point.x += rc2.right - rc2.left;
-			break;
-		}
-		case PosAlign::top:
-		{
-			::GetWindowRect(handle2Align, &rc2);
-			point.y -= rc2.bottom - rc2.top;
-			break;
-		}
-		case PosAlign::bottom:
-		{
-			::GetWindowRect(handle, &rc2);
-			point.y += rc2.bottom - rc2.top;
-			break;
-		}
-	}
-
-	::ScreenToClient(_hSelf, &point);
-}

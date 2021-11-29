@@ -282,7 +282,6 @@
                     <Item id="47002" name="صفحه پروژه برنامه"/>
                     <Item id="47003" name="اسناد آنلاین"/>
 					<Item id="47004" name="انجمن برنامه"/>
-                    <Item id="47011" name="پشتیبانی زنده"/>
                     <Item id="47012" name="اطلاعات عیب یابی..."/>
                     <Item id="47005" name="دریافت افزونه ها..."/>
                     <Item id="47006" name="بروزرسانی برنامه"/>
@@ -690,7 +689,6 @@
                     <Item id="6413" name="دایرکتوری پیش فرض بازکردن/ذخیره"/>
                     <Item id="6414" name="پیگیری سند فعلی"/>
                     <Item id="6415" name="بخاطر سپردن آخرین دایرکتوری استفاده شده"/>
-                    <Item id="6430" name="از پنجره ذخیره سبک جدید استفاده کن (بدون ویژگی پسوند فایل)"/>
                     <Item id="6431" name="حین رها کردن پوشخ بجای اِجرای پوشه بعنوان فضای کاری،همه فایل های پوشه را باز کن"/>
                 </DefaultDir>
 
@@ -900,11 +898,11 @@
         <ClipboardHistory>
             <PanelTitle name="تاریخچه کلیپ برد"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="تعویض کننده سند"/>
             <ColumnName name="نام"/>
             <ColumnExt name="پسوند."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="پسوند."/>
             <ColumnVal name="مقدار"/>

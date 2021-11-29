@@ -1,29 +1,18 @@
 // This file is part of Notepad++ project
-// Copyright (C)2020 Don HO <don.h@free.fr>
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
-// "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
-// 1. Integrates source code from Notepad++.
-// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
-//    installer, such as those produced by InstallShield.
-// 3. Links to a library or executes a program that does any of the above.
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #include <memory>
@@ -173,7 +162,7 @@ void Shortcut::setName(const TCHAR * menuName, const TCHAR * shortcutName)
 	lstrcpyn(_menuName, menuName, nameLenMax);
 	TCHAR const * name = shortcutName ? shortcutName : menuName;
 	int i = 0, j = 0;
-	while (name[j] != 0 && i < nameLenMax)
+	while (name[j] != 0 && i < (nameLenMax-1))
 	{
 		if (name[j] != '&')
 		{
@@ -380,12 +369,14 @@ void Shortcut::updateConflictState(const bool endSession) const
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CONFLICT_STATIC), isConflict ? SW_SHOW : SW_HIDE);
 }
 
-INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
 {
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _canModifyName ? getMenuName() : getName());	//display the menu name, with ampersands, for macros
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
@@ -414,6 +405,55 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
 			goToCenter();
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_NAME_EDIT)
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -487,6 +527,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		default :
 			return FALSE;
 	}
+	return FALSE;
 }
 
 // return true if one of CommandShortcuts is deleted. Otherwise false.
@@ -507,10 +548,9 @@ void Accelerator::updateShortcuts()
 	size_t nbPluginCmd = pluginCommands.size();
 
 	delete [] _pAccelArray;
-	_pAccelArray = new ACCEL[nbMenu+nbMacro+nbUserCmd+nbPluginCmd];
+	_pAccelArray = new ACCEL[nbMenu + nbMacro+nbUserCmd + nbPluginCmd];
 	vector<ACCEL> incrFindAcc;
-
-	ACCEL *pSearchFindAccel = nullptr;
+	vector<ACCEL> findReplaceAcc;
 	int offset = 0;
 	size_t i = 0;
 	//no validation performed, it might be that invalid shortcuts are being used by default. Allows user to 'hack', might be a good thing
@@ -526,8 +566,9 @@ void Accelerator::updateShortcuts()
 			if (std::find(incrFindAccIds.begin(), incrFindAccIds.end(), shortcuts[i].getID()) != incrFindAccIds.end())
 				incrFindAcc.push_back(_pAccelArray[offset]);
 
-			if (shortcuts[i].getID() == IDM_SEARCH_FIND)
-				pSearchFindAccel = &_pAccelArray[offset];
+			if (shortcuts[i].getID() == IDM_SEARCH_FIND || shortcuts[i].getID() == IDM_SEARCH_REPLACE ||
+				shortcuts[i].getID() == IDM_SEARCH_FINDINFILES || shortcuts[i].getID() == IDM_SEARCH_MARK)
+				findReplaceAcc.push_back(_pAccelArray[offset]);
 
 			++offset;
 		}
@@ -593,11 +634,13 @@ void Accelerator::updateShortcuts()
 
 	if (_hFindAccTab)
 		::DestroyAcceleratorTable(_hFindAccTab);
-	if (pSearchFindAccel != nullptr)
+	size_t nbFindReplaceAcc = findReplaceAcc.size();
+	if (nbFindReplaceAcc)
 	{
-		ACCEL *tmpFindAccelArray = new ACCEL[1];
-		tmpFindAccelArray[0] = *pSearchFindAccel;
-		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, 1);
+		ACCEL* tmpFindAccelArray = new ACCEL[nbFindReplaceAcc];
+		for (size_t i = 0; i < nbFindReplaceAcc; ++i)
+			tmpFindAccelArray[i] = findReplaceAcc[i];
+		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, static_cast<int>(nbFindReplaceAcc));
 		delete[] tmpFindAccelArray;
 	}
 
@@ -812,6 +855,7 @@ bool recordedMacroStep::isMacroable() const
 		case SCI_SCROLLTOEND:
 		case SCI_SETVIRTUALSPACEOPTIONS:
 		case SCI_SETCARETLINEBACKALPHA:
+		case SCI_NEWLINE:
 		{
 			if (_macroType == mtUseLParameter)
 				return true;
@@ -819,9 +863,7 @@ bool recordedMacroStep::isMacroable() const
 				return false;
 		}
 
-		// Filter out all others like display changes. Also, newlines are redundant
-		// with char insert messages.
-		case SCI_NEWLINE:
+		// Filter out all others like display changes.
 		default:
 			return false;
 	}
@@ -1000,13 +1042,15 @@ void ScintillaKeyMap::updateListItem(int index)
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, index+1, 0);
 }
 
-INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
 {
 	
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _name);
 			_keyCombo = _keyCombos[0];
 
@@ -1030,6 +1074,46 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
 			goToCenter();
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_NAME_EDIT)
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -1133,8 +1217,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 		default :
 			return FALSE;
 	}
-
-	//return FALSE;
+	return FALSE;
 }
 
 CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)

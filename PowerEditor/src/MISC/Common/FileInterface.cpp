@@ -62,7 +62,7 @@ void Win32_IO_File::close()
 					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
 				}
 			}
-
+			/*
 			isOK = ::SetEndOfFile(_hFile);
 			if (!isOK)
 			{
@@ -79,6 +79,7 @@ void Win32_IO_File::close()
 					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
 				}
 			}
+			*/
 		}
 
 		::CloseHandle(_hFile);

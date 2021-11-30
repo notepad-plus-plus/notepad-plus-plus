@@ -1,0 +1,27 @@
+-- Create a file named by_ip/''ip_addess''.cap with all ip traffic of each ip host. (tshark only?)
+-- Dump files are created for both source and destination hosts
+function createDir (dirname)
+    -- this will print out an error if the directory already exists, but that's fine
+    os.execute("mkdir " .. dirname)
+end
+
+local dir = "by_ip"
+createDir(dir)
+
+-- create a table to hold the dumper objects/file handles
+local dumpers = {}
+
+local tap = Listener.new("ip")
+
+-- we will be called once for every IP Header.
+-- If there's more than one IP header in a given packet we'll dump the packet once per every header
+function tap.packet(pinfo,tvb,ip)
+    local ip_src, ip_dst = tostring(ip.ip_src), tostring(ip.ip_dst)
+    local src_dmp, dst_dmp
+end
+
+function tap.draw()
+    for ip_addr,dumper in pairs(dumpers) do
+             dumper:flush()
+    end
+end

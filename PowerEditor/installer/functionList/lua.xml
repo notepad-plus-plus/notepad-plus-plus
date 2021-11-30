@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copied from  https://github.com/notepad-plus-plus/notepad-plus-plus/issues/4563 -->
+<NotepadPlus>
+	<functionList>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			|   Based on:
+			|       http://stackoverflow.com/questions/19246077/how-to-add-lua-functions-to-the-notepad-functionlist-xml
+			|
+			|   Note(s):
+			|   1)  Multi Line Comment `Level` is supported by Lua 5.1 and above;
+			|   2)  Nested table view not supported;
+			\-->
+			<parser
+				displayName="Lua w/ Class"
+				id         ="lua_syntax"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?s:                                                # Multi Line Comment (MLC)
+								(?&lt;!-)                                       # - no preceeding dash, otherwise start of SLC
+								-{2}\x5B(?'MLCLvl'=*)\x5B.*?\x5D\k'MLCLvl'\x5D
+							)
+						|	(?m-s:-{2}(?!\x5B=*\x5B).*$)                        # Single Line Comment (SLC)
+						|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)                 # String Literal - Double Quoted (SLDQ) / Normal String
+						|	(?s:                                                # String Literal - Multi Line    (SLML) / Long   String
+								(?&lt;!-{2})                                    # - no preceeding double dash, otherwise start of MLC or SLC
+								\x5B(?'SLMLLvl'=*)\x5B(?:[^\x5C\x5D]|\x5C.)*\x5D\k'SLMLLvl'\x5D
+							)
+						|	(?s:\x27(?:[^\x27\x5C]|\x5C.)*\x27)                 # String Literal - Single Quoted (SLSQ) / Char   String
+					"
+			>
+				<classRange
+					mainExpr    ="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							[.\w]+
+							\s*=
+							\s*\{
+						"
+					openSymbole ="\{"
+					closeSymbole="\}"
+				>
+					<className>
+						<nameExpr expr="[.\w]+" />
+					</className>
+					<function
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+								[.\w]+
+								\s*=
+								\s*(?'QT'[\x22\x27]?)\w+\k'QT'
+							"
+					>
+						<functionName>
+							<funcNameExpr expr=".*" />
+						</functionName>
+					</function>
+				</classRange>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-i)                                              # ^ and $ match at line-breaks, case-sensitive
+							(?(DEFINE)                                          # definition of sub-routine(s)
+								(?'VALID_ID'                                    # Valid Identifier sub-routine
+									\b(?!(?-i:                                  # - keywords (case-sensitive), not to be used as identifier
+										and
+									|	break
+									|	do
+									|	e(?:lse(?:if)?|nd)
+									|	f(?:alse|or|unction)
+									|	goto
+									|	i[fn]
+									|	local
+									|	n(?:il|ot)
+									|	or
+									|	re(?:peat|turn)
+									|	t(?:hen|rue)
+									|	until
+									|	while
+									)\b)
+									[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*            # - valid character combination for identifiers
+								)
+							)
+							(?m)                                                # ^ and $ match at line-breaks
+							(?:
+								^\h*                                            # optional leading white-space at start-of-line
+								(?:local\s+)?
+								function\s+
+								\K                                              # discard text matched so far
+								(?&amp;VALID_ID)
+								(?:\s*\.\s*(?&amp;VALID_ID))*
+								(?:\s*:\s*(?&amp;VALID_ID))?
+							|
+								(?&amp;VALID_ID)
+								(?:\s*\.\s*(?&amp;VALID_ID))*
+								\s*=
+								\s*function
+							)
+							\s*\(                                               # start-of-parameter-list indicator
+							[^)]*                                               # optional parameters
+							\)                                                  # end-of-parameter-list indicator
+						"
+				>
+					<functionName>
+						<nameExpr expr="[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*(?=\s*[(=])" />
+					</functionName>
+					<className>
+						<nameExpr expr="[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*(?:\s*\.\s*[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)*(?=\s*[.:])" />
+					</className>
+				</function>
+			</parser>
+	</functionList>
+</NotepadPlus>

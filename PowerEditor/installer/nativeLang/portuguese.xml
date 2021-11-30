@@ -318,7 +318,8 @@ The comments are here for explanation, it's not necessary to translate them.
 
                     <Item id="46001" name="Configurador do Estilo..."/>
                     <Item id="46250" name="Defina o seu idioma..."/>
-                    <Item id="46300" name="Abrir pasta de Idioma Definido Pelo Utilizador..."/>
+                    <Item id="46300" name="Abrir pasta de idioma definido pelo utilizador..."/>
+                    <Item id="46301" name="Coleção de idiomas definido pelo utilizador do Notepad++"/>
                     <Item id="46180" name="Definida pelo Utilizador"/>
                     <Item id="47000" name="Acerca do Notepad++..."/>
                     <Item id="47010" name="Argumentos da linha de Comando..."/>
@@ -683,6 +684,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25026" name="Operador 1"/>
                     <Item id="25027" name="Operador 2"/>
                     <Item id="25028" name="Números"/>
+                    <Item id="25033" name="Transparente"/>
+                    <Item id="25034" name="Transparente"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Cancelar"/>
                 </StylerDialog>
@@ -1508,7 +1511,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-22/11/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2, 8.1.3, 8.1.4, 8.1.5, 8.1.6, 8.1.7, 8.1.8, 8.1.9, 8.1.9.1, 8.1.9.2)
+30/11/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2, 8.1.3, 8.1.4, 8.1.5, 8.1.6, 8.1.7, 8.1.8, 8.1.9, 8.1.9.1, 8.1.9.2)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

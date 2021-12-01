@@ -315,6 +315,7 @@ void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 void DocumentMap::redraw(bool) const
 {
 	_pMapView->execute(SCI_COLOURISE, 0, -1);
+	DockingDlgInterface::redraw(true);
 }
 
 INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

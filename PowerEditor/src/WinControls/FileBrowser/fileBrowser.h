@@ -114,7 +114,7 @@ struct SortingData4lParam {
 
 	SortingData4lParam(generic_string rootPath, generic_string label, bool isFolder) : _rootPath(rootPath), _label(label), _isFolder(isFolder) {}
 };
-;
+
 
 class FileBrowser : public DockingDlgInterface {
 public:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.5">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -314,8 +314,9 @@
                     <Item id="10004" name="在新執行個體開啟"/>
 
                     <Item id="46001" name="語法樣式配置器..."/>
-                    <Item id="46250" name="定義你的語法樣式..."/>
+                    <Item id="46250" name="定義您的語法樣式..."/>
                     <Item id="46300" name="開啟自訂語法樣式資料夾..."/>
+                    <Item id="46301" name="Notepad++ 使用者自訂語言集"/>
                     <Item id="46180" name="自訂"/>
                     <Item id="47000" name="關於 Notepad++"/>
                     <Item id="47010" name="命令列參數..."/>
@@ -430,7 +431,7 @@
             <IncrementalFind title="">
                 <Item id="1681" name="搜尋："/>
                 <Item id="1685" name="區分大小寫"/>
-                <Item id="1690" name="醒目提示所有"/>
+                <Item id="1690" name="所有醒目提示"/>
             </IncrementalFind>
 			<FindCharsInRange title="以字元編號搜尋字元">
                 <Item id="2"    name="關閉"/>
@@ -684,6 +685,8 @@
                     <Item id="25026" name="運算元 1"/>
                     <Item id="25027" name="運算元 2"/>
                     <Item id="25028" name="數字"/>
+                    <Item id="25033" name="透明度"/>
+                    <Item id="25034" name="透明度"/>
                     <Item id="1"     name="確定"/>
                     <Item id="2"     name="取消"/>
                 </StylerDialog>
@@ -1047,11 +1050,9 @@
                     <Item id="6153" name="允許多重實體"/>
                     <Item id="6154" name="禁止多重實體（預設）"/>
                     <Item id="6155" name="（重新啟動 Notepad++ 以使變更生效。）"/>
-                    <Item id="6171" name="插入日期時間自訂"/>
-                    <Item id="6175" name="顛倒日期時間內定順序（簡短與完整格式）"/>
+                    <Item id="6171" name="自訂插入日期時間"/>
+                    <Item id="6175" name="反轉默認日期時間順序（簡短與完整格式）"/>
                     <Item id="6172" name="自訂格式："/>
-					
-					
                 </MultiInstance>
 
                 <Delimiter title="分隔字元">
@@ -1157,18 +1158,18 @@
                 <Item id="1720" name="「.」包含換行字元"/>
             </FindInFinder>
             <DoSaveOrNot title="儲存檔案"> 
-                <Item id="1761" name="你要儲存「$STR_REPLACE$」嗎？"/>
-                <Item id="6" name="好吧(&amp;Y)"/>
-                <Item id="7" name="不要啦(&amp;N)"/>
+                <Item id="1761" name="您要儲存「$STR_REPLACE$」嗎？"/>
+                <Item id="6" name="是(&amp;Y)"/>
+                <Item id="7" name="否(&amp;N)"/>
                 <Item id="2" name="取消(&amp;C)"/>
-                <Item id="4" name="全部存檔(&amp;A)"/>
+                <Item id="4" name="全部儲存(&amp;A)"/>
                 <Item id="5" name="全部棄存(&amp;O)"/>
             </DoSaveOrNot>
             <DoSaveAll title="確認全部儲存"> 
-                <Item id="1766" name="你確定要儲存所有尚未儲存的檔案嗎？
+                <Item id="1766" name="您確定要儲存所有尚未儲存的檔案嗎？
 
-選擇「始終確定」如果你的回答永遠是「確定」 你不會再被問到這個問題。
-你可以稍後在「偏好設定」中重新開啟此對話框。"/>
+選擇「始終確定」如果您的回答永遠是「確定」 您不會再被問到這個問題。
+您可以稍後在「偏好設定」中重新開啟此對話框。"/>
                 <Item id="6" name="確定(&amp;Y)"/>
                 <Item id="7" name="不要(&amp;N)"/>
                 <Item id="4" name="始終確定"/>
@@ -1177,70 +1178,70 @@
         <MessageBox>
             <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 之快顯功能表。
 請於修改後重新啟動 Notepad++ 以使變更生效。"/>
-            <SaveCurrentModifWarning title="警告" message="你必須儲存目前的修改，而儲存後將無法復原。
-你確定要繼續嗎？"/>
-            <LoseUndoAbilityWarning title="警告" message="你必須儲存目前的修改，而儲存後將無法復原。
-你確定要繼續嗎？"/>
+            <SaveCurrentModifWarning title="警告" message="您必須儲存目前的修改，而儲存後將無法復原。
+您確定要繼續嗎？"/>
+            <LoseUndoAbilityWarning title="警告" message="您必須儲存目前的修改，而儲存後將無法復原。
+您確定要繼續嗎？"/>
             <CannotMoveDoc title="移至新的 Notepad++ 實體" message="文件已被修改，請在儲存後再試一次。"/>
-            <DocReloadWarning title="重新載入" message="你確定要重新載入目前文件，並捨棄在 Notepad++ 中所做的修改嗎？"/>
+            <DocReloadWarning title="重新載入" message="您確定要重新載入目前文件，並捨棄在 Notepad++ 中所做的修改嗎？"/>
             <FileLockedWarning title="儲存失敗" message="請檢查其他應用程式是否已開啟此檔案。"/>
             <FileAlreadyOpenedInNpp title="已開啟" message="這個檔案已在 Notepad++ 中開啟。"/>
             <DeleteFileFailed title="刪除失敗" message="檔案刪除失敗。"/>
-            <NbFileToOpenImportantWarning title="開啟檔案" message="你確定要開啟全數 $INT_REPLACE$ 個檔案嗎？"/>
-            <SettingsOnCloudError title="雲端設定" message="設定的雲端路徑位於一個唯讀的磁碟或未擁有寫入權限的資料夾，因此你的「雲端」設定將被清除。
+            <NbFileToOpenImportantWarning title="開啟檔案" message="您確定要開啟全數 $INT_REPLACE$ 個檔案嗎？"/>
+            <SettingsOnCloudError title="雲端設定" message="設定的雲端路徑位於一個唯讀的磁碟或未擁有寫入權限的資料夾，因此您的「雲端」設定將被清除。
 請在「偏好設定」中重新設定。"/>
-            <FilePathNotFoundWarning title="開啟檔案" message="你試圖開啟的文件不存在。"/>
+            <FilePathNotFoundWarning title="開啟檔案" message="您試圖開啟的文件不存在。"/>
             <SessionFileInvalidError title="無法開啟工作階段" message="工作階段檔案無效或已被損毀。"/>
-            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於你在「偏好設定」「預設資料夾」中關閉了「拖放資料夾時開啟資料夾中所有文件，而不啟動資料夾工作區」的選項，你只能拖放文件或資料夾的其中之一。
+            <DroppingFolderAsProjectModeWarning title="操作無效" message="由於您在「偏好設定」「預設資料夾」中關閉了「拖放資料夾時開啟資料夾中所有文件，而不啟動資料夾工作區」的選項，您只能拖放文件或資料夾的其中之一。
 請啟用此選項，然後再試一次。"/>
             <SortingError title="排序錯誤" message="第 $INT_REPLACE$ 行無法執行數字排序。"/>
             <ColumnModeTip title="多欄選取提示" message="請使用「ALT + 滑鼠選擇」或「Alt + Shift + 方向鍵」以切換到多欄選取。"/>
             <BufferInvalidWarning title="儲存失敗" message="緩衝區無效。"/>
             <DoCloseOrNot title="保留文件" message="檔案「$STR_REPLACE$」已不存在。
-你要在 Notepad++ 中保留這個文件嗎？"/>
-            <DoDeleteOrNot title="刪除檔案" message="你確定要刪除並關閉「$STR_REPLACE$」嗎？"/>
-            <NoBackupDoSaveFile title="儲存" message="你的備份文件已從外部刪除。
-請儲存「$STR_REPLACE$」，否則你的數據將會遺失。
-你要儲存嗎？"/>
+您要在 Notepad++ 中保留這個文件嗎？"/>
+            <DoDeleteOrNot title="刪除檔案" message="您確定要刪除並關閉「$STR_REPLACE$」嗎？"/>
+            <NoBackupDoSaveFile title="儲存" message="您的備份文件已從外部刪除。
+請儲存「$STR_REPLACE$」，否則您的數據將會遺失。
+您要儲存嗎？"/>
             <DoReloadOrNot title="重新載入" message="「$STR_REPLACE$」已被其他程式修改。
-你要重新載入此文件嗎？"/>
+您要重新載入此文件嗎？"/>
             <DoReloadOrNotAndLooseChange title="重新載入" message="「$STR_REPLACE$」已被其他程式修改。
-你要重新載入並捨棄在 Notepad++ 中所做的修改嗎？"/>
+您要重新載入並捨棄在 Notepad++ 中所做的修改嗎？"/>
             <PrehistoricSystemDetected title="系統過舊" message="很抱歉，此功能不適用於過舊的系統。"/>
             <XpUpdaterProblem title="Notepad++ 更新程式" message="由於 XP 的安全機制過舊，更新程式與 XP 並不兼容。
-你要直接到 Notepad++ 網站下載最新版本嗎？"/>
+您要直接到 Notepad++ 網站下載最新版本嗎？"/>
             <GUpProxyConfNeedAdminMode title="代理伺服器設定" message="請關閉 Notepad++，並在系統管理員模式下重新啟動 Notepad++ 以設定代理伺服器。"/>
             <DocTooDirtyToMonitor title="監控錯誤" message="文件已被修改，請在監視前儲存文件。"/>
             <DocNoExistToMonitor title="監控錯誤" message="文件不存在，因此無法進行監視。"/>
             <FileTooBigToOpen title="文件太大" message="文件太大，無法使用 Notepad++ 開啟。"/>
-            <CreateNewFileOrNot title="開新檔案" message="「$STR_REPLACE$」不存在。你要開新檔案嗎？"/>
+            <CreateNewFileOrNot title="開新檔案" message="「$STR_REPLACE$」不存在。您要開新檔案嗎？"/>
             <CreateNewFileError title="開新檔案" message="無法開新檔案「$STR_REPLACE$」。"/>
             <OpenFileError title="錯誤" message="無法開啟「$STR_REPLACE$」"/>
-            <FileBackupFailed title="文件備份失敗" message="檔案的過往版本無法儲存到「$STR_REPLACE$」的備份資料夾中。你要儲存此文件嗎？"/>
+            <FileBackupFailed title="文件備份失敗" message="檔案的過往版本無法儲存到「$STR_REPLACE$」的備份資料夾中。您要儲存此文件嗎？"/>
             <LoadStylersFailed title="載入失敗" message="載入「$STR_REPLACE$」失敗。"/>
             <LoadLangsFailed title="載入失敗" message="載入 langs.xml 失敗。
-你要回復它嗎？"/>
+您要回復它嗎？"/>
             <LoadLangsFailedFinal title="載入失敗" message="載入 langs.xml 失敗。"/>
-            <FolderAsWorspaceSubfolderExists title="加入錯誤" message="工作區內的其中一個資料夾已包含你要添加的資料夾。
-你必須從資料夾工作區中刪除該資料夾，才可添加「$STR_REPLACE$」。"/>
+            <FolderAsWorspaceSubfolderExists title="加入錯誤" message="工作區內的其中一個資料夾已包含您要添加的資料夾。
+您必須從資料夾工作區中刪除該資料夾，才可添加「$STR_REPLACE$」。"/>
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="工作區已被修改。你要儲存它嗎？"/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="工作區已被修改。您要儲存它嗎？"/>
             <ProjectPanelSaveError title="$STR_REPLACE$" message="寫入工作區文件時發生錯誤。工作區儲存失敗。"/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="開啟工作區" message="目前的工作區已被修改。你要儲存目前的專案嗎？"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="目前的工作區已被修改。你要儲存目前的專案嗎？"/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="開啟工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="目前的工作區已被修改。您要儲存目前的專案嗎？"/>
             <ProjectPanelOpenFailed title="無法開啟工作區" message="工作區檔案無效或已被損毀。"/>
-            <ProjectPanelRemoveFolderFromProject title="從專案中刪除資料夾" message="此資料夾下的所有子資料夾亦將被刪除。你確定要從專案中刪除此資料夾嗎？"/>
-            <ProjectPanelRemoveFileFromProject title="從專案中刪除文件" message="你確定要從專案中刪除此文件嗎？"/>
+            <ProjectPanelRemoveFolderFromProject title="從專案中刪除資料夾" message="此資料夾下的所有子資料夾亦將被刪除。您確定要從專案中刪除此資料夾嗎？"/>
+            <ProjectPanelRemoveFileFromProject title="從專案中刪除文件" message="您確定要從專案中刪除此文件嗎？"/>
             <ProjectPanelReloadError title="重新載入工作區" message="找不到要重新載入的檔案。"/>
-            <ProjectPanelReloadDirty title="重新載入工作區" message="目前的工作區已被修改。你要重新載入並捨棄所做的修改嗎？"/>
+            <ProjectPanelReloadDirty title="重新載入工作區" message="目前的工作區已被修改。您要重新載入並捨棄所做的修改嗎？"/>
             <UDLNewNameError title="自訂程式語言錯誤" message="此名稱已被另一個程式語言使用。請重新命名。"/>
-            <UDLRemoveCurrentLang title="刪除語言" message="你確定要刪除目前的自訂程式語言嗎？"/>
-            <SCMapperDoDeleteOrNot title="刪除快捷鍵" message="你確定要刪除這個快捷鍵嗎？"/>
-            <FindCharRangeValueError title="輸入值範圍錯誤" message="你輸入的值應在 0 到 255 之間。如要搜尋字元編號大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
+            <UDLRemoveCurrentLang title="刪除語言" message="您確定要刪除目前的自訂程式語言嗎？"/>
+            <SCMapperDoDeleteOrNot title="刪除快捷鍵" message="您確定要刪除這個快捷鍵嗎？"/>
+            <FindCharRangeValueError title="輸入值範圍錯誤" message="您輸入的值應在 0 到 255 之間。如要搜尋字元編號大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
             <ExitToUpdatePlugins title="關閉 Notepad++" message="Notepad++ 將自動關閉以進行後續作業。
 在所有後續作業完成後，Notepad++ 將重新啟動。
 繼續嗎？"/>
-            <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
+            <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="您必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
@@ -1338,11 +1339,11 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value="這允許你在目前單字字元集中附加字元，當滑鼠雙擊以進行選擇或以「僅符合整個單字」選項進行搜尋。"/>
+            <word-chars-list-tip value="這允許您在目前單字字元集中附加字元，當滑鼠雙擊以進行選擇或以「僅符合整個單字」選項進行搜尋。"/>
             <word-chars-list-warning-begin value="警告："/>
             <word-chars-list-space-warning value="$INT_REPLACE$ 個空格"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ 個 TAB"/>
-            <word-chars-list-warning-end value=" 在你的單字字元集中。"/>
+            <word-chars-list-warning-end value=" 在您的單字字元集中。"/>
             <cloud-invalid-warning value="無效的路徑。"/>
             <cloud-restart-warning value="請重新啟動 Notepad++ 以使變更生效。"/>
             <cloud-select-folder value="選擇一個資料夾，以便 Notepad++ 從中讀取/寫入其設定。"/>
@@ -1392,8 +1393,8 @@
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部開啟"/>
             <finder-wrap-long-lines value="自動換行"/>
-            <common-ok value="OK啦"/>
-            <common-cancel value="取消啦"/>
+            <common-ok value="確定"/>
+            <common-cancel value="取消"/>
             <common-name value="名稱："/>
             <tabrename-title value="重新命名現有頁籤"/>
             <tabrename-newname value="新的名稱："/>
@@ -1426,7 +1427,7 @@
             <replace-in-projects-confirm-title value="確認"/>
             <replace-in-projects-confirm-message value="是否要替換所選專案項目中所有文檔中的所有匹配項？"/>
             <replace-in-open-docs-confirm-title value="替換確認"/>
-            <replace-in-open-docs-confirm-message value="你確定要替換所有打開的文檔中的所有匹配項嗎？"/>
+            <replace-in-open-docs-confirm-message value="您確定要替換所有打開的文檔中的所有匹配項嗎？"/>
             <find-result-caption value="搜尋結果"/>
             <find-result-title value="搜尋"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="（找到 $INT_REPLACE1$ 個結果在 $INT_REPLACE2$ 的文件中。搜尋文件量： $INT_REPLACE3$）"/>

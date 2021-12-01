@@ -62,24 +62,6 @@ void Win32_IO_File::close()
 					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
 				}
 			}
-			/*
-			isOK = ::SetEndOfFile(_hFile);
-			if (!isOK)
-			{
-				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
-				{
-					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
-					nppLogNetworkDriveIssueLog += TEXT(".log");
-
-					std::string msg = _path;
-					msg += "  SetEndOfFile call failed: ";
-					generic_string lastErrorMsg = GetLastErrorAsString(::GetLastError());
-					msg += std::string(lastErrorMsg.begin(), lastErrorMsg.end());
-					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
-				}
-			}
-			*/
 		}
 
 		::CloseHandle(_hFile);

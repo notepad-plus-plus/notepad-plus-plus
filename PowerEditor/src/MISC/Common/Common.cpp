@@ -550,7 +550,7 @@ generic_string uintToString(unsigned int val)
 		val /= 10;
 	}
 
-	return generic_string(vt.rbegin(), vt.rend());
+	return generic_string(&vt[0]);
 }
 
 // Build Recent File menu entries from given

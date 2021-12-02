@@ -17,6 +17,8 @@
 #include <deque>
 #include <algorithm>
 #include <time.h>
+#include <locale>
+#include <codecvt>
 #include <sys/stat.h>
 #include "Buffer.h"
 #include "Scintilla.h"
@@ -154,8 +156,8 @@ void Buffer::updateTimeStamp()
 				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
 				nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
 				nppLogNetworkDriveIssueLog += TEXT(".log");
-
-				std::string msg = std::string(_fullPathName.begin(), _fullPathName.end());
+				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+				std::string msg = converter.to_bytes(_fullPathName);
 				char buf[1024];
 				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%u/%u) < _timeStamp (%u/%u)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 				msg += buf;
@@ -302,8 +304,8 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
 					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
 					nppLogNetworkDriveIssueLog += TEXT(".log");
-
-					std::string msg = std::string(_fullPathName.begin(), _fullPathName.end());
+					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+					std::string msg = converter.to_bytes(_fullPathName);
 					char buf[1024];
 					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%u/%u) < _timeStamp (%u/%u)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 					msg += buf;

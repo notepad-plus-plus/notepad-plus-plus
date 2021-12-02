@@ -20,7 +20,6 @@
 #include <cassert>
 #include <codecvt>
 #include <locale>
-
 #include "StaticDialog.h"
 #include "CustomFileDialog.h"
 
@@ -139,7 +138,8 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 		SYSTEMTIME currentTime = { 0 };
 		::GetLocalTime(&currentTime);
 		generic_string dateTimeStrW = getDateTimeStrFrom(TEXT("yyyy-MM-dd HH:mm:ss"), currentTime);
-		std::string log2writeStr(dateTimeStrW.begin(), dateTimeStrW.end());
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		std::string log2writeStr = converter.to_bytes(dateTimeStrW);
 		log2writeStr += "  ";
 		log2writeStr += log2write;
 		log2writeStr += "\n";
@@ -534,7 +534,7 @@ generic_string intToString(int val)
 	if (isNegative)
 		vt.push_back('-');
 
-	return generic_string(vt.rbegin(), vt.rend());
+	return generic_string(&vt[0]);
 }
 
 

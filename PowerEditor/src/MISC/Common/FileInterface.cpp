@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
+#include <locale>
+#include <codecvt>
 #include "FileInterface.h"
 #include "Parameters.h"
-
 
 Win32_IO_File::Win32_IO_File(const char *fname)
 {
@@ -33,12 +33,12 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 {
 	if (fname)
 	{
-		generic_string fn = fname;
-		_path = std::string(fn.begin(), fn.end());
+		std::wstring fn = fname;
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		_path = converter.to_bytes(fn);
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
 	}
 }
-
 
 void Win32_IO_File::close()
 {
@@ -57,8 +57,9 @@ void Win32_IO_File::close()
 
 					std::string msg = _path;
 					msg += "  FlushFileBuffers call failed: ";
-					generic_string lastErrorMsg = GetLastErrorAsString(::GetLastError());
-					msg += std::string(lastErrorMsg.begin(), lastErrorMsg.end());
+					std::wstring lastErrorMsg = GetLastErrorAsString(::GetLastError());
+					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+					msg += converter.to_bytes(lastErrorMsg);
 					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
 				}
 			}

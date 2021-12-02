@@ -534,9 +534,8 @@ generic_string intToString(int val)
 	if (isNegative)
 		vt.push_back('-');
 
-	return generic_string(&vt[0]);
+	return generic_string(vt.rbegin(), vt.rend());
 }
-
 
 generic_string uintToString(unsigned int val)
 {
@@ -550,7 +549,7 @@ generic_string uintToString(unsigned int val)
 		val /= 10;
 	}
 
-	return generic_string(&vt[0]);
+	return generic_string(vt.rbegin(), vt.rend());
 }
 
 // Build Recent File menu entries from given

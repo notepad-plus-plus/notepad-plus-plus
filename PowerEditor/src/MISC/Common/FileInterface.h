@@ -43,7 +43,8 @@ public:
 
 	void close();
 	//int_fast64_t getSize();
-	unsigned long read(void *rbuf, unsigned long buf_size);
+	//unsigned long read(void *rbuf, unsigned long buf_size);
+
 	bool write(const void *wbuf, unsigned long buf_size);
 
 	bool writeStr(const std::string& str) {

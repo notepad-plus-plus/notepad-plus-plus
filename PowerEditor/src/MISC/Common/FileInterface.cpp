@@ -37,6 +37,18 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 		_path = converter.to_bytes(fn);
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
+
+
+		if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+		{
+			generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+			nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
+			nppLogNetworkDriveIssueLog += TEXT(".log");
+
+			std::string msg = _path;
+			msg += " is opened.";
+			writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+		}
 	}
 }
 
@@ -46,28 +58,23 @@ void Win32_IO_File::close()
 	{
 		if (_written)
 		{
-			BOOL isOK = ::FlushFileBuffers(_hFile);
-			if (!isOK)
-			{
-				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
-				{
-					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
-					nppLogNetworkDriveIssueLog += TEXT(".log");
-
-					std::string msg = _path;
-					msg += "  FlushFileBuffers call failed: ";
-					std::wstring lastErrorMsg = GetLastErrorAsString(::GetLastError());
-					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-					msg += converter.to_bytes(lastErrorMsg);
-					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
-				}
-			}
+			::FlushFileBuffers(_hFile);
 		}
-
 		::CloseHandle(_hFile);
 
 		_hFile = INVALID_HANDLE_VALUE;
+
+
+		if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+		{
+			generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+			nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
+			nppLogNetworkDriveIssueLog += TEXT(".log");
+
+			std::string msg = _path;
+			msg += " is closed.";
+			writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+		}
 	}
 }
 
@@ -82,7 +89,6 @@ int_fast64_t Win32_IO_File::getSize()
 
 	return static_cast<int_fast64_t>(r.QuadPart);
 }
-*/
 
 unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 {
@@ -96,6 +102,7 @@ unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 
 	return bytes_read;
 }
+*/
 
 bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 {
@@ -105,7 +112,40 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 	DWORD bytes_written = 0;
 
 	if (::WriteFile(_hFile, wbuf, buf_size, &bytes_written, NULL) == FALSE)
+	{
+		if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+		{
+			generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+			nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
+			nppLogNetworkDriveIssueLog += TEXT(".log");
+
+			std::string msg = _path;
+			msg += " written failed: ";
+			std::wstring lastErrorMsg = GetLastErrorAsString(::GetLastError());
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			msg += converter.to_bytes(lastErrorMsg);
+			writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+		}
+
 		return false;
+	}
+	else
+	{
+		if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+		{
+			generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+			nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
+			nppLogNetworkDriveIssueLog += TEXT(".log");
+
+			std::string msg = _path;
+			msg += "  ";
+			msg += std::to_string(bytes_written);
+			msg += "/";
+			msg += std::to_string(buf_size);
+			msg += " bytes are written.";
+			writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+		}
+	}
 
 	if (!_written)
 		_written = true;

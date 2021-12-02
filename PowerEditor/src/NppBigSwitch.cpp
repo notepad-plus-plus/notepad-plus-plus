@@ -112,6 +112,16 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 						SWP_FRAMECHANGED);
 				}
 
+
+				if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+				{
+					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+					nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
+					nppLogNetworkDriveIssueLog += TEXT(".log");
+
+					writeLog(nppLogNetworkDriveIssueLog.c_str(), "WM_CREATE ===========================================");
+				}
+
 				return lRet;
 			}
 			catch (std::exception& ex)
@@ -1915,6 +1925,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{
+			if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+			{
+				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+				nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
+				nppLogNetworkDriveIssueLog += TEXT(".log");
+
+				writeLog(nppLogNetworkDriveIssueLog.c_str(), message == WM_CLOSE ? "WM_CLOSE" : "WM_QUERYENDSESSION");
+			}
+
 			if (_pPublicInterface->isPrelaunch())
 			{
 				SendMessage(hwnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
@@ -2046,6 +2065,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ENDSESSION:
 		{
+			if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+			{
+				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+				nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
+				nppLogNetworkDriveIssueLog += TEXT(".log");
+
+				writeLog(nppLogNetworkDriveIssueLog.c_str(), "WM_ENDSESSION");
+			}
+
 			if (wParam == TRUE)
 			{
 				::DestroyWindow(hwnd);
@@ -2059,6 +2087,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_DESTROY:
 		{
+			if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+			{
+				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
+				nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
+				nppLogNetworkDriveIssueLog += TEXT(".log");
+
+				writeLog(nppLogNetworkDriveIssueLog.c_str(), "WM_DESTROY");
+			}
+
 			killAllChildren();
 			::PostQuitMessage(0);
 			_pPublicInterface->gNppHWND = NULL;

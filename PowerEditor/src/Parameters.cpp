@@ -1460,19 +1460,33 @@ bool NppParameters::load()
 	}
 
 
-	generic_string nppLogNetworkDriveIssueFilePath(_nppPath);
-	generic_string nppLogNetworkDriveIssueFile = nppLogNetworkDriveIssue;
-	nppLogNetworkDriveIssueFile += TEXT(".xml");
-	PathAppend(nppLogNetworkDriveIssueFilePath, nppLogNetworkDriveIssueFile);
-	bool doNppLogNetworkDriveIssue = (PathFileExists(nppLogNetworkDriveIssueFilePath.c_str()) == TRUE);
-	if (!doNppLogNetworkDriveIssue)
+	generic_string filePath, filePath2, issueFileName;
+
+	filePath = _nppPath;
+	issueFileName = nppLogNetworkDriveIssue;
+	issueFileName += TEXT(".xml");
+	PathAppend(filePath, issueFileName);
+	_doNppLogNetworkDriveIssue = (PathFileExists(filePath.c_str()) == TRUE);
+	if (!_doNppLogNetworkDriveIssue)
 	{
-		generic_string nppLogNetworkDriveIssueFilePath2(_userPath);
-		PathAppend(nppLogNetworkDriveIssueFilePath2, nppLogNetworkDriveIssueFile);
-		doNppLogNetworkDriveIssue = (PathFileExists(nppLogNetworkDriveIssueFilePath2.c_str()) == TRUE);
+		filePath2 = _userPath;
+		PathAppend(filePath2, issueFileName);
+		_doNppLogNetworkDriveIssue = (PathFileExists(filePath2.c_str()) == TRUE);
 	}
 
-	_doNppLogNetworkDriveIssue = doNppLogNetworkDriveIssue;
+	filePath = _nppPath;
+	issueFileName = nppLogNulContentCorruptionIssue;
+	issueFileName += TEXT(".xml");
+	PathAppend(filePath, issueFileName);
+	_doNppLogNulContentCorruptionIssue = (PathFileExists(filePath.c_str()) == TRUE);
+	if (!_doNppLogNulContentCorruptionIssue)
+	{
+		filePath2 = _userPath;
+		PathAppend(filePath2, issueFileName);
+		_doNppLogNulContentCorruptionIssue = (PathFileExists(filePath2.c_str()) == TRUE);
+	}
+
+
 
 
 	return isAllLaoded;

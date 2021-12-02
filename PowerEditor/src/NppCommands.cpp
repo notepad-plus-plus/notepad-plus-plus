@@ -3230,10 +3230,10 @@ void Notepad_plus::command(int id)
 			else
 			{
 				generic_string updaterDir = (NppParameters::getInstance()).getNppPath();
-				PathAppend(updaterDir, TEXT("updater"));
+				pathAppend(updaterDir, TEXT("updater"));
 
 				generic_string updaterFullPath = updaterDir;
-				PathAppend(updaterFullPath, TEXT("gup.exe"));
+				pathAppend(updaterFullPath, TEXT("gup.exe"));
 
 
 #ifdef DEBUG // if not debug, then it's release

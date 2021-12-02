@@ -17,6 +17,8 @@
 #include <deque>
 #include <algorithm>
 #include <time.h>
+#include <locale>
+#include <codecvt>
 #include <sys/stat.h>
 #include "Buffer.h"
 #include "Scintilla.h"
@@ -26,6 +28,7 @@
 #include "EncodingMapper.h"
 #include "uchardet.h"
 #include "FileInterface.h"
+
 
 static const int blockSize = 128 * 1024 + 4;
 static const int CR = 0x0D;
@@ -149,17 +152,20 @@ void Buffer::updateTimeStamp()
 	{
 		if (res == 1)
 		{
-			if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
+			NppParameters& nppParam = NppParameters::getInstance();
+			if (nppParam.doNppLogNetworkDriveIssue())
 			{
-				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-				nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
-				nppLogNetworkDriveIssueLog += TEXT(".log");
+				generic_string issueFn = nppLogNetworkDriveIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
 
-				std::string msg = std::string(_fullPathName.begin(), _fullPathName.end());
+				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+				std::string msg = converter.to_bytes(_fullPathName);
 				char buf[1024];
 				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%u/%u) < _timeStamp (%u/%u)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 				msg += buf;
-				writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 		}
 		_timeStamp = timeStampLive;
@@ -297,17 +303,20 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		{
 			if (res == 1)
 			{
-				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
+				NppParameters& nppParam = NppParameters::getInstance();
+				if (nppParam.doNppLogNetworkDriveIssue())
 				{
-					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
-					nppLogNetworkDriveIssueLog += TEXT(".log");
+					generic_string issueFn = nppLogNetworkDriveIssue;
+					issueFn += TEXT(".log");
+					generic_string nppIssueLog = nppParam.getUserPath();
+					pathAppend(nppIssueLog, issueFn);
 
-					std::string msg = std::string(_fullPathName.begin(), _fullPathName.end());
+					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+					std::string msg = converter.to_bytes(_fullPathName);
 					char buf[1024];
 					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%u/%u) < _timeStamp (%u/%u)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 					msg += buf;
-					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+					writeLog(nppIssueLog.c_str(), msg.c_str());
 				}
 			}
 			_timeStamp = attributes.ftLastWriteTime;

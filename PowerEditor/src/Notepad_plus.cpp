@@ -6240,7 +6240,7 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
     {
         // Get plugins dir
 		generic_string destDirName = (NppParameters::getInstance()).getNppPath();
-        PathAppend(destDirName, destDir);
+        pathAppend(destDirName, destDir);
 
         if (!::PathFileExists(destDirName.c_str()))
         {
@@ -6297,12 +6297,12 @@ vector<generic_string> Notepad_plus::addNppPlugins(const TCHAR *extFilterName, c
 					continue;
 
 				generic_string name = nameExt.substr(0, pos);
-				PathAppend(destName, name);
+				pathAppend(destName, name);
 				if (!::PathFileExists(destName.c_str()))
 				{
 					::CreateDirectory(destName.c_str(), NULL);
 				}
-				PathAppend(destName, nameExt);
+				pathAppend(destName, nameExt);
 
                 if (::CopyFile(fns.at(i).c_str(), destName.c_str(), FALSE))
                     copiedFiles.push_back(destName.c_str());
@@ -7752,7 +7752,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		if (NppDarkMode::isEnabled())
 		{
 			themePath = themeSwitcher.getThemeDirPath();
-			PathAppend(themePath, darkModeXmlFileName);
+			pathAppend(themePath, darkModeXmlFileName);
 
 			themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
 		}

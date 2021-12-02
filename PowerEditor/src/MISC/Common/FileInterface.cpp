@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
+#include <locale>
+#include <codecvt>
 #include "FileInterface.h"
 #include "Parameters.h"
-
 
 Win32_IO_File::Win32_IO_File(const char *fname)
 {
@@ -33,12 +33,25 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 {
 	if (fname)
 	{
-		generic_string fn = fname;
-		_path = std::string(fn.begin(), fn.end());
+		std::wstring fn = fname;
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		_path = converter.to_bytes(fn);
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
+
+		NppParameters& nppParam = NppParameters::getInstance();
+		if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+		{
+			generic_string issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += TEXT(".log");
+			generic_string nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
+
+			std::string msg = _path;
+			msg += " is opened.";
+			writeLog(nppIssueLog.c_str(), msg.c_str());
+		}
 	}
 }
-
 
 void Win32_IO_File::close()
 {
@@ -46,27 +59,25 @@ void Win32_IO_File::close()
 	{
 		if (_written)
 		{
-			BOOL isOK = ::FlushFileBuffers(_hFile);
-			if (!isOK)
-			{
-				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
-				{
-					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
-					nppLogNetworkDriveIssueLog += TEXT(".log");
-
-					std::string msg = _path;
-					msg += "  FlushFileBuffers call failed: ";
-					generic_string lastErrorMsg = GetLastErrorAsString(::GetLastError());
-					msg += std::string(lastErrorMsg.begin(), lastErrorMsg.end());
-					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
-				}
-			}
+			::FlushFileBuffers(_hFile);
 		}
-
 		::CloseHandle(_hFile);
 
 		_hFile = INVALID_HANDLE_VALUE;
+
+
+		NppParameters& nppParam = NppParameters::getInstance();
+		if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+		{
+			generic_string issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += TEXT(".log");
+			generic_string nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
+
+			std::string msg = _path;
+			msg += " is closed.";
+			writeLog(nppIssueLog.c_str(), msg.c_str());
+		}
 	}
 }
 
@@ -81,7 +92,6 @@ int_fast64_t Win32_IO_File::getSize()
 
 	return static_cast<int_fast64_t>(r.QuadPart);
 }
-*/
 
 unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 {
@@ -95,6 +105,7 @@ unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 
 	return bytes_read;
 }
+*/
 
 bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 {
@@ -103,8 +114,44 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 
 	DWORD bytes_written = 0;
 
+	NppParameters& nppParam = NppParameters::getInstance();
 	if (::WriteFile(_hFile, wbuf, buf_size, &bytes_written, NULL) == FALSE)
+	{
+		if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+		{
+			generic_string issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += TEXT(".log");
+			generic_string nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
+
+			std::string msg = _path;
+			msg += " written failed: ";
+			std::wstring lastErrorMsg = GetLastErrorAsString(::GetLastError());
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			msg += converter.to_bytes(lastErrorMsg);
+			writeLog(nppIssueLog.c_str(), msg.c_str());
+		}
+
 		return false;
+	}
+	else
+	{
+		if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+		{
+			generic_string issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += TEXT(".log");
+			generic_string nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
+
+			std::string msg = _path;
+			msg += "  ";
+			msg += std::to_string(bytes_written);
+			msg += "/";
+			msg += std::to_string(buf_size);
+			msg += " bytes are written.";
+			writeLog(nppIssueLog.c_str(), msg.c_str());
+		}
+	}
 
 	if (!_written)
 		_written = true;

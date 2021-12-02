@@ -308,10 +308,10 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 	else
 	{
 		pluginsFolder = nppPath;
-		PathAppend(pluginsFolder, TEXT("plugins"));
+		pathAppend(pluginsFolder, TEXT("plugins"));
 	}
 	generic_string pluginsFolderFilter = pluginsFolder;
-	PathAppend(pluginsFolderFilter, TEXT("*.*"));
+	pathAppend(pluginsFolderFilter, TEXT("*.*"));
 	
 	WIN32_FIND_DATA foundData;
 	HANDLE hFindFolder = ::FindFirstFile(pluginsFolderFilter.c_str(), &foundData);
@@ -324,10 +324,10 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 		if (foundFileName != TEXT(".") && foundFileName != TEXT("..") && generic_stricmp(foundFileName.c_str(), TEXT("Config")) != 0)
 		{
 			generic_string pluginsFullPathFilter = pluginsFolder;
-			PathAppend(pluginsFullPathFilter, foundFileName);
+			pathAppend(pluginsFullPathFilter, foundFileName);
 			generic_string  dllName = foundFileName;
 			dllName += TEXT(".dll");
-			PathAppend(pluginsFullPathFilter, dllName);
+			pathAppend(pluginsFullPathFilter, dllName);
 
 			// get plugin
 			hFindDll = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
@@ -346,11 +346,11 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 			if (foundFileName2 != TEXT(".") && foundFileName2 != TEXT("..") && generic_stricmp(foundFileName2.c_str(), TEXT("Config")) != 0)
 			{
 				generic_string pluginsFullPathFilter2 = pluginsFolder;
-				PathAppend(pluginsFullPathFilter2, foundFileName2);
+				pathAppend(pluginsFullPathFilter2, foundFileName2);
 				generic_string pluginsFolderPath2 = pluginsFullPathFilter2;
 				generic_string  dllName2 = foundFileName2;
 				dllName2 += TEXT(".dll");
-				PathAppend(pluginsFullPathFilter2, dllName2);
+				pathAppend(pluginsFullPathFilter2, dllName2);
 
 				// get plugin
 				if (hFindDll)

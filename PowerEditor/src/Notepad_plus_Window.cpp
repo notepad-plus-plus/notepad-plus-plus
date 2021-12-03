@@ -203,7 +203,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	LocalizationSwitcher & localizationSwitcher = nppParams.getLocalizationSwitcher();
 	std::wstring localizationDir = nppDir;
-	PathAppend(localizationDir, TEXT("localization\\"));
+	pathAppend(localizationDir, TEXT("localization\\"));
 
 	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), patterns, fileNames, false, false);
 	for (size_t i = 0, len = fileNames.size(); i < len; ++i)
@@ -219,7 +219,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
     if (nppParams.getAppDataNppDir() && nppParams.getAppDataNppDir()[0])
     {
 		appDataThemeDir = nppParams.getAppDataNppDir();
-	    PathAppend(appDataThemeDir, TEXT("themes\\"));
+	    pathAppend(appDataThemeDir, TEXT("themes\\"));
 	    _notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), patterns, fileNames, false, false);
 	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
 	    {
@@ -231,7 +231,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	generic_string nppThemeDir;
 	nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
-	PathAppend(nppThemeDir, TEXT("themes\\"));
+	pathAppend(nppThemeDir, TEXT("themes\\"));
 
 	// Set theme directory to their installation directory
 	themeSwitcher.setThemeDirPath(nppThemeDir);
@@ -254,7 +254,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 				}
 
 				TCHAR* fn = PathFindFileName(fileNames[i].c_str());
-				PathAppend(appDataThemePath, fn);
+				pathAppend(appDataThemePath, fn);
 				themeSwitcher.addThemeStylerSavePath(fileNames[i], appDataThemePath);
 			}
 		}

@@ -112,16 +112,6 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 						SWP_FRAMECHANGED);
 				}
 
-
-				if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
-				{
-					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-					nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
-					nppLogNetworkDriveIssueLog += TEXT(".log");
-
-					writeLog(nppLogNetworkDriveIssueLog.c_str(), "WM_CREATE ===========================================");
-				}
-
 				return lRet;
 			}
 			catch (std::exception& ex)
@@ -1925,13 +1915,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{
-			if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+			NppParameters& nppParam = NppParameters::getInstance();
+			if (message == WM_QUERYENDSESSION)
 			{
-				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-				nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
-				nppLogNetworkDriveIssueLog += TEXT(".log");
+				nppParam.queryEndSessionStart();
+			}
 
-				writeLog(nppLogNetworkDriveIssueLog.c_str(), message == WM_CLOSE ? "WM_CLOSE" : "WM_QUERYENDSESSION");
+			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+			{
+				generic_string issueFn = nppLogNulContentCorruptionIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
+
+				writeLog(nppIssueLog.c_str(), "WM_QUERYENDSESSION =====================================");
 			}
 
 			if (_pPublicInterface->isPrelaunch())
@@ -2067,11 +2064,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
 			{
-				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-				nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
-				nppLogNetworkDriveIssueLog += TEXT(".log");
+				generic_string issueFn = nppLogNulContentCorruptionIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
 
-				writeLog(nppLogNetworkDriveIssueLog.c_str(), "WM_ENDSESSION");
+				writeLog(nppIssueLog.c_str(), "WM_ENDSESSION");
 			}
 
 			if (wParam == TRUE)
@@ -2089,11 +2087,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
 			{
-				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-				nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
-				nppLogNetworkDriveIssueLog += TEXT(".log");
+				generic_string issueFn = nppLogNulContentCorruptionIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
 
-				writeLog(nppLogNetworkDriveIssueLog.c_str(), "WM_DESTROY");
+				writeLog(nppIssueLog.c_str(), "WM_DESTROY");
 			}
 
 			killAllChildren();

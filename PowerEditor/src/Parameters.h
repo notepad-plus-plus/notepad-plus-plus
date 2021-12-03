@@ -1802,7 +1802,9 @@ private:
 	bool _isSelectFgColorEnabled = false;
 
 	bool _doNppLogNetworkDriveIssue = false;
+
 	bool _doNppLogNulContentCorruptionIssue = false;
+	bool _isQueryEndSessionStarted = false;
 
 public:
 	generic_string getWingupFullPath() const { return _wingupFullPath; };
@@ -1816,6 +1818,8 @@ public:
 
 	bool doNppLogNetworkDriveIssue() { return _doNppLogNetworkDriveIssue; };
 	bool doNppLogNulContentCorruptionIssue() { return _doNppLogNulContentCorruptionIssue; };
+	void queryEndSessionStart() { _isQueryEndSessionStarted = true; };
+	bool isQueryEndSessionStarted() { return _isQueryEndSessionStarted; };
 
 private:
 	void getLangKeywordsFromXmlTree();

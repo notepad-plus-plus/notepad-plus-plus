@@ -490,10 +490,10 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	NppParameters& nppParams = NppParameters::getInstance();
 
 	generic_string funcListXmlPath = nppParams.getUserPath();
-	PathAppend(funcListXmlPath, TEXT("functionList"));
+	pathAppend(funcListXmlPath, TEXT("functionList"));
 
 	generic_string funcListDefaultXmlPath = nppParams.getNppPath();
-	PathAppend(funcListDefaultXmlPath, TEXT("functionList"));
+	pathAppend(funcListDefaultXmlPath, TEXT("functionList"));
 
 	bool doLocalConf = nppParams.isLocal();
 
@@ -515,7 +515,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	else
 	{
 		generic_string funcListDefaultXmlPath = nppParams.getNppPath();
-		PathAppend(funcListDefaultXmlPath, TEXT("functionList"));
+		pathAppend(funcListDefaultXmlPath, TEXT("functionList"));
 		if (PathFileExists(funcListDefaultXmlPath.c_str()))
 		{
 			_funcParserMgr.init(funcListDefaultXmlPath, funcListDefaultXmlPath, ppEditView);

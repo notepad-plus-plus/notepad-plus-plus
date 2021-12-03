@@ -38,16 +38,17 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		_path = converter.to_bytes(fn);
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
 
-
-		if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+		NppParameters& nppParam = NppParameters::getInstance();
+		if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-			nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
-			nppLogNetworkDriveIssueLog += TEXT(".log");
+			generic_string issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += TEXT(".log");
+			generic_string nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
 			msg += " is opened.";
-			writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 	}
 }
@@ -65,15 +66,17 @@ void Win32_IO_File::close()
 		_hFile = INVALID_HANDLE_VALUE;
 
 
-		if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+		NppParameters& nppParam = NppParameters::getInstance();
+		if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-			nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
-			nppLogNetworkDriveIssueLog += TEXT(".log");
+			generic_string issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += TEXT(".log");
+			generic_string nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
 			msg += " is closed.";
-			writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 	}
 }
@@ -111,31 +114,34 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 
 	DWORD bytes_written = 0;
 
+	NppParameters& nppParam = NppParameters::getInstance();
 	if (::WriteFile(_hFile, wbuf, buf_size, &bytes_written, NULL) == FALSE)
 	{
-		if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+		if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-			nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
-			nppLogNetworkDriveIssueLog += TEXT(".log");
+			generic_string issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += TEXT(".log");
+			generic_string nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
 			msg += " written failed: ";
 			std::wstring lastErrorMsg = GetLastErrorAsString(::GetLastError());
 			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 			msg += converter.to_bytes(lastErrorMsg);
-			writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 
 		return false;
 	}
 	else
 	{
-		if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+		if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-			nppLogNetworkDriveIssueLog += nppLogNulContentCorruptionIssue;
-			nppLogNetworkDriveIssueLog += TEXT(".log");
+			generic_string issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += TEXT(".log");
+			generic_string nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
 			msg += "  ";
@@ -143,7 +149,7 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 			msg += "/";
 			msg += std::to_string(buf_size);
 			msg += " bytes are written.";
-			writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 	}
 

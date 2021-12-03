@@ -437,7 +437,7 @@ PluginsAdminDlg::PluginsAdminDlg()
 
 #ifdef DEBUG // if not debug, then it's release
 	// load from nppPluginList.json instead of nppPluginList.dll
-	PathAppend(_pluginListFullPath, TEXT("nppPluginList.json"));
+	pathAppend(_pluginListFullPath, TEXT("nppPluginList.json"));
 #else //RELEASE
 	pathAppend(_pluginListFullPath, TEXT("nppPluginList.dll"));
 #endif

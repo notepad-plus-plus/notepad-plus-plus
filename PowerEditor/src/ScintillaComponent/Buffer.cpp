@@ -722,11 +722,7 @@ bool FileManager::reloadBuffer(BufferID id)
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
 	bool bUnsyncStateBeforeReload = buf->isUnsync(); // store for a possible unsync state restoration later 
-	buf->setUnsync(false);	// we have to ensure that isUnsync is false before we try to call the loadFileData below for the reloading
-							// - after a successful reload, the source file and its filebuffer in N++ are the same, so the isDirty should be false (and the isUnsync too)
-							// - but when the isUnsync is true at this point, any successfully reloaded filebuffer later will end up marked as dirty!
-							//   (similar reason as in the above setLoadedDirty(false), but now it is the "_pscratchTilla->execute(SCI_SETSAVEPOINT)" in loadFileData(),
-							//    which ends up in the Notepad_plus::notify(), case SCN_SAVEPOINTLEFT, where is logic "if (buf->isUnsync()) isDirty = true")
+	buf->setUnsync(false);	// ensure that isUnsync is false before calling the loadFileData, otherwise isDirty and isUnsync will not be false after a successful reload (issue fixed: #10796)
 
 	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
 

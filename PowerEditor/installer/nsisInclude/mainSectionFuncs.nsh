@@ -84,6 +84,8 @@ Function copyCommonFiles
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
 	
+	; For debug logs
+	File "..\bin\nppLogNulContentCorruptionIssue.xml"
 
 	
 	; Set Section Files and Shortcuts

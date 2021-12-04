@@ -105,6 +105,8 @@ copy /Y ..\src\shortcuts.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalist\
+If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\DarkModeDefault.xml" .\minimalist\themes\
@@ -134,6 +136,8 @@ copy /Y ..\src\shortcuts.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist64\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalist64\
+If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\DarkModeDefault.xml" .\minimalist64\themes\
@@ -162,6 +166,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalistArm64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\minimalistArm64\
 If ErrorLevel 1 goto End
@@ -243,6 +249,8 @@ copy /Y ..\src\shortcuts.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release\
+If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 goto End
 
@@ -264,6 +272,8 @@ copy /Y ..\src\shortcuts.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release64\
+If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\zipped.package.release64\
 If ErrorLevel 1 goto End
 
@@ -284,6 +294,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.releaseArm64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End

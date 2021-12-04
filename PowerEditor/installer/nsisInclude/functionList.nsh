@@ -83,6 +83,11 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\python.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "Python" Lua_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\lua.xml"
+	${MementoSectionEnd}
+
 	${MementoSection} "ini" ini_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\ini.xml"
@@ -234,6 +239,10 @@ SectionGroup un.functionListComponent
 
 	Section un.Python_FL
 		Delete "$INSTDIR\functionList\python.xml"
+	SectionEnd
+
+	Section un.Lua_FL
+		Delete "$INSTDIR\functionList\lua.xml"
 	SectionEnd
 
 	Section un.COBOL_FL

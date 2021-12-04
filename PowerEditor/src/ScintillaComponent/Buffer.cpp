@@ -731,12 +731,20 @@ bool FileManager::reloadBuffer(BufferID id)
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
 	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
+	if (res)
+	{
+		// now we are synchronized with the file on disk, so reset relevant flags
+		buf->setUnsync(false);
+		buf->setDirty(false); // if the _isUnsync was true before the reloading, the _isDirty had been set to true somehow in the loadFileData()
+	}
+
 	buf->_canNotify = true;
 
 	if (res)
 	{
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
+
 	return res;
 }
 

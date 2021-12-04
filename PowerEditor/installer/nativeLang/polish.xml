@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.1.5 (15.09.2021)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.1.9.3 (04.12.2021)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -328,7 +328,8 @@ The comments are here for explanation, it's not necessary to translate them.
 
                     <Item id="46001" name="Konfigurator stylów..."/>
                     <Item id="46250" name="Zdefiniuj własny język..."/>
-                    <Item id="46300" name="Otwórz folder z językiem zdefiniowanym..."/>
+                    <Item id="46300" name="Otwórz folder ze zdefiniowanymi językami..."/>
+                    <Item id="46301" name="Repozytorium z gotowymi definicjami języków"/>
                     <Item id="46180" name="Zdefiniowane przez użytkownika"/>
                     <Item id="47000" name="O programie..."/>
                     <Item id="47010" name="Argumenty wiersza polecenia..."/>
@@ -520,8 +521,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <SubDialog>
                     <Item id="2204" name="Pogrubienie"/>
                     <Item id="2205" name="Kursywa"/>
-                    <Item id="2206" name="Kolor pierwszorzędny"/>
-                    <Item id="2207" name="Kolor drugorzędny"/>
+                    <Item id="2206" name="Kolor tekstu"/>
+                    <Item id="2207" name="Kolor tła"/>
                     <Item id="2208" name="Nazwa:"/>
                     <Item id="2209" name="Rozmiar:"/>
                     <Item id="2211" name="Styl:"/>
@@ -533,9 +534,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2219" name="Domyślne słowa kluczowe"/>
                     <Item id="2221" name="Słowa kluczowe użytkownika"/>
                     <Item id="2225" name="Język:"/> <!-- programowania -->
-                    <Item id="2226" name="Stosuj kolor pierwszorzędnego globalnie"/>
-                    <Item id="2227" name="Stosuj kolor drugorzędnego globalnie"/>
-                    <Item id="2228" name="Używaj czcionki globalnie"/>
+                    <Item id="2226" name="Stosuj kolor tekstu globalnie"/>
+                    <Item id="2227" name="Stosuj kolor tła globalnie"/>
+                    <Item id="2228" name="Stosuj czcionkę globalnie"/>
                     <Item id="2229" name="Stosuj rozmiar czcionki globalnie"/>
                     <Item id="2230" name="Stosuj pogrubienie globalnie"/>
                     <Item id="2231" name="Stosuj kursywę globalnie"/>
@@ -664,8 +665,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20016" name="Eksportuj..."/>
                 <StylerDialog title="Stylizowanie">
                     <Item id="25030" name="Opcje czcionki:"/>
-                    <Item id="25006" name="Kolor pierwszorzędny"/>
-                    <Item id="25007" name="Kolor drugorzędny"/>
+                    <Item id="25006" name="Kolor tekstu"/>
+                    <Item id="25007" name="Kolor tła"/>
                     <Item id="25031" name="Nazwa:"/>
                     <Item id="25032" name="Rozmiar:"/>
                     <Item id="25001" name="Pogrubienie"/>
@@ -693,6 +694,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Liczby"/>
+                    <Item id="25033" name="Przezroczysty"/> <!-- tekst -->
+                    <Item id="25034" name="Przezroczysty"/> <!-- tło -->
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Zamknij"/>
                 </StylerDialog>

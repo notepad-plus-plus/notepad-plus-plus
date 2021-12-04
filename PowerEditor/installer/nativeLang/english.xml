@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.1.9.2">
+    <Native-Langue name="English" filename="english.xml" version="8.1.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1393,7 +1393,7 @@ Continue?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Find in all files except exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
             <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
             <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
             <find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>

@@ -719,7 +719,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	Buffer* buf = getBufferByID(id);
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
-	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
+
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
 
 	LoadedFileFormat loadedFileFormat;
@@ -730,18 +730,18 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
+	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
+
 	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
-	if (res)
-	{
-		// now we are synchronized with the file on disk, so reset relevant flags
-		buf->setUnsync(false);
-		buf->setDirty(false); // if the _isUnsync was true before the reloading, the _isDirty had been set to true somehow in the loadFileData()
-	}
 
 	buf->_canNotify = true;
 
 	if (res)
 	{
+		// now we are synchronized with the file on disk, so reset relevant flags
+		buf->setUnsync(false);
+		buf->setDirty(false); // if the _isUnsync was true before the reloading, the _isDirty had been set to true somehow in the loadFileData()
+
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
 

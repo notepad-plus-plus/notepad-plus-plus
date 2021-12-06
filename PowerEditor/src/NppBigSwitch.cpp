@@ -1915,7 +1915,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{
-			NppParameters& nppParam = NppParameters::getInstance();
 			if (message == WM_QUERYENDSESSION)
 			{
 				nppParam.queryEndSessionStart();
@@ -2062,7 +2061,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ENDSESSION:
 		{
-			if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 			{
 				generic_string issueFn = nppLogNulContentCorruptionIssue;
 				issueFn += TEXT(".log");
@@ -2085,7 +2084,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_DESTROY:
 		{
-			if (NppParameters::getInstance().doNppLogNulContentCorruptionIssue())
+			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 			{
 				generic_string issueFn = nppLogNulContentCorruptionIssue;
 				issueFn += TEXT(".log");

@@ -64,6 +64,9 @@ endif
 # preparations
 #
 
+# detect Windows directory
+WIN_DIR := $(or $(windir),$(WINDIR))
+
 # detect target CPU
 TARGET_CPU := $(firstword $(subst -, ,$(shell $(CXX) -dumpmachine)))
 ifeq "$(TARGET_CPU)" ""
@@ -75,7 +78,7 @@ endif
 ifeq "$(TARGET_CPU)" "i686"
 # for some reason i686 versions of MinGW-w64 GCC don't include a linking library for SensApi.dll
 # thus it is generated on the fly, but first check if the DLL is available
-ifeq "$(wildcard $(windir)/system32/SensApi.dll)" ""
+ifeq "$(wildcard $(WIN_DIR)/system32/SensApi.dll)" ""
 $(error $(TARGET_CPU) build requires "%windir%/system32/SensApi.dll" to be present)
 endif
 # detect explicit definition of TARGET_CPU via command line to force a 32-bit build
@@ -123,7 +126,7 @@ AT := @
 endif
 
 # detect the current operating system
-ifeq "$(windir)" ""
+ifeq "$(WIN_DIR)" ""
 # not a Windows system
 MKDIR := mkdir -p
 CPDIR := cp -r
@@ -207,7 +210,7 @@ ifeq "$(TARGET_CPU)" "i686"
 $(TARGET_BINARY): $(BUILD_DIRECTORY)/libsensapi.a
 $(BUILD_DIRECTORY)/libsensapi.a: | $(BUILD_DIRECTORY)
 	@echo * generating $@
-	$(AT)gendef $(call normalize-path,$(firstword $(wildcard $(windir)/syswow64/SensApi.dll $(windir)/system32/SensApi.dll)))
+	$(AT)gendef $(call normalize-path,$(firstword $(wildcard $(WIN_DIR)/syswow64/SensApi.dll $(WIN_DIR)/system32/SensApi.dll)))
 	$(AT)dlltool -mi386 -f--32 -d SensApi.def -k -l $(call normalize-path,$@)
 	$(AT)$(RM) SensApi.def
 endif

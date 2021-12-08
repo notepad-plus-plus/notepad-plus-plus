@@ -1,7 +1,16 @@
+Notepad++ v8.1.9.3 bug-fixes and enhancement:
+
+1.  Fix regression: detection of backup file restored back problem. 
+2.  Fix saving file and false alert on network drive issues.
+3.  Fix dockable panels lose background color issue when switching back Notepad++.
+4.  Fix dirty status persisting issue after reloading file.
+5.  Add Lua function list capacity.
+
+
 Notepad++ v8.1.9.2 bug-fixes:
 
 1.  Fix failure of erasing & saving server logs (of network drive) regression.
-2.  Fix dark mode not working on Windows 10 2H22.
+2.  Fix dark mode not working on Windows 10 21H2.
 3.  Fix crash in regex search.
 4.  Fix UDL folding breaking with delimiters issue if UNIX EOL applied.
 5.  Fix UDL generic dark mode via UDL UI not working issue.
@@ -54,7 +63,7 @@ Notepad++ v8.1.6 bug-fixes:
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.1.9.2/
+https://notepad-plus-plus.org/downloads/v8.1.9.3/
 
 
 Included plugins:

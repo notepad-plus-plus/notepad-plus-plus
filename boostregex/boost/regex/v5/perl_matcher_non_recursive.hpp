@@ -417,7 +417,8 @@ bool perl_matcher<BidiIterator, Allocator, traits>::match_startmark()
          {
             // Must be unwinding from a COMMIT/SKIP/PRUNE and the independent 
             // sub failed, need to unwind everything else:
-            while(unwind(false));
+            while (m_backup_state->state_id)
+               unwind(false);
             return false;
          }
 #if !defined(BOOST_NO_EXCEPTIONS)
@@ -1353,6 +1354,7 @@ bool perl_matcher<BidiIterator, Allocator, traits>::unwind_repeater_counter(bool
 template <class BidiIterator, class Allocator, class traits>
 bool perl_matcher<BidiIterator, Allocator, traits>::unwind_extra_block(bool)
 {
+   ++used_block_count;
    saved_extra_block* pmp = static_cast<saved_extra_block*>(m_backup_state);
    void* condemmed = m_stack_base;
    m_stack_base = pmp->base;

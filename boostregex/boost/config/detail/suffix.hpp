@@ -475,6 +475,16 @@ namespace std {
 #  define BOOST_CTOR_TYPENAME
 #endif
 
+//
+// If we're on a CUDA device (note DEVICE not HOST, irrespective of compiler) then disable __int128 and __float128 support if present:
+//
+#if defined(__CUDA_ARCH__) && defined(BOOST_HAS_FLOAT128)
+#  undef BOOST_HAS_FLOAT128
+#endif
+#if defined(__CUDA_ARCH__) && defined(BOOST_HAS_INT128)
+#  undef BOOST_HAS_INT128
+#endif
+
 // long long workaround ------------------------------------------//
 // On gcc (and maybe other compilers?) long long is alway supported
 // but it's use may generate either warnings (with -ansi), or errors
@@ -621,6 +631,9 @@ namespace std{ using ::type_info; }
 #    if defined(__CUDACC__)
        // nvcc doesn't always parse __noinline__,
        // see: https://svn.boost.org/trac/boost/ticket/9392
+#      define BOOST_NOINLINE __attribute__ ((noinline))
+#    elif defined(HIP_VERSION)
+       // See https://github.com/boostorg/config/issues/392
 #      define BOOST_NOINLINE __attribute__ ((noinline))
 #    else
 #      define BOOST_NOINLINE __attribute__ ((__noinline__))
@@ -1040,7 +1053,7 @@ namespace std{ using ::type_info; }
 #endif
 #elif defined(__has_cpp_attribute)
 // clang-6 accepts [[nodiscard]] with -std=c++14, but warns about it -pedantic
-#if __has_cpp_attribute(nodiscard) && !(defined(__clang__) && (__cplusplus < 201703L))
+#if __has_cpp_attribute(nodiscard) && !(defined(__clang__) && (__cplusplus < 201703L)) && !(defined(__GNUC__) && (__cplusplus < 201100))
 # define BOOST_ATTRIBUTE_NODISCARD [[nodiscard]]
 #endif
 #if __has_cpp_attribute(no_unique_address) && !(defined(__GNUC__) && (__cplusplus < 201100))
@@ -1121,6 +1134,80 @@ namespace std{ using ::type_info; }
 #  define BOOST_NO_CXX17_HDR_FILESYSTEM
 #endif
 #endif
+#endif
+
+#if !defined(_YVALS) && !defined(_CPPLIB_VER)  // msvc std lib already configured
+#if (!defined(__has_include) || (__cplusplus < 201704))
+#  define BOOST_NO_CXX20_HDR_BARRIER
+#  define BOOST_NO_CXX20_HDR_FORMAT
+#  define BOOST_NO_CXX20_HDR_SOURCE_LOCATION
+#  define BOOST_NO_CXX20_HDR_BIT
+#  define BOOST_NO_CXX20_HDR_LATCH
+#  define BOOST_NO_CXX20_HDR_SPAN
+#  define BOOST_NO_CXX20_HDR_COMPARE
+#  define BOOST_NO_CXX20_HDR_NUMBERS
+#  define BOOST_NO_CXX20_HDR_STOP_TOKEN
+#  define BOOST_NO_CXX20_HDR_CONCEPTS
+#  define BOOST_NO_CXX20_HDR_RANGES
+#  define BOOST_NO_CXX20_HDR_SYNCSTREAM
+#  define BOOST_NO_CXX20_HDR_COROUTINE
+#  define BOOST_NO_CXX20_HDR_SEMAPHORE
+#else
+#if !__has_include(<barrier>)
+#  define BOOST_NO_CXX20_HDR_BARRIER
+#endif
+#if !__has_include(<format>)
+#  define BOOST_NO_CXX20_HDR_FORMAT
+#endif
+#if !__has_include(<source_Location>)
+#  define BOOST_NO_CXX20_HDR_SOURCE_LOCATION
+#endif
+#if !__has_include(<bit>)
+#  define BOOST_NO_CXX20_HDR_BIT
+#endif
+#if !__has_include(<latch>)
+#  define BOOST_NO_CXX20_HDR_LATCH
+#endif
+#if !__has_include(<span>)
+#  define BOOST_NO_CXX20_HDR_SPAN
+#endif
+#if !__has_include(<compare>)
+#  define BOOST_NO_CXX20_HDR_COMPARE
+#endif
+#if !__has_include(<numbers>)
+#  define BOOST_NO_CXX20_HDR_NUMBERS
+#endif
+#if !__has_include(<stop_token>)
+#  define BOOST_NO_CXX20_HDR_STOP_TOKEN
+#endif
+#if !__has_include(<concepts>)
+#  define BOOST_NO_CXX20_HDR_CONCEPTS
+#endif
+#if !__has_include(<ranges>)
+#  define BOOST_NO_CXX20_HDR_RANGES
+#endif
+#if !__has_include(<syncstream>)
+#  define BOOST_NO_CXX20_HDR_SYNCSTREAM
+#endif
+#if !__has_include(<coroutine>)
+#  define BOOST_NO_CXX20_HDR_COROUTINE
+#endif
+#if !__has_include(<semaphore>)
+#  define BOOST_NO_CXX20_HDR_SEMAPHORE
+#endif
+#endif
+#endif
+
+//
+// Define composite agregate macros:
+//
+#include <boost/config/detail/cxx_composite.hpp>
+
+//
+// Define the std level that the compiler claims to support:
+//
+#ifndef BOOST_CXX_VERSION
+#  define BOOST_CXX_VERSION __cplusplus
 #endif
 
 //

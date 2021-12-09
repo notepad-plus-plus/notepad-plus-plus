@@ -288,3 +288,4 @@
 // Macro used to identify the Clang compiler.
 #define BOOST_CLANG 1
 
+#define BOOST_CLANG_VERSION (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)

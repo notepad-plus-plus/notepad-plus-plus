@@ -77,31 +77,20 @@
 
 #define BOOST_NO_CXX11_AUTO_DECLARATIONS
 #define BOOST_NO_CXX11_AUTO_MULTIDECLARATIONS
-#define BOOST_NO_CXX11_CHAR16_T
-#define BOOST_NO_CXX11_CHAR32_T
-#define BOOST_NO_CXX11_CONSTEXPR
-#define BOOST_NO_CXX11_DECLTYPE
-#define BOOST_NO_CXX11_DECLTYPE_N3276
 #define BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
 #define BOOST_NO_CXX11_DELETED_FUNCTIONS
 #define BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
 #define BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS
-#define BOOST_NO_CXX11_LAMBDAS
 #define BOOST_NO_CXX11_LOCAL_CLASS_TEMPLATE_PARAMETERS
 #define BOOST_NO_CXX11_NOEXCEPT
 #define BOOST_NO_CXX11_NULLPTR
-#define BOOST_NO_CXX11_RANGE_BASED_FOR
-#define BOOST_NO_CXX11_RAW_LITERALS
 #define BOOST_NO_CXX11_RVALUE_REFERENCES
 #define BOOST_NO_CXX11_SCOPED_ENUMS
 #define BOOST_NO_SFINAE_EXPR
 #define BOOST_NO_CXX11_SFINAE_EXPR
 #define BOOST_NO_CXX11_STATIC_ASSERT
 #define BOOST_NO_CXX11_TEMPLATE_ALIASES
-#define BOOST_NO_CXX11_UNICODE_LITERALS
-#define BOOST_NO_CXX11_VARIADIC_TEMPLATES
 #define BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
-#define BOOST_NO_CXX11_USER_DEFINED_LITERALS
 #define BOOST_NO_CXX11_ALIGNAS
 #define BOOST_NO_CXX11_TRAILING_RESULT_TYPES
 #define BOOST_NO_CXX11_INLINE_NAMESPACES
@@ -110,6 +99,37 @@
 #define BOOST_NO_CXX11_OVERRIDE
 #define BOOST_NO_CXX11_THREAD_LOCAL
 #define BOOST_NO_CXX11_UNRESTRICTED_UNION
+
+//__cpp_decltype 200707 possibly?
+#define BOOST_NO_CXX11_DECLTYPE
+#define BOOST_NO_CXX11_DECLTYPE_N3276
+
+#if !defined(__cpp_unicode_characters) || (__cpp_unicode_characters < 200704)
+#   define BOOST_NO_CXX11_CHAR16_T
+#   define BOOST_NO_CXX11_CHAR32_T
+#endif
+#if !defined(__cpp_unicode_literals) || (__cpp_unicode_literals < 200710)
+#   define BOOST_NO_CXX11_UNICODE_LITERALS
+#endif
+#if !defined(__cpp_user_defined_literals) || (__cpp_user_defined_literals < 200809)
+#   define BOOST_NO_CXX11_USER_DEFINED_LITERALS
+#endif
+#if !defined(__cpp_variadic_templates) || (__cpp_variadic_templates < 200704)
+#   define BOOST_NO_CXX11_VARIADIC_TEMPLATES
+#endif
+#if !defined(__cpp_constexpr) || (__cpp_constexpr < 200907)
+#   define BOOST_NO_CXX11_CONSTEXPR
+#endif
+#if !defined(__cpp_lambdas) || (__cpp_lambdas < 200907)
+#   define BOOST_NO_CXX11_LAMBDAS
+#endif
+#if !defined(__cpp_range_based_for) || (__cpp_range_based_for < 200710)
+#   define BOOST_NO_CXX11_RANGE_BASED_FOR
+#endif
+#if !defined(__cpp_raw_strings) || (__cpp_raw_strings < 200610)
+#   define BOOST_NO_CXX11_RAW_LITERALS
+#endif
+
 
 // C++ 14:
 #if !defined(__cpp_aggregate_nsdmi) || (__cpp_aggregate_nsdmi < 201304)

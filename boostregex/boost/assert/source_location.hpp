@@ -1,16 +1,18 @@
 #ifndef BOOST_ASSERT_SOURCE_LOCATION_HPP_INCLUDED
 #define BOOST_ASSERT_SOURCE_LOCATION_HPP_INCLUDED
 
-//  http://www.boost.org/libs/assert
+// http://www.boost.org/libs/assert
 //
-//  Copyright 2019 Peter Dimov
-//  Distributed under the Boost Software License, Version 1.0.
-//  http://www.boost.org/LICENSE_1_0.txt
+// Copyright 2019, 2021 Peter Dimov
+// Distributed under the Boost Software License, Version 1.0.
+// http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/current_function.hpp>
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
 #include <iosfwd>
+#include <string>
+#include <cstdio>
 
 namespace boost
 {
@@ -53,28 +55,48 @@ public:
     {
         return column_;
     }
+
+#if defined(BOOST_MSVC)
+# pragma warning( push )
+# pragma warning( disable: 4996 )
+#endif
+
+    std::string to_string() const
+    {
+        if( line() == 0 )
+        {
+            return "(unknown source location)";
+        }
+
+        std::string r = file_name();
+
+        char buffer[ 16 ];
+
+        std::sprintf( buffer, ":%ld", static_cast<long>( line() ) );
+        r += buffer;
+
+        if( column() )
+        {
+            std::sprintf( buffer, ":%ld", static_cast<long>( column() ) );
+            r += buffer;
+        }
+
+        r += " in function '";
+        r += function_name();
+        r += '\'';
+
+        return r;
+    }
+
+#if defined(BOOST_MSVC)
+# pragma warning( pop )
+#endif
+
 };
 
 template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ostream<E, T> & os, source_location const & loc )
 {
-    os.width( 0 );
-
-    if( loc.line() == 0 )
-    {
-        os << "(unknown source location)";
-    }
-    else
-    {
-        os << loc.file_name() << ':' << loc.line();
-
-        if( loc.column() )
-        {
-            os << ':' << loc.column();
-        }
-
-        os << ": in function '" << loc.function_name() << '\'';
-    }
-
+    os << loc.to_string();
     return os;
 }
 

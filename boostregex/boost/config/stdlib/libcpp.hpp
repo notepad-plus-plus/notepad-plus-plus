@@ -106,12 +106,64 @@
 
 #ifdef __has_include
 #if __has_include(<version>)
+#include <version>
 
 #if !defined(__cpp_lib_execution) || (__cpp_lib_execution < 201603L)
 #  define BOOST_NO_CXX17_HDR_EXECUTION
 #endif
 #if !defined(__cpp_lib_invoke) || (__cpp_lib_invoke < 201411L)
 #define BOOST_NO_CXX17_STD_INVOKE
+#endif
+
+#if !defined(__cpp_lib_bit_cast) || (__cpp_lib_bit_cast < 201806L) || !defined(__cpp_lib_bitops) || (__cpp_lib_bitops < 201907L) || !defined(__cpp_lib_endian) || (__cpp_lib_endian < 201907L)
+#  define BOOST_NO_CXX20_HDR_BIT
+#endif
+#if !defined(__cpp_lib_three_way_comparison) || (__cpp_lib_three_way_comparison < 201907L)
+#  define BOOST_NO_CXX20_HDR_COMPARE
+#endif
+#if !defined(__cpp_lib_ranges) || (__cpp_lib_ranges < 201911L)
+#  define BOOST_NO_CXX20_HDR_RANGES
+#endif
+#if !defined(__cpp_lib_barrier) || (__cpp_lib_barrier < 201907L)
+#  define BOOST_NO_CXX20_HDR_BARRIER
+#endif
+#if !defined(__cpp_lib_format) || (__cpp_lib_format < 201907L)
+#  define BOOST_NO_CXX20_HDR_FORMAT
+#endif
+#if !defined(__cpp_lib_source_location) || (__cpp_lib_source_location < 201907L)
+#  define BOOST_NO_CXX20_HDR_SOURCE_LOCATION
+#endif
+#if !defined(__cpp_lib_latch) || (__cpp_lib_latch < 201907L)
+#  define BOOST_NO_CXX20_HDR_SOURCE_LATCH
+#endif
+#if !defined(__cpp_lib_span) || (__cpp_lib_span < 202002L)
+#  define BOOST_NO_CXX20_HDR_SOURCE_SPAN
+#endif
+#if !defined(__cpp_lib_math_constants) || (__cpp_lib_math_constants < 201907L)
+#  define BOOST_NO_CXX20_HDR_SOURCE_NUMBERS
+#endif
+#if !defined(__cpp_lib_jthread) || (__cpp_lib_jthread < 201911L)
+#  define BOOST_NO_CXX20_HDR_SOURCE_STOP_TOKEN
+#endif
+#if !defined(__cpp_lib_concepts) || (__cpp_lib_concepts < 202002L)
+#  define BOOST_NO_CXX20_HDR_SOURCE_STOP_CONCEPTS
+#endif
+#if !defined(__cpp_lib_syncbuf) || (__cpp_lib_syncbuf < 201803L)
+#  define BOOST_NO_CXX20_HDR_SYNCSTREAM
+#endif
+#if !defined(__cpp_lib_coroutine) || (__cpp_lib_coroutine < 201902L)
+#  define BOOST_NO_CXX20_HDR_COROUTINE
+#endif
+#if !defined(__cpp_lib_semaphore) || (__cpp_lib_semaphore < 201907L)
+#  define BOOST_NO_CXX20_HDR_SEMAPHORE
+#endif
+#if !defined(__cpp_lib_concepts) || (__cpp_lib_concepts < 202002L)
+#  define BOOST_NO_CXX20_HDR_CONCEPTS
+#endif
+
+#if(_LIBCPP_VERSION < 9000) && !defined(BOOST_NO_CXX20_HDR_SPAN)
+// as_writable_bytes is missing.
+#  define BOOST_NO_CXX20_HDR_SPAN
 #endif
 
 #else

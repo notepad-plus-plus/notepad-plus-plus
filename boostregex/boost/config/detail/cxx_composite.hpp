@@ -1,6 +1,6 @@
-//  This file was automatically generated on Wed Mar  3 12:23:02 2021
+//  This file was automatically generated on Tue Aug 17 16:27:31 2021
 //  by libs/config/tools/generate.cpp
-//  Copyright John Maddock 2002-4.
+//  Copyright John Maddock 2002-21.
 //  Use, modification and distribution are subject to the 
 //  Boost Software License, Version 1.0. (See accompanying file 
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -12,7 +12,6 @@
 #if defined(BOOST_NO_ADL_BARRIER)\
    || defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)\
    || defined(BOOST_NO_ARRAY_TYPE_SPECIALIZATIONS)\
-   || defined(BOOST_NO_AUTO_PTR)\
    || defined(BOOST_NO_COMPLETE_VALUE_INITIALIZATION)\
    || defined(BOOST_NO_CTYPE_FUNCTIONS)\
    || defined(BOOST_NO_CV_SPECIALIZATIONS)\
@@ -83,7 +82,6 @@
    || defined(BOOST_NO_CXX11_ADDRESSOF)\
    || defined(BOOST_NO_CXX11_ALIGNAS)\
    || defined(BOOST_NO_CXX11_ALLOCATOR)\
-   || defined(BOOST_NO_CXX11_ATOMIC_SMART_PTR)\
    || defined(BOOST_NO_CXX11_AUTO_DECLARATIONS)\
    || defined(BOOST_NO_CXX11_AUTO_MULTIDECLARATIONS)\
    || defined(BOOST_NO_CXX11_CHAR16_T)\
@@ -102,7 +100,6 @@
    || defined(BOOST_NO_CXX11_HDR_ARRAY)\
    || defined(BOOST_NO_CXX11_HDR_ATOMIC)\
    || defined(BOOST_NO_CXX11_HDR_CHRONO)\
-   || defined(BOOST_NO_CXX11_HDR_CODECVT)\
    || defined(BOOST_NO_CXX11_HDR_CONDITION_VARIABLE)\
    || defined(BOOST_NO_CXX11_HDR_EXCEPTION)\
    || defined(BOOST_NO_CXX11_HDR_FORWARD_LIST)\
@@ -182,5 +179,23 @@
    || defined(BOOST_NO_CXX17_STD_INVOKE)\
    || defined(BOOST_NO_CXX17_STRUCTURED_BINDINGS)
 #    define BOOST_NO_CXX17
+#endif
+
+#if defined(BOOST_NO_CXX17)\
+   || defined(BOOST_NO_CXX20_HDR_BARRIER)\
+   || defined(BOOST_NO_CXX20_HDR_BIT)\
+   || defined(BOOST_NO_CXX20_HDR_COMPARE)\
+   || defined(BOOST_NO_CXX20_HDR_CONCEPTS)\
+   || defined(BOOST_NO_CXX20_HDR_COROUTINE)\
+   || defined(BOOST_NO_CXX20_HDR_FORMAT)\
+   || defined(BOOST_NO_CXX20_HDR_LATCH)\
+   || defined(BOOST_NO_CXX20_HDR_NUMBERS)\
+   || defined(BOOST_NO_CXX20_HDR_RANGES)\
+   || defined(BOOST_NO_CXX20_HDR_SEMAPHORE)\
+   || defined(BOOST_NO_CXX20_HDR_SOURCE_LOCATION)\
+   || defined(BOOST_NO_CXX20_HDR_SPAN)\
+   || defined(BOOST_NO_CXX20_HDR_STOP_TOKEN)\
+   || defined(BOOST_NO_CXX20_HDR_SYNCSTREAM)
+#    define BOOST_NO_CXX20
 #endif
 

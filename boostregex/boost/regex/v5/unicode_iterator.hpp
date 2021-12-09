@@ -67,8 +67,6 @@ Accepts UTF-32 code points and forwards them on as UTF-16 code points.
 #include <ios>
 #include <limits.h> // CHAR_BIT
 
-#include <iostream>
-
 #ifndef BOOST_REGEX_STANDALONE
 #include <boost/throw_exception.hpp>
 #endif

@@ -22,6 +22,7 @@
 // BOOST_GPU_ENABLED : Flag a function or a method as being enabled on the host and device
 #define BOOST_GPU_ENABLED __host__ __device__
 
+#if !defined(__clang__) || defined(__NVCC__)
 // A bug in version 7.0 of CUDA prevents use of variadic templates in some occasions
 // https://svn.boost.org/trac/boost/ticket/11897
 // This is fixed in 7.5. As the following version macro was introduced in 7.5 an existance
@@ -36,6 +37,8 @@
 // CUDA (8.0) has no constexpr support in msvc mode:
 #if defined(_MSC_VER) && (BOOST_CUDA_VERSION < 9000000)
 #  define BOOST_NO_CXX11_CONSTEXPR
+#endif
+
 #endif
 
 #ifdef __CUDACC__

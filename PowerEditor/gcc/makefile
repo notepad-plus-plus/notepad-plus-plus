@@ -136,11 +136,14 @@ RM := rm -f
 normalize-path = $1
 else ifneq "$(wildcard $(dir $(SHELL))ls.exe)" ""
 # a Windows system with a proper shell
-MKDIR := $(dir $(SHELL))mkdir.exe -p
-CPDIR := $(dir $(SHELL))cp.exe -r
-RMDIR := $(dir $(SHELL))rm.exe -rf
-CP := $(dir $(SHELL))cp.exe
-RM := $(dir $(SHELL))rm.exe -f
+NULL :=
+SPACE := $(NULL) $(NULL)
+SHELL_DIRECTORY := $(subst _,$(SPACE),$(dir $(subst $(SPACE),_,$(SHELL))))
+MKDIR := $(SHELL_DIRECTORY)mkdir.exe -p
+CPDIR := $(SHELL_DIRECTORY)cp.exe -r
+RMDIR := $(SHELL_DIRECTORY)rm.exe -rf
+CP := $(SHELL_DIRECTORY)cp.exe
+RM := $(SHELL_DIRECTORY)rm.exe -f
 normalize-path = $1
 else
 # a standard Windows system

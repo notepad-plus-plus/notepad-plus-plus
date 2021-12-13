@@ -1759,50 +1759,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case WM_ACTIVATE:
+		case WM_SYNCPAINT:
 		{
-			if (wParam != WA_INACTIVE && _pEditView && _pNonEditView)
-			{
-				_pEditView->getFocus();
-				auto x = _pEditView->execute(SCI_GETXOFFSET);
-				_pEditView->execute(SCI_SETXOFFSET, x);
-				x = _pNonEditView->execute(SCI_GETXOFFSET);
-				_pNonEditView->execute(SCI_SETXOFFSET, x);
-
-				if (_pFileBrowser && _pFileBrowser->isVisible())
-				{
-					_pFileBrowser->redraw(true);
-				}
-
-				if (_pFuncList && _pFuncList->isVisible())
-				{
-					_pFuncList->redraw(true);
-				}
-
-				if (_pClipboardHistoryPanel && _pClipboardHistoryPanel->isVisible())
-				{
-					_pClipboardHistoryPanel->redraw(true);
-				}
-
-				if (_pDocMap && _pDocMap->isVisible())
-				{
-					_pDocMap->redraw(true);
-				}
-
-				if (_pProjectPanel_1 && _pProjectPanel_1->isVisible())
-				{
-					_pProjectPanel_1->redraw(true);
-				}
-				if (_pProjectPanel_2 && _pProjectPanel_2->isVisible())
-				{
-					_pProjectPanel_2->redraw(true);
-				}
-				if (_pProjectPanel_3 && _pProjectPanel_3->isVisible())
-				{
-					_pProjectPanel_3->redraw(true);
-				}
-			}
-			return TRUE;
+			RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_ALLCHILDREN);
+			break;
 		}
 
 		case WM_DROPFILES:

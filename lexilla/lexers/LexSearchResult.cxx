@@ -55,13 +55,16 @@ static const char * const emptyWordListDesc[] = {
 	0
 };
 
-static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lineBuffer, size_t startLine, size_t endPos, Accessor &styler, int linenum) 
+static void ColouriseSearchResultLine(const SearchResultMarkings* pMarkings, size_t& markingIndex, const char *lineBuffer, size_t startLine, size_t endPos, Accessor &styler, size_t linenum)
 {
 	// startLine and endPos are the absolute positions.
 
 	if (lineBuffer[0] == ' ') // white space - file header
 	{
 		styler.ColourTo(endPos, SCE_SEARCHRESULT_FILE_HEADER);
+
+		if (markingIndex != 0)
+			++markingIndex;
 	}
 	else if (lineBuffer[0] == '	')// \t - line info
 	{
@@ -79,28 +82,65 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 		
 		int currentStat = SCE_SEARCHRESULT_DEFAULT;
 
-		SearchResultMarking mi = pMarkings->_markings[linenum];
 
-		size_t match_start = startLine + mi._start - 1;
-		size_t match_end = startLine + mi._end - 1;
+		if (markingIndex == 0)  // uninitialized
+		{
+			// find index of current line
+			for (size_t i = linenum; i < pMarkings->_length; ++i)
+			{
+				if (pMarkings->_markings[i]._finderLineNum == linenum)
+				{
+					markingIndex = i;
+					break;
+				}
 
-		if  (match_start <= endPos) {
-			styler.ColourTo(match_start, SCE_SEARCHRESULT_DEFAULT);
-			if  (match_end <= endPos) 
-				styler.ColourTo(match_end, SCE_SEARCHRESULT_WORD2SEARCH);
-			else 
-				currentStat = SCE_SEARCHRESULT_WORD2SEARCH;
+				if (pMarkings->_markings[i]._finderLineNum > linenum)
+				{
+					assert(false);
+					break;
+				}
+			}
 		}
-		styler.ColourTo(endPos, currentStat);
+		assert(linenum > 0 ? markingIndex > 0 : markingIndex == 0);
+
+		while (true)
+		{
+			assert(markingIndex < pMarkings->_length);
+			const SearchResultMarking& mi = pMarkings->_markings[markingIndex];
+			++markingIndex;
+
+			size_t match_start = startLine + mi._start - 1;
+			size_t match_end = startLine + mi._end - 1;
+
+			if  (match_start <= endPos) {
+				styler.ColourTo(match_start, SCE_SEARCHRESULT_DEFAULT);
+				if  (match_end <= endPos) 
+					styler.ColourTo(match_end, SCE_SEARCHRESULT_WORD2SEARCH);
+				else 
+					currentStat = SCE_SEARCHRESULT_WORD2SEARCH;
+			}
+
+			// whether next marking in the same line
+			if (markingIndex < pMarkings->_length
+				&& mi._finderLineNum == pMarkings->_markings[markingIndex]._finderLineNum
+				)
+				continue;
+
+			styler.ColourTo(endPos, currentStat);
+			break;
+		}
 	}
 	else // every character - search header
 	{
 		styler.ColourTo(endPos, SCE_SEARCHRESULT_SEARCH_HEADER);
+
+		if (markingIndex != 0)
+			++markingIndex;
 	}
 }
 
-static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
-
+static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler)
+{
 	char lineBuffer[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
@@ -111,8 +151,9 @@ static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length
 	if (!addrMarkingsStruct || !addrMarkingsStruct[0])
 		return;
 
-	SearchResultMarkings* pMarkings = NULL;
+	const SearchResultMarkings* pMarkings = NULL;
 	sscanf(addrMarkingsStruct, "%p", (void**)&pMarkings);
+	size_t markingIndex = 0;
 
 	if (!pMarkings || !pMarkings->_markings)
 		return;
@@ -122,7 +163,7 @@ static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length
 		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
 			// End of line (or of line buffer) met, colourise it
 			lineBuffer[linePos] = '\0';
-			ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, i, styler, styler.GetLine(startLine));
+			ColouriseSearchResultLine(pMarkings, markingIndex, lineBuffer, startLine, i, styler, styler.GetLine(startLine));
 			linePos = 0;
 			startLine = i + 1;
 			while (!AtEOL(styler, i)) i++;
@@ -130,11 +171,12 @@ static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length
 	}
 
 	if (linePos > 0) {	// Last line does not have ending characters
-		ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
+		ColouriseSearchResultLine(pMarkings, markingIndex, lineBuffer, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
 	}
 }
 
-static void FoldSearchResultDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
+static void FoldSearchResultDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler)
+{
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 
 	size_t endPos = startPos + length;

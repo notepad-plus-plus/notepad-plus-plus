@@ -1359,13 +1359,16 @@ struct SCNotification {
 	int characterSource;	/* SCN_CHARADDED */
 };
 
-struct SearchResultMarking {
+struct SearchResultMarking
+{
+	// location in finder
 	intptr_t _start;
 	intptr_t _end;
+	size_t _finderLineNum;  // zero based
 };
 
 struct SearchResultMarkings {
-	intptr_t _length;
+	size_t _length;
 	SearchResultMarking *_markings;
 };
 #ifdef INCLUDE_DEPRECATED_FEATURES

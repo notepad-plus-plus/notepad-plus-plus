@@ -59,3 +59,4 @@ MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/fi
 * To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
 * To see commands being executed add `VERBOSE=1` to the same command.
 * When switching between compilers or between release/debug modes, `mingw32-make clean` must be executed first.
+* If you are building the project outside of the `PowerEditor/gcc` directory, for example when using `-f` option, then the entire project path must not contain any spaces. Additionally, the path to `makefile` of this project should be listed as first.

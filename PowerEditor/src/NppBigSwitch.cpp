@@ -1759,6 +1759,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+
+		case WM_ACTIVATE:
+		{
+			if (wParam != WA_INACTIVE && _pEditView && _pNonEditView)
+			{
+				_pEditView->getFocus();
+				auto x = _pEditView->execute(SCI_GETXOFFSET);
+				_pEditView->execute(SCI_SETXOFFSET, x);
+				x = _pNonEditView->execute(SCI_GETXOFFSET);
+				_pNonEditView->execute(SCI_SETXOFFSET, x);
+			}
+			return TRUE;
+		}
+
 		case WM_SYNCPAINT:
 		{
 			RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_ALLCHILDREN);

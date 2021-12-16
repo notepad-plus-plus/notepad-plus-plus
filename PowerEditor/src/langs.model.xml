@@ -190,7 +190,7 @@
         <Language name="ihex" ext="hex" />
         <Language name="java" ext="java" commentLine="//" commentStart="/*" commentEnd="*/">
             <Keywords name="instre1">instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements permits import true false null</Keywords>
-            <Keywords name="type1">package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum sealed non-sealed</Keywords>
+            <Keywords name="type1">abstract boolean byte char class const double enum final float int interface long native non-sealed package private protected public sealed short static strictfp synchronized transient var void volatile</Keywords>
         </Language>
 		<!-- Embedded javascript -->
         <Language name="javascript" ext="" commentLine="//" commentStart="/*" commentEnd="*/">

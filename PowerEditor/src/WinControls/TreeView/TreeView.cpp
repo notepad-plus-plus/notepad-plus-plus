@@ -166,6 +166,7 @@ bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
 
 HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam)
 {
+	int x = 0;
 	TVITEM tvi;
 	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
 

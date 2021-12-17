@@ -71,6 +71,7 @@ struct FindOption
 	generic_string _str4Replace;
 	generic_string _filters;
 	generic_string _directory;
+	generic_string _excludeDirFilters;
 	bool _isRecursive = true;
 	bool _isInHiddenDir = false;
 	bool _isProjectPanel_1 = false;
@@ -268,6 +269,7 @@ public :
 	};
 	const TCHAR * getDir2Search() const {return _env->_directory.c_str();};
 
+	void getExcludeDirPatterns(std::vector<generic_string> & patternVect);
 	void getPatterns(std::vector<generic_string> & patternVect);
 	void getAndValidatePatterns(std::vector<generic_string> & patternVect);
 

@@ -834,7 +834,7 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 
 // Source: https://blogs.msdn.microsoft.com/greggm/2005/09/21/comparing-file-names-in-native-code/
 // Modified to use TCHAR's instead of assuming Unicode and reformatted to conform with Notepad++ code style
-static TCHAR ToUpperInvariant(TCHAR input)
+static TCHAR toUpperInvariant(TCHAR input)
 {
 	TCHAR result;
 	LONG lres = LCMapString(LOCALE_INVARIANT, LCMAP_UPPERCASE, &input, 1, &result, 1);
@@ -880,8 +880,8 @@ int OrdinalIgnoreCaseCompareStrings(LPCTSTR sz1, LPCTSTR sz2)
 
 			// IMPORTANT: this needs to be upper case to match the behavior of the operating system.
 			// See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dndotnet/html/StringsinNET20.asp
-			const TCHAR u1 = ToUpperInvariant(c1);
-			const TCHAR u2 = ToUpperInvariant(c2);
+			const TCHAR u1 = toUpperInvariant(c1);
+			const TCHAR u2 = toUpperInvariant(c2);
 			if (u1 != u2)
 			{
 				return (u1-u2); // strings are different
@@ -938,7 +938,6 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)
 {
-	bool is_matched = false;
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)
 	{
 		if (patterns[i].length() > 1 && patterns[i][0] == '!')
@@ -950,9 +949,9 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 		} 
 
 		if (PathMatchSpec(fileName, patterns[i].c_str()))
-			is_matched = true;
+			return true;
 	}
-	return is_matched;
+	return false;
 }
 
 bool allPatternsAreExclusion(const std::vector<generic_string> patterns)

@@ -400,7 +400,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         if (globbing || ::PathIsDirectory(targetFileName.c_str()))
         {
             vector<generic_string> fileNames;
-            vector<generic_string> patterns;
+            vector<generic_string> filePatterns;
+            vector<generic_string> excludeDirPatterns;
             if (globbing)
             {
                 const TCHAR * substring = wcsrchr(targetFileName.c_str(), TCHAR('\\'));
@@ -408,13 +409,13 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 				{
 					size_t pos = substring - targetFileName.c_str();
 
-					patterns.push_back(substring + 1);
+					filePatterns.push_back(substring + 1);
 					generic_string dir(targetFileName.c_str(), pos + 1); // use char * to evoke:
 																   // string (const char* s, size_t n);
 																   // and avoid to call (if pass string) :
 																   // string (const string& str, size_t pos, size_t len = npos);
 
-					getMatchedFileNames(dir.c_str(), patterns, fileNames, isRecursive, false);
+					getMatchedFileNames(dir.c_str(), excludeDirPatterns, filePatterns, fileNames, isRecursive, false);
 				}
             }
             else
@@ -423,8 +424,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
                 if (targetFileName[targetFileName.size() - 1] != '\\')
                     fileNameStr += TEXT("\\");
 
-                patterns.push_back(TEXT("*"));
-                getMatchedFileNames(fileNameStr.c_str(), patterns, fileNames, true, false);
+				filePatterns.push_back(TEXT("*"));
+                getMatchedFileNames(fileNameStr.c_str(), excludeDirPatterns, filePatterns, fileNames, true, false);
             }
 
             bool ok2Open = true;

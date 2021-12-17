@@ -820,7 +820,7 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 {
 	//elements that need to be resized horizontally (all edit/combo boxes etc.)
-	const auto resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO };
+	const auto resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO, IDD_FINDINFILES_EXCLUDEDIR_COMBO };
 
 	//elements that need to be moved
 	const auto moveWindowIDs = {
@@ -1348,18 +1348,22 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					const int filterSize = 256;
-					TCHAR filters[filterSize + 1];
-					filters[filterSize] = '\0';
-					TCHAR directory[MAX_PATH];
+					TCHAR filters[filterSize + 1] = { '\0' };
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 					_options._filters = filters;
+
+					TCHAR excludeDirFilters[filterSize + 1] = { '\0' };
+					::GetDlgItemText(_hSelf, IDD_FINDINFILES_EXCLUDEDIR_COMBO, excludeDirFilters, filterSize);
+					addText2Combo(excludeDirFilters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_EXCLUDEDIR_COMBO));
+					_options._excludeDirFilters = excludeDirFilters;
 
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 					combo2ExtendedMode(IDFINDWHAT);
 					_options._str2Search = getTextFromCombo(hFindCombo);
 					updateCombo(IDFINDWHAT);
 
+					TCHAR directory[MAX_PATH];
 					if (_currentStatus == FINDINFILES_DLG)
 					{
 						::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
@@ -1397,12 +1401,17 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					const int filterSize = 256;
-					TCHAR filters[filterSize];
-					TCHAR directory[MAX_PATH];
+					TCHAR filters[filterSize] = { '\0' };
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 					_options._filters = filters;
 
+					TCHAR excludeDirFilters[filterSize + 1] = { '\0' };
+					::GetDlgItemText(_hSelf, IDD_FINDINFILES_EXCLUDEDIR_COMBO, excludeDirFilters, filterSize);
+					addText2Combo(excludeDirFilters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_EXCLUDEDIR_COMBO));
+					_options._excludeDirFilters = excludeDirFilters;
+
+					TCHAR directory[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
 					_options._directory = directory;
 					trim(_options._directory);
@@ -2985,6 +2994,9 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDD_FINDINFILES_FILTERS_COMBO, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_DIR_STATIC, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_DIR_COMBO, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_EXCLUDEDIR_STATIC, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_EXCLUDEDIR_COMBO, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_EXCLUDEDIRRECURSIV_CHECK, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_BROWSE_BUTTON, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_FIND_BUTTON, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable && (!projectPanels));
@@ -2993,6 +3005,11 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDD_FINDINFILES_PROJECT2_CHECK, isEnable && projectPanels);
 	showFindDlgItem(IDD_FINDINFILES_PROJECT3_CHECK, isEnable && projectPanels);
 	showFindDlgItem(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, isEnable && (!projectPanels));
+}
+
+void FindReplaceDlg::getExcludeDirPatterns(vector<generic_string> & patternVect)
+{
+	cutString(_env->_excludeDirFilters.c_str(), patternVect);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
@@ -3172,6 +3189,9 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				break;
 			case IDD_FINDINFILES_FILTERS_COMBO:
 				_env->_filters = stringValue;
+				break;
+			case IDD_FINDINFILES_EXCLUDEDIR_COMBO:
+				_env->_excludeDirFilters = stringValue;
 				break;
 			case IDC_FRCOMMAND_EXEC:
 			{

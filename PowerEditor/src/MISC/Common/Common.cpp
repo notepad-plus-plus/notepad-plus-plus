@@ -936,6 +936,27 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	return true;
 }
 
+bool matchInExcludeDirList(const TCHAR *dirName, const std::vector<generic_string> & patterns, size_t level)
+{
+	for (size_t i = 0, len = patterns.size(); i < len; ++i)
+	{
+		if (patterns[i][0] == '+' && patterns[i].length() > 1) // for all levels - search this pattern recursively
+		{
+			if (PathMatchSpec(dirName, patterns[i].c_str() + 1))
+				return true;
+		}
+		else // exclusive pattern for only the 1st level
+		{
+			if (level == 1)
+			{
+				if (PathMatchSpec(dirName, patterns[i].c_str()))
+					return true;
+			}
+		}
+	}
+	return false;
+}
+
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)
 {
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)

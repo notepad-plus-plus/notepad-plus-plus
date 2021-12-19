@@ -206,7 +206,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	std::wstring localizationDir = nppDir;
 	pathAppend(localizationDir, TEXT("localization\\"));
 
-	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), excludeDirPatterns, filePatterns, fileNames, false, false);
+	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), 0, excludeDirPatterns, filePatterns, fileNames, false, false);
 	for (size_t i = 0, len = fileNames.size(); i < len; ++i)
 		localizationSwitcher.addLanguageFromXml(fileNames[i]);
 
@@ -221,7 +221,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
     {
 		appDataThemeDir = nppParams.getAppDataNppDir();
 	    pathAppend(appDataThemeDir, TEXT("themes\\"));
-	    _notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), excludeDirPatterns, filePatterns, fileNames, false, false);
+
+	    _notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), 0, excludeDirPatterns, filePatterns, fileNames, false, false);
+
 	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
 	    {
 		    themeSwitcher.addThemeFromXml(fileNames[i]);
@@ -237,7 +239,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	// Set theme directory to their installation directory
 	themeSwitcher.setThemeDirPath(nppThemeDir);
 
-	_notepad_plus_plus_core.getMatchedFileNames(nppThemeDir.c_str(), excludeDirPatterns, filePatterns, fileNames, false, false);
+	_notepad_plus_plus_core.getMatchedFileNames(nppThemeDir.c_str(), 0, excludeDirPatterns, filePatterns, fileNames, false, false);
+
 	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{
 		generic_string themeName( themeSwitcher.getThemeFromXmlFileName(fileNames[i].c_str()) );

@@ -2996,7 +2996,6 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDD_FINDINFILES_DIR_COMBO, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_EXCLUDEDIR_STATIC, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_EXCLUDEDIR_COMBO, isEnable && (!projectPanels));
-	showFindDlgItem(IDD_FINDINFILES_EXCLUDEDIRRECURSIV_CHECK, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_BROWSE_BUTTON, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_FIND_BUTTON, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable && (!projectPanels));

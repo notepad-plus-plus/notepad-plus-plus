@@ -414,7 +414,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 																   // and avoid to call (if pass string) :
 																   // string (const string& str, size_t pos, size_t len = npos);
 
-					getMatchedFileNames(dir.c_str(), patterns, fileNames, isRecursive, false);
+					getMatchedFileNames(dir.c_str(), 0, patterns, fileNames, isRecursive, false);
 				}
             }
             else
@@ -424,7 +424,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
                     fileNameStr += TEXT("\\");
 
                 patterns.push_back(TEXT("*"));
-                getMatchedFileNames(fileNameStr.c_str(), patterns, fileNames, true, false);
+                getMatchedFileNames(fileNameStr.c_str(), 0, patterns, fileNames, true, false);
             }
 
             bool ok2Open = true;

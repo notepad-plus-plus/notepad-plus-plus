@@ -955,6 +955,27 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 	return is_matched;
 }
 
+bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_string>& patterns, size_t level)
+{
+	for (size_t i = 0, len = patterns.size(); i < len; ++i)
+	{
+		size_t patterLen = patterns[i].length();
+
+		if (patterLen > 3 && patterns[i][0] == '!' && patterns[i][1] == '+' && patterns[i][2] == '\\') // check for !+\folderPattern: for all levels - search this pattern recursively
+		{
+			if (PathMatchSpec(dirName, patterns[i].c_str() + 3))
+				return true;
+		}
+		else if (patterLen > 2 && patterns[i][0] == '!' && patterns[i][1] == '\\') // check for !\folderPattern: exclusive pattern for only the 1st level
+		{
+			if (level == 1)
+				if (PathMatchSpec(dirName, patterns[i].c_str() + 2))
+					return true;
+		}
+	}
+	return false;
+}
+
 bool allPatternsAreExclusion(const std::vector<generic_string> patterns)
 {
 	bool oneInclusionPatternFound = false;

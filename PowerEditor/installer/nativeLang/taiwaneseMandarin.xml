@@ -1043,7 +1043,7 @@
                 </AutoCompletion>
                 <MultiInstance title="多重實體與日期時間">
                     <Item id="6151" name="多重 Notepad++ 實體設定"/>
-                    <Item id="6152" name="在新的 Notepad++ 實體開啟工作階段"/>
+                    <Item id="6152" name="在新的 Notepad++ 實體開啟工作階段（並在結束程式前自動儲存載入的工作階段）"/>
                     <Item id="6153" name="允許多重實體"/>
                     <Item id="6154" name="禁止多重實體（預設）"/>
                     <Item id="6155" name="（重新啟動 Notepad++ 以使變更生效。）"/>

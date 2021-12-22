@@ -2093,7 +2093,6 @@ void NppParameters::setWorkingDir(const TCHAR * newPath)
 	}
 }
 
-
 bool NppParameters::loadSession(Session & session, const TCHAR *sessionFileName)
 {
 	TiXmlDocument *pXmlSessionDocument = new TiXmlDocument(sessionFileName);

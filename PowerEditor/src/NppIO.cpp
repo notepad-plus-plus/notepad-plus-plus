@@ -2296,15 +2296,17 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			bool isAllSuccessful = true;
 			Session session2Load;
 
-			if ((NppParameters::getInstance()).loadSession(session2Load, sessionFileName.c_str()))
+			if (nppParam.loadSession(session2Load, sessionFileName.c_str()))
 			{
 				const bool isSnapshotMode = false;
 				const bool shouldLoadFileBrowser = true;
 				isAllSuccessful = loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 				result = true;
+				if (isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
+					nppParam.setLoadedSessionFilePath(sessionFileName);
 			}
 			if (!isAllSuccessful)
-				(NppParameters::getInstance()).writeSession(session2Load, sessionFileName.c_str());
+				nppParam.writeSession(session2Load, sessionFileName.c_str());
 		}
 		if (result == false)
 		{
@@ -2315,6 +2317,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 				MB_OK);
 		}
 	}
+
 	return result;
 }
 

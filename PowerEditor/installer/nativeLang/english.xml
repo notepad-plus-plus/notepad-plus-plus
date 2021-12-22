@@ -1051,7 +1051,7 @@ You can define several column markers by using white space to separate the diffe
 
                 <MultiInstance title="Multi-Instance &amp; Date">
                     <Item id="6151" name="Multi-instance settings"/>
-                    <Item id="6152" name="Open session in a new instance of Notepad++"/>
+                    <Item id="6152" name="Open session in a new instance (and save session automatically on exit)"/>
                     <Item id="6153" name="Always in multi-instance mode"/>
                     <Item id="6154" name="Default (mono-instance)"/>
                     <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>

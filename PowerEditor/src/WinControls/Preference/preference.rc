@@ -383,7 +383,7 @@ STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     GROUPBOX        "Multi-instance settings",IDC_MULTIINST_GB_STATIC,89,3,268,89,BS_CENTER
-    CONTROL         "Open session in a new instance of Notepad++",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON,122,17,226,10
+    CONTROL         "Open session in a new instance (and save session automatically on exit)",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON|BS_MULTILINE,122,10,226,20
     CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,34,218,10
     CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,51,196,10
     LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,110,70,239,20

@@ -1604,6 +1604,7 @@ INT_PTR CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MUTE_SOUNDS, BM_SETCHECK, nppGUI._muteSounds ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOSAVELOADEDSESSION, BM_SETCHECK, nppGUI._saveLoadedSessionOnExit ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 
@@ -1768,6 +1769,12 @@ INT_PTR CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_MUTE_SOUNDS:
 				{
 					nppGUI._muteSounds = isCheckedOrNot(IDC_CHECK_MUTE_SOUNDS);
+					return TRUE;
+				}
+
+				case IDC_CHECK_AUTOSAVELOADEDSESSION:
+				{
+					nppGUI._saveLoadedSessionOnExit = isCheckedOrNot(IDC_CHECK_AUTOSAVELOADEDSESSION);
 					return TRUE;
 				}
 				

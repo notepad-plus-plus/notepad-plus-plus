@@ -750,6 +750,7 @@ struct NppGUI final
 	bool _isMinimizedToTray = false;
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
+	bool _saveLoadedSessionOnExit = false;
 	bool _detectEncoding = true;
 	bool _saveAllConfirm = true;
 	bool _setSaveDlgExtFiltToAllTypes = false;
@@ -1540,6 +1541,15 @@ public:
 	};
 
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
+
+	void setLoadedSessionFilePath(const generic_string & loadedSessionFilePath) {
+		_loadedSessionFullFilePath = loadedSessionFilePath;
+	};
+
+	generic_string getLoadedSessionFilePath() {
+		return _loadedSessionFullFilePath;
+	};
+
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
 
@@ -1730,6 +1740,8 @@ private:
 
 	generic_string _cmdSettingsDir;
 	generic_string _titleBarAdditional;
+
+	generic_string _loadedSessionFullFilePath;
 
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };

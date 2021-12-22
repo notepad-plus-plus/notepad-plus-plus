@@ -1995,6 +1995,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)
 					saveSession(currentSession);
 
+				//
+				// saving session.xml into loaded session if a saved session is loaded and saveLoadedSessionOnExit option is enabled
+				//
+				
+				generic_string loadedSessionFilePath = nppParam.getLoadedSessionFilePath();
+				if (nppgui._saveLoadedSessionOnExit && !loadedSessionFilePath.empty() && PathFileExists(loadedSessionFilePath.c_str()))
+					nppParam.writeSession(currentSession, loadedSessionFilePath.c_str());
+
 				// write settings on cloud if enabled, if the settings files don't exist
 				if (nppgui._cloudPath != TEXT("") && nppParam.isCloudPathChanged())
 				{

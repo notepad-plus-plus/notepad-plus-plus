@@ -5436,10 +5436,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * optMuteSounds = element->Attribute(TEXT("muteSounds"));
 			if (optMuteSounds)
 				_nppGUI._muteSounds = lstrcmp(optMuteSounds, TEXT("yes")) == 0;
-
-			const TCHAR * optSaveLoadedSessionOnExit = element->Attribute(TEXT("saveLoadedSessionOnExit"));
-			if (optSaveLoadedSessionOnExit)
-				_nppGUI._saveLoadedSessionOnExit = lstrcmp(optSaveLoadedSessionOnExit, TEXT("yes")) == 0;
 		}
 		else if (!lstrcmp(nm, TEXT("commandLineInterpreter")))
 		{
@@ -6486,7 +6482,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("saveDlgExtFilterToAllTypes"), _nppGUI._setSaveDlgExtFiltToAllTypes ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("muteSounds"), _nppGUI._muteSounds ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("saveLoadedSessionOnExit"), _nppGUI._saveLoadedSessionOnExit ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no"/>

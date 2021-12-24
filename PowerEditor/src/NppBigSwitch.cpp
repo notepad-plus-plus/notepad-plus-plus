@@ -2000,7 +2000,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				//
 				
 				generic_string loadedSessionFilePath = nppParam.getLoadedSessionFilePath();
-				if (nppgui._saveLoadedSessionOnExit && !loadedSessionFilePath.empty() && PathFileExists(loadedSessionFilePath.c_str()))
+				if (!loadedSessionFilePath.empty() && PathFileExists(loadedSessionFilePath.c_str()))
 					nppParam.writeSession(currentSession, loadedSessionFilePath.c_str());
 
 				// write settings on cloud if enabled, if the settings files don't exist

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.1.9:
+Updated to v8.1.9.3:
 - minor fix
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.1.9">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.1.9.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -353,10 +353,11 @@ Updated to v8.1.9:
 					<Item id="45057" name="OEM 865: Нордический"/>
 					<Item id="45053" name="OEM 860: Португальский"/>
 					<Item id="45056" name="OEM 863: Французский"/>
-
+					<Item id="46301" name="Коллекция польз. языков Notepad++"/>
 					<Item id="46180" name="Пользовательский"/>
 					<Item id="46250" name="Задать свой синтаксис..."/>
-					<Item id="46300" name="Открыть папку синтаксисов ..."/>
+					<Item id="46300" name="Открыть папку синтаксисов..."/>
+
 					<Item id="46019" name="INI файл"/>
 					<Item id="46015" name="MS-DOS стиль"/>
 					<Item id="46016" name="Обычный Текст"/>
@@ -1073,7 +1074,7 @@ Updated to v8.1.9:
 				</MISC>
 				<MultiInstance title = "Режим Откр. и Дата">
 					<Item id="6151" name="Режим Открытия Файлов"/>
-					<Item id="6152" name="Только сессии открываются в новом окне"/>
+					<Item id="6152" name="Только сессии открываются в новом окне (и автоматически сохранять сессию при выходе)"/>
 					<Item id="6153" name="Каждый файл открывается в новом окне"/>
 					<Item id="6154" name="Все файлы открываются в одном окне"/>
 					<Item id="6155" name="* Изменения вступят в силу после перезапуска Notepad++"/>
@@ -1148,7 +1149,7 @@ Updated to v8.1.9:
 					<Item id="6866" name="Заказная пара 3:"/>
 				</AutoCompletion>
 			</Preference>
-				<MultiMacro title = "Многократный запуск ...">
+				<MultiMacro title = "Многократный запуск...">
 				<Item id="1"    name="Запуск"/>
 				<Item id="2"    name="Закрыть"/>
 				<Item id="8006" name="Макрос:"/>
@@ -1191,7 +1192,7 @@ Updated to v8.1.9:
 				<Item id="1718" name="Расширенный (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="и новые строки"/>
 			</FindInFinder>
-			<DoSaveOrNot title="Сохранение ...">
+			<DoSaveOrNot title="Сохранение...">
 				<Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
 				<Item id="6"    name="&amp;Да"/>
 				<Item id="7"    name="&amp;Нет"/>
@@ -1228,7 +1229,7 @@ Updated to v8.1.9:
 			<BufferInvalidWarning        title="Ошибка Сохранения"               message="Не удается сохранить: Недопустимый буфер."/>
 			<DoCloseOrNot                title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
 			<DoDeleteOrNot               title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
-			<NoBackupDoSaveFile          title="Сохранение ..."                  message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+			<NoBackupDoSaveFile          title="Сохранение..."                  message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot               title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?"/>
 			<DoReloadOrNotAndLooseChange title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
 			<PrehistoricSystemDetected   title="Обнаружена доисторическая система"   message="Кажется, вы все еще используете доисторическую систему. Извините, но эта функция работает только на современных системах."/>

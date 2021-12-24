@@ -1094,7 +1094,6 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6346" name="Aperçu à commutateur de documents"/>
                     <Item id="6360" name="Chut !"/>
                     <Item id="6361" name="Activer la confirmation pour la command &quot;Enregistrer tout&quot;"/>
-                    <Item id="6362" name="Enregistrer la session chargée à la sortie de Notepad++ (Nécessité de redémarrage)"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">

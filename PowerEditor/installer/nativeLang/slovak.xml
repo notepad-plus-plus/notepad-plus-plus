@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.9.2">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1050,7 +1050,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
 
                 <MultiInstance title="Viacnásobné spustenie a dátum">
                     <Item id="6151" name="Nastavenie viacnásobného spustenia"/>
-                    <Item id="6152" name="Otvárať reláciu v novej inštancii programu Notepad++"/>
+                    <Item id="6152" name="Otvoriť reláciu v novej inštancii (a pri ukončení ju automaticky uložiť)"/>
                     <Item id="6153" name="Režim viacerých inštancií programu"/>
                     <Item id="6154" name="Len jedna inštancia programu (Predvolené)"/>
                     <Item id="6155" name="* Zmena nastavení vyžaduje reštart programu"/>

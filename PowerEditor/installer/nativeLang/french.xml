@@ -1028,7 +1028,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 
                 <MultiInstance title="Instance Multiple &amp; Date">
                     <Item id="6151" name="Options d'instance multiple"/>
-                    <Item id="6152" name="Ouverture de session dans une nouvelle instance"/>
+                    <Item id="6152" name="Ouverture de session dans une nouvelle instance (et enregistrer la session en sortant)"/>
                     <Item id="6153" name="Toujours en mode instance multiple"/>
                     <Item id="6154" name="Défaut (instance unique)"/>
                     <Item id="6155" name="* Redémarrez Notepad++ pour prendre en compte la modification"/>

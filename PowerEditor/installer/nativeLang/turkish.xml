@@ -1053,7 +1053,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 
 				<MultiInstance title="Çoklu Örnek &amp; Tarih">
 					<Item id="6151" name="Çoklu Örnek Ayarları"/>
-					<Item id="6152" name="Yeni bir Notepad++ örneğinde oturum aç"/>
+					<Item id="6152" name="Yeni bir örnekte oturum aç (ve kapanınca oturumu otomatik kaydet)"/>
 					<Item id="6153" name="Her zaman çoklu örnek modunda"/>
 					<Item id="6154" name="Varsayılan (tekli örnek)"/>
 					<Item id="6155" name="* Bu ayarın değiştirilmesi Notepad++'ın yeniden başlatılmasını gerektirir."/>

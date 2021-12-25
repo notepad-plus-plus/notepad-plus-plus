@@ -660,14 +660,12 @@ bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const gene
 		}
 	}
 
-	size_t i = 0;
 	bool isOk = true;
 	for (HTREEITEM hItem = getChildFrom(tree2Search); hItem != NULL; hItem = getNextSibling(hItem))
 	{
 		isOk = searchLeafRecusivelyAndBuildTree(tree2Build, text2Search, index2Search, hItem);
 		if (!isOk)
 			break;
-		++i;
 	}
 	return isOk;
 }

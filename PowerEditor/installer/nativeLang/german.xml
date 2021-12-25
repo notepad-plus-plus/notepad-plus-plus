@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-12-05 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-12-25 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.9.3">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.9.4">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -1060,7 +1060,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 
 				<MultiInstance title="Instanzen &amp; Datum">
 					<Item id="6151" name="Instanzen-Einstellungen"/>
-					<Item id="6152" name="Sitzungsdateien in einer neuen Instanz öffnen"/>
+					<Item id="6152" name="Sitzungsdateien in einer neuen Instanz öffnen (und die Sitzung beim Beenden automatisch speichern)"/>
 					<Item id="6153" name="Immer im Mehrinstanzmodus"/>
 					<Item id="6154" name="Standard (nur eine Instanz)"/>
 					<Item id="6155" name="Nach Änderung der Einstellung muss Notepad++ neu gestartet werden."/>

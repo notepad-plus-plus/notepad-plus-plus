@@ -340,10 +340,13 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	{
 		auto defaultCharListLen = execute(SCI_GETWORDCHARS);
 		char *defaultCharList = new char[defaultCharListLen + 1];
-		execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
-		defaultCharList[defaultCharListLen] = '\0';
-		_defaultCharList = defaultCharList;
-		delete[] defaultCharList;
+		if(defaultCharList)
+		{
+			execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+			defaultCharList[defaultCharListLen] = '\0';
+			_defaultCharList = defaultCharList;
+			delete[] defaultCharList;
+		}
 	}
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();

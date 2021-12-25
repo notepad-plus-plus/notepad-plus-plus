@@ -1054,7 +1054,7 @@ bool FileManager::backupCurrentBuffer()
 				else
 				{
 					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-					size_t grabSize;
+					size_t grabSize = 0;
 					for (size_t i = 0; i < lengthDoc; i += grabSize)
 					{
 						grabSize = lengthDoc - i;
@@ -1209,14 +1209,14 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 		}
 		else
 		{
-			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			if (lengthDoc == 0)
 			{
 				isWrittenSuccessful = UnicodeConvertor.writeFile(buf, 0);
 			}
 			else
 			{
-				size_t grabSize;
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+				size_t grabSize = 0;
 				for (size_t i = 0; i < lengthDoc; i += grabSize)
 				{
 					grabSize = lengthDoc - i;

@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 24.11.2021 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 26.12.2021 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -1008,7 +1008,7 @@
 				<MultiInstance title="Прозорци и дата">
 						<!-- Прозорци -->
 					<Item id="6151" name="Настройки за отваряне"/>
-					<Item id="6152" name="Отваряне на сесия в нов прозорец"/>
+					<Item id="6152" name="Отваряне на сесия в нов прозорец (и автоматично запазване при изход)"/>
 					<Item id="6153" name="Винаги в отделен прозорец"/>
 					<Item id="6154" name="По подразбиране (един прозорец)"/>
 					<Item id="6155" name="* Изисква се рестартиране на Notepad++"/>

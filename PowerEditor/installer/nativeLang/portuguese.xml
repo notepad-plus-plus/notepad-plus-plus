@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.1.9.2">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.1.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1051,7 +1051,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 
                 <MultiInstance title="Multi-instância e Data">
                     <Item id="6151" name="Definições de multi-instância"/>
-                    <Item id="6152" name="Abrir sessão numa nova instância do Notepad++"/>
+                    <Item id="6152" name="Abrir sessão numa nova instância (e guardar sessão automaticamente ao sair)"/>
                     <Item id="6153" name="Sempre no modo de multi-instância"/>
                     <Item id="6154" name="Predefinição (mono-instância)"/>
                     <Item id="6155" name="* Deve reiniciar o Notepad++ depois de modificar estas definições"/>
@@ -1511,7 +1511,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-30/11/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2, 8.1.3, 8.1.4, 8.1.5, 8.1.6, 8.1.7, 8.1.8, 8.1.9, 8.1.9.1, 8.1.9.2)
+26/12/2021 (versão 8.0, 8.1, 8.1.1, 8.1.2, 8.1.3, 8.1.4, 8.1.5, 8.1.6, 8.1.7, 8.1.8, 8.1.9, 8.1.9.1, 8.1.9.2, 8.1.9.3)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

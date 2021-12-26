@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.9.2">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1056,9 +1056,9 @@
 
                 <MultiInstance title="複数起動、日時書式">
                     <Item id="6151" name="複数起動（マルチインスタンス）の設定"/>
-                    <Item id="6152" name="セッションをNotepad++の新しいインスタンスで開く"/>
+                    <Item id="6152" name="セッションを新しいインスタンスで開く（セッションは終了時に自動保存）"/>
                     <Item id="6153" name="常にマルチインスタンスモードとする"/>
-                    <Item id="6154" name="デフォルト(1つのインスタンス)"/>
+                    <Item id="6154" name="デフォルト（1つのインスタンス）"/>
                     <Item id="6155" name="* この変更を有効にするにはNotepad++の再起動が必要です"/>
                     <Item id="6171" name="挿入する日時の書式設定"/>
                     <Item id="6175" name="日付と時刻の順序を逆にする（短い形式、長い形式の場合）"/>

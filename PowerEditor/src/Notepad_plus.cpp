@@ -6606,9 +6606,10 @@ void Notepad_plus::launchDocumentListPanel()
 	if (!_pDocumentListPanel)
 	{
 		NppParameters& nppParams = NppParameters::getInstance();
+		int tabBarStatus = nppParams.getNppGUI()._tabStatus;
 
 		_pDocumentListPanel = new VerticalFileSwitcher;
-		HIMAGELIST hImgLst = _docTabIconList.getHandle();
+		HIMAGELIST hImgLst = ((tabBarStatus & TAB_ALTICONS) ? _docTabIconListAlt.getHandle() : NppDarkMode::isEnabled() ? _docTabIconListDarkMode.getHandle() : _docTabIconList.getHandle());
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();

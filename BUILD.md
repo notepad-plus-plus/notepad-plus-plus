@@ -55,8 +55,11 @@ MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/fi
 3. Run `mingw32-make`.
 4. The 32-bit or 64-bit `notepad++.exe` will be generated either in `bin.i686` or in `bin.x86_64` directory respectively, depending on the target CPU of the compiler — look for the full path to the resulting binary at the end of the build process.
 
+### Some additional information:
+
 * The directory containing `notepad++.exe` will also contain everything needed for Notepad++ to start.
 * To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
 * To see commands being executed add `VERBOSE=1` to the same command.
-* When switching between compilers or between release/debug modes, `mingw32-make clean` must be executed first.
-* If you are building the project outside of the `PowerEditor/gcc` directory, for example when using `-f` option, then the entire project path must not contain any spaces. Additionally, the path to `makefile` of this project should be listed as first.
+* When switching between compilers or between release/debug modes cleaning must be done first to delete previous temporary files. This can be done by invoking `mingw32-make clean` (the directory with `notepad++.exe` won't be affected) or `mingw32-make fullclean` (everything related to the build will be deleted, including the directory with `notepad++.exe`).
+* When a project is built outside of the `PowerEditor/gcc` directory, for example when using `-f` option, then the entire project path must not contain any spaces. Additionally, the path to `makefile` of this project should be listed as first.
+* When a project is built through MinGW-w64 with multilib support, a specific target can be forced by passing `TARGET_CPU` variable with `x86_64` or `i686` as value.

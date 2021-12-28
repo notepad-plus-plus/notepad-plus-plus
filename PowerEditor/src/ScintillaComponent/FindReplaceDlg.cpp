@@ -2705,7 +2705,10 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		wsprintf(_findAllResultStr, text.c_str());
 
 		bool isRTL = (*_ppEditView)->isTextDirectionRTL();
-		_pFinder->_scintView.changeTextDirection(isRTL);
+		bool isFinderR2L = _pFinder->_scintView.isTextDirectionRTL();
+		if (isRTL && isFinderR2L != isRTL)
+			_pFinder->_scintView.changeTextDirection(isRTL);
+
 		if (_findAllResult)
 		{
 			focusOnFinder();

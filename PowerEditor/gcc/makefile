@@ -50,7 +50,7 @@ SUBMAKEFLAGS := -O --no-print-directory
 ifeq "$(filter-out 0,$(DEBUG))" ""
 BUILD_TYPE := release
 BUILD_SUFFIX :=
-CXXFLAGS += -O2 -Os
+CXXFLAGS += -Os
 CPP_DEFINE += NDEBUG
 LDFLAGS += -s
 else
@@ -81,12 +81,17 @@ ifeq "$(TARGET_CPU)" "i686"
 ifeq "$(wildcard $(WIN_DIR)/system32/SensApi.dll)" ""
 $(error $(TARGET_CPU) build requires "%windir%/system32/SensApi.dll" to be present)
 endif
-# detect explicit definition of TARGET_CPU via command line to force a 32-bit build
+# detect explicit definition of TARGET_CPU via command line to force a 32-bit build for MinGW-w64 with support multilib
 ifeq "$(origin TARGET_CPU)" "command line"
 export CXX += -m32
 export LD += -m32
 export RC += -Fpe-i386
 endif
+# detect explicit definition of TARGET_CPU via command line to force a 64-bit build for MinGW-w64 with support multilib
+else ifneq "$(and $(findstring x86_64,$(TARGET_CPU)),$(findstring command line,$(origin TARGET_CPU)))" ""
+export CXX += -m64
+export LD += -m64
+export RC += -Fpe-x86-64
 endif
 
 # define target and build directories and update dependent variables

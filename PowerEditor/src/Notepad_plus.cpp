@@ -726,8 +726,14 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
 	activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
-	//::SetFocus(_mainEditView.getHSelf());
+
 	_mainEditView.getFocus();
+
+	if (_nativeLangSpeaker.isRTL())
+	{
+		_mainEditView.changeTextDirection(true);
+		_subEditView.changeTextDirection(true);
+	}
 
 	return TRUE;
 }

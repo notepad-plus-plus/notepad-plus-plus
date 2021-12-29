@@ -1782,7 +1782,7 @@ bool Notepad_plus::fileRename(BufferID id)
 
 		StringDlg strDlg;
 		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));
-		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), 0, reservedChars.c_str(), true);
+		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), langNameLenMax - 1, reservedChars.c_str(), true);
 
 		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
 		if (tabNewName)

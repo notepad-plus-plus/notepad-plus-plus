@@ -2707,8 +2707,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		bool toRTL = (*_ppEditView)->isTextDirectionRTL();
 		bool isRTL = _pFinder->_scintView.isTextDirectionRTL();
 
-		if ((toRTL && isRTL) || (!toRTL && !isRTL))
-			_pFinder->_scintView.changeTextDirection(isRTL);
+		if ((toRTL && !isRTL) || (!toRTL && isRTL))
+			_pFinder->_scintView.changeTextDirection(toRTL);
 
 		if (_findAllResult)
 		{
@@ -2756,7 +2756,8 @@ Finder * FindReplaceDlg::createFinder()
 	::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 	pFinder->_scintView.init(_hInst, pFinder->getHSelf());
-	pFinder->_scintView.changeTextDirection(isRTL);
+	if (isRTL)
+		pFinder->_scintView.changeTextDirection(true);
 
 	// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
 	originalFinderProc = SetWindowLongPtr(pFinder->_scintView.getHSelf(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(finderProc));

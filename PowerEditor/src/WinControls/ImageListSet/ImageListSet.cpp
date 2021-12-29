@@ -99,6 +99,11 @@ void ToolBarIcons::reInit(int size)
 	ImageList_SetIconSize(getDefaultLstSetDM2(), size, size);
 	ImageList_SetIconSize(getDisableLstSetDM2(), size, size);
 
+	for (size_t i = 0; i < _iconListVector.size(); ++i)
+	{
+		_iconListVector[i].removeAll();
+	}
+
 	for (size_t i = 0, len = _tbiis.size(); i < len; ++i)
 	{
 		if (_tbiis[i]._defaultIcon != -1)

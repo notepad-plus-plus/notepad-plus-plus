@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 	-->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.1.5">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.1.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -316,6 +316,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="46001" name="Configurador de estilo..."/>
 					<Item id="46250" name="Defina su lenguaje..."/>
 					<Item id="46300" name="Abrir carpeta de lenguaje definido por usuario..."/>
+					<Item id="46301" name="Lenguas definidas por el usuario de Notepad++"/>
 					<Item id="46180" name="Definido por el usuario"/>
 					<Item id="47000" name="Acerca de Notepad++..."/>
 					<Item id="47010" name="Argumentos línea de comandos..."/>
@@ -666,6 +667,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="25026" name="Operadores 1"/>
 					<Item id="25027" name="Operadores 2"/>
 					<Item id="25028" name="Números"/>
+					<Item id="25033" name="Transparente"/>
+					<Item id="25034" name="Transparente"/>
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Cancelar"/>
 				</StylerDialog>
@@ -1019,6 +1022,9 @@ Puedes definir varios marcadores de columna utilizando espacios en blanco para s
 					<Item id="6153" name="Usar siempre en modo multi-instancia"/>
 					<Item id="6154" name="Instancia única por defecto"/>
 					<Item id="6155" name="* La modificación de este ajuste necesita reiniciar Notepad++"/>
+					<Item id="6171" name="Personalizar insertar fecha y hora"/>
+					<Item id="6175" name="Invertir el orden de fecha y hora predeterminado (formatos cortos y largos)"/>
+					<Item id="6172" name="Formato personalizado:"/>
 				</MultiInstance>
 				<Delimiter title="Delimitador">
 					<Item id="6251" name="Ajustes del delimitador (Ctrl + doble clic)"/>

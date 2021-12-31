@@ -230,14 +230,15 @@ Function removeUnstablePlugins
 		MessageBox MB_OK "Due to NppSaveAsAdmin plugin's incompatibility issue in version $R0, NppSaveAsAdmin.dll will be deleted. Use Plugins Admin to add back (the latest version of) NppSaveAsAdmin." /SD IDOK
 		Rename "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" "$INSTDIR\plugins\disabled\NppSaveAsAdmin.dll"
 		Delete "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll"
-	NppSaveAsAdminTestEnd:
-	
-	; https://github.com/chcg/NPP_HexEdit/issues/51
-	IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 HexEditorTestEnd
-		MessageBox MB_OK "Due to HexEditor plugin's crash issue on Notepad++ v8 (and later versions), HexEditor.dll will be removed." /SD IDOK
-		Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
-		Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
-	HexEditorTestEnd:
+NppSaveAsAdminTestEnd:
+        
+		; https://github.com/chcg/NPP_HexEdit/issues/51
+		IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 noDeleteHEPlugin
+			MessageBox MB_YESNO "HexEditor plugin is unstable, we suggest you to remove it.$\nRemove HexEditor plugin?" /SD IDYES IDYES doDeleteHEPlugin IDNO noDeleteHEPlugin ;IDYES remove
+doDeleteHEPlugin:
+                Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
+                Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
+noDeleteHEPlugin:
 	
 FunctionEnd
 

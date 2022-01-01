@@ -218,11 +218,6 @@
                     <Item id="43030" name="Appliquer le style 5"/>
                     <Item id="43031" name="Dégager le style 5"/>
                     <Item id="43032" name="Dégager tous les styles"/>
-                    <Item id="43062" name="Appliquer le style 1 uniquement sur l'occurrence sélectionnée"/>
-                    <Item id="43063" name="Appliquer le style 2 uniquement sur l'occurrence sélectionnée"/>
-                    <Item id="43064" name="Appliquer le style 3 uniquement sur l'occurrence sélectionnée"/>
-                    <Item id="43065" name="Appliquer le style 4 uniquement sur l'occurrence sélectionnée"/>
-                    <Item id="43066" name="Appliquer le style 5 uniquement sur l'occurrence sélectionnée"/>
                     <Item id="43033" name="Style 1"/>
                     <Item id="43034" name="Style 2"/>
                     <Item id="43035" name="Style 3"/>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.1.9.3  4/Dec/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.2.0.0  1/Jan/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.9.3">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.2.0.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1125,7 +1125,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 				</AutoCompletion>
 				<MultiInstance title = "Více instancí &amp; Datum">
 					<Item id = "6151" name = "Nastavení víceinstančního módu"/>
-					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++"/>
+					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++ (a při ukončení ji automaticky uložit)"/>
 					<Item id = "6153" name = "Vždy ve víceinstančním módu"/>
 					<Item id = "6154" name = "Implicitní (jednoinstanční) mód"/>
 					<Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
@@ -1417,10 +1417,17 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
 			<two-find-buttons-tip value = "Mód se dvěma vyhledávacími tlačítky"/>
 			<file-rename-title value = "Přejmenovat"/>
-			<find-in-files-filter-tip value="Najít v cpp, cxx, h, hxx &amp;&amp; hpp:
+			<find-in-files-filter-tip value = "Hledat v cpp, cxx, h, hxx &amp;&amp; hpp souborech:
 *.cpp *.cxx *.h *.hxx *.hpp
-Najít ve všech souborech mimo exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+
+Hledat ve všech souborech mimo exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+
+Hledat ve všech souborech, ale vynechat složky tests, bin &amp;&amp; bin64:
+*.* !\\tests !\\bin*
+
+Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo logs:
+*.* !\\log*+"/>  <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
 			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
 			<find-status-replaceinfiles-1-replaced value = "Nahrazování v souborech: 1 výskyt nahrazen"/>

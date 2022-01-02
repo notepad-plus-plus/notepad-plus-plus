@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Sat, December 1st, 2022.
+    Last modified Sat, January 1st, 2022.
     Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
@@ -31,7 +31,7 @@
                     <Item subMenuId="file-closeMore" name="Sara su de pì"/>
                     <Item subMenuId="file-recentFiles" name="File resenti"/>
                     <Item subMenuId="edit-insert" name="Inserisi"/>
-					<Item subMenuId="edit-copyToClipboard" name="Còpia inte i Scarabòci"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Còpia inte i Scarabòci"/>
                     <Item subMenuId="edit-indent" name="&amp;Indenta"/>
                     <Item subMenuId="edit-convertCaseTo" name="Con&amp;verti MAIUSCOLO/minuscolo"/>
                     <Item subMenuId="edit-lineOperations" name="Operasion so ƚe righe"/>
@@ -42,7 +42,7 @@
                     <Item subMenuId="edit-pasteSpecial" name="Incoƚa speciaƚe"/>
                     <Item subMenuId="edit-onSelection" name="Testo seƚesionà"/>
                     <Item subMenuId="search-markAll" name="M&amp;arca Stiƚe par tute ƚe ocorense"/>
-                    <Item subMenuId="search-markOne" name="Marca stiƚe s&amp;oƚo la seƚesion"/>
+                    <Item subMenuId="search-markOne" name="Marca stiƚe s&amp;oƚo ƚa seƚesion"/>
                     <Item subMenuId="search-unmarkAll" name="Rimovi marcadura stiƚe"/>
                     <Item subMenuId="search-jumpUp" name="Va sora"/>
                     <Item subMenuId="search-jumpDown" name="Và xo"/>
@@ -115,7 +115,7 @@
                     <Item id="42006" name="&amp;Scanseƚa"/>
                     <Item id="42007" name="Seƚesiona t&amp;uto"/>
                     <Item id="42020" name="Prinsipio/Fine seƚesion"/>
-					<Item id="42084" name="Data e ora (formato curto)"/>
+                    <Item id="42084" name="Data e ora (formato curto)"/>
                     <Item id="42085" name="Data e ora (formato longo)"/>
                     <Item id="42086" name="Data e ora (formato personalixà)"/>
                     <Item id="42008" name="Inserisi tabuƚasion (indent)"/>
@@ -130,7 +130,7 @@
                     <Item id="42059" name="Órdena righe en maniera cresente"/>
                     <Item id="42060" name="Órdena righe en maniera decresente"/>
                     <Item id="42080" name="Órdena righe cresente ƚasando stare Maiùscoƚo/Minùscoƚo"/>
-                    <Item id="42081" name="Órdena righe decresente ƚasando stare Maiùscoƚo/Minùscoƚo"/>              
+                    <Item id="42081" name="Órdena righe decresente ƚasando stare Maiùscoƚo/Minùscoƚo"/>
                     <Item id="42061" name="Órdena righe cofà intieri en maniera cresente"/>
                     <Item id="42062" name="Órdena righe cofà intieri en maniera decresente"/>
                     <Item id="42063" name="Órdena righe cofà vaƚori desimaƚi (virgoƚa) en maniera cresente"/>
@@ -242,10 +242,10 @@
                     <Item id="43059" name="5° Stiƚe"/>
                     <Item id="43060" name="Tuti cuanti i Stiƚi"/>
                     <Item id="43061" name="Cata Stiƚe (Evidensià)"/>
-                    <Item id="43062" name="Che utilixa el 1° stiƚe"/> 
-                    <Item id="43063" name="Che utilixa el 2° stiƚe"/> 
-                    <Item id="43064" name="Che utilixa el 3° stiƚe"/> 
-                    <Item id="43065" name="Che utilixa el 4° stiƚe"/> 
+                    <Item id="43062" name="Che utilixa el 1° stiƚe"/>
+                    <Item id="43063" name="Che utilixa el 2° stiƚe"/>
+                    <Item id="43064" name="Che utilixa el 3° stiƚe"/>
+                    <Item id="43065" name="Che utilixa el 4° stiƚe"/>
                     <Item id="43066" name="Che utilixa el 5° stiƚe"/>
                     <Item id="43045" name="Fenèstra rixultadi de riserca"/>
                     <Item id="43046" name="Rixultado de riserca seguente"/>
@@ -268,7 +268,7 @@
                     <Item id="44031" name="Espandi el ƚiveƚo corente"/>
                     <Item id="44049" name="Informasion file..."/>
                     <Item id="44080" name="Mapa documento"/>
-					<Item id="44070" name="Ƚista documenti"/>
+                    <Item id="44070" name="Ƚista documenti"/>
                     <Item id="44084" name="Ƚista funsion"/>
                     <Item id="44085" name="Carteƚa cofà workspace"/>
                     <Item id="44086" name="Prima scheda"/>
@@ -323,8 +323,8 @@
                     <Item id="46001" name="Configura i stiƚi..."/>
                     <Item id="46250" name="Definisi el to ƚenguagio..."/>
                     <Item id="46300" name ="Vèrxi carteƚa ƚenguagi definìi da &apos;l utente..." />
-                    <Item id="46301" name="Personalixasion Lenguagio Notepad++"/>
-					<Item id="46180" name="Definìo da ƚ&apos;utente"/>
+                    <Item id="46301" name="Personalixasion Ƚenguagio Notepad++"/>
+                    <Item id="46180" name="Definìo da ƚ&apos;utente"/>
                     <Item id="47000" name="Informasion so Notepad++"/>
                     <Item id="47010" name="Argomenti riga de comando..."/>
                     <Item id="47001" name="Sito web Notepad++"/>
@@ -622,14 +622,14 @@
                     <Item id="44083" name="Mostra/Scondi Projeto Paneƚo 3"/>
                     <Item id="44085" name="Mostra/Scondi carteƚa cofà Workspace"/>
                     <Item id="44080" name="Mostra/Scondi Mapa Documento"/>
-					<Item id="44070" name="Mostra/Scondi Ƚista Documenti"/>
+                    <Item id="44070" name="Mostra/Scondi Ƚista Documenti"/>
                     <Item id="44084" name="Mostra/Scondi Ƚista funsion"/>
                     <Item id="50005" name="Mostra/Scondi registrasion macro"/>
                     <Item id="44104" name="Pasa a Projeto Paneƚo 1"/>
                     <Item id="44105" name="Pasa a Projeto Paneƚo 2"/>
                     <Item id="44106" name="Pasa a Projeto Paneƚo 3"/>
                     <Item id="44107" name="Pasa a Carteƚa cofà Workspace"/>
-					<Item id="44109" name="Pasa a Ƚista Documenti"/>
+                    <Item id="44109" name="Pasa a Ƚista Documenti"/>
                     <Item id="44108" name="Pasa a Ƚista funsion"/>
                 </MainCommandNames>
             </ShortcutMapper>
@@ -686,7 +686,7 @@
                     <Item id="25026" name="Operatore 1"/>
                     <Item id="25027" name="Operatore 2"/>
                     <Item id="25028" name="Nùmari"/>
-					<Item id="25033" name="Trasparente"/>
+                    <Item id="25033" name="Trasparente"/>
                     <Item id="25034" name="Trasparente"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Anuƚa"/>
@@ -822,8 +822,8 @@
                     <Item id="6102" name="Scondi"/>
                     <Item id="6103" name="Fluent UI: Icone picinine"/>
                     <Item id="6104" name="Fluent UI: Icone grandi"/>
-                    <Item id="6129" name="Filled Fluent UI: Icone picinine"/> 
-                    <Item id="6130" name="Filled Fluent UI: Icone grandi"/> 
+                    <Item id="6129" name="Filled Fluent UI: Icone picinine"/>
+                    <Item id="6130" name="Filled Fluent UI: Icone grandi"/>
                     <Item id="6105" name="Icone standard"/>
 
                     <Item id="6106" name="Bara schede"/>
@@ -844,7 +844,7 @@
                     <Item id="6123" name="Ƚengua"/>
 
                     <Item id="6128" name="Alterna icone"/>
-                </Global> 
+                </Global>
                 <Scintillas title="Mostrar">
                     <Item id="6216" name="Cursore"/>
                     <Item id="6217" name="Ƚarghesa:"/>
@@ -863,27 +863,27 @@
                     <Item id="6239" name="Mantien ƚa seƚesion cò the clichi col tasto de drita fora de ƚa seƚesion"/>
                 </Scintillas>
 
-               <DarkMode title="Modaƚità scura"> 
-                            <Item id="7101" name="Abiƚità modaƚità scura"/> 
-							<Item id="7102" name="Tonaƚità negra"/>
-                    		<Item id="7103" name="Tonaƚità roso"/>
-                    		<Item id="7104" name="Tonaƚità verde"/>
-                    		<Item id="7105" name="Tonaƚità blù"/>
-                    		<Item id="7107" name="Tonaƚità viola"/>
-                    		<Item id="7108" name="Tonaƚità ciano"/>
-                    		<Item id="7109" name="Tonaƚità verde oliva"/>
-                    		<Item id="7115" name="Tonaƚità personalixà"/>
-                    		<Item id="7116" name="Alto"/>
-                    		<Item id="7117" name="Menu hot track"/>
-                    		<Item id="7118" name="Ativo"/>
-                    		<Item id="7119" name="Prinsipaƚe"/>
-                    		<Item id="7120" name="Erore"/>
-                    		<Item id="7121" name="Testo"/>
-                    		<Item id="7122" name="Testo scuro"/>
-                    		<Item id="7123" name="Testo disabilità"/>
-                    		<Item id="7124" name="Bordo"/>
-                    		<Item id="7130" name="Ripristina"/>
-               </DarkMode>
+                <DarkMode title="Modaƚità scura">
+                    <Item id="7101" name="Abiƚità modaƚità scura"/>
+                    <Item id="7102" name="Tonaƚità negra"/>
+                    <Item id="7103" name="Tonaƚità roso"/>
+                    <Item id="7104" name="Tonaƚità verde"/>
+                    <Item id="7105" name="Tonaƚità blù"/>
+                    <Item id="7107" name="Tonaƚità vioƚa"/>
+                    <Item id="7108" name="Tonaƚità ciano"/>
+                    <Item id="7109" name="Tonaƚità verde oliva"/>
+                    <Item id="7115" name="Tonaƚità personalixà"/>
+                    <Item id="7116" name="Alto"/>
+                    <Item id="7117" name="Menu hot track"/>
+                    <Item id="7118" name="Ativo"/>
+                    <Item id="7119" name="Prinsipaƚe"/>
+                    <Item id="7120" name="Erore"/>
+                    <Item id="7121" name="Testo"/>
+                    <Item id="7122" name="Testo scuro"/>
+                    <Item id="7123" name="Testo disabilità"/>
+                    <Item id="7124" name="Bordo"/>
+                    <Item id="7130" name="Ripristina"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="Margini/Bordi">
                     <Item id="6201" name="Stiƚe Ragrupamenti"/>
@@ -894,8 +894,8 @@
                     <Item id="6226" name="Nisun"/>
                     <Item id="6291" name="Nùmaro riga"/>
                     <Item id="6206" name="Mostra i nùmari de riga"/>
-                    <Item id="6292" name="Larghesa dinamica"/>
-                    <Item id="6293" name="Larghesa fisa"/>
+                    <Item id="6292" name="Ƚarghesa dinamica"/>
+                    <Item id="6293" name="Ƚarghesa fisa"/>
                     <Item id="6207" name="Mostra i segnaƚibri"/>
                     <Item id="6211" name="Ƚimite De Coƚona"/>
                     <Item id="6213" name="Modaƚità &apos;sfondo&apos;"/>
@@ -903,10 +903,10 @@
 Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i diversi nùmari."/>
                     <Item id="6231" name="Spesore Bordo Editor"/>
                     <Item id="6235" name="Nisun bordo"/>
-                    <Item id="6208" name="Padding"/> 
-                     <Item id="6209" name="Sanca"/> 
-                     <Item id="6210" name="Drita"/> 
-                     <Item id="6212" name="Anti Distrasion"/> 
+                    <Item id="6208" name="Padding"/>
+                     <Item id="6209" name="Sanca"/>
+                     <Item id="6210" name="Drita"/>
+                     <Item id="6212" name="Anti Distrasion"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Novo documento">
@@ -950,9 +950,9 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 </Language>
 
                 <Highlighting title="Evidensiasion">
-                    <Item id="6351" name="Marca stiƚe par tute cuante ƚe ocorense"/> 
-                    <Item id="6352" name="Ƚ&apos;evidensiasion ƚa xe case-sensitive"/> 
-                    <Item id="6353" name="Identifega soƚo paròƚe intiere"/> 
+                    <Item id="6351" name="Marca stiƚe par tute cuante ƚe ocorense"/>
+                    <Item id="6352" name="Ƚ&apos;evidensiasion ƚa xe case-sensitive"/>
+                    <Item id="6353" name="Identifega soƚo paròƚe intiere"/>
                     <Item id="6333" name="Evidensiasion Inteƚigente"/>
                     <Item id="6326" name="Abìƚita"/>
                     <Item id="6354" name="Corispondente"/>
@@ -999,9 +999,9 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 <Searching title="Searching">
                     <Item id="6901" name="No propore ƚe paròƚe seƚesionà inte ƚa fenèstra de reserca"/>
                     <Item id="6902" name="Uxa caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
-                    <Item id="6903" name="Lasa vèrta ƚa fenèstra de dialogo dopo aver catà cuel output inte ƚa fenèstra de i rixultadi"/>
+                    <Item id="6903" name="Ƚasa vèrta ƚa fenèstra de dialogo dopo aver catà cuel output inte ƚa fenèstra de i rixultadi"/>
                     <Item id="6904" name="Conferma Sostituisi tuto cuanto en tuti i documenti vèrti"/>
-                    <Item id="6905" name="Sostituisi: sensa spostamento a la ocorensa sucesiva"/>
+                    <Item id="6905" name="Sostituisi: sensa spostamento a ƚa ocorensa sucesiva"/>
                 </Searching>
 
                 <RecentFilesHistory title="File resenti">
@@ -1053,13 +1053,13 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
 
                 <MultiInstance title="Istanse multiple e Date">
                     <Item id="6151" name="Inpostasion Istanse Mùltiple"/>
-					<Item id="6152" name="Vèrxi sesion en na nova istansa  (e salva automaticamente ƚe sesioni a l&apos;usita)"/>
+                    <Item id="6152" name="Vèrxi sesion en na nova istansa  (e salva automaticamente ƚe sesioni a l&apos;usita)"/>
                     <Item id="6153" name="Senpre en modaƚità istansa multipla"/>
                     <Item id="6154" name="Predefinìo (istansa ùgnoƚa)"/>
                     <Item id="6155" name="* Ƚa modìfega de sta inpostasion ƚa ga bixogno de inviare de novo Notepad++"/>
                     <Item id="6171" name="Inserimento Data e ora personalixà"/>
                     <Item id="6175" name="Inverti l&apos;ordinamento de date e ora de default (formato longo &amp;&amp; curto)"/>
-                    <Item id="6172" name="formati personalixà:"/> 
+                    <Item id="6172" name="formati personalixà:"/>
  </MultiInstance>
 
                 <Delimiter title="Deƚimitatori">
@@ -1081,7 +1081,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6319" name="Abìƚita"/>
                     <Item id="6320" name="No sotoƚineare"/>
                     <Item id="6350" name="Abiƚita ƚa modaƚità fullbox"/>
-                    <Item id="6264" name="URI customized schemes:"/>                    
+                    <Item id="6264" name="URI customized schemes:"/>
                 </Cloud>
 
                 <SearchEngine title="Motore de riserca" >
@@ -1118,7 +1118,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6345" name="Anteprima so ƚe schede"/>
                     <Item id="6346" name="Anteprima so ƚa mapa documento"/>
                     <Item id="6360" name="Fa star xiti tuti cuanti i soni"/>
-					<Item id="6361" name="Abilita il dialogo di conferma Salva Tutto"/>
+                    <Item id="6361" name="Abilita il dialogo di conferma Salva Tutto"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exegui macro pì volte">
@@ -1292,7 +1292,7 @@ Vuto continuare?"/>
             <ColumnPath name="Percorso"/>
             <ColumnType name="Tipo"/>
             <ColumnSize name="Dimension"/>
-            <NbDocsTotal name="Documenti totaƚi:"/> 
+            <NbDocsTotal name="Documenti totaƚi:"/>
             <MenuCopyName name="Copia Nòme(i)"/>
             <MenuCopyPath name="Copia Percorso(i)"/>
         </WindowsDlg>
@@ -1381,7 +1381,7 @@ Vuto continuare?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Parmete de includare caràtari xontà inte ƚa ƚista de i caràtari considerà na paròƚa, cuando te fè on dopio clic par seƚesionare, o te efetui na riserca co ƚ&apos;opsion &quot;Soƚo paròƚe intiere&quot; seƚesionà"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
-            
+
             <word-chars-list-warning-begin value="Òcio: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spasi"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tab"/>
@@ -1391,7 +1391,7 @@ Vuto continuare?"/>
             <cloud-select-folder value="Seƚesiona na carteƚa da indove Notepad++ pòsa ƚèxare o scrìvare ƚe proprie inpostasion"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Utiƚixa Shift+Invio par sercare inte ƚa diresion oposta"/>
             <two-find-buttons-tip value="Modaƚità riserca a 2 botoni"/>
-			<file-rename-title value="Rinomina"/>
+            <file-rename-title value="Rinomina"/>
             <find-in-files-filter-tip value="Ruma en cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1427,7 +1427,7 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <find-status-scope-selection value="inte&apos;l testo seƚesionà"/>
             <find-status-scope-all value="intel file intiero"/>
             <find-status-scope-backward value="da inisio-de-el-file fino al cursore"/>
-            <find-status-scope-forward value="da el cursore a ƚa fine-de-el-file"/>                                                                          
+            <find-status-scope-forward value="da el cursore a ƚa fine-de-el-file"/>
             <finder-find-in-finder value="Ruma en sti rixultadi..."/>
             <finder-close-this value="Sara su i rixultadi"/>
             <finder-collapse-all value="Coƚasa tuto cuanto\"/>
@@ -1439,7 +1439,7 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <finder-clear-all value="Puƚisi tuto cuanto"/>
             <finder-open-all value="Vèrxi tuto cuanto"/>
             <finder-purge-for-every-search value="Pulisi par ogni riserca"/>
-            <finder-wrap-long-lines value="A capo otomàtico par ƚe righe ƚonghe"/>                                                      
+            <finder-wrap-long-lines value="A capo otomàtico par ƚe righe ƚonghe"/>
             <common-ok value="OK"/>
             <common-cancel value="Anuƚa"/>
             <common-name value="Nòme: "/>
@@ -1488,8 +1488,8 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <close-panel-tip value="Sara" />
             <IncrementalFind-FSFound value="$INT_REPLACE$ ocorense" />
             <IncrementalFind-FSNotFound value="Frase no trovà" />
-            <IncrementalFind-FSTopReached value="Xè stà raxunto &apos;l inisio de la pàgina, se continuerà da&apos;l fondo" />
-            <IncrementalFind-FSEndReached value="È stata raxunta ƚa fine de ƚa pàgina, se continuerà da&apos;l inisio" />
+            <IncrementalFind-FSTopReached value="Xè stà raxunto &apos;l inisio de ƚa pàgina, se continuerà da&apos;l fondo" />
+            <IncrementalFind-FSEndReached value="Xè stà raxunta ƚa fine de ƚa pàgina, se continuerà da&apos;l inisio" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

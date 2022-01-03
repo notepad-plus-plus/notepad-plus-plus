@@ -636,4 +636,47 @@ private:
 
 	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
 	void updateCommandShortcuts();
+	
+	void handleEnvironmentSettingChange(LPARAM lParam);
+	bool _isGlobalEnvChanged = false;
+
+	typedef struct st_MenuCommandMark {
+		st_MenuCommandMark(UINT uMenuCommandId, const TCHAR* szMarkStr, const char* szTooltipStrId, const TCHAR* szTooltipDefaultStr)
+		{
+			::ZeroMemory(this, sizeof(st_MenuCommandMark));
+			_uMenuCommandId = uMenuCommandId;
+			_szMarkStr = szMarkStr;
+			_clrfMark = CLR_INVALID;
+			_alphaOpacity = 255;
+			_szTooltipStrId = szTooltipStrId;
+			_szTooltipDefaultStr = szTooltipDefaultStr;
+			_uMaxTooltipWidth = (UINT)300;
+			_tiTooltip.cbSize = sizeof(TOOLINFO);
+			_tiTooltip.uFlags = TTF_IDISHWND | TTF_ABSOLUTE | TTF_TRACK | TTF_CENTERTIP;
+		}
+		UINT _uMenuCommandId;				// definitions are in the menuCmdID.h
+		const TCHAR* _szMarkStr;			// single char like "!" or a very short string (the menuitem check-area is limited...)
+		COLORREF _clrfMark;					// foreground color of the above mark, use the CLR_INVALID here to use the current foreground menucolor
+		BYTE _alphaOpacity;					// 0 ... transparent, 255 ... opaque
+		SIZE _sizeMarkArea;					// used at runtime
+		const char* _szTooltipStrId;		// optional, it can be NULL (this is string ID for the NativeLangSpeaker)
+		const TCHAR* _szTooltipDefaultStr;	// optional, it can be NULL
+		HWND _hTooltip;						// used at runtime
+		TOOLINFO _tiTooltip;				// used at runtime
+		UINT _uMaxTooltipWidth;				// multiline wrapping point for longer tooltip strings
+	} MENUCOMMANDMARK, *LPMENUCOMMANDMARK;
+
+	// list of the menu command marks (& its optional tooltips)
+	// - when adding a new MENUCOMMANDMARK item to the list below, do not forget to increase the _mcmList size by one
+	MENUCOMMANDMARK _mcmList[1] = {
+		MENUCOMMANDMARK(IDM_FILE_OPEN_CMD, TEXT("!"), "file-opencontainingfolder-cmd-tip", TEXT("Global environment settings have been changed. If you need to update cmd environment, restart Notepad++ from a freshly opened Explorer."))
+		// add another items to this list here, separate items by comma
+	};
+
+#define MCM_ALL_MENU_COMMANDS ((UINT)-1)
+	
+	bool setMarkOnMenuItem(LPMENUCOMMANDMARK pMenuCommandMark);
+	void destroyMarkOnMenuItemById(UINT uMenuCommandId);
+	void destroyMarkOnMenuItemByIndex(UINT uMcmListItemIndex);
+	LPMENUCOMMANDMARK _pmcmActive = NULL;
 };

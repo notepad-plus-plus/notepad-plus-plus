@@ -55,6 +55,27 @@ struct SortTaskListPred final
 };
 
 
+static HWND hwndMouseLLHookServer = NULL;
+static HHOOK hhookMouseLL = NULL;
+static LRESULT CALLBACK mouseLLHookProc(int nCode, WPARAM wParam, LPARAM lParam)
+{
+	if (nCode >= 0)
+	{
+		switch (wParam)
+		{
+			case WM_MOUSEMOVE:
+				if (hwndMouseLLHookServer)
+					::SendMessage(hwndMouseLLHookServer, static_cast<UINT>(wParam), 0, 0); // do not care about resending the mouse stuff via WPARAM & LPARAM here
+				break;
+			default:
+				break;
+		}
+	}
+
+	return ::CallNextHookEx(hhookMouseLL, nCode, wParam, lParam);
+}
+
+
 LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (hwnd == NULL)
@@ -111,6 +132,8 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 						rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
 						SWP_FRAMECHANGED);
 				}
+				
+				hwndMouseLLHookServer = hwnd;	
 
 				return lRet;
 			}
@@ -195,6 +218,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_SETTINGCHANGE:
 		{
 			NppDarkMode::handleSettingChange(hwnd, lParam);
+			
+			handleEnvironmentSettingChange(lParam);
 
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
@@ -2766,6 +2791,112 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			PathRemoveFileSpec(path);
 			setWorkingDir(path.c_str());
 			return TRUE;
+		}
+		
+		case WM_MENUSELECT:
+		{
+			// handle possible menu command mark tooltip
+			_pmcmActive = NULL;
+			if (hhookMouseLL)
+			{
+				::UnhookWindowsHookEx(hhookMouseLL);
+				hhookMouseLL = NULL;
+			}
+			for (unsigned int i = 0; i < sizeof(_mcmList) / sizeof(_mcmList[0]); i++)
+			{
+				if (::IsWindow(_mcmList[i]._hTooltip))
+				{
+					HMENU hMenu = reinterpret_cast<HMENU>(lParam);
+					UINT uItemId = LOWORD(wParam);
+					UINT uFlags = HIWORD(wParam);
+					if ((uFlags & MF_POPUP) || (uFlags & MF_SEPARATOR))
+					{
+						// a popup submenu or a menuitems separator or user just clicked on a menuitem, cancel a possible mcm-tooltip
+						::SendMessage(_mcmList[i]._hTooltip, TTM_TRACKACTIVATE, FALSE, reinterpret_cast<LPARAM>(&_mcmList[i]._tiTooltip));
+					}
+					else if ((uFlags & 0xFFFF) == 0xFFFF)
+					{
+						// leaving a menuitem, hide its mcm-tooltip
+						::SendMessage(_mcmList[i]._hTooltip, TTM_TRACKACTIVATE, FALSE, reinterpret_cast<LPARAM>(&_mcmList[i]._tiTooltip));
+					}
+					else
+					{
+						// here the selected menuitem is a real menu command
+						if (_mcmList[i]._uMenuCommandId != uItemId)
+						{
+							// not that one, hide a possible mcm-tooltip
+							::SendMessage(_mcmList[i]._hTooltip, TTM_TRACKACTIVATE, FALSE, reinterpret_cast<LPARAM>(&(_mcmList[i]._tiTooltip)));
+						}
+						else
+						{
+							// we are at the right menuitem, find and store its rectangle and position
+							int count = ::GetMenuItemCount(hMenu);
+							for (int item = 0; item < count; item++)
+							{
+								if (::GetMenuItemID(hMenu, item) == uItemId)
+								{
+									if (::GetMenuItemRect(NULL, hMenu, item, &(_mcmList[i]._tiTooltip.rect)))
+									{
+										_pmcmActive = &_mcmList[i];
+										// remaining stuff will be handled by our WM_MOUSEMOVE handler
+										// - we cannot handle the showing/hiding tooltip completely here, as we need to show the tooltip
+										//   only on the left menu command mark area and not on the whole menu command item rectangle
+										// - the above implies, that the tooltip will not be shown at all, when the menuitem is selected by keyboard
+										hhookMouseLL = ::SetWindowsHookEx(WH_MOUSE_LL, mouseLLHookProc, _pMainWindow->getHinst(), 0);
+									}
+									break; // stop looping, we already found and handled the right item
+								}
+							}
+						}
+					}
+				}
+			}
+			break;
+		}
+
+		case WM_MOUSEMOVE:
+		{
+			if (hhookMouseLL)
+			{
+				if (!_pmcmActive)
+				{
+					// relevant menuitem has been unselected, hooking of the popup-menu hidden wnd is no longer needed
+					::UnhookWindowsHookEx(hhookMouseLL);
+					hhookMouseLL = NULL;
+				}
+				else
+				{
+					if (::IsWindow(_pmcmActive->_hTooltip))
+					{
+						POINT ptCur;
+						if (::GetCursorPos(&ptCur)) // help ourselves (the WPARAM position stuff has not been sent from our mouse hook proc)
+						{							
+							LONG lMenuitemBorderWidth = (_pmcmActive->_tiTooltip.rect.bottom - _pmcmActive->_tiTooltip.rect.top - _pmcmActive->_sizeMarkArea.cy) / 2;
+							RECT rectForActivation = {	_pmcmActive->_tiTooltip.rect.left + lMenuitemBorderWidth,
+														_pmcmActive->_tiTooltip.rect.top + lMenuitemBorderWidth,
+														_pmcmActive->_tiTooltip.rect.left + _pmcmActive->_sizeMarkArea.cx + 2 * lMenuitemBorderWidth,
+														_pmcmActive->_tiTooltip.rect.bottom - lMenuitemBorderWidth};
+							if (::PtInRect(&rectForActivation, ptCur))
+							{
+								if (!::IsWindowVisible(_pmcmActive->_hTooltip))
+								{
+									// show the mcm-tooltip
+									::SendMessage(_pmcmActive->_hTooltip, TTM_TRACKPOSITION, 0,
+										MAKELPARAM(_pmcmActive->_tiTooltip.rect.left + (_pmcmActive->_sizeMarkArea.cx + 2 * lMenuitemBorderWidth) / 2, _pmcmActive->_tiTooltip.rect.bottom));
+									::SetWindowPos(_pmcmActive->_hTooltip, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOMOVE);
+									::SendMessage(_pmcmActive->_hTooltip, TTM_TRACKACTIVATE, TRUE, reinterpret_cast<LPARAM>(&_pmcmActive->_tiTooltip));
+								}
+							}
+							else
+							{
+								// out of the mark area, hide the mcm-tooltip
+								::SendMessage(_pmcmActive->_hTooltip, TTM_TRACKACTIVATE, FALSE, reinterpret_cast<LPARAM>(&(_pmcmActive->_tiTooltip)));
+							}
+						}
+					}
+				}
+			}
+			break;
 		}
 
 		default:

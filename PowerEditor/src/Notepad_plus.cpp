@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -740,6 +740,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 void Notepad_plus::killAllChildren()
 {
+	destroyMarkOnMenuItemById(MCM_ALL_MENU_COMMANDS);
+
 	_toolBar.destroy();
 	_rebarTop.destroy();
 	_rebarBottom.destroy();
@@ -8102,3 +8104,243 @@ void Notepad_plus::updateCommandShortcuts()
 		csc.setName(menuName.c_str(), shortcutName.c_str());
 	}
 }
+
+
+void Notepad_plus::handleEnvironmentSettingChange(LPARAM lParam)
+{
+	if (!lParam || (0 != lstrcmpiW(reinterpret_cast<LPCWCH>(lParam), L"Environment")))
+		return; // not an environment change
+
+	if (_isGlobalEnvChanged)
+		return; // another global environment change, everything has been set before
+
+	_isGlobalEnvChanged = true;
+
+	setMarkOnMenuItem(&_mcmList[0]); // advertise this fact in the "cmd" menu item
+}
+
+
+// Set a menu command mark on a N++ menuitem.
+bool Notepad_plus::setMarkOnMenuItem(LPMENUCOMMANDMARK pMenuCommandMark)
+{
+	if (!_mainMenuHandle || !pMenuCommandMark)
+		return false;
+
+	const int nMarkStrLen = lstrlen(pMenuCommandMark->_szMarkStr);
+	if (nMarkStrLen < 1)
+		return false;
+
+	// store the size found for use later in the Notepad_plus::process()
+	pMenuCommandMark->_sizeMarkArea.cx = ::GetSystemMetrics(SM_CXMENUCHECK);
+	pMenuCommandMark->_sizeMarkArea.cy = ::GetSystemMetrics(SM_CYMENUCHECK);
+	if ( (0 == pMenuCommandMark->_sizeMarkArea.cx) || (0 == pMenuCommandMark->_sizeMarkArea.cy) )
+		return false;
+
+	HDC hdcDesktop = ::GetDC(HWND_DESKTOP);
+	if (!hdcDesktop)
+		return false;
+
+	bool bMark = false;
+	HBITMAP hMarkBitmap = NULL;
+
+	HDC hdcMem = ::CreateCompatibleDC(hdcDesktop);
+	if (hdcMem)
+	{
+		LPVOID pvBits = NULL;
+		BITMAPINFO bmi;
+		::ZeroMemory(&bmi, sizeof(BITMAPINFO));
+		bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+		bmi.bmiHeader.biWidth = pMenuCommandMark->_sizeMarkArea.cx;
+		bmi.bmiHeader.biHeight = pMenuCommandMark->_sizeMarkArea.cy;
+		bmi.bmiHeader.biPlanes = 1;
+		bmi.bmiHeader.biBitCount = 32; // we need bitmap with alpha channel for transparency in menu
+		bmi.bmiHeader.biCompression = BI_RGB;
+		bmi.bmiHeader.biSizeImage = ((((bmi.bmiHeader.biWidth * bmi.bmiHeader.biBitCount) + 31) & ~31) >> 3) * abs(bmi.bmiHeader.biHeight); // stride * height
+		hMarkBitmap = CreateDIBSection(hdcMem, &bmi, DIB_RGB_COLORS, &pvBits, NULL, 0x0);
+		if (hMarkBitmap)
+		{
+			COLORREF clrfBackground;
+			COLORREF clrfText;
+			if (CLR_INVALID != pMenuCommandMark->_clrfMark)
+			{
+				// use custom foreground color (without any modification)
+				clrfText = pMenuCommandMark->_clrfMark;
+			}
+			else
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					clrfBackground = RGB(43, 43, 43); // hardcoded (menu background color is set by system, not by us)
+					clrfText = NppDarkMode::getTextColor();
+				}
+				else
+				{
+					clrfBackground = ::GetSysColor(COLOR_MENU);
+					clrfText = ::GetSysColor(COLOR_MENUTEXT);
+				}
+				
+				// make the mark a little bit less distinctive than the standard menu text, but still easy recognizable
+				RGBTRIPLE rgbText;
+				RGBTRIPLE rgbBackground;
+				const BYTE treshold = 85; // 255/3
+				rgbText.rgbtRed = GetRValue(clrfText);
+				rgbText.rgbtGreen = GetGValue(clrfText);
+				rgbText.rgbtBlue = GetBValue(clrfText);
+				rgbBackground.rgbtRed = GetRValue(clrfBackground);
+				rgbBackground.rgbtGreen = GetGValue(clrfBackground);
+				rgbBackground.rgbtBlue = GetBValue(clrfBackground);
+				int mindif = abs((int)rgbText.rgbtRed - (int)rgbBackground.rgbtRed);
+				mindif = min(abs((int)rgbText.rgbtGreen - (int)rgbBackground.rgbtGreen), mindif);
+				mindif = min(abs((int)rgbText.rgbtBlue - (int)rgbBackground.rgbtBlue), mindif);
+				if (mindif >= treshold)
+				{
+					int dimmer = max((mindif / 2), treshold);
+					if (NppDarkMode::isEnabled())
+						clrfText = RGB(rgbText.rgbtRed - dimmer, rgbText.rgbtGreen - dimmer, rgbText.rgbtBlue - dimmer);
+					else
+						clrfText = RGB(rgbText.rgbtRed + dimmer, rgbText.rgbtGreen + dimmer, rgbText.rgbtBlue + dimmer);
+				}
+			}
+
+			HBITMAP hOldBitmap = static_cast<HBITMAP>(::SelectObject(hdcMem, hMarkBitmap));
+
+			SIZE sizeToDraw;
+			if (::GetTextExtentPoint32(hdcMem, pMenuCommandMark->_szMarkStr, nMarkStrLen, &sizeToDraw))
+			{
+				// draw the mark bitmap
+				::FillMemory(pvBits, bmi.bmiHeader.biSizeImage, 0); // black is transparent
+				::SetBkColor(hdcMem, RGB(0, 0, 0)); // black is transparent
+				if (RGB(0, 0, 0) == clrfText)
+					clrfText = RGB(1, 1, 1); // we cannot draw here with the complete black color! (transparency...)
+				::SetTextColor(hdcMem, clrfText);
+				RECT rectMark = { 0, 0, pMenuCommandMark->_sizeMarkArea.cx, pMenuCommandMark->_sizeMarkArea.cy };
+				if (::ExtTextOut(hdcMem, pMenuCommandMark->_sizeMarkArea.cx / 2 - (sizeToDraw.cx + 1) / 2, 0, // try to draw in the middle
+					ETO_OPAQUE | ETO_CLIPPED, &rectMark, pMenuCommandMark->_szMarkStr, nMarkStrLen, NULL))
+				{
+					bMark = true;
+
+					// make all the non-zero pixels opaque
+					LPBYTE pPixBytes = reinterpret_cast<LPBYTE>(pvBits);
+					for (UINT i = 0; i < bmi.bmiHeader.biSizeImage; i += sizeof(DWORD))
+					{
+						DWORD dwPixel = *(reinterpret_cast<LPDWORD>(pPixBytes + i));
+						if (dwPixel != 0)
+							pPixBytes[i + 3] = pMenuCommandMark->_alphaOpacity; // set opacity by the alpha channel of the BGRA pixel
+					}
+				}
+			}
+
+			// restore the old bitmap, so we can delete it later to avoid leak
+			::SelectObject(hdcMem, hOldBitmap);
+		}
+
+		::DeleteDC(hdcMem);
+		hdcMem = NULL;
+	}
+
+	::ReleaseDC(HWND_DESKTOP, hdcDesktop);
+	hdcDesktop = NULL;
+
+	if (!bMark)
+	{
+		if (hMarkBitmap)
+			::DeleteObject(hMarkBitmap);
+		return false;
+	}
+
+	// finally set the mark bitmap for the relevant menu command
+	if (!::SetMenuItemBitmaps(_mainMenuHandle, pMenuCommandMark->_uMenuCommandId, MF_BYCOMMAND, hMarkBitmap, hMarkBitmap))
+	{
+		::DeleteObject(hMarkBitmap);
+		return false;
+	}
+	
+	// optional tooltip part follows
+
+	if (pMenuCommandMark->_szTooltipStrId && pMenuCommandMark->_szTooltipDefaultStr)
+	{
+		if (::IsWindow(pMenuCommandMark->_hTooltip))
+		{
+			::SendMessage(pMenuCommandMark->_hTooltip, TTM_TRACKACTIVATE, FALSE, reinterpret_cast<LPARAM>(&(pMenuCommandMark->_tiTooltip)));
+			::SendMessage(pMenuCommandMark->_hTooltip, TTM_DELTOOL, 0, reinterpret_cast<LPARAM>(&(pMenuCommandMark->_tiTooltip)));
+			::DestroyWindow(pMenuCommandMark->_hTooltip);
+			pMenuCommandMark->_hTooltip = NULL;
+		}
+
+		NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		if (!pNativeSpeaker)
+			return false;
+		generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID(pMenuCommandMark->_szTooltipStrId, pMenuCommandMark->_szTooltipDefaultStr);
+		TCHAR szBuf[2048]; // we cannot use the tip2show.c_str() directly later
+		_sntprintf_s(szBuf, _countof(szBuf), _TRUNCATE, TEXT("%s"), tip2show.c_str());
+
+		pMenuCommandMark->_hTooltip = CreateWindowEx(pNativeSpeaker->isRTL() ? WS_EX_LAYOUTRTL : 0, TOOLTIPS_CLASS, NULL,
+			WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
+			CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+			_pMainWindow->getHSelf(), NULL, _pMainWindow->getHinst(), NULL);
+		if (pMenuCommandMark->_hTooltip)
+		{
+			pMenuCommandMark->_tiTooltip.uFlags |= (pNativeSpeaker->isRTL() ? TTF_RTLREADING : 0);
+			pMenuCommandMark->_tiTooltip.hwnd = _pMainWindow->getHSelf();
+			pMenuCommandMark->_tiTooltip.uId = reinterpret_cast<UINT_PTR>(pMenuCommandMark->_hTooltip); // has to be combined with the TTF_IDISHWND
+			pMenuCommandMark->_tiTooltip.lpszText = szBuf; // this is generally an in/out param, so we should not force to use the tip2show.c_str() here
+			NppDarkMode::setDarkTooltips(pMenuCommandMark->_hTooltip, NppDarkMode::ToolTipsType::tooltip);
+			::SendMessage(pMenuCommandMark->_hTooltip, TTM_SETMAXTIPWIDTH, 0, pMenuCommandMark->_uMaxTooltipWidth);
+			::SendMessage(pMenuCommandMark->_hTooltip, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&(pMenuCommandMark->_tiTooltip)));
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+
+void Notepad_plus::destroyMarkOnMenuItemById(UINT uMenuCommandId)
+{
+	for (UINT item = 0; item < sizeof(_mcmList) / sizeof(_mcmList[0]); item++)
+	{
+		if (MCM_ALL_MENU_COMMANDS == uMenuCommandId)
+		{
+			destroyMarkOnMenuItemByIndex(item);
+		}
+		else if (_mcmList[item]._uMenuCommandId == uMenuCommandId)
+		{
+			destroyMarkOnMenuItemByIndex(item);
+			break;
+		}
+	}
+}
+
+
+void Notepad_plus::destroyMarkOnMenuItemByIndex(UINT uMcmListItemIndex)
+{
+	if (!_mainMenuHandle)
+		return;
+	if ( uMcmListItemIndex > (sizeof(_mcmList) / sizeof(_mcmList[0])) )
+		return; // out of bounds
+
+	if (::IsWindow(_mcmList[uMcmListItemIndex]._hTooltip))
+	{
+		::DestroyWindow(_mcmList[uMcmListItemIndex]._hTooltip);
+		_mcmList[uMcmListItemIndex]._hTooltip = NULL;
+	}
+
+	// our menu command mark bitmaps are not destroyed automatically
+	MENUITEMINFO mii = { 0 };
+	mii.cbSize = sizeof(MENUITEMINFO);
+	mii.fMask = MIIM_CHECKMARKS;
+	if (::GetMenuItemInfo(_mainMenuHandle, _mcmList[uMcmListItemIndex]._uMenuCommandId, FALSE, &mii))
+	{
+		if (mii.hbmpChecked)
+			::DeleteObject(mii.hbmpChecked);
+		if (mii.hbmpUnchecked && (mii.hbmpUnchecked != mii.hbmpChecked))
+			::DeleteObject(mii.hbmpUnchecked);
+	}
+
+	// reset the check-area for the relevant menuitem
+	::SetMenuItemBitmaps(_mainMenuHandle, _mcmList[uMcmListItemIndex]._uMenuCommandId, MF_BYCOMMAND, NULL, NULL);
+}
+

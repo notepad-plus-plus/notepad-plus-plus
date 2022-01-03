@@ -1487,6 +1487,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <IncrementalFind-FSNotFound value="Phrase not found" />
             <IncrementalFind-FSTopReached value="Reached top of page, continued from bottom" />
             <IncrementalFind-FSEndReached value="Reached end of page, continued from top" />
+            <file-opencontainingfolder-cmd-tip value="Global environment settings have been changed. If you need to update cmd environment, restart Notepad++ from a freshly opened Explorer." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

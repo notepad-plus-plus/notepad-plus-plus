@@ -10,6 +10,8 @@
 
 #include "Sci_Position.h"
 
+namespace Scintilla {
+
 class ILoader {
 public:
 	virtual int SCI_METHOD Release() = 0;
@@ -17,5 +19,7 @@ public:
 	virtual int SCI_METHOD AddData(const char *data, Sci_Position length) = 0;
 	virtual void * SCI_METHOD ConvertToDocument() = 0;
 };
+
+}
 
 #endif

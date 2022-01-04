@@ -13,19 +13,23 @@
 #include <string_view>
 #include <vector>
 #include <forward_list>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
+#include "ScintillaTypes.h"
+
+#include "Debugging.h"
+#include "Geometry.h"
 #include "Platform.h"
 
-#include "Scintilla.h"
 #include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
 #include "CellBuffer.h"
 #include "PerLine.h"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 MarkerHandleSet::MarkerHandleSet() {
 }
@@ -98,7 +102,7 @@ void LineMarkers::Init() {
 
 void LineMarkers::InsertLine(Sci::Line line) {
 	if (markers.Length()) {
-		markers.Insert(line, 0);
+		markers.Insert(line, nullptr);
 	}
 }
 
@@ -224,14 +228,14 @@ void LineLevels::Init() {
 
 void LineLevels::InsertLine(Sci::Line line) {
 	if (levels.Length()) {
-		const int level = (line < levels.Length()) ? levels[line] : SC_FOLDLEVELBASE;
+		const int level = (line < levels.Length()) ? levels[line] : static_cast<int>(Scintilla::FoldLevel::Base);
 		levels.Insert(line, level);
 	}
 }
 
 void LineLevels::InsertLines(Sci::Line line, Sci::Line lines) {
 	if (levels.Length()) {
-		const int level = (line < levels.Length()) ? levels[line] : SC_FOLDLEVELBASE;
+		const int level = (line < levels.Length()) ? levels[line] : static_cast<int>(Scintilla::FoldLevel::Base);
 		levels.InsertValue(line, lines, level);
 	}
 }
@@ -240,17 +244,17 @@ void LineLevels::RemoveLine(Sci::Line line) {
 	if (levels.Length()) {
 		// Move up following lines but merge header flag from this line
 		// to line before to avoid a temporary disappearance causing expansion.
-		int firstHeader = levels[line] & SC_FOLDLEVELHEADERFLAG;
+		int firstHeader = levels[line] & static_cast<int>(Scintilla::FoldLevel::HeaderFlag);
 		levels.Delete(line);
 		if (line == levels.Length()-1) // Last line loses the header flag
-			levels[line-1] &= ~SC_FOLDLEVELHEADERFLAG;
+			levels[line-1] &= ~static_cast<int>(Scintilla::FoldLevel::HeaderFlag);
 		else if (line > 0)
 			levels[line-1] |= firstHeader;
 	}
 }
 
 void LineLevels::ExpandLevels(Sci::Line sizeNew) {
-	levels.InsertValue(levels.Length(), sizeNew - levels.Length(), SC_FOLDLEVELBASE);
+	levels.InsertValue(levels.Length(), sizeNew - levels.Length(), static_cast<int>(Scintilla::FoldLevel::Base));
 }
 
 void LineLevels::ClearLevels() {
@@ -275,7 +279,7 @@ int LineLevels::GetLevel(Sci::Line line) const noexcept {
 	if (levels.Length() && (line >= 0) && (line < levels.Length())) {
 		return levels[line];
 	} else {
-		return SC_FOLDLEVELBASE;
+		return static_cast<int>(Scintilla::FoldLevel::Base);
 	}
 }
 

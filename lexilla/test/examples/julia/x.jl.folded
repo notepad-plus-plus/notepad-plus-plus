@@ -1,0 +1,20 @@
+ 0 400 400   
+ 0 400 400   # Comment here
+ 0 400 400   const bar = '\n'
+ 0 400 400   
+ 2 400 401 + """
+ 0 401 401 |     test_fun(a::Int)
+ 0 401 401 | For test only
+ 0 401 400 | """
+ 2 400 401 + function test_fun(a::Int, b::T) where T <: Number
+ 0 401 401 |     println(a)
+ 0 401 401 |     println("foo $(bar)")
+ 0 401 400 | end
+ 0 400 400   
+ 0 400 400   @enum Unicode α=1 β=2
+ 0 400 400   
+ 0 400 400   res = [√i for i in 1:10]
+ 0 400 400   
+ 0 400 400   #= Dummy function =#
+ 0 400 400   test_fun²(:sym, true, raw"test", `echo 1`)
+ 1 400 400   

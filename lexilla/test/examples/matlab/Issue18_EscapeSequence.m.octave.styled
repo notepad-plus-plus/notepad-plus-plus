@@ -1,0 +1,4 @@
+{1}% Ensure escape sequences still work in octave{0}
+{1}% Octave terminates string at 3rd ", Matlab at 4th{0}
+{7}i{6}={8}"\" "{6};{0} {1}% " %{0}
+{1}% end{0}

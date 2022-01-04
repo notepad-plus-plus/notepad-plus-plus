@@ -42,6 +42,7 @@ typeAliases = {
 	"line": "int",
 	"pointer": "int",
 	"colour": "int",
+	"colouralpha": "int",
 	"keymod": "int",
 	"string": "const char *",
 	"stringresult": "const char *",
@@ -57,7 +58,7 @@ def cppAlias(s):
 		return s
 
 understoodTypes = ["", "void", "int", "bool", "position", "line", "pointer",
-	"colour", "keymod", "string", "stringresult", "cells"]
+	"colour", "colouralpha", "keymod", "string", "stringresult", "cells"]
 
 def understoodType(t):
 	return t in understoodTypes or Face.IsEnumeration(t)

@@ -13,9 +13,7 @@
 
 #include "UniConversion.h"
 
-using namespace Scintilla;
-
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 size_t UTF8Length(std::wstring_view wsv) noexcept {
 	size_t len = 0;

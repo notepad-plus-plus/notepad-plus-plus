@@ -1,0 +1,64 @@
+ 0 400   0   # Enumerate all styles: 0 to 19
+ 0 400   0   # comment=1
+ 1 400   0   
+ 0 400   0   # whitespace=0
+ 0 400   0   	# w
+ 1 400   0   
+ 0 400   0   # number=2
+ 0 400   0   37
+ 1 400   0   
+ 0 400   0   # double-quoted-string=3
+ 0 400   0   "str"
+ 1 400   0   
+ 0 400   0   # single-quoted-string=4
+ 0 400   0   'str'
+ 1 400   0   
+ 0 400   0   # keyword=5
+ 0 400   0   pass
+ 1 400   0   
+ 0 400   0   # triple-quoted-string=6
+ 0 400   0   '''str'''
+ 1 400   0   
+ 0 400   0   # triple-double-quoted-string=7
+ 0 400   0   """str"""
+ 1 400   0   
+ 0 400   0   # class-name=8
+ 2 400   0 + class ClassName:
+ 0 408   0 | 	pass
+ 1 400   0   
+ 0 400   0   # function-name=9
+ 2 400   0 + def function_name():
+ 0 408   0 | 	pass
+ 1 400   0   
+ 0 400   0   # operator=10
+ 0 400   0   1 + 3
+ 1 400   0   
+ 0 400   0   # identifier=11
+ 0 400   0   identifier = 2
+ 1 400   0   
+ 0 400   0   # comment-block=12
+ 0 400   0   ## block
+ 1 400   0   
+ 0 400   0   # unclosed-string=13
+ 0 400   0   " unclosed
+ 1 400   0   
+ 0 400   0   # highlighted-identifier=14
+ 0 400   0   hilight = 2
+ 1 400   0   
+ 0 400   0   # decorator=15
+ 0 400   0   @staticmethod
+ 0 400   0   def fn(): pass
+ 1 400   0   
+ 0 400   0   a = 1
+ 0 400   0   # double-quoted-f-string=16
+ 0 400   0   f"{a}"
+ 1 400   0   
+ 0 400   0   # single-quoted-f-string=17
+ 0 400   0   f'{a}'
+ 1 400   0   
+ 0 400   0   # triple-quoted-f-string=18
+ 0 400   0   f'''{a}'''
+ 1 400   0   
+ 0 400   0   # double-triple-quoted-f-string=19
+ 0 400   0   f"""{a}"""
+ 1 400   0   

@@ -12,7 +12,7 @@
 
 #include "UniqueString.h"
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 /// Equivalent to strdup but produces a std::unique_ptr<const char[]> allocation to go
 /// into collections.
@@ -28,11 +28,9 @@ UniqueString UniqueStringCopy(const char *text) {
 
 // A set of strings that always returns the same pointer for each string.
 
-UniqueStringSet::UniqueStringSet() noexcept = default;
+UniqueStringSet::UniqueStringSet() = default;
 
-UniqueStringSet::~UniqueStringSet() {
-	strings.clear();
-}
+UniqueStringSet::~UniqueStringSet() noexcept = default;
 
 void UniqueStringSet::Clear() noexcept {
 	strings.clear();

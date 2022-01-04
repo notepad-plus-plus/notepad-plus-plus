@@ -1,4 +1,4 @@
-// ScintillaEdit.cpp
+// @file ScintillaEdit.cpp
 // Extended version of ScintillaEditBase with a method for each API
 // Copyright (c) 2011 Archaeopteryx Software, Inc. d/b/a Wingware
 
@@ -13,11 +13,12 @@ ScintillaEdit::~ScintillaEdit() {
 }
 
 QByteArray ScintillaEdit::TextReturner(int message, uptr_t wParam) const {
-    int length = send(message, wParam, 0);
-    QByteArray ba(length, '\0');
+    // While Scintilla can return strings longer than maximum(int), QByteArray uses int size
+    const int length = static_cast<int>(send(message, wParam, 0));
+    QByteArray ba(length + 1, '\0');
     send(message, wParam, (sptr_t)ba.data());
     // Remove extra NULs
-    if (ba.size() > 0 && ba.at(ba.size()-1) == 0)
+    if (ba.at(ba.size()-1) == 0)
         ba.chop(1);
     return ba;
 }

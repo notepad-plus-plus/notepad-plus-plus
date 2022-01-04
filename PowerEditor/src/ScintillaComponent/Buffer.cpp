@@ -22,6 +22,8 @@
 #include <sys/stat.h>
 #include "Buffer.h"
 #include "Scintilla.h"
+#include <ILexer.h>
+#include <Lexilla.h>
 #include "Parameters.h"
 #include "Notepad_plus.h"
 #include "ScintillaEditView.h"
@@ -1445,7 +1447,11 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	if (fileFormat._language < L_EXTERNAL)
 	{
-		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[fileFormat._language].lexerID);
+#pragma warning( push )
+#pragma warning( disable : 4996)
+	const char* pName = LexerNameFromID(ScintillaEditView::langNames[fileFormat._language].lexerID); //deprecated, therefore disabled warning
+#pragma warning( pop ) 
+		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
 	}
 	else
 	{
@@ -1453,7 +1459,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		TCHAR * name = nppParam.getELCFromIndex(id)._name;
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc.wchar2char(name, CP_ACP);
-		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
+		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
 	}
 
 	if (fileFormat._encoding != -1)

@@ -9,8 +9,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+#include <dlfcn.h>
+
+#import "Scintilla/ILexer.h"
 #import "Scintilla/ScintillaView.h"
 #import "Scintilla/InfoBar.h"
+#include <SciLexer.h>
+#include <Lexilla.h>
 
 @interface AppController : NSObject {
   IBOutlet NSBox *mEditHost;

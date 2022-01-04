@@ -1,0 +1,63 @@
+ 0 400   0   rem comment=1
+ 0 400   0   rem 'echo' is word=2, 'a' is default=0
+ 0 400   0   echo a
+ 0 400   0   rem label=3
+ 0 400   0   :START
+ 0 400   0   rem '@' is hide=4
+ 0 400   0   @echo b
+ 0 400   0   rem 'gcc' is external command=5
+ 0 400   0   gcc --version
+ 0 400   0   rem '%PATH%' is variable=6
+ 0 400   0   echo %PATH%
+ 0 400   0   echo %ProgramFiles(x86)%
+ 0 400   0   rem operator=7 '='
+ 0 400   0   @set Q=A
+ 0 400   0   
+ 0 400   0   ::comment=1
+ 0 400   0   
+ 0 400   0   :: Bug 1624: this construct produced inconsistent brackets in the past
+ 0 400   0   if ERRORLEVEL 2 goto END
+ 0 400   0   @if exist a (
+ 0 400   0   echo exists
+ 0 400   0   ) else (
+ 0 400   0   echo not
+ 0 400   0   )
+ 0 400   0   
+ 0 400   0   FOR /L %%G IN (2,1,4) DO (echo %%G)
+ 0 400   0   
+ 0 400   0   :: Bug 1997: keywords not recognized when preceded by '('
+ 0 400   0   IF NOT DEFINED var (SET var=1)
+ 0 400   0   
+ 0 400   0   :: Bug 2065: keywords not recognized when followed by ')'
+ 0 400   0   @if exist a ( exit)
+ 0 400   0   
+ 0 400   0   :: Bug: with \r or \n, 'command' is seen as continuation
+ 0 400   0   echo word ^
+ 0 400   0   1
+ 0 400   0   command
+ 0 400   0   
+ 0 400   0   :: Bug argument and variable expansion
+ 0 400   0   echo %~dp0123
+ 0 400   0   echo %%-~012
+ 0 400   0   echo %%~%%~-abcd
+ 0 400   0   FOR /F %%I in ("C:\Test\temp.txt") do echo %%~dI
+ 0 400   0   
+ 0 400   0   :: Bug ending of argument and variable expansion
+ 0 400   0   echo %~dp0\123
+ 0 400   0   echo "%~dp0123"
+ 0 400   0   echo "%%-~012"
+ 0 400   0   echo "%%~%%~-abcd"
+ 0 400   0   FOR /F %%I in ("C:\Test\temp.txt") do echo "%%~dI"
+ 0 400   0   
+ 0 400   0   :: Bug escaped %
+ 0 400   0   echo %%0
+ 0 400   0   echo %%%0
+ 0 400   0   echo %%%%~-abcd
+ 0 400   0   
+ 0 400   0   :: Bug 2304: "::" comments not recognised when second command on line
+ 0 400   0   Set /A xxx=%xxx%+1 & :: Increment
+ 0 400   0   Set /A xxx=%xxx%+1 & ::Increment
+ 0 400   0   Set /A xxx=%xxx%+1 & rem Increment
+ 0 400   0   
+ 0 400   0   :END
+ 0 400   0   

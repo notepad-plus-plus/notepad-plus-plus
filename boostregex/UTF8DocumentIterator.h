@@ -22,7 +22,7 @@
 #include <memory>
 #include "Position.h"
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 class Document;
 

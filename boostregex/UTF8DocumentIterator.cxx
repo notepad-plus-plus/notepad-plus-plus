@@ -17,13 +17,18 @@
 #include "UTF8DocumentIterator.h"
 #include <string_view>
 #include <stdexcept>
+#include <optional>
 
 #include "ILoader.h"
 #include "ILexer.h"
 #include "Scintilla.h"
+#include "ScintillaTypes.h"
+#include "ScintillaMessages.h"
+#include "Debugging.h"
+#include "Geometry.h"
 #include "Platform.h"
 
-#include "CharacterCategory.h"
+#include "CharacterCategoryMap.h"
 #include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
@@ -34,7 +39,7 @@
 #include "CaseFolder.h"
 #include "Document.h"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 UTF8DocumentIterator::UTF8DocumentIterator(Document* doc, Sci::Position pos, Sci::Position end) :
 				m_pos(pos),

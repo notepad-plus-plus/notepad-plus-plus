@@ -14,17 +14,29 @@
 
 #include <string_view>
 #include <vector>
+#include <optional>
 
+#import "ScintillaTypes.h"
+#import "ScintillaMessages.h"
+#import "ScintillaStructures.h"
+
+#import "Debugging.h"
+#import "Geometry.h"
 #import "Platform.h"
 #import "ScintillaView.h"
 #import "ScintillaCocoa.h"
 
+#if !__has_feature(objc_arc)
+#error ARC must be enabled
+#endif
+
 using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 // Add backend property to ScintillaView as a private category.
 // Specified here as backend accessed by SCIMarginView and SCIContentView.
 @interface ScintillaView()
-@property(nonatomic, readonly) Scintilla::ScintillaCocoa *backend;
+@property(nonatomic, readonly) Scintilla::Internal::ScintillaCocoa *backend;
 @end
 
 // Two additional cursors we need, which aren't provided by Cocoa.
@@ -38,19 +50,19 @@ NSString *const SCIUpdateUINotification = @"SCIUpdateUI";
  */
 static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	switch (cursor) {
-	case Window::cursorText:
+	case Window::Cursor::text:
 		return [NSCursor IBeamCursor];
-	case Window::cursorArrow:
+	case Window::Cursor::arrow:
 		return [NSCursor arrowCursor];
-	case Window::cursorWait:
+	case Window::Cursor::wait:
 		return waitCursor;
-	case Window::cursorHoriz:
+	case Window::Cursor::horizontal:
 		return [NSCursor resizeLeftRightCursor];
-	case Window::cursorVert:
+	case Window::Cursor::vertical:
 		return [NSCursor resizeUpDownCursor];
-	case Window::cursorReverseArrow:
+	case Window::Cursor::reverseArrow:
 		return reverseArrowCursor;
-	case Window::cursorUp:
+	case Window::Cursor::up:
 	default:
 		return [NSCursor arrowCursor];
 	}
@@ -178,8 +190,8 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	NSRect marginRect = self.bounds;
 	size_t co = currentCursors.count;
 	for (size_t i=0; i<co; i++) {
-		long cursType = owner.backend->WndProc(SCI_GETMARGINCURSORN, i, 0);
-		long width =owner.backend->WndProc(SCI_GETMARGINWIDTHN, i, 0);
+		long cursType = owner.backend->WndProc(Message::GetMarginCursorN, i, 0);
+		long width =owner.backend->WndProc(Message::GetMarginWidthN, i, 0);
 		NSCursor *cc = cursorFromEnum(static_cast<Window::Cursor>(cursType));
 		currentCursors[i] = cc;
 		marginRect.origin.x = x;
@@ -188,6 +200,10 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 		[cc setOnMouseEntered: YES];
 		x += width;
 	}
+}
+
+- (void) drawRect: (NSRect) rect {
+	[super drawRect:rect];
 }
 
 @end
@@ -263,6 +279,8 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	super.frame = frame;
 
 	mOwner.backend->Resize();
+
+	[super prepareContentInRect: [self visibleRect]];
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -328,6 +346,17 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 #if MAC_OS_X_VERSION_MAX_ALLOWED > 1080
 	[super prepareContentInRect: rect];
 #endif
+}
+
+//--------------------------------------------------------------------------------------------------
+
+/**
+ * Gets called by the runtime when the effective appearance changes.
+ */
+- (void) viewDidChangeEffectiveAppearance {
+	if (mOwner.backend) {
+		mOwner.backend->UpdateBaseElements();
+	}
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -448,7 +477,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	const long position = [mOwner message: SCI_CHARPOSITIONFROMPOINT
 				       wParam: rectLocal.origin.x
 				       lParam: rectLocal.origin.y];
-	if (position == INVALID_POSITION) {
+	if (position == Sci::invalidPosition) {
 		return NSNotFound;
 	} else {
 		const NSRange index = mOwner.backend->CharactersFromPositions(NSMakeRange(position, 0));
@@ -530,7 +559,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	else if ([aString isKindOfClass: [NSAttributedString class]])
 		newText = (NSString *) [aString string];
 
-	mOwner.backend->InsertText(newText, EditModel::CharacterSource::directInput);
+	mOwner.backend->InsertText(newText, CharacterSource::DirectInput);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -623,7 +652,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 		NSRange posRangeCurrent = mOwner.backend->PositionsFromCharacters(NSMakeRange(replacementRange.location, 0));
 		// Note: Scintilla internally works almost always with bytes instead chars, so we need to take
 		//       this into account when determining selection ranges and such.
-		ptrdiff_t lengthInserted = mOwner.backend->InsertText(newText, EditModel::CharacterSource::tentativeInput);
+		ptrdiff_t lengthInserted = mOwner.backend->InsertText(newText, CharacterSource::TentativeInput);
 		posRangeCurrent.length = lengthInserted;
 		mMarkedTextRange = mOwner.backend->CharactersFromPositions(posRangeCurrent);
 		// Mark the just inserted text. Keep the marked range for later reset.
@@ -748,7 +777,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	if ((rc.origin.y > 0) && (NSMaxY(rc) < contentRect.size.height)) {
 		// Only snap for positions inside the document - allow outside
 		// for overshoot.
-		long lineHeight = mOwner.backend->WndProc(SCI_TEXTHEIGHT, 0, 0);
+		long lineHeight = mOwner.backend->WndProc(Message::TextHeight, 0, 0);
 		rc.origin.y = std::round(static_cast<XYPOSITION>(rc.origin.y) / lineHeight) * lineHeight;
 	}
 	// Snap to whole points - on retina displays this avoids visual debris
@@ -767,7 +796,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * The editor is getting the foreground control (the one getting the input focus).
  */
 - (BOOL) becomeFirstResponder {
-	mOwner.backend->WndProc(SCI_SETFOCUS, 1, 0);
+	mOwner.backend->SetFirstResponder(true);
 	return YES;
 }
 
@@ -777,7 +806,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * The editor is losing the input focus.
  */
 - (BOOL) resignFirstResponder {
-	mOwner.backend->WndProc(SCI_SETFOCUS, 0, 0);
+	mOwner.backend->SetFirstResponder(false);
 	return YES;
 }
 
@@ -810,7 +839,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	       operation: (NSDragOperation) operation {
 #pragma unused(session, screenPoint)
 	if (operation == NSDragOperationDelete) {
-		mOwner.backend->WndProc(SCI_CLEAR, 0, 0);
+		mOwner.backend->WndProc(Message::Clear, 0, 0);
 	}
 }
 
@@ -944,7 +973,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 }
 
 - (BOOL) isEditable {
-	return mOwner.backend->WndProc(SCI_GETREADONLY, 0, 0) == 0;
+	return mOwner.backend->WndProc(Message::GetReadOnly, 0, 0) == 0;
 }
 
 #pragma mark - NSAccessibility
@@ -1173,7 +1202,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 @implementation ScintillaView {
 	// The back end is kind of a controller and model in one.
 	// It uses the content view for display.
-	Scintilla::ScintillaCocoa *mBackend;
+	Scintilla::Internal::ScintillaCocoa *mBackend;
 
 	// This is the actual content to which the backend renders itself.
 	SCIContentView *mContent;
@@ -1211,11 +1240,21 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 
 		NSString *path = [bundle pathForResource: @"mac_cursor_busy" ofType: @"tiff" inDirectory: nil];
 		NSImage *image = [[NSImage alloc] initWithContentsOfFile: path];
-		waitCursor = [[NSCursor alloc] initWithImage: image hotSpot: NSMakePoint(2, 2)];
+		if (image) {
+			waitCursor = [[NSCursor alloc] initWithImage: image hotSpot: NSMakePoint(2, 2)];
+		} else {
+			NSLog(@"Wait cursor is invalid.");
+			waitCursor = [NSCursor arrowCursor];
+		}
 
 		path = [bundle pathForResource: @"mac_cursor_flipped" ofType: @"tiff" inDirectory: nil];
 		image = [[NSImage alloc] initWithContentsOfFile: path];
-		reverseArrowCursor = [[NSCursor alloc] initWithImage: image hotSpot: NSMakePoint(15, 2)];
+		if (image) {
+			reverseArrowCursor = [[NSCursor alloc] initWithImage: image hotSpot: NSMakePoint(15, 2)];
+		} else {
+			NSLog(@"Reverse arrow cursor is invalid.");
+			reverseArrowCursor = [NSCursor arrowCursor];
+		}
 	}
 }
 
@@ -1323,12 +1362,13 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 
 	if (mDelegate != nil) {
 		[mDelegate notification: scn];
-		if (scn->nmhdr.code != SCN_ZOOM && scn->nmhdr.code != SCN_UPDATEUI)
+		if (scn->nmhdr.code != static_cast<unsigned int>(Notification::Zoom) &&
+		    scn->nmhdr.code != static_cast<unsigned int>(Notification::UpdateUI))
 			return;
 	}
 
-	switch (scn->nmhdr.code) {
-	case SCN_MARGINCLICK: {
+	switch (static_cast<Notification>(scn->nmhdr.code)) {
+	case Notification::MarginClick: {
 			if (scn->margin == 2) {
 				// Click on the folder margin. Toggle the current line if possible.
 				long line = [self getGeneralProperty: SCI_LINEFROMPOSITION parameter: scn->position];
@@ -1336,14 +1376,15 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 			}
 			break;
 		};
-	case SCN_MODIFIED: {
+	case Notification::Modified: {
 			// Decide depending on the modification type what to do.
 			// There can be more than one modification carried by one notification.
-			if (scn->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT))
+			if (scn->modificationType &
+				static_cast<int>((ModificationFlags::InsertText | ModificationFlags::DeleteText)))
 				[self sendNotification: NSTextDidChangeNotification];
 			break;
 		}
-	case SCN_ZOOM: {
+	case Notification::Zoom: {
 			// A zoom change happened. Notify info bar if there is one.
 			float zoom = [self getGeneralProperty: SCI_GETZOOM parameter: 0];
 			long fontSize = [self getGeneralProperty: SCI_STYLEGETSIZE parameter: STYLE_DEFAULT];
@@ -1351,21 +1392,23 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 			[mInfoBar notify: IBNZoomChanged message: nil location: NSZeroPoint value: factor];
 			break;
 		}
-	case SCN_UPDATEUI: {
+	case Notification::UpdateUI: {
 			// Triggered whenever changes in the UI state need to be reflected.
 			// These can be: caret changes, selection changes etc.
 			NSPoint caretPosition = mBackend->GetCaretPosition();
 			[mInfoBar notify: IBNCaretChanged message: nil location: caretPosition value: 0];
 			[self sendNotification: SCIUpdateUINotification];
-			if (scn->updated & (SC_UPDATE_SELECTION | SC_UPDATE_CONTENT)) {
+			if (scn->updated & static_cast<int>((Update::Selection | Update::Content))) {
 				[self sendNotification: NSTextViewDidChangeSelectionNotification];
 			}
 			break;
 		}
-	case SCN_FOCUSOUT:
+	case Notification::FocusOut:
 		[self sendNotification: NSTextDidEndEditingNotification];
 		break;
-	case SCN_FOCUSIN: // Nothing to do for now.
+	case Notification::FocusIn: // Nothing to do for now.
+		break;
+	default:
 		break;
 	}
 }
@@ -1449,11 +1492,18 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 			       name: NSWindowWillMoveNotification
 			     object: self.window];
 
+		[center addObserver: self
+			   selector: @selector(defaultsDidChange:)
+			       name: NSSystemColorsDidChangeNotification
+			     object: self.window];
+
 		[scrollView.contentView setPostsBoundsChangedNotifications: YES];
 		[center addObserver: self
 			   selector: @selector(scrollerAction:)
 			       name: NSViewBoundsDidChangeNotification
 			     object: scrollView.contentView];
+
+		mBackend->UpdateBaseElements();
 	}
 	return self;
 }
@@ -1489,6 +1539,13 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 - (void) windowWillMove: (NSNotification *) note {
 #pragma unused(note)
 	mBackend->WindowWillMove();
+}
+
+//--------------------------------------------------------------------------------------------------
+
+- (void) defaultsDidChange: (NSNotification *) note {
+#pragma unused(note)
+	mBackend->UpdateBaseElements();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1584,11 +1641,11 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 - (NSString *) selectedString {
 	NSString *result = @"";
 
-	const long length = mBackend->WndProc(SCI_GETSELTEXT, 0, 0);
+	const long length = mBackend->WndProc(Message::GetSelText, 0, 0);
 	if (length > 0) {
 		std::string buffer(length + 1, '\0');
 		try {
-			mBackend->WndProc(SCI_GETSELTEXT, length + 1, (sptr_t) &buffer[0]);
+			mBackend->WndProc(Message::GetSelText, length + 1, (sptr_t) &buffer[0]);
 
 			result = @(buffer.c_str());
 		} catch (...) {
@@ -1619,11 +1676,11 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 - (NSString *) string {
 	NSString *result = @"";
 
-	const long length = mBackend->WndProc(SCI_GETLENGTH, 0, 0);
+	const long length = mBackend->WndProc(Message::GetLength, 0, 0);
 	if (length > 0) {
 		std::string buffer(length + 1, '\0');
 		try {
-			mBackend->WndProc(SCI_GETTEXT, length + 1, (sptr_t) &buffer[0]);
+			mBackend->WndProc(Message::GetText, length + 1, (sptr_t) &buffer[0]);
 
 			result = @(buffer.c_str());
 		} catch (...) {
@@ -1640,26 +1697,26 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  */
 - (void) setString: (NSString *) aString {
 	const char *text = aString.UTF8String;
-	mBackend->WndProc(SCI_SETTEXT, 0, (long) text);
+	mBackend->WndProc(Message::SetText, 0, (long) text);
 }
 
 //--------------------------------------------------------------------------------------------------
 
 - (void) insertString: (NSString *) aString atOffset: (int) offset {
 	const char *text = aString.UTF8String;
-	mBackend->WndProc(SCI_ADDTEXT, offset, (long) text);
+	mBackend->WndProc(Message::AddText, offset, (long) text);
 }
 
 //--------------------------------------------------------------------------------------------------
 
 - (void) setEditable: (BOOL) editable {
-	mBackend->WndProc(SCI_SETREADONLY, editable ? 0 : 1, 0);
+	mBackend->WndProc(Message::SetReadOnly, editable ? 0 : 1, 0);
 }
 
 //--------------------------------------------------------------------------------------------------
 
 - (BOOL) isEditable {
-	return mBackend->WndProc(SCI_GETREADONLY, 0, 0) == 0;
+	return mBackend->WndProc(Message::GetReadOnly, 0, 0) == 0;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1688,15 +1745,15 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 }
 
 - (sptr_t) message: (unsigned int) message wParam: (uptr_t) wParam lParam: (sptr_t) lParam {
-	return mBackend->WndProc(message, wParam, lParam);
+	return mBackend->WndProc(static_cast<Message>(message), wParam, lParam);
 }
 
 - (sptr_t) message: (unsigned int) message wParam: (uptr_t) wParam {
-	return mBackend->WndProc(message, wParam, 0);
+	return mBackend->WndProc(static_cast<Message>(message), wParam, 0);
 }
 
 - (sptr_t) message: (unsigned int) message {
-	return mBackend->WndProc(message, 0, 0);
+	return mBackend->WndProc(static_cast<Message>(message), 0, 0);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1709,7 +1766,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * @param value The actual value. It depends on the property what this parameter means.
  */
 - (void) setGeneralProperty: (int) property parameter: (long) parameter value: (long) value {
-	mBackend->WndProc(property, parameter, value);
+	mBackend->WndProc(static_cast<Message>(property), parameter, value);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1721,7 +1778,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * @param value The actual value. It depends on the property what this parameter means.
  */
 - (void) setGeneralProperty: (int) property value: (long) value {
-	mBackend->WndProc(property, value, 0);
+	mBackend->WndProc(static_cast<Message>(property), value, 0);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1735,7 +1792,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * @result A generic value which must be interpreted depending on the property queried.
  */
 - (long) getGeneralProperty: (int) property parameter: (long) parameter extra: (long) extra {
-	return mBackend->WndProc(property, parameter, extra);
+	return mBackend->WndProc(static_cast<Message>(property), parameter, extra);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1744,7 +1801,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Convenience function to avoid unneeded extra parameter.
  */
 - (long) getGeneralProperty: (int) property parameter: (long) parameter {
-	return mBackend->WndProc(property, parameter, 0);
+	return mBackend->WndProc(static_cast<Message>(property), parameter, 0);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1753,7 +1810,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Convenience function to avoid unneeded parameters.
  */
 - (long) getGeneralProperty: (int) property {
-	return mBackend->WndProc(property, 0, 0);
+	return mBackend->WndProc(static_cast<Message>(property), 0, 0);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1762,7 +1819,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Use this variant if you have to pass in a reference to something (e.g. a text range).
  */
 - (long) getGeneralProperty: (int) property ref: (const void *) ref {
-	return mBackend->WndProc(property, 0, (sptr_t) ref);
+	return mBackend->WndProc(static_cast<Message>(property), 0, (sptr_t) ref);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1778,7 +1835,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	long blue = static_cast<long>(value.blueComponent * 255);
 
 	long color = (blue << 16) + (green << 8) + red;
-	mBackend->WndProc(property, parameter, color);
+	mBackend->WndProc(static_cast<Message>(property), parameter, color);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1821,7 +1878,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 		[[NSScanner scannerWithString: @(value)] scanHexInt: &rawBlue];
 
 		long color = (rawBlue << 16) + (rawGreen << 8) + rawRed;
-		mBackend->WndProc(property, parameter, color);
+		mBackend->WndProc(static_cast<Message>(property), parameter, color);
 	}
 }
 
@@ -1831,7 +1888,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Specialized property getter for colors.
  */
 - (NSColor *) getColorProperty: (int) property parameter: (long) parameter {
-	long color = mBackend->WndProc(property, parameter, 0);
+	long color = mBackend->WndProc(static_cast<Message>(property), parameter, 0);
 	CGFloat red = (color & 0xFF) / 255.0;
 	CGFloat green = ((color >> 8) & 0xFF) / 255.0;
 	CGFloat blue = ((color >> 16) & 0xFF) / 255.0;
@@ -1845,7 +1902,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Specialized property setter for references (pointers, addresses).
  */
 - (void) setReferenceProperty: (int) property parameter: (long) parameter value: (const void *) value {
-	mBackend->WndProc(property, parameter, (sptr_t) value);
+	mBackend->WndProc(static_cast<Message>(property), parameter, (sptr_t) value);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1854,7 +1911,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Specialized property getter for references (pointers, addresses).
  */
 - (const void *) getReferenceProperty: (int) property parameter: (long) parameter {
-	return (const void *) mBackend->WndProc(property, parameter, 0);
+	return (const void *) mBackend->WndProc(static_cast<Message>(property), parameter, 0);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1864,7 +1921,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  */
 - (void) setStringProperty: (int) property parameter: (long) parameter value: (NSString *) value {
 	const char *rawValue = value.UTF8String;
-	mBackend->WndProc(property, parameter, (sptr_t) rawValue);
+	mBackend->WndProc(static_cast<Message>(property), parameter, (sptr_t) rawValue);
 }
 
 
@@ -1874,7 +1931,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Specialized property getter for string values.
  */
 - (NSString *) getStringProperty: (int) property parameter: (long) parameter {
-	const char *rawValue = (const char *) mBackend->WndProc(property, parameter, 0);
+	const char *rawValue = (const char *) mBackend->WndProc(static_cast<Message>(property), parameter, 0);
 	return @(rawValue);
 }
 
@@ -1886,7 +1943,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 - (void) setLexerProperty: (NSString *) name value: (NSString *) value {
 	const char *rawName = name.UTF8String;
 	const char *rawValue = value.UTF8String;
-	mBackend->WndProc(SCI_SETPROPERTY, (sptr_t) rawName, (sptr_t) rawValue);
+	mBackend->WndProc(Message::SetProperty, (sptr_t) rawName, (sptr_t) rawValue);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1896,7 +1953,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  */
 - (NSString *) getLexerProperty: (NSString *) name {
 	const char *rawName = name.UTF8String;
-	const char *result = (const char *) mBackend->WndProc(SCI_SETPROPERTY, (sptr_t) rawName, 0);
+	const char *result = (const char *) mBackend->WndProc(Message::SetProperty, (sptr_t) rawName, 0);
 	return @(result);
 }
 
@@ -1966,9 +2023,9 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 
 - (void) insertText: (id) aString {
 	if ([aString isKindOfClass: [NSString class]])
-		mBackend->InsertText(aString, EditModel::CharacterSource::directInput);
+		mBackend->InsertText(aString, CharacterSource::DirectInput);
 	else if ([aString isKindOfClass: [NSAttributedString class]])
-		mBackend->InsertText([aString string], EditModel::CharacterSource::directInput);
+		mBackend->InsertText([aString string], CharacterSource::DirectInput);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2002,11 +2059,11 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 		     scrollTo: (BOOL) scrollTo
 			 wrap: (BOOL) wrap
 		    backwards: (BOOL) backwards {
-	int searchFlags= 0;
+	FindOption searchFlags = FindOption::None;
 	if (matchCase)
-		searchFlags |= SCFIND_MATCHCASE;
+		searchFlags = searchFlags | FindOption::MatchCase;
 	if (wholeWord)
-		searchFlags |= SCFIND_WHOLEWORD;
+		searchFlags = searchFlags | FindOption::WholeWord;
 
 	long selectionStart = [self getGeneralProperty: SCI_GETSELECTIONSTART parameter: 0];
 	long selectionEnd = [self getGeneralProperty: SCI_GETSELECTIONEND parameter: 0];
@@ -2025,7 +2082,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	if (backwards) {
 		result = [ScintillaView directCall: self
 					   message: SCI_SEARCHPREV
-					    wParam: searchFlags
+					    wParam: (uptr_t) searchFlags
 					    lParam: (sptr_t) textToSearch];
 		if (result < 0 && wrap) {
 			// Try again from the end of the document if nothing could be found so far and
@@ -2034,13 +2091,13 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 			[self setGeneralProperty: SCI_SEARCHANCHOR value: 0];
 			result = [ScintillaView directCall: self
 						   message: SCI_SEARCHNEXT
-						    wParam: searchFlags
+						    wParam: (uptr_t) searchFlags
 						    lParam: (sptr_t) textToSearch];
 		}
 	} else {
 		result = [ScintillaView directCall: self
 					   message: SCI_SEARCHNEXT
-					    wParam: searchFlags
+					    wParam: (uptr_t) searchFlags
 					    lParam: (sptr_t) textToSearch];
 		if (result < 0 && wrap) {
 			// Try again from the start of the document if nothing could be found so far and
@@ -2049,7 +2106,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 			[self setGeneralProperty: SCI_SEARCHANCHOR value: 0];
 			result = [ScintillaView directCall: self
 						   message: SCI_SEARCHNEXT
-						    wParam: searchFlags
+						    wParam: (uptr_t) searchFlags
 						    lParam: (sptr_t) textToSearch];
 		}
 	}
@@ -2087,12 +2144,12 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 		startPosition = [self getGeneralProperty: SCI_GETCURRENTPOS];
 	long endPosition = [self getGeneralProperty: SCI_GETTEXTLENGTH];
 
-	int searchFlags= 0;
+	FindOption searchFlags = FindOption::None;
 	if (matchCase)
-		searchFlags |= SCFIND_MATCHCASE;
+		searchFlags = searchFlags | FindOption::MatchCase;
 	if (wholeWord)
-		searchFlags |= SCFIND_WHOLEWORD;
-	[self setGeneralProperty: SCI_SETSEARCHFLAGS value: searchFlags];
+		searchFlags = searchFlags | FindOption::WholeWord;
+	[self setGeneralProperty: SCI_SETSEARCHFLAGS value: (long)searchFlags];
 	[self setGeneralProperty: SCI_SETTARGETSTART value: startPosition];
 	[self setGeneralProperty: SCI_SETTARGETEND value: endPosition];
 

@@ -134,7 +134,7 @@
 	Exceptions and templates may be used but, since Scintilla can be used from C as well as
 	C++, exceptions may not be thrown out of Scintilla and all exceptions should be caught
 	before returning from Scintilla.
-	A 'Scintilla' name space is used. This helps with name clashes on OS X.
+	A 'Scintilla' name space is used. This helps with name clashes on macOS.
 	</p>
 	<p>
 	The goto statement is not used because of bad memories from my first job
@@ -259,9 +259,10 @@
        Submitting a lexer
     </h3>
 
-	<p>Add a public feature request to the <a href="https://sourceforge.net/tracker/?group_id=2439&atid=352439">Feature Request Tracker</a>.</p>
-	<p>Send all the modified and new files as full text (not patches) in an archive (.zip or .tgz).</p>
-	<p>Define all of the lexical states in a modified Scintilla.iface.</p>
+	<p>Lexers have been moved to the separate <a href="https://www.scintilla.org/Lexilla.html">Lexilla</a> project
+	which is on GitHub which may have updated instructions.</p>
+	<p>Add an issue or pull request on the <a href="https://github.com/ScintillaOrg/lexilla">Lexilla project page</a>.</p>
+	<p>Define all of the lexical states in a modified LexicalStyles.iface.</p>
 	<p>Ensure there are no warnings under the compiler you use. Warnings from other compilers
 	will be noted on the feature request.</p>
 	<p>sc.ch is an int: do not pass this around as a char.</p>

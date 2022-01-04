@@ -13,7 +13,6 @@
 #import <Cocoa/Cocoa.h>
 
 #import "Scintilla.h"
-#import "SciLexer.h"
 
 #import "InfoBarCommunicator.h"
 

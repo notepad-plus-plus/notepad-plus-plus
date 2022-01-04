@@ -1,0 +1,47 @@
+ 0 400 400   // A demonstration program
+ 0 400 400   #include <stdio.h>
+ 2 400 401 + #if 0 /* */
+ 0 401 401 | #define DUMMY() \
+ 0 401 401 | 	if (1);
+ 0 401 400 | #endif
+ 1 400 400   
+ 0 400 400   // Test preprocessor expressions with parentheses 
+ 2 400 401 + #if ((0))
+ 0 401 401 | a
+ 0 401 401 | #elif ((1))
+ 0 401 401 | b
+ 0 401 400 | #endif
+ 1 400 400   
+ 2 400 401 + /** @file LexCPP.cxx
+ 0 401 401 |  <file>
+ 0 401 401 |  <file >filename</file>
+ 0 401 401 |  LexCPP.cxx.
+ 0 401 401 |  </file>
+ 0 401 400 |  **/
+ 1 400 400   
+ 2 400 401 + /** Unknown doc keywords so in SCE_C_COMMENTDOCKEYWORDERROR:
+ 0 401 401 |  @wrong LexCPP.cxx
+ 0 401 401 |  <wrong>filename</wrong>
+ 0 401 400 | **/
+ 1 400 400   
+ 0 400 400   #define M\
+ 1 400 400   
+ 0 400 400   \
+ 1 400 400    
+ 2 400 401 + int main() {
+ 0 401 401 | 	double x[] = {3.14159,6.02e23,1.6e-19,1.0+1};
+ 0 401 401 | 	int y[] = {75,0113,0x4b};
+ 0 401 401 | 	printf("hello world %d %g\n", y[0], x[0]);
+ 1 401 401 | 
+ 0 401 401 | 	// JavaScript regular expression (14) tests
+ 0 401 401 | 	let a = /a/;
+ 0 401 401 | 	let b = /[a-z]+/gi;
+ 1 401 401 | 
+ 0 401 401 | 	// Escape sequence (27) tests
+ 0 401 401 | 	printf("\'\"\?\\\a\b\f\n\r\t\v \P");
+ 0 401 401 | 	printf("\0a \013a \019");
+ 0 401 401 | 	printf("\x013ac \xdz");
+ 0 401 401 | 	printf("\ua34df \uz");
+ 0 401 401 | 	printf("\Ua34df7833 \Uz");
+ 0 401 400 | }
+ 1 400 400   

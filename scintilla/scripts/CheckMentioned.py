@@ -68,15 +68,6 @@ def convertIFaceTypeToC(t):
 def makeParm(t, n, v):
 	return (convertIFaceTypeToC(t) + n).rstrip()
 
-def makeRet(params):
-	retType = params["ReturnType"]
-	if retType in ["void", "string", "stringresult"]:
-		retType = ""
-	if retType:
-		retType = " &rarr; " + retType
-
-	return retType
-
 def makeSig(params):
 	p1 = makeParm(params["Param1Type"], params["Param1Name"], params["Param1Value"])
 	p2 = makeParm(params["Param2Type"], params["Param2Name"], params["Param2Value"])
@@ -92,7 +83,6 @@ def makeSig(params):
 	if p1 == "" and p2 == "":
 		return retType
 
-	ret = ""
 	if p1 == "":
 		p1 = "&lt;unused&gt;"
 	joiner = ""
@@ -140,11 +130,13 @@ def checkDocumentation():
 	# Examine header sections which point to definitions
 	#<a class="message" href="#SCI_SETLAYOUTCACHE">SCI_SETLAYOUTCACHE(int cacheMode)</a><br />
 	dirPattern = re.compile(r'<a class="message" href="#([A-Z0-9_]+)">([A-Z][A-Za-z0-9_() *&;,\n]+)</a>')
-	firstWord = re.compile(r'[A-Z0-9_]+')
 	for api, sig in re.findall(dirPattern, docs):
 		sigApi = re.split('\W+', sig)[0]
 		sigFlat = flattenSpaces(sig)
+		sigFlat = sigFlat.replace('colouralpha ', 'xxxx ')	# Temporary to avoid next line
 		sigFlat = sigFlat.replace('alpha ', 'int ')
+		sigFlat = sigFlat.replace('xxxx ', 'colouralpha ')
+
 		sigFlat = sigFlat.replace("document *", "int ")
 		sigFlat = sigFlat.rstrip()
 		if '(' in sigFlat or api.startswith("SCI_"):
@@ -170,8 +162,11 @@ def checkDocumentation():
 		sigFlat = flattenSpaces(sig)
 		if '<a' in sigFlat	:	# Remove anchors
 			sigFlat = re.sub('<a.*>(.+)</a>', '\\1', sigFlat)
+		sigFlat = sigFlat.replace('colouralpha ', 'xxxx ')	# Temporary to avoid next line
 		sigFlat = sigFlat.replace('alpha ', 'int ')
+		sigFlat = sigFlat.replace('xxxx ', 'colouralpha ')
 		sigFlat = sigFlat.replace("document *", "int ")
+
 		sigFlat = sigFlat.replace(' NUL-terminated', '')
 		sigFlat = sigFlat.rstrip()
 		#~ sigFlat = sigFlat.replace(' NUL-terminated', '')
@@ -210,6 +205,10 @@ def checkDocumentation():
 				print(val, "<-", name, ";;", valOfName)
 		except KeyError:
 			print("***", val, "<-", name)
+
+	for name in sccToValue.keys():
+		if name not in ["SCI_OPTIONAL_START", "SCI_LEXER_START"] and name not in docs:
+			print(f"Unknown {name}")
 
 for identifier in sorted(symbols.keys()):
 	if not symbols[identifier] and identifier not in uninteresting:

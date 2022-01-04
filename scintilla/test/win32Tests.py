@@ -113,7 +113,7 @@ class TestWins(unittest.TestCase):
 		value = self.TextValue()
 		self.assertEquals(len(value), 3)
 		self.assertEquals(value, katakanaMiddleDot)
-		
+
 		# This is even less valid Shift-JIS
 		tu8 = b'[\xff]'
 		self.SetText(tu8)

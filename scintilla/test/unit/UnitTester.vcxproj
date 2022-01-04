@@ -150,12 +150,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lexlib\WordList.cxx" />
+    <ClCompile Include="..\..\src\CaseConvert.cxx" />
+    <ClCompile Include="..\..\src\CaseFolder.cxx" />
     <ClCompile Include="..\..\src\CellBuffer.cxx" />
+    <ClCompile Include="..\..\src\CharacterCategoryMap.cxx" />
     <ClCompile Include="..\..\src\CharClassify.cxx" />
     <ClCompile Include="..\..\src\ContractionState.cxx" />
     <ClCompile Include="..\..\src\Decoration.cxx" />
+    <ClCompile Include="..\..\src\Document.cxx" />
+    <ClCompile Include="..\..\src\Geometry.cxx" />
     <ClCompile Include="..\..\src\PerLine.cxx" />
+    <ClCompile Include="..\..\src\RESearch.cxx" />
     <ClCompile Include="..\..\src\RunStyles.cxx" />
     <ClCompile Include="..\..\src\UniConversion.cxx" />
     <ClCompile Include="..\..\src\UniqueString.cxx" />

@@ -15,18 +15,18 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "Debugging.h"
 
-#include "Scintilla.h"
 #include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
 #include "RunStyles.h"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 // Find the first run at a position
 template <typename DISTANCE, typename STYLE>
@@ -307,9 +307,9 @@ void RunStyles<DISTANCE, STYLE>::Check() const {
 	}
 }
 
-template class Scintilla::RunStyles<int, int>;
-template class Scintilla::RunStyles<int, char>;
-#if (PTRDIFF_MAX != INT_MAX) || PLAT_HAIKU
-template class Scintilla::RunStyles<ptrdiff_t, int>;
-template class Scintilla::RunStyles<ptrdiff_t, char>;
+template class Scintilla::Internal::RunStyles<int, int>;
+template class Scintilla::Internal::RunStyles<int, char>;
+#if (PTRDIFF_MAX != INT_MAX) || defined(__HAIKU__)
+template class Scintilla::Internal::RunStyles<ptrdiff_t, int>;
+template class Scintilla::Internal::RunStyles<ptrdiff_t, char>;
 #endif

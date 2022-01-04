@@ -8,7 +8,7 @@
 #ifndef EDITMODEL_H
 #define EDITMODEL_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 /**
 */
@@ -33,19 +33,20 @@ public:
 	Sci::Position braces[2];
 	int bracesMatchStyle;
 	int highlightGuideColumn;
+	bool hasFocus;
 	Selection sel;
 	bool primarySelection;
 
-	enum IMEInteraction { imeWindowed, imeInline } imeInteraction;
-	enum class CharacterSource { directInput, tentativeInput, imeResult };
-	enum class Bidirectional { bidiDisabled, bidiL2R, bidiR2L  } bidirectional;
+	Scintilla::IMEInteraction imeInteraction;
+	Scintilla::Bidirectional bidirectional;
 
-	int foldFlags;
-	int foldDisplayTextStyle;
+	Scintilla::FoldFlag foldFlags;
+	Scintilla::FoldDisplayTextStyle foldDisplayTextStyle;
 	UniqueString defaultFoldDisplayText;
 	std::unique_ptr<IContractionState> pcs;
 	// Hotspot support
 	Range hotspot;
+	bool hotspotSingleLine;
 	Sci::Position hoverIndicatorPos;
 
 	// Wrapping support
@@ -63,12 +64,12 @@ public:
 	virtual Sci::Line TopLineOfMain() const = 0;
 	virtual Point GetVisibleOriginInMain() const = 0;
 	virtual Sci::Line LinesOnScreen() const = 0;
-	virtual Range GetHotSpotRange() const noexcept = 0;
 	bool BidirectionalEnabled() const noexcept;
 	bool BidirectionalR2L() const noexcept;
 	void SetDefaultFoldDisplayText(const char *text);
 	const char *GetDefaultFoldDisplayText() const noexcept;
 	const char *GetFoldDisplayText(Sci::Line lineDoc) const noexcept;
+	InSelection LineEndInSelection(Sci::Line lineDoc) const;
 };
 
 }

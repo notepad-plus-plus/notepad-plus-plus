@@ -1,0 +1,17 @@
+{1}<head>{0} {9}<!-- About to script -->{0}
+{18}<?php{118}
+{121}echo{118} {121}__FILE__{127}.{121}__LINE__{127};{118}
+{121}echo{118} {119}"<!-- -->\n"{127};{118}
+{124}/* ?> */{118}
+{18}?>{0}
+{1}<strong>{0}for{1}</strong><b>{0}if{1}</b>{0}
+{1}<script>{40}
+{41}	{46}alert{50}({48}"{18}<?php{118} {121}echo{118} {119}"PHP"{118} {127}.{118} {120}' Code'{127};{118} {18}?>{48}"{50});{41}
+	{46}alert{50}({49}'{18}<?{127}={118} {120}'PHP'{118} {127}.{118} {119}"Code"{127};{118} {18}?>{49}'{50});{41}
+	{47}var{41} {46}xml{41} {50}={41}
+	{49}'<?xml version="1.0" encoding="iso-8859-1"?><SO_GL>'{41} {50}+{41}
+	{49}'<GLOBAL_LIST mode="complete"><NAME>SO_SINGLE_MULTIPLE_COMMAND_BUILDER</NAME>'{41} {50}+{41}
+	{49}'<LIST_ELEMENT><CODE>1</CODE><LIST_VALUE><![CDATA[RM QI WEB BOOKING]]></LIST_VALUE></LIST_ELEMENT>'{41} {50}+{41}
+	{49}'<LIST_ELEMENT><CODE>1</CODE><LIST_VALUE><![CDATA[RM *PCC]]></LIST_VALUE></LIST_ELEMENT>'{41} {50}+{41}
+	{49}'</GLOBAL_LIST></SO_GL>'{50};{41}
+{1}</script>{0}

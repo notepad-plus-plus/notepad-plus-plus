@@ -13,10 +13,7 @@ try:
 except AttributeError:
 	timer = time.time
 
-if sys.platform == "win32":
-	import XiteWin as Xite
-else:
-	import XiteQt as Xite
+import XiteWin as Xite
 
 class TestPerformance(unittest.TestCase):
 

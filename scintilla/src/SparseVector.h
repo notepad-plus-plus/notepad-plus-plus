@@ -8,7 +8,7 @@
 #ifndef SPARSEVECTOR_H
 #define SPARSEVECTOR_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 // SparseVector is similar to RunStyles but is more efficient for cases where values occur
 // for one position instead of over a range of positions.

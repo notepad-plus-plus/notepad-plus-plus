@@ -9,12 +9,11 @@
 
 .SUFFIXES: .cxx .c .o .h .a
 
+DIR_O=.
 DIR_BIN=../bin
 
 COMPONENT = $(DIR_BIN)/Scintilla.dll
-LEXCOMPONENT = $(DIR_BIN)/SciLexer.dll
 LIBSCI = $(DIR_BIN)/libscintilla.a
-LIBLEX=$(DIR_BIN)/libscilexer.a
 
 WARNINGS = -Wpedantic -Wall
 
@@ -43,13 +42,13 @@ else
 DEL = rm -f
 endif
 
-vpath %.h ../src ../include ../lexlib
-vpath %.cxx ../src ../lexlib ../lexers
+vpath %.h ../src ../include
+vpath %.cxx ../src
 
 LDFLAGS=-shared -static -mwindows
 LIBS=-lgdi32 -luser32 -limm32 -lole32 -luuid -loleaut32 -lmsimg32 $(LIBSMINGW)
 
-INCLUDES=-I ../include -I ../src -I../lexlib
+INCLUDES=-I ../include -I ../src
 
 BASE_FLAGS += $(WARNINGS)
 
@@ -67,126 +66,77 @@ endif
 CXX_BASE_FLAGS =--std=c++17 $(BASE_FLAGS)
 CXX_ALL_FLAGS =$(DEFINES) $(INCLUDES) $(CXX_BASE_FLAGS)
 
-all:	$(COMPONENT) $(LEXCOMPONENT) $(LIBSCI) $(LIBLEX) 
+all:	$(COMPONENT) $(LIBSCI)
 
 clean:
-	$(DEL) *.exe *.o *.a *.obj *.dll *.res *.map *.plist $(call normalize,$(LIBSCI))
+	$(DEL) $(call normalize, $(addprefix $(DIR_O)/, *.exe *.o *.a *.obj *.dll *.res *.map *.plist) $(COMPONENT) $(LIBSCI))
 
-%.o: %.cxx
-	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -c $<
+$(DIR_O)/%.o: %.cxx
+	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -c $< -o $@
 
 analyze:
-	$(CXX) --analyze $(CXX_ALL_FLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx
+	$(CXX) --analyze $(CXX_ALL_FLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx
 
 depend deps.mak:
 	$(PYTHON) DepGen.py
 
-LEX_OBJS:=$(addsuffix .o,$(basename $(sort $(notdir $(wildcard ../lexers/Lex*.cxx)))))
-
 # Required for base Scintilla
 SRC_OBJS = \
-	AutoComplete.o \
-	CallTip.o \
-	CaseConvert.o \
-	CaseFolder.o \
-	CellBuffer.o \
-	CharacterCategory.o \
-	CharacterSet.o \
-	CharClassify.o \
-	ContractionState.o \
-	DBCS.o \
-	Decoration.o \
-	Document.o \
-	EditModel.o \
-	Editor.o \
-	EditView.o \
-	Indicator.o \
-	KeyMap.o \
-	LineMarker.o \
-	MarginView.o \
-	PerLine.o \
-	PositionCache.o \
-	PropSetSimple.o \
-	RESearch.o \
-	RunStyles.o \
-	Selection.o \
-	Style.o \
-	UniConversion.o \
-	UniqueString.o \
-	ViewStyle.o \
-	XPM.o
+	$(DIR_O)/AutoComplete.o \
+	$(DIR_O)/CallTip.o \
+	$(DIR_O)/CaseConvert.o \
+	$(DIR_O)/CaseFolder.o \
+	$(DIR_O)/CellBuffer.o \
+	$(DIR_O)/CharacterCategoryMap.o \
+	$(DIR_O)/CharacterType.o \
+	$(DIR_O)/CharClassify.o \
+	$(DIR_O)/ContractionState.o \
+	$(DIR_O)/DBCS.o \
+	$(DIR_O)/Decoration.o \
+	$(DIR_O)/Document.o \
+	$(DIR_O)/EditModel.o \
+	$(DIR_O)/Editor.o \
+	$(DIR_O)/EditView.o \
+	$(DIR_O)/Geometry.o \
+	$(DIR_O)/Indicator.o \
+	$(DIR_O)/KeyMap.o \
+	$(DIR_O)/LineMarker.o \
+	$(DIR_O)/MarginView.o \
+	$(DIR_O)/PerLine.o \
+	$(DIR_O)/PositionCache.o \
+	$(DIR_O)/RESearch.o \
+	$(DIR_O)/RunStyles.o \
+	$(DIR_O)/Selection.o \
+	$(DIR_O)/Style.o \
+	$(DIR_O)/UniConversion.o \
+	$(DIR_O)/UniqueString.o \
+	$(DIR_O)/ViewStyle.o \
+	$(DIR_O)/XPM.o
 
 # To have PCRE boost regex with header only is integrated and not just the one from std
 include ../../boostregex/nppSpecifics_mingw.mak
 
-# Required by lexers
-LEXLIB_OBJS = \
-	Accessor.o \
-	CatalogueL.o \
-	DefaultLexer.o \
-	ExternalLexer.o \
-	LexerBase.o \
-	LexerModule.o \
-	LexerSimple.o \
-	StyleContext.o \
-	WordList.o
-
-# Required by libraries and DLLs that include lexing
-SCILEX_OBJS=\
-	$(SRC_OBJS) \
-	$(LEXLIB_OBJS) \
-	$(LEX_OBJS) \
-	HanjaDic.o \
-	PlatWin.o \
-	ScintillaBaseL.o \
-	ScintillaWin.o
-
 COMPONENT_OBJS = \
 	$(SRC_OBJS) \
-	Accessor.o \
-	Catalogue.o \
-	HanjaDic.o \
-	LexerBase.o \
-	LexerModule.o \
-	LexerSimple.o \
-	PlatWin.o \
-	ScintillaBase.o \
-	ScintillaDLL.o \
-	ScintillaWin.o \
-	ScintRes.o \
-	WordList.o
+	$(DIR_O)/HanjaDic.o \
+	$(DIR_O)/PlatWin.o \
+	$(DIR_O)/ScintillaBase.o \
+	$(DIR_O)/ScintillaWin.o
 
-LEXCOMPONENT_OBJS = \
-	$(SCILEX_OBJS) \
-	ScintillaDLL.o \
-	ScintRes.o
+SHARED_OBJS = \
+	$(DIR_O)/ScintillaDLL.o \
+	$(DIR_O)/ScintRes.o
 
-$(COMPONENT): $(COMPONENT_OBJS)
-	$(CXX) $(LDFLAGS) -o $@ $(STRIPFLAG) $^ $(CXXFLAGS) $(LIBS)
-
-$(LEXCOMPONENT): $(LEXCOMPONENT_OBJS)
+$(COMPONENT): $(COMPONENT_OBJS) $(SHARED_OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $(STRIPFLAG) $^ $(CXXFLAGS) $(LIBS)
 
 $(LIBSCI): $(COMPONENT_OBJS)
 	$(AR) $(ARFLAGS) $@ $^
 	$(RANLIB) $@
 
-$(LIBLEX): $(LEXCOMPONENT_OBJS)
-	$(AR) $(ARFLAGS) $@ $^
-	$(RANLIB) $@
-
-# Automatically generate dependencies for most files with "make deps"
+# Automatically generate dependencies for most files with "make depend"
 include deps.mak
 
-ScintillaBaseL.o:
-	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -D SCI_LEXER -c $< -o $@
-
-Catalogue.o: Catalogue.cxx
-	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -D SCI_LEXER -D SCI_EMPTYCATALOGUE -c $< -o $@
-
-CatalogueL.o: Catalogue.cxx
-	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -D SCI_LEXER -c $< -o $@
-
-ScintRes.o:	ScintRes.rc
-	$(WINDRES) ScintRes.rc $@
+$(DIR_O)/ScintRes.o: ScintRes.rc
+	$(WINDRES) $< $@
 

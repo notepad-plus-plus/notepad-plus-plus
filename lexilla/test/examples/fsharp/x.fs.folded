@@ -1,0 +1,54 @@
+ 2 400 401 + // x.fs
+ 0 401 400 | // Sample source file to test F# syntax highlighting
+ 1 400 400   
+ 0 400 400   [<AutoOpen>]
+ 0 400 400   module Example
+ 1 400 400   
+ 0 400 400   #line 7 "A compiler directive"
+ 2 400 401 + #if DEBUG
+ 2 401 402 +   open System
+ 0 402 402 |   open System.IO
+ 0 402 401 |   open System.Diagnostics
+ 0 401 400 | #endif
+ 1 400 400   
+ 0 400 400   # 14 @"See: https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/strings#remarks"
+ 0 400 400   // verbatim string
+ 0 400 400   let xmlFragment1 = @"<book href=""https://www.worldcat.org/title/paradise-lost/oclc/1083714070"" title=""Paradise Lost"">"
+ 1 400 400   
+ 0 400 400   // triple-quoted string
+ 0 400 400   let xmlFragment2 = """<book href="https://www.worldcat.org/title/paradise-lost/oclc/1083714070" title="Paradise Lost">"""
+ 1 400 400   
+ 2 400 401 + (* you need .NET 5.0 to compile this:
+ 0 401 401 |   https://docs.microsoft.com/en-us/dotnet/fsharp/whats-new/fsharp-50#string-interpolation
+ 0 401 400 | *)
+ 0 400 400   let interpolated = $"""C:\{System.DateTime.Now.ToString("yyyy-MM-dd")}\""" + $"{System.Random().Next(System.Int32.MaxValue)}.log"
+ 1 400 400   
+ 0 400 400   let ``a byte literal`` = '\209'B
+ 1 400 400   
+ 0 400 400   // quoted expression
+ 0 400 400   let expr =
+ 0 400 400       <@@
+ 0 400 400           let foo () = "bar"
+ 0 400 400           foo ()
+ 0 400 400       @@>
+ 1 400 400   
+ 0 400 400   let bigNum (unused: 'a): float option =
+ 0 400 400       Seq.init 10_000 (float >> (fun i -> i + 11.))
+ 0 400 400       |> (List.ofSeq
+ 0 400 400           >> List.take 5
+ 0 400 400           >> List.fold (*) 1.0)
+ 0 400 400       |> Some
+ 1 400 400   
+ 0 400 400   match bigNum () with
+ 0 400 400   | Some num -> sprintf "%.2f > %u" num ``a byte literal``
+ 0 400 400   | None -> sprintf "%A" "Have a byte string!"B
+ 0 400 400   |> printfn "%s"
+ 1 400 400   
+ 0 400 400   // GitHub Issue #38
+ 0 400 400   let unescapeWinPath (path: string) =
+ 0 400 400       path.Replace("\\\\", "\\").Replace("\"", "")
+ 1 400 400   
+ 0 400 400   unescapeWinPath "\\\"Program Files (x86)\\Windows NT\\Accessories\\\""
+ 0 400 400   |> System.IO.Directory.GetFiles
+ 0 400 400   |> printfn "%A"
+ 1 400 400   

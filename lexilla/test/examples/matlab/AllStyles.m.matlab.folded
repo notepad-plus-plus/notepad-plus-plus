@@ -1,0 +1,45 @@
+ 0 400 400   % Examples of each style 0..8 except for SCE_MATLAB_COMMAND(2) which has a line ending bug
+ 1 400 400   
+ 0 400 400   % White space=0
+ 0 400 400      %
+ 1 400 400   
+ 0 400 400   % Comment=1
+ 0 400 400   % Line comment
+ 1 400 400   
+ 0 400 400   % Next line is comment in Ocatve but not Matlab
+ 0 400 400   # Octave comment
+ 1 400 400   
+ 0 400 400   %{
+ 0 400 400   Block comment.
+ 0 400 400   %}
+ 1 400 400   
+ 0 400 400   % Command=2
+ 1 400 400   
+ 0 400 400   %{
+ 0 400 400   Omitted as this places a style transiton between \r and \n
+ 0 400 400   !rmdir oldtests
+ 0 400 400   %}
+ 1 400 400   
+ 0 400 400   % Number=3
+ 0 400 400   33.3
+ 1 400 400   
+ 0 400 400   % Keyword=4
+ 0 400 400   global x
+ 1 400 400   
+ 0 400 400   % Single Quoted String=5
+ 0 400 400   'string'
+ 1 400 400   
+ 0 400 400   % Operator=6
+ 0 400 400   [X,Y] = meshgrid(-10:0.25:10,-10:0.25:10);
+ 1 400 400   
+ 0 400 400   % Identifier=7
+ 0 400 400   identifier = 2
+ 1 400 400   
+ 0 400 400   % Double Quoted String=8
+ 0 400 400   "string"
+ 1 400 400   
+ 0 400 400   % This loop should fold
+ 2 400 401 + for i = 1:5
+ 0 401 401 |     x(i) = 3 * i;
+ 0 401 400 | end
+ 1 400 400   

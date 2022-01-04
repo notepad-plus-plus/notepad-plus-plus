@@ -1,0 +1,17 @@
+ 0 400   0   # '# comment' comment=1
+ 0 400   0   # comment
+ 0 400   0   
+ 0 400   0   # '.SUFFIXES' target=5, ':' operator=4
+ 0 400   0   .SUFFIXES:
+ 0 400   0   
+ 0 400   0   # 'LD' identifier=3, '=' operator=4, 'link' default=0
+ 0 400   0   LD=link
+ 0 400   0   
+ 0 400   0   # '!IFDEF DEBUG' preprocessor=2
+ 0 400   0   !IFDEF DEBUG
+ 0 400   0   
+ 0 400   0   # '$(' ID EOL=9
+ 0 400   0   X=$(
+ 0 400   0   
+ 0 400   0   # End of file
+ 0 400   0   

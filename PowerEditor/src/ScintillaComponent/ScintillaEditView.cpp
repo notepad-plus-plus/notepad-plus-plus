@@ -22,6 +22,8 @@
 #include "Parameters.h"
 #include "Sorters.h"
 #include "verifySignedfile.h"
+#include <ILexer.h>
+#include <Lexilla.h>
 
 using namespace std;
 
@@ -65,7 +67,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL + 1] = {
 {TEXT("c"),				TEXT("C"),					TEXT("C source file"),									L_C,			SCLEX_CPP},
 {TEXT("cpp"),			TEXT("C++"),				TEXT("C++ source file"),								L_CPP,			SCLEX_CPP},
 {TEXT("cs"),			TEXT("C#"),					TEXT("C# source file"),									L_CS,			SCLEX_CPP},
-{TEXT("objc"),			TEXT("Objective-C"),		TEXT("Objective-C source file"),						L_OBJC,			SCLEX_CPP},
+{TEXT("objc"),			TEXT("Objective-C"),		TEXT("Objective-C source file"),						L_OBJC,			SCLEX_OBJC},
 {TEXT("java"),			TEXT("Java"),				TEXT("Java source file"),								L_JAVA,			SCLEX_CPP},
 {TEXT("rc"),			TEXT("RC"),					TEXT("Windows Resource file"),							L_RC,			SCLEX_CPP},
 {TEXT("html"),			TEXT("HTML"),				TEXT("Hyper Text Markup Language file"),				L_HTML,			SCLEX_HTML},
@@ -630,7 +632,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 {
 	if (type == L_XML)
 	{
-        execute(SCI_SETLEXER, SCLEX_XML);
+		execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("xml")));
 		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
 
@@ -640,8 +642,8 @@ void ScintillaEditView::setXmlLexer(LangType type)
 	}
 	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP) || (type == L_JSP))
 	{
-        execute(SCI_SETLEXER, SCLEX_HTML);
-        const TCHAR *htmlKeyWords_generic = NppParameters::getInstance().getWordList(L_HTML, LANG_INDEX_INSTR);
+		execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("html")));
+		const TCHAR *htmlKeyWords_generic = NppParameters::getInstance().getWordList(L_HTML, LANG_INDEX_INSTR);
 
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		const char *htmlKeyWords = wmc.wchar2char(htmlKeyWords_generic, CP_ACP);
@@ -679,7 +681,7 @@ void ScintillaEditView::setEmbeddedJSLexer()
 
 void ScintillaEditView::setJsonLexer()
 {
-	execute(SCI_SETLEXER, SCLEX_JSON);
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("json")));
 
 	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
@@ -749,7 +751,7 @@ void ScintillaEditView::setEmbeddedAspLexer()
 void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 {
 	int setKeywordsCounter = 0;
-    execute(SCI_SETLEXER, SCLEX_USER);
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("user")));
 
 	UserLangContainer * userLangContainer = userLangName? NppParameters::getInstance().getULCFromName(userLangName):_userDefineDlg._pCurrentUserLang;
 
@@ -883,7 +885,7 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const char *pName = wmc.wchar2char(name, CP_ACP);
 
-	execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
 
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(name);
 	if (pStyler)
@@ -911,7 +913,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
     const char *cppTypes;
     const TCHAR *doxygenKeyWords  = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
-    execute(SCI_SETLEXER, SCLEX_CPP);
+    execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("cpp")));
 
 	if (langType != L_RC)
     {
@@ -961,7 +963,7 @@ void ScintillaEditView::setJsLexer()
 {
 	const TCHAR *doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
-	execute(SCI_SETLEXER, SCLEX_CPP);
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("cpp")));
 	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 	makeStyle(L_JAVASCRIPT, pKwArray);
 
@@ -1075,7 +1077,7 @@ void ScintillaEditView::setTclLexer()
     const char *tclTypes;
 
 
-    execute(SCI_SETLEXER, SCLEX_TCL);
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("tcl")));
 
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_TCL, pKwArray);
@@ -1102,7 +1104,7 @@ void ScintillaEditView::setTclLexer()
 
 void ScintillaEditView::setObjCLexer(LangType langType)
 {
-    execute(SCI_SETLEXER, SCLEX_OBJC);
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("objc")));
 
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
@@ -1164,8 +1166,8 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 void ScintillaEditView::setTypeScriptLexer()
 {
 	const TCHAR* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
-	execute(SCI_SETLEXER, SCLEX_CPP);
-	
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("cpp")));
+
 	if (doxygenKeyWords)
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -1215,7 +1217,12 @@ void ScintillaEditView::setKeywords(LangType langType, const char *keywords, int
 
 void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 {
-	execute(SCI_SETLEXER, lexerID);
+#pragma warning( push )
+#pragma warning( disable : 4996)
+	const char* pName = LexerNameFromID(lexerID); //deprecated, therefore disabled warning
+#pragma warning( pop ) 
+
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
 
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
@@ -1706,7 +1713,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			if (typeDoc >= L_EXTERNAL && typeDoc < NppParameters::getInstance().L_END)
 				setExternalLexer(typeDoc);
 			else
-				execute(SCI_SETLEXER, (_codepage == CP_CHINESE_TRADITIONAL) ? SCLEX_MAKEFILE : SCLEX_NULL);
+				execute(SCI_SETILEXER, 0, (_codepage == CP_CHINESE_TRADITIONAL)?reinterpret_cast<LPARAM>(CreateLexer("makefile")): reinterpret_cast<LPARAM>(CreateLexer("null")));
 			break;
 
 	}
@@ -2242,7 +2249,7 @@ char * ScintillaEditView::getWordFromRange(char * txt, size_t size, size_t pos1,
         pos2 = tmp;
     }
 
-    if (size < pos2 - pos1)
+    if (size < pos2-pos1)
         return NULL;
 
     getText(txt, pos1, pos2);

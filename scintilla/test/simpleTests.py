@@ -5,12 +5,13 @@
 from __future__ import with_statement
 from __future__ import unicode_literals
 
-import codecs, ctypes, os, sys, unittest
+import ctypes, string, sys, unittest
 
-if sys.platform == "win32":
-	import XiteWin as Xite
-else:
-	import XiteQt as Xite
+import XiteWin as Xite
+
+# Unicode line ends are only available for lexers that support the feature so requires lexers
+lexersAvailable = Xite.lexillaAvailable or Xite.scintillaIncludesLexers
+unicodeLineEndsAvailable = lexersAvailable
 
 class TestSimple(unittest.TestCase):
 
@@ -124,7 +125,7 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.SelectionStart, 1)
 		self.assertEquals(self.ed.SelectionEnd, 3)
 		result = self.ed.GetSelText(0)
-		self.assertEquals(result, b"bc\0")
+		self.assertEquals(result, b"bc")
 		self.ed.ReplaceSel(0, b"1234")
 		self.assertEquals(self.ed.Length, 6)
 		self.assertEquals(self.ed.Contents(), b"a1234d")
@@ -298,10 +299,11 @@ class TestSimple(unittest.TestCase):
 
 	# Several tests for unicode line ends U+2028 and U+2029
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testUnicodeLineEnds(self):
 		# Add two lines separated with U+2028 and ensure it is seen as two lines
 		# Then remove U+2028 and should be just 1 lines
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
 		self.ed.AddText(5, b"x\xe2\x80\xa8y")
@@ -326,13 +328,14 @@ class TestSimple(unittest.TestCase):
 		self.ed.AddText(4, b"x\xc2\x85y")
 		self.assertEquals(self.ed.LineCount, 1)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testUnicodeLineEndsSwitchToUnicodeAndBack(self):
 		# Add the Unicode line ends when not in Unicode mode
 		self.ed.SetCodePage(0)
 		self.ed.AddText(5, b"x\xe2\x80\xa8y")
 		self.assertEquals(self.ed.LineCount, 1)
 		# Into UTF-8 mode - should now be interpreting as two lines
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
 		self.assertEquals(self.ed.LineCount, 2)
@@ -340,6 +343,7 @@ class TestSimple(unittest.TestCase):
 		self.ed.SetCodePage(0)
 		self.assertEquals(self.ed.LineCount, 1)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testUFragmentedEOLCompletion(self):
 		# Add 2 starting bytes of UTF-8 line end then complete it
 		self.ed.ClearAll()
@@ -361,9 +365,10 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.Contents(), b"x\xe2\x80\xa8y")
 		self.assertEquals(self.ed.LineCount, 2)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testUFragmentedEOLStart(self):
 		# Add end of UTF-8 line end then insert start
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
 		self.assertEquals(self.ed.LineCount, 1)
@@ -373,10 +378,11 @@ class TestSimple(unittest.TestCase):
 		self.ed.AddText(1, b"\xe2")
 		self.assertEquals(self.ed.LineCount, 2)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testUBreakApartEOL(self):
 		# Add two lines separated by U+2029 then remove and add back each byte ensuring
 		# only one line after each removal of any byte in line end and 2 lines after reinsertion
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
 		text = b"x\xe2\x80\xa9y";
@@ -398,9 +404,10 @@ class TestSimple(unittest.TestCase):
 			self.ed.ReplaceTarget(1, text[i:i+1])
 			self.assertEquals(self.ed.LineCount, 2)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testURemoveEOLFragment(self):
 		# Add UTF-8 line end then delete each byte causing line end to disappear
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
 		for i in range(3):
@@ -414,10 +421,11 @@ class TestSimple(unittest.TestCase):
 
 	# Several tests for unicode NEL line ends U+0085
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testNELLineEnds(self):
 		# Add two lines separated with U+0085 and ensure it is seen as two lines
 		# Then remove U+0085 and should be just 1 lines
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
 		self.ed.AddText(4, b"x\xc2\x85y")
@@ -433,6 +441,7 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.LineLength(0), 2)
 		self.assertEquals(self.ed.GetLineEndPosition(0), 2)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testNELFragmentedEOLCompletion(self):
 		# Add starting byte of UTF-8 NEL then complete it
 		self.ed.AddText(3, b"x\xc2y")
@@ -443,9 +452,10 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.Contents(), b"x\xc2\x85y")
 		self.assertEquals(self.ed.LineCount, 2)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testNELFragmentedEOLStart(self):
 		# Add end of UTF-8 NEL then insert start
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
 		self.assertEquals(self.ed.LineCount, 1)
@@ -455,10 +465,11 @@ class TestSimple(unittest.TestCase):
 		self.ed.AddText(1, b"\xc2")
 		self.assertEquals(self.ed.LineCount, 2)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testNELBreakApartEOL(self):
 		# Add two lines separated by U+0085 then remove and add back each byte ensuring
 		# only one line after each removal of any byte in line end and 2 lines after reinsertion
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
 		text = b"x\xc2\x85y";
@@ -480,6 +491,7 @@ class TestSimple(unittest.TestCase):
 			self.ed.ReplaceTarget(1, text[i:i+1])
 			self.assertEquals(self.ed.LineCount, 2)
 
+	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")
 	def testNELRemoveEOLFragment(self):
 		# Add UTF-8 NEL then delete each byte causing line end to disappear
 		self.ed.SetCodePage(65001)
@@ -519,6 +531,12 @@ class TestSimple(unittest.TestCase):
 		self.ed.SetSel(2,4)
 		self.ed.Clear()
 		self.assertEquals(self.ed.Contents(), b"1c")
+
+	def testReplaceRectangular(self):
+		self.ed.AddText(5, b"a\nb\nc")
+		self.ed.SetSel(0,0)
+		self.ed.ReplaceRectangular(3, b"1\n2")
+		self.assertEquals(self.ed.Contents(), b"1a\n2b\nc")
 
 	def testCopyAllowLine(self):
 		lineEndType = self.ed.EOLMode
@@ -1215,6 +1233,28 @@ class TestSearch(unittest.TestCase):
 		self.assertEquals(10, self.ed.FindBytes(0, self.ed.Length, b"\t$", flags))
 		self.assertEquals(0, self.ed.FindBytes(0, self.ed.Length, b"([a]).*\0", flags))
 
+	def testCxx11REFind(self):
+		flags = self.ed.SCFIND_REGEXP | self.ed.SCFIND_CXX11REGEX
+		self.assertEquals(-1, self.ed.FindBytes(0, self.ed.Length, b"b.g", 0))
+		self.assertEquals(2, self.ed.FindBytes(0, self.ed.Length, b"b.g", flags))
+		self.assertEquals(2, self.ed.FindBytes(0, self.ed.Length, rb"\bb.g\b", flags))
+		self.assertEquals(-1, self.ed.FindBytes(0, self.ed.Length, b"b[A-Z]g",
+			flags | self.ed.SCFIND_MATCHCASE))
+		self.assertEquals(2, self.ed.FindBytes(0, self.ed.Length, b"b[a-z]g", flags))
+		self.assertEquals(6, self.ed.FindBytes(0, self.ed.Length, b"b[a-z]*t", flags))
+		self.assertEquals(0, self.ed.FindBytes(0, self.ed.Length, b"^a", flags))
+		self.assertEquals(10, self.ed.FindBytes(0, self.ed.Length, b"\t$", flags))
+		self.assertEquals(0, self.ed.FindBytes(0, self.ed.Length, b"([a]).*\0", flags))
+
+	def testCxx11RETooMany(self):
+		# For bug #2281
+		self.ed.InsertText(0, b"3ringsForTheElvenKing")
+		flags = self.ed.SCFIND_REGEXP | self.ed.SCFIND_CXX11REGEX
+		# Only MAXTAG (10) matches allocated, but doesn't modify a vulnerable address until 15
+		pattern = b"(.)" * 15
+		self.assertEquals(0, self.ed.FindBytes(0, self.ed.Length, pattern, flags))
+		self.assertEquals(0, self.ed.FindBytes(0, self.ed.Length, pattern, flags))
+
 	def testPhilippeREFind(self):
 		# Requires 1.,72
 		flags = self.ed.SCFIND_REGEXP
@@ -1294,6 +1334,32 @@ class TestRepresentations(unittest.TestCase):
 		result = self.ed.GetRepresentation(ohmSign)
 		self.assertEquals(result, ohmExplained)
 
+	def testNul(self):
+		self.ed.SetRepresentation(b"", b"Nul")
+		result = self.ed.GetRepresentation(b"")
+		self.assertEquals(result, b"Nul")
+
+	def testAppearance(self):
+		ohmSign = b"\xe2\x84\xa6"
+		ohmExplained = b"U+2126 \xe2\x84\xa6"
+		self.ed.SetRepresentation(ohmSign, ohmExplained)
+		result = self.ed.GetRepresentationAppearance(ohmSign)
+		self.assertEquals(result, self.ed.SC_REPRESENTATION_BLOB)
+		self.ed.SetRepresentationAppearance(ohmSign, self.ed.SC_REPRESENTATION_PLAIN)
+		result = self.ed.GetRepresentationAppearance(ohmSign)
+		self.assertEquals(result, self.ed.SC_REPRESENTATION_PLAIN)
+
+	def testColour(self):
+		ohmSign = b"\xe2\x84\xa6"
+		ohmExplained = b"U+2126 \xe2\x84\xa6"
+		self.ed.SetRepresentation(ohmSign, ohmExplained)
+		result = self.ed.GetRepresentationColour(ohmSign)
+		self.assertEquals(result, 0)
+		self.ed.SetRepresentationColour(ohmSign, 0x10203040)
+		result = self.ed.GetRepresentationColour(ohmSign)
+		self.assertEquals(result, 0x10203040)
+
+@unittest.skipUnless(lexersAvailable, "no lexers included")
 class TestProperties(unittest.TestCase):
 
 	def setUp(self):
@@ -1303,13 +1369,20 @@ class TestProperties(unittest.TestCase):
 		self.ed.EmptyUndoBuffer()
 
 	def testSet(self):
-		self.ed.SetProperty(b"test", b"12")
-		self.assertEquals(self.ed.GetPropertyInt(b"test"), 12)
-		result = self.ed.GetProperty(b"test")
-		self.assertEquals(result, b"12")
-		self.ed.SetProperty(b"test.plus", b"[$(test)]")
-		result = self.ed.GetPropertyExpanded(b"test.plus")
-		self.assertEquals(result, b"[12]")
+		self.xite.ChooseLexer(b"cpp")
+		# For Lexilla, only known property names may work
+		propName = b"lexer.cpp.allow.dollars"
+		self.ed.SetProperty(propName, b"1")
+		self.assertEquals(self.ed.GetPropertyInt(propName), 1)
+		result = self.ed.GetProperty(propName)
+		self.assertEquals(result, b"1")
+		self.ed.SetProperty(propName, b"0")
+		self.assertEquals(self.ed.GetPropertyInt(propName), 0)
+		result = self.ed.GetProperty(propName)
+		self.assertEquals(result, b"0")
+		# No longer expands but should at least return the value
+		result = self.ed.GetPropertyExpanded(propName)
+		self.assertEquals(result, b"0")
 
 class TestTextMargin(unittest.TestCase):
 
@@ -1800,6 +1873,32 @@ class TestModalSelection(unittest.TestCase):
 		self.assertEquals(self.ed.GetSelectionNAnchor(0), 0)
 		self.ed.ClearSelections()
 
+class TestTechnology(unittest.TestCase):
+	""" These tests are just to ensure that the calls set and retrieve values.
+	They assume running on a Direct2D compatible version of Windows.
+	They do not check visual appearance.
+	"""
+	def setUp(self):
+		self.xite = Xite.xiteFrame
+		self.ed = self.xite.ed
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+
+	def tearDown(self):
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+
+	def testTechnologyAndBufferedDraw(self):
+		self.ed.Technology = self.ed.SC_TECHNOLOGY_DEFAULT
+		self.assertEquals(self.ed.GetTechnology(), self.ed.SC_TECHNOLOGY_DEFAULT)
+		if sys.platform == "win32":
+			self.ed.Technology = self.ed.SC_TECHNOLOGY_DIRECTWRITE
+			self.assertEquals(self.ed.GetTechnology(), self.ed.SC_TECHNOLOGY_DIRECTWRITE)
+			self.assertEquals(self.ed.BufferedDraw, False)
+			self.ed.Technology = self.ed.SC_TECHNOLOGY_DEFAULT
+			self.assertEquals(self.ed.GetTechnology(), self.ed.SC_TECHNOLOGY_DEFAULT)
+			self.assertEquals(self.ed.BufferedDraw, True)
+
 class TestStyleAttributes(unittest.TestCase):
 	""" These tests are just to ensure that the calls set and retrieve values.
 	They do not check the visual appearance of the style attributes.
@@ -1892,6 +1991,195 @@ class TestStyleAttributes(unittest.TestCase):
 		self.assertEquals(self.ed.GetDefaultFoldDisplayText(), b"")
 		self.ed.SetDefaultFoldDisplayText(0, b"...")
 		self.assertEquals(self.ed.GetDefaultFoldDisplayText(), b"...")
+
+	def testFontQuality(self):
+		self.assertEquals(self.ed.GetFontQuality(), self.ed.SC_EFF_QUALITY_DEFAULT)
+		self.ed.SetFontQuality(self.ed.SC_EFF_QUALITY_LCD_OPTIMIZED)
+		self.assertEquals(self.ed.GetFontQuality(), self.ed.SC_EFF_QUALITY_LCD_OPTIMIZED)
+
+	def testFontLocale(self):
+		initialLocale = "en-us".encode("UTF-8")
+		testLocale = "zh-Hans".encode("UTF-8")
+		self.assertEquals(self.ed.GetFontLocale(), initialLocale)
+		self.ed.FontLocale = testLocale
+		self.assertEquals(self.ed.GetFontLocale(), testLocale)
+
+	def testCheckMonospaced(self):
+		self.assertEquals(self.ed.StyleGetCheckMonospaced(self.ed.STYLE_DEFAULT), 0)
+		self.ed.StyleSetCheckMonospaced(self.ed.STYLE_DEFAULT, 1)
+		self.assertEquals(self.ed.StyleGetCheckMonospaced(self.ed.STYLE_DEFAULT), 1)
+
+class TestElements(unittest.TestCase):
+	""" These tests are just to ensure that the calls set and retrieve values.
+	They do not check the visual appearance of the style attributes.
+	"""
+	def setUp(self):
+		self.xite = Xite.xiteFrame
+		self.ed = self.xite.ed
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+		self.testColourAlpha = 0x18171615
+		self.opaque = 0xff000000
+		self.dropAlpha = 0x00ffffff
+
+	def tearDown(self):
+		pass
+
+	def ElementColour(self, element):
+		# & 0xffffffff prevents sign extension issues
+		return self.ed.GetElementColour(element) & 0xffffffff
+
+	def RestoreCaretLine(self):
+		self.ed.CaretLineLayer = 0
+		self.ed.CaretLineFrame = 0
+		self.ed.ResetElementColour(self.ed.SC_ELEMENT_CARET_LINE_BACK)
+		self.ed.CaretLineVisibleAlways = False
+
+	def testIsSet(self):
+		self.assertFalse(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_SELECTION_TEXT))
+
+	def testAllowsTranslucent(self):
+		self.assertFalse(self.ed.GetElementAllowsTranslucent(self.ed.SC_ELEMENT_LIST))
+		self.assertTrue(self.ed.GetElementAllowsTranslucent(self.ed.SC_ELEMENT_SELECTION_TEXT))
+
+	def testChanging(self):
+		self.ed.SetElementColour(self.ed.SC_ELEMENT_LIST_BACK, self.testColourAlpha)
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_LIST_BACK), self.testColourAlpha)
+		self.assertTrue(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_LIST_BACK))
+
+	def testSubline(self):
+		# Default is false
+		self.assertEquals(self.ed.CaretLineHighlightSubLine, False)
+		self.ed.CaretLineHighlightSubLine = True
+		self.assertEquals(self.ed.CaretLineHighlightSubLine, True)
+		self.ed.CaretLineHighlightSubLine = False
+		self.assertEquals(self.ed.CaretLineHighlightSubLine, False)
+
+	def testReset(self):
+		self.ed.SetElementColour(self.ed.SC_ELEMENT_SELECTION_ADDITIONAL_TEXT, self.testColourAlpha)
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_SELECTION_ADDITIONAL_TEXT), self.testColourAlpha)
+		self.ed.ResetElementColour(self.ed.SC_ELEMENT_SELECTION_ADDITIONAL_TEXT)
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_SELECTION_ADDITIONAL_TEXT), 0)
+		self.assertFalse(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_SELECTION_ADDITIONAL_TEXT))
+
+	def testBaseColour(self):
+		if sys.platform == "win32":
+			# SC_ELEMENT_LIST* base colours only currently implemented on Win32
+			text = self.ed.GetElementBaseColour(self.ed.SC_ELEMENT_LIST)
+			back = self.ed.GetElementBaseColour(self.ed.SC_ELEMENT_LIST_BACK)
+			self.assertEquals(text & self.opaque, self.opaque)
+			self.assertEquals(back & self.opaque, self.opaque)
+			self.assertNotEquals(text & self.dropAlpha, back & self.dropAlpha)
+			selText = self.ed.GetElementBaseColour(self.ed.SC_ELEMENT_LIST_SELECTED)
+			selBack = self.ed.GetElementBaseColour(self.ed.SC_ELEMENT_LIST_SELECTED_BACK)
+			self.assertEquals(selText & self.opaque, self.opaque)
+			self.assertEquals(selBack & self.opaque, self.opaque)
+			self.assertNotEquals(selText & self.dropAlpha, selBack & self.dropAlpha)
+
+	def testSelectionLayer(self):
+		self.ed.SelectionLayer = self.ed.SC_LAYER_OVER_TEXT
+		self.assertEquals(self.ed.SelectionLayer, self.ed.SC_LAYER_OVER_TEXT)
+		self.ed.SelectionLayer = self.ed.SC_LAYER_BASE
+		self.assertEquals(self.ed.SelectionLayer, self.ed.SC_LAYER_BASE)
+
+	def testCaretLine(self):
+		# Newer Layer / ElementColour API
+		self.assertEquals(self.ed.CaretLineLayer, 0)
+		self.assertFalse(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_CARET_LINE_BACK))
+		self.assertEquals(self.ed.CaretLineFrame, 0)
+		self.assertFalse(self.ed.CaretLineVisibleAlways)
+
+		self.ed.CaretLineLayer = 2
+		self.assertEquals(self.ed.CaretLineLayer, 2)
+		self.ed.CaretLineFrame = 2
+		self.assertEquals(self.ed.CaretLineFrame, 2)
+		self.ed.CaretLineVisibleAlways = True
+		self.assertTrue(self.ed.CaretLineVisibleAlways)
+		self.ed.SetElementColour(self.ed.SC_ELEMENT_CARET_LINE_BACK, self.testColourAlpha)
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_CARET_LINE_BACK), self.testColourAlpha)
+
+		self.RestoreCaretLine()
+
+	def testCaretLineLayerDiscouraged(self):
+		# Check old discouraged APIs
+		# This is s bit tricky as there is no clean mapping: parts of the old state are distributed to
+		# sometimes-multiple parts of the new state.
+		backColour = 0x102030
+		backColourOpaque = backColour | self.opaque
+		self.assertEquals(self.ed.CaretLineVisible, 0)
+		self.ed.CaretLineVisible = 1
+		self.assertTrue(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_CARET_LINE_BACK))
+		self.assertEquals(self.ed.CaretLineVisible, 1)
+		self.ed.CaretLineBack = backColour
+		self.assertEquals(self.ed.CaretLineBack, backColour)
+		# Check with newer API
+		self.assertTrue(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_CARET_LINE_BACK))
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_CARET_LINE_BACK), backColourOpaque)
+		self.assertEquals(self.ed.CaretLineLayer, 0)
+
+		alpha = 0x7f
+		self.ed.CaretLineBackAlpha = alpha
+		self.assertEquals(self.ed.CaretLineBackAlpha, alpha)
+		backColourTranslucent = backColour | (alpha << 24)
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_CARET_LINE_BACK), backColourTranslucent)
+		self.assertEquals(self.ed.CaretLineLayer, 2)
+
+		self.ed.CaretLineBackAlpha = 0x100
+		self.assertEquals(self.ed.CaretLineBackAlpha, 0x100)
+		self.assertEquals(self.ed.CaretLineLayer, 0)	# SC_ALPHA_NOALPHA moved to base layer
+
+		self.RestoreCaretLine()
+
+		# Try other orders
+
+		self.ed.CaretLineBackAlpha = 0x100
+		self.assertEquals(self.ed.CaretLineBackAlpha, 0x100)
+		self.assertEquals(self.ed.CaretLineLayer, 0)	# SC_ALPHA_NOALPHA moved to base layer
+		self.ed.CaretLineBack = backColour
+		self.assertTrue(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_CARET_LINE_BACK))
+		self.ed.CaretLineVisible = 0
+		self.assertFalse(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_CARET_LINE_BACK))
+
+		self.RestoreCaretLine()
+
+	def testMarkerLayer(self):
+		self.assertEquals(self.ed.MarkerGetLayer(1), 0)
+		self.ed.MarkerSetAlpha(1, 23)
+		self.assertEquals(self.ed.MarkerGetLayer(1), 2)
+		self.ed.MarkerSetAlpha(1, 0x100)
+		self.assertEquals(self.ed.MarkerGetLayer(1), 0)
+
+	def testHotSpot(self):
+		self.assertFalse(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE))
+		self.assertFalse(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE_BACK))
+		self.assertEquals(self.ed.HotspotActiveFore, 0)
+		self.assertEquals(self.ed.HotspotActiveBack, 0)
+
+		testColour = 0x804020
+		resetColour = 0x112233	# Doesn't get set
+		self.ed.SetHotspotActiveFore(1, testColour)
+		self.assertEquals(self.ed.HotspotActiveFore, testColour)
+		self.assertTrue(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE))
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE), testColour | self.opaque)
+		self.ed.SetHotspotActiveFore(0, resetColour)
+		self.assertEquals(self.ed.HotspotActiveFore, 0)
+		self.assertFalse(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE))
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE), 0)
+
+		translucentColour = 0x50403020
+		self.ed.SetElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE, translucentColour)
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE), translucentColour)
+		self.assertEquals(self.ed.HotspotActiveFore, translucentColour & self.dropAlpha)
+
+		backColour = 0x204080
+		self.ed.SetHotspotActiveBack(1, backColour)
+		self.assertEquals(self.ed.HotspotActiveBack, backColour)
+		self.assertTrue(self.ed.GetElementIsSet(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE_BACK))
+		self.assertEquals(self.ElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE_BACK), backColour | self.opaque)
+
+		# Restore
+		self.ed.ResetElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE)
+		self.ed.ResetElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE_BACK)
 
 class TestIndices(unittest.TestCase):
 	def setUp(self):
@@ -2216,6 +2504,7 @@ class TestCaseInsensitiveSearch(unittest.TestCase):
 		self.assertEquals(firstPosition, pos)
 		self.assertEquals(firstPosition+1, self.ed.TargetEnd)
 
+@unittest.skipUnless(lexersAvailable, "no lexers included")
 class TestLexer(unittest.TestCase):
 	def setUp(self):
 		self.xite = Xite.xiteFrame
@@ -2224,11 +2513,11 @@ class TestLexer(unittest.TestCase):
 		self.ed.EmptyUndoBuffer()
 
 	def testLexerNumber(self):
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.assertEquals(self.ed.GetLexer(), self.ed.SCLEX_CPP)
 
 	def testLexerName(self):
-		self.ed.LexerLanguage = b"cpp"
+		self.xite.ChooseLexer(b"cpp")
 		self.assertEquals(self.ed.GetLexer(), self.ed.SCLEX_CPP)
 		name = self.ed.GetLexerLanguage(0)
 		self.assertEquals(name, b"cpp")
@@ -2247,6 +2536,7 @@ class TestLexer(unittest.TestCase):
 		wordSet = self.ed.DescribeKeyWordSets()
 		self.assertNotEquals(wordSet, b"")
 
+@unittest.skipUnless(lexersAvailable, "no lexers included")
 class TestSubStyles(unittest.TestCase):
 	''' These tests include knowledge of the current implementation in the cpp lexer
 	and may have to change when that implementation changes.
@@ -2258,14 +2548,14 @@ class TestSubStyles(unittest.TestCase):
 		self.ed.EmptyUndoBuffer()
 
 	def testInfo(self):
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		bases = self.ed.GetSubStyleBases()
 		self.assertEquals(bases, b"\x0b\x11")	# 11, 17
 		self.assertEquals(self.ed.DistanceToSecondaryStyles(), 0x40)
 
 	def testAllocate(self):
 		firstSubStyle = 0x80	# Current implementation
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		self.assertEquals(self.ed.GetStyleFromSubStyle(firstSubStyle), firstSubStyle)
 		self.assertEquals(self.ed.GetSubStylesStart(self.ed.SCE_C_IDENTIFIER), 0)
 		self.assertEquals(self.ed.GetSubStylesLength(self.ed.SCE_C_IDENTIFIER), 0)
@@ -2286,7 +2576,7 @@ class TestSubStyles(unittest.TestCase):
 	def testInactive(self):
 		firstSubStyle = 0x80	# Current implementation
 		inactiveDistance = self.ed.DistanceToSecondaryStyles()
-		self.ed.Lexer = self.ed.SCLEX_CPP
+		self.xite.ChooseLexer(b"cpp")
 		numSubStyles = 5
 		subs = self.ed.AllocateSubStyles(self.ed.SCE_C_IDENTIFIER, numSubStyles)
 		self.assertEquals(subs, firstSubStyle)
@@ -2444,6 +2734,46 @@ class TestAutoComplete(unittest.TestCase):
 
 		self.assertEquals(self.ed.AutoCActive(), 0)
 
+	def testAutoCustomSort(self):
+		# Checks bug #2294 where SC_ORDER_CUSTOM with an empty list asserts
+		# https://sourceforge.net/p/scintilla/bugs/2294/
+		self.assertEquals(self.ed.AutoCGetOrder(), self.ed.SC_ORDER_PRESORTED)
+
+		self.ed.AutoCSetOrder(self.ed.SC_ORDER_CUSTOM)
+		self.assertEquals(self.ed.AutoCGetOrder(), self.ed.SC_ORDER_CUSTOM)
+
+		#~ self.ed.AutoCShow(0, b"")
+		#~ self.ed.AutoCComplete()
+		#~ self.assertEquals(self.ed.Contents(), b"xxx\n")
+
+		self.ed.AutoCShow(0, b"a")
+		self.ed.AutoCComplete()
+		self.assertEquals(self.ed.Contents(), b"xxx\na")
+
+		self.ed.AutoCSetOrder(self.ed.SC_ORDER_PERFORMSORT)
+		self.assertEquals(self.ed.AutoCGetOrder(), self.ed.SC_ORDER_PERFORMSORT)
+
+		self.ed.AutoCShow(0, b"")
+		self.ed.AutoCComplete()
+		self.assertEquals(self.ed.Contents(), b"xxx\na")
+
+		self.ed.AutoCShow(0, b"b a")
+		self.ed.AutoCComplete()
+		self.assertEquals(self.ed.Contents(), b"xxx\naa")
+
+		self.ed.AutoCSetOrder(self.ed.SC_ORDER_PRESORTED)
+		self.assertEquals(self.ed.AutoCGetOrder(), self.ed.SC_ORDER_PRESORTED)
+
+		self.ed.AutoCShow(0, b"")
+		self.ed.AutoCComplete()
+		self.assertEquals(self.ed.Contents(), b"xxx\naa")
+
+		self.ed.AutoCShow(0, b"a b")
+		self.ed.AutoCComplete()
+		self.assertEquals(self.ed.Contents(), b"xxx\naaa")
+
+		self.assertEquals(self.ed.AutoCActive(), 0)
+
 	def testWriteOnly(self):
 		""" Checks that setting attributes doesn't crash or change tested behaviour
 		but does not check that the changed attributes are effective. """
@@ -2522,7 +2852,6 @@ class TestWordChars(unittest.TestCase):
 
 	def testDefaultWordChars(self):
 		# check that the default word chars are as expected
-		import string
 		data = self.ed.GetWordChars(None)
 		expected = set(string.digits + string.ascii_letters + '_') | \
 			set(chr(x) for x in range(0x80, 0x100))
@@ -2530,18 +2859,16 @@ class TestWordChars(unittest.TestCase):
 
 	def testDefaultWhitespaceChars(self):
 		# check that the default whitespace chars are as expected
-		import string
 		data = self.ed.GetWhitespaceChars(None)
-		expected = (set(chr(x) for x in (range(0, 0x20))) | set(' ')) - \
+		expected = (set(chr(x) for x in (range(0, 0x20))) | set(' ') | set('\x7f')) - \
 			set(['\r', '\n'])
 		self.assertCharSetsEqual(data, expected)
 
 	def testDefaultPunctuationChars(self):
 		# check that the default punctuation chars are as expected
-		import string
 		data = self.ed.GetPunctuationChars(None)
 		expected = set(chr(x) for x in range(0x20, 0x80)) - \
-			set(string.ascii_letters + string.digits + "\r\n_ ")
+			set(string.ascii_letters + string.digits + "\r\n\x7f_ ")
 		self.assertCharSetsEqual(data, expected)
 
 	def testCustomWordChars(self):

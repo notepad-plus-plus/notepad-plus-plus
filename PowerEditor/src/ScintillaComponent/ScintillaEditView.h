@@ -681,16 +681,12 @@ protected:
 	};
 
 	void setMakefileLexer() {
-		execute(SCI_SETLEXER, SCLEX_MAKEFILE);
-		makeStyle(L_MAKEFILE);
+		setLexer(SCLEX_MAKEFILE, L_MAKEFILE, LIST_NONE);
 	};
 
 	void setIniLexer() {
-		execute(SCI_SETLEXER, SCLEX_PROPERTIES);
+		setLexer(SCLEX_PROPERTIES, L_INI, LIST_NONE);
 		execute(SCI_STYLESETEOLFILLED, SCE_PROPS_SECTION, true);
-		makeStyle(L_INI);
-		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
-		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 	};
 
 
@@ -729,7 +725,7 @@ protected:
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
-		setLexer(SCLEX_TEX, L_TEX, 0);
+		setLexer(SCLEX_TEX, L_TEX, LIST_NONE);
 	};
 
 	void setNsisLexer() {
@@ -961,7 +957,7 @@ protected:
 	void setSearchResultLexer() {
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_FILE_HEADER, true);
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_SEARCH_HEADER, true);
-		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, 0);
+		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, LIST_NONE);
 	};
 
 	bool isNeededFolderMarge(LangType typeDoc) const {

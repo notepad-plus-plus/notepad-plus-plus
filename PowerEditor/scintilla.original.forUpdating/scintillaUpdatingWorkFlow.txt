@@ -1,2 +1,2 @@
-This file (scintilla.original.forUpdating.7z) is the original Scintilla release of current Scintilla.
-While updating a new version of scintilla, this scintilla will be compared with Notepad++'s scitilla, in order to get the patch for adding it into new scintilla release.
+This file (scintilla<version>.zip and lexilla<version>.zip) are the original Scintilla and Lexilla releases of current Scintilla and Lexilla.
+While updating a new version of scintilla or lexilla, the content of the zips will be compared with Notepad++'s scintilla or lexilla, in order to get the patch for adding it into new scintilla or lexilla release.

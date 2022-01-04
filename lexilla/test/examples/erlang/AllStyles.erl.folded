@@ -1,0 +1,79 @@
+ 0 400   0   % Enumerate all styles: 0..24 31
+ 0 400   0   
+ 0 400   0   % comment = 1
+ 0 400   0   
+ 0 400   0   % whitespace = 0
+ 0 400   0       % 0
+ 0 400   0   
+ 0 400   0   % variable = 2
+ 0 400   0   A
+ 0 400   0   
+ 0 400   0   % number = 3
+ 0 400   0   3
+ 0 400   0   
+ 0 400   0   % keyword = 4
+ 0 400   0   let
+ 0 400   0   
+ 0 400   0   % string = 5
+ 0 400   0   "string"
+ 0 400   0   
+ 0 400   0   % operator = 6
+ 0 400   0   *
+ 0 400   0   
+ 0 400   0   % atom = 7
+ 0 400   0   atom
+ 0 400   0   
+ 0 400   0   % function_name = 8
+ 0 400   0   function()
+ 0 400   0   
+ 0 400   0   % character = 9
+ 0 400   0   $a
+ 0 400   0   
+ 0 400   0   % macro = 10
+ 0 400   0   ?macro
+ 0 400   0   
+ 0 400   0   % record = 11
+ 0 400   0   #record
+ 0 400   0   
+ 0 400   0   % preproc = 12
+ 0 400   0   -define
+ 0 400   0   
+ 0 400   0   % node_name = 13
+ 0 400   0   node@
+ 0 400   0   
+ 0 400   0   % comment_function = 14
+ 0 400   0   %% function
+ 0 400   0   
+ 0 400   0   % comment_module = 15
+ 0 400   0   %%% module
+ 0 400   0   
+ 0 400   0   % comment_doc = 16
+ 0 400   0   %% @todo
+ 0 400   0    
+ 0 400   0   % comment_doc_macro = 17
+ 0 400   0   %% {@module}
+ 0 400   0   
+ 0 400   0   % atom_quoted = 18 (fails)
+ 0 400   0   'fails'
+ 0 400   0   
+ 0 400   0   % macro_quoted = 19
+ 0 400   0   ?'macro'
+ 0 400   0   
+ 0 400   0   % record_quoted = 20
+ 0 400   0   #'record'
+ 0 400   0   
+ 0 400   0   % node_name_quoted = 21
+ 0 400   0   'node@'
+ 0 400   0   
+ 0 400   0   % bifs = 22
+ 0 400   0   atom_to_binary
+ 0 400   0   
+ 0 400   0   % modules = 23
+ 0 400   0   io:x
+ 0 400   0   
+ 0 400   0   % modules_att = 24
+ 0 400   0   -module().
+ 0 400   0   
+ 0 400   0   % unknown = 31 (this is an internal state and should not be output)
+ 0 400   0   
+ 0 400   0   

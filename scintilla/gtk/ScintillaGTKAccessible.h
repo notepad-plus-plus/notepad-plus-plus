@@ -6,7 +6,7 @@
 #ifndef SCINTILLAGTKACCESSIBLE_H
 #define SCINTILLAGTKACCESSIBLE_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 #ifndef ATK_CHECK_VERSION
 # define ATK_CHECK_VERSION(x, y, z) 0
@@ -24,25 +24,25 @@ private:
 
 	bool Enabled() const;
 	void UpdateCursor();
-	void Notify(GtkWidget *widget, gint code, SCNotification *nt);
-	static void SciNotify(GtkWidget *widget, gint code, SCNotification *nt, gpointer data) {
+	void Notify(GtkWidget *widget, gint code, Scintilla::NotificationData *nt);
+	static void SciNotify(GtkWidget *widget, gint code, Scintilla::NotificationData *nt, gpointer data) {
 		try {
 			static_cast<ScintillaGTKAccessible*>(data)->Notify(widget, code, nt);
 		} catch (...) {}
 	}
 
 	Sci::Position ByteOffsetFromCharacterOffset(Sci::Position startByte, int characterOffset) {
-		if (!(sci->pdoc->LineCharacterIndex() & SC_LINECHARACTERINDEX_UTF32)) {
+		if (!FlagSet(sci->pdoc->LineCharacterIndex(), Scintilla::LineCharacterIndexType::Utf32)) {
 			return startByte + characterOffset;
 		}
 		if (characterOffset > 0) {
 			// Try and reduce the range by reverse-looking into the character offset cache
 			Sci::Line lineStart = sci->pdoc->LineFromPosition(startByte);
-			Sci::Position posStart = sci->pdoc->IndexLineStart(lineStart, SC_LINECHARACTERINDEX_UTF32);
-			Sci::Line line = sci->pdoc->LineFromPositionIndex(posStart + characterOffset, SC_LINECHARACTERINDEX_UTF32);
+			Sci::Position posStart = sci->pdoc->IndexLineStart(lineStart, Scintilla::LineCharacterIndexType::Utf32);
+			Sci::Line line = sci->pdoc->LineFromPositionIndex(posStart + characterOffset, Scintilla::LineCharacterIndexType::Utf32);
 			if (line != lineStart) {
 				startByte += sci->pdoc->LineStart(line) - sci->pdoc->LineStart(lineStart);
-				characterOffset -= sci->pdoc->IndexLineStart(line, SC_LINECHARACTERINDEX_UTF32) - posStart;
+				characterOffset -= sci->pdoc->IndexLineStart(line, Scintilla::LineCharacterIndexType::Utf32) - posStart;
 			}
 		}
 		Sci::Position pos = sci->pdoc->GetRelativePosition(startByte, characterOffset);
@@ -62,12 +62,12 @@ private:
 	}
 
 	Sci::Position CharacterOffsetFromByteOffset(Sci::Position byteOffset) {
-		if (!(sci->pdoc->LineCharacterIndex() & SC_LINECHARACTERINDEX_UTF32)) {
+		if (!FlagSet(sci->pdoc->LineCharacterIndex(), Scintilla::LineCharacterIndexType::Utf32)) {
 			return byteOffset;
 		}
 		const Sci::Line line = sci->pdoc->LineFromPosition(byteOffset);
 		const Sci::Position lineStart = sci->pdoc->LineStart(line);
-		return sci->pdoc->IndexLineStart(line, SC_LINECHARACTERINDEX_UTF32) + sci->pdoc->CountCharacters(lineStart, byteOffset);
+		return sci->pdoc->IndexLineStart(line, Scintilla::LineCharacterIndexType::Utf32) + sci->pdoc->CountCharacters(lineStart, byteOffset);
 	}
 
 	void CharacterRangeFromByteRange(Sci::Position startByte, Sci::Position endByte, int *startChar, int *endChar) {

@@ -1,0 +1,17 @@
+ 0 400   0   # Bug #2019 Buffer over-read in MMIXAL lexer
+ 0 400   0   label
+ 0 400   0           PREFIX  Foo:
+ 0 400   0   % Relative reference (uses PREFIX)
+ 0 400   0           JMP label
+ 0 400   0   %
+ 0 400   0           JMP @label
+ 0 400   0   % Absolute reference (does not use PREFIX)
+ 0 400   0           JMP :label
+ 0 400   0   % In register list so treated as register
+ 0 400   0           JMP :rA
+ 0 400   0   % Too long for buffer so truncated
+ 0 400   0           JMP l1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+ 0 400   0   % Too long for buffer so truncated then treated as absolute
+ 0 400   0           JMP :l1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+ 0 400   0   %
+ 0 400   0   

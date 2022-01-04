@@ -1,13 +1,9 @@
-README for building of Scintilla and SciTE
+README for building of Scintilla, Lexilla, and SciTE
 
-Scintilla can be built by itself.
-To build SciTE, Scintilla must first be built.
+Scintilla and Lexilla can be built by themselves.
+To build SciTE, Scintilla and Lexilla should first be built.
 
-Lexers can be either compiled into Scintilla or built separately into a Lexilla
-shared library.
-A separate Lexilla is the preferred option and will become the only supported
-direction in Scintilla 5.0.
-See lexilla/src/README for information on building Lexilla.
+See lexilla/README for information on building Lexilla.
 
 *** GTK+/Linux version ***
 
@@ -42,17 +38,14 @@ To remove SciTE
 To clean the object files which may be needed to change $prefix
 	make clean
 
-The current make file only supports static linking between SciTE and Scintilla.
+The current make file supports static and dynamic linking between SciTE, Scintilla, and Lexilla.
 
 
 *** Windows version ***
 
 A C++ 17 compiler is required.
-Visual Studio 2017 is the development system used for most development
-although Mingw-w64 7.1 is also supported.
-
-There are versions of Scintilla with lexers (SciLexer.DLL) and without lexers
-(Scintilla.DLL). Make builds both versions.
+Visual Studio 2019 is the development system used for most development
+although Mingw-w64 9.2 is also supported.
 
 To build Scintilla, make in the scintilla/win32 directory
 		cd scintilla\win32
@@ -87,15 +80,10 @@ Xcode 9.2 or later may be used to build Scintilla on macOS.
 There is no open source version of SciTE for macOS but there is a commercial
 version available through the App Store.
 
-There are versions of Scintilla.framework with lexers (ScintillaFramework) and
-without lexers (Scintilla).
-
 To build Scintilla, run xcodebuild in the scintilla/cocoa/ScintillaFramework or 
 scintilla/cocoa/Scintilla directory
 
         cd cocoa/Scintilla
-		or
-        cd cocoa/ScintillaFramework
 
 	xcodebuild
 

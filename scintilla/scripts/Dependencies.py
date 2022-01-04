@@ -111,7 +111,6 @@ def ExtractDependencies(input):
 	for line in input:
 		headersLine = line.startswith(" ") or line.startswith("\t")
 		line = line.strip()
-		isContinued = line.endswith("\\")
 		line = line.rstrip("\\ ")
 		fileNames = line.strip().split(" ")
 		if not headersLine:

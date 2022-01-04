@@ -1,0 +1,13 @@
+ 0 400   0   # comment
+ 1 400   0   
+ 0 400   0   key: value # comment
+ 1 400   0   
+ 0 400   0   colon:in:key: value
+ 1 400   0   
+ 2 400   0 + hanging_value:
+ 0 402   0 |   value
+ 1 400   0   
+ 0 400   0   1: 1
+ 1 400   0   
+ 0 400   0   true: true
+ 0 400   0   

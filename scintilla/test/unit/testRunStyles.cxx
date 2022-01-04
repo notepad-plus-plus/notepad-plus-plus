@@ -1,4 +1,6 @@
-// Unit Tests for Scintilla internal data structures
+/** @file testRunStyles.cxx
+ ** Unit Tests for Scintilla internal data structures
+ **/
 
 #include <cstddef>
 #include <cstring>
@@ -6,10 +8,11 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "Debugging.h"
 
 #include "Position.h"
 #include "SplitVector.h"
@@ -18,11 +21,11 @@
 
 #include "catch.hpp"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 // Test RunStyles.
 
-namespace Scintilla {	// Xcode clang 9.0 doesn't like this when in the unnamed namespace
+namespace Scintilla::Internal {	// Xcode clang 9.0 doesn't like this when in the unnamed namespace
 	bool operator==(const FillResult<int> &fra, const FillResult<int> &frb) {
 		return fra.changed == frb.changed &&
 			fra.position == frb.position &&

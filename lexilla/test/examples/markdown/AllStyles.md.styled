@@ -1,0 +1,30 @@
+{0}Text=0{1}
+{0}Line end characters=1{1}
+{2}**Strong Emphasis (bold) 1=2**{1}
+{3}__Strong Emphasis (bold) 2=3__{1}
+{4}*Emphasis (italic) 1=4*{1}
+{5}_Emphasis (italic) 2=5_{1}
+{6}#{0} Heading level 1=6{1}
+{7}##{0} Heading level 2=7{1}
+{8}###{0} Heading level 3=8{1}
+{9}####{0} Heading level 4=9{1}
+{10}#####{0} Heading level 5=10{1}
+{11}######{0} Heading level 6=11{1}
+{12}   {0}PreChar=12{1}
+{13}*{0} Unordered list item=13{1}
+{14}1.{0} Ordered list item=14{1}
+{15}>{0}Block Quote=15{1}
+{16}~~Strike-out=16~~{1}
+
+{17}***{1}
+{0}Previous line was horizontal rule=17{1}
+{18}[Link=18](https://18.com){1}
+{19}`Inline Code=19`{1}
+{20}``Inline Code=20``{1}
+
+{21}~~~
+Block code=21
+~~~{1}
+
+{7}##{0} Issue 23{1}
+{0}`

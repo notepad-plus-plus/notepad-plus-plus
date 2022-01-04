@@ -1,0 +1,112 @@
+ 0 400   0   Default 0
+ 0 400   0   Some text in default
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Python Error 1
+ 0 400   0     File "x.err", line 2
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Gcc Error 2, Find In Files Match 21
+ 0 400   0   ScintillaGTKAccessible.cxx:153:13: warning: Deprecated pre-processor symbol, replace with 
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Microsoft Error 3
+ 0 400   0   LexErrorList.cxx(15): fatal error C1083: Cannot open include file: 'ILexer.h': No such file or directory
+ 0 400   0   
+ 0 400   0   PlatQt.obj : error LNK2019: unresolved external symbol "class Scintilla::PRectangle __cdecl Scintilla::PixelAlign(class Scintilla::PRectangle const &,int)" (?PixelAlign@Scintilla@@YA?AVPRectangle@1@AEBV21@H@Z) referenced in function "public: virtual void __cdecl Scintilla::SurfaceImpl::FillRectangleAligned(class Scintilla::PRectangle,class Scintilla::Fill)" (?FillRectangleAligned@SurfaceImpl@Scintilla@@UEAAXVPRectangle@2@VFill@2@@Z)
+ 0 400   0   
+ 0 400   0   NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX64\x64\link.EXE"' : return code '0x460'
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Command 4
+ 0 400   0   >pwd
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Borland Error 5
+ 0 400   0   Error E2378 oddEven.c 16: For statement missing ; in function main()
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Perl Error 6
+ 0 400   0   Bareword found where operator expected at LexMMIXAL.cxx line 1, near "// Scintilla"
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   DotNET Traceback 7
+ 0 400   0      at ExceptionTrace.Program.f4() in C:\Ivan\dev\exp\ExceptionTrace\Program.cs:line 18
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Lua Error 8
+ 0 400   0   last token read: `result' at line 40 in file `Test.lua'
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Ctags 9
+ 0 400   0   IsAWordChar	LexMMIXAL.cxx	/^static inline bool IsAWordChar(const int ch) {$/;"	f	file:
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Diff Changed ! 10
+ 0 400   0   ! 		GdkColor white = { 0, 0xFFFF, 0xFFFF, 0xFFFF};
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Diff Addition + 11
+ 0 400   0   +    <PlatformToolset>v142</PlatformToolset>
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Diff Deletion - 12
+ 0 400   0   -    <PlatformToolset>v141</PlatformToolset>
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Diff Message --- 13
+ 0 400   0   --- a/win32/SciTE.vcxproj	Fri Jan 31 12:23:51 2020 +1100
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   PHP error 14
+ 0 400   0   Fatal error: Call to undefined function:  foo() in example.php on line 11
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Essential Lahey Fortran 90 Error 15
+ 0 400   0   Line 11, file c:\fortran90\codigo\demo.f90
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Intel Fortran Compiler Error 16
+ 0 400   0   Error 71 at (17:teste.f90) : The program unit has no name
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Intel Fortran Compiler v8.0 Error 17
+ 0 400   0   fortcom: Error: shf.f90, line 5602: This name does not have ...
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Absoft Pro Fortran 90 Error 18
+ 0 400   0   cf90-113 f90fe: ERROR SHF3D, File = shf.f90, Line = 1101, Column = 19
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   HTML Tidy 19
+ 0 400   0   line 8 column 1 - Error: unexpected </head> in <meta>
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Java Runtime Stack Trace 20
+ 0 400   0   	at MethodName>(FileName.java:33)
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   GCC Include Path 22
+ 0 400   0   In file included from /usr/include/gtk-2.0/gtk/gtkobject.h:37,
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   GCC Pointer 25
+ 0 400   0     236 | void            gtk_type_init   (GTypeDebugFlags    debug_flags);
+ 0 400   0         |                                                                ^
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Escape Sequence 23
+ 0 400   0   [K
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Escape Sequence Unknown 24
+ 0 400   0   [1n
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Escape Sequence Colour 40
+ 0 400   0   [0mColour 0 is 40
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Escape Sequence Colour 41
+ 0 400   0   [31mColour 1 is 41
+ 0 400   0   

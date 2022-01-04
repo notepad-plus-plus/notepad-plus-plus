@@ -1,0 +1,54 @@
+{0}Text=0
+{1}*Strong Emphasis (bold) 1=1*{0}
+{2}**Strong Emphasis (bold) 2=2**{0}
+{3}_Emphasis (italic) 1=3_{0}
+{4}__Emphasis (italic) 2=4__{0}
+{5}= Heading level 1=5{0}
+{6}== Heading level 2=6{0}
+{7}=== Heading level 3=7{0}
+{8}==== Heading level 4=8{0}
+{9}===== Heading level 5=9{0}
+{10}====== Heading level 6=10{0}
+{11}*{0} Unordered list item=11
+{12}.{0} Ordered list item=12
+{13}> Block quote=13{0}
+https://14.com[{14}Link=14{0}]
+{15}----
+Code block=15
+----{0}
+{16}++++
+Passthrough block=16
+++++{0}
+{17}// Comment=17{0}
+{18}////
+Comment Block=18
+////{0}
++{19}Literal=19{0}+
+{20}....
+Literal Block=20
+....{0}
+{21}:Attrib=21:{22} Attrib Value=22{0}
+{23}ifdef{0}::Macro=23
+{23}ifeval{0}::Macro=23
+{23}ifndef{0}::Macro=23
+{23}endif{0}::Macro=23
+{23}audio{0}::Macro=23
+{23}include{0}::Macro=23
+{23}image{0}::Macro=23
+{23}video{0}::Macro=23
+{23}asciimat{0}h:Macro=23
+{23}btn{0}:Macro=23
+{23}image{0}:Macro=23
+{23}kbd{0}:Macro=23
+{23}latexmath{0}:Macro=23
+{23}link{0}:Macro=23
+{23}mailto{0}:Macro=23
+{23}menu{0}:Macro=23
+{23}pass{0}:Macro=23
+{23}stem{0}:Macro=23
+{23}xref{0}:Macro=23
+{23}CAUTION{0}:Macro=23
+{23}IMPORTANT{0}:Macro=23
+{23}NOTE{0}:Macro=23
+{23}TIP{0}:Macro=23
+{23}WARNING{0}:Macro=23

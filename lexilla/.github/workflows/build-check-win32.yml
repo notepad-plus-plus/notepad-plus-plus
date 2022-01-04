@@ -1,0 +1,49 @@
+name: "Build and check Lexilla on Win32 with Visual C++"
+
+on: [push]
+
+jobs:
+    build:
+
+        runs-on: windows-latest
+
+        steps:
+        - uses: actions/checkout@v2
+        - name: Preparing nmake    
+          uses: ilammy/msvc-dev-cmd@v1
+          with:
+            arch: x64
+        - name: Install Scintilla source
+          run: |
+              pwd
+              cd ..
+              curl -O https://www.scintilla.org/scintilla500.zip
+              ls
+              7z x scintilla500.zip
+              cd lexilla
+        - name: Unit Test
+          run: |
+              cd test/unit
+              nmake -f test.mak DEBUG=1 test
+              cd ../..
+        - name: Build Lexilla
+          run: |
+              cd src
+              nmake -f lexilla.mak DEBUG=1
+              cd ..
+        - name: Test lexing and folding
+          run: |
+              cd test
+              nmake -f testlexers.mak DEBUG=1 test
+              cd ..
+        - name: CheckLexilla C Example
+          run: |
+              cd examples/CheckLexilla
+              cl CheckLexilla.c -I ../../include -Fe: CheckLexilla
+              .\CheckLexilla.exe
+              cd ../..
+        - name: SimpleLexer Example
+          run: |
+              cd examples/SimpleLexer
+              cl -std:c++17 -EHsc -LD -I ../../../scintilla/include -I ../../include -I ../../lexlib SimpleLexer.cxx ../../lexlib/*.cxx
+              cd ../..

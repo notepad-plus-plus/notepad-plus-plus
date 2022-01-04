@@ -1,0 +1,4 @@
+cd ..
+rm -f lexilla.tgz
+tar --create --exclude \*.o --exclude \*.obj --exclude \*.dll --exclude \*.so --exclude \*.exe --exclude \*.a lexilla/* \
+	| gzip -c >lexilla.tgz

@@ -15,12 +15,12 @@
 class QuartzFont {
 public:
 	/** Create a font style from a name. */
-	QuartzFont(const char *name, size_t length, float size, int weight, bool italic) {
+	QuartzFont(const char *name, size_t length, float size, Scintilla::FontWeight weight, bool italic) {
 		assert(name != NULL && length > 0 && name[length] == '\0');
 
 		CFStringRef fontName = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingMacRoman);
 		assert(fontName != NULL);
-		bool bold = weight > SC_WEIGHT_NORMAL;
+		bool bold = weight > Scintilla::FontWeight::Normal;
 
 		if (bold || italic) {
 			CTFontSymbolicTraits desiredTrait = 0;

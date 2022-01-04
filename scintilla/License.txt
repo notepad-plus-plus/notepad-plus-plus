@@ -1,6 +1,6 @@
-License for Scintilla and SciTE
+License for Lexilla, Scintilla, and SciTE
 
-Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
+Copyright 1998-2021 by Neil Hodgson <neilh@scintilla.org>
 
 All Rights Reserved
 

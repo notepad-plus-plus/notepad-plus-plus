@@ -1,0 +1,89 @@
+/* Enumerate all styles: 0 to 23 */
+
+/* comment=9 */
+
+/* whitespace=0 */
+	/* */
+
+/* tag=1 */
+html/**/
+{}
+
+/* class=2 */
+.hidden
+{}
+
+/* pseudoclass=3 */
+:link
+{}
+
+/* unknown pseudoclass=4 */
+:unknown
+{}
+
+/* operator=5 */
+#
+{}
+
+/* identifier=6 */
+*{margin:}
+
+/* unknown identifier=7 */
+*{unknown:}
+
+/* value=8 */
+*{:88}
+
+/* identifier=10 */
+#identifier
+{}
+
+/* important=11 */
+* { margin: 0 ! important; }
+
+/* directive=12 */
+@directive
+{ }
+
+/* doublestring=13 */
+* { font-family: "doublestring"; }
+
+/* singlestring=14 */
+* { font-family: 'singlestring'; }
+
+/* identifier2=15 */
+* { identifier2: 0}
+
+/* attribute=16 */
+[attribute]
+{}
+
+/* identifier3=17 */
+* { identifier3: 0}
+
+/* pseudoelement=18 */
+::pseudoelement
+{}
+
+/* extended_identifier=19 */
+* { extended_identifier: 0}
+
+/* extended_pseudoclass=20 */
+:extended_pseudoclass
+{}
+
+/* extended_pseudoelement=21 */
+::extended_pseudo_element
+{}
+
+/* media=22 */
+@media (orientation: portrait)
+{ }
+
+/* group rule=22 */
+@supports ( display: flex ) {
+  body { display: flex; }
+}
+
+/* variable=23 */
+$variable:#428bca;

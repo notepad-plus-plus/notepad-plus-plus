@@ -10,7 +10,7 @@ There's a comment in the Qt code for Windows:
 The clocks used aren't great. QTime is a time since midnight clock so wraps around and
 is only accurate to, at best, milliseconds.
 
-On OS X drawing text into a pixmap moves it around 1 pixel to the right compared to drawing
+On macOS drawing text into a pixmap moves it around 1 pixel to the right compared to drawing
 it directly onto a window. Buffered drawing turned off by default to avoid this.
 Reported as QTBUG-19483.
 

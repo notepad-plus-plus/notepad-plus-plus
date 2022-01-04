@@ -1,4 +1,4 @@
-version: 8.1.{build}
+version: 8.2.{build}
 image: Visual Studio 2019
 
 #skip_commits:

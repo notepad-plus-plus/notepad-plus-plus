@@ -18,6 +18,8 @@
 #include <shlwapi.h>
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
+#include <ILexer.h>
+#include <Lexilla.h>
 #include "Notepad_plus_msgs.h"
 #include "localization.h"
 #include "Utf8.h"
@@ -552,7 +554,7 @@ void Finder::deleteResult()
 	auto end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
 	if (start + 2 >= end) return; // avoid empty lines
 
-	_scintView.setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, 0); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
+	_scintView.setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, LIST_NONE); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
 
 	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)  // delete a folder
 	{
@@ -4291,7 +4293,12 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 	addSearchHitCount(count, searchedCount, isMatchLines, searchedEntireNotSelection);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
-	_scintView.execute(SCI_SETLEXER, SCLEX_SEARCHRESULT);
+	//SCI_SETILEXER resets the lexer property @MarkingsStruct and then no data could be exchanged with the searchResult lexer
+	char ptrword[sizeof(void*) * 2 + 1];
+	sprintf(ptrword, "%p", &_markingsStruct);
+	_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("@MarkingsStruct"), reinterpret_cast<LPARAM>(ptrword));
+
+	//previous code: _scintView.execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("searchResult")));
 	_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 }
 

@@ -1,0 +1,14 @@
+{9}// not folded{0}
+
+{9}// first line in comment fold{0}
+{9}// second . . .{0}
+{9}// third . . .{0}
+{1}namespace{0} {6}Issue56{0}
+
+{1}open{0} {3}System{0}
+
+{1}module{0} {6}LineBasedFoldingCheck{0} {12}={0}
+    {1}open{0} {3}FSharp{0}.{6}Quotations{0}
+    {1}open{0} {3}FSharp{0}.{6}Reflection{0}
+
+    {1}(){0} {12}|>{0} {2}ignore{0}

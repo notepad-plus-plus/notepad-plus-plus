@@ -19,7 +19,7 @@
 
 #include "Position.h"
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 class AnsiDocumentIterator
 {

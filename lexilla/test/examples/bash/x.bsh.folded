@@ -1,0 +1,35 @@
+ 0 400   0   #!/usr/bin/env bash
+ 0 400   0   set -e
+ 2 400   0 + # -----------------------------------------------------------------------------
+ 0 401   0 | # Voluptatem dolore magnam eius quisquam eius dolor labore. Porro dolor amet ut.
+ 0 401   0 | # Numquam labore amet modi. Dolorem velit numquam porro est quiquia ipsum quisquam.
+ 0 401   0 | # Magnam consectetur est voluptatem aliquam adipisci. Sed dolorem quaerat quiquia.
+ 0 401   0 | # -----------------------------------------------------------------------------
+ 0 400   0   export PYTHONPATH="scripts:$PYTHONPATH"
+ 1 400   0   
+ 2 400   0 + if [[ -z "$1" ]]; then
+ 0 401   0 |   PROJECT_DIR=$(rlwrap -S "Enter source path: " -e '' -i -o cat)
+ 0 401   0 |   PROJECT_PATH="$(pwd)/$PROJECT_DIR"
+ 0 401   0 | else
+ 0 401   0 |   PROJECT_PATH="$(pwd)/${1}"
+ 0 401   0 | fi
+ 1 400   0   
+ 0 400   0   OUT_FILE=${PROJECT_PATH}/testing.txt
+ 1 400   0   
+ 2 400   0 + (cat<<EOF
+ 0 401   0 |   Last run $(date +'%Y-%m-%d') at $(date +'%H:%M:%S.%2N')
+ 0 401   0 | EOF
+ 0 400   0   ) > $OUT_FILE
+ 1 400   0   
+ 0 400   0   find "$PROJECT_PATH/src" -maxdepth 1 -type f |\
+ 2 400   0 + while read -r f; do
+ 2 401   0 +   {
+ 0 402   0 |     python3 -c "print();print('='*50)";\
+ 0 402   0 |     echo `basename "$f"` | tr -d 'x';\
+ 0 402   0 |     python3 -c "print('='*50)";\
+ 0 402   0 |     python3 "$f";\
+ 0 402   0 |   } >> $OUT_FILE
+ 0 401   0 | done
+ 1 400   0   
+ 0 400   0   INVALID_NUMBER=0#0000
+ 0 400   0   

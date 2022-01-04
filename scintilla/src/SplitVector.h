@@ -9,7 +9,7 @@
 #ifndef SPLITVECTOR_H
 #define SPLITVECTOR_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 template <typename T>
 class SplitVector {
@@ -26,27 +26,34 @@ protected:
 	/// hence be fast.
 	void GapTo(ptrdiff_t position) noexcept {
 		if (position != part1Length) {
-			if (position < part1Length) {
-				// Moving the gap towards start so moving elements towards end
-				std::move_backward(
-					body.data() + position,
-					body.data() + part1Length,
-					body.data() + gapLength + part1Length);
-			} else {	// position > part1Length
-				// Moving the gap towards end so moving elements towards start
-				std::move(
-					body.data() + part1Length + gapLength,
-					body.data() + gapLength + position,
-					body.data() + part1Length);
+			try {
+				if (gapLength > 0) {	// If gap to move
+					// This can never fail but std::move and std::move_backward are not noexcept.
+					if (position < part1Length) {
+						// Moving the gap towards start so moving elements towards end
+						std::move_backward(
+							body.data() + position,
+							body.data() + part1Length,
+							body.data() + gapLength + part1Length);
+					} else {	// position > part1Length
+						// Moving the gap towards end so moving elements towards start
+						std::move(
+							body.data() + part1Length + gapLength,
+							body.data() + gapLength + position,
+							body.data() + part1Length);
+					}
+				}
+				part1Length = position;
+			} catch (...) {
+				// Ignore any exception
 			}
-			part1Length = position;
 		}
 	}
 
 	/// Check that there is room in the buffer for an insertion,
 	/// reallocating if more space needed.
 	void RoomFor(ptrdiff_t insertionLength) {
-		if (gapLength <= insertionLength) {
+		if (gapLength < insertionLength) {
 			while (growSize < static_cast<ptrdiff_t>(body.size() / 6))
 				growSize *= 2;
 			ReAllocate(body.size() + insertionLength + growSize);
@@ -280,7 +287,7 @@ public:
 	}
 
 	/// Retrieve a range of elements into an array
-	void GetRange(T *buffer, ptrdiff_t position, ptrdiff_t retrieveLength) const noexcept {
+	void GetRange(T *buffer, ptrdiff_t position, ptrdiff_t retrieveLength) const {
 		// Split into up to 2 ranges, before and after the split then use memcpy on each.
 		ptrdiff_t range1Length = 0;
 		if (position < part1Length) {
@@ -318,6 +325,16 @@ public:
 			} else {
 				return body.data() + position;
 			}
+		} else {
+			return body.data() + position + gapLength;
+		}
+	}
+
+	/// Return a pointer to a single element.
+	/// Does not rearrange the buffer.
+	const T *ElementPointer(ptrdiff_t position) const noexcept {
+		if (position < part1Length) {
+			return body.data() + position;
 		} else {
 			return body.data() + position + gapLength;
 		}

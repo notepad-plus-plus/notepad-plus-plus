@@ -150,7 +150,7 @@ def UpdateLineInPlistFile(path, key, value):
             elif ls.startswith("<string>"):
                 if keyCurrent == key:
                     start, tag, rest = l.partition("<string>")
-                    val, etag, end = rest.partition("</string>")
+                    _val, etag, end = rest.partition("</string>")
                     l = start + tag + value + etag + end
             lines.append(l)
     contents = "".join(lines)
@@ -167,13 +167,15 @@ def UpdateLineInFile(path, linePrefix, lineReplace):
                 updated = True
             else:
                 lines.append(l)
+    if not updated:
+        print(f"{path}:0: Can't find '{linePrefix}'")
     contents = lineEnd.join(lines) + lineEnd
     UpdateFile(path, contents)
 
 def ReadFileAsList(path):
     """Read all the lnes in the file and return as a list of strings without line ends.
     """
-    with codecs.open(path, "rU", "utf-8") as f:
+    with codecs.open(path, "r", "utf-8") as f:
         return [l.rstrip('\n') for l in f]
 
 def UpdateFileFromLines(path, lines, lineEndToUse):
@@ -214,8 +216,8 @@ def FindSectionInList(lines, markers):
         raise Exception("Could not find end marker " + markers[2])
     return slice(start, end)
 
-def ReplaceREInFile(path, match, replace):
+def ReplaceREInFile(path, match, replace, count=1):
     with codecs.open(path, "r", "utf-8") as f:
         contents = f.read()
-    contents = re.sub(match, replace, contents)
+    contents = re.sub(match, replace, contents, count)
     UpdateFile(path, contents)

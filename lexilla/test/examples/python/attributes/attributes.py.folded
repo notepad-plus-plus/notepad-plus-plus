@@ -1,0 +1,18 @@
+ 0 400   0   # attributes=20
+ 0 400   0   s = "thing thing".findall("thing")
+ 0 400   0   a.very.complicated.expression.findall("test")
+ 0 400   0   # fake out.
+ 2 400   0 + b.very.complicated.expression.
+ 0 404   0 |     findall("test2")
+ 2 400   0 + c.very.complicated.expression. \
+ 0 404   0 |     findall("test3")
+ 2 400   0 + d.very.complicated.expression.\
+ 0 404   0 |     findall("test4")
+ 0 400   0   @staticmethod.attrtest
+ 0 400   0   @staticmethod.
+ 0 400   0   attrtest
+ 0 400   0   @staticmethod. \
+ 0 400   0   attrtest
+ 0 400   0   @staticmethod.\
+ 0 400   0   attrtest
+ 1 400   0   

@@ -1,16 +1,20 @@
-// Unit Tests for Scintilla internal data structures
+/** @file testCellBuffer.cxx
+ ** Unit Tests for Scintilla internal data structures
+ **/
 
 #include <cstddef>
 #include <cstring>
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "ScintillaTypes.h"
 
-#include "Scintilla.h"
+#include "Debugging.h"
+
 #include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
@@ -20,6 +24,7 @@
 #include "catch.hpp"
 
 using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 // Test CellBuffer.
 
@@ -129,11 +134,11 @@ TEST_CASE("CellBuffer") {
 	}
 
 	SECTION("LineEndTypes") {
-		REQUIRE(cb.GetLineEndTypes() == 0);
-		cb.SetLineEndTypes(1);
-		REQUIRE(cb.GetLineEndTypes() == 1);
-		cb.SetLineEndTypes(0);
-		REQUIRE(cb.GetLineEndTypes() == 0);
+		REQUIRE(cb.GetLineEndTypes() == LineEndType::Default);
+		cb.SetLineEndTypes(LineEndType::Unicode);
+		REQUIRE(cb.GetLineEndTypes() == LineEndType::Unicode);
+		cb.SetLineEndTypes(LineEndType::Default);
+		REQUIRE(cb.GetLineEndTypes() == LineEndType::Default);
 	}
 
 	SECTION("ReadOnly") {
@@ -152,159 +157,159 @@ TEST_CASE("CharacterIndex") {
 	CellBuffer cb(true, false);
 
 	SECTION("Setup") {
-		REQUIRE(cb.LineCharacterIndex() == SC_LINECHARACTERINDEX_NONE);
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 0);
+		REQUIRE(cb.LineCharacterIndex() == LineCharacterIndexType::None);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 0);
 		cb.SetUTF8Substance(true);
 
-		cb.AllocateLineCharacterIndex(SC_LINECHARACTERINDEX_UTF16);
-		REQUIRE(cb.LineCharacterIndex() == SC_LINECHARACTERINDEX_UTF16);
+		cb.AllocateLineCharacterIndex(LineCharacterIndexType::Utf16);
+		REQUIRE(cb.LineCharacterIndex() == LineCharacterIndexType::Utf16);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 0);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 0);
 
-		cb.ReleaseLineCharacterIndex(SC_LINECHARACTERINDEX_UTF16);
-		REQUIRE(cb.LineCharacterIndex() == SC_LINECHARACTERINDEX_NONE);
+		cb.ReleaseLineCharacterIndex(LineCharacterIndexType::Utf16);
+		REQUIRE(cb.LineCharacterIndex() == LineCharacterIndexType::None);
 	}
 
 	SECTION("Insertion") {
 		cb.SetUTF8Substance(true);
 
-		cb.AllocateLineCharacterIndex(SC_LINECHARACTERINDEX_UTF16 | SC_LINECHARACTERINDEX_UTF32);
+		cb.AllocateLineCharacterIndex(LineCharacterIndexType::Utf16 | LineCharacterIndexType::Utf32);
 
 		bool startSequence = false;
 		cb.InsertString(0, "a", 1, startSequence);
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 1);
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 1);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 1);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 1);
 
 		const char *hwair = "\xF0\x90\x8D\x88";
 		cb.InsertString(0, hwair, strlen(hwair), startSequence);
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 3);
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 2);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 3);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 2);
 	}
 
 	SECTION("Deletion") {
 		cb.SetUTF8Substance(true);
 
-		cb.AllocateLineCharacterIndex(SC_LINECHARACTERINDEX_UTF16 | SC_LINECHARACTERINDEX_UTF32);
+		cb.AllocateLineCharacterIndex(LineCharacterIndexType::Utf16 | LineCharacterIndexType::Utf32);
 
 		bool startSequence = false;
 		const char *hwair = "a\xF0\x90\x8D\x88z";
 		cb.InsertString(0, hwair, strlen(hwair), startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 4);
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 3);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 4);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 3);
 
 		cb.DeleteChars(5, 1, startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 3);
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 2);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 3);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 2);
 
 		cb.DeleteChars(1, 4, startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 1);
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 1);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 1);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 1);
 	}
 
 	SECTION("Insert Complex") {
 		cb.SetUTF8Substance(true);
-		cb.SetLineEndTypes(1);
-		cb.AllocateLineCharacterIndex(SC_LINECHARACTERINDEX_UTF16 | SC_LINECHARACTERINDEX_UTF32);
+		cb.SetLineEndTypes(LineEndType::Unicode);
+		cb.AllocateLineCharacterIndex(LineCharacterIndexType::Utf16 | LineCharacterIndexType::Utf32);
 
 		bool startSequence = false;
 		// 3 lines of text containing 8 bytes
 		const char *data = "a\n\xF0\x90\x8D\x88\nz";
 		cb.InsertString(0, data, strlen(data), startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 5);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF16) == 6);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 5);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf16) == 6);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 4);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF32) == 5);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 4);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf32) == 5);
 
 		// Insert a new line at end -> "a\n\xF0\x90\x8D\x88\nz\n" 4 lines
 		// Last line empty
 		cb.InsertString(strlen(data), "\n", 1, startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 5);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF16) == 7);
-		REQUIRE(cb.IndexLineStart(4, SC_LINECHARACTERINDEX_UTF16) == 7);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 5);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf16) == 7);
+		REQUIRE(cb.IndexLineStart(4, LineCharacterIndexType::Utf16) == 7);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 4);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF32) == 6);
-		REQUIRE(cb.IndexLineStart(4, SC_LINECHARACTERINDEX_UTF32) == 6);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 4);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf32) == 6);
+		REQUIRE(cb.IndexLineStart(4, LineCharacterIndexType::Utf32) == 6);
 
 		// Insert a new line before end -> "a\n\xF0\x90\x8D\x88\nz\n\n" 5 lines
 		cb.InsertString(strlen(data), "\n", 1, startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 5);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF16) == 7);
-		REQUIRE(cb.IndexLineStart(4, SC_LINECHARACTERINDEX_UTF16) == 8);
-		REQUIRE(cb.IndexLineStart(5, SC_LINECHARACTERINDEX_UTF16) == 8);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 5);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf16) == 7);
+		REQUIRE(cb.IndexLineStart(4, LineCharacterIndexType::Utf16) == 8);
+		REQUIRE(cb.IndexLineStart(5, LineCharacterIndexType::Utf16) == 8);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 4);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF32) == 6);
-		REQUIRE(cb.IndexLineStart(4, SC_LINECHARACTERINDEX_UTF32) == 7);
-		REQUIRE(cb.IndexLineStart(5, SC_LINECHARACTERINDEX_UTF32) == 7);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 4);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf32) == 6);
+		REQUIRE(cb.IndexLineStart(4, LineCharacterIndexType::Utf32) == 7);
+		REQUIRE(cb.IndexLineStart(5, LineCharacterIndexType::Utf32) == 7);
 
-		// Insert a valid 3-byte UTF-8 character at start -> 
+		// Insert a valid 3-byte UTF-8 character at start ->
 		// "\xE2\x82\xACa\n\xF0\x90\x8D\x88\nz\n\n" 5 lines
 
 		const char *euro = "\xE2\x82\xAC";
 		cb.InsertString(0, euro, strlen(euro), startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 6);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF16) == 8);
-		REQUIRE(cb.IndexLineStart(4, SC_LINECHARACTERINDEX_UTF16) == 9);
-		REQUIRE(cb.IndexLineStart(5, SC_LINECHARACTERINDEX_UTF16) == 9);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 6);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf16) == 8);
+		REQUIRE(cb.IndexLineStart(4, LineCharacterIndexType::Utf16) == 9);
+		REQUIRE(cb.IndexLineStart(5, LineCharacterIndexType::Utf16) == 9);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 5);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF32) == 7);
-		REQUIRE(cb.IndexLineStart(4, SC_LINECHARACTERINDEX_UTF32) == 8);
-		REQUIRE(cb.IndexLineStart(5, SC_LINECHARACTERINDEX_UTF32) == 8);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 5);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf32) == 7);
+		REQUIRE(cb.IndexLineStart(4, LineCharacterIndexType::Utf32) == 8);
+		REQUIRE(cb.IndexLineStart(5, LineCharacterIndexType::Utf32) == 8);
 
-		// Insert a lone lead byte implying a 3 byte character at start of line 2 -> 
+		// Insert a lone lead byte implying a 3 byte character at start of line 2 ->
 		// "\xE2\x82\xACa\n\EF\xF0\x90\x8D\x88\nz\n\n" 5 lines
 		// Should be treated as a single byte character
 
 		const char *lead = "\xEF";
 		cb.InsertString(5, lead, strlen(lead), startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 7);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF16) == 9);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 7);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf16) == 9);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 6);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF32) == 8);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 6);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf32) == 8);
 
 		// Insert an ASCII lead byte inside the 3-byte initial character ->
 		// "\xE2!\x82\xACa\n\EF\xF0\x90\x8D\x88\nz\n\n" 5 lines
@@ -315,13 +320,13 @@ TEST_CASE("CharacterIndex") {
 		const char *ascii = "!";
 		cb.InsertString(1, ascii, strlen(ascii), startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 6);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 10);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 6);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 10);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 6);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 9);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 6);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 9);
 
 		// Insert a NEL after the '!' to trigger the utf8 line end case ->
 		// "\xE2!\xC2\x85 \x82\xACa\n \EF\xF0\x90\x8D\x88\n z\n\n" 5 lines
@@ -329,20 +334,20 @@ TEST_CASE("CharacterIndex") {
 		const char *nel = "\xC2\x85";
 		cb.InsertString(2, nel, strlen(nel), startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 7);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF16) == 11);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 7);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf16) == 11);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 7);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF32) == 10);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 7);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf32) == 10);
 	}
 
 	SECTION("Delete Multiple lines") {
 		cb.SetUTF8Substance(true);
-		cb.AllocateLineCharacterIndex(SC_LINECHARACTERINDEX_UTF16 | SC_LINECHARACTERINDEX_UTF32);
+		cb.AllocateLineCharacterIndex(LineCharacterIndexType::Utf16 | LineCharacterIndexType::Utf32);
 
 		bool startSequence = false;
 		// 3 lines of text containing 8 bytes
@@ -352,18 +357,18 @@ TEST_CASE("CharacterIndex") {
 		// Delete first 2 new lines -> "az\nc"
 		cb.DeleteChars(1, strlen(data) - 4, startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 4);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 4);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 4);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 4);
 	}
 
 	SECTION("Delete Complex") {
 		cb.SetUTF8Substance(true);
-		cb.AllocateLineCharacterIndex(SC_LINECHARACTERINDEX_UTF16 | SC_LINECHARACTERINDEX_UTF32);
+		cb.AllocateLineCharacterIndex(LineCharacterIndexType::Utf16 | LineCharacterIndexType::Utf32);
 
 		bool startSequence = false;
 		// 3 lines of text containing 8 bytes
@@ -375,28 +380,28 @@ TEST_CASE("CharacterIndex") {
 		// line 1 becomes 4 single byte characters
 		cb.DeleteChars(2, 1, startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 6);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF16) == 7);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 6);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf16) == 7);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 6);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF32) == 7);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 6);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf32) == 7);
 
 		// Delete first new line ->
 		// "a\x90\x8D\x88\nz"
 		// Only 2 lines with line 0 containing 5 single byte characters
 		cb.DeleteChars(1, 1, startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 5);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 6);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 5);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 6);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 5);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 6);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 5);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 6);
 
 		// Restore lead byte from character on line 0 making a 4-byte character ->
 		// "a\xF0\x90\x8D\x88\nz"
@@ -404,18 +409,18 @@ TEST_CASE("CharacterIndex") {
 		const char *lead4 = "\xF0";
 		cb.InsertString(1, lead4, strlen(lead4), startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 4);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 5);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 4);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 5);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF32) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF32) == 3);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF32) == 4);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf32) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf32) == 3);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf32) == 4);
 	}
 
 	SECTION("Insert separates new line bytes") {
 		cb.SetUTF8Substance(true);
-		cb.AllocateLineCharacterIndex(SC_LINECHARACTERINDEX_UTF16 | SC_LINECHARACTERINDEX_UTF32);
+		cb.AllocateLineCharacterIndex(LineCharacterIndexType::Utf16 | LineCharacterIndexType::Utf32);
 
 		bool startSequence = false;
 		// 2 lines of text containing 4 bytes
@@ -427,9 +432,9 @@ TEST_CASE("CharacterIndex") {
 		const char *ascii = "!";
 		cb.InsertString(2, ascii, strlen(ascii), startSequence);
 
-		REQUIRE(cb.IndexLineStart(0, SC_LINECHARACTERINDEX_UTF16) == 0);
-		REQUIRE(cb.IndexLineStart(1, SC_LINECHARACTERINDEX_UTF16) == 2);
-		REQUIRE(cb.IndexLineStart(2, SC_LINECHARACTERINDEX_UTF16) == 4);
-		REQUIRE(cb.IndexLineStart(3, SC_LINECHARACTERINDEX_UTF16) == 5);
+		REQUIRE(cb.IndexLineStart(0, LineCharacterIndexType::Utf16) == 0);
+		REQUIRE(cb.IndexLineStart(1, LineCharacterIndexType::Utf16) == 2);
+		REQUIRE(cb.IndexLineStart(2, LineCharacterIndexType::Utf16) == 4);
+		REQUIRE(cb.IndexLineStart(3, LineCharacterIndexType::Utf16) == 5);
 	}
 }

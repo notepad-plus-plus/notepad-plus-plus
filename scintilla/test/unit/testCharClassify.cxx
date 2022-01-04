@@ -1,20 +1,23 @@
-// Unit Tests for Scintilla internal data structures
+/** @file testCharClassify.cxx
+ ** Unit Tests for Scintilla internal data structures
+ **/
 
 #include <cstring>
 
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 #include <iostream>
 
-#include "Platform.h"
+#include "Debugging.h"
 
 #include "CharClassify.h"
 
 #include "catch.hpp"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 // Test CharClassify.
 
@@ -23,32 +26,29 @@ class CharClassifyTest {
 	CharClassifyTest(const CharClassifyTest &) = delete;
 protected:
 	CharClassifyTest() {
-		pcc.reset(new CharClassify());
+		pcc = std::make_unique<CharClassify>();
 		for (int ch = 0; ch < 256; ch++) {
 			if (ch == '\r' || ch == '\n')
-				charClass[ch] = CharClassify::ccNewLine;
-			else if (ch < 0x20 || ch == ' ')
-				charClass[ch] = CharClassify::ccSpace;
+				charClass[ch] = CharacterClass::newLine;
+			else if (ch < 0x20 || ch == ' ' || ch == '\x7f')
+				charClass[ch] = CharacterClass::space;
 			else if (ch >= 0x80 || isalnum(ch) || ch == '_')
-				charClass[ch] = CharClassify::ccWord;
+				charClass[ch] = CharacterClass::word;
 			else
-				charClass[ch] = CharClassify::ccPunctuation;
+				charClass[ch] = CharacterClass::punctuation;
 		}
 	}
 
-	~CharClassifyTest() {
-	}
-
 	std::unique_ptr<CharClassify> pcc;
-	CharClassify::cc charClass[256];
+	CharacterClass charClass[256];
 
-	static const char* GetClassName(CharClassify::cc charClass) {
+	static const char* GetClassName(CharacterClass charClass) {
 		switch(charClass) {
-			#define CASE(c) case CharClassify::c: return #c
-			CASE(ccSpace);
-			CASE(ccNewLine);
-			CASE(ccWord);
-			CASE(ccPunctuation);
+			#define CASE(c) case CharacterClass::c: return #c
+			CASE(space);
+			CASE(newLine);
+			CASE(word);
+			CASE(punctuation);
 			#undef CASE
 			default:
 				return "<unknown>";
@@ -70,7 +70,7 @@ TEST_CASE_METHOD(CharClassifyTest, "Defaults") {
 TEST_CASE_METHOD(CharClassifyTest, "Custom") {
 	unsigned char buf[2] = {0, 0};
 	for (int i = 0; i < 256; i++) {
-		CharClassify::cc thisClass = CharClassify::cc(i % 4);
+		CharacterClass thisClass = CharacterClass(i % 4);
 		buf[0] = i;
 		pcc->SetCharClasses(buf, thisClass);
 		charClass[i] = thisClass;
@@ -88,35 +88,36 @@ TEST_CASE_METHOD(CharClassifyTest, "Custom") {
 TEST_CASE_METHOD(CharClassifyTest, "CharsOfClass") {
 	unsigned char buf[2] = {0, 0};
 	for (int i = 1; i < 256; i++) {
-		CharClassify::cc thisClass = CharClassify::cc(i % 4);
+		CharacterClass thisClass = CharacterClass(i % 4);
 		buf[0] = i;
 		pcc->SetCharClasses(buf, thisClass);
 		charClass[i] = thisClass;
 	}
 	for (int classVal = 0; classVal < 4; ++classVal) {
-		CharClassify::cc thisClass = CharClassify::cc(classVal % 4);
+		CharacterClass thisClass = CharacterClass(classVal % 4);
 		int size = pcc->GetCharsOfClass(thisClass, NULL);
 		std::vector<unsigned char> buffer(size+1);
-		pcc->GetCharsOfClass(thisClass, &buffer[0]);
+		void *pBuffer = static_cast<void *>(buffer.data());
+		pcc->GetCharsOfClass(thisClass, buffer.data());
 		for (int i = 1; i < 256; i++) {
 			if (charClass[i] == thisClass) {
-				if (!memchr(reinterpret_cast<char*>(&buffer[0]), i, size))
+				if (!memchr(pBuffer, i, size))
 					std::cerr
 					<< "Character " << i
 					<< " should be class " << GetClassName(thisClass)
 					<< ", but was not in GetCharsOfClass;"
 					<< " it is reported to be "
 					<< GetClassName(pcc->GetClass(i)) << std::endl;
-				REQUIRE(memchr(reinterpret_cast<char*>(&buffer[0]), i, size));
+				REQUIRE(memchr(pBuffer, i, size));
 			} else {
-				if (memchr(reinterpret_cast<char*>(&buffer[0]), i, size))
+				if (memchr(pBuffer, i, size))
 					std::cerr
 					<< "Character " << i
 					<< " should not be class " << GetClassName(thisClass)
 					<< ", but was in GetCharsOfClass"
 					<< " it is reported to be "
 					<< GetClassName(pcc->GetClass(i)) << std::endl;
-				REQUIRE_FALSE(memchr(reinterpret_cast<char*>(&buffer[0]), i, size));
+				REQUIRE_FALSE(memchr(pBuffer, i, size));
 			}
 		}
 	}

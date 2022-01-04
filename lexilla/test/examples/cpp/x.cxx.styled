@@ -1,0 +1,46 @@
+{2}// A demonstration program
+{9}#include <stdio.h>
+#if 0 {23}/* */{9}
+{73}#define DUMMY() \
+	if (1);
+{9}#endif
+{0}
+{2}// Test preprocessor expressions with parentheses 
+{9}#if ((0))
+{75}a{64}
+{9}#elif ((1))
+{11}b{0}
+{9}#endif
+{0}
+{3}/** {17}@file{3} LexCPP.cxx
+ <{17}file{3}>
+ <{17}file{3} >filename</{17}file{3}>
+ LexCPP.cxx.
+ </{17}file{3}>
+ **/{0}
+
+{3}/** Unknown doc keywords so in SCE_C_COMMENTDOCKEYWORDERROR:
+ {18}@wrong{3} LexCPP.cxx
+ <{18}wrong{3}>filename</{18}wrong{3}>
+**/{0}
+
+{9}#define M\
+
+{0}\
+ 
+{5}int{0} {11}main{10}(){0} {10}{{0}
+	{11}double{0} {11}x{10}[]{0} {10}={0} {10}{{4}3.14159{10},{4}6.02e23{10},{4}1.6e-19{10},{4}1.0{10}+{4}1{10}};{0}
+	{5}int{0} {11}y{10}[]{0} {10}={0} {10}{{4}75{10},{4}0113{10},{4}0x4b{10}};{0}
+	{11}printf{10}({6}"hello world %d %g{27}\n{6}"{10},{0} {11}y{10}[{4}0{10}],{0} {11}x{10}[{4}0{10}]);{0}
+
+	{2}// JavaScript regular expression (14) tests
+{0}	{5}let{0} {11}a{0} {10}={0} {14}/a/{10};{0}
+	{5}let{0} {11}b{0} {10}={0} {14}/[a-z]+/gi{10};{0}
+
+	{2}// Escape sequence (27) tests
+{0}	{11}printf{10}({6}"{27}\'\"\?\\\a\b\f\n\r\t\v{6} {27}\P{6}"{10});{0}
+	{11}printf{10}({6}"{27}\0{6}a {27}\013{6}a {27}\01{6}9"{10});{0}
+	{11}printf{10}({6}"{27}\x013a{6}c {27}\xd{6}z"{10});{0}
+	{11}printf{10}({6}"{27}\ua34d{6}f {27}\u{6}z"{10});{0}
+	{11}printf{10}({6}"{27}\Ua34df783{6}3 {27}\U{6}z"{10});{0}
+{10}}{0}

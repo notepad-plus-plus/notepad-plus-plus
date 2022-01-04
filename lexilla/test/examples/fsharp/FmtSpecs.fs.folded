@@ -1,0 +1,36 @@
+ 0 400 400   module FormatSpecifiersTest
+ 1 400 400   
+ 0 400 400   let x = List.fold (*) 24.5 [ 1.; 2.; 3. ]
+ 1 400 400   
+ 0 400 400   // expect "147.00"
+ 0 400 400   printfn "Speed: %.2f m/s" x
+ 0 400 400   printfn $"Speed: %.2f{x} m/s"
+ 0 400 400   printfn $"Speed: {x:f2} m/s"
+ 1 400 400   
+ 0 400 400   // expect " 147%"
+ 0 400 400   printfn """%% increase:% .0F%% over last year""" x
+ 0 400 400   printfn $"""%% increase:% .0F{x}%% over last year"""
+ 0 400 400   printfn $"""%% increase:{x / 100.,5:P0} over last year"""
+ 1 400 400   
+ 2 400 401 + // expect "1.5E+002"
+ 0 401 400 | // NB: units should look like text even without a space
+ 0 400 400   printfn @"Time: %-0.1Esecs" x
+ 0 400 400   printfn $"Time: %-0.1E{x}secs"
+ 0 400 400   printfn $"Time: {x:E1}secs"
+ 1 400 400   
+ 0 400 400   // expect "\"         +147\""
+ 0 400 400   printfn @"""Temp: %+12.3g K""" x
+ 0 400 400   printfn $"""{'"'}Temp: %+12.3g{x} K{'"'}"""
+ 0 400 400   printfn $"""{'"'}Temp: {'+',9}{x:g3} K{'"'}"""
+ 1 400 400   
+ 0 400 400   // Since F# 6.0
+ 0 400 400   printfn @"%B" 0b1_000_000
+ 0 400 400   printfn "%B" "\x40"B.[0]
+ 0 400 400   printfn $"""%B{'\064'B}"""
+ 1 400 400   
+ 0 400 400   // These don't work
+ 0 400 400   printfn ``%.2f`` x
+ 0 400 400   printfn $"%.2f" x
+ 0 400 400   printfn $"%.2f {x}"
+ 0 400 400   printfn $"""%.2f {x}"""
+ 1 400 400   

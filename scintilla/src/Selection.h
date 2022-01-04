@@ -8,14 +8,14 @@
 #ifndef SELECTION_H
 #define SELECTION_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 class SelectionPosition {
 	Sci::Position position;
 	Sci::Position virtualSpace;
 public:
-	explicit SelectionPosition(Sci::Position position_=INVALID_POSITION, Sci::Position virtualSpace_=0) noexcept : position(position_), virtualSpace(virtualSpace_) {
-		PLATFORM_ASSERT(virtualSpace < 800000);
+	explicit SelectionPosition(Sci::Position position_= Sci::invalidPosition, Sci::Position virtualSpace_=0) noexcept : position(position_), virtualSpace(virtualSpace_) {
+		PLATFORM_ASSERT(virtualSpace < 800000000);
 		if (virtualSpace < 0)
 			virtualSpace = 0;
 	}
@@ -42,7 +42,7 @@ public:
 		return virtualSpace;
 	}
 	void SetVirtualSpace(Sci::Position virtualSpace_) noexcept {
-		PLATFORM_ASSERT(virtualSpace_ < 800000);
+		PLATFORM_ASSERT(virtualSpace_ < 800000000);
 		if (virtualSpace_ >= 0)
 			virtualSpace = virtualSpace_;
 	}
@@ -133,6 +133,9 @@ struct SelectionRange {
 	void MinimizeVirtualSpace() noexcept;
 };
 
+// Deliberately an enum rather than an enum class to allow treating as bool
+enum InSelection { inNone, inMain, inAdditional };
+
 class Selection {
 	std::vector<SelectionRange> ranges;
 	std::vector<SelectionRange> rangesSaved;
@@ -141,11 +144,10 @@ class Selection {
 	bool moveExtends;
 	bool tentativeMain;
 public:
-	enum selTypes { noSel, selStream, selRectangle, selLines, selThin };
-	selTypes selType;
+	enum class SelTypes { none, stream, rectangle, lines, thin };
+	SelTypes selType;
 
 	Selection();
-	~Selection();
 	bool IsRectangular() const noexcept;
 	Sci::Position MainCaret() const noexcept;
 	Sci::Position MainAnchor() const noexcept;
@@ -178,8 +180,9 @@ public:
 	void DropAdditionalRanges();
 	void TentativeSelection(SelectionRange range);
 	void CommitTentative() noexcept;
-	int CharacterInSelection(Sci::Position posCharacter) const noexcept;
-	int InSelectionForEOL(Sci::Position pos) const noexcept;
+	InSelection RangeType(size_t r) const noexcept;
+	InSelection CharacterInSelection(Sci::Position posCharacter) const noexcept;
+	InSelection InSelectionForEOL(Sci::Position pos) const noexcept;
 	Sci::Position VirtualSpaceFor(Sci::Position pos) const noexcept;
 	void Clear();
 	void RemoveDuplicates();

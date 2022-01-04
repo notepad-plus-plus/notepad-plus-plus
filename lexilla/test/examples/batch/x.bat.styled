@@ -1,0 +1,62 @@
+{1}rem comment=1
+rem 'echo' is word=2, 'a' is default=0
+{2}echo{0} a
+{1}rem label=3
+{3}:START
+{1}rem '@' is hide=4
+{4}@{2}echo{0} b
+{1}rem 'gcc' is external command=5
+{5}gcc{0} --version
+{1}rem '%PATH%' is variable=6
+{2}echo{0} {6}%PATH%{0}
+{2}echo{0} {6}%ProgramFiles(x86)%{0}
+{1}rem operator=7 '='
+{4}@{2}set{0} Q{7}={0}A
+
+{1}::comment=1
+{0}
+{1}:: Bug 1624: this construct produced inconsistent brackets in the past
+{2}if ERRORLEVEL{0} 2{2} goto{0} END
+{4}@{2}if exist{0} a (
+{2}echo{0} exists
+){2} else{0} (
+{2}echo{0} not
+)
+
+{2}FOR{0} /L {6}%%G{2} IN{0} (2,1,4){2} DO{0} ({2}echo{0} {6}%%G{0})
+
+{1}:: Bug 1997: keywords not recognized when preceded by '('
+{2}IF NOT DEFINED{0} var ({2}SET{0} var{7}={0}1)
+
+{1}:: Bug 2065: keywords not recognized when followed by ')'
+{4}@{2}if exist{0} a ({2} exit{0})
+
+{1}:: Bug: with \r or \n, 'command' is seen as continuation
+{2}echo{0} word ^
+1
+{5}command{0}
+
+{1}:: Bug argument and variable expansion
+{2}echo{0} {6}%~dp0{0}123
+{2}echo{0} {6}%%-{0}~012
+{2}echo{0} %%~{6}%%~-abcd{0}
+{2}FOR{0} /F {6}%%I{2} in{0} ("C:\Test\temp.txt"){2} do echo{0} {6}%%~dI{0}
+
+{1}:: Bug ending of argument and variable expansion
+{2}echo{0} {6}%~dp0{0}\123
+{2}echo{0} "{6}%~dp0{0}123"
+{2}echo{0} "{6}%%-{0}~012"
+{2}echo{0} "%%~{6}%%~-abcd{0}"
+{2}FOR{0} /F {6}%%I{2} in{0} ("C:\Test\temp.txt"){2} do echo{0} "{6}%%~dI{0}"
+
+{1}:: Bug escaped %
+{2}echo{0} {6}%%0{0}
+{2}echo{0} %%{6}%0{0}
+{2}echo{0} %%{6}%%~-abcd{0}
+
+{1}:: Bug 2304: "::" comments not recognised when second command on line
+{2}Set{0} /A xxx{7}={6}%xxx%{7}+{0}1 {7}&{0} {1}:: Increment
+{2}Set{0} /A xxx{7}={6}%xxx%{7}+{0}1 {7}&{0} {1}::Increment
+{2}Set{0} /A xxx{7}={6}%xxx%{7}+{0}1 {7}&{0} {1}rem Increment
+{0}
+{3}:END

@@ -1,5 +1,5 @@
 /**
- * AppController.m
+ * AppController.mm
  * ScintillaTest
  *
  * Created by Mike Lischke on 01.04.09.
@@ -64,20 +64,20 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   NSRect newFrame = mEditHost.frame;
   newFrame.size.width -= 2 * newFrame.origin.x;
   newFrame.size.height -= 3 * newFrame.origin.y;
-  
+
   mEditor = [[[ScintillaView alloc] initWithFrame: newFrame] autorelease];
-  
+
   [mEditHost.contentView addSubview: mEditor];
   [mEditor setAutoresizesSubviews: YES];
   [mEditor setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
-  
+
   // Let's load some text for the editor, as initial content.
   NSString *sql = [self exampleText];
 
   [mEditor setString: sql];
 
   [self setupEditor];
-  
+
   sciExtra = nil;
 }
 
@@ -94,7 +94,7 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
 
   if (error && [[error domain] isEqual: NSCocoaErrorDomain])
     NSLog(@"%@", error);
-  
+
   return sql;
 }
 
@@ -104,11 +104,18 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
  * Initialize scintilla editor (styles, colors, markers, folding etc.].
  */
 - (void) setupEditor
-{  
+{
   // Lexer type is MySQL.
-  [mEditor setGeneralProperty: SCI_SETLEXER parameter: SCLEX_MYSQL value: 0];
-  // alternatively: [mEditor setEditorProperty: SCI_SETLEXERLANGUAGE parameter: nil value: (sptr_t) "mysql"];
-  
+  void *lexillaDL = dlopen(LEXILLA_LIB LEXILLA_EXTENSION, RTLD_LAZY);
+  if (lexillaDL) {
+    Lexilla::CreateLexerFn createLexer =
+	  reinterpret_cast<Lexilla::CreateLexerFn>(dlsym(lexillaDL, LEXILLA_CREATELEXER));
+    if (createLexer) {
+      Scintilla::ILexer5 *pLexer = createLexer("mysql");
+      [mEditor setReferenceProperty: SCI_SETILEXER parameter: nil value: pLexer];
+    }
+  }
+
   // Keywords to highlight. Indices are:
   // 0 - Major keywords (reserved keywords)
   // 1 - Normal keywords (everything not reserved but integral part of the language)
@@ -121,29 +128,29 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   [mEditor setReferenceProperty: SCI_SETKEYWORDS parameter: 5 value: procedure_keywords];
   [mEditor setReferenceProperty: SCI_SETKEYWORDS parameter: 6 value: client_keywords];
   [mEditor setReferenceProperty: SCI_SETKEYWORDS parameter: 7 value: user_keywords];
-  
+
   // Colors and styles for various syntactic elements. First the default style.
   [mEditor setStringProperty: SCI_STYLESETFONT parameter: STYLE_DEFAULT value: @"Helvetica"];
   // [mEditor setStringProperty: SCI_STYLESETFONT parameter: STYLE_DEFAULT value: @"Monospac821 BT"]; // Very pleasing programmer's font.
   [mEditor setGeneralProperty: SCI_STYLESETSIZE parameter: STYLE_DEFAULT value: 14];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: STYLE_DEFAULT value: [NSColor blackColor]];
 
-  [mEditor setGeneralProperty: SCI_STYLECLEARALL parameter: 0 value: 0];	
-  
+  [mEditor setGeneralProperty: SCI_STYLECLEARALL parameter: 0 value: 0];
+
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_DEFAULT value: [NSColor blackColor]];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_COMMENT fromHTML: @"#097BF7"];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_COMMENTLINE fromHTML: @"#097BF7"];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_HIDDENCOMMAND fromHTML: @"#097BF7"];
   [mEditor setColorProperty: SCI_STYLESETBACK parameter: SCE_MYSQL_HIDDENCOMMAND fromHTML: @"#F0F0F0"];
-  
+
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_VARIABLE fromHTML: @"378EA5"];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_SYSTEMVARIABLE fromHTML: @"378EA5"];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_KNOWNSYSTEMVARIABLE fromHTML: @"#3A37A5"];
-  
+
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_NUMBER fromHTML: @"#7F7F00"];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_SQSTRING fromHTML: @"#FFAA3E"];
-  
-  // Note: if we were using ANSI quotes we would set the DQSTRING to the same color as the 
+
+  // Note: if we were using ANSI quotes we would set the DQSTRING to the same color as the
   //       the back tick string.
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_DQSTRING fromHTML: @"#274A6D"];
 
@@ -157,31 +164,31 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_USER1 fromHTML: @"#808080"];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_USER2 fromHTML: @"#808080"];
   [mEditor setColorProperty: SCI_STYLESETBACK parameter: SCE_MYSQL_USER2 fromHTML: @"#F0E0E0"];
-  
+
   // The following 3 styles have no impact as we did not set a keyword list for any of them.
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_DATABASEOBJECT value: [NSColor redColor]];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_FUNCTION value: [NSColor redColor]];
-  
+
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_IDENTIFIER value: [NSColor blackColor]];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_QUOTEDIDENTIFIER fromHTML: @"#274A6D"];
   [mEditor setGeneralProperty: SCI_STYLESETBOLD parameter: SCE_SQL_OPERATOR value: 1];
-  
+
   // Line number style.
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: STYLE_LINENUMBER fromHTML: @"#F0F0F0"];
   [mEditor setColorProperty: SCI_STYLESETBACK parameter: STYLE_LINENUMBER fromHTML: @"#808080"];
-  
+
   [mEditor setGeneralProperty: SCI_SETMARGINTYPEN parameter: 0 value: SC_MARGIN_NUMBER];
 	[mEditor setGeneralProperty: SCI_SETMARGINWIDTHN parameter: 0 value: 35];
-  
+
   // Markers.
   [mEditor setGeneralProperty: SCI_SETMARGINWIDTHN parameter: 1 value: 16];
-  
+
   // Some special lexer properties.
   [mEditor setLexerProperty: @"fold" value: @"1"];
   [mEditor setLexerProperty: @"fold.compact" value: @"0"];
   [mEditor setLexerProperty: @"fold.comment" value: @"1"];
   [mEditor setLexerProperty: @"fold.preprocessor" value: @"1"];
-  
+
   // Folder setup.
   [mEditor setGeneralProperty: SCI_SETMARGINWIDTHN parameter: 2 value: 16];
   [mEditor setGeneralProperty: SCI_SETMARGINMASKN parameter: 2 value: SC_MASK_FOLDERS];
@@ -199,19 +206,19 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
     [mEditor setColorProperty: SCI_MARKERSETFORE parameter: n value: [NSColor whiteColor]];
     [mEditor setColorProperty: SCI_MARKERSETBACK parameter: n value: [NSColor blackColor]];
   }
-  
+
   // Init markers & indicators for highlighting of syntax errors.
   [mEditor setColorProperty: SCI_INDICSETFORE parameter: 0 value: [NSColor redColor]];
   [mEditor setGeneralProperty: SCI_INDICSETUNDER parameter: 0 value: 1];
   [mEditor setGeneralProperty: SCI_INDICSETSTYLE parameter: 0 value: INDIC_SQUIGGLE];
-  
+
   [mEditor setColorProperty: SCI_MARKERSETBACK parameter: 0 fromHTML: @"#B1151C"];
-  
+
   [mEditor setColorProperty: SCI_SETSELBACK parameter: 1 value: [NSColor selectedTextBackgroundColor]];
-  
+
   // Uncomment if you wanna see auto wrapping in action.
   //[mEditor setGeneralProperty: SCI_SETWRAPMODE parameter: SC_WRAP_WORD value: 0];
-  
+
   InfoBar* infoBar = [[[InfoBar alloc] initWithFrame: NSMakeRect(0, 0, 400, 0)] autorelease];
   [infoBar setDisplay: IBShowAll];
   [mEditor setInfoBar: infoBar top: NO];

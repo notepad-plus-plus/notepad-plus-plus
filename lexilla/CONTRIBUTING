@@ -1,0 +1,42 @@
+Lexilla is on GitHub at https://github.com/ScintillaOrg/lexilla
+
+Bugs, fixes and features should be posted to the Issue Tracker
+https://github.com/ScintillaOrg/lexilla/issues
+
+Patches should include test cases. Add a test case file in 
+lexilla/test/examples/<language> and run the test program in 
+lexilla/test.
+The result will be new files with ".styled.new" and ".folded.new"
+appended containing lexing or folding results.
+For lexing, there are brace surrounded style numbers for each style
+start as markup:
+{5}import{0} {11}contextlib{0}
+
+For folding, there are 4 columns of folding results preceding the example text:
+ 2 400   0 + --[[ coding:UTF-8
+ 0 402   0 | comment ]]
+See the test/README file for more explanation of the folding results.
+
+To build lexilla and the tests with gcc there are Windows batch
+and Unix shell files scripts/RunTest.bat scripts/RunTest.sh.
+Check the result of the .new files and, if correct, rename replacing
+".styled.new" with ".styled" and ".folded.new" with ".folded".
+Run the tests again and success should be reported.
+Include the .styled and .folded files in the patch.
+Including test cases ensures that the change won't be undone by
+other changes in the future and clarifies the intentions of the author.
+
+Either send unified diffs (or patch files) or zip archives with whole files.
+Mercurial/Git patch files are best as they include author information and commit
+messages.
+
+Questions should go to the scintilla-interest mailing list
+https://groups.google.com/forum/#!forum/scintilla-interest
+
+Code should follow the guidelines at
+https://www.scintilla.org/SciCoding.html
+
+Lexilla is on GitHub so use its facilities rather than SourceForge which is
+the home of Scintilla.
+The neilh @ scintilla.org account receives much spam and is only checked
+occasionally. Almost all Scintilla mail should go to the mailing list.

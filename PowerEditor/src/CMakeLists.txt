@@ -12,6 +12,7 @@ cmake_minimum_required(VERSION 3.4)
 PROJECT(Notepad++)
 
 SET(projIncludDir	../../scintilla/include/
+					../../lexilla/include/
 					./
 					./WinControls/AboutDlg/
 					./WinControls/
@@ -63,9 +64,11 @@ SET(projIncludDir	../../scintilla/include/
 
 
 SET(src_files
+			./DarkMode/DarkMode.cpp
 			./MISC/Common/verifySignedfile.cpp
 			./MISC/md5/md5Dlgs.cpp
 			./MISC/sha2/sha-256.cpp
+			./NppDarkMode.cpp
 			./MISC/Process/Processus.cpp
 			./WinControls/AboutDlg/AboutDlg.cpp
 			./WinControls/AnsiCharPanel/ansiCharPanel.cpp
@@ -81,6 +84,7 @@ SET(src_files
 			./WinControls/ColourPicker/ColourPopup.cpp
 			./ScintillaComponent/columnEditor.cpp
 			./MISC/Common/Common.cpp
+			./MISC/Common/FileInterface.cpp
 			./WinControls/ContextMenu/ContextMenu.cpp
 			./WinControls/OpenSaveFileDialog/CustomFileDialog.cpp
 			./WinControls/PluginsAdmin/pluginsAdmin.cpp
@@ -191,6 +195,9 @@ SET(src_files
 
 SET(include_files
 			./clipboardFormats.h
+			./DarkMode/DarkMode.h
+			./DarkMode/IatHook.h
+			./DarkMode/UAHMenuBar.h
 			./dpiManager.h
 			./keys.h
 			./localizationString.h
@@ -200,6 +207,7 @@ SET(include_files
 			./MISC/md5/md5Dlgs.h
 			./MISC/md5/md5Dlgs_rc.h
 			./MISC/sha2/sha-256.h
+			./NppDarkMode.h
 			./ScintillaComponent/columnEditor_rc.h
 			./ScintillaComponent/FindReplaceDlg_rc.h
 			./ScintillaComponent/ScintillaRef.h
@@ -226,6 +234,7 @@ SET(include_files
 			./WinControls/ColourPicker/ColourPopup.h
 			./ScintillaComponent/columnEditor.h
 			./MISC/Common/Common.h
+			./MISC/Common/FileInterface.h
 			./WinControls/ContextMenu/ContextMenu.h
 			./WinControls/OpenSaveFileDialog/CustomFileDialog.h
 			./WinControls/PluginsAdmin/pluginsAdmin.h
@@ -390,14 +399,20 @@ ADD_DEFINITIONS(${defs})
 
 INCLUDE_DIRECTORIES(${projIncludDir})
 
-find_library(SCILEXER_STATIC_LIBRARY
-	NAMES libscilexer
+find_library(SCINTILLA_STATIC_LIBRARY
+	NAMES libscintilla
 	HINTS "../../scintilla/bin"
+	REQUIRED
+)
+
+find_library(LEXILLA_STATIC_LIBRARY
+	NAMES liblexilla
+	HINTS "../../lexilla/bin"
 	REQUIRED
 )
 
 ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 
 
-TARGET_LINK_LIBRARIES (notepad++ ${win32_LIBRARIES} ${SCILEXER_STATIC_LIBRARY})
+TARGET_LINK_LIBRARIES (notepad++ ${win32_LIBRARIES} ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY})
 

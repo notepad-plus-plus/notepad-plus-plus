@@ -1,4 +1,4 @@
-// ScintillaDocument.h
+// @file ScintillaDocument.h
 // Wrapper for Scintilla document object so it can be manipulated independently.
 // Copyright (c) 2011 Archaeopteryx Software, Inc. d/b/a Wingware
 
@@ -80,7 +80,7 @@ signals:
     void modify_attempt();
     void save_point(bool atSavePoint);
     void modified(int position, int modification_type, const QByteArray &text, int length,
-                  int linesAdded, int line, int foldLevelNow, int foldLevelPrev);
+		  int linesAdded, int line, int foldLevelNow, int foldLevelPrev);
     void style_needed(int pos);
     void lexer_changed();
     void error_occurred(int status);
@@ -88,4 +88,4 @@ signals:
     friend class ::WatcherHelper;
 };
 
-#endif // SCINTILLADOCUMENT_H
+#endif /* SCINTILLADOCUMENT_H */

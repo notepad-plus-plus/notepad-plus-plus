@@ -1,0 +1,5 @@
+{13}print{10}({6}"First"{10}){0}
+{1}--[[ Block comment start
+print("Second")
+--[[ Another block comment ]]{0}
+{13}print{10}({6}"Third. If run through an actual program, this will be executed."{10}){0}

@@ -8,22 +8,23 @@
 #ifndef CHARCLASSIFY_H
 #define CHARCLASSIFY_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
+
+enum class CharacterClass : unsigned char { space, newLine, word, punctuation };
 
 class CharClassify {
 public:
 	CharClassify();
 
-	enum cc { ccSpace, ccNewLine, ccWord, ccPunctuation };
 	void SetDefaultCharClasses(bool includeWordClass);
-	void SetCharClasses(const unsigned char *chars, cc newCharClass);
-	int GetCharsOfClass(cc characterClass, unsigned char *buffer) const noexcept;
-	cc GetClass(unsigned char ch) const noexcept { return static_cast<cc>(charClass[ch]);}
-	bool IsWord(unsigned char ch) const noexcept { return static_cast<cc>(charClass[ch]) == ccWord;}
+	void SetCharClasses(const unsigned char *chars, CharacterClass newCharClass);
+	int GetCharsOfClass(CharacterClass characterClass, unsigned char *buffer) const noexcept;
+	CharacterClass GetClass(unsigned char ch) const noexcept { return charClass[ch];}
+	bool IsWord(unsigned char ch) const noexcept { return charClass[ch] == CharacterClass::word;}
 
 private:
-	enum { maxChar=256 };
-	unsigned char charClass[maxChar];    // not type cc to save space
+	static constexpr int maxChar=256;
+	CharacterClass charClass[maxChar];
 };
 
 }

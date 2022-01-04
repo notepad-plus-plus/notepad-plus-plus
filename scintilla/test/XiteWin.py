@@ -19,6 +19,10 @@ from MessageNumbers import msgs, sgsm
 import ScintillaCallable
 import XiteMenu
 
+scintillaIncludesLexers = False
+# Lexilla may optionally be tested it is built and can be loaded
+lexillaAvailable = False
+
 scintillaDirectory = ".."
 scintillaIncludeDirectory = os.path.join(scintillaDirectory, "include")
 scintillaScriptsDirectory = os.path.join(scintillaDirectory, "scripts")
@@ -26,6 +30,22 @@ sys.path.append(scintillaScriptsDirectory)
 import Face
 
 scintillaBinDirectory = os.path.join(scintillaDirectory, "bin")
+
+lexillaDirectory = os.path.join(scintillaDirectory, "..", "lexilla")
+lexillaBinDirectory = os.path.join(lexillaDirectory, "bin")
+lexillaIncludeDirectory = os.path.join(lexillaDirectory, "include")
+
+lexName = "Lexilla.DLL"
+try:
+	lexillaDLLPath = os.path.join(lexillaBinDirectory, lexName)
+	lexillaLibrary = ctypes.cdll.LoadLibrary(lexillaDLLPath)
+	createLexer = lexillaLibrary.CreateLexer
+	createLexer.restype = ctypes.c_void_p
+	lexillaAvailable = True
+	print("Found Lexilla")
+except OSError:
+	print("Can't find " + lexName)
+	print("Python is built for " + " ".join(platform.architecture()))
 
 WFUNC = ctypes.WINFUNCTYPE(c_int, HWND, c_uint, WPARAM, LPARAM)
 
@@ -142,6 +162,12 @@ class XiteWin():
 	def __init__(self, test=""):
 		self.face = Face.Face()
 		self.face.ReadFromFile(os.path.join(scintillaIncludeDirectory, "Scintilla.iface"))
+		try:
+			faceLex = Face.Face()
+			faceLex.ReadFromFile(os.path.join(lexillaIncludeDirectory, "LexicalStyles.iface"))
+			self.face.features.update(faceLex.features)
+		except FileNotFoundError:
+			print("Can't find " + "LexicalStyles.iface")
 
 		self.titleDirty = True
 		self.fullPath = ""
@@ -182,11 +208,15 @@ class XiteWin():
 
 	def OnCreate(self, hwnd):
 		self.win = hwnd
+		if scintillaIncludesLexers:
+			sciName = "SciLexer.DLL"
+		else:
+			sciName = "Scintilla.DLL"
 		try:
-			scintillaDLLPath = os.path.join(scintillaBinDirectory, "SciLexer.DLL")
+			scintillaDLLPath = os.path.join(scintillaBinDirectory, sciName)
 			ctypes.cdll.LoadLibrary(scintillaDLLPath)
 		except OSError:
-			print("Can't find SciLexer.DLL")
+			print("Can't find " + sciName)
 			print("Python is built for " + " ".join(platform.architecture()))
 			sys.exit()
 		self.sciHwnd = user32.CreateWindowExW(0,
@@ -206,6 +236,14 @@ class XiteWin():
 
 		self.FocusOnEditor()
 
+	def ChooseLexer(self, lexer):
+		if scintillaIncludesLexers:
+			self.ed.LexerLanguage = lexer
+		elif lexillaAvailable:
+			pLexilla = createLexer(lexer)
+			self.ed.SetILexer(0, pLexilla)
+		else:	# No lexers available
+			pass
 
 	def Invalidate(self):
 		user32.InvalidateRect(self.win, 0, 0)

@@ -1,4 +1,6 @@
-// Unit Tests for Scintilla internal data structures
+/** @file testContractionState.cxx
+ ** Unit Tests for Scintilla internal data structures
+ **/
 
 #include <cstddef>
 #include <cstring>
@@ -6,10 +8,11 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "Debugging.h"
 
 #include "Position.h"
 #include "UniqueString.h"
@@ -20,7 +23,7 @@
 
 #include "catch.hpp"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 // Test ContractionState.
 
@@ -104,12 +107,27 @@ TEST_CASE("ContractionState") {
 		REQUIRE(true == pcs->GetVisible(0));
 		REQUIRE(false == pcs->GetVisible(1));
 		REQUIRE(true == pcs->HiddenLines());
+		REQUIRE(1 == pcs->LinesDisplayed());
 
 		pcs->SetVisible(1, 1, true);
 		for (int l=0;l<2;l++) {
 			REQUIRE(true == pcs->GetVisible(0));
 		}
 		REQUIRE(false == pcs->HiddenLines());
+	}
+
+	SECTION("Hide All") {
+		pcs->InsertLines(0,1);
+		for (int l=0;l<2;l++) {
+			REQUIRE(true == pcs->GetVisible(0));
+		}
+		REQUIRE(false == pcs->HiddenLines());
+
+		pcs->SetVisible(0, 1, false);
+		REQUIRE(false == pcs->GetVisible(0));
+		REQUIRE(false == pcs->GetVisible(1));
+		REQUIRE(true == pcs->HiddenLines());
+		REQUIRE(0 == pcs->LinesDisplayed());
 	}
 
 	SECTION("Contracting") {

@@ -2,21 +2,16 @@
 # LexGen.py - implemented 2002 by Neil Hodgson neilh@scintilla.org
 # Released to the public domain.
 
-# Regenerate the Scintilla source files that list all the lexers.
-# Should be run whenever a new lexer is added or removed.
+# Update Scintilla files.
+# Update version numbers and modification dates in documentation and header files.
+# Update make dependencies.
 # Requires Python 3.6 or later
-# Files are regenerated in place with templates stored in comments.
-# The format of generation comments is documented in FileGenerator.py.
-# Also updates version numbers and modification dates.
 
-from FileGenerator import Regenerate, UpdateLineInFile, \
-    ReplaceREInFile, UpdateLineInPlistFile, ReadFileAsList, UpdateFileFromLines, \
-    FindSectionInList
+from FileGenerator import UpdateLineInFile, ReplaceREInFile, UpdateLineInPlistFile
 import ScintillaData
 import HFacer
 import os
 import pathlib
-import uuid
 import sys
 
 baseDirectory = os.path.dirname(os.path.dirname(ScintillaData.__file__))
@@ -40,7 +35,8 @@ def UpdateVersionNumbers(sci, root):
         "       Release " + sci.versionDotted)
     ReplaceREInFile(root / "doc/ScintillaDownload.html",
         r"/www.scintilla.org/([a-zA-Z]+)\d\d\d",
-        r"/www.scintilla.org/\g<1>" +  sci.version)
+        r"/www.scintilla.org/\g<1>" +  sci.version,
+        0)
     UpdateLineInFile(root / "doc/index.html",
         '          <font color="#FFCC99" size="3"> Release version',
         '          <font color="#FFCC99" size="3"> Release version ' +\
@@ -54,89 +50,20 @@ def UpdateVersionNumbers(sci, root):
 
     cocoa = root / "cocoa"
 
-    UpdateLineInPlistFile(cocoa / "ScintillaFramework/Info.plist",
-        "CFBundleVersion", sci.versionDotted)
-    UpdateLineInPlistFile(cocoa / "ScintillaFramework/Info.plist",
-        "CFBundleShortVersionString", sci.versionDotted)
-
     UpdateLineInPlistFile(cocoa / "Scintilla" / "Info.plist",
         "CFBundleShortVersionString", sci.versionDotted)
     ReplaceREInFile(cocoa / "Scintilla"/ "Scintilla.xcodeproj" / "project.pbxproj",
         "CURRENT_PROJECT_VERSION = [0-9.]+;",
-        f'CURRENT_PROJECT_VERSION = {sci.versionDotted};')
-
-# Last 24 digits of UUID, used for item IDs in Xcode
-def uid24():
-    return str(uuid.uuid4()).replace("-", "").upper()[-24:]
-
-def ciLexerKey(a):
-    return a.split()[2].lower()
-
-"""
-		11F35FDB12AEFAF100F0236D /* LexA68k.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 11F35FDA12AEFAF100F0236D /* LexA68k.cxx */; };
-		11F35FDA12AEFAF100F0236D /* LexA68k.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexA68k.cxx; path = ../../lexers/LexA68k.cxx; sourceTree = SOURCE_ROOT; };
-				11F35FDA12AEFAF100F0236D /* LexA68k.cxx */,
-				11F35FDB12AEFAF100F0236D /* LexA68k.cxx in Sources */,
-"""
-def RegenerateXcodeProject(path, lexers, lexerReferences):
-    # Build 4 blocks for insertion:
-    # Each markers contains a unique section start, an optional wait string, and a section end
-
-    markersPBXBuildFile = ["Begin PBXBuildFile section", "", "End PBXBuildFile section"]
-    sectionPBXBuildFile = []
-
-    markersPBXFileReference = ["Begin PBXFileReference section", "", "End PBXFileReference section"]
-    sectionPBXFileReference = []
-
-    markersLexers = ["/* Lexers */ =", "children", ");"]
-    sectionLexers = []
-
-    markersPBXSourcesBuildPhase = ["Begin PBXSourcesBuildPhase section", "files", ");"]
-    sectionPBXSourcesBuildPhase = []
-
-    for lexer in lexers:
-        if lexer not in lexerReferences:
-            uid1 = uid24()
-            uid2 = uid24()
-            print("Lexer", lexer, "is not in Xcode project. Use IDs", uid1, uid2)
-            lexerReferences[lexer] = [uid1, uid2]
-            linePBXBuildFile = "\t\t{} /* {}.cxx in Sources */ = {{isa = PBXBuildFile; fileRef = {} /* {}.cxx */; }};".format(uid1, lexer, uid2, lexer)
-            linePBXFileReference = "\t\t{} /* {}.cxx */ = {{isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = {}.cxx; path = ../../lexers/{}.cxx; sourceTree = SOURCE_ROOT; }};".format(uid2, lexer, lexer, lexer)
-            lineLexers = "\t\t\t\t{} /* {}.cxx */,".format(uid2, lexer)
-            linePBXSourcesBuildPhase = "\t\t\t\t{} /* {}.cxx in Sources */,".format(uid1, lexer)
-            sectionPBXBuildFile.append(linePBXBuildFile)
-            sectionPBXFileReference.append(linePBXFileReference)
-            sectionLexers.append(lineLexers)
-            sectionPBXSourcesBuildPhase.append(linePBXSourcesBuildPhase)
-
-    lines = ReadFileAsList(path)
-
-    sli = FindSectionInList(lines, markersPBXBuildFile)
-    lines[sli.stop:sli.stop] = sectionPBXBuildFile
-
-    sli = FindSectionInList(lines, markersPBXFileReference)
-    lines[sli.stop:sli.stop] = sectionPBXFileReference
-
-    sli = FindSectionInList(lines, markersLexers)
-    # This section is shown in the project outline so sort it to make it easier to navigate.
-    allLexers = sorted(lines[sli.start:sli.stop] + sectionLexers, key=ciLexerKey)
-    lines[sli] = allLexers
-
-    sli = FindSectionInList(lines, markersPBXSourcesBuildPhase)
-    lines[sli.stop:sli.stop] = sectionPBXSourcesBuildPhase
-
-    UpdateFileFromLines(path, lines, "\n")
+        f'CURRENT_PROJECT_VERSION = {sci.versionDotted};',
+        0)
 
 def RegenerateAll(rootDirectory):
-    
+
     root = pathlib.Path(rootDirectory)
 
     scintillaBase = root.resolve()
 
     sci = ScintillaData.ScintillaData(scintillaBase)
-
-    Regenerate(scintillaBase / "src/Catalogue.cxx", "//", sci.lexerModules)
-    Regenerate(scintillaBase / "win32/scintilla.mak", "#", sci.lexFiles)
 
     startDir = os.getcwd()
     os.chdir(os.path.join(scintillaBase, "win32"))
@@ -144,9 +71,6 @@ def RegenerateAll(rootDirectory):
     os.chdir(os.path.join(scintillaBase, "gtk"))
     gtk.DepGen.Generate()
     os.chdir(startDir)
-
-    RegenerateXcodeProject(root / "cocoa/ScintillaFramework/ScintillaFramework.xcodeproj/project.pbxproj",
-        sci.lexFiles, sci.lexersXcode)
 
     UpdateVersionNumbers(sci, root)
 

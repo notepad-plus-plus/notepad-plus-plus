@@ -12,10 +12,11 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "Debugging.h"
 
 #include "Position.h"
 #include "UniqueString.h"
@@ -25,7 +26,7 @@
 #include "SparseVector.h"
 #include "ContractionState.h"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 namespace {
 
@@ -94,9 +95,7 @@ ContractionState<LINE>::ContractionState() noexcept : linesInDocument(1) {
 }
 
 template <typename LINE>
-ContractionState<LINE>::~ContractionState() {
-	Clear();
-}
+ContractionState<LINE>::~ContractionState() = default;
 
 template <typename LINE>
 void ContractionState<LINE>::EnsureData() {
@@ -196,7 +195,7 @@ Sci::Line ContractionState<LINE>::DocFromDisplay(Sci::Line lineDisplay) const no
 	if (OneToOne()) {
 		return lineDisplay;
 	} else {
-		if (lineDisplay <= 0) {
+		if (lineDisplay < 0) {
 			return 0;
 		}
 		if (lineDisplay > LinesDisplayed()) {
@@ -409,7 +408,7 @@ void ContractionState<LINE>::Check() const noexcept {
 
 }
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 std::unique_ptr<IContractionState> ContractionStateCreate(bool largeDocument) {
 	if (largeDocument)

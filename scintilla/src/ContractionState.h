@@ -8,7 +8,7 @@
 #ifndef CONTRACTIONSTATE_H
 #define CONTRACTIONSTATE_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 /**
 */

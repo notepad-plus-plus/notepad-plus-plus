@@ -1,0 +1,30 @@
+{18}<?php{118}
+
+{123}$number{118} {127}={118} {122}1_234{127};{118}
+{123}$var{118} {127}={118} {120}'variable value'{127};{118}
+{123}$test{118} {127}={118} {127}[{118}
+	{119}<<<EOTEST
+	string {126}$var{119} string EOTEST
+	EOTEST_NOT
+	EOTEST{127},{118}
+	{122}0b00_01{127},{118}
+	{119}<<<"EOTEST"
+	"string" "{126}$var{119}" "string" EOTEST
+	EOTEST_NOT
+	EOTEST{127},{118}
+	{122}0x00_02{127},{118}
+	{120}<<<'EOTEST'
+	'string' '$var' 'string' EOTEST
+	EOTEST_NOT
+	EOTEST{127},{118}
+	{122}0x00_03{127},{118}
+{127}];{118}
+print_r{127}({123}$test{127});{118}
+
+{125}# Attribute tests{118}
+#{127}[{118}SingleLineAnnotation{127}({120}'string'{127},{118} {122}1{127},{118} null{127})]{118}
+#{127}[{118}
+	MultiLineAnnotation{127}({120}'string'{127},{118} {122}1{127},{118} null{127}){118}
+{127}]{118}
+
+{18}?>{0}

@@ -1,4 +1,6 @@
-// Unit Tests for Scintilla internal data structures
+/** @file testPartitioning.cxx
+ ** Unit Tests for Scintilla internal data structures
+ **/
 
 #include <cstddef>
 #include <cstring>
@@ -6,10 +8,11 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "Debugging.h"
 
 #include "Position.h"
 #include "SplitVector.h"
@@ -17,11 +20,11 @@
 
 #include "catch.hpp"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
-const int growSize = 4;
+constexpr int growSize = 4;
 
-const int lengthTestArray = 8;
+constexpr int lengthTestArray = 8;
 static const int testArray[lengthTestArray] = {3, 4, 5, 6, 7, 8, 9, 10};
 
 // Test SplitVectorWithRangeAdd.

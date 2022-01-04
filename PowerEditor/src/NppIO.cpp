@@ -1717,6 +1717,13 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 			{
 				_lastRecentFileList.add(origPathname.c_str());
 			}
+
+			// If file is replaced then remove it from recent list
+			if (res && !isSaveCopy)
+			{
+				_lastRecentFileList.remove(fn.c_str());
+			}
+
 			return res;
 		}
 		else		//cannot save, other view has buffer already open, activate it

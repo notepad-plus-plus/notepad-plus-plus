@@ -980,39 +980,18 @@ void WindowsDlg::doSortToTabs()
 
 void WindowsDlg::putItemsToClipboard(bool isFullPath)
 {
-	constexpr int pathColumn = 1;
-
-	TCHAR str[MAX_PATH] = {};
-	const generic_string crlf = _T("\r\n");
-
-	generic_string selection;
+	std::vector<Buffer*> buffers;
 	for (int i = -1, j = 0; ; ++j)
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i < 0)
 			break;
-		if (isFullPath)
-		{
-			// Get the directory path (2nd column).
-			ListView_GetItemText(_hList, i, pathColumn, str, sizeof(str));
-			if (str[0])
-				selection += str;
-		}
-
 		// Get the file name.
 		// Do not use ListView_GetItemText() because 1st column may contain "*" or "[Read Only]".
-		Buffer* buf = getBuffer(i);
-		if (buf)
-		{
-			const TCHAR* fileName = buf->getFileName();
-			if (fileName)
-				selection += fileName;
-		}
-		if (!selection.empty() && !endsWith(selection, crlf))
-			selection += crlf;
+		buffers.push_back(getBuffer(i));
 	}
-	if (!selection.empty())
-		str2Clipboard(selection, _hList);
+
+	buf2Clipborad(buffers, isFullPath, _hList);
 }
 
 Buffer* WindowsDlg::getBuffer(int index) const

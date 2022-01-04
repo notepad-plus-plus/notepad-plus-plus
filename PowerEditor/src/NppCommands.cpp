@@ -236,6 +236,18 @@ void Notepad_plus::command(int id)
 			}
 			break;
 
+		case IDM_DOCLIST_COPYNAMES:
+		case IDM_DOCLIST_COPYPATHS:
+			if (_pDocumentListPanel)
+			{
+				std::vector<Buffer*> buffers;
+				auto files = _pDocumentListPanel->getSelectedFiles(false);
+				for (auto&& sel : files)
+					buffers.push_back(MainFileManager.getBufferByID(sel._bufID));
+				buf2Clipborad(buffers, id == IDM_DOCLIST_COPYPATHS, _pDocumentListPanel->getHSelf());
+			}
+			break;
+
 		case IDM_FILE_CLOSE:
 			if (fileClose())
                 checkDocState();
@@ -1156,6 +1168,30 @@ void Notepad_plus::command(int id)
 			}
 		}
 		break;
+
+		case IDM_EDIT_COPY_ALL_NAMES:
+		case IDM_EDIT_COPY_ALL_PATHS:
+			{
+				std::vector<DocTabView*> docTabs;
+				if (viewVisible(MAIN_VIEW))
+					docTabs.push_back(&_mainDocTab);
+				if (viewVisible(SUB_VIEW))
+					docTabs.push_back(&_subDocTab);
+				std::vector<Buffer*> buffers;
+				for (auto&& docTab : docTabs)
+				{
+					for (size_t i = 0, len = docTab->nbItem(); i < len; ++i)
+					{
+						BufferID bufID = docTab->getBufferByIndex(i);
+						Buffer* buf = MainFileManager.getBufferByID(bufID);
+						// Don't add duplicates because a buffer might be cloned in other view.
+						if (docTabs.size() < 2 || std::find(buffers.begin(), buffers.end(), buf) == buffers.end())
+							buffers.push_back(buf);
+					}
+				}
+				buf2Clipborad({ buffers.begin(), buffers.end() }, id == IDM_EDIT_COPY_ALL_PATHS, _pPublicInterface->getHSelf());
+			}
+			break;
 
 		case IDM_SEARCH_FIND :
 		case IDM_SEARCH_REPLACE :

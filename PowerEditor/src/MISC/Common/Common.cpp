@@ -27,6 +27,7 @@
 #include "Common.h"
 #include "Utf8.h"
 #include <Parameters.h>
+#include "Buffer.h"
 
 void printInt(int int2print)
 {
@@ -934,6 +935,26 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 		return false;
 	}
 	return true;
+}
+
+bool buf2Clipborad(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd)
+{
+	const generic_string crlf = _T("\r\n");
+	generic_string selection;
+	for (auto&& buf : buffers)
+	{
+		if (buf)
+		{
+			const TCHAR* fileName = isFullPath ? buf->getFullPathName() : buf->getFileName();
+			if (fileName)
+				selection += fileName;
+		}
+		if (!selection.empty() && !endsWith(selection, crlf))
+			selection += crlf;
+	}
+	if (!selection.empty())
+		return str2Clipboard(selection, hwnd);
+	return false;
 }
 
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)

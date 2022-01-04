@@ -439,6 +439,9 @@ BEGIN
                 MENUITEM "Current Full File path to Clipboard",    IDM_EDIT_FULLPATHTOCLIP
                 MENUITEM "Current Filename to Clipboard",          IDM_EDIT_FILENAMETOCLIP
                 MENUITEM "Current Dir. Path to Clipboard",         IDM_EDIT_CURRENTDIRTOCLIP
+                MENUITEM SEPARATOR
+                MENUITEM "All Filenames to Clipboard",             IDM_EDIT_COPY_ALL_NAMES
+                MENUITEM "All File Paths to Clipboard",            IDM_EDIT_COPY_ALL_PATHS
         END
         POPUP "&Indent"
         BEGIN

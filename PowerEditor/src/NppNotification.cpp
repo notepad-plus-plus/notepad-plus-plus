@@ -493,10 +493,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					{
 						vector<MenuItemUnit> itemUnitArray;
 						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSE, TEXT("Close Selected files")));
-						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERS, TEXT("Close others files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERS, TEXT("Close Other files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_COPYNAMES, TEXT("Copy Selected Names")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_COPYPATHS, TEXT("Copy Selected Pathnames")));
+
+						for (auto&& x : itemUnitArray)
+						{
+							const generic_string menuItem = _nativeLangSpeaker.getNativeLangMenuString(x._cmdID);
+							if (!menuItem.empty())
+								x._itemName = menuItem;
+						}
 
 						_fileSwitcherMultiFilePopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
-						_nativeLangSpeaker.changeLangTabContextMenu(_fileSwitcherMultiFilePopupMenu.getMenuHandle());
 					}
 					_fileSwitcherMultiFilePopupMenu.display(p);
 					return TRUE;

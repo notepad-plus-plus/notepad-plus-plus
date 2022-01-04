@@ -499,7 +499,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 						for (auto&& x : itemUnitArray)
 						{
-							x._itemName = _nativeLangSpeaker.getNativeLangMenuString(x._cmdID);
+							const generic_string menuItem = _nativeLangSpeaker.getNativeLangMenuString(x._cmdID);
+							if (!menuItem.empty())
+								x._itemName = menuItem;
 						}
 
 						_fileSwitcherMultiFilePopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);

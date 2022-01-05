@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.9.3">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -879,6 +879,7 @@
                         <Item id="7122" name="Tmavší text"/>
                         <Item id="7123" name="Neprístupný text"/>
                         <Item id="7124" name="Okraj karty"/>
+                        <Item id="7125" name="Čiara"/>
                         <Item id="7130" name="Obnoviť"/>
                 </DarkMode>
 
@@ -1389,8 +1390,12 @@ Pokračovať?"/>
             <find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+Hľadá vo všetkých súboroch okrem exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+Hľadá vo všetkých súboroch okrem priečinkov tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
+*.* !+\log*"/>
             <find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
             <find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
             <find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>

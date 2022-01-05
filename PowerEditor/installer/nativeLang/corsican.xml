@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on January 5th, 2022 for version 8.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 4th, 2021 for version 8.1.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
@@ -29,7 +30,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.9.3">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -905,6 +906,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7122" name="Testu più oscuru"/>
                     <Item id="7123" name="Testu disattivatu"/>
                     <Item id="7124" name="Bordu"/>
+                    <Item id="7125" name="Liame"/>
                     <Item id="7130" name="Reinizià"/>
                 </DarkMode>
 
@@ -1076,7 +1078,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 
                 <MultiInstance title="Multi-finestra è data">
                     <Item id="6151" name="Preferenze di multi-finestra"/>
-                    <Item id="6152" name="Apre una sessione in una nova finestra di Notepad++"/>
+                    <Item id="6152" name="Apre una sessione in una nova finestra (è arregistralla autumaticamente à l’esce)"/>
                     <Item id="6153" name="Sempre in modu multi-finestra"/>
                     <Item id="6154" name="Predefinitu (mono-finestra)"/>
                     <Item id="6155" name="* A mudificazione di sta preferenza richiede di rilancià Notepad++"/>
@@ -1420,7 +1422,13 @@ Cuntinuà ?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Circà in tutti i schedarii fora di exe, obj è log :
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+*.* !*.exe !*.obj !*.log
+
+Circà in tutti i schedarii ma esclude i cartulari tests, bin è bin64 :
+*.* !\tests !\bin*
+
+Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o logs :
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
             <find-status-top-reached value="Circà : 1ᵃ occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
             <find-status-end-reached value="Circà : 1ᵃ occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
             <find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>

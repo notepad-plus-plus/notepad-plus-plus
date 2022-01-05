@@ -252,9 +252,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43049" name="&amp;Select and Find Previous"/>
                     <Item id="43054" name="Mar&amp;k..."/>
                     <Item id="43501" name="Close Selected"/>
-										<Item id="43502" name="Close Others"/>
-										<Item id="43503" name="Copy Selected Names"/>
-										<Item id="43504" name="Copy Selected Pathnames"/>
+                    <Item id="43502" name="Close Others"/>
+                    <Item id="43503" name="Copy Selected Names"/>
+                    <Item id="43504" name="Copy Selected Pathnames"/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
                     <Item id="44011" name="Distraction Free Mode"/>

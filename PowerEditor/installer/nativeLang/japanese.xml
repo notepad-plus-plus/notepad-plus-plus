@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.9.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -884,6 +884,7 @@
                     <Item id="7122" name="濃い文字"/>
                     <Item id="7123" name="無効部分の文字"/>
                     <Item id="7124" name="フチ"/>
+                    <Item id="7125" name="リンク"/>
                     <Item id="7130" name="リセット"/>
                 </DarkMode>
 
@@ -1393,11 +1394,17 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
             <two-find-buttons-tip value="検索ボタンを2個に分ける"/>
             <file-rename-title value="名前の変更"/>
-            <find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイルで検索する場合：
+            <find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイル内を検索する：
 *.cpp *.cxx *.h *.hxx *.hpp
 
-例）exe, obj, log 以外のファイルで検索する場合：
-*.* !*.exe !*.obj !*.log"/>
+例）exe, obj, log 以外のファイル内を検索する：
+*.* !*.exe !*.obj !*.log
+
+例）同じ階層の tests, bin, bin64 のフォルダー内を除き、すべてのファイル内を検索する：
+*.* !\tests !\bin*
+
+例）階層にかかわらず log や logs といったフォルダー内を除き、すべてのファイル内を検索する：
+*.* !+\log*"/>
             <find-status-top-reached value="検索：末尾からの最初の一致です。文書の先頭を通過しました"/>
             <find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
             <find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>

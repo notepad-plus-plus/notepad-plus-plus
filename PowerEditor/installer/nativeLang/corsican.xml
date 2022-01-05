@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on January 11th, 2022 for version 8.2.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 4th, 2021 for version 8.1.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
@@ -29,7 +30,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.1.9.3">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -204,6 +205,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
                     <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
                     <Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
+                    <Item id="42087" name="Cupià tutti i nomi di schedariu"/>
+                    <Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
                     <Item id="42032" name="&amp;Eseguisce una macro parechje volte…"/>
                     <Item id="42033" name="Caccià a marca di lettura-sola da u ducumentu"/>
                     <Item id="42035" name="Mette in cummentu a linea sola"/>
@@ -234,17 +237,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43013" name="Circà in sc&amp;hedarii"/>
                     <Item id="43014" name="Ricerca (&amp;vulatile) seguente"/>
                     <Item id="43015" name="Ricerca (&amp;vulatile) precedente"/>
-                    <Item id="43022" name="Impiegà u 1ᵘ stilu"/>
-                    <Item id="43023" name="Viutà u 1ᵘ stilu"/>
-                    <Item id="43024" name="Impiegà u 2ᵘ stilu"/>
-                    <Item id="43025" name="Viutà u 2ᵘ stilu"/>
-                    <Item id="43026" name="Impiegà u 3ᵘ stilu"/>
-                    <Item id="43027" name="Viutà u 3ᵘ stilu"/>
-                    <Item id="43028" name="Impiegà u 4ᵘ stilu"/>
-                    <Item id="43029" name="Viutà u 4ᵘ stilu"/>
-                    <Item id="43030" name="Impiegà u 5ᵘ stilu"/>
-                    <Item id="43031" name="Viutà u 5ᵘ stilu"/>
-                    <Item id="43032" name="Viutà tutti i stili"/>
+                    <Item id="43022" name="Impieghendu u 1ᵘ stilu"/>
+                    <Item id="43023" name="Spurgulà u 1ᵘ stilu"/>
+                    <Item id="43024" name="Impieghendu u 2ᵘ stilu"/>
+                    <Item id="43025" name="Spurgulà u 2ᵘ stilu"/>
+                    <Item id="43026" name="Impieghendu u 3ᵘ stilu"/>
+                    <Item id="43027" name="Spurgulà u 3ᵘ stilu"/>
+                    <Item id="43028" name="Impieghendu u 4ᵘ stilu"/>
+                    <Item id="43029" name="Spurgulà u 4ᵘ stilu"/>
+                    <Item id="43030" name="Impieghendu u 5ᵘ stilu"/>
+                    <Item id="43031" name="Spurgulà u 5ᵘ stilu"/>
+                    <Item id="43032" name="Spurgulà tutti i stili"/>
                     <Item id="43033" name="1ᵘ stilu"/>
                     <Item id="43034" name="2ᵘ stilu"/>
                     <Item id="43035" name="3ᵘ stilu"/>
@@ -275,6 +278,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43048" name="Sele&amp;zzione è ricerca seguente"/>
                     <Item id="43049" name="Sele&amp;zzione è ricerca precedente"/>
                     <Item id="43054" name="&amp;Marcà…"/>
+                    <Item id="43501" name="Chjode i ducumenti selezziunati"/>
+                    <Item id="43502" name="Chjode l’altri ducumenti"/>
+                    <Item id="43503" name="Cupià i nomi selezziunati"/>
+                    <Item id="43504" name="Cupià i chjassi selezziunati"/>
                     <Item id="44009" name="Post-it"/>
                     <Item id="44010" name="Piegà tutti i livelli"/>
                     <Item id="44011" name="Modu senza distrazzione"/>
@@ -903,6 +910,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7122" name="Testu più oscuru"/>
                     <Item id="7123" name="Testu disattivatu"/>
                     <Item id="7124" name="Bordu"/>
+                    <Item id="7125" name="Liame"/>
                     <Item id="7130" name="Reinizià"/>
                 </DarkMode>
 
@@ -1058,6 +1066,9 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6809" name="Cumpiimentu di funzione"/>
                     <Item id="6810" name="Cumpiimentu di parolla"/>
                     <Item id="6816" name="Cumpiimentu di funzione è di parolla"/>
+                    <Item id="6869" name="Framette a selezzione"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignurà i numeri"/>
                     <Item id="6811" name="Da u"/>
                     <Item id="6813" name="u caratteru"/>
@@ -1074,7 +1085,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 
                 <MultiInstance title="Multi-finestra è data">
                     <Item id="6151" name="Preferenze di multi-finestra"/>
-                    <Item id="6152" name="Apre una sessione in una nova finestra di Notepad++"/>
+                    <Item id="6152" name="Apre una sessione in una nova finestra (è arregistralla autumaticamente à l’esce)"/>
                     <Item id="6153" name="Sempre in modu multi-finestra"/>
                     <Item id="6154" name="Predefinitu (mono-finestra)"/>
                     <Item id="6155" name="* A mudificazione di sta preferenza richiede di rilancià Notepad++"/>
@@ -1408,9 +1419,11 @@ Cuntinuà ?"/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spaziu(i)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulazione(i)"/>
             <word-chars-list-warning-end value="  in a vostra lista di caratteri."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Selezziunà u cartulare induve arregistrà a salvaguardia"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Chjassu inaccettevule."/>
             <cloud-restart-warning value="Ci vole à rilancià Notepad++ per piglià in contu stu cambiamentu."/>
             <cloud-select-folder value="Selezziunà un cartulare induve Notepad++ leghje è scrive e so preferenze"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Selezziunà u cartulare chì serà quellu predefinitu"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Impiegà Maiusc+Entre per circà in a direzzione opposta."/>
             <two-find-buttons-tip value="Modu di 2 buttoni per circà"/>
             <file-rename-title value="Rinuminà"/>
@@ -1418,7 +1431,14 @@ Cuntinuà ?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Circà in tutti i schedarii fora di exe, obj è log :
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+*.* !*.exe !*.obj !*.log
+
+Circà in tutti i schedarii ma esclude i cartulari tests, bin è bin64 :
+*.* !\tests !\bin*
+
+Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o logs :
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Selezziunà u cartulare per facci a ricerca"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Circà : 1ᵃ occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
             <find-status-end-reached value="Circà : 1ᵃ occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
             <find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>
@@ -1512,6 +1532,10 @@ Circà in tutti i schedarii fora di exe, obj è log :
             <IncrementalFind-FSNotFound value="Espressione micca trova" />
             <IncrementalFind-FSTopReached value="Principiu di pagina toccu, cuntinuatu partendu da u bassu" />
             <IncrementalFind-FSEndReached value="Bassu di pagina toccu, cuntinuatu partendu da u principiu" />
+			<contextMenu-styleAlloccurrencesOfToken value="Stilizà tutte l’occurenze di testu" />
+            <contextMenu-styleOneToken value="Stilizà l’occurenza unica di testu" />
+            <contextMenu-clearStyle value="Spurgulà certi stili" />
+            <contextMenu-PluginCommands value="Cumande d’estensione" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -178,6 +178,8 @@
                     <Item id="42029" name="Skopírovať cestu k aktuálnemu súboru do schránky"/>
                     <Item id="42030" name="Skopírovať názov aktuálneho súboru do schránky"/>
                     <Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku do schránky"/>
+                    <Item id="42087" name="Všetky názvy súborov do schránky"/>
+                    <Item id="42088" name="Všetky cesty súborov do schránky"/>
                     <Item id="42032" name="Spustiť makro viacnásobne..."/>
                     <Item id="42033" name="Odstrániť označenie 'Iba na čítanie'"/>
                     <Item id="42035" name="Zakomentovať riadok"/>
@@ -249,6 +251,10 @@
                     <Item id="43048" name="V&amp;ybrať a hľadať ďalší"/>
                     <Item id="43049" name="Vy&amp;brať a hľadať predchádzajúci"/>
                     <Item id="43054" name="Oz&amp;načiť..."/>
+                    <Item id="43501" name="Zavrieť vybrané"/>
+                    <Item id="43502" name="Zavrieť ostatné"/>
+                    <Item id="43503" name="Skopírovať vybrané názvy"/>
+                    <Item id="43504" name="Skopírovať vybrané názvy"/>
                     <Item id="44009" name="Pripnúť"/>
                     <Item id="44010" name="Zbaliť všetko"/>
                     <Item id="44011" name="Režim bez vyrušovania"/>

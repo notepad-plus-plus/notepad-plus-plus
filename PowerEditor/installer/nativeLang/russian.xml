@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.1.9.3:
-- minor fix
+Updated to v8.2.1:
+- add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.1.9.3">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.2.1">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -126,6 +126,8 @@ Updated to v8.1.9.3:
 					<Item id="42029" name="&amp;Путь и Имя файла  (в буфер)"/>
 					<Item id="42030" name="&amp;Имя файла  (в буфер)"/>
 					<Item id="42031" name="Пу&amp;ть к файлу  (в буфер)"/>
+					<Item id="42087" name="Имена Всех файлов  (в буфер)"/>
+					<Item id="42088" name="Пути Всех файлов  (в буфер)"/>
 
 					<Item id="42008" name="Вставить Отступ (табуляция)"/>
 					<Item id="42009" name="Убрать Отступ (табуляция)"/>
@@ -223,6 +225,11 @@ Updated to v8.1.9.3:
 					<Item id="43009" name="Перейти к парной скобке"/>
 					<Item id="43053" name="Выделить всё между парных скобок"/>
 					<Item id="43054" name="Пометки..."/>
+
+					<Item id="43501" name="Закрыть Выделенные"/>
+					<Item id="43502" name="Закрыть Другие"/>
+					<Item id="43503" name="Копировать Имена выделенных"/>
+					<Item id="43504" name="Копировать Пути выделенных"/>
 
 					<Item id="43022" name="Используя 1-й стиль"/>
 					<Item id="43023" name="Убрать 1-й стиль"/>
@@ -433,7 +440,7 @@ Updated to v8.1.9.3:
 			</TabBar>
 		</Menu>
 		<Dialog>
-			<Find title="" titleFind="Найти" titleReplace="Замена" titleFindInFiles="Найти в файлах" titleFindInProjects="Найти в Проектах" titleMark="Пометки">
+			<Find title="" titleFind="Найти " titleReplace="Замена " titleFindInFiles="Найти в файлах " titleFindInProjects="Найти в Проектах " titleMark="Пометки ">
 				<Item id="1"    name="Найти Далее"/>
 				<Item id="2"    name="Закрыть"/>
 				<Item id="1603" name="Только целые слова"/>
@@ -1021,7 +1028,7 @@ Updated to v8.1.9.3:
 					<Item id="6427" name="Задать макс. длину:"/>
 				</RecentFilesHistory>
 				<Highlighting title="Подсветка">
-					<Item id="6351" name="Пометить все"/>
+					<Item id="6351" name="Пометить все Совпадения"/>
 					<Item id="6352" name="Учитывать регистр"/>
 					<Item id="6353" name="Только целые слова"/>
 					<Item id="6354" name="Парные"/>
@@ -1139,6 +1146,9 @@ Updated to v8.1.9.3:
 					<Item id="6814" name="Допустимые значения: 1-9"/>
 					<Item id="6815" name="Подсказка при вводе параметров функций"/>
 					<Item id="6816" name="Завершение функций и слов"/>
+					<Item id="6869" name="Вставить Выделенное"/>
+					<Item id="6870" name="TAB"/>
+					<Item id="6871" name="ENTER"/>
 					<Item id="6824" name="Игнорир. цифры"/>
 					<Item id="6851" name="Автовставка"/>
 					<Item id="6857" name=" html/xml закр. тег"/>
@@ -1229,7 +1239,7 @@ Updated to v8.1.9.3:
 			<BufferInvalidWarning        title="Ошибка Сохранения"               message="Не удается сохранить: Недопустимый буфер."/>
 			<DoCloseOrNot                title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
 			<DoDeleteOrNot               title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
-			<NoBackupDoSaveFile          title="Сохранение..."                  message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+			<NoBackupDoSaveFile          title="Сохранение..."                   message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot               title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?"/>
 			<DoReloadOrNotAndLooseChange title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
 			<PrehistoricSystemDetected   title="Обнаружена доисторическая система"   message="Кажется, вы все еще используете доисторическую систему. Извините, но эта функция работает только на современных системах."/>
@@ -1374,12 +1384,25 @@ Updated to v8.1.9.3:
 			<word-chars-list-space-warning value="$INT_REPLACE$ пробел(ов)"/>
 			<word-chars-list-tab-warning   value="$INT_REPLACE$ TAB(ов)"/>
 			<word-chars-list-warning-end   value="  в вашем списке символов."/>
+			<backup-select-folder          value="Выберите папку в качестве директории резервного копирования"/>
 			<cloud-invalid-warning         value="Недопустимый путь."/>
 			<cloud-restart-warning         value="Перезапустите Notepad++, чтобы изменения вступили в силу."/>
 			<cloud-select-folder           value="Выберите папку, которую Notepad++ будет использовать для чтения/записи своих настроек."/>
+			<default-open-save-select-folder value="Выберите папку в качестве директории по умолчанию"/>
 			<shift-change-direction-tip    value="Используйте Shift+Enter для поиска в обратном направлении."/>
 			<two-find-buttons-tip          value="2 направления поиска"/>
-			<find-in-files-filter-tip      value="Найти в файлах с расширением:&#x0A;*.cpp *.cxx *.h *.hxx *.hpp&#x0A;&#x0A;Кроме файлов:&#x0A;*.* !*.exe !*.obj !*.log"/>
+			<find-in-files-filter-tip      value="Искать в cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Искать во всех файлах, кроме exe, obj и log:
+*.* !*.exe !*.obj !*.log
+
+Искать во всех файлах, но исключить папки tests, bin и bin64:
+*.* !\tests !\bin*
+
+Искать во всех файлах, но исключить все папки log или рекурсивные logs:
+*.* !+\log*"/>
+			<find-in-files-select-folder   value="Выберите папку для поиска"/>
 			<find-status-top-reached       value="Поиск: Найдено одно совпадение снизу. Достигнуто начало документа."/>
 			<find-status-end-reached       value="Поиск: Найдено одно совпадение сверху. Достигнут конец документа."/>
 			<find-status-replaceinfiles-1-replaced        value="Замена в файлах: заменено 1 совпадение"/>
@@ -1472,10 +1495,15 @@ Updated to v8.1.9.3:
 			<file-save-assign-type                value="&amp;Добавлять расширение"/>
 			<file-rename-title                    value="Переименовать"/>
 			<close-panel-tip                      value="Закрыть"/>
-			<IncrementalFind-FSFound              value="$INT_REPLACE$ совпадений" />
-			<IncrementalFind-FSNotFound           value="Фраза не найдена" />
-			<IncrementalFind-FSTopReached         value="Выше совпадений нет, продолжено снизу" />
-			<IncrementalFind-FSEndReached         value="Ниже совпадений нет, продолжено сверху" />
+			<IncrementalFind-FSFound              value="$INT_REPLACE$ совпадений"/>
+			<IncrementalFind-FSNotFound           value="Фраза не найдена"/>
+			<IncrementalFind-FSTopReached         value="Выше совпадений нет, продолжено снизу"/>
+			<IncrementalFind-FSEndReached         value="Ниже совпадений нет, продолжено сверху"/>
+			<file-opencontainingfolder-cmd-tip    value="Изменены глобальные настройки среды. Если вам нужно обновить среду cmd, перезапустите Notepad++ из только что открытого проводника."/>
+			<contextMenu-styleAlloccurrencesOfToken value="Пометить все Совпадения"/>
+			<contextMenu-styleOneToken              value="Пометить только Одно"/>
+			<contextMenu-clearStyle                 value="Очистить Пометки"/>
+			<contextMenu-PluginCommands             value="Команды Плагина"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

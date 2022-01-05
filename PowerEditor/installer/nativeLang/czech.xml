@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.2.0.0  1/Jan/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.2.0.0  5/Jan/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -936,6 +936,7 @@
 					<Item id = "7122" name = "Tmavší text"/>
 					<Item id = "7123" name = "Dezaktivovaný text"/>
 					<Item id = "7124" name = "Okraje"/>
+					<Item id = "7125" name = "Odkazy"/>
 					<Item id = "7130" name = "Obnovit"/>
 				</DarkMode>
 				<MarginsBorderEdge title="Okraje/Lem/Hrana">
@@ -1144,7 +1145,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6162" name = "Použít implicitní seznam znaků pro Slova tak, jak je"/>
 					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
 				</Delimiter>
-				<Cloud title = "Cloud a hyperlinky">
+				<Cloud title = "Cloud a odkazy">
 					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
 					<Item id = "6262" name = "Nastavení internetového úložišťě"/>
 					<Item id = "6263" name = "Bez cloudu"/>

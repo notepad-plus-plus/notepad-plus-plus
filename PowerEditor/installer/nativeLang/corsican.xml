@@ -205,6 +205,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
                     <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
                     <Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
+                    <Item id="42087" name="Cupià tutti i nomi di schedariu"/>
+                    <Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
                     <Item id="42032" name="&amp;Eseguisce una macro parechje volte…"/>
                     <Item id="42033" name="Caccià a marca di lettura-sola da u ducumentu"/>
                     <Item id="42035" name="Mette in cummentu a linea sola"/>
@@ -276,6 +278,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43048" name="Sele&amp;zzione è ricerca seguente"/>
                     <Item id="43049" name="Sele&amp;zzione è ricerca precedente"/>
                     <Item id="43054" name="&amp;Marcà…"/>
+                    <Item id="43501" name="Chjode i ducumenti selezziunati"/>
+                    <Item id="43502" name="Chjode l’altri ducumenti"/>
+                    <Item id="43503" name="Cupià i nomi selezziunati"/>
+                    <Item id="43504" name="Cupià i chjassi selezziunati"/>
                     <Item id="44009" name="Post-it"/>
                     <Item id="44010" name="Piegà tutti i livelli"/>
                     <Item id="44011" name="Modu senza distrazzione"/>

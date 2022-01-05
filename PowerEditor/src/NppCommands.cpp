@@ -3923,6 +3923,8 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_IN_CHROME  :
 			case IDM_VIEW_IN_EDGE    :
 			case IDM_VIEW_IN_IE      :
+			case IDM_EDIT_COPY_ALL_NAMES:
+			case IDM_EDIT_COPY_ALL_PATHS:
 				_macro.push_back(recordedMacroStep(id));
 				break;
 

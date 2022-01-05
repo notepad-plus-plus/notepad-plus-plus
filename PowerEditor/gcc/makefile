@@ -50,7 +50,7 @@ SUBMAKEFLAGS := -O --no-print-directory
 ifeq "$(filter-out 0,$(DEBUG))" ""
 BUILD_TYPE := release
 BUILD_SUFFIX :=
-CXXFLAGS += -O2 -Os
+CXXFLAGS += -Os
 CPP_DEFINE += NDEBUG
 LDFLAGS += -s
 else
@@ -64,6 +64,9 @@ endif
 # preparations
 #
 
+# detect Windows directory
+WIN_DIR := $(or $(windir),$(WINDIR))
+
 # detect target CPU
 TARGET_CPU := $(firstword $(subst -, ,$(shell $(CXX) -dumpmachine)))
 ifeq "$(TARGET_CPU)" ""
@@ -75,15 +78,20 @@ endif
 ifeq "$(TARGET_CPU)" "i686"
 # for some reason i686 versions of MinGW-w64 GCC don't include a linking library for SensApi.dll
 # thus it is generated on the fly, but first check if the DLL is available
-ifeq "$(wildcard $(windir)/system32/SensApi.dll)" ""
+ifeq "$(wildcard $(WIN_DIR)/system32/SensApi.dll)" ""
 $(error $(TARGET_CPU) build requires "%windir%/system32/SensApi.dll" to be present)
 endif
-# detect explicit definition of TARGET_CPU via command line to force a 32-bit build
+# detect explicit definition of TARGET_CPU via command line to force a 32-bit build for MinGW-w64 with support multilib
 ifeq "$(origin TARGET_CPU)" "command line"
 export CXX += -m32
 export LD += -m32
 export RC += -Fpe-i386
 endif
+# detect explicit definition of TARGET_CPU via command line to force a 64-bit build for MinGW-w64 with support multilib
+else ifneq "$(and $(findstring x86_64,$(TARGET_CPU)),$(findstring command line,$(origin TARGET_CPU)))" ""
+export CXX += -m64
+export LD += -m64
+export RC += -Fpe-x86-64
 endif
 
 # define target and build directories and update dependent variables
@@ -96,6 +104,7 @@ BIN_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(BIN_DATA))
 INSTALLER_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(INSTALLER_DATA))
 
 SCINTILLA_TARGET := $(BUILD_DIRECTORY)/$(SCINTILLA_TARGET)
+SCINTILLA_TARGET_PATH := ../../PowerEditor/gcc/$(SCINTILLA_TARGET)
 
 LD_PATH += $(BUILD_DIRECTORY)
 
@@ -112,6 +121,7 @@ SRC_EXCLUDE := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(SRC_EXCLUDE))
 INSTALLER_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(INSTALLER_DIRECTORY))
 
 SCINTILLA_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(SCINTILLA_DIRECTORY))
+SCINTILLA_TARGET_PATH := $(CURDIR)/$(SCINTILLA_TARGET)
 
 CXXFLAGS := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(CXXFLAGS))
 CPP_PATH := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(CPP_PATH))
@@ -123,7 +133,7 @@ AT := @
 endif
 
 # detect the current operating system
-ifeq "$(windir)" ""
+ifeq "$(WIN_DIR)" ""
 # not a Windows system
 MKDIR := mkdir -p
 CPDIR := cp -r
@@ -133,11 +143,14 @@ RM := rm -f
 normalize-path = $1
 else ifneq "$(wildcard $(dir $(SHELL))ls.exe)" ""
 # a Windows system with a proper shell
-MKDIR := $(dir $(SHELL))mkdir.exe -p
-CPDIR := $(dir $(SHELL))cp.exe -r
-RMDIR := $(dir $(SHELL))rm.exe -rf
-CP := $(dir $(SHELL))cp.exe
-RM := $(dir $(SHELL))rm.exe -f
+NULL :=
+SPACE := $(NULL) $(NULL)
+SHELL_DIRECTORY := $(subst _,$(SPACE),$(dir $(subst $(SPACE),_,$(SHELL))))
+MKDIR := $(SHELL_DIRECTORY)mkdir.exe -p
+CPDIR := $(SHELL_DIRECTORY)cp.exe -r
+RMDIR := $(SHELL_DIRECTORY)rm.exe -rf
+CP := $(SHELL_DIRECTORY)cp.exe
+RM := $(SHELL_DIRECTORY)rm.exe -f
 normalize-path = $1
 else
 # a standard Windows system
@@ -190,7 +203,7 @@ $(BUILD_DIRECTORY):
 	$(AT)$(MKDIR) $(call normalize-path,$(sort $@ $(patsubst %/,%,$(dir $(CXX_TARGETS) $(RC_TARGETS)))))
 
 $(SCINTILLA_TARGET): | $(BUILD_DIRECTORY)
-	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 LIBLEX=$(CURDIR)/$(SCINTILLA_TARGET) $(CURDIR)/$(SCINTILLA_TARGET)
+	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 LIBLEX=$(SCINTILLA_TARGET_PATH) $(SCINTILLA_TARGET_PATH)
 
 binary: $(TARGET_BINARY) data
 	@echo *** $(TARGET_CPU) $(BUILD_TYPE) : $(CURDIR)/$(TARGET_BINARY) ***
@@ -207,7 +220,7 @@ ifeq "$(TARGET_CPU)" "i686"
 $(TARGET_BINARY): $(BUILD_DIRECTORY)/libsensapi.a
 $(BUILD_DIRECTORY)/libsensapi.a: | $(BUILD_DIRECTORY)
 	@echo * generating $@
-	$(AT)gendef $(call normalize-path,$(firstword $(wildcard $(windir)/syswow64/SensApi.dll $(windir)/system32/SensApi.dll)))
+	$(AT)gendef $(call normalize-path,$(firstword $(wildcard $(WIN_DIR)/syswow64/SensApi.dll $(WIN_DIR)/system32/SensApi.dll)))
 	$(AT)dlltool -mi386 -f--32 -d SensApi.def -k -l $(call normalize-path,$@)
 	$(AT)$(RM) SensApi.def
 endif

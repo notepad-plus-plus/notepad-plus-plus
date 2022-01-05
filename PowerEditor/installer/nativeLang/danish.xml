@@ -428,7 +428,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1641" name="&amp;Find alle i aktuelt dokument"/>
                 <Item id="1686" name="Transparens"/>
                 <Item id="1703" name="&amp; Find linieskift"/>
-		<Item id="1721" name="▲"/>
+		            <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Næste"/>
                 <Item id="1725" name="Kopiér mærket tekst"/>
             </Find>
@@ -1379,7 +1379,6 @@ Vil du fortsætte?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
              <word-chars-list-tip value="Giver mulighed for at inkludere ekstra tegn i aktuelt tegnsæt, ved dobbeltklik for markering, eller i søgning når &quot;Søg kun hele ord&quot; er valgt."/>
-
             <word-chars-list-warning-begin value="OBS: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ mellemrum"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulator(er)"/>

@@ -228,6 +228,7 @@ Section Uninstall
 		Delete "$INSTDIR\session.xml"
 		Delete "$INSTDIR\nativeLang.xml"
 		Delete "$INSTDIR\userDefineLang.xml"
+		Delete "$INSTDIR\nppLogNulContentCorruptionIssue.xml"
 	${endIf}
 	
 	Delete "$INSTDIR\config.model.xml"

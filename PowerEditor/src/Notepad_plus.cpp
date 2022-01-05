@@ -726,8 +726,14 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
 	activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
-	//::SetFocus(_mainEditView.getHSelf());
+
 	_mainEditView.getFocus();
+
+	if (_nativeLangSpeaker.isRTL())
+	{
+		_mainEditView.changeTextDirection(true);
+		_subEditView.changeTextDirection(true);
+	}
 
 	return TRUE;
 }
@@ -1465,8 +1471,9 @@ void Notepad_plus::removeDuplicateLines()
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 }
 
-void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
+void Notepad_plus::getMatchedFileNames(const TCHAR *dir, size_t level, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
 {
+	level++;
 	generic_string dirFilter(dir);
 	dirFilter += TEXT("*.*");
 	WIN32_FIND_DATA foundData;
@@ -1484,12 +1491,13 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 			}
 			else if (isRecursive)
 			{
-				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
+				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0) &&
+					!matchInExcludeDirList(foundData.cFileName, patterns, level))
 				{
 					generic_string pathDir(dir);
 					pathDir += foundData.cFileName;
 					pathDir += TEXT("\\");
-					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
+					getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir);
 				}
 			}
 		}
@@ -1513,12 +1521,13 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 			}
 			else if (isRecursive)
 			{
-				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
+				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0) &&
+					!matchInExcludeDirList(foundData.cFileName, patterns, level))
 				{
 					generic_string pathDir(dir);
 					pathDir += foundData.cFileName;
 					pathDir += TEXT("\\");
-					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
+					getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir);
 				}
 			}
 		}
@@ -1548,7 +1557,7 @@ bool Notepad_plus::createFilelistForFiles(vector<generic_string> & fileNames)
 
 	bool isRecursive = _findReplaceDlg.isRecursive();
 	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
-	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
+	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 	return true;
 }
 
@@ -6093,6 +6102,8 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		{
 			const bool isSnapshotMode = false;
 			const bool shouldLoadFileBrowser = true;
+
+			nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
 			loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 		}
 		return std::vector<generic_string>();
@@ -6240,7 +6251,7 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
     {
         // Get plugins dir
 		generic_string destDirName = (NppParameters::getInstance()).getNppPath();
-        PathAppend(destDirName, destDir);
+        pathAppend(destDirName, destDir);
 
         if (!::PathFileExists(destDirName.c_str()))
         {
@@ -6297,12 +6308,12 @@ vector<generic_string> Notepad_plus::addNppPlugins(const TCHAR *extFilterName, c
 					continue;
 
 				generic_string name = nameExt.substr(0, pos);
-				PathAppend(destName, name);
+				pathAppend(destName, name);
 				if (!::PathFileExists(destName.c_str()))
 				{
 					::CreateDirectory(destName.c_str(), NULL);
 				}
-				PathAppend(destName, nameExt);
+				pathAppend(destName, nameExt);
 
                 if (::CopyFile(fns.at(i).c_str(), destName.c_str(), FALSE))
                     copiedFiles.push_back(destName.c_str());
@@ -6601,9 +6612,10 @@ void Notepad_plus::launchDocumentListPanel()
 	if (!_pDocumentListPanel)
 	{
 		NppParameters& nppParams = NppParameters::getInstance();
+		int tabBarStatus = nppParams.getNppGUI()._tabStatus;
 
 		_pDocumentListPanel = new VerticalFileSwitcher;
-		HIMAGELIST hImgLst = _docTabIconList.getHandle();
+		HIMAGELIST hImgLst = ((tabBarStatus & TAB_ALTICONS) ? _docTabIconListAlt.getHandle() : NppDarkMode::isEnabled() ? _docTabIconListDarkMode.getHandle() : _docTabIconList.getHandle());
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
@@ -7752,7 +7764,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		if (NppDarkMode::isEnabled())
 		{
 			themePath = themeSwitcher.getThemeDirPath();
-			PathAppend(themePath, darkModeXmlFileName);
+			pathAppend(themePath, darkModeXmlFileName);
 
 			themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
 		}

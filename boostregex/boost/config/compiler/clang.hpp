@@ -351,3 +351,5 @@
 // Macro used to identify the Clang compiler.
 #define BOOST_CLANG 1
 
+// BOOST_CLANG_VERSION
+#include <boost/config/compiler/clang_version.hpp>

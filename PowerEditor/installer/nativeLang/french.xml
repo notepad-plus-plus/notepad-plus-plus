@@ -218,11 +218,6 @@
                     <Item id="43030" name="Appliquer le style 5"/>
                     <Item id="43031" name="Dégager le style 5"/>
                     <Item id="43032" name="Dégager tous les styles"/>
-                    <Item id="43062" name="Appliquer le style 1 uniquement sur l'occurrence sélectionnée"/>
-                    <Item id="43063" name="Appliquer le style 2 uniquement sur l'occurrence sélectionnée"/>
-                    <Item id="43064" name="Appliquer le style 3 uniquement sur l'occurrence sélectionnée"/>
-                    <Item id="43065" name="Appliquer le style 4 uniquement sur l'occurrence sélectionnée"/>
-                    <Item id="43066" name="Appliquer le style 5 uniquement sur l'occurrence sélectionnée"/>
                     <Item id="43033" name="Style 1"/>
                     <Item id="43034" name="Style 2"/>
                     <Item id="43035" name="Style 3"/>
@@ -555,6 +550,11 @@
                     <Item id="43026" name="Appliquer les marques du style 3"/>
                     <Item id="43028" name="Appliquer les marques du style 4"/>
                     <Item id="43030" name="Appliquer les marques du style 5"/>
+                    <Item id="43062" name="Appliquer le style 1 uniquement sur l'occurrence sélectionnée"/>
+                    <Item id="43063" name="Appliquer le style 2 uniquement sur l'occurrence sélectionnée"/>
+                    <Item id="43064" name="Appliquer le style 3 uniquement sur l'occurrence sélectionnée"/>
+                    <Item id="43065" name="Appliquer le style 4 uniquement sur l'occurrence sélectionnée"/>
+                    <Item id="43066" name="Appliquer le style 5 uniquement sur l'occurrence sélectionnée"/>
                     <Item id="43023" name="Dégager les marques du style 1"/>
                     <Item id="43025" name="Dégager les marques du style 2"/>
                     <Item id="43027" name="Dégager les marques du style 3"/>
@@ -1028,7 +1028,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 
                 <MultiInstance title="Instance Multiple &amp; Date">
                     <Item id="6151" name="Options d'instance multiple"/>
-                    <Item id="6152" name="Ouverture de session dans une nouvelle instance"/>
+                    <Item id="6152" name="Ouverture de session dans une nouvelle instance (et enregistrer la session automatiquement en sortant)"/>
                     <Item id="6153" name="Toujours en mode instance multiple"/>
                     <Item id="6154" name="Défaut (instance unique)"/>
                     <Item id="6155" name="* Redémarrez Notepad++ pour prendre en compte la modification"/>

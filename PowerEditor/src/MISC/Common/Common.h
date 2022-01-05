@@ -83,6 +83,7 @@ std::string getFileContent(const TCHAR *file2read);
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
 void writeFileContent(const TCHAR *file2write, const char *content2write);
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
+bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_string>& patterns, size_t level);
 bool allPatternsAreExclusion(const std::vector<generic_string> patterns);
 
 class WcharMbcsConvertor final
@@ -165,7 +166,7 @@ protected:
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 
 generic_string PathRemoveFileSpec(generic_string & path);
-generic_string PathAppend(generic_string &strDest, const generic_string & str2append);
+generic_string pathAppend(generic_string &strDest, const generic_string & str2append);
 COLORREF getCtrlBgColor(HWND hWnd);
 generic_string stringToUpper(generic_string strToConvert);
 generic_string stringToLower(generic_string strToConvert);

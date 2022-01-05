@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 30 September 2021 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 7 December 2021 by Elvis Gambiraža (el.gambo@gmail.com)
     The most recent version of this file:
     https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/croatian.xml
     The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="8.1.5">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="8.1.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -332,17 +332,18 @@
                     <Item id="46001" name="Postavke &amp;izgleda..."/>
                     <Item id="46250" name="Definiraj svoj jezik..."/>
                     <Item id="46300" name="Otvori mapu korisnički definiranih jezika..."/>
+                    <Item id="46301" name="Notepad++ zbirka korisnički definiranih jezika"/>
                     <Item id="46180" name="Korisnički definirano"/>
                     <Item id="47000" name="O programu &amp;Notepad++..."/>
                     <Item id="47010" name="&amp;Argumenti komandne linije..."/>
                     <Item id="47001" name="&amp;Web stranice Notepad++"/>
                     <Item id="47002" name="&amp;Stranice projekta Notepad++"/>
-                    <Item id="47003" name="Notepad++ &amp;online priručnik"/>
-                    <Item id="47004" name="Notepad++ &amp;zajednica (Forum)"/>
+                    <Item id="47003" name="&amp;Online priručnik za Notepad++"/>
+                    <Item id="47004" name="&amp;Forum Notepad++ zajednice"/>
                     <Item id="47012" name="&amp;Debug informacije..."/>
                     <Item id="47005" name="Više dodataka"/>
                     <Item id="47006" name="Až&amp;uriraj Notepad++"/>
-                    <Item id="47009" name="&amp;Postavi Proxy ažuriranja..."/>
+                    <Item id="47009" name="&amp;Postavke Proxy ažuriranja..."/>
                     <Item id="48005" name="Uvoz &amp;dodataka..."/>
                     <Item id="48006" name="Uvoz &amp;tema..."/>
                     <Item id="48018" name="Uredi skočni &amp;kontekstni izbornik"/>
@@ -697,6 +698,8 @@
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Brojevi"/>
+                    <Item id="25033" name="Prozirno"/>
+                    <Item id="25034" name="Prozirno"/>
                     <Item id="1" name="U redu"/>
                     <Item id="2" name="Poništi"/>
                 </StylerDialog>
@@ -1064,7 +1067,7 @@ Vidi Notepad++ online priručnik (Preferences)."/>
 
                 <MultiInstance title="Instance i vrijeme">
                     <Item id="6151" name="Postavke više-instančnog rada"/>
-                    <Item id="6152" name="Otvarati sesije u novoj instanci Notepada++"/>
+                    <Item id="6152" name="Otvori sesiju u novoj instanci (i automatski snimi sesiju pri izlazu)"/>
                     <Item id="6153" name="Uvijek u više-instančnom načinu"/>
                     <Item id="6154" name="Zadano (jedno-instančni način)"/>
                     <Item id="6155" name="Promjena ove postavke zahtijeva restart Notepada++"/>

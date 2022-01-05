@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-10-29 by schnurlos (schnurlos@gmail.com)
+	last modified: 2021-12-25 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.5">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.9.4">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -79,7 +79,7 @@
 					<Item subMenuId="encoding-westernEuropean" name="&amp;Westeuropäisch"/>
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamesisch"/>
 					<Item subMenuId="language-userDefinedLanguage" name="Benutzerdefinierte Sprache"/>
-					<Item subMenuId="settings-import" name="&amp;Import"/>
+					<Item subMenuId="settings-import" name="&amp;Importieren"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
@@ -327,7 +327,8 @@
 
 					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
-					<Item id="46300" name="Verzeichnis mit benutzerdefinierte Sprache öffnen …"/>
+					<Item id="46300" name="Verzeichnis mit benutzerdefinierten Sprachen öffnen …"/>
+					<Item id="46301" name="Sammlung benutzderdefinierter Sprachen für Notepad++"/>
 					<Item id="46180" name="Benutzerdefiniert"/>
 					<Item id="47000" name="&amp;Info …"/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>
@@ -340,7 +341,7 @@
 					<Item id="47006" name="Notepad++ &amp;aktualisieren"/>
 					<Item id="47009" name="&amp;Proxy für Updater einstellen …"/>
 					<Item id="48005" name="Plugin(s) &amp;importieren …"/>
-					<Item id="48006" name="Stil-&amp;Thema(en) importieren …"/>
+					<Item id="48006" name="Stil-&amp;Themen importieren …"/>
 					<Item id="48018" name="Popup-&amp;KontextMenü bearbeiten …"/>
 					<Item id="48009" name="&amp;Tastenkombi erstellen …"/>
 					<Item id="48011" name="&amp;Einstellungen …"/>
@@ -692,6 +693,8 @@
 					<Item id="25026" name="Operatoren 1"/>
 					<Item id="25027" name="Operatoren 2"/>
 					<Item id="25028" name="Zahlen"/>
+					<Item id="25033" name="Transparent"/>
+					<Item id="25034" name="Transparent"/>
 					<Item id="1"     name="&amp;OK"/>
 					<Item id="2"     name="A&amp;bbrechen"/>
 				</StylerDialog>
@@ -845,7 +848,7 @@
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 
 					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
-					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
+					<Item id="6123" name="Sprache"/>
 
 					<Item id="6128" name="Alternative Symbole"/>
 				</Global>
@@ -889,7 +892,7 @@
 					<Item id="7130" name="Zurücksetzen"/>
 				</DarkMode>
 
-				<MarginsBorderEdge title="Faltung/Rahmen/Ränder">
+				<MarginsBorderEdge title="Ränder/Kanten">
 					<Item id="6201" name="Ordnerrandstil"/>
 					<Item id="6202" name="Einfach"/>
 					<Item id="6203" name="Pfeil"/>
@@ -1055,9 +1058,9 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6866" name="Zeichenpaar 3:"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Mehrere Instanzen &amp; Datum">
-					<Item id="6151" name="Mehrere Instanzen"/>
-					<Item id="6152" name="Sitzungsdateien in einer neuen Instanz öffnen"/>
+				<MultiInstance title="Instanzen &amp; Datum">
+					<Item id="6151" name="Instanzen-Einstellungen"/>
+					<Item id="6152" name="Sitzungsdateien in einer neuen Instanz öffnen (und die Sitzung beim Beenden automatisch speichern)"/>
 					<Item id="6153" name="Immer im Mehrinstanzmodus"/>
 					<Item id="6154" name="Standard (nur eine Instanz)"/>
 					<Item id="6155" name="Nach Änderung der Einstellung muss Notepad++ neu gestartet werden."/>
@@ -1399,7 +1402,7 @@ Fortsetzen?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Finde in allen Dateien außer exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
 			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>

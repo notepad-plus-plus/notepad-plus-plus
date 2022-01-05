@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.1.5
-        Last modified 01. Oct 2021 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.1.9.3
+        Last modified 09. Dec 2021 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.1.5">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.1.9.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -320,7 +320,8 @@
 								
 					<Item id="46001" name="Nastavljanje sloga..."/>
 					<Item id="46250" name="Določite svoj jezik..."/>
-					<Item id="46300" name="Odpri Uporabniško določeno mapo Jezik..."/>						
+					<Item id="46300" name="Odpri mapo Uporabniško določen jezik..."/>
+					<Item id="46301" name="Notepad++ Zbirka uporabniško določenih jezikov"/>					
 					<Item id="46180" name="Uporabniško določeno"/>
 					<Item id="47000" name="Vizitka Notepad++"/>
 					<Item id="47010" name="Argumenti ukazne vrstice..."/>
@@ -685,6 +686,8 @@
 					<Item id="25026" name="Operator 1"/>
 					<Item id="25027" name="Operator 2"/>
 					<Item id="25028" name="Števila"/>
+                    <Item id="25033" name="Transparentno"/>
+                    <Item id="25034" name="Transparentno"/>					
 					<Item id="1" name="V redu"/>
                     <Item id="2" name="Prekliči"/>
                 </StylerDialog>
@@ -1392,7 +1395,7 @@ Nadaljujem?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-status-top-reached value="Najdi: Najdena je 1. pojavitev od spodaj. Začetek dokumenta je bil dosežen."/>
 			<find-status-end-reached value="Najdi: Najdena je 1. pojavitev od zgoraj. Konec dokumenta je bil dosežen."/>
 			<find-status-replaceinfiles-1-replaced value="Zamenjaj v datotekah: 1 pojavitev je bila zamenjana"/>

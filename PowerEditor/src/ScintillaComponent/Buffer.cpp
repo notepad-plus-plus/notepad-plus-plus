@@ -17,6 +17,8 @@
 #include <deque>
 #include <algorithm>
 #include <time.h>
+#include <locale>
+#include <codecvt>
 #include <sys/stat.h>
 #include "Buffer.h"
 #include "Scintilla.h"
@@ -26,6 +28,7 @@
 #include "EncodingMapper.h"
 #include "uchardet.h"
 #include "FileInterface.h"
+
 
 static const int blockSize = 128 * 1024 + 4;
 static const int CR = 0x0D;
@@ -149,17 +152,20 @@ void Buffer::updateTimeStamp()
 	{
 		if (res == 1)
 		{
-			if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
+			NppParameters& nppParam = NppParameters::getInstance();
+			if (nppParam.doNppLogNetworkDriveIssue())
 			{
-				generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-				nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
-				nppLogNetworkDriveIssueLog += TEXT(".log");
+				generic_string issueFn = nppLogNetworkDriveIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
 
-				std::string msg = std::string(_fullPathName.begin(), _fullPathName.end());
+				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+				std::string msg = converter.to_bytes(_fullPathName);
 				char buf[1024];
 				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%u/%u) < _timeStamp (%u/%u)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 				msg += buf;
-				writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 		}
 		_timeStamp = timeStampLive;
@@ -216,6 +222,8 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 			newLang = L_PYTHON;
 		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Rakefile")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Vagrantfile")) == 0))
 			newLang = L_RUBY;
+		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("crontab")) == 0))
+			newLang = L_BASH;
 	}
 
 	updateTimeStamp();
@@ -297,17 +305,20 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		{
 			if (res == 1)
 			{
-				if (NppParameters::getInstance().doNppLogNetworkDriveIssue())
+				NppParameters& nppParam = NppParameters::getInstance();
+				if (nppParam.doNppLogNetworkDriveIssue())
 				{
-					generic_string nppLogNetworkDriveIssueLog = TEXT("c:\\temp\\");
-					nppLogNetworkDriveIssueLog += nppLogNetworkDriveIssue;
-					nppLogNetworkDriveIssueLog += TEXT(".log");
+					generic_string issueFn = nppLogNetworkDriveIssue;
+					issueFn += TEXT(".log");
+					generic_string nppIssueLog = nppParam.getUserPath();
+					pathAppend(nppIssueLog, issueFn);
 
-					std::string msg = std::string(_fullPathName.begin(), _fullPathName.end());
+					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+					std::string msg = converter.to_bytes(_fullPathName);
 					char buf[1024];
 					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%u/%u) < _timeStamp (%u/%u)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 					msg += buf;
-					writeLog(nppLogNetworkDriveIssueLog.c_str(), msg.c_str());
+					writeLog(nppIssueLog.c_str(), msg.c_str());
 				}
 			}
 			_timeStamp = attributes.ftLastWriteTime;
@@ -710,7 +721,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	Buffer* buf = getBufferByID(id);
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
-	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
+
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
 
 	LoadedFileFormat loadedFileFormat;
@@ -721,13 +732,21 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
+	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
+
 	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
+
 	buf->_canNotify = true;
 
 	if (res)
 	{
+		// now we are synchronized with the file on disk, so reset relevant flags
+		buf->setUnsync(false);
+		buf->setDirty(false); // if the _isUnsync was true before the reloading, the _isDirty had been set to true somehow in the loadFileData()
+
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
+
 	return res;
 }
 
@@ -1210,11 +1229,13 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 
 int FileManager::detectCodepage(char* buf, size_t len)
 {
+	int codepage = -1;
 	uchardet_t ud = uchardet_new();
 	uchardet_handle_data(ud, buf, len);
 	uchardet_data_end(ud);
 	const char* cs = uchardet_get_charset(ud);
-	int codepage = EncodingMapper::getInstance().getEncodingFromString(cs);
+	if (stricmp(cs, "TIS-620") != 0) // TIS-620 detection is disabled here because uchardet detects usually wrongly UTF-8 as TIS-620
+		codepage = EncodingMapper::getInstance().getEncodingFromString(cs);
 	uchardet_delete(ud);
 	return codepage;
 }

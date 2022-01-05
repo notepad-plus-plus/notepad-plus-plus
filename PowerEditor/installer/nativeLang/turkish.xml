@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.1.5">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.1.9.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -317,6 +317,7 @@
 					<Item id="46001" name="&amp;Stil Yapılandırıcı…"/>
 					<Item id="46250" name="Dil &amp;Tanımla"/>
 					<Item id="46300" name="Kullanıcı Tanımlı Dil Klasörünü Aç..."/>
+					<Item id="46301" name="Notepad++ Kullanıcı Tanımlı Diller Koleksiyonu"/>
 					<Item id="46180" name="Tanımlı Dili &amp;Kullan"/>
 					<Item id="47000" name="Notepad++ &amp;Hakkında"/>
 					<Item id="47010" name="Komut Satırı Değişkenleri…"/>
@@ -684,6 +685,8 @@
 						<Item id="25026" name="İşleç 1"/>
 						<Item id="25027" name="İşleç 2"/>
 						<Item id="25028" name="Sayılar"/>
+						<Item id="25033" name="Saydam"/>
+						<Item id="25034" name="Saydam"/>
 						<Item id="1" name="Tamam"/>
 						<Item id="2" name="İptal"/>
 					</StylerDialog>
@@ -1050,7 +1053,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 
 				<MultiInstance title="Çoklu Örnek &amp; Tarih">
 					<Item id="6151" name="Çoklu Örnek Ayarları"/>
-					<Item id="6152" name="Yeni bir Notepad++ örneğinde oturum aç"/>
+					<Item id="6152" name="Yeni bir örnekte oturum aç (ve kapanınca oturumu otomatik kaydet)"/>
 					<Item id="6153" name="Her zaman çoklu örnek modunda"/>
 					<Item id="6154" name="Varsayılan (tekli örnek)"/>
 					<Item id="6155" name="* Bu ayarın değiştirilmesi Notepad++'ın yeniden başlatılmasını gerektirir."/>

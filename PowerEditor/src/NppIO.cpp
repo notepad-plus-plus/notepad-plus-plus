@@ -414,7 +414,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 																   // and avoid to call (if pass string) :
 																   // string (const string& str, size_t pos, size_t len = npos);
 
-					getMatchedFileNames(dir.c_str(), patterns, fileNames, isRecursive, false);
+					getMatchedFileNames(dir.c_str(), 0, patterns, fileNames, isRecursive, false);
 				}
             }
             else
@@ -424,7 +424,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
                     fileNameStr += TEXT("\\");
 
                 patterns.push_back(TEXT("*"));
-                getMatchedFileNames(fileNameStr.c_str(), patterns, fileNames, true, false);
+                getMatchedFileNames(fileNameStr.c_str(), 0, patterns, fileNames, true, false);
             }
 
             bool ok2Open = true;
@@ -1717,6 +1717,13 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 			{
 				_lastRecentFileList.add(origPathname.c_str());
 			}
+
+			// If file is replaced then remove it from recent list
+			if (res && !isSaveCopy)
+			{
+				_lastRecentFileList.remove(fn.c_str());
+			}
+
 			return res;
 		}
 		else		//cannot save, other view has buffer already open, activate it
@@ -1782,7 +1789,7 @@ bool Notepad_plus::fileRename(BufferID id)
 
 		StringDlg strDlg;
 		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));
-		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), 0, reservedChars.c_str(), true);
+		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), langNameLenMax - 1, reservedChars.c_str(), true);
 
 		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
 		if (tabNewName)
@@ -2296,15 +2303,17 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			bool isAllSuccessful = true;
 			Session session2Load;
 
-			if ((NppParameters::getInstance()).loadSession(session2Load, sessionFileName.c_str()))
+			if (nppParam.loadSession(session2Load, sessionFileName.c_str()))
 			{
 				const bool isSnapshotMode = false;
 				const bool shouldLoadFileBrowser = true;
 				isAllSuccessful = loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 				result = true;
+				if (isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
+					nppParam.setLoadedSessionFilePath(sessionFileName);
 			}
 			if (!isAllSuccessful)
-				(NppParameters::getInstance()).writeSession(session2Load, sessionFileName.c_str());
+				nppParam.writeSession(session2Load, sessionFileName.c_str());
 		}
 		if (result == false)
 		{
@@ -2315,6 +2324,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 				MB_OK);
 		}
 	}
+
 	return result;
 }
 

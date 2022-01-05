@@ -428,18 +428,18 @@ PluginsAdminDlg::PluginsAdminDlg()
 	// Get wingup path
 	NppParameters& nppParameters = NppParameters::getInstance();
 	_updaterDir = nppParameters.getNppPath();
-	PathAppend(_updaterDir, TEXT("updater"));
+	pathAppend(_updaterDir, TEXT("updater"));
 	_updaterFullPath = _updaterDir;
-	PathAppend(_updaterFullPath, TEXT("gup.exe"));
+	pathAppend(_updaterFullPath, TEXT("gup.exe"));
 
 	// get plugin-list path
 	_pluginListFullPath = nppParameters.getPluginConfDir();
 
 #ifdef DEBUG // if not debug, then it's release
 	// load from nppPluginList.json instead of nppPluginList.dll
-	PathAppend(_pluginListFullPath, TEXT("nppPluginList.json"));
+	pathAppend(_pluginListFullPath, TEXT("nppPluginList.json"));
 #else //RELEASE
-	PathAppend(_pluginListFullPath, TEXT("nppPluginList.dll"));
+	pathAppend(_pluginListFullPath, TEXT("nppPluginList.dll"));
 #endif
 }
 

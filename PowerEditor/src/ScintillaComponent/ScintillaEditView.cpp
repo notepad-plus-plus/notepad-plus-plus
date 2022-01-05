@@ -947,6 +947,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.cpp.comment.explicit"), reinterpret_cast<LPARAM>("0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 
 	// Disable track preprocessor to avoid incorrect detection.
@@ -1057,6 +1058,7 @@ void ScintillaEditView::setJsLexer()
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.cpp.comment.explicit"), reinterpret_cast<LPARAM>("0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 
 	// Disable track preprocessor to avoid incorrect detection.
@@ -1153,6 +1155,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.cpp.comment.explicit"), reinterpret_cast<LPARAM>("0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 }
 
@@ -1194,6 +1197,7 @@ void ScintillaEditView::setTypeScriptLexer()
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.cpp.comment.explicit"), reinterpret_cast<LPARAM>("0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.track.preprocessor"), reinterpret_cast<LPARAM>("0"));
@@ -3654,8 +3658,37 @@ bool ScintillaEditView::isTextDirectionRTL() const
 void ScintillaEditView::changeTextDirection(bool isRTL)
 {
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
-	exStyle = isRTL ? exStyle | WS_EX_LAYOUTRTL : exStyle&(~WS_EX_LAYOUTRTL);
+	exStyle = isRTL ? (exStyle | WS_EX_LAYOUTRTL) : (exStyle & (~WS_EX_LAYOUTRTL));
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
+
+	if (isRTL)
+	{
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT, SCI_CHARLEFT);
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + (SCMOD_SHIFT << 16), SCI_CHARLEFTEXTEND);
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + ((SCMOD_SHIFT + SCMOD_ALT) << 16), SCI_CHARLEFTRECTEXTEND);
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + (SCMOD_CTRL << 16), SCI_WORDLEFT);
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + ((SCMOD_SHIFT + SCMOD_CTRL) << 16), SCI_WORDLEFTEXTEND);
+
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT, SCI_CHARRIGHT);
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT + (SCMOD_SHIFT << 16), SCI_CHARRIGHTEXTEND);
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT + ((SCMOD_SHIFT + SCMOD_ALT) << 16), SCI_CHARRIGHTRECTEXTEND);
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT + (SCMOD_CTRL << 16), SCI_WORDRIGHT);
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT + ((SCMOD_SHIFT + SCMOD_CTRL) << 16), SCI_WORDRIGHTEXTEND);
+	}
+	else
+	{
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT, SCI_CHARRIGHT);
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + (SCMOD_SHIFT << 16), SCI_CHARRIGHTEXTEND);
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + ((SCMOD_SHIFT + SCMOD_ALT) << 16), SCI_CHARRIGHTRECTEXTEND);
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + (SCMOD_CTRL << 16), SCI_WORDRIGHT);
+		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + ((SCMOD_SHIFT + SCMOD_CTRL) << 16), SCI_WORDRIGHTEXTEND);
+
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT, SCI_CHARLEFT);
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT + (SCMOD_SHIFT << 16), SCI_CHARLEFTEXTEND);
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT + ((SCMOD_SHIFT + SCMOD_ALT) << 16), SCI_CHARLEFTRECTEXTEND);
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT + (SCMOD_CTRL << 16), SCI_WORDLEFT);
+		execute(SCI_ASSIGNCMDKEY, SCK_LEFT + ((SCMOD_SHIFT + SCMOD_CTRL) << 16), SCI_WORDLEFTEXTEND);
+	}
 }
 
 generic_string ScintillaEditView::getEOLString()

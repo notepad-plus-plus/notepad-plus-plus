@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.1.5  15/Sep/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.1.9.3  4/Dec/2021  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.5">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -331,7 +331,8 @@
 					<Item id = "46033" name = "Sestavení"/>
 					<Item id = "46180" name = "Vlastní"/>
 					<Item id = "46250" name = "Definovat vlastní syntaxi..."/>
-					<Item id = "46300" name = "Otevřít složku s uživatelsky definovanou syntaxí..."/>
+					<Item id = "46300" name = "Otevřít složku s uživatelsky definovanými syntaxemi..."/>
+					<Item id = "46301" name = "Sbírka uživatelsky definovaných syntaxí Notepadu++ (GitHub)"/>
 					<Item id = "47000" name = "O Notepadu++ ..."/>
 					<Item id = "47001" name = "N++ - domovská stránka"/>
 					<Item id = "47002" name = "N++ - stránka projektu"/>
@@ -720,6 +721,8 @@
 					<Item id = "25026" name = "Operátor 1"/>
 					<Item id = "25027" name = "Operátor 2"/>
 					<Item id = "25028" name = "Číslice"/>
+					<Item id = "25033" name = "Průhledné"/>
+					<Item id = "25034" name = "Průhledné"/>
 				</StylerDialog>
 				<Folder title = "Složka &amp;&amp; Výchozí">
 					<Item id = "21101" name = "Výchozí nastavení návrhu"/>
@@ -1502,15 +1505,15 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<find-result-title-info-extra value = " - Režim řádkového filtru: zobrazení pouze filtrovaných výsledků"/>
 			<find-result-hits value = "(výskytů: $INT_REPLACE$)"/>
 			<find-result-line-prefix value = "Řádek"/> <!-- Must not begin with space or tab character -->
-			<find-regex-zero-length-match value = "shoda nulové délky" />
+			<find-regex-zero-length-match value = "shoda nulové délky"/>
 			<session-save-folder-as-workspace value = "Uložit složku jako pracovní plochu"/>
-			<tab-untitled-string value = "nový " />
-			<file-save-assign-type value = "Přid&amp;at příponu." />
+			<tab-untitled-string value = "nový "/>
+			<file-save-assign-type value = "Přid&amp;at příponu."/>
 			<close-panel-tip value = "Zavřít" />
-			<IncrementalFind-FSFound value = "$INT_REPLACE$ výskytů" />
-			<IncrementalFind-FSNotFound value = "Výraz nenalezen." />
-			<IncrementalFind-FSTopReached value = "Bylo dosaženo začátku stránky, pokračování odspodu" />
-			<IncrementalFind-FSEndReached value = "Bylo dosaženo konce stránky, pokračování odshora" />
+			<IncrementalFind-FSFound value = "výskytů: $INT_REPLACE$"/>
+			<IncrementalFind-FSNotFound value = "Výraz nenalezen."/>
+			<IncrementalFind-FSTopReached value = "Bylo dosaženo začátku stránky, pokračování odspodu"/>
+			<IncrementalFind-FSEndReached value = "Bylo dosaženo konce stránky, pokračování odshora"/>
 		</MiscStrings>
 
 	</Native-Langue>

@@ -63,7 +63,9 @@ public:
 		::SendMessage(_hParent, NPPM_DMMUPDATEDISPINFO, 0, reinterpret_cast<LPARAM>(_hSelf));
 	}
 
-    virtual void destroy() {}
+    virtual void destroy() {
+		StaticDialog::destroy();
+	}
 
 	virtual void setBackgroundColor(COLORREF) {}
 	virtual void setForegroundColor(COLORREF) {}

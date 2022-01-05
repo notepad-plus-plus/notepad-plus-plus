@@ -3230,10 +3230,10 @@ void Notepad_plus::command(int id)
 			else
 			{
 				generic_string updaterDir = (NppParameters::getInstance()).getNppPath();
-				PathAppend(updaterDir, TEXT("updater"));
+				pathAppend(updaterDir, TEXT("updater"));
 
 				generic_string updaterFullPath = updaterDir;
-				PathAppend(updaterFullPath, TEXT("gup.exe"));
+				pathAppend(updaterFullPath, TEXT("gup.exe"));
 
 
 #ifdef DEBUG // if not debug, then it's release
@@ -3471,15 +3471,30 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_RTL :
 		case IDM_EDIT_LTR :
 		{
-			_pEditView->changeTextDirection(id == IDM_EDIT_RTL);
+			bool toRTL = id == IDM_EDIT_RTL;
+			bool isRTL = _pEditView->isTextDirectionRTL();
+
+			if ((toRTL && isRTL) || (!toRTL && !isRTL))
+			{
+				if (! ((NppParameters::getInstance()).getNppGUI())._muteSounds)
+					::MessageBeep(MB_OK);
+				break;
+			}
+
+			_pEditView->changeTextDirection(toRTL);
+			_pNonEditView->changeTextDirection(toRTL);
 
 			// Wrap then !wrap to fix problem of mirror characters
 			bool isWraped = _pEditView->isWrap();
 			_pEditView->wrap(!isWraped);
 			_pEditView->wrap(isWraped);
+
+			_pNonEditView->wrap(!isWraped);
+			_pNonEditView->wrap(isWraped);
+
 			if (_pDocMap)
 			{
-				_pDocMap->changeTextDirection(id == IDM_EDIT_RTL);
+				_pDocMap->changeTextDirection(toRTL);
 			}
 		}
 		break;

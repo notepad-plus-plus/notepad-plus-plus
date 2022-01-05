@@ -4,9 +4,9 @@
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
-<!-- For Notepad++ Version 8.1.4, modified on 2021.09.04 -->
+<!-- For Notepad++ Version 8.1.9.3, modified on 2021.12.26 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="8.0">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="8.1.9.3">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -29,7 +29,7 @@
                     <Item subMenuId="file-openFolder" name="Tartalmazó mappa"/>
                     <Item subMenuId="file-closeMore" name="Többi bezárása"/>
                     <Item subMenuId="file-recentFiles" name="Előzmények"/>
-                    <Item subMenuId="edit-insert" name="Beilleszt"/>
+                    <Item subMenuId="edit-insert" name="Dátum beillesztése"/>
                     <Item subMenuId="edit-copyToClipboard" name="Másolás a vágólapra"/>
                     <Item subMenuId="edit-indent" name="Behúzás"/>
                     <Item subMenuId="edit-convertCaseTo" name="Kisbetű - Nagybetű"/>
@@ -114,9 +114,9 @@
                     <Item id="42006" name="Törlés"/>
                     <Item id="42007" name="Mind kijelölése"/>
                     <Item id="42020" name="Kezdő és végpontos kijelölés"/>
-                    <Item id="42084" name="Idő és dátum (rövid)"/>
-                    <Item id="42085" name="Idő és dátum (hosszú)"/>
-                    <Item id="42086" name="Idő és dátum (egyéni)"/>
+                    <Item id="42084" name="Dátum és idő (rövid)"/>
+                    <Item id="42085" name="Dátum és idő (hosszú)"/>
+                    <Item id="42086" name="Dátum és idő (egyéni)"/>
                     <Item id="42008" name="Behúzás növelése (Tabulátor beszúrása)"/>
                     <Item id="42009" name="Behúzás csökkentése (Tabulátor törlése)"/>
                     <Item id="42010" name="Aktuális sor megkettőzése"/>
@@ -325,12 +325,13 @@
                     <Item id="46001" name="Stílusok beállításai..."/>
                     <Item id="46250" name="Egyéni nyelv beállítása..."/>
                     <Item id="46300" name="Egyéni nyelvek mappája..."/>
+                    <Item id="46301" name="Egyéni nyelvek online gyűjteménye"/>
                     <Item id="46180" name="Egyéni nyelv"/>
                     <Item id="47000" name="Névjegy..."/>
                     <Item id="47010" name="Parancssori kapcsolók..."/>
                     <Item id="47001" name="Notepad++ honlapja"/>
                     <Item id="47002" name="Notepad++ projekt oldal"/>
-                    <Item id="47003" name="Online Súgó"/>
+                    <Item id="47003" name="Notepad++ Online Felhasználói Kézikönyv"/>
                     <Item id="47004" name="Notepad++ Fórum"/>
                     <Item id="47012" name="Debug adatok..."/>
                     <Item id="47005" name="További bővítmények"/>
@@ -439,8 +440,8 @@
             </Find>
 
             <IncrementalFind title="">
-                <Item id="1681" name="Keresés"/>
-                <Item id="1685" name="Kis- és nagybetűk megkülönböztetése"/>
+                <Item id="1681" name="Keresés: "/>
+                <Item id="1685" name="Kis- és nagybetű különbözik"/>
                 <Item id="1690" name="Mind kiemelése"/>
             </IncrementalFind>
 
@@ -484,7 +485,6 @@
                 <Item id="1934" name="Másolás a vágólapra"/>
                 <Item id="2"    name="Bezárás"/>
             </MD5FromTextDlg>
-
             <SHA256FromFilesDlg title="SHA-256 lenyomat generálása fájlokból">
                 <Item id="1922" name="Fájlok kiválasztása..."/>
                 <Item id="1924" name="Másolás a vágólapra"/>
@@ -496,7 +496,6 @@
                 <Item id="1934" name="Másolás a vágólapra"/>
                 <Item id="2"    name="Bezárás"/>
             </SHA256FromTextDlg>
-
             <PluginsAdminDlg title="Bővítmények" titleAvailable = "Elérhető" titleUpdates = "Frissíthető" titleInstalled = "Telepítve">
                 <ColumnPlugin   name="Bővítmény"/>
                 <ColumnVersion  name="Verzió"/>
@@ -689,6 +688,8 @@
                     <Item id="25026" name="Operátor 1"/>
                     <Item id="25027" name="Operátor2"/>
                     <Item id="25028" name="Számok"/>
+                    <Item id="25033" name="Átlátszó"/>
+                    <Item id="25034" name="Átlátszó"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Mégse"/>
               </StylerDialog>
@@ -843,9 +844,6 @@
 
                     <Item id="6122" name="Menüsor elrejtése (Váltás: Alt vagy F10)"/>
                     <Item id="6123" name="Nyelv"/>
-                    <Item id="6125" name="Dokumentum listázó panel"/>
-                    <Item id="6126" name="Engedélyezés"/>
-                    <Item id="6127" name="Kiterjesztés oszlop tiltása"/>
                     <Item id="6128" name="Alternatív ikonok"/>
                 </Global>
                 <Scintillas title="Megjelenítés">
@@ -876,8 +874,8 @@
                     <Item id="7108" name="Cián tónus"/>
                     <Item id="7109" name="Olíva tónus"/>
                     <Item id="7115" name="Egyedi tónus"/>
-                    <Item id="7116" name="Fő"/>
-                    <Item id="7117" name="Menü kijelölés"/>
+                    <Item id="7116" name="Felső"/>
+                    <Item id="7117" name="Menü követés"/>
                     <Item id="7118" name="Aktív"/>
                     <Item id="7119" name="Elsődleges"/>
                     <Item id="7120" name="Hiba"/>
@@ -885,7 +883,7 @@
                     <Item id="7122" name="Sötétebb szöveg"/>
                     <Item id="7123" name="Kikapcsolt szöveg"/>
                     <Item id="7124" name="Keret"/>
-                    <Item id="7130" name="Visszaállítás"/>						  
+                    <Item id="7130" name="Visszaállítás"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margó és Ablakkeret">
@@ -1055,14 +1053,14 @@ Több margó is megadható, különböző számok használatával szóközzel el
                     <Item id="6866" name="Illeszkedő pár 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Több program példány">
+                <MultiInstance title="Példányok és Dátum">
                     <Item id="6151" name="Több program példány futtatás beállításai"/>
-                    <Item id="6152" name="Munkamenet megnyitása új program példányban"/>
+                    <Item id="6152" name="Munkamenet megnyitása új példányban (és munkamenet mentése)"/>
                     <Item id="6153" name="Mindig új program példányban"/>
                     <Item id="6154" name="Csak egy példány engedélyezve (Alapértelmezett)"/>
                     <Item id="6155" name="* Az érvénybe léptetéshez a Notepad++ újraindítása szükséges"/>
-                    <Item id="6171" name="Idő és dátum beillesztésének testreszabása"/>
-                    <Item id="6175" name="Sorrend felcserélése (rövid &amp;&amp; hosszú formátumok)"/>
+                    <Item id="6171" name="Dátum és idő beillesztésének testreszabása"/>
+                    <Item id="6175" name="Dátum és idő sorrend felcserélése (rövid &amp;&amp; hosszú formátumok)"/>
                     <Item id="6172" name="Egyéni formátum:"/>
                 </MultiInstance>
 
@@ -1075,6 +1073,8 @@ Több margó is megadható, különböző számok használatával szóközzel el
                     <Item id="6162" name="Alapértelmezett szókarakter lista használata"/>
                     <Item id="6163" name="Egyéni karakterek hozzáadása a szóhoz
 (Csak akkor válassza, ha érti a működést)"/>
+                    <Item id="6257" name="bla bla bla bla bla"/>
+                    <Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla"/>
                 </Delimiter>
 
                  <Cloud title="Felhő és Hivatkozások">
@@ -1086,6 +1086,7 @@ Több margó is megadható, különböző számok használatával szóközzel el
                     <Item id="6320" name="Ne legyen aláhúzva"/>
                     <Item id="6350" name="Teljes magasságú kiemelés"/>
                     <Item id="6264" name="Egyéni URI sémák:"/>
+                    <Item id="6261" name="Ehhez program újraindítás szükséges."/>
                 </Cloud>
 
                 <SearchEngine title="Keresőmotor">
@@ -1122,8 +1123,8 @@ Több margó is megadható, különböző számok használatával szóközzel el
                     <Item id="6345" name="Előnézeti kép"/>
                     <Item id="6346" name="Előnézeti kép a Dokumentum térképen"/>
                     <Item id="6360" name="Hangok némítása"/>
-                    <Item id="6361" name="Mind mentése dialógus engedélyezése"/>
-                </MISC>
+                    <Item id="6361" name="Mind mentése megerősítés dialógus"/>
+                    </MISC>
 
             </Preference>
             <MultiMacro title="Makró többszöri futtatása">
@@ -1178,12 +1179,12 @@ Több margó is megadható, különböző számok használatával szóközzel el
                 <Item id="5" name="Mindre nem"/>
             </DoSaveOrNot>
             <DoSaveAll title="Mind mentése megerősítés">
-                <Item id="1766" name="Biztosan mented az összes módosított dokumentumot?
+                <Item id="1766" name="Biztosan menti az összes módosított dokumentumot?
 
-Válaszd a &quot;Mindig Igen&quot; opciót ha nem akarod ezt a kérdést látni többet.
-A Beállításokban visszakapcsolhatod ezt az ablakot később."/>
-                <Item id="6" name="&amp;Igen"/>
-                <Item id="7" name="&amp;Nem"/>
+Válassza a &quot;Mindig Igen&quot; opciót, ha nem akarja látni ismét ezt a kérdést.
+A Beállításokban ez a dialógus visszakapcsolható."/>
+                <Item id="6" name="Igen"/>
+                <Item id="7" name="Nem"/>
                 <Item id="4" name="Mindig Igen"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
@@ -1287,7 +1288,7 @@ Folytatja?"/>
             <PanelTitle name="Vágólap előzmények"/>
         </ClipboardHistory>
         <DocList>
-            <PanelTitle name="Dokumentum listázó"/>
+            <PanelTitle name="Dokumentum lista"/>
             <ColumnName name="Név"/>
             <ColumnExt name="Kiterj."/>
         </DocList>
@@ -1397,7 +1398,7 @@ Itt további karaktereket lehet hozzáadni a szó karaktereihez. Azaz ezek a kar
             <cloud-select-folder value="Adjon meg egy mappát, ahol a Notepad++ a beállításait tárolja"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <shift-change-direction-tip value="Shift + Enter használható az ellenkező irányú kereséshez"/>
             <two-find-buttons-tip value="2 gombos kereső mód"/>
-            <file-rename-title value="Átnevez"/>
+            <file-rename-title value="Átnevezés"/>
             <find-in-files-filter-tip value="Keresés ezekben: cpp, cxx, h, hxx  hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1494,8 +1495,8 @@ Keresés minden fájlban, kivéve exe, obj  log:
             <close-panel-tip value="Bezárás" />
             <IncrementalFind-FSFound value="$INT_REPLACE$ találat" />
             <IncrementalFind-FSNotFound value="Nem található kifejezés" />
-            <IncrementalFind-FSTopReached value="Elérted az oldal tetejét, folytatva a végétől" />
-            <IncrementalFind-FSEndReached value="Elérted az oldal végét, folytatva a tetejétől" />
+            <IncrementalFind-FSTopReached value="Oldal teteje elérve, folytatás alulról" />
+            <IncrementalFind-FSEndReached value="Oldal vége elérve, folytatás a tetejétől" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

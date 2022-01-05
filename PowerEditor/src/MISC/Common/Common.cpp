@@ -20,7 +20,6 @@
 #include <cassert>
 #include <codecvt>
 #include <locale>
-
 #include "StaticDialog.h"
 #include "CustomFileDialog.h"
 
@@ -139,13 +138,16 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 		SYSTEMTIME currentTime = { 0 };
 		::GetLocalTime(&currentTime);
 		generic_string dateTimeStrW = getDateTimeStrFrom(TEXT("yyyy-MM-dd HH:mm:ss"), currentTime);
-		std::string log2writeStr(dateTimeStrW.begin(), dateTimeStrW.end());
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		std::string log2writeStr = converter.to_bytes(dateTimeStrW);
 		log2writeStr += "  ";
 		log2writeStr += log2write;
 		log2writeStr += "\n";
 
 		DWORD bytes_written = 0;
 		::WriteFile(hFile, log2writeStr.c_str(), static_cast<DWORD>(log2writeStr.length()), &bytes_written, NULL);
+
+		::FlushFileBuffers(hFile);
 	}
 }
 
@@ -537,7 +539,6 @@ generic_string intToString(int val)
 	return generic_string(vt.rbegin(), vt.rend());
 }
 
-
 generic_string uintToString(unsigned int val)
 {
 	std::vector<TCHAR> vt;
@@ -628,7 +629,7 @@ generic_string PathRemoveFileSpec(generic_string& path)
 }
 
 
-generic_string PathAppend(generic_string& strDest, const generic_string& str2append)
+generic_string pathAppend(generic_string& strDest, const generic_string& str2append)
 {
 	if (strDest.empty() && str2append.empty()) // "" + ""
 	{
@@ -952,6 +953,27 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 			is_matched = true;
 	}
 	return is_matched;
+}
+
+bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_string>& patterns, size_t level)
+{
+	for (size_t i = 0, len = patterns.size(); i < len; ++i)
+	{
+		size_t patterLen = patterns[i].length();
+
+		if (patterLen > 3 && patterns[i][0] == '!' && patterns[i][1] == '+' && patterns[i][2] == '\\') // check for !+\folderPattern: for all levels - search this pattern recursively
+		{
+			if (PathMatchSpec(dirName, patterns[i].c_str() + 3))
+				return true;
+		}
+		else if (patterLen > 2 && patterns[i][0] == '!' && patterns[i][1] == '\\') // check for !\folderPattern: exclusive pattern for only the 1st level
+		{
+			if (level == 1)
+				if (PathMatchSpec(dirName, patterns[i].c_str() + 2))
+					return true;
+		}
+	}
+	return false;
 }
 
 bool allPatternsAreExclusion(const std::vector<generic_string> patterns)
@@ -1283,7 +1305,7 @@ bool deleteFileOrFolder(const generic_string& f2delete)
 void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder)
 {
 	generic_string filter = inFolder;
-	PathAppend(filter, extTypeFilter);
+	pathAppend(filter, extTypeFilter);
 
 	WIN32_FIND_DATA foundData;
 	HANDLE hFindFile = ::FindFirstFile(filter.c_str(), &foundData);
@@ -1291,13 +1313,13 @@ void getFilesInFolder(std::vector<generic_string>& files, const generic_string& 
 	if (hFindFile != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
 		generic_string foundFullPath = inFolder;
-		PathAppend(foundFullPath, foundData.cFileName);
+		pathAppend(foundFullPath, foundData.cFileName);
 		files.push_back(foundFullPath);
 
 		while (::FindNextFile(hFindFile, &foundData))
 		{
 			generic_string foundFullPath2 = inFolder;
-			PathAppend(foundFullPath2, foundData.cFileName);
+			pathAppend(foundFullPath2, foundData.cFileName);
 			files.push_back(foundFullPath2);
 		}
 	}

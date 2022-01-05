@@ -33,6 +33,11 @@ public :
 	void destroy() {
 		ImageList_Destroy(_hImglst);
 	};
+
+	void removeAll() {
+		ImageList_RemoveAll(_hImglst);
+	};
+
 	HIMAGELIST getHandle() const {return _hImglst;};
 	void addIcon(int iconID) const;
 	void addIcon(HICON hIcon) const;

@@ -83,7 +83,7 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\python.xml"
 	${MementoSectionEnd}
 
-	${MementoSection} "Python" Lua_FL
+	${MementoSection} "Lua" Lua_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\lua.xml"
 	${MementoSectionEnd}

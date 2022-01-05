@@ -740,6 +740,40 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			_mainDocTab.changeIcons(static_cast<unsigned char>(lParam));
 			_subDocTab.changeIcons(static_cast<unsigned char>(lParam));
+
+			//restart document list with the same icons as the DocTabs
+			if (_pDocumentListPanel)
+			{
+				if (!_pDocumentListPanel->isClosed()) // if doclist is open
+				{
+					//close the doclist
+					_pDocumentListPanel->display(false);
+
+					//clean doclist
+					_pDocumentListPanel->destroy();
+					_pDocumentListPanel = nullptr;
+
+					//relaunch with new icons
+					launchDocumentListPanel();
+				}
+				else //if doclist is closed
+				{
+					//clean doclist
+					_pDocumentListPanel->destroy();
+					_pDocumentListPanel = nullptr;
+
+					//relaunch doclist with new icons and close it
+					launchDocumentListPanel();
+					if (_pDocumentListPanel)
+					{
+						_pDocumentListPanel->display(false);
+						_pDocumentListPanel->setClosed(true);
+						checkMenuItem(IDM_VIEW_DOCLIST, false);
+						_toolBar.setCheck(IDM_VIEW_DOCLIST, false);
+					}
+				}
+			}
+
 			return TRUE;
 		}
 
@@ -1759,6 +1793,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+
 		case WM_ACTIVATE:
 		{
 			if (wParam != WA_INACTIVE && _pEditView && _pNonEditView)
@@ -1768,41 +1803,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_pEditView->execute(SCI_SETXOFFSET, x);
 				x = _pNonEditView->execute(SCI_GETXOFFSET);
 				_pNonEditView->execute(SCI_SETXOFFSET, x);
-
-				if (_pFileBrowser && _pFileBrowser->isVisible())
-				{
-					_pFileBrowser->redraw(true);
-				}
-
-				if (_pFuncList && _pFuncList->isVisible())
-				{
-					_pFuncList->redraw(true);
-				}
-
-				if (_pClipboardHistoryPanel && _pClipboardHistoryPanel->isVisible())
-				{
-					_pClipboardHistoryPanel->redraw(true);
-				}
-
-				if (_pDocMap && _pDocMap->isVisible())
-				{
-					_pDocMap->redraw(true);
-				}
-
-				if (_pProjectPanel_1 && _pProjectPanel_1->isVisible())
-				{
-					_pProjectPanel_1->redraw(true);
-				}
-				if (_pProjectPanel_2 && _pProjectPanel_2->isVisible())
-				{
-					_pProjectPanel_2->redraw(true);
-				}
-				if (_pProjectPanel_3 && _pProjectPanel_3->isVisible())
-				{
-					_pProjectPanel_3->redraw(true);
-				}
 			}
 			return TRUE;
+		}
+
+		case WM_SYNCPAINT:
+		{
+			RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_ALLCHILDREN);
+			break;
 		}
 
 		case WM_DROPFILES:
@@ -1915,6 +1923,21 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{
+			if (message == WM_QUERYENDSESSION)
+			{
+				nppParam.queryEndSessionStart();
+			}
+
+			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+			{
+				generic_string issueFn = nppLogNulContentCorruptionIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
+
+				writeLog(nppIssueLog.c_str(), "WM_QUERYENDSESSION =====================================");
+			}
+
 			if (_pPublicInterface->isPrelaunch())
 			{
 				SendMessage(hwnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
@@ -2006,6 +2029,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)
 					saveSession(currentSession);
 
+				//
+				// saving session.xml into loaded session if a saved session is loaded and saveLoadedSessionOnExit option is enabled
+				//
+				
+				generic_string loadedSessionFilePath = nppParam.getLoadedSessionFilePath();
+				if (!loadedSessionFilePath.empty() && PathFileExists(loadedSessionFilePath.c_str()))
+					nppParam.writeSession(currentSession, loadedSessionFilePath.c_str());
+
 				// write settings on cloud if enabled, if the settings files don't exist
 				if (nppgui._cloudPath != TEXT("") && nppParam.isCloudPathChanged())
 				{
@@ -2046,6 +2077,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ENDSESSION:
 		{
+			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+			{
+				generic_string issueFn = nppLogNulContentCorruptionIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
+
+				writeLog(nppIssueLog.c_str(), "WM_ENDSESSION");
+			}
+
 			if (wParam == TRUE)
 			{
 				::DestroyWindow(hwnd);
@@ -2059,6 +2100,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_DESTROY:
 		{
+			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+			{
+				generic_string issueFn = nppLogNulContentCorruptionIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
+
+				writeLog(nppIssueLog.c_str(), "WM_DESTROY");
+			}
+
 			killAllChildren();
 			::PostQuitMessage(0);
 			_pPublicInterface->gNppHWND = NULL;

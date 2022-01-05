@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.1.9.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -175,6 +175,8 @@
                     <Item id="42029" name="現在の文書のフルパス"/>
                     <Item id="42030" name="現在の文書のファイル名"/>
                     <Item id="42031" name="現在の文書のディレクトリ"/>
+                    <Item id="42087" name="すべての文書のファイル名"/>
+                    <Item id="42088" name="すべての文書のフルパス"/>
                     <Item id="42032" name="マクロを複数回実行(&amp;R)..."/>
                     <Item id="42033" name="ファイルの読み取り専用を解除"/>
                     <Item id="42035" name="行コメント化"/>
@@ -246,6 +248,10 @@
                     <Item id="43048" name="次を検索(カーソル位置の単語)(&amp;S)"/>
                     <Item id="43049" name="前を検索(カーソル位置の単語)(&amp;S)"/>
                     <Item id="43054" name="マーク(&amp;K)..."/>
+                    <Item id="43501" name="選択した文書を閉じる"/>
+                    <Item id="43502" name="未選択の文書を閉じる"/>
+                    <Item id="43503" name="選択した文書のファイル名をコピー"/>
+                    <Item id="43504" name="選択した文書のフルパスをコピー"/>
                     <Item id="44009" name="テキスト領域以外を非表示"/>
                     <Item id="44010" name="すべて畳む"/>
                     <Item id="44011" name="集中モード"/>
@@ -884,6 +890,7 @@
                     <Item id="7122" name="濃い文字"/>
                     <Item id="7123" name="無効部分の文字"/>
                     <Item id="7124" name="フチ"/>
+                    <Item id="7125" name="リンク"/>
                     <Item id="7130" name="リセット"/>
                 </DarkMode>
 
@@ -1040,6 +1047,9 @@
                     <Item id="6809" name="関数名補完"/>
                     <Item id="6810" name="単語補完"/>
                     <Item id="6816" name="関数名と単語の補完"/>
+                    <Item id="6869" name="補完の確定"/>
+                    <Item id="6870" name="TAB"/>
+                    <Item id="6871" name="ENTER"/>
                     <Item id="6824" name="数字は補完しない"/>
                     <Item id="6811" name=" "/>
                     <Item id="6813" name="文字目から"/>
@@ -1387,17 +1397,26 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <word-chars-list-space-warning value="$INT_REPLACE$個の半角スペース"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$個のタブ"/>
             <word-chars-list-warning-end value=" が含まれています。"/>
+            <backup-select-folder value="バックアップ先を選択してください"/>
             <cloud-invalid-warning value="無効なパスです。"/>
             <cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
             <cloud-select-folder value="Notepad++ が設定を読み書きするフォルダーを選択してください。"/>
+            <default-open-save-select-folder value="既定のディレクトリを選択してください"/>
             <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
             <two-find-buttons-tip value="検索ボタンを2個に分ける"/>
             <file-rename-title value="名前の変更"/>
-            <find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイルで検索する場合：
+            <find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイル内を検索する：
 *.cpp *.cxx *.h *.hxx *.hpp
 
-例）exe, obj, log 以外のファイルで検索する場合：
-*.* !*.exe !*.obj !*.log"/>
+例）exe, obj, log 以外のファイル内を検索する：
+*.* !*.exe !*.obj !*.log
+
+例）同じ階層の tests, bin, bin64 のフォルダー内を除き、すべてのファイル内を検索する：
+*.* !\tests !\bin*
+
+例）階層にかかわらず log や logs といったフォルダー内を除き、すべてのファイル内を検索する：
+*.* !+\log*"/>
+            <find-in-files-select-folder value="検索するディレクトリを選択してください"/>
             <find-status-top-reached value="検索：末尾からの最初の一致です。文書の先頭を通過しました"/>
             <find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
             <find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>
@@ -1491,6 +1510,10 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <IncrementalFind-FSNotFound value="見つかりません" />
             <IncrementalFind-FSTopReached value="文書の先頭に達したため、末尾から検索しました" />
             <IncrementalFind-FSEndReached value="文書の末尾に達したため、先頭から検索しました" />
+            <contextMenu-styleAlloccurrencesOfToken value="選択した語をすべて色づけ" />
+            <contextMenu-styleOneToken value="選択した語を一つだけ色づけ" />
+            <contextMenu-clearStyle value="色づけを解除" />
+            <contextMenu-PluginCommands value="プラグイン" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.1.9.3">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -178,6 +178,8 @@
                     <Item id="42029" name="Skopírovať cestu k aktuálnemu súboru do schránky"/>
                     <Item id="42030" name="Skopírovať názov aktuálneho súboru do schránky"/>
                     <Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku do schránky"/>
+                    <Item id="42087" name="Všetky názvy súborov do schránky"/>
+                    <Item id="42088" name="Všetky cesty súborov do schránky"/>
                     <Item id="42032" name="Spustiť makro viacnásobne..."/>
                     <Item id="42033" name="Odstrániť označenie 'Iba na čítanie'"/>
                     <Item id="42035" name="Zakomentovať riadok"/>
@@ -249,6 +251,10 @@
                     <Item id="43048" name="V&amp;ybrať a hľadať ďalší"/>
                     <Item id="43049" name="Vy&amp;brať a hľadať predchádzajúci"/>
                     <Item id="43054" name="Oz&amp;načiť..."/>
+                    <Item id="43501" name="Zavrieť vybrané"/>
+                    <Item id="43502" name="Zavrieť ostatné"/>
+                    <Item id="43503" name="Skopírovať vybrané názvy"/>
+                    <Item id="43504" name="Skopírovať vybrané názvy"/>
                     <Item id="44009" name="Pripnúť"/>
                     <Item id="44010" name="Zbaliť všetko"/>
                     <Item id="44011" name="Režim bez vyrušovania"/>
@@ -879,6 +885,7 @@
                         <Item id="7122" name="Tmavší text"/>
                         <Item id="7123" name="Neprístupný text"/>
                         <Item id="7124" name="Okraj karty"/>
+                        <Item id="7125" name="Čiara"/>
                         <Item id="7130" name="Obnoviť"/>
                 </DarkMode>
 
@@ -1034,6 +1041,9 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6809" name="Dokončovanie funkcií"/>
                     <Item id="6810" name="Dokončovanie slov"/>
                     <Item id="6816" name="Dokončovanie funkcií a slov"/>
+                    <Item id="6869" name="Vložiť výber"/>
+                    <Item id="6870" name="TAB"/>
+                    <Item id="6871" name="ENTER"/>
                     <Item id="6824" name="Ignorovať čísla"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="znaku"/>
@@ -1379,18 +1389,25 @@ Pokračovať?"/>
             <word-chars-list-warning-begin value="Pozor: V zozname znakov máte "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ medzeru(-y)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulátor(-y)"/>
-            <word-chars-list-warning-end value="."/>
+            <word-chars-list-warning-end value="  vo vašom zozname znakov."/>
+            <backup-select-folder value="Vyberte priečinok na zálohovanie"/>
             <cloud-invalid-warning value="Neplatná cesta"/>
             <cloud-restart-warning value="Aby sa zmeny prejavili, reštartujte, prosím, Notepad++."/>
             <cloud-select-folder value="Vyberte priečinok pre načítanie/uloženie nastavení programu Notepad++"/>
+            <default-open-save-select-folder value="Vyberte predvolený priečinok"/>
             <shift-change-direction-tip value="Pre vyhľadávanie v opačnom smere použite Shift+Enter"/>
             <two-find-buttons-tip value="Režim dvoch tlačidiel"/>
             <file-rename-title value="Premenovať"/>
             <find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+Hľadá vo všetkých súboroch okrem exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+Hľadá vo všetkých súboroch okrem priečinkov tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
+*.* !+\log*"/>
+            <find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/>
             <find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
             <find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
             <find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
@@ -1484,6 +1501,10 @@ Hľadať vo všetkých súboroch okrem exe, obj &amp;&amp; log:
             <IncrementalFind-FSNotFound value="Fráza sa nenašla" />
             <IncrementalFind-FSTopReached value="Dosiahnutý začiatok strany, pokračovanie zdola" />
             <IncrementalFind-FSEndReached value="Dosiahnutý koniec strany, pokračovanie zhora" />
+            <contextMenu-styleAlloccurrencesOfToken value="Použiť štýl na všetky výskyty tokenu" />
+            <contextMenu-styleOneToken value="Použiť štýl na jeden token" />
+            <contextMenu-clearStyle value="Vymazať štýl" />
+            <contextMenu-PluginCommands value="Príkazy pluginu" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

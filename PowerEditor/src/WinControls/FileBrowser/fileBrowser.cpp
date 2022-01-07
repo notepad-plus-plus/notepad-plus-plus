@@ -863,7 +863,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			generic_string openWorkspaceStr = pNativeSpeaker->getAttrNameStr(TEXT("Select a folder to add in Folder as Workspace panel"), FOLDERASWORKSPACE_NODE, "SelectFolderFromBrowserString");
-			generic_string folderPath = folderBrowser(_hParent, openWorkspaceStr.c_str());
+			generic_string folderPath = folderBrowser(_hParent, openWorkspaceStr);
 			if (!folderPath.empty())
 			{
 				addRootFolder(folderPath);

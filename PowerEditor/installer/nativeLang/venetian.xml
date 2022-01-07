@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Sat, January 1st, 2022.
+    Last modified Thursday, January 6th, 2022.
     Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
@@ -33,7 +33,7 @@
                     <Item subMenuId="edit-insert" name="Inserisi"/>
                     <Item subMenuId="edit-copyToClipboard" name="Còpia inte i Scarabòci"/>
                     <Item subMenuId="edit-indent" name="&amp;Indenta"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Con&amp;verti MAIUSCOLO/minuscolo"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Con&amp;verti MAIÙSCOȽE/minùscoƚe"/>
                     <Item subMenuId="edit-lineOperations" name="Operasion so ƚe righe"/>
                     <Item subMenuId="edit-comment" name="Comenta/scomenta"/>
                     <Item subMenuId="edit-autoCompletion" name="Oto-conpletamento"/>
@@ -41,7 +41,7 @@
                     <Item subMenuId="edit-blankOperations" name="Operasion so i spasi"/>
                     <Item subMenuId="edit-pasteSpecial" name="Incoƚa speciaƚe"/>
                     <Item subMenuId="edit-onSelection" name="Testo seƚesionà"/>
-                    <Item subMenuId="search-markAll" name="M&amp;arca Stiƚe par tute ƚe ocorense"/>
+                    <Item subMenuId="search-markAll" name="M&amp;arca Stiƚe par tute ƚe corispondense"/>
                     <Item subMenuId="search-markOne" name="Marca stiƚe s&amp;oƚo ƚa seƚesion"/>
                     <Item subMenuId="search-unmarkAll" name="Rimovi marcadura stiƚe"/>
                     <Item subMenuId="search-jumpUp" name="Va sora"/>
@@ -115,9 +115,9 @@
                     <Item id="42006" name="&amp;Scanseƚa"/>
                     <Item id="42007" name="Seƚesiona t&amp;uto"/>
                     <Item id="42020" name="Prinsipio/Fine seƚesion"/>
-                    <Item id="42084" name="Data e ora (formato curto)"/>
-                    <Item id="42085" name="Data e ora (formato longo)"/>
-                    <Item id="42086" name="Data e ora (formato personalixà)"/>
+                    <Item id="42084" name="Data e ora (formado curto)"/>
+                    <Item id="42085" name="Data e ora (formado longo)"/>
+                    <Item id="42086" name="Data e ora (formado personalixà)"/>
                     <Item id="42008" name="Inserisi tabuƚasion (indent)"/>
                     <Item id="42009" name="Rimovi tabuƚasion (outdent)"/>
                     <Item id="42010" name="Duplica ƚa riga corente"/>
@@ -137,7 +137,7 @@
                     <Item id="42064" name="Órdena righe cofà vaƚori desimaƚi (virgoƚa) en maniera decresente"/>
                     <Item id="42065" name="Órdena righe cofà vaƚori desimaƚi (punto) en maniera cresente"/>
                     <Item id="42066" name="Órdena righe cofà vaƚori desimaƚi (punto) en maniera decresente"/>
-                    <Item id="42083" name="Inverti l&apos;órdene deƚe righe"/>
+                    <Item id="42083" name="Inverti l&apos;órdene de ƚe righe"/>
                     <Item id="42078" name="Órdena righe a caxo"/>
                     <Item id="42016" name="TUTO MAIÙSCOȽE"/>
                     <Item id="42017" name="tuto minùscoƚe"/>
@@ -176,12 +176,14 @@
                     <Item id="42051" name="Paneƚo caràtari"/>
                     <Item id="42052" name="Cronoƚogìa Scarabòci"/>
                     <Item id="42025" name="&amp;Salva ƚa macro registrà..."/>
-                    <Item id="42026" name="Diresion de&apos;l testo RTL"/>
-                    <Item id="42027" name="Diresion de&apos;l testo LTR"/>
+                    <Item id="42026" name="Diresion de&apos;l testo da Drita a Sanca"/>
+                    <Item id="42027" name="Diresion de&apos;l testo da Sanca a Drita"/>
                     <Item id="42028" name="File en soƚa ƚetura"/>
                     <Item id="42029" name="Percorso file corente"/>
                     <Item id="42030" name="Nòme file corente"/>
                     <Item id="42031" name="Carteƚa corente"/>
+                    <Item id="42087" name="Tuti i nomi file ne i Scaraboci"/>
+                    <Item id="42088" name="Tuti i percorsi file ne i Scaraboci"/>
                     <Item id="42032" name="Exegui na macro pì volte..."/>
                     <Item id="42033" name="Puƚisi el flag de soƚa ƚetura"/>
                     <Item id="42035" name="Comenta singoƚa riga"/>
@@ -253,6 +255,10 @@
                     <Item id="43048" name="Seƚesiona e cata seguente"/>
                     <Item id="43049" name="Seƚesiona e cata presedente"/>
                     <Item id="43054" name="Evidensia..."/>
+                    <Item id="43501" name="Sara su i seƚezionà"/>
+                    <Item id="43502" name="Sara su i altri"/>
+                    <Item id="43503" name="Còpia i nomi file de i selezionà"/>
+                    <Item id="43504" name="Còpia i percorsi file de i selezionà"/>
                     <Item id="44009" name="Modaƚità Post-it"/>
                     <Item id="44010" name="Conprimi tute ƚe struture"/>
                     <Item id="44011" name="Modaƚità sensa distrasion"/>
@@ -268,8 +274,8 @@
                     <Item id="44031" name="Espandi el ƚiveƚo corente"/>
                     <Item id="44049" name="Informasion file..."/>
                     <Item id="44080" name="Mapa documento"/>
-                    <Item id="44070" name="Ƚista documenti"/>
-                    <Item id="44084" name="Ƚista funsion"/>
+                    <Item id="44070" name="Eƚenco documenti"/>
+                    <Item id="44084" name="Eƚenco funsion"/>
                     <Item id="44085" name="Carteƚa cofà workspace"/>
                     <Item id="44086" name="Prima scheda"/>
                     <Item id="44087" name="Seconda scheda"/>
@@ -295,9 +301,9 @@
                     <Item id="44081" name="Paneƚo 1"/>
                     <Item id="44082" name="Paneƚo 2"/>
                     <Item id="44083" name="Paneƚo 3"/>
-                    <Item id="45001" name="Formato Windows (CR+LF)"/>
-                    <Item id="45002" name="Formato UNIX (LF)"/>
-                    <Item id="45003" name="Formato Macintosh (CR)"/>
+                    <Item id="45001" name="Formado Windows (CR+LF)"/>
+                    <Item id="45002" name="Formado UNIX (LF)"/>
+                    <Item id="45003" name="Formado Macintosh (CR)"/>
                     <Item id="45004" name="Codefega en ANSI"/>
                     <Item id="45005" name="Codefega en UTF-8-BOM"/>
                     <Item id="45006" name="Codefega en UTF-16 BE BOM"/>
@@ -401,7 +407,7 @@
                 <Item id="1604" name="Distingui tra ma&amp;iùscoƚe e minùscoƚe"/>
                 <Item id="1605" name="Espresion regoƚare"/>
                 <Item id="1606" name="Torna sora cò se xe rivà a ƚa fine"/>
-                <Item id="1614" name="Conta ocorense"/>
+                <Item id="1614" name="Conta corispondense"/>
                 <Item id="1615" name="Cata tuti cuanti"/>
                 <Item id="1616" name="Inposta segnaƚibro so ƚa riga"/>
                 <Item id="1618" name="Puƚisi par ogni riserca"/>
@@ -438,7 +444,7 @@
 
             <IncrementalFind title="">
                 <Item id="1681" name="Cata"/>
-                <Item id="1685" name="Distingui tra maiùscoƚe e minùscoƚe"/>
+                <Item id="1685" name="MAIÙSCOȽE/minùscoƚe"/>
                 <Item id="1690" name="Seƚesiona tuto cuanto"/>
             </IncrementalFind>
 
@@ -457,41 +463,41 @@
             <GoToLine title="Và a ƚa riga #">
                 <Item id="2007" name="Riga"/>
                 <Item id="2008" name="Offset"/>
-                <Item id="1" name="&amp;Và !"/>
-                <Item id="2" name="Anuƚa"/>
+                <Item id="1"    name="&amp;Và !"/>
+                <Item id="2"    name="Anuƚa"/>
                 <Item id="2004" name="Te si a ƚa riga:"/>
                 <Item id="2005" name="Và a ƚa riga:"/>
                 <Item id="2006" name="Ùltima riga disponibiƚe:"/>
             </GoToLine>
             <Run title="Exegui...">
                 <Item id="1903" name="Programa da exeguire"/>
-                <Item id="1" name="Exegui!"/>
-                <Item id="2" name="Anuƚa"/>
+                <Item id="1"    name="Exegui!"/>
+                <Item id="2"    name="Anuƚa"/>
                 <Item id="1904" name="Salva..."/>
             </Run>
 
             <MD5FromFilesDlg title="Xènera firma MD5 de i file">
                 <Item id="1922" name="Sèji i file par xenerare MD5..."/>
                 <Item id="1924" name="Còpia inte i Scarabòci"/>
-                <Item id="2" name="Sara su"/>
+                <Item id="2"    name="Sara su"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Xènera firma MD5">
                 <Item id="1932" name="Tien conto de ogni riga cofà na stringa separà"/>
                 <Item id="1934" name="Còpia inte i Scarabòci"/>
-                <Item id="2" name="Sara su"/>
+                <Item id="2"    name="Sara su"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Xènera firma SHA-256 da file">
                 <Item id="1922" name="Sèji i file par xenerare SHA-256..."/>
                 <Item id="1924" name="Còpia inte i Scarabòci"/>
-                <Item id="2" name="Sara su"/>
+                <Item id="2"    name="Sara su"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Xènera firma SHA-256">
                 <Item id="1932" name="Tien conto de ogni riga cofà de na stringa separà"/>
                 <Item id="1934" name="Còpia inte i Scarabòci"/>
-                <Item id="2" name="Sara su"/>
+                <Item id="2"    name="Sara su"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Gestion plugin" titleAvailable="Disponibiƚi" titleUpdates="Axornamenti" titleInstalled="Instaƚà">
@@ -502,11 +508,11 @@
                 <Item id="5504" name="Axorna"/>
                 <Item id="5505" name="Rimovi"/>
                 <Item id="5508" name="Và"/>
-                <Item id="2" name="Sara su"/>
+                <Item id="2"    name="Sara su"/>
             </PluginsAdminDlg>
 
             <StyleConfig title="Configuratore de stiƚi">
-                <Item id="2" name="Anuƚa"/>
+                <Item id="2"    name="Anuƚa"/>
                 <Item id="2301" name="Salva &amp;&amp; Sara su"/>
                 <Item id="2303" name="Trasparensa"/>
                 <Item id="2306" name="Seƚesiona tema: "/>
@@ -541,7 +547,7 @@
                 <Item id="2603" name="Scanseƚa"/>
                 <Item id="2606" name="Puƚisi"/>
                 <Item id="2607" name="Filtra: "/>
-                <Item id="1" name="Sara su"/>
+                <Item id="1"    name="Sara su"/>
                 <ColumnName name="Nòme"/>
                 <ColumnShortcut name="Sèlta ràpida"/>
                 <ColumnCategory name="Categoria"/>
@@ -557,9 +563,9 @@
                     <Item id="41019" name="Vèrxi carteƚa en Esplora risorse"/>
                     <Item id="41020" name="Vèrxi carteƚa en Prompt comandi"/>
                     <Item id="41021" name="Ripristina i file resenti"/>
-                    <Item id="45001" name="Converti caràtare de fine riga en Formato Windows (CR+LF)"/>
-                    <Item id="45002" name="Converti caràtare de fine riga en Formato Unix (LF)"/>
-                    <Item id="45003" name="Converti caràtare de fine riga en Formato Macintosh (CR)"/>
+                    <Item id="45001" name="Converti caràtare de fine riga en Formado Windows (CR+LF)"/>
+                    <Item id="45002" name="Converti caràtare de fine riga en Formado Unix (LF)"/>
+                    <Item id="45003" name="Converti caràtare de fine riga en Formado Macintosh (CR)"/>
                     <Item id="43022" name="Marca tuto col 1º stiƚe"/>
                     <Item id="43024" name="Marca tuto col 2º stiƚe"/>
                     <Item id="43026" name="Marca tuto col 3º stiƚe"/>
@@ -622,15 +628,15 @@
                     <Item id="44083" name="Mostra/Scondi Projeto Paneƚo 3"/>
                     <Item id="44085" name="Mostra/Scondi carteƚa cofà Workspace"/>
                     <Item id="44080" name="Mostra/Scondi Mapa Documento"/>
-                    <Item id="44070" name="Mostra/Scondi Ƚista Documenti"/>
-                    <Item id="44084" name="Mostra/Scondi Ƚista funsion"/>
+                    <Item id="44070" name="Mostra/Scondi Eƚenco Documenti"/>
+                    <Item id="44084" name="Mostra/Scondi Eƚenco funsion"/>
                     <Item id="50005" name="Mostra/Scondi registrasion macro"/>
                     <Item id="44104" name="Pasa a Projeto Paneƚo 1"/>
                     <Item id="44105" name="Pasa a Projeto Paneƚo 2"/>
                     <Item id="44106" name="Pasa a Projeto Paneƚo 3"/>
                     <Item id="44107" name="Pasa a Carteƚa cofà Workspace"/>
-                    <Item id="44109" name="Pasa a Ƚista Documenti"/>
-                    <Item id="44108" name="Pasa a Ƚista funsion"/>
+                    <Item id="44109" name="Pasa a Eƚenco Documenti"/>
+                    <Item id="44108" name="Pasa a Eƚenco funsion"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Sèlta ràpida">
@@ -713,7 +719,7 @@
                     <Item id="21426" name="Sara:"/>
                     <Item id="21427" name="Stiƚe"/>
                 </Folder>
-                <Keywords title="Ƚista Paròƚe Ciave">
+                <Keywords title="Eƚenco Paròƚe Ciave">
                     <Item id="22101" name="1º grupo"/>
                     <Item id="22201" name="2º grupo"/>
                     <Item id="22301" name="3º grupo"/>
@@ -856,9 +862,9 @@
                     <Item id="6228" name="Predefinìo"/>
                     <Item id="6229" name="Aƚineà"/>
                     <Item id="6230" name="Indentà"/>
-                    <Item id="6234" name="Disabiƚita scrolling avansà en caxo de problemi co touchpad"/>
+                    <Item id="6234" name="Disabiƚita el scorimento avansà en caxo de problemi co touchpad"/>
                     <Item id="6214" name="Evidensìa ƚa riga corente"/>
-                    <Item id="6215" name="Abìƚita antialiasing caràtari"/>
+                    <Item id="6215" name="Abìƚita &apos;l arotondamento caràtari"/>
                     <Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
                     <Item id="6239" name="Mantien ƚa seƚesion cò the clichi col tasto de drita fora de ƚa seƚesion"/>
                 </Scintillas>
@@ -874,7 +880,7 @@
                     <Item id="7109" name="Tonaƚità verde oliva"/>
                     <Item id="7115" name="Tonaƚità personalixà"/>
                     <Item id="7116" name="Alto"/>
-                    <Item id="7117" name="Menu hot track"/>
+                    <Item id="7117" name="Evidensiasion menu"/>
                     <Item id="7118" name="Ativo"/>
                     <Item id="7119" name="Prinsipaƚe"/>
                     <Item id="7120" name="Erore"/>
@@ -882,6 +888,7 @@
                     <Item id="7122" name="Testo scuro"/>
                     <Item id="7123" name="Testo disabilità"/>
                     <Item id="7124" name="Bordo"/>
+                    <Item id="7125" name="Indiriso internet"/>
                     <Item id="7130" name="Ripristina"/>
                 </DarkMode>
 
@@ -893,7 +900,7 @@
                     <Item id="6205" name="Cuadrato"/>
                     <Item id="6226" name="Nisun"/>
                     <Item id="6291" name="Nùmaro riga"/>
-                    <Item id="6206" name="Mostra i nùmari de riga"/>
+                    <Item id="6206" name="Mostra"/>
                     <Item id="6292" name="Ƚarghesa dinamica"/>
                     <Item id="6293" name="Ƚarghesa fisa"/>
                     <Item id="6207" name="Mostra i segnaƚibri"/>
@@ -904,13 +911,13 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6231" name="Spesore Bordo Editor"/>
                     <Item id="6235" name="Nisun bordo"/>
                     <Item id="6208" name="Padding"/>
-                     <Item id="6209" name="Sanca"/>
-                     <Item id="6210" name="Drita"/>
-                     <Item id="6212" name="Anti Distrasion"/>
+                    <Item id="6209" name="Sanca"/>
+                    <Item id="6210" name="Drita"/>
+                    <Item id="6212" name="Anti Distrasion"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Novo documento">
-                    <Item id="6401" name="Formato (fine riga)"/>
+                    <Item id="6401" name="Formado (fine riga)"/>
                     <Item id="6402" name="Windows (CR+LF)"/>
                     <Item id="6403" name="Unix (LF)"/>
                     <Item id="6404" name="Macintosh (CR)"/>
@@ -950,7 +957,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 </Language>
 
                 <Highlighting title="Evidensiasion">
-                    <Item id="6351" name="Marca stiƚe par tute cuante ƚe ocorense"/>
+                    <Item id="6351" name="Marca stiƚe par tute cuante ƚe corispondense"/>
                     <Item id="6352" name="Ƚ&apos;evidensiasion ƚa xe case-sensitive"/>
                     <Item id="6353" name="Identifega soƚo paròƚe intiere"/>
                     <Item id="6333" name="Evidensiasion Inteƚigente"/>
@@ -962,7 +969,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6340" name="Evidensia anca inte ƚ&apos;altra vista"/>
                     <Item id="6329" name="Evidensia Tag Corespondenti"/>
                     <Item id="6327" name="Abìƚita"/>
-                    <Item id="6328" name="Evidensia atributi"/>
+                    <Item id="6328" name="Evidensìa atributi"/>
                     <Item id="6330" name="Evidensìa xone php/asp/comenti"/>
                 </Highlighting>
 
@@ -1001,11 +1008,11 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6902" name="Uxa caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
                     <Item id="6903" name="Ƚasa vèrta ƚa fenèstra de dialogo dopo aver catà cuel output inte ƚa fenèstra de i rixultadi"/>
                     <Item id="6904" name="Conferma Sostituisi tuto cuanto en tuti i documenti vèrti"/>
-                    <Item id="6905" name="Sostituisi: sensa spostamento a ƚa ocorensa sucesiva"/>
+                    <Item id="6905" name="Sostituisi: sensa spostamento a ƚa corispondensa sucesiva"/>
                 </Searching>
 
                 <RecentFilesHistory title="File resenti">
-                    <Item id="6304" name="Ƚista Documenti Resenti"/>
+                    <Item id="6304" name="Eƚenco Documenti Resenti"/>
                     <Item id="6306" name="Masimo nùmaro de vosi:"/>
                     <Item id="6305" name="No controƚare a ƚa partensa"/>
                     <Item id="6429" name="Mostra"/>
@@ -1058,16 +1065,16 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6154" name="Predefinìo (istansa ùgnoƚa)"/>
                     <Item id="6155" name="* Ƚa modìfega de sta inpostasion ƚa ga bixogno de inviare de novo Notepad++"/>
                     <Item id="6171" name="Inserimento Data e ora personalixà"/>
-                    <Item id="6175" name="Inverti l&apos;ordinamento de date e ora de default (formato longo &amp;&amp; curto)"/>
-                    <Item id="6172" name="formati personalixà:"/>
- </MultiInstance>
+                    <Item id="6175" name="Inverti l&apos;ordinamento de date e ora de default (formado longo &amp;&amp; curto)"/>
+                    <Item id="6172" name="formadi personalixà:"/>
+                </MultiInstance>
 
                 <Delimiter title="Deƚimitatori">
                     <Item id="6251" name="Inpostasion Seƚesion Deƚimitatori (Ctrl+dopio clic)"/>
                     <Item id="6252" name="Vèrxi"/>
                     <Item id="6255" name="Sara su"/>
                     <Item id="6256" name="Parmeti so pì righe"/>
-                    <Item id="6161" name="Ƚista caràtari deƚimitatori de paròƚa"/>
+                    <Item id="6161" name="Eƚenco caràtari deƚimitatori de paròƚa"/>
                     <Item id="6162" name="Utiƚixa i deƚimitatori de paròƚa standard"/>
                     <Item id="6163" name="Xonta i to caràtari deƚimitatori de paròƚa
 (no seƚesionarƚo se no te se cosa te si drìo fare)"/>
@@ -1118,7 +1125,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6345" name="Anteprima so ƚe schede"/>
                     <Item id="6346" name="Anteprima so ƚa mapa documento"/>
                     <Item id="6360" name="Fa star xiti tuti cuanti i soni"/>
-                    <Item id="6361" name="Abilita il dialogo di conferma Salva Tutto"/>
+                    <Item id="6361" name="Abiƚita el dialogo de conferma Salva Tuto"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exegui macro pì volte">
@@ -1143,7 +1150,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 <Item id="2031" name="Increment&amp;a de: "/>
                 <Item id="2035" name="&amp;Xeri inisiaƚi"/>
                 <Item id="2036" name="&amp;Ripeti: "/>
-                <Item id="2032" name="Formato"/>
+                <Item id="2032" name="Formado"/>
                 <Item id="2024" name="&amp;Desimaƚe"/>
                 <Item id="2025" name="&amp;Otaƚe"/>
                 <Item id="2026" name="Exadesi&amp;maƚe"/>
@@ -1172,7 +1179,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 <Item id="4" name="Sì a tuto cuanto"/>
                 <Item id="5" name="No a tuto cuanto"/>
             </DoSaveOrNot>
-            <DoSaveAll title="Conferma di Salva tuto">
+            <DoSaveAll title="Conferma de Salva tuto">
                 <Item id="1766" name="Vuto salvare tuti cuanti i documenti modificà?
 
 selesiona &quot;Sì, senpre&quot; par non védere il dialogo de novo.
@@ -1240,8 +1247,8 @@ Vuto &apos;ndare inte ƚa pàgina de Notepad++ par descargare ƚ&apos;axornament
             <CreateNewFileError title="Crea novo file" message="Inposibiƚe creare el file &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERORE" message="Inposibiƚe vèrxare el file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="Backup File Faƚìo" message="Ƚa version presedente de&apos;l file no ƚa poƚe èsare salvà inte ƚa carteƚa de backup &quot;$STR_REPLACE$&quot;.
-Vuto salvare el file ƚo steso?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
+Vuto salvare el file ƚo steso?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Cargamento stylers.xml faƚìo" message="El cargamento de &quot;$STR_REPLACE$&quot; el xe faƚìo!"/>
             <LoadLangsFailed title="Configurasion" message="El cargamento de langs.xml el xe faƚìo!
 Vuto ripristinare el file langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
@@ -1251,7 +1258,7 @@ Rimovi ƚa carteƚa da&apos;l paneƚo vanti de xontare &quot;$STR_REPLACE$&quot;
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="El workspace el xe stà modifegà. Vuto salvarƚo?"/>
             <ProjectPanelSaveError title="$STR_REPLACE$" message="An error occurred while writing your workspace file.
-Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+Il workspace non el xe stà salvà."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Vèrxi Workspace" message="El workspace corente el xe stà modifegà. Vuto salvare el progeto corente?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Novo Workspace" message="El workspace corente el xe stà xà modifegà. Vuto salvare el progeto corente?"/>
             <ProjectPanelOpenFailed title="Vèrxi Workspace" message="El workspace no&apos;l poƚe èsare vèrto.
@@ -1274,7 +1281,7 @@ Vuto inviare Notepad++ cofà aministradore?"/>
             <OpenInAdminModeFailed title="Vertaura cofà aministradore faƚìa" message="Notepad++ no&apos;l poƚe èsare vèrto cofà aministradore."/>
             <ViewInBrowser title="Visuaƚixa file corente inte&apos;l browser" message="Aplicasion no catà inte&apos;l sistema."/>
             <ExitToUpdatePlugins title="Notepad++ el xe drio sararse su" message="Se te fe clic so &quot;Sì&quot;, te narè fora da Notepad++ par continuare ƚe operasion.
-Notepad++ vegnerà invià de novo dòpo che ƚe operasion ƚe vegnerà conpletà.
+Notepad++ el vegnerà invià de novo dòpo che ƚe operasion ƚe vegnerà conpletà.
 Vuto continuare?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ el deve èsare invià de novo" message="Te devi inviare de novo Notepad++ par cargare i plugin che te ghe instaƚà."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
         </MessageBox>
@@ -1293,8 +1300,8 @@ Vuto continuare?"/>
             <ColumnType name="Tipo"/>
             <ColumnSize name="Dimension"/>
             <NbDocsTotal name="Documenti totaƚi:"/>
-            <MenuCopyName name="Copia Nòme(i)"/>
-            <MenuCopyPath name="Copia Percorso(i)"/>
+            <MenuCopyName name="Còpia Nòme(i)"/>
+            <MenuCopyPath name="Còpia Percorso(i)"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Paneƚo Inserimento ASCII"/>
@@ -1308,7 +1315,7 @@ Vuto continuare?"/>
             <PanelTitle name="Mapa Documento"/>
         </DocumentMap>
         <FunctionList>
-            <PanelTitle name="Ƚista Funsion"/>
+            <PanelTitle name="Eƚenco Funsion"/>
             <SortTip name="Órdena"/>
             <ReloadTip name="Recarga"/>
         </FunctionList>
@@ -1396,32 +1403,36 @@ Vuto continuare?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log" /> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
-            <find-status-top-reached value="Ruma: catà ƚa prima ocorensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento."/>
-            <find-status-end-reached value="Ruma: catà ƚa prima ocorensa da ƚ&apos;alto. Se xe rivà a ƚa fine de&apos;l documento."/>
-            <find-status-replaceinfiles-1-replaced value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa"/>
-            <find-status-replaceinfiles-nb-replaced value="Sostituisi: $INT_REPLACE$ ocorense ƚe xe stà sostituìe"/>
+*.* !*.exe !*.obj !*.log
+Ruma en tuti i files, ma escludi ƚa carteƚa tests, bin e bin64:
+*.* !\tests !\bin*
+Runa en tuti i files, ma escludi tute le carteƚe o sotocarteƚe log o logs:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-status-top-reached value="Ruma: catà ƚa prima corispondensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento."/>
+            <find-status-end-reached value="Ruma: catà ƚa prima corispondensa da ƚ&apos;alto. Se xe rivà a ƚa fine de&apos;l documento."/>
+            <find-status-replaceinfiles-1-replaced value="Sostituisi: 1 corispondensa ƚa xe stà sostituìa"/>
+            <find-status-replaceinfiles-nb-replaced value="Sostituisi: $INT_REPLACE$ corispondense ƚe xe stà sostituìe"/>
             <find-status-replaceinfiles-re-malformed value="Sostituisi inte i file vèrti: ƚ&apos;espression regoƚare no ƚa xe vaƚida"/>
-            <find-status-replaceinopenedfiles-1-replaced value="Sostituisi inte i file vèrti: 1 ocorensa ƚa xe stà sostituìa"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Sostituisi inte i file vèrti: $INT_REPLACE$ ocorense ƚe xe stà sostituìe"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Sostituisi inte i file vèrti: 1 corispondensa ƚa xe stà sostituìa"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Sostituisi inte i file vèrti: $INT_REPLACE$ corispondense ƚe xe stà sostituìe"/>
             <find-status-mark-re-malformed value="Evidensia: ƚ&apos;espresion regoƚare da sercare no ƚa xe mìa vaƚida"/>
             <find-status-invalid-re value="Ruma: espresion regoƚare no vaƚida"/>
-            <find-status-search-failed value="Cerca: ricerca falìa"/>
+            <find-status-search-failed value="Ruma: riserca falìa"/>
             <find-status-mark-1-match value="Evidensìa: 1 corispondensa catà"/>
             <find-status-mark-nb-matches value="Evidensìa: $INT_REPLACE$ corispondense catà"/>
             <find-status-count-re-malformed value="Conta: ƚ&apos;espresion regoƚare da sercare no ƚa xe vaƚida"/>
             <find-status-count-1-match value="Conta: 1 corispondensa catà"/>
             <find-status-count-nb-matches value="Conta: $INT_REPLACE$ corispondense catà"/>
             <find-status-replaceall-re-malformed value="Sostituisi tuti cuanti: ƚ&apos;espresion regoƚare no ƚa xe vàƚida"/>
-            <find-status-replaceall-1-replaced value="Sostituisi tuti cuanti: 1 ocorensa ƚa xe stà sostituìa"/>
-            <find-status-replaceall-nb-replaced value="Sostituisi tuti cuanti: $INT_REPLACE$ ocorense ƚe xe stà sostituìe"/>
+            <find-status-replaceall-1-replaced value="Sostituisi tuti cuanti: 1 corispondensa ƚa xe stà sostituìa"/>
+            <find-status-replaceall-nb-replaced value="Sostituisi tuti cuanti: $INT_REPLACE$ corispondense ƚe xe stà sostituìe"/>
             <find-status-replaceall-readonly value="Sostituisi tuti cuanti: inposibiƚe sostituire el testo. El documento corente el xe en soƚa ƚetura"/>
-            <find-status-replace-end-reached value="Sostituisi: sostituìa ƚa prima ocorensa da ƚ&apos;alto. Se xe rivà a ƚa fine de&apos;l documento "/>
-            <find-status-replace-top-reached value="Sostituisi: sostituìa ƚa prima ocorensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento"/>
-            <find-status-replaced-next-found value="Sostituisi: 1 ocorensa ƚa xe stà sostituìa. Xe stà catà ƚ&apos;ocorensa sucesiva."/>
-            <find-status-replaced-without-continuing value="Sostituisi:1 ocorensa ƚa xe stà sostituìa."/>
-            <find-status-replaced-next-not-found value="Sostituisi:1 ocorensa ƚa xe stà sostituìa. Nisuna ocorensa sucesiva."/>
-            <find-status-replace-not-found value="Sostituisi: nisuna ocorensa catà"/>
+            <find-status-replace-end-reached value="Sostituisi: sostituìa ƚa prima corispondensa da ƚ&apos;alto. Se xe rivà a ƚa fine de&apos;l documento "/>
+            <find-status-replace-top-reached value="Sostituisi: sostituìa ƚa prima corispondensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento"/>
+            <find-status-replaced-next-found value="Sostituisi: 1 corispondensa ƚa xe stà sostituìa. Xe stà catà ƚa corispondensa sucesiva."/>
+            <find-status-replaced-without-continuing value="Sostituisi:1 corispondensa ƚa xe stà sostituìa."/>
+            <find-status-replaced-next-not-found value="Sostituisi:1 corispondensa ƚa xe stà sostituìa. Nisuna corispondensa sucesiva."/>
+            <find-status-replace-not-found value="Sostituisi: nisuna corispondensa catà"/>
             <find-status-replace-readonly value="Sostituisi: inposibiƚe canbiare el testo. El documento corente el xe en soƚa ƚetura"/>
             <find-status-cannot-find value="Ruma: inposibiƚe catare el testo &quot;$STR_REPLACE$&quot;"/>
             <find-status-scope-selection value="inte&apos;l testo seƚesionà"/>
@@ -1466,27 +1477,27 @@ Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
             <summary-nbsel2 value=" byte) en "/>
             <summary-nbrange value=" intervaƚi"/>
             <find-in-files-progress-title value="Serca nei file en corso..."/>
-            <replace-in-projects-confirm-title value="Sito sicuro?"/>
-            <replace-in-projects-confirm-message value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense in tuti cuanti i documenti inte i paneƚi de i progeti selesionà?"/>
             <replace-in-files-confirm-title value="Sito sicuro?"/>
-            <replace-in-files-confirm-directory value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense en:"/>
-            <replace-in-files-confirm-filetype value="Par i tipi de file:"/>
+            <replace-in-files-confirm-directory value="Sito sicuro de voler sostituire tute le corispondense in: "/>
+            <replace-in-files-confirm-filetype value="Par i tipi de file: "/>
             <replace-in-files-progress-title value="Sostituisi ne i file en corso..."/>
+            <replace-in-projects-confirm-title value="Sito sicuro?"/>
+            <replace-in-projects-confirm-message value="Sito sicuro de voƚer sostituire tute cuante ƚe corispondense in tuti cuanti i documenti inte i paneƚi de i progeti selesionà?"/>
             <replace-in-open-docs-confirm-title value="Sito sicuro?"/>
-            <replace-in-open-docs-confirm-message value="Sito sicuro de voƚer sostituire tute cuante ƚe ocorense en tuti cuanti i documenti verti?"/>
+            <replace-in-open-docs-confirm-message value="Sito sicuro de voƚer sostituire tute cuante ƚe corispondense en tuti cuanti i documenti verti?"/>
             <find-result-caption value="Cata rixultadi"/>
             <find-result-title value="Cata"/>  <!-- Must not begin with space or tab character -->
-            <find-result-title-info value="($INT_REPLACE1$ ocorense en $INT_REPLACE2$ file de $INT_REPLACE3$ catà)"/>
-            <find-result-title-info-selections value="($INT_REPLACE1$ ocorense en $INT_REPLACE2$ seƚesioni de $INT_REPLACE3$ sercà)"/>
+            <find-result-title-info value="($INT_REPLACE1$ corispondense en $INT_REPLACE2$ file de $INT_REPLACE3$ catà)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ corispondense en $INT_REPLACE2$ seƚesioni de $INT_REPLACE3$ sercà)"/>
             <find-result-title-info-extra value=" - Modaƚità de filtro ƚinea: mostra soƚo i rixultadi filtrà"/>
-            <find-result-hits value="($INT_REPLACE$ ocorense)"/>
+            <find-result-hits value="($INT_REPLACE$ corispondense)"/>
             <find-result-line-prefix value="Riga"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="corispondensa de ƚonghesa xero" />
             <session-save-folder-as-workspace value="Salva Carteƚa cofà Workspace" />
             <tab-untitled-string value="novo " />
             <file-save-assign-type value="Xont&amp;a estension" />
             <close-panel-tip value="Sara" />
-            <IncrementalFind-FSFound value="$INT_REPLACE$ ocorense" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ corispondense" />
             <IncrementalFind-FSNotFound value="Frase no trovà" />
             <IncrementalFind-FSTopReached value="Xè stà raxunto &apos;l inisio de ƚa pàgina, se continuerà da&apos;l fondo" />
             <IncrementalFind-FSEndReached value="Xè stà raxunta ƚa fine de ƚa pàgina, se continuerà da&apos;l inisio" />

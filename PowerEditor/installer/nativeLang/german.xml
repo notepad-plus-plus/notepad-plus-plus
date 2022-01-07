@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2021-12-25 by schnurlos (schnurlos@gmail.com)
+	last modified: 2022-01-07 by Daniel Fuchs
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.1.9.4">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -184,10 +184,12 @@
 					<Item id="42026" name="Schreib&amp;richtung von rechts nach links"/>
 					<Item id="42027" name="Schreibrichtung von lin&amp;ks nach rechts"/>
 					<Item id="42028" name="Schreibsch&amp;utz"/>
-					<Item id="42029" name="Vollständigen &amp;Pfad kopieren"/>
+					<Item id="42029" name="Vollständigen Datei&amp;pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
+					<Item id="42087" name="Alle Dateinamen kopieren"/>
+					<Item id="42088" name="Alle vollständigen Dateipfade kopieren"/>
 					<Item id="42033" name="Schreibschutz-Attribut l&amp;öschen"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
 					<Item id="42036" name="Auskommentierung der Zeilen a&amp;ufheben"/>
@@ -258,6 +260,10 @@
 					<Item id="43048" name="Auswahl oder Wort am &amp;Cursor suchen"/>
 					<Item id="43049" name="Wort am Cursor r&amp;ückwärts suchen"/>
 					<Item id="43054" name="&amp;Hervorheben …"/>
+					<Item id="43501" name="Ausgewählte schließen"/>
+					<Item id="43502" name="Andere schließen"/>
+					<Item id="43503" name="Ausgewählte Dateinamen kopieren"/>
+					<Item id="43504" name="Ausgewählte Dateipfade kopieren"/>
 					<Item id="44009" name="&amp;Post-It"/>
 					<Item id="44010" name="A&amp;lle Textblöcke schließen"/>
 					<Item id="44011" name="Ablenkungsfreier Modus"/>
@@ -325,7 +331,7 @@
 					<Item id="10003" name="In &amp;neue Instanz verschieben"/>
 					<Item id="10004" name="In neue Instan&amp;z duplizieren"/>
 
-					<Item id="46001" name="&amp;Stile …"/>
+					<Item id="46001" name="&amp;Stile konfigurieren …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
 					<Item id="46300" name="Verzeichnis mit benutzerdefinierten Sprachen öffnen …"/>
 					<Item id="46301" name="Sammlung benutzderdefinierter Sprachen für Notepad++"/>
@@ -342,8 +348,8 @@
 					<Item id="47009" name="&amp;Proxy für Updater einstellen …"/>
 					<Item id="48005" name="Plugin(s) &amp;importieren …"/>
 					<Item id="48006" name="Stil-&amp;Themen importieren …"/>
-					<Item id="48018" name="Popup-&amp;KontextMenü bearbeiten …"/>
-					<Item id="48009" name="&amp;Tastenkombi erstellen …"/>
+					<Item id="48018" name="Popup-&amp;Kontextmenü bearbeiten …"/>
+					<Item id="48009" name="&amp;Tastenkombinationen verwalten …"/>
 					<Item id="48011" name="&amp;Einstellungen …"/>
 					<Item id="48014" name="Verzeichnis mit Plugins öffnen …"/>
 					<Item id="48015" name="Plugin-Verwaltung …"/>
@@ -377,7 +383,7 @@
 				<Item CMID="4"  name="&amp;Drucken …"/>
 				<Item CMID="5"  name="In zweite Ansicht &amp;verschieben"/>
 				<Item CMID="6"  name="In zw&amp;eite Ansicht duplizieren"/>
-				<Item CMID="7"  name="Vollständigen Pfad &amp;kopieren"/>
+				<Item CMID="7"  name="Vollständigen Dateipfad &amp;kopieren"/>
 				<Item CMID="8"  name="Nur Datei&amp;namen kopieren"/>
 				<Item CMID="9"  name="Nur Verzeichnis&amp;pfad kopieren"/>
 				<Item CMID="10" name="Um&amp;benennen …"/>
@@ -448,7 +454,7 @@
 				<Item id="1690" name="Alle markieren"/>
 			</IncrementalFind>
 
-			<FindCharsInRange title="Suche nach Zeichencodes">
+			<FindCharsInRange title="Suche nach Zeichencodes …">
 				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="2901" name="&amp;Nicht-ASCII-Zeichen (128–255)"/>
 				<Item id="2902" name="&amp;ASCII-Zeichen (0–127)"/>
@@ -460,7 +466,7 @@
 				<Item id="2910" name="&amp;Suchen"/>
 			</FindCharsInRange>
 
-			<GoToLine title="Gehe zu">
+			<GoToLine title="Gehe zu …">
 				<Item id="2007" name="&amp;Zeile"/>
 				<Item id="2008" name="Z&amp;eichen"/>
 				<Item id="1"    name="&amp;Gehe zu"/>
@@ -512,7 +518,7 @@
 				<Item id="2"    name="Schließen"/>
 			</PluginsAdminDlg>
 
-			<StyleConfig title="Stile">
+			<StyleConfig title="Stil-Konfigurator">
 				<Item id="2"    name="Abbrechen"/>
 				<Item id="2301" name="Speichern &amp;&amp; Schließen"/>
 				<Item id="2303" name="Transparenz"/>
@@ -544,18 +550,18 @@
 			</StyleConfig>
 
 			<ShortcutMapper title="Tastenkombinationen">
-				<Item id="2602" name="TK Ändern"/>
+				<Item id="2602" name="Ändern"/>
 				<Item id="2603" name="Alle Löschen"/>
-				<Item id="2606" name="TK Löschen"/>
+				<Item id="2606" name="Löschen"/>
 				<Item id="2607" name="Filter: "/>
 				<Item id="1" name="Schließen"/>
-				<ColumnName name="TK Name"/>
-				<ColumnShortcut name="Tastenkombi"/>
+				<ColumnName name="Funktionsname"/>
+				<ColumnShortcut name="Tastenkombination"/>
 				<ColumnCategory name="Kategorie"/>
 				<ColumnPlugin name="Plugin"/>
 				<MainMenuTab name="Hauptmenü"/>
 				<MacrosTab name="Makros"/>
-				<RunCommandsTab name="Kommandos ausführen"/>
+				<RunCommandsTab name="Ausführen"/>
 				<PluginCommandsTab name="Plugin-Kommandos"/>
 				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
 				<ConflictInfoOk name="Keine Konflikte mit dieser Tastenkombination."/>
@@ -640,7 +646,7 @@
 					<Item id="44108" name="Zur Funktionsliste wechseln"/>
 				</MainCommandNames>
 			</ShortcutMapper>
-			<ShortcutMapperSubDialg title="Tastenkombi">
+			<ShortcutMapperSubDialg title="Tastenkombination">
 				<Item id="1" name="OK"/>
 				<Item id="2" name="Abbruch"/>
 				<Item id="5006" name="Name"/>
@@ -870,8 +876,8 @@
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
 				</Scintillas>
 
-				<DarkMode title="Abgedunkelter Modus">
-					<Item id="7101" name="Abgedunkelten Modus aktivieren"/>
+				<DarkMode title="Dunkler Modus">
+					<Item id="7101" name="Dunklen Modus aktivieren"/>
 					<Item id="7102" name="Schwarzer Ton"/>
 					<Item id="7103" name="Roter Ton"/>
 					<Item id="7104" name="Grüner Ton"/>
@@ -889,6 +895,7 @@
 					<Item id="7122" name="Dunklerer Text"/>
 					<Item id="7123" name="Deaktivierter Text"/>
 					<Item id="7124" name="Rand"/>
+					<Item id="7125" name="Links"/>
 					<Item id="7130" name="Zurücksetzen"/>
 				</DarkMode>
 
@@ -1077,7 +1084,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
 					<Item id="6162" name="Die ursprüngliche Liste der Wortzeichen verwenden"/>
 					<Item id="6163" name="Zeichen als Teil der Wortzeichen hinzufügen
-	(nicht verwenden wenn man nicht sicher ist)"/>
+(nicht verwenden wenn man nicht sicher ist)"/>
 				</Delimiter>
 
 				<Cloud title="Cloud &amp; Link">
@@ -1282,7 +1289,7 @@ Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 			<ExitToUpdatePlugins title="Notepad++ wird beendet" message="Beim Drücken auf 'JA' wird Notepad++ beendet um die Vorgänge abzuschließen.
 Notepad++ wird neu gestartet.
 Fortsetzen?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ zum Laden der Plugins ist erforderlich."/>
+			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ ist zum Laden der Plugins erforderlich."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1385,7 +1392,7 @@ Fortsetzen?"/>
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 			<word-chars-list-tip value="Das erlaubt es ein zusätzliches Zeichen zur aktuellen Liste der Wortzeichen durch Doppelklick auf die Auswahl hinzuzufügen oder mit der aktivierten Option &quot;Übereinstimmung mit ganzem Wort&quot;."/>
 
 			<word-chars-list-warning-begin value="Achtung: "/>
@@ -1398,11 +1405,17 @@ Fortsetzen?"/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
 			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
 			<file-rename-title value="Umbenennen"/>
-			<find-in-files-filter-tip value="Finde in cpp, cxx, h, hxx &amp;&amp; hpp:
+			<find-in-files-filter-tip value="Suche in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Finde in allen Dateien außer exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+Suche in allen Dateien außer exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+
+Suche in allen Dateien, exkludiere die Verzeichnisse test, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
 			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>

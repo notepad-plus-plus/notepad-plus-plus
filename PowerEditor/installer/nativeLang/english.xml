@@ -1390,9 +1390,11 @@ Continue?"/>
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
             <word-chars-list-warning-end value="  in your character list."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Select a folder as backup directory"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Invalid path."/>
             <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
             <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Select a folder as default directory"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
             <two-find-buttons-tip value="2 find buttons mode"/>
             <file-rename-title value="Rename"/>

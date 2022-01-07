@@ -183,7 +183,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPENFOLDERASWORSPACE:
 		{
-			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));
+			NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+			generic_string openWorkspaceStr = pNativeSpeaker->getAttrNameStr(TEXT("Select a folder to add in Folder as Workspace panel"),
+				FOLDERASWORKSPACE_NODE, "SelectFolderFromBrowserString");
+			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), openWorkspaceStr);
 			if (!folderPath.empty())
 			{
 				if (_pFileBrowser == nullptr) // first launch, check in params to open folders

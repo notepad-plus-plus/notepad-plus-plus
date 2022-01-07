@@ -2169,7 +2169,11 @@ INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam
 					return TRUE;
 
 				case IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON :
-					folderBrowser(_hSelf, TEXT("Select a folder as default directory"), IDC_OPENSAVEDIR_ALWAYSON_EDIT);
+					{
+						generic_string title = nppParam.getNativeLangSpeaker()->getLocalizedStrFromID("default-open-save-select-folder",
+							TEXT("Select a folder as default directory"));
+						folderBrowser(_hSelf, title, IDC_OPENSAVEDIR_ALWAYSON_EDIT);
+					}
 					return TRUE;
 
 				case IDC_OPENSAVEDIR_CHECK_DRROPFOLDEROPENFILES:
@@ -3485,7 +3489,9 @@ INT_PTR CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				}
 				case IDD_BACKUPDIR_BROWSE_BUTTON :
 				{
-					folderBrowser(_hSelf, TEXT("Select a folder as backup directory"), IDC_BACKUPDIR_EDIT);
+					generic_string title = nppParam.getNativeLangSpeaker()->getLocalizedStrFromID("backup-select-folder",
+						TEXT("Select a folder as backup directory"));
+					folderBrowser(_hSelf, title, IDC_BACKUPDIR_EDIT);
 					return TRUE;
 				}
 

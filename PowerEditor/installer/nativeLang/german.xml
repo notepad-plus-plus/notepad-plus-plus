@@ -906,7 +906,7 @@
 					<Item id="6204" name="Kreisstruktur"/>
 					<Item id="6205" name="Baumstruktur"/>
 					<Item id="6226" name="Keine"/>
-					<Item id="6291" name="Liniennummer"/>
+					<Item id="6291" name="Zeilennummer"/>
 					<Item id="6206" name="Anzeige"/>
 					<Item id="6292" name="Dynamische Breite"/>
 					<Item id="6293" name="Konstante Breite"/>
@@ -917,7 +917,7 @@
 Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6235" name="Kein Rand"/>
-					<Item id="6208" name="Ausgefüllt"/>
+					<Item id="6208" name="Seitenrand"/>
 					<Item id="6209" name="Links"/>
 					<Item id="6210" name="Rechts"/>
 					<Item id="6212" name="Ablenkungsfrei"/>
@@ -1072,8 +1072,8 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6154" name="Standard (nur eine Instanz)"/>
 					<Item id="6155" name="Nach Änderung der Einstellung muss Notepad++ neu gestartet werden."/>
 					<Item id="6171" name="Einfügen von Datum/Zeit anpassen"/>
-					<Item id="6175" name="Vorgegebene Datum/Zeit Reihenfolge umkehren (kurzes &amp;&amp; langes Format)"/>
-					<Item id="6172" name="Benutzerdefiniertes Format:"/>
+					<Item id="6175" name="Datum/Zeit Reihenfolge umkehren (kurzes &amp;&amp; langes Format)"/>
+					<Item id="6172" name="Eigenes Format:"/>
 				</MultiInstance>
 
 				<Delimiter title="Trennzeichen">
@@ -1081,13 +1081,13 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6252" name="Anfang"/>
 					<Item id="6255" name="Ende"/>
 					<Item id="6256" name="Über mehrere Zeilen"/>
-					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
-					<Item id="6162" name="Die ursprüngliche Liste der Wortzeichen verwenden"/>
+					<Item id="6161" name="Liste der Wortzeichen"/>
+					<Item id="6162" name="Die Standard-Liste für Wortzeichen verwenden"/>
 					<Item id="6163" name="Zeichen als Teil der Wortzeichen hinzufügen
 (nicht verwenden wenn man nicht sicher ist)"/>
 				</Delimiter>
 
-				<Cloud title="Cloud &amp; Link">
+				<Cloud title="Cloud &amp; Links">
 					<Item id="6262" name="Cloud-Einstellungen"/>
 					<Item id="6263" name="Keine Cloud"/>
 					<Item id="6267" name="Hier den Pfad zum Cloud-Speicherort festlegen:"/>
@@ -1095,7 +1095,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6319" name="Aktivieren"/>
 					<Item id="6320" name="Kein Unterstrich"/>
 					<Item id="6350" name="Vollboxmodus aktivieren"/>
-					<Item id="6264" name="Benutzerdefinierte URI-Vorgaben:"/>
+					<Item id="6264" name="Benutzerdefinierte URI-Schema:"/>
 				</Cloud>
 
 				<SearchEngine title="Suchmaschine">
@@ -1124,7 +1124,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
-					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - Neustart von Notepad++ erforderlich)"/>
+					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - erfordert Neustart von Notepad++)"/>
 					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>

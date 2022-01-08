@@ -1840,7 +1840,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDD_FINDINFILES_BROWSE_BUTTON :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						folderBrowser(_hSelf, TEXT("Select a folder to search from"), IDD_FINDINFILES_DIR_COMBO, _options._directory.c_str());
+					{
+						NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+						const generic_string title = pNativeSpeaker->getLocalizedStrFromID("find-in-files-select-folder", TEXT("Select a folder to search from"));
+						folderBrowser(_hSelf, title, IDD_FINDINFILES_DIR_COMBO, _options._directory.c_str());
+					}
 				}
 				return TRUE;
 

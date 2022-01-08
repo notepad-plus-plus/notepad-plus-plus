@@ -1386,10 +1386,12 @@ Pokračovať?"/>
             <word-chars-list-warning-begin value="Pozor: V zozname znakov máte "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ medzeru(-y)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulátor(-y)"/>
-            <word-chars-list-warning-end value="."/>
+            <word-chars-list-warning-end value="  vo vašom zozname znakov."/>
+            <backup-select-folder value="Vyberte priečinok na zálohovanie"/>
             <cloud-invalid-warning value="Neplatná cesta"/>
             <cloud-restart-warning value="Aby sa zmeny prejavili, reštartujte, prosím, Notepad++."/>
             <cloud-select-folder value="Vyberte priečinok pre načítanie/uloženie nastavení programu Notepad++"/>
+            <default-open-save-select-folder value="Vyberte predvolený priečinok"/>
             <shift-change-direction-tip value="Pre vyhľadávanie v opačnom smere použite Shift+Enter"/>
             <two-find-buttons-tip value="Režim dvoch tlačidiel"/>
             <file-rename-title value="Premenovať"/>
@@ -1402,6 +1404,7 @@ Hľadá vo všetkých súboroch okrem priečinkov tests, bin &amp;&amp; bin64:
 *.* !\tests !\bin*
 Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
 *.* !+\log*"/>
+            <find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/>
             <find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
             <find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
             <find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>

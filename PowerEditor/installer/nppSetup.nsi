@@ -149,6 +149,9 @@ updaterDone:
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
 		
+		; 64-bit patch for the NSIS attribute InstallDirRegKey (used in globalDef.nsh)
+		ReadRegStr $INSTDIR HKLM "Software\${APPNAME}" ""
+		
 		; change to x64 install dir if needed
 		${If} "$InstDir" != ""
 			${If} "$InstDir" == "$PROGRAMFILES\${APPNAME}"

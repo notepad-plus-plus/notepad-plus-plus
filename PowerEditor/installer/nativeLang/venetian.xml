@@ -1410,6 +1410,7 @@ Ruma en tuti i files, ma escludi ƚa carteƚa tests, bin e bin64:
 *.* !\tests !\bin*
 Runa en tuti i files, ma escludi tute le carteƚe o sotocarteƚe log o logs:
 *.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Selesiona ƚa carteƚa de riserca"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Ruma: catà ƚa prima corispondensa da&apos;l baso. Se xe rivà a&apos;l prinsipio de&apos;l documento."/>
             <find-status-end-reached value="Ruma: catà ƚa prima corispondensa da ƚ&apos;alto. Se xe rivà a ƚa fine de&apos;l documento."/>
             <find-status-replaceinfiles-1-replaced value="Sostituisi: 1 corispondensa ƚa xe stà sostituìa"/>

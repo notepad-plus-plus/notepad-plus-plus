@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Thursday, January 6th, 2022.
+    Last modified Sat, January 8th, 2022.
     Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
@@ -1393,9 +1393,11 @@ Vuto continuare?"/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spasi"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tab"/>
             <word-chars-list-warning-end value=" inte ƚa to ƚista caràtari."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Selesiona un percorso par ƚa carteƚa de Backup"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Percorso no vaƚido."/>
             <cloud-restart-warning value="Invìa de novo Notepad++ par aplicare ƚe modìfeghe."/>
             <cloud-select-folder value="Seƚesiona na carteƚa da indove Notepad++ pòsa ƚèxare o scrìvare ƚe proprie inpostasion"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Selesiona un percorso par ƚa carteƚa de default"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Utiƚixa Shift+Invio par sercare inte ƚa diresion oposta"/>
             <two-find-buttons-tip value="Modaƚità riserca a 2 botoni"/>
             <file-rename-title value="Rinomina"/>

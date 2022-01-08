@@ -1399,6 +1399,7 @@ Updated to v8.2.1:
 
 Искать во всех файлах, но исключить все папки log или рекурсивные logs:
 *.* !+\log*"/>
+			<find-in-files-select-folder   value="Выберите папку для поиска"/>
 			<find-status-top-reached       value="Поиск: Найдено одно совпадение снизу. Достигнуто начало документа."/>
 			<find-status-end-reached       value="Поиск: Найдено одно совпадение сверху. Достигнут конец документа."/>
 			<find-status-replaceinfiles-1-replaced        value="Замена в файлах: заменено 1 совпадение"/>

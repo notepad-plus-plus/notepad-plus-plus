@@ -1381,9 +1381,11 @@ Updated to v8.2.1:
 			<word-chars-list-space-warning value="$INT_REPLACE$ пробел(ов)"/>
 			<word-chars-list-tab-warning   value="$INT_REPLACE$ TAB(ов)"/>
 			<word-chars-list-warning-end   value="  в вашем списке символов."/>
+			<backup-select-folder          value="Выберите папку в качестве директории резервного копирования"/>
 			<cloud-invalid-warning         value="Недопустимый путь."/>
 			<cloud-restart-warning         value="Перезапустите Notepad++, чтобы изменения вступили в силу."/>
 			<cloud-select-folder           value="Выберите папку, которую Notepad++ будет использовать для чтения/записи своих настроек."/>
+			<default-open-save-select-folder value="Выберите папку в качестве директории по умолчанию"/>
 			<shift-change-direction-tip    value="Используйте Shift+Enter для поиска в обратном направлении."/>
 			<two-find-buttons-tip          value="2 направления поиска"/>
 			<find-in-files-filter-tip      value="Искать в cpp, cxx, h, hxx &amp;&amp; hpp:

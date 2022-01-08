@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.2.0
-    Last modified Sat, January 1st, 2022.
+    Last modified Sat, January 8th, 2022.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
@@ -146,7 +146,7 @@
                     <Item id="42069" name="Frasi maiuscole"/>
                     <Item id="42070" name="Frasi maiuscole (intelligente)"/>
                     <Item id="42071" name="iNVERTI mAIUSCOLE/mINUSCOLE"/>
-                    <Item id="42072" name="mAiusCole/miNUScLE casUaLi"/>
+                    <Item id="42072" name="mAiusCole/miNUScoLE casUaLi"/>
                     <Item id="42073" name="Apri file"/>
                     <Item id="42074" name="Apri cartella in Esplora Risorse"/>
                     <Item id="42075" name="Cerca in Internet"/>
@@ -1393,9 +1393,11 @@ Vuoi continuare?"/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spazi"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tab"/>
             <word-chars-list-warning-end value=" nel tuo elenco caratteri delimitatori."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Seleziona un percorso per la cartella di Backup"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Percorso non valido."/>
             <cloud-restart-warning value="Riavvia Notepad++ per applicare le modifiche."/>
             <cloud-select-folder value="Seleziona una cartella da dove Notepad++ possa leggere o scrivere le proprie impostazioni"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Seleziona un percorso per la cartella di default"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Utilizza Shift+Invio per cercare nella direzione opposta"/>
             <two-find-buttons-tip value="Modalità ricerca a 2 pulsanti"/>
             <file-rename-title value="Rinomina"/>

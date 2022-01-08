@@ -1343,16 +1343,25 @@
             <word-chars-list-space-warning value="$INT_REPLACE$ 個空格"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ 個 TAB"/>
             <word-chars-list-warning-end value=" 在你的單字字元集中。"/>
+            <backup-select-folder value="選擇一個你要設定為備份資料夾的資料夾"/>
             <cloud-invalid-warning value="無效的路徑。"/>
             <cloud-restart-warning value="請重新啟動 Notepad++ 以使變更生效。"/>
             <cloud-select-folder value="選擇一個資料夾，以便 Notepad++ 從中讀取/寫入其設定。"/>
+            <default-open-save-select-folder value="選擇一個你要設定為內定資料夾的資料夾"/>
             <shift-change-direction-tip value="使用「Shift + Enter」以相反方向進行搜尋"/>
             <two-find-buttons-tip value="顯示「找上一個」按鈕"/>
 			<find-in-files-filter-tip value="只在 cpp, cxx, h, hxx &amp;&amp; hpp 中找尋:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 所有檔案除了 exe, obj &amp;&amp; log 之外:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log
+
+所有檔案但不搜尋檔案夾 tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+所有檔案但在所有的層級（遞歸地）不搜尋檔案夾 log 或 logs:
+*.* !+\log*"/>
+            <find-in-files-select-folder value="選擇一個你要從中搜尋的資料夾"/>
             <find-status-top-reached value="搜尋：從下面找到相符的字串。搜尋已抵達文件開首。"/>
             <find-status-end-reached value="搜尋：從上面找到相符的字串。搜尋已抵達文件結尾。"/>
             <find-status-replaceinfiles-1-replaced value="在檔案中取代：取代了 1 個字串。"/>

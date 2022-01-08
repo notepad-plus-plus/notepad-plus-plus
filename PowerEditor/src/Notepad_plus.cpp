@@ -7216,6 +7216,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #176"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A vegan said to me, \"people who sell meat are gross!\"\nI said, \"people who sell fruits and vegetables are grocer.\"\n") },
 	{TEXT("Anonymous #177"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Documentation is a love letter that you write to your future self.\n") },
 	{TEXT("Anonymous #178"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("When I die, I hope it's early in the morning so I don't have to go to work that day for no reason.\n") },
+	{TEXT("Anonymous #179"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Workers plaay football\nManagers play tennis\nCEOs play golf\n\nHigher the function, smaller the balls.\n") },
 	{TEXT("xkcd"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never have I felt so close to another soul\nAnd yet so helplessly alone\nAs when I Google an error\nAnd there's one result\nA thread by someone with the same problem\nAnd no answer\nLast posted to in 2003\n\n\"Who were you, DenverCoder9?\"\n\"What did you see?!\"\n\n(ref: https://xkcd.com/979/)") },
 	{TEXT("A developer"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("No hugs & kisses.\nOnly bugs & fixes.") },
 	{TEXT("Elon Musk"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Don't set your password as your child's name.\nName your child after your password.") },

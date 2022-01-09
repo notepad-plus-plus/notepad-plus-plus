@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on January 5th, 2022 for version 8.2 by Patriccollu di Santa Maria è Sichè
+		- Updated on January 9th, 2022 for version 8.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 4th, 2021 for version 8.1.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
@@ -1418,9 +1418,11 @@ Cuntinuà ?"/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spaziu(i)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulazione(i)"/>
             <word-chars-list-warning-end value="  in a vostra lista di caratteri."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Selezziunà u cartulare induve arregistrà a salvaguardia"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Chjassu inaccettevule."/>
             <cloud-restart-warning value="Ci vole à rilancià Notepad++ per piglià in contu stu cambiamentu."/>
             <cloud-select-folder value="Selezziunà un cartulare induve Notepad++ leghje è scrive e so preferenze"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Selezziunà u cartulare chì serà quellu predefinitu"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Impiegà Maiusc+Entre per circà in a direzzione opposta."/>
             <two-find-buttons-tip value="Modu di 2 buttoni per circà"/>
             <file-rename-title value="Rinuminà"/>
@@ -1435,6 +1437,7 @@ Circà in tutti i schedarii ma esclude i cartulari tests, bin è bin64 :
 
 Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o logs :
 *.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Selezziunà u cartulare per facci a ricerca"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Circà : 1ᵃ occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
             <find-status-end-reached value="Circà : 1ᵃ occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
             <find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>

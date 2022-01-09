@@ -1394,9 +1394,11 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <word-chars-list-space-warning value="$INT_REPLACE$個の半角スペース"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$個のタブ"/>
             <word-chars-list-warning-end value=" が含まれています。"/>
+            <backup-select-folder value="バックアップ先を選択してください"/>
             <cloud-invalid-warning value="無効なパスです。"/>
             <cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
             <cloud-select-folder value="Notepad++ が設定を読み書きするフォルダーを選択してください。"/>
+            <default-open-save-select-folder value="既定のディレクトリを選択してください"/>
             <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
             <two-find-buttons-tip value="検索ボタンを2個に分ける"/>
             <file-rename-title value="名前の変更"/>
@@ -1411,6 +1413,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 
 例）階層にかかわらず log や logs といったフォルダー内を除き、すべてのファイル内を検索する：
 *.* !+\log*"/>
+            <find-in-files-select-folder value="検索するディレクトリを選択してください"/>
             <find-status-top-reached value="検索：末尾からの最初の一致です。文書の先頭を通過しました"/>
             <find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
             <find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>

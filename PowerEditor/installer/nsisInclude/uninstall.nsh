@@ -266,6 +266,7 @@ Section Uninstall
 		Delete "$APPDATA\${APPNAME}\session.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLang.xml"
 		Delete "$APPDATA\${APPNAME}\insertExt.ini"
+		Delete "$APPDATA\${APPNAME}\nppLogNulContentCorruptionIssue.log"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled.udl.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled_DM.udl.xml"
@@ -284,6 +285,7 @@ Section Uninstall
 	RMDir "$INSTDIR\plugins\"
 	RMDir "$INSTDIR\themes\"
 	RMDir "$INSTDIR\localization\"
+	RMDir "$INSTDIR\functionList\"
 	RMDir "$INSTDIR\"
 	RMDir "$SMPROGRAMS\${APPNAME}"
 

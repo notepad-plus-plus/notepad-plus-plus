@@ -3782,25 +3782,25 @@ INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 
 				case IDD_AUTOC_USEENTER:
 				{
-					nppGUI._autocInsertSelectedUseENTER = isCheckedOrNot(wParam);
+					nppGUI._autocInsertSelectedUseENTER = isCheckedOrNot(static_cast<int32_t>(wParam));
 					return TRUE;
 				}
 
 				case IDD_AUTOC_USETAB:
 				{
-					nppGUI._autocInsertSelectedUseTAB = isCheckedOrNot(wParam);
+					nppGUI._autocInsertSelectedUseTAB = isCheckedOrNot(static_cast<int32_t>(wParam));
 					return TRUE;
 				}
 
 				case IDD_AUTOC_IGNORENUMBERS:
 				{
-					nppGUI._autocIgnoreNumbers = isCheckedOrNot(wParam);
+					nppGUI._autocIgnoreNumbers = isCheckedOrNot(static_cast<int32_t>(wParam));
 					return TRUE;
 				}
 
 				case IDD_FUNC_CHECK :
 				{
-					nppGUI._funcParams = isCheckedOrNot(wParam);
+					nppGUI._funcParams = isCheckedOrNot(static_cast<int32_t>(wParam));
 					return TRUE;
 				}
 				
@@ -3839,7 +3839,7 @@ INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 				case IDD_AUTOC_DOUBLEQUOTESCHECK :
 				case IDD_AUTOC_QUOTESCHECK :
 				{
-					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
+					bool isChecked = isCheckedOrNot(static_cast<int32_t>(wParam));
 					const TCHAR *label;
 					if (wParam == IDD_AUTOCPARENTHESES_CHECK)
 					{

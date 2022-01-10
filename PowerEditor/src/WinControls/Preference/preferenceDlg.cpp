@@ -3562,12 +3562,18 @@ INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 
 			if (nppGUI._autocStatus == nppGUI.autoc_word || nppGUI._autocStatus == nppGUI.autoc_both)
 				::SendDlgItemMessage(_hSelf, IDD_AUTOC_IGNORENUMBERS, BM_SETCHECK, nppGUI._autocIgnoreNumbers ? BST_CHECKED : BST_UNCHECKED, 0);
+				
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_USEENTER, BM_SETCHECK, nppGUI._autocInsertSelectedUseENTER ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_USETAB, BM_SETCHECK, nppGUI._autocInsertSelectedUseTAB ? BST_CHECKED : BST_UNCHECKED, 0);
+
 
 			if (!isEnableAutoC)
 			{
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_BOTHRADIO), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), FALSE);
@@ -3738,6 +3744,9 @@ INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_BOTHRADIO), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEKEY_GRP_STATIC), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), isEnableAutoC);
@@ -3771,15 +3780,27 @@ INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 					return TRUE;
 				}
 
+				case IDD_AUTOC_USEENTER:
+				{
+					nppGUI._autocInsertSelectedUseENTER = isCheckedOrNot(wParam);
+					return TRUE;
+				}
+
+				case IDD_AUTOC_USETAB:
+				{
+					nppGUI._autocInsertSelectedUseTAB = isCheckedOrNot(wParam);
+					return TRUE;
+				}
+
 				case IDD_AUTOC_IGNORENUMBERS:
 				{
-					nppGUI._autocIgnoreNumbers = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_IGNORENUMBERS, BM_GETCHECK, 0, 0));
+					nppGUI._autocIgnoreNumbers = isCheckedOrNot(wParam);
 					return TRUE;
 				}
 
 				case IDD_FUNC_CHECK :
 				{
-					nppGUI._funcParams = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_FUNC_CHECK, BM_GETCHECK, 0, 0));
+					nppGUI._funcParams = isCheckedOrNot(wParam);
 					return TRUE;
 				}
 				

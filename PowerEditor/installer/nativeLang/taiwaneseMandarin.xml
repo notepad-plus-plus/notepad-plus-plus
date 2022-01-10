@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.1.5">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -876,6 +876,7 @@
                     <Item id="7122" name="色調較暗文字"/>
                     <Item id="7123" name="暫停使用文字"/>
                     <Item id="7124" name="邊線"/>
+                    <Item id="7125" name="鏈接"/>
                     <Item id="7130" name="重設原始值"/>
                 </DarkMode>
 
@@ -1028,6 +1029,9 @@
                     <Item id="6809" name="函式"/>
                     <Item id="6810" name="字詞"/>
                     <Item id="6816" name="函式與字詞"/>
+                    <Item id="6869" name="插入選擇的字詞或函式名"/>
+                    <Item id="6870" name="ENTER"/>
+                    <Item id="6871" name="TAB"/>
                     <Item id="6824" name="忽略數字"/>
                     <Item id="6811" name="從第"/>
                     <Item id="6813" name="個字元開始"/>

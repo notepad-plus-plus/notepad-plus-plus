@@ -5169,6 +5169,15 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optName)
 				_nppGUI._autocIgnoreNumbers = (lstrcmp(optName, TEXT("yes")) == 0);
 
+			optName = element->Attribute(TEXT("insertSelectedItemUseENTER"));
+			if (optName)
+				_nppGUI._autocInsertSelectedUseENTER = (lstrcmp(optName, TEXT("yes")) == 0);
+
+			optName = element->Attribute(TEXT("insertSelectedItemUseTAB"));
+			if (optName)
+				_nppGUI._autocInsertSelectedUseTAB = (lstrcmp(optName, TEXT("yes")) == 0);
+
+
 			optName = element->Attribute(TEXT("funcParams"));
 			if (optName)
 				_nppGUI._funcParams = (lstrcmp(optName, TEXT("yes")) == 0);
@@ -6345,6 +6354,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		const TCHAR * pStr = _nppGUI._autocIgnoreNumbers ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("autoCIgnoreNumbers"), pStr);
+
+		pStr = _nppGUI._autocInsertSelectedUseENTER ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("insertSelectedItemUseENTER"), pStr);
+
+		pStr = _nppGUI._autocInsertSelectedUseTAB ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("insertSelectedItemUseTAB"), pStr);
 
 		pStr = _nppGUI._funcParams ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("funcParams"), pStr);

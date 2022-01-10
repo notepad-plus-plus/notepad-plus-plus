@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on January 9th, 2022 for version 8.2 by Patriccollu di Santa Maria è Sichè
+		- Updated on January 10th, 2022 for version 8.2.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 4th, 2021 for version 8.1.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
@@ -30,7 +30,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.2">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1068,6 +1068,9 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6809" name="Cumpiimentu di funzione"/>
                     <Item id="6810" name="Cumpiimentu di parolla"/>
                     <Item id="6816" name="Cumpiimentu di funzione è di parolla"/>
+                    <Item id="6869" name="Framette a selezzione"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignurà i numeri"/>
                     <Item id="6811" name="Da u"/>
                     <Item id="6813" name="u caratteru"/>

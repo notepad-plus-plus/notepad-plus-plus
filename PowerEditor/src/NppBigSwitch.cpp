@@ -1964,9 +1964,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				}
 
 				Session currentSession;
+				getCurrentOpenedFiles(currentSession, true);
+
 				if (nppgui._rememberLastSession)
 				{
-					getCurrentOpenedFiles(currentSession, true);
 					//Lock the recent file list so it isnt populated with opened files
 					//Causing them to show on restart even though they are loaded by session
 					_lastRecentFileList.setLock(true);	//only lock when the session is remembered
@@ -2032,7 +2033,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				//
 				// saving session.xml into loaded session if a saved session is loaded and saveLoadedSessionOnExit option is enabled
 				//
-				
 				generic_string loadedSessionFilePath = nppParam.getLoadedSessionFilePath();
 				if (!loadedSessionFilePath.empty() && PathFileExists(loadedSessionFilePath.c_str()))
 					nppParam.writeSession(currentSession, loadedSessionFilePath.c_str());

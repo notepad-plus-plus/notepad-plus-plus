@@ -5703,7 +5703,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 		for (size_t i = 0, len = docTab[k]->nbItem(); i < len ; ++i)
 		{
 			BufferID bufID = docTab[k]->getBufferByIndex(i);
-			ScintillaEditView *editView = k == 0?&_mainEditView:&_subEditView;
+			ScintillaEditView *editView = k == 0 ? &_mainEditView : &_subEditView;
 			size_t activeIndex = k == 0 ? session._activeMainIndex : session._activeSubIndex;
 			vector<sessionFileInfo> *viewFiles = (vector<sessionFileInfo> *)(k == 0?&(session._mainViewFiles):&(session._subViewFiles));
 

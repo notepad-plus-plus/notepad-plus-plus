@@ -904,7 +904,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 				_pFuncList->markEntry();
-			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+			AutoCompletion * autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
 			autoC->update(0);
 
 			break;
@@ -1048,8 +1048,32 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_CALLTIPCLICK:
 		{
-			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+			AutoCompletion * autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
 			autoC->callTipClick(notification->position);
+			break;
+		}
+
+		case SCN_AUTOCSELECTION:
+		{
+			const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+
+			// if autocompletion is disabled and it is triggered manually, then both ENTER & TAB will insert the selection 
+			if (nppGui._autocStatus == NppGUI::AutocStatus::autoc_none)
+			{
+				break;
+			}
+
+			if (notification->listCompletionMethod == SC_AC_NEWLINE && !nppGui._autocInsertSelectedUseENTER)
+			{
+				notifyView->execute(SCI_AUTOCCANCEL);
+				notifyView->execute(SCI_NEWLINE);
+			}
+
+			if (notification->listCompletionMethod == SC_AC_TAB && !nppGui._autocInsertSelectedUseTAB)
+			{
+				notifyView->execute(SCI_AUTOCCANCEL);
+				notifyView->execute(SCI_TAB);
+			}
 			break;
 		}
 

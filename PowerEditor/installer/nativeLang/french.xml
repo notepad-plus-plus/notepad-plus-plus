@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="8.1.5">
+    <Native-Langue name="français" filename="french.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -862,6 +862,7 @@
                     <Item id="7122" name="Texte plus sombre"/>
                     <Item id="7123" name="Texte désactivé"/>
                     <Item id="7124" name="Bord"/>
+                    <Item id="7125" name="Lien"/>
                     <Item id="7130" name="Réinitialiser"/>
                 </DarkMode>
 
@@ -1016,6 +1017,9 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6813" name="ème caractère"/>
                     <Item id="6814" name="Valeur possible : de 1 à 9"/>
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
+                    <Item id="6869" name="Insérer la sélection"/>
+                    <Item id="6870" name="TAB"/>
+                    <Item id="6871" name="ENTER"/>
                     <Item id="6824" name="Ignorer les nombres"/>
                     <Item id="6851" name="Insertion automatique"/>
                     <Item id="6857" name="Balise fermante (html/xml)"/>

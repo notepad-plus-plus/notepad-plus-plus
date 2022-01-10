@@ -1030,8 +1030,8 @@
                     <Item id="6810" name="字詞"/>
                     <Item id="6816" name="函式與字詞"/>
                     <Item id="6869" name="插入選擇的字詞或函式名"/>
-                    <Item id="6870" name="ENTER"/>
-                    <Item id="6871" name="TAB"/>
+                    <Item id="6870" name="TAB"/>
+                    <Item id="6871" name="ENTER"/>
                     <Item id="6824" name="忽略數字"/>
                     <Item id="6811" name="從第"/>
                     <Item id="6813" name="個字元開始"/>

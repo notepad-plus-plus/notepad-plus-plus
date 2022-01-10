@@ -1056,6 +1056,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case SCN_AUTOCSELECTION:
 		{
 			const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+
+			// if autocompletion is disabled and it is triggered manually, then both ENTER & TAB will insert the selection 
+			if (nppGui._autocStatus == NppGUI::AutocStatus::autoc_none)
+			{
+				break;
+			}
+
 			if (notification->listCompletionMethod == SC_AC_NEWLINE && !nppGui._autocInsertSelectedUseENTER)
 			{
 				notifyView->execute(SCI_AUTOCCANCEL);

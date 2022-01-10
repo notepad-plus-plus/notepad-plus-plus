@@ -1043,8 +1043,8 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6810" name="Word completion"/>
                     <Item id="6816" name="Function and word completion"/>
                     <Item id="6869" name="Insert Selection"/>
-                    <Item id="6870" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
-                    <Item id="6871" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignore numbers"/>
                     <Item id="6811" name="From"/>
                     <Item id="6813" name="th character"/>

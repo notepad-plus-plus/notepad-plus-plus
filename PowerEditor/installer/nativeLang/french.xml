@@ -1018,8 +1018,8 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6814" name="Valeur possible : de 1 à 9"/>
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
                     <Item id="6869" name="Insérer la sélection"/>
-                    <Item id="6870" name="ENTER"/>
-                    <Item id="6871" name="TAB"/>
+                    <Item id="6870" name="TAB"/>
+                    <Item id="6871" name="ENTER"/>
                     <Item id="6824" name="Ignorer les nombres"/>
                     <Item id="6851" name="Insertion automatique"/>
                     <Item id="6857" name="Balise fermante (html/xml)"/>

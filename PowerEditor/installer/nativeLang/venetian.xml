@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Sat, January 8th, 2022.
+    Last modified Mon, January 10th, 2022.
     Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="8.2.0">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -151,7 +151,7 @@
                     <Item id="42074" name="Vèrxi carteƚa en Esplora Risorse"/>
                     <Item id="42075" name="Ruma en Internet"/>
                     <Item id="42076" name="Modìfega motore par rumare..."/>
-                    <Item id="42018" name="&amp;Inisia registrasion"/>
+                    <Item id="42018" name="Taca reg&amp;istrasion"/>
                     <Item id="42019" name="&amp;Ferma registrasion"/>
                     <Item id="42021" name="&amp;Exegui ƚa macro"/>
                     <Item id="42022" name="Comenta / Scomenta ƚa soƚa riga"/>
@@ -186,8 +186,8 @@
                     <Item id="42088" name="Tuti i percorsi file ne i Scaraboci"/>
                     <Item id="42032" name="Exegui na macro pì volte..."/>
                     <Item id="42033" name="Puƚisi el flag de soƚa ƚetura"/>
-                    <Item id="42035" name="Comenta singoƚa riga"/>
-                    <Item id="42036" name="Scomenta singoƚa riga"/>
+                    <Item id="42035" name="Comenta riga ugnoƚa"/>
+                    <Item id="42036" name="Scomenta riga ugnoƚa"/>
                     <Item id="42055" name="Rimovi righe vode"/>
                     <Item id="42056" name="Rimovi righe vode (che i contien caràtari vodi)"/>
                     <Item id="42057" name="Inserisi riga voda sora a cueƚa corente"/>
@@ -230,13 +230,13 @@
                     <Item id="43035" name="3º stiƚe"/>
                     <Item id="43036" name="4º stiƚe"/>
                     <Item id="43037" name="5º stiƚe"/>
-                    <Item id="43038" name="Stiƚe de reserca"/>
+                    <Item id="43038" name="Stiƚe de riserca"/>
                     <Item id="43039" name="1º stiƚe"/>
                     <Item id="43040" name="2º stiƚe"/>
                     <Item id="43041" name="3º stiƚe"/>
                     <Item id="43042" name="4º stiƚe"/>
                     <Item id="43043" name="5º stiƚe"/>
-                    <Item id="43044" name="Stiƚe de reserca"/>
+                    <Item id="43044" name="Stiƚe de riserca"/>
                     <Item id="43055" name="1° Stiƚe"/>
                     <Item id="43056" name="2° Stiƚe"/>
                     <Item id="43057" name="3° Stiƚe"/>
@@ -862,7 +862,7 @@
                     <Item id="6228" name="Predefinìo"/>
                     <Item id="6229" name="Aƚineà"/>
                     <Item id="6230" name="Indentà"/>
-                    <Item id="6234" name="Disabiƚita el scorimento avansà en caxo de problemi co touchpad"/>
+                    <Item id="6234" name="Disabìƚita el scorimento avansà en caxo de problemi co touchpad"/>
                     <Item id="6214" name="Evidensìa ƚa riga corente"/>
                     <Item id="6215" name="Abìƚita &apos;l arotondamento caràtari"/>
                     <Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
@@ -870,7 +870,7 @@
                 </Scintillas>
 
                 <DarkMode title="Modaƚità scura">
-                    <Item id="7101" name="Abiƚità modaƚità scura"/>
+                    <Item id="7101" name="Abìƚita modaƚità scura"/>
                     <Item id="7102" name="Tonaƚità negra"/>
                     <Item id="7103" name="Tonaƚità roso"/>
                     <Item id="7104" name="Tonaƚità verde"/>
@@ -1003,8 +1003,8 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6728" name="Intestasion E Piè De Pàgina"/>
                 </Print>
 
-                <Searching title="Searching">
-                    <Item id="6901" name="No propore ƚe paròƚe seƚesionà inte ƚa fenèstra de reserca"/>
+                <Searching title="Riserca">
+                    <Item id="6901" name="No propore ƚe paròƚe seƚesionà inte ƚa fenèstra de riserca"/>
                     <Item id="6902" name="Uxa caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
                     <Item id="6903" name="Ƚasa vèrta ƚa fenèstra de dialogo dopo aver catà cuel output inte ƚa fenèstra de i rixultadi"/>
                     <Item id="6904" name="Conferma Sostituisi tuto cuanto en tuti i documenti vèrti"/>
@@ -1044,6 +1044,9 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6809" name="Conpletamento funsion"/>
                     <Item id="6810" name="Conpletamento paròƚa"/>
                     <Item id="6816" name="Conpletamento funsion e paròƚe"/>
+                    <Item id="6869" name="Inserisi ƚa Seƚesion"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignora nùmari"/>
                     <Item id="6811" name="Da el"/>
                     <Item id="6813" name="º caràtare"/>
@@ -1087,8 +1090,8 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6318" name="Ƚink Clicabiƚi"/>
                     <Item id="6319" name="Abìƚita"/>
                     <Item id="6320" name="No sotoƚineare"/>
-                    <Item id="6350" name="Abiƚita ƚa modaƚità fullbox"/>
-                    <Item id="6264" name="URI customized schemes:"/>
+                    <Item id="6350" name="Abìƚita ƚa modaƚità fullbox"/>
+                    <Item id="6264" name="Schema URI personalixà:"/>
                 </Cloud>
 
                 <SearchEngine title="Motore de riserca" >
@@ -1125,7 +1128,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6345" name="Anteprima so ƚe schede"/>
                     <Item id="6346" name="Anteprima so ƚa mapa documento"/>
                     <Item id="6360" name="Fa star xiti tuti cuanti i soni"/>
-                    <Item id="6361" name="Abiƚita el dialogo de conferma Salva Tuto"/>
+                    <Item id="6361" name="Abìƚita el dialogo de conferma Salva Tuto"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exegui macro pì volte">
@@ -1174,10 +1177,10 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
             <DoSaveOrNot title="Salva">
                 <Item id="1761" name="Salvare el file &quot;$STR_REPLACE$&quot;?"/>
                 <Item id="6" name="Sì"/>
-                <Item id="7" name="No"/>
+                <Item id="7" name="Nò"/>
                 <Item id="2" name="Anuƚa"/>
                 <Item id="4" name="Sì a tuto cuanto"/>
-                <Item id="5" name="No a tuto cuanto"/>
+                <Item id="5" name="Nò a tuto cuanto"/>
             </DoSaveOrNot>
             <DoSaveAll title="Conferma de Salva tuto">
                 <Item id="1766" name="Vuto salvare tuti cuanti i documenti modificà?
@@ -1185,7 +1188,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
 selesiona &quot;Sì, senpre&quot; par non védere il dialogo de novo.
 Te poi riativare de novo sto dialogo da Prefarense."/>
                 <Item id="6" name="&amp;Sì"/>
-                <Item id="7" name="&amp;No"/>
+                <Item id="7" name="&amp;Nò"/>
                 <Item id="4" name="Sì, senpre"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 
@@ -1203,7 +1206,7 @@ Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Manda a na nova istansa de Notepad++" message="El documento el xe stà modifegà, salvarƚo vanti de continuare."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Carga de novo" message="Sito sicuro de voƚer cargare de novo el file? Ogni modìfega aportà ƚa vegnerà persa."/>
-            <FileLockedWarning title="Salvatagio faƚìo" message="Verificare che el file no&apos;l sia vèrto co &apos;n altro programa."/>
+            <FileLockedWarning title="Salvatagio faƚìo" message="Verificare che el file no&apos;l sìpia vèrto co &apos;n altro programa."/>
             <FileAlreadyOpenedInNpp title="" message="El file el xe xà vèrto en Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="Rinomina falìa" message="El nome indicà el xe xà en uxo so nantro tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Scanseƚasion file" message="Scanseƚasion de&apos;l file faƚìa."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1262,7 +1265,7 @@ Il workspace non el xe stà salvà."/> <!-- HowToReproduce: this message prevent
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Vèrxi Workspace" message="El workspace corente el xe stà modifegà. Vuto salvare el progeto corente?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Novo Workspace" message="El workspace corente el xe stà xà modifegà. Vuto salvare el progeto corente?"/>
             <ProjectPanelOpenFailed title="Vèrxi Workspace" message="El workspace no&apos;l poƚe èsare vèrto.
-Senbra che el file da vèrxare no&apos;l sia on file de progeto vaƚido."/>
+Senbra che el file da vèrxare no&apos;l sìpia on file de progeto vaƚido."/>
             <ProjectPanelRemoveFolderFromProject title="Rimovi carteƚa da&apos;l progeto" message="Tuti i soto-eƚementi i vegnerà scanseƚà.
 Sito sicuro de voƚer rimovare sta carteƚa da&apos;l progeto?"/>
             <ProjectPanelRemoveFileFromProject title="Rimovi file da&apos;l progeto" message="Sito sicuro de voƚer rimovare sto file da&apos;l progeto?"/>

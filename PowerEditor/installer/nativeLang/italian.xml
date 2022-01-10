@@ -1,13 +1,13 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.2.0
-    Last modified Sat, January 8th, 2022.
+    Italian translation for Notepad++ 8.2.1
+    Last modified Mon, January 10th, 2022.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
 
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.2.0">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -195,7 +195,7 @@
                     <Item id="43001" name="&amp;Trova..."/>
                     <Item id="43002" name="Trova &amp;successivo"/>
                     <Item id="43003" name="Sostitu&amp;isci..."/>
-                    <Item id="43004" name="Vai alla riga..."/>
+                    <Item id="43004" name="Vai alla riga/posizione..."/>
                     <Item id="43005" name="Segnalibro"/>
                     <Item id="43006" name="Segnalibro seguente"/>
                     <Item id="43007" name="Segnalibro precedente"/>
@@ -460,14 +460,14 @@
                 <Item id="2910" name="Cerca"/>
             </FindCharsInRange>
 
-            <GoToLine title="Vai alla riga #">
+            <GoToLine title="Vai alla riga/posizione #">
                 <Item id="2007" name="Riga"/>
-                <Item id="2008" name="Offset"/>
+                <Item id="2008" name="Posizione carattere"/>
                 <Item id="1" name="&amp;Vai !"/>
                 <Item id="2" name="Annulla"/>
-                <Item id="2004" name="Sei alla riga:"/>
-                <Item id="2005" name="Vai alla riga:"/>
-                <Item id="2006" name="Ultima riga disponibile:"/>
+                <Item id="2004" name="Sei alla riga/posizione:"/>
+                <Item id="2005" name="Vai alla riga/posizione:"/>
+                <Item id="2006" name="Ultima riga/pos. disponibile:"/>
             </GoToLine>
             <Run title="Esegui...">
                 <Item id="1903" name="Programma da eseguire"/>
@@ -1044,6 +1044,9 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6809" name="Completamento funzione"/>
                     <Item id="6810" name="Completamento parola"/>
                     <Item id="6816" name="Completamento funzioni e parole"/>
+                    <Item id="6869" name="Inserisci la Selezione"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignora numeri"/>
                     <Item id="6811" name="Dal"/>
                     <Item id="6813" name="º carattere"/>

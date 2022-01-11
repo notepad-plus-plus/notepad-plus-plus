@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on January 10th, 2022 for version 8.2.1 by Patriccollu di Santa Maria è Sichè
+		- Updated on January 11th, 2022 for version 8.2.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 4th, 2021 for version 8.1.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 20th, 2021 for version 8.1.4 by Patriccollu di Santa Maria è Sichè
@@ -237,17 +237,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43013" name="Circà in sc&amp;hedarii"/>
                     <Item id="43014" name="Ricerca (&amp;vulatile) seguente"/>
                     <Item id="43015" name="Ricerca (&amp;vulatile) precedente"/>
-                    <Item id="43022" name="Impiegà u 1ᵘ stilu"/>
-                    <Item id="43023" name="Viutà u 1ᵘ stilu"/>
-                    <Item id="43024" name="Impiegà u 2ᵘ stilu"/>
-                    <Item id="43025" name="Viutà u 2ᵘ stilu"/>
-                    <Item id="43026" name="Impiegà u 3ᵘ stilu"/>
-                    <Item id="43027" name="Viutà u 3ᵘ stilu"/>
-                    <Item id="43028" name="Impiegà u 4ᵘ stilu"/>
-                    <Item id="43029" name="Viutà u 4ᵘ stilu"/>
-                    <Item id="43030" name="Impiegà u 5ᵘ stilu"/>
-                    <Item id="43031" name="Viutà u 5ᵘ stilu"/>
-                    <Item id="43032" name="Viutà tutti i stili"/>
+                    <Item id="43022" name="Impieghendu u 1ᵘ stilu"/>
+                    <Item id="43023" name="Spurgulà u 1ᵘ stilu"/>
+                    <Item id="43024" name="Impieghendu u 2ᵘ stilu"/>
+                    <Item id="43025" name="Spurgulà u 2ᵘ stilu"/>
+                    <Item id="43026" name="Impieghendu u 3ᵘ stilu"/>
+                    <Item id="43027" name="Spurgulà u 3ᵘ stilu"/>
+                    <Item id="43028" name="Impieghendu u 4ᵘ stilu"/>
+                    <Item id="43029" name="Spurgulà u 4ᵘ stilu"/>
+                    <Item id="43030" name="Impieghendu u 5ᵘ stilu"/>
+                    <Item id="43031" name="Spurgulà u 5ᵘ stilu"/>
+                    <Item id="43032" name="Spurgulà tutti i stili"/>
                     <Item id="43033" name="1ᵘ stilu"/>
                     <Item id="43034" name="2ᵘ stilu"/>
                     <Item id="43035" name="3ᵘ stilu"/>
@@ -1534,6 +1534,10 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <IncrementalFind-FSNotFound value="Espressione micca trova" />
             <IncrementalFind-FSTopReached value="Principiu di pagina toccu, cuntinuatu partendu da u bassu" />
             <IncrementalFind-FSEndReached value="Bassu di pagina toccu, cuntinuatu partendu da u principiu" />
+			<contextMenu-styleAlloccurrencesOfToken value="Stilizà tutte l’occurenze di testu" />
+            <contextMenu-styleOneToken value="Stilizà l’occurenza unica di testu" />
+            <contextMenu-clearStyle value="Spurgulà certi stili" />
+            <contextMenu-PluginCommands value="Cumande d’estensione" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1453,6 +1453,10 @@
             <IncrementalFind-FSNotFound value="找不到相符字串" />
             <IncrementalFind-FSTopReached value="到達頁面頂部，從底部繼續" />
             <IncrementalFind-FSEndReached value="到達頁面末尾，從頂部繼續 " />
+            <contextMenu-styleAlloccurrencesOfToken value="樣式化所有相符的字串" />
+            <contextMenu-styleOneToken value="僅樣式化選擇的字串" />
+            <contextMenu-clearStyle value="清除樣式" />
+            <contextMenu-PluginCommands value="外掛模組" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

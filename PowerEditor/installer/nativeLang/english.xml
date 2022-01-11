@@ -1506,6 +1506,10 @@ Find in all files but exclude all folders log or logs recursively:
             <IncrementalFind-FSNotFound value="Phrase not found" />
             <IncrementalFind-FSTopReached value="Reached top of page, continued from bottom" />
             <IncrementalFind-FSEndReached value="Reached end of page, continued from top" />
+            <contextMenu-styleAlloccurrencesOfToken value="Style all occurrences of token" />
+            <contextMenu-styleOneToken value="Style one token" />
+            <contextMenu-clearStyle value="Clear style" />
+            <contextMenu-PluginCommands value="Plugin commands" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

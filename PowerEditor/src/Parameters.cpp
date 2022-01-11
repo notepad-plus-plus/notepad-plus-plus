@@ -2018,6 +2018,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 		return false;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	TiXmlNodeA *contextMenuRoot = root->FirstChildElement("ScintillaContextMenu");
 	if (contextMenuRoot)
@@ -2026,13 +2027,19 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 			childNode ;
 			childNode = childNode->NextSibling("Item") )
 		{
-			const char *folderNameA = (childNode->ToElement())->Attribute("FolderName");
+			const char *folderNameDefaultA = (childNode->ToElement())->Attribute("FolderName");
+			const char *folderNameTranslateID_A = (childNode->ToElement())->Attribute("TranslateID");
 			const char *displayAsA = (childNode->ToElement())->Attribute("ItemNameAs");
 
 			generic_string folderName;
 			generic_string displayAs;
-			folderName = folderNameA?wmc.char2wchar(folderNameA, SC_CP_UTF8):TEXT("");
-			displayAs = displayAsA?wmc.char2wchar(displayAsA, SC_CP_UTF8):TEXT("");
+			folderName = folderNameDefaultA ? wmc.char2wchar(folderNameDefaultA, SC_CP_UTF8) : TEXT("");
+			displayAs = displayAsA ? wmc.char2wchar(displayAsA, SC_CP_UTF8) : TEXT("");
+
+			if (folderNameTranslateID_A)
+			{
+				folderName = pNativeSpeaker->getLocalizedStrFromID(folderNameTranslateID_A, folderName);
+			}
 
 			int id;
 			const char *idStr = (childNode->ToElement())->Attribute("id", &id);

@@ -1028,7 +1028,7 @@ Updated to v8.2.1:
 					<Item id="6427" name="Задать макс. длину:"/>
 				</RecentFilesHistory>
 				<Highlighting title="Подсветка">
-					<Item id="6351" name="Пометить все"/>
+					<Item id="6351" name="Пометить все Совпадения"/>
 					<Item id="6352" name="Учитывать регистр"/>
 					<Item id="6353" name="Только целые слова"/>
 					<Item id="6354" name="Парные"/>
@@ -1500,6 +1500,10 @@ Updated to v8.2.1:
 			<IncrementalFind-FSTopReached         value="Выше совпадений нет, продолжено снизу"/>
 			<IncrementalFind-FSEndReached         value="Ниже совпадений нет, продолжено сверху"/>
 			<file-opencontainingfolder-cmd-tip    value="Изменены глобальные настройки среды. Если вам нужно обновить среду cmd, перезапустите Notepad++ из только что открытого проводника."/>
+			<contextMenu-styleAlloccurrencesOfToken value="Пометить все Совпадения"/>
+			<contextMenu-styleOneToken              value="Пометить только Одно"/>
+			<contextMenu-clearStyle                 value="Очистить Пометки"/>
+			<contextMenu-PluginCommands             value="Команды Плагина"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

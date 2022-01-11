@@ -1460,6 +1460,10 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <IncrementalFind-FSNotFound value="Expression introuvable" />
             <IncrementalFind-FSTopReached value="Haut de page atteint, continuer en partant du bas" />
             <IncrementalFind-FSEndReached value="Fin de page atteinte, continuer en partant du haut" />
+            <contextMenu-styleAlloccurrencesOfToken value="Appliquer le style à toutes les occurrences" />
+            <contextMenu-styleOneToken value="Appliquer le style à 1 seul occurrence" />
+            <contextMenu-clearStyle value="Dégager le style" />
+            <contextMenu-PluginCommands value="Modules d'extension" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

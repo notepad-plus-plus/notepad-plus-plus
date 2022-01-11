@@ -46,8 +46,8 @@
 					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="edit-pasteSpecial" name= "Einf&amp;ügen spezial"/>
 					<Item subMenuId="edit-onSelection" name="Bei Auswahl"/>
-					<Item subMenuId="search-markAll" name="&amp;Alle Hervorhebungen"/>
-					<Item subMenuId="search-markOne" name="&amp;Eine Hervorhebung"/>
+					<Item subMenuId="search-markAll" name="&amp;Alle Vorkommen hervorheben"/>
+					<Item subMenuId="search-markOne" name="Di&amp;eses Vorkommen hervorheben"/>
 					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
@@ -1515,6 +1515,10 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<IncrementalFind-FSNotFound value="Ausdruck nicht gefunden" />
 			<IncrementalFind-FSTopReached value="Anfang der Seite erreicht, Fortsetzung von unten" />
 			<IncrementalFind-FSEndReached value="Ende der Seite erreicht, Fortsetzung von oben" />
+			<contextMenu-styleAlloccurrencesOfToken value="Alle Vorkommen hervorheben" />
+			<contextMenu-styleOneToken value="Dieses Vorkommen hervorheben" />
+			<contextMenu-clearStyle value="Hervorhebungen entfernen" />
+			<contextMenu-PluginCommands value="Plugin-Befehle" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.1.9.3 (04.12.2021)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.2.1 (11.01.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.1.5">
+    <Native-Langue name="polski" filename="polish.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -188,6 +188,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42029" name="Kopiuj ścieżkę bieżącego pliku"/>
                     <Item id="42030" name="Kopiuj nazwę bieżącego pliku"/>
                     <Item id="42031" name="Kopiuj ścieżkę katalogu bieżącego pliku"/>
+                    <Item id="42087" name="Kopiuj nazwy wszystkich plików"/>
+                    <Item id="42088" name="Kopiuj ścieżki wszystkich plików"/>
                     <Item id="42032" name="&amp;Uruchom makro wielokrotnie..."/>
                     <Item id="42033" name="Wyłącz tryb „Tylko do odczytu”"/>
                     <Item id="42035" name="Wstaw komentarz liniowy"/>
@@ -259,6 +261,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43048" name="Wybierz i szukaj następnego"/>
                     <Item id="43049" name="Wybierz i szukaj poprzedniego"/>
                     <Item id="43054" name="Oz&amp;nacz..."/>
+                    <Item id="43501" name="Zamknij wybrane pliki"/>
+                    <Item id="43502" name="Zamknij pozostałe pliki"/>
+                    <Item id="43503" name="Kopiuj nazwy wybranych plików"/>
+                    <Item id="43504" name="Kopiuj ścieżki wybranych plików"/>
                     <Item id="44009" name="Przełącz tryb Post-It"/>
                     <Item id="44010" name="Zwiń wszystko"/>
                     <Item id="44011" name="Tryb antyrozpraszania"/> <!-- Tryb wolny od rozpraszania uwagi -->
@@ -890,6 +896,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7122" name="Darker text"/>
                     <Item id="7123" name="Disabled text"/>
                     <Item id="7124" name="Edge"/>
+                    <Item id="7125" name="Link"/>
                     <Item id="7130" name="Resetuj"/>
                 </DarkMode>
 
@@ -1045,6 +1052,9 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6809" name="Funkcji"/>
                     <Item id="6810" name="Słów"/>
                     <Item id="6816" name="Funkcji i słów"/>
+                    <Item id="6869" name="Wstaw klawiszem"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignoruj numery"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name=". znaku"/>
@@ -1061,7 +1071,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
 
                 <MultiInstance title="Wiele instancji i Data"> <!-- Wieloinstancyjność -->
                     <Item id="6151" name="Ustawienia wieloinstancyjności"/>
-                    <Item id="6152" name="Otwieraj sesje w nowych instancjach Notepad++"/>
+                    <Item id="6152" name="Otwieraj sesje w nowych instancjach Notepad++ (i zapisuje je automatycznie przy wyjściu)"/>
                     <Item id="6153" name="Zawsze w trybie wieloinstancyjności"/>
                     <Item id="6154" name="Domyślne (jedna instancja)"/>
                     <Item id="6155" name="Zmiana tego ustawienia wymaga ponownego uruchomienia Notepad++."/>
@@ -1393,9 +1403,11 @@ Kontynuować?"/>
             <word-chars-list-space-warning value="spacje ($INT_REPLACE$)"/>
             <word-chars-list-tab-warning value="tabulatory ($INT_REPLACE$)"/>
             <word-chars-list-warning-end value="."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać dla kopii zapasowej"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Nieprawidłowa ścieżka."/>
             <cloud-restart-warning value="Wymagane ponowne uruchomienie Notepad++."/>
             <cloud-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać do zapisu i odczytu swoich ustawień."/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać jako domyślny"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Shift+Enter pozwala wyszukiwać w drugą stronę."/>
             <two-find-buttons-tip value="Tryb dwóch przycisków szukania"/>
             <file-rename-title value="Zmiana nazwy"/>
@@ -1403,7 +1415,14 @@ Kontynuować?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+*.* !*.exe !*.obj !*.log
+
+Szukaj wśród wszystkich plików z wyjątkiem folderów tests, bin i bin64:
+*.* !\tests !\bin*
+
+Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folderów log i logs:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Wybierz folder, który ma zostać przeszukany przez Notepad++"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Szukanie: Plik przeszukano do góry. Znaleziono 1. wystąpienie od dołu."/>
             <find-status-end-reached value="Szukanie: Plik przeszukano do dołu. Znaleziono 1. wystąpienie od góry."/>
             <find-status-replaceinfiles-1-replaced value="Zamienianie w plikach: Zamieniono 1 wystąpienie"/>
@@ -1497,6 +1516,10 @@ Szukaj wśród wszystkich plików z wyjątkiem exe, obj i log:
             <IncrementalFind-FSNotFound value="Nie znaleziono frazy" />
             <IncrementalFind-FSTopReached value="Osiągnięto początek dokumentu, kontynuacja od końca" />
             <IncrementalFind-FSEndReached value="Osiągnięto koniec dokumentu, kontynuacja od początku" />
+            <contextMenu-styleAlloccurrencesOfToken value="Wyróżnij każde" />
+            <contextMenu-styleOneToken value="Wyróżnij jedno" />
+            <contextMenu-clearStyle value="Usuń wyróżnienia" />
+            <contextMenu-PluginCommands value="Polecenia wtyczek" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

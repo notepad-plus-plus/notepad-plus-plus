@@ -231,6 +231,11 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			{
 				generic_sprintf(szProductName, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
 			}
+
+			// Override ProductName if it's Windows 11
+			if (NppDarkMode::isWindows11())
+				generic_sprintf(szProductName, TEXT("%s"), TEXT("Windows 11"));
+
 			if (szCurrentBuildNumber[0] == '\0')
 			{
 				DWORD dwVersion = GetVersion();

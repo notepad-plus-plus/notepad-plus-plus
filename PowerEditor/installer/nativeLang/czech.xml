@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.2.0.0  5/Jan/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.2.1.0  12/Jan/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.2.0.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.2.1.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -134,9 +134,9 @@
 					<Item id = "42026" name = "Směr textu zprava doleva"/>
 					<Item id = "42027" name = "Směr textu zleva doprava"/>
 					<Item id = "42028" name = "Nastavit p&amp;říznak Pouze pro čtení"/>
-					<Item id = "42029" name = "Jméno (s celou cestou) aktuálního souboru do Schránky"/>
+					<Item id = "42029" name = "Jméno (i s cestou) aktuálního souboru do Schránky"/>
 					<Item id = "42030" name = "Jméno aktuálního souboru do Schránky"/>
-					<Item id = "42031" name = "Jméno aktuálního adresáře (s celou cestou) do Schránky"/>
+					<Item id = "42031" name = "Jméno aktuálního adresáře (i s cestou) do Schránky"/>
 					<Item id = "42032" name = "Spustit makro více&amp;krát..."/>
 					<Item id = "42033" name = "Zrušit p&amp;říznak Pouze pro čtení"/>
 					<Item id = "42034" name = "Editor s&amp;loupce..."/>
@@ -192,6 +192,8 @@
 					<Item id = "42084" name = "Aktuální čas a datum (kratší verze)"/>
 					<Item id = "42085" name = "Aktuální čas a datum (delší verze)"/>
 					<Item id = "42086" name = "Aktuální čas a datum (přizpůsobený)"/>
+					<Item id = "42087" name = "Všechna jména souborů do Schránky"/>
+					<Item id = "42088" name = "Všechny souborové cesty do Schránky"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nah&amp;radit..."/>
@@ -257,6 +259,10 @@
 					<Item id = "43064" name = "Použít 3. styl"/>
 					<Item id = "43065" name = "Použít 4. styl"/>
 					<Item id = "43066" name = "Použít 5. styl"/>
+					<Item id = "43501" name = "Zavřít vybrané"/>
+					<Item id = "43502" name = "Zavřít ostatní"/>
+					<Item id = "43503" name = "Kopírovat jména vybraných souborů"/>
+					<Item id = "43504" name = "Kopírovat cesty vybraných souborů"/>
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu (Post-It mód)"/>
 					<Item id = "44010" name = "Sbalit vše"/>
 					<Item id = "44011" name = "Zobrazit pouze čistý text (nerušivý mód)"/>
@@ -1123,6 +1129,9 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6860" name = "Párové znaky 1:"/>
 					<Item id = "6863" name = "Párové znaky 2:"/>
 					<Item id = "6866" name = "Párové znaky 3:"/>
+					<Item id = "6869" name = "Vložit vybraný návrh"/>
+					<Item id = "6870" name = "TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id = "6871" name = "ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 				</AutoCompletion>
 				<MultiInstance title = "Více instancí &amp; Datum">
 					<Item id = "6151" name = "Nastavení víceinstančního módu"/>
@@ -1412,9 +1421,11 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<word-chars-list-space-warning value = "$INT_REPLACE$ mezeru(y)"/>
 			<word-chars-list-tab-warning value = "$INT_REPLACE$ tabulátor(y)"/>
 			<word-chars-list-warning-end value = "  ve Vašem seznamu znaků."/>
+			<backup-select-folder value = "Vyberte složku pro zálohy"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value = "Neplatná cesta."/>
 			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
 			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
+			<default-open-save-select-folder value = "Vyberte výchozí složku"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
 			<two-find-buttons-tip value = "Mód se dvěma vyhledávacími tlačítky"/>
 			<file-rename-title value = "Přejmenovat"/>
@@ -1429,6 +1440,7 @@ Hledat ve všech souborech, ale vynechat složky tests, bin &amp;&amp; bin64:
 
 Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo logs:
 *.* !\\log*+"/>  <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+			<find-in-files-select-folder value = "Vyberte složku, kde chcete vyhledávat"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
 			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
 			<find-status-replaceinfiles-1-replaced value = "Nahrazování v souborech: 1 výskyt nahrazen"/>
@@ -1522,6 +1534,10 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<IncrementalFind-FSNotFound value = "Výraz nenalezen."/>
 			<IncrementalFind-FSTopReached value = "Bylo dosaženo začátku stránky, pokračování odspodu"/>
 			<IncrementalFind-FSEndReached value = "Bylo dosaženo konce stránky, pokračování odshora"/>
+			<contextMenu-styleAlloccurrencesOfToken value = "Označit všechny výskyty tokenu stylem"/>
+			<contextMenu-styleOneToken value = "Označit token (jeden) stylem"/>
+			<contextMenu-clearStyle value = "Odstranit označení stylem u tokenů"/>
+			<contextMenu-PluginCommands value = "Pluginové povely"/>
 		</MiscStrings>
 
 	</Native-Langue>

@@ -1501,6 +1501,10 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <IncrementalFind-FSNotFound value="Fráza sa nenašla" />
             <IncrementalFind-FSTopReached value="Dosiahnutý začiatok strany, pokračovanie zdola" />
             <IncrementalFind-FSEndReached value="Dosiahnutý koniec strany, pokračovanie zhora" />
+            <contextMenu-styleAlloccurrencesOfToken value="Použiť štýl na všetky výskyty tokenu" />
+            <contextMenu-styleOneToken value="Použiť štýl na jeden token" />
+            <contextMenu-clearStyle value="Vymazať štýl" />
+            <contextMenu-PluginCommands value="Príkazy pluginu" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Dansk" filename="danish.xml" version="8.2">
+    <Native-Langue name="Dansk" filename="danish.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -178,6 +178,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42029" name="Aktuel filsti til udklipsholder"/>
                     <Item id="42030" name="Aktuelt filnavn til udklipsholder"/>
                     <Item id="42031" name="Aktuel mappesti til udklipsholder"/>
+                    <Item id="42087" name="Alle filnavne til udklipsholder"/>
+                    <Item id="42088" name="Alle filstier til udklipsholder"/>
                     <Item id="42032" name="&amp;Kør en makro flere gange..."/>
                     <Item id="42033" name="Fjern skrivebeskyttelse"/>
                     <Item id="42035" name="Liniekommentar til"/>
@@ -249,6 +251,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43048" name="Markér og find næste"/>
                     <Item id="43049" name="Markér og find forrige"/>
                     <Item id="43054" name="&amp;Mærk..."/>
+                    <Item id="43501" name="Luk valgte"/>
+                    <Item id="43502" name="Luk andre"/>
+                    <Item id="43503" name="Kopiér valgte navne"/>
+                    <Item id="43504" name="Kopiér valgte stinavne"/>
                     <Item id="44009" name="Kun tekstområde"/>
                     <Item id="44010" name="Sammenfold alle"/>
                     <Item id="44011" name="Fokus redigering"/>
@@ -389,7 +395,7 @@ The comments are here for explanation, it's not necessary to translate them.
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Søg" titleReplace="Erstat" titleFindInFiles="Søg i filer" titleMark="Mærk">
+            <Find title="" titleFind="Søg" titleReplace="Erstat" titleFindInFiles="Søg i filer" titleFindInProjects="Søg i projekter" titleMark="Mærk">
                 <Item id="1"    name="Find næste"/>
                 <Item id="1722" name="Baglæns"/>
                 <Item id="2"    name="Luk"/>
@@ -428,7 +434,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1641" name="&amp;Find alle i aktuelt dokument"/>
                 <Item id="1686" name="Transparens"/>
                 <Item id="1703" name="&amp; Find linieskift"/>
-		            <Item id="1721" name="▲"/>
+		<Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Næste"/>
                 <Item id="1725" name="Kopiér mærket tekst"/>
             </Find>
@@ -1036,13 +1042,16 @@ Brug mellemrum til at angive flere markører."/>
                     <Item id="6809" name="Fuldfør funktioner"/>
                     <Item id="6810" name="Fuldfør ord"/>
                     <Item id="6816" name="Fuldfør funktioner og ord"/>
+                    <Item id="6869" name="Indsæt valgte"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignorér tal"/>
                     <Item id="6811" name="Fra"/>
                     <Item id="6813" name="tegn"/>
                     <Item id="6814" name="Gyldig værdi: 1 - 9"/>
                     <Item id="6815" name="Vis funktionsparametre ved input"/>
                     <Item id="6851" name="Automatisk indsættelse"/>
-                    <Item id="6857" name=" HTML/XML lukketegn"/>
+                    <Item id="6857" name=" HTML/XML lukning"/>
                     <Item id="6858" name="Åbn"/>
                     <Item id="6859" name="Luk"/>
                     <Item id="6860" name="Afstemt par 1:"/>
@@ -1379,13 +1388,16 @@ Vil du fortsætte?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
              <word-chars-list-tip value="Giver mulighed for at inkludere ekstra tegn i aktuelt tegnsæt, ved dobbeltklik for markering, eller i søgning når &quot;Søg kun hele ord&quot; er valgt."/>
+
             <word-chars-list-warning-begin value="OBS: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ mellemrum"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulator(er)"/>
             <word-chars-list-warning-end value="  i dit tegnsæt."/>
+            <backup-select-folder value="Vælg mappe"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Ugyldig sti."/>
             <cloud-restart-warning value="Genstart Notepad++ for at anvende ændringer."/>
             <cloud-select-folder value="Vælg til dine Notepad++ indstillinger"/>
+            <default-open-save-select-folder value="Vælg standardmappe"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Brug Skift+Enter til at søge i modsat retning"/>
             <two-find-buttons-tip value="Frem/tilbage knapper"/>
             <file-rename-title value="Omdøb"/>
@@ -1400,6 +1412,7 @@ Find i alle filer, undtagen i mapperne tests, bin &amp;&amp; bin64:
 
 Find i alle filer, undtagen i mapperne log med undermapper:
 *.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Vælg mappe"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Fandt 1. forekomst fra bunden. Toppen af dokumentet er nået."/>
             <find-status-end-reached value="Fandt 1. forekomst fra toppen. Enden af dokumentet er nået."/>
             <find-status-replaceinfiles-1-replaced value="1  forekomst blev erstattet"/>
@@ -1493,7 +1506,10 @@ Find i alle filer, undtagen i mapperne log med undermapper:
             <IncrementalFind-FSNotFound value="Intet fundet" />
             <IncrementalFind-FSTopReached value="Nåede toppen, fortsatte fra enden" />
             <IncrementalFind-FSEndReached value="Nåede enden, fortsatte fra toppen" />
+            <contextMenu-styleAlloccurrencesOfToken value="Mærk alle" />
+            <contextMenu-styleOneToken value="Mærk enkelte" />
+            <contextMenu-clearStyle value="Fjern alle mærker" />
+            <contextMenu-PluginCommands value="Plugin kommandoer" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
-

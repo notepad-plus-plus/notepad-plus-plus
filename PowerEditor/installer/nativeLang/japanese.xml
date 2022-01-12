@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.2">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1047,6 +1047,9 @@
                     <Item id="6809" name="関数名補完"/>
                     <Item id="6810" name="単語補完"/>
                     <Item id="6816" name="関数名と単語の補完"/>
+                    <Item id="6869" name="補完の確定"/>
+                    <Item id="6870" name="TAB"/>
+                    <Item id="6871" name="ENTER"/>
                     <Item id="6824" name="数字は補完しない"/>
                     <Item id="6811" name=" "/>
                     <Item id="6813" name="文字目から"/>
@@ -1507,6 +1510,10 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <IncrementalFind-FSNotFound value="見つかりません" />
             <IncrementalFind-FSTopReached value="文書の先頭に達したため、末尾から検索しました" />
             <IncrementalFind-FSEndReached value="文書の末尾に達したため、先頭から検索しました" />
+            <contextMenu-styleAlloccurrencesOfToken value="選択した語をすべて色づけ" />
+            <contextMenu-styleOneToken value="選択した語を一つだけ色づけ" />
+            <contextMenu-clearStyle value="色づけを解除" />
+            <contextMenu-PluginCommands value="プラグイン" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

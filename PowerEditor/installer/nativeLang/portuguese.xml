@@ -1506,6 +1506,10 @@ Procurar em todos os ficheiros mas excluir todos os registos de pastas ou regist
             <IncrementalFind-FSNotFound value="Frase não encontrada" />
             <IncrementalFind-FSTopReached value="Atingido o topo da página, continuou do final" />
             <IncrementalFind-FSEndReached value="Atingido o final da página, continuou do topo" />
+            <contextMenu-styleAlloccurrencesOfToken value="Marcar tudo" />
+            <contextMenu-styleOneToken value="Marcar uma" />
+            <contextMenu-clearStyle value="Limpar estilo" />
+            <contextMenu-PluginCommands value="Comandos de plugin" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
@@ -1530,7 +1534,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-11/01/2022 (versão 8.0, 8.1, 8.2)
+12/01/2022 (versão 8.0, 8.1, 8.2)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

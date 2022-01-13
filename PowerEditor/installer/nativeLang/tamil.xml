@@ -273,14 +273,10 @@
                 <Item id="1604" name="பொருத்து வகை"/>
                 <Item id="1605" name="Regular &amp;expression"/>
                 <Item id="1606" name="சுற்றி காட்டு (&amp;d)"/>
-                <Item id="1612" name="மேல் (&amp;U)"/>
-                <Item id="1613" name="கீழ் (&amp;D)"/>
                 <Item id="1614" name="எண்"/>
                 <Item id="1615" name="அனைத்தும் கண்டுபிடி"/>
                 <Item id="1616" name="வரியை குறி"/>
-                <Item id="1617" name="Style found token"/>
                 <Item id="1618" name="ஒவ்வொரு தேடலுக்கும் அழி"/>
-                <Item id="1621" name="திசை"/>
                 <Item id="1611" name="&amp;க்கு மாற்று :"/>
                 <Item id="1608" name="மாற்று (&amp;R)"/>
                 <Item id="1609" name="அனைத்தும் மாற்று&amp;"/>
@@ -291,7 +287,6 @@
 			 	<Item id="1633" name="அழி"/>
 			 	<Item id="1635" name="அனைத்து திறந்த கோப்புகளிலும் மாற்று"/>
 			 	<Item id="1636" name="அனைத்து திறந்த கோப்புகளிலும் கண்டுபிடி"/>
-			 	<Item id="1637" name="கோப்புகளில்  கண்டுபிடி"/>
 			 	<Item id="1654" name="வடிகட்டிகள் :"/>
 			 	<Item id="1655" name="அடைவு :"/>
 			 	<Item id="1656" name="அனைத்தும் கண்டுபிடி"/>

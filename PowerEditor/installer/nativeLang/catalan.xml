@@ -368,8 +368,6 @@ By Hiro5 <groccat at gmail>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
-				<Item id="1617" name="Estil de símbol trobat"/>
-				<Item id="1637" name="Cerca als fitxers"/>
 				<Item id="1"    name="Cerca següent"/>
 				<Item id="1722" name="Inverteix direcció"/>
 				<Item id="1614" name="Compta coincidències"/>

@@ -830,7 +830,7 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 		IDC_PERCENTAGE_SLIDER , IDC_REPLACEINSELECTION , IDC_IN_SELECTION_CHECK,
 
 		IDD_FINDINFILES_BROWSE_BUTTON, IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
-		IDREPLACE, IDREPLACEALL,IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDOK, IDCANCEL,
+		IDREPLACE, IDREPLACEALL, IDD_FINDREPLACE_SWAP_BUTTON, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDOK, IDCANCEL,
 		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS
 	};
 
@@ -1071,6 +1071,19 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), TEXT("▼ Find Next"));
+			::SetWindowTextW(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), TEXT("⇅"));
+
+			// "⇅" enlargement
+			const TCHAR* fontName = _T("Courier New");
+			const long nFontSize = 14;
+			HDC hdc = GetDC(_hSelf);
+			LOGFONT logFont = { 0 };
+			logFont.lfHeight = -MulDiv(nFontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
+			logFont.lfWeight = FW_BOLD;
+			_tcscpy_s(logFont.lfFaceName, fontName);
+			HFONT bolderFont = CreateFontIndirect(&logFont);
+			ReleaseDC(_hSelf, hdc);
+			SendMessage(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), WM_SETFONT, (WPARAM)bolderFont, MAKELPARAM(true, 0));
 
 			return TRUE;
 		}
@@ -1271,6 +1284,20 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					_options._whichDirection = direction_bak;
 
 					nppParamInst._isFindReplacing = false;
+				}
+				return TRUE;
+
+				case IDD_FINDREPLACE_SWAP_BUTTON:
+				{
+					HWND hFindWhat = ::GetDlgItem(_hSelf, IDFINDWHAT);
+					generic_string findWhatText = getTextFromCombo(hFindWhat);
+					HWND hPlaceWith = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+					generic_string replaceWithText = getTextFromCombo(hPlaceWith);
+					if ((!findWhatText.empty() || !replaceWithText.empty()) && (findWhatText != replaceWithText))
+					{
+						::SendMessage(hFindWhat, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(replaceWithText.c_str()));
+						::SendMessage(hPlaceWith, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(findWhatText.c_str()));
+					}
 				}
 				return TRUE;
 
@@ -2906,6 +2933,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	showFindDlgItem(ID_STATICTEXT_REPLACE, isEnable);
 	showFindDlgItem(IDREPLACE, isEnable);
 	showFindDlgItem(IDREPLACEWITH, isEnable);
+	showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON, isEnable);
 	showFindDlgItem(IDREPLACEALL, isEnable);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, isEnable);
 	showFindDlgItem(IDC_REPLACEINSELECTION);
@@ -2987,6 +3015,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	{
 		showFindDlgItem(ID_STATICTEXT_REPLACE);
 		showFindDlgItem(IDREPLACEWITH);
+		showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON);
 	}
 	showFindDlgItem(IDD_FINDINFILES_REPLACEINFILES, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_REPLACEINPROJECTS, isEnable && projectPanels);
@@ -3678,6 +3707,7 @@ void FindReplaceDlg::enableMarkFunc()
 	showFindDlgItem(ID_STATICTEXT_REPLACE, false);
 	showFindDlgItem(IDREPLACE, false);
 	showFindDlgItem(IDREPLACEWITH, false);
+	showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON, false);
 	showFindDlgItem(IDREPLACEALL, false);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, false);
 	showFindDlgItem(IDC_REPLACEINSELECTION, false);

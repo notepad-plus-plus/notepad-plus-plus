@@ -217,14 +217,10 @@
 				<Item id = "1604" name = "&amp;Nøyaktig små/store bokstaver" />
 				<Item id = "1605" name = "&amp;Regelbasert uttrykk" />
 				<Item id = "1606" name = "&amp;Uavbrutt søk" />
-				<Item id = "1612" name = "&amp;Opp" />
-				<Item id = "1613" name = "&amp;Ned" />
 				<Item id = "1614" name = "Antall" />
 				<Item id = "1615" name = "Finn alle" />
 				<Item id = "1616" name = "Marker linje" />
-				<Item id = "1617" name = "Marker med funnet stil" />
 				<Item id = "1618" name = "Rydd for hvert søk" />
-				<Item id = "1621" name = "Retning" />
 				<Item id = "1611" name = "Er&amp;statt med:" />
 				<Item id = "1608" name = "&amp;Erstatt" />
 				<Item id = "1609" name = "Erstatt &amp;alle" />
@@ -237,7 +233,6 @@
 			 	<Item id = "1635" name = "Erstatt alle i alle åpne dokument"/>
 			 	<Item id = "1636" name = "Finn alle i alle åpne dokument"/>
 				<Item id = "1641" name = "Finn alle i dette dokumentet"/>
-			 	<Item id = "1637" name = "Finn i filer"/>
 			 	<Item id = "1654" name = "Filter:"/>
 			 	<Item id = "1655" name = "Katalog:"/>
 			 	<Item id = "1656" name = "Finn alle sammen"/>

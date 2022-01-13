@@ -161,14 +161,10 @@
                 <Item id = "1604" name = "طابق &amp;حالة"/>
                 <Item id = "1605" name = "اعتيادي &amp;التعبير"/>
                 <Item id = "1606" name = "حول التغليف&amp;"/>
-                <Item id = "1612" name = "&amp;اوپر"/>
-                <Item id = "1613" name = "&amp;نيچے"/>
                 <Item id = "1614" name = "شمار"/>
                 <Item id = "1615" name = "جد الكل"/>
                 <Item id = "1616" name = "خط معلَّم"/>
-                <Item id = "1617" name = "أسلوب إيجاد النموذج"/>
                 <Item id = "1618" name = "إزلة لكل بحث"/>
-                <Item id = "1621" name = "سمت"/>
                 <Item id = "1611" name = "أعد&amp;استبدل بـ:"/>
                 <Item id = "1608" name = "&amp;اعد استبدال"/>
                 <Item id = "1609" name = "اعد استبدال &amp;الكل"/>
@@ -177,9 +173,7 @@
 			 	<Item id = "1633" name = "مٹائيں"/>
 			 	<Item id = "1635" name = "إستبدال الكل في جميع المستندات المفتوحة"/>
 			 	<Item id = "1636" name = "إيجاد الكل في جميع المستندات المفتوحة"/>
-			 	<Item id = "1637" name = "فائل ميں تلاش کريں"/>
             </Find>
-            <Item id = "1640" name = "خيارات المحاورة"/>
             <GoToLine title = "اذهب للسطر رقم ">
                 <Item id = "1" name = "&amp;جائيں!"/>
                 <Item id = "2" name = "أنا ذاهب للا مكان"/>

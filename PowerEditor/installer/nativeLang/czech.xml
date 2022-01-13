@@ -413,14 +413,10 @@
 				<Item id = "1604" name = "Rozlišovat &amp;malá a VELKÁ písmena"/>
 				<Item id = "1605" name = "Regulární výraz"/>
 				<Item id = "1606" name = "Na konci &amp;znovu od začátku"/>
-				<Item id = "1612" name = "&amp;Nahoru"/>
-				<Item id = "1613" name = "&amp;Dolů"/>
 				<Item id = "1614" name = "Počet"/>
 				<Item id = "1615" name = "Najít vše"/>
 				<Item id = "1616" name = "Označit řádek"/>
-				<Item id = "1617" name = "Ozn. hledaný text stylem"/>
 				<Item id = "1618" name = "Zrušit stávající označení při novém hledání"/>
-				<Item id = "1621" name = "Směr"/>
 				<Item id = "1611" name = "&amp;Nahradit:"/>
 				<Item id = "1608" name = "&amp;Nahradit"/>
 				<Item id = "1609" name = "Nahra&amp;dit vše"/>
@@ -430,9 +426,7 @@
 				<Item id = "1633" name = "Vymazat"/>
 				<Item id = "1635" name = "Nahradit vše ve všech otevřených dokumentech"/>
 				<Item id = "1636" name = "Najít vše ve všech otevřených dokumentech"/>
-				<Item id = "1637" name = "Najít v souborech"/>
 				<!--
-				<Item id = "1640" name = "Přepnout dialog"/>
 				-->
 				<Item id = "1641" name = "Najít vše v aktuálním dokumentu"/>
 				<Item id = "1654" name = "Filtry:"/>

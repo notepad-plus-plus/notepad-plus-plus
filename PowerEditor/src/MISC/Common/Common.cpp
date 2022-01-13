@@ -1497,3 +1497,22 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 
 	return {};
 }
+
+// Don't forget to use DeleteObject(createdFont) before leaving the program
+HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent)
+{
+	HDC hdc = GetDC(hDestParent);
+
+	LOGFONT logFont = { 0 };
+	logFont.lfHeight = -MulDiv(fontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
+	if (isBold)
+		logFont.lfWeight = FW_BOLD;
+
+	_tcscpy_s(logFont.lfFaceName, fontName);
+
+	HFONT newFont = CreateFontIndirect(&logFont);
+
+	ReleaseDC(hDestParent, hdc);
+
+	return newFont;
+}

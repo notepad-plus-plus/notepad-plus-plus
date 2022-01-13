@@ -255,6 +255,9 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_hMonospaceFont)
 		::DeleteObject(_hMonospaceFont);
 
+	if (_hLargerBolderFont)
+		::DeleteObject(_hLargerBolderFont);
+
 	delete[] _uniFileName;
 }
 
@@ -986,18 +989,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			if ((NppParameters::getInstance()).getNppGUI()._monospacedFontFindDlg)
 			{
-				const TCHAR* fontName = _T("Courier New");
-				const long nFontSize = 8;
-
-				HDC hdc = GetDC(_hSelf);
-
-				LOGFONT logFont = { 0 };
-				logFont.lfHeight = -MulDiv(nFontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
-				_tcscpy_s(logFont.lfFaceName, fontName);
-
-				_hMonospaceFont = CreateFontIndirect(&logFont);
-
-				ReleaseDC(_hSelf, hdc);
+				_hMonospaceFont = createFont(TEXT("Courier New"), 8, false, _hSelf);
 
 				SendMessage(hFindCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
 				SendMessage(hReplaceCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
@@ -1074,16 +1066,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), TEXT("⇅"));
 
 			// "⇅" enlargement
-			const TCHAR* fontName = _T("Courier New");
-			const long nFontSize = 14;
-			HDC hdc = GetDC(_hSelf);
-			LOGFONT logFont = { 0 };
-			logFont.lfHeight = -MulDiv(nFontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
-			logFont.lfWeight = FW_BOLD;
-			_tcscpy_s(logFont.lfFaceName, fontName);
-			HFONT bolderFont = CreateFontIndirect(&logFont);
-			ReleaseDC(_hSelf, hdc);
-			SendMessage(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), WM_SETFONT, (WPARAM)bolderFont, MAKELPARAM(true, 0));
+			_hLargerBolderFont = createFont(TEXT("Courier New"), 14, true, _hSelf);
+
+			SendMessage(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
 
 			return TRUE;
 		}

@@ -233,3 +233,5 @@ bool endsWith(const generic_string& s, const generic_string& suffix);
 int nbDigitsFromNbLines(size_t nbLines);
 
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st);
+
+HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent);

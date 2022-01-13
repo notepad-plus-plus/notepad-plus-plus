@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.1.9.3  4/Dec/2021  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.2.1.0  13/Jan/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.1.9.3">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.2.1.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -134,9 +134,9 @@
 					<Item id = "42026" name = "Směr textu zprava doleva"/>
 					<Item id = "42027" name = "Směr textu zleva doprava"/>
 					<Item id = "42028" name = "Nastavit p&amp;říznak Pouze pro čtení"/>
-					<Item id = "42029" name = "Jméno (s celou cestou) aktuálního souboru do Schránky"/>
+					<Item id = "42029" name = "Jméno (i s cestou) aktuálního souboru do Schránky"/>
 					<Item id = "42030" name = "Jméno aktuálního souboru do Schránky"/>
-					<Item id = "42031" name = "Jméno aktuálního adresáře (s celou cestou) do Schránky"/>
+					<Item id = "42031" name = "Jméno aktuálního adresáře (i s cestou) do Schránky"/>
 					<Item id = "42032" name = "Spustit makro více&amp;krát..."/>
 					<Item id = "42033" name = "Zrušit p&amp;říznak Pouze pro čtení"/>
 					<Item id = "42034" name = "Editor s&amp;loupce..."/>
@@ -192,6 +192,8 @@
 					<Item id = "42084" name = "Aktuální čas a datum (kratší verze)"/>
 					<Item id = "42085" name = "Aktuální čas a datum (delší verze)"/>
 					<Item id = "42086" name = "Aktuální čas a datum (přizpůsobený)"/>
+					<Item id = "42087" name = "Všechna jména souborů do Schránky"/>
+					<Item id = "42088" name = "Všechny souborové cesty do Schránky"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nah&amp;radit..."/>
@@ -257,6 +259,10 @@
 					<Item id = "43064" name = "Použít 3. styl"/>
 					<Item id = "43065" name = "Použít 4. styl"/>
 					<Item id = "43066" name = "Použít 5. styl"/>
+					<Item id = "43501" name = "Zavřít vybrané"/>
+					<Item id = "43502" name = "Zavřít ostatní"/>
+					<Item id = "43503" name = "Kopírovat jména vybraných souborů"/>
+					<Item id = "43504" name = "Kopírovat cesty vybraných souborů"/>
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu (Post-It mód)"/>
 					<Item id = "44010" name = "Sbalit vše"/>
 					<Item id = "44011" name = "Zobrazit pouze čistý text (nerušivý mód)"/>
@@ -403,40 +409,33 @@
 		<Dialog>
 
 			<Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech" titleFindInProjects = "Najít v projektech" titleMark = "Označit">
-				<!--
-				<Item id = "1" name = "Najít &gt;&gt;"/>
-				-->
 				<Item id = "1" name = "Najít >>"/>
 				<Item id = "2" name = "Zavřít"/>
-				<Item id = "1620" name = "Najít:"/>
 				<Item id = "1603" name = "Hledat &amp;pouze celá slova"/>
 				<Item id = "1604" name = "Rozlišovat &amp;malá a VELKÁ písmena"/>
 				<Item id = "1605" name = "Regulární výraz"/>
 				<Item id = "1606" name = "Na konci &amp;znovu od začátku"/>
+				<Item id = "1608" name = "&amp;Nahradit"/>
+				<Item id = "1609" name = "Nahra&amp;dit vše"/>
+				<Item id = "1611" name = "&amp;Nahradit:"/>
 				<Item id = "1614" name = "Počet"/>
 				<Item id = "1615" name = "Najít vše"/>
 				<Item id = "1616" name = "Označit řádek"/>
 				<Item id = "1618" name = "Zrušit stávající označení při novém hledání"/>
-				<Item id = "1611" name = "&amp;Nahradit:"/>
-				<Item id = "1608" name = "&amp;Nahradit"/>
-				<Item id = "1609" name = "Nahra&amp;dit vše"/>
-				<Item id = "1687" name = "Při ztrátě fokusu"/>
-				<Item id = "1688" name = "Vždy"/>
+				<Item id = "1620" name = "Najít:"/>
+				<Item id = "1624" name = "Mód vyhledávání"/>
+				<Item id = "1625" name = "Normální"/>
+				<Item id = "1626" name = "Rozšířený (\n, \r, \t, \x..., \0)"/>
 				<Item id = "1632" name = "Ve vybraném"/>
 				<Item id = "1633" name = "Vymazat"/>
 				<Item id = "1635" name = "Nahradit vše ve všech otevřených dokumentech"/>
 				<Item id = "1636" name = "Najít vše ve všech otevřených dokumentech"/>
-				<!--
-				-->
 				<Item id = "1641" name = "Najít vše v aktuálním dokumentu"/>
 				<Item id = "1654" name = "Filtry:"/>
 				<Item id = "1655" name = "Adresář:"/>
 				<Item id = "1656" name = "Najít vše"/>
 				<Item id = "1658" name = "Ve všech podadresářích"/>
 				<Item id = "1659" name = "Ve skrytých adresářích"/>
-				<Item id = "1624" name = "Mód vyhledávání"/>
-				<Item id = "1625" name = "Normální"/>
-				<Item id = "1626" name = "Rozšířený (\n, \r, \t, \x..., \0)"/>
 				<Item id = "1660" name = "Nahradit v souborech"/>
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1662" name = "Projektový panel 1"/>
@@ -444,6 +443,8 @@
 				<Item id = "1664" name = "Projektový panel 3"/>
 				<Item id = "1665" name = "Nahradit v projektech"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>
+				<Item id = "1687" name = "Při ztrátě fokusu"/>
+				<Item id = "1688" name = "Vždy"/>
 				<Item id = "1703" name = "&amp;. označuje nový ř."/>
 				<Item id = "1721" name = "▲"/> 
 				<Item id = "1722" name = "Zpětný směr"/>
@@ -930,6 +931,7 @@
 					<Item id = "7122" name = "Tmavší text"/>
 					<Item id = "7123" name = "Dezaktivovaný text"/>
 					<Item id = "7124" name = "Okraje"/>
+					<Item id = "7125" name = "Odkazy"/>
 					<Item id = "7130" name = "Obnovit"/>
 				</DarkMode>
 				<MarginsBorderEdge title="Okraje/Lem/Hrana">
@@ -1116,10 +1118,13 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6860" name = "Párové znaky 1:"/>
 					<Item id = "6863" name = "Párové znaky 2:"/>
 					<Item id = "6866" name = "Párové znaky 3:"/>
+					<Item id = "6869" name = "Vložit vybraný návrh"/>
+					<Item id = "6870" name = "TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id = "6871" name = "ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 				</AutoCompletion>
 				<MultiInstance title = "Více instancí &amp; Datum">
 					<Item id = "6151" name = "Nastavení víceinstančního módu"/>
-					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++"/>
+					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++ (a při ukončení ji automaticky uložit)"/>
 					<Item id = "6153" name = "Vždy ve víceinstančním módu"/>
 					<Item id = "6154" name = "Implicitní (jednoinstanční) mód"/>
 					<Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
@@ -1138,7 +1143,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6162" name = "Použít implicitní seznam znaků pro Slova tak, jak je"/>
 					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
 				</Delimiter>
-				<Cloud title = "Cloud a hyperlinky">
+				<Cloud title = "Cloud a odkazy">
 					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
 					<Item id = "6262" name = "Nastavení internetového úložišťě"/>
 					<Item id = "6263" name = "Bez cloudu"/>
@@ -1405,16 +1410,26 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<word-chars-list-space-warning value = "$INT_REPLACE$ mezeru(y)"/>
 			<word-chars-list-tab-warning value = "$INT_REPLACE$ tabulátor(y)"/>
 			<word-chars-list-warning-end value = "  ve Vašem seznamu znaků."/>
+			<backup-select-folder value = "Vyberte složku pro zálohy"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value = "Neplatná cesta."/>
 			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
 			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
+			<default-open-save-select-folder value = "Vyberte výchozí složku"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
 			<two-find-buttons-tip value = "Mód se dvěma vyhledávacími tlačítky"/>
 			<file-rename-title value = "Přejmenovat"/>
-			<find-in-files-filter-tip value="Najít v cpp, cxx, h, hxx &amp;&amp; hpp:
+			<find-in-files-filter-tip value = "Hledat v cpp, cxx, h, hxx &amp;&amp; hpp souborech:
 *.cpp *.cxx *.h *.hxx *.hpp
-Najít ve všech souborech mimo exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+
+Hledat ve všech souborech mimo exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+
+Hledat ve všech souborech, ale vynechat složky tests, bin &amp;&amp; bin64:
+*.* !\\tests !\\bin*
+
+Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo logs:
+*.* !\\log*+"/>  <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+			<find-in-files-select-folder value = "Vyberte složku, kde chcete vyhledávat"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
 			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
 			<find-status-replaceinfiles-1-replaced value = "Nahrazování v souborech: 1 výskyt nahrazen"/>
@@ -1508,6 +1523,10 @@ Najít ve všech souborech mimo exe, obj &amp;&amp; log:
 			<IncrementalFind-FSNotFound value = "Výraz nenalezen."/>
 			<IncrementalFind-FSTopReached value = "Bylo dosaženo začátku stránky, pokračování odspodu"/>
 			<IncrementalFind-FSEndReached value = "Bylo dosaženo konce stránky, pokračování odshora"/>
+			<contextMenu-styleAlloccurrencesOfToken value = "Označit všechny výskyty tokenu stylem"/>
+			<contextMenu-styleOneToken value = "Označit token (jeden) stylem"/>
+			<contextMenu-clearStyle value = "Odstranit označení stylem u tokenů"/>
+			<contextMenu-PluginCommands value = "Pluginové povely"/>
 		</MiscStrings>
 
 	</Native-Langue>

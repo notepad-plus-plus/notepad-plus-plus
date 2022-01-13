@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.2.1.0  12/Jan/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.2.1.0  13/Jan/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -409,46 +409,33 @@
 		<Dialog>
 
 			<Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech" titleFindInProjects = "Najít v projektech" titleMark = "Označit">
-				<!--
-				<Item id = "1" name = "Najít &gt;&gt;"/>
-				-->
 				<Item id = "1" name = "Najít >>"/>
 				<Item id = "2" name = "Zavřít"/>
-				<Item id = "1620" name = "Najít:"/>
 				<Item id = "1603" name = "Hledat &amp;pouze celá slova"/>
 				<Item id = "1604" name = "Rozlišovat &amp;malá a VELKÁ písmena"/>
 				<Item id = "1605" name = "Regulární výraz"/>
 				<Item id = "1606" name = "Na konci &amp;znovu od začátku"/>
-				<Item id = "1612" name = "&amp;Nahoru"/>
-				<Item id = "1613" name = "&amp;Dolů"/>
+				<Item id = "1608" name = "&amp;Nahradit"/>
+				<Item id = "1609" name = "Nahra&amp;dit vše"/>
+				<Item id = "1611" name = "&amp;Nahradit:"/>
 				<Item id = "1614" name = "Počet"/>
 				<Item id = "1615" name = "Najít vše"/>
 				<Item id = "1616" name = "Označit řádek"/>
-				<Item id = "1617" name = "Ozn. hledaný text stylem"/>
 				<Item id = "1618" name = "Zrušit stávající označení při novém hledání"/>
-				<Item id = "1621" name = "Směr"/>
-				<Item id = "1611" name = "&amp;Nahradit:"/>
-				<Item id = "1608" name = "&amp;Nahradit"/>
-				<Item id = "1609" name = "Nahra&amp;dit vše"/>
-				<Item id = "1687" name = "Při ztrátě fokusu"/>
-				<Item id = "1688" name = "Vždy"/>
+				<Item id = "1620" name = "Najít:"/>
+				<Item id = "1624" name = "Mód vyhledávání"/>
+				<Item id = "1625" name = "Normální"/>
+				<Item id = "1626" name = "Rozšířený (\n, \r, \t, \x..., \0)"/>
 				<Item id = "1632" name = "Ve vybraném"/>
 				<Item id = "1633" name = "Vymazat"/>
 				<Item id = "1635" name = "Nahradit vše ve všech otevřených dokumentech"/>
 				<Item id = "1636" name = "Najít vše ve všech otevřených dokumentech"/>
-				<Item id = "1637" name = "Najít v souborech"/>
-				<!--
-				<Item id = "1640" name = "Přepnout dialog"/>
-				-->
 				<Item id = "1641" name = "Najít vše v aktuálním dokumentu"/>
 				<Item id = "1654" name = "Filtry:"/>
 				<Item id = "1655" name = "Adresář:"/>
 				<Item id = "1656" name = "Najít vše"/>
 				<Item id = "1658" name = "Ve všech podadresářích"/>
 				<Item id = "1659" name = "Ve skrytých adresářích"/>
-				<Item id = "1624" name = "Mód vyhledávání"/>
-				<Item id = "1625" name = "Normální"/>
-				<Item id = "1626" name = "Rozšířený (\n, \r, \t, \x..., \0)"/>
 				<Item id = "1660" name = "Nahradit v souborech"/>
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1662" name = "Projektový panel 1"/>
@@ -456,6 +443,8 @@
 				<Item id = "1664" name = "Projektový panel 3"/>
 				<Item id = "1665" name = "Nahradit v projektech"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>
+				<Item id = "1687" name = "Při ztrátě fokusu"/>
+				<Item id = "1688" name = "Vždy"/>
 				<Item id = "1703" name = "&amp;. označuje nový ř."/>
 				<Item id = "1721" name = "▲"/> 
 				<Item id = "1722" name = "Zpětný směr"/>

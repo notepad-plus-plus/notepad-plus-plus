@@ -400,6 +400,7 @@ private :
 	int _statusbarTooltipIconSize = 0;
 
 	HFONT _hMonospaceFont = nullptr;
+	HFONT _hLargerBolderFont = nullptr;
 
 	std::map<int, bool> _controlEnableMap;
 

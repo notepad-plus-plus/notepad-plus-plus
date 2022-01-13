@@ -1476,7 +1476,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		pNativeSpeaker->messageBox("FileTooBigToOpen",
 			NULL,
 			TEXT("File is too big to be opened by Notepad++"),
-			TEXT("File size problem"),
+			TEXT("Exception: File size problem"),
 			MB_OK | MB_APPLMODAL);
 		success = false;
 	}

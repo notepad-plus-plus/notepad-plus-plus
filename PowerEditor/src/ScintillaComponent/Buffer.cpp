@@ -1353,7 +1353,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		if (nppParam.archType() == IMAGE_FILE_MACHINE_I386)
 		{
 			pNativeSpeaker->messageBox("FileTooBigToOpen",
-				NULL,
+				_pNotepadPlus->_pEditView->getHSelf(),
 				TEXT("File is too big to be opened by Notepad++"),
 				TEXT("File size problem"),
 				MB_OK | MB_APPLMODAL);
@@ -1364,7 +1364,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		else // x64
 		{
 			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
-				NULL,
+				_pNotepadPlus->_pEditView->getHSelf(),
 				TEXT("Opening a huge file of 2GB could take more than 3 minutes.\nDo you want to open it?\nNote that Word Wrap feature will be turned OFF before loading file."),
 				TEXT("Opening huge file warning"),
 				MB_YESNO | MB_APPLMODAL);
@@ -1372,7 +1372,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 			if (res == IDYES)
 			{
 				// Due to Word Wrap feature impacts the performance, we deactivate it before opening the huge file.
-				bool isWrap = _pscratchTilla->isWrap();
+				bool isWrap = _pNotepadPlus->_pEditView->isWrap();
 				if (isWrap)
 				{
 					_pNotepadPlus->command(IDM_VIEW_WRAP);
@@ -1503,7 +1503,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
 		pNativeSpeaker->messageBox("FileTooBigToOpen",
-			NULL,
+			_pNotepadPlus->_pEditView->getHSelf(),
 			TEXT("File is too big to be opened by Notepad++"),
 			TEXT("Exception: File size problem"),
 			MB_OK | MB_APPLMODAL);

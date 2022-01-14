@@ -1344,18 +1344,48 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20,fileSize/6);
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
 	if (bufferSizeRequested > INT_MAX)
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-		pNativeSpeaker->messageBox("FileTooBigToOpen",
-										NULL,
-										TEXT("File is too big to be opened by Notepad++"),
-										TEXT("File size problem"),
-										MB_OK|MB_APPLMODAL);
+		if (nppParam.archType() == IMAGE_FILE_MACHINE_I386)
+		{
+			pNativeSpeaker->messageBox("FileTooBigToOpen",
+				NULL,
+				TEXT("File is too big to be opened by Notepad++"),
+				TEXT("File size problem"),
+				MB_OK | MB_APPLMODAL);
 
-		fclose(fp);
-		return false;
+			fclose(fp);
+			return false;
+		}
+		else // x64
+		{
+			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
+				NULL,
+				TEXT("Opening a huge file of 2GB could take more than 3 minutes.\nDo you want to open it?\nNote that Word Wrap feature will be turned OFF before loading file."),
+				TEXT("Opening huge file warning"),
+				MB_YESNO | MB_APPLMODAL);
+
+			if (res == IDYES)
+			{
+				// Due to Word Wrap feature impacts the performance, we deactivate it before opening the huge file.
+				bool isWrap = _pscratchTilla->isWrap();
+				if (isWrap)
+				{
+					_pNotepadPlus->command(IDM_VIEW_WRAP);
+				}
+			}
+			else
+			{
+				fclose(fp);
+				return false;
+			}
+		}
 	}
+
 
 	//Setup scratchtilla for new filedata
 	_pscratchTilla->execute(SCI_SETSTATUS, SC_STATUS_OK); // reset error status
@@ -1375,7 +1405,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	else
 	{
 		int id = fileFormat._language - L_EXTERNAL;
-		TCHAR * name = NppParameters::getInstance().getELCFromIndex(id)._name;
+		TCHAR * name = nppParam.getELCFromIndex(id)._name;
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc.wchar2char(name, CP_ACP);
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
@@ -1419,7 +1449,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				}
 				else if (fileFormat._encoding == -1)
 				{
-					if (NppParameters::getInstance().getNppGUI()._detectEncoding)
+					if (nppParam.getNppGUI()._detectEncoding)
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
 
@@ -1472,7 +1502,6 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		pNativeSpeaker->messageBox("FileTooBigToOpen",
 			NULL,
 			TEXT("File is too big to be opened by Notepad++"),
@@ -1486,8 +1515,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// broadcast the format
 	if (format == EolType::unknown)
 	{
-		NppParameters& nppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings & ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
+		const NewDocDefaultSettings & ndds = (nppParam.getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		fileFormat._eolFormat = ndds._format;
 
 		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it

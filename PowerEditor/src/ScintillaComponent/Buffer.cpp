@@ -1363,25 +1363,34 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		}
 		else // x64
 		{
-			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
-				_pNotepadPlus->_pEditView->getHSelf(),
-				TEXT("Opening a huge file of 2GB could take more than 3 minutes.\nDo you want to open it?\nNote that Word Wrap feature will be turned OFF before loading file."),
-				TEXT("Opening huge file warning"),
-				MB_YESNO | MB_APPLMODAL);
-
-			if (res == IDYES)
+			bool isWrap = _pNotepadPlus->_pEditView->isWrap();
+			if (isWrap)
 			{
-				// Due to Word Wrap feature impacts the performance, we deactivate it before opening the huge file.
-				bool isWrap = _pNotepadPlus->_pEditView->isWrap();
-				if (isWrap)
-				{
-					_pNotepadPlus->command(IDM_VIEW_WRAP);
-				}
+				pNativeSpeaker->messageBox("OpenHugeFileButWrapIsON",
+					_pNotepadPlus->_pEditView->getHSelf(),
+					TEXT("You have to disable Word Wrap manually to Open huge file of 2GB."),
+					TEXT("Opening huge file warning"),
+					MB_OK | MB_APPLMODAL);
+				fclose(fp);
+				return false;
 			}
 			else
 			{
-				fclose(fp);
-				return false;
+				int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
+					_pNotepadPlus->_pEditView->getHSelf(),
+					TEXT("Opening a huge file of 2GB could take more than 3 minutes.\nDo you want to open it?"),
+					TEXT("Opening huge file warning"),
+					MB_YESNO | MB_APPLMODAL);
+
+				if (res == IDYES)
+				{
+					// Do nothing, continue the loading
+				}
+				else
+				{
+					fclose(fp);
+					return false;
+				}
 			}
 		}
 	}

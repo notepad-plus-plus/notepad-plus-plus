@@ -1343,12 +1343,19 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	rewind(fp);
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20,fileSize/6);
-	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
+
+	
+	NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
+	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space).
+	// As a 64bit binary, we have more address for the allocation. However loading a 2GB file takes from 3 minutes to 7 minutes, which makes Notepad++ unusable:
+	// https://github.com/notepad-plus-plus/notepad-plus-plus/pull/11044
+	// So here we fix the size limit to 2GB
 	if (bufferSizeRequested > INT_MAX)
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		pNativeSpeaker->messageBox("FileTooBigToOpen",
-										NULL,
+										_pNotepadPlus->_pEditView->getHSelf(),
 										TEXT("File is too big to be opened by Notepad++"),
 										TEXT("File size problem"),
 										MB_OK|MB_APPLMODAL);
@@ -1375,7 +1382,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	else
 	{
 		int id = fileFormat._language - L_EXTERNAL;
-		TCHAR * name = NppParameters::getInstance().getELCFromIndex(id)._name;
+		TCHAR * name = nppParam.getELCFromIndex(id)._name;
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc.wchar2char(name, CP_ACP);
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
@@ -1400,7 +1407,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 
 		do
 		{
-			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
+			lenFile = fread(data + incompleteMultibyteChar, 1, blockSize - incompleteMultibyteChar, fp) + incompleteMultibyteChar;
 			if (ferror(fp) != 0)
 			{
 				success = false;
@@ -1419,7 +1426,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				}
 				else if (fileFormat._encoding == -1)
 				{
-					if (NppParameters::getInstance().getNppGUI()._detectEncoding)
+					if (nppParam.getNppGUI()._detectEncoding)
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
 
@@ -1472,9 +1479,8 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		pNativeSpeaker->messageBox("FileTooBigToOpen",
-			NULL,
+			_pNotepadPlus->_pEditView->getHSelf(),
 			TEXT("File is too big to be opened by Notepad++"),
 			TEXT("Exception: File size problem"),
 			MB_OK | MB_APPLMODAL);
@@ -1486,8 +1492,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// broadcast the format
 	if (format == EolType::unknown)
 	{
-		NppParameters& nppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings & ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
+		const NewDocDefaultSettings & ndds = (nppParam.getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		fileFormat._eolFormat = ndds._format;
 
 		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it

@@ -36,7 +36,7 @@
                     <Item subMenuId="edit-convertCaseTo" name="Con&amp;verti MAIÙSCOȽE/minùscoƚe"/>
                     <Item subMenuId="edit-lineOperations" name="Operasion so ƚe righe"/>
                     <Item subMenuId="edit-comment" name="Comenta/scomenta"/>
-                    <Item subMenuId="edit-autoCompletion" name="Oto-conpletamento"/>
+                    <Item subMenuId="edit-autoCompletion" name="Otoconpletamento"/>
                     <Item subMenuId="edit-eolConversion" name="Converti caràtare de fine ƚinea"/>
                     <Item subMenuId="edit-blankOperations" name="Operasion so i spasi"/>
                     <Item subMenuId="edit-pasteSpecial" name="Incoƚa speciaƚe"/>
@@ -1037,7 +1037,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6803" name="Carteƚa:"/>
                 </Backup>
 
-                <AutoCompletion title="Oto-conpletamento">
+                <AutoCompletion title="Otoconpletamento">
                     <Item id="6115" name="Indentasion otomàtica"/>
                     <Item id="6807" name="Oto-Conpletamento"/>
                     <Item id="6808" name="Ativa ƚ&apos;oto-conpletamento so ogni input"/>
@@ -1051,7 +1051,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6811" name="Da el"/>
                     <Item id="6813" name="º caràtare"/>
                     <Item id="6814" name="Vaƚori vaƚidi: 1 - 9"/>
-                    <Item id="6815" name="Sugerisi parametri funsion durante ƚ&apos;imision"/>
+                    <Item id="6815" name="Sugerisi i parametri de ƚe funsion"/>
                     <Item id="6851" name="Oto-Inserimento"/>
                     <Item id="6857" name="Tag sara html/xml"/>
                     <Item id="6858" name="Vèrxi"/>
@@ -1063,7 +1063,7 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
 
                 <MultiInstance title="Istanse multiple e Date">
                     <Item id="6151" name="Inpostasion Istanse Mùltiple"/>
-                    <Item id="6152" name="Vèrxi sesion en na nova istansa  (e salva automaticamente ƚe sesioni a l&apos;usita)"/>
+                    <Item id="6152" name="Vèrxi sesion en na nova istansa  (e salva otomaticamente ƚe sesioni a l&apos;usita)"/>
                     <Item id="6153" name="Senpre en modaƚità istansa multipla"/>
                     <Item id="6154" name="Predefinìo (istansa ùgnoƚa)"/>
                     <Item id="6155" name="* Ƚa modìfega de sta inpostasion ƚa ga bixogno de inviare de novo Notepad++"/>
@@ -1507,6 +1507,10 @@ Runa en tuti i files, ma escludi tute le carteƚe o sotocarteƚe log o logs:
             <IncrementalFind-FSNotFound value="Frase no trovà" />
             <IncrementalFind-FSTopReached value="Xè stà raxunto &apos;l inisio de ƚa pàgina, se continuerà da&apos;l fondo" />
             <IncrementalFind-FSEndReached value="Xè stà raxunta ƚa fine de ƚa pàgina, se continuerà da&apos;l inisio" />
+            <contextMenu-styleAlloccurrencesOfToken value="Marca stiƚe per tutte le corrispondenze" />
+            <contextMenu-styleOneToken value="Marca stiƚe ƚa prima corispondensa" />
+            <contextMenu-clearStyle value="Rimovi marcatura Stiƚe" />
+            <contextMenu-PluginCommands value="Comandi plugin" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -28,7 +28,7 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Apri cartella file"/>
-                    <Item subMenuId="file-closeMore" name="Chiudi +"/>
+                    <Item subMenuId="file-closeMore" name="Chiudi speciale"/>
                     <Item subMenuId="file-recentFiles" name="File recenti"/>
                     <Item subMenuId="edit-insert" name="Inserisci"/>
                     <Item subMenuId="edit-copyToClipboard" name="Copia negli Appunti"/>

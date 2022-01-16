@@ -241,8 +241,8 @@ public:
 
 	void getVisibleStartAndEndPosition(INT_PTR* startPos, INT_PTR* endPos);
     char * getWordFromRange(char * txt, size_t size, size_t pos1, size_t pos2);
-	char * getSelectedText(char * txt, int size, bool expand = true);
-    char * getWordOnCaretPos(char * txt, int size);
+	char * getSelectedText(char * txt, size_t size, bool expand = true);
+    char * getWordOnCaretPos(char * txt, size_t size);
     TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
 	INT_PTR searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
@@ -443,7 +443,7 @@ public:
 		return execute(SCI_GETLINEENDPOSITION, line) - execute(SCI_POSITIONFROMLINE, line);
 	};
 
-	INT_PTR getLineIndent(int line) const {
+	INT_PTR getLineIndent(size_t line) const {
 		return execute(SCI_GETLINEINDENTATION, line);
 	};
 

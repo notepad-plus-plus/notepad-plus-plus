@@ -373,7 +373,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_COPY_BINARY:
 		case IDM_EDIT_CUT_BINARY:
 		{
-			int textLen = static_cast<int32_t>(_pEditView->execute(SCI_GETSELTEXT, 0, 0)) - 1;
+			size_t textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
 			if (!textLen)
 				return;
 
@@ -414,7 +414,7 @@ void Notepad_plus::command(int id)
 
 			// Lock the handle and copy the text to the buffer.
 			unsigned long *lpLenCopy = (unsigned long *)GlobalLock(hglbLenCopy);
-			*lpLenCopy = textLen;
+			*lpLenCopy = static_cast<unsigned long>(textLen);
 
 			GlobalUnlock(hglbLenCopy);
 
@@ -432,7 +432,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_PASTE:
 		{
 			std::lock_guard<std::mutex> lock(command_mutex);
-			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
+			INT_PTR eolMode = _pEditView->execute(SCI_GETEOLMODE);
 			_pEditView->execute(SCI_PASTE);
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
 		}
@@ -1596,8 +1596,8 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_GOTOMATCHINGBRACE :
 		case IDM_SEARCH_SELECTMATCHINGBRACES :
 		{
-			int braceAtCaret = -1;
-			int braceOpposite = -1;
+			INT_PTR braceAtCaret = -1;
+			INT_PTR braceOpposite = -1;
 			findMatchingBracePos(braceAtCaret, braceOpposite);
 
 			if (braceOpposite != -1)
@@ -2386,8 +2386,8 @@ void Notepad_plus::command(int id)
             _syncInfo._isSynScollV = isSynScollV;
 			if (_syncInfo._isSynScollV)
 			{
-				int mainCurrentLine = static_cast<int32_t>(_mainEditView.execute(SCI_GETFIRSTVISIBLELINE));
-				int subCurrentLine = static_cast<int32_t>(_subEditView.execute(SCI_GETFIRSTVISIBLELINE));
+				INT_PTR mainCurrentLine = _mainEditView.execute(SCI_GETFIRSTVISIBLELINE);
+				INT_PTR subCurrentLine = _subEditView.execute(SCI_GETFIRSTVISIBLELINE);
 				_syncInfo._line = mainCurrentLine - subCurrentLine;
 			}
 
@@ -2403,13 +2403,13 @@ void Notepad_plus::command(int id)
             _syncInfo._isSynScollH = isSynScollH;
 			if (_syncInfo._isSynScollH)
 			{
-				int mxoffset = static_cast<int32_t>(_mainEditView.execute(SCI_GETXOFFSET));
-				int pixel = static_cast<int32_t>(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
-				int mainColumn = mxoffset/pixel;
+				INT_PTR mxoffset = _mainEditView.execute(SCI_GETXOFFSET);
+				INT_PTR pixel = _mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P"));
+				INT_PTR mainColumn = mxoffset/pixel;
 
-				int sxoffset = static_cast<int32_t>(_subEditView.execute(SCI_GETXOFFSET));
-				pixel = int(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
-				int subColumn = sxoffset/pixel;
+				INT_PTR sxoffset = _subEditView.execute(SCI_GETXOFFSET);
+				pixel = _subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P"));
+				INT_PTR subColumn = sxoffset/pixel;
 				_syncInfo._column = mainColumn - subColumn;
 			}
 		}
@@ -3085,10 +3085,10 @@ void Notepad_plus::command(int id)
 				size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
 				size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
 
-				int32_t strLen = static_cast<int32_t>(selectionEnd - selectionStart);
+				INT_PTR strLen = selectionEnd - selectionStart;
 				if (strLen)
 				{
-					int strSize = strLen + 1;
+					INT_PTR strSize = strLen + 1;
 					char *selectedStr = new char[strSize];
 					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
 

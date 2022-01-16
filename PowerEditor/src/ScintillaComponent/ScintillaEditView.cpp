@@ -2254,7 +2254,7 @@ char * ScintillaEditView::getWordFromRange(char * txt, size_t size, size_t pos1,
 	return txt;
 }
 
-char * ScintillaEditView::getWordOnCaretPos(char * txt, int size)
+char * ScintillaEditView::getWordOnCaretPos(char * txt, size_t size)
 {
     if (!size)
 		return NULL;
@@ -2276,7 +2276,7 @@ TCHAR * ScintillaEditView::getGenericWordOnCaretPos(TCHAR * txt, int size)
 	return txt;
 }
 
-char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
+char * ScintillaEditView::getSelectedText(char * txt, size_t size, bool expand)
 {
 	if (!size)
 		return NULL;
@@ -2288,7 +2288,7 @@ char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
 	}
 	if (!(size > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
 	{
-		range.cpMax = range.cpMin+size-1;	//keep room for zero terminator
+		range.cpMax = range.cpMin + (Sci_PositionCR)size -1;	//keep room for zero terminator
 	}
 	//getText(txt, range.cpMin, range.cpMax);
 	return getWordFromRange(txt, size, range.cpMin, range.cpMax);

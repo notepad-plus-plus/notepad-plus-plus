@@ -360,8 +360,8 @@ private:
 	//Synchronized Scolling
 	struct SyncInfo final
 	{
-		int _line = 0;
-		int _column = 0;
+		INT_PTR _line = 0;
+		INT_PTR _column = 0;
 		bool _isSynScollV = false;
 		bool _isSynScollH = false;
 
@@ -496,8 +496,8 @@ private:
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
 	}
 
-	bool isConditionExprLine(int lineNumber);
-	int findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
+	bool isConditionExprLine(INT_PTR lineNumber);
+	INT_PTR findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
 
 	void addHotSpot(ScintillaEditView* view = NULL);
@@ -546,7 +546,7 @@ private:
 	void inverseMarks();
 	void replaceMarkedline(size_t ln, const TCHAR *str);
 	generic_string getMarkedLine(size_t ln);
-    void findMatchingBracePos(int & braceAtCaret, int & braceOpposite);
+    void findMatchingBracePos(INT_PTR& braceAtCaret, INT_PTR& braceOpposite);
     bool braceMatch();
 
     void activateNextDoc(bool direction);

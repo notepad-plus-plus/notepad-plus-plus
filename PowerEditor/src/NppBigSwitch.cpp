@@ -1313,11 +1313,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					break;
 
 				int counter = 0;
-				int lastLine = static_cast<int32_t>(_pEditView->execute(SCI_GETLINECOUNT)) - 1;
-				int currLine = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
+				INT_PTR lastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+				INT_PTR currLine = _pEditView->getCurrentLineNumber();
 				int indexMacro = _runMacroDlg.getMacro2Exec();
-				int deltaLastLine = 0;
-				int deltaCurrLine = 0;
+				INT_PTR deltaLastLine = 0;
+				INT_PTR deltaCurrLine = 0;
 
 				Macro m = _macro;
 
@@ -1340,8 +1340,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					else // run until eof
 					{
 						bool cursorMovedUp = deltaCurrLine < 0;
-						deltaLastLine = static_cast<int32_t>(_pEditView->execute(SCI_GETLINECOUNT)) - 1 - lastLine;
-						deltaCurrLine = static_cast<int32_t>(_pEditView->getCurrentLineNumber()) - currLine;
+						deltaLastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1 - lastLine;
+						deltaCurrLine = _pEditView->getCurrentLineNumber() - currLine;
 
 						if (( deltaCurrLine == 0 )	// line no. not changed?
 							&& (deltaLastLine >= 0))  // and no lines removed?

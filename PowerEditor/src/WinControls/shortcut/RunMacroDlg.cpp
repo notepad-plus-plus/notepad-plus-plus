@@ -40,7 +40,7 @@ void RunMacroDlg::initMacroList()
 	_macroIndex = 0;
 }
 
-INT_PTR CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {	
 	switch (message) 
 	{

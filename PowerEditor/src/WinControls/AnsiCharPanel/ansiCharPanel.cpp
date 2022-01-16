@@ -25,7 +25,7 @@ void AnsiCharPanel::switchEncoding()
 	_listView.resetValues(codepage);
 }
 
-INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{

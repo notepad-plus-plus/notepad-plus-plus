@@ -199,7 +199,7 @@ public :
 	generic_string getPluginListVerStr() const;
 
 protected:
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
 	generic_string _updaterDir;

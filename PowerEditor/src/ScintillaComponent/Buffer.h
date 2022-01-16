@@ -24,6 +24,7 @@ class Notepad_plus;
 class Buffer;
 typedef Buffer* BufferID;	//each buffer has unique ID by which it can be retrieved
 #define BUFFER_INVALID	reinterpret_cast<BufferID>(0)
+#define NPP_STYLING_FILESIZE_LIMIT (200 * 1024 * 1024) // 200MB+ file won't be styled
 
 typedef sptr_t Document;
 
@@ -101,7 +102,7 @@ public:
 		return instance;
 	};
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
-	int docLength(Buffer * buffer) const;
+	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
 private:
@@ -124,14 +125,14 @@ private:
 	FileManager& operator=(FileManager&&) = delete;
 
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
+	bool loadFileData(Document doc, int64_t fileSize, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
 	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 
 private:
 	Notepad_plus* _pNotepadPlus = nullptr;
 	ScintillaEditView* _pscratchTilla = nullptr;
-	Document _scratchDocDefault;
+	Document _scratchDocDefault = 0;
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
 	size_t _nbBufs = 0;
@@ -258,14 +259,14 @@ public:
 	int addReference(ScintillaEditView * identifier);		//if ID not registered, creates a new Position for that ID and new foldstate
 	int removeReference(ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
 
-	void setHideLineChanged(bool isHide, int location);
+	void setHideLineChanged(bool isHide, size_t location);
 
 	void setDeferredReload();
 
 	bool getNeedReload() const { return _needReloading; }
 	void setNeedReload(bool reload) { _needReloading = reload; }
 
-	int docLength() const {
+	size_t docLength() const {
 		assert(_pManager != nullptr);
 		return _pManager->docLength(_id);
 	}

@@ -36,7 +36,7 @@ void ColumnEditorDlg::display(bool toShow) const
         ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
 }
 
-INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{
@@ -170,7 +170,7 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 										
 									s2r.insert(posRelative2Start, str);
 								}
-								(*_ppEditView)->replaceTarget(s2r.c_str(), int(lineBegin), int(lineEnd));
+								(*_ppEditView)->replaceTarget(s2r.c_str(), lineBegin, lineEnd);
 							}
 							delete [] line;
 						}

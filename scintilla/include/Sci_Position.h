@@ -15,7 +15,9 @@
 typedef ptrdiff_t Sci_Position;
 
 // Unsigned variant used for ILexer::Lex and ILexer::Fold
+// Definitions of common types
 typedef size_t Sci_PositionU;
+
 
 // For Sci_CharacterRange  which is defined as long to be compatible with Win32 CHARRANGE
 typedef long Sci_PositionCR;

@@ -207,7 +207,7 @@ protected:
 
 	void removeNamesAlreadyInNode(HTREEITEM parent, std::vector<generic_string> & labels) const;
 
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
 	void openSelectFile();

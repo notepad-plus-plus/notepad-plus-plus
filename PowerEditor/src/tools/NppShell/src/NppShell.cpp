@@ -49,7 +49,7 @@ BOOL UnregisterServer();
 void MsgBox(LPCTSTR lpszMsg);
 void MsgBoxError(LPCTSTR lpszMsg);
 BOOL CheckNpp(LPCTSTR path);
-INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+intptr_t CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void InvalidateIcon(HICON * iconSmall, HICON * iconLarge);
 
 #ifdef UNICODE
@@ -257,7 +257,7 @@ BOOL CheckNpp(LPCTSTR path) {
 	return TRUE;
 }
 
-INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+intptr_t CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	static TCHAR customCommand[MAX_PATH] = {0};
 	static TCHAR customText[TITLE_SIZE] = {0};
 	static TCHAR szKeyTemp[MAX_PATH + GUID_STRING_SIZE];

@@ -325,7 +325,7 @@ generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand
 }
 
 
-const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int lenMbcs, int *pLenWc, int *pBytesNotProcessed)
+const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t codepage, int lenMbcs, int* pLenWc, int* pBytesNotProcessed)
 {
 	// Do not process NULL pointer
 	if (!mbcs2Convert)
@@ -338,36 +338,37 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 		return _wideCharStr;
 	}
 
+	UINT cp = static_cast<UINT>(codepage);
 	int bytesNotProcessed = 0;
 	int lenWc = 0;
 
 	// If length not specified, simply convert without checking
 	if (lenMbcs == -1)
 	{
-		lenWc = MultiByteToWideChar(codepage, 0, mbcs2Convert, lenMbcs, NULL, 0);
+		lenWc = MultiByteToWideChar(cp, 0, mbcs2Convert, lenMbcs, NULL, 0);
 	}
 	// Otherwise, test if we are cutting a multi-byte character at end of buffer
-	else if (lenMbcs != -1 && codepage == CP_UTF8) // For UTF-8, we know how to test it
+	else if (lenMbcs != -1 && cp == CP_UTF8) // For UTF-8, we know how to test it
 	{
 		int indexOfLastChar = Utf8::characterStart(mbcs2Convert, lenMbcs-1); // get index of last character
 		if (indexOfLastChar != 0 && !Utf8::isValid(mbcs2Convert+indexOfLastChar, lenMbcs-indexOfLastChar)) // if it is not valid we do not process it right now (unless its the only character in string, to ensure that we always progress, e.g. that bytesNotProcessed < lenMbcs)
 		{
 			bytesNotProcessed = lenMbcs-indexOfLastChar;
 		}
-		lenWc = MultiByteToWideChar(codepage, 0, mbcs2Convert, lenMbcs-bytesNotProcessed, NULL, 0);
+		lenWc = MultiByteToWideChar(cp, 0, mbcs2Convert, lenMbcs-bytesNotProcessed, NULL, 0);
 	}
 	else // For other encodings, ask system if there are any invalid characters; note that it will not correctly know if last character is cut when there are invalid characters inside the text
 	{
-		lenWc = MultiByteToWideChar(codepage, (lenMbcs == -1) ? 0 : MB_ERR_INVALID_CHARS, mbcs2Convert, lenMbcs, NULL, 0);
+		lenWc = MultiByteToWideChar(cp, (lenMbcs == -1) ? 0 : MB_ERR_INVALID_CHARS, mbcs2Convert, lenMbcs, NULL, 0);
 		if (lenWc == 0 && GetLastError() == ERROR_NO_UNICODE_TRANSLATION)
 		{
 			// Test without last byte
-			if (lenMbcs > 1) lenWc = MultiByteToWideChar(codepage, MB_ERR_INVALID_CHARS, mbcs2Convert, lenMbcs-1, NULL, 0);
+			if (lenMbcs > 1) lenWc = MultiByteToWideChar(cp, MB_ERR_INVALID_CHARS, mbcs2Convert, lenMbcs-1, NULL, 0);
 			if (lenWc == 0) // don't have to check that the error is still ERROR_NO_UNICODE_TRANSLATION, since only the length parameter changed
 			{
 				// TODO: should warn user about incorrect loading due to invalid characters
 				// We still load the file, but the system will either strip or replace invalid characters (including the last character, if cut in half)
-				lenWc = MultiByteToWideChar(codepage, 0, mbcs2Convert, lenMbcs, NULL, 0);
+				lenWc = MultiByteToWideChar(cp, 0, mbcs2Convert, lenMbcs, NULL, 0);
 			}
 			else
 			{
@@ -380,7 +381,7 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 	if (lenWc > 0)
 	{
 		_wideCharStr.sizeTo(lenWc);
-		MultiByteToWideChar(codepage, 0, mbcs2Convert, lenMbcs-bytesNotProcessed, _wideCharStr, lenWc);
+		MultiByteToWideChar(cp, 0, mbcs2Convert, lenMbcs-bytesNotProcessed, _wideCharStr, lenWc);
 	}
 	else
 		_wideCharStr.empty();
@@ -396,21 +397,21 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 
 // "mstart" and "mend" are pointers to indexes in mbcs2Convert,
 // which are converted to the corresponding indexes in the returned wchar_t string.
-const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend)
+const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend)
 {
 	// Do not process NULL pointer
 	if (!mbcs2Convert) return NULL;
-
-	int len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, NULL, 0);
+	UINT cp = static_cast<UINT>(codepage);
+	int len = MultiByteToWideChar(cp, 0, mbcs2Convert, -1, NULL, 0);
 	if (len > 0)
 	{
 		_wideCharStr.sizeTo(len);
-		len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, len);
+		len = MultiByteToWideChar(cp, 0, mbcs2Convert, -1, _wideCharStr, len);
 
 		if ((size_t)*mstart < strlen(mbcs2Convert) && (size_t)*mend <= strlen(mbcs2Convert))
 		{
-			*mstart = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mstart, _wideCharStr, 0);
-			*mend   = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mend, _wideCharStr, 0);
+			*mstart = MultiByteToWideChar(cp, 0, mbcs2Convert, static_cast<int>(*mstart), _wideCharStr, 0);
+			*mend   = MultiByteToWideChar(cp, 0, mbcs2Convert, static_cast<int>(*mend), _wideCharStr, 0);
 			if (*mstart >= len || *mend >= len)
 			{
 				*mstart = 0;
@@ -428,16 +429,16 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 }
 
 
-const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, int lenWc, int *pLenMbcs)
+const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, int lenWc, int* pLenMbcs)
 {
 	if (nullptr == wcharStr2Convert)
 		return nullptr;
-
-	int lenMbcs = WideCharToMultiByte(codepage, 0, wcharStr2Convert, lenWc, NULL, 0, NULL, NULL);
+	UINT cp = static_cast<UINT>(codepage);
+	int lenMbcs = WideCharToMultiByte(cp, 0, wcharStr2Convert, lenWc, NULL, 0, NULL, NULL);
 	if (lenMbcs > 0)
 	{
 		_multiByteStr.sizeTo(lenMbcs);
-		WideCharToMultiByte(codepage, 0, wcharStr2Convert, lenWc, _multiByteStr, lenMbcs, NULL, NULL);
+		WideCharToMultiByte(cp, 0, wcharStr2Convert, lenWc, _multiByteStr, lenMbcs, NULL, NULL);
 	}
 	else
 		_multiByteStr.empty();
@@ -448,21 +449,21 @@ const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UIN
 }
 
 
-const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, long *mstart, long *mend)
+const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, long* mstart, long* mend)
 {
 	if (nullptr == wcharStr2Convert)
 		return nullptr;
-
-	int len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, NULL, 0, NULL, NULL);
+	UINT cp = static_cast<UINT>(codepage);
+	int len = WideCharToMultiByte(cp, 0, wcharStr2Convert, -1, NULL, 0, NULL, NULL);
 	if (len > 0)
 	{
 		_multiByteStr.sizeTo(len);
-		len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL); // not needed?
+		len = WideCharToMultiByte(cp, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL); // not needed?
 
         if (*mstart < lstrlenW(wcharStr2Convert) && *mend < lstrlenW(wcharStr2Convert))
         {
-			*mstart = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mstart, NULL, 0, NULL, NULL);
-			*mend = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mend, NULL, 0, NULL, NULL);
+			*mstart = WideCharToMultiByte(cp, 0, wcharStr2Convert, *mstart, NULL, 0, NULL, NULL);
+			*mend = WideCharToMultiByte(cp, 0, wcharStr2Convert, *mend, NULL, 0, NULL, NULL);
 			if (*mstart >= len || *mend >= len)
 			{
 				*mstart = 0;

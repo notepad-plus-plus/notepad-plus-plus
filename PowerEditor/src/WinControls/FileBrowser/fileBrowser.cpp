@@ -92,7 +92,7 @@ bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_strin
 	return relatedRootArray[index2Compare] == subFolderArray[index2Compare];
 }
 
-INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -126,17 +126,17 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			tbButtons[0].iBitmap = 0;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
 			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[0].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+			tbButtons[0].iString = reinterpret_cast<intptr_t>(TEXT(""));
 			tbButtons[1].idCommand = FB_CMD_FOLDALL;
 			tbButtons[1].iBitmap = 1;
 			tbButtons[1].fsState = TBSTATE_ENABLED;
 			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[1].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+			tbButtons[1].iString = reinterpret_cast<intptr_t>(TEXT(""));
 			tbButtons[2].idCommand = FB_CMD_EXPANDALL;
 			tbButtons[2].iBitmap = 2;
 			tbButtons[2].fsState = TBSTATE_ENABLED;
 			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[2].iString = reinterpret_cast<INT_PTR>(TEXT(""));
+			tbButtons[2].iString = reinterpret_cast<intptr_t>(TEXT(""));
 
 			// tips text for toolbar buttons
 			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();

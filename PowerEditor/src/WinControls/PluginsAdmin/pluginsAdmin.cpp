@@ -1111,7 +1111,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	::EnableWindow(hRemoveButton, showInstalled);
 }
 
-INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{

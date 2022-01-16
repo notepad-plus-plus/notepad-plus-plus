@@ -410,7 +410,7 @@ void ShortcutMapper::fillOutBabyGrid()
 	_babygrid.setInitialContent(false);
 }
 
-INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{

@@ -21,7 +21,7 @@
 
 #pragma warning(disable : 4996) // for GetVersion()
 
-INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -130,7 +130,7 @@ void AboutDlg::doDialog()
 }
 
 
-INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
 {
 	switch (message)
 	{
@@ -402,7 +402,7 @@ void DoSaveOrNotBox::changeLang()
 	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, msg.c_str());
 }
 
-INT_PTR CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
 {
 	switch (message)
 	{
@@ -508,7 +508,7 @@ void DoSaveAllBox::changeLang()
 	::SetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, msg.c_str());
 }
 
-INT_PTR CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
 {
 	switch (message)
 	{

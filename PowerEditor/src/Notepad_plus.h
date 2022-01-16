@@ -360,8 +360,8 @@ private:
 	//Synchronized Scolling
 	struct SyncInfo final
 	{
-		int _line = 0;
-		int _column = 0;
+		intptr_t _line = 0;
+		intptr_t _column = 0;
 		bool _isSynScollV = false;
 		bool _isSynScollH = false;
 
@@ -372,7 +372,7 @@ private:
 	bool _isUDDocked = false;
 
 	trayIconControler* _pTrayIco = nullptr;
-	int _zoomOriginalValue = 0;
+	intptr_t _zoomOriginalValue = 0;
 
 	Accelerator _accelerator;
 	ScintillaAccelerator _scintaccelerator;
@@ -496,36 +496,36 @@ private:
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
 	}
 
-	bool isConditionExprLine(int lineNumber);
-	int findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
+	bool isConditionExprLine(intptr_t lineNumber);
+	intptr_t findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
 
 	void addHotSpot(ScintillaEditView* view = NULL);
 
-    void bookmarkAdd(int lineno) const {
+    void bookmarkAdd(intptr_t lineno) const {
 		if (lineno == -1)
-			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
+			lineno = _pEditView->getCurrentLineNumber();
 		if (!bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
 	}
 
-    void bookmarkDelete(int lineno) const {
+    void bookmarkDelete(size_t lineno) const {
 		if (lineno == -1)
-			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
+			lineno = _pEditView->getCurrentLineNumber();
 		while (bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
 	}
 
-    bool bookmarkPresent(int lineno) const {
+    bool bookmarkPresent(intptr_t lineno) const {
 		if (lineno == -1)
-			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
+			lineno = _pEditView->getCurrentLineNumber();
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
 
-    void bookmarkToggle(int lineno) const {
+    void bookmarkToggle(intptr_t lineno) const {
 		if (lineno == -1)
-			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
+			lineno = _pEditView->getCurrentLineNumber();
 
 		if (bookmarkPresent(lineno))
 			bookmarkDelete(lineno);
@@ -542,11 +542,11 @@ private:
 	void cutMarkedLines();
 	void deleteMarkedLines(bool isMarked);
 	void pasteToMarkedLines();
-	void deleteMarkedline(int ln);
+	void deleteMarkedline(size_t ln);
 	void inverseMarks();
-	void replaceMarkedline(int ln, const TCHAR *str);
-	generic_string getMarkedLine(int ln);
-    void findMatchingBracePos(int & braceAtCaret, int & braceOpposite);
+	void replaceMarkedline(size_t ln, const TCHAR *str);
+	generic_string getMarkedLine(size_t ln);
+    void findMatchingBracePos(intptr_t& braceAtCaret, intptr_t& braceOpposite);
     bool braceMatch();
 
     void activateNextDoc(bool direction);

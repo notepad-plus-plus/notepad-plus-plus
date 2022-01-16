@@ -39,10 +39,10 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, FINDINPROJECTS_DLG, MA
 enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION, FILES_IN_PROJECTS};
 
 struct FoundInfo {
-	FoundInfo(int start, int end, size_t lineNumber, const TCHAR *fullPath)
+	FoundInfo(intptr_t start, intptr_t end, size_t lineNumber, const TCHAR *fullPath)
 		: _start(start), _end(end), _lineNumber(lineNumber), _fullPath(fullPath) {};
-	int _start;
-	int _end;
+	intptr_t _start;
+	intptr_t _end;
 	size_t _lineNumber;
 	generic_string _fullPath;
 };
@@ -91,7 +91,7 @@ public:
 				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0) |
 				((option->_searchType == FindRegex && option->_dotMatchesNewline) ? SCFIND_REGEXP_DOTMATCHESNL : 0);
 	};
-	static void displaySectionCentered(int posStart, int posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
+	static void displaySectionCentered(size_t posStart, size_t posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
 
 private:
 	static bool readBase(const TCHAR * str, int * value, int base, int size);
@@ -138,7 +138,7 @@ public:
 	generic_string getHitsString(int count) const;
 
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool notify(SCNotification *notification);
 
 private:
@@ -157,8 +157,8 @@ private:
 	ScintillaEditView _scintView;
 	unsigned int _nbFoundFiles = 0;
 
-	int _lastFileHeaderPos = 0;
-	int _lastSearchHeaderPos = 0;
+	intptr_t _lastFileHeaderPos = 0;
+	intptr_t _lastSearchHeaderPos = 0;
 
 	bool _canBeVolatiled = true;
 	bool _longLinesAreWrapped = false;
@@ -190,8 +190,8 @@ struct FindReplaceInfo
 {
 	const TCHAR *_txt2find = nullptr;
 	const TCHAR *_txt2replace = nullptr;
-	int _startRange = -1;
-	int _endRange = -1;
+	intptr_t _startRange = -1;
+	intptr_t _endRange = -1;
 };
 
 struct FindersInfo
@@ -216,7 +216,7 @@ private:
 	Finder  *_pFinder2Search = nullptr;
 	FindOption _options;
 	
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initFromOptions();
 	void writeOptions();
 };
@@ -350,7 +350,7 @@ public :
 
 protected :
 	void resizeDialogElements(LONG newWidth);
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	static LONG_PTR originalFinderProc;
 	static LONG_PTR originalComboEditProc;
 
@@ -473,7 +473,7 @@ private :
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand;
 
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
 };
 

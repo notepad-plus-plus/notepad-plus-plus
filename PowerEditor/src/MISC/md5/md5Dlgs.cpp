@@ -24,7 +24,7 @@
 #include <shlwapi.h>
 #include "resource.h"
 
-INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
@@ -167,7 +167,7 @@ INT_PTR CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					int len = static_cast<int>(::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT), WM_GETTEXTLENGTH, 0, 0));
 					if (len)
 					{
-						wchar_t *rStr = new wchar_t[len+1];
+						wchar_t* rStr = new wchar_t[len+1];
 						::GetDlgItemText(_hSelf, IDC_HASH_RESULT_EDIT, rStr, len + 1);
 						str2Clipboard(rStr, _hSelf);
 						delete[] rStr;
@@ -243,7 +243,7 @@ void HashFromTextDlg::generateHash()
 	{
 		// it's important to get text from UNICODE then convert it to UTF8
 		// So we get the result of UTF8 text (tested with Chinese).
-		wchar_t *text = new wchar_t[len + 1];
+		wchar_t* text = new wchar_t[len + 1];
 		::GetDlgItemText(_hSelf, IDC_HASH_TEXT_EDIT, text, len + 1);
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		const char *newText = wmc.wchar2char(text, SC_CP_UTF8);
@@ -277,7 +277,7 @@ void HashFromTextDlg::generateHashPerLine()
 	int len = static_cast<int>(::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), WM_GETTEXTLENGTH, 0, 0));
 	if (len)
 	{
-		wchar_t *text = new wchar_t[len + 1];
+		wchar_t* text = new wchar_t[len + 1];
 		::GetDlgItemText(_hSelf, IDC_HASH_TEXT_EDIT, text, len + 1);
 
 		std::wstringstream ss(text);
@@ -327,7 +327,7 @@ void HashFromTextDlg::generateHashPerLine()
 	}
 }
 
-INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
@@ -455,7 +455,7 @@ INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					int len = static_cast<int>(::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT), WM_GETTEXTLENGTH, 0, 0));
 					if (len)
 					{
-						wchar_t *rStr = new wchar_t[len+1];
+						wchar_t* rStr = new wchar_t[len+1];
 						::GetDlgItemText(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, rStr, len + 1);
 						str2Clipboard(rStr, _hSelf);
 						delete[] rStr;

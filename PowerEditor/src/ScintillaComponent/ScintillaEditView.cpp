@@ -2286,7 +2286,7 @@ char * ScintillaEditView::getSelectedText(char * txt, size_t size, bool expand)
 		expandWordSelection();
 		range = getSelection();
 	}
-	if (!(size > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
+	if (!(static_cast<Sci_PositionCR>(size) > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
 	{
 		range.cpMax = range.cpMin + (Sci_PositionCR)size -1;	//keep room for zero terminator
 	}

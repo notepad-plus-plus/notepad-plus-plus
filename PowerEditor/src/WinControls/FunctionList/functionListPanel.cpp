@@ -77,7 +77,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 {
 	size_t cntOpen = 1;
 
-	int docLen = (*_ppEditView)->getCurrentDocLen();
+	size_t docLen = (*_ppEditView)->getCurrentDocLen();
 
 	if (begin >= (size_t)docLen)
 		return docLen;
@@ -92,17 +92,17 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	int targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
-	int targetEnd = 0;
+	INT_PTR targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
+	INT_PTR targetEnd = 0;
 
 	do
 	{
 		if (targetStart >= 0) // found open or close symbol
 		{
-			targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+			targetEnd = (*_ppEditView)->execute(SCI_GETTARGETEND);
 
 			// Now we determinate the symbol (open or close)
-			int tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
+			INT_PTR tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
 			if (tmpStart >= 0) // open symbol found
 			{
 				++cntOpen;
@@ -125,7 +125,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 	return targetEnd;
 }
 
-generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos)
+generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, INT_PTR& foundPos)
 {
 	if (begin >= end)
 	{
@@ -140,14 +140,14 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 	const TCHAR *regExpr2search = dataToSearch[0].c_str();
-	int targetStart = (*_ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
+	INT_PTR targetStart = (*_ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
 
 	if (targetStart < 0)
 	{
 		foundPos = -1;
 		return TEXT("");
 	}
-	int targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+	INT_PTR targetEnd = (*_ppEditView)->execute(SCI_GETTARGETEND);
 
 	if (dataToSearch.size() >= 2)
 	{

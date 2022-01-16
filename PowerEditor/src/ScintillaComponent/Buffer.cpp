@@ -515,7 +515,7 @@ int Buffer::removeReference(ScintillaEditView * identifier)
 }
 
 
-void Buffer::setHideLineChanged(bool isHide, int location)
+void Buffer::setHideLineChanged(bool isHide, size_t location)
 {
 	//First run through all docs without removing markers
 	for (int i = 0; i < _references; ++i)
@@ -937,7 +937,7 @@ bool FileManager::backupCurrentBuffer()
 
 			if (UnicodeConvertor.openFile(fullpath))
 			{
-				int lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
+				size_t lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
 				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
 				boolean isWrittenSuccessful = false;
 
@@ -950,8 +950,8 @@ bool FileManager::backupCurrentBuffer()
 				else
 				{
 					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-					int grabSize;
-					for (int i = 0; i < lengthDoc; i += grabSize)
+					size_t grabSize;
+					for (size_t i = 0; i < lengthDoc; i += grabSize)
 					{
 						grabSize = lengthDoc - i;
 						if (grabSize > blockSize)
@@ -959,7 +959,7 @@ bool FileManager::backupCurrentBuffer()
 
 						int newDataLen = 0;
 						int incompleteMultibyteChar = 0;
-						const char *newData = wmc.encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
+						const char *newData = wmc.encode(SC_CP_UTF8, encoding, buf+i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
 						grabSize -= incompleteMultibyteChar;
 						isWrittenSuccessful = UnicodeConvertor.writeFile(newData, static_cast<unsigned long>(newDataLen));
 					}
@@ -1063,7 +1063,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
 
-		int lengthDoc = _pscratchTilla->getCurrentDocLen();
+		size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
 		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
 		boolean isWrittenSuccessful = false;
 
@@ -1082,8 +1082,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 			}
 			else
 			{
-				int grabSize;
-				for (int i = 0; i < lengthDoc; i += grabSize)
+				size_t grabSize;
+				for (size_t i = 0; i < lengthDoc; i += grabSize)
 				{
 					grabSize = lengthDoc - i;
 					if (grabSize > blockSize)
@@ -1091,7 +1091,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 
 					int newDataLen = 0;
 					int incompleteMultibyteChar = 0;
-					const char* newData = wmc.encode(SC_CP_UTF8, encoding, buf + i, grabSize, &newDataLen, &incompleteMultibyteChar);
+					const char* newData = wmc.encode(SC_CP_UTF8, encoding, buf + i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
 					grabSize -= incompleteMultibyteChar;
 					isWrittenSuccessful = UnicodeConvertor.writeFile(newData, static_cast<unsigned long>(newDataLen));
 				}
@@ -1342,26 +1342,25 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	unsigned __int64 fileSize =_ftelli64(fp);
 	rewind(fp);
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
-	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20,fileSize/6);
-
+	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20, fileSize/6);
 	
 	NppParameters& nppParam = NppParameters::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 
-	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space).
-	// As a 64bit binary, we have more address for the allocation. However loading a 2GB file takes from 3 minutes to 7 minutes, which makes Notepad++ unusable:
-	// https://github.com/notepad-plus-plus/notepad-plus-plus/pull/11044
-	// So here we fix the size limit to 2GB
 	if (bufferSizeRequested > INT_MAX)
 	{
-		pNativeSpeaker->messageBox("FileTooBigToOpen",
-										_pNotepadPlus->_pEditView->getHSelf(),
-										TEXT("File is too big to be opened by Notepad++"),
-										TEXT("File size problem"),
-										MB_OK|MB_APPLMODAL);
+		// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space).
+		if (nppParam.archType() == IMAGE_FILE_MACHINE_I386)
+		{
+			pNativeSpeaker->messageBox("FileTooBigToOpen",
+				_pNotepadPlus->_pEditView->getHSelf(),
+				TEXT("File is too big to be opened by Notepad++"),
+				TEXT("File size problem"),
+				MB_OK | MB_APPLMODAL);
 
-		fclose(fp);
-		return false;
+			fclose(fp);
+			return false;
+		}
 	}
 
 	//Setup scratchtilla for new filedata
@@ -1507,6 +1506,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		fileFormat._eolFormat = format;
 	}
 
+
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);
 
@@ -1574,11 +1574,11 @@ int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy)
 }
 
 
-int FileManager::docLength(Buffer* buffer) const
+size_t FileManager::docLength(Buffer* buffer) const
 {
 	Document curDoc = _pscratchTilla->execute(SCI_GETDOCPOINTER);
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);
-	int docLen = _pscratchTilla->getCurrentDocLen();
+	size_t docLen = _pscratchTilla->getCurrentDocLen();
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, curDoc);
 	return docLen;
 }

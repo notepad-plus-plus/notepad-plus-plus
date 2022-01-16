@@ -143,14 +143,14 @@ void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
 
 struct Position
 {
-	int _firstVisibleLine = 0;
-	int _startPos = 0;
-	int _endPos = 0;
-	int _xOffset = 0;
-	int _selMode = 0;
-	int _scrollWidth = 1;
-	int _offset = 0;
-	int _wrapCount = 0;
+	size_t _firstVisibleLine = 0;
+	size_t _startPos = 0;
+	size_t _endPos = 0;
+	size_t _xOffset = 0;
+	size_t _selMode = 0;
+	size_t _scrollWidth = 1;
+	size_t _offset = 0;
+	size_t _wrapCount = 0;
 };
 
 
@@ -874,8 +874,8 @@ struct ScintillaViewParams
 	bool _isEdgeBgMode = false;
 
 	std::vector<size_t> _edgeMultiColumnPos;
-	int _zoom = 0;
-	int _zoom2 = 0;
+	INT_PTR _zoom = 0;
+	INT_PTR _zoom2 = 0;
 	bool _whiteSpaceShow = false;
 	bool _eolShow = false;
 	int _borderWidth = 2;

@@ -881,20 +881,21 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			TCHAR str[strSize];
 			TCHAR strLine[strSize];
 			size_t lineNumber;
-			int col;
-			int i;
+			INT_PTR col;
 			int hasSlash;
 			TCHAR *pTchar = reinterpret_cast<TCHAR *>(lParam);
 
 			_pEditView->getGenericSelectedText(str, strSize); // this is either the selected text, or the word under the cursor if there is no selection
 			hasSlash = FALSE;
-			for (i = 0; str[i] != 0; i++) if (CharacterIs(str[i], TEXT("\\/"))) hasSlash = TRUE;
+			for (int i = 0; str[i] != 0; i++)
+				if (CharacterIs(str[i], TEXT("\\/")))
+					hasSlash = TRUE;
 
 			if (hasSlash == FALSE)
 			{
 				// it's not a full file name so try to find the beginning and ending of it
-				int start;
-				int end;
+				INT_PTR start;
+				INT_PTR end;
 				const TCHAR *delimiters;
 
 				lineNumber = _pEditView->getCurrentLineNumber();
@@ -904,7 +905,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				// find the start
 				start = col;
 				delimiters = TEXT(" \t[(\"<>");
-				while ((start > 0) && (CharacterIs(strLine[start], delimiters) == FALSE)) start--;
+				while ((start > 0) && (CharacterIs(strLine[start], delimiters) == FALSE))
+					start--;
+
 				if (CharacterIs(strLine[start], delimiters)) start++;
 
 				// find the end
@@ -912,7 +915,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				delimiters = TEXT(" \t:()[]<>\"\r\n");
 				while ((strLine[end] != 0) && (CharacterIs(strLine[end], delimiters) == FALSE)) end++;
 
-				lstrcpyn(str, &strLine[start], end - start + 1);
+				lstrcpyn(str, &strLine[start], static_cast<int>(end - start + 1));
 			}
 
 			if (lstrlen(str) >= int(wParam))	//buffer too small

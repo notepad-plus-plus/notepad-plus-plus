@@ -422,7 +422,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						}
 						else if (pLvdi->item.iSubItem == 3) // size
 						{
-							int docSize = buf->docLength();
+							size_t docSize = buf->docLength();
 							string docSizeText = to_string(docSize);
 							text = wstring(docSizeText.begin(), docSizeText.end());
 						}

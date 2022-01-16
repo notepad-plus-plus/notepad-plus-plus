@@ -2162,14 +2162,14 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 				if (fileName)
 				{
 					Position position;
-					(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), &position._firstVisibleLine);
-					(childNode->ToElement())->Attribute(TEXT("xOffset"), &position._xOffset);
-					(childNode->ToElement())->Attribute(TEXT("startPos"), &position._startPos);
-					(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
-					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
-					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
-					(childNode->ToElement())->Attribute(TEXT("offset"), &position._offset);
-					(childNode->ToElement())->Attribute(TEXT("wrapCount"), &position._wrapCount);
+					(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), reinterpret_cast<int*>(&position._firstVisibleLine));
+					(childNode->ToElement())->Attribute(TEXT("xOffset"), reinterpret_cast<int*>(&position._xOffset));
+					(childNode->ToElement())->Attribute(TEXT("startPos"), reinterpret_cast<int*>(&position._startPos));
+					(childNode->ToElement())->Attribute(TEXT("endPos"), reinterpret_cast<int*>(&position._endPos));
+					(childNode->ToElement())->Attribute(TEXT("selMode"), reinterpret_cast<int*>(&position._selMode));
+					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), reinterpret_cast<int*>(&position._scrollWidth));
+					(childNode->ToElement())->Attribute(TEXT("offset"), reinterpret_cast<int*>(&position._offset));
+					(childNode->ToElement())->Attribute(TEXT("wrapCount"), reinterpret_cast<int*>(&position._wrapCount));
 					MapPosition mapPosition;
 					int32_t mapPosVal;
 					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"), &mapPosVal);
@@ -3273,14 +3273,14 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			{
 				TiXmlNode *fileNameNode = viewElems[k].viewNode->InsertEndChild(TiXmlElement(TEXT("File")));
 
-				(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), viewSessionFiles[i]._firstVisibleLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), viewSessionFiles[i]._xOffset);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), viewSessionFiles[i]._scrollWidth);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), viewSessionFiles[i]._startPos);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), viewSessionFiles[i]._endPos);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), viewSessionFiles[i]._selMode);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("offset"), viewSessionFiles[i]._offset);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("wrapCount"), viewSessionFiles[i]._wrapCount);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), static_cast<int>(viewSessionFiles[i]._firstVisibleLine));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), static_cast<int>(viewSessionFiles[i]._xOffset));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), static_cast<int>(viewSessionFiles[i]._scrollWidth));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), static_cast<int>(viewSessionFiles[i]._startPos));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), static_cast<int>(viewSessionFiles[i]._endPos));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), static_cast<int>(viewSessionFiles[i]._selMode));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("offset"), static_cast<int>(viewSessionFiles[i]._offset));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("wrapCount"), static_cast<int>(viewSessionFiles[i]._wrapCount));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), viewSessionFiles[i]._langName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), viewSessionFiles[i]._encoding);
 				(fileNameNode->ToElement())->SetAttribute(TEXT("userReadOnly"), (viewSessionFiles[i]._isUserReadOnly && !viewSessionFiles[i]._isMonitoring) ? TEXT("yes") : TEXT("no"));
@@ -6004,8 +6004,8 @@ bool NppParameters::writeScintillaParams()
 	}
 	(scintNode->ToElement())->SetAttribute(TEXT("isEdgeBgMode"), _svp._isEdgeBgMode ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("edgeMultiColumnPos"), edgeColumnPosStr);
-	(scintNode->ToElement())->SetAttribute(TEXT("zoom"), _svp._zoom);
-	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), _svp._zoom2);
+	(scintNode->ToElement())->SetAttribute(TEXT("zoom"), static_cast<int>(_svp._zoom));
+	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), static_cast<int>(_svp._zoom2));
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), _svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), _svp._eolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);

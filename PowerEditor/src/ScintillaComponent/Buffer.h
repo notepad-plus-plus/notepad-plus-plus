@@ -101,7 +101,7 @@ public:
 		return instance;
 	};
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
-	int docLength(Buffer * buffer) const;
+	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
 private:
@@ -258,14 +258,14 @@ public:
 	int addReference(ScintillaEditView * identifier);		//if ID not registered, creates a new Position for that ID and new foldstate
 	int removeReference(ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
 
-	void setHideLineChanged(bool isHide, int location);
+	void setHideLineChanged(bool isHide, size_t location);
 
 	void setDeferredReload();
 
 	bool getNeedReload() const { return _needReloading; }
 	void setNeedReload(bool reload) { _needReloading = reload; }
 
-	int docLength() const {
+	size_t docLength() const {
 		assert(_pManager != nullptr);
 		return _pManager->docLength(_id);
 	}

@@ -39,10 +39,10 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, FINDINPROJECTS_DLG, MA
 enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION, FILES_IN_PROJECTS};
 
 struct FoundInfo {
-	FoundInfo(int start, int end, size_t lineNumber, const TCHAR *fullPath)
+	FoundInfo(INT_PTR start, INT_PTR end, size_t lineNumber, const TCHAR *fullPath)
 		: _start(start), _end(end), _lineNumber(lineNumber), _fullPath(fullPath) {};
-	int _start;
-	int _end;
+	INT_PTR _start;
+	INT_PTR _end;
 	size_t _lineNumber;
 	generic_string _fullPath;
 };
@@ -91,7 +91,7 @@ public:
 				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0) |
 				((option->_searchType == FindRegex && option->_dotMatchesNewline) ? SCFIND_REGEXP_DOTMATCHESNL : 0);
 	};
-	static void displaySectionCentered(int posStart, int posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
+	static void displaySectionCentered(size_t posStart, size_t posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
 
 private:
 	static bool readBase(const TCHAR * str, int * value, int base, int size);
@@ -190,8 +190,8 @@ struct FindReplaceInfo
 {
 	const TCHAR *_txt2find = nullptr;
 	const TCHAR *_txt2replace = nullptr;
-	int _startRange = -1;
-	int _endRange = -1;
+	INT_PTR _startRange = -1;
+	INT_PTR _endRange = -1;
 };
 
 struct FindersInfo

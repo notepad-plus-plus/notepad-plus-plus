@@ -372,7 +372,7 @@ private:
 	bool _isUDDocked = false;
 
 	trayIconControler* _pTrayIco = nullptr;
-	int _zoomOriginalValue = 0;
+	INT_PTR _zoomOriginalValue = 0;
 
 	Accelerator _accelerator;
 	ScintillaAccelerator _scintaccelerator;
@@ -509,16 +509,16 @@ private:
 			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
 	}
 
-    void bookmarkDelete(int lineno) const {
+    void bookmarkDelete(size_t lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		while (bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
 	}
 
-    bool bookmarkPresent(int lineno) const {
+    bool bookmarkPresent(INT_PTR lineno) const {
 		if (lineno == -1)
-			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
+			lineno = _pEditView->getCurrentLineNumber();
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
@@ -542,10 +542,10 @@ private:
 	void cutMarkedLines();
 	void deleteMarkedLines(bool isMarked);
 	void pasteToMarkedLines();
-	void deleteMarkedline(int ln);
+	void deleteMarkedline(size_t ln);
 	void inverseMarks();
-	void replaceMarkedline(int ln, const TCHAR *str);
-	generic_string getMarkedLine(int ln);
+	void replaceMarkedline(size_t ln, const TCHAR *str);
+	generic_string getMarkedLine(size_t ln);
     void findMatchingBracePos(int & braceAtCaret, int & braceOpposite);
     bool braceMatch();
 

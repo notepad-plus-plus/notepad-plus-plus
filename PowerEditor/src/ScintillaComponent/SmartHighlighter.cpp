@@ -33,14 +33,14 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	auto originalEndPos = pHighlightView->execute(SCI_GETTARGETEND);
 
 	// Get the range of text visible and highlight everything in it
-	auto firstLine = static_cast<int>(pHighlightView->execute(SCI_GETFIRSTVISIBLELINE));
+	auto firstLine = pHighlightView->execute(SCI_GETFIRSTVISIBLELINE);
 	auto nbLineOnScreen = pHighlightView->execute(SCI_LINESONSCREEN);
 	auto nbLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
 	auto lastLine = firstLine + nbLines;
-	int startPos = 0;
-	int endPos = 0;
+	size_t startPos = 0;
+	INT_PTR endPos = 0;
 	auto currentLine = firstLine;
-	int prevDocLineChecked = -1;	//invalid start
+	INT_PTR prevDocLineChecked = -1;	//invalid start
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;
@@ -71,12 +71,12 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 
 	for (; currentLine < lastLine; ++currentLine)
 	{
-		int docLine = static_cast<int>(pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine));
+		INT_PTR docLine = pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
 		if (docLine == prevDocLineChecked)
 			continue;	//still on same line (wordwrap)
-		prevDocLineChecked = docLine;
-		startPos = static_cast<int>(pHighlightView->execute(SCI_POSITIONFROMLINE, docLine));
-		endPos = static_cast<int>(pHighlightView->execute(SCI_POSITIONFROMLINE, docLine + 1));
+		prevDocLineChecked = static_cast<INT_PTR>(docLine);
+		startPos = pHighlightView->execute(SCI_POSITIONFROMLINE, docLine);
+		endPos = pHighlightView->execute(SCI_POSITIONFROMLINE, docLine + 1);
 		
 		frInfo._startRange = startPos;
 		frInfo._endRange = endPos;

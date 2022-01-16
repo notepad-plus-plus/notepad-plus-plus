@@ -51,7 +51,7 @@ protected :
 
 private :
     ScintillaEditView **_ppEditView = nullptr;
-	bool findCharInRange(unsigned char beginRange, unsigned char endRange, int startPos, bool direction, bool wrap);
+	bool findCharInRange(unsigned char beginRange, unsigned char endRange, INT_PTR startPos, bool direction, bool wrap);
 	bool getRangeFromUI(unsigned char & startRange, unsigned char & endRange);
 	void getDirectionFromUI(bool & whichDirection, bool & isWrap);
 };

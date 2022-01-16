@@ -359,7 +359,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_COPY_LINK:
 		{
-			int startPos = 0, endPos = 0, curPos = 0;
+			size_t startPos = 0, endPos = 0, curPos = 0;
 			if (_pEditView->getIndicatorRange(URL_INDIC, &startPos, &endPos, &curPos))
 			{
 				_pEditView->execute(SCI_SETSEL, startPos, endPos);
@@ -673,7 +673,7 @@ void Notepad_plus::command(int id)
 				hasLineSelection = selStart != selEnd;
 				if (hasLineSelection)
 				{
-					const pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
+					const pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
 					// One single line selection is not allowed.
 					if (lineRange.first == lineRange.second)
 					{
@@ -1427,8 +1427,8 @@ void Notepad_plus::command(int id)
 			if (range.cpMin == range.cpMax)
 			{
 				auto caretPos = _pEditView->execute(SCI_GETCURRENTPOS, 0, 0);
-				range.cpMin = static_cast<int>(_pEditView->execute(SCI_WORDSTARTPOSITION, caretPos, true));
-				range.cpMax = static_cast<int>(_pEditView->execute(SCI_WORDENDPOSITION, caretPos, true));
+				range.cpMin = static_cast<Sci_PositionCR>(_pEditView->execute(SCI_WORDSTARTPOSITION, caretPos, true));
+				range.cpMax = static_cast<Sci_PositionCR>(_pEditView->execute(SCI_WORDENDPOSITION, caretPos, true));
 			}
 			if (range.cpMax > range.cpMin)
 			{
@@ -1705,11 +1705,11 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_RMV_TAB:
 		{
 			bool forwards = id == IDM_EDIT_INS_TAB;
-			int selStartPos = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONSTART));
-			int lineNumber = static_cast<int>(_pEditView->execute(SCI_LINEFROMPOSITION, selStartPos));
-			int numSelections = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONS));
-			int selEndPos = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONEND));
-			int selEndLineNumber = static_cast<int>(_pEditView->execute(SCI_LINEFROMPOSITION, selEndPos));
+			size_t selStartPos = _pEditView->execute(SCI_GETSELECTIONSTART);
+			size_t lineNumber = _pEditView->execute(SCI_LINEFROMPOSITION, selStartPos);
+			size_t numSelections = _pEditView->execute(SCI_GETSELECTIONS);
+			size_t selEndPos = _pEditView->execute(SCI_GETSELECTIONEND);
+			size_t selEndLineNumber = _pEditView->execute(SCI_LINEFROMPOSITION, selEndPos);
 			if ((numSelections > 1) || (lineNumber != selEndLineNumber))
 			{
 				// multiple-selection or multi-line selection; use Scintilla SCI_TAB / SCI_BACKTAB behavior
@@ -1719,10 +1719,10 @@ void Notepad_plus::command(int id)
 			{
 				// zero-length selection (simple single caret) or selected text is all on single line
 				// depart from Scintilla behavior and do it our way
-				int currentIndent = static_cast<int>(_pEditView->execute(SCI_GETLINEINDENTATION, lineNumber));
-				int indentDelta = static_cast<int>(_pEditView->execute(SCI_GETTABWIDTH));
+				size_t currentIndent = _pEditView->execute(SCI_GETLINEINDENTATION, lineNumber);
+				INT_PTR indentDelta = _pEditView->execute(SCI_GETTABWIDTH);
 				if (!forwards) indentDelta = -indentDelta;
-				_pEditView->setLineIndent(lineNumber, currentIndent + indentDelta);
+				_pEditView->setLineIndent(lineNumber, static_cast<INT_PTR>(currentIndent) + indentDelta);
 			}
 		}
 		break;
@@ -1747,12 +1747,12 @@ void Notepad_plus::command(int id)
 		{
 			if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
 			{
-				pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
+				pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
 				auto anchorPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.first);
 				auto caretPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.second);
 				_pEditView->execute(SCI_SETSELECTION, caretPos, anchorPos);
 				_pEditView->execute(SCI_TARGETFROMSELECTION);
-				int edgeMode = static_cast<int>(_pEditView->execute(SCI_GETEDGEMODE));
+				size_t edgeMode = _pEditView->execute(SCI_GETEDGEMODE);
 				if (edgeMode == EDGE_NONE)
 				{
 					_pEditView->execute(SCI_LINESSPLIT, 0);
@@ -1776,7 +1776,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_JOIN_LINES:
 		{
-			const pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
+			const pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
 			if (lineRange.first != lineRange.second)
 			{
 				auto anchorPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.first);
@@ -2454,13 +2454,13 @@ void Notepad_plus::command(int id)
 				generic_string nbRangeLabel = pNativeSpeaker->getLocalizedStrFromID("summary-nbrange", TEXT(" ranges"));
 
 				UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
-				auto nbChar = getCurrentDocCharCount(um);
+				size_t nbChar = getCurrentDocCharCount(um);
 				int nbWord = wordCount();
-				auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
-				auto nbByte = _pEditView->execute(SCI_GETLENGTH);
-				auto nbSel = getSelectedCharNumber(um);
-				auto nbSelByte = getSelectedBytes();
-				auto nbRange = getSelectedAreas();
+				size_t nbLine = _pEditView->execute(SCI_GETLINECOUNT);
+				size_t nbByte = _pEditView->execute(SCI_GETLENGTH);
+				size_t nbSel = getSelectedCharNumber(um);
+				size_t nbSelByte = getSelectedBytes();
+				size_t nbRange = getSelectedAreas();
 
 				characterNumber += nbCharLabel;
 				characterNumber += commafyInt(nbChar).c_str();
@@ -2471,7 +2471,7 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 
 				characterNumber += nbLineLabel;
-				characterNumber += commafyInt(static_cast<int>(nbLine)).c_str();
+				characterNumber += commafyInt(nbLine).c_str();
 				characterNumber += TEXT("\r");
 
 				characterNumber += nbByteLabel;
@@ -2895,7 +2895,7 @@ void Notepad_plus::command(int id)
 				_pEditView->saveCurrentPos();
 
 				// Cut all text
-				int docLen = _pEditView->getCurrentDocLen();
+				size_t docLen = _pEditView->getCurrentDocLen();
 				_pEditView->execute(SCI_COPYRANGE, 0, docLen);
 				_pEditView->execute(SCI_CLEARALL);
 

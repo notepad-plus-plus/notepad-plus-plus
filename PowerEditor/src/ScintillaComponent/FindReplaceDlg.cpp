@@ -200,7 +200,7 @@ bool Searching::readBase(const TCHAR * str, int * value, int base, int size)
 	return true;
 }
 
-void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditView * pEditView, bool isDownwards)
+void Searching::displaySectionCentered(size_t posStart, size_t posEnd, ScintillaEditView * pEditView, bool isDownwards)
 {
 	// Make sure target lines are unfolded
 	pEditView->execute(SCI_ENSUREVISIBLE, pEditView->execute(SCI_LINEFROMPOSITION, posStart));
@@ -1953,8 +1953,8 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			break;
 	}
 
-	int start, end;
-	int posFind;
+	INT_PTR start, end;
+	INT_PTR posFind;
 
 	// Never allow a zero length match in the middle of a line end marker
 	if ((*_ppEditView)->execute(SCI_GETCHARAT, startPosition - 1) == '\r'
@@ -2097,8 +2097,8 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 		{
 			bool isRegExp = replaceOptions._searchType == FindRegex;
 
-			int start = currentSelection.cpMin;
-			int replacedLen = 0;
+			INT_PTR start = currentSelection.cpMin;
+			INT_PTR replacedLen = 0;
 			if (isRegExp)
 			{
 				replacedLen = (*_ppEditView)->replaceTargetRegExMode(txt2replace);
@@ -2207,14 +2207,14 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	const TCHAR *txt2replace = pOptions->_str4Replace.c_str();
 
 	Sci_CharacterRange cr = (*_ppEditView)->getSelection();
-	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
+	size_t docLength = (*_ppEditView)->execute(SCI_GETLENGTH);
 
 	// Default :
 	//        direction : down
 	//        begin at : 0
 	//        end at : end of doc
-	int startPosition = 0;
-	int endPosition = docLength;
+	size_t startPosition = 0;
+	size_t endPosition = docLength;
 
 	bool direction = pOptions->_whichDirection;
 
@@ -2266,7 +2266,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 
 	if (nbProcessed > 0 && op == ProcessReplaceAll && pOptions->_isInSelection)
 	{
-		int newDocLength = static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH));
+		size_t newDocLength = (*_ppEditView)->execute(SCI_GETLENGTH);
 		endPosition += newDocLength - docLength;
 		(*_ppEditView)->execute(SCI_SETSELECTION, endPosition, startPosition);
 		(*_ppEditView)->execute(SCI_SCROLLRANGE, startPosition, endPosition);
@@ -2368,8 +2368,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		}
 	}
 
-	int targetStart = 0;
-	int targetEnd = 0;
+	INT_PTR targetStart = 0;
+	INT_PTR targetEnd = 0;
 
 	//Initial range for searching
 	pEditView->execute(SCI_SETSEARCHFLAGS, flags);
@@ -2385,7 +2385,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		if (targetStart == -1 || targetStart == -2)
 			break;
 
-		targetEnd = int(pEditView->execute(SCI_GETTARGETEND));
+		targetEnd = pEditView->execute(SCI_GETTARGETEND);
 
 		if (targetEnd > findReplaceInfo._endRange)
 		{
@@ -2393,8 +2393,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 			break;
 		}
 
-		int foundTextLen = targetEnd - targetStart;
-		int replaceDelta = 0;
+		INT_PTR foundTextLen = targetEnd - targetStart;
+		INT_PTR replaceDelta = 0;
 		bool processed = true;
 
 		switch (op)
@@ -2412,9 +2412,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				}
 
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
-				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
-				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
-				int nbChar = lend - lstart;
+				INT_PTR lend = pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
+				INT_PTR lstart = pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
+				INT_PTR nbChar = lend - lstart;
 
 				// use the static buffer
 				TCHAR lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
@@ -2422,16 +2422,16 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
 
-				int start_mark = targetStart - lstart;
-				int end_mark = targetEnd - lstart;
+				INT_PTR start_mark = targetStart - lstart;
+				INT_PTR end_mark = targetEnd - lstart;
 
 				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
 				SearchResultMarking srm;
-				srm._start = start_mark;
-				srm._end = end_mark;
+				srm._start = static_cast<long>(start_mark);
+				srm._end = static_cast<long>(end_mark);
 				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
 
 				break;
@@ -2445,9 +2445,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				const TCHAR *pFileName = pFindersInfo->_pFileName ? pFindersInfo->_pFileName : TEXT("");
 
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
-				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
-				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
-				int nbChar = lend - lstart;
+				INT_PTR lend = pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
+				INT_PTR lstart = pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
+				INT_PTR nbChar = lend - lstart;
 
 				// use the static buffer
 				TCHAR lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
@@ -2455,16 +2455,16 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
 
-				int start_mark = targetStart - lstart;
-				int end_mark = targetEnd - lstart;
+				INT_PTR start_mark = targetStart - lstart;
+				INT_PTR end_mark = targetEnd - lstart;
 
 				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
 				SearchResultMarking srm;
-				srm._start = start_mark;
-				srm._end = end_mark;
+				srm._start = static_cast<long>(start_mark);
+				srm._end = static_cast<long>(end_mark);
 				processed = (!pOptions->_isMatchLineNumber) || (pFindersInfo->_pSourceFinder->canFind(pFileName, lineNumber + 1));
 				if (processed)
 				{
@@ -2480,7 +2480,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 			case ProcessReplaceAll:
 			{
-				int replacedLength;
+				INT_PTR replacedLength;
 				if (isRegExp)
 					replacedLength = pEditView->replaceTargetRegExMode(pTextReplace);
 				else
@@ -3629,10 +3629,10 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 
 	if (isDropped && (message == WM_KEYDOWN) && (wParam == VK_DELETE))
 	{
-		int curSel = static_cast<int>(::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0));
+		auto curSel = ::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0);
 		if (curSel != CB_ERR)
 		{
-			int itemsRemaining = static_cast<int>(::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0));
+			auto itemsRemaining = ::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0);
 			// if we close the dropdown and reopen it, it will be correctly-sized for remaining items
 			::SendMessage(hwndCombo, CB_SHOWDROPDOWN, FALSE, 0);
 			if (itemsRemaining > 0)
@@ -4191,7 +4191,7 @@ void Finder::copy()
 
 	size_t fromLine, toLine;
 	{
-		const pair<int, int> lineRange = _scintView.getSelectionLinesRange();
+		const pair<size_t, size_t> lineRange = _scintView.getSelectionLinesRange();
 		fromLine = lineRange.first;
 		toLine = lineRange.second;
 

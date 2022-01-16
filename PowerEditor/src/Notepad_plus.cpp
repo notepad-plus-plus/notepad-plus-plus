@@ -308,7 +308,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.performGlobalStyles();
 	_subEditView.performGlobalStyles();
 
-	_zoomOriginalValue = static_cast<int32_t>(_pEditView->execute(SCI_GETZOOM));
+	_zoomOriginalValue = _pEditView->execute(SCI_GETZOOM);
 	_mainEditView.execute(SCI_SETZOOM, svp._zoom);
 	_subEditView.execute(SCI_SETZOOM, svp._zoom2);
 
@@ -1061,11 +1061,11 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 
 		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
 
-		int posFound = static_cast<int32_t>(_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), reinterpret_cast<LPARAM>(htmlHeaderRegExpr)));
+		auto posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), reinterpret_cast<LPARAM>(htmlHeaderRegExpr));
 
 		if (posFound < 0)
 		{
-			posFound = static_cast<int32_t>(_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr2), reinterpret_cast<LPARAM>(htmlHeaderRegExpr2)));
+			posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr2), reinterpret_cast<LPARAM>(htmlHeaderRegExpr2));
 			if (posFound < 0)
 				return -1;
 		}
@@ -1093,8 +1093,8 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 
 void Notepad_plus::setCodePageForInvisibleView(Buffer const *pBuffer)
 {
-	int detectedCp = static_cast<int>(_invisibleEditView.execute(SCI_GETCODEPAGE));
-	int cp2set = SC_CP_UTF8;
+	INT_PTR detectedCp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+	INT_PTR cp2set = SC_CP_UTF8;
 	if (pBuffer->getUnicodeMode() == uni8Bit)
 	{
 		cp2set = (detectedCp == SC_CP_UTF8 ? CP_ACP : detectedCp);
@@ -1186,17 +1186,17 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 void Notepad_plus::wsTabConvert(spaceTab whichWay)
 {
-	int tabWidth = static_cast<int32_t>(_pEditView->execute(SCI_GETTABWIDTH));
-	int currentPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
-    int lastLine = _pEditView->lastZeroBasedLineNumber();
-	int docLength = static_cast<int32_t>(_pEditView->execute(SCI_GETLENGTH) + 1);
+	INT_PTR tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+	INT_PTR currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
+    INT_PTR lastLine = _pEditView->lastZeroBasedLineNumber();
+	INT_PTR docLength = _pEditView->execute(SCI_GETLENGTH) + 1;
     if (docLength < 2)
         return;
 
-    int count = 0;
-    int column = 0;
-    int newCurrentPos = 0;
-	int tabStop = static_cast<int32_t>(tabWidth - 1);   // remember, counting from zero !
+    INT_PTR count = 0;
+    INT_PTR column = 0;
+    INT_PTR newCurrentPos = 0;
+	INT_PTR tabStop = static_cast<int32_t>(tabWidth - 1);   // remember, counting from zero !
     bool onlyLeading = false;
     vector<int> bookmarks;
     vector<int> folding;
@@ -1249,7 +1249,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
             {
                 if (source[i] == '\t')
                 {
-                    int insertTabs = tabWidth - (column % tabWidth);
+                    INT_PTR insertTabs = tabWidth - (column % tabWidth);
                     for (int j = 0; j < insertTabs; ++j)
                     {
                         *dest++ = ' ';
@@ -2399,9 +2399,9 @@ generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 
 void Notepad_plus::copyMarkedLines()
 {
-	int lastLine = _pEditView->lastZeroBasedLineNumber();
+	INT_PTR lastLine = _pEditView->lastZeroBasedLineNumber();
 	generic_string globalStr = TEXT("");
-	for (int i = lastLine ; i >= 0 ; i--)
+	for (INT_PTR i = lastLine ; i >= 0 ; i--)
 	{
 		if (bookmarkPresent(i))
 		{
@@ -2418,11 +2418,11 @@ void Notepad_plus::cutMarkedLines()
 {
 	std::lock_guard<std::mutex> lock(mark_mutex);
 
-	int lastLine = _pEditView->lastZeroBasedLineNumber();
+	INT_PTR lastLine = _pEditView->lastZeroBasedLineNumber();
 	generic_string globalStr = TEXT("");
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
-	for (int i = lastLine ; i >= 0 ; i--)
+	for (INT_PTR i = lastLine ; i >= 0 ; i--)
 	{
 		if (bookmarkPresent(i))
 		{
@@ -2440,10 +2440,10 @@ void Notepad_plus::deleteMarkedLines(bool isMarked)
 {
 	std::lock_guard<std::mutex> lock(mark_mutex);
 
-	int lastLine = _pEditView->lastZeroBasedLineNumber();
+	INT_PTR lastLine = _pEditView->lastZeroBasedLineNumber();
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
-	for (int i = lastLine ; i >= 0 ; i--)
+	for (INT_PTR i = lastLine ; i >= 0 ; i--)
 	{
 		if (bookmarkPresent(i) == isMarked)
 			deleteMarkedline(i);
@@ -2461,7 +2461,7 @@ void Notepad_plus::pasteToMarkedLines()
 	BOOL canPaste = ::IsClipboardFormatAvailable(clipFormat);
 	if (!canPaste)
 		return;
-	int lastLine = _pEditView->lastZeroBasedLineNumber();
+	INT_PTR lastLine = _pEditView->lastZeroBasedLineNumber();
 
 	::OpenClipboard(_pPublicInterface->getHSelf());
 	HANDLE clipboardData = ::GetClipboardData(clipFormat);
@@ -2475,7 +2475,7 @@ void Notepad_plus::pasteToMarkedLines()
 	::CloseClipboard();
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
-	for (int i = lastLine ; i >= 0 ; i--)
+	for (INT_PTR i = lastLine ; i >= 0 ; i--)
 	{
 		if (bookmarkPresent(i))
 		{
@@ -2485,7 +2485,7 @@ void Notepad_plus::pasteToMarkedLines()
 	_pEditView->execute(SCI_ENDUNDOACTION);
 }
 
-void Notepad_plus::deleteMarkedline(int ln)
+void Notepad_plus::deleteMarkedline(size_t ln)
 {
 	int lineLen = static_cast<int32_t>(_pEditView->execute(SCI_LINELENGTH, ln));
 	int lineBegin = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, ln));
@@ -2497,7 +2497,7 @@ void Notepad_plus::deleteMarkedline(int ln)
 
 void Notepad_plus::inverseMarks()
 {
-	int lastLine = _pEditView->lastZeroBasedLineNumber();
+	INT_PTR lastLine = _pEditView->lastZeroBasedLineNumber();
 	for (int i = 0 ; i <= lastLine  ; ++i)
 	{
 		if (bookmarkPresent(i))
@@ -2511,7 +2511,7 @@ void Notepad_plus::inverseMarks()
 	}
 }
 
-void Notepad_plus::replaceMarkedline(int ln, const TCHAR *str)
+void Notepad_plus::replaceMarkedline(size_t ln, const TCHAR *str)
 {
 	int lineBegin = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, ln));
 	int lineEnd = static_cast<int32_t>(_pEditView->execute(SCI_GETLINEENDPOSITION, ln));
@@ -2519,7 +2519,7 @@ void Notepad_plus::replaceMarkedline(int ln, const TCHAR *str)
 	_pEditView->replaceTarget(str, lineBegin, lineEnd);
 }
 
-generic_string Notepad_plus::getMarkedLine(int ln)
+generic_string Notepad_plus::getMarkedLine(size_t ln)
 {
 	auto lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
 	auto lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
@@ -2993,8 +2993,8 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 		pView->execute(SCI_INDICSETFLAGS, URL_INDIC, SC_INDICFLAG_VALUEFORE);
 	}
 
-	int startPos = 0;
-	int endPos = -1;
+	INT_PTR startPos = 0;
+	INT_PTR endPos = -1;
 	pView->getVisibleStartAndEndPosition(&startPos, &endPos);
 	if (startPos >= endPos) return;
 	pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
@@ -3011,7 +3011,7 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	char *encodedText = new char[endPos - startPos + 1];
 	pView->getText(encodedText, startPos, endPos);
 	TCHAR *wideText = new TCHAR[endPos - startPos + 1];
-	int wideTextLen = MultiByteToWideChar(cp, 0, encodedText, endPos - startPos + 1, (LPWSTR) wideText, endPos - startPos + 1) - 1;
+	int wideTextLen = MultiByteToWideChar(cp, 0, encodedText, static_cast<int>(endPos - startPos + 1), (LPWSTR) wideText, static_cast<int>(endPos - startPos + 1)) - 1;
 	delete[] encodedText;
 	if (wideTextLen > 0)
 	{
@@ -3098,7 +3098,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	int eolMode = static_cast<int32_t>((_pEditView->execute(SCI_GETEOLMODE)));
 	int curLine = static_cast<int32_t>((_pEditView->getCurrentLineNumber()));
 	int prevLine = curLine - 1;
-	int indentAmountPrevLine = 0;
+	INT_PTR indentAmountPrevLine = 0;
 	int tabWidth = static_cast<int32_t>(_pEditView->execute(SCI_GETTABWIDTH));
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
@@ -3747,17 +3747,17 @@ void Notepad_plus::updateStatusBar()
 
 	TCHAR strSel[64];
 
-	int numSelections = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONS));
+	size_t numSelections = _pEditView->execute(SCI_GETSELECTIONS);
 	if (numSelections == 1)
 	{
 		if (_pEditView->execute(SCI_GETSELECTIONEMPTY))
 		{
-			int currPos = static_cast<int>(_pEditView->execute(SCI_GETCURRENTPOS));
+			size_t currPos = _pEditView->execute(SCI_GETCURRENTPOS);
 			wsprintf(strSel, TEXT("Pos : %s"), commafyInt(currPos + 1).c_str());
 		}
 		else
 		{
-			const std::pair<int, int> oneSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
+			const std::pair<size_t, size_t> oneSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
 			wsprintf(strSel, TEXT("Sel : %s | %s"),
 				commafyInt(oneSelCharsAndLines.first).c_str(),
 				commafyInt(oneSelCharsAndLines.second).c_str());
@@ -3765,16 +3765,16 @@ void Notepad_plus::updateStatusBar()
 	}
 	else if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
 	{
-		const std::pair<int, int> rectSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
+		const std::pair<size_t, size_t> rectSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
 
 		bool sameCharCountOnEveryLine = true;
-		int maxLineCharCount = 0;
+		size_t maxLineCharCount = 0;
 
-		for (int sel = 0; sel < numSelections; ++sel)
+		for (size_t sel = 0; sel < numSelections; ++sel)
 		{
-			int start = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONNSTART, sel));
-			int end = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONNEND, sel));
-			int lineCharCount = static_cast<int>(_pEditView->execute(SCI_COUNTCHARACTERS, start, end));
+			size_t start = _pEditView->execute(SCI_GETSELECTIONNSTART, sel);
+			size_t end = _pEditView->execute(SCI_GETSELECTIONNEND, sel);
+			size_t lineCharCount = _pEditView->execute(SCI_COUNTCHARACTERS, start, end);
 
 			if (sel == 0)
 			{
@@ -3802,7 +3802,7 @@ void Notepad_plus::updateStatusBar()
 	else  // multiple stream selections
 	{
 		const int maxSelsToProcessLineCount = 99;  // limit the number of selections to process, for performance reasons
-		const std::pair<int, int> multipleSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount(maxSelsToProcessLineCount);
+		const std::pair<size_t, size_t> multipleSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount(maxSelsToProcessLineCount);
 
 		wsprintf(strSel, TEXT("Sel %s : %s | %s"),
 			commafyInt(numSelections).c_str(),
@@ -5042,8 +5042,8 @@ void Notepad_plus::saveScintillasZoom()
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	ScintillaViewParams & svp = (ScintillaViewParams &)nppParam.getSVP();
-	svp._zoom = static_cast<int>(_mainEditView.execute(SCI_GETZOOM));
-	svp._zoom2 = static_cast<int>(_subEditView.execute(SCI_GETZOOM));
+	svp._zoom = _mainEditView.execute(SCI_GETZOOM);
+	svp._zoom2 = _subEditView.execute(SCI_GETZOOM);
 }
 
 bool Notepad_plus::addCurrentMacro()
@@ -5147,8 +5147,8 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 	auto docLen = _pEditView->getCurrentDocLen();
 
     bool isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position) != 0;
-    auto posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
-    auto posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
+    size_t posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
+    size_t posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
 
 	// pre-condition
 	if ((posStart == 0) && (posEnd == docLen - 1))
@@ -5196,12 +5196,12 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 
 bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 {
-    auto position = _pEditView->execute(SCI_GETCURRENTPOS);
-	int docLen = _pEditView->getCurrentDocLen();
+    size_t position = _pEditView->execute(SCI_GETCURRENTPOS);
+	size_t docLen = _pEditView->getCurrentDocLen();
 
     bool isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position) != 0;
-    auto posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
-    auto posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
+    size_t posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
+    size_t posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
 
 	// pre-condition
 	if ((posStart == 0) && (posEnd == docLen - 1))
@@ -6113,7 +6113,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	generic_string udl = pCmdParams->_udlName;
 	int lineNumber =  pCmdParams->_line2go;
 	int columnNumber = pCmdParams->_column2go;
-	int positionNumber = pCmdParams->_pos2go;
+	size_t positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
@@ -6160,7 +6160,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 					// make sure not jumping into the middle of a multibyte character
 					// or into the middle of a CR/LF pair for Windows files
 					auto before = _pEditView->execute(SCI_POSITIONBEFORE, positionNumber);
-					positionNumber = static_cast<int>(_pEditView->execute(SCI_POSITIONAFTER, before));
+					positionNumber = _pEditView->execute(SCI_POSITIONAFTER, before);
 				}
 				_pEditView->execute(SCI_GOTOPOS, positionNumber);
 			}
@@ -7901,10 +7901,10 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		//-- First, search all start_comment and end_comment before and after the selectionStart and selectionEnd position.
 		const int iSelStart=0, iSelEnd=1;
 		const size_t N_CMNT = 2;
-		int posStartCommentBefore[N_CMNT], posEndCommentBefore[N_CMNT], posStartCommentAfter[N_CMNT], posEndCommentAfter[N_CMNT];
+		INT_PTR posStartCommentBefore[N_CMNT], posEndCommentBefore[N_CMNT], posStartCommentAfter[N_CMNT], posEndCommentAfter[N_CMNT];
 		bool blnStartCommentBefore[N_CMNT], blnEndCommentBefore[N_CMNT], blnStartCommentAfter[N_CMNT], blnEndCommentAfter[N_CMNT];
-		int posStartComment, posEndComment;
-		int selectionStartMove, selectionEndMove;
+		INT_PTR posStartComment, posEndComment;
+		INT_PTR selectionStartMove, selectionEndMove;
 		int flags;
 
 		//-- Directly use Scintilla-Functions
@@ -7973,8 +7973,8 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		//-- Ok, there are valid start-comment and valid end-comment around the caret-position.
 		//   Now, un-comment stream-comment:
 		retVal = true;
-		int startCommentLength = static_cast<int32_t>(start_comment_length);
-		int endCommentLength = static_cast<int32_t>(end_comment_length);
+		INT_PTR startCommentLength = start_comment_length;
+		INT_PTR endCommentLength = end_comment_length;
 
 		//-- First delete end-comment, so that posStartCommentBefore does not change!
 		//-- Get character before end-comment to decide, if there is a white character before the end-comment, which will be removed too!
@@ -8005,20 +8005,20 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		if (selectionStart > posStartComment)
 		{
 			if (selectionStart >= posStartComment+startCommentLength)
-				selectionStartMove = -static_cast<int>(startCommentLength);
+				selectionStartMove = -startCommentLength;
 			else
-				selectionStartMove = -static_cast<int>(selectionStart - posStartComment);
+				selectionStartMove = -selectionStart - posStartComment;
 		}
 		else
 			selectionStartMove = 0;
 
 		//   selectionEnd
 		if (selectionEnd >= posEndComment+endCommentLength)
-			selectionEndMove = -static_cast<int>(startCommentLength+endCommentLength);
+			selectionEndMove = -startCommentLength+endCommentLength;
 		else if (selectionEnd <= posEndComment)
-			selectionEndMove = -static_cast<int>(startCommentLength);
+			selectionEndMove = -startCommentLength;
 		else
-			selectionEndMove = -static_cast<int>(startCommentLength + (selectionEnd - posEndComment));
+			selectionEndMove = -startCommentLength + (selectionEnd - posEndComment);
 
 		//-- Reset selection of text without deleted stream-comment-string
 		if (move_caret)

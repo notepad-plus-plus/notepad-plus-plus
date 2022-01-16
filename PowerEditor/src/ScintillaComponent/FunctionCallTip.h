@@ -36,8 +36,8 @@ private:
 	ScintillaEditView * _pEditView = nullptr;	//Scintilla to display calltip in
 	TiXmlElement * _pXmlKeyword = nullptr;	//current keyword node (first one)
 
-	int _curPos = 0;					//cursor position
-	int _startPos = 0;					//display start position
+	INT_PTR _curPos = 0;					//cursor position
+	INT_PTR _startPos = 0;					//display start position
 
 	TiXmlElement * _curFunction = nullptr;	//current function element
 	//cache some XML values n stuff

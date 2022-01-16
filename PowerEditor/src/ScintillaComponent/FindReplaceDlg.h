@@ -157,8 +157,8 @@ private:
 	ScintillaEditView _scintView;
 	unsigned int _nbFoundFiles = 0;
 
-	int _lastFileHeaderPos = 0;
-	int _lastSearchHeaderPos = 0;
+	INT_PTR _lastFileHeaderPos = 0;
+	INT_PTR _lastSearchHeaderPos = 0;
 
 	bool _canBeVolatiled = true;
 	bool _longLinesAreWrapped = false;

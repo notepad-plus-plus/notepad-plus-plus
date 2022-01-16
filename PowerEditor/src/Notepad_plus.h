@@ -502,7 +502,7 @@ private:
 
 	void addHotSpot(ScintillaEditView* view = NULL);
 
-    void bookmarkAdd(int lineno) const {
+    void bookmarkAdd(INT_PTR lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		if (!bookmarkPresent(lineno))
@@ -523,7 +523,7 @@ private:
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
 
-    void bookmarkToggle(int lineno) const {
+    void bookmarkToggle(INT_PTR lineno) const {
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 

@@ -148,7 +148,7 @@ private:
 	bool _isTemporarilyShowing = false;
 
 	// for needToRecomputeWith function
-	int _displayZoom = -1;
-	int _displayWidth = 0;
+	INT_PTR _displayZoom = -1;
+	INT_PTR _displayWidth = 0;
 	generic_string id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 };

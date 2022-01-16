@@ -156,24 +156,24 @@ struct Position
 
 struct MapPosition
 {
-	int32_t _firstVisibleDisplayLine = -1;
+	INT_PTR _firstVisibleDisplayLine = -1;
 
-	int32_t _firstVisibleDocLine = -1; // map
-	int32_t _lastVisibleDocLine = -1;  // map
-	int32_t _nbLine = -1;              // map
-	int32_t _higherPos = -1;           // map
-	int32_t _width = -1;
-	int32_t _height = -1;
-	int32_t _wrapIndentMode = -1;
+	INT_PTR _firstVisibleDocLine = -1; // map
+	INT_PTR _lastVisibleDocLine = -1;  // map
+	INT_PTR _nbLine = -1;              // map
+	INT_PTR _higherPos = -1;           // map
+	INT_PTR _width = -1;
+	INT_PTR _height = -1;
+	INT_PTR _wrapIndentMode = -1;
 
-	int64_t _KByteInDoc = _maxPeekLenInKB;
+	INT_PTR _KByteInDoc = _maxPeekLenInKB;
 
 	bool _isWrap = false;
 	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
 	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
 
 private:
-	int64_t _maxPeekLenInKB = 512; // 512 KB
+	INT_PTR _maxPeekLenInKB = 512; // 512 KB
 };
 
 

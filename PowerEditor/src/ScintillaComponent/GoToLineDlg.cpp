@@ -171,20 +171,20 @@ INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 void GoToLineDlg::updateLinesNumbers() const 
 {
-	unsigned int current = 0;
-	unsigned int limit = 0;
+	size_t current = 0;
+	size_t limit = 0;
 	
 	if (_mode == go2line)
 	{
-		current = static_cast<unsigned int>((*_ppEditView)->getCurrentLineNumber() + 1);
-		limit = static_cast<unsigned int>((*_ppEditView)->execute(SCI_GETLINECOUNT));
+		current = (*_ppEditView)->getCurrentLineNumber() + 1;
+		limit = (*_ppEditView)->execute(SCI_GETLINECOUNT);
 	}
 	else
 	{
-		current = static_cast<unsigned int>((*_ppEditView)->execute(SCI_GETCURRENTPOS));
+		current = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
 		size_t currentDocLength = (*_ppEditView)->getCurrentDocLen();
-		limit = static_cast<unsigned int>(currentDocLength > 0 ? currentDocLength - 1 : 0);
+		limit = (currentDocLength > 0 ? currentDocLength - 1 : 0);
 	}
-    ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
-    ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);
+    ::SetDlgItemInt(_hSelf, ID_CURRLINE, (UINT)current, FALSE);
+    ::SetDlgItemInt(_hSelf, ID_LASTLINE, (UINT)limit, FALSE);
 }

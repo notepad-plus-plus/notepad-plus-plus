@@ -476,7 +476,7 @@ generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vect
 		foundPos = -1;
 		return generic_string();
 	}
-	int targetEnd = int((*ppEditView)->execute(SCI_GETTARGETEND));
+	INT_PTR targetEnd = (*ppEditView)->execute(SCI_GETTARGETEND);
 
 	if (dataToSearch.size() >= 2)
 	{

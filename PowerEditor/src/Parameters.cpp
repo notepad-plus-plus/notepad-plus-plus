@@ -3290,15 +3290,15 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestampHigh"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
 				
 				// docMap 
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDocLine"), viewSessionFiles[i]._mapPos._firstVisibleDocLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapLastVisibleDocLine"), viewSessionFiles[i]._mapPos._lastVisibleDocLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapNbLine"), viewSessionFiles[i]._mapPos._nbLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHigherPos"), viewSessionFiles[i]._mapPos._higherPos);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWidth"), viewSessionFiles[i]._mapPos._width);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHeight"), viewSessionFiles[i]._mapPos._height);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapKByteInDoc"), static_cast<int>(viewSessionFiles[i]._mapPos._KByteInDoc));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWrapIndentMode"), viewSessionFiles[i]._mapPos._wrapIndentMode);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), (int)viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDocLine"), (int)viewSessionFiles[i]._mapPos._firstVisibleDocLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapLastVisibleDocLine"), (int)viewSessionFiles[i]._mapPos._lastVisibleDocLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapNbLine"), (int)viewSessionFiles[i]._mapPos._nbLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHigherPos"), (int)viewSessionFiles[i]._mapPos._higherPos);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWidth"), (int)viewSessionFiles[i]._mapPos._width);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHeight"), (int)viewSessionFiles[i]._mapPos._height);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapKByteInDoc"), (int)viewSessionFiles[i]._mapPos._KByteInDoc);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWrapIndentMode"), (int)viewSessionFiles[i]._mapPos._wrapIndentMode);
 				fileNameNode->ToElement()->SetAttribute(TEXT("mapIsWrap"), viewSessionFiles[i]._mapPos._isWrap ? TEXT("yes") : TEXT("no"));
 
 				for (size_t j = 0, len = viewSessionFiles[i]._marks.size() ; j < len ; ++j)

@@ -1894,13 +1894,13 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		stringSizeFind = Searching::convertExtendedToString(txt2find, pText, stringSizeFind);
 	}
 
-	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
+	INT_PTR docLength = (*_ppEditView)->execute(SCI_GETLENGTH);
 	Sci_CharacterRange cr = (*_ppEditView)->getSelection();
 
 
 	//The search "zone" is relative to the selection, so search happens 'outside'
-	int startPosition = cr.cpMax;
-	int endPosition = docLength;
+	INT_PTR startPosition = cr.cpMax;
+	INT_PTR endPosition = docLength;
 
 
 	if (pOptions->_whichDirection == DIR_UP)
@@ -2038,7 +2038,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	}
 
 	start =	posFind;
-	end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+	end = (*_ppEditView)->execute(SCI_GETTARGETEND);
 
 	setStatusbarMessage(TEXT(""), FSNoMessage);
 
@@ -3972,7 +3972,7 @@ void Finder::addSearchLine(const TCHAR *searchName)
 	setFinderReadOnly(false);
 	_scintView.addGenericText(str.c_str());
 	setFinderReadOnly(true);
-	_lastSearchHeaderPos = static_cast<int32_t>(_scintView.execute(SCI_GETCURRENTPOS) - 2);
+	_lastSearchHeaderPos = _scintView.execute(SCI_GETCURRENTPOS) - 2;
 
 	_pMainFoundInfos->push_back(EmptyFoundInfo);
 	_pMainMarkings->push_back(EmptySearchResultMarking);
@@ -3987,7 +3987,7 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 	setFinderReadOnly(false);
 	_scintView.addGenericText(str.c_str());
 	setFinderReadOnly(true);
-	_lastFileHeaderPos = static_cast<int32_t>(_scintView.execute(SCI_GETCURRENTPOS) - 2);
+	_lastFileHeaderPos = _scintView.execute(SCI_GETCURRENTPOS) - 2;
 
 	_pMainFoundInfos->push_back(EmptyFoundInfo);
 	_pMainMarkings->push_back(EmptySearchResultMarking);

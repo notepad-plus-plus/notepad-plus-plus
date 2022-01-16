@@ -167,7 +167,7 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 
 		// update the wrap needed data
 		_displayWidth = editZoneWidth;
-		_displayZoom = static_cast<int32_t>(pEditView->execute(SCI_GETZOOM));
+		_displayZoom = pEditView->execute(SCI_GETZOOM);
 		double zr = zoomRatio[_displayZoom + 10];
 
 		// compute doc map width: dzw/ezw = 1/zoomRatio
@@ -183,8 +183,8 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 
 		if (svp._paddingLeft || svp._paddingRight)
 		{
-			int paddingMapLeft = static_cast<int>(svp._paddingLeft / (editZoneWidth / docMapWidth));
-			int paddingMapRight = static_cast<int>(svp._paddingRight / (editZoneWidth / docMapWidth));
+			INT_PTR paddingMapLeft = static_cast<INT_PTR>(svp._paddingLeft / (editZoneWidth / docMapWidth));
+			INT_PTR paddingMapRight = static_cast<INT_PTR>(svp._paddingRight / (editZoneWidth / docMapWidth));
 			_pMapView->execute(SCI_SETMARGINLEFT, 0, paddingMapLeft);
 			_pMapView->execute(SCI_SETMARGINRIGHT, 0, paddingMapRight);
 		}
@@ -424,9 +424,9 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		{
 			int newPosY = HIWORD(lParam);
 			int currentCenterPosY = _vzDlg.getCurrentCenterPosY();
-			int pixelPerLine = static_cast<int32_t>(_pMapView->execute(SCI_TEXTHEIGHT, 0));
-			int jumpDistance = newPosY - currentCenterPosY;
-			int nbLine2jump = jumpDistance/pixelPerLine;
+			INT_PTR pixelPerLine = _pMapView->execute(SCI_TEXTHEIGHT, 0);
+			INT_PTR jumpDistance = newPosY - currentCenterPosY;
+			INT_PTR nbLine2jump = jumpDistance/pixelPerLine;
 			(*_ppEditView)->execute(SCI_LINESCROLL, 0, nbLine2jump);
 
 			scrollMap();

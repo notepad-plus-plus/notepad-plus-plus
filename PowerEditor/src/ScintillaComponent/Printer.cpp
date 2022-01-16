@@ -406,7 +406,7 @@ size_t Printer::doPrint(bool justDoIt)
 		
 		frPrint.chrg.cpMin = static_cast<Sci_PositionCR>(lengthPrinted);
 		frPrint.chrg.cpMax = static_cast<Sci_PositionCR>(lengthDoc);
-		lengthPrinted = long(_pSEView->execute(SCI_FORMATRANGE, printPage, reinterpret_cast<LPARAM>(&frPrint)));
+		lengthPrinted = _pSEView->execute(SCI_FORMATRANGE, printPage, reinterpret_cast<LPARAM>(&frPrint));
 
 		if (printPage) 
 		{

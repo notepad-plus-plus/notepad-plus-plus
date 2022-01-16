@@ -47,8 +47,8 @@ bool AutoCompletion::showApiComplete()
 		return false;
 
 	// calculate entered word's length
-	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
+	INT_PTR curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	INT_PTR startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
 
 	if (curPos == startPos)
 		return false;
@@ -160,7 +160,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	expr += beginChars;
 	expr += TEXT("[^ \\t\\n\\r.,;:\"(){}=<>'+!?\\[\\]]+");
 
-	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
+	size_t docLength = _pEditView->execute(SCI_GETLENGTH);
 
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
@@ -169,8 +169,8 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	while (posFind >= 0)
 	{
-		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
-		int wordEnd = int(_pEditView->execute(SCI_GETTARGETEND));
+		INT_PTR wordStart = _pEditView->execute(SCI_GETTARGETSTART);
+		INT_PTR wordEnd = _pEditView->execute(SCI_GETTARGETEND);
 
 		size_t foundTextLen = wordEnd - wordStart;
 		if (foundTextLen < bufSize)
@@ -280,7 +280,7 @@ void AutoCompletion::showPathCompletion()
 	{
 		const size_t bufSize = MAX_PATH;
 		TCHAR buf[bufSize + 1];
-		const size_t currentPos = static_cast<size_t>(_pEditView->execute(SCI_GETCURRENTPOS));
+		const size_t currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
 		const auto startPos = max(0, currentPos - bufSize);
 		_pEditView->getGenericText(buf, bufSize + 1, startPos, currentPos);
 		currentLine = buf;
@@ -346,9 +346,9 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 {
 	// Get beginning of word and complete word
 
-	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
-	int endPos = int(_pEditView->execute(SCI_WORDENDPOSITION, curPos, true));
+	INT_PTR curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	INT_PTR startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
+	INT_PTR endPos = _pEditView->execute(SCI_WORDENDPOSITION, curPos, true);
 
 	if (curPos == startPos)
 		return false;

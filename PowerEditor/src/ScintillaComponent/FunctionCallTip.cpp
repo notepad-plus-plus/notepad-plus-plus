@@ -380,13 +380,13 @@ void FunctionCallTip::showCalltip()
 	//Check if the current overload still holds. If the current param exceeds amounti n overload, see if another one fits better (enough params)
 	stringVec & params = _overloads.at(_currentOverload);
 	size_t psize = params.size()+1;
-	if ((size_t)_currentParam >= psize)
+	if (_currentParam >= psize)
 	{
 		size_t osize = _overloads.size();
 		for (size_t i = 0; i < osize; ++i)
 		{
 			psize = _overloads.at(i).size()+1;
-			if ((size_t)_currentParam < psize)
+			if (_currentParam < psize)
 			{
 				_currentOverload = static_cast<int32_t>(i);
 				break;
@@ -408,7 +408,7 @@ void FunctionCallTip::showCalltip()
 	size_t nbParams = params.size();
 	for (size_t i = 0; i < nbParams; ++i)
 	{
-		if (int(i) == _currentParam) 
+		if (i == _currentParam) 
 		{
 			highlightstart = static_cast<int>(callTipText.str().length());
 			highlightend = highlightstart + lstrlen(params.at(i));

@@ -500,7 +500,7 @@ bool Finder::notify(SCNotification *notification)
 
 			size_t pos = notification->position;
 			if (pos == INVALID_POSITION)
-				pos = static_cast<int32_t>(_scintView.execute(SCI_GETLINEENDPOSITION, notification->line));
+				pos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
 			_scintView.execute(SCI_SETSEL, pos, pos);
 
 			gotoFoundLine();

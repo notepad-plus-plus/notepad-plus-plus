@@ -275,12 +275,12 @@ public:
 
 	Sci_CharacterRange getSelection() const {
 		Sci_CharacterRange crange;
-		crange.cpMin = long(execute(SCI_GETSELECTIONSTART));
-		crange.cpMax = long(execute(SCI_GETSELECTIONEND));
+		crange.cpMin = static_cast<Sci_PositionCR>(execute(SCI_GETSELECTIONSTART));
+		crange.cpMax = static_cast<Sci_PositionCR>(execute(SCI_GETSELECTIONEND));
 		return crange;
 	};
 
-	void getWordToCurrentPos(TCHAR * str, int strLen) const {
+	void getWordToCurrentPos(TCHAR * str, INT_PTR strLen) const {
 		auto caretPos = execute(SCI_GETCURRENTPOS);
 		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
@@ -426,7 +426,7 @@ public:
 
 	int getTextZoneWidth() const;
 
-	void gotoLine(int line){
+	void gotoLine(INT_PTR line){
 		if (line < execute(SCI_GETLINECOUNT))
 			execute(SCI_GOTOLINE,line);
 	};

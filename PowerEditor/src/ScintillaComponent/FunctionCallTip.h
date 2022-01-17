@@ -47,7 +47,7 @@ private:
 	stringVec _descriptions;		//vecotr of function descriptions
 	size_t _currentNbOverloads = 0;		//current amount of overloads
 	size_t _currentOverload = 0;			//current chosen overload
-	int _currentParam = 0;				//current highlighted param
+	size_t _currentParam = 0;				//current highlighted param
 
 	TCHAR _start = '(';
 	TCHAR _stop = ')';

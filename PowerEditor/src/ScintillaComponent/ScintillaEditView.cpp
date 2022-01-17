@@ -1705,7 +1705,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			if (typeDoc >= L_EXTERNAL && typeDoc < NppParameters::getInstance().L_END)
 				setExternalLexer(typeDoc);
 			else
-				execute(SCI_SETLEXER, (_codepage == CP_CHINESE_TRADITIONAL)?SCLEX_MAKEFILE:SCLEX_NULL);
+				execute(SCI_SETLEXER, (_codepage == CP_CHINESE_TRADITIONAL) ? SCLEX_MAKEFILE : SCLEX_NULL);
 			break;
 
 	}
@@ -3539,7 +3539,6 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 				if (isInSection && !isFolded(i))
 				{
 					execute(SCI_SHOWLINES, startShowing, i);
-					//startShowing = execute(SCI_GETLASTCHILD, i, (levelLine & SC_FOLDLEVELNUMBERMASK));
 				}
 			}
 		}

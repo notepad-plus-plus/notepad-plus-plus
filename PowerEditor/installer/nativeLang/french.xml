@@ -317,7 +317,7 @@
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
                     <Item id="46300" name="Ouvrir le dossier des Langages utilisateur..."/>
-                    <Item id="46301" name="Notepad++ User Defined Languages Collection"/>
+                    <Item id="46301" name="Collection de langages définis par l'utilisateur Notepad++"/>
                     <Item id="46180" name="Langage utilisateur"/>
                     <Item id="47000" name="À propos de Notepad++..."/>
                     <Item id="47001" name="Site officiel Notepad++"/>
@@ -803,11 +803,11 @@
                 <Global title="Général">
                     <Item id="6101" name="Barre d’outils"/>
                     <Item id="6102" name="Cacher"/>
-                    <Item id="6103" name="Fluent UI : petites icônes"/>
-                    <Item id="6104" name="Fluent UI : grandes icônes"/>
-                    <Item id="6129" name="Filled Fluent UI : petites icônes"/>
-                    <Item id="6130" name="Filled Fluent UI : grandes icônes"/>
-                    <Item id="6105" name="Standards : petites icônes"/>
+                    <Item id="6103" name="Icônes ajourés : petite taille"/>
+                    <Item id="6104" name="Icônes ajourés : grande taille"/>
+                    <Item id="6129" name="Icônes pleins : petite taille"/>
+                    <Item id="6130" name="Icônes pleins : grande taille"/>
+                    <Item id="6105" name="Standard : petites icônes"/>
                     <Item id="6106" name="Barre d’onglets"/>
                     <Item id="6107" name="Réduire la taille"/>
                     <Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
@@ -916,7 +916,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </DefaultDir>
 
                 <FileAssoc title="Extensions de fichier">
-                  <Item id="4008" name="Veuillez quitter Notepad++ et relancer Notepad++ en mode Administrateur pour utiliser cette fonctionnalité."/>
+                  <Item id="4008" name="Veuillez quitter Notepad++ et relancer Notepad++ en mode &quot;administrateur&quot; pour utiliser cette fonctionnalité."/>
                   <Item id="4009" name="Extensions :"/>
                   <Item id="4010" name="Extensions associées :"/>
                 </FileAssoc>
@@ -978,9 +978,9 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 
                 <Searching title="Recherche">
                     <Item id="6901" name="Ne pas remplir le champs de recherche avec le mot sélectionné"/>
-                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (nécessité de redémarrage)"/>
-                    <Item id="6903" name="La boîte de dialogue Rechercher reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
-                    <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
+                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue &quot;Rechercher&quot; (nécessité de redémarrage)"/>
+                    <Item id="6903" name="La boîte de dialogue &quot;Rechercher&quot; reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
+                    <Item id="6904" name="Confirmer &quot;Remplacer&quot; dans tous les documents ouverts&quot;"/>
                     <Item id="6905" name="Remplacer : ne pas passer à l'occurrence suivante "/>
                 </Searching>
 
@@ -1204,7 +1204,7 @@ Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++ 
             <PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/>
             <XpUpdaterProblem title="Mettre à jour Notepad++" message="Le metteur à jour de Notepad++ est incompatible avec XP en raison de la couche de sécurité obsolète de XP.
 Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/>
-            <GUpProxyConfNeedAdminMode title="Paramétrage de Proxy" message=" Afin de pouvoir configurer le proxy, relancez Notepad++ en mode d'administrateur."/>
+            <GUpProxyConfNeedAdminMode title="Paramétrage de Proxy" message=" Afin de pouvoir configurer le proxy, relancez Notepad++ en mode &quot;administrateur&quot;."/>
             <DocTooDirtyToMonitor title="Surveillance de Log" message="Le document a été modifié. Veuillez l'enregistrer d'abord."/>
             <DocNoExistToMonitor title="Surveillance de Log" message="Le fichier doit exister pour être surveillé."/>
             <FileTooBigToOpen title="Fichier trop volumineux" message="Ce fichier est trop volumineux pour être ouvert avec Notepad++."/>
@@ -1240,10 +1240,10 @@ veuillez en donner un autre."/>
             <SCMapperDoDeleteOrNot title="Supprimer un raccourci clavier" message="Êtes-vous sûr de vouloir supprimer ce raccourci clavier ?"/>
             <FindCharRangeValueError title="Valeur en dehors des limites" message="Veuillez entrer une valeur entre 0 et 255."/>
             <OpenInAdminMode title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
-Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
+Voulez-vous lancer Notepad++ en mode &quot;administrateur&quot; ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
-Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
-            <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
+Voulez-vous lancer Notepad++ en mode &quot;administrateur&quot; ?"/>
+            <OpenInAdminModeFailed title="L'ouverture en mode &quot;administrateur&quot; a échoué" message="Notepad++ ne peut pas être lancé en mode &quot;administrateur&quot;."/>
             <ViewInBrowser title="Afficher le fichier actuel dans le navigateur" message="Application introuvable sur votre ordinateur."/>
             <ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les opérations.
 Notepad++ sera relancé après.
@@ -1292,7 +1292,7 @@ Voulez-vous les poursuivez ?"/>
             <LocateCurrentFileTip name="Localiser le fichier courant"/>
             <Menus>
                 <Item id="3511" name="Effacer"/>
-                <Item id="3512" name="Effacer Tout"/>
+                <Item id="3512" name="Effacer tout"/>
                 <Item id="3513" name="Ajouter"/>
                 <Item id="3514" name="Exécuter par le système"/>
                 <Item id="3515" name="Ouvrir"/>
@@ -1351,7 +1351,7 @@ Voulez-vous les poursuivez ?"/>
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-clic pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
+            <word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-clic pour la sélection ou la recherche avec l'option &quot;mot entier uniquement&quot;."/>
             <word-chars-list-warning-begin value="Attention : "/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ espace(s)"/>

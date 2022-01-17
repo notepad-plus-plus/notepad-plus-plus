@@ -111,7 +111,7 @@
                     <Item id="42005" name="&amp;Coller"/>
                     <Item id="42006" name="&amp;Supprimer"/>
                     <Item id="42007" name="Sélectionner t&amp;out"/>
-                    <Item id="42020" name="Début/Fin Sélection"/>
+                    <Item id="42020" name="Début/Fin sélection"/>
                     <Item id="42084" name="La date et l'heure (format court)"/>
                     <Item id="42085" name="La date et l'heure (format long)"/>
                     <Item id="42086" name="La date et l'heure (format personnalisé)"/>
@@ -183,9 +183,9 @@
                     <Item id="42053" name="Transformer les espaces de début de ligne en tabulations"/>
                     <Item id="42038" name="Coller du contenu HTML"/>
                     <Item id="42039" name="Coller du contenu RTF"/>
-                    <Item id="42048" name="Copier du contenu Binaire"/>
-                    <Item id="42049" name="Couper du contenu Binaire"/>
-                    <Item id="42050" name="Coller du contenu Binaire"/>
+                    <Item id="42048" name="Copier du contenu binaire"/>
+                    <Item id="42049" name="Couper du contenu binaire"/>
+                    <Item id="42050" name="Coller du contenu binaire"/>
                     <Item id="42082" name="Copier le lien"/>
                     <Item id="42051" name="Panneau des caractères ASCII"/>
                     <Item id="42052" name="Panneau historique du presse-papiers"/>
@@ -258,8 +258,8 @@
                     <Item id="44019" name="Afficher tous les caractères"/>
                     <Item id="44020" name="Afficher le guide d'indentation"/>
                     <Item id="44022" name="Retour automatique à la ligne"/>
-                    <Item id="44023" name="Zoom &amp;avant   (Ctrl+Molette vers le haut)"/>
-                    <Item id="44024" name="Zoom a&amp;rrière  (Ctrl+Molette vers le bas)"/>
+                    <Item id="44023" name="Zoom &amp;avant (Ctrl+Molette vers le haut)"/>
+                    <Item id="44024" name="Zoom a&amp;rrière (Ctrl+Molette vers le bas)"/>
                     <Item id="44025" name="Afficher les blancs et les tabulations"/>
                     <Item id="44026" name="Afficher les symboles de fin de ligne"/>
                     <Item id="44029" name="Déplier tous les blocs"/>
@@ -310,13 +310,14 @@
                     <Item id="45013" name="Convertir en UCS-2 LE BOM"/>
                     <Item id="45060" name="Big5 (traditionnel)"/>
                     <Item id="45061" name="GB2312 (simplifié)"/>
-                    <Item id="45054" name="OEM 861: islandais"/>
-                    <Item id="45057" name="OEM 865: danois &amp;&amp; norvégien"/>
-                    <Item id="45053" name="OEM 860: portugais"/>
-                    <Item id="45056" name="OEM 863: français"/>
+                    <Item id="45054" name="OEM 861 : islandais"/>
+                    <Item id="45057" name="OEM 865 : danois &amp;&amp; norvégien"/>
+                    <Item id="45053" name="OEM 860 : portugais"/>
+                    <Item id="45056" name="OEM 863 : français"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
                     <Item id="46300" name="Ouvrir le dossier des Langages utilisateur..."/>
+                    <Item id="46301" name="Notepad++ User Defined Languages Collection"/>
                     <Item id="46180" name="Langage utilisateur"/>
                     <Item id="47000" name="À propos de Notepad++..."/>
                     <Item id="47001" name="Site officiel Notepad++"/>
@@ -802,11 +803,11 @@
                 <Global title="Général">
                     <Item id="6101" name="Barre d’outils"/>
                     <Item id="6102" name="Cacher"/>
-                    <Item id="6103" name="Fluent UI: petites icônes"/>
-                    <Item id="6104" name="Fluent UI: grandes icônes"/>
-                    <Item id="6129" name="Filled Fluent UI: petites icônes"/>
-                    <Item id="6130" name="Filled Fluent UI: grandes icônes"/>
-                    <Item id="6105" name="Standards: petites icônes"/>
+                    <Item id="6103" name="Fluent UI : petites icônes"/>
+                    <Item id="6104" name="Fluent UI : grandes icônes"/>
+                    <Item id="6129" name="Filled Fluent UI : petites icônes"/>
+                    <Item id="6130" name="Filled Fluent UI : grandes icônes"/>
+                    <Item id="6105" name="Standards : petites icônes"/>
                     <Item id="6106" name="Barre d’onglets"/>
                     <Item id="6107" name="Réduire la taille"/>
                     <Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
@@ -823,6 +824,7 @@
                     <Item id="6123" name="Langue"/>
                     <Item id="6125" name="Commutateur de documents"/>
                     <Item id="6127" name="Désactiver la colonne d'extension"/>
+                    <Item id="6128" name="Icones alternatifs"/>
                 </Global>
 
                 <Scintillas title="Zones d'édition">
@@ -834,7 +836,7 @@
                     <Item id="6219" name="Clignotement :"/>
                     <Item id="6221" name="Vif"/><!-- Rapide -->
                     <Item id="6222" name="Zen"/><!-- Lent -->
-                    <Item id="6225" name="Activer Multi-édition (Ctrl+Clic/sélection)"/>
+                    <Item id="6225" name="Activer multi-édition (Ctrl+clic/sélection)"/>
                     <Item id="6227" name="Ligne pliée"/>
                     <Item id="6228" name="Défaut"/>
                     <Item id="6229" name="Aligné"/>
@@ -843,7 +845,7 @@
                     <Item id="6239" name="Conserver la sélection lors d'un clic droit en dehors de la sélection"/> 
                 </Scintillas>
 
-                <DarkMode title="Mode Sombre">
+                <DarkMode title="Mode sombre">
                     <Item id="7101" name="Activer mode sombre"/>
                     <Item id="7102" name="Ton noir"/>
                     <Item id="7103" name="Ton rouge"/>
@@ -866,7 +868,7 @@
                     <Item id="7130" name="Réinitialiser"/>
                 </DarkMode>
 
-                <MarginsBorderEdge title="Marges et Bordure">
+                <MarginsBorderEdge title="Marges et bordure">
                     <Item id="6201" name="Contrôle de repli de bloc"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Flèche"/>
@@ -921,8 +923,8 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 <Language title="Langage">
                     <Item id="6505" name="Langages disponibles"/>
                     <Item id="6506" name="Langages cachés"/>
-                    <Item id="6507" name="Compacter le menu Langage"/>
-                    <Item id="6508" name="Menu Langage"/>
+                    <Item id="6507" name="Compacter le menu langage"/>
+                    <Item id="6508" name="Menu langage"/>
                     <Item id="6301" name="Tabulations"/>
                     <Item id="6302" name="Insérer des espaces"/>
                     <Item id="6303" name="Taille : "/>
@@ -937,7 +939,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6326" name="Activer le coloriage automatique"/>
                     <Item id="6332" name="Sensible à la casse"/>
                     <Item id="6338" name="Mot entier uniquement"/>
-                    <Item id="6339" name="Utiliser les paramètres de Recherche"/>
+                    <Item id="6339" name="Utiliser les paramètres de recherche"/>
                     <Item id="6340" name="Sur l'autre vue également"/>
                     <Item id="6329" name="Surligner les tags ouverture/fermeture"/>
                     <Item id="6327" name="Activer"/>
@@ -975,10 +977,11 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </Print>
 
                 <Searching title="Recherche">
-                    <Item id="6901" name="Ne pas remplir le champs de Recherche avec le mot séléctionné"/>
-                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (Nécessité de redémarrage)"/>
+                    <Item id="6901" name="Ne pas remplir le champs de recherche avec le mot sélectionné"/>
+                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (nécessité de redémarrage)"/>
                     <Item id="6903" name="La boîte de dialogue Rechercher reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
                     <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
+                    <Item id="6905" name="Remplacer : ne pas passer à l'occurrence suivante "/>
                 </Searching>
 
                 <RecentFilesHistory title="Fichiers récents">
@@ -1014,7 +1017,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6810" name="Complétion de mot"/>
                     <Item id="6816" name="Complétion de fonction et de mot"/>
                     <Item id="6811" name="À partir du"/>
-                    <Item id="6813" name="ème caractère"/>
+                    <Item id="6813" name="e caractère"/>
                     <Item id="6814" name="Valeur possible : de 1 à 9"/>
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
                     <Item id="6869" name="Insérer la sélection"/>
@@ -1030,7 +1033,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6866" name="paire #3 :"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Instance Multiple &amp; Date">
+                <MultiInstance title="Instance multiple &amp; date">
                     <Item id="6151" name="Options d'instance multiple"/>
                     <Item id="6152" name="Ouverture de session dans une nouvelle instance (et enregistrer la session automatiquement en sortant)"/>
                     <Item id="6153" name="Toujours en mode instance multiple"/>
@@ -1042,14 +1045,14 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </MultiInstance>
 
                 <Delimiter title="Délimiteur">
-                    <Item id="6251" name="Sélection dans les délimiteurs (Ctrl + Souris double clic)"/>
+                    <Item id="6251" name="Sélection dans les délimiteurs (Ctrl + souris double clic)"/>
                     <Item id="6252" name="Début"/>
                     <Item id="6255" name="Fin"/>
                     <Item id="6256" name="Sur plusieurs lignes"/>
                     <Item id="6161" name="Liste des caractères de mot"/>
                     <Item id="6162" name="Utiliser la liste d'origine des caractères de mot"/>
                     <Item id="6163" name="Ajouter ces caractères comme caractères de mot
-(Ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
+(ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
                 </Delimiter>
 
                 <Cloud title="Cloud &amp; Lien">
@@ -1064,7 +1067,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </Cloud>
 
                 <SearchEngine title="Moteur de recherche">
-                    <Item id="6271" name="Moteur de recherche (Pour la commande &quot;Rechercher sur Internet&quot;)"/>
+                    <Item id="6271" name="Moteur de recherche (pour la commande &quot;Rechercher sur Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1097,7 +1100,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6345" name="Aperçu à onglet"/>
                     <Item id="6346" name="Aperçu à commutateur de documents"/>
                     <Item id="6360" name="Chut !"/>
-                    <Item id="6361" name="Activer la confirmation pour la command &quot;Enregistrer tout&quot;"/>
+                    <Item id="6361" name="Activer la confirmation pour la commande &quot;Enregistrer tout&quot;"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">
@@ -1131,13 +1134,13 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 <Item id="2036" name="&amp;Répéter :"/>
             </ColumnEditor>
             <FindInFinder title="Rechercher dans les résultats trouvés">
-                <Item id="1"    name="Rechercher Tout"/>
+                <Item id="1"    name="Rechercher tout"/>
                 <Item id="2"    name="Fermer"/>
                 <Item id="1711" name="Recherche :"/>
                 <Item id="1713" name="Rechercher dans les lignes trouvées seulement"/>
                 <Item id="1714" name="Mot entier &amp;uniquement"/>
                 <Item id="1715" name="Respecter la &amp;casse"/>
-                <Item id="1716" name="Mode de Recherche"/>
+                <Item id="1716" name="Mode de recherche"/>
                 <Item id="1717" name="Mode normal"/>
                 <Item id="1719" name="&amp;Expression régulière"/>
                 <Item id="1718" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
@@ -1248,7 +1251,7 @@ Voulez-vous les poursuivez ?"/>
             <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/>
         </MessageBox>
         <ClipboardHistory>
-            <PanelTitle name="Historique du presse-papiers"/>
+            <PanelTitle name="Historique du presse-papier"/>
         </ClipboardHistory>
         <DocList>
             <PanelTitle name="Commutateur de documents"/>
@@ -1374,8 +1377,8 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <cloud-select-folder value="Sélectionner un répertoire où Notepad++ lit ou écrit ses paramètres"/>
             <default-open-save-select-folder value="Sélectionner un dossier pour le répertoire paar défaut"/>
             <find-in-files-select-folder value="Sélectionner un dossier pour rechercher à l'intérieur"/>
-            <find-status-top-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le bas. Le début du document a été atteint"/>
-            <find-status-end-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le haut. La fin du document a été atteinte"/>
+            <find-status-top-reached value="Rechercher : La 1re occurrence a été trouvée depuis le bas. Le début du document a été atteint"/>
+            <find-status-end-reached value="Rechercher : La 1re occurrence a été trouvée depuis le haut. La fin du document a été atteinte"/>
             <find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>
             <find-status-replaceinfiles-nb-replaced value="Remplacer dans les fichiers : $INT_REPLACE$ occurrences ont été remplacées"/>
             <find-status-replaceinfiles-re-malformed value="Remplacer dans les fichiers ouverts : l'expression régulière est malformée"/>
@@ -1392,8 +1395,8 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <find-status-replaceall-1-replaced value="Remplacer tout : 1 occurrence a été remplacée"/>
             <find-status-replaceall-nb-replaced value="Remplacer tout : $INT_REPLACE$ occurrences ont été remplacées"/>
             <find-status-replaceall-readonly value="Remplacer tout : l'opération a échoué. Le fichier est en lecture seule"/>
-            <find-status-replace-end-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
-            <find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
+            <find-status-replace-end-reached value="Remplacer : La 1re occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
+            <find-status-replace-top-reached value="Remplacer : La 1re occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
             <find-status-replaced-next-found value="Remplacer : 1 occurrence a été remplacée. L'occurrence suivante a été trouvée"/>
             <find-status-replaced-next-not-found value="Remplacer : 1 occurrence a été remplacée. L'occurrence suivante n'a pas été trouvée"/>
             <find-status-replace-not-found value="Remplacer : aucune occurrence n'a été trouvée"/>

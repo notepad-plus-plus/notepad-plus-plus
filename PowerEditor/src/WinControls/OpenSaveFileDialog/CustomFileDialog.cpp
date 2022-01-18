@@ -374,7 +374,8 @@ private:
 	bool findControls()
 	{
 		assert(_dialog);
-		if (HWND hwndDlg = getDialogHandle(_dialog))
+		HWND hwndDlg = getDialogHandle(_dialog);
+		if (hwndDlg)
 		{
 			EnumChildWindows(hwndDlg, &EnumChildProc, reinterpret_cast<LPARAM>(this));
 			if (_hwndButton)

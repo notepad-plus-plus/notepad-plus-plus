@@ -522,8 +522,10 @@ void CommentStyleDialog::setKeywords2List(int id)
     }
     if (index != -1)
     {
-        TCHAR newList[max_char] = TEXT("");
-        TCHAR buffer[max_char] = TEXT("");
+        TCHAR* newList = new TCHAR[max_char];
+        newList[0] = '\0';
+        TCHAR* buffer = new TCHAR[max_char];
+        buffer[0] = '\0';
         TCHAR intBuffer[10] = {'0', 0};
 
         const int list[] = {
@@ -542,6 +544,8 @@ void CommentStyleDialog::setKeywords2List(int id)
         }
 
 		wcscpy_s(_pUserLang->_keywordLists[index], newList);
+        delete[] newList;
+        delete[] buffer;
     }
 }
 
@@ -583,7 +587,8 @@ void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *p
 
 void CommentStyleDialog::updateDlg()
 {
-    TCHAR buffer[max_char] = TEXT("");
+    TCHAR* buffer = new TCHAR[max_char];
+    buffer[0] = '\0';
     TCHAR intBuffer[10] = {'0', 0};
 
     const int list[] = {
@@ -618,11 +623,14 @@ void CommentStyleDialog::updateDlg()
     ::SendDlgItemMessage(_hSelf, IDC_NUMBER_SUFFIX1_EDIT,    WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_NUMBER_SUFFIX1]));
     ::SendDlgItemMessage(_hSelf, IDC_NUMBER_SUFFIX2_EDIT,    WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_NUMBER_SUFFIX2]));
     ::SendDlgItemMessage(_hSelf, IDC_NUMBER_RANGE_EDIT,      WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_NUMBER_RANGE]));
+
+    delete[] buffer;
 }
 
 void SymbolsStyleDialog::updateDlg()
 {
-    TCHAR buffer[max_char] = TEXT("");
+    TCHAR* buffer = new TCHAR[max_char];
+    buffer[0] = '\0';
     const int list[] = {
         IDC_DELIMITER1_BOUNDARYOPEN_EDIT,
         IDC_DELIMITER1_ESCAPE_EDIT,
@@ -660,6 +668,8 @@ void SymbolsStyleDialog::updateDlg()
 
         retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], intBuffer);
 		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
+
+        delete[] buffer;
     }
 
     ::SendDlgItemMessage(_hSelf, IDC_OPERATOR1_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1]));
@@ -810,8 +820,10 @@ void SymbolsStyleDialog::setKeywords2List(int id)
         case IDC_DELIMITER8_ESCAPE_EDIT :
         case IDC_DELIMITER8_BOUNDARYCLOSE_EDIT :
         {
-            TCHAR newList[max_char] = TEXT("");
-            TCHAR buffer[max_char] = TEXT("");
+            TCHAR* newList = new TCHAR[max_char];
+            newList[0] = '\0';
+            TCHAR* buffer = new TCHAR[max_char];
+            buffer[0] = '\0';
             TCHAR intBuffer[10] = {'0', 0};
 
             const int list[] = {
@@ -854,6 +866,8 @@ void SymbolsStyleDialog::setKeywords2List(int id)
             }
 
 			wcscpy_s(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], newList);
+            delete[] newList;
+            delete[] buffer;
             break;
         }
         default :

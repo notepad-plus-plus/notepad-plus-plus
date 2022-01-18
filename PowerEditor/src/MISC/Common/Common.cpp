@@ -325,7 +325,7 @@ generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand
 }
 
 
-const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t codepage, int lenMbcs, int *pLenWc, int *pBytesNotProcessed)
+const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t codepage, int lenMbcs, int* pLenWc, int* pBytesNotProcessed)
 {
 	// Do not process NULL pointer
 	if (!mbcs2Convert)
@@ -429,7 +429,7 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t
 }
 
 
-const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, int lenWc, int *pLenMbcs)
+const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, int lenWc, int* pLenMbcs)
 {
 	if (nullptr == wcharStr2Convert)
 		return nullptr;
@@ -449,7 +449,7 @@ const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, siz
 }
 
 
-const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, long *mstart, long *mend)
+const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, long* mstart, long* mend)
 {
 	if (nullptr == wcharStr2Convert)
 		return nullptr;

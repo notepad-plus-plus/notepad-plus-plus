@@ -32,7 +32,7 @@ using namespace std;
 
 FunctionListPanel::~FunctionListPanel()
 {
-	for (const auto s : posStrs)
+	for (const auto s : _posStrs)
 	{
 		delete s;
 	}
@@ -41,8 +41,8 @@ FunctionListPanel::~FunctionListPanel()
 void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
 {
 	HTREEITEM itemParent = NULL;
-	TCHAR posStr[32];
-	generic_itoa(static_cast<int32_t>(pos), posStr, 10);
+	std::wstring posStr = std::to_wstring(pos);
+
 	HTREEITEM root = _treeView.getRoot();
 
 	if (nodeName != NULL && *nodeName != '\0')
@@ -51,7 +51,7 @@ void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText
 		if (!itemParent)
 		{
 			generic_string* invalidValueStr = new generic_string(posStr);
-			posStrs.push_back(invalidValueStr);
+			_posStrs.push_back(invalidValueStr);
 			LPARAM lParamInvalidPosStr = reinterpret_cast<LPARAM>(invalidValueStr);
 
 			itemParent = _treeView.addItem(nodeName, root, INDEX_NODE, lParamInvalidPosStr);
@@ -61,7 +61,7 @@ void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText
 		itemParent = root;
 
 	generic_string* posString = new generic_string(posStr);
-	posStrs.push_back(posString);
+	_posStrs.push_back(posString);
 	LPARAM lParamPosStr = reinterpret_cast<LPARAM>(posString);
 
 	_treeView.addItem(displayText, itemParent, INDEX_LEAF, lParamPosStr);
@@ -115,7 +115,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 		else // nothing found
 		{
 			cntOpen = 0; // get me out of here
-			targetEnd = static_cast<int32_t>(begin);
+			targetEnd = begin;
 		}
 
 		targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), targetEnd, docLen);
@@ -223,7 +223,7 @@ void FunctionListPanel::sortOrUnsort()
 			const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
 
 			generic_string* invalidValueStr = new generic_string(TEXT("-1"));
-			posStrs.push_back(invalidValueStr);
+			_posStrs.push_back(invalidValueStr);
 			LPARAM lParamInvalidPosStr = reinterpret_cast<LPARAM>(invalidValueStr);
 			_treeViewSearchResult.addItem(fn, NULL, INDEX_ROOT, lParamInvalidPosStr);
 
@@ -367,7 +367,7 @@ void FunctionListPanel::reload()
 	if (parsedOK)
 	{
 		generic_string* invalidValueStr = new generic_string(TEXT("-1"));
-		posStrs.push_back(invalidValueStr);
+		_posStrs.push_back(invalidValueStr);
 		LPARAM lParamInvalidPosStr = reinterpret_cast<LPARAM>(invalidValueStr);
 
 		_treeView.addItem(fn, NULL, INDEX_ROOT, lParamInvalidPosStr);
@@ -386,7 +386,7 @@ void FunctionListPanel::reload()
 		const TCHAR *fullFilePath = currentBuf->getFullPathName();
 
 		generic_string* fullPathStr = new generic_string(fullFilePath);
-		posStrs.push_back(fullPathStr);
+		_posStrs.push_back(fullPathStr);
 		LPARAM lParamFullPathStr = reinterpret_cast<LPARAM>(fullPathStr);
 
 		_treeView.setItemParam(root, lParamFullPathStr);
@@ -654,7 +654,7 @@ void FunctionListPanel::searchFuncAndSwitchView()
 		const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
 
 		generic_string* invalidValueStr = new generic_string(TEXT("-1"));
-		posStrs.push_back(invalidValueStr);
+		_posStrs.push_back(invalidValueStr);
 		LPARAM lParamInvalidPosStr = reinterpret_cast<LPARAM>(invalidValueStr);
 		_treeViewSearchResult.addItem(fn, NULL, INDEX_ROOT, lParamInvalidPosStr);
 

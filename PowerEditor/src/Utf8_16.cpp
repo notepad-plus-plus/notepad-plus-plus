@@ -353,7 +353,7 @@ bool Utf8_16_Write::writeFile(const void* p, unsigned long _size)
         case uni16BE:
         case uni16LE: {
 			static const unsigned int bufSize = 64*1024;
-			utf16 buf[bufSize];
+			utf16* buf = new utf16[bufSize];
             
             Utf8_Iter iter8;
             iter8.set(static_cast<const ubyte*>(p), _size, m_eEncoding);
@@ -370,6 +370,7 @@ bool Utf8_16_Write::writeFile(const void* p, unsigned long _size)
 				}
 			}
 			isOK = true;
+			delete[] buf;
             break;
         }    
         default:

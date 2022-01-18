@@ -131,7 +131,7 @@ private:
 private:
 	Notepad_plus* _pNotepadPlus = nullptr;
 	ScintillaEditView* _pscratchTilla = nullptr;
-	Document _scratchDocDefault;
+	Document _scratchDocDefault = 0;
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
 	size_t _nbBufs = 0;

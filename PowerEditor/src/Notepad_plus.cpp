@@ -3740,9 +3740,11 @@ void Notepad_plus::updateStatusBar()
 	// STATUSBAR_DOC_TYPE , STATUSBAR_EOF_FORMAT , STATUSBAR_UNICODE_TYPE
 
 	TCHAR strDocLen[256];
+	size_t docLen = _pEditView->getCurrentDocLen();
+	INT_PTR nbLine = _pEditView->execute(SCI_GETLINECOUNT);
 	wsprintf(strDocLen, TEXT("length : %s    lines : %s"),
-		commafyInt(_pEditView->getCurrentDocLen()).c_str(),
-		commafyInt(_pEditView->execute(SCI_GETLINECOUNT)).c_str());
+		commafyInt(docLen).c_str(),
+		commafyInt(nbLine).c_str());
 	_statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
 
 	TCHAR strSel[64];
@@ -3813,9 +3815,11 @@ void Notepad_plus::updateStatusBar()
 	}
 
 	TCHAR strLnColSel[128];
+	INT_PTR curLN = _pEditView->getCurrentLineNumber();
+	INT_PTR curCN = _pEditView->getCurrentColumnNumber();
 	wsprintf(strLnColSel, TEXT("Ln : %s    Col : %s    %s"),
-		commafyInt(_pEditView->getCurrentLineNumber() + 1).c_str(),
-		commafyInt(_pEditView->getCurrentColumnNumber() + 1).c_str(),
+		commafyInt(curLN + 1).c_str(),
+		commafyInt(curCN + 1).c_str(),
 		strSel);
 	_statusBar.setText(strLnColSel, STATUSBAR_CUR_POS);
 

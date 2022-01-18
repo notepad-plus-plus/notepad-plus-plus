@@ -3128,10 +3128,10 @@ void Notepad_plus::command(int id)
 				size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
 				size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
 
-				int32_t strLen = static_cast<int32_t>(selectionEnd - selectionStart);
+				INT_PTR strLen = selectionEnd - selectionStart;
 				if (strLen)
 				{
-					int strSize = strLen + 1;
+					INT_PTR strSize = strLen + 1;
 					char *selectedStr = new char[strSize];
 					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
 

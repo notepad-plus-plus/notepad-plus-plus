@@ -782,6 +782,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>(name), reinterpret_cast<LPARAM>(userLangContainer->_isPrefix[i] ? "1" : "0"));
 	}
 
+	char* temp = new char[max_char];
 	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -793,7 +794,6 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 		}
 		else // OPERATORS2, FOLDERS_IN_CODE2, FOLDERS_IN_COMMENT, KEYWORDS1-8
 		{
-			char temp[max_char];
 			bool inDoubleQuote = false;
 			bool inSingleQuote = false;
 			bool nonWSFound = false;
@@ -844,6 +844,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 			execute(SCI_SETKEYWORDS, setKeywordsCounter++, reinterpret_cast<LPARAM>(temp));
 		}
 	}
+	delete[] temp;
 
  	char intBuffer[32];
 
@@ -1927,12 +1928,6 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 
 	restoreCurrentPosPreStep();
 
-	//setup line number margin
-	INT_PTR numLines = execute(SCI_GETLINECOUNT);
-
-	char numLineStr[32];
-	itoa(static_cast<int>(numLines), numLineStr, 10);
-
 	runMarkers(true, 0, true, false);
     return;	//all done
 }
@@ -2335,7 +2330,7 @@ void ScintillaEditView::addGenericText(const TCHAR * text2Append) const
 	execute(SCI_ADDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
-void ScintillaEditView::addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const
+void ScintillaEditView::addGenericText(const TCHAR * text2Append, long* mstart, long* mend) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);

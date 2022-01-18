@@ -117,7 +117,7 @@ private:
 
 	std::vector<foundInfo> _foundFuncInfos;
 
-	std::vector<generic_string*> posStrs;
+	std::vector<generic_string*> _posStrs;
 
 	ScintillaEditView **_ppEditView = nullptr;
 	FunctionParsersManager _funcParserMgr;

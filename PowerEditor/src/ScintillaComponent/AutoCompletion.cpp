@@ -183,7 +183,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 					wordArray.push_back(w);
 			}
 		}
-		posFind = _pEditView->searchInTarget(expr.c_str(), static_cast<int32_t>(expr.length()), wordEnd, docLength);
+		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
 	}
 }
 

@@ -664,7 +664,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
 
-	char data[blockSize + 8]; // +8 for incomplete multibyte char
+	char* data = new char[blockSize + 8]; // +8 for incomplete multibyte char
 
 	LoadedFileFormat loadedFileFormat;
 	loadedFileFormat._encoding = encoding;
@@ -672,6 +672,9 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	loadedFileFormat._language = L_TEXT;
 
 	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
+
+	delete[] data;
+
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -722,7 +725,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
 
-	char data[blockSize + 8]; // +8 for incomplete multibyte char
+	char* data = new char[blockSize + 8]; // +8 for incomplete multibyte char
 
 	LoadedFileFormat loadedFileFormat;
 	loadedFileFormat._encoding = buf->getEncoding();
@@ -736,6 +739,7 @@ bool FileManager::reloadBuffer(BufferID id)
 
 	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
 
+	delete[] data;
 	buf->_canNotify = true;
 
 	if (res)
@@ -1342,7 +1346,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	unsigned __int64 fileSize =_ftelli64(fp);
 	rewind(fp);
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
-	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20, fileSize/6);
+	unsigned __int64 bufferSizeRequested = fileSize +min(1 << 20, fileSize / 6);
 	
 	NppParameters& nppParam = NppParameters::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();

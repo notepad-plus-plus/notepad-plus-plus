@@ -1236,7 +1236,7 @@ Du vil genindlæse den?"/>
 
 Filen er ændret af et andet program.
 Vil du genindlæse og miste de ændringer du har lavet her?"/>
-            <PrehistoricSystemDetected title="Forældet styresystem" message="Det ser ud til at Windows er forældet. Funktionen virker kun på nyere udgaver af styresystemet"/>
+            <PrehistoricSystemDetected title="Forældet styresystem" message="Windows er tilsyneladende forældet. Funktionen virker kun på nyere udgaver af styresystemet"/>
             <XpUpdaterProblem title="Notepad++ opdatering" message="Windows XP understøtter ikke opdateringsfunktionen.
 Vil du hente den nyeste Notepad++ på hjemmesiden?"/>
             <GUpProxyConfNeedAdminMode title="Proxyindstillinger" message="Genstart Notepad++ som administrator, for at indstille en proxy."/>

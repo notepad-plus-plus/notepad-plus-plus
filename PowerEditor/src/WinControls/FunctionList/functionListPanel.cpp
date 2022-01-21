@@ -608,6 +608,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 				}
 				else if (ptvkd->wVKey == VK_ESCAPE)
 				{
+					::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 					SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, 1); // remove beep
 					PostMessage(_hParent, WM_COMMAND, SCEN_SETFOCUS << 16, reinterpret_cast<LPARAM>((*_ppEditView)->getHSelf()));
 				}

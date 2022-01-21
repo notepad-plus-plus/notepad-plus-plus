@@ -642,10 +642,19 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 // backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
 BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
 {
+	//Get file size
+	FILE* fp = generic_fopen(filename, TEXT("rb"));
+	if (!fp)
+		return BUFFER_INVALID;
+	_fseeki64(fp, 0, SEEK_END);
+	size_t fileSize = _ftelli64(fp);
+	fclose(fp);
+
 	bool ownDoc = false;
 	if (!doc)
 	{
-		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);
+		// If file exceeds 200MB, activate large file mode
+		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, fileSize < (200 * 1024 * 1024) ? 0 : SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE);
 		ownDoc = true;
 	}
 
@@ -671,7 +680,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	loadedFileFormat._eolFormat = EolType::unknown;
 	loadedFileFormat._language = L_TEXT;
 
-	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
+	bool res = loadFileData(doc, fileSize, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
 
 	delete[] data;
 
@@ -737,7 +746,15 @@ bool FileManager::reloadBuffer(BufferID id)
 
 	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
 
-	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
+	//Get file size
+	FILE* fp = generic_fopen(buf->getFullPathName(), TEXT("rb"));
+	if (!fp)
+		return false;
+	_fseeki64(fp, 0, SEEK_END);
+	size_t fileSize = _ftelli64(fp);
+	fclose(fp);
+
+	bool res = loadFileData(doc, fileSize, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
 
 	delete[] data;
 	buf->_canNotify = true;
@@ -1335,18 +1352,14 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
+bool FileManager::loadFileData(Document doc, size_t fileSize, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
 		return false;
 
-	//Get file size
-	_fseeki64 (fp , 0 , SEEK_END);
-	unsigned __int64 fileSize =_ftelli64(fp);
-	rewind(fp);
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
-	unsigned __int64 bufferSizeRequested = fileSize +min(1 << 20, fileSize / 6);
+	size_t bufferSizeRequested = fileSize +min(1 << 20, fileSize / 6);
 	
 	NppParameters& nppParam = NppParameters::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();

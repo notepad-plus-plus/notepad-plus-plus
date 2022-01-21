@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Dansk" filename="danish.xml" version="8.1.9.2">
+    <Native-Langue name="Dansk" filename="danish.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -31,7 +31,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-indent" name="Indrykning"/>
                     <Item subMenuId="edit-convertCaseTo" name="Konverter versaltype"/>
                     <Item subMenuId="edit-lineOperations" name="Liniehandlinger"/>
-                    <Item subMenuId="edit-comment" name="Kommentér/afkommentér"/>
+                    <Item subMenuId="edit-comment" name="Kommentarer"/>
                     <Item subMenuId="edit-autoCompletion" name="Automatisk fuldførelse"/>
                     <Item subMenuId="edit-eolConversion" name="Konvertér linieskift"/>
                     <Item subMenuId="edit-blankOperations" name="Blanktegn"/>
@@ -116,22 +116,22 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42086" name="Dato tid (tilpasset)"/>
                     <Item id="42008" name="Forøg linieindrykning"/>
                     <Item id="42009" name="Formindsk linieindrykning"/>
-                    <Item id="42010" name="Dupliker aktuel linie"/>
+                    <Item id="42010" name="Duplikér aktuel linie"/>
                     <Item id="42079" name="Fjern ens linier"/>
                     <Item id="42077" name="Fjern fortløbende duplikerede linier"/>
                     <Item id="42012" name="Opdel linier"/>
                     <Item id="42013" name="Sammenføj linier"/>
                     <Item id="42014" name="Flyt aktuel linie op"/>
                     <Item id="42015" name="Flyt aktuel linie ned"/>
-                    <Item id="42059" name="Sortér linier leksikografisk (stigende)"/>
-                    <Item id="42060" name="Sortér linier leksikografisk (faldende)"/>
-                    <Item id="42080" name="Sortér linier leksikografisk (stigende/ignorer versaler)"/>
-                    <Item id="42081" name="Sortér linier leksikografisk (faldende/ignorer versaler)"/>
+                    <Item id="42059" name="Sortér linier alfabetisk (A > Å)"/>
+                    <Item id="42060" name="Sortér linier alfabetisk (Å > A)"/>
+                    <Item id="42080" name="Sortér linier alfabetisk (a > å, ignorér versaler)"/>
+                    <Item id="42081" name="Sortér linier alfabetisk (å > a, ignorér versaler)"/>
                     <Item id="42061" name="Sortér linier som heltal (stigende)"/>
-                    <Item id="42062" name="Sortér linier som heltal (faldende)"/>
+                    <Item id="42062" name="Sortér linier som heltal (stigende)"/>
                     <Item id="42063" name="Sortér linier som decimaltal med komma (stigende)"/>
                     <Item id="42064" name="Sortér linier som decimaltal med komma (faldende)"/>
-                    <Item id="42065" name="Sortér linier som decimaltal med punktum (stigende)"/>
+                    <Item id="42065" name="Sortér linier som decimaltal med punktum (faldende)"/>
                     <Item id="42066" name="Sortér linier som decimaltal med punktum (faldende)"/>
                     <Item id="42083" name="Vend linieorden"/>
                     <Item id="42078" name="Sortér linier tilfældigt"/>
@@ -178,6 +178,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42029" name="Aktuel filsti til udklipsholder"/>
                     <Item id="42030" name="Aktuelt filnavn til udklipsholder"/>
                     <Item id="42031" name="Aktuel mappesti til udklipsholder"/>
+                    <Item id="42087" name="Alle filnavne til udklipsholder"/>
+                    <Item id="42088" name="Alle filstier til udklipsholder"/>
                     <Item id="42032" name="&amp;Kør en makro flere gange..."/>
                     <Item id="42033" name="Fjern skrivebeskyttelse"/>
                     <Item id="42035" name="Liniekommentar til"/>
@@ -243,20 +245,24 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43064" name="Med 3. stil"/>
                     <Item id="43065" name="Med 4. stil"/>
                     <Item id="43066" name="Med 5. stil"/>
-                    <Item id="43045" name="Vindue med søgeresultater"/>
+                    <Item id="43045" name="Vis i resultatpanel"/>
                     <Item id="43046" name="Næste søgeresultat"/>
                     <Item id="43047" name="Forrige søgeresultat"/>
                     <Item id="43048" name="Markér og find næste"/>
                     <Item id="43049" name="Markér og find forrige"/>
                     <Item id="43054" name="&amp;Mærk..."/>
+                    <Item id="43501" name="Luk valgte"/>
+                    <Item id="43502" name="Luk andre"/>
+                    <Item id="43503" name="Kopiér valgte navne"/>
+                    <Item id="43504" name="Kopiér valgte stinavne"/>
                     <Item id="44009" name="Kun tekstområde"/>
                     <Item id="44010" name="Sammenfold alle"/>
                     <Item id="44011" name="Fokus redigering"/>
                     <Item id="44019" name="Vis alle tegn"/>
                     <Item id="44020" name="Vis indrykningsguide"/>
                     <Item id="44022" name="Ombryd"/>
-                    <Item id="44023" name="Zoom &amp;ind (Ctrl+Musehjul op)"/>
-                    <Item id="44024" name="Z&amp;oom ud (Ctrl+Musehjul ned)"/>
+                    <Item id="44023" name="Zoom &amp;ind (Ctrl+musehjul op)"/>
+                    <Item id="44024" name="Z&amp;oom ud (Ctrl+musehjul ned)"/>
                     <Item id="44025" name="Vis blanktegn og tabulator"/>
                     <Item id="44026" name="Vis linieskift"/>
                     <Item id="44029" name="Udfold alle"/>
@@ -319,7 +325,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="46001" name="Udseende..."/>
                     <Item id="46250" name="Opret/tilpas sprog..."/>
                     <Item id="46300" name="Sprogmappe..."/>
-                    <Item id="46301" name="Brugerdefinerede Notepad++ sprog"/>
+                    <Item id="46301" name="Sprogsamling på GitHub.com"/>
                     <Item id="46180" name="Brugerdefineret"/>
                     <Item id="47000" name="Om Notepad++"/>
                     <Item id="47010" name="Kommandolinieparametre..."/>
@@ -389,7 +395,7 @@ The comments are here for explanation, it's not necessary to translate them.
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Søg" titleReplace="Erstat" titleFindInFiles="Søg i filer" titleMark="Mærk">
+            <Find title="" titleFind="Søg" titleReplace="Erstat" titleFindInFiles="Søg i filer" titleFindInProjects="Søg i projekter" titleMark="Mærk">
                 <Item id="1"    name="Find næste"/>
                 <Item id="1722" name="Baglæns"/>
                 <Item id="2"    name="Luk"/>
@@ -428,7 +434,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1641" name="&amp;Find alle i aktuelt dokument"/>
                 <Item id="1686" name="Transparens"/>
                 <Item id="1703" name="&amp; Find linieskift"/>
-				<Item id="1721" name="▲"/>
+		<Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Næste"/>
                 <Item id="1725" name="Kopiér mærket tekst"/>
             </Find>
@@ -468,25 +474,25 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1904" name="Gem..."/>
             </Run>
 
-            <MD5FromFilesDlg title="Generér MD5 fingeraftryk fra filer">
-                <Item id="1922" name="Vælg filer til generering af MD5..."/>
+            <MD5FromFilesDlg title="Generér MD5 aftryk fra filer">
+                <Item id="1922" name="Vælg filer til MD5 generering..."/>
                 <Item id="1924" name="Kopier til udklipsholder"/>
                 <Item id="2"    name="Luk"/>
             </MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="Generér MD5 fingeraftryk">
+            <MD5FromTextDlg title="Generér MD5 aftryk">
                 <Item id="1932" name="Behandl hver linie som separat streng"/>
                 <Item id="1934" name="Kopier til udklipsholder"/>
                 <Item id="2"    name="Luk"/>
             </MD5FromTextDlg>
 
-            <SHA256FromFilesDlg title="Generér SHA-256 fingeraftryk fra filer">
-                <Item id="1922" name="Vælg filer til generering af SHA-256..."/>
+            <SHA256FromFilesDlg title="Generér SHA-256 aftryk fra filer">
+                <Item id="1922" name="Vælg filer til SHA-256 generering..."/>
                 <Item id="1924" name="Kopier til udklipsholder"/>
                 <Item id="2"    name="Luk"/>
             </SHA256FromFilesDlg>
 
-            <SHA256FromTextDlg title="Generér SHA-256 fingeraftryk">
+            <SHA256FromTextDlg title="Generér SHA-256 aftryk">
                 <Item id="1932" name="Behandl hver linie som en separat streng"/>
                 <Item id="1934" name="Kopier til udklipsholder"/>
                 <Item id="2"    name="Luk"/>
@@ -880,6 +886,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7122" name="Mørkere tekst"/>
                     <Item id="7123" name="Deaktiveret tekst"/>
                     <Item id="7124" name="Kant"/>
+                    <Item id="7125" name="Link"/>
                     <Item id="7130" name="Nulstil"/>
                 </DarkMode>
 
@@ -1035,13 +1042,16 @@ Brug mellemrum til at angive flere markører."/>
                     <Item id="6809" name="Fuldfør funktioner"/>
                     <Item id="6810" name="Fuldfør ord"/>
                     <Item id="6816" name="Fuldfør funktioner og ord"/>
+                    <Item id="6869" name="Indsæt valgte"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignorér tal"/>
                     <Item id="6811" name="Fra"/>
                     <Item id="6813" name="tegn"/>
                     <Item id="6814" name="Gyldig værdi: 1 - 9"/>
                     <Item id="6815" name="Vis funktionsparametre ved input"/>
                     <Item id="6851" name="Automatisk indsættelse"/>
-                    <Item id="6857" name=" HTML/XML lukketegn"/>
+                    <Item id="6857" name=" HTML/XML lukning"/>
                     <Item id="6858" name="Åbn"/>
                     <Item id="6859" name="Luk"/>
                     <Item id="6860" name="Afstemt par 1:"/>
@@ -1051,7 +1061,7 @@ Brug mellemrum til at angive flere markører."/>
 
                 <MultiInstance title="Instanser">
                     <Item id="6151" name="Instansindstillinger"/>
-                    <Item id="6152" name="Åbn session i ny instans"/>
+                    <Item id="6152" name="Åbn session i ny instans (og gem automatisk ved lukning)"/>
                     <Item id="6153" name="Brug altid flere instanser"/>
                     <Item id="6154" name="Standard (en instans)"/>
                     <Item id="6155" name="* Ændres når Notepad++ genstartes"/>
@@ -1226,7 +1236,7 @@ Du vil genindlæse den?"/>
 
 Filen er ændret af et andet program.
 Vil du genindlæse og miste de ændringer du har lavet her?"/>
-            <PrehistoricSystemDetected title="Forældet styresystem" message="Det ser ud til at Windows er forældet. Funktionen virker kun på nyere udgaver af styresystemet"/>
+            <PrehistoricSystemDetected title="Forældet styresystem" message="Windows er tilsyneladende forældet. Funktionen virker kun på nyere udgaver af styresystemet"/>
             <XpUpdaterProblem title="Notepad++ opdatering" message="Windows XP understøtter ikke opdateringsfunktionen.
 Vil du hente den nyeste Notepad++ på hjemmesiden?"/>
             <GUpProxyConfNeedAdminMode title="Proxyindstillinger" message="Genstart Notepad++ som administrator, for at indstille en proxy."/>
@@ -1378,13 +1388,16 @@ Vil du fortsætte?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
              <word-chars-list-tip value="Giver mulighed for at inkludere ekstra tegn i aktuelt tegnsæt, ved dobbeltklik for markering, eller i søgning når &quot;Søg kun hele ord&quot; er valgt."/>
+
             <word-chars-list-warning-begin value="OBS: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ mellemrum"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulator(er)"/>
             <word-chars-list-warning-end value="  i dit tegnsæt."/>
+            <backup-select-folder value="Vælg mappe"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Ugyldig sti."/>
             <cloud-restart-warning value="Genstart Notepad++ for at anvende ændringer."/>
             <cloud-select-folder value="Vælg til dine Notepad++ indstillinger"/>
+            <default-open-save-select-folder value="Vælg standardmappe"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Brug Skift+Enter til at søge i modsat retning"/>
             <two-find-buttons-tip value="Frem/tilbage knapper"/>
             <file-rename-title value="Omdøb"/>
@@ -1393,6 +1406,13 @@ Vil du fortsætte?"/>
 
 Find i alle filer undtagen exe, obj og log:
 *.* !*.exe !*.obj !*.log"/>
+
+Find i alle filer, undtagen i mapperne tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+Find i alle filer, undtagen i mapperne log med undermapper:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Vælg mappe"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Fandt 1. forekomst fra bunden. Toppen af dokumentet er nået."/>
             <find-status-end-reached value="Fandt 1. forekomst fra toppen. Enden af dokumentet er nået."/>
             <find-status-replaceinfiles-1-replaced value="1  forekomst blev erstattet"/>
@@ -1446,8 +1466,8 @@ Find i alle filer undtagen exe, obj og log:
             <recent-file-history-maxfile value="Maksimum: "/>
             <language-tabsize value="Tabulatorstørrelse: "/>
             <userdefined-title-new value="Opret nyt sprog..."/>
-            <userdefined-title-save value="Gem aktuelt sprognavn som..."/>
-            <userdefined-title-rename value="Omdøb aktuelt sprognavn"/>
+            <userdefined-title-save value="Gem aktuelt sprog som..."/>
+            <userdefined-title-rename value="Omdøb aktuelt sprog"/>
             <autocomplete-nb-char value="Antal tegn: "/>
             <edit-verticaledge-nb-col value="Antal kolonner:"/>
             <summary value="Opsummering"/>
@@ -1486,6 +1506,10 @@ Find i alle filer undtagen exe, obj og log:
             <IncrementalFind-FSNotFound value="Intet fundet" />
             <IncrementalFind-FSTopReached value="Nåede toppen, fortsatte fra enden" />
             <IncrementalFind-FSEndReached value="Nåede enden, fortsatte fra toppen" />
+            <contextMenu-styleAlloccurrencesOfToken value="Mærk alle" />
+            <contextMenu-styleOneToken value="Mærk enkelte" />
+            <contextMenu-clearStyle value="Fjern alle mærker" />
+            <contextMenu-PluginCommands value="Plugin kommandoer" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

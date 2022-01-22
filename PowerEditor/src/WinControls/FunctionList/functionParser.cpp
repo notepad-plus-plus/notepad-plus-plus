@@ -661,7 +661,7 @@ void FunctionParser::getInvertZones(vector< pair<size_t, size_t> > &  destZones,
 	else
 	{
 		// check the begin
-		if (int(begin) < sourceZones[0].first)
+		if (begin < sourceZones[0].first)
 		{
 			destZones.push_back(pair<size_t, size_t>(begin, sourceZones[0].first - 1));
 		}

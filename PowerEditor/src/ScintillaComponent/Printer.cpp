@@ -27,7 +27,7 @@ void replaceStr(generic_string & str, generic_string str2BeReplaced, generic_str
 		str.replace(pos, str2BeReplaced.length(), replacement);
 }
 
-void Printer::init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos, bool isRTL)
+void Printer::init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, size_t startPos, size_t endPos, bool isRTL)
 {
 	_pSEView = pSEView;
 	_startPos = startPos;

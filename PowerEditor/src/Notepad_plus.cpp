@@ -2014,7 +2014,7 @@ void Notepad_plus::filePrint(bool showDialog)
 	intptr_t startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
 	intptr_t endPos = _pEditView->execute(SCI_GETSELECTIONEND);
 
-	printer.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pEditView, showDialog, int(startPos), int(endPos), _nativeLangSpeaker.isRTL());
+	printer.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pEditView, showDialog, startPos, endPos, _nativeLangSpeaker.isRTL());
 	printer.doPrint();
 }
 

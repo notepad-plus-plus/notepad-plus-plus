@@ -388,7 +388,7 @@ void FunctionCallTip::showCalltip()
 			psize = _overloads.at(i).size()+1;
 			if (_currentParam < psize)
 			{
-				_currentOverload = static_cast<int32_t>(i);
+				_currentOverload = i;
 				break;
 			}
 		}

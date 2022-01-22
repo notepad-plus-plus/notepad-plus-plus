@@ -170,7 +170,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 										
 									s2r.insert(posRelative2Start, str);
 								}
-								(*_ppEditView)->replaceTarget(s2r.c_str(), int(lineBegin), int(lineEnd));
+								(*_ppEditView)->replaceTarget(s2r.c_str(), lineBegin, lineEnd);
 							}
 							delete [] line;
 						}

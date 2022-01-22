@@ -79,7 +79,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 
 	size_t docLen = (*_ppEditView)->getCurrentDocLen();
 
-	if (begin >= (size_t)docLen)
+	if (begin >= docLen)
 		return docLen;
 
 	generic_string exprToSearch = TEXT("(");

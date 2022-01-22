@@ -270,7 +270,7 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos)
 		}
 		else
 		{
-			higherY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, static_cast<int32_t>(mapPos._higherPos));
+			higherY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, mapPos._higherPos);
 			auto lineHeight = _pMapView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
 			lowerY = mapPos._nbLine * lineHeight + higherY;
 		}

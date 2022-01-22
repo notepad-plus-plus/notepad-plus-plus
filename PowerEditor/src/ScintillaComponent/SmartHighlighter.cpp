@@ -116,7 +116,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
 	auto range = pHighlightView->getSelection();
-	int textlen = range.cpMax - range.cpMin;
+	INT_PTR textlen = range.cpMax - range.cpMin;
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;

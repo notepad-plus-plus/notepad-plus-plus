@@ -234,7 +234,7 @@ public:
 	void insertGenericTextFrom(size_t position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
-	int getSelectedTextCount() {
+	INT_PTR getSelectedTextCount() {
 		Sci_CharacterRange range = getSelection();
 		return (range.cpMax - range.cpMin);
 	};

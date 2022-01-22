@@ -387,7 +387,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			if (wParam == IMR_RECONVERTSTRING)
 			{
 				INT_PTR					textLength;
-				int					selectSize;
+				INT_PTR					selectSize;
 				char				smallTextBuffer[128];
 				char			  *	selectedStr = smallTextBuffer;
 				RECONVERTSTRING   *	reconvert = (RECONVERTSTRING *)lParam;
@@ -426,7 +426,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				{
 					// convert the selection to Unicode, and get the number
 					// of bytes required for the converted text
-					textLength = sizeof(WCHAR) * ::MultiByteToWideChar(codepage, 0, selectedStr, selectSize, NULL, 0);
+					textLength = sizeof(WCHAR) * ::MultiByteToWideChar(codepage, 0, selectedStr, (int)selectSize, NULL, 0);
 				}
 				else
 				{
@@ -436,7 +436,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 					// dwCompStrOffset, and dwTargetStrOffset specify byte counts.
 
 					textLength = ::MultiByteToWideChar(	codepage, 0,
-														selectedStr, selectSize,
+														selectedStr, (int)selectSize,
 														(LPWSTR)((LPSTR)reconvert + sizeof(RECONVERTSTRING)),
 														reconvert->dwSize - sizeof(RECONVERTSTRING));
 

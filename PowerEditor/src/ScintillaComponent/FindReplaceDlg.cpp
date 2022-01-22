@@ -1115,7 +1115,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
 				Sci_CharacterRange cr = (*_ppEditView)->getSelection();
-				int nbSelected = cr.cpMax - cr.cpMin;
+				INT_PTR nbSelected = cr.cpMax - cr.cpMin;
 
 				_options._isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK)?1:0;
 				int checkVal = _options._isInSelection?BST_CHECKED:BST_UNCHECKED;
@@ -3433,8 +3433,8 @@ void FindReplaceDlg::clearMarks(const FindOption& opt)
 	{
 		Sci_CharacterRange cr = (*_ppEditView)->getSelection();
 
-		int startPosition = cr.cpMin;
-		int endPosition = cr.cpMax;
+		INT_PTR startPosition = cr.cpMin;
+		INT_PTR endPosition = cr.cpMax;
 
 		(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
 		(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, startPosition, endPosition - startPosition);

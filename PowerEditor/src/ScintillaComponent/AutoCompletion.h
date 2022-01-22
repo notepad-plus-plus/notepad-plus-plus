@@ -37,7 +37,7 @@ public:
 	void removeInvalidElements(MatchedCharInserted mci);
 	void add(MatchedCharInserted mci);
 	bool isEmpty() const { return _insertedMatchedChars.size() == 0; };
-	INT_PTR search(char startChar, char endChar, size_t posToDetect);
+	intptr_t search(char startChar, char endChar, size_t posToDetect);
 
 private:
 	std::vector<MatchedCharInserted> _insertedMatchedChars;

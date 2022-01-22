@@ -163,7 +163,7 @@ void Notepad_plus::command(int id)
 			// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
 			// If the function succeeds, it returns a value greater than 32.
 			// If the function fails, it returns an error value that indicates the cause of the failure.
-			int retResult = static_cast<int>(reinterpret_cast<INT_PTR>(res));
+			int retResult = static_cast<int>(reinterpret_cast<intptr_t>(res));
 			if (retResult <= 32)
 			{
 				generic_string errorMsg;
@@ -432,7 +432,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_PASTE:
 		{
 			std::lock_guard<std::mutex> lock(command_mutex);
-			INT_PTR eolMode = _pEditView->execute(SCI_GETEOLMODE);
+			intptr_t eolMode = _pEditView->execute(SCI_GETEOLMODE);
 			_pEditView->execute(SCI_PASTE);
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
 		}
@@ -1596,8 +1596,8 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_GOTOMATCHINGBRACE :
 		case IDM_SEARCH_SELECTMATCHINGBRACES :
 		{
-			INT_PTR braceAtCaret = -1;
-			INT_PTR braceOpposite = -1;
+			intptr_t braceAtCaret = -1;
+			intptr_t braceOpposite = -1;
 			findMatchingBracePos(braceAtCaret, braceOpposite);
 
 			if (braceOpposite != -1)
@@ -1720,9 +1720,9 @@ void Notepad_plus::command(int id)
 				// zero-length selection (simple single caret) or selected text is all on single line
 				// depart from Scintilla behavior and do it our way
 				size_t currentIndent = _pEditView->execute(SCI_GETLINEINDENTATION, lineNumber);
-				INT_PTR indentDelta = _pEditView->execute(SCI_GETTABWIDTH);
+				intptr_t indentDelta = _pEditView->execute(SCI_GETTABWIDTH);
 				if (!forwards) indentDelta = -indentDelta;
-				_pEditView->setLineIndent(lineNumber, static_cast<INT_PTR>(currentIndent) + indentDelta);
+				_pEditView->setLineIndent(lineNumber, static_cast<intptr_t>(currentIndent) + indentDelta);
 			}
 		}
 		break;
@@ -2386,8 +2386,8 @@ void Notepad_plus::command(int id)
             _syncInfo._isSynScollV = isSynScollV;
 			if (_syncInfo._isSynScollV)
 			{
-				INT_PTR mainCurrentLine = _mainEditView.execute(SCI_GETFIRSTVISIBLELINE);
-				INT_PTR subCurrentLine = _subEditView.execute(SCI_GETFIRSTVISIBLELINE);
+				intptr_t mainCurrentLine = _mainEditView.execute(SCI_GETFIRSTVISIBLELINE);
+				intptr_t subCurrentLine = _subEditView.execute(SCI_GETFIRSTVISIBLELINE);
 				_syncInfo._line = mainCurrentLine - subCurrentLine;
 			}
 
@@ -2403,13 +2403,13 @@ void Notepad_plus::command(int id)
             _syncInfo._isSynScollH = isSynScollH;
 			if (_syncInfo._isSynScollH)
 			{
-				INT_PTR mxoffset = _mainEditView.execute(SCI_GETXOFFSET);
-				INT_PTR pixel = _mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P"));
-				INT_PTR mainColumn = mxoffset/pixel;
+				intptr_t mxoffset = _mainEditView.execute(SCI_GETXOFFSET);
+				intptr_t pixel = _mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P"));
+				intptr_t mainColumn = mxoffset/pixel;
 
-				INT_PTR sxoffset = _subEditView.execute(SCI_GETXOFFSET);
+				intptr_t sxoffset = _subEditView.execute(SCI_GETXOFFSET);
 				pixel = _subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P"));
-				INT_PTR subColumn = sxoffset/pixel;
+				intptr_t subColumn = sxoffset/pixel;
 				_syncInfo._column = mainColumn - subColumn;
 			}
 		}
@@ -3085,10 +3085,10 @@ void Notepad_plus::command(int id)
 				size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
 				size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
 
-				INT_PTR strLen = selectionEnd - selectionStart;
+				intptr_t strLen = selectionEnd - selectionStart;
 				if (strLen)
 				{
-					INT_PTR strSize = strLen + 1;
+					intptr_t strSize = strLen + 1;
 					char *selectedStr = new char[strSize];
 					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
 
@@ -3128,10 +3128,10 @@ void Notepad_plus::command(int id)
 				size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
 				size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
 
-				INT_PTR strLen = selectionEnd - selectionStart;
+				intptr_t strLen = selectionEnd - selectionStart;
 				if (strLen)
 				{
-					INT_PTR strSize = strLen + 1;
+					intptr_t strSize = strLen + 1;
 					char *selectedStr = new char[strSize];
 					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
 

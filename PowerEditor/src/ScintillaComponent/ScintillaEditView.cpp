@@ -386,8 +386,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 			if (wParam == IMR_RECONVERTSTRING)
 			{
-				INT_PTR					textLength;
-				INT_PTR					selectSize;
+				intptr_t					textLength;
+				intptr_t					selectSize;
 				char				smallTextBuffer[128];
 				char			  *	selectedStr = smallTextBuffer;
 				RECONVERTSTRING   *	reconvert = (RECONVERTSTRING *)lParam;
@@ -1805,7 +1805,7 @@ void ScintillaEditView::restoreCurrentPosPreStep()
 		execute(SCI_SETXOFFSET, pos._xOffset);
 	}
 	execute(SCI_CHOOSECARETX); // choose current x position
-	INT_PTR lineToShow = execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine);
+	intptr_t lineToShow = execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine);
 	execute(SCI_SETFIRSTVISIBLELINE, lineToShow);
 	if (isWrap())
 	{
@@ -1848,7 +1848,7 @@ void ScintillaEditView::restoreCurrentPosPostStep()
 	{
 		
 		// Scintilla has paint the buffer but the position is not correct.
-		INT_PTR lineToShow = execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine);
+		intptr_t lineToShow = execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine);
 		execute(SCI_SETFIRSTVISIBLELINE, lineToShow);
 	}
 	else if (pos._offset > 0)
@@ -2028,9 +2028,9 @@ namespace {
 struct FoldLevelStack
 {
 	int levelCount = 0; // 1-based level number
-	INT_PTR levelStack[MAX_FOLD_COLLAPSE_LEVEL]{};
+	intptr_t levelStack[MAX_FOLD_COLLAPSE_LEVEL]{};
 
-	void push(INT_PTR level)
+	void push(intptr_t level)
 	{
 		while (levelCount != 0 && level <= levelStack[levelCount - 1])
 		{
@@ -2049,12 +2049,12 @@ void ScintillaEditView::collapseFoldIndentationBased(int level2Collapse, bool mo
 	FoldLevelStack levelStack;
 	++level2Collapse; // 1-based level number
 
-	const INT_PTR maxLine = execute(SCI_GETLINECOUNT);
-	INT_PTR line = 0;
+	const intptr_t maxLine = execute(SCI_GETLINECOUNT);
+	intptr_t line = 0;
 
 	while (line < maxLine)
 	{
-		INT_PTR level = execute(SCI_GETFOLDLEVEL, line);
+		intptr_t level = execute(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG)
 		{
 			level &= SC_FOLDLEVELNUMBERMASK;
@@ -2086,11 +2086,11 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 
 	execute(SCI_COLOURISE, 0, -1);
 
-	INT_PTR maxLine = execute(SCI_GETLINECOUNT);
+	intptr_t maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; ++line)
 	{
-		INT_PTR level = execute(SCI_GETFOLDLEVEL, line);
+		intptr_t level = execute(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG)
 		{
 			level -= SC_FOLDLEVELBASE;
@@ -2119,7 +2119,7 @@ void ScintillaEditView::fold(size_t line, bool mode)
     if (endStyled < len)
         execute(SCI_COLOURISE, 0, -1);
 
-	INT_PTR headerLine;
+	intptr_t headerLine;
 	auto level = execute(SCI_GETFOLDLEVEL, line);
 
 	if (level & SC_FOLDLEVELHEADERFLAG)
@@ -2193,7 +2193,7 @@ void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start
 // "mstart" and "mend" are pointers to indexes in the read string,
 // which are converted to the corresponding indexes in the returned TCHAR string.
 
-void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end, INT_PTR* mstart, INT_PTR* mend) const
+void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	char *destA = new char[end - start + 1];
@@ -2217,7 +2217,7 @@ void ScintillaEditView::replaceSelWith(const char * replaceText)
 	execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(replaceText));
 }
 
-void ScintillaEditView::getVisibleStartAndEndPosition(INT_PTR* startPos, INT_PTR* endPos)
+void ScintillaEditView::getVisibleStartAndEndPosition(intptr_t* startPos, intptr_t* endPos)
 {
 	assert(startPos != NULL && endPos != NULL);
 	// Get the position of the 1st and last showing chars from the edit view
@@ -2302,7 +2302,7 @@ TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool ex
 	return txt;
 }
 
-INT_PTR ScintillaEditView::searchInTarget(const TCHAR * text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const
+intptr_t ScintillaEditView::searchInTarget(const TCHAR * text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const
 {
 	execute(SCI_SETTARGETRANGE, fromPos, toPos);
 
@@ -2338,7 +2338,7 @@ void ScintillaEditView::addGenericText(const TCHAR * text2Append, long* mstart, 
 	execute(SCI_ADDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
-INT_PTR ScintillaEditView::replaceTarget(const TCHAR * str2replace, INT_PTR fromTargetPos, INT_PTR toTargetPos) const
+intptr_t ScintillaEditView::replaceTarget(const TCHAR * str2replace, intptr_t fromTargetPos, intptr_t toTargetPos) const
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
 	{
@@ -2350,7 +2350,7 @@ INT_PTR ScintillaEditView::replaceTarget(const TCHAR * str2replace, INT_PTR from
 	return execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(str2replaceA));
 }
 
-INT_PTR ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, INT_PTR fromTargetPos, INT_PTR toTargetPos) const
+intptr_t ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, intptr_t fromTargetPos, intptr_t toTargetPos) const
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
 	{
@@ -2445,7 +2445,7 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
 
 void ScintillaEditView::updateBeginEndSelectPosition(bool is_insert, size_t position, size_t length)
 {
-	if (_beginSelectPosition != -1 && static_cast<INT_PTR>(position) < _beginSelectPosition - 1)
+	if (_beginSelectPosition != -1 && static_cast<intptr_t>(position) < _beginSelectPosition - 1)
 	{
 		if (is_insert)
 			_beginSelectPosition += length;
@@ -2459,7 +2459,7 @@ void ScintillaEditView::updateBeginEndSelectPosition(bool is_insert, size_t posi
 void ScintillaEditView::marginClick(Sci_Position position, int modifiers)
 {
 	size_t lineClick = execute(SCI_LINEFROMPOSITION, position, 0);
-	INT_PTR levelClick = execute(SCI_GETFOLDLEVEL, lineClick, 0);
+	intptr_t levelClick = execute(SCI_GETFOLDLEVEL, lineClick, 0);
 	if (levelClick & SC_FOLDLEVELHEADERFLAG)
     {
 		if (modifiers & SCMOD_SHIFT)
@@ -2493,7 +2493,7 @@ void ScintillaEditView::marginClick(Sci_Position position, int modifiers)
 	}
 }
 
-void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, INT_PTR visLevels, INT_PTR level)
+void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, intptr_t visLevels, intptr_t level)
 {
 	size_t lineMaxSubord = execute(SCI_GETLASTCHILD, line, level & SC_FOLDLEVELNUMBERMASK);
 	++line;
@@ -2509,7 +2509,7 @@ void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, INT_PTR 
 				execute(SCI_SHOWLINES, line, line);
 		}
 
-		INT_PTR levelLine = level;
+		intptr_t levelLine = level;
 		if (levelLine == -1)
 			levelLine = execute(SCI_GETFOLDLEVEL, line, 0);
 
@@ -2738,8 +2738,8 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 	{
 		if (cmi[i].isValid())
 		{
-			INT_PTR selStart = cmi[i]._direction == L2R?cmi[i]._selLpos:cmi[i]._selRpos;
-			INT_PTR selEnd   = cmi[i]._direction == L2R?cmi[i]._selRpos:cmi[i]._selLpos;
+			intptr_t selStart = cmi[i]._direction == L2R?cmi[i]._selLpos:cmi[i]._selRpos;
+			intptr_t selEnd   = cmi[i]._direction == L2R?cmi[i]._selRpos:cmi[i]._selLpos;
 			execute(SCI_SETSELECTIONNSTART, i, selStart);
 			execute(SCI_SETSELECTIONNEND, i, selEnd);
 		}
@@ -2753,7 +2753,7 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 
 // Get selection range (fromLine, toLine) for the specified selection
 // specify selectionNumber = -1 for the MAIN selection
-pair<size_t, size_t> ScintillaEditView::getSelectionLinesRange(INT_PTR selectionNumber /* = -1 */) const
+pair<size_t, size_t> ScintillaEditView::getSelectionLinesRange(intptr_t selectionNumber /* = -1 */) const
 {
 	size_t numSelections = execute(SCI_GETSELECTIONS);
 
@@ -2933,12 +2933,12 @@ void ScintillaEditView::convertSelectedTextTo(const TextCase & caseToConvert)
 
 		for (size_t i = 0, cmiLen = cmi.size(); i < cmiLen ; ++i)
 		{
-			const INT_PTR len = cmi[i]._selRpos - cmi[i]._selLpos;
+			const intptr_t len = cmi[i]._selRpos - cmi[i]._selLpos;
 			char *srcStr = new char[len+1];
 			wchar_t *destStr = new wchar_t[len+1];
 
-			INT_PTR start = cmi[i]._selLpos;
-			INT_PTR end = cmi[i]._selRpos;
+			intptr_t start = cmi[i]._selLpos;
+			intptr_t end = cmi[i]._selRpos;
 			getText(srcStr, start, end);
 
 			int nbChar = ::MultiByteToWideChar(codepage, 0, srcStr, (int)len, destStr, (int)len);
@@ -3073,14 +3073,14 @@ ColumnModeInfos ScintillaEditView::getColumnModeSelectInfo()
 	ColumnModeInfos columnModeInfos;
 	if (execute(SCI_GETSELECTIONS) > 1) // Multi-Selection || Column mode
 	{
-		INT_PTR nbSel = execute(SCI_GETSELECTIONS);
+		intptr_t nbSel = execute(SCI_GETSELECTIONS);
 
 		for (int i = 0 ; i < nbSel ; ++i)
 		{
-			INT_PTR absPosSelStartPerLine = execute(SCI_GETSELECTIONNANCHOR, i);
-			INT_PTR absPosSelEndPerLine = execute(SCI_GETSELECTIONNCARET, i);
-			INT_PTR nbVirtualAnchorSpc = execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, i);
-			INT_PTR nbVirtualCaretSpc = execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, i);
+			intptr_t absPosSelStartPerLine = execute(SCI_GETSELECTIONNANCHOR, i);
+			intptr_t absPosSelEndPerLine = execute(SCI_GETSELECTIONNCARET, i);
+			intptr_t nbVirtualAnchorSpc = execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, i);
+			intptr_t nbVirtualCaretSpc = execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, i);
 
 			if (absPosSelStartPerLine == absPosSelEndPerLine && execute(SCI_SELECTIONISRECTANGLE))
 			{
@@ -3098,13 +3098,13 @@ ColumnModeInfos ScintillaEditView::getColumnModeSelectInfo()
 
 void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 {
-	INT_PTR totalDiff = 0;
+	intptr_t totalDiff = 0;
 	for (size_t i = 0, len = cmi.size(); i < len ; ++i)
 	{
 		if (cmi[i].isValid())
 		{
-			INT_PTR len2beReplace = cmi[i]._selRpos - cmi[i]._selLpos;
-			INT_PTR diff = lstrlen(str) - len2beReplace;
+			intptr_t len2beReplace = cmi[i]._selRpos - cmi[i]._selLpos;
+			intptr_t diff = lstrlen(str) - len2beReplace;
 
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
@@ -3112,7 +3112,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 
 			if (hasVirtualSpc) // if virtual space is present, then insert space
 			{
-				for (INT_PTR j = 0, k = cmi[i]._selLpos; j < cmi[i]._nbVirtualCaretSpc ; ++j, ++k)
+				for (intptr_t j = 0, k = cmi[i]._selLpos; j < cmi[i]._nbVirtualCaretSpc ; ++j, ++k)
 				{
 					execute(SCI_INSERTTEXT, k, reinterpret_cast<LPARAM>(" "));
 				}
@@ -3203,14 +3203,14 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 	const int kibInit = getNbDigits(initial, base);
 	const int kib = std::max<int>(kibInit, kibEnd);
 
-	INT_PTR totalDiff = 0;
+	intptr_t totalDiff = 0;
 	const size_t len = cmi.size();
 	for (size_t i = 0 ; i < len ; i++)
 	{
 		if (cmi[i].isValid())
 		{
-			const INT_PTR len2beReplaced = cmi[i]._selRpos - cmi[i]._selLpos;
-			const INT_PTR diff = kib - len2beReplaced;
+			const intptr_t len2beReplaced = cmi[i]._selRpos - cmi[i]._selLpos;
+			const intptr_t diff = kib - len2beReplaced;
 
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
@@ -3220,7 +3220,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 			const bool hasVirtualSpc = cmi[i]._nbVirtualAnchorSpc > 0;
 			if (hasVirtualSpc) // if virtual space is present, then insert space
 			{
-				for (INT_PTR j = 0, k = cmi[i]._selLpos; j < cmi[i]._nbVirtualCaretSpc ; ++j, ++k)
+				for (intptr_t j = 0, k = cmi[i]._selLpos; j < cmi[i]._nbVirtualCaretSpc ; ++j, ++k)
 				{
 					execute(SCI_INSERTTEXT, k, reinterpret_cast<LPARAM>(" "));
 				}
@@ -3276,7 +3276,7 @@ void ScintillaEditView::foldChanged(size_t line, int levelNow, int levelPrev)
 	        ((levelPrev & SC_FOLDLEVELNUMBERMASK) > (levelNow & SC_FOLDLEVELNUMBERMASK)))
 	{
 		// See if should still be hidden
-		INT_PTR parentLine = execute(SCI_GETFOLDPARENT, line);
+		intptr_t parentLine = execute(SCI_GETFOLDPARENT, line);
 		if ((parentLine < 0) || !isFolded(parentLine && execute(SCI_GETLINEVISIBLE, parentLine)))
 			execute(SCI_SHOWLINES, line, line);
 	}
@@ -3683,7 +3683,7 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 
 generic_string ScintillaEditView::getEOLString()
 {
-	INT_PTR eol_mode = execute(SCI_GETEOLMODE);
+	intptr_t eol_mode = execute(SCI_GETEOLMODE);
 	if (eol_mode == SC_EOL_CRLF)
 	{
 		return TEXT("\r\n");
@@ -3750,7 +3750,7 @@ int ScintillaEditView::getTextZoneWidth() const
 	RECT editorRect;
 	getClientRect(editorRect);
 
-	INT_PTR marginWidths = 0;
+	intptr_t marginWidths = 0;
 	for (int m = 0; m < 4; ++m)
 	{
 		marginWidths += execute(SCI_GETMARGINWIDTHN, m);
@@ -3790,7 +3790,7 @@ pair<size_t, size_t> ScintillaEditView::getSelectedCharsAndLinesCount(long long 
 			v.push_back(getSelectionLinesRange(s));
 		}
 		sort(v.begin(), v.end());
-		INT_PTR previousSecondLine = -1;
+		intptr_t previousSecondLine = -1;
 		for (auto lineRange : v)
 		{
 			selectedCharsAndLines.second += lineRange.second - lineRange.first;
@@ -3798,7 +3798,7 @@ pair<size_t, size_t> ScintillaEditView::getSelectedCharsAndLinesCount(long long 
 			{
 				++selectedCharsAndLines.second;
 			}
-			previousSecondLine = static_cast<INT_PTR>(lineRange.second);
+			previousSecondLine = static_cast<intptr_t>(lineRange.second);
 		}
 	}
 

@@ -144,7 +144,7 @@ private :
 	bool _isThemeDirty = false;
 	bool _isShownGOCtrls = false;
 
-	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
 
 	Style & getCurrentStyler() {

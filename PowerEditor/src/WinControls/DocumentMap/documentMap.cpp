@@ -183,8 +183,8 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 
 		if (svp._paddingLeft || svp._paddingRight)
 		{
-			INT_PTR paddingMapLeft = static_cast<INT_PTR>(svp._paddingLeft / (editZoneWidth / docMapWidth));
-			INT_PTR paddingMapRight = static_cast<INT_PTR>(svp._paddingRight / (editZoneWidth / docMapWidth));
+			intptr_t paddingMapLeft = static_cast<intptr_t>(svp._paddingLeft / (editZoneWidth / docMapWidth));
+			intptr_t paddingMapRight = static_cast<intptr_t>(svp._paddingRight / (editZoneWidth / docMapWidth));
 			_pMapView->execute(SCI_SETMARGINLEFT, 0, paddingMapLeft);
 			_pMapView->execute(SCI_SETMARGINRIGHT, 0, paddingMapRight);
 		}
@@ -318,7 +318,7 @@ void DocumentMap::redraw(bool) const
 	DockingDlgInterface::redraw(true);
 }
 
-INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
@@ -424,9 +424,9 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		{
 			int newPosY = HIWORD(lParam);
 			int currentCenterPosY = _vzDlg.getCurrentCenterPosY();
-			INT_PTR pixelPerLine = _pMapView->execute(SCI_TEXTHEIGHT, 0);
-			INT_PTR jumpDistance = newPosY - currentCenterPosY;
-			INT_PTR nbLine2jump = jumpDistance/pixelPerLine;
+			intptr_t pixelPerLine = _pMapView->execute(SCI_TEXTHEIGHT, 0);
+			intptr_t jumpDistance = newPosY - currentCenterPosY;
+			intptr_t nbLine2jump = jumpDistance/pixelPerLine;
 			(*_ppEditView)->execute(SCI_LINESCROLL, 0, nbLine2jump);
 
 			scrollMap();
@@ -495,7 +495,7 @@ void ViewZoneDlg::doDialog()
 	display();
 };
 
-INT_PTR CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{

@@ -18,7 +18,7 @@
 #include "documentSnapshot.h"
 #include "ScintillaEditView.h"
 
-INT_PTR CALLBACK DocumentPeeker::run_dlgProc(UINT message, WPARAM /*wParam*/, LPARAM /*lParam*/)
+intptr_t CALLBACK DocumentPeeker::run_dlgProc(UINT message, WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
 	switch (message)
 	{
@@ -167,14 +167,14 @@ void DocumentPeeker::saveCurrentSnapshot(ScintillaEditView & editView)
 		// Width
 		RECT editorRect;
 		editView.getClientRect(editorRect);
-		INT_PTR marginWidths = 0;
+		intptr_t marginWidths = 0;
 		for (int m = 0; m < 4; ++m)
 		{
 			marginWidths += editView.execute(SCI_GETMARGINWIDTHN, m);
 		}
 		double editViewWidth = editorRect.right - editorRect.left - static_cast<LONG>(marginWidths);
 		double editViewHeight = editorRect.bottom - editorRect.top;
-		mapPos._width = static_cast<INT_PTR>((editViewWidth / editViewHeight) * static_cast<double>(mapPos._height));
+		mapPos._width = static_cast<intptr_t>((editViewWidth / editViewHeight) * static_cast<double>(mapPos._height));
 
 		mapPos._wrapIndentMode = editView.execute(SCI_GETWRAPINDENTMODE);
 		mapPos._isWrap = editView.isWrap();

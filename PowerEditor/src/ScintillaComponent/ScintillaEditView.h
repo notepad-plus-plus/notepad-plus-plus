@@ -134,14 +134,14 @@ const bool L2R = true;
 const bool R2L = false;
 
 struct ColumnModeInfo {
-	INT_PTR _selLpos = 0;
-	INT_PTR _selRpos = 0;
-	INT_PTR _order = -1; // 0 based index
+	intptr_t _selLpos = 0;
+	intptr_t _selRpos = 0;
+	intptr_t _order = -1; // 0 based index
 	bool _direction = L2R; // L2R or R2L
-	INT_PTR _nbVirtualCaretSpc = 0;
-	INT_PTR _nbVirtualAnchorSpc = 0;
+	intptr_t _nbVirtualCaretSpc = 0;
+	intptr_t _nbVirtualAnchorSpc = 0;
 
-	ColumnModeInfo(INT_PTR lPos, INT_PTR rPos, INT_PTR order, bool dir = L2R, INT_PTR vAnchorNbSpc = 0, INT_PTR vCaretNbSpc = 0)
+	ColumnModeInfo(intptr_t lPos, intptr_t rPos, intptr_t order, bool dir = L2R, intptr_t vAnchorNbSpc = 0, intptr_t vCaretNbSpc = 0)
 		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualAnchorSpc(vAnchorNbSpc), _nbVirtualCaretSpc(vCaretNbSpc){};
 
 	bool isValid() const {
@@ -229,28 +229,28 @@ public:
 
 	void getText(char *dest, size_t start, size_t end) const;
 	void getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const;
-	void getGenericText(TCHAR *dest, size_t deslen, size_t start, size_t end, INT_PTR* mstart, INT_PTR* mend) const;
+	void getGenericText(TCHAR *dest, size_t deslen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const;
 	generic_string getGenericTextAsString(size_t start, size_t end) const;
 	void insertGenericTextFrom(size_t position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
-	INT_PTR getSelectedTextCount() {
+	intptr_t getSelectedTextCount() {
 		Sci_CharacterRange range = getSelection();
 		return (range.cpMax - range.cpMin);
 	};
 
-	void getVisibleStartAndEndPosition(INT_PTR* startPos, INT_PTR* endPos);
+	void getVisibleStartAndEndPosition(intptr_t* startPos, intptr_t* endPos);
     char * getWordFromRange(char * txt, size_t size, size_t pos1, size_t pos2);
 	char * getSelectedText(char * txt, size_t size, bool expand = true);
     char * getWordOnCaretPos(char * txt, size_t size);
     TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
-	INT_PTR searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
+	intptr_t searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appandGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append, long* mstart, long* mend) const;
-	INT_PTR replaceTarget(const TCHAR * str2replace, INT_PTR fromTargetPos = -1, INT_PTR toTargetPos = -1) const;
-	INT_PTR replaceTargetRegExMode(const TCHAR * re, INT_PTR fromTargetPos = -1, INT_PTR toTargetPos = -1) const;
+	intptr_t replaceTarget(const TCHAR * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
+	intptr_t replaceTargetRegExMode(const TCHAR * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	void showAutoComletion(size_t lenEntered, const TCHAR * list);
 	void showCallTip(size_t startPos, const TCHAR * def);
 	generic_string getLine(size_t lineNumber);
@@ -280,7 +280,7 @@ public:
 		return crange;
 	};
 
-	void getWordToCurrentPos(TCHAR * str, INT_PTR strLen) const {
+	void getWordToCurrentPos(TCHAR * str, intptr_t strLen) const {
 		auto caretPos = execute(SCI_GETCURRENTPOS);
 		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
@@ -391,16 +391,16 @@ public:
 		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
     };
 
-	INT_PTR getCurrentLineNumber()const {
+	intptr_t getCurrentLineNumber()const {
 		return execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS));
 	};
 
-	INT_PTR lastZeroBasedLineNumber() const {
+	intptr_t lastZeroBasedLineNumber() const {
 		auto endPos = execute(SCI_GETLENGTH);
 		return execute(SCI_LINEFROMPOSITION, endPos);
 	};
 
-	INT_PTR getCurrentXOffset()const{
+	intptr_t getCurrentXOffset()const{
 		return execute(SCI_GETXOFFSET);
 	};
 
@@ -412,26 +412,26 @@ public:
 		execute(SCI_LINESCROLL, column, line);
 	};
 
-	INT_PTR getCurrentPointX()const{
+	intptr_t getCurrentPointX()const{
 		return execute(SCI_POINTXFROMPOSITION, 0, execute(SCI_GETCURRENTPOS));
 	};
 
-	INT_PTR getCurrentPointY()const{
+	intptr_t getCurrentPointY()const{
 		return execute(SCI_POINTYFROMPOSITION, 0, execute(SCI_GETCURRENTPOS));
 	};
 
-	INT_PTR getTextHeight()const{
+	intptr_t getTextHeight()const{
 		return execute(SCI_TEXTHEIGHT);
 	};
 
 	int getTextZoneWidth() const;
 
-	void gotoLine(INT_PTR line){
+	void gotoLine(intptr_t line){
 		if (line < execute(SCI_GETLINECOUNT))
 			execute(SCI_GOTOLINE,line);
 	};
 
-	INT_PTR getCurrentColumnNumber() const {
+	intptr_t getCurrentColumnNumber() const {
         return execute(SCI_GETCOLUMN, execute(SCI_GETCURRENTPOS));
     };
 
@@ -439,11 +439,11 @@ public:
 
 	size_t getUnicodeSelectedLength() const;
 
-	INT_PTR getLineLength(size_t line) const {
+	intptr_t getLineLength(size_t line) const {
 		return execute(SCI_GETLINEENDPOSITION, line) - execute(SCI_POSITIONFROMLINE, line);
 	};
 
-	INT_PTR getLineIndent(size_t line) const {
+	intptr_t getLineIndent(size_t line) const {
 		return execute(SCI_GETLINEINDENTATION, line);
 	};
 
@@ -481,9 +481,9 @@ public:
 
 	void performGlobalStyles();
 
-	void expand(size_t& line, bool doExpand, bool force = false, INT_PTR visLevels = 0, INT_PTR level = -1);
+	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);
 
-	std::pair<size_t, size_t> getSelectionLinesRange(INT_PTR selectionNumber = -1) const;
+	std::pair<size_t, size_t> getSelectionLinesRange(intptr_t selectionNumber = -1) const;
     void currentLinesUp() const;
     void currentLinesDown() const;
 
@@ -641,7 +641,7 @@ protected:
 	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
 
-	INT_PTR _beginSelectPosition = -1;
+	intptr_t _beginSelectPosition = -1;
 
 	static std::string _defaultCharList;
 

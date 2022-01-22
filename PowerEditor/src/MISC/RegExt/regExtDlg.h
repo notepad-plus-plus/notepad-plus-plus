@@ -33,7 +33,7 @@ public :
 private :
 	bool _isCustomize = false;
 
-	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
 	void getRegisteredExts();
 	void getDefSupportedExts();

@@ -59,7 +59,7 @@ public :
     virtual void destroy() {};
 
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
 	void addTextToCombo(const TCHAR *txt2Add) const;

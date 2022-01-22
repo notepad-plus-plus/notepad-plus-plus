@@ -156,24 +156,24 @@ struct Position
 
 struct MapPosition
 {
-	INT_PTR _firstVisibleDisplayLine = -1;
+	intptr_t _firstVisibleDisplayLine = -1;
 
-	INT_PTR _firstVisibleDocLine = -1; // map
-	INT_PTR _lastVisibleDocLine = -1;  // map
-	INT_PTR _nbLine = -1;              // map
-	INT_PTR _higherPos = -1;           // map
-	INT_PTR _width = -1;
-	INT_PTR _height = -1;
-	INT_PTR _wrapIndentMode = -1;
+	intptr_t _firstVisibleDocLine = -1; // map
+	intptr_t _lastVisibleDocLine = -1;  // map
+	intptr_t _nbLine = -1;              // map
+	intptr_t _higherPos = -1;           // map
+	intptr_t _width = -1;
+	intptr_t _height = -1;
+	intptr_t _wrapIndentMode = -1;
 
-	INT_PTR _KByteInDoc = _maxPeekLenInKB;
+	intptr_t _KByteInDoc = _maxPeekLenInKB;
 
 	bool _isWrap = false;
 	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
 	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
 
 private:
-	INT_PTR _maxPeekLenInKB = 512; // 512 KB
+	intptr_t _maxPeekLenInKB = 512; // 512 KB
 };
 
 
@@ -874,8 +874,8 @@ struct ScintillaViewParams
 	bool _isEdgeBgMode = false;
 
 	std::vector<size_t> _edgeMultiColumnPos;
-	INT_PTR _zoom = 0;
-	INT_PTR _zoom2 = 0;
+	intptr_t _zoom = 0;
+	intptr_t _zoom2 = 0;
 	bool _whiteSpaceShow = false;
 	bool _eolShow = false;
 	int _borderWidth = 2;

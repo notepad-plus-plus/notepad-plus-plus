@@ -589,7 +589,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else if (notification->nmhdr.hwndFrom == _subEditView.getHSelf())
 				switchEditViewTo(SUB_VIEW);
 
-			INT_PTR lineClick = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
+			intptr_t lineClick = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
 
 			if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
 			{

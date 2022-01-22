@@ -360,8 +360,8 @@ private:
 	//Synchronized Scolling
 	struct SyncInfo final
 	{
-		INT_PTR _line = 0;
-		INT_PTR _column = 0;
+		intptr_t _line = 0;
+		intptr_t _column = 0;
 		bool _isSynScollV = false;
 		bool _isSynScollH = false;
 
@@ -372,7 +372,7 @@ private:
 	bool _isUDDocked = false;
 
 	trayIconControler* _pTrayIco = nullptr;
-	INT_PTR _zoomOriginalValue = 0;
+	intptr_t _zoomOriginalValue = 0;
 
 	Accelerator _accelerator;
 	ScintillaAccelerator _scintaccelerator;
@@ -496,13 +496,13 @@ private:
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
 	}
 
-	bool isConditionExprLine(INT_PTR lineNumber);
-	INT_PTR findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
+	bool isConditionExprLine(intptr_t lineNumber);
+	intptr_t findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
 
 	void addHotSpot(ScintillaEditView* view = NULL);
 
-    void bookmarkAdd(INT_PTR lineno) const {
+    void bookmarkAdd(intptr_t lineno) const {
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		if (!bookmarkPresent(lineno))
@@ -516,14 +516,14 @@ private:
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
 	}
 
-    bool bookmarkPresent(INT_PTR lineno) const {
+    bool bookmarkPresent(intptr_t lineno) const {
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
 
-    void bookmarkToggle(INT_PTR lineno) const {
+    void bookmarkToggle(intptr_t lineno) const {
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 
@@ -546,7 +546,7 @@ private:
 	void inverseMarks();
 	void replaceMarkedline(size_t ln, const TCHAR *str);
 	generic_string getMarkedLine(size_t ln);
-    void findMatchingBracePos(INT_PTR& braceAtCaret, INT_PTR& braceOpposite);
+    void findMatchingBracePos(intptr_t& braceAtCaret, intptr_t& braceOpposite);
     bool braceMatch();
 
     void activateNextDoc(bool direction);

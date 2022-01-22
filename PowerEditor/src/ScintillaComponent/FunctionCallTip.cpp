@@ -130,11 +130,11 @@ void FunctionCallTip::close()
 bool FunctionCallTip::getCursorFunction()
 {
 	auto line = _pEditView->execute(SCI_LINEFROMPOSITION, _curPos);
-	INT_PTR startpos = _pEditView->execute(SCI_POSITIONFROMLINE, line);
-	INT_PTR endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
-	INT_PTR len = endpos - startpos + 3;	//also take CRLF in account, even if not there
-	INT_PTR offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
-	const INT_PTR maxLen = 256;
+	intptr_t startpos = _pEditView->execute(SCI_POSITIONFROMLINE, line);
+	intptr_t endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
+	intptr_t len = endpos - startpos + 3;	//also take CRLF in account, even if not there
+	intptr_t offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
+	const intptr_t maxLen = 256;
 
 	if ((offset < 2) || (len >= maxLen))
 	{

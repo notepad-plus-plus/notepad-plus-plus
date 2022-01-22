@@ -38,9 +38,9 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	auto nbLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
 	auto lastLine = firstLine + nbLines;
 	size_t startPos = 0;
-	INT_PTR endPos = 0;
+	intptr_t endPos = 0;
 	auto currentLine = firstLine;
-	INT_PTR prevDocLineChecked = -1;	//invalid start
+	intptr_t prevDocLineChecked = -1;	//invalid start
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;
@@ -71,10 +71,10 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 
 	for (; currentLine < lastLine; ++currentLine)
 	{
-		INT_PTR docLine = pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
+		intptr_t docLine = pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
 		if (docLine == prevDocLineChecked)
 			continue;	//still on same line (wordwrap)
-		prevDocLineChecked = static_cast<INT_PTR>(docLine);
+		prevDocLineChecked = static_cast<intptr_t>(docLine);
 		startPos = pHighlightView->execute(SCI_POSITIONFROMLINE, docLine);
 		endPos = pHighlightView->execute(SCI_POSITIONFROMLINE, docLine + 1);
 		
@@ -116,7 +116,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
 	auto range = pHighlightView->getSelection();
-	INT_PTR textlen = range.cpMax - range.cpMin;
+	intptr_t textlen = range.cpMax - range.cpMin;
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;

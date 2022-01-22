@@ -20,7 +20,7 @@
 #include "Parameters.h"
 #include "localization.h"
 
-INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{
@@ -92,7 +92,7 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 				case ID_FINDCHAR_NEXT:
 				{
-					INT_PTR currentPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+					intptr_t currentPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
 					unsigned char startRange = 0;
 					unsigned char endRange = 255;
 					bool direction = dirDown;
@@ -124,7 +124,7 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	return FALSE;
 }
 
-bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned char endRange, INT_PTR startPos, bool direction, bool wrap)
+bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned char endRange, intptr_t startPos, bool direction, bool wrap)
 {
 	size_t totalSize = (*_ppEditView)->getCurrentDocLen();
 	if (startPos == -1)
@@ -138,7 +138,7 @@ bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned cha
 	bool isFound = false;
 	size_t found = 0;
 
-	for (INT_PTR i = startPos - (direction == dirUp ? 1 : 0); 
+	for (intptr_t i = startPos - (direction == dirUp ? 1 : 0); 
 		(direction == dirDown) ? i < static_cast<long long>(totalSize) : i >= 0 ;
 		(direction == dirDown) ? (++i) : (--i))
 	{

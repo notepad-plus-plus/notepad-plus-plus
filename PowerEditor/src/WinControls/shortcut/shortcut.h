@@ -120,7 +120,7 @@ public:
 		return !(a == b);
 	};
 
-	virtual INT_PTR doDialog()
+	virtual intptr_t doDialog()
 	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
@@ -174,7 +174,7 @@ public:
 
 protected :
 	KeyCombo _keyCombo;
-	virtual INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	bool _canModifyName = false;
 	TCHAR _name[nameLenMax] = {'\0'};		//normal name is plain text (for display purposes)
 	TCHAR _menuName[nameLenMax] = { '\0' };	//menu name has ampersands for quick keys
@@ -227,7 +227,7 @@ public:
 	generic_string toString() const;
 	generic_string toString(size_t index) const;
 
-	INT_PTR doDialog()
+	intptr_t doDialog()
 	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
@@ -264,7 +264,7 @@ private:
 	void showCurrentSettings();
 	void updateListItem(int index);
 protected :
-	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 

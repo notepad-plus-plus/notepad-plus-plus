@@ -881,7 +881,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			TCHAR str[strSize];
 			TCHAR strLine[strSize];
 			size_t lineNumber;
-			INT_PTR col;
+			intptr_t col;
 			int hasSlash;
 			TCHAR *pTchar = reinterpret_cast<TCHAR *>(lParam);
 
@@ -894,8 +894,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (hasSlash == FALSE)
 			{
 				// it's not a full file name so try to find the beginning and ending of it
-				INT_PTR start;
-				INT_PTR end;
+				intptr_t start;
+				intptr_t end;
 				const TCHAR *delimiters;
 
 				lineNumber = _pEditView->getCurrentLineNumber();
@@ -1313,11 +1313,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					break;
 
 				int counter = 0;
-				INT_PTR lastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
-				INT_PTR currLine = _pEditView->getCurrentLineNumber();
+				intptr_t lastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+				intptr_t currLine = _pEditView->getCurrentLineNumber();
 				int indexMacro = _runMacroDlg.getMacro2Exec();
-				INT_PTR deltaLastLine = 0;
-				INT_PTR deltaCurrLine = 0;
+				intptr_t deltaLastLine = 0;
+				intptr_t deltaCurrLine = 0;
 
 				Macro m = _macro;
 

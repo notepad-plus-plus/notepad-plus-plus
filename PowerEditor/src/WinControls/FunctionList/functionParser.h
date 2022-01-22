@@ -24,8 +24,8 @@ struct foundInfo final
 {
 	generic_string _data;
 	generic_string _data2;
-	INT_PTR _pos = -1;
-	INT_PTR _pos2 = -1;
+	intptr_t _pos = -1;
+	intptr_t _pos2 = -1;
 };
 
 class FunctionParser
@@ -49,7 +49,7 @@ protected:
 	std::vector<generic_string> _classNameExprArray;
 	void getCommentZones(std::vector< std::pair<size_t, size_t> > & commentZone, size_t begin, size_t end, ScintillaEditView **ppEditView);
 	void getInvertZones(std::vector< std::pair<size_t, size_t> > & destZones, std::vector< std::pair<size_t, size_t> > & sourceZones, size_t begin, size_t end);
-	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, INT_PTR & foundPos, ScintillaEditView **ppEditView);
+	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, intptr_t & foundPos, ScintillaEditView **ppEditView);
 };
 
 

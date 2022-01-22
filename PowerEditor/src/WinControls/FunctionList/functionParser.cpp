@@ -418,7 +418,7 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 		}
 		else
 		{
-			INT_PTR foundPos;
+			intptr_t foundPos;
 			if (_functionNameExprArray.size())
 			{
 				fi._data = parseSubLevel(targetStart, targetEnd, _functionNameExprArray, foundPos, ppEditView);
@@ -454,7 +454,7 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 }
 
 
-generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, INT_PTR & foundPos, ScintillaEditView **ppEditView)
+generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, intptr_t & foundPos, ScintillaEditView **ppEditView)
 {
 	if (begin >= end)
 	{
@@ -469,14 +469,14 @@ generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vect
 
 	(*ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 	const TCHAR *regExpr2search = dataToSearch[0].c_str();
-	INT_PTR targetStart = (*ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
+	intptr_t targetStart = (*ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
 
 	if (targetStart < 0)
 	{
 		foundPos = -1;
 		return generic_string();
 	}
-	INT_PTR targetEnd = (*ppEditView)->execute(SCI_GETTARGETEND);
+	intptr_t targetEnd = (*ppEditView)->execute(SCI_GETTARGETEND);
 
 	if (dataToSearch.size() >= 2)
 	{
@@ -527,7 +527,7 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 	int flags = SCFIND_REGEXP | SCFIND_POSIX | SCFIND_REGEXP_DOTMATCHESNL;
 
 	(*ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	INT_PTR targetStart = (*ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
+	intptr_t targetStart = (*ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
 	LRESULT targetEnd = 0;
 
 	do
@@ -540,7 +540,7 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 			if (!isInZones(targetStart, commentZones))
 			{
 				// Now we determinate the symbol (open or close)
-				INT_PTR tmpStart = (*ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
+				intptr_t tmpStart = (*ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
 				if (tmpStart >= 0) // open symbol found 
 				{
 					++cntOpen;
@@ -572,16 +572,16 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 	int flags = SCFIND_REGEXP | SCFIND_POSIX | SCFIND_REGEXP_DOTMATCHESNL;
 
 	(*ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	INT_PTR targetStart = (*ppEditView)->searchInTarget(_rangeExpr.c_str(), _rangeExpr.length(), begin, end);
+	intptr_t targetStart = (*ppEditView)->searchInTarget(_rangeExpr.c_str(), _rangeExpr.length(), begin, end);
 
-	INT_PTR targetEnd = 0;
+	intptr_t targetEnd = 0;
 	
 	while (targetStart >= 0)
 	{
 		targetEnd = (*ppEditView)->execute(SCI_GETTARGETEND);
 
 		// Get class name
-		INT_PTR foundPos = 0;
+		intptr_t foundPos = 0;
 		generic_string classStructName = parseSubLevel(targetStart, targetEnd, _classNameExprArray, foundPos, ppEditView);
 		
 
@@ -590,7 +590,7 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 			targetEnd = getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView);
 		}
 
-		if (targetEnd > static_cast<INT_PTR>(end)) //we found a result but outside our range, therefore do not process it
+		if (targetEnd > static_cast<intptr_t>(end)) //we found a result but outside our range, therefore do not process it
 			break;
 		
 		scannedZones.push_back(pair<size_t, size_t>(targetStart, targetEnd));
@@ -619,20 +619,20 @@ void FunctionParser::getCommentZones(vector< pair<size_t, size_t> > & commentZon
 	int flags = SCFIND_REGEXP | SCFIND_POSIX | SCFIND_REGEXP_DOTMATCHESNL;
 
 	(*ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	INT_PTR targetStart = (*ppEditView)->searchInTarget(_commentExpr.c_str(), _commentExpr.length(), begin, end);
-	INT_PTR targetEnd = 0;
+	intptr_t targetStart = (*ppEditView)->searchInTarget(_commentExpr.c_str(), _commentExpr.length(), begin, end);
+	intptr_t targetEnd = 0;
 	
 	while (targetStart >= 0)
 	{
 		targetStart = (*ppEditView)->execute(SCI_GETTARGETSTART);
 		targetEnd = (*ppEditView)->execute(SCI_GETTARGETEND);
-		if (targetEnd > static_cast<INT_PTR>(end)) //we found a result but outside our range, therefore do not process it
+		if (targetEnd > static_cast<intptr_t>(end)) //we found a result but outside our range, therefore do not process it
 			break;
 
 		commentZone.push_back(pair<size_t, size_t>(targetStart, targetEnd));
 
-		INT_PTR foundTextLen = targetEnd - targetStart;
-		if (targetStart + foundTextLen == static_cast<INT_PTR>(end))
+		intptr_t foundTextLen = targetEnd - targetStart;
+		if (targetStart + foundTextLen == static_cast<intptr_t>(end))
             break;
 		
 		begin = targetStart + foundTextLen;

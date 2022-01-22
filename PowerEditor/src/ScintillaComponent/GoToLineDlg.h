@@ -50,7 +50,7 @@ public :
 protected :
 	enum mode {go2line, go2offsset};
 	mode _mode = go2line;
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
     ScintillaEditView **_ppEditView = nullptr;

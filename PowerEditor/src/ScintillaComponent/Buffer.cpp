@@ -647,14 +647,14 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	if (!fp)
 		return BUFFER_INVALID;
 	_fseeki64(fp, 0, SEEK_END);
-	size_t fileSize = _ftelli64(fp);
+	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);
-
+	
 	bool ownDoc = false;
 	if (!doc)
 	{
 		// If file exceeds 200MB, activate large file mode
-		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, fileSize < (200 * 1024 * 1024) ? 0 : SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE);
+		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, fileSize < NPP_STYLING_FILESIZE_LIMIT ? 0 : SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE);
 		ownDoc = true;
 	}
 
@@ -751,7 +751,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	if (!fp)
 		return false;
 	_fseeki64(fp, 0, SEEK_END);
-	size_t fileSize = _ftelli64(fp);
+	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);
 
 	bool res = loadFileData(doc, fileSize, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
@@ -1352,14 +1352,14 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, size_t fileSize, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
+bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
 		return false;
 
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
-	size_t bufferSizeRequested = fileSize +min(1 << 20, fileSize / 6);
+	int64_t bufferSizeRequested = fileSize +min(1 << 20, fileSize / 6);
 	
 	NppParameters& nppParam = NppParameters::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();

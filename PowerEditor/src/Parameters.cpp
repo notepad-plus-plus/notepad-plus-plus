@@ -791,6 +791,10 @@ winVer NppParameters::getWindowsVersion()
 		_platForm = PF_X86;
 		break;
 
+	case PROCESSOR_ARCHITECTURE_ARM64:
+		_platForm = PF_ARM64;
+		break;
+
 	default:
 		_platForm = PF_UNKNOWN;
 	}
@@ -7104,6 +7108,7 @@ generic_string NppParameters::getWinVerBitStr() const
 
 	case PF_X64:
 	case PF_IA64:
+	case PF_ARM64:
 		return TEXT("64-bit");
 
 	default:

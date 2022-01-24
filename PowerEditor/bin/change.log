@@ -1,20 +1,19 @@
-Notepad++ v8.2 new features and bug-fixes:
+Notepad++ v8.2.1 new features and bug-fixes:
 
-1.  Add exclude folder(s) capacity in Find in Files (mouse hover on "Filters" label for getting the example on tool-tip). 
-2.  Fix UTF-8 detected wrongly as TIS-620 encoding issue. 
-3.  Add auto save loaded session on exit feature (while "Open session in a new instance" is set in Multi-instance settings).
-4.  A comprehensive fix for dockable panels losing background color when switching back Notepad++.
-5.  Fix memory leak while toggling between Dark/Lite Mode.
-6.  Fix caret left-right inverse moving in RTL mode issue.
-7.  Fix Document List icons unchanged issue after switching to dark mode or changing to alternative icons.
-8.  Fix incorrect folding behaviour in C, C++, Java, JavaScript, TypeScript and Objective-C.
-9.  Update boost regexp from v1.76 to v1.78
-10. "Rename tab" name field enlargement (from 20 to 63 char!).
-11. Apply "crontab" file to the syntax highlighting of bash.
+1.  Fix regression of loaded session being empty on exit.
+2.  Add Find/Replace text swap button in Find replace dialog.
+3.  Add an option for inserting auto-completion selection to fix hitting twice ENTER to go to next line.
+4.  Fix installer x64 not detected the previous installation location.
+5.  Add copy name/path commands to DocList and Edit menu.
+6.  Fix Recent Files List not revised issue after "Save As" command.
+7.  Fix Windows 11 detected wrongly issue in "Debug information".
+8.  Fix "Save As" command cannot be used as "Save" issue.
+9.  Fix visual glitch regression of fg/bg color disabling.
+10. Fix wrong keywords (of preprocessor in C) highlighting in Java.
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.2/
+https://notepad-plus-plus.org/downloads/v8.2.1/
 
 
 Included plugins:

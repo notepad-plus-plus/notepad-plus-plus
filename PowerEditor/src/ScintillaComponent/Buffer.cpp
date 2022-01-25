@@ -1378,6 +1378,24 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 			fclose(fp);
 			return false;
 		}
+		else // x64
+		{
+			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
+				_pNotepadPlus->_pEditView->getHSelf(),
+				TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?"),
+				TEXT("Opening huge file warning"),
+				MB_YESNO | MB_APPLMODAL);
+
+			if (res == IDYES)
+			{
+				// Do nothing, continue the loading
+			}
+			else
+			{
+				fclose(fp);
+				return false;
+			}
+		}
 	}
 
 	//Setup scratchtilla for new filedata

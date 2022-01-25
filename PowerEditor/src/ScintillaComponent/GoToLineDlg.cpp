@@ -88,15 +88,15 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 				case IDOK :
                 {
-                    int line = getLine();
+                    long long line = getLine();
                     if (line != -1)
                     {
                         display(false);
                         cleanLineEdit();
 						if (_mode == go2line)
 						{
-							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, line-1);
-							(*_ppEditView)->execute(SCI_GOTOLINE, line-1);
+							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, static_cast<WPARAM>(line - 1));
+							(*_ppEditView)->execute(SCI_GOTOLINE, static_cast<WPARAM>(line - 1));
 						}
 						else
 						{
@@ -105,7 +105,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 							{
 								// make sure not jumping into the middle of a multibyte character
 								// or into the middle of a CR/LF pair for Windows files
-								auto before = (*_ppEditView)->execute(SCI_POSITIONBEFORE, line);
+								auto before = (*_ppEditView)->execute(SCI_POSITIONBEFORE, static_cast<WPARAM>(line));
 								posToGoto = (*_ppEditView)->execute(SCI_POSITIONAFTER, before);
 							}
 							auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posToGoto);
@@ -185,6 +185,8 @@ void GoToLineDlg::updateLinesNumbers() const
 		size_t currentDocLength = (*_ppEditView)->getCurrentDocLen();
 		limit = (currentDocLength > 0 ? currentDocLength - 1 : 0);
 	}
-    ::SetDlgItemInt(_hSelf, ID_CURRLINE, (UINT)current, FALSE);
-    ::SetDlgItemInt(_hSelf, ID_LASTLINE, (UINT)limit, FALSE);
+    
+	
+	::SetDlgItemTextA(_hSelf, ID_CURRLINE, std::to_string(current).c_str());
+	::SetDlgItemTextA(_hSelf, ID_LASTLINE, std::to_string(limit).c_str());
 }

@@ -640,12 +640,16 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 
 
 // backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
-BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
+BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp)
 {
 	//Get file size
-	FILE* fp = generic_fopen(filename, TEXT("rb"));
+	const TCHAR* pPath = filename;
+	if (!::PathFileExists(pPath))
+		pPath = backupFileName;
+	FILE* fp = generic_fopen(pPath, TEXT("rb"));
 	if (!fp)
 		return BUFFER_INVALID;
+
 	_fseeki64(fp, 0, SEEK_END);
 	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);
@@ -1380,15 +1384,21 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		}
 		else // x64
 		{
+
 			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?"),
+				TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?\n(Due to the performance issue, the Word Wrap feature will be disabled if it's ON)"),
 				TEXT("Opening huge file warning"),
 				MB_YESNO | MB_APPLMODAL);
 
 			if (res == IDYES)
 			{
-				// Do nothing, continue the loading
+				// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
+				bool isWrap = _pNotepadPlus->_pEditView->isWrap();
+				if (isWrap)
+				{
+					_pNotepadPlus->command(IDM_VIEW_WRAP);
+				}
 			}
 			else
 			{

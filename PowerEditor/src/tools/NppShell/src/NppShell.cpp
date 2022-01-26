@@ -24,10 +24,10 @@ TCHAR szDefaultMenutext[] = TEXT("Edit with &Notepad++");
 
 #ifdef WIN64
 TCHAR szShellExtensionTitle[] = TEXT("ANotepad++64");
-TCHAR szShellExtensionKey[] = TEXT("*\\shellex\\ContextMenuHandlers\\ANotepad++64");
+TCHAR szShellExtensionKey[] = TEXT("%s*\\shellex\\ContextMenuHandlers\\ANotepad++64");
 #else
 TCHAR szShellExtensionTitle[] = TEXT("ANotepad++");
-TCHAR szShellExtensionKey[] = TEXT("*\\shellex\\ContextMenuHandlers\\ANotepad++");
+TCHAR szShellExtensionKey[] = TEXT("%s*\\shellex\\ContextMenuHandlers\\ANotepad++");
 #endif
 
 #define szHelpTextA "Edits the selected file(s) with Notepad++"
@@ -44,8 +44,8 @@ extern "C" int APIENTRY DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRe
 STDAPI DllRegisterServer(void);
 STDAPI DllUnregisterServer(void);
 
-BOOL RegisterServer();
-BOOL UnregisterServer();
+BOOL RegisterServer(BOOL bUserMode);
+BOOL UnregisterServer(BOOL bUserMode);
 void MsgBox(LPCTSTR lpszMsg);
 void MsgBoxError(LPCTSTR lpszMsg);
 BOOL CheckNpp(LPCTSTR path);
@@ -62,7 +62,6 @@ void InvalidateIcon(HICON * iconSmall, HICON * iconLarge);
 
 //Types
 struct DOREGSTRUCT {
-	HKEY	hRootKey;
 	LPCTSTR	szSubKey;
 	LPCTSTR	lpszValueName;
 	DWORD	type;
@@ -102,22 +101,32 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID *ppvOut) {
 // DllRegisterServer
 //---------------------------------------------------------------------------
 STDAPI DllRegisterServer(void) {
-	return (RegisterServer() ? S_OK : E_FAIL);
+	return (RegisterServer(false) ? S_OK : E_FAIL);
 }
 
 //---------------------------------------------------------------------------
 // DllUnregisterServer
 //---------------------------------------------------------------------------
 STDAPI DllUnregisterServer(void) {
-	return (UnregisterServer() ? S_OK : E_FAIL);
+	return (UnregisterServer(false) ? S_OK : E_FAIL);
 }
 
-STDAPI DllInstall(BOOL bInstall, LPCWSTR /*pszCmdLine*/) {
+STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine) {
+	static const wchar_t szUserSwitch[] = L"user";
+
 	if (bInstall) {
-		DialogBox(_hModule, MAKEINTRESOURCE(IDD_DIALOG_SETTINGS), NULL, (DLGPROC)&DlgProcSettings);
+		if ((pszCmdLine != nullptr) && (_wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0)) {
+			return (RegisterServer(true) ? S_OK : E_FAIL);
+		} else {
+			DialogBox(_hModule, MAKEINTRESOURCE(IDD_DIALOG_SETTINGS), NULL, (DLGPROC)&DlgProcSettings);
+		}
 		return S_OK;
 	} else {
-		MsgBoxError(TEXT("Uninstalling not supported, use DllUnregisterServer instead"));
+		if ((pszCmdLine != nullptr) && (_wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0)) {
+			return (UnregisterServer(true) ? S_OK : E_FAIL);
+		} else {
+			MsgBoxError(TEXT("Uninstalling not supported, use DllUnregisterServer instead"));
+		}
 		return E_NOTIMPL;
 	}
 }
@@ -126,7 +135,7 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR /*pszCmdLine*/) {
 // RegisterServer
 // Create registry entries and setup the shell extension
 //---------------------------------------------------------------------------
-BOOL RegisterServer() {
+BOOL RegisterServer(BOOL bUserMode) {
 	int      i;
 	HKEY     hKey;
 	LRESULT  lResult;
@@ -150,36 +159,39 @@ BOOL RegisterServer() {
 	GetModuleFileName(_hModule, szModule, MAX_PATH);
 
 	static DOREGSTRUCT ClsidEntries[] = {
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s"),									NULL,					REG_SZ,		szShellExtensionTitle},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					NULL,					REG_SZ,		szModule},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					TEXT("ThreadingModel"),	REG_SZ,		TEXT("Apartment")},
+		{TEXT("%sCLSID\\%s"),								NULL,					REG_SZ,		szShellExtensionTitle},
+		{TEXT("%sCLSID\\%s\\InprocServer32"),				NULL,					REG_SZ,		szModule},
+		{TEXT("%sCLSID\\%s\\InprocServer32"),				TEXT("ThreadingModel"),	REG_SZ,		TEXT("Apartment")},
 
 		//Settings
 		// Context menu
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Title"),			REG_SZ,		szDefaultMenutext},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Path"),			REG_SZ,		szDefaultPath},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Custom"),			REG_SZ,		szDefaultCustomcommand},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("ShowIcon"),		REG_DWORD,	(LPTSTR)&showIcon},
+		{TEXT("%sCLSID\\%s\\Settings"),						TEXT("Title"),			REG_SZ,		szDefaultMenutext},
+		{TEXT("%sCLSID\\%s\\Settings"),						TEXT("Path"),			REG_SZ,		szDefaultPath},
+		{TEXT("%sCLSID\\%s\\Settings"),						TEXT("Custom"),			REG_SZ,		szDefaultCustomcommand},
+		{TEXT("%sCLSID\\%s\\Settings"),						TEXT("ShowIcon"),		REG_DWORD,	(LPTSTR)&showIcon},
 		// Icon
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Dynamic"),		REG_DWORD,	(LPTSTR)&isDynamic},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Maxtext"),		REG_DWORD,	(LPTSTR)&maxText},
+		{TEXT("%sCLSID\\%s\\Settings"),						TEXT("Dynamic"),		REG_DWORD,	(LPTSTR)&isDynamic},
+		{TEXT("%sCLSID\\%s\\Settings"),						TEXT("Maxtext"),		REG_DWORD,	(LPTSTR)&maxText},
 
 		//Registration
 		// Context menu
-		{HKEY_CLASSES_ROOT,	szShellExtensionKey,	NULL,					REG_SZ,		szGUID},
+		{szShellExtensionKey,	NULL,					REG_SZ,		szGUID},
 		// Icon
-		//{HKEY_CLASSES_ROOT,	TEXT("Notepad++_file\\shellex\\IconHandler"),		NULL,					REG_SZ,		szGUID},
+		//{TEXT("%sNotepad++_file\\shellex\\IconHandler"),		NULL,					REG_SZ,		szGUID},
 
-		{NULL,				NULL,												NULL,					REG_SZ,		NULL}
+		{NULL,												NULL,					REG_SZ,		NULL}
 	};
 
+	HKEY hRootKey = (bUserMode) ? HKEY_CURRENT_USER : HKEY_CLASSES_ROOT;
+	wchar_t *szPrefix = (bUserMode) ? L"SOFTWARE\\Classes\\" : L"";
+
 	// First clear any old entries
-	UnregisterServer();
+	UnregisterServer(bUserMode);
 
 	// Register the CLSID entries
-	for(i = 0; ClsidEntries[i].hRootKey; i++) {
-		wsprintf(szSubKey, ClsidEntries[i].szSubKey, szGUID);
-		lResult = RegCreateKeyEx(ClsidEntries[i].hRootKey, szSubKey, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hKey, &dwDisp);
+	for(i = 0; ClsidEntries[i].szSubKey; i++) {
+		wsprintf(szSubKey, ClsidEntries[i].szSubKey, szPrefix, szGUID);
+		lResult = RegCreateKeyEx(hRootKey, szSubKey, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hKey, &dwDisp);
 		if (NOERROR == lResult) {
 			TCHAR szData[MAX_PATH];
 			// If necessary, create the value string
@@ -200,22 +212,26 @@ BOOL RegisterServer() {
 //---------------------------------------------------------------------------
 // UnregisterServer
 //---------------------------------------------------------------------------
-BOOL UnregisterServer() {
+BOOL UnregisterServer(BOOL bUserMode) {
 	TCHAR szKeyTemp[MAX_PATH + GUID_STRING_SIZE];
 
-	RegDeleteKey(HKEY_CLASSES_ROOT, szShellExtensionKey);
+	HKEY hRootKey = (bUserMode) ? HKEY_CURRENT_USER : HKEY_CLASSES_ROOT;
+	wchar_t* szPrefix = (bUserMode) ? L"SOFTWARE\\Classes\\" : L"";
 
-	wsprintf(szKeyTemp, TEXT("Notepad++_file\\shellex\\IconHandler"));
-	RegDeleteKey(HKEY_CLASSES_ROOT, szKeyTemp);
-	wsprintf(szKeyTemp, TEXT("Notepad++_file\\shellex"));
-	RegDeleteKey(HKEY_CLASSES_ROOT, szKeyTemp);
+	wsprintf(szKeyTemp, TEXT("%sNotepad++_file\\shellex\\IconHandler"), szPrefix);
+	RegDeleteKey(hRootKey, szShellExtensionKey);
 
-	wsprintf(szKeyTemp, TEXT("CLSID\\%s\\InprocServer32"), szGUID);
-	RegDeleteKey(HKEY_CLASSES_ROOT, szKeyTemp);
-	wsprintf(szKeyTemp, TEXT("CLSID\\%s\\Settings"), szGUID);
-	RegDeleteKey(HKEY_CLASSES_ROOT, szKeyTemp);
-	wsprintf(szKeyTemp, TEXT("CLSID\\%s"), szGUID);
-	RegDeleteKey(HKEY_CLASSES_ROOT, szKeyTemp);
+	wsprintf(szKeyTemp, TEXT("%sNotepad++_file\\shellex\\IconHandler"), szPrefix);
+	RegDeleteKey(hRootKey, szKeyTemp);
+	wsprintf(szKeyTemp, TEXT("%sNotepad++_file\\shellex"), szPrefix);
+	RegDeleteKey(hRootKey, szKeyTemp);
+
+	wsprintf(szKeyTemp, TEXT("%sCLSID\\%s\\InprocServer32"), szPrefix, szGUID);
+	RegDeleteKey(hRootKey, szKeyTemp);
+	wsprintf(szKeyTemp, TEXT("%sCLSID\\%s\\Settings"), szPrefix, szGUID);
+	RegDeleteKey(hRootKey, szKeyTemp);
+	wsprintf(szKeyTemp, TEXT("%sCLSID\\%s"), szPrefix, szGUID);
+	RegDeleteKey(hRootKey, szKeyTemp);
 
 	return TRUE;
 }

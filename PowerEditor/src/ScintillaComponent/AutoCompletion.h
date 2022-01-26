@@ -146,57 +146,7 @@ private:
         "uuuuuuuuuuuuuuuu"
     };
 
-    const char* xpmwd[45] = {
-        /* columns rows colors chars-per-pixel */
-        "16 16 28 1 ",
-        "  c #000000",
-        ". c #3A0000",
-        "X c #3A3A00",
-        "o c #00003A",
-        "O c #660000",
-        "+ c #663A3A",
-        "@ c #000066",
-        "# c #3A6666",
-        "$ c #903A00",
-        "% c #B66600",
-        "& c #90663A",
-        "* c #DB903A",
-        "= c #FFB666",
-        "- c #003A90",
-        "; c #0066B6",
-        ": c #3A90DB",
-        "> c #66B6DB",
-        ", c #66B6FF",
-        "< c #B69090",
-        "1 c #FFDB90",
-        "2 c #FFDBB6",
-        "3 c #DBFFB6",
-        "4 c #FFFFB6",
-        "5 c #90DBFF",
-        "6 c #B6FFFF",
-        "7 c #FFFFDB",
-        "8 c #DBFFFF",
-        "9 c None",
-        /* pixels */
-        "9999999999999999",
-        "9999999999999999",
-        "9999999999999999",
-        "9999999999999999",
-        "&. @592&X:997<+;",
-        "9*  :94O -89=  :",
-        "91. -89% @69= @6",
-        "97$ @69*  ,9% :9",
-        "99% o54O  :4O-89",
-        "99*  >$#. ;%@699",
-        "991.  -3O  o5999",
-        "994O @67$  ,9999",
-        "997$o599% :99999",
-        "9999999999999999",
-        "9999999999999999",
-        "9999999999999999"
-    };
-
-	FunctionCallTip _funcCalltip;
+ 	FunctionCallTip _funcCalltip;
 
 	const TCHAR * getApiFileName();
 	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars, TCHAR *excludeChars);

@@ -60,7 +60,6 @@ bool AutoCompletion::showApiComplete()
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
 	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
-	_pEditView->execute(SCI_REGISTERIMAGE, 1001, LPARAM(xpmwd));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
@@ -147,7 +146,6 @@ bool AutoCompletion::showApiAndWordComplete()
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
 	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
-	_pEditView->execute(SCI_REGISTERIMAGE, 1001, LPARAM(xpmwd));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -182,15 +180,11 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 		if (foundTextLen < bufSize)
 		{
 			TCHAR w[bufSize];
-			generic_string imgid = TEXT("?1001");
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
 			if (!allChars || (generic_strncmp (w, allChars, bufSize) != 0))
 			{
 				if (!isInList(w, wordArray))
-				{
-					generic_string word = w + imgid;
-					wordArray.push_back(word.c_str());
-				}
+					wordArray.push_back(w);
 			}
 		}
 		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
@@ -412,7 +406,6 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
 	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
-	_pEditView->execute(SCI_REGISTERIMAGE, 1001, LPARAM(xpmwd));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;

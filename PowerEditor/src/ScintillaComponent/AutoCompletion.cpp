@@ -20,6 +20,66 @@
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
 
+const auto FUNC_IMG_ID = 1000;
+const char* xpmfn[] = {
+	/* columns rows colors chars-per-pixel */
+	"16 16 36 1 ",
+	"u c None",
+	"  c #131313",
+	". c #252525",
+	"X c #161616",
+	"o c #202020",
+	"O c #393939",
+	"+ c #242424",
+	"@ c #282828",
+	"# c #4E4E4E",
+	"$ c #343434",
+	"% c #5B5B5B",
+	"& c #5F5F5F",
+	"* c #626262",
+	"= c #404040",
+	"- c #686868",
+	"; c #434343",
+	": c #464646",
+	"> c #484848",
+	", c #494949",
+	"< c #515151",
+	"1 c #929292",
+	"2 c #9B9B9B",
+	"3 c #636363",
+	"4 c #656565",
+	"5 c #AFAFAF",
+	"6 c #B7B7B7",
+	"7 c #757575",
+	"8 c #CDCDCD",
+	"9 c #858585",
+	"0 c #868686",
+	"q c #DDDDDD",
+	"w c #E1E1E1",
+	"e c #E9E9E9",
+	"r c #EEEEEE",
+	"t c #959595",
+	"y c #F6F6F6",
+	/* pixels */
+	"uuuuuuuuuuuuuuuu",
+	"uuuuu5o.:yuuuuuu",
+	"uuuu8 $:.0uuuuuu",
+	"uuuu2 yuuuuuuuuu",
+	"uuu6$ 46uuuuuuuu",
+	"uuuO   Ouuuuuuuu",
+	"uuuu;#uuuuuuuuuu",
+	"uuuu##y& 3uu<+uu",
+	"uuuu#;0.@X0, >uu",
+	"uuuu+>uuroo >uuu",
+	"uuuu >uuu* =uuuu",
+	"uuuu 2uu, Xotuuu",
+	"uuue 4u< >9 %owu",
+	"u:,#X0uO>uu1 $yu",
+	"u- +7uuuuuuuuuuu",
+	"uuuuuuuuuuuuuuuu"
+};
+
+
 using namespace std;
 
 static bool isInList(const generic_string& word, const vector<generic_string> & wordArray)
@@ -58,6 +118,8 @@ bool AutoCompletion::showApiComplete()
 		return false;
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
@@ -142,6 +204,8 @@ bool AutoCompletion::showApiAndWordComplete()
 	// Make Scintilla show the autocompletion menu
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -400,6 +464,8 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	// Make Scintilla show the autocompletion menu
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -901,12 +967,14 @@ bool AutoCompletion::setLanguage(LangType language)
 		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
 		{
 			const TCHAR *name = funcNode->Attribute(TEXT("name"));
+			generic_string imgid = TEXT("?") + intToString(FUNC_IMG_ID);
 			if (name)
 			{
 				size_t len = lstrlen(name);
 				if (len)
 				{
-					_keyWordArray.push_back(name);
+					generic_string word = name + imgid;
+					_keyWordArray.push_back(word.c_str());
 					if (len > _keyWordMaxLen)
 						_keyWordMaxLen = len;
 				}

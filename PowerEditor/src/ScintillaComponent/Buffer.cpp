@@ -640,12 +640,16 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 
 
 // backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
-BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
+BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp)
 {
 	//Get file size
-	FILE* fp = generic_fopen(filename, TEXT("rb"));
+	const TCHAR* pPath = filename;
+	if (!::PathFileExists(pPath))
+		pPath = backupFileName;
+	FILE* fp = generic_fopen(pPath, TEXT("rb"));
 	if (!fp)
 		return BUFFER_INVALID;
+
 	_fseeki64(fp, 0, SEEK_END);
 	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);

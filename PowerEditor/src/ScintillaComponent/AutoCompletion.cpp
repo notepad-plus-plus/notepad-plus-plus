@@ -58,6 +58,9 @@ bool AutoCompletion::showApiComplete()
 		return false;
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
+	_pEditView->execute(SCI_REGISTERIMAGE, 1001, LPARAM(xpmwd));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
@@ -142,6 +145,9 @@ bool AutoCompletion::showApiAndWordComplete()
 	// Make Scintilla show the autocompletion menu
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
+	_pEditView->execute(SCI_REGISTERIMAGE, 1001, LPARAM(xpmwd));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -176,11 +182,15 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 		if (foundTextLen < bufSize)
 		{
 			TCHAR w[bufSize];
+			generic_string imgid = TEXT("?1001");
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
 			if (!allChars || (generic_strncmp (w, allChars, bufSize) != 0))
 			{
 				if (!isInList(w, wordArray))
-					wordArray.push_back(w);
+				{
+					generic_string word = w + imgid;
+					wordArray.push_back(word.c_str());
+				}
 			}
 		}
 		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
@@ -400,6 +410,9 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	// Make Scintilla show the autocompletion menu
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
+	_pEditView->execute(SCI_REGISTERIMAGE, 1001, LPARAM(xpmwd));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -901,12 +914,14 @@ bool AutoCompletion::setLanguage(LangType language)
 		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
 		{
 			const TCHAR *name = funcNode->Attribute(TEXT("name"));
+			generic_string imgid = TEXT("?1000");
 			if (name)
 			{
 				size_t len = lstrlen(name);
 				if (len)
 				{
-					_keyWordArray.push_back(name);
+					generic_string word = name + imgid;
+					_keyWordArray.push_back(word.c_str());
 					if (len > _keyWordMaxLen)
 						_keyWordMaxLen = len;
 				}

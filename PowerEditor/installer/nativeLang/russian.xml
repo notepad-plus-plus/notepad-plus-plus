@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.2.1:
-- add new lines
+Updated to v8.2.2:
+- add tr. new lines
+- fix description opt.
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.2.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.2.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -440,7 +441,7 @@ Updated to v8.2.1:
 			</TabBar>
 		</Menu>
 		<Dialog>
-			<Find title="" titleFind="Найти " titleReplace="Замена " titleFindInFiles="Найти в файлах " titleFindInProjects="Найти в Проектах " titleMark="Пометки ">
+			<Find title="" titleFind="Найти" titleReplace="Замена" titleFindInFiles="Найти в файлах" titleFindInProjects="Найти в Проектах" titleMark="Пометки">
 				<Item id="1"    name="Найти Далее"/>
 				<Item id="2"    name="Закрыть"/>
 				<Item id="1603" name="Только целые слова"/>
@@ -477,7 +478,7 @@ Updated to v8.2.1:
 				<Item id="1686" name="Прозрачность"/>
 				<Item id="1687" name="Когда неактивно"/>
 				<Item id="1688" name="Всегда"/>
-				<Item id="1703" name="и новые строки"/>
+				<Item id="1703" name="&amp;. - новая строка"/>
 				<Item id="1722" name="Обратное направление поиска"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼"/>
@@ -1006,6 +1007,15 @@ Updated to v8.2.1:
 					<Item id="6721" name="Средняя часть"/>
 					<Item id="6722" name="Правая часть"/>
 					<Item id="6723" name="Добавить"/>
+					<ComboBox id="6724">
+						<Element name="Полный путь к файлу"/>
+						<Element name="Имя файла"/>
+						<Element name="Директория файла"/>
+						<Element name="Страница"/>
+						<Element name="Корот. формат даты"/>
+						<Element name="Длин. формат даты"/>
+						<Element name="Время"/>
+					</ComboBox>
 					<Item id="6725" name="Переменная:"/>
 					<Item id="6727" name="Какая часть..."/>
 					<Item id="6728" name="Колонтитулы"/>
@@ -1200,7 +1210,7 @@ Updated to v8.2.1:
 				<Item id="1717" name="Обычный"/>
 				<Item id="1719" name="Регуляр. выражен."/>
 				<Item id="1718" name="Расширенный (\n, \r, \t, \0, \x...)"/>
-				<Item id="1720" name="и новые строки"/>
+				<Item id="1720" name="&amp;. - новая строка"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Сохранение...">
 				<Item id="1761" name="Сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
@@ -1247,6 +1257,7 @@ Updated to v8.2.1:
 			<DocTooDirtyToMonitor        title="Проблема Мониторинга"                message="Документ в работе. Сохраните внесённые изменения перед его мониторингом."/>
 			<DocNoExistToMonitor         title="Проблема Мониторинга"                message="Для мониторинга файл должен существовать."/>
 			<FileTooBigToOpen            title="Проблема с размером файла"           message="Файл слишком велик, чтобы открыть его в Notepad++"/>
+			<WantToOpenHugeFile          title="Открытие файла большого размера"     message="Открытие файла размером 2ГБ и более, может занять несколько минут.&#x0A;Вы точно хотите его открыть?"/>
 			<CreateNewFileOrNot          title="Создание нового файла"               message="&quot;$STR_REPLACE$&quot; не существует. Создать его?"/>
 			<CreateNewFileError          title="Создание нового файла"               message="Не удается создать файл &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError               title="ОШИБКА"                              message="Невозможно открыть файл &quot;$STR_REPLACE$&quot;."/>

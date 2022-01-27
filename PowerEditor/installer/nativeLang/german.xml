@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-01-19 by Daniel Fuchs
+	last modified: 2022-01-27 by Daniel Fuchs
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -15,7 +15,7 @@
 	<Native-Langue name="Deutsch" filename="german.xml" version="8.2.1">
 		<Menu>
 			<Main>
-                <!-- Main Menu Entries -->
+				<!-- Main Menu Entries -->
 				<Entries>
 					<Item menuId="file" name="&amp;Datei"/>
 					<Item menuId="edit" name="&amp;Bearbeiten"/>
@@ -30,7 +30,7 @@
 					<Item idName="Plugins" name="Er&amp;weiterungen"/>
 					<Item idName="Window" name="Fe&amp;nster"/>
 				</Entries>
-                <!-- Sub Menu Entries -->
+				<!-- Sub Menu Entries -->
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Aktuellen &amp;Ordner öffnen"/>
 					<Item subMenuId="file-closeMore" name="&amp;Mehrere schließen"/>
@@ -51,7 +51,7 @@
 					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
-					<Item subMenuId="search-copyStyledText" name="Gestylten Text kopieren"/>
+					<Item subMenuId="search-copyStyledText" name="Hervorgehobenen Text kopieren"/>
 					<Item subMenuId="search-bookmark" name="&amp;Lesezeichen"/>
 					<Item subMenuId="view-currentFileIn" name="Aktuelle Datei betrachten in"/>
 					<Item subMenuId="view-showSymbol" name="Symbole anzeigen"/>
@@ -93,7 +93,7 @@
 					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="41003" name="S&amp;chließen"/>
 					<Item id="41004" name="All&amp;e schließen"/>
-					<Item id="41005" name="Alle schließen bis auf &amp;aktuelle Datei"/>
+					<Item id="41005" name="Alle schließen außer die &amp;aktuelle Datei"/>
 					<Item id="41009" name="Dateien &amp;links schließen"/>
 					<Item id="41018" name="Dateien &amp;rechts schließen"/>
 					<Item id="41024" name="Alle unveränderten Dateien schließen"/>
@@ -219,41 +219,41 @@
 					<Item id="43013" name="In &amp;Dateien suchen …"/>
 					<Item id="43014" name="Wort am Cursor suchen (&amp;ohne Verlauf)"/>
 					<Item id="43015" name="Wor&amp;t am Cursor rückwärts suchen (ohne Verlauf)"/>
-					<Item id="43022" name="Hervorhebung &amp;1"/>
-					<Item id="43023" name="Hervorhebung &amp;1 entfernen"/>
-					<Item id="43024" name="Hervorhebung &amp;2"/>
-					<Item id="43025" name="Hervorhebung &amp;2 entfernen"/>
-					<Item id="43026" name="Hervorhebung &amp;3"/>
-					<Item id="43027" name="Hervorhebung &amp;3 entfernen"/>
-					<Item id="43028" name="Hervorhebung &amp;4"/>
-					<Item id="43029" name="Hervorhebung &amp;4 entfernen"/>
-					<Item id="43030" name="Hervorhebung &amp;5"/>
-					<Item id="43031" name="Hervorhebung &amp;5 entfernen"/>
+					<Item id="43022" name="Markierung &amp;1"/>
+					<Item id="43023" name="Markierung &amp;1 entfernen"/>
+					<Item id="43024" name="Markierung &amp;2"/>
+					<Item id="43025" name="Markierung &amp;2 entfernen"/>
+					<Item id="43026" name="Markierung &amp;3"/>
+					<Item id="43027" name="Markierung &amp;3 entfernen"/>
+					<Item id="43028" name="Markierung &amp;4"/>
+					<Item id="43029" name="Markierung &amp;4 entfernen"/>
+					<Item id="43030" name="Markierung &amp;5"/>
+					<Item id="43031" name="Markierung &amp;5 entfernen"/>
 					<Item id="43032" name="&amp;Alle entfernen"/>
-					<Item id="43033" name="Hervorhebung &amp;1"/>
-					<Item id="43034" name="Hervorhebung &amp;2"/>
-					<Item id="43035" name="Hervorhebung &amp;3"/>
-					<Item id="43036" name="Hervorhebung &amp;4"/>
-					<Item id="43037" name="Hervorhebung &amp;5"/>
-					<Item id="43038" name="Hervorhebung aus &amp;Suche"/>
-					<Item id="43039" name="Hervorhebung &amp;1"/>
-					<Item id="43040" name="Hervorhebung &amp;2"/>
-					<Item id="43041" name="Hervorhebung &amp;3"/>
-					<Item id="43042" name="Hervorhebung &amp;4"/>
-					<Item id="43043" name="Hervorhebung &amp;5"/>
-					<Item id="43044" name="Hervorhebung aus &amp;Suche"/>
-					<Item id="43055" name="1. Stil"/>
-					<Item id="43056" name="2. Stil"/>
-					<Item id="43057" name="3. Stil"/>
-					<Item id="43058" name="4. Stil"/>
-					<Item id="43059" name="5. Stil"/>
-					<Item id="43060" name="Alle Stile"/>
-					<Item id="43061" name="Hervorhebung aus &amp;Suche"/>
-					<Item id="43062" name="Verwende 1. Stil"/>
-					<Item id="43063" name="Verwende 2. Stil"/>
-					<Item id="43064" name="Verwende 3. Stil"/>
-					<Item id="43065" name="Verwende 4. Stil"/>
-					<Item id="43066" name="Verwende 5. Stil"/>
+					<Item id="43033" name="Markierung &amp;1"/>
+					<Item id="43034" name="Markierung &amp;2"/>
+					<Item id="43035" name="Markierung &amp;3"/>
+					<Item id="43036" name="Markierung &amp;4"/>
+					<Item id="43037" name="Markierung &amp;5"/>
+					<Item id="43038" name="Markierung aus &amp;Suche"/>
+					<Item id="43039" name="Markierung &amp;1"/>
+					<Item id="43040" name="Markierung &amp;2"/>
+					<Item id="43041" name="Markierung &amp;3"/>
+					<Item id="43042" name="Markierung &amp;4"/>
+					<Item id="43043" name="Markierung &amp;5"/>
+					<Item id="43044" name="Markierung aus &amp;Suche"/>
+					<Item id="43055" name="Markierung &amp;1"/>
+					<Item id="43056" name="Markierung &amp;2"/>
+					<Item id="43057" name="Markierung &amp;3"/>
+					<Item id="43058" name="Markierung &amp;4"/>
+					<Item id="43059" name="Markierung &amp;5"/>
+					<Item id="43060" name="Alle Markierungen"/>
+					<Item id="43061" name="Markierung aus &amp;Suche"/>
+					<Item id="43062" name="Markierung &amp;1"/>
+					<Item id="43063" name="Markierung &amp;2"/>
+					<Item id="43064" name="Markierung &amp;3"/>
+					<Item id="43065" name="Markierung &amp;4"/>
+					<Item id="43066" name="Markierung &amp;5"/>
 					<Item id="43045" name="Suchergebnis-&amp;Fenster"/>
 					<Item id="43046" name="Zum n&amp;ächsten Suchergebnis springen"/>
 					<Item id="43047" name="Zum vorherigen S&amp;uchergebnis springen"/>
@@ -405,7 +405,7 @@
 
 		<Dialog>
 			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleFindInProjects="In Projekten suchen" titleMark="Hervorheben">
-				<Item id="1"    name="Weiter &amp;suchen"/>
+				<Item id="1"    name="Näch&amp;stes finden"/>
 				<Item id="1722" name="&amp;Rückwärts suchen"/>
 				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>
@@ -414,7 +414,7 @@
 				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
 				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
 				<Item id="1614" name="Z&amp;ählen"/>
-				<Item id="1615" name="&amp;Alle hervorheben"/>
+				<Item id="1615" name="&amp;Alle markieren"/>
 				<Item id="1616" name="&amp;Lesezeichen setzen"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
 				<Item id="1611" name="Erset&amp;zen durch:"/>
@@ -423,7 +423,7 @@
 				<Item id="1687" name="Wenn inaktiv"/>
 				<Item id="1688" name="Immer"/>
 				<Item id="1632" name="In &amp;Auswahl"/>
-				<Item id="1633" name="Hervorhebung aufheben"/>
+				<Item id="1633" name="Markierung aufheben"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
 				<Item id="1654" name="Filter:"/>
@@ -450,7 +450,7 @@
 
 			<IncrementalFind title="">
 				<Item id="1681" name="Suchen"/>
-				<Item id="1685" name="Groß-/Kleinschreibung beachten"/>
+				<Item id="1685" name="Groß-/Kleinschreibung"/>
 				<Item id="1690" name="Alle markieren"/>
 			</IncrementalFind>
 
@@ -477,33 +477,33 @@
 			</GoToLine>
 
 			<Run title="Ausführen …">
-				<Item id="1903" name="Auszuführendes Programm hier eingeben"/>
+				<Item id="1903" name="Auszuführendes Programm"/>
 				<Item id="1"    name="&amp;Ausführen"/>
 				<Item id="2"    name="A&amp;bbrechen"/>
 				<Item id="1904" name="&amp;Speichern …"/>
 			</Run>
 
 			<MD5FromFilesDlg title="MD5-Hashwert aus Dateien erstellen">
-				<Item id="1922" name="Dateien zur Erstellung des MD5-Hashwerts wählen …"/>
-				<Item id="1924" name="In die Zwischenablage kopieren"/>
+				<Item id="1922" name="Dateien für MD5-Hashes wählen …"/>
+				<Item id="1924" name="In die Zwischenablage"/>
 				<Item id="2"    name="Schließen"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Erstelle MD5-Hashwert">
 				<Item id="1932" name="Behandle jede Zeile als eigene Zeichenkette"/>
-				<Item id="1934" name="In die Zwischenablage kopieren"/>
+				<Item id="1934" name="In die Zwischenablage"/>
 				<Item id="2"    name="Schließen"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="SHA-256 Hashwert aus Dateien erstellen">
-				<Item id="1922" name="Dateien zur Erstellung des SHA-256-Hashwerts wählen …"/>
-				<Item id="1924" name="In die Zwischenablage kopieren"/>
+				<Item id="1922" name="Dateien für SHA-256-Hashes wählen …"/>
+				<Item id="1924" name="In die Zwischenablage"/>
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Erstelle SHA-256 Hashwert">
 				<Item id="1932" name="Jede Zeile als eigene Zeichenkette behandeln"/>
-				<Item id="1934" name="In die Zwischenablage kopieren"/>
+				<Item id="1934" name="In die Zwischenablage"/>
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromTextDlg>
 
@@ -514,7 +514,7 @@
 				<Item id="5503" name="Installieren"/>
 				<Item id="5504" name="Aktualisieren"/>
 				<Item id="5505" name="Entfernen"/>
-				<Item id="5508" name="Nächstes"/>
+				<Item id="5508" name="Nächstes finden"/>
 				<Item id="2"    name="Schließen"/>
 			</PluginsAdminDlg>
 
@@ -528,17 +528,17 @@
 					<Item id="2205" name="Kursiv"/>
 					<Item id="2206" name="Vordergrundfarbe"/>
 					<Item id="2207" name="Hintergrundfarbe"/>
-					<Item id="2208" name="Schriftart"/>
-					<Item id="2209" name="Größe"/>
-					<Item id="2211" name="Stilbeschreibung"/>
+					<Item id="2208" name="Schriftart:"/>
+					<Item id="2209" name="Größe:"/>
+					<Item id="2211" name="Stilbeschreibung:"/>
 					<Item id="2212" name="Farben"/>
 					<Item id="2213" name="Schriften"/>
-					<Item id="2214" name="Standard-Erw."/>
-					<Item id="2216" name="Benutzer-Erw."/>
+					<Item id="2214" name="Standard-Erw.:"/>
+					<Item id="2216" name="Benutzer-Erw.:"/>
 					<Item id="2218" name="Unterstrichen"/>
 					<Item id="2219" name="Standard-Schlüsselwörter"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter"/>
-					<Item id="2225" name="Sprache"/>
+					<Item id="2225" name="Sprache:"/>
 					<Item id="2226" name="Standard-Vordergrundfarbe"/>
 					<Item id="2227" name="Standard-Hintergrundfarbe"/>
 					<Item id="2228" name="Schriftart als Standard setzen"/>
@@ -573,41 +573,41 @@
 					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
 					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
 					<Item id="45003" name="Zeilenende umwandeln zu Macintosh (CR)"/>
-					<Item id="43022" name="Jeden Text im 1. Stil markieren"/>
-					<Item id="43024" name="Jeden Text im 2. Stil markieren"/>
-					<Item id="43026" name="Jeden Text im 3. Stil markieren"/>
-					<Item id="43028" name="Jeden Text im 4. Stil markieren"/>
-					<Item id="43030" name="Jeden Text im 5. Stil markieren"/>
-					<Item id="43062" name="Einen Text im 1. Stil markieren"/>
-					<Item id="43063" name="Einen Text im 2. Stil markieren"/>
-					<Item id="43064" name="Einen Text im 3. Stil markieren"/>
-					<Item id="43065" name="Einen Text im 4. Stil markieren"/>
-					<Item id="43066" name="Einen Text im 5. Stil markieren"/>
-					<Item id="43023" name="Entferne die Hervorhebungen im Stil 1"/>
-					<Item id="43025" name="Entferne die Hervorhebungen im Stil 2"/>
-					<Item id="43027" name="Entferne die Hervorhebungen im Stil 3"/>
-					<Item id="43029" name="Entferne die Hervorhebungen im Stil 4"/>
-					<Item id="43031" name="Entferne die Hervorhebungen im Stil 5"/>
+					<Item id="43022" name="Alle Vorkommen im 1. Stil markieren"/>
+					<Item id="43024" name="Alle Vorkommen im 2. Stil markieren"/>
+					<Item id="43026" name="Alle Vorkommen im 3. Stil markieren"/>
+					<Item id="43028" name="Alle Vorkommen im 4. Stil markieren"/>
+					<Item id="43030" name="Alle Vorkommen im 5. Stil markieren"/>
+					<Item id="43062" name="Dieses Vorkommen im 1. Stil markieren"/>
+					<Item id="43063" name="Dieses Vorkommen im 2. Stil markieren"/>
+					<Item id="43064" name="Dieses Vorkommen im 3. Stil markieren"/>
+					<Item id="43065" name="Dieses Vorkommen im 4. Stil markieren"/>
+					<Item id="43066" name="Dieses Vorkommen im 5. Stil markieren"/>
+					<Item id="43023" name="Entferne die Markierung im Stil 1"/>
+					<Item id="43025" name="Entferne die Markierung im Stil 2"/>
+					<Item id="43027" name="Entferne die Markierung im Stil 3"/>
+					<Item id="43029" name="Entferne die Markierung im Stil 4"/>
+					<Item id="43031" name="Entferne die Markierung im Stil 5"/>
 					<Item id="43032" name="Alle Hervorhebungen entfernen"/>
-					<Item id="43033" name="Springe zur vorherigen Hervorhebung im Stil 1"/>
-					<Item id="43034" name="Springe zur vorherigen Hervorhebung im Stil 2"/>
-					<Item id="43035" name="Springe zur vorherigen Hervorhebung im Stil 3"/>
-					<Item id="43036" name="Springe zur vorherigen Hervorhebung im Stil 4"/>
-					<Item id="43037" name="Springe zur vorherigen Hervorhebung im Stil 5"/>
-					<Item id="43038" name="Springe zur vorherigen Hervorhebung aus Suche"/>
-					<Item id="43039" name="Springe zur nächsten Hervorhebung im Stil 1"/>
-					<Item id="43040" name="Springe zur nächsten Hervorhebung im Stil 2"/>
-					<Item id="43041" name="Springe zur nächsten Hervorhebung im Stil 3"/>
-					<Item id="43042" name="Springe zur nächsten Hervorhebung im Stil 4"/>
-					<Item id="43043" name="Springe zur nächsten Hervorhebung im Stil 5"/>
-					<Item id="43044" name="Springe zur nächsten Hervorhebung aus Suche"/>
-					<Item id="43055" name="Hervorgehobenen Text kopieren - Stil 1"/>
-					<Item id="43056" name="Hervorgehobenen Text kopieren - Stil 2"/>
-					<Item id="43057" name="Hervorgehobenen Text kopieren - Stil 3"/>
-					<Item id="43058" name="Hervorgehobenen Text kopieren - Stil 4"/>
-					<Item id="43059" name="Hervorgehobenen Text kopieren - Stil 5"/>
-					<Item id="43060" name="Hervorgehobenen Text kopieren - Alle Stile"/>
-					<Item id="43061" name="Hervorgehobenen Text aus Suche kopieren"/>
+					<Item id="43033" name="Springe zur vorherigen Markierung im Stil 1"/>
+					<Item id="43034" name="Springe zur vorherigen Markierung im Stil 2"/>
+					<Item id="43035" name="Springe zur vorherigen Markierung im Stil 3"/>
+					<Item id="43036" name="Springe zur vorherigen Markierung im Stil 4"/>
+					<Item id="43037" name="Springe zur vorherigen Markierung im Stil 5"/>
+					<Item id="43038" name="Springe zur vorherigen Markierung aus Suche"/>
+					<Item id="43039" name="Springe zur nächsten Markierung im Stil 1"/>
+					<Item id="43040" name="Springe zur nächsten Markierung im Stil 2"/>
+					<Item id="43041" name="Springe zur nächsten Markierung im Stil 3"/>
+					<Item id="43042" name="Springe zur nächsten Markierung im Stil 4"/>
+					<Item id="43043" name="Springe zur nächsten Markierung im Stil 5"/>
+					<Item id="43044" name="Springe zur nächsten Markierung aus Suche"/>
+					<Item id="43055" name="Markierten Text kopieren - Stil 1"/>
+					<Item id="43056" name="Markierten Text kopieren - Stil 2"/>
+					<Item id="43057" name="Markierten Text kopieren - Stil 3"/>
+					<Item id="43058" name="Markierten Text kopieren - Stil 4"/>
+					<Item id="43059" name="Markierten Text kopieren - Stil 5"/>
+					<Item id="43060" name="Markierten Text kopieren - Alle Stile"/>
+					<Item id="43061" name="Markierten Text aus Suche kopieren"/>
 					<Item id="44100" name="Aktuelle Datei in Firefox betrachten"/>
 					<Item id="44101" name="Aktuelle Datei in Chrome betrachten"/>
 					<Item id="44103" name="Aktuelle Datei im IE betrachten"/>
@@ -653,7 +653,7 @@
 				<Item id="5008" name="Hinzufügen"/>
 				<Item id="5009" name="Entfernen"/>
 				<Item id="5010" name="Übernehmen"/>
-				<Item id="5007" name="Das wird die Tastenkombination für diesen Befehl entfernen"/>
+				<Item id="5007" name="Entfernt die Tastenkombination für diesen Befehl"/>
 				<Item id="5012" name="KONFLIKT GEFUNDEN!"/>
 			</ShortcutMapperSubDialg>
 			<UserDefine title="Benutzerdefinierte Sprache">
@@ -662,17 +662,17 @@
 				<Item id="20003" name="Neue erstellen …"/>
 				<Item id="20004" name="Löschen"/>
 				<Item id="20005" name="Speichern als …"/>
-				<Item id="20007" name="Benutzer Sprache: "/>
+				<Item id="20007" name="Eigene Sprache: "/>
 				<Item id="20009" name="Erw.:"/>
-				<Item id="20012" name="Groß/klein ignorieren"/>
+				<Item id="20012" name="Groß/Klein ignorieren"/>
 				<Item id="20011" name="Transparenz"/>
-				<Item id="20015" name="Importieren"/>
-				<Item id="20016" name="Exportieren"/>
+				<Item id="20015" name="Importieren …"/>
+				<Item id="20016" name="Exportieren …"/>
 				<StylerDialog title="Stiloptionen für benutzerdefinierte Sprachen">
-					<Item id="25030" name="Schriftoptionen"/>
+					<Item id="25030" name="Schriftoptionen:"/>
 					<Item id="25006" name="Vordergrundfarbe:"/>
 					<Item id="25007" name="Hintergrundfarbe:"/>
-					<Item id="25031" name="Schriftart:"/>
+					<Item id="25031" name="Schriftart"/>
 					<Item id="25032" name="Größe:"/>
 					<Item id="25001" name="Fett"/>
 					<Item id="25002" name="Kursiv"/>
@@ -872,7 +872,7 @@
 					<Item id="6234" name="Erweiterte Bildlauffunktion aufgrund eines Touchpad-Problems deaktivieren"/>
 					<Item id="6214" name="Hervorhebung der aktuellen Zeile aktivieren"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
-					<Item id="6236" name="Blättern über die letzte Zeile hinaus aktivieren"/>
+					<Item id="6236" name="Scrollen über die letzte Zeile hinaus aktivieren"/>
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
 				</Scintillas>
 
@@ -914,7 +914,7 @@
 					<Item id="6211" name="Vertikale Randeinstellungen"/>
 					<Item id="6213" name="Hintergrundmodus"/>
 					<Item id="6237" name="Es können Spaltenmarkierung hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird.
-Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
+Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Leerzeichen getrennt werden."/>
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6235" name="Kein Rand"/>
 					<Item id="6208" name="Seitenrand"/>
@@ -964,7 +964,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 				</Language>
 
 				<Highlighting title="Hervorhebung">
-					<Item id="6351" name="Alle Hervorheben"/>
+					<Item id="6351" name="Alle markieren"/>
 					<Item id="6352" name="Groß-/Kleinschreibung beachten"/>
 					<Item id="6353" name="Übereinstimmung mit ganzem Wort"/>
 					<Item id="6333" name="Automatische Hervorhebung bei Auswahl"/>
@@ -1005,17 +1005,26 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6721" name="Mitte"/>
 					<Item id="6722" name="Rechte Seite"/>
 					<Item id="6723" name="Hinzufügen"/>
+					<ComboBox id="6724">
+						<Element name="Dateipfad &amp; Name"/>
+						<Element name="Dateiname"/>
+						<Element name="Dateipfad"/>
+						<Element name="Seite"/>
+						<Element name="Datum (kurz)"/>
+						<Element name="Datum (lang)"/>
+						<Element name="Zeit"/>
+					</ComboBox>
 					<Item id="6725" name="Element"/>
-					<Item id="6727" name="Welcher Teil:"/>
+					<Item id="6727" name="Aktuelle Einstellung:"/>
 					<Item id="6728" name="Kopf- und Fußzeile"/>
 				</Print>
 
 				<Searching title="Suche">
-					<Item id="6901" name="Gewähltes Wort nicht ins Suchfenster der Suche"/>
+					<Item id="6901" name="Aktuelle Auswahl nicht in das Suchfeld der Suche übernehmen"/>
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
-					<Item id="6905" name="Ersetzen: Nicht zum folgenden Vorkommen springen"/>
+					<Item id="6905" name="Ersetzen: Nach Ersetzung nicht zum nächsten Vorkommen springen"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1075,7 +1084,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6154" name="Standard (nur eine Instanz)"/>
 					<Item id="6155" name="Nach Änderung der Einstellung muss Notepad++ neu gestartet werden."/>
 					<Item id="6171" name="Einfügen von Datum/Zeit anpassen"/>
-					<Item id="6175" name="Datum/Zeit Reihenfolge umkehren (kurzes &amp;&amp; langes Format)"/>
+					<Item id="6175" name="Datum vor Zeit ausgeben(kurzes &amp;&amp; langes Format)"/>
 					<Item id="6172" name="Eigenes Format:"/>
 				</MultiInstance>
 
@@ -1092,22 +1101,22 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 
 				<Cloud title="Cloud &amp; Links">
 					<Item id="6262" name="Cloud-Einstellungen"/>
-					<Item id="6263" name="Keine Cloud"/>
-					<Item id="6267" name="Hier den Pfad zum Cloud-Speicherort festlegen:"/>
+					<Item id="6263" name="Einstellungen nicht in der Cloud speichern"/>
+					<Item id="6267" name="Cloud-Speicherort verwenden:"/>
 					<Item id="6318" name="Einstellungen für klickbare Links"/>
 					<Item id="6319" name="Aktivieren"/>
-					<Item id="6320" name="Kein Unterstrich"/>
+					<Item id="6320" name="Links nicht unterstreichen"/>
 					<Item id="6350" name="Vollboxmodus aktivieren"/>
 					<Item id="6264" name="Benutzerdefinierte URI-Schema:"/>
 				</Cloud>
 
 				<SearchEngine title="Suchmaschine">
-					<Item id="6271" name="Suchmaschine (für das Kommando &quot;Suche im Internet&quot;)"/>
+					<Item id="6271" name="Suchmaschine (für den Befehl &quot;Suche im Internet&quot;)"/>
 					<Item id="6272" name="DuckDuckGo"/>
 					<Item id="6273" name="Google"/>
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
-					<Item id="6276" name="Suchmaschine hier einstellen:"/>
+					<Item id="6276" name="Eigene Suchmaschine definieren:"/>
 					<!-- Don't change anything after Example: -->
 					<Item id="6278" name="Beispiel: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
@@ -1128,7 +1137,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Za
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
 					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - erfordert Neustart von Notepad++)"/>
-					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
+					<Item id="6337" name="Arbeitsbereichdatei-Erw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
 					<Item id="6344" name="Momentaufnahme des Dokuments"/>
@@ -1432,8 +1441,8 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
 			<find-status-search-failed value="Suche: Fehlgeschlagen"/>
-			<find-status-mark-1-match value="Ausdruck: 1 Treffer"/>
-			<find-status-mark-nb-matches value="Ausdruck: $INT_REPLACE$ Treffer"/>
+			<find-status-mark-1-match value="Hervorheben: 1 Treffer"/>
+			<find-status-mark-nb-matches value="Hervorheben: $INT_REPLACE$ Treffer"/>
 			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-count-1-match value="Zähler: 1 Treffer"/>
 			<find-status-count-nb-matches value="Zähler: $INT_REPLACE$ Treffer"/>
@@ -1517,7 +1526,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<IncrementalFind-FSEndReached value="Ende der Seite erreicht, Fortsetzung von oben" />
 			<contextMenu-styleAlloccurrencesOfToken value="Alle Vorkommen hervorheben" />
 			<contextMenu-styleOneToken value="Dieses Vorkommen hervorheben" />
-			<contextMenu-clearStyle value="Hervorhebungen entfernen" />
+			<contextMenu-clearStyle value="Alle Hervorhebungen entfernen" />
 			<contextMenu-PluginCommands value="Plugin-Befehle" />
 		</MiscStrings>
 	</Native-Langue>

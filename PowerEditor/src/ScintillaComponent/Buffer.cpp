@@ -654,11 +654,26 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);
 	
+	// * the auto-completion feature will be disabled for large files
+	// * the session snapshotsand periodic backups feature will be disabled for large files
+	// * the backups on save feature will be disabled for large files
+	bool isLargeFile = fileSize >= NPP_STYLING_FILESIZE_LIMIT;
+
+	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
+	if (isLargeFile)
+	{
+		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
+		if (isWrap)
+		{
+			_pNotepadPlus->command(IDM_VIEW_WRAP);
+		}
+	}
+
 	bool ownDoc = false;
 	if (!doc)
 	{
 		// If file exceeds 200MB, activate large file mode
-		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, fileSize < NPP_STYLING_FILESIZE_LIMIT ? 0 : SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE);
+		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, isLargeFile ? SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE : 0);
 		ownDoc = true;
 	}
 
@@ -705,6 +720,8 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		LONG res = CompareFileTime(&fileNameTimestamp, &zeroTimeStamp);
 		if (res != 0) // res == 1 or res == -1
 			newBuf->_timeStamp = fileNameTimestamp;
+
+		newBuf->_isLargeFile = isLargeFile;
 
 		_buffers.push_back(newBuf);
 		++_nbBufs;
@@ -893,9 +910,12 @@ std::mutex backup_mutex;
 
 bool FileManager::backupCurrentBuffer()
 {
+	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
+	if (buffer->isLargeFile())
+		return false;
+
 	std::lock_guard<std::mutex> lock(backup_mutex);
 
-	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = false;
 	bool hasModifForSession = false;
 
@@ -1387,18 +1407,13 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?\n(Due to the performance issue, the Word Wrap feature will be disabled if it's ON)"),
+				TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?"),
 				TEXT("Opening huge file warning"),
 				MB_YESNO | MB_APPLMODAL);
 
 			if (res == IDYES)
 			{
-				// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
-				bool isWrap = _pNotepadPlus->_pEditView->isWrap();
-				if (isWrap)
-				{
-					_pNotepadPlus->command(IDM_VIEW_WRAP);
-				}
+				// Do nothing
 			}
 			else
 			{

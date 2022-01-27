@@ -59,7 +59,7 @@ bool AutoCompletion::showApiComplete()
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
-	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
+	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
@@ -145,7 +145,7 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
-	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
+	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -405,7 +405,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
-	_pEditView->execute(SCI_REGISTERIMAGE, 1000, LPARAM(xpmfn));
+	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -907,7 +907,7 @@ bool AutoCompletion::setLanguage(LangType language)
 		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
 		{
 			const TCHAR *name = funcNode->Attribute(TEXT("name"));
-			generic_string imgid = TEXT("?1000");
+			generic_string imgid = TEXT("?") + intToString(FUNC_IMG_ID);
 			if (name)
 			{
 				size_t len = lstrlen(name);

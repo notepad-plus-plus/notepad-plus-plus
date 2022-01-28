@@ -37,6 +37,7 @@ enum DocFileStatus {
 };
 
 enum BufferStatusInfo {
+	BufferChangeNone		= 0x000,  // Nothing to change
 	BufferChangeLanguage	= 0x001,  // Language was altered
 	BufferChangeDirty		= 0x002,  // Buffer has changed dirty state
 	BufferChangeFormat		= 0x004,  // EOL type was changed
@@ -150,7 +151,7 @@ public:
 	//Load the document into Scintilla/add to TabBar
 	//The entire lifetime if the buffer, the Document has reference count of _atleast_ one
 	//Destructor makes sure its purged
-	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName);
+	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName, bool isLargeFile);
 
 	// this method 1. copies the file name
 	//             2. determinates the language from the ext of file name

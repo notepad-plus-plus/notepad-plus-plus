@@ -867,9 +867,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (nppParam._isFindReplacing)
 				break;
 
-			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
+			Buffer* currentBuf = _pEditView->getCurrentBuffer();
+
+			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf() && !currentBuf->isLargeFile()) // notification come from unfocus view - both views ae visible
 			{
-				//ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
 				if (nppGui._smartHiliteOnAnotherView)
 				{
 					TCHAR selectedText[1024];
@@ -881,13 +882,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			braceMatch();
 
-			if (nppGui._enableTagsMatchHilite)
+			if (nppGui._enableTagsMatchHilite && !currentBuf->isLargeFile())
 			{
 				XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
 				xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
 			}
 
-			if (nppGui._enableSmartHilite)
+			if (nppGui._enableSmartHilite && !currentBuf->isLargeFile())
 			{
 				if (nppGui._disableSmartHiliteTmp)
 					nppGui._disableSmartHiliteTmp = false;

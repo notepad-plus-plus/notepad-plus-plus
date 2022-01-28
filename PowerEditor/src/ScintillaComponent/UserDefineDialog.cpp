@@ -659,18 +659,18 @@ void SymbolsStyleDialog::updateDlg()
     };
     TCHAR intBuffer[10] = {'0', 0};
 
-    for (int i=0; i < sizeof(list)/sizeof(int); ++i)
+    for (int i = 0; i < sizeof(list)/sizeof(int); ++i)
     {
         if (i < 10)
-            generic_itoa(i, intBuffer+1, 10);
+            generic_itoa(i, intBuffer + 1, 10);
         else
             generic_itoa(i, intBuffer, 10);
 
         retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], intBuffer);
 		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
-
-        delete[] buffer;
     }
+
+    delete[] buffer;
 
     ::SendDlgItemMessage(_hSelf, IDC_OPERATOR1_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1]));
     ::SendDlgItemMessage(_hSelf, IDC_OPERATOR2_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS2]));

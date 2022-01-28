@@ -62,9 +62,9 @@ namespace // anonymous
 } // anonymous namespace
 
 
-Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)
+Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName, bool isLargeFile)
 	// type must be either DOC_REGULAR or DOC_UNNAMED
-	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT)
+	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT), _isLargeFile(isLargeFile)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
@@ -82,9 +82,7 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	checkFileState();
 
 	// reset after initialization
-	_isDirty   = false;
 	_canNotify = true;
-	_needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 }
 
 
@@ -228,14 +226,21 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 
 	updateTimeStamp();
 
+	BufferStatusInfo lang2Change = BufferChangeNone;
 	if (!_hasLangBeenSetFromMenu && (newLang != _lang || _lang == L_USER))
 	{
-		_lang = newLang;
-		doNotify(BufferChangeFilename | BufferChangeLanguage | BufferChangeTimestamp);
-		return;
+		if (_isLargeFile)
+		{
+			_lang = L_TEXT;
+		}
+		else
+		{
+			_lang = newLang;
+			lang2Change = BufferChangeLanguage;
+		}
 	}
 
-	doNotify(BufferChangeFilename | BufferChangeTimestamp);
+	doNotify(BufferChangeFilename | BufferChangeTimestamp | lang2Change);
 }
 
 
@@ -711,7 +716,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 
 	if (res)
 	{
-		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
+		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, isLargeFile);
 		BufferID id = static_cast<BufferID>(newBuf);
 		newBuf->_id = id;
 
@@ -727,8 +732,6 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		if (res != 0) // res == 1 or res == -1
 			newBuf->_timeStamp = fileNameTimestamp;
 
-		newBuf->_isLargeFile = isLargeFile;
-
 		_buffers.push_back(newBuf);
 		++_nbBufs;
 		Buffer* buf = _buffers.at(_nbBufs - 1);
@@ -737,7 +740,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		buf->setEncoding(-1);
 
 		// if no file extension, and the language has been detected,  we use the detected value
-		if ((buf->getLangType() == L_TEXT) && (loadedFileFormat._language != L_TEXT))
+		if (!newBuf->_isLargeFile && ((buf->getLangType() == L_TEXT) && (loadedFileFormat._language != L_TEXT)))
 			buf->setLangType(loadedFileFormat._language);
 
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
@@ -1249,7 +1252,7 @@ BufferID FileManager::newEmptyDocument()
 	newTitle += nb;
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
-	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
+	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
@@ -1267,7 +1270,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 
 	if (!dontRef)
 		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
-	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
+	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);

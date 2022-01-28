@@ -643,16 +643,22 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp)
 {
 	//Get file size
+	int64_t fileSize = -1;
 	const TCHAR* pPath = filename;
 	if (!::PathFileExists(pPath))
+	{
 		pPath = backupFileName;
-	FILE* fp = generic_fopen(pPath, TEXT("rb"));
-	if (!fp)
-		return BUFFER_INVALID;
-
-	_fseeki64(fp, 0, SEEK_END);
-	int64_t fileSize = _ftelli64(fp);
-	fclose(fp);
+	}
+	if (pPath)
+	{
+		FILE* fp = generic_fopen(pPath, TEXT("rb"));
+		if (fp)
+		{
+			_fseeki64(fp, 0, SEEK_END);
+			fileSize = _ftelli64(fp);
+			fclose(fp);
+		}
+	}
 	
 	// * the auto-completion feature will be disabled for large files
 	// * the session snapshotsand periodic backups feature will be disabled for large files

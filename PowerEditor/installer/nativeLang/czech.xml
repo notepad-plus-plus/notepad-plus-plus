@@ -1084,7 +1084,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6324" name = "Přepínač dokumentů (Ctrl+TAB)"/>
 					<Item id = "6325" name = "Přejít na poslední řádek po aktualizaci"/>
 					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
-					<Item id = "6334" name = "Automatická detekce kódováni znaků"/>
+					<Item id = "6334" name = "Automatická detekce kódování znaků"/>
 					<Item id = "6337" name = "Přípona souboru pracovní plochy:"/>
 					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>

@@ -2568,7 +2568,7 @@ void Notepad_plus::findMatchingBracePos(intptr_t& braceAtCaret, intptr_t& braceO
 bool Notepad_plus::braceMatch()
 {
 	Buffer* currentBuf = _pEditView->getCurrentBuffer();
-	if (!currentBuf->isLargeFile())
+	if (currentBuf->isLargeFile())
 		return false;
 
 	intptr_t braceAtCaret = -1;
@@ -2982,7 +2982,7 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
 	Buffer* currentBuf = _pEditView->getCurrentBuffer();
-	if (!currentBuf->isLargeFile())
+	if (currentBuf->isLargeFile())
 		return;
 
 	ScintillaEditView* pView = view ? view : _pEditView;

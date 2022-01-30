@@ -1599,7 +1599,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 
 	for (size_t i = 0; i < _buffers.size(); i++)
 	{
-		if (OrdinalIgnoreCaseCompareStrings(name, _buffers.at(i)->getFullPathName()) == 0)
+		if (OrdinalIgnoreCaseCompareStrings(fullpath, _buffers.at(i)->getFullPathName()) == 0)
 		{
 			if (_buffers.at(i)->_referees[0]->isVisible())
 			{

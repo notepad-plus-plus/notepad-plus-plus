@@ -231,15 +231,39 @@ Function removeUnstablePlugins
 		Rename "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" "$INSTDIR\plugins\disabled\NppSaveAsAdmin.dll"
 		Delete "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll"
 NppSaveAsAdminTestEnd:
-        
+
+!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
+
+	IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 HexEditorTestEnd64
+		MessageBox MB_OK "Due to HexEditor plugin's crash issue on Notepad++ x64 binary, HexEditor.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
+		Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
+HexEditorTestEnd64:
+
+	IfFileExists "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" 0 CompareTestEnd64
+		MessageBox MB_OK "Due to ComparePlugin plugin's crash issue on Notepad++ x64 binary, ComparePlugin.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" "$INSTDIR\plugins\disabled\ComparePlugin.dll"
+		Delete "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll"
+CompareTestEnd64:
+
+	IfFileExists "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" 0 DSpellCheckTestEnd64
+		MessageBox MB_OK "Due to DSpellCheck plugin's crash issue on Notepad++ x64 binary, DSpellCheck.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
+		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
+DSpellCheckTestEnd64:
+
+!else ; 32-bit installer
+
 		; https://github.com/chcg/NPP_HexEdit/issues/51
-		IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 noDeleteHEPlugin
+		IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 noDeleteHEPlugin32
 			MessageBox MB_YESNO "HexEditor plugin is unstable, we suggest you to remove it.$\nRemove HexEditor plugin?" /SD IDYES IDYES doDeleteHEPlugin IDNO noDeleteHEPlugin ;IDYES remove
-doDeleteHEPlugin:
+doDeleteHEPlugin32:
                 Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
                 Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
-noDeleteHEPlugin:
-	
+noDeleteHEPlugin32:
+
+!endif
+
 FunctionEnd
 
 Function removeOldContextMenu

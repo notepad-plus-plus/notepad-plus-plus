@@ -104,12 +104,15 @@ static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length
 	unsigned int linePos = 0;
 	size_t startLine = startPos;
 
-	const char *addrMarkingsStruct = (styler.pprops)->Get("@MarkingsStruct");
+	const char* addrMarkingsStruct = (styler.pprops)->Get("@MarkingsStruct");
 	if (!addrMarkingsStruct || !addrMarkingsStruct[0])
 		return;
 
 	SearchResultMarkings* pMarkings = NULL;
 	sscanf(addrMarkingsStruct, "%p", (void**)&pMarkings);
+
+	if (!pMarkings || !pMarkings->_markings)
+		return;
 
 	for (size_t i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];
@@ -122,6 +125,7 @@ static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length
 			while (!AtEOL(styler, i)) i++;
 		}
 	}
+
 	if (linePos > 0) {	// Last line does not have ending characters
 		ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
 	}

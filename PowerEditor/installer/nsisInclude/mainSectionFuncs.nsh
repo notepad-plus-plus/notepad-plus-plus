@@ -256,7 +256,7 @@ DSpellCheckTestEnd64:
 
 		; https://github.com/chcg/NPP_HexEdit/issues/51
 		IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 noDeleteHEPlugin32
-			MessageBox MB_YESNO "HexEditor plugin is unstable, we suggest you to remove it.$\nRemove HexEditor plugin?" /SD IDYES IDYES doDeleteHEPlugin IDNO noDeleteHEPlugin ;IDYES remove
+			MessageBox MB_YESNO "HexEditor plugin is unstable, we suggest you to remove it.$\nRemove HexEditor plugin?" /SD IDYES IDYES doDeleteHEPlugin32 IDNO noDeleteHEPlugin32 ;IDYES remove
 doDeleteHEPlugin32:
                 Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
                 Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"

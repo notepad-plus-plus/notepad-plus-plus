@@ -248,7 +248,7 @@ public:
 	intptr_t searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appandGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append) const;
-	void addGenericText(const TCHAR * text2Append, long* mstart, long* mend) const;
+	void addGenericText(const TCHAR * text2Append, intptr_t* mstart, intptr_t* mend) const;
 	intptr_t replaceTarget(const TCHAR * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	intptr_t replaceTargetRegExMode(const TCHAR * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	void showAutoComletion(size_t lenEntered, const TCHAR * list);

@@ -1461,12 +1461,15 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	bool success = true;
 	EolType format = EolType::unknown;
+	int sciStatus = SC_STATUS_OK;
+	TCHAR szException[64] = { 0 };
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
 		_pscratchTilla->execute(SCI_ALLOCATE, WPARAM(bufferSizeRequested));
-		if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
-			throw;
+		sciStatus = static_cast<int>(_pscratchTilla->execute(SCI_GETSTATUS));
+		if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
+			throw std::runtime_error("Scintilla error");
 
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
@@ -1533,25 +1536,53 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
 			}
 
-			if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
-				throw;
+			sciStatus = static_cast<int>(_pscratchTilla->execute(SCI_GETSTATUS));
+			if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
+				throw std::runtime_error("Scintilla error");
 
 			if (incompleteMultibyteChar != 0)
 			{
 				// copy bytes to next buffer
 				memcpy(data, data + blockSize - incompleteMultibyteChar, incompleteMultibyteChar);
 			}
-
 		}
 		while (lenFile > 0);
 	}
-	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
+	__except(EXCEPTION_EXECUTE_HANDLER)
 	{
-		pNativeSpeaker->messageBox("FileTooBigToOpen",
-			_pNotepadPlus->_pEditView->getHSelf(),
-			TEXT("File is too big to be opened by Notepad++"),
-			TEXT("Exception: File size problem"),
-			MB_OK | MB_APPLMODAL);
+		switch (sciStatus)
+		{
+			case SC_STATUS_OK:
+				// either the Scintilla not catched this exception or the error is in the N++ code, report the exception anyway
+#if defined(__GNUC__)
+				// there is the std::current_exception() possibility, but getting the real exception code from there requires an ugly hack,
+				// because of the std::exception_ptr has its members _Data1 (GetExceptionCode) and _Data2 (GetExceptionInformation) private
+				_stprintf_s(szException, _countof(szException), TEXT("unknown exception"));
+#else
+				_stprintf_s(szException, _countof(szException), TEXT("0x%X (SEH)"), ::GetExceptionCode());
+#endif
+				break;
+			case SC_STATUS_BADALLOC:
+				pNativeSpeaker->messageBox("FileTooBigToOpen",
+					_pNotepadPlus->_pEditView->getHSelf(),
+					TEXT("File is too big to be opened by Notepad++"),
+					TEXT("Exception: File size problem"),
+					MB_OK | MB_APPLMODAL);
+			case SC_STATUS_FAILURE:
+			default:
+				_stprintf_s(szException, _countof(szException), TEXT("%d (Scintilla)"), sciStatus);
+				break;
+		}
+		if (sciStatus != SC_STATUS_BADALLOC)
+		{
+			pNativeSpeaker->messageBox("FileLoadingException",
+				_pNotepadPlus->_pEditView->getHSelf(),
+				TEXT("An error occurred while loading the file!"),
+				TEXT("Exception code: $STR_REPLACE$"),
+				MB_OK | MB_APPLMODAL,
+				0,
+				szException);
+		}
 		success = false;
 	}
 

@@ -3273,8 +3273,8 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						if (!_focusedEditCtrl)
 							return TRUE;
 
-						auto iSel = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETCURSEL, 0, 0);
-						if ((int)iSel >= varList.size())
+						size_t iSel = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETCURSEL, 0, 0);
+						if (iSel >= varList.size())
 							return TRUE;
 
 						TCHAR *varStr = (TCHAR*)varList[iSel].c_str();

@@ -234,8 +234,13 @@ NppSaveAsAdminTestEnd:
 
 !ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
 
+	; HexEditor makes Notepad++ x64 crash. "0.9.12" is its 1st version which contains the fix
 	IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 HexEditorTestEnd64
-		MessageBox MB_OK "Due to HexEditor plugin's crash issue on Notepad++ x64 binary, HexEditor.dll will be removed." /SD IDOK
+		${GetFileVersion} "$INSTDIR\plugins\HexEditor\HexEditor.dll" $R0
+		${VersionCompare} $R0 "0.9.12" $R1 ;   0: equal to 0.9.12   1: $R0 is newer   2: 0.9.12 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to HexEditor plugin's incompatibility issue in version $R0, HexEditor.dll will be deleted. Use Plugins Admin to add back (the latest version of) HexEditor." /SD IDOK
 		Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
 		Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
 HexEditorTestEnd64:
@@ -251,6 +256,24 @@ CompareTestEnd64:
 		Rename "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
 		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
 DSpellCheckTestEnd64:
+
+	IfFileExists "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" 0 SpeechPluginTestEnd64
+		MessageBox MB_OK "Due to SpeechPlugin plugin's crash issue on Notepad++ x64 binary, SpeechPlugin.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" "$INSTDIR\plugins\disabled\SpeechPlugin.dll"
+		Delete "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll"
+SpeechPluginTestEnd64:
+/*
+	IfFileExists "$INSTDIR\plugins\TagLEET\TagLEET.dll" 0 TagLEETTestEnd64
+		MessageBox MB_OK "Due to TagLEET plugin's crash issue on Notepad++ x64 binary, TagLEET.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\TagLEET\TagLEET.dll" "$INSTDIR\plugins\disabled\TagLEET.dll"
+		Delete "$INSTDIR\plugins\TagLEET\TagLEET.dll"
+TagLEETTestEnd64:
+*/
+	IfFileExists "$INSTDIR\plugins\NppQCP\NppQCP.dll" 0 NppQCPTestEnd64
+		MessageBox MB_OK "Due to NppQCP plugin's crash issue on Notepad++ x64 binary, NppQCP.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\NppQCP\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
+		Delete "$INSTDIR\plugins\NppQCP\NppQCP.dll"
+NppQCPTestEnd64:
 
 !else ; 32-bit installer
 

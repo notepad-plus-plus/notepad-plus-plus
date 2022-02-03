@@ -150,6 +150,8 @@
                     <Item id="42029" name="Copier le chemin complet du document actuel"/>
                     <Item id="42030" name="Copier le nom du document actuel"/>
                     <Item id="42031" name="Copier le dossier du document actuel"/>
+                    <Item id="42087" name="Copier tous les noms des documents"/>
+                    <Item id="42088" name="Copier tous les dossiers des documents"/>
                     <Item id="42032" name="Exécuter une macro en boucle..."/>
                     <Item id="42033" name="Enlever l'attribut de lecture seule du fichier"/>
                     <Item id="42034" name="Édition en mode colonnes..."/>

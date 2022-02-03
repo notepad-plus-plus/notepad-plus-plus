@@ -245,8 +245,13 @@ NppSaveAsAdminTestEnd:
 		Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
 HexEditorTestEnd64:
 
+	; ComparePlugin makes Notepad++ x64 crash. "2.0.2" is its 1st version which contains the fix
 	IfFileExists "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" 0 CompareTestEnd64
-		MessageBox MB_OK "Due to ComparePlugin plugin's crash issue on Notepad++ x64 binary, ComparePlugin.dll will be removed." /SD IDOK
+		${GetFileVersion} "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" $R0
+		${VersionCompare} $R0 "2.0.2" $R1 ;   0: equal to 2.0.2   1: $R0 is newer   2: 2.0.2 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to ComparePlugin plugin's incompatibility issue in version $R0, ComparePlugin.dll will be deleted. Use Plugins Admin to add back (the latest version of) ComparePlugin." /SD IDOK
 		Rename "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" "$INSTDIR\plugins\disabled\ComparePlugin.dll"
 		Delete "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll"
 CompareTestEnd64:

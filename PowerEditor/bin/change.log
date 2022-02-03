@@ -1,26 +1,19 @@
-Notepad++ v8.2.1 new features and bug-fixes:
+Notepad++ v8.3 new features and bug-fixes:
 
-1.  Fix regression of loaded session being empty on exit.
-2.  Add Find/Replace text swap button in Find replace dialog.
-3.  Add an option for inserting auto-completion selection to fix hitting twice ENTER to go to next line.
-4.  Fix installer x64 not detected the previous installation location.
-5.  Add copy name/path commands to DocList and Edit menu.
-6.  Fix Recent Files List not revised issue after "Save As" command.
-7.  Fix Windows 11 detected wrongly issue in "Debug information".
-8.  Fix "Save As" command cannot be used as "Save" issue.
-9.  Fix visual glitch regression of fg/bg color disabling.
-10. Fix wrong keywords (of preprocessor in C) highlighting in Java.
+1.  Remove 2GB file open restriction for x64 binary.
+2.  Improve large files (200MB) loading speed and editing/browsing performance.
+3.  Fix Find in Files crash issue.
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.2.1/
+https://notepad-plus-plus.org/downloads/v8.3/
 
 
 Included plugins:
 
 1.  NppExport v0.3
-2.  Converter v4.3
-3.  Mime Tool v2.6
+2.  Converter v4.4
+3.  Mime Tool v2.7
 
 
 Updater (Installer only):

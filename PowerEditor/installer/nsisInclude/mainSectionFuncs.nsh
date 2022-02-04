@@ -245,14 +245,24 @@ NppSaveAsAdminTestEnd:
 		Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
 HexEditorTestEnd64:
 
+	; ComparePlugin makes Notepad++ x64 crash. "2.0.2" is its 1st version which contains the fix
 	IfFileExists "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" 0 CompareTestEnd64
-		MessageBox MB_OK "Due to ComparePlugin plugin's crash issue on Notepad++ x64 binary, ComparePlugin.dll will be removed." /SD IDOK
+		${GetFileVersion} "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" $R0
+		${VersionCompare} $R0 "2.0.2" $R1 ;   0: equal to 2.0.2   1: $R0 is newer   2: 2.0.2 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to ComparePlugin plugin's incompatibility issue in version $R0, ComparePlugin.dll will be deleted. Use Plugins Admin to add back (the latest version of) ComparePlugin." /SD IDOK
 		Rename "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" "$INSTDIR\plugins\disabled\ComparePlugin.dll"
 		Delete "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll"
 CompareTestEnd64:
 
+	; DSpellCheck makes Notepad++ x64 crash. "1.4.23" is its 1st version which contains the fix
 	IfFileExists "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" 0 DSpellCheckTestEnd64
-		MessageBox MB_OK "Due to DSpellCheck plugin's crash issue on Notepad++ x64 binary, DSpellCheck.dll will be removed." /SD IDOK
+		${GetFileVersion} "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" $R0
+		${VersionCompare} $R0 "1.4.23" $R1 ;   0: equal to 1.4.23   1: $R0 is newer   2: 1.4.23 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to DSpellCheck plugin's incompatibility issue in version $R0, DSpellCheck.dll will be deleted. Use Plugins Admin to add back (the latest version of) DSpellCheck." /SD IDOK
 		Rename "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
 		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
 DSpellCheckTestEnd64:
@@ -262,13 +272,7 @@ DSpellCheckTestEnd64:
 		Rename "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" "$INSTDIR\plugins\disabled\SpeechPlugin.dll"
 		Delete "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll"
 SpeechPluginTestEnd64:
-/*
-	IfFileExists "$INSTDIR\plugins\TagLEET\TagLEET.dll" 0 TagLEETTestEnd64
-		MessageBox MB_OK "Due to TagLEET plugin's crash issue on Notepad++ x64 binary, TagLEET.dll will be removed." /SD IDOK
-		Rename "$INSTDIR\plugins\TagLEET\TagLEET.dll" "$INSTDIR\plugins\disabled\TagLEET.dll"
-		Delete "$INSTDIR\plugins\TagLEET\TagLEET.dll"
-TagLEETTestEnd64:
-*/
+
 	IfFileExists "$INSTDIR\plugins\NppQCP\NppQCP.dll" 0 NppQCPTestEnd64
 		MessageBox MB_OK "Due to NppQCP plugin's crash issue on Notepad++ x64 binary, NppQCP.dll will be removed." /SD IDOK
 		Rename "$INSTDIR\plugins\NppQCP\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"

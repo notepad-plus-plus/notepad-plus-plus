@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.2.2.0  1/Feb/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.3.0  5/Feb/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.2.2.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.3.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

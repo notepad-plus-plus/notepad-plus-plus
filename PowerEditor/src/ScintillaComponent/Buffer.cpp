@@ -1463,13 +1463,12 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 	EolType format = EolType::unknown;
 	int sciStatus = SC_STATUS_OK;
 	TCHAR szException[64] = { 0 };
-#define SC_ERRORSTATUS_MAX 999
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
 		_pscratchTilla->execute(SCI_ALLOCATE, WPARAM(bufferSizeRequested));
 		sciStatus = static_cast<int>(_pscratchTilla->execute(SCI_GETSTATUS));
-		if ((sciStatus > SC_STATUS_OK) && (sciStatus <= SC_ERRORSTATUS_MAX))
+		if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
 			throw std::runtime_error("Scintilla error");
 
 		size_t lenFile = 0;
@@ -1538,7 +1537,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 			}
 
 			sciStatus = static_cast<int>(_pscratchTilla->execute(SCI_GETSTATUS));
-			if ((sciStatus > SC_STATUS_OK) && (sciStatus <= SC_ERRORSTATUS_MAX))
+			if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
 				throw std::runtime_error("Scintilla error");
 
 			if (incompleteMultibyteChar != 0)
@@ -1576,9 +1575,9 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		}
 		if (sciStatus != SC_STATUS_BADALLOC)
 		{
-			pNativeSpeaker->messageBox("FileOpeningException",
+			pNativeSpeaker->messageBox("FileLoadingException",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				TEXT("An error occurred while opening the file!"),
+				TEXT("An error occurred while loading the file!"),
 				TEXT("Exception code: $STR_REPLACE$"),
 				MB_OK | MB_APPLMODAL,
 				0,

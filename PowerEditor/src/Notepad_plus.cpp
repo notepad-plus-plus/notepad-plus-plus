@@ -6125,7 +6125,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	generic_string udl = pCmdParams->_udlName;
 	int lineNumber =  pCmdParams->_line2go;
 	int columnNumber = pCmdParams->_column2go;
-	size_t positionNumber = pCmdParams->_pos2go;
+	intptr_t positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;

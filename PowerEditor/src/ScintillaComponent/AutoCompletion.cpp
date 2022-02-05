@@ -20,6 +20,65 @@
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
 
+const char* xpmfn[] = {
+	/* columns rows colors chars-per-pixel */
+	"16 16 36 1 ",
+	"u c None",
+	"  c #131313",
+	". c #252525",
+	"X c #161616",
+	"o c #202020",
+	"O c #393939",
+	"+ c #242424",
+	"@ c #282828",
+	"# c #4E4E4E",
+	"$ c #343434",
+	"% c #5B5B5B",
+	"& c #5F5F5F",
+	"* c #626262",
+	"= c #404040",
+	"- c #686868",
+	"; c #434343",
+	": c #464646",
+	"> c #484848",
+	", c #494949",
+	"< c #515151",
+	"1 c #929292",
+	"2 c #9B9B9B",
+	"3 c #636363",
+	"4 c #656565",
+	"5 c #AFAFAF",
+	"6 c #B7B7B7",
+	"7 c #757575",
+	"8 c #CDCDCD",
+	"9 c #858585",
+	"0 c #868686",
+	"q c #DDDDDD",
+	"w c #E1E1E1",
+	"e c #E9E9E9",
+	"r c #EEEEEE",
+	"t c #959595",
+	"y c #F6F6F6",
+	/* pixels */
+	"uuuuuuuuuuuuuuuu",
+	"uuuuu5o.:yuuuuuu",
+	"uuuu8 $:.0uuuuuu",
+	"uuuu2 yuuuuuuuuu",
+	"uuu6$ 46uuuuuuuu",
+	"uuuO   Ouuuuuuuu",
+	"uuuu;#uuuuuuuuuu",
+	"uuuu##y& 3uu<+uu",
+	"uuuu#;0.@X0, >uu",
+	"uuuu+>uuroo >uuu",
+	"uuuu >uuu* =uuuu",
+	"uuuu 2uu, Xotuuu",
+	"uuue 4u< >9 %owu",
+	"u:,#X0uO>uu1 $yu",
+	"u- +7uuuuuuuuuuu",
+	"uuuuuuuuuuuuuuuu"
+};
+
+
 using namespace std;
 
 static bool isInList(const generic_string& word, const vector<generic_string> & wordArray)

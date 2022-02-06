@@ -21,7 +21,6 @@
 #include "tinyxml.h"
 
 const size_t tagMaxLen = 256;
-const auto FUNC_IMG_ID = 1000;
 
 class ScintillaEditView;
 

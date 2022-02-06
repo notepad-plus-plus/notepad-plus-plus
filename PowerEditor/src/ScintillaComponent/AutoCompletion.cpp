@@ -20,6 +20,7 @@
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
 
+const auto FUNC_IMG_ID = 1000;
 const char* xpmfn[] = {
 	/* columns rows colors chars-per-pixel */
 	"16 16 36 1 ",

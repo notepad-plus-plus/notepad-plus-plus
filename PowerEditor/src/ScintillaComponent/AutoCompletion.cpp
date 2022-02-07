@@ -349,9 +349,9 @@ void AutoCompletion::showPathCompletion()
 	// Get current line (at most MAX_PATH characters "backwards" from current caret).
 	generic_string currentLine;
 	{
-		const size_t bufSize = MAX_PATH;
+		const intptr_t bufSize = MAX_PATH;
 		TCHAR buf[bufSize + 1];
-		const size_t currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
+		const intptr_t currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
 		const auto startPos = max(0, currentPos - bufSize);
 		_pEditView->getGenericText(buf, bufSize + 1, startPos, currentPos);
 		currentLine = buf;

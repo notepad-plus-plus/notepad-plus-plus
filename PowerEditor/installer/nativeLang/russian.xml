@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.2.2:
+Updated to v8.3:
 - add tr. new lines
 - fix description opt.
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.2.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -889,8 +889,6 @@ Updated to v8.2.2:
 					<Item id="6122" name="Скрыть Главное Меню (Alt или F10 для выбора)"/>
 					<Item id="6123" name="Язык интерфейса"/>
 					<Item id="6128" name="Альтернативные иконки"/>
-				<!-- 	<Item id="6125" name="Панель со Списком Документов"/>
-					<Item id="6127" name="Отключить колонку расширения"/> -->
 				</Global>
 				<Scintillas title = "Правка">
 					<Item id="6214" name="Подсветка текущей строки"/>
@@ -1007,7 +1005,7 @@ Updated to v8.2.2:
 					<Item id="6721" name="Средняя часть"/>
 					<Item id="6722" name="Правая часть"/>
 					<Item id="6723" name="Добавить"/>
-	 		<!--	<ComboBox id="6724">
+					<ComboBox id="6724">
 						<Element name="Полный путь к файлу"/>
 						<Element name="Имя файла"/>
 						<Element name="Директория файла"/>
@@ -1015,7 +1013,7 @@ Updated to v8.2.2:
 						<Element name="Корот. формат даты"/>
 						<Element name="Длин. формат даты"/>
 						<Element name="Время"/> 
-					</ComboBox>-->
+					</ComboBox>
 					<Item id="6725" name="Переменная:"/>
 					<Item id="6727" name="Какая часть..."/>
 					<Item id="6728" name="Колонтитулы"/>
@@ -1156,7 +1154,7 @@ Updated to v8.2.2:
 					<Item id="6814" name="Допустимые значения: 1-9"/>
 					<Item id="6815" name="Подсказка при вводе параметров функций"/>
 					<Item id="6816" name="Завершение функций и слов"/>
-					<Item id="6869" name="Вставить Выделенное"/>
+					<Item id="6869" name="Вставить Выбранное"/>
 					<Item id="6870" name="TAB"/>
 					<Item id="6871" name="ENTER"/>
 					<Item id="6824" name="Игнорир. цифры"/>

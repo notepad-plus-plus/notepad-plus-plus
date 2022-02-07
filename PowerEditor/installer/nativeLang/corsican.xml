@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 1st, 2022 for version 8.2.2 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 7th, 2022 for version 8.3.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 11th, 2022 for version 8.2.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 4th, 2021 for version 8.1.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
@@ -31,7 +31,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.2.2">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->

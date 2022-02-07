@@ -117,9 +117,13 @@ bool AutoCompletion::showApiComplete()
 	if (len >= _keyWordMaxLen)
 		return false;
 
+	if (!_isFxImageRegistered)
+	{
+		_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+		_isFxImageRegistered = true;
+	}
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
-	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
-	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
@@ -202,10 +206,13 @@ bool AutoCompletion::showApiAndWordComplete()
 	}
 
 	// Make Scintilla show the autocompletion menu
-
+	if (!_isFxImageRegistered)
+	{
+		_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+		_isFxImageRegistered = true;
+	}
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
-	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
-	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -464,8 +471,6 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	// Make Scintilla show the autocompletion menu
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
-	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
-	_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;

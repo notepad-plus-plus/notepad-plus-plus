@@ -79,6 +79,7 @@ private:
 	LangType _curLang = L_TEXT;
 	TiXmlDocument *_pXmlFile = nullptr;
 	TiXmlElement *_pXmlKeyword = nullptr;
+	bool _isFxImageRegistered = false;
 
 	InsertedMatchedChars _insertedMatchedChars;
 

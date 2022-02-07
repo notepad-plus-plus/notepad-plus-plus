@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-01-27 by Daniel Fuchs
+	last modified: 2022-02-07 by Daniel Fuchs
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.2.1">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

@@ -111,7 +111,57 @@ InstType "Minimalist"
 Var diffArchDir2Remove
 Var noUpdater
 
+!ifdef ARCH64
+; this is needed for the 64-bit InstallDirRegKey attribute patch
+!include "StrFunc.nsh"
+${StrStr} # Supportable for Install Sections and Functions
+!endif
+
 Function .onInit
+
+	; --- PATCH BEGIN (it can be deleted without side-effects, when the NSIS N++ x64 installer binary becomes x64 too)---
+	;
+	; 64-bit patch for the NSIS attribute InstallDirRegKey (used in globalDef.nsh)
+	; - this is needed because of the NSIS binary, generated for 64-bit Notepad++ installations, is still a 32-bit app (this can be changed in the future),
+	;   so the InstallDirRegKey attribute checks for irrelevant RegKey (HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Notepad++), see also this:
+	;   https://nsis.sourceforge.io/Reference/SetRegView
+	; - for the closest InstallDirRegKey simulation possible, this should be right at the top of .onInit
+	;
+	; Notes:
+	;
+	; - before .onInit is executed, $INSTDIR has been preset by the InstallDir attribute
+	; - then if the value defined by a possible InstallDirRegKey attribute is valid, it overrides original InstallDir
+	; - finally, if the user used "/D=..." at runtime (at installer cmdline), $INSTDIR has been changed to that parameter before .onInit
+	;
+	; - so we have to know here, if the "/D" was used, but there is a problem (citation from the NSIS documentation):
+	;   "For parsing out the PARAMETER portion, see GetParameters. If /D= is specified on the command line (to override the install directory) it won't show up in $CMDLINE."
+	;
+	; - so one solution could be not to use the 'Installdir' & 'InstallDirRegKey' at all and then we can use here:
+	;	${If} $INSTDIR != ""
+	;		;/D was used for sure, so obey and do nothing
+	;	${Else}
+	;	...
+	;
+	; - another solution is to parse the original cmdline for the "/D=..." and then act accordingly (this is the chosen solution below)
+	;
+!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
+	${If} ${RunningX64}
+		System::Call kernel32::GetCommandLine()t.r0 ; get the original cmdline (where a possible "/D=..." is not hidden from us by NSIS)
+		${StrStr} $1 $0 "/D="
+		${If} "$1" == ""
+			; "/D=..." was NOT used for sure, so we can continue in this InstallDirRegKey x64 patch 
+			SetRegView 64 ; disable registry redirection (enable access to 64-bit portion of registry)
+			ReadRegStr $0 HKLM "Software\${APPNAME}" ""
+			${If} "$0" != ""
+				; a valid previous installation path has been detected, so offer that as the $INSTDIR
+				StrCpy $INSTDIR "$0"
+			${EndIf}
+			SetRegView 32 ; restore the original state (this is only for simulating the non-patched state as closely as possible)
+		${EndIf}
+	${EndIf}
+!endif
+	;
+	; --- PATCH END ---
 
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
@@ -148,9 +198,6 @@ updaterDone:
 	${If} ${RunningX64}
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
-		
-		; 64-bit patch for the NSIS attribute InstallDirRegKey (used in globalDef.nsh)
-		ReadRegStr $INSTDIR HKLM "Software\${APPNAME}" ""
 		
 		; change to x64 install dir if needed
 		${If} "$InstDir" != ""

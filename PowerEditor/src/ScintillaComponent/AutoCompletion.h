@@ -79,6 +79,7 @@ private:
 	LangType _curLang = L_TEXT;
 	TiXmlDocument *_pXmlFile = nullptr;
 	TiXmlElement *_pXmlKeyword = nullptr;
+	bool _isFxImageRegistered = false;
 
 	InsertedMatchedChars _insertedMatchedChars;
 
@@ -88,7 +89,7 @@ private:
 	generic_string _keyWords;
 	size_t _keyWordMaxLen = 0;
 
-	FunctionCallTip _funcCalltip;
+ 	FunctionCallTip _funcCalltip;
 
 	const TCHAR * getApiFileName();
 	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars, TCHAR *excludeChars);

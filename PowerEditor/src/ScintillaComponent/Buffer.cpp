@@ -62,9 +62,9 @@ namespace // anonymous
 } // anonymous namespace
 
 
-Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)
+Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName, bool isLargeFile)
 	// type must be either DOC_REGULAR or DOC_UNNAMED
-	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT)
+	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT), _isLargeFile(isLargeFile)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
@@ -82,9 +82,7 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	checkFileState();
 
 	// reset after initialization
-	_isDirty   = false;
 	_canNotify = true;
-	_needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 }
 
 
@@ -228,14 +226,21 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 
 	updateTimeStamp();
 
+	BufferStatusInfo lang2Change = BufferChangeNone;
 	if (!_hasLangBeenSetFromMenu && (newLang != _lang || _lang == L_USER))
 	{
-		_lang = newLang;
-		doNotify(BufferChangeFilename | BufferChangeLanguage | BufferChangeTimestamp);
-		return;
+		if (_isLargeFile)
+		{
+			_lang = L_TEXT;
+		}
+		else
+		{
+			_lang = newLang;
+			lang2Change = BufferChangeLanguage;
+		}
 	}
 
-	doNotify(BufferChangeFilename | BufferChangeTimestamp);
+	doNotify(BufferChangeFilename | BufferChangeTimestamp | lang2Change);
 }
 
 
@@ -643,22 +648,43 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp)
 {
 	//Get file size
+	int64_t fileSize = -1;
 	const TCHAR* pPath = filename;
 	if (!::PathFileExists(pPath))
+	{
 		pPath = backupFileName;
-	FILE* fp = generic_fopen(pPath, TEXT("rb"));
-	if (!fp)
-		return BUFFER_INVALID;
-
-	_fseeki64(fp, 0, SEEK_END);
-	int64_t fileSize = _ftelli64(fp);
-	fclose(fp);
+	}
+	if (pPath)
+	{
+		FILE* fp = generic_fopen(pPath, TEXT("rb"));
+		if (fp)
+		{
+			_fseeki64(fp, 0, SEEK_END);
+			fileSize = _ftelli64(fp);
+			fclose(fp);
+		}
+	}
 	
+	// * the auto-completion feature will be disabled for large files
+	// * the session snapshotsand periodic backups feature will be disabled for large files
+	// * the backups on save feature will be disabled for large files
+	bool isLargeFile = fileSize >= NPP_STYLING_FILESIZE_LIMIT;
+
+	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
+	if (isLargeFile)
+	{
+		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
+		if (isWrap)
+		{
+			_pNotepadPlus->command(IDM_VIEW_WRAP);
+		}
+	}
+
 	bool ownDoc = false;
 	if (!doc)
 	{
 		// If file exceeds 200MB, activate large file mode
-		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, fileSize < NPP_STYLING_FILESIZE_LIMIT ? 0 : SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE);
+		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, isLargeFile ? SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE : 0);
 		ownDoc = true;
 	}
 
@@ -690,7 +716,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 
 	if (res)
 	{
-		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
+		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, isLargeFile);
 		BufferID id = static_cast<BufferID>(newBuf);
 		newBuf->_id = id;
 
@@ -714,7 +740,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		buf->setEncoding(-1);
 
 		// if no file extension, and the language has been detected,  we use the detected value
-		if ((buf->getLangType() == L_TEXT) && (loadedFileFormat._language != L_TEXT))
+		if (!newBuf->_isLargeFile && ((buf->getLangType() == L_TEXT) && (loadedFileFormat._language != L_TEXT)))
 			buf->setLangType(loadedFileFormat._language);
 
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
@@ -893,9 +919,12 @@ std::mutex backup_mutex;
 
 bool FileManager::backupCurrentBuffer()
 {
+	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
+	if (buffer->isLargeFile())
+		return false;
+
 	std::lock_guard<std::mutex> lock(backup_mutex);
 
-	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = false;
 	bool hasModifForSession = false;
 
@@ -1223,7 +1252,7 @@ BufferID FileManager::newEmptyDocument()
 	newTitle += nb;
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
-	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
+	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
@@ -1241,7 +1270,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 
 	if (!dontRef)
 		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
-	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
+	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
@@ -1387,18 +1416,13 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?\n(Due to the performance issue, the Word Wrap feature will be disabled if it's ON)"),
+				TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?"),
 				TEXT("Opening huge file warning"),
 				MB_YESNO | MB_APPLMODAL);
 
 			if (res == IDYES)
 			{
-				// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
-				bool isWrap = _pNotepadPlus->_pEditView->isWrap();
-				if (isWrap)
-				{
-					_pNotepadPlus->command(IDM_VIEW_WRAP);
-				}
+				// Do nothing
 			}
 			else
 			{
@@ -1437,12 +1461,15 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	bool success = true;
 	EolType format = EolType::unknown;
+	int sciStatus = SC_STATUS_OK;
+	TCHAR szException[64] = { 0 };
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
 		_pscratchTilla->execute(SCI_ALLOCATE, WPARAM(bufferSizeRequested));
-		if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
-			throw;
+		sciStatus = static_cast<int>(_pscratchTilla->execute(SCI_GETSTATUS));
+		if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
+			throw std::runtime_error("Scintilla error");
 
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
@@ -1509,25 +1536,53 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
 			}
 
-			if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
-				throw;
+			sciStatus = static_cast<int>(_pscratchTilla->execute(SCI_GETSTATUS));
+			if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
+				throw std::runtime_error("Scintilla error");
 
 			if (incompleteMultibyteChar != 0)
 			{
 				// copy bytes to next buffer
 				memcpy(data, data + blockSize - incompleteMultibyteChar, incompleteMultibyteChar);
 			}
-
 		}
 		while (lenFile > 0);
 	}
-	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
+	__except(EXCEPTION_EXECUTE_HANDLER)
 	{
-		pNativeSpeaker->messageBox("FileTooBigToOpen",
-			_pNotepadPlus->_pEditView->getHSelf(),
-			TEXT("File is too big to be opened by Notepad++"),
-			TEXT("Exception: File size problem"),
-			MB_OK | MB_APPLMODAL);
+		switch (sciStatus)
+		{
+			case SC_STATUS_OK:
+				// either the Scintilla not catched this exception or the error is in the N++ code, report the exception anyway
+#if defined(__GNUC__)
+				// there is the std::current_exception() possibility, but getting the real exception code from there requires an ugly hack,
+				// because of the std::exception_ptr has its members _Data1 (GetExceptionCode) and _Data2 (GetExceptionInformation) private
+				_stprintf_s(szException, _countof(szException), TEXT("unknown exception"));
+#else
+				_stprintf_s(szException, _countof(szException), TEXT("0x%X (SEH)"), ::GetExceptionCode());
+#endif
+				break;
+			case SC_STATUS_BADALLOC:
+				pNativeSpeaker->messageBox("FileTooBigToOpen",
+					_pNotepadPlus->_pEditView->getHSelf(),
+					TEXT("File is too big to be opened by Notepad++"),
+					TEXT("Exception: File size problem"),
+					MB_OK | MB_APPLMODAL);
+			case SC_STATUS_FAILURE:
+			default:
+				_stprintf_s(szException, _countof(szException), TEXT("%d (Scintilla)"), sciStatus);
+				break;
+		}
+		if (sciStatus != SC_STATUS_BADALLOC)
+		{
+			pNativeSpeaker->messageBox("FileLoadingException",
+				_pNotepadPlus->_pEditView->getHSelf(),
+				TEXT("An error occurred while loading the file!"),
+				TEXT("Exception code: $STR_REPLACE$"),
+				MB_OK | MB_APPLMODAL,
+				0,
+				szException);
+		}
 		success = false;
 	}
 
@@ -1575,7 +1630,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 
 	for (size_t i = 0; i < _buffers.size(); i++)
 	{
-		if (OrdinalIgnoreCaseCompareStrings(name, _buffers.at(i)->getFullPathName()) == 0)
+		if (OrdinalIgnoreCaseCompareStrings(fullpath, _buffers.at(i)->getFullPathName()) == 0)
 		{
 			if (_buffers.at(i)->_referees[0]->isVisible())
 			{

@@ -1279,12 +1279,12 @@ struct SCNotification {
 };
 
 struct SearchResultMarking {
-	long _start;
-	long _end;
+	intptr_t _start;
+	intptr_t _end;
 };
 
 struct SearchResultMarkings {
-	long _length;
+	intptr_t _length;
 	SearchResultMarking *_markings;
 };
 

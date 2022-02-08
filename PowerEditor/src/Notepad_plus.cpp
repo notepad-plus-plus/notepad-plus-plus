@@ -2567,6 +2567,10 @@ void Notepad_plus::findMatchingBracePos(intptr_t& braceAtCaret, intptr_t& braceO
 // return true if 1 or 2 (matched) brace(s) is found
 bool Notepad_plus::braceMatch()
 {
+	Buffer* currentBuf = _pEditView->getCurrentBuffer();
+	if (currentBuf->isLargeFile())
+		return false;
+
 	intptr_t braceAtCaret = -1;
 	intptr_t braceOpposite = -1;
 	findMatchingBracePos(braceAtCaret, braceOpposite);
@@ -2977,6 +2981,10 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 
 void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
+	Buffer* currentBuf = _pEditView->getCurrentBuffer();
+	if (currentBuf->isLargeFile())
+		return;
+
 	ScintillaEditView* pView = view ? view : _pEditView;
 
 	int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
@@ -6117,7 +6125,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	generic_string udl = pCmdParams->_udlName;
 	int lineNumber =  pCmdParams->_line2go;
 	int columnNumber = pCmdParams->_column2go;
-	size_t positionNumber = pCmdParams->_pos2go;
+	intptr_t positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;

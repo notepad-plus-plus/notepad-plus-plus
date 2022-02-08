@@ -4065,8 +4065,8 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 	wsprintf(lnb, TEXT("%d"), static_cast<int>(fi._lineNumber));
 	str += lnb;
 	str += TEXT(": ");
-	mi._start += static_cast<int32_t>(str.length());
-	mi._end += static_cast<int32_t>(str.length());
+	mi._start += str.length();
+	mi._end += str.length();
 	str += foundline;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();

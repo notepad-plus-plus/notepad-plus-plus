@@ -796,7 +796,7 @@ struct NppGUI final
 	bool _isLangMenuCompact = true;
 
 	PrintSettings _printSettings;
-	BackupFeature _backup = bak_simple;
+	BackupFeature _backup = bak_none;
 	bool _useDir = false;
 	generic_string _backupDir;
 	DockingManagerData _dockingData;
@@ -805,7 +805,7 @@ struct NppGUI final
 	AutocStatus _autocStatus = autoc_both;
 	size_t  _autocFromLen = 1;
 	bool _autocIgnoreNumbers = true;
-	bool _autocInsertSelectedUseENTER = false;
+	bool _autocInsertSelectedUseENTER = true;
 	bool _autocInsertSelectedUseTAB = true;
 	bool _funcParams = true;
 	MatchedPairConf _matchedPairConf;

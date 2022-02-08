@@ -449,7 +449,7 @@ const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, siz
 }
 
 
-const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, long* mstart, long* mend)
+const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend)
 {
 	if (nullptr == wcharStr2Convert)
 		return nullptr;
@@ -462,8 +462,8 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, si
 
         if (*mstart < lstrlenW(wcharStr2Convert) && *mend < lstrlenW(wcharStr2Convert))
         {
-			*mstart = WideCharToMultiByte(cp, 0, wcharStr2Convert, *mstart, NULL, 0, NULL, NULL);
-			*mend = WideCharToMultiByte(cp, 0, wcharStr2Convert, *mend, NULL, 0, NULL, NULL);
+			*mstart = WideCharToMultiByte(cp, 0, wcharStr2Convert, (int)*mstart, NULL, 0, NULL, NULL);
+			*mend = WideCharToMultiByte(cp, 0, wcharStr2Convert, (int)*mend, NULL, 0, NULL, NULL);
 			if (*mstart >= len || *mend >= len)
 			{
 				*mstart = 0;

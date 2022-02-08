@@ -37,6 +37,7 @@ enum DocFileStatus {
 };
 
 enum BufferStatusInfo {
+	BufferChangeNone		= 0x000,  // Nothing to change
 	BufferChangeLanguage	= 0x001,  // Language was altered
 	BufferChangeDirty		= 0x002,  // Buffer has changed dirty state
 	BufferChangeFormat		= 0x004,  // EOL type was changed
@@ -150,7 +151,7 @@ public:
 	//Load the document into Scintilla/add to TabBar
 	//The entire lifetime if the buffer, the Document has reference count of _atleast_ one
 	//Destructor makes sure its purged
-	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName);
+	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName, bool isLargeFile);
 
 	// this method 1. copies the file name
 	//             2. determinates the language from the ext of file name
@@ -292,6 +293,8 @@ public:
 	bool isUnsync() const { return _isUnsync; }
 	void setUnsync(bool val) { _isUnsync = val; }
 
+	bool isLargeFile() const { return _isLargeFile; }
+
 	void startMonitoring() { 
 		_isMonitoringOn = true; 
 		_eventHandle = ::CreateEvent(nullptr, TRUE, FALSE, nullptr);
@@ -344,6 +347,7 @@ private:
 	bool _isUserReadOnly = false;
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 	//these properties have to be duplicated because of multiple references
+
 	//All the vectors must have the same size at all times
 	std::vector<ScintillaEditView *> _referees; // Instances of ScintillaEditView which contain this buffer
 	std::vector<Position> _positions;
@@ -372,6 +376,7 @@ private:
 	                        // 2. the file is modified by another app but the buffer is not reloaded in Notepad++.
 	                        // Note that if the buffer is untitled, there's no correspondent file on the disk so the buffer is considered as independent therefore synchronized.
 
+	bool _isLargeFile = false; // The loading of huge files will disable automatically 1. auto-completion 2. snapshot periode backup 3. backup on save 4. word wrap
 
 	// For the monitoring
 	HANDLE _eventHandle = nullptr;

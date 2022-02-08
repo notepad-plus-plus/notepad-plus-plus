@@ -30,21 +30,21 @@ public:
 	void tagMatch(bool doHiliteAttr);
 	
 private:
-	ScintillaEditView *_pEditView;
+	ScintillaEditView* _pEditView = nullptr;
 	
 	struct XmlMatchedTagsPos {
-		intptr_t tagOpenStart;
-		intptr_t tagNameEnd;
-		intptr_t tagOpenEnd;
+		intptr_t tagOpenStart = 0;
+		intptr_t tagNameEnd = 0;
+		intptr_t tagOpenEnd = 0;
 
-		intptr_t tagCloseStart;
-		intptr_t tagCloseEnd;
+		intptr_t tagCloseStart = 0;
+		intptr_t tagCloseEnd = 0;
 	};
 
 	struct FindResult {
-		intptr_t start;
-		intptr_t end;
-		bool success;
+		intptr_t start = 0;
+		intptr_t end = 0;
+		bool success = false;
 	};
 	
 	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);

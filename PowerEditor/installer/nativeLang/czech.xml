@@ -1036,7 +1036,6 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6721" name = "Prostřední část"/>
 					<Item id = "6722" name = "Pravá část"/>
 					<Item id = "6723" name = "Přidat"/>
-					<!--
 					<ComboBox id = "6724">
 						<Element name = "Jméno soub. s cestou"/>
 						<Element name = "Jméno souboru"/>
@@ -1046,7 +1045,6 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 						<Element name = "Datum - delší form."/>
 						<Element name = "Čas"/>
 					</ComboBox>
-					-->
 					<Item id = "6725" name = "Varianty:"/>
 					<Item id = "6727" name = "Která část:"/>
 					<Item id = "6728" name = "Záhlaví a zápatí"/>

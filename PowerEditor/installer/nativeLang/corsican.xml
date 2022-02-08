@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 7th, 2022 for version 8.3.1 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 8th, 2022 for version 8.3.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 11th, 2022 for version 8.2.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 4th, 2021 for version 8.1.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
@@ -1279,6 +1279,7 @@ Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?
             <DocTooDirtyToMonitor title="Penseru d’appustamentu" message="U ducumentu hè brutu. Ci vole à arregistrà a mudificazione nanzu à appustallu."/>
             <DocNoExistToMonitor title="Penseru d’appustamentu" message="U schedariu deve esiste per esse appustatu."/>
             <FileTooBigToOpen title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Codice di sbagliu : $STR_REPLACE$" message="Un sbagliu hè accadutu durante u caricamentu di u schedariu !"/>
             <WantToOpenHugeFile title="Avertimentu d’apertura di schedariu maiò" message="L’apertura d’un schedariu più maiò chì 2 Go pò piglià parechji minuti.
 Vulete aprelu ?"/>
             <CreateNewFileOrNot title="Creà un novu schedariu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>

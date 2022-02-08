@@ -984,6 +984,15 @@
                     <Item id="6721" name="中間"/>
                     <Item id="6722" name="右邊"/>
                     <Item id="6723" name="加入"/>
+                    <ComboBox id="6724">
+                        <Element name="完整的文件名路徑"/>
+                        <Element name="文件名"/>
+                        <Element name="文件目錄"/>
+                        <Element name="頁數"/>
+                        <Element name="簡短日期格式"/>
+                        <Element name="完整日期格式"/>
+                        <Element name="時間"/>
+                    </ComboBox>
                     <Item id="6725" name="變數："/>
                     <Item id="6727" name="設定的變數顯示在此"/>
                     <Item id="6728" name="頁首與頁尾"/>
@@ -1217,6 +1226,9 @@
             <DocTooDirtyToMonitor title="監控錯誤" message="文件已被修改，請在監視前儲存文件。"/>
             <DocNoExistToMonitor title="監控錯誤" message="文件不存在，因此無法進行監視。"/>
             <FileTooBigToOpen title="文件太大" message="文件太大，無法使用 Notepad++ 開啟。"/>
+            <FileLoadingException title="例外處理編號： $STR_REPLACE$" message="開啟文件時發生錯誤！"/>
+            <WantToOpenHugeFile title="開啟超大文件預警" message="開啟一個 2GB 以上的大型文件可能需要數分鐘時間。
+你仍要打開它嗎？"/>
             <CreateNewFileOrNot title="開新檔案" message="「$STR_REPLACE$」不存在。你要開新檔案嗎？"/>
             <CreateNewFileError title="開新檔案" message="無法開新檔案「$STR_REPLACE$」。"/>
             <OpenFileError title="錯誤" message="無法開啟「$STR_REPLACE$」"/>

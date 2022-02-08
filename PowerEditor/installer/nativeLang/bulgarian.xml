@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 15.01.2022 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 09.02.2022 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -955,6 +955,15 @@
 					<Item id="6615" name="Долу"/>
 					<Item id="6728" name="Горен и долен колонтитули"/>
 					<Item id="6725" name="Променливи:"/>
+					<ComboBox id="6724">
+						<Element name="Пълен път на файла"/>
+						<Element name="Име на файла"/>
+						<Element name="Дир. на файла"/>
+						<Element name="Страница"/>
+						<Element name="Кратка дата"/>
+						<Element name="Дълга дата"/>
+						<Element name="Време"/>
+					</ComboBox>
 					<Item id="6723" name="Добавяне"/>
 					<Item id="6708" name="Горен колонтитул"/>
 					<Item id="6709" name="Лява част"/>
@@ -1562,7 +1571,7 @@
 		</WindowsDlg>
 			<!-- Диалогови прозорци със съобщения -->
 		<MessageBox>
-		<!-- $INT_REPLACE$ и $STR_REPLACE$ са контейнери, не се превеждат -->
+				<!-- $INT_REPLACE$ и $STR_REPLACE$ са контейнери, не се превеждат -->
 			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на Notepad++
 
 Изисква се рестартиране на Notepad++"/>
@@ -1634,6 +1643,7 @@
 			<DocTooDirtyToMonitor title="Проблем с наблюдение" message="Документът е мръсен. Запишете промените преди да го наблюдавате."/>
 			<DocNoExistToMonitor title="Проблем с наблюдение" message="Файлът трябва да съществува за да бъде наблюдаван"/>
 			<FileTooBigToOpen title="Проблем с размер на файл" message="Файлът е твърде голям за да се отвори от Notepad++"/>
+			<FileLoadingException title="Код за изключение: $STR_REPLACE$" message="Възникна грешка при зареждането на файла!"/>
 			<CreateNewFileOrNot title="Създаване на нов файл" message="&quot;$STR_REPLACE$&quot; не съществува.
 
 Създаване?"/>
@@ -1681,6 +1691,9 @@
 Продължаване?"/>
 			<NeedToRestartToLoadPlugins title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира за да зареди инсталираните добавки"/>
 			<GUpProxyConfNeedAdminMode title="Настройка на прокси" message="За настройка на прокси, рестартирайте Notepad++ с администраторски права"/>
+			<WantToOpenHugeFile title="Предупреждение за отваряне на огромен файл" message="Отварянето на огромен файл с размер над 2GB може да отнеме няколко минути.
+			
+Искате ли да се отвори?"/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.3.0  5/Feb/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.3.0  8/Feb/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -1276,6 +1276,7 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 			<DocTooDirtyToMonitor title = "Chyba sledování stavu" message = "Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
 			<DocNoExistToMonitor title = "Problém se sledováním stavu" message = "Soubor musí existovat, aby jej bylo možné sledovat."/>
 			<FileTooBigToOpen title = "Problém s velikostí souboru" message = "Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>
+			<FileLoadingException title = "Kód vyjímky: $STR_REPLACE$" message = "Při načítání souboru došlo k chybě!"/>
 			<WantToOpenHugeFile title = "Varování při otevírání velikého souboru" message = "Otevření velikého souboru (2GB+) může trvat i několik minut.
 Opravdu chcete soubor otevřít?"/>
 			<CreateNewFileOrNot title = "Vytvoření nového souboru" message = "&quot;$STR_REPLACE$&quot; neexistuje. Chcete jej vytvořit?"/>

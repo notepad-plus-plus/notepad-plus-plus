@@ -1255,6 +1255,7 @@ Updated to v8.3:
 			<DocTooDirtyToMonitor        title="Проблема Мониторинга"                message="Документ в работе. Сохраните внесённые изменения перед его мониторингом."/>
 			<DocNoExistToMonitor         title="Проблема Мониторинга"                message="Для мониторинга файл должен существовать."/>
 			<FileTooBigToOpen            title="Проблема с размером файла"           message="Файл слишком велик, чтобы открыть его в Notepad++"/>
+			<FileLoadingException        title="Код исключения: $STR_REPLACE$"       message="При загрузке файла произошла ошибка!"/>
 			<WantToOpenHugeFile          title="Открытие файла большого размера"     message="Открытие файла размером 2ГБ и более, может занять несколько минут.&#x0A;Вы точно хотите его открыть?"/>
 			<CreateNewFileOrNot          title="Создание нового файла"               message="&quot;$STR_REPLACE$&quot; не существует. Создать его?"/>
 			<CreateNewFileError          title="Создание нового файла"               message="Не удается создать файл &quot;$STR_REPLACE$&quot;."/>

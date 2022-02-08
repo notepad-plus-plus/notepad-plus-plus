@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.2">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.3.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1241,6 +1241,7 @@ Prejsť na domovskú stránku programu Notepad++, odkiaľ si môžete stiahnuť 
             <DocTooDirtyToMonitor title="Problém so sledovaním zmien" message="Dokument bol pozmenený. Pred sledovaním zmien, uložte všetky zmeny v dokumente."/>
             <DocNoExistToMonitor title="Problém so sledovaním zmien" message="Súbor musí najprv existovať, aby v ňom bolo možné sledovať zmeny."/>
             <FileTooBigToOpen title="Problém s veľkosťou súboru" message="Súbor je príliš veľký, aby mohol byť otvorený v programe Notepad++."/>
+            <FileLoadingException title="Kód výnimky: $STR_REPLACE$" message="Pri načítavaní súboru došlo k chybe!"/>
             <CreateNewFileOrNot title="Vytvoriť nový súbor" message="Súbor &quot;$STR_REPLACE$&quot; neexistuje. Chcete ho vytvoriť?"/>
             <CreateNewFileError title="Vytvoriť nový súbor" message="Súbor &quot;$STR_REPLACE$&quot; nie je možné vytvoriť."/>
             <OpenFileError title="CHYBA" message="Súbor &quot;$STR_REPLACE$&quot; nie je možné otvoriť."/>

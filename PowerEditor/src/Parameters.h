@@ -796,7 +796,7 @@ struct NppGUI final
 	bool _isLangMenuCompact = true;
 
 	PrintSettings _printSettings;
-	BackupFeature _backup = bak_simple;
+	BackupFeature _backup = bak_none;
 	bool _useDir = false;
 	generic_string _backupDir;
 	DockingManagerData _dockingData;

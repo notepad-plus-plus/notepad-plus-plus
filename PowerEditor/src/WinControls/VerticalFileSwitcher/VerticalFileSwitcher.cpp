@@ -396,12 +396,12 @@ void VerticalFileSwitcher::updateHeaderArrow()
 	
 	if (_lastSortingDirection == SORT_DIRECTION_UP)
 	{
-		lvc.fmt = lvc.fmt | HDF_SORTUP & ~HDF_SORTDOWN;
+		lvc.fmt = (lvc.fmt | HDF_SORTUP) & ~HDF_SORTDOWN;
 		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
 	}
 	else if (_lastSortingDirection == SORT_DIRECTION_DOWN)
 	{
-		lvc.fmt = lvc.fmt & ~HDF_SORTUP | HDF_SORTDOWN;
+		lvc.fmt = (lvc.fmt & ~HDF_SORTUP) | HDF_SORTDOWN;
 		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
 	}
 	else if (_lastSortingDirection == SORT_DIRECTION_NONE)

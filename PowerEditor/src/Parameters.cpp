@@ -630,7 +630,7 @@ int base64ToAscii(char *dest, const char *base64Str)
 		uc2 = (UCHAR)base64IndexArray[base64Str[j+2]];
 		uc3 = (UCHAR)base64IndexArray[base64Str[j+3]];
 
-		if ((uc0 == -1) || (uc1 == -1) || (uc2 == -1) || (uc3 == -1))
+		if ((static_cast<char>(uc0) == -1) || (static_cast<char>(uc1) == -1) || (static_cast<char>(uc2) == -1) || (static_cast<char>(uc3) == -1))
 			return -1;
 
 		if (base64Str[j+2] == '=') // && (uc3 == '=')

@@ -284,7 +284,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 private :
-    void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
+    void retrieve(TCHAR *dest, const TCHAR *toRetrieve, const TCHAR *prefix) const;
 };
 
 class SymbolsStyleDialog : public SharedParametersDialog

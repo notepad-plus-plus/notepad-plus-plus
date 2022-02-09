@@ -85,7 +85,7 @@ protected :
 	static RECT _lastKnownLocation;
 	SIZE _szMinButton = {};
 	SIZE _szMinListCtrl = {};
-	DocTabView *_pTab = nullptr;
+	DocTabView* _pTab = nullptr;
 	std::vector<int> _idxMap;
 	int _currentColumn = -1;
 	int _lastSort = -1;

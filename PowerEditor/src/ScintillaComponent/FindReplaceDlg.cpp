@@ -499,7 +499,7 @@ bool Finder::notify(SCNotification *notification)
 			::SendMessage(_scintView.getHSelf(), WM_LBUTTONUP, 0, 0);
 
 			size_t pos = notification->position;
-			if (pos == INVALID_POSITION)
+			if (static_cast<intptr_t>(pos) == INVALID_POSITION)
 				pos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
 			_scintView.execute(SCI_SETSEL, pos, pos);
 
@@ -3494,7 +3494,7 @@ void FindReplaceDlg::enableProjectCheckmarks()
 		for (int i = 0; i < 3; i++)
 		{
 			UINT s = GetMenuState (hMenu, idm [i], MF_BYCOMMAND);
-			if (s != -1)
+			if (static_cast<int>(s) != -1)
 			{
 				if (s & MF_CHECKED)
 				{

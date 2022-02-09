@@ -302,9 +302,9 @@ void VerticalFileSwitcher::initPopupMenus()
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNPATH_ID, pathStr.c_str());
 
 	bool isExtColumn = nppGUI._fileSwitcherWithoutExtColumn;
-	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
+	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | (isExtColumn ? MF_UNCHECKED : MF_CHECKED));
 	bool isPathColumn = nppGUI._fileSwitcherWithoutPathColumn;
-	::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | isPathColumn ? MF_UNCHECKED : MF_CHECKED);
+	::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | (isPathColumn ? MF_UNCHECKED : MF_CHECKED));
 }
 
 void VerticalFileSwitcher::popupMenuCmd(int cmdID)
@@ -323,7 +323,7 @@ void VerticalFileSwitcher::popupMenuCmd(int cmdID)
 		{
 			bool& isPathColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutPathColumn;
 			isPathColumn = !isPathColumn;
-			::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | isPathColumn ? MF_UNCHECKED : MF_CHECKED);
+			::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | (isPathColumn ? MF_UNCHECKED : MF_CHECKED));
 			reload();
 		}
 		break;

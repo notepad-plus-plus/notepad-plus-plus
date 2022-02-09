@@ -43,7 +43,7 @@ public :
 	size_t doPrint(bool justDoIt);
 
 private :
-	PRINTDLG _pdlg;
+	PRINTDLG _pdlg = { 0 };
 	ScintillaEditView *_pSEView = nullptr;
 	size_t _startPos = 0;
 	size_t _endPos = 0;

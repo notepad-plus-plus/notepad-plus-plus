@@ -471,7 +471,7 @@ private :
 	FindStatus _findStatus = FSFound;
 
 	ReBar* _pRebar = nullptr;
-	REBARBANDINFO _rbBand;
+	REBARBANDINFO _rbBand = { 0 };
 
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);

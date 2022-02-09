@@ -156,6 +156,9 @@ struct Position
 
 struct MapPosition
 {
+private:
+	intptr_t _maxPeekLenInKB = 512; // 512 KB
+public:
 	intptr_t _firstVisibleDisplayLine = -1;
 
 	intptr_t _firstVisibleDocLine = -1; // map
@@ -171,9 +174,6 @@ struct MapPosition
 	bool _isWrap = false;
 	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
 	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
-
-private:
-	intptr_t _maxPeekLenInKB = 512; // 512 KB
 };
 
 

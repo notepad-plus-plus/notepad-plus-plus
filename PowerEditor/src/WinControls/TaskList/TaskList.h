@@ -62,6 +62,6 @@ protected:
 	HFONT _hFontSelected = nullptr;
 	int _nbItem = 0;
 	int _currentIndex = 0;
-	RECT _rc = { 0 };
+	RECT _rc = {};
 };
 

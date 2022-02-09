@@ -846,7 +846,7 @@ bool FileManager::deleteFile(BufferID id)
 	if (!PathFileExists(fileNamePath.c_str()))
 		return false;
 
-	SHFILEOPSTRUCT fileOpStruct = {0};
+	SHFILEOPSTRUCT fileOpStruct = {};
 	fileOpStruct.hwnd = NULL;
 	fileOpStruct.pFrom = fileNamePath.c_str();
 	fileOpStruct.pTo = NULL;
@@ -1462,7 +1462,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 	bool success = true;
 	EolType format = EolType::unknown;
 	int sciStatus = SC_STATUS_OK;
-	TCHAR szException[64] = { 0 };
+	TCHAR szException[64] = { '\0' };
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)

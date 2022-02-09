@@ -599,7 +599,7 @@ bool WordStyleDlg::isDocumentMapStyle()
 		return false;
 
 	constexpr size_t styleNameLen = 128;
-	TCHAR styleName[styleNameLen + 1] = { 0 };
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	const auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
 	if (lbTextLen > styleNameLen)
 		return false;

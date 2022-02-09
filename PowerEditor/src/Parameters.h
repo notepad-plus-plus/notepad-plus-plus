@@ -232,7 +232,7 @@ struct CmdLineParams
 	int _column2go = -1;
 	int _pos2go = -1;
 
-	POINT _point = { 0 };
+	POINT _point = {};
 	bool _isPointXValid = false;
 	bool _isPointYValid = false;
 
@@ -298,7 +298,7 @@ struct CmdLineParamsDTO
 struct FloatingWindowInfo
 {
 	int _cont = 0;
-	RECT _pos = { 0 };
+	RECT _pos = {};
 
 	FloatingWindowInfo(int cont, int x, int y, int w, int h)
 		: _cont(cont)
@@ -573,7 +573,7 @@ struct PrintSettings final {
 	int _footerFontStyle = 0;
 	int _footerFontSize = 0;
 
-	RECT _marge = {0};
+	RECT _marge = {};
 
 	PrintSettings() {
 		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
@@ -742,9 +742,9 @@ struct NppGUI final
 
 	bool _checkHistoryFiles = false;
 
-	RECT _appPos = {0};
+	RECT _appPos = {};
 
-	RECT _findWindowPos = { 0 };
+	RECT _findWindowPos = {};
 
 	bool _isMaximized = false;
 	bool _isMinimizedToTray = false;

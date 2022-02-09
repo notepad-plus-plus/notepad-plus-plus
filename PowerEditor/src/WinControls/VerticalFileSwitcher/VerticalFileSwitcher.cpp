@@ -205,7 +205,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					LPNMHEADER test = (LPNMHEADER)lParam;
 					HWND hwndHD = ListView_GetHeader(_fileListView.getHSelf());
 					TCHAR HDtext[MAX_PATH];
-					HDITEM hdi = { 0 };
+					HDITEM hdi = {};
 					hdi.mask = HDI_TEXT | HDI_WIDTH;
 					hdi.pszText = HDtext;
 					hdi.cchTextMax = MAX_PATH;

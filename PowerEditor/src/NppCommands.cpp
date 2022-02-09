@@ -70,11 +70,11 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_INSERT_DATETIME_SHORT:
 		case IDM_EDIT_INSERT_DATETIME_LONG:
 		{
-			SYSTEMTIME currentTime = { 0 };
+			SYSTEMTIME currentTime = {};
 			::GetLocalTime(&currentTime);
 
-			wchar_t dateStr[128] = { 0 };
-			wchar_t timeStr[128] = { 0 };
+			wchar_t dateStr[128] = { '\0' };
+			wchar_t timeStr[128] = { '\0' };
 
 			int dateFlag = (id == IDM_EDIT_INSERT_DATETIME_SHORT) ? DATE_SHORTDATE : DATE_LONGDATE;
 			GetDateFormatEx(LOCALE_NAME_USER_DEFAULT, dateFlag, &currentTime, NULL, dateStr, sizeof(dateStr) / sizeof(dateStr[0]), NULL);
@@ -103,7 +103,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_INSERT_DATETIME_CUSTOMIZED:
 		{
-			SYSTEMTIME currentTime = { 0 };
+			SYSTEMTIME currentTime = {};
 			::GetLocalTime(&currentTime);
 
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();

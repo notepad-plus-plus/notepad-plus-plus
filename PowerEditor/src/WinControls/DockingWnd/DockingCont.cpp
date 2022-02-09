@@ -226,7 +226,7 @@ tTbData* DockingCont::getDataOfActiveTb()
 
 	if (iItem != -1)
 	{
-		TCITEM	tcItem	= {0};
+		TCITEM	tcItem	= {};
 
 		tcItem.mask		= TCIF_PARAM;
 		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
@@ -239,7 +239,7 @@ tTbData* DockingCont::getDataOfActiveTb()
 vector<tTbData*> DockingCont::getDataOfVisTb()
 {
 	vector<tTbData*> vTbData;
-	TCITEM tcItem = {0};
+	TCITEM tcItem = {};
 	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	tcItem.mask	= TCIF_PARAM;
@@ -254,7 +254,7 @@ vector<tTbData*> DockingCont::getDataOfVisTb()
 
 bool DockingCont::isTbVis(tTbData* data)
 {
-	TCITEM tcItem = {0};
+	TCITEM tcItem = {};
 	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	tcItem.mask	= TCIF_PARAM;
@@ -335,7 +335,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 		}
 		case WM_MOUSEMOVE:
 		{
-			POINT	pt			= {0};
+			POINT	pt			= {};
 
 			// get correct cursor position
 			::GetCursorPos(&pt);
@@ -394,8 +394,8 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 		}
 		case WM_MOUSEHOVER:
 		{
-			RECT	rc	= {0};
-			POINT	pt	= {0};
+			RECT	rc	= {};
+			POINT	pt	= {};
 
 
 			// get mouse position
@@ -445,7 +445,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	RECT		rc			= pDrawItemStruct->rcItem;
 	HDC			hDc			= pDrawItemStruct->hDC;
 	HPEN		hPen		= ::CreatePen(PS_SOLID, 1, ::GetSysColor(COLOR_BTNSHADOW));
-	BITMAP		bmp			= {0};
+	BITMAP		bmp			= {};
 	HBITMAP		hBmpCur		= NULL;
 	HBITMAP		hBmpOld 	= NULL;
 	HBITMAP		hBmpNew		= NULL;
@@ -510,7 +510,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		::DrawText(hDc, _pszCaption.c_str(), length, &rc, DT_LEFT | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS | DT_NOPREFIX);
 
 		// calculate text size and if its trankated...
-		SIZE	size	= {0};
+		SIZE	size	= {};
 		GetTextExtentPoint32(hDc, _pszCaption.c_str(), length, &size);
 		_bCaptionTT = (((rc.right - rc.left) < size.cx) ? TRUE : FALSE);
 
@@ -561,7 +561,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		::DrawText(hDc, _pszCaption.c_str(), length, &rc, DT_BOTTOM | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
 
 		// calculate text size and if its trankated...
-		SIZE	size	= {0};
+		SIZE	size	= {};
 		GetTextExtentPoint32(hDc, _pszCaption.c_str(), length, &size);
 		_bCaptionTT = (((rc.bottom - rc.top) < size.cy) ? TRUE : FALSE);
 
@@ -731,7 +731,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
 
-				RECT rcIntersect = { 0 };
+				RECT rcIntersect = {};
 				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
 				{
 					dis.rcItem.top += NppParameters::getInstance()._dpiManager.scaleY(1);
@@ -788,7 +788,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 		case WM_LBUTTONUP:
 		{
 			int				iItem	= 0;
-			TCHITTESTINFO	info	= {0};
+			TCHITTESTINFO	info	= {};
 
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
@@ -807,8 +807,8 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 		case WM_MBUTTONUP:
 		{
 			int				iItem	= 0;
-			TCITEM			tcItem	= {0};
-			TCHITTESTINFO	info	= {0};
+			TCITEM			tcItem	= {};
+			TCHITTESTINFO	info	= {};
 
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
@@ -835,7 +835,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 		case WM_MOUSEMOVE:
 		{
 			int				iItem	= 0;
-			TCHITTESTINFO	info	= {0};
+			TCHITTESTINFO	info	= {};
 
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
@@ -873,8 +873,8 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 					}
 					else if (iItem != _iLastHovered)
 					{
-						TCITEM	tcItem	= {0};
-						RECT	rc		= {0};
+						TCITEM	tcItem	= {};
+						RECT	rc		= {};
 
 						// destroy old tooltip
 						toolTip.destroy();
@@ -904,9 +904,9 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 		case WM_MOUSEHOVER:
 		{
 			int				iItem	= 0;
-			TCITEM			tcItem	= {0};
-			RECT			rc		= {0};
-			TCHITTESTINFO	info	= {0};
+			TCITEM			tcItem	= {};
+			RECT			rc		= {};
+			TCHITTESTINFO	info	= {};
 
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
@@ -941,7 +941,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			if ((lpnmhdr->hwndFrom == _hContTab) && (lpnmhdr->code == TCN_GETOBJECT))
 			{
 				int				iItem	= 0;
-				TCHITTESTINFO	info	= {0};
+				TCHITTESTINFO	info	= {};
 
 				// get selected sub item
 				info.pt.x = LOWORD(lParam);
@@ -961,7 +961,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 {
-	TCITEM	tcItem		= {0};
+	TCITEM	tcItem		= {};
 	RECT	rc			= pDrawItemStruct->rcItem;
 	
 	int		nTab		= pDrawItemStruct->itemID;
@@ -1023,7 +1023,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		if ((hImageList != NULL) && (iPosImage >= 0))
 		{
 			// Get height of image so we
-			IMAGEINFO	info		= {0};
+			IMAGEINFO	info		= {};
 			RECT &		imageRect	= info.rcImage;
 			
 			ImageList_GetImageInfo(hImageList, iPosImage, &info);
@@ -1106,7 +1106,7 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			{
 				break;
 			}
-			RECT rc = { 0 };
+			RECT rc = {};
 			getClientRect(rc);
 			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 			return TRUE;
@@ -1133,8 +1133,8 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 		}
 		case WM_NCLBUTTONDBLCLK :
 		{
-			RECT	rcWnd		= {0};
-			RECT	rcClient	= {0};
+			RECT	rcWnd		= {};
+			RECT	rcClient	= {};
 			POINT	pt			= {HIWORD(lParam), LOWORD(lParam)};
 
 			getWindowRect(rcWnd);
@@ -1184,9 +1184,9 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 void DockingCont::onSize()
 {
-	TCITEM tcItem = {0};
-	RECT rc = {0};
-	RECT rcTemp = {0};
+	TCITEM tcItem = {};
+	RECT rc = {};
+	RECT rcTemp = {};
 	UINT iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 	UINT iTabOff = 0;
 
@@ -1309,7 +1309,7 @@ void DockingCont::doClose(BOOL closeAll)
 
 	// Always close active tab first
 	int iItemCur = getActiveTb();
-	TCITEM	tcItem	= {0};
+	TCITEM	tcItem	= {};
 	tcItem.mask	= TCIF_PARAM;
 	::SendMessage(_hContTab, TCM_GETITEM, iItemCur, reinterpret_cast<LPARAM>(&tcItem));
 	if (tcItem.lParam)
@@ -1329,7 +1329,7 @@ void DockingCont::doClose(BOOL closeAll)
 		int iItemOff = 0;
 		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
-			TCITEM	tcItem	= {0};
+			TCITEM	tcItem	= {};
 			// get item data
 			selectTab(iItemOff);
 			tcItem.mask	= TCIF_PARAM;
@@ -1427,7 +1427,7 @@ int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 
 void DockingCont::viewToolbar(tTbData *pTbData)
 {
-	TCITEM tcItem = {0};
+	TCITEM tcItem = {};
 	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	if (iItemCnt > 0)
@@ -1474,7 +1474,7 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 
 int DockingCont::searchPosInTab(tTbData* pTbData)
 {
-	TCITEM tcItem = {0};
+	TCITEM tcItem = {};
 	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	tcItem.mask	= TCIF_PARAM;
@@ -1496,8 +1496,8 @@ void DockingCont::selectTab(int iTab)
 	if (iTab != -1)
 	{
 		const TCHAR	*pszMaxTxt	= NULL;
-		TCITEM tcItem = {0};
-		SIZE size = {0};
+		TCITEM tcItem = {};
+		SIZE size = {};
 		int maxWidth = 0;
 		int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
@@ -1592,7 +1592,7 @@ bool DockingCont::updateCaption()
 	if (!_hContTab)
 		return false;
 
-	TCITEM			tcItem	= {0};
+	TCITEM			tcItem	= {};
 	int				iItem	= getActiveTb();
 
 	if (iItem < 0)
@@ -1628,7 +1628,7 @@ bool DockingCont::updateCaption()
 
 void DockingCont::focusClient()
 {
-	TCITEM		tcItem	= {0};
+	TCITEM		tcItem	= {};
 	int			iItem	= getActiveTb();	
 
 	if (iItem != -1)

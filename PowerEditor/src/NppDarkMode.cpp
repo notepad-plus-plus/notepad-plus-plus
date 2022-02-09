@@ -551,7 +551,7 @@ namespace NppDarkMode
 		case WM_UAHDRAWMENU:
 		{
 			UAHMENU* pUDM = (UAHMENU*)lParam;
-			RECT rc = { 0 };
+			RECT rc = {};
 
 			// get the menubar rect
 			{
@@ -579,7 +579,7 @@ namespace NppDarkMode
 			UAHDRAWMENUITEM* pUDMI = (UAHDRAWMENUITEM*)lParam;
 
 			// get the menu item string
-			wchar_t menuString[256] = { 0 };
+			wchar_t menuString[256] = { '\0' };
 			MENUITEMINFO mii = { sizeof(mii), MIIM_STRING };
 			{
 				mii.dwTypeData = menuString;
@@ -677,11 +677,11 @@ namespace NppDarkMode
 			return;
 		}
 
-		RECT rcClient = { 0 };
+		RECT rcClient = {};
 		GetClientRect(hWnd, &rcClient);
 		MapWindowPoints(hWnd, nullptr, (POINT*)&rcClient, 2);
 
-		RECT rcWindow = { 0 };
+		RECT rcWindow = {};
 		GetWindowRect(hWnd, &rcWindow);
 
 		OffsetRect(&rcClient, -rcWindow.left, -rcWindow.top);
@@ -760,8 +760,8 @@ namespace NppDarkMode
 
 	void renderButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
 	{
-		RECT rcClient = { 0 };
-		WCHAR szText[256] = { 0 };
+		RECT rcClient = {};
+		WCHAR szText[256] = { '\0' };
 		DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
 		DWORD uiState = static_cast<DWORD>(SendMessage(hwnd, WM_QUERYUISTATE, 0, 0));
 		DWORD nStyle = GetWindowLong(hwnd, GWL_STYLE);
@@ -769,7 +769,7 @@ namespace NppDarkMode
 		HFONT hFont = nullptr;
 		HFONT hOldFont = nullptr;
 		HFONT hCreatedFont = nullptr;
-		LOGFONT lf = { 0 };
+		LOGFONT lf = {};
 		if (SUCCEEDED(GetThemeFont(hTheme, hdc, iPartID, iStateID, TMT_FONT, &lf)))
 		{
 			hCreatedFont = CreateFontIndirect(&lf);
@@ -881,7 +881,7 @@ namespace NppDarkMode
 			GetThemeTransitionDuration(buttonData.hTheme, iPartID, buttonData.iStateID, iStateID, TMT_TRANSITIONDURATIONS, &animParams.dwDuration);
 		}
 
-		RECT rcClient = { 0 };
+		RECT rcClient = {};
 		GetClientRect(hwnd, &rcClient);
 
 		HDC hdcFrom = nullptr;
@@ -953,7 +953,7 @@ namespace NppDarkMode
 			case WM_PAINT:
 				if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
 				{
-					PAINTSTRUCT ps = { 0 };
+					PAINTSTRUCT ps = {};
 					HDC hdc = reinterpret_cast<HDC>(wParam);
 					if (!hdc)
 					{
@@ -1007,7 +1007,7 @@ namespace NppDarkMode
 			iStateID = GBS_DISABLED;
 		}
 
-		RECT rcClient = { 0 };
+		RECT rcClient = {};
 		GetClientRect(hwnd, &rcClient);
 
 		RECT rcText = rcClient;
@@ -1016,7 +1016,7 @@ namespace NppDarkMode
 		HFONT hFont = nullptr;
 		HFONT hOldFont = nullptr;
 		HFONT hCreatedFont = nullptr;
-		LOGFONT lf = { 0 };
+		LOGFONT lf = {};
 		if (SUCCEEDED(GetThemeFont(buttonData.hTheme, hdc, iPartID, iStateID, TMT_FONT, &lf)))
 		{
 			hCreatedFont = CreateFontIndirect(&lf);
@@ -1030,7 +1030,7 @@ namespace NppDarkMode
 
 		hOldFont = static_cast<HFONT>(::SelectObject(hdc, hFont));
 
-		WCHAR szText[256] = { 0 };
+		WCHAR szText[256] = { '\0' };
 		GetWindowText(hwnd, szText, _countof(szText));
 
 		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
@@ -1038,7 +1038,7 @@ namespace NppDarkMode
 
 		if (szText[0])
 		{
-			SIZE textSize = { 0 };
+			SIZE textSize = {};
 			GetTextExtentPoint32(hdc, szText, static_cast<int>(wcslen(szText)), &textSize);
 
 			int centerPosX = isCenter ? ((rcClient.right - rcClient.left - textSize.cx) / 2) : 7;
@@ -1052,7 +1052,7 @@ namespace NppDarkMode
 		}
 		else
 		{
-			SIZE textSize = { 0 };
+			SIZE textSize = {};
 			GetTextExtentPoint32(hdc, L"M", 1, &textSize);
 			rcBackground.top += textSize.cy / 2;
 		}
@@ -1120,7 +1120,7 @@ namespace NppDarkMode
 		case WM_PAINT:
 			if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
 			{
-				PAINTSTRUCT ps = { 0 };
+				PAINTSTRUCT ps = {};
 				HDC hdc = reinterpret_cast<HDC>(wParam);
 				if (!hdc)
 				{
@@ -1196,7 +1196,7 @@ namespace NppDarkMode
 			HFONT hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
 			auto hOldFont = SelectObject(hdc, hFont);
 
-			POINT ptCursor = { 0 };
+			POINT ptCursor = {};
 			::GetCursorPos(&ptCursor);
 			ScreenToClient(hWnd, &ptCursor);
 
@@ -1205,10 +1205,10 @@ namespace NppDarkMode
 			int nSelTab = TabCtrl_GetCurSel(hWnd);
 			for (int i = 0; i < nTabs; ++i)
 			{
-				RECT rcItem = { 0 };
+				RECT rcItem = {};
 				TabCtrl_GetItemRect(hWnd, i, &rcItem);
 
-				RECT rcIntersect = { 0 };
+				RECT rcIntersect = {};
 				if (IntersectRect(&rcIntersect, &ps.rcPaint, &rcItem))
 				{
 					bool bHot = PtInRect(&rcItem, ptCursor);
@@ -1235,7 +1235,7 @@ namespace NppDarkMode
 					SetBkMode(hdc, TRANSPARENT);
 
 					TCHAR label[MAX_PATH];
-					TCITEM tci = { 0 };
+					TCITEM tci = {};
 					tci.mask = TCIF_TEXT;
 					tci.pszText = label;
 					tci.cchTextMax = MAX_PATH - 1;
@@ -1305,7 +1305,7 @@ namespace NppDarkMode
 					break;
 				}
 
-				RECT rc = { 0 };
+				RECT rc = {};
 				::GetClientRect(hWnd, &rc);
 
 				PAINTSTRUCT ps;
@@ -1354,7 +1354,7 @@ namespace NppDarkMode
 					}
 				}
 
-				POINT ptCursor = { 0 };
+				POINT ptCursor = {};
 				::GetCursorPos(&ptCursor);
 				ScreenToClient(hWnd, &ptCursor);
 
@@ -1418,7 +1418,7 @@ namespace NppDarkMode
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
 			auto& p = *reinterpret_cast<Params*>(lParam);
 			const size_t classNameLen = 16;
-			TCHAR className[classNameLen] = { 0 };
+			TCHAR className[classNameLen] = { '\0' };
 			GetClassName(hwnd, className, classNameLen);
 
 			if (wcscmp(className, WC_COMBOBOX) == 0)

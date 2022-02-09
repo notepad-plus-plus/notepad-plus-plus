@@ -94,7 +94,7 @@ struct VisibleGUIConf final
 	bool _isStatusbarShown = true;
 
 	//used by fullscreen
-	WINDOWPLACEMENT _winPlace = {0};
+	WINDOWPLACEMENT _winPlace = {};
 
 	//used by distractionFree
 	bool _was2ViewModeOn = false;

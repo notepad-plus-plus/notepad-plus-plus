@@ -111,7 +111,7 @@ private :
 	size_t _nbTotalButtons = 0;
 	size_t _nbCurrentButtons = 0;
 	ReBar * _pRebar = nullptr;
-	REBARBANDINFO _rbBand = { 0 };
+	REBARBANDINFO _rbBand = {};
     std::vector<iconLocator> _customIconVect;
     TiXmlNode *_toolIcons = nullptr;
 

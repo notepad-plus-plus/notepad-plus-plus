@@ -362,11 +362,11 @@ protected :
     void combo2ExtendedMode(int comboID);
 
 private :
-	RECT _initialWindowRect = {0};
+	RECT _initialWindowRect = {};
 	LONG _deltaWidth = 0;
 	LONG _initialClientWidth = 0;
 
-	DIALOG_TYPE _currentStatus = FIND_DLG;
+	DIALOG_TYPE _currentStatus = DIALOG_TYPE::FIND_DLG;
 	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos, _markClosePos;
 	RECT _countInSelFramePos, _replaceInSelFramePos;
 	RECT _countInSelCheckPos, _replaceInSelCheckPos;
@@ -375,7 +375,7 @@ private :
 	Finder  *_pFinder = nullptr;
 	generic_string _findResTitle;
 
-	std::vector<Finder *> _findersOfFinder;
+	std::vector<Finder*> _findersOfFinder{};
 
 	HWND _shiftTrickUpTip = nullptr;
 	HWND _2ButtonsTip = nullptr;
@@ -471,7 +471,7 @@ private :
 	FindStatus _findStatus = FSFound;
 
 	ReBar* _pRebar = nullptr;
-	REBARBANDINFO _rbBand = { 0 };
+	REBARBANDINFO _rbBand = {};
 
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);

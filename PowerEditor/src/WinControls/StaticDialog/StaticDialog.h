@@ -68,7 +68,7 @@ public :
     virtual void destroy() override;
 
 protected:
-	RECT _rc = { 0 };
+	RECT _rc = {};
 	static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 

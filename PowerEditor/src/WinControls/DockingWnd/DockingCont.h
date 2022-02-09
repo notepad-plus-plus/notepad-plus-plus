@@ -187,7 +187,7 @@ private:
 	BOOL _isMouseDown = FALSE;
 	BOOL _isMouseClose = FALSE;
 	BOOL _isMouseOver = FALSE;
-	RECT _rcCaption = {0};
+	RECT _rcCaption = {};
 	
 	// tab style
 	BOOL _bDrawOgLine = FALSE;

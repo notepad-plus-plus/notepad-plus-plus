@@ -37,7 +37,7 @@ public:
 protected:
 	WNDPROC		_defaultProc = nullptr;
 	BOOL		_bTrackMouse = FALSE;
-	TOOLINFO	_ti = { 0 };
+	TOOLINFO	_ti = {};
 
     static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
         return (((ToolTip *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));

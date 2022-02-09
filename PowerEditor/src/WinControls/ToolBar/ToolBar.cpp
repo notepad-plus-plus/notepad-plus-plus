@@ -408,7 +408,7 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON ab
 			{
 				HBITMAP hbmMask = ::CreateCompatibleBitmap(::GetDC(NULL), bmp.bmWidth, bmp.bmHeight);
 
-				ICONINFO iconinfoDest = { 0 };
+				ICONINFO iconinfoDest = {};
 				iconinfoDest.fIcon = TRUE;
 				iconinfoDest.hbmColor = iconHandles->hToolbarBmp;
 				iconinfoDest.hbmMask = hbmMask;

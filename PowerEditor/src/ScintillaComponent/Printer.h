@@ -23,9 +23,9 @@
 struct NPP_RangeToFormat {
 	HDC hdc = nullptr;
 	HDC hdcTarget = nullptr;
-	RECT rc = { 0 };
-	RECT rcPage = { 0 };
-	Sci_CharacterRange chrg = { 0 };
+	RECT rc = {};
+	RECT rcPage = {};
+	Sci_CharacterRange chrg = {};
 };
 
 class Printer
@@ -43,7 +43,7 @@ public :
 	size_t doPrint(bool justDoIt);
 
 private :
-	PRINTDLG _pdlg = { 0 };
+	PRINTDLG _pdlg = {};
 	ScintillaEditView *_pSEView = nullptr;
 	size_t _startPos = 0;
 	size_t _endPos = 0;

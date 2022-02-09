@@ -93,7 +93,7 @@ namespace // anonymous
 
 	void expandEnv(generic_string& s)
 	{
-		TCHAR buffer[MAX_PATH] = { 0 };
+		TCHAR buffer[MAX_PATH] = { '\0' };
 		// This returns the resulting string length or 0 in case of error.
 		DWORD ret = ExpandEnvironmentStrings(s.c_str(), buffer, static_cast<DWORD>(std::size(buffer)));
 		if (ret != 0)
@@ -452,7 +452,7 @@ private:
 	{
 		if (::PathIsRelative(fileName.c_str()))
 		{
-			TCHAR buffer[MAX_PATH] = { 0 };
+			TCHAR buffer[MAX_PATH] = { '\0' };
 			const generic_string folder = getDialogFolder(_dialog);
 			LPTSTR ret = ::PathCombine(buffer, folder.c_str(), fileName.c_str());
 			if (ret)

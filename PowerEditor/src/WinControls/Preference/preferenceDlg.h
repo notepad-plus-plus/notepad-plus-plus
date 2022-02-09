@@ -217,9 +217,10 @@ public :
 	};
 
 private :
-	POINT _singleLineModePoint, _multiLineModePoint;
-	RECT _closerRect = { 0 };
-	RECT _closerLabelRect = { 0 };
+	POINT _singleLineModePoint = {};
+	POINT _multiLineModePoint = {};
+	RECT _closerRect = {};
+	RECT _closerLabelRect = {};
 	HWND _tip = nullptr;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

@@ -368,7 +368,7 @@ private :
     CommentStyleDialog      _commentStyleDlg;
     SymbolsStyleDialog      _symbolsStyleDlg;
     bool _status = UNDOCK;
-    RECT _dlgPos = { 0 };
+    RECT _dlgPos = {};
     int _currentHight = 0;
     int _yScrollPos = 0;
     int _prevHightVal = 0;

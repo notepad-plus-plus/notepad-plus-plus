@@ -870,7 +870,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				break;
 			}
 
-			RECT rc = { 0 };
+			RECT rc = {};
 			GetClientRect(hwnd, &rc);
 			FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
 
@@ -926,7 +926,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
 
-				RECT rcIntersect = { 0 };
+				RECT rcIntersect = {};
 				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
 				{
 					if (dwStyle & TCS_VERTICAL)

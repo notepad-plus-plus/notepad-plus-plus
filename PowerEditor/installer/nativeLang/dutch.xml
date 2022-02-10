@@ -5,10 +5,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
+Last modified on 2022-02-10 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.1.5">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -64,7 +64,7 @@ Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
                     <Item subMenuId="encoding-cyrillic"  name="Cyrillisch"/>
                     <Item subMenuId="encoding-centralEuropean"  name="Centraal-Europees"/>
                     <Item subMenuId="encoding-chinese"  name="Chinees"/>
-                    <Item subMenuId="encoding-easternEuropean" name="Oost-Europees"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Oost-Europees"/>
                     <Item subMenuId="encoding-greek"  name="Grieks"/>
                     <Item subMenuId="encoding-hebrew"  name="Hebreeuws"/>
                     <Item subMenuId="encoding-japanese"  name="Japans"/>
@@ -80,7 +80,7 @@ Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
                 </SubEntries>
 
-                <!-- all menu items -->
+                <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Nieuw"/>
                     <Item id="41002" name="&amp;Openen..."/>
@@ -183,6 +183,8 @@ Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
                     <Item id="42029" name="Huidig bestandspad naar klembord kopiëren"/>
                     <Item id="42030" name="Huidige bestandsnaam naar klembord kopiëren"/>
                     <Item id="42031" name="Pad naar huidige map naar klembord kopiëren"/>
+                    <Item id="42087" name="Alle bestandsnamen naar klembord kopiëren"/>
+                    <Item id="42088" name="Alle bestandspaden naar klembord kopiëren"/>
                     <Item id="42032" name="Macro meerdere keren uitvoeren..."/>
                     <Item id="42033" name="Alleen-lezen opheffen"/>
                     <Item id="42035" name="Regelcommentaar aan"/>
@@ -254,6 +256,10 @@ Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
                     <Item id="43048" name="&amp;Selecteren en volgende zoeken"/>
                     <Item id="43049" name="&amp;Selecteren en vorige zoeken"/>
                     <Item id="43054" name="Markeren..."/>
+                    <Item id="43501" name="Geselecteerde sluiten"/>
+                    <Item id="43502" name="Andere sluiten"/>
+                    <Item id="43503" name="Geselecteerde namen kopiëren"/>
+                    <Item id="43504" name="Geselecteerde padnamen kopiëren"/>
                     <Item id="44009" name="Interface verbergen"/>
                     <Item id="44010" name="Gegevensstructuur samenvouwen"/>
                     <Item id="44011" name="Afleidingsvrije modus"/>
@@ -324,6 +330,7 @@ Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
                     <Item id="46001" name="Stijlconfigurator..."/>
                     <Item id="46250" name="Aangepaste syntaxismarkering ontwerpen..."/>
                     <Item id="46300" name="Map met aangepaste syntaxissen openen..."/>
+                    <Item id="46301" name="Notepad++-collectie van aangepaste syntaxissen"/>
                     <Item id="46180" name="Aangepast"/>
                     <Item id="47000" name="Over Notepad++"/>
                     <Item id="47010" name="Opdrachtregel-argumenten..."/>
@@ -688,6 +695,8 @@ Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Getallen"/>
+                    <Item id="25033" name="Transparant"/>
+                    <Item id="25034" name="Transparant"/>
                     <Item id="1" name="Ok"/>
                     <Item id="2" name="Annuleren"/>
                 </StylerDialog>
@@ -882,6 +891,7 @@ Last modified on 2021-09-17 by Thomas De Rocker (RockyTDR).
                     <Item id="7122" name="Donkerdere tekst"/>
                     <Item id="7123" name="Uitgeschakelde text"/>
                     <Item id="7124" name="Rand"/>
+                    <Item id="7125" name="Koppeling"/>
                     <Item id="7130" name="Herstellen"/>
                 </DarkMode>
 
@@ -991,6 +1001,15 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6721" name="Midden"/>
                     <Item id="6722" name="Rechts"/>
                     <Item id="6723" name="Toevoegen"/>
+                    <ComboBox id="6724">
+                        <Element name="Volledig bestandsnaampad"/>
+                        <Element name="Bestandsnaam"/>
+                        <Element name="Bestandsmap"/>
+                        <Element name="Pagina"/>
+                        <Element name="Kort datumformaat"/>
+                        <Element name="Lang datumformaat"/>
+                        <Element name="Tijd"/>
+                    </ComboBox>
                     <Item id="6725" name="Variabele:"/>
                     <Item id="6727" name="Instellingen voor variabele"/>
                     <Item id="6728" name="Kop- en voettekst"/>
@@ -1037,6 +1056,9 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6809" name="Functies aanvullen"/>
                     <Item id="6810" name="Woorden aanvullen"/>
                     <Item id="6816" name="Functies en woorden aanvullen"/>
+                    <Item id="6869" name="Selectie invoegen"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Nummers negeren"/>
                     <Item id="6811" name="Vanaf"/>
                     <Item id="6813" name="tekens"/>
@@ -1053,7 +1075,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 
                 <MultiInstance title="Meerdere instanties en datum">
                     <Item id="6151" name="Instellingen voor meerdere instanties"/>
-                    <Item id="6152" name="Sessies openen in een nieuwe instantie van Notepad++"/>
+                    <Item id="6152" name="Sessie openen in een nieuwe instantie (en sessie automatisch opslaan bij afsluiten)"/>
                     <Item id="6153" name="Altijd in modus meerdere instanties"/>
                     <Item id="6154" name="Standaard (enkele instantie)"/>
                     <Item id="6155" name="* Wijziging van deze instelling vereist een herstart van Notepad++"/>
@@ -1235,6 +1257,9 @@ Wilt u naar de Notepad++-pagina gaan om de laatste versie te downloaden?"/> <!--
             <DocTooDirtyToMonitor title="Monitoring-probleem" message="Het document is vervuild. Sla de wijziging op voordat u het monitort."/>
             <DocNoExistToMonitor title="Monitoring-probleem" message="Het bestand moet bestaan om gemonitord te worden."/>
             <FileTooBigToOpen title="Probleem met bestandsgrootte" message="Het bestand is te groot om te worden geopend met Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Uitzonderingscode: $STR_REPLACE$" message="Er is een fout opgetreden bij het laden van het bestand!"/>
+            <WantToOpenHugeFile title="Waarschuwing bij openen van groot bestand" message="Het openen van een groot bestand van meer dan 2 GB kan enkele minuten duren.
+Wilt u het openen?"/>
             <CreateNewFileOrNot title="Nieuw bestand aanmaken" message="&quot;$STR_REPLACE$&quot; bestaat niet. Bestand aanmaken?"/>
             <CreateNewFileError title="Nieuw bestand aanmaken" message="Kan bestand &quot;$STR_REPLACE$&quot; niet aanmaken."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="FOUT" message="Kan bestand &quot;$STR_REPLACE$&quot; niet openen."/>
@@ -1385,17 +1410,26 @@ Doorgaan?"/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spatie(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tab(s)"/>
             <word-chars-list-warning-end value="  in de woordtekenlijst."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Een map selecteren als back-upmap"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Ongeldig pad."/>
             <cloud-restart-warning value="Start Notepad++ opnieuw op om de instellingen door te voeren."/>
-            <cloud-select-folder value="Selecteer een map waar Notepad++ instellingen leest en opslaat"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <cloud-select-folder value="Een map selecteren waar Notepad++ instellingen leest en opslaat"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Een map selecteren als standaardmap"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Gebruik Shift + Enter om in omgekeerde richting te zoeken"/>
             <two-find-buttons-tip value="modus met 2-zoekknoppen"/>
             <file-rename-title value="Naam wijzigen"/>
             <find-in-files-filter-tip value="In cpp, cxx, h, hxx en hpp- bestanden zoeken:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-In alle bestanden behalve exe, obj en log zoeken:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+Zoeken in alle bestanden behalve exe, obj en log:
+*.* !*.exe !*.obj !*.log
+
+Zoeken in alle bestanden maar de mappen tests, bin en bin64 uitsluiten:
+*.* !\tests !\bin*
+
+Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Een map selecteren om in te zoeken"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Zoeken: eerste overeenkomst vanaf einde van document gevonden. Het begin van het document is bereikt."/>
             <find-status-end-reached value="Zoeken: eerste overeenkomst vanaf begin van document gevonden. Het einde van het document is bereikt."/>
             <find-status-replaceinfiles-1-replaced value="Vervangen in bestanden: 1 overeenkomst vervangen"/>
@@ -1489,6 +1523,10 @@ In alle bestanden behalve exe, obj en log zoeken:
             <IncrementalFind-FSNotFound value="Zin niet gevonden" />
             <IncrementalFind-FSTopReached value="Bovenkant van pagina bereikt. Verdergegaan vanaf onderkant" />
             <IncrementalFind-FSEndReached value="Einde van pagina bereikt. Verdergegaan vanaf bovenkant" />
+            <contextMenu-styleAlloccurrencesOfToken value="Alle overeenkomsten van token stileren" />
+            <contextMenu-styleOneToken value="Eén token stileren" />
+            <contextMenu-clearStyle value="Stijl wissen" />
+            <contextMenu-PluginCommands value="Plugin-opdrachten" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

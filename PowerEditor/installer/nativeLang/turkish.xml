@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.1.9.3">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -175,7 +175,8 @@
 					<Item id="42029" name="Geçerli Dosyanın Yolunu Kopyala"/>
 					<Item id="42030" name="Geçerli Dosya Adını Kopyala"/>
 					<Item id="42031" name="Geçerli Dizin Yolunu Kopyala"/>
-					<Item id="42079" name="İşaretli Yazıyı Kopyala"/>
+					<Item id="42087" name="Tüm Dosya İsimleri Panoya"/>
+					<Item id="42088" name="Tüm Dosya Yolları Panoya"/>
 					<Item id="42032" name="&amp;Makroyu Birden Çok Kez Çalıştır"/>
 					<Item id="42033" name="Salt Okunur İşaretini Kaldır"/>
 					<Item id="42035" name="Tek Satır Yorum Alanı Aç"/>
@@ -247,6 +248,10 @@
 					<Item id="43048" name="Seç ve Sonrakini Bul"/>
 					<Item id="43049" name="Seç ve Öncekini Bul"/>
 					<Item id="43054" name="İşa&amp;retle…"/>
+					<Item id="43501" name="Seçileni Kapat"/>
+					<Item id="43502" name="Diğerlerini Kapat"/>
+					<Item id="43503" name="Seçili İsimleri Kopyala"/>
+					<Item id="43504" name="Seçili Yol Adlarını Kopyala"/>
 					<Item id="44009" name="Pencereyi Ekrana Tuttur"/>
 					<Item id="44010" name="Tüm Blokları Kapat"/>
 					<Item id="44011" name="Dikkat Dağınıklığı Önleyici Mod"/>
@@ -882,6 +887,7 @@
 					<Item id="7122" name="Koyu Yazı"/>
 					<Item id="7123" name="Devre Dışı Yazı"/>
 					<Item id="7124" name="Köşe"/>
+					<Item id="7125" name="Bağlantı"/>
 					<Item id="7130" name="Sıfırla"/>
 				</DarkMode>
 
@@ -991,6 +997,15 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6721" name="Orta bölüm"/>
 					<Item id="6722" name="Sağ bölüm"/>
 					<Item id="6723" name="Ekle"/>
+					<ComboBox id="6724">
+                        <Element name="Tam dosya adı yolu"/>
+                        <Element name="Dosya adı"/>
+                        <Element name="Dosya dizini"/>
+                        <Element name="Sayfa"/>
+                        <Element name="Kısa tarih formatı"/>
+                        <Element name="Uzun tarih formatı"/>
+                        <Element name="Zaman"/>
+					</ComboBox>
 					<Item id="6725" name="Değişken:"/>
 					<Item id="6727" name="Değişken ayarlarınızı burada görüntüleyin"/>
 					<Item id="6728" name="Üst ve Alt Bilgi"/>
@@ -1037,6 +1052,9 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6809" name="Fonksiyonu tamamla"/>
 					<Item id="6810" name="Kelimeyi tamamla"/>
 					<Item id="6816" name="Fonksiyonu ve kelimeyi tamamla"/>
+					<Item id="6869" name="Seçimi Yerleştir"/>
+					<Item id="6870" name="TAB"/> <!-- Klavyedeki TAB tuşu, normal olarak tercümesine gerek yoktur -->
+					<Item id="6871" name="ENTER"/> <!-- Klavyedeki ENTER tuşu, normal olarak tercümesine gerek yoktur -->
 					<Item id="6824" name="Sayıları atla"/>
 					<Item id="6811" name="Başlangıç"/>
 					<Item id="6813" name=". karakter"/>
@@ -1234,6 +1252,7 @@ Notepad++ sayfasına giderek en son sürümü indirmek ister misiniz?"/>
             <DocTooDirtyToMonitor title="İzleme Sorunu" message="Belge kirli. İzlemeden önce lütfen değişikliği kaydedin."/>
             <DocNoExistToMonitor title="İzleme Sorunu" message="İzlenmesi için dosyanın mevcut olması gerekir."/>
             <FileTooBigToOpen title="Dosya Boyutu Sorunu" message="Dosya, Notepad++ tarafından açılamayacak kadar büyük."/>
+            <FileLoadingException title="Exception code: $STR_REPLACE$" message="An error occurred while loading the file!"/>
             <CreateNewFileOrNot title="Yeni Dosya Oluştur" message="&quot;$INT_REPLACE$&quot; mevcut değil. Oluşturulsun mu?."/>
             <CreateNewFileError title="Yeni Dosya Oluştur" message="&quot;$INT_REPLACE$&quot; dosyası oluşturulamıyor."/>
             <OpenFileError title="HATA" message="&quot;$INT_REPLACE$&quot; dosyası açılamıyor."/>
@@ -1383,17 +1402,26 @@ Devam edilsin mi?"/>
 			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ SEKME(ler)"/>
 			<word-chars-list-warning-end value="  karakter listenizde."/>
+			<backup-select-folder value="Yedekleme konumu için bir klasör seçin"/> <!-- NasılTekrarlanır: Ayarlar > Tercihler > Yedekleme > [...] -->
 			<cloud-invalid-warning value="Geçersiz yol."/>
 			<cloud-restart-warning value="Etkin olması için Notepad++'yı tekrar başlat."/>
 			<cloud-select-folder value="Notepad++'ın ayarlarını yazıp okuyabileceği bir klasör seçin"/>
+			<default-open-save-select-folder value="Varsayılan dizin için bir klasör seçin"/> <!-- NasılTekrarlanır: Ayarlar > Tercihler > Varsayılan Dizin > [...] -->
 			<shift-change-direction-tip value="Shift+Enter ile diğer yönde arama yapın."/>
 			<two-find-buttons-tip value="İkili Bulma Düğmesi Modu"/>
 			<file-rename-title value="Yeniden Adlandır"/>
-			<find-in-files-filter-tip value="Şunların içinde Bul cpp, cxx, h, hxx &amp;&amp; hpp:
+			<find-in-files-filter-tip value="Şunların içinde Bul - cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Şunlar hariç tüm dosyaların içinde bul exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+Şunlar hariç tüm dosyaların içinde bul - exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+
+Şu klasörler hariç tüm dosyalarda bul - tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da logs:
+*.* !+\log*"/> <!-- NasılTekrarlanır: Bul penceresinde Farenin ucu "Dosyalarda Bul" sekmesi içinde "Filtreler" etiketi üzerinde tutulur. -->
+			<find-in-files-select-folder value="İçinde arama yapılacak bir klasör seçin"/> <!-- NasılTekrarlanır: Bul > Dosyalarda Bul > [...] -->
 			<find-status-top-reached value="Bulma: Sondan 1. eşleşme bulundu. Dosyanın başına ulaşıldı."/>
 			<find-status-end-reached value="Bulma: Baştan 1. eşleşme bulundu. Dosyanın sonuna ulaşıldı."/>
 			<find-status-replaceinfiles-1-replaced value="Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
@@ -1486,6 +1514,10 @@ Devam edilsin mi?"/>
 			<IncrementalFind-FSNotFound value="Sözcük bulunamadı" />
 			<IncrementalFind-FSTopReached value="Sayfanın en başına ulaşıldı, sondan başlandı" />
 			<IncrementalFind-FSEndReached value="Sayfanın en sonuna ulaşıldı, baştan başlandı" />
+			<contextMenu-styleAlloccurrencesOfToken value="İşarete uyan tüm eşleşmeleri stillendir" />
+			<contextMenu-styleOneToken value="Bir işareti stillendir" />
+			<contextMenu-clearStyle value="Stili temizle" />
+			<contextMenu-PluginCommands value="Eklenti komutları" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

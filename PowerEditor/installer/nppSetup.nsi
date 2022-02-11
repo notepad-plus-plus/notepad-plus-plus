@@ -111,7 +111,7 @@ InstType "Minimalist"
 Var diffArchDir2Remove
 Var noUpdater
 
-!ifdef ARCH64
+!ifdef ARCH64 || ARCHARM64
 ; this is needed for the 64-bit InstallDirRegKey patch
 !include "StrFunc.nsh"
 ${StrStr} # Supportable for Install Sections and Functions

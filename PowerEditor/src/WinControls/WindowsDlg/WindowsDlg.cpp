@@ -948,7 +948,7 @@ void WindowsDlg::doCount()
 
 void WindowsDlg::doSort()
 {
-	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
+	UINT count = (_pTab != NULL) ? _pTab->nbItem() : 0;
 	auto currrentTabIndex = _pTab->getCurrentTabIndex();
 	NMWINDLG nmdlg;
 	nmdlg.type = WDT_SORT;
@@ -957,7 +957,7 @@ void WindowsDlg::doSort()
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = count;
 	nmdlg.Items = new UINT[count];
-	for (int i=0; i < count; ++i)
+	for (size_t i=0; i < count; ++i)
 	{		
 		nmdlg.Items[i] = _idxMap[i];		
 	}

@@ -970,7 +970,7 @@ void WindowsDlg::doSort()
 	
 	//After sorting, need to open the active tab before sorting
 	//This will be helpful when large number of documents are opened
-	int newPosition = -1;
+	__int64 newPosition = -1;
 	std::vector<int>::iterator it = std::find(_idxMap.begin(), _idxMap.end(), currrentTabIndex);
 	if (it != _idxMap.end())
 	{

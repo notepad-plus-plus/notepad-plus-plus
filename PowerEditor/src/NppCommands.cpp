@@ -3555,6 +3555,77 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_WINDOW_SORT_FN_ASC :
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortFileNameASC();
+			windowsDlg.doSort();
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FN_DSC :
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortFileNameDSC();
+			windowsDlg.doSort();
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FP_ASC :
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortFilePathASC();
+			windowsDlg.doSort();
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FP_DSC :
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortFilePathDSC();
+			windowsDlg.doSort();
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FT_ASC :
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortFileTypeASC();
+			windowsDlg.doSort();
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FT_DSC :
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortFileTypeDSC();
+			windowsDlg.doSort();
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FS_ASC :
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortFileSizeASC();
+			windowsDlg.doSort();
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FS_DSC :
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortFileSizeDSC();
+			windowsDlg.doSort();
+		}
+		break;
 
 		case IDM_SYSTRAYPOPUP_NEWDOC:
 		{

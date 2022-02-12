@@ -97,6 +97,8 @@ MenuPosition menuPos[] = {
 
 	{ 7,  0, -1, "tools-md5" },
 	{ 7,  1, -1, "tools-sha256" },
+
+	{ 11, 0, -1, "window-sortby"},
 	{ -1, -1, -1, "" } // End of array
 };
 
@@ -360,6 +362,14 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 
 		if (nullptr == subMenuIdStr or nullptr == name)
 			continue;
+
+		if (!strcmp(subMenuIdStr, "window-sortby"))
+		{
+			generic_string sortTrans;
+			const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+			sortTrans = nameW;
+			::ModifyMenu(menuHandle, 0, MF_BYPOSITION, 0, sortTrans.c_str());
+		}
 
 		MenuPosition& menuPos = getMenuPosition(subMenuIdStr);
 		int x = menuPos._x;

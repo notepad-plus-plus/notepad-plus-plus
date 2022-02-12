@@ -946,6 +946,110 @@ void WindowsDlg::doCount()
 	SetWindowText(_hSelf,msg.c_str());
 }
 
+void WindowsDlg::doSort()
+{
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;	
+	std::vector<UINT> items(count);
+	auto currrentTabIndex = _pTab->getCurrentTabIndex();
+	NMWINDLG nmdlg = {};
+	nmdlg.type = WDT_SORT;
+	nmdlg.hwndFrom = _hSelf;
+	nmdlg.curSel = currrentTabIndex;
+	nmdlg.code = WDN_NOTIFY;
+	nmdlg.nItems = static_cast<UINT>(count);
+	nmdlg.Items = items.data();
+	for (size_t i=0; i < count; ++i)
+	{
+		nmdlg.Items[i] = _idxMap[i];		
+	}
+	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	if (nmdlg.processed)
+	{
+		_idxMap.clear();		
+		refreshMap();
+	}
+	
+	//After sorting, need to open the active tab before sorting
+	//This will be helpful when large number of documents are opened
+	__int64 newPosition = -1;
+	std::vector<int>::iterator it = std::find(_idxMap.begin(), _idxMap.end(), currrentTabIndex);
+	if (it != _idxMap.end())
+	{
+		newPosition = it - _idxMap.begin();
+	}
+	nmdlg.type = WDT_ACTIVATE;
+	nmdlg.curSel = static_cast<UINT>(newPosition);
+	nmdlg.hwndFrom = _hSelf;
+	nmdlg.code = WDN_NOTIFY;	
+	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+}
+
+void WindowsDlg::sort(int columnID, bool reverseSort)
+{
+	refreshMap();
+	_currentColumn = columnID;
+	_reverseSort = reverseSort;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFileNameASC()
+{
+	sort(0, false);
+}
+
+void WindowsDlg::sortFileNameDSC()
+{
+	sort(0, true);	
+}
+
+void WindowsDlg::sortFilePathASC()
+{
+	sort(1, false);
+}
+
+void WindowsDlg::sortFilePathDSC()
+{
+	sort(1, true);
+}
+
+void WindowsDlg::sortFileTypeASC()
+{
+	sort(2, false);
+}
+
+void WindowsDlg::sortFileTypeDSC()
+{
+	sort(2, true);
+}
+
+void WindowsDlg::sortFileSizeASC()
+{
+	sort(3, false);
+}
+
+void WindowsDlg::sortFileSizeDSC()
+{
+	sort(3, true);
+}
+
+void WindowsDlg::refreshMap()
+{
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
+	size_t oldSize = _idxMap.size();
+	if (count == oldSize)
+		return;
+
+	if (count != oldSize)
+	{
+		size_t lo = 0;
+		_idxMap.resize(count);
+		if (oldSize < count)
+			lo = oldSize;
+		for (size_t i = lo; i < count; ++i)
+			_idxMap[i] = int(i);
+	}
+}
+
 void WindowsDlg::doSortToTabs()
 {
 	int curSel = ListView_GetNextItem(_hList, -1, LVNI_SELECTED);

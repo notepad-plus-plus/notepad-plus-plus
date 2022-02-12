@@ -55,7 +55,17 @@ public :
 	WindowsDlg();
 	int doDialog();
 	virtual void init(HINSTANCE hInst, HWND parent, DocTabView *pTab);
-
+	void doSortToTabs();
+	void doSort();
+	void sort(int columnID, bool reverseSort);
+	void sortFileNameASC();
+	void sortFileNameDSC();
+	void sortFilePathASC();
+	void sortFilePathDSC();
+	void sortFileTypeASC();
+	void sortFileTypeDSC();
+	void sortFileSizeASC();
+	void sortFileSizeDSC();
 	void doRefresh(bool invalidate = false);
 
 protected :
@@ -70,11 +80,11 @@ protected :
 	void resetSelection();
 	void doSave();
 	void doClose();
-	void doSortToTabs();
 	void updateButtonState();
 	void activateCurrent();
 	void doColumnSort();
 	void doCount();
+	void refreshMap();
 	void putItemsToClipboard(bool isFullPath);
 	Buffer* getBuffer(int index) const;
 

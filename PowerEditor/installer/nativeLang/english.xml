@@ -73,6 +73,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="settings-import" name="Import"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Sort By"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -362,6 +363,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42041" name="Empty Recent Files List"/>
                     <Item id="48016" name="Modify Shortcut/Delete Macro..."/>
                     <Item id="48017" name="Modify Shortcut/Delete Command..."/>
+
+                    <Item id="11002" name="Name A to Z"/>
+                    <Item id="11003" name="Name Z to A"/>
+                    <Item id="11004" name="Path A to Z"/>
+                    <Item id="11005" name="Path Z to A"/>
+                    <Item id="11006" name="Type A to Z"/>
+                    <Item id="11007" name="Type Z to A"/>
+                    <Item id="11008" name="Size Smaller to Larger"/>
+                    <Item id="11009" name="Size Larger to Smaller"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -635,6 +645,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Switch to Folder as Workspace"/>
                     <Item id="44109" name="Switch to Document List"/>
                     <Item id="44108" name="Switch to Function List"/>
+                    <Item id="11002" name="Sort By Name A to Z"/>
+                    <Item id="11003" name="Sort By Name Z to A"/>
+                    <Item id="11004" name="Sort By Path A to Z"/>
+                    <Item id="11005" name="Sort By Path Z to A"/>
+                    <Item id="11006" name="Sort By Type A to Z"/>
+                    <Item id="11007" name="Sort By Type Z to A"/>
+                    <Item id="11008" name="Sort By Size Smaller to Larger"/>
+                    <Item id="11009" name="Sort By Size Larger to Smaller"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Shortcut">

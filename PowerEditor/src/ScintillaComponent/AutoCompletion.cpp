@@ -164,7 +164,6 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	// Add keywords to word array
 
-	bool canStop = false;
 	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
 		int compareResult = 0;
@@ -183,12 +182,6 @@ bool AutoCompletion::showApiAndWordComplete()
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);
-			canStop = true;
-		}
-		else if (canStop)
-		{
-			// Early out since no more strings will match
-			break;
 		}
 	}
 
@@ -233,7 +226,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	size_t docLength = _pEditView->execute(SCI_GETLENGTH);
 
-	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
+	int flags = SCFIND_WORDSTART | _ignoreCase ? 0 : SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	intptr_t posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);

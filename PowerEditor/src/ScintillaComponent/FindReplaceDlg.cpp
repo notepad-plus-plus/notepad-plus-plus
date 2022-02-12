@@ -4062,7 +4062,7 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 	str += TEXT(" ");
 
 	TCHAR lnb[16];
-	wsprintf(lnb, TEXT("%d"), static_cast<int>(fi._lineNumber));
+	wsprintf(lnb, TEXT("%6u"), static_cast<int>(fi._lineNumber));
 	str += lnb;
 	str += TEXT(": ");
 	mi._start += str.length();

@@ -164,7 +164,6 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	// Add keywords to word array
 
-	bool canStop = false;
 	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
 		int compareResult = 0;
@@ -183,12 +182,6 @@ bool AutoCompletion::showApiAndWordComplete()
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);
-			canStop = true;
-		}
-		else if (canStop)
-		{
-			// Early out since no more strings will match
-			break;
 		}
 	}
 

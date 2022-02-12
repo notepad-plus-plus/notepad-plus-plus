@@ -946,6 +946,118 @@ void WindowsDlg::doCount()
 	SetWindowText(_hSelf,msg.c_str());
 }
 
+void WindowsDlg::doSort()
+{
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
+	auto currrentTabIndex = _pTab->getCurrentTabIndex();
+	NMWINDLG nmdlg;
+	nmdlg.type = WDT_SORT;
+	nmdlg.hwndFrom = _hSelf;
+	nmdlg.curSel = currrentTabIndex;
+	nmdlg.code = WDN_NOTIFY;
+	nmdlg.nItems = count;
+	nmdlg.Items = new UINT[count];
+	for (int i=0; i < count; ++i)
+	{		
+		nmdlg.Items[i] = _idxMap[i];		
+	}
+	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	if (nmdlg.processed)
+	{	
+		_idxMap.clear();		
+		refreshMap();
+	}
+	
+	//After sorting, need to open the active tab before sorting
+	//This will be helpful when large number of documents are opened
+	int newPosition = -1;
+	std::vector<int>::iterator it = std::find(_idxMap.begin(), _idxMap.end(), currrentTabIndex);
+	if (it != _idxMap.end())
+	{
+		newPosition = it - _idxMap.begin();
+	}
+	nmdlg.type = WDT_ACTIVATE;
+	nmdlg.curSel = newPosition;
+	nmdlg.hwndFrom = _hSelf;
+	nmdlg.code = WDN_NOTIFY;	
+	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	delete[] nmdlg.Items;
+}
+
+void WindowsDlg::sortFileNameASC(){
+	refreshMap();
+	_currentColumn = 0;
+	_reverseSort = false;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFileNameDSC(){
+	refreshMap();
+	_currentColumn = 0;
+	_reverseSort = true;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFilePathASC(){
+	refreshMap();
+	_currentColumn = 1;
+	_reverseSort = false;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFilePathDSC(){
+	refreshMap();
+	_currentColumn = 1;
+	_reverseSort = true;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFileTypeASC(){
+	refreshMap();
+	_currentColumn = 2;
+	_reverseSort = false;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFileTypeDSC(){
+	refreshMap();
+	_currentColumn = 2;
+	_reverseSort = true;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFileSizeASC(){
+	refreshMap();
+	_currentColumn = 3;
+	_reverseSort = false;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFileSizeDSC(){
+	refreshMap();
+	_currentColumn = 3;
+	_reverseSort = true;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::refreshMap()
+{
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
+	size_t oldSize = _idxMap.size();
+	if (count == oldSize)
+		return;
+
+	if (count != oldSize)
+	{
+		size_t lo = 0;
+		_idxMap.resize(count);
+		if (oldSize < count)
+			lo = oldSize;
+		for (size_t i = lo; i < count; ++i)
+			_idxMap[i] = int(i);
+	}
+}
+
 void WindowsDlg::doSortToTabs()
 {
 	int curSel = ListView_GetNextItem(_hList, -1, LVNI_SELECTED);
@@ -1055,8 +1167,8 @@ WindowsMenu::~WindowsMenu()
 
 void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation)
 {
-	_hMenu = ::LoadMenu(hInst, MAKEINTRESOURCE(IDR_WINDOWS_MENU));
-
+	_hMenu = ::LoadMenu(hInst, MAKEINTRESOURCE(IDR_WINDOWS_MENU));	
+	
 	if (translation && translation[0])
 	{
 		generic_string windowStr(translation);
@@ -1094,6 +1206,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 		nDoc = min(nDoc, nMaxDoc);
 		int id;
 		size_t pos;
+		
 		for (id = IDM_WINDOW_MRU_FIRST, pos = 0; id < IDM_WINDOW_MRU_FIRST + static_cast<int32_t>(nDoc); ++id, ++pos)
 		{
 			BufferID bufID = pTab->getBufferByIndex(pos);

@@ -2830,12 +2830,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						for (unsigned int i = 0; i < nmdlg->nItems; ++i)
 						{
 							tempBufs.push_back(_pDocTab->getBufferByIndex(i));
-						}
+						}						
 						//Reset buffers
 						for (unsigned int i = 0; i < nmdlg->nItems; ++i)
 						{
 							_pDocTab->setBuffer(i, tempBufs[nmdlg->Items[i]]);
-						}
+						}						 
 						activateBuffer(_pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex()), currentView());
 						break;
 					}

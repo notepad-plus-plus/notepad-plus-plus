@@ -55,7 +55,17 @@ public :
 	WindowsDlg();
 	int doDialog();
 	virtual void init(HINSTANCE hInst, HWND parent, DocTabView *pTab);
-
+	void doColumnSort();
+	void doSortToTabs();
+	void doSort();	
+	void sortFileNameASC();
+	void sortFileNameDSC();
+	void sortFilePathASC();
+	void sortFilePathDSC();
+	void sortFileTypeASC();
+	void sortFileTypeDSC();
+	void sortFileSizeASC();
+	void sortFileSizeDSC();
 	void doRefresh(bool invalidate = false);
 
 protected :
@@ -64,16 +74,16 @@ protected :
 	virtual void onSize(UINT nType, int cx, int cy);
 	virtual void onGetMinMaxInfo(MINMAXINFO* lpMMI);
 	virtual LRESULT onWinMgr(WPARAM wp, LPARAM lp);
-	virtual void destroy();
+	virtual void destroy();	
 	void updateColumnNames();
 	void fitColumnsToSize();
 	void resetSelection();
 	void doSave();
-	void doClose();
-	void doSortToTabs();
+	void doClose();	
+	void refreshMap();
 	void updateButtonState();
 	void activateCurrent();
-	void doColumnSort();
+	
 	void doCount();
 	void putItemsToClipboard(bool isFullPath);
 	Buffer* getBuffer(int index) const;

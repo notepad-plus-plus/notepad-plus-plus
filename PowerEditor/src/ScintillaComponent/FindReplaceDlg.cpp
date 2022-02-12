@@ -2408,6 +2408,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				if (!findAllFileNameAdded)	//add new filetitle in hits if we haven't already
 				{
 					_pFinder->addFileNameTitle(pFileName);
+					_pFinder->setLineNumFormatStr();
 					findAllFileNameAdded = true;
 				}
 
@@ -3993,6 +3994,20 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 	_pMainMarkings->push_back(EmptySearchResultMarking);
 }
 
+void Finder::setLineNumFormatStr()
+{
+   size_t NumLines = (*_ppEditView)->execute(SCI_GETLINECOUNT);
+	size_t NumDigits = 0;
+   while (NumLines != 0) {
+      NumLines = NumLines / 10;
+      ++NumDigits;
+   }
+
+   TCHAR strFormat[10];
+   wsprintf(strFormat, TEXT("%%%uu"), NumDigits);
+	_LineNumFormatStr = strFormat;
+}
+
 void Finder::addFileHitCount(int count)
 {
 	wstring text = TEXT(" ");
@@ -4062,7 +4077,7 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 	str += TEXT(" ");
 
 	TCHAR lnb[16];
-	wsprintf(lnb, TEXT("%d"), static_cast<int>(fi._lineNumber));
+	wsprintf(lnb, _LineNumFormatStr.c_str(), static_cast<int>(fi._lineNumber));
 	str += lnb;
 	str += TEXT(": ");
 	mi._start += str.length();

@@ -3555,6 +3555,77 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_WINDOW_SORT_FN_ASC :
+		{
+			WindowsDlg _windowsDlg;
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			_windowsDlg.sortFileNameASC();
+            _windowsDlg.doSort();			
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FN_DSC :
+		{
+			WindowsDlg _windowsDlg;
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			_windowsDlg.sortFileNameDSC();
+            _windowsDlg.doSort();			
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FP_ASC :
+		{
+			WindowsDlg _windowsDlg;
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			_windowsDlg.sortFilePathASC();
+            _windowsDlg.doSort();			
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FP_DSC :
+		{
+			WindowsDlg _windowsDlg;
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			_windowsDlg.sortFilePathDSC();
+            _windowsDlg.doSort();			
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FT_ASC :
+		{
+			WindowsDlg _windowsDlg;
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			_windowsDlg.sortFileTypeASC();
+            _windowsDlg.doSort();			
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FT_DSC :
+		{
+			WindowsDlg _windowsDlg;
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			_windowsDlg.sortFileTypeDSC();
+            _windowsDlg.doSort();			
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FS_ASC :
+		{
+			WindowsDlg _windowsDlg;
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			_windowsDlg.sortFileSizeASC();
+            _windowsDlg.doSort();			
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FS_DSC :
+		{
+			WindowsDlg _windowsDlg;
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			_windowsDlg.sortFileSizeDSC();
+            _windowsDlg.doSort();			
+		}
+		break;
 
 		case IDM_SYSTRAYPOPUP_NEWDOC:
 		{

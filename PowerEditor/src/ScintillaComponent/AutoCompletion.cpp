@@ -226,7 +226,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	size_t docLength = _pEditView->execute(SCI_GETLENGTH);
 
-	int flags = SCFIND_WORDSTART | _ignoreCase ? 0 : SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
+	int flags = SCFIND_WORDSTART | (_ignoreCase ? 0 : SCFIND_MATCHCASE) | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	intptr_t posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);

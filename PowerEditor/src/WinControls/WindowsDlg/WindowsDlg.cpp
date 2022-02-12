@@ -948,7 +948,7 @@ void WindowsDlg::doCount()
 
 void WindowsDlg::doSort()
 {
-	UINT count = (_pTab != NULL) ? _pTab->nbItem() : 0;
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
 	auto currrentTabIndex = _pTab->getCurrentTabIndex();
 	NMWINDLG nmdlg;
 	nmdlg.type = WDT_SORT;

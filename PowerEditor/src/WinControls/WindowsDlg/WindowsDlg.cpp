@@ -955,7 +955,7 @@ void WindowsDlg::doSort()
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.curSel = currrentTabIndex;
 	nmdlg.code = WDN_NOTIFY;
-	nmdlg.nItems = count;
+	nmdlg.nItems = static_cast<UINT>(count);
 	nmdlg.Items = new UINT[count];
 	for (size_t i=0; i < count; ++i)
 	{		

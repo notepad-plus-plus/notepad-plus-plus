@@ -127,12 +127,12 @@ bool SecurityGard::verifySignedLibrary(const std::wstring& filepath, NppModule m
 
 	// Initialize the WINTRUST_FILE_INFO structure.
 	LPCWSTR pwszfilepath = filepath.c_str();
-	WINTRUST_FILE_INFO file_data = { 0 };
+	WINTRUST_FILE_INFO file_data = {};
 	file_data.cbStruct = sizeof(WINTRUST_FILE_INFO);
 	file_data.pcwszFilePath = pwszfilepath;
 
 	// Initialise WinTrust data	
-	WINTRUST_DATA winTEXTrust_data = { 0 };
+	WINTRUST_DATA winTEXTrust_data = {};
 	winTEXTrust_data.cbStruct = sizeof(winTEXTrust_data);
 	winTEXTrust_data.dwUIChoice = WTD_UI_NONE;	         // do not display optional dialog boxes
 	winTEXTrust_data.dwUnionChoice = WTD_CHOICE_FILE;        // we are not checking catalog signed files
@@ -229,7 +229,7 @@ bool SecurityGard::verifySignedLibrary(const std::wstring& filepath, NppModule m
 		}
 
 		// Get the signer certificate from temporary certificate store.	
-		CERT_INFO cert_info = { 0 };
+		CERT_INFO cert_info = {};
 		cert_info.Issuer = pSignerInfo->Issuer;
 		cert_info.SerialNumber = pSignerInfo->SerialNumber;
 		PCCERT_CONTEXT context = ::CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&cert_info, NULL);

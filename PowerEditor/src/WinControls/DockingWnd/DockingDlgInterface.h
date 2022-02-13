@@ -94,7 +94,7 @@ protected :
 	generic_string _pluginName;
 	bool _isClosed = false;
 
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) {
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) {
 		switch (message)
 		{
 			case WM_ERASEBKGND:
@@ -104,7 +104,7 @@ protected :
 					break;
 				}
 
-				RECT rc = { 0 };
+				RECT rc = {};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;

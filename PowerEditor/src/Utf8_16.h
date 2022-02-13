@@ -103,7 +103,7 @@ protected:
 enum u78 {utf8NoBOM=0, ascii7bits=1, ascii8bits=2};
 class Utf8_16_Read : public Utf8_16 {
 public:
-	Utf8_16_Read();
+	Utf8_16_Read() {};
 	~Utf8_16_Read();
 
 	size_t convert(char* buf, size_t len);
@@ -118,16 +118,16 @@ protected:
 
 	u78 utf8_7bits_8bits();
 private:
-	UniMode    m_eEncoding;
-	ubyte*          m_pBuf;
-	ubyte*          m_pNewBuf;
+	UniMode    m_eEncoding = uni8Bit;
+	ubyte*          m_pBuf = nullptr;
+	ubyte*          m_pNewBuf = nullptr;
 	// size of the new buffer
-	size_t          m_nNewBufSize;
+	size_t          m_nNewBufSize = 0;
 	// size of the previously allocated buffer (if != 0)
-	size_t          m_nAllocatedBufSize;
-	size_t			m_nSkip;
-	bool            m_bFirstRead;
-	size_t          m_nLen;
+	size_t          m_nAllocatedBufSize = 0;
+	size_t			m_nSkip = 0;
+	bool            m_bFirstRead = true;
+	size_t          m_nLen = 0;
 	Utf16_Iter      m_Iter16;
 };
 

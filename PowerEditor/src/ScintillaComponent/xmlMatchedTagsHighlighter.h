@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include <windows.h>
 #include <string>
 #include <vector>
 
@@ -29,34 +30,34 @@ public:
 	void tagMatch(bool doHiliteAttr);
 	
 private:
-	ScintillaEditView *_pEditView;
+	ScintillaEditView* _pEditView = nullptr;
 	
 	struct XmlMatchedTagsPos {
-		int tagOpenStart;
-		int tagNameEnd;
-		int tagOpenEnd;
+		intptr_t tagOpenStart = 0;
+		intptr_t tagNameEnd = 0;
+		intptr_t tagOpenEnd = 0;
 
-		int tagCloseStart;
-		int tagCloseEnd;
+		intptr_t tagCloseStart = 0;
+		intptr_t tagCloseEnd = 0;
 	};
 
 	struct FindResult {
-		int start;
-		int end;
-		bool success;
+		intptr_t start = 0;
+		intptr_t end = 0;
+		bool success = false;
 	};
 	
 	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
 
 	// Allowed whitespace characters in XML
-	bool isWhitespace(int ch) { return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n'; }
+	bool isWhitespace(intptr_t ch) { return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n'; }
 
-	FindResult findText(const char *text, int start, int end, int flags = 0);
-	FindResult findOpenTag(const std::string& tagName, int start, int end);
-	FindResult findCloseTag(const std::string& tagName, int start, int end);
-	int findCloseAngle(int startPosition, int endPosition);
+	FindResult findText(const char *text, intptr_t start, intptr_t end, int flags = 0);
+	FindResult findOpenTag(const std::string& tagName, intptr_t start, intptr_t end);
+	FindResult findCloseTag(const std::string& tagName, intptr_t start, intptr_t end);
+	intptr_t findCloseAngle(intptr_t startPosition, intptr_t endPosition);
 	
-	std::vector< std::pair<int, int> > getAttributesPos(int start, int end);
+	std::vector< std::pair<intptr_t, intptr_t> > getAttributesPos(intptr_t start, intptr_t end);
 	
 };
 

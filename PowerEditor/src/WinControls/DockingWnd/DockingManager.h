@@ -85,8 +85,8 @@ public :
 
 private :
 	Window						**_ppWindow = nullptr;
-	RECT						_rcWork = { 0 };
-	RECT						_rect = { 0 };
+	RECT						_rcWork = {};
+	RECT						_rect = {};
 	Window						**_ppMainWindow = nullptr;
 	std::vector<HWND>			_vImageList;
 	HIMAGELIST					_hImageList = nullptr;

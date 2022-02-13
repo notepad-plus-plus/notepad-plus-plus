@@ -30,7 +30,7 @@ public :
 	MiscSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class GeneralSubDlg : public StaticDialog
@@ -41,7 +41,7 @@ public :
 	void disableTabbarAlternateIcons();
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class EditingSubDlg : public StaticDialog
@@ -50,7 +50,7 @@ public :
 	EditingSubDlg() = default;
 	
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
 };
 
@@ -71,7 +71,7 @@ private:
 	ColourPicker* _pEdgeColorPicker = nullptr;
 	ColourPicker* _pLinkColorPicker = nullptr;
 
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void enableCustomizedColorCtrls(bool doEnable);
 	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 };
@@ -82,7 +82,7 @@ public :
 	MarginsBorderEdgeSubDlg() = default;
 	
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
 };
 
@@ -104,7 +104,7 @@ private :
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
 	};
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class DefaultDirectorySubDlg : public StaticDialog
@@ -113,7 +113,7 @@ public :
 	DefaultDirectorySubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class RecentFilesHistorySubDlg : public StaticDialog
@@ -128,7 +128,7 @@ private :
 	URLCtrl _nbHistoryVal;
 	URLCtrl _customLenVal;
 	void setCustomLen(int val);
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class LanguageSubDlg : public StaticDialog
@@ -142,7 +142,7 @@ public :
 private :
     LexerStylerArray _lsArray;
 	URLCtrl _tabSizeVal;
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	std::vector<LangMenuItem> _langList;
 };
 
@@ -153,7 +153,7 @@ public :
 
 private :
 
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 
@@ -163,13 +163,7 @@ public:
 	SearchingSubDlg() = default;
 
 private:
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-};
-
-struct strCouple {
-	generic_string _varDesc;
-	generic_string _var;
-	strCouple(const TCHAR *varDesc, const TCHAR *var): _varDesc(varDesc), _var(var){};
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class PrintSubDlg : public StaticDialog
@@ -178,8 +172,8 @@ public :
 	PrintSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	std::vector<strCouple> varList;
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	std::vector<generic_string> varList;
 	int _focusedEditCtrl = 0;
 };
 
@@ -190,7 +184,7 @@ public :
 
 private :
 	void updateBackupGUI();
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 
@@ -200,7 +194,7 @@ public :
 	AutoCompletionSubDlg() = default;
 private :
 	URLCtrl _nbCharVal;
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class MultiInstanceSubDlg : public StaticDialog
@@ -210,7 +204,7 @@ public :
 
 private :
 	const SYSTEMTIME _BTTF_time = {1985, 10, 6, 26, 16, 24, 42, 0};
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class DelimiterSubDlg : public StaticDialog
@@ -223,12 +217,13 @@ public :
 	};
 
 private :
-	POINT _singleLineModePoint, _multiLineModePoint;
-	RECT _closerRect = { 0 };
-	RECT _closerLabelRect = { 0 };
+	POINT _singleLineModePoint = {};
+	POINT _multiLineModePoint = {};
+	RECT _closerRect = {};
+	RECT _closerLabelRect = {};
 	HWND _tip = nullptr;
 
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void detectSpace(const char *text2Check, int & nbSp, int & nbTab) const;
 	generic_string getWarningText(size_t nbSp, size_t nbTab) const;
 	void setWarningIfNeed() const;
@@ -240,7 +235,7 @@ public :
 	CloudAndLinkSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class SearchEngineSubDlg : public StaticDialog
@@ -249,7 +244,7 @@ public :
 	SearchEngineSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class PreferenceDlg : public StaticDialog
@@ -283,7 +278,7 @@ public :
 	virtual void destroy();
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void makeCategoryList();
 	int32_t getIndexFromName(const TCHAR *name) const;
 	void showDialogByIndex(size_t index) const;

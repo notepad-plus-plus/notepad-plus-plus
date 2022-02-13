@@ -20,6 +20,66 @@
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
 
+const auto FUNC_IMG_ID = 1000;
+const char* xpmfn[] = {
+	/* columns rows colors chars-per-pixel */
+	"16 16 36 1 ",
+	"u c None",
+	"  c #131313",
+	". c #252525",
+	"X c #161616",
+	"o c #202020",
+	"O c #393939",
+	"+ c #242424",
+	"@ c #282828",
+	"# c #4E4E4E",
+	"$ c #343434",
+	"% c #5B5B5B",
+	"& c #5F5F5F",
+	"* c #626262",
+	"= c #404040",
+	"- c #686868",
+	"; c #434343",
+	": c #464646",
+	"> c #484848",
+	", c #494949",
+	"< c #515151",
+	"1 c #929292",
+	"2 c #9B9B9B",
+	"3 c #636363",
+	"4 c #656565",
+	"5 c #AFAFAF",
+	"6 c #B7B7B7",
+	"7 c #757575",
+	"8 c #CDCDCD",
+	"9 c #858585",
+	"0 c #868686",
+	"q c #DDDDDD",
+	"w c #E1E1E1",
+	"e c #E9E9E9",
+	"r c #EEEEEE",
+	"t c #959595",
+	"y c #F6F6F6",
+	/* pixels */
+	"uuuuuuuuuuuuuuuu",
+	"uuuuu5o.:yuuuuuu",
+	"uuuu8 $:.0uuuuuu",
+	"uuuu2 yuuuuuuuuu",
+	"uuu6$ 46uuuuuuuu",
+	"uuuO   Ouuuuuuuu",
+	"uuuu;#uuuuuuuuuu",
+	"uuuu##y& 3uu<+uu",
+	"uuuu#;0.@X0, >uu",
+	"uuuu+>uuroo >uuu",
+	"uuuu >uuu* =uuuu",
+	"uuuu 2uu, Xotuuu",
+	"uuue 4u< >9 %owu",
+	"u:,#X0uO>uu1 $yu",
+	"u- +7uuuuuuuuuuu",
+	"uuuuuuuuuuuuuuuu"
+};
+
+
 using namespace std;
 
 static bool isInList(const generic_string& word, const vector<generic_string> & wordArray)
@@ -47,8 +107,8 @@ bool AutoCompletion::showApiComplete()
 		return false;
 
 	// calculate entered word's length
-	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
+	intptr_t curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	intptr_t startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
 
 	if (curPos == startPos)
 		return false;
@@ -57,6 +117,12 @@ bool AutoCompletion::showApiComplete()
 	if (len >= _keyWordMaxLen)
 		return false;
 
+	if (!_isFxImageRegistered)
+	{
+		_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+		_isFxImageRegistered = true;
+	}
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
@@ -140,7 +206,12 @@ bool AutoCompletion::showApiAndWordComplete()
 	}
 
 	// Make Scintilla show the autocompletion menu
-
+	if (!_isFxImageRegistered)
+	{
+		_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
+		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+		_isFxImageRegistered = true;
+	}
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
@@ -160,17 +231,17 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	expr += beginChars;
 	expr += TEXT("[^ \\t\\n\\r.,;:\"(){}=<>'+!?\\[\\]]+");
 
-	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
+	size_t docLength = _pEditView->execute(SCI_GETLENGTH);
 
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
+	intptr_t posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
 
 	while (posFind >= 0)
 	{
-		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
-		int wordEnd = int(_pEditView->execute(SCI_GETTARGETEND));
+		intptr_t wordStart = _pEditView->execute(SCI_GETTARGETSTART);
+		intptr_t wordEnd = _pEditView->execute(SCI_GETTARGETEND);
 
 		size_t foundTextLen = wordEnd - wordStart;
 		if (foundTextLen < bufSize)
@@ -183,7 +254,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 					wordArray.push_back(w);
 			}
 		}
-		posFind = _pEditView->searchInTarget(expr.c_str(), static_cast<int32_t>(expr.length()), wordEnd, docLength);
+		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
 	}
 }
 
@@ -278,9 +349,9 @@ void AutoCompletion::showPathCompletion()
 	// Get current line (at most MAX_PATH characters "backwards" from current caret).
 	generic_string currentLine;
 	{
-		const size_t bufSize = MAX_PATH;
+		const intptr_t bufSize = MAX_PATH;
 		TCHAR buf[bufSize + 1];
-		const size_t currentPos = static_cast<size_t>(_pEditView->execute(SCI_GETCURRENTPOS));
+		const intptr_t currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
 		const auto startPos = max(0, currentPos - bufSize);
 		_pEditView->getGenericText(buf, bufSize + 1, startPos, currentPos);
 		currentLine = buf;
@@ -346,9 +417,9 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 {
 	// Get beginning of word and complete word
 
-	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
-	int endPos = int(_pEditView->execute(SCI_WORDENDPOSITION, curPos, true));
+	intptr_t curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	intptr_t startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
+	intptr_t endPos = _pEditView->execute(SCI_WORDENDPOSITION, curPos, true);
 
 	if (curPos == startPos)
 		return false;
@@ -379,7 +450,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	if (wordArray.size() == 1 && autoInsert)
 	{
-		int replacedLength = _pEditView->replaceTarget(wordArray[0].c_str(), startPos, curPos);
+		intptr_t replacedLength = _pEditView->replaceTarget(wordArray[0].c_str(), startPos, curPos);
 		_pEditView->execute(SCI_GOTOPOS, startPos + replacedLength);
 		return true;
 	}
@@ -422,7 +493,7 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (isHTML)
 	{
 		// Skip if caretPos is within any scripting language
-		int style = static_cast<int>(_pEditView->execute(SCI_GETSTYLEAT, caretPos));
+		size_t style = _pEditView->execute(SCI_GETSTYLEAT, caretPos);
 		if (style >= SCE_HJ_START)
 			return;
 	}
@@ -442,17 +513,17 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
 
-	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
+	intptr_t targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
 
 	if (targetStart < 0)
 		return;
 
-	int targetEnd = int(_pEditView->execute(SCI_GETTARGETEND));
-	int foundTextLen = targetEnd - targetStart;
+	intptr_t targetEnd = _pEditView->execute(SCI_GETTARGETEND);
+	intptr_t foundTextLen = targetEnd - targetStart;
 	if (foundTextLen < 2) // "<>" will be ignored
 		return;
 
-	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
+	if (foundTextLen > static_cast<intptr_t>(closeTagSize) - 2) // buffer size is not large enough. -2 for '/' & '\0'
 		return;
 
 	char tagHead[tagMaxLen];
@@ -527,7 +598,7 @@ void InsertedMatchedChars::add(MatchedCharInserted mci)
 // if current pos > matchedStartSybol Pos and current pos is on the same line of matchedStartSybolPos, it'll be checked then removed
 // otherwise it is just removed
 // return the pos of matchedEndSybol or -1 if matchedEndSybol not found
-int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
+intptr_t InsertedMatchedChars::search(char startChar, char endChar, size_t posToDetect)
 {
 	if (isEmpty())
 		return -1;
@@ -542,9 +613,9 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 				auto startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 				if (posToDetectLine == startPosLine)
 				{
-					auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
+					size_t endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
 
-					for (int j = posToDetect; j <= endPos; ++j)
+					for (auto j = posToDetect; j <= endPos; ++j)
 					{
 						char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, j));
 
@@ -581,14 +652,14 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & matchedPairConf)
 {
 	const vector< pair<char, char> > & matchedPairs = matchedPairConf._matchedPairs;
-	int caretPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
+	size_t caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	const char *matchedChars = NULL;
 
 	char charPrev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 2));
 	char charNext = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos));
 
 	bool isCharPrevBlank = (charPrev == ' ' || charPrev == '\t' || charPrev == '\n' || charPrev == '\r' || charPrev == '\0');
-	int docLen = _pEditView->getCurrentDocLen();
+	size_t docLen = _pEditView->getCurrentDocLen();
 	bool isCharNextBlank = (charNext == ' ' || charNext == '\t' || charNext == '\n' || charNext == '\r' || caretPos == docLen);
 	bool isCharNextCloseSymbol = (charNext == ')' || charNext == ']' || charNext == '}');
 	bool isInSandwich = (charPrev == '(' && charNext == ')') || (charPrev == '[' && charNext == ']') || (charPrev == '{' && charNext == '}');
@@ -653,7 +724,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			{
 				if (!_insertedMatchedChars.isEmpty())
 				{
-					int pos = _insertedMatchedChars.search('"', static_cast<char>(character), caretPos);
+					intptr_t pos = _insertedMatchedChars.search('"', static_cast<char>(character), caretPos);
 					if (pos != -1)
 					{
 						_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -677,7 +748,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			{
 				if (!_insertedMatchedChars.isEmpty())
 				{
-					int pos = _insertedMatchedChars.search('\'', static_cast<char>(character), caretPos);
+					intptr_t pos = _insertedMatchedChars.search('\'', static_cast<char>(character), caretPos);
 					if (pos != -1)
 					{
 						_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -733,7 +804,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					startChar = '{';
 				}
 
-				int pos = _insertedMatchedChars.search(startChar, static_cast<char>(character), caretPos);
+				intptr_t pos = _insertedMatchedChars.search(startChar, static_cast<char>(character), caretPos);
 				if (pos != -1)
 				{
 					_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -901,12 +972,14 @@ bool AutoCompletion::setLanguage(LangType language)
 		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
 		{
 			const TCHAR *name = funcNode->Attribute(TEXT("name"));
+			generic_string imgid = TEXT("?") + intToString(FUNC_IMG_ID);
 			if (name)
 			{
 				size_t len = lstrlen(name);
 				if (len)
 				{
-					_keyWordArray.push_back(name);
+					generic_string word = name + imgid;
+					_keyWordArray.push_back(word.c_str());
 					if (len > _keyWordMaxLen)
 						_keyWordMaxLen = len;
 				}

@@ -969,6 +969,15 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6721" name="centré"/>
                     <Item id="6722" name="à droite"/>
                     <Item id="6723" name="Ajouter"/>
+                    <ComboBox id="6724">
+                        <Element name="Chemin complet du fichier"/>
+                        <Element name="Nom du fichier"/>
+                        <Element name="Répertoire du fichier"/>
+                        <Element name="Page"/>
+                        <Element name="Date et heure (court)"/>
+                        <Element name="Date et heure (long)"/>
+                        <Element name="Heure"/>
+                    </ComboBox>
                     <Item id="6725" name="Variable :"/>
                     <Item id="6727" name="Les variables paramétrées sont affichées ici"/>
                     <Item id="6728" name="Entête et pied de page"/>
@@ -1205,6 +1214,9 @@ Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel
             <DocTooDirtyToMonitor title="Surveillance de Log" message="Le document a été modifié. Veuillez l'enregistrer d'abord."/>
             <DocNoExistToMonitor title="Surveillance de Log" message="Le fichier doit exister pour être surveillé."/>
             <FileTooBigToOpen title="Fichier trop volumineux" message="Ce fichier est trop volumineux pour être ouvert avec Notepad++."/>
+            <FileLoadingException title="Code d'Exception : $STR_REPLACE$" message="Une erreur s'est produite lors du chargement du fichier !"/>
+            <WantToOpenHugeFile title="Avertissement d'ouverture de fichier volumineux" message="L'ouverture d'un fichier de plus de 2 Go peut prendre plusieurs minutes.
+Voulez-vous continuer ?"/>
             <CreateNewFileOrNot title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe pas.
 Voulez-vous le créer maintenant ?"/>
             <CreateNewFileError title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'a pas pu être créé."/>

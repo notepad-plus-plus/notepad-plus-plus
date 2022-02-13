@@ -89,7 +89,7 @@ bool FunctionCallTip::updateCalltip(int ch, bool needShown)
 	if (!needShown && ch != _start && ch != _param && !isVisible())		//must be already visible
 		return false;
 
-	_curPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
+	_curPos = _pEditView->execute(SCI_GETCURRENTPOS);
 
 	//recalculate everything
 	if (!getCursorFunction())
@@ -130,11 +130,11 @@ void FunctionCallTip::close()
 bool FunctionCallTip::getCursorFunction()
 {
 	auto line = _pEditView->execute(SCI_LINEFROMPOSITION, _curPos);
-	int startpos = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, line));
-	int endpos = static_cast<int32_t>(_pEditView->execute(SCI_GETLINEENDPOSITION, line));
-	int len = endpos - startpos + 3;	//also take CRLF in account, even if not there
-	int offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
-	const int maxLen = 256;
+	intptr_t startpos = _pEditView->execute(SCI_POSITIONFROMLINE, line);
+	intptr_t endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
+	intptr_t len = endpos - startpos + 3;	//also take CRLF in account, even if not there
+	intptr_t offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
+	const intptr_t maxLen = 256;
 
 	if ((offset < 2) || (len >= maxLen))
 	{
@@ -380,15 +380,15 @@ void FunctionCallTip::showCalltip()
 	//Check if the current overload still holds. If the current param exceeds amounti n overload, see if another one fits better (enough params)
 	stringVec & params = _overloads.at(_currentOverload);
 	size_t psize = params.size()+1;
-	if ((size_t)_currentParam >= psize)
+	if (_currentParam >= psize)
 	{
 		size_t osize = _overloads.size();
 		for (size_t i = 0; i < osize; ++i)
 		{
 			psize = _overloads.at(i).size()+1;
-			if ((size_t)_currentParam < psize)
+			if (_currentParam < psize)
 			{
-				_currentOverload = static_cast<int32_t>(i);
+				_currentOverload = i;
 				break;
 			}
 		}
@@ -408,7 +408,7 @@ void FunctionCallTip::showCalltip()
 	size_t nbParams = params.size();
 	for (size_t i = 0; i < nbParams; ++i)
 	{
-		if (int(i) == _currentParam) 
+		if (i == _currentParam) 
 		{
 			highlightstart = static_cast<int>(callTipText.str().length());
 			highlightend = highlightstart + lstrlen(params.at(i));

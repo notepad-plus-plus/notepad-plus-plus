@@ -143,37 +143,37 @@ void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
 
 struct Position
 {
-	int _firstVisibleLine = 0;
-	int _startPos = 0;
-	int _endPos = 0;
-	int _xOffset = 0;
-	int _selMode = 0;
-	int _scrollWidth = 1;
-	int _offset = 0;
-	int _wrapCount = 0;
+	size_t _firstVisibleLine = 0;
+	size_t _startPos = 0;
+	size_t _endPos = 0;
+	size_t _xOffset = 0;
+	size_t _selMode = 0;
+	size_t _scrollWidth = 1;
+	size_t _offset = 0;
+	size_t _wrapCount = 0;
 };
 
 
 struct MapPosition
 {
-	int32_t _firstVisibleDisplayLine = -1;
+private:
+	intptr_t _maxPeekLenInKB = 512; // 512 KB
+public:
+	intptr_t _firstVisibleDisplayLine = -1;
 
-	int32_t _firstVisibleDocLine = -1; // map
-	int32_t _lastVisibleDocLine = -1;  // map
-	int32_t _nbLine = -1;              // map
-	int32_t _higherPos = -1;           // map
-	int32_t _width = -1;
-	int32_t _height = -1;
-	int32_t _wrapIndentMode = -1;
+	intptr_t _firstVisibleDocLine = -1; // map
+	intptr_t _lastVisibleDocLine = -1;  // map
+	intptr_t _nbLine = -1;              // map
+	intptr_t _higherPos = -1;           // map
+	intptr_t _width = -1;
+	intptr_t _height = -1;
+	intptr_t _wrapIndentMode = -1;
 
-	int64_t _KByteInDoc = _maxPeekLenInKB;
+	intptr_t _KByteInDoc = _maxPeekLenInKB;
 
 	bool _isWrap = false;
 	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
 	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
-
-private:
-	int64_t _maxPeekLenInKB = 512; // 512 KB
 };
 
 
@@ -232,7 +232,7 @@ struct CmdLineParams
 	int _column2go = -1;
 	int _pos2go = -1;
 
-	POINT _point = { 0 };
+	POINT _point = {};
 	bool _isPointXValid = false;
 	bool _isPointYValid = false;
 
@@ -298,7 +298,7 @@ struct CmdLineParamsDTO
 struct FloatingWindowInfo
 {
 	int _cont = 0;
-	RECT _pos = { 0 };
+	RECT _pos = {};
 
 	FloatingWindowInfo(int cont, int x, int y, int w, int h)
 		: _cont(cont)
@@ -573,7 +573,7 @@ struct PrintSettings final {
 	int _footerFontStyle = 0;
 	int _footerFontSize = 0;
 
-	RECT _marge = {0};
+	RECT _marge = {};
 
 	PrintSettings() {
 		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
@@ -742,9 +742,9 @@ struct NppGUI final
 
 	bool _checkHistoryFiles = false;
 
-	RECT _appPos = {0};
+	RECT _appPos = {};
 
-	RECT _findWindowPos = { 0 };
+	RECT _findWindowPos = {};
 
 	bool _isMaximized = false;
 	bool _isMinimizedToTray = false;
@@ -796,7 +796,7 @@ struct NppGUI final
 	bool _isLangMenuCompact = true;
 
 	PrintSettings _printSettings;
-	BackupFeature _backup = bak_simple;
+	BackupFeature _backup = bak_none;
 	bool _useDir = false;
 	generic_string _backupDir;
 	DockingManagerData _dockingData;
@@ -805,7 +805,7 @@ struct NppGUI final
 	AutocStatus _autocStatus = autoc_both;
 	size_t  _autocFromLen = 1;
 	bool _autocIgnoreNumbers = true;
-	bool _autocInsertSelectedUseENTER = false;
+	bool _autocInsertSelectedUseENTER = true;
 	bool _autocInsertSelectedUseTAB = true;
 	bool _funcParams = true;
 	MatchedPairConf _matchedPairConf;
@@ -874,8 +874,8 @@ struct ScintillaViewParams
 	bool _isEdgeBgMode = false;
 
 	std::vector<size_t> _edgeMultiColumnPos;
-	int _zoom = 0;
-	int _zoom2 = 0;
+	intptr_t _zoom = 0;
+	intptr_t _zoom2 = 0;
 	bool _whiteSpaceShow = false;
 	bool _eolShow = false;
 	int _borderWidth = 2;

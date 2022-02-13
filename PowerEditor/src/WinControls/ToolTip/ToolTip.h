@@ -23,26 +23,21 @@
 
 class ToolTip : public Window
 {
-public :
+public:
 	ToolTip() = default;
-    
-	void destroy(){
+
+	void destroy() {
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 	};
 
-// Attributes
-public:
-
-// Implementation
-public:
 	virtual void init(HINSTANCE hInst, HWND hParent);
 	void Show(RECT rectTitle, const TCHAR* pszTitleText, int iXOff = 0, int iWidthOff = 0);
 
 protected:
-    WNDPROC		_defaultProc = nullptr;
+	WNDPROC		_defaultProc = nullptr;
 	BOOL		_bTrackMouse = FALSE;
-	TOOLINFO	_ti;
+	TOOLINFO	_ti = {};
 
     static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
         return (((ToolTip *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));

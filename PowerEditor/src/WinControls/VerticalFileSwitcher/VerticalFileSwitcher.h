@@ -103,7 +103,7 @@ public:
 protected:
 	HMENU _hGlobalMenu = NULL;
 
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initPopupMenus();
 	void popupMenuCmd(int cmdID);
 private:

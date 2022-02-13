@@ -589,7 +589,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else if (notification->nmhdr.hwndFrom == _subEditView.getHSelf())
 				switchEditViewTo(SUB_VIEW);
 
-			int lineClick = int(_pEditView->execute(SCI_LINEFROMPOSITION, notification->position));
+			intptr_t lineClick = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
 
 			if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
 			{
@@ -660,11 +660,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (indentMaintain)
 					maintainIndentation(static_cast<TCHAR>(notification->ch));
 
-				AutoCompletion * autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
-				bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
-				if (nppGui._matchedPairConf.hasAnyPairsPair() && !isColumnMode)
-					autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
-				autoC->update(notification->ch);
+				Buffer* currentBuf = _pEditView->getCurrentBuffer();
+				if (!currentBuf->isLargeFile())
+				{
+					AutoCompletion* autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
+					bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
+					if (nppGui._matchedPairConf.hasAnyPairsPair() && !isColumnMode)
+						autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
+					autoC->update(notification->ch);
+				}
 			}
 			break;
 		}
@@ -863,9 +867,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (nppParam._isFindReplacing)
 				break;
 
-			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
+			Buffer* currentBuf = _pEditView->getCurrentBuffer();
+
+			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf() && !currentBuf->isLargeFile()) // notification come from unfocus view - both views ae visible
 			{
-				//ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
 				if (nppGui._smartHiliteOnAnotherView)
 				{
 					TCHAR selectedText[1024];
@@ -877,13 +882,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			braceMatch();
 
-			if (nppGui._enableTagsMatchHilite)
+			if (nppGui._enableTagsMatchHilite && !currentBuf->isLargeFile())
 			{
 				XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
 				xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
 			}
 
-			if (nppGui._enableSmartHilite)
+			if (nppGui._enableSmartHilite && !currentBuf->isLargeFile())
 			{
 				if (nppGui._disableSmartHiliteTmp)
 					nppGui._disableSmartHiliteTmp = false;

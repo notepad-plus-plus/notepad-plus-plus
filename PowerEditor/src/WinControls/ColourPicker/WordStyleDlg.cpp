@@ -72,7 +72,7 @@ void WordStyleDlg::updateGlobalOverrideCtrls()
 	::SendDlgItemMessage(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableUnderLine, 0);
 }
 
-INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
 	{
@@ -120,7 +120,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			}
 			::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 
-			for (int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; ++i)
+			for (size_t i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; ++i)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[i]));
 
 			const std::vector<generic_string> & fontlist = (NppParameters::getInstance()).getFontList();
@@ -572,7 +572,7 @@ int WordStyleDlg::whichTabColourIndex()
 	const size_t styleNameLen = 128;
 	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
-	if (lbTextLen > styleNameLen)
+	if (static_cast<size_t>(lbTextLen) > styleNameLen)
 		return -1;
 
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
@@ -599,9 +599,9 @@ bool WordStyleDlg::isDocumentMapStyle()
 		return false;
 
 	constexpr size_t styleNameLen = 128;
-	TCHAR styleName[styleNameLen + 1] = { 0 };
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	const auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
-	if (lbTextLen > styleNameLen)
+	if (static_cast<size_t>(lbTextLen) > styleNameLen)
 		return false;
 
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
@@ -641,7 +641,7 @@ void WordStyleDlg::updateFontSize()
 		TCHAR intStr[intStrLen];
 
 		auto lbTextLen = ::SendMessage(_hFontSizeCombo, CB_GETLBTEXTLEN, iFontSizeSel, 0);
-		if (lbTextLen >= intStrLen)
+		if (static_cast<size_t>(lbTextLen) >= intStrLen)
 			return;
 
 		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, reinterpret_cast<LPARAM>(intStr));
@@ -844,7 +844,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (i == LB_ERR)
 		return;
 	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXTLEN, i, 0);
-	if (lbTextLen > strLen)
+	if (static_cast<size_t>(lbTextLen) > strLen)
 		return;
 
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(str));
@@ -855,7 +855,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	const size_t styleNameLen = 64;
 	TCHAR styleName[styleNameLen + 1] = { '\0' };
 	lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
-	if (lbTextLen > styleNameLen)
+	if (static_cast<size_t>(lbTextLen) > styleNameLen)
 		return;
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
 	wcscat_s(str, TEXT(" : "));

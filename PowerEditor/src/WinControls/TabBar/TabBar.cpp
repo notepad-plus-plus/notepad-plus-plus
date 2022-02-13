@@ -160,7 +160,7 @@ void TabBar::activateAt(int index) const
 
 void TabBar::deletItemAt(size_t index)
 {
-	if ((index == _nbItem-1))
+	if (index == _nbItem - 1)
 	{
 		//prevent invisible tabs. If last visible tab is removed, other tabs are put in view but not redrawn
 		//Therefore, scroll one tab to the left if only one tab visible
@@ -870,7 +870,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				break;
 			}
 
-			RECT rc = { 0 };
+			RECT rc = {};
 			GetClientRect(hwnd, &rc);
 			FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
 
@@ -912,7 +912,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int nSelTab = TabCtrl_GetCurSel(hwnd);
 			for (int i = 0; i < nTabs; ++i)
 			{
-				DRAWITEMSTRUCT dis = { ODT_TAB, id, (UINT)i, ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc };
+				DRAWITEMSTRUCT dis = { ODT_TAB, id, (UINT)i, ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc, {}, 0 };
 				TabCtrl_GetItemRect(hwnd, i, &dis.rcItem);
 
 				if (i == nFocusTab)
@@ -926,7 +926,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
 
-				RECT rcIntersect = { 0 };
+				RECT rcIntersect = {};
 				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
 				{
 					if (dwStyle & TCS_VERTICAL)

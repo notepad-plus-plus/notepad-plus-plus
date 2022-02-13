@@ -124,7 +124,7 @@ void resolveLinkFile(generic_string& linkFilePath)
 {
 	IShellLink* psl;
 	WCHAR targetFilePath[MAX_PATH];
-	WIN32_FIND_DATA wfd = {0};
+	WIN32_FIND_DATA wfd = {};
 
 	HRESULT hres = CoInitialize(NULL);
 	if (SUCCEEDED(hres))
@@ -1499,7 +1499,7 @@ bool Notepad_plus::fileSave(BufferID id)
 		const NppGUI & nppgui = (NppParameters::getInstance()).getNppGUI();
 		BackupFeature backup = nppgui._backup;
 
-		if (backup != bak_none)
+		if (backup != bak_none && !buf->isLargeFile())
 		{
 			const TCHAR *fn = buf->getFullPathName();
 			TCHAR *name = ::PathFindFileName(fn);

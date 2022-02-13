@@ -81,7 +81,7 @@ void RegExtDlg::doDialog(bool isRTL)
 		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_REGEXT_BOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 }
 
-INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
 	{
@@ -258,7 +258,7 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					{
 						const size_t itemNameLen = 32;
 						TCHAR itemName[itemNameLen + 1] = { '\0' };
-						auto lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETTEXTLEN, i, 0);
+						size_t lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETTEXTLEN, i, 0);
 						if (lbTextLen > itemNameLen)
 							return TRUE;
 

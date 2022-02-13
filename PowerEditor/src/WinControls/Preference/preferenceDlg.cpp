@@ -91,7 +91,7 @@ static int encodings[] = {
 	20866
 };
 
-INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
@@ -323,7 +323,7 @@ bool PreferenceDlg::setListSelection(size_t currentSel) const
 	TCHAR selStr[selStrLenMax + 1];
 	auto lbTextLen = ::SendMessage(_hSelf, LB_GETTEXTLEN, currentSel, 0);
 
-	if (lbTextLen > selStrLenMax)
+	if (static_cast<size_t>(lbTextLen) > selStrLenMax)
 		return false;
 
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETTEXT, currentSel, reinterpret_cast<LPARAM>(selStr));
@@ -347,7 +347,7 @@ bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *ne
 		return false;
 
 	const size_t lenMax = 256;
-	TCHAR oldName[lenMax] = {0};
+	TCHAR oldName[lenMax] = { '\0' };
 	size_t txtLen = ::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETTEXTLEN, i, 0);
 	if (txtLen >= lenMax)
 		return false;
@@ -422,7 +422,7 @@ void GeneralSubDlg::disableTabbarAlternateIcons()
 }
 
 
-INT_PTR CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	
@@ -723,7 +723,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 }
 
 
-INT_PTR CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
@@ -921,7 +921,7 @@ void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2Move
 	::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
 }
 
-INT_PTR CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);
 
@@ -1365,7 +1365,7 @@ void MarginsBorderEdgeSubDlg::initScintParam()
 	oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(editNumSpaceProc)));
 }
 
-INT_PTR CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	switch (message) 
@@ -1558,7 +1558,7 @@ INT_PTR CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPara
 const size_t fileUpdateChoiceEnable = 0;
 const size_t fileUpdateChoiceEnable4All = 1;
 const size_t fileUpdateChoiceDisable = 2;
-INT_PTR CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
@@ -1833,7 +1833,7 @@ void RecentFilesHistorySubDlg::setCustomLen(int val)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0?SW_SHOW:SW_HIDE);
 }
 
-INT_PTR CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -2068,7 +2068,7 @@ INT_PTR CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
  	return FALSE;
 }
 
-INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -2188,7 +2188,7 @@ INT_PTR CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wParam
 	return FALSE;
 }
 
-INT_PTR CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -2337,7 +2337,7 @@ INT_PTR CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPar
 	return FALSE;
 }
 
-INT_PTR CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
@@ -2580,13 +2580,13 @@ INT_PTR CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						pDestLst = &_langList;
 					}
 					size_t iRemove = ::SendDlgItemMessage(_hSelf, list2Remove, LB_GETCURSEL, 0, 0);
-					if (iRemove == -1)
+					if (static_cast<intptr_t>(iRemove) == -1)
 						return TRUE;
 
 					const size_t sL = 31;
 					TCHAR s[sL + 1];
 					auto lbTextLen = ::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXTLEN, iRemove, 0);
-					if (lbTextLen > sL)
+					if (static_cast<size_t>(lbTextLen) > sL)
 						return TRUE;
 
 					::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXT, iRemove, reinterpret_cast<LPARAM>(s));
@@ -2776,7 +2776,7 @@ INT_PTR CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	return FALSE;
 }
 
-INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* lParam*/)
+intptr_t CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* lParam*/)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -2950,7 +2950,7 @@ INT_PTR CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 	return FALSE;
 }
 
-INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -3027,19 +3027,22 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FBOLD, BM_SETCHECK, nppGUI._printSettings._footerFontStyle & FONTSTYLE_BOLD, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FITALIC, BM_SETCHECK, nppGUI._printSettings._footerFontStyle & FONTSTYLE_ITALIC, 0);
 
-			varList.push_back(strCouple(TEXT("Full file name path"), TEXT("$(FULL_CURRENT_PATH)")));
-			varList.push_back(strCouple(TEXT("File name"), TEXT("$(FILE_NAME)")));
-			varList.push_back(strCouple(TEXT("File directory"), TEXT("$(CURRENT_DIRECTORY)")));
-			varList.push_back(strCouple(TEXT("Page"), TEXT("$(CURRENT_PRINTING_PAGE)")));
-			varList.push_back(strCouple(TEXT("Short date format"), TEXT("$(SHORT_DATE)")));
-			varList.push_back(strCouple(TEXT("Long date format"), TEXT("$(LONG_DATE)")));
-			varList.push_back(strCouple(TEXT("Time"), TEXT("$(TIME)")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Full file name path")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("File name")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("File directory")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Page")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Short date format")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Long date format")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Time")));
 
-			for (size_t i = 0, len = varList.size() ; i < len ; ++i)
-			{
-				auto j = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(varList[i]._varDesc.c_str()));
-				::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_SETITEMDATA, j, reinterpret_cast<LPARAM>(varList[i]._var.c_str()));
-			}
+			varList.push_back(TEXT("$(FULL_CURRENT_PATH)"));
+			varList.push_back(TEXT("$(FILE_NAME)"));
+			varList.push_back(TEXT("$(CURRENT_DIRECTORY)"));
+			varList.push_back(TEXT("$(CURRENT_PRINTING_PAGE)"));
+			varList.push_back(TEXT("$(SHORT_DATE)"));
+			varList.push_back(TEXT("$(LONG_DATE)"));
+			varList.push_back(TEXT("$(TIME)"));
+
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_SETCURSEL, 0, 0);
 
 			break;
@@ -3204,7 +3207,7 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						TCHAR intStr[intStrLen];
 
 						auto lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXTLEN, iSel, 0);
-						if (lbTextLen >= intStrLen)
+						if (static_cast<size_t>(lbTextLen) >= intStrLen)
 							return TRUE;
 
 						::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXT, iSel, reinterpret_cast<LPARAM>(intStr));
@@ -3270,8 +3273,11 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						if (!_focusedEditCtrl)
 							return TRUE;
 
-						auto iSel = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETCURSEL, 0, 0);
-						TCHAR *varStr = (TCHAR *)::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETITEMDATA, iSel, 0);
+						size_t iSel = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETCURSEL, 0, 0);
+						if (iSel >= varList.size())
+							return TRUE;
+
+						TCHAR *varStr = (TCHAR*)varList[iSel].c_str();
 						size_t selStart = 0;
 						size_t selEnd = 0;
 						::SendDlgItemMessage(_hSelf, _focusedEditCtrl, EM_GETSEL, reinterpret_cast<WPARAM>(&selStart), reinterpret_cast<LPARAM>(&selEnd));
@@ -3303,7 +3309,7 @@ INT_PTR CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 }
 
 
-INT_PTR CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
@@ -3534,7 +3540,7 @@ void BackupSubDlg::updateBackupGUI()
 }
 
 
-INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
@@ -3885,7 +3891,7 @@ INT_PTR CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 }
 
 
-INT_PTR CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	switch (message) 
@@ -4088,7 +4094,7 @@ void DelimiterSubDlg::setWarningIfNeed() const
 	::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
 }
 
-INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 	switch (message) 
@@ -4297,7 +4303,7 @@ INT_PTR CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-INT_PTR CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParams.getNppGUI();
@@ -4501,7 +4507,7 @@ INT_PTR CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 	return FALSE;
 }
 
-INT_PTR CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParams.getNppGUI();
@@ -4621,7 +4627,7 @@ INT_PTR CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 	return FALSE;
 }
 
-INT_PTR CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParams.getNppGUI();

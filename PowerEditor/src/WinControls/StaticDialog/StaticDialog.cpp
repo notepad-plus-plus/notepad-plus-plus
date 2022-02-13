@@ -89,8 +89,8 @@ void StaticDialog::display(bool toShow, bool enhancedPositioningCheckWhenShowing
 		{
 			// If the user has switched from a dual monitor to a single monitor since we last
 			// displayed the dialog, then ensure that it's still visible on the single monitor.
-			RECT workAreaRect = { 0 };
-			RECT rc = { 0 };
+			RECT workAreaRect = {};
+			RECT rc = {};
 			::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
 			::GetWindowRect(_hSelf, &rc);
 			int newLeft = rc.left;
@@ -234,7 +234,7 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 	::SendMessage(msgDestParent ? _hParent : (::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, reinterpret_cast<WPARAM>(_hSelf));
 }
 
-INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{

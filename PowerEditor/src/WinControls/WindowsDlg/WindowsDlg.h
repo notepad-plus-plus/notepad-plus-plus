@@ -59,7 +59,7 @@ public :
 	void doRefresh(bool invalidate = false);
 
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	virtual BOOL onInitDialog();
 	virtual void onSize(UINT nType, int cx, int cy);
 	virtual void onGetMinMaxInfo(MINMAXINFO* lpMMI);
@@ -83,9 +83,9 @@ protected :
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;
-	SIZE _szMinButton = { 0 };
-	SIZE _szMinListCtrl = { 0 };
-	DocTabView *_pTab = nullptr;
+	SIZE _szMinButton = {};
+	SIZE _szMinListCtrl = {};
+	DocTabView* _pTab = nullptr;
 	std::vector<int> _idxMap;
 	int _currentColumn = -1;
 	int _lastSort = -1;

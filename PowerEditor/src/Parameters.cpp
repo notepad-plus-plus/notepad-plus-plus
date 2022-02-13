@@ -630,7 +630,7 @@ int base64ToAscii(char *dest, const char *base64Str)
 		uc2 = (UCHAR)base64IndexArray[base64Str[j+2]];
 		uc3 = (UCHAR)base64IndexArray[base64Str[j+3]];
 
-		if ((uc0 == -1) || (uc1 == -1) || (uc2 == -1) || (uc3 == -1))
+		if ((static_cast<char>(uc0) == -1) || (static_cast<char>(uc1) == -1) || (static_cast<char>(uc2) == -1) || (static_cast<char>(uc3) == -1))
 			return -1;
 
 		if (base64Str[j+2] == '=') // && (uc3 == '=')
@@ -789,6 +789,10 @@ winVer NppParameters::getWindowsVersion()
 
 	case PROCESSOR_ARCHITECTURE_INTEL:
 		_platForm = PF_X86;
+		break;
+
+	case PROCESSOR_ARCHITECTURE_ARM64:
+		_platForm = PF_ARM64;
 		break;
 
 	default:
@@ -2162,14 +2166,14 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 				if (fileName)
 				{
 					Position position;
-					(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), &position._firstVisibleLine);
-					(childNode->ToElement())->Attribute(TEXT("xOffset"), &position._xOffset);
-					(childNode->ToElement())->Attribute(TEXT("startPos"), &position._startPos);
-					(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
-					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
-					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
-					(childNode->ToElement())->Attribute(TEXT("offset"), &position._offset);
-					(childNode->ToElement())->Attribute(TEXT("wrapCount"), &position._wrapCount);
+					(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), reinterpret_cast<int*>(&position._firstVisibleLine));
+					(childNode->ToElement())->Attribute(TEXT("xOffset"), reinterpret_cast<int*>(&position._xOffset));
+					(childNode->ToElement())->Attribute(TEXT("startPos"), reinterpret_cast<int*>(&position._startPos));
+					(childNode->ToElement())->Attribute(TEXT("endPos"), reinterpret_cast<int*>(&position._endPos));
+					(childNode->ToElement())->Attribute(TEXT("selMode"), reinterpret_cast<int*>(&position._selMode));
+					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), reinterpret_cast<int*>(&position._scrollWidth));
+					(childNode->ToElement())->Attribute(TEXT("offset"), reinterpret_cast<int*>(&position._offset));
+					(childNode->ToElement())->Attribute(TEXT("wrapCount"), reinterpret_cast<int*>(&position._wrapCount));
 					MapPosition mapPosition;
 					int32_t mapPosVal;
 					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"), &mapPosVal);
@@ -3273,14 +3277,14 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			{
 				TiXmlNode *fileNameNode = viewElems[k].viewNode->InsertEndChild(TiXmlElement(TEXT("File")));
 
-				(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), viewSessionFiles[i]._firstVisibleLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), viewSessionFiles[i]._xOffset);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), viewSessionFiles[i]._scrollWidth);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), viewSessionFiles[i]._startPos);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), viewSessionFiles[i]._endPos);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), viewSessionFiles[i]._selMode);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("offset"), viewSessionFiles[i]._offset);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("wrapCount"), viewSessionFiles[i]._wrapCount);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), static_cast<int>(viewSessionFiles[i]._firstVisibleLine));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), static_cast<int>(viewSessionFiles[i]._xOffset));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), static_cast<int>(viewSessionFiles[i]._scrollWidth));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), static_cast<int>(viewSessionFiles[i]._startPos));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), static_cast<int>(viewSessionFiles[i]._endPos));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), static_cast<int>(viewSessionFiles[i]._selMode));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("offset"), static_cast<int>(viewSessionFiles[i]._offset));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("wrapCount"), static_cast<int>(viewSessionFiles[i]._wrapCount));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), viewSessionFiles[i]._langName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), viewSessionFiles[i]._encoding);
 				(fileNameNode->ToElement())->SetAttribute(TEXT("userReadOnly"), (viewSessionFiles[i]._isUserReadOnly && !viewSessionFiles[i]._isMonitoring) ? TEXT("yes") : TEXT("no"));
@@ -3290,15 +3294,15 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestampHigh"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
 				
 				// docMap 
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDocLine"), viewSessionFiles[i]._mapPos._firstVisibleDocLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapLastVisibleDocLine"), viewSessionFiles[i]._mapPos._lastVisibleDocLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapNbLine"), viewSessionFiles[i]._mapPos._nbLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHigherPos"), viewSessionFiles[i]._mapPos._higherPos);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWidth"), viewSessionFiles[i]._mapPos._width);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHeight"), viewSessionFiles[i]._mapPos._height);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapKByteInDoc"), static_cast<int>(viewSessionFiles[i]._mapPos._KByteInDoc));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWrapIndentMode"), viewSessionFiles[i]._mapPos._wrapIndentMode);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), (int)viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDocLine"), (int)viewSessionFiles[i]._mapPos._firstVisibleDocLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapLastVisibleDocLine"), (int)viewSessionFiles[i]._mapPos._lastVisibleDocLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapNbLine"), (int)viewSessionFiles[i]._mapPos._nbLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHigherPos"), (int)viewSessionFiles[i]._mapPos._higherPos);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWidth"), (int)viewSessionFiles[i]._mapPos._width);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHeight"), (int)viewSessionFiles[i]._mapPos._height);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapKByteInDoc"), (int)viewSessionFiles[i]._mapPos._KByteInDoc);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWrapIndentMode"), (int)viewSessionFiles[i]._mapPos._wrapIndentMode);
 				fileNameNode->ToElement()->SetAttribute(TEXT("mapIsWrap"), viewSessionFiles[i]._mapPos._isWrap ? TEXT("yes") : TEXT("no"));
 
 				for (size_t j = 0, len = viewSessionFiles[i]._marks.size() ; j < len ; ++j)
@@ -5524,6 +5528,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			val = element->Attribute(TEXT("customColorEdge"), &i);
 			if (val)
 				_nppGUI._darkmode._customColors.edge = i;
+			
+			val = element->Attribute(TEXT("customColorLinkText"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.linkText = i;
 		}
 	}
 }
@@ -6004,8 +6012,8 @@ bool NppParameters::writeScintillaParams()
 	}
 	(scintNode->ToElement())->SetAttribute(TEXT("isEdgeBgMode"), _svp._isEdgeBgMode ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("edgeMultiColumnPos"), edgeColumnPosStr);
-	(scintNode->ToElement())->SetAttribute(TEXT("zoom"), _svp._zoom);
-	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), _svp._zoom2);
+	(scintNode->ToElement())->SetAttribute(TEXT("zoom"), static_cast<int>(_svp._zoom));
+	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), static_cast<int>(_svp._zoom2));
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), _svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), _svp._eolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
@@ -6576,6 +6584,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("customColorDarkText"), _nppGUI._darkmode._customColors.darkerText);
 		GUIConfigElement->SetAttribute(TEXT("customColorDisabledText"), _nppGUI._darkmode._customColors.disabledText);
 		GUIConfigElement->SetAttribute(TEXT("customColorEdge"), _nppGUI._darkmode._customColors.edge);
+		GUIConfigElement->SetAttribute(TEXT("customColorLinkText"), _nppGUI._darkmode._customColors.linkText);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />
@@ -7104,6 +7113,7 @@ generic_string NppParameters::getWinVerBitStr() const
 
 	case PF_X64:
 	case PF_IA64:
+	case PF_ARM64:
 		return TEXT("64-bit");
 
 	default:

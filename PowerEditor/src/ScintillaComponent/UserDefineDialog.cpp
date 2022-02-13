@@ -37,7 +37,7 @@ GlobalMappers & globalMappper()
     return gm;
 }
 
-void convertTo(TCHAR *dest, int destLen, const TCHAR *toConvert, TCHAR *prefix)
+void convertTo(TCHAR *dest, int destLen, const TCHAR *toConvert, const TCHAR *prefix)
 {
 	bool inGroup = false;
 	int index = lstrlen(dest);
@@ -96,7 +96,7 @@ bool SharedParametersDialog::setPropertyByCheck(HWND hwnd, WPARAM id, bool & boo
     return TRUE;
 }
 
-INT_PTR CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM /*lParam*/)
 {
     switch (Message)
     {
@@ -151,7 +151,7 @@ INT_PTR CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam
     return FALSE;
 }
 
-INT_PTR CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
     switch (Message)
     {
@@ -268,7 +268,7 @@ void FolderStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *pr
     dest[j++] = '\0';
 }
 
-INT_PTR CALLBACK KeyWordsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK KeyWordsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
     switch (Message)
     {
@@ -409,7 +409,7 @@ void KeyWordsStyleDialog::updateDlg()
     ::SendDlgItemMessage(_hSelf, IDC_KEYWORD8_PREFIX_CHECK, BM_SETCHECK, _pUserLang->_isPrefix[7], 0);
 }
 
-INT_PTR CALLBACK CommentStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK CommentStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
     switch (Message)
     {
@@ -522,9 +522,10 @@ void CommentStyleDialog::setKeywords2List(int id)
     }
     if (index != -1)
     {
-        TCHAR newList[max_char] = TEXT("");
-        TCHAR buffer[max_char] = TEXT("");
-        TCHAR intBuffer[10] = {'0', 0};
+        TCHAR* newList = new TCHAR[max_char];
+        newList[0] = '\0';
+        TCHAR* buffer = new TCHAR[max_char];
+        buffer[0] = '\0';
 
         const int list[] = {
             IDC_COMMENTLINE_OPEN_EDIT,
@@ -534,18 +535,20 @@ void CommentStyleDialog::setKeywords2List(int id)
             IDC_COMMENT_CLOSE_EDIT
         };
 
-        for (auto i = 0; i < sizeof(list)/sizeof(int); ++i)
+        for (size_t i = 0; i < sizeof(list)/sizeof(int); ++i)
         {
-            generic_itoa(i, intBuffer+1, 10);
+            wstring intStr = std::to_wstring(i);
             ::GetDlgItemText(_hSelf, list[i], buffer, max_char);
-			convertTo(newList, max_char, buffer, intBuffer);
+			convertTo(newList, max_char, buffer, intStr.c_str());
         }
 
 		wcscpy_s(_pUserLang->_keywordLists[index], newList);
+        delete[] newList;
+        delete[] buffer;
     }
 }
 
-void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const
+void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, const TCHAR *prefix) const
 {
     int j = 0;
     bool begin2Copy = false;
@@ -583,8 +586,8 @@ void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *p
 
 void CommentStyleDialog::updateDlg()
 {
-    TCHAR buffer[max_char] = TEXT("");
-    TCHAR intBuffer[10] = {'0', 0};
+    TCHAR* buffer = new TCHAR[max_char];
+    buffer[0] = '\0';
 
     const int list[] = {
         IDC_COMMENTLINE_OPEN_EDIT,
@@ -594,10 +597,10 @@ void CommentStyleDialog::updateDlg()
         IDC_COMMENT_CLOSE_EDIT
     };
 
-    for (int i=0; i<sizeof(list)/sizeof(int); ++i)
+    for (size_t i=0; i<sizeof(list)/sizeof(int); ++i)
     {
-        generic_itoa(i, intBuffer+1, 10);
-        retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS], intBuffer);
+        wstring intStr = std::to_wstring(i);
+        retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS], intStr.c_str());
 		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
     }
 
@@ -618,11 +621,14 @@ void CommentStyleDialog::updateDlg()
     ::SendDlgItemMessage(_hSelf, IDC_NUMBER_SUFFIX1_EDIT,    WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_NUMBER_SUFFIX1]));
     ::SendDlgItemMessage(_hSelf, IDC_NUMBER_SUFFIX2_EDIT,    WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_NUMBER_SUFFIX2]));
     ::SendDlgItemMessage(_hSelf, IDC_NUMBER_RANGE_EDIT,      WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_NUMBER_RANGE]));
+
+    delete[] buffer;
 }
 
 void SymbolsStyleDialog::updateDlg()
 {
-    TCHAR buffer[max_char] = TEXT("");
+    TCHAR* buffer = new TCHAR[max_char];
+    buffer[0] = '\0';
     const int list[] = {
         IDC_DELIMITER1_BOUNDARYOPEN_EDIT,
         IDC_DELIMITER1_ESCAPE_EDIT,
@@ -651,10 +657,10 @@ void SymbolsStyleDialog::updateDlg()
     };
     TCHAR intBuffer[10] = {'0', 0};
 
-    for (int i=0; i < sizeof(list)/sizeof(int); ++i)
+    for (int i = 0; static_cast<size_t>(i) < sizeof(list)/sizeof(int); ++i)
     {
         if (i < 10)
-            generic_itoa(i, intBuffer+1, 10);
+            generic_itoa(i, intBuffer + 1, 10);
         else
             generic_itoa(i, intBuffer, 10);
 
@@ -662,11 +668,13 @@ void SymbolsStyleDialog::updateDlg()
 		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
     }
 
+    delete[] buffer;
+
     ::SendDlgItemMessage(_hSelf, IDC_OPERATOR1_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1]));
     ::SendDlgItemMessage(_hSelf, IDC_OPERATOR2_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS2]));
 }
 
-INT_PTR CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
     switch (Message)
     {
@@ -810,8 +818,10 @@ void SymbolsStyleDialog::setKeywords2List(int id)
         case IDC_DELIMITER8_ESCAPE_EDIT :
         case IDC_DELIMITER8_BOUNDARYCLOSE_EDIT :
         {
-            TCHAR newList[max_char] = TEXT("");
-            TCHAR buffer[max_char] = TEXT("");
+            TCHAR* newList = new TCHAR[max_char];
+            newList[0] = '\0';
+            TCHAR* buffer = new TCHAR[max_char];
+            buffer[0] = '\0';
             TCHAR intBuffer[10] = {'0', 0};
 
             const int list[] = {
@@ -841,7 +851,7 @@ void SymbolsStyleDialog::setKeywords2List(int id)
                 IDC_DELIMITER8_BOUNDARYCLOSE_EDIT
             };
 
-            for (int i = 0; i < sizeof(list)/sizeof(int); ++i)
+            for (int i = 0; static_cast<size_t>(i) < sizeof(list)/sizeof(int); ++i)
             {
                 if (i < 10)
                     generic_itoa(i, intBuffer+1, 10);
@@ -854,6 +864,8 @@ void SymbolsStyleDialog::setKeywords2List(int id)
             }
 
 			wcscpy_s(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], newList);
+            delete[] newList;
+            delete[] buffer;
             break;
         }
         default :
@@ -962,7 +974,7 @@ void UserDefineDialog::updateDlg()
 }
 
 
-INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     NppParameters& nppParam = NppParameters::getInstance();
 	NativeLangSpeaker * pNativeSpeaker = nppParam.getNativeLangSpeaker();
@@ -1209,7 +1221,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							const size_t langNameLen = 256;
 							TCHAR langName[langNameLen + 1];
 							auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
-							if (cbTextLen > langNameLen)
+							if (static_cast<size_t>(cbTextLen) > langNameLen)
 								return TRUE;
 
 							::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
@@ -1238,7 +1250,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						const size_t langNameLen = 256;
 						TCHAR langName[langNameLen + 1];
 						auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
-						if (cbTextLen > langNameLen)
+						if (static_cast<size_t>(cbTextLen) > langNameLen)
 							return TRUE;
 
 						::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
@@ -1508,7 +1520,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
     return FALSE;
 }
 
-INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 {
     switch (Message)
     {
@@ -1578,7 +1590,7 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = { 0 };
+				RECT rc = {};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -1602,7 +1614,7 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
                     tmpName[0] = '\0';
                     ::GetDlgItemText(_hSelf, IDC_STRING_EDIT, tmpName, langNameLenMax);
                     _textValue = tmpName;
-                    ::EndDialog(_hSelf, reinterpret_cast<INT_PTR>(_textValue.c_str()));
+                    ::EndDialog(_hSelf, reinterpret_cast<intptr_t>(_textValue.c_str()));
                     return TRUE;
                 }
 
@@ -1709,7 +1721,7 @@ void StylerDlg::move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int h
     ::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
 }
 
-INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     StylerDlg * dlg = (StylerDlg *)::GetProp(hwnd, TEXT("Styler dialog prop"));
     NppParameters& nppParam = NppParameters::getInstance();
@@ -1741,7 +1753,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 
             // for the font size combo
             HWND hFontSizeCombo = ::GetDlgItem(hwnd, IDC_STYLER_COMBO_FONT_SIZE);
-            for (int j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; ++j)
+            for (size_t j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; ++j)
 				::SendMessage(hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[j]));
 
             TCHAR size[10];
@@ -1865,7 +1877,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 						const size_t intStrLen = 3;
 						TCHAR intStr[intStrLen];
 						auto lbTextLen = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXTLEN, i, 0);
-						if (lbTextLen > intStrLen - 1)
+						if (static_cast<size_t>(lbTextLen) > intStrLen - 1)
 							return TRUE;
 
 						::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(intStr));

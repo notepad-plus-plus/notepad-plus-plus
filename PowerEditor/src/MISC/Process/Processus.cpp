@@ -27,7 +27,7 @@ void Process::run(bool isElevationRequired) const
 
 unsigned long Process::runSync(bool isElevationRequired) const
 {
-	SHELLEXECUTEINFO ShExecInfo = { 0 };
+	SHELLEXECUTEINFO ShExecInfo = {};
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
 	ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
 	ShExecInfo.hwnd = NULL;

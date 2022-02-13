@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.2.1.0  13/Jan/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.3.0  8/Feb/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.2.1.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.3.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -178,8 +178,8 @@
 					<Item id = "42070" name = "První ve větách velká. (ostatní pozice beze změny)"/>
 					<Item id = "42071" name = "&amp;iNVERTOVANÁ VELIKOST"/>
 					<Item id = "42072" name = "&amp;nÁHOdNá VeLIKOsT"/>
-					<Item id = "42073" name = "Otevřít soubor"/>
-					<Item id = "42074" name = "Otevřít obsaženou složku v Průzkumníkovi"/>
+					<Item id = "42073" name = "Otevřít jako soubor"/>
+					<Item id = "42074" name = "Otevřít jako složku v Průzkumníkovi"/>
 					<Item id = "42075" name = "Vyhledat na Internetu"/>
 					<Item id = "42076" name = "Změnit vyhledávač..."/>
 					<Item id = "42077" name = "Odstranit následující za sebou jdoucí duplicitní řádky"/>
@@ -302,7 +302,7 @@
 					<Item id = "44093" name = "8. karta"/>
 					<Item id = "44094" name = "9. karta"/>
 					<Item id = "44095" name = "Další karta"/>
-					<Item id = "44096" name = "Předchozi karta"/>
+					<Item id = "44096" name = "Předchozí karta"/>
 					<Item id = "44097" name = "Monitorování změn (tail -f)"/>
 					<Item id = "44098" name = "Přesunout kartu dopředu"/>
 					<Item id = "44099" name = "Přesunout kartu dozadu"/>
@@ -912,12 +912,12 @@
 					<Item id = "6236" name = "Povolit rolování za poslední řádku"/>
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 				</Scintillas>
-				<DarkMode title="Tmavý režim">
+				<DarkMode title = "Tmavý režim">
 					<Item id = "7101" name = "Povolit tmavý režim"/>
 					<Item id = "7102" name = "Černý odstín"/>
 					<Item id = "7103" name = "Červený odstín"/>
 					<Item id = "7104" name = "Zelený odstín"/>
-					<Item id = "7105" name = "Modný odstín"/>
+					<Item id = "7105" name = "Modrý odstín"/>
 					<Item id = "7107" name = "Fialový odstín"/>
 					<Item id = "7108" name = "Modrozelený odstín"/>
 					<Item id = "7109" name = "Olivový odstín"/>
@@ -934,7 +934,7 @@
 					<Item id = "7125" name = "Odkazy"/>
 					<Item id = "7130" name = "Obnovit"/>
 				</DarkMode>
-				<MarginsBorderEdge title="Okraje/Lem/Hrana">
+				<MarginsBorderEdge title = "Okraje/Lem/Hrana">
 					<Item id = "6201" name = "Styl sbalovače na okraji"/>
 					<Item id = "6202" name = "Jednoduchý"/>
 					<Item id = "6203" name = "Se šipkami"/>
@@ -980,7 +980,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
-					<Item id = "4008" name = "Abyste mohli použít tuto vlastnost, restartujte prosím Notepad++ pod účtem administátora."/>
+					<Item id = "4008" name = "Abyste mohli použít tuto vlastnost, restartujte prosím Notepad++ pod účtem administrátora."/>
 					<Item id = "4009" name = "Podporované přípony:"/>
 					<Item id = "4010" name = "Zaregistr. přípony:"/>
 				</FileAssoc>
@@ -1036,6 +1036,15 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6721" name = "Prostřední část"/>
 					<Item id = "6722" name = "Pravá část"/>
 					<Item id = "6723" name = "Přidat"/>
+					<ComboBox id = "6724">
+						<Element name = "Jméno soub. s cestou"/>
+						<Element name = "Jméno souboru"/>
+						<Element name = "Adresář souboru"/>
+						<Element name = "Stránka"/>
+						<Element name = "Datum - kratší form."/>
+						<Element name = "Datum - delší form."/>
+						<Element name = "Čas"/>
+					</ComboBox>
 					<Item id = "6725" name = "Varianty:"/>
 					<Item id = "6727" name = "Která část:"/>
 					<Item id = "6728" name = "Záhlaví a zápatí"/>
@@ -1075,7 +1084,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6324" name = "Přepínač dokumentů (Ctrl+TAB)"/>
 					<Item id = "6325" name = "Přejít na poslední řádek po aktualizaci"/>
 					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
-					<Item id = "6334" name = "Automatická detekce kódóvání znaků"/>
+					<Item id = "6334" name = "Automatická detekce kódování znaků"/>
 					<Item id = "6337" name = "Přípona souboru pracovní plochy:"/>
 					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
 					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
@@ -1126,7 +1135,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6151" name = "Nastavení víceinstančního módu"/>
 					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++ (a při ukončení ji automaticky uložit)"/>
 					<Item id = "6153" name = "Vždy ve víceinstančním módu"/>
-					<Item id = "6154" name = "Implicitní (jednoinstanční) mód"/>
+					<Item id = "6154" name = "Implicitní (jedno-instanční) mód"/>
 					<Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
 					<Item id = "6171" name = "Přizpůsobení vkládaného aktuálního datumu a času"/>
 					<Item id = "6175" name = "Obrátit implicitní pořadí vkládaných údajů (pro kratší i delší verzi)"/>
@@ -1145,7 +1154,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 				</Delimiter>
 				<Cloud title = "Cloud a odkazy">
 					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
-					<Item id = "6262" name = "Nastavení internetového úložišťě"/>
+					<Item id = "6262" name = "Nastavení internetového úložiště"/>
 					<Item id = "6263" name = "Bez cloudu"/>
 					<Item id = "6267" name = "Zde nastavte cestu k Vašemu i-úložišti:"/>
 					<Item id = "6318" name = "Nastavení klikatelných odkazů"/>
@@ -1265,6 +1274,9 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 			<DocTooDirtyToMonitor title = "Chyba sledování stavu" message = "Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
 			<DocNoExistToMonitor title = "Problém se sledováním stavu" message = "Soubor musí existovat, aby jej bylo možné sledovat."/>
 			<FileTooBigToOpen title = "Problém s velikostí souboru" message = "Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>
+			<FileLoadingException title = "Kód vyjímky: $STR_REPLACE$" message = "Při načítání souboru došlo k chybě!"/>
+			<WantToOpenHugeFile title = "Varování při otevírání velikého souboru" message = "Otevření velikého souboru (2GB+) může trvat i několik minut.
+Opravdu chcete soubor otevřít?"/>
 			<CreateNewFileOrNot title = "Vytvoření nového souboru" message = "&quot;$STR_REPLACE$&quot; neexistuje. Chcete jej vytvořit?"/>
 			<CreateNewFileError title = "Vytvoření nového souboru" message = "Není možné vytvořit soubor &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title = "CHYBA" message = "Není možné otevřít soubor &quot;$STR_REPLACE$&quot;."/>
@@ -1272,7 +1284,7 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 			<LoadStylersFailed title = "Selhání načtení stylers.xml" message = "Nepodařilo se načíst &quot;$STR_REPLACE$&quot;!"/>
 			<LoadLangsFailed title = "Konfigurátor" message = "Nepodařilo se načíst langs.xml! Chcete obnovit Váš soubor langs.xml?"/>
 			<LoadLangsFailedFinal title = "Konfigurátor" message = "Nepodařilo se načíst soubor langs.xml!"/>
-			<FolderAsWorspaceSubfolderExists title = "Problém s přidávaním složek do Složky jako pracovní plochy" message = "Podsložka složky, kterou chcete přidat, již existuje. Odeberte její kořenovou složku prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
+			<FolderAsWorspaceSubfolderExists title = "Problém s přidáváním složek do Složky jako pracovní plochy" message = "Podsložka složky, kterou chcete přidat, již existuje. Odeberte její kořenovou složku prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
 			<ProjectPanelChanged title = "$STR_REPLACE$" message = "Pracovní plocha byla modifikována. Přejete si ji uložit?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Při ukládání souboru Vaší pracovní plochy došlo k chybě. 
 Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

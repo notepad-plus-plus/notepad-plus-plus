@@ -44,7 +44,7 @@ using namespace std;
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
-
+/*
 inline static DWORD GetStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
 }
@@ -70,7 +70,7 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 	::SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwNewStyle);
 	return TRUE;
 }
-
+*/
 
 struct NumericStringEquivalence
 {
@@ -133,10 +133,10 @@ struct NumericStringEquivalence
 struct BufferEquivalent
 {
 	NumericStringEquivalence _strequiv;
-	DocTabView *_pTab;
+	DocTabView* _pTab;
 	int _iColumn;
 	bool _reverse;
-	BufferEquivalent(DocTabView *pTab, int iColumn, bool reverse)
+	BufferEquivalent(DocTabView* pTab, int iColumn, bool reverse)
 		: _pTab(pTab), _iColumn(iColumn), _reverse(reverse)
 	{}
 
@@ -262,7 +262,7 @@ void WindowsDlg::init(HINSTANCE hInst, HWND parent)
 	_pTab = NULL;
 }
 
-INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -422,7 +422,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						}
 						else if (pLvdi->item.iSubItem == 3) // size
 						{
-							int docSize = buf->docLength();
+							size_t docSize = buf->docLength();
 							string docSizeText = to_string(docSize);
 							text = wstring(docSizeText.begin(), docSizeText.end());
 						}
@@ -807,6 +807,8 @@ void WindowsDlg::fitColumnsToSize()
 
 void WindowsDlg::resetSelection()
 {
+	assert(_pTab != nullptr);
+
 	auto curSel = _pTab->getCurrentTabIndex();
 	int pos = 0;
 	for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr, ++pos)
@@ -897,7 +899,7 @@ void WindowsDlg::doClose()
 		vector<int>::iterator kitr = key.begin();
 		for (UINT i=0; i<n; ++i, ++kitr)
 		{
-			if (nmdlg.Items[i] == -1)
+			if (static_cast<int>(nmdlg.Items[i]) == -1)
 			{
 				int oldVal = _idxMap[*kitr];
 				_idxMap[*kitr] = -1;
@@ -1113,7 +1115,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 			mii.wID = id;
 
 			UINT state = GetMenuState(hMenu, id, MF_BYCOMMAND);
-			if (state == -1)
+			if (static_cast<int>(state) == -1)
 				InsertMenuItem(hMenu, IDM_WINDOW_WINDOWS, FALSE, &mii);
 			else
 				SetMenuItemInfo(hMenu, id, FALSE, &mii);

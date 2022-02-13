@@ -73,7 +73,7 @@ public :
 	static void setColour(COLORREF colour2Set, ViewZoneColorIndex i);
 
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -137,18 +137,18 @@ public:
 	void setTemporarilyShowing(bool tempShowing) { _isTemporarilyShowing = tempShowing; }
 
 protected:
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool needToRecomputeWith(const ScintillaEditView *editView = nullptr);
 
 private:
 	ScintillaEditView**_ppEditView = nullptr;
 	ScintillaEditView*_pMapView = nullptr;
 	ViewZoneDlg _vzDlg;
-	HWND _hwndScintilla;
+	HWND _hwndScintilla = nullptr;
 	bool _isTemporarilyShowing = false;
 
 	// for needToRecomputeWith function
-	int _displayZoom = -1;
-	int _displayWidth = 0;
+	intptr_t _displayZoom = -1;
+	intptr_t _displayWidth = 0;
 	generic_string id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 };

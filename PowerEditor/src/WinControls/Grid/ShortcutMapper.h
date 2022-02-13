@@ -59,7 +59,7 @@ public:
 	bool isFilterValid(PluginCmdShortcut sc);
 
 protected :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	BabyGridWrapper _babygrid;

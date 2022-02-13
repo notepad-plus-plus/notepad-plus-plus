@@ -2,7 +2,8 @@
 <!--
 The comments are here for explanation, it's not necessary to translate them.
 -->
-<NotepadPlus>
+<Not
+epadPlus>
     <Native-Langue name="Dansk" filename="danish.xml" version="8.3">
         <Menu>
             <Main>
@@ -128,10 +129,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42080" name="Sortér linier alfabetisk (a > å, ignorér versaler)"/>
                     <Item id="42081" name="Sortér linier alfabetisk (å > a, ignorér versaler)"/>
                     <Item id="42061" name="Sortér linier som heltal (stigende)"/>
-                    <Item id="42062" name="Sortér linier som heltal (faldende)"/>
+                    <Item id="42062" name="Sortér linier som heltal (stigende)"/>
                     <Item id="42063" name="Sortér linier som decimaltal med komma (stigende)"/>
                     <Item id="42064" name="Sortér linier som decimaltal med komma (faldende)"/>
-                    <Item id="42065" name="Sortér linier som decimaltal med punktum (stigende)"/>
+                    <Item id="42065" name="Sortér linier som decimaltal med punktum (faldende)"/>
                     <Item id="42066" name="Sortér linier som decimaltal med punktum (faldende)"/>
                     <Item id="42083" name="Vend linieorden"/>
                     <Item id="42078" name="Sortér linier tilfældigt"/>

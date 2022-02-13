@@ -50,7 +50,7 @@ public :
 protected :
 	enum mode {go2line, go2offsset};
 	mode _mode = go2line;
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
     ScintillaEditView **_ppEditView = nullptr;
@@ -61,10 +61,14 @@ private :
         ::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));
     };
 
-    int getLine() const {
-        BOOL isSuccessful;
-        int line = ::GetDlgItemInt(_hSelf, ID_GOLINE_EDIT, &isSuccessful, FALSE);
-        return (isSuccessful?line:-1);
+    long long getLine() const {
+		const int maxLen = 256;
+		char goLineEditStr[maxLen] = {'\0'};
+		UINT count = ::GetDlgItemTextA(_hSelf, ID_GOLINE_EDIT, goLineEditStr, maxLen);
+		if (!count)
+			return -1;
+		char* p_end;
+		return strtoll(goLineEditStr, &p_end, 10);
     };
 
 };

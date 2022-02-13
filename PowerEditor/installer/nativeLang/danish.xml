@@ -2,8 +2,7 @@
 <!--
 The comments are here for explanation, it's not necessary to translate them.
 -->
-<Not
-epadPlus>
+<NotepadPlus>
     <Native-Langue name="Dansk" filename="danish.xml" version="8.3">
         <Menu>
             <Main>

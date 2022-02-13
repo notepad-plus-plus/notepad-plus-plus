@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Dansk" filename="danish.xml" version="8.2.1">
+    <Native-Langue name="Dansk" filename="danish.xml" version="8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -128,10 +128,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42080" name="Sortér linier alfabetisk (a > å, ignorér versaler)"/>
                     <Item id="42081" name="Sortér linier alfabetisk (å > a, ignorér versaler)"/>
                     <Item id="42061" name="Sortér linier som heltal (stigende)"/>
-                    <Item id="42062" name="Sortér linier som heltal (stigende)"/>
+                    <Item id="42062" name="Sortér linier som heltal (faldende)"/>
                     <Item id="42063" name="Sortér linier som decimaltal med komma (stigende)"/>
                     <Item id="42064" name="Sortér linier som decimaltal med komma (faldende)"/>
-                    <Item id="42065" name="Sortér linier som decimaltal med punktum (faldende)"/>
+                    <Item id="42065" name="Sortér linier som decimaltal med punktum (stigende)"/>
                     <Item id="42066" name="Sortér linier som decimaltal med punktum (faldende)"/>
                     <Item id="42083" name="Vend linieorden"/>
                     <Item id="42078" name="Sortér linier tilfældigt"/>
@@ -626,7 +626,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44083" name="Projektpanel 3 til/fra"/>
                     <Item id="44085" name="Mappe som arbejdsrum til/fra"/>
                     <Item id="44080" name="Dokumentoversigt til/fra"/>
-                    <Item id="44080" name="Dokumentoversigt til/fra"/>
+                    <Item id="44070" name="Dokumentliste til/fra"/>
                     <Item id="44084" name="Funktionsliste til/fra"/>
                     <Item id="50005" name="Makrooptagelse til/fra"/>
                     <Item id="44104" name="Skift til projektpanel 1"/>
@@ -996,6 +996,15 @@ Brug mellemrum til at angive flere markører."/>
                     <Item id="6721" name="Midterste del"/>
                     <Item id="6722" name="Højre del"/>
                     <Item id="6723" name="Tilføj"/>
+                    <ComboBox id="6724">
+                        <Element name="Filplacering"/>
+                        <Element name="Filnavn"/>
+                        <Element name="Filmappe"/>
+                        <Element name="Side"/>
+                        <Element name="Kort dato"/>
+                        <Element name="Lang dato"/>
+                        <Element name="Tid"/>
+                    </ComboBox>
                     <Item id="6725" name="Variabel:"/>
                     <Item id="6727" name="Vis:"/>
                     <Item id="6728" name="Sidehoved og sidefod"/>
@@ -1243,6 +1252,9 @@ Vil du hente den nyeste Notepad++ på hjemmesiden?"/>
             <DocTooDirtyToMonitor title="Overvågningsproblem" message="Dokumentet er beskidt. Gem ændringen inden det overvåges."/>
             <DocNoExistToMonitor title="Overvågningsproblem" message="Filen skal findes for at kunne overvåges."/>
             <FileTooBigToOpen title="Filstørrelsesproblem" message="Filen er for. Den kan ikke åbnes i Notepad++"/>
+            <FileLoadingException title="Fejlkode: $STR_REPLACE$" message="Fejl ved åbning af filen!"/>
+            <WantToOpenHugeFile title="Meget stor fil" message="Åbning af filer over 2GB kan tage flere minutter.
+Vil du fortsætte?"/>
             <CreateNewFileOrNot title="Opret ny fil" message="&quot;$STR_REPLACE$&quot; findes ikke. Skal den oprettes?."/>
             <CreateNewFileError title="Opret ny fil" message="Filen &quot;$STR_REPLACE$&quot; kan ikke oprettes."/>
             <OpenFileError title="FEJL" message="Filen &quot;$STR_REPLACE$&quot; kan ikke åbnes."/>
@@ -1405,9 +1417,9 @@ Vil du fortsætte?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Find i alle filer undtagen exe, obj og log:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log
 
-Find i alle filer, undtagen i mapperne tests, bin &amp;&amp; bin64:
+Find i alle filer, undtagen i mapperne test, bin og bin64:
 *.* !\tests !\bin*
 
 Find i alle filer, undtagen i mapperne log med undermapper:

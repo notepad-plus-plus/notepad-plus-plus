@@ -3996,15 +3996,15 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 
 void Finder::setLineNumFormatStr()
 {
-   size_t NumLines = (*_ppEditView)->execute(SCI_GETLINECOUNT);
+	size_t NumLines = (*_ppEditView)->execute(SCI_GETLINECOUNT);
 	size_t NumDigits = 0;
-   while (NumLines != 0) {
-      NumLines = NumLines / 10;
-      ++NumDigits;
-   }
+	while (NumLines != 0) {
+		NumLines = NumLines / 10;
+		++NumDigits;
+	}
 
-   TCHAR strFormat[10];
-   wsprintf(strFormat, TEXT("%%%uu"), NumDigits);
+	TCHAR strFormat[10];
+	wsprintf(strFormat, TEXT("%%%uu"), NumDigits);
 	_LineNumFormatStr = strFormat;
 }
 

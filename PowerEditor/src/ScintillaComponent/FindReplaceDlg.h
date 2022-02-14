@@ -105,6 +105,7 @@ public:
 	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
 		_markingsStruct._length = 0;
 		_markingsStruct._markings = NULL;
+		_LineNumFormatStr = TEXT("%u");
 	};
 
 	~Finder() {
@@ -117,6 +118,7 @@ public:
 
 	void addSearchLine(const TCHAR *searchName);
 	void addFileNameTitle(const TCHAR * fileName);
+	void setLineNumFormatStr();
 	void addFileHitCount(int count);
 	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection);
 	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline);
@@ -165,6 +167,7 @@ private:
 	bool _purgeBeforeEverySearch = false;
 
 	generic_string _prefixLineStr;
+	generic_string _LineNumFormatStr;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);

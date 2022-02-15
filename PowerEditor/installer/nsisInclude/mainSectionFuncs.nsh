@@ -267,8 +267,13 @@ CompareTestEnd64:
 		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
 DSpellCheckTestEnd64:
 
+	; SpeechPlugin makes Notepad++ x64 crash. "0.4.0.0" is its 1st version which contains the fix
 	IfFileExists "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" 0 SpeechPluginTestEnd64
-		MessageBox MB_OK "Due to SpeechPlugin plugin's crash issue on Notepad++ x64 binary, SpeechPlugin.dll will be removed." /SD IDOK
+		${GetFileVersion} "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" $R0
+		${VersionCompare} $R0 "0.4.0.0" $R1 ;   0: equal to 0.4.0.0   1: $R0 is newer   2: 0.4.0.0 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to SpeechPlugin plugin's incompatibility issue in version $R0, SpeechPlugin.dll will be deleted. Use Plugins Admin to add back (the latest version of) SpeechPlugin." /SD IDOK
 		Rename "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" "$INSTDIR\plugins\disabled\SpeechPlugin.dll"
 		Delete "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll"
 SpeechPluginTestEnd64:

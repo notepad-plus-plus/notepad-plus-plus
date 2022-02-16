@@ -505,7 +505,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_RELOADFILE:
 		{
-			BufferID id = MainFileManager.getBufferFromName(reinterpret_cast<const TCHAR *>(lParam));
+			TCHAR longNameFullpath[MAX_PATH];
+			const TCHAR* pFilePath = reinterpret_cast<const TCHAR*>(lParam);
+			wcscpy_s(longNameFullpath, MAX_PATH, pFilePath);
+			if (_tcschr(longNameFullpath, '~'))
+			{
+				::GetLongPathName(longNameFullpath, longNameFullpath, MAX_PATH);
+			}
+
+			BufferID id = MainFileManager.getBufferFromName(longNameFullpath);
 			if (id != BUFFER_INVALID)
 				doReload(id, wParam != 0);
 			break;

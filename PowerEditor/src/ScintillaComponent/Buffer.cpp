@@ -1621,20 +1621,13 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
-	TCHAR fullpath[MAX_PATH];
-	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
-	if (_tcschr(fullpath, '~'))
+	for (auto buf : _buffers)
 	{
-		::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	}
-
-	for (size_t i = 0; i < _buffers.size(); i++)
-	{
-		if (OrdinalIgnoreCaseCompareStrings(fullpath, _buffers.at(i)->getFullPathName()) == 0)
+		if (OrdinalIgnoreCaseCompareStrings(name, buf->getFullPathName()) == 0)
 		{
-			if (_buffers.at(i)->_referees[0]->isVisible())
+			if (buf->_referees[0]->isVisible())
 			{
-				return _buffers.at(i)->getID();
+				return buf->getID();
 			}
 		}
 	}

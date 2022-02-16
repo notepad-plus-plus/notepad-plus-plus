@@ -3494,7 +3494,7 @@ void FindReplaceDlg::enableProjectCheckmarks()
 		for (int i = 0; i < 3; i++)
 		{
 			UINT s = GetMenuState (hMenu, idm [i], MF_BYCOMMAND);
-			if (static_cast<int>(s) != -1)
+			if (s != ((UINT)-1))
 			{
 				if (s & MF_CHECKED)
 				{

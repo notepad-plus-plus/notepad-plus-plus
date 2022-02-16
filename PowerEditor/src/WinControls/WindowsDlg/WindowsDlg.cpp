@@ -897,9 +897,9 @@ void WindowsDlg::doClose()
 	{
 		// Trying to retain sort order. fairly sure there is a much better algorithm for this
 		vector<int>::iterator kitr = key.begin();
-		for (UINT i=0; i<n; ++i, ++kitr)
+		for (UINT i = 0; i < n; ++i, ++kitr)
 		{
-			if (static_cast<int>(nmdlg.Items[i]) == -1)
+			if (nmdlg.Items[i] == ((UINT)-1))
 			{
 				int oldVal = _idxMap[*kitr];
 				_idxMap[*kitr] = -1;
@@ -1115,7 +1115,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 			mii.wID = id;
 
 			UINT state = GetMenuState(hMenu, id, MF_BYCOMMAND);
-			if (static_cast<int>(state) == -1)
+			if (state == ((UINT)-1))
 				InsertMenuItem(hMenu, IDM_WINDOW_WINDOWS, FALSE, &mii);
 			else
 				SetMenuItemInfo(hMenu, id, FALSE, &mii);

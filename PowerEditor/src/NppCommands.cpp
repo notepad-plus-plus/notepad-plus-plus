@@ -3623,7 +3623,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFileSizeDSC();
-            windowsDlg.doSort();			
+			windowsDlg.doSort();			
 		}
 		break;
 

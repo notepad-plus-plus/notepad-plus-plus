@@ -119,10 +119,10 @@ bool AutoCompletion::showApiComplete()
 
 	if (!_isFxImageRegistered)
 	{
-		_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
 		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 		_isFxImageRegistered = true;
 	}
+	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
@@ -208,10 +208,10 @@ bool AutoCompletion::showApiAndWordComplete()
 	// Make Scintilla show the autocompletion menu
 	if (!_isFxImageRegistered)
 	{
-		_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('?'));
 		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
 		_isFxImageRegistered = true;
 	}
+	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
@@ -972,7 +972,7 @@ bool AutoCompletion::setLanguage(LangType language)
 		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
 		{
 			const TCHAR *name = funcNode->Attribute(TEXT("name"));
-			generic_string imgid = TEXT("?") + intToString(FUNC_IMG_ID);
+			generic_string imgid = TEXT("\x1E") + intToString(FUNC_IMG_ID);
 			if (name)
 			{
 				size_t len = lstrlen(name);

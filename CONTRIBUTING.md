@@ -55,16 +55,21 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Good:
     ```cpp
-    if ()
+    void MyClass::method1()
     {
-        // Do something
+        if (aCondition)
+        {
+            // Do something
+        }
     }
     ```
 
   * ###### Bad:
     ```cpp
-    if () {
-        // Do something
+    void MyClass::method1() {
+        if (aCondition) {
+            // Do something
+        }
     }
     ```
   However, the method definition could be defined in a header file (.h), if there's one line code only. In this case, Java-like braces should be used.
@@ -76,7 +81,8 @@ In short: The easier the code review is, the better the chance your pull request
         void method1();
         int method2() {
             return _x; // only one line code can be placed in .h as method definition
-        }
+        };
+
     private:
         int _x;
     }

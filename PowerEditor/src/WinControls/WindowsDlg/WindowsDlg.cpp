@@ -948,15 +948,16 @@ void WindowsDlg::doCount()
 
 void WindowsDlg::doSort()
 {
-	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;	
+	std::vector<UINT> items(count);
 	auto currrentTabIndex = _pTab->getCurrentTabIndex();
-	NMWINDLG nmdlg;
+	NMWINDLG nmdlg = {};
 	nmdlg.type = WDT_SORT;
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.curSel = currrentTabIndex;
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = static_cast<UINT>(count);
-	nmdlg.Items = new UINT[count];
+	nmdlg.Items = items.data();
 	for (size_t i=0; i < count; ++i)
 	{		
 		nmdlg.Items[i] = _idxMap[i];		
@@ -981,7 +982,6 @@ void WindowsDlg::doSort()
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;	
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
-	delete[] nmdlg.Items;
 }
 
 void WindowsDlg::sortFileNameASC(){

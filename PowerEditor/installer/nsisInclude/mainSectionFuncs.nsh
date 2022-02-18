@@ -278,6 +278,17 @@ DSpellCheckTestEnd64:
 		Delete "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll"
 SpeechPluginTestEnd64:
 
+	; XMLTools makes Notepad++ x64 crash. "3.1.1.12" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\XMLTools\XMLTools.dll" 0 XMLToolsTestEnd64
+		${GetFileVersion} "$INSTDIR\plugins\XMLTools\XMLTools.dll" $R0
+		${VersionCompare} $R0 "3.1.1.12" $R1 ;   0: equal to 3.1.1.12   1: $R0 is newer   2: 3.1.1.12 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to XMLTools plugin's incompatibility issue in version $R0, XMLTools.dll will be deleted. Use Plugins Admin to add back (the latest version of) XMLTools." /SD IDOK
+		Rename "$INSTDIR\plugins\XMLTools\XMLTools.dll" "$INSTDIR\plugins\disabled\XMLTools.dll"
+		Delete "$INSTDIR\plugins\XMLTools\XMLTools.dll"
+XMLToolsTestEnd64:
+
 	IfFileExists "$INSTDIR\plugins\NppQCP\NppQCP.dll" 0 NppQCPTestEnd64
 		MessageBox MB_OK "Due to NppQCP plugin's crash issue on Notepad++ x64 binary, NppQCP.dll will be removed." /SD IDOK
 		Rename "$INSTDIR\plugins\NppQCP\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"

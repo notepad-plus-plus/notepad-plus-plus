@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.1.9.3
-        Last modified 09. Dec 2021 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.3
+        Last modified 16. Feb 2022 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.1.9.3">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -180,6 +180,8 @@
                     <Item id="42029" name="Celotna pot trenutne datoteke v odložišče"/>
                     <Item id="42030" name="Ime trenutne datoteke v odložišče"/>
                     <Item id="42031" name="Pot trenutne mape v odložišče"/>
+                    <Item id="42087" name="Vsa imena datotek v odložišče"/>
+                    <Item id="42088" name="Vse poti datotek v odložišče"/>
                     <Item id="42032" name="&amp;Poženi makro večkrat..."/>
                     <Item id="42033" name="Počisti zastavico Samo za branje"/>
 					<Item id="42035" name="Komentiraj enovrstični komentar"/>
@@ -251,6 +253,10 @@
 					<Item id="43048" name="&amp;Izberi in najdi naslednje"/>
 					<Item id="43049" name="&amp;Izberi in najdi prejšnje"/>                    
 					<Item id="43054" name="Ozn&amp;ači..."/>
+                    <Item id="43501" name="Zapri izbrano"/>
+                    <Item id="43502" name="Zapri ostalo"/>
+                    <Item id="43503" name="Kopiraj izbrana imena"/>
+                    <Item id="43504" name="Kopiraj izbrana imena poti"/>					
 					<Item id="44009" name="Lepljivček"/>
                     <Item id="44010" name="Strni vse"/> 
                     <Item id="44011" name="Prosti odmik način"/>					
@@ -882,6 +888,7 @@
                     <Item id="7122" name="Temnejše besedilo"/>
                     <Item id="7123" name="Onemogočeno besedilo"/>
                     <Item id="7124" name="Rob"/>
+                    <Item id="7125" name="Link"/>					
                     <Item id="7130" name="Ponastavi"/>
                 </DarkMode>
 
@@ -951,7 +958,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 
                 <Highlighting title="Poudarjanje">
                     <Item id="6351" name="Oblikuj vse pojavnosti žetona"/>
-                    <Item id="6352" name="Upoštevaj izbrano"/>
+                    <Item id="6352" name="Upoštevaj VELIKE/male črke"/>
                     <Item id="6353" name="Upoštevaj samo cele besede"/>				
                     <Item id="6333" name="Pametno poudarjanje"/>
                     <Item id="6326" name="Omogoči"/>
@@ -991,6 +998,15 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6721" name="Srednji del"/>
 					<Item id="6722" name="Desni del"/>
 					<Item id="6723" name="Dodaj"/>
+                    <ComboBox id="6724">
+                        <Element name="Celotna pot imena datoteke"/>
+                        <Element name="Ime datoteke"/>
+                        <Element name="Imenik datoteke"/>
+                        <Element name="Stran"/>
+                        <Element name="Kratek format datuma"/>
+                        <Element name="Dolg format datuma"/>
+                        <Element name="Čas"/>
+                    </ComboBox>					
 					<Item id="6725" name="Spremenljivka:"/>
 					<Item id="6727" name="Tukaj so prikazane vaše variabilne nastavitve"/>
 					<Item id="6728" name="Glava in noga"/>
@@ -1037,6 +1053,9 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6809" name="Dopolnjevanje funkcij"/>
 					<Item id="6810" name="Dopolnjevanje besed"/>
 					<Item id="6816" name="Funkcija in beseda zaključka"/>
+                    <Item id="6869" name="Vstavi izbor"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6824" name="Prezri številke"/>
 					<Item id="6811" name="Od"/>
 					<Item id="6813" name=". znaka naprej"/>
@@ -1053,7 +1072,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
                 
 				<MultiInstance title="Večpojavnost &amp; Date">
 					<Item id="6151" name="Nastavitve večpojavnosti"/>
-                    <Item id="6152" name="Odpri sejo v novem primerku Notepad++"/>
+                    <Item id="6152" name="Odpri sejo v novem primerku (in samodejno shrani sejo ob izhodu)"/>
                     <Item id="6153" name="Vedno v načinu večpojavnosti"/>
                     <Item id="6154" name="Privzeto (enopojavnost)"/>
                     <Item id="6155" name="* Sprememba te nastavitve zahteva ponovni zagon Notepad++"/>
@@ -1235,6 +1254,9 @@ Ali želite prenesti najnovejšo različico z Notepad++ strani?"/> <!-- HowToRep
 			<DocTooDirtyToMonitor title="Težava spremljanja" message="Dokument je onesnažen. Pred spremljanjem shranite spremembo."/>
 			<DocNoExistToMonitor title="Težava spremljanja" message="Datoteka mora obstajati za spremljanje."/>
 			<FileTooBigToOpen title="Težava s velikostjo datoteke" message="Datoteka je prevelika za odpiranje v Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Koda izjeme: $STR_REPLACE$" message="Pri nalaganju datoteke je prišlo do napake!"/>
+            <WantToOpenHugeFile title="Opozorilo pri odpiranju velike datoteke" message="Odpiranje velike datoteke velikosti 2 GB+ lahko traja nekaj minut.
+Ali jo želite odpreti?"/>
 			<CreateNewFileOrNot title="Ustvari novo datoteko" message="&quot;$STR_REPLACE$&quot; ne obstaja. Jo ustvarim?"/>
 			<CreateNewFileError title="Ustvari novo datoteko" message="Datoteke ni mogoče ustvariti &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="NAPAKA" message="Datoteke ni mogoče odpreti &quot;$STR_REPLACE$&quot;."/>
@@ -1385,9 +1407,11 @@ Nadaljujem?"/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value="  na seznamu znakov."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Izberite mapo kot imenik varnostne kopije"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Neveljavna pot."/>
 			<cloud-restart-warning value="Za uveljavitev ponovno zaženite Notepad++."/>
 			<cloud-select-folder value="Izberite mapo od/do, kjer Notepad++ bere/zapisuje svoje nastavitve"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Izberite mapo kot privzeti imenik"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Uporabite Shift + Enter za iskanje v nasprotni smeri"/>	
 			<two-find-buttons-tip value="dva gumba za iskanje"/>
             <file-rename-title value="Preimenuj"/>			
@@ -1395,7 +1419,14 @@ Nadaljujem?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+*.* !*.exe !*.obj !*.log
+
+Najdi v vseh datotekah, vendar izključi testne mape, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse dnevnike:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Izberite mapo za iskanje"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value="Najdi: Najdena je 1. pojavitev od spodaj. Začetek dokumenta je bil dosežen."/>
 			<find-status-end-reached value="Najdi: Najdena je 1. pojavitev od zgoraj. Konec dokumenta je bil dosežen."/>
 			<find-status-replaceinfiles-1-replaced value="Zamenjaj v datotekah: 1 pojavitev je bila zamenjana"/>
@@ -1489,6 +1520,10 @@ Najdi v vseh datotekah, razen exe, obj &amp;&amp; log:
             <IncrementalFind-FSNotFound value="Fraze ni mogoče najti" />
             <IncrementalFind-FSTopReached value="Dosežen vrh strani, nadaljevanje od spodaj" />
             <IncrementalFind-FSEndReached value="Dosežen konec strani, nadaljevanje od zgoraj" />			
+            <contextMenu-styleAlloccurrencesOfToken value="Slog vseh pojavnosti žetona" />
+            <contextMenu-styleOneToken value="Slog žetona" />
+            <contextMenu-clearStyle value="Počisti slog" />
+            <contextMenu-PluginCommands value="Ukazi vtičnika" />		
 		</MiscStrings>					
     </Native-Langue>
 </NotepadPlus>

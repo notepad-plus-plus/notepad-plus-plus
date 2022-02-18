@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 7 December 2021 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 16 January 2022 by Elvis Gambiraža (el.gambo@gmail.com)
     The most recent version of this file:
     https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/croatian.xml
     The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="8.1.9.2">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="8.2.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -183,6 +183,8 @@
                     <Item id="42029" name="Kopiraj &amp;put datoteke u međuspremnik"/>
                     <Item id="42030" name="Kopiraj &amp;naziv datoteke u međuspremnik"/>
                     <Item id="42031" name="Kopiraj put &amp;mape u međuspremnik"/>
+                    <Item id="42087" name="Svi nazivi datoteka u međuspremnik"/>
+                    <Item id="42088" name="Svi putovi mapa u međuspremnik"/>
                     <Item id="42032" name="Pok&amp;reni makro više puta..."/>
                     <Item id="42033" name="O&amp;dstrani zaštitu od pisanja"/>
                     <Item id="42035" name="&amp;Stavi komentar retka"/>
@@ -254,6 +256,10 @@
                     <Item id="43048" name="Iza&amp;beri i pronađi sljedeće"/>
                     <Item id="43049" name="Izabe&amp;ri i pronađi prethodno"/>
                     <Item id="43054" name="&amp;Označi..."/>
+                    <Item id="43501" name="Zatvori označene"/>
+                    <Item id="43502" name="Zatvori neoznačene"/>
+                    <Item id="43503" name="Kopiraj označene nazive"/>
+                    <Item id="43504" name="Kopiraj označena imena putova"/>
                     <Item id="44009" name="&amp;Post-It"/>
                     <Item id="44010" name="S&amp;motaj sve"/>
                     <Item id="44011" name="&amp;Bez ometanja"/>
@@ -403,47 +409,47 @@
 
         <Dialog>
             <Find title="" titleFind="Pronađi" titleReplace="Zamijeni" titleFindInFiles="Pronađi u datotekama" titleFindInProjects="Pronađi u projektima" titleMark="Označi">
-                <Item id="1"    name="Pronađi sljedeće"/>
-                <Item id="1722" name="Obratni smjer"/>
-                <Item id="2"    name="Zatvori"/>
+                <Item id="1"    name="Pro&amp;nađi sljedeće"/>
+                <Item id="1722" name="O&amp;bratni smjer"/>
+                <Item id="2"    name="&amp;Zatvori"/>
                 <Item id="1620" name="&amp;Pronađi:"/>
                 <Item id="1603" name="Samo &amp;cijele riječi"/>
                 <Item id="1604" name="Razlikuj &amp;velika i mala slova"/>
-                <Item id="1605" name="Regularni &amp;izrazi"/>
-                <Item id="1606" name="Na kraju &amp;opet od početka"/>
-                <Item id="1614" name="Pre&amp;broji"/>
-                <Item id="1615" name="Pronađi sve"/>
-                <Item id="1616" name="O&amp;znači redak"/>
-                <Item id="1618" name="Pri svakoj pretrazi očisti"/>
+                <Item id="1605" name="Re&amp;gularni izrazi"/>
+                <Item id="1606" name="Na &amp;kraju opet od početka"/>
+                <Item id="1614" name="Prebroj&amp;i"/>
+                <Item id="1615" name="Pro&amp;nađi sve"/>
+                <Item id="1616" name="&amp;Označi redak"/>
+                <Item id="1618" name="Pri svakoj pretrazi o&amp;čisti"/>
                 <Item id="1611" name="Za&amp;mijeni sa:"/>
-                <Item id="1608" name="&amp;Zamijeni"/>
+                <Item id="1608" name="Z&amp;amijeni"/>
                 <Item id="1609" name="Zamijeni &amp;sve"/>
-                <Item id="1687" name="Pri neaktivnosti"/>
-                <Item id="1688" name="Uvijek"/>
-                <Item id="1632" name="O&amp;značeni dio"/>
-                <Item id="1633" name="Očisti sve oznake"/>
-                <Item id="1635" name="&amp;Zamijeni sve u svim otvorenim dokumentima"/>
-                <Item id="1636" name="&amp;Pronađi sve u svim otvorenim dokumentima"/>
+                <Item id="1687" name="Pri n&amp;eaktivnosti"/>
+                <Item id="1688" name="Uvi&amp;jek"/>
+                <Item id="1632" name="Označeni &amp;dio"/>
+                <Item id="1633" name="Očisti &amp;sve oznake"/>
+                <Item id="1635" name="Zamijeni sve &amp;u svim otvorenim dokumentima"/>
+                <Item id="1636" name="Pronađi sve &amp;u svim otvorenim dokumentima"/>
                 <Item id="1654" name="&amp;Filtri:"/>
-                <Item id="1655" name="&amp;Mapa:"/>
-                <Item id="1656" name="Pronađi sve"/>
-                <Item id="1658" name="U svim &amp;podmapama"/>
+                <Item id="1655" name="M&amp;apa:"/>
+                <Item id="1656" name="Pro&amp;nađi sve"/>
+                <Item id="1658" name="U svim p&amp;odmapama"/>
                 <Item id="1659" name="U &amp;skrivenim mapama"/>
                 <Item id="1624" name="Način pretraživanja"/>
-                <Item id="1625" name="&amp;Normalno"/>
-                <Item id="1626" name="&amp;Prošireno (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="&amp;Zamijeni u datotekama"/>
-                <Item id="1665" name="Zamijeni u projektima"/>
-                <Item id="1661" name="Slijedi trenutni dokument"/>
-                <Item id="1662" name="Projektni panel 1"/>
-                <Item id="1663" name="Projektni panel 2"/>
-                <Item id="1664" name="Projektni panel 3"/>
-                <Item id="1641" name="Pronađi sve u trenutnom dokumentu"/>
-                <Item id="1686" name="&amp;Prozirnost"/>
+                <Item id="1625" name="Norma&amp;lno"/>
+                <Item id="1626" name="P&amp;rošireno (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="Zamijeni &amp;u datotekama"/>
+                <Item id="1665" name="Zamijeni &amp;u projektima"/>
+                <Item id="1661" name="Slijedi trenutni &amp;dokument"/>
+                <Item id="1662" name="Projektni panel &amp;1"/>
+                <Item id="1663" name="Projektni panel &amp;2"/>
+                <Item id="1664" name="Projektni panel &amp;3"/>
+                <Item id="1641" name="Pronađi &amp;sve u trenutnom dokumentu"/>
+                <Item id="1686" name="Prozirnos&amp;t"/>
                 <Item id="1703" name="&amp;. je i novi redak"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Nađi sljedeće"/>
-                <Item id="1725" name="Kopiraj označeni tekst"/>
+                <Item id="1725" name="Kopir&amp;aj označeni tekst"/>
             </Find>
 
             <IncrementalFind title="">
@@ -894,6 +900,7 @@
                     <Item id="7122" name="Tamniji tekst"/>
                     <Item id="7123" name="Onemogućeni tekst"/>
                     <Item id="7124" name="Rub"/>
+                    <Item id="7125" name="Poveznica"/>
                     <Item id="7130" name="Resetiranje"/>
                 </DarkMode>
 
@@ -1051,6 +1058,9 @@ Vidi Notepad++ online priručnik (Preferences)."/>
                     <Item id="6809" name="Dopunjavanje funkcija"/>
                     <Item id="6810" name="Dopunjavanje riječi"/>
                     <Item id="6816" name="Dopunjavanje funkcija i riječi"/>
+                    <Item id="6869" name="Umetni odabir"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignoriraj brojeve"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="-og znaka"/>
@@ -1124,7 +1134,7 @@ Vidi Notepad++ online priručnik (Preferences)."/>
                     <Item id="6322" name="Nastavak datoteke sesije:"/>
                     <Item id="6323" name="Automatska nadogradnja Notepada++"/>
                     <Item id="6324" name="Sklopka dokumenata (Ctrl+Tab)"/>
-                    <Item id="6331" name="U naslovnoj vrpci prikaži samo naziv datoteke"/>
+                    <Item id="6331" name="U naslovnoj vrpci prikaži samo ime datoteke"/>
                     <Item id="6334" name="Automatski detektiraj enkoding"/>
                     <Item id="6349" name="Koristi DirectWrite (Može poboljšati renderiranje specijalnih karaktera, potreban je restart Notepada++)"/>
                     <Item id="6337" name="Nast. datoteke radnog prostora:"/>
@@ -1255,7 +1265,7 @@ Ovu datoteku je izmijenio drugi program.
             <CreateNewFileOrNot title="Kreiraj novu datoteku" message="&quot;$STR_REPLACE$&quot; ne postoji. Kreirati ju?"/>
             <CreateNewFileError title="Kreiraj novu datoteku" message="Ne mogu kreirati datoteku &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="GREŠKA" message="Ne mogu otvoriti datoteku &quot;$STR_REPLACE$&quot;."/>
-            <FileBackupFailed title="Zaštitna kopija datoteke nije uspjela" message="Prethodna verzija datoteke nije mogla biti spremljena u mapu na &quot;$STR_REPLACE$&quot;.
+            <FileBackupFailed title="Sigurnosna kopija datoteke nije uspjela" message="Prethodna verzija datoteke nije mogla biti spremljena u mapu na &quot;$STR_REPLACE$&quot;.
 
 Želite li svejedno spremiti trenutnu datoteku?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Učitavanje stylers.xml nije uspjelo" message="Učitavanje &quot;$STR_REPLACE$&quot; nije uspjelo!"/>
@@ -1402,17 +1412,26 @@ Nastaviti?"/>
             <word-chars-list-space-warning value="$INT_REPLACE$ razmak/razmaci"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulator/tabulatori"/>
             <word-chars-list-warning-end value="  u vašem popisu znakova."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Odaberite mapu za sigurnosnu kopiju"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Neispravan put."/>
             <cloud-restart-warning value="Ponovno pokrenite Notepad++ kako bi stupilo na snagu."/>
             <cloud-select-folder value="Odaberite mapu u koju/iz koje Notepad++ čita/piše svoje postavke"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Odaberite mapu za otvaranje/spremanje"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Upotrijebite Shift + Enter za traženje u suprotnom smjeru."/>
             <two-find-buttons-tip value="2 gumba za traženje"/>
             <file-rename-title value="Preimenuj"/>
-            <find-in-files-filter-tip value="Nađi u cpp, cxx, h, hxx &amp;&amp; hpp:
+            <find-in-files-filter-tip value="Nađi u cpp, cxx, h, hxx i hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Nađi u svim datotekama osim exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+Nađi u svim datotekama osim exe, obj i log:
+*.* !*.exe !*.obj !*.log
+
+Nađi u svim datotekama s izuzetkom mapa tests, bin i bin64:
+*.* !\tests !\bin*
+
+Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Odaberite mapu za pretraživanje"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Pronađi: Nađeno prvo pojavljivanje od dna. Dostignut je početak dokumenta."/>
             <find-status-end-reached value="Pronađi: Nađeno prvo pojavljivanje od vrha. Dostignut je kraj dokumenta."/>
             <find-status-replaceinfiles-1-replaced value="Zamijeni u datotekama: 1 podudaranje je zamijenjeno"/>
@@ -1506,6 +1525,10 @@ Nađi u svim datotekama osim exe, obj &amp;&amp; log:
             <IncrementalFind-FSNotFound value="Fraza nije pronađena" />
             <IncrementalFind-FSTopReached value="Dostignut je početak dokumenta, nastavak od dna" />
             <IncrementalFind-FSEndReached value="Dostignut je kraj dokumenta, nastavak od vrha" />
+            <contextMenu-styleAlloccurrencesOfToken value="Označi stilom sva pojavljivanja" />
+            <contextMenu-styleOneToken value="Označi stilom jednom" />
+            <contextMenu-clearStyle value="Poništi oznake stilom" />
+            <contextMenu-PluginCommands value="Naredbe dodataka" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

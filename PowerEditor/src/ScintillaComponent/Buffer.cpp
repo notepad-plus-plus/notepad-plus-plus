@@ -774,7 +774,6 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
-	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
 
 	//Get file size
 	FILE* fp = generic_fopen(buf->getFullPathName(), TEXT("rb"));
@@ -784,10 +783,11 @@ bool FileManager::reloadBuffer(BufferID id)
 	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);
 
+	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
 	bool res = loadFileData(doc, fileSize, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
+	buf->_canNotify = true;
 
 	delete[] data;
-	buf->_canNotify = true;
 
 	if (res)
 	{

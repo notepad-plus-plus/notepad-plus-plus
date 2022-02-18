@@ -332,7 +332,7 @@ private:
 
 private:
 	FileManager * _pManager = nullptr;
-	bool _canNotify = false;
+	bool _canNotify = false; // All the notification should be disabled at the beginning 
 	int _references = 0; // if no references file inaccessible, can be closed
 	BufferID _id = nullptr;
 

@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.1.5">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -178,6 +178,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42029" name="Kopiera aktuell sökväg till urklipp"/>
 					<Item id="42030" name="Kopiera aktuellt filnamn till urklipp"/>
 					<Item id="42031" name="Kopiera aktuell mappsökväg till urklipp"/>
+					<Item id="42087" name="Alla filnamn i urklipp"/>
+					<Item id="42088" name="Alla filsökvägar i urklipp"/>
 					<Item id="42032" name="&amp;Kör ett makro flera gånger..."/>
 					<Item id="42033" name="Inaktivera skrivskydd"/>
 					<Item id="42035" name="Kommentera rad"/>
@@ -249,6 +251,10 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="43048" name="Ma&amp;rkera och sök nästa"/>
 					<Item id="43049" name="Mar&amp;kera och sök föregående"/>
 					<Item id="43054" name="&amp;Markera..."/>
+					<Item id="43501" name="Stäng markerade"/>
+					<Item id="43502" name="Stäng andra"/>
+					<Item id="43503" name="Kopiera markerade namn"/>
+					<Item id="43504" name="Kopiera markerade sökvägar"/>
 					<Item id="44009" name="Kantlöst fönsterläge"/>
 					<Item id="44010" name="Minimera alla"/>
 					<Item id="44011" name="Distraktionsfritt läge"/>
@@ -319,6 +325,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="46001" name="Stilkonfigurering..."/>
 					<Item id="46250" name="Definiera ditt språk..."/>
 					<Item id="46300" name="Öppna mapp för användardefinierade språk..."/>
+					<Item id="46301" name="Samling av användardefinierade språk för Notepad++"/>
 					<Item id="46180" name="Användardefinierat"/>
 					<Item id="47000" name="Om Notepad++"/>
 					<Item id="47010" name="Kommandoradsargument"/>
@@ -683,6 +690,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="25026" name="Operator 1"/>
 					<Item id="25027" name="Operator 2"/>
 					<Item id="25028" name="Siffror"/>
+					<Item id="25033" name="Genomskinlig"/>
+					<Item id="25034" name="Genomskinlig"/>
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Avbryt"/>
 				</StylerDialog>
@@ -735,7 +744,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="22622" name="Format"/>
 				</Keywords>
 				<Comment title="Kommentarer och siffror">
-					<Item id="23003" name="Radkommentarsposition"/>
+					<Item id="23003" name="Position för radkommentarer"/>
 					<Item id="23004" name="Tillåt var som helst"/>
 					<Item id="23005" name="Tvinga vid början av rad"/>
 					<Item id="23006" name="Tillåt inledande blanksteg"/>
@@ -977,16 +986,25 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6706" name="Fet"/>
 					<Item id="6707" name="Kursiv"/>
 					<Item id="6708" name="Sidhuvud"/>
-					<Item id="6709" name="Vänsterparti"/>
-					<Item id="6710" name="Mittparti"/>
-					<Item id="6711" name="Högerparti"/>
+					<Item id="6709" name="Vänsterkant"/>
+					<Item id="6710" name="Mitten"/>
+					<Item id="6711" name="Högerkant"/>
 					<Item id="6717" name="Fet"/>
 					<Item id="6718" name="Kursiv"/>
 					<Item id="6719" name="Sidfot"/>
-					<Item id="6720" name="Vänsterparti"/>
-					<Item id="6721" name="Mittparti"/>
-					<Item id="6722" name="Högerparti"/>
+					<Item id="6720" name="Vänsterkant"/>
+					<Item id="6721" name="Mitten"/>
+					<Item id="6722" name="Högerkant"/>
 					<Item id="6723" name="Lägg till"/>
+					<ComboBox id="6724">
+						<Element name="Full filsökväg"/>
+						<Element name="Filnamn"/>
+						<Element name="Mappsökväg"/>
+						<Element name="Sidnummer"/>
+						<Element name="Kort datum"/>
+						<Element name="Långt datum"/>
+						<Element name="Klockslag"/>
+					</ComboBox>
 					<Item id="6725" name="Variabel:"/>
 					<Item id="6727" name="Här visas dina variabelinställningar"/>
 					<Item id="6728" name="Sidhuvud och sidfot"/>
@@ -1014,8 +1032,8 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 				<Backup title="Säkerhetskopiering">
 					<Item id="6817" name="Sessioner och säkerhetskopiering"/>
 					<Item id="6818" name="Ta ögonblicksbilder av sessioner och säkerhetskopiera regelbundet"/>
-					<Item id="6819" name="Säkerhetskopiera var"/>
-					<Item id="6821" name="sekund"/>
+					<Item id="6819" name="Säkerhetskopiera efter"/>
+					<Item id="6821" name="sekund(er)"/>
 					<Item id="6822" name="Sökväg:"/>
 					<Item id="6309" name="Kom ihåg aktuell session vid nästa uppstart"/>
 					<Item id="6801" name="Säkerhetskopiera vid sparning"/>
@@ -1033,10 +1051,13 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6809" name="Funktionskomplettering"/>
 					<Item id="6810" name="Ordkomplettering"/>
 					<Item id="6816" name="Funktion- och ordkomplettering"/>
+					<Item id="6869" name="Tangent för att infoga"/>
+					<Item id="6870" name="Tabb"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="Enter"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6824" name="Ignorera siffror"/>
-					<Item id="6811" name="Från var"/>
+					<Item id="6811" name="Efter"/>
 					<Item id="6813" name="tecken"/>
-					<Item id="6814" name="Giltigt värde: 1-9"/>
+					<Item id="6814" name="Giltiga värden: 1-9"/>
 					<Item id="6815" name="Funktionsparameterhjälp vid inmatning"/>
 					<Item id="6851" name="Infoga automatiskt"/>
 					<Item id="6857" name=" HTML/XML-sluttagg"/>
@@ -1049,12 +1070,12 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 
 				<MultiInstance title="Flera instanser">
 					<Item id="6151" name="Inställningar för flera instanser"/>
-					<Item id="6152" name="Öppna session i ny instans av Notepad++"/>
+					<Item id="6152" name="Öppna session i en ny instans (och spara sessionen automatiskt vid avslut)"/>
 					<Item id="6153" name="Alltid flera instanser"/>
 					<Item id="6154" name="Standard (en enda instans)"/>
 					<Item id="6155" name="* En omstart av Notepad++ krävs om denna inställning ändras"/>
 					<Item id="6171" name="Anpassa datum och tid att infoga"/>
-					<Item id="6175" name="Omvänd standardordning av datum och tid (korta och långa format)"/>
+					<Item id="6175" name="Omvänd standardordning av datum och tid (kort och lång format)"/>
 					<Item id="6172" name="Anpassat format:"/>
 				</MultiInstance>
 
@@ -1180,7 +1201,7 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Redigera högerklicksmenyn" message="Genom att redigera contextMenu.xml kan du anpassa högerklicksmenyn i Notepad++.
-Du måste starta om Notepad++ för att ändringarna i contextMenu.xml att gälla."/>
+Du måste starta om Notepad++ för att ändringarna i contextMenu.xml ska gälla."/>
 			<SaveCurrentModifWarning title="Spara aktuella ändringar" message="Du bör spara dina aktuella ändringar.
 Det går inte att ångra ändringar som har sparats.
 
@@ -1224,13 +1245,16 @@ Vill du ladda om den?"/>
 
 Denna fil har ändrats av ett annat program.
 Vill du ladda om den och förlora ändringarna som gjordes i Notepad++?"/>
-			<PrehistoricSystemDetected title="Förhistoriskt system upptäcktes" message="Det verkar som om du fortfarande använder ett förhistoriskt system. Tyvärr fungerar endast denna funktion på ett modernt system."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+			<PrehistoricSystemDetected title="Förhistoriskt system upptäcktes" message="Det verkar som om du fortfarande använder ett uråldrigt system. Tyvärr fungerar endast denna funktion på ett modernt system."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Uppdaterare för Notepad++" message="Uppdateraren för Notepad++ är inte kompatibel med XP på grund av ett föråldrat säkerhetslager i XP.
 Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versionen?"/>  <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<GUpProxyConfNeedAdminMode title="Proxyinställningar" message="Var god starta om Notepad++ som administratör för att konfigurera proxyn."/>
 			<DocTooDirtyToMonitor title="Övervakningsproblem" message="Dokumentet har ändrats. Spara ändringarna innan du övervakar den."/>
 			<DocNoExistToMonitor title="Övervakningsproblem" message="Filen måste finnas för att kunna övervakas."/>
 			<FileTooBigToOpen title="Problem med filstorleken" message="Filen är för stor för att öppnas med Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileLoadingException title="Felkod: $STR_REPLACE$" message="Ett fel uppstod när filen lästes in!"/>
+			<WantToOpenHugeFile title="Varning om att öppna stor fil" message="Det kan ta flera minuter att öppna en stor fil på över 2GB.
+Vill du öppna den?"/>
 			<CreateNewFileOrNot title="Skapa ny fil" message="&quot;$STR_REPLACE$&quot; finns inte. Vill du skapa den?"/>
 			<CreateNewFileError title="Skapa ny fil" message="Kan inte skapa filen &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="FEL" message="Kan inte öppna filen &quot;$STR_REPLACE$&quot;."/>
@@ -1321,7 +1345,7 @@ Vill du fortsätta?"/>
 				<Item id="3515" name="Öppna"/>
 				<Item id="3516" name="Kopiera sökväg"/>
 				<Item id="3517" name="Sök i filer..."/>
-				<Item id="3518" name="Utforska här"/>
+				<Item id="3518" name="Öppna utforskaren här"/>
 				<Item id="3519" name="Öppna kommandotolken här"/>
 				<Item id="3520" name="Kopiera filnamn"/>
 			</Menus>
@@ -1381,9 +1405,11 @@ Vill du fortsätta?"/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ mellanslag"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabb(ar)"/>
 			<word-chars-list-warning-end value="  i din teckenlista."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+			<backup-select-folder value="Välj en mapp för säkerhetskopior"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Felaktig sökväg."/>
 			<cloud-restart-warning value="Starta om Notepad++ för att ändringarna ska börja gälla."/>
-			<cloud-select-folder value="Välj en mapp från/till vilken Notepad++ ska läsa/skriva sina inställningar"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-select-folder value="Välj en mapp som Notepad++ ska läsa/skriva sina inställningar"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Välj en standardmapp"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Använd Shift + Enter för att söka i omvänd riktning"/>
 			<two-find-buttons-tip value="Sök med två knappar"/>
 			<file-rename-title value="Byt namn"/>
@@ -1391,7 +1417,14 @@ Vill du fortsätta?"/>
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Hitta i alla filer utom exe, obj och log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+*.* !*.exe !*.obj !*.log
+
+Hitta i alla filer men exkludera mapparna &quot;tests&quot;, &quot;bin&quot; och &quot;bin64&quot;:
+*.* !\tests !\bin*
+
+Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; rekursivt:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+			<find-in-files-select-folder value="Välj en mapp att söka från"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value="Sök: Hittade första förekomsten från slutet. Början av dokumentet har passerats."/>
 			<find-status-end-reached value="Sök: Hittade första förekomsten från början. Slutet av dokumentet har passerats."/>
 			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>
@@ -1485,6 +1518,10 @@ Hitta i alla filer utom exe, obj och log:
 			<IncrementalFind-FSNotFound value="Frasen hittades inte" />
 			<IncrementalFind-FSTopReached value="Nådde början på sidan, fortsätter från slutet" />
 			<IncrementalFind-FSEndReached value="Nådde slutet på sidan, fortsätter från början" />
+			<contextMenu-styleAlloccurrencesOfToken value="Stilsätt alla förekomster" />
+			<contextMenu-styleOneToken value="Stilsätt en förekomst" />
+			<contextMenu-clearStyle value="Rensa stilsättning" />
+			<contextMenu-PluginCommands value="Kommandon från insticksprogram" />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1816,6 +1816,35 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 
 	const bool isEntireDoc = true;
 
+	size_t MaxLineNum = 0;
+	for (size_t i = 0; i < filesCount; ++i)
+	{
+		if (progress.isCancelled()) break;
+
+		bool closeBuf = false;
+		BufferID id = MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+		if (id == BUFFER_INVALID)
+		{
+			id = MainFileManager.loadFile(fileNames.at(i).c_str());
+			closeBuf = true;
+		}
+
+		if (id != BUFFER_INVALID)
+		{
+			Buffer* pBuf = MainFileManager.getBufferByID(id);
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			size_t nbLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+			if (nbLine > MaxLineNum)
+			{
+				MaxLineNum = nbLine;
+			}
+		}
+
+		if (closeBuf)
+			MainFileManager.closeBuffer(id, _pEditView);
+	}
+	_findReplaceDlg.SetNumOfLines(MaxLineNum);
+
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
@@ -1892,6 +1921,19 @@ bool Notepad_plus::findInOpenedFiles()
 
 	if (_mainWindowStatus & WindowMainActive)
 	{
+		size_t MaxLineNum = 0;
+		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len; ++i)
+		{
+			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			size_t nbLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+			if (nbLine > MaxLineNum)
+			{
+				MaxLineNum = nbLine;
+			}
+		}
+		_findReplaceDlg.SetNumOfLines(MaxLineNum);
+
 		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
 		{
 			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
@@ -1965,6 +2007,9 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 	_findReplaceDlg.beginNewFilesSearch();
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+
+	size_t NumLines = _invisibleEditView.execute(SCI_GETLINECOUNT);
+	_findReplaceDlg.SetNumOfLines(NumLines);
 
 	setCodePageForInvisibleView(pBuf);
 

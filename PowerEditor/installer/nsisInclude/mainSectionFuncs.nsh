@@ -289,17 +289,25 @@ SpeechPluginTestEnd64:
 		Delete "$INSTDIR\plugins\XMLTools\XMLTools.dll"
 XMLToolsTestEnd64:
 
+	; NppTaskList makes Notepad++ x64 crash. "2.4" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" 0 NppTaskListTestEnd64
+		${GetFileVersion} "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" $R0
+		${VersionCompare} $R0 "2.4" $R1 ;   0: equal to 2.4   1: $R0 is newer   2: 2.4 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to NppTaskList plugin's incompatibility issue in version $R0, NppTaskList.dll will be deleted. Use Plugins Admin to add back (the latest version of) NppTaskList." /SD IDOK
+		Rename "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" "$INSTDIR\plugins\disabled\NppTaskList.dll"
+		Delete "$INSTDIR\plugins\NppTaskList\NppTaskList.dll"
+
+NppTaskListTestEnd64:
+
+
 	IfFileExists "$INSTDIR\plugins\NppQCP\NppQCP.dll" 0 NppQCPTestEnd64
 		MessageBox MB_OK "Due to NppQCP plugin's crash issue on Notepad++ x64 binary, NppQCP.dll will be removed." /SD IDOK
 		Rename "$INSTDIR\plugins\NppQCP\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP\NppQCP.dll"
 NppQCPTestEnd64:
 
-	IfFileExists "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" 0 NppTaskListTestEnd64
-		MessageBox MB_OK "Due to NppTaskList plugin's crash issue on Notepad++ x64 binary, NppTaskList.dll will be removed." /SD IDOK
-		Rename "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" "$INSTDIR\plugins\disabled\NppTaskList.dll"
-		Delete "$INSTDIR\plugins\NppTaskList\NppTaskList.dll"
-NppTaskListTestEnd64:
 
 !else ; 32-bit installer
 

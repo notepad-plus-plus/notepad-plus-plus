@@ -295,6 +295,12 @@ XMLToolsTestEnd64:
 		Delete "$INSTDIR\plugins\NppQCP\NppQCP.dll"
 NppQCPTestEnd64:
 
+	IfFileExists "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" 0 NppTaskListTestEnd64
+		MessageBox MB_OK "Due to NppTaskList plugin's crash issue on Notepad++ x64 binary, NppTaskList.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" "$INSTDIR\plugins\disabled\NppTaskList.dll"
+		Delete "$INSTDIR\plugins\NppTaskList\NppTaskList.dll"
+NppTaskListTestEnd64:
+
 !else ; 32-bit installer
 
 		; https://github.com/chcg/NPP_HexEdit/issues/51

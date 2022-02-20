@@ -1148,18 +1148,10 @@ LRESULT CALLBACK WindowsDlg::listViewProc(HWND hwnd, UINT Message, WPARAM wParam
 	return CallWindowProc(reinterpret_cast<WNDPROC>(originalListViewProc), hwnd, Message, wParam, lParam);
 }
 
-WindowsMenu::WindowsMenu()
-{}
 
-WindowsMenu::~WindowsMenu()
+void WindowsMenu::init(HMENU hMainMenu, const TCHAR *translation)
 {
-	if (_hMenu)
-		DestroyMenu(_hMenu);
-}
-
-void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation)
-{
-	_hMenu = ::LoadMenu(hInst, MAKEINTRESOURCE(IDR_WINDOWS_MENU));
+	_hMenu = ::GetSubMenu(hMainMenu, 11);
 
 	if (translation && translation[0])
 	{
@@ -1167,25 +1159,6 @@ void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translatio
 		windowStr += TEXT("...");
 		::ModifyMenu(_hMenu, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowStr.c_str());
 	}
-
-	int32_t pos = 0;
-	for (pos = GetMenuItemCount(hMainMenu) - 1; pos > 0; --pos)
-	{
-		if ((GetMenuState(hMainMenu, pos, MF_BYPOSITION) & MF_POPUP) != MF_POPUP)
-			continue;
-		break;
-	}
-
-	MENUITEMINFO mii;
-	memset(&mii, 0, sizeof(mii));
-	mii.cbSize = sizeof(mii);
-	mii.fMask = MIIM_STRING|MIIM_SUBMENU;
-
-	TCHAR buffer[32];
-	LoadString(hInst, IDR_WINDOWS_MENU, buffer, 32);
-	mii.dwTypeData = (TCHAR *)((translation && translation[0])?translation:buffer);
-	mii.hSubMenu = _hMenu;
-	InsertMenuItem(hMainMenu, pos, TRUE, &mii);
 }
 
 void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)

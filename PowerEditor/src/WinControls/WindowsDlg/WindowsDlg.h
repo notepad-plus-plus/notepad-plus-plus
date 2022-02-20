@@ -109,9 +109,9 @@ private:
 class WindowsMenu
 {
 public:
-	WindowsMenu();
-	~WindowsMenu();
-	void init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation); 
+	WindowsMenu() {};
+	~WindowsMenu() {};
+	void init(HMENU hMainMenu, const TCHAR *translation); 
 	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 
 private:

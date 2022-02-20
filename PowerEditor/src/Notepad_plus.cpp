@@ -529,7 +529,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//Plugin menu
 	bool enablePluginAdmin = _pluginsAdminDlg.isValide();
 	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
-	_pluginsManager.setMenu(_mainMenuHandle, NULL, enablePluginAdmin);
+	_pluginsManager.initMenu(_mainMenuHandle, enablePluginAdmin);
 
 	//Search menu
 	//disable "Search Results Window" under Search Menu 
@@ -554,7 +554,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, pluginsTrans.c_str());
 	}
 	//Windows menu
-	_windowsMenu.init(_pPublicInterface->getHinst(), _mainMenuHandle, windowTrans.c_str());
+	_windowsMenu.init(_mainMenuHandle, windowTrans.c_str());
 
 	// Update context menu strings (translated)
 	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();

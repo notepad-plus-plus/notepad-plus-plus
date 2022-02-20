@@ -30,27 +30,3 @@ BEGIN
     PUSHBUTTON      "Sort &tabs",IDC_WINDOWS_SORT,219,60,60,14
     PUSHBUTTON      "&OK",IDCANCEL,219,169,60,14
 END
-
-IDR_WINDOWS_MENU MENU
-BEGIN
-    POPUP "Sort By"
-        BEGIN
-            MENUITEM "Name A to Z",                 IDM_WINDOW_SORT_FN_ASC
-            MENUITEM "Name Z to A",                 IDM_WINDOW_SORT_FN_DSC    
-            MENUITEM "Path A to Z",                 IDM_WINDOW_SORT_FP_ASC
-            MENUITEM "Path Z to A",                 IDM_WINDOW_SORT_FP_DSC 
-            MENUITEM "Type A to Z",                 IDM_WINDOW_SORT_FT_ASC
-            MENUITEM "Type Z to A",                 IDM_WINDOW_SORT_FT_DSC 
-            MENUITEM "Size Smaller to Larger",      IDM_WINDOW_SORT_FS_ASC
-            MENUITEM "Size Larger to Smaller",      IDM_WINDOW_SORT_FS_DSC        
-        END 
-    MENUITEM SEPARATOR
-	MENUITEM "Recent Window",               IDM_WINDOW_MRU_FIRST, GRAYED
-	MENUITEM "&Windows...",               	IDM_WINDOW_WINDOWS
-END
-
-
-STRINGTABLE
-BEGIN
-	IDR_WINDOWS_MENU "&Window"
-END

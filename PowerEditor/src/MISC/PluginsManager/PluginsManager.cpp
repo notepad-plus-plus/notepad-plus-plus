@@ -476,15 +476,13 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 	}
 }
 
-HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePluginAdmin)
+HMENU PluginsManager::initMenu(HMENU hMenu, bool enablePluginAdmin)
 {
-	const TCHAR *nom_menu = (menuName && menuName[0])?menuName:TEXT("&Plugins");
 	size_t nbPlugin = _pluginInfos.size();
 
 	if (!_hPluginsMenu)
 	{
-		_hPluginsMenu = ::CreateMenu();
-		::InsertMenu(hMenu,  MENUINDEX_PLUGINS, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_hPluginsMenu, nom_menu);
+		_hPluginsMenu = ::GetSubMenu(hMenu, 10);
 
 		int i = 1;
 
@@ -496,8 +494,6 @@ HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePlu
 			::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION, IDM_SETTING_PLUGINADM, TEXT("Plugins Admin..."));
 			::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION | MF_SEPARATOR, 0, TEXT(""));
 		}
-
-		::InsertMenu(_hPluginsMenu, i, MF_BYPOSITION, IDM_SETTING_OPENPLUGINSDIR, TEXT("Open Plugins Folder..."));
 	}
 
 	for (size_t i = 0; i < nbPlugin; ++i)

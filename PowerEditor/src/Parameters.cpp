@@ -405,14 +405,14 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 
 	{ VK_F5,      IDM_EXECUTE,                                  false, false, false, nullptr },
 
-	{ VK_NULL,    IDM_WINDOW_SORT_FN_ASC,                       false, false, false, nullptr },
-	{ VK_NULL,    IDM_WINDOW_SORT_FN_DSC,                       false, false, false, nullptr },
-	{ VK_NULL,    IDM_WINDOW_SORT_FP_ASC,                       false, false, false, nullptr },
-	{ VK_NULL,    IDM_WINDOW_SORT_FP_DSC,                       false, false, false, nullptr },
-	{ VK_NULL,    IDM_WINDOW_SORT_FT_ASC,                       false, false, false, nullptr },
-	{ VK_NULL,    IDM_WINDOW_SORT_FT_DSC,                       false, false, false, nullptr },
-	{ VK_NULL,    IDM_WINDOW_SORT_FS_ASC,                       false, false, false, nullptr },
-	{ VK_NULL,    IDM_WINDOW_SORT_FS_DSC,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_WINDOW_SORT_FN_ASC,                       false, false, false, TEXT("Sort By Name A to Z") },
+	{ VK_NULL,    IDM_WINDOW_SORT_FN_DSC,                       false, false, false, TEXT("Sort By Name Z to A") },
+	{ VK_NULL,    IDM_WINDOW_SORT_FP_ASC,                       false, false, false, TEXT("Sort By Path A to Z") },
+	{ VK_NULL,    IDM_WINDOW_SORT_FP_DSC,                       false, false, false, TEXT("Sort By Path Z to A") },
+	{ VK_NULL,    IDM_WINDOW_SORT_FT_ASC,                       false, false, false, TEXT("Sort By Type A to Z") },
+	{ VK_NULL,    IDM_WINDOW_SORT_FT_DSC,                       false, false, false, TEXT("Sort By Type Z to A") },
+	{ VK_NULL,    IDM_WINDOW_SORT_FS_ASC,                       false, false, false, TEXT("Sort By Size Smaller to Larger") },
+	{ VK_NULL,    IDM_WINDOW_SORT_FS_DSC,                       false, false, false, TEXT("Sort By Size Larger to Smaller") },
 
 	{ VK_NULL,    IDM_CMDLINEARGUMENTS,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_HOMESWEETHOME,                            false, false, false, nullptr },

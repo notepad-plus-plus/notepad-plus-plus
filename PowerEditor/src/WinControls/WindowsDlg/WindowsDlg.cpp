@@ -959,12 +959,12 @@ void WindowsDlg::doSort()
 	nmdlg.nItems = static_cast<UINT>(count);
 	nmdlg.Items = items.data();
 	for (size_t i=0; i < count; ++i)
-	{		
+	{
 		nmdlg.Items[i] = _idxMap[i];		
 	}
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
 	if (nmdlg.processed)
-	{	
+	{
 		_idxMap.clear();		
 		refreshMap();
 	}
@@ -984,60 +984,52 @@ void WindowsDlg::doSort()
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
 }
 
-void WindowsDlg::sortFileNameASC(){
+void WindowsDlg::sort(int columnID, bool reverseSort)
+{
 	refreshMap();
-	_currentColumn = 0;
-	_reverseSort = false;
+	_currentColumn = columnID;
+	_reverseSort = reverseSort;
 	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
 }
 
-void WindowsDlg::sortFileNameDSC(){
-	refreshMap();
-	_currentColumn = 0;
-	_reverseSort = true;
-	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+void WindowsDlg::sortFileNameASC()
+{
+	sort(0, false);
 }
 
-void WindowsDlg::sortFilePathASC(){
-	refreshMap();
-	_currentColumn = 1;
-	_reverseSort = false;
-	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+void WindowsDlg::sortFileNameDSC()
+{
+	sort(0, true);	
 }
 
-void WindowsDlg::sortFilePathDSC(){
-	refreshMap();
-	_currentColumn = 1;
-	_reverseSort = true;
-	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+void WindowsDlg::sortFilePathASC()
+{
+	sort(1, false);
 }
 
-void WindowsDlg::sortFileTypeASC(){
-	refreshMap();
-	_currentColumn = 2;
-	_reverseSort = false;
-	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+void WindowsDlg::sortFilePathDSC()
+{
+	sort(1, true);
 }
 
-void WindowsDlg::sortFileTypeDSC(){
-	refreshMap();
-	_currentColumn = 2;
-	_reverseSort = true;
-	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+void WindowsDlg::sortFileTypeASC()
+{
+	sort(2, false);
 }
 
-void WindowsDlg::sortFileSizeASC(){
-	refreshMap();
-	_currentColumn = 3;
-	_reverseSort = false;
-	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+void WindowsDlg::sortFileTypeDSC()
+{
+	sort(2, true);
 }
 
-void WindowsDlg::sortFileSizeDSC(){
-	refreshMap();
-	_currentColumn = 3;
-	_reverseSort = true;
-	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+void WindowsDlg::sortFileSizeASC()
+{
+	sort(3, false);
+}
+
+void WindowsDlg::sortFileSizeDSC()
+{
+	sort(3, true);
 }
 
 void WindowsDlg::refreshMap()

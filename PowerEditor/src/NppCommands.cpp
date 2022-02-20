@@ -3560,7 +3560,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFileNameASC();
-            windowsDlg.doSort();			
+			windowsDlg.doSort();
 		}
 		break;
 
@@ -3569,7 +3569,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFileNameDSC();
-            windowsDlg.doSort();			
+			windowsDlg.doSort();
 		}
 		break;
 
@@ -3578,7 +3578,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFilePathASC();
-            windowsDlg.doSort();			
+			windowsDlg.doSort();
 		}
 		break;
 
@@ -3587,7 +3587,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFilePathDSC();
-            windowsDlg.doSort();			
+			windowsDlg.doSort();
 		}
 		break;
 
@@ -3596,7 +3596,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFileTypeASC();
-            windowsDlg.doSort();			
+			windowsDlg.doSort();
 		}
 		break;
 
@@ -3605,7 +3605,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFileTypeDSC();
-            windowsDlg.doSort();			
+			windowsDlg.doSort();
 		}
 		break;
 
@@ -3614,7 +3614,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFileSizeASC();
-            windowsDlg.doSort();			
+			windowsDlg.doSort();
 		}
 		break;
 
@@ -3623,7 +3623,7 @@ void Notepad_plus::command(int id)
 			WindowsDlg windowsDlg;
 			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			windowsDlg.sortFileSizeDSC();
-			windowsDlg.doSort();			
+			windowsDlg.doSort();
 		}
 		break;
 

@@ -23,11 +23,11 @@
 #include "localization.h"
 #include "localizationString.h"
 #include "UserDefineDialog.h"
+#include "WindowsDlgRc.h"
 
 #pragma warning(disable : 4996) // for GetVersionEx()
 
 using namespace std;
-
 
 namespace // anonymous namespace
 {
@@ -404,6 +404,15 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_MACRO_RUNMULTIMACRODLG,                   false, false, false, nullptr },
 
 	{ VK_F5,      IDM_EXECUTE,                                  false, false, false, nullptr },
+
+	{ VK_NULL,    IDM_WINDOW_SORT_FN_ASC,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_WINDOW_SORT_FN_DSC,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_WINDOW_SORT_FP_ASC,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_WINDOW_SORT_FP_DSC,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_WINDOW_SORT_FT_ASC,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_WINDOW_SORT_FT_DSC,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_WINDOW_SORT_FS_ASC,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_WINDOW_SORT_FS_DSC,                       false, false, false, nullptr },
 
 	{ VK_NULL,    IDM_CMDLINEARGUMENTS,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_HOMESWEETHOME,                            false, false, false, nullptr },

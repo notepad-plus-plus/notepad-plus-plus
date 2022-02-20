@@ -56,7 +56,8 @@ public :
 	int doDialog();
 	virtual void init(HINSTANCE hInst, HWND parent, DocTabView *pTab);
 	void doSortToTabs();
-	void doSort();	
+	void doSort();
+	void sort(int columnID, bool reverseSort);
 	void sortFileNameASC();
 	void sortFileNameDSC();
 	void sortFilePathASC();

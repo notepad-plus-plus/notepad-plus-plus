@@ -70,6 +70,7 @@
                     <Item subMenuId="settings-import" name="匯入"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="排序方式"/>
                 </SubEntries>
 
                 <!-- All Menu Items -->
@@ -352,6 +353,15 @@
                     <Item id="42041" name="清空最近使用的檔案"/>
                     <Item id="48016" name="修改快速鍵/刪除巨集..."/>
                     <Item id="48017" name="修改快速鍵/刪除指令..."/>
+
+                    <Item id="11002" name="檔案名從 A 到 Z"/>
+                    <Item id="11003" name="檔案名從 Z 到 A"/>
+                    <Item id="11004" name="路徑從 A 到 Z"/>
+                    <Item id="11005" name="路徑從 Z 到 A"/>
+                    <Item id="11006" name="副檔名從 A 到 Z"/>
+                    <Item id="11007" name="副檔名從 Z 到 A"/>
+                    <Item id="11008" name="檔案長度從小到大"/>
+                    <Item id="11009" name="檔案長度從大到小"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -620,6 +630,14 @@
                     <Item id="44106" name="切換至專案管理員 3"/>
                     <Item id="44107" name="切換至資料夾工作區"/>
                     <Item id="44108" name="切換至函式清單"/>
+                    <Item id="11002" name="檔案名從 A 到 Z"/>
+                    <Item id="11003" name="排序檔案名從 Z 到 A"/>
+                    <Item id="11004" name="排序路徑從 A 到 Z"/>
+                    <Item id="11005" name="排序路徑從 Z 到 A"/>
+                    <Item id="11006" name="排序副檔名從 A 到 Z"/>
+                    <Item id="11007" name="排序副檔名從 Z 到 A"/>
+                    <Item id="11008" name="排序檔案長度從小到大"/>
+                    <Item id="11009" name="排序檔案長度從大到小"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="快捷鍵設定">

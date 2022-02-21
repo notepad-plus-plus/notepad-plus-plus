@@ -70,6 +70,7 @@
                     <Item subMenuId="settings-import"  name="Importer"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Trier par"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -349,6 +350,14 @@
                     <Item id="50002" name="Infobulle des paramètres de fonctions"/>
                     <Item id="50005" name="Démarrer/Arrêter l'enregistrement d'une macro"/>
                     <Item id="50006" name="Complétion de chemin d'accès du fichier"/>
+                    <Item id="11002" name="Nom de A à Z"/>
+                    <Item id="11003" name="Nom de Z à A"/>
+                    <Item id="11004" name="Chemin d'accès du fichier de A à Z"/>
+                    <Item id="11005" name="Chemin d'accès du fichier de Z à A"/>
+                    <Item id="11006" name="Type de A à Z"/>
+                    <Item id="11007" name="Type de Z à A"/>
+                    <Item id="11008" name="Taille de petite à grande"/>
+                    <Item id="11009" name="Taille de grande à petite"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -615,6 +624,14 @@
                     <Item id="44106" name="Basculer vers Panneau de Projet 3"/>
                     <Item id="44107" name="Basculer vers Dossier en tant qu'Espace de travail"/>
                     <Item id="44108" name="Basculer vers Liste des fonctions"/>
+                    <Item id="11002" name="Trier par nom de A à Z"/>
+                    <Item id="11003" name="Trier par nom de Z à A"/>
+                    <Item id="11004" name="Trier par chemin d'accès du fichier de A à Z"/>
+                    <Item id="11005" name="Trier par chemin d'accès du fichier de Z à A"/>
+                    <Item id="11006" name="Trier par type de A à Z"/>
+                    <Item id="11007" name="Trier par type de Z à A"/>
+                    <Item id="11008" name="Trier par taille de petite à grande"/>
+                    <Item id="11009" name="Trier par taille de grande à petite"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Raccourcis clavier">

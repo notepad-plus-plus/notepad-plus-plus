@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.3.0  8/Feb/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.3.2  21/Feb/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.3.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.3.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -22,7 +22,7 @@
 					<Item menuId = "macro" name = "&amp;Makro"/>
 					<Item menuId = "run" name = "Sp&amp;ustit"/>
 					<Item menuId = "Plugins" name = "Plu&amp;giny"/>
-					<Item menuId = "Window" name = "&amp;Okno"/>
+					<Item menuId = "Window" name = "&amp;Okna"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
@@ -77,6 +77,7 @@
 					<Item subMenuId = "settings-import" name = "Import"/>
 					<Item subMenuId = "tools-md5" name = "MD5"/>
 					<Item subMenuId = "tools-sha256" name = "SHA-256"/>
+					<Item subMenuId = "window-sortby" name = "Setřídit podle"/>
 				</SubEntries>
 
 				<!-- all menu item -->
@@ -374,6 +375,15 @@
 					<Item id = "50004" name = "Přejít na další dokument"/>
 					<Item id = "50005" name = "Přepnout záznam makra"/>
 					<Item id = "50006" name = "Dokončování cest k souborům a adresářům"/>
+					<Item id = "11001" name = "Otevřené &amp;dokumenty..."/>
+					<Item id = "11002" name = "Jména: od A do Z"/>
+					<Item id = "11003" name = "Jména: od Z do A"/>
+					<Item id = "11004" name = "Cesty: od A do Z"/>
+					<Item id = "11005" name = "Cesty: od Z do A"/>
+					<Item id = "11006" name = "Typu: od A do Z"/>
+					<Item id = "11007" name = "Typu: od Z do A"/>
+					<Item id = "11008" name = "Velikosti: od menších k větším"/>
+					<Item id = "11009" name = "Velikosti: od větších k menším"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -648,6 +658,14 @@
 					<Item id = "44107" name = "Přejít na Složka jako Pracovní plocha"/>
 					<Item id = "44108" name = "Přejít na Seznam funkcí"/>
 					<Item id = "44109" name = "Přejít na Seznam dokumentů"/>
+					<Item id = "11002" name = "Jména: od A do Z"/>
+					<Item id = "11003" name = "Jména: od Z do A"/>
+					<Item id = "11004" name = "Cesty: od A do Z"/>
+					<Item id = "11005" name = "Cesty: od Z do A"/>
+					<Item id = "11006" name = "Typu: od A do Z"/>
+					<Item id = "11007" name = "Typu: od Z do A"/>
+					<Item id = "11008" name = "Velikosti: od menších k větším"/>
+					<Item id = "11009" name = "Velikosti: od větších k menším"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			

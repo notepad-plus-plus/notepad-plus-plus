@@ -364,6 +364,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="48016" name="Modify Shortcut/Delete Macro..."/>
                     <Item id="48017" name="Modify Shortcut/Delete Command..."/>
 
+                    <Item id="11001" name="&amp;Windows..."/>
                     <Item id="11002" name="Name A to Z"/>
                     <Item id="11003" name="Name Z to A"/>
                     <Item id="11004" name="Path A to Z"/>

@@ -353,7 +353,7 @@
                     <Item id="42041" name="清空最近使用的檔案"/>
                     <Item id="48016" name="修改快速鍵/刪除巨集..."/>
                     <Item id="48017" name="修改快速鍵/刪除指令..."/>
-
+                    <Item id="11001" name="視窗..."/>
                     <Item id="11002" name="檔案名從 A 到 Z"/>
                     <Item id="11003" name="檔案名從 Z 到 A"/>
                     <Item id="11004" name="路徑從 A 到 Z"/>

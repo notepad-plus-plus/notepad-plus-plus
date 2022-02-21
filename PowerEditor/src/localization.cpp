@@ -27,80 +27,82 @@ using namespace std;
 
 MenuPosition menuPos[] = {
 //==============================================
-//	{L0, L1, L2, id},
+//	{L0,  L1, L2, id},
 //==============================================
-	{ 0, -1, -1, "file" },
-	{ 1, -1, -1, "edit" },
-	{ 2, -1, -1, "search" },
-	{ 3, -1, -1, "view" },
-	{ 4, -1, -1, "encoding" },
-	{ 5, -1, -1, "language" },
-	{ 6, -1, -1, "settings" },
-	{ 7, -1, -1, "tools" },
-	{ 8, -1, -1, "macro" },
-	{ 9, -1, -1, "run" },
+	{ 0,  -1, -1, "file" },
+	{ 1,  -1, -1, "edit" },
+	{ 2,  -1, -1, "search" },
+	{ 3,  -1, -1, "view" },
+	{ 4,  -1, -1, "encoding" },
+	{ 5,  -1, -1, "language" },
+	{ 6,  -1, -1, "settings" },
+	{ 7,  -1, -1, "tools" },
+	{ 8,  -1, -1, "macro" },
+	{ 9,  -1, -1, "run" },
+	{ 10, -1, -1, "Plugins" },
+	{ 11, -1, -1, "Window" },
 
-	{ 0,  2, -1, "file-openFolder" },
-	{ 0, 13, -1, "file-closeMore" },
-	{ 0, 22, -1, "file-recentFiles" },
+	{ 0,   2, -1, "file-openFolder" },
+	{ 0,  13, -1, "file-closeMore" },
+	{ 0,  22, -1, "file-recentFiles" },
 
-	{ 1, 10, -1, "edit-insert" },
-	{ 1, 11, -1, "edit-copyToClipboard" },
-	{ 1, 12, -1, "edit-indent" },
-	{ 1, 13, -1, "edit-convertCaseTo" },
-	{ 1, 14, -1, "edit-lineOperations" },
-	{ 1, 15, -1, "edit-comment" },
-	{ 1, 16, -1, "edit-autoCompletion" },
-	{ 1, 17, -1, "edit-eolConversion" },
-	{ 1, 18, -1, "edit-blankOperations" },
-	{ 1, 19, -1, "edit-pasteSpecial" },
-	{ 1, 20, -1, "edit-onSelection" },
+	{ 1,  10, -1, "edit-insert" },
+	{ 1,  11, -1, "edit-copyToClipboard" },
+	{ 1,  12, -1, "edit-indent" },
+	{ 1,  13, -1, "edit-convertCaseTo" },
+	{ 1,  14, -1, "edit-lineOperations" },
+	{ 1,  15, -1, "edit-comment" },
+	{ 1,  16, -1, "edit-autoCompletion" },
+	{ 1,  17, -1, "edit-eolConversion" },
+	{ 1,  18, -1, "edit-blankOperations" },
+	{ 1,  19, -1, "edit-pasteSpecial" },
+	{ 1,  20, -1, "edit-onSelection" },
 
-	{ 2, 18, -1, "search-markAll" },
-	{ 2, 19, -1, "search-markOne" },
-	{ 2, 20, -1, "search-unmarkAll" },
-	{ 2, 21, -1, "search-jumpUp" },
-	{ 2, 22, -1, "search-jumpDown" },
-	{ 2, 23, -1, "search-copyStyledText" },
-	{ 2, 25, -1, "search-bookmark" },
+	{ 2,  18, -1, "search-markAll" },
+	{ 2,  19, -1, "search-markOne" },
+	{ 2,  20, -1, "search-unmarkAll" },
+	{ 2,  21, -1, "search-jumpUp" },
+	{ 2,  22, -1, "search-jumpDown" },
+	{ 2,  23, -1, "search-copyStyledText" },
+	{ 2,  25, -1, "search-bookmark" },
 
-	{ 3,  5, -1, "view-currentFileIn" },
-	{ 3,  7, -1, "view-showSymbol" },
-	{ 3,  8, -1, "view-zoom" },
-	{ 3,  9, -1, "view-moveCloneDocument" },
-	{ 3, 10, -1, "view-tab" },
-	{ 3, 19, -1, "view-collapseLevel" },
-	{ 3, 20, -1, "view-uncollapseLevel" },
-	{ 3, 24, -1, "view-project" },
+	{ 3,   5, -1, "view-currentFileIn" },
+	{ 3,   7, -1, "view-showSymbol" },
+	{ 3,   8, -1, "view-zoom" },
+	{ 3,   9, -1, "view-moveCloneDocument" },
+	{ 3,  10, -1, "view-tab" },
+	{ 3,  19, -1, "view-collapseLevel" },
+	{ 3,  20, -1, "view-uncollapseLevel" },
+	{ 3,  24, -1, "view-project" },
 
-	{ 4,  5, -1, "encoding-characterSets" },
-	{ 4,  5,  0, "encoding-arabic" },
-	{ 4,  5,  1, "encoding-baltic" },
-	{ 4,  5,  2, "encoding-celtic" },
-	{ 4,  5,  3, "encoding-cyrillic" },
-	{ 4,  5,  4, "encoding-centralEuropean" },
-	{ 4,  5,  5, "encoding-chinese" },
-	{ 4,  5,  6, "encoding-easternEuropean" },
-	{ 4,  5,  7, "encoding-greek" },
-	{ 4,  5,  8, "encoding-hebrew" },
-	{ 4,  5,  9, "encoding-japanese" },
-	{ 4,  5, 10, "encoding-korean" },
-	{ 4,  5, 11, "encoding-northEuropean" },
-	{ 4,  5, 12, "encoding-thai" },
-	{ 4,  5, 13, "encoding-turkish" },
-	{ 4,  5, 14, "encoding-westernEuropean" },
-	{ 4,  5, 15, "encoding-vietnamese" },
+	{ 4,   5, -1, "encoding-characterSets" },
+	{ 4,   5,  0, "encoding-arabic" },
+	{ 4,   5,  1, "encoding-baltic" },
+	{ 4,   5,  2, "encoding-celtic" },
+	{ 4,   5,  3, "encoding-cyrillic" },
+	{ 4,   5,  4, "encoding-centralEuropean" },
+	{ 4,   5,  5, "encoding-chinese" },
+	{ 4,   5,  6, "encoding-easternEuropean" },
+	{ 4,   5,  7, "encoding-greek" },
+	{ 4,   5,  8, "encoding-hebrew" },
+	{ 4,   5,  9, "encoding-japanese" },
+	{ 4,   5, 10, "encoding-korean" },
+	{ 4,   5, 11, "encoding-northEuropean" },
+	{ 4,   5, 12, "encoding-thai" },
+	{ 4,   5, 13, "encoding-turkish" },
+	{ 4,   5, 14, "encoding-westernEuropean" },
+	{ 4,   5, 15, "encoding-vietnamese" },
 
-	{ 5, 25, -1, "language-userDefinedLanguage" },
+	{ 5,  25, -1, "language-userDefinedLanguage" },
 
-	{ 6,  4, -1, "settings-import" },
+	{ 6,   4, -1, "settings-import" },
 
-	{ 7,  0, -1, "tools-md5" },
-	{ 7,  1, -1, "tools-sha256" },
+	{ 7,   0, -1, "tools-md5" },
+	{ 7,   1, -1, "tools-sha256" },
 
-	{ 11, 0, -1, "window-sortby"},
+	{ 11,  0, -1, "window-sortby"},
 
-	{ -1, -1, -1, "" } // End of array
+	{ -1,  -1, -1, "" } // End of array
 };
 
 void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish)
@@ -279,7 +281,7 @@ MenuPosition & getMenuPosition(const char *id)
 	return menuPos[nbSubMenuPos-1];
 }
 
-void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans)
+void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 {
 	if (nullptr == _nativeLangA)
 		return;
@@ -296,7 +298,6 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 	if (nullptr == entriesRoot)
 		return;
 
-	const char* idName = nullptr;
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
@@ -313,24 +314,6 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 				const char *name = element->Attribute("name");
 				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::ModifyMenu(menuHandle, menuPos._x, MF_BYPOSITION, 0, nameW);
-			}
-		}
-		else
-		{
-			idName = element->Attribute("idName");
-			if (idName)
-			{
-				const char *name = element->Attribute("name");
-				if (!strcmp(idName, "Plugins"))
-				{
-					const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
-					pluginsTrans = nameW;
-				}
-				else if (!strcmp(idName, "Window"))
-				{
-					const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
-					windowTrans = nameW;
-				}
 			}
 		}
 	}
@@ -356,8 +339,6 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 		childNode = childNode->NextSibling("Item") )
 	{
 		TiXmlElementA* element = childNode->ToElement();
-		//const char *xStr = element->Attribute("posX", &x);
-		//const char *yStr = element->Attribute("posY", &y);
 		const char* subMenuIdStr = element->Attribute("subMenuId");
 		const char* name = element->Attribute("name");
 

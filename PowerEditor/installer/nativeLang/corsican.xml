@@ -47,8 +47,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="A&amp;ttrezzi"/>
                     <Item menuId="macro" name="Macr&amp;o"/>
                     <Item menuId="run" name="Ese&amp;guisce"/>
-                    <Item idName="Plugins" name="&amp;Estensioni"/>
-                    <Item idName="Window" name="&amp;Finestra"/>
+                    <Item menuId="Plugins" name="&amp;Estensioni"/>
+                    <Item menuId="Window" name="&amp;Finestra"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

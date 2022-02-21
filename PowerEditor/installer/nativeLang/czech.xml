@@ -21,8 +21,8 @@
 					<Item menuId = "tools" name = "Nástro&amp;je"/>
 					<Item menuId = "macro" name = "&amp;Makro"/>
 					<Item menuId = "run" name = "Sp&amp;ustit"/>
-					<Item idName = "Plugins" name = "Plu&amp;giny"/>
-					<Item idName = "Window" name = "&amp;Okno"/>
+					<Item menuId = "Plugins" name = "Plu&amp;giny"/>
+					<Item menuId = "Window" name = "&amp;Okno"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->

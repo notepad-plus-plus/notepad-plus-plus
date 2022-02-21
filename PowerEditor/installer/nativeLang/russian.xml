@@ -19,8 +19,8 @@ Updated to v8.3.1:
 					<Item menuId="tools"    name="Инстр&amp;ументы"/>
 					<Item menuId="macro"    name="&amp;Макросы"/>
 					<Item menuId="run"      name="&amp;Запуск"/>
-					<Item idName="Plugins"  name="Плаги&amp;ны"/>
-					<Item idName="Window"   name="Вкл&amp;адки"/>
+					<Item menuId="Plugins"  name="Плаги&amp;ны"/>
+					<Item menuId="Window"   name="Вкл&amp;адки"/>
 				</Entries>
 				<SubEntries>
 					<Item subMenuId="file-openFolder"           name="&amp;Открыть папку документа"/>

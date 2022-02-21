@@ -20,8 +20,8 @@
                     <Item menuId="tools" name="&amp;Unelte"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xecutare"/>
-                    <Item idName="Plugins" name="Mo&amp;dule"/>
-                    <Item idName="Window" name="Fe&amp;restre"/>
+                    <Item menuId="Plugins" name="Mo&amp;dule"/>
+                    <Item menuId="Window" name="Fe&amp;restre"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

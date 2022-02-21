@@ -18,8 +18,8 @@
 					<Item menuId="settings" name = "&amp;Astellungen"/>
 					<Item menuId="macro" name = "&amp;Makro"/>
 					<Item menuId="run" name = "Ausféie&amp;ren"/>
-					<Item idName = "Plugins" name = "Er&amp;weiderungen"/>
-					<Item idName = "Window" name = "Fë&amp;nster"/>
+					<Item menuId = "Plugins" name = "Er&amp;weiderungen"/>
+					<Item menuId = "Window" name = "Fë&amp;nster"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>

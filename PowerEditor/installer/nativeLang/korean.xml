@@ -16,8 +16,8 @@
             <Item menuId="tools" name="도구(&amp;O)"/>
             <Item menuId="macro" name="매크로"/>
             <Item menuId="run" name="실행"/>
-            <Item idName="Plugins" name="플러그인"/>
-            <Item idName="Window" name="창 관리"/>
+            <Item menuId="Plugins" name="플러그인"/>
+            <Item menuId="Window" name="창 관리"/>
         </Entries>
     <!--  Sub Menu Entries -->
     <SubEntries>

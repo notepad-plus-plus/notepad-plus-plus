@@ -18,8 +18,8 @@
                     <Item menuId="tools" name="Nás&amp;troje"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Sp&amp;ustiť"/>
-                    <Item idName="Plugins" name="&amp;Doplnky"/>
-                    <Item idName="Window" name="&amp;Okná"/>
+                    <Item menuId="Plugins" name="&amp;Doplnky"/>
+                    <Item menuId="Window" name="&amp;Okná"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

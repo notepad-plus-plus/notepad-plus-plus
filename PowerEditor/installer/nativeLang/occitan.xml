@@ -15,8 +15,8 @@
 					<Item menuId="tools" name="&amp;Aisinas"/>
 					<Item menuId="macro" name="Macrò"/>
 					<Item menuId="run" name="Executar"/>
-					<Item idName="Plugins" name="Ajustons"/>
-					<Item idName="Window" name="Fenèstra"/>
+					<Item menuId="Plugins" name="Ajustons"/>
+					<Item menuId="Window" name="Fenèstra"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->

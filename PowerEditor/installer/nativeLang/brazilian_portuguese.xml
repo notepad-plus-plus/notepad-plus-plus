@@ -18,8 +18,8 @@
                     <Item menuId="tools" name="&amp;Ferramentas"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="Executa&amp;r"/>
-                    <Item idName="Plugins" name="&amp;Plugins"/>
-                    <Item idName="Window" name="&amp;Janela"/>
+                    <Item menuId="Plugins" name="&amp;Plugins"/>
+                    <Item menuId="Window" name="&amp;Janela"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

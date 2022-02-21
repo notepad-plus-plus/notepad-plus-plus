@@ -22,8 +22,8 @@
 					<Item menuId="tools" name="&amp;Инструменти"/>
 					<Item menuId="macro" name="&amp;Макроси"/>
 					<Item menuId="run" name="Ст&amp;артиране"/>
-					<Item idName="Plugins" name="&amp;Добавки"/>
-					<Item idName="Window" name="&amp;Прозорци"/>
+					<Item menuId="Plugins" name="&amp;Добавки"/>
+					<Item menuId="Window" name="&amp;Прозорци"/>
 				</Entries>
 				<!-- Подменюта -->
 				<SubEntries>

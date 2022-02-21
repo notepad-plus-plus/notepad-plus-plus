@@ -21,8 +21,8 @@ Desc: Malay translation for Notepad++
 <Item menuId="settings" name="&amp;Ketetapan"/>
 <Item menuId="macro" name="Mak&amp;ro"/>
 <Item menuId="run" name="&amp;Jalan"/>
-<Item idName="Plugins" name="Plu&amp;gin"/>
-<Item idName="Window" name="&amp;Tetingkap"/>
+<Item menuId="Plugins" name="Plu&amp;gin"/>
+<Item menuId="Window" name="&amp;Tetingkap"/>
 </Entries>
 <!-- Sub Menu Entries -->
 

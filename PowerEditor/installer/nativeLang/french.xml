@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="&amp;Outils"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xécution"/>
-                    <Item idName="Plugins" name="Modules d'ex&amp;tension"/>
-                    <Item idName="Window" name="&amp;Documents"/>
+                    <Item menuId="Plugins" name="Modules d'ex&amp;tension"/>
+                    <Item menuId="Window" name="&amp;Documents"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

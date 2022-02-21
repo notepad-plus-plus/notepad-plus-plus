@@ -14,8 +14,8 @@
 					<Item menuId="settings" name="&amp;Configuración"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="E&amp;jecutar"/>
-					<Item idName="Plugins" name="&amp;Complementos"/>
-					<Item idName="Window" name="Ve&amp;ntana"/>
+					<Item menuId="Plugins" name="&amp;Complementos"/>
+					<Item menuId="Window" name="Ve&amp;ntana"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>

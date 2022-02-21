@@ -18,8 +18,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="Væ&amp;rktøjer"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="&amp;Kør"/>
-                    <Item idName="Plugins" name="P&amp;lugins"/>
-                    <Item idName="Window" name="V&amp;induer"/>
+                    <Item menuId="Plugins" name="P&amp;lugins"/>
+                    <Item menuId="Window" name="V&amp;induer"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

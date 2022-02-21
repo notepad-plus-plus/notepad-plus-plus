@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;Танзимот"/>
                     <Item menuId="macro" name="Макрос"/>
                     <Item menuId="run" name="Иҷро"/>
-                    <Item idName="Plugins" name="Афзунаҳо"/>
-                    <Item idName="Window" name="Панҷара"/>
+                    <Item menuId="Plugins" name="Афзунаҳо"/>
+                    <Item menuId="Window" name="Панҷара"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

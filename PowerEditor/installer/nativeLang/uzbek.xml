@@ -26,8 +26,8 @@ Updater: Shamsiddinov Zafar
 					<Item menuId="tools" name="Qoʻshimchalar"/>
 					<Item menuId="macro" name="&amp;Makroslar"/>
 					<Item menuId="run" name="&amp;Ishga tushirmoq"/>
-					<Item idName="Plugins" name="&amp;Ilovalar"/>
-					<Item idName="Window"  name="&amp;Xatchoʻplar"/>
+					<Item menuId="Plugins" name="&amp;Ilovalar"/>
+					<Item menuId="Window"  name="&amp;Xatchoʻplar"/>
 				</Entries>
 
 				<SubEntries>

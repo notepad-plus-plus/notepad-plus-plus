@@ -15,8 +15,8 @@
 					<Item menuId="tools" name="&amp;כלים"/>
 					<Item menuId="macro" name="מאקרו מקשים"/>
 					<Item menuId="run" name="הפעלה"/>
-					<Item idName="Plugins" name="תוספים"/>
-					<Item idName="Window"  name="חלון"/>
+					<Item menuId="Plugins" name="תוספים"/>
+					<Item menuId="Window"  name="חלון"/>
 
 				</Entries>
 

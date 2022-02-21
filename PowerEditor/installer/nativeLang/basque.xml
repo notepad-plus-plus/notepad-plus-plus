@@ -18,8 +18,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="&amp;Tresnak"/>
                     <Item menuId="macro" name="&amp;Makroa"/>
                     <Item menuId="run" name="E&amp;xekutatu"/>
-                    <Item idName="Plugins" name="&amp;Pluginak"/>
-                    <Item idName="Window" name="&amp;Leihoa"/>
+                    <Item menuId="Plugins" name="&amp;Pluginak"/>
+                    <Item menuId="Window" name="&amp;Leihoa"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

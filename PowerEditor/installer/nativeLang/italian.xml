@@ -22,8 +22,8 @@
                     <Item menuId="tools" name="&amp;Strumenti"/>
                     <Item menuId="macro" name="M&amp;acro"/>
                     <Item menuId="run" name="Ese&amp;gui"/>
-                    <Item idName="Plugins" name="&amp;Plugin"/>
-                    <Item idName="Window" name="Fin&amp;estra"/>
+                    <Item menuId="Plugins" name="&amp;Plugin"/>
+                    <Item menuId="Window" name="Fin&amp;estra"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="ツール(&amp;O)"/>
                     <Item menuId="macro" name="マクロ(&amp;M)"/>
                     <Item menuId="run" name="実行(&amp;R)"/>
-                    <Item idName="Plugins" name="プラグイン(&amp;P)"/>
-                    <Item idName="Window" name="ウィンドウ管理(&amp;W)"/>
+                    <Item menuId="Plugins" name="プラグイン(&amp;P)"/>
+                    <Item menuId="Window" name="ウィンドウ管理(&amp;W)"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

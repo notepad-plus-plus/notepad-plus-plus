@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.3:
-- add tr. new lines
-- fix description opt.
+Updated to v8.3.1:
+- added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.3">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.3.1">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -74,6 +73,7 @@ Updated to v8.3:
 					<Item subMenuId="settings-import"           name="Импортировать"/>
 					<Item subMenuId="tools-md5"                 name="MD5"/>
 					<Item subMenuId="tools-sha256"              name="SHA-256"/>
+					<Item subMenuId="window-sortby"             name="Сортировать по ..."/>
 				</SubEntries>
 				<Commands>
 					<Item id="41001" name="Новый"/>
@@ -394,6 +394,15 @@ Updated to v8.3:
 					<Item id="49000" name="Запуск..."/>
 					<Item id="48017" name="Управление Командами..."/>
 
+					<Item id="11002" name="По имени от A до Z"/>
+					<Item id="11003" name="По имени от Z до A"/>
+					<Item id="11004" name="По пути от A до Z"/>
+					<Item id="11005" name="По пути от Z до A"/>
+					<Item id="11006" name="По типу от A до Z"/>
+					<Item id="11007" name="По типу от Z до A"/>
+					<Item id="11008" name="По размеру от Меньшего к Большему"/>
+					<Item id="11009" name="По размеру от Большего к Меньшему"/>
+
 					<Item id="48015" name="Управление Плагинами..."/>
 					<Item id="48014" name="Открыть папку плагинов..."/>
 
@@ -673,6 +682,15 @@ Updated to v8.3:
 					<Item id="44107" name="Перекл. на Папка как Проект"/>
 					<Item id="44108" name="Перекл. на Список Функций"/>
 					<Item id="44109" name="Перекл. на Список Документов"/>
+
+					<Item id="11002" name="По имени от A до Z"/>
+					<Item id="11003" name="По имени от Z до A"/>
+					<Item id="11004" name="По пути от A до Z"/>
+					<Item id="11005" name="По пути от Z до A"/>
+					<Item id="11006" name="По типу от A до Z"/>
+					<Item id="11007" name="По типу от Z до A"/>
+					<Item id="11008" name="По размеру от Меньшего к Большему"/>
+					<Item id="11009" name="По размеру от Большего к Меньшему"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Назначение Клавиш Быстрого Доступа">
@@ -1248,8 +1266,8 @@ Updated to v8.3:
 			<DoCloseOrNot                title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
 			<DoDeleteOrNot               title="Удаление файла"                  message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
 			<NoBackupDoSaveFile          title="Сохранение..."                   message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
-			<DoReloadOrNot               title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?"/>
-			<DoReloadOrNotAndLooseChange title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
+			<DoReloadOrNot               title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Хотите его обновить?"/>
+			<DoReloadOrNotAndLooseChange title="Обновление файла"                message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Хотите его обновить?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
 			<PrehistoricSystemDetected   title="Обнаружена доисторическая система"   message="Кажется, вы все еще используете доисторическую систему. Извините, но эта функция работает только на современных системах."/>
 			<XpUpdaterProblem            title="Обновление Notepad++"                message="Обновление Notepad++ не совместимо с XP из-за устаревшего уровня безопасности.&#x0A;Хотите перейти на страницу Notepad++, чтобы загрузить последнюю версию?"/>
 			<DocTooDirtyToMonitor        title="Проблема Мониторинга"                message="Документ в работе. Сохраните внесённые изменения перед его мониторингом."/>

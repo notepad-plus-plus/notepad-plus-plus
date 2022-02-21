@@ -6118,8 +6118,8 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 
  	LangType lt = pCmdParams->_langType;
 	generic_string udl = pCmdParams->_udlName;
-	int lineNumber =  pCmdParams->_line2go;
-	int columnNumber = pCmdParams->_column2go;
+	intptr_t lineNumber =  pCmdParams->_line2go;
+	intptr_t columnNumber = pCmdParams->_column2go;
 	intptr_t positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;

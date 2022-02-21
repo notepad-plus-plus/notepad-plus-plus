@@ -6104,6 +6104,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		return std::vector<generic_string>();
 
 	NppParameters& nppParams = NppParameters::getInstance();
+	const NppGUI& nppGUI = nppParams.getNppGUI();
 	FileNameStringSplitter fnss(commandLine);
 
 	// loading file as session file is allowed only when there is only one file
@@ -6115,7 +6116,8 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			const bool isSnapshotMode = false;
 			const bool shouldLoadFileBrowser = true;
 
-			nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
+			if ((nppGUI._multiInstSetting == multiInstOnSession) || (nppGUI._multiInstSetting == multiInst))
+				nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
 			loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 		}
 		return std::vector<generic_string>();

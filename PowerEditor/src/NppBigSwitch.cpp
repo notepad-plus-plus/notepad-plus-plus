@@ -1975,7 +1975,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				}
 
 				Session currentSession;
-				getCurrentOpenedFiles(currentSession, true);
+				if (!((nppgui._multiInstSetting == monoInst) && !nppgui._rememberLastSession))
+					getCurrentOpenedFiles(currentSession, true);
 
 				if (nppgui._rememberLastSession)
 				{

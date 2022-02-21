@@ -1275,6 +1275,9 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                                 ::PostMessage(_hSelf, WM_COMMAND, IDC_RENAME_BUTTON, 0);
                                 return TRUE;
                             }
+                            if (nppParam.getNbUserLang() >= NB_MAX_USER_LANG)
+                                return TRUE;
+
                             //rename current language name in combobox
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_DELETESTRING, i, 0);
 							::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_INSERTSTRING, i, reinterpret_cast<LPARAM>(newName));
@@ -1329,6 +1332,9 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                                 ::PostMessage(_hSelf, WM_COMMAND, IDC_RENAME_BUTTON, 0);
                                 return TRUE;
                             }
+                            if (nppParam.getNbUserLang() >= NB_MAX_USER_LANG)
+                                return TRUE;
+
                             //add current language in userLangArray at the end as a new lang
                             UserLangContainer & userLang = (wParam == IDC_SAVEAS_BUTTON)?nppParam.getULCFromIndex(i-1):*_pCurrentUserLang;
                             int newIndex = nppParam.addUserLangToEnd(userLang, newName);

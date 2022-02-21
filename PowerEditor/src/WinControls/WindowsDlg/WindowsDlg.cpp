@@ -1151,7 +1151,7 @@ LRESULT CALLBACK WindowsDlg::listViewProc(HWND hwnd, UINT Message, WPARAM wParam
 
 void WindowsMenu::init(HMENU hMainMenu)
 {
-	_hMenu = ::GetSubMenu(hMainMenu, 11);
+	_hMenu = ::GetSubMenu(hMainMenu, MENUINDEX_WINDOW);
 }
 
 void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)

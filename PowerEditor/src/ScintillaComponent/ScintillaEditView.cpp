@@ -1839,8 +1839,8 @@ void ScintillaEditView::restoreCurrentPosPostStep()
 		return;
 	}
 	
-	size_t displayedLine = execute(SCI_GETFIRSTVISIBLELINE);
-	size_t docLine = execute(SCI_DOCLINEFROMVISIBLE, displayedLine);		//linenumber of the line displayed in the 
+	intptr_t displayedLine = execute(SCI_GETFIRSTVISIBLELINE);
+	intptr_t docLine = execute(SCI_DOCLINEFROMVISIBLE, displayedLine);		//linenumber of the line displayed in the 
 	
 
 	// check docLine must equals saved position
@@ -1855,7 +1855,7 @@ void ScintillaEditView::restoreCurrentPosPostStep()
 	{
 		// don't scroll anything if the wrap count is different than the saved one.
 		// Buffer update may be in progress (in case wrap is enabled)
-		size_t wrapCount = execute(SCI_WRAPCOUNT, docLine);
+		intptr_t wrapCount = execute(SCI_WRAPCOUNT, docLine);
 		if (wrapCount == pos._wrapCount)
 		{
 			scroll(0, pos._offset);

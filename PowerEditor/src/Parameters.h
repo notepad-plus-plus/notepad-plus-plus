@@ -143,14 +143,14 @@ void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
 
 struct Position
 {
-	size_t _firstVisibleLine = 0;
-	size_t _startPos = 0;
-	size_t _endPos = 0;
-	size_t _xOffset = 0;
-	size_t _selMode = 0;
-	size_t _scrollWidth = 1;
-	size_t _offset = 0;
-	size_t _wrapCount = 0;
+	intptr_t _firstVisibleLine = 0;
+	intptr_t _startPos = 0;
+	intptr_t _endPos = 0;
+	intptr_t _xOffset = 0;
+	intptr_t _selMode = 0;
+	intptr_t _scrollWidth = 1;
+	intptr_t _offset = 0;
+	intptr_t _wrapCount = 0;
 };
 
 
@@ -228,9 +228,9 @@ struct CmdLineParams
 	bool _isPreLaunch = false;
 	bool _showLoadingTime = false;
 	bool _alwaysOnTop = false;
-	int _line2go   = -1;
-	int _column2go = -1;
-	int _pos2go = -1;
+	intptr_t _line2go   = -1;
+	intptr_t _column2go = -1;
+	intptr_t _pos2go = -1;
 
 	POINT _point = {};
 	bool _isPointXValid = false;
@@ -269,9 +269,9 @@ struct CmdLineParamsDTO
 	bool _isRecursive = false;
 	bool _openFoldersAsWorkspace = false;
 
-	int _line2go = 0;
-	int _column2go = 0;
-	int _pos2go = 0;
+	intptr_t _line2go = 0;
+	intptr_t _column2go = 0;
+	intptr_t _pos2go = 0;
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _udlName;

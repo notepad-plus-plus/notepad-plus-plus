@@ -95,6 +95,8 @@ int whichVar(TCHAR *str)
 		return CURRENT_LINE;
 	else if (!lstrcmp(currentColumn, str))
 		return CURRENT_COLUMN;
+	else if (!lstrcmp(currentLineStr, str))
+		return CURRENT_LINESTR;
 
 	return VAR_NOT_RECOGNIZED;
 }

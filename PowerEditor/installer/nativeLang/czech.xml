@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.3.2  21/Feb/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.3.2  23/Feb/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -135,9 +135,9 @@
 					<Item id = "42026" name = "Směr textu zprava doleva"/>
 					<Item id = "42027" name = "Směr textu zleva doprava"/>
 					<Item id = "42028" name = "Nastavit p&amp;říznak Pouze pro čtení"/>
-					<Item id = "42029" name = "Jméno (i s cestou) aktuálního souboru do Schránky"/>
-					<Item id = "42030" name = "Jméno aktuálního souboru do Schránky"/>
-					<Item id = "42031" name = "Jméno aktuálního adresáře (i s cestou) do Schránky"/>
+					<Item id = "42029" name = "Název (i s cestou) aktuálního souboru do Schránky"/>
+					<Item id = "42030" name = "Název aktuálního souboru do Schránky"/>
+					<Item id = "42031" name = "Název aktuálního adresáře (i s cestou) do Schránky"/>
 					<Item id = "42032" name = "Spustit makro více&amp;krát..."/>
 					<Item id = "42033" name = "Zrušit p&amp;říznak Pouze pro čtení"/>
 					<Item id = "42034" name = "Editor s&amp;loupce..."/>
@@ -193,7 +193,7 @@
 					<Item id = "42084" name = "Aktuální čas a datum (kratší verze)"/>
 					<Item id = "42085" name = "Aktuální čas a datum (delší verze)"/>
 					<Item id = "42086" name = "Aktuální čas a datum (přizpůsobený)"/>
-					<Item id = "42087" name = "Všechna jména souborů do Schránky"/>
+					<Item id = "42087" name = "Všechny názvy souborů do Schránky"/>
 					<Item id = "42088" name = "Všechny souborové cesty do Schránky"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
@@ -262,7 +262,7 @@
 					<Item id = "43066" name = "Použít 5. styl"/>
 					<Item id = "43501" name = "Zavřít vybrané"/>
 					<Item id = "43502" name = "Zavřít ostatní"/>
-					<Item id = "43503" name = "Kopírovat jména vybraných souborů"/>
+					<Item id = "43503" name = "Kopírovat názvy vybraných souborů"/>
 					<Item id = "43504" name = "Kopírovat cesty vybraných souborů"/>
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu (Post-It mód)"/>
 					<Item id = "44010" name = "Sbalit vše"/>
@@ -376,14 +376,14 @@
 					<Item id = "50005" name = "Přepnout záznam makra"/>
 					<Item id = "50006" name = "Dokončování cest k souborům a adresářům"/>
 					<Item id = "11001" name = "Otevřené &amp;dokumenty..."/>
-					<Item id = "11002" name = "Jména: od A do Z"/>
-					<Item id = "11003" name = "Jména: od Z do A"/>
-					<Item id = "11004" name = "Cesty: od A do Z"/>
-					<Item id = "11005" name = "Cesty: od Z do A"/>
-					<Item id = "11006" name = "Typu: od A do Z"/>
-					<Item id = "11007" name = "Typu: od Z do A"/>
-					<Item id = "11008" name = "Velikosti: od menších k větším"/>
-					<Item id = "11009" name = "Velikosti: od větších k menším"/>
+					<Item id = "11002" name = "Názvu - od A do Z"/>
+					<Item id = "11003" name = "Názvu - od Z do A"/>
+					<Item id = "11004" name = "Cesty - od A do Z"/>
+					<Item id = "11005" name = "Cesty - od Z do A"/>
+					<Item id = "11006" name = "Typu - od A do Z"/>
+					<Item id = "11007" name = "Typu - od Z do A"/>
+					<Item id = "11008" name = "Velikosti - od menších k větším"/>
+					<Item id = "11009" name = "Velikosti - od větších k menším"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -396,9 +396,9 @@
 				<Item CMID = "4" name = "Tisk..."/>
 				<Item CMID = "5" name = "Přepnout náhled"/>
 				<Item CMID = "6" name = "Vytvořit kopii v samostatném náhledu"/>
-				<Item CMID = "7" name = "Jméno souboru i s cestou do Schránky"/>
-				<Item CMID = "8" name = "Jméno souboru do Schránky"/>
-				<Item CMID = "9" name = "Jméno aktuálního adresáře do Schránky"/>
+				<Item CMID = "7" name = "Název souboru i s cestou do Schránky"/>
+				<Item CMID = "8" name = "Název souboru do Schránky"/>
+				<Item CMID = "9" name = "Název aktuálního adresáře do Schránky"/>
 				<Item CMID = "10" name = "Přejmenovat..."/>
 				<Item CMID = "11" name = "Smazat"/>
 				<Item CMID = "12" name = "Pouze ke čtení"/>
@@ -658,14 +658,14 @@
 					<Item id = "44107" name = "Přejít na Složka jako Pracovní plocha"/>
 					<Item id = "44108" name = "Přejít na Seznam funkcí"/>
 					<Item id = "44109" name = "Přejít na Seznam dokumentů"/>
-					<Item id = "11002" name = "Jména: od A do Z"/>
-					<Item id = "11003" name = "Jména: od Z do A"/>
-					<Item id = "11004" name = "Cesty: od A do Z"/>
-					<Item id = "11005" name = "Cesty: od Z do A"/>
-					<Item id = "11006" name = "Typu: od A do Z"/>
-					<Item id = "11007" name = "Typu: od Z do A"/>
-					<Item id = "11008" name = "Velikosti: od menších k větším"/>
-					<Item id = "11009" name = "Velikosti: od větších k menším"/>
+					<Item id = "11002" name = "Setřídit podle: Názvu - od A do Z"/>
+					<Item id = "11003" name = "Setřídit podle: Názvu - od Z do A"/>
+					<Item id = "11004" name = "Setřídit podle: Cesty - od A do Z"/>
+					<Item id = "11005" name = "Setřídit podle: Cesty - od Z do A"/>
+					<Item id = "11006" name = "Setřídit podle: Typu - od A do Z"/>
+					<Item id = "11007" name = "Setřídit podle: Typu - od Z do A"/>
+					<Item id = "11008" name = "Setřídit podle: Velikosti - od menších k větším"/>
+					<Item id = "11009" name = "Setřídit podle: Velikosti - od větších k menším"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			
@@ -707,7 +707,7 @@
 					<Item id = "25030" name = "Možnosti písma:"/>
 					<Item id = "25006" name = "Barva popředí"/>
 					<Item id = "25007" name = "Barva pozadí"/>
-					<Item id = "25031" name = "Jméno:"/>
+					<Item id = "25031" name = "Název:"/>
 					<Item id = "25032" name = "Velikost:"/>
 					<Item id = "25001" name = "Tučné"/>
 					<Item id = "25002" name = "Kurzíva"/>
@@ -1055,8 +1055,8 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6722" name = "Pravá část"/>
 					<Item id = "6723" name = "Přidat"/>
 					<ComboBox id = "6724">
-						<Element name = "Jméno soub. s cestou"/>
-						<Element name = "Jméno souboru"/>
+						<Element name = "Název soub. s cestou"/>
+						<Element name = "Název souboru"/>
 						<Element name = "Adresář souboru"/>
 						<Element name = "Stránka"/>
 						<Element name = "Datum - kratší form."/>
@@ -1080,7 +1080,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6306" name = "Max. počet položek:"/>
 					<Item id = "6424" name = "Podmenu"/>
 					<Item id = "6425" name = "Jenom název souboru"/>
-					<Item id = "6426" name = "Jméno souboru i s cestou"/>
+					<Item id = "6426" name = "Název souboru i s cestou"/>
 					<Item id = "6427" name = "Přizpůsobit max. délku položky:"/>
 					<Item id = "6429" name = "Zobrazení"/>
 				</RecentFilesHistory>
@@ -1270,7 +1270,7 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 			<DocReloadWarning title = "Znovu otevřít" message = "Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
 			<FileLockedWarning title = "Uložení selhalo" message = "Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
 			<FileAlreadyOpenedInNpp title = "" message = "Tento soubor je již otevřen v Notepadu++."/>
-			<RenameTabTemporaryNameAlreadyInUse title = "Přejmenování selhalo" message = "Specifikované jméno je již použito na jiné záložce."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameAlreadyInUse title = "Přejmenování selhalo" message = "Specifikovaný název je již použit na jiné záložce."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<DeleteFileFailed title = "Odstranit Soubor" message = "Odstranění souboru selhalo"/>
 			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
 			<SettingsOnCloudError title = "Nastavení cloudu" message = "Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
@@ -1313,7 +1313,7 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<ProjectPanelRemoveFileFromProject title = "Odebrání souboru z projektu" message = "Jste si jisti, že chcete odebrat tento soubor z projektu?"/>
 			<ProjectPanelReloadError title = "Znovuotevření pracovní plochy" message = "Soubor k opětovnému načtení nebyl nalezen."/>
 			<ProjectPanelReloadDirty title = "Znovuotevření pracovní plochy" message = "Nyní používaná pracovní plocha byla modifikována. Opětovným načtením přijdete o všechny provedené změny. Chcete pokračovat?"/>
-			<UDLNewNameError title = "Chyba UDL" message = "Toto jméno je již využíváno jiným jazykem/syntaxí, prosím zadejte jiné."/>
+			<UDLNewNameError title = "Chyba UDL" message = "Tento název je již využíván jiným jazykem/syntaxí, prosím zadejte jiný."/>
 			<UDLRemoveCurrentLang title = "Odstranění aktuální syntaxe" message = "Jste si jisti?"/>
 			<SCMapperDoDeleteOrNot title = "Jste si jisti?" message = "Jste si jisti, že chcete smazat tuto klávesovou zkratku?"/>
 			<FindCharRangeValueError title = "Problém s rozsahem hodnoty" message = "Měli byste napsat hodnotu z rozsahu 0 až 255."/>
@@ -1331,18 +1331,18 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 		
 		<DocList>
 			<PanelTitle name = "Seznam dokumentů"/>
-			<ColumnName name = "Jméno"/>
+			<ColumnName name = "Název"/>
 			<ColumnExt name = "Příp."/>
 			<ColumnPath name = "Cesta"/>
 		</DocList>
 		
 		<WindowsDlg>
-			<ColumnName name = "Jméno"/>
+			<ColumnName name = "Název"/>
 			<ColumnPath name = "Cesta"/>
 			<ColumnType name = "Typ"/>
 			<ColumnSize name = "Velikost"/>
 			<NbDocsTotal name = "celkem dokumentů:"/>
-			<MenuCopyName name = "Kopírovat jméno(a)"/>
+			<MenuCopyName name = "Kopírovat název(y)"/>
 			<MenuCopyPath name = "Kopírovat cestu(y)"/>
 		</WindowsDlg>
 		
@@ -1381,15 +1381,15 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 				<Item id = "3517" name = "Najít v souborech..."/>
 				<Item id = "3518" name = "Průzkumník zde"/>
 				<Item id = "3519" name = "cmd zde"/>
-				<Item id = "3520" name = "Kopírovat jméno souboru"/>
+				<Item id = "3520" name = "Kopírovat název souboru"/>
 			</Menus>
 		</FolderAsWorkspace>
 
 		<ProjectManager>
 			<PanelTitle name = "Projekt"/>
 			<WorkspaceRootName name = "Pracovní plocha"/>
-			<NewProjectName name = "Jméno projektu"/>
-			<NewFolderName name = "Jméno složky"/>
+			<NewProjectName name = "Název projektu"/>
+			<NewFolderName name = "Název složky"/>
 			<Menus>
 				<Entries>
 					<Item id = "0" name = "Pracovní plocha"/>
@@ -1505,9 +1505,9 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<finder-wrap-long-lines value = "Zalomit dlouhé řádky"/>
 			<common-ok value = "OK"/>
 			<common-cancel value = "Storno"/>
-			<common-name value = "Jméno: "/>
+			<common-name value = "Název: "/>
 			<tabrename-title value = "Přejmenovat aktuální záložku (Tab)"/>
-			<tabrename-newname value = "Nové jméno: "/>
+			<tabrename-newname value = "Nový název: "/>
 			<splitter-rotate-left value="Otočit doleva"/>
 			<splitter-rotate-right value="Otočit doprava"/>
 			<recent-file-history-maxfile value = "Max. soubor: "/>

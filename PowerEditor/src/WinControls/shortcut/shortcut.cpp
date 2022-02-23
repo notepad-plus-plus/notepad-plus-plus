@@ -27,11 +27,9 @@
 
 using namespace std;
 
-const int KEY_STR_LEN = 16;
-
 struct KeyIDNAME {
-	const TCHAR * name;
-	UCHAR id;
+	const TCHAR * name = nullptr;
+	UCHAR id = 0;
 };
 
 KeyIDNAME namedKeyArray[] = {
@@ -161,8 +159,8 @@ void Shortcut::setName(const TCHAR * menuName, const TCHAR * shortcutName)
 {
 	lstrcpyn(_menuName, menuName, nameLenMax);
 	TCHAR const * name = shortcutName ? shortcutName : menuName;
-	int i = 0, j = 0;
-	while (name[j] != 0 && i < (nameLenMax-1))
+	size_t i = 0, j = 0;
+	while (name[j] != 0 && i < (nameLenMax - 1))
 	{
 		if (name[j] != '&')
 		{
@@ -274,7 +272,7 @@ void getKeyStrFromVal(UCHAR keyVal, generic_string & str)
 {
 	str = TEXT("");
 	bool found = false;
-	int i;
+	size_t i;
 	for (i = 0; i < nbKeys; ++i)
 	{
 		if (keyVal == namedKeyArray[i].id)
@@ -1223,7 +1221,9 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)
 {
 	_shortcutName = sc.getName();
-	if ( _id < IDM_EDIT)
+	if ( _id >= IDM_WINDOW_SORT_FN_ASC and _id <= IDM_WINDOW_SORT_FS_DSC)
+		_category = TEXT("Window");
+	else if ( _id < IDM_EDIT)
 		_category = TEXT("File");
 	else if ( _id < IDM_SEARCH)
 		_category = TEXT("Edit");

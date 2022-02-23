@@ -44,7 +44,7 @@ using namespace std;
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
-
+/*
 inline static DWORD GetStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
 }
@@ -70,7 +70,7 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 	::SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwNewStyle);
 	return TRUE;
 }
-
+*/
 
 struct NumericStringEquivalence
 {
@@ -133,10 +133,10 @@ struct NumericStringEquivalence
 struct BufferEquivalent
 {
 	NumericStringEquivalence _strequiv;
-	DocTabView *_pTab;
+	DocTabView* _pTab;
 	int _iColumn;
 	bool _reverse;
-	BufferEquivalent(DocTabView *pTab, int iColumn, bool reverse)
+	BufferEquivalent(DocTabView* pTab, int iColumn, bool reverse)
 		: _pTab(pTab), _iColumn(iColumn), _reverse(reverse)
 	{}
 
@@ -807,6 +807,8 @@ void WindowsDlg::fitColumnsToSize()
 
 void WindowsDlg::resetSelection()
 {
+	assert(_pTab != nullptr);
+
 	auto curSel = _pTab->getCurrentTabIndex();
 	int pos = 0;
 	for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr, ++pos)
@@ -895,9 +897,9 @@ void WindowsDlg::doClose()
 	{
 		// Trying to retain sort order. fairly sure there is a much better algorithm for this
 		vector<int>::iterator kitr = key.begin();
-		for (UINT i=0; i<n; ++i, ++kitr)
+		for (UINT i = 0; i < n; ++i, ++kitr)
 		{
-			if (nmdlg.Items[i] == -1)
+			if (nmdlg.Items[i] == ((UINT)-1))
 			{
 				int oldVal = _idxMap[*kitr];
 				_idxMap[*kitr] = -1;
@@ -942,6 +944,110 @@ void WindowsDlg::doCount()
 	msg += TEXT(" ");
 	msg += to_wstring(_idxMap.size());
 	SetWindowText(_hSelf,msg.c_str());
+}
+
+void WindowsDlg::doSort()
+{
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;	
+	std::vector<UINT> items(count);
+	auto currrentTabIndex = _pTab->getCurrentTabIndex();
+	NMWINDLG nmdlg = {};
+	nmdlg.type = WDT_SORT;
+	nmdlg.hwndFrom = _hSelf;
+	nmdlg.curSel = currrentTabIndex;
+	nmdlg.code = WDN_NOTIFY;
+	nmdlg.nItems = static_cast<UINT>(count);
+	nmdlg.Items = items.data();
+	for (size_t i=0; i < count; ++i)
+	{
+		nmdlg.Items[i] = _idxMap[i];		
+	}
+	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	if (nmdlg.processed)
+	{
+		_idxMap.clear();		
+		refreshMap();
+	}
+	
+	//After sorting, need to open the active tab before sorting
+	//This will be helpful when large number of documents are opened
+	__int64 newPosition = -1;
+	std::vector<int>::iterator it = std::find(_idxMap.begin(), _idxMap.end(), currrentTabIndex);
+	if (it != _idxMap.end())
+	{
+		newPosition = it - _idxMap.begin();
+	}
+	nmdlg.type = WDT_ACTIVATE;
+	nmdlg.curSel = static_cast<UINT>(newPosition);
+	nmdlg.hwndFrom = _hSelf;
+	nmdlg.code = WDN_NOTIFY;	
+	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+}
+
+void WindowsDlg::sort(int columnID, bool reverseSort)
+{
+	refreshMap();
+	_currentColumn = columnID;
+	_reverseSort = reverseSort;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFileNameASC()
+{
+	sort(0, false);
+}
+
+void WindowsDlg::sortFileNameDSC()
+{
+	sort(0, true);	
+}
+
+void WindowsDlg::sortFilePathASC()
+{
+	sort(1, false);
+}
+
+void WindowsDlg::sortFilePathDSC()
+{
+	sort(1, true);
+}
+
+void WindowsDlg::sortFileTypeASC()
+{
+	sort(2, false);
+}
+
+void WindowsDlg::sortFileTypeDSC()
+{
+	sort(2, true);
+}
+
+void WindowsDlg::sortFileSizeASC()
+{
+	sort(3, false);
+}
+
+void WindowsDlg::sortFileSizeDSC()
+{
+	sort(3, true);
+}
+
+void WindowsDlg::refreshMap()
+{
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
+	size_t oldSize = _idxMap.size();
+	if (count == oldSize)
+		return;
+
+	if (count != oldSize)
+	{
+		size_t lo = 0;
+		_idxMap.resize(count);
+		if (oldSize < count)
+			lo = oldSize;
+		for (size_t i = lo; i < count; ++i)
+			_idxMap[i] = int(i);
+	}
 }
 
 void WindowsDlg::doSortToTabs()
@@ -1042,44 +1148,10 @@ LRESULT CALLBACK WindowsDlg::listViewProc(HWND hwnd, UINT Message, WPARAM wParam
 	return CallWindowProc(reinterpret_cast<WNDPROC>(originalListViewProc), hwnd, Message, wParam, lParam);
 }
 
-WindowsMenu::WindowsMenu()
-{}
 
-WindowsMenu::~WindowsMenu()
+void WindowsMenu::init(HMENU hMainMenu)
 {
-	if (_hMenu)
-		DestroyMenu(_hMenu);
-}
-
-void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation)
-{
-	_hMenu = ::LoadMenu(hInst, MAKEINTRESOURCE(IDR_WINDOWS_MENU));
-
-	if (translation && translation[0])
-	{
-		generic_string windowStr(translation);
-		windowStr += TEXT("...");
-		::ModifyMenu(_hMenu, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowStr.c_str());
-	}
-
-	int32_t pos = 0;
-	for (pos = GetMenuItemCount(hMainMenu) - 1; pos > 0; --pos)
-	{
-		if ((GetMenuState(hMainMenu, pos, MF_BYPOSITION) & MF_POPUP) != MF_POPUP)
-			continue;
-		break;
-	}
-
-	MENUITEMINFO mii;
-	memset(&mii, 0, sizeof(mii));
-	mii.cbSize = sizeof(mii);
-	mii.fMask = MIIM_STRING|MIIM_SUBMENU;
-
-	TCHAR buffer[32];
-	LoadString(hInst, IDR_WINDOWS_MENU, buffer, 32);
-	mii.dwTypeData = (TCHAR *)((translation && translation[0])?translation:buffer);
-	mii.hSubMenu = _hMenu;
-	InsertMenuItem(hMainMenu, pos, TRUE, &mii);
+	_hMenu = ::GetSubMenu(hMainMenu, MENUINDEX_WINDOW);
 }
 
 void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
@@ -1113,7 +1185,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 			mii.wID = id;
 
 			UINT state = GetMenuState(hMenu, id, MF_BYCOMMAND);
-			if (state == -1)
+			if (state == ((UINT)-1))
 				InsertMenuItem(hMenu, IDM_WINDOW_WINDOWS, FALSE, &mii);
 			else
 				SetMenuItemInfo(hMenu, id, FALSE, &mii);

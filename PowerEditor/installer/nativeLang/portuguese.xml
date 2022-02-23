@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.2.1">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -18,8 +18,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="F&amp;erramentas"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xecutar"/>
-                    <Item idName="Plugins" name="P&amp;lugins"/>
-                    <Item idName="Window" name="J&amp;anela"/>
+                    <Item menuId="Plugins" name="P&amp;lugins"/>
+                    <Item menuId="Window" name="J&amp;anela"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -996,6 +996,15 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6721" name="Parte central"/>
                     <Item id="6722" name="Parte direita"/>
                     <Item id="6723" name="Adicionar"/>
+                    <ComboBox id="6724">
+                        <Element name="Localização do nome completo do ficheiro"/>
+                        <Element name="Nome do ficheiro"/>
+                        <Element name="Diretório do ficheiro"/>
+                        <Element name="Página"/>
+                        <Element name="Data e Hora (curto)"/>
+                        <Element name="Data e Hora (longo)"/>
+                        <Element name="Hora"/>
+                    </ComboBox>
                     <Item id="6725" name="Variável:"/>
                     <Item id="6727" name="Aqui mostra as definições da sua variável"/>
                     <Item id="6728" name="Cabeçalho e Rodapé"/>
@@ -1243,6 +1252,9 @@ Deseja ir à página Notepad++ para descarregar a versão mais recente?"/> <!-- 
             <DocTooDirtyToMonitor title="Problema de monitorização" message="O documento está corrompido. Guarde a modificação antes de a monitorizar."/>
             <DocNoExistToMonitor title="Problema de monitorização" message="O ficheiro deve existir para ser monitorizado."/>
             <FileTooBigToOpen title="Problema do tamanho do ficheiro" message="O ficheiro é demasiado grande para ser aberto pelo Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Código de exceção: $STR_REPLACE$" message="Ocorreu um erro ao carregar o ficheiro!"/>
+            <WantToOpenHugeFile title="Aviso de abertura de ficheiro enorme" message="A abertura de um ficheiro enorme de 2GB+ pode demorar vários minutos.
+Deseja abri-lo?"/>
             <CreateNewFileOrNot title="Criar novo ficheiro" message="&quot;$STR_REPLACE$&quot; não existe. Criá-lo?"/>
             <CreateNewFileError title="Criar novo ficheiro" message="Não é possível criar o ficheiro &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERRO" message="Não pode abrir ficheiro &quot;$STR_REPLACE$&quot;."/>
@@ -1411,8 +1423,8 @@ Procurar em todos os ficheiros mas excluir testes de pastas, bin &amp;&amp; bin6
 *.* !\tests !\bin*
 
 Procurar em todos os ficheiros mas excluir todos os registos de pastas ou registos recursivamente:
-*.* !+\log*"/>
-            <find-in-files-select-folder value="Selecione uma pasta para pesquisar de"/>
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Selecione uma pasta para pesquisar de"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Localizar: Encontrada a 1ª ocorrência a partir do final. O início do documento foi alcançado."/>
             <find-status-end-reached value="Localizar: Encontrada a 1ª ocorrência a partir do início. O final do documento foi alcançado.."/>
             <find-status-replaceinfiles-1-replaced value="Substituir em Ficheiros: 1 ocorrência foi substituída"/>
@@ -1534,7 +1546,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-12/01/2022 (versão 8.0, 8.1, 8.2)
+10/02/2022 (versão 8.0, 8.1, 8.2, 8.3)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

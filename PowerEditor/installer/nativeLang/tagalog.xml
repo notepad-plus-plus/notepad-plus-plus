@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "Ka&amp;lagayan"/>
 					<Item menuId="macro" name = "Laki"/>
 					<Item menuId="run" name = "Takbo"/>
-					<Item idName = "Plugins" name = "Mga Plugin"/>
-					<Item idName = "Window" name = "Dungawan"/>
+					<Item menuId = "Plugins" name = "Mga Plugin"/>
+					<Item menuId = "Window" name = "Dungawan"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->

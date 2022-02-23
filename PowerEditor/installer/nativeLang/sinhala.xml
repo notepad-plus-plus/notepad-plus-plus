@@ -21,8 +21,8 @@
                    <Item menuId="settings" name="සිටවුම්"/>
                    <Item menuId="macro" name="නියෝග එකලස"/>
                    <Item menuId="run" name="ධාවනය"/>
-                   <Item idName="Plugins" name="පේනු මෘදුකාංග"/>
-                   <Item idName="Window" name="කවුළුව"/>
+                   <Item menuId="Plugins" name="පේනු මෘදුකාංග"/>
+                   <Item menuId="Window" name="කවුළුව"/>
 
                </Entries>
 

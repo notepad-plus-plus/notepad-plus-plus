@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "&amp;Configurazión"/>
 					<Item menuId="macro" name = "Macru"/>
 					<Item menuId="run" name = "Ehecutal"/>
-					<Item idName = "Plugins" name = "'Plugins'"/>
-					<Item idName = "Window" name = "Ventana"/>
+					<Item menuId = "Plugins" name = "'Plugins'"/>
+					<Item menuId = "Window" name = "Ventana"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->

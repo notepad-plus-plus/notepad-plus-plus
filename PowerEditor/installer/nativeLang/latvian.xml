@@ -16,8 +16,8 @@
 					<Item menuId="settings" name="Ies&amp;tatījumi"/>
 					<Item menuId="macro" name="&amp;Makrokomandas"/>
 					<Item menuId="run" name="&amp;Palaist"/>
-					<Item idName="Plugins" name="Spra&amp;udņi"/>
-					<Item idName="Window" name="&amp;Cilnes"/>
+					<Item menuId="Plugins" name="Spra&amp;udņi"/>
+					<Item menuId="Window" name="&amp;Cilnes"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>

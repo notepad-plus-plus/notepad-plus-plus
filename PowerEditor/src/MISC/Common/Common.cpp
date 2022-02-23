@@ -136,7 +136,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 		offset.QuadPart = 0;
 		::SetFilePointerEx(hFile, offset, NULL, FILE_END);
 
-		SYSTEMTIME currentTime = { 0 };
+		SYSTEMTIME currentTime = {};
 		::GetLocalTime(&currentTime);
 		generic_string dateTimeStrW = getDateTimeStrFrom(TEXT("yyyy-MM-dd HH:mm:ss"), currentTime);
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
@@ -1064,7 +1064,7 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText, 
 	NppDarkMode::setDarkTooltips(hwndTip, NppDarkMode::ToolTipsType::tooltip);
 
 	// Associate the tooltip with the tool.
-	TOOLINFO toolInfo = { 0 };
+	TOOLINFO toolInfo = {};
 	toolInfo.cbSize = sizeof(toolInfo);
 	toolInfo.hwnd = hDlg;
 	toolInfo.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
@@ -1105,7 +1105,7 @@ HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszTe
 	}
 
 	// Associate the tooltip with the tool.
-	TOOLINFO toolInfo = { 0 };
+	TOOLINFO toolInfo = {};
 	toolInfo.cbSize = sizeof(toolInfo);
 	toolInfo.hwnd = hWnd;
 	toolInfo.uFlags = TTF_SUBCLASS;
@@ -1307,7 +1307,7 @@ bool deleteFileOrFolder(const generic_string& f2delete)
 	actionFolder[len] = 0;
 	actionFolder[len + 1] = 0;
 
-	SHFILEOPSTRUCT fileOpStruct = { 0 };
+	SHFILEOPSTRUCT fileOpStruct = {};
 	fileOpStruct.hwnd = NULL;
 	fileOpStruct.pFrom = actionFolder;
 	fileOpStruct.pTo = NULL;
@@ -1504,7 +1504,7 @@ HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestPar
 {
 	HDC hdc = GetDC(hDestParent);
 
-	LOGFONT logFont = { 0 };
+	LOGFONT logFont = {};
 	logFont.lfHeight = -MulDiv(fontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
 	if (isBold)
 		logFont.lfWeight = FW_BOLD;

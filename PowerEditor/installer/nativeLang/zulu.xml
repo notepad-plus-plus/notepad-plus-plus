@@ -23,8 +23,8 @@
                     <Item menuId="tools" name="To&amp;amathuluzi"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="&amp;Run"/>
-                    <Item idName="Plugins" name="&amp;Ama-plugin"/>
-                    <Item idName="Window" name="&amp;Iwindi"/>
+                    <Item menuId="Plugins" name="&amp;Ama-plugin"/>
+                    <Item menuId="Window" name="&amp;Iwindi"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

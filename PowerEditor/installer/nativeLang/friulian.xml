@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "&amp;Impostazions"/>
 					<Item menuId="macro" name = "Macro"/>
 					<Item menuId="run" name = "Invie"/>
-					<Item idName = "Plugins" name = "Plugins"/>
-					<Item idName = "Window" name = "Barcon"/>
+					<Item menuId = "Plugins" name = "Plugins"/>
+					<Item menuId = "Window" name = "Barcon"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->

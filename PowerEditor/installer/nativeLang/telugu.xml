@@ -21,8 +21,8 @@
                     <Item menuId="settings" name="సెట్టింగ్స్ (&amp;T)"/>
                     <Item menuId="macro" name="మ్యాక్రో"/>
                     <Item menuId="run" name="రన్"/>
-                    <Item idName="Plugins" name="ప్లగిన్స్"/>
-                    <Item idName="Window" name="విండొ"/>
+                    <Item menuId="Plugins" name="ప్లగిన్స్"/>
+                    <Item menuId="Window" name="విండొ"/>
                 </Entries>
                     <!-- Sub Menu Entries -->
                     <SubEntries>

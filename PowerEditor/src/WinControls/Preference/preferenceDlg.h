@@ -166,12 +166,6 @@ private:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-struct strCouple {
-	generic_string _varDesc;
-	generic_string _var;
-	strCouple(const TCHAR *varDesc, const TCHAR *var): _varDesc(varDesc), _var(var){};
-};
-
 class PrintSubDlg : public StaticDialog
 {
 public :
@@ -179,7 +173,7 @@ public :
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	std::vector<strCouple> varList;
+	std::vector<generic_string> varList;
 	int _focusedEditCtrl = 0;
 };
 
@@ -223,9 +217,10 @@ public :
 	};
 
 private :
-	POINT _singleLineModePoint, _multiLineModePoint;
-	RECT _closerRect = { 0 };
-	RECT _closerLabelRect = { 0 };
+	POINT _singleLineModePoint = {};
+	POINT _multiLineModePoint = {};
+	RECT _closerRect = {};
+	RECT _closerLabelRect = {};
 	HWND _tip = nullptr;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

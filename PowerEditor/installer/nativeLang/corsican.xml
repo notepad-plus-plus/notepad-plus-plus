@@ -4,6 +4,8 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on February 21st, 2022 for version 8.3.2 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 8th, 2022 for version 8.3.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on January 11th, 2022 for version 8.2.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 4th, 2021 for version 8.1.9.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 13th, 2021 for version 8.1.5 by Patriccollu di Santa Maria è Sichè
@@ -30,7 +32,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.2.1">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.3.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -45,8 +47,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="A&amp;ttrezzi"/>
                     <Item menuId="macro" name="Macr&amp;o"/>
                     <Item menuId="run" name="Ese&amp;guisce"/>
-                    <Item idName="Plugins" name="&amp;Estensioni"/>
-                    <Item idName="Window" name="&amp;Finestra"/>
+                    <Item menuId="Plugins" name="&amp;Estensioni"/>
+                    <Item menuId="Window" name="&amp;Finestra"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -100,6 +102,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="settings-import"  name="Impurtà"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Ordinà da"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -389,6 +392,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42041" name="Viutà a lista di i schedarii recenti"/>
                     <Item id="48016" name="Ghjestione di l’accurtatoghji di tastera per e macro…"/>
                     <Item id="48017" name="Ghjestione di l’accurtatoghji di tastera per e cumande…"/>
+
+                    <Item id="11002" name="Nome da A à Z"/>
+                    <Item id="11003" name="Nome da Z à A"/>
+                    <Item id="11004" name="Chjassu d’accessu da A à Z"/>
+                    <Item id="11005" name="Chjassu d’accessu da Z à A"/>
+                    <Item id="11006" name="Typu da A à Z"/>
+                    <Item id="11007" name="Typu da Z à A"/>
+                    <Item id="11008" name="Dimensione da chjuca à maiò"/>
+                    <Item id="11009" name="Dimensione da maiò à chjuca"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -489,7 +501,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Ùn vocu inlocu"/>
                 <Item id="2004" name="Site quì :"/>
                 <Item id="2005" name="Vulete andà à :"/>
-                <Item id="2006" name="Ùn pudete andà più chì :"/>
+                <Item id="2006" name="Ùn pudete andà più chè :"/>
             </GoToLine>
 
             <Run title="Eseguisce…">
@@ -660,6 +672,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Passà à u cartulare cum’è spaziu di travagliu"/>
                     <Item id="44108" name="Passà à a lista di e funzioni"/>
                     <Item id="44109" name="Passà à a lista di i ducumenti"/>
+                    <Item id="11002" name="Ordinà da nome da A à Z"/>
+                    <Item id="11003" name="Ordinà da nome da Z à A"/>
+                    <Item id="11004" name="Ordinà da chjassu d’accessu da A à Z"/>
+                    <Item id="11005" name="Ordinà da chjassu d’accessu da Z à A"/>
+                    <Item id="11006" name="Ordinà da tipu da A à Z"/>
+                    <Item id="11007" name="Ordinà da tipu da Z à A"/>
+                    <Item id="11008" name="Ordinà da dimensione da chjuca à maiò"/>
+                    <Item id="11009" name="Ordinà da dimensione da maiò à chjuca"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Accurtatoghju">
@@ -969,12 +989,12 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Language title="Linguaghju">
                     <Item id="6505" name="Elementi dispunibule"/>
                     <Item id="6506" name="Elementi piattati"/>
-                    <Item id="6507" name="Cumpattà u listinu di linguaghju"/>
-                    <Item id="6508" name="Listinu di linguaghju"/>
-                    <Item id="6301" name="Definisce a tabulazione"/>
-                    <Item id="6302" name="Rimpiazzà cù spaziu"/>
+                    <Item id="6507" name="Cumpattà l’affissera di u listinu"/>
+                    <Item id="6508" name="Listinu di i linguaghji affissati"/>
+                    <Item id="6301" name="Definizione di a tabulazione"/>
+                    <Item id="6302" name="Rimpiazzà cù spazii"/>
                     <Item id="6303" name="Dimensione : "/>
-                    <Item id="6510" name="Impiegà u valore predefinitu"/>
+                    <Item id="6510" name="Impiegà valore predef."/>
                     <Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
                 </Language>
 
@@ -1020,6 +1040,15 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6721" name="Parte à u mezu"/>
                     <Item id="6722" name="Parte à manu diritta"/>
                     <Item id="6723" name="Aghjunghje"/>
+                    <ComboBox id="6724">
+                        <Element name="Chjassu sanu di u nome di schedariu"/>
+                        <Element name="Nome di schedariu"/>
+                        <Element name="Cartulare"/>
+                        <Element name="Pagina"/>
+                        <Element name="Furmatu cortu di a data"/>
+                        <Element name="Furmatu longu di a data"/>
+                        <Element name="Ora"/>
+                    </ComboBox>
                     <Item id="6725" name="Variabile :"/>
                     <Item id="6727" name="Quì s’affissanu e vostre variabile"/>
                     <Item id="6728" name="Intestatura è bassu di pagina"/>
@@ -1200,20 +1229,20 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
             </FindInFinder>
             <DoSaveOrNot title="Arregistrà">
                 <Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
-                <Item id="6" name="&amp;Iè"/>
-                <Item id="7" name="In&amp;nò"/>
+                <Item id="6" name="&amp;Sì"/>
+                <Item id="7" name="&amp;Nò"/>
                 <Item id="2" name="&amp;Abbandunà"/>
-                <Item id="4" name="Iè per &amp;tutti"/>
-                <Item id="5" name="Innò &amp;per tutti"/>
+                <Item id="4" name="Sì per &amp;tutti"/>
+                <Item id="5" name="Nò &amp;per tutti"/>
             </DoSaveOrNot>
             <DoSaveAll title="Cunfirmazione di l’arregistramentu di tutti i schedarii">
                 <Item id="1766" name="Site sicuru di vulè arregistrà tutti i ducumenti mudificati ?
 
-Sciglite « Sempre iè » s’è ùn vulete più risponde à sta dumanda.
+Sciglite « Sempre sì » s’è ùn vulete più risponde à sta dumanda.
 Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
-                <Item id="6" name="&amp;Iè"/>
-                <Item id="7" name="In&amp;nò"/>
-                <Item id="4" name="Sempre iè"/>
+                <Item id="6" name="&amp;Sì"/>
+                <Item id="7" name="&amp;Nò"/>
+                <Item id="4" name="Sempre sì"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1269,6 +1298,9 @@ Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?
             <DocTooDirtyToMonitor title="Penseru d’appustamentu" message="U ducumentu hè brutu. Ci vole à arregistrà a mudificazione nanzu à appustallu."/>
             <DocNoExistToMonitor title="Penseru d’appustamentu" message="U schedariu deve esiste per esse appustatu."/>
             <FileTooBigToOpen title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Codice di sbagliu : $STR_REPLACE$" message="Un sbagliu hè accadutu durante u caricamentu di u schedariu !"/>
+            <WantToOpenHugeFile title="Avertimentu d’apertura di schedariu maiò" message="L’apertura d’un schedariu più maiò chè 2 Go pò piglià parechji minuti.
+Vulete aprelu ?"/>
             <CreateNewFileOrNot title="Creà un novu schedariu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>
             <CreateNewFileError title="Creà un novu schedariu" message="Ùn pò micca creà u schedariu « $STR_REPLACE$ »."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="SBAGLIU" message="Ùn pò micca apre u schedariu « $STR_REPLACE$ »."/>
@@ -1306,7 +1338,7 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
 Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <OpenInAdminModeFailed title="Apertura fiascata in modu Amministratore" message="Notepad++ ùn pò micca esse apertu in modu Amministratore."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
             <ViewInBrowser title="Fighjà u schedariu attuale in u navigatore" message="L’appiecazione ùn si trova micca in u sistema."/>
-            <ExitToUpdatePlugins title="Notepad++ hè prontu à esce" message="S’è vo cliccate Iè, Notepad++ hà da piantà per cuntinuà l’operazioni.
+            <ExitToUpdatePlugins title="Notepad++ hè prontu à esce" message="S’è vo cliccate Sì, Notepad++ hà da piantà per cuntinuà l’operazioni.
 Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
 Cuntinuà ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->

@@ -14,8 +14,8 @@
 					<Item menuId="settings" name="ตั้งค่า (&amp;T)"/>
 					<Item menuId="macro" name="มาโคร"/>
 					<Item menuId="run" name="เรียก"/>
-					<Item idName="Plugins" name="ปลั๊กอิน"/>
-					<Item idName="Window" name="หน้าต่าง"/>
+					<Item menuId="Plugins" name="ปลั๊กอิน"/>
+					<Item menuId="Window" name="หน้าต่าง"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->

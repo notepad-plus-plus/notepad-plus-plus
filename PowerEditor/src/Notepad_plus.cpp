@@ -458,9 +458,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	{
 		::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
 		::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);
-		HMENU hHelpMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_PLUGINS + 1);
-		if (!hHelpMenu)
-			hHelpMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_PLUGINS);
+		HMENU hHelpMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_HELP);
 		if (hHelpMenu)
 			::DeleteMenu(hHelpMenu, 7, MF_BYPOSITION); // SEPARATOR
 		::DrawMenuBar(hwnd);
@@ -529,7 +527,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//Plugin menu
 	bool enablePluginAdmin = _pluginsAdminDlg.isValide();
 	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
-	_pluginsManager.setMenu(_mainMenuHandle, NULL, enablePluginAdmin);
+	_pluginsManager.initMenu(_mainMenuHandle, enablePluginAdmin);
 
 	//Search menu
 	//disable "Search Results Window" under Search Menu 
@@ -544,17 +542,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		_subEditView.execute(SCI_USEPOPUP, FALSE);
 	}
 
-	generic_string pluginsTrans, windowTrans;
-	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle, pluginsTrans, windowTrans);
+	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle);
 	::DrawMenuBar(hwnd);
 
 
-	if (pluginsTrans != TEXT(""))
-	{
-		::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, pluginsTrans.c_str());
-	}
 	//Windows menu
-	_windowsMenu.init(_pPublicInterface->getHinst(), _mainMenuHandle, windowTrans.c_str());
+	_windowsMenu.init(_mainMenuHandle);
 
 	// Update context menu strings (translated)
 	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
@@ -2264,7 +2257,7 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 		{ IDM_SEARCH_GONEXTMARKER_DEF, SCE_UNIVERSAL_FOUND_STYLE, { IDM_SEARCH_GOPREVMARKER_DEF, IDM_SEARCH_MARKEDTOCLIP } }
 	};
 
-	for (int j = 0; j < sizeof(bitmapOnStyleMenuItemsInfo) / sizeof(bitmapOnStyleMenuItemsInfo[0]); ++j)
+	for (size_t j = 0; j < sizeof(bitmapOnStyleMenuItemsInfo) / sizeof(bitmapOnStyleMenuItemsInfo[0]); ++j)
 	{
 		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
 		if (pStyle)
@@ -3601,7 +3594,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 			for (size_t j = line1; j <= line2; ++j)
 			{
 				size_t stpos = _pEditView->execute(SCI_GETLINESELSTARTPOSITION, j);
-				if (stpos != INVALID_POSITION)
+				if (static_cast<intptr_t>(stpos) != INVALID_POSITION)
 				{
 					size_t endpos = _pEditView->execute(SCI_GETLINESELENDPOSITION, j);
 					for (size_t pos = stpos; pos < endpos; ++pos)
@@ -5778,7 +5771,7 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix)
 	//start dumping unsaved files to recovery directory
 	bool somethingsaved = false;
 	bool somedirty = false;
-	TCHAR savePath[MAX_PATH] = {0};
+	TCHAR savePath[MAX_PATH] = { '\0' };
 
 	//rescue primary
 	for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
@@ -5803,30 +5796,30 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix)
 void Notepad_plus::drawTabbarColoursFromStylerArray()
 {
 	Style *stActText = getStyleFromName(TABBAR_ACTIVETEXT);
-	if (stActText && stActText->_fgColor != -1)
+	if (stActText && static_cast<long>(stActText->_fgColor) != -1)
 		TabBarPlus::setColour(stActText->_fgColor, TabBarPlus::activeText);
 
 	Style *stActfocusTop = getStyleFromName(TABBAR_ACTIVEFOCUSEDINDCATOR);
-	if (stActfocusTop && stActfocusTop->_fgColor != -1)
+	if (stActfocusTop && static_cast<long>(stActfocusTop->_fgColor) != -1)
 		TabBarPlus::setColour(stActfocusTop->_fgColor, TabBarPlus::activeFocusedTop);
 
 	Style *stActunfocusTop = getStyleFromName(TABBAR_ACTIVEUNFOCUSEDINDCATOR);
-	if (stActunfocusTop && stActunfocusTop->_fgColor != -1)
+	if (stActunfocusTop && static_cast<long>(stActunfocusTop->_fgColor) != -1)
 		TabBarPlus::setColour(stActunfocusTop->_fgColor, TabBarPlus::activeUnfocusedTop);
 
 	Style *stInact = getStyleFromName(TABBAR_INACTIVETEXT);
-	if (stInact && stInact->_fgColor != -1)
+	if (stInact && static_cast<long>(stInact->_fgColor) != -1)
 		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText);
-	if (stInact && stInact->_bgColor != -1)
+	if (stInact && static_cast<long>(stInact->_bgColor) != -1)
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
 }
 
 void Notepad_plus::drawDocumentMapColoursFromStylerArray()
 {
 	Style* docMap = getStyleFromName(VIEWZONE_DOCUMENTMAP);
-	if (docMap && docMap->_fgColor != -1)
+	if (docMap && static_cast<long>(docMap->_fgColor) != -1)
 		ViewZoneDlg::setColour(docMap->_fgColor, ViewZoneDlg::ViewZoneColorIndex::focus);
-	if (docMap && docMap->_bgColor != -1)
+	if (docMap && static_cast<long>(docMap->_bgColor) != -1)
 		ViewZoneDlg::setColour(docMap->_bgColor, ViewZoneDlg::ViewZoneColorIndex::frost);
 }
 
@@ -6104,6 +6097,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		return std::vector<generic_string>();
 
 	NppParameters& nppParams = NppParameters::getInstance();
+	const NppGUI& nppGUI = nppParams.getNppGUI();
 	FileNameStringSplitter fnss(commandLine);
 
 	// loading file as session file is allowed only when there is only one file
@@ -6115,7 +6109,8 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			const bool isSnapshotMode = false;
 			const bool shouldLoadFileBrowser = true;
 
-			nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
+			if ((nppGUI._multiInstSetting == multiInstOnSession) || (nppGUI._multiInstSetting == multiInst))
+				nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
 			loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 		}
 		return std::vector<generic_string>();
@@ -6123,8 +6118,8 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 
  	LangType lt = pCmdParams->_langType;
 	generic_string udl = pCmdParams->_udlName;
-	int lineNumber =  pCmdParams->_line2go;
-	int columnNumber = pCmdParams->_column2go;
+	intptr_t lineNumber =  pCmdParams->_line2go;
+	intptr_t columnNumber = pCmdParams->_column2go;
 	intptr_t positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
@@ -6437,23 +6432,9 @@ bool Notepad_plus::reloadLang()
 
     nppParam.reloadContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
 
-	generic_string pluginsTrans, windowTrans;
-	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle, pluginsTrans, windowTrans);
+	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle);
     ::DrawMenuBar(_pPublicInterface->getHSelf());
 
-	int indexWindow = ::GetMenuItemCount(_mainMenuHandle) - 3;
-
-	if (pluginsTrans != TEXT(""))
-	{
-		::ModifyMenu(_mainMenuHandle, indexWindow - 1, MF_BYPOSITION, 0, pluginsTrans.c_str());
-	}
-
-	if (windowTrans != TEXT(""))
-	{
-		::ModifyMenu(_mainMenuHandle, indexWindow, MF_BYPOSITION, 0, windowTrans.c_str());
-		windowTrans += TEXT("...");
-		::ModifyMenu(_mainMenuHandle, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowTrans.c_str());
-	}
 	// Update scintilla context menu strings
 	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
 	size_t len = tmp.size();
@@ -6578,7 +6559,7 @@ void Notepad_plus::launchClipboardHistoryPanel()
 
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
-		tTbData	data = {0};
+		tTbData	data = {};
 		_pClipboardHistoryPanel->create(&data, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pClipboardHistoryPanel->getHSelf()));
@@ -6631,7 +6612,7 @@ void Notepad_plus::launchDocumentListPanel()
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
-		tTbData	data = {0};
+		tTbData	data = {};
 		_pDocumentListPanel->create(&data, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocumentListPanel->getHSelf()));
@@ -6682,7 +6663,7 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
-		tTbData	data = {0};
+		tTbData	data = {};
 		_pAnsiCharPanel->create(&data, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pAnsiCharPanel->getHSelf()));
@@ -6806,7 +6787,7 @@ void Notepad_plus::checkProjectMenuItem()
 			{
 				UINT const ids [] = {IDM_VIEW_PROJECT_PANEL_1, IDM_VIEW_PROJECT_PANEL_2, IDM_VIEW_PROJECT_PANEL_3};
 				UINT id = GetMenuItemID (subMenu, j);
-				for (int k = 0; k < _countof(ids); k++)
+				for (size_t k = 0; k < _countof(ids); k++)
 				{
 					if (id == ids [k])
 					{
@@ -6905,7 +6886,7 @@ void Notepad_plus::launchDocMap()
 		_pDocMap = new DocumentMap();
 		_pDocMap->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 
-		tTbData	data = {0};
+		tTbData	data = {};
 		_pDocMap->create(&data);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocMap->getHSelf()));
@@ -6952,7 +6933,7 @@ void Notepad_plus::launchFunctionList()
 		_pFuncList = new FunctionListPanel();
 		_pFuncList->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 
-		tTbData	data = {0};
+		tTbData	data = {};
 		_pFuncList->create(&data);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFuncList->getHSelf()));
@@ -7230,6 +7211,8 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #178"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("When I die, I hope it's early in the morning so I don't have to go to work that day for no reason.\n") },
 	{TEXT("Anonymous #179"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Workers plaay football\nManagers play tennis\nCEOs play golf\n\nHigher the function, smaller the balls.\n") },
 	{TEXT("Anonymous #180"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Friends are just like trees.\nThey fall down when you hit them multiple times with an axe.\n") },
+	{TEXT("Anonymous #181"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("I met a magical Genie. He gave me one wish.\nI said: \"I wish I could be you.\"\nThe Genue saud: \"Weurd wush but U wull grant ut.\"\n") },
+	{TEXT("Anonymous #182"), QuoteParams::slow, false, SC_CP_UTF8, L_CPP, TEXT("printf(\"%s%s\", \"\\\\o/\\n| |\\n| |8=\", \"=D\\n/ \\\\\\n\");\n") },
 	{TEXT("xkcd"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never have I felt so close to another soul\nAnd yet so helplessly alone\nAs when I Google an error\nAnd there's one result\nA thread by someone with the same problem\nAnd no answer\nLast posted to in 2003\n\n\"Who were you, DenverCoder9?\"\n\"What did you see?!\"\n\n(ref: https://xkcd.com/979/)") },
 	{TEXT("A developer"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("No hugs & kisses.\nOnly bugs & fixes.") },
 	{TEXT("Elon Musk"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Don't set your password as your child's name.\nName your child after your password.") },

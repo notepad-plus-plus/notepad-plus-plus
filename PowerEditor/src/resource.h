@@ -19,12 +19,12 @@
 //
 // Notepad++ version: begin
 //
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.3")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.3.1")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("8.3\0")
-#define VERSION_DIGITALVALUE 8, 3, 0, 0
+#define VERSION_VALUE TEXT("8.31\0")
+#define VERSION_DIGITALVALUE 8, 3, 1, 0
 
 // Notepad++ version: end
 
@@ -691,3 +691,5 @@
 #define MENUINDEX_MACRO    8
 #define MENUINDEX_RUN      9
 #define MENUINDEX_PLUGINS  10
+#define MENUINDEX_WINDOW   11
+#define MENUINDEX_HELP     12

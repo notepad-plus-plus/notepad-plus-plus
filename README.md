@@ -44,7 +44,7 @@ Please follow [build guide](BUILD.md) to build Notepad++ from source.
 Contribution
 ------------
 
-Code contribution is welcome. Here are some [rules](CONTRIBUTING.md) that your should follow to make your contribution accepted easily. 
+Contributions are welcome. Be mindful of our [Contribution Rules](CONTRIBUTING.md) to increase the likelihood of your contribution getting accepted.
 
 [Notepad++ Contributors](https://github.com/notepad-plus-plus/notepad-plus-plus/graphs/contributors)
 

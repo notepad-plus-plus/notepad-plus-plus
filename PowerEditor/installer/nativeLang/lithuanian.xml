@@ -21,8 +21,8 @@
                     <Item menuId="tools" name="Į&amp;rankiai"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Palei&amp;dimas"/>
-                    <Item idName="Plugins" name="&amp;Papildiniai"/>
-                    <Item idName="Window" name="L&amp;angas"/>
+                    <Item menuId="Plugins" name="&amp;Papildiniai"/>
+                    <Item menuId="Window" name="L&amp;angas"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

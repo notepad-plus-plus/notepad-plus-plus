@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.2.1">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.3.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="ツール(&amp;O)"/>
                     <Item menuId="macro" name="マクロ(&amp;M)"/>
                     <Item menuId="run" name="実行(&amp;R)"/>
-                    <Item idName="Plugins" name="プラグイン(&amp;P)"/>
-                    <Item idName="Window" name="ウィンドウ管理(&amp;W)"/>
+                    <Item menuId="Plugins" name="プラグイン(&amp;P)"/>
+                    <Item menuId="Window" name="ウィンドウ管理(&amp;W)"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -70,6 +70,7 @@
                     <Item subMenuId="settings-import" name="インポート"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="並べ替え"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -365,6 +366,16 @@
                     <Item id="42041" name="最近使用したファイルのリストをクリア"/>
                     <Item id="48016" name="ショートカットの変更/マクロの削除..."/>
                     <Item id="48017" name="ショートカットの変更/コマンドの削除..."/>
+
+                    <Item id="11001" name="ウィンドウ(&amp;W)..."/>
+                    <Item id="11002" name="ファイル名・昇順"/>
+                    <Item id="11003" name="ファイル名・降順"/>
+                    <Item id="11004" name="パス・昇順"/>
+                    <Item id="11005" name="パス・降順"/>
+                    <Item id="11006" name="種類・昇順"/>
+                    <Item id="11007" name="種類・降順"/>
+                    <Item id="11008" name="サイズ・小さい順"/>
+                    <Item id="11009" name="サイズ・大きい順"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -638,6 +649,14 @@
                     <Item id="44107" name="ワークスペースフォルダーを表示"/>
                     <Item id="44109" name="文書一覧を表示"/>
                     <Item id="44108" name="関数リストを表示"/>
+                    <Item id="11002" name="ファイル名・昇順 で並べ替え"/>
+                    <Item id="11003" name="ファイル名・降順 で並べ替え"/>
+                    <Item id="11004" name="パス・昇順 で並べ替え"/>
+                    <Item id="11005" name="パス・降順 で並べ替え"/>
+                    <Item id="11006" name="種類・昇順 で並べ替え"/>
+                    <Item id="11007" name="種類・降順 で並べ替え"/>
+                    <Item id="11008" name="サイズ・小さい順 で並べ替え"/>
+                    <Item id="11009" name="サイズ・大きい順 で並べ替え"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="ショートカット">
@@ -1000,6 +1019,15 @@
                     <Item id="6721" name="中央"/>
                     <Item id="6722" name="右側"/>
                     <Item id="6723" name="追加"/>
+                    <ComboBox id="6724">
+                        <Element name="ファイル名のフルパス"/>
+                        <Element name="ファイル名"/>
+                        <Element name="ファイルのディレクトリ"/>
+                        <Element name="ページ"/>
+                        <Element name="日付・短い形式"/>
+                        <Element name="日付・長い形式"/>
+                        <Element name="時刻"/>
+                    </ComboBox>
                     <Item id="6725" name="特殊変数:"/>
                     <Item id="6727" name="表示場所:"/>
                     <Item id="6728" name="ヘッダーとフッター"/>
@@ -1248,6 +1276,9 @@ Notepad++ のダウンロードページを開きますか？"/>
             <DocTooDirtyToMonitor title="ファイル監視" message="この文書は変更されています。監視を始める前に保存をして下さい。"/>
             <DocNoExistToMonitor title="ファイル監視" message="監視対象のファイルが存在しません。"/>
             <FileTooBigToOpen title="ファイルサイズ" message="ファイルサイズが大きいため Notepad++ で開けません。"/>
+            <FileLoadingException title="例外コード：$STR_REPLACE$" message="ファイルの読み込み中にエラーが発生しました。"/>
+            <WantToOpenHugeFile title="大きなファイルを開こうとしています" message="2GBより大きなファイルを開くには何分かかかるかもしれません。
+ファイルを開きますか？"/>
             <CreateNewFileOrNot title="新しいファイルを作成" message="&quot;$STR_REPLACE$&quot; は存在しません。作成しますか？"/>
             <CreateNewFileError title="新しいファイルを作成" message="ファイルを作成できませんでした：&quot;$STR_REPLACE$&quot;"/>
             <OpenFileError title="エラー" message="ファイルを開けませんでした：&quot;$STR_REPLACE$&quot;"/>

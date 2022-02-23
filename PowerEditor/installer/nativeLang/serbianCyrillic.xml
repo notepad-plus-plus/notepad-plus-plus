@@ -20,8 +20,8 @@
                     <Item menuId="settings" name="П&amp;оставке"/>
                     <Item menuId="macro" name="Макро"/>
                     <Item menuId="run" name="Покрени"/>
-                    <Item idName ="Plugins" name="Додаци"/>
-                    <Item idName ="Window" name="Прозор"/>
+                    <Item menuId ="Plugins" name="Додаци"/>
+                    <Item menuId ="Window" name="Прозор"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->

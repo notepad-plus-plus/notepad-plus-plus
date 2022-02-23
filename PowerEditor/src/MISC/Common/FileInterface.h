@@ -59,5 +59,5 @@ private:
 	const DWORD _accessParam  { GENERIC_READ | GENERIC_WRITE };
 	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE };
 	const DWORD _dispParam    { CREATE_ALWAYS };
-	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL | FILE_FLAG_POSIX_SEMANTICS | FILE_FLAG_WRITE_THROUGH }; // FILE_FLAG_POSIX_SEMANTICS: distinguish between upper/lower case in name
+	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL | FILE_FLAG_WRITE_THROUGH };
 };

@@ -23,7 +23,7 @@ public:
 private:
 	LPCTSTR _szFile = nullptr;
 	DWORD _dwNotifyFilter = 0;
-	WIN32_FILE_ATTRIBUTE_DATA _lastFileInfo = { 0 };
+	WIN32_FILE_ATTRIBUTE_DATA _lastFileInfo = {};
 
 };
 

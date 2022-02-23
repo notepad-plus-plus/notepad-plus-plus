@@ -121,21 +121,21 @@ private:
 	DockingCont *_pCont = nullptr;
 
 	// mouse offset in moving rectangle
-	POINT _ptOffset = { 0 };
+	POINT _ptOffset = {};
 
 	// remembers old mouse point
-	POINT _ptOld = { 0 };
+	POINT _ptOld = {};
 	BOOL _bPtOldValid = FALSE;
 
 	// remember last drawn rectangle (jg)
-	RECT _rcPrev = { 0 };
+	RECT _rcPrev = {};
 
 	// for sorting tabs
 	HWND _hTab = nullptr;
 	HWND _hTabSource = nullptr;
 	BOOL _startMovingFromTab = FALSE;
 	int	_iItem = 0;
-	RECT _rcItem = { 0 };
+	RECT _rcItem = {};
 	TCITEM _tcItem;
 
 	HDC _hdc = nullptr;

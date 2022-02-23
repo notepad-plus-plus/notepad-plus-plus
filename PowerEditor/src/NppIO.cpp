@@ -124,7 +124,7 @@ void resolveLinkFile(generic_string& linkFilePath)
 {
 	IShellLink* psl;
 	WCHAR targetFilePath[MAX_PATH];
-	WIN32_FIND_DATA wfd = {0};
+	WIN32_FIND_DATA wfd = {};
 
 	HRESULT hres = CoInitialize(NULL);
 	if (SUCCEEDED(hres))

@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="تنظیمات"/>
                     <Item menuId="macro" name="ماکرو"/>
                     <Item menuId="run" name="اِجرا"/>
-                    <Item idName="Plugins" name="افزونه ها"/>
-                    <Item idName="Window" name="پنجره"/>
+                    <Item menuId="Plugins" name="افزونه ها"/>
+                    <Item menuId="Window" name="پنجره"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

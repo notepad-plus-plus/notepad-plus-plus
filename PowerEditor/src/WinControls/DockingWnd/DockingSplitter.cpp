@@ -152,7 +152,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 				break;
 			}
 
-			RECT rc = { 0 };
+			RECT rc = {};
 			getClientRect(rc);
 			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getBackgroundBrush());
 			return TRUE;

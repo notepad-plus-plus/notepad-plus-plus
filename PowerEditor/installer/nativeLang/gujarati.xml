@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;સેટિંગ"/>
                     <Item menuId="macro" name="મેક્રો"/>
                     <Item menuId="run" name="ચલાવો"/>
-                    <Item idName="Plugins" name="પ્લગઇન્સ"/>
-                    <Item idName="Window" name="વિન્ડો"/>
+                    <Item menuId="Plugins" name="પ્લગઇન્સ"/>
+                    <Item menuId="Window" name="વિન્ડો"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

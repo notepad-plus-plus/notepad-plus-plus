@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="&amp;Outils"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xécution"/>
-                    <Item idName="Plugins" name="Modules d'ex&amp;tension"/>
-                    <Item idName="Window" name="&amp;Documents"/>
+                    <Item menuId="Plugins" name="Modules d'ex&amp;tension"/>
+                    <Item menuId="Window" name="&amp;Documents"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -70,6 +70,7 @@
                     <Item subMenuId="settings-import"  name="Importer"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Trier par"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -349,6 +350,15 @@
                     <Item id="50002" name="Infobulle des paramètres de fonctions"/>
                     <Item id="50005" name="Démarrer/Arrêter l'enregistrement d'une macro"/>
                     <Item id="50006" name="Complétion de chemin d'accès du fichier"/>
+                    <Item id="11001" name="Documents..."/>
+                    <Item id="11002" name="Nom de A à Z"/>
+                    <Item id="11003" name="Nom de Z à A"/>
+                    <Item id="11004" name="Chemin d'accès du fichier de A à Z"/>
+                    <Item id="11005" name="Chemin d'accès du fichier de Z à A"/>
+                    <Item id="11006" name="Type de A à Z"/>
+                    <Item id="11007" name="Type de Z à A"/>
+                    <Item id="11008" name="Taille de petite à grande"/>
+                    <Item id="11009" name="Taille de grande à petite"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -615,6 +625,14 @@
                     <Item id="44106" name="Basculer vers Panneau de Projet 3"/>
                     <Item id="44107" name="Basculer vers Dossier en tant qu'Espace de travail"/>
                     <Item id="44108" name="Basculer vers Liste des fonctions"/>
+                    <Item id="11002" name="Trier par nom de A à Z"/>
+                    <Item id="11003" name="Trier par nom de Z à A"/>
+                    <Item id="11004" name="Trier par chemin d'accès du fichier de A à Z"/>
+                    <Item id="11005" name="Trier par chemin d'accès du fichier de Z à A"/>
+                    <Item id="11006" name="Trier par type de A à Z"/>
+                    <Item id="11007" name="Trier par type de Z à A"/>
+                    <Item id="11008" name="Trier par taille de petite à grande"/>
+                    <Item id="11009" name="Trier par taille de grande à petite"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Raccourcis clavier">
@@ -969,6 +987,15 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6721" name="centré"/>
                     <Item id="6722" name="à droite"/>
                     <Item id="6723" name="Ajouter"/>
+                    <ComboBox id="6724">
+                        <Element name="Chemin complet du fichier"/>
+                        <Element name="Nom du fichier"/>
+                        <Element name="Répertoire du fichier"/>
+                        <Element name="Page"/>
+                        <Element name="Date et heure (court)"/>
+                        <Element name="Date et heure (long)"/>
+                        <Element name="Heure"/>
+                    </ComboBox>
                     <Item id="6725" name="Variable :"/>
                     <Item id="6727" name="Les variables paramétrées sont affichées ici"/>
                     <Item id="6728" name="Entête et pied de page"/>
@@ -1205,6 +1232,9 @@ Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel
             <DocTooDirtyToMonitor title="Surveillance de Log" message="Le document a été modifié. Veuillez l'enregistrer d'abord."/>
             <DocNoExistToMonitor title="Surveillance de Log" message="Le fichier doit exister pour être surveillé."/>
             <FileTooBigToOpen title="Fichier trop volumineux" message="Ce fichier est trop volumineux pour être ouvert avec Notepad++."/>
+            <FileLoadingException title="Code d'Exception : $STR_REPLACE$" message="Une erreur s'est produite lors du chargement du fichier !"/>
+            <WantToOpenHugeFile title="Avertissement d'ouverture de fichier volumineux" message="L'ouverture d'un fichier de plus de 2 Go peut prendre plusieurs minutes.
+Voulez-vous continuer ?"/>
             <CreateNewFileOrNot title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe pas.
 Voulez-vous le créer maintenant ?"/>
             <CreateNewFileError title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'a pas pu être créé."/>

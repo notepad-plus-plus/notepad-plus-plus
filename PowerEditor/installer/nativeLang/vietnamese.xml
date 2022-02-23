@@ -18,8 +18,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="Côn&amp;g cụ"/>
                     <Item menuId="macro" name="&amp;Vĩ lệnh"/>
                     <Item menuId="run" name="Chạ&amp;y"/>
-                    <Item idName="Plugins" name="T&amp;rình cài cắm"/>
-                    <Item idName="Window" name="Cửa &amp;sổ"/>
+                    <Item menuId="Plugins" name="T&amp;rình cài cắm"/>
+                    <Item menuId="Window" name="Cửa &amp;sổ"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

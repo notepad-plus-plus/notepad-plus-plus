@@ -55,7 +55,17 @@ public :
 	WindowsDlg();
 	int doDialog();
 	virtual void init(HINSTANCE hInst, HWND parent, DocTabView *pTab);
-
+	void doSortToTabs();
+	void doSort();
+	void sort(int columnID, bool reverseSort);
+	void sortFileNameASC();
+	void sortFileNameDSC();
+	void sortFilePathASC();
+	void sortFilePathDSC();
+	void sortFileTypeASC();
+	void sortFileTypeDSC();
+	void sortFileSizeASC();
+	void sortFileSizeDSC();
 	void doRefresh(bool invalidate = false);
 
 protected :
@@ -70,11 +80,11 @@ protected :
 	void resetSelection();
 	void doSave();
 	void doClose();
-	void doSortToTabs();
 	void updateButtonState();
 	void activateCurrent();
 	void doColumnSort();
 	void doCount();
+	void refreshMap();
 	void putItemsToClipboard(bool isFullPath);
 	Buffer* getBuffer(int index) const;
 
@@ -83,9 +93,9 @@ protected :
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;
-	SIZE _szMinButton = { 0 };
-	SIZE _szMinListCtrl = { 0 };
-	DocTabView *_pTab = nullptr;
+	SIZE _szMinButton = {};
+	SIZE _szMinListCtrl = {};
+	DocTabView* _pTab = nullptr;
 	std::vector<int> _idxMap;
 	int _currentColumn = -1;
 	int _lastSort = -1;
@@ -99,9 +109,9 @@ private:
 class WindowsMenu
 {
 public:
-	WindowsMenu();
-	~WindowsMenu();
-	void init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation); 
+	WindowsMenu() {};
+	~WindowsMenu() {};
+	void init(HMENU hMainMenu); 
 	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 
 private:

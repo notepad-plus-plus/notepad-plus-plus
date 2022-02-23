@@ -1559,7 +1559,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               {
                    //it was found, get the text, modify text delete it from list, add modified to list
 				  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
-				  if (lbTextLen > bufferLen)
+				  if (static_cast<size_t>(lbTextLen) > bufferLen)
 					  return TRUE;
 
 					SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
@@ -1687,7 +1687,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                     if(j>0)
                         {
 						auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, j-1, 0);
-						if (lbTextLen > bufferLen)
+						if (static_cast<size_t>(lbTextLen) > bufferLen)
 							return TRUE;
 							SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, j - 1, reinterpret_cast<LPARAM>(buffer));
                          buffer[5]=0x00;
@@ -1790,7 +1790,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                   {
                    //it was found, get it
 				  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
-				  if (lbTextLen > bufferLen)
+				  if (static_cast<size_t>(lbTextLen) > bufferLen)
 					  return TRUE;
 					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
 				   switch (buffer[10]) // no need to call BGM_GETPROTECTION separately for this
@@ -1949,7 +1949,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                   {
                    //it was found, get it
 				  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
-				  if (lbTextLen > bufferLen)
+				  if (static_cast<size_t>(lbTextLen) > bufferLen)
 					  return TRUE;
 					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
 				   switch (buffer[11])
@@ -1981,7 +1981,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                   {
                    //it was found, get it
 				  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
-				  if (lbTextLen > bufferLen)
+				  if (static_cast<size_t>(lbTextLen) > bufferLen)
 					  return TRUE;
 					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
 				   switch (buffer[10])
@@ -3197,7 +3197,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
 
      //is it the head?
 	 auto lbTextLen = ::SendMessage(lbhWnd, LB_GETTEXTLEN, head, 0);
-	 if (lbTextLen > bufLen)
+	 if (static_cast<size_t>(lbTextLen) > bufLen)
 		 return 0;
 
      SendMessage(lbhWnd, LB_GETTEXT, head, reinterpret_cast<LPARAM>(headtext));
@@ -3221,7 +3221,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
 
      //is it the tail?
 	 lbTextLen = ::SendMessage(lbhWnd, LB_GETTEXTLEN, tail, 0);
-	 if (lbTextLen > bufLen)
+	 if (static_cast<size_t>(lbTextLen) > bufLen)
 		 return 0;
 	 SendMessage(lbhWnd, LB_GETTEXT, tail, reinterpret_cast<LPARAM>(tailtext));
      tailtext[9] = 0x00;
@@ -3248,7 +3248,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
          {
                   finger = head + ((tail - head) / 2);
 				  lbTextLen = ::SendMessage(lbhWnd, LB_GETTEXTLEN, finger, 0);
-				  if (lbTextLen > bufLen)
+				  if (static_cast<size_t>(lbTextLen) > bufLen)
 					  return 0;
 				  SendMessage(lbhWnd, LB_GETTEXT, finger, reinterpret_cast<LPARAM>(tbuffer));
                  tbuffer[9] = 0x00;

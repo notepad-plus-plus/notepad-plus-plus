@@ -1,3 +1,17 @@
+Notepad++ v8.3.1 regression-fixes, bug-fixes and enhancement:
+
+1.  Fix XML tag adding or mark deletion crash issue.
+2.  Fix wrong cursor position on opened file & cmdline '-n' param not working regression.
+3.  Revert "Enable backup on save (simple) feature by default".
+4.  Restore auto-completion insert selection default behaviour (now with both ENTER & TAB as expected).
+5.  Fix Path Completion not working regression.
+6.  Fix target directory parameter (/D=) ignored by x64 installer regression.
+7.  Add icons in front of function items of auto-completion to distinguish from word items.
+8.  Fix file dialog "Append extension" checkbox not working on empty folder.
+9.  Fix link part of Dark Mode Customized tone not persistent issue.
+10. Fix NPPM_RELOADFILE not working with converted 8.3 DOS file name bug.
+
+
 Notepad++ v8.3 new features and bug-fixes:
 
 1.  Remove 2GB file open restriction for x64 binary.
@@ -11,7 +25,7 @@ https://notepad-plus-plus.org/downloads/v8.3/
 
 Included plugins:
 
-1.  NppExport v0.3
+1.  NppExport v0.4
 2.  Converter v4.4
 3.  Mime Tool v2.7
 

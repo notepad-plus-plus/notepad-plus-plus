@@ -150,7 +150,7 @@ void ToolBarIcons::reInit(int size)
 			}
 			else
 			{
-				BITMAPINFOHEADER bi = { 0 };
+				BITMAPINFOHEADER bi = {};
 
 				bi.biSize = sizeof(BITMAPINFOHEADER);
 				bi.biWidth = bmp.bmWidth;
@@ -197,7 +197,7 @@ void ToolBarIcons::reInit(int size)
 
 				::ReleaseDC(NULL, dcScreen);
 
-				ICONINFO iconinfoDest = { 0 };
+				ICONINFO iconinfoDest = {};
 				iconinfoDest.fIcon = TRUE;
 				iconinfoDest.hbmColor = hBmpNew;
 				iconinfoDest.hbmMask = iconinfoSrc.hbmMask;

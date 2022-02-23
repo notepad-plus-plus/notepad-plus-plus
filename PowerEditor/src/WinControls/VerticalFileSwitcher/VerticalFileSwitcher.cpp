@@ -205,7 +205,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					LPNMHEADER test = (LPNMHEADER)lParam;
 					HWND hwndHD = ListView_GetHeader(_fileListView.getHSelf());
 					TCHAR HDtext[MAX_PATH];
-					HDITEM hdi = { 0 };
+					HDITEM hdi = {};
 					hdi.mask = HDI_TEXT | HDI_WIDTH;
 					hdi.pszText = HDtext;
 					hdi.cchTextMax = MAX_PATH;
@@ -302,9 +302,9 @@ void VerticalFileSwitcher::initPopupMenus()
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNPATH_ID, pathStr.c_str());
 
 	bool isExtColumn = nppGUI._fileSwitcherWithoutExtColumn;
-	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | isExtColumn ? MF_UNCHECKED : MF_CHECKED);
+	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | (isExtColumn ? MF_UNCHECKED : MF_CHECKED));
 	bool isPathColumn = nppGUI._fileSwitcherWithoutPathColumn;
-	::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | isPathColumn ? MF_UNCHECKED : MF_CHECKED);
+	::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | (isPathColumn ? MF_UNCHECKED : MF_CHECKED));
 }
 
 void VerticalFileSwitcher::popupMenuCmd(int cmdID)
@@ -323,7 +323,7 @@ void VerticalFileSwitcher::popupMenuCmd(int cmdID)
 		{
 			bool& isPathColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutPathColumn;
 			isPathColumn = !isPathColumn;
-			::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | isPathColumn ? MF_UNCHECKED : MF_CHECKED);
+			::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | (isPathColumn ? MF_UNCHECKED : MF_CHECKED));
 			reload();
 		}
 		break;
@@ -396,12 +396,12 @@ void VerticalFileSwitcher::updateHeaderArrow()
 	
 	if (_lastSortingDirection == SORT_DIRECTION_UP)
 	{
-		lvc.fmt = lvc.fmt | HDF_SORTUP & ~HDF_SORTDOWN;
+		lvc.fmt = (lvc.fmt | HDF_SORTUP) & ~HDF_SORTDOWN;
 		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
 	}
 	else if (_lastSortingDirection == SORT_DIRECTION_DOWN)
 	{
-		lvc.fmt = lvc.fmt & ~HDF_SORTUP | HDF_SORTDOWN;
+		lvc.fmt = (lvc.fmt & ~HDF_SORTUP) | HDF_SORTDOWN;
 		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
 	}
 	else if (_lastSortingDirection == SORT_DIRECTION_NONE)

@@ -28,8 +28,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="&amp;Narzędzia"/>
                     <Item menuId="macro" name="&amp;Makra"/>
                     <Item menuId="run" name="U&amp;ruchom"/>
-                    <Item idName="Plugins" name="W&amp;tyczki"/>
-                    <Item idName="Window" name="&amp;Okno"/>
+                    <Item menuId="Plugins" name="W&amp;tyczki"/>
+                    <Item menuId="Window" name="&amp;Okno"/>
                 </Entries>
                 <!-- Menu rozwijane, główne -->
                 <SubEntries>

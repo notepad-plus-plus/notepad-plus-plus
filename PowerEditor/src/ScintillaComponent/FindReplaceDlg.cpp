@@ -499,7 +499,7 @@ bool Finder::notify(SCNotification *notification)
 			::SendMessage(_scintView.getHSelf(), WM_LBUTTONUP, 0, 0);
 
 			size_t pos = notification->position;
-			if (pos == INVALID_POSITION)
+			if (static_cast<intptr_t>(pos) == INVALID_POSITION)
 				pos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
 			_scintView.execute(SCI_SETSEL, pos, pos);
 
@@ -751,7 +751,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = { 0 };
+				RECT rc = {};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -932,7 +932,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = { 0 };
+				RECT rc = {};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -2614,7 +2614,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 		_pFinder->setVolatiled(false);
 
-		tTbData	data = {0};
+		tTbData	data = {};
 		_pFinder->create(&data);
 		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 		// define the default docking behaviour
@@ -2746,7 +2746,7 @@ Finder * FindReplaceDlg::createFinder()
 	Finder *pFinder = new Finder();
 	pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 
-	tTbData	data = { 0 };
+	tTbData	data = {};
 	bool isRTL = _pFinder->_scintView.isTextDirectionRTL();
 	pFinder->create(&data, isRTL);
 	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<WPARAM>(pFinder->getHSelf()));
@@ -3494,7 +3494,7 @@ void FindReplaceDlg::enableProjectCheckmarks()
 		for (int i = 0; i < 3; i++)
 		{
 			UINT s = GetMenuState (hMenu, idm [i], MF_BYCOMMAND);
-			if (s != -1)
+			if (s != ((UINT)-1))
 			{
 				if (s & MF_CHECKED)
 				{
@@ -4698,7 +4698,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rcClient = { 0 };
+				RECT rcClient = {};
 				GetClientRect(_hSelf, &rcClient);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rcClient, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -4848,7 +4848,7 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 	{
 		_hInst = hInst;
 
-		WNDCLASSEX wcex = {0};
+		WNDCLASSEX wcex = {};
 		wcex.cbSize = sizeof(wcex);
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
 		wcex.lpfnWndProc = wndProc;
@@ -4859,7 +4859,7 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 
 		::RegisterClassEx(&wcex);
 
-		INITCOMMONCONTROLSEX icex = {0};
+		INITCOMMONCONTROLSEX icex = {};
 		icex.dwSize = sizeof(icex);
 		icex.dwICC = ICC_STANDARD_CLASSES | ICC_PROGRESS_CLASS;
 
@@ -5078,7 +5078,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = { 0 };
+				RECT rc = {};
 				GetClientRect(hwnd, &rc);
 				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;

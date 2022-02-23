@@ -408,7 +408,7 @@ public:
 		execute(SCI_SETXOFFSET,xOffset);
 	};
 
-	void scroll(size_t column, size_t line){
+	void scroll(intptr_t column, intptr_t line){
 		execute(SCI_LINESCROLL, column, line);
 	};
 

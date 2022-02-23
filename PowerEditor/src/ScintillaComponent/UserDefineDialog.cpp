@@ -37,7 +37,7 @@ GlobalMappers & globalMappper()
     return gm;
 }
 
-void convertTo(TCHAR *dest, int destLen, const TCHAR *toConvert, TCHAR *prefix)
+void convertTo(TCHAR *dest, int destLen, const TCHAR *toConvert, const TCHAR *prefix)
 {
 	bool inGroup = false;
 	int index = lstrlen(dest);
@@ -526,7 +526,6 @@ void CommentStyleDialog::setKeywords2List(int id)
         newList[0] = '\0';
         TCHAR* buffer = new TCHAR[max_char];
         buffer[0] = '\0';
-        TCHAR intBuffer[10] = {'0', 0};
 
         const int list[] = {
             IDC_COMMENTLINE_OPEN_EDIT,
@@ -536,11 +535,11 @@ void CommentStyleDialog::setKeywords2List(int id)
             IDC_COMMENT_CLOSE_EDIT
         };
 
-        for (auto i = 0; i < sizeof(list)/sizeof(int); ++i)
+        for (size_t i = 0; i < sizeof(list)/sizeof(int); ++i)
         {
-            generic_itoa(i, intBuffer+1, 10);
+            wstring intStr = std::to_wstring(i);
             ::GetDlgItemText(_hSelf, list[i], buffer, max_char);
-			convertTo(newList, max_char, buffer, intBuffer);
+			convertTo(newList, max_char, buffer, intStr.c_str());
         }
 
 		wcscpy_s(_pUserLang->_keywordLists[index], newList);
@@ -549,7 +548,7 @@ void CommentStyleDialog::setKeywords2List(int id)
     }
 }
 
-void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const
+void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, const TCHAR *prefix) const
 {
     int j = 0;
     bool begin2Copy = false;
@@ -589,7 +588,6 @@ void CommentStyleDialog::updateDlg()
 {
     TCHAR* buffer = new TCHAR[max_char];
     buffer[0] = '\0';
-    TCHAR intBuffer[10] = {'0', 0};
 
     const int list[] = {
         IDC_COMMENTLINE_OPEN_EDIT,
@@ -599,10 +597,10 @@ void CommentStyleDialog::updateDlg()
         IDC_COMMENT_CLOSE_EDIT
     };
 
-    for (int i=0; i<sizeof(list)/sizeof(int); ++i)
+    for (size_t i=0; i<sizeof(list)/sizeof(int); ++i)
     {
-        generic_itoa(i, intBuffer+1, 10);
-        retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS], intBuffer);
+        wstring intStr = std::to_wstring(i);
+        retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS], intStr.c_str());
 		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
     }
 
@@ -659,7 +657,7 @@ void SymbolsStyleDialog::updateDlg()
     };
     TCHAR intBuffer[10] = {'0', 0};
 
-    for (int i = 0; i < sizeof(list)/sizeof(int); ++i)
+    for (int i = 0; static_cast<size_t>(i) < sizeof(list)/sizeof(int); ++i)
     {
         if (i < 10)
             generic_itoa(i, intBuffer + 1, 10);
@@ -853,7 +851,7 @@ void SymbolsStyleDialog::setKeywords2List(int id)
                 IDC_DELIMITER8_BOUNDARYCLOSE_EDIT
             };
 
-            for (int i = 0; i < sizeof(list)/sizeof(int); ++i)
+            for (int i = 0; static_cast<size_t>(i) < sizeof(list)/sizeof(int); ++i)
             {
                 if (i < 10)
                     generic_itoa(i, intBuffer+1, 10);
@@ -1223,7 +1221,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 							const size_t langNameLen = 256;
 							TCHAR langName[langNameLen + 1];
 							auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
-							if (cbTextLen > langNameLen)
+							if (static_cast<size_t>(cbTextLen) > langNameLen)
 								return TRUE;
 
 							::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
@@ -1252,7 +1250,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 						const size_t langNameLen = 256;
 						TCHAR langName[langNameLen + 1];
 						auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
-						if (cbTextLen > langNameLen)
+						if (static_cast<size_t>(cbTextLen) > langNameLen)
 							return TRUE;
 
 						::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(langName));
@@ -1277,6 +1275,9 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                                 ::PostMessage(_hSelf, WM_COMMAND, IDC_RENAME_BUTTON, 0);
                                 return TRUE;
                             }
+                            if (nppParam.getNbUserLang() >= NB_MAX_USER_LANG)
+                                return TRUE;
+
                             //rename current language name in combobox
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_DELETESTRING, i, 0);
 							::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_INSERTSTRING, i, reinterpret_cast<LPARAM>(newName));
@@ -1331,6 +1332,9 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                                 ::PostMessage(_hSelf, WM_COMMAND, IDC_RENAME_BUTTON, 0);
                                 return TRUE;
                             }
+                            if (nppParam.getNbUserLang() >= NB_MAX_USER_LANG)
+                                return TRUE;
+
                             //add current language in userLangArray at the end as a new lang
                             UserLangContainer & userLang = (wParam == IDC_SAVEAS_BUTTON)?nppParam.getULCFromIndex(i-1):*_pCurrentUserLang;
                             int newIndex = nppParam.addUserLangToEnd(userLang, newName);
@@ -1592,7 +1596,7 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = { 0 };
+				RECT rc = {};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -1755,7 +1759,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 
             // for the font size combo
             HWND hFontSizeCombo = ::GetDlgItem(hwnd, IDC_STYLER_COMBO_FONT_SIZE);
-            for (int j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; ++j)
+            for (size_t j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; ++j)
 				::SendMessage(hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[j]));
 
             TCHAR size[10];
@@ -1879,7 +1883,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 						const size_t intStrLen = 3;
 						TCHAR intStr[intStrLen];
 						auto lbTextLen = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXTLEN, i, 0);
-						if (lbTextLen > intStrLen - 1)
+						if (static_cast<size_t>(lbTextLen) > intStrLen - 1)
 							return TRUE;
 
 						::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(intStr));

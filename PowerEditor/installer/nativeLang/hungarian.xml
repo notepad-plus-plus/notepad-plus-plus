@@ -21,8 +21,8 @@
                  <Item menuId="tools" name="Es&amp;zközök"/>
                  <Item menuId="macro" name="&amp;Makró"/>
                  <Item menuId="run" name="F&amp;uttatás"/>
-                 <Item idName="Plugins" name="Bő&amp;vítmények"/>
-                 <Item idName="Window" name="&amp;Ablakok"/>
+                 <Item menuId="Plugins" name="Bő&amp;vítmények"/>
+                 <Item menuId="Window" name="&amp;Ablakok"/>
               </Entries>
               <!-- Sub Menu Entries -->
                 <SubEntries>

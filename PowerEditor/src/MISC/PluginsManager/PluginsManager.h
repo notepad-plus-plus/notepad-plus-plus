@@ -78,9 +78,6 @@ public:
 	{
 		for (size_t i = 0, len = _pluginInfos.size(); i < len; ++i)
 			delete _pluginInfos[i];
-
-		if (_hPluginsMenu)
-			DestroyMenu(_hPluginsMenu);
 	}
 
 	void init(const NppData & nppData)
@@ -97,7 +94,7 @@ public:
 	void runPluginCommand(const TCHAR *pluginName, int commandID);
 
     void addInMenuFromPMIndex(int i);
-	HMENU setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePluginAdmin = false);
+	HMENU initMenu(HMENU hMenu, bool enablePluginAdmin = false);
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
 	bool removeShortcutByCmdID(int cmdID);
 

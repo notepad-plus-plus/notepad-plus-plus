@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="Uir&amp;lisí"/>
                     <Item menuId="macro" name="&amp;Macra"/>
                     <Item menuId="run" name="&amp;Rith"/>
-                    <Item idName="Plugins" name="&amp;Breiseáin"/>
-                    <Item idName="Window" name="&amp;Fuinneog"/>
+                    <Item menuId="Plugins" name="&amp;Breiseáin"/>
+                    <Item menuId="Window" name="&amp;Fuinneog"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

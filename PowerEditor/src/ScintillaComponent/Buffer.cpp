@@ -774,7 +774,6 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
-	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
 
 	//Get file size
 	FILE* fp = generic_fopen(buf->getFullPathName(), TEXT("rb"));
@@ -784,10 +783,11 @@ bool FileManager::reloadBuffer(BufferID id)
 	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);
 
+	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
 	bool res = loadFileData(doc, fileSize, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
+	buf->_canNotify = true;
 
 	delete[] data;
-	buf->_canNotify = true;
 
 	if (res)
 	{
@@ -846,7 +846,7 @@ bool FileManager::deleteFile(BufferID id)
 	if (!PathFileExists(fileNamePath.c_str()))
 		return false;
 
-	SHFILEOPSTRUCT fileOpStruct = {0};
+	SHFILEOPSTRUCT fileOpStruct = {};
 	fileOpStruct.hwnd = NULL;
 	fileOpStruct.pFrom = fileNamePath.c_str();
 	fileOpStruct.pTo = NULL;
@@ -1462,7 +1462,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 	bool success = true;
 	EolType format = EolType::unknown;
 	int sciStatus = SC_STATUS_OK;
-	TCHAR szException[64] = { 0 };
+	TCHAR szException[64] = { '\0' };
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
@@ -1621,20 +1621,13 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
-	TCHAR fullpath[MAX_PATH];
-	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
-	if (_tcschr(fullpath, '~'))
+	for (auto buf : _buffers)
 	{
-		::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	}
-
-	for (size_t i = 0; i < _buffers.size(); i++)
-	{
-		if (OrdinalIgnoreCaseCompareStrings(fullpath, _buffers.at(i)->getFullPathName()) == 0)
+		if (OrdinalIgnoreCaseCompareStrings(name, buf->getFullPathName()) == 0)
 		{
-			if (_buffers.at(i)->_referees[0]->isVisible())
+			if (buf->_referees[0]->isVisible())
 			{
-				return _buffers.at(i)->getID();
+				return buf->getID();
 			}
 		}
 	}

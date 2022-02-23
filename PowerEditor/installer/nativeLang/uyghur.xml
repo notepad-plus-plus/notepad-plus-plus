@@ -18,8 +18,8 @@
                     <Item menuId="settings" name="تەڭشەك"/>
                     <Item menuId="macro" name="ماكرو"/>
                     <Item menuId="run" name="ئىجرا"/>
-                    <Item idName="Plugins" name="قېتىلما"/>
-                    <Item idName="Window" name="كۆزنەك"/>
+                    <Item menuId="Plugins" name="قېتىلما"/>
+                    <Item menuId="Window" name="كۆزنەك"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->

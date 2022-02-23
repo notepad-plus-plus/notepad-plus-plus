@@ -19,8 +19,8 @@ By Hiro5 <groccat at gmail>
 					<Item menuId="tools" name="E&amp;ines"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="E&amp;xecuta"/>
-					<Item idName="Plugins" name="C&amp;omplements"/>
-					<Item idName="Window" name="Fine&amp;stres"/>
+					<Item menuId="Plugins" name="C&amp;omplements"/>
+					<Item menuId="Window" name="Fine&amp;stres"/>
 				</Entries>
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Obre la carpeta contenidora"/>

@@ -17,8 +17,8 @@
 					<Item menuId="settings" name = "&amp;Тескөө"/>
 					<Item menuId="macro" name = "&amp;Макростор"/>
 					<Item menuId="run" name = "&amp;Иштет"/>
-					<Item idName = "Plugins" name = "Ко&amp;шумчалар"/>
-					<Item idName = "Window" name = "Т&amp;ерезелер"/>
+					<Item menuId = "Plugins" name = "Ко&amp;шумчалар"/>
+					<Item menuId = "Window" name = "Т&amp;ерезелер"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->

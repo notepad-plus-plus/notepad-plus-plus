@@ -418,7 +418,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				if (selectSize == 0)
 					return 0;
 
-				if (selectSize + 1 > sizeof(smallTextBuffer))
+				if (static_cast<size_t>(selectSize + 1) > sizeof(smallTextBuffer))
 					selectedStr = new char[selectSize + 1];
 				getText(selectedStr, range.cpMin, range.cpMax);
 
@@ -1839,8 +1839,8 @@ void ScintillaEditView::restoreCurrentPosPostStep()
 		return;
 	}
 	
-	size_t displayedLine = execute(SCI_GETFIRSTVISIBLELINE);
-	size_t docLine = execute(SCI_DOCLINEFROMVISIBLE, displayedLine);		//linenumber of the line displayed in the 
+	intptr_t displayedLine = execute(SCI_GETFIRSTVISIBLELINE);
+	intptr_t docLine = execute(SCI_DOCLINEFROMVISIBLE, displayedLine);		//linenumber of the line displayed in the 
 	
 
 	// check docLine must equals saved position
@@ -1855,7 +1855,7 @@ void ScintillaEditView::restoreCurrentPosPostStep()
 	{
 		// don't scroll anything if the wrap count is different than the saved one.
 		// Buffer update may be in progress (in case wrap is enabled)
-		size_t wrapCount = execute(SCI_WRAPCOUNT, docLine);
+		intptr_t wrapCount = execute(SCI_WRAPCOUNT, docLine);
 		if (wrapCount == pos._wrapCount)
 		{
 			scroll(0, pos._offset);
@@ -1940,14 +1940,14 @@ void ScintillaEditView::getCurrentFoldStates(std::vector<size_t> & lineStateVect
 
 	do {
 		contractedFoldHeaderLine = execute(SCI_CONTRACTEDFOLDNEXT, contractedFoldHeaderLine);
-		if (contractedFoldHeaderLine != -1)
+		if (static_cast<intptr_t>(contractedFoldHeaderLine) != -1)
 		{
 			//-- Store contracted line
 			lineStateVector.push_back(contractedFoldHeaderLine);
 			//-- Start next search with next line
 			++contractedFoldHeaderLine;
 		}
-	} while (contractedFoldHeaderLine != -1);
+	} while (static_cast<intptr_t>(contractedFoldHeaderLine) != -1);
 }
 
 void ScintillaEditView::syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew)

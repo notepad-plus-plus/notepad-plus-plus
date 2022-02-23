@@ -110,7 +110,7 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 				int horizontal;
 				int vertical;
 				int between;
-			} borders = { 0 };
+			} borders = {};
 
 			SendMessage(hWnd, SB_GETBORDERS, 0, (LPARAM)&borders);
 
@@ -133,9 +133,9 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			std::wstring str;
 			for (int i = 0; i < nParts; ++i)
 			{
-				RECT rcPart = { 0 };
+				RECT rcPart = {};
 				SendMessage(hWnd, SB_GETRECT, i, (LPARAM)&rcPart);
-				RECT rcIntersect = { 0 };
+				RECT rcIntersect = {};
 				if (!IntersectRect(&rcIntersect, &rcPart, &ps.rcPaint))
 				{
 					continue;
@@ -200,7 +200,7 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			if (isSizeGrip)
 			{
 				pStatusBarInfo->ensureTheme(hWnd);
-				SIZE gripSize = { 0 };
+				SIZE gripSize = {};
 				GetThemePartSize(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rcClient, TS_DRAW, &gripSize);
 				RECT rc = rcClient;
 				rc.left = rc.right - gripSize.cx;

@@ -19,8 +19,8 @@ gan/by Aled Powell
                     <Item menuId="settings" name="Gosodiadau (&amp;T)"/>
                     <Item menuId="macro" name="Macro"/>
                     <Item menuId="run" name="Rhedeg"/>
-                    <Item idName="Plugins" name="Ategolion"/>
-                    <Item idName="Window" name="Ffenestr"/>
+                    <Item menuId="Plugins" name="Ategolion"/>
+                    <Item menuId="Window" name="Ffenestr"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

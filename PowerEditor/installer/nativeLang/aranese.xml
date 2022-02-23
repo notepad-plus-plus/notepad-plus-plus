@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "Con&amp;figuracions"/>
 					<Item menuId="macro" name = "&amp;Macro"/>
 					<Item menuId="run" name = "La&amp;nçar"/>
-					<Item idName = "Plugins" name = "&amp;Pedaçi"/>
-					<Item idName = "Window" name = "&amp;Hiestra"/>
+					<Item menuId = "Plugins" name = "&amp;Pedaçi"/>
+					<Item menuId = "Window" name = "&amp;Hiestra"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->

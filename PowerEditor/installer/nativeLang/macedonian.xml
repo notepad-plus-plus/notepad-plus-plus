@@ -19,8 +19,8 @@
 					<Item menuId="settings" name = "По&amp;десувања"/>
 					<Item menuId="macro" name = "Macro"/>
 					<Item menuId="run" name = "Вклучи"/>
-					<Item idName = "Plugins" name = "Plugin-ови"/>
-					<Item idName = "Window" name = "Прозорец"/>
+					<Item menuId = "Plugins" name = "Plugin-ови"/>
+					<Item menuId = "Window" name = "Прозорец"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->

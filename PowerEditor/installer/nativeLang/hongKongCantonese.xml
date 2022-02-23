@@ -21,8 +21,8 @@
                     <Item menuId="tools" name="架撐(&amp;O)"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="執行(&amp;R)"/>
-                    <Item idName="Plugins" name="外掛(&amp;P)"/>
-                    <Item idName="Window" name="視窗(&amp;W)"/>
+                    <Item menuId="Plugins" name="外掛(&amp;P)"/>
+                    <Item menuId="Window" name="視窗(&amp;W)"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

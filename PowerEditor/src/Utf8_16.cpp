@@ -28,13 +28,6 @@ const Utf8_16::utf8 Utf8_16::k_Boms[][3] = {
 
 // ==================================================================
 
-Utf8_16_Read::Utf8_16_Read() {
-	m_eEncoding		= uni8Bit;
-	m_nAllocatedBufSize = 0;
-	m_nNewBufSize   = 0;
-	m_pNewBuf		= NULL;
-	m_bFirstRead	= true;
-}
 
 Utf8_16_Read::~Utf8_16_Read()
 {

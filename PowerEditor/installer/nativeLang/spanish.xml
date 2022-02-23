@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 	-->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.1.9.3">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -18,8 +18,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item menuId="tools" name="&amp;Herramientas"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="E&amp;jecutar"/>
-					<Item idName="Plugins" name="&amp;Plugins"/>
-					<Item idName="Window" name="Ve&amp;ntana"/>
+					<Item menuId="Plugins" name="&amp;Plugins"/>
+					<Item menuId="Window" name="Ve&amp;ntana"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
@@ -177,6 +177,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42029" name="Enviar ruta actual a portapapeles"/>
 					<Item id="42030" name="Enviar nombre archivo a portapapeles"/>
 					<Item id="42031" name="Enviar ruta carpeta a portapapeles"/>
+					<Item id="42087" name="Todos los nombres de archivo al portapapeles"/>
+					<Item id="42088" name="Todas las rutas de archivo al portapapeles"/>
 					<Item id="42032" name="Ejecutar macro múltiples veces..."/>
 					<Item id="42033" name="Desactivar solo lectura"/>
 					<Item id="42035" name="Comentar"/>
@@ -248,6 +250,10 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="43048" name="Seleccionar y buscar siguiente"/>
 					<Item id="43049" name="Seleccionar y buscar anterior"/>
 					<Item id="43054" name="Marcar..."/>
+					<Item id="43501" name="Cerrar seleccionados"/>
+					<Item id="43502" name="Cerrar otros"/>
+					<Item id="43503" name="Copiar nombres seleccionados"/>
+					<Item id="43504" name="Copiar rutas seleccionadas"/>
 					<Item id="44009" name="Enviar"/>
 					<Item id="44010" name="Contraer todo"/>
 					<Item id="44011" name="Modo sin distracciones"/>
@@ -858,6 +864,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="7122" name="Texto más oscuro"/>
 					<Item id="7123" name="Texto desactivado"/>
 					<Item id="7124" name="Borde"/>
+					<Item id="7125" name="Enlace"/>
 					<Item id="7130" name="Reset"/>
 				</DarkMode>
 				<MarginsBorderEdge title="Márgenes/Borde/Lado">
@@ -961,6 +968,15 @@ Puedes definir varios marcadores de columna utilizando espacios en blanco para s
 					<Item id="6721" name="Parte central"/>
 					<Item id="6722" name="Parte derecha"/>
 					<Item id="6723" name="Añadir"/>
+					<ComboBox id="6724">
+						<Element name="Ruta completa del archivo"/>
+						<Element name="Nombre del archivo"/>
+						<Element name="Carpeta del archivo"/>
+						<Element name="Página"/>
+						<Element name="Formato de fecha corto"/>
+						<Element name="Formato de fecha largo"/>
+						<Element name="Hora"/>
+					</ComboBox>
 					<Item id="6725" name="Variable:"/>
 					<Item id="6727" name="Mostrar sus ajustes variables"/>
 					<Item id="6728" name="Cabecera y pie de página"/>
@@ -1003,6 +1019,11 @@ Puedes definir varios marcadores de columna utilizando espacios en blanco para s
 					<Item id="6809" name="Auto-completar función"/>
 					<Item id="6810" name="Auto-completar palabra"/>
 					<Item id="6816" name="Autocompletado función y palabra"/>
+					<Item id="6869" name="Insertar seleccion"/>
+					<Item id="6870" name="TAB"/>
+					<!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/>
+					<!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6824" name="Ignorar números"/>
 					<Item id="6811" name="Desde"/>
 					<Item id="6813" name="º carácter"/>
@@ -1211,6 +1232,8 @@ Este archivo ha sido modificado por otro programa.
 			<DocNoExistToMonitor title="Monitoring problem" message="El archivo debe existir para ser monitoreado."/>
 			<FileTooBigToOpen title="File size problem" message="El archivo es demasiado grande para abrirlo con Notepad++"/>
 			<!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileLoadingException title="Código de excepción: $STR_REPLACE$" message="Ocurrió un error al cargar el archivo"/>
+			<WantToOpenHugeFile title="Advertencia al abrir archivo grande" message="Abrir un archivo de más de 2 GB puede llevar varios minutos. Indique si desea abrirlo"/>
 			<CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; no existe. ¿Crearlo?"/>
 			<CreateNewFileError title="Create new file" message="No se puede crear el archivo &quot;$STR_REPLACE$&quot;."/>
 			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1369,10 +1392,14 @@ Notepad++ se reiniciará después de que finalicen todas las operaciones.
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value="  en su lista de caracteres."/>
 			<!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+			<backup-select-folder value="Seleccione una carpeta como directorio de copia de seguridad"/>
+			<!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Ruta inválida."/>
 			<cloud-restart-warning value="Reinicie Notepad++ para que tome efecto."/>
 			<cloud-select-folder value="Seleccione una carpeta en la que Notepad++ lea o escriba sus configuraciones"/>
 			<!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Seleccione una carpeta como directorio predeterminado"/>
+			<!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Use May + Enter para buscar en la dirección opuesta"/>
 			<two-find-buttons-tip value="modo de 2 botones de búsqueda"/>
 			<file-rename-title value="Renombrar"/>
@@ -1380,8 +1407,16 @@ Notepad++ se reiniciará después de que finalicen todas las operaciones.
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Find in all files except exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/>
+*.* !*.exe !*.obj !*.log
+
+  Find in all files but exclude folders tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+Find in all files but exclude all folders log or logs recursively:
+*.* !+\log*"/>
 			<!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+			<find-in-files-select-folder value="Select a folder to search from"/>
+			<!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value="Buscar: Encontrado el primer evento empezando desde el final. Se ha llegado al principio del documento."/>
 			<find-status-end-reached value="Buscar: Encontrado el primer evento empezando desde el inicio. Se ha llegado al final del documento."/>
 			<find-status-replaceinfiles-1-replaced value="Reemplazar en archivos: se reemplazó 1 elemento"/>
@@ -1477,6 +1512,10 @@ Find in all files except exe, obj &amp;&amp; log:
 			<IncrementalFind-FSNotFound value="Frase no encontrada"/>
 			<IncrementalFind-FSTopReached value="Alcanzada la parte superior de la página, continúa desde la parte inferior"/>
 			<IncrementalFind-FSEndReached value="Se llegó al final de la página, continúa desde la parte superior"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Dar estilo a todas las apariciones de simbolo"/>
+			<contextMenu-styleOneToken value="Estilo uno"/>
+			<contextMenu-clearStyle value="Eliminar estilo"/>
+			<contextMenu-PluginCommands value="Comandos de complemento"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

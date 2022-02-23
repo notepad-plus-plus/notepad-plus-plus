@@ -111,7 +111,39 @@ InstType "Minimalist"
 Var diffArchDir2Remove
 Var noUpdater
 
+!ifdef ARCH64 || ARCHARM64
+; this is needed for the 64-bit InstallDirRegKey patch
+!include "StrFunc.nsh"
+${StrStr} # Supportable for Install Sections and Functions
+!endif
+
 Function .onInit
+
+	; --- PATCH BEGIN (it can be deleted without side-effects, when the NSIS N++ x64 installer binary becomes x64 too)---
+	;
+	; 64-bit patch for the NSIS attribute InstallDirRegKey (used in globalDef.nsh)
+	; - this is needed because of the NSIS binary, generated for 64-bit Notepad++ installations, is still a 32-bit app,
+	;   so the InstallDirRegKey checks for the irrelevant HKLM\SOFTWARE\WOW6432Node\Notepad++, explanation:
+	;   https://nsis.sourceforge.io/Reference/SetRegView
+	;
+!ifdef ARCH64 || ARCHARM64
+	${If} ${RunningX64}
+		System::Call kernel32::GetCommandLine()t.r0 ; get the original cmdline (where a possible "/D=..." is not hidden from us by NSIS)
+		${StrStr} $1 $0 "/D="
+		${If} "$1" == ""
+			; "/D=..." was NOT used for sure, so we can continue in this InstallDirRegKey x64 patch 
+			SetRegView 64 ; disable registry redirection
+			ReadRegStr $0 HKLM "Software\${APPNAME}" ""
+			${If} "$0" != ""
+				; a previous installation path has been detected, so offer that as the $INSTDIR
+				StrCpy $INSTDIR "$0"
+			${EndIf}
+			SetRegView 32 ; restore the original state
+		${EndIf}
+	${EndIf}
+!endif
+	;
+	; --- PATCH END ---
 
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
@@ -148,9 +180,6 @@ updaterDone:
 	${If} ${RunningX64}
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
-		
-		; 64-bit patch for the NSIS attribute InstallDirRegKey (used in globalDef.nsh)
-		ReadRegStr $INSTDIR HKLM "Software\${APPNAME}" ""
 		
 		; change to x64 install dir if needed
 		${If} "$InstDir" != ""

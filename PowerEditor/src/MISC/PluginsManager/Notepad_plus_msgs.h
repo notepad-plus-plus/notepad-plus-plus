@@ -466,11 +466,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Set LangAutoIndentType for an installed external programming language.
 	// returned value: TRUE if function call was successful, otherwise FALSE.
 
-	#define NPPM_GETUSEAUTOINDENTATIONSETTING  (NPPMSG + 106)
+	#define NPPM_GETUSEAUTOINDENTATIONSETTING  (NPPMSG + 105)
 	// BOOL NPPM_GETUSEAUTOINDENTATIONSETTING(0, 0)
 	// Returns the current Use Auto-Indentation setting in Notepad++ Preferences.
 
-	#define NPPM_GETCURRENTMACROSTATUS (NPPMSG + 107)
+	#define NPPM_GETCURRENTMACROSTATUS (NPPMSG + 106)
 	// MACROSTATUS NPPM_GETCURRENTMACROSTATUS(0, 0)
 	// Gets current enum class MacroStatus { Idle, RecordInProgress, RecordStop, PlayingBack }
 

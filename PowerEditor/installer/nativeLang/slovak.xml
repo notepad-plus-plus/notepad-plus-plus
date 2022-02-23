@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.3">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.3.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -18,8 +18,8 @@
                     <Item menuId="tools" name="Nás&amp;troje"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Sp&amp;ustiť"/>
-                    <Item menuId="Plugins" name="&amp;Doplnky"/>
-                    <Item menuId="Window" name="&amp;Okná"/>
+                    <Item idName="Plugins" name="&amp;Doplnky"/>
+                    <Item idName="Window" name="&amp;Okná"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -73,6 +73,7 @@
                     <Item subMenuId="settings-import"  name="Import"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Zoradiť podľa"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -362,6 +363,16 @@
                     <Item id="42041" name="Vymazať zoznam posledných súborov"/>
                     <Item id="48016" name="Upraviť klávesovú skratku/Odstrániť makro..."/>
                     <Item id="48017" name="Upraviť klávesovú skratku/Odstrániť príkaz..."/>
+
+                    <Item id="11001" name="&amp;Okná..."/>
+                    <Item id="11002" name="Názov od A po Z"/>
+                    <Item id="11003" name="Názov od Z po A"/>
+                    <Item id="11004" name="Cesta od A po Z"/>
+                    <Item id="11005" name="Cesta od Z po A"/>
+                    <Item id="11006" name="Typ od A po Z"/>
+                    <Item id="11007" name="Typ od Z po A"/>
+                    <Item id="11008" name="Veľkosť ↑"/>
+                    <Item id="11009" name="Veľkosť ↓"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -635,6 +646,14 @@
                     <Item id="44107" name="Prepnúť na Priečinok ako pracovný priestor"/>
                     <Item id="44109" name="Prepnúť na Zoznam dokumentov"/>
                     <Item id="44108" name="Prepnúť na Zoznam funkcií"/>
+                    <Item id="11002" name="Zoradiť podľa názvu od A po Z"/>
+                    <Item id="11003" name="Zoradiť podľa názvu od Z po A"/>
+                    <Item id="11004" name="Zoradiť podľa cesty od A po Z"/>
+                    <Item id="11005" name="Zoradiť podľa cesty od Z po A"/>
+                    <Item id="11006" name="Zoradiť podľa typu od A po Z"/>
+                    <Item id="11007" name="Zoradiť podľa typu od Z po A"/>
+                    <Item id="11008" name="Zoradiť podľa veľkosti ↑"/>
+                    <Item id="11009" name="Zoradiť podľa veľkosti ↓"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Skratka">

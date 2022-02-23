@@ -1295,11 +1295,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return MAKELONG(auxVer, mainVer);
 		}
 
+		case NPPM_GETCURRENTMACROSTATUS:
 		case WM_GETCURRENTMACROSTATUS:
 		{
 			if (_recordingMacro)
 				return MACRO_RECORDING_IN_PROGRESS;
-			return (_macro.empty())?0:MACRO_RECORDING_HAS_STOPPED;
+			if (_playingBackMacro)
+				return MACRO_IS_PLAYINGBACK;
+			return (_macro.empty()) ? MACRO_IS_IDLE : MACRO_RECORDING_HAS_STOPPED;
 		}
 
 		case WM_FRSAVE_INT:
@@ -2551,6 +2554,30 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (lParam)
 				lstrcpy((LPTSTR)lParam, langDesc.c_str());
 			return langDesc.length();
+		}
+
+		case NPPM_GETLANGUAGEAUTOINDENTATION:
+		{
+			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
+			if (index < 0)
+				return -1;
+
+			return static_cast<LRESULT>(nppParam.getELCFromIndex(index)._autoIndentType);
+		}
+
+		case NPPM_SETLANGUAGEAUTOINDENTATION:
+		{
+			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
+			if (index < 0)
+				return FALSE;
+
+			nppParam.getELCFromIndex(index)._autoIndentType = static_cast<LangAutoIndentType>(lParam);
+			return TRUE;
+		}
+
+		case NPPM_GETUSEAUTOINDENTATIONSETTING:
+		{
+			return nppParam.getNppGUI()._maitainIndent;
 		}
 
 		case NPPM_DOCLISTDISABLEPATHCOLUMN:

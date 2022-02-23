@@ -36,8 +36,10 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};
+enum class LangAutoIndentType { Standard = 1, Extended, Custom };
+enum class MacroStatus { Idle, RecordInProgress, RecordStop, PlayingBack };
 
-enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10 };
+enum winVer { WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10 };
 enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 
@@ -453,6 +455,26 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		HICON	hToolbarIcon;
 		HICON	hToolbarIconDarkMode;
 	};
+
+	#define NPPM_GETLANGUAGEAUTOINDENTATION  (NPPMSG + 103)
+	// INT NPPM_GETLANGUAGEAUTOINDENTATION(const TCHAR *languageName)
+	// Get LangAutoIndentType for an installed external programming language.
+	// returned values: { Invalid = -1 } for failed searches, { Standard, Extended, Custom } for successful searches.
+
+	#define NPPM_SETLANGUAGEAUTOINDENTATION  (NPPMSG + 104)
+	// BOOL NPPM_SETLANGUAGEAUTOINDENTATION(const TCHAR *languageName, LangAutoIndentType autoIndentType)
+	// Set LangAutoIndentType for an installed external programming language.
+	// returned value: TRUE if function call was successful, otherwise FALSE.
+
+	#define NPPM_GETUSEAUTOINDENTATIONSETTING  (NPPMSG + 106)
+	// BOOL NPPM_GETUSEAUTOINDENTATIONSETTING(0, 0)
+	// Returns the current Use Auto-Indentation setting in Notepad++ Preferences.
+
+	#define NPPM_GETCURRENTMACROSTATUS (NPPMSG + 107)
+	// MACROSTATUS NPPM_GETCURRENTMACROSTATUS(0, 0)
+	// Gets current enum class MacroStatus { Idle, RecordInProgress, RecordStop, PlayingBack }
+
+
 
 #define VAR_NOT_RECOGNIZED 0
 #define FULL_CURRENT_PATH 1

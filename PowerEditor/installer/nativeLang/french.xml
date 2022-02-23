@@ -112,7 +112,7 @@
                     <Item id="42005" name="&amp;Coller"/>
                     <Item id="42006" name="&amp;Supprimer"/>
                     <Item id="42007" name="Sélectionner t&amp;out"/>
-                    <Item id="42020" name="Début/Fin Sélection"/>
+                    <Item id="42020" name="Début/Fin sélection"/>
                     <Item id="42084" name="La date et l'heure (format court)"/>
                     <Item id="42085" name="La date et l'heure (format long)"/>
                     <Item id="42086" name="La date et l'heure (format personnalisé)"/>
@@ -151,6 +151,8 @@
                     <Item id="42029" name="Copier le chemin complet du document actuel"/>
                     <Item id="42030" name="Copier le nom du document actuel"/>
                     <Item id="42031" name="Copier le dossier du document actuel"/>
+                    <Item id="42087" name="Copier tous les noms des documents"/>
+                    <Item id="42088" name="Copier tous les dossiers des documents"/>
                     <Item id="42032" name="Exécuter une macro en boucle..."/>
                     <Item id="42033" name="Enlever l'attribut de lecture seule du fichier"/>
                     <Item id="42034" name="Édition en mode colonnes..."/>
@@ -184,9 +186,9 @@
                     <Item id="42053" name="Transformer les espaces de début de ligne en tabulations"/>
                     <Item id="42038" name="Coller du contenu HTML"/>
                     <Item id="42039" name="Coller du contenu RTF"/>
-                    <Item id="42048" name="Copier du contenu Binaire"/>
-                    <Item id="42049" name="Couper du contenu Binaire"/>
-                    <Item id="42050" name="Coller du contenu Binaire"/>
+                    <Item id="42048" name="Copier du contenu binaire"/>
+                    <Item id="42049" name="Couper du contenu binaire"/>
+                    <Item id="42050" name="Coller du contenu binaire"/>
                     <Item id="42082" name="Copier le lien"/>
                     <Item id="42051" name="Panneau des caractères ASCII"/>
                     <Item id="42052" name="Panneau historique du presse-papiers"/>
@@ -259,8 +261,8 @@
                     <Item id="44019" name="Afficher tous les caractères"/>
                     <Item id="44020" name="Afficher le guide d'indentation"/>
                     <Item id="44022" name="Retour automatique à la ligne"/>
-                    <Item id="44023" name="Zoom &amp;avant   (Ctrl+Molette vers le haut)"/>
-                    <Item id="44024" name="Zoom a&amp;rrière  (Ctrl+Molette vers le bas)"/>
+                    <Item id="44023" name="Zoom &amp;avant (Ctrl+Molette vers le haut)"/>
+                    <Item id="44024" name="Zoom a&amp;rrière (Ctrl+Molette vers le bas)"/>
                     <Item id="44025" name="Afficher les blancs et les tabulations"/>
                     <Item id="44026" name="Afficher les symboles de fin de ligne"/>
                     <Item id="44029" name="Déplier tous les blocs"/>
@@ -311,13 +313,14 @@
                     <Item id="45013" name="Convertir en UCS-2 LE BOM"/>
                     <Item id="45060" name="Big5 (traditionnel)"/>
                     <Item id="45061" name="GB2312 (simplifié)"/>
-                    <Item id="45054" name="OEM 861: islandais"/>
-                    <Item id="45057" name="OEM 865: danois &amp;&amp; norvégien"/>
-                    <Item id="45053" name="OEM 860: portugais"/>
-                    <Item id="45056" name="OEM 863: français"/>
+                    <Item id="45054" name="OEM 861 : islandais"/>
+                    <Item id="45057" name="OEM 865 : danois &amp;&amp; norvégien"/>
+                    <Item id="45053" name="OEM 860 : portugais"/>
+                    <Item id="45056" name="OEM 863 : français"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
                     <Item id="46300" name="Ouvrir le dossier des Langages utilisateur..."/>
+                    <Item id="46301" name="Collection de langages définis par l'utilisateur Notepad++"/>
                     <Item id="46180" name="Langage utilisateur"/>
                     <Item id="47000" name="À propos de Notepad++..."/>
                     <Item id="47001" name="Site officiel Notepad++"/>
@@ -820,11 +823,11 @@
                 <Global title="Général">
                     <Item id="6101" name="Barre d’outils"/>
                     <Item id="6102" name="Cacher"/>
-                    <Item id="6103" name="Fluent UI: petites icônes"/>
-                    <Item id="6104" name="Fluent UI: grandes icônes"/>
-                    <Item id="6129" name="Filled Fluent UI: petites icônes"/>
-                    <Item id="6130" name="Filled Fluent UI: grandes icônes"/>
-                    <Item id="6105" name="Standards: petites icônes"/>
+                    <Item id="6103" name="Icônes ajourées (petite)"/>
+                    <Item id="6104" name="Icônes ajourées (grande)"/>
+                    <Item id="6129" name="Icônes pleines (petite)"/>
+                    <Item id="6130" name="Icônes pleines (grande)"/>
+                    <Item id="6105" name="Standard : petites icônes"/>
                     <Item id="6106" name="Barre d’onglets"/>
                     <Item id="6107" name="Réduire la taille"/>
                     <Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
@@ -841,6 +844,7 @@
                     <Item id="6123" name="Langue"/>
                     <Item id="6125" name="Commutateur de documents"/>
                     <Item id="6127" name="Désactiver la colonne d'extension"/>
+                    <Item id="6128" name="Icônes alternatives"/>
                 </Global>
 
                 <Scintillas title="Zones d'édition">
@@ -884,7 +888,7 @@
                     <Item id="7130" name="Réinitialiser"/>
                 </DarkMode>
 
-                <MarginsBorderEdge title="Marges et Bordure">
+                <MarginsBorderEdge title="Marges et bordure">
                     <Item id="6201" name="Contrôle de repli de bloc"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Flèche"/>
@@ -955,7 +959,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6326" name="Activer le coloriage automatique"/>
                     <Item id="6332" name="Sensible à la casse"/>
                     <Item id="6338" name="Mot entier uniquement"/>
-                    <Item id="6339" name="Utiliser les paramètres de Recherche"/>
+                    <Item id="6339" name="Utiliser les paramètres de recherche"/>
                     <Item id="6340" name="Sur l'autre vue également"/>
                     <Item id="6329" name="Surligner les tags ouverture/fermeture"/>
                     <Item id="6327" name="Activer"/>
@@ -1002,10 +1006,11 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </Print>
 
                 <Searching title="Recherche">
-                    <Item id="6901" name="Ne pas remplir le champs de Recherche avec le mot séléctionné"/>
-                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue Rechercher (Nécessité de redémarrage)"/>
-                    <Item id="6903" name="La boîte de dialogue Rechercher reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
+                    <Item id="6901" name="Ne pas remplir le champs de recherche avec le mot sélectionné"/>
+                    <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue &quot;Rechercher&quot; (nécessité de redémarrage)"/>
+                    <Item id="6903" name="La boîte de dialogue &quot;Rechercher&quot; reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
                     <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
+                    <Item id="6905" name="&quot;Remplacer&quot; : ne pas passer à l'occurrence suivante"/>
                 </Searching>
 
                 <RecentFilesHistory title="Fichiers récents">
@@ -1057,7 +1062,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6866" name="paire #3 :"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Instance Multiple &amp; Date">
+                <MultiInstance title="Instance multiple &amp; date">
                     <Item id="6151" name="Options d'instance multiple"/>
                     <Item id="6152" name="Ouverture de session dans une nouvelle instance (et enregistrer la session automatiquement en sortant)"/>
                     <Item id="6153" name="Toujours en mode instance multiple"/>
@@ -1069,14 +1074,14 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </MultiInstance>
 
                 <Delimiter title="Délimiteur">
-                    <Item id="6251" name="Sélection dans les délimiteurs (Ctrl + Souris double clic)"/>
+                    <Item id="6251" name="Sélection dans les délimiteurs (Ctrl + souris double clic)"/>
                     <Item id="6252" name="Début"/>
                     <Item id="6255" name="Fin"/>
                     <Item id="6256" name="Sur plusieurs lignes"/>
                     <Item id="6161" name="Liste des caractères de mot"/>
                     <Item id="6162" name="Utiliser la liste d'origine des caractères de mot"/>
                     <Item id="6163" name="Ajouter ces caractères comme caractères de mot
-(Ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
+(ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
                 </Delimiter>
 
                 <Cloud title="Cloud &amp; Lien">
@@ -1091,7 +1096,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </Cloud>
 
                 <SearchEngine title="Moteur de recherche">
-                    <Item id="6271" name="Moteur de recherche (Pour la commande &quot;Rechercher sur Internet&quot;)"/>
+                    <Item id="6271" name="Moteur de recherche (pour la commande &quot;Rechercher sur Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1124,7 +1129,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6345" name="Aperçu à onglet"/>
                     <Item id="6346" name="Aperçu à commutateur de documents"/>
                     <Item id="6360" name="Chut !"/>
-                    <Item id="6361" name="Activer la confirmation pour la command &quot;Enregistrer tout&quot;"/>
+                    <Item id="6361" name="Activer la confirmation pour la commande &quot;Enregistrer tout&quot;"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">
@@ -1158,13 +1163,13 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 <Item id="2036" name="&amp;Répéter :"/>
             </ColumnEditor>
             <FindInFinder title="Rechercher dans les résultats trouvés">
-                <Item id="1"    name="Rechercher Tout"/>
+                <Item id="1"    name="Rechercher tout"/>
                 <Item id="2"    name="Fermer"/>
                 <Item id="1711" name="Recherche :"/>
                 <Item id="1713" name="Rechercher dans les lignes trouvées seulement"/>
                 <Item id="1714" name="Mot entier &amp;uniquement"/>
                 <Item id="1715" name="Respecter la &amp;casse"/>
-                <Item id="1716" name="Mode de Recherche"/>
+                <Item id="1716" name="Mode de recherche"/>
                 <Item id="1717" name="Mode normal"/>
                 <Item id="1719" name="&amp;Expression régulière"/>
                 <Item id="1718" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
@@ -1228,7 +1233,7 @@ Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++ 
             <PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/>
             <XpUpdaterProblem title="Mettre à jour Notepad++" message="Le metteur à jour de Notepad++ est incompatible avec XP en raison de la couche de sécurité obsolète de XP.
 Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/>
-            <GUpProxyConfNeedAdminMode title="Paramétrage de Proxy" message=" Afin de pouvoir configurer le proxy, relancez Notepad++ en mode d'administrateur."/>
+            <GUpProxyConfNeedAdminMode title="Paramétrage de Proxy" message=" Afin de pouvoir configurer le proxy, relancez Notepad++ en mode &quot;Administrateur&quot;."/>
             <DocTooDirtyToMonitor title="Surveillance de Log" message="Le document a été modifié. Veuillez l'enregistrer d'abord."/>
             <DocNoExistToMonitor title="Surveillance de Log" message="Le fichier doit exister pour être surveillé."/>
             <FileTooBigToOpen title="Fichier trop volumineux" message="Ce fichier est trop volumineux pour être ouvert avec Notepad++."/>
@@ -1267,10 +1272,10 @@ veuillez en donner un autre."/>
             <SCMapperDoDeleteOrNot title="Supprimer un raccourci clavier" message="Êtes-vous sûr de vouloir supprimer ce raccourci clavier ?"/>
             <FindCharRangeValueError title="Valeur en dehors des limites" message="Veuillez entrer une valeur entre 0 et 255."/>
             <OpenInAdminMode title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
-Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
+Voulez-vous lancer Notepad++ en mode &quot;Administrateur&quot; ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
-Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
-            <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
+Voulez-vous lancer Notepad++ en mode &quot;Administrateur&quot; ?"/>
+            <OpenInAdminModeFailed title="L'ouverture en mode &quot;Administrateur&quot; a échoué" message="Notepad++ ne peut pas être lancé en mode &quot;Administrateur&quot;."/>
             <ViewInBrowser title="Afficher le fichier actuel dans le navigateur" message="Application introuvable sur votre ordinateur."/>
             <ExitToUpdatePlugins title="Notepad++ sera fermé" message="Si vous cliquez Oui, vous allez quitter Notepad++ pour poursuivre les opérations.
 Notepad++ sera relancé après.
@@ -1278,7 +1283,7 @@ Voulez-vous les poursuivez ?"/>
             <NeedToRestartToLoadPlugins title="Vous devez redémarrer Notepad++" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/>
         </MessageBox>
         <ClipboardHistory>
-            <PanelTitle name="Historique du presse-papiers"/>
+            <PanelTitle name="Historique du presse-papier"/>
         </ClipboardHistory>
         <DocList>
             <PanelTitle name="Commutateur de documents"/>
@@ -1313,13 +1318,13 @@ Voulez-vous les poursuivez ?"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Dossier en tant qu'Espace de travail"/>
-            <SelectFolderFromBrowserString name="Sélectionner un dossier pour ajouter dans Dossier en tant qu'Espace de travail"/>
+            <SelectFolderFromBrowserString name="Sélectionner un dossier pour ajouter dans &quot;dossier&quot; en tant qu'&quot;espace de travail&quot;"/>
             <ExpandAllFoldersTip name="Déplier tous les dossiers"/>
             <CollapseAllFoldersTip name="Replier tous les dossiers"/>
             <LocateCurrentFileTip name="Localiser le fichier courant"/>
             <Menus>
                 <Item id="3511" name="Effacer"/>
-                <Item id="3512" name="Effacer Tout"/>
+                <Item id="3512" name="Effacer tout"/>
                 <Item id="3513" name="Ajouter"/>
                 <Item id="3514" name="Exécuter par le système"/>
                 <Item id="3515" name="Ouvrir"/>
@@ -1388,7 +1393,7 @@ Voulez-vous les poursuivez ?"/>
             <backup-select-folder value="Sélectionner un dossier pour le répertoire Sauvegarde (Backup)"/>
             <cloud-invalid-warning value="Chemin invalide."/>
             <cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
-            <shift-change-direction-tip value="Utilisez Shift + Entrée pour rechercher dans le sens inverse"/>
+            <shift-change-direction-tip value="Utilisez Maj + Entrée pour rechercher dans le sens inverse"/>
             <two-find-buttons-tip value="2 boutons Recherche"/>
             <find-in-files-filter-tip value="Rechercher dans cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp

@@ -18,8 +18,8 @@
 					<Item menuId="settings" name = "Танловлар"/>
 					<Item menuId="macro" name = "Макрослар"/>
 					<Item menuId="run" name = "Ишга тушириш"/>
-					<Item idName = "Plugins" name = "Қўшимчалар"/>
-					<Item idName = "Window" name = "Ойналар"/>
+					<Item menuId = "Plugins" name = "Қўшимчалар"/>
+					<Item menuId = "Window" name = "Ойналар"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->

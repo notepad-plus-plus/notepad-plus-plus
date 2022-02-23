@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="To&amp;ols"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="&amp;Run"/>
-                    <Item idName="Plugins" name="&amp;Plugins"/>
-                    <Item idName="Window" name="&amp;Window"/>
+                    <Item menuId="Plugins" name="&amp;Plugins"/>
+                    <Item menuId="Window" name="&amp;Window"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

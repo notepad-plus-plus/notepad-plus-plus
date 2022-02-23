@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;ਸੈਟਿੰਗ"/>
                     <Item menuId="macro" name="ਮੈਕਰੋ"/>
                     <Item menuId="run" name="ਰਨ"/>
-                    <Item idName="Plugins" name="ਪਲੱਗਇਨ"/>
-                    <Item idName="Window" name="ਝਰੋਖਾ"/>
+                    <Item menuId="Plugins" name="ਪਲੱਗਇਨ"/>
+                    <Item menuId="Window" name="ਝਰੋਖਾ"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                  <SubEntries>

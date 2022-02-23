@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="அமைப்பு (&amp;T)"/>
                     <Item menuId="macro" name="பெருநிரல்"/>
                     <Item menuId="run" name="ஓட்டு"/>
-                    <Item idName="Plugins" name="உள்இடுக்கைகள்"/>
-                    <Item idName="Window" name="சாளரம்"/>
+                    <Item menuId="Plugins" name="உள்இடுக்கைகள்"/>
+                    <Item menuId="Window" name="சாளரம்"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->

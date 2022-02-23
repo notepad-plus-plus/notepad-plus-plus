@@ -20,8 +20,8 @@
                     <Item menuId="tools" name="Oro&amp;dja"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="&amp;Poženi"/>
-                    <Item idName="Plugins" name="&amp;Vtičniki"/>
-                    <Item idName="Window" name="&amp;Okno"/>
+                    <Item menuId="Plugins" name="&amp;Vtičniki"/>
+                    <Item menuId="Window" name="&amp;Okno"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

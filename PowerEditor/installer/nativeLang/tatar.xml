@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="&amp;Кораллар"/>
 					<Item menuId="macro" name="&amp;Макрослар"/>
                     <Item menuId="run" name="&amp;Җибәрү"/>
-                    <Item idName="Plugins" name="&amp;Плагиннар"/>
-                    <Item idName="Window"  name="&amp;Тәрәзәләр"/>
+                    <Item menuId="Plugins" name="&amp;Плагиннар"/>
+                    <Item menuId="Window"  name="&amp;Тәрәзәләр"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

@@ -111,7 +111,7 @@ class WindowsMenu
 public:
 	WindowsMenu() {};
 	~WindowsMenu() {};
-	void init(HMENU hMainMenu, const TCHAR *translation); 
+	void init(HMENU hMainMenu); 
 	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 
 private:

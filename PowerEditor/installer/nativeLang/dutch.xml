@@ -23,8 +23,8 @@ Last modified on 2022-02-10 by Thomas De Rocker (RockyTDR).
                     <Item menuId="tools" name="&amp;Gereedschappen"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="&amp;Uitvoeren"/>
-                    <Item idName="Plugins" name="&amp;Plugins"/>
-                    <Item idName="Window" name="&amp;Vensters"/>
+                    <Item menuId="Plugins" name="&amp;Plugins"/>
+                    <Item menuId="Window" name="&amp;Vensters"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

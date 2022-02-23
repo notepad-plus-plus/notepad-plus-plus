@@ -22,8 +22,8 @@
                     <Item menuId="tools" name="&amp;Alati"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Pok&amp;reni"/>
-                    <Item idName="Plugins" name="Doda&amp;ci"/>
-                    <Item idName="Window" name="&amp;Kartice"/>
+                    <Item menuId="Plugins" name="Doda&amp;ci"/>
+                    <Item menuId="Window" name="&amp;Kartice"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->

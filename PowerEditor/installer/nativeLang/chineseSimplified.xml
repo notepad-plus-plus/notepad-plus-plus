@@ -18,8 +18,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="工具(&amp;O)"/>
                     <Item menuId="macro" name="宏(&amp;M)"/>
                     <Item menuId="run" name="运行(&amp;R)"/>
-                    <Item idName="Plugins" name="插件(&amp;P)"/>
-                    <Item idName="Window" name="窗口(&amp;W)"/>
+                    <Item menuId="Plugins" name="插件(&amp;P)"/>
+                    <Item menuId="Window" name="窗口(&amp;W)"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

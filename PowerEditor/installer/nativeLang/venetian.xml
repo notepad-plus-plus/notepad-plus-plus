@@ -22,8 +22,8 @@
                     <Item menuId="tools" name="&amp;Angagni"/>
                     <Item menuId="macro" name="Mac&amp;ro"/>
                     <Item menuId="run" name="E&amp;xegui"/>
-                    <Item idName="Plugins" name="&amp;Plugin"/>
-                    <Item idName="Window" name="F&amp;enèstra"/>
+                    <Item menuId="Plugins" name="&amp;Plugin"/>
+                    <Item menuId="Window" name="F&amp;enèstra"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

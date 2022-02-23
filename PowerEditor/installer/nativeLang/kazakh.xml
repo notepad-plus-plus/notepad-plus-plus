@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "Теңшеу"/>
 					<Item menuId="macro" name = "Макростар"/>
 					<Item menuId="run" name = "Жегу"/>
-					<Item idName = "Plugins" name = "Қондырмалар"/>
-					<Item idName = "Window" name = "Терезе"/>
+					<Item menuId = "Plugins" name = "Қондырмалар"/>
+					<Item menuId = "Window" name = "Терезе"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->

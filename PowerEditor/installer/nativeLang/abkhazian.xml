@@ -19,8 +19,8 @@ Updated to v8.2.1:
 					<Item menuId="tools"    name="&amp;Амаругақәа"/>
 					<Item menuId="macro"    name="&amp;Амакросқәа"/>
 					<Item menuId="run"      name="&amp;Адәықәҵара"/>
-					<Item idName="Plugins"  name="&amp;Аплагинқәа"/>
-					<Item idName="Window"   name="&amp;Агәылаҵақәа"/>
+					<Item menuId="Plugins"  name="&amp;Аплагинқәа"/>
+					<Item menuId="Window"   name="&amp;Агәылаҵақәа"/>
 				</Entries>
 				<SubEntries>
 					<Item subMenuId="file-openFolder"           name="&amp;Иаарттәуп адокумент акаталог"/>

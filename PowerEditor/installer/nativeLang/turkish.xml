@@ -15,8 +15,8 @@
 					<Item menuId="tools" name="Ar&amp;açlar"/>
 					<Item menuId="macro" name="&amp;Makrolar"/>
 					<Item menuId="run" name="&amp;Çalıştır"/>
-					<Item idName="Plugins" name="&amp;Eklentiler"/>
-					<Item idName="Window" name="&amp;Pencereler"/>
+					<Item menuId="Plugins" name="&amp;Eklentiler"/>
+					<Item menuId="Window" name="&amp;Pencereler"/>
 				</Entries>
 				<!-- Alt Menü Girişleri -->
 				<SubEntries>

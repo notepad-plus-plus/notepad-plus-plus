@@ -19,8 +19,8 @@
                     <Item menuId="settings" name="გამართვა"/>
                     <Item menuId="macro" name="მაკრო"/>
                     <Item menuId="run" name="გაშვება"/>
-                    <Item idName="Plugins" name="დანამატები"/>
-                    <Item idName="Window" name="ფანჯარა"/>
+                    <Item menuId="Plugins" name="დანამატები"/>
+                    <Item menuId="Window" name="ფანჯარა"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->

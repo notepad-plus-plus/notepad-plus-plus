@@ -19,8 +19,8 @@ https://github.com/AndresTraks/
                     <Item menuId="tools" name="T&amp;ööriistad"/>
                     <Item menuId="macro" name="Makro"/>
                     <Item menuId="run" name="Käivita"/>
-                    <Item idName="Plugins" name="Pluginad"/>
-                    <Item idName="Window" name="Aken"/>
+                    <Item menuId="Plugins" name="Pluginad"/>
+                    <Item menuId="Window" name="Aken"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

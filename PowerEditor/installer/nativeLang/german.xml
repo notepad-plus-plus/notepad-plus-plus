@@ -27,8 +27,8 @@
 					<Item menuId="tools" name="Werk&amp;zeuge"/>
 					<Item menuId="macro" name="&amp;Makros"/>
 					<Item menuId="run" name="Ausfüh&amp;ren"/>
-					<Item idName="Plugins" name="Er&amp;weiterungen"/>
-					<Item idName="Window" name="Fe&amp;nster"/>
+					<Item menuId="Plugins" name="Er&amp;weiterungen"/>
+					<Item menuId="Window" name="Fe&amp;nster"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>

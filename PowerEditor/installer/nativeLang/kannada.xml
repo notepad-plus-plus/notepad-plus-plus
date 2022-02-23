@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="ಸೆಟ್ಟಿಂಗ್ಸ್"/>
                     <Item menuId="macro" name="ಮ್ಯಾಕ್ರೋ"/>
                     <Item menuId="run" name="ರನ್"/>
-                    <Item idName="Plugins" name="ಪ್ಲುಗೀನ್ಸ್"/>
-                    <Item idName="Window" name="ವಿಂಡೊ"/>
+                    <Item menuId="Plugins" name="ಪ್ಲುಗೀನ್ಸ್"/>
+                    <Item menuId="Window" name="ವಿಂಡೊ"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

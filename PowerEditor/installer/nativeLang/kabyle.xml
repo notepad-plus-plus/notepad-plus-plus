@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="Iɣewwaren"/>
                     <Item menuId="macro" name="Macro"/>
                     <Item menuId="run" name="Selkem "/>
-                    <Item idName="Plugins" name="Plugins"/>
-                    <Item idName="Window" name="Asfaylu"/>
+                    <Item menuId="Plugins" name="Plugins"/>
+                    <Item menuId="Window" name="Asfaylu"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->

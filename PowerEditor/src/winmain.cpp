@@ -238,7 +238,7 @@ generic_string getLocalizationPathFromParam(ParamVector & params)
 	return NppParameters::getLocPathFromStr(locStr.c_str());
 }
 
-int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent)
+intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent)
 {
 	generic_string numStr;
 	if (!getParamVal(paramName, params, numStr))
@@ -247,7 +247,7 @@ int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePres
 		return -1;
 	}
 	isParamePresent = true;
-	return generic_atoi(numStr.c_str());
+	return static_cast<intptr_t>(_ttoi64(numStr.c_str()));
 };
 
 generic_string getEasterEggNameFromParam(ParamVector & params, unsigned char & type)
@@ -453,8 +453,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
     cmdLineParams._pos2go = getNumberFromParam('p', params, isParamePresent);
-	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
-	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
+	cmdLineParams._point.x = static_cast<LONG>(getNumberFromParam('x', params, cmdLineParams._isPointXValid));
+	cmdLineParams._point.y = static_cast<LONG>(getNumberFromParam('y', params, cmdLineParams._isPointYValid));
 
 	NppParameters& nppParameters = NppParameters::getInstance();
 

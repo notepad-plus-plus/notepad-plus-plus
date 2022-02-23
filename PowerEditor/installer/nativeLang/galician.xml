@@ -20,8 +20,8 @@
 					<Item menuId="settings" name = "C&amp;onfigurar"/>
 					<Item menuId="macro" name = "Macro"/>
 					<Item menuId="run" name = "Executar"/>
-					<Item idName = "Plugins" name = "Engadidos"/>
-					<Item idName = "Window" name = "Xanelas"/>
+					<Item menuId = "Plugins" name = "Engadidos"/>
+					<Item menuId = "Window" name = "Xanelas"/>
 				</Entries>
 
                 <!-- Entradas de Sub-menú -->

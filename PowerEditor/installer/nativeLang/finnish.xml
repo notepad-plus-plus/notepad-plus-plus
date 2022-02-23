@@ -20,8 +20,8 @@ Updated to v8.0.0:
 					<Item menuId="tools" name="Työ&amp;kalut"/>
 					<Item menuId="macro" name="Mak&amp;ro"/>
 					<Item menuId="run" name="&amp;Suorita"/>
-					<Item idName="Plugins" name="&amp;Liitännäiset"/>
-					<Item idName="Window" name="&amp;Ikkuna"/>
+					<Item menuId="Plugins" name="&amp;Liitännäiset"/>
+					<Item menuId="Window" name="&amp;Ikkuna"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>

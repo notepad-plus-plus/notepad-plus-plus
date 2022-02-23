@@ -482,7 +482,7 @@ HMENU PluginsManager::initMenu(HMENU hMenu, bool enablePluginAdmin)
 
 	if (!_hPluginsMenu)
 	{
-		_hPluginsMenu = ::GetSubMenu(hMenu, 10);
+		_hPluginsMenu = ::GetSubMenu(hMenu, MENUINDEX_PLUGINS);
 
 		int i = 1;
 

@@ -24,8 +24,8 @@
                     <Item menuId="settings" name="&amp;सेटिंग"/>
                     <Item menuId="macro" name="मॅक्रो"/>
                     <Item menuId="run" name="चलाये"/>
-                    <Item idName="Plugins" name="प्लगइन्स"/>
-                    <Item idName="Window" name="विन्डों"/>
+                    <Item menuId="Plugins" name="प्लगइन्स"/>
+                    <Item menuId="Window" name="विन्डों"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->

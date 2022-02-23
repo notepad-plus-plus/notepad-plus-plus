@@ -2175,43 +2175,42 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 				if (fileName)
 				{
 					Position position;
-					(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), reinterpret_cast<int*>(&position._firstVisibleLine));
-					(childNode->ToElement())->Attribute(TEXT("xOffset"), reinterpret_cast<int*>(&position._xOffset));
-					(childNode->ToElement())->Attribute(TEXT("startPos"), reinterpret_cast<int*>(&position._startPos));
-					(childNode->ToElement())->Attribute(TEXT("endPos"), reinterpret_cast<int*>(&position._endPos));
-					(childNode->ToElement())->Attribute(TEXT("selMode"), reinterpret_cast<int*>(&position._selMode));
-					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), reinterpret_cast<int*>(&position._scrollWidth));
-					(childNode->ToElement())->Attribute(TEXT("offset"), reinterpret_cast<int*>(&position._offset));
-					(childNode->ToElement())->Attribute(TEXT("wrapCount"), reinterpret_cast<int*>(&position._wrapCount));
+					position._firstVisibleLine = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("firstVisibleLine"))));
+					position._xOffset = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("xOffset"))));
+					position._startPos = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("startPos"))));
+					position._endPos = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("endPos"))));
+					position._selMode = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("selMode"))));
+					position._scrollWidth = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("scrollWidth"))));
+					position._offset = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("offset"))));
+					position._wrapCount = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("wrapCount"))));
 					MapPosition mapPosition;
-					int32_t mapPosVal;
-					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"), &mapPosVal);
+					const TCHAR* mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"));
 					if (mapPosStr)
-						mapPosition._firstVisibleDisplayLine = mapPosVal;
-					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDocLine"), &mapPosVal);
+						mapPosition._firstVisibleDisplayLine = static_cast<intptr_t>(_ttoi64(mapPosStr));
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDocLine"));
 					if (mapPosStr)
-						mapPosition._firstVisibleDocLine = mapPosVal;
-					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapLastVisibleDocLine"), &mapPosVal);
+						mapPosition._firstVisibleDocLine = static_cast<intptr_t>(_ttoi64(mapPosStr));
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapLastVisibleDocLine"));
 					if (mapPosStr)
-						mapPosition._lastVisibleDocLine = mapPosVal;
-					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapNbLine"), &mapPosVal);
+						mapPosition._lastVisibleDocLine = static_cast<intptr_t>(_ttoi64(mapPosStr));
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapNbLine"));
 					if (mapPosStr)
-						mapPosition._nbLine = mapPosVal;
-					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapHigherPos"), &mapPosVal);
+						mapPosition._nbLine = static_cast<intptr_t>(_ttoi64(mapPosStr));
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapHigherPos"));
 					if (mapPosStr)
-						mapPosition._higherPos = mapPosVal;
-					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapWidth"), &mapPosVal);
+						mapPosition._higherPos = static_cast<intptr_t>(_ttoi64(mapPosStr));
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapWidth"));
 					if (mapPosStr)
-						mapPosition._width = mapPosVal;
-					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapHeight"), &mapPosVal);
+						mapPosition._width = static_cast<intptr_t>(_ttoi64(mapPosStr));
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapHeight"));
 					if (mapPosStr)
-						mapPosition._height = mapPosVal;
-					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapKByteInDoc"), &mapPosVal);
+						mapPosition._height = static_cast<intptr_t>(_ttoi64(mapPosStr));
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapKByteInDoc"));
 					if (mapPosStr)
-						mapPosition._KByteInDoc = mapPosVal;
-					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapWrapIndentMode"), &mapPosVal);
+						mapPosition._KByteInDoc = static_cast<intptr_t>(_ttoi64(mapPosStr));
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapWrapIndentMode"));
 					if (mapPosStr)
-						mapPosition._wrapIndentMode = mapPosVal;
+						mapPosition._wrapIndentMode = static_cast<intptr_t>(_ttoi64(mapPosStr));
 					const TCHAR *boolStr = (childNode->ToElement())->Attribute(TEXT("mapIsWrap"));
 					if (boolStr)
 						mapPosition._isWrap = (lstrcmp(TEXT("yes"), boolStr) == 0);
@@ -2234,26 +2233,24 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, position, backupFilePath, fileModifiedTimestamp, mapPosition);
 
 					for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
-						markNode ;
+						markNode;
 						markNode = markNode->NextSibling(TEXT("Mark")))
 					{
-						int lineNumber;
-						const TCHAR *lineNumberStr = (markNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+						const TCHAR* lineNumberStr = (markNode->ToElement())->Attribute(TEXT("line"));
 						if (lineNumberStr)
 						{
-							sfi._marks.push_back(lineNumber);
+							sfi._marks.push_back(static_cast<size_t>(_ttoi64(lineNumberStr)));
 						}
 					}
 
 					for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
-						foldNode ;
+						foldNode;
 						foldNode = foldNode->NextSibling(TEXT("Fold")))
 					{
-						int lineNumber;
-						const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+						const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"));
 						if (lineNumberStr)
 						{
-							sfi._foldStates.push_back(lineNumber);
+							sfi._foldStates.push_back(static_cast<size_t>(_ttoi64(lineNumberStr)));
 						}
 					}
 					if (k == 0)
@@ -3286,14 +3283,16 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			{
 				TiXmlNode *fileNameNode = viewElems[k].viewNode->InsertEndChild(TiXmlElement(TEXT("File")));
 
-				(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), static_cast<int>(viewSessionFiles[i]._firstVisibleLine));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), static_cast<int>(viewSessionFiles[i]._xOffset));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), static_cast<int>(viewSessionFiles[i]._scrollWidth));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), static_cast<int>(viewSessionFiles[i]._startPos));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), static_cast<int>(viewSessionFiles[i]._endPos));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), static_cast<int>(viewSessionFiles[i]._selMode));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("offset"), static_cast<int>(viewSessionFiles[i]._offset));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("wrapCount"), static_cast<int>(viewSessionFiles[i]._wrapCount));
+				TCHAR szInt64[64];
+
+				(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._firstVisibleLine), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._xOffset), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._scrollWidth), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._startPos), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._endPos), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._selMode), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("offset"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._offset), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("wrapCount"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._wrapCount), szInt64, 10));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), viewSessionFiles[i]._langName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), viewSessionFiles[i]._encoding);
 				(fileNameNode->ToElement())->SetAttribute(TEXT("userReadOnly"), (viewSessionFiles[i]._isUserReadOnly && !viewSessionFiles[i]._isMonitoring) ? TEXT("yes") : TEXT("no"));
@@ -3301,31 +3300,31 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestampHigh"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
-				
+
 				// docMap 
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), (int)viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDocLine"), (int)viewSessionFiles[i]._mapPos._firstVisibleDocLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapLastVisibleDocLine"), (int)viewSessionFiles[i]._mapPos._lastVisibleDocLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapNbLine"), (int)viewSessionFiles[i]._mapPos._nbLine);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHigherPos"), (int)viewSessionFiles[i]._mapPos._higherPos);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWidth"), (int)viewSessionFiles[i]._mapPos._width);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHeight"), (int)viewSessionFiles[i]._mapPos._height);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapKByteInDoc"), (int)viewSessionFiles[i]._mapPos._KByteInDoc);
-				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWrapIndentMode"), (int)viewSessionFiles[i]._mapPos._wrapIndentMode);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDocLine"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDocLine), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapLastVisibleDocLine"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._lastVisibleDocLine), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapNbLine"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._nbLine), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHigherPos"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._higherPos), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWidth"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._width), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHeight"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._height), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapKByteInDoc"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._KByteInDoc), szInt64, 10));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWrapIndentMode"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._wrapIndentMode), szInt64, 10));
 				fileNameNode->ToElement()->SetAttribute(TEXT("mapIsWrap"), viewSessionFiles[i]._mapPos._isWrap ? TEXT("yes") : TEXT("no"));
 
 				for (size_t j = 0, len = viewSessionFiles[i]._marks.size() ; j < len ; ++j)
 				{
 					size_t markLine = viewSessionFiles[i]._marks[j];
 					TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
-					markNode->ToElement()->SetAttribute(TEXT("line"), static_cast<int32_t>(markLine));
+					markNode->ToElement()->SetAttribute(TEXT("line"), _ui64tot(static_cast<ULONGLONG>(markLine), szInt64, 10));
 				}
 
 				for (size_t j = 0, len = viewSessionFiles[i]._foldStates.size() ; j < len ; ++j)
 				{
 					size_t foldLine = viewSessionFiles[i]._foldStates[j];
 					TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
-					foldNode->ToElement()->SetAttribute(TEXT("line"), static_cast<int32_t>(foldLine));
+					foldNode->ToElement()->SetAttribute(TEXT("line"), _ui64tot(static_cast<ULONGLONG>(foldLine), szInt64, 10));
 				}
 			}
 		}

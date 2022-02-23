@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;Тохиргоо"/>
                     <Item menuId="macro" name="Макро"/>
                     <Item menuId="run" name="Ажиллуулах"/>
-                    <Item idName="Plugins" name="Нэмэлтүүд"/>
-                    <Item idName="Window" name="Цонх"/>
+                    <Item menuId="Plugins" name="Нэмэлтүүд"/>
+                    <Item menuId="Window" name="Цонх"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

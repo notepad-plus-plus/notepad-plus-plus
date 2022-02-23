@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;বিন্যাস"/>
                     <Item menuId="macro" name="ম্যাক্রো"/>
                     <Item menuId="run" name="চালান"/>
-                    <Item idName="Plugins" name="প্লাগইন"/>
-                    <Item idName="Window" name="জানালা"/>
+                    <Item menuId="Plugins" name="প্লাগইন"/>
+                    <Item menuId="Window" name="জানালা"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

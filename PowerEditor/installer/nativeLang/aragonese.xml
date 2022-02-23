@@ -19,8 +19,8 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 					<Item menuId="settings" name="Co&amp;nfiguraciÃƒÂ³n"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="E&amp;xecutar"/>
-					<Item idName="Plugins" name="C&amp;omplementos"/>
-					<Item idName="Window" name="F&amp;inestras"/>
+					<Item menuId="Plugins" name="C&amp;omplementos"/>
+					<Item menuId="Window" name="F&amp;inestras"/>
                 </Entries>
 
 

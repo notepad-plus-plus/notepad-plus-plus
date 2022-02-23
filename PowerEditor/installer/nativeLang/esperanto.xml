@@ -22,8 +22,8 @@
 					<Item menuId="settings" name="&amp;Agordoj"/>
 					<Item menuId="macro" name="&amp;Makroo"/>
 					<Item menuId="run" name="&amp;Lanĉado"/>
-					<Item idName="Plugins" name="Kromaĵoj"/>
-					<Item idName="Window" name="Fenestro"/>
+					<Item menuId="Plugins" name="Kromaĵoj"/>
+					<Item menuId="Window" name="Fenestro"/>
 				</Entries>
 
 				<!-- Subĉefaj menuoj -->

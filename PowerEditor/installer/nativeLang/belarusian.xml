@@ -18,8 +18,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="Інструменты"/>
                     <Item menuId="macro" name="Макрас"/>
                     <Item menuId="run" name="Выканаць"/>
-                    <Item idName="Убудовы" name="Убудовы"/>
-                    <Item idName="Window" name="Акно"/>
+                    <Item menuId="Plugins" name="Убудовы"/>
+                    <Item menuId="Window" name="Акно"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

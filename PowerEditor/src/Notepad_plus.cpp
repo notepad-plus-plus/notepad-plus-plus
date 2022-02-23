@@ -3103,6 +3103,16 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	intptr_t tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
+	ExternalLexerAutoIndentMode autoIndentMode = ExternalLexerAutoIndentMode::Standard;
+
+	// For external languages, query for custom auto-indentation funcionality
+	if (type >= L_EXTERNAL)
+	{
+		NppParameters& nppParam = NppParameters::getInstance();
+		autoIndentMode = nppParam.getELCFromIndex(type - L_EXTERNAL)._autoIndentMode;
+		if (autoIndentMode == ExternalLexerAutoIndentMode::Custom)
+			return;
+	}
 
 	// Do not alter indentation if we were at the beginning of the line and we pressed Enter
 	if ((((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
@@ -3110,7 +3120,8 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 		return;
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
-		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS || type == L_PERL || type == L_RUST || type == L_POWERSHELL || type == L_JSON)
+		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS || type == L_PERL || 
+		type == L_RUST || type == L_POWERSHELL || type == L_JSON || autoIndentMode == ExternalLexerAutoIndentMode::C_Like)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))

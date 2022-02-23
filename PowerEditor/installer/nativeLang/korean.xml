@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
     <!-- <localization work version="7.8.1~8.1.9.1" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> -->
-    <Native-Langue name="한국어" filename="korean.xml" version="8.1.9.1">
+    <Native-Langue name="한국어" filename="korean.xml" version="8.3.2">
     <Menu>
     <Main>
         <!--  Main Menu Entries -->
@@ -71,6 +71,8 @@
         <Item subMenuId="settings-import" name="가져오기"/>
         <Item subMenuId="tools-md5"  name="MD5"/>
         <Item subMenuId="tools-sha256"  name="SHA-256"/>
+		<Item subMenuId="window-sortby" name="정렬방식"/>
+		
     </SubEntries>
 
 <!--  all menu item -->
@@ -353,6 +355,16 @@
   <Item id="42041" name="최근 사용한 파일 목록 모두 지우기"/>
   <Item id="48016" name="단축키 변경/매크로 삭제..."/>
   <Item id="48017" name="단축키 변경/명령 삭제..."/>
+
+  <Item id="11002" name="파일명 오름차순"/>
+  <Item id="11003" name="파일명 내림차순"/>
+  <Item id="11004" name="파일경로 오름차순"/>
+  <Item id="11005" name="파일경로 내림차순"/>
+  <Item id="11006" name="확장자 오름차순"/>
+  <Item id="11007" name="확장자 내림차순"/>
+  <Item id="11008" name="파일크기 오름차순"/>
+  <Item id="11009" name="파일크기 내림차순"/>
+	
   </Commands>
   </Main>
 <Splitter>
@@ -626,6 +638,14 @@
     <Item id="44107" name="작업 영역으로 폴더 지정으로 전환"/>
     <Item id="44109" name="문서 목록으로 전환"/>
     <Item id="44108" name="함수 목록으로 전환"/>
+	<Item id="11002" name="파일명 오름차순"/>
+	<Item id="11003" name="파일명 내림차순"/>
+	<Item id="11004" name="파일경로 오름차순으로 정렬"/>
+	<Item id="11005" name="파일경로 내림차순으로 정렬"/>
+	<Item id="11006" name="확장자 오름차순으로 정렬"/>
+	<Item id="11007" name="확장자 내림차순으로 정렬"/>
+	<Item id="11008" name="파일크기 오름차순으로 정렬"/>
+	<Item id="11009" name="파일크기 내림차순으로 정렬"/>
   </MainCommandNames>
 </ShortcutMapper>
 <ShortcutMapperSubDialg title="단축키">

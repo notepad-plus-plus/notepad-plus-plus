@@ -2560,9 +2560,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
 			if (index < 0)
-				return -1;
+				return FALSE;
 
-			return static_cast<LRESULT>(nppParam.getELCFromIndex(index)._autoIndentType);
+			*(reinterpret_cast<LangAutoIndentType*>(lParam)) = nppParam.getELCFromIndex(index)._autoIndentType;
+			return TRUE;
 		}
 
 		case NPPM_SETLANGUAGEAUTOINDENTATION:

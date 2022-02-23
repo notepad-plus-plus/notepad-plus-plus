@@ -457,9 +457,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	};
 
 	#define NPPM_GETLANGUAGEAUTOINDENTATION  (NPPMSG + 103)
-	// INT NPPM_GETLANGUAGEAUTOINDENTATION(const TCHAR *languageName)
+	// INT NPPM_GETLANGUAGEAUTOINDENTATION(const TCHAR *languageName, LangAutoIndentType &autoIndentType)
 	// Get LangAutoIndentType for an installed external programming language.
-	// returned values: { Invalid = -1 } for failed searches, { Standard, Extended, Custom } for successful searches.
+	// returned values: TRUE for successful searches, otherwise FALSE.
 
 	#define NPPM_SETLANGUAGEAUTOINDENTATION  (NPPMSG + 104)
 	// BOOL NPPM_SETLANGUAGEAUTOINDENTATION(const TCHAR *languageName, LangAutoIndentType autoIndentType)

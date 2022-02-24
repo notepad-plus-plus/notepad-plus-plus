@@ -37,6 +37,7 @@ COLORREF TabBarPlus::_activeTopBarFocusedColour = RGB(250, 170, 60);
 COLORREF TabBarPlus::_activeTopBarUnfocusedColour = RGB(250, 210, 150);
 COLORREF TabBarPlus::_inactiveTextColour = grey;
 COLORREF TabBarPlus::_inactiveBgColour = RGB(192, 192, 192);
+COLORREF TabBarPlus::_tabEdgeColour = RGB(176, 176, 176);
 
 HWND TabBarPlus::_hwndArray[nbCtrlMax] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 int TabBarPlus::_nbCtrl = 0;
@@ -879,11 +880,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_PAINT:
 		{
-			if (!NppDarkMode::isEnabled())
-			{
-				break;
-			}
-
 			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
 			if (!(dwStyle & TCS_OWNERDRAWFIXED))
 			{
@@ -892,11 +888,13 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hwnd, &ps);
-			FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
+
+			const bool isDarkMode = NppDarkMode::isEnabled();
+
+			if (isDarkMode)
+				FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
 
 			UINT id = ::GetDlgCtrlID(hwnd);
-
-			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
 
 			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
 			if (1 != GetClipRgn(hdc, holdClip))
@@ -904,8 +902,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				DeleteObject(holdClip);
 				holdClip = nullptr;
 			}
-
-			int topBarHeight = NppParameters::getInstance()._dpiManager.scaleX(4);
 
 			int nTabs = TabCtrl_GetItemCount(hwnd);
 			int nFocusTab = TabCtrl_GetCurFocus(hwnd);
@@ -916,68 +912,95 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				TabCtrl_GetItemRect(hwnd, i, &dis.rcItem);
 
 				if (i == nFocusTab)
-				{
 					dis.itemState |= ODS_FOCUS;
-				}
+
 				if (i == nSelTab)
-				{
 					dis.itemState |= ODS_SELECTED;
-				}
 
 				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
 
 				RECT rcIntersect = {};
-				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
+				if (::IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
 				{
-					if (dwStyle & TCS_VERTICAL)
-					{
-						POINT edges[] = {
-							{dis.rcItem.left, dis.rcItem.bottom - 1},
-							{dis.rcItem.right, dis.rcItem.bottom - 1}
-						};
-						if (i != nSelTab && (i != nSelTab - 1))
-						{
-							edges[0].x += topBarHeight;
-						}
-						Polyline(hdc, edges, _countof(edges));
-						dis.rcItem.bottom -= 1;
-					}
-					else
-					{
-						POINT edges[] = {
-							{dis.rcItem.right - 1, dis.rcItem.top},
-							{dis.rcItem.right - 1, dis.rcItem.bottom}
-						};
-						if (i != nSelTab && (i != nSelTab - 1))
-						{
-							edges[0].y += topBarHeight;
-						}
-						Polyline(hdc, edges, _countof(edges));
-						dis.rcItem.right -= 1;
-					}
+					HRGN hClip = ::CreateRectRgnIndirect(&dis.rcItem);
+					::SelectClipRgn(hdc, hClip);
 
-					HRGN hClip = CreateRectRgnIndirect(&dis.rcItem);
+					drawItem(&dis, isDarkMode);
 
-					SelectClipRgn(hdc, hClip);
-
-					drawItem(&dis, true);
-
-					DeleteObject(hClip);
-
-					SelectClipRgn(hdc, holdClip);
+					::SelectClipRgn(hdc, holdClip);
+					::DeleteObject(hClip);
 				}
 			}
 
-			SelectClipRgn(hdc, holdClip);
+			// Draw remaining borders of tabs and text area
+			if (!isDarkMode)
+			{
+				HPEN edgePen = CreatePen(PS_SOLID, 1, _tabEdgeColour);
+				HPEN holdPen = static_cast<HPEN>(::SelectObject(hdc, edgePen));
+
+				const int lastTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
+				RECT rcLastTab, rcTabBar, rcSelTab, rcFirstTab;
+
+				::SendMessage(_hSelf, TCM_GETITEMRECT, lastTabIndex, reinterpret_cast<LPARAM>(&rcLastTab));
+				::SendMessage(_hSelf, TCM_GETITEMRECT, nSelTab, reinterpret_cast<LPARAM>(&rcSelTab));
+				::SendMessage(_hSelf, TCM_GETITEMRECT, 0, reinterpret_cast<LPARAM>(&rcFirstTab));
+
+				const bool isMultiline = dwStyle & TCS_BUTTONS;
+				const int multilineOffset = isMultiline ? 1 : 0;
+
+				rcTabBar.top = _isVertical ? ps.rcPaint.top : rcLastTab.top;
+				rcTabBar.bottom = _isVertical ? ps.rcPaint.bottom : (rcLastTab.bottom - multilineOffset);
+				rcTabBar.left = _isVertical ? rcLastTab.left : ps.rcPaint.left;
+				rcTabBar.right = _isVertical ? (rcLastTab.right - multilineOffset) : ps.rcPaint.right;
+
+				HRGN hTabBarRgn = ::CreateRectRgnIndirect(&rcTabBar);
+				::SelectClipRgn(hdc, hTabBarRgn);
+
+				// When active tab is on lowest row it should be connected to text area
+				const bool isLastTabRow = (_isVertical && rcSelTab.right == rcLastTab.right) || (!_isVertical && rcSelTab.top == rcLastTab.top);
+				if (_isVertical)
+				{
+					// Draw first tab border
+					if (!isMultiline)
+					{
+						::MoveToEx(hdc, rcFirstTab.left, rcFirstTab.top - 1, NULL);
+						::LineTo(hdc, rcFirstTab.right + 1, rcFirstTab.top - 1);
+					}
+					::MoveToEx(hdc, rcTabBar.right - 1, rcTabBar.top, NULL);
+					::LineTo(hdc, rcTabBar.right - 1, rcSelTab.top);
+					// In case active tab is in the last row - leave a gap in separator to connect it to the text area
+					::MoveToEx(hdc, rcTabBar.right - 1, isLastTabRow ? rcSelTab.bottom - 1 : rcSelTab.top, NULL);
+					::LineTo(hdc, rcTabBar.right - 1, rcTabBar.bottom);
+				}
+				else
+				{
+					// Draw first tab border
+					if (!isMultiline)
+					{
+						::MoveToEx(hdc, rcFirstTab.left - 1, rcFirstTab.top, NULL);
+						::LineTo(hdc, rcFirstTab.left - 1, rcFirstTab.bottom + 1);
+					}
+					::MoveToEx(hdc, rcTabBar.left, rcTabBar.bottom - 1, NULL);
+					::LineTo(hdc, rcSelTab.left, rcTabBar.bottom - 1);
+					// In case active tab is in the last row - leave a gap in separator to connect it to the text area
+					::MoveToEx(hdc, isLastTabRow ? rcSelTab.right - 1 : rcSelTab.left - 1, rcTabBar.bottom - 1, NULL);
+					::LineTo(hdc, rcTabBar.right, rcTabBar.bottom - 1);
+				}
+
+				::SelectClipRgn(hdc, holdClip);
+				::DeleteObject(hTabBarRgn);
+				::SelectObject(hdc, holdPen);
+				::DeleteObject(edgePen);
+			}
+
+			::SelectClipRgn(hdc, holdClip);
 			if (holdClip)
 			{
-				DeleteObject(holdClip);
+				::DeleteObject(holdClip);
 				holdClip = nullptr;
 			}
 
-			SelectObject(hdc, holdPen);
-
-			EndPaint(hwnd, &ps);
+			::EndPaint(hwnd, &ps);
 			return 0;
 		}
 	}
@@ -1012,84 +1035,34 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	int nSavedDC = ::SaveDC(hDC);
 
 	::SetBkMode(hDC, TRANSPARENT);
-	HBRUSH hBrush = ::CreateSolidBrush(!isDarkMode ? ::GetSysColor(COLOR_BTNFACE) : NppDarkMode::getBackgroundColor());
-	::FillRect(hDC, &rect, hBrush);
-	::DeleteObject((HGDIOBJ)hBrush);
-	
-	// equalize drawing areas of active and inactive tabs
-	int paddingDynamicTwoX = NppParameters::getInstance()._dpiManager.scaleX(2);
-	int paddingDynamicTwoY = NppParameters::getInstance()._dpiManager.scaleY(2);
-	if (isSelected && !isDarkMode)
-	{
-		// the drawing area of the active tab extends on all borders by default
-		rect.top += ::GetSystemMetrics(SM_CYEDGE);
-		rect.bottom -= ::GetSystemMetrics(SM_CYEDGE);
-		rect.left += ::GetSystemMetrics(SM_CXEDGE);
-		rect.right -= ::GetSystemMetrics(SM_CXEDGE);
-		// the active tab is also slightly higher by default (use this to shift the tab cotent up bx two pixels if tobBar is not drawn)
-		if (_isVertical)
-		{
-			rect.left += _drawTopBar ? paddingDynamicTwoX : 0;
-			rect.right -= _drawTopBar ? 0 : paddingDynamicTwoX;
-		}
-		else
-		{
-			rect.top += _drawTopBar ? paddingDynamicTwoY : 0;
-			rect.bottom -= _drawTopBar ? 0 : paddingDynamicTwoY;
-		}
-	}
+
+	const bool isMultiline = ::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS;
+
+	// for some reason rect is 1 pixel bigger than drawing area
+	if (_isVertical)
+		rect.bottom -= 1;
 	else
-	{
-		if (_isVertical)
-		{
-			rect.left += paddingDynamicTwoX;
-			rect.right += paddingDynamicTwoX;
-			rect.top -= paddingDynamicTwoY;
-			rect.bottom += paddingDynamicTwoY;
-		}
-		else
-		{
-			rect.left -= paddingDynamicTwoX;
-			rect.right += paddingDynamicTwoX;
-			rect.top += paddingDynamicTwoY;
-			rect.bottom += paddingDynamicTwoY;
-		}
-	}
-	
-	// the active tab's text with TCS_BUTTONS is lower than normal and gets clipped
-	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
-	{
-		if (_isVertical)
-		{
-			rect.left -= 2;
-		}
-		else
-		{
-			rect.top -= 2;
-		}
-	}
+		rect.right -= 1;
 
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
+	HBRUSH hBrush;
 	RECT barRect = rect;
 	if (isSelected)
 	{
-		if (isDarkMode)
-		{
-			::FillRect(hDC, &barRect, NppDarkMode::getSofterBackgroundBrush());
-		}
+		hBrush = isDarkMode ? NppDarkMode::getSofterBackgroundBrush() : ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
+		::FillRect(hDC, &rect, hBrush);
+
+		if (!isDarkMode)
+			::DeleteObject(hBrush);
+
 		if (_drawTopBar)
 		{
-			int topBarHeight = NppParameters::getInstance()._dpiManager.scaleX(4);
+			const int topBarHeight = NppParameters::getInstance()._dpiManager.scaleX(4);
+
 			if (_isVertical)
-			{
-				barRect.left -= NppParameters::getInstance()._dpiManager.scaleX(2);
 				barRect.right = barRect.left + topBarHeight;
-			}
 			else
-			{
-				barRect.top -= NppParameters::getInstance()._dpiManager.scaleY(2);
 				barRect.bottom = barRect.top + topBarHeight;
-			}
 
 			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, reinterpret_cast<LPARAM>(_hSelf)))
 				hBrush = ::CreateSolidBrush(_activeTopBarFocusedColour); // #FAAA3C
@@ -1100,14 +1073,70 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			::DeleteObject((HGDIOBJ)hBrush);
 		}
 	}
+	else if (_drawInactiveTab)
+	{
+		hBrush = ::CreateSolidBrush(!isDarkMode ? _inactiveBgColour : NppDarkMode::getBackgroundColor());
+		::FillRect(hDC, &rect, hBrush);
+		::DeleteObject(hBrush);
+	}
+
+	auto edgePen = isDarkMode? NppDarkMode::getEdgePen() : CreatePen(PS_SOLID, 1, _tabEdgeColour);
+	auto holdPen = static_cast<HPEN>(::SelectObject(hDC, edgePen));
+
+	if (isDarkMode)
+	{
+		if (_isVertical)
+		{
+            ::MoveToEx(hDC, rect.left, rect.bottom, NULL);
+			::LineTo(hDC, rect.right, rect.bottom);
+		}
+		else
+		{
+            ::MoveToEx(hDC, rect.right, rect.top, NULL);
+			::LineTo(hDC, rect.right, rect.bottom);
+		}
+	}
 	else
 	{
-		if (_drawInactiveTab)
+		if (isMultiline)
 		{
-			hBrush = ::CreateSolidBrush(!isDarkMode ? _inactiveBgColour : NppDarkMode::getBackgroundColor());
-			::FillRect(hDC, &barRect, hBrush);
-			::DeleteObject((HGDIOBJ)hBrush);
+			hBrush = ::CreateSolidBrush(_tabEdgeColour);
+			::FrameRect(hDC, &rect, hBrush);
+			::DeleteObject(hBrush);
 		}
+		else if (_isVertical)
+		{
+			POINT edges[] = {{rect.left, rect.top},
+                             {rect.left, rect.bottom},
+							 {rect.right, rect.bottom}};
+            ::Polyline(hDC, edges, _countof(edges));
+		}
+		else
+		{
+            POINT edges[] = {{rect.left, rect.top},
+                             {rect.right, rect.top},
+                             {rect.right, rect.bottom}};
+            ::Polyline(hDC, edges, _countof(edges));
+		}
+	}
+
+	::SelectObject(hDC, holdPen);
+
+	if (!isDarkMode)
+		::DeleteObject(edgePen);
+
+	// adjust drawing area for button, images, etc.
+	if (_isVertical)
+	{
+		const int paddingDynamicTwoX = NppParameters::getInstance()._dpiManager.scaleX(2);
+		rect.left += paddingDynamicTwoX;
+		rect.right -= paddingDynamicTwoX;
+	}
+	else
+	{
+		const int paddingDynamicTwoY = NppParameters::getInstance()._dpiManager.scaleY(2);
+		rect.top += paddingDynamicTwoY;
+		rect.bottom -= paddingDynamicTwoY;
 	}
 
 	// draw close button

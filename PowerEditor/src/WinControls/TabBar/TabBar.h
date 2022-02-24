@@ -254,6 +254,7 @@ protected:
 	static COLORREF _activeTopBarUnfocusedColour;
 	static COLORREF _inactiveTextColour;
 	static COLORREF _inactiveBgColour;
+	static COLORREF _tabEdgeColour;
 
 	static int _nbCtrl;
 	static HWND _hwndArray[nbCtrlMax];

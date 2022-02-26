@@ -17,9 +17,9 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file" name="Da&amp;tei"/>
+					<Item menuId="file" name="&amp;Datei"/>
 					<Item menuId="edit" name="&amp;Bearbeiten"/>
-					<Item menuId="search" name="Suche&amp;n"/>
+					<Item menuId="search" name="&amp;Suchen"/>
 					<Item menuId="view" name="&amp;Ansicht"/>
 					<Item menuId="encoding" name="C&amp;odierung"/>
 					<Item menuId="language" name="S&amp;prache"/>

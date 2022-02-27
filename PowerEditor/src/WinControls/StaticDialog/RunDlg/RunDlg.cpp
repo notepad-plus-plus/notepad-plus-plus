@@ -21,6 +21,7 @@
 #include "shortcut.h"
 #include "Parameters.h"
 #include "Notepad_plus.h"
+#include <strsafe.h>
 
 
 void Command::extractArgs(TCHAR* cmd2Exec, size_t cmd2ExecLen, TCHAR* args, size_t argsLen, const TCHAR* cmdEntier)
@@ -145,8 +146,9 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 					TCHAR expandedStr[CURRENTWORD_MAXLENGTH] = { '\0' };
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
-						int lineNumber = static_cast<int>(::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0));
-						wsprintf(expandedStr, TEXT("%d"), lineNumber);
+						size_t lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
+						std::wstring lineNumStr = std::to_wstring(lineNumber);
+						StringCchCopyW(expandedStr, CURRENTWORD_MAXLENGTH, lineNumStr.c_str());
 					}
 					else
 						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(expandedStr));

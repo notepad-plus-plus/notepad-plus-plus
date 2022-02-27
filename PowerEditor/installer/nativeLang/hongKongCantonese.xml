@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.2.1">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.3.2">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -76,12 +76,12 @@
                     <Item subMenuId="settings-import" name="匯入"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="排次序"/> <!-- #new v8.3.2 -->
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
-
-                    <!-- menu: File -->
+                    <!-- type: File menu -->
                     <Item id="41001" name="開新(&amp;N)"/>
                     <Item id="41002" name="打開舊檔(&amp;O)..."/>
                     <Item id="41019" name="檔案總管"/>
@@ -109,7 +109,7 @@
                     <Item id="41022" name="喺工作區打開資料夾(&amp;W)..."/>
                     <Item id="41023" name="喺系統預設程式度打開(&amp;D)"/>
 
-                    <!-- menu: Edit -->
+                    <!-- type: Edit menu -->
                     <Item id="42001" name="剪(&amp;T)"/>
                     <Item id="42002" name="抄(&amp;C)"/>
                     <Item id="42003" name="還原(&amp;U)"/>
@@ -118,8 +118,8 @@
                     <Item id="42006" name="剷(&amp;D)"/>
                     <Item id="42007" name="揀晒(&amp;S)"/>
                     <Item id="42020" name="開始揀/揀完(&amp;S)"/>
-                    <Item id="42084" name="日期時間（短）"/> <!-- #new v8.1.4 -->
-                    <Item id="42085" name="日期時間（長）"/> <!-- #new v8.1.4 -->
+                    <Item id="42084" name="日期時間（簡短）"/> <!-- #new v8.1.4 -->
+                    <Item id="42085" name="日期時間（完整）"/> <!-- #new v8.1.4 -->
                     <Item id="42086" name="日期時間（自訂）"/> <!-- #new v8.1.5 -->
                     <Item id="42008" name="增加縮排"/>
                     <Item id="42009" name="減少縮排"/>
@@ -155,12 +155,12 @@
                     <Item id="42075" name="上網搵吓"/>
                     <Item id="42076" name="換過個搜尋器..."/>
 
-                    <!-- menu: Macro -->
+                    <!-- type: Macro menu -->
                     <Item id="42018" name="開始錄製(&amp;C)"/>
                     <Item id="42019" name="停止錄製(&amp;T)"/>
                     <Item id="42021" name="執行(&amp;P)"/>
 
-                    <!-- menu: Edit (cont'd) -->
+                    <!-- type: Edit menu (cont'd) -->
                     <Item id="42022" name="轉做/取消單行式註解"/>
                     <Item id="42023" name="轉做區塊式註解"/>
                     <Item id="42047" name="取消區塊式註解"/>
@@ -177,20 +177,24 @@
                     <Item id="42048" name="抄低 binary 內容（包埋 NULL 字元）"/>
                     <Item id="42049" name="剪低 binary 內容（包埋 NULL 字元）"/>
                     <Item id="42050" name="貼上 binary 內容（包埋 NULL 字元）"/>
+
+                    <!-- type: context menu -->
                     <Item id="42082" name="抄低條 link"/> <!-- #new v7.9.2 -->
+
+                    <!-- type: Edit menu (cont'd) -->
                     <Item id="42037" name="欄位模式..."/>
                     <Item id="42034" name="欄位編輯器(&amp;N)..."/>
                     <Item id="42051" name="打開 &amp;panel：ASCII 字元表"/>
                     <Item id="42052" name="打開 panel：剪貼簿記錄(&amp;H)"/>
 
-                    <!-- menu: Macro (cont'd) -->
+                    <!-- type: Macro menu (cont'd) -->
                     <Item id="42025" name="&amp;Save 低啱啱錄咗嘅 macro..."/>
 
-                    <!-- menu: View -->
+                    <!-- type: View menu -->
                     <Item id="42026" name="文字方向：右至左"/>
                     <Item id="42027" name="文字方向：左至右"/>
 
-                    <!-- menu: Edit (cont'd) -->
+                    <!-- type: Edit menu (cont'd) -->
                     <Item id="42028" name="將檔案 &amp;set 做唯讀"/>
                     <Item id="42029" name="檔案路徑 → 剪貼簿"/>
                     <Item id="42030" name="檔名 → 剪貼簿"/>
@@ -198,10 +202,10 @@
                     <Item id="42087" name="所有檔名 → 剪貼簿"/> <!-- #new v8.2.1 -->
                     <Item id="42088" name="所有檔案路徑 → 剪貼簿"/> <!-- #new v8.2.1 -->
 
-                    <!-- menu: Macro (cont'd) -->
+                    <!-- type: Macro menu (cont'd) -->
                     <Item id="42032" name="係咁執行 mac&amp;ro..."/>
 
-                    <!-- menu: Edit (cont'd) -->
+                    <!-- type: Edit menu (cont'd) -->
                     <Item id="42033" name="取消唯讀屬性"/>
                     <Item id="42035" name="轉做單行式註解"/>
                     <Item id="42036" name="取消單行式註解"/>
@@ -210,7 +214,7 @@
                     <Item id="42057" name="喺上面加一行"/>
                     <Item id="42058" name="喺下面加一行"/>
 
-                    <!-- menu: Search -->
+                    <!-- type: Search menu -->
                     <Item id="43001" name="搵(&amp;F)..."/>
                     <Item id="43002" name="搵下一個(&amp;N)"/>
                     <Item id="43003" name="取代(&amp;R)..."/>
@@ -274,12 +278,14 @@
                     <Item id="43048" name="揀字然後搵下個(&amp;S)"/>
                     <Item id="43049" name="揀字然後搵上個(&amp;S)"/>
                     <Item id="43054" name="搵料標記(&amp;K)..."/>
+
+                    <!-- type: context menu in Document List panel -->
                     <Item id="43501" name="閂晒揀咗呢啲檔案"/> <!-- #new v8.2.1 -->
                     <Item id="43502" name="閂晒其它佢"/> <!-- #new v8.2.1 -->
                     <Item id="43503" name="抄低揀咗呢啲檔名"/> <!-- #new v8.2.1 -->
                     <Item id="43504" name="抄低揀咗呢啲檔案路徑"/> <!-- #new v8.2.1 -->
 
-                    <!-- menu: View (cont'd) -->
+                    <!-- type: View menu (cont'd) -->
                     <Item id="44009" name="Post-It 便利貼模式"/>
                     <Item id="44010" name="摺埋所有層級"/>
                     <Item id="44011" name="免干擾模式"/> <!-- #new v7.9.6 -->
@@ -323,12 +329,12 @@
                     <Item id="44082" name="Project Panel 2"/>
                     <Item id="44083" name="Project Panel 3"/>
 
-                    <!-- menu: Edit (cont'd) -->
+                    <!-- type: Edit menu (cont'd) -->
                     <Item id="45001" name="Windows (CR LF)"/>
                     <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintosh (CR)"/>
 
-                    <!-- menu: Encoding -->
+                    <!-- type: Encoding menu -->
                     <Item id="45004" name="ANSI"/>
                     <Item id="45005" name="UTF-8 with BOM"/>
                     <Item id="45006" name="UTF-16 BE BOM"/>
@@ -346,22 +352,22 @@
                     <Item id="45053" name="OEM 860: 葡萄牙文"/>
                     <Item id="45056" name="OEM 863: 法文"/>
 
-                    <!-- menu: View (cont'd) -->
+                    <!-- type: View menu (cont'd) -->
                     <Item id="10001" name="搬呢個檔案去另一邊視窗"/>
                     <Item id="10002" name="抄呢個檔案去另一邊視窗"/>
                     <Item id="10003" name="搬呢個檔案去新視窗"/>
                     <Item id="10004" name="抄呢個檔案去新視窗"/>
 
-                    <!-- menu: Settings -->
+                    <!-- type: Settings menu -->
                     <Item id="46001" name="主題風格設定..."/>
 
-                    <!-- menu: Language -->
+                    <!-- type: Language menu -->
                     <Item id="46250" name="定義你嘅程式語言..."/>
                     <Item id="46300" name="打開自訂程式語言嘅資料夾..."/>
                     <Item id="46301" name="Notepad++ 自訂程式語言收藏庫"/> <!-- #new v8.1.9.3 -->
                     <Item id="46180" name="通用使用者設定"/>
 
-                    <!-- menu: Help -->
+                    <!-- type: Help menu -->
                     <Item id="47000" name="關於 Notepad++"/>
                     <Item id="47010" name="Command line 參數..."/>
                     <Item id="47001" name="Notepad++ 官方網站"/>
@@ -373,18 +379,18 @@
                     <Item id="47006" name="更新 Notepad++"/>
                     <Item id="47009" name="設定更新程式嘅代理伺服器..."/>
 
-                    <!-- menu: Settings (cont'd) -->
+                    <!-- type: Settings menu (cont'd) -->
                     <Item id="48005" name="匯入外掛..."/>
                     <Item id="48006" name="匯入主題風格..."/>
                     <Item id="48018" name="編輯快顯功能表"/>
                     <Item id="48009" name="快捷鍵配對..."/>
                     <Item id="48011" name="偏好設定..."/>
 
-                    <!-- menu: Plugins -->
+                    <!-- type: Plugins menu -->
                     <Item id="48014" name="打開外掛資料夾..."/>
                     <Item id="48015" name="外掛管理員..."/>
 
-                    <!-- menu: Tools -->
+                    <!-- type: Tools menu -->
                     <Item id="48501" name="運算..."/>
                     <Item id="48502" name="運算檔案..."/>
                     <Item id="48503" name="運算揀咗嘅字再抄去剪貼簿"/>
@@ -392,33 +398,43 @@
                     <Item id="48505" name="運算檔案..."/>
                     <Item id="48506" name="運算揀咗嘅字再抄去剪貼簿"/>
 
-                    <!-- menu: Run -->
+                    <!-- type: Run menu -->
                     <Item id="49000" name="執行(&amp;R)..."/>
 
-                    <!-- menu: Edit (cont'd) -->
+                    <!-- type: Edit menu (cont'd) -->
                     <Item id="50000" name="自動完成函數"/>
                     <Item id="50001" name="自動完成字詞"/>
                     <Item id="50002" name="功能參數提示"/>
 
-                    <!-- menu: items in Shortcut Mapper dialog -->
+                    <!-- type: Shortcut Mapper dialog -->
                     <Item id="50005" name="開始/停止錄製 macro"/>
 
-                    <!-- menu: Edit (cont'd) -->
+                    <!-- type: Edit menu (cont'd) -->
                     <Item id="50006" name="自動完成文件路徑"/>
 
-                    <!-- menu: View (cont'd) -->
+                    <!-- type: View menu (cont'd) -->
                     <Item id="44042" name="隱藏呢（幾）行"/>
 
-                    <!-- menu: File (cont'd) -->
+                    <!-- type: File menu (cont'd) -->
                     <Item id="42040" name="打開所有最近用過嘅檔案"/>
                     <Item id="42041" name="剷晒最近用過嘅檔案記錄"/>
 
-                    <!-- menu: Macro (cont'd) -->
+                    <!-- type: Macro menu (cont'd) -->
                     <Item id="48016" name="修改快捷鍵或者剷走 macro..."/>
 
-                    <!-- menu: Run (cont'd) -->
+                    <!-- type: Run menu (cont'd) -->
                     <Item id="48017" name="修改快捷鍵或者剷走執行指令..."/>
 
+                    <!-- type: Window menu -->
+                    <Item id="11001" name="視窗(&amp;W)..."/> <!-- #new v8.3.2 -->
+                    <Item id="11002" name="檔名 A 至 Z"/> <!-- #new v8.3.2 -->
+                    <Item id="11003" name="檔名 Z 至 A"/> <!-- #new v8.3.2 -->
+                    <Item id="11004" name="路徑 A 至 Z"/> <!-- #new v8.3.2 -->
+                    <Item id="11005" name="路徑 Z 至 A"/> <!-- #new v8.3.2 -->
+                    <Item id="11006" name="副檔名 A 至 Z"/> <!-- #new v8.3.2 -->
+                    <Item id="11007" name="副檔名 Z 至 A"/> <!-- #new v8.3.2 -->
+                    <Item id="11008" name="細至大 size"/> <!-- #new v8.3.2 -->
+                    <Item id="11009" name="大至細 size"/> <!-- #new v8.3.2 -->
                 </Commands>
             </Main>
             <Splitter>
@@ -692,6 +708,14 @@
                     <Item id="44107" name="跳去資料夾工作區"/>
                     <Item id="44109" name="跳去文件清單"/> <!-- #new v8.1.4 -->
                     <Item id="44108" name="跳去函式清單"/>
+                    <Item id="11002" name="排次序：檔名 A 至 Z"/> <!-- #new v8.3.2 -->
+                    <Item id="11003" name="排次序：檔名 Z 至 A"/> <!-- #new v8.3.2 -->
+                    <Item id="11004" name="排次序：路徑 A 至 Z"/> <!-- #new v8.3.2 -->
+                    <Item id="11005" name="排次序：路徑 Z 至 A"/> <!-- #new v8.3.2 -->
+                    <Item id="11006" name="排次序：副檔名 A 至 Z"/> <!-- #new v8.3.2 -->
+                    <Item id="11007" name="排次序：副檔名 Z 至 A"/> <!-- #new v8.3.2 -->
+                    <Item id="11008" name="排次序：細至大 size"/> <!-- #new v8.3.2 -->
+                    <Item id="11009" name="排次序：大至細 size"/> <!-- #new v8.3.2 -->
                 </MainCommandNames>
             </ShortcutMapper>
 
@@ -1063,6 +1087,15 @@
                     <Item id="6721" name="中間"/>
                     <Item id="6722" name="右邊"/>
                     <Item id="6723" name="加入"/>
+                    <ComboBox id="6724">
+                        <Element name="完整檔案路徑"/> <!-- #new v8.3.1 -->
+                        <Element name="檔名"/> <!-- #new v8.3.1 -->
+                        <Element name="資料夾路徑"/> <!-- #new v8.3.1 -->
+                        <Element name="頁數"/> <!-- #new v8.3.1 -->
+                        <Element name="日期（簡短）"/> <!-- #new v8.3.1 -->
+                        <Element name="日期（完整）"/> <!-- #new v8.3.1 -->
+                        <Element name="時間"/> <!-- #new v8.3.1 -->
+                    </ComboBox>
                     <Item id="6725" name="變數："/>
                     <Item id="6727" name="呢度會顯示你啲變數設定"/>
                     <Item id="6728" name="頁首同埋頁尾"/>
@@ -1133,7 +1166,7 @@
                     <Item id="6154" name="預設（單一程式個體）"/>
                     <Item id="6155" name="* 改過上面嘅設定，要重開 Notepad++ 先至會生效"/>
                     <Item id="6171" name="自訂日期時間插入功能"/> <!-- #new v8.1.5 -->
-                    <Item id="6175" name="將日期同埋時間調轉（插入長/短日期時間功能）"/> <!-- #new v8.1.5 -->
+                    <Item id="6175" name="將日期同埋時間調轉（插入完整/簡短日期時間功能）"/> <!-- #new v8.1.5 -->
                     <Item id="6172" name="自訂格式："/> <!-- #new v8.1.5 -->
                 </MultiInstance>
 
@@ -1317,6 +1350,9 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <DocTooDirtyToMonitor title="監控問題" message="份文件污糟咗，麻煩 save 咗佢先至再監視。"/>
             <DocNoExistToMonitor title="監控問題" message="份文件已經唔存在喇，冇辦法進行監視。"/>
             <FileTooBigToOpen title="檔案太大" message="檔案太大開唔到。"/>
+            <FileLoadingException title="Exception code: $STR_REPLACE$" message="Load 檔案嗰陣出錯。你個嘢壞咗啊！"/> <!-- #new v8.3.1 -->
+            <WantToOpenHugeFile title="注意：打開極大嘅檔案" message="打開超過 2GB 嘅檔案可能要花幾分鐘，
+係咪真係要打開佢？"/> <!-- #new v8.3.1 -->
             <CreateNewFileOrNot title="開新檔案" message="個檔案「$STR_REPLACE$」唔存在，開唔開新？"/>
             <CreateNewFileError title="開新檔案" message="開唔到新檔案「$STR_REPLACE$」。"/>
             <OpenFileError title="ERROR" message="個檔案「$STR_REPLACE$」打唔開"/>

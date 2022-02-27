@@ -1,3 +1,19 @@
+Notepad++ v8.3.2 regression-fixes, bug-fixes and new enhancements:
+
+1.  Fix incorrect message while double clicking on search result regression.
+2.  Fix regression: file can't be saved if it's set to other charset before.
+3.  Fix UDL comment config input fields broken regression.
+4.  Fix UDL dialog crash issue on over 30 created UDL.
+5.  Add sorting document tab order commands by name, path, type and size.    
+6.  Add API NPPM_GETCURRENTLINESTR and variable $(CURRENT_LINESTR) for RunDlg.
+7.  Support better 2GB+ file (cmdline & session file adaptation).
+8.  Fix auto-completion sort order problem due to fx icon.
+9.  Refine auto-saving session on exit behaviour.
+10. Enhance performance on exit with certain settings.
+11. Fix auto-complete case insensitive not working issue.
+12. Fix saving problem (regression) with "Sysnative" alias in x86 binary.
+
+
 Notepad++ v8.3.1 regression-fixes, bug-fixes and enhancement:
 
 1.  Fix XML tag adding or mark deletion crash issue.
@@ -20,7 +36,7 @@ Notepad++ v8.3 new features and bug-fixes:
 
 
 More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.3/
+https://notepad-plus-plus.org/downloads/v8.3.2/
 
 
 Included plugins:

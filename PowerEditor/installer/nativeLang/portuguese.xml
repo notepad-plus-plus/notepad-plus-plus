@@ -73,6 +73,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="settings-import" name="Importar"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Ordenar por"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -362,6 +363,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42041" name="Limpar a lista dos ficheiros recentes"/>
                     <Item id="48016" name="Modificar atalho/eliminar macro..."/>
                     <Item id="48017" name="Modificar atalho/eliminar comando..."/>
+
+                    <Item id="11001" name="Janelas..."/>
+                    <Item id="11002" name="Nome de A a Z"/>
+                    <Item id="11003" name="Nome de Z a A"/>
+                    <Item id="11004" name="Localização de A a Z"/>
+                    <Item id="11005" name="Localização de Z a A"/>
+                    <Item id="11006" name="Tipo de A a Z"/>
+                    <Item id="11007" name="Tipo de Z a A"/>
+                    <Item id="11008" name="Tamanho de menor a maior"/>
+                    <Item id="11009" name="Tamanho de maior a menor"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -635,6 +646,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Mudar pasta como área de trabalho"/>
                     <Item id="44109" name="Mudar para lista de documentos"/>
                     <Item id="44108" name="Mudar lista de funções"/>
+                    <Item id="11002" name="Ordenar por nome de A a Z"/>
+                    <Item id="11003" name="Ordenar por nome de Z a A"/>
+                    <Item id="11004" name="Ordenar por localização de A a Z"/>
+                    <Item id="11005" name="Ordenar por localização de Z a A"/>
+                    <Item id="11006" name="Ordenar por tipo de A a Z"/>
+                    <Item id="11007" name="Ordenar por tipo de Z a A"/>
+                    <Item id="11008" name="Ordenar por tamanho de menor a maior"/>
+                    <Item id="11009" name="Ordenar por tamanho de maior a menor"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Atalho">
@@ -1546,7 +1565,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-10/02/2022 (versão 8.0, 8.1, 8.2, 8.3)
+26/02/2022 (versão 8.0, 8.1, 8.2, 8.3)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

@@ -535,11 +535,12 @@ void CommentStyleDialog::setKeywords2List(int id)
             IDC_COMMENT_CLOSE_EDIT
         };
 
-        for (size_t i = 0; i < sizeof(list)/sizeof(int); ++i)
+        TCHAR intBuffer[10] = { '0', 0 };
+        for (int i = 0; static_cast<size_t>(i) < sizeof(list) / sizeof(int); ++i)
         {
-            wstring intStr = std::to_wstring(i);
+            generic_itoa(i, intBuffer + 1, 10);
             ::GetDlgItemText(_hSelf, list[i], buffer, max_char);
-			convertTo(newList, max_char, buffer, intStr.c_str());
+            convertTo(newList, max_char, buffer, intBuffer);
         }
 
 		wcscpy_s(_pUserLang->_keywordLists[index], newList);
@@ -597,11 +598,12 @@ void CommentStyleDialog::updateDlg()
         IDC_COMMENT_CLOSE_EDIT
     };
 
-    for (size_t i=0; i<sizeof(list)/sizeof(int); ++i)
+    TCHAR intBuffer[10] = { '0', 0 };
+    for (int i = 0; static_cast<size_t>(i) < sizeof(list) / sizeof(int); ++i)
     {
-        wstring intStr = std::to_wstring(i);
-        retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS], intStr.c_str());
-		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
+        generic_itoa(i, intBuffer + 1, 10);
+        retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS], intBuffer);
+        ::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
     }
 
     ::SendDlgItemMessage(_hSelf, IDC_FOLDING_OF_COMMENTS,   BM_SETCHECK, _pUserLang->_allowFoldOfComments,    0);

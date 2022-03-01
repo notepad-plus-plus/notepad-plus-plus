@@ -79,6 +79,99 @@ const char* xpmfn[] = {
 	"uuuuuuuuuuuuuuuu"
 };
 
+const auto BOX_IMG_ID = 1001;
+const char* xpmbox[] = {
+    /* columns rows colors chars-per-pixel */
+    "16 16 70 1 ",
+    "  c None",
+    ". c #712472",
+    "X c #752775",
+    "o c #7A2B7B",
+    "O c #7C2D7D",
+    "+ c #7C2E7C",
+    "@ c #7E2E7E",
+    "# c #7E307F",
+    "$ c #7F3080",
+    "% c #8D358E",
+    "& c #953896",
+    "* c #9C3C9D",
+    "= c #9F3C9F",
+    "- c #8E468F",
+    "; c #904E91",
+    ": c #965297",
+    "> c #A74FA8",
+    ", c #A650A7",
+    "< c #A850A9",
+    "1 c #A950AA",
+    "2 c #A952AA",
+    "3 c #BB6FBC",
+    "4 c #BC70BD",
+    "5 c #CB67CC",
+    "6 c #D16AD2",
+    "7 c #D26BD3",
+    "8 c #D16DD2",
+    "9 c #D36ED4",
+    "0 c #D56FD5",
+    "q c #8A99AE",
+    "w c #98A4AE",
+    "e c #9CA7AE",
+    "r c #ACB5AD",
+    "t c #ACB4AE",
+    "y c #B5BBAD",
+    "u c #C1C4AC",
+    "i c #CCCEAC",
+    "p c #D5D5AC",
+    "a c #E5E2AB",
+    "s c #E9E5AB",
+    "d c #F7F0AB",
+    "f c #CF88CF",
+    "g c #DD98DE",
+    "h c #E698E7",
+    "j c #E990EA",
+    "k c #EB91EC",
+    "l c #EE9DEF",
+    "z c #FA98FB",
+    "x c #FA99FB",
+    "c c #FA9BFB",
+    "v c #FA9FFB",
+    "b c #E3ACE3",
+    "n c #E2AFE2",
+    "m c #EEA5EF",
+    "M c #EEBEEE",
+    "N c #FAABFB",
+    "B c #FAAEFB",
+    "V c #E4CAE4",
+    "C c #E6CCE6",
+    "Z c #E8D1E8",
+    "A c #EBD1EB",
+    "S c #ECD2EC",
+    "D c #EDD8ED",
+    "F c #F0D4F0",
+    "G c #F0D5F0",
+    "H c #F2DBF2",
+    "J c #F0E3F0",
+    "K c #F2E0F3",
+    "L c #F3E3F3",
+    "P c #F4E6F4",
+    /* pixels */
+    "                ",
+    "                ",
+    "         HfJ    ",
+    "        HfbfL   ",
+    "       FfMBkfJ  ",
+    "  dptq fnNzzjfP ",
+    "       ,3mxxzh; ",
+    "dsputw ,83mvl:@ ",
+    "       <604g-*@ ",
+    " daiyw C179$=%O ",
+    "        Z15@&OG ",
+    "         D1@XZ  ",
+    "          S.C   ",
+    "                ",
+    "                ",
+    "                "
+};
+
 
 using namespace std;
 
@@ -120,6 +213,7 @@ bool AutoCompletion::showApiComplete()
 	if (!_isFxImageRegistered)
 	{
 		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+		_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmbox));
 		_isFxImageRegistered = true;
 	}
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
@@ -202,6 +296,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	if (!_isFxImageRegistered)
 	{
 		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+		_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmbox));
 		_isFxImageRegistered = true;
 	}
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
@@ -965,13 +1060,19 @@ bool AutoCompletion::setLanguage(LangType language)
 		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
 		{
 			const TCHAR *name = funcNode->Attribute(TEXT("name"));
-			generic_string imgid = TEXT("\x1E") + intToString(FUNC_IMG_ID);
 			if (name)
 			{
 				size_t len = lstrlen(name);
 				if (len)
 				{
-					generic_string word = name + imgid;
+					generic_string word = name;
+					generic_string imgid = TEXT("\x1E");
+					const TCHAR *func = funcNode->Attribute(TEXT("func"));
+					if (func && !lstrcmp(func, TEXT("yes")))
+						imgid += intToString(FUNC_IMG_ID);
+					else
+						imgid += intToString(BOX_IMG_ID);
+					word += imgid;
 					_keyWordArray.push_back(word.c_str());
 					if (len > _keyWordMaxLen)
 						_keyWordMaxLen = len;

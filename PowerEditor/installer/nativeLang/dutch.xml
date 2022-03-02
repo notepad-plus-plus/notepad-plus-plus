@@ -5,7 +5,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2022-02-10 by Thomas De Rocker (RockyTDR).
+Last modified on 2022-03-02 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="8.3">
@@ -78,6 +78,7 @@ Last modified on 2022-02-10 by Thomas De Rocker (RockyTDR).
                     <Item subMenuId="settings-import" name="Importeren"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Sorteren op"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -367,6 +368,16 @@ Last modified on 2022-02-10 by Thomas De Rocker (RockyTDR).
                     <Item id="42041" name="Bestandsgeschiedenis wissen"/>
                     <Item id="48016" name="Sneltoets wijzigen/macro verwijderen..."/>
                     <Item id="48017" name="Sneltoets wijzigen/opdracht verwijderen..."/>
+
+                    <Item id="11001" name="Vensters..."/>
+                    <Item id="11002" name="Naam van A naar Z"/>
+                    <Item id="11003" name="Naam van Z naar A"/>
+                    <Item id="11004" name="Pad van A naar Z"/>
+                    <Item id="11005" name="Pad van Z naar A"/>
+                    <Item id="11006" name="Type van A naar Z"/>
+                    <Item id="11007" name="Type van Z naar A"/>
+                    <Item id="11008" name="Grootte van klein naar groot"/>
+                    <Item id="11009" name="Grootte van groot naar klein"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -640,6 +651,14 @@ Last modified on 2022-02-10 by Thomas De Rocker (RockyTDR).
                     <Item id="44107" name="Wisselen naar map als werkruimte"/>
                     <Item id="44109" name="Wisselen naar documentenlijst"/>
                     <Item id="44108" name="Wisselen naar functielijst"/>
+                    <Item id="11002" name="Sorteren op naam van A naar Z"/>
+                    <Item id="11003" name="Sorteren op naam van Z naar A"/>
+                    <Item id="11004" name="Sorteren op pad van A naar Z"/>
+                    <Item id="11005" name="Sorteren op pad van Z naar A"/>
+                    <Item id="11006" name="Sorteren op type van A naar Z"/>
+                    <Item id="11007" name="Sorteren op type van Z naar A"/>
+                    <Item id="11008" name="Sorteren op grootte, van klein naar groot"/>
+                    <Item id="11009" name="Sorteren op grootte, van groot naar klein"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Sneltoets">

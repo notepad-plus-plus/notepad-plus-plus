@@ -2556,13 +2556,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
-		case NPPM_GETLANGUAGEAUTOINDENTATION:
+		case NPPM_GETEXTERNALLANGAUTOINDENTMODE:
 		{
 			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
 			if (index < 0)
 				return FALSE;
 
-			*(reinterpret_cast<LangAutoIndentType*>(lParam)) = nppParam.getELCFromIndex(index)._autoIndentType;
+			*(reinterpret_cast<LangAutoIndentMode*>(lParam)) = nppParam.getELCFromIndex(index)._autoIndentMode;
 			return TRUE;
 		}
 
@@ -2572,11 +2572,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (index < 0)
 				return FALSE;
 
-			nppParam.getELCFromIndex(index)._autoIndentType = static_cast<LangAutoIndentType>(lParam);
+			nppParam.getELCFromIndex(index)._autoIndentMode = static_cast<LangAutoIndentMode>(lParam);
 			return TRUE;
 		}
 
-		case NPPM_GETUSEAUTOINDENTATIONSETTING:
+		case NPPM_ISAUTOINDENTATIONON:
 		{
 			return nppParam.getNppGUI()._maitainIndent;
 		}

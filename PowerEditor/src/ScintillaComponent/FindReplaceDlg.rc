@@ -56,12 +56,12 @@ BEGIN
     CONTROL         "Match &whole word only",IDWHOLEWORD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,88,140,15
     CONTROL         "Match &case",IDMATCHCASE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,100,140,15
     CONTROL         "Wra&p around",IDWRAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,112,140,15
-    GROUPBOX        "Search Mode",IDC_MODE_STATIC,6,131,159,48
-    CONTROL         "&Normal",IDNORMAL,"Button",BS_AUTORADIOBUTTON | WS_GROUP,12,143,126,10
+    GROUPBOX        "Search Mode",IDC_MODE_STATIC,6,131,165,48
+    CONTROL         "&Normal",IDNORMAL,"Button",BS_AUTORADIOBUTTON | WS_GROUP,12,143,155,10
     CONTROL         "E&xtended (\\n, \\r, \\t, \\0, \\x...)",IDEXTENDED,
-                    "Button",BS_AUTORADIOBUTTON,12,155,145,10
+                    "Button",BS_AUTORADIOBUTTON,12,155,155,10
     CONTROL         "Re&gular expression",IDREGEXP,"Button",BS_AUTORADIOBUTTON,12,167,78,10
-    CONTROL         "&. matches newline",IDREDOTMATCHNL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,93,167,68,9
+    CONTROL         "&. matches newline",IDREDOTMATCHNL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,93,167,74,9
     PUSHBUTTON      "", IDC_FINDPREV, 268, 20, 18, 14, WS_GROUP | BS_MULTILINE
     PUSHBUTTON      "", IDC_FINDNEXT, 289, 20, 70, 14, WS_GROUP | BS_MULTILINE
     PUSHBUTTON      "Find Next",IDOK,268,20,91,14,WS_GROUP

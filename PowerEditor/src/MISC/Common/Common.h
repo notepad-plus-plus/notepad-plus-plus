@@ -159,11 +159,11 @@ protected:
 };
 
 
-
-#define MACRO_IS_IDLE 0
-#define MACRO_RECORDING_IN_PROGRESS 1
-#define MACRO_RECORDING_HAS_STOPPED 2
-#define MACRO_IS_PLAYINGBACK 3
+// Replaced with MacroStatus enum class.
+// #define MACRO_IS_IDLE 0
+// #define MACRO_RECORDING_IN_PROGRESS 1
+// #define MACRO_RECORDING_HAS_STOPPED 2
+// #define MACRO_IS_PLAYINGBACK 3
 
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 

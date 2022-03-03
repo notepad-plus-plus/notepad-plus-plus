@@ -37,7 +37,7 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};
 enum class LangAutoIndentMode { Standard, Extended, Custom };
-enum class MacroStatus { Idle, RecordInProgress, RecordStop, PlayingBack };
+enum class MacroStatus { Idle, RecordInProgress, RecordingStopped, PlayingBack };
 
 enum winVer { WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10 };
 enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
@@ -459,11 +459,17 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_GETEXTERNALLANGAUTOINDENTMODE  (NPPMSG + 103)
 	// BOOL NPPM_GETEXTERNALLANGAUTOINDENTMODE(const TCHAR *languageName, LangAutoIndentMode &autoIndentMode)
 	// Get LangAutoIndentMode for an installed external programming language.
+	// - Standard means Notepad++ will keep the same TAB indentation between lines;
+	// - Extended means Notepad++ will perform a C-Language style indentation for the selected external language;
+	// - Custom means a Plugin will be controlling auto-indentation for the current language.
 	// returned values: TRUE for successful searches, otherwise FALSE.
 
-	#define NPPM_SETLANGUAGEAUTOINDENTATION  (NPPMSG + 104)
-	// BOOL NPPM_SETLANGUAGEAUTOINDENTATION(const TCHAR *languageName, LangAutoIndentMode autoIndentMode)
+	#define NPPM_SETEXTERNALLANGAUTOINDENTMODE  (NPPMSG + 104)
+	// BOOL NPPM_SETEXTERNALLANGAUTOINDENTMODE(const TCHAR *languageName, LangAutoIndentMode autoIndentMode)
 	// Set LangAutoIndentMode for an installed external programming language.
+	// - Standard means Notepad++ will keep the same TAB indentation between lines;
+	// - Extended means Notepad++ will perform a C-Language style indentation for the selected external language;
+	// - Custom means a Plugin will be controlling auto-indentation for the current language.
 	// returned value: TRUE if function call was successful, otherwise FALSE.
 
 	#define NPPM_ISAUTOINDENTATIONON  (NPPMSG + 105)
@@ -472,7 +478,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETCURRENTMACROSTATUS (NPPMSG + 106)
 	// MacroStatus NPPM_GETCURRENTMACROSTATUS(0, 0)
-	// Gets current enum class MacroStatus { Idle, RecordInProgress, RecordStop, PlayingBack }
+	// Gets current enum class MacroStatus { Idle, RecordInProgress, RecordingStopped, PlayingBack }
 
 
 

@@ -1087,7 +1087,6 @@ public:
 	{
 		generic_strncpy(_name, name, MAX_EXTERNAL_LEXER_NAME_LEN);
 		generic_strncpy(_desc, desc, MAX_EXTERNAL_LEXER_DESC_LEN);
-		_autoIndentMode = LangAutoIndentMode::Standard;
 	}
 };
 

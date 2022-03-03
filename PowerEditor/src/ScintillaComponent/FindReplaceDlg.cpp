@@ -1182,7 +1182,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_COMMAND :
 		{
-			bool isMacroRecording = (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS);
+			bool isMacroRecording = (static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS,0,0)) == MacroStatus::RecordInProgress);
 			NppParameters& nppParamInst = NppParameters::getInstance();
 			FindHistory & findHistory = nppParamInst.getFindHistory();
 			switch (LOWORD(wParam))
@@ -2054,7 +2054,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		msg = TEXT("^ ") + msg;
 		(*_ppEditView)->showCallTip(start, msg.c_str());
 	}
-	if (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS)
+	if (static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS,0,0)) == MacroStatus::RecordInProgress)
 		(*_ppEditView)->execute(SCI_STARTRECORD);
 
 	delete [] pText;

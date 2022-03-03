@@ -1296,13 +1296,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		}
 
 		case NPPM_GETCURRENTMACROSTATUS:
-		case WM_GETCURRENTMACROSTATUS:
 		{
 			if (_recordingMacro)
-				return MACRO_RECORDING_IN_PROGRESS;
+				return static_cast<LRESULT>(MacroStatus::RecordInProgress);
 			if (_playingBackMacro)
-				return MACRO_IS_PLAYINGBACK;
-			return (_macro.empty()) ? MACRO_IS_IDLE : MACRO_RECORDING_HAS_STOPPED;
+				return static_cast<LRESULT>(MacroStatus::PlayingBack);
+			return (_macro.empty()) ? static_cast<LRESULT>(MacroStatus::Idle) : static_cast<LRESULT>(MacroStatus::RecordingStopped);
 		}
 
 		case WM_FRSAVE_INT:
@@ -2566,7 +2565,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_SETLANGUAGEAUTOINDENTATION:
+		case NPPM_SETEXTERNALLANGAUTOINDENTMODE:
 		{
 			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
 			if (index < 0)

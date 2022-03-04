@@ -2555,27 +2555,27 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
-		case NPPM_GETEXTERNALLANGAUTOINDENTMODE:
+		case NPPM_GETEXTERNALLEXERAUTOINDENTMODE:
 		{
 			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
 			if (index < 0)
 				return FALSE;
 
-			*(reinterpret_cast<LangAutoIndentMode*>(lParam)) = nppParam.getELCFromIndex(index)._autoIndentMode;
+			*(reinterpret_cast<ExternalLexerAutoIndentMode*>(lParam)) = nppParam.getELCFromIndex(index)._autoIndentMode;
 			return TRUE;
 		}
 
-		case NPPM_SETEXTERNALLANGAUTOINDENTMODE:
+		case NPPM_SETEXTERNALLEXERAUTOINDENTMODE:
 		{
 			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
 			if (index < 0)
 				return FALSE;
 
-			nppParam.getELCFromIndex(index)._autoIndentMode = static_cast<LangAutoIndentMode>(lParam);
+			nppParam.getELCFromIndex(index)._autoIndentMode = static_cast<ExternalLexerAutoIndentMode>(lParam);
 			return TRUE;
 		}
 
-		case NPPM_ISAUTOINDENTATIONON:
+		case NPPM_ISAUTOINDENTON:
 		{
 			return nppParam.getNppGUI()._maitainIndent;
 		}

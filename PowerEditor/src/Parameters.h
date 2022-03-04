@@ -1081,7 +1081,7 @@ class ExternalLangContainer final
 public:
 	TCHAR _name[MAX_EXTERNAL_LEXER_NAME_LEN];
 	TCHAR _desc[MAX_EXTERNAL_LEXER_DESC_LEN];
-	LangAutoIndentMode _autoIndentMode = LangAutoIndentMode::Standard;
+	ExternalLexerAutoIndentMode _autoIndentMode = ExternalLexerAutoIndentMode::Standard;
 
 	ExternalLangContainer(const TCHAR* name, const TCHAR* desc)
 	{

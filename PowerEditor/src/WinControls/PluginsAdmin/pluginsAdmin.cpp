@@ -56,16 +56,17 @@ Version::Version(const generic_string& versionStr)
 			++i;
 		}
 	}
+#ifdef DEBUG
 	catch (const wstring& s)
 	{
 		_major = 0;
 		_minor = 0;
 		_patch = 0;
 		_build = 0;
-#ifdef DEBUG
+
 		throw s;
-#endif
 	}
+#endif
 	catch (...)
 	{
 		_major = 0;
@@ -751,16 +752,16 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 					nppVer.setVersionFrom(nppFullPathName);
 					
 					if (nppCompatibleVersions.first <= nppVer && nppCompatibleVersions.second >= nppVer) // from <= npp <= to
-						                                                                                 // 3 cases are processed:
-																										 // <6.9, 6.9>: plugin is compatible to only v6.9
-																										 // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-																										 // <0.0.0.0, 8.2.1>: all versions until v8.2.1 (included)
+					                                                                                     // 3 cases are processed:
+					                                                                                     // <6.9, 6.9>: plugin is compatible to only v6.9
+					                                                                                     // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+					                                                                                     // <0.0.0.0, 8.2.1>: all versions until v8.2.1 (included)
 					{
 						// OK - do nothing 
 					}
 					else if (nppCompatibleVersions.first <= nppVer && nppCompatibleVersions.second.empty()) // from <= npp <= to
-																											// 1 case is processed:
-																											// <8.3, 0.0.0.0>: from v8.3 (included) to the latest version
+					                                                                                        // 1 case is processed:
+					                                                                                        // <8.3, 0.0.0.0>: from v8.3 (included) to the latest version
 					{
 						// OK - do nothing
 					}
@@ -802,20 +803,19 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 
 			pl.pushBack(pi);
 		}
+#ifdef DEBUG
 		catch (const wstring& s)
 		{
-#ifdef DEBUG
 			::MessageBox(NULL, s.c_str(), TEXT("Exception caught in: PluginsAdmin loadFromJson()"), MB_ICONERROR);
-#endif
 			continue;
 		}
+
 		catch (std::exception& e)
 		{
-#ifdef DEBUG
 			::MessageBoxA(NULL, e.what(), "Exception caught in: PluginsAdmin loadFromJson()", MB_ICONERROR);
-#endif
 			continue;
 		}
+#endif
 		catch (...) // If one of mandatory properties is missing or with the incorrect format, an exception is thrown then this plugin will be ignored
 		{
 #ifdef DEBUG

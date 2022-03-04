@@ -705,6 +705,31 @@ void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
 		patternVect.emplace_back(pBegin, pEnd);
 }
 
+void cutStringBy(const TCHAR* str2cut, vector<generic_string>& patternVect, char byChar, bool allowEmptyStr)
+{
+	if (str2cut == nullptr) return;
+
+	const TCHAR* pBegin = str2cut;
+	const TCHAR* pEnd = pBegin;
+
+	while (*pEnd != '\0')
+	{
+		if (*pEnd == byChar)
+		{
+			if (allowEmptyStr)
+				patternVect.emplace_back(pBegin, pEnd);
+			else if (pBegin != pEnd)
+				patternVect.emplace_back(pBegin, pEnd);
+			pBegin = pEnd + 1;
+		}
+		++pEnd;
+	}
+	if (allowEmptyStr)
+		patternVect.emplace_back(pBegin, pEnd);
+	else if (pBegin != pEnd)
+		patternVect.emplace_back(pBegin, pEnd);
+}
+
 
 std::wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
 {

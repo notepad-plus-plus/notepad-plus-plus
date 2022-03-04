@@ -139,6 +139,7 @@ const TCHAR nppLogNetworkDriveIssue[] = TEXT("nppLogNetworkDriveIssue");
 const TCHAR nppLogNulContentCorruptionIssue[] = TEXT("nppLogNulContentCorruptionIssue");
 
 void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
+void cutStringBy(const TCHAR *str2cut, std::vector<generic_string> & patternVect, char byChar, bool allowEmptyStr);
 
 
 struct Position

@@ -1553,7 +1553,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		switch (sciStatus)
 		{
 			case SC_STATUS_OK:
-				// either the Scintilla not catched this exception or the error is in the N++ code, report the exception anyway
+				// either the Scintilla doesn't catch this exception or the error is in the Notepad++ code, report the exception anyway
 #if defined(__GNUC__)
 				// there is the std::current_exception() possibility, but getting the real exception code from there requires an ugly hack,
 				// because of the std::exception_ptr has its members _Data1 (GetExceptionCode) and _Data2 (GetExceptionInformation) private

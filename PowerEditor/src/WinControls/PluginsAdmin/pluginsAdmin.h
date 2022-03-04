@@ -49,8 +49,18 @@ struct Version
 		return compareTo(v2c) == -1;
 	};
 
+	bool operator <= (const Version& v2c) const {
+		int r = compareTo(v2c);
+		return r == -1 || r == 0;
+	};
+
 	bool operator > (const Version& v2c) const {
 		return compareTo(v2c) == 1;
+	};
+
+	bool operator >= (const Version& v2c) const {
+		int r = compareTo(v2c);
+		return r == 1 || r == 0;
 	};
 
 	bool operator == (const Version& v2c) const {
@@ -60,6 +70,10 @@ struct Version
 	bool operator != (const Version& v2c) const {
 		return compareTo(v2c) != 0;
 	};
+
+	bool empty() const {
+		return _major == 0 && _minor == 0 && _patch == 0 && _build == 0;
+	}
 };
 
 struct PluginUpdateInfo

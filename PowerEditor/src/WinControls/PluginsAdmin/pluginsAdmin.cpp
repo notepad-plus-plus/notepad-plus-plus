@@ -41,7 +41,7 @@ Version::Version(const generic_string& versionStr)
 		auto ss = tokenizeString(versionStr, '.');
 
 		if (ss.size() > 4)
-			throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
+			throw wstring(TEXT("Version parts are more than 4. The string to parse is not a valid version format. Let's make it default value in catch block."));
 		
 		int i = 0;
 		vector<unsigned long*> v = {&_major, &_minor, &_patch, &_build};
@@ -49,19 +49,33 @@ Version::Version(const generic_string& versionStr)
 		{
 			if (!isNumber(s))
 			{
-				throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
+				throw wstring(TEXT("One of version character is not number. The string to parse is not a valid version format. Let's make it default value in catch block."));
 			}
 			*(v[i]) = std::stoi(s);
 
 			++i;
 		}
 	}
+#ifdef DEBUG
+	catch (const wstring& s)
+	{
+		_major = 0;
+		_minor = 0;
+		_patch = 0;
+		_build = 0;
+
+		throw s;
+	}
+#endif
 	catch (...)
 	{
 		_major = 0;
 		_minor = 0;
 		_patch = 0;
 		_build = 0;
+#ifdef DEBUG
+		throw wstring(TEXT("Unknown exception from \"Version::Version(const generic_string& versionStr)\""));
+#endif
 	}
 }
 
@@ -636,6 +650,56 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
 }
 
+// intervalVerStr format:
+// 
+// "6.9"          : exact version 6.9
+// "[4.2,6.6.6]"  : from version 4.2 to 6.6.6 inclusive
+// "[8.3,]"       : any version from 8.3 to the latest one
+// "[,8.2.1]"     : 8.2.1 and any previous version
+//
+std::pair<Version, Version> getIntervalVersions(generic_string intervalVerStr)
+{
+	std::pair<Version, Version> result;
+
+	if (intervalVerStr.empty())
+		return result;
+
+	const size_t indexEnd = intervalVerStr.length() - 1;
+	if (intervalVerStr[0] == '[' && intervalVerStr[indexEnd] == ']') // interval versions format
+	{
+		generic_string cleanIntervalVerStr = intervalVerStr.substr(1, indexEnd - 1);
+		vector<generic_string> versionVect;
+		cutStringBy(cleanIntervalVerStr.c_str(), versionVect, ',', true);
+		if (versionVect.size() == 2)
+		{
+			if (!versionVect[0].empty() && !versionVect[1].empty()) // "[4.2,6.6.6]" : from version 4.2 to 6.6.6 inclusive
+			{
+				result.first = Version(versionVect[0]);
+				result.second = Version(versionVect[1]);
+			}
+			else if (!versionVect[0].empty() && versionVect[1].empty()) // "[8.3,]" : any version from 8.3 to the latest one
+			{
+				result.first = Version(versionVect[0]);
+			}
+			else if (versionVect[0].empty() && !versionVect[1].empty()) // "[,8.2.1]" : 8.2.1 and any previous version
+			{
+				result.second = Version(versionVect[1]);
+			}
+		}
+	}
+	else if (intervalVerStr[0] != '[' && intervalVerStr[indexEnd] != ']') // one version format -> "6.9" : exact version 6.9
+	{
+		result.first = Version(intervalVerStr);
+		result.second = Version(intervalVerStr);
+	}
+	else // invalid format
+	{
+		// do nothing
+	}
+
+	return result;
+}
+
 bool loadFromJson(PluginViewList & pl, const json& j)
 {
 	if (j.empty())
@@ -650,7 +714,65 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 	for (const auto& i : jArray)
 	{
 		try {
-			//std::unique_ptr<PluginUpdateInfo*> pi = make_unique<PluginUpdateInfo*>();
+
+			// Optional
+			std::pair<Version, Version> _nppCompatibleVersions; // compatible to Notepad++ interval versions: <from, to> example: 
+			                                                    // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions (due to invalid format set)
+			                                                    // <6.9, 6.9>: plugin is compatible to only v6.9
+			                                                    // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+			                                                    // <0.0.0.0, 8.2.1> all until v8.2.1 (included)
+			                                                    // <8.3, 0.0.0.0> from v8.3 (included) to all
+			if (i.contains("npp-compatible-versions"))
+			{
+				json jNppCompatibleVer = i["npp-compatible-versions"];
+
+				string versionsStr = jNppCompatibleVer.get<std::string>();
+				generic_string nppCompatibleVersionStr(versionsStr.begin(), versionsStr.end());
+				std::pair<Version, Version> nppCompatibleVersions = getIntervalVersions(nppCompatibleVersionStr);
+
+				// nppCompatibleVersions contains compatibilty to Notepad++ versions <from, to> example: 
+				// <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
+				// <6.9, 6.9>: plugin is compatible to only v6.9
+				// <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+				// <0.0.0.0, 8.2.1>: all version until v8.2.1 (included)
+				// <8.3, 0.0.0.0>: from v8.3 (included) to the latest verrsion
+
+				if (nppCompatibleVersions.first == nppCompatibleVersions.second && nppCompatibleVersions.first.empty()) // compatible versions not set
+				                                                                                                        // 1 case is processed:
+				                                                                                                        // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
+				{
+					// OK - do nothing
+				}
+				else
+				{
+					TCHAR nppFullPathName[MAX_PATH];
+					GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
+
+					Version nppVer;
+					nppVer.setVersionFrom(nppFullPathName);
+					
+					if (nppCompatibleVersions.first <= nppVer && nppCompatibleVersions.second >= nppVer) // from <= npp <= to
+					                                                                                     // 3 cases are processed:
+					                                                                                     // <6.9, 6.9>: plugin is compatible to only v6.9
+					                                                                                     // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+					                                                                                     // <0.0.0.0, 8.2.1>: all versions until v8.2.1 (included)
+					{
+						// OK - do nothing 
+					}
+					else if (nppCompatibleVersions.first <= nppVer && nppCompatibleVersions.second.empty()) // from <= npp <= to
+					                                                                                        // 1 case is processed:
+					                                                                                        // <8.3, 0.0.0.0>: from v8.3 (included) to the latest version
+					{
+						// OK - do nothing
+					}
+					else // Not compatible to Notepad++ current version
+					{
+						// Not OK - skip this plugin
+						continue;
+					}
+				}
+			}
+
 			PluginUpdateInfo* pi = new PluginUpdateInfo();
 
 			string valStr = i.at("folder-name").get<std::string>();
@@ -681,8 +803,24 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 
 			pl.pushBack(pi);
 		}
-		catch (...) // Every field is mandatory. If one of property is missing, an exception is thrown then this plugin will be ignored
+#ifdef DEBUG
+		catch (const wstring& s)
 		{
+			::MessageBox(NULL, s.c_str(), TEXT("Exception caught in: PluginsAdmin loadFromJson()"), MB_ICONERROR);
+			continue;
+		}
+
+		catch (std::exception& e)
+		{
+			::MessageBoxA(NULL, e.what(), "Exception caught in: PluginsAdmin loadFromJson()", MB_ICONERROR);
+			continue;
+		}
+#endif
+		catch (...) // If one of mandatory properties is missing or with the incorrect format, an exception is thrown then this plugin will be ignored
+		{
+#ifdef DEBUG
+			::MessageBoxA(NULL, "An unknown exception is just caught", "Unknown Exception", MB_OK);
+#endif
 			continue; 
 		}
 	}

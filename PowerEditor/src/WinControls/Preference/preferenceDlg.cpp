@@ -1035,7 +1035,10 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				)
 			{
 				if (nppGUI._darkmode._isEnabled && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone)
-					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
 				else
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
 			}
@@ -3391,7 +3394,10 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				if (BST_CHECKED != ::SendDlgItemMessage(_hSelf, IDC_RADIO_BKNONE, BM_GETCHECK, 0, 0) &&
 					BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_GETCHECK, 0, 0))
-					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
 				else
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
 			}
@@ -3402,7 +3408,10 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				)
 			{
 				if (isCheckedOrNot(IDC_BACKUPDIR_RESTORESESSION_CHECK))
-					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
 				else
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
 			}
@@ -3572,7 +3581,7 @@ void BackupSubDlg::updateBackupGUI()
 }
 
 
-intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
@@ -3613,10 +3622,6 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE), FALSE);
 			}
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
 
@@ -3695,11 +3700,28 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
-			break;
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE)
+				)
+			{
+				if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_GETCHECK, 0, 0))
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0,0,0));
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+			return result;
 		}
 
 		case WM_PRINTCLIENT:
@@ -3786,10 +3808,8 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), isEnableAutoC);
-					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), isEnableAutoC);
-					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), isEnableAutoC);
-					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), isEnableAutoC);
-					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE), isEnableAutoC);
+
+					redraw();
 					return TRUE;
 				}
 

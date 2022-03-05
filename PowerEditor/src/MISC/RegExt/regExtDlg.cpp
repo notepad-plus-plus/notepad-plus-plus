@@ -125,7 +125,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
 			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
-			if (
+			if  (
 				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_SUPPORTEDEXTS_STATIC) ||
 				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_REGISTEREDEXTS_STATIC)
 				)

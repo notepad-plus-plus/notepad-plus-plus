@@ -1039,7 +1039,6 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				else
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
 			}
-			
 
 			return result;
 		}

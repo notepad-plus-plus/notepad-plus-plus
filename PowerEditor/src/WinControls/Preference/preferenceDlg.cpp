@@ -1035,10 +1035,12 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				)
 			{
 				if (nppGUI._darkmode._isEnabled && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone)
+				{
 					if (NppDarkMode::isEnabled())
 						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
 					else
 						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
 				else
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
 			}
@@ -3394,10 +3396,12 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				if (BST_CHECKED != ::SendDlgItemMessage(_hSelf, IDC_RADIO_BKNONE, BM_GETCHECK, 0, 0) &&
 					BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_GETCHECK, 0, 0))
+				{
 					if (NppDarkMode::isEnabled())
 						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
 					else
 						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
 				else
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
 			}
@@ -3408,10 +3412,12 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				)
 			{
 				if (isCheckedOrNot(IDC_BACKUPDIR_RESTORESESSION_CHECK))
+				{
 					if (NppDarkMode::isEnabled())
 						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
 					else
 						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
 				else
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
 			}

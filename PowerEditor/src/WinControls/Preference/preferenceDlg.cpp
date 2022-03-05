@@ -1016,7 +1016,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
-			{			
+			{
 				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
 

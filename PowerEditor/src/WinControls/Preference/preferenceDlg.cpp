@@ -3592,7 +3592,7 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			::SetDlgItemInt(_hSelf, IDD_AUTOC_STATIC_N,  static_cast<UINT>(nppGUI._autocFromLen), FALSE);
 			_nbCharVal.init(_hInst, _hSelf);
 			_nbCharVal.create(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), IDD_AUTOC_STATIC_N);
-
+			
 			bool isEnableAutoC = nppGUI._autocStatus != nppGUI.autoc_none;
 
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_SETCHECK, isEnableAutoC?BST_CHECKED:BST_UNCHECKED, 0);
@@ -3708,18 +3708,24 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
 			if (
 				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM) ||
-				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N) ||
 				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR) ||
 				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE)
 				)
 			{
 				if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_GETCHECK, 0, 0))
+				{
 					if (NppDarkMode::isEnabled())
 						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
 					else
-						SetTextColor((HDC)wParam, RGB(0,0,0));
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+
+					_nbCharVal.display(true);
+				}
 				else
+				{
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+					_nbCharVal.display(false);
+				}
 			}
 			return result;
 		}

@@ -159,10 +159,6 @@ protected:
 };
 
 
-
-#define MACRO_RECORDING_IN_PROGRESS 1
-#define MACRO_RECORDING_HAS_STOPPED 2
-
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 
 generic_string PathRemoveFileSpec(generic_string & path);

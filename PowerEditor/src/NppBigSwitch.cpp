@@ -1295,11 +1295,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return MAKELONG(auxVer, mainVer);
 		}
 
-		case WM_GETCURRENTMACROSTATUS:
+		case NPPM_GETCURRENTMACROSTATUS:
 		{
 			if (_recordingMacro)
-				return MACRO_RECORDING_IN_PROGRESS;
-			return (_macro.empty())?0:MACRO_RECORDING_HAS_STOPPED;
+				return static_cast<LRESULT>(MacroStatus::RecordInProgress);
+			if (_playingBackMacro)
+				return static_cast<LRESULT>(MacroStatus::PlayingBack);
+			return (_macro.empty()) ? static_cast<LRESULT>(MacroStatus::Idle) : static_cast<LRESULT>(MacroStatus::RecordingStopped);
 		}
 
 		case WM_FRSAVE_INT:
@@ -2551,6 +2553,31 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (lParam)
 				lstrcpy((LPTSTR)lParam, langDesc.c_str());
 			return langDesc.length();
+		}
+
+		case NPPM_GETEXTERNALLEXERAUTOINDENTMODE:
+		{
+			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
+			if (index < 0)
+				return FALSE;
+
+			*(reinterpret_cast<ExternalLexerAutoIndentMode*>(lParam)) = nppParam.getELCFromIndex(index)._autoIndentMode;
+			return TRUE;
+		}
+
+		case NPPM_SETEXTERNALLEXERAUTOINDENTMODE:
+		{
+			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
+			if (index < 0)
+				return FALSE;
+
+			nppParam.getELCFromIndex(index)._autoIndentMode = static_cast<ExternalLexerAutoIndentMode>(lParam);
+			return TRUE;
+		}
+
+		case NPPM_ISAUTOINDENTON:
+		{
+			return nppParam.getNppGUI()._maitainIndent;
 		}
 
 		case NPPM_DOCLISTDISABLEPATHCOLUMN:

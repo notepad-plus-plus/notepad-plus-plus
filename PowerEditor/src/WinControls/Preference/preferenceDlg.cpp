@@ -878,17 +878,6 @@ void DarkModeSubDlg::enableCustomizedColorCtrls(bool doEnable)
 	::EnableWindow(_pEdgeColorPicker->getHSelf(), doEnable);
 	::EnableWindow(_pLinkColorPicker->getHSelf(), doEnable);
 
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR1_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR2_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR3_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR4_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR5_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR6_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR7_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR8_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR9_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR10_STATIC), doEnable);
-
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_RESET_BUTTON), doEnable);
 
 	if (doEnable)
@@ -1025,11 +1014,19 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			{			
+				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
-			break;
+
+			//set the static text colors to show enable/disable instead of ::EnableWindow
+			if (nppGUI._darkmode._isEnabled && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone)
+				SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+			else
+				SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+
+			return result;
 		}
 
 		case WM_PRINTCLIENT:

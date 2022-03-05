@@ -83,6 +83,7 @@ void RegExtDlg::doDialog(bool isRTL)
 
 intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	NppParameters& nppParam = NppParameters::getInstance();
 	switch (Message)
 	{
 		case WM_INITDIALOG :
@@ -92,14 +93,11 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_ADDFROMLANGEXT_BUTTON), false);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_REMOVEEXT_BUTTON), false);
 
-			NppParameters& nppParam = NppParameters::getInstance();
 			if (!nppParam.isAdmin())
 			{
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_REGEXT_LANG_LIST), false);
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_REGEXT_LANGEXT_LIST), false);
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST), false);
-				::EnableWindow(::GetDlgItem(_hSelf, IDC_SUPPORTEDEXTS_STATIC), false);
-				::EnableWindow(::GetDlgItem(_hSelf, IDC_REGISTEREDEXTS_STATIC), false);
 			}
 			else
 			{
@@ -121,11 +119,23 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
-			break;
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_SUPPORTEDEXTS_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_REGISTEREDEXTS_STATIC)
+				)
+			{
+				if (nppParam.isAdmin())
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+			return result;
 		}
 
 		case WM_PRINTCLIENT:

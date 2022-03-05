@@ -1020,11 +1020,26 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
 
-			//set the static text colors to show enable/disable instead of ::EnableWindow
-			if (nppGUI._darkmode._isEnabled && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone)
-				SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
-			else
-				SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if	( 
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR1_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR2_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR3_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR4_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR5_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR6_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR7_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR8_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR9_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR10_STATIC)
+				)
+			{
+				if (nppGUI._darkmode._isEnabled && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone)
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+			
 
 			return result;
 		}

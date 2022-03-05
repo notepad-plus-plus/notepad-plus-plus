@@ -3374,17 +3374,40 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = false;
 			if (NppDarkMode::isEnabled())
 			{
 				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
 				if (dlgCtrlID == IDD_BACKUPDIR_RESTORESESSION_PATH_EDIT)
 				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+					result = NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 				}
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 				
 			}
-			break;
+
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if  ((HWND)lParam == ::GetDlgItem(_hSelf, IDD_BACKUPDIR_STATIC))
+			{
+				if (BST_CHECKED != ::SendDlgItemMessage(_hSelf, IDC_RADIO_BKNONE, BM_GETCHECK, 0, 0) &&
+					BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_GETCHECK, 0, 0))
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+			else if (
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC1) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC2) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATHLABEL_STATIC)
+				)
+			{
+				if (isCheckedOrNot(IDC_BACKUPDIR_RESTORESESSION_CHECK))
+					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+
+			return result;
 		}
 
 		case WM_PRINTCLIENT:
@@ -3527,10 +3550,7 @@ void BackupSubDlg::updateBackupGUI()
 	bool rememberSession = isCheckedOrNot(IDC_CHECK_REMEMBERSESSION);
 	bool isSnapshot = isCheckedOrNot(IDC_BACKUPDIR_RESTORESESSION_CHECK);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_RESTORESESSION_CHECK), rememberSession);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC1), isSnapshot);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT), isSnapshot);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC2), isSnapshot);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATHLABEL_STATIC), isSnapshot);
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATH_EDIT), isSnapshot);
 
 	bool noBackup = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_RADIO_BKNONE, BM_GETCHECK, 0, 0);
@@ -3545,9 +3565,10 @@ void BackupSubDlg::updateBackupGUI()
 	//::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_USERCUSTOMDIR_GRPSTATIC), isEnableGlobableCheck);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_CHECK), isEnableGlobableCheck);
 
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_STATIC), isEnableLocalCheck);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_EDIT), isEnableLocalCheck);
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_BROWSE_BUTTON), isEnableLocalCheck);
+
+	redraw();
 }
 
 

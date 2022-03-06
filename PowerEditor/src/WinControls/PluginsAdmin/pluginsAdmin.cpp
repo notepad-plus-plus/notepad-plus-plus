@@ -638,16 +638,65 @@ bool PluginViewList::removeFromFolderName(const generic_string& folderName)
 void PluginViewList::pushBack(PluginUpdateInfo* pi)
 {
 	_list.push_back(pi);
+	/*
+	bool isCompatible = false;
+	// pi->_nppCompatibleVersions contains compatibilty to Notepad++ versions <from, to> example: 
+				// <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
+				// <6.9, 6.9>: plugin is compatible to only v6.9
+				// <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+				// <0.0.0.0, 8.2.1>: all version until v8.2.1 (included)
+				// <8.3, 0.0.0.0>: from v8.3 (included) to the latest verrsion
 
-	vector<generic_string> values2Add;
-	values2Add.push_back(pi->_displayName);
-	Version v = pi->_version;
-	values2Add.push_back(v.toString());
-	//values2Add.push_back(TEXT("Yes"));
+	if (pi->_nppCompatibleVersions.first == pi->_nppCompatibleVersions.second && pi->_nppCompatibleVersions.first.empty()) // compatible versions not set
+																											               // 1 case is processed:
+																											               // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
+	{
+		// OK - do nothing
+		isCompatible = true;
+	}
+	else
+	{
+		TCHAR nppFullPathName[MAX_PATH];
+		GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
 
-	// add in order
-	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
-	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
+		Version nppVer;
+		nppVer.setVersionFrom(nppFullPathName);
+
+		if (pi->_nppCompatibleVersions.first <= nppVer && pi->_nppCompatibleVersions.second >= nppVer) // from <= npp <= to
+																							           // 3 cases are processed:
+																							           // <6.9, 6.9>: plugin is compatible to only v6.9
+																							           // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+																							           // <0.0.0.0, 8.2.1>: all versions until v8.2.1 (included)
+		{
+			// OK - do nothing
+			isCompatible = true;
+		}
+		else if (pi->_nppCompatibleVersions.first <= nppVer && pi->_nppCompatibleVersions.second.empty()) // from <= npp <= to
+																								// 1 case is processed:
+																								// <8.3, 0.0.0.0>: from v8.3 (included) to the latest version
+		{
+			// OK - do nothing
+			isCompatible = true;
+		}
+		else // Not compatible to Notepad++ current version
+		{
+			// Not OK - skip this plugin
+			isCompatible = false;
+		}
+	}
+	*/
+	//if (isCompatible)
+	{
+		vector<generic_string> values2Add;
+		values2Add.push_back(pi->_displayName);
+		Version v = pi->_version;
+		values2Add.push_back(v.toString());
+		//values2Add.push_back(TEXT("Yes"));
+
+		// add in order
+		size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
+		_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
+	}
 }
 
 // intervalVerStr format:
@@ -714,65 +763,6 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 	for (const auto& i : jArray)
 	{
 		try {
-
-			// Optional
-			std::pair<Version, Version> _nppCompatibleVersions; // compatible to Notepad++ interval versions: <from, to> example: 
-			                                                    // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions (due to invalid format set)
-			                                                    // <6.9, 6.9>: plugin is compatible to only v6.9
-			                                                    // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-			                                                    // <0.0.0.0, 8.2.1> all until v8.2.1 (included)
-			                                                    // <8.3, 0.0.0.0> from v8.3 (included) to all
-			if (i.contains("npp-compatible-versions"))
-			{
-				json jNppCompatibleVer = i["npp-compatible-versions"];
-
-				string versionsStr = jNppCompatibleVer.get<std::string>();
-				generic_string nppCompatibleVersionStr(versionsStr.begin(), versionsStr.end());
-				std::pair<Version, Version> nppCompatibleVersions = getIntervalVersions(nppCompatibleVersionStr);
-
-				// nppCompatibleVersions contains compatibilty to Notepad++ versions <from, to> example: 
-				// <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
-				// <6.9, 6.9>: plugin is compatible to only v6.9
-				// <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-				// <0.0.0.0, 8.2.1>: all version until v8.2.1 (included)
-				// <8.3, 0.0.0.0>: from v8.3 (included) to the latest verrsion
-
-				if (nppCompatibleVersions.first == nppCompatibleVersions.second && nppCompatibleVersions.first.empty()) // compatible versions not set
-				                                                                                                        // 1 case is processed:
-				                                                                                                        // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
-				{
-					// OK - do nothing
-				}
-				else
-				{
-					TCHAR nppFullPathName[MAX_PATH];
-					GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
-
-					Version nppVer;
-					nppVer.setVersionFrom(nppFullPathName);
-					
-					if (nppCompatibleVersions.first <= nppVer && nppCompatibleVersions.second >= nppVer) // from <= npp <= to
-					                                                                                     // 3 cases are processed:
-					                                                                                     // <6.9, 6.9>: plugin is compatible to only v6.9
-					                                                                                     // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-					                                                                                     // <0.0.0.0, 8.2.1>: all versions until v8.2.1 (included)
-					{
-						// OK - do nothing 
-					}
-					else if (nppCompatibleVersions.first <= nppVer && nppCompatibleVersions.second.empty()) // from <= npp <= to
-					                                                                                        // 1 case is processed:
-					                                                                                        // <8.3, 0.0.0.0>: from v8.3 (included) to the latest version
-					{
-						// OK - do nothing
-					}
-					else // Not compatible to Notepad++ current version
-					{
-						// Not OK - skip this plugin
-						continue;
-					}
-				}
-			}
-
 			PluginUpdateInfo* pi = new PluginUpdateInfo();
 
 			string valStr = i.at("folder-name").get<std::string>();
@@ -793,6 +783,15 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 			valStr = i.at("version").get<std::string>();
 			generic_string newValStr(valStr.begin(), valStr.end());
 			pi->_version = Version(newValStr);
+
+			if (i.contains("npp-compatible-versions"))
+			{
+				json jNppCompatibleVer = i["npp-compatible-versions"];
+
+				string versionsStr = jNppCompatibleVer.get<std::string>();
+				generic_string nppCompatibleVersionStr(versionsStr.begin(), versionsStr.end());
+				pi->_nppCompatibleVersions = getIntervalVersions(nppCompatibleVersionStr);
+			}
 
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc.char2wchar(valStr.c_str(), CP_ACP);
@@ -864,44 +863,29 @@ bool PluginsAdminDlg::isValide()
 		return false;
 	}
 
+	json j;
+
 #ifdef DEBUG // if not debug, then it's release
 	
-	return true;
+	// load from nppPluginList.json instead of nppPluginList.dll
+	ifstream nppPluginListJson(_pluginListFullPath);
+	nppPluginListJson >> j;
 
 #else //RELEASE
 
 	// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
 	
 	SecurityGard securityGard;
-	bool isOK = securityGard.checkModule(_pluginListFullPath, nm_pluginList);
+	bool isSecured = securityGard.checkModule(_pluginListFullPath, nm_pluginList);
 
-	if (!isOK)
-		return isOK;
+	if (!isSecured)
+		return false;
 
-	isOK = securityGard.checkModule(_updaterFullPath, nm_gup);
-	return isOK;
-#endif
-}
+	isSecured = securityGard.checkModule(_updaterFullPath, nm_gup);
 
-bool PluginsAdminDlg::updateListAndLoadFromJson()
-{
-	HMODULE hLib = NULL;
-
-	try
+	if (isSecured)
 	{
-		if (!isValide())
-			return false;
-
-		json j;
-
-#ifdef DEBUG // if not debug, then it's release
-
-		// load from nppPluginList.json instead of nppPluginList.dll
-		ifstream nppPluginListJson(_pluginListFullPath);
-		nppPluginListJson >> j;
-
-#else //RELEASE
-
+		HMODULE hLib = NULL;
 		hLib = ::LoadLibraryEx(_pluginListFullPath.c_str(), 0, LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE);
 
 		if (!hLib)
@@ -936,37 +920,23 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 
 		delete[] buffer;
 
-#endif
-		// if absent then download it
-
-
-		// check the update for nppPluginList.json
-
-
-		// download update if present
-
-
-		// load pl.json
-		// 
-
-		loadFromJson(_availableList, j);
-
-		// initialize update list view
-		checkUpdates();
-
-		// initialize installed list view
-		loadFromPluginInfos();
-
 		::FreeLibrary(hLib);
-		return true;
 	}
-	catch (...)
-	{
-		// whichever exception
-		if (hLib)
-			::FreeLibrary(hLib);
-		return false;
-	}
+#endif
+
+	
+	return loadFromJson(_availableList, j);
+}
+
+bool PluginsAdminDlg::updateListAndLoadFromJson()
+{
+	// initialize update list view
+	checkUpdates();
+
+	// initialize installed list view
+	loadFromPluginInfos();
+
+	return true;
 }
 
 

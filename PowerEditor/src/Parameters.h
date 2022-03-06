@@ -1251,19 +1251,6 @@ private:
 };
 
 
-class PluginList final
-{
-public :
-	void add(generic_string fn, bool isInBL)
-	{
-		_list.push_back(std::pair<generic_string, bool>(fn, isInBL));
-	}
-
-private:
-	std::vector<std::pair<generic_string, bool>>_list;
-};
-
-
 struct UdlXmlFileState final {
 	TiXmlDocument* _udlXmlDoc = nullptr;
 	bool _isDirty = false;
@@ -1600,7 +1587,6 @@ public:
 		return false;
 	}
 
-	PluginList & getPluginList() {return _pluginList;};
 	bool importUDLFromFile(const generic_string& sourceFile);
 	bool exportUDLToFile(size_t langIndex2export, const generic_string& fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
@@ -1732,7 +1718,6 @@ private:
 
 	std::vector<generic_string> _fontlist;
 	std::vector<generic_string> _blacklist;
-	PluginList _pluginList;
 
 	HMODULE _hUXTheme = nullptr;
 

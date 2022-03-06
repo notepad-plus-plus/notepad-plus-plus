@@ -639,51 +639,7 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 {
 	_list.push_back(pi);
 	/*
-	bool isCompatible = false;
-	// pi->_nppCompatibleVersions contains compatibilty to Notepad++ versions <from, to> example: 
-				// <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
-				// <6.9, 6.9>: plugin is compatible to only v6.9
-				// <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-				// <0.0.0.0, 8.2.1>: all version until v8.2.1 (included)
-				// <8.3, 0.0.0.0>: from v8.3 (included) to the latest verrsion
-
-	if (pi->_nppCompatibleVersions.first == pi->_nppCompatibleVersions.second && pi->_nppCompatibleVersions.first.empty()) // compatible versions not set
-																											               // 1 case is processed:
-																											               // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
-	{
-		// OK - do nothing
-		isCompatible = true;
-	}
-	else
-	{
-		TCHAR nppFullPathName[MAX_PATH];
-		GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
-
-		Version nppVer;
-		nppVer.setVersionFrom(nppFullPathName);
-
-		if (pi->_nppCompatibleVersions.first <= nppVer && pi->_nppCompatibleVersions.second >= nppVer) // from <= npp <= to
-																							           // 3 cases are processed:
-																							           // <6.9, 6.9>: plugin is compatible to only v6.9
-																							           // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-																							           // <0.0.0.0, 8.2.1>: all versions until v8.2.1 (included)
-		{
-			// OK - do nothing
-			isCompatible = true;
-		}
-		else if (pi->_nppCompatibleVersions.first <= nppVer && pi->_nppCompatibleVersions.second.empty()) // from <= npp <= to
-																								// 1 case is processed:
-																								// <8.3, 0.0.0.0>: from v8.3 (included) to the latest version
-		{
-			// OK - do nothing
-			isCompatible = true;
-		}
-		else // Not compatible to Notepad++ current version
-		{
-			// Not OK - skip this plugin
-			isCompatible = false;
-		}
-	}
+	
 	*/
 	//if (isCompatible)
 	{
@@ -748,7 +704,7 @@ std::pair<Version, Version> getIntervalVersions(generic_string intervalVerStr)
 	return result;
 }
 
-bool loadFromJson(PluginViewList & pl, const json& j)
+bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, const json& j)
 {
 	if (j.empty())
 		return false;
@@ -799,7 +755,7 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 			pi->_homepage = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 
-			pl.pushBack(pi);
+			pl.push_back(pi);
 		}
 #ifdef DEBUG
 		catch (const wstring& s)
@@ -924,11 +880,14 @@ bool PluginsAdminDlg::initFromJson()
 #endif
 
 	
-	return loadFromJson(_availableList, j);
+	return loadFromJson(_availableList._list, j);
 }
 
 bool PluginsAdminDlg::updateList()
 {
+	// initialize the primary view with the plugin list loaded from json 
+	initAvailablePluginsViewFromList();
+
 	// initialize update list view
 	checkUpdates();
 
@@ -938,6 +897,72 @@ bool PluginsAdminDlg::updateList()
 	return true;
 }
 
+
+bool PluginsAdminDlg::initAvailablePluginsViewFromList()
+{
+	TCHAR nppFullPathName[MAX_PATH];
+	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
+
+	Version nppVer;
+	nppVer.setVersionFrom(nppFullPathName);
+
+	for (const auto& i : _availableList._list)
+	{
+		bool isCompatible = false;
+		// i->_nppCompatibleVersions contains compatibilty to Notepad++ versions <from, to> example: 
+		// <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
+		// <6.9, 6.9>: plugin is compatible to only v6.9
+		// <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+		// <0.0.0.0, 8.2.1>: all version until v8.2.1 (included)
+		// <8.3, 0.0.0.0>: from v8.3 (included) to the latest verrsion
+
+		if (i->_nppCompatibleVersions.first == i->_nppCompatibleVersions.second && i->_nppCompatibleVersions.first.empty()) // compatible versions not set
+		                                                                                                                    // 1 case is processed:
+		                                                                                                                    // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
+		{
+			// OK
+			isCompatible = true;
+		}
+		else
+		{
+			if (i->_nppCompatibleVersions.first <= nppVer && i->_nppCompatibleVersions.second >= nppVer) // from <= npp <= to
+			                                                                                             // 3 cases are processed:
+			                                                                                             // <6.9, 6.9>: plugin is compatible to only v6.9
+			                                                                                             // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+			                                                                                             // <0.0.0.0, 8.2.1>: all versions until v8.2.1 (included)
+			{
+				// OK
+				isCompatible = true;
+			}
+			else if (i->_nppCompatibleVersions.first <= nppVer && i->_nppCompatibleVersions.second.empty()) // from <= npp <= to
+			                                                                                                // 1 case is processed:
+			                                                                                                // <8.3, 0.0.0.0>: from v8.3 (included) to the latest version
+			{
+				// OK
+				isCompatible = true;
+			}
+			else // Not compatible to Notepad++ current version
+			{
+				// Not OK - skip this plugin
+				isCompatible = false;
+			}
+		}
+
+		if (isCompatible)
+		{
+			vector<generic_string> values2Add;
+			values2Add.push_back(i->_displayName);
+			Version v = i->_version;
+			values2Add.push_back(v.toString());
+
+			// add in order
+			size_t j = _availableList._ui.findAlphabeticalOrderPos(i->_displayName, _availableList._sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? ListView::sortEncrease : ListView::sortDecrease);
+			_availableList._ui.addLine(values2Add, reinterpret_cast<LPARAM>(i), static_cast<int>(j));
+		}
+	}
+
+	return true;
+}
 
 bool PluginsAdminDlg::loadFromPluginInfos()
 {

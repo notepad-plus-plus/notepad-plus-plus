@@ -408,6 +408,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_scintillaCtrls4Plugins.init(_pPublicInterface->getHinst(), hwnd);
 	_pluginsManager.init(nppData);
 
+	bool enablePluginAdmin = _pluginsAdminDlg.initFromJson();
 	_pluginsManager.loadPluginsV2(nppParam.getPluginRootDir());
 	_restoreButton.init(_pPublicInterface->getHinst(), hwnd);
 
@@ -525,7 +526,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	//Plugin menu
-	bool enablePluginAdmin = _pluginsAdminDlg.initFromJson();
 	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 	_pluginsManager.initMenu(_mainMenuHandle, enablePluginAdmin);
 

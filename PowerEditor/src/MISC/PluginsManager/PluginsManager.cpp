@@ -333,10 +333,14 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 			hFindDll = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
 			if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
+				// - foundFileName: folder-name
+				// _ pluginsFullPathFilter: version
+				// 
+				// - get Npp current version & plugin compatible Notepad++ versions
 				dllNames.push_back(pluginsFullPathFilter);
 
-				PluginList & pl = nppParams.getPluginList();
-				pl.add(foundFileName, false);
+				//PluginList & pl = nppParams.getPluginList();
+				//pl.add(foundFileName, false);
 			}
 		}
 		// get plugin folder
@@ -361,10 +365,14 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 				hFindDll = ::FindFirstFile(pluginsFullPathFilter2.c_str(), &foundData);
 				if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 				{
+					// - foundFileName2: folder-name
+					// _ pluginsFullPathFilter2: version
+					// From 2 above info to find plugin in list & get this plugin compatible Notepad++ versions
+					// - get Npp current version to compare with
 					dllNames.push_back(pluginsFullPathFilter2);
 
-					PluginList & pl = nppParams.getPluginList();
-					pl.add(foundFileName2, false);
+					//PluginList & pl = nppParams.getPluginList();
+					//pl.add(foundFileName2, false);
 				}
 			}
 		}

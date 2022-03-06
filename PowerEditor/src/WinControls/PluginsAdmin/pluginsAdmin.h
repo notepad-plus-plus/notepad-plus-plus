@@ -135,6 +135,8 @@ struct SortDisplayNameDecrease final
 
 class PluginViewList
 {
+friend class PluginsAdminDlg;
+
 public:
 	PluginViewList() = default;
 	~PluginViewList() {
@@ -250,6 +252,7 @@ private :
 		return searchFromCurrentSel(str2search, _inDescs, isNextMode);
 	};
 	
+	bool initAvailablePluginsViewFromList();
 	bool loadFromPluginInfos();
 	bool checkUpdates();
 

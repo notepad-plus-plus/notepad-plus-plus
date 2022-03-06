@@ -203,12 +203,12 @@ public :
 	    display();
     };
 
-	bool isValide();
+	bool initFromJson();
 
 	void switchDialog(int indexToSwitch);
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
 
-	bool updateListAndLoadFromJson();
+	bool updateList();
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
 
 	bool installPlugins();

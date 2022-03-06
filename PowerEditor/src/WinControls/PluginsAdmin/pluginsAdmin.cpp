@@ -691,7 +691,6 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 		values2Add.push_back(pi->_displayName);
 		Version v = pi->_version;
 		values2Add.push_back(v.toString());
-		//values2Add.push_back(TEXT("Yes"));
 
 		// add in order
 		size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
@@ -844,7 +843,7 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();
 
 
-bool PluginsAdminDlg::isValide()
+bool PluginsAdminDlg::initFromJson()
 {
 	// GUP.exe doesn't work under XP
 	winVer winVersion = (NppParameters::getInstance()).getWinVersion();
@@ -928,7 +927,7 @@ bool PluginsAdminDlg::isValide()
 	return loadFromJson(_availableList, j);
 }
 
-bool PluginsAdminDlg::updateListAndLoadFromJson()
+bool PluginsAdminDlg::updateList()
 {
 	// initialize update list view
 	checkUpdates();

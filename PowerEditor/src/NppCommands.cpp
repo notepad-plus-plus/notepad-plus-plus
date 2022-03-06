@@ -2973,7 +2973,7 @@ void Notepad_plus::command(int id)
 			if (isFirstTime)
 			{
 				_nativeLangSpeaker.changePluginsAdminDlgLang(_pluginsAdminDlg);
-				_pluginsAdminDlg.updateListAndLoadFromJson();
+				_pluginsAdminDlg.updateList();
 			}
 			break;
 		}

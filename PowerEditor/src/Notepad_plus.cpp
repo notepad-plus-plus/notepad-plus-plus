@@ -525,7 +525,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	//Plugin menu
-	bool enablePluginAdmin = _pluginsAdminDlg.isValide();
+	bool enablePluginAdmin = _pluginsAdminDlg.initFromJson();
 	_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 	_pluginsManager.initMenu(_mainMenuHandle, enablePluginAdmin);
 

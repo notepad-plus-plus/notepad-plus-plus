@@ -35,148 +35,7 @@
 using namespace std;
 using nlohmann::json;
 
-Version::Version(const generic_string& versionStr)
-{
-	try {
-		auto ss = tokenizeString(versionStr, '.');
 
-		if (ss.size() > 4)
-			throw wstring(TEXT("Version parts are more than 4. The string to parse is not a valid version format. Let's make it default value in catch block."));
-		
-		int i = 0;
-		vector<unsigned long*> v = {&_major, &_minor, &_patch, &_build};
-		for (const auto& s : ss)
-		{
-			if (!isNumber(s))
-			{
-				throw wstring(TEXT("One of version character is not number. The string to parse is not a valid version format. Let's make it default value in catch block."));
-			}
-			*(v[i]) = std::stoi(s);
-
-			++i;
-		}
-	}
-#ifdef DEBUG
-	catch (const wstring& s)
-	{
-		_major = 0;
-		_minor = 0;
-		_patch = 0;
-		_build = 0;
-
-		throw s;
-	}
-#endif
-	catch (...)
-	{
-		_major = 0;
-		_minor = 0;
-		_patch = 0;
-		_build = 0;
-#ifdef DEBUG
-		throw wstring(TEXT("Unknown exception from \"Version::Version(const generic_string& versionStr)\""));
-#endif
-	}
-}
-
-void Version::setVersionFrom(const generic_string& filePath)
-{
-	if (!filePath.empty() && ::PathFileExists(filePath.c_str()))
-	{
-		DWORD uselessArg = 0; // this variable is for passing the ignored argument to the functions
-		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &uselessArg);
-
-		if (bufferSize <= 0)
-			return;
-
-		unsigned char* buffer = new unsigned char[bufferSize];
-		::GetFileVersionInfo(filePath.c_str(), uselessArg, bufferSize, buffer);
-
-		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
-		UINT cbFileInfo = 0;
-		VerQueryValue(buffer, TEXT("\\"), reinterpret_cast<LPVOID*>(&lpFileInfo), &cbFileInfo);
-		if (cbFileInfo)
-		{
-			_major = (lpFileInfo->dwFileVersionMS & 0xFFFF0000) >> 16;
-			_minor = lpFileInfo->dwFileVersionMS & 0x0000FFFF;
-			_patch = (lpFileInfo->dwFileVersionLS & 0xFFFF0000) >> 16;
-			_build = lpFileInfo->dwFileVersionLS & 0x0000FFFF;
-		}
-		delete[] buffer;
-	}
-}
-
-generic_string Version::toString()
-{
-	if (_build == 0 && _patch == 0 && _minor == 0 && _major == 0) // ""
-	{
-		return TEXT("");
-	}	
-	else if (_build == 0 && _patch == 0 && _minor == 0) // "major"
-	{
-		return std::to_wstring(_major);
-	}
-	else if (_build == 0 && _patch == 0) // "major.minor"
-	{
-		std::wstring v = std::to_wstring(_major);
-		v += TEXT(".");
-		v += std::to_wstring(_minor);
-		return v;
-	}
-	else if (_build == 0) // "major.minor.patch"
-	{
-		std::wstring v = std::to_wstring(_major);
-		v += TEXT(".");
-		v += std::to_wstring(_minor);
-		v += TEXT(".");
-		v += std::to_wstring(_patch);
-		return v;
-	}
-
-	// "major.minor.patch.build"
-	std::wstring ver = std::to_wstring(_major);
-	ver += TEXT(".");
-	ver += std::to_wstring(_minor);
-	ver += TEXT(".");
-	ver += std::to_wstring(_patch);
-	ver += TEXT(".");
-	ver += std::to_wstring(_build);
-
-	return ver;
-}
-
-int Version::compareTo(const Version& v2c) const
-{
-	if (_major > v2c._major)
-		return 1;
-	else if (_major < v2c._major)
-		return -1;
-	else // (_major == v2c._major)
-	{
-		if (_minor > v2c._minor)
-			return 1;
-		else if (_minor < v2c._minor)
-			return -1;
-		else // (_minor == v2c._minor)
-		{
-			if (_patch > v2c._patch)
-				return 1;
-			else if (_patch < v2c._patch)
-				return -1;
-			else // (_patch == v2c._patch)
-			{
-				if (_build > v2c._build)
-					return 1;
-				else if (_build < v2c._build)
-					return -1;
-				else // (_build == v2c._build)
-				{
-					return 0;
-				}
-			}
-		}
-	}
-}
 
 generic_string PluginUpdateInfo::describe()
 {
@@ -638,20 +497,15 @@ bool PluginViewList::removeFromFolderName(const generic_string& folderName)
 void PluginViewList::pushBack(PluginUpdateInfo* pi)
 {
 	_list.push_back(pi);
-	/*
-	
-	*/
-	//if (isCompatible)
-	{
-		vector<generic_string> values2Add;
-		values2Add.push_back(pi->_displayName);
-		Version v = pi->_version;
-		values2Add.push_back(v.toString());
 
-		// add in order
-		size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
-		_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
-	}
+	vector<generic_string> values2Add;
+	values2Add.push_back(pi->_displayName);
+	Version v = pi->_version;
+	values2Add.push_back(v.toString());
+
+	// add in order
+	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
+	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
 }
 
 // intervalVerStr format:
@@ -908,45 +762,7 @@ bool PluginsAdminDlg::initAvailablePluginsViewFromList()
 
 	for (const auto& i : _availableList._list)
 	{
-		bool isCompatible = false;
-		// i->_nppCompatibleVersions contains compatibilty to Notepad++ versions <from, to> example: 
-		// <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
-		// <6.9, 6.9>: plugin is compatible to only v6.9
-		// <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-		// <0.0.0.0, 8.2.1>: all version until v8.2.1 (included)
-		// <8.3, 0.0.0.0>: from v8.3 (included) to the latest verrsion
-
-		if (i->_nppCompatibleVersions.first == i->_nppCompatibleVersions.second && i->_nppCompatibleVersions.first.empty()) // compatible versions not set
-		                                                                                                                    // 1 case is processed:
-		                                                                                                                    // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions
-		{
-			// OK
-			isCompatible = true;
-		}
-		else
-		{
-			if (i->_nppCompatibleVersions.first <= nppVer && i->_nppCompatibleVersions.second >= nppVer) // from <= npp <= to
-			                                                                                             // 3 cases are processed:
-			                                                                                             // <6.9, 6.9>: plugin is compatible to only v6.9
-			                                                                                             // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-			                                                                                             // <0.0.0.0, 8.2.1>: all versions until v8.2.1 (included)
-			{
-				// OK
-				isCompatible = true;
-			}
-			else if (i->_nppCompatibleVersions.first <= nppVer && i->_nppCompatibleVersions.second.empty()) // from <= npp <= to
-			                                                                                                // 1 case is processed:
-			                                                                                                // <8.3, 0.0.0.0>: from v8.3 (included) to the latest version
-			{
-				// OK
-				isCompatible = true;
-			}
-			else // Not compatible to Notepad++ current version
-			{
-				// Not OK - skip this plugin
-				isCompatible = false;
-			}
-		}
+		bool isCompatible = nppVer.isCompatibleTo(i->_nppCompatibleVersions.first, i->_nppCompatibleVersions.second);
 
 		if (isCompatible)
 		{

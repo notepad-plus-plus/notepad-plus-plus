@@ -26,56 +26,6 @@
 
 class PluginsManager;
 
-struct Version
-{
-	unsigned long _major = 0;
-	unsigned long _minor = 0;
-	unsigned long _patch = 0;
-	unsigned long _build = 0;
-
-	Version() = default;
-	Version(const generic_string& versionStr);
-
-	void setVersionFrom(const generic_string& filePath);
-	generic_string toString();
-	bool isNumber(const generic_string& s) const {
-		return !s.empty() && 
-			find_if(s.begin(), s.end(), [](_TCHAR c) { return !_istdigit(c); }) == s.end();
-	};
-
-	int compareTo(const Version& v2c) const;
-
-	bool operator < (const Version& v2c) const {
-		return compareTo(v2c) == -1;
-	};
-
-	bool operator <= (const Version& v2c) const {
-		int r = compareTo(v2c);
-		return r == -1 || r == 0;
-	};
-
-	bool operator > (const Version& v2c) const {
-		return compareTo(v2c) == 1;
-	};
-
-	bool operator >= (const Version& v2c) const {
-		int r = compareTo(v2c);
-		return r == 1 || r == 0;
-	};
-
-	bool operator == (const Version& v2c) const {
-		return compareTo(v2c) == 0;
-	};
-
-	bool operator != (const Version& v2c) const {
-		return compareTo(v2c) != 0;
-	};
-
-	bool empty() const {
-		return _major == 0 && _minor == 0 && _patch == 0 && _build == 0;
-	}
-};
-
 struct PluginUpdateInfo
 {
 	generic_string _fullFilePath; // only for the installed Plugin
@@ -220,6 +170,9 @@ public :
 	void changeTabName(LIST_TYPE index, const TCHAR *name2change);
 	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
 	generic_string getPluginListVerStr() const;
+	const PluginViewList & getAvailablePluginUpdateInfoList() const {
+		return _availableList;
+	};
 
 protected:
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

@@ -1140,8 +1140,12 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			switch (wParam)
 			{
-				case IDCANCEL :
-				case IDOK :
+				case IDOK:
+					if (::GetFocus() == ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT))
+						::PostMessage(_hSelf, WM_NEXTDLGCTL, 0, 0L);
+					return TRUE;
+
+				case IDCANCEL:
 					display(false);
 					return TRUE;
 

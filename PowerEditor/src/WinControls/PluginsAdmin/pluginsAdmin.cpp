@@ -1330,21 +1330,14 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			switch (wParam)
 			{
-				case IDCANCEL :
-				case IDOK :
-					// checking for a possible editctrl ENTER
-					if ((IDOK == wParam) && (::GetFocus() == ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT)))
-					{
-						// do not close the dlg, only move the focus to the next ctrl
+				case IDOK:
+					if (::GetFocus() == ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT))
 						::PostMessage(_hSelf, WM_NEXTDLGCTL, 0, 0L);
-						return TRUE;
-					}
-					else
-					{
-						// IDCANCEL or focus is with the default button, so close the dlg
-						display(false);
-						return TRUE;
-					}
+					return TRUE;
+
+				case IDCANCEL:
+					display(false);
+					return TRUE;
 
 				case IDC_PLUGINADM_RESEARCH_NEXT:
 					searchInPlugins(true);

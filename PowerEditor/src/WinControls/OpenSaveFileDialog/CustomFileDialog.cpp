@@ -269,8 +269,10 @@ public:
 	}
 	IFACEMETHODIMP OnSelectionChange(IFileDialog*) override
 	{
-		// This event isn't triggered in an empty folder.
+		// This event may not be triggered in an empty folder (Windows 10+).
 		// Dialog startup calling order: 4. Main window is shown.
+		if (!foundControls())
+			findControls();
 		return S_OK;
 	}
 	IFACEMETHODIMP OnShareViolation(IFileDialog*, IShellItem*, FDE_SHAREVIOLATION_RESPONSE*) override

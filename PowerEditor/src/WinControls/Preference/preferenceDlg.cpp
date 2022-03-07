@@ -914,7 +914,13 @@ void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2Move
 	RECT rc;
 	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
 
-	p.x = rc.left - NppParameters::getInstance()._dpiManager.scaleX(5) - handle2MoveWidth;
+	NppParameters& nppParam = NppParameters::getInstance();
+
+	if(nppParam.getNativeLangSpeaker()->isRTL())
+		p.x = rc.right + nppParam._dpiManager.scaleX(5) + handle2MoveWidth;
+	else
+		p.x = rc.left - nppParam._dpiManager.scaleX(5) - handle2MoveWidth;
+
 	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
 	::ScreenToClient(_hSelf, &p);

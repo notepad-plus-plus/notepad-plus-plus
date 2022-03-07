@@ -35,11 +35,11 @@ struct PluginUpdateInfo
 	Version _version;
 	// Optional
 	std::pair<Version, Version> _nppCompatibleVersions; // compatible to Notepad++ interval versions: <from, to> example: 
-														// <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions (due to invalid format set)
-														// <6.9, 6.9>: plugin is compatible to only v6.9
-														// <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
-														// <0.0.0.0, 8.2.1> all until v8.2.1 (included)
-														// <8.3, 0.0.0.0> from v8.3 (included) to all
+	                                                    // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions (due to invalid format set)
+	                                                    // <6.9, 6.9>: plugin is compatible to only v6.9
+	                                                    // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+	                                                    // <0.0.0.0, 8.2.1> all until v8.2.1 (included)
+	                                                    // <8.3, 0.0.0.0> from v8.3 (included) to all
 	generic_string _homepage;
 	generic_string _sourceUrl;
 	generic_string _description;

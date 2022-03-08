@@ -40,6 +40,13 @@ struct PluginUpdateInfo
 	                                                    // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
 	                                                    // <0.0.0.0, 8.2.1> all until v8.2.1 (included)
 	                                                    // <8.3, 0.0.0.0> from v8.3 (included) to all
+
+	// Optional
+	std::pair<std::pair<Version, Version>, std::pair<Version, Version>> _oldVersionCompatibility; // Used only by Plugin Manager to filter plugins while loading plugins
+	                                                                                              // The 1st interval versions are for old plugins' versions
+	                                                                                              // The 2nd interval versions are for Notepad++ versions
+	                                                                                              // which are compatible with the old plugins' versions given in the 1st interval
+	
 	generic_string _homepage;
 	generic_string _sourceUrl;
 	generic_string _description;

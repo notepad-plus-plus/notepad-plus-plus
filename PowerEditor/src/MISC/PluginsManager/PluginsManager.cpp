@@ -355,10 +355,19 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir, const PluginViewList* plugi
 						// Find plugin version
 						Version v;
 						v.setVersionFrom(pluginsFullPathFilter);
-						if (pui->_version == v)
+						if (v == pui->_version)
 						{
 							// Find compatible Notepad++ versions
 							isCompatible = nppVer.isCompatibleTo(pui->_nppCompatibleVersions.first, pui->_nppCompatibleVersions.second);
+						}
+						else if (v < pui->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
+							!(pui->_oldVersionCompatibility.first.first.empty() && pui->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
+							!(pui->_oldVersionCompatibility.first.second.empty() && pui->_oldVersionCompatibility.second.second.empty())) // second version interval is valid
+						{
+							if (v.isCompatibleTo(pui->_oldVersionCompatibility.first.first, pui->_oldVersionCompatibility.first.second)) // dll older version found
+							{
+								isCompatible = nppVer.isCompatibleTo(pui->_oldVersionCompatibility.second.first, pui->_oldVersionCompatibility.second.second);
+							}
 						}
 					}
 				}
@@ -404,10 +413,19 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir, const PluginViewList* plugi
 							// Find plugin version
 							Version v2;
 							v2.setVersionFrom(pluginsFullPathFilter2);
-							if (pui2->_version == v2)
+							if (v2 == pui2->_version)
 							{
 								// Find compatible Notepad++ versions
 								isCompatible2 = nppVer.isCompatibleTo(pui2->_nppCompatibleVersions.first, pui2->_nppCompatibleVersions.second);
+							}
+							else if (v2 < pui2->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
+								!(pui2->_oldVersionCompatibility.first.first.empty() && pui2->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
+								!(pui2->_oldVersionCompatibility.first.second.empty() && pui2->_oldVersionCompatibility.second.second.empty())) // second version interval is valid
+							{
+								if (v2.isCompatibleTo(pui2->_oldVersionCompatibility.first.first, pui2->_oldVersionCompatibility.first.second)) // dll older version found
+								{
+									isCompatible2 = nppVer.isCompatibleTo(pui2->_oldVersionCompatibility.second.first, pui2->_oldVersionCompatibility.second.second);
+								}
 							}
 						}
 					}

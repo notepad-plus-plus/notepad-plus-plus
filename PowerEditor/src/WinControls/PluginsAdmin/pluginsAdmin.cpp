@@ -558,6 +558,27 @@ std::pair<Version, Version> getIntervalVersions(generic_string intervalVerStr)
 	return result;
 }
 
+// twoIntervalVerStr format:
+// "[4.2,6.6.6][6.4,8.9]"  : The 1st interval from version 4.2 to 6.6.6 inclusive, the 2nd interval from version 6.4 to 8.9
+// "[8.3,][6.9,6.9]"       : The 1st interval any version from 8.3 to the latest version, the 2nd interval present only version 6.9
+// "[,8.2.1][4.4,]"        : The 1st interval 8.2.1 and any previous version, , the 2nd interval any version from 4.4 to the latest version
+std::pair<std::pair<Version, Version>, std::pair<Version, Version>> getTwoIntervalVersions(generic_string twoIntervalVerStr)
+{
+	std::pair<std::pair<Version, Version>, std::pair<Version, Version>> r;
+	generic_string sep = TEXT("][");
+	generic_string::size_type pos = twoIntervalVerStr.find(sep, 0);
+	if (pos == string::npos)
+		return r;
+
+	generic_string intervalStr1 = twoIntervalVerStr.substr(0, pos + 1);
+	generic_string intervalStr2 = twoIntervalVerStr.substr(pos + 1, twoIntervalVerStr.length() - pos + 1);
+
+	r.first = getIntervalVersions(intervalStr1);
+	r.second = getIntervalVersions(intervalStr2);
+
+	return r;
+}
+
 bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, const json& j)
 {
 	if (j.empty())
@@ -602,12 +623,20 @@ bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, const json& j)
 				pi->_nppCompatibleVersions = getIntervalVersions(nppCompatibleVersionStr);
 			}
 
+			if (i.contains("old-versions-compatibility"))
+			{
+				json jOldVerCompatibility = i["old-versions-compatibility"];
+
+				string versionsStr = jOldVerCompatibility.get<std::string>();
+				generic_string oldVerCompatibilityStr(versionsStr.begin(), versionsStr.end());
+				pi->_oldVersionCompatibility = getTwoIntervalVersions(oldVerCompatibilityStr);
+			}
+
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("homepage").get<std::string>();
 			pi->_homepage = wmc.char2wchar(valStr.c_str(), CP_ACP);
-
 
 			pl.push_back(pi);
 		}

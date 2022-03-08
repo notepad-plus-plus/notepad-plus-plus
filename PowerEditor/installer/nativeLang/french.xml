@@ -1236,7 +1236,7 @@ Continuer ?"/> <!-- HowToReproduce: when you openned file is modified and saved,
             <RenameTabTemporaryNameAlreadyInUse title="Échec du renommage" message="Le nom spécifié est déjà utilisé dans un autre onglet."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
-            <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts.
+            <NbFileToOpenImportantWarning title="Nombre de fichiers à ouvrir trop grand." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts.
 Êtes-vous sûr de les ouvrir ?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="Les paramètres dans le cloud" message="Il semble que les paramètres dans le cloud se trouve sur un lecteur en lecture seule,
 ou à un dossier restreint. Votre paramètres dans le cloud seront annulés.

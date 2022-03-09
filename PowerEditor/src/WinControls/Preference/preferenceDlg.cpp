@@ -878,17 +878,6 @@ void DarkModeSubDlg::enableCustomizedColorCtrls(bool doEnable)
 	::EnableWindow(_pEdgeColorPicker->getHSelf(), doEnable);
 	::EnableWindow(_pLinkColorPicker->getHSelf(), doEnable);
 
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR1_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR2_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR3_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR4_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR5_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR6_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR7_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR8_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR9_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR10_STATIC), doEnable);
-
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_RESET_BUTTON), doEnable);
 
 	if (doEnable)
@@ -914,7 +903,13 @@ void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2Move
 	RECT rc;
 	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
 
-	p.x = rc.left - NppParameters::getInstance()._dpiManager.scaleX(5) - handle2MoveWidth;
+	NppParameters& nppParam = NppParameters::getInstance();
+
+	if(nppParam.getNativeLangSpeaker()->isRTL())
+		p.x = rc.right + nppParam._dpiManager.scaleX(5) + handle2MoveWidth;
+	else
+		p.x = rc.left - nppParam._dpiManager.scaleX(5) - handle2MoveWidth;
+
 	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
 	::ScreenToClient(_hSelf, &p);
@@ -1025,11 +1020,38 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
-			break;
+
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if	( 
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR1_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR2_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR3_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR4_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR5_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR6_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR7_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR8_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR9_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_CUSTOMIZED_COLOR10_STATIC)
+				)
+			{
+				if (nppGUI._darkmode._isEnabled && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone)
+				{
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+
+			return result;
 		}
 
 		case WM_PRINTCLIENT:
@@ -3363,17 +3385,50 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = false;
 			if (NppDarkMode::isEnabled())
 			{
 				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
 				if (dlgCtrlID == IDD_BACKUPDIR_RESTORESESSION_PATH_EDIT)
 				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+					result = NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 				}
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 				
 			}
-			break;
+
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if  ((HWND)lParam == ::GetDlgItem(_hSelf, IDD_BACKUPDIR_STATIC))
+			{
+				if (BST_CHECKED != ::SendDlgItemMessage(_hSelf, IDC_RADIO_BKNONE, BM_GETCHECK, 0, 0) &&
+					BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_GETCHECK, 0, 0))
+				{
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+			else if (
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC1) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC2) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATHLABEL_STATIC)
+				)
+			{
+				if (isCheckedOrNot(IDC_BACKUPDIR_RESTORESESSION_CHECK))
+				{
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+
+			return result;
 		}
 
 		case WM_PRINTCLIENT:
@@ -3516,10 +3571,7 @@ void BackupSubDlg::updateBackupGUI()
 	bool rememberSession = isCheckedOrNot(IDC_CHECK_REMEMBERSESSION);
 	bool isSnapshot = isCheckedOrNot(IDC_BACKUPDIR_RESTORESESSION_CHECK);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_RESTORESESSION_CHECK), rememberSession);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC1), isSnapshot);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT), isSnapshot);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC2), isSnapshot);
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATHLABEL_STATIC), isSnapshot);
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATH_EDIT), isSnapshot);
 
 	bool noBackup = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_RADIO_BKNONE, BM_GETCHECK, 0, 0);
@@ -3534,13 +3586,14 @@ void BackupSubDlg::updateBackupGUI()
 	//::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_USERCUSTOMDIR_GRPSTATIC), isEnableGlobableCheck);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_CHECK), isEnableGlobableCheck);
 
-	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_STATIC), isEnableLocalCheck);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_EDIT), isEnableLocalCheck);
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_BROWSE_BUTTON), isEnableLocalCheck);
+
+	redraw();
 }
 
 
-intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
@@ -3581,10 +3634,6 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE), FALSE);
 			}
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
 
@@ -3663,11 +3712,34 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
-			break;
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE)
+				)
+			{
+				if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_GETCHECK, 0, 0))
+				{
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+
+					_nbCharVal.display(true);
+				}
+				else
+				{
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+					_nbCharVal.display(false);
+				}
+			}
+			return result;
 		}
 
 		case WM_PRINTCLIENT:
@@ -3754,10 +3826,8 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), isEnableAutoC);
-					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), isEnableAutoC);
-					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), isEnableAutoC);
-					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), isEnableAutoC);
-					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE), isEnableAutoC);
+
+					redraw();
 					return TRUE;
 				}
 

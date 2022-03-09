@@ -23,6 +23,7 @@
 #include "IDAllocator.h"
 
 typedef BOOL (__cdecl * PFUNCISUNICODE)();
+class PluginViewList;
 
 struct PluginCommand
 {
@@ -86,7 +87,7 @@ public:
 	}
 
     int loadPlugin(const TCHAR *pluginFilePath);
-	bool loadPluginsV2(const TCHAR *dir = NULL);
+	bool loadPluginsV2(const TCHAR *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr);
 
     bool unloadPlugin(int index, HWND nppHandle);
 

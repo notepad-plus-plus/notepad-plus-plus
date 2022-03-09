@@ -21,6 +21,7 @@
 #include <cinttypes>
 #include "PluginsManager.h"
 #include "resource.h"
+#include "pluginsAdmin.h"
 
 using namespace std;
 
@@ -290,7 +291,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	}
 }
 
-bool PluginsManager::loadPluginsV2(const TCHAR* dir)
+bool PluginsManager::loadPluginsV2(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList)
 {
 	if (_isDisabled)
 		return false;
@@ -317,6 +318,12 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 	HANDLE hFindFolder = ::FindFirstFile(pluginsFolderFilter.c_str(), &foundData);
 	HANDLE hFindDll = INVALID_HANDLE_VALUE;
 
+	// Get Notepad++ current version
+	TCHAR nppFullPathName[MAX_PATH];
+	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
+	Version nppVer;
+	nppVer.setVersionFrom(nppFullPathName);
+
 	// get plugin folder
 	if (hFindFolder != INVALID_HANDLE_VALUE && (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
@@ -333,10 +340,40 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 			hFindDll = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
 			if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
-				dllNames.push_back(pluginsFullPathFilter);
+				// - foundFileName: folder-name
+				// _ pluginsFullPathFilter: version
+				// 
+				// Find plugin update info of current plugin and check if it's compatible to Notepad++ current versions
+				bool isCompatible = true;
 
-				PluginList & pl = nppParams.getPluginList();
-				pl.add(foundFileName, false);
+				if (pluginUpdateInfoList)
+				{
+					int index = 0;
+					PluginUpdateInfo* pui = pluginUpdateInfoList->findPluginInfoFromFolderName(foundFileName, index);
+					if (pui)
+					{
+						// Find plugin version
+						Version v;
+						v.setVersionFrom(pluginsFullPathFilter);
+						if (v == pui->_version)
+						{
+							// Find compatible Notepad++ versions
+							isCompatible = nppVer.isCompatibleTo(pui->_nppCompatibleVersions.first, pui->_nppCompatibleVersions.second);
+						}
+						else if (v < pui->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
+							!(pui->_oldVersionCompatibility.first.first.empty() && pui->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
+							!(pui->_oldVersionCompatibility.first.second.empty() && pui->_oldVersionCompatibility.second.second.empty())) // second version interval is valid
+						{
+							if (v.isCompatibleTo(pui->_oldVersionCompatibility.first.first, pui->_oldVersionCompatibility.first.second)) // dll older version found
+							{
+								isCompatible = nppVer.isCompatibleTo(pui->_oldVersionCompatibility.second.first, pui->_oldVersionCompatibility.second.second);
+							}
+						}
+					}
+				}
+				
+				if (isCompatible)
+					dllNames.push_back(pluginsFullPathFilter);
 			}
 		}
 		// get plugin folder
@@ -361,10 +398,40 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 				hFindDll = ::FindFirstFile(pluginsFullPathFilter2.c_str(), &foundData);
 				if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 				{
-					dllNames.push_back(pluginsFullPathFilter2);
+					// - foundFileName2: folder-name
+					// _ pluginsFullPathFilter2: version
+					// 
+					// Find plugin update info of current plugin and check if it's compatible to Notepad++ current versions
+					bool isCompatible2 = true;
 
-					PluginList & pl = nppParams.getPluginList();
-					pl.add(foundFileName2, false);
+					if (pluginUpdateInfoList)
+					{
+						int index2 = 0;
+						PluginUpdateInfo* pui2 = pluginUpdateInfoList->findPluginInfoFromFolderName(foundFileName2, index2);
+						if (pui2)
+						{
+							// Find plugin version
+							Version v2;
+							v2.setVersionFrom(pluginsFullPathFilter2);
+							if (v2 == pui2->_version)
+							{
+								// Find compatible Notepad++ versions
+								isCompatible2 = nppVer.isCompatibleTo(pui2->_nppCompatibleVersions.first, pui2->_nppCompatibleVersions.second);
+							}
+							else if (v2 < pui2->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
+								!(pui2->_oldVersionCompatibility.first.first.empty() && pui2->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
+								!(pui2->_oldVersionCompatibility.first.second.empty() && pui2->_oldVersionCompatibility.second.second.empty())) // second version interval is valid
+							{
+								if (v2.isCompatibleTo(pui2->_oldVersionCompatibility.first.first, pui2->_oldVersionCompatibility.first.second)) // dll older version found
+								{
+									isCompatible2 = nppVer.isCompatibleTo(pui2->_oldVersionCompatibility.second.first, pui2->_oldVersionCompatibility.second.second);
+								}
+							}
+						}
+					}
+
+					if (isCompatible2)
+						dllNames.push_back(pluginsFullPathFilter2);
 				}
 			}
 		}

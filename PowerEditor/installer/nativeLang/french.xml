@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="8.3">
+    <Native-Langue name="français" filename="french.xml" version="8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -672,7 +672,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20003" name="Nouveau..."/>
                 <Item id="20004" name="Supprimer"/>
                 <Item id="20005" name="Enregistrer sous"/>
-                <Item id="20007" name="Langage utilisateur : "/>
+                <Item id="20007" name="Langage : "/>
                 <Item id="20009" name="Ext. :"/>
                 <Item id="20012" name="Ignorer la casse"/>
                 <Item id="20011" name="Transparence"/>
@@ -863,7 +863,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6120" name="Verticale"/>
                     <Item id="6121" name="Quitter lors de la fermeture du dernier onglet"/>
 
-                    <Item id="6122" name="Cacher la barre des menus (Alt ou F10 pour basculer)"/>
+                    <Item id="6122" name="Cacher (Alt ou F10 pour basculer)"/>
                     <Item id="6123" name="Langue"/>
 
                     <Item id="6128" name="Icônes alternatives"/>

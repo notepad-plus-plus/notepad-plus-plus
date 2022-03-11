@@ -19,12 +19,12 @@
 //
 // Notepad++ version: begin
 //
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.3.1")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.3.2")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("8.31\0")
-#define VERSION_DIGITALVALUE 8, 3, 1, 0
+#define VERSION_VALUE TEXT("8.32\0")
+#define VERSION_DIGITALVALUE 8, 3, 2, 0
 
 // Notepad++ version: end
 
@@ -667,7 +667,7 @@
 
 
 #define MACRO_USER    (WM_USER + 4000)
-	#define WM_GETCURRENTMACROSTATUS (MACRO_USER + 01)
+//	#define WM_GETCURRENTMACROSTATUS (MACRO_USER + 01) // Replaced with NPPM_GETCURRENTMACROSTATUS
 	#define WM_MACRODLGRUNMACRO       (MACRO_USER + 02)
 
 

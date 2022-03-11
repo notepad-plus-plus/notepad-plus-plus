@@ -1182,7 +1182,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_COMMAND :
 		{
-			bool isMacroRecording = (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS);
+			bool isMacroRecording = (static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS,0,0)) == MacroStatus::RecordInProgress);
 			NppParameters& nppParamInst = NppParameters::getInstance();
 			FindHistory & findHistory = nppParamInst.getFindHistory();
 			switch (LOWORD(wParam))
@@ -1287,22 +1287,34 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				return TRUE;
 
 				case IDM_SEARCH_FIND:
-					enableReplaceFunc(false); // enable relace false so only find
+					if (_currentStatus == FIND_DLG)
+						goToCenter();
+					else
+						enableReplaceFunc(false);
 					return TRUE;
 
 				case IDM_SEARCH_REPLACE:
-					enableReplaceFunc(true);
+					if (_currentStatus == REPLACE_DLG)
+						goToCenter();
+					else
+						enableReplaceFunc(true);
 					return TRUE;
 
 				case IDM_SEARCH_FINDINFILES:
-					enableFindInFilesFunc();
+					if (_currentStatus == FINDINFILES_DLG)
+						goToCenter();
+					else
+						enableFindInFilesFunc();
 					return TRUE;
 
 				case IDM_SEARCH_MARK:
-					enableMarkFunc();
+					if (_currentStatus == MARK_DLG)
+						goToCenter();
+					else
+						enableMarkFunc();
 					return TRUE;
 
-				case IDREPLACE :
+				case IDREPLACE:
 				{
 					std::lock_guard<std::mutex> lock(findOps_mutex);
 
@@ -2054,7 +2066,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		msg = TEXT("^ ") + msg;
 		(*_ppEditView)->showCallTip(start, msg.c_str());
 	}
-	if (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS)
+	if (static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS,0,0)) == MacroStatus::RecordInProgress)
 		(*_ppEditView)->execute(SCI_STARTRECORD);
 
 	delete [] pText;

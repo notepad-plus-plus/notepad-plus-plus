@@ -705,6 +705,31 @@ void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
 		patternVect.emplace_back(pBegin, pEnd);
 }
 
+void cutStringBy(const TCHAR* str2cut, vector<generic_string>& patternVect, char byChar, bool allowEmptyStr)
+{
+	if (str2cut == nullptr) return;
+
+	const TCHAR* pBegin = str2cut;
+	const TCHAR* pEnd = pBegin;
+
+	while (*pEnd != '\0')
+	{
+		if (*pEnd == byChar)
+		{
+			if (allowEmptyStr)
+				patternVect.emplace_back(pBegin, pEnd);
+			else if (pBegin != pEnd)
+				patternVect.emplace_back(pBegin, pEnd);
+			pBegin = pEnd + 1;
+		}
+		++pEnd;
+	}
+	if (allowEmptyStr)
+		patternVect.emplace_back(pBegin, pEnd);
+	else if (pBegin != pEnd)
+		patternVect.emplace_back(pBegin, pEnd);
+}
+
 
 std::wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
 {
@@ -2175,14 +2200,31 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 				if (fileName)
 				{
 					Position position;
-					position._firstVisibleLine = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("firstVisibleLine"))));
-					position._xOffset = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("xOffset"))));
-					position._startPos = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("startPos"))));
-					position._endPos = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("endPos"))));
-					position._selMode = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("selMode"))));
-					position._scrollWidth = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("scrollWidth"))));
-					position._offset = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("offset"))));
-					position._wrapCount = static_cast<intptr_t>(_ttoi64((childNode->ToElement())->Attribute(TEXT("wrapCount"))));
+					const TCHAR* posStr = (childNode->ToElement())->Attribute(TEXT("firstVisibleLine"));
+					if (posStr)
+						position._firstVisibleLine = static_cast<intptr_t>(_ttoi64(posStr));
+					posStr = (childNode->ToElement())->Attribute(TEXT("xOffset"));
+					if (posStr)
+						position._xOffset = static_cast<intptr_t>(_ttoi64(posStr));
+					posStr = (childNode->ToElement())->Attribute(TEXT("startPos"));
+					if (posStr)
+						position._startPos = static_cast<intptr_t>(_ttoi64(posStr));
+					posStr = (childNode->ToElement())->Attribute(TEXT("endPos"));
+					if (posStr)
+						position._endPos = static_cast<intptr_t>(_ttoi64(posStr));
+					posStr = (childNode->ToElement())->Attribute(TEXT("selMode"));
+					if (posStr)
+						position._selMode = static_cast<intptr_t>(_ttoi64(posStr));
+					posStr = (childNode->ToElement())->Attribute(TEXT("scrollWidth"));
+					if (posStr)
+						position._scrollWidth = static_cast<intptr_t>(_ttoi64(posStr));
+					posStr = (childNode->ToElement())->Attribute(TEXT("offset"));
+					if (posStr)
+						position._offset = static_cast<intptr_t>(_ttoi64(posStr));
+					posStr = (childNode->ToElement())->Attribute(TEXT("wrapCount"));
+					if (posStr)
+						position._wrapCount = static_cast<intptr_t>(_ttoi64(posStr));
+
 					MapPosition mapPosition;
 					const TCHAR* mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"));
 					if (mapPosStr)

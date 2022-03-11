@@ -79,6 +79,62 @@ const char* xpmfn[] = {
 	"uuuuuuuuuuuuuuuu"
 };
 
+const auto BOX_IMG_ID = 1001;
+const char* xpmbox[] = {
+    /* columns rows colors chars-per-pixel */
+    "16 16 33 1 ",
+    "r c None",
+    "  c #000000",
+    ". c #030303",
+    "X c #101010",
+    "o c #181818",
+    "O c #202020",
+    "+ c #282828",
+    "@ c #191919",
+    "# c #222222",
+    "$ c #252525",
+    "% c #484848",
+    "& c #505050",
+    "* c #606060",
+    "= c #444444",
+    "- c #474747",
+    "; c #505050",
+    ": c #535353",
+    "> c #565656",
+    ", c #979797",
+    "< c #9A9A9A",
+    "1 c #9F9F9F",
+    "2 c #A7A7A7",
+    "3 c #AFAFAF",
+    "4 c #B7B7B7",
+    "5 c #757575",
+    "6 c #767676",
+    "7 c #787878",
+    "8 c #818181",
+    "9 c #D7D7D7",
+    "0 c #DFDFDF",
+    "q c #E7E7E7",
+    "w c #EFEFEF",
+    "e c #979797",
+    /* pixels */
+    "rrrrrrrrrrrrrrrr",
+    "rrrrrrrrqrrrrrrr",
+    "rrre4;$  *0rrrrr",
+    "r4@ $-4w6;X*0rrr",
+    "r1oX>rrrrr5+ 1rr",
+    "r1*9%O2r9XO*&;rr",
+    "r1*rr4==%rrr1;rr",
+    "r1*rrrr$rrrr1;rr",
+    "r1*rrrr$rrrr1;rr",
+    "r1*rrrr$rrrr1;rr",
+    "r1*rrrr$rrrr1;rr",
+    "r3o<rrr$rrr8$;rr",
+    "rr7#%9r$r4 #;rrr",
+    "rrrr,o.$.%:rrrrr",
+    "rrrrr9w,7rrrrrrr",
+    "rrrrrrrrrrrrrrrr"
+};
+
 
 using namespace std;
 
@@ -120,6 +176,7 @@ bool AutoCompletion::showApiComplete()
 	if (!_isFxImageRegistered)
 	{
 		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+		_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmbox));
 		_isFxImageRegistered = true;
 	}
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
@@ -202,6 +259,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	if (!_isFxImageRegistered)
 	{
 		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+		_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmbox));
 		_isFxImageRegistered = true;
 	}
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
@@ -965,13 +1023,19 @@ bool AutoCompletion::setLanguage(LangType language)
 		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
 		{
 			const TCHAR *name = funcNode->Attribute(TEXT("name"));
-			generic_string imgid = TEXT("\x1E") + intToString(FUNC_IMG_ID);
 			if (name)
 			{
 				size_t len = lstrlen(name);
 				if (len)
 				{
-					generic_string word = name + imgid;
+					generic_string word = name;
+					generic_string imgid = TEXT("\x1E");
+					const TCHAR *func = funcNode->Attribute(TEXT("func"));
+					if (func && !lstrcmp(func, TEXT("yes")))
+						imgid += intToString(FUNC_IMG_ID);
+					else
+						imgid += intToString(BOX_IMG_ID);
+					word += imgid;
 					_keyWordArray.push_back(word.c_str());
 					if (len > _keyWordMaxLen)
 						_keyWordMaxLen = len;

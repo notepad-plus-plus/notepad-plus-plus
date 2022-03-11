@@ -139,6 +139,7 @@ const TCHAR nppLogNetworkDriveIssue[] = TEXT("nppLogNetworkDriveIssue");
 const TCHAR nppLogNulContentCorruptionIssue[] = TEXT("nppLogNulContentCorruptionIssue");
 
 void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
+void cutStringBy(const TCHAR *str2cut, std::vector<generic_string> & patternVect, char byChar, bool allowEmptyStr);
 
 
 struct Position
@@ -1081,6 +1082,7 @@ class ExternalLangContainer final
 public:
 	TCHAR _name[MAX_EXTERNAL_LEXER_NAME_LEN];
 	TCHAR _desc[MAX_EXTERNAL_LEXER_DESC_LEN];
+	ExternalLexerAutoIndentMode _autoIndentMode = ExternalLexerAutoIndentMode::Standard;
 
 	ExternalLangContainer(const TCHAR* name, const TCHAR* desc)
 	{
@@ -1246,19 +1248,6 @@ private:
 	generic_string _themeDirPath;
 	const generic_string _defaultThemeLabel = TEXT("Default (stylers.xml)");
 	generic_string _stylesXmlPath;
-};
-
-
-class PluginList final
-{
-public :
-	void add(generic_string fn, bool isInBL)
-	{
-		_list.push_back(std::pair<generic_string, bool>(fn, isInBL));
-	}
-
-private:
-	std::vector<std::pair<generic_string, bool>>_list;
 };
 
 
@@ -1598,7 +1587,6 @@ public:
 		return false;
 	}
 
-	PluginList & getPluginList() {return _pluginList;};
 	bool importUDLFromFile(const generic_string& sourceFile);
 	bool exportUDLToFile(size_t langIndex2export, const generic_string& fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
@@ -1730,7 +1718,6 @@ private:
 
 	std::vector<generic_string> _fontlist;
 	std::vector<generic_string> _blacklist;
-	PluginList _pluginList;
 
 	HMODULE _hUXTheme = nullptr;
 

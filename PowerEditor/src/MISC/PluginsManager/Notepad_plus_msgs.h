@@ -36,8 +36,10 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};
+enum class ExternalLexerAutoIndentMode { Standard, C_Like, Custom };
+enum class MacroStatus { Idle, RecordInProgress, RecordingStopped, PlayingBack };
 
-enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10 };
+enum winVer { WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10 };
 enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 
@@ -453,6 +455,32 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		HICON	hToolbarIcon;
 		HICON	hToolbarIconDarkMode;
 	};
+
+	#define NPPM_GETEXTERNALLEXERAUTOINDENTMODE  (NPPMSG + 103)
+	// BOOL NPPM_GETEXTERNALLEXERAUTOINDENTMODE(const TCHAR *languageName, ExternalLexerAutoIndentMode &autoIndentMode)
+	// Get ExternalLexerAutoIndentMode for an installed external programming language.
+	// - Standard means Notepad++ will keep the same TAB indentation between lines;
+	// - C_Like means Notepad++ will perform a C-Language style indentation for the selected external language;
+	// - Custom means a Plugin will be controlling auto-indentation for the current language.
+	// returned values: TRUE for successful searches, otherwise FALSE.
+
+	#define NPPM_SETEXTERNALLEXERAUTOINDENTMODE  (NPPMSG + 104)
+	// BOOL NPPM_SETEXTERNALLEXERAUTOINDENTMODE(const TCHAR *languageName, ExternalLexerAutoIndentMode autoIndentMode)
+	// Set ExternalLexerAutoIndentMode for an installed external programming language.
+	// - Standard means Notepad++ will keep the same TAB indentation between lines;
+	// - C_Like means Notepad++ will perform a C-Language style indentation for the selected external language;
+	// - Custom means a Plugin will be controlling auto-indentation for the current language.
+	// returned value: TRUE if function call was successful, otherwise FALSE.
+
+	#define NPPM_ISAUTOINDENTON  (NPPMSG + 105)
+	// BOOL NPPM_ISAUTOINDENTON(0, 0)
+	// Returns the current Use Auto-Indentation setting in Notepad++ Preferences.
+
+	#define NPPM_GETCURRENTMACROSTATUS (NPPMSG + 106)
+	// MacroStatus NPPM_GETCURRENTMACROSTATUS(0, 0)
+	// Gets current enum class MacroStatus { Idle - means macro is not in use and it's empty, RecordInProgress, RecordingStopped, PlayingBack }
+
+
 
 #define VAR_NOT_RECOGNIZED 0
 #define FULL_CURRENT_PATH 1

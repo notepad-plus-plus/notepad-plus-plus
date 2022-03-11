@@ -35,134 +35,7 @@
 using namespace std;
 using nlohmann::json;
 
-Version::Version(const generic_string& versionStr)
-{
-	try {
-		auto ss = tokenizeString(versionStr, '.');
 
-		if (ss.size() > 4)
-			throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
-		
-		int i = 0;
-		vector<unsigned long*> v = {&_major, &_minor, &_patch, &_build};
-		for (const auto& s : ss)
-		{
-			if (!isNumber(s))
-			{
-				throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
-			}
-			*(v[i]) = std::stoi(s);
-
-			++i;
-		}
-	}
-	catch (...)
-	{
-		_major = 0;
-		_minor = 0;
-		_patch = 0;
-		_build = 0;
-	}
-}
-
-void Version::setVersionFrom(const generic_string& filePath)
-{
-	if (!filePath.empty() && ::PathFileExists(filePath.c_str()))
-	{
-		DWORD uselessArg = 0; // this variable is for passing the ignored argument to the functions
-		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &uselessArg);
-
-		if (bufferSize <= 0)
-			return;
-
-		unsigned char* buffer = new unsigned char[bufferSize];
-		::GetFileVersionInfo(filePath.c_str(), uselessArg, bufferSize, buffer);
-
-		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
-		UINT cbFileInfo = 0;
-		VerQueryValue(buffer, TEXT("\\"), reinterpret_cast<LPVOID*>(&lpFileInfo), &cbFileInfo);
-		if (cbFileInfo)
-		{
-			_major = (lpFileInfo->dwFileVersionMS & 0xFFFF0000) >> 16;
-			_minor = lpFileInfo->dwFileVersionMS & 0x0000FFFF;
-			_patch = (lpFileInfo->dwFileVersionLS & 0xFFFF0000) >> 16;
-			_build = lpFileInfo->dwFileVersionLS & 0x0000FFFF;
-		}
-		delete[] buffer;
-	}
-}
-
-generic_string Version::toString()
-{
-	if (_build == 0 && _patch == 0 && _minor == 0 && _major == 0) // ""
-	{
-		return TEXT("");
-	}	
-	else if (_build == 0 && _patch == 0 && _minor == 0) // "major"
-	{
-		return std::to_wstring(_major);
-	}
-	else if (_build == 0 && _patch == 0) // "major.minor"
-	{
-		std::wstring v = std::to_wstring(_major);
-		v += TEXT(".");
-		v += std::to_wstring(_minor);
-		return v;
-	}
-	else if (_build == 0) // "major.minor.patch"
-	{
-		std::wstring v = std::to_wstring(_major);
-		v += TEXT(".");
-		v += std::to_wstring(_minor);
-		v += TEXT(".");
-		v += std::to_wstring(_patch);
-		return v;
-	}
-
-	// "major.minor.patch.build"
-	std::wstring ver = std::to_wstring(_major);
-	ver += TEXT(".");
-	ver += std::to_wstring(_minor);
-	ver += TEXT(".");
-	ver += std::to_wstring(_patch);
-	ver += TEXT(".");
-	ver += std::to_wstring(_build);
-
-	return ver;
-}
-
-int Version::compareTo(const Version& v2c) const
-{
-	if (_major > v2c._major)
-		return 1;
-	else if (_major < v2c._major)
-		return -1;
-	else // (_major == v2c._major)
-	{
-		if (_minor > v2c._minor)
-			return 1;
-		else if (_minor < v2c._minor)
-			return -1;
-		else // (_minor == v2c._minor)
-		{
-			if (_patch > v2c._patch)
-				return 1;
-			else if (_patch < v2c._patch)
-				return -1;
-			else // (_patch == v2c._patch)
-			{
-				if (_build > v2c._build)
-					return 1;
-				else if (_build < v2c._build)
-					return -1;
-				else // (_build == v2c._build)
-				{
-					return 0;
-				}
-			}
-		}
-	}
-}
 
 generic_string PluginUpdateInfo::describe()
 {
@@ -629,14 +502,84 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	values2Add.push_back(pi->_displayName);
 	Version v = pi->_version;
 	values2Add.push_back(v.toString());
-	//values2Add.push_back(TEXT("Yes"));
 
 	// add in order
 	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
 	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
 }
 
-bool loadFromJson(PluginViewList & pl, const json& j)
+// intervalVerStr format:
+// 
+// "6.9"          : exact version 6.9
+// "[4.2,6.6.6]"  : from version 4.2 to 6.6.6 inclusive
+// "[8.3,]"       : any version from 8.3 to the latest one
+// "[,8.2.1]"     : 8.2.1 and any previous version
+//
+std::pair<Version, Version> getIntervalVersions(generic_string intervalVerStr)
+{
+	std::pair<Version, Version> result;
+
+	if (intervalVerStr.empty())
+		return result;
+
+	const size_t indexEnd = intervalVerStr.length() - 1;
+	if (intervalVerStr[0] == '[' && intervalVerStr[indexEnd] == ']') // interval versions format
+	{
+		generic_string cleanIntervalVerStr = intervalVerStr.substr(1, indexEnd - 1);
+		vector<generic_string> versionVect;
+		cutStringBy(cleanIntervalVerStr.c_str(), versionVect, ',', true);
+		if (versionVect.size() == 2)
+		{
+			if (!versionVect[0].empty() && !versionVect[1].empty()) // "[4.2,6.6.6]" : from version 4.2 to 6.6.6 inclusive
+			{
+				result.first = Version(versionVect[0]);
+				result.second = Version(versionVect[1]);
+			}
+			else if (!versionVect[0].empty() && versionVect[1].empty()) // "[8.3,]" : any version from 8.3 to the latest one
+			{
+				result.first = Version(versionVect[0]);
+			}
+			else if (versionVect[0].empty() && !versionVect[1].empty()) // "[,8.2.1]" : 8.2.1 and any previous version
+			{
+				result.second = Version(versionVect[1]);
+			}
+		}
+	}
+	else if (intervalVerStr[0] != '[' && intervalVerStr[indexEnd] != ']') // one version format -> "6.9" : exact version 6.9
+	{
+		result.first = Version(intervalVerStr);
+		result.second = Version(intervalVerStr);
+	}
+	else // invalid format
+	{
+		// do nothing
+	}
+
+	return result;
+}
+
+// twoIntervalVerStr format:
+// "[4.2,6.6.6][6.4,8.9]"  : The 1st interval from version 4.2 to 6.6.6 inclusive, the 2nd interval from version 6.4 to 8.9
+// "[8.3,][6.9,6.9]"       : The 1st interval any version from 8.3 to the latest version, the 2nd interval present only version 6.9
+// "[,8.2.1][4.4,]"        : The 1st interval 8.2.1 and any previous version, , the 2nd interval any version from 4.4 to the latest version
+std::pair<std::pair<Version, Version>, std::pair<Version, Version>> getTwoIntervalVersions(generic_string twoIntervalVerStr)
+{
+	std::pair<std::pair<Version, Version>, std::pair<Version, Version>> r;
+	generic_string sep = TEXT("][");
+	generic_string::size_type pos = twoIntervalVerStr.find(sep, 0);
+	if (pos == string::npos)
+		return r;
+
+	generic_string intervalStr1 = twoIntervalVerStr.substr(0, pos + 1);
+	generic_string intervalStr2 = twoIntervalVerStr.substr(pos + 1, twoIntervalVerStr.length() - pos + 1);
+
+	r.first = getIntervalVersions(intervalStr1);
+	r.second = getIntervalVersions(intervalStr2);
+
+	return r;
+}
+
+bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, const json& j)
 {
 	if (j.empty())
 		return false;
@@ -650,7 +593,6 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 	for (const auto& i : jArray)
 	{
 		try {
-			//std::unique_ptr<PluginUpdateInfo*> pi = make_unique<PluginUpdateInfo*>();
 			PluginUpdateInfo* pi = new PluginUpdateInfo();
 
 			string valStr = i.at("folder-name").get<std::string>();
@@ -672,17 +614,50 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 			generic_string newValStr(valStr.begin(), valStr.end());
 			pi->_version = Version(newValStr);
 
+			if (i.contains("npp-compatible-versions"))
+			{
+				json jNppCompatibleVer = i["npp-compatible-versions"];
+
+				string versionsStr = jNppCompatibleVer.get<std::string>();
+				generic_string nppCompatibleVersionStr(versionsStr.begin(), versionsStr.end());
+				pi->_nppCompatibleVersions = getIntervalVersions(nppCompatibleVersionStr);
+			}
+
+			if (i.contains("old-versions-compatibility"))
+			{
+				json jOldVerCompatibility = i["old-versions-compatibility"];
+
+				string versionsStr = jOldVerCompatibility.get<std::string>();
+				generic_string oldVerCompatibilityStr(versionsStr.begin(), versionsStr.end());
+				pi->_oldVersionCompatibility = getTwoIntervalVersions(oldVerCompatibilityStr);
+			}
+
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("homepage").get<std::string>();
 			pi->_homepage = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
-
-			pl.pushBack(pi);
+			pl.push_back(pi);
 		}
-		catch (...) // Every field is mandatory. If one of property is missing, an exception is thrown then this plugin will be ignored
+#ifdef DEBUG
+		catch (const wstring& s)
 		{
+			::MessageBox(NULL, s.c_str(), TEXT("Exception caught in: PluginsAdmin loadFromJson()"), MB_ICONERROR);
+			continue;
+		}
+
+		catch (std::exception& e)
+		{
+			::MessageBoxA(NULL, e.what(), "Exception caught in: PluginsAdmin loadFromJson()", MB_ICONERROR);
+			continue;
+		}
+#endif
+		catch (...) // If one of mandatory properties is missing or with the incorrect format, an exception is thrown then this plugin will be ignored
+		{
+#ifdef DEBUG
+			::MessageBoxA(NULL, "An unknown exception is just caught", "Unknown Exception", MB_OK);
+#endif
 			continue; 
 		}
 	}
@@ -707,7 +682,7 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();
 
 
-bool PluginsAdminDlg::isValide()
+bool PluginsAdminDlg::initFromJson()
 {
 	// GUP.exe doesn't work under XP
 	winVer winVersion = (NppParameters::getInstance()).getWinVersion();
@@ -726,44 +701,29 @@ bool PluginsAdminDlg::isValide()
 		return false;
 	}
 
+	json j;
+
 #ifdef DEBUG // if not debug, then it's release
 	
-	return true;
+	// load from nppPluginList.json instead of nppPluginList.dll
+	ifstream nppPluginListJson(_pluginListFullPath);
+	nppPluginListJson >> j;
 
 #else //RELEASE
 
 	// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
 	
 	SecurityGard securityGard;
-	bool isOK = securityGard.checkModule(_pluginListFullPath, nm_pluginList);
+	bool isSecured = securityGard.checkModule(_pluginListFullPath, nm_pluginList);
 
-	if (!isOK)
-		return isOK;
+	if (!isSecured)
+		return false;
 
-	isOK = securityGard.checkModule(_updaterFullPath, nm_gup);
-	return isOK;
-#endif
-}
+	isSecured = securityGard.checkModule(_updaterFullPath, nm_gup);
 
-bool PluginsAdminDlg::updateListAndLoadFromJson()
-{
-	HMODULE hLib = NULL;
-
-	try
+	if (isSecured)
 	{
-		if (!isValide())
-			return false;
-
-		json j;
-
-#ifdef DEBUG // if not debug, then it's release
-
-		// load from nppPluginList.json instead of nppPluginList.dll
-		ifstream nppPluginListJson(_pluginListFullPath);
-		nppPluginListJson >> j;
-
-#else //RELEASE
-
+		HMODULE hLib = NULL;
 		hLib = ::LoadLibraryEx(_pluginListFullPath.c_str(), 0, LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE);
 
 		if (!hLib)
@@ -798,39 +758,56 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 
 		delete[] buffer;
 
-#endif
-		// if absent then download it
-
-
-		// check the update for nppPluginList.json
-
-
-		// download update if present
-
-
-		// load pl.json
-		// 
-
-		loadFromJson(_availableList, j);
-
-		// initialize update list view
-		checkUpdates();
-
-		// initialize installed list view
-		loadFromPluginInfos();
-
 		::FreeLibrary(hLib);
-		return true;
 	}
-	catch (...)
-	{
-		// whichever exception
-		if (hLib)
-			::FreeLibrary(hLib);
-		return false;
-	}
+#endif
+
+	
+	return loadFromJson(_availableList._list, j);
 }
 
+bool PluginsAdminDlg::updateList()
+{
+	// initialize the primary view with the plugin list loaded from json 
+	initAvailablePluginsViewFromList();
+
+	// initialize update list view
+	checkUpdates();
+
+	// initialize installed list view
+	loadFromPluginInfos();
+
+	return true;
+}
+
+
+bool PluginsAdminDlg::initAvailablePluginsViewFromList()
+{
+	TCHAR nppFullPathName[MAX_PATH];
+	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
+
+	Version nppVer;
+	nppVer.setVersionFrom(nppFullPathName);
+
+	for (const auto& i : _availableList._list)
+	{
+		bool isCompatible = nppVer.isCompatibleTo(i->_nppCompatibleVersions.first, i->_nppCompatibleVersions.second);
+
+		if (isCompatible)
+		{
+			vector<generic_string> values2Add;
+			values2Add.push_back(i->_displayName);
+			Version v = i->_version;
+			values2Add.push_back(v.toString());
+
+			// add in order
+			size_t j = _availableList._ui.findAlphabeticalOrderPos(i->_displayName, _availableList._sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? ListView::sortEncrease : ListView::sortDecrease);
+			_availableList._ui.addLine(values2Add, reinterpret_cast<LPARAM>(i), static_cast<int>(j));
+		}
+	}
+
+	return true;
+}
 
 bool PluginsAdminDlg::loadFromPluginInfos()
 {
@@ -1192,8 +1169,12 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			switch (wParam)
 			{
-				case IDCANCEL :
-				case IDOK :
+				case IDOK:
+					if (::GetFocus() == ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT))
+						::PostMessage(_hSelf, WM_NEXTDLGCTL, 0, 0L);
+					return TRUE;
+
+				case IDCANCEL:
 					display(false);
 					return TRUE;
 

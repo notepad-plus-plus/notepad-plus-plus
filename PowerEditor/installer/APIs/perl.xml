@@ -143,16 +143,26 @@
 		<KeyWord name="and" />
 		<KeyWord name="atan2" func="yes"><Overload retVal="" descr="arctangent of Y/X in the range -PI to PI"><Param name="Y" /><Param name="X" /></Overload></KeyWord>
 		<KeyWord name="attach" />
+		<KeyWord name="attributes" />
 		<KeyWord name="auth_type" />
 		<KeyWord name="autoEscape" />
+		<KeyWord name="autodie" />
+		<KeyWord name="autouse" />
+		<KeyWord name="base" />
+		<KeyWord name="bigint" />
+		<KeyWord name="bignum" />
+		<KeyWord name="bigrat" />
 		<KeyWord name="bind" func="yes"><Overload retVal="" descr="binds an address to a socket"><Param name="SOCKET" /><Param name="NAME" /></Overload></KeyWord>
 		<KeyWord name="binmode" func="yes"><Overload retVal="" descr="prepare binary files for I/O"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="prepare binary files for I/O"><Param name="FILEHANDLE" /><Param name="LAYER" /></Overload></KeyWord>
 		<KeyWord name="bless" func="yes"><Overload retVal="" descr="create an object"><Param name="REF" /></Overload><Overload retVal="" descr="create an object"><Param name="REF" /><Param name="CLASSNAME" /></Overload></KeyWord>
+		<KeyWord name="blib" />
 		<KeyWord name="br" />
 		<KeyWord name="break" func="yes"><Overload retVal="" descr="break out of a given block"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="button" />
+		<KeyWord name="bytes" />
 		<KeyWord name="caller" func="yes"><Overload retVal="" descr="get context of the current subroutine call"><Param name="EXPR" /></Overload><Overload retVal="" descr="get context of the current subroutine call"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="caption" />
+		<KeyWord name="charnames" />
 		<KeyWord name="chdir" func="yes"><Overload retVal="" descr="change your current working directory"><Param name="DIRHANDLE" /></Overload><Overload retVal="" descr="change your current working directory"><Param name="EXPR" /></Overload><Overload retVal="" descr="change your current working directory"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="change your current working directory"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="checkbox" />
 		<KeyWord name="checkbox_group" />
@@ -181,6 +191,8 @@
 		<KeyWord name="deiconify" />
 		<KeyWord name="delete" func="yes"><Overload retVal="" descr="deletes a value from a hash"><Param name="EXPR" /></Overload></KeyWord>
 		<KeyWord name="delete_all" />
+		<KeyWord name="deprecate" />
+		<KeyWord name="diagnostics" />
 		<KeyWord name="die" func="yes"><Overload retVal="" descr="raise an exception or bail out"><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="div" />
 		<KeyWord name="do" func="yes"><Overload retVal="" descr="turn a BLOCK into a TERM"><Param name="BLOCK" /></Overload><Overload retVal="" descr="turn a BLOCK into a TERM"><Param name="EXPR" /></Overload></KeyWord>
@@ -189,6 +201,7 @@
 		<KeyWord name="else" />
 		<KeyWord name="elsif" />
 		<KeyWord name="em" />
+		<KeyWord name="encoding" />
 		<KeyWord name="end" />
 		<KeyWord name="end_h1" />
 		<KeyWord name="end_html" />
@@ -212,10 +225,14 @@
 		<KeyWord name="exists" func="yes"><Overload retVal="" descr="test whether a hash key is present"><Param name="EXPR" /></Overload></KeyWord>
 		<KeyWord name="exit" func="yes"><Overload retVal="" descr="terminate this program"><Param name="EXPR" /></Overload><Overload retVal="" descr="terminate this program"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="exp" func="yes"><Overload retVal="" descr="raise e to a power"><Param name="EXPR" /></Overload><Overload retVal="" descr="raise e to a power"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="experimental" />
 		<KeyWord name="fc" func="yes"><Overload retVal="" descr="return casefolded version of a string"><Param name="EXPR" /></Overload><Overload retVal="" descr="return casefolded version of a string"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="fcntl" func="yes"><Overload retVal="" descr="file control system call"><Param name="FILEHANDLE" /><Param name="FUNCTION" /><Param name="SCALAR" /></Overload></KeyWord>
+		<KeyWord name="feature" />
+		<KeyWord name="fields" />
 		<KeyWord name="filefield" />
 		<KeyWord name="fileno" func="yes"><Overload retVal="" descr="return file descriptor from filehandle"><Param name="DIRHANDLE" /></Overload><Overload retVal="" descr="return file descriptor from filehandle"><Param name="FILEHANDLE" /></Overload></KeyWord>
+		<KeyWord name="filetest" />
 		<KeyWord name="flock" func="yes"><Overload retVal="" descr="lock an entire file with an advisory lock"><Param name="FILEHANDLE" /><Param name="OPERATION" /></Overload></KeyWord>
 		<KeyWord name="font" />
 		<KeyWord name="for" />
@@ -277,6 +294,7 @@
 		<KeyWord name="index" func="yes"><Overload retVal="" descr="find a substring within a string"><Param name="STR" /><Param name="SUBSTR" /></Overload><Overload retVal="" descr="find a substring within a string"><Param name="STR" /><Param name="SUBSTR" /><Param name="POSITION" /></Overload></KeyWord>
 		<KeyWord name="insert" />
 		<KeyWord name="int" func="yes"><Overload retVal="" descr="get the integer portion of a number"><Param name="EXPR" /></Overload><Overload retVal="" descr="get the integer portion of a number"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="integer" />
 		<KeyWord name="ioctl" func="yes"><Overload retVal="" descr="system-dependent device control system call"><Param name="FILEHANDLE" /><Param name="FUNCTION" /><Param name="SCALAR" /></Overload></KeyWord>
 		<KeyWord name="isindex" />
 		<KeyWord name="join" func="yes"><Overload retVal="" descr="join a list into a string using a separator"><Param name="EXPR" /><Param name="LIST" /></Overload></KeyWord>
@@ -287,10 +305,13 @@
 		<KeyWord name="lcfirst" func="yes"><Overload retVal="" descr="return a string with just the next letter in lower case"><Param name="EXPR" /></Overload><Overload retVal="" descr="return a string with just the next letter in lower case"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="le" />
 		<KeyWord name="length" func="yes"><Overload retVal="" descr="return the number of characters in a string"><Param name="EXPR" /></Overload><Overload retVal="" descr="return the number of characters in a string"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="less" />
 		<KeyWord name="li" />
+		<KeyWord name="lib" />
 		<KeyWord name="link" func="yes"><Overload retVal="" descr="create a hard link in the filesystem"><Param name="OLDFILE" /><Param name="NEWFILE" /></Overload></KeyWord>
 		<KeyWord name="listen" func="yes"><Overload retVal="" descr="register your socket as a server"><Param name="SOCKET" /><Param name="QUEUESIZE" /></Overload></KeyWord>
 		<KeyWord name="local" func="yes"><Overload retVal="" descr="create a temporary value for a global variable (dynamic scoping)"><Param name="EXPR" /></Overload></KeyWord>
+		<KeyWord name="locale" />
 		<KeyWord name="localtime" func="yes"><Overload retVal="" descr="convert UNIX time into record or string using local time"><Param name="EXPR" /></Overload><Overload retVal="" descr="convert UNIX time into record or string using local time"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="lock" func="yes"><Overload retVal="" descr="get a thread lock on a variable, subroutine, or method"><Param name="THING" /></Overload></KeyWord>
 		<KeyWord name="log" func="yes"><Overload retVal="" descr="retrieve the natural logarithm for a number"><Param name="EXPR" /></Overload><Overload retVal="" descr="retrieve the natural logarithm for a number"><Param name="" /></Overload></KeyWord>
@@ -300,6 +321,7 @@
 		<KeyWord name="maxsize" />
 		<KeyWord name="minsize" />
 		<KeyWord name="mkdir" func="yes"><Overload retVal="" descr="create a directory"><Param name="FILENAME" /></Overload><Overload retVal="" descr="create a directory"><Param name="FILENAME" /><Param name="MODE" /></Overload><Overload retVal="" descr="create a directory"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="mro" />
 		<KeyWord name="msgctl" func="yes"><Overload retVal="" descr="SysV IPC message control operations"><Param name="ID" /><Param name="CMD" /><Param name="ARG" /></Overload></KeyWord>
 		<KeyWord name="msgget" func="yes"><Overload retVal="" descr="get SysV IPC message queue"><Param name="KEY" /><Param name="FLAGS" /></Overload></KeyWord>
 		<KeyWord name="msgrcv" func="yes"><Overload retVal="" descr="receive a SysV IPC message from a message queue"><Param name="ID" /><Param name="VAR" /><Param name="SIZE" /><Param name="TYPE,FLAGS" /></Overload></KeyWord>
@@ -313,16 +335,21 @@
 		<KeyWord name="no" func="yes"><Overload retVal="" descr="unimport some module symbols or semantics at compile time"><Param name="MODULE" /></Overload><Overload retVal="" descr="unimport some module symbols or semantics at compile time"><Param name="MODULE LIST" /></Overload><Overload retVal="" descr="unimport some module symbols or semantics at compile time"><Param name="MODULE VERSION" /></Overload><Overload retVal="" descr="unimport some module symbols or semantics at compile time"><Param name="MODULE VERSION LIST" /></Overload><Overload retVal="" descr="unimport some module symbols or semantics at compile time"><Param name="VERSION" /></Overload></KeyWord>
 		<KeyWord name="not" />
 		<KeyWord name="oct" func="yes"><Overload retVal="" descr="convert a string to an octal number"><Param name="EXPR" /></Overload><Overload retVal="" descr="convert a string to an octal number"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="ok" />
 		<KeyWord name="ol" />
 		<KeyWord name="open" func="yes"><Overload retVal="" descr="open a file, pipe, or descriptor"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="open a file, pipe, or descriptor"><Param name="FILEHANDLE" /><Param name="EXPR" /></Overload><Overload retVal="" descr="open a file, pipe, or descriptor"><Param name="FILEHANDLE" /><Param name="MODE" /><Param name="EXPR" /></Overload><Overload retVal="" descr="open a file, pipe, or descriptor"><Param name="FILEHANDLE" /><Param name="MODE" /><Param name="EXPR" /><Param name="LIST" /></Overload><Overload retVal="" descr="open a file, pipe, or descriptor"><Param name="FILEHANDLE" /><Param name="MODE" /><Param name="REFERENCE" /></Overload></KeyWord>
 		<KeyWord name="opendir" func="yes"><Overload retVal="" descr="open a directory"><Param name="DIRHANDLE" /><Param name="EXPR" /></Overload></KeyWord>
+		<KeyWord name="ops" />
 		<KeyWord name="or" />
 		<KeyWord name="ord" func="yes"><Overload retVal="" descr="find a character's numeric representation"><Param name="EXPR" /></Overload><Overload retVal="" descr="find a character's numeric representation"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="our" func="yes"><Overload retVal="" descr="declare and assign a package variable (lexical scoping)"><Param name="TYPE VARLIST" /></Overload><Overload retVal="" descr="declare and assign a package variable (lexical scoping)"><Param name="TYPE VARLIST : ATTRS" /></Overload><Overload retVal="" descr="declare and assign a package variable (lexical scoping)"><Param name="VARLIST" /></Overload><Overload retVal="" descr="declare and assign a package variable (lexical scoping)"><Param name="VARLIST : ATTRS" /></Overload></KeyWord>
+		<KeyWord name="overload" />
+		<KeyWord name="overloading" />
 		<KeyWord name="pack" func="yes"><Overload retVal="" descr="convert a list into a binary representation"><Param name="TEMPLATE" /><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="package" func="yes"><Overload retVal="" descr="declare a separate global namespace"><Param name="NAMESPACE" /></Overload><Overload retVal="" descr="declare a separate global namespace"><Param name="NAMESPACE BLOCK" /></Overload><Overload retVal="" descr="declare a separate global namespace"><Param name="NAMESPACE VERSION" /></Overload><Overload retVal="" descr="declare a separate global namespace"><Param name="NAMESPACE VERSION BLOCK" /></Overload></KeyWord>
 		<KeyWord name="param" />
 		<KeyWord name="param_fetch" />
+		<KeyWord name="parent" />
 		<KeyWord name="password_field" />
 		<KeyWord name="path_info" />
 		<KeyWord name="pipe" func="yes"><Overload retVal="" descr="open a pair of connected filehandles"><Param name="READHANDLE" /><Param name="WRITEHANDLE" /></Overload></KeyWord>
@@ -343,6 +370,7 @@
 		<KeyWord name="raise" />
 		<KeyWord name="rand" func="yes"><Overload retVal="" descr="retrieve the next pseudorandom number"><Param name="EXPR" /></Overload><Overload retVal="" descr="retrieve the next pseudorandom number"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="raw_cookie" />
+		<KeyWord name="re" />
 		<KeyWord name="read" func="yes"><Overload retVal="" descr="fixed-length buffered input from a filehandle"><Param name="FILEHANDLE" /><Param name="SCALAR" /><Param name="LENGTH" /></Overload><Overload retVal="" descr="fixed-length buffered input from a filehandle"><Param name="FILEHANDLE" /><Param name="SCALAR" /><Param name="LENGTH" /><Param name="OFFSET" /></Overload></KeyWord>
 		<KeyWord name="readdir" func="yes"><Overload retVal="" descr="get a directory from a directory handle"><Param name="DIRHANDLE" /></Overload></KeyWord>
 		<KeyWord name="readline" func="yes"><Overload retVal="" descr="fetch a record from a file"><Param name="EXPR" /></Overload><Overload retVal="" descr="fetch a record from a file"><Param name="" /></Overload></KeyWord>
@@ -398,6 +426,7 @@
 		<KeyWord name="shmread" func="yes"><Overload retVal="" descr="read SysV shared memory"><Param name="ID" /><Param name="VAR" /><Param name="POS" /><Param name="SIZE" /></Overload></KeyWord>
 		<KeyWord name="shmwrite" func="yes"><Overload retVal="" descr="write SysV shared memory"><Param name="ID" /><Param name="STRING" /><Param name="POS" /><Param name="SIZE" /></Overload></KeyWord>
 		<KeyWord name="shutdown" func="yes"><Overload retVal="" descr="close down just half of a socket connection"><Param name="SOCKET" /><Param name="HOW" /></Overload></KeyWord>
+		<KeyWord name="sigtrap" />
 		<KeyWord name="sin" func="yes"><Overload retVal="" descr="return the sine of a number"><Param name="EXPR" /></Overload><Overload retVal="" descr="return the sine of a number"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="sleep" func="yes"><Overload retVal="" descr="block for some number of seconds"><Param name="EXPR" /></Overload><Overload retVal="" descr="block for some number of seconds"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="socket" func="yes"><Overload retVal="" descr="create a socket"><Param name="SOCKET" /><Param name="DOMAIN" /><Param name="TYPE" /><Param name="PROTOCOL" /></Overload></KeyWord>
@@ -423,6 +452,7 @@
 		<KeyWord name="study" func="yes"><Overload retVal="" descr="no-op, formerly optimized input data for repeated searches"><Param name="SCALAR" /></Overload><Overload retVal="" descr="no-op, formerly optimized input data for repeated searches"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="sub" func="yes"><Overload retVal="" descr="declare a subroutine, possibly anonymously"><Param name="NAME (PROTO) : ATTRS BLOCK" /></Overload><Overload retVal="" descr="declare a subroutine, possibly anonymously"><Param name="NAME (PROTO) BLOCK" /></Overload><Overload retVal="" descr="declare a subroutine, possibly anonymously"><Param name="NAME : ATTRS BLOCK" /></Overload><Overload retVal="" descr="declare a subroutine, possibly anonymously"><Param name="NAME BLOCK" /></Overload></KeyWord>
 		<KeyWord name="submit" />
+		<KeyWord name="subs" />
 		<KeyWord name="substr" func="yes"><Overload retVal="" descr="get or alter a portion of a string"><Param name="EXPR" /><Param name="OFFSET" /></Overload><Overload retVal="" descr="get or alter a portion of a string"><Param name="EXPR" /><Param name="OFFSET" /><Param name="LENGTH" /></Overload><Overload retVal="" descr="get or alter a portion of a string"><Param name="EXPR" /><Param name="OFFSET" /><Param name="LENGTH" /><Param name="REPLACEMENT" /></Overload></KeyWord>
 		<KeyWord name="symlink" func="yes"><Overload retVal="" descr="create a symbolic link to a file"><Param name="OLDFILE" /><Param name="NEWFILE" /></Overload></KeyWord>
 		<KeyWord name="syscall" func="yes"><Overload retVal="" descr="execute an arbitrary system call"><Param name="NUMBER" /><Param name="LIST" /></Overload></KeyWord>
@@ -439,6 +469,7 @@
 		<KeyWord name="textarea" />
 		<KeyWord name="textfield" />
 		<KeyWord name="th" />
+		<KeyWord name="threads" />
 		<KeyWord name="tie" func="yes"><Overload retVal="" descr="bind a variable to an object class"><Param name="VARIABLE" /><Param name="CLASSNAME" /><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="tied" func="yes"><Overload retVal="" descr="get a reference to the object underlying a tied variable"><Param name="VARIABLE" /></Overload></KeyWord>
 		<KeyWord name="time" func="yes"><Overload retVal="" descr="return number of seconds since 1970"><Param name="" /></Overload></KeyWord>
@@ -470,15 +501,20 @@
 		<KeyWord name="use_named_parameters" />
 		<KeyWord name="user_agent" />
 		<KeyWord name="user_name" />
+		<KeyWord name="utf8" />
 		<KeyWord name="utime" func="yes"><Overload retVal="" descr="set a file's last access and modify times"><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="values" func="yes"><Overload retVal="" descr="return a list of the values in a hash"><Param name="ARRAY" /></Overload><Overload retVal="" descr="return a list of the values in a hash"><Param name="HASH" /></Overload></KeyWord>
 		<KeyWord name="variable" />
+		<KeyWord name="vars" />
 		<KeyWord name="vec" func="yes"><Overload retVal="" descr="test or set particular bits in a string"><Param name="EXPR" /><Param name="OFFSET" /><Param name="BITS" /></Overload></KeyWord>
+		<KeyWord name="version" />
 		<KeyWord name="virtual_host" />
+		<KeyWord name="vmsish" />
 		<KeyWord name="wait" func="yes"><Overload retVal="" descr="wait for any child process to die"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="waitpid" func="yes"><Overload retVal="" descr="wait for a particular child process to die"><Param name="PID" /><Param name="FLAGS" /></Overload></KeyWord>
 		<KeyWord name="wantarray" func="yes"><Overload retVal="" descr="get void vs scalar vs list context of current subroutine call"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="warn" func="yes"><Overload retVal="" descr="print debugging info"><Param name="LIST" /></Overload></KeyWord>
+		<KeyWord name="warnings" />
 		<KeyWord name="when" />
 		<KeyWord name="while" />
 		<KeyWord name="width" />

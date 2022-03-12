@@ -131,7 +131,12 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 				)
 			{
 				if (nppParam.isAdmin())
-					SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+				{
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
 				else
 					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
 			}

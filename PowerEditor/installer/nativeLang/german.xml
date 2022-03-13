@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-02-25 by Mr. Update
+	last modified: 2022-04-06 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -893,6 +893,7 @@
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6236" name="Scrollen über die letzte Zeile hinaus aktivieren"/>
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
+					<Item id="6245" name="Virtuellen Raum aktivieren"/>
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
@@ -1280,6 +1281,7 @@ Soll auf die Homepage von Notepad++ gewechselt werden um die aktuellste Version 
 			<DocTooDirtyToMonitor title="Überwachungsproblem" message="Die Datei ist unsauber. Bitte vor der Überwachung die Änderungen speichern."/>
 			<DocNoExistToMonitor title="Überwachungsproblem" message="Die Datei muss existieren, um überwacht werden zu können."/>
 			<FileTooBigToOpen title="Problem mit Dateigröße" message="Die Datei ist zu groß, um mit Notepad++ geöffnet zu werden."/>
+			<FileLoadingException title="Ausnahme-Code: $STR_REPLACE$" message="Beim Laden der Datei ist ein Fehler aufgetreten!"/>
 			<WantToOpenHugeFile title="Warnung vor Dateigröße" message="Das Öffnen von Dateien größer als 2 GB kann mehrere Minuten dauern.
 Soll die Datei trotzdem geöffnet werden?"/>
 			<CreateNewFileOrNot title="Neue Datei erstellen" message="&quot;$STR_REPLACE$&quot; existiert nicht. Soll die Datei erstellt werden?"/>

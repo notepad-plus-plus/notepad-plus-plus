@@ -997,6 +997,19 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				SendMessage(hDirCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
 			}
 
+			// Change ComboBox height to accomodate High-DPI settings.
+			// ComboBoxes are scaled using the font used in them, however this results in weird optics
+			// on scaling > 200% (192 DPI). Using this method we accomodate these scalings way better
+			// than the OS does with the current dpiAware.manifest...
+			for (HWND hComboBox : { hFindCombo, hReplaceCombo, hFiltersCombo, hDirCombo })
+			{
+				LOGFONT lf = {};
+				HFONT font = reinterpret_cast<HFONT>(SendMessage(hComboBox, WM_GETFONT, 0, 0));
+				::GetObject(font, sizeof(lf), &lf);
+				lf.lfHeight = (NppParameters::getInstance()._dpiManager.scaleY(16) - 5) * -1;
+				SendMessage(hComboBox, WM_SETFONT, (WPARAM)CreateFontIndirect(&lf), MAKELPARAM(true, 0));
+			}
+
 			RECT arc;
 			::GetWindowRect(::GetDlgItem(_hSelf, IDCANCEL), &arc);
 			_markClosePos.bottom = _findInFilesClosePos.bottom = _replaceClosePos.bottom = _findClosePos.bottom = arc.bottom - arc.top;

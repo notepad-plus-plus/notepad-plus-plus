@@ -1,3 +1,21 @@
+Notepad++ v8.3.3 regression-fix, bug-fixes and new enhancements:
+
+1.  Fix crash regression on opening a session file.
+2.  Enhance stability: add new ability (plugin compatibility) for not loading incompatible plugins.
+3.  Fix deleting the folded line makes folded (hidden) content disappeared.
+4.  Re-enable ability to center the FindReplaceDlg on Notepad++ main window.  
+5.  Fix extension not appended issue while saving with ENTER under Windows 7. 
+6.  Fix preferences dialog "Dark Mode->Customize tone" RTL alignment issue in dark mode.
+7.  Fix disabled static texts of Preferences blurry issue in Dark mode.
+8.  Add 4 API for custom auto-indentation and getting current macro status.
+9.  Add new AutoComplete icon for distinguishing functions from normal keywords.
+10. Fix Plugin Admin close issue after typing ENTER.
+11. Show current and new version on update dialog.
+
+More fixes & implementations detail:
+https://notepad-plus-plus.org/downloads/v8.3.3/
+
+
 Notepad++ v8.3.2 regression-fixes, bug-fixes and new enhancements:
 
 1.  Fix incorrect message while double clicking on search result regression.
@@ -35,8 +53,6 @@ Notepad++ v8.3 new features and bug-fixes:
 3.  Fix Find in Files crash issue.
 
 
-More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.3.2/
 
 
 Included plugins:
@@ -48,4 +64,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.2.2
+* WinGup (for Notepad++) v5.2.3

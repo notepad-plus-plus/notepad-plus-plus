@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-	<Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," additionalWordChar="-" />
 	<!-- note: this list was created using functions and reserved words known to GnuCOBOL (COBOL85,2002,2014 + extensions from IBM/MF/RM/ACUCOBOL) -->
 	<AutoComplete language="COBOL">
+		<Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," additionalWordChar="-" />
 		<KeyWord name="3-D" />
 		<KeyWord name="ABS" func="yes">
 			<Overload retVal="Integer/Numeric" descr="absolute value of &lt;number&gt;">

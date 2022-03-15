@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=".:" />
     <AutoComplete language="LUA">
+        <Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=".:" />
         <KeyWord name="and" func="no" />
         <KeyWord name="assert" func="yes">
             <Overload retVal="void" descr="

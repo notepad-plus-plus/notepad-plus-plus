@@ -127,7 +127,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 	const DWORD accessParam{ GENERIC_READ | GENERIC_WRITE };
 	const DWORD shareParam{ FILE_SHARE_READ | FILE_SHARE_WRITE };
 	const DWORD dispParam{ OPEN_ALWAYS }; // Open existing file for writing without destroying it or create new
-	const DWORD attribParam{ FILE_ATTRIBUTE_NORMAL | FILE_FLAG_WRITE_THROUGH };
+	const DWORD attribParam{ FILE_ATTRIBUTE_NORMAL };
 	HANDLE hFile = ::CreateFileW(logFileName, accessParam, shareParam, NULL, dispParam, attribParam, NULL);
 
 	if (hFile != INVALID_HANDLE_VALUE)
@@ -149,6 +149,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 		::WriteFile(hFile, log2writeStr.c_str(), static_cast<DWORD>(log2writeStr.length()), &bytes_written, NULL);
 
 		::FlushFileBuffers(hFile);
+		::CloseHandle(hFile);
 	}
 }
 

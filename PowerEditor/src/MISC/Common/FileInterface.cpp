@@ -57,9 +57,11 @@ void Win32_IO_File::close()
 {
 	if (isOpened())
 	{
+		DWORD flushError = NOERROR;
 		if (_written)
 		{
-			::FlushFileBuffers(_hFile);
+			if (!::FlushFileBuffers(_hFile))
+				flushError = ::GetLastError();
 		}
 		::CloseHandle(_hFile);
 
@@ -74,7 +76,20 @@ void Win32_IO_File::close()
 			generic_string nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
-			std::string msg = _path;
+
+			std::string msg;
+			if (flushError != NOERROR)
+			{
+				LPSTR messageBuffer = nullptr;
+				FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+					nullptr, flushError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, nullptr);
+				msg += messageBuffer;
+
+				//Free the buffer.
+				LocalFree(messageBuffer);
+				msg += "\n";
+			}
+			msg += _path;
 			msg += " is closed.";
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}

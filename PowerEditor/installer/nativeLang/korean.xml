@@ -1,7 +1,9 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
+<!--
+  <localization work version="7.8.1~8.3.3" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
+-->
 <NotepadPlus>
-    <!-- <localization work version="7.8.1~8.1.9.1" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> -->
-    <Native-Langue name="한국어" filename="korean.xml" version="8.1.9.1">
+    <Native-Langue name="한국어" filename="korean.xml" version="8.3">
     <Menu>
     <Main>
         <!--  Main Menu Entries -->
@@ -31,13 +33,13 @@
         <Item subMenuId="edit-lineOperations" name="줄단위 편집(&amp;L)"/>
         <Item subMenuId="edit-comment" name="주석 달기/제거(&amp;m)"/>
         <Item subMenuId="edit-autoCompletion" name="자동 완성(&amp;A)"/>
-        <Item subMenuId="edit-eolConversion" name="줄의 끝문자(EOL) 변환(&amp;E)"/>
+        <Item subMenuId="edit-eolConversion" name="줄끝 문자(EOL) 변환(&amp;E)"/>
         <Item subMenuId="edit-blankOperations" name="공백 기능(&amp;B)"/>
         <Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능(&amp;P)"/>
         <Item subMenuId="edit-onSelection" name="선택시(&amp;O)"/>
         <Item subMenuId="search-markAll" name="모든 토큰에 형식 적용(&amp;A)"/>
         <Item subMenuId="search-markOne" name="한 개 토큰에 형식 적용(&amp;O)"/>
-        <Item subMenuId="search-unmarkAll" name="스타일 해제"/>
+        <Item subMenuId="search-unmarkAll" name="형식 해제"/>
         <Item subMenuId="search-jumpUp" name="위로 이동(&amp;J)"/>
         <Item subMenuId="search-jumpDown" name="아래로 이동(&amp;D)"/>
         <Item subMenuId="search-copyStyledText" name="형식을 가진 텍스트 복사(&amp;C)"/>
@@ -71,6 +73,7 @@
         <Item subMenuId="settings-import" name="가져오기"/>
         <Item subMenuId="tools-md5"  name="MD5"/>
         <Item subMenuId="tools-sha256"  name="SHA-256"/>
+        <Item subMenuId="window-sortby" name="정렬하기"/>
     </SubEntries>
 
 <!--  all menu item -->
@@ -176,6 +179,8 @@
   <Item id="42029" name="현재 파일 경로를 클립보드로"/>
   <Item id="42030" name="현재 파일명을 클립보드로"/>
   <Item id="42031" name="현재 디렉토리 경로를 클립보드로"/>
+  <Item id="42087" name="모든 파일 이름을 클립보드로"/>
+  <Item id="42088" name="모든 파일 경로를 클립보드로"/>
   <Item id="42032" name="매크로 반복 실행...(&amp;R)"/>
   <Item id="42033" name="읽기 전용 해제"/>
   <Item id="42035" name="한 줄 주석 달기"/>
@@ -247,6 +252,10 @@
   <Item id="43048" name="다음 찾기 후 선택(&amp;S)"/>
   <Item id="43049" name="이전 찾기 후 선택(&amp;S)"/>
   <Item id="43054" name="책갈피...(&amp;M)"/>
+  <Item id="43501" name="선택된 창 닫기"/>
+  <Item id="43502" name="다른 창 닫기"/>
+  <Item id="43503" name="선택된 이름 복사"/>
+  <Item id="43504" name="선택된 경로 복사"/>
   <Item id="44009" name="포스트 잇"/>
   <Item id="44010" name="모두 접기"/>
   <Item id="44011" name="집중 편집 모드"/>
@@ -317,6 +326,7 @@
   <Item id="46001" name="형식 설정..."/>
   <Item id="46250" name="언어 정의..."/>
   <Item id="46300" name="사용자 정의 언어 폴더 열기..."/>
+  <Item id="46301" name="Notepad++ 사용자 정의 언어 모음집"/>
   <Item id="46180" name="사용자 정의"/>
   <Item id="47000" name="Notepad++ 정보"/>
   <Item id="47010" name="명령줄 옵션..."/>
@@ -341,8 +351,8 @@
   <Item id="48504" name="생성..."/>
   <Item id="48505" name="파일에서 생성..."/>
   <Item id="48506" name="선택영역을 클립보드에 생성"/>
-
   <Item id="49000" name="실행...(&amp;R)"/>
+
   <Item id="50000" name="함수 자동 완성"/>
   <Item id="50001" name="단어 자동 완성"/>
   <Item id="50002" name="함수 인자 정보 보기"/>
@@ -353,6 +363,16 @@
   <Item id="42041" name="최근 사용한 파일 목록 모두 지우기"/>
   <Item id="48016" name="단축키 변경/매크로 삭제..."/>
   <Item id="48017" name="단축키 변경/명령 삭제..."/>
+
+  <Item id="11001" name="창 목록...(&amp;W)"/>
+  <Item id="11002" name="이름 알파벳순"/>
+  <Item id="11003" name="이름 알파벳 역순"/>
+  <Item id="11004" name="경로 알파벳순"/>
+  <Item id="11005" name="경로 알파벳 역순"/>
+  <Item id="11006" name="종류 알파벳순"/>
+  <Item id="11007" name="종류 알파벳 역순"/>
+  <Item id="11008" name="작은 파일에서 큰 파일"/>
+  <Item id="11009" name="큰 파일에서 작은 파일"/>
   </Commands>
   </Main>
 <Splitter>
@@ -626,6 +646,14 @@
     <Item id="44107" name="작업 영역으로 폴더 지정으로 전환"/>
     <Item id="44109" name="문서 목록으로 전환"/>
     <Item id="44108" name="함수 목록으로 전환"/>
+    <Item id="11002" name="이름 알파벳 순으로 정렬"/>
+    <Item id="11003" name="이름 알파벳 역순으로 정렬"/>
+    <Item id="11004" name="경로 알파벳 순으로 정렬"/>
+    <Item id="11005" name="경로 알파벳 역순으로 정렬"/>
+    <Item id="11006" name="종류 알파벳 순으로 정렬"/>
+    <Item id="11007" name="종류 알파벳 역순으로 정렬"/>
+    <Item id="11008" name="크기 증가 순서로 정렬"/>
+    <Item id="11009" name="크기 감소 순서로 정렬"/>
   </MainCommandNames>
 </ShortcutMapper>
 <ShortcutMapperSubDialg title="단축키">
@@ -638,7 +666,7 @@
   <Item id="5007" name="이 명령어의 단축키를 삭제합니다."/>
   <Item id="5012" name="단축키가 겹칩니다!"/>
 </ShortcutMapperSubDialg>
-<UserDefine title="사용자 지정 프로그래밍 언어">
+<UserDefine title="사용자 정의">
   <Item id="20001" name="고정"/>
   <Item id="20002" name="이름 변경"/>
   <Item id="20003" name="새로 만들기..."/>
@@ -681,6 +709,8 @@
   <Item id="25026" name="연산자 1"/>
   <Item id="25027" name="연산자 2"/>
   <Item id="25028" name="숫자"/>
+  <Item id="25033" name="투명하게"/>
+  <Item id="25034" name="투명하게"/>
   <Item id="1" name="확인"/>
   <Item id="2" name="취소"/>
   </StylerDialog>
@@ -875,6 +905,7 @@
     <Item id="7122" name="더 어두운 글씨"/>
     <Item id="7123" name="비활성화된 글씨"/>
     <Item id="7124" name="가장자리"/>
+    <Item id="7125" name="연결"/>
     <Item id="7130" name="재설정"/>
   </DarkMode>
 
@@ -984,6 +1015,15 @@
   <Item id="6721" name="중간"/>
   <Item id="6722" name="오른쪽"/>
   <Item id="6723" name="추가"/>
+  <ComboBox id="6724">
+    <Element name="전체 파일 경로"/>
+    <Element name="파일 이름"/>
+    <Element name="파일 디렉토리"/>
+    <Element name="쪽"/>
+    <Element name="짧은 날짜 형식"/>
+    <Element name="긴 날짜 형식"/>
+    <Element name="시간"/>
+  </ComboBox>
   <Item id="6725" name="변수:"/>
   <Item id="6727" name="여기에 변수 설정 표시"/>
   <Item id="6728" name="머리글 및 바닥글"/>
@@ -1030,6 +1070,9 @@
   <Item id="6809" name="함수 완성"/>
   <Item id="6810" name="단어 완성"/>
   <Item id="6816" name="함수 및 단어 완성"/>
+  <Item id="6869" name="선택 삽입"/>
+  <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+  <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
   <Item id="6824" name="숫자 무시"/>
   <Item id="6811" name="부터"/>
   <Item id="6813" name="번째 글자"/>
@@ -1228,6 +1271,9 @@ Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/> <!-- 
   <DocTooDirtyToMonitor title="모니터링 오류" message="이 문서는 저장되지 않았습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
   <DocNoExistToMonitor title="모니터링 오류" message="모니터링을 위해서는 파일이 있어야 합니다."/>
   <FileTooBigToOpen title="파일 크기 오류" message="Notepad++에서 열기에는 파일이 너무 큽니다."/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+  <FileLoadingException title="예외 코드: $STR_REPLACE$" message="파일 읽기 도중에 에러가 발생했습니다!"/>
+  <WantToOpenHugeFile title="큰 파일 열기 경고" message="2GB보다 큰 파일 열기는 시간이 걸릴 수 있습니다.
+여시겠습니까?"/>
   <CreateNewFileOrNot title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 이 없습니다. 만드시겠습니까?"/>
   <CreateNewFileError title="새 파일 만들기" message="&quot;$STR_REPLACE$&quot; 을 만들 수 없습니다."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
   <OpenFileError title="오류" message="&quot;$STR_REPLACE$&quot; 을 열 수 없습니다."/>
@@ -1373,23 +1419,33 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
 <MiscStrings>
 <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 <word-chars-list-tip value="더블 클릭으로 선택하거나 &quot;전체 단어 일치&quot; 옵션을 체크해서 검색하는 동안, 현재 단어에 추가 글자를 포함하는 것을 허용합니다. "/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
 <word-chars-list-warning-begin value="주의사항: "/>
 <word-chars-list-space-warning value="빈 칸 $INT_REPLACE$개"/>
 <word-chars-list-tab-warning value="탭 $INT_REPLACE$개"/>
 <word-chars-list-warning-end value="가 문자 목록에 존재합니다."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+<backup-select-folder value="백업 디렉토리로 사용할 폴더를 선택하십시오"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 <cloud-invalid-warning value="잘못된 경로입니다."/>
 <cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>
-<cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하세요"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+<cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하십시오"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+<default-open-save-select-folder value="기본 디렉토리로 사용할 폴더를 선택하십시오"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 <shift-change-direction-tip value="반대쪽으로 검색하려면 Shift+Enter를 사용하십시오."/>
-    <two-find-buttons-tip value="찾기 버튼을 2개로 분할"/>
-    <file-rename-title value="이름 바꾸기"/>
-        <find-in-files-filter-tip value="cpp, cxx, h, hxx &amp;&amp; hpp 파일에서 찾기:
+<two-find-buttons-tip value="찾기 버튼을 2개로 분할"/>
+<file-rename-title value="이름 바꾸기"/>
+<find-in-files-filter-tip value="cpp, cxx, h, hxx &amp;&amp; hpp 파일에서 찾기:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
-    <find-status-top-reached value="찾기: 아래로부터 1곳을 찾았습니다. 문서의 처음에 도달하였습니다."/>
-    <find-status-end-reached value="찾기: 위에서부터 1곳을 찾았습니다. 문서의 끝에 도달하였습니다."/>
+exe, obj &amp;&amp; log 파일을 제외한 모든 파일 찾기:
+*.* !*.exe !*.obj !*.log
+
+tests, bin &amp;&amp; bin64 디렉토리를 제외하고 모든 파일 찾기:
+*.* !\tests !\bin*
+
+log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾기:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+    <find-in-files-select-folder value="찾기 시작할 폴더를 선택하십시오"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
+    <find-status-top-reached value="찾기: 아래로부터 1곳을 찾았습니다. 문서의 처음에 도달했습니다."/>
+    <find-status-end-reached value="찾기: 위에서부터 1곳을 찾았습니다. 문서의 끝에 도달했습니다."/>
     <find-status-replaceinfiles-1-replaced value="파일에서 바꾸기: 1곳을 바꾸었습니다."/>
     <find-status-replaceinfiles-nb-replaced value="파일에서 바꾸기: $INT_REPLACE$곳을 바꾸었습니다."/>
     <find-status-replaceinfiles-re-malformed value="열려있는 파일에서 바꾸기: 정규 표현식이 잘못되었습니다."/>
@@ -1480,7 +1536,11 @@ exe, obj &amp;&amp; log 파일을 제외한 모든 파일에서 찾기:
     <IncrementalFind-FSFound value="$INT_REPLACE$ 일치" />
     <IncrementalFind-FSNotFound value="구문을 찾을 수 없습니다." />
     <IncrementalFind-FSTopReached value="문서의 가장 위에 도달했습니다. 끝에서 계속합니다." />
-   <IncrementalFind-FSEndReached value="문서의 끝에 도달했습니다, 위에서 계속합니다." />
+    <IncrementalFind-FSEndReached value="문서의 끝에 도달했습니다, 위에서 계속합니다." />
+    <contextMenu-styleAlloccurrencesOfToken value="모든 토큰에 형식 지정" />
+    <contextMenu-styleOneToken value="한 토큰에 형식 지정" />
+    <contextMenu-clearStyle value="형식 해제" />
+    <contextMenu-PluginCommands value="플러그인 명령" />
 </MiscStrings>
 </Native-Langue>
 </NotepadPlus>

@@ -59,5 +59,5 @@ private:
 	const DWORD _accessParam  { GENERIC_READ | GENERIC_WRITE };
 	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE };
 	const DWORD _dispParam    { CREATE_ALWAYS };
-	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL | FILE_FLAG_WRITE_THROUGH };
+	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL };
 };

@@ -36,7 +36,7 @@ void ColumnEditorDlg::display(bool toShow) const
         ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
 }
 
-intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
@@ -63,11 +63,30 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
-			break;
+
+			if (
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_COL_INITNUM_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_COL_INCRNUM_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_COL_REPEATNUM_STATIC)
+				)
+			{
+				if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_NUM_RADIO, BM_GETCHECK, 0, 0))
+				{
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+
+			return result;
 		}
 
 		case WM_PRINTCLIENT:
@@ -333,11 +352,8 @@ void ColumnEditorDlg::switchTo(bool toText)
 
 	HWND hNum = ::GetDlgItem(_hSelf, IDC_COL_INITNUM_EDIT);
 	::SendDlgItemMessage(_hSelf, IDC_COL_NUM_RADIO, BM_SETCHECK, !toText, 0);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_INITNUM_STATIC), !toText);
 	::EnableWindow(hNum, !toText);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_INCRNUM_STATIC), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_INCREASENUM_EDIT), !toText);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_REPEATNUM_STATIC), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_REPEATNUM_EDIT), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_DEC_RADIO), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_HEX_RADIO), !toText);
@@ -346,6 +362,8 @@ void ColumnEditorDlg::switchTo(bool toText)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADZERO_CHECK), !toText);
 
 	::SetFocus(toText?hText:hNum);
+
+	redraw();
 }
 
 UCHAR ColumnEditorDlg::getFormat() 

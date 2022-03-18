@@ -177,26 +177,6 @@ private :
 
 	void loadLangListFromNppParam();
 
-	void enableFg(bool isEnable) {
-		::EnableWindow(_pFgColour->getHSelf(), isEnable);
-		::EnableWindow(_hFgColourStaticText, isEnable);
-	};
-
-	void enableBg(bool isEnable) {
-		::EnableWindow(_pBgColour->getHSelf(), isEnable);
-		::EnableWindow(_hBgColourStaticText, isEnable);
-	};
-
-	void enableFontName(bool isEnable) {
-		::EnableWindow(_hFontNameCombo, isEnable);
-		::EnableWindow(_hFontNameStaticText, isEnable);
-	};
-
-	void enableFontSize(bool isEnable) {
-		::EnableWindow(_hFontSizeCombo, isEnable);
-		::EnableWindow(_hFontSizeStaticText, isEnable);
-	};
-
 	void enableFontStyle(bool isEnable) {
 		::EnableWindow(_hCheckBold, isEnable);
 		::EnableWindow(_hCheckItalic, isEnable);

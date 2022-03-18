@@ -192,19 +192,73 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 		case WM_CTLCOLORSTATIC:
 		{
+			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
 			{
 				HWND hwnd = reinterpret_cast<HWND>(lParam);
 				if (hwnd == ::GetDlgItem(_hSelf, IDC_DEF_EXT_EDIT) || hwnd == ::GetDlgItem(_hSelf, IDC_DEF_KEYWORDS_EDIT))
 				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+					result = NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 				}
 				else
 				{
-					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+					result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 				}
 			}
-			break;
+
+			
+			if (
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_FG_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_BG_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_FONTNAME_STATIC) ||
+				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC)
+				)
+			{
+				Style& style = getCurrentStyler();
+				bool isEnable = false;
+
+				if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_FG_STATIC))
+				{
+					if (HIBYTE(HIWORD(style._fgColor)) != 0xFF)
+						isEnable = true;
+
+					// Selected text colour style
+					if (style._styleDesc == TEXT("Selected text colour"))
+					{
+						isEnable = false; // disable by default for "Selected text colour" style
+
+						if (NppParameters::getInstance().isSelectFgColorEnabled())
+							isEnable = true;
+					}
+				}
+				else if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_BG_STATIC))
+				{
+					if (HIBYTE(HIWORD(style._bgColor)) != 0xFF)
+						isEnable = true;
+				}
+				else if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_FONTNAME_STATIC))
+				{
+					if (!style._fontName.empty())
+						isEnable = true;
+				}
+				else if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC))
+				{
+					if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
+						isEnable = true;
+				}
+
+				if (isEnable)
+				{
+					if (NppDarkMode::isEnabled())
+						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
+					else
+						SetTextColor((HDC)wParam, RGB(0, 0, 0));
+				}
+				else
+					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+			}
+
+			return result;
 		}
 
 		case WM_PRINTCLIENT:
@@ -883,7 +937,8 @@ void WordStyleDlg::setVisualFromStyleList()
 		if (NppParameters::getInstance().isSelectFgColorEnabled())
 			isEnable = true;
 	}
-	enableFg(isEnable);
+	::EnableWindow(_pFgColour->getHSelf(), isEnable);
+	InvalidateRect(_hFgColourStaticText, NULL, FALSE);
 
 	isEnable = false;
 	if (HIBYTE(HIWORD(style._bgColor)) != 0xFF)
@@ -892,7 +947,8 @@ void WordStyleDlg::setVisualFromStyleList()
 		_pBgColour->setEnabled((style._colorStyle & COLORSTYLE_BACKGROUND) != 0);
 		isEnable = true;
 	}
-	enableBg(isEnable);
+	::EnableWindow(_pBgColour->getHSelf(), isEnable);
+	InvalidateRect(_hBgColourStaticText, NULL, FALSE);
 
 	//-- font name
 	isEnable = false;
@@ -909,7 +965,8 @@ void WordStyleDlg::setVisualFromStyleList()
 		iFontName = 0;
 	}
 	::SendMessage(_hFontNameCombo, CB_SETCURSEL, iFontName, 0);
-	enableFontName(isEnable);
+	::EnableWindow(_hFontNameCombo, isEnable);
+	InvalidateRect(_hFontNameStaticText, NULL, FALSE);
 
 	//-- font size
 	isEnable = false;
@@ -923,8 +980,9 @@ void WordStyleDlg::setVisualFromStyleList()
 		isEnable = true;
 	}
 	::SendMessage(_hFontSizeCombo, CB_SETCURSEL, iFontSize, 0);
-	enableFontSize(isEnable);
-
+	::EnableWindow(_hFontSizeCombo, isEnable);
+	InvalidateRect(_hFontSizeStaticText, NULL, FALSE);
+	
 	//-- font style : bold & italic
 	isEnable = false;
 	if (style._fontStyle != STYLE_NOT_USED)

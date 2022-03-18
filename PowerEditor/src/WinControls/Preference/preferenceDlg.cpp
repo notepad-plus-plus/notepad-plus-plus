@@ -257,6 +257,10 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_generalSubDlg.setToolIconsFromStdToSmall();
 			return TRUE;
 
+		case PREF_MSG_SETTOOLICONSFROMSMALLTOSTD:
+			_generalSubDlg.setToolIconsFromSmallToStd();
+			return TRUE;
+
 		case PREF_MSG_DISABLETABBARALTERNATEICONS:
 			_generalSubDlg.disableTabbarAlternateIcons();
 			return TRUE;
@@ -411,6 +415,13 @@ void GeneralSubDlg::setToolIconsFromStdToSmall()
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_STANDARD, BM_SETCHECK, BST_UNCHECKED, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_SMALLICON, BM_SETCHECK, BST_CHECKED, 0);
 	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
+}
+
+void GeneralSubDlg::setToolIconsFromSmallToStd()
+{
+	::SendDlgItemMessage(_hSelf, IDC_RADIO_SMALLICON, BM_SETCHECK, BST_UNCHECKED, 0);
+	::SendDlgItemMessage(_hSelf, IDC_RADIO_STANDARD, BM_SETCHECK, BST_CHECKED, 0);
+	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
 }
 
 void GeneralSubDlg::disableTabbarAlternateIcons()
@@ -1123,6 +1134,13 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 						// For tabbar: uncheck Alternate icons checkbox
 						::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
+					}
+					else 
+					{
+						bool isStandardChecked = false;
+						::SendMessage(_hParent, PREF_MSG_ISCHECKED_GENERALPAGE, IDC_RADIO_STANDARD, LPARAM(&isStandardChecked));
+						if (!isStandardChecked)
+							::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSMALLTOSTD, 0, 0);
 					}
 
 					changed = true;

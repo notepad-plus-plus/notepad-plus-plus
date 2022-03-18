@@ -38,6 +38,7 @@ class GeneralSubDlg : public StaticDialog
 public :
 	GeneralSubDlg() = default;
 	void setToolIconsFromStdToSmall();
+	void setToolIconsFromSmallToStd();
 	void disableTabbarAlternateIcons();
 
 private :

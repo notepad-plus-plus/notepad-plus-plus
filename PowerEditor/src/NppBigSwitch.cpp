@@ -2879,6 +2879,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 							_pDocTab->setBuffer(i, tempBufs[nmdlg->Items[i]]);
 						}
 						activateBuffer(_pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex()), currentView());
+
+						if (_pDocumentListPanel)
+							_pDocumentListPanel->reload();
+
 						break;
 					}
 				}

@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.2.1 (11.01.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.3.3 (15.03.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -29,7 +29,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="macro" name="&amp;Makra"/>
                     <Item menuId="run" name="U&amp;ruchom"/>
                     <Item menuId="Plugins" name="W&amp;tyczki"/>
-                    <Item menuId="Window" name="&amp;Okno"/>
+                    <Item menuId="Window" name="K&amp;arty"/>
                 </Entries>
                 <!-- Menu rozwijane, główne -->
                 <SubEntries>
@@ -83,6 +83,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="settings-import" name="Importuj..."/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Sortuj karty względem"/>
                 </SubEntries>
 
                 <!-- Menu rozwijane, dokładniej -->
@@ -372,6 +373,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42041" name="Wyczyść listę ostatnio zamkniętych plików"/>
                     <Item id="48016" name="Zmień skrót/Usuń makro..."/>
                     <Item id="48017" name="Zmień skrót/Usuń polecenie..."/>
+
+                    <Item id="11001" name="K&amp;arty..."/>
+                    <Item id="11002" name="Nazwy od A do Z"/>
+                    <Item id="11003" name="Nazwy od Z do A"/>
+                    <Item id="11004" name="Ścieżki od A do Z"/>
+                    <Item id="11005" name="Ścieżki od Z do A"/>
+                    <Item id="11006" name="Typu od A do Z"/>
+                    <Item id="11007" name="Typu od Z do A"/>
+                    <Item id="11008" name="Rozmiaru od mniejszego do większego"/>
+                    <Item id="11009" name="Rozmiaru od większego do mniejszego"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -645,6 +656,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Przejdź do panelu roboczego"/>
                     <Item id="44109" name="Przejdź do listy dokumentów"/>
                     <Item id="44108" name="Przejdź do listy funkcji"/>
+                    <Item id="11002" name="Sortuj karty względem nazwy od A do Z"/>
+                    <Item id="11003" name="Sortuj karty względem nazwy od Z do A"/>
+                    <Item id="11004" name="Sortuj karty względem ścieżki od A do Z"/>
+                    <Item id="11005" name="Sortuj karty względem ścieżki od Z do A"/>
+                    <Item id="11006" name="Sortuj karty względem typu od A do Z"/>
+                    <Item id="11007" name="Sortuj karty względem typu od Z do A"/>
+                    <Item id="11008" name="Sortuj karty względem rozmiaru od mniejszego do większego"/>
+                    <Item id="11009" name="Sortuj karty względem rozmiaru od większego do mniejszego"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Skrót">
@@ -1006,6 +1025,15 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6721" name="Środkowa sekcja"/>
                     <Item id="6722" name="Prawa sekcja"/>
                     <Item id="6723" name="Dodaj"/>
+                    <ComboBox id="6724">
+                        <Element name="Pełna ścieżka pliku"/>
+                        <Element name="Nazwa pliku"/>
+                        <Element name="Folder pliku"/>
+                        <Element name="Strona"/>
+                        <Element name="Krótki format daty"/>
+                        <Element name="Długi format daty"/>
+                        <Element name="Czas"/>
+                    </ComboBox>
                     <Item id="6725" name="Zawartość:"/>
                     <Item id="6727" name="Wybierz miejsce:"/>
                     <Item id="6728" name="Nagłówek i stopka"/>
@@ -1147,7 +1175,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                 <Item id="8005" name="razy"/>
                 <Item id="8002" name="Wykonuj do &amp;końca pliku"/>
             </MultiMacro>
-            <Window title="Okna">
+            <Window title="Karty">
                 <Item id="1" name="&amp;Przejdź"/>
                 <Item id="2" name="&amp;OK"/>
                 <Item id="7002" name="&amp;Zapisz"/>
@@ -1253,6 +1281,9 @@ Uruchomić stronę internetową Notepad++ z najnowszą wersją programu?"/> <!--
             <DocTooDirtyToMonitor title="Problem z monitorowaniem" message="Plik został naruszony. Musi zostać pierw zapisany, żeby mógł być monitorowany."/>
             <DocNoExistToMonitor title="Problem z monitorowaniem" message="Plik musi istnieć na dysku, żeby być monitorowany."/>
             <FileTooBigToOpen title="Problem z rozmiarem" message="Plik jest zbyt duży, żeby mógł być otwarty przez Notepad++."/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Kod wyjątku: $STR_REPLACE$" message="Wystąpił błąd podczas ładowania pliku!"/>
+            <WantToOpenHugeFile title="Ostrzeżenie przy otwieraniu dużego pliku" message="Otwarcie pliku większego od 2 GB może zająć kilka minut.
+Na pewno chcesz kontynuować?"/>
             <CreateNewFileOrNot title="Tworzenie nowego pliku" message="Plik „$STR_REPLACE$” nie istnieje. Utworzyć go?"/>
             <CreateNewFileError title="Tworzenie nowego pliku" message="Nie można utworzyć pliku o nazwie „$STR_REPLACE$”."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="Błąd" message="Nie można otworzyć pliku „$STR_REPLACE$”."/>
@@ -1309,7 +1340,7 @@ Kontynuować?"/>
             <ColumnPath name="Ścieżka"/>
             <ColumnType name="Typ"/>
             <ColumnSize name="Rozmiar"/>
-            <NbDocsTotal name="wszystkie dokumenty:"/>
+            <NbDocsTotal name="liczba w tym widoku:"/>
             <MenuCopyName name="Kopiuj nazwę lub nazwy (po zaznaczeniu)"/>
             <MenuCopyPath name="Kopiuj ścieżkę lub ścieżki (po zaznaczeniu)"/>
         </WindowsDlg>
@@ -1523,3 +1554,4 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
+

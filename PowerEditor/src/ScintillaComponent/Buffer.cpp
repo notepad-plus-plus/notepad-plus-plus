@@ -22,8 +22,8 @@
 #include <sys/stat.h>
 #include "Buffer.h"
 #include "Scintilla.h"
-#include <ILexer.h>
-#include <Lexilla.h>
+#include "ILexer.h"
+#include "Lexilla.h"
 #include "Parameters.h"
 #include "Notepad_plus.h"
 #include "ScintillaEditView.h"

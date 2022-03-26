@@ -131,6 +131,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (buf->isUnsync()) // buffer in Notepad++ is not syncronized with the file on disk - in this case the buffer is always dirty 
 				isDirty = true;
 
+			if (buf->isSavePointDirty())
+				isDirty = true;
+
 			buf->setDirty(isDirty);
 			break;
 		}

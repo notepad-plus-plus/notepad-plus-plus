@@ -2915,6 +2915,9 @@ void Notepad_plus::command(int id)
 
 				//Do not free anything, EmptyClipboard does that
 				_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+
+				// The "save" point is on dirty state, so let's memorize it
+				buf->setSavePointDirty(true);
 			}
 			break;
 		}

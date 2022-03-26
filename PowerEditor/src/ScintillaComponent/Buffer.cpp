@@ -797,6 +797,8 @@ bool FileManager::reloadBuffer(BufferID id)
 		buf->setUnsync(false);
 		buf->setDirty(false); // if the _isUnsync was true before the reloading, the _isDirty had been set to true somehow in the loadFileData()
 
+		buf->setSavePointDirty(false);
+
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
 
@@ -1178,6 +1180,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		buffer->setFileName(fullpath, language);
 		buffer->setDirty(false);
 		buffer->setUnsync(false);
+		buffer->setSavePointDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);

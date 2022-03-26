@@ -293,6 +293,9 @@ public:
 	bool isUnsync() const { return _isUnsync; }
 	void setUnsync(bool val) { _isUnsync = val; }
 
+	bool isSavePointDirty() const { return _isSavePointDirty; }
+	void setSavePointDirty(bool val) { _isSavePointDirty = val; }
+
 	bool isLargeFile() const { return _isLargeFile; }
 
 	void startMonitoring() { 
@@ -377,6 +380,9 @@ private:
 	                        // Note that if the buffer is untitled, there's no correspondent file on the disk so the buffer is considered as independent therefore synchronized.
 
 	bool _isLargeFile = false; // The loading of huge files will disable automatically 1. auto-completion 2. snapshot periode backup 3. backup on save 4. word wrap
+
+	bool _isSavePointDirty = false; // After converting document to another ecoding, the document becomes dirty, and all the undo states are emptied.
+	                                // This variable member keeps this situation in memory and when the undo state back to the save_point_reached, it'll still be dirty (its original state) 
 
 	// For the monitoring
 	HANDLE _eventHandle = nullptr;

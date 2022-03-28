@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.3">
+    <Native-Langue name="English" filename="english.xml" version="8.3.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1349,6 +1349,8 @@ Continue?"/>
             <PanelTitle name="Function List"/>
             <SortTip name="Sort"/>
             <ReloadTip name="Reload"/>
+            <PreferencesTip name="Preferences"/>
+            <PreferencesInitialSort name="Sort functions (A to Z) by default"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>

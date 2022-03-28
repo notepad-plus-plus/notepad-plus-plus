@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.3.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.3.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1357,6 +1357,8 @@ Fortsetzen?"/>
 			<PanelTitle name="Funktionsliste"/>
 			<SortTip name="Sortieren"/>
 			<ReloadTip name="Aktualisieren"/>
+			<PreferencesTip name="Einstellungen"/>
+			<PreferencesInitialSort name="Funktionen standardmäßig nach Namen sortieren"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Verzeichnis als Arbeitsbereich"/>

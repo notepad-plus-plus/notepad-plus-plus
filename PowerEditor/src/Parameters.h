@@ -857,6 +857,9 @@ struct NppGUI final
 	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
 
+	// function list should be sorted by default on new file open
+	bool _shouldSortFunctionList = false;
+
 	DarkModeConf _darkmode;
 };
 

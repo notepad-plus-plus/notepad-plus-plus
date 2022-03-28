@@ -394,7 +394,8 @@ void FunctionListPanel::reload()
 		if (!previousParams)
 		{
 			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
-			setSort(false);
+			setSort(NppParameters::getInstance().getNppGUI()._shouldSortFunctionList);
+			sortOrUnsort();
 			_treeView.expand(root);
 		}
 		else
@@ -638,7 +639,6 @@ void FunctionListPanel::searchFuncAndSwitchView()
 {
 	TCHAR text2search[MAX_PATH] ;
 	::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
-	bool doSort = shouldSort();
 
 	if (text2search[0] == '\0')
 	{
@@ -669,8 +669,11 @@ void FunctionListPanel::searchFuncAndSwitchView()
 		::InvalidateRect(_hSearchEdit, NULL, TRUE);
 	}
 
-	if (doSort)
+	// restore selected sorting
+	if (shouldSort())
 		_pTreeView->sort(_pTreeView->getRoot(), true);
+	else
+		_pTreeView->customSorting(_pTreeView->getRoot(), categorySortFunc, 0, true);
 }
 
 static WNDPROC oldFunclstToolbarProc = NULL;

@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.3.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.3.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1164,6 +1164,8 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
 					<Item id="6360" name="Alle Klänge stummschalten"/>
 					<Item id="6361" name="Dialogfeld 'Alle Dateien speichern' aktivieren"/>
+					<Item id="6362" name="Funktionsliste"/>
+					<Item id="6363" name="Funktionen nach Namen sortieren"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">

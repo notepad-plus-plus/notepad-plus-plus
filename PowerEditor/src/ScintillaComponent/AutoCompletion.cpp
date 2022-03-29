@@ -1065,15 +1065,12 @@ const TCHAR * AutoCompletion::getApiFileName()
 		}
 	}
 
-	if (_curLang >= L_EXTERNAL && _curLang < NppParameters::getInstance().L_END)
-		return NppParameters::getInstance().getELCFromIndex(_curLang - L_EXTERNAL)._name;
-
-	if (_curLang > L_EXTERNAL)
+	if (_curLang > L_END)
         _curLang = L_TEXT;
 
 	if (_curLang == L_JAVASCRIPT)
         _curLang = L_JS;
 
-	return ScintillaEditView::langNames[_curLang].lexerName;
+	return ScintillaEditView::_langNames[_curLang].lexerName;
 
 }

@@ -23,7 +23,7 @@ using namespace std;
 
 FunctionParsersManager::~FunctionParsersManager()
 {
-	for (size_t i = 0, len = L_EXTERNAL + nbMaxUserDefined; i < len; ++i)
+	for (size_t i = 0, len = L_END + nbMaxUserDefined; i < len; ++i)
 	{
 		if (_parsers[i] != nullptr)
 			delete _parsers[i];
@@ -160,7 +160,7 @@ bool FunctionParsersManager::loadFuncListFromXmlTree(generic_string & xmlDirPath
 		index = lType;
 		if (overrideId.empty())
 		{
-			generic_string lexerName = ScintillaEditView::langNames[lType].lexerName;
+			generic_string lexerName = ScintillaEditView::_langNames[lType].lexerName;
 			funcListRulePath += lexerName;
 			funcListRulePath += TEXT(".xml");
 		}
@@ -281,7 +281,7 @@ bool FunctionParsersManager::getOverrideMapFromXmlTree(generic_string & xmlDirPa
 			}
 			else if (userDefinedLangName && userDefinedLangName[0])
 			{
-				if (_currentUDIndex < L_EXTERNAL + nbMaxUserDefined)
+				if (_currentUDIndex < L_END + nbMaxUserDefined)
 				{
 					++_currentUDIndex;
 					_parsers[_currentUDIndex] = new ParserInfo(id, userDefinedLangName);
@@ -343,10 +343,10 @@ FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoI
 
 		case checkUserDefined:
 		{
-			if (_currentUDIndex == L_EXTERNAL) // no User Defined Language parser
+			if (_currentUDIndex == L_END) // no User Defined Language parser
 				return nullptr;
 
-			for (int i = L_EXTERNAL + 1; i <= _currentUDIndex; ++i)
+			for (int i = L_END + 1; i <= _currentUDIndex; ++i)
 			{
 				if (_parsers[i]->_userDefinedLangName == assoInfo._userDefinedLangName)
 				{

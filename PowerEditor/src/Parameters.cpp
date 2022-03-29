@@ -934,11 +934,6 @@ NppParameters::~NppParameters()
 		delete _userLangArray[i];
 	if (_hUXTheme)
 		FreeLibrary(_hUXTheme);
-
-	for (std::vector<TiXmlDocument *>::iterator it = _pXmlExternalLexerDoc.begin(), end = _pXmlExternalLexerDoc.end(); it != end; ++it )
-		delete (*it);
-
-	_pXmlExternalLexerDoc.clear();
 }
 
 
@@ -975,11 +970,6 @@ bool NppParameters::reloadStylers(const TCHAR* stylePath)
 
 	getUserStylersFromXmlTree();
 
-	//  Reload plugin styles.
-	for ( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
-	{
-		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
-	}
 	return true;
 }
 
@@ -1042,7 +1032,6 @@ generic_string NppParameters::getSettingsFolder()
 
 bool NppParameters::load()
 {
-	L_END = L_EXTERNAL;
 	bool isAllLaoded = true;
 
 	_isx64 = sizeof(void *) == 8;
@@ -1481,10 +1470,6 @@ bool NppParameters::load()
 			getSessionFromXmlTree(pXmlSessionDoc, _session);
 
 		delete pXmlSessionDoc;
-
-		for (size_t i = 0, len = _pXmlExternalLexerDoc.size() ; i < len ; ++i)
-			if (_pXmlExternalLexerDoc[i])
-				delete _pXmlExternalLexerDoc[i];
 	}
 
 	//-------------------------------------------------------------//
@@ -1590,21 +1575,6 @@ void NppParameters::SetTransparent(HWND hwnd, int percent)
 	}
 }
 
-
-bool NppParameters::isExistingExternalLangName(const TCHAR *newName) const
-{
-	if ((!newName) || (!newName[0]))
-		return true;
-
-	for (int i = 0 ; i < _nbExternalLang ; ++i)
-	{
-		if (!lstrcmp(_externalLangArray[i]->_name, newName))
-			return true;
-	}
-	return false;
-}
-
-
 const TCHAR* NppParameters::getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *fullName) const
 {
 	if ((!ext) || (!ext[0]))
@@ -1641,18 +1611,6 @@ const TCHAR* NppParameters::getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *ful
 
 	return nullptr;
 }
-
-
-int NppParameters::getExternalLangIndexFromName(const TCHAR* externalLangName) const
-{
-	for (int i = 0 ; i < _nbExternalLang ; ++i)
-	{
-		if (!lstrcmp(externalLangName, _externalLangArray[i]->_name))
-			return i;
-	}
-	return -1;
-}
-
 
 UserLangContainer* NppParameters::getULCFromName(const TCHAR *userLangName)
 {
@@ -1755,25 +1713,6 @@ void NppParameters::getLangKeywordsFromXmlTree()
 		if (!root) return;
 	feedKeyWordsParameters(root);
 }
-
-
-void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument *doc)
-{
-	TiXmlNode *root = doc->FirstChild(TEXT("NotepadPlus"));
-		if (!root) return;
-	feedKeyWordsParameters(root);
-	feedStylerArray(root);
-}
-
-
-int NppParameters::addExternalLangToEnd(ExternalLangContainer * externalLang)
-{
-	_externalLangArray[_nbExternalLang] = externalLang;
-	++_nbExternalLang;
-	++L_END;
-	return _nbExternalLang-1;
-}
-
 
 bool NppParameters::getUserStylersFromXmlTree()
 {
@@ -2874,7 +2813,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			}
 
 		}
-		catch (const std::exception& /*e*/)
+		catch (const std::exception&)
 		{
 			delete _userLangArray[--_nbUserLang];
 		}
@@ -3664,16 +3603,9 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		const TCHAR *lexerName = element->Attribute(TEXT("name"));
 		const TCHAR *lexerDesc = element->Attribute(TEXT("desc"));
 		const TCHAR *lexerUserExt = element->Attribute(TEXT("ext"));
-		const TCHAR *lexerExcluded = element->Attribute(TEXT("excluded"));
 		if (lexerName)
 		{
 			_lexerStylerVect.addLexerStyler(lexerName, lexerDesc, lexerUserExt, childNode);
-			if (lexerExcluded != NULL && (lstrcmp(lexerExcluded, TEXT("yes")) == 0))
-			{
-				int index = getExternalLangIndexFromName(lexerName);
-				if (index != -1)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)(index + L_EXTERNAL)));
-			}
 		}
 	}
 
@@ -3956,22 +3888,13 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
 	int lang = static_cast<int32_t>(L_TEXT);
-	for (; lang < L_EXTERNAL; ++lang)
+	for (; lang < L_END; ++lang)
 	{
-		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
+		const TCHAR * name = ScintillaEditView::_langNames[lang].lexerName;
 		if (!lstrcmp(name, langName)) //found lang?
 		{
 			return (LangType)lang;
 		}
-	}
-
-	//Cannot find language, check if its an external one
-
-	LangType l = (LangType)lang;
-	if (l == L_EXTERNAL) //try find external lexer
-	{
-		int id = NppParameters::getInstance().getExternalLangIndexFromName(langName);
-		if (id != -1) return (LangType)(id + L_EXTERNAL);
 	}
 
 	return L_TEXT;
@@ -6824,7 +6747,7 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 	for (size_t i = 0, len = _nppGUI._excludedLangList.size(); i < len ; ++i)
 	{
 		LangType langType = _nppGUI._excludedLangList[i]._langType;
-		if (langType >= L_EXTERNAL && langType < L_END)
+		if (langType >= L_END)
 			continue;
 
 		int nGrp = langType / groupNbMember;
@@ -7124,10 +7047,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 
 
 		default :
-			if (lt >= L_EXTERNAL && lt < L_END)
-				id = lt - L_EXTERNAL + IDM_LANG_EXTERNAL;
-			else
-				id = IDM_LANG_TEXT;
+			id = IDM_LANG_TEXT;
 	}
 	return id;
 }
@@ -7202,42 +7122,6 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 				}
 			}
 		}
-	}
-
-	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
-	{
-		TiXmlNode* lexersRoot2 = ( _pXmlExternalLexerDoc[x]->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
-		for (TiXmlNode* childNode = lexersRoot2->FirstChildElement(TEXT("LexerType"));
-			childNode ;
-			childNode = childNode->NextSibling(TEXT("LexerType")))
-		{
-			TiXmlElement *element = childNode->ToElement();
-			const TCHAR *nm = element->Attribute(TEXT("name"));
-
-			LexerStyler *pLs = _lexerStylerVect.getLexerStylerByName(nm);
-			LexerStyler *pLs2 = lexersStylers.getLexerStylerByName(nm);
-
-			if (pLs)
-			{
-				const TCHAR *extStr = pLs->getLexerUserExt();
-				element->SetAttribute(TEXT("ext"), extStr);
-
-				for (TiXmlNode *grChildNode = childNode->FirstChildElement(TEXT("WordsStyle"));
-						grChildNode ;
-						grChildNode = grChildNode->NextSibling(TEXT("WordsStyle")))
-				{
-					TiXmlElement *grElement = grChildNode->ToElement();
-					const TCHAR *styleName = grElement->Attribute(TEXT("name"));
-					const Style * pStyle = pLs->findByName(styleName);
-					Style * pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
-					if (pStyle && pStyle2Sync)
-					{
-						writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
-					}
-				}
-			}
-		}
-		_pXmlExternalLexerDoc[x]->SaveFile();
 	}
 
 	TiXmlNode *globalStylesRoot = (_pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("GlobalStyles"));

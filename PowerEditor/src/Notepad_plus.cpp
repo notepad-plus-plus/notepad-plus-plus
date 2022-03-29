@@ -407,9 +407,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_scintillaCtrls4Plugins.init(_pPublicInterface->getHinst(), hwnd);
 	_pluginsManager.init(nppData);
-
 	bool enablePluginAdmin = _pluginsAdminDlg.initFromJson();
-	_pluginsManager.loadPluginsV2(nppParam.getPluginRootDir(), enablePluginAdmin ? &_pluginsAdminDlg.getAvailablePluginUpdateInfoList() : nullptr);
+	_pluginsManager.loadPluginsFromItsOwnFolder(nppParam.getPluginRootDir(), enablePluginAdmin ? &_pluginsAdminDlg.getAvailablePluginUpdateInfoList() : nullptr);
 	_restoreButton.init(_pPublicInterface->getHinst(), hwnd);
 
 	// ------------ //
@@ -466,24 +465,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 	//Languages Menu
 	HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
-
-	// Add external languages to menu
-	for (int i = 0; i < nppParam.getNbExternalLang(); ++i)
-	{
-		ExternalLangContainer & externalLangContainer = nppParam.getELCFromIndex(i);
-
-		int numLangs = ::GetMenuItemCount(hLangMenu);
-		const int bufferSize = 100;
-		TCHAR buffer[bufferSize];
-
-		int x;
-		for (x = 0; (x == 0 || lstrcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; ++x)
-		{
-			::GetMenuString(hLangMenu, x, buffer, bufferSize, MF_BYPOSITION);
-		}
-
-		::InsertMenu(hLangMenu, x - 1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, externalLangContainer._name);
-	}
 
 	if (nppGUI._excludedLangList.size() > 0)
 	{
@@ -2358,25 +2339,14 @@ void Notepad_plus::checkLangsMenu(int id) const
 
 generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 {
-	NppParameters& nppParams = NppParameters::getInstance();
-
-	if ((langType >= L_EXTERNAL) && (langType < nppParams.L_END))
-	{
-		ExternalLangContainer & elc = nppParams.getELCFromIndex(langType - L_EXTERNAL);
-		if (getName)
-			return generic_string(elc._name);
-		else
-			return generic_string(elc._desc);
-	}
-
-	if (langType > L_EXTERNAL)
+	if (langType >= L_END)
         langType = L_TEXT;
 
 	generic_string str2Show;
 	if (getName)
-		str2Show = ScintillaEditView::langNames[langType].shortName;
+		str2Show = ScintillaEditView::_langNames[langType].shortName;
 	else
-		str2Show = ScintillaEditView::langNames[langType].longName;
+		str2Show = ScintillaEditView::_langNames[langType].longName;
 
 	if (langType == L_USER)
 	{
@@ -3105,15 +3075,6 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 	ExternalLexerAutoIndentMode autoIndentMode = ExternalLexerAutoIndentMode::Standard;
 
-	// For external languages, query for custom auto-indentation funcionality
-	if (type >= L_EXTERNAL)
-	{
-		NppParameters& nppParam = NppParameters::getInstance();
-		autoIndentMode = nppParam.getELCFromIndex(type - L_EXTERNAL)._autoIndentMode;
-		if (autoIndentMode == ExternalLexerAutoIndentMode::Custom)
-			return;
-	}
-
 	// Do not alter indentation if we were at the beginning of the line and we pressed Enter
 	if ((((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 		(eolMode == SC_EOL_CR && ch == '\r')) && prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
@@ -3504,7 +3465,7 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
 			break; 
 		}
 	}
-	return L_EXTERNAL;
+	return L_TEXT;
 }
 
 
@@ -4286,7 +4247,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	if (lt != L_USER)
 	{
 		command += TEXT(" -l");
-		command += ScintillaEditView::langNames[lt].lexerName;
+		command += ScintillaEditView::_langNames[lt].lexerName;
 	}
 	command += TEXT(" -n");
 	command += to_wstring(_pEditView->getCurrentLineNumber() + 1);
@@ -6160,7 +6121,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		{
 			pBuf->setLangType(L_USER, udl.c_str());
 		}
-		else if (lt != L_EXTERNAL && lt < nppParams.L_END)
+		else
 		{
 			pBuf->setLangType(lt);
 		}

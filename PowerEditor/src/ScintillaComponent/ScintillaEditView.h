@@ -541,7 +541,7 @@ public:
 
 	bool getIndicatorRange(size_t indicatorNumber, size_t* from = NULL, size_t* to = NULL, size_t* cur = NULL);
 
-	static LanguageName langNames[L_EXTERNAL+1];
+	static LanguageName _langNames[L_END + 1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
 	BufferID getCurrentBufferID() { return _currentBufferID; };
@@ -665,7 +665,6 @@ protected:
 	void setTclLexer();
     void setObjCLexer(LangType type);
 	void setUserLexer(const TCHAR *userLangName = NULL);
-	void setExternalLexer(LangType typeDoc);
 	void setEmbeddedJSLexer();
     void setEmbeddedPhpLexer();
     void setEmbeddedAspLexer();

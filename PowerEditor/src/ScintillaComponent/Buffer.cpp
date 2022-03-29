@@ -1445,21 +1445,17 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 	_pscratchTilla->execute(SCI_CLEARALL);
 
 
-	if (fileFormat._language < L_EXTERNAL)
+	if (fileFormat._language < L_END)
 	{
 #pragma warning( push )
 #pragma warning( disable : 4996)
-	const char* pName = LexerNameFromID(ScintillaEditView::langNames[fileFormat._language].lexerID); //deprecated, therefore disabled warning
+	const char* pName = LexerNameFromID(ScintillaEditView::_langNames[fileFormat._language].lexerID); //deprecated, therefore disabled warning
 #pragma warning( pop ) 
 		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
 	}
 	else
 	{
-		int id = fileFormat._language - L_EXTERNAL;
-		TCHAR * name = nppParam.getELCFromIndex(id)._name;
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char *pName = wmc.wchar2char(name, CP_ACP);
-		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
+		// problem !!
 	}
 
 	if (fileFormat._encoding != -1)

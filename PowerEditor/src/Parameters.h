@@ -241,7 +241,7 @@ struct CmdLineParams
 	bool _isRecursive = false;
 	bool _openFoldersAsWorkspace = false;
 
-	LangType _langType = L_EXTERNAL;
+	LangType _langType = L_END;
 	generic_string _localizationPath;
 	generic_string _udlName;
 
@@ -274,7 +274,7 @@ struct CmdLineParamsDTO
 	intptr_t _column2go = 0;
 	intptr_t _pos2go = 0;
 
-	LangType _langType = L_EXTERNAL;
+	LangType _langType = L_END;
 	generic_string _udlName;
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
@@ -1072,25 +1072,6 @@ private:
 	friend class StylerDlg;
 };
 
-#define MAX_EXTERNAL_LEXER_NAME_LEN 16
-#define MAX_EXTERNAL_LEXER_DESC_LEN 32
-
-
-
-class ExternalLangContainer final
-{
-public:
-	TCHAR _name[MAX_EXTERNAL_LEXER_NAME_LEN];
-	TCHAR _desc[MAX_EXTERNAL_LEXER_DESC_LEN];
-	ExternalLexerAutoIndentMode _autoIndentMode = ExternalLexerAutoIndentMode::Standard;
-
-	ExternalLangContainer(const TCHAR* name, const TCHAR* desc)
-	{
-		generic_strncpy(_name, name, MAX_EXTERNAL_LEXER_NAME_LEN);
-		generic_strncpy(_desc, desc, MAX_EXTERNAL_LEXER_DESC_LEN);
-	}
-};
-
 
 struct FindHistory final
 {
@@ -1287,7 +1268,7 @@ public:
 	generic_string getSettingsFolder();
 
 	bool _isTaskListRBUTTONUP_Active = false;
-	int L_END;
+	//int L_END;
 
 	NppGUI & getNppGUI() {
 		return _nppGUI;
@@ -1402,16 +1383,6 @@ public:
 	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};
 	UserLangContainer * getULCFromName(const TCHAR *userLangName);
 
-	int getNbExternalLang() const {return _nbExternalLang;};
-	int getExternalLangIndexFromName(const TCHAR *externalLangName) const;
-
-	ExternalLangContainer & getELCFromIndex(int i) {return *_externalLangArray[i];};
-
-	bool ExternalLangHasRoom() const {return _nbExternalLang < NB_MAX_EXTERNAL_LANG;};
-
-	void getExternalLexerFromXmlTree(TiXmlDocument *doc);
-	std::vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc; };
-
 	void writeDefaultUDL();
 	void writeNonDefaultUDL();
 	void writeNeed2SaveUDL();
@@ -1436,10 +1407,6 @@ public:
 
 	int addUserLangToEnd(const UserLangContainer & userLang, const TCHAR *newName);
 	void removeUserLang(size_t index);
-
-	bool isExistingExternalLangName(const TCHAR *newName) const;
-
-	int addExternalLangToEnd(ExternalLangContainer * externalLang);
 
 	TiXmlDocumentA * getNativeLangA() const {return _pXmlNativeLangDocA;};
 
@@ -1682,8 +1649,6 @@ private:
 	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr;
 	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr;
 
-	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc;
-
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
 	Lang* _langList[NB_LANG] = { nullptr };
@@ -1704,7 +1669,6 @@ private:
 	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
 	generic_string _userDefineLangsFolderPath;
 	generic_string _userDefineLangPath;
-	ExternalLangContainer* _externalLangArray[NB_MAX_EXTERNAL_LANG] = { nullptr };
 	int _nbExternalLang = 0;
 
 	CmdLineParamsDTO _cmdLineParams;

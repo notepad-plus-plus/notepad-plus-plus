@@ -1933,7 +1933,7 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
 
-			for (int i = L_TEXT + 1 ; i < nppParam.L_END ; ++i) // Skip L_TEXT
+			for (int i = L_TEXT + 1 ; i < L_END ; ++i) // Skip L_TEXT
 			{
 				LangType lt = static_cast<LangType>(i);
 				str.clear();
@@ -2372,7 +2372,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			//
 			// Lang Menu
 			//
-			for (int i = L_TEXT ; i < nppParam.L_END ; ++i)
+			for (int i = L_TEXT ; i < L_END ; ++i)
 			{
 				generic_string str;
 				if (static_cast<LangType>(i) != L_USER)
@@ -2625,29 +2625,6 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					::SendDlgItemMessage(_hSelf, list2Remove, LB_SETCURSEL, static_cast<WPARAM>(-1), 0);
 					::EnableWindow(::GetDlgItem(_hSelf, idButton2Enable), TRUE);
 					::EnableWindow(::GetDlgItem(_hSelf, idButton2Disable), FALSE);
-
-					if ((lmi._langType >= L_EXTERNAL) && (lmi._langType < nppParam.L_END))
-					{
-						bool found(false);
-						for (size_t x = 0; x < nppParam.getExternalLexerDoc()->size() && !found; ++x)
-						{
-							TiXmlNode *lexersRoot = nppParam.getExternalLexerDoc()->at(x)->FirstChild(TEXT("NotepadPlus"))->FirstChildElement(TEXT("LexerStyles"));
-							for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
-								childNode ;
-								childNode = childNode->NextSibling(TEXT("LexerType")))
-							{
-								TiXmlElement *element = childNode->ToElement();
-
-								if (generic_string(element->Attribute(TEXT("name"))) == lmi._langName)
-								{
-									element->SetAttribute(TEXT("excluded"), (LOWORD(wParam)==IDC_BUTTON_REMOVE)?TEXT("yes"):TEXT("no"));
-									nppParam.getExternalLexerDoc()->at(x)->SaveFile();
-									found = true;
-									break;
-								}
-							}
-						}
-					}
 
 					HWND grandParent = ::GetParent(_hParent);
 

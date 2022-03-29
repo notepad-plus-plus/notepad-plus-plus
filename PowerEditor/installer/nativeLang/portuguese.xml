@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.3">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.3.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -406,7 +406,7 @@ The comments are here for explanation, it's not necessary to translate them.
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Encontrar" titleReplace="Substituir" titleFindInFiles="Encontrar nos ficheiros" titleMark="Marca">
+            <Find title="" titleFind="Encontrar" titleReplace="Substituir" titleFindInFiles="Encontrar nos ficheiros" titleFindInProjects="Encontrar nos projetos" titleMark="Marcar">
                 <Item id="1"    name="Encontrar seguinte"/>
                 <Item id="1722" name="Direção para trás"/>
                 <Item id="2"    name="Fechar"/>
@@ -884,6 +884,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6215" name="Ativar letra suave"/>
                     <Item id="6236" name="Ativar deslizamento para além da última linha"/>
                     <Item id="6239" name="Manter selecção quando clicar com o botão direito do rato fora da selecção"/>
+                    <Item id="6245" name="Ativar o espaço virtual"/>
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
@@ -935,9 +936,9 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 
                 <NewDoc title="Novo documento">
                     <Item id="6401" name="Formato (Fim da linha)"/>
-                    <Item id="6402" name="Windows"/>
-                    <Item id="6403" name="Unix"/>
-                    <Item id="6404" name="Mac"/>
+                    <Item id="6402" name="Windows (CR LF)"/>
+                    <Item id="6403" name="Unix (LF)"/>
+                    <Item id="6404" name="Mac (CR)"/>
                     <Item id="6405" name="Codificação"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
@@ -1071,8 +1072,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6810" name="Completar palavra"/>
                     <Item id="6816" name="Completar função e palavra"/>
                     <Item id="6869" name="Inserir seleção"/>
-                    <Item id="6870" name="TAB"/>
-                    <Item id="6871" name="ENTER"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignorar números"/>
                     <Item id="6811" name="De"/>
                     <Item id="6813" name="º. caráter"/>
@@ -1349,6 +1350,8 @@ Continuar?"/>
             <PanelTitle name="Lista da função"/>
             <SortTip name="Ordenar"/>
             <ReloadTip name="Recarregar"/>
+            <PreferencesTip name="Preferências"/>
+            <PreferencesInitialSort name="Ordenar funções (de A a Z) por predefinição"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Pasta como área de trabalho"/>
@@ -1423,12 +1426,12 @@ Continuar?"/>
             <word-chars-list-warning-begin value="Esteja ciente: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ espaço(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-            <word-chars-list-warning-end value="  na sua lista de caracteres."/>
-            <backup-select-folder value="Selecione uma pasta como diretório de backup"/>
+            <word-chars-list-warning-end value="  na sua lista de caracteres."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Selecione uma pasta como diretório de backup"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Localização inválida."/>
             <cloud-restart-warning value="Reinicie o Notepad++ para ter efeito."/>
-            <cloud-select-folder value="Selecione uma pasta de/para onde o Notepad++ lê/grava as suas definições"/>
-            <default-open-save-select-folder value="Selecione uma pasta como diretório predefinido"/>
+            <cloud-select-folder value="Selecione uma pasta de/para onde o Notepad++ lê/grava as suas definições"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Selecione uma pasta como diretório predefinido"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Use Shift+Enter para procurar na direção oposta"/>
             <two-find-buttons-tip value="Modo de 2 botões de localização"/>
             <file-rename-title value="Renomear"/>
@@ -1565,7 +1568,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-26/02/2022 (versão 8.0, 8.1, 8.2, 8.3)
+08/04/2022 (versão 8.0, 8.1, 8.2, 8.3)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

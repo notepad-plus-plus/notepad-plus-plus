@@ -415,7 +415,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (!wParam)
 				return FALSE;
-			if (lParam < L_TEXT || lParam >= L_EXTERNAL || lParam == L_USER)
+			if (lParam < L_TEXT || lParam >= L_END || lParam == L_USER)
 				return FALSE;
 
 			BufferID id = (BufferID)wParam;
@@ -2555,24 +2555,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
-		case NPPM_GETEXTERNALLEXERAUTOINDENTMODE:
+		case NPPM_GETEXTERNALLEXERAUTOINDENTMODE_DEPRECATED:
 		{
-			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
-			if (index < 0)
-				return FALSE;
-
-			*(reinterpret_cast<ExternalLexerAutoIndentMode*>(lParam)) = nppParam.getELCFromIndex(index)._autoIndentMode;
-			return TRUE;
+			return FALSE;
 		}
 
-		case NPPM_SETEXTERNALLEXERAUTOINDENTMODE:
+		case NPPM_SETEXTERNALLEXERAUTOINDENTMODE_DEPRECATED:
 		{
-			int index = nppParam.getExternalLangIndexFromName(reinterpret_cast<TCHAR*>(wParam));
-			if (index < 0)
-				return FALSE;
-
-			nppParam.getELCFromIndex(index)._autoIndentMode = static_cast<ExternalLexerAutoIndentMode>(lParam);
-			return TRUE;
+			return FALSE;
 		}
 
 		case NPPM_ISAUTOINDENTON:

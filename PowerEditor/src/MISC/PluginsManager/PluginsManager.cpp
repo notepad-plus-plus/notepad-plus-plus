@@ -173,82 +173,17 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 		// it's a lexer plugin
 		if (GetLexerCount)
 		{
-			GetLexerNameFn GetLexerName = (GetLexerNameFn)::GetProcAddress(pi->_hLib, "GetLexerName");
-			if (!GetLexerName)
-				throw generic_string(TEXT("Loading GetLexerName function failed."));
+			// Lexer library (.dll) is not supported in Scintilla 5
 
-			GetLexerStatusTextFn GetLexerStatusText = (GetLexerStatusTextFn)::GetProcAddress(pi->_hLib, "GetLexerStatusText");
-
-			if (!GetLexerStatusText)
-				throw generic_string(TEXT("Loading GetLexerStatusText function failed."));
-
-			// Assign a buffer for the lexer name.
-			char lexName[MAX_EXTERNAL_LEXER_NAME_LEN];
-			lexName[0] = '\0';
-			TCHAR lexDesc[MAX_EXTERNAL_LEXER_DESC_LEN];
-			lexDesc[0] = '\0';
-
-			int numLexers = GetLexerCount();
-
-			ExternalLangContainer *containers[30];
-
-			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-			for (int x = 0; x < numLexers; ++x)
-			{
-				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
-				GetLexerStatusText(x, lexDesc, MAX_EXTERNAL_LEXER_DESC_LEN);
-				const TCHAR *pLexerName = wmc.char2wchar(lexName, CP_ACP);
-				if (!nppParams.isExistingExternalLangName(pLexerName) && nppParams.ExternalLangHasRoom())
-					containers[x] = new ExternalLangContainer(pLexerName, lexDesc);
-				else
-					containers[x] = NULL;
-			}
-
-			TCHAR xmlPath[MAX_PATH];
-			wcscpy_s(xmlPath, nppParams.getNppPath().c_str());
-			PathAppend(xmlPath, TEXT("plugins\\Config"));
-            PathAppend(xmlPath, pi->_moduleName.c_str());
-			PathRemoveExtension(xmlPath);
-			PathAddExtension(xmlPath, TEXT(".xml"));
-
-			if (!PathFileExists(xmlPath))
-			{
-				lstrcpyn(xmlPath, TEXT("\0"), MAX_PATH );
-				wcscpy_s(xmlPath, nppParams.getAppDataNppDir() );
-				PathAppend(xmlPath, TEXT("plugins\\Config"));
-                PathAppend(xmlPath, pi->_moduleName.c_str());
-				PathRemoveExtension( xmlPath );
-				PathAddExtension( xmlPath, TEXT(".xml") );
-
-				if (! PathFileExists( xmlPath ) )
-				{
-					throw generic_string(generic_string(xmlPath) + TEXT(" is missing."));
-				}
-			}
-
-			TiXmlDocument *pXmlDoc = new TiXmlDocument(xmlPath);
-
-			if (!pXmlDoc->LoadFile())
-			{
-				delete pXmlDoc;
-				pXmlDoc = NULL;
-				throw generic_string(generic_string(xmlPath) + TEXT(" failed to load."));
-			}
-
-			for (int x = 0; x < numLexers; ++x) // postpone adding in case the xml is missing/corrupt
-			{
-				if (containers[x] != NULL)
-					nppParams.addExternalLangToEnd(containers[x]);
-			}
-
-			nppParams.getExternalLexerFromXmlTree(pXmlDoc);
-			nppParams.getExternalLexerDoc()->push_back(pXmlDoc);
-			//const char *pDllName = wmc.wchar2char(pluginFilePath, CP_ACP);
-			//::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, reinterpret_cast<LPARAM>(pDllName));
-
+			generic_string s = pluginFileName;
+			s += TEXT(" is a Lexer library.\n");
+			s += TEXT("Lexer library is not supported in Scintilla 5.\nIt'll be loaded as only a normal plugin, the external language part won't work with this version of Notepad++.");
+			::MessageBox(_nppData._nppHandle, s.c_str(), pluginFilePath, MB_OK);
 		}
+
 		addInLoadedDlls(pluginFilePath, pluginFileName);
 		_pluginInfos.push_back(pi);
+
 		return static_cast<int32_t>(_pluginInfos.size() - 1);
 	}
 	catch (std::exception& e)
@@ -258,17 +193,19 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	}
 	catch (generic_string& s)
 	{
+		if (pi && pi->_hLib)
+		{
+			::FreeLibrary(pi->_hLib);
+		}
+
 		s += TEXT("\n\n");
 		s += pluginFileName;
 		s += USERMSG;
-		if (::MessageBox(NULL, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
+		if (::MessageBox(_nppData._nppHandle, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
-			if (pi && pi->_hLib)
-			{
-				::FreeLibrary(pi->_hLib);
-			}
 			::DeleteFile(pluginFilePath);
 		}
+
 		delete pi;
 		return -1;
 	}
@@ -278,7 +215,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 		msg += TEXT("\n\n");
 		msg += pluginFileName;
 		msg += USERMSG;
-		if (::MessageBox(NULL, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
+		if (::MessageBox(_nppData._nppHandle, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
 			if (pi && pi->_hLib)
 			{
@@ -291,7 +228,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	}
 }
 
-bool PluginsManager::loadPluginsV2(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList)
+bool PluginsManager::loadPluginsFromItsOwnFolder(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList)
 {
 	if (_isDisabled)
 		return false;

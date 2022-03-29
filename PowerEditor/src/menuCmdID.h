@@ -526,8 +526,8 @@
     #define    IDM_LANG_VISUALPROLOG       (IDM_LANG + 83)
     #define    IDM_LANG_TYPESCRIPT         (IDM_LANG + 84)
 
-    #define    IDM_LANG_EXTERNAL           (IDM_LANG + 165)
-    #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 179)
+    //#define    IDM_LANG_EXTERNAL           (IDM_LANG + 165)
+    //#define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 179)
 
     #define    IDM_LANG_USER               (IDM_LANG + 180)     //46180: Used for translation
     #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 210)     //46210: Ajust with IDM_LANG_USER

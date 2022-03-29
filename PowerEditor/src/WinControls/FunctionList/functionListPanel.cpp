@@ -27,8 +27,7 @@ using namespace std;
 #define INDEX_NODE        1
 #define INDEX_LEAF        2
 
-#define FL_SORTLOCALNODENAME   "SortTip"
-#define FL_RELOADLOCALNODENAME "ReloadTip"
+#define FL_PREFERENCES_INITIALSORT_ID   1
 
 FunctionListPanel::~FunctionListPanel()
 {
@@ -421,6 +420,32 @@ void FunctionListPanel::reload()
 	}
 }
 
+void FunctionListPanel::initPreferencesMenu()
+{
+	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+
+	generic_string shouldSortFunctionListStr = pNativeSpeaker->getAttrNameStr(TEXT("Sort functions (A to Z) by default"), FL_FUCTIONLISTROOTNODE, FL_PREFERENCE_INITIALSORT);
+
+	_hPreferencesMenu = ::CreatePopupMenu();
+	::InsertMenu(_hPreferencesMenu, 0, MF_BYCOMMAND, FL_PREFERENCES_INITIALSORT_ID, shouldSortFunctionListStr.c_str());
+	::CheckMenuItem(_hPreferencesMenu, FL_PREFERENCES_INITIALSORT_ID, MF_BYCOMMAND | (nppGUI._shouldSortFunctionList ? MF_CHECKED : MF_UNCHECKED));
+}
+
+void FunctionListPanel::showPreferencesMenu()
+{
+	RECT rectToolbar;
+	RECT rectPreferencesButton;
+	::GetWindowRect(_hToolbarMenu, &rectToolbar);
+	::SendMessage(_hToolbarMenu, TB_GETRECT, IDC_PREFERENCEBUTTON_FUNCLIST, (LPARAM)&rectPreferencesButton);
+
+	::TrackPopupMenu(_hPreferencesMenu,
+		NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
+		rectToolbar.left + rectPreferencesButton.left,
+		rectToolbar.top + rectPreferencesButton.bottom,
+		0, _hSelf, NULL);
+}
+
 void FunctionListPanel::markEntry()
 {
 	LONG lineNr = static_cast<LONG>((*_ppEditView)->getCurrentLineNumber());
@@ -570,6 +595,10 @@ void FunctionListPanel::notified(LPNMHDR notification)
 		else if (notification->idFrom == IDC_RELOADBUTTON_FUNCLIST)
 		{
 			wcscpy_s(lpttt->szText, _reloadTipStr.c_str());
+		}
+		else if (notification->idFrom == IDC_PREFERENCEBUTTON_FUNCLIST)
+		{
+			wcscpy_s(lpttt->szText, _preferenceTipStr.c_str());
 		}
 	}
 	else if (notification->hwndFrom == _treeView.getHSelf() || notification->hwndFrom == this->_treeViewSearchResult.getHSelf())
@@ -791,6 +820,8 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 		case WM_INITDIALOG :
 		{
+			FunctionListPanel::initPreferencesMenu();
+
 			NppParameters& nppParams = NppParameters::getInstance();
 
 			int editWidth = nppParams._dpiManager.scaleX(100);
@@ -812,9 +843,9 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			::SendMessage(_hToolbarMenu, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconSizeDyn, iconSizeDyn));
 
 			TBADDBITMAP addbmp = { 0, 0 };
-			const int nbIcons = 2;
-			int iconIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON };
-			int iconDarkModeIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON_DM, IDI_FUNCLIST_RELOADBUTTON_DM };
+			const int nbIcons = 3;
+			int iconIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON, IDI_FUNCLIST_PREFERENCEBUTTON };
+			int iconDarkModeIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON_DM, IDI_FUNCLIST_RELOADBUTTON_DM, IDI_FUNCLIST_PREFERENCEBUTTON_DM };
 			for (size_t i = 0; i < nbIcons; ++i)
 			{
 				int icoID = NppDarkMode::isEnabled() ? iconDarkModeIDs[i] : iconIDs[i];
@@ -844,6 +875,12 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
 			tbButtons[2].iString = reinterpret_cast<intptr_t>(TEXT(""));
 
+			tbButtons[3].idCommand = IDC_PREFERENCEBUTTON_FUNCLIST;
+			tbButtons[3].iBitmap = 2;
+			tbButtons[3].fsState = TBSTATE_ENABLED;
+			tbButtons[3].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[3].iString = reinterpret_cast<intptr_t>(TEXT(""));
+
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParams._dpiManager.scaleX(16), nppParams._dpiManager.scaleY(16)));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
@@ -855,6 +892,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
 			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
+			_preferenceTipStr = pNativeSpeaker->getAttrNameStr(_preferenceTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_PREFERENCESLOCALNODENAME);
 
 			_hSearchEdit = CreateWindowEx(0, L"Edit", NULL,
 								WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL,
@@ -895,6 +933,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 		case WM_DESTROY:
 			_treeView.destroy();
 			_treeViewSearchResult.destroy();
+			::DestroyMenu(_hPreferencesMenu);
 			::DestroyWindow(_hToolbarMenu);
 			break;
 
@@ -931,6 +970,20 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 				case IDC_RELOADBUTTON_FUNCLIST:
 				{
 					reload();
+				}
+				return TRUE;
+
+				case IDC_PREFERENCEBUTTON_FUNCLIST:
+				{
+					showPreferencesMenu();
+				}
+				return TRUE;
+
+				case FL_PREFERENCES_INITIALSORT_ID:
+				{
+					bool& shouldSortFunctionList = NppParameters::getInstance().getNppGUI()._shouldSortFunctionList;
+					shouldSortFunctionList = !shouldSortFunctionList;
+					::CheckMenuItem(_hPreferencesMenu, FL_PREFERENCES_INITIALSORT_ID, MF_BYCOMMAND | (shouldSortFunctionList ? MF_UNCHECKED : MF_CHECKED));
 				}
 				return TRUE;
 			}

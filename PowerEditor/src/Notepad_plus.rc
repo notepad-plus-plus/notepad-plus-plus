@@ -367,10 +367,12 @@ IDI_FUNCLIST_ROOT               BITMAP      "icons/project_file.bmp"
 IDI_FUNCLIST_NODE               BITMAP      "icons/funcList_node.bmp"
 IDI_FUNCLIST_LEAF               BITMAP      "icons/funcList_leaf.bmp"
 
-IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons/funclstSort.bmp"
-IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons/funclstReload.bmp"
-IDI_FUNCLIST_SORTBUTTON_DM      BITMAP      "icons/darkMode/panels/funclstSort.bmp"
-IDI_FUNCLIST_RELOADBUTTON_DM    BITMAP      "icons/darkMode/panels/funclstReload.bmp"
+IDI_FUNCLIST_SORTBUTTON            BITMAP      "icons/funclstSort.bmp"
+IDI_FUNCLIST_RELOADBUTTON          BITMAP      "icons/funclstReload.bmp"
+IDI_FUNCLIST_PREFERENCEBUTTON      BITMAP      "icons/funclstPreferences.bmp"
+IDI_FUNCLIST_SORTBUTTON_DM         BITMAP      "icons/darkMode/panels/funclstSort.bmp"
+IDI_FUNCLIST_RELOADBUTTON_DM       BITMAP      "icons/darkMode/panels/funclstReload.bmp"
+IDI_FUNCLIST_PREFERENCEBUTTON_DM   BITMAP      "icons/darkMode/panels/funclstPreferences.bmp"
 
 
 IDI_GET_INFO_FROM_TOOLTIP       ICON        "icons/MoreOnTooltip.ico"

@@ -1155,8 +1155,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6346" name="Peek on document map"/>
                     <Item id="6360" name="Mute all sounds"/>
                     <Item id="6361" name="Enable Save All confirm dialog"/>
-                    <Item id="6362" name="Function List"/>
-                    <Item id="6363" name="Sort functions by name"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">
@@ -1351,6 +1349,8 @@ Continue?"/>
             <PanelTitle name="Function List"/>
             <SortTip name="Sort"/>
             <ReloadTip name="Reload"/>
+            <PreferencesTip name="Preferences"/>
+            <PreferencesInitialSort name="Sort functions (A to Z) by default"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>

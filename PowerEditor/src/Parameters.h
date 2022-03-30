@@ -1268,7 +1268,6 @@ public:
 	generic_string getSettingsFolder();
 
 	bool _isTaskListRBUTTONUP_Active = false;
-	//int L_END;
 
 	NppGUI & getNppGUI() {
 		return _nppGUI;

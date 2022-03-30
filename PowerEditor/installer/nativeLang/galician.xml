@@ -341,6 +341,7 @@
 					<Item id = "6212" name = "Xeito liñal"/>
 					<Item id = "6213" name = "Xeito de fondo"/>
 					<Item id = "6214" name = "Realzar a liña activa"/>
+					<Item id = "6245" name = "Activa espazo virtual"/>
                 </Scintillas>
 				<NewDoc title = "Documento novo">
 					<Item id = "6401" name = "Formato"/>

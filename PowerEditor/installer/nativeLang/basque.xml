@@ -859,6 +859,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6215" name="Gaitu letra-mota leuna"/>
                     <Item id="6236" name="Gaitu azken lerrotik haratagoko korritzea"/>
                     <Item id="6239" name="Mantendu hautapena hautapenetik kanpo eskuin-klika egitean"/>
+                    <Item id="6245" name="Espazio virtuaia gaitu"/>
                 </Scintillas>
 
                 <DarkMode title="Modu Iluna"> 

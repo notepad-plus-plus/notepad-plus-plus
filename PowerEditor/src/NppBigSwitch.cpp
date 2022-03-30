@@ -1571,6 +1571,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_VIRTUALSPACE:
+		{
+			const bool virtualSpace = (nppParam.getSVP())._virtualSpace;
+
+			int virtualSpaceOptions = SCVS_RECTANGULARSELECTION;
+			if(virtualSpace) virtualSpaceOptions |= SCVS_USERACCESSIBLE | SCVS_NOWRAPLINESTART;
+
+			_mainEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, virtualSpaceOptions);
+			_subEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, virtualSpaceOptions);
+
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:
 		{
 			const bool endAtLastLine = !(nppParam.getSVP())._scrollBeyondLastLine;

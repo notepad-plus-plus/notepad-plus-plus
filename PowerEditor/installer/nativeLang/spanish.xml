@@ -844,6 +844,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6215" name="Suavizar la fuente"/>
 					<Item id="6236" name="Permitir desplazamiento tras la próxima línea"/>
 					<Item id="6239" name="Mantener la selección al hacer clic con el botón derecho fuera de la selección"/>
+					<Item id="6245" name="Activar espacio virtual"/>
 				</Scintillas>
 				<DarkMode title="Modo oscuro">
 					<Item id="7101" name="Activar modo oscuro"/>

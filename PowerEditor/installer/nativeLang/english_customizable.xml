@@ -844,6 +844,7 @@
                     <Item id="6215" name="Enable smooth font"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
                     <Item id="6239" name="Keep selection when right-click outside of selection"/>
+                    <Item id="6245" name="Enable virtual space"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">

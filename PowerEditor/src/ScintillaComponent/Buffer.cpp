@@ -1444,19 +1444,13 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 	}
 	_pscratchTilla->execute(SCI_CLEARALL);
 
-
+	int lexerID = SCLEX_NULL;
 	if (fileFormat._language < L_END)
 	{
-#pragma warning( push )
-#pragma warning( disable : 4996)
-	const char* pName = LexerNameFromID(ScintillaEditView::_langNames[fileFormat._language].lexerID); //deprecated, therefore disabled warning
-#pragma warning( pop ) 
-		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
+		lexerID = ScintillaEditView::_langNames[fileFormat._language].lexerID;
 	}
-	else
-	{
-		// problem !!
-	}
+
+	_pscratchTilla->setLexerFromID(lexerID);
 
 	if (fileFormat._encoding != -1)
 		_pscratchTilla->execute(SCI_SETCODEPAGE, SC_CP_UTF8);

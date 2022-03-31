@@ -119,7 +119,7 @@ public:
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
 	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection);
-	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, size_t totalLineNumber);
+	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline);
 	void setFinderStyle();
 	void removeAll();
 	void openAll();

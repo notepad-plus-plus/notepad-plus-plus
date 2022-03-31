@@ -2441,7 +2441,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 					findAllFileNameAdded = true;
 				}
 
-				auto totalLineNumber = pEditView->execute(SCI_GETLINECOUNT);
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
 				intptr_t lend = pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
 				intptr_t lstart = pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
@@ -2463,7 +2462,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				SearchResultMarking srm;
 				srm._start = static_cast<long>(start_mark);
 				srm._end = static_cast<long>(end_mark);
-				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str(), totalLineNumber);
+				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
 
 				break;
 			}
@@ -2475,7 +2474,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				const TCHAR *pFileName = pFindersInfo->_pFileName ? pFindersInfo->_pFileName : TEXT("");
 
-				auto totalLineNumber = pEditView->execute(SCI_GETLINECOUNT);
 				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
 				intptr_t lend = pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
 				intptr_t lstart = pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
@@ -2505,7 +2503,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
 					}
-					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str(), totalLineNumber);
+					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
 				}
 				break;
 			}
@@ -4085,7 +4083,7 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 	setFinderReadOnly(true);
 }
 
-void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, size_t totalLineNumber)
+void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 {
 	_pMainFoundInfos->push_back(fi);
 
@@ -4093,14 +4091,7 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, s
 	str += _prefixLineStr;
 	str += TEXT(" ");
 
-	size_t totalLineNumberDigit = size_t(log10(totalLineNumber) + 1);
-	size_t currentLineNumberDigit = size_t(log10(fi._lineNumber) + 1);
-
-	generic_string lineNumberStr = TEXT("");
-	lineNumberStr.append(totalLineNumberDigit - currentLineNumberDigit, ' ');
-	lineNumberStr.append(std::to_wstring(fi._lineNumber));
-	str += lineNumberStr;
-
+	str += std::to_wstring(fi._lineNumber);
 	str += TEXT(": ");
 	mi._start += str.length();
 	mi._end += str.length();

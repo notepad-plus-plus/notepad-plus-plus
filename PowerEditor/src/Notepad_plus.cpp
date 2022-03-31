@@ -6121,7 +6121,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		{
 			pBuf->setLangType(L_USER, udl.c_str());
 		}
-		else
+		else if (lt < L_END)
 		{
 			pBuf->setLangType(lt);
 		}

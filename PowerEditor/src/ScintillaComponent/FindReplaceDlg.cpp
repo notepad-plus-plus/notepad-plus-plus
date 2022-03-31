@@ -16,6 +16,7 @@
 
 
 #include <shlwapi.h>
+#include "math.h"
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "ILexer.h"

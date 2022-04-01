@@ -2047,6 +2047,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 			LangType typeToSet = L_TEXT;
 			if (id != 0 && id != IDM_LANG_USER)
 				typeToSet = menuID2LangType(id);
+			if (typeToSet == L_EXTERNAL )
+				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
 
 			Buffer *buf = MainFileManager.getBufferByID(lastOpened);
 
@@ -2156,6 +2158,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 
 			if (id != 0)
 				typeToSet = menuID2LangType(id);
+			if (typeToSet == L_EXTERNAL )
+				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
 
 			Buffer * buf = MainFileManager.getBufferByID(lastOpened);
 

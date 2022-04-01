@@ -3777,6 +3777,14 @@ void Notepad_plus::command(int id)
 					_pDocMap->setSyntaxHiliting();
 				}
 			}
+			else if ((id >= IDM_LANG_EXTERNAL) && (id <= IDM_LANG_EXTERNAL_LIMIT))
+			{
+				setLanguage((LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL));
+				if (_pDocMap)
+				{
+					_pDocMap->setSyntaxHiliting();
+				}
+			}
 			else if ((id >= ID_MACRO) && (id < ID_MACRO_LIMIT))
 			{
 				int i = id - ID_MACRO;

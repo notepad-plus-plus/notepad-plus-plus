@@ -156,8 +156,8 @@ private:
 	generic_string _xmlDirPath; // The 1st place to load function list files. Usually it's "%APPDATA%\Notepad++\functionList\"
 	generic_string _xmlDirInstalledPath; // Where Notepad++ is installed. The 2nd place to load function list files. Usually it's "%PROGRAMFILES%\Notepad++\functionList\" 
 
-	ParserInfo* _parsers[L_END + nbMaxUserDefined] = {nullptr};
-	int _currentUDIndex = L_END;
+	ParserInfo* _parsers[L_EXTERNAL + nbMaxUserDefined] = {nullptr};
+	int _currentUDIndex = L_EXTERNAL;
 
 	bool getOverrideMapFromXmlTree(generic_string & xmlDirPath);
 	bool loadFuncListFromXmlTree(generic_string & xmlDirPath, LangType lType, const generic_string& overrideId, int udlIndex = -1);

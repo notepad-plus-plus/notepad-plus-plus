@@ -226,7 +226,7 @@ LangType getLangTypeFromParam(ParamVector & params)
 {
 	generic_string langStr;
 	if (!getParamVal('l', params, langStr))
-		return L_TEXT;
+		return L_EXTERNAL;
 	return NppParameters::getLangIDFromStr(langStr.c_str());
 }
 

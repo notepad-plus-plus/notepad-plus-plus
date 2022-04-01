@@ -18,8 +18,8 @@
 #include <shlwapi.h>
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
-#include "ILexer.h"
-#include "Lexilla.h"
+#include <ILexer.h>
+#include <Lexilla.h>
 #include "Notepad_plus_msgs.h"
 #include "localization.h"
 #include "Utf8.h"
@@ -2314,9 +2314,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (!isCreated() && !findReplaceInfo._txt2find)
 		return nbProcessed;
 
-	if (!_ppEditView)
-		return nbProcessed;
-
 	ScintillaEditView *pEditView = *_ppEditView;
 	if (view2Process)
 		pEditView = view2Process;
@@ -4314,7 +4311,7 @@ void Finder::setFinderStyle()
 	NppDarkMode::setBorder(_scintView.getHSelf());
 
 	// Set current line background color for the finder
-	const TCHAR * lexerName = ScintillaEditView::_langNames[L_SEARCHRESULT].lexerName;
+	const TCHAR * lexerName = ScintillaEditView::langNames[L_SEARCHRESULT].lexerName;
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{

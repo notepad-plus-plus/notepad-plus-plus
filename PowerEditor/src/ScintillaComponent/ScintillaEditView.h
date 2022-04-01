@@ -541,7 +541,7 @@ public:
 
 	bool getIndicatorRange(size_t indicatorNumber, size_t* from = NULL, size_t* to = NULL, size_t* cur = NULL);
 
-	static LanguageName _langNames[L_END + 1];
+	static LanguageName langNames[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
 	BufferID getCurrentBufferID() { return _currentBufferID; };
@@ -609,7 +609,6 @@ public:
 	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; };
 	void markedTextToClipboard(int indiStyle, bool doAll = false);
 	void removeAnyDuplicateLines();
-	bool setLexerFromID(int lexerID);
 
 protected:
 	static bool _SciInit;
@@ -651,6 +650,7 @@ protected:
 	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
 	void setLexer(int lexerID, LangType langType, int whichList);
+	bool setLexerFromID(int lexerID);
 	void makeStyle(LangType langType, const TCHAR **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(const Style & styleToSet);	//by reference
@@ -665,6 +665,7 @@ protected:
 	void setTclLexer();
     void setObjCLexer(LangType type);
 	void setUserLexer(const TCHAR *userLangName = NULL);
+	void setExternalLexer(LangType typeDoc);
 	void setEmbeddedJSLexer();
     void setEmbeddedPhpLexer();
     void setEmbeddedAspLexer();

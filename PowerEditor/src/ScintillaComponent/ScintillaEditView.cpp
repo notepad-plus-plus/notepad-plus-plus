@@ -61,7 +61,7 @@ const int ScintillaEditView::_markersArray[][NB_FOLDER_STATE] = {
 
 // Array with all the names of all languages
 // The order of lang type (enum LangType) must be respected
-LanguageName ScintillaEditView::_langNames[L_END + 1] = {
+LanguageName ScintillaEditView::langNames[L_EXTERNAL + 1] = {
 {TEXT("normal"),		TEXT("Normal text"),		TEXT("Normal text file"),								L_TEXT,			SCLEX_NULL},
 {TEXT("php"),			TEXT("PHP"),				TEXT("PHP Hypertext Preprocessor file"),				L_PHP,			SCLEX_HTML},
 {TEXT("c"),				TEXT("C"),					TEXT("C source file"),									L_C,			SCLEX_CPP},
@@ -148,7 +148,7 @@ LanguageName ScintillaEditView::_langNames[L_END + 1] = {
 {TEXT("txt2tags"),		TEXT("txt2tags"),			TEXT("txt2tags file"),									L_TXT2TAGS,		SCLEX_TXT2TAGS},
 {TEXT("visualprolog"),	TEXT("Visual Prolog"),		TEXT("Visual Prolog file"),								L_VISUALPROLOG,	SCLEX_VISUALPROLOG},
 {TEXT("typescript"),	TEXT("TypeScript"),			TEXT("TypeScript file"),								L_TYPESCRIPT,	SCLEX_CPP},
-{TEXT("endOfLang"),		TEXT("EndOfLang"),			TEXT("End of Language"),								L_END,			SCLEX_NULL}
+{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
 //const int MASK_RED   = 0xFF0000;
@@ -877,6 +877,36 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 	}
 }
 
+void ScintillaEditView::setExternalLexer(LangType typeDoc)
+{
+	int id = typeDoc - L_EXTERNAL;
+	TCHAR * name = NppParameters::getInstance().getELCFromIndex(id)._name;
+
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	const char *pName = wmc.wchar2char(name, CP_ACP);
+
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
+
+	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(name);
+	if (pStyler)
+	{
+		for (const Style & style : *pStyler)
+		{
+			setStyle(style);
+
+			if (style._keywordClass >= 0 && style._keywordClass <= KEYWORDSET_MAX)
+			{
+				basic_string<char> keywordList("");
+				if (!style._keywords.empty())
+				{
+					keywordList = wstring2string(style._keywords, CP_ACP);
+				}
+				execute(SCI_SETKEYWORDS, style._keywordClass, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, typeDoc, style._keywordClass)));
+			}
+		}
+	}
+}
+
 void ScintillaEditView::setCppLexer(LangType langType)
 {
     const char *cppInstrs;
@@ -944,7 +974,7 @@ void ScintillaEditView::setJsLexer()
 		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
 	}
 
-	const TCHAR *newLexerName = ScintillaEditView::_langNames[L_JAVASCRIPT].lexerName;
+	const TCHAR *newLexerName = ScintillaEditView::langNames[L_JAVASCRIPT].lexerName;
 	LexerStyler *pNewStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(newLexerName);
 	if (pNewStyler) // New js styler is available, so we can use it do more modern styling
 	{
@@ -984,7 +1014,7 @@ void ScintillaEditView::setJsLexer()
 	}
 	else // New js styler is not available, we use the old styling for the sake of retro-compatibility
 	{
-		const TCHAR *lexerName = ScintillaEditView::_langNames[L_JS].lexerName;
+		const TCHAR *lexerName = ScintillaEditView::langNames[L_JS].lexerName;
 		LexerStyler *pOldStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 
 		if (pOldStyler)
@@ -1256,7 +1286,7 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 
 void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 {
-	const TCHAR * lexerName = ScintillaEditView::_langNames[language].lexerName;
+	const TCHAR * lexerName = ScintillaEditView::langNames[language].lexerName;
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
@@ -1675,7 +1705,10 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_TEXT :
 		default :
-			setLexerFromID(SCLEX_NULL);
+			if (typeDoc >= L_EXTERNAL && typeDoc < NppParameters::getInstance().L_END)
+				setExternalLexer(typeDoc);
+			else
+				setLexerFromID((_codepage == CP_CHINESE_TRADITIONAL) ? SCLEX_MAKEFILE : SCLEX_NULL);
 			break;
 
 	}

@@ -35,7 +35,7 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG, L_TYPESCRIPT,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
-			   L_END};
+			   L_EXTERNAL};
 enum class ExternalLexerAutoIndentMode { Standard, C_Like, Custom };
 enum class MacroStatus { Idle, RecordInProgress, RecordingStopped, PlayingBack };
 
@@ -456,10 +456,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		HICON	hToolbarIconDarkMode;
 	};
 
-	// Due to Scintilla 5 doesn't support external lexer, the following 2 messages are deprecated - they do nothing and return always FALSE
-	#define NPPM_GETEXTERNALLEXERAUTOINDENTMODE_DEPRECATED  (NPPMSG + 103)
-	#define NPPM_SETEXTERNALLEXERAUTOINDENTMODE_DEPRECATED  (NPPMSG + 104)
-	/*
 	#define NPPM_GETEXTERNALLEXERAUTOINDENTMODE  (NPPMSG + 103)
 	// BOOL NPPM_GETEXTERNALLEXERAUTOINDENTMODE(const TCHAR *languageName, ExternalLexerAutoIndentMode &autoIndentMode)
 	// Get ExternalLexerAutoIndentMode for an installed external programming language.
@@ -475,7 +471,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// - C_Like means Notepad++ will perform a C-Language style indentation for the selected external language;
 	// - Custom means a Plugin will be controlling auto-indentation for the current language.
 	// returned value: TRUE if function call was successful, otherwise FALSE.
-	*/
+
 	#define NPPM_ISAUTOINDENTON  (NPPMSG + 105)
 	// BOOL NPPM_ISAUTOINDENTON(0, 0)
 	// Returns the current Use Auto-Indentation setting in Notepad++ Preferences.

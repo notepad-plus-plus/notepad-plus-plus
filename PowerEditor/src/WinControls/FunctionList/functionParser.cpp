@@ -160,7 +160,7 @@ bool FunctionParsersManager::loadFuncListFromXmlTree(generic_string & xmlDirPath
 		index = lType;
 		if (overrideId.empty())
 		{
-			generic_string lexerName = ScintillaEditView::_langNames[lType].lexerName;
+			generic_string lexerName = ScintillaEditView::_langNameInfoArray[lType]._langName;
 			funcListRulePath += lexerName;
 			funcListRulePath += TEXT(".xml");
 		}

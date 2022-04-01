@@ -2344,9 +2344,9 @@ generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 
 	generic_string str2Show;
 	if (getName)
-		str2Show = ScintillaEditView::_langNames[langType].shortName;
+		str2Show = ScintillaEditView::_langNameInfoArray[langType]._shortName;
 	else
-		str2Show = ScintillaEditView::_langNames[langType].longName;
+		str2Show = ScintillaEditView::_langNameInfoArray[langType]._longName;
 
 	if (langType == L_USER)
 	{
@@ -4247,7 +4247,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	if (lt != L_USER)
 	{
 		command += TEXT(" -l");
-		command += ScintillaEditView::_langNames[lt].lexerName;
+		command += ScintillaEditView::_langNameInfoArray[lt]._langName;
 	}
 	command += TEXT(" -n");
 	command += to_wstring(_pEditView->getCurrentLineNumber() + 1);

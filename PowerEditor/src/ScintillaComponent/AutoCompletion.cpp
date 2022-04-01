@@ -242,6 +242,9 @@ bool AutoCompletion::showApiAndWordComplete()
 		}
 	}
 
+	if (!wordArray.size())
+		return false;
+
 	// Sort word array and convert it to a single string with space-separated words
 
 	sort(wordArray.begin(), wordArray.end());

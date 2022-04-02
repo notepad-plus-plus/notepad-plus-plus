@@ -2,7 +2,7 @@
 
 **Pre-requisites:**
 
- - Microsoft Visual Studio 2017 (C/C++ Compiler, v141 toolset for win32, x64, arm64)
+ - Microsoft Visual Studio 2019 (C/C++ Compiler, v142 toolset for win32, x64, arm64)
 
 There are two components which are built from one visual studio solution:
 

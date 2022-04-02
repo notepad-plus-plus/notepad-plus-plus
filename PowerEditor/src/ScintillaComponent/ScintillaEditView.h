@@ -483,6 +483,7 @@ public:
     void currentLinesUp() const;
     void currentLinesDown() const;
 
+	intptr_t caseConvertRange(intptr_t start, intptr_t end, TextCase caseToConvert);
 	void changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const;
 	void convertSelectedTextTo(const TextCase & caseToConvert);
 	void setMultiSelections(const ColumnModeInfos & cmi);

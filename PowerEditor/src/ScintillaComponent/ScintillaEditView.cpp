@@ -2820,6 +2820,43 @@ void ScintillaEditView::currentLinesDown() const
 	execute(SCI_SCROLLRANGE, execute(SCI_GETSELECTIONEND), execute(SCI_GETSELECTIONSTART));
 }
 
+// Case converts the document byte range [start:end] in place and returns the
+// change in its length in bytes. On any error, does nothing and returns zero.
+intptr_t ScintillaEditView::caseConvertRange(intptr_t start, intptr_t end, TextCase caseToConvert)
+{
+	if (end <= start || uintptr_t(end) - uintptr_t(start) > INT_MAX/2)
+		return 0;
+
+	unsigned codepage = getCurrentBuffer()->getUnicodeMode() == uni8Bit ? _codepage : CP_UTF8;
+
+	int mbLen = int(end - start);
+	const int mbLenMax = 2 * mbLen + 1;  // allow final NUL + substantial expansion
+
+	char *mbStr = new char[mbLenMax];
+	getText(mbStr, start, end);
+
+	if (int wideLen = ::MultiByteToWideChar(codepage, 0, mbStr, mbLen, NULL, 0)) {
+		wchar_t *wideStr = new wchar_t[wideLen];  // not NUL terminated
+		::MultiByteToWideChar(codepage, 0, mbStr, mbLen, wideStr, wideLen);
+
+		changeCase(wideStr, wideLen, caseToConvert);
+
+		if (int mbLenOut = ::WideCharToMultiByte(codepage, 0, wideStr, wideLen, mbStr, mbLenMax, NULL, NULL)) {
+			// mbStr isn't NUL terminated either at this point
+			mbLen = mbLenOut;
+
+			execute(SCI_SETTARGETRANGE, start, end);
+			execute(SCI_REPLACETARGET, mbLen, reinterpret_cast<LPARAM>(mbStr));
+		}
+
+		delete [] wideStr;
+	}
+
+	delete [] mbStr;
+
+	return (start + mbLen) - end;
+}
+
 void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const
 {
 	if (strWToConvert == nullptr || nbChars == 0)
@@ -2944,40 +2981,26 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 
 void ScintillaEditView::convertSelectedTextTo(const TextCase & caseToConvert)
 {
-	unsigned int codepage = _codepage;
-	UniMode um = getCurrentBuffer()->getUnicodeMode();
-	if (um != uni8Bit)
-	codepage = CP_UTF8;
-
 	if (execute(SCI_GETSELECTIONS) > 1) // Multi-Selection || Column mode
 	{
         execute(SCI_BEGINUNDOACTION);
 
 		ColumnModeInfos cmi = getColumnModeSelectInfo();
+		// The fixup logic needs the selections to be sorted, but that has visible side effects,
+		// like the highlighted row jumping around, so try to restore the original order afterwards.
+		bool reversed = !cmi.empty() && cmi.back()._selLpos < cmi.front()._selLpos;
+		std::sort(cmi.begin(), cmi.end(), SortInPositionOrder());
 
-		for (size_t i = 0, cmiLen = cmi.size(); i < cmiLen ; ++i)
+		intptr_t sizedelta = 0;
+		for (ColumnModeInfo& info : cmi)
 		{
-			const intptr_t len = cmi[i]._selRpos - cmi[i]._selLpos;
-			char *srcStr = new char[len+1];
-			wchar_t *destStr = new wchar_t[len+1];
-
-			intptr_t start = cmi[i]._selLpos;
-			intptr_t end = cmi[i]._selRpos;
-			getText(srcStr, start, end);
-
-			int nbChar = ::MultiByteToWideChar(codepage, 0, srcStr, (int)len, destStr, (int)len);
-
-			changeCase(destStr, nbChar, caseToConvert);
-
-			::WideCharToMultiByte(codepage, 0, destStr, (int)len, srcStr, (int)len, NULL, NULL);
-
-			execute(SCI_SETTARGETRANGE, start, end);
-			execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(srcStr));
-
-			delete [] srcStr;
-			delete [] destStr;
+			info._selLpos += sizedelta;
+			sizedelta += caseConvertRange(info._selLpos, info._selRpos + sizedelta, caseToConvert);
+			info._selRpos += sizedelta;
 		}
 
+		if (reversed)
+			std::reverse(cmi.begin(), cmi.end());
 		setMultiSelections(cmi);
 
 		execute(SCI_ENDUNDOACTION);
@@ -2987,27 +3010,10 @@ void ScintillaEditView::convertSelectedTextTo(const TextCase & caseToConvert)
 	size_t selectionStart = execute(SCI_GETSELECTIONSTART);
 	size_t selectionEnd = execute(SCI_GETSELECTIONEND);
 
-	size_t strLen = selectionEnd - selectionStart;
-	if (strLen)
+	if (selectionStart < selectionEnd)
 	{
-		size_t strSize = strLen + 1;
-		char *selectedStr = new char[strSize];
-		size_t strWSize = strSize * 2;
-		wchar_t *selectedStrW = new wchar_t[strWSize+3];
-
-		execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
-
-		int nbChar = ::MultiByteToWideChar(codepage, 0, selectedStr, static_cast<int>(strSize), selectedStrW, static_cast<int>(strWSize));
-
-		changeCase(selectedStrW, nbChar, caseToConvert);
-
-		::WideCharToMultiByte(codepage, 0, selectedStrW, static_cast<int>(strWSize), selectedStr, static_cast<int>(strSize), NULL, NULL);
-
-		execute(SCI_SETTARGETRANGE, selectionStart, selectionEnd);
-		execute(SCI_REPLACETARGET, strLen, reinterpret_cast<LPARAM>(selectedStr));
+		selectionEnd += caseConvertRange(selectionStart, selectionEnd, caseToConvert);
 		execute(SCI_SETSEL, selectionStart, selectionEnd);
-		delete [] selectedStr;
-		delete [] selectedStrW;
 	}
 }
 

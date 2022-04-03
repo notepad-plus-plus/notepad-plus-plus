@@ -70,6 +70,9 @@ public:
 
 	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const;
 	void reload();
+	void ensureVisibleCurrentItem() const {
+		ListView_EnsureVisible(_hSelf, _currentIndex, false);
+	};
 
 	void setBackgroundColor(COLORREF bgColour) {
 		ListView_SetBkColor(_hSelf, bgColour);
@@ -85,6 +88,9 @@ public:
 protected:
 	HIMAGELIST _hImaLst = nullptr;
 	WNDPROC _defaultProc = nullptr;
+
+	int _currentIndex = 0;
+
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
@@ -95,4 +101,7 @@ protected:
 	int add(BufferID bufferID, int iView);
 	void remove(int index);
 	void removeAll();
+	void selectCurrentItem() const {
+		ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+	};
 };

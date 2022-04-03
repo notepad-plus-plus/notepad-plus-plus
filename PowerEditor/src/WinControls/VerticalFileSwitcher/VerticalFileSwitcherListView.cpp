@@ -183,7 +183,9 @@ void VerticalFileSwitcherListView::initList()
 			ListView_SetItemText(_hSelf, i, ++colIndex, drive);
 		}
 	}
-	ListView_SetItemState(_hSelf, taskListInfo._currentIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+	_currentIndex = taskListInfo._currentIndex;
+	selectCurrentItem();
+	ensureVisibleCurrentItem();	// without this call the current item may become invisible after adding/removing columns
 }
 
 void VerticalFileSwitcherListView::reload()
@@ -298,13 +300,14 @@ void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 	for (int i = 0; i < nbItem; ++i)
 		ListView_SetItemState(_hSelf, i, 0, LVIS_FOCUSED|LVIS_SELECTED);
 
-	int i = newItem(bufferID, iView);
-	ListView_SetItemState(_hSelf, i, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
+	_currentIndex = newItem(bufferID, iView);
+	selectCurrentItem();
+	ensureVisibleCurrentItem();
 }
 
 int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 {
-	int index = ListView_GetItemCount(_hSelf);
+	_currentIndex = ListView_GetItemCount(_hSelf);
 	Buffer *buf = static_cast<Buffer *>(bufferID);
 	const TCHAR *fileName = buf->getFileName();
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
@@ -322,7 +325,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
 	
 	item.pszText = fn;
-	item.iItem = index;
+	item.iItem = _currentIndex;
 	item.iSubItem = 0;
 	item.iImage = buf->isMonitoringOn()?3:(buf->isReadOnly()?2:(buf->isDirty()?1:0));
 	item.lParam = reinterpret_cast<LPARAM>(tl);
@@ -330,18 +333,18 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	int colIndex = 0;
 	if (isExtColumn)
 	{
-		ListView_SetItemText(_hSelf, index, ++colIndex, ::PathFindExtension(fileName));
+		ListView_SetItemText(_hSelf, _currentIndex, ++colIndex, ::PathFindExtension(fileName));
 	}
 	if (isPathColumn)
 	{
 		TCHAR dir[MAX_PATH], drive[MAX_PATH];
 		_wsplitpath_s(buf->getFullPathName(), drive, MAX_PATH, dir, MAX_PATH, NULL, 0, NULL, 0);
 		wcscat_s(drive, dir);
-		ListView_SetItemText(_hSelf, index, ++colIndex, drive);
+		ListView_SetItemText(_hSelf, _currentIndex, ++colIndex, drive);
 	}
-	ListView_SetItemState(_hSelf, index, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
+	selectCurrentItem();
 	
-	return index;
+	return _currentIndex;
 }
 
 

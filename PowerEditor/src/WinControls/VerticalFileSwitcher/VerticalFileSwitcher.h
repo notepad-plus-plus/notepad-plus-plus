@@ -38,9 +38,7 @@ public:
 		_hImaLst = hImaLst;
 	};
 
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
-    };
+	virtual void display(bool toShow = true) const; 
 
     void setParent(HWND parent2set){
         _hParent = parent2set;

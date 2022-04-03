@@ -330,6 +330,12 @@ void VerticalFileSwitcher::popupMenuCmd(int cmdID)
 	}
 }
 
+void VerticalFileSwitcher::display(bool toShow) const
+{
+	DockingDlgInterface::display(toShow);
+	_fileListView.ensureVisibleCurrentItem();	// without this call the current item may stay above visible area after the program startup
+};
+
 void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 {
 	int view = tlfs->_iView;

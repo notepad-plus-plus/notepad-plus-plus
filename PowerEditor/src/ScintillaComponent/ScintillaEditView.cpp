@@ -880,14 +880,18 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 void ScintillaEditView::setExternalLexer(LangType typeDoc)
 {
 	int id = typeDoc - L_EXTERNAL;
-	TCHAR * name = NppParameters::getInstance().getELCFromIndex(id)._name;
+
+	ExternalLangContainer& externalLexer = NppParameters::getInstance().getELCFromIndex(id);
+	if (!externalLexer.fnCL)
+		return;
+	ILexer5* iLex5 = externalLexer.fnCL(externalLexer._name.c_str());
+	if (!iLex5)
+		return;
+	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(iLex5));
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	const char *pName = wmc.wchar2char(name, CP_ACP);
-
-	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
-
-	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(name);
+	const wchar_t* lexerNameW = wmc.char2wchar(externalLexer._name.c_str(), CP_ACP);
+	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerNameW);
 	if (pStyler)
 	{
 		for (const Style & style : *pStyler)

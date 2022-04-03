@@ -1066,7 +1066,10 @@ const TCHAR * AutoCompletion::getApiFileName()
 	}
 
 	if (_curLang >= L_EXTERNAL && _curLang < NppParameters::getInstance().L_END)
-		return NppParameters::getInstance().getELCFromIndex(_curLang - L_EXTERNAL)._name;
+	{
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		return wmc.char2wchar(NppParameters::getInstance().getELCFromIndex(_curLang - L_EXTERNAL)._name.c_str(), CP_ACP);
+	}
 
 	if (_curLang > L_EXTERNAL)
         _curLang = L_TEXT;

@@ -22,6 +22,8 @@
 #include "PluginsManager.h"
 #include "resource.h"
 #include "pluginsAdmin.h"
+#include "ILexer.h"
+#include "Lexilla.h"
 
 using namespace std;
 
@@ -169,39 +171,57 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 
 		pi->_pluginMenu = ::CreateMenu();
 
-		GetLexerCountFn GetLexerCount = (GetLexerCountFn)::GetProcAddress(pi->_hLib, "GetLexerCount");
+		Lexilla::GetLexerCountFn GetLexerCount = (Lexilla::GetLexerCountFn)::GetProcAddress(pi->_hLib, LEXILLA_GETLEXERCOUNT);
 		// it's a lexer plugin
 		if (GetLexerCount)
 		{
-			GetLexerNameFn GetLexerName = (GetLexerNameFn)::GetProcAddress(pi->_hLib, "GetLexerName");
+			Lexilla::GetLexerNameFn GetLexerName = (Lexilla::GetLexerNameFn)::GetProcAddress(pi->_hLib, LEXILLA_GETLEXERNAME);
 			if (!GetLexerName)
 				throw generic_string(TEXT("Loading GetLexerName function failed."));
 
-			GetLexerStatusTextFn GetLexerStatusText = (GetLexerStatusTextFn)::GetProcAddress(pi->_hLib, "GetLexerStatusText");
+			//Lexilla::GetLexerFactoryFn GetLexerFactory = (Lexilla::GetLexerFactoryFn)::GetProcAddress(pi->_hLib, LEXILLA_GETLEXERFACTORY);
+			//if (!GetLexerFactory)
+				//throw generic_string(TEXT("Loading GetLexerFactory function failed."));
 
-			if (!GetLexerStatusText)
-				throw generic_string(TEXT("Loading GetLexerStatusText function failed."));
+			Lexilla::CreateLexerFn CreateLexer = (Lexilla::CreateLexerFn)::GetProcAddress(pi->_hLib, LEXILLA_CREATELEXER);
+			if (!CreateLexer)
+				throw generic_string(TEXT("Loading CreateLexer function failed."));
+
+			//Lexilla::GetLibraryPropertyNamesFn GetLibraryPropertyNames = (Lexilla::GetLibraryPropertyNamesFn)::GetProcAddress(pi->_hLib, LEXILLA_GETLIBRARYPROPERTYNAMES);
+			//if (!GetLibraryPropertyNames)
+				//throw generic_string(TEXT("Loading GetLibraryPropertyNames function failed."));
+
+			//Lexilla::SetLibraryPropertyFn SetLibraryProperty = (Lexilla::SetLibraryPropertyFn)::GetProcAddress(pi->_hLib, LEXILLA_SETLIBRARYPROPERTY);
+			//if (!SetLibraryProperty)
+				//throw generic_string(TEXT("Loading SetLibraryProperty function failed."));
+
+			//Lexilla::GetNameSpaceFn GetNameSpace = (Lexilla::GetNameSpaceFn)::GetProcAddress(pi->_hLib, LEXILLA_GETNAMESPACE);
+			//if (!GetNameSpace)
+				//throw generic_string(TEXT("Loading GetNameSpace function failed."));
 
 			// Assign a buffer for the lexer name.
 			char lexName[MAX_EXTERNAL_LEXER_NAME_LEN];
 			lexName[0] = '\0';
-			TCHAR lexDesc[MAX_EXTERNAL_LEXER_DESC_LEN];
-			lexDesc[0] = '\0';
 
 			int numLexers = GetLexerCount();
 
-			ExternalLangContainer *containers[30];
+			ExternalLangContainer* containers[30];
 
-			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			for (int x = 0; x < numLexers; ++x)
 			{
 				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
-				GetLexerStatusText(x, lexDesc, MAX_EXTERNAL_LEXER_DESC_LEN);
-				const TCHAR *pLexerName = wmc.char2wchar(lexName, CP_ACP);
-				if (!nppParams.isExistingExternalLangName(pLexerName) && nppParams.ExternalLangHasRoom())
-					containers[x] = new ExternalLangContainer(pLexerName, lexDesc);
+				if (!nppParams.isExistingExternalLangName(lexName) && nppParams.ExternalLangHasRoom())
+				{
+					containers[x] = new ExternalLangContainer;
+					containers[x]->_name = lexName;
+					containers[x]->fnCL = CreateLexer;
+					//containers[x]->fnGLPN = GetLibraryPropertyNames;
+					//containers[x]->fnSLP = SetLibraryProperty;
+				}
 				else
+				{
 					containers[x] = NULL;
+				}
 			}
 
 			TCHAR xmlPath[MAX_PATH];
@@ -243,8 +263,11 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 
 			nppParams.getExternalLexerFromXmlTree(pXmlDoc);
 			nppParams.getExternalLexerDoc()->push_back(pXmlDoc);
+
+
 			//const char *pDllName = wmc.wchar2char(pluginFilePath, CP_ACP);
 			//::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, reinterpret_cast<LPARAM>(pDllName));
+
 
 		}
 		addInLoadedDlls(pluginFilePath, pluginFileName);

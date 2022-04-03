@@ -467,6 +467,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//Languages Menu
 	HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	// Add external languages to menu
 	for (int i = 0; i < nppParam.getNbExternalLang(); ++i)
 	{
@@ -475,14 +476,15 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		int numLangs = ::GetMenuItemCount(hLangMenu);
 		const int bufferSize = 100;
 		TCHAR buffer[bufferSize];
+		const TCHAR* lexerNameW = wmc.char2wchar(externalLangContainer._name.c_str(), CP_ACP);
 
-		int x;
-		for (x = 0; (x == 0 || lstrcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; ++x)
+		int x = 0;
+		for (; (x == 0 || lstrcmp(lexerNameW, buffer) > 0) && x < numLangs; ++x)
 		{
 			::GetMenuString(hLangMenu, x, buffer, bufferSize, MF_BYPOSITION);
 		}
 
-		::InsertMenu(hLangMenu, x - 1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, externalLangContainer._name);
+		::InsertMenu(hLangMenu, x - 1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, lexerNameW);
 	}
 
 	if (nppGUI._excludedLangList.size() > 0)
@@ -2363,10 +2365,9 @@ generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 	if ((langType >= L_EXTERNAL) && (langType < nppParams.L_END))
 	{
 		ExternalLangContainer & elc = nppParams.getELCFromIndex(langType - L_EXTERNAL);
-		if (getName)
-			return generic_string(elc._name);
-		else
-			return generic_string(elc._desc);
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const TCHAR* lexerNameW = wmc.char2wchar(elc._name.c_str(), CP_ACP);
+		return generic_string(lexerNameW);
 	}
 
 	if (langType > L_EXTERNAL)

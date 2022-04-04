@@ -101,7 +101,7 @@ static WORD getBinaryArchitectureType(const TCHAR *filePath)
 	#define	LOAD_LIBRARY_SEARCH_DEFAULT_DIRS	0x00001000
 #endif
 
-int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
+int PluginsManager::loadPluginFromPath(const TCHAR *pluginFilePath)
 {
 	const TCHAR *pluginFileName = ::PathFindFileName(pluginFilePath);
 	if (isInLoadedDlls(pluginFileName))
@@ -281,15 +281,17 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	}
 	catch (generic_string& s)
 	{
+		if (pi && pi->_hLib)
+		{
+			::FreeLibrary(pi->_hLib);
+		}
+
 		s += TEXT("\n\n");
 		s += pluginFileName;
 		s += USERMSG;
-		if (::MessageBox(NULL, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
+		if (::MessageBox(_nppData._nppHandle, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
-			if (pi && pi->_hLib)
-			{
-				::FreeLibrary(pi->_hLib);
-			}
+
 			::DeleteFile(pluginFilePath);
 		}
 		delete pi;
@@ -297,16 +299,17 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	}
 	catch (...)
 	{
+		if (pi && pi->_hLib)
+		{
+			::FreeLibrary(pi->_hLib);
+		}
+
 		generic_string msg = TEXT("Failed to load");
 		msg += TEXT("\n\n");
 		msg += pluginFileName;
 		msg += USERMSG;
-		if (::MessageBox(NULL, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
+		if (::MessageBox(_nppData._nppHandle, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
-			if (pi && pi->_hLib)
-			{
-				::FreeLibrary(pi->_hLib);
-			}
 			::DeleteFile(pluginFilePath);
 		}
 		delete pi;
@@ -314,7 +317,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 	}
 }
 
-bool PluginsManager::loadPluginsV2(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList)
+bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList)
 {
 	if (_isDisabled)
 		return false;
@@ -465,7 +468,7 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir, const PluginViewList* plugi
 
 	for (size_t i = 0, len = dllNames.size(); i < len; ++i)
 	{
-		loadPlugin(dllNames[i].c_str());
+		loadPluginFromPath(dllNames[i].c_str());
 	}
 
 	return true;

@@ -18,8 +18,6 @@
 #include <shlwapi.h>
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
-#include <ILexer.h>
-#include <Lexilla.h>
 #include "Notepad_plus_msgs.h"
 #include "localization.h"
 #include "Utf8.h"
@@ -554,7 +552,7 @@ void Finder::deleteResult()
 	auto end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
 	if (start + 2 >= end) return; // avoid empty lines
 
-	_scintView.setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, LIST_NONE); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
+	_scintView.setLexer(L_SEARCHRESULT, LIST_NONE); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
 
 	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)  // delete a folder
 	{
@@ -2314,7 +2312,11 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (!isCreated() && !findReplaceInfo._txt2find)
 		return nbProcessed;
 
+	if (!_ppEditView)
+		return nbProcessed;
+
 	ScintillaEditView *pEditView = *_ppEditView;
+
 	if (view2Process)
 		pEditView = view2Process;
 
@@ -4311,7 +4313,7 @@ void Finder::setFinderStyle()
 	NppDarkMode::setBorder(_scintView.getHSelf());
 
 	// Set current line background color for the finder
-	const TCHAR * lexerName = ScintillaEditView::langNames[L_SEARCHRESULT].lexerName;
+	const TCHAR * lexerName = ScintillaEditView::_langNameInfoArray[L_SEARCHRESULT]._langName;
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{

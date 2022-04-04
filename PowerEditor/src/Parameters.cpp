@@ -2875,7 +2875,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			}
 
 		}
-		catch (const std::exception& /*e*/)
+		catch (const std::exception&)
 		{
 			delete _userLangArray[--_nbUserLang];
 		}
@@ -3959,7 +3959,7 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 	int lang = static_cast<int32_t>(L_TEXT);
 	for (; lang < L_EXTERNAL; ++lang)
 	{
-		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
+		const TCHAR * name = ScintillaEditView::_langNameInfoArray[lang]._langName;
 		if (!lstrcmp(name, langName)) //found lang?
 		{
 			return (LangType)lang;

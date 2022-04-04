@@ -1447,11 +1447,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	if (fileFormat._language < L_EXTERNAL)
 	{
-#pragma warning( push )
-#pragma warning( disable : 4996)
-	const char* pName = LexerNameFromID(ScintillaEditView::langNames[fileFormat._language].lexerID); //deprecated, therefore disabled warning
-#pragma warning( pop ) 
-		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
+		const char* lexerNameID = ScintillaEditView::_langNameInfoArray[fileFormat._language]._lexerID;
+		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(lexerNameID)));
 	}
 	else
 	{

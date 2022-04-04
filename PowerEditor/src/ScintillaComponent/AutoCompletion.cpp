@@ -1077,6 +1077,6 @@ const TCHAR * AutoCompletion::getApiFileName()
 	if (_curLang == L_JAVASCRIPT)
         _curLang = L_JS;
 
-	return ScintillaEditView::langNames[_curLang].lexerName;
+	return ScintillaEditView::_langNameInfoArray[_curLang]._langName;
 
 }

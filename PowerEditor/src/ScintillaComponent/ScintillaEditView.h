@@ -169,12 +169,12 @@ struct SortInPositionOrder {
 
 typedef std::vector<ColumnModeInfo> ColumnModeInfos;
 
-struct LanguageName {
-	const TCHAR * lexerName = nullptr;
-	const TCHAR * shortName = nullptr;
-	const TCHAR * longName = nullptr;
-	LangType LangID = L_TEXT;
-	int lexerID = 0;
+struct LanguageNameInfo {
+	const TCHAR* _langName = nullptr;
+	const TCHAR* _shortName = nullptr;
+	const TCHAR* _longName = nullptr;
+	LangType _langID = L_TEXT;
+	const char* _lexerID = nullptr;
 };
 
 #define URL_INDIC 8
@@ -541,7 +541,7 @@ public:
 
 	bool getIndicatorRange(size_t indicatorNumber, size_t* from = NULL, size_t* to = NULL, size_t* cur = NULL);
 
-	static LanguageName langNames[L_EXTERNAL+1];
+	static LanguageNameInfo _langNameInfoArray[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
 	BufferID getCurrentBufferID() { return _currentBufferID; };
@@ -649,8 +649,8 @@ protected:
 	void restyleBuffer();
 	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
-	void setLexer(int lexerID, LangType langType, int whichList);
-	bool setLexerFromID(int lexerID);
+	void setLexer(LangType langID, int whichList);
+	bool setLexerFromLangID(int langID);
 	void makeStyle(LangType langType, const TCHAR **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(const Style & styleToSet);	//by reference
@@ -674,176 +674,176 @@ protected:
 
 	//Simple lexers
 	void setCssLexer() {
-		setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1 | LIST_4 | LIST_6);
+		setLexer(L_CSS, LIST_0 | LIST_1 | LIST_4 | LIST_6);
 	};
 
 	void setLuaLexer() {
-		setLexer(SCLEX_LUA, L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
 
 	void setMakefileLexer() {
-		setLexer(SCLEX_MAKEFILE, L_MAKEFILE, LIST_NONE);
+		setLexer(L_MAKEFILE, LIST_NONE);
 	};
 
 	void setIniLexer() {
-		setLexer(SCLEX_PROPERTIES, L_INI, LIST_NONE);
+		setLexer(L_INI, LIST_NONE);
 		execute(SCI_STYLESETEOLFILLED, SCE_PROPS_SECTION, true);
 	};
 
 
 	void setSqlLexer() {
 		const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
-		setLexer(SCLEX_SQL, L_SQL, LIST_0 | LIST_1 | LIST_4);
+		setLexer(L_SQL, LIST_0 | LIST_1 | LIST_4);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 	};
 
 	void setBashLexer() {
-		setLexer(SCLEX_BASH, L_BASH, LIST_0);
+		setLexer(L_BASH, LIST_0);
 	};
 
 	void setVBLexer() {
-		setLexer(SCLEX_VB, L_VB, LIST_0);
+		setLexer(L_VB, LIST_0);
 	};
 
 	void setPascalLexer() {
-		setLexer(SCLEX_PASCAL, L_PASCAL, LIST_0);
+		setLexer(L_PASCAL, LIST_0);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setPerlLexer() {
-		setLexer(SCLEX_PERL, L_PERL, LIST_0);
+		setLexer(L_PERL, LIST_0);
 	};
 
 	void setPythonLexer() {
-		setLexer(SCLEX_PYTHON, L_PYTHON, LIST_0 | LIST_1);
+		setLexer(L_PYTHON, LIST_0 | LIST_1);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setBatchLexer() {
-		setLexer(SCLEX_BATCH, L_BATCH, LIST_0);
+		setLexer(L_BATCH, LIST_0);
 	};
 
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
-		setLexer(SCLEX_TEX, L_TEX, LIST_NONE);
+		setLexer(L_TEX, LIST_NONE);
 	};
 
 	void setNsisLexer() {
-		setLexer(SCLEX_NSIS, L_NSIS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_NSIS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
 
 	void setFortranLexer() {
-		setLexer(SCLEX_FORTRAN, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setFortran77Lexer() {
-		setLexer(SCLEX_F77, L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setLispLexer(){
-		setLexer(SCLEX_LISP, L_LISP, LIST_0 | LIST_1);
+		setLexer(L_LISP, LIST_0 | LIST_1);
 	};
 
 	void setSchemeLexer(){
-		setLexer(SCLEX_LISP, L_SCHEME, LIST_0 | LIST_1);
+		setLexer(L_SCHEME, LIST_0 | LIST_1);
 	};
 
 	void setAsmLexer(){
-		setLexer(SCLEX_ASM, L_ASM, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_ASM, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 	};
 
 	void setDiffLexer(){
-		setLexer(SCLEX_DIFF, L_DIFF, LIST_NONE);
+		setLexer(L_DIFF, LIST_NONE);
 	};
 
 	void setPropsLexer(){
-		setLexer(SCLEX_PROPERTIES, L_PROPS, LIST_NONE);
+		setLexer(L_PROPS, LIST_NONE);
 	};
 
 	void setPostscriptLexer(){
-		setLexer(SCLEX_PS, L_PS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_PS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
 
 	void setRubyLexer(){
-		setLexer(SCLEX_RUBY, L_RUBY, LIST_0);
+		setLexer(L_RUBY, LIST_0);
 		execute(SCI_STYLESETEOLFILLED, SCE_RB_POD, true);
 	};
 
 	void setSmalltalkLexer(){
-		setLexer(SCLEX_SMALLTALK, L_SMALLTALK, LIST_0);
+		setLexer(L_SMALLTALK, LIST_0);
 	};
 
 	void setVhdlLexer(){
-		setLexer(SCLEX_VHDL, L_VHDL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(L_VHDL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
 
 	void setKixLexer(){
-		setLexer(SCLEX_KIX, L_KIX, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_KIX, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setAutoItLexer(){
-		setLexer(SCLEX_AU3, L_AU3, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(L_AU3, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setCamlLexer(){
-		setLexer(SCLEX_CAML, L_CAML, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_CAML, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setAdaLexer(){
-		setLexer(SCLEX_ADA, L_ADA, LIST_0);
+		setLexer(L_ADA, LIST_0);
 	};
 
 	void setVerilogLexer(){
-		setLexer(SCLEX_VERILOG, L_VERILOG, LIST_0 | LIST_1);
+		setLexer(L_VERILOG, LIST_0 | LIST_1);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setMatlabLexer(){
-		setLexer(SCLEX_MATLAB, L_MATLAB, LIST_0);
+		setLexer(L_MATLAB, LIST_0);
 	};
 
 	void setHaskellLexer(){
-		setLexer(SCLEX_HASKELL, L_HASKELL, LIST_0);
+		setLexer(L_HASKELL, LIST_0);
 	};
 
 	void setInnoLexer() {
-		setLexer(SCLEX_INNOSETUP, L_INNO, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_INNO, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 	};
 
 	void setCmakeLexer() {
-		setLexer(SCLEX_CMAKE, L_CMAKE, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_CMAKE, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setYamlLexer() {
-		setLexer(SCLEX_YAML, L_YAML, LIST_0);
+		setLexer(L_YAML, LIST_0);
 	};
 
     //--------------------
 
     void setCobolLexer() {
-		setLexer(SCLEX_COBOL, L_COBOL, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_COBOL, LIST_0 | LIST_1 | LIST_2);
 	};
     void setGui4CliLexer() {
-		setLexer(SCLEX_GUI4CLI, L_GUI4CLI, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4);
+		setLexer(L_GUI4CLI, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4);
 	};
     void setDLexer() {
-		setLexer(SCLEX_D, L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
     void setPowerShellLexer() {
-		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_5);
+		setLexer(L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_5);
 	};
     void setRLexer() {
-		setLexer(SCLEX_R, L_R, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_R, LIST_0 | LIST_1 | LIST_2);
 	};
 
     void setCoffeeScriptLexer() {
-		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
+		setLexer(L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
 	};
 
 	void setBaanCLexer() {
-		setLexer(SCLEX_BAAN, L_BAANC, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8);
+		setLexer(L_BAANC, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.baan.styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$:"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
@@ -855,102 +855,102 @@ protected:
 	};
 
 	void setSrecLexer() {
-		setLexer(SCLEX_SREC, L_SREC, LIST_NONE);
+		setLexer(L_SREC, LIST_NONE);
 	};
 
 	void setIHexLexer() {
-		setLexer(SCLEX_IHEX, L_IHEX, LIST_NONE);
+		setLexer(L_IHEX, LIST_NONE);
 	};
 
 	void setTEHexLexer() {
-		setLexer(SCLEX_TEHEX, L_TEHEX, LIST_NONE);
+		setLexer(L_TEHEX, LIST_NONE);
 	};
 
 	void setAsn1Lexer() {
-		setLexer(SCLEX_ASN1, L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+		setLexer(L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
 	void setAVSLexer() {
-		setLexer(SCLEX_AVS, L_AVS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_AVS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
 	};
 
 	void setBlitzBasicLexer() {
-		setLexer(SCLEX_BLITZBASIC, L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+		setLexer(L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
 	void setPureBasicLexer() {
-		setLexer(SCLEX_PUREBASIC, L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+		setLexer(L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
 	void setFreeBasicLexer() {
-		setLexer(SCLEX_FREEBASIC, L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+		setLexer(L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
 	void setCsoundLexer() {
-		setLexer(SCLEX_CSOUND, L_CSOUND, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_CSOUND, LIST_0 | LIST_1 | LIST_2);
 		execute(SCI_STYLESETEOLFILLED, SCE_CSOUND_STRINGEOL, true);
 	};
 
 	void setErlangLexer() {
-		setLexer(SCLEX_ERLANG, L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+		setLexer(L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
 	};
 
 	void setESCRIPTLexer() {
-		setLexer(SCLEX_ESCRIPT, L_ESCRIPT, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_ESCRIPT, LIST_0 | LIST_1 | LIST_2); 
 	};
 
 	void setForthLexer() {
-		setLexer(SCLEX_FORTH, L_FORTH, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_FORTH, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
 	};
 
 	void setLatexLexer() {
-		setLexer(SCLEX_LATEX, L_LATEX, LIST_NONE); 
+		setLexer(L_LATEX, LIST_NONE); 
 	};
 
 	void setMMIXALLexer() {
-		setLexer(SCLEX_MMIXAL, L_MMIXAL, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_MMIXAL, LIST_0 | LIST_1 | LIST_2); 
 	};
 
 	void setNimrodLexer() {
-		setLexer(SCLEX_NIMROD, L_NIM, LIST_0);
+		setLexer(L_NIM, LIST_0);
 	};
 
 	void setNncrontabLexer() {
-		setLexer(SCLEX_NNCRONTAB, L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2); 
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
 	};
 
 	void setOScriptLexer() {
-		setLexer(SCLEX_OSCRIPT, L_OSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_OSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$"));
 	};
 
 	void setREBOLLexer() {
-		setLexer(SCLEX_REBOL, L_REBOL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(L_REBOL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.’+-*&|=_~"));
 	};
 
 	void setRegistryLexer() {
-		setLexer(SCLEX_REGISTRY, L_REGISTRY, LIST_NONE); 
+		setLexer(L_REGISTRY, LIST_NONE); 
 	};
 
 	void setRustLexer() {
-		setLexer(SCLEX_RUST, L_RUST, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
+		setLexer(L_RUST, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
 	};
 
 	void setSpiceLexer() {
-		setLexer(SCLEX_SPICE, L_SPICE, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_SPICE, LIST_0 | LIST_1 | LIST_2); 
 	};
 
 	void setTxt2tagsLexer() {
-		setLexer(SCLEX_TXT2TAGS, L_TXT2TAGS, LIST_NONE); 
+		setLexer(L_TXT2TAGS, LIST_NONE); 
 	};
 
 	void setVisualPrologLexer() {
-		setLexer(SCLEX_VISUALPROLOG, L_VISUALPROLOG, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_VISUALPROLOG, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	}
 
     //--------------------
@@ -958,7 +958,7 @@ protected:
 	void setSearchResultLexer() {
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_FILE_HEADER, true);
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_SEARCH_HEADER, true);
-		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, LIST_NONE);
+		setLexer(L_SEARCHRESULT, LIST_NONE);
 	};
 
 	bool isNeededFolderMarge(LangType typeDoc) const {

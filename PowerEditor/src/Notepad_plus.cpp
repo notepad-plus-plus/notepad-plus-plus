@@ -409,7 +409,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pluginsManager.init(nppData);
 
 	bool enablePluginAdmin = _pluginsAdminDlg.initFromJson();
-	_pluginsManager.loadPluginsV2(nppParam.getPluginRootDir(), enablePluginAdmin ? &_pluginsAdminDlg.getAvailablePluginUpdateInfoList() : nullptr);
+	_pluginsManager.loadPlugins(nppParam.getPluginRootDir(), enablePluginAdmin ? &_pluginsAdminDlg.getAvailablePluginUpdateInfoList() : nullptr);
 	_restoreButton.init(_pPublicInterface->getHinst(), hwnd);
 
 	// ------------ //
@@ -2375,9 +2375,9 @@ generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 
 	generic_string str2Show;
 	if (getName)
-		str2Show = ScintillaEditView::langNames[langType].shortName;
+		str2Show = ScintillaEditView::_langNameInfoArray[langType]._shortName;
 	else
-		str2Show = ScintillaEditView::langNames[langType].longName;
+		str2Show = ScintillaEditView::_langNameInfoArray[langType]._longName;
 
 	if (langType == L_USER)
 	{
@@ -4287,7 +4287,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	if (lt != L_USER)
 	{
 		command += TEXT(" -l");
-		command += ScintillaEditView::langNames[lt].lexerName;
+		command += ScintillaEditView::_langNameInfoArray[lt]._langName;
 	}
 	command += TEXT(" -n");
 	command += to_wstring(_pEditView->getCurrentLineNumber() + 1);

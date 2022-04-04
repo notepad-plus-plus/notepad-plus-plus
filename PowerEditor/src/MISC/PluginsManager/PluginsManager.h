@@ -86,8 +86,7 @@ public:
 		_nppData = nppData;
 	}
 
-    int loadPlugin(const TCHAR *pluginFilePath);
-	bool loadPluginsV2(const TCHAR *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr);
+	bool loadPlugins(const TCHAR *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr);
 
     bool unloadPlugin(int index, HWND nppHandle);
 
@@ -126,6 +125,8 @@ private:
 	IDAllocator _dynamicIDAlloc;
 	IDAllocator _markerAlloc;
 	bool _noMoreNotification = false;
+
+	int loadPluginFromPath(const TCHAR* pluginFilePath);
 
 	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature)
 	{

@@ -103,6 +103,7 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			return reinterpret_cast<LRESULT>(::GetStockObject(NULL_BRUSH));
 		}
 
+		case WM_CTLCOLORBTN:
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{

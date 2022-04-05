@@ -4605,6 +4605,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			return reinterpret_cast<LRESULT>(hBrushBackground);
 		}
 
+		case WM_CTLCOLORBTN:
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
@@ -5095,6 +5096,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 			return 0;
 		}
 
+		case WM_CTLCOLORBTN:
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{

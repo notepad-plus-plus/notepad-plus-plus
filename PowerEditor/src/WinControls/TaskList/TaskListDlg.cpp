@@ -94,6 +94,7 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			return FALSE;
 		}
 
+		case WM_CTLCOLORBTN:
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{

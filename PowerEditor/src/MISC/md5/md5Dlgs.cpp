@@ -51,7 +51,6 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		}
 		return TRUE;
 
-		case WM_CTLCOLORBTN:
 		case WM_CTLCOLORDLG:
 		{
 			if (NppDarkMode::isEnabled())
@@ -74,6 +73,15 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				{
 					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 				}
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
 			}
 			break;
 		}
@@ -372,7 +380,6 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			break;
 		}
 
-		case WM_CTLCOLORBTN:
 		case WM_CTLCOLORDLG:
 		{
 			if (NppDarkMode::isEnabled())
@@ -395,6 +402,15 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				{
 					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 				}
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
 			}
 			break;
 		}

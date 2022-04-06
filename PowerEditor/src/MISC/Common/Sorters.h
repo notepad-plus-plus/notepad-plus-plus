@@ -290,6 +290,193 @@ public:
 	}
 };
 
+class IntegerSorter : public ISorter
+{
+public:
+	IntegerSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override
+	{
+		std::sort(lines.begin(), lines.end(), [this](generic_string aIn, generic_string bIn)
+			{
+				generic_string a = getSortKey(aIn);
+				generic_string b = getSortKey(bIn);
+
+				long long compareResult = 0;
+				size_t aNumIndex = 0;
+				size_t bNumIndex = 0;
+				while (compareResult == 0)
+				{
+					if (aNumIndex >= a.length() || bNumIndex >= b.length())
+					{
+						compareResult = a.compare(min(aNumIndex, a.length()), generic_string::npos, b, min(bNumIndex, b.length()), generic_string::npos);
+						break;
+					}
+
+					bool aChunkIsNum = a[aNumIndex] >= L'0' && a[aNumIndex] <= L'9';
+					bool bChunkIsNum = b[bNumIndex] >= L'0' && b[bNumIndex] <= L'9';
+
+					int aNumSign = 1;
+					// Could be start of negative number
+					if (!aChunkIsNum && (aNumIndex + 1) < a.length())
+					{
+						aChunkIsNum = (a[aNumIndex] == L'-' && (a[aNumIndex + 1] >= L'0' && a[aNumIndex + 1] <= L'9'));
+						aNumSign = -1;
+					}
+
+					int bNumSign = 1;
+					if (!bChunkIsNum && (bNumIndex + 1) < b.length())
+					{
+						bChunkIsNum = (b[bNumIndex] == L'-' && (b[bNumIndex + 1] >= L'0' && b[bNumIndex + 1] <= L'9'));
+						bNumSign = -1;
+					}
+
+					// One is number and one is string
+					if (aChunkIsNum != bChunkIsNum)
+					{
+						compareResult = a[aNumIndex] - b[bNumIndex];
+
+						// compareResult isn't nesscarily 0
+						// consider this case: "0-0", "0-"
+						// "-0" is considered a number, but "-" isn't
+						// but we are comparing two "-', which is the same
+						aNumIndex++;
+						bNumIndex++;
+					}
+					// Both are numbers
+					else if (aChunkIsNum)
+					{
+						// if the sign is differemt, just return the compareResult
+						if (aNumSign != bNumSign)
+						{
+							if (aNumSign == 1)
+							{
+								compareResult = 1;
+							}
+							else
+							{
+								compareResult = -1;
+							}
+							// No need to update anything; compareResult != 0; will break out while loop
+						}
+						else
+						{
+							if (aNumSign == -1)
+							{
+								aNumIndex++;
+								bNumIndex++;
+							}
+
+							size_t aNumEnd = a.find_first_not_of(L"1234567890", aNumIndex);
+							if (aNumEnd == generic_string::npos)
+							{
+								aNumEnd = a.length();
+							}
+
+							size_t bNumEnd = b.find_first_not_of(L"1234567890", bNumIndex);
+							if (bNumEnd == generic_string::npos)
+							{
+								bNumEnd = b.length();
+							}
+
+							int aZeroNum = 0;
+							while (aNumIndex < a.length() && a[aNumIndex] == '0')
+							{
+								aZeroNum++;
+								aNumIndex++;
+							}
+
+							int bZeroNum = 0;
+							while (bNumIndex < b.length() && b[bNumIndex] == '0')
+							{
+								bZeroNum++;
+								bNumIndex++;
+							}
+
+							size_t aNumLength = aNumEnd - aNumIndex;
+							size_t bNumLength = bNumEnd - bNumIndex;
+
+							// aNum is longer than bNum, must be larger (smaller if negative)
+							if (aNumLength > bNumLength)
+							{
+								compareResult = 1 * aNumSign;
+								// No need to update anything; compareResult != 0; will break out while loop
+							}
+							// bNum is longer than aNum, must be larger (smaller if negative)
+							else if (aNumLength < bNumLength)
+							{
+								compareResult = -1 * aNumSign;
+								// No need to update anything; compareResult != 0; will break out while loop
+							}
+							else
+							{
+								// the lengths of the numbers are equal
+								// compare the two number. However, we can not use std::stoll
+								// because the number strings can be every large, well over the maximum long long value
+								// thus, we compare each digit one by one
+								while (compareResult == 0
+									&& aNumIndex < a.length()
+									&& (a[aNumIndex] >= L'0' && a[aNumIndex] <= L'9')
+									&& bNumIndex < b.length()
+									&& (b[bNumIndex] >= L'0' && b[bNumIndex] <= L'9'))
+								{
+									compareResult = (a[aNumIndex] - b[bNumIndex]) * aNumSign;
+									aNumIndex++;
+									bNumIndex++;
+								}
+
+								if (compareResult == 0)
+								{
+									compareResult = bZeroNum - aZeroNum;
+								}
+
+								/*			
+								if (aNumIndex < a.length() && (a[aNumIndex] >= L'0' && a[aNumIndex] <= L'9'))
+								{
+									aNumIndex++;
+								}
+								if (bNumIndex < b.length() && (b[bNumIndex] >= L'0' && b[bNumIndex] <= L'9'))
+								{
+									bNumIndex++;
+								}
+								*/
+							}
+						}
+					}
+					// Both are strings
+					else
+					{
+						if (a[aNumIndex] == L'-') 
+						{
+							aNumIndex++;
+						}
+						if (b[bNumIndex] == L'-')
+						{
+							bNumIndex++;
+						}
+
+						size_t aChunkEnd = a.find_first_of(L"1234567890-", aNumIndex);
+						size_t bChunkEnd = b.find_first_of(L"1234567890-", bNumIndex);
+						compareResult = a.compare(aNumIndex, aChunkEnd - aNumIndex, b, bNumIndex, bChunkEnd - bNumIndex);
+						aNumIndex = aChunkEnd;
+						bNumIndex = bChunkEnd;
+					}
+				}
+
+				if (isDescending())
+				{
+					return compareResult > 0;
+				}
+				else
+				{
+					return compareResult < 0;
+				}
+			});
+
+		return lines;
+	}
+};
+
 // Convert each line to a number and then sort.
 // The conversion must be implemented in classes which inherit from this, see prepareStringForConversion and convertStringToNumber.
 template<typename T_Num>

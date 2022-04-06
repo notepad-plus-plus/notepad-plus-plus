@@ -320,7 +320,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	// Turn virtual space on
 	int virtualSpaceOptions = SCVS_RECTANGULARSELECTION;
-	if(svp._virtualSpace) virtualSpaceOptions |= SCVS_USERACCESSIBLE | SCVS_NOWRAPLINESTART;
+	if(svp._virtualSpace)
+		virtualSpaceOptions |= SCVS_USERACCESSIBLE | SCVS_NOWRAPLINESTART;
 
 	_mainEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, virtualSpaceOptions);
 	_subEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, virtualSpaceOptions);

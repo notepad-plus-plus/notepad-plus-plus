@@ -1576,7 +1576,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const bool virtualSpace = (nppParam.getSVP())._virtualSpace;
 
 			int virtualSpaceOptions = SCVS_RECTANGULARSELECTION;
-			if(virtualSpace) virtualSpaceOptions |= SCVS_USERACCESSIBLE | SCVS_NOWRAPLINESTART;
+			if(virtualSpace)
+				virtualSpaceOptions |= SCVS_USERACCESSIBLE | SCVS_NOWRAPLINESTART;
 
 			_mainEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, virtualSpaceOptions);
 			_subEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, virtualSpaceOptions);

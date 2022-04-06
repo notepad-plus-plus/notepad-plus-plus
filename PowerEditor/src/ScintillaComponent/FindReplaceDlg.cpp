@@ -16,13 +16,13 @@
 
 
 #include <shlwapi.h>
-#include "math.h"
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "ILexer.h"
 #include "Lexilla.h"
 #include "Notepad_plus_msgs.h"
 #include "localization.h"
+#include "Common.h"
 #include "Utf8.h"
 
 using namespace std;
@@ -4094,8 +4094,8 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, s
 	str += _prefixLineStr;
 	str += TEXT(" ");
 
-	size_t totalLineNumberDigit = size_t(log10(totalLineNumber) + 1);
-	size_t currentLineNumberDigit = size_t(log10(fi._lineNumber) + 1);
+	size_t totalLineNumberDigit = static_cast<size_t>(nbDigitsFromNbLines(totalLineNumber) + 1);
+	size_t currentLineNumberDigit = static_cast<size_t>(nbDigitsFromNbLines(fi._lineNumber) + 1);
 
 	generic_string lineNumberStr = TEXT("");
 	lineNumberStr.append(totalLineNumberDigit - currentLineNumberDigit, ' ');

@@ -113,9 +113,6 @@ SRC_OBJS = \
 	$(DIR_O)/ViewStyle.o \
 	$(DIR_O)/XPM.o
 
-# To have PCRE boost regex with header only is integrated and not just the one from std
-include ../../boostregex/nppSpecifics_mingw.mak
-
 COMPONENT_OBJS = \
 	$(SRC_OBJS) \
 	$(DIR_O)/HanjaDic.o \

@@ -242,6 +242,9 @@ bool AutoCompletion::showApiAndWordComplete()
 		}
 	}
 
+	if (!wordArray.size())
+		return false;
+
 	// Sort word array and convert it to a single string with space-separated words
 
 	sort(wordArray.begin(), wordArray.end());
@@ -1066,7 +1069,10 @@ const TCHAR * AutoCompletion::getApiFileName()
 	}
 
 	if (_curLang >= L_EXTERNAL && _curLang < NppParameters::getInstance().L_END)
-		return NppParameters::getInstance().getELCFromIndex(_curLang - L_EXTERNAL)._name;
+	{
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		return wmc.char2wchar(NppParameters::getInstance().getELCFromIndex(_curLang - L_EXTERNAL)._name.c_str(), CP_ACP);
+	}
 
 	if (_curLang > L_EXTERNAL)
         _curLang = L_TEXT;
@@ -1074,6 +1080,6 @@ const TCHAR * AutoCompletion::getApiFileName()
 	if (_curLang == L_JAVASCRIPT)
         _curLang = L_JS;
 
-	return ScintillaEditView::langNames[_curLang].lexerName;
+	return ScintillaEditView::_langNameInfoArray[_curLang]._langName;
 
 }

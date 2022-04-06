@@ -1591,14 +1591,14 @@ void NppParameters::SetTransparent(HWND hwnd, int percent)
 }
 
 
-bool NppParameters::isExistingExternalLangName(const TCHAR *newName) const
+bool NppParameters::isExistingExternalLangName(const char* newName) const
 {
 	if ((!newName) || (!newName[0]))
 		return true;
 
 	for (int i = 0 ; i < _nbExternalLang ; ++i)
 	{
-		if (!lstrcmp(_externalLangArray[i]->_name, newName))
+		if (_externalLangArray[i]->_name == newName)
 			return true;
 	}
 	return false;
@@ -1645,9 +1645,10 @@ const TCHAR* NppParameters::getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *ful
 
 int NppParameters::getExternalLangIndexFromName(const TCHAR* externalLangName) const
 {
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	for (int i = 0 ; i < _nbExternalLang ; ++i)
 	{
-		if (!lstrcmp(externalLangName, _externalLangArray[i]->_name))
+		if (!lstrcmp(externalLangName, wmc.char2wchar(_externalLangArray[i]->_name.c_str(), CP_ACP)))
 			return i;
 	}
 	return -1;
@@ -2874,7 +2875,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			}
 
 		}
-		catch (const std::exception& /*e*/)
+		catch (const std::exception&)
 		{
 			delete _userLangArray[--_nbUserLang];
 		}
@@ -3958,7 +3959,7 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 	int lang = static_cast<int32_t>(L_TEXT);
 	for (; lang < L_EXTERNAL; ++lang)
 	{
-		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
+		const TCHAR * name = ScintillaEditView::_langNameInfoArray[lang]._langName;
 		if (!lstrcmp(name, langName)) //found lang?
 		{
 			return (LangType)lang;

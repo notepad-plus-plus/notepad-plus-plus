@@ -108,14 +108,21 @@ INSTALLER_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(INSTALLER_DATA))
 
 SCINTILLA_TARGET := $(BUILD_DIRECTORY)/$(SCINTILLA_TARGET)
 SCINTILLA_TARGET_PATH := ../../PowerEditor/gcc/$(SCINTILLA_TARGET)
+SCINTILLA_BUILD_DIRECTORY := $(BUILD_DIRECTORY)/_scintilla.build
+SCINTILLA_BUILD_PATH := ../../PowerEditor/gcc/$(SCINTILLA_BUILD_DIRECTORY)
 
 LEXILLA_TARGET := $(BUILD_DIRECTORY)/$(LEXILLA_TARGET)
 LEXILLA_TARGET_PATH := ../../PowerEditor/gcc/$(LEXILLA_TARGET)
+LEXILLA_BUILD_DIRECTORY := $(BUILD_DIRECTORY)/_lexilla.build
+LEXILLA_BUILD_PATH := ../../PowerEditor/gcc/$(LEXILLA_BUILD_DIRECTORY)
 
 
 LD_PATH += $(BUILD_DIRECTORY)
 
 # detect a build outside of PowerEditor/gcc and update dependent variables
+SPACES_ERROR := "For outside build spaces in the project path are not supported! Please move the project files to the correct path."
+$(foreach makefile,$(MAKEFILE_LIST),$(if $(wildcard $(makefile)),,$(error $(SPACES_ERROR))))
+
 MAKEFILE_DIRECTORY := $(patsubst %/,%,$(dir $(subst \,/,$(firstword $(MAKEFILE_LIST)))))
 ifneq "$(MAKEFILE_DIRECTORY)" "."
 MAKEFILE_PARENT := $(patsubst %/,%,$(dir $(MAKEFILE_DIRECTORY)))
@@ -129,9 +136,11 @@ INSTALLER_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(INSTALLER_DIRECTOR
 
 SCINTILLA_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(SCINTILLA_DIRECTORY))
 SCINTILLA_TARGET_PATH := $(CURDIR)/$(SCINTILLA_TARGET)
+SCINTILLA_BUILD_PATH := $(CURDIR)/$(SCINTILLA_BUILD_DIRECTORY)
 
 LEXILLA_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(LEXILLA_DIRECTORY))
 LEXILLA_TARGET_PATH := $(CURDIR)/$(LEXILLA_TARGET)
+LEXILLA_BUILD_PATH := $(CURDIR)/$(LEXILLA_BUILD_DIRECTORY)
 
 CXXFLAGS := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(CXXFLAGS))
 CPP_PATH := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(CPP_PATH))
@@ -155,7 +164,7 @@ else ifneq "$(wildcard $(dir $(SHELL))ls.exe)" ""
 # a Windows system with a proper shell
 NULL :=
 SPACE := $(NULL) $(NULL)
-SHELL_DIRECTORY := $(subst _,$(SPACE),$(dir $(subst $(SPACE),_,$(SHELL))))
+SHELL_DIRECTORY := $(subst |,$(SPACE),$(dir $(subst $(SPACE),|,$(SHELL))))
 MKDIR := $(SHELL_DIRECTORY)mkdir.exe -p
 CPDIR := $(SHELL_DIRECTORY)cp.exe -r
 RMDIR := $(SHELL_DIRECTORY)rm.exe -rf
@@ -191,7 +200,7 @@ RC_TARGETS := $(patsubst %.rc,$(BUILD_DIRECTORY)/%.res,$(sort $(filter %.rc,$(GC
 # actions
 #
 
-.PHONY: .force all binary data clean fullclean
+.PHONY: .force all binary data clean sciclean lexclean fullclean
 .force:
 
 SUBMAKEFLAGS += $(if $(NUMBER_OF_PROCESSORS),-j$(NUMBER_OF_PROCESSORS),)
@@ -203,11 +212,24 @@ $(BUILD_DIRECTORY):
 	@echo * creating BUILD_DIRECTORY $@
 	$(AT)$(MKDIR) $(call normalize-path,$(sort $@ $(patsubst %/,%,$(dir $(CXX_TARGETS) $(RC_TARGETS)))))
 
-$(SCINTILLA_TARGET): .force | $(BUILD_DIRECTORY)
-	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 LIBSCI=$(SCINTILLA_TARGET_PATH) $(SCINTILLA_TARGET_PATH)
+$(SCINTILLA_BUILD_DIRECTORY):
+	@echo * creating SCINTILLA_BUILD_DIRECTORY $@
+	$(AT)$(MKDIR) $(call normalize-path,$(SCINTILLA_BUILD_DIRECTORY))
 
-$(LEXILLA_TARGET): .force | $(BUILD_DIRECTORY)
-	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(LEXILLA_DIRECTORY)/src LIBLEXILLA=$(LEXILLA_TARGET_PATH) $(LEXILLA_TARGET_PATH)
+$(LEXILLA_BUILD_DIRECTORY):
+	@echo * creating LEXILLA_BUILD_DIRECTORY $@
+	$(AT)$(MKDIR) $(call normalize-path,$(LEXILLA_BUILD_DIRECTORY))
+
+ifeq "$(MAKELEVEL)" "0"
+$(SCINTILLA_TARGET): .force
+$(LEXILLA_TARGET): .force
+endif
+
+$(SCINTILLA_TARGET): | $(BUILD_DIRECTORY) $(SCINTILLA_BUILD_DIRECTORY)
+	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 DIR_O=$(SCINTILLA_BUILD_PATH) LIBSCI=$(SCINTILLA_TARGET_PATH) $(SCINTILLA_TARGET_PATH)
+
+$(LEXILLA_TARGET): | $(BUILD_DIRECTORY) $(LEXILLA_BUILD_DIRECTORY)
+	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(LEXILLA_DIRECTORY)/src DIR_O=$(LEXILLA_BUILD_PATH) LIBLEXILLA=$(LEXILLA_TARGET_PATH) $(LEXILLA_TARGET_PATH)
 
 binary: $(TARGET_BINARY) data
 	@echo *** $(TARGET_CPU) $(BUILD_TYPE) : $(CURDIR)/$(TARGET_BINARY) ***
@@ -266,8 +288,12 @@ $(filter-out %/,$(INSTALLER_DATA)): | $(TARGET_DIRECTORY)
 
 clean:
 	-$(AT)$(RMDIR) $(call normalize-path,$(BUILD_DIRECTORY))
-	-$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(SCINTILLA_DIRECTORY)/win32 $@
-	-$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(LEXILLA_DIRECTORY)/src $@
+
+sciclean:
+	-$(AT)$(RMDIR) $(call normalize-path,$(SCINTILLA_BUILD_DIRECTORY))
+
+lexclean:
+	-$(AT)$(RMDIR) $(call normalize-path,$(LEXILLA_BUILD_DIRECTORY))
 
 fullclean: clean
 	-$(AT)$(RMDIR) $(call normalize-path,$(TARGET_DIRECTORY))

@@ -86,8 +86,7 @@ public:
 		_nppData = nppData;
 	}
 
-    int loadPlugin(const TCHAR *pluginFilePath);
-	bool loadPluginsV2(const TCHAR *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr);
+	bool loadPlugins(const TCHAR *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr);
 
     bool unloadPlugin(int index, HWND nppHandle);
 
@@ -127,6 +126,8 @@ private:
 	IDAllocator _markerAlloc;
 	bool _noMoreNotification = false;
 
+	int loadPluginFromPath(const TCHAR* pluginFilePath);
+
 	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature)
 	{
 		generic_string msg = pluginName;
@@ -157,10 +158,3 @@ private:
 		_loadedDlls.push_back(LoadedDllInfo(fullPath, fn));
 	}
 };
-
-#define EXT_LEXER_DECL __stdcall
-
-// External Lexer function definitions...
-typedef int (EXT_LEXER_DECL *GetLexerCountFn)();
-typedef void (EXT_LEXER_DECL *GetLexerNameFn)(unsigned int Index, char *name, int buflength);
-typedef void (EXT_LEXER_DECL *GetLexerStatusTextFn)(unsigned int Index, TCHAR *desc, int buflength);

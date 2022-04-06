@@ -30,6 +30,8 @@
 #include <assert.h>
 #include <tchar.h>
 #include <map>
+#include "ILexer.h"
+#include "Lexilla.h"
 
 #ifdef _WIN64
 
@@ -1075,23 +1077,21 @@ private:
 	friend class StylerDlg;
 };
 
-#define MAX_EXTERNAL_LEXER_NAME_LEN 16
-#define MAX_EXTERNAL_LEXER_DESC_LEN 32
+#define MAX_EXTERNAL_LEXER_NAME_LEN 128
 
 
 
 class ExternalLangContainer final
 {
 public:
-	TCHAR _name[MAX_EXTERNAL_LEXER_NAME_LEN];
-	TCHAR _desc[MAX_EXTERNAL_LEXER_DESC_LEN];
-	ExternalLexerAutoIndentMode _autoIndentMode = ExternalLexerAutoIndentMode::Standard;
+	// Mandatory for Lexilla
+	std::string _name;
+	Lexilla::CreateLexerFn fnCL = nullptr;
+	//Lexilla::GetLibraryPropertyNamesFn fnGLPN = nullptr;
+	//Lexilla::SetLibraryPropertyFn fnSLP = nullptr;
 
-	ExternalLangContainer(const TCHAR* name, const TCHAR* desc)
-	{
-		generic_strncpy(_name, name, MAX_EXTERNAL_LEXER_NAME_LEN);
-		generic_strncpy(_desc, desc, MAX_EXTERNAL_LEXER_DESC_LEN);
-	}
+	// For Notepad++
+	ExternalLexerAutoIndentMode _autoIndentMode = ExternalLexerAutoIndentMode::Standard;
 };
 
 
@@ -1440,7 +1440,7 @@ public:
 	int addUserLangToEnd(const UserLangContainer & userLang, const TCHAR *newName);
 	void removeUserLang(size_t index);
 
-	bool isExistingExternalLangName(const TCHAR *newName) const;
+	bool isExistingExternalLangName(const char* newName) const;
 
 	int addExternalLangToEnd(ExternalLangContainer * externalLang);
 

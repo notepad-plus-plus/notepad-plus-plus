@@ -2,7 +2,7 @@
 
 **Pre-requisites:**
 
- - Microsoft Visual Studio 2017 (C/C++ Compiler, v141 toolset for win32, x64, arm64)
+ - Microsoft Visual Studio 2019 (C/C++ Compiler, v142 toolset for win32, x64, arm64)
 
 There are two components which are built from one visual studio solution:
 
@@ -60,6 +60,5 @@ MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/fi
 * The directory containing `notepad++.exe` will also contain everything needed for Notepad++ to start.
 * To have a debug build just add `DEBUG=1` to the `mingw32-make` invocation above. The output directory then will be suffixed with `-debug`.
 * To see commands being executed add `VERBOSE=1` to the same command.
-* When switching between compilers or between release/debug modes cleaning must be done first to delete previous temporary files. This can be done by invoking `mingw32-make clean` (the directory with `notepad++.exe` won't be affected) or `mingw32-make fullclean` (everything related to the build will be deleted, including the directory with `notepad++.exe`).
 * When a project is built outside of the `PowerEditor/gcc` directory, for example when using `-f` option, then the entire project path must not contain any spaces. Additionally, the path to `makefile` of this project should be listed as first.
 * When a project is built through MinGW-w64 with multilib support, a specific target can be forced by passing `TARGET_CPU` variable with `x86_64` or `i686` as value.

@@ -797,6 +797,8 @@ bool FileManager::reloadBuffer(BufferID id)
 		buf->setUnsync(false);
 		buf->setDirty(false); // if the _isUnsync was true before the reloading, the _isDirty had been set to true somehow in the loadFileData()
 
+		buf->setSavePointDirty(false);
+
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
 
@@ -1178,6 +1180,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		buffer->setFileName(fullpath, language);
 		buffer->setDirty(false);
 		buffer->setUnsync(false);
+		buffer->setSavePointDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
@@ -1447,19 +1450,16 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	if (fileFormat._language < L_EXTERNAL)
 	{
-#pragma warning( push )
-#pragma warning( disable : 4996)
-	const char* pName = LexerNameFromID(ScintillaEditView::langNames[fileFormat._language].lexerID); //deprecated, therefore disabled warning
-#pragma warning( pop ) 
-		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
+		const char* lexerNameID = ScintillaEditView::_langNameInfoArray[fileFormat._language]._lexerID;
+		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(lexerNameID)));
 	}
 	else
 	{
 		int id = fileFormat._language - L_EXTERNAL;
-		TCHAR * name = nppParam.getELCFromIndex(id)._name;
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char *pName = wmc.wchar2char(name, CP_ACP);
-		_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer(pName)));
+		ExternalLangContainer& externalLexer = nppParam.getELCFromIndex(id);
+		const char* lexerName = externalLexer._name.c_str();
+		if (externalLexer.fnCL)
+			_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(externalLexer.fnCL(lexerName)));
 	}
 
 	if (fileFormat._encoding != -1)

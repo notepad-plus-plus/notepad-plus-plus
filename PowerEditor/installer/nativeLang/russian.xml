@@ -1342,6 +1342,8 @@ Updated to v8.3.4:
 			<PanelTitle name="Список функций"/>
 			<SortTip    name="Упорядочить"/>
 			<ReloadTip  name="Обновить"/>
+			<PreferencesTip          name="Настройки"/>
+			<PreferencesInitialSort  name="Сортировать функции по Имени"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Папка как Проект"/>

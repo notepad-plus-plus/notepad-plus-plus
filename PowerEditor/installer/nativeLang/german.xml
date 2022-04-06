@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-03-13 by schnurlos
+	last modified: 2022-04-06 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.3.2">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.3.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -893,6 +893,7 @@
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6236" name="Scrollen über die letzte Zeile hinaus aktivieren"/>
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
+					<Item id="6245" name="Virtuellen Raum aktivieren"/>
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
@@ -1358,6 +1359,8 @@ Fortsetzen?"/>
 			<PanelTitle name="Funktionsliste"/>
 			<SortTip name="Sortieren"/>
 			<ReloadTip name="Aktualisieren"/>
+			<PreferencesTip name="Einstellungen"/>
+			<PreferencesInitialSort name="Funktionen standardmäßig nach Namen sortieren"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Verzeichnis als Arbeitsbereich"/>

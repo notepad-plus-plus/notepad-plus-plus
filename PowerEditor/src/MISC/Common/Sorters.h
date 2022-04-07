@@ -338,7 +338,7 @@ public:
 					{
 						compareResult = a[aNumIndex] - b[bNumIndex];
 
-						// compareResult isn't nesscarily 0
+						// compareResult isn't necessarily 0
 						// consider this case: "0-0", "0-"
 						// "-0" is considered a number, but "-" isn't
 						// but we are comparing two "-', which is the same

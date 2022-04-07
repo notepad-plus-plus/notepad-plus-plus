@@ -1725,4 +1725,22 @@ namespace NppDarkMode
 		::SetBkColor(hdc, NppDarkMode::getErrorBackgroundColor());
 		return reinterpret_cast<LRESULT>(NppDarkMode::getErrorBackgroundBrush());
 	}
+	
+	LRESULT onCtlColorDarkerBGStaticText(HDC hdc, bool isTextEnabled)
+	{
+		LRESULT result = FALSE;
+
+		if (NppDarkMode::isEnabled())
+		{
+			::SetTextColor(hdc, isTextEnabled ? NppDarkMode::getTextColor() : NppDarkMode::getDisabledTextColor());
+			::SetBkColor(hdc, NppDarkMode::getDarkerBackgroundColor());
+			result = reinterpret_cast<LRESULT>(NppDarkMode::getDarkerBackgroundBrush());
+		}
+		else
+		{
+			::SetTextColor(hdc, ::GetSysColor(isTextEnabled ? COLOR_WINDOWTEXT : COLOR_GRAYTEXT));
+		}
+
+		return result;
+	}
 }

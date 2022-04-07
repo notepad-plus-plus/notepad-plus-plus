@@ -145,6 +145,14 @@ Function .onInit
 	;
 	; --- PATCH END ---
 
+; look for previously selected language
+ClearErrors
+Var /GLOBAL temporaryLng
+ReadRegStr $temporaryLng HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage'
+${IfNot} ${Errors}
+  StrCpy $Language "$temporaryLng" ; set language
+${EndIf}
+
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
 	IfErrors withUpdater withoutUpdater
@@ -216,6 +224,9 @@ noDelete64:
 !endif
 
 	${MementoSectionRestore}
+
+; save selected language to registry
+WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
 
 FunctionEnd
 

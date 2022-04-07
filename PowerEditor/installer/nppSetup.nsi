@@ -174,7 +174,18 @@ updaterDone:
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
 	Call preventInstallInWin9x
 		
+	; look for previously selected language
+	ClearErrors
+	Var /GLOBAL tempLng
+	ReadRegStr $tempLng HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage'
+	${IfNot} ${Errors}
+		StrCpy $Language "$tempLng" ; set default language
+	${EndIf}
+	
 	!insertmacro MUI_LANGDLL_DISPLAY
+
+	; save selected language to registry
+	WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
 
 !ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
 	${If} ${RunningX64}

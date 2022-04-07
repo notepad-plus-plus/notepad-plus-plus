@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.3.2">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.3.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -884,6 +884,7 @@
                     <Item id="6215" name="Povoliť vyhladzovanie písma"/>
                     <Item id="6236" name="Povoliť posun za posledným riadkom"/>
                     <Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
+                    <Item id="6245" name="Povoliť virtuálny priestor"/>
                 </Scintillas>
 				
                     <DarkMode title="Tmavý režim">
@@ -1349,6 +1350,8 @@ Pokračovať?"/>
             <PanelTitle name="Zoznam funkcií"/>
             <SortTip name="Usporiadať" />
             <ReloadTip name="Obnoviť" />
+            <PreferencesTip name="Nastavenia"/>
+            <PreferencesInitialSort name="Predvolene usporiadať (A to Z)"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Priečinok ako pracovný priestor"/>

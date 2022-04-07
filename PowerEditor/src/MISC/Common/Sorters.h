@@ -509,6 +509,7 @@ public:
 						// consider this case: "0-0", "0-"
 						// "-0" is considered a number, but "-" isn't
 						// but we are comparing two "-', which is the same
+						// increment the indexes for this case and continue the loop
 						aNumIndex++;
 						bNumIndex++;
 					}

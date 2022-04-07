@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="8.3">
+    <Native-Langue name="français" filename="french.xml" version="8.3.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -884,6 +884,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6215" name="Activer le lissage de police"/>
                     <Item id="6236" name="Activer le défilement au-delà de la dernière ligne"/>
                     <Item id="6239" name="Conserver la sélection lors d'un clic droit en dehors de la sélection"/> 
+                    <Item id="6245" name="Activer l'espace virtuel"/>
                 </Scintillas>
 
                 <DarkMode title="Mode Sombre">
@@ -1349,6 +1350,8 @@ Continuer ?"/>
             <PanelTitle name="Liste des Fonctions"/>
             <SortTip name="Trier"/>
             <ReloadTip name="Recharger"/>
+            <PreferencesTip name="Préférences"/>
+            <PreferencesInitialSort name="Trier les fonctions (A à Z) par défaut"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Dossier en tant qu'Espace de travail"/>

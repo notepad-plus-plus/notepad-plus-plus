@@ -306,6 +306,6 @@ Section -FinishSection
   Call writeInstallInfoInRegistry
 SectionEnd
 
-BrandingText "Software is like sex: It's better when it's free"
+BrandingText "In open source, we feel strongly that to really do something well, you have to get a lot of people involved."
 
 ; eof

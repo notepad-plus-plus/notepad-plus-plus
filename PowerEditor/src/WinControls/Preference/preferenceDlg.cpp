@@ -4505,32 +4505,8 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 		case WM_CTLCOLORSTATIC:
 		{
-			auto hdcStatic = reinterpret_cast<HDC>(wParam);
-
-			LRESULT result = FALSE;
-			COLORREF textColor = ::GetSysColor(COLOR_WINDOWTEXT);
-			COLORREF disabledTextColor = ::GetSysColor(COLOR_GRAYTEXT);
-			if (NppDarkMode::isEnabled())
-			{
-				result = NppDarkMode::onCtlColorDarker(hdcStatic);
-				textColor = NppDarkMode::getTextColor();
-				disabledTextColor = NppDarkMode::getDisabledTextColor();
-			}
-
-			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
-			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
-			if (dlgCtrlID == IDC_URISCHEMES_STATIC)
-			{
-				if (isCheckedOrNot(IDC_CHECK_CLICKABLELINK_ENABLE))
-				{
-					SetTextColor(hdcStatic, textColor);
-				}
-				else
-				{
-					SetTextColor(hdcStatic, disabledTextColor);
-				}
-			}
-			return result;
+			bool isTextEnabled = isCheckedOrNot(IDC_CHECK_CLICKABLELINK_ENABLE) && ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam)) == IDC_URISCHEMES_STATIC;
+			return NppDarkMode::onCtlColorDarkerBGStaticText(reinterpret_cast<HDC>(wParam), isTextEnabled);
 		}
 
 		case WM_PRINTCLIENT:

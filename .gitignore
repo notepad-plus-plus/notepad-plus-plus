@@ -36,6 +36,7 @@ UpgradeLog*.htm
 *_p.c
 *.ilk
 *.meta
+*.exe
 *.obj
 *.pch
 #*.pdb

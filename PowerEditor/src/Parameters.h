@@ -506,7 +506,11 @@ private :
 	generic_string _lexerUserExt;
 };
 
-
+struct SortLexersInAlphabeticalOrder {
+	bool operator() (LexerStyler& l, LexerStyler& r) {
+		return lstrcmp(l.getLexerDesc(), r.getLexerDesc()) < 0;
+	}
+};
 
 struct LexerStylerArray
 {
@@ -531,7 +535,12 @@ struct LexerStylerArray
 		}
 		return nullptr;
 	};
+
 	void addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt, TiXmlNode *lexerNode);
+
+	void sort() {
+		std::sort(_lexerStylerVect.begin(), _lexerStylerVect.end(), SortLexersInAlphabeticalOrder());
+	};
 
 private :
 	std::vector<LexerStyler> _lexerStylerVect;
@@ -1413,7 +1422,7 @@ public:
 
 	bool ExternalLangHasRoom() const {return _nbExternalLang < NB_MAX_EXTERNAL_LANG;};
 
-	void getExternalLexerFromXmlTree(TiXmlDocument *doc);
+	void getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc);
 	std::vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc; };
 
 	void writeDefaultUDL();
@@ -1674,19 +1683,19 @@ private:
 	NppParameters& operator=(NppParameters&&) = delete;
 
 
-	TiXmlDocument *_pXmlDoc = nullptr;
-	TiXmlDocument *_pXmlUserDoc = nullptr;
-	TiXmlDocument *_pXmlUserStylerDoc = nullptr;
-	TiXmlDocument *_pXmlUserLangDoc = nullptr;
-	std::vector<UdlXmlFileState> _pXmlUserLangsDoc;
-	TiXmlDocument *_pXmlToolIconsDoc = nullptr;
-	TiXmlDocument *_pXmlShortcutDoc = nullptr;
-	TiXmlDocument *_pXmlBlacklistDoc = nullptr;
+	TiXmlDocument *_pXmlDoc = nullptr; // langs.xml
+	TiXmlDocument *_pXmlUserDoc = nullptr; // config.xml
+	TiXmlDocument *_pXmlUserStylerDoc = nullptr; // stylers.xml
+	TiXmlDocument *_pXmlUserLangDoc = nullptr; // userDefineLang.xml
+	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
+	TiXmlDocument *_pXmlToolIconsDoc = nullptr; // toolbarIcons.xml
+	TiXmlDocument *_pXmlShortcutDoc = nullptr; // shortcuts.xml
+	TiXmlDocument *_pXmlBlacklistDoc = nullptr; // not implemented
 
-	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr;
-	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr;
+	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr; // nativeLang.xml
+	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml
 
-	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc;
+	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;

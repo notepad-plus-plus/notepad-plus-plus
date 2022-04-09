@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.3">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.3.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -70,6 +70,7 @@
 					<Item subMenuId="settings-import" name="İçe Aktar"/>
 					<Item subMenuId="tools-md5"  name="MD5"/>
 					<Item subMenuId="tools-sha256"  name="SHA-256"/>
+					<Item subMenuId="window-sortby" name="Sırala"/>
 				</SubEntries>
 
 				<!-- Tüm Menü Öğeleri -->
@@ -359,6 +360,16 @@
 					<Item id="42041" name="Son Kullanılan Dosyalar Listesini Temizle"/>
 					<Item id="48016" name="Kısayolu Değiştir/Makroyu Sil…"/>
 					<Item id="48017" name="Kısayolu Değiştir/Komutu Sil…"/>
+					
+					<Item id="11001" name="&amp;Pencereler..."/>
+					<Item id="11002" name="İsme Göre A'dan Z'ye"/>
+					<Item id="11003" name="İsme Göre Z'den A'ya"/>
+					<Item id="11004" name="Dizine Göre A'dan Z'ye"/>
+					<Item id="11005" name="Dizine Göre Z'den A'ya"/>
+					<Item id="11006" name="Türe Göre A'dan Z'ye"/>
+					<Item id="11007" name="Türe Göre Z'den A'ya"/>
+					<Item id="11008" name="Boyutu Küçükten Büyüğe"/>
+					<Item id="11009" name="Boyutu Büyükten Küçüğe"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -635,6 +646,14 @@
                     <Item id="44107" name="Çalışma Alanı Olarak Klasöre Geç"/>
                     <Item id="44109" name="Belge Listesine Geç"/>
                     <Item id="44108" name="Fonksiyon Listesine Geç"/>
+                    <Item id="11002" name="İsme Göre A'dan Z'ye Sırala"/>
+                    <Item id="11003" name="İsme Göre Z'den A'ya Sırala"/>
+                    <Item id="11004" name="Dizine Göre A'dan Z'ye Sırala"/>
+                    <Item id="11005" name="Dizine Göre Z'den A'ya Sırala"/>
+                    <Item id="11006" name="Türe Göre A'dan Z'ye Sırala"/>
+                    <Item id="11007" name="Türe Göre Z'den A'ya Sırala"/>
+                    <Item id="11008" name="Boyutu Küçükten Büyüğe Sırala"/>
+                    <Item id="11009" name="Boyutu Büyükten küçüğe Sırala"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Kısayol">
@@ -866,6 +885,7 @@
 					<Item id="6215" name="Yumuşak yazı tipini etkinleştir"/>
 					<Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
 					<Item id="6239" name="Seçimin dışında sağ tıklanırsa seçimi koru"/>
+					<Item id="6245" name="Sanal Alanı Etkinleştir"/>
 				</Scintillas>
 
 				<DarkMode title="Koyu Mod">
@@ -1327,6 +1347,8 @@ Devam edilsin mi?"/>
 			<PanelTitle name="Fonksiyon Listesi"/>
 			<SortTip name="Sırala"/>
 			<ReloadTip name="Yeniden Yükle"/>
+			<PreferencesTip name="Tercihler"/>
+			<PreferencesInitialSort name="Varsayılan Olarak Fonksiyonları (A'dan Z'ye) Sırala"/>
 		</FunctionList>
 		<FolderAsWorkspace>
             <PanelTitle name="Çalışma Alanı Olarak Klasör"/>

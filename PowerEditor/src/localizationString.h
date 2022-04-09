@@ -59,7 +59,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Български"), TEXT("bulgarian.xml")},
 	{TEXT("Bahasa Indonesia"), TEXT("indonesian.xml")},
 	{TEXT("Gjuha shqipe"), TEXT("albanian.xml")},
-	{TEXT("Hrvatski jezik"), TEXT("croatian.xml")},
+	{TEXT("Hrvatski"), TEXT("croatian.xml")},
 	{TEXT("ქართული ენა"), TEXT("georgian.xml")},
 	{TEXT("Euskara"), TEXT("basque.xml")},
 	{TEXT("Español argentina"), TEXT("spanish_ar.xml")},

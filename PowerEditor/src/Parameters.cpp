@@ -1758,9 +1758,9 @@ void NppParameters::getLangKeywordsFromXmlTree()
 }
 
 
-void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument *doc)
+void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc)
 {
-	TiXmlNode *root = doc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNode *root = externalLexerDoc->FirstChild(TEXT("NotepadPlus"));
 		if (!root) return;
 	feedKeyWordsParameters(root);
 	feedStylerArray(root);
@@ -3677,6 +3677,8 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 			}
 		}
 	}
+
+	_lexerStylerVect.sort();
 
 	// The global styles for all lexers
 	TiXmlNode *globalStyleRoot = node->FirstChildElement(TEXT("GlobalStyles"));

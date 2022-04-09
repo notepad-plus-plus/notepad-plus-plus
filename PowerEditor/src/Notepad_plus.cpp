@@ -273,8 +273,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.setWrapMode(svp._lineWrapMethod);
 	_subEditView.setWrapMode(svp._lineWrapMethod);
 
-	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp._currentLineHilitingShow);
-	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp._currentLineHilitingShow);
+	PostMessage(_mainEditView.getHSelf(), SCI_SETCARETLINEVISIBLE, svp._currentLineHilitingShow, NULL);
+	PostMessage(_subEditView.getHSelf(), SCI_SETCARETLINEVISIBLE, svp._currentLineHilitingShow, NULL);
 
 	_mainEditView.execute(SCI_SETENDATLASTLINE, !svp._scrollBeyondLastLine);
 	_subEditView.execute(SCI_SETENDATLASTLINE, !svp._scrollBeyondLastLine);

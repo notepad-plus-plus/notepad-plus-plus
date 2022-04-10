@@ -192,73 +192,54 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 		case WM_CTLCOLORSTATIC:
 		{
-			LRESULT result = FALSE;
-			if (NppDarkMode::isEnabled())
-			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_DEF_EXT_EDIT) || hwnd == ::GetDlgItem(_hSelf, IDC_DEF_KEYWORDS_EDIT))
-				{
-					result = NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-				}
-				else
-				{
-					result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-				}
-			}
+			auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
 
-			
-			if (
-				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_FG_STATIC) ||
-				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_BG_STATIC) ||
-				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_FONTNAME_STATIC) ||
-				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC)
-				)
+			bool isStaticText = (dlgCtrlID == IDC_FG_STATIC ||
+				dlgCtrlID == IDC_BG_STATIC ||
+				dlgCtrlID == IDC_FONTNAME_STATIC ||
+				dlgCtrlID == IDC_FONTSIZE_STATIC);
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (isStaticText)
 			{
 				Style& style = getCurrentStyler();
-				bool isEnable = false;
+				bool isTextEnabled = false;
 
-				if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_FG_STATIC))
+				if (dlgCtrlID == IDC_FG_STATIC)
 				{
-					if (HIBYTE(HIWORD(style._fgColor)) != 0xFF)
-						isEnable = true;
+					isTextEnabled = HIBYTE(HIWORD(style._fgColor)) != 0xFF;
 
 					// Selected text colour style
 					if (style._styleDesc == TEXT("Selected text colour"))
 					{
-						isEnable = false; // disable by default for "Selected text colour" style
-
-						if (NppParameters::getInstance().isSelectFgColorEnabled())
-							isEnable = true;
+						isTextEnabled = NppParameters::getInstance().isSelectFgColorEnabled();
 					}
 				}
-				else if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_BG_STATIC))
+				else if (dlgCtrlID == IDC_BG_STATIC)
 				{
-					if (HIBYTE(HIWORD(style._bgColor)) != 0xFF)
-						isEnable = true;
+					isTextEnabled = HIBYTE(HIWORD(style._bgColor)) != 0xFF;
 				}
-				else if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_FONTNAME_STATIC))
+				else if (dlgCtrlID == IDC_FONTNAME_STATIC)
 				{
-					if (!style._fontName.empty())
-						isEnable = true;
+					isTextEnabled = !style._fontName.empty();
 				}
-				else if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC))
+				else if (dlgCtrlID == IDC_FONTSIZE_STATIC)
 				{
-					if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
-						isEnable = true;
+					isTextEnabled = style._fontSize != STYLE_NOT_USED && style._fontSize < 100; // style._fontSize has only 2 digits
 				}
 
-				if (isEnable)
-				{
-					if (NppDarkMode::isEnabled())
-						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
-					else
-						SetTextColor((HDC)wParam, RGB(0, 0, 0));
-				}
-				else
-					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
 
-			return result;
+			if (NppDarkMode::isEnabled())
+			{
+				if (dlgCtrlID == IDC_DEF_EXT_EDIT || dlgCtrlID == IDC_DEF_KEYWORDS_EDIT)
+				{
+					return NppDarkMode::onCtlColor(hdcStatic);
+				}
+				return NppDarkMode::onCtlColorDarker(hdcStatic);
+			}
+			return FALSE;
 		}
 
 		case WM_PRINTCLIENT:

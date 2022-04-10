@@ -61,32 +61,34 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		}
 
 		case WM_CTLCOLORDLG:
-		case WM_CTLCOLORSTATIC:
 		{
-			LRESULT result = FALSE;
 			if (NppDarkMode::isEnabled())
 			{
-				result = NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
+			break;
+		}
 
-			if (
-				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_COL_INITNUM_STATIC) ||
-				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_COL_INCRNUM_STATIC) ||
-				(HWND)lParam == ::GetDlgItem(_hSelf, IDC_COL_REPEATNUM_STATIC)
-				)
+		case WM_CTLCOLORSTATIC:
+		{
+			auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+
+			bool isStaticText = (dlgCtrlID == IDC_COL_INITNUM_STATIC ||
+				dlgCtrlID == IDC_COL_INCRNUM_STATIC ||
+				dlgCtrlID == IDC_COL_REPEATNUM_STATIC);
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (isStaticText)
 			{
-				if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_NUM_RADIO, BM_GETCHECK, 0, 0))
-				{
-					if (NppDarkMode::isEnabled())
-						SetTextColor((HDC)wParam, NppDarkMode::getTextColor());
-					else
-						SetTextColor((HDC)wParam, RGB(0, 0, 0));
-				}
-				else
-					SetTextColor((HDC)wParam, NppDarkMode::getDisabledTextColor());
+				bool isTextEnabled = isCheckedOrNot(IDC_COL_NUM_RADIO);
+				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
 
-			return result;
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(hdcStatic);
+			}
+			return FALSE;
 		}
 
 		case WM_PRINTCLIENT:

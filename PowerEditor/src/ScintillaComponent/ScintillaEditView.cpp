@@ -2570,7 +2570,7 @@ void ScintillaEditView::performGlobalStyles()
 	StyleArray & stylers = nppParams.getMiscStylerArray();
 
 	const Style * pStyle = stylers.findByName(TEXT("Current line background colour"));
-	if (pStyle)
+	if (pStyle && isCurrentLineHiLiting())
 	{
 		execute(SCI_SETCARETLINEBACK, pStyle->_bgColor);
 	}

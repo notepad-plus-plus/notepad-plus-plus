@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.3.2">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.3.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -888,6 +888,7 @@
                     <Item id="6215" name="フォントスムージングを有効にする"/>
                     <Item id="6236" name="最終行を画面上端までスクロールできる"/>
                     <Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
+                    <Item id="6245" name="仮想空白を有効にする"/>
                 </Scintillas>
 
                 <DarkMode title="ダークモード">
@@ -1354,6 +1355,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <PanelTitle name="関数リスト"/>
             <SortTip name="ソート"/>
             <ReloadTip name="再読み込み"/>
+            <PreferencesTip name="設定"/>
+            <PreferencesInitialSort name="標準で関数を昇順に並べる"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="ワークスペース フォルダー"/>

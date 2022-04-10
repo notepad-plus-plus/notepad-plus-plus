@@ -565,7 +565,8 @@ SurfaceGDI::SurfaceGDI() noexcept {
 }
 
 SurfaceGDI::SurfaceGDI(HDC hdcCompatible, int width, int height, SurfaceMode mode_, int logPixelsY_) noexcept {
-	hdc = ::CreateCompatibleDC(hdc);
+	// Fixed in Scintilla project: https://sourceforge.net/p/scintilla/code/ci/fa80f5d42d95cb95030f587b00174471d946353b/
+	hdc = ::CreateCompatibleDC(hdcCompatible);
 	hdcOwned = true;
 	bitmap = ::CreateCompatibleBitmap(hdcCompatible, width, height);
 	bitmapOld = SelectBitmap(hdc, bitmap);

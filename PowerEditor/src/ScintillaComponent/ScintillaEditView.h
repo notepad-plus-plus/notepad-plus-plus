@@ -469,14 +469,14 @@ public:
 	
 
 	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
-		execute(SCI_SETCARETLINEVISIBLE, isHiliting);
-		if (!isHiliting)
-			return;
-		execute(SCI_SETCARETLINEBACK, bgColor);
+		if (isHiliting)
+			execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, bgColor);
+		else
+			execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, NULL);
 	};
 
 	bool isCurrentLineHiLiting() const {
-		return (execute(SCI_GETCARETLINEVISIBLE) != 0);
+		return NppParameters::getInstance().getSVP()._currentLineHilitingShow;
 	};
 
 	void performGlobalStyles();

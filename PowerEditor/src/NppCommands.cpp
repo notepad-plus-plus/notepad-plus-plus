@@ -3744,8 +3744,11 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_CURLINE_HILITING:
 		{
-			COLORREF colour = (NppParameters::getInstance()).getCurLineHilitingColour();
-			bool hilite{ NppParameters::getInstance().getSVP()._currentLineHilitingShow };
+			NppParameters& nppParams = NppParameters::getInstance();
+
+			COLORREF colour{ nppParams.getCurLineHilitingColour() };
+			bool hilite{ nppParams.getSVP()._currentLineHilitingShow };
+
 			_mainEditView.setCurrentLineHiLiting(hilite, colour);
 			_subEditView.setCurrentLineHiLiting(hilite, colour);
 		}

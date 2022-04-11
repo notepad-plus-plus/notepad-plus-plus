@@ -2567,12 +2567,16 @@ void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, intptr_t
 void ScintillaEditView::performGlobalStyles()
 {
 	NppParameters& nppParams = NppParameters::getInstance();
-	StyleArray & stylers = nppParams.getMiscStylerArray();
+	StyleArray& stylers = nppParams.getMiscStylerArray();
+	const Style* pStyle{};
 
-	const Style * pStyle = stylers.findByName(TEXT("Current line background colour"));
-	if (pStyle)
+	if (nppParams.getSVP()._currentLineHilitingShow)
 	{
-		execute(SCI_SETCARETLINEBACK, pStyle->_bgColor);
+		pStyle = stylers.findByName(TEXT("Current line background colour"));
+		if (pStyle)
+		{
+			execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, pStyle->_bgColor);
+		}
 	}
 
 	COLORREF selectColorBack = grey;

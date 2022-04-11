@@ -1433,5 +1433,9 @@
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="0000FF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="FF8000" bgColor="FFFFFF" />
+        <WidgetStyle name="Autocomplete list" styleID="0" fgColor="000000" bgColor="FFFFFF" fontStyle="0" />
+        <WidgetStyle name="Autocomplete selected item" styleID="0" fgColor="FFFFFF" bgColor="0078D7" fontStyle="0" />
+        <WidgetStyle name="Calltip" styleID="0" fgColor="808080" bgColor="FFFFFF" fontStyle="0" />
+        <WidgetStyle name="Calltip highlighted text" styleID="0" fgColor="000080" fontStyle="0" />
     </GlobalStyles>
 </NotepadPlus>

@@ -19,6 +19,7 @@
 #include "WordStyleDlg.h"
 #include "ScintillaEditView.h"
 #include "documentMap.h"
+#include "AutoCompletion.h"
 
 using namespace std;
 
@@ -510,6 +511,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									updateColour(C_FOREGROUND);
 									notifyDataModified();
 									int tabColourIndex;
+									int autocompleteColourIndex = -1;
 									if ((tabColourIndex = whichTabColourIndex()) != -1)
 									{
 										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
@@ -517,6 +519,10 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									else if (isDocumentMapStyle())
 									{
 										ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
+									}
+									else if ((autocompleteColourIndex = whichAutocompleteColourIndex(true)) != -1)
+									{
+										AutoCompletion::setColour(_pFgColour->getColour(), static_cast<AutoCompletion::AutocompleteColorIndex>(autocompleteColourIndex));
 									}
 									apply();
 									return TRUE;
@@ -526,6 +532,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									updateColour(C_BACKGROUND);
 									notifyDataModified();
 									int tabColourIndex;
+									int autocompleteColourIndex = -1;
 									if ((tabColourIndex = whichTabColourIndex()) != -1)
 									{
 										tabColourIndex = (tabColourIndex == TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
@@ -534,6 +541,10 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									else if (isDocumentMapStyle())
 									{
 										ViewZoneDlg::setColour(_pBgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::frost);
+									}
+									else if ((autocompleteColourIndex = whichAutocompleteColourIndex(false)) != -1)
+									{
+										AutoCompletion::setColour(_pBgColour->getColour(), static_cast<AutoCompletion::AutocompleteColorIndex>(autocompleteColourIndex));
 									}
 									apply();
 									return TRUE;
@@ -599,18 +610,30 @@ void WordStyleDlg::updateThemeName(const generic_string& themeName)
 	nppGUI._themeName.assign( themeName );
 }
 
-int WordStyleDlg::whichTabColourIndex()
+bool WordStyleDlg::getStyleName(TCHAR *styleName, const size_t styleNameLen)
 {
 	auto i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
-		return -1;
-	const size_t styleNameLen = 128;
-	TCHAR styleName[styleNameLen + 1] = { '\0' };
+		return false;
+	
 	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
 	if (static_cast<size_t>(lbTextLen) > styleNameLen)
-		return -1;
+		return false;
 
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
+
+	return true;
+}
+
+int WordStyleDlg::whichTabColourIndex()
+{
+	constexpr size_t styleNameLen = 128;
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
+
+	if (!WordStyleDlg::getStyleName(styleName, styleNameLen))
+	{
+		return -1;
+	}
 
 	if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
 		return TabBarPlus::activeFocusedTop;
@@ -627,21 +650,56 @@ int WordStyleDlg::whichTabColourIndex()
 	return -1;
 }
 
-bool WordStyleDlg::isDocumentMapStyle()
+int WordStyleDlg::whichAutocompleteColourIndex(bool isText)
 {
-	const auto i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
-	if (i == LB_ERR)
-		return false;
-
 	constexpr size_t styleNameLen = 128;
 	TCHAR styleName[styleNameLen + 1] = { '\0' };
-	const auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXTLEN, i, 0);
-	if (static_cast<size_t>(lbTextLen) > styleNameLen)
-		return false;
 
-	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
+	if (!WordStyleDlg::getStyleName(styleName, styleNameLen))
+	{
+		return -1;
+	}
 
-	return (lstrcmp(styleName, VIEWZONE_DOCUMENTMAP) == 0);
+	if (lstrcmp(styleName, AUTOCOMPLETE_LIST) == 0)
+	{
+		if (isText)
+		{
+			return static_cast<int>(AutoCompletion::AutocompleteColorIndex::autocompleteText);
+		}
+		return static_cast<int>(AutoCompletion::AutocompleteColorIndex::autocompleteBg);
+	}
+
+	if (lstrcmp(styleName, AUTOCOMPLETE_SELECT) == 0)
+	{
+		if (isText)
+		{
+			return static_cast<int>(AutoCompletion::AutocompleteColorIndex::selectedText);
+		}
+		return static_cast<int>(AutoCompletion::AutocompleteColorIndex::selectedBg);
+	}
+
+	if (lstrcmp(styleName, AUTOCOMPLETE_CALLTIP) == 0)
+	{
+		if (isText)
+		{
+			return static_cast<int>(AutoCompletion::AutocompleteColorIndex::calltipText);
+		}
+		return static_cast<int>(AutoCompletion::AutocompleteColorIndex::calltipBg);
+	}
+
+
+	if ((lstrcmp(styleName, AUTOCOMPLETE_CALLTIP_HIGHLIGHT) == 0) && isText)
+		return static_cast<int>(AutoCompletion::AutocompleteColorIndex::calltipHighlight);
+
+	return -1;
+}
+
+bool WordStyleDlg::isDocumentMapStyle()
+{
+	constexpr size_t styleNameLen = 128;
+	TCHAR styleName[styleNameLen + 1] = { '\0' };
+
+	return (WordStyleDlg::getStyleName(styleName, styleNameLen) && (lstrcmp(styleName, VIEWZONE_DOCUMENTMAP) == 0));
 }
 
 void WordStyleDlg::updateColour(bool which)

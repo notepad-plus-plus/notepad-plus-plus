@@ -1698,6 +1698,27 @@ namespace NppDarkMode
 		}
 	}
 
+	BOOL getAutocompleHandleProc(HWND hwnd, LPARAM /*lParam*/)
+	{
+		constexpr size_t classNameLen = 16;
+		TCHAR className[classNameLen]{};
+		GetClassName(hwnd, className, classNameLen);
+		if ((wcscmp(className, L"ListBoxX") == 0) ||
+			(wcscmp(className, WC_LISTBOX) == 0))
+		{
+			NppDarkMode::setDarkScrollBar(hwnd);
+			::EnumChildWindows(hwnd, getAutocompleHandleProc, 0);
+		}
+
+		return TRUE;
+	}
+
+	// set dark scrollbar for autocomplete list
+	void setDarkAutoCompletion()
+	{
+		::EnumThreadWindows(::GetCurrentThreadId(), getAutocompleHandleProc, 0);
+	}
+
 	LRESULT onCtlColor(HDC hdc)
 	{
 		::SetTextColor(hdc, NppDarkMode::getTextColor());

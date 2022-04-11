@@ -24,6 +24,11 @@ const size_t tagMaxLen = 256;
 
 class ScintillaEditView;
 
+constexpr TCHAR AUTOCOMPLETE_LIST[64] = TEXT("Autocomplete list");
+constexpr TCHAR AUTOCOMPLETE_SELECT[64] = TEXT("Autocomplete selected item");
+constexpr TCHAR AUTOCOMPLETE_CALLTIP[64] = TEXT("Calltip");
+constexpr TCHAR AUTOCOMPLETE_CALLTIP_HIGHLIGHT[64] = TEXT("Calltip highlighted text");
+
 struct MatchedCharInserted {
 	MatchedCharInserted() = delete;
 	char _c;
@@ -55,6 +60,16 @@ public:
 		delete _pXmlFile;
 	};
 
+	enum class AutocompleteColorIndex {
+		autocompleteText,
+		autocompleteBg,
+		selectedText,
+		selectedBg,
+		calltipBg,
+		calltipText,
+		calltipHighlight
+	};
+
 	bool setLanguage(LangType language);
 
 	//AutoComplete from the list
@@ -73,6 +88,18 @@ public:
 	void callTipClick(size_t direction);
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
 
+	static void setColour(COLORREF colour2Set, AutocompleteColorIndex i);
+	static void drawAutocomplete(ScintillaEditView* pEditView);
+
+protected:
+	static COLORREF _autocompleteBg;
+	static COLORREF _autocompleteText;
+	static COLORREF _selectedBg;
+	static COLORREF _selectedText;
+	static COLORREF _calltipBg;
+	static COLORREF _calltipText;
+	static COLORREF _calltipHighlight;
+
 private:
 	bool _funcCompletionActive = false;
 	ScintillaEditView * _pEditView = nullptr;
@@ -89,7 +116,7 @@ private:
 	generic_string _keyWords;
 	size_t _keyWordMaxLen = 0;
 
- 	FunctionCallTip _funcCalltip;
+	FunctionCallTip _funcCalltip;
 
 	const TCHAR * getApiFileName();
 	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars, TCHAR *excludeChars);

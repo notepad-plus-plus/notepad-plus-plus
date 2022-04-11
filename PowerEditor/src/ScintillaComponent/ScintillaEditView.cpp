@@ -2388,6 +2388,7 @@ void ScintillaEditView::showAutoComletion(size_t lenEntered, const TCHAR* list)
 	size_t cp = execute(SCI_GETCODEPAGE);
 	const char *listA = wmc.wchar2char(list, cp);
 	execute(SCI_AUTOCSHOW, lenEntered, reinterpret_cast<LPARAM>(listA));
+	NppDarkMode::setDarkAutoCompletion();
 }
 
 void ScintillaEditView::showCallTip(size_t startPos, const TCHAR * def)

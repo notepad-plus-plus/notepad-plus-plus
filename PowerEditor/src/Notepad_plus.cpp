@@ -368,6 +368,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
 
+	// Autocomplete list and calltip
+	drawAutocompleteColoursFromTheme();
+	drawAutocompleteColoursFromStylerArray();
+	AutoCompletion::drawAutocomplete(_pEditView);
+	AutoCompletion::drawAutocomplete(_pNonEditView);
+
 	// Document Map
 	drawDocumentMapColoursFromStylerArray();
 
@@ -5825,6 +5831,85 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText);
 	if (stInact && static_cast<long>(stInact->_bgColor) != -1)
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
+}
+
+void Notepad_plus::drawAutocompleteColoursFromTheme()
+{
+	// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
+	const Style* pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
+	if (pStyle)
+	{
+		NppParameters::getInstance().setCurrentDefaultFgColor(pStyle->_fgColor);
+		NppParameters::getInstance().setCurrentDefaultBgColor(pStyle->_bgColor);
+
+		int rbv = GetRValue(pStyle->_bgColor);
+		int gbv = GetGValue(pStyle->_bgColor);
+		int bbv = GetBValue(pStyle->_bgColor);
+
+		int rfv = GetRValue(pStyle->_fgColor);
+		int gfv = GetGValue(pStyle->_fgColor);
+		int bfv = GetBValue(pStyle->_fgColor);
+
+		COLORREF bgDarker = RGB(rbv - 20 <= 0 ? 0 : rbv - 20, gbv - 20 <= 0 ? 0 : gbv - 20, bbv - 20 <= 0 ? 0 : bbv - 20);
+		COLORREF fgDarker = RGB(rfv - 20 <= 0 ? 0 : rfv - 20, gfv - 20 <= 0 ? 0 : gfv - 20, bfv - 20 <= 0 ? 0 : bfv - 20);
+		COLORREF fgLigher = RGB(rfv + 20 >= 255 ? 255 : rfv + 20, gfv + 20 >= 255 ? 255 : gfv + 20, bfv + 20 >= 255 ? 255 : bfv + 20);
+
+		AutoCompletion::setColour(bgDarker, AutoCompletion::AutocompleteColorIndex::autocompleteBg);
+		AutoCompletion::setColour(pStyle->_bgColor, AutoCompletion::AutocompleteColorIndex::selectedBg);
+		AutoCompletion::setColour(fgDarker, AutoCompletion::AutocompleteColorIndex::autocompleteText);
+		AutoCompletion::setColour(pStyle->_fgColor, AutoCompletion::AutocompleteColorIndex::selectedText);
+
+		AutoCompletion::setColour(bgDarker, AutoCompletion::AutocompleteColorIndex::calltipBg);
+		AutoCompletion::setColour(fgDarker, AutoCompletion::AutocompleteColorIndex::calltipText);
+		AutoCompletion::setColour(fgLigher, AutoCompletion::AutocompleteColorIndex::calltipHighlight);
+	}
+}
+void Notepad_plus::drawAutocompleteColoursFromStylerArray()
+{
+	Style* stAcList = getStyleFromName(AUTOCOMPLETE_LIST);
+	if (stAcList)
+	{
+		if (static_cast<long>(stAcList->_fgColor) != -1)
+		{
+			AutoCompletion::setColour(stAcList->_fgColor, AutoCompletion::AutocompleteColorIndex::autocompleteText);
+		}
+		if (static_cast<long>(stAcList->_bgColor) != -1)
+		{
+			AutoCompletion::setColour(stAcList->_bgColor, AutoCompletion::AutocompleteColorIndex::autocompleteBg);
+		}
+	}
+
+	Style* stAcSelected = getStyleFromName(AUTOCOMPLETE_SELECT);
+	if (stAcSelected)
+	{
+		if (static_cast<long>(stAcSelected->_fgColor) != -1)
+		{
+			AutoCompletion::setColour(stAcSelected->_fgColor, AutoCompletion::AutocompleteColorIndex::selectedText);
+		}
+		if (static_cast<long>(stAcSelected->_bgColor) != -1)
+		{
+			AutoCompletion::setColour(stAcSelected->_bgColor, AutoCompletion::AutocompleteColorIndex::selectedBg);
+		}
+	}
+
+	Style* stCalltip = getStyleFromName(AUTOCOMPLETE_CALLTIP);
+	if (stCalltip)
+	{
+		if (static_cast<long>(stCalltip->_fgColor) != -1)
+		{
+			AutoCompletion::setColour(stCalltip->_fgColor, AutoCompletion::AutocompleteColorIndex::calltipText);
+		}
+		if (static_cast<long>(stCalltip->_bgColor) != -1)
+		{
+			AutoCompletion::setColour(stCalltip->_bgColor, AutoCompletion::AutocompleteColorIndex::calltipBg);
+		}
+	}
+
+	Style* stCalltipHl = getStyleFromName(AUTOCOMPLETE_CALLTIP_HIGHLIGHT);
+	if (stCalltipHl && static_cast<long>(stCalltipHl->_fgColor) != -1)
+	{
+		AutoCompletion::setColour(stCalltipHl->_fgColor, AutoCompletion::AutocompleteColorIndex::calltipHighlight);
+	}
 }
 
 void Notepad_plus::drawDocumentMapColoursFromStylerArray()

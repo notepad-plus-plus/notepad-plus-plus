@@ -1081,5 +1081,75 @@ const TCHAR * AutoCompletion::getApiFileName()
         _curLang = L_JS;
 
 	return ScintillaEditView::_langNameInfoArray[_curLang]._langName;
+}
 
+COLORREF AutoCompletion::_autocompleteText = RGB(0x00, 0x00, 0x00);
+COLORREF AutoCompletion::_autocompleteBg = RGB(0xFF, 0xFF, 0xFF);
+COLORREF AutoCompletion::_selectedText = RGB(0xFF, 0xFF, 0xFF);
+COLORREF AutoCompletion::_selectedBg = RGB(0x00, 0x78, 0xD7);
+COLORREF AutoCompletion::_calltipBg = RGB(0xFF, 0xFF, 0xFF);
+COLORREF AutoCompletion::_calltipText = RGB(0x80, 0x80, 0x80);
+COLORREF AutoCompletion::_calltipHighlight = RGB(0x00, 0x00, 0x80);
+
+void AutoCompletion::setColour(COLORREF colour2Set, AutocompleteColorIndex i)
+{
+	switch (i)
+	{
+	case AutocompleteColorIndex::autocompleteText:
+	{
+		_autocompleteText = colour2Set;
+		break;
+	}
+
+	case AutocompleteColorIndex::autocompleteBg:
+	{
+		_autocompleteBg = colour2Set;
+		break;
+	}
+
+	case AutocompleteColorIndex::selectedText:
+	{
+		_selectedText = colour2Set;
+		break;
+	}
+
+	case AutocompleteColorIndex::selectedBg:
+	{
+		_selectedBg = colour2Set;
+		break;
+	}
+
+	case AutocompleteColorIndex::calltipBg:
+	{
+		_calltipBg = colour2Set;
+		break;
+	}
+
+	case AutocompleteColorIndex::calltipText:
+	{
+		_calltipText = colour2Set;
+		break;
+	}
+
+	case AutocompleteColorIndex::calltipHighlight:
+	{
+		_calltipHighlight = colour2Set;
+		break;
+	}
+
+	default:
+		return;
+	}
+}
+
+void AutoCompletion::drawAutocomplete(ScintillaEditView* pEditView)
+{
+	pEditView->execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_LIST, _autocompleteText);
+	pEditView->execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_LIST_BACK, _autocompleteBg);
+	pEditView->execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_LIST_SELECTED, _selectedText);
+	pEditView->execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_LIST_SELECTED_BACK, _selectedBg);
+
+	pEditView->execute(SCI_CALLTIPSETBACK, _calltipBg);
+	pEditView->execute(SCI_CALLTIPSETFORE, _calltipText);
+	pEditView->execute(SCI_CALLTIPSETFOREHLT, _calltipHighlight);
 }

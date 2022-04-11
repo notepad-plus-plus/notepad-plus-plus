@@ -163,7 +163,10 @@ private :
         }
 	};
 
+	bool getStyleName(TCHAR *styleName, const size_t styleNameLen);
+
 	int whichTabColourIndex();
+	int whichAutocompleteColourIndex(bool isText);
 	bool isDocumentMapStyle();
 	void move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	void updateColour(bool which);

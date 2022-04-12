@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.3.2">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.3.4">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -940,7 +940,7 @@
                 </Global>
 
                 <Scintillas title="編輯">
-                    <Item id="6216" name="滑鼠浮標設定"/>
+                    <Item id="6216" name="浮標設定"/>
                     <Item id="6217" name="闊度："/>
                     <Item id="6219" name="眨嘅頻率："/>
                     <Item id="6221" name="快"/>
@@ -955,6 +955,7 @@
                     <Item id="6215" name="啟用順滑字體"/> <!-- #moved in v7.9.2 -->
                     <Item id="6236" name="轆到超出至最後一行"/> <!-- #moved in v7.9.2 -->
                     <Item id="6239" name="喺揀選範圍以外撳滑鼠右掣，保留揀選範圍"/> <!-- #moved in v7.9.2 -->
+                    <Item id="6245" name="啟用虛位空間浮標"/> <!-- #new v8.3.4 -->
                 </Scintillas>
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
@@ -1431,6 +1432,8 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <PanelTitle name="函式清單"/>
             <SortTip name="排次序"/>
             <ReloadTip name="Reload"/>
+            <PreferencesTip name="偏好設定"/> <!-- #new v8.3.4 -->
+            <PreferencesInitialSort name="預設以函式名排次序"/> <!-- #new v8.3.4 -->
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="資料夾工作區"/>

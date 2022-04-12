@@ -1698,7 +1698,7 @@ namespace NppDarkMode
 		}
 	}
 
-	BOOL getAutocompleHandleProc(HWND hwnd, LPARAM /*lParam*/)
+	BOOL CALLBACK enumAutocompleHandleProc(HWND hwnd, LPARAM /*lParam*/)
 	{
 		constexpr size_t classNameLen = 16;
 		TCHAR className[classNameLen]{};
@@ -1707,7 +1707,7 @@ namespace NppDarkMode
 			(wcscmp(className, WC_LISTBOX) == 0))
 		{
 			NppDarkMode::setDarkScrollBar(hwnd);
-			::EnumChildWindows(hwnd, getAutocompleHandleProc, 0);
+			::EnumChildWindows(hwnd, &enumAutocompleHandleProc, 0);
 		}
 
 		return TRUE;
@@ -1716,7 +1716,7 @@ namespace NppDarkMode
 	// set dark scrollbar for autocomplete list
 	void setDarkAutoCompletion()
 	{
-		::EnumThreadWindows(::GetCurrentThreadId(), getAutocompleHandleProc, 0);
+		::EnumThreadWindows(::GetCurrentThreadId(), &enumAutocompleHandleProc, 0);
 	}
 
 	LRESULT onCtlColor(HDC hdc)

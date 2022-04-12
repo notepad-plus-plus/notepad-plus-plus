@@ -369,7 +369,13 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	drawTabbarColoursFromStylerArray();
 
 	// Autocomplete list and calltip
-	drawAutocompleteColoursFromTheme();
+	const Style* pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
+	if (pStyle)
+	{
+		NppParameters::getInstance().setCurrentDefaultFgColor(pStyle->_fgColor);
+		NppParameters::getInstance().setCurrentDefaultBgColor(pStyle->_bgColor);
+		drawAutocompleteColoursFromTheme(pStyle->_fgColor, pStyle->_bgColor);
+	}
 	drawAutocompleteColoursFromStylerArray();
 	AutoCompletion::drawAutocomplete(_pEditView);
 	AutoCompletion::drawAutocomplete(_pNonEditView);
@@ -5833,36 +5839,28 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
 }
 
-void Notepad_plus::drawAutocompleteColoursFromTheme()
+void Notepad_plus::drawAutocompleteColoursFromTheme(COLORREF fgColor, COLORREF bgColor)
 {
-	// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
-	const Style* pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
-	if (pStyle)
-	{
-		NppParameters::getInstance().setCurrentDefaultFgColor(pStyle->_fgColor);
-		NppParameters::getInstance().setCurrentDefaultBgColor(pStyle->_bgColor);
+	int rbv = GetRValue(bgColor);
+	int gbv = GetGValue(bgColor);
+	int bbv = GetBValue(bgColor);
 
-		int rbv = GetRValue(pStyle->_bgColor);
-		int gbv = GetGValue(pStyle->_bgColor);
-		int bbv = GetBValue(pStyle->_bgColor);
+	int rfv = GetRValue(fgColor);
+	int gfv = GetGValue(fgColor);
+	int bfv = GetBValue(fgColor);
 
-		int rfv = GetRValue(pStyle->_fgColor);
-		int gfv = GetGValue(pStyle->_fgColor);
-		int bfv = GetBValue(pStyle->_fgColor);
+	COLORREF bgDarker = RGB(rbv - 20 <= 0 ? 0 : rbv - 20, gbv - 20 <= 0 ? 0 : gbv - 20, bbv - 20 <= 0 ? 0 : bbv - 20);
+	COLORREF fgDarker = RGB(rfv - 20 <= 0 ? 0 : rfv - 20, gfv - 20 <= 0 ? 0 : gfv - 20, bfv - 20 <= 0 ? 0 : bfv - 20);
+	COLORREF fgLigher = RGB(rfv + 20 >= 255 ? 255 : rfv + 20, gfv + 20 >= 255 ? 255 : gfv + 20, bfv + 20 >= 255 ? 255 : bfv + 20);
 
-		COLORREF bgDarker = RGB(rbv - 20 <= 0 ? 0 : rbv - 20, gbv - 20 <= 0 ? 0 : gbv - 20, bbv - 20 <= 0 ? 0 : bbv - 20);
-		COLORREF fgDarker = RGB(rfv - 20 <= 0 ? 0 : rfv - 20, gfv - 20 <= 0 ? 0 : gfv - 20, bfv - 20 <= 0 ? 0 : bfv - 20);
-		COLORREF fgLigher = RGB(rfv + 20 >= 255 ? 255 : rfv + 20, gfv + 20 >= 255 ? 255 : gfv + 20, bfv + 20 >= 255 ? 255 : bfv + 20);
+	AutoCompletion::setColour(bgDarker, AutoCompletion::AutocompleteColorIndex::autocompleteBg);
+	AutoCompletion::setColour(bgColor, AutoCompletion::AutocompleteColorIndex::selectedBg);
+	AutoCompletion::setColour(fgDarker, AutoCompletion::AutocompleteColorIndex::autocompleteText);
+	AutoCompletion::setColour(fgColor, AutoCompletion::AutocompleteColorIndex::selectedText);
 
-		AutoCompletion::setColour(bgDarker, AutoCompletion::AutocompleteColorIndex::autocompleteBg);
-		AutoCompletion::setColour(pStyle->_bgColor, AutoCompletion::AutocompleteColorIndex::selectedBg);
-		AutoCompletion::setColour(fgDarker, AutoCompletion::AutocompleteColorIndex::autocompleteText);
-		AutoCompletion::setColour(pStyle->_fgColor, AutoCompletion::AutocompleteColorIndex::selectedText);
-
-		AutoCompletion::setColour(bgDarker, AutoCompletion::AutocompleteColorIndex::calltipBg);
-		AutoCompletion::setColour(fgDarker, AutoCompletion::AutocompleteColorIndex::calltipText);
-		AutoCompletion::setColour(fgLigher, AutoCompletion::AutocompleteColorIndex::calltipHighlight);
-	}
+	AutoCompletion::setColour(bgDarker, AutoCompletion::AutocompleteColorIndex::calltipBg);
+	AutoCompletion::setColour(fgDarker, AutoCompletion::AutocompleteColorIndex::calltipText);
+	AutoCompletion::setColour(fgLigher, AutoCompletion::AutocompleteColorIndex::calltipHighlight);
 }
 void Notepad_plus::drawAutocompleteColoursFromStylerArray()
 {

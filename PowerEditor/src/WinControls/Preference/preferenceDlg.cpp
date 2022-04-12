@@ -855,6 +855,9 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						::SendDlgItemMessage(_hSelf, IDC_CARETLINEFRAME_WIDTH_CHECK, BM_SETCHECK, false, 0);
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), false);
 						redraw();
+
+						svp._currentLineUseFrame = false;
+						::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_FRAMING, 0);
 					}
 
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
@@ -865,6 +868,9 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if (svp._currentLineUseFrame)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, true, 0);
+
+						svp._currentLineHilitingShow = true;
+						::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
 					}
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), svp._currentLineUseFrame);

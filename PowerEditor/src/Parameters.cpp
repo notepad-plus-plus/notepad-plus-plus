@@ -5690,7 +5690,15 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	nm = element->Attribute(TEXT("currentLineFrameWidth"));
 	if (nm)
 	{
-		unsigned char frameWidth = static_cast<unsigned char>(std::stoi(nm));
+		unsigned char frameWidth{ 1 };
+		try
+		{
+			frameWidth = static_cast<unsigned char>(std::stoi(nm));
+		}
+		catch(...)
+		{
+			// do nothing. frameWidth is already set to '1'.
+		}
 		_svp._currentLineFrameWidth = (frameWidth < 1) ? 1 : (frameWidth > 6) ? 6 : frameWidth;
 	}
 

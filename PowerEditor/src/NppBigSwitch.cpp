@@ -1869,6 +1869,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			drawDocumentMapColoursFromStylerArray();
 
+			drawAutocompleteColoursFromTheme();
 			drawAutocompleteColoursFromStylerArray();
 			AutoCompletion::drawAutocomplete(_pEditView);
 			AutoCompletion::drawAutocomplete(_pNonEditView);

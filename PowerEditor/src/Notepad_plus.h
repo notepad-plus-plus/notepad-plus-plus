@@ -585,6 +585,7 @@ private:
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();
+	void drawAutocompleteColoursFromTheme();
 	void drawAutocompleteColoursFromStylerArray();
 	void drawDocumentMapColoursFromStylerArray();
 

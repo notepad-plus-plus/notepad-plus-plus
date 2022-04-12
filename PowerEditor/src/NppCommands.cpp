@@ -3754,6 +3754,18 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_CURLINE_FRAMING:
+		{
+			const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+
+			bool useFrame{ svp._currentLineUseFrame };
+			unsigned char frameWidth{ svp._currentLineFrameWidth };
+
+			_mainEditView.setCurrentLineFraming(useFrame, frameWidth);
+			_subEditView.setCurrentLineHiLiting(useFrame, frameWidth);
+		}
+		break;
+
 		case IDM_VIEW_LWDEF:
 		case IDM_VIEW_LWALIGN:
 		case IDM_VIEW_LWINDENT:

@@ -365,7 +365,9 @@
     #define    IDM_VIEW_SWITCHTO_FUNC_LIST        (IDM_VIEW + 108)
     #define    IDM_VIEW_SWITCHTO_DOCLIST          (IDM_VIEW + 109)
 
-    #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
+    #define    IDM_VIEW_CURLINE_FRAMING           (IDM_VIEW + 121)
+
+#define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002
     #define    IDM_VIEW_GOTO_NEW_INSTANCE        10003
     #define    IDM_VIEW_LOAD_IN_NEW_INSTANCE     10004

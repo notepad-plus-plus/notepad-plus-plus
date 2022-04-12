@@ -475,6 +475,10 @@ public:
 			execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, NULL);
 	};
 
+	void setCurrentLineFraming(bool useFrame, unsigned char frameWidth) const {
+		execute(SCI_SETCARETLINEFRAME, useFrame ? frameWidth : 0);
+	};
+
 	void performGlobalStyles();
 
 	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);

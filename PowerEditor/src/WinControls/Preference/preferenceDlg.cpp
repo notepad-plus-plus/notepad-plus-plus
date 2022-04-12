@@ -705,8 +705,8 @@ void EditingSubDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SMOOTHFONT, BM_SETCHECK, svp._doSmoothFont, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
 
-	::SendDlgItemMessage(_hSelf, IDC_CARETLINEFRAME_WIDTH_CHECK, BM_SETCHECK, svp._currentLineUseFrame, 0);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), svp._currentLineUseFrame);
+	::SendDlgItemMessage(_hSelf, IDC_CARETLINEFRAME_WIDTH_CHECK, BM_SETCHECK, svp._currentLineHilitingShow && svp._currentLineUseFrame, 0);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), svp._currentLineHilitingShow && svp._currentLineUseFrame);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_SETCHECK, svp._virtualSpace, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_SETCHECK, svp._scrollBeyondLastLine, 0);
@@ -850,11 +850,23 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_CHECK_CURRENTLINEHILITE:
 					svp._currentLineHilitingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
+					if (!svp._currentLineHilitingShow)
+					{
+						::SendDlgItemMessage(_hSelf, IDC_CARETLINEFRAME_WIDTH_CHECK, BM_SETCHECK, false, 0);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), false);
+						redraw();
+					}
+
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
 					return TRUE;
 
 				case IDC_CARETLINEFRAME_WIDTH_CHECK:
 					svp._currentLineUseFrame = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CARETLINEFRAME_WIDTH_CHECK, BM_GETCHECK, 0, 0));
+					if (svp._currentLineUseFrame)
+					{
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, true, 0);
+					}
+
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), svp._currentLineUseFrame);
 					redraw();
 

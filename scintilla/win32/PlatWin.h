@@ -53,6 +53,15 @@ HCURSOR LoadReverseArrowCursor(UINT dpi) noexcept;
 extern bool LoadD2D();
 extern ID2D1Factory *pD2DFactory;
 extern IDWriteFactory *pIDWriteFactory;
+
+struct RenderingParams {
+	std::unique_ptr<IDWriteRenderingParams, UnknownReleaser> defaultRenderingParams;
+	std::unique_ptr<IDWriteRenderingParams, UnknownReleaser> customRenderingParams;
+};
+
+struct ISetRenderingParams {
+	virtual void SetRenderingParams(std::shared_ptr<RenderingParams> renderingParams_) = 0;
+};
 #endif
 
 }

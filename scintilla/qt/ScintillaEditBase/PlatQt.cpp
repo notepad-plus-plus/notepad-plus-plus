@@ -339,19 +339,8 @@ void SurfaceImpl::FillRectangle(PRectangle rc, Surface &surfacePattern)
 {
 	// Tile pattern over rectangle
 	SurfaceImpl *surface = dynamic_cast<SurfaceImpl *>(&surfacePattern);
-	// Currently assumes 8x8 pattern
-	int widthPat = 8;
-	int heightPat = 8;
-	for (int xTile = rc.left; xTile < rc.right; xTile += widthPat) {
-		int widthx = (xTile + widthPat > rc.right) ? rc.right - xTile : widthPat;
-		for (int yTile = rc.top; yTile < rc.bottom; yTile += heightPat) {
-			int heighty = (yTile + heightPat > rc.bottom) ? rc.bottom - yTile : heightPat;
-			QRect source(0, 0, widthx, heighty);
-			QRect target(xTile, yTile, widthx, heighty);
-			QPixmap *pixmap = static_cast<QPixmap *>(surface->GetPaintDevice());
-			GetPainter()->drawPixmap(target, *pixmap, source);
-		}
-	}
+	const QPixmap *pixmap = static_cast<QPixmap *>(surface->GetPaintDevice());
+	GetPainter()->drawTiledPixmap(QRectFromPRect(rc), *pixmap);
 }
 
 void SurfaceImpl::RoundedRectangle(PRectangle rc, FillStroke fillStroke)

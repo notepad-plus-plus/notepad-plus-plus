@@ -465,22 +465,20 @@ void ScintillaBase::CallTipShow(Point pt, const char *defn) {
 	// StyleDefault for the face name, size and character set. Also use it
 	// for the foreground and background colour.
 	const int ctStyle = ct.UseStyleCallTip() ? StyleCallTip : StyleDefault;
+	const Style &style = vs.styles[ctStyle];
 	if (ct.UseStyleCallTip()) {
-		ct.SetForeBack(vs.styles[StyleCallTip].fore, vs.styles[StyleCallTip].back);
+		ct.SetForeBack(style.fore, style.back);
 	}
 	if (wMargin.Created()) {
 		pt = pt + GetVisibleOriginInMain();
 	}
+	AutoSurface surfaceMeasure(this);
 	PRectangle rc = ct.CallTipStart(sel.MainCaret(), pt,
 		vs.lineHeight,
 		defn,
-		vs.styles[ctStyle].fontName,
-		vs.styles[ctStyle].sizeZoomed,
 		CodePage(),
-		vs.styles[ctStyle].characterSet,
-		vs.technology,
-		vs.localeName.c_str(),
-		wMain);
+		surfaceMeasure,
+		style.font);
 	// If the call-tip window would be out of the client
 	// space
 	const PRectangle rcClient = GetClientRectangle();

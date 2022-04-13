@@ -88,6 +88,7 @@ public:
 	Position CurrentPos();
 	Position Anchor();
 	int StyleAt(Position pos);
+	int StyleIndexAt(Position pos);
 	void Redo();
 	void SetUndoCollection(bool collectUndo);
 	void SelectAll();

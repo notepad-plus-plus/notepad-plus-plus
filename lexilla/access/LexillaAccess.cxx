@@ -55,7 +55,7 @@ std::wstring WideStringFromUTF8(std::string_view sv) {
 	const int sLength = static_cast<int>(sv.length());
 	const int cchWide = ::MultiByteToWideChar(CP_UTF8, 0, sv.data(), sLength, nullptr, 0);
 	std::wstring sWide(cchWide, 0);
-	::MultiByteToWideChar(CP_UTF8, 0, sv.data(), sLength, &sWide[0], cchWide);
+	::MultiByteToWideChar(CP_UTF8, 0, sv.data(), sLength, sWide.data(), cchWide);
 	return sWide;
 }
 

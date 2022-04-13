@@ -1999,11 +1999,6 @@ gint ScintillaGTK::ScrollEvent(GtkWidget *widget, GdkEventScroll *event) {
 		// issues spurious button 2 mouse events during wheeling, which can cause
 		// problems (a patch for both was submitted by archaeopteryx.com on 13Jun2001)
 
-		// Data zoom not supported
-		if (event->state & GDK_SHIFT_MASK) {
-			return FALSE;
-		}
-
 #if GTK_CHECK_VERSION(3,4,0)
 		// Smooth scrolling not supported
 		if (event->direction == GDK_SCROLL_SMOOTH) {
@@ -2012,8 +2007,10 @@ gint ScintillaGTK::ScrollEvent(GtkWidget *widget, GdkEventScroll *event) {
 #endif
 
 		// Horizontal scrolling
-		if (event->direction == GDK_SCROLL_LEFT || event->direction == GDK_SCROLL_RIGHT) {
-			sciThis->HorizontalScrollTo(sciThis->xOffset + cLineScroll);
+		if (event->direction == GDK_SCROLL_LEFT || event->direction == GDK_SCROLL_RIGHT || event->state & GDK_SHIFT_MASK) {
+			int hScroll = gtk_adjustment_get_step_increment(sciThis->adjustmenth);
+			hScroll *= cLineScroll; // scroll by this many characters
+			sciThis->HorizontalScrollTo(sciThis->xOffset + hScroll);
 
 			// Text font size zoom
 		} else if (event->state & GDK_CONTROL_MASK) {

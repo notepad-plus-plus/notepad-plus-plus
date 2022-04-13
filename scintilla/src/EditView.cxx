@@ -388,7 +388,7 @@ bool ViewIsASCII(std::string_view text) {
 void LayoutSegments(IPositionCache *pCache,
 	Surface *surface,
 	const ViewStyle &vstyle,
-	LineLayout *ll, 
+	LineLayout *ll,
 	const std::vector<TextSegment> &segments,
 	std::atomic<uint32_t> &nextIndex,
 	const bool textUnicode,
@@ -774,8 +774,8 @@ Point EditView::LocationFromPosition(Surface *surface, const EditModel &model, S
 			}
 		}
 		pt.y += (lineVisible - topLine) * vs.lineHeight;
+		pt.x += pos.VirtualSpace() * vs.styles[ll->EndLineStyle()].spaceWidth;
 	}
-	pt.x += pos.VirtualSpace() * vs.styles[ll->EndLineStyle()].spaceWidth;
 	return pt;
 }
 
@@ -1485,7 +1485,9 @@ void EditView::DrawEOLAnnotationText(Surface *surface, const EditModel &model, c
 	const char *textFoldDisplay = model.GetFoldDisplayText(line);
 	if (textFoldDisplay) {
 		const std::string_view foldDisplayText(textFoldDisplay);
-		rcSegment.left += (static_cast<int>(surface->WidthText(fontText, foldDisplayText)) + vsDraw.aveCharWidth);
+		rcSegment.left += static_cast<int>(
+			surface->WidthText(vsDraw.styles[StyleFoldDisplayText].font.get(), foldDisplayText)) +
+			vsDraw.aveCharWidth;
 	}
 	rcSegment.right = rcSegment.left + static_cast<XYPOSITION>(widthEOLAnnotationText);
 
@@ -2441,7 +2443,7 @@ void EditView::PaintText(Surface *surfaceWindow, const EditModel &model, PRectan
 			surface = pixmapLine.get();
 			PLATFORM_ASSERT(pixmapLine->Initialised());
 		}
-		surface->SetMode(SurfaceMode(model.pdoc->dbcsCodePage, model.BidirectionalR2L()));
+		surface->SetMode(model.CurrentSurfaceMode());
 
 		const Point ptOrigin = model.GetVisibleOriginInMain();
 

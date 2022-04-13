@@ -8,6 +8,8 @@
 #ifndef TESTDOCUMENT_H
 #define TESTDOCUMENT_H
 
+std::u32string UTF32FromUTF8(std::string_view svu8);
+
 class TestDocument : public Scintilla::IDocument {
 	std::string text;
 	std::string textStyles;

@@ -122,12 +122,12 @@ public:
 	}
 	// Return style value from buffer when in buffer, else retrieve from document.
 	// This is faster and can avoid calls to Flush() as that may be expensive.
-	char BufferStyleAt(Sci_Position position) const {
+	int BufferStyleAt(Sci_Position position) const {
 		const Sci_Position index = position - startPosStyling;
 		if (index >= 0 && index < validLen) {
-			return styleBuf[index];
+			return static_cast<unsigned char>(styleBuf[index]);
 		}
-		return pAccess->StyleAt(position);
+		return static_cast<unsigned char>(pAccess->StyleAt(position));
 	}
 	Sci_Position GetLine(Sci_Position position) const {
 		return pAccess->LineFromPosition(position);

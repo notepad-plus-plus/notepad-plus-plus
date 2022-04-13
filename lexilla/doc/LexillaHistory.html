@@ -577,6 +577,7 @@
 	<td>Arkadiusz Michalski</td>
       </tr><tr>
 	<td>Red_M</td>
+	<td>cdbdev</td>
     </tr>
     </table>
     <h2>Releases</h2>
@@ -585,12 +586,48 @@
     </h3>
     <ul>
 	<li>
-	Released 9 February 2022.
+	Released 31 March 2022.
+	</li>
+	<li>
+	Implement conditional statements "if" and "match", comparison function "$(=", and "FileNameExt"
+	property in TestLexers to allow varying lexer properties over different files.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/62">Issue #62</a>.
 	</li>
 	<li>
 	Add LexAccessor::BufferStyleAt to retrieve style values to simplify logic and
 	improve performance.
 	<a href="https://github.com/ScintillaOrg/lexilla/issues/54">Issue #54</a>.
+	</li>
+	<li>
+	Markdown: Optionally style all of Markdown header lines.
+	Enabled with lexer.markdown.header.eolfill=1.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/60">Issue #60</a>.
+	</li>
+	<li>
+	Ruby: Fix operator method styling so next word not treated as method name.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/65">Issue #65</a>.
+	</li>
+	<li>
+	Ruby: Fix folding for Ruby 3 endless method definition.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/65">Issue #65</a>.
+	</li>
+	<li>
+	Ruby: Fold string array SCE_RB_STRING_QW.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/65">Issue #65</a>.
+	</li>
+	<li>
+	Ruby: Fix final \n in indented heredoc to be SCE_RB_HERE_Q.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/66">Issue #66</a>.
+	</li>
+	<li>
+	Ruby: Fix heredoc recognition when '.' and ',' used in method calls and after SCE_RB_GLOBAL.
+	Classify word after heredoc delimiter instead of styling as keyword.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/67">Issue #67</a>.
+	</li>
+	<li>
+	Ruby: Improve method highlighting so method name is styled as SCE_RB_DEFNAME and class/object
+	is styled appropriately.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/68">Issue #68</a>.
 	</li>
     </ul>
     <h3>

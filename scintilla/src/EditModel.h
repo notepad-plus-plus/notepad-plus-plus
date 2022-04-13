@@ -66,6 +66,7 @@ public:
 	virtual Sci::Line LinesOnScreen() const = 0;
 	bool BidirectionalEnabled() const noexcept;
 	bool BidirectionalR2L() const noexcept;
+	SurfaceMode CurrentSurfaceMode() const noexcept;
 	void SetDefaultFoldDisplayText(const char *text);
 	const char *GetDefaultFoldDisplayText() const noexcept;
 	const char *GetFoldDisplayText(Sci::Line lineDoc) const noexcept;

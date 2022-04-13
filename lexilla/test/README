@@ -100,8 +100,14 @@ Other settings are treated as lexer or folder properties and forwarded to the le
 
 It is often necessary to set 'fold' in SciTE.properties to cause folding.
 
-If there is a need to test additional configurations of keywords or properties then
-create another subdirectory with the different settings in a new SciTE.properties.
+Properties can be set for a particular file with an "if $(=" or "match" expression like so:
+if $(= $(FileNameExt);HeaderEOLFill_1.md)
+    lexer.markdown.header.eolfill=1
+match Header*1.md
+    lexer.markdown.header.eolfill=1
+
+More complex tests with additional configurations of keywords or properties can be performed
+by creating another subdirectory with the different settings in a new SciTE.properties.
 
 There is some support for running benchmarks on lexers and folders. The properties
 testlexers.repeat.lex and testlexers.repeat.fold specify the number of times example

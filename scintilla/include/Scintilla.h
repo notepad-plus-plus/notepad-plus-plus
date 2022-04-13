@@ -57,6 +57,7 @@ typedef sptr_t (*SciFnDirectStatus)(sptr_t ptr, unsigned int iMessage, uptr_t wP
 #define SCI_GETCURRENTPOS 2008
 #define SCI_GETANCHOR 2009
 #define SCI_GETSTYLEAT 2010
+#define SCI_GETSTYLEINDEXAT 2038
 #define SCI_REDO 2011
 #define SCI_SETUNDOCOLLECTION 2012
 #define SCI_SELECTALL 2013

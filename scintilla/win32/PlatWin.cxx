@@ -28,9 +28,9 @@
 #define NOMINMAX
 #endif
 #undef _WIN32_WINNT
-#define _WIN32_WINNT 0x0500
+#define _WIN32_WINNT 0x0A00
 #undef WINVER
-#define WINVER 0x0500
+#define WINVER 0x0A00
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
 #include <commctrl.h>
@@ -58,14 +58,6 @@
 #include "WinTypes.h"
 #include "PlatWin.h"
 
-#ifndef SPI_GETFONTSMOOTHINGCONTRAST
-#define SPI_GETFONTSMOOTHINGCONTRAST	0x200C
-#endif
-
-#ifndef LOAD_LIBRARY_SEARCH_SYSTEM32
-#define LOAD_LIBRARY_SEARCH_SYSTEM32 0x00000800
-#endif
-
 // __uuidof is a Microsoft extension but makes COM code neater, so disable warning
 #if defined(__clang__)
 #pragma clang diagnostic ignored "-Wlanguage-extension-token"
@@ -80,8 +72,6 @@ UINT CodePageFromCharSet(CharacterSet characterSet, UINT documentCodePage) noexc
 #if defined(USE_D2D)
 IDWriteFactory *pIDWriteFactory = nullptr;
 ID2D1Factory *pD2DFactory = nullptr;
-IDWriteRenderingParams *defaultRenderingParams = nullptr;
-IDWriteRenderingParams *customClearTypeRenderingParams = nullptr;
 D2D1_DRAW_TEXT_OPTIONS d2dDrawTextOptions = D2D1_DRAW_TEXT_OPTIONS_NONE;
 
 static HMODULE hDLLD2D {};
@@ -131,24 +121,6 @@ void LoadD2DOnce() noexcept {
 				reinterpret_cast<IUnknown**>(&pIDWriteFactory));
 		}
 	}
-
-	if (pIDWriteFactory) {
-		const HRESULT hr = pIDWriteFactory->CreateRenderingParams(&defaultRenderingParams);
-		if (SUCCEEDED(hr)) {
-			unsigned int clearTypeContrast = 0;
-			if (::SystemParametersInfo(SPI_GETFONTSMOOTHINGCONTRAST, 0, &clearTypeContrast, 0)) {
-
-				FLOAT gamma;
-				if (clearTypeContrast >= 1000 && clearTypeContrast <= 2200)
-					gamma = static_cast<FLOAT>(clearTypeContrast) / 1000.0f;
-				else
-					gamma = defaultRenderingParams->GetGamma();
-
-				pIDWriteFactory->CreateCustomRenderingParams(gamma, defaultRenderingParams->GetEnhancedContrast(), defaultRenderingParams->GetClearTypeLevel(),
-					defaultRenderingParams->GetPixelGeometry(), defaultRenderingParams->GetRenderingMode(), &customClearTypeRenderingParams);
-			}
-		}
-	}
 }
 
 bool LoadD2D() {
@@ -157,10 +129,6 @@ bool LoadD2D() {
 	return pIDWriteFactory && pD2DFactory;
 }
 
-#endif
-
-#ifndef CLEARTYPE_QUALITY
-#define CLEARTYPE_QUALITY 5
 #endif
 
 void *PointerFromWindow(HWND hWnd) noexcept {
@@ -1307,7 +1275,7 @@ constexpr D2D1_RECT_F RectangleInset(D2D1_RECT_F rect, FLOAT inset) noexcept {
 
 class BlobInline;
 
-class SurfaceD2D : public Surface {
+class SurfaceD2D : public Surface, public ISetRenderingParams {
 	SurfaceMode mode;
 
 	ID2D1RenderTarget *pRenderTarget = nullptr;
@@ -1317,8 +1285,10 @@ class SurfaceD2D : public Surface {
 
 	ID2D1SolidColorBrush *pBrush = nullptr;
 
-	FontQuality fontQuality = FontQuality::QualityMask;
+	static constexpr FontQuality invalidFontQuality = FontQuality::QualityMask;
+	FontQuality fontQuality = invalidFontQuality;
 	int logPixelsY = USER_DEFAULT_SCREEN_DPI;
+	std::shared_ptr<RenderingParams> renderingParams;
 
 	void Clear() noexcept;
 	void SetFontQuality(FontQuality extraFontFlag);
@@ -1392,6 +1362,8 @@ public:
 	void PopClip() override;
 	void FlushCachedState() override;
 	void FlushDrawing() override;
+
+	void SetRenderingParams(std::shared_ptr<RenderingParams> renderingParams_) override;
 };
 
 SurfaceD2D::SurfaceD2D() noexcept {
@@ -1443,7 +1415,7 @@ void SurfaceD2D::Release() noexcept {
 }
 
 void SurfaceD2D::SetScale(WindowID wid) noexcept {
-	fontQuality = FontQuality::QualityMask;
+	fontQuality = invalidFontQuality;
 	logPixelsY = DpiForWindow(wid);
 }
 
@@ -1471,7 +1443,9 @@ void SurfaceD2D::Init(SurfaceID sid, WindowID wid) {
 }
 
 std::unique_ptr<Surface> SurfaceD2D::AllocatePixMap(int width, int height) {
-	return std::make_unique<SurfaceD2D>(pRenderTarget, width, height, mode, logPixelsY);
+	std::unique_ptr<SurfaceD2D> surf = std::make_unique<SurfaceD2D>(pRenderTarget, width, height, mode, logPixelsY);
+	surf->SetRenderingParams(renderingParams);
+	return surf;
 }
 
 void SurfaceD2D::SetMode(SurfaceMode mode_) {
@@ -1498,15 +1472,14 @@ void SurfaceD2D::D2DPenColourAlpha(ColourRGBA fore) noexcept {
 }
 
 void SurfaceD2D::SetFontQuality(FontQuality extraFontFlag) {
-	if (fontQuality != extraFontFlag) {
+	if ((fontQuality != extraFontFlag) && renderingParams) {
 		fontQuality = extraFontFlag;
 		const D2D1_TEXT_ANTIALIAS_MODE aaMode = DWriteMapFontQuality(extraFontFlag);
-
-		if (aaMode == D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE && customClearTypeRenderingParams)
-			pRenderTarget->SetTextRenderingParams(customClearTypeRenderingParams);
-		else if (defaultRenderingParams)
-			pRenderTarget->SetTextRenderingParams(defaultRenderingParams);
-
+		if (aaMode == D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE && renderingParams->customRenderingParams) {
+			pRenderTarget->SetTextRenderingParams(renderingParams->customRenderingParams.get());
+		} else if (renderingParams->defaultRenderingParams) {
+			pRenderTarget->SetTextRenderingParams(renderingParams->defaultRenderingParams.get());
+		}
 		pRenderTarget->SetTextAntialiasMode(aaMode);
 	}
 }
@@ -2640,6 +2613,10 @@ void SurfaceD2D::FlushDrawing() {
 	if (pRenderTarget) {
 		pRenderTarget->Flush();
 	}
+}
+
+void SurfaceD2D::SetRenderingParams(std::shared_ptr<RenderingParams> renderingParams_) {
+	renderingParams = renderingParams_;
 }
 
 #endif
@@ -3876,8 +3853,6 @@ void Platform_Initialise(void *hInstance) noexcept {
 void Platform_Finalise(bool fromDllMain) noexcept {
 #if defined(USE_D2D)
 	if (!fromDllMain) {
-		ReleaseUnknown(defaultRenderingParams);
-		ReleaseUnknown(customClearTypeRenderingParams);
 		ReleaseUnknown(pIDWriteFactory);
 		ReleaseUnknown(pD2DFactory);
 		if (hDLLDWrite) {

@@ -26,6 +26,7 @@
 
 // C++ wrappers of C standard library
 #include <cstdlib>
+#include <cstdint>
 #include <cassert>
 #include <cstring>
 #include <cctype>

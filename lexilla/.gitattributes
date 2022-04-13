@@ -19,6 +19,7 @@
 **.def text
 **.manifest text
 **.properties text
+**.session text
 **.styled text
 **.folded text
 **.adoc text

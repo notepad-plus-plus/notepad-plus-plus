@@ -1569,6 +1569,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			_mainEditView.execute(SCI_SETCARETLINEFRAME, framewidth);
 			_subEditView.execute(SCI_SETCARETLINEFRAME, framewidth);
+			return TRUE;
 		}
 
 		case NPPM_SETEDITORBORDEREDGE:

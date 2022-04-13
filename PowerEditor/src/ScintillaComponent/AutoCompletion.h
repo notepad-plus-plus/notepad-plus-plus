@@ -24,11 +24,6 @@ const size_t tagMaxLen = 256;
 
 class ScintillaEditView;
 
-constexpr TCHAR AUTOCOMPLETE_LIST[64] = TEXT("Autocomplete list");
-constexpr TCHAR AUTOCOMPLETE_SELECT[64] = TEXT("Autocomplete selected item");
-constexpr TCHAR AUTOCOMPLETE_CALLTIP[64] = TEXT("Calltip");
-constexpr TCHAR AUTOCOMPLETE_CALLTIP_HIGHLIGHT[64] = TEXT("Calltip highlighted text");
-
 struct MatchedCharInserted {
 	MatchedCharInserted() = delete;
 	char _c;

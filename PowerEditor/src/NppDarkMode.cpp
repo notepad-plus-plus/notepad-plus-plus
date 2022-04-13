@@ -1707,7 +1707,7 @@ namespace NppDarkMode
 			(wcscmp(className, WC_LISTBOX) == 0))
 		{
 			NppDarkMode::setDarkScrollBar(hwnd);
-			::EnumChildWindows(hwnd, getAutocompleHandleProc, 0);
+			::EnumChildWindows(hwnd, (WNDENUMPROC)getAutocompleHandleProc, 0);
 		}
 
 		return TRUE;
@@ -1716,7 +1716,7 @@ namespace NppDarkMode
 	// set dark scrollbar for autocomplete list
 	void setDarkAutoCompletion()
 	{
-		::EnumThreadWindows(::GetCurrentThreadId(), getAutocompleHandleProc, 0);
+		::EnumThreadWindows(::GetCurrentThreadId(), (WNDENUMPROC)getAutocompleHandleProc, 0);
 	}
 
 	LRESULT onCtlColor(HDC hdc)

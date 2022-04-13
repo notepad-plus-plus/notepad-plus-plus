@@ -511,7 +511,6 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									updateColour(C_FOREGROUND);
 									notifyDataModified();
 									int tabColourIndex;
-									int autocompleteColourIndex = -1;
 									if ((tabColourIndex = whichTabColourIndex()) != -1)
 									{
 										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
@@ -519,10 +518,6 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									else if (isDocumentMapStyle())
 									{
 										ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
-									}
-									else if ((autocompleteColourIndex = whichAutocompleteColourIndex(true)) != -1)
-									{
-										AutoCompletion::setColour(_pFgColour->getColour(), static_cast<AutoCompletion::AutocompleteColorIndex>(autocompleteColourIndex));
 									}
 									apply();
 									return TRUE;
@@ -532,7 +527,6 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									updateColour(C_BACKGROUND);
 									notifyDataModified();
 									int tabColourIndex;
-									int autocompleteColourIndex = -1;
 									if ((tabColourIndex = whichTabColourIndex()) != -1)
 									{
 										tabColourIndex = (tabColourIndex == TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
@@ -541,10 +535,6 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									else if (isDocumentMapStyle())
 									{
 										ViewZoneDlg::setColour(_pBgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::frost);
-									}
-									else if ((autocompleteColourIndex = whichAutocompleteColourIndex(false)) != -1)
-									{
-										AutoCompletion::setColour(_pBgColour->getColour(), static_cast<AutoCompletion::AutocompleteColorIndex>(autocompleteColourIndex));
 									}
 									apply();
 									return TRUE;
@@ -646,50 +636,6 @@ int WordStyleDlg::whichTabColourIndex()
 
 	if (lstrcmp(styleName, TABBAR_INACTIVETEXT) == 0)
 		return TabBarPlus::inactiveText;
-
-	return -1;
-}
-
-int WordStyleDlg::whichAutocompleteColourIndex(bool isText)
-{
-	constexpr size_t styleNameLen = 128;
-	TCHAR styleName[styleNameLen + 1] = { '\0' };
-
-	if (!WordStyleDlg::getStyleName(styleName, styleNameLen))
-	{
-		return -1;
-	}
-
-	if (lstrcmp(styleName, AUTOCOMPLETE_LIST) == 0)
-	{
-		if (isText)
-		{
-			return static_cast<int>(AutoCompletion::AutocompleteColorIndex::autocompleteText);
-		}
-		return static_cast<int>(AutoCompletion::AutocompleteColorIndex::autocompleteBg);
-	}
-
-	if (lstrcmp(styleName, AUTOCOMPLETE_SELECT) == 0)
-	{
-		if (isText)
-		{
-			return static_cast<int>(AutoCompletion::AutocompleteColorIndex::selectedText);
-		}
-		return static_cast<int>(AutoCompletion::AutocompleteColorIndex::selectedBg);
-	}
-
-	if (lstrcmp(styleName, AUTOCOMPLETE_CALLTIP) == 0)
-	{
-		if (isText)
-		{
-			return static_cast<int>(AutoCompletion::AutocompleteColorIndex::calltipText);
-		}
-		return static_cast<int>(AutoCompletion::AutocompleteColorIndex::calltipBg);
-	}
-
-
-	if ((lstrcmp(styleName, AUTOCOMPLETE_CALLTIP_HIGHLIGHT) == 0) && isText)
-		return static_cast<int>(AutoCompletion::AutocompleteColorIndex::calltipHighlight);
 
 	return -1;
 }

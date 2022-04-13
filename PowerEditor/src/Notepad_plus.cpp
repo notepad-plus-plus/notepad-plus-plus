@@ -370,7 +370,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	// Autocomplete list and calltip
 	drawAutocompleteColoursFromTheme();
-	drawAutocompleteColoursFromStylerArray();
 	AutoCompletion::drawAutocomplete(_pEditView);
 	AutoCompletion::drawAutocomplete(_pNonEditView);
 
@@ -5851,6 +5850,10 @@ void Notepad_plus::drawAutocompleteColoursFromTheme()
 		int bfv = GetBValue(pStyle->_fgColor);
 
 		COLORREF bgDarker = RGB(rbv - 20 <= 0 ? 0 : rbv - 20, gbv - 20 <= 0 ? 0 : gbv - 20, bbv - 20 <= 0 ? 0 : bbv - 20);
+
+		if (pStyle->_bgColor == RGB(0, 0, 0)) // if the bg is pure black
+			bgDarker = RGB(20, 20, 20); // make bgDarker lighter for distinguishing between both
+
 		COLORREF fgDarker = RGB(rfv - 20 <= 0 ? 0 : rfv - 20, gfv - 20 <= 0 ? 0 : gfv - 20, bfv - 20 <= 0 ? 0 : bfv - 20);
 		COLORREF fgLigher = RGB(rfv + 20 >= 255 ? 255 : rfv + 20, gfv + 20 >= 255 ? 255 : gfv + 20, bfv + 20 >= 255 ? 255 : bfv + 20);
 
@@ -5862,53 +5865,6 @@ void Notepad_plus::drawAutocompleteColoursFromTheme()
 		AutoCompletion::setColour(bgDarker, AutoCompletion::AutocompleteColorIndex::calltipBg);
 		AutoCompletion::setColour(fgDarker, AutoCompletion::AutocompleteColorIndex::calltipText);
 		AutoCompletion::setColour(fgLigher, AutoCompletion::AutocompleteColorIndex::calltipHighlight);
-	}
-}
-void Notepad_plus::drawAutocompleteColoursFromStylerArray()
-{
-	Style* stAcList = getStyleFromName(AUTOCOMPLETE_LIST);
-	if (stAcList)
-	{
-		if (static_cast<long>(stAcList->_fgColor) != -1)
-		{
-			AutoCompletion::setColour(stAcList->_fgColor, AutoCompletion::AutocompleteColorIndex::autocompleteText);
-		}
-		if (static_cast<long>(stAcList->_bgColor) != -1)
-		{
-			AutoCompletion::setColour(stAcList->_bgColor, AutoCompletion::AutocompleteColorIndex::autocompleteBg);
-		}
-	}
-
-	Style* stAcSelected = getStyleFromName(AUTOCOMPLETE_SELECT);
-	if (stAcSelected)
-	{
-		if (static_cast<long>(stAcSelected->_fgColor) != -1)
-		{
-			AutoCompletion::setColour(stAcSelected->_fgColor, AutoCompletion::AutocompleteColorIndex::selectedText);
-		}
-		if (static_cast<long>(stAcSelected->_bgColor) != -1)
-		{
-			AutoCompletion::setColour(stAcSelected->_bgColor, AutoCompletion::AutocompleteColorIndex::selectedBg);
-		}
-	}
-
-	Style* stCalltip = getStyleFromName(AUTOCOMPLETE_CALLTIP);
-	if (stCalltip)
-	{
-		if (static_cast<long>(stCalltip->_fgColor) != -1)
-		{
-			AutoCompletion::setColour(stCalltip->_fgColor, AutoCompletion::AutocompleteColorIndex::calltipText);
-		}
-		if (static_cast<long>(stCalltip->_bgColor) != -1)
-		{
-			AutoCompletion::setColour(stCalltip->_bgColor, AutoCompletion::AutocompleteColorIndex::calltipBg);
-		}
-	}
-
-	Style* stCalltipHl = getStyleFromName(AUTOCOMPLETE_CALLTIP_HIGHLIGHT);
-	if (stCalltipHl && static_cast<long>(stCalltipHl->_fgColor) != -1)
-	{
-		AutoCompletion::setColour(stCalltipHl->_fgColor, AutoCompletion::AutocompleteColorIndex::calltipHighlight);
 	}
 }
 

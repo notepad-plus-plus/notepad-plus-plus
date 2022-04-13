@@ -3746,8 +3746,8 @@ void Notepad_plus::command(int id)
 		{
 			NppParameters& nppParams = NppParameters::getInstance();
 
-			COLORREF colour{ nppParams.getCurLineHilitingColour() };
-			bool hilite{ nppParams.getSVP()._currentLineHilitingShow };
+			const COLORREF colour { nppParams.getCurLineHilitingColour() };
+			const bool hilite { nppParams.getSVP()._currentLineHilitingShow };
 
 			_mainEditView.setCurrentLineHiLiting(hilite, colour);
 			_subEditView.setCurrentLineHiLiting(hilite, colour);

@@ -5676,6 +5676,22 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._currentLineHilitingShow = false;
 	}
 
+	// Current Line Frame Width
+	nm = element->Attribute(TEXT("currentLineFrameWidth"));
+	if (nm)
+	{
+		unsigned char frameWidth{ 0 };
+		try
+		{
+			frameWidth = static_cast<unsigned char>(std::stoi(nm));
+		}
+		catch(...)
+		{
+			// do nothing. frameWidth is already set to '0'.
+		}
+		_svp._currentLineFrameWidth = (frameWidth < 0) ? 0 : (frameWidth > 6) ? 6 : frameWidth;
+	}
+
 	// Virtual Space
 	nm = element->Attribute(TEXT("virtualSpace"));
 	if (nm)
@@ -6063,6 +6079,7 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);
 
 	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHilitingShow"), _svp._currentLineHilitingShow?TEXT("show"):TEXT("hide"));
+	(scintNode->ToElement())->SetAttribute(TEXT("currentLineFrameWidth"), _svp._currentLineFrameWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("virtualSpace"), _svp._virtualSpace?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("scrollBeyondLastLine"), _svp._scrollBeyondLastLine?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("rightClickKeepsSelection"), _svp._rightClickKeepsSelection ? TEXT("yes") : TEXT("no"));

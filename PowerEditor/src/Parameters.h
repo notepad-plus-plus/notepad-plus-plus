@@ -884,6 +884,7 @@ struct ScintillaViewParams
 	bool _foldMarginShow = true;
 	bool _indentGuideLineShow = true;
 	bool _currentLineHilitingShow = true;
+	unsigned char _currentLineFrameWidth = 0; // 0-6 pixel
 	bool _wrapSymbolShow = false;
 	bool _doWrap = false;
 	bool _isEdgeBgMode = false;

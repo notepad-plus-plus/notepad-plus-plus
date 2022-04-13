@@ -2568,10 +2568,12 @@ void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, intptr_t
 void ScintillaEditView::performGlobalStyles()
 {
 	NppParameters& nppParams = NppParameters::getInstance();
+	const ScintillaViewParams& svp = nppParams.getSVP();
+
 	StyleArray& stylers = nppParams.getMiscStylerArray();
 	const Style* pStyle{};
 
-	if (nppParams.getSVP()._currentLineHilitingShow)
+	if (svp._currentLineHilitingShow)
 	{
 		pStyle = stylers.findByName(TEXT("Current line background colour"));
 		if (pStyle)
@@ -2579,6 +2581,8 @@ void ScintillaEditView::performGlobalStyles()
 			execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, pStyle->_bgColor);
 		}
 	}
+
+	execute(SCI_SETCARETLINEFRAME, svp._currentLineFrameWidth);
 
 	COLORREF selectColorBack = grey;
 	COLORREF selectColorFore = black;
@@ -2649,7 +2653,6 @@ void ScintillaEditView::performGlobalStyles()
 	COLORREF foldfgColor = white, foldbgColor = grey, activeFoldFgColor = red;
 	getFoldColor(foldfgColor, foldbgColor, activeFoldFgColor);
 
-	ScintillaViewParams & svp = (ScintillaViewParams &)nppParams.getSVP();
 	for (int j = 0 ; j < NB_FOLDER_STATE ; ++j)
 		defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[svp._folderStyle][j], foldfgColor, foldbgColor, activeFoldFgColor);
 

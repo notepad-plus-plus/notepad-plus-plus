@@ -52,6 +52,7 @@ public :
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
+	void showFrameWidthText(int width);
 };
 
 class DarkModeSubDlg : public StaticDialog

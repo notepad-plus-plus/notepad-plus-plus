@@ -19,14 +19,6 @@
 
 namespace Scintilla::Internal::HanjaDict {
 
-struct BSTRDeleter {
-	void operator()(BSTR bstr) const noexcept {
-		SysFreeString(bstr);
-	}
-};
-
-using UniqueBSTR = std::unique_ptr<OLECHAR[], BSTRDeleter>;
-
 interface IRadical;
 interface IHanja;
 interface IStrokes;
@@ -66,6 +58,37 @@ interface IHanjaDic : IUnknown {
 extern "C" const GUID __declspec(selectany) IID_IHanjaDic =
 { 0xad75f3ac, 0x18cd, 0x48c6, { 0xa2, 0x7d, 0xf1, 0xe9, 0xa7, 0xdc, 0xe4, 0x32 } };
 
+class ScopedBSTR {
+	BSTR bstr = nullptr;
+public:
+	ScopedBSTR() noexcept = default;
+	explicit ScopedBSTR(const OLECHAR *psz) noexcept :
+		bstr(SysAllocString(psz)) {
+	}
+	explicit ScopedBSTR(OLECHAR character) noexcept :
+		bstr(SysAllocStringLen(&character, 1)) {
+	}
+	// Deleted so ScopedBSTR objects can not be copied. Moves are OK.
+	ScopedBSTR(const ScopedBSTR &) = delete;
+	ScopedBSTR &operator=(const ScopedBSTR &) = delete;
+	// Moves are OK.
+	ScopedBSTR(ScopedBSTR &&) = default;
+	ScopedBSTR &operator=(ScopedBSTR &&) = default;
+	~ScopedBSTR() {
+		SysFreeString(bstr);
+	}
+
+	BSTR get() const noexcept {
+		return bstr;
+	}
+	void reset(BSTR value=nullptr) noexcept {
+		// https://en.cppreference.com/w/cpp/memory/unique_ptr/reset
+		BSTR const old = bstr;
+		bstr = value;
+		SysFreeString(old);
+	}
+};
+
 class HanjaDic {
 	std::unique_ptr<IHanjaDic, UnknownReleaser> HJinterface;
 
@@ -77,7 +100,7 @@ class HanjaDic {
 			hr = CoCreateInstance(CLSID_HanjaDic, nullptr,
 				CLSCTX_INPROC_SERVER, IID_IHanjaDic,
 				(LPVOID *)&instance);
-			if (SUCCEEDED(hr)) {
+			if (SUCCEEDED(hr) && instance) {
 				HJinterface.reset(instance);
 				hr = instance->OpenMainDic();
 				return SUCCEEDED(hr);
@@ -102,9 +125,9 @@ public:
 		return SUCCEEDED(hr) && hanjaType > HANJA_UNKNOWN;
 	}
 
-	bool HanjaToHangul(BSTR bstrHanja, UniqueBSTR &bstrHangul) const noexcept {
+	bool HanjaToHangul(const ScopedBSTR &bstrHanja, ScopedBSTR &bstrHangul) const noexcept {
 		BSTR result = nullptr;
-		const HRESULT hr = HJinterface->HanjaToHangul(bstrHanja, &result);
+		const HRESULT hr = HJinterface->HanjaToHangul(bstrHanja.get(), &result);
 		bstrHangul.reset(result);
 		return SUCCEEDED(hr);
 	}
@@ -121,11 +144,10 @@ bool GetHangulOfHanja(std::wstring &inout) noexcept {
 	if (dict.Open()) {
 		for (wchar_t &character : inout) {
 			if (dict.IsHanja(character)) { // Pass hanja only!
-				const UniqueBSTR bstrHanja{SysAllocStringLen(&character, 1)};
-				UniqueBSTR bstrHangul;
-				if (dict.HanjaToHangul(bstrHanja.get(), bstrHangul)) {
+				ScopedBSTR bstrHangul;
+				if (dict.HanjaToHangul(ScopedBSTR(character), bstrHangul)) {
 					changed = true;
-					character = bstrHangul[0];
+					character = *(bstrHangul.get());
 				}
 			}
 		}

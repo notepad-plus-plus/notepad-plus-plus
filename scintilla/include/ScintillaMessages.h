@@ -28,6 +28,7 @@ enum class Message {
 	GetCurrentPos = 2008,
 	GetAnchor = 2009,
 	GetStyleAt = 2010,
+	GetStyleIndexAt = 2038,
 	Redo = 2011,
 	SetUndoCollection = 2012,
 	SelectAll = 2013,

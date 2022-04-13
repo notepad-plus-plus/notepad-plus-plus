@@ -130,6 +130,9 @@ get position GetAnchor=2009(,)
 # Returns the style byte at the position.
 get int GetStyleAt=2010(position pos,)
 
+# Returns the unsigned style byte at the position.
+get int GetStyleIndexAt=2038(position pos,)
+
 # Redoes the next action on the undo history.
 fun void Redo=2011(,)
 

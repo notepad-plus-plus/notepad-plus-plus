@@ -204,7 +204,6 @@ Editor::Editor() : durationWrapOneByte(0.000001, 0.00000001, 0.00001) {
 
 Editor::~Editor() {
 	pdoc->RemoveWatcher(this, nullptr);
-	DropGraphics();
 }
 
 void Editor::Finalise() {
@@ -1707,6 +1706,7 @@ void Editor::PaintSelMargin(Surface *surfaceWindow, const PRectangle &rc) {
 	} else {
 		surface = surfaceWindow;
 	}
+	surface->SetMode(CurrentSurfaceMode());
 
 	// Clip vertically to paint area to avoid drawing line numbers
 	if (rcMargin.bottom > rc.bottom)
@@ -5687,6 +5687,26 @@ int Editor::CodePage() const noexcept {
 		return 0;
 }
 
+std::unique_ptr<Surface> Editor::CreateMeasurementSurface() const {
+	if (!wMain.GetID()) {
+		return {};
+	}
+	std::unique_ptr<Surface> surf = Surface::Allocate(technology);
+	surf->Init(wMain.GetID());
+	surf->SetMode(CurrentSurfaceMode());
+	return surf;
+}
+
+std::unique_ptr<Surface> Editor::CreateDrawingSurface(SurfaceID sid, std::optional<Scintilla::Technology> technologyOpt) const {
+	if (!wMain.GetID()) {
+		return {};
+	}
+	std::unique_ptr<Surface> surf = Surface::Allocate(technologyOpt ? *technologyOpt : technology);
+	surf->Init(sid, wMain.GetID());
+	surf->SetMode(CurrentSurfaceMode());
+	return surf;
+}
+
 Sci::Line Editor::WrapCount(Sci::Line line) {
 	AutoSurface surface(this);
 	std::shared_ptr<LineLayout> ll = view.RetrieveLineLayout(line, *this);
@@ -6463,6 +6483,12 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 			return 0;
 		else
 			return pdoc->StyleAt(PositionFromUPtr(wParam));
+
+	case Message::GetStyleIndexAt:
+		if (PositionFromUPtr(wParam) >= pdoc->Length())
+			return 0;
+		else
+			return pdoc->StyleIndexAt(PositionFromUPtr(wParam));
 
 	case Message::Redo:
 		Redo();

@@ -822,6 +822,8 @@ void SurfaceImpl::DrawTextTransparent(PRectangle rc, const Font *font_, XYPOSITI
 	}
 }
 
+namespace {
+
 class ClusterIterator {
 	UniquePangoLayoutIter iter;
 	PangoRectangle pos {};
@@ -836,6 +838,7 @@ public:
 		lenPositions(static_cast<int>(text.length())) {
 		LayoutSetText(layout, text);
 		iter.reset(pango_layout_get_iter(layout));
+		curIndex = pango_layout_iter_get_index(iter.get());
 		pango_layout_iter_get_cluster_extents(iter.get(), nullptr, &pos);
 	}
 
@@ -848,11 +851,23 @@ public:
 		} else {
 			finished = true;
 			position = pango_units_to_double(pos.x + pos.width);
-			curIndex = lenPositions;
+			curIndex = pango_layout_iter_get_index(iter.get());
 		}
 		distance = position - positionStart;
 	}
 };
+
+// Something has gone wrong so set all the characters as equally spaced.
+void EquallySpaced(PangoLayout *layout, XYPOSITION *positions, size_t lenPositions) {
+	int widthLayout = 0;
+	pango_layout_get_size(layout, &widthLayout, nullptr);
+	const XYPOSITION widthTotal = pango_units_to_double(widthLayout);
+	for (size_t bytePos=0; bytePos<lenPositions; bytePos++) {
+		positions[bytePos] = widthTotal / lenPositions * (bytePos + 1);
+	}
+}
+
+}
 
 void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSITION *positions) {
 	if (PFont(font_)->fd) {
@@ -863,8 +878,13 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 		pango_layout_set_font_description(layoutMeasure.get(), PFont(font_)->fd.get());
 		if (et == EncodingType::utf8) {
 			// Simple and direct as UTF-8 is native Pango encoding
-			int i = 0;
 			ClusterIterator iti(layoutMeasure.get(), text);
+			int i = iti.curIndex;
+			if (i != 0) {
+				// Unexpected start to iteration, could be bidirectional text
+				EquallySpaced(layoutMeasure.get(), positions, text.length());
+				return;
+			}
 			while (!iti.finished) {
 				iti.Next();
 				const int places = iti.curIndex - i;
@@ -889,8 +909,13 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 					// character byte lengths.
 					Converter convMeasure("UCS-2", CharacterSetID(characterSet), false);
 					int i = 0;
-					int clusterStart = 0;
 					ClusterIterator iti(layoutMeasure.get(), utfForm);
+					int clusterStart = iti.curIndex;
+					if (clusterStart != 0) {
+						// Unexpected start to iteration, could be bidirectional text
+						EquallySpaced(layoutMeasure.get(), positions, text.length());
+						return;
+					}
 					while (!iti.finished) {
 						iti.Next();
 						const int clusterEnd = iti.curIndex;
@@ -920,22 +945,22 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 					utfForm = UTF8FromLatin1(text);
 				}
 				size_t i = 0;
-				int clusterStart = 0;
 				// Each 8-bit input character may take 1 or 2 bytes in UTF-8
 				// and groups of up to 3 may be represented as ligatures.
 				ClusterIterator iti(layoutMeasure.get(), utfForm);
+				int clusterStart = iti.curIndex;
+				if (clusterStart != 0) {
+					// Unexpected start to iteration, could be bidirectional text
+					EquallySpaced(layoutMeasure.get(), positions, lenPositions);
+					return;
+				}
 				while (!iti.finished) {
 					iti.Next();
 					const int clusterEnd = iti.curIndex;
 					const int ligatureLength = g_utf8_strlen(utfForm.c_str() + clusterStart, clusterEnd - clusterStart);
 					if (rtlCheck && ((clusterEnd <= clusterStart) || (ligatureLength == 0) || (ligatureLength > 3))) {
 						// Something has gone wrong: exit quickly but pretend all the characters are equally spaced:
-						int widthLayout = 0;
-						pango_layout_get_size(layoutMeasure.get(), &widthLayout, nullptr);
-						const XYPOSITION widthTotal = pango_units_to_double(widthLayout);
-						for (size_t bytePos=0; bytePos<lenPositions; bytePos++) {
-							positions[bytePos] = widthTotal / lenPositions * (bytePos + 1);
-						}
+						EquallySpaced(layoutMeasure.get(), positions, lenPositions);
 						return;
 					}
 					PLATFORM_ASSERT(ligatureLength > 0 && ligatureLength <= 3);
@@ -1029,8 +1054,13 @@ void SurfaceImpl::MeasureWidthsUTF8(const Font *font_, std::string_view text, XY
 
 		pango_layout_set_font_description(layoutMeasure.get(), PFont(font_)->fd.get());
 		// Simple and direct as UTF-8 is native Pango encoding
-		int i = 0;
 		ClusterIterator iti(layoutMeasure.get(), text);
+		int i = iti.curIndex;
+		if (i != 0) {
+			// Unexpected start to iteration, could be bidirectional text
+			EquallySpaced(layoutMeasure.get(), positions, text.length());
+			return;
+		}
 		while (!iti.finished) {
 			iti.Next();
 			const int places = iti.curIndex - i;

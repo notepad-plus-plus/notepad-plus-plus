@@ -21,7 +21,7 @@ LD=link
 !IFDEF SUPPORT_XP
 ADD_DEFINE=-D_USING_V110_SDK71_
 # Different subsystems for 32-bit and 64-bit Windows XP so detect based on Platform
-# environment vairable set by vcvars*.bat to be either x86 or x64
+# environment variable set by vcvars*.bat to be either x86 or x64
 !IF "$(PLATFORM)" == "x64"
 SUBSYSTEM=-SUBSYSTEM:WINDOWS,5.02
 !ELSE

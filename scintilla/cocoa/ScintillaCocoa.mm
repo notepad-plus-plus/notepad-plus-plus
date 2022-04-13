@@ -1100,7 +1100,7 @@ void ScintillaCocoa::CTPaint(void *gc, NSRect rc) {
 #pragma unused(rc)
 	std::unique_ptr<Surface> surfaceWindow(Surface::Allocate(Technology::Default));
 	surfaceWindow->Init(gc, wMain.GetID());
-	surfaceWindow->SetMode(SurfaceMode(ct.codePage, BidirectionalR2L()));
+	surfaceWindow->SetMode(CurrentSurfaceMode());
 	ct.PaintCT(surfaceWindow.get());
 	surfaceWindow->Release();
 }
@@ -1456,7 +1456,7 @@ void ScintillaCocoa::StartDrag() {
 
 	// To get a bitmap of the text we're dragging, we just use Paint on a pixmap surface.
 	SurfaceImpl si;
-	si.SetMode(SurfaceMode(CodePage(), BidirectionalR2L()));
+	si.SetMode(CurrentSurfaceMode());
 	std::unique_ptr<SurfaceImpl> sw = si.AllocatePixMapImplementation(static_cast<int>(client.Width()), static_cast<int>(client.Height()));
 
 	const bool lastHideSelection = view.hideSelection;

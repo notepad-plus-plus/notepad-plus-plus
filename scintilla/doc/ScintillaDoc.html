@@ -129,7 +129,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 2 February 2021 NH</p>
+    <p>Last edited 9 March 2022 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -543,6 +543,7 @@
      <a class="message" href="#SCI_CLEARDOCUMENTSTYLE">SCI_CLEARDOCUMENTSTYLE</a><br />
      <a class="message" href="#SCI_GETCHARAT">SCI_GETCHARAT(position pos) &rarr; int</a><br />
      <a class="message" href="#SCI_GETSTYLEAT">SCI_GETSTYLEAT(position pos) &rarr; int</a><br />
+     <a class="message" href="#SCI_GETSTYLEINDEXAT">SCI_GETSTYLEINDEXAT(position pos) &rarr; int</a><br />
      <a class="message" href="#SCI_GETSTYLEDTEXT">SCI_GETSTYLEDTEXT(&lt;unused&gt;, Sci_TextRange *tr) &rarr; position</a><br />
      <a class="message" href="#SCI_RELEASEALLEXTENDEDSTYLES">SCI_RELEASEALLEXTENDEDSTYLES</a><br />
      <a class="message" href="#SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES(int numberStyles) &rarr; int</a><br />
@@ -694,9 +695,15 @@
      This returns the character at <code class="parameter">pos</code> in the document or 0 if <code class="parameter">pos</code> is
     negative or past the end of the document.</p>
 
-    <p><b id="SCI_GETSTYLEAT">SCI_GETSTYLEAT(position pos) &rarr; int</b><br />
+    <p>
+    <b id="SCI_GETSTYLEAT">SCI_GETSTYLEAT(position pos) &rarr; int</b><br />
+    <b id="SCI_GETSTYLEINDEXAT">SCI_GETSTYLEINDEXAT(position pos) &rarr; int</b><br />
      This returns the style at <code class="parameter">pos</code> in the document, or 0 if <code class="parameter">pos</code> is
-    negative or past the end of the document.</p>
+    negative or past the end of the document.
+    <code>SCI_GETSTYLEAT</code> may return a negative number for styles over 127 whereas <code>SCI_GETSTYLEINDEXAT</code>
+    will only return positive numbers.
+    <code>SCI_GETSTYLEINDEXAT</code> should be preferred as it handles styles more consistently and may avoid problems
+    with lexers that define more than 128 styles.</p>
 
     <p><b id="SCI_RELEASEALLEXTENDEDSTYLES">SCI_RELEASEALLEXTENDEDSTYLES</b><br />
     <b id="SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES(int numberStyles) &rarr; int</b><br />

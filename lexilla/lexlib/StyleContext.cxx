@@ -6,6 +6,7 @@
 // This file is in the public domain.
 
 #include <cstdlib>
+#include <cstdint>
 #include <cassert>
 
 #include <string>
@@ -19,6 +20,33 @@
 #include "CharacterSet.h"
 
 using namespace Lexilla;
+
+StyleContext::StyleContext(Sci_PositionU startPos, Sci_PositionU length,
+	int initStyle, LexAccessor &styler_, char chMask) :
+	styler(styler_),
+	multiByteAccess((styler.Encoding() == EncodingType::eightBit) ? nullptr : styler.MultiByteAccess()),
+	lengthDocument(static_cast<Sci_PositionU>(styler.Length())),
+	endPos(((startPos + length) < lengthDocument) ? (startPos + length) : (lengthDocument+1)),
+	lineDocEnd(styler.GetLine(lengthDocument)),
+	currentPosLastRelative(SIZE_MAX),
+	currentPos(startPos),
+	currentLine(styler.GetLine(startPos)),
+	lineEnd(styler.LineEnd(currentLine)),
+	lineStartNext(styler.LineStart(currentLine + 1)),
+	atLineStart(static_cast<Sci_PositionU>(styler.LineStart(currentLine)) == startPos),
+	// Mask off all bits which aren't in the chMask.
+	state(initStyle &chMask) {
+
+	styler.StartAt(startPos /*, chMask*/);
+	styler.StartSegment(startPos);
+
+	// Variable width is now 0 so GetNextChar gets the char at currentPos into chNext/widthNext
+	GetNextChar();
+	ch = chNext;
+	width = widthNext;
+
+	GetNextChar();
+}
 
 bool StyleContext::MatchIgnoreCase(const char *s) {
 	if (MakeLowerCase(ch) != static_cast<unsigned char>(*s))
@@ -52,19 +80,6 @@ bool StyleContext::MatchIgnoreCase2(const char *s) {
 		s++;
 	}
 	return true;
-}
-
-static void getRange(Sci_PositionU start,
-		Sci_PositionU end,
-		LexAccessor &styler,
-		char *s,
-		Sci_PositionU len) {
-	Sci_PositionU i = 0;
-	while ((i < end - start + 1) && (i < len-1)) {
-		s[i] = styler[start + i];
-		i++;
-	}
-	s[i] = '\0';
 }
 
 void StyleContext::GetCurrent(char *s, Sci_PositionU len) {

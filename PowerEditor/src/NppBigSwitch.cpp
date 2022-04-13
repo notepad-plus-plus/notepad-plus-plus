@@ -1563,6 +1563,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CARETLINEFRAME:
+		{
+			const LPARAM framewidth { (lParam < 0) ? 0 : (lParam > 6) ? 6 : lParam };
+
+			_mainEditView.execute(SCI_SETCARETLINEFRAME, framewidth);
+			_subEditView.execute(SCI_SETCARETLINEFRAME, framewidth);
+		}
+
 		case NPPM_SETEDITORBORDEREDGE:
 		{
 			bool withBorderEdge = (lParam == 1);
@@ -1868,10 +1876,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			drawTabbarColoursFromStylerArray();
 
 			drawDocumentMapColoursFromStylerArray();
-
-			drawAutocompleteColoursFromTheme();
-			AutoCompletion::drawAutocomplete(_pEditView);
-			AutoCompletion::drawAutocomplete(_pNonEditView);
 
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
 			const Style * pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);

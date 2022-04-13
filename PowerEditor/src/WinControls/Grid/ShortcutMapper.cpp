@@ -24,6 +24,7 @@ using namespace std;
 void ShortcutMapper::initTabs()
 {
 	HWND hTab = _hTabCtrl = ::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR);
+	NppDarkMode::subclassTabControl(hTab);
 	TCITEM tie;
 	tie.mask = TCIF_TEXT;
 
@@ -120,6 +121,8 @@ void ShortcutMapper::initBabyGrid()
 		TEXT("MS Shell Dlg"));
 	
 	_babygrid.init(_hInst, _hSelf, IDD_BABYGRID_ID1);
+
+	NppDarkMode::setDarkScrollBar(_babygrid.getHSelf());
 
 	_babygrid.setHeaderFont(_hGridFonts.at(GFONT_HEADER));
 	_babygrid.setRowFont(_hGridFonts.at(GFONT_ROWS));
@@ -422,6 +425,8 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_babygrid.display();	
 			goToCenter();
 
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			RECT rect;
 			Window::getClientRect(rect);
 			_clientWidth = rect.right - rect.left;
@@ -435,6 +440,33 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			return TRUE;
 		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_GETMINMAXINFO :
 		{
 			MINMAXINFO* mmi = (MINMAXINFO*)lParam;

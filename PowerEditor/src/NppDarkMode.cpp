@@ -1698,7 +1698,7 @@ namespace NppDarkMode
 		}
 	}
 
-	BOOL getAutocompleHandleProc(HWND hwnd, LPARAM /*lParam*/)
+	BOOL CALLBACK enumAutocompleteProc(HWND hwnd, LPARAM /*lParam*/)
 	{
 		constexpr size_t classNameLen = 16;
 		TCHAR className[classNameLen]{};
@@ -1707,7 +1707,7 @@ namespace NppDarkMode
 			(wcscmp(className, WC_LISTBOX) == 0))
 		{
 			NppDarkMode::setDarkScrollBar(hwnd);
-			::EnumChildWindows(hwnd, (WNDENUMPROC)getAutocompleHandleProc, 0);
+			::EnumChildWindows(hwnd, (WNDENUMPROC)enumAutocompleteProc, 0);
 		}
 
 		return TRUE;
@@ -1716,11 +1716,16 @@ namespace NppDarkMode
 	// set dark scrollbar for autocomplete list
 	void setDarkAutoCompletion()
 	{
-		::EnumThreadWindows(::GetCurrentThreadId(), (WNDENUMPROC)getAutocompleHandleProc, 0);
+		::EnumThreadWindows(::GetCurrentThreadId(), (WNDENUMPROC)enumAutocompleteProc, 0);
 	}
 
 	LRESULT onCtlColor(HDC hdc)
 	{
+		if (!NppDarkMode::isEnabled())
+		{
+			return FALSE;
+		}
+
 		::SetTextColor(hdc, NppDarkMode::getTextColor());
 		::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
 		return reinterpret_cast<LRESULT>(NppDarkMode::getBackgroundBrush());
@@ -1728,6 +1733,11 @@ namespace NppDarkMode
 
 	LRESULT onCtlColorSofter(HDC hdc)
 	{
+		if (!NppDarkMode::isEnabled())
+		{
+			return FALSE;
+		}
+
 		::SetTextColor(hdc, NppDarkMode::getTextColor());
 		::SetBkColor(hdc, NppDarkMode::getSofterBackgroundColor());
 		return reinterpret_cast<LRESULT>(NppDarkMode::getSofterBackgroundBrush());
@@ -1735,6 +1745,11 @@ namespace NppDarkMode
 
 	LRESULT onCtlColorDarker(HDC hdc)
 	{
+		if (!NppDarkMode::isEnabled())
+		{
+			return FALSE;
+		}
+
 		::SetTextColor(hdc, NppDarkMode::getTextColor());
 		::SetBkColor(hdc, NppDarkMode::getDarkerBackgroundColor());
 		return reinterpret_cast<LRESULT>(NppDarkMode::getDarkerBackgroundBrush());
@@ -1742,6 +1757,11 @@ namespace NppDarkMode
 
 	LRESULT onCtlColorError(HDC hdc)
 	{
+		if (!NppDarkMode::isEnabled())
+		{
+			return FALSE;
+		}
+
 		::SetTextColor(hdc, NppDarkMode::getTextColor());
 		::SetBkColor(hdc, NppDarkMode::getErrorBackgroundColor());
 		return reinterpret_cast<LRESULT>(NppDarkMode::getErrorBackgroundBrush());
@@ -1749,19 +1769,14 @@ namespace NppDarkMode
 	
 	LRESULT onCtlColorDarkerBGStaticText(HDC hdc, bool isTextEnabled)
 	{
-		LRESULT result = FALSE;
-
-		if (NppDarkMode::isEnabled())
-		{
-			::SetTextColor(hdc, isTextEnabled ? NppDarkMode::getTextColor() : NppDarkMode::getDisabledTextColor());
-			::SetBkColor(hdc, NppDarkMode::getDarkerBackgroundColor());
-			result = reinterpret_cast<LRESULT>(NppDarkMode::getDarkerBackgroundBrush());
-		}
-		else
+		if (!NppDarkMode::isEnabled())
 		{
 			::SetTextColor(hdc, ::GetSysColor(isTextEnabled ? COLOR_WINDOWTEXT : COLOR_GRAYTEXT));
+			return FALSE;
 		}
 
-		return result;
+		::SetTextColor(hdc, isTextEnabled ? NppDarkMode::getTextColor() : NppDarkMode::getDisabledTextColor());
+		::SetBkColor(hdc, NppDarkMode::getDarkerBackgroundColor());
+		return reinterpret_cast<LRESULT>(NppDarkMode::getDarkerBackgroundBrush());
 	}
 }

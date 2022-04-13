@@ -832,7 +832,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 				svp._currentLineFrameWidth = static_cast<unsigned char>(::SendMessage(hCaretLineFrameSlider, TBM_GETPOS, 0, 0));
 				::SetDlgItemInt(_hSelf, IDC_CARETLINEFRAME_WIDTH_DISPLAY, svp._currentLineFrameWidth, FALSE);
-				::SendMessage(::GetParent(_hParent), WM_COMMAND, IDM_VIEW_CURLINE_FRAMING, 0);
+				::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CARETLINEFRAME, svp._currentLineUseFrame, svp._currentLineFrameWidth);
 			}
 
 			return 0;	//return zero when handled
@@ -857,7 +857,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						redraw();
 
 						svp._currentLineUseFrame = false;
-						::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_FRAMING, 0);
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CARETLINEFRAME, svp._currentLineUseFrame, svp._currentLineFrameWidth);
 					}
 
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
@@ -876,7 +876,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), svp._currentLineUseFrame);
 					redraw();
 
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_FRAMING, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CARETLINEFRAME, svp._currentLineUseFrame, svp._currentLineFrameWidth);
 					return TRUE;
 
 				case IDC_CHECK_VIRTUALSPACE:

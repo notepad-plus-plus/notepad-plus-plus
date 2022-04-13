@@ -2581,7 +2581,7 @@ void ScintillaEditView::performGlobalStyles()
 		}
 	}
 
-	setCurrentLineFraming(svp._currentLineUseFrame, svp._currentLineFrameWidth);
+	execute(SCI_SETCARETLINEFRAME, svp._currentLineUseFrame ? svp._currentLineFrameWidth : 0);
 
 	COLORREF selectColorBack = grey;
 	COLORREF selectColorFore = black;

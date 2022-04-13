@@ -3746,23 +3746,11 @@ void Notepad_plus::command(int id)
 		{
 			NppParameters& nppParams = NppParameters::getInstance();
 
-			const COLORREF colour{ nppParams.getCurLineHilitingColour() };
-			const bool hilite{ nppParams.getSVP()._currentLineHilitingShow };
+			const COLORREF colour { nppParams.getCurLineHilitingColour() };
+			const bool hilite { nppParams.getSVP()._currentLineHilitingShow };
 
 			_mainEditView.setCurrentLineHiLiting(hilite, colour);
 			_subEditView.setCurrentLineHiLiting(hilite, colour);
-		}
-		break;
-
-		case IDM_VIEW_CURLINE_FRAMING:
-		{
-			const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
-
-			const bool useFrame{ svp._currentLineUseFrame };
-			const unsigned char frameWidth{ svp._currentLineFrameWidth };
-
-			_mainEditView.setCurrentLineFraming(useFrame, frameWidth);
-			_subEditView.setCurrentLineFraming(useFrame, frameWidth);
 		}
 		break;
 

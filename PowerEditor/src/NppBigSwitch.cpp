@@ -1877,6 +1877,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			drawDocumentMapColoursFromStylerArray();
 
+			drawAutocompleteColoursFromTheme();
+			AutoCompletion::drawAutocomplete(_pEditView);
+			AutoCompletion::drawAutocomplete(_pNonEditView);
+
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
 			const Style * pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
 			if (pStyle)

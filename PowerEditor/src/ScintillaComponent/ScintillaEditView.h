@@ -466,15 +466,6 @@ public:
 	}
 
 	void updateLineNumberWidth();
-	
-
-	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
-		if (isHiliting)
-			execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, bgColor);
-		else
-			execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, NULL);
-	};
-
 	void performGlobalStyles();
 
 	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);

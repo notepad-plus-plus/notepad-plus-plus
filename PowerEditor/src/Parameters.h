@@ -887,7 +887,8 @@ struct ScintillaViewParams
 	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
 	bool _foldMarginShow = true;
 	bool _indentGuideLineShow = true;
-	bool _currentLineHilitingShow = true;
+	lineHiliteMode _currentLineHiliteMode = LINEHILITE_HILITE;
+	unsigned char _currentLineFrameWidth = 1; // 1-6 pixel
 	bool _wrapSymbolShow = false;
 	bool _doWrap = false;
 	bool _isEdgeBgMode = false;

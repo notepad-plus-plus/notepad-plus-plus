@@ -28,6 +28,10 @@ const int BLINKRATE_FASTEST = 50;
 const int BLINKRATE_SLOWEST = 2500;
 const int BLINKRATE_INTERVAL = 50;
 
+const int CARETLINEFRAME_SMALLEST = 1;
+const int CARETLINEFRAME_LARGEST = 6;
+const int CARETLINEFRAME_INTERVAL = 1;
+
 const int BORDERWIDTH_SMALLEST = 0;
 const int BORDERWIDTH_LARGEST = 30;
 const int BORDERWIDTH_INTERVAL = 1;
@@ -699,11 +703,33 @@ void EditingSubDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SMOOTHFONT, BM_SETCHECK, svp._doSmoothFont, 0);
-	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
+
+	int lineHilite = 0;
+	switch (svp._currentLineHiliteMode)
+	{
+		case LINEHILITE_NONE:
+			lineHilite = IDC_RADIO_CLM_NONE;
+			break;
+		case LINEHILITE_FRAME:
+			lineHilite = IDC_RADIO_CLM_FRAME;
+			break;
+		default : // LINEHILITE_HILITE
+			lineHilite = IDC_RADIO_CLM_HILITE;
+	}
+	::SendDlgItemMessage(_hSelf, lineHilite, BM_SETCHECK, TRUE, 0);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), (svp._currentLineHiliteMode == LINEHILITE_FRAME));
+
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_SETCHECK, svp._virtualSpace, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_SETCHECK, svp._scrollBeyondLastLine, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_SETCHECK, svp._rightClickKeepsSelection, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
+}
+
+void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
+{
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), enableSlider);
+	redraw();
+	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
 }
 
 static WNDPROC oldFunclstToolbarProc = NULL;
@@ -728,7 +754,9 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
-	switch (message) 
+	ScintillaViewParams& svp = (ScintillaViewParams&)nppParam.getSVP();
+	
+	switch (message)
 	{
 		case WM_INITDIALOG :
 		{
@@ -748,6 +776,11 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			int blinkRate = (nppGUI._caretBlinkRate==0)?BLINKRATE_SLOWEST:nppGUI._caretBlinkRate;
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPOS, TRUE, blinkRate);
 
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETRANGEMIN, TRUE, CARETLINEFRAME_SMALLEST);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETRANGEMAX, TRUE, CARETLINEFRAME_LARGEST);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETPAGESIZE, 0, CARETLINEFRAME_INTERVAL);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETPOS, TRUE, svp._currentLineFrameWidth);
+			::SetDlgItemInt(_hSelf, IDC_CARETLINEFRAME_WIDTH_DISPLAY, svp._currentLineFrameWidth, FALSE);
 
 			initScintParam();
 
@@ -764,8 +797,24 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
+			int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+
+			// handle blurry text with disabled states for the affected static controls
+			if (dlgCtrlID == IDC_CARETLINEFRAME_WIDTH_STATIC || dlgCtrlID == IDC_CARETLINEFRAME_WIDTH_DISPLAY)
+			{
+				return NppDarkMode::onCtlColorDarkerBGStaticText(reinterpret_cast<HDC>(wParam), (svp._currentLineHiliteMode == LINEHILITE_FRAME));
+			}
+
 			if (NppDarkMode::isEnabled())
 			{
 				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
@@ -784,16 +833,25 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_HSCROLL:
 		{
-			HWND hCaretBlikRateSlider = ::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER);
-			if (reinterpret_cast<HWND>(lParam) == hCaretBlikRateSlider)
+			HWND hCaretBlinkRateSlider = ::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER);
+			HWND hCaretLineFrameSlider = ::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER);
+
+			if (reinterpret_cast<HWND>(lParam) == hCaretBlinkRateSlider)
 			{
-				auto blinkRate = ::SendMessage(hCaretBlikRateSlider, TBM_GETPOS, 0, 0);
+				auto blinkRate = ::SendMessage(hCaretBlinkRateSlider, TBM_GETPOS, 0, 0);
 				if (blinkRate == BLINKRATE_SLOWEST)
 					blinkRate = 0;
 				nppGUI._caretBlinkRate = static_cast<int>(blinkRate);
 
 				::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
 			}
+			else if (reinterpret_cast<HWND>(lParam) == hCaretLineFrameSlider)
+			{
+				svp._currentLineFrameWidth = static_cast<unsigned char>(::SendMessage(hCaretLineFrameSlider, TBM_GETPOS, 0, 0));
+				::SetDlgItemInt(_hSelf, IDC_CARETLINEFRAME_WIDTH_DISPLAY, svp._currentLineFrameWidth, FALSE);
+				::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CARETLINEFRAME, NULL, svp._currentLineFrameWidth);
+			}
+
 			return 0;	//return zero when handled
 		}
 
@@ -807,9 +865,19 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					::SendMessage(::GetParent(_hParent), NPPM_SETSMOOTHFONT, 0, svp._doSmoothFont);
 					return TRUE;
 
-				case IDC_CHECK_CURRENTLINEHILITE:
-					svp._currentLineHilitingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
+				case IDC_RADIO_CLM_NONE:
+					svp._currentLineHiliteMode = LINEHILITE_NONE;
+					changeLineHiliteMode(false);
+					return TRUE;
+
+				case IDC_RADIO_CLM_HILITE:
+					svp._currentLineHiliteMode = LINEHILITE_HILITE;
+					changeLineHiliteMode(false);
+					return TRUE;
+
+				case IDC_RADIO_CLM_FRAME:
+					svp._currentLineHiliteMode = LINEHILITE_FRAME;
+					changeLineHiliteMode(true);
 					return TRUE;
 
 				case IDC_CHECK_VIRTUALSPACE:

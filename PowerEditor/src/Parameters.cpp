@@ -5671,9 +5671,38 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	if (nm)
 	{
 		if (!lstrcmp(nm, TEXT("show")))
-			_svp._currentLineHilitingShow = true;
-		else if (!lstrcmp(nm, TEXT("hide")))
-			_svp._currentLineHilitingShow = false;
+			_svp._currentLineHiliteMode = LINEHILITE_HILITE;
+		else
+			_svp._currentLineHiliteMode = LINEHILITE_NONE;
+	}
+	else
+	{
+		const TCHAR* currentLineModeStr = element->Attribute(TEXT("currentLineIndicator"));
+		if (currentLineModeStr && currentLineModeStr[0])
+		{
+			if (lstrcmp(currentLineModeStr, TEXT("1")) == 0)
+				_svp._currentLineHiliteMode = LINEHILITE_HILITE;
+			else if (lstrcmp(currentLineModeStr, TEXT("2")) == 0)
+				_svp._currentLineHiliteMode = LINEHILITE_FRAME;
+			else
+				_svp._currentLineHiliteMode = LINEHILITE_NONE;
+		}
+	}
+
+	// Current Line Frame Width
+	nm = element->Attribute(TEXT("currentLineFrameWidth"));
+	if (nm)
+	{
+		unsigned char frameWidth{ 1 };
+		try
+		{
+			frameWidth = static_cast<unsigned char>(std::stoi(nm));
+		}
+		catch (...)
+		{
+			// do nothing. frameWidth is already set to '1'.
+		}
+		_svp._currentLineFrameWidth = (frameWidth < 1) ? 1 : (frameWidth > 6) ? 6 : frameWidth;
 	}
 
 	// Virtual Space
@@ -6062,7 +6091,9 @@ bool NppParameters::writeScintillaParams()
 								(_svp._lineWrapMethod == LINEWRAP_INDENT)?TEXT("indent"):TEXT("default");
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);
 
-	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHilitingShow"), _svp._currentLineHilitingShow?TEXT("show"):TEXT("hide"));
+	(scintNode->ToElement())->SetAttribute(TEXT("currentLineIndicator"), _svp._currentLineHiliteMode);
+	(scintNode->ToElement())->SetAttribute(TEXT("currentLineFrameWidth"), _svp._currentLineFrameWidth);
+
 	(scintNode->ToElement())->SetAttribute(TEXT("virtualSpace"), _svp._virtualSpace?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("scrollBeyondLastLine"), _svp._scrollBeyondLastLine?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("rightClickKeepsSelection"), _svp._rightClickKeepsSelection ? TEXT("yes") : TEXT("no"));

@@ -69,7 +69,7 @@ void ShortcutMapper::getClientRect(RECT & rc) const
 		int infoH = infoRect.bottom - infoRect.top;
 		int filterH = filterRect.bottom - filterRect.top;
 		int btnH = btnRect.bottom - btnRect.top;
-		int paddingBottom = btnH;
+		int paddingBottom = btnH + NppParameters::getInstance()._dpiManager.scaleY(16);
 		rc.bottom -= btnH + filterH + infoH + paddingBottom;
 
 		rc.left += NppParameters::getInstance()._dpiManager.scaleX(5);

@@ -5667,12 +5667,12 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	}
 
 	// Current Line Highlighting Mode
-	nm = element->Attribute(TEXT("currentLineHiliteMode"));
+	nm = element->Attribute(TEXT("currentLineHilitingShow"));
 	if (nm)
 	{
-		if (!lstrcmp(nm, TEXT("none")))
+		if (!lstrcmp(nm, TEXT("hide")))
 			_svp._currentLineHiliteMode = LINEHILITE_NONE;
-		else if (!lstrcmp(nm, TEXT("hilite")))
+		else if (!lstrcmp(nm, TEXT("show")))
 			_svp._currentLineHiliteMode = LINEHILITE_HILITE;
 		else if (!lstrcmp(nm, TEXT("frame")))
 			_svp._currentLineHiliteMode = LINEHILITE_FRAME;
@@ -6080,9 +6080,9 @@ bool NppParameters::writeScintillaParams()
 								(_svp._lineWrapMethod == LINEWRAP_INDENT)?TEXT("indent"):TEXT("default");
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);
 
-	const TCHAR *plineHiliteStr = (_svp._currentLineHiliteMode == LINEHILITE_NONE)?TEXT("none"):
-								(_svp._currentLineHiliteMode == LINEHILITE_FRAME)?TEXT("frame"):TEXT("hilite");
-	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHiliteMode"), plineHiliteStr);
+	const TCHAR *plineHiliteStr = (_svp._currentLineHiliteMode == LINEHILITE_NONE)?TEXT("hide"):
+								(_svp._currentLineHiliteMode == LINEHILITE_FRAME)?TEXT("frame"):TEXT("show");
+	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHilitingShow"), plineHiliteStr);
 	(scintNode->ToElement())->SetAttribute(TEXT("currentLineFrameWidth"), _svp._currentLineFrameWidth);
 
 	(scintNode->ToElement())->SetAttribute(TEXT("virtualSpace"), _svp._virtualSpace?TEXT("yes"):TEXT("no"));

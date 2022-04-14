@@ -1563,6 +1563,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CARETLINEFRAME:
+		{
+			_mainEditView.execute(SCI_SETCARETLINEFRAME, lParam);
+			_subEditView.execute(SCI_SETCARETLINEFRAME, lParam);
+			return TRUE;
+		}
+
 		case NPPM_SETEDITORBORDEREDGE:
 		{
 			bool withBorderEdge = (lParam == 1);

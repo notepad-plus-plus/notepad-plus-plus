@@ -5666,14 +5666,32 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._lineWrapMethod = LINEWRAP_INDENT;
 	}
 
-	// Current Line Highlighting State
-	nm = element->Attribute(TEXT("currentLineHilitingShow"));
+	// Current Line Highlighting Mode
+	nm = element->Attribute(TEXT("currentLineHiliteMode"));
 	if (nm)
 	{
-		if (!lstrcmp(nm, TEXT("show")))
-			_svp._currentLineHilitingShow = true;
-		else if (!lstrcmp(nm, TEXT("hide")))
-			_svp._currentLineHilitingShow = false;
+		if (!lstrcmp(nm, TEXT("none")))
+			_svp._currentLineHiliteMode = LINEHILITE_NONE;
+		else if (!lstrcmp(nm, TEXT("hilite")))
+			_svp._currentLineHiliteMode = LINEHILITE_HILITE;
+		else if (!lstrcmp(nm, TEXT("frame")))
+			_svp._currentLineHiliteMode = LINEHILITE_FRAME;
+	}
+
+	// Current Line Frame Width
+	nm = element->Attribute(TEXT("currentLineFrameWidth"));
+	if (nm)
+	{
+		unsigned char frameWidth{ 1 };
+		try
+		{
+			frameWidth = static_cast<unsigned char>(std::stoi(nm));
+		}
+		catch (...)
+		{
+			// do nothing. frameWidth is already set to '1'.
+		}
+		_svp._currentLineFrameWidth = (frameWidth < 1) ? 1 : (frameWidth > 6) ? 6 : frameWidth;
 	}
 
 	// Virtual Space
@@ -6062,7 +6080,11 @@ bool NppParameters::writeScintillaParams()
 								(_svp._lineWrapMethod == LINEWRAP_INDENT)?TEXT("indent"):TEXT("default");
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);
 
-	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHilitingShow"), _svp._currentLineHilitingShow?TEXT("show"):TEXT("hide"));
+	const TCHAR *plineHiliteStr = (_svp._currentLineHiliteMode == LINEHILITE_NONE)?TEXT("none"):
+								(_svp._currentLineHiliteMode == LINEHILITE_FRAME)?TEXT("frame"):TEXT("hilite");
+	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHiliteMode"), plineHiliteStr);
+	(scintNode->ToElement())->SetAttribute(TEXT("currentLineFrameWidth"), _svp._currentLineFrameWidth);
+
 	(scintNode->ToElement())->SetAttribute(TEXT("virtualSpace"), _svp._virtualSpace?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("scrollBeyondLastLine"), _svp._scrollBeyondLastLine?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("rightClickKeepsSelection"), _svp._rightClickKeepsSelection ? TEXT("yes") : TEXT("no"));

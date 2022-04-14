@@ -3745,12 +3745,24 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_CURLINE_HILITING:
 		{
 			NppParameters& nppParams = NppParameters::getInstance();
+			const ScintillaViewParams& svp = nppParams.getSVP();
 
-			COLORREF colour{ nppParams.getCurLineHilitingColour() };
-			bool hilite{ nppParams.getSVP()._currentLineHilitingShow };
+			COLORREF bgColour { nppParams.getCurLineHilitingColour() };
+			const LPARAM frameWidth{ (svp._currentLineHiliteMode == LINEHILITE_FRAME) ? svp._currentLineFrameWidth : 0 };
 
-			_mainEditView.setCurrentLineHiLiting(hilite, colour);
-			_subEditView.setCurrentLineHiLiting(hilite, colour);
+			if (svp._currentLineHiliteMode != LINEHILITE_NONE)
+			{
+				_mainEditView.execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, bgColour);
+				_subEditView.execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, bgColour);
+			}
+			else
+			{
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, NULL);
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, NULL);
+			}
+
+			_mainEditView.execute(SCI_SETCARETLINEFRAME, frameWidth);
+			_subEditView.execute(SCI_SETCARETLINEFRAME, frameWidth);
 		}
 		break;
 

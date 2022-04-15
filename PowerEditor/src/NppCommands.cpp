@@ -3748,7 +3748,7 @@ void Notepad_plus::command(int id)
 			const ScintillaViewParams& svp = nppParams.getSVP();
 
 			const COLORREF bgColour { nppParams.getCurLineHilitingColour() };
-			const LPARAM frameWidth{ (svp._currentLineHiliteMode == LINEHILITE_FRAME) ? svp._currentLineFrameWidth : 0 };
+			const LPARAM frameWidth { (svp._currentLineHiliteMode == LINEHILITE_FRAME) ? svp._currentLineFrameWidth : 0 };
 
 			if (svp._currentLineHiliteMode != LINEHILITE_NONE)
 			{

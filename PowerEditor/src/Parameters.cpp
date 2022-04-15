@@ -5668,6 +5668,12 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 
 	// Current Line Highlighting Mode
 	nm = element->Attribute(TEXT("currentLineHilitingShow"));
+
+	if (!nm)
+	{
+		nm = element->Attribute(TEXT("markCurrentLineWith"));
+	}
+
 	if (nm)
 	{
 		if (!lstrcmp(nm, TEXT("hide")))
@@ -6082,7 +6088,7 @@ bool NppParameters::writeScintillaParams()
 
 	const TCHAR *plineHiliteStr = (_svp._currentLineHiliteMode == LINEHILITE_NONE)?TEXT("hide"):
 								(_svp._currentLineHiliteMode == LINEHILITE_FRAME)?TEXT("frame"):TEXT("show");
-	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHilitingShow"), plineHiliteStr);
+	(scintNode->ToElement())->SetAttribute(TEXT("markCurrentLineWith"), plineHiliteStr);
 	(scintNode->ToElement())->SetAttribute(TEXT("currentLineFrameWidth"), _svp._currentLineFrameWidth);
 
 	(scintNode->ToElement())->SetAttribute(TEXT("virtualSpace"), _svp._virtualSpace?TEXT("yes"):TEXT("no"));
@@ -6678,7 +6684,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("customColorLinkText"), _nppGUI._darkmode._customColors.linkText);
 	}
 
-	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />
+	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" markCurrentLineWith="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />
 	writeScintillaParams();
 
 	// <GUIConfig name="DockingManager" leftWidth="328" rightWidth="359" topHeight="200" bottomHeight="436">

@@ -849,7 +849,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 				svp._currentLineFrameWidth = static_cast<unsigned char>(::SendMessage(hCaretLineFrameSlider, TBM_GETPOS, 0, 0));
 				::SetDlgItemInt(_hSelf, IDC_CARETLINEFRAME_WIDTH_DISPLAY, svp._currentLineFrameWidth, FALSE);
-				::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CARETLINEFRAME, (svp._currentLineHiliteMode == LINEHILITE_FRAME), svp._currentLineFrameWidth);
+				::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CARETLINEFRAME, NULL, svp._currentLineFrameWidth);
 			}
 
 			return 0;	//return zero when handled

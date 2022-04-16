@@ -6177,6 +6177,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
+	bool monitorFiles = pCmdParams->_monitorFiles;
 
 	if (openFoldersAsWorkspace)
 	{
@@ -6237,6 +6238,12 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			_pEditView->scrollPosToCenter(_pEditView->execute(SCI_GETCURRENTPOS));
 
 			switchEditViewTo(iView);	//restore view
+		}
+
+		if (monitorFiles)
+		{
+			monitoringStartOrStopAndUpdateUI(pBuf, true);
+			createMonitoringThread(pBuf);
 		}
 	}
 	if (lastOpened != BUFFER_INVALID)
@@ -8107,6 +8114,13 @@ void Notepad_plus::monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStartin
 		_toolBar.setCheck(IDM_VIEW_MONITORING, isStarting);
 		pBuf->setUserReadOnly(isStarting);
 	}
+}
+
+void Notepad_plus::createMonitoringThread(Buffer* pBuf)
+{
+	MonitorInfo *monitorInfo = new Notepad_plus::MonitorInfo(pBuf, _pPublicInterface->getHSelf());
+	HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
+	::CloseHandle(hThread);
 }
 
 // Fill names into the shortcut list.

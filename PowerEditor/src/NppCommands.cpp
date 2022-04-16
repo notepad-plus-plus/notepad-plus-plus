@@ -2517,10 +2517,7 @@ void Notepad_plus::command(int id)
 					{
 						// Monitoring firstly for making monitoring icon
 						monitoringStartOrStopAndUpdateUI(curBuf, true);
-						
-						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, _pPublicInterface->getHSelf());
-						HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
-						::CloseHandle(hThread);
+						createMonitoringThread(curBuf);
 					}
 				}
 				else

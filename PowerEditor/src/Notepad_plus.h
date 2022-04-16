@@ -636,5 +636,6 @@ private:
 	};
 
 	void monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting);
+	void createMonitoringThread(Buffer* pBuf);
 	void updateCommandShortcuts();
 };

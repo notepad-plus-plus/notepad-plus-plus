@@ -17,8 +17,6 @@
 
 #include <windows.h>
 #include "FindReplaceDlg_rc.h"
-#include "..\\WinControls\Preference\preference_rc.h"
-
 
 IDD_FIND_REPLACE_DLG DIALOGEX 36, 44, 382, 200
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME

@@ -302,7 +302,16 @@ public:
 		_currentType = dialogIndex;
 		generic_string name = getDialogFileName(_dialog);
 		if (changeExt(name, dialogIndex - 1))
-			return SUCCEEDED(_dialog->SetFileName(name.c_str()));
+		{
+			// Set the file name and clear the selection in the edit box.
+			// The selection is implicitly modified by SetFileName().
+			DWORD selStart = 0;
+			DWORD selEnd = 0;
+			bool ok = SUCCEEDED(_dialog->SetFileName(name.c_str()));
+			if (ok)
+				SendMessage(_hwndNameEdit, EM_SETSEL, selStart, selEnd);
+			return ok;
+		}
 		return false;
 	}
 

@@ -17,6 +17,7 @@
 
 #include <shlwapi.h>
 #include "FindReplaceDlg.h"
+#include "FindReplaceDlg_rc.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
 #include "localization.h"
@@ -883,6 +884,8 @@ std::mutex findOps_mutex;
 
 intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
+	NppParameters& nppParams = NppParameters::getInstance();
+	NppGUI& nppGUI = nppParams.getNppGUI();
 	switch (message)
 	{
 		case WM_GETMINMAXINFO:
@@ -1083,7 +1086,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_hLargerBolderFont = createFont(TEXT("Courier New"), 14, true, _hSelf);
 
 			SendMessage(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
-
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 			return TRUE;
 		}
 
@@ -1202,6 +1205,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 //Single actions
+				case IDC_CHECK_REPLACEANDSTOP:
+				{
+					nppGUI._replaceStopsWithoutFindingNext = isCheckedOrNot(IDC_CHECK_REPLACEANDSTOP);
+					return TRUE;
+				}
+
 				case IDC_2_BUTTONS_MODE:
 				{
 					bool is2ButtonsMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
@@ -2949,6 +2958,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	// replace controls
 	showFindDlgItem(ID_STATICTEXT_REPLACE, isEnable);
 	showFindDlgItem(IDREPLACE, isEnable);
+	showFindDlgItem(IDC_CHECK_REPLACEANDSTOP, isEnable);
 	showFindDlgItem(IDREPLACEWITH, isEnable);
 	showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON, isEnable);
 	showFindDlgItem(IDREPLACEALL, isEnable);
@@ -3023,6 +3033,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDC_COPY_MARKED_TEXT, !isEnable);
 
 	showFindDlgItem(IDREPLACE, !isEnable);
+	showFindDlgItem(IDC_CHECK_REPLACEANDSTOP, !isEnable);
 	showFindDlgItem(IDC_REPLACEINSELECTION, !isEnable);
 	showFindDlgItem(IDREPLACEALL, !isEnable);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, !isEnable);

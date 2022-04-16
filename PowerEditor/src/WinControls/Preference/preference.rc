@@ -313,7 +313,6 @@ BEGIN
     CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)",IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,25,350,10
     CONTROL         "Find dialog remains open after search that outputs to results window",IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,40,350,10
     CONTROL         "Confirm Replace All in All Opened Documents",IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,55,350,10
-    CONTROL         "Replace: Don't move to the following occurrence", IDC_CHECK_REPLACEANDSTOP, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 70, 350, 10
     END
 
 

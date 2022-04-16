@@ -4742,7 +4742,6 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFindDlg, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, BM_SETCHECK, nppGUI._findDlgAlwaysVisible, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CONFIRMREPLOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 		}
 		break;
 
@@ -4793,13 +4792,6 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_CHECK_CONFIRMREPLOPENDOCS:
 				{
 					nppGUI._confirmReplaceInAllOpenDocs = isCheckedOrNot(IDC_CHECK_CONFIRMREPLOPENDOCS);
-					return TRUE;
-				}
-				break;
-
-				case IDC_CHECK_REPLACEANDSTOP:
-				{
-					nppGUI._replaceStopsWithoutFindingNext = isCheckedOrNot(IDC_CHECK_REPLACEANDSTOP);
 					return TRUE;
 				}
 				break;

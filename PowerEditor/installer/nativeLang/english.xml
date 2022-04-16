@@ -409,6 +409,7 @@ The comments are here for explanation, it's not necessary to translate them.
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleFindInProjects="Find in Projects" titleMark="Mark">
                 <Item id="1"    name="Find Next"/>
                 <Item id="1722" name="Backward direction"/>
+                <Item id="1667" name="Don't move to the following occurrence"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1620" name="&amp;Find what :"/>
                 <Item id="1603" name="Match &amp;whole word only"/>
@@ -1035,7 +1036,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
                     <Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
                     <Item id="6904" name="Confirm Replace All in All Opened Documents"/>
-                    <Item id="6905" name="Replace: Don't move to the following occurrence"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recent Files History">

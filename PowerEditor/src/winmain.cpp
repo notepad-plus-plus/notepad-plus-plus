@@ -312,6 +312,7 @@ const TCHAR FLAG_OPEN_FOLDERS_AS_WORKSPACE[] = TEXT("-openFoldersAsWorkspace");
 const TCHAR FLAG_SETTINGS_DIR[] = TEXT("-settingsDir=");
 const TCHAR FLAG_TITLEBAR_ADD[] = TEXT("-titleAdd=");
 const TCHAR FLAG_APPLY_UDL[] = TEXT("-udl=");
+const TCHAR FLAG_MONITOR_FILES[] = TEXT("-monitor");
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
 {
@@ -443,6 +444,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	cmdLineParams._isSessionFile = isInList(FLAG_OPENSESSIONFILE, params);
 	cmdLineParams._isRecursive = isInList(FLAG_RECURSIVE, params);
 	cmdLineParams._openFoldersAsWorkspace = isInList(FLAG_OPEN_FOLDERS_AS_WORKSPACE, params);
+	cmdLineParams._monitorFiles = isInList(FLAG_MONITOR_FILES, params);
 
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);

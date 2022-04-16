@@ -1061,9 +1061,10 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
                             }
 
                             // skip next "word" (if next word is not found, go back to end of multi-part keyword)
-                            // it is not necessary to check EOF position here, because sc.GetRelative returns ' ' beyond EOF
+                            // it is not necessary to check EOF position here, because sc.GetRelative returns '\0' beyond EOF by default
+                            // return ' ' on EOF instead to not loop indefinitely
                             bool nextWordFound = false;
-                            while (!isWhiteSpace2(sc.GetRelative(indexb + offset), nlCountTemp, wsChar, sc.GetRelative(offset + indexb + 1)))
+                            while (!isWhiteSpace2(sc.GetRelative(indexb + offset, ' '), nlCountTemp, wsChar, sc.GetRelative(offset + indexb + 1, ' ')))
                             {
                                 if (isInListForward2(fwEndVectors, FW_VECTORS_TOTAL, sc, ignoreCase, indexb + offset))
                                 {

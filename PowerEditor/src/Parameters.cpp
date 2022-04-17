@@ -5666,22 +5666,27 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._lineWrapMethod = LINEWRAP_INDENT;
 	}
 
-	// Current Line Highlighting Mode
+	// Current Line Highlighting State
 	nm = element->Attribute(TEXT("currentLineHilitingShow"));
-
-	if (!nm)
-	{
-		nm = element->Attribute(TEXT("markCurrentLineWith"));
-	}
-
 	if (nm)
 	{
-		if (!lstrcmp(nm, TEXT("hide")))
-			_svp._currentLineHiliteMode = LINEHILITE_NONE;
-		else if (!lstrcmp(nm, TEXT("show")))
+		if (!lstrcmp(nm, TEXT("show")))
 			_svp._currentLineHiliteMode = LINEHILITE_HILITE;
-		else if (!lstrcmp(nm, TEXT("frame")))
-			_svp._currentLineHiliteMode = LINEHILITE_FRAME;
+		else
+			_svp._currentLineHiliteMode = LINEHILITE_NONE;
+	}
+	else
+	{
+		const TCHAR* currentLineModeStr = element->Attribute(TEXT("currentLineIndicator"));
+		if (currentLineModeStr && currentLineModeStr[0])
+		{
+			if (lstrcmp(currentLineModeStr, TEXT("1")) == 0)
+				_svp._currentLineHiliteMode = LINEHILITE_HILITE;
+			else if (lstrcmp(currentLineModeStr, TEXT("2")) == 0)
+				_svp._currentLineHiliteMode = LINEHILITE_FRAME;
+			else
+				_svp._currentLineHiliteMode = LINEHILITE_NONE;
+		}
 	}
 
 	// Current Line Frame Width
@@ -6086,9 +6091,7 @@ bool NppParameters::writeScintillaParams()
 								(_svp._lineWrapMethod == LINEWRAP_INDENT)?TEXT("indent"):TEXT("default");
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);
 
-	const TCHAR *plineHiliteStr = (_svp._currentLineHiliteMode == LINEHILITE_NONE)?TEXT("hide"):
-								(_svp._currentLineHiliteMode == LINEHILITE_FRAME)?TEXT("frame"):TEXT("show");
-	(scintNode->ToElement())->SetAttribute(TEXT("markCurrentLineWith"), plineHiliteStr);
+	(scintNode->ToElement())->SetAttribute(TEXT("currentLineIndicator"), _svp._currentLineHiliteMode);
 	(scintNode->ToElement())->SetAttribute(TEXT("currentLineFrameWidth"), _svp._currentLineFrameWidth);
 
 	(scintNode->ToElement())->SetAttribute(TEXT("virtualSpace"), _svp._virtualSpace?TEXT("yes"):TEXT("no"));
@@ -6684,7 +6687,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("customColorLinkText"), _nppGUI._darkmode._customColors.linkText);
 	}
 
-	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" markCurrentLineWith="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />
+	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />
 	writeScintillaParams();
 
 	// <GUIConfig name="DockingManager" leftWidth="328" rightWidth="359" topHeight="200" bottomHeight="436">

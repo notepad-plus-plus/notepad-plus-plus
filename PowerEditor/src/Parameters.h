@@ -117,6 +117,7 @@ const int LANG_INDEX_TYPE7 = 8;
 const int COPYDATA_PARAMS = 0;
 const int COPYDATA_FILENAMESA = 1;
 const int COPYDATA_FILENAMESW = 2;
+const int COPYDATA_FULL_CMDLINE = 3;
 
 #define PURE_LC_NONE	0
 #define PURE_LC_BOL	 1
@@ -1477,6 +1478,9 @@ public:
 	const generic_string& getCmdLineString() const { return _cmdLineString; }
 	void setCmdLineString(const generic_string& str) { _cmdLineString = str; }
 
+	const generic_string& getCmdLineStringCurrent() const { return _cmdLineStringCurrent; }
+	void setCmdLineStringCurrent(const generic_string& str) { _cmdLineStringCurrent = str; }
+
 	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};
 	int getFileSaveDlgFilterIndex() const {return _fileSaveDlgFilterIndex;};
 
@@ -1722,6 +1726,7 @@ private:
 
 	CmdLineParamsDTO _cmdLineParams;
 	generic_string _cmdLineString;
+	generic_string _cmdLineStringCurrent;
 
 	int _fileSaveDlgFilterIndex = -1;
 

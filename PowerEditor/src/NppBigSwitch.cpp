@@ -693,6 +693,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
 					break;
 				}
+
+				case COPYDATA_FULL_CMDLINE:
+				{
+					wchar_t *fullCmdLine = static_cast<wchar_t *>(pCopyData->lpData);
+					NppParameters::getInstance().setCmdLineStringCurrent(fullCmdLine);
+
+					SCNotification scnN;
+					scnN.nmhdr.code = NPPN_CMDLINECHANGED;
+					scnN.nmhdr.hwndFrom = hwnd;
+					scnN.nmhdr.idFrom = 0;
+					_pluginsManager.notify(&scnN);
+
+					break;
+				}
 			}
 
 			return TRUE;
@@ -1303,6 +1317,23 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return static_cast<LRESULT>(MacroStatus::PlayingBack);
 			return (_macro.empty()) ? static_cast<LRESULT>(MacroStatus::Idle) : static_cast<LRESULT>(MacroStatus::RecordingStopped);
 		}
+
+		case NPPM_GETINITIALCMDLINE:
+		case NPPM_GETCURRENTCMDLINE:
+		{
+			generic_string cmdLineString = (message == NPPM_GETINITIALCMDLINE) ? nppParam.getCmdLineString() : nppParam.getCmdLineStringCurrent();
+
+			if (lParam != 0)
+			{
+				if (cmdLineString.length() >= static_cast<size_t>(wParam))
+				{
+					return 0;
+				}
+				lstrcpy(reinterpret_cast<TCHAR*>(lParam), cmdLineString.c_str());
+			}
+			return cmdLineString.length();
+		}
+
 
 		case WM_FRSAVE_INT:
 		{

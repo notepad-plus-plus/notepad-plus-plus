@@ -1175,7 +1175,7 @@ namespace NppDarkMode
 			}
 
 			LONG_PTR dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
-			if ((dwStyle & TCS_BOTTOM) || (dwStyle & TCS_BUTTONS) || (dwStyle & TCS_VERTICAL))
+			if ((dwStyle & TCS_BUTTONS) || (dwStyle & TCS_VERTICAL))
 			{
 				break;
 			}
@@ -1477,24 +1477,39 @@ namespace NppDarkMode
 					case BS_AUTOCHECKBOX:
 					case BS_RADIOBUTTON:
 					case BS_AUTORADIOBUTTON:
+					{
+						auto nButtonAllStyles = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+						if (nButtonAllStyles & BS_PUSHLIKE)
+						{
+							if (p.theme)
+							{
+								SetWindowTheme(hwnd, p.themeClassName, nullptr);
+							}
+							break;
+						}
 						if (p.subclass)
 						{
 							NppDarkMode::subclassButtonControl(hwnd);
 						}
 						break;
+					}
 					case BS_GROUPBOX:
+					{
 						if (p.subclass)
 						{
 							NppDarkMode::subclassGroupboxControl(hwnd);
 						}
 						break;
+					}
 					case BS_DEFPUSHBUTTON:
 					case BS_PUSHBUTTON:
+					{
 						if (p.theme)
 						{
 							SetWindowTheme(hwnd, p.themeClassName, nullptr);
 						}
 						break;
+					}
 				}
 				return TRUE;
 			}

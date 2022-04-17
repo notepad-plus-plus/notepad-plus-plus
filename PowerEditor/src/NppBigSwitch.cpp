@@ -202,6 +202,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			refreshDarkMode(static_cast<bool>(wParam));
+			// Notify plugins that Dark Mode changed
+			SCNotification scnN;
+			scnN.nmhdr.code = NPPN_DARKMODECHANGED;
+			scnN.nmhdr.hwndFrom = reinterpret_cast<void*>(lParam);
+			scnN.nmhdr.idFrom = 0;
+			_pluginsManager.notify(&scnN);
 			return TRUE;
 		}
 
@@ -2603,6 +2609,37 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_ISAUTOINDENTON:
 		{
 			return nppParam.getNppGUI()._maitainIndent;
+		}
+
+		case NPPM_ISDARKMODEENABLED:
+		{
+			return NppDarkMode::isEnabled();
+		}
+
+		case NPPM_GETDARKMODECOLORS:
+		{
+			if (static_cast<size_t>(wParam) != sizeof(NppDarkMode::Colors))
+				return static_cast<LRESULT>(false);
+
+			NppDarkMode::Colors* currentColors = reinterpret_cast<NppDarkMode::Colors*>(lParam);
+
+			if (currentColors != NULL)
+			{
+				currentColors->background = NppDarkMode::getBackgroundColor();
+				currentColors->softerBackground = NppDarkMode::getSofterBackgroundColor();
+				currentColors->hotBackground = NppDarkMode::getHotBackgroundColor();
+				currentColors->pureBackground = NppDarkMode::getDarkerBackgroundColor();
+				currentColors->errorBackground = NppDarkMode::getErrorBackgroundColor();
+				currentColors->text = NppDarkMode::getTextColor();
+				currentColors->darkerText = NppDarkMode::getDarkerTextColor();
+				currentColors->disabledText = NppDarkMode::getDisabledTextColor();
+				currentColors->linkText = NppDarkMode::getLinkTextColor();
+				currentColors->edge = NppDarkMode::getEdgeColor();
+
+				return static_cast<LRESULT>(true);
+			}
+
+			return static_cast<LRESULT>(false);
 		}
 
 		case NPPM_DOCLISTDISABLEPATHCOLUMN:

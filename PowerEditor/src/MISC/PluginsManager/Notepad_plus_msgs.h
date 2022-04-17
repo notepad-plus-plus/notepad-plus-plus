@@ -480,6 +480,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// MacroStatus NPPM_GETCURRENTMACROSTATUS(0, 0)
 	// Gets current enum class MacroStatus { Idle - means macro is not in use and it's empty, RecordInProgress, RecordingStopped, PlayingBack }
 
+	#define NPPM_ISDARKMODEENABLED (NPPMSG + 107)
+	// bool NPPM_ISDARKMODEENABLED(0, 0)
+	// Returns true when Notepad++ Dark Mode is enable, false when it is not.
+
 
 
 #define VAR_NOT_RECOGNIZED 0
@@ -666,3 +670,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.code = NPPN_FILEDELETED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_DARKMODECHANGED (NPPN_FIRST + 27) // To notify plugins that Dark Mode was enabled/disabled
+	//scnNotification->nmhdr.code = NPPN_DARKMODECHANGED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = 0;
+

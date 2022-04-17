@@ -2998,6 +2998,7 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 	showFindDlgItem(IDC_CLEAR_ALL, isEnable);
 	showFindDlgItem(IDC_IN_SELECTION_CHECK, isEnable);
 	showFindDlgItem(IDC_COPY_MARKED_TEXT, isEnable);
+	showFindDlgItem(IDC_CHECK_REPLACEANDSTOP, !isEnable);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels)

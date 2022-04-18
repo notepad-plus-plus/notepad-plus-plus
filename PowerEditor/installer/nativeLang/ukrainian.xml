@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="8.1.9.3">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="8.3.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -73,6 +73,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="settings-import" name="Імпортувати"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Сортувати за"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -178,6 +179,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42029" name="Шлях та назву файлу в буфер обміну"/>
                     <Item id="42030" name="Назву файлу в буфер обміну"/>
                     <Item id="42031" name="Шлях теки до буфера"/>
+                    <Item id="42087" name="Усі назви файлів до буфера"/>
+                    <Item id="42088" name="Усі шляхи файлів до буфера"/>
                     <Item id="42032" name="Багаторазовий запуск макросу..."/>
                     <Item id="42033" name="Прибрати атрибут «Лише читання»"/>
                     <Item id="42035" name="Коментувати рядок"/>
@@ -196,14 +199,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43008" name="Стерти всі закладки"/>
                     <Item id="43018" name="Вирізати закладені рядки"/>
                     <Item id="43019" name="Копіювати закладені рядки"/>
-                    <Item id="43020" name="Вставити й замінити позначені рядки"/>
-                    <Item id="43021" name="Вилучити позначені рядки"/>
-                    <Item id="43051" name="Вилучити непозначені рядки"/>
+                    <Item id="43020" name="Вставити й замінити закладені рядки"/>
+                    <Item id="43021" name="Вилучити закладені рядки"/>
+                    <Item id="43051" name="Вилучити незакладені рядки"/>
                     <Item id="43050" name="Інвертувати закладки"/>
                     <Item id="43052" name="Знайти символи в діапазоні..."/>
                     <Item id="43053" name="Вибрати все у відповідному діапазоні"/>
                     <Item id="43009" name="Перейти до парної дужки"/>
-                    <Item id="43010" name="Знайти перед"/>
+                    <Item id="43010" name="Знайти попереднє"/>
                     <Item id="43011" name="Покроковий пошук"/>
                     <Item id="43013" name="Знайти у файлах"/>
                     <Item id="43014" name="Знайти далі (змінне)"/>
@@ -249,6 +252,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43048" name="Обрати й знайти далі"/>
                     <Item id="43049" name="Обрати й знайти попереднє"/>
                     <Item id="43054" name="Позначка..."/>
+                    <Item id="43501" name="Закрити вибрані"/>
+                    <Item id="43502" name="Закрити інші"/>
+                    <Item id="43503" name="Копіювати вибрані назви"/>
+                    <Item id="43504" name="Копіювати вибрані шляхи"/>
                     <Item id="44009" name="Текст на все вікно"/>
                     <Item id="44010" name="Згорнути все"/>
                     <Item id="44011" name="Режим зосередження"/>
@@ -284,8 +291,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44032" name="На весь екран"/>
                     <Item id="44033" name="Відновити масштаб"/>
                     <Item id="44034" name="Завжди вгорі"/>
-                    <Item id="44035" name="Синхронізувати вертикальну смугу прокрутки"/>
-                    <Item id="44036" name="Синхронізувати горизонтальну смугу прокрутки"/>
+                    <Item id="44035" name="Синхронізувати вертикальне прокручування"/>
+                    <Item id="44036" name="Синхронізувати горизонтальне прокручування"/>
                     <Item id="44041" name="Показувати символ переведення рядка"/>
                     <Item id="44072" name="Сфокусуватися на інший вигляд"/>
                     <Item id="44081" name="Панель проєкту 1"/>
@@ -298,7 +305,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45005" name="UTF-8-BOM"/>
                     <Item id="45006" name="UTF-16 BE BOM"/>
                     <Item id="45007" name="UTF-16 LE BOM"/>
-                    <Item id="45008" name="UTF-8 без мітки BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="Перетворити на ANSI"/>
                     <Item id="45010" name="Перетворити на UTF-8"/>
                     <Item id="45011" name="Перетворити на UTF-8-BOM"/>
@@ -356,6 +363,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42041" name="Очистити список останніх файлів"/>
                     <Item id="48016" name="Змінити комб. клавіш/Видалити макрос..."/>
                     <Item id="48017" name="Змінити комб. клавіш/Видалити команду..."/>
+
+                    <Item id="11001" name="&amp;Windows..."/>
+                    <Item id="11002" name="Назва від A до Z"/>
+                    <Item id="11003" name="Назва від Z до A"/>
+                    <Item id="11004" name="Шлях від A до Z"/>
+                    <Item id="11005" name="Шлях Z до А"/>
+                    <Item id="11006" name="Тип від A до Z"/>
+                    <Item id="11007" name="Тип від Z до A"/>
+                    <Item id="11008" name="За збільшенням розміру"/>
+                    <Item id="11009" name="За зменшенням розміру"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -629,6 +646,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Перемкнути теку як робочу область"/>
                     <Item id="44109" name="Перейти до списку документів"/>
                     <Item id="44108" name="Перемкнути на перелік функцій"/>
+                    <Item id="11002" name="Сортувати за назвою від A до Z"/>
+                    <Item id="11003" name="Сортувати за назвою від Z до A"/>
+                    <Item id="11004" name="Сортувати за шляхом від A до Z"/>
+                    <Item id="11005" name="Сортувати за шляхом від Z до A"/>
+                    <Item id="11006" name="Сортувати за типом від A до Z"/>
+                    <Item id="11007" name="Сортувати за типом від Z до A"/>
+                    <Item id="11008" name="Сортувати за збільшенням розміру"/>
+                    <Item id="11009" name="Сортувати за зменшенням розміру"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Гаряча клавіша">
@@ -859,6 +884,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6215" name="Згладжувати шрифти"/>
                     <Item id="6236" name="Прокручування за межі останнього рядка"/>
                     <Item id="6239" name="Утримувати вибір при клацанні за межами вибору"/>
+                    <Item id="6245" name="Увімкнути віртуальний простір"/>
                 </Scintillas>
 
                 <DarkMode title="Темний режим">
@@ -880,6 +906,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7122" name="Темніший текст"/>
                     <Item id="7123" name="Вимкнений текст"/>
                     <Item id="7124" name="Край"/>
+                    <Item id="7125" name="Посилання"/>
                     <Item id="7130" name="Скинути"/>
                 </DarkMode>
 
@@ -989,6 +1016,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6721" name="Середня частина"/>
                     <Item id="6722" name="Права частина"/>
                     <Item id="6723" name="Долучити"/>
+                    <ComboBox id="6724">
+                        <Element name="Повний шлях файлу"/>
+                        <Element name="Назва файлу"/>
+                        <Element name="Каталог файлу"/>
+                        <Element name="Сторінка"/>
+                        <Element name="Короткий формат дати"/>
+                        <Element name="Довгий формат дати"/>
+                        <Element name="Час"/>
+                    </ComboBox>
                     <Item id="6725" name="Змінна:"/>
                     <Item id="6727" name="Тут показані параметри змінних"/>
                     <Item id="6728" name="Верхній та нижній колонтитули"/>
@@ -1035,13 +1071,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6809" name="Завершення функцій"/>
                     <Item id="6810" name="Завершення слів"/>
                     <Item id="6816" name="Завершення функцій і слів"/>
-                    <Item id="6824" name="Ігнорувати цифри"/>
-                    <Item id="6811" name="З"/>
+                    <Item id="6869" name="Вставити вибране"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6824" name="Ігнорувати числа"/>
+                    <Item id="6811" name="Починаючи з"/>
                     <Item id="6813" name="-го символу"/>
                     <Item id="6814" name="Дозволене значення: 1 - 9"/>
                     <Item id="6815" name="Підказка параметрів функції при введенні"/>
                     <Item id="6851" name="Автовставлення"/>
-                    <Item id="6857" name=" закр. теґ html/xml"/>
+                    <Item id="6857" name=" закр. тег html/xml"/>
                     <Item id="6858" name="Відкрити"/>
                     <Item id="6859" name="Закрити"/>
                     <Item id="6860" name="Пара збігів 1:"/>
@@ -1051,7 +1090,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <MultiInstance title="Дата з повторенням">
                     <Item id="6151" name="Режим відкриття файлів"/>
-                    <Item id="6152" name="Відкривати сеанс у новому вікні Notepad++"/>
+                    <Item id="6152" name="Відкрити сеанс у новому екземплярі (автоматично зберігати сеанс при виході)"/>
                     <Item id="6153" name="Завжди відкривати в новому вікні"/>
                     <Item id="6154" name="Все в одному вікні (типово)"/>
                     <Item id="6155" name="* Зміна цих налаштувань потребує перезапуску Notepad++"/>
@@ -1231,6 +1270,9 @@ The comments are here for explanation, it's not necessary to translate them.
             <DocTooDirtyToMonitor title="Проблема моніторингу" message="Документ змінено. Будь ласка, збережіть зміни перед його моніторингом."/>
             <DocNoExistToMonitor title="Проблема моніторингу" message="Файл повинен існувати для його моніторингу."/>
             <FileTooBigToOpen title="Проблема розміру файлу" message="Файл завеликий для відкриття в Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Код винятку: $STR_REPLACE$" message="Сталася помилка при завантаженні файлу!"/>
+            <WantToOpenHugeFile title="Попередження при відкритті великих файлів" message="Відкриття файлів розміром 2 ГБ та більше може тривати декілька хвилин.
+Хочете відкрити?"/>
             <CreateNewFileOrNot title="Створити новий файл" message="&quot;$STR_REPLACE$&quot; не існує. Створити його?"/>
             <CreateNewFileError title="Створити новий файл" message="Не вдалося створить файл &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ПОМИЛКА" message="Не вдалося відкрити файл &quot;$STR_REPLACE$&quot;."/>
@@ -1303,6 +1345,8 @@ Notepad++ перезапуститься після завершення всі�
             <PanelTitle name="Список функцій"/>
             <SortTip name="Сортувати"/>
             <ReloadTip name="Перезавантажити"/>
+            <PreferencesTip name="Налаштування"/>
+            <PreferencesInitialSort name="Типові функції сортування (A - Z)"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Тека як робоча область"/>
@@ -1378,17 +1422,26 @@ Notepad++ перезапуститься після завершення всі�
             <word-chars-list-space-warning value="$INT_REPLACE$ пробіл(и)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
             <word-chars-list-warning-end value="  у вашому списку символів."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Виберіть теку для резервного копіювання"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Неправильний шлях."/>
             <cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
             <cloud-select-folder value="Виберіть теку, звідки/куди в Notepad++ читати/записувати свої параметри"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Виберіть типову теку"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Використовуйте Shift+Enter для пошуку у зворотному напрямку"/>
             <two-find-buttons-tip value="2-кнопковий режим пошуку"/>
             <file-rename-title value="Перейменувати"/>
             <find-in-files-filter-tip value="Знайти в cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Знайти у всіх файлах, за винятком exe, obj &amp;&amp; log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+Знайти в усіх файлах, за винятком exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+
+Знайти в усіх файлах, але виключити теки tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+Знайти в усіх файлах, але виключити всі теки log чи logs рекурсивно:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Виберіть початкову теку пошуку"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Знайти: Знайдено 1-й збіг знизу. Було досягнуто початку документа."/>
             <find-status-end-reached value="Знайти: Знайдено 1-й збіг згори. Було досягнуто кінця документа."/>
             <find-status-replaceinfiles-1-replaced value="Замінити у файлах: Виконано 1 заміну"/>
@@ -1482,6 +1535,10 @@ Notepad++ перезапуститься після завершення всі�
             <IncrementalFind-FSNotFound value="Фразу не знайдено" />
             <IncrementalFind-FSTopReached value="Досягнуто початку сторінки, продовжено з кінця" />
             <IncrementalFind-FSEndReached value="Досягнуто кінця сторінки, продовжено з початку" />
+            <contextMenu-styleAlloccurrencesOfToken value="Стилізувати всі входження токена" />
+            <contextMenu-styleOneToken value="Стилізувати один токен" />
+            <contextMenu-clearStyle value="Очистити стиль" />
+            <contextMenu-PluginCommands value="Команди плагіну" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

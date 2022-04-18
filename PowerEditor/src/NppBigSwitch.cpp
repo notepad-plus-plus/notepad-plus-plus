@@ -2609,6 +2609,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return NppDarkMode::isEnabled();
 		}
 
+		case NPPM_GETDARKMODECOLORTONE:
+		{
+			return static_cast<LRESULT>(NppDarkMode::getDarkTone());
+		}
+
 		case NPPM_DOCLISTDISABLEPATHCOLUMN:
 		case NPPM_DOCLISTDISABLEEXTCOLUMN:
 		{

@@ -743,7 +743,7 @@ namespace NppDarkMode
 		{
 			if (!hTheme)
 			{
-				hTheme = OpenThemeData(hwnd, L"Button");
+				hTheme = OpenThemeData(hwnd, WC_BUTTON);
 			}
 			return hTheme != nullptr;
 		}
@@ -1505,6 +1505,170 @@ namespace NppDarkMode
 	void autoThemeChildControls(HWND hwndParent)
 	{
 		autoSubclassAndThemeChildControls(hwndParent, false, true);
+	}
+
+	constexpr UINT_PTR g_tabUpDownSubclassID = 42;
+
+	LRESULT CALLBACK TabUpDownSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		auto pButtonData = reinterpret_cast<ButtonData*>(dwRefData);
+
+		switch (uMsg)
+		{
+			case WM_PRINTCLIENT:
+			case WM_PAINT:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				bool hasTheme = pButtonData->ensureTheme(hWnd);
+
+				RECT rcClient{};
+				::GetClientRect(hWnd, &rcClient);
+
+				PAINTSTRUCT ps{};
+				auto hdc = ::BeginPaint(hWnd, &ps);
+
+				::FillRect(hdc, &rcClient, NppDarkMode::getBackgroundBrush());
+
+				auto dpiManager = NppParameters::getInstance()._dpiManager;
+
+				RECT rcArrowLeft = {
+					rcClient.left, rcClient.top,
+					rcClient.right - ((rcClient.right - rcClient.left) / 2) , rcClient.bottom
+				};
+
+				RECT rcArrowRight = {
+					rcArrowLeft.right, rcClient.top,
+					rcClient.right, rcClient.bottom
+				};
+
+				POINT ptCursor = {};
+				::GetCursorPos(&ptCursor);
+				::ScreenToClient(hWnd, &ptCursor);
+
+				bool isHotLeft = ::PtInRect(&rcArrowLeft, ptCursor);
+				bool isHotRight = ::PtInRect(&rcArrowRight, ptCursor);
+
+				::SetBkMode(hdc, TRANSPARENT);
+
+				if (hasTheme)
+				{
+					::DrawThemeBackground(pButtonData->hTheme, hdc, BP_PUSHBUTTON, isHotLeft ? PBS_HOT : PBS_NORMAL, &rcArrowLeft, nullptr);
+					::DrawThemeBackground(pButtonData->hTheme, hdc, BP_PUSHBUTTON, isHotRight ? PBS_HOT : PBS_NORMAL, &rcArrowRight, nullptr);
+				}
+				else
+				{
+					::FillRect(hdc, &rcArrowLeft, isHotLeft ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getBackgroundBrush());
+					::FillRect(hdc, &rcArrowRight, isHotRight ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getBackgroundBrush());
+				}
+
+				LOGFONT lf = {};
+				auto font = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
+				::GetObject(font, sizeof(lf), &lf);
+				lf.lfHeight = (dpiManager.scaleY(16) - 5) * -1;
+				auto holdFont = static_cast<HFONT>(::SelectObject(hdc, CreateFontIndirect(&lf)));
+
+				auto mPosX = ((rcArrowLeft.right - rcArrowLeft.left - dpiManager.scaleX(7) + 1) / 2);
+				auto mPosY = ((rcArrowLeft.bottom - rcArrowLeft.top + lf.lfHeight - dpiManager.scaleY(1) - 3) / 2);
+
+				::SetTextColor(hdc, isHotLeft ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+				::ExtTextOut(hdc,
+					rcArrowLeft.left + mPosX,
+					rcArrowLeft.top + mPosY,
+					ETO_CLIPPED,
+					&rcArrowLeft, L"<",
+					1,
+					nullptr);
+
+				::SetTextColor(hdc, isHotRight ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+				::ExtTextOut(hdc,
+					rcArrowRight.left + mPosX - dpiManager.scaleX(2) + 3,
+					rcArrowRight.top + mPosY,
+					ETO_CLIPPED,
+					&rcArrowRight, L">",
+					1,
+					nullptr);
+
+				if (!hasTheme)
+				{
+					auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
+					auto holdBrush = ::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
+					::Rectangle(hdc, rcArrowLeft.left, rcArrowLeft.top, rcArrowLeft.right, rcArrowLeft.bottom);
+					::Rectangle(hdc, rcArrowRight.left, rcArrowRight.top, rcArrowRight.right, rcArrowRight.bottom);
+					::SelectObject(hdc, NppDarkMode::getBackgroundBrush());
+					::SelectObject(hdc, holdPen);
+					::SelectObject(hdc, holdBrush);
+				}
+
+				::SelectObject(hdc, holdFont);
+				::EndPaint(hWnd, &ps);
+				return FALSE;
+			}
+
+			case WM_THEMECHANGED:
+			{
+				pButtonData->closeTheme();
+				break;
+			}
+
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, TabUpDownSubclass, uIdSubclass);
+				delete pButtonData;
+				break;
+			}
+
+			case WM_ERASEBKGND:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					RECT rcClient{};
+					::GetClientRect(hWnd, &rcClient);
+					::FillRect(reinterpret_cast<HDC>(wParam), &rcClient, NppDarkMode::getDarkerBackgroundBrush());
+					return TRUE;
+				}
+				break;
+			}
+		}
+		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void subclassTabUpDownControl(HWND hwnd)
+	{
+		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
+		SetWindowSubclass(hwnd, TabUpDownSubclass, g_tabUpDownSubclassID, pButtonData);
+	}
+
+	void autoSubclassAndThemeTabUpDownControl(HWND hwndParent, HWND hwndUpdown)
+	{
+		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA{
+			auto && hwndUpdown = *reinterpret_cast<HWND*>(lParam);
+			if (hwndUpdown == nullptr)
+			{
+				constexpr size_t classNameLen = 16;
+				TCHAR className[classNameLen]{};
+				GetClassName(hwnd, className, classNameLen);
+				if (wcscmp(className, UPDOWN_CLASS) == 0)
+				{
+					hwndUpdown = hwnd;
+					NppDarkMode::subclassTabUpDownControl(hwndUpdown);
+					NppDarkMode::setDarkExplorerTheme(hwndUpdown);
+					::InvalidateRect(hwndUpdown, nullptr, TRUE);
+					::UpdateWindow(hwndUpdown);
+				}
+			}
+			return TRUE;
+			}, reinterpret_cast<LPARAM>(&hwndUpdown));
 	}
 
 	void setDarkTitleBar(HWND hwnd)

@@ -176,6 +176,7 @@ private:
 	bool _isFloating = FALSE;
 	HWND _hCaption = nullptr;
 	HWND _hContTab = nullptr;
+	HWND _hTabUpdown = nullptr;
 
 	// horizontal font for caption and tab
 	HFONT _hFont = nullptr;

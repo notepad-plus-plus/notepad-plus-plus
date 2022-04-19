@@ -241,6 +241,8 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 		rc2Ajust.top += tabsHight;
 		rc2Ajust.bottom -= tabsHight;
 	}
+
+	NppDarkMode::autoSubclassAndThemeTabUpDownControl(_hSelf, _hTabUpdown);
 }
 
 
@@ -1075,7 +1077,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		if (isDarkMode)
 		{
-			::FillRect(hDC, &barRect, NppDarkMode::getSofterBackgroundBrush());
+			::FillRect(hDC, &pDrawItemStruct->rcItem, NppDarkMode::getSofterBackgroundBrush());
 		}
 		if (_drawTopBar)
 		{

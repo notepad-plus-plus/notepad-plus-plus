@@ -114,6 +114,8 @@ protected:
 	long getRowCount() const {
 		return long(::SendMessage(_hSelf, TCM_GETROWCOUNT, 0, 0));
 	}
+private:
+	HWND _hTabUpdown = nullptr;
 };
 
 

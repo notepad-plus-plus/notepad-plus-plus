@@ -484,9 +484,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// bool NPPM_ISDARKMODEENABLED(0, 0)
 	// Returns true when Notepad++ Dark Mode is enable, false when it is not.
 
-	#define NPPM_GETDARKMODECOLORTONE (NPPMSG + 108)
-	// ColorTone NPPM_GETDARKMODECOLORTONE (0, 0)
-	// Returns the current ColorTone value for Dark Mode.
+	#define NPPM_GETDARKMODECOLORS (NPPMSG + 108)
+	// bool NPPM_GETDARKMODECOLORS (0, NppDarkMode::Colors* returnColors)
+	// - returnColors must be a pre-allocated NppDarkMode::Colors struct.
+	// Returns true when successful, false otherwise.
 
 
 

@@ -226,11 +226,6 @@ namespace NppDarkMode
 		g_colorToneChoice = colorToneChoice;
 	}
 
-	ColorTone getDarkTone()
-	{
-		return g_colorToneChoice;
-	}
-
 	struct Theme
 	{
 		Colors _colors;

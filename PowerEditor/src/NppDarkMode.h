@@ -90,7 +90,6 @@ namespace NppDarkMode
 	double calculatePerceivedLighness(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);
-	ColorTone getDarkTone();
 
 	COLORREF getBackgroundColor();
 	COLORREF getSofterBackgroundColor();

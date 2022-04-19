@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.3.3 (15.03.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4 (19.04.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.2.1">
+    <Native-Langue name="polski" filename="polish.xml" version="8.4">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -894,6 +894,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6215" name="Ujednolicaj czcionki"/>
                     <Item id="6236" name="Umożliwiaj przewijanie poza ostatnią linię"/>
                     <Item id="6239" name="Zachowaj zaznaczenie po kliku prawym przyciskiem myszy poza zaznaczeniem"/>
+                    <Item id="6245" name="Włącz wirtualny odstęp"/>
                 </Scintillas>
 
                 <DarkMode title="Tryb ciemny">
@@ -1359,6 +1360,8 @@ Kontynuować?"/>
             <PanelTitle name="Lista funkcji"/>
             <SortTip name="Sortuj" />
             <ReloadTip name="Odśwież" />
+            <PreferencesTip name="Ustawienia"/>
+            <PreferencesInitialSort name="Domyślnie sortuj funkcje (od A do Z)"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Obszar roboczy"/>

@@ -1538,7 +1538,7 @@ namespace NppDarkMode
 				PAINTSTRUCT ps{};
 				auto hdc = ::BeginPaint(hWnd, &ps);
 
-				::FillRect(hdc, &rcClient, NppDarkMode::getBackgroundBrush());
+				::FillRect(hdc, &rcClient, NppDarkMode::getDarkerBackgroundBrush());
 
 				auto dpiManager = NppParameters::getInstance()._dpiManager;
 
@@ -1605,7 +1605,7 @@ namespace NppDarkMode
 					auto holdBrush = ::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
 					::Rectangle(hdc, rcArrowLeft.left, rcArrowLeft.top, rcArrowLeft.right, rcArrowLeft.bottom);
 					::Rectangle(hdc, rcArrowRight.left, rcArrowRight.top, rcArrowRight.right, rcArrowRight.bottom);
-					::SelectObject(hdc, NppDarkMode::getBackgroundBrush());
+
 					::SelectObject(hdc, holdPen);
 					::SelectObject(hdc, holdBrush);
 				}
@@ -1645,7 +1645,7 @@ namespace NppDarkMode
 
 	void subclassTabUpDownControl(HWND hwnd)
 	{
-		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
+		auto pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
 		SetWindowSubclass(hwnd, TabUpDownSubclass, g_tabUpDownSubclassID, pButtonData);
 	}
 

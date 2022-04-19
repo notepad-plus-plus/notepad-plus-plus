@@ -66,14 +66,14 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	// _langName			_shortName					_longName												_langID			_lexerID
 	//
 	{TEXT("normal"),		TEXT("Normal text"),		TEXT("Normal text file"),								L_TEXT,			"null"},
-	{TEXT("php"),			TEXT("PHP"),				TEXT("PHP Hypertext Preprocessor file"),				L_PHP,			"html"},
+	{TEXT("php"),			TEXT("PHP"),				TEXT("PHP Hypertext Preprocessor file"),				L_PHP,			"phpscript"},
 	{TEXT("c"),				TEXT("C"),					TEXT("C source file"),									L_C,			"cpp"},
 	{TEXT("cpp"),			TEXT("C++"),				TEXT("C++ source file"),								L_CPP,			"cpp"},
 	{TEXT("cs"),			TEXT("C#"),					TEXT("C# source file"),									L_CS,			"cpp"},
 	{TEXT("objc"),			TEXT("Objective-C"),		TEXT("Objective-C source file"),						L_OBJC,			"objc"},
 	{TEXT("java"),			TEXT("Java"),				TEXT("Java source file"),								L_JAVA,			"cpp"},
 	{TEXT("rc"),			TEXT("RC"),					TEXT("Windows Resource file"),							L_RC,			"cpp"},
-	{TEXT("html"),			TEXT("HTML"),				TEXT("Hyper Text Markup Language file"),				L_HTML,			"html"},
+	{TEXT("html"),			TEXT("HTML"),				TEXT("Hyper Text Markup Language file"),				L_HTML,			"hypertext"},
 	{TEXT("xml"),			TEXT("XML"),				TEXT("eXtensible Markup Language file"),				L_XML,			"xml"},
 	{TEXT("makefile"),		TEXT("Makefile"),			TEXT("Makefile"),										L_MAKEFILE,		"makefile"},
 	{TEXT("pascal"),		TEXT("Pascal"),				TEXT("Pascal source file"),								L_PASCAL,		"pascal"},
@@ -81,7 +81,7 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("ini"),			TEXT("ini"),				TEXT("MS ini file"),									L_INI,			"props"},
 	{TEXT("nfo"),			TEXT("NFO"),				TEXT("MSDOS Style/ASCII Art"),							L_ASCII,		"null"},
 	{TEXT("udf"),			TEXT("udf"),				TEXT("User Defined language file"),						L_USER,			"user"},
-	{TEXT("asp"),			TEXT("ASP"),				TEXT("Active Server Pages script file"),				L_ASP,			"html"},
+	{TEXT("asp"),			TEXT("ASP"),				TEXT("Active Server Pages script file"),				L_ASP,			"hypertext"},
 	{TEXT("sql"),			TEXT("SQL"),				TEXT("Structured Query Language file"),					L_SQL,			"sql"},
 	{TEXT("vb"),			TEXT("Visual Basic"),		TEXT("Visual Basic file"),								L_VB,			"vb"},
 	{TEXT("javascript"),	TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JS,			"cpp"},
@@ -120,7 +120,7 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("d"),				TEXT("D"),					TEXT("D programming language"),							L_D,			"d"},
 	{TEXT("powershell"),	TEXT("PowerShell"),			TEXT("Windows PowerShell"),								L_POWERSHELL,	"powershell"},
 	{TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			"r"},
-	{TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			"html"},
+	{TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			"hypertext"},
 	{TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	"coffeescript"},
 	{TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			"json"},
 	{TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	"cpp"},
@@ -2836,13 +2836,15 @@ intptr_t ScintillaEditView::caseConvertRange(intptr_t start, intptr_t end, TextC
 	char *mbStr = new char[mbLenMax];
 	getText(mbStr, start, end);
 
-	if (int wideLen = ::MultiByteToWideChar(codepage, 0, mbStr, mbLen, NULL, 0)) {
+	if (int wideLen = ::MultiByteToWideChar(codepage, 0, mbStr, mbLen, NULL, 0))
+	{
 		wchar_t *wideStr = new wchar_t[wideLen];  // not NUL terminated
 		::MultiByteToWideChar(codepage, 0, mbStr, mbLen, wideStr, wideLen);
 
 		changeCase(wideStr, wideLen, caseToConvert);
 
-		if (int mbLenOut = ::WideCharToMultiByte(codepage, 0, wideStr, wideLen, mbStr, mbLenMax, NULL, NULL)) {
+		if (int mbLenOut = ::WideCharToMultiByte(codepage, 0, wideStr, wideLen, mbStr, mbLenMax, NULL, NULL))
+		{
 			// mbStr isn't NUL terminated either at this point
 			mbLen = mbLenOut;
 

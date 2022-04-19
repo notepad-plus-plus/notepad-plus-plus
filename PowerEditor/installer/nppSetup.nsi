@@ -179,7 +179,7 @@ updaterDone:
 	Var /GLOBAL tempLng
 	ReadRegStr $tempLng HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage'
 	${IfNot} ${Errors}
-		StrCpy $Language "$tempLng" ; set default language
+		StrCpy $LANGUAGE "$tempLng" ; set default language
 	${EndIf}
 	
 	!insertmacro MUI_LANGDLL_DISPLAY

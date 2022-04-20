@@ -162,9 +162,9 @@ ParamVector convertParamsToNotepadStyle(PWSTR pCmdLine)
 	if ( *pCmdLine != '\0' )
 	{
 		generic_string str(pCmdLine);
-		if ( *PathFindExtension(str.c_str()) == '\0' )
+		if ( *PathFindExtension(str.c_str()) == '\0' && !PathFileExists(str.c_str()) )
 		{
-			str.append(TEXT(".txt")); // If joined path has no extension, Notepad adds a .txt extension
+			str.append(TEXT(".txt")); // If joined path has no extension and there is no file without an extension, Notepad adds a .txt extension
 		}
 		params.push_back(std::move(str));
 	}

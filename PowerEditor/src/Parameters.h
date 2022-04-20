@@ -508,6 +508,10 @@ private :
 
 struct SortLexersInAlphabeticalOrder {
 	bool operator() (LexerStyler& l, LexerStyler& r) {
+		if (!lstrcmp(l.getLexerDesc(), TEXT("Search result")))
+			return false;
+		if (!lstrcmp(r.getLexerDesc(), TEXT("Search result")))
+			return true;
 		return lstrcmp(l.getLexerDesc(), r.getLexerDesc()) < 0;
 	}
 };

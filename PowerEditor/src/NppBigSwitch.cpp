@@ -2611,10 +2611,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETDARKMODECOLORS:
 		{
-			NppDarkMode::Colors* currentColors = reinterpret_cast<NppDarkMode::Colors*>(lParam);
-
 			if (static_cast<size_t>(wParam) != sizeof(NppDarkMode::Colors))
 				return static_cast<LRESULT>(false);
+
+			NppDarkMode::Colors* currentColors = reinterpret_cast<NppDarkMode::Colors*>(lParam);
 
 			if (currentColors != NULL)
 			{

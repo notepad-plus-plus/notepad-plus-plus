@@ -489,7 +489,27 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// - cbSize must be filled with sizeof(NppDarkMode::Colors).
 	// - returnColors must be a pre-allocated NppDarkMode::Colors struct.
 	// Returns true when successful, false otherwise.
-
+	// You need to uncomment the following code to use NppDarkMode::Colors structure:
+	//
+	// namespace NppDarkMode
+	// {
+	//	struct Colors
+	//	{
+	//		COLORREF background = 0;
+	//		COLORREF softerBackground = 0;
+	//		COLORREF hotBackground = 0;
+	//		COLORREF pureBackground = 0;
+	//		COLORREF errorBackground = 0;
+	//		COLORREF text = 0;
+	//		COLORREF darkerText = 0;
+	//		COLORREF disabledText = 0;
+	//		COLORREF linkText = 0;
+	//		COLORREF edge = 0;
+	//	};
+	// }
+	//
+	// Note: in the case of calling failure ("false" is returned), you may need to change NppDarkMode::Colors structure to:
+	// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/NppDarkMode.h#L32
 
 
 #define VAR_NOT_RECOGNIZED 0

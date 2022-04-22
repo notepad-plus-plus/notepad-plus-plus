@@ -1175,7 +1175,7 @@ namespace NppDarkMode
 			}
 
 			LONG_PTR dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
-			if ((dwStyle & TCS_BUTTONS) || (dwStyle & TCS_VERTICAL))
+			if ((dwStyle & TCS_BOTTOM) || (dwStyle & TCS_BUTTONS) || (dwStyle & TCS_VERTICAL)) 
 			{
 				break;
 			}

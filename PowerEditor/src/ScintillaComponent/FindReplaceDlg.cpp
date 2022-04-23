@@ -5056,10 +5056,12 @@ int Progress::createProgressWindow()
 
 	int xStartPos = dpiManager.scaleX(5);
 	int yTextPos = dpiManager.scaleY(5);
+	auto ctrlWidth = width - widthPadding - xStartPos;
+
 	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE | BS_TEXT | SS_PATHELLIPSIS,
 		xStartPos, yTextPos,
-		width - widthPadding, textHeight, _hwnd, NULL, _hInst, NULL);
+		ctrlWidth, textHeight, _hwnd, NULL, _hInst, NULL);
 
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
@@ -5068,7 +5070,7 @@ int Progress::createProgressWindow()
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
 		WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
 		xStartPos, yTextPos + textHeight,
-		width - widthPadding, cPBheight,
+		ctrlWidth, cPBheight,
 		_hwnd, NULL, _hInst, NULL);
 	SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 

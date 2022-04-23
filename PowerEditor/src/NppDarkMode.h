@@ -41,6 +41,7 @@ namespace NppDarkMode
 		COLORREF disabledText = 0;
 		COLORREF linkText = 0;
 		COLORREF edge = 0;
+		COLORREF hotEdge = 0;
 	};
 
 	struct Options
@@ -103,6 +104,7 @@ namespace NppDarkMode
 	COLORREF getLinkTextColor();
 
 	COLORREF getEdgeColor();
+	COLORREF getHotEdgeColor();
 
 	HBRUSH getBackgroundBrush();
 	HBRUSH getDarkerBackgroundBrush();
@@ -110,8 +112,12 @@ namespace NppDarkMode
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();
 
+	HBRUSH getEdgeBrush();
+	HBRUSH getHotEdgeBrush();
+
 	HPEN getDarkerTextPen();
 	HPEN getEdgePen();
+	HPEN getHotEdgePen();
 
 	void setBackgroundColor(COLORREF c);
 	void setSofterBackgroundColor(COLORREF c);

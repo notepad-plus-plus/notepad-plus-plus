@@ -2635,6 +2635,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				currentColors->disabledText = NppDarkMode::getDisabledTextColor();
 				currentColors->linkText = NppDarkMode::getLinkTextColor();
 				currentColors->edge = NppDarkMode::getEdgeColor();
+				currentColors->hotEdge = NppDarkMode::getHotEdgeColor();
 
 				return static_cast<LRESULT>(true);
 			}

@@ -1,58 +1,25 @@
-Notepad++ v8.3.3 regression-fix, bug-fixes and new enhancements:
+Notepad++ v8.4 new feature and bug-fixes:
 
-1.  Fix crash regression on opening a session file.
-2.  Enhance stability: add new ability (plugin compatibility) for not loading incompatible plugins.
-3.  Fix deleting the folded line makes folded (hidden) content disappeared.
-4.  Re-enable ability to center the FindReplaceDlg on Notepad++ main window.  
-5.  Fix extension not appended issue while saving with ENTER under Windows 7. 
-6.  Fix preferences dialog "Dark Mode->Customize tone" RTL alignment issue in dark mode.
-7.  Fix disabled static texts of Preferences blurry issue in Dark mode.
-8.  Add 4 API for custom auto-indentation and getting current macro status.
-9.  Add new AutoComplete icon for distinguishing functions from normal keywords.
-10. Fix Plugin Admin close issue after typing ENTER.
-11. Show current and new version on update dialog.
+1.  Update Scintilla from v4.4.6 to v5.2.1 and add Lexilla v5.1.5.
+2.  Enhance dark mode support.
+3.  Fix lossing characters issue after case-conversion (UPPER/lower).
+4.  Fix "Sort Lines as Integer" not considering negative number issue.   
+5.  Sort languages alphabetically automatically in Style Configurator.    
+6.  Fix flashing box (autocompletion empty list) appears while typing issue.
+7.  Scrolling Document List automatically to make the selected tab item visible.  
+8.  Make Find in Files search result line number aligned.
+9.  Add default A-Z sorting ability in Function list.    
+10. Add virtual space ability.
+11. Fix document being wronly marked as saved bug after converting its encoding.
+12. Fix Document list not synchronized with tab order after sorting.    
+13. Fix file saving critical bug under Symantec encryption desktop.
+14. Enhance installer: Remember the chosen language in the previous installation.
+15. Fix cropped text in Shortcut mapper's status area issue.
+16. Improve Find/Replace Dialog layout.
+17. Update NSIS & Inno Setup keyword lists.
 
-More fixes & implementations detail:
-https://notepad-plus-plus.org/downloads/v8.3.3/
-
-
-Notepad++ v8.3.2 regression-fixes, bug-fixes and new enhancements:
-
-1.  Fix incorrect message while double clicking on search result regression.
-2.  Fix regression: file can't be saved if it's set to other charset before.
-3.  Fix UDL comment config input fields broken regression.
-4.  Fix UDL dialog crash issue on over 30 created UDL.
-5.  Add sorting document tab order commands by name, path, type and size.    
-6.  Add API NPPM_GETCURRENTLINESTR and variable $(CURRENT_LINESTR) for RunDlg.
-7.  Support better 2GB+ file (cmdline & session file adaptation).
-8.  Fix auto-completion sort order problem due to fx icon.
-9.  Refine auto-saving session on exit behaviour.
-10. Enhance performance on exit with certain settings.
-11. Fix auto-complete case insensitive not working issue.
-12. Fix saving problem (regression) with "Sysnative" alias in x86 binary.
-
-
-Notepad++ v8.3.1 regression-fixes, bug-fixes and enhancement:
-
-1.  Fix XML tag adding or mark deletion crash issue.
-2.  Fix wrong cursor position on opened file & cmdline '-n' param not working regression.
-3.  Revert "Enable backup on save (simple) feature by default".
-4.  Restore auto-completion insert selection default behaviour (now with both ENTER & TAB as expected).
-5.  Fix Path Completion not working regression.
-6.  Fix target directory parameter (/D=) ignored by x64 installer regression.
-7.  Add icons in front of function items of auto-completion to distinguish from word items.
-8.  Fix file dialog "Append extension" checkbox not working on empty folder.
-9.  Fix link part of Dark Mode Customized tone not persistent issue.
-10. Fix NPPM_RELOADFILE not working with converted 8.3 DOS file name bug.
-
-
-Notepad++ v8.3 new features and bug-fixes:
-
-1.  Remove 2GB file open restriction for x64 binary.
-2.  Improve large files (200MB) loading speed and editing/browsing performance.
-3.  Fix Find in Files crash issue.
-
-
+Get more info on
+https://notepad-plus-plus.org/downloads/v8.4/
 
 
 Included plugins:

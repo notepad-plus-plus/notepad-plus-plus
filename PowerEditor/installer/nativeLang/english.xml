@@ -880,11 +880,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6229" name="Aligned"/>
                     <Item id="6230" name="Indent"/>
                     <Item id="6234" name="Disable advanced scrolling feature due to touchpad issue"/>
-                    <Item id="6214" name="Enable current line highlighting"/>
                     <Item id="6215" name="Enable smooth font"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
                     <Item id="6239" name="Keep selection when right-click outside of selection"/>
                     <Item id="6245" name="Enable virtual space"/>
+                    <Item id="6651" name="Current Line Indicator"/>
+                    <Item id="6652" name="None"/>
+                    <Item id="6653" name="Hightlight Background"/>
+                    <Item id="6654" name="Frame"/>
+                    <Item id="6655" name="Width"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">

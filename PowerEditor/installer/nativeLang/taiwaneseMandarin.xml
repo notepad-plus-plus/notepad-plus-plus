@@ -871,10 +871,14 @@
                     <Item id="6229" name="對齊"/>
                     <Item id="6230" name="縮排"/>
                     <Item id="6234" name="關閉進階捲動功能（若有觸控板問題）"/>
-                    <Item id="6214" name="於游標行加上背景顏色"/>
                     <Item id="6215" name="啟用平滑字體"/>
                     <Item id="6236" name="允許捲動至超出最後一行"/>
-                    <Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/> 
+                    <Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/>
+                    <Item id="6651" name="游標行設定"/>
+                    <Item id="6652" name="無"/>
+                    <Item id="6653" name="加上背景顏色"/>
+                    <Item id="6654" name="加上邊緣線"/>
+                    <Item id="6655" name="粗細度："/>
                 </Scintillas>
 
                 <DarkMode title="黑暗模式">

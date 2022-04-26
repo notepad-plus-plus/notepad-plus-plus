@@ -398,7 +398,9 @@ void DebugInfoDlg::refreshDebugInfo()
 	_debugInfoStr += _loadedPlugins.length() == 0 ? TEXT("none") : _loadedPlugins;
 	_debugInfoStr += TEXT("\r\n");
 
+	// Set Debug Info text and leave the text in selected state
 	::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, _debugInfoStr.c_str());
+	::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoStr.length() - 1);
 }
 
 void DoSaveOrNotBox::doDialog(bool isRTL)

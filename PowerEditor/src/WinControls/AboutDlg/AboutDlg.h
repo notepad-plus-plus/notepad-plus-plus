@@ -70,6 +70,8 @@ public:
 
 	void doDialog();
 
+	void refreshDebugInfo();
+
 	virtual void destroy() {
 		_copyToClipboardLink.destroy();
 	};

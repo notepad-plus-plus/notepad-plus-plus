@@ -511,6 +511,20 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Note: in the case of calling failure ("false" is returned), you may need to change NppDarkMode::Colors structure to:
 	// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/NppDarkMode.h#L32
 
+	#define NPPM_GETINITIALCMDLINE (NPPMSG + 109)
+	// INT NPPM_GETINITIALCMDLINE(size_t strLen, TCHAR *commandLineStr)
+	// Get the Initial Command Line string.
+	// Returns the number of TCHAR copied/to copy.
+	// Users should call it with commandLineStr as NULL to get the required number of TCHAR (not including the terminating nul character),
+	// allocate commandLineStr buffer with the return value + 1, then call it again to get the initial command line string.
+
+	#define NPPM_GETCURRENTCMDLINE (NPPMSG + 110)
+	// INT NPPM_GETCURRENTCMDLINE(size_t strLen, TCHAR *commandLineStr)
+	// Get the Current Command Line string.
+	// Returns the number of TCHAR copied/to copy.
+	// Users should call it with commandLineStr as NULL to get the required number of TCHAR (not including the terminating nul character),
+	// allocate commandLineStr buffer with the return value + 1, then call it again to get the current command line string.
+
 
 #define VAR_NOT_RECOGNIZED 0
 #define FULL_CURRENT_PATH 1
@@ -699,6 +713,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPN_DARKMODECHANGED (NPPN_FIRST + 27) // To notify plugins that Dark Mode was enabled/disabled
 	//scnNotification->nmhdr.code = NPPN_DARKMODECHANGED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = 0;
+
+	#define NPPN_CMDLINECHANGED (NPPN_FIRST + 28)  // To notify plugins that current command line string has changed
+	//scnNotification->nmhdr.code = NPPN_CMDLINECHANGED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
 

@@ -480,6 +480,37 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// MacroStatus NPPM_GETCURRENTMACROSTATUS(0, 0)
 	// Gets current enum class MacroStatus { Idle - means macro is not in use and it's empty, RecordInProgress, RecordingStopped, PlayingBack }
 
+	#define NPPM_ISDARKMODEENABLED (NPPMSG + 107)
+	// bool NPPM_ISDARKMODEENABLED(0, 0)
+	// Returns true when Notepad++ Dark Mode is enable, false when it is not.
+
+	#define NPPM_GETDARKMODECOLORS (NPPMSG + 108)
+	// bool NPPM_GETDARKMODECOLORS (size_t cbSize, NppDarkMode::Colors* returnColors)
+	// - cbSize must be filled with sizeof(NppDarkMode::Colors).
+	// - returnColors must be a pre-allocated NppDarkMode::Colors struct.
+	// Returns true when successful, false otherwise.
+	// You need to uncomment the following code to use NppDarkMode::Colors structure:
+	//
+	// namespace NppDarkMode
+	// {
+	//	struct Colors
+	//	{
+	//		COLORREF background = 0;
+	//		COLORREF softerBackground = 0;
+	//		COLORREF hotBackground = 0;
+	//		COLORREF pureBackground = 0;
+	//		COLORREF errorBackground = 0;
+	//		COLORREF text = 0;
+	//		COLORREF darkerText = 0;
+	//		COLORREF disabledText = 0;
+	//		COLORREF linkText = 0;
+	//		COLORREF edge = 0;
+	//	};
+	// }
+	//
+	// Note: in the case of calling failure ("false" is returned), you may need to change NppDarkMode::Colors structure to:
+	// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/NppDarkMode.h#L32
+
 	#define NPPM_GETINITIALCMDLINE (NPPMSG + 109)
 	// INT NPPM_GETINITIALCMDLINE(size_t strLen, TCHAR *commandLineStr)
 	// Get the Initial Command Line string.
@@ -679,6 +710,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.code = NPPN_FILEDELETED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_DARKMODECHANGED (NPPN_FIRST + 27) // To notify plugins that Dark Mode was enabled/disabled
+	//scnNotification->nmhdr.code = NPPN_DARKMODECHANGED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = 0;
 
 	#define NPPN_CMDLINECHANGED (NPPN_FIRST + 28)  // To notify plugins that current command line string has changed
 	//scnNotification->nmhdr.code = NPPN_CMDLINECHANGED;

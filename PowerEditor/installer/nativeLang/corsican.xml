@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on April 27th, 2022 for version 8.4.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on April 7nd, 2022 for version 8.3.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on February 21st, 2022 for version 8.3.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on February 8th, 2022 for version 8.3.1 by Patriccollu di Santa Maria è Sichè
@@ -33,7 +34,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.3.4">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -907,11 +908,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6229" name="Aliniatu"/>
                     <Item id="6230" name="Indentazione"/>
                     <Item id="6234" name="Disattivà u modu espertu d’affissera in casu di penseru cù u tappettu tattile"/>
-                    <Item id="6214" name="Sopralineà a linea attuale"/>
                     <Item id="6215" name="Permette una grafia allisciata"/>
                     <Item id="6236" name="Permette l’affissera dopu à l’ultima linea"/>
                     <Item id="6239" name="Cunservà a selezzione in casu di cliccu dirittu fora di a selezzione"/>
                     <Item id="6245" name="Attivà u spaziu virtuale"/>
+                    <Item id="6651" name="Indicadore di linea currente"/>
+                    <Item id="6652" name="Nisunu"/>
+                    <Item id="6653" name="Culurisce u sfondulu"/>
+                    <Item id="6654" name="Quadru"/>
+                    <Item id="6655" name="Larghezza :"/>
                 </Scintillas>
 
                 <DarkMode title="Modu scuru">

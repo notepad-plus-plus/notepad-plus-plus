@@ -117,6 +117,7 @@ const int LANG_INDEX_TYPE7 = 8;
 const int COPYDATA_PARAMS = 0;
 const int COPYDATA_FILENAMESA = 1;
 const int COPYDATA_FILENAMESW = 2;
+const int COPYDATA_FULL_CMDLINE = 3;
 
 #define PURE_LC_NONE	0
 #define PURE_LC_BOL	 1
@@ -247,6 +248,7 @@ struct CmdLineParams
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
 	generic_string _udlName;
+	generic_string _pluginMessage;
 
 	generic_string _easterEggName;
 	unsigned char _quoteType = 0;
@@ -281,6 +283,8 @@ struct CmdLineParamsDTO
 	LangType _langType = L_EXTERNAL;
 	generic_string _udlName;
 
+	wchar_t _pluginMessage[MAX_PATH];
+
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{
 		CmdLineParamsDTO dto;
@@ -297,6 +301,7 @@ struct CmdLineParamsDTO
 		
 		dto._langType = params._langType;
 		dto._udlName = params._udlName;
+		wcsncpy(dto._pluginMessage, params._pluginMessage.c_str(), MAX_PATH);
 		return dto;
 	}
 };
@@ -1480,6 +1485,7 @@ public:
 	{
 		_cmdLineParams = cmdLineParams;
 	}
+
 	const CmdLineParamsDTO & getCmdLineParams() const {return _cmdLineParams;};
 
 	const generic_string& getCmdLineString() const { return _cmdLineString; }

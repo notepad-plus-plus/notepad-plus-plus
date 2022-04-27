@@ -70,6 +70,8 @@ public:
 
 	void doDialog();
 
+	void refreshDebugInfo();
+
 	virtual void destroy() {
 		_copyToClipboardLink.destroy();
 	};
@@ -80,6 +82,7 @@ protected:
 private:
 	typedef const CHAR * (__cdecl * PWINEGETVERSION)();
 	generic_string _debugInfoStr;
+	const generic_string _cmdLinePlaceHolder { L"$COMMAND_LINE_PLACEHOLDER$" };
 	bool _isAdmin = false;
 	generic_string _loadedPlugins;
 	URLCtrl _copyToClipboardLink;

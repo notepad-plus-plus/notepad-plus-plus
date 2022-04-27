@@ -180,8 +180,9 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += TEXT("\r\n");
 
 			// Command line as specified for program launch
+			// The _cmdLinePlaceHolder will be replaced later by refreshDebugInfo()
 			_debugInfoStr += TEXT("Command Line : ");
-			_debugInfoStr += nppParam.getCmdLineString();
+			_debugInfoStr += _cmdLinePlaceHolder;
 			_debugInfoStr += TEXT("\r\n");
 
 			// Administrator mode
@@ -204,7 +205,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			// OS information
 			HKEY hKey;
 			DWORD dataSize = 0;
-			
+
 			TCHAR szProductName[96] = {'\0'};
 			TCHAR szCurrentBuildNumber[32] = {'\0'};
 			TCHAR szReleaseId[32] = {'\0'};
@@ -221,17 +222,17 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				dataSize = sizeof(szReleaseId);
 				RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
 				szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
-				
+
 				dataSize = sizeof(szCurrentBuildNumber);
 				RegQueryValueExW(hKey, TEXT("CurrentBuildNumber"), NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
 				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(TCHAR) - 1] = '\0';
-				
+
 				dataSize = sizeof(DWORD);
 				if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
 				{
 					generic_sprintf(szUBR, TEXT("%u"), dwUBR);
 				}
-				
+
 				RegCloseKey(hKey);
 			}
 
@@ -253,14 +254,14 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					generic_sprintf(szCurrentBuildNumber, TEXT("%u"), HIWORD(dwVersion));
 				}
 			}
-			
+
 			_debugInfoStr += TEXT("OS Name : ");
 			_debugInfoStr += szProductName;
 			_debugInfoStr += TEXT(" (");
 			_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
 			_debugInfoStr += TEXT(") ");
 			_debugInfoStr += TEXT("\r\n");
-			
+
 			if (szReleaseId[0] != '\0')
 			{
 				_debugInfoStr += TEXT("OS Version : ");
@@ -307,8 +308,6 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += TEXT("Plugins : ");
 			_debugInfoStr += _loadedPlugins.length() == 0 ? TEXT("none") : _loadedPlugins;
 			_debugInfoStr += TEXT("\r\n");
-
-			::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, _debugInfoStr.c_str());
 
 			_copyToClipboardLink.init(_hInst, _hSelf);
 			_copyToClipboardLink.create(::GetDlgItem(_hSelf, IDC_DEBUGINFO_COPYLINK), IDC_DEBUGINFO_COPYLINK);
@@ -381,13 +380,34 @@ void DebugInfoDlg::doDialog()
 	if (!isCreated())
 		create(IDD_DEBUGINFOBOX);
 
+	// Refresh the Debug Information.
+	// For example, the command line parameters may have changed since this dialog was last opened during this session.
+	refreshDebugInfo();
+
 	// Adjust the position of AboutBox
 	goToCenter();
 }
 
+void DebugInfoDlg::refreshDebugInfo()
+{
+	generic_string debugInfoDisplay { _debugInfoStr };
+
+	size_t replacePos = debugInfoDisplay.find(_cmdLinePlaceHolder);
+	if (replacePos != std::string::npos)
+	{
+		debugInfoDisplay.replace(replacePos, _cmdLinePlaceHolder.length(), NppParameters::getInstance().getCmdLineString());
+	}
+
+	// Set Debug Info text and leave the text in selected state
+	::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, debugInfoDisplay.c_str());
+	::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoStr.length() - 1);
+	::SetFocus(::GetDlgItem(_hSelf, IDC_DEBUGINFO_EDIT));
+}
+
+
 void DoSaveOrNotBox::doDialog(bool isRTL)
 {
-	
+
 	if (isRTL)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;

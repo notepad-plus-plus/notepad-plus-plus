@@ -312,6 +312,7 @@ const TCHAR FLAG_OPEN_FOLDERS_AS_WORKSPACE[] = TEXT("-openFoldersAsWorkspace");
 const TCHAR FLAG_SETTINGS_DIR[] = TEXT("-settingsDir=");
 const TCHAR FLAG_TITLEBAR_ADD[] = TEXT("-titleAdd=");
 const TCHAR FLAG_APPLY_UDL[] = TEXT("-udl=");
+const TCHAR FLAG_PLUGIN_MESSAGE[] = TEXT("-pluginMessage=");
 const TCHAR FLAG_MONITOR_FILES[] = TEXT("-monitor");
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
@@ -450,6 +451,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);
 	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
 	cmdLineParams._ghostTypingSpeed = getGhostTypingSpeedFromParam(params);
+
+	generic_string pluginMessage;
+	if (getParamValFromString(FLAG_PLUGIN_MESSAGE, params, pluginMessage))
+	{
+		if (pluginMessage.length() >= 2)
+		{
+			if (pluginMessage.front() == '"' && pluginMessage.back() == '"')
+			{
+				pluginMessage = pluginMessage.substr(1, pluginMessage.length() - 2);
+			}
+		}
+		cmdLineParams._pluginMessage = pluginMessage;
+	}
 
 	// getNumberFromParam should be run at the end, to not consuming the other params
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
@@ -599,13 +613,18 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 				paramData.dwData = COPYDATA_PARAMS;
 				paramData.lpData = &dto;
 				paramData.cbData = sizeof(dto);
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
+
+				COPYDATASTRUCT cmdLineData;
+				cmdLineData.dwData = COPYDATA_FULL_CMDLINE;
+				cmdLineData.lpData = (void*)cmdLineString.c_str();
+				cmdLineData.cbData = long(cmdLineString.length() + 1) * (sizeof(TCHAR));
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&cmdLineData));
 
 				COPYDATASTRUCT fileNamesData;
 				fileNamesData.dwData = COPYDATA_FILENAMES;
 				fileNamesData.lpData = (void *)quotFileName.c_str();
-				fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
-
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
+				fileNamesData.cbData = long(quotFileName.length() + 1) * (sizeof(TCHAR));
 				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
 			}
 			return 0;

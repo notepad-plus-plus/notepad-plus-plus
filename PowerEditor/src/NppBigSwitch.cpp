@@ -662,6 +662,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			switch (pCopyData->dwData)
 			{
+				case COPYDATA_FULL_CMDLINE:
+				{
+					nppParam.setCmdLineString(static_cast<wchar_t*>(pCopyData->lpData));
+					break;
+				}
+
 				case COPYDATA_PARAMS:
 				{
 					const CmdLineParamsDTO *cmdLineParam = static_cast<const CmdLineParamsDTO *>(pCopyData->lpData); // CmdLineParams object from another instance
@@ -669,6 +675,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
 					{
 						nppParam.setCmdlineParam(*cmdLineParam);
+						generic_string pluginMessage { nppParam.getCmdLineParams()._pluginMessage };
+						if (!pluginMessage.empty())
+						{
+							SCNotification scnN;
+							scnN.nmhdr.code = NPPN_CMDLINEPLUGINMSG;
+							scnN.nmhdr.hwndFrom = hwnd;
+							scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(pluginMessage.c_str());
+							_pluginsManager.notify(&scnN);
+						}
 					}
 					else
 					{
@@ -1354,6 +1369,21 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (_playingBackMacro)
 				return static_cast<LRESULT>(MacroStatus::PlayingBack);
 			return (_macro.empty()) ? static_cast<LRESULT>(MacroStatus::Idle) : static_cast<LRESULT>(MacroStatus::RecordingStopped);
+		}
+
+		case NPPM_GETCURRENTCMDLINE:
+		{
+			generic_string cmdLineString = nppParam.getCmdLineString();
+
+			if (lParam != 0)
+			{
+				if (cmdLineString.length() >= static_cast<size_t>(wParam))
+				{
+					return 0;
+				}
+				lstrcpy(reinterpret_cast<TCHAR*>(lParam), cmdLineString.c_str());
+			}
+			return cmdLineString.length();
 		}
 
 		case WM_FRSAVE_INT:

@@ -398,13 +398,13 @@ IDD_PREFERENCE_SUB_MULTIINSTANCE DIALOGEX 0, 0, 455, 210
 STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Multi-instance settings",IDC_MULTIINST_GB_STATIC,89,3,268,89,BS_CENTER
-    CONTROL         "Open session in a new instance (and save session automatically on exit)",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON|BS_MULTILINE,122,10,226,20
-    CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,34,218,10
-    CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,51,196,10
-    LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,110,70,239,20
-    GROUPBOX        "Customize insert Date Time",IDC_DATETIMEFORMAT_GB_STATIC,90,97,268,105,BS_CENTER
-    CONTROL         "Reverse default date time order (short && long formats)",IDD_DATETIMEFORMAT_REVERSEORDER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,103,113,241,10
+    GROUPBOX        "Multi-instance settings",IDC_MULTIINST_GB_STATIC,89,3,268,92,BS_CENTER
+    CONTROL         "Open session in a new instance (and save session automatically on exit)",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON|BS_MULTILINE,122,14,226,20
+    CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,38,218,10
+    CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,55,196,10
+    LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,110,74,239,20
+    GROUPBOX        "Customize insert Date Time",IDC_DATETIMEFORMAT_GB_STATIC,90,100,268,102,BS_CENTER
+    CONTROL         "Reverse default date time order (short && long formats)",IDD_DATETIMEFORMAT_REVERSEORDER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,103,116,241,10
     RTEXT           "yyyy-MM-dd HH:mm:ss\nH:m d/M/yyyy\nMMM d, yyyy  tt h:m",IDC_STATIC,134,142,77,25
     LTEXT           "1985-10-26 16:24:42\n16:24 26/10/1985\nOct 26, 1985  PM 4:24",IDC_STATIC,234,142,94,25
     RTEXT           "Custom format:",IDD_DATETIMEFORMAT_STATIC,92,172,77,8

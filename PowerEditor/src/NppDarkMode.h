@@ -87,6 +87,7 @@ namespace NppDarkMode
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
+	COLORREF lightColor(COLORREF color, WORD luminance);
 	double calculatePerceivedLighness(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);

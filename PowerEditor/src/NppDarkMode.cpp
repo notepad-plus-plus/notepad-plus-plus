@@ -25,6 +25,7 @@
 
 #include "Parameters.h"
 #include "resource.h"
+#include "ColourPicker.h"
 
 #include <Shlwapi.h>
 
@@ -37,6 +38,11 @@
 
 #pragma comment(lib, "uxtheme.lib")
 
+#define BKLUMINANCE_BRIGHTER 140
+#define BKLUMINANCE_SOFTER 80
+#define EDGELUMINANCE_BRIGHTER 220
+#define EDGELUMINANCE_DARKER 60
+
 namespace NppDarkMode
 {
 	struct Brushes
@@ -46,6 +52,13 @@ namespace NppDarkMode
 		HBRUSH hotBackground = nullptr;
 		HBRUSH pureBackground = nullptr;
 		HBRUSH errorBackground = nullptr;
+		HBRUSH hardlightBackground = nullptr;
+		HBRUSH softlightBackground = nullptr;
+		HBRUSH textColorBrush = nullptr;
+		HBRUSH darkerTextColorBrush = nullptr;
+		HBRUSH edgeBackground = nullptr;
+		HBRUSH lightEdgeBackground = nullptr;
+		HBRUSH darkEdgeBackground = nullptr;
 
 		Brushes(const Colors& colors)
 			: background(::CreateSolidBrush(colors.background))
@@ -53,6 +66,13 @@ namespace NppDarkMode
 			, hotBackground(::CreateSolidBrush(colors.hotBackground))
 			, pureBackground(::CreateSolidBrush(colors.pureBackground))
 			, errorBackground(::CreateSolidBrush(colors.errorBackground))
+			, hardlightBackground(::CreateSolidBrush(lightColor(colors.background, BKLUMINANCE_BRIGHTER)))
+			, softlightBackground(::CreateSolidBrush(lightColor(colors.background, BKLUMINANCE_SOFTER)))
+			, textColorBrush(::CreateSolidBrush(colors.text))
+			, darkerTextColorBrush(::CreateSolidBrush(colors.darkerText))
+			, edgeBackground(::CreateSolidBrush(colors.edge))
+			, lightEdgeBackground(::CreateSolidBrush(lightColor(colors.edge, EDGELUMINANCE_BRIGHTER)))
+			, darkEdgeBackground(::CreateSolidBrush(lightColor(colors.edge, EDGELUMINANCE_DARKER)))
 		{}
 
 		~Brushes()
@@ -62,6 +82,10 @@ namespace NppDarkMode
 			::DeleteObject(hotBackground);		hotBackground = nullptr;
 			::DeleteObject(pureBackground);		pureBackground = nullptr;
 			::DeleteObject(errorBackground);	errorBackground = nullptr;
+			::DeleteObject(hardlightBackground);	hardlightBackground = nullptr;
+			::DeleteObject(softlightBackground);	softlightBackground = nullptr;
+			::DeleteObject(textColorBrush);			textColorBrush = nullptr;
+			::DeleteObject(darkerTextColorBrush);	darkerTextColorBrush = nullptr;
 		}
 
 		void change(const Colors& colors)
@@ -71,12 +95,23 @@ namespace NppDarkMode
 			::DeleteObject(hotBackground);
 			::DeleteObject(pureBackground);
 			::DeleteObject(errorBackground);
+			::DeleteObject(hardlightBackground);
+			::DeleteObject(softlightBackground);
+			::DeleteObject(textColorBrush);
+			::DeleteObject(darkerTextColorBrush);
 
 			background = ::CreateSolidBrush(colors.background);
 			softerBackground = ::CreateSolidBrush(colors.softerBackground);
 			hotBackground = ::CreateSolidBrush(colors.hotBackground);
 			pureBackground = ::CreateSolidBrush(colors.pureBackground);
 			errorBackground = ::CreateSolidBrush(colors.errorBackground);
+			hardlightBackground = ::CreateSolidBrush(lightColor(colors.background, BKLUMINANCE_BRIGHTER));
+			softlightBackground = ::CreateSolidBrush(lightColor(colors.background, BKLUMINANCE_SOFTER));
+			textColorBrush = ::CreateSolidBrush(colors.text);
+			darkerTextColorBrush = ::CreateSolidBrush(colors.darkerText);
+			edgeBackground = ::CreateSolidBrush(colors.edge);
+			lightEdgeBackground = ::CreateSolidBrush(lightColor(colors.edge, EDGELUMINANCE_BRIGHTER));
+			darkEdgeBackground = ::CreateSolidBrush(lightColor(colors.edge, EDGELUMINANCE_DARKER));
 		}
 	};
 
@@ -84,25 +119,35 @@ namespace NppDarkMode
 	{
 		HPEN darkerTextPen = nullptr;
 		HPEN edgePen = nullptr;
+		HPEN lightEdgePen = nullptr;
+		HPEN darkEdgePen = nullptr;
 
 		Pens(const Colors& colors)
 			: darkerTextPen(::CreatePen(PS_SOLID, 1, colors.darkerText))
 			, edgePen(::CreatePen(PS_SOLID, 1, colors.edge))
+			, lightEdgePen(::CreatePen(PS_SOLID, 1, lightColor(colors.edge, EDGELUMINANCE_BRIGHTER)))
+			, darkEdgePen(::CreatePen(PS_SOLID, 1, lightColor(colors.edge, EDGELUMINANCE_DARKER)))
 		{}
 
 		~Pens()
 		{
 			::DeleteObject(darkerTextPen);	darkerTextPen = nullptr;
 			::DeleteObject(edgePen);		edgePen = nullptr;
+			::DeleteObject(lightEdgePen);	lightEdgePen = nullptr;
+			::DeleteObject(darkEdgePen);	darkEdgePen = nullptr;
 		}
 
 		void change(const Colors& colors)
 		{
 			::DeleteObject(darkerTextPen);
 			::DeleteObject(edgePen);
+			::DeleteObject(lightEdgePen);
+			::DeleteObject(darkEdgePen);
 
 			darkerTextPen = ::CreatePen(PS_SOLID, 1, colors.darkerText);
 			edgePen = ::CreatePen(PS_SOLID, 1, colors.edge);
+			lightEdgePen = ::CreatePen(PS_SOLID, 1, lightColor(colors.edge, EDGELUMINANCE_BRIGHTER));
+			darkEdgePen = ::CreatePen(PS_SOLID, 1, lightColor(colors.edge, EDGELUMINANCE_DARKER));
 		}
 
 	};
@@ -397,6 +442,20 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
+	COLORREF lightColor(COLORREF color, WORD luminance)
+	{
+		WORD h = 0;
+		WORD s = 0;
+		WORD l = 0;
+		ColorRGBToHLS(color, &h, &l, &s);
+
+		l = luminance;
+
+		COLORREF newColor = ColorHLSToRGB(h, l, s);
+
+		return newColor;
+	}
+
 	TreeViewStyle treeViewStyle = TreeViewStyle::classic;
 	COLORREF treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
 	double lighnessTreeView = 50.0;
@@ -433,14 +492,23 @@ namespace NppDarkMode
 	COLORREF getLinkTextColor()           { return getTheme()._colors.linkText; }
 	COLORREF getEdgeColor()               { return getTheme()._colors.edge; }
 
-	HBRUSH getBackgroundBrush()           { return getTheme()._brushes.background; }
-	HBRUSH getSofterBackgroundBrush()     { return getTheme()._brushes.softerBackground; }
-	HBRUSH getHotBackgroundBrush()        { return getTheme()._brushes.hotBackground; }
-	HBRUSH getDarkerBackgroundBrush()     { return getTheme()._brushes.pureBackground; }
-	HBRUSH getErrorBackgroundBrush()      { return getTheme()._brushes.errorBackground; }
+	HBRUSH getBackgroundBrush()          { return getTheme()._brushes.background; }
+	HBRUSH getSofterBackgroundBrush()    { return getTheme()._brushes.softerBackground; }
+	HBRUSH getHotBackgroundBrush()       { return getTheme()._brushes.hotBackground; }
+	HBRUSH getDarkerBackgroundBrush()    { return getTheme()._brushes.pureBackground; }
+	HBRUSH getErrorBackgroundBrush()     { return getTheme()._brushes.errorBackground; }
+	HBRUSH getHardlightBackgroundBrush() { return getTheme()._brushes.hardlightBackground; }
+	HBRUSH getSoftlightBackgroundBrush() { return getTheme()._brushes.softlightBackground; }
+	HBRUSH getTextBrush()				 { return getTheme()._brushes.textColorBrush; }
+	HBRUSH getDarkerTextBrush()			 { return getTheme()._brushes.darkerTextColorBrush; }
+	HBRUSH getEdgeBrush()				 { return getTheme()._brushes.edgeBackground; }
+	HBRUSH getLightEdgeBrush()			 { return getTheme()._brushes.lightEdgeBackground; }
+	HBRUSH getDargEdgeBrush()			 { return getTheme()._brushes.darkEdgeBackground; }
 
 	HPEN getDarkerTextPen()               { return getTheme()._pens.darkerTextPen; }
 	HPEN getEdgePen()                     { return getTheme()._pens.edgePen; }
+	HPEN getLightEdgePen()				  { return getTheme()._pens.lightEdgePen; }
+	HPEN getDarkEdgePen()				  { return getTheme()._pens.darkEdgePen; }
 
 	void setBackgroundColor(COLORREF c)
 	{
@@ -758,7 +826,167 @@ namespace NppDarkMode
 		}
 	};
 
-	void renderButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
+	// Draws a BS_PUSBUTON or DEF_PUSHBUTTON or Checkbox with BS_PUSHLIKE control background
+	// nState is the same as static_cast<DWORD>(SendMessage(hwndButton, BM_GETSTATE, 0, 0));
+	// nStyle is the same as GetWindowLongPtr(hwndButton, GWL_STYLE);
+	void renderButtonBackground(HDC hdc, DWORD nState, LONG_PTR nStyle, const RECT& rcClient)
+	{
+		HBRUSH hBckBrush = ((nState & BST_HOT) != 0) ? NppDarkMode::getSoftlightBackgroundBrush() : NppDarkMode::getDarkerBackgroundBrush();
+		if ((nState & BST_PUSHED) != 0 || ((nState & BST_CHECKED) != 0))
+			hBckBrush = NppDarkMode::getSofterBackgroundBrush();
+
+		HPEN hOldPen = nullptr;
+		if (nStyle & WS_DISABLED)
+			hOldPen = reinterpret_cast<HPEN>(SelectObject(hdc, NppDarkMode::getDarkEdgePen()));
+		else if ((nState & (BST_FOCUS) | (nState & BST_HOT)) || ((nStyle & BS_DEFPUSHBUTTON) && !(nStyle & BS_PUSHLIKE)))
+			hOldPen = reinterpret_cast<HPEN>(SelectObject(hdc, NppDarkMode::getLightEdgePen()));
+		else if (nStyle & (BS_PUSHLIKE))
+			hOldPen = reinterpret_cast<HPEN>(SelectObject(hdc, NppDarkMode::getEdgePen()));
+		else
+			hOldPen = reinterpret_cast<HPEN>(SelectObject(hdc, NppDarkMode::getEdgePen()));
+
+		HBRUSH hOldBrush = reinterpret_cast<HBRUSH>(SelectObject(hdc, hBckBrush));
+		RoundRect(hdc, rcClient.left, rcClient.top, rcClient.right, 
+			rcClient.bottom, NppParameters::getInstance()._dpiManager.scaleX(5), NppParameters::getInstance()._dpiManager.scaleY(5));
+		SelectObject(hdc, hOldBrush);
+
+		if (hOldPen)
+			SelectObject(hdc, hOldPen);
+	}
+
+	void renderButton(HWND hwndButton, HDC hdc, HTHEME hTheme)
+	{
+		RECT rcClient = {};
+		WCHAR szText[256] = { '\0' };
+		DWORD nState = static_cast<DWORD>(SendMessage(hwndButton, BM_GETSTATE, 0, 0));
+		LONG_PTR nStyle = GetWindowLongPtr(hwndButton, GWL_STYLE);
+		DWORD uiState = static_cast<DWORD>(SendMessage(hwndButton, WM_QUERYUISTATE, 0, 0));
+
+		GetClientRect(hwndButton, &rcClient);
+		GetWindowText(hwndButton, szText, _countof(szText));
+
+		HFONT hFont = nullptr;
+		HFONT hOldFont = nullptr;
+
+		renderButtonBackground(hdc, nState, nStyle, rcClient);
+
+		// Draw button image
+		RECT rcImage = rcClient;
+		RECT rcText = rcClient;
+		InflateRect(&rcText, -3, -3);
+
+		DWORD dtFlags = DT_LEFT; // DT_LEFT is 0
+		dtFlags |= (nStyle & BS_MULTILINE) ? DT_WORDBREAK : DT_SINGLELINE;
+		dtFlags |= ((nStyle & BS_CENTER) == BS_CENTER) ? DT_CENTER : (nStyle & BS_RIGHT) ? DT_RIGHT : 0;
+		dtFlags |= ((nStyle & BS_VCENTER) == BS_VCENTER) ? DT_VCENTER : (nStyle & BS_BOTTOM) ? DT_BOTTOM : 0;
+		dtFlags |= (uiState & UISF_HIDEACCEL) ? DT_HIDEPREFIX : 0;
+
+		// Modifications to DrawThemeText
+		dtFlags &= ~(DT_RIGHT);
+		dtFlags |= DT_VCENTER | DT_CENTER;
+
+		// Calculate actual text output rectangle and centralize
+		const int padding = NppParameters::getInstance()._dpiManager.scaleX(4);
+		DrawText(hdc, szText, -1, &rcImage, dtFlags | DT_CALCRECT);
+		rcImage.left = padding + (rcClient.right - rcImage.right) / 2;
+		rcImage.right += padding + rcImage.left;
+
+		ICONINFO ii;
+		BITMAP bm;
+
+		HICON hIcon = reinterpret_cast<HICON>(SendMessage(hwndButton, BM_GETIMAGE, IMAGE_ICON, 0));
+		HBITMAP hBitmap = reinterpret_cast<HBITMAP>(hIcon); // BM_GETIMAGE returns the same handler for IMAGE_ICON and IMAGE_BITMAP.
+		BOOL bIcon = GetIconInfo(hIcon, &ii);
+		BOOL bBitmap = GetObject(hBitmap, sizeof(bm), &bm);
+
+		bool bStandalone = ((nStyle & BS_BITMAP) != 0) || ((nStyle & BS_ICON) != 0) || (szText[0] == '\0');
+
+		if (bIcon)
+		{
+			POINT pxIcon = {};
+			rcImage.left -= ii.xHotspot * 2;
+			pxIcon.x = bStandalone ? (rcClient.right - ii.xHotspot * 2) / 2 : rcImage.left;
+			pxIcon.y = (rcClient.bottom - (ii.yHotspot * 2)) / 2;
+			if (nState & BST_PUSHED)
+			{
+				pxIcon.x += NppParameters::getInstance()._dpiManager.scaleX(1);
+				pxIcon.y += NppParameters::getInstance()._dpiManager.scaleY(1);
+			}
+			DrawIconEx(hdc, pxIcon.x, pxIcon.y, hIcon, ii.xHotspot * 2, ii.yHotspot * 2, 0, NULL, DI_NORMAL);
+		}
+
+		if (bBitmap)
+		{
+			POINT pxBmp = {};
+			rcImage.left -= bm.bmWidth;
+			HDC memDC = CreateCompatibleDC(hdc);
+			pxBmp.x = bStandalone ? (rcClient.right - bm.bmWidth) / 2 : rcImage.left;
+			pxBmp.y = (rcClient.bottom - bm.bmHeight) / 2;
+			if (nState & BST_PUSHED)
+			{
+				pxBmp.x += NppParameters::getInstance()._dpiManager.scaleX(1);
+				pxBmp.y += NppParameters::getInstance()._dpiManager.scaleY(1);
+			}
+
+			HBITMAP oldBmp = reinterpret_cast<HBITMAP>(SelectObject(memDC, hBitmap));
+			if (bm.bmBitsPixel == 32)
+			{
+				BLENDFUNCTION bf1;
+				bf1.BlendOp = AC_SRC_OVER;
+				bf1.BlendFlags = 0;
+				bf1.SourceConstantAlpha = 0xff;
+				bf1.AlphaFormat = AC_SRC_ALPHA;
+				GdiAlphaBlend(hdc, pxBmp.x, pxBmp.y, bm.bmWidth, bm.bmHeight, memDC, 0, 0, bm.bmWidth, bm.bmHeight, bf1);
+			}
+			else
+				BitBlt(hdc, pxBmp.x, pxBmp.y, bm.bmWidth, bm.bmHeight, memDC, 0, 0, SRCCOPY);
+
+			SelectObject(memDC, oldBmp);
+			DeleteDC(memDC);
+		}
+
+		if (bIcon || bBitmap)
+			rcText.left += padding;
+
+		hFont = reinterpret_cast<HFONT>(SendMessage(hwndButton, WM_GETFONT, 0, 0));
+		hOldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
+
+
+		DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
+		dtto.crText = NppDarkMode::getTextColor();
+
+		if (nStyle & WS_DISABLED)
+		{
+			dtto.crText = NppDarkMode::getDisabledTextColor();
+		}
+
+		if (nState & BST_PUSHED)
+		{
+			rcText.left += NppParameters::getInstance()._dpiManager.scaleX(1);
+			rcText.right += NppParameters::getInstance()._dpiManager.scaleX(1);
+			rcText.top += NppParameters::getInstance()._dpiManager.scaleY(1);
+			rcText.bottom += NppParameters::getInstance()._dpiManager.scaleY(1);
+		}
+
+		int iStateID = PBS_NORMAL;
+		if (nStyle & WS_DISABLED)				iStateID = PBS_DISABLED;
+		else if (nState & BST_PUSHED)			iStateID = PBS_PRESSED;
+		else if (nState & BST_HOT)				iStateID = PBS_HOT;
+		else if (nStyle & BS_DEFPUSHBUTTON)		iStateID = PBS_DEFAULTED;
+
+		DrawThemeTextEx(hTheme, hdc, BP_PUSHBUTTON, iStateID, szText, -1, dtFlags, &rcText, &dtto);
+
+		if ((nState & BST_FOCUS) && !(uiState & UISF_HIDEFOCUS))
+		{
+			rcClient.left += NppParameters::getInstance()._dpiManager.scaleX(2); rcClient.right -= NppParameters::getInstance()._dpiManager.scaleX(2);
+			rcClient.top += NppParameters::getInstance()._dpiManager.scaleY(2); rcClient.bottom -= NppParameters::getInstance()._dpiManager.scaleY(2);
+			DrawFocusRect(hdc, &rcClient);
+		}
+
+		SelectObject(hdc, hOldFont);
+	}
+
+	void renderCheckboxOrRadioButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
 	{
 		RECT rcClient = {};
 		WCHAR szText[256] = { '\0' };
@@ -843,24 +1071,28 @@ namespace NppDarkMode
 	void paintButton(HWND hwnd, HDC hdc, ButtonData& buttonData)
 	{
 		DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
-		DWORD nStyle = GetWindowLong(hwnd, GWL_STYLE);
+		LONG_PTR nStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
 		DWORD nButtonStyle = nStyle & 0xF;
 
-		int iPartID = BP_CHECKBOX;
-		if (nButtonStyle == BS_CHECKBOX || nButtonStyle == BS_AUTOCHECKBOX)
+		int iPartID = 0;
+		if (nButtonStyle == BS_PUSHBUTTON || nButtonStyle == BS_DEFPUSHBUTTON || (nStyle & BS_PUSHLIKE) > 0)
 		{
-			iPartID = BP_CHECKBOX;
+			iPartID = BP_PUSHBUTTON;
 		}
 		else if (nButtonStyle == BS_RADIOBUTTON || nButtonStyle == BS_AUTORADIOBUTTON)
 		{
 			iPartID = BP_RADIOBUTTON;
+		}
+		else if (nButtonStyle == BS_CHECKBOX || nButtonStyle == BS_AUTOCHECKBOX)
+		{
+			iPartID = BP_CHECKBOX;
 		}
 		else
 		{
 			assert(false);
 		}
 
-		// states of BP_CHECKBOX and BP_RADIOBUTTON are the same
+		// states of BP_CHECKBOX, BP_RADIOBUTTON and BP_PUSHBUTTON are the same
 		int iStateID = RBS_UNCHECKEDNORMAL;
 
 		if (nStyle & WS_DISABLED)		iStateID = RBS_UNCHECKEDDISABLED;
@@ -891,11 +1123,17 @@ namespace NppDarkMode
 		{
 			if (hdcFrom)
 			{
-				renderButton(hwnd, hdcFrom, buttonData.hTheme, iPartID, buttonData.iStateID);
+				if (iPartID == BP_PUSHBUTTON)
+					renderButton(hwnd, hdcFrom, buttonData.hTheme);
+				else
+					renderCheckboxOrRadioButton(hwnd, hdcFrom, buttonData.hTheme, iPartID, buttonData.iStateID);
 			}
 			if (hdcTo)
 			{
-				renderButton(hwnd, hdcTo, buttonData.hTheme, iPartID, iStateID);
+				if (iPartID == BP_PUSHBUTTON)
+					renderButton(hwnd, hdcTo, buttonData.hTheme);
+				else
+					renderCheckboxOrRadioButton(hwnd, hdcTo, buttonData.hTheme, iPartID, iStateID);
 			}
 
 			buttonData.iStateID = iStateID;
@@ -904,7 +1142,10 @@ namespace NppDarkMode
 		}
 		else
 		{
-			renderButton(hwnd, hdc, buttonData.hTheme, iPartID, iStateID);
+			if (iPartID == BP_PUSHBUTTON)
+				renderButton(hwnd, hdc, buttonData.hTheme);
+			else
+				renderCheckboxOrRadioButton(hwnd, hdc, buttonData.hTheme, iPartID, iStateID);
 
 			buttonData.iStateID = iStateID;
 		}
@@ -1471,45 +1712,35 @@ namespace NppDarkMode
 			if (wcscmp(className, WC_BUTTON) == 0)
 			{
 				auto nButtonStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE) & 0xF;
+				auto nColorPickerClass = GetWindowLongPtr(hwnd, GWLP_USERDATA);
 				switch (nButtonStyle)
 				{
-					case BS_CHECKBOX:
-					case BS_AUTOCHECKBOX:
-					case BS_RADIOBUTTON:
-					case BS_AUTORADIOBUTTON:
-					{
-						auto nButtonAllStyles = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-						if (nButtonAllStyles & BS_PUSHLIKE)
-						{
-							if (p.theme)
-							{
-								SetWindowTheme(hwnd, p.themeClassName, nullptr);
-							}
-							break;
-						}
-						if (p.subclass)
-						{
-							NppDarkMode::subclassButtonControl(hwnd);
-						}
+				case BS_PUSHBUTTON:
+				case BS_DEFPUSHBUTTON:
+				case BS_CHECKBOX:
+				case BS_AUTOCHECKBOX:
+				case BS_RADIOBUTTON:
+				case BS_AUTORADIOBUTTON:
+				{
+					// Patch for Notepad++ ColorPicker class
+					if (dynamic_cast<ColourPicker*>(reinterpret_cast<Window*>(nColorPickerClass)))
 						break;
-					}
-					case BS_GROUPBOX:
-					{
-						if (p.subclass)
-						{
-							NppDarkMode::subclassGroupboxControl(hwnd);
-						}
-						break;
-					}
-					case BS_DEFPUSHBUTTON:
-					case BS_PUSHBUTTON:
-					{
-						if (p.theme)
-						{
-							SetWindowTheme(hwnd, p.themeClassName, nullptr);
-						}
-						break;
-					}
+
+					if (p.theme && (nButtonStyle == BS_PUSHBUTTON || nButtonStyle == BS_DEFPUSHBUTTON))
+						SetWindowTheme(hwnd, p.themeClassName, nullptr);
+
+					if (p.subclass && NppDarkMode::isEnabled())
+						NppDarkMode::subclassButtonControl(hwnd);
+					if (p.subclass && !NppDarkMode::isEnabled())
+						RemoveWindowSubclass(hwnd, ButtonSubclass, g_buttonSubclassID);
+					break;
+				}
+				case BS_GROUPBOX:
+					if (p.subclass && NppDarkMode::isEnabled())
+						NppDarkMode::subclassGroupboxControl(hwnd);
+					if (p.subclass && !NppDarkMode::isEnabled())
+						RemoveWindowSubclass(hwnd, GroupboxSubclass, g_groupboxSubclassID);
+					break;
 				}
 				return TRUE;
 			}

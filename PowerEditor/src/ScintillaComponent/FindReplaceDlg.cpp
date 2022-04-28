@@ -4147,9 +4147,9 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 		len = cut + lenEndOfLongLine;
 	}
 
-	setFinderReadOnly(false);
+	Finder::setFinderReadOnly(false);
 	_scintView.execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(text2AddUtf8));
-	setFinderReadOnly(true);
+	Finder::setFinderReadOnly(true);
 	_pMainMarkings->push_back(mi);
 }
 

@@ -2593,6 +2593,7 @@ void ScintillaEditView::performGlobalStyles()
 		selectColorFore = pStyle->_fgColor;
 	}
 	execute(SCI_SETSELBACK, 1, selectColorBack);
+	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_BACK, selectColorBack);
 
 	if (nppParams.isSelectFgColorEnabled())
 		execute(SCI_SETSELFORE, 1, selectColorFore);

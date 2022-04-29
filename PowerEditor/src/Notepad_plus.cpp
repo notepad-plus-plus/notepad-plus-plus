@@ -4399,7 +4399,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	}
 }
 
-bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
+bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHilite)
 {
 	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	bool isSnapshotMode = nppGui.isSnapshotMode();
@@ -4420,7 +4420,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 		if (_mainDocTab.activateBuffer(id))	//only activate if possible
 		{
 			_isFolding = true;
-			_mainEditView.activateBuffer(id);
+			_mainEditView.activateBuffer(id, forceApplyHilite);
 			_isFolding = false;
 		}
 		else
@@ -4431,7 +4431,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 		if (_subDocTab.activateBuffer(id))
 		{
 			_isFolding = true;
-			_subEditView.activateBuffer(id);
+			_subEditView.activateBuffer(id, forceApplyHilite);
 			_isFolding = false;
 		}
 		else

@@ -64,7 +64,6 @@ class FileManager final {
 public:
 	void init(Notepad_plus* pNotepadPlus, ScintillaEditView* pscratchTilla);
 
-	//void activateBuffer(int index);
 	void checkFilesystemChanges(bool bCheckOnlyCurrentBuffer);
 
 	size_t getNbBuffers() const { return _nbBufs; };

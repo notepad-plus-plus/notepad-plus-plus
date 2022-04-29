@@ -1903,11 +1903,11 @@ bool ScintillaEditView::setLexerFromLangID(int langID) // Internal lexer only
 }
 
 
-void ScintillaEditView::activateBuffer(BufferID buffer)
+void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 {
 	if (buffer == BUFFER_INVALID)
 		return;
-	if (buffer == _currentBuffer)
+	if (!force && buffer == _currentBuffer)
 		return;
 	Buffer * newBuf = MainFileManager.getBufferByID(buffer);
 

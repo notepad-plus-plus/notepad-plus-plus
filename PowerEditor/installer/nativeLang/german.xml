@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-04-06 by schnurlos
+	last modified: 2022-04-29 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.3.3">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -889,11 +889,15 @@
 					<Item id="6229" name="Ausgerichtet"/>
 					<Item id="6230" name="Einrücken"/>
 					<Item id="6234" name="Erweiterte Bildlauffunktion aufgrund eines Touchpad-Problems deaktivieren"/>
-					<Item id="6214" name="Hervorhebung der aktuellen Zeile aktivieren"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6236" name="Scrollen über die letzte Zeile hinaus aktivieren"/>
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
 					<Item id="6245" name="Virtuellen Raum aktivieren"/>
+					<Item id="6651" name="Anzeige der aktuellen Zeile"/>
+					<Item id="6652" name="Keine"/>
+					<Item id="6653" name="Hintergrund hervorheben"/>
+					<Item id="6654" name="Rahmen"/>
+					<Item id="6655" name="Breite"/>
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">

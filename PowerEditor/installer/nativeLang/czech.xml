@@ -914,7 +914,6 @@
 					<Item id = "6130" name = "Fluent UI: velké ikony s výplní"/>
 				</Global>
 				<Scintillas title = "Editace">
-					<Item id = "6214" name = "Zvýraznit aktivní řádek"/>
 					<Item id = "6215" name = "Povolit vyhlazování fontu"/>
 					<Item id = "6216" name = "Nastavení kurzoru"/>
 					<Item id = "6217" name = "Šířka: "/>

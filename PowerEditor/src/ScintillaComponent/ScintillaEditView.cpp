@@ -633,10 +633,10 @@ void ScintillaEditView::setStyle(Style styleToSet)
 
 void ScintillaEditView::setXmlLexer(LangType type)
 {
-	setLexerFromLangID(type);
-
 	if (type == L_XML)
 	{
+		setLexerFromLangID(L_XML);
+		
 		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
 
@@ -646,6 +646,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 	}
 	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP) || (type == L_JSP))
 	{
+		setLexerFromLangID(L_HTML);
 		const TCHAR *htmlKeyWords_generic = NppParameters::getInstance().getWordList(L_HTML, LANG_INDEX_INSTR);
 
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -1426,7 +1427,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
 	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
 
-    // Il faut surtout faire un test ici avant d'exécuter SCI_SETCODEPAGE
+    // Il faut surtout faire un test ici avant d'exÃ©cuter SCI_SETCODEPAGE
     // Sinon y'aura un soucis de performance!
 	if (isCJK())
 	{

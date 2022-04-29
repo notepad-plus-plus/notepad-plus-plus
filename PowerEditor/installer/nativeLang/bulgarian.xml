@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 07.04.2022 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 03.05.2022 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -811,17 +811,21 @@
 					<Item id="6219" name="Премигване:"/>
 					<Item id="6221" name="100"/>
 					<Item id="6222" name="0"/>
+					<Item id="6227" name="Пренасяне на нов ред"/>
+					<Item id="6228" name="Стандартно"/>
+					<Item id="6229" name="Подравнено"/>
+					<Item id="6230" name="С отстъп"/>
+					<Item id="6651" name="Индикация на текущия ред"/>
+					<Item id="6652" name="Няма"/>
+					<Item id="6653" name="Открояващ фон"/>
+					<Item id="6654" name="Рамка"/>
+					<Item id="6655" name="Ширина"/>
 					<Item id="6225" name="Множествено редактиране (Ctrl + избор с мишката)"/>
-					<Item id="6214" name="Открояване на текущия ред"/>
 					<Item id="6215" name="Заглаждане на шрифта"/>
 					<Item id="6245" name="Включване на виртуалното пространство"/>
 					<Item id="6236" name="Превъртане след последният ред"/>
 					<Item id="6239" name="Запазване на селекцията при щракане с десен бутон извън нея"/>
 					<Item id="6234" name="Без разширени функции за превъртане"/>
-					<Item id="6227" name="Пренасяне на нов ред"/>
-					<Item id="6228" name="Стандартно"/>
-					<Item id="6229" name="Подравнено"/>
-					<Item id="6230" name="С отстъп"/>
 				</Scintillas>
 					<!-- Тъмен режим -->
 				<DarkMode title="Тъмен режим">

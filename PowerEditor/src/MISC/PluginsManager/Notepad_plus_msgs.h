@@ -505,6 +505,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//		COLORREF disabledText = 0;
 	//		COLORREF linkText = 0;
 	//		COLORREF edge = 0;
+	//		COLORREF hotEdge = 0;
 	//	};
 	// }
 	//

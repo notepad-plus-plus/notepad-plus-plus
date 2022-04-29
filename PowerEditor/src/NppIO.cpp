@@ -522,7 +522,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 
 	// Once reload is complete, activate buffer which will take care of
 	// many settings such as update status bar, clickable link etc.
-	activateBuffer(id, currentView());
+	activateBuffer(id, currentView(), true);
 	return res;
 }
 

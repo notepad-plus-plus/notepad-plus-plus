@@ -222,7 +222,7 @@ public:
 		}
 	};
 
-	void activateBuffer(BufferID buffer);
+	void activateBuffer(BufferID buffer, bool force = false);
 
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);

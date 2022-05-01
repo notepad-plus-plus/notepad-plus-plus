@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.3.4:
+Updated to v8.4.1:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.3.4">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.4.1">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -464,7 +464,7 @@ Updated to v8.3.4:
 				<Item id="1614" name="&amp;Подсчитать"/>
 				<Item id="1615" name="Пометить все"/>
 				<Item id="1616" name="Помечат&amp;ь Закладкой"/>
-				<Item id="1618" name="Убирать пред. Пометки"/>
+				<Item id="1618" name="Убирать предыдущие Пометки"/>
 				<Item id="1620" name="Найти:"/>
 				<Item id="1624" name="Режим поиска"/>
 				<Item id="1625" name="Обычный"/>
@@ -910,11 +910,10 @@ Updated to v8.3.4:
 					<Item id="6128" name="Альтернативные иконки"/>
 				</Global>
 				<Scintillas title = "Правка">
-					<Item id="6214" name="Подсветка текущей строки"/>
 					<Item id="6215" name="Сглаживание шрифтов"/>
 					<Item id="6216" name="Текстовый  Курсор"/>
 					<Item id="6217" name="Ширина"/>
-					<Item id="6219" name="Част. мерц.:"/>
+					<Item id="6219" name="Частота мерц. :"/>
 					<Item id="6221" name="Ч"/>
 					<Item id="6222" name="Р"/>
 					<Item id="6225" name="Мультиредактирование  (Ctrl + Клик / Выделение)"/>
@@ -926,6 +925,11 @@ Updated to v8.3.4:
 					<Item id="6236" name="Прокрутка за пределы последней строки"/>
 					<Item id="6239" name="Сохранять выделение текста при правом щелчке за его пределами"/>
 					<Item id="6245" name="Включить Виртуальный Пробел"/>
+					<Item id="6651" name="Индикация Текущей Строки"/>
+					<Item id="6652" name="Нет"/>
+					<Item id="6653" name="Выделение Фона"/>
+					<Item id="6654" name="Рамка"/>
+					<Item id="6655" name="Ширина"/>
 				</Scintillas>
 
 				<DarkMode title="Тёмный Режим">
@@ -1043,7 +1047,7 @@ Updated to v8.3.4:
 					<Item id="6902" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
 					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
-					<Item id="6905" name="Замена: не переходить к следующему совпадению."/>
+					<Item id="6905" name="Замена: не переходить к следующему совпадению, только при повторном нажатии."/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
@@ -1053,7 +1057,7 @@ Updated to v8.3.4:
 					<Item id="6424" name="В подменю"/>
 					<Item id="6425" name="Только имя файла"/>
 					<Item id="6426" name="Полный путь к файлу"/>
-					<Item id="6427" name="Задать макс. длину:"/>
+					<Item id="6427" name="Задать максимальную длину:"/>
 				</RecentFilesHistory>
 				<Highlighting title="Подсветка">
 					<Item id="6351" name="Пометить все Совпадения"/>

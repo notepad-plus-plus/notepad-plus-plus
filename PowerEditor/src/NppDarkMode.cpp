@@ -1240,30 +1240,28 @@ namespace NppDarkMode
 			{
 				RECT rcItem = {};
 				TabCtrl_GetItemRect(hWnd, i, &rcItem);
+				RECT rcFrame = rcItem;
 
 				RECT rcIntersect = {};
 				if (IntersectRect(&rcIntersect, &ps.rcPaint, &rcItem))
 				{
 					bool bHot = PtInRect(&rcItem, ptCursor);
-
-					POINT edges[] = {
-						{rcItem.right - 1, rcItem.top},
-						{rcItem.right - 1, rcItem.bottom}
-					};
-					Polyline(hdc, edges, _countof(edges));
-					rcItem.right -= 1;
+					bool isSelectedTab = (i == nSelTab);
 
 					HRGN hClip = CreateRectRgnIndirect(&rcItem);
 
 					SelectClipRgn(hdc, hClip);
 
-					SetTextColor(hdc, (bHot || (i == nSelTab) ) ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+					SetTextColor(hdc, (bHot || isSelectedTab ) ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+
+					::InflateRect(&rcItem, -1, -1);
+					rcItem.right += 1;
 
 					// for consistency getBackgroundBrush() 
 					// would be better, than getSofterBackgroundBrush(),
 					// however default getBackgroundBrush() has same color
 					// as getDarkerBackgroundBrush()
-					::FillRect(hdc, &rcItem, (i == nSelTab) ? NppDarkMode::getDarkerBackgroundBrush() : NppDarkMode::getSofterBackgroundBrush());
+					::FillRect(hdc, &rcItem, isSelectedTab ? NppDarkMode::getDarkerBackgroundBrush() : bHot ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getSofterBackgroundBrush());
 
 					SetBkMode(hdc, TRANSPARENT);
 
@@ -1275,14 +1273,23 @@ namespace NppDarkMode
 
 					::SendMessage(hWnd, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tci));
 
-					RECT rcText = rcItem;
-					rcText.left += NppParameters::getInstance()._dpiManager.scaleX(6);
-					rcText.right -= NppParameters::getInstance()._dpiManager.scaleX(3);
+					auto dpiManager = NppParameters::getInstance()._dpiManager;
 
-					if (i == nSelTab)
+					RECT rcText = rcItem;
+					rcText.left += dpiManager.scaleX(5);
+					rcText.right -= dpiManager.scaleX(3);
+
+					if (isSelectedTab)
 					{
-						rcText.bottom -= NppParameters::getInstance()._dpiManager.scaleX(4);
+						rcText.bottom -= dpiManager.scaleY(4);
+						::InflateRect(&rcFrame, 0, 1);
 					}
+					if (i != nTabs - 1)
+					{
+						rcFrame.right += 1;
+					}
+
+					::FrameRect(hdc, &rcFrame, NppDarkMode::getEdgeBrush());
 
 					DrawText(hdc, label, -1, &rcText, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
@@ -1306,9 +1313,12 @@ namespace NppDarkMode
 			EndPaint(hWnd, &ps);
 			return 0;
 		}
+
 		case WM_NCDESTROY:
+		{
 			RemoveWindowSubclass(hWnd, TabSubclass, g_tabSubclassID);
 			break;
+		}
 		}
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
@@ -1417,7 +1427,8 @@ namespace NppDarkMode
 				};
 				::Polyline(hdc, edge, _countof(edge));
 
-				::FrameRect(hdc, &rc, isHot || hasFocus ? NppDarkMode::getHotEdgeBrush() : NppDarkMode::getEdgeBrush());
+				::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
+				::RoundRect(hdc, rc.left, rc.top, rc.right, rc.bottom, 0, 0);
 
 				::SelectObject(hdc, holdPen);
 				::SelectObject(hdc, holdBrush);
@@ -1931,11 +1942,12 @@ namespace NppDarkMode
 		constexpr size_t classNameLen = 16;
 		TCHAR className[classNameLen]{};
 		GetClassName(hwnd, className, classNameLen);
-		if ((wcscmp(className, L"ListBoxX") == 0) ||
-			(wcscmp(className, WC_LISTBOX) == 0))
+		if ((wcscmp(className, L"ListBoxX") == 0))
 		{
-			NppDarkMode::setDarkScrollBar(hwnd);
-			::EnumChildWindows(hwnd, (WNDENUMPROC)enumAutocompleteProc, 0);
+			NppDarkMode::setDarkTitleBar(hwnd);
+			NppDarkMode::autoThemeChildControls(hwnd);
+
+			return FALSE;
 		}
 
 		return TRUE;

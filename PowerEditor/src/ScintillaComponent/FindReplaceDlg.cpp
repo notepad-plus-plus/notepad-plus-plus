@@ -4327,7 +4327,6 @@ void Finder::setFinderStyle()
 		{
 			_scintView.execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, pStyle->_bgColor);
 			_scintView.execute(SCI_SETCARETLINEFRAME, 0);
-			_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
 			_scintView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 		}
 	}

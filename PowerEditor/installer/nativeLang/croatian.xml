@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 6 April 2022 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 2 May 2022 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The most recent version of this file:
     https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/croatian.xml
@@ -9,7 +9,7 @@
     The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.3.3">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -87,7 +87,7 @@
                 <Commands>
                     <Item id="41001" name="&amp;Novo"/>
                     <Item id="41002" name="&amp;Otvori..."/>
-                    <Item id="41019" name="&amp;Explorer"/>
+                    <Item id="41019" name="&amp;Eksplorer"/>
                     <Item id="41020" name="&amp;Komandna linija"/>
                     <Item id="41025" name="Mapa kao &amp;radni prostor"/>
                     <Item id="41003" name="&amp;Zatvori"/>
@@ -108,7 +108,7 @@
                     <Item id="41015" name="Spre&amp;mi kopiju kao..."/>
                     <Item id="41016" name="Iz&amp;briši s diska"/>
                     <Item id="41017" name="Pre&amp;imenuj..."/>
-                    <Item id="41021" name="Vrati nedavno zatvorene &amp;datoteke"/>
+                    <Item id="41021" name="Vrati nedavno zatvorenu &amp;datoteku"/>
                     <Item id="41022" name="Otvori mapu &amp;kao radni prostor..."/>
                     <Item id="41023" name="Otvori u zadanom pre&amp;gledniku"/>
                     <Item id="42001" name="Izre&amp;ži"/>
@@ -152,7 +152,7 @@
                     <Item id="42071" name="&amp;oBRATNO"/>
                     <Item id="42072" name="&amp;sLuČAJno"/>
                     <Item id="42073" name="Otvori &amp;datoteku"/>
-                    <Item id="42074" name="Otvori &amp;mapu u Exploreru"/>
+                    <Item id="42074" name="Otvori &amp;mapu u Eksploreru"/>
                     <Item id="42075" name="&amp;Traži na Internetu"/>
                     <Item id="42076" name="&amp;Promijeni tražilicu..."/>
                     <Item id="42018" name="&amp;Započni snimanje"/>
@@ -374,8 +374,8 @@
                     <Item id="50005" name="Uključi/isključi snimanje makroa"/>
                     <Item id="50006" name="&amp;Dopuna puta"/>
                     <Item id="44042" name="Sakri&amp;j retke"/>
-                    <Item id="42040" name="O&amp;tvori sve nedavno otvarane datoteke"/>
-                    <Item id="42041" name="Ob&amp;riši popis nedavno otvaranih datoteka"/>
+                    <Item id="42040" name="O&amp;tvori sve s popisa nedavno zatvorenih datoteka"/>
+                    <Item id="42041" name="Ob&amp;riši popis nedavno zatvorenih datoteka"/>
                     <Item id="48016" name="&amp;Modificiraj prečac/Izbriši Makro..."/>
                     <Item id="48017" name="&amp;Modificiraj prečac/Izbriši naredbu..."/>
 
@@ -412,7 +412,7 @@
                     <Item CMID="16" name="Ponovo učitaj"/>
                     <Item CMID="17" name="Zatvori sve s lijeve strane"/>
                     <Item CMID="18" name="Zatvori sve s desne strane"/>
-                    <Item CMID="19" name="Otvori mapu s trenutnom datotekom u Exploreru"/>
+                    <Item CMID="19" name="Otvori mapu s trenutnom datotekom u Eksploreru"/>
                     <Item CMID="20" name="Otvori mapu s trenutnom datotekom u komandnoj liniji"/>
                     <Item CMID="21" name="Otvori u zadanom pregledniku"/>
                     <Item CMID="22" name="Zatvori sve nepromijenjene"/>
@@ -585,7 +585,7 @@
                 <ConflictInfoOk name="Nema konflikata prečaca za ovu stavku."/>
                 <ConflictInfoEditing name="Nema konflikata . . ."/>
                 <MainCommandNames>
-                    <Item id="41019" name="Otvori mapu koja sadrži trenutnu datoteku u Exploreru"/>
+                    <Item id="41019" name="Otvori mapu koja sadrži trenutnu datoteku u Eksploreru"/>
                     <Item id="41020" name="Otvori mapu koja sadrži trenutnu datoteku u naredbenom retku"/>
                     <Item id="41021" name="Vrati nedavno zatvorenu datoteku"/>
                     <Item id="45001" name="Konverzija kraja retka (EOL) u Windows (CR LF)"/>
@@ -903,6 +903,11 @@
                     <Item id="6236" name="Omogući klizanje nakon zadnjeg retka"/>
                     <Item id="6239" name="Zadrži izbor desnim klikom izvan izbora"/>
                     <Item id="6245" name="Uključi virtualni prostor"/>
+                    <Item id="6651" name="Indikator trenutno aktivnog retka"/>
+                    <Item id="6652" name="Ništa"/>
+                    <Item id="6653" name="Istaknuta pozadina"/>
+                    <Item id="6654" name="Okvir"/>
+                    <Item id="6655" name="Širina"/>
                 </Scintillas>
 
                 <DarkMode title="Tamni način">
@@ -1396,7 +1401,7 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/> <!-- HowToReprod
                 <Item id="3515" name="Otvori"/>
                 <Item id="3516" name="Kopiraj put"/>
                 <Item id="3517" name="Nađi u datotekama..."/>
-                <Item id="3518" name="Explorer ovdje"/>
+                <Item id="3518" name="Eksplorer ovdje"/>
                 <Item id="3519" name="Komandna linija ovdje"/>
                 <Item id="3520" name="Kopiraj naziv datoteke"/>
             </Menus>

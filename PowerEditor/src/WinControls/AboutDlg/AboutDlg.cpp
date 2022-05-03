@@ -261,18 +261,7 @@ void DebugInfoDlg::refreshDebugInfo()
 	_debugInfoStr += TEXT("\r\n");
 
 	// Command line as specified for program launch
-	generic_string commandLine{ nppParam.getCmdLineString() };
-	generic_string commandLineCurrent{ nppParam.getCmdLineStringCurrent() };
-
-	if (commandLineCurrent.length() < 1)
-	{
-		_debugInfoStr += TEXT("Command Line : ") + commandLine + TEXT("\r\n");
-	}
-	else
-	{
-		_debugInfoStr += TEXT("Initial Command Line : ") + commandLine + TEXT("\r\n");
-		_debugInfoStr += TEXT("Current Command Line : ") + commandLineCurrent + TEXT("\r\n");
-	}
+	_debugInfoStr += TEXT("Command Line : ") + nppParam.getCmdLineString() + TEXT("\r\n");
 
 	// Administrator mode
 	_debugInfoStr += TEXT("Admin mode : ");
@@ -401,6 +390,7 @@ void DebugInfoDlg::refreshDebugInfo()
 	// Set Debug Info text and leave the text in selected state
 	::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, _debugInfoStr.c_str());
 	::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoStr.length() - 1);
+	::SetFocus(::GetDlgItem(_hSelf, IDC_DEBUGINFO_EDIT));
 }
 
 void DoSaveOrNotBox::doDialog(bool isRTL)

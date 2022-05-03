@@ -248,6 +248,7 @@ struct CmdLineParams
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
 	generic_string _udlName;
+	generic_string _pluginMessage;
 
 	generic_string _easterEggName;
 	unsigned char _quoteType = 0;
@@ -280,7 +281,9 @@ struct CmdLineParamsDTO
 	intptr_t _pos2go = 0;
 
 	LangType _langType = L_EXTERNAL;
-	generic_string _udlName;
+
+	wchar_t _udlName[MAX_PATH];
+	wchar_t _pluginMessage[MAX_PATH];
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{
@@ -297,7 +300,8 @@ struct CmdLineParamsDTO
 		dto._pos2go = params._pos2go;
 		
 		dto._langType = params._langType;
-		dto._udlName = params._udlName;
+		wcsncpy(dto._udlName, params._udlName.c_str(), MAX_PATH);
+		wcsncpy(dto._pluginMessage, params._pluginMessage.c_str(), MAX_PATH);
 		return dto;
 	}
 };
@@ -1481,13 +1485,11 @@ public:
 	{
 		_cmdLineParams = cmdLineParams;
 	}
+
 	const CmdLineParamsDTO & getCmdLineParams() const {return _cmdLineParams;};
 
 	const generic_string& getCmdLineString() const { return _cmdLineString; }
 	void setCmdLineString(const generic_string& str) { _cmdLineString = str; }
-
-	const generic_string& getCmdLineStringCurrent() const { return _cmdLineStringCurrent; }
-	void setCmdLineStringCurrent(const generic_string& str) { _cmdLineStringCurrent = str; }
 
 	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};
 	int getFileSaveDlgFilterIndex() const {return _fileSaveDlgFilterIndex;};
@@ -1734,7 +1736,6 @@ private:
 
 	CmdLineParamsDTO _cmdLineParams;
 	generic_string _cmdLineString;
-	generic_string _cmdLineStringCurrent;
 
 	int _fileSaveDlgFilterIndex = -1;
 

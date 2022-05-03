@@ -662,6 +662,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			switch (pCopyData->dwData)
 			{
+				case COPYDATA_FULL_CMDLINE:
+				{
+					nppParam.setCmdLineString(static_cast<wchar_t*>(pCopyData->lpData));
+					break;
+				}
+
 				case COPYDATA_PARAMS:
 				{
 					const CmdLineParamsDTO *cmdLineParam = static_cast<const CmdLineParamsDTO *>(pCopyData->lpData); // CmdLineParams object from another instance
@@ -669,6 +675,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
 					{
 						nppParam.setCmdlineParam(*cmdLineParam);
+						SCNotification scnN;
+						scnN.nmhdr.code = NPPN_CMDLINECHANGED;
+						generic_string pluginMessage{  };
+						scnN.nmhdr.hwndFrom = hwnd;
+						scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(nppParam.getCmdLineParams()._pluginMessage);
+						_pluginsManager.notify(&scnN);
 					}
 					else
 					{
@@ -697,20 +709,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					wchar_t *fileNamesW = static_cast<wchar_t *>(pCopyData->lpData);
 					const CmdLineParamsDTO & cmdLineParams = nppParam.getCmdLineParams();
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
-					break;
-				}
-
-				case COPYDATA_FULL_CMDLINE:
-				{
-					wchar_t* fullCmdLine = static_cast<wchar_t*>(pCopyData->lpData);
-					NppParameters::getInstance().setCmdLineStringCurrent(fullCmdLine);
-
-					SCNotification scnN;
-					scnN.nmhdr.code = NPPN_CMDLINECHANGED;
-					scnN.nmhdr.hwndFrom = hwnd;
-					scnN.nmhdr.idFrom = 0;
-					_pluginsManager.notify(&scnN);
-
 					break;
 				}
 			}
@@ -1324,10 +1322,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return (_macro.empty()) ? static_cast<LRESULT>(MacroStatus::Idle) : static_cast<LRESULT>(MacroStatus::RecordingStopped);
 		}
 
-		case NPPM_GETINITIALCMDLINE:
 		case NPPM_GETCURRENTCMDLINE:
 		{
-			generic_string cmdLineString = (message == NPPM_GETINITIALCMDLINE) ? nppParam.getCmdLineString() : nppParam.getCmdLineStringCurrent();
+			generic_string cmdLineString = nppParam.getCmdLineString();
 
 			if (lParam != 0)
 			{

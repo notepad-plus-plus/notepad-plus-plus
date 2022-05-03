@@ -241,8 +241,6 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 		rc2Ajust.top += tabsHight;
 		rc2Ajust.bottom -= tabsHight;
 	}
-
-	NppDarkMode::autoSubclassAndThemeTabUpDownControl(_hSelf, _hTabUpdown);
 }
 
 
@@ -303,6 +301,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 		throw std::runtime_error("TabBarPlus::init : tooltip CreateWindowEx() function return null");
 	}
 
+	NppDarkMode::subclassTabOwnerDrawnControl(_hSelf);
 	NppDarkMode::setDarkTooltips(_tooltips, NppDarkMode::ToolTipsType::tooltip);
 
 	::SendMessage(_hSelf, TCM_SETTOOLTIPS, reinterpret_cast<WPARAM>(_tooltips), 0);
@@ -770,6 +769,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			_isCloseHover = false;
 
 			notify(TCN_MOUSELEAVING, _currentHoverTabItem);
+
 			break;
 		}
 

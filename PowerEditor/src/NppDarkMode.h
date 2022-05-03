@@ -88,6 +88,7 @@ namespace NppDarkMode
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
+	COLORREF lightColor(COLORREF color, WORD luminance);
 	double calculatePerceivedLighness(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);
@@ -154,12 +155,11 @@ namespace NppDarkMode
 	void subclassButtonControl(HWND hwnd);
 	void subclassGroupboxControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
+	void subclassTabOwnerDrawnControl(HWND hwnd);
 	void subclassComboBoxControl(HWND hwnd);
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
-
-	void autoSubclassAndThemeTabUpDownControl(HWND hwndParent, HWND hwndUpdown);
 
 	void setDarkTitleBar(HWND hwnd);
 	void setDarkExplorerTheme(HWND hwnd);

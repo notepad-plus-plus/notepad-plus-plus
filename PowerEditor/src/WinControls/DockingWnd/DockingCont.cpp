@@ -1092,6 +1092,8 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			int tabDpiDynamicalMinWidth = NppParameters::getInstance()._dpiManager.scaleX(24);
 			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiDynamicalMinWidth);
 
+			NppDarkMode::subclassTabOwnerDrawnControl(_hContTab);
+
 			break;
 		}
 		case WM_NCCALCSIZE:
@@ -1224,8 +1226,6 @@ void DockingCont::onSize()
 				::SetWindowPos(_hContTab, NULL,
 								rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
 								SWP_NOZORDER | SWP_SHOWWINDOW |  SWP_NOACTIVATE);
-
-				NppDarkMode::autoSubclassAndThemeTabUpDownControl(_hContTab, _hTabUpdown);
 			}
 
 			// resize client area for plugin
@@ -1246,8 +1246,6 @@ void DockingCont::onSize()
 			::SetWindowPos(::GetDlgItem(_hSelf, IDC_CLIENT_TAB), NULL,
 							rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
 							SWP_NOZORDER | SWP_NOACTIVATE);
-
-			NppDarkMode::autoSubclassAndThemeTabUpDownControl(_hContTab, _hTabUpdown);
 		}
 		// resize to float window
 		else

@@ -129,6 +129,7 @@ namespace NppDarkMode
 	void setDisabledTextColor(COLORREF c);
 	void setLinkTextColor(COLORREF c);
 	void setEdgeColor(COLORREF c);
+	void setHotEdgeColor(COLORREF c);
 
 	Colors getDarkModeDefaultColors();
 	void changeCustomTheme(const Colors& colors);

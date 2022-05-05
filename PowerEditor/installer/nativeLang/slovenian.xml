@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.3
-        Last modified 16. Feb 2022 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.3.3
+        Last modified 05. May 2022 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.3">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.3.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -75,6 +75,7 @@
 					<Item subMenuId="settings-import" name="Uvozi"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Razvrsti po"/>					
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -272,7 +273,7 @@
                     <Item id="44031" name="Razgrni trenutno raven"/>                   
 					<Item id="44049" name="Povzetek..."/>
 					<Item id="44080" name="Mapa dokumenta"/>
-                    <Item id="44070" name="Seznam dokumentov"/>					 <Item id="44070" name="Document List"/>
+                    <Item id="44070" name="Seznam dokumentov"/>
                     <Item id="44084" name="Seznam funkcij"/>
 					<Item id="44085" name="Mapa kot delovni prostor"/>
                     <Item id="44086" name="1. tabulator"/>
@@ -364,7 +365,17 @@
 					<Item id="42041" name="Počisti seznam nedavno odprtih datotek"/>
 					<Item id="48016" name="Spremeni bližnjico/Izbriši makro..."/>
 					<Item id="48017" name="Spremeni bližnjico/Izbriši ukaz..."/>  
-                </Commands>
+
+                    <Item id="11001" name="&amp;Windows..."/>
+                    <Item id="11002" name="Ime A do Z"/>
+                    <Item id="11003" name="Ime Z do A"/>
+                    <Item id="11004" name="Pot A do Z"/>
+                    <Item id="11005" name="Pot Z do A"/>
+                    <Item id="11006" name="Vrsta A do Z"/>
+                    <Item id="11007" name="Vrsta Z do A"/>
+                    <Item id="11008" name="Velikost od manjše k večji"/>
+                    <Item id="11009" name="Velikost od večje k manjši"/>  
+				</Commands>
             </Main>
             <Splitter>
             </Splitter>
@@ -637,6 +648,14 @@
                     <Item id="44107" name="Preklopi v mapo kot delovni prostor"/>
                     <Item id="44109" name="Preklopi v seznam dokumentov"/>      
 					<Item id="44108" name="Preklopi v seznam funkcij"/>
+                    <Item id="11002" name="Razvrsti po imenu od A do Z"/>
+                    <Item id="11003" name="Razvrsti po imenu od Z do A"/>
+                    <Item id="11004" name="Razvrsti po poti od A do Z"/>
+                    <Item id="11005" name="Razvrsti po poti od Z do A"/>
+                    <Item id="11006" name="Razvrsti po vrsti A do Z"/>
+                    <Item id="11007" name="Razvrsti po vrsti od Z do A"/>
+                    <Item id="11008" name="Razvrsti po velikosti od manjše k večji"/>
+                    <Item id="11009" name="Razvrsti po velikosti od večje k manjši"/>					
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Bližnjica">
@@ -867,6 +886,7 @@
 					<Item id="6215" name="Omogoči gladko pisavo"/>
                     <Item id="6236" name="Omogoči pomikanje izven zadnje vrstice"/>
                     <Item id="6239" name="Obdrži izbor, ko z desno miškino tipko kliknete zunaj izbora"/>			
+                    <Item id="6245" name="Omogoči virtualni prostor"/>
 				</Scintillas>
 				
                 <DarkMode title="Temni način">
@@ -1332,6 +1352,8 @@ Nadaljujem?"/>
 			<PanelTitle name="Seznam funkcij"/>
 			<SortTip name="Razvrsti"/>
 			<ReloadTip name="Osveži"/>
+            <PreferencesTip name="Nastavitve"/>
+            <PreferencesInitialSort name="Privzeto razvrsti funkcije (A do Ž)."/>			
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Mapa kot delovni prostor"/>

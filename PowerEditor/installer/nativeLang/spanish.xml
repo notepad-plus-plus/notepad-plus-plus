@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 	-->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.3">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.3.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -73,6 +73,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="settings-import" name="Importar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="window-sortby" name="Ordenar por"/>
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
@@ -358,6 +359,15 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42041" name="Vaciar lista de recientes"/>
 					<Item id="48016" name="Modificar enlace/Borrar macro"/>
 					<Item id="48017" name="Modificar enlace/Borrar comando..."/>
+					<Item id="11001" name="&amp;Windows..."/>
+					<Item id="11002" name="Nombre A a Z"/>
+					<Item id="11003" name="Nombre Z a A"/>
+					<Item id="11004" name="Ruta A a Z"/>
+					<Item id="11005" name="Ruta Z a A"/>
+					<Item id="11006" name="Tipo A a Z"/>
+					<Item id="11007" name="Tipo Z a A"/>
+					<Item id="11008" name="Tamaño menor a mayor"/>
+					<Item id="11009" name="Tamaño mayor a menor"/>
 				</Commands>
 			</Main>
 			<Splitter/>
@@ -618,6 +628,14 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44107" name="Cambiar a espacio de trabajo"/>
 					<Item id="44109" name="Cambiar a lista de documentos"/>
 					<Item id="44108" name="Cambiar a lista de funciones"/>
+					<Item id="11002" name="Nombre A a Z"/>
+					<Item id="11003" name="Nombre Z a A"/>
+					<Item id="11004" name="Ruta A a Z"/>
+					<Item id="11005" name="Ruta Z a A"/>
+					<Item id="11006" name="Tipo A a Z"/>
+					<Item id="11007" name="Tipo Z a A"/>
+					<Item id="11008" name="Tamaño menor a mayor"/>
+					<Item id="11009" name="Tamaño mayor a menor"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Acceso directo">
@@ -1317,6 +1335,8 @@ Notepad++ se reiniciará después de que finalicen todas las operaciones.
 			<PanelTitle name="Lista de funciones"/>
 			<SortTip name="Ordenar"/>
 			<ReloadTip name="Recargar"/>
+			<PreferencesTip name="Preferencias"/>
+			<PreferencesInitialSort name="Ordenar funciones (A a Z) por defecto"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Folder as Workspace"/>

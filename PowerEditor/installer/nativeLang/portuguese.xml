@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.3.3">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -36,7 +36,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-eolConversion" name="Conversão EOL (fim da linha)"/>
                     <Item subMenuId="edit-blankOperations" name="Operação em branco"/>
                     <Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
-                    <Item subMenuId="edit-onSelection" name="Na selecção"/>
+                    <Item subMenuId="edit-onSelection" name="Na seleção"/>
                     <Item subMenuId="search-markAll" name="Marcar tudo"/>
                     <Item subMenuId="search-markOne" name="Marcar uma"/>
                     <Item subMenuId="search-unmarkAll" name="Desmarcar tudo"/>
@@ -69,7 +69,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="encoding-turkish" name="Turco"/>
                     <Item subMenuId="encoding-westernEuropean" name="Europa Ocidental"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
-                    <Item subMenuId="language-userDefinedLanguage" name="Idioma definido pelo utilizador"/>
+                    <Item subMenuId="language-userDefinedLanguage" name="Linguagem do utilizador"/>
                     <Item subMenuId="settings-import" name="Importar"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
@@ -324,9 +324,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="10004" name="Abrir numa nova instância"/>
 
                     <Item id="46001" name="Configurador do estilo..."/>
-                    <Item id="46250" name="Defina o seu idioma..."/>
-                    <Item id="46300" name="Abrir pasta de idioma definido pelo utilizador..."/>
-                    <Item id="46301" name="Coleção de idiomas definido pelo utilizador do Notepad++"/>
+                    <Item id="46250" name="Defina a sua linguagem..."/>
+                    <Item id="46300" name="Abrir pasta de linguagem definida pelo utilizador..."/>
+                    <Item id="46301" name="Coleção de linguagens definidas pelo utilizador Notepad++"/>
                     <Item id="46180" name="Definida pelo utilizador"/>
                     <Item id="47000" name="Acerca do Notepad++..."/>
                     <Item id="47010" name="Argumentos da linha de Comando..."/>
@@ -347,10 +347,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="48015" name="Admin de plugins..."/>
                     <Item id="48501" name="Gerar..."/>
                     <Item id="48502" name="Gerar dos ficheiros..."/>
-                    <Item id="48503" name="Gerar da selecção para a área de transferência"/>
+                    <Item id="48503" name="Gerar da seleção para a área de transferência"/>
                     <Item id="48504" name="Gerar..."/>
                     <Item id="48505" name="Gerar dos ficheiros..."/>
-                    <Item id="48506" name="Gerar da selecção para a área de transferência"/>
+                    <Item id="48506" name="Gerar da seleção para a área de transferência"/>
                     <Item id="49000" name="&amp;Executar..."/>
 
                     <Item id="50000" name="Conclusão da função"/>
@@ -424,7 +424,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1609" name="Substituir &amp;tudo"/>
                 <Item id="1687" name="Ao deixar a janela"/>
                 <Item id="1688" name="Sempre"/>
-                <Item id="1632" name="Na selecção"/>
+                <Item id="1632" name="Na seleção"/>
                 <Item id="1633" name="Limpar"/>
                 <Item id="1635" name="Substituir tudo em todos os documentos abertos"/>
                 <Item id="1636" name="Encontrar tudo em todos os documentos abertos"/>
@@ -672,7 +672,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20003" name="Criar novo..."/>
                 <Item id="20004" name="Remover"/>
                 <Item id="20005" name="Guardar como..."/>
-                <Item id="20007" name="Idioma do utilizador: "/>
+                <Item id="20007" name="Linguagem: "/>
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignorar MAI/MIN"/>
                 <Item id="20011" name="Transparência"/>
@@ -864,7 +864,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6121" name="Sair ao fechar o último separador"/>
 
                     <Item id="6122" name="Ocultar barra de menu (utilizar Alt ou F10 para alternar)"/>
-                    <Item id="6123" name="Localização"/>
+                    <Item id="6123" name="Idioma"/>
 
                     <Item id="6128" name="Alternar ícones"/>
                 </Global>
@@ -879,12 +879,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6228" name="Predefinição"/>
                     <Item id="6229" name="Alinhada"/>
                     <Item id="6230" name="Indentar"/>
-                    <Item id="6234" name="Desativar a função de deslocamento avançada se tiver problemas com o painel tátil"/>
-                    <Item id="6214" name="Ativar o realce da linha atual"/>
+                    <Item id="6234" name="Desativar função de deslocamento avançada se tiver problemas com painel tátil"/>
                     <Item id="6215" name="Ativar letra suave"/>
                     <Item id="6236" name="Ativar deslizamento para além da última linha"/>
-                    <Item id="6239" name="Manter selecção quando clicar com o botão direito do rato fora da selecção"/>
+                    <Item id="6239" name="Manter seleção quando clicar com o botão direito do rato fora da seleção"/>
                     <Item id="6245" name="Ativar o espaço virtual"/>
+                    <Item id="6651" name="Indicador da linha atual"/>
+                    <Item id="6652" name="Nenhum"/>
+                    <Item id="6653" name="Realçar fundo"/>
+                    <Item id="6654" name="Contorno"/>
+                    <Item id="6655" name="Espessura"/>
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
@@ -1568,7 +1572,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-08/04/2022 (versão 8.0, 8.1, 8.2, 8.3)
+05/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

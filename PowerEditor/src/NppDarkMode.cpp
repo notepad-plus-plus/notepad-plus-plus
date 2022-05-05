@@ -545,6 +545,13 @@ namespace NppDarkMode
 		getTheme().change(clrs);
 	}
 
+	void setHotEdgeColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.hotEdge = c;
+		getTheme().change(clrs);
+	}
+
 	Colors getDarkModeDefaultColors()
 	{
 		return darkColors;

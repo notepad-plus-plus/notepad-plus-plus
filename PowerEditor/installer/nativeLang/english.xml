@@ -893,14 +893,14 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <DarkMode title="Dark Mode">
                     <Item id="7101" name="Enable dark mode"/>
-                    <Item id="7102" name="Black tone"/>
-                    <Item id="7103" name="Red tone"/>
-                    <Item id="7104" name="Green tone"/>
-                    <Item id="7105" name="Blue tone"/>
-                    <Item id="7107" name="Purple tone"/>
-                    <Item id="7108" name="Cyan tone"/>
-                    <Item id="7109" name="Olive tone"/>
-                    <Item id="7115" name="Customized tone"/>
+                    <Item id="7102" name="Black"/>
+                    <Item id="7103" name="Red"/>
+                    <Item id="7104" name="Green"/>
+                    <Item id="7105" name="Blue"/>
+                    <Item id="7107" name="Purple"/>
+                    <Item id="7108" name="Cyan"/>
+                    <Item id="7109" name="Olive"/>
+                    <Item id="7115" name="Customized"/>
                     <Item id="7116" name="Top"/>
                     <Item id="7117" name="Menu hot track"/>
                     <Item id="7118" name="Active"/>
@@ -911,7 +911,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7123" name="Disabled text"/>
                     <Item id="7124" name="Edge"/>
                     <Item id="7125" name="Link"/>
+                    <Item id="7126" name="Edge highlight"/>
                     <Item id="7130" name="Reset"/>
+                    <Item id="7135" name="Tones"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margins/Border/Edge">

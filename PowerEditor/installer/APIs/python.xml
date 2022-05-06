@@ -30,6 +30,8 @@
 			<Overload retVal="" descr="Base class for warnings about bytes and buffer related problems, mostly&#x0a;related to conversion from str or comparing to str.">
 			</Overload>
 		</KeyWord>
+		<KeyWord name="case" />
+		<Keyword name="match" />
 		<KeyWord name="DeprecationWarning" func="yes">
 			<Overload retVal="" descr="Base class for warnings about deprecated features.">
 			</Overload>

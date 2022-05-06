@@ -1980,6 +1980,10 @@ void Notepad_plus::command(int id)
 			_pEditView->foldCurrentPos((id==IDM_VIEW_FOLD_CURRENT)?fold_collapse:fold_uncollapse);
 			break;
 
+		case IDM_VIEW_TOGGLE_CURRENT:
+			_pEditView->toggleCurrentFold();
+			break;
+
 		case IDM_VIEW_TOGGLE_FOLDALL:
 		case IDM_VIEW_TOGGLE_UNFOLDALL:
 		{
@@ -3928,6 +3932,7 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_WRAP :
 			case IDM_VIEW_FOLD_CURRENT :
 			case IDM_VIEW_UNFOLD_CURRENT :
+			case IDM_VIEW_TOGGLE_CURRENT :
 			case IDM_VIEW_TOGGLE_FOLDALL:
 			case IDM_VIEW_TOGGLE_UNFOLDALL:
 			case IDM_VIEW_FOLD_1:

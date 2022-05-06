@@ -512,6 +512,8 @@ public:
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
 	};
 	void foldCurrentPos(bool mode);
+	void toggleCurrentFold();
+	void toggleFold(size_t line);
 	int getCodepage() const {return _codepage;};
 
 	ColumnModeInfos getColumnModeSelectInfo();

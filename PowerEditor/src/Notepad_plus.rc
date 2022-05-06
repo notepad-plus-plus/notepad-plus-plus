@@ -706,6 +706,7 @@ BEGIN
         MENUITEM "Unfold All",                  IDM_VIEW_TOGGLE_UNFOLDALL
         MENUITEM "Collapse Current Level",      IDM_VIEW_FOLD_CURRENT
         MENUITEM "Uncollapse Current Level",    IDM_VIEW_UNFOLD_CURRENT
+        MENUITEM "Toggle Collapse Cur Level",   IDM_VIEW_TOGGLE_CURRENT
         POPUP "Collapse Level"
         BEGIN
             MENUITEM "1",   IDM_VIEW_FOLD_1

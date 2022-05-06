@@ -2126,6 +2126,42 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 	runMarkers(true, 0, true, false);
 }
 
+void ScintillaEditView::toggleCurrentFold(){
+	auto currentLine = this->getCurrentLineNumber();
+	toggleFold(currentLine);
+}
+void ScintillaEditView::toggleFold(size_t line){
+    auto endStyled = execute(SCI_GETENDSTYLED);
+    auto len = execute(SCI_GETTEXTLENGTH);
+
+    if (endStyled < len)
+        execute(SCI_COLOURISE, 0, -1);
+
+	intptr_t headerLine;
+	auto level = execute(SCI_GETFOLDLEVEL, line);
+
+	if (level & SC_FOLDLEVELHEADERFLAG)
+		headerLine = line;
+	else
+	{
+		headerLine = execute(SCI_GETFOLDPARENT, line);
+		if (headerLine == -1)
+			return;
+	}
+	execute(SCI_TOGGLEFOLD, headerLine);
+
+	SCNotification scnN;
+	scnN.nmhdr.code = SCN_FOLDINGSTATECHANGED;
+	scnN.nmhdr.hwndFrom = _hSelf;
+	scnN.nmhdr.idFrom = 0;
+	scnN.line = headerLine;
+	scnN.foldLevelNow = isFolded(headerLine)?1:0; //folded:1, unfolded:0
+
+	::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&scnN));
+
+}
+
+
 void ScintillaEditView::foldCurrentPos(bool mode)
 {
 	auto currentLine = this->getCurrentLineNumber();

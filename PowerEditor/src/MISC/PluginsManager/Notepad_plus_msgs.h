@@ -200,7 +200,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// int NPPM_GETNPPVERSION(BOOL ADD_ZERO_PADDING, 0)
 	// Get Notepad++ version
 	// HIWORD(returned_value) is major part of version: the 1st number
-	// LOWORD(returned_value) is minor part of version: the 3 last numbers (digits)
+	// LOWORD(returned_value) is minor part of version: the 3 last numbers
 	// 
 	// ADD_ZERO_PADDING == TRUE
 	// 

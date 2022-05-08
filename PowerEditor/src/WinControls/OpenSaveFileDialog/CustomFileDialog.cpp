@@ -23,6 +23,7 @@
 #include <comdef.h>		// _com_error
 #include <comip.h>		// _com_ptr_t
 #include <unordered_map>
+#include <set>
 #include "CustomFileDialog.h"
 #include "Parameters.h"
 
@@ -69,6 +70,28 @@ namespace // anonymous
 			return extSpec.substr(pos);
 		}
 		return {};
+	}
+
+	std::unordered_set<generic_string> initKnownExt(const std::vector<Filter>& filterSpec)
+	{
+		std::unordered_set<generic_string> result;
+
+		for (const auto& filter : filterSpec) {
+			char delimiter = ';';
+			size_t pos = filter.ext.find('.'), posEnd = 0;
+			generic_string token;
+
+			while ((posEnd = filter.ext.find(delimiter, pos)) != generic_string::npos)
+			{
+				token = filter.ext.substr(pos, posEnd - pos);
+				pos = filter.ext.find('.', posEnd);
+				result.insert(token);
+			}
+
+			result.insert(filter.ext.substr(pos));
+		}
+
+		return result;
 	}
 
 	bool replaceExt(generic_string& name, const generic_string& ext)
@@ -301,7 +324,7 @@ public:
 		// Specifically, when called after SetFileTypeIndex().
 		_currentType = dialogIndex;
 		generic_string name = getDialogFileName(_dialog);
-		if (changeExt(name, dialogIndex - 1))
+		if (changeExt(name, dialogIndex))
 		{
 			// Set the file name and clear the selection in the edit box.
 			// The selection is implicitly modified by SetFileName().
@@ -364,7 +387,7 @@ public:
 	}
 
 	FileDialogEventHandler(IFileDialog* dlg, const std::vector<Filter>& filterSpec, int fileIndex, int wildcardIndex)
-		: _cRef(1), _dialog(dlg), _customize(dlg), _filterSpec(filterSpec), _currentType(fileIndex + 1),
+		: _cRef(1), _dialog(dlg), _customize(dlg), _filterSpec(filterSpec), _knownExtensions(initKnownExt(filterSpec)), _currentType(fileIndex + 1),
 		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
 	{
 		installHooks();
@@ -454,11 +477,34 @@ private:
 
 	bool changeExt(generic_string& name, int extIndex)
 	{
-		if (extIndex >= 0 && extIndex < static_cast<int>(_filterSpec.size()))
+		// extIndex starts from 1
+		extIndex -= 1;
+
+		if (extIndex >= 0 && extIndex < static_cast<int>(_filterSpec.size()) && _currentType != _wildcardType)
 		{
 			const generic_string ext = get1stExt(_filterSpec[extIndex].ext);
-			if (!endsWith(ext, _T(".*")))
-				return replaceExt(name, ext);
+			auto pos = name.find_last_of(L".");
+
+			if (pos != generic_string::npos)
+			{
+				auto currentExt = name.substr(pos);
+				auto hasIdentifiedExt = _knownExtensions.find(currentExt);
+
+				if (hasIdentifiedExt == _knownExtensions.end())
+				{
+					name += ext;
+					return true;
+				}
+				else
+				{
+					return replaceExt(name, ext);
+				}
+			}
+			else
+			{
+				if (!endsWith(ext, _T(".*")))
+					return replaceExt(name, ext);
+			}
 		}
 		return false;
 	}
@@ -490,9 +536,8 @@ private:
 		if (!::PathIsDirectory(getAbsPath(fileName).c_str()))
 		{
 			// Name is a file path.
-			// Add file extension if missing.
-			if (!hasExt(fileName))
-				nameChanged |= changeExt(fileName, _currentType - 1);
+			// Add or change file extension.
+			nameChanged |= changeExt(fileName, _currentType);
 		}
 		// Update the edit box text.
 		// It will update the address if the path is a directory.
@@ -637,6 +682,7 @@ private:
 	com_ptr<IFileDialog> _dialog;
 	com_ptr<IFileDialogCustomize> _customize;
 	const std::vector<Filter> _filterSpec;
+	const std::unordered_set<generic_string> _knownExtensions;
 	generic_string _lastUsedFolder;
 	HHOOK _prevKbdHook = nullptr;
 	HHOOK _prevCallHook = nullptr;

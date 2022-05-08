@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.3.3">
+    <Native-Langue name="English" filename="english.xml" version="8.4.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -886,7 +886,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6245" name="Enable virtual space"/>
                     <Item id="6651" name="Current Line Indicator"/>
                     <Item id="6652" name="None"/>
-                    <Item id="6653" name="Hightlight Background"/>
+                    <Item id="6653" name="Highlight Background"/>
                     <Item id="6654" name="Frame"/>
                     <Item id="6655" name="Width"/>
                 </Scintillas>

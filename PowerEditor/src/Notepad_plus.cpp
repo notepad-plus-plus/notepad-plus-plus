@@ -5840,6 +5840,9 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 
 void Notepad_plus::drawAutocompleteColoursFromTheme(COLORREF fgColor, COLORREF bgColor)
 {
+	if (bgColor == 0xFFFFFF)
+		return;
+
 	int rbv = GetRValue(bgColor);
 	int gbv = GetGValue(bgColor);
 	int bbv = GetBValue(bgColor);

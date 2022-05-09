@@ -76,7 +76,8 @@ namespace // anonymous
 	{
 		std::unordered_set<generic_string> result;
 
-		for (const auto& filter : filterSpec) {
+		for (const auto& filter : filterSpec) 
+		{
 			char delimiter = ';';
 			size_t pos = filter.ext.find('.'), posEnd = 0;
 			generic_string token;

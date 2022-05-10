@@ -5,10 +5,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2022-03-02 by Thomas De Rocker (RockyTDR).
+Last modified on 2022-05-10 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.3">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.4.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -885,10 +885,15 @@ Last modified on 2022-03-02 by Thomas De Rocker (RockyTDR).
                     <Item id="6229" name="Uitgelijnd"/>
                     <Item id="6230" name="Ingesprongen"/>
                     <Item id="6234" name="Geavanceerd scrollen uitschakelen (ivm eventuele touchpadproblemen)"/>
-                    <Item id="6214" name="Markeren van huidige regel inschakelen"/>
                     <Item id="6215" name="ClearType-lettertype inschakelen"/>
                     <Item id="6236" name="Scrollen voorbij laatste regel inschakelen"/>
                     <Item id="6239" name="Selectie behouden bij rechtsklikken buiten selectie"/>
+                    <Item id="6245" name="Virtuele ruimte inschakelen"/>
+                    <Item id="6651" name="Indicator voor huidige regel"/>
+                    <Item id="6652" name="Geen"/>
+                    <Item id="6653" name="Achtergrond markeren"/>
+                    <Item id="6654" name="Frame"/>
+                    <Item id="6655" name="Breedte"/>
                 </Scintillas>
 
                 <DarkMode title="Donkere modus">
@@ -1354,6 +1359,8 @@ Doorgaan?"/>
             <PanelTitle name="Functielijst"/>
             <SortTip name="Sorteren"/>
             <ReloadTip name="Opnieuw laden"/>
+            <PreferencesTip name="Voorkeuren"/>
+            <PreferencesInitialSort name="Functies automatisch (van A naar Z) sorteren"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Map als Werkruimte"/>

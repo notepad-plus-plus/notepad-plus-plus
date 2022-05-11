@@ -1238,7 +1238,7 @@ BEGIN
     //LTEXT           "Boycott Beijing 2022",IDC_AUTHOR_NAME,85,38,80,8
     //LTEXT           "Declare variables, not war",IDC_AUTHOR_NAME,85,38,100,8
     //LTEXT           "Make Apps, not war",IDC_AUTHOR_NAME,85,38,100,8
-    LTEXT           "Stand Up For Ukraine",IDC_AUTHOR_NAME,85,38,100,8
+    //LTEXT           "Stand Up For Ukraine",IDC_AUTHOR_NAME,85,38,100,8
     LTEXT           "Home:",IDC_STATIC,21,58,47,8
     LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,58,126,8
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER

@@ -65,8 +65,13 @@ struct LoadedDllInfo
 {
 	generic_string _fullFilePath;
 	generic_string _fileName;
+	generic_string _displayName;
 
-	LoadedDllInfo(const generic_string & fullFilePath, const generic_string & fileName) : _fullFilePath(fullFilePath), _fileName(fileName) {};
+	LoadedDllInfo(const generic_string & fullFilePath, const generic_string & fileName) : _fullFilePath(fullFilePath), _fileName(fileName)
+	{
+		// the plugin module's name, without '.dll'
+		_displayName = fileName.substr(0, fileName.find_last_of('.'));
+	};
 };
 
 class PluginsManager

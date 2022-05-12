@@ -780,10 +780,15 @@ bool PluginsManager::allocateMarker(int numberRequired, int *start)
 generic_string PluginsManager::getLoadedPluginNames() const
 {
 	generic_string pluginPaths;
-	for (size_t i = 0; i < _loadedDlls.size(); ++i)
+	PluginUpdateInfo pl;
+	for (const auto &dll : _loadedDlls)
 	{
-		pluginPaths += _loadedDlls[i]._fileName;
-		pluginPaths += TEXT(" ");
+		pl = PluginUpdateInfo(dll._fullFilePath, dll._fileName);
+		pluginPaths += TEXT("\r\n    ");
+		pluginPaths += dll._displayName;
+		pluginPaths += TEXT(" (");
+		pluginPaths += pl._version.toString();
+		pluginPaths += TEXT(")");
 	}
 	return pluginPaths;
 }

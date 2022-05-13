@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1572,7 +1572,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-05/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+13/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

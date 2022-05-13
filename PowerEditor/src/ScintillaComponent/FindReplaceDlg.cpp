@@ -2696,7 +2696,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 			if (prevLineNumber != lineNumber)
 			{
 				++processedLines;
-				prevLineNumber = lineNumber;
+				prevLineNumber = static_cast<int>(lineNumber);
 			}
 		}
 
@@ -4446,7 +4446,7 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 
 	if (!_pMainMarkings->empty() && !_pOldMarkings->empty())
 	{
-		int lastAddedLine = _pMainMarkings->back()._finderLineNum;
+		int lastAddedLine = static_cast<int>( _pMainMarkings->back()._finderLineNum );
 		int addedLines = lastAddedLine + 1;
 
 		#ifdef _DEBUG

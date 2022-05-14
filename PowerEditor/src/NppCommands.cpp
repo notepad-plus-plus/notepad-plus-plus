@@ -373,7 +373,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_COPY_BINARY:
 		case IDM_EDIT_CUT_BINARY:
 		{
-			size_t textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
+			size_t textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0);
 			if (!textLen)
 				return;
 
@@ -3160,8 +3160,8 @@ void Notepad_plus::command(int id)
 		{
 			bool doAboutDlg = false;
 			const int maxSelLen = 32;
-			auto textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
-			if (!textLen)
+			auto textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0);
+			if (textLen <= 0)
 				doAboutDlg = true;
 			if (textLen > maxSelLen)
 				doAboutDlg = true;

@@ -145,7 +145,169 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 	{
 		case WM_INITDIALOG:
 		{
+			NppParameters& nppParam = NppParameters::getInstance();
+
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			// Notepad++ version
+			_debugInfoStr = NOTEPAD_PLUS_VERSION;
+			_debugInfoStr += nppParam.archType() == IMAGE_FILE_MACHINE_I386 ? TEXT("   (32-bit)") : (nppParam.archType() == IMAGE_FILE_MACHINE_AMD64 ? TEXT("   (64-bit)") : TEXT("   (ARM 64-bit)"));
+			_debugInfoStr += TEXT("\r\n");
+
+			// Build time
+			_debugInfoStr += TEXT("Build time : ");
+			generic_string buildTime;
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			buildTime += wmc.char2wchar(__DATE__, CP_ACP);
+			buildTime += TEXT(" - ");
+			buildTime += wmc.char2wchar(__TIME__, CP_ACP);
+			_debugInfoStr += buildTime;
+			_debugInfoStr += TEXT("\r\n");
+
+#if defined(__GNUC__)
+			_debugInfoStr += TEXT("Built with : GCC ");
+			_debugInfoStr += wmc.char2wchar(__VERSION__, CP_ACP);
+			_debugInfoStr += TEXT("\r\n");
+#elif !defined(_MSC_VER)
+			_debugInfoStr += TEXT("Built with : (unknown)\r\n");
+#endif
+
+			// Binary path
+			_debugInfoStr += TEXT("Path : ");
+			TCHAR nppFullPath[MAX_PATH];
+			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+			_debugInfoStr += nppFullPath;
+			_debugInfoStr += TEXT("\r\n");
+
+			// Command line as specified for program launch
+			// The _cmdLinePlaceHolder will be replaced later by refreshDebugInfo()
+			_debugInfoStr += TEXT("Command Line : ");
+			_debugInfoStr += _cmdLinePlaceHolder;
+			_debugInfoStr += TEXT("\r\n");
+
+			// Administrator mode
+			_debugInfoStr += TEXT("Admin mode : ");
+			_debugInfoStr += (_isAdmin ? TEXT("ON") : TEXT("OFF"));
+			_debugInfoStr += TEXT("\r\n");
+
+			// local conf
+			_debugInfoStr += TEXT("Local Conf mode : ");
+			bool doLocalConf = (NppParameters::getInstance()).isLocal();
+			_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
+			_debugInfoStr += TEXT("\r\n");
+
+			// Cloud config directory
+			_debugInfoStr += TEXT("Cloud Config : ");
+			const generic_string& cloudPath = nppParam.getNppGUI()._cloudPath;
+			_debugInfoStr += cloudPath.empty() ? _T("OFF") : cloudPath;
+			_debugInfoStr += TEXT("\r\n");
+
+			// OS information
+			HKEY hKey;
+			DWORD dataSize = 0;
+
+			TCHAR szProductName[96] = {'\0'};
+			TCHAR szCurrentBuildNumber[32] = {'\0'};
+			TCHAR szReleaseId[32] = {'\0'};
+			DWORD dwUBR = 0;
+			TCHAR szUBR[12] = TEXT("0");
+
+			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
+			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+			{
+				dataSize = sizeof(szProductName);
+				RegQueryValueExW(hKey, TEXT("ProductName"), NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
+				szProductName[sizeof(szProductName) / sizeof(TCHAR) - 1] = '\0';
+
+				dataSize = sizeof(szReleaseId);
+				RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
+				szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
+
+				dataSize = sizeof(szCurrentBuildNumber);
+				RegQueryValueExW(hKey, TEXT("CurrentBuildNumber"), NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
+				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(TCHAR) - 1] = '\0';
+
+				dataSize = sizeof(DWORD);
+				if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
+				{
+					generic_sprintf(szUBR, TEXT("%u"), dwUBR);
+				}
+
+				RegCloseKey(hKey);
+			}
+
+			// Get alternative OS information
+			if (szProductName[0] == '\0')
+			{
+				generic_sprintf(szProductName, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
+			}
+
+			// Override ProductName if it's Windows 11
+			if (NppDarkMode::isWindows11())
+				generic_sprintf(szProductName, TEXT("%s"), TEXT("Windows 11"));
+
+			if (szCurrentBuildNumber[0] == '\0')
+			{
+				DWORD dwVersion = GetVersion();
+				if (dwVersion < 0x80000000)
+				{
+					generic_sprintf(szCurrentBuildNumber, TEXT("%u"), HIWORD(dwVersion));
+				}
+			}
+
+			_debugInfoStr += TEXT("OS Name : ");
+			_debugInfoStr += szProductName;
+			_debugInfoStr += TEXT(" (");
+			_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
+			_debugInfoStr += TEXT(") ");
+			_debugInfoStr += TEXT("\r\n");
+
+			if (szReleaseId[0] != '\0')
+			{
+				_debugInfoStr += TEXT("OS Version : ");
+				_debugInfoStr += szReleaseId;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			if (szCurrentBuildNumber[0] != '\0')
+			{
+				_debugInfoStr += TEXT("OS Build : ");
+				_debugInfoStr += szCurrentBuildNumber;
+				_debugInfoStr += TEXT(".");
+				_debugInfoStr += szUBR;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			{
+				TCHAR szACP[32];
+				generic_sprintf(szACP, TEXT("%u"), ::GetACP());
+				_debugInfoStr += TEXT("Current ANSI codepage : ");
+ 				_debugInfoStr += szACP;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			// Detect WINE
+			PWINEGETVERSION pWGV = nullptr;
+			HMODULE hNtdllModule = GetModuleHandle(L"ntdll.dll");
+			if (hNtdllModule)
+			{
+				pWGV = (PWINEGETVERSION)GetProcAddress(hNtdllModule, "wine_get_version");
+			}
+
+			if (pWGV != nullptr)
+			{
+				TCHAR szWINEVersion[32];
+				generic_sprintf(szWINEVersion, TEXT("%hs"), pWGV());
+
+				_debugInfoStr += TEXT("WINE : ");
+				_debugInfoStr += szWINEVersion;
+				_debugInfoStr += TEXT("\r\n");
+			}
+
+			// Plugins
+			_debugInfoStr += TEXT("Plugins : ");
+			_debugInfoStr += _loadedPlugins.length() == 0 ? TEXT("none") : _loadedPlugins;
+			_debugInfoStr += TEXT("\r\n");
 
 			_copyToClipboardLink.init(_hInst, _hSelf);
 			_copyToClipboardLink.create(::GetDlgItem(_hSelf, IDC_DEBUGINFO_COPYLINK), IDC_DEBUGINFO_COPYLINK);
@@ -228,174 +390,24 @@ void DebugInfoDlg::doDialog()
 
 void DebugInfoDlg::refreshDebugInfo()
 {
-	NppParameters& nppParam = NppParameters::getInstance();
+	generic_string debugInfoDisplay { _debugInfoStr };
 
-	// Notepad++ version
-	_debugInfoStr = NOTEPAD_PLUS_VERSION;
-	_debugInfoStr += nppParam.archType() == IMAGE_FILE_MACHINE_I386 ? TEXT("   (32-bit)") : (nppParam.archType() == IMAGE_FILE_MACHINE_AMD64 ? TEXT("   (64-bit)") : TEXT("   (ARM 64-bit)"));
-	_debugInfoStr += TEXT("\r\n");
-
-	// Build time
-	_debugInfoStr += TEXT("Build time : ");
-	generic_string buildTime;
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	buildTime += wmc.char2wchar(__DATE__, CP_ACP);
-	buildTime += TEXT(" - ");
-	buildTime += wmc.char2wchar(__TIME__, CP_ACP);
-	_debugInfoStr += buildTime;
-	_debugInfoStr += TEXT("\r\n");
-
-#if defined(__GNUC__)
-	_debugInfoStr += TEXT("Built with : GCC ");
-	_debugInfoStr += wmc.char2wchar(__VERSION__, CP_ACP);
-	_debugInfoStr += TEXT("\r\n");
-#elif !defined(_MSC_VER)
-	_debugInfoStr += TEXT("Built with : (unknown)\r\n");
-#endif
-
-	// Binary path
-	_debugInfoStr += TEXT("Path : ");
-	TCHAR nppFullPath[MAX_PATH];
-	::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
-	_debugInfoStr += nppFullPath;
-	_debugInfoStr += TEXT("\r\n");
-
-	// Command line as specified for program launch
-	_debugInfoStr += TEXT("Command Line : ") + nppParam.getCmdLineString() + TEXT("\r\n");
-
-	// Administrator mode
-	_debugInfoStr += TEXT("Admin mode : ");
-	_debugInfoStr += (_isAdmin ? TEXT("ON") : TEXT("OFF"));
-	_debugInfoStr += TEXT("\r\n");
-
-	// local conf
-	_debugInfoStr += TEXT("Local Conf mode : ");
-	bool doLocalConf = (NppParameters::getInstance()).isLocal();
-	_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
-	_debugInfoStr += TEXT("\r\n");
-
-	// Cloud config directory
-	_debugInfoStr += TEXT("Cloud Config : ");
-	const generic_string& cloudPath = nppParam.getNppGUI()._cloudPath;
-	_debugInfoStr += cloudPath.empty() ? _T("OFF") : cloudPath;
-	_debugInfoStr += TEXT("\r\n");
-
-	// OS information
-	HKEY hKey;
-	DWORD dataSize = 0;
-
-	TCHAR szProductName[96] = {'\0'};
-	TCHAR szCurrentBuildNumber[32] = {'\0'};
-	TCHAR szReleaseId[32] = {'\0'};
-	DWORD dwUBR = 0;
-	TCHAR szUBR[12] = TEXT("0");
-
-	// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
-	if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+	size_t replacePos = debugInfoDisplay.find(_cmdLinePlaceHolder);
+	if (replacePos != std::string::npos)
 	{
-		dataSize = sizeof(szProductName);
-		RegQueryValueExW(hKey, TEXT("ProductName"), NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
-		szProductName[sizeof(szProductName) / sizeof(TCHAR) - 1] = '\0';
-
-		dataSize = sizeof(szReleaseId);
-		RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
-		szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
-
-		dataSize = sizeof(szCurrentBuildNumber);
-		RegQueryValueExW(hKey, TEXT("CurrentBuildNumber"), NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
-		szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(TCHAR) - 1] = '\0';
-
-		dataSize = sizeof(DWORD);
-		if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
-		{
-			generic_sprintf(szUBR, TEXT("%u"), dwUBR);
-		}
-
-		RegCloseKey(hKey);
+		debugInfoDisplay.replace(replacePos, _cmdLinePlaceHolder.length(), NppParameters::getInstance().getCmdLineString());
 	}
-
-	// Get alternative OS information
-	if (szProductName[0] == '\0')
-	{
-		generic_sprintf(szProductName, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
-	}
-
-	// Override ProductName if it's Windows 11
-	if (NppDarkMode::isWindows11())
-		generic_sprintf(szProductName, TEXT("%s"), TEXT("Windows 11"));
-
-	if (szCurrentBuildNumber[0] == '\0')
-	{
-		DWORD dwVersion = GetVersion();
-		if (dwVersion < 0x80000000)
-		{
-			generic_sprintf(szCurrentBuildNumber, TEXT("%u"), HIWORD(dwVersion));
-		}
-	}
-
-	_debugInfoStr += TEXT("OS Name : ");
-	_debugInfoStr += szProductName;
-	_debugInfoStr += TEXT(" (");
-	_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
-	_debugInfoStr += TEXT(") ");
-	_debugInfoStr += TEXT("\r\n");
-
-	if (szReleaseId[0] != '\0')
-	{
-		_debugInfoStr += TEXT("OS Version : ");
-		_debugInfoStr += szReleaseId;
-		_debugInfoStr += TEXT("\r\n");
-	}
-
-	if (szCurrentBuildNumber[0] != '\0')
-	{
-		_debugInfoStr += TEXT("OS Build : ");
-		_debugInfoStr += szCurrentBuildNumber;
-		_debugInfoStr += TEXT(".");
-		_debugInfoStr += szUBR;
-		_debugInfoStr += TEXT("\r\n");
-	}
-
-	{
-		TCHAR szACP[32];
-		generic_sprintf(szACP, TEXT("%u"), ::GetACP());
-		_debugInfoStr += TEXT("Current ANSI codepage : ");
-		_debugInfoStr += szACP;
-		_debugInfoStr += TEXT("\r\n");
-	}
-
-	// Detect WINE
-	PWINEGETVERSION pWGV = nullptr;
-	HMODULE hNtdllModule = GetModuleHandle(L"ntdll.dll");
-	if (hNtdllModule)
-	{
-		pWGV = (PWINEGETVERSION)GetProcAddress(hNtdllModule, "wine_get_version");
-	}
-
-	if (pWGV != nullptr)
-	{
-		TCHAR szWINEVersion[32];
-		generic_sprintf(szWINEVersion, TEXT("%hs"), pWGV());
-
-		_debugInfoStr += TEXT("WINE : ");
-		_debugInfoStr += szWINEVersion;
-		_debugInfoStr += TEXT("\r\n");
-	}
-
-	// Plugins
-	_debugInfoStr += TEXT("Plugins : ");
-	_debugInfoStr += _loadedPlugins.length() == 0 ? TEXT("none") : _loadedPlugins;
-	_debugInfoStr += TEXT("\r\n");
 
 	// Set Debug Info text and leave the text in selected state
-	::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, _debugInfoStr.c_str());
+	::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, debugInfoDisplay.c_str());
 	::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoStr.length() - 1);
 	::SetFocus(::GetDlgItem(_hSelf, IDC_DEBUGINFO_EDIT));
 }
 
+
 void DoSaveOrNotBox::doDialog(bool isRTL)
 {
-	
+
 	if (isRTL)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;

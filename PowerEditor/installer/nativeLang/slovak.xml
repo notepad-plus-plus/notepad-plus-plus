@@ -874,6 +874,7 @@
                     <Item id="6219" name="Rýchlosť blikania:"/>
                     <Item id="6221" name="R"/>
                     <Item id="6222" name="P"/>
+                    <Item id="6246" name="Umožniť prepínanie príkazov pre zbalenie/rozbalenie aktuálnej úrovne"/>
                     <Item id="6225" name="Povoliť viacnásobnú editáciu (Ctrl+myš kliknutie/výber)"/>
                     <Item id="6227" name="Zalomenie riadku"/>
                     <Item id="6228" name="Predvolené"/>
@@ -893,14 +894,14 @@
 				
                     <DarkMode title="Tmavý režim">
                         <Item id="7101" name="Povoliť tmavý režim"/>
-                        <Item id="7102" name="Čierny odtieň"/>
-                        <Item id="7103" name="Červený odtieň"/>
-                        <Item id="7104" name="Zelený odtieň"/>
-                        <Item id="7105" name="Modrý odtieň"/>
-                        <Item id="7107" name="Fialový odtieň"/>
-                        <Item id="7108" name="Azúrový odtieň"/>
-                        <Item id="7109" name="Olivový odtieň"/>
-                        <Item id="7115" name="Vlastný odtieň"/>
+                        <Item id="7102" name="Čierna"/>
+                        <Item id="7103" name="Červená"/>
+                        <Item id="7104" name="Zelená"/>
+                        <Item id="7105" name="Modrá"/>
+                        <Item id="7107" name="Fialová"/>
+                        <Item id="7108" name="Azúrová"/>
+                        <Item id="7109" name="Olivová"/>
+                        <Item id="7115" name="Vlastná"/>
                         <Item id="7116" name="Horný panel"/>
                         <Item id="7117" name="Položka hlavného menu"/>
                         <Item id="7118" name="Aktívna"/>
@@ -911,7 +912,9 @@
                         <Item id="7123" name="Neprístupný text"/>
                         <Item id="7124" name="Okraj karty"/>
                         <Item id="7125" name="Čiara"/>
+                        <Item id="7126" name="Zvýraznenie okrajov"/>
                         <Item id="7130" name="Obnoviť"/>
+                        <Item id="7135" name="Odtiene"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Okraje a ohraničenia">

@@ -140,7 +140,7 @@ void Notepad_plus::command(int id)
 			TCHAR currentDir[CURRENTWORD_MAXLENGTH];
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETFULLCURRENTPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentFile));
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
-	
+
 			if (!_pFileBrowser)
 			{
 				command(IDM_VIEW_FILEBROWSER);
@@ -148,14 +148,14 @@ void Notepad_plus::command(int id)
 
 			vector<generic_string> folders;
 			folders.push_back(currentDir);
-			
+
 			launchFileBrowser(folders, currentFile);
 		}
 		break;
 
 		case IDM_FILE_OPEN_DEFAULT_VIEWER:
 		{
-			// Opens file in its default viewer. 
+			// Opens file in its default viewer.
             // Has the same effect as double–clicking this file in Windows Explorer.
             BufferID buf = _pEditView->getCurrentBufferID();
 			HINSTANCE res = ::ShellExecute(NULL, TEXT("open"), buf->getFullPathName(), NULL, NULL, SW_SHOW);
@@ -175,7 +175,7 @@ void Notepad_plus::command(int id)
 				errorMsg += TEXT("\nError Code: ");
 				errorMsg += intToString(retResult);
 				errorMsg += TEXT("\n----------------------------------------------------------");
-				
+
 				::MessageBox(_pPublicInterface->getHSelf(), errorMsg.c_str(), TEXT("ShellExecute - ERROR"), MB_ICONINFORMATION | MB_APPLMODAL);
 			}
 		}
@@ -373,8 +373,8 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_COPY_BINARY:
 		case IDM_EDIT_CUT_BINARY:
 		{
-			size_t textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
-			if (!textLen)
+			size_t textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0);
+			if (textLen < 1)
 				return;
 
 			char *pBinText = new char[textLen + 1];
@@ -490,7 +490,7 @@ void Notepad_plus::command(int id)
 			HWND hwnd = _pPublicInterface->getHSelf();
 			TCHAR curentWord[CURRENTWORD_MAXLENGTH];
 			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
-			
+
 			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
 			if (id == IDM_EDIT_OPENINFOLDER)
 			{
@@ -579,7 +579,7 @@ void Notepad_plus::command(int id)
 			}
 
 			Command cmd(url.c_str());
-			cmd.run(_pPublicInterface->getHSelf());	
+			cmd.run(_pPublicInterface->getHSelf());
 		}
 		break;
 
@@ -1506,7 +1506,7 @@ void Notepad_plus::command(int id)
 			else // (id == IDM_SEARCH_GOPREVMARKER_DEF)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE;
 
-			goToPreviousIndicator(styleID);	
+			goToPreviousIndicator(styleID);
 		}
 		break;
 
@@ -2243,8 +2243,8 @@ void Notepad_plus::command(int id)
 					//fullCurrentPath += TEXT("\"");
 
 					::ShellExecute(NULL, TEXT("open"), TEXT("shell:Appsfolder\\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge"), fullCurrentPath.c_str(), NULL, SW_SHOW);
-				} 
-				else 
+				}
+				else
 				{
 					_nativeLangSpeaker.messageBox("ViewInBrowser",
 						_pPublicInterface->getHSelf(),
@@ -3096,7 +3096,7 @@ void Notepad_plus::command(int id)
 					std::string md5ResultA = md5.digestString(selectedStr);
 					std::wstring md5ResultW(md5ResultA.begin(), md5ResultA.end());
 					str2Clipboard(md5ResultW, _pPublicInterface->getHSelf());
-					
+
 					delete [] selectedStr;
 				}
 			}
@@ -3160,8 +3160,8 @@ void Notepad_plus::command(int id)
 		{
 			bool doAboutDlg = false;
 			const int maxSelLen = 32;
-			auto textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
-			if (!textLen)
+			auto textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0);
+			if (textLen < 1)
 				doAboutDlg = true;
 			if (textLen > maxSelLen)
 				doAboutDlg = true;
@@ -3441,7 +3441,7 @@ void Notepad_plus::command(int id)
 			}
 		}
         break;
-		
+
 		case IDM_LANG_OPENUDLDIR:
 		{
 			generic_string userDefineLangFolderPath = NppParameters::getInstance().getUserDefineLangFolderPath();

@@ -709,8 +709,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
 
-	#define NPPN_CMDLINECHANGED (NPPN_FIRST + 28)  // To notify plugins that current command line string has changed
-	//scnNotification->nmhdr.code = NPPN_CMDLINECHANGED;
+	#define NPPN_CMDLINEPLUGINMSG (NPPN_FIRST + 28)  // To notify plugins that current command line string has changed
+	//scnNotification->nmhdr.code = NPPN_CMDLINEPLUGINMSG;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.idFrom = pluginMessage; //where pluginMessage is pointer of type TCHAR
 

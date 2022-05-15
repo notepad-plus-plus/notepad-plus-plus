@@ -281,8 +281,8 @@ struct CmdLineParamsDTO
 	intptr_t _pos2go = 0;
 
 	LangType _langType = L_EXTERNAL;
+	generic_string _udlName;
 
-	wchar_t _udlName[MAX_PATH];
 	wchar_t _pluginMessage[MAX_PATH];
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
@@ -300,7 +300,7 @@ struct CmdLineParamsDTO
 		dto._pos2go = params._pos2go;
 		
 		dto._langType = params._langType;
-		wcsncpy(dto._udlName, params._udlName.c_str(), MAX_PATH);
+		dto._udlName = params._udlName;
 		wcsncpy(dto._pluginMessage, params._pluginMessage.c_str(), MAX_PATH);
 		return dto;
 	}

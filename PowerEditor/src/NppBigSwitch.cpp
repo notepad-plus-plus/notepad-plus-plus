@@ -675,12 +675,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
 					{
 						nppParam.setCmdlineParam(*cmdLineParam);
-						SCNotification scnN;
-						scnN.nmhdr.code = NPPN_CMDLINECHANGED;
-						generic_string pluginMessage{  };
-						scnN.nmhdr.hwndFrom = hwnd;
-						scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(nppParam.getCmdLineParams()._pluginMessage);
-						_pluginsManager.notify(&scnN);
+						generic_string pluginMessage { nppParam.getCmdLineParams()._pluginMessage };
+						if (!pluginMessage.empty())
+						{
+							SCNotification scnN;
+							scnN.nmhdr.code = NPPN_CMDLINEPLUGINMSG;
+							scnN.nmhdr.hwndFrom = hwnd;
+							scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(pluginMessage.c_str());
+							_pluginsManager.notify(&scnN);
+						}
 					}
 					else
 					{

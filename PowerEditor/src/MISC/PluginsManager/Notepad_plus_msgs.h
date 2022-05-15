@@ -197,11 +197,31 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//void NPPM_TRIGGERTABBARCONTEXTMENU(int view, int index2Activate)
 
 	#define NPPM_GETNPPVERSION (NPPMSG + 50)
-	// int NPPM_GETNPPVERSION(0, 0)
-	// return version
-	// ex : v4.6
-	// HIWORD(version) == 4
-	// LOWORD(version) == 6
+	// int NPPM_GETNPPVERSION(BOOL ADD_ZERO_PADDING, 0)
+	// Get Notepad++ version
+	// HIWORD(returned_value) is major part of version: the 1st number
+	// LOWORD(returned_value) is minor part of version: the 3 last numbers
+	// 
+	// ADD_ZERO_PADDING == TRUE
+	// 
+	// version  | HIWORD | LOWORD
+	//------------------------------
+	// 8.9.6.4  | 8      | 964
+	// 9        | 9      | 0
+	// 6.9      | 6      | 900
+	// 6.6.6    | 6      | 660
+	// 13.6.6.6 | 13     | 666
+	// 
+	// 
+	// ADD_ZERO_PADDING == FALSE
+	// 
+	// version  | HIWORD | LOWORD
+	//------------------------------
+	// 8.9.6.4  | 8      | 964
+	// 9        | 9      | 0
+	// 6.9      | 6      | 9
+	// 6.6.6    | 6      | 66
+	// 13.6.6.6 | 13     | 666
 
 	#define NPPM_HIDETABBAR (NPPMSG + 51)
 	// BOOL NPPM_HIDETABBAR(0, BOOL hideOrNot)
@@ -551,7 +571,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// return the caret current position column
 
 	#define NPPM_GETNPPFULLFILEPATH			(RUNCOMMAND_USER + NPP_FULL_FILE_PATH)
-
 
 
 // Notification code

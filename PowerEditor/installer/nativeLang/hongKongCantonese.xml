@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.3.4">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.1">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -933,9 +933,6 @@
                     <Item id="6121" name="閂最後份文件嗰陣順便閂埋個程式"/>
                     <Item id="6122" name="隱藏 menu bar（撳 Alt 或者 F10 切換）"/>
                     <Item id="6123" name="本土化"/>
-                    <Item id="6125" name="文件切換 Panel"/> <!-- #legacy v8.1.5 -->
-                    <Item id="6126" name="顯示"/> <!-- #legacy v8.1.2 -->
-                    <Item id="6127" name="停用副檔名欄"/> <!-- #legacy v8.1.5 -->
                     <Item id="6128" name="另類圖示"/> <!-- #new v7.9.1 -->
                 </Global>
 
@@ -951,11 +948,16 @@
                     <Item id="6229" name="對齊"/> <!-- #moved in v7.9.2 -->
                     <Item id="6230" name="縮排"/> <!-- #moved in v7.9.2 -->
                     <Item id="6234" name="將進階上下轆功能熄咗佢（避開觸控板問題）"/> <!-- #moved in v7.9.2 -->
-                    <Item id="6214" name="突顯改緊嘢嗰行嘅顏色"/> <!-- #moved in v7.9.2 -->
+                    <Item id="6214" name="突顯改緊嘢嗰行嘅顏色"/> <!-- #legacy v8.4.0 -->
                     <Item id="6215" name="啟用順滑字體"/> <!-- #moved in v7.9.2 -->
                     <Item id="6236" name="轆到超出至最後一行"/> <!-- #moved in v7.9.2 -->
                     <Item id="6239" name="喺揀選範圍以外撳滑鼠右掣，保留揀選範圍"/> <!-- #moved in v7.9.2 -->
-                    <Item id="6245" name="啟用虛位空間浮標"/> <!-- #new v8.3.4 -->
+                    <Item id="6245" name="啟用虛位空間浮標"/> <!-- #new v8.4.0 -->
+                    <Item id="6651" name="突顯改緊嘢嗰行"/> <!-- #new v8.4.1 -->
+                    <Item id="6652" name="唔搞"/> <!-- #new v8.4.1 -->
+                    <Item id="6653" name="突顯背景顏色"/> <!-- #new v8.4.1 -->
+                    <Item id="6654" name="邊框"/> <!-- #new v8.4.1 -->
+                    <Item id="6655" name="闊度："/> <!-- #new v8.4.1 -->
                 </Scintillas>
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
@@ -1394,10 +1396,6 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 搞掂晒安裝程序，Notepad++ 就會重新啟動。
 係咪繼續？"/>
             <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至可以 load 啲外掛。"/>
-            <SaveAllConfirm title="確認 save 晒所有檔案" message="係咪真係要 save 晒所有檔案佢？
-
-留意返，撳「取消」嘅話會直接 save 晒啲檔案，另外以後都唔會再問你，
-之後你亦可以喺偏好設定重新啟用呢個確認對話框。" /> <!-- #legacy v8.1.5 -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
@@ -1432,8 +1430,8 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <PanelTitle name="函式清單"/>
             <SortTip name="排次序"/>
             <ReloadTip name="Reload"/>
-            <PreferencesTip name="偏好設定"/> <!-- #new v8.3.4 -->
-            <PreferencesInitialSort name="預設以函式名排次序"/> <!-- #new v8.3.4 -->
+            <PreferencesTip name="偏好設定"/> <!-- #new v8.4.0 -->
+            <PreferencesInitialSort name="預設以函式名排次序"/> <!-- #new v8.4.0 -->
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="資料夾工作區"/>

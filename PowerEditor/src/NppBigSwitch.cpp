@@ -1265,15 +1265,35 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		// ADD_ZERO_PADDING == TRUE
+		// 
+		// version  | HIWORD | LOWORD
+		//------------------------------
+		// 8.9.6.4  | 8      | 964
+		// 9        | 9      | 0
+		// 6.9      | 6      | 900
+		// 6.6.6    | 6      | 660
+		// 13.6.6.6 | 13     | 666
+		// 
+		// 
+		// ADD_ZERO_PADDING == FALSE
+		// 
+		// version  | HIWORD | LOWORD
+		//------------------------------
+		// 8.9.6.4  | 8      | 964
+		// 9        | 9      | 0
+		// 6.9      | 6      | 9
+		// 6.6.6    | 6      | 66
+		// 13.6.6.6 | 13     | 666
 		case NPPM_GETNPPVERSION:
 		{
-			const TCHAR * verStr = VERSION_VALUE;
+			const TCHAR* verStr = VERSION_VALUE;
 			TCHAR mainVerStr[16];
 			TCHAR auxVerStr[16];
 			bool isDot = false;
-			int j =0;
+			int j = 0;
 			int k = 0;
-			for (int i = 0 ; verStr[i] ; ++i)
+			for (int i = 0; verStr[i]; ++i)
 			{
 				if (verStr[i] == '.')
 				{
@@ -1290,6 +1310,32 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			mainVerStr[j] = '\0';
 			auxVerStr[k] = '\0';
+
+			// if auxVerStr length should less or equal to 3.
+			// if auxVer is less 3 digits, the padding (0) will be added.
+			bool addZeroPadding = wParam == TRUE;
+			if (addZeroPadding)
+			{
+				size_t nbDigit = lstrlen(auxVerStr);
+				if (nbDigit > 0 && nbDigit <= 3)
+				{
+					if (nbDigit == 3)
+					{
+						// OK, nothing to do.
+					}
+					else if (nbDigit == 2)
+					{
+						auxVerStr[2] = '0';
+						auxVerStr[3] = '\0';
+					}
+					else // if (nbDigit == 1)
+					{
+						auxVerStr[1] = '0';
+						auxVerStr[2] = '0';
+						auxVerStr[3] = '\0';
+					}
+				}
+			}
 
 			int mainVer = 0, auxVer = 0;
 			if (mainVerStr[0])

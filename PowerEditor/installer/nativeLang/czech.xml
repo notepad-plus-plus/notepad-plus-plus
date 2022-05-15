@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.3.2  23/Feb/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.4.1  28/Apr/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.3.2">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -914,7 +914,6 @@
 					<Item id = "6130" name = "Fluent UI: velké ikony s výplní"/>
 				</Global>
 				<Scintillas title = "Editace">
-					<Item id = "6214" name = "Zvýraznit aktivní řádek"/>
 					<Item id = "6215" name = "Povolit vyhlazování fontu"/>
 					<Item id = "6216" name = "Nastavení kurzoru"/>
 					<Item id = "6217" name = "Šířka: "/>
@@ -929,6 +928,12 @@
 					<Item id = "6234" name = "Zakázat funkci vylepšeného rolování (jestliže máte problém s touchpadem)"/>
 					<Item id = "6236" name = "Povolit rolování za poslední řádku"/>
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
+					<Item id = "6245" name = "Povolit virtuální prostor"/>
+					<Item id = "6651" name = "Indikátor aktuálního řádku"/>
+					<Item id = "6652" name = "Žádný"/>
+					<Item id = "6653" name = "Zvýrazněné pozadí"/>
+					<Item id = "6654" name = "Orámování"/>
+					<Item id = "6655" name = "tloušťka: "/>
 				</Scintillas>
 				<DarkMode title = "Tmavý režim">
 					<Item id = "7101" name = "Povolit tmavý režim"/>
@@ -1363,6 +1368,8 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<PanelTitle name = "Seznam funkcí"/>
 			<SortTip name = "Setřídit" />
 			<ReloadTip name = "Znovu načíst" />
+			<PreferencesTip name = "Volby"/>
+			<PreferencesInitialSort name = "Implicitně třídit funkce (od A do Z)"/>
 		</FunctionList>
 		
 		<FolderAsWorkspace>

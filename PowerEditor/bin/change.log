@@ -1,3 +1,20 @@
+Notepad++ v8.4.1 regression-fixes, bug-fixes & new enhancement:
+
+1.  Fix HTML syntax highlighting in PHP files regression.
+2.  Fix "Reload from disk" loosing syntax highlighting regression.
+3.  Fix unfocused selected text background color changed regression.
+4.  Update Scintilla from 5.2.1 to 5.2.2 and Lexilla from 5.1.5 to 5.1.6.  
+5.  Fix multi-part keyword in prefix mode freezes Notepad++ in UDL.
+6.  Add several dark mode enhancement.
+7.  Add DarkMode usage detection support for plugins.
+8.  Add "Framed current line" option beside of "Highlight current line background".
+9.  Add file monitoring command line argument [-monitor].
+10. Add File Dialog enhancement.
+11. Add a new format argument/option "ADD_ZERO_PADDING" to NPPM_GETNPPVERSION.
+12. Restore auto-completion & calltip default fg/bg colors when no theme is applied.
+13. Sort "Search result" to the bottom in language list of Style Configurator.
+
+
 Notepad++ v8.4 new feature and bug-fixes:
 
 1.  Update Scintilla from v4.4.6 to v5.2.1 and add Lexilla v5.1.5.
@@ -19,7 +36,7 @@ Notepad++ v8.4 new feature and bug-fixes:
 17. Update NSIS & Inno Setup keyword lists.
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.4/
+https://notepad-plus-plus.org/downloads/v8.4.1/
 
 
 Included plugins:

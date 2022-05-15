@@ -317,6 +317,10 @@ public:
 
 	IFACEMETHODIMP OnOverwrite(IFileDialog*, IShellItem*, FDE_OVERWRITE_RESPONSE*) override
 	{
+		// Called when a file with a given name already exists.
+		// Focus the file name edit box to make it easier to pick a new name.
+		if (_hwndNameEdit)
+			SetFocus(_hwndNameEdit);
 		return S_OK;
 	}
 

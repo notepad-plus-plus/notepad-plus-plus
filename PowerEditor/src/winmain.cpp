@@ -434,9 +434,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	bool doFunctionListExport = isInList(FLAG_FUNCLSTEXPORT, params);
 	bool doPrintAndQuit = isInList(FLAG_PRINTANDQUIT, params);
 
-	NppParameters& nppParameters = NppParameters::getInstance();
-	nppParameters.setCmdLineString(cmdLineString);
-
 	CmdLineParams cmdLineParams;
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
 	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, params);
@@ -474,6 +471,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
     cmdLineParams._pos2go = getNumberFromParam('p', params, isParamePresent);
 	cmdLineParams._point.x = static_cast<LONG>(getNumberFromParam('x', params, cmdLineParams._isPointXValid));
 	cmdLineParams._point.y = static_cast<LONG>(getNumberFromParam('y', params, cmdLineParams._isPointYValid));
+
+	NppParameters& nppParameters = NppParameters::getInstance();
+
+	nppParameters.setCmdLineString(cmdLineString);
 
 	generic_string path;
 	if (getParamValFromString(FLAG_SETTINGS_DIR, params, path))

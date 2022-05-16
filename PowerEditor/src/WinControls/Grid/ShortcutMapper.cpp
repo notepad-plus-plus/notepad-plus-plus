@@ -136,10 +136,46 @@ void ShortcutMapper::initBabyGrid()
 	_babygrid.setHeaderHeight(NppParameters::getInstance()._dpiManager.scaleY(21));
 	_babygrid.setRowHeight(NppParameters::getInstance()._dpiManager.scaleY(21));
 
-	_babygrid.setHighlightColorNoFocus(RGB(200,200,210));
-	_babygrid.setProtectColor(RGB(255,130,120));
-	_babygrid.setHighlightColorProtect(RGB(244,10,20));
-	_babygrid.setHighlightColorProtectNoFocus(RGB(230,194,190));
+	if (NppDarkMode::isEnabled())
+	{
+		_babygrid.setTextColor(NppDarkMode::getDarkerTextColor());
+		_babygrid.setHighlightTextColor(NppDarkMode::getTextColor());
+		_babygrid.setTitleTextColor(NppDarkMode::getTextColor());
+
+		_babygrid.setUnprotectColor(NppDarkMode::getBackgroundColor());
+		_babygrid.setTitleColor(NppDarkMode::getBackgroundColor());
+
+		_babygrid.setBackgroundColor(NppDarkMode::getDarkerBackgroundColor());
+
+		_babygrid.setHighlightColor(NppDarkMode::getHotBackgroundColor());
+		_babygrid.setHighlightColorNoFocus(NppDarkMode::getSofterBackgroundColor());
+		_babygrid.setProtectColor(NppDarkMode::getErrorBackgroundColor());
+		_babygrid.setHighlightColorProtect(RGB(244, 10, 20));
+		_babygrid.setHighlightColorProtectNoFocus(RGB(230, 100, 110));
+
+		_babygrid.setGridlinesColor(NppDarkMode::getEdgeColor());
+		_babygrid.setTitleGridlinesColor(NppDarkMode::getHotEdgeColor());
+	}
+	else
+	{
+		_babygrid.setTextColor(RGB(0, 0, 0));
+		_babygrid.setHighlightTextColor(RGB(255, 255, 255));
+		_babygrid.setTitleTextColor(RGB(0, 0, 0));
+
+		_babygrid.setUnprotectColor(RGB(255, 255, 255));
+		_babygrid.setTitleColor(::GetSysColor(COLOR_BTNFACE));
+
+		_babygrid.setBackgroundColor(::GetSysColor(COLOR_BTNFACE));
+
+		_babygrid.setHighlightColor(RGB(0, 0, 128));
+		_babygrid.setHighlightColorNoFocus(RGB(200, 200, 210));
+		_babygrid.setProtectColor(RGB(255, 130, 120));
+		_babygrid.setHighlightColorProtect(RGB(244, 10, 20));
+		_babygrid.setHighlightColorProtectNoFocus(RGB(230, 194, 190));
+
+		_babygrid.setGridlinesColor(RGB(220, 220, 220));
+		_babygrid.setTitleGridlinesColor(RGB(120, 120, 120));
+	}
 
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 	nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapper");

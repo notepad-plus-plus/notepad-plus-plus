@@ -1150,6 +1150,7 @@
 		<KeyWord name="operator^" />
 		<KeyWord name="operator^=" />
 		<KeyWord name="operator~" />
+		<KeyWord name="optional" />
 		<KeyWord name="ostream" />
 		<KeyWord name="ostream_type" />
 		<KeyWord name="ostringstream" />

@@ -23,9 +23,9 @@
 
 class BabyGridWrapper : public Window
 {
-public :
+public:
 	BabyGridWrapper() = default;
-    ~BabyGridWrapper() = default;
+	~BabyGridWrapper() = default;
 
 	virtual void init(HINSTANCE hInst, HWND parent, int16_t id);
 	virtual void destroy() {
@@ -44,10 +44,10 @@ public :
 	};
 
 	void setColsNumbered(bool isNumbered = true) {
-		::SendMessage(_hSelf, BGM_SETCOLSNUMBERED, isNumbered?TRUE:FALSE, 0);
+		::SendMessage(_hSelf, BGM_SETCOLSNUMBERED, isNumbered ? TRUE : FALSE, 0);
 	}
 
-	void setText(size_t row, size_t col, const TCHAR *text) {
+	void setText(size_t row, size_t col, const TCHAR* text) {
 		_BGCELL cell;
 		cell.row = int(row);
 		cell.col = int(col);
@@ -55,7 +55,7 @@ public :
 	};
 
 	void makeColAutoWidth(bool autoWidth = true) {
-		::SendMessage(_hSelf, BGM_SETCOLAUTOWIDTH, autoWidth?TRUE:FALSE, 0);
+		::SendMessage(_hSelf, BGM_SETCOLAUTOWIDTH, autoWidth ? TRUE : FALSE, 0);
 	};
 
 	int getSelectedRow() {
@@ -93,21 +93,57 @@ public :
 		::SendMessage(_hSelf, WM_PAINT, 0, 0);
 	};
 
+	void setTextColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETTEXTCOLOR, color, 0);
+	}
+
+	void setBackgroundColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETBACKGROUNDCOLOR, color, 0);
+	}
+
+	void setUnprotectColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETUNPROTECTCOLOR, color, 0);
+	}
+
+	void setTitleTextColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETTITLETEXTCOLOR, color, 0);
+	}
+
+	void setTitleColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETTITLECOLOR, color, 0);
+	}
+
+	void setTitleGridlinesColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETTITLEGRIDLINECOLOR, color, 0);
+	}
+
+	void setHighlightTextColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETHILIGHTTEXTCOLOR, color, 0);
+	}
+
+	void setHighlightColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR, color, 0);
+	}
+
 	void setHighlightColorNoFocus(const COLORREF color) const {
 		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_NOFOCUS, color, 0);
-	};
+	}
 
 	void setProtectColor(const COLORREF color) const {
 		::SendMessage(_hSelf, BGM_SETPROTECTCOLOR, color, 0);
-	};
+	}
 
 	void setHighlightColorProtect(const COLORREF color) const {
 		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_PROTECT, color, 0);
-	};
+	}
 
 	void setHighlightColorProtectNoFocus(const COLORREF color) const {
 		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_PROTECT_NOFOCUS, color, 0);
-	};
+	}
+
+	void setGridlinesColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETGRIDLINECOLOR, color, 0);
+	}
 
 	bool setMarker(const bool isMarker) const {
 		::SendMessage(_hSelf, BGM_SETPROTECT, isMarker, 0);
@@ -122,11 +158,11 @@ public :
 		::SendMessage(_hSelf, BGM_SETINITIALCONTENT, isInitialContent, 0);
 	};
 
-	void setHeaderFont(const HFONT & hFont) const {
+	void setHeaderFont(const HFONT& hFont) const {
 		::SendMessage(_hSelf, BGM_SETHEADINGFONT, reinterpret_cast<WPARAM>(hFont), 0);
 	};
 
-	void setRowFont(const HFONT & hFont) const {
+	void setRowFont(const HFONT& hFont) const {
 		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), 0);
 	};
 
@@ -138,7 +174,7 @@ public :
 		::SendMessage(_hSelf, BGM_SETROWHEIGHT, rowHeight, 0);
 	};
 
-private :
+private:
 	static bool _isRegistered;
 };
 

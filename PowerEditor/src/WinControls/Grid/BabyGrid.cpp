@@ -63,6 +63,10 @@ struct _gridhandlestruct
 		COLORREF highlightcolorProtectNoFocus;
 		COLORREF gridlinecolor;
         COLORREF highlighttextcolor;
+        COLORREF backgroundcolor;
+        COLORREF titletextcolor;
+        COLORREF titlecolor;
+        COLORREF titlegridlinecolor;
 		BOOL DRAWHIGHLIGHT;
         BOOL ADVANCEROW;
         BOOL CURRENTCELLPROTECTED;
@@ -376,7 +380,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 
 
     holdfont = (HFONT)SelectObject(gdc,hcolumnheadingfont);
-	SetTextColor(gdc,BGHS[SI].textcolor);
+	SetTextColor(gdc,BGHS[SI].titletextcolor);
 	//display header row
 	r=0;
 
@@ -437,7 +441,18 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 SendMessage(hWnd, BGM_GETCELLDATA, reinterpret_cast<WPARAM>(&BGcell), reinterpret_cast<LPARAM>(buffer));
 
 	 rectsave=rect;
-	 DrawEdge(gdc,&rect,EDGE_ETCHED,BF_MIDDLE|BF_RECT|BF_ADJUST);
+	 //DrawEdge(gdc,&rect,EDGE_ETCHED,BF_MIDDLE|BF_RECT|BF_ADJUST);
+     HBRUSH hbrushtitle, holdbrushtitle;
+     HPEN hpentitle, holdpentitle;
+     hbrushtitle = CreateSolidBrush(BGHS[SI].titlecolor);
+     hpentitle = CreatePen(PS_SOLID, 1, BGHS[SI].titlegridlinecolor);
+     holdbrushtitle = (HBRUSH)SelectObject(gdc, hbrushtitle);
+     holdpentitle = (HPEN)SelectObject(gdc, hpentitle);
+     Rectangle(gdc, rect.left, rect.top, rect.right, rect.bottom);
+     SelectObject(gdc, holdbrushtitle);
+     SelectObject(gdc, holdpentitle);
+     DeleteObject(hbrushtitle);
+     DeleteObject(hpentitle);
 	 DrawTextEx(gdc,buffer,-1,&rect,DT_END_ELLIPSIS|DT_CENTER|DT_WORDBREAK|DT_NOPREFIX,NULL);
 	 rect=rectsave;
 
@@ -456,12 +471,12 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
                       }
                   else
                       {
-                       SetTextColor(gdc,RGB(0,0,0));//set black text for nonfocus grid hilight
+                       SetTextColor(gdc,BGHS[SI].textcolor);//set black text for nonfocus grid hilight
                       }
                  }
              else
                  {
-                  SetTextColor(gdc,RGB(0,0,0));
+                  SetTextColor(gdc,BGHS[SI].textcolor);
                  }
 
 		 rect.top = rect.bottom;
@@ -481,8 +496,19 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 
 		 if(c==0)
 		 {
-		  DrawEdge(gdc,&rect,EDGE_ETCHED,BF_MIDDLE|BF_RECT|BF_ADJUST);
-
+			 //DrawEdge(gdc,&rect,EDGE_ETCHED,BF_MIDDLE|BF_RECT|BF_ADJUST);
+			 SetTextColor(gdc, BGHS[SI].titletextcolor);
+			 HBRUSH hbrush, holdbrush;
+			 HPEN hpen, holdpen;
+			 hbrush = CreateSolidBrush(BGHS[SI].titlecolor);
+			 hpen = CreatePen(PS_SOLID, 1, BGHS[SI].titlegridlinecolor);
+			 holdbrush = (HBRUSH)SelectObject(gdc, hbrush);
+			 holdpen = (HPEN)SelectObject(gdc, hpen);
+			 Rectangle(gdc, rect.left, rect.top, rect.right, rect.bottom);
+			 SelectObject(gdc, holdbrush);
+			 SelectObject(gdc, holdpen);
+			 DeleteObject(hbrush);
+			 DeleteObject(hpen);
 		 }
 		 else
 		 {
@@ -626,20 +652,22 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
              {
               //repaint bottom of grid
 		         RECT trect;
-                 HBRUSH holdbrush;
+                 HBRUSH holdbrush, hbrush;
                  HPEN holdpen;
 		         GetClientRect(hWnd,&trect);
                  trect.top = rect.bottom;
                  trect.left = rect.left;
                  trect.right = rect.right;
 
-                 holdbrush=(HBRUSH)SelectObject(gdc,GetStockObject(GRAY_BRUSH));
+                 hbrush = CreateSolidBrush(BGHS[SI].backgroundcolor);
+                 holdbrush=(HBRUSH)SelectObject(gdc, hbrush);
                  holdpen=(HPEN)SelectObject(gdc,GetStockObject(NULL_PEN));
 
                  Rectangle(gdc,trect.left,trect.top,trect.right+1,trect.bottom+1);
 
 		         SelectObject(gdc,holdbrush);
                  SelectObject(gdc,holdpen);
+                 DeleteObject(hbrush);
 
              }
 
@@ -1251,6 +1279,10 @@ ATOM RegisterGridClass(HINSTANCE hInstance)
 		BGHS[j].gridlinecolor = RGB(220,220,220);
         BGHS[j].highlighttextcolor = RGB(255,255,255);
 		BGHS[j].textcolor = RGB(0,0,0);
+        BGHS[j].backgroundcolor = GetSysColor(COLOR_BTNFACE);
+        BGHS[j].titletextcolor = RGB(0,0,0);
+        BGHS[j].titlecolor = GetSysColor(COLOR_BTNFACE);
+        BGHS[j].titlegridlinecolor = RGB(120,120,120);
         BGHS[j].titleheight = 0;
         BGHS[j].EXTENDLASTCOLUMN = TRUE;
         BGHS[j].SHOWINTEGRALROWS = TRUE;
@@ -2087,6 +2119,46 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case BGM_SETUNPROTECTCOLOR:
 			  BGHS[SelfIndex].unprotectcolor = (COLORREF)wParam;
+				  {
+				   RECT rect;
+				   GetClientRect(hWnd,&rect);
+				   InvalidateRect(hWnd,&rect,FALSE);
+				  }
+			break;
+		case BGM_SETTEXTCOLOR:
+			  BGHS[SelfIndex].textcolor = (COLORREF)wParam;
+				  {
+				   RECT rect;
+				   GetClientRect(hWnd,&rect);
+				   InvalidateRect(hWnd,&rect,FALSE);
+				  }
+			break;
+		case BGM_SETBACKGROUNDCOLOR:
+			  BGHS[SelfIndex].backgroundcolor = (COLORREF)wParam;
+				  {
+				   RECT rect;
+				   GetClientRect(hWnd,&rect);
+				   InvalidateRect(hWnd,&rect,FALSE);
+				  }
+			break;
+		case BGM_SETTITLETEXTCOLOR:
+			  BGHS[SelfIndex].titletextcolor = (COLORREF)wParam;
+				  {
+				   RECT rect;
+				   GetClientRect(hWnd,&rect);
+				   InvalidateRect(hWnd,&rect,FALSE);
+				  }
+			break;
+		case BGM_SETTITLECOLOR:
+			  BGHS[SelfIndex].titlecolor = (COLORREF)wParam;
+				  {
+				   RECT rect;
+				   GetClientRect(hWnd,&rect);
+				   InvalidateRect(hWnd,&rect,FALSE);
+				  }
+			break;
+		case BGM_SETTITLEGRIDLINECOLOR:
+			  BGHS[SelfIndex].titlegridlinecolor = (COLORREF)wParam;
 				  {
 				   RECT rect;
 				   GetClientRect(hWnd,&rect);

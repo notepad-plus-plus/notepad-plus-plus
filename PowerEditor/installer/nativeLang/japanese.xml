@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.1">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -878,6 +878,7 @@
                     <Item id="6219" name="点滅速度:"/>
                     <Item id="6221" name="速く"/>
                     <Item id="6222" name="遅く"/>
+                    <Item id="6246" name="「カーソル位置のレベルで畳む/展開」をトグル動作にする"/>
                     <Item id="6225" name="一括編集を有効(Ctrl+クリック/選択)"/>
                     <Item id="6227" name="行折り返し"/>
                     <Item id="6228" name="デフォルト"/>
@@ -897,13 +898,13 @@
 
                 <DarkMode title="ダークモード">
                     <Item id="7101" name="ダークモードを有効にする"/>
-                    <Item id="7102" name="黒色系"/>
-                    <Item id="7103" name="赤色系"/>
-                    <Item id="7104" name="緑色系"/>
-                    <Item id="7105" name="青色系"/>
-                    <Item id="7107" name="紫色系"/>
-                    <Item id="7108" name="シアン系"/>
-                    <Item id="7109" name="オリーブ系"/>
+                    <Item id="7102" name="黒"/>
+                    <Item id="7103" name="赤"/>
+                    <Item id="7104" name="緑"/>
+                    <Item id="7105" name="青"/>
+                    <Item id="7107" name="紫"/>
+                    <Item id="7108" name="シアン"/>
+                    <Item id="7109" name="オリーブ"/>
                     <Item id="7115" name="カスタム"/>
                     <Item id="7116" name="上部"/>
                     <Item id="7117" name="注目中のメニュー"/>
@@ -915,7 +916,9 @@
                     <Item id="7123" name="無効部分の文字"/>
                     <Item id="7124" name="フチ"/>
                     <Item id="7125" name="リンク"/>
+                    <Item id="7126" name="フチのハイライト"/>
                     <Item id="7130" name="リセット"/>
+                    <Item id="7135" name="色調"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="余白部/枠線/ガイド線">

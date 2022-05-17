@@ -37,7 +37,7 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE    "CompanyName",        "Don HO don.h@free.fr\0"
-            VALUE    "FileDescription",    "Notepad++ : a free (GPL) source code editor\0"
+            VALUE    "FileDescription",    "Notepad++\0"
             VALUE    "FileVersion",        VERSION_VALUE
             VALUE    "InternalName",       "notepad++.exe\0"
             VALUE    "LegalCopyright",     "Copyleft 1998-2022 by Don HO\0"

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.4.1:
+Updated to v8.4.2:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.4.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.4.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -934,13 +934,13 @@ Updated to v8.4.1:
 
 				<DarkMode title="Тёмный Режим">
 					<Item id="7101" name="Включить Тёмный Режим"/>
-					<Item id="7102" name="Чёрная тема"/>
-					<Item id="7103" name="Красная тема"/>
-					<Item id="7104" name="Зелёная тема"/>
-					<Item id="7105" name="Синяя тема"/>
-					<Item id="7107" name="Фиолетовая тема"/>
-					<Item id="7108" name="Голубая тема"/>
-					<Item id="7109" name="Оливковая тема"/>
+					<Item id="7102" name="Чёрная"/>
+					<Item id="7103" name="Красная"/>
+					<Item id="7104" name="Зелёная"/>
+					<Item id="7105" name="Синяя"/>
+					<Item id="7107" name="Фиолетовая"/>
+					<Item id="7108" name="Голубая"/>
+					<Item id="7109" name="Оливковая"/>
 
 					<Item id="7115" name="Настраиваемая тема"/>
 					<Item id="7116" name="Панель"/>
@@ -954,6 +954,8 @@ Updated to v8.4.1:
 					<Item id="7124" name="Разделители"/>
 					<Item id="7125" name="Ссылки"/>
 					<Item id="7130" name="Сбросить"/>
+					<Item id="7126" name="Подсветка Полей"/>
+					<Item id="7135" name="Темы"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Блоки / Рамки / Поля">

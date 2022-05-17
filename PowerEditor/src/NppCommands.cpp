@@ -398,6 +398,8 @@ void Notepad_plus::command(int id)
 			memcpy(lpucharCopy, pBinText, textLen * sizeof(unsigned char));
 			lpucharCopy[textLen] = 0;    // null character
 
+			delete[] pBinText;
+
 			GlobalUnlock(hglbCopy);
 
 			// Place the handle on the clipboard.

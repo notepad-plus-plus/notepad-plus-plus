@@ -241,8 +241,6 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 		rc2Ajust.top += tabsHight;
 		rc2Ajust.bottom -= tabsHight;
 	}
-
-	NppDarkMode::autoSubclassAndThemeTabUpDownControl(_hSelf, _hTabUpdown);
 }
 
 
@@ -980,6 +978,23 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			SelectObject(hdc, holdPen);
 
 			EndPaint(hwnd, &ps);
+			return 0;
+		}
+
+		case WM_PARENTNOTIFY:
+		{
+			switch (LOWORD(wParam))
+			{
+				case WM_CREATE:
+				{
+					auto hwndUpdown = reinterpret_cast<HWND>(lParam);
+					if (NppDarkMode::subclassTabUpDownControl(hwndUpdown))
+					{
+						return 0;
+					}
+					break;
+				}
+			}
 			return 0;
 		}
 	}

@@ -1326,6 +1326,24 @@ namespace NppDarkMode
 			RemoveWindowSubclass(hWnd, TabSubclass, g_tabSubclassID);
 			break;
 		}
+
+		case WM_PARENTNOTIFY:
+		{
+			switch (LOWORD(wParam))
+			{
+				case WM_CREATE:
+				{
+					auto hwndUpdown = reinterpret_cast<HWND>(lParam);
+					if (NppDarkMode::subclassTabUpDownControl(hwndUpdown))
+					{
+						return 0;
+					}
+					break;
+				}
+			}
+			return 0;
+		}
+
 		}
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
@@ -1725,32 +1743,20 @@ namespace NppDarkMode
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
-	void subclassTabUpDownControl(HWND hwnd)
+	bool subclassTabUpDownControl(HWND hwnd)
 	{
-		auto pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
-		SetWindowSubclass(hwnd, TabUpDownSubclass, g_tabUpDownSubclassID, pButtonData);
-	}
+		constexpr size_t classNameLen = 16;
+		TCHAR className[classNameLen]{};
+		GetClassName(hwnd, className, classNameLen);
+		if (wcscmp(className, UPDOWN_CLASS) == 0)
+		{
+			auto pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
+			SetWindowSubclass(hwnd, TabUpDownSubclass, g_tabUpDownSubclassID, pButtonData);
+			NppDarkMode::setDarkExplorerTheme(hwnd);
+			return true;
+		}
 
-	void autoSubclassAndThemeTabUpDownControl(HWND hwndParent, HWND hwndUpdown)
-	{
-		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA{
-			auto && hwndUpdown = *reinterpret_cast<HWND*>(lParam);
-			if (hwndUpdown == nullptr)
-			{
-				constexpr size_t classNameLen = 16;
-				TCHAR className[classNameLen]{};
-				GetClassName(hwnd, className, classNameLen);
-				if (wcscmp(className, UPDOWN_CLASS) == 0)
-				{
-					hwndUpdown = hwnd;
-					NppDarkMode::subclassTabUpDownControl(hwndUpdown);
-					NppDarkMode::setDarkExplorerTheme(hwndUpdown);
-					::InvalidateRect(hwndUpdown, nullptr, TRUE);
-					::UpdateWindow(hwndUpdown);
-				}
-			}
-			return TRUE;
-			}, reinterpret_cast<LPARAM>(&hwndUpdown));
+		return false;
 	}
 
 	void setDarkTitleBar(HWND hwnd)

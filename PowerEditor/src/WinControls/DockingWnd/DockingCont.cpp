@@ -952,6 +952,25 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			}
 			break;
 		}
+
+		case WM_PARENTNOTIFY:
+		{
+			switch (LOWORD(wParam))
+			{
+				case WM_CREATE:
+				{
+					auto hwndUpdown = reinterpret_cast<HWND>(lParam);
+					if (NppDarkMode::subclassTabUpDownControl(hwndUpdown))
+					{
+						_hTabUpdown = hwndUpdown;
+						return 0;
+					}
+					break;
+				}
+			}
+			return 0;
+		}
+
 		default:
 			break;
 	}
@@ -1225,7 +1244,11 @@ void DockingCont::onSize()
 								rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
 								SWP_NOZORDER | SWP_SHOWWINDOW |  SWP_NOACTIVATE);
 
-				NppDarkMode::autoSubclassAndThemeTabUpDownControl(_hContTab, _hTabUpdown);
+				if (_hTabUpdown != nullptr)
+				{
+					::InvalidateRect(_hTabUpdown, nullptr, TRUE);
+					::UpdateWindow(_hTabUpdown);
+				}
 			}
 
 			// resize client area for plugin
@@ -1246,8 +1269,6 @@ void DockingCont::onSize()
 			::SetWindowPos(::GetDlgItem(_hSelf, IDC_CLIENT_TAB), NULL,
 							rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
 							SWP_NOZORDER | SWP_NOACTIVATE);
-
-			NppDarkMode::autoSubclassAndThemeTabUpDownControl(_hContTab, _hTabUpdown);
 		}
 		// resize to float window
 		else
@@ -1269,6 +1290,12 @@ void DockingCont::onSize()
 				::SetWindowPos(_hContTab, NULL,
 								rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
 								SWP_NOZORDER | SWP_SHOWWINDOW);
+
+				if (_hTabUpdown != nullptr)
+				{
+					::InvalidateRect(_hTabUpdown, nullptr, TRUE);
+					::UpdateWindow(_hTabUpdown);
+				}
 			}
 
 			// resize client area for plugin

@@ -374,7 +374,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_CUT_BINARY:
 		{
 			size_t textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0);
-			if (textLen < 1)
+			if (!textLen)
 				return;
 
 			char *pBinText = new char[textLen + 1];

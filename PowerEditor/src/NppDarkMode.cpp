@@ -769,6 +769,15 @@ namespace NppDarkMode
 		::EnableDarkScrollBarForWindowAndChildren(hwnd);
 	}
 
+	inline void paintRoundFrameRect(HDC hdc, const RECT rect, const HPEN hpen, int width, int height)
+	{
+		auto holdBrush = ::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
+		auto holdPen = ::SelectObject(hdc, hpen);
+		::RoundRect(hdc, rect.left, rect.top, rect.right, rect.bottom, width, height);
+		::SelectObject(hdc, holdBrush);
+		::SelectObject(hdc, holdPen);
+	}
+
 	struct ButtonData
 	{
 		HTHEME hTheme = nullptr;
@@ -1039,13 +1048,9 @@ namespace NppDarkMode
 	void paintGroupbox(HWND hwnd, HDC hdc, ButtonData& buttonData)
 	{
 		DWORD nStyle = GetWindowLong(hwnd, GWL_STYLE);
+		bool isDisabled = (nStyle & WS_DISABLED) == WS_DISABLED;
 		int iPartID = BP_GROUPBOX;
-		int iStateID = GBS_NORMAL;
-
-		if (nStyle & WS_DISABLED)
-		{
-			iStateID = GBS_DISABLED;
-		}
+		int iStateID = isDisabled ? GBS_DISABLED : GBS_NORMAL;
 
 		RECT rcClient = {};
 		GetClientRect(hwnd, &rcClient);
@@ -1102,7 +1107,8 @@ namespace NppDarkMode
 		ExcludeClipRect(hdc, rcContent.left, rcContent.top, rcContent.right, rcContent.bottom);
 
 		//DrawThemeParentBackground(hwnd, hdc, &rcClient);
-		DrawThemeBackground(buttonData.hTheme, hdc, BP_GROUPBOX, iStateID, &rcBackground, nullptr);
+		//DrawThemeBackground(buttonData.hTheme, hdc, BP_GROUPBOX, iStateID, &rcBackground, nullptr);
+		NppDarkMode::paintRoundFrameRect(hdc, rcBackground, NppDarkMode::getEdgePen(), 0, 0);
 
 		SelectClipRgn(hdc, nullptr);
 
@@ -1112,7 +1118,7 @@ namespace NppDarkMode
 			rcText.left += 2;
 
 			DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
-			dtto.crText = NppDarkMode::getTextColor();
+			dtto.crText = isDisabled ? NppDarkMode::getDisabledTextColor() : NppDarkMode::getTextColor();
 
 			DWORD textFlags = isCenter ? DT_CENTER : DT_LEFT;
 
@@ -1386,8 +1392,10 @@ namespace NppDarkMode
 
 				auto holdBrush = ::SelectObject(hdc, NppDarkMode::getDarkerBackgroundBrush());
 
+				auto dpiManager = NppParameters::getInstance()._dpiManager;
+
 				RECT rcArrow = {
-				rc.right - NppParameters::getInstance()._dpiManager.scaleX(17), rc.top + 1,
+				rc.right - dpiManager.scaleX(17), rc.top + 1,
 				rc.right - 1, rc.bottom - 1
 				};
 
@@ -1437,7 +1445,7 @@ namespace NppDarkMode
 				::SetTextColor(hdc, isHot ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
 				::SetBkColor(hdc, isHot ? NppDarkMode::getHotBackgroundColor() : NppDarkMode::getBackgroundColor());
 				::ExtTextOut(hdc,
-					rcArrow.left + (rcArrow.right - rcArrow.left) / 2 - NppParameters::getInstance()._dpiManager.scaleX(4),
+					rcArrow.left + (rcArrow.right - rcArrow.left) / 2 - dpiManager.scaleX(4),
 					rcArrow.top + 3,
 					ETO_OPAQUE | ETO_CLIPPED,
 					&rcArrow, L"˅",
@@ -1445,15 +1453,17 @@ namespace NppDarkMode
 					nullptr);
 				::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
 
-				auto holdPen = static_cast<HPEN>(::SelectObject(hdc, isHot || hasFocus ? NppDarkMode::getHotEdgePen() : NppDarkMode::getEdgePen()));
+				auto hSelectedPen = isHot || hasFocus ? NppDarkMode::getHotEdgePen() : NppDarkMode::getEdgePen();
+				auto holdPen = static_cast<HPEN>(::SelectObject(hdc, hSelectedPen));
+
 				POINT edge[] = {
 					{rcArrow.left - 1, rcArrow.top},
 					{rcArrow.left - 1, rcArrow.bottom}
 				};
 				::Polyline(hdc, edge, _countof(edge));
 
-				::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
-				::RoundRect(hdc, rc.left, rc.top, rc.right, rc.bottom, 0, 0);
+				int roundCornerValue = NppDarkMode::isWindows11() ? dpiManager.scaleX(4) : 0;
+				NppDarkMode::paintRoundFrameRect(hdc, rc, hSelectedPen, roundCornerValue, roundCornerValue);
 
 				::SelectObject(hdc, holdPen);
 				::SelectObject(hdc, holdBrush);

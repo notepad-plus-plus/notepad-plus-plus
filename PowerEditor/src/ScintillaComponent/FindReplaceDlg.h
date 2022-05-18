@@ -24,8 +24,8 @@
 #include "BoostRegexSearch.h"
 #include "StatusBar.h"
 
-#define FIND_RECURSIVE 1
-#define FIND_INHIDDENDIR 2
+//#define FIND_RECURSIVE 1
+//#define FIND_INHIDDENDIR 2
 
 #define FINDREPLACE_MAXLENGTH 2048
 
@@ -41,10 +41,11 @@ enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION, FILES_
 struct FoundInfo {
 	FoundInfo(intptr_t start, intptr_t end, size_t lineNumber, const TCHAR *fullPath)
 		: _start(start), _end(end), _lineNumber(lineNumber), _fullPath(fullPath) {};
+	// location in document
 	intptr_t _start;
 	intptr_t _end;
 	size_t _lineNumber;
-	generic_string _fullPath;
+	generic_string _fullPath;  // TODO implement dictionary to prevent duplicates, and implement move constructors
 };
 
 struct TargetRange {
@@ -117,13 +118,14 @@ public:
 
 	void addSearchLine(const TCHAR *searchName);
 	void addFileNameTitle(const TCHAR * fileName);
-	void addFileHitCount(int count);
+	void addFileHitCount(int count, int hitLines);
 	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection);
-	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, size_t totalLineNumber);
+	void add(const FoundInfo& fi, SearchResultMarking mi, const TCHAR* foundline, size_t totalLineNumber);
 	void setFinderStyle();
 	void removeAll();
 	void openAll();
 	void wrapLongLinesToggle();
+	void oneResultPerLineToggle();
 	void purgeToggle();
 	void copy();
 	void copyPathnames();
@@ -162,6 +164,7 @@ private:
 
 	bool _canBeVolatiled = true;
 	bool _longLinesAreWrapped = false;
+	bool _oneResultPerLine = false;
 	bool _purgeBeforeEverySearch = false;
 
 	generic_string _prefixLineStr;
@@ -173,8 +176,9 @@ private:
 	bool isLineActualSearchResult(const generic_string & s) const;
 	generic_string & prepareStringForClipboard(generic_string & s) const;
 
+	std::pair<size_t, size_t> getMarkingIndexesOfLine(size_t lineNumber);
+
 	static FoundInfo EmptyFoundInfo;
-	static SearchResultMarking EmptySearchResultMarking;
 };
 
 

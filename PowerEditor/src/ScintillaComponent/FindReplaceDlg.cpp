@@ -22,6 +22,7 @@
 #include "localization.h"
 #include "Common.h"
 #include "Utf8.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -474,7 +475,6 @@ void FindReplaceDlg::updateCombo(int comboID)
 }
 
 FoundInfo Finder::EmptyFoundInfo(0, 0, 0, TEXT(""));
-SearchResultMarking Finder::EmptySearchResultMarking;
 
 bool Finder::notify(SCNotification *notification)
 {
@@ -518,6 +518,44 @@ bool Finder::notify(SCNotification *notification)
 	return false;
 }
 
+// [from, to)  where 'to' can point to end()
+//
+std::pair<size_t, size_t> Finder::getMarkingIndexesOfLine(size_t lineNumber)
+{
+	std::pair<size_t, size_t> markingIndexes;
+	const size_t iEnd = _pMainMarkings->size();
+	size_t i = lineNumber;
+	for (; i < iEnd; ++i)
+	{
+		if ((*_pMainMarkings)[i]._finderLineNum == lineNumber)
+		{
+			markingIndexes.first = i;
+			markingIndexes.second = i + 1;
+			break;
+		}
+
+		if ((*_pMainMarkings)[i]._finderLineNum > lineNumber)
+		{
+			assert(false);
+			return { iEnd, iEnd };
+		}
+	}
+	assert(lineNumber > 0 ? i > 0 : i == 0);
+
+	for (; i < iEnd - 1; ++i)
+	{
+		// whether next marking in the same line
+		if ( (*_pMainMarkings)[i]._finderLineNum == (*_pMainMarkings)[i + 1]._finderLineNum )
+		{
+			++markingIndexes.second;
+			continue;
+		}
+
+		break;
+	}
+
+	return markingIndexes;
+}
 
 void Finder::gotoFoundLine()
 {
@@ -534,7 +572,8 @@ void Finder::gotoFoundLine()
 		return;
 	}
 
-	const FoundInfo fInfo = *(_pMainFoundInfos->begin() + lno);
+	std::pair<size_t, size_t> miOfLine = getMarkingIndexesOfLine(lno);
+	const FoundInfo& fInfo = (*_pMainFoundInfos)[miOfLine.first];
 
 	// Switch to another document
 	if (!::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(fInfo._fullPath.c_str()))) return;
@@ -545,44 +584,99 @@ void Finder::gotoFoundLine()
 
 void Finder::deleteResult()
 {
-	auto currentPos = _scintView.execute(SCI_GETCURRENTPOS); // yniq - add handling deletion of multiple lines?
+	bool isAllSelected = false;
+	auto selStart = _scintView.execute(SCI_GETSELECTIONSTART);
+	auto selEnd = _scintView.execute(SCI_GETSELECTIONEND);
+	auto lno1 = _scintView.execute(SCI_LINEFROMPOSITION, selStart);
+	auto lno2 = _scintView.execute(SCI_LINEFROMPOSITION, selEnd);
+	assert(lno1 <= lno2);
 
-	auto lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
-	auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-	auto end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
-	if (start + 2 >= end) return; // avoid empty lines
-
-	_scintView.setLexer(L_SEARCHRESULT, LIST_NONE); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
-
-	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)  // delete a folder
+	// exclude last empty line
+	if (lno2 == _scintView.execute(SCI_GETLINECOUNT) - 1)
 	{
-		auto endline = _scintView.execute(SCI_GETLASTCHILD, lno, -1) + 1;
-		assert((size_t) endline <= _pMainFoundInfos->size());
+		--lno2;
 
-		_pMainFoundInfos->erase(_pMainFoundInfos->begin() + lno, _pMainFoundInfos->begin() + endline); // remove found info
-		_pMainMarkings->erase(_pMainMarkings->begin() + lno, _pMainMarkings->begin() + endline);
+		if (lno1 > lno2)
+			return;
 
-		auto end2 = _scintView.execute(SCI_POSITIONFROMLINE, endline);
-		_scintView.execute(SCI_SETSEL, start, end2);
-		setFinderReadOnly(false);
-		_scintView.execute(SCI_CLEAR);
-		setFinderReadOnly(true);
+		isAllSelected = (selStart == 0);  // by <Ctrl+A>
 	}
-	else // delete one line
+
+	auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno1);
+	auto end = _scintView.execute(SCI_POSITIONFROMLINE, lno2 + 1);
+	if (start + 2 >= end)
+		return; // avoid empty lines
+
+	std::pair<size_t, size_t> mi1 = getMarkingIndexesOfLine(lno1);
+	std::pair<size_t, size_t> mi2 = mi1;
+	if (lno2 > lno1)
 	{
-		assert((size_t) lno < _pMainFoundInfos->size());
+		mi2 = getMarkingIndexesOfLine(lno2);
 
-		_pMainFoundInfos->erase(_pMainFoundInfos->begin() + lno); // remove found info
-		_pMainMarkings->erase(_pMainMarkings->begin() + lno);
-
-		setFinderReadOnly(false);
-		_scintView.execute(SCI_LINEDELETE);
-		setFinderReadOnly(true);
+		if (!isAllSelected)
+		{
+			// check SearchLine\FileNameTitle folder
+			for (size_t i = mi1.first;
+				i <= mi2.first && i < _pMainMarkings->size();
+				++i)
+			{
+				if ((*_pMainMarkings)[i]._start == 0 && (*_pMainMarkings)[i]._end == 0)
+					return;  // ambiguity
+			}
+		}
 	}
-	_markingsStruct._length = static_cast<long>(_pMainMarkings->size());
+
+	_scintView.setLexer(L_SEARCHRESULT, LIST_NONE); // Restore searchResult lexer (SCLEX_SEARCHRESULT) in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
+	
+	bool fromFolder = _scintView.execute(SCI_GETFOLDLEVEL, lno1) & SC_FOLDLEVELHEADERFLAG;
+
+	if (lno1 == lno2 && fromFolder)  // delete a folder
+	{
+		lno2 = _scintView.execute(SCI_GETLASTCHILD, lno1, -1);
+		assert((size_t) lno2 < _pMainFoundInfos->size());
+		end = _scintView.execute(SCI_POSITIONFROMLINE, lno2 + 1);
+		mi2 = getMarkingIndexesOfLine(lno2);
+	}
+	else
+	{
+		// To accidentally not delete the following folder when the <DEL> key is holding down, we need to stop the removal process.
+		// Remove focus from _scintView.
+		if ( !fromFolder
+			 && _scintView.execute(SCI_GETFOLDLEVEL, lno2 + 1) & SC_FOLDLEVELHEADERFLAG )  // check next line after delete
+		{
+			getFocus();
+		}
+	}
+
+	// delete selected lines
+
+	_scintView.execute(SCI_SETSEL, start, end);
+	setFinderReadOnly(false);
+	_scintView.execute(SCI_CLEAR);
+	setFinderReadOnly(true);
+
+	assert((size_t) lno2 < _pMainFoundInfos->size());
+
+	size_t linesDeleted = lno2 - lno1 + 1;
+	assert(mi2.second < _pMainMarkings->size()
+		? linesDeleted == (*_pMainMarkings)[mi2.second]._finderLineNum - (*_pMainMarkings)[mi1.first]._finderLineNum
+		: true);
+
+	_pMainFoundInfos->erase(_pMainFoundInfos->begin() + mi1.first, _pMainFoundInfos->begin() + mi2.second); // remove found info
+
+	std::vector<SearchResultMarking>::iterator itMarkingsAfterDelete = 
+			_pMainMarkings->erase(_pMainMarkings->begin() + mi1.first, _pMainMarkings->begin() + mi2.second);
+
+	// fix line numbers in tail
+	std::for_each( itMarkingsAfterDelete, _pMainMarkings->end(),
+		[linesDeleted](SearchResultMarking& searchResultMarking) {
+			searchResultMarking._finderLineNum -= linesDeleted;
+		}
+	);
+
+	_markingsStruct._length = _pMainMarkings->size();
 
 	assert(_pMainFoundInfos->size() == _pMainMarkings->size());
-	assert(size_t(_scintView.execute(SCI_GETLINECOUNT)) == _pMainFoundInfos->size() + 1);
 }
 
 vector<generic_string> Finder::getResultFilePaths() const
@@ -2307,6 +2401,8 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo * pFindersInfo, const FindOption *opt, int colourStyleID, ScintillaEditView *view2Process)
 {
 	int nbProcessed = 0;
+	int processedLines = 0;
+	int prevLineNumber = -1;
 
 	if (!isCreated() && !findReplaceInfo._txt2find)
 		return nbProcessed;
@@ -2424,6 +2520,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		intptr_t foundTextLen = targetEnd - targetStart;
 		intptr_t replaceDelta = 0;
 		bool processed = true;
+		auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
 
 		switch (op)
 		{
@@ -2440,7 +2537,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				}
 
 				auto totalLineNumber = pEditView->execute(SCI_GETLINECOUNT);
-				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
 				intptr_t lend = pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
 				intptr_t lstart = pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
 				intptr_t nbChar = lend - lstart;
@@ -2456,12 +2552,11 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
-				generic_string line = lineBuf;
-				line += TEXT("\r\n");
 				SearchResultMarking srm;
 				srm._start = static_cast<long>(start_mark);
 				srm._end = static_cast<long>(end_mark);
-				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str(), totalLineNumber);
+
+				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, lineBuf, totalLineNumber);
 
 				break;
 			}
@@ -2474,7 +2569,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				const TCHAR *pFileName = pFindersInfo->_pFileName ? pFindersInfo->_pFileName : TEXT("");
 
 				auto totalLineNumber = pEditView->execute(SCI_GETLINECOUNT);
-				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
 				intptr_t lend = pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
 				intptr_t lstart = pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
 				intptr_t nbChar = lend - lstart;
@@ -2490,8 +2584,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
-				generic_string line = lineBuf;
-				line += TEXT("\r\n");
 				SearchResultMarking srm;
 				srm._start = static_cast<long>(start_mark);
 				srm._end = static_cast<long>(end_mark);
@@ -2503,7 +2595,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
 					}
-					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str(), totalLineNumber);
+					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, lineBuf, totalLineNumber);
 				}
 				break;
 			}
@@ -2534,7 +2626,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				if (_env->_doMarkLine)
 				{
-					auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
 					auto lineNumberEnd = pEditView->execute(SCI_LINEFROMPOSITION, targetEnd - 1);
 
 					for (auto i = lineNumber; i <= lineNumberEnd; ++i)
@@ -2595,7 +2686,17 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 			}
 
 		}
-		if (processed) ++nbProcessed;
+
+		if (processed)
+		{
+			++nbProcessed;
+
+			if (prevLineNumber != lineNumber)
+			{
+				++processedLines;
+				prevLineNumber = static_cast<int>(lineNumber);
+			}
+		}
 
 		// After the processing of the last string occurrence the search loop should be stopped
 		// This helps to avoid the endless replacement during the EOL ("$") searching
@@ -2625,7 +2726,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		}
 
 		if (pFinder != nullptr)
-			pFinder->addFileHitCount(nbProcessed);
+			pFinder->addFileHitCount(nbProcessed, processedLines);
 	}
 	return nbProcessed;
 }
@@ -2691,6 +2792,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
 		_pFinder->_scintView.showWrapSymbol(true);
 
+		_pFinder->_oneResultPerLine = nppGUI._finderOneResultPerLine;
 		_pFinder->_purgeBeforeEverySearch = nppGUI._finderPurgeBeforeEverySearch;
 
 		// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
@@ -2821,6 +2923,8 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->_scintView.wrap(pFinder->_longLinesAreWrapped);
 	pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
 	pFinder->_scintView.showWrapSymbol(true);
+
+	pFinder->_oneResultPerLine = _pFinder->_oneResultPerLine;
 
 	// allow user to start selecting as a stream block, then switch to a column block by adding Alt keypress
 	pFinder->_scintView.execute(SCI_SETMOUSESELECTIONRECTANGULARSWITCH, true);
@@ -4001,7 +4105,7 @@ void Finder::addSearchLine(const TCHAR *searchName)
 	_lastSearchHeaderPos = _scintView.execute(SCI_GETCURRENTPOS) - 2;
 
 	_pMainFoundInfos->push_back(EmptyFoundInfo);
-	_pMainMarkings->push_back(EmptySearchResultMarking);
+	_pMainMarkings->push_back(SearchResultMarking{ 0, 0, 0/*_finderLineNum*/ });
 }
 
 void Finder::addFileNameTitle(const TCHAR * fileName)
@@ -4016,13 +4120,40 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 	_lastFileHeaderPos = _scintView.execute(SCI_GETCURRENTPOS) - 2;
 
 	_pMainFoundInfos->push_back(EmptyFoundInfo);
-	_pMainMarkings->push_back(EmptySearchResultMarking);
+	_pMainMarkings->push_back(SearchResultMarking{ 0, 0, 1/*_finderLineNum*/ });
 }
 
-void Finder::addFileHitCount(int count)
+void Finder::addFileHitCount(int count, int hitLines)
 {
 	wstring text = TEXT(" ");
 	text += getHitsString(count);
+
+	{
+		NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		generic_string hitLinesStr = pNativeSpeaker->getLocalizedStrFromID("find-result-hit-lines", TEXT(""));
+
+		if (hitLinesStr.empty())
+		{
+			if (hitLines == 1)
+			{
+				hitLinesStr = TEXT("(in 1 line)");
+			}
+			else
+			{
+				hitLinesStr = TEXT("(in ");
+				hitLinesStr += std::to_wstring(hitLines);
+				hitLinesStr += TEXT(" lines)");
+			}
+		}
+		else
+		{
+			hitLinesStr = stringReplace(hitLinesStr, TEXT("$INT_REPLACE$"), std::to_wstring(hitLines));
+		}
+
+		text += TEXT(" ");
+		text += hitLinesStr;
+	}
+
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text.c_str());
 	setFinderReadOnly(true);
@@ -4079,8 +4210,10 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 	setFinderReadOnly(true);
 }
 
-void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, size_t totalLineNumber)
+void Finder::add(const FoundInfo& fi, SearchResultMarking mi, const TCHAR* foundline, size_t totalLineNumber)
 {
+	bool bMarkingInOneLine = (!_oneResultPerLine && !_pMainFoundInfos->empty() && _pMainFoundInfos->back()._lineNumber == fi._lineNumber);
+
 	_pMainFoundInfos->push_back(fi);
 
 	generic_string str = TEXT("\t");
@@ -4098,9 +4231,18 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, s
 	mi._start += str.length();
 	mi._end += str.length();
 	str += foundline;
+	str += TEXT("\r\n");
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const char *text2AddUtf8 = wmc.wchar2char(str.c_str(), SC_CP_UTF8, &mi._start, &mi._end); // certainly utf8 here
+
+	if (bMarkingInOneLine)
+	{
+		mi._finderLineNum = _scintView.execute(SCI_LINEFROMPOSITION, _scintView.execute(SCI_GETCURRENTPOS)) - 1;
+		_pMainMarkings->push_back(mi);
+		return;
+	}
+
 	size_t len = strlen(text2AddUtf8);
 
 	if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
@@ -4119,6 +4261,7 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, s
 	setFinderReadOnly(false);
 	_scintView.execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(text2AddUtf8));
 	setFinderReadOnly(true);
+	mi._finderLineNum = _scintView.execute(SCI_LINEFROMPOSITION, _scintView.execute(SCI_GETCURRENTPOS)) - 1;
 	_pMainMarkings->push_back(mi);
 }
 
@@ -4167,6 +4310,19 @@ void Finder::wrapLongLinesToggle()
 		NppParameters& nppParam = NppParameters::getInstance();
 		NppGUI& nppGUI = nppParam.getNppGUI();
 		nppGUI._finderLinesAreCurrentlyWrapped = _longLinesAreWrapped;
+	}
+}
+
+void Finder::oneResultPerLineToggle()
+{
+	_oneResultPerLine = !_oneResultPerLine;
+
+	if (!_canBeVolatiled)
+	{
+		// only remember this setting from the original finder
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGUI = nppParam.getNppGUI();
+		nppGUI._finderOneResultPerLine = _oneResultPerLine;
 	}
 }
 
@@ -4283,7 +4439,36 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 	std::vector<SearchResultMarking>* _pOldMarkings;
 	_pOldFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
 	_pOldMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
+	assert(_pMainFoundInfos->size() == _pMainMarkings->size());
+	assert(_pOldFoundInfos->size() == _pOldMarkings->size());
 
+	if (!_pMainMarkings->empty() && !_pOldMarkings->empty())
+	{
+		int lastAddedLine = static_cast<int>( _pMainMarkings->back()._finderLineNum );
+		int addedLines = lastAddedLine + 1;
+
+		#ifdef _DEBUG
+			int addedLines2 = 1;
+			for (size_t i = 0, iEnd = _pMainMarkings->size() - 1;
+				i < iEnd; ++i)
+			{
+				if ((*_pMainMarkings)[i]._finderLineNum != (*_pMainMarkings)[i + 1]._finderLineNum)
+					++addedLines2;
+			}
+			assert(addedLines == addedLines2);
+
+			auto lastAddedLine2 = _scintView.execute(SCI_LINEFROMPOSITION, _scintView.execute(SCI_GETCURRENTPOS)) - 1;
+			auto lastAddedLine3 = _scintView.execute(SCI_LINEFROMPOSITION, _scintView.execute(SCI_GETCURRENTPOS) - 1);
+			assert(lastAddedLine == lastAddedLine2 && lastAddedLine == lastAddedLine3);
+			assert(addedLines2 == lastAddedLine2 + 1);
+		#endif // _DEBUG
+
+		// fix line numbers in tail
+		for (SearchResultMarking& searchResultMarking : *_pOldMarkings)
+			searchResultMarking._finderLineNum += addedLines;
+	}
+
+	// move current search results into total search results
 	_pOldFoundInfos->insert(_pOldFoundInfos->begin(), _pMainFoundInfos->begin(), _pMainFoundInfos->end());
 	_pOldMarkings->insert(_pOldMarkings->begin(), _pMainMarkings->begin(), _pMainMarkings->end());
 	_pMainFoundInfos->clear();
@@ -4291,7 +4476,7 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 	_pMainFoundInfos = _pOldFoundInfos;
 	_pMainMarkings = _pOldMarkings;
 
-	_markingsStruct._length = static_cast<long>(_pMainMarkings->size());
+	_markingsStruct._length = _pMainMarkings->size();
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
@@ -4444,6 +4629,12 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					return TRUE;
 				}
 
+				case NPPM_INTERNAL_SCINTILLAFINDER_ONE_RESULT_PER_LINE:
+				{
+					oneResultPerLineToggle();
+					return TRUE;
+				}
+
 				case NPPM_INTERNAL_SCINTILLAFINDERPURGE:
 				{
 					purgeToggle();
@@ -4482,6 +4673,7 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				generic_string purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", TEXT("Purge for every search"));
 				generic_string openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", TEXT("Open all"));
 				generic_string wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", TEXT("Word wrap long lines"));
+				generic_string oneResultPerLine = pNativeSpeaker->getLocalizedStrFromID("finder-one-result-per-line", TEXT("One result per line"));
 
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, findInFinder));
 				if (_canBeVolatiled)
@@ -4500,6 +4692,7 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				// configuration items go at the bottom:
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERWRAP, wrapLongLines));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDER_ONE_RESULT_PER_LINE, oneResultPerLine));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERPURGE, purgeForEverySearch));
 
 				scintillaContextmenu.create(_hSelf, tmp);
@@ -4513,6 +4706,8 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERPURGE, _purgeBeforeEverySearch && !_canBeVolatiled);
 
 				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDERWRAP, _longLinesAreWrapped);
+
+				scintillaContextmenu.checkItem(NPPM_INTERNAL_SCINTILLAFINDER_ONE_RESULT_PER_LINE, _oneResultPerLine);
 
 				::TrackPopupMenu(scintillaContextmenu.getMenuHandle(),
 					NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,

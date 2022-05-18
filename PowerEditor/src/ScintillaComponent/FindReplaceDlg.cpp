@@ -375,7 +375,6 @@ void FindReplaceDlg::fillFindHistory()
 
 		if (findHistory._transparencyMode == FindHistory::none)
 		{
-			enableFindDlgItem(IDC_TRANSPARENT_GRPBOX, false);
 			enableFindDlgItem(IDC_TRANSPARENT_LOSSFOCUS_RADIO, false);
 			enableFindDlgItem(IDC_TRANSPARENT_ALWAYS_RADIO, false);
 			enableFindDlgItem(IDC_PERCENTAGE_SLIDER, false);
@@ -1771,7 +1770,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					bool isChecked = isCheckedOrNot(IDC_TRANSPARENT_CHECK);
 
-					enableFindDlgItem(IDC_TRANSPARENT_GRPBOX, isChecked);
 					enableFindDlgItem(IDC_TRANSPARENT_LOSSFOCUS_RADIO, isChecked);
 					enableFindDlgItem(IDC_TRANSPARENT_ALWAYS_RADIO, isChecked);
 					enableFindDlgItem(IDC_PERCENTAGE_SLIDER, isChecked);

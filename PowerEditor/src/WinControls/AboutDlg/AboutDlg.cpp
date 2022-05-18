@@ -400,7 +400,7 @@ void DebugInfoDlg::refreshDebugInfo()
 
 	// Set Debug Info text and leave the text in selected state
 	::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, debugInfoDisplay.c_str());
-	::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoStr.length() - 1);
+	::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, debugInfoDisplay.length() - 1);
 	::SetFocus(::GetDlgItem(_hSelf, IDC_DEBUGINFO_EDIT));
 }
 

@@ -7474,7 +7474,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 
 		previousChar = text2display[i];
 		//char ch[64];
-		//sprintf(ch, "writting char == %c", text2display[i]);
+		//sprintf(ch, "writing char == %c", text2display[i]);
 		//writeLog(TEXT("c:\\tmp\\log.txt"), ch);
     }
 

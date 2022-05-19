@@ -54,7 +54,7 @@ enum BufferStatusInfo {
 enum SavingStatus {
 	SaveOK             = 0,
 	SaveOpenFailed     = 1,
-	SaveWrittingFailed = 2
+	SaveWritingFailed  = 2
 };
 
 const TCHAR UNTITLED_STR[] = TEXT("new ");

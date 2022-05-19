@@ -1165,7 +1165,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		if (!isWrittenSuccessful)
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			return SavingStatus::SaveWrittingFailed;
+			return SavingStatus::SaveWritingFailed;
 		}
 
 		if (isHiddenOrSys)

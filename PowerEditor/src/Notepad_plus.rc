@@ -702,8 +702,8 @@ BEGIN
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
         MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
         MENUITEM SEPARATOR
-        MENUITEM "Fold All",                    IDM_VIEW_TOGGLE_FOLDALL
-        MENUITEM "Unfold All",                  IDM_VIEW_TOGGLE_UNFOLDALL
+        MENUITEM "Fold All",                    IDM_VIEW_FOLDALL
+        MENUITEM "Unfold All",                  IDM_VIEW_UNFOLDALL
         MENUITEM "Collapse Current Level",      IDM_VIEW_FOLD_CURRENT
         MENUITEM "Uncollapse Current Level",    IDM_VIEW_UNFOLD_CURRENT
         POPUP "Collapse Level"

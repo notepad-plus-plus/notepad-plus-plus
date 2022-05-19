@@ -93,16 +93,13 @@ BEGIN
     CONTROL         "",IDC_CARETLINEFRAME_WIDTH_SLIDER,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | TBS_NOTICKS | TBS_TRANSPARENTBKGND | WS_TABSTOP,337,67,57,13
     LTEXT           "1",IDC_CARETLINEFRAME_WIDTH_DISPLAY,396,67,12,8
 	
-    CONTROL         "Enable Multi-Editing (Ctrl+Mouse click/selection)",IDC_CHECK_MULTISELECTION,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,114,270,10
+    CONTROL         "Make current line folding/unfolding commands togglable",IDC_CHECK_FOLDINGTOGGLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,103,270,10
+    CONTROL         "Enable Multi-Editing (Ctrl+Mouse click/selection)",IDC_CHECK_MULTISELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,116,270,10
     CONTROL         "Enable smooth font",IDC_CHECK_SMOOTHFONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,129,250,10
     CONTROL         "Enable virtual space",IDC_CHECK_VIRTUALSPACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,142,270,10
-    CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,155,270,10
-    CONTROL         "Keep selection when right-click outside of selection",IDC_CHECK_RIGHTCLICKKEEPSSELECTION,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,168,270,10
-    CONTROL         "Disable advanced scrolling feature due to touchpad issue",IDC_CHECK_DISABLEADVANCEDSCROLL,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,181,270,10
+    CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,155,270,10
+    CONTROL         "Keep selection when right-click outside of selection",IDC_CHECK_RIGHTCLICKKEEPSSELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,168,270,10
+    CONTROL         "Disable advanced scrolling feature due to touchpad issue",IDC_CHECK_DISABLEADVANCEDSCROLL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,181,270,10
 END
 
 

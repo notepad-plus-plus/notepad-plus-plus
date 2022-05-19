@@ -2132,6 +2132,26 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 	fold(currentLine, mode);
 }
 
+bool ScintillaEditView::isCurrentLineFolded() const
+{
+	auto currentLine = this->getCurrentLineNumber();
+
+	intptr_t headerLine;
+	auto level = execute(SCI_GETFOLDLEVEL, currentLine);
+
+	if (level & SC_FOLDLEVELHEADERFLAG)
+		headerLine = currentLine;
+	else
+	{
+		headerLine = execute(SCI_GETFOLDPARENT, currentLine);
+		if (headerLine == -1)
+			return false;
+	}
+
+	bool isExpanded = execute(SCI_GETFOLDEXPANDED, headerLine);
+	return !isExpanded;
+}
+
 void ScintillaEditView::fold(size_t line, bool mode)
 {
     auto endStyled = execute(SCI_GETENDSTYLED);

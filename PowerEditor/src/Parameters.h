@@ -803,6 +803,7 @@ struct NppGUI final
 	bool _confirmReplaceInAllOpenDocs = true;
 	bool _replaceStopsWithoutFindingNext = false;
 	bool _muteSounds = false;
+	bool _enableFoldCmdToggable = false;
 	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;

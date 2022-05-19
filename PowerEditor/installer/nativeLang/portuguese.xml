@@ -893,14 +893,14 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <DarkMode title="Modo Escuro">
                     <Item id="7101" name="Ativar modo escuro"/>
-                    <Item id="7102" name="Tom preto"/>
-                    <Item id="7103" name="Tom vermelho"/>
-                    <Item id="7104" name="Tom verde"/>
-                    <Item id="7105" name="Tom azul"/>
-                    <Item id="7107" name="Tom roxo"/>
-                    <Item id="7108" name="Tom ciano"/>
-                    <Item id="7109" name="Tom azeitona"/>
-                    <Item id="7115" name="Tom personalizado"/>
+                    <Item id="7102" name="Preto"/>
+                    <Item id="7103" name="Vermelho"/>
+                    <Item id="7104" name="Verde"/>
+                    <Item id="7105" name="Azul"/>
+                    <Item id="7107" name="Roxo"/>
+                    <Item id="7108" name="Ciano"/>
+                    <Item id="7109" name="Azeitona"/>
+                    <Item id="7115" name="Personalizado"/>
                     <Item id="7116" name="Topo"/>
                     <Item id="7117" name="Menu faixa realçada"/>
                     <Item id="7118" name="Ativo"/>
@@ -911,7 +911,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7123" name="Texto desativado"/>
                     <Item id="7124" name="Margem"/>
                     <Item id="7125" name="Ligação"/>
+                    <Item id="7126" name="Destacar margem"/>
                     <Item id="7130" name="Repor"/>
+                    <Item id="7135" name="Tons"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margens/Borda/Limite">
@@ -1572,7 +1574,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-13/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+19/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

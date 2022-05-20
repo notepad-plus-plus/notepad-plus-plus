@@ -27,11 +27,6 @@ configuration:
     - Release
     - Debug
 
-matrix:
-  exclude:
-    - compiler: GCC
-      configuration: Debug
-
 before_build:
     - ps: |
         Write-Output "Compiler : $env:compiler"
@@ -98,6 +93,7 @@ for:
     only:
       - compiler: GCC
   install:
+    - if "%configuration%" EQU "Debug" set DEBUG=1
     - if "%platform%" EQU "i686" set PATH=C:\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin;%PATH:C:\Program Files\Git\usr\bin;=%
     - if "%platform%" EQU "x86_64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
   build_script:

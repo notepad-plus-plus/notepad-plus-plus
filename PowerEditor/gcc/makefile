@@ -60,7 +60,7 @@ else
 BUILD_TYPE := debug
 BUILD_SUFFIX := -debug
 CXXFLAGS += -Og -g -Wall -Wpedantic -Wconversion-null
-#CPP_DEFINE += DEBUG
+CPP_DEFINE += DEBUG
 endif
 
 #

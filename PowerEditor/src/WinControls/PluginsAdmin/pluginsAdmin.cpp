@@ -706,7 +706,7 @@ bool PluginsAdminDlg::initFromJson()
 #ifdef DEBUG // if not debug, then it's release
 	
 	// load from nppPluginList.json instead of nppPluginList.dll
-	ifstream nppPluginListJson(_pluginListFullPath);
+	ifstream nppPluginListJson(_pluginListFullPath.c_str());
 	nppPluginListJson >> j;
 
 #else //RELEASE

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.1">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.2">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -942,6 +942,7 @@
                     <Item id="6219" name="眨嘅頻率："/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
+                    <Item id="6246" name="以切換命令「摺埋/展開呢層」"/> <!-- #new v8.4.2 #review-->
                     <Item id="6225" name="幾個位置同時改嘢（Ctrl + 撳／撳著滑鼠掣）"/>
                     <Item id="6227" name="自動換行"/> <!-- #moved in v7.9.2 -->
                     <Item id="6228" name="預設"/> <!-- #moved in v7.9.2 -->
@@ -962,14 +963,14 @@
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
                     <Item id="7101" name="啟用 dark mode"/> <!-- #new v7.9.6 -->
-                    <Item id="7102" name="黑色調"/> <!-- #new v8.1.2 -->
-                    <Item id="7103" name="紅色調"/> <!-- #new v8.1.2 -->
-                    <Item id="7104" name="綠色調"/> <!-- #new v8.1.2 -->
-                    <Item id="7105" name="藍色調"/> <!-- #new v8.1.2 -->
-                    <Item id="7107" name="紫色調"/> <!-- #new v8.1.2 -->
-                    <Item id="7108" name="青色調"/> <!-- #new v8.1.2 -->
-                    <Item id="7109" name="橄欖色調"/> <!-- #new v8.1.2 -->
-                    <Item id="7115" name="自訂色調"/> <!-- #new v8.1.2 -->
+                    <Item id="7102" name="黑色"/> <!-- #new v8.1.2 -->
+                    <Item id="7103" name="紅色"/> <!-- #new v8.1.2 -->
+                    <Item id="7104" name="綠色"/> <!-- #new v8.1.2 -->
+                    <Item id="7105" name="藍色"/> <!-- #new v8.1.2 -->
+                    <Item id="7107" name="紫色"/> <!-- #new v8.1.2 -->
+                    <Item id="7108" name="青色"/> <!-- #new v8.1.2 -->
+                    <Item id="7109" name="橄欖色"/> <!-- #new v8.1.2 -->
+                    <Item id="7115" name="自訂"/> <!-- #new v8.1.2 -->
                     <Item id="7116" name="頂部"/> <!-- #new v8.1.2 -->
                     <Item id="7117" name="Menu 追踪顯示"/> <!-- #new v8.1.2 -->
                     <Item id="7118" name="用緊嘅部分"/> <!-- #new v8.1.2 -->
@@ -980,7 +981,9 @@
                     <Item id="7123" name="停用咗嘅字"/> <!-- #new v8.1.2 -->
                     <Item id="7124" name="邊緣線"/> <!-- #new v8.1.2 -->
                     <Item id="7125" name="Link"/> <!-- #new v8.2.1 -->
+                    <Item id="7126" name="突顯邊緣線"/> <!-- #new v8.4.2 #review -->
                     <Item id="7130" name="重新設定"/> <!-- #new v8.1.2 -->
+                    <Item id="7135" name="色調"/> <!-- #new v8.4.2 -->
                 </DarkMode>
 
                 <MarginsBorderEdge title="邊界／邊框／邊緣線">

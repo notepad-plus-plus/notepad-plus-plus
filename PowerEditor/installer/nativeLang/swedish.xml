@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.3">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.4.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -73,6 +73,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="settings-import" name="Importera"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="window-sortby" name="Sortera efter"/>
 				</SubEntries>
 
 				<!-- all menu item -->
@@ -172,8 +173,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42051" name="Te&amp;ckenpanel"/>
 					<Item id="42052" name="Urklipps&amp;historik"/>
 					<Item id="42025" name="&amp;Spara inspelat makro..."/>
-					<Item id="42026" name="Textriktning höger till vänster"/>
-					<Item id="42027" name="Textriktning vänster till höger"/>
+					<Item id="42026" name="Textriktning, höger till vänster"/>
+					<Item id="42027" name="Textriktning, vänster till höger"/>
 					<Item id="42028" name="Aktivera skrivsk&amp;ydd"/>
 					<Item id="42029" name="Kopiera aktuell sökväg till urklipp"/>
 					<Item id="42030" name="Kopiera aktuellt filnamn till urklipp"/>
@@ -260,9 +261,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44011" name="Distraktionsfritt läge"/>
 					<Item id="44019" name="Visa alla tecken"/>
 					<Item id="44020" name="Visa hjälplinjer för indrag"/>
-					<Item id="44022" name="Radbrytning"/>
-					<Item id="44023" name="Zooma &amp;in (Ctrl + Mushjul upp)"/>
-					<Item id="44024" name="Zooma &amp;ut (Ctrl + Mushjul ned)"/>
+					<Item id="44022" name="Radbytning"/>
+					<Item id="44023" name="Zooma &amp;in (Ctrl + mushjul upp)"/>
+					<Item id="44024" name="Zooma &amp;ut (Ctrl + mushjul ned)"/>
 					<Item id="44025" name="Visa mellanslag och tabb"/>
 					<Item id="44026" name="Visa radslut"/>
 					<Item id="44029" name="Expandera alla"/>
@@ -292,7 +293,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44034" name="Alltid överst"/>
 					<Item id="44035" name="Synkronisera vertikal rullning"/>
 					<Item id="44036" name="Synkronisera horisontell rullning"/>
-					<Item id="44041" name="Visa radbrytningssymbol"/>
+					<Item id="44041" name="Visa radbytningssymbol"/>
 					<Item id="44072" name="Fokus på nästa vy"/>
 					<Item id="44081" name="Projektpanel nr. 1"/>
 					<Item id="44082" name="Projektpanel nr. 2"/>
@@ -349,8 +350,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="48503" name="Generera från markering till urklipp"/>
 					<Item id="48504" name="Generera..."/>
 					<Item id="48505" name="Generera från filer..."/>
-					<Item id="48506" name="Generera från markering till urklipp"/>
 					<Item id="49000" name="&amp;Kör..."/>
+					<Item id="48506" name="Generera från markering till urklipp"/>
 
 					<Item id="50000" name="Funktionskomplettering"/>
 					<Item id="50001" name="Ordkomplettering"/>
@@ -362,6 +363,16 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42041" name="Töm listan med senast använda filer"/>
 					<Item id="48016" name="Ändra kortkommando/Radera makro..."/>
 					<Item id="48017" name="Ändra kortkommando/Radera kommando..."/>
+					
+					<Item id="11001" name="F&amp;önster..."/>
+					<Item id="11002" name="Namn, A till Ö"/>
+					<Item id="11003" name="Namn, Ö till A"/>
+					<Item id="11004" name="Sökväg, A till Ö"/>
+					<Item id="11005" name="Sökväg, Ö till A"/>
+					<Item id="11006" name="Typ, A till Ö"/>
+					<Item id="11007" name="Typ, Ö till A"/>
+					<Item id="11008" name="Storlek, mindre till större"/>
+					<Item id="11009" name="Storlek, större till mindre"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -375,11 +386,11 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item CMID="5" name="Flytta till annan vy"/>
 				<Item CMID="6" name="Klona till annan vy"/>
 				<Item CMID="7" name="Fullständig sökväg till urklipp"/>
-				<Item CMID="8" name="Filnamn till urklipp"/>
-				<Item CMID="9" name="Aktuell mappsökväg till urklipp"/>
+				<Item CMID="8" name="Filens namn till urklipp"/>
+				<Item CMID="9" name="Aktuella mappens sökväg till urklipp"/>
 				<Item CMID="10" name="Byt namn på fil..."/>
 				<Item CMID="11" name="Flytta till papperskorgen"/>
-				<Item CMID="12" name="Skrivskydda"/>
+				<Item CMID="12" name="Aktivera skrivskydd"/>
 				<Item CMID="13" name="Inaktivera skrivskydd"/>
 				<Item CMID="14" name="Flytta till ny instans"/>
 				<Item CMID="15" name="Klona till ny instans"/>
@@ -399,7 +410,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="1"    name="Sök nästa"/>
 				<Item id="1722" name="Sök föregående"/>
 				<Item id="2"    name="Stäng"/>
-				<Item id="1620" name="&amp;Sök efter:"/>
+				<Item id="1620" name="&amp;Sök efter: "/>
 				<Item id="1603" name="Matcha &amp;hela ord"/>
 				<Item id="1604" name="&amp;Matcha skiftläge"/>
 				<Item id="1605" name="&amp;Reguljärt uttryck"/>
@@ -408,7 +419,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="1615" name="Markera alla"/>
 				<Item id="1616" name="&amp;Bokmärk rad"/>
 				<Item id="1618" name="Rensa vid varje sökning"/>
-				<Item id="1611" name="Ers&amp;ätt med:"/>
+				<Item id="1611" name="Ers&amp;ätt med: "/>
 				<Item id="1608" name="&amp;Ersätt"/>
 				<Item id="1609" name="Ersätt &amp;alla"/>
 				<Item id="1687" name="Vid förlorat fokus"/>
@@ -417,13 +428,13 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="1633" name="Rensa alla markeringar"/>
 				<Item id="1635" name="Ersätt alla i alla &amp;öppna dokument"/>
 				<Item id="1636" name="Sök alla i alla ö&amp;ppna dokument"/>
-				<Item id="1654" name="&amp;Filter:"/>
-				<Item id="1655" name="Ma&amp;pp:"/>
+				<Item id="1654" name="&amp;Filter: "/>
+				<Item id="1655" name="Ma&amp;pp: "/>
 				<Item id="1656" name="Sök alla"/>
 				<Item id="1658" name="I &amp;alla undermappar"/>
 				<Item id="1659" name="I &amp;dolda mappar"/>
 				<Item id="1624" name="Sökläge"/>
-				<Item id="1625" name="&amp;Normal"/>
+				<Item id="1625" name="&amp;Normalt"/>
 				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Ersätt i filer"/>
 				<Item id="1665" name="Ersätt i projekt"/>
@@ -635,6 +646,15 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44107" name="Öppna mapp som arbetsyta"/>
 					<Item id="44109" name="Öppna dokumentlista"/>
 					<Item id="44108" name="Öppna funktionslista"/>
+
+					<Item id="11002" name="Sortera efter namn, A till Ö"/>
+					<Item id="11003" name="Sortera efter namn, Ö till A"/>
+					<Item id="11004" name="Sortera efter sökväg, A till Ö"/>
+					<Item id="11005" name="Sortera efter sökväg, Ö till A"/>
+					<Item id="11006" name="Sortera efter typ, A till Ö"/>
+					<Item id="11007" name="Sortera efter typ, Ö till A"/>
+					<Item id="11008" name="Sortera efter storlek, mindre till större"/>
+					<Item id="11009" name="Sortera efter storlek, större till mindre"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Kortkommando">
@@ -822,7 +842,7 @@ The comments are here for explanation, it's not necessary to translate them.
 			<Preference title="Inställningar">
 				<Item id="6001" name="Stäng"/>
 				<Global title="Allmänt">
-					<Item id="6101" name="Verktygsrad"/>
+					<Item id="6101" name="Verktygsfält"/>
 					<Item id="6102" name="Dölj"/>
 					<Item id="6103" name="Fluent: Små"/>
 					<Item id="6104" name="Fluent: Stora"/>
@@ -830,21 +850,21 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6130" name="Fluent (ifyllda): Stora"/>
 					<Item id="6105" name="Standardikoner: Små"/>
 
-					<Item id="6106" name="Flikrad"/>
+					<Item id="6106" name="Flikfält"/>
 					<Item id="6107" name="Förminska"/>
-					<Item id="6108" name="Lås positioner (inget drag och släpp)"/>
+					<Item id="6108" name="Lås positioner (inget drag-och-släpp)"/>
 					<Item id="6109" name="Gör inaktiva flikar mörkare"/>
 					<Item id="6110" name="Markera aktiv flik med en färgad linje"/>
 
-					<Item id="6111" name="Visa statusfält"/>
+					<Item id="6111" name="Visa statusfältet"/>
 					<Item id="6112" name="Visa flikstängningsknapp på varje flik"/>
 					<Item id="6113" name="Dubbelklicka för att stänga dokument"/>
 					<Item id="6118" name="Dölj"/>
 					<Item id="6119" name="Flera rader"/>
-					<Item id="6120" name="Vertikal"/>
+					<Item id="6120" name="Vertikalt"/>
 					<Item id="6121" name="Avsluta när sista fliken stängs"/>
 
-					<Item id="6122" name="Dölj menyraden (använd Alt eller F10 för att växla)"/>
+					<Item id="6122" name="Dölj menyraden (använd Alt eller F10 för att visa)"/>
 					<Item id="6123" name="Gränssnittsspråk"/>
 					
 					<Item id="6128" name="Alternativa ikoner"/>
@@ -853,30 +873,36 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6216" name="Inställningar för textmarkör"/>
 					<Item id="6217" name="Bredd:"/>
 					<Item id="6219" name="Blinkhastighet:"/>
-					<Item id="6221" name="Hög"/>
-					<Item id="6222" name="Låg"/>
-					<Item id="6225" name="Aktivera multiredigering (Ctrl + Musklick/markering)"/>
+					<Item id="6221" name="S"/>
+					<Item id="6222" name="L"/>
+					<Item id="6246" name="Möjliggör att styra kommandon för att gruppera/avgruppera nuvarande nivå"/>
+					<Item id="6225" name="Aktivera multiredigering (Ctrl + musklick/markering)"/>
 					<Item id="6227" name="Radbyte"/>
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Justerad"/>
 					<Item id="6230" name="Indrag"/>
 					<Item id="6234" name="Inaktivera avancerade bläddringfunktioner p.g.a. problem med pekplattor"/>
-					<Item id="6214" name="Aktivera markering av aktuell rad"/>
 					<Item id="6215" name="Aktivera teckenutjämning"/>
 					<Item id="6236" name="Aktivera bläddring förbi sista raden"/>
 					<Item id="6239" name="Behåll markering när man klickar utanför markeringen"/>
+					<Item id="6245" name="Aktivera virtuellt utrymme"/>
+					<Item id="6651" name="Indikator för aktuell rad"/>
+					<Item id="6652" name="Ingen"/>
+					<Item id="6653" name="Markerad bakgrund"/>
+					<Item id="6654" name="Kontur"/>
+					<Item id="6655" name="Bredd"/>
 				</Scintillas>
 
 				<DarkMode title="Mörkt läge">
 					<Item id="7101" name="Aktivera mörkt läge"/>
-					<Item id="7102" name="Svart ton"/>
-					<Item id="7103" name="Röd ton"/>
-					<Item id="7104" name="Grön ton"/>
-					<Item id="7105" name="Blå ton"/>
-					<Item id="7107" name="Lila ton"/>
-					<Item id="7108" name="Turkos ton"/>
-					<Item id="7109" name="Olivgrön ton"/>
-					<Item id="7115" name="Anpassad ton"/>
+					<Item id="7102" name="Svart"/>
+					<Item id="7103" name="Röd"/>
+					<Item id="7104" name="Grön"/>
+					<Item id="7105" name="Blå"/>
+					<Item id="7107" name="Lila"/>
+					<Item id="7108" name="Turkos"/>
+					<Item id="7109" name="Olivgrön"/>
+					<Item id="7115" name="Anpassad"/>
 					<Item id="7116" name="Primär fönsterbakgrund"/>
 					<Item id="7117" name="Hovringsfärg"/>
 					<Item id="7118" name="Aktiva element"/>
@@ -887,7 +913,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="7123" name="Inaktiverade element"/>
 					<Item id="7124" name="Kantlinjer"/>
 					<Item id="7125" name="Länktext"/>
+					<Item id="7126" name="Kantmarkering"/>
 					<Item id="7130" name="Återställ"/>
+					<Item id="7135" name="Toner"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Marginaler/kantlinje">
@@ -927,7 +955,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6410" name="UCS-2 Little Endian med BOM"/>
 					<Item id="6411" name="Standardspråk:"/>
 					<Item id="6419" name="Nytt dokument"/>
-					<Item id="6420" name="Tillämpa på öppnade filer i ANSI"/>
+					<Item id="6420" name="Tillämpa på öppnade filer med ANSI"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardmapp">
@@ -1023,7 +1051,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6306" name="Maximalt antal poster:"/>
 					<Item id="6305" name="Kontrollera inte vid uppstart"/>
 					<Item id="6429" name="Visa"/>
-					<Item id="6424" name="I undermeny"/>
+					<Item id="6424" name="Inuti undermeny"/>
 					<Item id="6425" name="Endast filnamn"/>
 					<Item id="6426" name="Fullständig sökväg"/>
 					<Item id="6427" name="Anpassa maximal längd:"/>
@@ -1246,7 +1274,7 @@ Vill du ladda om den?"/>
 Denna fil har ändrats av ett annat program.
 Vill du ladda om den och förlora ändringarna som gjordes i Notepad++?"/>
 			<PrehistoricSystemDetected title="Förhistoriskt system upptäcktes" message="Det verkar som om du fortfarande använder ett uråldrigt system. Tyvärr fungerar endast denna funktion på ett modernt system."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Uppdaterare för Notepad++" message="Uppdateraren för Notepad++ är inte kompatibel med XP på grund av ett föråldrat säkerhetslager i XP.
+			<XpUpdaterProblem title="Uppdateringsprogram för Notepad++" message="Uppdateringsprogrammet för Notepad++ är inte kompatibelt med XP på grund av ett föråldrat säkerhetslager i XP.
 Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versionen?"/>  <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<GUpProxyConfNeedAdminMode title="Proxyinställningar" message="Var god starta om Notepad++ som administratör för att konfigurera proxyn."/>
 			<DocTooDirtyToMonitor title="Övervakningsproblem" message="Dokumentet har ändrats. Spara ändringarna innan du övervakar den."/>
@@ -1265,12 +1293,12 @@ Vill du spara aktuell fil ändå?"/> <!-- HowToReproduce: this message prevents 
 			<LoadLangsFailed title="Konfigurering" message="Misslyckades att läsa in langs.xml!
 Vill du återskapa din langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
 			<LoadLangsFailedFinal title="Konfigurering" message="Misslyckades att läsa in langs.xml!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
-			<FolderAsWorspaceSubfolderExists title="Problem med lägga till mapp i Mapp som arbetsyta" message="En undermapp av mappen du vill lägga till finns redan där.
+			<FolderAsWorspaceSubfolderExists title="Problem med att lägga till mappen i Mapp som arbetsyta" message="En undermapp av mappen du vill lägga till finns redan där.
 Ta bort dess rot från panelen innan du lägger till mappen &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Arbetsytan har ändrats. Vill du spara den?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Ett fel uppstod när filen till din arbetsyta skulle skrivas.
-Din arbetsytan har inte sparats."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+Din arbetsyta har inte sparats."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Öppna arbetsyta" message="Den aktuella arbetsytan har ändrats. Vill du spara det aktuella projektet?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Ny arbetsyta" message="Den aktuella arbetsytan har ändrats. Vill du spara det aktuella projektet?"/>
 			<ProjectPanelOpenFailed title="Öppna arbetsyta" message="Arbetsytan kunde inte öppnas.
@@ -1330,6 +1358,8 @@ Vill du fortsätta?"/>
 			<PanelTitle name="Funktionslista"/>
 			<SortTip name="Sortera"/>
 			<ReloadTip name="Ladda om"/>
+			<PreferencesTip name="Inställningar"/>
+			<PreferencesInitialSort name="Sortera funktioner (A till Ö) som standard"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Mapp som arbetsyta"/>
@@ -1467,7 +1497,7 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<finder-clear-all value="Rensa alla"/>
 			<finder-open-all value="Öppna alla"/>
 			<finder-purge-for-every-search value="Rensa efter varje sökning"/>
-			<finder-wrap-long-lines value="Radbryt långa rader"/>
+			<finder-wrap-long-lines value="Radbyt långa rader"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Avbryt"/>
 			<common-name value="Namn: "/>
@@ -1486,7 +1516,7 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<summary-filepath value="Fullständig filsökväg: "/>
 			<summary-filecreatetime value="Skapades: "/>
 			<summary-filemodifytime value="Ändrades: "/>
-			<summary-nbchar value="Tecken (utom radslut): "/>
+			<summary-nbchar value="Tecken (förutom radslut): "/>
 			<summary-nbword value="Ord: "/>
 			<summary-nbline value="Rader: "/>
 			<summary-nbbyte value="Dokumentlängd: "/>

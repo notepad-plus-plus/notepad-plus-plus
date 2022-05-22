@@ -27,7 +27,7 @@ Updated to v8.4.2:
 					<Item subMenuId="file-closeMore"            name="Управление вкладками..."/>
 					<Item subMenuId="file-recentFiles"          name="Последние файлы"/>
 					<Item subMenuId="edit-insert"               name="Вставка"/>
-					<Item subMenuId="edit-copyToClipboard"      name="Копировать в &amp;Буфер..."/>
+					<Item subMenuId="edit-copyToClipboard"      name="Копировать в &amp;Буфер"/>
 					<Item subMenuId="edit-indent"               name="Отступы (табуляция)"/>
 					<Item subMenuId="edit-convertCaseTo"        name="Преобразование Регистра"/>
 					<Item subMenuId="edit-lineOperations"       name="Операции со Строками"/>
@@ -48,9 +48,9 @@ Updated to v8.4.2:
 					<Item subMenuId="view-showSymbol"           name="Отображение символов"/>
 					<Item subMenuId="view-zoom"                 name="Масштаб текста"/>
 					<Item subMenuId="view-moveCloneDocument"    name="Окно документа"/>
-					<Item subMenuId="view-tab"                  name="Выбор Вкладки..."/>
-					<Item subMenuId="view-collapseLevel"        name="Свернуть уровень"/>
-					<Item subMenuId="view-uncollapseLevel"      name="Развернуть уровень"/>
+					<Item subMenuId="view-tab"                  name="Выбор Вкладки"/>
+					<Item subMenuId="view-collapseLevel"        name="Свернуть все блоки уровня"/>
+					<Item subMenuId="view-uncollapseLevel"      name="Развернуть все блоки уровня"/>
 					<Item subMenuId="view-project"              name="Проект (панель)"/>
 					<Item subMenuId="encoding-characterSets"    name="Кодировки"/>
 					<Item subMenuId="encoding-arabic"           name="Арабский"/>
@@ -341,9 +341,6 @@ Updated to v8.4.2:
 					<Item id="42026" name="Текст справа Налево"/>
 					<Item id="42027" name="Текст слева Направо"/>
 					<Item id="44097" name="Мониторинг (tail -f)"/>
-					<Item id="44212" name="Спрятать Нумерацию Строк"/>
-					<Item id="44213" name="Спрятать поле Закладок"/>
-					<Item id="44214" name="Спрятать поле Границ Блоков"/>
 
 					<Item id="45004" name="Кодировка ANSI"/>
 					<Item id="45005" name="Кодировка UTF-8 с BOM"/>
@@ -925,6 +922,7 @@ Updated to v8.4.2:
 					<Item id="6236" name="Прокрутка за пределы последней строки"/>
 					<Item id="6239" name="Сохранять выделение текста при правом щелчке за его пределами"/>
 					<Item id="6245" name="Включить Виртуальный Пробел"/>
+					<Item id="6246" name="Сделать команды 'Свернуть/Развернуть текущий блок' переключаемыми"/>
 					<Item id="6651" name="Индикация Текущей Строки"/>
 					<Item id="6652" name="Нет"/>
 					<Item id="6653" name="Выделение Фона"/>
@@ -958,8 +956,8 @@ Updated to v8.4.2:
 					<Item id="7135" name="Темы"/>
 				</DarkMode>
 
-				<MarginsBorderEdge title="Блоки / Рамки / Поля">
-					<Item id="6201" name="Оформление Блока"/>
+				<MarginsBorderEdge title="Поля/ Границы/ Рамки">
+					<Item id="6201" name="Оформление Блоков"/>
 					<Item id="6202" name="Обычное"/>
 					<Item id="6203" name="Стрелки"/>
 					<Item id="6204" name="Кружки"/>
@@ -1526,7 +1524,7 @@ Updated to v8.4.2:
 			<find-result-line-prefix              value="Строка"/> <!-- Не должно начинаться с пробела или табуляции -->
 			<find-result-title-info               value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ файлах из $INT_REPLACE3$)"/>
 			<find-result-title-info-selections    value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ выделениях из $INT_REPLACE3$)"/>
-			<find-result-title-info-extra         value=" - Режим Фильтра Строк: только отображает результаты фильтрования"/>
+			<find-result-title-info-extra         value=" - Режим Фильтрации Строк: только отображает результаты фильтрования"/>
 			<find-result-hits                     value="(совпадений: $INT_REPLACE$)"/>
 			<find-result-hits-and-line-hits       value="($INT_REPLACE1$ совпадений в $INT_REPLACE2$ строках)"/>
 			<find-regex-zero-length-match         value="совпадение нулевой длины"/>

@@ -1722,6 +1722,134 @@ namespace NppDarkMode
 		autoSubclassAndThemeChildControls(hwndParent, false, true);
 	}
 
+	constexpr UINT_PTR g_pluginDockWindowSubclassID = 42;
+
+	LRESULT CALLBACK PluginDockWindowSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		UNREFERENCED_PARAMETER(dwRefData);
+		UNREFERENCED_PARAMETER(uIdSubclass);
+
+		switch (uMsg)
+		{
+			case WM_ERASEBKGND:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					RECT rect = {};
+					GetClientRect(hWnd, &rect);
+					::FillRect(reinterpret_cast<HDC>(wParam), &rect, NppDarkMode::getDarkerBackgroundBrush());
+					return TRUE;
+				}
+				break;
+			}
+
+			case NPPM_INTERNAL_REFRESHDARKMODE:
+			{
+				NppDarkMode::autoThemeChildControls(hWnd);
+				return TRUE;
+			}
+
+			case WM_CTLCOLOREDIT:
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+
+			case WM_CTLCOLORLISTBOX:
+			case WM_CTLCOLORDLG:
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+
+			case WM_CTLCOLORSTATIC:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					constexpr size_t classNameLen = 16;
+					TCHAR className[classNameLen]{};
+					auto hwndEdit = reinterpret_cast<HWND>(lParam);
+					GetClassName(hwndEdit, className, classNameLen);
+					if (wcscmp(className, WC_EDIT) == 0)
+					{
+						return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+					}
+					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				}
+				break;
+			}
+
+			case WM_PRINTCLIENT:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					return TRUE;
+				}
+				break;
+			}
+
+			case WM_NOTIFY:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
+
+					constexpr size_t classNameLen = 16;
+					TCHAR className[classNameLen]{};
+					GetClassName(nmtbcd->nmcd.hdr.hwndFrom, className, classNameLen);
+
+					if (wcscmp(className, TOOLBARCLASSNAME) == 0)
+					{
+						switch (nmtbcd->nmcd.hdr.code)
+						{
+							case NM_CUSTOMDRAW:
+							{
+								switch (nmtbcd->nmcd.dwDrawStage)
+								{
+									case CDDS_PREPAINT:
+									{
+										::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+										return CDRF_NOTIFYITEMDRAW;
+									}
+
+									case CDDS_ITEMPREPAINT:
+									{
+										nmtbcd->hbrLines = NppDarkMode::getEdgeBrush();
+										nmtbcd->clrText = NppDarkMode::getTextColor();
+										nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
+										nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
+										nmtbcd->clrBtnHighlight = NppDarkMode::getDarkerBackgroundColor();
+										nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
+										nmtbcd->nStringBkMode = TRANSPARENT;
+										nmtbcd->nHLStringBkMode = TRANSPARENT;
+
+										return TBCDRF_HILITEHOTTRACK | TBCDRF_USECDCOLORS;
+									}
+								}
+								return CDRF_DODEFAULT;
+							}
+							break;
+						}
+					}
+					break;
+				}
+				break;
+			}
+		}
+		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void autoSubclassAndThemePluginDockWindow(HWND hwnd)
+	{
+		SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0);
+		NppDarkMode::autoSubclassAndThemeChildControls(hwnd);
+	}
+
 	constexpr UINT_PTR g_tabUpDownSubclassID = 42;
 
 	LRESULT CALLBACK TabUpDownSubclass(

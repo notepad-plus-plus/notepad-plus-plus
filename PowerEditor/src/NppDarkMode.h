@@ -160,6 +160,8 @@ namespace NppDarkMode
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
 
+	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
+
 	bool subclassTabUpDownControl(HWND hwnd);
 
 	void setDarkTitleBar(HWND hwnd);

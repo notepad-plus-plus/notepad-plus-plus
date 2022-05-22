@@ -572,6 +572,11 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 		_vImageList.push_back(data.hClient);
 	}
 
+	if ((data.uMask & DWS_USEOWNDARKMODE) != DWS_USEOWNDARKMODE)
+	{
+		NppDarkMode::autoSubclassAndThemePluginDockWindow(data.hClient);
+	}
+
 	// create additional containers if necessary
 	RECT				rc			= {0,0,0,0};
 	DockingCont*		pCont		= NULL;

@@ -654,14 +654,6 @@ void FunctionListPanel::notified(LPNMHDR notification)
 	{
 		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FUNC_LIST, 0);
 	}
-	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
-	{
-		if (NppDarkMode::isEnabled())
-		{
-			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
-		}
-	}
 }
 
 void FunctionListPanel::searchFuncAndSwitchView()
@@ -833,9 +825,6 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								0,0,0,0,_hSelf,nullptr, _hInst, NULL);
 
-			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
-			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-
 			oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstToolbarProc)));
 
 			// Add the bmap image into toolbar's imagelist
@@ -911,9 +900,12 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			_treeViewSearchResult.setImageList(CX_BITMAP, 3, CY_BITMAP, IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
 			
 			_treeView.makeLabelEditable(false);
-			
 
 			_treeView.display();
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+
 			return TRUE;
 		}
 
@@ -921,10 +913,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 		{
 			if (static_cast<BOOL>(lParam) != TRUE)
 			{
-				NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
-				NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-
-				NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+				NppDarkMode::autoThemeChildControls(_hSelf);
 			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;

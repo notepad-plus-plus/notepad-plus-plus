@@ -6620,7 +6620,7 @@ void Notepad_plus::launchClipboardHistoryPanel()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pClipboardHistoryPanel->getHSelf()));
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
 		int icoID = IDR_CLIPBOARDPANEL_ICO;
 		if (NppDarkMode::isEnabled())
@@ -6673,7 +6673,7 @@ void Notepad_plus::launchDocumentListPanel()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocumentListPanel->getHSelf()));
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
+		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
 		int icoID = IDR_DOCLIST_ICO;
 		if (NppDarkMode::isEnabled())
@@ -6724,7 +6724,7 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pAnsiCharPanel->getHSelf()));
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
 		int icoID = IDR_ASCIIPANEL_ICO;
 		if (NppDarkMode::isEnabled())
@@ -6775,7 +6775,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileBrowser->getHSelf()));
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
+		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 		
 		int icoID = IDR_FILEBROWSER_ICO;
 		if (NppDarkMode::isEnabled())
@@ -6883,7 +6883,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>((*pProjPanel)->getHSelf()));
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
+		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
 		int icoID = IDR_PROJECTPANEL_ICO;
 		if (NppDarkMode::isEnabled())
@@ -6947,7 +6947,7 @@ void Notepad_plus::launchDocMap()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocMap->getHSelf()));
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
 		int icoID = IDR_DOCMAP_ICO;
 		if (NppDarkMode::isEnabled())
@@ -6994,7 +6994,7 @@ void Notepad_plus::launchFunctionList()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFuncList->getHSelf()));
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 		
 		NppParameters& nppParam = NppParameters::getInstance();
 

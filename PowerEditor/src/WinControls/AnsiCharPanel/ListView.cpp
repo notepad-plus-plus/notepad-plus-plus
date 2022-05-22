@@ -54,8 +54,6 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
 	}
 
-	NppDarkMode::setDarkListView(_hSelf);
-
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 
@@ -168,36 +166,6 @@ std::vector<size_t> ListView::getCheckedIndexes() const
 
 LRESULT ListView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
-	switch (Message)
-	{
-		case WM_NOTIFY:
-		{
-			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
-			{
-				case NM_CUSTOMDRAW:
-				{
-					LPNMCUSTOMDRAW nmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
-					switch (nmcd->dwDrawStage)
-					{
-						case CDDS_PREPAINT:
-						{
-							return CDRF_NOTIFYITEMDRAW;
-						}
-
-						case CDDS_ITEMPREPAINT:
-						{
-							bool isDarkModeSupported = NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported();
-							SetTextColor(nmcd->hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
-							return CDRF_DODEFAULT;
-						}
-						break;
-					}
-				}
-				break;
-			}
-		}
-		break;
-	}
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 

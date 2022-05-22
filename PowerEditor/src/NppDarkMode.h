@@ -48,6 +48,7 @@ namespace NppDarkMode
 	{
 		bool enable = false;
 		bool enableMenubar = false;
+		bool enablePlugin = false;
 	};
 
 	enum class ToolTipsType
@@ -82,6 +83,7 @@ namespace NppDarkMode
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();
+	bool isEnabledForPlugins();
 	bool isExperimentalSupported();
 
 	bool isWindows11();
@@ -159,6 +161,13 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
+
+	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam);
+	LRESULT darkListViewNotifyCustomDraw(LPARAM lParam);
+	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam);
+
+	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
+	void autoSubclassAndThemeWindowNotify(HWND hwnd);
 
 	bool subclassTabUpDownControl(HWND hwnd);
 

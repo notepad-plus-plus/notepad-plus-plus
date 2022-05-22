@@ -52,9 +52,6 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf, nullptr, _hInst, nullptr);
 
-			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
-
 			TBBUTTON tbButtons[2];
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
@@ -92,6 +89,9 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			if (!openWorkSpace(_workSpaceFilePath.c_str(), true))
 				newWorkSpace();
 
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+
 			return TRUE;
 		}
 
@@ -99,10 +99,7 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		{
 			if (static_cast<BOOL>(lParam) != TRUE)
 			{
-				NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-				NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
-
-				NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+				NppDarkMode::autoThemeChildControls(_hSelf);
 			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
@@ -747,17 +744,6 @@ void ProjectPanel::notified(LPNMHDR notification)
 				_treeView.beginDrag((LPNMTREEVIEW)notification);
 			}
 			break;
-		}
-	}
-	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
-	{
-		if (NppDarkMode::isEnabled())
-		{
-			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
-			nmtbcd->clrText = NppDarkMode::getTextColor();
-			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
-			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW | TBCDRF_HILITEHOTTRACK);
 		}
 	}
 }

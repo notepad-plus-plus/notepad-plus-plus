@@ -715,6 +715,7 @@ public:
 struct DarkModeConf final
 {
 	bool _isEnabled = false;
+	bool _isEnabledPlugin = false;
 	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
 	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
 };
@@ -884,6 +885,7 @@ struct NppGUI final
 	bool _shouldSortFunctionList = false;
 
 	DarkModeConf _darkmode;
+	DarkModeConf _darkmodeplugins;
 };
 
 struct ScintillaViewParams

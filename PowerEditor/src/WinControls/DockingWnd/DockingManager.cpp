@@ -572,7 +572,7 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 		_vImageList.push_back(data.hClient);
 	}
 
-	if ((data.uMask & DWS_USEOWNDARKMODE) != DWS_USEOWNDARKMODE)
+	if ((data.uMask & DWS_USEOWNDARKMODE) != DWS_USEOWNDARKMODE && NppDarkMode::isEnabledForPlugins())
 	{
 		NppDarkMode::autoSubclassAndThemePluginDockWindow(data.hClient);
 	}

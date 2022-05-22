@@ -48,6 +48,7 @@ namespace NppDarkMode
 	{
 		bool enable = false;
 		bool enableMenubar = false;
+		bool enablePlugin = false;
 	};
 
 	enum class ToolTipsType
@@ -82,6 +83,7 @@ namespace NppDarkMode
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();
+	bool isEnabledForPlugins();
 	bool isExperimentalSupported();
 
 	bool isWindows11();

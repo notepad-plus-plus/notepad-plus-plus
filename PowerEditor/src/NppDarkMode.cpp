@@ -323,6 +323,7 @@ namespace NppDarkMode
 		Options opt;
 		opt.enable = nppGui._darkmode._isEnabled;
 		opt.enableMenubar = opt.enable;
+		opt.enablePlugin = nppGui._darkmode._isEnabledPlugin;
 
 		g_colorToneChoice = nppGui._darkmode._colorTone;
 		tCustom.change(nppGui._darkmode._customColors);
@@ -375,6 +376,11 @@ namespace NppDarkMode
 	bool isEnabled()
 	{
 		return _options.enable;
+	}
+
+	bool isEnabledForPlugins()
+	{
+		return _options.enablePlugin;
 	}
 
 	bool isDarkMenuEnabled()

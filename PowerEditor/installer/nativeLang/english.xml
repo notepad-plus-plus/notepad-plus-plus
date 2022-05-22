@@ -1495,6 +1495,7 @@ Find in all files but exclude all folders log or logs recursively:
             <finder-clear-all value="Clear all"/>
             <finder-open-all value="Open all"/>
             <finder-purge-for-every-search value="Purge for every search"/>
+            <finder-one-result-per-line value="Output each search result in a separate line"/>
             <finder-wrap-long-lines value="Word wrap long lines"/>
             <common-ok value="OK"/>
             <common-cancel value="Cancel"/>

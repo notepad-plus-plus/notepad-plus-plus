@@ -4673,7 +4673,7 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				generic_string purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", TEXT("Purge for every search"));
 				generic_string openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", TEXT("Open all"));
 				generic_string wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", TEXT("Word wrap long lines"));
-				generic_string oneResultPerLine = pNativeSpeaker->getLocalizedStrFromID("finder-one-result-per-line", TEXT("One result per line"));
+				generic_string oneResultPerLine = pNativeSpeaker->getLocalizedStrFromID("finder-one-result-per-line", TEXT("Output each search result in a separate line"));
 
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, findInFinder));
 				if (_canBeVolatiled)

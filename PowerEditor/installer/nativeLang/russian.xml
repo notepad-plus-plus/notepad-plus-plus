@@ -1483,6 +1483,7 @@ Updated to v8.4.1:
 			<finder-select-all           value="Выделить всё"/>
 			<finder-clear-all            value="Очистить поле поиска"/>
 			<finder-open-all             value="Открыть все файлы"/>
+			<finder-one-result-per-line  value="Выводить каждый результат поиска отдельной строкой"/>
 			<finder-wrap-long-lines      value="Перенос слов длинных строк"/>
 			<common-ok                   value="ОК"/>
 			<common-cancel               value="Отмена"/>

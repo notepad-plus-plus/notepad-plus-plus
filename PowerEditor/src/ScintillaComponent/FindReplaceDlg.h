@@ -164,7 +164,7 @@ private:
 
 	bool _canBeVolatiled = true;
 	bool _longLinesAreWrapped = false;
-	bool _oneResultPerLine = false;
+	bool _oneResultPerLine = true;
 	bool _purgeBeforeEverySearch = false;
 
 	generic_string _prefixLineStr;

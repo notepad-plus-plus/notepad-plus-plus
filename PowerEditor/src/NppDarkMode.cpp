@@ -1493,6 +1493,63 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, ComboBoxSubclass, g_comboBoxSubclassID, hwndEditData);
 	}
 
+	constexpr UINT_PTR g_listViewSubclassID = 42;
+
+	LRESULT CALLBACK ListViewSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		UNREFERENCED_PARAMETER(uIdSubclass);
+		UNREFERENCED_PARAMETER(dwRefData);
+
+		switch (uMsg)
+		{
+			case WM_NOTIFY:
+			{
+				switch (reinterpret_cast<LPNMHDR>(lParam)->code)
+				{
+					case NM_CUSTOMDRAW:
+					{
+						auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
+						switch (lplvcd->nmcd.dwDrawStage)
+						{
+							case CDDS_PREPAINT:
+							{
+								if (NppDarkMode::isExperimentalSupported())
+								{
+									return CDRF_NOTIFYITEMDRAW;
+								}
+								return CDRF_DODEFAULT;
+							}
+
+							case CDDS_ITEMPREPAINT:
+							{
+								bool isDarkModeSupported = NppDarkMode::isEnabled();
+								SetTextColor(lplvcd->nmcd.hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
+								return CDRF_NEWFONT;
+							}
+						}
+						return CDRF_DODEFAULT;
+					}
+					break;
+				}
+				break;
+			}
+			break;
+		}
+		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void subclassListViewControl(HWND hwnd)
+	{
+		SetWindowSubclass(hwnd, ListViewSubclass, g_listViewSubclassID, 0);
+	}
+
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
 	{
 		struct Params
@@ -1512,8 +1569,8 @@ namespace NppDarkMode
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
 			auto& p = *reinterpret_cast<Params*>(lParam);
-			const size_t classNameLen = 16;
-			TCHAR className[classNameLen] = { '\0' };
+			constexpr size_t classNameLen = 16;
+			TCHAR className[classNameLen]{};
 			GetClassName(hwnd, className, classNameLen);
 
 			if (wcscmp(className, WC_COMBOBOX) == 0)
@@ -1608,6 +1665,54 @@ namespace NppDarkMode
 				}
 				return TRUE;
 			}
+
+			if (wcscmp(className, TOOLBARCLASSNAME) == 0)
+			{
+				NppDarkMode::setDarkLineAbovePanelToolbar(hwnd);
+				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::toolbar);
+
+				return TRUE;
+			}
+
+			if (wcscmp(className, WC_LISTVIEW) == 0)
+			{
+				//ListView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+				//ListView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+
+				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::listview);
+				NppDarkMode::setDarkListView(hwnd);
+
+				if (p.subclass)
+				{
+					NppDarkMode::subclassListViewControl(hwnd);
+				}
+
+				return TRUE;
+			}
+
+			if (wcscmp(className, WC_TREEVIEW) == 0)
+			{
+				//TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+				//TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+
+				//NppDarkMode::calculateTreeViewStyle();
+				//NppDarkMode::setTreeViewStyle(hwnd);
+				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::treeview);
+
+				return TRUE;
+			}
+
+			if (wcscmp(className, L"RichEdit20W") == 0 || wcscmp(className, L"RICHEDIT50W") == 0)
+			{
+				if (p.theme)
+				{
+					//dark scrollbar for richedit
+					SetWindowTheme(hwnd, p.themeClassName, nullptr);
+				}
+
+				return TRUE;
+			}
+
 			return TRUE;
 		}, reinterpret_cast<LPARAM>(&p));
 	}
@@ -1842,14 +1947,17 @@ namespace NppDarkMode
 
 	void setDarkListView(HWND hwnd)
 	{
-		bool useDark = NppDarkMode::isEnabled();
+		if (NppDarkMode::isExperimentalSupported())
+		{
+			bool useDark = NppDarkMode::isEnabled();
 
-		HWND hHeader = ListView_GetHeader(hwnd);
-		NppDarkMode::allowDarkModeForWindow(hHeader, useDark);
-		SetWindowTheme(hHeader, useDark ? L"ItemsView" : nullptr, nullptr);
+			HWND hHeader = ListView_GetHeader(hwnd);
+			NppDarkMode::allowDarkModeForWindow(hHeader, useDark);
+			SetWindowTheme(hHeader, useDark ? L"ItemsView" : nullptr, nullptr);
 
-		NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
-		SetWindowTheme(hwnd, L"Explorer", nullptr);
+			NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
+			SetWindowTheme(hwnd, L"Explorer", nullptr);
+		}
 	}
 
 	void disableVisualStyle(HWND hwnd, bool doDisable)

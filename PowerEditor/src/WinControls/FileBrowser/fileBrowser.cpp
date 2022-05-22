@@ -102,9 +102,6 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS | TBSTYLE_CUSTOMERASE;
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
 
-			NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
-			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-
 			// Add the bmap image into toolbar's imagelist
 			int iconSizeDyn = nppParam._dpiManager.scaleX(16);
 			::SendMessage(_hToolbarMenu, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconSizeDyn, iconSizeDyn));
@@ -173,6 +170,8 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			_treeView.makeLabelEditable(false);
 			_treeView.display();
 
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			return TRUE;
 		}
 
@@ -180,10 +179,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		{
 			if (static_cast<BOOL>(lParam) != TRUE)
 			{
-				NppDarkMode::setDarkTooltips(_hToolbarMenu, NppDarkMode::ToolTipsType::toolbar);
-				NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-
-				NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+				NppDarkMode::autoThemeChildControls(_hSelf);
 			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
@@ -675,12 +671,17 @@ void FileBrowser::notified(LPNMHDR notification)
 			break;
 		}
 	}
-	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	else if (NppDarkMode::isEnabled() && notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
-		if (NppDarkMode::isEnabled())
+		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+		switch (nmtbcd->nmcd.dwDrawStage)
 		{
-			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+			case CDDS_PREPAINT:
+			{
+				::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW);
+				break;
+			}
 		}
 	}
 }

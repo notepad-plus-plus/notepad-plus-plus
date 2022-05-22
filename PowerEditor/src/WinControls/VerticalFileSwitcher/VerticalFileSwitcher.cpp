@@ -77,13 +77,14 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 			_fileListView.initList();
 			_fileListView.display();
 
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setDarkListView(_fileListView.getHSelf());
-			NppDarkMode::setDarkTooltips(_fileListView.getHSelf(), NppDarkMode::ToolTipsType::listview);
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 

@@ -297,8 +297,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::autoThemeChildControls(getHSelf());
-			NppDarkMode::setDarkListView(_hList);
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -584,7 +583,6 @@ BOOL WindowsDlg::onInitDialog()
 	exStyle |= LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_DOUBLEBUFFER;
 	ListView_SetExtendedListViewStyle(_hList, exStyle);
 
-	NppDarkMode::setDarkListView(_hList);
 	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
 	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
 

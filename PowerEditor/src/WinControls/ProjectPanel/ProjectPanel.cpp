@@ -52,9 +52,6 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf, nullptr, _hInst, nullptr);
 
-			NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-			NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
-
 			TBBUTTON tbButtons[2];
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
@@ -92,6 +89,8 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			if (!openWorkSpace(_workSpaceFilePath.c_str(), true))
 				newWorkSpace();
 
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			return TRUE;
 		}
 
@@ -99,10 +98,7 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		{
 			if (static_cast<BOOL>(lParam) != TRUE)
 			{
-				NppDarkMode::setDarkLineAbovePanelToolbar(_hToolbarMenu);
-				NppDarkMode::disableVisualStyle(_hToolbarMenu, NppDarkMode::isEnabled());
-
-				NppDarkMode::setDarkTooltips(_treeView.getHSelf(), NppDarkMode::ToolTipsType::treeview);
+				NppDarkMode::autoThemeChildControls(_hSelf);
 			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
@@ -749,15 +745,32 @@ void ProjectPanel::notified(LPNMHDR notification)
 			break;
 		}
 	}
-	else if (notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
+	else if (NppDarkMode::isEnabled() && notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
 	{
-		if (NppDarkMode::isEnabled())
+		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
+		switch (nmtbcd->nmcd.dwDrawStage)
 		{
-			auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-			::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
-			nmtbcd->clrText = NppDarkMode::getTextColor();
-			nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
-			SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW | TBCDRF_HILITEHOTTRACK);
+			case CDDS_PREPAINT:
+			{
+				::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW);
+				break;
+			}
+
+			case CDDS_ITEMPREPAINT:
+			{
+				nmtbcd->hbrLines = NppDarkMode::getEdgeBrush();
+				nmtbcd->clrText = NppDarkMode::getTextColor();
+				nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
+				nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
+				nmtbcd->clrBtnHighlight = NppDarkMode::getDarkerBackgroundColor();
+				nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
+				nmtbcd->nStringBkMode = TRANSPARENT;
+				nmtbcd->nHLStringBkMode = TRANSPARENT;
+
+				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, TBCDRF_HILITEHOTTRACK | TBCDRF_USECDCOLORS);
+				break;
+			}
 		}
 	}
 }

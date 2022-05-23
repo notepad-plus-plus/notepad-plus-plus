@@ -162,6 +162,10 @@ namespace NppDarkMode
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
 
+	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam);
+	LRESULT darkListViewNotifyCustomDraw(LPARAM lParam);
+	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam);
+
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
 
 	bool subclassTabUpDownControl(HWND hwnd);

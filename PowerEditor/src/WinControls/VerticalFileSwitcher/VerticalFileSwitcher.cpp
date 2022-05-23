@@ -78,6 +78,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 			_fileListView.display();
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::setDarkListView(_fileListView.getHSelf());
 
 			return TRUE;
 		}
@@ -85,6 +86,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
+			NppDarkMode::setDarkListView(_fileListView.getHSelf());
 			return TRUE;
 		}
 

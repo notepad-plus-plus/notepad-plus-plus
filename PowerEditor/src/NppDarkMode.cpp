@@ -1521,12 +1521,12 @@ namespace NppDarkMode
 				{
 					case NM_CUSTOMDRAW:
 					{
-						auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
-						switch (lplvcd->nmcd.dwDrawStage)
+						auto lpnmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+						switch (lpnmcd->dwDrawStage)
 						{
 							case CDDS_PREPAINT:
 							{
-								if (NppDarkMode::isExperimentalSupported())
+								if (NppDarkMode::isExperimentalSupported() && NppDarkMode::isEnabled())
 								{
 									return CDRF_NOTIFYITEMDRAW;
 								}
@@ -1535,8 +1535,8 @@ namespace NppDarkMode
 
 							case CDDS_ITEMPREPAINT:
 							{
-								bool isDarkModeSupported = NppDarkMode::isEnabled();
-								SetTextColor(lplvcd->nmcd.hdc, isDarkModeSupported ? NppDarkMode::getDarkerTextColor() : GetSysColor(COLOR_BTNTEXT));
+								SetTextColor(lpnmcd->hdc, NppDarkMode::getDarkerTextColor());
+
 								return CDRF_NEWFONT;
 							}
 						}
@@ -1682,14 +1682,24 @@ namespace NppDarkMode
 
 			if (wcscmp(className, WC_LISTVIEW) == 0)
 			{
-				//ListView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
-				//ListView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
-
-				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::listview);
 				NppDarkMode::setDarkListView(hwnd);
+				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::listview);
+
+				if (NppDarkMode::isEnabled())
+				{
+					ListView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+					ListView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+				}
+
+				else if (p.theme)
+				{
+					SetWindowTheme(hwnd, p.themeClassName, nullptr);
+				}
 
 				if (p.subclass)
 				{
+					auto exStyle = ListView_GetExtendedListViewStyle(hwnd);
+					ListView_SetExtendedListViewStyle(hwnd, exStyle | LVS_EX_DOUBLEBUFFER);
 					NppDarkMode::subclassListViewControl(hwnd);
 				}
 
@@ -1698,12 +1708,32 @@ namespace NppDarkMode
 
 			if (wcscmp(className, WC_TREEVIEW) == 0)
 			{
-				//TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
-				//TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+				if (NppDarkMode::isEnabled())
+				{
+					TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+					TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
 
-				//NppDarkMode::calculateTreeViewStyle();
-				//NppDarkMode::setTreeViewStyle(hwnd);
+					NppDarkMode::calculateTreeViewStyle();
+					NppDarkMode::setTreeViewStyle(hwnd);
+				}
+
+				else if (p.theme)
+				{
+					auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+					if ((style & TVS_TRACKSELECT) == TVS_TRACKSELECT)
+					{
+						::SetWindowLongPtr(hwnd, GWL_STYLE, style & ~TVS_TRACKSELECT);
+					}
+					SetWindowTheme(hwnd, p.themeClassName, nullptr);
+				}
+
 				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::treeview);
+
+				if (p.subclass)
+				{
+					auto exStyle = TreeView_GetExtendedStyle(hwnd);
+					TreeView_SetExtendedStyle(hwnd, exStyle | TVS_EX_DOUBLEBUFFER, exStyle | TVS_EX_DOUBLEBUFFER);
+				}
 
 				return TRUE;
 			}
@@ -1726,6 +1756,145 @@ namespace NppDarkMode
 	void autoThemeChildControls(HWND hwndParent)
 	{
 		autoSubclassAndThemeChildControls(hwndParent, false, true);
+	}
+
+	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam)
+	{
+		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
+
+		switch (nmtbcd->nmcd.dwDrawStage)
+		{
+			case CDDS_PREPAINT:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+					return CDRF_NOTIFYITEMDRAW;
+				}
+				return CDRF_DODEFAULT;
+			}
+
+			case CDDS_ITEMPREPAINT:
+			{
+				nmtbcd->hbrLines = NppDarkMode::getEdgeBrush();
+				nmtbcd->clrText = NppDarkMode::getTextColor();
+				nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
+				nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
+				nmtbcd->clrBtnHighlight = NppDarkMode::getDarkerBackgroundColor();
+				nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
+				nmtbcd->nStringBkMode = TRANSPARENT;
+				nmtbcd->nHLStringBkMode = TRANSPARENT;
+
+				return TBCDRF_HILITEHOTTRACK | TBCDRF_USECDCOLORS;
+			}
+
+			default:
+				return CDRF_DODEFAULT;
+		}
+	}
+
+	LRESULT darkListViewNotifyCustomDraw(LPARAM lParam)
+	{
+		auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
+
+		switch (lplvcd->nmcd.dwDrawStage)
+		{
+			case CDDS_PREPAINT:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					return CDRF_NOTIFYITEMDRAW;
+				}
+				return CDRF_DODEFAULT;
+			}
+
+			case CDDS_ITEMPREPAINT:
+			{
+				if (ListView_GetItemState(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED)
+				{
+					lplvcd->clrText = NppDarkMode::getTextColor();
+					lplvcd->clrTextBk = NppDarkMode::getSofterBackgroundColor();
+
+					::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getSofterBackgroundBrush());
+					::DrawFocusRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc);
+				}
+				else if ((lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+				{
+					lplvcd->clrText = NppDarkMode::getTextColor();
+					lplvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
+
+					::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
+				}
+				else
+				{
+					lplvcd->clrText = NppParameters::getInstance().getCurrentDefaultFgColor();
+					lplvcd->clrTextBk = CLR_NONE;
+				}
+
+				return CDRF_NEWFONT;
+			}
+
+			default:
+				return CDRF_DODEFAULT;
+		}
+	}
+
+	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam)
+	{
+		auto lptvcd = reinterpret_cast<LPNMTVCUSTOMDRAW>(lParam);
+
+		switch (lptvcd->nmcd.dwDrawStage)
+		{
+			case CDDS_PREPAINT:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					return CDRF_NOTIFYITEMDRAW | CDRF_NOTIFYPOSTPAINT;
+				}
+				return CDRF_DODEFAULT;
+			}
+
+			case CDDS_ITEMPREPAINT:
+			{
+				if ((lptvcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
+				{
+					lptvcd->clrText = NppDarkMode::getTextColor();
+					lptvcd->clrTextBk = NppDarkMode::getSofterBackgroundColor();
+					::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getSofterBackgroundBrush());
+
+					return CDRF_NEWFONT | CDRF_NOTIFYPOSTPAINT;
+				}
+
+				if ((lptvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+				{
+					lptvcd->clrText = NppDarkMode::getTextColor();
+					lptvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
+					::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
+
+					return CDRF_NEWFONT | CDRF_NOTIFYPOSTPAINT;
+				}
+
+				return CDRF_DODEFAULT;
+			}
+
+			case CDDS_ITEMPOSTPAINT:
+			{
+				if ((lptvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+				{
+					NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, lptvcd->nmcd.rc, NppDarkMode::getHotEdgePen(), 0, 0);
+				}
+				else if ((lptvcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
+				{
+					NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, lptvcd->nmcd.rc, NppDarkMode::getEdgePen(), 0, 0);
+				}
+
+				return CDRF_DODEFAULT;
+				
+			}
+
+			default:
+				return CDRF_DODEFAULT;
+		}
 	}
 
 	constexpr UINT_PTR g_pluginDockWindowSubclassID = 42;
@@ -1803,44 +1972,33 @@ namespace NppDarkMode
 			{
 				if (NppDarkMode::isEnabled())
 				{
-					auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
+					auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
 
 					constexpr size_t classNameLen = 16;
 					TCHAR className[classNameLen]{};
-					GetClassName(nmtbcd->nmcd.hdr.hwndFrom, className, classNameLen);
+					GetClassName(nmhdr->hwndFrom, className, classNameLen);
 
-					if (wcscmp(className, TOOLBARCLASSNAME) == 0)
+					switch (nmhdr->code)
 					{
-						switch (nmtbcd->nmcd.hdr.code)
+						case NM_CUSTOMDRAW:
 						{
-							case NM_CUSTOMDRAW:
+							if (wcscmp(className, TOOLBARCLASSNAME) == 0)
 							{
-								switch (nmtbcd->nmcd.dwDrawStage)
-								{
-									case CDDS_PREPAINT:
-									{
-										::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
-										return CDRF_NOTIFYITEMDRAW;
-									}
-
-									case CDDS_ITEMPREPAINT:
-									{
-										nmtbcd->hbrLines = NppDarkMode::getEdgeBrush();
-										nmtbcd->clrText = NppDarkMode::getTextColor();
-										nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
-										nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
-										nmtbcd->clrBtnHighlight = NppDarkMode::getDarkerBackgroundColor();
-										nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
-										nmtbcd->nStringBkMode = TRANSPARENT;
-										nmtbcd->nHLStringBkMode = TRANSPARENT;
-
-										return TBCDRF_HILITEHOTTRACK | TBCDRF_USECDCOLORS;
-									}
-								}
-								return CDRF_DODEFAULT;
+								return NppDarkMode::darkToolBarNotifyCustomDraw(lParam);;
 							}
-							break;
+								
+							if (wcscmp(className, WC_LISTVIEW) == 0)
+							{
+								return NppDarkMode::darkListViewNotifyCustomDraw(lParam);;
+							}
+								
+							if (wcscmp(className, WC_TREEVIEW) == 0)
+							{
+								return NppDarkMode::darkTreeViewNotifyCustomDraw(lParam);;
+							}
+								
 						}
+						break;
 					}
 					break;
 				}
@@ -2089,7 +2247,7 @@ namespace NppDarkMode
 			NppDarkMode::allowDarkModeForWindow(hHeader, useDark);
 			SetWindowTheme(hHeader, useDark ? L"ItemsView" : nullptr, nullptr);
 
-			NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
+			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
 			SetWindowTheme(hwnd, L"Explorer", nullptr);
 		}
 	}

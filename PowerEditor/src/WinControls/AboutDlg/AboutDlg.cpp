@@ -220,7 +220,11 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				szProductName[sizeof(szProductName) / sizeof(TCHAR) - 1] = '\0';
 
 				dataSize = sizeof(szReleaseId);
-				RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
+				if(RegQueryValueExW(hKey, TEXT("DisplayVersion"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize) != ERROR_SUCCESS)
+				{
+					dataSize = sizeof(szReleaseId);
+					RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
+				}
 				szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
 
 				dataSize = sizeof(szCurrentBuildNumber);

@@ -706,7 +706,11 @@ bool PluginsAdminDlg::initFromJson()
 #ifdef DEBUG // if not debug, then it's release
 	
 	// load from nppPluginList.json instead of nppPluginList.dll
+#ifdef __MINGW32__
 	ifstream nppPluginListJson(wstring2string(_pluginListFullPath, CP_UTF8));
+#else // MSVC supports UTF-16 path names in file stream constructors 
+	ifstream nppPluginListJson(_pluginListFullPath);
+#endif
 	nppPluginListJson >> j;
 
 #else //RELEASE

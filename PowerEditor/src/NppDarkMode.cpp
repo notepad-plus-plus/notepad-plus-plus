@@ -1748,6 +1748,8 @@ namespace NppDarkMode
 	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam)
 	{
 		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
+		auto dpiManager = NppParameters::getInstance()._dpiManager;
+		static int roundCornerValue = 0;
 
 		switch (nmtbcd->nmcd.dwDrawStage)
 		{
@@ -1755,6 +1757,8 @@ namespace NppDarkMode
 			{
 				if (NppDarkMode::isEnabled())
 				{
+					roundCornerValue = NppDarkMode::isWindows11() ? dpiManager.scaleX(5) : 0;
+
 					::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
 					return CDRF_NOTIFYITEMDRAW;
 				}
@@ -1767,12 +1771,46 @@ namespace NppDarkMode
 				nmtbcd->clrText = NppDarkMode::getTextColor();
 				nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
 				nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
-				nmtbcd->clrBtnHighlight = NppDarkMode::getDarkerBackgroundColor();
+				nmtbcd->clrBtnHighlight = NppDarkMode::getSofterBackgroundColor();
 				nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
 				nmtbcd->nStringBkMode = TRANSPARENT;
 				nmtbcd->nHLStringBkMode = TRANSPARENT;
 
-				return TBCDRF_HILITEHOTTRACK | TBCDRF_USECDCOLORS;
+				if ((nmtbcd->nmcd.uItemState & CDIS_CHECKED) == CDIS_CHECKED)
+				{
+					auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getSofterBackgroundBrush());
+					auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getEdgePen());
+					::RoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc.left, nmtbcd->nmcd.rc.top, nmtbcd->nmcd.rc.right, nmtbcd->nmcd.rc.bottom, roundCornerValue, roundCornerValue);
+					::SelectObject(nmtbcd->nmcd.hdc, holdBrush);
+					::SelectObject(nmtbcd->nmcd.hdc, holdPen);
+
+					nmtbcd->nmcd.uItemState &= ~CDIS_CHECKED;
+				}
+
+				return TBCDRF_HILITEHOTTRACK | TBCDRF_USECDCOLORS | CDRF_NOTIFYPOSTPAINT;
+			}
+
+			case CDDS_ITEMPOSTPAINT:
+			{
+				bool isDropDown = false;
+
+				auto exStyle = ::SendMessage(nmtbcd->nmcd.hdr.hwndFrom, TB_GETEXTENDEDSTYLE, 0, 0);
+				if ((exStyle & TBSTYLE_EX_DRAWDDARROWS) == TBSTYLE_EX_DRAWDDARROWS)
+				{
+					TBBUTTONINFO tbButtonInfo{};
+					tbButtonInfo.cbSize = sizeof(TBBUTTONINFO);
+					tbButtonInfo.dwMask = TBIF_STYLE;
+					::SendMessage(nmtbcd->nmcd.hdr.hwndFrom, TB_GETBUTTONINFO, nmtbcd->nmcd.dwItemSpec, reinterpret_cast<LPARAM>(&tbButtonInfo));
+
+					isDropDown = (tbButtonInfo.fsStyle & BTNS_DROPDOWN) == BTNS_DROPDOWN;
+				}
+
+				if ( !isDropDown && (nmtbcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+				{
+					NppDarkMode::paintRoundFrameRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc, NppDarkMode::getHotEdgePen(), roundCornerValue, roundCornerValue);
+				}
+
+				return CDRF_DODEFAULT;
 			}
 
 			default:

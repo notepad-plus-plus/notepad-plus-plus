@@ -15,15 +15,55 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stdexcept>
+#include <shlwapi.h>
 #include "ToolBar.h"
 #include "shortcut.h"
 #include "Parameters.h"
 #include "FindReplaceDlg_rc.h"
-
 #include "NppDarkMode.h"
-#include "resource.h"
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
+
+struct ToolbarIconIdUnit
+{
+	generic_string _id;
+	bool hasDisabledIcon = false;
+};
+
+ToolbarIconIdUnit toolbarIconIDs[] = {
+	{ L"new", false },
+	{ L"open", false },
+	{ L"save", true },
+	{ L"save-all", true },
+	{ L"close", false },
+	{ L"close-all", false },
+	{ L"print", false },
+	{ L"cut", true },
+	{ L"copy", true },
+	{ L"paste", true },
+	{ L"undo", true },
+	{ L"redo", true },
+	{ L"find", false },
+	{ L"replace", false },
+	{ L"zoom-in", false },
+	{ L"zoom-out", false },
+	{ L"sync-vertical", false },
+	{ L"sync-horizontal", false },
+	{ L"word-wrap", false },
+	{ L"all-chars", false },
+	{ L"indent-guide", false },
+	{ L"udl-dlg", false },
+	{ L"doc-map", false },
+	{ L"doc-list", false },
+	{ L"function-list", false },
+	{ L"folder-as-workspace", false },
+	{ L"monitoring", true },
+	{ L"record", true },
+	{ L"stop-record", true },
+	{ L"playback", true },
+	{ L"playback-multiple", true },
+	{ L"save-macro", true }
+};
 
 void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 {
@@ -33,62 +73,38 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 		_toolIcons = _toolIcons->FirstChild(TEXT("ToolBarIcons"));
 		if (_toolIcons)
 		{
-			_toolIcons = _toolIcons->FirstChild(TEXT("Theme"));
-			if (_toolIcons)
+			generic_string iconFolderDir = NppParameters::getInstance().getUserPath();
+			generic_string toolbarIconsRootFolderName = TEXT("toolbarIcons");
+			pathAppend(iconFolderDir, toolbarIconsRootFolderName);
+			generic_string folderName = (_toolIcons->ToElement())->Attribute(TEXT("icoFolderName"));
+			if (folderName.empty())
+				folderName = TEXT("default");
+
+			pathAppend(iconFolderDir, folderName);
+
+			size_t i = 0;
+			generic_string disabled_suffix = L"_disabled";
+			generic_string ext = L".ico";
+			for (ToolbarIconIdUnit icoUnit : toolbarIconIDs)
 			{
-				const TCHAR *themeDir = (_toolIcons->ToElement())->Attribute(TEXT("pathPrefix"));
+				generic_string locator = iconFolderDir;
+				locator += L"\\";
+				locator += icoUnit._id;
+				locator += ext;
+				if (::PathFileExists(locator.c_str()))
+					_customIconVect.push_back(iconLocator(0, i, locator));
 
-				for (TiXmlNode *childNode = _toolIcons->FirstChildElement(TEXT("Icon"));
-					 childNode ;
-					 childNode = childNode->NextSibling(TEXT("Icon")))
+				if (icoUnit.hasDisabledIcon)
 				{
-					int iIcon;
-					const TCHAR *res = (childNode->ToElement())->Attribute(TEXT("id"), &iIcon);
-					if (res)
-					{
-						TiXmlNode *grandChildNode = childNode->FirstChildElement(TEXT("normal"));
-						if (grandChildNode)
-						{
-							TiXmlNode *valueNode = grandChildNode->FirstChild();
-							//putain, enfin!!!
-							if (valueNode)
-							{
-								generic_string locator = themeDir?themeDir:TEXT("");
-								
-								locator += valueNode->Value();
-								_customIconVect.push_back(iconLocator(0, iIcon, locator));
-							}
-						}
-
-						grandChildNode = childNode->FirstChildElement(TEXT("hover"));
-						if (grandChildNode)
-						{
-							TiXmlNode *valueNode = grandChildNode->FirstChild();
-							//putain, enfin!!!
-							if (valueNode)
-							{
-								generic_string locator = themeDir?themeDir:TEXT("");
-								
-								locator += valueNode->Value();
-								_customIconVect.push_back(iconLocator(1, iIcon, locator));
-							}
-						}
-
-						grandChildNode = childNode->FirstChildElement(TEXT("disabled"));
-						if (grandChildNode)
-						{
-							TiXmlNode *valueNode = grandChildNode->FirstChild();
-							//putain, enfin!!!
-							if (valueNode)
-							{
-								generic_string locator = themeDir?themeDir:TEXT("");
-								
-								locator += valueNode->Value();
-								_customIconVect.push_back(iconLocator(2, iIcon, locator));
-							}
-						}
-					}
+					generic_string locator_dis = iconFolderDir;
+					locator_dis += L"\\";
+					locator_dis += icoUnit._id;
+					locator_dis += disabled_suffix;
+					locator_dis += ext;
+					if (::PathFileExists(locator_dis.c_str()))
+						_customIconVect.push_back(iconLocator(1, i, locator_dis));
 				}
+				i++;
 			}
 		}
 	}
@@ -274,16 +290,16 @@ void ToolBar::reset(bool create)
 		}
 
 		_hSelf = ::CreateWindowEx(
-					WS_EX_PALETTEWINDOW,
-					TOOLBARCLASSNAME,
-					TEXT(""),
-					WS_TOOLBARSTYLE | dwExtraStyle,
-					0, 0,
-					0, 0,
-					_hParent,
-					NULL,
-					_hInst,
-					0);
+			WS_EX_PALETTEWINDOW,
+			TOOLBARCLASSNAME,
+			TEXT(""),
+			WS_TOOLBARSTYLE | dwExtraStyle,
+			0, 0,
+			0, 0,
+			_hParent,
+			NULL,
+			_hInst,
+			0);
 
 		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::toolbar);
 
@@ -298,66 +314,75 @@ void ToolBar::reset(bool create)
 		throw std::runtime_error("ToolBar::reset : CreateWindowEx() function return null");
 	}
 
-	if (_state != TB_STANDARD) //If non standard icons, use custom imagelists
+	bool doOverrideToolbarIcons = _customIconVect.size() > 0;
+	if (doOverrideToolbarIcons)
 	{
-		if (_state == TB_SMALL || _state == TB_LARGE)
+		setDefaultImageList();
+		setDisableImageList();
+	}
+	else // use internal icons according the settings
+	{
+		if (_state != TB_STANDARD) //If non standard icons, use custom imagelists
 		{
-			if (NppDarkMode::isEnabled())
+			if (_state == TB_SMALL || _state == TB_LARGE)
 			{
-				setDefaultImageListDM();
-				setDisableImageListDM();
-
-				if (NppDarkMode::isWindows11())
+				if (NppDarkMode::isEnabled())
 				{
-					setHoveredImageListDM();
+					setDefaultImageListDM();
+					setDisableImageListDM();
+
+					if (NppDarkMode::isWindows11())
+					{
+						setHoveredImageListDM();
+					}
+				}
+				else
+				{
+					setDefaultImageList();
+					setDisableImageList();
 				}
 			}
 			else
 			{
-				setDefaultImageList();
-				setDisableImageList();
+				if (NppDarkMode::isEnabled())
+				{
+					setDefaultImageListDM2();
+					setDisableImageListDM2();
+
+					if (NppDarkMode::isWindows11())
+					{
+						setHoveredImageListDM2();
+					}
+				}
+				else
+				{
+					setDefaultImageList2();
+					setDisableImageList2();
+				}
 			}
 		}
 		else
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				setDefaultImageListDM2();
-				setDisableImageListDM2();
+			//Else set the internal imagelist with standard bitmaps
+			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+			::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
 
-				if (NppDarkMode::isWindows11())
+			TBADDBITMAP addbmp = { 0, 0 };
+			TBADDBITMAP addbmpdyn = { 0, 0 };
+			for (size_t i = 0; i < _nbButtons; ++i)
+			{
+				int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
+				HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+				addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
+				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+			}
+			if (_nbDynButtons > 0)
+			{
+				for (size_t j = 0; j < _nbDynButtons; ++j)
 				{
-					setHoveredImageListDM2();
+					addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
+					::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 				}
-			}
-			else
-			{
-				setDefaultImageList2();
-				setDisableImageList2();
-			}
-		}
-	}
-	else
-	{
-		//Else set the internal imagelist with standard bitmaps
-		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
-		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
-
-		TBADDBITMAP addbmp = {0, 0};
-		TBADDBITMAP addbmpdyn = {0, 0};
-		for (size_t i = 0 ; i < _nbButtons ; ++i)
-		{
-			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
-			HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
-			addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
-			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
-		}
-		if (_nbDynButtons > 0)
-		{
-			for (size_t j = 0; j < _nbDynButtons; ++j)
-			{
-				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
-				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 			}
 		}
 	}

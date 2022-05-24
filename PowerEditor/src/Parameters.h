@@ -1469,7 +1469,7 @@ public:
 
 	TiXmlDocumentA * getNativeLangA() const {return _pXmlNativeLangDocA;};
 
-	TiXmlDocument * getToolIcons() const {return _pXmlToolIconsDoc;};
+	TiXmlDocument * getCustomizedToolIcons() const {return _pXmlToolIconsDoc;};
 
 	bool isTransparentAvailable() const {
 		return (_transparentFuncAddr != NULL);

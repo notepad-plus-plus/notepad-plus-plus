@@ -140,7 +140,7 @@ Notepad_plus::Notepad_plus()
 
 	nppParam.setNativeLangSpeaker(&_nativeLangSpeaker);
 
-	TiXmlDocument *toolIconsDocRoot = nppParam.getToolIcons();
+	TiXmlDocument *toolIconsDocRoot = nppParam.getCustomizedToolIcons();
 
 	if (toolIconsDocRoot)
 	{

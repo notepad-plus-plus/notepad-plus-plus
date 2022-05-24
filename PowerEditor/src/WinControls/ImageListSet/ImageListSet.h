@@ -42,7 +42,7 @@ public :
 	void addIcon(int iconID) const;
 	void addIcon(HICON hIcon) const;
 
-	bool changeIcon(int index, const TCHAR *iconLocation) const;
+	bool changeIcon(size_t index, const TCHAR *iconLocation) const;
 	void addIcons(int size) const;
 
 
@@ -144,7 +144,7 @@ public :
 		return _tbiis[i]._stdIcon;
 	};
 
-	bool replaceIcon(int witchList, int iconIndex, const TCHAR *iconLocation) const {
+	bool replaceIcon(size_t witchList, size_t iconIndex, const TCHAR *iconLocation) const {
 		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_DISABLE) && 
 			(witchList != HLIST_DEFAULT2) && (witchList != HLIST_DISABLE2))
 			return false;

@@ -90,6 +90,7 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				newWorkSpace();
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 			return TRUE;
 		}
@@ -743,34 +744,6 @@ void ProjectPanel::notified(LPNMHDR notification)
 				_treeView.beginDrag((LPNMTREEVIEW)notification);
 			}
 			break;
-		}
-	}
-	else if (NppDarkMode::isEnabled() && notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
-	{
-		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-		switch (nmtbcd->nmcd.dwDrawStage)
-		{
-			case CDDS_PREPAINT:
-			{
-				::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW);
-				break;
-			}
-
-			case CDDS_ITEMPREPAINT:
-			{
-				nmtbcd->hbrLines = NppDarkMode::getEdgeBrush();
-				nmtbcd->clrText = NppDarkMode::getTextColor();
-				nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
-				nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
-				nmtbcd->clrBtnHighlight = NppDarkMode::getDarkerBackgroundColor();
-				nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
-				nmtbcd->nStringBkMode = TRANSPARENT;
-				nmtbcd->nHLStringBkMode = TRANSPARENT;
-
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, TBCDRF_HILITEHOTTRACK | TBCDRF_USECDCOLORS);
-				break;
-			}
 		}
 	}
 }

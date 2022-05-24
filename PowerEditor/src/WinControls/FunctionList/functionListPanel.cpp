@@ -654,19 +654,6 @@ void FunctionListPanel::notified(LPNMHDR notification)
 	{
 		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FUNC_LIST, 0);
 	}
-	else if (NppDarkMode::isEnabled() && notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
-	{
-		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-		switch (nmtbcd->nmcd.dwDrawStage)
-		{
-			case CDDS_PREPAINT:
-			{
-				::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW);
-				break;
-			}
-		}
-	}
 }
 
 void FunctionListPanel::searchFuncAndSwitchView()
@@ -917,6 +904,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			_treeView.display();
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 			return TRUE;
 		}

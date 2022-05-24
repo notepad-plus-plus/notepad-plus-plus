@@ -272,7 +272,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-			NppDarkMode::setDarkListView(::GetDlgItem(_hSelf, IDC_WINDOWS_LIST));
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
 		}
@@ -299,7 +299,6 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
-			NppDarkMode::setDarkListView(::GetDlgItem(_hSelf, IDC_WINDOWS_LIST));
 			return TRUE;
 		}
 

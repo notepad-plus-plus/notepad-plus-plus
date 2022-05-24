@@ -1510,11 +1510,16 @@ namespace NppDarkMode
 		DWORD_PTR dwRefData
 	)
 	{
-		UNREFERENCED_PARAMETER(uIdSubclass);
 		UNREFERENCED_PARAMETER(dwRefData);
 
 		switch (uMsg)
 		{
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, ListViewSubclass, uIdSubclass);
+				break;
+			}
+
 			case WM_NOTIFY:
 			{
 				switch (reinterpret_cast<LPNMHDR>(lParam)->code)
@@ -1539,8 +1544,10 @@ namespace NppDarkMode
 
 								return CDRF_NEWFONT;
 							}
+
+							default:
+								return CDRF_DODEFAULT;
 						}
-						return CDRF_DODEFAULT;
 					}
 					break;
 				}
@@ -1685,16 +1692,9 @@ namespace NppDarkMode
 				NppDarkMode::setDarkListView(hwnd);
 				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::listview);
 
-				if (NppDarkMode::isEnabled())
-				{
-					ListView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
-					ListView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
-				}
-
-				else if (p.theme)
-				{
-					SetWindowTheme(hwnd, p.themeClassName, nullptr);
-				}
+				ListView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+				ListView_SetTextBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+				ListView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
 
 				if (p.subclass)
 				{
@@ -1708,24 +1708,11 @@ namespace NppDarkMode
 
 			if (wcscmp(className, WC_TREEVIEW) == 0)
 			{
-				if (NppDarkMode::isEnabled())
-				{
-					TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
-					TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+				TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+				TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
 
-					NppDarkMode::calculateTreeViewStyle();
-					NppDarkMode::setTreeViewStyle(hwnd);
-				}
-
-				else if (p.theme)
-				{
-					auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-					if ((style & TVS_TRACKSELECT) == TVS_TRACKSELECT)
-					{
-						::SetWindowLongPtr(hwnd, GWL_STYLE, style & ~TVS_TRACKSELECT);
-					}
-					SetWindowTheme(hwnd, p.themeClassName, nullptr);
-				}
+				NppDarkMode::calculateTreeViewStyle();
+				NppDarkMode::setTreeViewStyle(hwnd);
 
 				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::treeview);
 
@@ -1801,34 +1788,34 @@ namespace NppDarkMode
 		{
 			case CDDS_PREPAINT:
 			{
-				if (NppDarkMode::isEnabled())
-				{
-					return CDRF_NOTIFYITEMDRAW;
-				}
-				return CDRF_DODEFAULT;
+				return CDRF_NOTIFYITEMDRAW;
 			}
 
 			case CDDS_ITEMPREPAINT:
 			{
-				if (ListView_GetItemState(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED)
-				{
-					lplvcd->clrText = NppDarkMode::getTextColor();
-					lplvcd->clrTextBk = NppDarkMode::getSofterBackgroundColor();
+				auto isSelected = ListView_GetItemState(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
 
-					::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getSofterBackgroundBrush());
+				if (NppDarkMode::isEnabled())
+				{
+					if (isSelected)
+					{
+						lplvcd->clrText = NppDarkMode::getTextColor();
+						lplvcd->clrTextBk = NppDarkMode::getSofterBackgroundColor();
+
+						::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getSofterBackgroundBrush());
+					}
+					else if ((lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+					{
+						lplvcd->clrText = NppDarkMode::getTextColor();
+						lplvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
+
+						::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
+					}
+				}
+
+				if (isSelected)
+				{
 					::DrawFocusRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc);
-				}
-				else if ((lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
-				{
-					lplvcd->clrText = NppDarkMode::getTextColor();
-					lplvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
-
-					::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
-				}
-				else
-				{
-					lplvcd->clrText = NppParameters::getInstance().getCurrentDefaultFgColor();
-					lplvcd->clrTextBk = CLR_NONE;
 				}
 
 				return CDRF_NEWFONT;
@@ -1849,7 +1836,7 @@ namespace NppDarkMode
 			{
 				if (NppDarkMode::isEnabled())
 				{
-					return CDRF_NOTIFYITEMDRAW | CDRF_NOTIFYPOSTPAINT;
+					return CDRF_NOTIFYITEMDRAW;
 				}
 				return CDRF_DODEFAULT;
 			}
@@ -1909,7 +1896,6 @@ namespace NppDarkMode
 	)
 	{
 		UNREFERENCED_PARAMETER(dwRefData);
-		UNREFERENCED_PARAMETER(uIdSubclass);
 
 		switch (uMsg)
 		{
@@ -1922,6 +1908,12 @@ namespace NppDarkMode
 					::FillRect(reinterpret_cast<HDC>(wParam), &rect, NppDarkMode::getDarkerBackgroundBrush());
 					return TRUE;
 				}
+				break;
+			}
+
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, PluginDockWindowSubclass, uIdSubclass);
 				break;
 			}
 
@@ -1970,35 +1962,30 @@ namespace NppDarkMode
 
 			case WM_NOTIFY:
 			{
-				if (NppDarkMode::isEnabled())
+				auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
+
+				constexpr size_t classNameLen = 16;
+				TCHAR className[classNameLen]{};
+				GetClassName(nmhdr->hwndFrom, className, classNameLen);
+
+				switch (nmhdr->code)
 				{
-					auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
-
-					constexpr size_t classNameLen = 16;
-					TCHAR className[classNameLen]{};
-					GetClassName(nmhdr->hwndFrom, className, classNameLen);
-
-					switch (nmhdr->code)
+					case NM_CUSTOMDRAW:
 					{
-						case NM_CUSTOMDRAW:
+						if (wcscmp(className, TOOLBARCLASSNAME) == 0)
 						{
-							if (wcscmp(className, TOOLBARCLASSNAME) == 0)
-							{
-								return NppDarkMode::darkToolBarNotifyCustomDraw(lParam);;
-							}
-								
-							if (wcscmp(className, WC_LISTVIEW) == 0)
-							{
-								return NppDarkMode::darkListViewNotifyCustomDraw(lParam);;
-							}
-								
-							if (wcscmp(className, WC_TREEVIEW) == 0)
-							{
-								return NppDarkMode::darkTreeViewNotifyCustomDraw(lParam);;
-							}
-								
+							return NppDarkMode::darkToolBarNotifyCustomDraw(lParam);
 						}
-						break;
+								
+						if (wcscmp(className, WC_LISTVIEW) == 0)
+						{
+							return NppDarkMode::darkListViewNotifyCustomDraw(lParam);
+						}
+								
+						if (wcscmp(className, WC_TREEVIEW) == 0)
+						{
+							return NppDarkMode::darkTreeViewNotifyCustomDraw(lParam);
+						}
 					}
 					break;
 				}
@@ -2012,6 +1999,67 @@ namespace NppDarkMode
 	{
 		SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0);
 		NppDarkMode::autoSubclassAndThemeChildControls(hwnd);
+	}
+
+	constexpr UINT_PTR g_windowNotifySubclassID = 42;
+
+	LRESULT CALLBACK WindowNotifySubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		UNREFERENCED_PARAMETER(dwRefData);
+
+		switch (uMsg)
+		{
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, PluginDockWindowSubclass, uIdSubclass);
+				break;
+			}
+
+			case WM_NOTIFY:
+			{
+				auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
+
+				constexpr size_t classNameLen = 16;
+				TCHAR className[classNameLen]{};
+				GetClassName(nmhdr->hwndFrom, className, classNameLen);
+
+				switch (nmhdr->code)
+				{
+					case NM_CUSTOMDRAW:
+					{
+						if (wcscmp(className, TOOLBARCLASSNAME) == 0)
+						{
+							return NppDarkMode::darkToolBarNotifyCustomDraw(lParam);
+						}
+								
+						if (wcscmp(className, WC_LISTVIEW) == 0)
+						{
+							return NppDarkMode::darkListViewNotifyCustomDraw(lParam);
+						}
+								
+						if (wcscmp(className, WC_TREEVIEW) == 0)
+						{
+							return NppDarkMode::darkTreeViewNotifyCustomDraw(lParam);
+						}
+					}
+					break;
+				}
+				break;
+			}
+		}
+		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void autoSubclassAndThemeWindowNotify(HWND hwnd)
+	{
+		SetWindowSubclass(hwnd, WindowNotifySubclass, g_windowNotifySubclassID, 0);
 	}
 
 	constexpr UINT_PTR g_tabUpDownSubclassID = 42;
@@ -2247,7 +2295,7 @@ namespace NppDarkMode
 			NppDarkMode::allowDarkModeForWindow(hHeader, useDark);
 			SetWindowTheme(hHeader, useDark ? L"ItemsView" : nullptr, nullptr);
 
-			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
+			NppDarkMode::allowDarkModeForWindow(hwnd, useDark);
 			SetWindowTheme(hwnd, L"Explorer", nullptr);
 		}
 	}

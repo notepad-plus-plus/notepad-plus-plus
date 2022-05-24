@@ -267,9 +267,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	switchDialog(0);
 
 	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-	NppDarkMode::setDarkListView(_availableList.getViewHwnd());
-	NppDarkMode::setDarkListView(_updateList.getViewHwnd());
-	NppDarkMode::setDarkListView(_installedList.getViewHwnd());
+	NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 	goToCenter();
 }
@@ -1144,9 +1142,6 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
-			NppDarkMode::setDarkListView(_availableList.getViewHwnd());
-			NppDarkMode::setDarkListView(_updateList.getViewHwnd());
-			NppDarkMode::setDarkListView(_installedList.getViewHwnd());
 			return TRUE;
 		}
 

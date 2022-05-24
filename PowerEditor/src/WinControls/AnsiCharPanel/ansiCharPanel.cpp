@@ -51,7 +51,7 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_listView.display();
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-			NppDarkMode::setDarkListView(_listView.getHSelf());
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 			return TRUE;
 		}
@@ -59,7 +59,6 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
-			NppDarkMode::setDarkListView(_listView.getHSelf());
 			return TRUE;
 		}
 

@@ -171,6 +171,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			_treeView.display();
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 			return TRUE;
 		}
@@ -669,19 +670,6 @@ void FileBrowser::notified(LPNMHDR notification)
 				
 			}
 			break;
-		}
-	}
-	else if (NppDarkMode::isEnabled() && notification->code == NM_CUSTOMDRAW && (notification->hwndFrom == _hToolbarMenu))
-	{
-		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(notification);
-		switch (nmtbcd->nmcd.dwDrawStage)
-		{
-			case CDDS_PREPAINT:
-			{
-				::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
-				SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, CDRF_NOTIFYITEMDRAW);
-				break;
-			}
 		}
 	}
 }

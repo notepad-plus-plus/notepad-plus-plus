@@ -63,7 +63,7 @@ bool IconList::changeIcon(size_t index, const TCHAR *iconLocation) const
 	HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, iconLocation, IMAGE_ICON, _iconSize, _iconSize, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 	if (!hBmp)
 		return false;
-	int i = ImageList_ReplaceIcon(_hImglst, int(index), (HICON)hBmp);
+	size_t i = ImageList_ReplaceIcon(_hImglst, int(index), (HICON)hBmp);
 	ImageList_AddMasked(_hImglst, (HBITMAP)hBmp, RGB(255,0,255));
 	::DeleteObject(hBmp);
 	return (i == index);

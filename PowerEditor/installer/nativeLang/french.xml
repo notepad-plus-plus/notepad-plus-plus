@@ -874,6 +874,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Clignotement :"/>
                     <Item id="6221" name="Vif"/><!-- Rapide -->
                     <Item id="6222" name="Zen"/><!-- Lent -->
+                    <Item id="6246" name="Rendre les commandes de pliage/dépliage du niveau actuel commutables"/>
                     <Item id="6225" name="Activer Multi-édition (Ctrl+Clic/sélection)"/>
                     <Item id="6227" name="Ligne pliée"/>
                     <Item id="6228" name="Défaut"/>
@@ -893,13 +894,13 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <DarkMode title="Mode Sombre">
                     <Item id="7101" name="Activer mode sombre"/>
-                    <Item id="7102" name="Ton noir"/>
-                    <Item id="7103" name="Ton rouge"/>
-                    <Item id="7104" name="Ton vert"/>
-                    <Item id="7105" name="Ton bleu"/>
-                    <Item id="7107" name="Ton violet"/>
-                    <Item id="7108" name="Ton cyan"/>
-                    <Item id="7109" name="Ton olive"/>
+                    <Item id="7102" name="noir"/>
+                    <Item id="7103" name="rouge"/>
+                    <Item id="7104" name="vert"/>
+                    <Item id="7105" name="bleu"/>
+                    <Item id="7107" name="violet"/>
+                    <Item id="7108" name="cyan"/>
+                    <Item id="7109" name="olive"/>
                     <Item id="7115" name="Personnaliser"/>
                     <Item id="7116" name="Haut"/>
                     <Item id="7117" name="Surbrillance (menu)"/>
@@ -911,7 +912,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7123" name="Texte désactivé"/>
                     <Item id="7124" name="Bord"/>
                     <Item id="7125" name="Lien"/>
-                    <Item id="7126" name="Coloration du bord"/>
+                    <Item id="7126" name="Bord focalisé"/>
                     <Item id="7130" name="Réinitialiser"/>
                     <Item id="7135" name="Tons"/>
                 </DarkMode>

@@ -874,6 +874,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Blink rate :"/>
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
+                    <Item id="6246" name="Make current level folding/unfolding commands toggleable"/>
                     <Item id="6225" name="Enable Multi-Editing (Ctrl+Mouse click/selection)"/>
                     <Item id="6227" name="Line Wrap"/>
                     <Item id="6228" name="Default"/>

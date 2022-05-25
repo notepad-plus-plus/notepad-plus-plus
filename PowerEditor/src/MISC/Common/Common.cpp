@@ -1525,7 +1525,13 @@ Version::Version(const generic_string& versionStr)
 		auto ss = tokenizeString(versionStr, '.');
 
 		if (ss.size() > 4)
-			throw std::wstring(TEXT("Version parts are more than 4. The string to parse is not a valid version format. Let's make it default value in catch block."));
+		{
+			std::wstring msg(L"\"");
+			msg += versionStr;
+			msg += L"\"";
+			msg += TEXT(": Version parts are more than 4. The string to parse is not a valid version format. Let's make it default value in catch block.");
+			throw msg;
+		}
 
 		int i = 0;
 		std::vector<unsigned long*> v = { &_major, &_minor, &_patch, &_build };
@@ -1533,7 +1539,11 @@ Version::Version(const generic_string& versionStr)
 		{
 			if (!isNumber(s))
 			{
-				throw std::wstring(TEXT("One of version character is not number. The string to parse is not a valid version format. Let's make it default value in catch block."));
+				std::wstring msg(L"\"");
+				msg += versionStr;
+				msg += L"\"";
+				msg += TEXT(": One of version character is not number. The string to parse is not a valid version format. Let's make it default value in catch block.");
+				throw msg;
 			}
 			*(v[i]) = std::stoi(s);
 

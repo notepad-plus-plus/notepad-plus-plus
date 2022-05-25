@@ -610,28 +610,35 @@ bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, const json& j)
 			valStr = i.at("id").get<std::string>();
 			pi->_id = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
-			valStr = i.at("version").get<std::string>();
-			generic_string newValStr(valStr.begin(), valStr.end());
-			pi->_version = Version(newValStr);
+			try {
+				valStr = i.at("version").get<std::string>();
+				generic_string newValStr(valStr.begin(), valStr.end());
+				pi->_version = Version(newValStr);
 
-			if (i.contains("npp-compatible-versions"))
-			{
-				json jNppCompatibleVer = i["npp-compatible-versions"];
+				if (i.contains("npp-compatible-versions"))
+				{
+					json jNppCompatibleVer = i["npp-compatible-versions"];
 
-				string versionsStr = jNppCompatibleVer.get<std::string>();
-				generic_string nppCompatibleVersionStr(versionsStr.begin(), versionsStr.end());
-				pi->_nppCompatibleVersions = getIntervalVersions(nppCompatibleVersionStr);
+					string versionsStr = jNppCompatibleVer.get<std::string>();
+					generic_string nppCompatibleVersionStr(versionsStr.begin(), versionsStr.end());
+					pi->_nppCompatibleVersions = getIntervalVersions(nppCompatibleVersionStr);
+				}
+
+				if (i.contains("old-versions-compatibility"))
+				{
+					json jOldVerCompatibility = i["old-versions-compatibility"];
+
+					string versionsStr = jOldVerCompatibility.get<std::string>();
+					generic_string oldVerCompatibilityStr(versionsStr.begin(), versionsStr.end());
+					pi->_oldVersionCompatibility = getTwoIntervalVersions(oldVerCompatibilityStr);
+				}
 			}
-
-			if (i.contains("old-versions-compatibility"))
+			catch (const wstring& s)
 			{
-				json jOldVerCompatibility = i["old-versions-compatibility"];
-
-				string versionsStr = jOldVerCompatibility.get<std::string>();
-				generic_string oldVerCompatibilityStr(versionsStr.begin(), versionsStr.end());
-				pi->_oldVersionCompatibility = getTwoIntervalVersions(oldVerCompatibilityStr);
+				wstring msg = pi->_displayName;
+				msg += L": ";
+				throw msg + s;
 			}
-
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc.char2wchar(valStr.c_str(), CP_ACP);
 

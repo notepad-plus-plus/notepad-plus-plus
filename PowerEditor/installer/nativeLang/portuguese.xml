@@ -874,6 +874,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Cintilação:"/>
                     <Item id="6221" name="R"/> <!-- Rápida -->
                     <Item id="6222" name="L"/> <!-- Lenta -->
+                    <Item id="6246" name="Tornar os comandos de dobrar/desdobrar do nível atual comutáveis"/>
                     <Item id="6225" name="Ativar (Ctrl+Clique do rato/seleção)"/>
                     <Item id="6227" name="Continuar linha"/>
                     <Item id="6228" name="Predefinição"/>
@@ -1574,7 +1575,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-19/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+25/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

@@ -1716,12 +1716,6 @@ namespace NppDarkMode
 
 				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::treeview);
 
-				if (p.subclass)
-				{
-					auto exStyle = TreeView_GetExtendedStyle(hwnd);
-					TreeView_SetExtendedStyle(hwnd, exStyle | TVS_EX_DOUBLEBUFFER, exStyle | TVS_EX_DOUBLEBUFFER);
-				}
-
 				return TRUE;
 			}
 
@@ -1748,7 +1742,6 @@ namespace NppDarkMode
 	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam)
 	{
 		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
-		auto dpiManager = NppParameters::getInstance()._dpiManager;
 		static int roundCornerValue = 0;
 
 		switch (nmtbcd->nmcd.dwDrawStage)
@@ -1757,6 +1750,7 @@ namespace NppDarkMode
 			{
 				if (NppDarkMode::isEnabled())
 				{
+					auto dpiManager = NppParameters::getInstance()._dpiManager;
 					roundCornerValue = NppDarkMode::isWindows11() ? dpiManager.scaleX(5) : 0;
 
 					::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
@@ -1904,13 +1898,17 @@ namespace NppDarkMode
 
 			case CDDS_ITEMPOSTPAINT:
 			{
+				RECT rcFrame = lptvcd->nmcd.rc;
+				rcFrame.left -= 1;
+				rcFrame.right += 1;
+
 				if ((lptvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
 				{
-					NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, lptvcd->nmcd.rc, NppDarkMode::getHotEdgePen(), 0, 0);
+					NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, rcFrame, NppDarkMode::getHotEdgePen(), 0, 0);
 				}
 				else if ((lptvcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
 				{
-					NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, lptvcd->nmcd.rc, NppDarkMode::getEdgePen(), 0, 0);
+					NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, rcFrame, NppDarkMode::getEdgePen(), 0, 0);
 				}
 
 				return CDRF_DODEFAULT;

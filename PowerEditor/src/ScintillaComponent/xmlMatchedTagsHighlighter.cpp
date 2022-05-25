@@ -564,11 +564,11 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findText(const 
 {
 	FindResult returnValue;
 	
-	Sci_TextToFind search;
+	Sci_TextToFindFull search{};
 	search.lpstrText = const_cast<char *>(text); // Grrrrrr
-	search.chrg.cpMin = static_cast<Sci_PositionCR>(start);
-	search.chrg.cpMax = static_cast<Sci_PositionCR>(end);
-	intptr_t result = _pEditView->execute(SCI_FINDTEXT, flags, reinterpret_cast<LPARAM>(&search));
+	search.chrg.cpMin = static_cast<Sci_Position>(start);
+	search.chrg.cpMax = static_cast<Sci_Position>(end);
+	intptr_t result = _pEditView->execute(SCI_FINDTEXTFULL, flags, reinterpret_cast<LPARAM>(&search));
 	if (-1 == result)
 	{
 		returnValue.success = false;

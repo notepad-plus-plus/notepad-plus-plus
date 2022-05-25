@@ -214,10 +214,7 @@ const Supports SupportsGTK[] = {
 	Supports::FractionalStrokeWidth,
 	Supports::TranslucentStroke,
 	Supports::PixelModification,
-#if defined(G_OS_UNIX) && !defined(__APPLE__)
-	// Pango is not thread-safe on Win32 or macOS
 	Supports::ThreadSafeMeasureWidths,
-#endif
 };
 
 }

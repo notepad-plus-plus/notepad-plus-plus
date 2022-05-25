@@ -165,6 +165,17 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.Length, 4)
 		self.assertEquals(b"xxyy", self.ed.ByteRange(0,4))
 
+	def testTextRangeFull(self):
+		data = b"xy"
+		self.ed.InsertText(0, data)
+		self.assertEquals(self.ed.Length, 2)
+		self.assertEquals(data, self.ed.ByteRangeFull(0,2))
+
+		self.ed.InsertText(1, data)
+		# Should now be "xxyy"
+		self.assertEquals(self.ed.Length, 4)
+		self.assertEquals(b"xxyy", self.ed.ByteRangeFull(0,4))
+
 	def testInsertNul(self):
 		data = b"\0"
 		self.ed.AddText(1, data)
@@ -1185,6 +1196,12 @@ class TestSearch(unittest.TestCase):
 		pos = self.ed.FindBytes(0, self.ed.Length, b"zzz", 0)
 		self.assertEquals(pos, -1)
 		pos = self.ed.FindBytes(0, self.ed.Length, b"big", 0)
+		self.assertEquals(pos, 2)
+
+	def testFindFull(self):
+		pos = self.ed.FindBytesFull(0, self.ed.Length, b"zzz", 0)
+		self.assertEquals(pos, -1)
+		pos = self.ed.FindBytesFull(0, self.ed.Length, b"big", 0)
 		self.assertEquals(pos, 2)
 
 	def testFindEmpty(self):

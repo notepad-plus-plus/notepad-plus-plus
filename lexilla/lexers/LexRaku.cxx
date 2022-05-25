@@ -521,6 +521,7 @@ Sci_Position LengthToDelimiter(StyleContext &sc, const DelimPair &dp,
 		Sci_Position length, bool noTrailing = false) {
 	short cnt_open = 0;			// count open bracket
 	short cnt_close = 0;		// count close bracket
+	bool is_escape = false;		// has been escaped using '\'?
 	Sci_Position len = 0;		// count characters
 	int chOpener = dp.opener;	// look for nested opener / closer
 	if (dp.opener == dp.closer[0])
@@ -533,10 +534,14 @@ Sci_Position LengthToDelimiter(StyleContext &sc, const DelimPair &dp,
 
 		if (cnt_open == 0 && cnt_close == dp.count) {
 			return len;				// end condition has been met
+		} else if (is_escape) {
+			is_escape = false;
+		} else if (ch == '\\') {
+			is_escape = true;
 		} else {
-			if (chPrev != '\\' && ch == chOpener) {			// ignore escape sequence
+			if (ch == chOpener) {
 				cnt_open++;			// open nested bracket
-			} else if (chPrev != '\\' && dp.isCloser(ch)) {	// ignore escape sequence
+			} else if (dp.isCloser(ch)) {
 				if ( cnt_open > 0 ) {
 					cnt_open--;		// close nested bracket
 				} else if (dp.count > 1 && cnt_close < (dp.count - 1)) {

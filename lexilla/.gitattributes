@@ -26,11 +26,13 @@
 **.asp text
 **.php text
 **.vb text
+**.cmake text
 **.d text
 **.erl text
 **.gd text
 **.iss text
 **.jl text
+**.json text
 **.lua text
 **.matlab text
 **.ml text
@@ -45,6 +47,7 @@
 **.mms text
 **.tex text
 **.fs text
+**.vhd text
 **.x12 text
 **.yaml text
 **.md text

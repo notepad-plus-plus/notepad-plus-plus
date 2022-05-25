@@ -578,9 +578,65 @@
       </tr><tr>
 	<td>Red_M</td>
 	<td>cdbdev</td>
+	<td>Andrey Smolyakov</td>
+	<td>Knut Leimbert</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/lexilla517.zip">Release 5.1.7</a>
+    </h3>
+    <ul>
+	<li>
+	Released 22 May 2022.
+	</li>
+	<li>
+	Add LexAccessor::StyleIndexAt to retrieve style values as unsigned to handle styles > 127 better.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/61">Issue #61</a>.
+	</li>
+	<li>
+	Associate more than one file extension with a setting for testing.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/81">Issue #81</a>.
+	</li>
+	<li>
+	CMake: Fix folding of "ElseIf".
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/77">Issue #77</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/78">Pull request #78</a>,
+	<a href="https://sourceforge.net/p/scintilla/bugs/2213/">Bug #2213</a>.
+	</li>
+	<li>
+	HTML: Fix folding of JavaScript doc comments.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2219/">Bug #2219</a>.
+	</li>
+	<li>
+	Matlab: add "classdef" and "spmd" to folding keywords.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/70">Pull request #70</a>.
+	</li>
+	<li>
+	Matlab: handle "arguments" contextual keyword.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/70">Pull request #70</a>.
+	</li>
+	<li>
+	Matlab: improve support of class definition syntax.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/75">Pull request #75</a>.
+	</li>
+	<li>
+	Raku: fix escape detection.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/76">Pull request #76</a>.
+	</li>
+	<li>
+	Ruby: fix character sequence "?\\#" to not include '#' in SCE_RB_NUMBER as only second '\' is quoted.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/69">Issue #69</a>.
+	</li>
+	<li>
+	Ruby: improve styling of ternary expressions as commonly used.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/69">Issue #69</a>.
+	</li>
+	<li>
+	VHDL: support folding for VHDL 08 else-generate and case-generate.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/80">Pull request #80</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/lexilla516.zip">Release 5.1.6</a>
     </h3>

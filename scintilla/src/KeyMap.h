@@ -25,6 +25,8 @@ class KeyModifiers {
 public:
 	Scintilla::Keys key;
 	Scintilla::KeyMod modifiers;
+	KeyModifiers() noexcept : key{}, modifiers(KeyMod::Norm) {
+	};
 	KeyModifiers(Scintilla::Keys key_, Scintilla::KeyMod modifiers_) noexcept : key(key_), modifiers(modifiers_) {
 	}
 	bool operator<(const KeyModifiers &other) const noexcept {

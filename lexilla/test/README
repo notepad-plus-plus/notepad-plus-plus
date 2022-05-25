@@ -87,11 +87,11 @@ backtrack to a previous safe line - often something like a line that starts with
 in the default style.
 
 The SciTE.properties file is similar to properties files used for SciTE but are simpler.
-The lexer to be run is defined with a lexer.{filepattern} statement like:
+The lexer to be run is defined with a lexer.{filepatterns} statement like:
 	lexer.*.d=d
 
 Keywords may be defined with keywords settings like:
-	keywords.*.cxx=int char
+	keywords.*.cxx;*.c=int char
 	keywords2.*.cxx=open
 
 Other settings are treated as lexer or folder properties and forwarded to the lexer/folder:

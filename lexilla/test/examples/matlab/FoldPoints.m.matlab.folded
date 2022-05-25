@@ -1,0 +1,49 @@
+ 0 400 400   % All the exaples here should yeild folding
+ 1 400 400   
+ 2 400 401 + classdef
+ 0 401 401 |     % Some code
+ 0 401 400 | end
+ 1 400 400   
+ 2 400 401 + for
+ 0 401 401 |     % Some code
+ 0 401 400 | end
+ 1 400 400   
+ 2 400 401 + function
+ 0 401 401 |     % Some code
+ 0 401 400 | end
+ 1 400 400   
+ 2 400 401 + if
+ 0 401 401 |     % Some code
+ 0 401 401 | elseif
+ 0 401 401 |     % Some code
+ 0 401 401 | else
+ 0 401 401 |     % Some code
+ 0 401 400 | end
+ 1 400 400   
+ 2 400 401 + parfor
+ 0 401 401 |     % Some code
+ 0 401 400 | end
+ 1 400 400   
+ 2 400 401 + spmd
+ 0 401 401 |     % Some code
+ 0 401 400 | end
+ 1 400 400   
+ 2 400 401 + switch
+ 0 401 401 |     case
+ 0 401 401 |         % Some code
+ 0 401 401 |     case
+ 0 401 401 |         % Some code
+ 0 401 401 |     otherwise
+ 0 401 401 |         % Some code
+ 0 401 400 | end
+ 1 400 400   
+ 2 400 401 + try
+ 0 401 401 |     % Some code
+ 0 401 401 | catch
+ 0 401 401 |     % Some code
+ 0 401 400 | end
+ 1 400 400   
+ 2 400 401 + while
+ 0 401 401 |     % Some code
+ 0 401 400 | end
+ 1 400 400   

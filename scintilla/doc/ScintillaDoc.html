@@ -129,7 +129,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 9 March 2022 NH</p>
+    <p>Last edited 15 May 2022 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -531,6 +531,7 @@
      <a class="message" href="#SCI_SETREADONLY">SCI_SETREADONLY(bool readOnly)</a><br />
      <a class="message" href="#SCI_GETREADONLY">SCI_GETREADONLY &rarr; bool</a><br />
      <a class="message" href="#SCI_GETTEXTRANGE">SCI_GETTEXTRANGE(&lt;unused&gt;, Sci_TextRange *tr) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETTEXTRANGEFULL">SCI_GETTEXTRANGEFULL(&lt;unused&gt;, Sci_TextRangeFull *tr) &rarr; position</a><br />
      <a class="message" href="#SCI_ALLOCATE">SCI_ALLOCATE(position bytes)</a><br />
      <a class="message" href="#SCI_ALLOCATELINES">SCI_ALLOCATELINES(line lines)</a><br />
      <a class="message" href="#SCI_ADDTEXT">SCI_ADDTEXT(position length, const char *text)</a><br />
@@ -614,13 +615,17 @@
     only, attempts to modify the text cause the <a class="message"
     href="#SCN_MODIFYATTEMPTRO"><code>SCN_MODIFYATTEMPTRO</code></a> notification.</p>
 
-    <p><b id="SCI_GETTEXTRANGE">SCI_GETTEXTRANGE(&lt;unused&gt;, <a class="jump" href="#Sci_TextRange">Sci_TextRange</a> *tr) &rarr; position</b><br />
+    <p>
+    <b id="SCI_GETTEXTRANGE">SCI_GETTEXTRANGE(&lt;unused&gt;, <a class="jump" href="#Sci_TextRange">Sci_TextRange</a> *tr) &rarr; position</b><br />
+    <b id="SCI_GETTEXTRANGEFULL">SCI_GETTEXTRANGEFULL(&lt;unused&gt;, <a class="jump" href="#Sci_TextRangeFull">Sci_TextRangeFull</a> *tr) &rarr; position</b><br />
      This collects the text between the positions <code>cpMin</code> and <code>cpMax</code> and
     copies it to <code>lpstrText</code> (see <code>struct Sci_TextRange</code> in
     <code>Scintilla.h</code>). If <code>cpMax</code> is -1, text is returned to the end of the
     document. The text is 0 terminated, so you must supply a buffer that is at least 1 character
     longer than the number of characters you wish to read. The return value is the length of the
     returned text not including the terminating 0.</p>
+    <p><code>SCI_GETTEXTRANGEFULL</code> uses 64-bit positions on all platforms so is safe for documents larger than 2GB.
+    It should always be used in preference to <code>SCI_GETTEXTRANGE</code> which will be deprecated in a future release.</p>
 
     <p>See also: <code><a class="seealso" href="#SCI_GETSELTEXT">SCI_GETSELTEXT</a>,
     <a class="seealso" href="#SCI_GETLINE">SCI_GETLINE</a>,
@@ -721,8 +726,9 @@
      These structures are defined to be exactly the same shape as the Win32 <code>TEXTRANGE</code>
     and <code>CHARRANGE</code>, so that older code that treats Scintilla as a RichEdit will
     work.</p>
-    <p>In a future release the type <code>Sci_PositionCR</code> will be redefined to be 64-bits when Scintilla is
-    built for 64-bits on all platforms.</p>
+    <p>In a future release, these types will be deprecated.
+    <a class="seealso" href="#SCI_MARGINSETSTYLEOFFSET">SCI_GETTEXTRANGEFULL</a>, <code>Sci_TextRangeFull</code>
+    and <code>Sci_CharacterRangeFull</code> should be used instead.</p>
 <pre>
 typedef long Sci_PositionCR;
 
@@ -734,6 +740,23 @@ struct Sci_CharacterRange {
 struct Sci_TextRange {
     struct Sci_CharacterRange chrg;
     char *lpstrText;
+};
+</pre>
+
+    <p><b id="Sci_TextRangeFull">Sci_TextRangeFull</b> and <b id="Sci_CharacterRangeFull">Sci_CharacterRangeFull</b><br />
+     These structures are the same as <code>Sci_TextRange</code> and <code>Sci_CharacterRange</code> except that positions are
+     always 64-bit in 64-bit builds so will work on documents larger than 2GB.</p>
+<pre>
+typedef ptrdiff_t Sci_Position;
+
+struct Sci_CharacterRangeFull {
+	Sci_Position cpMin;
+	Sci_Position cpMax;
+};
+
+struct Sci_TextRangeFull {
+	struct Sci_CharacterRangeFull chrg;
+	char *lpstrText;
 };
 </pre>
 
@@ -1033,13 +1056,15 @@ struct Sci_TextRange {
     See the documentation of your C++ runtime for details on what is supported.</p>
 
     <code><a class="message" href="#SCI_FINDTEXT">SCI_FINDTEXT(int searchFlags, Sci_TextToFind *ft) &rarr; position</a><br />
+     <a class="message" href="#SCI_FINDTEXTFULL">SCI_FINDTEXTFULL(int searchFlags, Sci_TextToFindFull *ft) &rarr; position</a><br />
      <a class="message" href="#SCI_SEARCHANCHOR">SCI_SEARCHANCHOR</a><br />
      <a class="message" href="#SCI_SEARCHNEXT">SCI_SEARCHNEXT(int searchFlags, const char *text) &rarr; position</a><br />
      <a class="message" href="#SCI_SEARCHPREV">SCI_SEARCHPREV(int searchFlags, const char *text) &rarr; position</a><br />
     </code>
 
     <p><b id="SCI_FINDTEXT">SCI_FINDTEXT(int searchFlags, <a class="jump" href="#Sci_TextToFind">Sci_TextToFind</a> *ft) &rarr; position</b><br />
-     This message searches for text in the document. It does not use or move the current selection.
+     <b id="SCI_FINDTEXT">SCI_FINDTEXTFULL(int searchFlags, <a class="jump" href="#Sci_TextToFindFull">Sci_TextToFindFull</a> *ft) &rarr; position</b><br />
+     These messages search for text in the document. They do not use or move the current selection.
     The <a class="jump" href="#searchFlags"><code class="parameter">searchFlags</code></a> argument controls the
     search type, which includes regular expression searches.</p>
 
@@ -1047,13 +1072,14 @@ struct Sci_TextRange {
     search backwards to find the previous occurrence of a search string by setting the end of the
     search range before the start.</p>
 
-    <p>The <code>Sci_TextToFind</code> structure is defined in <code>Scintilla.h</code>; set
+    <p>The <code>Sci_TextToFind</code> and <code>Sci_TextToFindFull</code> structures are defined in <code>Scintilla.h</code>; set
     <code>chrg.cpMin</code> and <code>chrg.cpMax</code> with the range of positions in the document
     to search. You can search backwards by
     setting <code>chrg.cpMax</code> less than <code>chrg.cpMin</code>.
     Set the <code>lpstrText</code> member of <code>Sci_TextToFind</code> to point at a zero terminated
     text string holding the search pattern. If your language makes the use of <code>Sci_TextToFind</code>
-    difficult, you should consider using <code>SCI_SEARCHINTARGET</code> instead.</p>
+    difficult, you should consider using <code>SCI_SEARCHINTARGET</code> instead.
+    On 64-bit Win32, <code>SCI_FINDTEXT</code> is limited to the first 2G of text and <code>SCI_FINDTEXTFULL</code> removes this limitation.</p>
 
     <p>The return value is -1 if the search fails or the position of the start of the found text if
     it succeeds. The <code>chrgText.cpMin</code> and <code>chrgText.cpMax</code> members of
@@ -1070,6 +1096,16 @@ struct Sci_TextToFind {
     struct <a class="jump" href="#Sci_CharacterRange">Sci_CharacterRange</a> chrg;     // range to search
     const char *lpstrText;                // the search pattern (zero terminated)
     struct Sci_CharacterRange chrgText; // returned as position of matching text
+};
+</pre>
+
+    <p><b id="Sci_TextToFindFull">Sci_TextToFindFull</b><br />
+     This structure extends <code>Sci_TextToFind</code> to support huge documents on Win32.</p>
+<pre>
+struct Sci_TextToFindFull {
+    struct <a class="jump" href="#Sci_CharacterRangeFull">Sci_CharacterRangeFull</a> chrg;     // range to search
+    const char *lpstrText;                // the search pattern (zero terminated)
+    struct Sci_CharacterRangeFull chrgText; // returned as position of matching text
 };
 </pre>
 
@@ -6633,6 +6669,7 @@ struct Sci_TextToFind {
     and on Cocoa <code>CGContextRef</code> is used.</p>
 
     <code><a class="message" href="#SCI_FORMATRANGE">SCI_FORMATRANGE(bool draw, Sci_RangeToFormat *fr) &rarr; position</a><br />
+     <a class="message" href="#SCI_FORMATRANGEFULL">SCI_FORMATRANGEFULL(bool draw, Sci_RangeToFormatFull *fr) &rarr; position</a><br />
      <a class="message" href="#SCI_SETPRINTMAGNIFICATION">SCI_SETPRINTMAGNIFICATION(int
     magnification)</a><br />
      <a class="message" href="#SCI_GETPRINTMAGNIFICATION">SCI_GETPRINTMAGNIFICATION &rarr; int</a><br />
@@ -6643,6 +6680,7 @@ struct Sci_TextToFind {
     </code>
 
     <p><b id="SCI_FORMATRANGE">SCI_FORMATRANGE(bool draw, Sci_RangeToFormat *fr) &rarr; position</b><br />
+     <b id="SCI_FORMATRANGEFULL">SCI_FORMATRANGEFULL(bool draw, Sci_RangeToFormatFull *fr) &rarr; position</b><br />
      This call renders a range of text into a device context. If you use
     this for printing, you will probably want to arrange a page header and footer; Scintilla does
     not do this for you. See <code>SciTEWin::Print()</code> in <code>SciTEWinDlg.cxx</code> for an
@@ -6651,7 +6689,8 @@ struct Sci_TextToFind {
 
     <p><code class="parameter">draw</code> controls if any output is done. Set this to false if you are paginating
     (for example, if you use this with MFC you will need to paginate in
-    <code>OnBeginPrinting()</code> before you output each page.</p>
+    <code>OnBeginPrinting()</code> before you output each page.
+    On 64-bit Win32, <code>SCI_FORMATRANGE</code> is limited to the first 2G of text and <code>SCI_FORMATRANGEFULL</code> removes this limitation.</p>
 <pre>
 struct Sci_Rectangle { int left; int top; int right; int bottom; };
 
@@ -6661,6 +6700,14 @@ struct Sci_RangeToFormat {
     Sci_Rectangle rc;         // Rectangle in which to print
     Sci_Rectangle rcPage;     // Physically printable page size
     Sci_CharacterRange chrg;  // Range of characters to print
+};
+
+struct Sci_RangeToFormatFull {
+    Sci_SurfaceID hdc;        // The Surface ID we print to
+    Sci_SurfaceID hdcTarget;  // The Surface ID we use for measuring (may be same as hdc)
+    Sci_Rectangle rc;         // Rectangle in which to print
+    Sci_Rectangle rcPage;     // Physically printable page size
+    Sci_CharacterRangeFull chrg;  // Range of characters to print
 };
 </pre>
 

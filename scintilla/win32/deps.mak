@@ -87,6 +87,7 @@ $(DIR_O)/CaseConvert.o: \
 	../src/UniConversion.h
 $(DIR_O)/CaseFolder.o: \
 	../src/CaseFolder.cxx \
+	../src/CharacterType.h \
 	../src/CaseFolder.h \
 	../src/CaseConvert.h
 $(DIR_O)/CellBuffer.o: \

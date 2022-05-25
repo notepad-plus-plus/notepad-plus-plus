@@ -739,7 +739,7 @@ void ScintillaEditBase::notifyParent(NotificationData scn)
 				emit linesAdded(added ? 1 : -1);
 			}
 
-			const QByteArray bytes = QByteArray::fromRawData(scn.text, scn.length);
+			const QByteArray bytes = QByteArray::fromRawData(scn.text, scn.text ? scn.length : 0);
 			emit modified(scn.modificationType, scn.position, scn.length,
 			              scn.linesAdded, bytes, scn.line,
 			              scn.foldLevelNow, scn.foldLevelPrev);

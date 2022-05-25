@@ -64,6 +64,15 @@ static bool inline iswhitespace(char ch) {
     return ch == ' ' || ch == '\t';
 }
 
+static inline bool isQestionMarkChar(char chNext, char chNext2) {
+    // followed by a single character or escape sequence that corresponds to a single codepoint
+    if (isSafeAlnum(chNext)) {
+        return !isSafeWordcharOrHigh(chNext2);
+    }
+    // multibyte character, escape sequence, punctuation
+    return !IsASpace(chNext);
+}
+
 #define MAX_KEYWORD_LENGTH 200
 
 #define STYLE_MASK 63
@@ -1018,7 +1027,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                         styler.ColourTo(i, SCE_RB_SYMBOL);
                         state = SCE_RB_DEFAULT;
                     }
-                } else if (!preferRE) {
+                } else if (!preferRE && !IsASpace(chNext)) {
                     // Don't color symbol strings (yet)
                     // Just color the ":" and color rest as string
                     styler.ColourTo(i, SCE_RB_SYMBOL);
@@ -1067,8 +1076,22 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
             } else if (ch == '?') {
                 afterDef = false;
                 styler.ColourTo(i - 1, state);
-                if (iswhitespace(chNext) || chNext == '\n' || chNext == '\r') {
+                if (isHighBitChar(chNext)) {
+                    preferRE = false;
+                    Sci_Position width = 1;
+                    styler.MultiByteAccess()->GetCharacterAndWidth(i + 1, &width);
+                    chNext = styler.SafeGetCharAt(i + 1 + width);
+                    if (isSafeWordcharOrHigh(chNext)) {
+                        styler.ColourTo(i, SCE_RB_OPERATOR);
+                        i += width;
+                        state = SCE_RB_WORD;
+                    } else {
+                        i += width;
+                        styler.ColourTo(i, SCE_RB_NUMBER);
+                    }
+                } else if (!isQestionMarkChar(chNext, chNext2)) {
                     styler.ColourTo(i, SCE_RB_OPERATOR);
+                    preferRE = chNext <= ' ';
                 } else {
                     // It's the start of a character code escape sequence
                     // Color it as a number.
@@ -1195,7 +1218,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
             }
         } else if (state == SCE_RB_NUMBER) {
             if (!is_real_number) {
-                if (ch != '\\') {
+                if (ch != '\\' || chPrev == '\\') {
                     styler.ColourTo(i, state);
                     state = SCE_RB_DEFAULT;
                     preferRE = false;

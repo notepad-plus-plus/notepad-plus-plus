@@ -574,6 +574,52 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla523.zip">Release 5.2.3</a>
+    </h3>
+    <ul>
+	<li>
+	Released 22 May 2022.
+	</li>
+	<li>
+	Duplicate APIs to support 64-bit document positions on Win32:
+	SCI_GETTEXTRANGEFULL, SCI_FINDTEXTFULL, and SCI_FORMATRANGEFULL.
+	This adds new types to Scintilla.iface which may impact downstream projects.
+	Applications should move to these APIs from their predecessors as they will be deprecated.
+	</li>
+	<li>
+	Improve performance of SCI_FOLDALL(SC_FOLDACTION_EXPAND) by not lexing whole document
+	as it does not depend on folding structure.
+	</li>
+	<li>
+	Fix partial updates and non-responsive scroll bars on Xorg.
+	This defers scroll bar changes to an idle task so could affect applications that depend on
+	the scroll position being updated.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2322/">Bug #2322</a>,
+	<a href="https://sourceforge.net/p/scintilla/bugs/2196/">Bug #2196</a>,
+	<a href="https://sourceforge.net/p/scintilla/bugs/2312/">Bug #2312</a>.
+	</li>
+	<li>
+	Fix problem with horizontally inverted glyphs with buffered drawing and WS_EX_LAYOUTRTL set on Win32 GDI.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1435/">Feature #1435</a>.
+	</li>
+	<li>
+	Fix ARM64 builds with Visual C++ due to unsupported CETCOMPAT flag.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2324/">Bug #2324</a>.
+	</li>
+	<li>
+	On Cocoa, place autocompletion lists and calltips on a higher window level so they can be seen
+	when invoked from a modal dialog.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2329/">Bug #2329</a>.
+	</li>
+	<li>
+	For Qt 6, fix "modified" signal when text is null but length non-0.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2328/">Bug #2328</a>.
+	</li>
+	<li>
+	Fix pink selection background when printing by making it completely transparent.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla522.zip">Release 5.2.2</a>
     </h3>
     <ul>

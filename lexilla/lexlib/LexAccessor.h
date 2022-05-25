@@ -120,6 +120,9 @@ public:
 	char StyleAt(Sci_Position position) const {
 		return pAccess->StyleAt(position);
 	}
+	int StyleIndexAt(Sci_Position position) const {
+		return static_cast<unsigned char>(pAccess->StyleAt(position));
+	}
 	// Return style value from buffer when in buffer, else retrieve from document.
 	// This is faster and can avoid calls to Flush() as that may be expensive.
 	int BufferStyleAt(Sci_Position position) const {

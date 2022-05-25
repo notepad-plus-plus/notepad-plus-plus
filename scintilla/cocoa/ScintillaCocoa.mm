@@ -567,7 +567,6 @@ class CaseFolderDBCS : public CaseFolderTable {
 	CFStringEncoding encoding;
 public:
 	explicit CaseFolderDBCS(CFStringEncoding encoding_) : encoding(encoding_) {
-		StandardASCII();
 	}
 	size_t Fold(char *folded, size_t sizeFolded, const char *mixed, size_t lenMixed) override {
 		if ((lenMixed == 1) && (sizeFolded > 0)) {
@@ -606,7 +605,6 @@ std::unique_ptr<CaseFolder> ScintillaCocoa::CaseFolderForEncoding() {
 					    vs.styles[StyleDefault].characterSet);
 		if (pdoc->dbcsCodePage == 0) {
 			std::unique_ptr<CaseFolderTable> pcf = std::make_unique<CaseFolderTable>();
-			pcf->StandardASCII();
 			// Only for single byte encodings
 			for (int i=0x80; i<0x100; i++) {
 				char sCharacter[2] = "A";
@@ -1178,7 +1176,7 @@ void ScintillaCocoa::CreateCallTipWindow(PRectangle rc) {
 								styleMask: NSWindowStyleMaskBorderless
 								  backing: NSBackingStoreBuffered
 								    defer: NO];
-		[callTip setLevel: NSFloatingWindowLevel];
+		[callTip setLevel: NSModalPanelWindowLevel+1];
 		[callTip setHasShadow: YES];
 		NSRect ctContent = NSMakeRect(0, 0, rc.Width(), rc.Height());
 		CallTipView *caption = [[CallTipView alloc] initWithFrame: ctContent];

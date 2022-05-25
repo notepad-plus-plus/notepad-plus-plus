@@ -1,0 +1,89 @@
+{1}%% Correctly defined arguments block{0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+{1}% Some comment here{0}
+{1}% And, maybe, here{0}
+
+{4}arguments{0}
+    {7}x{0} {6}({3}1{6},{3}2{6}){0} {6}{{7}mustBeReal{6}({7}x{6})}{0}
+{4}end{0}
+
+{7}y{0} {6}={0} {7}x{6}*{3}2{6};{0}
+{7}arguments{0} {6}={0} {3}1{6};{0}
+{7}y{0} {6}={0} {7}y{0} {6}+{0} {7}arguments{6};{0}
+{4}end{0}
+
+{1}%% No arguments block, "arguments" is used {0}
+{1}%  as a variable name (identifier){0}
+{1}% Prevent arguments from folding with an identifier{0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+{1}% Some comment here{0}
+{7}x{0} {6}={0} {7}x{0} {6}+{0} {3}1{6};{0}
+{7}arguments{0} {6}={0} {3}10{6};{0}
+{7}y{0} {6}={0} {7}x{0} {6}+{0} {7}arguments{6};{0}
+{4}end{0}
+
+{1}% Prevent arguments from folding with a number{0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+{3}4{0}
+{7}arguments{0} {6}={0} {3}10{6};{0}
+{7}y{0} {6}={0} {7}x{0} {6}+{0} {7}arguments{6};{0}
+{4}end{0}
+
+{1}% With a double quote string{0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+{8}"test"{0}
+{7}arguments{0} {6}={0} {3}10{6};{0}
+{7}y{0} {6}={0} {7}x{0} {6}+{0} {7}arguments{6};{0}
+{4}end{0}
+
+{1}% With a string{0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+{5}'test'{0}
+{7}arguments{0} {6}={0} {3}10{6};{0}
+{7}y{0} {6}={0} {7}x{0} {6}+{0} {7}arguments{6};{0}
+{4}end{0}
+
+{1}% With a keyword{0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+{4}if{0} {7}x{0} {6}=={0} {3}0{6};{0}
+    {4}return{0} {3}0{6};{0}
+{4}end{0}
+{7}arguments{0} {6}={0} {3}10{6};{0}
+{7}y{0} {6}={0} {7}x{0} {6}+{0} {7}arguments{6};{0}
+{4}end{0}
+
+{1}% With an operator (illegal syntax){0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+{6}*{0}
+{7}arguments{0} {6}={0} {3}10{6};{0}
+{7}y{0} {6}={0} {7}x{0} {6}+{0} {7}arguments{6};{0}
+{4}end{0}
+
+{1}% Arguments block is illegal in nested functions,{0}
+{1}% but lexer should process it anyway{0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+{4}arguments{0}
+    {7}x{0} {6}({3}1{6},{3}2{6}){0} {6}{{7}mustBeReal{6}({7}x{6})}{0}
+{4}end{0}
+
+    {4}function{0} {7}y{0} {6}={0} {7}foo{0} {6}({7}x{6}){0}
+    {4}arguments{0}
+        {7}x{0} {6}({3}1{6},{3}2{6}){0} {6}{{7}mustBeReal{6}({7}x{6})}{0}
+    {4}end{0}
+    {7}arguments{0} {6}={0} {3}5{6};{0}
+    {7}y{0} {6}={0} {7}arguments{0} {6}+{0} {7}x{6};{0}
+    {4}end{0}
+
+{1}% Use as a variable, just in case{0}
+{7}arguments{0} {6}={0} {3}10{6};{0}
+{4}end{0}
+
+{1}% Erroneous use of arguments block{0}
+{4}function{0} {7}y{0} {6}={0} {7}foo{6}({7}x{6}){0}
+{1}% Some comment{0}
+{7}x{0} {6}={0} {7}x{0} {6}+{0} {3}1{6};{0}
+{7}arguments{0}
+    {7}x{0}
+{4}end{0}
+{7}y{0} {6}={0} {7}x{6};{0}
+{4}end

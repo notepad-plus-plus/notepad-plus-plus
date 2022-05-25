@@ -292,7 +292,7 @@ void SCI_METHOD LexerJSON::Lex(Sci_PositionU startPos,
 				}
 				break;
 			case SCE_JSON_LINECOMMENT:
-				if (context.atLineEnd) {
+				if (context.MatchLineEnd()) {
 					context.SetState(SCE_JSON_DEFAULT);
 				}
 				break;
@@ -311,7 +311,7 @@ void SCI_METHOD LexerJSON::Lex(Sci_PositionU startPos,
 				}
 				if (context.ch == '"') {
 					context.SetState(stringStyleBefore);
-					context.ForwardSetState(SCE_C_DEFAULT);
+					context.ForwardSetState(SCE_JSON_DEFAULT);
 				} else if (context.ch == '\\') {
 					if (!escapeSeq.newSequence(context.chNext)) {
 						context.SetState(SCE_JSON_ERROR);
@@ -383,7 +383,7 @@ void SCI_METHOD LexerJSON::Lex(Sci_PositionU startPos,
 				context.SetState(SCE_JSON_DEFAULT);
 				break;
 			case SCE_JSON_ERROR:
-				if (context.atLineEnd) {
+				if (context.MatchLineEnd()) {
 					context.SetState(SCE_JSON_DEFAULT);
 				}
 				break;

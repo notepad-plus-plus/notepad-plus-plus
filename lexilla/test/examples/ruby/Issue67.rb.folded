@@ -1,0 +1,14 @@
+ 0 400   0   # heredoc method call, other argument
+ 2 400   0 + puts <<~EOT.chomp
+ 0 401   0 | 	squiggly heredoc
+ 0 401   0 | EOT
+ 1 400   0   
+ 2 400   0 + puts <<ONE, __FILE__, __LINE__
+ 0 401   0 | content for heredoc one
+ 0 401   0 | ONE
+ 1 400   0   
+ 0 400   0   # heredoc prevStyle == SCE_RB_GLOBAL
+ 2 400   0 + $stdout.puts <<~EOT.chomp
+ 0 401   0 | 	squiggly heredoc
+ 0 401   0 | EOT
+ 0 400   0   

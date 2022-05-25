@@ -1,0 +1,89 @@
+ 0 400 400   %% Correctly defined arguments block
+ 2 400 401 + function y = foo (x)
+ 0 401 401 | % Some comment here
+ 0 401 401 | % And, maybe, here
+ 1 401 401 | 
+ 2 401 402 + arguments
+ 0 402 402 |     x (1,2) {mustBeReal(x)}
+ 0 402 401 | end
+ 1 401 401 | 
+ 0 401 401 | y = x*2;
+ 0 401 401 | arguments = 1;
+ 0 401 401 | y = y + arguments;
+ 0 401 400 | end
+ 1 400 400   
+ 0 400 400   %% No arguments block, "arguments" is used 
+ 0 400 400   %  as a variable name (identifier)
+ 0 400 400   % Prevent arguments from folding with an identifier
+ 2 400 401 + function y = foo (x)
+ 0 401 401 | % Some comment here
+ 0 401 401 | x = x + 1;
+ 0 401 401 | arguments = 10;
+ 0 401 401 | y = x + arguments;
+ 0 401 400 | end
+ 1 400 400   
+ 0 400 400   % Prevent arguments from folding with a number
+ 2 400 401 + function y = foo (x)
+ 0 401 401 | 4
+ 0 401 401 | arguments = 10;
+ 0 401 401 | y = x + arguments;
+ 0 401 400 | end
+ 1 400 400   
+ 0 400 400   % With a double quote string
+ 2 400 401 + function y = foo (x)
+ 0 401 401 | "test"
+ 0 401 401 | arguments = 10;
+ 0 401 401 | y = x + arguments;
+ 0 401 400 | end
+ 1 400 400   
+ 0 400 400   % With a string
+ 2 400 401 + function y = foo (x)
+ 0 401 401 | 'test'
+ 0 401 401 | arguments = 10;
+ 0 401 401 | y = x + arguments;
+ 0 401 400 | end
+ 1 400 400   
+ 0 400 400   % With a keyword
+ 2 400 401 + function y = foo (x)
+ 2 401 402 + if x == 0;
+ 0 402 402 |     return 0;
+ 0 402 401 | end
+ 0 401 401 | arguments = 10;
+ 0 401 401 | y = x + arguments;
+ 0 401 400 | end
+ 1 400 400   
+ 0 400 400   % With an operator (illegal syntax)
+ 2 400 401 + function y = foo (x)
+ 0 401 401 | *
+ 0 401 401 | arguments = 10;
+ 0 401 401 | y = x + arguments;
+ 0 401 400 | end
+ 1 400 400   
+ 0 400 400   % Arguments block is illegal in nested functions,
+ 0 400 400   % but lexer should process it anyway
+ 2 400 401 + function y = foo (x)
+ 2 401 402 + arguments
+ 0 402 402 |     x (1,2) {mustBeReal(x)}
+ 0 402 401 | end
+ 1 401 401 | 
+ 2 401 402 +     function y = foo (x)
+ 2 402 403 +     arguments
+ 0 403 403 |         x (1,2) {mustBeReal(x)}
+ 0 403 402 |     end
+ 0 402 402 |     arguments = 5;
+ 0 402 402 |     y = arguments + x;
+ 0 402 401 |     end
+ 1 401 401 | 
+ 0 401 401 | % Use as a variable, just in case
+ 0 401 401 | arguments = 10;
+ 0 401 400 | end
+ 1 400 400   
+ 0 400 400   % Erroneous use of arguments block
+ 2 400 401 + function y = foo(x)
+ 0 401 401 | % Some comment
+ 0 401 401 | x = x + 1;
+ 0 401 401 | arguments
+ 0 401 401 |     x
+ 0 401 400 | end
+ 0 400 400   y = x;
+ 0 400 3ff   end

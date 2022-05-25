@@ -88,7 +88,7 @@ static int calculateFoldCmake(Sci_PositionU start, Sci_PositionU end, int foldle
 
     if ( CompareCaseInsensitive(s, "IF") == 0 || CompareCaseInsensitive(s, "WHILE") == 0
          || CompareCaseInsensitive(s, "MACRO") == 0 || CompareCaseInsensitive(s, "FOREACH") == 0
-         || CompareCaseInsensitive(s, "FUNCTION") == 0 || CompareCaseInsensitive(s, "ELSEIF") == 0)
+         || CompareCaseInsensitive(s, "FUNCTION") == 0)
         newFoldlevel++;
     else if ( CompareCaseInsensitive(s, "ENDIF") == 0 || CompareCaseInsensitive(s, "ENDWHILE") == 0
               || CompareCaseInsensitive(s, "ENDMACRO") == 0 || CompareCaseInsensitive(s, "ENDFOREACH") == 0

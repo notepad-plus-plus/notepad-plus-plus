@@ -250,7 +250,7 @@ bool PathMatch(std::string pattern, std::string relPath) {
 
 constexpr std::string_view suffixStyled = ".styled";
 constexpr std::string_view suffixFolded = ".folded";
-
+constexpr std::string_view lexerPrefix = "lexer.*";
 constexpr std::string_view prefixIf = "if ";
 constexpr std::string_view prefixMatch = "match ";
 constexpr std::string_view prefixEqual = "= ";
@@ -383,6 +383,27 @@ class PropertyMap {
 		return withVars;
 	}
 
+	std::vector<std::string> GetFilePatterns(const std::string &key) const {
+		std::vector<std::string> exts;
+		// Malformed patterns are skipped if we require the whole prefix here;
+		// a fuzzy search lets us collect and report them
+		const size_t patternStart = key.find('*');
+		if (patternStart == std::string::npos)
+			return exts;
+
+		const std::string patterns = key.substr(patternStart);
+		for (const std::string &pat : StringSplit(patterns, ';')) {
+			// Only accept patterns in the form *.xyz
+			if (pat.starts_with("*.") && pat.length() > 2) {
+				exts.push_back(pat.substr(1));
+			} else {
+				std::cout << "\n"
+					  << "Ignoring bad file pattern '" << pat << "' in list " << patterns << "\n";
+			}
+		}
+		return exts;
+	}
+
 	bool ProcessLine(std::string_view text, bool ifIsTrue) {
 		// If clause ends with first non-indented line
 		if (!ifIsTrue && (text.empty() || IsSpaceOrTab(text.at(0)))) {
@@ -461,6 +482,15 @@ public:
 				const std::string keySuffix = key.substr(keyPrefix.length());
 				if (fileName.ends_with(keySuffix)) {
 					return val;
+				} else if (key.find(';') != std::string::npos) {
+					// It may be the case that a suite of test files with various extensions are
+					// meant to share a common configuration, so try to find a matching
+					// extension in a delimited list, e.g., lexer.*.html;*.php;*.asp=hypertext
+					for (const std::string &ext : GetFilePatterns(key)) {
+						if (fileName.ends_with(ext)) {
+							return val;
+						}
+					}
 				}
 			}
 		}
@@ -702,7 +732,7 @@ void SetProperties(Scintilla::ILexer5 *plex, const PropertyMap &propertyMap, std
 	for (int kw = 0; kw < 10; kw++) {
 		std::string kwChoice("keywords");
 		if (kw > 0) {
-			kwChoice.push_back('1' + kw);
+			kwChoice.push_back(static_cast<char>('1' + kw));
 		}
 		kwChoice.append(".*");
 		std::optional<std::string> keywordN = propertyMap.GetPropertyForFile(kwChoice, fileName);
@@ -723,7 +753,6 @@ void SetProperties(Scintilla::ILexer5 *plex, const PropertyMap &propertyMap, std
 	}
 }
 
-const char *lexerPrefix = "lexer.*";
 
 bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap) {
 	// Find and create correct lexer

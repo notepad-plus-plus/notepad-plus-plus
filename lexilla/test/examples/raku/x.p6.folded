@@ -3,6 +3,7 @@
  0 400 400   # Normal single line comment
  0 400 400   my Int $i = 0;
  0 400 400   my Rat $r = 3.142;
+ 0 400 400   my Str $backslash = "\\";
  0 400 400   my Str $s = "Hello, world! \$i == $i and \$r == $r";
  0 400 400   say $s;
  1 400 400   

@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on May 25th, 2022 for version 8.4.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on April 27th, 2022 for version 8.4.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on April 7nd, 2022 for version 8.3.4 by Patriccollu di Santa Maria è Sichè
 		- Updated on February 21st, 2022 for version 8.3.2 by Patriccollu di Santa Maria è Sichè
@@ -34,7 +35,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.1">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -900,8 +901,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6216" name="Preferenze di cursore"/>
                     <Item id="6217" name="Larghezza :"/>
                     <Item id="6219" name="Cinnulamentu :"/>
-                    <Item id="6221" name="9"/>
-                    <Item id="6222" name="1"/>
+                    <Item id="6221" name="10"/> <!-- Prestu (3 caratteri à u più) -->
+                    <Item id="6222" name="0"/> <!-- Lentu (3 caratteri à u più) -->
+                    <Item id="6246" name="Rende cummutevule e cumande di piegatura è spiegatura di u livellu attuale"/>
                     <Item id="6225" name="Attivà a multi-mudificazione (Ctrl+cliccu/selez. cù topu)"/>
                     <Item id="6227" name="Ritornu à a linea"/>
                     <Item id="6228" name="Predefinitu"/>
@@ -921,14 +923,14 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <DarkMode title="Modu scuru">
                     <Item id="7101" name="Attivà u modu scuru"/>
-                    <Item id="7102" name="Tonu neru"/>
-                    <Item id="7103" name="Tonu rossu"/>
-                    <Item id="7104" name="Tonu verde"/>
-                    <Item id="7105" name="Tonu turchinu"/>
-                    <Item id="7107" name="Tonu purpura"/>
-                    <Item id="7108" name="Tonu cianu"/>
-                    <Item id="7109" name="Tonu aliva"/>
-                    <Item id="7115" name="Tonu persunalizatu"/>
+                    <Item id="7102" name="Neru"/>
+                    <Item id="7103" name="Rossu"/>
+                    <Item id="7104" name="Verde"/>
+                    <Item id="7105" name="Turchinu"/>
+                    <Item id="7107" name="Purpura"/>
+                    <Item id="7108" name="Cianu"/>
+                    <Item id="7109" name="Aliva"/>
+                    <Item id="7115" name="Persunalizatu"/>
                     <Item id="7116" name="Altu"/>
                     <Item id="7117" name="Listinu di messa in evidenza"/>
                     <Item id="7118" name="Attivu"/>
@@ -939,7 +941,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7123" name="Testu disattivatu"/>
                     <Item id="7124" name="Bordu"/>
                     <Item id="7125" name="Liame"/>
+                    <Item id="7126" name="Bordu zeppu"/>
                     <Item id="7130" name="Reinizià"/>
+                    <Item id="7135" name="Toni"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margine è bordu">
@@ -1244,7 +1248,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <Item id="5" name="Nò &amp;per tutti"/>
             </DoSaveOrNot>
             <DoSaveAll title="Cunfirmazione di l’arregistramentu di tutti i schedarii">
-                <Item id="1766" name="Site sicuri di vulè arregistrà tutti i ducumenti mudificati ?
+                <Item id="1766" name="Da veru, vulete arregistrà tutti i ducumenti mudificati ?
 
 Sciglite « Sempre sì » s’è ùn vulete più risponde à sta dumanda.
 Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
@@ -1265,14 +1269,14 @@ Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
 
 Cuntinuà ?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Dispiazzà in una nova finestra Notepad++" message="U ducumentu hè mudificatu, arregistratelu è pruvate torna."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
-            <DocReloadWarning title="Ricaricà" message="Site sicuri di vulè ricaricà u schedariu currente è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
+            <DocReloadWarning title="Ricaricà" message="Da veru, vulete ricaricà u schedariu currente è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
             <FileLockedWarning title="Arregistramentu fiascatu" message="Ci vole à verificà s’è stu schedariu hè dighjà apertu in un altru prugramma"/>
             <FileAlreadyOpenedInNpp title="" message="U schedariu hè dighjà apertu in Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
             <RenameTabTemporaryNameAlreadyInUse title="Rinuminazione fiascata" message="U nome specificatu hè dighjà impiegatu in un’altra unghjetta."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Squassatura di schedariu" message="Fiascu di a squassatura di u schedariu"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
-            <NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii devenu esse aperti.
-Site sicuri di vulè apreli ?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+            <NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii stanu per esse aperti.
+Da veru, vulete apreli ?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="Preferenze di nivulu" message="Pare chì u chjassu di e preferenze di nivulu hè definitu nant’à un lettore in
 lettura sola, o in un cartulare chì richiede diritti d’accessu di scrittura.
 E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>
@@ -1330,15 +1334,15 @@ U vostru spaziu di travagliu ùn hè micca statu arregistratu."/> <!-- HowToRepr
             <ProjectPanelOpenFailed title="Apre u spaziu di travagliu" message="U spaziu di travagliu ùn pò micca esse apertu.
 Pare chì u schedariu à apre ùn hè micca un schedariu di prughjettu accettevule."/>
             <ProjectPanelRemoveFolderFromProject title="Caccià u cartulare da u prughjettu" message="Tutti i sottu-elementi seranu cacciati.
-Site sicuri di vulè caccià stu cartulare da u prughjettu ?"/>
-            <ProjectPanelRemoveFileFromProject title="Caccià u schedariu da u prughjettu" message="Site sicuri di vulè caccià stu schedariu da u prughjettu ?"/>
+Da veru, vulete caccià stu cartulare da u prughjettu ?"/>
+            <ProjectPanelRemoveFileFromProject title="Caccià u schedariu da u prughjettu" message="Da veru, vulete caccià stu schedariu da u prughjettu ?"/>
             <ProjectPanelReloadError title="Ricaricà u spaziu di travagliu" message="Ùn pò micca truvà u schedariu à ricaricà."/>
             <ProjectPanelReloadDirty title="Ricaricà u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Un ricaricamentu scarterà tutte e mudificazioni.
 Vulete cuntinuà ?"/>
             <UDLNewNameError title="Sbagliu UDL" message="Stu nome hè impiegatu da un altru linguaghju,
 ci vole à dà un altru."/>
             <UDLRemoveCurrentLang title="Caccià u linguaghju attuale" message="Site sicuri ?"/>
-            <SCMapperDoDeleteOrNot title="Cunfirmazione" message="Site sicuri di vulè squassà st’accurtatoghju ?"/>
+            <SCMapperDoDeleteOrNot title="Cunfirmazione" message="Da veru, vulete squassà st’accurtatoghju ?"/>
             <FindCharRangeValueError title="Penseru di valore di stesa" message="Ci vole à stampittà trà 0 è 255."/>
             <OpenInAdminMode title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
 Vulete dimarrà Notepad++ in modu Amministratore ?"/>
@@ -1346,7 +1350,7 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
 Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <OpenInAdminModeFailed title="Apertura fiascata in modu Amministratore" message="Notepad++ ùn pò micca esse apertu in modu Amministratore."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
             <ViewInBrowser title="Fighjà u schedariu attuale in u navigatore" message="L’appiecazione ùn si trova micca in u sistema."/>
-            <ExitToUpdatePlugins title="Notepad++ hè prontu à esce" message="S’è vo fate un cliccu nant’à « Sì », Notepad++ hà da piantà per cuntinuà l’operazioni.
+            <ExitToUpdatePlugins title="Notepad++ stà per esce" message="S’è vo fate un cliccu nant’à « Sì », Notepad++ hà da piantassi per cuntinuà l’operazioni.
 Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
 Cuntinuà ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->

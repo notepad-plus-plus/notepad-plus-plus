@@ -874,6 +874,7 @@
                     <Item id="6219" name="Rýchlosť blikania:"/>
                     <Item id="6221" name="R"/>
                     <Item id="6222" name="P"/>
+                    <Item id="6246" name="Umožniť prepínanie príkazov pre zbalenie/rozbalenie aktuálnej úrovne"/>
                     <Item id="6225" name="Povoliť viacnásobnú editáciu (Ctrl+myš kliknutie/výber)"/>
                     <Item id="6227" name="Zalomenie riadku"/>
                     <Item id="6228" name="Predvolené"/>

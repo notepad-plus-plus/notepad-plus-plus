@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4 (19.04.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.2 (26.05.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.4">
+    <Native-Langue name="polski" filename="polish.xml" version="8.4.2">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -884,29 +884,34 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Miganie:"/>
                     <Item id="6221" name="S"/>
                     <Item id="6222" name="W"/>
+                    <Item id="6246" name="Zezwól na przełączanie poleceń zwijania/rozwijania bieżącego poziomu"/>
                     <Item id="6225" name="Włącz edycję wieloliniową (Ctrl + klik LPM/zaznaczanie)"/>
                     <Item id="6227" name="Zawijanie tekstu"/>
                     <Item id="6228" name="Domyślne"/>
                     <Item id="6229" name="Wyrównane"/>
                     <Item id="6230" name="Wcięte"/>
                     <Item id="6234" name="Wyłącz zaawansowane przewijanie (w razie problemów z touchpadem)"/>
-                    <Item id="6214" name="Podświetlaj bieżącą linię"/>
                     <Item id="6215" name="Ujednolicaj czcionki"/>
                     <Item id="6236" name="Umożliwiaj przewijanie poza ostatnią linię"/>
                     <Item id="6239" name="Zachowaj zaznaczenie po kliku prawym przyciskiem myszy poza zaznaczeniem"/>
                     <Item id="6245" name="Włącz wirtualny odstęp"/>
+                    <Item id="6651" name="Wskaźnik bieżącej linii"/>
+                    <Item id="6652" name="Brak"/>
+                    <Item id="6653" name="Podświetlane tło"/>
+                    <Item id="6654" name="Ramka"/>
+                    <Item id="6655" name="Szerokość:"/>
                 </Scintillas>
 
                 <DarkMode title="Tryb ciemny">
                     <Item id="7101" name="Włącz tryb ciemny"/>
-                    <Item id="7102" name="Czarny odcień"/>
-                    <Item id="7103" name="Czerwony odcień"/>
-                    <Item id="7104" name="Zielony odcień"/>
-                    <Item id="7105" name="Niebieski odcień"/>
-                    <Item id="7107" name="Purpurowy odcień"/>
-                    <Item id="7108" name="Cyjanowy odcień"/>
-                    <Item id="7109" name="Oliwkowy odcień"/>
-                    <Item id="7115" name="Własny odcień"/>
+                    <Item id="7102" name="Czarny"/>
+                    <Item id="7103" name="Czerwony"/>
+                    <Item id="7104" name="Zielony"/>
+                    <Item id="7105" name="Niebieski"/>
+                    <Item id="7107" name="Purpurowy"/>
+                    <Item id="7108" name="Cyjanowy"/>
+                    <Item id="7109" name="Oliwkowy"/>
+                    <Item id="7115" name="Własny"/>
                     <Item id="7116" name="Top"/>
                     <Item id="7117" name="Menu hot track"/>
                     <Item id="7118" name="Active"/>
@@ -917,7 +922,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7123" name="Disabled text"/>
                     <Item id="7124" name="Edge"/>
                     <Item id="7125" name="Link"/>
+                    <Item id="7126" name="Edge highlight"/>
                     <Item id="7130" name="Resetuj"/>
+                    <Item id="7135" name="Odcienie"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Marginesy i Krawędzie"> <!-- Marginesy/Ramka/Krawędź -->

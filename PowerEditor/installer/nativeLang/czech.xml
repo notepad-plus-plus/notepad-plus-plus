@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.4.1  28/Apr/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.4.2  26/May/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.1">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -929,6 +929,7 @@
 					<Item id = "6236" name = "Povolit rolování za poslední řádku"/>
 					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 					<Item id = "6245" name = "Povolit virtuální prostor"/>
+					<Item id = "6246" name = "Přepínací režim pro příkaz sbalování/rozbalování aktuální úrovně (Ctrl+Alt+F)"/>
 					<Item id = "6651" name = "Indikátor aktuálního řádku"/>
 					<Item id = "6652" name = "Žádný"/>
 					<Item id = "6653" name = "Zvýrazněné pozadí"/>
@@ -937,14 +938,14 @@
 				</Scintillas>
 				<DarkMode title = "Tmavý režim">
 					<Item id = "7101" name = "Povolit tmavý režim"/>
-					<Item id = "7102" name = "Černý odstín"/>
-					<Item id = "7103" name = "Červený odstín"/>
-					<Item id = "7104" name = "Zelený odstín"/>
-					<Item id = "7105" name = "Modrý odstín"/>
-					<Item id = "7107" name = "Fialový odstín"/>
-					<Item id = "7108" name = "Modrozelený odstín"/>
-					<Item id = "7109" name = "Olivový odstín"/>
-					<Item id = "7115" name = "Vlastní odstín"/>
+					<Item id = "7102" name = "Černý"/>
+					<Item id = "7103" name = "Červený"/>
+					<Item id = "7104" name = "Zelený"/>
+					<Item id = "7105" name = "Modrý"/>
+					<Item id = "7107" name = "Fialový"/>
+					<Item id = "7108" name = "Modrozelený"/>
+					<Item id = "7109" name = "Olivový"/>
+					<Item id = "7115" name = "Vlastní"/>
 					<Item id = "7116" name = "Horní panel"/>
 					<Item id = "7117" name = "Aktuální (hot-track) pol."/>
 					<Item id = "7118" name = "Aktivní položky"/>
@@ -955,7 +956,9 @@
 					<Item id = "7123" name = "Dezaktivovaný text"/>
 					<Item id = "7124" name = "Okraje"/>
 					<Item id = "7125" name = "Odkazy"/>
+					<Item id = "7126" name = "Zvýraznění okrajů"/>
 					<Item id = "7130" name = "Obnovit"/>
+					<Item id = "7135" name = "Odstíny"/>
 				</DarkMode>
 				<MarginsBorderEdge title = "Okraje/Lem/Hrana">
 					<Item id = "6201" name = "Styl sbalovače na okraji"/>

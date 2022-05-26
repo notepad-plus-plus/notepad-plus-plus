@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-04-29 by schnurlos
+	last modified: 2022-05-26 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.1">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -883,6 +883,7 @@
 					<Item id="6219" name="Geschwindigkeit"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
+					<Item id="6246" name="Mache Befehle zum Falten/Entfalten der aktuellen Ebene umschaltbar"/>
 					<Item id="6225" name="Multi-Editing aktivieren (Strg+Mausklick/Auswahl)"/>
 					<Item id="6227" name="Zeilenumbruch"/>
 					<Item id="6228" name="Standard"/>
@@ -902,14 +903,14 @@
 
 				<DarkMode title="Dunkler Modus">
 					<Item id="7101" name="Dunklen Modus aktivieren"/>
-					<Item id="7102" name="Schwarzer Ton"/>
-					<Item id="7103" name="Roter Ton"/>
-					<Item id="7104" name="Grüner Ton"/>
-					<Item id="7105" name="Blauer Ton"/>
-					<Item id="7107" name="Violetter Ton"/>
-					<Item id="7108" name="Cyan-Ton"/>
-					<Item id="7109" name="Oliv-Ton"/>
-					<Item id="7115" name="Benutzerdefinierter Ton"/>
+					<Item id="7102" name="Schwarz"/>
+					<Item id="7103" name="Rot"/>
+					<Item id="7104" name="Grün"/>
+					<Item id="7105" name="Blau"/>
+					<Item id="7107" name="Violett"/>
+					<Item id="7108" name="Cyan"/>
+					<Item id="7109" name="Oliv"/>
+					<Item id="7115" name="Benutzerdefiniert"/>
 					<Item id="7116" name="Oben"/>
 					<Item id="7117" name="Menü Hot Track"/>
 					<Item id="7118" name="Aktiv"/>
@@ -920,7 +921,9 @@
 					<Item id="7123" name="Deaktivierter Text"/>
 					<Item id="7124" name="Rand"/>
 					<Item id="7125" name="Links"/>
+					<Item id="7126" name="Kante hervorheben"/>
 					<Item id="7130" name="Zurücksetzen"/>
+					<Item id="7135" name="Farbtöne"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Ränder/Kanten">

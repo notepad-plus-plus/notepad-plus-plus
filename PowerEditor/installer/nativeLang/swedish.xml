@@ -875,6 +875,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6219" name="Blinkhastighet:"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
+					<Item id="6246" name="Möjliggör att styra kommandon för att gruppera/avgruppera nuvarande nivå"/>
 					<Item id="6225" name="Aktivera multiredigering (Ctrl + musklick/markering)"/>
 					<Item id="6227" name="Radbyte"/>
 					<Item id="6228" name="Standard"/>

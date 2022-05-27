@@ -82,7 +82,7 @@ public :
 		return _state;
 	};
 
-    bool changeIcons() {    
+    bool change2CustomIconsIfAny() {    
 	    if (!_toolIcons) return false;
 
 	    for (size_t i = 0, len = _customIconVect.size(); i < len; ++i)
@@ -113,6 +113,7 @@ private :
 	ReBar * _pRebar = nullptr;
 	REBARBANDINFO _rbBand = {};
     std::vector<iconLocator> _customIconVect;
+
     TiXmlNode *_toolIcons = nullptr;
 
 	void setDefaultImageList() {

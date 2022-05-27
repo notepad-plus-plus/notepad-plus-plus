@@ -92,7 +92,12 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 				locator += icoUnit._id;
 				locator += ext;
 				if (::PathFileExists(locator.c_str()))
-					_customIconVect.push_back(iconLocator(0, i, locator));
+				{
+					_customIconVect.push_back(iconLocator(HLIST_DEFAULT, i, locator));
+					_customIconVect.push_back(iconLocator(HLIST_DEFAULT2, i, locator));
+					_customIconVect.push_back(iconLocator(HLIST_DEFAULT_DM, i, locator));
+					_customIconVect.push_back(iconLocator(HLIST_DEFAULT_DM2, i, locator));
+				}
 
 				if (icoUnit.hasDisabledIcon)
 				{
@@ -102,7 +107,12 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 					locator_dis += disabled_suffix;
 					locator_dis += ext;
 					if (::PathFileExists(locator_dis.c_str()))
-						_customIconVect.push_back(iconLocator(1, i, locator_dis));
+					{
+						_customIconVect.push_back(iconLocator(HLIST_DISABLE, i, locator_dis));
+						_customIconVect.push_back(iconLocator(HLIST_DISABLE2, i, locator_dis));
+						_customIconVect.push_back(iconLocator(HLIST_DISABLE_DM, i, locator_dis));
+						_customIconVect.push_back(iconLocator(HLIST_DISABLE_DM2, i, locator_dis));
+					}
 				}
 				i++;
 			}
@@ -264,10 +274,8 @@ void ToolBar::setToBmpIcons()
 	Window::redraw();
 }
 
-
 void ToolBar::reset(bool create)
 {
-
 	if (create && _hSelf)
 	{
 		//Store current button state information
@@ -307,6 +315,8 @@ void ToolBar::reset(bool create)
 		// backward compatibility.
 		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_HIDECLIPPEDBUTTONS);
+		
+		change2CustomIconsIfAny();
 	}
 
 	if (!_hSelf)
@@ -317,72 +327,70 @@ void ToolBar::reset(bool create)
 	bool doOverrideToolbarIcons = _customIconVect.size() > 0;
 	if (doOverrideToolbarIcons)
 	{
-		setDefaultImageList();
-		setDisableImageList();
+		if (_state == TB_STANDARD)
+			_state = TB_SMALL;
 	}
-	else // use internal icons according the settings
-	{
-		if (_state != TB_STANDARD) //If non standard icons, use custom imagelists
-		{
-			if (_state == TB_SMALL || _state == TB_LARGE)
-			{
-				if (NppDarkMode::isEnabled())
-				{
-					setDefaultImageListDM();
-					setDisableImageListDM();
 
-					if (NppDarkMode::isWindows11())
-					{
-						setHoveredImageListDM();
-					}
-				}
-				else
+	if (_state != TB_STANDARD) //If non standard icons, use custom imagelists
+	{
+		if (_state == TB_SMALL || _state == TB_LARGE)
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM();
+				setDisableImageListDM();
+
+				if (NppDarkMode::isWindows11())
 				{
-					setDefaultImageList();
-					setDisableImageList();
+					setHoveredImageListDM();
 				}
 			}
 			else
 			{
-				if (NppDarkMode::isEnabled())
-				{
-					setDefaultImageListDM2();
-					setDisableImageListDM2();
-
-					if (NppDarkMode::isWindows11())
-					{
-						setHoveredImageListDM2();
-					}
-				}
-				else
-				{
-					setDefaultImageList2();
-					setDisableImageList2();
-				}
+				setDefaultImageList();
+				setDisableImageList();
 			}
 		}
 		else
 		{
-			//Else set the internal imagelist with standard bitmaps
-			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
-			::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
+			if (NppDarkMode::isEnabled())
+			{
+				setDefaultImageListDM2();
+				setDisableImageListDM2();
 
-			TBADDBITMAP addbmp = { 0, 0 };
-			TBADDBITMAP addbmpdyn = { 0, 0 };
-			for (size_t i = 0; i < _nbButtons; ++i)
-			{
-				int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
-				HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
-				addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
-				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
-			}
-			if (_nbDynButtons > 0)
-			{
-				for (size_t j = 0; j < _nbDynButtons; ++j)
+				if (NppDarkMode::isWindows11())
 				{
-					addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
-					::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
+					setHoveredImageListDM2();
 				}
+			}
+			else
+			{
+				setDefaultImageList2();
+				setDisableImageList2();
+			}
+		}
+	}
+	else
+	{
+		//Else set the internal imagelist with standard bitmaps
+		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
+
+		TBADDBITMAP addbmp = { 0, 0 };
+		TBADDBITMAP addbmpdyn = { 0, 0 };
+		for (size_t i = 0; i < _nbButtons; ++i)
+		{
+			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
+			HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+			addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
+			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+		}
+		if (_nbDynButtons > 0)
+		{
+			for (size_t j = 0; j < _nbDynButtons; ++j)
+			{
+				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
+				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 			}
 		}
 	}

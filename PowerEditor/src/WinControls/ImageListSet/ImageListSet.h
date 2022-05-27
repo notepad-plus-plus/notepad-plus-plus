@@ -146,7 +146,9 @@ public :
 
 	bool replaceIcon(size_t witchList, size_t iconIndex, const TCHAR *iconLocation) const {
 		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_DISABLE) && 
-			(witchList != HLIST_DEFAULT2) && (witchList != HLIST_DISABLE2))
+			(witchList != HLIST_DEFAULT2) && (witchList != HLIST_DISABLE2) &&
+			(witchList != HLIST_DEFAULT_DM) && (witchList != HLIST_DISABLE_DM) && 
+			(witchList != HLIST_DEFAULT_DM2) && (witchList != HLIST_DISABLE_DM2))
 			return false;
 
 		return _iconListVector[witchList].changeIcon(iconIndex, iconLocation);

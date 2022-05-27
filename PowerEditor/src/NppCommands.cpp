@@ -1988,7 +1988,7 @@ void Notepad_plus::command(int id)
 				bool isFolded = _pEditView->isCurrentLineFolded();
 				mode = isFolded ? fold_uncollapse : fold_collapse;
 			}
-			
+
 			_pEditView->foldCurrentPos(mode);
 		}
 		break;
@@ -2041,7 +2041,6 @@ void Notepad_plus::command(int id)
             if (state != TB_SMALL)
             {
 			    _toolBar.reduce();
-			    changeToolBarIcons();
             }
 		}
 		break;
@@ -2053,7 +2052,6 @@ void Notepad_plus::command(int id)
             if (state != TB_LARGE)
             {
 			    _toolBar.enlarge();
-			    changeToolBarIcons();
             }
 		}
 		break;
@@ -2065,7 +2063,6 @@ void Notepad_plus::command(int id)
 			if (state != TB_SMALL2)
 			{
 				_toolBar.reduceToSet2();
-				changeToolBarIcons();
 			}
 		}
 		break;
@@ -2077,7 +2074,6 @@ void Notepad_plus::command(int id)
 			if (state != TB_LARGE2)
 			{
 				_toolBar.enlargeToSet2();
-				changeToolBarIcons();
 			}
 		}
 		break;

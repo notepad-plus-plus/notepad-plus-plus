@@ -613,8 +613,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_toolBar.init(_pPublicInterface->getHinst(), hwnd, tbStatus, toolBarIcons, sizeof(toolBarIcons) / sizeof(ToolBarButtonUnit));
 
-	changeToolBarIcons();
-
 	_rebarTop.init(_pPublicInterface->getHinst(), hwnd);
 	_rebarBottom.init(_pPublicInterface->getHinst(), hwnd);
 	_toolBar.addToRebar(&_rebarTop);
@@ -5111,11 +5109,6 @@ bool Notepad_plus::addCurrentMacro()
 		return true;
 	}
 	return false;
-}
-
-void Notepad_plus::changeToolBarIcons()
-{
-    _toolBar.changeIcons();
 }
 
 bool Notepad_plus::switchToFile(BufferID id)

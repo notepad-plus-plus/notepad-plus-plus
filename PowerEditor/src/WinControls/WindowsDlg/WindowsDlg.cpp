@@ -1152,47 +1152,81 @@ LRESULT CALLBACK WindowsDlg::listViewProc(HWND hwnd, UINT Message, WPARAM wParam
 void WindowsMenu::init(HMENU hMainMenu)
 {
 	_hMenu = ::GetSubMenu(hMainMenu, MENUINDEX_WINDOW);
+	_hMenuList = ::GetSubMenu(hMainMenu, MENUINDEX_LIST);
 }
 
 void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 {
+	bool isDropListMenu = false;
+
+	UINT firstId = 0;
+	UINT limitId = 0;
+	UINT menuPosId = 0;
+
 	if (hMenu == _hMenu)
 	{
+		firstId = IDM_WINDOW_MRU_FIRST;
+		limitId = IDM_WINDOW_MRU_LIMIT;
+		menuPosId = IDM_WINDOW_WINDOWS;
+	}
+	else if (hMenu == _hMenuList)
+	{
+		isDropListMenu = true;
+
+		firstId = IDM_DROPLIST_MRU_FIRST;
+		limitId = IDM_DROPLIST_MRU_LIMIT;
+		menuPosId = IDM_DROPLIST_LIST;
+	}
+
+	if (firstId > 0 && limitId > 0 && menuPosId > 0)
+	{
 		auto curDoc = pTab->getCurrentTabIndex();
-		size_t nMaxDoc = IDM_WINDOW_MRU_LIMIT - IDM_WINDOW_MRU_FIRST + 1;
+		size_t nMaxDoc = limitId - firstId + 1;
 		size_t nDoc = pTab->nbItem();
 		nDoc = min(nDoc, nMaxDoc);
-		int id;
-		size_t pos;
-		for (id = IDM_WINDOW_MRU_FIRST, pos = 0; id < IDM_WINDOW_MRU_FIRST + static_cast<int32_t>(nDoc); ++id, ++pos)
+		UINT id = firstId;
+		UINT guard = firstId + static_cast<int32_t>(nDoc);
+		size_t pos = 0;
+		for (id, pos; id < guard; ++id, ++pos)
 		{
 			BufferID bufID = pTab->getBufferByIndex(pos);
-			Buffer * buf = MainFileManager.getBufferByID(bufID);
+			Buffer* buf = MainFileManager.getBufferByID(bufID);
 
-			MENUITEMINFO mii;
-			memset(&mii, 0, sizeof(mii));
+			MENUITEMINFO mii{};
 			mii.cbSize = sizeof(mii);
-			mii.fMask = MIIM_STRING|MIIM_STATE|MIIM_ID;
-			generic_string strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName()));
-			// Can't make mii.dwTypeData = strBuffer.c_str() because of const cast.
-			// So, making temporary buffer for this.
+			mii.fMask = MIIM_STRING | MIIM_STATE | MIIM_ID;
+
+			generic_string strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName(), !isDropListMenu));
 			std::vector<TCHAR> vBuffer(strBuffer.begin(), strBuffer.end());
 			vBuffer.push_back('\0');
 			mii.dwTypeData = (&vBuffer[0]);
-			mii.fState &= ~(MF_GRAYED|MF_DISABLED|MF_CHECKED);
-			if (int(pos) == curDoc)
+
+			mii.fState &= ~(MF_GRAYED | MF_DISABLED | MF_CHECKED);
+			if (static_cast<int32_t>(pos) == curDoc)
+			{
 				mii.fState |= MF_CHECKED;
+			}
 			mii.wID = id;
 
 			UINT state = GetMenuState(hMenu, id, MF_BYCOMMAND);
-			if (state == ((UINT)-1))
-				InsertMenuItem(hMenu, IDM_WINDOW_WINDOWS, FALSE, &mii);
+			if (state == static_cast<UINT>(-1))
+			{
+				InsertMenuItem(hMenu, menuPosId, static_cast<BOOL>(isDropListMenu), &mii);
+				if (isDropListMenu)
+				{
+					DeleteMenu(hMenu, menuPosId, FALSE);
+				}
+			}
 			else
+			{
 				SetMenuItemInfo(hMenu, id, FALSE, &mii);
+			}
 		}
-		for ( ; id<=IDM_WINDOW_MRU_LIMIT; ++id)
+		for (; id <= limitId; ++id)
 		{
 			DeleteMenu(hMenu, id, FALSE);
 		}
 	}
 }
+
+

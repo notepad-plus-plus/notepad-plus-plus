@@ -86,8 +86,8 @@
     <p>With Scintilla 4.x, it was most common for applications to set a lexer either by lexer name or lexer ID (<span class="name">SCLEX_...</span>) by calling
     <code>SCI_SETLEXERLANGUAGE("&lt;name&gt;")</code> or <code>SCI_SETLEXER(SCLEX_*)</code>.</p>
 
-    <p>With Scintilla 5, the normal technique s to call Lexilla's <span class="name">CreateLexer</span> function
-    with a lexer name then apply the result with
+    <p>With Scintilla 5, the normal technique is to call Lexilla's <span class="name">CreateLexer</span> function
+    with a lexer name, then apply the result with
     Scintilla's <span class="name">SCI_SETILEXER</span> method:<br />
     <code>ILexer5 *pLexer = CreateLexer("&lt;name&gt;")<br />
     SCI_SETILEXER(pLexer)</code></p>

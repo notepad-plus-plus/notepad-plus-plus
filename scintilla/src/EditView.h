@@ -160,7 +160,7 @@ public:
 		const ViewStyle &vsDraw);
 	void FillLineRemainder(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
 		Sci::Line line, PRectangle rcArea, int subLine) const;
-	Sci::Position FormatRange(bool draw, const Scintilla::RangeToFormat *pfr, Surface *surface, Surface *surfaceMeasure,
+	Sci::Position FormatRange(bool draw, CharacterRangeFull chrg, Rectangle rc, Surface *surface, Surface *surfaceMeasure,
 		const EditModel &model, const ViewStyle &vs);
 };
 

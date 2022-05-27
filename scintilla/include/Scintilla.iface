@@ -60,9 +60,12 @@
 ##     cells -> pointer to array of cells, each cell containing a style byte and character byte
 ##     pointer -> void* pointer that may point to a document, loader, internal text storage or similar
 ##     textrange -> range of a min and a max position with an output string
+##     textrangefull -> range of a min and a max position with an output string - supports 64-bit
 ##     findtext -> searchrange, text -> foundposition
+##     findtextfull -> searchrange, text -> foundposition
 ##     keymod -> integer containing key in low half and modifiers in high half
 ##     formatrange
+##     formatrangefull
 ## Enumeration types always start with a capital letter
 ## Types no longer used:
 ##     findtextex -> searchrange
@@ -1212,8 +1215,14 @@ ali SCFIND_CXX11REGEX=CXX11_REG_EX
 # Find some text in the document.
 fun position FindText=2150(FindOption searchFlags, findtext ft)
 
-# On Windows, will draw the document into a display context such as a printer.
+# Find some text in the document.
+fun position FindTextFull=2196(FindOption searchFlags, findtextfull ft)
+
+# Draw the document into a display context such as a printer.
 fun position FormatRange=2151(bool draw, formatrange fr)
+
+# Draw the document into a display context such as a printer.
+fun position FormatRangeFull=2777(bool draw, formatrangefull fr)
 
 # Retrieve the display line at the top of the display.
 get line GetFirstVisibleLine=2152(,)
@@ -1254,6 +1263,10 @@ fun position GetSelText=2161(, stringresult text)
 # Retrieve a range of text.
 # Return the length of the text.
 fun position GetTextRange=2162(, textrange tr)
+
+# Retrieve a range of text that can be past 2GB.
+# Return the length of the text.
+fun position GetTextRangeFull=2039(, textrangefull tr)
 
 # Draw the selection either highlighted or in normal (non-highlighted) style.
 fun void HideSelection=2163(bool hide,)

@@ -1952,7 +1952,7 @@ void ListBoxImpl::Create(Window & /*parent*/, int /*ctrlID*/, Scintilla::Interna
 						      styleMask: NSWindowStyleMaskBorderless
 							backing: NSBackingStoreBuffered
 							  defer: NO];
-	[winLB setLevel: NSFloatingWindowLevel];
+	[winLB setLevel: NSModalPanelWindowLevel+1];
 	[winLB setHasShadow: YES];
 	NSRect scRect = NSMakeRect(0, 0, lbRect.size.width, lbRect.size.height);
 	scroller = [[NSScrollView alloc] initWithFrame: scRect];

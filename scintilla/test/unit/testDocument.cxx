@@ -95,14 +95,12 @@ struct DocPlus {
 			// This case folder will not handle many DBCS cases. Scintilla uses platform-specific code for DBCS
 			// case folding which can not easily be inserted in platform-independent tests.
 			std::unique_ptr<CaseFolderTable> pcft = std::make_unique<CaseFolderTable>();
-			pcft->StandardASCII();
 			document.SetCaseFolder(std::move(pcft));
 		}
 	}
 
 	void SetSBCSFoldings(const Folding *foldings, size_t length) {
 		std::unique_ptr<CaseFolderTable> pcft = std::make_unique<CaseFolderTable>();
-		pcft->StandardASCII();
 		for (size_t block = 0; block < length; block++) {
 			for (int fold = 0; fold < foldings[block].length; fold++) {
 				pcft->SetTranslation(foldings[block].from + fold, foldings[block].to + fold);

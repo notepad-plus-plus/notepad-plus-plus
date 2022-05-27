@@ -1834,18 +1834,30 @@ void Editor::Paint(Surface *surfaceWindow, PRectangle rcArea) {
 // This is mostly copied from the Paint method but with some things omitted
 // such as the margin markers, line numbers, selection and caret
 // Should be merged back into a combined Draw method.
-Sci::Position Editor::FormatRange(bool draw, const RangeToFormat *pfr) {
-	if (!pfr)
+Sci::Position Editor::FormatRange(Scintilla::Message iMessage, Scintilla::uptr_t wParam, Scintilla::sptr_t lParam) {
+	if (!lParam)
 		return 0;
-
-	AutoSurface surface(pfr->hdc, this, Technology::Default);
-	if (!surface)
-		return 0;
-	AutoSurface surfaceMeasure(pfr->hdcTarget, this, Technology::Default);
-	if (!surfaceMeasure) {
-		return 0;
+	const bool draw = wParam != 0;
+	void *ptr = PtrFromSPtr(lParam);
+	if (iMessage == Message::FormatRange) {
+		RangeToFormat *pfr = static_cast<RangeToFormat *>(ptr);
+		CharacterRangeFull chrg{ pfr->chrg.cpMin,pfr->chrg.cpMax };
+		AutoSurface surface(pfr->hdc, this, Technology::Default);
+		AutoSurface surfaceMeasure(pfr->hdcTarget, this, Technology::Default);
+		if (!surface || !surfaceMeasure) {
+			return 0;
+		}
+		return view.FormatRange(draw, chrg, pfr->rc, surface, surfaceMeasure, *this, vs);
+	} else {
+		// FormatRangeFull
+		RangeToFormatFull *pfr = static_cast<RangeToFormatFull *>(ptr);
+		AutoSurface surface(pfr->hdc, this, Technology::Default);
+		AutoSurface surfaceMeasure(pfr->hdcTarget, this, Technology::Default);
+		if (!surface || !surfaceMeasure) {
+			return 0;
+		}
+		return view.FormatRange(draw, pfr->chrg, pfr->rc, surface, surfaceMeasure, *this, vs);
 	}
-	return view.FormatRange(draw, pfr, surface, surfaceMeasure, *this, vs);
 }
 
 long Editor::TextWidth(uptr_t style, const char *text) {
@@ -1861,7 +1873,7 @@ long Editor::TextWidth(uptr_t style, const char *text) {
 // Empty method is overridden on GTK+ to show / hide scrollbars
 void Editor::ReconfigureScrollBars() {}
 
-void Editor::SetScrollBars() {
+void Editor::ChangeScrollBars() {
 	RefreshStyleData();
 
 	const Sci::Line nMax = MaxScrollPos();
@@ -1883,6 +1895,11 @@ void Editor::SetScrollBars() {
 			Redraw();
 	}
 	//Platform::DebugPrintf("end max = %d page = %d\n", nMax, nPage);
+}
+
+void Editor::SetScrollBars() {
+	// Overridden on GTK to defer to idle
+	ChangeScrollBars();
 }
 
 void Editor::ChangeSize() {
@@ -4079,17 +4096,9 @@ void Editor::Indent(bool forwards) {
 	ContainerNeedsUpdate(Update::Selection);
 }
 
-class CaseFolderASCII : public CaseFolderTable {
-public:
-	CaseFolderASCII() noexcept {
-		StandardASCII();
-	}
-};
-
-
 std::unique_ptr<CaseFolder> Editor::CaseFolderForEncoding() {
 	// Simple default that only maps ASCII upper case to lower case.
-	return std::make_unique<CaseFolderASCII>();
+	return std::make_unique<CaseFolderTable>();
 }
 
 /**
@@ -4102,6 +4111,37 @@ Sci::Position Editor::FindText(
     sptr_t lParam) {	///< @c Sci_TextToFind structure: The text to search for in the given range.
 
 	TextToFind *ft = static_cast<TextToFind *>(PtrFromSPtr(lParam));
+	Sci::Position lengthFound = strlen(ft->lpstrText);
+	if (!pdoc->HasCaseFolder())
+		pdoc->SetCaseFolder(CaseFolderForEncoding());
+	try {
+		const Sci::Position pos = pdoc->FindText(
+			static_cast<Sci::Position>(ft->chrg.cpMin),
+			static_cast<Sci::Position>(ft->chrg.cpMax),
+			ft->lpstrText,
+			static_cast<FindOption>(wParam),
+			&lengthFound);
+		if (pos != -1) {
+			ft->chrgText.cpMin = static_cast<Sci_PositionCR>(pos);
+			ft->chrgText.cpMax = static_cast<Sci_PositionCR>(pos + lengthFound);
+		}
+		return pos;
+	} catch (RegexError &) {
+		errorStatus = Status::RegEx;
+		return -1;
+	}
+}
+
+/**
+ * Search of a text in the document, in the given range.
+ * @return The position of the found text, -1 if not found.
+ */
+Sci::Position Editor::FindTextFull(
+    uptr_t wParam,		///< Search modes : @c FindOption::MatchCase, @c FindOption::WholeWord,
+    ///< @c FindOption::WordStart, @c FindOption::RegExp or @c FindOption::Posix.
+    sptr_t lParam) {	///< @c Sci_TextToFindFull structure: The text to search for in the given range.
+
+	TextToFindFull *ft = static_cast<TextToFindFull *>(PtrFromSPtr(lParam));
 	Sci::Position lengthFound = strlen(ft->lpstrText);
 	if (!pdoc->HasCaseFolder())
 		pdoc->SetCaseFolder(CaseFolderForEncoding());
@@ -5532,12 +5572,14 @@ void Editor::EnsureLineVisible(Sci::Line lineDoc, bool enforcePolicy) {
 }
 
 void Editor::FoldAll(FoldAction action) {
-	pdoc->EnsureStyledTo(pdoc->Length());
 	const Sci::Line maxLine = pdoc->LinesTotal();
 	bool expanding = action == FoldAction::Expand;
+	if (!expanding) {
+		pdoc->EnsureStyledTo(pdoc->Length());
+	}
 	if (action == FoldAction::Toggle) {
 		// Discover current state
-		for (int lineSeek = 0; lineSeek < maxLine; lineSeek++) {
+		for (Sci::Line lineSeek = 0; lineSeek < maxLine; lineSeek++) {
 			if (LevelIsHeader(pdoc->GetFoldLevel(lineSeek))) {
 				expanding = !pcs->GetExpanded(lineSeek);
 				break;
@@ -5546,9 +5588,8 @@ void Editor::FoldAll(FoldAction action) {
 	}
 	if (expanding) {
 		pcs->SetVisible(0, maxLine-1, true);
-		for (int line = 0; line < maxLine; line++) {
-			const FoldLevel levelLine = pdoc->GetFoldLevel(line);
-			if (LevelIsHeader(levelLine)) {
+		for (Sci::Line line = 0; line < maxLine; line++) {
+			if (!pcs->GetExpanded(line)) {
 				SetFoldExpanded(line, true);
 			}
 		}
@@ -6246,6 +6287,9 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 	case Message::FindText:
 		return FindText(wParam, lParam);
 
+	case Message::FindTextFull:
+		return FindTextFull(wParam, lParam);
+
 	case Message::GetTextRange: {
 			if (lParam == 0)
 				return 0;
@@ -6261,13 +6305,30 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 			return len; 	// Not including NUL
 		}
 
+	case Message::GetTextRangeFull: {
+			if (lParam == 0)
+				return 0;
+			TextRangeFull *tr = static_cast<TextRangeFull *>(PtrFromSPtr(lParam));
+			Sci::Position cpMax = tr->chrg.cpMax;
+			if (cpMax == -1)
+				cpMax = pdoc->Length();
+			PLATFORM_ASSERT(cpMax <= pdoc->Length());
+			const Sci::Position len = cpMax - tr->chrg.cpMin; 	// No -1 as cpMin and cpMax are referring to inter character positions
+			PLATFORM_ASSERT(len >= 0);
+			pdoc->GetCharRange(tr->lpstrText, tr->chrg.cpMin, len);
+			// Spec says copied text is terminated with a NUL
+			tr->lpstrText[len] = '\0';
+			return len; 	// Not including NUL
+		}
+
 	case Message::HideSelection:
 		view.hideSelection = wParam != 0;
 		Redraw();
 		break;
 
 	case Message::FormatRange:
-		return FormatRange(wParam != 0, static_cast<RangeToFormat *>(PtrFromSPtr(lParam)));
+	case Message::FormatRangeFull:
+		return FormatRange(iMessage, wParam, lParam);
 
 	case Message::GetMarginLeft:
 		return vs.leftMarginWidth;

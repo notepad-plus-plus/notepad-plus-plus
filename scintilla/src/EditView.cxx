@@ -2668,7 +2668,7 @@ static ColourRGBA InvertedLight(ColourRGBA orig) noexcept {
 	return ColourRGBA(std::min(r, 0xffu), std::min(g, 0xffu), std::min(b, 0xffu));
 }
 
-Sci::Position EditView::FormatRange(bool draw, const RangeToFormat *pfr, Surface *surface, Surface *surfaceMeasure,
+Sci::Position EditView::FormatRange(bool draw, CharacterRangeFull chrg, Rectangle rc, Surface *surface, Surface *surfaceMeasure,
 	const EditModel &model, const ViewStyle &vs) {
 	// Can't use measurements cached for screen
 	posCache->Clear();
@@ -2694,6 +2694,8 @@ Sci::Position EditView::FormatRange(bool draw, const RangeToFormat *pfr, Surface
 	// Don't show the selection when printing
 	vsPrint.elementColours.clear();
 	vsPrint.elementBaseColours.clear();
+	// Transparent:
+	vsPrint.elementBaseColours[Element::SelectionBack] = ColourRGBA(0xc0, 0xc0, 0xc0, 0x0);
 	vsPrint.caretLine.alwaysShow = false;
 	// Don't highlight matching braces using indicators
 	vsPrint.braceHighlightIndicatorSet = false;
@@ -2733,15 +2735,15 @@ Sci::Position EditView::FormatRange(bool draw, const RangeToFormat *pfr, Surface
 		vsPrint.Refresh(*surfaceMeasure, model.pdoc->tabInChars);	// Recalculate fixedColumnWidth
 	}
 
-	const Sci::Line linePrintStart = model.pdoc->SciLineFromPosition(pfr->chrg.cpMin);
-	Sci::Line linePrintLast = linePrintStart + (pfr->rc.bottom - pfr->rc.top) / vsPrint.lineHeight - 1;
+	const Sci::Line linePrintStart = model.pdoc->SciLineFromPosition(chrg.cpMin);
+	Sci::Line linePrintLast = linePrintStart + (rc.bottom - rc.top) / vsPrint.lineHeight - 1;
 	if (linePrintLast < linePrintStart)
 		linePrintLast = linePrintStart;
-	const Sci::Line linePrintMax = model.pdoc->SciLineFromPosition(pfr->chrg.cpMax);
+	const Sci::Line linePrintMax = model.pdoc->SciLineFromPosition(chrg.cpMax);
 	if (linePrintLast > linePrintMax)
 		linePrintLast = linePrintMax;
 	//Platform::DebugPrintf("Formatting lines=[%0d,%0d,%0d] top=%0d bottom=%0d line=%0d %0d\n",
-	//      linePrintStart, linePrintLast, linePrintMax, pfr->rc.top, pfr->rc.bottom, vsPrint.lineHeight,
+	//      linePrintStart, linePrintLast, linePrintMax, rc.top, rc.bottom, vsPrint.lineHeight,
 	//      surfaceMeasure->Height(vsPrint.styles[StyleLineNumber].font));
 	Sci::Position endPosPrint = model.pdoc->Length();
 	if (linePrintLast < model.pdoc->LinesTotal())
@@ -2750,18 +2752,18 @@ Sci::Position EditView::FormatRange(bool draw, const RangeToFormat *pfr, Surface
 	// Ensure we are styled to where we are formatting.
 	model.pdoc->EnsureStyledTo(endPosPrint);
 
-	const int xStart = vsPrint.fixedColumnWidth + pfr->rc.left;
-	int ypos = pfr->rc.top;
+	const int xStart = vsPrint.fixedColumnWidth + rc.left;
+	int ypos = rc.top;
 
 	Sci::Line lineDoc = linePrintStart;
 
-	Sci::Position nPrintPos = pfr->chrg.cpMin;
+	Sci::Position nPrintPos = chrg.cpMin;
 	int visibleLine = 0;
-	int widthPrint = pfr->rc.right - pfr->rc.left - vsPrint.fixedColumnWidth;
+	int widthPrint = rc.right - rc.left - vsPrint.fixedColumnWidth;
 	if (printParameters.wrapState == Wrap::None)
 		widthPrint = LineLayout::wrapWidthInfinite;
 
-	while (lineDoc <= linePrintLast && ypos < pfr->rc.bottom) {
+	while (lineDoc <= linePrintLast && ypos < rc.bottom) {
 
 		// When printing, the hdc and hdcTarget may be the same, so
 		// changing the state of surfaceMeasure may change the underlying
@@ -2777,9 +2779,9 @@ Sci::Position EditView::FormatRange(bool draw, const RangeToFormat *pfr, Surface
 		ll.containsCaret = false;
 
 		PRectangle rcLine = PRectangle::FromInts(
-			pfr->rc.left,
+			rc.left,
 			ypos,
-			pfr->rc.right - 1,
+			rc.right - 1,
 			ypos + vsPrint.lineHeight);
 
 		// When document line is wrapped over multiple display lines, find where
@@ -2800,7 +2802,7 @@ Sci::Position EditView::FormatRange(bool draw, const RangeToFormat *pfr, Surface
 		}
 
 		if (draw && lineNumberWidth &&
-			(ypos + vsPrint.lineHeight <= pfr->rc.bottom) &&
+			(ypos + vsPrint.lineHeight <= rc.bottom) &&
 			(visibleLine >= 0)) {
 			const std::string number = std::to_string(lineDoc + 1) + lineNumberPrintSpace;
 			PRectangle rcNumber = rcLine;
@@ -2819,7 +2821,7 @@ Sci::Position EditView::FormatRange(bool draw, const RangeToFormat *pfr, Surface
 		surface->FlushCachedState();
 
 		for (int iwl = 0; iwl < ll.lines; iwl++) {
-			if (ypos + vsPrint.lineHeight <= pfr->rc.bottom) {
+			if (ypos + vsPrint.lineHeight <= rc.bottom) {
 				if (visibleLine >= 0) {
 					if (draw) {
 						rcLine.top = static_cast<XYPOSITION>(ypos);

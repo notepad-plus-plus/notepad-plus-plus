@@ -19,8 +19,18 @@ struct CharacterRange {
 	PositionCR cpMax;
 };
 
+struct CharacterRangeFull {
+	Position cpMin;
+	Position cpMax;
+};
+
 struct TextRange {
 	CharacterRange chrg;
+	char *lpstrText;
+};
+
+struct TextRangeFull {
+	CharacterRangeFull chrg;
 	char *lpstrText;
 };
 
@@ -28,6 +38,12 @@ struct TextToFind {
 	CharacterRange chrg;
 	const char *lpstrText;
 	CharacterRange chrgText;
+};
+
+struct TextToFindFull {
+	CharacterRangeFull chrg;
+	const char *lpstrText;
+	CharacterRangeFull chrgText;
 };
 
 using SurfaceID = void *;
@@ -47,6 +63,14 @@ struct RangeToFormat {
 	Rectangle rc;
 	Rectangle rcPage;
 	CharacterRange chrg;
+};
+
+struct RangeToFormatFull {
+	SurfaceID hdc;
+	SurfaceID hdcTarget;
+	Rectangle rc;
+	Rectangle rcPage;
+	CharacterRangeFull chrg;
 };
 
 struct NotifyHeader {

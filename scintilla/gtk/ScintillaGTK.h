@@ -82,6 +82,7 @@ class ScintillaGTK : public ScintillaBase {
 	bool repaintFullWindow;
 
 	guint styleIdleID;
+	guint scrollBarIdleID = 0;
 	FontOptions fontOptionsPrevious;
 	int accessibilityEnabled;
 	AtkObject *accessible;
@@ -133,6 +134,7 @@ private:
 	void SetHorizontalScrollPos() override;
 	bool ModifyScrollBars(Sci::Line nMax, Sci::Line nPage) override;
 	void ReconfigureScrollBars() override;
+	void SetScrollBars() override;
 	void NotifyChange() override;
 	void NotifyFocus(bool focus) override;
 	void NotifyParent(Scintilla::NotificationData scn) override;

@@ -357,6 +357,10 @@ std::unique_ptr<char[]>AllocateAnnotation(size_t length, int style) {
 LineAnnotation::~LineAnnotation() {
 }
 
+bool LineAnnotation::Empty() const noexcept {
+	return annotations.Length() == 0;
+}
+
 void LineAnnotation::Init() {
 	ClearAll();
 }

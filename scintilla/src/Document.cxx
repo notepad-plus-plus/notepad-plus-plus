@@ -2518,6 +2518,9 @@ int Document::AnnotationLines(Sci::Line line) const noexcept {
 }
 
 void Document::AnnotationClearAll() {
+	if (Annotations()->Empty()) {
+		return;
+	}
 	const Sci::Line maxEditorLine = LinesTotal();
 	for (Sci::Line l=0; l<maxEditorLine; l++)
 		AnnotationSetText(l, nullptr);
@@ -2550,6 +2553,9 @@ void Document::EOLAnnotationSetStyle(Sci::Line line, int style) {
 }
 
 void Document::EOLAnnotationClearAll() {
+	if (EOLAnnotations()->Empty()) {
+		return;
+	}
 	const Sci::Line maxEditorLine = LinesTotal();
 	for (Sci::Line l=0; l<maxEditorLine; l++)
 		EOLAnnotationSetText(l, nullptr);

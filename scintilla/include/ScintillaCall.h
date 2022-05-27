@@ -68,6 +68,7 @@ public:
 	char CharacterAt(Position position);
 	int UnsignedStyleAt(Position position);
 	std::string StringOfSpan(Span span);
+	std::string StringOfRange(Span span);
 	Position ReplaceTarget(std::string_view text);
 	Position ReplaceTargetRE(std::string_view text);
 	Position SearchInTarget(std::string_view text);
@@ -322,7 +323,9 @@ public:
 	void SetPrintColourMode(Scintilla::PrintOption mode);
 	Scintilla::PrintOption PrintColourMode();
 	Position FindText(Scintilla::FindOption searchFlags, void *ft);
+	Position FindTextFull(Scintilla::FindOption searchFlags, void *ft);
 	Position FormatRange(bool draw, void *fr);
+	Position FormatRangeFull(bool draw, void *fr);
 	Line FirstVisibleLine();
 	Position GetLine(Line line, char *text);
 	std::string GetLine(Line line);
@@ -337,6 +340,7 @@ public:
 	Position GetSelText(char *text);
 	std::string GetSelText();
 	Position GetTextRange(void *tr);
+	Position GetTextRangeFull(void *tr);
 	void HideSelection(bool hide);
 	int PointXFromPosition(Position pos);
 	int PointYFromPosition(Position pos);

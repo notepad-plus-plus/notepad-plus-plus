@@ -128,6 +128,7 @@ CaseConvert.o: \
 	../src/UniConversion.h
 CaseFolder.o: \
 	../src/CaseFolder.cxx \
+	../src/CharacterType.h \
 	../src/CaseFolder.h \
 	../src/CaseConvert.h
 CellBuffer.o: \

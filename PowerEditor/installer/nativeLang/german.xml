@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-04-29 by schnurlos
+	last modified: 2022-06-08 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.1">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -573,8 +573,8 @@
 				<MainMenuTab name="Hauptmenü"/>
 				<MacrosTab name="Makros"/>
 				<RunCommandsTab name="Ausführen"/>
-				<PluginCommandsTab name="Plugin-Kommandos"/>
-				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
+				<PluginCommandsTab name="Plugin-Befehle"/>
+				<ScintillaCommandsTab name="Scintilla-Befehle"/>
 				<ConflictInfoOk name="Keine Konflikte mit dieser Tastenkombination."/>
 				<ConflictInfoEditing name="Keine Konflikte."/>
 				<MainCommandNames>
@@ -776,7 +776,7 @@
 					<Item id="23004" name="Überall erlauben"/>
 					<Item id="23005" name="Nur am Zeilenanfang"/>
 					<Item id="23006" name="Führende Leerzeichen erlauben"/>
-					<Item id="23001" name="Einfalten von Kommentaren erlauben"/>
+					<Item id="23001" name="Faltung von Kommentaren erlauben"/>
 					<Item id="23326" name="Stil …"/>
 					<Item id="23323" name="Kommentaranfang:"/>
 					<Item id="23324" name="Fortsetzungszeichen:"/>
@@ -883,6 +883,7 @@
 					<Item id="6219" name="Geschwindigkeit"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
+					<Item id="6246" name="Befehl zum Ein- und Ausfalten der aktuellen Ebene umschaltbar machen"/>
 					<Item id="6225" name="Multi-Editing aktivieren (Strg+Mausklick/Auswahl)"/>
 					<Item id="6227" name="Zeilenumbruch"/>
 					<Item id="6228" name="Standard"/>
@@ -902,28 +903,31 @@
 
 				<DarkMode title="Dunkler Modus">
 					<Item id="7101" name="Dunklen Modus aktivieren"/>
-					<Item id="7102" name="Schwarzer Ton"/>
-					<Item id="7103" name="Roter Ton"/>
-					<Item id="7104" name="Grüner Ton"/>
-					<Item id="7105" name="Blauer Ton"/>
-					<Item id="7107" name="Violetter Ton"/>
-					<Item id="7108" name="Cyan-Ton"/>
-					<Item id="7109" name="Oliv-Ton"/>
-					<Item id="7115" name="Benutzerdefinierter Ton"/>
-					<Item id="7116" name="Oben"/>
-					<Item id="7117" name="Menü Hot Track"/>
+					<Item id="7102" name="Schwarz"/>
+					<Item id="7103" name="Rot"/>
+					<Item id="7104" name="Grün"/>
+					<Item id="7105" name="Blau"/>
+					<Item id="7107" name="Violett"/>
+					<Item id="7108" name="Cyan"/>
+					<Item id="7109" name="Oliv"/>
+					<Item id="7115" name="Benutzerdefiniert"/>
+					<Item id="7116" name="Menü/Oberste Ebene"/>
+					<Item id="7117" name="Menü Hottrack"/>
 					<Item id="7118" name="Aktiv"/>
-					<Item id="7119" name="Haupt"/>
+					<Item id="7119" name="Inaktiv/Statusleiste"/>
 					<Item id="7120" name="Fehler"/>
 					<Item id="7121" name="Text"/>
 					<Item id="7122" name="Dunklerer Text"/>
 					<Item id="7123" name="Deaktivierter Text"/>
-					<Item id="7124" name="Rand"/>
+					<Item id="7124" name="Umrandung"/>
 					<Item id="7125" name="Links"/>
+					<Item id="7126" name="Hervorgehobene Umrandung"/>
+					<Item id="7127" name="Deaktivierte Umrandung"/>
 					<Item id="7130" name="Zurücksetzen"/>
+					<Item id="7135" name="Farbtöne"/>
 				</DarkMode>
 
-				<MarginsBorderEdge title="Ränder/Kanten">
+				<MarginsBorderEdge title="Ränder/Rahmen/Umrandungen">
 					<Item id="6201" name="Ordnerrandstil"/>
 					<Item id="6202" name="Einfach"/>
 					<Item id="6203" name="Pfeil"/>
@@ -950,7 +954,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 				<NewDoc title="Neues Dokument">
 					<Item id="6401" name="Format (Zeilenende)"/>
 					<Item id="6402" name="Windows (CR LF)"/>
-					<Item id="6403" name="UNIX (LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
 					<Item id="6404" name="Macintosh (CR)"/>
 					<Item id="6405" name="Codierung"/>
 					<Item id="6406" name="ANSI"/>
@@ -1225,7 +1229,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 			<DoSaveAll title="Bestätigung für 'Alle Dateien speichern'">
 				<Item id="1766" name="Sollen wirklich alle geänderten Dokumente gespeichert werden?
 
-Wählen Sie 'Ja, immer' um diesen Dialog nicht mehr anzuzeigen.
+Wählen Sie &quot;Ja, immer&quot; um diesen Dialog nicht mehr anzuzeigen.
 Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nein"/>

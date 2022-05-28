@@ -558,27 +558,24 @@ generic_string uintToString(unsigned int val)
 }
 
 // Build Recent File menu entries from given
-generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename, bool orderNumber)
+generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename)
 {
 	generic_string strTemp;
 
-	if (orderNumber)
+	if (pos < 9)
 	{
-		if (pos < 9)
-		{
-			strTemp.push_back('&');
-			strTemp.push_back('1' + static_cast<TCHAR>(pos));
-		}
-		else if (pos == 9)
-		{
-			strTemp.append(TEXT("1&0"));
-		}
-		else
-		{
-			strTemp.append(uintToString(pos + 1));
-		}
-		strTemp.append(TEXT(": "));
+		strTemp.push_back('&');
+		strTemp.push_back('1' + static_cast<TCHAR>(pos));
 	}
+	else if (pos == 9)
+	{
+		strTemp.append(TEXT("1&0"));
+	}
+	else
+	{
+		strTemp.append(uintToString(pos + 1));
+	}
+	strTemp.append(TEXT(": "));
 
 	if (filenameLen > 0)
 	{

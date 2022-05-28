@@ -116,5 +116,4 @@ public:
 
 private:
 	HMENU _hMenu = nullptr;
-	HMENU _hMenuList = nullptr;
 };

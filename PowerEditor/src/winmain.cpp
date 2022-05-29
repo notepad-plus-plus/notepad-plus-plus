@@ -661,8 +661,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	winVer ver = nppParameters.getWinVersion();
 	bool isGtXP = ver > WV_XP;
 
-	SecurityGard securityGard;
-	bool isSignatureOK = securityGard.checkModule(updaterFullPath, nm_gup);
+	SecurityGuard securityGuard;
+	bool isSignatureOK = securityGuard.checkModule(updaterFullPath, nm_gup);
 
 	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK)
 	{

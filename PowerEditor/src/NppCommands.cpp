@@ -3288,8 +3288,8 @@ void Notepad_plus::command(int id)
 				bool isCertifVerified = true;
 #else //RELEASE
 				// check the signature on updater
-				SecurityGard securityGard;
-				bool isCertifVerified = securityGard.checkModule(updaterFullPath, nm_gup);
+				SecurityGuard securityGuard;
+				bool isCertifVerified = securityGuard.checkModule(updaterFullPath, nm_gup);
 #endif
 				if (isCertifVerified)
 				{

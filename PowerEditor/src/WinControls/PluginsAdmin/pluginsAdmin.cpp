@@ -724,13 +724,13 @@ bool PluginsAdminDlg::initFromJson()
 
 	// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
 	
-	SecurityGard securityGard;
-	bool isSecured = securityGard.checkModule(_pluginListFullPath, nm_pluginList);
+	SecurityGuard securityGuard;
+	bool isSecured = securityGuard.checkModule(_pluginListFullPath, nm_pluginList);
 
 	if (!isSecured)
 		return false;
 
-	isSecured = securityGard.checkModule(_updaterFullPath, nm_gup);
+	isSecured = securityGuard.checkModule(_updaterFullPath, nm_gup);
 
 	if (isSecured)
 	{

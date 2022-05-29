@@ -51,10 +51,10 @@
 enum SecurityMode { sm_certif = 0, sm_sha256 = 1 };
 enum NppModule { nm_scilexer = 0, nm_gup = 1, nm_pluginList = 2 };
 
-class SecurityGard final
+class SecurityGuard final
 {
 public:
-	SecurityGard();
+	SecurityGuard();
 	bool checkModule(const std::wstring& filePath, NppModule module2check);
 
 private:
@@ -69,7 +69,7 @@ private:
 	// Code signing certificate
 	std::wstring _signer_display_name = TEXT("Notepad++");
 	std::wstring _signer_subject = TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"");
-	std::wstring _signer_key_id = TEXT("ED255D9151912E40DF048A56288E969A8D0DAFA3");
+	std::wstring _signer_key_id = TEXT("E687332916D6B681FE28C5EF423CEE259D3953B9");
 	bool _doCheckRevocation = false;
 	bool _doCheckChainOfTrust = false;
 

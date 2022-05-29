@@ -31,10 +31,10 @@
 
 using namespace std;
 
-//SecurityMode SecurityGard::_securityMode = sm_sha256;
-SecurityMode SecurityGard::_securityMode = sm_certif;
+//SecurityMode SecurityGuard::_securityMode = sm_sha256;
+SecurityMode SecurityGuard::_securityMode = sm_certif;
 
-SecurityGard::SecurityGard()
+SecurityGuard::SecurityGuard()
 {
 	_scilexerSha256.push_back(TEXT("03c9177631d2b32de3d32c73a8841cf68fc2cb17f306825489dc3df98000db85")); // v3.5.6 32 bit (signed)
 	_scilexerSha256.push_back(TEXT("9896c4089275e21412fd80421827912ebd80e357394b05145a613d190462e211")); // v3.5.6 64 bit (signed)
@@ -49,7 +49,7 @@ SecurityGard::SecurityGard()
 	_pluginListSha256.push_back(TEXT("1c404fd3578273f5ecde585af82179ff3b63c635fb4fa24be21ebde708e403e4")); // v1.0.8 64 bit (unsigned)
 }
 
-bool SecurityGard::checkModule(const std::wstring& filePath, NppModule module2check)
+bool SecurityGuard::checkModule(const std::wstring& filePath, NppModule module2check)
 {
 #ifndef _DEBUG
 	if (_securityMode == sm_certif)
@@ -68,7 +68,7 @@ bool SecurityGard::checkModule(const std::wstring& filePath, NppModule module2ch
 #endif
 }
 
-bool SecurityGard::checkSha256(const std::wstring& filePath, NppModule module2check)
+bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2check)
 {
 	// Uncomment the following code if the components are rebuilt for testing
 	// It should be stay in commenting out
@@ -109,7 +109,7 @@ bool SecurityGard::checkSha256(const std::wstring& filePath, NppModule module2ch
 	return false;
 }
 
-bool SecurityGard::verifySignedLibrary(const std::wstring& filepath, NppModule module2check)
+bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath, NppModule module2check)
 {
 	wstring display_name;
 	wstring key_id_hex;

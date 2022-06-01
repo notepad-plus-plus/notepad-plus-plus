@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -102,10 +102,10 @@ IDI_SYNCV_ICON                  ICON      "icons/syncV_off.ico"
 IDI_SYNCV_DISABLE_ICON          ICON      "icons/syncV_dis.ico"
 IDI_SYNCH_ICON                  ICON      "icons/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON          ICON      "icons/syncH_dis.ico"
-IDI_VIEW_DOC_MAP_ICON           ICON      "icons/docMap_off.ico" 
-IDI_VIEW_DOCLIST_ICON           ICON      "icons/docList_off.ico" 
-IDI_VIEW_FUNCLIST_ICON          ICON      "icons/funcList_off.ico" 
-IDI_VIEW_FILEBROWSER_ICON       ICON      "icons/fileBrowser_off.ico" 
+IDI_VIEW_DOC_MAP_ICON           ICON      "icons/docMap_off.ico"
+IDI_VIEW_DOCLIST_ICON           ICON      "icons/docList_off.ico"
+IDI_VIEW_FUNCLIST_ICON          ICON      "icons/funcList_off.ico"
+IDI_VIEW_FILEBROWSER_ICON       ICON      "icons/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ICON        ICON      "icons/monitoring_off.ico"
 
 //
@@ -152,10 +152,10 @@ IDI_SYNCV_ICON2                 ICON      "icons/filledFluentUI/syncV_off.ico"
 IDI_SYNCV_DISABLE_ICON2         ICON      "icons/filledFluentUI/syncV_dis.ico"
 IDI_SYNCH_ICON2                 ICON      "icons/filledFluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON2         ICON      "icons/filledFluentUI/syncH_dis.ico"
-IDI_VIEW_DOC_MAP_ICON2          ICON      "icons/filledFluentUI/docMap_off.ico" 
-IDI_VIEW_DOCLIST_ICON2          ICON      "icons/filledFluentUI/docList_off.ico" 
-IDI_VIEW_FUNCLIST_ICON2         ICON      "icons/filledFluentUI/funcList_off.ico" 
-IDI_VIEW_FILEBROWSER_ICON2      ICON      "icons/filledFluentUI/fileBrowser_off.ico" 
+IDI_VIEW_DOC_MAP_ICON2          ICON      "icons/filledFluentUI/docMap_off.ico"
+IDI_VIEW_DOCLIST_ICON2          ICON      "icons/filledFluentUI/docList_off.ico"
+IDI_VIEW_FUNCLIST_ICON2         ICON      "icons/filledFluentUI/funcList_off.ico"
+IDI_VIEW_FILEBROWSER_ICON2      ICON      "icons/filledFluentUI/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ICON2       ICON      "icons/filledFluentUI/monitoring_off.ico"
 
 //
@@ -202,10 +202,10 @@ IDI_SYNCV_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/sy
 IDI_SYNCV_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/syncV_dis.ico"
 IDI_SYNCH_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/syncH_dis.ico"
-IDI_VIEW_DOC_MAP_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docMap_off.ico" 
-IDI_VIEW_DOCLIST_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docList_off.ico" 
-IDI_VIEW_FUNCLIST_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/funcList_off.ico" 
-IDI_VIEW_FILEBROWSER_ICON_DM       ICON      "icons/darkMode/toolbar/FluentUI/fileBrowser_off.ico" 
+IDI_VIEW_DOC_MAP_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docMap_off.ico"
+IDI_VIEW_DOCLIST_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docList_off.ico"
+IDI_VIEW_FUNCLIST_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/funcList_off.ico"
+IDI_VIEW_FILEBROWSER_ICON_DM       ICON      "icons/darkMode/toolbar/FluentUI/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ICON_DM        ICON      "icons/darkMode/toolbar/FluentUI/monitoring_off.ico"
 
 //
@@ -252,10 +252,10 @@ IDI_SYNCV_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluen
 IDI_SYNCV_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/syncV_dis.ico"
 IDI_SYNCH_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/syncH_dis.ico"
-IDI_VIEW_DOC_MAP_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docMap_off.ico" 
-IDI_VIEW_DOCLIST_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docList_off.ico" 
-IDI_VIEW_FUNCLIST_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/funcList_off.ico" 
-IDI_VIEW_FILEBROWSER_ICON_DM2      ICON      "icons/darkMode/toolbar/filledFluentUI/fileBrowser_off.ico" 
+IDI_VIEW_DOC_MAP_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docMap_off.ico"
+IDI_VIEW_DOCLIST_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docList_off.ico"
+IDI_VIEW_FUNCLIST_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/funcList_off.ico"
+IDI_VIEW_FILEBROWSER_ICON_DM2      ICON      "icons/darkMode/toolbar/filledFluentUI/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ICON_DM2       ICON      "icons/darkMode/toolbar/filledFluentUI/monitoring_off.ico"
 
 
@@ -387,7 +387,7 @@ BEGIN
         BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
-            MENUITEM SEPARATOR
+			MENUITEM SEPARATOR
             MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
         END
         MENUITEM "Open in &Default Viewer",          IDM_FILE_OPEN_DEFAULT_VIEWER
@@ -679,7 +679,7 @@ BEGIN
             MENUITEM "Move to New Instance",    IDM_VIEW_GOTO_NEW_INSTANCE
             MENUITEM "Open in New Instance",    IDM_VIEW_LOAD_IN_NEW_INSTANCE
         END
-        
+
         POPUP "Tab"
         BEGIN
             MENUITEM "1st Tab",                 IDM_VIEW_TAB1
@@ -1151,7 +1151,7 @@ BEGIN
             MENUITEM "Generate from selection into clipboard", IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD
         END
     END
-    
+
     POPUP "&Macro"
     BEGIN
         MENUITEM "Start Re&cording",                   IDM_MACRO_STARTRECORDINGMACRO

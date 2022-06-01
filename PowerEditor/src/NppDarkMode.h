@@ -42,6 +42,7 @@ namespace NppDarkMode
 		COLORREF linkText = 0;
 		COLORREF edge = 0;
 		COLORREF hotEdge = 0;
+		COLORREF disabledEdge = 0;
 	};
 
 	struct Options
@@ -105,6 +106,7 @@ namespace NppDarkMode
 
 	COLORREF getEdgeColor();
 	COLORREF getHotEdgeColor();
+	COLORREF getDisabledEdgeColor();
 
 	HBRUSH getBackgroundBrush();
 	HBRUSH getDarkerBackgroundBrush();
@@ -114,10 +116,12 @@ namespace NppDarkMode
 
 	HBRUSH getEdgeBrush();
 	HBRUSH getHotEdgeBrush();
+	HBRUSH getDisabledEdgeBrush();
 
 	HPEN getDarkerTextPen();
 	HPEN getEdgePen();
 	HPEN getHotEdgePen();
+	HPEN getDisabledEdgePen();
 
 	void setBackgroundColor(COLORREF c);
 	void setSofterBackgroundColor(COLORREF c);
@@ -130,6 +134,7 @@ namespace NppDarkMode
 	void setLinkTextColor(COLORREF c);
 	void setEdgeColor(COLORREF c);
 	void setHotEdgeColor(COLORREF c);
+	void setDisabledEdgeColor(COLORREF c);
 
 	Colors getDarkModeDefaultColors();
 	void changeCustomTheme(const Colors& colors);
@@ -151,6 +156,8 @@ namespace NppDarkMode
 
 	// enhancements to DarkMode.h
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd);
+
+	inline void paintRoundFrameRect(HDC hdc, const RECT rect, const HPEN hpen, int width = 0, int height = 0);
 
 	void subclassButtonControl(HWND hwnd);
 	void subclassGroupboxControl(HWND hwnd);
@@ -182,4 +189,5 @@ namespace NppDarkMode
 	LRESULT onCtlColorDarker(HDC hdc);
 	LRESULT onCtlColorError(HDC hdc);
 	LRESULT onCtlColorDarkerBGStaticText(HDC hdc, bool isTextEnabled);
+	INT_PTR onCtlColorListbox(WPARAM wParam, LPARAM lParam);
 }

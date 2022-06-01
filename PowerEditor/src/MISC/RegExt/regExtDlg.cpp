@@ -111,7 +111,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorListbox(wParam, lParam);
 			}
 			break;
 		}

@@ -913,6 +913,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7124" name="Edge"/>
                     <Item id="7125" name="Link"/>
                     <Item id="7126" name="Edge highlight"/>
+                    <Item id="7127" name="Edge disabled"/>
                     <Item id="7130" name="Reset"/>
                     <Item id="7135" name="Tones"/>
                 </DarkMode>

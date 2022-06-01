@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 2 May 2022 by Elvis Gambiraža (el.gambo@gmail.com)
-
-    The most recent version of this file:
-    https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/croatian.xml
+    Updated 31 May 2022 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.1">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -216,8 +213,8 @@
                     <Item id="43010" name="Pronađi pret&amp;hodno"/>
                     <Item id="43011" name="Inkre&amp;mentalno pretraživanje..."/>
                     <Item id="43013" name="Pronađi &amp;u datotekama..."/>
-                    <Item id="43014" name="Pronađi (ozn&amp;ačeno) sljedeće"/>
-                    <Item id="43015" name="Pronađi (označ&amp;eno) prethodno"/>
+                    <Item id="43014" name="Pronađi ozn&amp;ačeno sljedeće (nepostojano)"/>
+                    <Item id="43015" name="Pronađi označ&amp;eno prethodno (nepostojano)"/>
                     <Item id="43022" name="Koristi &amp;1. stil"/>
                     <Item id="43023" name="Očisti &amp;1. stil"/>
                     <Item id="43024" name="Koristi &amp;2. stil"/>
@@ -892,6 +889,7 @@
                     <Item id="6219" name="Žmiganje:"/>
                     <Item id="6221" name="brz"/>
                     <Item id="6222" name="spo"/>
+                    <Item id="6246" name="Učini naredbe za motanje/razmotavanje trenutne razine preklopnim"/>
                     <Item id="6225" name="Omogući višestruko uređivanje (Ctrl + klik ili označavanje mišem)"/>
                     <Item id="6227" name="Prijelom teksta"/>
                     <Item id="6228" name="Zadano"/>
@@ -912,14 +910,14 @@
 
                 <DarkMode title="Tamni način">
                     <Item id="7101" name="Omogući tamni način"/>
-                    <Item id="7102" name="Crni ton"/>
-                    <Item id="7103" name="Crveni ton"/>
-                    <Item id="7104" name="Zeleni ton"/>
-                    <Item id="7105" name="Plavi ton"/>
-                    <Item id="7107" name="Purpurni ton"/>
-                    <Item id="7108" name="Cijan ton"/>
-                    <Item id="7109" name="Maslinasti ton"/>
-                    <Item id="7115" name="Prilagođeni ton"/>
+                    <Item id="7102" name="Crno"/>
+                    <Item id="7103" name="Crveno"/>
+                    <Item id="7104" name="Zeleno"/>
+                    <Item id="7105" name="Plavo"/>
+                    <Item id="7107" name="Purpurno"/>
+                    <Item id="7108" name="Cijan"/>
+                    <Item id="7109" name="Maslinasto"/>
+                    <Item id="7115" name="Prilagođeno"/>
                     <Item id="7116" name="Vrh"/>
                     <Item id="7117" name="Vruća linija izbornika"/>
                     <Item id="7118" name="Aktivno"/>
@@ -930,7 +928,9 @@
                     <Item id="7123" name="Onemogućeni tekst"/>
                     <Item id="7124" name="Rub"/>
                     <Item id="7125" name="Poveznica"/>
+                    <Item id="7126" name="Isticanje ruba"/>
                     <Item id="7130" name="Resetiranje"/>
+                    <Item id="7135" name="Tonovi"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margine i rubovi">

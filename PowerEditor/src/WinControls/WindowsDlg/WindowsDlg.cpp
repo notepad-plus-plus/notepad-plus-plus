@@ -1169,8 +1169,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 			BufferID bufID = pTab->getBufferByIndex(pos);
 			Buffer * buf = MainFileManager.getBufferByID(bufID);
 
-			MENUITEMINFO mii;
-			memset(&mii, 0, sizeof(mii));
+			MENUITEMINFO mii{};
 			mii.cbSize = sizeof(mii);
 			mii.fMask = MIIM_STRING|MIIM_STATE|MIIM_ID;
 			generic_string strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName()));
@@ -1186,7 +1185,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 
 			UINT state = GetMenuState(hMenu, id, MF_BYCOMMAND);
 			if (state == ((UINT)-1))
-				InsertMenuItem(hMenu, IDM_WINDOW_WINDOWS, FALSE, &mii);
+				InsertMenuItem(hMenu, IDM_WINDOW_MRU_FIRST, TRUE, &mii);
 			else
 				SetMenuItemInfo(hMenu, id, FALSE, &mii);
 		}

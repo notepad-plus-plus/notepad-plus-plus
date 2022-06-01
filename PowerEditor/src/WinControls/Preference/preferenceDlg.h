@@ -72,6 +72,7 @@ private:
 	ColourPicker* _pEdgeColorPicker = nullptr;
 	ColourPicker* _pLinkColorPicker = nullptr;
 	ColourPicker* _pHotEdgeColorPicker = nullptr;
+	ColourPicker* _pDisabledEdgeColorPicker = nullptr;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void enableCustomizedColorCtrls(bool doEnable);

@@ -49,6 +49,7 @@ namespace NppDarkMode
 
 		HBRUSH edgeBrush = nullptr;
 		HBRUSH hotEdgeBrush = nullptr;
+		HBRUSH disabledEdgeBrush = nullptr;
 
 		Brushes(const Colors& colors)
 			: background(::CreateSolidBrush(colors.background))
@@ -59,6 +60,7 @@ namespace NppDarkMode
 
 			, edgeBrush(::CreateSolidBrush(colors.edge))
 			, hotEdgeBrush(::CreateSolidBrush(colors.hotEdge))
+			, disabledEdgeBrush(::CreateSolidBrush(colors.disabledEdge))
 		{}
 
 		~Brushes()
@@ -71,6 +73,7 @@ namespace NppDarkMode
 
 			::DeleteObject(edgeBrush);			edgeBrush = nullptr;
 			::DeleteObject(hotEdgeBrush);		hotEdgeBrush = nullptr;
+			::DeleteObject(disabledEdgeBrush);	disabledEdgeBrush = nullptr;
 		}
 
 		void change(const Colors& colors)
@@ -83,6 +86,7 @@ namespace NppDarkMode
 
 			::DeleteObject(edgeBrush);
 			::DeleteObject(hotEdgeBrush);
+			::DeleteObject(disabledEdgeBrush);
 
 			background = ::CreateSolidBrush(colors.background);
 			softerBackground = ::CreateSolidBrush(colors.softerBackground);
@@ -92,6 +96,7 @@ namespace NppDarkMode
 
 			edgeBrush = ::CreateSolidBrush(colors.edge);
 			hotEdgeBrush = ::CreateSolidBrush(colors.hotEdge);
+			disabledEdgeBrush = ::CreateSolidBrush(colors.disabledEdge);
 		}
 	};
 
@@ -100,18 +105,21 @@ namespace NppDarkMode
 		HPEN darkerTextPen = nullptr;
 		HPEN edgePen = nullptr;
 		HPEN hotEdgePen = nullptr;
+		HPEN disabledEdgePen = nullptr;
 
 		Pens(const Colors& colors)
 			: darkerTextPen(::CreatePen(PS_SOLID, 1, colors.darkerText))
 			, edgePen(::CreatePen(PS_SOLID, 1, colors.edge))
 			, hotEdgePen(::CreatePen(PS_SOLID, 1, colors.hotEdge))
+			, disabledEdgePen(::CreatePen(PS_SOLID, 1, colors.disabledEdge))
 		{}
 
 		~Pens()
 		{
-			::DeleteObject(darkerTextPen);	darkerTextPen = nullptr;
-			::DeleteObject(edgePen);		edgePen = nullptr;
-			::DeleteObject(hotEdgePen);		hotEdgePen = nullptr;
+			::DeleteObject(darkerTextPen);		darkerTextPen = nullptr;
+			::DeleteObject(edgePen);			edgePen = nullptr;
+			::DeleteObject(hotEdgePen);			hotEdgePen = nullptr;
+			::DeleteObject(disabledEdgePen);	disabledEdgePen = nullptr;
 		}
 
 		void change(const Colors& colors)
@@ -119,10 +127,12 @@ namespace NppDarkMode
 			::DeleteObject(darkerTextPen);
 			::DeleteObject(edgePen);
 			::DeleteObject(hotEdgePen);
+			::DeleteObject(disabledEdgePen);
 
 			darkerTextPen = ::CreatePen(PS_SOLID, 1, colors.darkerText);
 			edgePen = ::CreatePen(PS_SOLID, 1, colors.edge);
 			hotEdgePen = ::CreatePen(PS_SOLID, 1, colors.hotEdge);
+			disabledEdgePen = ::CreatePen(PS_SOLID, 1, colors.disabledEdge);
 		}
 
 	};
@@ -139,7 +149,8 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x646464),	// edgeColor
-		HEXRGB(0x9B9B9B)	// hotEdgeColor
+		HEXRGB(0x9B9B9B),	// hotEdgeColor
+		HEXRGB(0x484848)	// disabledEdgeColor
 	};
 
 	// red tone
@@ -154,7 +165,8 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x908080),	// edgeColor
-		HEXRGB(0xBBABAB)	// hotEdgeColor
+		HEXRGB(0xBBABAB),	// hotEdgeColor
+		HEXRGB(0x584848)	// disabledEdgeColor
 	};
 
 	// green tone
@@ -169,7 +181,8 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x809080),	// edgeColor
-		HEXRGB(0xABBBAB)	// hotEdgeColor
+		HEXRGB(0xABBBAB),	// hotEdgeColor
+		HEXRGB(0x485848)	// disabledEdgeColor
 	};
 
 	// blue tone
@@ -184,7 +197,8 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x8080A0),	// edgeColor
-		HEXRGB(0xABABCB)	// hotEdgeColor
+		HEXRGB(0xABABCB),	// hotEdgeColor
+		HEXRGB(0x484868)	// disabledEdgeColor
 	};
 
 	// purple tone
@@ -199,7 +213,8 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x9080A0),	// edgeColor
-		HEXRGB(0xBBABCB)	// hotEdgeColor
+		HEXRGB(0xBBABCB),	// hotEdgeColor
+		HEXRGB(0x584868)	// disabledEdgeColor
 	};
 
 	// cyan tone
@@ -214,7 +229,8 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x8090A0),	// edgeColor
-		HEXRGB(0xBBBBCB)	// hotEdgeColor
+		HEXRGB(0xBBBBCB),	// hotEdgeColor
+		HEXRGB(0x485868)	// disabledEdgeColor
 	};
 
 	// olive tone
@@ -229,7 +245,8 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x909080),	// edgeColor
-		HEXRGB(0xBBBBAB)	// hotEdgeColor
+		HEXRGB(0xBBBBAB),	// hotEdgeColor
+		HEXRGB(0x585848)	// disabledEdgeColor
 	};
 
 	// customized
@@ -244,7 +261,8 @@ namespace NppDarkMode
 		HEXRGB(0x808080),	// disabledTextColor
 		HEXRGB(0xFFFF00),	// linkTextColor
 		HEXRGB(0x646464),	// edgeColor
-		HEXRGB(0x9B9B9B)	// hotEdgeColor
+		HEXRGB(0x9B9B9B),	// hotEdgeColor
+		HEXRGB(0x484848)	// disabledEdgeColor
 	};
 
 	ColorTone g_colorToneChoice = blackTone;
@@ -467,6 +485,7 @@ namespace NppDarkMode
 	COLORREF getLinkTextColor()           { return getTheme()._colors.linkText; }
 	COLORREF getEdgeColor()               { return getTheme()._colors.edge; }
 	COLORREF getHotEdgeColor()            { return getTheme()._colors.hotEdge; }
+	COLORREF getDisabledEdgeColor()       { return getTheme()._colors.disabledEdge; }
 
 	HBRUSH getBackgroundBrush()           { return getTheme()._brushes.background; }
 	HBRUSH getSofterBackgroundBrush()     { return getTheme()._brushes.softerBackground; }
@@ -476,10 +495,12 @@ namespace NppDarkMode
 
 	HBRUSH getEdgeBrush()                 { return getTheme()._brushes.edgeBrush; }
 	HBRUSH getHotEdgeBrush()              { return getTheme()._brushes.hotEdgeBrush; }
+	HBRUSH getDisabledEdgeBrush()         { return getTheme()._brushes.disabledEdgeBrush; }
 
 	HPEN getDarkerTextPen()               { return getTheme()._pens.darkerTextPen; }
 	HPEN getEdgePen()                     { return getTheme()._pens.edgePen; }
 	HPEN getHotEdgePen()                  { return getTheme()._pens.hotEdgePen; }
+	HPEN getDisabledEdgePen()             { return getTheme()._pens.disabledEdgePen; }
 
 	void setBackgroundColor(COLORREF c)
 	{
@@ -555,6 +576,13 @@ namespace NppDarkMode
 	{
 		Colors clrs = getTheme()._colors;
 		clrs.hotEdge = c;
+		getTheme().change(clrs);
+	}
+
+	void setDisabledEdgeColor(COLORREF c)
+	{
+		Colors clrs = getTheme()._colors;
+		clrs.disabledEdge = c;
 		getTheme().change(clrs);
 	}
 
@@ -775,7 +803,7 @@ namespace NppDarkMode
 		::EnableDarkScrollBarForWindowAndChildren(hwnd);
 	}
 
-	inline void paintRoundFrameRect(HDC hdc, const RECT rect, const HPEN hpen, int width, int height)
+	void paintRoundFrameRect(HDC hdc, const RECT rect, const HPEN hpen, int width, int height)
 	{
 		auto holdBrush = ::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
 		auto holdPen = ::SelectObject(hdc, hpen);
@@ -1114,7 +1142,7 @@ namespace NppDarkMode
 
 		//DrawThemeParentBackground(hwnd, hdc, &rcClient);
 		//DrawThemeBackground(buttonData.hTheme, hdc, BP_GROUPBOX, iStateID, &rcBackground, nullptr);
-		NppDarkMode::paintRoundFrameRect(hdc, rcBackground, NppDarkMode::getEdgePen(), 0, 0);
+		NppDarkMode::paintRoundFrameRect(hdc, rcBackground, NppDarkMode::getEdgePen());
 
 		SelectClipRgn(hdc, nullptr);
 
@@ -1365,6 +1393,167 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
 	}
 
+	constexpr UINT_PTR g_customBorderSubclassID = 42;
+
+	LRESULT CALLBACK CustomBorderSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		UNREFERENCED_PARAMETER(dwRefData);
+
+		static bool isHotStatic = false;
+
+		switch (uMsg)
+		{
+			case WM_NCPAINT:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				DefSubclassProc(hWnd, uMsg, wParam, lParam);
+
+				HDC hdc = ::GetWindowDC(hWnd);
+				RECT rcClient{};
+				::GetClientRect(hWnd, &rcClient);
+				rcClient.right += (2 * ::GetSystemMetrics(SM_CXEDGE));
+
+				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+				bool hasVerScrollbar = (style & WS_VSCROLL) == WS_VSCROLL;
+				if (hasVerScrollbar)
+				{
+					rcClient.right += ::GetSystemMetrics(SM_CXVSCROLL);
+				}
+
+				rcClient.bottom += (2 * ::GetSystemMetrics(SM_CYEDGE));
+
+				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
+				if (hasHorScrollbar)
+				{
+					rcClient.bottom += ::GetSystemMetrics(SM_CXHSCROLL);
+				}
+
+				HPEN hPen = ::CreatePen(PS_SOLID, 1, NppDarkMode::getBackgroundColor());
+				RECT rcInner = rcClient;
+				::InflateRect(&rcInner, -1, -1);
+				NppDarkMode::paintRoundFrameRect(hdc, rcInner, hPen);
+				::DeleteObject(hPen);
+
+				bool hasFocus = ::GetFocus() == hWnd;
+
+				POINT ptCursor{};
+				::GetCursorPos(&ptCursor);
+				::ScreenToClient(hWnd, &ptCursor);
+
+				bool isHot = ::PtInRect(&rcClient, ptCursor);
+
+				bool isWindowEnabled = ::IsWindowEnabled(hWnd) == TRUE;
+				HPEN hEnabledPen = ((isHotStatic && isHot) || hasFocus ? NppDarkMode::getHotEdgePen() : NppDarkMode::getEdgePen());
+
+				NppDarkMode::paintRoundFrameRect(hdc, rcClient, isWindowEnabled ? hEnabledPen : NppDarkMode::getDisabledEdgePen());
+
+				::ReleaseDC(hWnd, hdc);
+
+				return 0;
+			}
+			break;
+
+			case WM_NCCALCSIZE:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				auto lpRect = reinterpret_cast<LPRECT>(lParam);
+				::InflateRect(lpRect, -(::GetSystemMetrics(SM_CXEDGE)), -(::GetSystemMetrics(SM_CYEDGE)));
+
+				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+				bool hasVerScrollbar = (style & WS_VSCROLL) == WS_VSCROLL;
+				if (hasVerScrollbar)
+				{
+					lpRect->right -= ::GetSystemMetrics(SM_CXVSCROLL);
+				}
+
+				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
+				if (hasHorScrollbar)
+				{
+					lpRect->bottom -= ::GetSystemMetrics(SM_CXHSCROLL);
+				}
+
+				return 0;
+			}
+			break;
+
+			case WM_MOUSEMOVE:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				if (::GetFocus() == hWnd)
+				{
+					break;
+				}
+
+				TRACKMOUSEEVENT tme{};
+				tme.cbSize = sizeof(TRACKMOUSEEVENT);
+				tme.dwFlags = TME_LEAVE;
+				tme.hwndTrack = hWnd;
+				tme.dwHoverTime = HOVER_DEFAULT;
+				TrackMouseEvent(&tme);
+
+				if (!isHotStatic)
+				{
+					isHotStatic = true;
+					::SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+				}
+			}
+			break;
+
+			case WM_MOUSELEAVE:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				if (isHotStatic)
+				{
+					isHotStatic = false;
+					::SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+				}
+
+				TRACKMOUSEEVENT tme{};
+				tme.cbSize = sizeof(TRACKMOUSEEVENT);
+				tme.dwFlags = TME_LEAVE | TME_CANCEL;
+				tme.hwndTrack = hWnd;
+				tme.dwHoverTime = HOVER_DEFAULT;
+				TrackMouseEvent(&tme);
+			}
+			break;
+
+			case WM_NCDESTROY:
+			{
+				RemoveWindowSubclass(hWnd, CustomBorderSubclass, uIdSubclass);
+			}
+			break;
+		}
+		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void subclassCustomBorderForListBoxAndEditControls(HWND hwnd)
+	{
+		SetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, 0);
+	}
+
 	constexpr UINT_PTR g_comboBoxSubclassID = 42;
 
 	LRESULT CALLBACK ComboBoxSubclass(
@@ -1448,7 +1637,10 @@ namespace NppDarkMode
 
 				bool isHot = ::PtInRect(&rc, ptCursor);
 
-				::SetTextColor(hdc, isHot ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+				bool isWindowEnabled = ::IsWindowEnabled(hWnd) == TRUE;
+
+				auto colorEnabledText = isHot ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor();
+				::SetTextColor(hdc, isWindowEnabled ? colorEnabledText : NppDarkMode::getDisabledTextColor());
 				::SetBkColor(hdc, isHot ? NppDarkMode::getHotBackgroundColor() : NppDarkMode::getBackgroundColor());
 				::ExtTextOut(hdc,
 					rcArrow.left + (rcArrow.right - rcArrow.left) / 2 - dpiManager.scaleX(4),
@@ -1459,7 +1651,8 @@ namespace NppDarkMode
 					nullptr);
 				::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
 
-				auto hSelectedPen = isHot || hasFocus ? NppDarkMode::getHotEdgePen() : NppDarkMode::getEdgePen();
+				auto hEnabledPen = (isHot || hasFocus) ? NppDarkMode::getHotEdgePen() : NppDarkMode::getEdgePen();
+				auto hSelectedPen = isWindowEnabled ? hEnabledPen : NppDarkMode::getDisabledEdgePen();
 				auto holdPen = static_cast<HPEN>(::SelectObject(hdc, hSelectedPen));
 
 				POINT edge[] = {
@@ -1489,7 +1682,7 @@ namespace NppDarkMode
 
 	void subclassComboBoxControl(HWND hwnd)
 	{
-		DWORD_PTR hwndEditData = NULL;
+		DWORD_PTR hwndEditData = 0;
 		auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 		if ((style & CBS_DROPDOWN) == CBS_DROPDOWN)
 		{
@@ -1617,6 +1810,43 @@ namespace NppDarkMode
 					SetWindowTheme(hwnd, p.themeClassName, nullptr);
 				}
 
+				auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+				bool isComboBox = (style & LBS_COMBOBOX) == LBS_COMBOBOX;
+				auto exStyle = ::GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+				bool hasClientEdge = (exStyle & WS_EX_CLIENTEDGE) == WS_EX_CLIENTEDGE;
+
+				if (p.subclass && !isComboBox && hasClientEdge)
+				{
+					NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
+				}
+
+#ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
+
+				bool changed = false;
+				if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
+				{
+					if (NppDarkMode::isEnabled())
+					{
+						if (hasClientEdge)
+						{
+							::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
+							changed = true;
+						}
+					}
+					else if (!hasClientEdge)
+					{
+						::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
+						changed = true;
+					}
+				}
+
+				if (changed)
+				{
+					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+				}
+
+#endif // !__MINGW64__
+
 				return TRUE;
 			}
 
@@ -1629,6 +1859,40 @@ namespace NppDarkMode
 					//dark scrollbar for edit control
 					SetWindowTheme(hwnd, p.themeClassName, nullptr);
 				}
+
+				auto exStyle = ::GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+				bool hasClientEdge = (exStyle & WS_EX_CLIENTEDGE) == WS_EX_CLIENTEDGE;
+				if (p.subclass && hasClientEdge)
+				{
+					NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
+				}
+
+#ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
+
+				bool changed = false;
+				if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
+				{
+					if (NppDarkMode::isEnabled())
+					{
+						if (hasClientEdge)
+						{
+							::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
+							changed = true;
+						}
+					}
+					else if (!hasClientEdge)
+					{
+						::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
+						changed = true;
+					}
+				}
+
+				if (changed)
+				{
+					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+				}
+
+#endif // !__MINGW64__
 
 				return TRUE;
 			}
@@ -2192,13 +2456,8 @@ namespace NppDarkMode
 
 				if (!hasTheme)
 				{
-					auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
-					auto holdBrush = ::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
-					::Rectangle(hdc, rcArrowLeft.left, rcArrowLeft.top, rcArrowLeft.right, rcArrowLeft.bottom);
-					::Rectangle(hdc, rcArrowRight.left, rcArrowRight.top, rcArrowRight.right, rcArrowRight.bottom);
-
-					::SelectObject(hdc, holdPen);
-					::SelectObject(hdc, holdBrush);
+					NppDarkMode::paintRoundFrameRect(hdc, rcArrowLeft, NppDarkMode::getEdgePen());
+					NppDarkMode::paintRoundFrameRect(hdc, rcArrowRight, NppDarkMode::getEdgePen());
 				}
 
 				::SelectObject(hdc, holdFont);
@@ -2525,5 +2784,19 @@ namespace NppDarkMode
 		::SetTextColor(hdc, isTextEnabled ? NppDarkMode::getTextColor() : NppDarkMode::getDisabledTextColor());
 		::SetBkColor(hdc, NppDarkMode::getDarkerBackgroundColor());
 		return reinterpret_cast<LRESULT>(NppDarkMode::getDarkerBackgroundBrush());
+	}
+
+	INT_PTR onCtlColorListbox(WPARAM wParam, LPARAM lParam)
+	{
+		auto hdc = reinterpret_cast<HDC>(wParam);
+		auto hwnd = reinterpret_cast<HWND>(lParam);
+
+		auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+		bool isComboBox = (style & LBS_COMBOBOX) == LBS_COMBOBOX;
+		if (!isComboBox && ::IsWindowEnabled(hwnd))
+		{
+			return static_cast<INT_PTR>(NppDarkMode::onCtlColorSofter(hdc));
+		}
+		return static_cast<INT_PTR>(NppDarkMode::onCtlColor(hdc));
 	}
 }

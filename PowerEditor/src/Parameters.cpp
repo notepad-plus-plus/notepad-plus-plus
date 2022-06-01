@@ -5599,6 +5599,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			val = element->Attribute(TEXT("customColorHotEdge"), &i);
 			if (val)
 				_nppGUI._darkmode._customColors.hotEdge = i;
+
+			val = element->Attribute(TEXT("customColorDisabledEdge"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.disabledEdge = i;
 		}
 	}
 }
@@ -6698,6 +6702,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("customColorLinkText"), _nppGUI._darkmode._customColors.linkText);
 		GUIConfigElement->SetAttribute(TEXT("customColorEdge"), _nppGUI._darkmode._customColors.edge);
 		GUIConfigElement->SetAttribute(TEXT("customColorHotEdge"), _nppGUI._darkmode._customColors.hotEdge);
+		GUIConfigElement->SetAttribute(TEXT("customColorDisabledEdge"), _nppGUI._darkmode._customColors.disabledEdge);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

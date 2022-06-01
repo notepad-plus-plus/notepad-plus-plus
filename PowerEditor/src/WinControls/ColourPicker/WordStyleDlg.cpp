@@ -81,8 +81,6 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 		{
 			NppParameters& nppParamInst = NppParameters::getInstance();
 
-			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-
 			_hCheckBold = ::GetDlgItem(_hSelf, IDC_BOLD_CHECK);
 			_hCheckItalic = ::GetDlgItem(_hSelf, IDC_ITALIC_CHECK);
 			_hCheckUnderline = ::GetDlgItem(_hSelf, IDC_UNDERLINE_CHECK);
@@ -151,6 +149,9 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			loadLangListFromNppParam();
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			goToCenter();
 
 			return TRUE;
@@ -177,7 +178,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorListbox(wParam, lParam);
 			}
 			break;
 		}

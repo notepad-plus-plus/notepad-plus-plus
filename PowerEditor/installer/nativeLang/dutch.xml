@@ -899,7 +899,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
 
                 <DarkMode title="Donkere modus">
                     <Item id="7101" name="Donkere modus inschakelen"/>
-                    <Item id="7102" name="Zwarte"/>
+                    <Item id="7102" name="Zwart"/>
                     <Item id="7103" name="Rood"/>
                     <Item id="7104" name="Groen"/>
                     <Item id="7105" name="Blauw"/>

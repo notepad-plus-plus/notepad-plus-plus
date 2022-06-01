@@ -1750,30 +1750,6 @@ namespace NppDarkMode
 					NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
 				}
 
-				bool changed = false;
-				if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
-				{
-					if (NppDarkMode::isEnabled())
-					{
-						if (hasClientEdge)
-						{
-							::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
-							changed = true;
-						}
-					}
-					else if (!hasClientEdge)
-					{
-						::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
-						changed = true;
-					}
-				}
-				
-
-				if (changed)
-				{
-					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-				}
-
 				return TRUE;
 			}
 
@@ -1792,29 +1768,6 @@ namespace NppDarkMode
 				if (p.subclass && hasClientEdge)
 				{
 					NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
-				}
-
-				bool changed = false;
-				if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
-				{
-					if (NppDarkMode::isEnabled())
-					{
-						if (hasClientEdge)
-						{
-							::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
-							changed = true;
-						}
-					}
-					else if (!hasClientEdge)
-					{
-						::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
-						changed = true;
-					}
-				}
-
-				if (changed)
-				{
-					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 				}
 
 				return TRUE;

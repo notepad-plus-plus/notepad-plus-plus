@@ -1676,7 +1676,7 @@ namespace NppDarkMode
 
 	void subclassComboBoxControl(HWND hwnd)
 	{
-		DWORD_PTR hwndEditData = NULL;
+		DWORD_PTR hwndEditData = 0;
 		auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 		if ((style & CBS_DROPDOWN) == CBS_DROPDOWN)
 		{
@@ -1750,6 +1750,33 @@ namespace NppDarkMode
 					NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
 				}
 
+#ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
+
+				bool changed = false;
+				if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
+				{
+					if (NppDarkMode::isEnabled())
+					{
+						if (hasClientEdge)
+						{
+							::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
+							changed = true;
+						}
+					}
+					else if (!hasClientEdge)
+					{
+						::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
+						changed = true;
+					}
+				}
+
+				if (changed)
+				{
+					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+				}
+
+#endif // !__MINGW64__
+
 				return TRUE;
 			}
 
@@ -1769,6 +1796,33 @@ namespace NppDarkMode
 				{
 					NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
 				}
+
+#ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
+
+				bool changed = false;
+				if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
+				{
+					if (NppDarkMode::isEnabled())
+					{
+						if (hasClientEdge)
+						{
+							::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
+							changed = true;
+						}
+					}
+					else if (!hasClientEdge)
+					{
+						::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
+						changed = true;
+					}
+				}
+
+				if (changed)
+				{
+					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+				}
+
+#endif // !__MINGW64__
 
 				return TRUE;
 			}

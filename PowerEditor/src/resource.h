@@ -695,5 +695,6 @@
 #define MENUINDEX_MACRO    8
 #define MENUINDEX_RUN      9
 #define MENUINDEX_PLUGINS  10
-#define MENUINDEX_HELP     11
-#define MENUINDEX_WINDOW   13
+#define MENUINDEX_WINDOW   11
+#define MENUINDEX_HELP     12
+#define MENUINDEX_LIST     14

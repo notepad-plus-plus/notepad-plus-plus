@@ -40,7 +40,7 @@ MenuPosition menuPos[] = {
 	{ 8,  -1, -1, "macro" },
 	{ 9,  -1, -1, "run" },
 	{ 10, -1, -1, "Plugins" },
-	{ 13, -1, -1, "Window" },
+	{ 11, -1, -1, "Window" },
 
 	{ 0,   2, -1, "file-openFolder" },
 	{ 0,  13, -1, "file-closeMore" },
@@ -100,7 +100,7 @@ MenuPosition menuPos[] = {
 	{ 7,   0, -1, "tools-md5" },
 	{ 7,   1, -1, "tools-sha256" },
 
-	{ 13,  0, -1, "window-sortby"},
+	{ 11,  0, -1, "window-sortby"},
 
 	{ -1,  -1, -1, "" } // End of array
 };

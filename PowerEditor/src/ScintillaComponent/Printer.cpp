@@ -404,9 +404,9 @@ size_t Printer::doPrint(bool justDoIt)
 			}
 		}
 		
-		frPrint.chrg.cpMin = static_cast<Sci_PositionCR>(lengthPrinted);
-		frPrint.chrg.cpMax = static_cast<Sci_PositionCR>(lengthDoc);
-		lengthPrinted = _pSEView->execute(SCI_FORMATRANGE, printPage, reinterpret_cast<LPARAM>(&frPrint));
+		frPrint.chrg.cpMin = static_cast<Sci_Position>(lengthPrinted);
+		frPrint.chrg.cpMax = static_cast<Sci_Position>(lengthDoc);
+		lengthPrinted = _pSEView->execute(SCI_FORMATRANGEFULL, printPage, reinterpret_cast<LPARAM>(&frPrint));
 
 		if (printPage) 
 		{
@@ -481,7 +481,7 @@ size_t Printer::doPrint(bool justDoIt)
 	if (!nppGUI._printSettings._printLineNumber)
 		_pSEView->showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, isShown);
 
-	_pSEView->execute(SCI_FORMATRANGE, FALSE, 0);
+	_pSEView->execute(SCI_FORMATRANGEFULL, FALSE, 0);
 	::EndDoc(_pdlg.hDC);
 	::DeleteDC(_pdlg.hDC);
 

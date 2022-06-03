@@ -2202,11 +2202,11 @@ void ScintillaEditView::foldAll(bool mode)
 
 void ScintillaEditView::getText(char *dest, size_t start, size_t end) const
 {
-	Sci_TextRange tr;
-	tr.chrg.cpMin = static_cast<Sci_PositionCR>(start);
-	tr.chrg.cpMax = static_cast<Sci_PositionCR>(end);
+	Sci_TextRangeFull tr{};
+	tr.chrg.cpMin = static_cast<Sci_Position>(start);
+	tr.chrg.cpMax = static_cast<Sci_Position>(end);
 	tr.lpstrText = dest;
-	execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
+	execute(SCI_GETTEXTRANGEFULL, 0, reinterpret_cast<LPARAM>(&tr));
 }
 
 generic_string ScintillaEditView::getGenericTextAsString(size_t start, size_t end) const

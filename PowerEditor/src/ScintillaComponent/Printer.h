@@ -25,7 +25,7 @@ struct NPP_RangeToFormat {
 	HDC hdcTarget = nullptr;
 	RECT rc = {};
 	RECT rcPage = {};
-	Sci_CharacterRange chrg = {};
+	Sci_CharacterRangeFull chrg = {};
 };
 
 class Printer

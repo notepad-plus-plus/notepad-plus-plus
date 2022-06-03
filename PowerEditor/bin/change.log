@@ -1,3 +1,17 @@
+Notepad++ v8.4.2 crash-fixes, bug-fixes & new enhancement:
+
+1.  Fix crash on "Copy Binary Content" command without selection on edit zone.
+2.  Fix crash by re-invoking with command line argument "-udl".
+3.  Make toolbar icons customizable.
+4.  Make fold/unfold current level commands toggleable.
+5.  Add command line argument for plugin, a related notification and an API.
+6.  Fix horizontal scrolling with scroll wheel on Logitech MX issue.
+7.  Enhance dark mode.
+8.  Add encoding context menu via right/double click on status bar.
+9.  Add gui4cli keywords and fix its style IDs in stylers.model.xml.
+10. Display installed plugin versions in Debug Info dialog.
+
+
 Notepad++ v8.4.1 regression-fixes, bug-fixes & new enhancement:
 
 1.  Fix HTML syntax highlighting in PHP files regression.
@@ -36,14 +50,14 @@ Notepad++ v8.4 new feature and bug-fixes:
 17. Update NSIS & Inno Setup keyword lists.
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.4.1/
+https://notepad-plus-plus.org/downloads/v8.4.2/
 
 
 Included plugins:
 
 1.  NppExport v0.4
 2.  Converter v4.4
-3.  Mime Tool v2.7
+3.  Mime Tool v2.8
 
 
 Updater (Installer only):

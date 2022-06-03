@@ -29,8 +29,8 @@
 	8   cut.ico                 cut_disabled.ico
 	9   copy.ico                copy_disabled.ico
 	10  paste.ico               paste_disabled.ico
-	12  redo.ico                redo_disabled.ico
 	11  undo.ico                undo_disabled.ico
+	12  redo.ico                redo_disabled.ico
 	13  find.ico
 	14  replace.ico
 	15  zoom-in.ico

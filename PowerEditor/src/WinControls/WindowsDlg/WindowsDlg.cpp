@@ -1231,5 +1231,10 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 		{
 			DeleteMenu(hMenu, id, FALSE);
 		}
+
+		if (isDropListMenu)
+		{
+			_limitPrev = static_cast<UINT>(pTab->nbItem());
+		}
 	}
 }

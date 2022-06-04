@@ -2617,7 +2617,10 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_BACK, selectColorBack);
 
 	if (nppParams.isSelectFgColorEnabled())
+	{
 		execute(SCI_SETSELFORE, 1, selectColorFore);
+		execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_TEXT, selectColorFore);
+	}
 
 	COLORREF caretColor = black;
 	pStyle = stylers.findByID(SCI_SETCARETFORE);

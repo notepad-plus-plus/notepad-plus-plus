@@ -1173,8 +1173,13 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 	{
 		isDropListMenu = true;
 
+		if (_limitPrev < pTab->nbItem())
+		{
+			_limitPrev = static_cast<UINT>(pTab->nbItem());
+		}
+
 		firstId = IDM_DROPLIST_MRU_FIRST;
-		limitId = IDM_DROPLIST_MRU_LIMIT;
+		limitId = IDM_DROPLIST_MRU_FIRST + _limitPrev - 1;
 		menuPosId = IDM_DROPLIST_LIST;
 	}
 

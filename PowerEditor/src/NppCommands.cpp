@@ -3843,9 +3843,9 @@ void Notepad_plus::command(int id)
 */
 			else if ((id >= IDM_WINDOW_MRU_FIRST) && (id <= IDM_WINDOW_MRU_LIMIT))
 			{
-				activateDoc(id-IDM_WINDOW_MRU_FIRST);
+				activateDoc(id - IDM_WINDOW_MRU_FIRST);
 			}
-			else if ((id >= IDM_DROPLIST_MRU_FIRST) && (id <= IDM_DROPLIST_MRU_LIMIT))
+			else if ((id >= IDM_DROPLIST_MRU_FIRST) && (id < (IDM_DROPLIST_MRU_FIRST + static_cast<int32_t>(_pDocTab->nbItem()))))
 			{
 				activateDoc(id - IDM_DROPLIST_MRU_FIRST);
 			}

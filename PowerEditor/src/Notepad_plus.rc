@@ -14,7 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#pragma code_page(65001) // don't use resource editor
+
+// don't use resource editor it will corrupt this file,
+// it will default to default ANSI code page (e.g. #pragma code_page(1252)),
+// this will ignore line with #pragma code_page(65001) below,
+// and change non ANSI symbol to ?
+#pragma code_page(65001)
 
 #include <windows.h>
 #include "resource.h"

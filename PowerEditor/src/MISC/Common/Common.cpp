@@ -575,9 +575,16 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 		}
 		else
 		{
-			strTemp.append(uintToString(pos + 1));
+			div_t splitDigits = div(pos + 1, 10);
+			strTemp.append(uintToString(splitDigits.quot));
+			strTemp.push_back('&');
+			strTemp.append(uintToString(splitDigits.rem));
 		}
 		strTemp.append(TEXT(": "));
+	}
+	else
+	{
+		strTemp.push_back('&');
 	}
 
 	if (filenameLen > 0)

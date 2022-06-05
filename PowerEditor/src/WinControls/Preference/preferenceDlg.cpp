@@ -1008,7 +1008,6 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_INITDIALOG:
 		{
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode._isEnabled, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_PLUGIN, BM_SETCHECK, nppGUI._darkmode._isEnabledPlugin, 0);
 
 			int id = IDC_RADIO_DARKMODE_BLACK;
 			switch (nppGUI._darkmode._colorTone)
@@ -1208,13 +1207,6 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					}
 
 					changed = true;
-				}
-				break;
-
-				case IDC_CHECK_DARKMODE_PLUGIN:
-				{
-					bool enableDarkModePlugin = isCheckedOrNot(static_cast<int>(wParam));
-					nppGUI._darkmode._isEnabledPlugin = enableDarkModePlugin;
 				}
 				break;
 

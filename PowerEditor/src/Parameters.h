@@ -715,7 +715,7 @@ public:
 struct DarkModeConf final
 {
 	bool _isEnabled = false;
-	bool _isEnabledPlugin = false;
+	bool _isEnabledPlugin = true;
 	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
 	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
 };

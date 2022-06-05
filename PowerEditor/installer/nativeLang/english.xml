@@ -915,7 +915,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7126" name="Edge highlight"/>
                     <Item id="7130" name="Reset"/>
                     <Item id="7135" name="Tones"/>
-                    <Item id="7136" name="Apply dark mode on plugins with docking window (requires Notepad++ restart)"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margins/Border/Edge">

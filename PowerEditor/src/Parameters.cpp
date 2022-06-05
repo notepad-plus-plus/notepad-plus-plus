@@ -5547,7 +5547,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
 
-			_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(TEXT("enablePlugin"));
+			//_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(TEXT("enablePlugin"));
 
 			int i;
 			const TCHAR* val;
@@ -6684,7 +6684,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		};
 
 		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode._isEnabled);
-		setYesNoBoolAttribute(TEXT("enablePlugin"), _nppGUI._darkmode._isEnabledPlugin);
+		//setYesNoBoolAttribute(TEXT("enablePlugin"), _nppGUI._darkmode._isEnabledPlugin);
 		GUIConfigElement->SetAttribute(TEXT("colorTone"), _nppGUI._darkmode._colorTone);
 
 		GUIConfigElement->SetAttribute(TEXT("customColorTop"), _nppGUI._darkmode._customColors.pureBackground);

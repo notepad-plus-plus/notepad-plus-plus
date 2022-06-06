@@ -926,11 +926,13 @@ namespace NppDarkMode
 	void paintButton(HWND hwnd, HDC hdc, ButtonData& buttonData)
 	{
 		DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
-		DWORD nStyle = GetWindowLong(hwnd, GWL_STYLE);
-		DWORD nButtonStyle = nStyle & 0xF;
+		const auto nStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
+		const auto nButtonStyle = nStyle & BS_TYPEMASK;
 
 		int iPartID = BP_CHECKBOX;
-		if (nButtonStyle == BS_CHECKBOX || nButtonStyle == BS_AUTOCHECKBOX)
+
+		// Plugin might use BS_3STATE and BS_AUTO3STATE button style
+		if (nButtonStyle == BS_CHECKBOX || nButtonStyle == BS_AUTOCHECKBOX || nButtonStyle == BS_3STATE || nButtonStyle == BS_AUTO3STATE)
 		{
 			iPartID = BP_CHECKBOX;
 		}
@@ -1312,7 +1314,7 @@ namespace NppDarkMode
 
 					SetBkMode(hdc, TRANSPARENT);
 
-					TCHAR label[MAX_PATH];
+					TCHAR label[MAX_PATH]{};
 					TCITEM tci = {};
 					tci.mask = TCIF_TEXT;
 					tci.pszText = label;
@@ -1899,16 +1901,18 @@ namespace NppDarkMode
 
 			if (wcscmp(className, WC_BUTTON) == 0)
 			{
-				auto nButtonStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE) & 0xF;
-				switch (nButtonStyle)
+				auto nButtonStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+				switch (nButtonStyle & BS_TYPEMASK)
 				{
+					// Plugin might use BS_3STATE and BS_AUTO3STATE button style
 					case BS_CHECKBOX:
 					case BS_AUTOCHECKBOX:
+					case BS_3STATE:
+					case BS_AUTO3STATE:
 					case BS_RADIOBUTTON:
 					case BS_AUTORADIOBUTTON:
 					{
-						auto nButtonAllStyles = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-						if (nButtonAllStyles & BS_PUSHLIKE)
+						if ((nButtonStyle & BS_PUSHLIKE) == BS_PUSHLIKE)
 						{
 							if (p.theme)
 							{
@@ -1983,11 +1987,12 @@ namespace NppDarkMode
 				return TRUE;
 			}
 
+			// Plugin might use rich edit control version 2.0 and later
 			if (wcscmp(className, L"RichEdit20W") == 0 || wcscmp(className, L"RICHEDIT50W") == 0)
 			{
 				if (p.theme)
 				{
-					//dark scrollbar for richedit
+					//dark scrollbar for rich edit control
 					SetWindowTheme(hwnd, p.themeClassName, nullptr);
 				}
 
@@ -2076,7 +2081,7 @@ namespace NppDarkMode
 		}
 	}
 
-	LRESULT darkListViewNotifyCustomDraw(LPARAM lParam)
+	LRESULT darkListViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
 	{
 		auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
 
@@ -2114,12 +2119,20 @@ namespace NppDarkMode
 					::DrawFocusRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc);
 				}
 
-				return CDRF_NEWFONT;
+				LRESULT lr = CDRF_DODEFAULT;
+
+				if (isPlugin)
+				{
+					lr = ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				}
+
+				return lr | CDRF_NEWFONT;
 			}
 
 			default:
-				return CDRF_DODEFAULT;
+				break;
 		}
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
 	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam)
@@ -2229,6 +2242,10 @@ namespace NppDarkMode
 			}
 
 			case WM_CTLCOLORLISTBOX:
+			{
+				return NppDarkMode::onCtlColorListbox(wParam, lParam);
+			}
+
 			case WM_CTLCOLORDLG:
 			{
 				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
@@ -2279,7 +2296,7 @@ namespace NppDarkMode
 								
 						if (wcscmp(className, WC_LISTVIEW) == 0)
 						{
-							return NppDarkMode::darkListViewNotifyCustomDraw(lParam);
+							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
 						}
 								
 						if (wcscmp(className, WC_TREEVIEW) == 0)
@@ -2341,7 +2358,7 @@ namespace NppDarkMode
 								
 						if (wcscmp(className, WC_LISTVIEW) == 0)
 						{
-							return NppDarkMode::darkListViewNotifyCustomDraw(lParam);
+							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
 						}
 								
 						if (wcscmp(className, WC_TREEVIEW) == 0)
@@ -2563,7 +2580,7 @@ namespace NppDarkMode
 
 	void setDarkLineAbovePanelToolbar(HWND hwnd)
 	{
-		COLORSCHEME scheme;
+		COLORSCHEME scheme{};
 		scheme.dwSize = sizeof(COLORSCHEME);
 
 		if (NppDarkMode::isEnabled())

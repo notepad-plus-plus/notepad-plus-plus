@@ -2617,7 +2617,11 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_BACK, selectColorBack);
 
 	if (nppParams.isSelectFgColorEnabled())
-		execute(SCI_SETSELFORE, 1, selectColorFore);
+	{
+		long alphaSelectColorFore = selectColorFore;
+		alphaSelectColorFore |= 0xFF000000; // add alpha color to make DirectWrite mode work
+		execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_TEXT, alphaSelectColorFore);
+	}
 
 	COLORREF caretColor = black;
 	pStyle = stylers.findByID(SCI_SETCARETFORE);

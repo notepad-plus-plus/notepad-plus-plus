@@ -170,7 +170,7 @@ namespace NppDarkMode
 	void autoThemeChildControls(HWND hwndParent);
 
 	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam);
-	LRESULT darkListViewNotifyCustomDraw(LPARAM lParam);
+	LRESULT darkListViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam);
 
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd);

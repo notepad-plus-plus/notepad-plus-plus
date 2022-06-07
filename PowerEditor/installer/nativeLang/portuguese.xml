@@ -913,6 +913,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7124" name="Margem"/>
                     <Item id="7125" name="Ligação"/>
                     <Item id="7126" name="Destacar margem"/>
+                    <Item id="7127" name="Margem desativada"/>
                     <Item id="7130" name="Repor"/>
                     <Item id="7135" name="Tons"/>
                 </DarkMode>
@@ -1575,7 +1576,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-25/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+07/06/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

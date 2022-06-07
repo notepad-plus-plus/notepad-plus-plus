@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -913,6 +913,7 @@
                         <Item id="7124" name="Okraj karty"/>
                         <Item id="7125" name="Čiara"/>
                         <Item id="7126" name="Zvýraznenie okrajov"/>
+                        <Item id="7127" name="Vypnuté okraje"/>
                         <Item id="7130" name="Obnoviť"/>
                         <Item id="7135" name="Odtiene"/>
                 </DarkMode>

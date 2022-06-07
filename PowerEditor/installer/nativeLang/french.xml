@@ -913,6 +913,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7124" name="Bord"/>
                     <Item id="7125" name="Lien"/>
                     <Item id="7126" name="Bord focalisé"/>
+                    <Item id="7127" name="Bord désactivé"/>
                     <Item id="7130" name="Réinitialiser"/>
                     <Item id="7135" name="Tons"/>
                 </DarkMode>

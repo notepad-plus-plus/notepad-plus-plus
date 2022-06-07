@@ -323,7 +323,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="10003" name="Mover para a nova instância"/>
                     <Item id="10004" name="Abrir numa nova instância"/>
 
-                    <Item id="46001" name="Configurador do estilo..."/>
+                    <Item id="46001" name="Configurador de estilos..."/>
                     <Item id="46250" name="Defina a sua linguagem..."/>
                     <Item id="46300" name="Abrir pasta de linguagem definida pelo utilizador..."/>
                     <Item id="46301" name="Coleção de linguagens definidas pelo utilizador Notepad++"/>
@@ -890,6 +890,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6653" name="Realçar fundo"/>
                     <Item id="6654" name="Contorno"/>
                     <Item id="6655" name="Espessura"/>
+                    <Item id="6247" name="EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Predefinição"/>
+                    <Item id="6249" name="Texto simples"/>
+                    <Item id="6250" name="Cor personalizada"/>
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
@@ -913,6 +917,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7124" name="Margem"/>
                     <Item id="7125" name="Ligação"/>
                     <Item id="7126" name="Destacar margem"/>
+                    <Item id="7127" name="Margem desativada"/>
                     <Item id="7130" name="Repor"/>
                     <Item id="7135" name="Tons"/>
                 </DarkMode>
@@ -1430,6 +1435,9 @@ Continuar?"/>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Isto permite que inclua caracteres adicionais nos caracteres da palavra atual ao clicar duas vezes para selecionar ou pesquisar com a opção &quot;Corresponder apenas à palavra inteira&quot; marcada."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Ir para o Configurador de estilos para alterar a cor personalizada EOL predefinida (&quot;EOL custom color&quot;).."/>
+
             <word-chars-list-warning-begin value="Esteja ciente: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ espaço(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
@@ -1575,7 +1583,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-25/05/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+23/06/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

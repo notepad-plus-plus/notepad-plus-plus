@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -890,6 +890,10 @@
                     <Item id="6653" name="Zvýraznenie pozadia"/>
                     <Item id="6654" name="Orámovanie"/>
                     <Item id="6655" name="Hrúbka"/>
+                    <Item id="6247" name="EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Predvolené"/>
+                    <Item id="6249" name="Obyčajný text"/>
+                    <Item id="6250" name="Vlastná farba"/>
                 </Scintillas>
 				
                     <DarkMode title="Tmavý režim">
@@ -913,6 +917,7 @@
                         <Item id="7124" name="Okraj karty"/>
                         <Item id="7125" name="Čiara"/>
                         <Item id="7126" name="Zvýraznenie okrajov"/>
+                        <Item id="7127" name="Vypnuté okraje"/>
                         <Item id="7130" name="Obnoviť"/>
                         <Item id="7135" name="Odtiene"/>
                 </DarkMode>
@@ -1429,6 +1434,10 @@ Pokračovať?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$ and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Toto nastavenie vám umožní zahrnúť dodatočný znak medzi aktuálne slovné znaky pri výbere dvojklikom alebo pri vyhľadávaní so zapnutou voľbou &quot;Hľadať iba celé slová&quot;."/>
+            
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;vlastná farba EOL&quot;).."/>
+
             <word-chars-list-warning-begin value="Pozor: V zozname znakov máte "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ medzeru(-y)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulátor(-y)"/>

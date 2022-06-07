@@ -1314,7 +1314,7 @@ namespace NppDarkMode
 
 					SetBkMode(hdc, TRANSPARENT);
 
-					TCHAR label[MAX_PATH];
+					TCHAR label[MAX_PATH]{};
 					TCITEM tci = {};
 					tci.mask = TCIF_TEXT;
 					tci.pszText = label;
@@ -2081,7 +2081,7 @@ namespace NppDarkMode
 		}
 	}
 
-	LRESULT darkListViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	LRESULT darkListViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
 	{
 		auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
 
@@ -2119,14 +2119,20 @@ namespace NppDarkMode
 					::DrawFocusRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc);
 				}
 
-				// Plugin might use CDRF_NOTIFYSUBITEMDRAW
-				return CDRF_NEWFONT | CDRF_NOTIFYSUBITEMDRAW;
+				LRESULT lr = CDRF_DODEFAULT;
+
+				if (isPlugin)
+				{
+					lr = ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				}
+
+				return lr | CDRF_NEWFONT;
 			}
 
 			default:
 				break;
 		}
-		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
 	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam)
@@ -2290,7 +2296,7 @@ namespace NppDarkMode
 								
 						if (wcscmp(className, WC_LISTVIEW) == 0)
 						{
-							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam);
+							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
 						}
 								
 						if (wcscmp(className, WC_TREEVIEW) == 0)
@@ -2352,7 +2358,7 @@ namespace NppDarkMode
 								
 						if (wcscmp(className, WC_LISTVIEW) == 0)
 						{
-							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam);
+							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
 						}
 								
 						if (wcscmp(className, WC_TREEVIEW) == 0)
@@ -2574,7 +2580,7 @@ namespace NppDarkMode
 
 	void setDarkLineAbovePanelToolbar(HWND hwnd)
 	{
-		COLORSCHEME scheme;
+		COLORSCHEME scheme{};
 		scheme.dwSize = sizeof(COLORSCHEME);
 
 		if (NppDarkMode::isEnabled())

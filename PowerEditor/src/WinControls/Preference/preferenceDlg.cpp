@@ -774,7 +774,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMIN, TRUE, BLINKRATE_FASTEST);
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMAX, TRUE, BLINKRATE_SLOWEST);
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPAGESIZE, 0, BLINKRATE_INTERVAL);
-			int blinkRate = (nppGUI._caretBlinkRate==0)?BLINKRATE_SLOWEST:nppGUI._caretBlinkRate;
+			int blinkRate = (nppGUI._caretBlinkRate == 0) ? BLINKRATE_SLOWEST : nppGUI._caretBlinkRate;
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPOS, TRUE, blinkRate);
 
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETRANGEMIN, TRUE, CARETLINEFRAME_SMALLEST);
@@ -782,6 +782,34 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETPAGESIZE, 0, CARETLINEFRAME_INTERVAL);
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETPOS, TRUE, svp._currentLineFrameWidth);
 			::SetDlgItemInt(_hSelf, IDC_CARETLINEFRAME_WIDTH_DISPLAY, svp._currentLineFrameWidth, FALSE);
+
+
+			// defaul =>  (svp._eolMode == svp.roundedRectangleText)
+			bool checkDefaultCRLF = true;
+			bool checkPlainTextCRLF = false;
+			bool checkWithColorCRLF = false;
+
+			if (svp._eolMode == svp.plainText)
+			{
+				checkDefaultCRLF = false;
+				checkPlainTextCRLF = true;
+				checkWithColorCRLF = false;
+			}
+			else if (svp._eolMode == svp.plainTextCustomColor)
+			{
+				checkDefaultCRLF = false;
+				checkPlainTextCRLF = true;
+				checkWithColorCRLF = true;
+			}
+			else if (svp._eolMode == svp.roundedRectangleTextCustomColor)
+			{
+				checkDefaultCRLF = true;
+				checkPlainTextCRLF = false;
+				checkWithColorCRLF = true;
+			}
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_ROUNDCORNER_CRLF, BM_SETCHECK, checkDefaultCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLEINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_WITHCUSTOMCOLOR_CRLF, BM_SETCHECK, checkWithColorCRLF, 0);
 
 			initScintParam();
 
@@ -880,6 +908,37 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					svp._currentLineHiliteMode = LINEHILITE_FRAME;
 					changeLineHiliteMode(true);
 					return TRUE;
+
+				case IDC_RADIO_ROUNDCORNER_CRLF:
+				case IDC_RADIO_PLEINTEXT_CRLF:
+				case IDC_CHECK_WITHCUSTOMCOLOR_CRLF:
+				{
+					bool doCustomColor = isCheckedOrNot(IDC_CHECK_WITHCUSTOMCOLOR_CRLF);
+
+					if (wParam == IDC_RADIO_ROUNDCORNER_CRLF)
+					{
+						svp._eolMode = doCustomColor ? svp.roundedRectangleTextCustomColor : svp.roundedRectangleText;
+					}
+					else if (wParam == IDC_RADIO_PLEINTEXT_CRLF)
+					{
+						svp._eolMode = doCustomColor ? svp.plainTextCustomColor : svp.plainText;
+					}
+					else // IDC_CHECK_WITHCUSTOMCOLOR_CRLF
+					{
+						if (isCheckedOrNot(IDC_RADIO_ROUNDCORNER_CRLF))
+						{
+							svp._eolMode = doCustomColor ? svp.roundedRectangleTextCustomColor : svp.roundedRectangleText;
+						}
+						else // IDC_RADIO_PLEINTEXT_CRLF
+						{
+							svp._eolMode = doCustomColor ? svp.plainTextCustomColor : svp.plainText;
+						}
+					}
+
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CRLFFORMCHANGED, 0, 0);
+					return TRUE;
+				}
 
 				case IDC_CHECK_VIRTUALSPACE:
 					svp._virtualSpace = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_GETCHECK, 0, 0));
@@ -1688,6 +1747,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
+
 	switch (message) 
 	{
 		case WM_INITDIALOG :

@@ -1361,6 +1361,34 @@ void ScintillaEditView::setWordChars()
 		addCustomWordChars();
 }
 
+void ScintillaEditView::setCRLF()
+{
+	ScintillaViewParams::crlfMode eolMode = ((NppParameters::getInstance()).getSVP())._eolMode;
+	long appearance = SC_REPRESENTATION_BLOB;
+
+	if (eolMode == ScintillaViewParams::crlfMode::plainText)
+		appearance = SC_REPRESENTATION_PLAIN;
+	else if (eolMode == ScintillaViewParams::crlfMode::plainTextCustomColor)
+		appearance = SC_REPRESENTATION_PLAIN | SC_REPRESENTATION_COLOUR;
+	else if (eolMode == ScintillaViewParams::crlfMode::roundedRectangleText)
+		appearance = SC_REPRESENTATION_BLOB;
+	else if (eolMode == ScintillaViewParams::crlfMode::roundedRectangleTextCustomColor)
+		appearance = SC_REPRESENTATION_BLOB | SC_REPRESENTATION_COLOUR;
+
+	const wchar_t* cr = L"\x0d";
+	const wchar_t* lf = L"\x0a";
+
+	long crlfAlphaColor = 0x0000FF00;
+	
+	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(cr), crlfAlphaColor);
+	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(lf), crlfAlphaColor);
+
+	execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(cr), appearance);
+	execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(lf), appearance);
+
+	redraw();
+}
+
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
@@ -1934,6 +1962,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	defineDocType(_currentBuffer->getLangType());
 
 	setWordChars();
+	setCRLF();
 
 	if (_currentBuffer->getNeedsLexing())
 	{

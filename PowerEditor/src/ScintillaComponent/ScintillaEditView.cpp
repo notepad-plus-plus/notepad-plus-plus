@@ -1361,9 +1361,29 @@ void ScintillaEditView::setWordChars()
 		addCustomWordChars();
 }
 
-void ScintillaEditView::setCRLF()
+void ScintillaEditView::setCRLF(long color)
 {
-	ScintillaViewParams::crlfMode eolMode = ((NppParameters::getInstance()).getSVP())._eolMode;
+	NppParameters& nppParams = NppParameters::getInstance();
+	const ScintillaViewParams& svp = nppParams.getSVP();
+
+	StyleArray& stylers = nppParams.getMiscStylerArray();
+	
+	COLORREF eolCustomColor = darkGrey;
+
+	if (color == -1)
+	{
+		Style* pStyle = stylers.findByName(TEXT("EOL custom color"));
+		if (pStyle)
+		{
+			eolCustomColor = pStyle->_fgColor;
+		}
+	}
+	else
+	{
+		eolCustomColor = color;
+	}
+
+	ScintillaViewParams::crlfMode eolMode = svp._eolMode;
 	long appearance = SC_REPRESENTATION_BLOB;
 
 	if (eolMode == ScintillaViewParams::crlfMode::plainText)
@@ -1377,11 +1397,9 @@ void ScintillaEditView::setCRLF()
 
 	const wchar_t* cr = L"\x0d";
 	const wchar_t* lf = L"\x0a";
-
-	long crlfAlphaColor = 0x0000FF00;
 	
-	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(cr), crlfAlphaColor);
-	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(lf), crlfAlphaColor);
+	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(cr), eolCustomColor);
+	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(lf), eolCustomColor);
 
 	execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(cr), appearance);
 	execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(lf), appearance);
@@ -2722,6 +2740,18 @@ void ScintillaEditView::performGlobalStyles()
 		wsSymbolFgColor = pStyle->_fgColor;
 	}
 	execute(SCI_SETWHITESPACEFORE, true, wsSymbolFgColor);
+
+	COLORREF eolCustomColor = black;
+	pStyle = stylers.findByName(TEXT("EOL custom color"));
+	if (pStyle)
+	{
+		eolCustomColor = pStyle->_fgColor;
+		setCRLF(eolCustomColor);
+	}
+	else
+	{
+		setCRLF();
+	}
 }
 
 void ScintillaEditView::showIndentGuideLine(bool willBeShowed)

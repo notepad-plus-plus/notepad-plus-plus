@@ -1444,5 +1444,6 @@ License:             GPL2
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="A3DCA3" />
         <WidgetStyle name="Document map" styleID="0" fgColor="000000" bgColor="FFFFFF" />
+        <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
     </GlobalStyles>
 </NotepadPlus>

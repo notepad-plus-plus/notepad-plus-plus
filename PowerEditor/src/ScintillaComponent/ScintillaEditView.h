@@ -575,7 +575,7 @@ public:
 	void addCustomWordChars();
 	void restoreDefaultWordChars();
 	void setWordChars();
-	void setCRLF();
+	void setCRLF(long color = -1);
 
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);

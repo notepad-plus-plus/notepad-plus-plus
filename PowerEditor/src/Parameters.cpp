@@ -3697,6 +3697,17 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 			_widgetStyleArray.addStyler(styleID, childNode);
 		}
 	}
+	const Style* pStyle = _widgetStyleArray.findByName(TEXT("EOL custom color"));
+	if (!pStyle)
+	{
+		TiXmlNode* eolColorkNode = globalStyleRoot->InsertEndChild(TiXmlElement(TEXT("WidgetStyle")));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("name"), TEXT("EOL custom color"));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("styleID"), TEXT("0"));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("fgColor"), TEXT("DADADA"));
+
+		_widgetStyleArray.addStyler(0, eolColorkNode);
+	}
+
 	return true;
 }
 
@@ -5838,6 +5849,13 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._eolShow = false;
 	}
 
+	nm = element->Attribute(TEXT("eolMode"), &val);
+	if (nm)
+	{
+		if (val >= 0 && val <= 3)
+			_svp._eolMode = static_cast<ScintillaViewParams::crlfMode>(val);
+	}
+
 	nm = element->Attribute(TEXT("borderWidth"), &val);
 	if (nm)
 	{
@@ -6129,6 +6147,7 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), static_cast<int>(_svp._zoom2));
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), _svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), _svp._eolShow?TEXT("show"):TEXT("hide"));
+	(scintNode->ToElement())->SetAttribute(TEXT("eolMode"), _svp._eolMode);
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);

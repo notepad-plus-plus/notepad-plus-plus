@@ -1361,6 +1361,54 @@ void ScintillaEditView::setWordChars()
 		addCustomWordChars();
 }
 
+void ScintillaEditView::setCRLF(long color)
+{
+	NppParameters& nppParams = NppParameters::getInstance();
+	const ScintillaViewParams& svp = nppParams.getSVP();
+	
+	COLORREF eolCustomColor = liteGrey;
+
+	if (color == -1)
+	{
+		StyleArray& stylers = nppParams.getMiscStylerArray();
+		Style* pStyle = stylers.findByName(TEXT("EOL custom color"));
+		if (pStyle)
+		{
+			eolCustomColor = pStyle->_fgColor;
+		}
+	}
+	else
+	{
+		eolCustomColor = color;
+	}
+
+	ScintillaViewParams::crlfMode eolMode = svp._eolMode;
+	long appearance = SC_REPRESENTATION_BLOB;
+
+	if (eolMode == ScintillaViewParams::crlfMode::plainText)
+		appearance = SC_REPRESENTATION_PLAIN;
+	else if (eolMode == ScintillaViewParams::crlfMode::plainTextCustomColor)
+		appearance = SC_REPRESENTATION_PLAIN | SC_REPRESENTATION_COLOUR;
+	else if (eolMode == ScintillaViewParams::crlfMode::roundedRectangleText)
+		appearance = SC_REPRESENTATION_BLOB;
+	else if (eolMode == ScintillaViewParams::crlfMode::roundedRectangleTextCustomColor)
+		appearance = SC_REPRESENTATION_BLOB | SC_REPRESENTATION_COLOUR;
+
+	const wchar_t* cr = L"\x0d";
+	const wchar_t* lf = L"\x0a";
+	
+	long alphaEolCustomColor = eolCustomColor;
+	alphaEolCustomColor |= 0xFF000000; // add alpha color to make DirectWrite mode work
+
+	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(cr), alphaEolCustomColor);
+	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(lf), alphaEolCustomColor);
+
+	execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(cr), appearance);
+	execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(lf), appearance);
+
+	redraw();
+}
+
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
@@ -1950,6 +1998,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	restoreCurrentPosPreStep();
 
 	runMarkers(true, 0, true, false);
+
+	setCRLF();
+
     return;	//all done
 }
 
@@ -2693,6 +2744,14 @@ void ScintillaEditView::performGlobalStyles()
 		wsSymbolFgColor = pStyle->_fgColor;
 	}
 	execute(SCI_SETWHITESPACEFORE, true, wsSymbolFgColor);
+
+	COLORREF eolCustomColor = liteGrey;
+	pStyle = stylers.findByName(TEXT("EOL custom color"));
+	if (pStyle)
+	{
+		eolCustomColor = pStyle->_fgColor;
+	}
+	setCRLF(eolCustomColor);
 }
 
 void ScintillaEditView::showIndentGuideLine(bool willBeShowed)

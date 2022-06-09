@@ -109,6 +109,9 @@ public :
 
 	bool selectThemeByName(const TCHAR* themeName);
 
+	bool goToSection(const TCHAR* sectionNames); // sectionNames is formed as following: "Language name:Style name"
+	                                             // ex: "Global Styles:EOL custom color" will set Language on "Global Styles", then set Style on "EOL custom color" if both are found.
+
 private :
     ColourPicker *_pFgColour = nullptr;
     ColourPicker *_pBgColour = nullptr;

@@ -908,6 +908,9 @@ struct ScintillaViewParams
 	intptr_t _zoom2 = 0;
 	bool _whiteSpaceShow = false;
 	bool _eolShow = false;
+	enum crlfMode {plainText = 0, roundedRectangleText = 1, plainTextCustomColor = 2, roundedRectangleTextCustomColor = 3};
+	crlfMode _eolMode = roundedRectangleText;
+
 	int _borderWidth = 2;
 	bool _virtualSpace = false;
 	bool _scrollBeyondLastLine = true;

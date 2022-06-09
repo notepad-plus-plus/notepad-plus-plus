@@ -880,6 +880,10 @@
                     <Item id="6653" name="加上背景顏色"/>
                     <Item id="6654" name="加上邊緣線"/>
                     <Item id="6655" name="粗細度："/>
+                    <Item id="6247" name="換行字符（CRLF）"/>
+                    <Item id="6248" name="內定"/>
+                    <Item id="6249" name="純文字"/>
+                    <Item id="6250" name="使用自訂顏色"/>
                 </Scintillas>
 
                 <DarkMode title="黑暗模式">
@@ -1382,6 +1386,7 @@
         </ProjectManager>
         <MiscStrings>
             <word-chars-list-tip value="這允許你在目前單字字元集中附加字元，當滑鼠雙擊以進行選擇或以「僅符合整個單字」選項進行搜尋。"/>
+            <eol-custom-color-tip value="至語法樣式配置器以自訂換行字符顏色 (&quot;EOL custom color&quot;).."/>
             <word-chars-list-warning-begin value="警告："/>
             <word-chars-list-space-warning value="$INT_REPLACE$ 個空格"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ 個 TAB"/>

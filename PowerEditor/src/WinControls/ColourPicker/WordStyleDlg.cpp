@@ -388,6 +388,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						display(false);
 						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
+
 						return TRUE;
 					}
 
@@ -590,7 +591,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 	}
 
 	const int index2Begin = 0;
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, 0, index2Begin);
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, index2Begin, 0);
 	setStyleListFromLexer(index2Begin);
 }
 
@@ -813,6 +814,36 @@ bool WordStyleDlg::selectThemeByName(const TCHAR* themeName)
 	::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, iTheme, 0);
 
 	applyCurrentSelectedThemeAndUpdateUI();
+
+	return true;
+}
+
+bool WordStyleDlg::goToSection(const TCHAR* sectionNames)
+{
+	if (!sectionNames || !sectionNames[0])
+		return false;
+
+	std::vector<generic_string> sections = tokenizeString(sectionNames, ':');
+
+	if (sections.size() == 0 || sections.size() >= 3)
+		return false;
+
+	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_FINDSTRING, (WPARAM)-1, (LPARAM)sections[0].c_str());
+	if (i == LB_ERR)
+		return false;
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, i, 0);
+	setStyleListFromLexer(static_cast<int>(i));
+
+	if (sections.size() == 1)
+		return true;
+
+	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_FINDSTRING, (WPARAM)-1, (LPARAM)sections[1].c_str());
+	if (i == LB_ERR)
+		return false;
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, i, 0);
+	setVisualFromStyleList();
+
+	getFocus();
 
 	return true;
 }

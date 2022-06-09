@@ -17,6 +17,7 @@ x86/
 
 #-- Visual C++ cache files
 .vs/
+.vscode/
 ipch/
 *.aps
 *.ncb

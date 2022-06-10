@@ -3697,6 +3697,17 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 			_widgetStyleArray.addStyler(styleID, childNode);
 		}
 	}
+	const Style* pStyle = _widgetStyleArray.findByName(TEXT("EOL custom color"));
+	if (!pStyle)
+	{
+		TiXmlNode* eolColorkNode = globalStyleRoot->InsertEndChild(TiXmlElement(TEXT("WidgetStyle")));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("name"), TEXT("EOL custom color"));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("styleID"), TEXT("0"));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("fgColor"), TEXT("DADADA"));
+
+		_widgetStyleArray.addStyler(0, eolColorkNode);
+	}
+
 	return true;
 }
 

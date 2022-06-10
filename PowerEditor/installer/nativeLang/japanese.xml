@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.2">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -894,6 +894,10 @@
                     <Item id="6653" name="背景を色付け"/>
                     <Item id="6654" name="枠を表示"/>
                     <Item id="6655" name="線幅"/>
+                    <Item id="6247" name="改行文字(CRLF)の装飾"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="デフォルト"/>
+                    <Item id="6249" name="装飾なし"/>
+                    <Item id="6250" name="カスタム色"/>
                 </Scintillas>
 
                 <DarkMode title="ダークモード">
@@ -917,6 +921,7 @@
                     <Item id="7124" name="フチ"/>
                     <Item id="7125" name="リンク"/>
                     <Item id="7126" name="フチのハイライト"/>
+                    <Item id="7127" name="無効部分のフチ"/>
                     <Item id="7130" name="リセット"/>
                     <Item id="7135" name="色調"/>
                 </DarkMode>
@@ -1047,6 +1052,7 @@
                     <Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
                     <Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
                     <Item id="6905" name="置換時に、次の出現箇所に移動しない"/>
+                    <Item id="6906" name="検索結果画面：複数回一致した行を 1行にまとめて表示する（書字方向が右から左の時は無効）"/>
                 </Searching>
 
 
@@ -1434,6 +1440,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="この機能を使うと、標準の 単語を構成する文字 のリストに文字を追加できます。ダブルクリックでの単語選択や、「単語単位」での検索に影響します。"/>
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="スタイル設定を開き、改行文字の色(&quot;EOL custom color&quot;)を変更します"/>
             <word-chars-list-warning-begin value="注意："/>
             <word-chars-list-space-warning value="$INT_REPLACE$個の半角スペース"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$個のタブ"/>

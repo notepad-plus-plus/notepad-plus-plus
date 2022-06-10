@@ -1979,7 +1979,6 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	defineDocType(_currentBuffer->getLangType());
 
 	setWordChars();
-	setCRLF();
 
 	if (_currentBuffer->getNeedsLexing())
 	{
@@ -1996,6 +1995,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	restoreCurrentPosPreStep();
 
 	runMarkers(true, 0, true, false);
+
+	setCRLF();
+
     return;	//all done
 }
 

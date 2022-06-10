@@ -1365,13 +1365,12 @@ void ScintillaEditView::setCRLF(long color)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	const ScintillaViewParams& svp = nppParams.getSVP();
-
-	StyleArray& stylers = nppParams.getMiscStylerArray();
 	
-	COLORREF eolCustomColor = darkGrey;
+	COLORREF eolCustomColor = liteGrey;
 
 	if (color == -1)
 	{
+		StyleArray& stylers = nppParams.getMiscStylerArray();
 		Style* pStyle = stylers.findByName(TEXT("EOL custom color"));
 		if (pStyle)
 		{
@@ -2741,17 +2740,13 @@ void ScintillaEditView::performGlobalStyles()
 	}
 	execute(SCI_SETWHITESPACEFORE, true, wsSymbolFgColor);
 
-	COLORREF eolCustomColor = black;
+	COLORREF eolCustomColor = liteGrey;
 	pStyle = stylers.findByName(TEXT("EOL custom color"));
 	if (pStyle)
 	{
 		eolCustomColor = pStyle->_fgColor;
-		setCRLF(eolCustomColor);
 	}
-	else
-	{
-		setCRLF();
-	}
+	setCRLF(eolCustomColor);
 }
 
 void ScintillaEditView::showIndentGuideLine(bool willBeShowed)

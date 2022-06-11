@@ -817,6 +817,34 @@ bool WordStyleDlg::selectThemeByName(const TCHAR* themeName)
 	return true;
 }
 
+bool WordStyleDlg::goToSection(const TCHAR* sectionNames)
+{
+	if (!sectionNames || !sectionNames[0])
+		return false;
+
+	std::vector<generic_string> sections = tokenizeString(sectionNames, ':');
+
+	if (sections.size() == 0 || sections.size() >= 3)
+		return false;
+
+	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_FINDSTRING, (WPARAM)-1, (LPARAM)sections[0].c_str());
+	if (i == LB_ERR)
+		return false;
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, 0, i);
+	setStyleListFromLexer(static_cast<int>(i));
+
+	if (sections.size() == 1)
+		return true;
+
+	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_FINDSTRING, (WPARAM)-1, (LPARAM)sections[1].c_str());
+	if (i == LB_ERR)
+		return false;
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, 0, i);
+	setVisualFromStyleList();
+
+	return true;
+}
+
 void WordStyleDlg::setStyleListFromLexer(int index)
 {
 	_currentLexerIndex = index;

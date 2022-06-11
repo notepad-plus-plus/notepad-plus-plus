@@ -940,6 +940,13 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					return TRUE;
 				}
 
+				case IDC_BUTTON_LAUNCHSTYLECONF_CRLF:
+				{
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CRLFLAUNCHSTYLECONF, 0, 0);
+					return TRUE;
+				}
+
 				case IDC_CHECK_VIRTUALSPACE:
 					svp._virtualSpace = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VIRTUALSPACE, 0, 0);

@@ -2645,6 +2645,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CRLFLAUNCHSTYLECONF:
+		{
+			// Launch _configStyleDlg (create or display it)
+			command(IDM_LANGSTYLE_CONFIG_DLG);
+
+			// go into the section we need
+			_configStyleDlg.goToSection(TEXT("Global Styles:EOL custom color"));
+
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_DISABLEAUTOUPDATE:
 		{
 			//printStr(TEXT("you've got me"));

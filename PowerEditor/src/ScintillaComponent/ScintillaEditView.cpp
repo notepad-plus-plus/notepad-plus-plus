@@ -1397,8 +1397,11 @@ void ScintillaEditView::setCRLF(long color)
 	const wchar_t* cr = L"\x0d";
 	const wchar_t* lf = L"\x0a";
 	
-	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(cr), eolCustomColor);
-	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(lf), eolCustomColor);
+	long alphaEolCustomColor = eolCustomColor;
+	alphaEolCustomColor |= 0xFF000000; // add alpha color to make DirectWrite mode work
+
+	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(cr), alphaEolCustomColor);
+	execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(lf), alphaEolCustomColor);
 
 	execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(cr), appearance);
 	execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(lf), appearance);

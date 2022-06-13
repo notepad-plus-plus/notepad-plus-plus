@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on June 13th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 25th, 2022 for version 8.4.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on April 27th, 2022 for version 8.4.1 by Patriccollu di Santa Maria è Sichè
 		- Updated on April 7nd, 2022 for version 8.3.4 by Patriccollu di Santa Maria è Sichè
@@ -35,7 +36,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.2">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -919,6 +920,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6653" name="Culurisce u sfondulu"/>
                     <Item id="6654" name="Quadru"/>
                     <Item id="6655" name="Larghezza :"/>
+                    <Item id="6247" name="Fine di linea (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Predefinitu"/>
+                    <Item id="6249" name="Testu in chjaru"/>
+                    <Item id="6250" name="Culore persunalizatu"/>
                 </Scintillas>
 
                 <DarkMode title="Modu scuru">
@@ -942,6 +947,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7124" name="Bordu"/>
                     <Item id="7125" name="Liame"/>
                     <Item id="7126" name="Bordu zeppu"/>
+                    <Item id="7127" name="Bordu disattivatu"/>
                     <Item id="7130" name="Reinizià"/>
                     <Item id="7135" name="Toni"/>
                 </DarkMode>
@@ -1460,6 +1466,9 @@ Cuntinuà ?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Què permette d’include caratteri addiziunali in i caratteri di parolle currente quandu ci hè un doppiu cliccu per selezziunà o una ricerca cù l’ozzione « Parolla sana deve currisponde » selezziunata."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di fine di linea (&quot;EOL custom color&quot;)."/>
 
             <word-chars-list-warning-begin value="Fate casu : "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spaziu(i)"/>

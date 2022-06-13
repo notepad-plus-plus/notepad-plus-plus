@@ -968,25 +968,22 @@ void WordStyleDlg::setVisualFromStyleList()
 	InvalidateRect(_hBgColourStaticText, NULL, FALSE);
 
 	//-- font name
-	isEnable = false;
 	LRESULT iFontName;
 	if (!style._fontName.empty())
 	{
 		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(style._fontName.c_str()));
 		if (iFontName == CB_ERR)
 			iFontName = 0;
-		isEnable = true;
 	}
 	else
 	{
 		iFontName = 0;
 	}
 	::SendMessage(_hFontNameCombo, CB_SETCURSEL, iFontName, 0);
-	::EnableWindow(_hFontNameCombo, isEnable);
+	::EnableWindow(_hFontNameCombo, style._isFontEnabled);
 	InvalidateRect(_hFontNameStaticText, NULL, FALSE);
 
 	//-- font size
-	isEnable = false;
 	const size_t intStrLen = 3;
 	TCHAR intStr[intStrLen];
 	LRESULT iFontSize = 0;
@@ -994,14 +991,12 @@ void WordStyleDlg::setVisualFromStyleList()
 	{
 		wsprintf(intStr, TEXT("%d"), style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));
-		isEnable = true;
 	}
 	::SendMessage(_hFontSizeCombo, CB_SETCURSEL, iFontSize, 0);
-	::EnableWindow(_hFontSizeCombo, isEnable);
+	::EnableWindow(_hFontSizeCombo, style._isFontEnabled);
 	InvalidateRect(_hFontSizeStaticText, NULL, FALSE);
 	
 	//-- font style : bold & italic
-	isEnable = false;
 	if (style._fontStyle != STYLE_NOT_USED)
 	{
 		int isBold = (style._fontStyle & FONTSTYLE_BOLD)?BST_CHECKED:BST_UNCHECKED;
@@ -1010,7 +1005,6 @@ void WordStyleDlg::setVisualFromStyleList()
 		::SendMessage(_hCheckBold, BM_SETCHECK, isBold, 0);
 		::SendMessage(_hCheckItalic, BM_SETCHECK, isItalic, 0);
 		::SendMessage(_hCheckUnderline, BM_SETCHECK, isUnderline, 0);
-		isEnable = true;
 	}
 	else // STYLE_NOT_USED : reset them all
 	{
@@ -1019,7 +1013,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		::SendMessage(_hCheckUnderline, BM_SETCHECK, BST_UNCHECKED, 0);
 	}
 
-	enableFontStyle(isEnable);
+	enableFontStyle(style._isFontEnabled);
 
 
 	//-- Default Keywords

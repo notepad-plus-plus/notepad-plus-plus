@@ -401,9 +401,12 @@ struct Style final
 	COLORREF _fgColor = COLORREF(STYLE_NOT_USED);
 	COLORREF _bgColor = COLORREF(STYLE_NOT_USED);
 	int _colorStyle = COLORSTYLE_ALL;
+
+	bool _isFontEnabled = false;
 	generic_string _fontName;
 	int _fontStyle = FONTSTYLE_NONE;
 	int _fontSize = STYLE_NOT_USED;
+
 	int _nesting = FONTSTYLE_NONE;
 
 	int _keywordClass = STYLE_NOT_USED;

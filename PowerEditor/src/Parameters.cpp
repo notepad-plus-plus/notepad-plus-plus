@@ -3796,6 +3796,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		if (str)
 		{
 			s._fontName = str;
+			s._isFontEnabled = true;
 		}
 
 		str = element->Attribute(TEXT("fontStyle"));

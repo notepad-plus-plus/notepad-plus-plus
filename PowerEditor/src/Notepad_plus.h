@@ -154,7 +154,7 @@ public:
 
 	void setTitle();
 	void getTaskListInfo(TaskListInfo *tli);
-
+	size_t getNbDirtyBuffer(int view);
 	// For filtering the modeless Dialog message
 
 	//! \name File Operations

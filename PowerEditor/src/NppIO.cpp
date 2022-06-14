@@ -1636,9 +1636,41 @@ bool Notepad_plus::fileSaveAllConfirm()
 	return confirmed;
 }
 
+size_t Notepad_plus::getNbDirtyBuffer(int view)
+{
+	if (view != MAIN_VIEW && view != SUB_VIEW)
+		return 0;
+	DocTabView* pDocTabView = &_mainDocTab;
+	if (view == SUB_VIEW)
+		pDocTabView = &_subDocTab;
+
+	size_t count = 0;
+	for (size_t i = 0; i < pDocTabView->nbItem(); ++i)
+	{
+		BufferID id = pDocTabView->getBufferByIndex(i);
+		Buffer* buf = MainFileManager.getBufferByID(id);
+
+		if (buf->isDirty())
+		{
+			++count;
+		}
+	}
+	return count;
+}
+
 bool Notepad_plus::fileSaveAll()
 {
-	if ( fileSaveAllConfirm() )
+	int nbDirty = getNbDirtyBuffer(MAIN_VIEW) + getNbDirtyBuffer(SUB_VIEW);
+
+	if (!nbDirty)
+		return false;
+
+	Buffer* curBuf = _pEditView->getCurrentBuffer();
+	if (nbDirty == 1 && curBuf->isDirty())
+	{
+		fileSave(curBuf);
+	}
+	else if (fileSaveAllConfirm())
 	{
 		if (viewVisible(MAIN_VIEW))
 		{

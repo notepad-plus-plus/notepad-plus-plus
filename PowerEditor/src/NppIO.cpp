@@ -1660,7 +1660,7 @@ size_t Notepad_plus::getNbDirtyBuffer(int view)
 
 bool Notepad_plus::fileSaveAll()
 {
-	int nbDirty = getNbDirtyBuffer(MAIN_VIEW) + getNbDirtyBuffer(SUB_VIEW);
+	size_t nbDirty = getNbDirtyBuffer(MAIN_VIEW) + getNbDirtyBuffer(SUB_VIEW);
 
 	if (!nbDirty)
 		return false;

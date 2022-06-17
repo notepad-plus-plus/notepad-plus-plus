@@ -890,6 +890,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6653" name="Colorer l’arrière-plan"/>
                     <Item id="6654" name="Tracer la bordure"/>
                     <Item id="6655" name="Épaisseur :"/>
+                    <Item id="6247" name="Saut de ligne (CRLF)"/>
+                    <Item id="6248" name="Défaut"/>
+                    <Item id="6249" name="Texte brut"/>
+                    <Item id="6250" name="Couleur personnalisé"/>
                 </Scintillas>
 
                 <DarkMode title="Mode Sombre">
@@ -1429,7 +1433,7 @@ Continuer ?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-clic pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
-
+<eol-custom-color-tip value="Accéder à Configurateur de coloration syntaxique pour personnaliser la couleur des sauts de ligne (&quot;EOL custom color&quot;)."/>
             <word-chars-list-warning-begin value="Attention : "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ espace(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>

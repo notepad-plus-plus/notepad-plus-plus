@@ -277,6 +277,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 	::SendMessage(_hSelf, WM_ACTIVATE, WA_ACTIVE, 0);
 
+	::SendMessage(_hSelf, NPPM_INTERNAL_CRLFFORMCHANGED, 0, 0);
+
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;
 	scnN.nmhdr.code = NPPN_READY;

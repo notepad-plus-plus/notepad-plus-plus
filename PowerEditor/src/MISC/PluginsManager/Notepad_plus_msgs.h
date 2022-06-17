@@ -526,6 +526,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//		COLORREF linkText = 0;
 	//		COLORREF edge = 0;
 	//		COLORREF hotEdge = 0;
+	//		COLORREF disabledEdge = 0;
 	//	};
 	// }
 	//
@@ -539,6 +540,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Users should call it with commandLineStr as NULL to get the required number of TCHAR (not including the terminating nul character),
 	// allocate commandLineStr buffer with the return value + 1, then call it again to get the current command line string.
 
+	#define NPPM_CREATELEXER (NPPMSG + 110)
+	// void* NPPN_CREATELEXER(0, const TCHAR *lexer_name)
+	// Returns the ILexer pointer created by Lexilla
 
 #define VAR_NOT_RECOGNIZED 0
 #define FULL_CURRENT_PATH 1
@@ -733,4 +737,3 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.code = NPPN_CMDLINEPLUGINMSG;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = pluginMessage; //where pluginMessage is pointer of type wchar_t
-

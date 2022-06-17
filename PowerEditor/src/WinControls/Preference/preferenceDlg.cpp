@@ -217,7 +217,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorListbox(wParam, lParam);
 			}
 			break;
 		}
@@ -774,7 +774,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMIN, TRUE, BLINKRATE_FASTEST);
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMAX, TRUE, BLINKRATE_SLOWEST);
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPAGESIZE, 0, BLINKRATE_INTERVAL);
-			int blinkRate = (nppGUI._caretBlinkRate==0)?BLINKRATE_SLOWEST:nppGUI._caretBlinkRate;
+			int blinkRate = (nppGUI._caretBlinkRate == 0) ? BLINKRATE_SLOWEST : nppGUI._caretBlinkRate;
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPOS, TRUE, blinkRate);
 
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETRANGEMIN, TRUE, CARETLINEFRAME_SMALLEST);
@@ -783,9 +783,61 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETPOS, TRUE, svp._currentLineFrameWidth);
 			::SetDlgItemInt(_hSelf, IDC_CARETLINEFRAME_WIDTH_DISPLAY, svp._currentLineFrameWidth, FALSE);
 
+
+			// defaul =>  (svp._eolMode == svp.roundedRectangleText)
+			bool checkDefaultCRLF = true;
+			bool checkPlainTextCRLF = false;
+			bool checkWithColorCRLF = false;
+
+			if (svp._eolMode == svp.plainText)
+			{
+				checkDefaultCRLF = false;
+				checkPlainTextCRLF = true;
+				checkWithColorCRLF = false;
+			}
+			else if (svp._eolMode == svp.plainTextCustomColor)
+			{
+				checkDefaultCRLF = false;
+				checkPlainTextCRLF = true;
+				checkWithColorCRLF = true;
+			}
+			else if (svp._eolMode == svp.roundedRectangleTextCustomColor)
+			{
+				checkDefaultCRLF = true;
+				checkPlainTextCRLF = false;
+				checkWithColorCRLF = true;
+			}
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_ROUNDCORNER_CRLF, BM_SETCHECK, checkDefaultCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLEINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_WITHCUSTOMCOLOR_CRLF, BM_SETCHECK, checkWithColorCRLF, 0);
+
+
+			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
+
+			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
+			if (_tip)
+			{
+				SendMessage(_tip, TTM_ACTIVATE, TRUE, 0);
+			}
+
 			initScintParam();
 
 			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (_tip)
+			{
+				NppDarkMode::setDarkTooltips(_tip, NppDarkMode::ToolTipsType::tooltip);
+			}
+
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -881,6 +933,44 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					changeLineHiliteMode(true);
 					return TRUE;
 
+				case IDC_RADIO_ROUNDCORNER_CRLF:
+				case IDC_RADIO_PLEINTEXT_CRLF:
+				case IDC_CHECK_WITHCUSTOMCOLOR_CRLF:
+				{
+					bool doCustomColor = isCheckedOrNot(IDC_CHECK_WITHCUSTOMCOLOR_CRLF);
+
+					if (wParam == IDC_RADIO_ROUNDCORNER_CRLF)
+					{
+						svp._eolMode = doCustomColor ? svp.roundedRectangleTextCustomColor : svp.roundedRectangleText;
+					}
+					else if (wParam == IDC_RADIO_PLEINTEXT_CRLF)
+					{
+						svp._eolMode = doCustomColor ? svp.plainTextCustomColor : svp.plainText;
+					}
+					else // IDC_CHECK_WITHCUSTOMCOLOR_CRLF
+					{
+						if (isCheckedOrNot(IDC_RADIO_ROUNDCORNER_CRLF))
+						{
+							svp._eolMode = doCustomColor ? svp.roundedRectangleTextCustomColor : svp.roundedRectangleText;
+						}
+						else // IDC_RADIO_PLEINTEXT_CRLF
+						{
+							svp._eolMode = doCustomColor ? svp.plainTextCustomColor : svp.plainText;
+						}
+					}
+
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CRLFFORMCHANGED, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_BUTTON_LAUNCHSTYLECONF_CRLF:
+				{
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CRLFLAUNCHSTYLECONF, 0, 0);
+					return TRUE;
+				}
+
 				case IDC_CHECK_VIRTUALSPACE:
 					svp._virtualSpace = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VIRTUALSPACE, 0, 0);
@@ -957,6 +1047,7 @@ void DarkModeSubDlg::enableCustomizedColorCtrls(bool doEnable)
 	::EnableWindow(_pEdgeColorPicker->getHSelf(), doEnable);
 	::EnableWindow(_pLinkColorPicker->getHSelf(), doEnable);
 	::EnableWindow(_pHotEdgeColorPicker->getHSelf(), doEnable);
+	::EnableWindow(_pDisabledEdgeColorPicker->getHSelf(), doEnable);
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_CUSTOMIZED_RESET_BUTTON), doEnable);
 
@@ -973,6 +1064,7 @@ void DarkModeSubDlg::enableCustomizedColorCtrls(bool doEnable)
 		_pEdgeColorPicker->setColour(NppDarkMode::getEdgeColor());
 		_pLinkColorPicker->setColour(NppDarkMode::getLinkTextColor());
 		_pHotEdgeColorPicker->setColour(NppDarkMode::getHotEdgeColor());
+		_pDisabledEdgeColorPicker->setColour(NppDarkMode::getDisabledEdgeColor());
 
 		redraw();
 	}
@@ -1047,6 +1139,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pEdgeColorPicker = new ColourPicker;
 			_pLinkColorPicker = new ColourPicker;
 			_pHotEdgeColorPicker = new ColourPicker;
+			_pDisabledEdgeColorPicker = new ColourPicker;
 
 			_pBackgroundColorPicker->init(_hInst, _hSelf);
 			_pSofterBackgroundColorPicker->init(_hInst, _hSelf);
@@ -1060,6 +1153,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pEdgeColorPicker->init(_hInst, _hSelf);
 			_pLinkColorPicker->init(_hInst, _hSelf);
 			_pHotEdgeColorPicker->init(_hInst, _hSelf);
+			_pDisabledEdgeColorPicker->init(_hInst, _hSelf);
 
 			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
 			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
@@ -1075,6 +1169,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR11_STATIC, _pHotEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
 
 			_pBackgroundColorPicker->display();
 			_pSofterBackgroundColorPicker->display();
@@ -1087,6 +1182,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pEdgeColorPicker->display();
 			_pLinkColorPicker->display();
 			_pHotEdgeColorPicker->display();
+			_pDisabledEdgeColorPicker->display();
 
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_BLACK), nppGUI._darkmode._isEnabled);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_RED), nppGUI._darkmode._isEnabled);
@@ -1122,7 +1218,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				dlgCtrlID == IDD_CUSTOMIZED_COLOR8_STATIC ||
 				dlgCtrlID == IDD_CUSTOMIZED_COLOR9_STATIC ||
 				dlgCtrlID == IDD_CUSTOMIZED_COLOR10_STATIC ||
-				dlgCtrlID == IDD_CUSTOMIZED_COLOR11_STATIC);
+				dlgCtrlID == IDD_CUSTOMIZED_COLOR11_STATIC ||
+				dlgCtrlID == IDD_CUSTOMIZED_COLOR12_STATIC);
 			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
 			if (isStaticText)
 			{
@@ -1155,6 +1252,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pEdgeColorPicker->destroy();
 			_pLinkColorPicker->destroy();
 			_pHotEdgeColorPicker->destroy();
+			_pDisabledEdgeColorPicker->destroy();
 
 			delete _pBackgroundColorPicker;
 			delete _pSofterBackgroundColorPicker;
@@ -1167,6 +1265,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			delete _pEdgeColorPicker;
 			delete _pLinkColorPicker;
 			delete _pHotEdgeColorPicker;
+			delete _pDisabledEdgeColorPicker;
 		}
 
 		case WM_COMMAND:
@@ -1358,6 +1457,12 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								NppDarkMode::setHotEdgeColor(c);
 								nppGUI._darkmode._customColors.hotEdge = c;
 							}
+							else if (reinterpret_cast<HWND>(lParam) == _pDisabledEdgeColorPicker->getHSelf())
+							{
+								c = _pDisabledEdgeColorPicker->getColour();
+								NppDarkMode::setDisabledEdgeColor(c);
+								nppGUI._darkmode._customColors.disabledEdge = c;
+							}
 							else
 							{
 								return FALSE;
@@ -1395,6 +1500,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					_pEdgeColorPicker->setColour(disabledColor);
 					_pLinkColorPicker->setColour(disabledColor);
 					_pHotEdgeColorPicker->setColour(disabledColor);
+					_pDisabledEdgeColorPicker->setColour(disabledColor);
 
 					redraw();
 				}
@@ -1672,6 +1778,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
+
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -2504,7 +2611,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(nppParam.getLangFromIndex(i)->_langName.c_str()));
 			}
 			const int index2Begin = 0;
-			::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_SETCURSEL, 0, index2Begin);
+			::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_SETCURSEL, index2Begin, 0);
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), SW_HIDE);
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), SW_HIDE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), FALSE);
@@ -2519,7 +2626,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorListbox(wParam, lParam);
 			}
 			break;
 		}

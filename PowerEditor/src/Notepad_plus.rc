@@ -15,6 +15,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+// don't use resource editor it will corrupt this file,
+// it will default to default ANSI code page (e.g. #pragma code_page(1252)),
+// this will ignore line with #pragma code_page(65001) below,
+// and change non ANSI symbol to ?
+#pragma code_page(65001)
+
 #include <windows.h>
 #include "resource.h"
 #include "menuCmdID.h"
@@ -387,7 +393,7 @@ BEGIN
         BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
-			MENUITEM SEPARATOR
+            MENUITEM SEPARATOR
             MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
         END
         MENUITEM "Open in &Default Viewer",          IDM_FILE_OPEN_DEFAULT_VIEWER
@@ -1165,29 +1171,29 @@ BEGIN
     BEGIN
         MENUITEM "&Run...",    IDM_EXECUTE
     END
-	
+
     POPUP "&Plugins"
     BEGIN
         MENUITEM "Open Plugins Folder...",    IDM_SETTING_OPENPLUGINSDIR
     END
 
     POPUP "&Window"
-	BEGIN
-		POPUP "Sort By"
-			BEGIN
-				MENUITEM "Name A to Z",                 IDM_WINDOW_SORT_FN_ASC
-				MENUITEM "Name Z to A",                 IDM_WINDOW_SORT_FN_DSC    
-				MENUITEM "Path A to Z",                 IDM_WINDOW_SORT_FP_ASC
-				MENUITEM "Path Z to A",                 IDM_WINDOW_SORT_FP_DSC 
-				MENUITEM "Type A to Z",                 IDM_WINDOW_SORT_FT_ASC
-				MENUITEM "Type Z to A",                 IDM_WINDOW_SORT_FT_DSC 
-				MENUITEM "Size Smaller to Larger",      IDM_WINDOW_SORT_FS_ASC
-				MENUITEM "Size Larger to Smaller",      IDM_WINDOW_SORT_FS_DSC        
-			END 
-		MENUITEM SEPARATOR
-		MENUITEM "Recent Window",               IDM_WINDOW_MRU_FIRST, GRAYED
-		MENUITEM "&Windows...",               	IDM_WINDOW_WINDOWS
-	END
+    BEGIN
+        POPUP "Sort By"
+            BEGIN
+                MENUITEM "Name A to Z",                 IDM_WINDOW_SORT_FN_ASC
+                MENUITEM "Name Z to A",                 IDM_WINDOW_SORT_FN_DSC
+                MENUITEM "Path A to Z",                 IDM_WINDOW_SORT_FP_ASC
+                MENUITEM "Path Z to A",                 IDM_WINDOW_SORT_FP_DSC
+                MENUITEM "Type A to Z",                 IDM_WINDOW_SORT_FT_ASC
+                MENUITEM "Type Z to A",                 IDM_WINDOW_SORT_FT_DSC
+                MENUITEM "Size Smaller to Larger",      IDM_WINDOW_SORT_FS_ASC
+                MENUITEM "Size Larger to Smaller",      IDM_WINDOW_SORT_FS_DSC
+            END
+        MENUITEM "&Windows...",                 IDM_WINDOW_WINDOWS
+        MENUITEM SEPARATOR
+        MENUITEM "Recent Window",               IDM_WINDOW_MRU_FIRST, GRAYED
+    END
 
     POPUP "&?"
     BEGIN
@@ -1205,7 +1211,12 @@ BEGIN
         MENUITEM "About Notepad++",                IDM_ABOUT
     END
 
-    MENUITEM "X",    IDM_FILE_CLOSE, HELP
+    MENUITEM "＋",               IDM_FILE_NEW, HELP
+    POPUP "▼"
+    BEGIN
+        MENUITEM "Recent Window",               IDM_DROPLIST_LIST, GRAYED
+    END
+    MENUITEM "✕",               IDM_FILE_CLOSE, HELP
 END
 
 IDR_SYSTRAYPOPUP_MENU MENU

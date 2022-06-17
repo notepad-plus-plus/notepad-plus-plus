@@ -82,6 +82,7 @@ protected:
 private:
 	typedef const CHAR * (__cdecl * PWINEGETVERSION)();
 	generic_string _debugInfoStr;
+	generic_string _debugInfoDisplay;
 	const generic_string _cmdLinePlaceHolder { L"$COMMAND_LINE_PLACEHOLDER$" };
 	bool _isAdmin = false;
 	generic_string _loadedPlugins;

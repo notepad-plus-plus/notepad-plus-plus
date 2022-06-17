@@ -890,6 +890,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6653" name="Highlight Background"/>
                     <Item id="6654" name="Frame"/>
                     <Item id="6655" name="Width"/>
+                    <Item id="6247" name="EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Default"/>
+                    <Item id="6249" name="Plain Text"/>
+                    <Item id="6250" name="Custom Color"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
@@ -913,6 +917,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7124" name="Edge"/>
                     <Item id="7125" name="Link"/>
                     <Item id="7126" name="Edge highlight"/>
+                    <Item id="7127" name="Edge disabled"/>
                     <Item id="7130" name="Reset"/>
                     <Item id="7135" name="Tones"/>
                 </DarkMode>
@@ -1429,6 +1434,9 @@ Continue?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Go to Style Configurator to change the default EOL custom color (&quot;EOL custom color&quot;).."/>
 
             <word-chars-list-warning-begin value="Be aware: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>

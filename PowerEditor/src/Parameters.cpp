@@ -3697,6 +3697,17 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 			_widgetStyleArray.addStyler(styleID, childNode);
 		}
 	}
+	const Style* pStyle = _widgetStyleArray.findByName(TEXT("EOL custom color"));
+	if (!pStyle)
+	{
+		TiXmlNode* eolColorkNode = globalStyleRoot->InsertEndChild(TiXmlElement(TEXT("WidgetStyle")));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("name"), TEXT("EOL custom color"));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("styleID"), TEXT("0"));
+		eolColorkNode->ToElement()->SetAttribute(TEXT("fgColor"), TEXT("DADADA"));
+
+		_widgetStyleArray.addStyler(0, eolColorkNode);
+	}
+
 	return true;
 }
 
@@ -3785,6 +3796,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		if (str)
 		{
 			s._fontName = str;
+			s._isFontEnabled = true;
 		}
 
 		str = element->Attribute(TEXT("fontStyle"));
@@ -5547,6 +5559,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
 
+			//_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(TEXT("enablePlugin"));
+
 			int i;
 			const TCHAR* val;
 			val = element->Attribute(TEXT("colorTone"), &i);
@@ -5597,6 +5611,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			val = element->Attribute(TEXT("customColorHotEdge"), &i);
 			if (val)
 				_nppGUI._darkmode._customColors.hotEdge = i;
+
+			val = element->Attribute(TEXT("customColorDisabledEdge"), &i);
+			if (val)
+				_nppGUI._darkmode._customColors.disabledEdge = i;
 		}
 	}
 }
@@ -5830,6 +5848,13 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._eolShow = true;
 		else if (!lstrcmp(nm, TEXT("hide")))
 			_svp._eolShow = false;
+	}
+
+	nm = element->Attribute(TEXT("eolMode"), &val);
+	if (nm)
+	{
+		if (val >= 0 && val <= 3)
+			_svp._eolMode = static_cast<ScintillaViewParams::crlfMode>(val);
 	}
 
 	nm = element->Attribute(TEXT("borderWidth"), &val);
@@ -6123,6 +6148,7 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), static_cast<int>(_svp._zoom2));
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), _svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), _svp._eolShow?TEXT("show"):TEXT("hide"));
+	(scintNode->ToElement())->SetAttribute(TEXT("eolMode"), _svp._eolMode);
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);
@@ -6682,6 +6708,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		};
 
 		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode._isEnabled);
+		//setYesNoBoolAttribute(TEXT("enablePlugin"), _nppGUI._darkmode._isEnabledPlugin);
 		GUIConfigElement->SetAttribute(TEXT("colorTone"), _nppGUI._darkmode._colorTone);
 
 		GUIConfigElement->SetAttribute(TEXT("customColorTop"), _nppGUI._darkmode._customColors.pureBackground);
@@ -6695,6 +6722,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("customColorLinkText"), _nppGUI._darkmode._customColors.linkText);
 		GUIConfigElement->SetAttribute(TEXT("customColorEdge"), _nppGUI._darkmode._customColors.edge);
 		GUIConfigElement->SetAttribute(TEXT("customColorHotEdge"), _nppGUI._darkmode._customColors.hotEdge);
+		GUIConfigElement->SetAttribute(TEXT("customColorDisabledEdge"), _nppGUI._darkmode._customColors.disabledEdge);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

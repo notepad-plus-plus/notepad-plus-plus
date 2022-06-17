@@ -19,12 +19,12 @@
 //
 // Notepad++ version: begin
 //
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.4.1")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.4.2")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("8.41\0")
-#define VERSION_DIGITALVALUE 8, 4, 1, 0
+#define VERSION_VALUE TEXT("8.42\0")
+#define VERSION_DIGITALVALUE 8, 4, 2, 0
 
 // Notepad++ version: end
 
@@ -637,6 +637,8 @@
 	#define NPPM_INTERNAL_REFRESHWORKDIR                (NOTEPADPLUS_USER_INTERNAL + 61)
 	#define NPPM_INTERNAL_VIRTUALSPACE                  (NOTEPADPLUS_USER_INTERNAL + 62)
 	#define NPPM_INTERNAL_CARETLINEFRAME                (NOTEPADPLUS_USER_INTERNAL + 63)
+	#define NPPM_INTERNAL_CRLFFORMCHANGED               (NOTEPADPLUS_USER_INTERNAL + 64)
+	#define NPPM_INTERNAL_CRLFLAUNCHSTYLECONF           (NOTEPADPLUS_USER_INTERNAL + 65)
 
 // See Notepad_plus_msgs.h
 //#define NOTEPADPLUS_USER   (WM_USER + 1000)
@@ -697,3 +699,4 @@
 #define MENUINDEX_PLUGINS  10
 #define MENUINDEX_WINDOW   11
 #define MENUINDEX_HELP     12
+#define MENUINDEX_LIST     14

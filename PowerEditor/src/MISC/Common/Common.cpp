@@ -558,24 +558,34 @@ generic_string uintToString(unsigned int val)
 }
 
 // Build Recent File menu entries from given
-generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename)
+generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename, bool ordinalNumber)
 {
 	generic_string strTemp;
 
-	if (pos < 9)
+	if (ordinalNumber)
 	{
-		strTemp.push_back('&');
-		strTemp.push_back('1' + static_cast<TCHAR>(pos));
-	}
-	else if (pos == 9)
-	{
-		strTemp.append(TEXT("1&0"));
+		if (pos < 9)
+		{
+			strTemp.push_back('&');
+			strTemp.push_back('1' + static_cast<TCHAR>(pos));
+		}
+		else if (pos == 9)
+		{
+			strTemp.append(TEXT("1&0"));
+		}
+		else
+		{
+			div_t splitDigits = div(pos + 1, 10);
+			strTemp.append(uintToString(splitDigits.quot));
+			strTemp.push_back('&');
+			strTemp.append(uintToString(splitDigits.rem));
+		}
+		strTemp.append(TEXT(": "));
 	}
 	else
 	{
-		strTemp.append(uintToString(pos + 1));
+		strTemp.push_back('&');
 	}
-	strTemp.append(TEXT(": "));
 
 	if (filenameLen > 0)
 	{

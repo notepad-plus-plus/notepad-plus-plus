@@ -81,8 +81,6 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 		{
 			NppParameters& nppParamInst = NppParameters::getInstance();
 
-			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-
 			_hCheckBold = ::GetDlgItem(_hSelf, IDC_BOLD_CHECK);
 			_hCheckItalic = ::GetDlgItem(_hSelf, IDC_ITALIC_CHECK);
 			_hCheckUnderline = ::GetDlgItem(_hSelf, IDC_UNDERLINE_CHECK);
@@ -151,6 +149,9 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			loadLangListFromNppParam();
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			goToCenter();
 
 			return TRUE;
@@ -177,7 +178,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorListbox(wParam, lParam);
 			}
 			break;
 		}
@@ -387,6 +388,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						display(false);
 						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
+
 						return TRUE;
 					}
 
@@ -589,7 +591,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 	}
 
 	const int index2Begin = 0;
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, 0, index2Begin);
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, index2Begin, 0);
 	setStyleListFromLexer(index2Begin);
 }
 
@@ -816,6 +818,36 @@ bool WordStyleDlg::selectThemeByName(const TCHAR* themeName)
 	return true;
 }
 
+bool WordStyleDlg::goToSection(const TCHAR* sectionNames)
+{
+	if (!sectionNames || !sectionNames[0])
+		return false;
+
+	std::vector<generic_string> sections = tokenizeString(sectionNames, ':');
+
+	if (sections.size() == 0 || sections.size() >= 3)
+		return false;
+
+	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_FINDSTRING, (WPARAM)-1, (LPARAM)sections[0].c_str());
+	if (i == LB_ERR)
+		return false;
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, i, 0);
+	setStyleListFromLexer(static_cast<int>(i));
+
+	if (sections.size() == 1)
+		return true;
+
+	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_FINDSTRING, (WPARAM)-1, (LPARAM)sections[1].c_str());
+	if (i == LB_ERR)
+		return false;
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, i, 0);
+	setVisualFromStyleList();
+
+	getFocus();
+
+	return true;
+}
+
 void WordStyleDlg::setStyleListFromLexer(int index)
 {
 	_currentLexerIndex = index;
@@ -936,25 +968,22 @@ void WordStyleDlg::setVisualFromStyleList()
 	InvalidateRect(_hBgColourStaticText, NULL, FALSE);
 
 	//-- font name
-	isEnable = false;
 	LRESULT iFontName;
 	if (!style._fontName.empty())
 	{
 		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(style._fontName.c_str()));
 		if (iFontName == CB_ERR)
 			iFontName = 0;
-		isEnable = true;
 	}
 	else
 	{
 		iFontName = 0;
 	}
 	::SendMessage(_hFontNameCombo, CB_SETCURSEL, iFontName, 0);
-	::EnableWindow(_hFontNameCombo, isEnable);
+	::EnableWindow(_hFontNameCombo, style._isFontEnabled);
 	InvalidateRect(_hFontNameStaticText, NULL, FALSE);
 
 	//-- font size
-	isEnable = false;
 	const size_t intStrLen = 3;
 	TCHAR intStr[intStrLen];
 	LRESULT iFontSize = 0;
@@ -962,14 +991,12 @@ void WordStyleDlg::setVisualFromStyleList()
 	{
 		wsprintf(intStr, TEXT("%d"), style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));
-		isEnable = true;
 	}
 	::SendMessage(_hFontSizeCombo, CB_SETCURSEL, iFontSize, 0);
-	::EnableWindow(_hFontSizeCombo, isEnable);
+	::EnableWindow(_hFontSizeCombo, style._isFontEnabled);
 	InvalidateRect(_hFontSizeStaticText, NULL, FALSE);
 	
 	//-- font style : bold & italic
-	isEnable = false;
 	if (style._fontStyle != STYLE_NOT_USED)
 	{
 		int isBold = (style._fontStyle & FONTSTYLE_BOLD)?BST_CHECKED:BST_UNCHECKED;
@@ -978,7 +1005,6 @@ void WordStyleDlg::setVisualFromStyleList()
 		::SendMessage(_hCheckBold, BM_SETCHECK, isBold, 0);
 		::SendMessage(_hCheckItalic, BM_SETCHECK, isItalic, 0);
 		::SendMessage(_hCheckUnderline, BM_SETCHECK, isUnderline, 0);
-		isEnable = true;
 	}
 	else // STYLE_NOT_USED : reset them all
 	{
@@ -987,7 +1013,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		::SendMessage(_hCheckUnderline, BM_SETCHECK, BST_UNCHECKED, 0);
 	}
 
-	enableFontStyle(isEnable);
+	enableFontStyle(style._isFontEnabled);
 
 
 	//-- Default Keywords

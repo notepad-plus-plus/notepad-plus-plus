@@ -474,7 +474,7 @@ void FindReplaceDlg::updateCombo(int comboID)
 }
 
 FoundInfo Finder::EmptyFoundInfo(0, 0, 0, TEXT(""));
-SearchResultMarking Finder::EmptySearchResultMarking;
+SearchResultMarkingLine Finder::EmptySearchResultMarking;
 
 bool Finder::notify(SCNotification *notification)
 {
@@ -534,13 +534,29 @@ void Finder::gotoFoundLine()
 		return;
 	}
 
-	const FoundInfo fInfo = *(_pMainFoundInfos->begin() + lno);
+	const FoundInfo& fInfo = *(_pMainFoundInfos->begin() + lno);
+	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
 
 	// Switch to another document
 	if (!::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(fInfo._fullPath.c_str()))) return;
 
 	(*_ppEditView)->_positionRestoreNeeded = false;
-	Searching::displaySectionCentered(fInfo._start, fInfo._end, *_ppEditView);
+
+	size_t index = 0;
+	intptr_t currentPosInLine = currentPos - start;
+
+	for (std::pair<intptr_t, intptr_t> range : markingLine._segmentPostions)
+	{
+		if (range.first <= currentPosInLine && currentPosInLine <= range.second)
+			break;
+
+		++index;
+	}
+
+	if (index >= fInfo._ranges.size())
+		index = 0;
+
+	Searching::displaySectionCentered(fInfo._ranges[index].first, fInfo._ranges[index].second, *_ppEditView);
 }
 
 void Finder::deleteResult()
@@ -2309,10 +2325,10 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	int nbProcessed = 0;
 
 	if (!isCreated() && !findReplaceInfo._txt2find)
-		return nbProcessed;
+		return 0;
 
 	if (!_ppEditView)
-		return nbProcessed;
+		return 0;
 
 	ScintillaEditView *pEditView = *_ppEditView;
 
@@ -2325,7 +2341,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (findReplaceInfo._startRange == findReplaceInfo._endRange)
 		return nbProcessed;
 
-	const FindOption *pOptions = opt?opt:_env;
+	const FindOption *pOptions = opt ? opt : _env;
 
 	LRESULT stringSizeFind = 0;
 	LRESULT stringSizeReplace = 0;
@@ -2458,10 +2474,11 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
-				SearchResultMarking srm;
-				srm._start = static_cast<long>(start_mark);
-				srm._end = static_cast<long>(end_mark);
-				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str(), totalLineNumber);
+				SearchResultMarkingLine srml;
+
+				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
+
+				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber);
 
 				break;
 			}
@@ -2492,9 +2509,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
-				SearchResultMarking srm;
-				srm._start = static_cast<long>(start_mark);
-				srm._end = static_cast<long>(end_mark);
+				SearchResultMarkingLine srml;
+				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
+
 				processed = (!pOptions->_isMatchLineNumber) || (pFindersInfo->_pSourceFinder->canFind(pFileName, lineNumber + 1));
 				if (processed)
 				{
@@ -2503,7 +2520,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
 					}
-					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str(), totalLineNumber);
+					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber);
 				}
 				break;
 			}
@@ -2719,7 +2736,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	if (justCreated)
 	{
 		// Send the address of _MarkingsStruct to the lexer
-		char ptrword[sizeof(void*)*2+1];
+		char ptrword[sizeof(void*) * 2 + 1];
 		sprintf(ptrword, "%p", &_pFinder->_markingsStruct);
 		_pFinder->_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("@MarkingsStruct"), reinterpret_cast<LPARAM>(ptrword));
 
@@ -4079,13 +4096,32 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 	setFinderReadOnly(true);
 }
 
-void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, size_t totalLineNumber)
+void Finder::add(FoundInfo fi, SearchResultMarkingLine miLine, const TCHAR* foundline, size_t totalLineNumber)
 {
-	_pMainFoundInfos->push_back(fi);
+	bool isRepeatedLine = false;
 
-	generic_string str = TEXT("\t");
-	str += _prefixLineStr;
-	str += TEXT(" ");
+	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGUI = nppParam.getNppGUI();
+
+	if (nppGUI._finderShowOnlyOneEntryPerFoundLine)
+	{
+		if (_previousLineNumber == -1)
+		{
+			_previousLineNumber = fi._lineNumber;
+		}
+		else if (_previousLineNumber == static_cast<intptr_t>(fi._lineNumber))
+		{
+			isRepeatedLine = true;
+		}
+		else // previousLine != fi._lineNumber
+		{
+			_previousLineNumber = fi._lineNumber;
+		}
+	}
+
+	generic_string headerStr = TEXT("\t");
+	headerStr += _prefixLineStr;
+	headerStr += TEXT(" ");
 
 	size_t totalLineNumberDigit = static_cast<size_t>(nbDigitsFromNbLines(totalLineNumber) + 1);
 	size_t currentLineNumberDigit = static_cast<size_t>(nbDigitsFromNbLines(fi._lineNumber) + 1);
@@ -4093,33 +4129,46 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, s
 	generic_string lineNumberStr = TEXT("");
 	lineNumberStr.append(totalLineNumberDigit - currentLineNumberDigit, ' ');
 	lineNumberStr.append(std::to_wstring(fi._lineNumber));
-	str += lineNumberStr;
-	str += TEXT(": ");
-	mi._start += str.length();
-	mi._end += str.length();
-	str += foundline;
+	headerStr += lineNumberStr;
+	headerStr += TEXT(": ");
 
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	const char *text2AddUtf8 = wmc.wchar2char(str.c_str(), SC_CP_UTF8, &mi._start, &mi._end); // certainly utf8 here
-	size_t len = strlen(text2AddUtf8);
+	miLine._segmentPostions[0].first += headerStr.length();
+	miLine._segmentPostions[0].second += headerStr.length();
 
-	if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+	if (isRepeatedLine) // if current line is the repeated line of previous one, and settings make per found line show once in the result even there are several found occurences in the same line
 	{
-		const char * endOfLongLine = " ...\r\n"; // perfectly Utf8-encoded already
-		size_t lenEndOfLongLine = strlen(endOfLongLine);
-		size_t cut = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lenEndOfLongLine - 1;
-
-		while ((cut > 0) && (!Utf8::isValid(& text2AddUtf8 [cut], (int)(len - cut))))
-			cut--;
-
-		memcpy ((void*) & text2AddUtf8 [cut], endOfLongLine, lenEndOfLongLine + 1);
-		len = cut + lenEndOfLongLine;
+		// Add start and end markers into the previous line's info for colourizing 
+		_pMainMarkings->back()._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(miLine._segmentPostions[0].first, miLine._segmentPostions[0].second));
+		_pMainFoundInfos->back()._ranges.push_back(fi._ranges.back());
 	}
+	else // default mode: allow same found line has several entries in search result if the searched occurrence is matched several times in the same line
+	{
+		_pMainFoundInfos->push_back(fi);
 
-	setFinderReadOnly(false);
-	_scintView.execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(text2AddUtf8));
-	setFinderReadOnly(true);
-	_pMainMarkings->push_back(mi);
+		headerStr += foundline;
+
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char* text2AddUtf8 = wmc.wchar2char(headerStr.c_str(), SC_CP_UTF8, &miLine._segmentPostions[0].first, &miLine._segmentPostions[0].second); // certainly utf8 here
+		size_t len = strlen(text2AddUtf8);
+
+		if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+		{
+			const char* endOfLongLine = " ...\r\n"; // perfectly Utf8-encoded already
+			size_t lenEndOfLongLine = strlen(endOfLongLine);
+			size_t cut = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lenEndOfLongLine - 1;
+
+			while ((cut > 0) && (!Utf8::isValid(&text2AddUtf8[cut], (int)(len - cut))))
+				cut--;
+
+			memcpy((void*)&text2AddUtf8[cut], endOfLongLine, lenEndOfLongLine + 1);
+			len = cut + lenEndOfLongLine;
+		}
+
+		setFinderReadOnly(false);
+		_scintView.execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(text2AddUtf8));
+		setFinderReadOnly(true);
+		_pMainMarkings->push_back(miLine);
+	}
 }
 
 void Finder::removeAll()
@@ -4280,7 +4329,7 @@ void Finder::beginNewFilesSearch()
 void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection)
 {
 	std::vector<FoundInfo>* _pOldFoundInfos;
-	std::vector<SearchResultMarking>* _pOldMarkings;
+	std::vector<SearchResultMarkingLine>* _pOldMarkings;
 	_pOldFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
 	_pOldMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
 
@@ -4305,6 +4354,8 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 
 	//previous code: _scintView.execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(CreateLexer("searchResult")));
 	_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+
+	_previousLineNumber = -1;
 }
 
 

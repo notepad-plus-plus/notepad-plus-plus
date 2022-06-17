@@ -79,18 +79,23 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 		
 		int currentStat = SCE_SEARCHRESULT_DEFAULT;
 
-		SearchResultMarking mi = pMarkings->_markings[linenum];
+		SearchResultMarkingLine miLine = pMarkings->_markings[linenum];
 
-		size_t match_start = startLine + mi._start - 1;
-		size_t match_end = startLine + mi._end - 1;
+		for (std::pair<intptr_t, intptr_t> mi : miLine._segmentPostions)
+		{
+			size_t match_start = startLine + mi.first - 1;
+			size_t match_end = startLine + mi.second - 1;
 
-		if  (match_start <= endPos) {
-			styler.ColourTo(match_start, SCE_SEARCHRESULT_DEFAULT);
-			if  (match_end <= endPos) 
-				styler.ColourTo(match_end, SCE_SEARCHRESULT_WORD2SEARCH);
-			else 
-				currentStat = SCE_SEARCHRESULT_WORD2SEARCH;
+			if (match_start <= endPos)
+			{
+				styler.ColourTo(match_start, SCE_SEARCHRESULT_DEFAULT);
+				if (match_end <= endPos)
+					styler.ColourTo(match_end, SCE_SEARCHRESULT_WORD2SEARCH);
+				else
+					currentStat = SCE_SEARCHRESULT_WORD2SEARCH;
+			}
 		}
+
 		styler.ColourTo(endPos, currentStat);
 	}
 	else // every character - search header
@@ -117,19 +122,24 @@ static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length
 	if (!pMarkings || !pMarkings->_markings)
 		return;
 
-	for (size_t i = startPos; i < startPos + length; i++) {
+	for (size_t i = startPos; i < startPos + length; i++)
+	{
 		lineBuffer[linePos++] = styler[i];
-		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
+		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1))
+		{
 			// End of line (or of line buffer) met, colourise it
 			lineBuffer[linePos] = '\0';
 			ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, i, styler, styler.GetLine(startLine));
 			linePos = 0;
 			startLine = i + 1;
-			while (!AtEOL(styler, i)) i++;
+
+			while (!AtEOL(styler, i))
+				i++;
 		}
 	}
 
-	if (linePos > 0) {	// Last line does not have ending characters
+	if (linePos > 0) // Last line does not have ending characters
+	{
 		ColouriseSearchResultLine(pMarkings, lineBuffer, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
 	}
 }

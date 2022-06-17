@@ -1,13 +1,13 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.2.1
-    Last modified Mon, January 10th, 2022.
+    Italian translation for Notepad++ 8.4
+    Last modified Fri, Jun 17th, 2022.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
 
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.2.1">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.4.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -77,6 +77,7 @@
                     <Item subMenuId="settings-import" name="Importa"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Ordina per"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -366,6 +367,15 @@
                     <Item id="42041" name="Pulisci elenco file recenti"/>
                     <Item id="48016" name="Modifica scorciatoie/Elimina macro..."/>
                     <Item id="48017" name="Modifica scorciatoie/Elimina comando..."/>
+                    <Item id="11001" name="&amp;Finestre..."/>
+                    <Item id="11002" name="Nome dalla A alla Z"/>
+                    <Item id="11003" name="Nome dalla Z alla A"/>
+                    <Item id="11004" name="Percorso dalla A alla Z"/>
+                    <Item id="11005" name="Percorso dalla Z alla A"/>
+                    <Item id="11006" name="Digita dalla A alla Z"/>
+                    <Item id="11007" name="Digita dalla Z alla A"/>
+                    <Item id="11008" name="Dimensione dal più piccolo al più grande"/>
+                    <Item id="11009" name="Dimensione dal più grande al più piccolo"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -637,6 +647,14 @@
                     <Item id="44107" name="Passa a Cartella come Workspace"/>
                     <Item id="44109" name="Passa a Elenco Documenti"/>
                     <Item id="44108" name="Passa a Elenco Funzioni"/>
+                    <Item id="11002" name="Ordina per nome dalla A alla Z"/>
+                    <Item id="11003" name="Ordina per nome dalla Z alla A"/>
+                    <Item id="11004" name="Ordina per percorso dalla A alla Z"/>
+                    <Item id="11005" name="Ordina per percorso da Z ad A"/>
+                    <Item id="11006" name="Ordina per tipo dalla A alla Z"/>
+                    <Item id="11007" name="Ordina per tipo da Z ad A"/>
+                    <Item id="11008" name="Ordina per dimensione dal più piccolo al più grande"/>
+                    <Item id="11009" name="Ordina per dimensione dal più grande al più piccolo"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Scelta rapida">
@@ -857,6 +875,7 @@
                     <Item id="6219" name="Velocità:"/>
                     <Item id="6221" name="V"/>
                     <Item id="6222" name="L"/>
+                    <Item id="6246" name="Rendere attivabili i comandi di piegamento/distensione dell'attuale livello"/>
                     <Item id="6225" name="Abilita Selezione Multipla (Ctrl+clic/selezione)"/>
                     <Item id="6227" name="A Capo Automatico"/>
                     <Item id="6228" name="Predefinito"/>
@@ -867,6 +886,16 @@
                     <Item id="6215" name="Abilita l&apos;arrotondamento dei caratteri"/>
                     <Item id="6236" name="Abilita scorrimento oltre l&apos;ultima riga"/>
                     <Item id="6239" name="Mantieni la selezione quando clicchi con il tasto destro fuori da essa"/>
+                    <Item id="6245" name="Abilita spazio virtuale"/>
+                    <Item id="6651" name="Indicatore di linea corrente"/>
+                    <Item id="6652" name="Nessuno"/>
+                    <Item id="6653" name="Evidenzia lo sfondo"/>
+                    <Item id="6654" name="Cornice"/>
+                    <Item id="6655" name="Larghezza"/>
+                    <Item id="6247" name="Fine riga (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Predefinito"/>
+                    <Item id="6249" name="Testo non formattato"/>
+                    <Item id="6250" name="Colore personalizzato"/>
                 </Scintillas>
 
                <DarkMode title="Modalità scura">
@@ -889,7 +918,10 @@
                     <Item id="7123" name="Testo disabilitato"/>
                     <Item id="7124" name="Bordo"/>
                     <Item id="7125" name="Indirizzo internet"/>
+		    <Item id="7126" name="Evidenzia bordo"/>
+                    <Item id="7127" name="Disabilita bordo"/>
                     <Item id="7130" name="Ripristina"/>
+                    <Item id="7135" name="Toni"/>
                </DarkMode>
 
                 <MarginsBorderEdge title="Margini e Bordi">
@@ -998,6 +1030,15 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6721" name="Sezione centrale"/>
                     <Item id="6722" name="Sezione di destra"/>
                     <Item id="6723" name="Aggiungi"/>
+                    <ComboBox id="6724">
+                        <Element name="Percorso completo del nome file"/>
+                        <Element name="Nome del file"/>
+                        <Element name="Cartella del file"/>
+                        <Element name="Pagina"/>
+                        <Element name="Formato data breve"/>
+                        <Element name="Formato data lungo"/>
+                        <Element name="Ora"/>
+                    </ComboBox>
                     <Item id="6725" name="Variabile:"/>
                     <Item id="6727" name="Seleziona parte"/>
                     <Item id="6728" name="Intestazione E Piè Di Pagina"/>
@@ -1321,6 +1362,8 @@ Vuoi continuare?"/>
             <PanelTitle name="Elenco Funzioni"/>
             <SortTip name="Ordina"/>
             <ReloadTip name="Ricarica"/>
+            <PreferencesTip name="Preferenze"/>
+            <PreferencesInitialSort name="Ordina le funzioni (dalla A alla Z) come impostazione predefinita"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Cartella come Workspace"/>

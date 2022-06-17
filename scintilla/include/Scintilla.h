@@ -1359,14 +1359,14 @@ struct SCNotification {
 	int characterSource;	/* SCN_CHARADDED */
 };
 
-struct SearchResultMarking {
-	intptr_t _start;
-	intptr_t _end;
+#include <vector>
+struct SearchResultMarkingLine { // each line could have several segments if user want to see only 1 found line which contains several results
+	std::vector<std::pair<intptr_t, intptr_t>> _segmentPostions; // a vector of pair of start & end of occurrence for colourizing
 };
 
 struct SearchResultMarkings {
 	intptr_t _length;
-	SearchResultMarking *_markings;
+	SearchResultMarkingLine *_markings;
 };
 #ifdef INCLUDE_DEPRECATED_FEATURES
 

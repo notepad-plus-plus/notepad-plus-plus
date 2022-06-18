@@ -2316,7 +2316,6 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 			enableFindDlgItem(IDC_IN_SELECTION_CHECK, false);
 		}
 	}
-
 	return nbProcessed;
 }
 
@@ -2474,10 +2473,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
+
 				SearchResultMarkingLine srml;
-
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
-
 				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber);
 
 				break;
@@ -2727,7 +2725,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		justCreated = true;
 	}
 	_pFinder->setFinderStyle();
-
 	if (_pFinder->_purgeBeforeEverySearch)
 	{
 		_pFinder->removeAll();
@@ -2759,7 +2756,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	if (!cmdid) return;
 
 	bool limitSearchScopeToSelection = op == CURR_DOC_SELECTION;
-
 	if (::SendMessage(_hParent, cmdid, static_cast<WPARAM>(limitSearchScopeToSelection ? 1 : 0), 0))
 	{
 		generic_string text = _pFinder->getHitsString(_findAllResult);
@@ -4323,7 +4319,8 @@ void Finder::beginNewFilesSearch()
 	_nbFoundFiles = 0;
 
 	// fold all old searches (1st level only)
-	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
+	// 2022/06/18: Due to performance issue on Scintilla 5.x, the following line is commented:
+	//_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
 void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection)

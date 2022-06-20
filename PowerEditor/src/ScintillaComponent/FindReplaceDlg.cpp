@@ -519,7 +519,7 @@ bool Finder::notify(SCNotification *notification)
 }
 
 
-void Finder::gotoFoundLine()
+void Finder::gotoFoundLine(size_t nOccurrence)
 {
 	auto currentPos = _scintView.execute(SCI_GETCURRENTPOS);
 	auto lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
@@ -543,14 +543,22 @@ void Finder::gotoFoundLine()
 	(*_ppEditView)->_positionRestoreNeeded = false;
 
 	size_t index = 0;
-	intptr_t currentPosInLine = currentPos - start;
 
-	for (std::pair<intptr_t, intptr_t> range : markingLine._segmentPostions)
+	if (nOccurrence == 0 || nOccurrence > 9) // not used or invalid
 	{
-		if (range.first <= currentPosInLine && currentPosInLine <= range.second)
-			break;
+		intptr_t currentPosInLine = currentPos - start;
 
-		++index;
+		for (std::pair<intptr_t, intptr_t> range : markingLine._segmentPostions)
+		{
+			if (range.first <= currentPosInLine && currentPosInLine <= range.second)
+				break;
+
+			++index;
+		}
+	}
+	else // use nOccurrence
+	{
+		index = nOccurrence - 1;
 	}
 
 	if (index >= fInfo._ranges.size())
@@ -3643,12 +3651,19 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 
 LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (message == WM_KEYDOWN && (wParam == VK_DELETE || wParam == VK_RETURN || wParam == VK_ESCAPE))
+	if (message == WM_KEYDOWN && (wParam == VK_DELETE || wParam == VK_RETURN || wParam == VK_ESCAPE 
+		|| wParam > 0x30 && wParam < 0x40))
 	{
 		ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		Finder *pFinder = (Finder *)(::GetWindowLongPtr(pScint->getHParent(), GWLP_USERDATA));
 		if (wParam == VK_RETURN)
+		{
 			pFinder->gotoFoundLine();
+		}
+		else if (wParam > 0x30 && wParam < 0x40)
+		{
+			pFinder->gotoFoundLine(int(wParam) - 0x30);
+		}
 		else if (wParam == VK_ESCAPE)
 			pFinder->display(false);
 		else // VK_DELETE

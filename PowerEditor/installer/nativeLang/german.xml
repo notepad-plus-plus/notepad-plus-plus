@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-06-08 by schnurlos
+	last modified: 2022-06-20 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -899,6 +899,10 @@
 					<Item id="6653" name="Hintergrund hervorheben"/>
 					<Item id="6654" name="Rahmen"/>
 					<Item id="6655" name="Breite"/>
+					<Item id="6247" name="Zeilenende (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Standard"/>
+					<Item id="6249" name="Klartext"/>
+					<Item id="6250" name="Benutzerdefinierte Farbe"/>
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
@@ -1439,6 +1443,10 @@ Fortsetzen?"/>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
 			<word-chars-list-tip value="Das erlaubt es, zusätzliche Zeichen zur Liste der Wortzeichen hinzuzufügen. Die Zeichen werden bei der Doppelklick-Auswahl oder mit der aktivierten Option &quot;Übereinstimmung mit ganzem Wort&quot; berücksichtigt."/>
+
+			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+			<eol-custom-color-tip value="Wechsele zum Stil-Konfigurator um die benutzerdefinierte Standard-Zeilenende-Farbe zu ändern (&quot;EOL custom color&quot;)."/>
+
 			<word-chars-list-warning-begin value="Achtung: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ Leerzeichen"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ Tab(s)"/>

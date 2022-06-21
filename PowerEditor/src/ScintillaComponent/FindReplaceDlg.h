@@ -103,6 +103,7 @@ private:
 class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
+
 	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
 		_markingsStruct._length = 0;
 		_markingsStruct._markings = NULL;
@@ -130,8 +131,9 @@ public:
 	void copyPathnames();
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
+	
 	void gotoNextFoundResult(int direction);
-	void gotoFoundLine(size_t nOccurrence = 0); // value of occurrence is 1-9. value 0 means this argument is not used
+	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value of occurrence is 1-9. value 0 means this argument is not used
 	void deleteResult();
 	std::vector<generic_string> getResultFilePaths() const;
 	bool canFind(const TCHAR *fileName, size_t lineNumber) const;
@@ -143,8 +145,14 @@ protected :
 	bool notify(SCNotification *notification);
 
 private:
-
 	enum { searchHeaderLevel = SC_FOLDLEVELBASE, fileHeaderLevel, resultLevel };
+
+	enum CurrentPosInLineStatus { pos_infront, pos_between, pos_inside, pos_behind };
+
+	struct CurrentPosInLineInfo {
+		CurrentPosInLineStatus _status;
+		intptr_t auxiliaryInfo = -1; // according the status
+	};
 
 	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<FoundInfo> _foundInfos1;
@@ -177,6 +185,8 @@ private:
 
 	static FoundInfo EmptyFoundInfo;
 	static SearchResultMarkingLine EmptySearchResultMarking;
+
+	CurrentPosInLineInfo getCurrentPosInLineInfo(intptr_t currentPosInLine, const SearchResultMarkingLine& markingLine) const;
 };
 
 

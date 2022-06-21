@@ -519,26 +519,27 @@ bool Finder::notify(SCNotification *notification)
 }
 
 
-void Finder::gotoFoundLine(size_t nOccurrence)
+std::pair<intptr_t, intptr_t> Finder::gotoFoundLine(size_t nOccurrence)
 {
+	std::pair<intptr_t, intptr_t> emptyResult(0, 0);
 	auto currentPos = _scintView.execute(SCI_GETCURRENTPOS);
 	auto lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
 	auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
 	auto end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
 
-	if (start + 2 >= end) return; // avoid empty lines
+	if (start + 2 >= end) return emptyResult; // avoid empty lines
 
 	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)
 	{
 		_scintView.execute(SCI_TOGGLEFOLD, lno);
-		return;
+		return  emptyResult;
 	}
 
 	const FoundInfo& fInfo = *(_pMainFoundInfos->begin() + lno);
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
 
 	// Switch to another document
-	if (!::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(fInfo._fullPath.c_str()))) return;
+	if (!::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(fInfo._fullPath.c_str()))) return emptyResult;
 
 	(*_ppEditView)->_positionRestoreNeeded = false;
 
@@ -565,6 +566,8 @@ void Finder::gotoFoundLine(size_t nOccurrence)
 		index = 0;
 
 	Searching::displaySectionCentered(fInfo._ranges[index].first, fInfo._ranges[index].second, *_ppEditView);
+
+	return markingLine._segmentPostions[index];
 }
 
 void Finder::deleteResult()
@@ -644,15 +647,74 @@ bool Finder::canFind(const TCHAR *fileName, size_t lineNumber) const
 	return false;
 }
 
+
+Finder::CurrentPosInLineInfo Finder::getCurrentPosInLineInfo(intptr_t currentPosInLine, const SearchResultMarkingLine& markingLine) const
+{
+	CurrentPosInLineInfo cpili;
+	size_t count = 0;
+	intptr_t lastEnd = 0;
+
+	for (std::pair<intptr_t, intptr_t> range : markingLine._segmentPostions)
+	{
+		++count;
+
+		if (lastEnd <= currentPosInLine && currentPosInLine < range.first)
+		{
+			if (count == 1)
+			{
+				cpili._status = pos_infront;
+				break;
+			}
+			else
+			{
+				cpili._status = pos_between;
+				cpili.auxiliaryInfo = count - 1;
+				break;
+			}
+		}
+		
+		if (range.first <= currentPosInLine && currentPosInLine <= range.second)
+		{
+			cpili._status = pos_inside;
+			cpili.auxiliaryInfo = count;
+			break;
+		}
+
+		if (range.second < currentPosInLine)
+		{
+			if (markingLine._segmentPostions.size() == count)
+			{
+				cpili._status = pos_behind;
+				cpili.auxiliaryInfo = count;
+				break;
+			}
+		}
+
+		lastEnd = range.second;
+	}
+
+	return cpili;
+}
+
 void Finder::gotoNextFoundResult(int direction)
 {
-	int increment = direction < 0 ? -1 : 1;
+	//
+	// Get currentLine & currentPosInLine from CurrentPos
+	//
 	auto currentPos = _scintView.execute(SCI_GETCURRENTPOS);
 	auto lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
 	auto total_lines = _scintView.execute(SCI_GETLINECOUNT);
 	if (total_lines <= 1) return;
 
-	if (lno == total_lines - 1) lno--; // last line doesn't belong to any search, use last search
+	auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+	intptr_t currentPosInLine = currentPos - start;
+
+	if (lno == total_lines - 1) // last line doesn't belong to any search, use last search
+	{
+		lno--;
+
+
+	}
 
 	auto init_lno = lno;
 	auto max_lno = _scintView.execute(SCI_GETLASTCHILD, lno, searchHeaderLevel);
@@ -672,28 +734,81 @@ void Finder::gotoNextFoundResult(int direction)
 
 	assert(min_lno <= max_lno);
 
-	lno += increment;
-
-	if      (lno > max_lno) lno = min_lno;
+	if (lno > max_lno) lno = min_lno;
 	else if (lno < min_lno) lno = max_lno;
 
 	while (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)
 	{
-		lno += increment;
-		if      (lno > max_lno) lno = min_lno;
+		lno++;
+		auto aStart = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+		_scintView.execute(SCI_SETSEL, aStart, aStart);
+
+		if (lno > max_lno) lno = min_lno;
 		else if (lno < min_lno) lno = max_lno;
 		if (lno == init_lno) break;
 	}
 
-	if ((_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG) == 0)
-	{
-		auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-		_scintView.execute(SCI_SETSEL, start, start);
-		_scintView.execute(SCI_ENSUREVISIBLE, lno);
-		_scintView.execute(SCI_SCROLLCARET);
+	size_t n = 0;
+	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
 
-		gotoFoundLine();
+	//
+	// Determinate currentPosInLine status among pos_infront, pose_between, pos_inside and pos_behind
+	//
+	CurrentPosInLineInfo cpili  = getCurrentPosInLineInfo(currentPosInLine, markingLine);
+
+	//
+	// According CurrentPosInLineInfo and direction, set position and get number of occurrence
+	//
+	if (direction == 0) // Next
+	{
+		switch (cpili._status)
+		{
+			case pos_infront:
+			{
+				n = 1;
+			}
+			break;
+
+			case pos_between:
+			case pos_inside:
+			{
+				n = cpili.auxiliaryInfo + 1;
+				if (n > markingLine._segmentPostions.size())
+				{
+					lno++;
+					auto aStart = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+					_scintView.execute(SCI_SETSEL, aStart, aStart);
+					n = 1;
+				}
+			}
+			break;
+
+			case pos_behind:
+			{
+				lno++;
+				auto aStart = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+				_scintView.execute(SCI_SETSEL, aStart, aStart);
+				n = 1;
+			}
+			break;
+		}
 	}
+	else if (direction == -1) // Previous
+	{
+
+	}
+	else // invalid
+	{
+		return;
+	}
+
+	_scintView.execute(SCI_ENSUREVISIBLE, lno);
+	_scintView.execute(SCI_SCROLLCARET);
+	std::pair<intptr_t, intptr_t> newPos = gotoFoundLine(n);
+
+	start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+	_scintView.execute(SCI_SETSEL, newPos.first + start, newPos.second + start);
+
 }
 
 void FindInFinderDlg::initFromOptions()

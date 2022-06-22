@@ -548,7 +548,11 @@ std::pair<intptr_t, intptr_t> Finder::gotoFoundLine(size_t nOccurrence)
 
 	size_t index = 0;
 
-	if (nOccurrence == 0 || nOccurrence > 9) // not used or invalid
+	if (nOccurrence > 0)
+	{
+		index = nOccurrence - 1;
+	}
+	else // nOccurrence not used: use current line relative pos to check if it's inside of a marked occurrence
 	{
 		intptr_t currentPosInLine = currentPos - start;
 
@@ -559,10 +563,6 @@ std::pair<intptr_t, intptr_t> Finder::gotoFoundLine(size_t nOccurrence)
 
 			++index;
 		}
-	}
-	else // use nOccurrence
-	{
-		index = nOccurrence - 1;
 	}
 
 	if (index >= fInfo._ranges.size())

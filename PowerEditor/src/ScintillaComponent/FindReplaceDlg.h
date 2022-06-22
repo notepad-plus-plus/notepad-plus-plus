@@ -133,7 +133,7 @@ public:
 	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
 	
 	void gotoNextFoundResult(int direction);
-	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value of occurrence is 1-9. value 0 means this argument is not used
+	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value 0 means this argument is not used
 	void deleteResult();
 	std::vector<generic_string> getResultFilePaths() const;
 	bool canFind(const TCHAR *fileName, size_t lineNumber) const;

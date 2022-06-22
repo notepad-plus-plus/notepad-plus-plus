@@ -723,7 +723,7 @@ void Finder::gotoNextFoundResult(int direction)
 	// Get currentLine & currentPosInLine from CurrentPos
 	//
 	auto currentPos = _scintView.execute(SCI_GETCURRENTPOS);
-	auto lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
+	intptr_t lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
 	auto total_lines = _scintView.execute(SCI_GETLINECOUNT);
 	if (total_lines <= 1) return;
 

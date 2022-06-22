@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.3.3">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.4.1">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -874,6 +874,7 @@
 					<Item id="6219" name="Yenilenme hızı :"/>
 					<Item id="6221" name="H"/>
 					<Item id="6222" name="Y"/>
+					<Item id="6246" name="Şu anki seviye açılır/kapanır komutları değiştirilebilir yap"/>
 					<Item id="6224" name="Çoklu Düzenleme Ayarları"/>
 					<Item id="6225" name="Çoklu Düzenlemeyi Etkinleştir (Ctrl + fareyle tıkla/seç)"/>
 					<Item id="6227" name="Satır Kaydırma"/>
@@ -886,18 +887,27 @@
 					<Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
 					<Item id="6239" name="Seçimin dışında sağ tıklanırsa seçimi koru"/>
 					<Item id="6245" name="Sanal Alanı Etkinleştir"/>
+					<Item id="6651" name="Şimdiki Satır İşaretçisi"/>
+					<Item id="6652" name="Hiçbiri"/>
+					<Item id="6653" name="Arka Planı Vurgula"/>
+					<Item id="6654" name="Çerçeve"/>
+					<Item id="6655" name="Genişlik"/>
+					<Item id="6247" name="Satır Sonu (CRLF)"/> <!-- "(CRLF)" Kısmını Çevirmeyin -->
+					<Item id="6248" name="Varsayılan"/>
+					<Item id="6249" name="Düz Metin"/>
+					<Item id="6250" name="Kişisel Renk"/>
 				</Scintillas>
 
 				<DarkMode title="Koyu Mod">
 					<Item id="7101" name="Koyu Modu Etkinleştir"/>
-					<Item id="7102" name="Siyah Ton"/>
-					<Item id="7103" name="Kırmızı Ton"/>
-					<Item id="7104" name="Yeşil Ton"/>
-					<Item id="7105" name="Mavi Ton"/>
-					<Item id="7107" name="Mor Ton"/>
-					<Item id="7108" name="Açık Mavi Ton"/>
-					<Item id="7109" name="Zeytin Yeşili Ton"/>
-					<Item id="7115" name="Kişisel Ton"/>
+					<Item id="7102" name="Siyah"/>
+					<Item id="7103" name="Kırmızı"/>
+					<Item id="7104" name="Yeşil"/>
+					<Item id="7105" name="Mavi"/>
+					<Item id="7107" name="Mor"/>
+					<Item id="7108" name="Açık Mavi"/>
+					<Item id="7109" name="Zeytin Yeşili"/>
+					<Item id="7115" name="Kişisel"/>
 					<Item id="7116" name="Üst"/>
 					<Item id="7117" name="Menü Odağı"/>
 					<Item id="7118" name="Etkin"/>
@@ -908,7 +918,10 @@
 					<Item id="7123" name="Devre Dışı Yazı"/>
 					<Item id="7124" name="Köşe"/>
 					<Item id="7125" name="Bağlantı"/>
+					<Item id="7126" name="Köşe Belirginleştirme"/>
+					<Item id="7127" name="Köşe Etkisizleştirildi"/>
 					<Item id="7130" name="Sıfırla"/>
+					<Item id="7135" name="Tonlar"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Boşluk/Sınır/Köşe">
@@ -1418,11 +1431,15 @@ Devam edilsin mi?"/>
 		</ProjectManager>
 		<MiscStrings>
 			<word-chars-list-tip value="Bu, şu anki karakterlere yeni karakter eklemenizi sağlar. Bunun için seçime çift tıklayabilir ya da &quot;Sadece tam sözcükleri eşleştir&quot; seçili olarak arama yaparken kullanabilirsiniz."/>
-            <word-chars-list-warning-begin value="Dikkat et: "/>
+
+            <!-- "(&quot;EOL custom color&quot;)" Kısmını Çevirmeyin -->
+			<eol-custom-color-tip value="Varsayılan Satır Sonu kişisel rengini değiştirmek için Stil Yapılandırıcı'ya gidin (&quot;EOL custom color&quot;).."/>
+			
+			<word-chars-list-warning-begin value="Dikkat et: "/>
 			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
-            <word-chars-list-space-warning value="$INT_REPLACE$ boşluk(lar)"/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ boşluk(lar)"/>
 			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
-            <word-chars-list-tab-warning value="$INT_REPLACE$ SEKME(ler)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ SEKME(ler)"/>
 			<word-chars-list-warning-end value="  karakter listenizde."/>
 			<backup-select-folder value="Yedekleme konumu için bir klasör seçin"/> <!-- NasılTekrarlanır: Ayarlar > Tercihler > Yedekleme > [...] -->
 			<cloud-invalid-warning value="Geçersiz yol."/>

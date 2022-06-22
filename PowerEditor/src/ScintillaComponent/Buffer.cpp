@@ -1601,7 +1601,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		fileFormat._eolFormat = ndds._format;
 
 		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it
-		if (fileSize == 0)
+		if ((fileSize == 0) && (fileFormat._encoding < 1))
 		{
 			if (ndds._unicodeMode == uniCookie && ndds._openAnsiAsUtf8)
 				fileFormat._encoding = SC_CP_UTF8;

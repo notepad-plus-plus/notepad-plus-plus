@@ -696,6 +696,27 @@ Finder::CurrentPosInLineInfo Finder::getCurrentPosInLineInfo(intptr_t currentPos
 	return cpili;
 }
 
+void Finder::anchorWithNoHeaderLines(intptr_t& currentL, intptr_t initL, intptr_t minL, intptr_t maxL, int direction)
+{
+	if (currentL > maxL && direction == 0)
+		currentL = minL;
+
+	while (_scintView.execute(SCI_GETFOLDLEVEL, currentL) & SC_FOLDLEVELHEADERFLAG)
+	{
+		currentL += direction == -1 ? -1 : 1;
+
+		if (currentL > maxL)
+			currentL = minL;
+		else if (currentL < minL)
+			currentL = maxL;
+		if (currentL == initL)
+			break;
+	}
+
+	auto extremityAbsoltePos = _scintView.execute(direction == -1 ? SCI_GETLINEENDPOSITION : SCI_POSITIONFROMLINE, currentL);
+	_scintView.execute(SCI_SETSEL, extremityAbsoltePos, extremityAbsoltePos);
+}
+
 void Finder::gotoNextFoundResult(int direction)
 {
 	//
@@ -708,13 +729,6 @@ void Finder::gotoNextFoundResult(int direction)
 
 	auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
 	intptr_t currentPosInLine = currentPos - start;
-
-	if (lno == total_lines - 1) // last line doesn't belong to any search, use last search
-	{
-		lno--;
-
-
-	}
 
 	auto init_lno = lno;
 	auto max_lno = _scintView.execute(SCI_GETLASTCHILD, lno, searchHeaderLevel);
@@ -737,16 +751,11 @@ void Finder::gotoNextFoundResult(int direction)
 	if (lno > max_lno) lno = min_lno;
 	else if (lno < min_lno) lno = max_lno;
 
-	while (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)
-	{
-		lno++;
-		auto aStart = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-		_scintView.execute(SCI_SETSEL, aStart, aStart);
+	//
+	// Set anchor and make sure that achor is not on the last (empty) line or head lines
+	//
+	anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
 
-		if (lno > max_lno) lno = min_lno;
-		else if (lno < min_lno) lno = max_lno;
-		if (lno == init_lno) break;
-	}
 
 	size_t n = 0;
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
@@ -776,8 +785,7 @@ void Finder::gotoNextFoundResult(int direction)
 				if (n > markingLine._segmentPostions.size())
 				{
 					lno++;
-					auto aStart = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-					_scintView.execute(SCI_SETSEL, aStart, aStart);
+					anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
 					n = 1;
 				}
 			}
@@ -786,8 +794,7 @@ void Finder::gotoNextFoundResult(int direction)
 			case pos_behind:
 			{
 				lno++;
-				auto aStart = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-				_scintView.execute(SCI_SETSEL, aStart, aStart);
+				anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
 				n = 1;
 			}
 			break;
@@ -795,7 +802,43 @@ void Finder::gotoNextFoundResult(int direction)
 	}
 	else if (direction == -1) // Previous
 	{
+		switch (cpili._status)
+		{
+			case pos_infront:
+			{
+				lno--;
+				anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
+				const SearchResultMarkingLine& newMarkingLine = *(_pMainMarkings->begin() + lno);
+				n = newMarkingLine._segmentPostions.size();
+			}
+			break;
 
+			case pos_between:
+			{
+				n = cpili.auxiliaryInfo;
+			}
+			break;
+
+			case pos_inside:
+			{
+				if (cpili.auxiliaryInfo > 1)
+					n = cpili.auxiliaryInfo - 1;
+				else
+				{
+					lno--;
+					anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
+					const SearchResultMarkingLine& newMarkingLine = *(_pMainMarkings->begin() + lno);
+					n = newMarkingLine._segmentPostions.size();
+				}
+			}
+			break;
+
+			case pos_behind:
+			{
+				n = cpili.auxiliaryInfo;
+			}
+			break;
+		}
 	}
 	else // invalid
 	{

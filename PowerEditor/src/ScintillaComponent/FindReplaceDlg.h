@@ -187,6 +187,7 @@ private:
 	static SearchResultMarkingLine EmptySearchResultMarking;
 
 	CurrentPosInLineInfo getCurrentPosInLineInfo(intptr_t currentPosInLine, const SearchResultMarkingLine& markingLine) const;
+	void anchorWithNoHeaderLines(intptr_t& currentL, intptr_t initL, intptr_t minL, intptr_t maxL, int direction);
 };
 
 

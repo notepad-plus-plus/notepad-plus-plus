@@ -503,7 +503,10 @@ bool Finder::notify(SCNotification *notification)
 				pos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
 			_scintView.execute(SCI_SETSEL, pos, pos);
 
-			gotoFoundLine();
+			std::pair<intptr_t, intptr_t> newPos = gotoFoundLine();
+			auto lineStartAbsolutePos = _scintView.execute(SCI_POSITIONFROMLINE, notification->line);
+			_scintView.execute(SCI_SETSEL, newPos.first + lineStartAbsolutePos, newPos.second + lineStartAbsolutePos);
+
 		}
 		break;
 

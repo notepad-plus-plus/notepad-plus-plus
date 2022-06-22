@@ -764,7 +764,7 @@ struct NppGUI final
 
 	bool _finderLinesAreCurrentlyWrapped = false;
 	bool _finderPurgeBeforeEverySearch = false;
-	bool _finderShowOnlyOneEntryPerFoundLine = false;
+	bool _finderShowOnlyOneEntryPerFoundLine = true;
 
 	int _fileAutoDetection = cdEnabledNew;
 

@@ -712,6 +712,7 @@ void Finder::anchorWithNoHeaderLines(intptr_t& currentL, intptr_t initL, intptr_
 			currentL = minL;
 		else if (currentL < minL)
 			currentL = maxL;
+
 		if (currentL == initL)
 			break;
 	}
@@ -759,6 +760,11 @@ void Finder::gotoNextFoundResult(int direction)
 	//
 	anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
 
+	//
+	// Update currentPosInLine
+	//
+	start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+	currentPosInLine = currentPos - start;
 
 	size_t n = 0;
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
@@ -2862,7 +2868,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
-		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
+		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 2);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
 		_pFinder->_scintView.execute(SCI_SETUSETABS, true);
@@ -4201,6 +4207,7 @@ void Finder::addSearchLine(const TCHAR *searchName)
 
 	_pMainFoundInfos->push_back(EmptyFoundInfo);
 	_pMainMarkings->push_back(EmptySearchResultMarking);
+	_previousLineNumber = -1;
 }
 
 void Finder::addFileNameTitle(const TCHAR * fileName)
@@ -4216,6 +4223,7 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 
 	_pMainFoundInfos->push_back(EmptyFoundInfo);
 	_pMainMarkings->push_back(EmptySearchResultMarking);
+	_previousLineNumber = -1;
 }
 
 void Finder::addFileHitCount(int count)

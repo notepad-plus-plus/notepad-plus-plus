@@ -6700,7 +6700,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	}
 
 	// <GUIConfig name="commandLineInterpreter">powershell</GUIConfig>
-	if (_nppGUI._commandLineInterpreter.compare(TEXT("cmd")))
+	if (_nppGUI._commandLineInterpreter.compare(CMD_INTERPRETER))
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("commandLineInterpreter"));

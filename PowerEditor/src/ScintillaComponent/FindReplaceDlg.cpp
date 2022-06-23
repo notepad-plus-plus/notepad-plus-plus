@@ -3819,11 +3819,21 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 		Finder *pFinder = (Finder *)(::GetWindowLongPtr(pScint->getHParent(), GWLP_USERDATA));
 		if (wParam == VK_RETURN)
 		{
-			pFinder->gotoFoundLine();
+			std::pair<intptr_t, intptr_t> newPos = pFinder->gotoFoundLine();
+
+			auto currentPos = pFinder->_scintView.execute(SCI_GETCURRENTPOS);
+			intptr_t lno = pFinder->_scintView.execute(SCI_LINEFROMPOSITION, currentPos);
+			intptr_t lineStartAbsPos = pFinder->_scintView.execute(SCI_POSITIONFROMLINE, lno);
+			pFinder->_scintView.execute(SCI_SETSEL, newPos.first + lineStartAbsPos, newPos.second + lineStartAbsPos);
 		}
 		else if (wParam > 0x30 && wParam < 0x40)
 		{
-			pFinder->gotoFoundLine(int(wParam) - 0x30);
+			std::pair<intptr_t, intptr_t> newPos = pFinder->gotoFoundLine(int(wParam) - 0x30);
+
+			auto currentPos = pFinder->_scintView.execute(SCI_GETCURRENTPOS);
+			intptr_t lno = pFinder->_scintView.execute(SCI_LINEFROMPOSITION, currentPos);
+			intptr_t lineStartAbsPos = pFinder->_scintView.execute(SCI_POSITIONFROMLINE, lno);
+			pFinder->_scintView.execute(SCI_SETSEL, newPos.first + lineStartAbsPos, newPos.second + lineStartAbsPos);
 		}
 		else if (wParam == VK_ESCAPE)
 			pFinder->display(false);

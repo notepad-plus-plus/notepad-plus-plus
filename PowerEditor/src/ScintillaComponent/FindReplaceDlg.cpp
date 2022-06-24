@@ -752,19 +752,34 @@ void Finder::gotoNextFoundResult(int direction)
 
 	assert(min_lno <= max_lno);
 
-	if (lno > max_lno) lno = min_lno;
+	if (lno > max_lno && direction == 0) lno = min_lno;
 	else if (lno < min_lno) lno = max_lno;
 
 	//
 	// Set anchor and make sure that achor is not on the last (empty) line or head lines
 	//
-	anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
+	while (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)
+	{
+		lno += direction == -1 ? -1 : 1;
 
-	//
-	// Update currentPosInLine
-	//
-	start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-	currentPosInLine = currentPos - start;
+		if (lno > max_lno)
+			lno = min_lno;
+		else if (lno < min_lno)
+			lno = max_lno;
+
+		if (lno == init_lno)
+			break;
+	}
+
+	if (lno != init_lno)
+	{
+		auto extremityAbsoltePos = _scintView.execute(direction == -1 ? SCI_GETLINEENDPOSITION : SCI_POSITIONFROMLINE, lno);
+		_scintView.execute(SCI_SETSEL, extremityAbsoltePos, extremityAbsoltePos);
+		currentPos = extremityAbsoltePos;
+		auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+		currentPosInLine = currentPos - start;
+	}
+
 
 	size_t n = 0;
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
@@ -2868,7 +2883,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
-		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 2);
+		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 1);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
 		_pFinder->_scintView.execute(SCI_SETUSETABS, true);
@@ -2998,7 +3013,7 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 	pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 	pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
-	pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
+	pFinder->_scintView.execute(SCI_SETCARETWIDTH, 1);
 	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
 	pFinder->_scintView.execute(SCI_SETUSETABS, true);

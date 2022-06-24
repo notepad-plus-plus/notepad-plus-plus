@@ -46,6 +46,7 @@
 
 #endif
 
+#define CMD_INTERPRETER TEXT("%WINDIR%\\System32\\cmd.exe")
 
 class NativeLangSpeaker;
 
@@ -841,7 +842,7 @@ struct NppGUI final
 	generic_string _definedSessionExt;
 	generic_string _definedWorkspaceExt;
 
-	generic_string _commandLineInterpreter = TEXT("cmd.exe");
+	generic_string _commandLineInterpreter = CMD_INTERPRETER;
 
 	struct AutoUpdateOptions
 	{

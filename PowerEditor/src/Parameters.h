@@ -46,7 +46,7 @@
 
 #endif
 
-#define CMD_INTERPRETER TEXT("%WINDIR%\\System32\\cmd.exe")
+#define CMD_INTERPRETER TEXT("%COMSPEC%")
 
 class NativeLangSpeaker;
 

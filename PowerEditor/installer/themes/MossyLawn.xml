@@ -924,7 +924,7 @@ Installation:
         <WidgetStyle name="Fold" styleID="0" fgColor="603d13" bgColor="7e8a28" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="FF0000" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="7e8a28" bgColor="7e8a28" />
-        <WidgetStyle name="White space symbol" styleID="0" fgColor="ffc973" />
+        <WidgetStyle name="White space symbol" styleID="0" fgColor="00a080" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="bf8830" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="6a1a01" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="fdd64a" />
@@ -940,6 +940,6 @@ Installation:
         <WidgetStyle name="Active tab text" styleID="0" fgColor="012001" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="162504" bgColor="BBCF60" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
-        <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="EOL custom color" styleID="0" fgColor="00a080" />
     </GlobalStyles>
 </NotepadPlus>

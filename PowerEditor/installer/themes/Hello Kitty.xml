@@ -760,7 +760,7 @@ so your enhanced file can be included in Notepad++ future release.
         <WidgetStyle name="Fold" styleID="0" fgColor="FFFFFF" bgColor="FF80C0" fontSize="8" fontStyle="0" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="FF80C0" bgColor="FF80C0" fontSize="8" fontStyle="0" />
-        <WidgetStyle name="White space symbol" styleID="0" fgColor="FFB56A" bgColor="EEEEEC" />
+        <WidgetStyle name="White space symbol" styleID="0" fgColor="808080" bgColor="EEEEEC" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="00FF00" fgColor="555753" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="FF0000" fgColor="FCAF3E" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="00FFFF" />

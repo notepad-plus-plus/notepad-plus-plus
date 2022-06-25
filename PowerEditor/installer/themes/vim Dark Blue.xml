@@ -753,7 +753,7 @@
         <WidgetStyle name="Fold" styleID="0" fgColor="FFFFFF" bgColor="000040" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="000040" bgColor="000040" />
-        <WidgetStyle name="White space symbol" styleID="0" fgColor="004040" />
+        <WidgetStyle name="White space symbol" styleID="0" fgColor="808080" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="2050D0" />
         <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFF00" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="00FFFF" />

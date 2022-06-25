@@ -658,14 +658,32 @@ bool Finder::canFind(const TCHAR *fileName, size_t lineNumber) const
 	return false;
 }
 
+// Y     : current pos
+// X     : current sel
+// XXXXY : current sel + current pos
+// 
+//      1          2                3        4                   Status      auxiliaryInfo
+// =======================================================================================
+// Y [     ]    [     ]          [     ]  [     ]            : pos_infront        -1
+//   [     ]    [     ]          [     ]  [  Y  ]            : pos_inside          4
+//   [     ]  XXY     ]          [     ]  [     ]            : pos_inside          2
+//   [     ]    [     ]          [     ]  [  XXXY            : pos_inside          4
+//   [     ]    [     ]          [XXXXXY  [     ]            : pos_inside          3
+//   [     Y    [     ]          [     ]  [     ]            : pos_between         1
+//   [     ]    [     ]          [     ]  Y     ]            : pos_between         3
+//   [     ]    [     ]          [     Y  [     ]            : pos_between         3
+//   [     ]    [     ]  Y       [     ]  [     ]            : pos_between         2
+//   [     ]    [     ]          [     ]  [     ]    Y       : pos_behind          4
 
 Finder::CurrentPosInLineInfo Finder::getCurrentPosInLineInfo(intptr_t currentPosInLine, const SearchResultMarkingLine& markingLine) const
 {
 	CurrentPosInLineInfo cpili;
 	size_t count = 0;
 	intptr_t lastEnd = 0;
-	//auto mainSelStart = _scintView.execute(SCI_GETSELECTIONSTART);
-	//auto mainSelEnd = _scintView.execute(SCI_GETSELECTIONEND);
+	auto selStart = _scintView.execute(SCI_GETSELECTIONSTART);
+	auto selEnd = _scintView.execute(SCI_GETSELECTIONEND);
+	bool hasSel = (selEnd - selStart) != 0;
+
 	for (std::pair<intptr_t, intptr_t> range : markingLine._segmentPostions)
 	{
 		++count;
@@ -687,8 +705,23 @@ Finder::CurrentPosInLineInfo Finder::getCurrentPosInLineInfo(intptr_t currentPos
 		
 		if (range.first <= currentPosInLine && currentPosInLine <= range.second)
 		{
-			cpili._status = pos_inside;
-			cpili.auxiliaryInfo = count;
+			if (currentPosInLine == range.first && !hasSel)
+			{
+				cpili._status = pos_between;
+				cpili.auxiliaryInfo = count - 1; //  c1      c2
+				                                 // [   ]  I[   ]      : I is recongnized with c2, so auxiliaryInfo should be c1 (c2-1)
+			}
+			else if (currentPosInLine == range.second && !hasSel)
+			{
+				cpili._status = pos_between;
+				cpili.auxiliaryInfo = count;     //  c1      c2
+				                                 // [   ]I  [   ]      : I is recongnized with c1, so auxiliaryInfo should be c1
+			}
+			else
+			{
+				cpili._status = pos_inside;
+				cpili.auxiliaryInfo = count;
+			}
 			break;
 		}
 

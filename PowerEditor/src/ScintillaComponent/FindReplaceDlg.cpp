@@ -504,8 +504,16 @@ bool Finder::notify(SCNotification *notification)
 			_scintView.execute(SCI_SETSEL, pos, pos);
 
 			std::pair<intptr_t, intptr_t> newPos = gotoFoundLine();
-			auto lineStartAbsolutePos = _scintView.execute(SCI_POSITIONFROMLINE, notification->line);
-			_scintView.execute(SCI_SETSEL, newPos.first + lineStartAbsolutePos, newPos.second + lineStartAbsolutePos);
+			auto lineStartAbsPos = _scintView.execute(SCI_POSITIONFROMLINE, notification->line);
+			intptr_t lineEndAbsPos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
+
+			intptr_t begin = newPos.first + lineStartAbsPos;
+			intptr_t end = newPos.second + lineStartAbsPos;
+
+			if (end > lineEndAbsPos)
+				end = lineEndAbsPos;
+			
+			_scintView.execute(SCI_SETSEL, begin, end);
 
 		}
 		break;
@@ -656,7 +664,8 @@ Finder::CurrentPosInLineInfo Finder::getCurrentPosInLineInfo(intptr_t currentPos
 	CurrentPosInLineInfo cpili;
 	size_t count = 0;
 	intptr_t lastEnd = 0;
-
+	//auto mainSelStart = _scintView.execute(SCI_GETSELECTIONSTART);
+	//auto mainSelEnd = _scintView.execute(SCI_GETSELECTIONEND);
 	for (std::pair<intptr_t, intptr_t> range : markingLine._segmentPostions)
 	{
 		++count;
@@ -731,8 +740,8 @@ void Finder::gotoNextFoundResult(int direction)
 	auto total_lines = _scintView.execute(SCI_GETLINECOUNT);
 	if (total_lines <= 1) return;
 
-	auto start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-	intptr_t currentPosInLine = currentPos - start;
+	auto lineStartAbsPos = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+	intptr_t currentPosInLine = currentPos - lineStartAbsPos;
 
 	auto init_lno = lno;
 	auto max_lno = _scintView.execute(SCI_GETLASTCHILD, lno, searchHeaderLevel);
@@ -873,8 +882,16 @@ void Finder::gotoNextFoundResult(int direction)
 	_scintView.execute(SCI_SCROLLCARET);
 	std::pair<intptr_t, intptr_t> newPos = gotoFoundLine(n);
 
-	start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-	_scintView.execute(SCI_SETSEL, newPos.first + start, newPos.second + start);
+	lineStartAbsPos = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+	intptr_t lineEndAbsPos = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
+
+	intptr_t begin = newPos.first + lineStartAbsPos;
+	intptr_t end = newPos.second + lineStartAbsPos;
+
+	if (end > lineEndAbsPos)
+		end = lineEndAbsPos;
+
+	_scintView.execute(SCI_SETSEL, begin, end);
 
 }
 
@@ -3844,7 +3861,15 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 			auto currentPos = pFinder->_scintView.execute(SCI_GETCURRENTPOS);
 			intptr_t lno = pFinder->_scintView.execute(SCI_LINEFROMPOSITION, currentPos);
 			intptr_t lineStartAbsPos = pFinder->_scintView.execute(SCI_POSITIONFROMLINE, lno);
-			pFinder->_scintView.execute(SCI_SETSEL, newPos.first + lineStartAbsPos, newPos.second + lineStartAbsPos);
+			intptr_t lineEndAbsPos = pFinder->_scintView.execute(SCI_GETLINEENDPOSITION, lno);
+
+			intptr_t begin = newPos.first + lineStartAbsPos;
+			intptr_t end = newPos.second + lineStartAbsPos;
+
+			if (end > lineEndAbsPos)
+				end = lineEndAbsPos;
+
+			pFinder->_scintView.execute(SCI_SETSEL, begin, end);
 		}
 		else if (wParam == VK_ESCAPE)
 			pFinder->display(false);

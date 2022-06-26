@@ -1047,6 +1047,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6903" name="La boîte de dialogue &quot;Rechercher&quot; reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
                     <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
                     <Item id="6905" name="&quot;Remplacer&quot; : ne pas passer à l'occurrence suivante"/>
+                    <Item id="6906" name="Résultats de recherche : afficher une seule entrée par ligne trouvée (non applicable au mode RTL)"/>
                 </Searching>
 
                 <RecentFilesHistory title="Fichiers récents">

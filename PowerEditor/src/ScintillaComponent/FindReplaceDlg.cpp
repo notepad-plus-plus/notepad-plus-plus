@@ -2983,6 +2983,12 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
 
+	bool toRTL = (*_ppEditView)->isTextDirectionRTL();
+	bool isRTL = _pFinder->_scintView.isTextDirectionRTL();
+
+	if ((toRTL && !isRTL) || (!toRTL && isRTL))
+		_pFinder->_scintView.changeTextDirection(toRTL);
+
 	int cmdid = 0;
 	if (op == ALL_OPEN_DOCS)
 		cmdid = WM_FINDALL_INOPENEDDOC;
@@ -3000,12 +3006,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	{
 		generic_string text = _pFinder->getHitsString(_findAllResult);
 		wsprintf(_findAllResultStr, text.c_str());
-
-		bool toRTL = (*_ppEditView)->isTextDirectionRTL();
-		bool isRTL = _pFinder->_scintView.isTextDirectionRTL();
-
-		if ((toRTL && !isRTL) || (!toRTL && isRTL))
-			_pFinder->_scintView.changeTextDirection(toRTL);
 
 		if (_findAllResult)
 		{
@@ -4356,7 +4356,9 @@ void Finder::add(FoundInfo fi, SearchResultMarkingLine miLine, const TCHAR* foun
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
 
-	if (nppGUI._finderShowOnlyOneEntryPerFoundLine)
+	bool isRTL = _scintView.isTextDirectionRTL();
+
+	if (nppGUI._finderShowOnlyOneEntryPerFoundLine && !isRTL) // several occurrence colourizing in Search result doesn't support for RTL mode
 	{
 		if (_previousLineNumber == -1)
 		{

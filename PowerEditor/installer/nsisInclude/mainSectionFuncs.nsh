@@ -298,8 +298,18 @@ XMLToolsTestEnd64:
 		MessageBox MB_OK "Due to NppTaskList plugin's incompatibility issue in version $R0, NppTaskList.dll will be deleted. Use Plugins Admin to add back (the latest version of) NppTaskList." /SD IDOK
 		Rename "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" "$INSTDIR\plugins\disabled\NppTaskList.dll"
 		Delete "$INSTDIR\plugins\NppTaskList\NppTaskList.dll"
-
 NppTaskListTestEnd64:
+
+	; jN makes Notepad++ x64 crash. "2.2.185.7" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\jN\jN.dll" 0 jN64
+		${GetFileVersion} "$INSTDIR\plugins\jN\jN.dll" $R0
+		${VersionCompare} $R0 "2.2.185.7" $R1 ;   0: equal to 2.2.185.7   1: $R0 is newer   2: 2.4 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to jN plugin's incompatibility issue in version $R0, jN.dll will be deleted. Use Plugins Admin to add back (the latest version of) jN." /SD IDOK
+		Rename "$INSTDIR\plugins\jN\jN.dll" "$INSTDIR\plugins\disabled\jN.dll"
+		Delete "$INSTDIR\plugins\jN\jN.dll"
+jN64:
 
 
 	IfFileExists "$INSTDIR\plugins\NppQCP\NppQCP.dll" 0 NppQCPTestEnd64

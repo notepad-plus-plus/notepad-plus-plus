@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.4.2:
+Updated to v8.4.3:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.4.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.4.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -24,7 +24,7 @@ Updated to v8.4.2:
 				</Entries>
 				<SubEntries>
 					<Item subMenuId="file-openFolder"           name="&amp;Открыть папку документа"/>
-					<Item subMenuId="file-closeMore"            name="Управление вкладками..."/>
+					<Item subMenuId="file-closeMore"            name="Управление вкладками"/>
 					<Item subMenuId="file-recentFiles"          name="Последние файлы"/>
 					<Item subMenuId="edit-insert"               name="Вставка"/>
 					<Item subMenuId="edit-copyToClipboard"      name="Копировать в &amp;Буфер"/>
@@ -923,6 +923,10 @@ Updated to v8.4.2:
 					<Item id="6239" name="Сохранять выделение текста при правом щелчке за его пределами"/>
 					<Item id="6245" name="Включить Виртуальный Пробел"/>
 					<Item id="6246" name="Сделать команды 'Свернуть/Развернуть текущий блок' переключаемыми"/>
+					<Item id="6247" name="Индикатор Конца Строки (CRLF)"/>
+					<Item id="6248" name="По Умолчанию"/>
+					<Item id="6249" name="Обычный текст"/>
+					<Item id="6250" name="Польз. Цвет"/>
 					<Item id="6651" name="Индикация Текущей Строки"/>
 					<Item id="6652" name="Нет"/>
 					<Item id="6653" name="Выделение Фона"/>
@@ -953,6 +957,7 @@ Updated to v8.4.2:
 					<Item id="7125" name="Ссылки"/>
 					<Item id="7130" name="Сбросить"/>
 					<Item id="7126" name="Подсветка Полей"/>
+					<Item id="7127" name="Отключенные Поля"/>
 					<Item id="7135" name="Темы"/>
 				</DarkMode>
 
@@ -1047,7 +1052,8 @@ Updated to v8.4.2:
 					<Item id="6902" name="Моноширинный шрифт в окне поиска (требуется перезапуск Notepad++)"/>
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
 					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
-					<Item id="6905" name="Замена: не переходить к следующему совпадению, только при повторном нажатии."/>
+					<Item id="6905" name="Замена: не переходить к следующему совпадению, только при повторном нажатии"/>
+					<Item id="6906" name="Результаты Поиска: показывать только одну запись в каждой найденной строке (кроме RTL)"/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
@@ -1422,6 +1428,7 @@ Updated to v8.4.2:
 			<word-chars-list-space-warning value="$INT_REPLACE$ пробел(ов)"/>
 			<word-chars-list-tab-warning   value="$INT_REPLACE$ TAB(ов)"/>
 			<word-chars-list-warning-end   value="  в вашем списке символов."/>
+			<eol-custom-color-tip          value="Перейдите в меню Определение стилей, чтобы задать свой цвет для индикатора конца строки (&quot;EOL custom color&quot;).."/>
 			<backup-select-folder          value="Выберите папку в качестве директории резервного копирования"/>
 			<cloud-invalid-warning         value="Недопустимый путь."/>
 			<cloud-restart-warning         value="Перезапустите Notepad++, чтобы изменения вступили в силу."/>

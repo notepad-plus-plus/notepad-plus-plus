@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.4.2  26/May/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.4.3  23/Jun/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.2">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -935,6 +935,10 @@
 					<Item id = "6653" name = "Zvýrazněné pozadí"/>
 					<Item id = "6654" name = "Orámování"/>
 					<Item id = "6655" name = "tloušťka: "/>
+					<Item id = "6247" name = "Konce řádků (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+					<Item id = "6248" name = "Implicitní"/>
+					<Item id = "6249" name = "Barva prostého textu"/>
+					<Item id = "6250" name = "Vlastní barva"/>
 				</Scintillas>
 				<DarkMode title = "Tmavý režim">
 					<Item id = "7101" name = "Povolit tmavý režim"/>
@@ -957,6 +961,7 @@
 					<Item id = "7124" name = "Okraje"/>
 					<Item id = "7125" name = "Odkazy"/>
 					<Item id = "7126" name = "Zvýraznění okrajů"/>
+					<Item id = "7127" name = "Deaktivované okraje"/>
 					<Item id = "7130" name = "Obnovit"/>
 					<Item id = "7135" name = "Odstíny"/>
 				</DarkMode>
@@ -1446,6 +1451,8 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 		<MiscStrings>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-tip value = "Toto nastavení Vám dovolí začlenit další znak ke stávajícím znakům slova při výběru dvojklikem nebo při vyhledávání se zaškrtnutou možností &quot;Hledat pouze celá slova&quot;."/>
+			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+			<eol-custom-color-tip value = "Pro změnu předvolené vlastní barvy přejděte do úpravy stylů (&quot;EOL custom color&quot;)."/>
 			<word-chars-list-warning-begin value = "Berte na vědomí: "/>
 			<word-chars-list-space-warning value = "$INT_REPLACE$ mezeru(y)"/>
 			<word-chars-list-tab-warning value = "$INT_REPLACE$ tabulátor(y)"/>

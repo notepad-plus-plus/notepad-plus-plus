@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.2">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.3">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -959,10 +959,10 @@
                     <Item id="6653" name="突顯背景顏色"/> <!-- #new v8.4.1 -->
                     <Item id="6654" name="邊框"/> <!-- #new v8.4.1 -->
                     <Item id="6655" name="闊度："/> <!-- #new v8.4.1 -->
-                    <Item id="6247" name="EOL (CRLF)"/> <!-- #new #next --> <!-- Don't translate "(CRLF)" -->
-                    <Item id="6248" name="預設"/> <!-- #new #next -->
-                    <Item id="6249" name="純文字"/> <!-- #new #next -->
-                    <Item id="6250" name="自訂顏色"/> <!-- #new #next -->
+                    <Item id="6247" name="EOL (CRLF)"/> <!-- #new v8.4.3 --> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="預設"/> <!-- #new v8.4.3 -->
+                    <Item id="6249" name="純文字"/> <!-- #new v8.4.3 -->
+                    <Item id="6250" name="自訂顏色"/> <!-- #new v8.4.3 -->
                 </Scintillas>
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
@@ -986,7 +986,7 @@
                     <Item id="7124" name="邊緣線"/> <!-- #new v8.1.2 -->
                     <Item id="7125" name="Link"/> <!-- #new v8.2.1 -->
                     <Item id="7126" name="突顯邊緣線"/> <!-- #new v8.4.2 #review -->
-                    <Item id="7127" name="禁用邊緣線"/> <!-- #new #next -->
+                    <Item id="7127" name="禁用邊緣線"/> <!-- #new v8.4.3 -->
                     <Item id="7130" name="重新設定"/> <!-- #new v8.1.2 -->
                     <Item id="7135" name="色調"/> <!-- #new v8.4.2 -->
                 </DarkMode>
@@ -1118,6 +1118,7 @@
                     <Item id="6903" name="搵完嘢，保持開著個對話框"/>
                     <Item id="6904" name="喺所有打開咗嘅文件執行取代之前，要先做確認"/>
                     <Item id="6905" name="取代完唔好跳去另一個關鍵字"/> <!-- #new v7.9.6 -->
+                    <Item id="6906" name="搜尋結果視窗：一行顯示唔重複（未支援右至左文字模式）"/> <!-- #new v8.4.3 -->
                 </Searching>
 
                 <RecentFilesHistory title="最近用過嘅檔案記錄">
@@ -1512,7 +1513,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <word-chars-list-tip value="呢度要嚟喺現時嘅單字字元清單附加字元，double-click 揀字又或者剔咗「符合完整單字」嚟搵嘢就會包埋。"/>
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-            <eol-custom-color-tip value="有需要就喺「主題風格設定」嗰度改顏色 (&quot;EOL custom color&quot;).."/> <!-- #new #next -->
+            <eol-custom-color-tip value="有需要就喺「主題風格設定」嗰度改顏色 (&quot;EOL custom color&quot;).."/> <!-- #new v8.4.3 -->
 
             <word-chars-list-warning-begin value="留意返：你嘅清單裏頭有"/>
             <word-chars-list-space-warning value=" $INT_REPLACE$ 個空格"/>

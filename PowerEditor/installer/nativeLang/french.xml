@@ -1435,7 +1435,10 @@ Continuer ?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-clic pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
-<eol-custom-color-tip value="Accéder à Configurateur de coloration syntaxique pour personnaliser la couleur des sauts de ligne (&quot;EOL custom color&quot;)."/>
+
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Accéder au Configurateur de coloration syntaxique pour personnaliser la couleur des sauts de ligne (&quot;EOL custom color&quot;)."/>
+
             <word-chars-list-warning-begin value="Attention : "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ espace(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>

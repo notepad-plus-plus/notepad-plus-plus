@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.4.2">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.4.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -890,6 +890,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6653" name="背景高亮"/>
                     <Item id="6654" name="边框高亮"/>
                     <Item id="6655" name="宽度"/>
+                    <Item id="6247" name="换行符(CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="默认"/>
+                    <Item id="6249" name="纯文本"/>
+                    <Item id="6250" name="自定义颜色"/>
                 </Scintillas>
 
                 <DarkMode title="暗黑模式">
@@ -913,6 +917,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7124" name="边框"/>
                     <Item id="7125" name="链接"/>
                     <Item id="7126" name="高亮边框"/>
+                    <Item id="7127" name="禁用边框"/>
                     <Item id="7130" name="重置"/>
                     <Item id="7135" name="色调"/>
                 </DarkMode>
@@ -1043,6 +1048,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6903" name="搜索输出到结果窗口后，保持查找对话框开启"/>
                     <Item id="6904" name="替换所有打开文件前需确认"/>
                     <Item id="6905" name="替换后不移动到下一个匹配项"/>
+                    <Item id="6906" name="搜索结果窗口：每个找到的行仅显示一条"/>
                 </Searching>
 
                 <RecentFilesHistory title="最近文件记录">
@@ -1429,6 +1435,9 @@ Notepad++会在所有安装结束后重新启动。
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="这允许您在双击选择或选中“全词匹配”选项的情况下,在当前单词字符列表中附加字符。"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="前往语言格式设置，修改默认换行符自定义颜色 (&quot;EOL custom color&quot;).."/>
 
             <word-chars-list-warning-begin value="警告："/>
             <word-chars-list-space-warning value="$INT_REPLACE$ 空格"/>

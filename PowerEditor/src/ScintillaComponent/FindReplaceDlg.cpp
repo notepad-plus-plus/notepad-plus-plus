@@ -4387,22 +4387,28 @@ void Finder::add(FoundInfo fi, SearchResultMarkingLine miLine, const TCHAR* foun
 	headerStr += lineNumberStr;
 	headerStr += TEXT(": ");
 
-	miLine._segmentPostions[0].first += headerStr.length();
-	miLine._segmentPostions[0].second += headerStr.length();
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	if (isRepeatedLine) // if current line is the repeated line of previous one, and settings make per found line show once in the result even there are several found occurences in the same line
 	{
+		std::string utf8Header = wmc.wchar2char(headerStr.c_str(), SC_CP_UTF8); // certainly utf8 here
+
+		miLine._segmentPostions[0].first += utf8Header.length();
+		miLine._segmentPostions[0].second += utf8Header.length();
+
 		// Add start and end markers into the previous line's info for colourizing 
 		_pMainMarkings->back()._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(miLine._segmentPostions[0].first, miLine._segmentPostions[0].second));
 		_pMainFoundInfos->back()._ranges.push_back(fi._ranges.back());
 	}
 	else // default mode: allow same found line has several entries in search result if the searched occurrence is matched several times in the same line
 	{
+		miLine._segmentPostions[0].first += headerStr.length();
+		miLine._segmentPostions[0].second += headerStr.length();
+
 		_pMainFoundInfos->push_back(fi);
 
 		headerStr += foundline;
 
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		const char* text2AddUtf8 = wmc.wchar2char(headerStr.c_str(), SC_CP_UTF8, &miLine._segmentPostions[0].first, &miLine._segmentPostions[0].second); // certainly utf8 here
 		size_t len = strlen(text2AddUtf8);
 
@@ -4565,6 +4571,7 @@ void Finder::beginNewFilesSearch()
 {
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	_prefixLineStr = pNativeSpeaker->getLocalizedStrFromID("find-result-line-prefix", TEXT("Line"));
+	//_prefixLineStr = TEXT("Line");
 
 	// Use SCI_SETSEL(0, 0) instead of SCI_SETCURRENTPOS(0) to workaround
 	// an eventual regression or a change of behaviour in Scintilla 4.4.6

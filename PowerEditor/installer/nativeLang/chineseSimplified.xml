@@ -1048,7 +1048,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6903" name="搜索输出到结果窗口后，保持查找对话框开启"/>
                     <Item id="6904" name="替换所有打开文件前需确认"/>
                     <Item id="6905" name="替换后不移动到下一个匹配项"/>
-                    <Item id="6906" name="搜索结果窗口：每个找到的行仅显示一条（文字从右至左不适用）"/>
+                    <Item id="6906" name="搜索结果窗口：每个找到的行仅显示一条"/>
                 </Searching>
 
                 <RecentFilesHistory title="最近文件记录">

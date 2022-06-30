@@ -1048,7 +1048,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6903" name="Dialógové okno Hľadať zostáva otvorené po vyhľadaní s výstupom do okna s výsledkami hľadania"/>
                     <Item id="6904" name="Potvrdiť Nahradiť všetko vo všetkých otvorených dokumentoch"/>
                     <Item id="6905" name="Nahradiť: Neprechádzať na nasledujúci výskyt"/>
-                    <Item id="6906" name="Okno s výsledkami hľadania: zobraziť len jednu položku na nájdený riadok (neplatí pre režim sprava doľava)"/>
+                    <Item id="6906" name="Okno s výsledkami hľadania: zobraziť len jednu položku na nájdený riadok"/>
                 </Searching>
 
                 <RecentFilesHistory title="História súborov">

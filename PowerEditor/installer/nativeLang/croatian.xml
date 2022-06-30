@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 14 June 2022 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 27 June 2022 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
-	Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
+    Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
         <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.3">
@@ -907,7 +907,7 @@
                     <Item id="6653" name="Istaknuta pozadina"/>
                     <Item id="6654" name="Okvir"/>
                     <Item id="6655" name="Širina"/>
-                    <Item id="6247" name="Kraj retka EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6247" name="Kraj retka (CRLF)"/> <!-- Don't translate "(CRLF)" -->
                     <Item id="6248" name="Zadano"/>
                     <Item id="6249" name="Obični tekst"/>
                     <Item id="6250" name="Prilagođena boja"/>
@@ -1067,6 +1067,7 @@ Vidi Notepad++ online priručnik (Preferences)."/>
                     <Item id="6903" name="Dijalog pretraživanja ostaje otvoren nakon pretraživanja koje otvara prozor s rezultatima"/>
                     <Item id="6904" name="Potvrdi Zamijeni sve u svim otvorenim dokumentima"/>
                     <Item id="6905" name="Zamijeni: Ne prelazi na sljedeće pojavljivanje"/>
+                    <Item id="6906" name="Prozor rezultata pretraživanja: prikaži samo jedan rezultat po pronađenom retku (ne primjenjuje se na RTL način)"/>
                 </Searching>
 
                 <RecentFilesHistory title="Povijest datoteka">

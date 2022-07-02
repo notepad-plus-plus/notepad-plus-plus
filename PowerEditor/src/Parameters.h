@@ -429,48 +429,43 @@ struct GlobalOverride final
 
 struct StyleArray
 {
-	//auto size() const { return _styleVect.size(); }
-	auto begin() { return _styleVect.begin(); }
-	auto end() { return _styleVect.end(); }
-	void clear() { _styleVect.clear(); }
+	auto begin() { return _styleVect.begin(); };
+	auto end() { return _styleVect.end(); };
+	void clear() { _styleVect.clear(); };
 
-	Style & getStyler(size_t index)
-	{
+	Style& getStyler(size_t index) {
 		assert(index < _styleVect.size());
 		return _styleVect[index];
-	}
+	};
 
 	void addStyler(int styleID, TiXmlNode *styleNode);
 
-	void addStyler(int styleID, const generic_string & styleName)
-	{
+	void addStyler(int styleID, const generic_string& styleName) {
 		_styleVect.emplace_back();
-		Style & s = _styleVect.back();
+		Style& s = _styleVect.back();
 		s._styleID = styleID;
 		s._styleDesc = styleName;
 		s._fgColor = black;
 		s._bgColor = white;
-	}
+	};
 
-	Style * findByID(int id)
-	{
-		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
+	Style* findByID(int id) {
+		for (size_t i = 0; i < _styleVect.size(); ++i)
 		{
 			if (_styleVect[i]._styleID == id)
 				return &(_styleVect[i]);
 		}
 		return nullptr;
-	}
+	};
 
-	Style * findByName(const generic_string & name)
-	{
-		for (size_t i = 0 ; i < _styleVect.size() ; ++i)
+	Style* findByName(const generic_string& name) {
+		for (size_t i = 0; i < _styleVect.size(); ++i)
 		{
 			if (_styleVect[i]._styleDesc == name)
 				return &(_styleVect[i]);
 		}
 		return nullptr;
-	}
+	};
 
 protected:
 	std::vector<Style> _styleVect;
@@ -1693,6 +1688,7 @@ public:
 	void setUdlXmlDirtyFromIndex(size_t i);
 	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
 	void removeIndexFromXmlUdls(size_t i);
+	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; };
 
 private:
 	NppParameters();

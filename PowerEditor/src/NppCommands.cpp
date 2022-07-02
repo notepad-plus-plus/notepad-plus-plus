@@ -3347,10 +3347,17 @@ void Notepad_plus::command(int id)
 
         case IDM_LANGSTYLE_CONFIG_DLG :
 		{
-			bool isFirstTime = !_configStyleDlg.isCreated();
-			_configStyleDlg.doDialog(_nativeLangSpeaker.isRTL());
-			if (isFirstTime)
-                _nativeLangSpeaker.changeConfigLang(_configStyleDlg.getHSelf());
+			if (!(NppParameters::getInstance()).isStylerDocLoaded())
+			{
+				// do nothing
+			}
+			else
+			{
+				bool isFirstTime = !_configStyleDlg.isCreated();
+				_configStyleDlg.doDialog(_nativeLangSpeaker.isRTL());
+				if (isFirstTime)
+					_nativeLangSpeaker.changeConfigLang(_configStyleDlg.getHSelf());
+			}
 			break;
 		}
 

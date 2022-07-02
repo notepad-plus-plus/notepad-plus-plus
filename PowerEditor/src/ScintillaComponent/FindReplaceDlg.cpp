@@ -2709,9 +2709,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				intptr_t start_mark = targetStart - lstart;
 				intptr_t end_mark = targetEnd - lstart;
 
-				//intptr_t start_mark2 = start_mark;
-				//intptr_t end_mark2 = end_mark;
-
 				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
 				generic_string line = lineBuf;

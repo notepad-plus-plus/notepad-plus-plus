@@ -2206,6 +2206,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (_isEndingSessionButNotReady) 
 				::DestroyWindow(hwnd);
 
+			if (message == WM_CLOSE)
+				return 0;
+
 			return TRUE;
 		}
 

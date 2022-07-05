@@ -2960,11 +2960,14 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.setMakerStyle(FOLDER_STYLE_SIMPLE);
 
 		_pFinder->_scintView.display();
+		_pFinder->setFinderStyle();
+
 		_pFinder->display(false);
 		::UpdateWindow(_hParent);
 		justCreated = true;
+		
 	}
-	_pFinder->setFinderStyle();
+	
 	if (_pFinder->_purgeBeforeEverySearch)
 	{
 		_pFinder->removeAll();
@@ -4573,9 +4576,8 @@ void Finder::beginNewFilesSearch()
 	_pMainMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
 	_nbFoundFiles = 0;
 
-	// fold all old searches (1st level only)
-	// 2022/06/18: Due to performance issue on Scintilla 5.x, the following line is commented:
-	//_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
+	if (_scintView.execute(SCI_GETFOLDEXPANDED, 0))
+		_scintView.execute(SCI_TOGGLEFOLD, 0);
 }
 
 void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection)

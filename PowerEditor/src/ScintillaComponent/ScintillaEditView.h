@@ -946,6 +946,10 @@ protected:
     //--------------------
 
 	void setSearchResultLexer() {
+		if (execute(SCI_GETLEXER) == SCLEX_SEARCHRESULT)
+		{
+			return;
+		}
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_FILE_HEADER, true);
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_SEARCH_HEADER, true);
 		setLexer(L_SEARCHRESULT, LIST_NONE);

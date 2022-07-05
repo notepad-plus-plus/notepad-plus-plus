@@ -4576,8 +4576,8 @@ void Finder::beginNewFilesSearch()
 	_pMainMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
 	_nbFoundFiles = 0;
 
-	if (_scintView.execute(SCI_GETFOLDEXPANDED, 0))
-		_scintView.execute(SCI_TOGGLEFOLD, 0);
+	// fold all old searches (1st level only)
+	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
 void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection)

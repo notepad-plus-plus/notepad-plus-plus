@@ -4,9 +4,9 @@
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
-<!-- For Notepad++ Version 8.1.9.3, modified on 2021.12.26 -->
+<!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="8.1.9.3">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="8.4.3">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -76,6 +76,7 @@
                     <Item subMenuId="settings-import" name="Importálás"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Rendezés"/>
                     </SubEntries>
 
                 <!-- all menu item -->
@@ -181,6 +182,8 @@
                     <Item id="42029" name="Teljes elérési útvonal"/>
                     <Item id="42030" name="Fájlnév"/>
                     <Item id="42031" name="Mappa útvonala"/>
+                    <Item id="42087" name="Minden fájlnév"/>
+                    <Item id="42088" name="Minden elérési út"/>
                     <Item id="42032" name="Makró többszöri futtatása..."/>
                     <Item id="42033" name="Írásvédett attribútum törlése"/>
                     <Item id="42035" name="Sor megjegyzéssé alakítása"/>
@@ -252,6 +255,10 @@
                     <Item id="43048" name="Kijelölés és következő keresése"/>
                     <Item id="43049" name="Kijelölés és előző keresése"/>
                     <Item id="43054" name="Kiemelés..."/>
+                    <Item id="43501" name="Kijelöltek bezárása"/>
+                    <Item id="43502" name="Többi bezárása"/>
+                    <Item id="43503" name="Kijelölt nevek másolása"/>
+                    <Item id="43504" name="Kijelölt elérési utak másolása"/>
                     <Item id="44009" name="Ablakkeret nélküli nézet"/>
                     <Item id="44010" name="Minden blokk összecsukása"/>
                     <Item id="44011" name="Figyelemelterelés mentes mód"/>
@@ -362,6 +369,16 @@
                     <Item id="42041" name="Előzmények törlése"/>
                     <Item id="48016" name="Billentyűparancs módosítása / Makró törlése..."/>
                     <Item id="48017" name="Billentyűparancs módosítása / Parancs törlése..."/>
+
+                    <Item id="11001" name="Ablakok..."/>
+                    <Item id="11002" name="Név A-tól Z-ig"/>
+                    <Item id="11003" name="Név Z-től A-ig"/>
+                    <Item id="11004" name="Elérési út A-tól Z-ig"/>
+                    <Item id="11005" name="Elérési út Z-től A-ig"/>
+                    <Item id="11006" name="Típus A-tól Z-ig"/>
+                    <Item id="11007" name="Típus Z-től A-ig"/>
+                    <Item id="11008" name="Méret Kisebbtől Nagyobbig"/>
+                    <Item id="11009" name="Méret Nagyobbtól Kisebbig"/>
                 </Commands>
           </Main>
           <Splitter>
@@ -633,6 +650,14 @@
                     <Item id="44107" name="Váltás mappa munkaterületre"/>
                     <Item id="44109" name="Váltás Dokumentum listára"/>
                     <Item id="44108" name="Váltás Függvény listára"/>
+                    <Item id="11002" name="Rendezés: Név A-tól Z-ig"/>
+                    <Item id="11003" name="Rendezés: Név Z-től A-ig"/>
+                    <Item id="11004" name="Rendezés: Elérési út A-tól Z-ig"/>
+                    <Item id="11005" name="Rendezés: Elérési út Z-től A-ig"/>
+                    <Item id="11006" name="Rendezés: Típus A-tól Z-ig"/>
+                    <Item id="11007" name="Rendezés: Típus Z-től A-ig"/>
+                    <Item id="11008" name="Rendezés: Méret Kisebbtől Nagyobbig"/>
+                    <Item id="11009" name="Rendezés: Méret Nagyobbtól Kisebbig"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Billentyűparancs">
@@ -852,28 +877,38 @@
                     <Item id="6219" name="Villogás:"/>
                     <Item id="6221" name="GY"/>
                     <Item id="6222" name="L"/>
+                    <Item id="6246" name="Aktuális blokk összecsukása oda-vissza váltható legyen"/>
                     <Item id="6225" name="Többszörös szerkesztés engedélyezése (Ctrl+Egér/kijelölés)"/>
                     <Item id="6227" name="Sortördelés"/>
-                    <Item id="6228" name="Alapértelmezett"/>
+                    <Item id="6228" name="Alapértelmezés"/>
                     <Item id="6229" name="Igazított"/>
                     <Item id="6230" name="Behúzott"/>
                     <Item id="6234" name="Fejlett görgetés tiltása, érintőpad gond esetén"/>
-                    <Item id="6214" name="Aktuális sor kiemelése"/>
                     <Item id="6215" name="Betűtípusok simítása"/>
                     <Item id="6236" name="Görgetés az utolsó sornál tovább"/>
-                    <Item id="6239" name="Kijelölés megtartása a kijelölésen kívüli jobb-kattintáskor"/>
+                    <Item id="6239" name="Kijelölés megtartása, ha a kijelölésen kívül jobb-kattintunk"/>
+                    <Item id="6245" name="Virtuális szóköz engedélyezése"/>
+                    <Item id="6651" name="Aktuális sor jelölése"/>
+                    <Item id="6652" name="Nincs"/>
+                    <Item id="6653" name="Háttér kiemelése"/>
+                    <Item id="6654" name="Keret"/>
+                    <Item id="6655" name="Vastagság"/>
+                    <Item id="6247" name="EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Alapértelmezett"/>
+                    <Item id="6249" name="Sima szöveg"/>
+                    <Item id="6250" name="Egyéni szín"/>
                 </Scintillas>
 
                 <DarkMode title="Sötét téma">
                     <Item id="7101" name="Sötét téma engedélyezése"/>
-                    <Item id="7102" name="Fekete tónus"/>
-                    <Item id="7103" name="Piros tónus"/>
-                    <Item id="7104" name="Zöld tónus"/>
-                    <Item id="7105" name="Kék tónus"/>
-                    <Item id="7107" name="Lila tónus"/>
-                    <Item id="7108" name="Cián tónus"/>
-                    <Item id="7109" name="Olíva tónus"/>
-                    <Item id="7115" name="Egyedi tónus"/>
+                    <Item id="7102" name="Fekete"/>
+                    <Item id="7103" name="Piros"/>
+                    <Item id="7104" name="Zöld"/>
+                    <Item id="7105" name="Kék"/>
+                    <Item id="7107" name="Lila"/>
+                    <Item id="7108" name="Cián"/>
+                    <Item id="7109" name="Olíva"/>
+                    <Item id="7115" name="Egyedi"/>
                     <Item id="7116" name="Felső"/>
                     <Item id="7117" name="Menü követés"/>
                     <Item id="7118" name="Aktív"/>
@@ -883,7 +918,11 @@
                     <Item id="7122" name="Sötétebb szöveg"/>
                     <Item id="7123" name="Kikapcsolt szöveg"/>
                     <Item id="7124" name="Keret"/>
+                    <Item id="7125" name="Hivatkozás"/>
+                    <Item id="7126" name="Kiemelés éle"/>
+                    <Item id="7127" name="Tiltás éle"/>
                     <Item id="7130" name="Visszaállítás"/>
+                    <Item id="7135" name="Tónusok"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margó és Ablakkeret">
@@ -907,7 +946,7 @@ Több margó is megadható, különböző számok használatával szóközzel el
                     <Item id="6208" name="Helykitöltés"/>
                     <Item id="6209" name="Balra"/>
                     <Item id="6210" name="Jobbra"/>
-                    <Item id="6212" name="Figyelemelterelés mentesség"/>
+                    <Item id="6212" name="Figyelemelterelésben"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="Új dokumentum">
@@ -993,6 +1032,15 @@ Több margó is megadható, különböző számok használatával szóközzel el
                     <Item id="6721" name="Középen"/>
                     <Item id="6722" name="Jobb oldalon"/>
                     <Item id="6723" name="Hozzáadás"/>
+                    <ComboBox id="6724">
+                        <Element name="Teljes elérési út"/>
+                        <Element name="Fájlnév"/>
+                        <Element name="Jelenlegi mappa"/>
+                        <Element name="Oldal"/>
+                        <Element name="Rövid dátum"/>
+                        <Element name="Hosszú dátum"/>
+                        <Element name="Idő"/>
+                    </ComboBox>
                     <Item id="6725" name="Változó:"/>
                     <Item id="6727" name="Változó beállítások:"/>
                     <Item id="6728" name="Élőfej és Élőláb"/>
@@ -1004,6 +1052,7 @@ Több margó is megadható, különböző számok használatával szóközzel el
                     <Item id="6903" name="Keresés dialógus maradjon nyitva, ha a keresés eredményei ablak is megjelenik"/>
                     <Item id="6904" name="Csere a megnyitott dokumentumokban: Megerősítés"/>
                     <Item id="6905" name="Csere: Ne lépjen a következő találathoz"/>
+                    <Item id="6906" name="Keresés eredményei ablak: Soronként csak egy találat mutatása (ha több találat is van egy sorban)"/>
                 </Searching>
 
                 <RecentFilesHistory title="Előzmények">
@@ -1039,6 +1088,9 @@ Több margó is megadható, különböző számok használatával szóközzel el
                     <Item id="6809" name="Függvény kiegészítés (Nyelv függő)"/>
                     <Item id="6810" name="Szó kiegészítés (Dokumentum függő)"/>
                     <Item id="6816" name="Függvény és szó kiegészítés"/>
+                    <Item id="6869" name="Kiválasztott beillesztése:"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Számok kihagyása"/>
                     <Item id="6811" name="Honnan:"/>
                     <Item id="6813" name="karaktertől"/>
@@ -1241,6 +1293,9 @@ A legújabb verzió letöltéséhez a Notepad++ oldalára kíván menni?"/> <!--
             <DocTooDirtyToMonitor title="Követési probléma" message="A dokumentum módosult. Mentse a módosításokat, mielőtt követi azt."/>
             <DocNoExistToMonitor title="Követési probléma" message="A követéshez a fájlnak léteznie kell."/>
             <FileTooBigToOpen title="Méret probléma" message="A fájl túl nagy méretű a megnyitáshoz."/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Kivétel hibakód: $STR_REPLACE$" message="Hiba történt a fájl betöltésekor!"/>
+            <WantToOpenHugeFile title="Nagyméretű fájl megnyitása figyelmeztetés" message="2GB+ méretű fájl megnyitása több percbe is telhet.
+Meg kívánja nyitni?"/>
             <CreateNewFileOrNot title="Fájl létrehozása" message="&quot;$STR_REPLACE$&quot; nem létezik. Létrehozza?"/>
             <CreateNewFileError title="Fájl létrehozása" message="Ez a fájl nem hozható létre: &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="Hiba" message="Ez a fájl nem nyitható meg: &quot;$STR_REPLACE$&quot;."/>
@@ -1297,7 +1352,7 @@ Folytatja?"/>
             <ColumnPath name="Elérési út"/>
             <ColumnType name="Típus"/>
             <ColumnSize name="Méret"/>
-            <NbDocsTotal name="Minden dokumentum:"/>
+            <NbDocsTotal name="Dokumentumok száma:"/>
             <MenuCopyName name="Nevek másolása"/>
             <MenuCopyPath name="Útvonalak másolása"/>
         </WindowsDlg>
@@ -1316,6 +1371,8 @@ Folytatja?"/>
             <PanelTitle name="Függvény lista"/>
             <SortTip name="Rendezés" />
             <ReloadTip name="Újbóli betöltés" />
+            <PreferencesTip name="Beállítások"/>
+            <PreferencesInitialSort name="Függvények rendezése (A-tól Z-ig) alapértelmezésben"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Mappa mint munkaterület"/>
@@ -1389,21 +1446,33 @@ Folytatja?"/>
 
 Itt további karaktereket lehet hozzáadni a szó karaktereihez. Azaz ezek a karakterek is a kijelölt szó részei lesznek."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Az alapértelmezett EOL egyéni szín a Stílus beállításokban módosítható (&quot;EOL custom color&quot;)..."/>
+
             <word-chars-list-warning-begin value="Figyelem: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ szóközt"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulátort"/>
             <word-chars-list-warning-end value=" tartalmaz a karakter lista."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Válassza ki a biztonsági mentés mappáját"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Érvénytelen út."/>
             <cloud-restart-warning value="Ehhez Notepad++ újraindítás szükséges."/>
             <cloud-select-folder value="Adjon meg egy mappát, ahol a Notepad++ a beállításait tárolja"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Válassza ki az alapértelmezett mappát"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Shift + Enter használható az ellenkező irányú kereséshez"/>
             <two-find-buttons-tip value="2 gombos kereső mód"/>
             <file-rename-title value="Átnevezés"/>
-            <find-in-files-filter-tip value="Keresés ezekben: cpp, cxx, h, hxx  hpp:
+            <find-in-files-filter-tip value="Keresés ezekben: cpp, cxx, h, hxx,  hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Keresés minden fájlban, kivéve exe, obj  log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+Keresés minden fájlban, kivéve exe, obj,  log:
+*.* !*.exe !*.obj !*.log
+
+Keresés minden fájlban, de ezekben a mappákban ne: tests, bin, bin64:
+*.* !\tests !\bin*
+
+Keresés minden fájlban, de ezekben a mappákban rekurzívan ne: log, logs:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Válassza ki a mappát ahol keressen"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Keresés: Első előfordulás alulról. A dokumentum elejét elértük."/>
             <find-status-end-reached value="Keresés: Első előfordulás felülről. A dokumentum végét elértük."/>
             <find-status-replaceinfiles-1-replaced value="Csere fájlokban: 1 találat cserélve"/>
@@ -1497,6 +1566,10 @@ Keresés minden fájlban, kivéve exe, obj  log:
             <IncrementalFind-FSNotFound value="Nem található kifejezés" />
             <IncrementalFind-FSTopReached value="Oldal teteje elérve, folytatás alulról" />
             <IncrementalFind-FSEndReached value="Oldal vége elérve, folytatás a tetejétől" />
+            <contextMenu-styleAlloccurrencesOfToken value="Összes illeszkedés kiemelése" />
+            <contextMenu-styleOneToken value="Egy illeszkedés kiemelése" />
+            <contextMenu-clearStyle value="Kiemelés eltávolítása" />
+            <contextMenu-PluginCommands value="Bővítmény parancsok" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

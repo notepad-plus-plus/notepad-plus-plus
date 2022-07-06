@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.2 (26.05.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.3 (06.07.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -900,6 +900,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6653" name="Podświetlane tło"/>
                     <Item id="6654" name="Ramka"/>
                     <Item id="6655" name="Szerokość:"/>
+                    <Item id="6247" name="EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Domyślne"/>
+                    <Item id="6249" name="Zwykły tekst"/>
+                    <Item id="6250" name="Własny kolor"/>
                 </Scintillas>
 
                 <DarkMode title="Tryb ciemny">
@@ -923,6 +927,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7124" name="Edge"/>
                     <Item id="7125" name="Link"/>
                     <Item id="7126" name="Edge highlight"/>
+                    <Item id="7127" name="Edge disabled"/>
                     <Item id="7130" name="Resetuj"/>
                     <Item id="7135" name="Odcienie"/>
                 </DarkMode>
@@ -1053,6 +1058,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6903" name="Okno wyszukiwania pozostaje otwarte po przywołaniu okna z wynikami wyszukiwania"/>
                     <Item id="6904" name="Potwierdź operację „Zamień we wszystkich otwartych plikach”"/>
                     <Item id="6905" name="Po wykonaniu operacji „Zamień” nie przechodź do następnego wystąpienia"/>
+                    <Item id="6906" name="W oknie wyników wyszukiwania pokaż tylko jeden wpis dla znalezionej linii"/>
                 </Searching>
 
                 <RecentFilesHistory title="Historia ostatnich plików">
@@ -1439,6 +1445,9 @@ Kontynuować?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Pozwala to włączać określone znaki do zaznaczenia powstałego w wyniku podwójnego kliknięcia LPM na słowo lub wyszukania frazy z zaznaczoną opcją „Patrz tylko na całe słowa”."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Przejdź do okna Konfiguratora stylów by zmienić domyślny własny kolor EOL (&quot;EOL custom color&quot;)."/>
 
             <word-chars-list-warning-begin value="Uwaga! W twojej liście są: "/>
             <word-chars-list-space-warning value="spacje ($INT_REPLACE$)"/>

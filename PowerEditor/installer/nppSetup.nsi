@@ -104,8 +104,12 @@ SectionEnd
 !include "nsisInclude\functionList.nsh"
 
 !include "nsisInclude\binariesComponents.nsh"
+	
+LangStringUP InstType_Minimalist${LANG_ENGLISH} "Minimalist"
 
-InstType "Minimalist"
+>LangStringUP InstType_Minimalist ${LANG_RUSSIAN} "Минималистский"
+
+>InstType $(InstType_Minimalist) 
 
 
 Var diffArchDir2Remove
@@ -317,6 +321,10 @@ Section -FinishSection
   Call writeInstallInfoInRegistry
 SectionEnd
 
-BrandingText "Software is like sex: It's better when it's free"
+LangStringUP BrandingText${LANG_ENGLISH} "Software is like sex: It's better when it's free"
+
+>LangStringUP BrandingText ${LANG_RUSSIAN} "Программное обеспечение - это как секс: лучше, когда оно бесплатное"
+
+>BrandingText $(BrandingText)
 
 ; eof

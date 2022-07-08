@@ -548,6 +548,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="Ativar estilo do tipo de letra global"/>
                     <Item id="2231" name="Ativar estilo do tipo de letra Itálico global"/>
                     <Item id="2232" name="Ativar estilo do tipo de letra sublinhada global"/>
+                    <Item id="2234" name="Ir para as definições"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -1048,6 +1049,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6903" name="A janela Encontrar permanece aberta após a pesquisa que resulta na janela de resultados"/>
                     <Item id="6904" name="Confirmar o substituir tudo em todos os documentos abertos"/>
                     <Item id="6905" name="Substituir: não mover para a seguinte ocorrência"/>
+                    <Item id="6906" name="Janela de resultado da pesquisa: mostrar apenas uma entrada por linha encontrada"/>
                 </Searching>
 
                 <RecentFilesHistory title="Histórico fic. recentes">
@@ -1583,7 +1585,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-23/06/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+14/07/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

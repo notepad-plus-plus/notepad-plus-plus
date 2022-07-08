@@ -963,6 +963,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					BufferID idd = _mainDocTab.getBufferByIndex(id);
 					Buffer * buf = MainFileManager.getBufferByID(idd);
+					if (buf == nullptr)
+						return FALSE;
+
 					tipTmp = buf->getFullPathName();
 
 					if (tipTmp.length() >= tipMaxLen)
@@ -975,6 +978,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					BufferID idd = _subDocTab.getBufferByIndex(id);
 					Buffer * buf = MainFileManager.getBufferByID(idd);
+					if (buf == nullptr)
+						return FALSE;
+
 					tipTmp = buf->getFullPathName();
 
 					if (tipTmp.length() >= tipMaxLen)

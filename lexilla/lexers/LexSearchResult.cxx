@@ -77,8 +77,10 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 
 		styler.ColourTo(startLine + currentPos - 1, SCE_SEARCHRESULT_LINE_NUMBER);
 		
-		int currentStat = SCE_SEARCHRESULT_DEFAULT;
+		int currentState = SCE_SEARCHRESULT_DEFAULT;
 
+		if (pMarkings->_length >= linenum)
+			return;
 		SearchResultMarkingLine miLine = pMarkings->_markings[linenum];
 
 		for (std::pair<intptr_t, intptr_t> mi : miLine._segmentPostions)
@@ -92,11 +94,11 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 				if (match_end <= endPos)
 					styler.ColourTo(match_end, SCE_SEARCHRESULT_WORD2SEARCH);
 				else
-					currentStat = SCE_SEARCHRESULT_WORD2SEARCH;
+					currentState = SCE_SEARCHRESULT_WORD2SEARCH;
 			}
 		}
 
-		styler.ColourTo(endPos, currentStat);
+		styler.ColourTo(endPos, currentState);
 	}
 	else // every character - search header
 	{

@@ -548,6 +548,7 @@
                     <Item id="2230" name="Povoliť globálny štýl pre tučné písmo"/>
                     <Item id="2231" name="Povoliť globálny štýl pre kurzívu"/>
                     <Item id="2232" name="Povoliť glob. štýl pre podčiarknuté písmo"/>
+                    <Item id="2234" name="Prejsť na nastavenia"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -914,8 +915,8 @@
                         <Item id="7121" name="Text"/>
                         <Item id="7122" name="Tmavší text"/>
                         <Item id="7123" name="Neprístupný text"/>
-                        <Item id="7124" name="Okraj karty"/>
-                        <Item id="7125" name="Čiara"/>
+                        <Item id="7124" name="Orámovanie"/>
+                        <Item id="7125" name="Odkaz"/>
                         <Item id="7126" name="Zvýraznenie okrajov"/>
                         <Item id="7127" name="Vypnuté okraje"/>
                         <Item id="7130" name="Obnoviť"/>
@@ -1437,7 +1438,7 @@ Pokračovať?"/>
             <word-chars-list-tip value="Toto nastavenie vám umožní zahrnúť dodatočný znak medzi aktuálne slovné znaky pri výbere dvojklikom alebo pri vyhľadávaní so zapnutou voľbou &quot;Hľadať iba celé slová&quot;."/>
             
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-            <eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;vlastná farba EOL&quot;).."/>
+            <eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;EOL custom color&quot;).."/>
 
             <word-chars-list-warning-begin value="Pozor: V zozname znakov máte "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ medzeru(-y)"/>

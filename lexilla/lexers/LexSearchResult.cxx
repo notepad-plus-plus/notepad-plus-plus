@@ -79,7 +79,7 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 		
 		int currentState = SCE_SEARCHRESULT_DEFAULT;
 
-		if (pMarkings->_length >= linenum)
+		if (linenum >= pMarkings->_length)
 			return;
 		SearchResultMarkingLine miLine = pMarkings->_markings[linenum];
 

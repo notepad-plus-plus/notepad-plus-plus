@@ -49,9 +49,7 @@ int Accessor::IndentAmount(Sci_Position line, int *flags, PFNIsCommentLeader pfn
 			if (chPrev == ' ' || chPrev == '\t') {
 				if (chPrev != ch)
 					spaceFlags |= wsInconsistent;
-			} else {
-				inPrevPrefix = false;
-			}
+			} else inPrevPrefix = false;
 		}
 		if (ch == ' ') {
 			spaceFlags |= wsSpace;

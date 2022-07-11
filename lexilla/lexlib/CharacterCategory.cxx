@@ -3950,9 +3950,8 @@ OtherID OtherIDOfCharacter(int character) noexcept {
 		((character >= 0x1369) && (character <= 0x1371)) ||	// ETHIOPIC DIGIT ONE..ETHIOPIC DIGIT NINE
 		(character == 0x19DA)) {	// NEW TAI LUE THAM DIGIT ONE
 		return OtherID::oidContinue;
-	} else {
-		return OtherID::oidNone;
-	}
+	} 
+	return OtherID::oidNone;
 }
 
 // Determine if a character is in  Ll|Lu|Lt|Lm|Lo|Nl|Mn|Mc|Nd|Pc and has

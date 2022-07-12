@@ -95,6 +95,20 @@ static int encodings[] = {
 	20866
 };
 
+bool PreferenceDlg::goToSection(size_t iPage, intptr_t ctrlID)
+{
+	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SETCURSEL, iPage, 0);
+	showDialogByIndex(iPage);
+	getFocus();
+
+	if (ctrlID != -1)
+	{
+		::SetFocus(::GetDlgItem(_wVector[iPage]._dlg->getHSelf(), int(ctrlID)));
+	}
+
+	return true;
+}
+
 intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 

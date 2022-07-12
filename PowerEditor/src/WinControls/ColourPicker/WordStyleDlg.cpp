@@ -20,6 +20,7 @@
 #include "ScintillaEditView.h"
 #include "documentMap.h"
 #include "AutoCompletion.h"
+#include "preference_rc.h"
 
 using namespace std;
 
@@ -149,6 +150,10 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			loadLangListFromNppParam();
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();
+
+			_goToSettings.init(_hInst, _hSelf);
+			_goToSettings.create(::GetDlgItem(_hSelf, IDC_GLOBAL_GOTOSETTINGS_LINK), TEXT(""));
+			_goToSettings.display(showGoToSettingsLink());
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
@@ -318,6 +323,10 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						updateFontStyleStatus(UNDERLINE_STATUS);
 						notifyDataModified();
 						apply();
+						break;
+					
+					case IDC_GLOBAL_GOTOSETTINGS_LINK :
+						goToPreferencesSettings();
 						break;
 
 					case IDCANCEL :
@@ -890,6 +899,135 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 	setVisualFromStyleList();
 }
 
+
+bool WordStyleDlg::showGoToSettingsLink()
+{
+	Style& style = getCurrentStyler();
+
+	// Global override style
+	if (style._styleDesc == TEXT("Current line background colour"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Caret colour"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Edge colour"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Line number margin"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Bookmark margin"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Fold") || style._styleDesc == TEXT("Fold active") || style._styleDesc == TEXT("Fold margin"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Smart Highlighting"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Tags match highlighting"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Tags attribute"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Mark Style 1") || style._styleDesc == TEXT("Mark Style 2") || style._styleDesc == TEXT("Mark Style 3")
+		|| style._styleDesc == TEXT("Mark Style 4") || style._styleDesc == TEXT("Mark Style 5"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("URL hovered"))
+	{
+		return true;
+	}
+	else if (style._styleDesc == TEXT("EOL custom color"))
+	{
+		return true;
+	}
+	
+	return false;
+}
+
+bool WordStyleDlg::goToPreferencesSettings()
+{
+	Style& style = getCurrentStyler();
+
+	// Global override style
+	if (style._styleDesc == TEXT("Current line background colour"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 1, IDC_RADIO_CLM_HILITE);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Caret colour"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 1, IDC_WIDTH_COMBO);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Edge colour"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 3, IDC_COLUMNPOS_EDIT);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Line number margin"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 3, IDC_CHECK_LINENUMBERMARGE);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Bookmark margin"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 3, IDC_CHECK_BOOKMARKMARGE);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Fold") || style._styleDesc == TEXT("Fold active") || style._styleDesc == TEXT("Fold margin"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 3, IDC_RADIO_BOX);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Smart Highlighting"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 9, IDC_CHECK_ENABLSMARTHILITE);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Tags match highlighting"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 9, IDC_CHECK_ENABLTAGSMATCHHILITE);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Tags attribute"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 9, IDC_CHECK_ENABLTAGATTRHILITE);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("Mark Style 1") || style._styleDesc == TEXT("Mark Style 2") || style._styleDesc == TEXT("Mark Style 3")
+		|| style._styleDesc == TEXT("Mark Style 4") || style._styleDesc == TEXT("Mark Style 5"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 9, IDC_CHECK_MARKALLCASESENSITIVE);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("URL hovered"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 16, IDC_CHECK_CLICKABLELINK_ENABLE);
+		return true;
+	}
+	else if (style._styleDesc == TEXT("EOL custom color"))
+	{
+		::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, 1, IDC_CHECK_WITHCUSTOMCOLOR_CRLF);
+		return true;
+	}
+
+	return false;
+}
+
 void WordStyleDlg::setVisualFromStyleList()
 {
 	showGlobalOverrideCtrls(false);
@@ -901,6 +1039,8 @@ void WordStyleDlg::setVisualFromStyleList()
 	{
 		showGlobalOverrideCtrls(true);
 	}
+
+	_goToSettings.display(showGoToSettingsLink());
 
 	//--Warning text
 	//bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;

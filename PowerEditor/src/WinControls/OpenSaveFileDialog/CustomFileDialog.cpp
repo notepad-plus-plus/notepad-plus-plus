@@ -251,6 +251,10 @@ public:
 	IFACEMETHODIMP OnFileOk(IFileDialog* dlg) override
 	{
 		_lastUsedFolder = getDialogFolder(dlg);
+
+		if (isCJKMode)
+			return S_FALSE;
+
 		return S_OK;
 	}
 	IFACEMETHODIMP OnFolderChange(IFileDialog*) override
@@ -486,6 +490,7 @@ private:
 		generic_string fileName = getDialogFileName(_dialog);
 		expandEnv(fileName);
 		bool nameChanged = transformPath(fileName);
+
 		// Update the controls.
 		if (!::PathIsDirectory(getAbsPath(fileName).c_str()))
 		{
@@ -617,15 +622,60 @@ private:
 
 	static LRESULT CALLBACK KbdProcHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
+		static bool isCandidateMode = false;
+		static bool wasCandidateMode = false;
+
 		if (nCode == HC_ACTION)
 		{
-			if (wParam == VK_RETURN)
+			if (wParam == VK_HANJA)
 			{
+				isCandidateMode = true;
+			}
+			else if (wParam == VK_RETURN)
+			{
+				if (isCandidateMode)
+				{
+					isCandidateMode = false;
+					wasCandidateMode = true;
+					return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
+				}
 				// Handle return key passed to the file name edit box.
 				HWND hwnd = GetFocus();
+
 				auto it = s_handleMap.find(hwnd);
-				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
-					it->second->onPreFileOk();
+				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit) 
+				{
+					// CJK IME specific, get IME input mode
+					auto himc = ImmGetContext(hwnd);
+					auto& isCJKMode = it->second->isCJKMode;
+					isCJKMode = ImmGetOpenStatus(himc);
+					ImmReleaseContext(hwnd, himc);
+
+					if (isCJKMode) // status is non zero when CJK mode
+					{
+						if (!wasCandidateMode)
+						{
+							// change CJK mode to default(english) mode
+							ImmSetConversionStatus(himc, 0, 0);
+							// Send 1 more enter to end composition
+							INPUT enterInput[2] = {};
+							enterInput[0].type = INPUT_KEYBOARD;
+							enterInput[0].ki.wVk = VK_RETURN;
+							enterInput[1].type = INPUT_KEYBOARD;
+							enterInput[1].ki.wVk = VK_RETURN;
+							enterInput[1].ki.dwFlags = KEYEVENTF_KEYUP;
+							SendInput(ARRAYSIZE(enterInput), enterInput, sizeof(INPUT));
+						}
+						else
+						{
+							wasCandidateMode = false;
+						}
+					}
+					else
+					{
+						it->second->onPreFileOk();
+					}
+				}
 			}
 		}
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
@@ -645,6 +695,7 @@ private:
 	UINT _currentType = 0;  // File type currenly selected in dialog.
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
+	BOOL isCJKMode = FALSE;
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 

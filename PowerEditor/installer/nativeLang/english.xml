@@ -548,6 +548,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="Enable global bold font style"/>
                     <Item id="2231" name="Enable global italic font style"/>
                     <Item id="2232" name="Enable global underline font style"/>
+                    <Item id="2234" name="Go to settings"/>
                 </SubDialog>
             </StyleConfig>
 

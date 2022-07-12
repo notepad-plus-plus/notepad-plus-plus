@@ -280,6 +280,8 @@ public :
 	void showDialogByName(const TCHAR *name) const;
 	bool setListSelection(size_t currentSel) const;
 
+	bool goToSection(size_t iPage, intptr_t ctrlID = -1);
+
 	virtual void destroy();
 
 private :

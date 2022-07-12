@@ -548,6 +548,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="Appliquer le style gras global"/>
                     <Item id="2231" name="Appliquer le style italique global"/>
                     <Item id="2232" name="Appliquer le style souligné global"/>
+                    <Item id="2234" name="Aller à la boîte de dialogue Préferences"/>
                 </SubDialog>
             </StyleConfig>
 

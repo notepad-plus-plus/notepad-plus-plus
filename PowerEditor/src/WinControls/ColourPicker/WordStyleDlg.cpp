@@ -20,6 +20,7 @@
 #include "ScintillaEditView.h"
 #include "documentMap.h"
 #include "AutoCompletion.h"
+#include "preference_rc.h"
 
 using namespace std;
 
@@ -149,6 +150,11 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			loadLangListFromNppParam();
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();
+
+			_goToSettings.init(_hInst, _hSelf);
+			_goToSettings.create(::GetDlgItem(_hSelf, IDC_GLOBAL_GOTOSETTINGS_LINK), TEXT(""));
+			std::pair<intptr_t, intptr_t> pageAndCtrlID = goToPreferencesSettings();
+			_goToSettings.display(pageAndCtrlID.first != -1);
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
@@ -319,6 +325,15 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						notifyDataModified();
 						apply();
 						break;
+					
+					case IDC_GLOBAL_GOTOSETTINGS_LINK :
+					{
+						std::pair<intptr_t, intptr_t> pageAndCtrlID = goToPreferencesSettings();
+
+						if (pageAndCtrlID.first != -1)
+							::SendMessage(_hParent, NPPM_INTERNAL_LAUNCHPREFERENCES, pageAndCtrlID.first, pageAndCtrlID.second);
+					}
+					break;
 
 					case IDCANCEL :
 						if (_isDirty)
@@ -890,6 +905,81 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 	setVisualFromStyleList();
 }
 
+
+std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
+{
+	std::pair<intptr_t, intptr_t> result;
+	result.first = -1;
+	result.second = -1;
+
+	Style& style = getCurrentStyler();
+
+	// Global override style
+	if (style._styleDesc == TEXT("Current line background colour"))
+	{
+		result.first = 1;
+		result.second = IDC_RADIO_CLM_HILITE;
+	}
+	else if (style._styleDesc == TEXT("Caret colour"))
+	{
+		result.first = 1;
+		result.second = IDC_WIDTH_COMBO;
+	}
+	else if (style._styleDesc == TEXT("Edge colour"))
+	{
+		result.first = 3;
+		result.second = IDC_COLUMNPOS_EDIT;
+	}
+	else if (style._styleDesc == TEXT("Line number margin"))
+	{
+		result.first = 3;
+		result.second = IDC_CHECK_LINENUMBERMARGE;
+	}
+	else if (style._styleDesc == TEXT("Bookmark margin"))
+	{
+		result.first = 3;
+		result.second = IDC_CHECK_BOOKMARKMARGE;
+	}
+	else if (style._styleDesc == TEXT("Fold") || style._styleDesc == TEXT("Fold active") || style._styleDesc == TEXT("Fold margin"))
+	{
+		result.first = 3;
+		result.second = IDC_RADIO_BOX;
+	}
+	else if (style._styleDesc == TEXT("Smart Highlighting"))
+	{
+		result.first = 9;
+		result.second = IDC_CHECK_ENABLSMARTHILITE;
+	}
+	else if (style._styleDesc == TEXT("Tags match highlighting"))
+	{
+		result.first = 9;
+		result.second = IDC_CHECK_ENABLTAGSMATCHHILITE;
+	}
+	else if (style._styleDesc == TEXT("Tags attribute"))
+	{
+		result.first = 9;
+		result.second = IDC_CHECK_ENABLTAGATTRHILITE;
+	}
+	else if (style._styleDesc == TEXT("Mark Style 1") || style._styleDesc == TEXT("Mark Style 2") || style._styleDesc == TEXT("Mark Style 3")
+		|| style._styleDesc == TEXT("Mark Style 4") || style._styleDesc == TEXT("Mark Style 5"))
+	{
+		result.first = 9;
+		result.second = IDC_CHECK_MARKALLCASESENSITIVE;
+	}
+	else if (style._styleDesc == TEXT("URL hovered"))
+	{
+		result.first = 16;
+		result.second = IDC_CHECK_CLICKABLELINK_ENABLE;
+	}
+	else if (style._styleDesc == TEXT("EOL custom color"))
+	{
+		result.first = 1;
+		result.second = IDC_CHECK_WITHCUSTOMCOLOR_CRLF;
+	}
+
+	return result;
+}
+
 void WordStyleDlg::setVisualFromStyleList()
 {
 	showGlobalOverrideCtrls(false);
@@ -901,6 +991,9 @@ void WordStyleDlg::setVisualFromStyleList()
 	{
 		showGlobalOverrideCtrls(true);
 	}
+
+	std::pair<intptr_t, intptr_t> pageAndCtrlID = goToPreferencesSettings();
+	_goToSettings.display(pageAndCtrlID.first != -1);
 
 	//--Warning text
 	//bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;

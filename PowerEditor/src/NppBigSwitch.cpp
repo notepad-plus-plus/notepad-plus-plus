@@ -2666,6 +2666,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_LAUNCHPREFERENCES:
+		{
+			// Launch _configStyleDlg (create or display it)
+			command(IDM_SETTING_PREFERENCE);
+
+			// go into the section we need
+			_preference.goToSection(wParam, lParam);
+
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_DISABLEAUTOUPDATE:
 		{
 			//printStr(TEXT("you've got me"));

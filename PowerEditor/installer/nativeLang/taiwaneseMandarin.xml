@@ -535,6 +535,7 @@
                     <Item id="2230" name="開啟共用粗體"/>
                     <Item id="2231" name="開啟共用斜體"/>
                     <Item id="2232" name="開啟共用底線"/>
+                    <Item id="2234" name="至相關的偏好設定"/>
                 </SubDialog>
             </StyleConfig>
             <ShortcutMapper title="管理快捷鍵">

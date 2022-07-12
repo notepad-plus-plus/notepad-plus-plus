@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 03.07.2022 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 12.07.2022 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \=========================================================================== -->
 <NotepadPlus>
@@ -1142,6 +1142,7 @@
 					<Item id="2216" name="Потребителско"/>
 					<Item id="2219" name="Ключови думи по подразбиране"/>
 					<Item id="2221" name="Потребителски ключови думи"/>
+					<Item id="2234" name="Отиване в настройките"/>
 				</SubDialog>
 			</StyleConfig>
 				<!-- "Бързи клавиши..." -->

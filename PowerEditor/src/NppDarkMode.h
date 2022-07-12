@@ -87,6 +87,7 @@ namespace NppDarkMode
 	bool isEnabledForPlugins();
 	bool isExperimentalSupported();
 
+	bool isWindows10();
 	bool isWindows11();
 
 	COLORREF invertLightness(COLORREF c);

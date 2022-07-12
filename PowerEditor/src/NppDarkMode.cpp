@@ -349,12 +349,16 @@ namespace NppDarkMode
 		return opt;
 	}
 
+	static bool _isAtLeastWindows10 = false;
+
 	void initDarkMode()
 	{
 		_options = configuredOptions();
 
 		initExperimentalDarkMode();
 		setDarkMode(_options.enable, true);
+
+		_isAtLeastWindows10 = NppDarkMode::isWindows10();
 	}
 
 	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
@@ -414,6 +418,11 @@ namespace NppDarkMode
 	bool isExperimentalSupported()
 	{
 		return g_darkModeSupported;
+	}
+
+	bool isWindows10()
+	{
+		return IsWindows10();
 	}
 
 	bool isWindows11()
@@ -1768,7 +1777,7 @@ namespace NppDarkMode
 		};
 
 		Params p{
-			NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr
+			_isAtLeastWindows10 && NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr
 			, subclass
 			, theme
 		};
@@ -2005,7 +2014,7 @@ namespace NppDarkMode
 
 	void autoThemeChildControls(HWND hwndParent)
 	{
-		autoSubclassAndThemeChildControls(hwndParent, false, true);
+		autoSubclassAndThemeChildControls(hwndParent, false, _isAtLeastWindows10);
 	}
 
 	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam)
@@ -2315,7 +2324,7 @@ namespace NppDarkMode
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd)
 	{
 		SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0);
-		NppDarkMode::autoSubclassAndThemeChildControls(hwnd);
+		NppDarkMode::autoSubclassAndThemeChildControls(hwnd, true, _isAtLeastWindows10);
 	}
 
 	constexpr UINT_PTR g_windowNotifySubclassID = 42;
@@ -2534,7 +2543,7 @@ namespace NppDarkMode
 
 	void setDarkExplorerTheme(HWND hwnd)
 	{
-		SetWindowTheme(hwnd, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+		SetWindowTheme(hwnd, _isAtLeastWindows10 && NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
 	}
 
 	void setDarkScrollBar(HWND hwnd)
@@ -2670,13 +2679,16 @@ namespace NppDarkMode
 			}
 			case TreeViewStyle::dark:
 			{
-				if (!hasHotStyle)
+				if (_isAtLeastWindows10) // older OS does not have "DarkMode_Explorer" theme style
 				{
-					style |= TVS_TRACKSELECT;
-					change = true;
+					if (!hasHotStyle)
+					{
+						style |= TVS_TRACKSELECT;
+						change = true;
+					}
+					SetWindowTheme(hwnd, L"DarkMode_Explorer", nullptr);
+					break;
 				}
-				SetWindowTheme(hwnd, L"DarkMode_Explorer", nullptr);
-				break;
 			}
 			default:
 			{

@@ -257,7 +257,12 @@ constexpr bool CheckBuildNumber(DWORD buildNumber)
 		buildNumber == 19043 || // 21H1
 		buildNumber == 19044 || // 21H2
 		(buildNumber > 19044 && buildNumber < 22000) || // Windows 10 any version > 21H2 
-		buildNumber >= 22000);  // Windows 11 insider builds
+		buildNumber >= 22000);  // Windows 11 builds
+}
+
+bool IsWindows10() // or later OS version
+{
+	return (g_buildNumber >= 17763);
 }
 
 bool IsWindows11() // or later OS version

@@ -183,8 +183,7 @@ private :
 	void updateUserKeywords();
 	void switchToTheme();
 	void updateThemeName(const generic_string& themeName);
-	bool goToPreferencesSettings();
-	bool showGoToSettingsLink();
+	std::pair<intptr_t, intptr_t> goToPreferencesSettings();
 
 	void loadLangListFromNppParam();
 

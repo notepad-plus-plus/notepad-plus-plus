@@ -349,12 +349,16 @@ namespace NppDarkMode
 		return opt;
 	}
 
+	static bool g_isAtLeastWindows10 = false;
+
 	void initDarkMode()
 	{
 		_options = configuredOptions();
 
 		initExperimentalDarkMode();
 		setDarkMode(_options.enable, true);
+
+		g_isAtLeastWindows10 = NppDarkMode::isWindows10();
 	}
 
 	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
@@ -416,6 +420,11 @@ namespace NppDarkMode
 		return g_darkModeSupported;
 	}
 
+	bool isWindows10()
+	{
+		return IsWindows10();
+	}
+
 	bool isWindows11()
 	{
 		return IsWindows11();
@@ -449,9 +458,9 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	TreeViewStyle treeViewStyle = TreeViewStyle::classic;
-	COLORREF treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
-	double lighnessTreeView = 50.0;
+	static TreeViewStyle g_treeViewStyle = TreeViewStyle::classic;
+	static COLORREF g_treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
+	static double g_lighnessTreeView = 50.0;
 
 	// adapted from https://stackoverflow.com/a/56678483
 	double calculatePerceivedLighness(COLORREF c)
@@ -1768,7 +1777,7 @@ namespace NppDarkMode
 		};
 
 		Params p{
-			NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr
+			g_isAtLeastWindows10 && NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr
 			, subclass
 			, theme
 		};
@@ -2005,7 +2014,7 @@ namespace NppDarkMode
 
 	void autoThemeChildControls(HWND hwndParent)
 	{
-		autoSubclassAndThemeChildControls(hwndParent, false, true);
+		autoSubclassAndThemeChildControls(hwndParent, false, g_isAtLeastWindows10);
 	}
 
 	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam)
@@ -2165,9 +2174,15 @@ namespace NppDarkMode
 				{
 					lptvcd->clrText = NppDarkMode::getTextColor();
 					lptvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
-					::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
 
-					return CDRF_NEWFONT | CDRF_NOTIFYPOSTPAINT;
+					auto notifyResult =  CDRF_DODEFAULT;
+					if (g_isAtLeastWindows10 || g_treeViewStyle == TreeViewStyle::light)
+					{
+						::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
+						notifyResult = CDRF_NOTIFYPOSTPAINT;
+					}
+
+					return CDRF_NEWFONT | notifyResult;
 				}
 
 				return CDRF_DODEFAULT;
@@ -2315,7 +2330,7 @@ namespace NppDarkMode
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd)
 	{
 		SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0);
-		NppDarkMode::autoSubclassAndThemeChildControls(hwnd);
+		NppDarkMode::autoSubclassAndThemeChildControls(hwnd, true, g_isAtLeastWindows10);
 	}
 
 	constexpr UINT_PTR g_windowNotifySubclassID = 42;
@@ -2534,7 +2549,7 @@ namespace NppDarkMode
 
 	void setDarkExplorerTheme(HWND hwnd)
 	{
-		SetWindowTheme(hwnd, NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
+		SetWindowTheme(hwnd, g_isAtLeastWindows10 && NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr, nullptr);
 	}
 
 	void setDarkScrollBar(HWND hwnd)
@@ -2625,29 +2640,29 @@ namespace NppDarkMode
 	}
 
 	// range to determine when it should be better to use classic style
-	constexpr double middleGrayRange = 2.0;
+	constexpr double g_middleGrayRange = 2.0;
 
 	void calculateTreeViewStyle()
 	{
 		COLORREF bgColor = NppParameters::getInstance().getCurrentDefaultBgColor();
 
-		if (treeViewBg != bgColor || lighnessTreeView == 50.0)
+		if (g_treeViewBg != bgColor || g_lighnessTreeView == 50.0)
 		{
-			lighnessTreeView = calculatePerceivedLighness(bgColor);
-			treeViewBg = bgColor;
+			g_lighnessTreeView = calculatePerceivedLighness(bgColor);
+			g_treeViewBg = bgColor;
 		}
 
-		if (lighnessTreeView < (50.0 - middleGrayRange))
+		if (g_lighnessTreeView < (50.0 - g_middleGrayRange))
 		{
-			treeViewStyle = TreeViewStyle::dark;
+			g_treeViewStyle = TreeViewStyle::dark;
 		}
-		else if (lighnessTreeView > (50.0 + middleGrayRange))
+		else if (g_lighnessTreeView > (50.0 + g_middleGrayRange))
 		{
-			treeViewStyle = TreeViewStyle::light;
+			g_treeViewStyle = TreeViewStyle::light;
 		}
 		else
 		{
-			treeViewStyle = TreeViewStyle::classic;
+			g_treeViewStyle = TreeViewStyle::classic;
 		}
 	}
 
@@ -2656,7 +2671,7 @@ namespace NppDarkMode
 		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
 		bool hasHotStyle = (style & TVS_TRACKSELECT) == TVS_TRACKSELECT;
 		bool change = false;
-		switch (treeViewStyle)
+		switch (g_treeViewStyle)
 		{
 			case TreeViewStyle::light:
 			{
@@ -2675,7 +2690,7 @@ namespace NppDarkMode
 					style |= TVS_TRACKSELECT;
 					change = true;
 				}
-				SetWindowTheme(hwnd, L"DarkMode_Explorer", nullptr);
+				SetWindowTheme(hwnd, g_isAtLeastWindows10 ? L"DarkMode_Explorer" : nullptr, nullptr);
 				break;
 			}
 			default:

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.4.3:
+Updated to v8.4.4:
 - added new lines
+- some fix
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.4.3">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.4.4">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -580,6 +581,7 @@ Updated to v8.4.3:
 					<Item id="2230" name="Общая полужирность шрифтов"/>
 					<Item id="2231" name="Общий курсив шрифтов"/>
 					<Item id="2232" name="Общее подчёркивание шрифтов"/>
+					<Item id="2234" name="Перейти к настройкам"/>
 				</SubDialog>
 			</StyleConfig>
 			<ShortcutMapper title="Управление Клавишами Быстрого Доступа">
@@ -1053,7 +1055,7 @@ Updated to v8.4.3:
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
 					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
 					<Item id="6905" name="Замена: не переходить к следующему совпадению, только при повторном нажатии"/>
-					<Item id="6906" name="Результаты Поиска: показывать только одну запись в каждой найденной строке"/>
+					<Item id="6906" name="Результаты Поиска: отображать только одну запись из найденных совпадений в строке"/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>

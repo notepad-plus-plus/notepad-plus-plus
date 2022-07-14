@@ -194,6 +194,7 @@ size_t Printer::doPrint(bool justDoIt)
 	// We print the range of selection
 	if ((!(_pdlg.Flags & PD_RETURNDEFAULT)) && (_pdlg.Flags & PD_SELECTION))
 	{
+		_pSEView->execute(SCI_SETSELECTIONLAYER, SC_LAYER_UNDER_TEXT);
 		if (_startPos > _endPos) 
 		{
 			lengthPrinted = _endPos;

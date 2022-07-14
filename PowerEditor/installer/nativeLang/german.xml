@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-06-20 by schnurlos
+	last modified: 2022-07-14 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -557,6 +557,7 @@
 					<Item id="2230" name="Fettschrift als Standard setzen"/>
 					<Item id="2231" name="Kursivschrift als Standard setzen"/>
 					<Item id="2232" name="Unterstrichen als Standard setzen"/>
+					<Item id="2234" name="Zu den Einstellungen"/>
 				</SubDialog>
 			</StyleConfig>
 

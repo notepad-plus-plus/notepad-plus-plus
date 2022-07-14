@@ -2694,12 +2694,13 @@ Sci::Position EditView::FormatRange(bool draw, CharacterRangeFull chrg, Rectangl
 	// Don't show the selection when printing
 	vsPrint.elementColours.clear();
 	vsPrint.elementBaseColours.clear();
-	// Set all selection background colours to be transparent.
-	constexpr ColourRGBA transparent(0xc0, 0xc0, 0xc0, 0x0);
-	vsPrint.elementBaseColours[Element::SelectionBack] = transparent;
-	vsPrint.elementBaseColours[Element::SelectionAdditionalBack] = transparent;
-	vsPrint.elementBaseColours[Element::SelectionSecondaryBack] = transparent;
-	vsPrint.elementBaseColours[Element::SelectionInactiveBack] = transparent;
+	// Set all selection background colours to be transparent but with
+	// default background (for layer 0, which draws opaque).
+	const ColourRGBA transparentBack(vsPrint.styles[StyleDefault].back, 0x0);
+	vsPrint.elementBaseColours[Element::SelectionBack] = transparentBack;
+	vsPrint.elementBaseColours[Element::SelectionAdditionalBack] = transparentBack;
+	vsPrint.elementBaseColours[Element::SelectionSecondaryBack] = transparentBack;
+	vsPrint.elementBaseColours[Element::SelectionInactiveBack] = transparentBack;
 	vsPrint.caretLine.alwaysShow = false;
 	// Don't highlight matching braces using indicators
 	vsPrint.braceHighlightIndicatorSet = false;

@@ -2,7 +2,7 @@
 <!-- Russian translation for Notepad++
 Updated to v8.4.4:
 - added new lines
-- some fix
+- fix wrongs description
 -->
 <NotepadPlus>
 	<Native-Langue name="Русский" filename="russian.xml" version="8.4.4">
@@ -155,10 +155,10 @@ Updated to v8.4.4:
 					<Item id="42057" name="Вставить пустую строку Перед текущей"/>
 					<Item id="42058" name="Вставить пустую строку После текущей"/>
 
-					<Item id="42059" name="Сорт. по возрастанию  (по первой цифре)"/>
-					<Item id="42060" name="Сорт. по убыванию  (по первой цифре)"/>
-					<Item id="42080" name="Сорт. по возрастанию (по первой цифре) игнор. Регистр"/>
-					<Item id="42081" name="Сорт. по убыванию (по первой цифре) игнор. Регистр"/>
+					<Item id="42059" name="Сорт. по возрастанию алфавита"/>
+					<Item id="42060" name="Сорт. по убыванию алфавита"/>
+					<Item id="42080" name="Сорт. по возрастанию алфавита игнор. Регистр"/>
+					<Item id="42081" name="Сорт. по убыванию алфавита игнор. Регистр"/>
 					<Item id="42061" name="Сорт. по возрастанию целых чисел"/>
 					<Item id="42062" name="Сорт. по убыванию целых чисел"/>
 					<Item id="42063" name="Сорт. по возрастанию десятичных чисел  (Запятая)"/>
@@ -166,7 +166,7 @@ Updated to v8.4.4:
 					<Item id="42065" name="Сорт. по возрастанию десятичных чисел  (Точка)"/>
 					<Item id="42066" name="Сорт. по убыванию десятичных чисел  (Точка)"/>
 					<Item id="42078" name="Сортировать строки в случайном порядке"/>
-					<Item id="42083" name="Обратный порядок строк"/>
+					<Item id="42083" name="Инвертировать порядок строк"/>
 
 					<Item id="42022" name="Комментирование строки (вкл./выкл.)"/>
 					<Item id="42035" name="Закомментировать строку"/>
@@ -1430,7 +1430,7 @@ Updated to v8.4.4:
 			<word-chars-list-space-warning value="$INT_REPLACE$ пробел(ов)"/>
 			<word-chars-list-tab-warning   value="$INT_REPLACE$ TAB(ов)"/>
 			<word-chars-list-warning-end   value="  в вашем списке символов."/>
-			<eol-custom-color-tip          value="Перейдите в меню Определение стилей, чтобы задать свой цвет для индикатора конца строки (&quot;EOL custom color&quot;).."/>
+			<eol-custom-color-tip          value="Перейдите в меню Определение стилей, чтобы задать свой цвет для индикатора конца строки (&quot;EOL custom color&quot;)."/>
 			<backup-select-folder          value="Выберите папку в качестве директории резервного копирования"/>
 			<cloud-invalid-warning         value="Недопустимый путь."/>
 			<cloud-restart-warning         value="Перезапустите Notepad++, чтобы изменения вступили в силу."/>

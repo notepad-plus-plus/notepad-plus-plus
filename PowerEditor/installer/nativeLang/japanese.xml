@@ -551,6 +551,7 @@
                     <Item id="2230" name="太字を他のスタイルにも適用"/>
                     <Item id="2231" name="斜体を他のスタイルにも適用"/>
                     <Item id="2232" name="下線を他のスタイルにも適用"/>
+                    <Item id="2234" name="関連する環境設定を開く"/>
                 </SubDialog>
             </StyleConfig>
 

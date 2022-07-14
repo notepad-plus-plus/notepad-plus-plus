@@ -548,6 +548,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="Ativar estilo do tipo de letra global"/>
                     <Item id="2231" name="Ativar estilo do tipo de letra Itálico global"/>
                     <Item id="2232" name="Ativar estilo do tipo de letra sublinhada global"/>
+                    <Item id="2234" name="Ir para as definições"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -1584,7 +1585,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-08/07/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+14/07/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

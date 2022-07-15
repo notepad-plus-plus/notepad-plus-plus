@@ -1250,7 +1250,8 @@ BEGIN
     //LTEXT           "Declare variables, not war",IDC_AUTHOR_NAME,85,38,100,8
     //LTEXT           "Make Apps, not war",IDC_AUTHOR_NAME,85,38,100,8
     //LTEXT           "Stand Up For Ukraine",IDC_AUTHOR_NAME,85,38,100,8
-    LTEXT           "Unhappy Users' Edition",IDC_AUTHOR_NAME,85,38,100,8
+    //LTEXT           "Unhappy Users' Edition",IDC_AUTHOR_NAME,85,38,100,8
+    LTEXT           "Happy Users' Edition",IDC_AUTHOR_NAME,85,38,100,8
     LTEXT           "I want to get a refund",IDC_HOME_ADDR,85,48,126,8
     //LTEXT           "Home:",IDC_STATIC,21,58,47,8
     //LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,58,126,8

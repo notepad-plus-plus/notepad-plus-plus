@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.3 (06.07.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.4 (15.07.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -558,6 +558,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="Stosuj pogrubienie globalnie"/>
                     <Item id="2231" name="Stosuj kursywę globalnie"/>
                     <Item id="2232" name="Stosuj podkreślenie globalnie"/>
+                    <Item id="2234" name="Przejdź do okna ustawień"/>
                 </SubDialog>
             </StyleConfig>
 

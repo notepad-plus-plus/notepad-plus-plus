@@ -38,7 +38,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-pasteSpecial" name="Collage spécial"/>
                     <Item subMenuId="edit-onSelection" name="Pour la sélection"/>
                     <Item subMenuId="search-markAll" name="Marquer tout"/>
-                    <Item subMenuId="search-markOne" name="Marquer uniquement la séléction"/>
+                    <Item subMenuId="search-markOne" name="Marquer uniquement la sélection"/>
                     <Item subMenuId="search-unmarkAll" name="Enlever toutes les marques"/>
                     <Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
                     <Item subMenuId="search-jumpDown" name="Aller vers le bas"/>
@@ -548,7 +548,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="Appliquer le style gras global"/>
                     <Item id="2231" name="Appliquer le style italique global"/>
                     <Item id="2232" name="Appliquer le style souligné global"/>
-                    <Item id="2234" name="Aller à la boîte de dialogue Préferences"/>
+                    <Item id="2234" name="Aller à la boîte de dialogue Préférences"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -598,12 +598,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43036" name="Marque précédente du 4ème style"/>
                     <Item id="43037" name="Marque précédente du 5ème style"/>
                     <Item id="43038" name="Marque précédente du &quot;Marquer&quot;"/>
-                    <Item id="43039" name="Marque suivantte du 1er style"/>
-                    <Item id="43040" name="Marque suivantte du 2ème style"/>
-                    <Item id="43041" name="Marque suivantte du 3ème style"/>
-                    <Item id="43042" name="Marque suivantte du 4ème style"/>
-                    <Item id="43043" name="Marque suivantte du 5ème style"/>
-                    <Item id="43044" name="Marque suivantte du &quot;Marquer&quot;"/>
+                    <Item id="43039" name="Marque suivante du 1er style"/>
+                    <Item id="43040" name="Marque suivante du 2ème style"/>
+                    <Item id="43041" name="Marque suivante du 3ème style"/>
+                    <Item id="43042" name="Marque suivante du 4ème style"/>
+                    <Item id="43043" name="Marque suivante du 5ème style"/>
+                    <Item id="43044" name="Marque suivante du &quot;Marquer&quot;"/>
                     <Item id="43055" name="Copier le texte marqué du style 1"/>
                     <Item id="43056" name="Copier le texte marqué du style 2"/>
                     <Item id="43057" name="Copier le texte marqué du style 3"/>
@@ -640,7 +640,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44080" name="Afficher/fermer Plan du document"/>
                     <Item id="44070" name="Afficher/fermer Commutateur de documents"/>
                     <Item id="44084" name="Afficher/fermer Liste des fonctions"/>
-                    <Item id="50005" name="Démarer/arrêter macro recording"/>
+                    <Item id="50005" name="Démarrer/arrêter enregist. macro"/>
                     <Item id="44104" name="Basculer vers Panneau de Projet 1"/>
                     <Item id="44105" name="Basculer vers Panneau de Projet 2"/>
                     <Item id="44106" name="Basculer vers Panneau de Projet 3"/>
@@ -1239,11 +1239,11 @@ Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications 
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devriez enregistrer la modification en cours.
 Toutes les modifications enregistrées ne peuvent pas être annulées.
 
-Continuer ?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
+Continuer ?"/> <!-- HowToReproduce: when you opened file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devriez enregistrer la modification en cours.
 Toutes les modifications enregistrées ne peuvent pas être annulées.
 
-Continuer ?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+Continuer ?"/> <!-- HowToReproduce: when you opened file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Déplacement vers une nouvelle instance Notepad++" message="Le document est en cours d'utilisation, le sauvegarder puis réessayer."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++ ?"/>
             <FileLockedWarning title="Échec de la sauvegarde" message="Veuillez vérifier si ce fichier est ouvert par un autre programme"/>
@@ -1448,7 +1448,7 @@ Continuer ?"/>
             <cloud-invalid-warning value="Chemin invalide."/>
             <cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
             <cloud-select-folder value="Sélectionner un répertoire où Notepad++ lit ou écrit ses paramètres"/>
-            <default-open-save-select-folder value="Sélectionner un dossier pour le répertoire paar défaut"/>
+            <default-open-save-select-folder value="Sélectionner un dossier pour le répertoire par défaut"/>
             <shift-change-direction-tip value="Utilisez Maj + Entrée pour rechercher dans le sens inverse"/>
             <two-find-buttons-tip value="2 boutons Recherche"/>
             <file-rename-title value="Renommer"/>
@@ -1491,7 +1491,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <find-status-replace-not-found value="Remplacer : aucune occurrence n'a été trouvée"/>
             <find-status-replace-readonly value="Remplacer : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-cannot-find value="Rechercher : &quot;$STR_REPLACE$&quot; n'a pas été trouvé"/>
-            <find-status-scope-selection value="dans le texte selectionné"/>
+            <find-status-scope-selection value="dans le texte sélectionné"/>
             <find-status-scope-all value="dans le fichier"/>
             <find-status-scope-backward value="du début du fichier au curseur"/>
             <find-status-scope-forward value="du curseur à la fin du fichier"/>
@@ -1564,4 +1564,3 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
-

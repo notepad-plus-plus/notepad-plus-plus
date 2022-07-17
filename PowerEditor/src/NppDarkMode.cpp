@@ -2679,16 +2679,13 @@ namespace NppDarkMode
 			}
 			case TreeViewStyle::dark:
 			{
-				if (_isAtLeastWindows10) // older OS does not have "DarkMode_Explorer" theme style
+				if (!hasHotStyle)
 				{
-					if (!hasHotStyle)
-					{
-						style |= TVS_TRACKSELECT;
-						change = true;
-					}
-					SetWindowTheme(hwnd, L"DarkMode_Explorer", nullptr);
-					break;
+					style |= TVS_TRACKSELECT;
+					change = true;
 				}
+				SetWindowTheme(hwnd, _isAtLeastWindows10 ? L"DarkMode_Explorer" : nullptr, nullptr);
+				break;
 			}
 			default:
 			{

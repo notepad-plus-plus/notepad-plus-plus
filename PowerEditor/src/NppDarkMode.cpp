@@ -2174,9 +2174,15 @@ namespace NppDarkMode
 				{
 					lptvcd->clrText = NppDarkMode::getTextColor();
 					lptvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
-					::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
 
-					return CDRF_NEWFONT | CDRF_NOTIFYPOSTPAINT;
+					auto cdrfNotifyResult =  CDRF_DODEFAULT;
+					if (_isAtLeastWindows10)
+					{
+						::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
+						cdrfNotifyResult = CDRF_NOTIFYPOSTPAINT;
+					}
+
+					return CDRF_NEWFONT | cdrfNotifyResult;
 				}
 
 				return CDRF_DODEFAULT;

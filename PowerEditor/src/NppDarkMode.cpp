@@ -458,9 +458,9 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	TreeViewStyle treeViewStyle = TreeViewStyle::classic;
-	COLORREF treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
-	double lighnessTreeView = 50.0;
+	static TreeViewStyle _treeViewStyle = TreeViewStyle::classic;
+	static COLORREF _treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
+	static double _lighnessTreeView = 50.0;
 
 	// adapted from https://stackoverflow.com/a/56678483
 	double calculatePerceivedLighness(COLORREF c)
@@ -2175,14 +2175,14 @@ namespace NppDarkMode
 					lptvcd->clrText = NppDarkMode::getTextColor();
 					lptvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
 
-					auto cdrfNotifyResult =  CDRF_DODEFAULT;
-					if (_isAtLeastWindows10)
+					auto notifyResult =  CDRF_DODEFAULT;
+					if (_isAtLeastWindows10 || _treeViewStyle == TreeViewStyle::light)
 					{
 						::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
-						cdrfNotifyResult = CDRF_NOTIFYPOSTPAINT;
+						notifyResult = CDRF_NOTIFYPOSTPAINT;
 					}
 
-					return CDRF_NEWFONT | cdrfNotifyResult;
+					return CDRF_NEWFONT | notifyResult;
 				}
 
 				return CDRF_DODEFAULT;
@@ -2640,29 +2640,29 @@ namespace NppDarkMode
 	}
 
 	// range to determine when it should be better to use classic style
-	constexpr double middleGrayRange = 2.0;
+	constexpr double _middleGrayRange = 2.0;
 
 	void calculateTreeViewStyle()
 	{
 		COLORREF bgColor = NppParameters::getInstance().getCurrentDefaultBgColor();
 
-		if (treeViewBg != bgColor || lighnessTreeView == 50.0)
+		if (_treeViewBg != bgColor || _lighnessTreeView == 50.0)
 		{
-			lighnessTreeView = calculatePerceivedLighness(bgColor);
-			treeViewBg = bgColor;
+			_lighnessTreeView = calculatePerceivedLighness(bgColor);
+			_treeViewBg = bgColor;
 		}
 
-		if (lighnessTreeView < (50.0 - middleGrayRange))
+		if (_lighnessTreeView < (50.0 - _middleGrayRange))
 		{
-			treeViewStyle = TreeViewStyle::dark;
+			_treeViewStyle = TreeViewStyle::dark;
 		}
-		else if (lighnessTreeView > (50.0 + middleGrayRange))
+		else if (_lighnessTreeView > (50.0 + _middleGrayRange))
 		{
-			treeViewStyle = TreeViewStyle::light;
+			_treeViewStyle = TreeViewStyle::light;
 		}
 		else
 		{
-			treeViewStyle = TreeViewStyle::classic;
+			_treeViewStyle = TreeViewStyle::classic;
 		}
 	}
 
@@ -2671,7 +2671,7 @@ namespace NppDarkMode
 		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
 		bool hasHotStyle = (style & TVS_TRACKSELECT) == TVS_TRACKSELECT;
 		bool change = false;
-		switch (treeViewStyle)
+		switch (_treeViewStyle)
 		{
 			case TreeViewStyle::light:
 			{

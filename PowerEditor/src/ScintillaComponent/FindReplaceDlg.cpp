@@ -272,12 +272,13 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_statusBar.init(GetModuleHandle(NULL), _hSelf, 0);
 	_statusBar.display();
 
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+
 	RECT rect;
-	//::GetWindowRect(_hSelf, &rect);
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
-	int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
+	int tabDpiDynamicalHeight = dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
 	const TCHAR *find = TEXT("Find");
@@ -298,11 +299,17 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_initialClientWidth = rect.right - rect.left;
 
 	//fill min dialog size info
-	this->getWindowRect(_initialWindowRect);
+	getWindowRect(_initialWindowRect);
 	_initialWindowRect.right = _initialWindowRect.right - _initialWindowRect.left;
 	_initialWindowRect.left = 0;
 	_initialWindowRect.bottom = _initialWindowRect.bottom - _initialWindowRect.top;
 	_initialWindowRect.top = 0;
+
+	RECT dlgRc = {};
+	getWindowRect(dlgRc);
+
+	RECT countRc = {};
+	::GetWindowRect(::GetDlgItem(_hSelf, IDCCOUNTALL), &countRc);
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
@@ -315,6 +322,8 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	{
 		goToCenter();
 	}
+
+	_reducedHeight = countRc.bottom - dlgRc.top + _statusBar.getHeight() + dpiManager.scaleY(10);
 }
 
 void FindReplaceDlg::fillFindHistory()
@@ -1090,7 +1099,7 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 
 		IDD_FINDINFILES_BROWSE_BUTTON, IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
 		IDREPLACE, IDREPLACEALL, IDD_FINDREPLACE_SWAP_BUTTON, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDOK, IDCANCEL,
-		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS
+		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDD_RESIZE_TOGGLE_BUTTON
 	};
 
 	const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
@@ -1127,6 +1136,7 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 	}
 
 	auto additionalWindowHwndsToResize = { _tab.getHSelf() , _statusBar.getHSelf() };
+
 	for (HWND resizeHwnd : additionalWindowHwndsToResize)
 	{
 		::GetClientRect(resizeHwnd, &rc);
@@ -1143,9 +1153,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_GETMINMAXINFO:
 		{
 			MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
-			mmi->ptMinTrackSize.y = _initialWindowRect.bottom;
+			mmi->ptMinTrackSize.y = _isReducedMode ? _reducedHeight : _initialWindowRect.bottom;
 			mmi->ptMinTrackSize.x = _initialWindowRect.right;
-			mmi->ptMaxTrackSize.y = _initialWindowRect.bottom;
+			mmi->ptMaxTrackSize.y = _isReducedMode ? _reducedHeight : _initialWindowRect.bottom;
+
 			return 0;
 		}
 
@@ -1253,6 +1264,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				SendMessage(hDirCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
 			}
 
+			DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+
 			// Change ComboBox height to accomodate High-DPI settings.
 			// ComboBoxes are scaled using the font used in them, however this results in weird optics
 			// on scaling > 200% (192 DPI). Using this method we accomodate these scalings way better
@@ -1262,7 +1275,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				LOGFONT lf = {};
 				HFONT font = reinterpret_cast<HFONT>(SendMessage(hComboBox, WM_GETFONT, 0, 0));
 				::GetObject(font, sizeof(lf), &lf);
-				lf.lfHeight = (NppParameters::getInstance()._dpiManager.scaleY(16) - 5) * -1;
+				lf.lfHeight = (dpiManager.scaleY(16) - 5) * -1;
 				SendMessage(hComboBox, WM_SETFONT, (WPARAM)CreateFontIndirect(&lf), MAKELPARAM(true, 0));
 			}
 
@@ -1292,6 +1305,21 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
 
+			 ::GetWindowRect(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), &arc);
+			 long resizeButtonW = arc.right - arc.left;
+			 long resizeButtonH = arc.bottom - arc.top;
+			 _collapseButtonPos.bottom = _uncollapseButtonPos.bottom = resizeButtonW;
+			 _collapseButtonPos.right = _uncollapseButtonPos.right = resizeButtonH;
+
+			 ::GetWindowRect(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), &arc);
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), !_isRTL);
+			 _collapseButtonPos.left = p.x + (arc.right - arc.left) + dpiManager.scaleX(10);
+			 _collapseButtonPos.top = p.y + (arc.bottom - arc.top) - resizeButtonH + dpiManager.scaleX(10);
+			 ::GetWindowRect(::GetDlgItem(_hSelf, IDCCOUNTALL), &arc);
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDCCOUNTALL), !_isRTL);
+			 _uncollapseButtonPos.left = p.x + (arc.right - arc.left) + dpiManager.scaleX(8);
+			 _uncollapseButtonPos.top = p.y + dpiManager.scaleY(3);
+			 
 			 // in selection check
 			 RECT checkRect;
 			 ::GetWindowRect(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), &checkRect);
@@ -1314,10 +1342,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			 _countInSelFramePos.left = _replaceInSelFramePos.left = p.x;
 			 _countInSelFramePos.top = _replaceInSelFramePos.top = p.y;
 
-			 DPIManager* pDpiMgr = &(NppParameters::getInstance()._dpiManager);
-
-			 _countInSelFramePos.top = countP.y - pDpiMgr->scaleY(10);
-			 _countInSelFramePos.bottom = pDpiMgr->scaleY(80 - 3);
+			 _countInSelFramePos.top = countP.y - dpiManager.scaleY(10);
+			 _countInSelFramePos.bottom = dpiManager.scaleY(80 - 3);
 
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
@@ -2137,6 +2163,42 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						const generic_string title = pNativeSpeaker->getLocalizedStrFromID("find-in-files-select-folder", TEXT("Select a folder to search from"));
 						folderBrowser(_hSelf, title, IDD_FINDINFILES_DIR_COMBO, _options._directory.c_str());
 					}
+				}
+				return TRUE;
+
+				case IDD_RESIZE_TOGGLE_BUTTON:
+				{
+					RECT rc = { 0, 0, 0, 0};
+					getWindowRect(rc);
+					int w = rc.right - rc.left;
+					POINT p;
+					p.x = rc.left;
+					p.y = rc.top;
+
+					_isReducedMode = !_isReducedMode;
+					long dlgH = _isReducedMode ? _reducedHeight : _initialWindowRect.bottom;
+					RECT& buttonRc = _isReducedMode ? _uncollapseButtonPos : _collapseButtonPos;
+
+					// For unknown reason, the original default width doesn't make the status bar moveed
+					// Here we use a dirty workaround: increase 1 pixel so WM_SIZE message will be triggered
+					if (w == _initialWindowRect.right)
+						w += 1;
+
+					::MoveWindow(_hSelf, p.x, p.y, w, dlgH, FALSE); // WM_SIZE message to call resizeDialogElements - status bar will be reposition correctly.
+					::MoveWindow(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), buttonRc.left + _deltaWidth, buttonRc.top, buttonRc.right, buttonRc.bottom, TRUE);
+
+					// Reposition the status bar
+					const UINT flags = SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOCOPYBITS | SWP_DRAWFRAME;
+					::GetClientRect(_statusBar.getHSelf(), &rc);
+					::SetWindowPos(_statusBar.getHSelf(), 0, 0, 0, rc.right + _deltaWidth, rc.bottom, flags);
+
+					DIALOG_TYPE dlgT = getCurrentStatus();
+
+					hideOrShowCtrl4reduceOrNormalMode(dlgT);
+
+					::SetDlgItemText(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, _isReducedMode ? L"\x2a54" : L"\x2A53");
+					
+					redraw();
 				}
 				return TRUE;
 
@@ -3228,6 +3290,8 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::SetWindowText(_hSelf, label);
 
 	setDefaultButton(IDOK);
+
+	hideOrShowCtrl4reduceOrNormalMode(_currentStatus);
 }
 
 void FindReplaceDlg::enableMarkAllControls(bool isEnable)
@@ -3952,6 +4016,35 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 	return CallWindowProc((WNDPROC)originalComboEditProc, hwnd, message, wParam, lParam);
 }
 
+void FindReplaceDlg::hideOrShowCtrl4reduceOrNormalMode(DIALOG_TYPE dlgT)
+{
+	if (dlgT == FIND_DLG)
+	{
+		for (int id : _reduce2hide_find)
+			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+	}
+	else if (dlgT == REPLACE_DLG)
+	{
+		for (int id : _reduce2hide_findReplace)
+			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+	}
+	else if (dlgT == FINDINFILES_DLG)
+	{
+		for (int id : _reduce2hide_fif)
+			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+	}
+	else if (dlgT == FINDINPROJECTS_DLG)
+	{
+		for (int id : _reduce2hide_fip)
+			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+	}
+	else // MARK_DLG
+	{
+		for (int id : _reduce2hide_mark)
+			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+	}
+}
+
 void FindReplaceDlg::enableFindInFilesFunc()
 {
 	enableFindInFilesControls(true, false);
@@ -3963,6 +4056,7 @@ void FindReplaceDlg::enableFindInFilesFunc()
 	::SetWindowText(_hSelf, label);
 	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
 	enableFindDlgItem (IDD_FINDINFILES_FIND_BUTTON, true);
+	hideOrShowCtrl4reduceOrNormalMode(_currentStatus);
 }
 
 void FindReplaceDlg::enableFindInProjectsFunc()
@@ -3978,6 +4072,7 @@ void FindReplaceDlg::enableFindInProjectsFunc()
 	bool enable = _options._isProjectPanel_1 || _options._isProjectPanel_2 || _options._isProjectPanel_3;
 	enableFindDlgItem (IDD_FINDINFILES_FIND_BUTTON, enable);
 	enableFindDlgItem (IDD_FINDINFILES_REPLACEINPROJECTS, enable);
+	hideOrShowCtrl4reduceOrNormalMode(_currentStatus);
 }
 
 void FindReplaceDlg::enableMarkFunc()
@@ -4014,7 +4109,10 @@ void FindReplaceDlg::enableMarkFunc()
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 	setDefaultButton(IDCMARKALL);
+
+	hideOrShowCtrl4reduceOrNormalMode(_currentStatus);
 }
+
 void FindReplaceDlg::combo2ExtendedMode(int comboID)
 {
 	HWND hFindCombo = ::GetDlgItem(_hSelf, comboID);

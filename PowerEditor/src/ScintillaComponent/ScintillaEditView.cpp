@@ -2179,13 +2179,13 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 
 void ScintillaEditView::foldCurrentPos(bool mode)
 {
-	auto currentLine = this->getCurrentLineNumber();
+	auto currentLine = getCurrentLineNumber();
 	fold(currentLine, mode);
 }
 
 bool ScintillaEditView::isCurrentLineFolded() const
 {
-	auto currentLine = this->getCurrentLineNumber();
+	auto currentLine = getCurrentLineNumber();
 
 	intptr_t headerLine;
 	auto level = execute(SCI_GETFOLDLEVEL, currentLine);

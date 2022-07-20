@@ -378,11 +378,24 @@ private :
 	RECT _initialWindowRect = {};
 	LONG _deltaWidth = 0;
 	LONG _initialClientWidth = 0;
+	
+	LONG _reducedHeight = 0;
+	bool _isReducedMode = false;
 
 	DIALOG_TYPE _currentStatus = DIALOG_TYPE::FIND_DLG;
-	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos, _markClosePos;
-	RECT _countInSelFramePos, _replaceInSelFramePos;
-	RECT _countInSelCheckPos, _replaceInSelCheckPos;
+	RECT _findClosePos = {};
+	RECT _replaceClosePos = {};
+	RECT _findInFilesClosePos = {};
+	RECT _markClosePos = {};
+
+	RECT _countInSelFramePos = {};
+	RECT _replaceInSelFramePos = {};
+
+	RECT _countInSelCheckPos = {};
+	RECT _replaceInSelCheckPos = {};
+
+	RECT _collapseButtonPos = {};
+	RECT _uncollapseButtonPos = {};
 
 	ScintillaEditView **_ppEditView = nullptr;
 	Finder  *_pFinder = nullptr;
@@ -417,6 +430,12 @@ private :
 
 	std::map<int, bool> _controlEnableMap;
 
+	std::vector<int> _reduce2hide_find = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDC_FINDALL_CURRENTFILE };
+	std::vector<int> _reduce2hide_findReplace = { IDC_IN_SELECTION_CHECK, IDREPLACEALL };
+	std::vector<int> _reduce2hide_fif = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
+	std::vector<int> _reduce2hide_fip = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
+	std::vector<int> _reduce2hide_mark = { IDC_MARKLINE_CHECK, IDC_IN_SELECTION_CHECK, IDC_COPY_MARKED_TEXT };
+
 	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
 	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
@@ -426,6 +445,7 @@ private :
 	void enableFindInProjectsFunc();
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
+	void hideOrShowCtrl4reduceOrNormalMode(DIALOG_TYPE dlgT);
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);
@@ -438,7 +458,7 @@ private :
 	};
 	
 	FindStatus getFindStatus() {
-		return this->_statusbarFindStatus;
+		return _statusbarFindStatus;
 	}
 
 	void updateCombos();

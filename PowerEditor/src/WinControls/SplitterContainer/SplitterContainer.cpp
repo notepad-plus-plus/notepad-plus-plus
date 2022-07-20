@@ -309,7 +309,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 			HWND parent = ::GetParent(getHSelf());
 
-			Window* targetWindow = (this->isVertical())
+			Window* targetWindow = (isVertical())
 				? (pt.x < 0 ? _pWin0 : _pWin1)
 				: (pt.y < 0 ? _pWin0 : _pWin1);
 

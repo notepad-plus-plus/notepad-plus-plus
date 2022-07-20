@@ -4848,6 +4848,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				_nppGUI._findWindowPos = oldRect;
 			}
+
+			const TCHAR* val = element->Attribute(TEXT("isLessModeOn"));
+			if (val)
+				_nppGUI._findWindowLessMode = (lstrcmp(val, TEXT("yes")) == 0);
 		}
 
 		else if (!lstrcmp(nm, TEXT("FinderConfig")))
@@ -6324,6 +6328,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("top"), _nppGUI._findWindowPos.top);
 		GUIConfigElement->SetAttribute(TEXT("right"), _nppGUI._findWindowPos.right);
 		GUIConfigElement->SetAttribute(TEXT("bottom"), _nppGUI._findWindowPos.bottom);
+		GUIConfigElement->SetAttribute(TEXT("isLessModeOn"), _nppGUI._findWindowLessMode ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes"/>

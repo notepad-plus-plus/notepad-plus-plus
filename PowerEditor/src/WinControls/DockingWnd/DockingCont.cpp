@@ -1386,7 +1386,7 @@ void DockingCont::doClose(BOOL closeAll)
 	if (iItemCnt == 0)
 	{
 		// hide dialog first
-		this->doDialog(false);
+		doDialog(false);
 		::SendMessage(_hParent, WM_SIZE, 0, 0);
 	}
 }
@@ -1433,7 +1433,7 @@ int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 		else 
 		{
 			// hide dialog
-			this->doDialog(false);
+			doDialog(false);
 
 			// send message to docking manager for resize
 			if (!_isFloating)
@@ -1495,7 +1495,7 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	// show dialog and notify parent to update dialog view
 	if (isVisible() == false)
 	{
-		this->doDialog();
+		doDialog();
 		::SendMessage(_hParent, WM_SIZE, 0, 0);
 	}
 

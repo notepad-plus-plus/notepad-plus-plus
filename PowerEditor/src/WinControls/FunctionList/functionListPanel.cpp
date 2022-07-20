@@ -601,7 +601,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 			wcscpy_s(lpttt->szText, _preferenceTipStr.c_str());
 		}
 	}
-	else if (notification->hwndFrom == _treeView.getHSelf() || notification->hwndFrom == this->_treeViewSearchResult.getHSelf())
+	else if (notification->hwndFrom == _treeView.getHSelf() || notification->hwndFrom == _treeViewSearchResult.getHSelf())
 	{
 		const TreeView & treeView = notification->hwndFrom == _treeView.getHSelf()?_treeView:_treeViewSearchResult;
 		switch (notification->code)

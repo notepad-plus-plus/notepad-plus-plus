@@ -30,7 +30,7 @@ void DocTabView::addBuffer(BufferID buffer)
 {
 	if (buffer == BUFFER_INVALID)	//valid only
 		return;
-	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
+	if (getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
 	Buffer * buf = MainFileManager.getBufferByID(buffer);
 	TCITEM tie;

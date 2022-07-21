@@ -323,7 +323,15 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 		goToCenter();
 	}
 
-	_reducedHeight = countRc.bottom - dlgRc.top + _statusBar.getHeight() + dpiManager.scaleY(10);
+	_lesssModeHeight = countRc.bottom - dlgRc.top + _statusBar.getHeight() + dpiManager.scaleY(10);
+
+	if (nppGUI._findWindowLessMode)
+	{
+		// reverse the value of _findWindowLessMode because the value will be inversed again in IDD_RESIZE_TOGGLE_BUTTON
+		nppGUI._findWindowLessMode = false;
+
+		::SendMessage(_hSelf, WM_COMMAND, IDD_RESIZE_TOGGLE_BUTTON, 0);
+	}
 }
 
 void FindReplaceDlg::fillFindHistory()
@@ -1152,10 +1160,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
 		case WM_GETMINMAXINFO:
 		{
+			bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 			MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
-			mmi->ptMinTrackSize.y = _isReducedMode ? _reducedHeight : _initialWindowRect.bottom;
+			mmi->ptMinTrackSize.y = isLessModeOn ? _lesssModeHeight : _initialWindowRect.bottom;
 			mmi->ptMinTrackSize.x = _initialWindowRect.right;
-			mmi->ptMaxTrackSize.y = _isReducedMode ? _reducedHeight : _initialWindowRect.bottom;
+			mmi->ptMaxTrackSize.y = isLessModeOn ? _lesssModeHeight : _initialWindowRect.bottom;
 
 			return 0;
 		}
@@ -2174,10 +2183,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					POINT p;
 					p.x = rc.left;
 					p.y = rc.top;
-
-					_isReducedMode = !_isReducedMode;
-					long dlgH = _isReducedMode ? _reducedHeight : _initialWindowRect.bottom;
-					RECT& buttonRc = _isReducedMode ? _uncollapseButtonPos : _collapseButtonPos;
+					bool& isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
+					isLessModeOn = !isLessModeOn;
+					long dlgH = isLessModeOn ? _lesssModeHeight : _initialWindowRect.bottom;
+					RECT& buttonRc = isLessModeOn ? _uncollapseButtonPos : _collapseButtonPos;
 
 					// For unknown reason, the original default width doesn't make the status bar moveed
 					// Here we use a dirty workaround: increase 1 pixel so WM_SIZE message will be triggered
@@ -2196,7 +2205,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 					hideOrShowCtrl4reduceOrNormalMode(dlgT);
 
-					::SetDlgItemText(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, _isReducedMode ? L"\x2a54" : L"\x2A53");
+					::SetDlgItemText(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, isLessModeOn ? L"\x2a54" : L"\x2A53");
 					
 					redraw();
 				}
@@ -4018,30 +4027,31 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 
 void FindReplaceDlg::hideOrShowCtrl4reduceOrNormalMode(DIALOG_TYPE dlgT)
 {
+	bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 	if (dlgT == FIND_DLG)
 	{
 		for (int id : _reduce2hide_find)
-			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
 	}
 	else if (dlgT == REPLACE_DLG)
 	{
 		for (int id : _reduce2hide_findReplace)
-			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
 	}
 	else if (dlgT == FINDINFILES_DLG)
 	{
 		for (int id : _reduce2hide_fif)
-			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
 	}
 	else if (dlgT == FINDINPROJECTS_DLG)
 	{
 		for (int id : _reduce2hide_fip)
-			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
 	}
 	else // MARK_DLG
 	{
 		for (int id : _reduce2hide_mark)
-			::ShowWindow(::GetDlgItem(_hSelf, id), _isReducedMode ? SW_HIDE : SW_SHOW);
+			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
 	}
 }
 

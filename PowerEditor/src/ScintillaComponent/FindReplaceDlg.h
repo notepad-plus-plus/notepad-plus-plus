@@ -378,9 +378,7 @@ private :
 	RECT _initialWindowRect = {};
 	LONG _deltaWidth = 0;
 	LONG _initialClientWidth = 0;
-	
-	LONG _reducedHeight = 0;
-	bool _isReducedMode = false;
+	LONG _lesssModeHeight = 0;
 
 	DIALOG_TYPE _currentStatus = DIALOG_TYPE::FIND_DLG;
 	RECT _findClosePos = {};
@@ -431,10 +429,10 @@ private :
 	std::map<int, bool> _controlEnableMap;
 
 	std::vector<int> _reduce2hide_find = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDC_FINDALL_CURRENTFILE };
-	std::vector<int> _reduce2hide_findReplace = { IDC_IN_SELECTION_CHECK, IDREPLACEALL };
+	std::vector<int> _reduce2hide_findReplace = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDREPLACEALL };
 	std::vector<int> _reduce2hide_fif = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
 	std::vector<int> _reduce2hide_fip = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
-	std::vector<int> _reduce2hide_mark = { IDC_MARKLINE_CHECK, IDC_IN_SELECTION_CHECK, IDC_COPY_MARKED_TEXT };
+	std::vector<int> _reduce2hide_mark = { IDC_MARKLINE_CHECK, IDC_PURGE_CHECK, IDC_IN_SELECTION_CHECK, IDC_COPY_MARKED_TEXT };
 
 	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
 	void showFindDlgItem(int dlgItemID, bool isShow = true);

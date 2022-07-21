@@ -1327,7 +1327,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			 ::GetWindowRect(::GetDlgItem(_hSelf, IDCCOUNTALL), &arc);
 			 p = getTopPoint(::GetDlgItem(_hSelf, IDCCOUNTALL), !_isRTL);
 			 _uncollapseButtonPos.left = p.x + (arc.right - arc.left) + dpiManager.scaleX(8);
-			 _uncollapseButtonPos.top = p.y + dpiManager.scaleY(3);
+			 _uncollapseButtonPos.top = p.y + dpiManager.scaleY(2);
 			 
 			 // in selection check
 			 RECT checkRect;

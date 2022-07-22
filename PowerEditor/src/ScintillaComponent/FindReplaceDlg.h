@@ -425,6 +425,7 @@ private :
 
 	HFONT _hMonospaceFont = nullptr;
 	HFONT _hLargerBolderFont = nullptr;
+	HFONT _hCourrierNewFont = nullptr;
 
 	std::map<int, bool> _controlEnableMap;
 

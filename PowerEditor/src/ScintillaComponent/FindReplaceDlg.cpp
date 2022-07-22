@@ -259,6 +259,9 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_hLargerBolderFont)
 		::DeleteObject(_hLargerBolderFont);
 
+	if (_hCourrierNewFont)
+		::DeleteObject(_hCourrierNewFont);
+
 	delete[] _uniFileName;
 }
 
@@ -1368,11 +1371,15 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), TEXT("▼ Find Next"));
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), TEXT("⇅"));
+			::SetWindowTextW(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), TEXT("˄"));
 
 			// "⇅" enlargement
 			_hLargerBolderFont = createFont(TEXT("Courier New"), 14, true, _hSelf);
-
 			SendMessage(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
+
+			// Make "˄" & "˅" look better
+			_hCourrierNewFont = createFont(TEXT("Courier New"), 12, false, _hSelf);
+			SendMessage(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), WM_SETFONT, (WPARAM)_hCourrierNewFont, MAKELPARAM(true, 0));
 
 			return TRUE;
 		}
@@ -2205,7 +2212,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 					hideOrShowCtrl4reduceOrNormalMode(dlgT);
 
-					::SetDlgItemText(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, isLessModeOn ? L"\x2a54" : L"\x2A53");
+					::SetDlgItemText(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, isLessModeOn ? L"˅" : L"˄");
 					
 					redraw();
 				}

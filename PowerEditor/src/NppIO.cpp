@@ -602,7 +602,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 					// it returns an error value that indicates the cause of the failure.
 					// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
 
-					if (shellExecRes < 32)
+					if (shellExecRes <= 32)
 					{
 						_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
 							_pPublicInterface->getHSelf(),
@@ -646,7 +646,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 					// it returns an error value that indicates the cause of the failure.
 					// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
 
-					if (shellExecRes < 32)
+					if (shellExecRes <= 32)
 					{
 						_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
 							_pPublicInterface->getHSelf(),

@@ -3373,38 +3373,6 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 	}
 }
 
-
-void ScintillaEditView::foldChanged(size_t line, int levelNow, int levelPrev)
-{
-	if (levelNow & SC_FOLDLEVELHEADERFLAG)		//line can be folded
-	{
-		if (!(levelPrev & SC_FOLDLEVELHEADERFLAG))	//but previously couldnt
-		{
-			// Adding a fold point.
-			execute(SCI_SETFOLDEXPANDED, line, 1);
-			expand(line, true, false, 0, levelPrev);
-		}
-	}
-	else if (levelPrev & SC_FOLDLEVELHEADERFLAG)
-	{
-		if (isFolded(line))
-		{
-			// Removing the fold from one that has been contracted so should expand
-			// otherwise lines are left invisible with no way to make them visible
-			execute(SCI_SETFOLDEXPANDED, line, 1);
-			expand(line, true, false, 0, levelPrev);
-		}
-	}
-	else if (!(levelNow & SC_FOLDLEVELWHITEFLAG) &&
-	        ((levelPrev & SC_FOLDLEVELNUMBERMASK) > (levelNow & SC_FOLDLEVELNUMBERMASK)))
-	{
-		// See if should still be hidden
-		intptr_t parentLine = execute(SCI_GETFOLDPARENT, line);
-		if ((parentLine < 0) || !isFolded(parentLine && execute(SCI_GETLINEVISIBLE, parentLine)))
-			execute(SCI_SHOWLINES, line, line);
-	}
-}
-
 bool ScintillaEditView::getIndicatorRange(size_t indicatorNumber, size_t* from, size_t* to, size_t* cur)
 {
 	size_t curPos = execute(SCI_GETCURRENTPOS);

@@ -520,7 +520,6 @@ public:
 	void columnReplace(ColumnModeInfos & cmi, const TCHAR *str);
 	void columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, UCHAR format);
 
-	void foldChanged(size_t line, int levelNow, int levelPrev);
 	void clearIndicator(int indicatorNumber) {
 		size_t docStart = 0;
 		size_t docEnd = getCurrentDocLen();

@@ -64,15 +64,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
 			}
 
-			if (notification->modificationType & SC_MOD_CHANGEFOLD)
-			{
-				if (prevWasEdit)
-				{
-					notifyView->foldChanged(notification->line, notification->foldLevelNow, notification->foldLevelPrev);
-					prevWasEdit = false;
-				}
-			}
-			else if (!(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
+			if ((notification->modificationType & SC_MOD_CHANGEFOLD) || !(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
 			{
 				prevWasEdit = false;
 			}

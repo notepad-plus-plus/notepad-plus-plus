@@ -341,6 +341,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_subEditView.execute(SCI_SETMARGINLEFT, 0, svp._paddingLeft);
 	_subEditView.execute(SCI_SETMARGINRIGHT, 0, svp._paddingRight);
 
+	// Improvement of the switching into the wrapped long line document
+	_mainEditView.execute(SCI_STYLESETCHECKMONOSPACED, STYLE_DEFAULT, true);
+	_subEditView.execute(SCI_STYLESETCHECKMONOSPACED, STYLE_DEFAULT, true);
+
 	TabBarPlus::doDragNDrop(true);
 
 	if (_toReduceTabBar)

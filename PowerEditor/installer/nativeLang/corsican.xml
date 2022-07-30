@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on July 18th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
+		- Updated on July 30th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 25th, 2022 for version 8.4.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on April 27th, 2022 for version 8.4.1 by Patriccollu di Santa Maria è Sichè
@@ -895,7 +895,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6120" name="Verticale"/>
                     <Item id="6121" name="Esce quandu l’ultima unghjetta si chjode"/>
 
-                    <Item id="6122" name="Piattà a barra di listinu (impiegà Alt o F10 per attivà/disattivà)"/>
+                    <Item id="6131" name="Listinu"/>
+                    <Item id="6122" name="Piattà a barra di listinu (impiegà Alt o F10 per attivà o disattivà)"/>
+                    <Item id="6132" name="Piattà l’accurtatoghji diritti ＋ ▼ ✕ da a barra di listinu (Richiede di rilancià Notepad++)"/>
                     <Item id="6123" name="Lingua"/>
 
                     <Item id="6128" name="Icone alternative"/>

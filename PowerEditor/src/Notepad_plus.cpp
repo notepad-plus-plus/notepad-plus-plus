@@ -686,6 +686,28 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	checkMenuItem(IDM_LANG_USER_DLG, uddShow);
 	_toolBar.setCheck(IDM_LANG_USER_DLG, uddShow);
 
+	//Hide or show the right shortcuts "＋" "▼" "✕" of main menu bar
+	if (nppGUI._hideMenuRightShortcuts)
+	{
+		int nbRemoved = 0;
+		const int bufferSize = 64;
+		TCHAR buffer[bufferSize];
+		int nbItem = GetMenuItemCount(_mainMenuHandle);
+		for (int i = nbItem - 1; i >= 0; --i)
+		{
+			::GetMenuStringW(_mainMenuHandle, i, buffer, bufferSize, MF_BYPOSITION);
+			if (lstrcmp(buffer, L"✕") == 0 || lstrcmp(buffer, L"▼") == 0 || lstrcmp(buffer, L"＋") == 0)
+			{
+				::RemoveMenu(_mainMenuHandle, i, MF_BYPOSITION);
+				++nbRemoved;
+			}
+			if (nbRemoved == 3)
+				break;
+		}
+		if (nbRemoved > 0)
+			::DrawMenuBar(hwnd);
+	}
+
 	//
 	// Initialize the default foreground & background color
 	//

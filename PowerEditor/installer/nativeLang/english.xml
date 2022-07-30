@@ -864,7 +864,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Exit on close the last tab"/>
 
+                    <Item id="6131" name="Menu"/>
                     <Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
+                    <Item id="6132" name="Hide right shortcuts ＋ ▼ ✕ from the menu bar (Need to restart Notepad++)"/>
                     <Item id="6123" name="Localization"/>
 
                     <Item id="6128" name="Alternate icons"/>

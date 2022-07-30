@@ -854,7 +854,9 @@
                     <Item id="6119" name="多行"/>
                     <Item id="6120" name="直式"/>
                     <Item id="6121" name="關閉最後一個文件時關閉程式"/>
+                    <Item id="6131" name="選單"/>
                     <Item id="6122" name="隱藏（用 Alt 或 F10 切換）"/>
+                    <Item id="6132" name="隱藏選單中右邊的 ＋ ▼ ✕ 捷徑（需要重新啟動 Notepad++）"/>
                     <Item id="6123" name="語言"/>
                     <Item id="6125" name="文件切換器"/>
                     <Item id="6127" name="停用副檔名欄"/>

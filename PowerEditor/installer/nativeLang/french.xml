@@ -863,8 +863,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6119" name="Multiligne"/>
                     <Item id="6120" name="Verticale"/>
                     <Item id="6121" name="Quitter lors de la fermeture du dernier onglet"/>
-
+                    <Item id="6131" name="Menu"/>
                     <Item id="6122" name="Cacher (Alt ou F10 pour basculer)"/>
+                    <Item id="6132" name="Cacher ＋ ▼ ✕ depuis le menu (nécessité de redémarrage)"/>
                     <Item id="6123" name="Langue"/>
 
                     <Item id="6128" name="Icônes alternatives"/>

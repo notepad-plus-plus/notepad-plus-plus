@@ -1769,6 +1769,11 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
 	{
+		UNREFERENCED_PARAMETER(hwndParent);
+		UNREFERENCED_PARAMETER(subclass);
+		UNREFERENCED_PARAMETER(theme);
+		
+		/*
 		struct Params
 		{
 			const wchar_t* themeClassName = nullptr;
@@ -2010,6 +2015,7 @@ namespace NppDarkMode
 
 			return TRUE;
 		}, reinterpret_cast<LPARAM>(&p));
+		*/
 	}
 
 	void autoThemeChildControls(HWND hwndParent)

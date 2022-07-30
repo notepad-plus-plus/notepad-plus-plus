@@ -1634,12 +1634,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_mainEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
 				_subEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
 			}
-			else
+			else if (nppGUI._caretWidth == 4)
 			{
 				_mainEditView.execute(SCI_SETCARETWIDTH, 1);
 				_subEditView.execute(SCI_SETCARETWIDTH, 1);
 				_mainEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK);
 				_subEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK);
+			}
+			else // nppGUI._caretWidth == 5
+			{
+				_mainEditView.execute(SCI_SETCARETWIDTH, 1);
+				_subEditView.execute(SCI_SETCARETWIDTH, 1);
+				_mainEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK | CARETSTYLE_BLOCK_AFTER);
+				_subEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK | CARETSTYLE_BLOCK_AFTER);
 			}
 			return TRUE;
 		}

@@ -350,6 +350,7 @@ namespace NppDarkMode
 	}
 
 	static bool g_isAtLeastWindows10 = false;
+	static bool g_isWine = false;
 
 	void initDarkMode()
 	{
@@ -359,6 +360,17 @@ namespace NppDarkMode
 		setDarkMode(_options.enable, true);
 
 		g_isAtLeastWindows10 = NppDarkMode::isWindows10();
+
+		using PWINEGETVERSION = const CHAR* (__cdecl *)(void);
+
+		PWINEGETVERSION pWGV = nullptr;
+		auto hNtdllModule = GetModuleHandle(L"ntdll.dll");
+		if (hNtdllModule)
+		{
+			pWGV = reinterpret_cast<PWINEGETVERSION>(GetProcAddress(hNtdllModule, "wine_get_version"));
+		}
+
+		g_isWine = pWGV != nullptr;
 	}
 
 	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
@@ -1447,7 +1459,7 @@ namespace NppDarkMode
 				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
 				if (hasHorScrollbar)
 				{
-					rcClient.bottom += ::GetSystemMetrics(SM_CXHSCROLL);
+					rcClient.bottom += ::GetSystemMetrics(SM_CYHSCROLL);
 				}
 
 				HPEN hPen = ::CreatePen(PS_SOLID, 1, NppDarkMode::getBackgroundColor());
@@ -1495,7 +1507,7 @@ namespace NppDarkMode
 				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
 				if (hasHorScrollbar)
 				{
-					lpRect->bottom -= ::GetSystemMetrics(SM_CXHSCROLL);
+					lpRect->bottom -= ::GetSystemMetrics(SM_CYHSCROLL);
 				}
 
 				return 0;
@@ -1769,14 +1781,7 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
 	{
-		struct Params
-		{
-			const wchar_t* themeClassName = nullptr;
-			bool subclass = false;
-			bool theme = false;
-		};
-
-		Params p{
+		NppDarkModeParams p{
 			g_isAtLeastWindows10 && NppDarkMode::isEnabled() ? L"DarkMode_Explorer" : nullptr
 			, subclass
 			, theme
@@ -1785,226 +1790,66 @@ namespace NppDarkMode
 		::EnableThemeDialogTexture(hwndParent, theme && !NppDarkMode::isEnabled() ? ETDT_ENABLETAB : ETDT_DISABLE);
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
-			auto& p = *reinterpret_cast<Params*>(lParam);
+			auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
 			constexpr size_t classNameLen = 16;
 			TCHAR className[classNameLen]{};
 			GetClassName(hwnd, className, classNameLen);
 
+			if (wcscmp(className, WC_BUTTON) == 0)
+			{
+				if (g_isAtLeastWindows10)
+				{
+					NppDarkMode::subclassAndThemeButton(hwnd, p);
+				}
+				return TRUE;
+			}
+
 			if (wcscmp(className, WC_COMBOBOX) == 0)
 			{
-				auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+				NppDarkMode::subclassAndThemeComboBox(hwnd, p);
+				return TRUE;
+			}
 
-				if ((style & CBS_DROPDOWNLIST) == CBS_DROPDOWNLIST || (style & CBS_DROPDOWN) == CBS_DROPDOWN)
+			if (wcscmp(className, WC_EDIT) == 0)
+			{
+				if (!g_isWine)
 				{
-					COMBOBOXINFO cbi = {};
-					cbi.cbSize = sizeof(COMBOBOXINFO);
-					BOOL result = GetComboBoxInfo(hwnd, &cbi);
-					if (result == TRUE)
-					{
-						if (p.theme && cbi.hwndList)
-						{
-							//dark scrollbar for listbox of combobox
-							SetWindowTheme(cbi.hwndList, p.themeClassName, nullptr);
-						}
-					}
-
-					NppDarkMode::subclassComboBoxControl(hwnd);
+					NppDarkMode::subclassAndThemeListBoxOrEditControl(hwnd, p, false);
 				}
 				return TRUE;
 			}
 
 			if (wcscmp(className, WC_LISTBOX) == 0)
 			{
-				if (p.theme)
+				if (!g_isWine)
 				{
-					//dark scrollbar for listbox
-					SetWindowTheme(hwnd, p.themeClassName, nullptr);
+					NppDarkMode::subclassAndThemeListBoxOrEditControl(hwnd, p, true);
 				}
-
-				auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-				bool isComboBox = (style & LBS_COMBOBOX) == LBS_COMBOBOX;
-				auto exStyle = ::GetWindowLongPtr(hwnd, GWL_EXSTYLE);
-				bool hasClientEdge = (exStyle & WS_EX_CLIENTEDGE) == WS_EX_CLIENTEDGE;
-
-				if (p.subclass && !isComboBox && hasClientEdge)
-				{
-					NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
-				}
-
-#ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
-
-				bool changed = false;
-				if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
-				{
-					if (NppDarkMode::isEnabled())
-					{
-						if (hasClientEdge)
-						{
-							::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
-							changed = true;
-						}
-					}
-					else if (!hasClientEdge)
-					{
-						::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
-						changed = true;
-					}
-				}
-
-				if (changed)
-				{
-					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-				}
-
-#endif // !__MINGW64__
-
-				return TRUE;
-			}
-
-			if (wcscmp(className, WC_EDIT) == 0)
-			{
-				auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-				bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
-				if (p.theme && hasScrollBar)
-				{
-					//dark scrollbar for edit control
-					SetWindowTheme(hwnd, p.themeClassName, nullptr);
-				}
-
-				auto exStyle = ::GetWindowLongPtr(hwnd, GWL_EXSTYLE);
-				bool hasClientEdge = (exStyle & WS_EX_CLIENTEDGE) == WS_EX_CLIENTEDGE;
-				if (p.subclass && hasClientEdge)
-				{
-					NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
-				}
-
-#ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
-
-				bool changed = false;
-				if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
-				{
-					if (NppDarkMode::isEnabled())
-					{
-						if (hasClientEdge)
-						{
-							::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
-							changed = true;
-						}
-					}
-					else if (!hasClientEdge)
-					{
-						::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
-						changed = true;
-					}
-				}
-
-				if (changed)
-				{
-					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-				}
-
-#endif // !__MINGW64__
-
-				return TRUE;
-			}
-
-			if (wcscmp(className, WC_BUTTON) == 0)
-			{
-				auto nButtonStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-				switch (nButtonStyle & BS_TYPEMASK)
-				{
-					// Plugin might use BS_3STATE and BS_AUTO3STATE button style
-					case BS_CHECKBOX:
-					case BS_AUTOCHECKBOX:
-					case BS_3STATE:
-					case BS_AUTO3STATE:
-					case BS_RADIOBUTTON:
-					case BS_AUTORADIOBUTTON:
-					{
-						if ((nButtonStyle & BS_PUSHLIKE) == BS_PUSHLIKE)
-						{
-							if (p.theme)
-							{
-								SetWindowTheme(hwnd, p.themeClassName, nullptr);
-							}
-							break;
-						}
-						if (p.subclass)
-						{
-							NppDarkMode::subclassButtonControl(hwnd);
-						}
-						break;
-					}
-					case BS_GROUPBOX:
-					{
-						if (p.subclass)
-						{
-							NppDarkMode::subclassGroupboxControl(hwnd);
-						}
-						break;
-					}
-					case BS_DEFPUSHBUTTON:
-					case BS_PUSHBUTTON:
-					{
-						if (p.theme)
-						{
-							SetWindowTheme(hwnd, p.themeClassName, nullptr);
-						}
-						break;
-					}
-				}
-				return TRUE;
-			}
-
-			if (wcscmp(className, TOOLBARCLASSNAME) == 0)
-			{
-				NppDarkMode::setDarkLineAbovePanelToolbar(hwnd);
-				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::toolbar);
-
 				return TRUE;
 			}
 
 			if (wcscmp(className, WC_LISTVIEW) == 0)
 			{
-				NppDarkMode::setDarkListView(hwnd);
-				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::listview);
-
-				ListView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
-				ListView_SetTextBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
-				ListView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
-
-				if (p.subclass)
-				{
-					auto exStyle = ListView_GetExtendedListViewStyle(hwnd);
-					ListView_SetExtendedListViewStyle(hwnd, exStyle | LVS_EX_DOUBLEBUFFER);
-					NppDarkMode::subclassListViewControl(hwnd);
-				}
-
+				NppDarkMode::subclassAndThemeListView(hwnd, p);
 				return TRUE;
 			}
 
 			if (wcscmp(className, WC_TREEVIEW) == 0)
 			{
-				TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
-				TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+				NppDarkMode::themeTreeView(hwnd, p);
+				return TRUE;
+			}
 
-				NppDarkMode::calculateTreeViewStyle();
-				NppDarkMode::setTreeViewStyle(hwnd);
-
-				NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::treeview);
-
+			if (wcscmp(className, TOOLBARCLASSNAME) == 0)
+			{
+				NppDarkMode::themeToolbar(hwnd, p);
 				return TRUE;
 			}
 
 			// Plugin might use rich edit control version 2.0 and later
 			if (wcscmp(className, L"RichEdit20W") == 0 || wcscmp(className, L"RICHEDIT50W") == 0)
 			{
-				if (p.theme)
-				{
-					//dark scrollbar for rich edit control
-					SetWindowTheme(hwnd, p.themeClassName, nullptr);
-				}
-
+				NppDarkMode::themeRichEdit(hwnd, p);
 				return TRUE;
 			}
 
@@ -2015,6 +1860,185 @@ namespace NppDarkMode
 	void autoThemeChildControls(HWND hwndParent)
 	{
 		autoSubclassAndThemeChildControls(hwndParent, false, g_isAtLeastWindows10);
+	}
+
+	void subclassAndThemeButton(HWND hwnd, NppDarkModeParams p)
+	{
+		auto nButtonStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+		switch (nButtonStyle & BS_TYPEMASK)
+		{
+			// Plugin might use BS_3STATE and BS_AUTO3STATE button style
+			case BS_CHECKBOX:
+			case BS_AUTOCHECKBOX:
+			case BS_3STATE:
+			case BS_AUTO3STATE:
+			case BS_RADIOBUTTON:
+			case BS_AUTORADIOBUTTON:
+			{
+				if ((nButtonStyle & BS_PUSHLIKE) == BS_PUSHLIKE)
+				{
+					if (p._theme)
+					{
+						SetWindowTheme(hwnd, p._themeClassName, nullptr);
+					}
+					break;
+				}
+				if (p._subclass)
+				{
+					NppDarkMode::subclassButtonControl(hwnd);
+				}
+				break;
+			}
+
+			case BS_GROUPBOX:
+			{
+				if (p._subclass)
+				{
+					NppDarkMode::subclassGroupboxControl(hwnd);
+				}
+				break;
+			}
+
+			case BS_DEFPUSHBUTTON:
+			case BS_PUSHBUTTON:
+			{
+				if (p._theme)
+				{
+					SetWindowTheme(hwnd, p._themeClassName, nullptr);
+				}
+				break;
+			}
+
+			default:
+			{
+				break;
+			}
+		}
+	}
+
+	void subclassAndThemeComboBox(HWND hwnd, NppDarkModeParams p)
+	{
+		auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+
+		if ((style & CBS_DROPDOWNLIST) == CBS_DROPDOWNLIST || (style & CBS_DROPDOWN) == CBS_DROPDOWN)
+		{
+			COMBOBOXINFO cbi = {};
+			cbi.cbSize = sizeof(COMBOBOXINFO);
+			BOOL result = ::GetComboBoxInfo(hwnd, &cbi);
+			if (result == TRUE)
+			{
+				if (p._theme && cbi.hwndList)
+				{
+					//dark scrollbar for listbox of combobox
+					::SetWindowTheme(cbi.hwndList, p._themeClassName, nullptr);
+				}
+			}
+
+			if (p._subclass)
+			{
+				NppDarkMode::subclassComboBoxControl(hwnd);
+			}
+		}
+	}
+
+	void subclassAndThemeListBoxOrEditControl(HWND hwnd, NppDarkModeParams p, bool isListBox)
+	{
+		const auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+		bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
+		if (p._theme && (isListBox || hasScrollBar))
+		{
+			//dark scrollbar for listbox or edit control
+			SetWindowTheme(hwnd, p._themeClassName, nullptr);
+		}
+
+		const auto exStyle = ::GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+		bool hasClientEdge = (exStyle & WS_EX_CLIENTEDGE) == WS_EX_CLIENTEDGE;
+		bool isCBoxListBox = isListBox && (style & LBS_COMBOBOX) == LBS_COMBOBOX;
+
+		if (p._subclass && hasClientEdge && !isCBoxListBox)
+		{
+			NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
+		}
+
+#ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
+
+		bool changed = false;
+		if (::GetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, nullptr) == TRUE)
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				if (hasClientEdge)
+				{
+					::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_CLIENTEDGE);
+					changed = true;
+				}
+			}
+			else if (!hasClientEdge)
+			{
+				::SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_CLIENTEDGE);
+				changed = true;
+			}
+		}
+
+		if (changed)
+		{
+			::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+		}
+
+#endif // !__MINGW64__
+	}
+
+	void subclassAndThemeListView(HWND hwnd, NppDarkModeParams p)
+	{
+		if (p._theme)
+		{
+			NppDarkMode::setDarkListView(hwnd);
+			NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::listview);
+		}
+
+		ListView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+		ListView_SetTextBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+		ListView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+
+		if (p._subclass)
+		{
+			auto exStyle = ListView_GetExtendedListViewStyle(hwnd);
+			ListView_SetExtendedListViewStyle(hwnd, exStyle | LVS_EX_DOUBLEBUFFER);
+			NppDarkMode::subclassListViewControl(hwnd);
+		}
+	}
+
+	void themeTreeView(HWND hwnd, NppDarkModeParams p)
+	{
+		TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
+		TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
+
+		NppDarkMode::calculateTreeViewStyle();
+		NppDarkMode::setTreeViewStyle(hwnd);
+
+		if (p._theme)
+		{
+			NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::treeview);
+		}
+	}
+
+	void themeToolbar(HWND hwnd, NppDarkModeParams p)
+	{
+		NppDarkMode::setDarkLineAbovePanelToolbar(hwnd);
+
+		if (p._theme)
+		{
+			NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::toolbar);
+		}
+	}
+
+	void themeRichEdit(HWND hwnd, NppDarkModeParams p)
+	{
+		if (p._theme)
+		{
+			//dark scrollbar for rich edit control
+			SetWindowTheme(hwnd, p._themeClassName, nullptr);
+		}
 	}
 
 	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam)

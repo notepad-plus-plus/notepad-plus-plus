@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.4.1">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.4.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -548,6 +548,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="2230" name="Aktivera global fet teckenstil"/>
 					<Item id="2231" name="Aktivera global kursiv teckenstil"/>
 					<Item id="2232" name="Aktivera global understruken teckenstil"/>
+					<Item id="2234" name="Gå till inställningarna"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -864,7 +865,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6120" name="Vertikalt"/>
 					<Item id="6121" name="Avsluta när sista fliken stängs"/>
 
+					<Item id="6131" name="Meny"/>
 					<Item id="6122" name="Dölj menyraden (använd Alt eller F10 för att visa)"/>
+					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan i menyfältet (kräver omstart av Notepad++)"/>
 					<Item id="6123" name="Gränssnittsspråk"/>
 					
 					<Item id="6128" name="Alternativa ikoner"/>
@@ -891,6 +894,10 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6653" name="Markerad bakgrund"/>
 					<Item id="6654" name="Kontur"/>
 					<Item id="6655" name="Bredd"/>
+					<Item id="6247" name="Radslut (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Standard"/>
+					<Item id="6249" name="Vanlig text"/>
+					<Item id="6250" name="Anpassad färg"/>
 				</Scintillas>
 
 				<DarkMode title="Mörkt läge">
@@ -914,6 +921,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="7124" name="Kantlinjer"/>
 					<Item id="7125" name="Länktext"/>
 					<Item id="7126" name="Kantmarkering"/>
+					<Item id="7127" name="Inaktiverade kantlinjer"/>
 					<Item id="7130" name="Återställ"/>
 					<Item id="7135" name="Toner"/>
 				</DarkMode>
@@ -1044,6 +1052,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6903" name="Sökdialogen stannar öppen efter sökningar som matar ut till resultatfönstret"/>
 					<Item id="6904" name="Visa bekräftelsedialog för &quot;Ersätt alla i alla öppna dokument&quot;"/>
 					<Item id="6905" name="Ersätt: Hoppa inte till nästa förekomst"/>
+					<Item id="6906" name="Resultatfönstret: Visa endast en post per funnen rad"/>
 				</Searching>
 
 				<RecentFilesHistory title="Senast öppnade filer">
@@ -1430,6 +1439,9 @@ Vill du fortsätta?"/>
 		<MiscStrings>
 			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söka med alternativet &quot;Matcha enbart hela ord&quot; valt."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			
+			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+			<eol-custom-color-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för radslut (&quot;EOL custom color&quot;)."/>
 
 			<word-chars-list-warning-begin value="Observera: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ mellanslag"/>

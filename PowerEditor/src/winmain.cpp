@@ -730,16 +730,23 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 		bool going = true;
 		while (going)
 		{
-			going = ::GetMessageW(&msg, NULL, 0, 0) != 0;
-			if (going)
+			DWORD wait_object = ::MsgWaitForMultipleObjectsEx(0, nullptr, INFINITE, QS_ALLINPUT, MWMO_ALERTABLE);
+			going = wait_object != WAIT_FAILED;
+			if(wait_object == WAIT_OBJECT_0)
 			{
-				// if the message doesn't belong to the notepad_plus_plus's dialog
-				if (!notepad_plus_plus.isDlgsMsg(&msg))
-				{
-					if (::TranslateAccelerator(notepad_plus_plus.getHSelf(), notepad_plus_plus.getAccTable(), &msg) == 0)
+				while (going && ::PeekMessageW(&msg, NULL, 0, 0, PM_REMOVE)) {
+					going = msg.message != WM_QUIT;
+					if (going)
 					{
-						::TranslateMessage(&msg);
-						::DispatchMessageW(&msg);
+						// if the message doesn't belong to the notepad_plus_plus's dialog
+						if (!notepad_plus_plus.isDlgsMsg(&msg))
+						{
+							if (::TranslateAccelerator(notepad_plus_plus.getHSelf(), notepad_plus_plus.getAccTable(), &msg) == 0)
+							{
+								::TranslateMessage(&msg);
+								::DispatchMessageW(&msg);
+							}
+						}
 					}
 				}
 			}

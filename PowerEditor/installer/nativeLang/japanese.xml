@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -359,6 +359,8 @@
                     <Item id="50000" name="関数名補完"/>
                     <Item id="50001" name="単語補完"/>
                     <Item id="50002" name="関数パラメータのヒント"/>
+                    <Item id="50010" name="前の関数パラメータのヒントへ"/>
+                    <Item id="50011" name="次の関数パラメータのヒントへ"/>
                     <Item id="50005" name="マクロの記録を開始・停止"/>
                     <Item id="50006" name="パス補完"/>
                     <Item id="44042" name="行を隠す"/>
@@ -868,7 +870,9 @@
                     <Item id="6120" name="縦に表示する"/>
                     <Item id="6121" name="最後のタブを閉じると終了する"/>
 
+                    <Item id="6131" name="メニュー"/>
                     <Item id="6122" name="メインメニューを隠す(表示するには Alt か F10 を押す)"/>
+                    <Item id="6132" name="メインメニュー右端の ＋ ▼ ✕ ボタンを非表示にする(Notepad++ の再起動が必要)"/>
                     <Item id="6123" name="言語"/>
 
                     <Item id="6128" name="別デザインのアイコンを使用する"/>
@@ -1048,12 +1052,14 @@
                 </Print>
                 
                 <Searching title="検索">
-                    <Item id="6901" name="検索画面の検索文字列欄に、選択中の文字を自動入力しない"/>
                     <Item id="6902" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
                     <Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
                     <Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
                     <Item id="6905" name="置換時に、次の出現箇所に移動しない"/>
                     <Item id="6906" name="検索結果画面：複数回一致した行を 1行にまとめて表示する"/>
+                    <Item id="6907" name="検索画面を開くときの動作"/>
+                    <Item id="6908" name="検索文字列欄に、選択中の文字列を自動入力する"/>
+                    <Item id="6909" name="何も選択されていないときは、カーソル位置の単語を自動入力する"/>
                 </Searching>
 
 

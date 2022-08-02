@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.3">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -340,7 +340,7 @@
                     <Item id="47009" name="Nastaviť proxy server pre aktualizáciu..."/>
                     <Item id="48005" name="Importovať doplnky..."/>
                     <Item id="48006" name="Importovať témy..."/>
-                    <Item id="48018" name="Úprava kontextového menu…"/>
+                    <Item id="48018" name="Úprava kontextovej ponuky…"/>
                     <Item id="48009" name="Nastavenie klávesových skratiek..."/>
                     <Item id="48011" name="Preferencie..."/>
                     <Item id="48014" name="Otvoriť priečinok pluginov..."/>
@@ -562,7 +562,7 @@
                 <ColumnShortcut name="Skratka"/>
                 <ColumnCategory name="Kategória"/>
                 <ColumnPlugin name="Doplnok"/>
-                <MainMenuTab name="Hlavné menu"/>
+                <MainMenuTab name="Hlavná ponuka"/>
                 <MacrosTab name="Makrá"/>
                 <RunCommandsTab name="Ponuka Spustiť"/>
                 <PluginCommandsTab name="Príkazy doplnkov"/>
@@ -864,7 +864,9 @@
                     <Item id="6120" name="Vertikálny"/>
                     <Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
 
-                    <Item id="6122" name="Skryť panel menu (Na prepínanie použite klávesu Alt alebo F10)"/>
+                    <Item id="6131" name="Ponuka"/>
+                    <Item id="6122" name="Skryť panel ponuky (Na prepínanie použite klávesu Alt alebo F10)"/>
+                    <Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕ z panela ponuky (Vyžaduje reštart Notepad++)"/>
                     <Item id="6123" name="Lokalizácia"/>
 
                     <Item id="6128" name="Alternatívne ikony"/>
@@ -908,7 +910,7 @@
                         <Item id="7109" name="Olivová"/>
                         <Item id="7115" name="Vlastná"/>
                         <Item id="7116" name="Horný panel"/>
-                        <Item id="7117" name="Položka hlavného menu"/>
+                        <Item id="7117" name="Položka hlavnej ponuky"/>
                         <Item id="7118" name="Aktívna"/>
                         <Item id="7119" name="Hlavné"/>
                         <Item id="7120" name="Chyba"/>
@@ -978,8 +980,8 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                 <Language title="Jazyk">
                     <Item id="6505" name="Dostupné položky"/>
                     <Item id="6506" name="Nepoužívané položky"/>
-                    <Item id="6507" name="Kompaktné menu jazyka"/>
-                    <Item id="6508" name="Menu jazyka"/>
+                    <Item id="6507" name="Kompaktná ponuka jazyka"/>
+                    <Item id="6508" name="Ponuka jazyka"/>
                     <Item id="6301" name="Nastavenie tabulátora"/>
                     <Item id="6302" name="Nahradiť medzerami"/>
                     <Item id="6303" name="Veľkosť tabulátora: "/>
@@ -1057,7 +1059,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6306" name="Max. počet položiek:"/>
                     <Item id="6305" name="Nekontrolovať pri spustení"/>
                     <Item id="6429" name="Zobrazenie"/>
-                    <Item id="6424" name="Zobraziť ako menu"/>
+                    <Item id="6424" name="Zobraziť ako ponuku"/>
                     <Item id="6425" name="Len názov súboru"/>
                     <Item id="6426" name="Celá cesta k súboru"/>
                     <Item id="6427" name="Prispôsobiť maximálnu dĺžku:"/>
@@ -1234,7 +1236,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Preferenciách."/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="Úprava kontextového menu" message="Úpravou súboru contextMenu.xml zmeníte vyskakovacie kontextové menu programu.
+            <ContextMenuXmlEditWarning title="Úprava kontextovej ponuky" message="Úpravou súboru contextMenu.xml zmeníte kontextovú ponuku programu.
 Bude potrebné reštartovať Notepad++, aby sa zmeny v súbore  prejavili."/>
             <SaveCurrentModifWarning title="Uložiť zmeny" message="Mali by ste uložiť aktuálne zmeny.
 Uložené zmeny nie je možné vrátiť.

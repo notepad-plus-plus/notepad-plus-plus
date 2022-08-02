@@ -11,7 +11,7 @@
 | **Windows 98**          | NO (unknown)                    |          NO               |
 | **Windows ME**          | NO (unknown)                    |          NO               |
 | **Windows NT**          | NO (unknown)                    |          NO               |
-| **Windows 2000**        | NO (unknown)                    |          NO               |
+| **Windows 2000**        | NO (v6.6.9 & previous versions) |          NO               |
 | **Windows XP**          | NO (v7.9.2 & previous versions) |          NO               |
 | **Windows Server 2003** | NO (v7.9.2 & previous versions) |          NO               |
 | **Windows Vista**       | YES                             |          NO               |

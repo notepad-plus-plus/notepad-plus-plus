@@ -282,8 +282,8 @@ struct CmdLineParamsDTO
 	intptr_t _pos2go = 0;
 
 	LangType _langType = L_EXTERNAL;
-	wchar_t _udlName[MAX_PATH];
-	wchar_t _pluginMessage[MAX_PATH];
+	wchar_t _udlName[MAX_PATH] = {'\0'};
+	wchar_t _pluginMessage[MAX_PATH] = {'\0'};
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{

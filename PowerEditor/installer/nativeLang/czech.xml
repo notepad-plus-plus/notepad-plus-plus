@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.4.3  4/Jul/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.4.5  5/Aug/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.3">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -326,9 +326,9 @@
 					<Item id = "45057" name = "OEM 865: Skandinávské jazyky"/>
 					<Item id = "45053" name = "OEM 860: Portugalština"/>
 					<Item id = "45056" name = "OEM 863: Francouzština"/>
-					<Item id = "10001" name = "Přepnout náhled"/>
-					<Item id = "10002" name = "Vytvořit kopii v samostatném náhledu"/>
-					<Item id = "10003" name = "Jít na novou instanci"/>
+					<Item id = "10001" name = "Přesunout do druhého náhledu"/>
+					<Item id = "10002" name = "Vytvořit kopii v druhém náhledu"/>
+					<Item id = "10003" name = "Přesunout do nové instance"/>
 					<Item id = "10004" name = "Otevřít v nové instanci"/>
 					<Item id = "46001" name = "Upravit styl..."/>
 					<Item id = "46015" name = "MS-DOS styl"/>
@@ -394,8 +394,8 @@
 				<Item CMID = "2" name = "Uložit"/>
 				<Item CMID = "3" name = "Uložit jako..."/>
 				<Item CMID = "4" name = "Tisk..."/>
-				<Item CMID = "5" name = "Přepnout náhled"/>
-				<Item CMID = "6" name = "Vytvořit kopii v samostatném náhledu"/>
+				<Item CMID = "5" name = "Přesunout do druhého náhledu"/>
+				<Item CMID = "6" name = "Vytvořit kopii v druhém náhledu"/>
 				<Item CMID = "7" name = "Název souboru i s cestou do Schránky"/>
 				<Item CMID = "8" name = "Název souboru do Schránky"/>
 				<Item CMID = "9" name = "Název aktuálního adresáře do Schránky"/>
@@ -403,7 +403,7 @@
 				<Item CMID = "11" name = "Smazat"/>
 				<Item CMID = "12" name = "Pouze ke čtení"/>
 				<Item CMID = "13" name = "Vymazat příznak Pouze ke čtení"/>
-				<Item CMID = "14" name = "Jít na novou instanci"/>
+				<Item CMID = "14" name = "Přesunout do nové instance"/>
 				<Item CMID = "15" name = "Otevřít v nové instanci"/>
 				<Item CMID = "16" name = "Znovu načíst"/>
 				<Item CMID = "17" name = "Zavřít vše nalevo"/>
@@ -560,6 +560,7 @@
 					<Item id = "2230" name = "Povolit globálně tučný styl písma"/>
 					<Item id = "2231" name = "Povolit globálně ležatý styl písma"/>
 					<Item id = "2232" name = "Povolit globálně podtržený styl písma"/>
+					<Item id = "2234" name = "Přejít do nastavení"/>
 				</SubDialog>
 			</StyleConfig>
 			
@@ -907,11 +908,13 @@
 					<Item id = "6119" name = "Více řad"/>
 					<Item id = "6120" name = "Vertikální"/>
 					<Item id = "6121" name = "Ukončit při uzavření poslední karty"/>
-					<Item id = "6122" name = "Skrýt hl. menu (klávesa Alt nebo F10 slouží k přepínání)"/>
+					<Item id = "6122" name = "Skrýt menu (klávesa Alt nebo F10 slouží jako přepínač)"/>
 					<Item id = "6123" name = "Lokalizace"/>
 					<Item id = "6128" name = "Alternativní ikony"/>
 					<Item id = "6129" name = "Fluent UI: malé ikony s výplní"/>
 					<Item id = "6130" name = "Fluent UI: velké ikony s výplní"/>
+					<Item id = "6131" name = "Hlavní menu"/>
+					<Item id = "6132" name = "Skrýt ovládací prvky ＋ ▼ ✕ menu vpravo nahoře (vyžaduje restart Notepadu++)"/>
 				</Global>
 				<Scintillas title = "Editace">
 					<Item id = "6215" name = "Povolit vyhlazování fontu"/>
@@ -951,7 +954,7 @@
 					<Item id = "7109" name = "Olivový"/>
 					<Item id = "7115" name = "Vlastní"/>
 					<Item id = "7116" name = "Horní panel"/>
-					<Item id = "7117" name = "Aktuální (hot-track) pol."/>
+					<Item id = "7117" name = "Hot-track položka menu"/>
 					<Item id = "7118" name = "Aktivní položky"/>
 					<Item id = "7119" name = "Hlavní položky"/>
 					<Item id = "7120" name = "Chyby"/>

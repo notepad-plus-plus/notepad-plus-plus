@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.3">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.5">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -405,6 +405,8 @@
                     <Item id="50000" name="自動完成函數"/>
                     <Item id="50001" name="自動完成字詞"/>
                     <Item id="50002" name="功能參數提示"/>
+                    <Item id="50010" name="功能參數：上一個提示"/> <!-- #new v8.4.5 -->
+                    <Item id="50011" name="功能參數：下一個提示"/> <!-- #new v8.4.5 -->
 
                     <!-- type: Shortcut Mapper dialog -->
                     <Item id="50005" name="開始/停止錄製 macro"/>
@@ -610,6 +612,7 @@
                     <Item id="2230" name="啟用全域粗體"/>
                     <Item id="2231" name="啟用全域斜體"/>
                     <Item id="2232" name="啟用全域底線"/>
+                    <Item id="2234" name="跳去相關嘅設定"/> <!-- #new v8.4.4 -->
                 </SubDialog>
             </StyleConfig>
 
@@ -931,7 +934,9 @@
                     <Item id="6119" name="多行"/>
                     <Item id="6120" name="打直"/>
                     <Item id="6121" name="閂最後份文件嗰陣順便閂埋個程式"/>
+                    <Item id="6131" name="Menu"/> <!-- #new v8.4.5 -->
                     <Item id="6122" name="隱藏 menu bar（撳 Alt 或者 F10 切換）"/>
+                    <Item id="6132" name="隱藏 menu bar 右邊嗰啲快捷鍵 ＋ ▼ ✕（需要重開 Notepad++）"/> <!-- #new v8.4.5 -->
                     <Item id="6123" name="本土化"/>
                     <Item id="6128" name="另類圖示"/> <!-- #new v7.9.1 -->
                 </Global>
@@ -942,7 +947,7 @@
                     <Item id="6219" name="眨嘅頻率："/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
-                    <Item id="6246" name="以切換命令「摺埋/展開呢層」"/> <!-- #new v8.4.2 #review-->
+                    <Item id="6246" name="「摺埋呢層」同「展開呢層」命令改為「切換」"/> <!-- #new v8.4.2 -->
                     <Item id="6225" name="幾個位置同時改嘢（Ctrl + 撳／撳著滑鼠掣）"/>
                     <Item id="6227" name="自動換行"/> <!-- #moved in v7.9.2 -->
                     <Item id="6228" name="預設"/> <!-- #moved in v7.9.2 -->
@@ -985,8 +990,8 @@
                     <Item id="7123" name="停用咗嘅字"/> <!-- #new v8.1.2 -->
                     <Item id="7124" name="邊緣線"/> <!-- #new v8.1.2 -->
                     <Item id="7125" name="Link"/> <!-- #new v8.2.1 -->
-                    <Item id="7126" name="突顯邊緣線"/> <!-- #new v8.4.2 #review -->
-                    <Item id="7127" name="禁用邊緣線"/> <!-- #new v8.4.3 -->
+                    <Item id="7126" name="突顯緊嘅邊緣線"/> <!-- #new v8.4.2 -->
+                    <Item id="7127" name="禁用咗嘅邊緣線"/> <!-- #new v8.4.3 -->
                     <Item id="7130" name="重新設定"/> <!-- #new v8.1.2 -->
                     <Item id="7135" name="色調"/> <!-- #new v8.4.2 -->
                 </DarkMode>
@@ -1113,12 +1118,15 @@
                 </Print>
 
                 <Searching title="搵嘢">
-                    <Item id="6901" name="撳搵嘢／取代嗰陣，唔好將揀咗嘅字自動輸入去對話框"/>
+                    <Item id="6901" name="撳搵嘢／取代嗰陣，唔好將揀咗嘅字自動輸入去對話框"/> <!-- #legacy v8.4.4 -->
                     <Item id="6902" name="搵／取代對話框啲字用等寬字型（需要重開 Notepad++）"/>
                     <Item id="6903" name="搵完嘢，保持開著個對話框"/>
                     <Item id="6904" name="喺所有打開咗嘅文件執行取代之前，要先做確認"/>
                     <Item id="6905" name="取代完唔好跳去另一個關鍵字"/> <!-- #new v7.9.6 -->
                     <Item id="6906" name="搜尋結果視窗：一行顯示唔重複"/> <!-- #new v8.4.3 -->
+                    <Item id="6907" name="搵／取代對話框彈出嚟嗰陣時"/> <!-- #new v8.4.5 -->
+                    <Item id="6908" name="將揀咗嘅字填去輸入欄"/> <!-- #new v8.4.5 -->
+                    <Item id="6909" name="冇揀字嘅話，就揀浮標下面個字詞"/> <!-- #new v8.4.5 -->
                 </Searching>
 
                 <RecentFilesHistory title="最近用過嘅檔案記錄">

@@ -610,6 +610,7 @@
                     <Item id="2230" name="啟用全域粗體"/>
                     <Item id="2231" name="啟用全域斜體"/>
                     <Item id="2232" name="啟用全域底線"/>
+                    <Item id="2234" name="跳去偏好設定"/> <!-- #new #next -->
                 </SubDialog>
             </StyleConfig>
 
@@ -931,7 +932,9 @@
                     <Item id="6119" name="多行"/>
                     <Item id="6120" name="打直"/>
                     <Item id="6121" name="閂最後份文件嗰陣順便閂埋個程式"/>
+                    <Item id="6131" name="Menu"/> <!-- #new #next -->
                     <Item id="6122" name="隱藏 menu bar（撳 Alt 或者 F10 切換）"/>
+                    <Item id="6132" name="隱藏 menu bar 右邊嗰啲快捷鍵 ＋ ▼ ✕（需要重開 Notepad++）"/> <!-- #new #next -->
                     <Item id="6123" name="本土化"/>
                     <Item id="6128" name="另類圖示"/> <!-- #new v7.9.1 -->
                 </Global>

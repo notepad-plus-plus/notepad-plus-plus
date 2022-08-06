@@ -336,7 +336,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const NppGUI & nppGui = nppParam.getNppGUI();
 			if (!nppGui._stopFillingFindField)
 			{
-				_pEditView->getGenericSelectedText(str, strSize);
+				_pEditView->getGenericSelectedText(str, strSize, !nppGui._stopSelectingNearestWordOnFind);
 				_findReplaceDlg.setSearchText(str);
 			}
 

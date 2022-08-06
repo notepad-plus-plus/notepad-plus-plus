@@ -5479,6 +5479,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optStopFillingFindField)
 				_nppGUI._stopFillingFindField = (lstrcmp(optStopFillingFindField, TEXT("yes")) == 0);
 
+			const TCHAR* optOnlyFillFindFieldOnSelection = element->Attribute(TEXT("onlyFillFindFieldOnSelection"));
+			if (optOnlyFillFindFieldOnSelection)
+				_nppGUI._stopSelectingNearestWordOnFind = (lstrcmp(optOnlyFillFindFieldOnSelection, TEXT("yes")) == 0);
+
 			const TCHAR* optFindDlgAlwaysVisible = element->Attribute(TEXT("findDlgAlwaysVisible"));
 			if (optFindDlgAlwaysVisible)
 				_nppGUI._findDlgAlwaysVisible = (lstrcmp(optFindDlgAlwaysVisible, TEXT("yes")) == 0);
@@ -6679,6 +6683,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		GUIConfigElement->SetAttribute(TEXT("monospacedFontFindDlg"), _nppGUI._monospacedFontFindDlg ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("stopFillingFindField"), _nppGUI._stopFillingFindField ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("onlyFillFindFieldOnSelection"), _nppGUI._stopSelectingNearestWordOnFind ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("findDlgAlwaysVisible"), _nppGUI._findDlgAlwaysVisible ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("confirmReplaceInAllOpenDocs"), _nppGUI._confirmReplaceInAllOpenDocs ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("replaceStopsWithoutFindingNext"), _nppGUI._replaceStopsWithoutFindingNext ? TEXT("yes") : TEXT("no"));

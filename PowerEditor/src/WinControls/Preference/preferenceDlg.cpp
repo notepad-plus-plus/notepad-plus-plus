@@ -4953,9 +4953,11 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STOPFILLINGFINDFIELD, BM_SETCHECK, nppGUI._stopFillingFindField, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFindDlg, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, BM_SETCHECK, nppGUI._findDlgAlwaysVisible, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND), nppGUI._stopFillingFindField ? FALSE : TRUE);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CONFIRMREPLOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWONCEPERFOUNDLINE, BM_SETCHECK, nppGUI._finderShowOnlyOneEntryPerFoundLine, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND, BM_SETCHECK, nppGUI._stopSelectingNearestWordOnFind, 0);
 		}
 		break;
 
@@ -4985,6 +4987,7 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_CHECK_STOPFILLINGFINDFIELD:
 				{
 					nppGUI._stopFillingFindField = isCheckedOrNot(IDC_CHECK_STOPFILLINGFINDFIELD);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND), nppGUI._stopFillingFindField ? FALSE :TRUE);
 					return TRUE;
 				}
 				break;
@@ -5020,6 +5023,13 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_CHECK_SHOWONCEPERFOUNDLINE:
 				{
 					nppGUI._finderShowOnlyOneEntryPerFoundLine = isCheckedOrNot(IDC_CHECK_SHOWONCEPERFOUNDLINE);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND:
+				{
+					nppGUI._stopSelectingNearestWordOnFind = isCheckedOrNot(IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND);
 					return TRUE;
 				}
 				break;

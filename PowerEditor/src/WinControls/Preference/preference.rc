@@ -323,11 +323,12 @@ STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     CONTROL         "Don't fill find field in Find dialog with selected word", IDC_CHECK_STOPFILLINGFINDFIELD, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,10,350,10
-    CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)",IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,25,350,10
-    CONTROL         "Find dialog remains open after search that outputs to results window",IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,40,350,10
-    CONTROL         "Confirm Replace All in All Opened Documents",IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,55,350,10
-    CONTROL         "Replace: Don't move to the following occurrence", IDC_CHECK_REPLACEANDSTOP, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 70, 350, 10
-    CONTROL         "Search Result window: show only one entry per found line", IDC_CHECK_SHOWONCEPERFOUNDLINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 85, 350, 10
+    CONTROL         "Don't select closest word when Find dialog is displayed", IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 25, 350, 10
+    CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)",IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37, 40,350,10
+    CONTROL         "Find dialog remains open after search that outputs to results window",IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37, 55,350,10
+    CONTROL         "Confirm Replace All in All Opened Documents",IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,37, 70,350,10
+    CONTROL         "Replace: Don't move to the following occurrence", IDC_CHECK_REPLACEANDSTOP, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 85, 350, 10
+    CONTROL         "Search Result window: show only one entry per found line", IDC_CHECK_SHOWONCEPERFOUNDLINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 100, 350, 10
     END
 
 

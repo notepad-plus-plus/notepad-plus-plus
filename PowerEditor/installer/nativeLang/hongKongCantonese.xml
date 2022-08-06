@@ -610,7 +610,7 @@
                     <Item id="2230" name="啟用全域粗體"/>
                     <Item id="2231" name="啟用全域斜體"/>
                     <Item id="2232" name="啟用全域底線"/>
-                    <Item id="2234" name="跳去偏好設定"/> <!-- #new #next -->
+                    <Item id="2234" name="跳去相關嘅設定"/> <!-- #new #next -->
                 </SubDialog>
             </StyleConfig>
 

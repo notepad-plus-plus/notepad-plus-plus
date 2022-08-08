@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.1">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -356,6 +356,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="50000" name="Conclusão da função"/>
                     <Item id="50001" name="Conclusão da palavra"/>
                     <Item id="50002" name="Dica dos parâmetros da função"/>
+                    <Item id="50010" name="Dica anterior dos parâmetros da função"/>
+                    <Item id="50011" name="Dica seguinte dos parâmetros da função"/>
                     <Item id="50005" name="Alternar para gravação de macro"/>
                     <Item id="50006" name="Conclusão da localização"/>
                     <Item id="44042" name="Ocultar linhas"/>
@@ -1046,12 +1048,14 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 </Print>
 
                 <Searching title="Procurar">
-                    <Item id="6901" name="Não preencha o campo Encontrar na janela Encontrar com a palavra selecionada"/>
                     <Item id="6902" name="Usar letra monoespaçada na janela Encontrar (é necessário reiniciar o Notepad ++)"/>
                     <Item id="6903" name="A janela Encontrar permanece aberta após a pesquisa que resulta na janela de resultados"/>
                     <Item id="6904" name="Confirmar o substituir tudo em todos os documentos abertos"/>
                     <Item id="6905" name="Substituir: não mover para a seguinte ocorrência"/>
                     <Item id="6906" name="Janela de resultado da pesquisa: mostrar apenas uma entrada por linha encontrada"/>
+                    <Item id="6907" name="Quando a caixa de diálogo Encontrar é invocada"/>
+                    <Item id="6908" name="Preencher o campo Encontrar com o texto selecionado"/>
+                    <Item id="6909" name="Selecionar a palavra sob acento circunflexo quando nada selecionado"/>
                 </Searching>
 
                 <RecentFilesHistory title="Histórico fic. recentes">
@@ -1587,7 +1591,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-08/08/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+31/08/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

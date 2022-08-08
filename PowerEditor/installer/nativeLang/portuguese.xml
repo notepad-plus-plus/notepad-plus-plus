@@ -852,19 +852,21 @@ The comments are here for explanation, it's not necessary to translate them.
 
                     <Item id="6106" name="Barra do separador"/>
                     <Item id="6107" name="Reduzir"/>
-                    <Item id="6108" name="Bloquear (não arrastar e largar)"/>
+                    <Item id="6108" name="Bloquear (sem arrastar e largar)"/>
                     <Item id="6109" name="Escurecer separadores inativos"/>
-                    <Item id="6110" name="Mostrar barra colorida no separador ativo"/>
+                    <Item id="6110" name="Barra colorida no separador ativo"/>
 
                     <Item id="6111" name="Mostrar barra de estado"/>
-                    <Item id="6112" name="Mostrar botão fechar em cada separador"/>
+                    <Item id="6112" name="Botão de fechar em cada separador"/>
                     <Item id="6113" name="Clique duplo para fechar documento"/>
                     <Item id="6118" name="Ocultar"/>
                     <Item id="6119" name="Múltiplas linhas"/>
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Sair ao fechar o último separador"/>
 
+                    <Item id="6131" name="Menu"/>
                     <Item id="6122" name="Ocultar barra de menu (utilizar Alt ou F10 para alternar)"/>
+                    <Item id="6132" name="Ocultar atalhos ＋ ▼ ✕ da barra de menu (é necessário reiniciar)"/>
                     <Item id="6123" name="Idioma"/>
 
                     <Item id="6128" name="Alternar ícones"/>
@@ -1007,27 +1009,27 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 <Print title="Impressão">
                     <Item id="6601" name="Imprimir número da linha"/>
                     <Item id="6602" name="Opções da cor"/>
-                    <Item id="6603" name="O que vê é o que obtém (WYSIWYG)"/>
+                    <Item id="6603" name="Imprimir como no ecrã"/>
                     <Item id="6604" name="Inverter"/>
                     <Item id="6605" name="Preto sobre branco"/>
                     <Item id="6606" name="Sem cor de fundo"/>
                     <Item id="6607" name="Definições da margem (mm)"/>
                     <Item id="6612" name="Esquerda"/>
-                    <Item id="6613" name="Topo"/>
+                    <Item id="6613" name="Superior"/>
                     <Item id="6614" name="Direita"/>
-                    <Item id="6615" name="Base"/>
+                    <Item id="6615" name="Inferior"/>
                     <Item id="6706" name="Negrito"/>
                     <Item id="6707" name="Itálico"/>
                     <Item id="6708" name="Cabeçalho"/>
-                    <Item id="6709" name="Parte esquerda"/>
-                    <Item id="6710" name="Parte central"/>
-                    <Item id="6711" name="Parte direita"/>
+                    <Item id="6709" name="Esquerda"/>
+                    <Item id="6710" name="Centro"/>
+                    <Item id="6711" name="Direita"/>
                     <Item id="6717" name="Negrito"/>
                     <Item id="6718" name="Itálico"/>
                     <Item id="6719" name="Rodapé"/>
-                    <Item id="6720" name="Parte esquerda"/>
-                    <Item id="6721" name="Parte central"/>
-                    <Item id="6722" name="Parte direita"/>
+                    <Item id="6720" name="Esquerda"/>
+                    <Item id="6721" name="Centro"/>
+                    <Item id="6722" name="Direita"/>
                     <Item id="6723" name="Adicionar"/>
                     <ComboBox id="6724">
                         <Element name="Localização do nome completo do ficheiro"/>
@@ -1039,7 +1041,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                         <Element name="Hora"/>
                     </ComboBox>
                     <Item id="6725" name="Variável:"/>
-                    <Item id="6727" name="Aqui mostra as definições da sua variável"/>
+                    <Item id="6727" name="As variáveis são exibidas aqui"/>
                     <Item id="6728" name="Cabeçalho e Rodapé"/>
                 </Print>
 
@@ -1094,12 +1096,12 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6814" name="Valor válido: 1 - 9"/>
                     <Item id="6815" name="Sugerir dicas da função ao escrever"/>
                     <Item id="6851" name="Inserir automático"/>
-                    <Item id="6857" name="Etiqueta fechar html/xml"/>
+                    <Item id="6857" name="Etiqueta fechar (html/xml)"/>
                     <Item id="6858" name="Abrir"/>
                     <Item id="6859" name="Fechar"/>
-                    <Item id="6860" name="Par 1 Correspondido:"/>
-                    <Item id="6863" name="Par 2 Correspondido:"/>
-                    <Item id="6866" name="Par 3 Correspondido:"/>
+                    <Item id="6860" name="Par correspondente 1:"/>
+                    <Item id="6863" name="Par correspondente 2:"/>
+                    <Item id="6866" name="Par correspondente 3:"/>
                 </AutoCompletion>
 
                 <MultiInstance title="Multi-instância e Data">
@@ -1585,7 +1587,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-14/07/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+08/08/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

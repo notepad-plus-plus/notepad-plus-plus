@@ -126,16 +126,16 @@
                     <Item id="42013" name="Unir linhas"/>
                     <Item id="42014" name="Mover linha atual para cima"/>
                     <Item id="42015" name="Mover linha atual para baixo"/>
-                    <Item id="42059" name="Organizar em ordem crescente"/>
-                    <Item id="42060" name="Organizar em ordem decrescente"/>
-                    <Item id="42080" name="Organizar em ordem crescente - ignorando maiúsculas/minúsculas"/>
-                    <Item id="42081" name="Organizar em ordem decrescente - ignorando maiúsculas/minúsculas"/>
-                    <Item id="42061" name="Organizar como números inteiros - ordem crescente"/>
-                    <Item id="42062" name="Organizar como números inteiros - ordem decrescente"/>
-                    <Item id="42063" name="Organizar como números decimais (vírgula) - ordem crescente"/>
-                    <Item id="42064" name="Organizar como números decimais (vírgula) - ordem decrescente"/>
-                    <Item id="42065" name="Organizar como números decimais (ponto) - ordem crescente"/>
-                    <Item id="42066" name="Organizar como números decimais (ponto) - ordem decrescente"/>
+                    <Item id="42059" name="Classificar em ordem crescente"/>
+                    <Item id="42060" name="Classificar em ordem decrescente"/>
+                    <Item id="42080" name="Classificar em ordem crescente - ignorando maiúsculas/minúsculas"/>
+                    <Item id="42081" name="Classificar em ordem decrescente - ignorando maiúsculas/minúsculas"/>
+                    <Item id="42061" name="Classificar como números inteiros - ordem crescente"/>
+                    <Item id="42062" name="Classificar como números inteiros - ordem decrescente"/>
+                    <Item id="42063" name="Classificar como números decimais (vírgula) - ordem crescente"/>
+                    <Item id="42064" name="Classificar como números decimais (vírgula) - ordem decrescente"/>
+                    <Item id="42065" name="Classificar como números decimais (ponto) - ordem crescente"/>
+                    <Item id="42066" name="Classificar como números decimais (ponto) - ordem decrescente"/>
                     <Item id="42083" name="Inverter ordem de linha"/>
                     <Item id="42078" name="Aleatorizar ordem de linha"/>
                     <Item id="42016" name="Converter para MAIÚSCULAS"/>

@@ -1,9 +1,9 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-  <localization work version="7.8.1~8.3.3" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
+  <localization work version="7.8.1~8.4.5" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
 -->
 <NotepadPlus>
-    <Native-Langue name="한국어" filename="korean.xml" version="8.3">
+    <Native-Langue name="한국어" filename="korean.xml" version="8.4.5">
     <Menu>
     <Main>
         <!--  Main Menu Entries -->
@@ -21,60 +21,60 @@
             <Item menuId="Plugins" name="플러그인"/>
             <Item menuId="Window" name="창 관리"/>
         </Entries>
-    <!--  Sub Menu Entries -->
-    <SubEntries>
-        <Item subMenuId="file-openFolder" name="현재 폴더 열기(&amp;F)"/>
-        <Item subMenuId="file-closeMore" name="닫기 옵션...(&amp;M)"/>
-        <Item subMenuId="file-recentFiles" name="최근 파일(&amp;R)"/>
-        <Item subMenuId="edit-insert" name="삽입"/>
-        <Item subMenuId="edit-copyToClipboard" name="클립보드에 복사(&amp;y)"/>
-        <Item subMenuId="edit-indent" name="들여쓰기(&amp;I)"/>
-        <Item subMenuId="edit-convertCaseTo" name="대소문자 변환(&amp;v)"/>
-        <Item subMenuId="edit-lineOperations" name="줄단위 편집(&amp;L)"/>
-        <Item subMenuId="edit-comment" name="주석 달기/제거(&amp;m)"/>
-        <Item subMenuId="edit-autoCompletion" name="자동 완성(&amp;A)"/>
-        <Item subMenuId="edit-eolConversion" name="줄끝 문자(EOL) 변환(&amp;E)"/>
-        <Item subMenuId="edit-blankOperations" name="공백 기능(&amp;B)"/>
-        <Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능(&amp;P)"/>
-        <Item subMenuId="edit-onSelection" name="선택시(&amp;O)"/>
-        <Item subMenuId="search-markAll" name="모든 토큰에 형식 적용(&amp;A)"/>
-        <Item subMenuId="search-markOne" name="한 개 토큰에 형식 적용(&amp;O)"/>
-        <Item subMenuId="search-unmarkAll" name="형식 해제"/>
-        <Item subMenuId="search-jumpUp" name="위로 이동(&amp;J)"/>
-        <Item subMenuId="search-jumpDown" name="아래로 이동(&amp;D)"/>
-        <Item subMenuId="search-copyStyledText" name="형식을 가진 텍스트 복사(&amp;C)"/>
-        <Item subMenuId="search-bookmark" name="책갈피(&amp;B)"/>
-        <Item subMenuId="view-currentFileIn" name="파일 보기"/>
-        <Item subMenuId="view-showSymbol" name="기호 보기"/>
-        <Item subMenuId="view-zoom" name="확대/축소"/>
-        <Item subMenuId="view-moveCloneDocument" name="현재 문서 이동/복사"/>
-        <Item subMenuId="view-tab" name="탭"/>
-        <Item subMenuId="view-collapseLevel" name="단계 접기"/>
-        <Item subMenuId="view-uncollapseLevel" name="단계 펼치기"/>
-        <Item subMenuId="view-project" name="프로젝트"/>
-        <Item subMenuId="encoding-characterSets" name="문자 집합"/>
-        <Item subMenuId="encoding-arabic" name="아랍어"/>
-        <Item subMenuId="encoding-baltic" name="발트어"/>
-        <Item subMenuId="encoding-celtic" name="켈트어"/>
-        <Item subMenuId="encoding-cyrillic" name="키릴어"/>
-        <Item subMenuId="encoding-centralEuropean" name="중유럽어"/>
-        <Item subMenuId="encoding-chinese" name="중국어"/>
-        <Item subMenuId="encoding-easternEuropean" name="동유럽어"/>
-        <Item subMenuId="encoding-greek" name="그리스어"/>
-        <Item subMenuId="encoding-hebrew" name="히브리어"/>
-        <Item subMenuId="encoding-japanese" name="일본어"/>
-        <Item subMenuId="encoding-korean" name="한국어"/>
-        <Item subMenuId="encoding-northEuropean" name="북유럽어"/>
-        <Item subMenuId="encoding-thai" name="태국어"/>
-        <Item subMenuId="encoding-turkish" name="터키어"/>
-        <Item subMenuId="encoding-westernEuropean" name="서유럽어"/>
-        <Item subMenuId="encoding-vietnamese" name="베트남어"/>
-        <Item subMenuId="language-userDefinedLanguage" name="사용자 정의 언어"/>
-        <Item subMenuId="settings-import" name="가져오기"/>
-        <Item subMenuId="tools-md5"  name="MD5"/>
-        <Item subMenuId="tools-sha256"  name="SHA-256"/>
-        <Item subMenuId="window-sortby" name="정렬하기"/>
-    </SubEntries>
+        <!--  Sub Menu Entries -->
+        <SubEntries>
+            <Item subMenuId="file-openFolder" name="현재 폴더 열기(&amp;F)"/>
+            <Item subMenuId="file-closeMore" name="닫기 옵션...(&amp;M)"/>
+            <Item subMenuId="file-recentFiles" name="최근 파일(&amp;R)"/>
+            <Item subMenuId="edit-insert" name="삽입"/>
+            <Item subMenuId="edit-copyToClipboard" name="클립보드에 복사(&amp;y)"/>
+            <Item subMenuId="edit-indent" name="들여쓰기(&amp;I)"/>
+            <Item subMenuId="edit-convertCaseTo" name="대소문자 변환(&amp;v)"/>
+            <Item subMenuId="edit-lineOperations" name="줄단위 편집(&amp;L)"/>
+            <Item subMenuId="edit-comment" name="주석 달기/제거(&amp;m)"/>
+            <Item subMenuId="edit-autoCompletion" name="자동 완성(&amp;A)"/>
+            <Item subMenuId="edit-eolConversion" name="줄끝 문자(EOL) 변환(&amp;E)"/>
+            <Item subMenuId="edit-blankOperations" name="공백 기능(&amp;B)"/>
+            <Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능(&amp;P)"/>
+            <Item subMenuId="edit-onSelection" name="선택시(&amp;O)"/>
+            <Item subMenuId="search-markAll" name="모든 토큰에 형식 적용(&amp;A)"/>
+            <Item subMenuId="search-markOne" name="한 개 토큰에 형식 적용(&amp;O)"/>
+            <Item subMenuId="search-unmarkAll" name="형식 해제"/>
+            <Item subMenuId="search-jumpUp" name="위로 이동(&amp;J)"/>
+            <Item subMenuId="search-jumpDown" name="아래로 이동(&amp;D)"/>
+            <Item subMenuId="search-copyStyledText" name="형식을 가진 텍스트 복사(&amp;C)"/>
+            <Item subMenuId="search-bookmark" name="책갈피(&amp;B)"/>
+            <Item subMenuId="view-currentFileIn" name="파일 보기"/>
+            <Item subMenuId="view-showSymbol" name="기호 보기"/>
+            <Item subMenuId="view-zoom" name="확대/축소"/>
+            <Item subMenuId="view-moveCloneDocument" name="현재 문서 이동/복사"/>
+            <Item subMenuId="view-tab" name="탭"/>
+            <Item subMenuId="view-collapseLevel" name="단계 접기"/>
+            <Item subMenuId="view-uncollapseLevel" name="단계 펼치기"/>
+            <Item subMenuId="view-project" name="프로젝트"/>
+            <Item subMenuId="encoding-characterSets" name="문자 집합"/>
+            <Item subMenuId="encoding-arabic" name="아랍어"/>
+            <Item subMenuId="encoding-baltic" name="발트어"/>
+            <Item subMenuId="encoding-celtic" name="켈트어"/>
+            <Item subMenuId="encoding-cyrillic" name="키릴어"/>
+            <Item subMenuId="encoding-centralEuropean" name="중유럽어"/>
+            <Item subMenuId="encoding-chinese" name="중국어"/>
+            <Item subMenuId="encoding-easternEuropean" name="동유럽어"/>
+            <Item subMenuId="encoding-greek" name="그리스어"/>
+            <Item subMenuId="encoding-hebrew" name="히브리어"/>
+            <Item subMenuId="encoding-japanese" name="일본어"/>
+            <Item subMenuId="encoding-korean" name="한국어"/>
+            <Item subMenuId="encoding-northEuropean" name="북유럽어"/>
+            <Item subMenuId="encoding-thai" name="태국어"/>
+            <Item subMenuId="encoding-turkish" name="터키어"/>
+            <Item subMenuId="encoding-westernEuropean" name="서유럽어"/>
+            <Item subMenuId="encoding-vietnamese" name="베트남어"/>
+            <Item subMenuId="language-userDefinedLanguage" name="사용자 정의 언어"/>
+            <Item subMenuId="settings-import" name="가져오기"/>
+            <Item subMenuId="tools-md5"  name="MD5"/>
+            <Item subMenuId="tools-sha256"  name="SHA-256"/>
+            <Item subMenuId="window-sortby" name="정렬하기"/>
+        </SubEntries>
 
 <!--  all menu item -->
 <Commands>
@@ -323,7 +323,7 @@
   <Item id="10003" name="새 창으로 이동"/>
   <Item id="10004" name="새 창에서 열기"/>
 
-  <Item id="46001" name="형식 설정..."/>
+  <Item id="46001" name="스타일 설정..."/>
   <Item id="46250" name="언어 정의..."/>
   <Item id="46300" name="사용자 정의 언어 폴더 열기..."/>
   <Item id="46301" name="Notepad++ 사용자 정의 언어 모음집"/>
@@ -520,7 +520,7 @@
     <Item id="2"    name="닫기"/>
 </PluginsAdminDlg>
 
-<StyleConfig title="형식 설정">
+<StyleConfig title="스타일 설정">
   <Item id="2" name="취소"/>
   <Item id="2301" name="저장 후 닫기(&amp;&amp;)"/>
   <Item id="2303" name="투명도"/>
@@ -548,6 +548,7 @@
     <Item id="2230" name="전역 굵은 글꼴 사용"/>
     <Item id="2231" name="전역 기울임 글꼴 사용"/>
     <Item id="2232" name="전역 밑줄 글꼴 사용"/>
+    <Item id="2234" name="설정으로 이동"/>
   </SubDialog>
 </StyleConfig>
 
@@ -863,7 +864,9 @@
   <Item id="6120" name="수직 배열"/>
   <Item id="6121" name="마지막 탭 닫을 시 종료"/>
 
+  <Item id="6131" name="메뉴"/>
   <Item id="6122" name="메뉴 숨기기 (Alt 또는 F10키로 전환)"/>
+  <Item id="6132" name="메뉴바에서 우측 단축기 ＋ ▼ ✕ 숨기기 (Notepad++ 재시작 필요)"/>
   <Item id="6123" name="표시 언어"/>
 
   <Item id="6128" name="대체 아이콘"/>
@@ -874,28 +877,38 @@
   <Item id="6219" name="깜빡임 속도 :"/>
   <Item id="6221" name="빠름"/>
   <Item id="6222" name="느림"/>
+  <Item id="6246" name="현재 레벨 접기/펼치기 명령어 전환 가능하게 만들기"/>
   <Item id="6225" name="다중 편집 가능 (Ctrl+마우스 클릭/선택)"/>
   <Item id="6227" name="자동 줄바꿈"/>
   <Item id="6228" name="기본값"/>
   <Item id="6229" name="정렬"/>
   <Item id="6230" name="들여쓰기"/>
   <Item id="6234" name="터치패드 문제로 고급 스크롤 기능 비활성화"/>
-  <Item id="6214" name="현재 줄 강조 활성화"/>
   <Item id="6215" name="부드러운 폰트 활성화"/>
   <Item id="6236" name="마지막 줄 이후로 스크롤 가능"/>
   <Item id="6239" name="선택 영역 바깥에서 우클릭해도 선택 유지"/>
+  <Item id="6245" name="가상 공간 활성화"/>
+  <Item id="6651" name="현재 줄 표시기"/>
+  <Item id="6652" name="없음"/>
+  <Item id="6653" name="배경 강조"/>
+  <Item id="6654" name="틀"/>
+  <Item id="6655" name=""/>
+  <Item id="6247" name="줄 끝 (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+  <Item id="6248" name="기본값"/>
+  <Item id="6249" name="일반 텍스트"/>
+  <Item id="6250" name="사용자 정의 색상"/>
 </Scintillas>
 
   <DarkMode title="다크모드">
     <Item id="7101" name="다크모드 활성화"/>
-    <Item id="7102" name="검은 색조"/>
-    <Item id="7103" name="붉은 색조"/>
-    <Item id="7104" name="초록 색조"/>
-    <Item id="7105" name="파란 색조"/>
-    <Item id="7107" name="보라 색조"/>
-    <Item id="7108" name="청록 색조"/>
-    <Item id="7109" name="올리브 색조"/>
-    <Item id="7115" name="사용자 정의 색조"/>
+    <Item id="7102" name="검정"/>
+    <Item id="7103" name="빨강"/>
+    <Item id="7104" name="초록"/>
+    <Item id="7105" name="파랑"/>
+    <Item id="7107" name="보라"/>
+    <Item id="7108" name="청록"/>
+    <Item id="7109" name="올리브색"/>
+    <Item id="7115" name="사용자 정의"/>
     <Item id="7116" name="맨 위"/>
     <Item id="7117" name="관심 메뉴"/>
     <Item id="7118" name="활성화"/>
@@ -906,7 +919,10 @@
     <Item id="7123" name="비활성화된 글씨"/>
     <Item id="7124" name="가장자리"/>
     <Item id="7125" name="연결"/>
+    <Item id="7126" name="가장자리 강조"/>
+    <Item id="7127" name="가장자리 비활성화"/>
     <Item id="7130" name="재설정"/>
+    <Item id="7135" name="색조"/>
   </DarkMode>
 
 <MarginsBorderEdge title="여백/경계선/가장자리">
@@ -1035,6 +1051,7 @@
   <Item id="6903" name="결과 창에 찾기 결과 표시 후에도 찾기 창 유지"/>
   <Item id="6904" name="모든 열린 문서에서 바꾸기를 실행할 때 확인"/>
   <Item id="6905" name="바꾸기: 다음 찾기 위치로 이동하지 않기"/>
+  <Item id="6906" name="찾기 결과 창: 찾은 줄 당 한 개의 내용만 보임"/>
 </Searching>
 
 <RecentFilesHistory title="최근 파일 사용 기록">
@@ -1349,6 +1366,8 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
   <PanelTitle name="함수 목록"/>
   <SortTip name="정렬"/>
   <ReloadTip name="다시 불러오기"/>
+  <PreferencesTip name="설정"/>
+  <PreferencesInitialSort name="기본값으로 함수 정렬 (A 에서 Z)"/>
 </FunctionList>
     <FolderAsWorkspace>
             <PanelTitle name="폴더를 작업 영역으로"/>
@@ -1419,6 +1438,9 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
 <MiscStrings>
 <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 <word-chars-list-tip value="더블 클릭으로 선택하거나 &quot;전체 단어 일치&quot; 옵션을 체크해서 검색하는 동안, 현재 단어에 추가 글자를 포함하는 것을 허용합니다. "/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
+<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+<eol-custom-color-tip value="줄 끝 사용자 정의 색상 변경을 위해 스타일 설정으로 이동 (&quot;EOL custom color&quot;).."/>
 
 <word-chars-list-warning-begin value="주의사항: "/>
 <word-chars-list-space-warning value="빈 칸 $INT_REPLACE$개"/>

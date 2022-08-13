@@ -2406,7 +2406,7 @@ generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 		return generic_string(lexerNameW);
 	}
 
-	if (langType > L_EXTERNAL)
+	if (langType < L_TEXT || langType > L_EXTERNAL)
         langType = L_TEXT;
 
 	generic_string str2Show;

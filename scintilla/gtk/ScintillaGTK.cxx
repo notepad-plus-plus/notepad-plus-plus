@@ -3231,9 +3231,9 @@ void ScintillaGTK::ClassInit(OBJECT_CLASS *object_class, GtkWidgetClass *widget_
 
 static void scintilla_class_init(ScintillaClass *klass) {
 	try {
-		OBJECT_CLASS *object_class = (OBJECT_CLASS *) klass;
-		GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
-		GtkContainerClass *container_class = (GtkContainerClass *) klass;
+		OBJECT_CLASS *object_class = reinterpret_cast<OBJECT_CLASS *>(klass);
+		GtkWidgetClass *widget_class = reinterpret_cast<GtkWidgetClass *>(klass);
+		GtkContainerClass *container_class = reinterpret_cast<GtkContainerClass *>(klass);
 
 		const GSignalFlags sigflags = static_cast<GSignalFlags>(G_SIGNAL_ACTION | G_SIGNAL_RUN_LAST);
 		scintilla_signals[COMMAND_SIGNAL] = g_signal_new(

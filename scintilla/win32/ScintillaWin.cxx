@@ -99,6 +99,7 @@
 #include "ScintillaWin.h"
 #include "BoostRegexSearch.h"
 
+//needed for gcc builds
 #ifndef SPI_GETWHEELSCROLLLINES
 #define SPI_GETWHEELSCROLLLINES   104
 #endif

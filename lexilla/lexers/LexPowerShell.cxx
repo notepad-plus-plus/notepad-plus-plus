@@ -85,8 +85,6 @@ static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, 
 			// This is a single quote string
 			if (sc.ch == '\'') {
 				sc.ForwardSetState(SCE_POWERSHELL_DEFAULT);
-			} else if (sc.ch == '`') {
-				sc.Forward(); // skip next escaped character
 			}
 		} else if (sc.state == SCE_POWERSHELL_HERE_STRING) {
 			// This is a doubles quotes here-string

@@ -574,6 +574,29 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla524.zip">Release 5.2.4</a>
+    </h3>
+    <ul>
+	<li>
+	Released 10 July 2022.
+	</li>
+	<li>
+	Fix hiding selection when selection layer is SC_LAYER_UNDER_TEXT.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2334/">Bug #2334</a>.
+	</li>
+	<li>
+	Fix bad background colour for additional, secondary, and inactive selections when printing.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2335/">Bug #2335</a>.
+	</li>
+	<li>
+	Fix failures on GTK with non-UTF-8 text when multi-threading due to
+	character set conversion code that was not thread-safe.
+	</li>
+	<li>
+	Fix crash when printing on Win32 in bidirectional mode with a non-empty selection.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla523.zip">Release 5.2.3</a>
     </h3>
     <ul>

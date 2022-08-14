@@ -775,12 +775,11 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, const Font *font_, XYPOSITION ybas
 		PenColourAlpha(fore);
 		const XYPOSITION xText = rc.left;
 		if (PFont(font_)->fd) {
-			std::string utfForm;
 			if (et == EncodingType::utf8) {
 				LayoutSetText(layout.get(), text);
 			} else {
 				SetConverter(PFont(font_)->characterSet);
-				utfForm = UTF8FromIconv(conv, text);
+				std::string utfForm = UTF8FromIconv(conv, text);
 				if (utfForm.empty()) {	// iconv failed so treat as Latin1
 					utfForm = UTF8FromLatin1(text);
 				}
@@ -897,14 +896,34 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 			PLATFORM_ASSERT(static_cast<size_t>(i) == text.length());
 		} else {
 			int positionsCalculated = 0;
+			const char *charSetID = CharacterSetID(PFont(font_)->characterSet);
+			std::string utfForm;
+			{
+				gsize bytesRead = 0;
+				gsize bytesWritten = 0;
+				GError *error = nullptr;
+				UniqueStr textInUTF8(g_convert(text.data(), text.length(),
+					"UTF-8", charSetID,
+					&bytesRead,
+					&bytesWritten,
+					&error));
+				if ((bytesWritten > 0)  && (bytesRead == text.length()) && !error) {
+					// Extra allocation here but avoiding it makes code more complex
+					utfForm.assign(textInUTF8.get(), bytesWritten);
+				}
+				if (error) {
+#ifdef DEBUG
+					fprintf(stderr, "MeasureWidths: %s.\n", error->message);
+#endif
+					g_error_free(error);
+				}
+			}
 			if (et == EncodingType::dbcs) {
-				SetConverter(PFont(font_)->characterSet);
-				std::string utfForm = UTF8FromIconv(conv, text);
 				if (!utfForm.empty()) {
 					// Convert to UTF-8 so can ask Pango for widths, then
 					// Loop through UTF-8 and DBCS forms, taking account of different
 					// character byte lengths.
-					Converter convMeasure("UCS-2", CharacterSetID(characterSet), false);
+					Converter convMeasure("UCS-2", charSetID, false);
 					int i = 0;
 					ClusterIterator iti(layoutMeasure.get(), utfForm);
 					int clusterStart = iti.curIndex;
@@ -916,7 +935,7 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 					while (!iti.finished) {
 						iti.Next();
 						const int clusterEnd = iti.curIndex;
-						const int places = g_utf8_strlen(utfForm.c_str() + clusterStart, clusterEnd - clusterStart);
+						const int places = g_utf8_strlen(utfForm.data() + clusterStart, clusterEnd - clusterStart);
 						int place = 1;
 						while (clusterStart < clusterEnd) {
 							size_t lenChar = MultiByteLenFromIconv(convMeasure, text.data()+i, text.length()-i);
@@ -934,12 +953,13 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 			if (positionsCalculated < 1) {
 				const size_t lenPositions = text.length();
 				// Either 8-bit or DBCS conversion failed so treat as 8-bit.
-				SetConverter(PFont(font_)->characterSet);
 				const bool rtlCheck = PFont(font_)->characterSet == CharacterSet::Hebrew ||
 							    PFont(font_)->characterSet == CharacterSet::Arabic;
-				std::string utfForm = UTF8FromIconv(conv, text);
 				if (utfForm.empty()) {
 					utfForm = UTF8FromLatin1(text);
+#ifdef DEBUG
+					fprintf(stderr, "MeasureWidths: Fall back to Latin1 [%s]\n", utfForm.c_str());
+#endif
 				}
 				size_t i = 0;
 				// Each 8-bit input character may take 1 or 2 bytes in UTF-8
@@ -954,9 +974,13 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 				while (!iti.finished) {
 					iti.Next();
 					const int clusterEnd = iti.curIndex;
-					const int ligatureLength = g_utf8_strlen(utfForm.c_str() + clusterStart, clusterEnd - clusterStart);
-					if (rtlCheck && ((clusterEnd <= clusterStart) || (ligatureLength == 0) || (ligatureLength > 3))) {
+					const int ligatureLength = g_utf8_strlen(utfForm.data() + clusterStart, clusterEnd - clusterStart);
+					if (((i + ligatureLength) > lenPositions) ||
+						(rtlCheck && ((clusterEnd <= clusterStart) || (ligatureLength == 0) || (ligatureLength > 3)))) {
 						// Something has gone wrong: exit quickly but pretend all the characters are equally spaced:
+#ifdef DEBUG
+						fprintf(stderr, "MeasureWidths: result too long.\n");
+#endif
 						EquallySpaced(layoutMeasure.get(), positions, lenPositions);
 						return;
 					}
@@ -983,13 +1007,12 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 
 XYPOSITION SurfaceImpl::WidthText(const Font *font_, std::string_view text) {
 	if (PFont(font_)->fd) {
-		std::string utfForm;
 		pango_layout_set_font_description(layout.get(), PFont(font_)->fd.get());
 		if (et == EncodingType::utf8) {
 			LayoutSetText(layout.get(), text);
 		} else {
 			SetConverter(PFont(font_)->characterSet);
-			utfForm = UTF8FromIconv(conv, text);
+			std::string utfForm = UTF8FromIconv(conv, text);
 			if (utfForm.empty()) {	// iconv failed so treat as Latin1
 				utfForm = UTF8FromLatin1(text);
 			}
@@ -1365,7 +1388,7 @@ class ListBoxX : public ListBox {
 	WindowID frame;
 	WindowID list;
 	WindowID scroller;
-	void *pixhash;
+	GHashTable *pixhash;
 	GtkCellRenderer *pixbuf_renderer;
 	GtkCellRenderer *renderer;
 	RGBAImageSet images;
@@ -1392,8 +1415,8 @@ public:
 	ListBoxX&operator=(ListBoxX&&) = delete;
 	~ListBoxX() noexcept override {
 		if (pixhash) {
-			g_hash_table_foreach((GHashTable *) pixhash, list_image_free, nullptr);
-			g_hash_table_destroy((GHashTable *) pixhash);
+			g_hash_table_foreach(pixhash, list_image_free, nullptr);
+			g_hash_table_destroy(pixhash);
 		}
 		if (widCached) {
 			gtk_widget_destroy(GTK_WIDGET(widCached));
@@ -1846,7 +1869,7 @@ static void init_pixmap(ListImage *list_image) noexcept {
 void ListBoxX::Append(char *s, int type) {
 	ListImage *list_image = nullptr;
 	if ((type >= 0) && pixhash) {
-		list_image = static_cast<ListImage *>(g_hash_table_lookup((GHashTable *) pixhash,
+		list_image = static_cast<ListImage *>(g_hash_table_lookup(pixhash,
 						      GINT_TO_POINTER(type)));
 	}
 	GtkTreeIter iter {};
@@ -2007,7 +2030,7 @@ void ListBoxX::RegisterRGBA(int type, std::unique_ptr<RGBAImage> image) {
 	if (!pixhash) {
 		pixhash = g_hash_table_new(g_direct_hash, g_direct_equal);
 	}
-	ListImage *list_image = static_cast<ListImage *>(g_hash_table_lookup((GHashTable *) pixhash,
+	ListImage *list_image = static_cast<ListImage *>(g_hash_table_lookup(pixhash,
 				GINT_TO_POINTER(type)));
 	if (list_image) {
 		// Drop icon already registered
@@ -2018,7 +2041,7 @@ void ListBoxX::RegisterRGBA(int type, std::unique_ptr<RGBAImage> image) {
 	} else {
 		list_image = g_new0(ListImage, 1);
 		list_image->rgba_data = observe;
-		g_hash_table_insert((GHashTable *) pixhash, GINT_TO_POINTER(type),
+		g_hash_table_insert(pixhash, GINT_TO_POINTER(type),
 				    (gpointer) list_image);
 	}
 }

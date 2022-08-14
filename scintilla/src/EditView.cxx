@@ -934,7 +934,7 @@ Sci::Position EditView::StartEndDisplayLine(Surface *surface, const EditModel &m
 
 namespace {
 
-constexpr ColourRGBA bugColour = ColourRGBA(0xff, 0, 0xff, 0xf0);
+constexpr ColourRGBA bugColour = ColourRGBA(0xff, 0, 0xfe, 0xf0);
 
 // Selection background colours are always defined, the value_or is to show if bug
 
@@ -1974,18 +1974,20 @@ static void DrawTranslucentSelection(Surface *surface, const EditModel &model, c
 					model, vsDraw, model.sel.RangeType(r));
 				const XYPOSITION spaceWidth = vsDraw.styles[ll->EndLineStyle()].spaceWidth;
 				if (model.BidirectionalEnabled()) {
-					const int selectionStart = static_cast<int>(portion.start.Position() - posLineStart - lineRange.start);
-					const int selectionEnd = static_cast<int>(portion.end.Position() - posLineStart - lineRange.start);
+					const Sci::Position selectionStart = portion.start.Position() - posLineStart - lineRange.start;
+					const Sci::Position selectionEnd = portion.end.Position() - posLineStart - lineRange.start;
 
 					const ScreenLine screenLine(ll, subLine, vsDraw, rcLine.right, tabWidthMinimumPixels);
 					std::unique_ptr<IScreenLineLayout> slLayout = surface->Layout(&screenLine);
 
-					const std::vector<Interval> intervals = slLayout->FindRangeIntervals(selectionStart, selectionEnd);
-					for (const Interval &interval : intervals) {
-						const XYPOSITION rcRight = interval.right + xStart;
-						const XYPOSITION rcLeft = interval.left + xStart;
-						const PRectangle rcSelection(rcLeft, rcLine.top, rcRight, rcLine.bottom);
-						surface->FillRectangleAligned(rcSelection, selectionBack);
+					if (slLayout) {
+						const std::vector<Interval> intervals = slLayout->FindRangeIntervals(selectionStart, selectionEnd);
+						for (const Interval &interval : intervals) {
+							const XYPOSITION rcRight = interval.right + xStart;
+							const XYPOSITION rcLeft = interval.left + xStart;
+							const PRectangle rcSelection(rcLeft, rcLine.top, rcRight, rcLine.bottom);
+							surface->FillRectangleAligned(rcSelection, selectionBack);
+						}
 					}
 
 					if (portion.end.VirtualSpace()) {
@@ -2355,7 +2357,9 @@ void EditView::DrawLine(Surface *surface, const EditModel &model, const ViewStyl
 	}
 
 	if (FlagSet(phase, DrawPhase::text)) {
-		DrawTranslucentSelection(surface, model, vsDraw, ll, line, rcLine, subLine, lineRange, xStart, tabWidthMinimumPixels, Layer::UnderText);
+		if (!hideSelection) {
+			DrawTranslucentSelection(surface, model, vsDraw, ll, line, rcLine, subLine, lineRange, xStart, tabWidthMinimumPixels, Layer::UnderText);
+		}
 		DrawTranslucentLineState(surface, model, vsDraw, ll, line, rcLine, subLine, Layer::UnderText);
 		DrawForeground(surface, model, vsDraw, ll, lineVisible, rcLine, lineRange, posLineStart, xStart,
 			subLine, background);
@@ -2694,8 +2698,12 @@ Sci::Position EditView::FormatRange(bool draw, CharacterRangeFull chrg, Rectangl
 	// Don't show the selection when printing
 	vsPrint.elementColours.clear();
 	vsPrint.elementBaseColours.clear();
-	// Transparent:
-	vsPrint.elementBaseColours[Element::SelectionBack] = ColourRGBA(0xc0, 0xc0, 0xc0, 0x0);
+	// Set all selection background colours to be transparent.
+	constexpr ColourRGBA transparent(0xc0, 0xc0, 0xc0, 0x0);
+	vsPrint.elementBaseColours[Element::SelectionBack] = transparent;
+	vsPrint.elementBaseColours[Element::SelectionAdditionalBack] = transparent;
+	vsPrint.elementBaseColours[Element::SelectionSecondaryBack] = transparent;
+	vsPrint.elementBaseColours[Element::SelectionInactiveBack] = transparent;
 	vsPrint.caretLine.alwaysShow = false;
 	// Don't highlight matching braces using indicators
 	vsPrint.braceHighlightIndicatorSet = false;

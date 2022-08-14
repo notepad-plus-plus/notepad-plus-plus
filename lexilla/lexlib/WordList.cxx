@@ -24,6 +24,7 @@ namespace {
  * after each word.
  */
 std::unique_ptr<char *[]> ArrayFromWordList(char *wordlist, size_t slen, size_t *len, bool onlyLineEnds = false) {
+	assert(wordlist);
 	size_t words = 0;
 	// For rapid determination of whether a character is a separator, build
 	// a look up table.

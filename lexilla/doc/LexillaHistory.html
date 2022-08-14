@@ -584,6 +584,45 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/lexilla519.zip">Release 5.1.8</a>
+    </h3>
+    <ul>
+	<li>
+	Released 10 July 2022.
+	</li>
+	<li>
+	F#: Recognize nested comments in F#.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/93">Issue #93</a>.
+	</li>
+	<li>
+	MS SQL: Recognize nested comments in Transact-SQL.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/87">Issue #87</a>.
+	</li>
+	<li>
+	MS SQL: Preference data types more consistently to not depend on how lexing is broken
+	up into segments. This is needed because there are keywords that are both data type
+	names and function names such as 'CHAR'.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/90">Issue #90</a>.
+	</li>
+	<li>
+	PowerShell: Fix single quoted strings to not treat backtick as escape.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/92">Pull request #92</a>.
+	</li>
+	<li>
+	Visual Prolog: Treat \r\n line ends the same as \n. This makes testing easier.
+	Add test case.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/83">Issue #83</a>.
+	</li>
+	<li>
+	Visual Prolog: Allow disabling verbatim strings.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/89">Pull request #89</a>.
+	</li>
+	<li>
+	Visual Prolog: Support backquoted strings.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/89">Pull request #89</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/lexilla517.zip">Release 5.1.7</a>
     </h3>
     <ul>

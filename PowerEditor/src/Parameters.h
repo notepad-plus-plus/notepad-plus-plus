@@ -1508,6 +1508,8 @@ public:
 	void addUserModifiedIndex(size_t index);
 
 	std::vector<MacroShortcut> & getMacroList() { return _macros; };
+	CmdMenuStructure& getMacroMenuStructure() { return _macroMenuStructure; };
+
 	std::vector<UserCommand> & getUserCommandList() { return _userCommands; };
 	std::vector<PluginCmdShortcut> & getPluginCommandList() { return _pluginCommands; };
 	std::vector<size_t> & getPluginModifiedKeyIndices() { return _pluginCustomizedCmds; };
@@ -1778,6 +1780,7 @@ private:
 	std::vector<CommandShortcut> _shortcuts;			//main menu shortuts. Static size
 	std::vector<size_t> _customizedShortcuts;			//altered main menu shortcuts. Indices static. Needed when saving alterations
 	std::vector<MacroShortcut> _macros;				//macro shortcuts, dynamic size, defined on loading macros and adding/deleting them
+	CmdMenuStructure _macroMenuStructure;	//macro menu structure, defined on loading macros menu structure
 	std::vector<UserCommand> _userCommands;			//run shortcuts, dynamic size, defined on loading run commands and adding/deleting them
 	std::vector<PluginCmdShortcut> _pluginCommands;	//plugin commands, dynamic size, defined on loading plugins
 	std::vector<size_t> _pluginCustomizedCmds;			//plugincommands that have been altered. Indices determined after loading ALL plugins. Needed when saving alterations

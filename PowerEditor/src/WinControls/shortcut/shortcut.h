@@ -299,6 +299,59 @@ struct recordedMacroStep {
 
 typedef std::vector<recordedMacroStep> Macro;
 
+struct CmdMenuStructureUnit
+{
+	generic_string _folderName;
+	int _menuIndexPtr = -1;
+};
+
+class CmdMenuStructure
+{
+public:
+	void push_back(const CmdMenuStructureUnit& cmsu) {
+		_cmdMenuStructure.push_back(cmsu);
+	};
+
+	int getCmdIndexFrom(size_t index) const {
+		if (index >= _cmdMenuStructure.size())
+			return -1;
+		if (_cmdMenuStructure[index]._menuIndexPtr == -1)
+			return -1;
+		int cmdIndex = 0;
+		for (size_t i = 0; i < index; ++i)
+		{
+			if (_cmdMenuStructure[i]._menuIndexPtr != -1)
+				cmdIndex++;
+		}
+		return cmdIndex;
+	};
+
+	size_t get1stLevelNbItems() const {
+		int index = -1;
+		size_t nbItems = 0;
+		for (const CmdMenuStructureUnit& i : _cmdMenuStructure)
+		{
+			if (i._menuIndexPtr != -1 && index != i._menuIndexPtr)
+			{
+				index = i._menuIndexPtr;
+				nbItems++;
+			}
+		}
+		return nbItems;
+	}
+
+	size_t size() const {
+		return _cmdMenuStructure.size();
+	};
+
+	CmdMenuStructureUnit& operator[](size_t i) {
+		return _cmdMenuStructure[i];
+	};
+
+private:
+	std::vector<CmdMenuStructureUnit> _cmdMenuStructure;
+};
+
 class MacroShortcut : public CommandShortcut {
 friend class NppParameters;
 public:

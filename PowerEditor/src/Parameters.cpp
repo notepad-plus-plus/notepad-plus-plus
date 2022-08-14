@@ -2593,18 +2593,59 @@ void NppParameters::feedMacros(TiXmlNode *node)
 	TiXmlNode *macrosRoot = node->FirstChildElement(TEXT("Macros"));
 	if (!macrosRoot) return;
 
-	for (TiXmlNode *childNode = macrosRoot->FirstChildElement(TEXT("Macro"));
-		childNode ;
-		childNode = childNode->NextSibling(TEXT("Macro")) )
+	for (TiXmlNode* node = macrosRoot->FirstChild();
+		node;
+		node = node->NextSibling())
 	{
-		Shortcut sc;
-		if (getShortcuts(childNode, sc))// && sc.isValid())
+		if (lstrcmp(node->Value(), L"Macro") == 0)
 		{
-			Macro macro;
-			getActions(childNode, macro);
-			int cmdID = ID_MACRO + static_cast<int32_t>(_macros.size());
-			MacroShortcut ms(sc, macro, cmdID);
-			_macros.push_back(ms);
+			Shortcut sc;
+			if (getShortcuts(node, sc))// && sc.isValid())
+			{
+				Macro macro;
+				getActions(node, macro);
+				size_t curMacroIndex = _macros.size();
+				int cmdID = ID_MACRO + static_cast<int32_t>(curMacroIndex);
+				MacroShortcut ms(sc, macro, cmdID);
+				_macros.push_back(ms);
+
+				size_t curIndex = _macroMenuStructure.size();
+				CmdMenuStructureUnit cmsu;
+				cmsu._menuIndexPtr = static_cast<int>(curIndex);
+				_macroMenuStructure.push_back(cmsu);
+			}
+		}
+		else if (lstrcmp(node->Value(), L"MenuFolder") == 0)
+		{
+			const TCHAR* folderName = (node->ToElement())->Attribute(TEXT("name"));
+			if (folderName && folderName[0])
+			{
+				size_t curIndexF = _macroMenuStructure.size();
+				CmdMenuStructureUnit cmsuF;
+				cmsuF._menuIndexPtr = -1;
+				cmsuF._folderName = folderName;
+				_macroMenuStructure.push_back(cmsuF);
+
+				for (TiXmlNode* childNode = node->FirstChildElement(TEXT("Macro"));
+					childNode;
+					childNode = childNode->NextSibling(TEXT("Macro")))
+				{
+					Shortcut sc;
+					if (getShortcuts(childNode, sc))// && sc.isValid())
+					{
+						Macro macro;
+						getActions(childNode, macro);
+						size_t curMacroIndex = _macros.size();
+						int cmdID = ID_MACRO + static_cast<int32_t>(curMacroIndex);
+						MacroShortcut ms(sc, macro, cmdID);
+						_macros.push_back(ms);
+
+						CmdMenuStructureUnit cmsu;
+						cmsu._menuIndexPtr = static_cast<int>(curIndexF);
+						_macroMenuStructure.push_back(cmsu);
+					}
+				}
+			}
 		}
 	}
 }
@@ -3426,10 +3467,36 @@ void NppParameters::writeShortcuts()
 
 	macrosRoot = root->InsertEndChild(TiXmlElement(TEXT("Macros")));
 
+	for (size_t i = 0, len = _macroMenuStructure.size(); i < len; ++i)
+	{
+		if (!_macroMenuStructure[i]._folderName.empty()) // folder
+		{
+
+		}
+		else // Macro command
+		{
+			if (i == _macroMenuStructure[i]._menuIndexPtr) // the 1st level Macro command - not in the folder
+			{
+
+			}
+			else // the 2nd level Macro command - in the folder
+			{
+
+			}
+		}
+	}
+	
+
+	/*
 	for (size_t i = 0, len = _macros.size(); i < len ; ++i)
 	{
 		insertMacro(macrosRoot, _macros[i]);
 	}
+	*/
+
+
+
+
 
 	TiXmlNode *userCmdRoot = root->FirstChild(TEXT("UserDefinedCommands"));
 	if (userCmdRoot)

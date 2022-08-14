@@ -436,14 +436,47 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	// Macro Menu
 	std::vector<MacroShortcut> & macros = nppParam.getMacroList();
+	CmdMenuStructure & macroMenuStructure = nppParam.getMacroMenuStructure();
+
 	HMENU hMacroMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_MACRO);
 	size_t const posBase = 6;
 	size_t nbMacro = macros.size();
 	if (nbMacro >= 1)
 		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
-	for (size_t i = 0; i < nbMacro; ++i)
-		::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + i), MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
+	//for (size_t i = 0; i < nbMacro; ++i)
+		//::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + i), MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
+	int k = 0;
+	std::pair<HMENU, int> subMenu;
+	for (size_t i = 0; i < macroMenuStructure.size(); ++i)
+	{
+		if (!macroMenuStructure[i]._folderName.empty()) // folder
+		{
+			HMENU hSubMenu = CreatePopupMenu();
+			AppendMenu(hMacroMenu, MF_STRING | MF_POPUP, (UINT_PTR)hSubMenu, macroMenuStructure[i]._folderName.c_str());
+			subMenu = std::pair<HMENU, int>(hSubMenu, macroMenuStructure[i]._menuIndexPtr);
+		}
+		else // Macro cmd
+		{
+			if (macroMenuStructure[i]._menuIndexPtr == i) // not in folder
+			{
+				int j = macroMenuStructure.getCmdIndexFrom(i);
+				::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + k), MF_BYPOSITION, ID_MACRO + j, macros[j].toMenuItemString().c_str());
+				subMenu = std::pair<HMENU, int>(nullptr, -1);
+			}
+			else // in the folder
+			{
+
+				if (subMenu.first != nullptr)
+				{
+					int j = macroMenuStructure.getCmdIndexFrom(i);
+					::InsertMenu(subMenu.first, static_cast<UINT>(-1), MF_BYPOSITION, ID_MACRO + j, macros[j].toMenuItemString().c_str());
+				}
+
+			}
+		}
+		k++;
+	}
 
 	if (nbMacro >= 1)
 	{
@@ -5099,10 +5132,12 @@ void Notepad_plus::saveScintillasZoom()
 	svp._zoom2 = _subEditView.execute(SCI_GETZOOM);
 }
 
+
 bool Notepad_plus::addCurrentMacro()
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	vector<MacroShortcut> & theMacros = nppParams.getMacroList();
+	CmdMenuStructure& macroMenuStructure = nppParams.getMacroMenuStructure();
 
 	int nbMacro = static_cast<int32_t>(theMacros.size());
 
@@ -5116,9 +5151,10 @@ bool Notepad_plus::addCurrentMacro()
 		int const posBase = 6;	//separator at index 5
 		if (nbMacro == 0)
 		{
-			::InsertMenu(hMacroMenu, posBase-1, MF_BYPOSITION, static_cast<UINT>(-1), 0);	//no separator yet, add one
+			//no separator yet, add begin separator
+			::InsertMenu(hMacroMenu, posBase-1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
-            // Insert the separator and modify/delete command
+            // Insert the end separator
 			::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
 			NativeLangSpeaker *pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
@@ -5126,10 +5162,21 @@ bool Notepad_plus::addCurrentMacro()
 			if (nativeLangShortcutMapperMacro == TEXT(""))
 				nativeLangShortcutMapperMacro = TEXT("Modify Shortcut/Delete Macro...");
 
+			// Insert modify/delete command
 			::InsertMenu(hMacroMenu, posBase + nbMacro + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, nativeLangShortcutMapperMacro.c_str());
         }
 		theMacros.push_back(ms);
-		::InsertMenu(hMacroMenu, posBase + nbMacro, MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
+		
+		size_t curIndex = macroMenuStructure.size();
+		CmdMenuStructureUnit cmsu;
+		cmsu._menuIndexPtr = static_cast<int>(curIndex);
+		macroMenuStructure.push_back(cmsu);
+
+		size_t nbMenuItem = macroMenuStructure.get1stLevelNbItems();
+
+		// add current macro into menu
+		//::InsertMenu(hMacroMenu, posBase + nbMacro, MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
+		::InsertMenu(hMacroMenu, UINT(posBase + nbMenuItem - 1), MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
 		_accelerator.updateShortcuts();
 		nppParams.setShortcutDirty();
 		return true;

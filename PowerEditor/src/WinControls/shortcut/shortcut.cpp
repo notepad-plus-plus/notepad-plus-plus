@@ -1235,7 +1235,7 @@ CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _i
 		_category = TEXT("File");
 	else if ( _id < IDM_SEARCH)
 		_category = TEXT("Edit");
-	else if (_id >= IDM_EDIT_AUTOCOMPLETE and _id <= IDM_EDIT_AUTOCOMPLETE_PATH)
+	else if (_id >= IDM_EDIT_AUTOCOMPLETE and _id <= IDM_EDIT_AUTOCOMPLETE_PATH or _id == IDM_EDIT_FUNCCALLTIP_NEXT)
 		_category = TEXT("Edit");
 	else if ( _id < IDM_VIEW)
 		_category = TEXT("Search");

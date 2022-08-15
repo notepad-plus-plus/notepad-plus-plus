@@ -175,6 +175,8 @@
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE                (50000 + 1)
     #define    IDM_EDIT_FUNCCALLTIP                             (50000 + 2)
     #define    IDM_EDIT_AUTOCOMPLETE_PATH                       (50000 + 6)
+    #define    IDM_EDIT_FUNCCALLTIP_PREVIOUS                    (50000 + 10)
+    #define    IDM_EDIT_FUNCCALLTIP_NEXT                        (50000 + 11)
 
     
 #define    IDM_SEARCH    (IDM + 3000)

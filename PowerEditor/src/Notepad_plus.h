@@ -563,6 +563,7 @@ private:
 	void autoCompFromCurrentFile(bool autoInsert = true);
 	void showFunctionComp();
 	void showPathCompletion();
+	void showFunctionNext();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	void setCodePageForInvisibleView(Buffer const* pBuffer);

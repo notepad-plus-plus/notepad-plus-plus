@@ -4663,6 +4663,13 @@ void Notepad_plus::showFunctionComp()
 	autoC->showFunctionComplete();
 }
 
+void Notepad_plus::showFunctionNext()
+{
+	bool isFromPrimary = _pEditView == &_mainEditView;
+	AutoCompletion* autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
+	autoC->callTipClick(2);
+}
+
 static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCHAR *str2extract)
 {
 	bool found = false;

@@ -252,7 +252,7 @@ public:
 	{
 		_lastUsedFolder = getDialogFolder(dlg);
 
-		if (isCJKMode)
+		if (_isHangul)
 			return S_FALSE;
 
 		return S_OK;
@@ -422,6 +422,11 @@ private:
 			nullptr,
 			::GetCurrentThreadId()
 		);
+		_langaugeDetectHook = ::SetWindowsHookEx(WH_SHELL,
+			reinterpret_cast<HOOKPROC>(&FileDialogEventHandler::LanguageDetectHook),
+			nullptr,
+			::GetCurrentThreadId()
+		);
 	}
 
 	void removeHooks()
@@ -430,8 +435,11 @@ private:
 			::UnhookWindowsHookEx(_prevKbdHook);
 		if (_prevCallHook)
 			::UnhookWindowsHookEx(_prevCallHook);
+		if (_langaugeDetectHook)
+			::UnhookWindowsHookEx(_langaugeDetectHook);
 		_prevKbdHook = nullptr;
 		_prevCallHook = nullptr;
+		_langaugeDetectHook = nullptr;
 	}
 
 	void eraseHandles()
@@ -624,6 +632,29 @@ private:
 	{
 		static bool isCandidateMode = false;
 		static bool wasCandidateMode = false;
+		auto IsHangul = [](WCHAR locale[])
+		{
+			auto hwnd = GetFocus();
+			auto himc = ImmGetContext(hwnd);
+			auto isHangul = ImmGetOpenStatus(himc);
+			ImmReleaseContext(hwnd, himc);
+
+			return !wcscmp(locale, L"ko-KR") && isHangul;
+		};
+		auto SendKey = [](WORD keyCode)
+		{
+			auto hwnd = GetFocus();
+			auto himc = ImmGetContext(hwnd);
+			ImmSetConversionStatus(himc, 0, 0);
+			INPUT enterInput[2] = {};
+			enterInput[0].type = INPUT_KEYBOARD;
+			enterInput[0].ki.wVk = keyCode;
+			enterInput[1].type = INPUT_KEYBOARD;
+			enterInput[1].ki.wVk = keyCode;
+			enterInput[1].ki.dwFlags = KEYEVENTF_KEYUP;
+			SendInput(ARRAYSIZE(enterInput), enterInput, sizeof(INPUT));
+			ImmReleaseContext(hwnd, himc);
+		};
 
 		if (nCode == HC_ACTION)
 		{
@@ -633,6 +664,7 @@ private:
 			}
 			else if (wParam == VK_RETURN)
 			{
+				// Enter event occurs twice(pressed and released) on CandidateMode
 				if (isCandidateMode)
 				{
 					isCandidateMode = false;
@@ -641,30 +673,17 @@ private:
 				}
 				// Handle return key passed to the file name edit box.
 				HWND hwnd = GetFocus();
-
 				auto it = s_handleMap.find(hwnd);
 				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit) 
 				{
-					// CJK IME specific, get IME input mode
-					auto himc = ImmGetContext(hwnd);
-					auto& isCJKMode = it->second->isCJKMode;
-					isCJKMode = ImmGetOpenStatus(himc);
-					ImmReleaseContext(hwnd, himc);
+					it->second->_isHangul = IsHangul(it->second->_locale);
 
-					if (isCJKMode) // status is non zero when CJK mode
+					if (it->second->_isHangul)
 					{
 						if (!wasCandidateMode)
 						{
-							// change CJK mode to default(english) mode
-							ImmSetConversionStatus(himc, 0, 0);
 							// Send 1 more enter to end composition
-							INPUT enterInput[2] = {};
-							enterInput[0].type = INPUT_KEYBOARD;
-							enterInput[0].ki.wVk = VK_RETURN;
-							enterInput[1].type = INPUT_KEYBOARD;
-							enterInput[1].ki.wVk = VK_RETURN;
-							enterInput[1].ki.dwFlags = KEYEVENTF_KEYUP;
-							SendInput(ARRAYSIZE(enterInput), enterInput, sizeof(INPUT));
+							SendKey(VK_RETURN);
 						}
 						else
 						{
@@ -681,6 +700,23 @@ private:
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
 	}
 
+	static LRESULT CALLBACK LanguageDetectHook(int nCode, WPARAM wParam, LPARAM lParam)
+	{
+		if (nCode == HSHELL_LANGUAGE)
+		{
+			HWND hwnd = GetFocus();
+			auto it = s_handleMap.find(hwnd);
+			if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
+			{
+				HKL hkl = (HKL)lParam;
+				LANGID langId = LOWORD(hkl);
+
+				LCIDToLocaleName(MAKELCID(langId, SORT_DEFAULT), it->second->_locale, LOCALE_NAME_MAX_LENGTH, 0);
+			}
+		}
+		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
+	}
+
 	static std::unordered_map<HWND, FileDialogEventHandler*> s_handleMap;
 
 	long _cRef;
@@ -690,12 +726,14 @@ private:
 	generic_string _lastUsedFolder;
 	HHOOK _prevKbdHook = nullptr;
 	HHOOK _prevCallHook = nullptr;
+	HHOOK _langaugeDetectHook = nullptr;
 	HWND _hwndNameEdit = nullptr;
 	HWND _hwndButton = nullptr;
 	UINT _currentType = 0;  // File type currenly selected in dialog.
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
-	BOOL isCJKMode = FALSE;
+	WCHAR _locale[LOCALE_NAME_MAX_LENGTH];
+	bool _isHangul;
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 

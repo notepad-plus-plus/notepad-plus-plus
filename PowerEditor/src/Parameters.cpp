@@ -3467,22 +3467,30 @@ void NppParameters::writeShortcuts()
 
 	macrosRoot = root->InsertEndChild(TiXmlElement(TEXT("Macros")));
 
+	size_t k = 0;
+	TiXmlNode* macroFolder = nullptr;
 	for (size_t i = 0, len = _macroMenuStructure.size(); i < len; ++i)
 	{
 		if (!_macroMenuStructure[i]._folderName.empty()) // folder
 		{
-
+			macroFolder = macrosRoot->InsertEndChild(TiXmlElement(TEXT("MenuFolder")));
+			macroFolder->ToElement()->SetAttribute(TEXT("name"), _macroMenuStructure[i]._folderName);
 		}
 		else // Macro command
 		{
 			if (i == _macroMenuStructure[i]._menuIndexPtr) // the 1st level Macro command - not in the folder
 			{
-
+				insertMacro(macrosRoot, _macros[k]);
+				macroFolder = nullptr;
 			}
 			else // the 2nd level Macro command - in the folder
 			{
-
+				if (macroFolder != nullptr)
+				{
+					insertMacro(macroFolder, _macros[k]);
+				}
 			}
+			k++;
 		}
 	}
 	

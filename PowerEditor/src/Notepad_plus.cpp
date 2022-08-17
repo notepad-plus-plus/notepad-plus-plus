@@ -458,7 +458,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		}
 		else // Macro cmd
 		{
-			if (macroMenuStructure[i]._menuIndexPtr == i) // not in folder
+			if (macroMenuStructure[i]._menuIndexPtr == int(i)) // not in folder
 			{
 				int j = macroMenuStructure.getCmdIndexFrom(i);
 				::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + k), MF_BYPOSITION, ID_MACRO + j, macros[j].toMenuItemString().c_str());

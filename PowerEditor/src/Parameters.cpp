@@ -3478,7 +3478,7 @@ void NppParameters::writeShortcuts()
 		}
 		else // Macro command
 		{
-			if (i == _macroMenuStructure[i]._menuIndexPtr) // the 1st level Macro command - not in the folder
+			if (int(i) == _macroMenuStructure[i]._menuIndexPtr) // the 1st level Macro command - not in the folder
 			{
 				insertMacro(macrosRoot, _macros[k]);
 				macroFolder = nullptr;

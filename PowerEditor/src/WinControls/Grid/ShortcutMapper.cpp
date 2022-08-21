@@ -965,8 +965,10 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							case STATE_MACRO: 
 							{
 								vector<MacroShortcut> & theMacros = nppParam.getMacroList();
+								CmdMenuStructure & macroMenuStructure = nppParam.getMacroMenuStructure();
+								
 								vector<MacroShortcut>::iterator it = theMacros.begin();
-								cmdID = theMacros[shortcutIndex].getID();
+								DWORD macroCmdID = theMacros[shortcutIndex].getID();
 								theMacros.erase(it + shortcutIndex);
 
 								//save the current view
@@ -986,32 +988,42 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								nbElem = theMacros.size();
 								HMENU m = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
 								hMenu = ::GetSubMenu(m, MENUINDEX_MACRO);
+								if (!hMenu) return FALSE;
 
-								modifCmd = IDM_SETTING_SHORTCUT_MAPPER_MACRO;
-								for (size_t i = shortcutIndex; i < nbElem; ++i)	//lower the IDs of the remaining items so there are no gaps
+								long removedItemMenuIndex = macroMenuStructure.removeCmdIndex(macroCmdID - ID_MACRO);
+
+								if (removedItemMenuIndex != -1) // get sub menu handle
+								{
+									hMenu = ::GetSubMenu(hMenu, removedItemMenuIndex);
+								}
+
+								// All menu items are shifted up. So we delete the last item
+								::RemoveMenu(hMenu, macroCmdID, MF_BYCOMMAND);
+/*
+								for (size_t i = shortcutIndex; i < nbElem - 1; ++i)	//lower the IDs of the remaining items so there are no gaps
 								{
 									MacroShortcut ms = theMacros[i];
 									ms.setID(ms.getID() - 1);	//shift all IDs
 									theMacros[i] = ms;
 								}
+								
 
 								// updateShortcuts() will update all menu item - the menu items will be shifted
 								nppParam.getAccelerator()->updateShortcuts();
+								nppParam.getAccelerator()->updateFullMenu();
 								nppParam.setShortcutDirty();
 
-								if (!hMenu) return FALSE;
 
-								// All menu items are shifted up. So we delete the last item
-								::RemoveMenu(hMenu, posBase + static_cast<int32_t>(nbElem), MF_BYPOSITION);
-
+								
 								if (nbElem == 0)
 								{
-									::RemoveMenu(hMenu, modifCmd, MF_BYCOMMAND);
+									::RemoveMenu(hMenu, IDM_SETTING_SHORTCUT_MAPPER_MACRO, MF_BYCOMMAND);
 
 									//remove separator
 									::RemoveMenu(hMenu, posBase - 1, MF_BYPOSITION);
 									::RemoveMenu(hMenu, posBase - 1, MF_BYPOSITION);
 								}
+								*/
 							}
 							break; 
 

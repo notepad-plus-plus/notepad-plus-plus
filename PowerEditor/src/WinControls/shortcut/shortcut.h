@@ -348,6 +348,34 @@ public:
 		return _cmdMenuStructure[i];
 	};
 
+	// Search & remove a cmd by given cmd index from the CmdMenuStructure, and update its menu index pointer for each unit
+	// Returned value: The menu index pointer of erased cmd if cmd to remove is under a submenu, otherwise -1
+	long removeCmdIndex(size_t cmdIndex2Remove) {
+		int cmdIndex = 0;
+		int index = 0;
+		for (CmdMenuStructureUnit i : _cmdMenuStructure)
+		{
+			if (i._menuIndexPtr != -1)
+			{
+				cmdIndex++;
+				if (cmdIndex - 1 >= cmdIndex2Remove)
+				{
+					_cmdMenuStructure.erase(_cmdMenuStructure.begin() + index);
+					long erasedIndex = (i._menuIndexPtr == index) ? -1 : i._menuIndexPtr;
+
+					for (size_t j = cmdIndex2Remove; j < _cmdMenuStructure.size(); ++j)
+					{
+						if (_cmdMenuStructure[j]._menuIndexPtr != -1)
+							(_cmdMenuStructure[j]._menuIndexPtr)--;
+					}
+					return erasedIndex;
+				}
+			}
+			++index;
+		}
+		return -1;
+	};
+
 private:
 	std::vector<CmdMenuStructureUnit> _cmdMenuStructure;
 };

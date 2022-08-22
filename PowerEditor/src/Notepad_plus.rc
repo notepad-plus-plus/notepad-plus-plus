@@ -508,8 +508,9 @@ BEGIN
             MENUITEM "Function Completion",         IDM_EDIT_AUTOCOMPLETE
             MENUITEM "Word Completion",             IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
             MENUITEM "Function Parameters Hint",    IDM_EDIT_FUNCCALLTIP
+            MENUITEM "Function Parameters Previous Hint", IDM_EDIT_FUNCCALLTIP_PREVIOUS
+            MENUITEM "Function Parameters Next Hint",     IDM_EDIT_FUNCCALLTIP_NEXT
             MENUITEM "Path Completion",             IDM_EDIT_AUTOCOMPLETE_PATH
-            MENUITEM "Function Parameters Next",    IDM_EDIT_FUNCCALLTIP_NEXT
         END
         POPUP "&EOL Conversion"
         BEGIN

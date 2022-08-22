@@ -358,7 +358,7 @@ public:
 			if (i._menuIndexPtr != -1)
 			{
 				cmdIndex++;
-				if (cmdIndex - 1 >= cmdIndex2Remove)
+				if (size_t(cmdIndex - 1) >= cmdIndex2Remove)
 				{
 					_cmdMenuStructure.erase(_cmdMenuStructure.begin() + index);
 					long erasedIndex = (i._menuIndexPtr == index) ? -1 : i._menuIndexPtr;

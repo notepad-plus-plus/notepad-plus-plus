@@ -356,6 +356,8 @@
                     <Item id="50000" name="Dokončovanie funkcií"/>
                     <Item id="50001" name="Dokončovanie slov"/>
                     <Item id="50002" name="Pomôcka k parametrom funkcie"/>
+                    <Item id="50010" name="Predchádzajúca pomôcka k parametrom funkcie"/>
+                    <Item id="50011" name="Nasledujúca pomôcka k parametrom funkcie"/>
                     <Item id="50005" name="Prepnúť nahrávanie makra"/>
                     <Item id="50006" name="Dokončovanie cesty"/>
                     <Item id="44042" name="Skryť riadky"/>

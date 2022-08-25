@@ -405,6 +405,8 @@
                     <Item id="50000" name="自動完成函數"/>
                     <Item id="50001" name="自動完成字詞"/>
                     <Item id="50002" name="功能參數提示"/>
+                    <Item id="50010" name="功能參數：上一個提示"/> <!-- #new #next -->
+                    <Item id="50011" name="功能參數：下一個提示"/> <!-- #new #next -->
 
                     <!-- type: Shortcut Mapper dialog -->
                     <Item id="50005" name="開始/停止錄製 macro"/>

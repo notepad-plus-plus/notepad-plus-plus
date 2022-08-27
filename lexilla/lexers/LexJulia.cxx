@@ -252,9 +252,10 @@ static int is_wc_cat_id_start(uint32_t wc) {
               wc == 0x223f || wc == 0x22be || wc == 0x22bf || // ∿, ⊾, ⊿
               wc == 0x22a4 || wc == 0x22a5 ||   // ⊤ ⊥
 
-              (wc >= 0x2202 && wc <= 0x2233 &&
+              (wc >= 0x2200 && wc <= 0x2233 &&
                (wc == 0x2202 || wc == 0x2205 || wc == 0x2206 || // ∂, ∅, ∆
                 wc == 0x2207 || wc == 0x220e || wc == 0x220f || // ∇, ∎, ∏
+                wc == 0x2200 || wc == 0x2203 || wc == 0x2204 || // ∀, ∃, ∄
                 wc == 0x2210 || wc == 0x2211 || // ∐, ∑
                 wc == 0x221e || wc == 0x221f || // ∞, ∟
                 wc >= 0x222b)) || // ∫, ∬, ∭, ∮, ∯, ∰, ∱, ∲, ∳
@@ -1020,6 +1021,7 @@ void SCI_METHOD LexerJulia::Lex(Sci_PositionU startPos, Sci_Position length, int
                 }
             } else if (sc.ch == '!') {
                 sc.SetState(SCE_JULIA_OPERATOR);
+                transpose = false;
             } else if (sc.ch == '\'') {
                 if (transpose) {
                     sc.SetState(SCE_JULIA_OPERATOR);

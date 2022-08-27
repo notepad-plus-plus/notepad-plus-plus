@@ -319,7 +319,7 @@ struct ListOptions {
 class ListBox : public Window {
 public:
 	ListBox() noexcept;
-	virtual ~ListBox() noexcept override;
+	~ListBox() noexcept override;
 	static std::unique_ptr<ListBox> Allocate();
 
 	virtual void SetFont(const Font *font)=0;

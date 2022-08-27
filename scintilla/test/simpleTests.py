@@ -2201,6 +2201,13 @@ class TestElements(unittest.TestCase):
 		self.ed.ResetElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE)
 		self.ed.ResetElementColour(self.ed.SC_ELEMENT_HOT_SPOT_ACTIVE_BACK)
 
+	def testHideSelection(self):
+		self.assertEquals(self.ed.SelectionHidden, False)
+		self.ed.HideSelection(True)
+		self.assertEquals(self.ed.SelectionHidden, True)
+		self.ed.HideSelection(False)	# Restore
+		self.assertEquals(self.ed.SelectionHidden, False)
+		
 class TestIndices(unittest.TestCase):
 	def setUp(self):
 		self.xite = Xite.xiteFrame

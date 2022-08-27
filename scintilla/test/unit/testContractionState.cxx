@@ -152,6 +152,28 @@ TEST_CASE("ContractionState") {
 		REQUIRE(true == pcs->GetExpanded(3));
 	}
 
+	SECTION("ExpandAll") {
+		pcs->InsertLines(0,4);
+		for (int l=0;l<4;l++) {
+			REQUIRE(true == pcs->GetExpanded(l));
+		}
+
+		pcs->SetExpanded(2, false);
+		REQUIRE(true == pcs->GetExpanded(1));
+		REQUIRE(false == pcs->GetExpanded(2));
+		REQUIRE(true == pcs->GetExpanded(3));
+
+		pcs->SetExpanded(1, false);
+		REQUIRE(false == pcs->GetExpanded(1));
+		REQUIRE(false == pcs->GetExpanded(2));
+		REQUIRE(true == pcs->GetExpanded(3));
+
+		REQUIRE(true == pcs->ExpandAll());
+		REQUIRE(true == pcs->GetExpanded(1));
+		REQUIRE(true == pcs->GetExpanded(2));
+		REQUIRE(true == pcs->GetExpanded(3));
+	}
+
 	SECTION("ChangeHeight") {
 		pcs->InsertLines(0,4);
 		for (int l=0;l<4;l++) {

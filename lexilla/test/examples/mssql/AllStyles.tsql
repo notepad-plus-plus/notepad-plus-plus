@@ -1,0 +1,52 @@
+-- Enumerate all styles: 0 to 16
+
+/* block comment = 1*/
+
+-- whitespace = 0
+    -- spaces
+
+-- line comment = 2
+
+-- number = 3
+376
+
+-- string = 4
+'a string'
+
+-- operator = 5
+()
+INTERSECT
+
+-- identifier = 6
+ProductID;
+
+-- variable = 7
+@Variable;
+
+-- column name = 8
+"COLUMN";
+
+-- statement = 9
+PRINT
+
+-- datatype = 10
+int
+
+-- systable = 11
+sysobjects
+
+-- global variable = 12
+@@ERROR
+
+-- function = 13
+object_id
+
+-- stored procedure = 14
+sp_fulltext_database
+
+-- default (preferencing data type) = 15
+x --
+
+-- column name 2 = 16
+[COLUMN];
+

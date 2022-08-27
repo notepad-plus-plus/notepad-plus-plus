@@ -126,3 +126,7 @@ InSelection EditModel::LineEndInSelection(Sci::Line lineDoc) const {
 	const Sci::Position posAfterLineEnd = pdoc->LineStart(lineDoc + 1);
 	return sel.InSelectionForEOL(posAfterLineEnd);
 }
+
+int EditModel::GetMark(Sci::Line line) const {
+	return pdoc->GetMark(line, FlagSet(changeHistoryOption, ChangeHistoryOption::Markers));
+}

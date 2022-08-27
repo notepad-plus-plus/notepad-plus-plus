@@ -252,7 +252,7 @@ void Indicator::Draw(Surface *surface, const PRectangle &rc, const PRectangle &r
 
 	case IndicatorStyle::CompositionThick: {
 			const PRectangle rcComposition(rc.left+1, rcLine.bottom-2, rc.right-1, rcLine.bottom);
-			surface->FillRectangle(rcComposition, sacDraw.fore);
+			surface->FillRectangle(rcComposition, ColourRGBA(sacDraw.fore, outlineAlpha));
 		}
 		break;
 
@@ -269,11 +269,27 @@ void Indicator::Draw(Surface *surface, const PRectangle &rc, const PRectangle &r
 			const XYPOSITION x = (sacDraw.style == IndicatorStyle::Point) ? (rcCharacter.left) : ((rcCharacter.right + rcCharacter.left) / 2);
 			// 0.5f is to hit midpoint of pixels:
 			const XYPOSITION ix = std::round(x) + 0.5f;
-			const XYPOSITION iy = std::floor(rc.top + 1.0f) + 0.5f;
+			const XYPOSITION iy = std::floor(rc.top) + 0.5f;
 			const Point pts[] = {
 				Point(ix - pixelHeight, iy + pixelHeight),	// Left
 				Point(ix + pixelHeight, iy + pixelHeight),	// Right
 				Point(ix, iy)								// Top
+			};
+			surface->Polygon(pts, std::size(pts), FillStroke(sacDraw.fore));
+		}
+		break;
+
+	case IndicatorStyle::PointTop:
+		if (rcCharacter.Width() >= 0.1) {
+			const XYPOSITION pixelHeight = std::floor(rc.Height() - 1.0f);	// 1 pixel onto previous line if multiphase
+			const XYPOSITION x = rcCharacter.left;
+			// 0.5f is to hit midpoint of pixels:
+			const XYPOSITION ix = std::round(x) + 0.5f;
+			const XYPOSITION iy = std::floor(rcLine.top) + 0.5f;
+			const Point pts[] = {
+				Point(ix - pixelHeight, iy),	// Left
+				Point(ix + pixelHeight, iy),	// Right
+				Point(ix, iy + pixelHeight)		// Bottom
 			};
 			surface->Polygon(pts, std::size(pts), FillStroke(sacDraw.fore));
 		}

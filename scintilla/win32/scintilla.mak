@@ -82,6 +82,7 @@ SRC_OBJS=\
 	$(DIR_O)\CaseConvert.obj \
 	$(DIR_O)\CaseFolder.obj \
 	$(DIR_O)\CellBuffer.obj \
+	$(DIR_O)\ChangeHistory.obj \
 	$(DIR_O)\CharacterCategoryMap.obj \
 	$(DIR_O)\CharacterType.obj \
 	$(DIR_O)\CharClassify.obj \

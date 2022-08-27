@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-  <Type Name="Scintilla::SplitVector&lt;*&gt;">
+  <Type Name="Scintilla::Internal::SplitVector&lt;*&gt;">
     <DisplayString>{{size = {lengthBody}}}</DisplayString>
     <Expand>
       <Item Name="[size]">lengthBody</Item>
@@ -12,7 +12,20 @@
       </IndexListItems>
     </Expand>
   </Type>
-  <Type Name="Scintilla::Partitioning&lt;*&gt;">
+  <Type Name="Scintilla::Internal::XSparseVector&lt;*&gt;">
+    <DisplayString>{{size = {values->lengthBody}}}</DisplayString>
+    <Expand>
+      <IndexListItems>
+        <Size>values->lengthBody</Size>
+        <ValueNode>starts->body->body[($i&lt;starts->body->part1Length)?$i:$i+starts->body->gapLength]+($i&gt;starts->stepPartition?starts->stepLength:0)</ValueNode>
+      </IndexListItems>
+      <IndexListItems>
+        <Size>values->lengthBody</Size>
+        <ValueNode>values->body->body[($i&lt;values->body->part1Length)?$i:$i+values->body->gapLength]+($i&gt;values->stepPartition?values->stepLength:0)</ValueNode>
+      </IndexListItems>
+    </Expand>
+  </Type>
+  <Type Name="Scintilla::Internal::Partitioning&lt;*&gt;">
     <DisplayString>{{size = {body->lengthBody}}}</DisplayString>
     <Expand>
       <IndexListItems>

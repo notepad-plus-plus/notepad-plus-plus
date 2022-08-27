@@ -1,0 +1,4 @@
+CREATE TABLE TestTable (
+    col
+    CHAR(3)
+);

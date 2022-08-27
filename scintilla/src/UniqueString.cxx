@@ -30,8 +30,6 @@ UniqueString UniqueStringCopy(const char *text) {
 
 UniqueStringSet::UniqueStringSet() = default;
 
-UniqueStringSet::~UniqueStringSet() noexcept = default;
-
 void UniqueStringSet::Clear() noexcept {
 	strings.clear();
 }

@@ -1457,8 +1457,8 @@ void ScintillaCocoa::StartDrag() {
 	si.SetMode(CurrentSurfaceMode());
 	std::unique_ptr<SurfaceImpl> sw = si.AllocatePixMapImplementation(static_cast<int>(client.Width()), static_cast<int>(client.Height()));
 
-	const bool lastHideSelection = view.hideSelection;
-	view.hideSelection = true;
+	const bool lastSelectionVisible = vs.selection.visible;
+	vs.selection.visible = false;
 	PRectangle imageRect = rcSel;
 	paintState = PaintState::painting;
 	paintingAllText = true;
@@ -1466,7 +1466,7 @@ void ScintillaCocoa::StartDrag() {
 	CGContextTranslateCTM(gcsw, -client.left, -client.top);
 	Paint(sw.get(), client);
 	paintState = PaintState::notPainting;
-	view.hideSelection = lastHideSelection;
+	vs.selection.visible = lastSelectionVisible;
 
 	std::unique_ptr<SurfaceImpl> pixmap = si.AllocatePixMapImplementation(static_cast<int>(imageRect.Width()),
 								  static_cast<int>(imageRect.Height()));

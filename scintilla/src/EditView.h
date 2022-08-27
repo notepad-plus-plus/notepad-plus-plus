@@ -56,7 +56,6 @@ public:
 	std::unique_ptr<LineTabstops> ldTabstops;
 	int tabWidthMinimumPixels;
 
-	bool hideSelection;
 	bool drawOverstrikeCaret; // used by the curses platform
 
 	/** In bufferedDraw mode, graphics operations are drawn to a pixmap and then copied to

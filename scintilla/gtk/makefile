@@ -128,6 +128,7 @@ SRC_OBJS = \
 	CaseConvert.o \
 	CaseFolder.o \
 	CellBuffer.o \
+	ChangeHistory.o \
 	CharacterCategoryMap.o \
 	CharacterType.o \
 	CharClassify.o \

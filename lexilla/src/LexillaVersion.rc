@@ -4,8 +4,8 @@
 
 #include <windows.h>
 
-#define VERSION_LEXILLA "5.1.8"
-#define VERSION_WORDS 5, 1, 8, 0
+#define VERSION_LEXILLA "5.1.9"
+#define VERSION_WORDS 5, 1, 9, 0
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION	VERSION_WORDS

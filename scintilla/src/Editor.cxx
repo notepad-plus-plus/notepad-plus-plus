@@ -263,7 +263,7 @@ void Editor::DropGraphics() noexcept {
 	view.DropGraphics();
 }
 
-void Editor::InvalidateStyleData() {
+void Editor::InvalidateStyleData() noexcept {
 	stylesValid = false;
 	vs.technology = technology;
 	DropGraphics();
@@ -289,13 +289,17 @@ void Editor::RefreshStyleData() {
 	}
 }
 
+bool Editor::HasMarginWindow() const noexcept {
+	return wMargin.Created();
+}
+
 Point Editor::GetVisibleOriginInMain() const {
 	return Point(0, 0);
 }
 
 PointDocument Editor::DocumentPointFromView(Point ptView) const {
 	PointDocument ptDocument(ptView);
-	if (wMargin.GetID()) {
+	if (HasMarginWindow()) {
 		const Point ptOrigin = GetVisibleOriginInMain();
 		ptDocument.x += ptOrigin.x;
 		ptDocument.y += ptOrigin.y;
@@ -306,8 +310,8 @@ PointDocument Editor::DocumentPointFromView(Point ptView) const {
 	return ptDocument;
 }
 
-Sci::Line Editor::TopLineOfMain() const {
-	if (wMargin.GetID())
+Sci::Line Editor::TopLineOfMain() const noexcept {
+	if (HasMarginWindow())
 		return 0;
 	else
 		return topLine;
@@ -432,7 +436,7 @@ Sci::Position Editor::PositionFromLineX(Sci::Line lineDoc, int x) {
 	return SPositionFromLineX(lineDoc, x).Position();
 }
 
-Sci::Line Editor::LineFromLocation(Point pt) const {
+Sci::Line Editor::LineFromLocation(Point pt) const noexcept {
 	return pcs->DocFromDisplay(static_cast<int>(pt.y) / vs.lineHeight + topLine);
 }
 
@@ -485,7 +489,7 @@ void Editor::Redraw() {
 	//Platform::DebugPrintf("Redraw all\n");
 	const PRectangle rcClient = GetClientRectangle();
 	wMain.InvalidateRectangle(rcClient);
-	if (wMargin.GetID()) {
+	if (HasMarginWindow()) {
 		wMargin.InvalidateAll();
 	} else if (paintState == PaintState::notPainting) {
 		redrawPendingText = true;
@@ -494,12 +498,12 @@ void Editor::Redraw() {
 
 void Editor::RedrawSelMargin(Sci::Line line, bool allAfter) {
 	const bool markersInText = vs.maskInLine || vs.maskDrawInText;
-	if (!wMargin.GetID() || markersInText) {	// May affect text area so may need to abandon and retry
+	if (!HasMarginWindow() || markersInText) {	// May affect text area so may need to abandon and retry
 		if (AbandonPaint()) {
 			return;
 		}
 	}
-	if (wMargin.GetID() && markersInText) {
+	if (HasMarginWindow() && markersInText) {
 		Redraw();
 		return;
 	}
@@ -532,7 +536,7 @@ void Editor::RedrawSelMargin(Sci::Line line, bool allAfter) {
 		if (rcMarkers.Empty())
 			return;
 	}
-	if (wMargin.GetID()) {
+	if (HasMarginWindow()) {
 		const Point ptOrigin = GetVisibleOriginInMain();
 		rcMarkers.Move(-ptOrigin.x, -ptOrigin.y);
 		wMargin.InvalidateRectangle(rcMarkers);
@@ -570,7 +574,7 @@ void Editor::InvalidateRange(Sci::Position start, Sci::Position end) {
 	RedrawRect(RectangleFromRange(Range(start, end), view.LinesOverlap() ? vs.lineOverlap : 0));
 }
 
-Sci::Position Editor::CurrentPosition() const {
+Sci::Position Editor::CurrentPosition() const noexcept {
 	return sel.MainCaret();
 }
 
@@ -578,11 +582,11 @@ bool Editor::SelectionEmpty() const noexcept {
 	return sel.Empty();
 }
 
-SelectionPosition Editor::SelectionStart() {
+SelectionPosition Editor::SelectionStart() noexcept {
 	return sel.RangeMain().Start();
 }
 
-SelectionPosition Editor::SelectionEnd() {
+SelectionPosition Editor::SelectionEnd() noexcept {
 	return sel.RangeMain().End();
 }
 
@@ -809,7 +813,7 @@ bool Editor::RangeContainsProtected(Sci::Position start, Sci::Position end) cons
 	return false;
 }
 
-bool Editor::SelectionContainsProtected() const {
+bool Editor::SelectionContainsProtected() const noexcept {
 	for (size_t r=0; r<sel.Count(); r++) {
 		if (RangeContainsProtected(sel.Range(r).Start().Position(),
 			sel.Range(r).End().Position())) {
@@ -1937,9 +1941,7 @@ SelectionPosition Editor::RealizeVirtualSpace(const SelectionPosition &position)
 }
 
 void Editor::AddChar(char ch) {
-	char s[2];
-	s[0] = ch;
-	s[1] = '\0';
+	const char s[1] {ch};
 	InsertCharacter(std::string_view(s, 1), CharacterSource::DirectInput);
 }
 
@@ -2356,15 +2358,6 @@ void Editor::DelCharBack(bool allowLineStartDeletion) {
 	ShowCaretAtCurrentPosition();
 }
 
-KeyMod Editor::ModifierFlags(bool shift, bool ctrl, bool alt, bool meta, bool super) noexcept {
-	return
-		(shift ? KeyMod::Shift : KeyMod::Norm) |
-		(ctrl ? KeyMod::Ctrl : KeyMod::Norm) |
-		(alt ? KeyMod::Alt : KeyMod::Norm) |
-		(meta ? KeyMod::Meta : KeyMod::Norm) |
-		(super ? KeyMod::Super : KeyMod::Norm);
-}
-
 void Editor::NotifyFocus(bool focus) {
 	NotificationData scn = {};
 	scn.nmhdr.code = focus ? Notification::FocusIn : Notification::FocusOut;
@@ -2405,6 +2398,9 @@ void Editor::NotifySavePoint(bool isSavePoint) {
 	NotificationData scn = {};
 	if (isSavePoint) {
 		scn.nmhdr.code = Notification::SavePointReached;
+		if (changeHistoryOption != ChangeHistoryOption::Disabled) {
+			Redraw();
+		}
 	} else {
 		scn.nmhdr.code = Notification::SavePointLeft;
 	}
@@ -2733,6 +2729,9 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 					QueueIdleWork(WorkItems::style, mh.position + mh.length);
 				}
 				InvalidateRange(mh.position, mh.position + mh.length);
+				if (FlagSet(changeHistoryOption, ChangeHistoryOption::Markers)) {
+					RedrawSelMargin(pdoc->SciLineFromPosition(mh.position));
+				}
 			}
 		}
 	}
@@ -4174,7 +4173,7 @@ Sci::Position Editor::FindTextFull(
  * while still setting the selection to found text so the find/select
  * operation is self-contained.
  */
-void Editor::SearchAnchor() {
+void Editor::SearchAnchor() noexcept {
 	searchAnchor = SelectionStart().Position();
 }
 
@@ -4780,7 +4779,7 @@ void Editor::RightButtonDownWithModifiers(Point pt, unsigned int, KeyMod modifie
 		return;
 }
 
-bool Editor::PositionIsHotspot(Sci::Position position) const {
+bool Editor::PositionIsHotspot(Sci::Position position) const noexcept {
 	return vs.styles[pdoc->StyleIndexAt(position)].hotspot;
 }
 
@@ -5267,7 +5266,7 @@ bool Editor::PaintContains(PRectangle rc) {
 }
 
 bool Editor::PaintContainsMargin() {
-	if (wMargin.GetID()) {
+	if (HasMarginWindow()) {
 		// With separate margin view, paint of text view
 		// never contains margin.
 		return false;
@@ -5414,17 +5413,22 @@ void Editor::SetEOLAnnotationVisible(EOLAnnotationVisible visible) {
 Sci::Line Editor::ExpandLine(Sci::Line line) {
 	const Sci::Line lineMaxSubord = pdoc->GetLastChild(line);
 	line++;
+	Sci::Line lineStart = line;
 	while (line <= lineMaxSubord) {
-		pcs->SetVisible(line, line, true);
 		const FoldLevel level = pdoc->GetFoldLevel(line);
 		if (LevelIsHeader(level)) {
+			pcs->SetVisible(lineStart, line, true);
 			if (pcs->GetExpanded(line)) {
 				line = ExpandLine(line);
 			} else {
 				line = pdoc->GetLastChild(line);
 			}
+			lineStart = line + 1;
 		}
 		line++;
+	}
+	if (lineStart <= lineMaxSubord) {
+		pcs->SetVisible(lineStart, lineMaxSubord, true);
 	}
 	return lineMaxSubord;
 }
@@ -5573,35 +5577,40 @@ void Editor::EnsureLineVisible(Sci::Line lineDoc, bool enforcePolicy) {
 
 void Editor::FoldAll(FoldAction action) {
 	const Sci::Line maxLine = pdoc->LinesTotal();
+	const bool contractAll = FlagSet(action, FoldAction::ContractEveryLevel);
+	action = static_cast<FoldAction>(static_cast<int>(action) & ~static_cast<int>(FoldAction::ContractEveryLevel));
 	bool expanding = action == FoldAction::Expand;
 	if (!expanding) {
 		pdoc->EnsureStyledTo(pdoc->Length());
 	}
+	Sci::Line line = 0;
 	if (action == FoldAction::Toggle) {
 		// Discover current state
-		for (Sci::Line lineSeek = 0; lineSeek < maxLine; lineSeek++) {
-			if (LevelIsHeader(pdoc->GetFoldLevel(lineSeek))) {
-				expanding = !pcs->GetExpanded(lineSeek);
+		for (; line < maxLine; line++) {
+			if (LevelIsHeader(pdoc->GetFoldLevel(line))) {
+				expanding = !pcs->GetExpanded(line);
 				break;
 			}
 		}
 	}
 	if (expanding) {
 		pcs->SetVisible(0, maxLine-1, true);
-		for (Sci::Line line = 0; line < maxLine; line++) {
-			if (!pcs->GetExpanded(line)) {
-				SetFoldExpanded(line, true);
-			}
-		}
+		pcs->ExpandAll();
 	} else {
-		for (Sci::Line line = 0; line < maxLine; line++) {
+		for (; line < maxLine; line++) {
 			const FoldLevel level = pdoc->GetFoldLevel(line);
-			if (LevelIsHeader(level) &&
-					(FoldLevel::Base == LevelNumberPart(level))) {
-				SetFoldExpanded(line, false);
-				const Sci::Line lineMaxSubord = pdoc->GetLastChild(line);
-				if (lineMaxSubord > line) {
-					pcs->SetVisible(line + 1, lineMaxSubord, false);
+			if (LevelIsHeader(level)) {
+				if (FoldLevel::Base == LevelNumberPart(level)) {
+					SetFoldExpanded(line, false);
+					const Sci::Line lineMaxSubord = pdoc->GetLastChild(line);
+					if (lineMaxSubord > line) {
+						pcs->SetVisible(line + 1, lineMaxSubord, false);
+						if (!contractAll) {
+							line = lineMaxSubord;
+						}
+					}
+				} else if (contractAll) {
+					SetFoldExpanded(line, false);
 				}
 			}
 		}
@@ -6322,8 +6331,12 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		}
 
 	case Message::HideSelection:
-		view.hideSelection = wParam != 0;
+		vs.selection.visible = wParam == 0;
 		Redraw();
+		break;
+
+	case Message::GetSelectionHidden:
+		return !vs.selection.visible;
 		break;
 
 	case Message::FormatRange:
@@ -7166,14 +7179,14 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		break;
 
 	case Message::MarkerGet:
-		return pdoc->GetMark(LineFromUPtr(wParam));
+		return GetMark(LineFromUPtr(wParam));
 
 	case Message::MarkerNext:
 		return pdoc->MarkerNext(LineFromUPtr(wParam), static_cast<int>(lParam));
 
 	case Message::MarkerPrevious: {
 			for (Sci::Line iLine = LineFromUPtr(wParam); iLine >= 0; iLine--) {
-				if ((pdoc->GetMark(iLine) & lParam) != 0)
+				if ((GetMark(iLine) & lParam) != 0)
 					return iLine;
 			}
 		}
@@ -8343,6 +8356,14 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case Message::GetGapPosition:
 		return pdoc->GapPosition();
+
+	case Message::SetChangeHistory:
+		changeHistoryOption = static_cast<ChangeHistoryOption>(wParam);
+		pdoc->ChangeHistorySet(wParam & 1);
+		break;
+
+	case Message::GetChangeHistory:
+		return static_cast<sptr_t>(changeHistoryOption);
 
 	case Message::SetExtraAscent:
 		vs.extraAscent = static_cast<int>(wParam);

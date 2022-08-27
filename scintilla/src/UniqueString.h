@@ -30,13 +30,6 @@ private:
 	std::vector<UniqueString> strings;
 public:
 	UniqueStringSet();
-	// UniqueStringSet objects can not be copied.
-	UniqueStringSet(const UniqueStringSet &) = delete;
-	UniqueStringSet &operator=(const UniqueStringSet &) = delete;
-	// UniqueStringSet objects can be moved.
-	UniqueStringSet(UniqueStringSet &&) = default;
-	UniqueStringSet &operator=(UniqueStringSet &&) = default;
-	~UniqueStringSet() noexcept;
 	void Clear() noexcept;
 	const char *Save(const char *text);
 };

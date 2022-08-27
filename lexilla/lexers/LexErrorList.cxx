@@ -136,7 +136,7 @@ int RecogniseErrorListLine(const char *lineBuffer, Sci_PositionU lengthLine, Sci
 		// HTML tidy style: line 42 column 1
 		return SCE_ERR_TIDY;
 	} else if (strstart(lineBuffer, "\tat ") &&
-	           strstr(lineBuffer, "(") &&
+	           strchr(lineBuffer, '(') &&
 	           strstr(lineBuffer, ".java:")) {
 		// Java stack back trace
 		return SCE_ERR_JAVA_STACK;

@@ -25,6 +25,52 @@ using namespace Scintilla::Internal;
 
 // Test RunStyles.
 
+using UniqueInt = std::unique_ptr<int>;
+
+TEST_CASE("CompileCopying RunStyles") {
+
+	// These are compile-time tests to check that basic copy and move
+	// operations are defined correctly.
+
+	SECTION("CopyingMoving") {
+		RunStyles<int, int> s;
+		RunStyles<int, int> s2;
+
+		// Copy constructor
+		RunStyles<int, int> sa(s);
+		// Copy assignment fails
+		RunStyles<int, int> sb;
+		sb = s;
+
+		// Move constructor
+		RunStyles<int, int> sc(std::move(s));
+		// Move assignment
+		RunStyles<int, int> sd;
+		sd = (std::move(s2));
+	}
+
+#if defined(SHOW_COPY_BUILD_FAILURES)
+	// It should be reasonable to instantiate RunStyles where STYLE is move-only but fails
+	SECTION("MoveOnly") {
+		RunStyles<int, UniqueInt> s;
+
+		// Copy is not defined for std::unique_ptr
+		// Copy constructor fails
+		RunStyles<int, UniqueInt> sa(s);
+		// Copy assignment fails
+		RunStyles<int, UniqueInt> sb;
+		sb = s;
+
+		// Move constructor fails
+		RunStyles<int, UniqueInt> sc(std::move(s));
+		// Move assignment fails
+		RunStyles<int, UniqueInt> sd;
+		sd = (std::move(s));
+	}
+#endif
+
+}
+
 namespace Scintilla::Internal {	// Xcode clang 9.0 doesn't like this when in the unnamed namespace
 	bool operator==(const FillResult<int> &fra, const FillResult<int> &frb) {
 		return fra.changed == frb.changed &&

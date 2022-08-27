@@ -14,6 +14,11 @@ end
 @enum Unicode α=1 β=2
 
 res = [√i for i in 1:10]
+∀=1; ∃=2; ∄=3;
+
+t!'#'
+t!='#'
+t[]!='#'
 
 #= Dummy function =#
 test_fun²(:sym, true, raw"test", `echo 1`)

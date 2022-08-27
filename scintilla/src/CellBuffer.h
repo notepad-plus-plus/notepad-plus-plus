@@ -20,6 +20,7 @@ public:
 	virtual void RemoveLine(Sci::Line line)=0;
 };
 
+class ChangeHistory;
 /**
  * The line vector contains information about each of the lines in a cell buffer.
  */
@@ -39,13 +40,6 @@ public:
 	bool mayCoalesce;
 
 	Action() noexcept;
-	// Deleted so Action objects can not be copied.
-	Action(const Action &other) = delete;
-	Action &operator=(const Action &other) = delete;
-	Action &operator=(const Action &&other) = delete;
-	// Move constructor allows vector to be resized without reallocating.
-	Action(Action &&other) noexcept = default;
-	~Action();
 	void Create(ActionType at_, Sci::Position position_=0, const char *data_=nullptr, Sci::Position lenData_=0, bool mayCoalesce_=true);
 	void Clear() noexcept;
 };
@@ -60,17 +54,12 @@ class UndoHistory {
 	int undoSequenceDepth;
 	int savePoint;
 	int tentativePoint;
+	std::optional<int> detach;
 
 	void EnsureUndoRoom();
 
 public:
 	UndoHistory();
-	// Deleted so UndoHistory objects can not be copied.
-	UndoHistory(const UndoHistory &) = delete;
-	UndoHistory(UndoHistory &&) = delete;
-	void operator=(const UndoHistory &) = delete;
-	void operator=(UndoHistory &&) = delete;
-	~UndoHistory();
 
 	const char *AppendAction(ActionType at, Sci::Position position, const char *data, Sci::Position lengthData, bool &startSequence, bool mayCoalesce=true);
 
@@ -83,6 +72,10 @@ public:
 	/// the buffer was saved. Undo and redo can move over the save point.
 	void SetSavePoint() noexcept;
 	bool IsSavePoint() const noexcept;
+	bool BeforeSavePoint() const noexcept;
+	bool BeforeReachableSavePoint() const noexcept;
+	bool AfterSavePoint() const noexcept;
+	bool AfterDetachPoint() const noexcept;
 
 	// Tentative actions are used for input composition so that it can be undone cleanly
 	void TentativeStart();
@@ -146,6 +139,8 @@ private:
 	bool collectingUndo;
 	UndoHistory uh;
 
+	std::unique_ptr<ChangeHistory> changeHistory;
+
 	std::unique_ptr<ILineVector> plv;
 
 	bool UTF8LineEndOverlaps(Sci::Position position) const noexcept;
@@ -163,9 +158,9 @@ public:
 	// Deleted so CellBuffer objects can not be copied.
 	CellBuffer(const CellBuffer &) = delete;
 	CellBuffer(CellBuffer &&) = delete;
-	void operator=(const CellBuffer &) = delete;
-	void operator=(CellBuffer &&) = delete;
-	~CellBuffer();
+	CellBuffer &operator=(const CellBuffer &) = delete;
+	CellBuffer &operator=(CellBuffer &&) = delete;
+	~CellBuffer() noexcept;
 
 	/// Retrieving positions outside the range of the buffer works and returns 0
 	char CharAt(Sci::Position position) const noexcept;
@@ -237,6 +232,12 @@ public:
 	int StartRedo();
 	const Action &GetRedoStep() const;
 	void PerformRedoStep();
+
+	void ChangeHistorySet(bool set);
+	[[nodiscard]] int EditionAt(Sci::Position pos) const noexcept;
+	[[nodiscard]] Sci::Position EditionEndRun(Sci::Position pos) const noexcept;
+	[[nodiscard]] unsigned int EditionDeletesAt(Sci::Position pos) const noexcept;
+	[[nodiscard]] Sci::Position EditionNextDelete(Sci::Position pos) const noexcept;
 };
 
 }

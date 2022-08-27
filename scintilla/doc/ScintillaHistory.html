@@ -570,9 +570,64 @@
 	<td>Arkadiusz Michalski</td>
 	<td>Christian Schmitz</td>
 	<td>Michael Berlenz</td>
+	<td>Jacky Yang</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla530.zip">Release 5.3.0</a>
+    </h3>
+    <ul>
+	<li>
+	Released 27 August 2022.
+	</li>
+	<li>
+	Added change history which can display document changes (modified, saved, ...)
+	in the margin or in the text.
+	</li>
+	<li>
+	Add SC_MARK_BAR marker and INDIC_POINT_TOP indicator.
+	SC_MARK_BAR is an outlined and filled rectangle that takes the full height of the line and 1/3
+	of the margin width.
+	To give a connected appearance, it displays even on wrapped lines and draws end caps on the first and last line.
+	INDIC_POINT_TOP is the same as INDIC_POINT but draws at the top of the line instead of the bottom.
+	INDIC_POINT and INDIC_POINTCHARACTER were tweaked to be 1 pixel taller and 2 pixels wider in
+	two-phase draw mode to be clearer.
+	The translucency of INDIC_COMPOSITIONTHICK can be changed with SCI_INDICSETOUTLINEALPHA.
+	</li>
+	<li>
+	Improve drawing of rounded rectangles on Direct2D.
+	</li>
+	<li>
+	Line state optimized to avoid excess allocations by always allocating for every line.
+	This makes SCI_GETMAXLINESTATE less useful although it can still distinguish cases
+	where line state was never set for any lines.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1441/">Feature #1441</a>.
+	</li>
+	<li>
+	Add SC_FOLDACTION_CONTRACT_EVERY_LEVEL option to contract every level for
+	SCI_FOLDALL.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2340/">Bug #2340</a>.
+	</li>
+	<li>
+	Enable multiline regex for gcc and clang when REGEX_MULTILINE defined.
+	This requires gcc 11.3 or clang 14.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2338/">Bug #2338</a>.
+	</li>
+	<li>
+	Stop including STYLE_CALLTIP when calculating line height.
+	Allows a large font to be used for calltips without affecting text display.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2341/">Bug #2341</a>.
+	</li>
+	<li>
+	Fix incorrect display of selection when printing in some modes.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2335/">Bug #2335</a>.
+	</li>
+	<li>
+	Fix crash on Qt when showing autocompletion and the caret isn't on a screen.
+	Move autocompletion onto screen when above it.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla524.zip">Release 5.2.4</a>
     </h3>

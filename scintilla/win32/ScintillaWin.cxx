@@ -174,9 +174,11 @@ bool KeyboardIsKeyDown(int key) noexcept {
 	return (::GetKeyState(key) & 0x80000000) != 0;
 }
 
+// Bit 24 is the extended keyboard flag and the numeric keypad is non-extended
+constexpr sptr_t extendedKeyboard = 1 << 24;
+
 constexpr bool KeyboardIsNumericKeypadFunction(uptr_t wParam, sptr_t lParam) {
-	// Bit 24 is the extended keyboard flag and the numeric keypad is non-extended
-	if ((lParam & (1 << 24)) != 0) {
+	if ((lParam & extendedKeyboard) != 0) {
 		// Not from the numeric keypad
 		return false;
 	}
@@ -619,7 +621,11 @@ void ScintillaWin::Finalise() {
 
 bool ScintillaWin::UpdateRenderingParams(bool force) noexcept {
 	if (!renderingParams) {
-		renderingParams = std::make_shared<RenderingParams>();
+		try {
+			renderingParams = std::make_shared<RenderingParams>();
+		} catch (const std::bad_alloc &) {
+			return false;
+		}
 	}
 	HMONITOR monitor = ::MonitorFromWindow(MainHWND(), MONITOR_DEFAULTTONEAREST);
 	if (!force && monitor == hCurrentMonitor && renderingParams->defaultRenderingParams) {

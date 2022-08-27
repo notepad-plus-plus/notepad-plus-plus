@@ -61,6 +61,12 @@ def convertIFaceTypeToC(t):
 		return "Sci_TextToFind *"
 	elif t == "formatrange":
 		return "Sci_RangeToFormat *"
+	elif t == "textrangefull":
+		return "Sci_TextRangeFull *"
+	elif t == "findtextfull":
+		return "Sci_TextToFindFull *"
+	elif t == "formatrangefull":
+		return "Sci_RangeToFormatFull *"
 	elif Face.IsEnumeration(t):
 		return "int "
 	return t + " "

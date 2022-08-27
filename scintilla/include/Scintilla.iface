@@ -358,6 +358,7 @@ val SC_MARK_UNDERLINE=29
 val SC_MARK_RGBAIMAGE=30
 val SC_MARK_BOOKMARK=31
 val SC_MARK_VERTICALBOOKMARK=32
+val SC_MARK_BAR=33
 
 val SC_MARK_CHARACTER=10000
 
@@ -385,7 +386,11 @@ ali SC_MARK_RGBAIMAGE=RGBA_IMAGE
 ali SC_MARK_VERTICALBOOKMARK=VERTICAL_BOOKMARK
 
 enu MarkerOutline=SC_MARKNUM_
-# Markers used for outlining column.
+# Markers used for outlining and change history columns.
+val SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN=21
+val SC_MARKNUM_HISTORY_SAVED=22
+val SC_MARKNUM_HISTORY_MODIFIED=23
+val SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED=24
 val SC_MARKNUM_FOLDEREND=25
 val SC_MARKNUM_FOLDEROPENMID=26
 val SC_MARKNUM_FOLDERMIDTAIL=27
@@ -842,6 +847,7 @@ val INDIC_POINT=18
 val INDIC_POINTCHARACTER=19
 val INDIC_GRADIENT=20
 val INDIC_GRADIENTCENTRE=21
+val INDIC_POINT_TOP=22
 
 # INDIC_CONTAINER, INDIC_IME, INDIC_IME_MAX, and INDIC_MAX are indicator numbers,
 # not IndicatorStyles so should not really be in the INDIC_ enumeration.
@@ -855,7 +861,15 @@ enu IndicatorNumbers=INDICATOR_
 val INDICATOR_CONTAINER=8
 val INDICATOR_IME=32
 val INDICATOR_IME_MAX=35
-val INDICATOR_MAX=35
+val INDICATOR_HISTORY_REVERTED_TO_ORIGIN_INSERTION=36
+val INDICATOR_HISTORY_REVERTED_TO_ORIGIN_DELETION=37
+val INDICATOR_HISTORY_SAVED_INSERTION=38
+val INDICATOR_HISTORY_SAVED_DELETION=39
+val INDICATOR_HISTORY_MODIFIED_INSERTION=40
+val INDICATOR_HISTORY_MODIFIED_DELETION=41
+val INDICATOR_HISTORY_REVERTED_TO_MODIFIED_INSERTION=42
+val INDICATOR_HISTORY_REVERTED_TO_MODIFIED_DELETION=43
+val INDICATOR_MAX=43
 
 ali INDIC_TT=T_T
 ali INDIC_ROUNDBOX=ROUND_BOX
@@ -1224,6 +1238,18 @@ fun position FormatRange=2151(bool draw, formatrange fr)
 # Draw the document into a display context such as a printer.
 fun position FormatRangeFull=2777(bool draw, formatrangefull fr)
 
+enu ChangeHistoryOption=SC_CHANGE_HISTORY_
+val SC_CHANGE_HISTORY_DISABLED=0
+val SC_CHANGE_HISTORY_ENABLED=1
+val SC_CHANGE_HISTORY_MARKERS=2
+val SC_CHANGE_HISTORY_INDICATORS=4
+
+# Enable or disable change history.
+set void SetChangeHistory=2780(ChangeHistoryOption changeHistory,)
+
+# Report change history status.
+get ChangeHistoryOption GetChangeHistory=2781(,)
+
 # Retrieve the display line at the top of the display.
 get line GetFirstVisibleLine=2152(,)
 
@@ -1270,6 +1296,9 @@ fun position GetTextRangeFull=2039(, textrangefull tr)
 
 # Draw the selection either highlighted or in normal (non-highlighted) style.
 fun void HideSelection=2163(bool hide,)
+
+#Is the selection visible or hidden?
+get bool GetSelectionHidden=2088(,)
 
 # Retrieve the x value of the point in the window where a position is displayed.
 fun int PointXFromPosition=2164(, position pos)
@@ -1534,6 +1563,7 @@ enu FoldAction=SC_FOLDACTION_
 val SC_FOLDACTION_CONTRACT=0
 val SC_FOLDACTION_EXPAND=1
 val SC_FOLDACTION_TOGGLE=2
+val SC_FOLDACTION_CONTRACT_EVERY_LEVEL=4
 
 # Expand or contract a fold header.
 fun void FoldLine=2237(line line, FoldAction action)

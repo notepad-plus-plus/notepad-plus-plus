@@ -4950,14 +4950,14 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 	{
 		case WM_INITDIALOG:
 		{
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_STOPFILLINGFINDFIELD, BM_SETCHECK, nppGUI._stopFillingFindField, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED, BM_SETCHECK, nppGUI._fillFindFieldWithSelected, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, nppGUI._fillFindFieldSelectCaret, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFindDlg, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, BM_SETCHECK, nppGUI._findDlgAlwaysVisible, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND), nppGUI._stopFillingFindField ? FALSE : TRUE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CONFIRMREPLOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWONCEPERFOUNDLINE, BM_SETCHECK, nppGUI._finderShowOnlyOneEntryPerFoundLine, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND, BM_SETCHECK, nppGUI._stopSelectingNearestWordOnFind, 0);
 		}
 		break;
 
@@ -4984,10 +4984,13 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			switch (wParam)
 			{
-				case IDC_CHECK_STOPFILLINGFINDFIELD:
+				case IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED:
 				{
-					nppGUI._stopFillingFindField = isCheckedOrNot(IDC_CHECK_STOPFILLINGFINDFIELD);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND), nppGUI._stopFillingFindField ? FALSE :TRUE);
+					nppGUI._fillFindFieldWithSelected = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE :FALSE);
+					if (!nppGUI._fillFindFieldWithSelected) {
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, BST_UNCHECKED, 0);
+					}
 					return TRUE;
 				}
 				break;
@@ -5027,9 +5030,9 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				}
 				break;
 
-				case IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND:
+				case IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET:
 				{
-					nppGUI._stopSelectingNearestWordOnFind = isCheckedOrNot(IDC_CHECK_STOPSELECTINGNEARESTWORDONFIND);
+					nppGUI._fillFindFieldSelectCaret = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET);
 					return TRUE;
 				}
 				break;

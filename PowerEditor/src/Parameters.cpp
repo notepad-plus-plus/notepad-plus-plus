@@ -5475,13 +5475,20 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optNameMonoFont)
 				_nppGUI._monospacedFontFindDlg = (lstrcmp(optNameMonoFont, TEXT("yes")) == 0);
 
+			//This is an option from previous versions of notepad++.  It is handled for compatibility with older settings.
 			const TCHAR* optStopFillingFindField = element->Attribute(TEXT("stopFillingFindField"));
-			if (optStopFillingFindField)
-				_nppGUI._stopFillingFindField = (lstrcmp(optStopFillingFindField, TEXT("yes")) == 0);
+			if (optStopFillingFindField) {
+				_nppGUI._fillFindFieldWithSelected = (lstrcmp(optStopFillingFindField, TEXT("no")) == 0);
+				_nppGUI._fillFindFieldSelectCaret = _nppGUI._fillFindFieldWithSelected;
+			}
 
-			const TCHAR* optOnlyFillFindFieldOnSelection = element->Attribute(TEXT("onlyFillFindFieldOnSelection"));
-			if (optOnlyFillFindFieldOnSelection)
-				_nppGUI._stopSelectingNearestWordOnFind = (lstrcmp(optOnlyFillFindFieldOnSelection, TEXT("yes")) == 0);
+			const TCHAR* optFillFindFieldWithSelected = element->Attribute(TEXT("fillFindFieldWithSelected"));
+			if (optFillFindFieldWithSelected)
+				_nppGUI._fillFindFieldWithSelected = (lstrcmp(optFillFindFieldWithSelected, TEXT("yes")) == 0);
+
+			const TCHAR* optFillFindFieldSelectCaret = element->Attribute(TEXT("fillFindFieldSelectCaret"));
+			if (optFillFindFieldSelectCaret)
+				_nppGUI._fillFindFieldSelectCaret = (lstrcmp(optFillFindFieldSelectCaret, TEXT("yes")) == 0);
 
 			const TCHAR* optFindDlgAlwaysVisible = element->Attribute(TEXT("findDlgAlwaysVisible"));
 			if (optFindDlgAlwaysVisible)
@@ -6682,8 +6689,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Searching"));
 
 		GUIConfigElement->SetAttribute(TEXT("monospacedFontFindDlg"), _nppGUI._monospacedFontFindDlg ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("stopFillingFindField"), _nppGUI._stopFillingFindField ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("onlyFillFindFieldOnSelection"), _nppGUI._stopSelectingNearestWordOnFind ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("fillFindFieldWithSelected"), _nppGUI._fillFindFieldWithSelected ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("fillFindFieldSelectCaret"), _nppGUI._fillFindFieldSelectCaret ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("findDlgAlwaysVisible"), _nppGUI._findDlgAlwaysVisible ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("confirmReplaceInAllOpenDocs"), _nppGUI._confirmReplaceInAllOpenDocs ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("replaceStopsWithoutFindingNext"), _nppGUI._replaceStopsWithoutFindingNext ? TEXT("yes") : TEXT("no"));

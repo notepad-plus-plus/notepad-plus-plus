@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2807B4EA28964CA40063A31A /* ChangeHistory.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2807B4E828964CA40063A31A /* ChangeHistory.cxx */; };
+		2807B4EB28964CA40063A31A /* ChangeHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2807B4E928964CA40063A31A /* ChangeHistory.h */; };
 		282936DF24E2D55D00C84BA2 /* QuartzTextLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936D324E2D55D00C84BA2 /* QuartzTextLayout.h */; };
 		282936E024E2D55D00C84BA2 /* InfoBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 282936D424E2D55D00C84BA2 /* InfoBar.mm */; };
 		282936E124E2D55D00C84BA2 /* QuartzTextStyleAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936D524E2D55D00C84BA2 /* QuartzTextStyleAttribute.h */; };
@@ -103,6 +105,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2807B4E828964CA40063A31A /* ChangeHistory.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChangeHistory.cxx; path = ../../src/ChangeHistory.cxx; sourceTree = "<group>"; };
+		2807B4E928964CA40063A31A /* ChangeHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeHistory.h; path = ../../src/ChangeHistory.h; sourceTree = "<group>"; };
 		282936D324E2D55D00C84BA2 /* QuartzTextLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzTextLayout.h; path = ../QuartzTextLayout.h; sourceTree = "<group>"; };
 		282936D424E2D55D00C84BA2 /* InfoBar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = InfoBar.mm; path = ../InfoBar.mm; sourceTree = "<group>"; };
 		282936D524E2D55D00C84BA2 /* QuartzTextStyleAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzTextStyleAttribute.h; path = ../QuartzTextStyleAttribute.h; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 				2829372524E2D58700C84BA2 /* CaseFolder.h */,
 				2829372624E2D58700C84BA2 /* CellBuffer.cxx */,
 				2829371924E2D58600C84BA2 /* CellBuffer.h */,
+				2807B4E828964CA40063A31A /* ChangeHistory.cxx */,
+				2807B4E928964CA40063A31A /* ChangeHistory.h */,
 				28EA9CAA255894B4007710C4 /* CharacterCategoryMap.cxx */,
 				28EA9CAC255894B4007710C4 /* CharacterCategoryMap.h */,
 				28EA9CAB255894B4007710C4 /* CharacterType.cxx */,
@@ -404,6 +410,7 @@
 				282936E224E2D55D00C84BA2 /* ScintillaCocoa.h in Headers */,
 				2829373524E2D58800C84BA2 /* Style.h in Headers */,
 				282936E424E2D55D00C84BA2 /* PlatCocoa.h in Headers */,
+				2807B4EB28964CA40063A31A /* ChangeHistory.h in Headers */,
 				2829376C24E2D58800C84BA2 /* Selection.h in Headers */,
 				2829376124E2D58800C84BA2 /* ScintillaBase.h in Headers */,
 				2829373824E2D58800C84BA2 /* RESearch.h in Headers */,
@@ -504,6 +511,7 @@
 				2829375524E2D58800C84BA2 /* EditModel.cxx in Sources */,
 				2829375124E2D58800C84BA2 /* ContractionState.cxx in Sources */,
 				2829374924E2D58800C84BA2 /* CallTip.cxx in Sources */,
+				2807B4EA28964CA40063A31A /* ChangeHistory.cxx in Sources */,
 				2829375824E2D58800C84BA2 /* CharClassify.cxx in Sources */,
 				2829373324E2D58800C84BA2 /* LineMarker.cxx in Sources */,
 				2829374E24E2D58800C84BA2 /* KeyMap.cxx in Sources */,
@@ -565,7 +573,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.2.4;
+				CURRENT_PROJECT_VERSION = 5.3.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -627,7 +635,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.2.4;
+				CURRENT_PROJECT_VERSION = 5.3.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -657,7 +665,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5.2.4;
+				CURRENT_PROJECT_VERSION = 5.3.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -691,7 +699,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5.2.4;
+				CURRENT_PROJECT_VERSION = 5.3.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

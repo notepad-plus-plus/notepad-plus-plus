@@ -1,0 +1,26 @@
+{2}/* Comment (2), followed by Default (0) */{0}
+
+{2}/* File does not include Line Comment (1) as that causes \r\n failures in test runner */{0}
+
+{2}/* Global (3) 'G4C' */{0}
+{3}G4C{0} MyGui
+
+{2}/* String (8) */{0}
+{3}Window{0} 10 10 200 300 {8}"My window"{0}
+
+{2}/* Event (4) */{0}
+{4}xOnLoad{0}
+     {2}/* Command (7) */{0}
+     {7}GuiOpen{0} MyGui
+
+{3}xButton{0} 10 10 100 20 {8}"Double it!"{0}
+     {2}/* Attribute (5) */{0}
+     {5}attr{0} frame sunk
+     {7}Input{0} {8}"Enter a number"{0} var
+     {2}/* Control (6) 'if', Operator (9) '$', '>', '=' */{0}
+     {6}if{0} {9}${0}var {9}>{0} 9999
+          var {9}={0} 9999
+     {6}endif{0}
+     var2 {9}={0} {9}${0}({9}${0}var * 2)
+     {7}MsgBox{0} {8}"$var times 2 equals $var2"{0} OK/INFO
+     {7}GuiQuit{0} #this

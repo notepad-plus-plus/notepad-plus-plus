@@ -34,10 +34,6 @@ using namespace Scintilla::Internal;
 MarkerHandleSet::MarkerHandleSet() {
 }
 
-MarkerHandleSet::~MarkerHandleSet() {
-	mhList.clear();
-}
-
 bool MarkerHandleSet::Empty() const noexcept {
 	return mhList.empty();
 }
@@ -91,9 +87,6 @@ bool MarkerHandleSet::RemoveNumber(int markerNum, bool all) {
 
 void MarkerHandleSet::CombineWith(MarkerHandleSet *other) noexcept {
 	mhList.splice_after(mhList.before_begin(), other->mhList);
-}
-
-LineMarkers::~LineMarkers() {
 }
 
 void LineMarkers::Init() {
@@ -219,9 +212,6 @@ void LineMarkers::DeleteMarkFromHandle(int markerHandle) {
 	}
 }
 
-LineLevels::~LineLevels() {
-}
-
 void LineLevels::Init() {
 	levels.DeleteAll();
 }
@@ -262,15 +252,13 @@ void LineLevels::ClearLevels() {
 }
 
 int LineLevels::SetLevel(Sci::Line line, int level, Sci::Line lines) {
-	int prev = 0;
+	int prev = level;
 	if ((line >= 0) && (line < lines)) {
 		if (!levels.Length()) {
 			ExpandLevels(lines + 1);
 		}
 		prev = levels[line];
-		if (prev != level) {
-			levels[line] = level;
-		}
+		levels[line] = level;
 	}
 	return prev;
 }
@@ -281,9 +269,6 @@ int LineLevels::GetLevel(Sci::Line line) const noexcept {
 	} else {
 		return static_cast<int>(Scintilla::FoldLevel::Base);
 	}
-}
-
-LineState::~LineState() {
 }
 
 void LineState::Init() {
@@ -312,10 +297,13 @@ void LineState::RemoveLine(Sci::Line line) {
 	}
 }
 
-int LineState::SetLineState(Sci::Line line, int state) {
-	lineStates.EnsureLength(line + 1);
-	const int stateOld = lineStates[line];
-	lineStates[line] = state;
+int LineState::SetLineState(Sci::Line line, int state, Sci::Line lines) {
+	int stateOld = state;
+	if ((line >= 0) && (line < lines)) {
+		lineStates.EnsureLength(lines + 1);
+		stateOld = lineStates[line];
+		lineStates[line] = state;
+	}
 	return stateOld;
 }
 
@@ -352,9 +340,6 @@ std::unique_ptr<char[]>AllocateAnnotation(size_t length, int style) {
 	return std::make_unique<char[]>(len);
 }
 
-}
-
-LineAnnotation::~LineAnnotation() {
 }
 
 bool LineAnnotation::Empty() const noexcept {
@@ -479,9 +464,6 @@ int LineAnnotation::Lines(Sci::Line line) const noexcept {
 		return reinterpret_cast<AnnotationHeader *>(annotations[line].get())->lines;
 	else
 		return 0;
-}
-
-LineTabstops::~LineTabstops() {
 }
 
 void LineTabstops::Init() {

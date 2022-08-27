@@ -1,0 +1,53 @@
+ 0 400   0   -- Enumerate all styles: 0 to 16
+ 1 400   0   
+ 0 400   0   /* block comment = 1*/
+ 1 400   0   
+ 0 400   0   -- whitespace = 0
+ 0 400   0       -- spaces
+ 1 400   0   
+ 0 400   0   -- line comment = 2
+ 1 400   0   
+ 0 400   0   -- number = 3
+ 0 400   0   376
+ 1 400   0   
+ 0 400   0   -- string = 4
+ 0 400   0   'a string'
+ 1 400   0   
+ 0 400   0   -- operator = 5
+ 0 400   0   ()
+ 0 400   0   INTERSECT
+ 1 400   0   
+ 0 400   0   -- identifier = 6
+ 0 400   0   ProductID;
+ 1 400   0   
+ 0 400   0   -- variable = 7
+ 0 400   0   @Variable;
+ 1 400   0   
+ 0 400   0   -- column name = 8
+ 0 400   0   "COLUMN";
+ 1 400   0   
+ 0 400   0   -- statement = 9
+ 0 400   0   PRINT
+ 1 400   0   
+ 0 400   0   -- datatype = 10
+ 0 400   0   int
+ 1 400   0   
+ 0 400   0   -- systable = 11
+ 0 400   0   sysobjects
+ 1 400   0   
+ 0 400   0   -- global variable = 12
+ 0 400   0   @@ERROR
+ 1 400   0   
+ 0 400   0   -- function = 13
+ 0 400   0   object_id
+ 1 400   0   
+ 0 400   0   -- stored procedure = 14
+ 0 400   0   sp_fulltext_database
+ 1 400   0   
+ 0 400   0   -- default (preferencing data type) = 15
+ 0 400   0   x --
+ 1 400   0   
+ 0 400   0   -- column name 2 = 16
+ 0 400   0   [COLUMN];
+ 1 400   0   
+ 0 400   0   

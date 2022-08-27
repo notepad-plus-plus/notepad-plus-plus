@@ -23,6 +23,53 @@ using namespace Scintilla::Internal;
 
 // Test SplitVector.
 
+using UniqueInt = std::unique_ptr<int>;
+
+// Test SplitVector.
+
+TEST_CASE("CompileCopying SplitVector") {
+
+	// These are compile-time tests to check that basic copy and move
+	// operations are defined correctly.
+
+	SECTION("CopyingMoving") {
+		SplitVector<int> s;
+		SplitVector<int> s2;
+
+		// Copy constructor fails
+		SplitVector<int> sa(s);
+		// Copy assignment fails
+		SplitVector<int> sb;
+		sb = s;
+
+		// Move constructor fails
+		SplitVector<int> sc(std::move(s));
+		// Move assignment fails
+		SplitVector<int> sd;
+		sd = (std::move(s2));
+	}
+
+	SECTION("MoveOnly") {
+		SplitVector<UniqueInt> s;
+
+#if defined(SHOW_COPY_BUILD_FAILURES)
+		// Copy is not defined for std::unique_ptr
+		// Copy constructor fails
+		SplitVector<UniqueInt> sa(s);
+		// Copy assignment fails
+		SplitVector<UniqueInt> sb;
+		sb = s;
+#endif
+
+		// Move constructor fails
+		SplitVector<UniqueInt> sc(std::move(s));
+		// Move assignment fails
+		SplitVector<UniqueInt> sd;
+		sd = (std::move(s));
+	}
+
+}
+
 struct StringSetHolder {
 	SplitVector<std::string> sa;
 	bool Check() const noexcept {

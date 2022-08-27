@@ -138,8 +138,21 @@ CellBuffer.o: \
 	../src/Position.h \
 	../src/SplitVector.h \
 	../src/Partitioning.h \
+	../src/RunStyles.h \
+	../src/SparseVector.h \
+	../src/ChangeHistory.h \
 	../src/CellBuffer.h \
 	../src/UniConversion.h
+ChangeHistory.o: \
+	../src/ChangeHistory.cxx \
+	../include/ScintillaTypes.h \
+	../src/Debugging.h \
+	../src/Position.h \
+	../src/SplitVector.h \
+	../src/Partitioning.h \
+	../src/RunStyles.h \
+	../src/SparseVector.h \
+	../src/ChangeHistory.h
 CharacterCategoryMap.o: \
 	../src/CharacterCategoryMap.cxx \
 	../src/CharacterCategoryMap.h

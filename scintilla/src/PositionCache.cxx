@@ -87,11 +87,12 @@ LineLayout::~LineLayout() {
 void LineLayout::Resize(int maxLineLength_) {
 	if (maxLineLength_ > maxLineLength) {
 		Free();
-		chars = std::make_unique<char[]>(maxLineLength_ + 1);
-		styles = std::make_unique<unsigned char []>(maxLineLength_ + 1);
+		const size_t lineAllocation = maxLineLength_ + 1;
+		chars = std::make_unique<char[]>(lineAllocation);
+		styles = std::make_unique<unsigned char []>(lineAllocation);
 		// Extra position allocated as sometimes the Windows
 		// GetTextExtentExPoint API writes an extra element.
-		positions = std::make_unique<XYPOSITION []>(maxLineLength_ + 1 + 1);
+		positions = std::make_unique<XYPOSITION []>(lineAllocation + 1);
 		if (bidiData) {
 			bidiData->Resize(maxLineLength_);
 		}
@@ -113,6 +114,10 @@ void LineLayout::Free() noexcept {
 	positions.reset();
 	lineStarts.reset();
 	bidiData.reset();
+}
+
+void LineLayout::ClearPositions() {
+	std::fill(&positions[0], &positions[maxLineLength + 2], 0.0f);
 }
 
 void LineLayout::Invalidate(ValidLevel validity_) noexcept {
@@ -186,9 +191,10 @@ int LineLayout::SubLineFromPosition(int posInLine, PointEnd pe) const noexcept {
 	return lines - 1;
 }
 
-void LineLayout::SetLineStart(int line, int start) {
-	if ((line >= lenLineStarts) && (line != 0)) {
-		const int newMaxLines = line + 20;
+void LineLayout::AddLineStart(Sci::Position start) {
+	lines++;
+	if (lines >= lenLineStarts) {
+		const int newMaxLines = lines + 20;
 		std::unique_ptr<int[]> newLineStarts = std::make_unique<int[]>(newMaxLines);
 		if (lenLineStarts) {
 			std::copy(lineStarts.get(), lineStarts.get() + lenLineStarts, newLineStarts.get());
@@ -196,7 +202,7 @@ void LineLayout::SetLineStart(int line, int start) {
 		lineStarts = std::move(newLineStarts);
 		lenLineStarts = newMaxLines;
 	}
-	lineStarts[line] = start;
+	lineStarts[lines] = static_cast<int>(start);
 }
 
 void LineLayout::SetBracesHighlight(Range rangeLine, const Sci::Position braces[],
@@ -299,6 +305,15 @@ Point LineLayout::PointFromPosition(int posInLine, int lineHeight, PointEnd pe) 
 	return pt;
 }
 
+XYPOSITION LineLayout::XInLine(Sci::Position index) const noexcept {
+	// For positions inside line return value from positions
+	// For positions after line return last position + 1.0
+	if (index <= numCharsInLine) {
+		return positions[index];
+	}
+	return positions[numCharsInLine] + 1.0;
+}
+
 int LineLayout::EndLineStyle() const noexcept {
 	return styles[numCharsBeforeEOL > 0 ? numCharsBeforeEOL-1 : 0];
 }
@@ -383,7 +398,7 @@ constexpr bool GraphicASCII(char ch) noexcept {
 	return ch >= ' ' && ch <= '~';
 }
 
-bool AllGraphicASCII(std::string_view text) noexcept {
+bool AllGraphicASCII(std::string_view text) {
 	return std::all_of(text.cbegin(), text.cend(), GraphicASCII);
 }
 
@@ -740,7 +755,7 @@ TextSegment BreakFinder::Next() {
 			const unsigned char ch = chars[0];
 			if (!UTF8IsAscii(ch) && encodingFamily != EncodingFamily::eightBit) {
 				if (encodingFamily == EncodingFamily::unicode) {
-					charWidth = UTF8DrawBytes(reinterpret_cast<const unsigned char *>(chars), static_cast<int>(lineRange.end - nextBreak));
+					charWidth = UTF8DrawBytes(chars, lineRange.end - nextBreak);
 				} else {
 					charWidth = pdoc->DBCSDrawBytes(std::string_view(chars, lineRange.end - nextBreak));
 				}

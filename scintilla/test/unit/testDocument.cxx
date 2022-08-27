@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <set>
 #include <optional>
 #include <algorithm>
 #include <memory>
@@ -599,5 +600,74 @@ TEST_CASE("SafeSegment") {
 		length = doc.document.SafeSegment(text);
 		REQUIRE(text[length - 1] == '\x7b');
 		REQUIRE(text[length] == '\x8c');
+	}
+}
+
+TEST_CASE("PerLine") {
+	SECTION("LineMarkers") {
+		DocPlus doc("1\n2\n", CpUtf8);
+		REQUIRE(doc.document.LinesTotal() == 3);
+		const int mh1 = doc.document.AddMark(0, 0);
+		const int mh2 = doc.document.AddMark(1, 1);
+		const int mh3 = doc.document.AddMark(2, 2);
+		REQUIRE(mh1 != -1);
+		REQUIRE(mh2 != -1);
+		REQUIRE(mh3 != -1);
+		REQUIRE(doc.document.AddMark(3, 3) == -1);
+
+		// delete first character, no change
+		REQUIRE(doc.document.CharAt(0) == '1');
+		doc.document.DeleteChars(0, 1);
+		REQUIRE(doc.document.LinesTotal() == 3);
+		REQUIRE(doc.document.MarkerHandleFromLine(0, 0) == mh1);
+		REQUIRE(doc.document.MarkerHandleFromLine(0, 1) == -1);
+		REQUIRE(doc.document.MarkerHandleFromLine(1, 0) == mh2);
+		REQUIRE(doc.document.MarkerHandleFromLine(1, 1) == -1);
+
+		// delete first line, so merged
+		REQUIRE(doc.document.CharAt(0) == '\n');
+		doc.document.DeleteChars(0, 1);
+		REQUIRE(doc.document.CharAt(0) == '2');
+		const std::set handleSet {mh1, mh2};
+		const int handle1 = doc.document.MarkerHandleFromLine(0, 0);
+		const int handle2 = doc.document.MarkerHandleFromLine(0, 1);
+		REQUIRE(handle1 != handle2);
+		REQUIRE(handleSet.count(handle1) == 1);
+		REQUIRE(handleSet.count(handle2) == 1);
+		REQUIRE(doc.document.MarkerHandleFromLine(0, 2) == -1);
+		REQUIRE(doc.document.MarkerHandleFromLine(1, 0) == mh3);
+		REQUIRE(doc.document.MarkerHandleFromLine(1, 1) == -1);
+	}
+
+	SECTION("LineAnnotation") {
+		DocPlus doc("1\n2\n", CpUtf8);
+		REQUIRE(doc.document.LinesTotal() == 3);
+		Sci::Position length = doc.document.Length();
+		doc.document.AnnotationSetText(0, "1");
+		doc.document.AnnotationSetText(1, "1\n2");
+		doc.document.AnnotationSetText(2, "1\n2\n3");
+		REQUIRE(doc.document.AnnotationLines(0) == 1);
+		REQUIRE(doc.document.AnnotationLines(1) == 2);
+		REQUIRE(doc.document.AnnotationLines(2) == 3);
+		REQUIRE(doc.document.AnnotationLines(3) == 0);
+
+		// delete last line
+		length -= 1;
+		doc.document.DeleteChars(length, 1);
+		// Deleting the last line moves its 3-line annotation to previous line,
+		// deleting the 2-line annotation of the previous line.
+		REQUIRE(doc.document.LinesTotal() == 2);
+		REQUIRE(doc.document.AnnotationLines(0) == 1);
+		REQUIRE(doc.document.AnnotationLines(1) == 3);
+		REQUIRE(doc.document.AnnotationLines(2) == 0);
+
+		// delete last character, no change
+		length -= 1;
+		REQUIRE(doc.document.CharAt(length) == '2');
+		doc.document.DeleteChars(length, 1);
+		REQUIRE(doc.document.LinesTotal() == 2);
+		REQUIRE(doc.document.AnnotationLines(0) == 1);
+		REQUIRE(doc.document.AnnotationLines(1) == 3);
+		REQUIRE(doc.document.AnnotationLines(2) == 0);
 	}
 }

@@ -6,7 +6,7 @@ EXE = unitTest.exe
 
 INCLUDEDIRS = /I../../include /I../../src
 
-CXXFLAGS = /EHsc /std:c++17 $(OPTIMIZATION) /nologo /D_HAS_AUTO_PTR_ETC=1 /wd 4805 $(INCLUDEDIRS)
+CXXFLAGS = /MP /EHsc /std:c++17 $(OPTIMIZATION) /nologo /D_HAS_AUTO_PTR_ETC=1 /wd 4805 $(INCLUDEDIRS)
 
 # Files in this directory containing tests
 TESTSRC=test*.cxx
@@ -15,6 +15,7 @@ TESTEDSRC=\
  ../../src/CaseConvert.cxx \
  ../../src/CaseFolder.cxx \
  ../../src/CellBuffer.cxx \
+ ../../src/ChangeHistory.cxx \
  ../../src/CharacterCategoryMap.cxx \
  ../../src/CharClassify.cxx \
  ../../src/ContractionState.cxx \

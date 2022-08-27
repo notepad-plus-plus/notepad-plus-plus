@@ -1151,6 +1151,14 @@ Position ScintillaCall::FormatRangeFull(bool draw, void *fr) {
 	return CallPointer(Message::FormatRangeFull, draw, fr);
 }
 
+void ScintillaCall::SetChangeHistory(Scintilla::ChangeHistoryOption changeHistory) {
+	Call(Message::SetChangeHistory, static_cast<uintptr_t>(changeHistory));
+}
+
+ChangeHistoryOption ScintillaCall::ChangeHistory() {
+	return static_cast<Scintilla::ChangeHistoryOption>(Call(Message::GetChangeHistory));
+}
+
 Line ScintillaCall::FirstVisibleLine() {
 	return Call(Message::GetFirstVisibleLine);
 }
@@ -1213,6 +1221,10 @@ Position ScintillaCall::GetTextRangeFull(void *tr) {
 
 void ScintillaCall::HideSelection(bool hide) {
 	Call(Message::HideSelection, hide);
+}
+
+bool ScintillaCall::SelectionHidden() {
+	return Call(Message::GetSelectionHidden);
 }
 
 int ScintillaCall::PointXFromPosition(Position pos) {

@@ -22,39 +22,38 @@
 
 using namespace Scintilla::Internal;
 
-constexpr int growSize = 4;
-
 constexpr int lengthTestArray = 8;
 static const int testArray[lengthTestArray] = {3, 4, 5, 6, 7, 8, 9, 10};
 
-// Test SplitVectorWithRangeAdd.
+// Test Partitioning.
 
-TEST_CASE("SplitVectorWithRangeAdd") {
+TEST_CASE("CompileCopying Partitioning") {
 
-	SplitVectorWithRangeAdd<int> svwra(growSize);
+	// These are compile-time tests to check that basic copy and move
+	// operations are defined correctly.
 
-	SECTION("IsEmptyInitially") {
-		REQUIRE(0 == svwra.Length());
-	}
+	SECTION("CopyingMoving") {
+		Partitioning<int> s;
+		Partitioning<int> s2;
 
-	SECTION("IncrementExceptEnds") {
-		svwra.InsertFromArray(0, testArray, 0, lengthTestArray);
-		svwra.RangeAddDelta(1, lengthTestArray-1, 1);
-		for (int i=0; i<svwra.Length(); i++) {
-			if ((i == 0) || (i == lengthTestArray-1))
-				REQUIRE((i+3) == svwra.ValueAt(i));
-			else
-				REQUIRE((i+4) == svwra.ValueAt(i));
-		}
+		// Copy constructor
+		Partitioning<int> sa(s);
+		// Copy assignment
+		Partitioning<int> sb;
+		sb = s;
+
+		// Move constructor
+		Partitioning<int> sc(std::move(s));
+		// Move assignment
+		Partitioning<int> sd;
+		sd = (std::move(s2));
 	}
 
 }
 
-// Test Partitioning.
-
 TEST_CASE("Partitioning") {
 
-	Partitioning<Sci::Position> part(growSize);
+	Partitioning<Sci::Position> part;
 
 	SECTION("IsEmptyInitially") {
 		REQUIRE(1 == part.Partitions());
@@ -85,6 +84,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(0 == part.PositionFromPartition(0));
 		REQUIRE(1 == part.PositionFromPartition(1));
 		REQUIRE(3 == part.PositionFromPartition(2));
+		part.Check();
 	}
 
 	SECTION("InsertAgain") {
@@ -96,6 +96,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(0 == part.PositionFromPartition(0));
 		REQUIRE(5 == part.PositionFromPartition(1));
 		REQUIRE(8 == part.PositionFromPartition(2));
+		part.Check();
 	}
 
 	SECTION("InsertMultiple") {
@@ -108,6 +109,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(5 == part.PositionFromPartition(2));
 		REQUIRE(7 == part.PositionFromPartition(3));
 		REQUIRE(10 == part.PositionFromPartition(4));
+		part.Check();
 	}
 
 	SECTION("InsertMultipleWithCast") {
@@ -122,6 +124,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(6 == part.PositionFromPartition(3));
 		REQUIRE(8 == part.PositionFromPartition(4));
 		REQUIRE(9 == part.PositionFromPartition(5));
+		part.Check();
 	}
 
 	SECTION("InsertReversed") {
@@ -133,6 +136,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(0 == part.PositionFromPartition(0));
 		REQUIRE(5 == part.PositionFromPartition(1));
 		REQUIRE(8 == part.PositionFromPartition(2));
+		part.Check();
 	}
 
 	SECTION("InverseSearch") {
@@ -150,6 +154,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(1 == part.PartitionFromPosition(2));
 
 		REQUIRE(1 == part.PartitionFromPosition(3));
+		part.Check();
 	}
 
 	SECTION("DeletePartition") {
@@ -159,6 +164,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(1 == part.Partitions());
 		REQUIRE(0 == part.PositionFromPartition(0));
 		REQUIRE(2 == part.PositionFromPartition(1));
+		part.Check();
 	}
 
 	SECTION("DeleteAll") {
@@ -185,6 +191,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(11 == part.PositionFromPartition(2));
 		REQUIRE(18 == part.PositionFromPartition(3));
 		REQUIRE(19 == part.PositionFromPartition(4));
+		part.Check();
 	}
 
 	SECTION("TestMany") {
@@ -214,6 +221,7 @@ TEST_CASE("Partitioning") {
 		REQUIRE(10 == part.PartitionFromPosition(46));
 		REQUIRE(50 == part.PositionFromPartition(11));
 		REQUIRE(11 == part.PartitionFromPosition(50));
+		part.Check();
 	}
 
 }

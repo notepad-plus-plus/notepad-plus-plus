@@ -332,8 +332,30 @@ std::vector<std::string> StringSplit(const std::string_view &text, int separator
 	return vs;
 }
 
-static constexpr bool IsSpaceOrTab(char ch) noexcept {
+constexpr bool IsSpaceOrTab(char ch) noexcept {
 	return (ch == ' ') || (ch == '\t');
+}
+
+void PrintRanges(const std::vector<bool> &v) {
+	std::cout << "    ";
+	std::optional<size_t> startRange;
+	for (size_t style = 0; style <= v.size(); style++) {
+		// Goes one past size so that final range is closed
+		if ((style < v.size()) && v.at(style)) {
+			if (!startRange) {
+				startRange = style;
+			}
+		} else if (startRange) {
+			const size_t endRange = style - 1;
+			std::cout << *startRange;
+			if (*startRange != endRange) {
+				std::cout << "-" << endRange;
+			}
+			std::cout << " ";
+			startRange.reset();
+		}
+	}
+	std::cout << "\n";
 }
 
 class PropertyMap {
@@ -575,6 +597,7 @@ void StyleLineByLine(TestDocument &doc, Scintilla::ILexer5 *plex) {
 }
 
 bool TestCRLF(std::filesystem::path path, const std::string s, Scintilla::ILexer5 *plex, bool disablePerLineTests) {
+	assert(plex);
 	bool success = true;
 	// Convert all line ends to \r\n to check if styles change between \r and \n which makes
 	// it difficult to test on different platforms when files may have line ends changed.
@@ -586,6 +609,7 @@ bool TestCRLF(std::filesystem::path path, const std::string s, Scintilla::ILexer
 	TestDocument doc;
 	doc.Set(text);
 	Scintilla::IDocument *pdoc = &doc;
+	assert(pdoc);
 	plex->Lex(0, pdoc->Length(), 0, pdoc);
 	plex->Fold(0, pdoc->Length(), 0, pdoc);
 	const auto [styledText, foldedText] = MarkedAndFoldedDocument(pdoc);
@@ -613,6 +637,7 @@ bool TestCRLF(std::filesystem::path path, const std::string s, Scintilla::ILexer
 	TestDocument docUnix;
 	docUnix.Set(textUnix);
 	Scintilla::IDocument *pdocUnix = &docUnix;
+	assert(pdocUnix);
 	plex->Lex(0, pdocUnix->Length(), 0, pdocUnix);
 	plex->Fold(0, pdocUnix->Length(), 0, pdocUnix);
 	auto [styledTextUnix, foldedTextUnix] = MarkedAndFoldedDocument(pdocUnix);
@@ -790,6 +815,7 @@ bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap)
 	TestDocument doc;
 	doc.Set(text);
 	Scintilla::IDocument *pdoc = &doc;
+	assert(pdoc);
 	for (int i = 0; i < repeatLex; i++) {
 		plex->Lex(0, pdoc->Length(), 0, pdoc);
 	}
@@ -813,13 +839,7 @@ bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap)
 			const unsigned style = pdoc->StyleAt(pos);
 			used.at(style) = true;
 		}
-		std::cout << "    ";
-		for (int style = 0; style < 0x80; style++) {
-			if (used.at(style)) {
-				std::cout << style << " ";
-			}
-		}
-		std::cout << "\n";
+		PrintRanges(used);
 	}
 
 	const std::optional<int> perLineDisable = propertyMap.GetPropertyValue("testlexers.per.line.disable");

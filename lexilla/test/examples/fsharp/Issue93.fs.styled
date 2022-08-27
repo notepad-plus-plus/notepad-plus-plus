@@ -1,0 +1,46 @@
+{8}(*
+    (**  nested comment 1 **)
+    (*
+        nested comment 2
+        (*
+            nested comment 3
+            (*
+                nested comment 4
+                (*
+                    nested comment 5
+                *)
+            *)
+        *)
+    *)
+*){0}
+{9}// declare a namespace{0}
+{9}// for the module{0}
+{1}namespace{0} {6}Issue93{0}
+
+{1}module{0} {6}NestedComments{0} {12}={0}
+    {1}open{0} {3}FSharp{0}.{6}Quotations{0}
+    {1}open{0} {3}FSharp{0}.{6}Quotations{0}.{6}Patterns{0}
+    {9}// print the arguments{0}
+    {9}// of an evaluated expression{0}
+    {8}(* Example:
+        (*
+            printArgs <@ 1 + 2 @> ;;
+            // 1
+            // 2
+        *)
+    *){0}
+    {1}let{0} {6}printArgs{0} {6}expr{0} {12}={0}
+        {1}let{0} {6}getVal{0} {12}={0} {1}function{0} {6}Value{0} {12}({6}v{12},{0} {6}_{12}){0} {12}->{0} {1}downcast{0} {6}v{0} {12}|{0} {6}_{0} {12}->{0} {1}null{0}
+        {1}match{0} {6}expr{0} {1}with{0}
+        {12}|{0} {6}Call{0} {12}({6}_{12},{0} {6}_{12},{0} {6}args{12}){0} {12}->{0}
+            {3}List{0}.{2}map{0} {6}getVal{0} {6}args{0} {12}|>{0} {3}List{0}.{2}iter{0} {12}({2}printfn{0} {15}"{19}%A{15}"{12}){0}
+        {12}|{0} {6}_{0} {12}->{0}
+            {2}printfn{0} {15}"not an evaluated expression"{0}
+    {8}(* Example:
+        (*
+            let constExpr = <@ true @> ;;
+            printArgs constExpr ;;
+        *)
+    *){0}
+    {9}// Prints:{0}
+    {9}// "not an evaluated expression"{0}

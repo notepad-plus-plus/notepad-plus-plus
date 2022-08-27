@@ -1,0 +1,5 @@
+{1}; comment
+{2}[empty section]
+[normal section]
+{4}@{0}=default
+{5}key{3}={0}value

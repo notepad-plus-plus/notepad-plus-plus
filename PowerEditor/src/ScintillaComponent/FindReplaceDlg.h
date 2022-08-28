@@ -29,6 +29,8 @@
 
 #define FINDREPLACE_MAXLENGTH 2048
 
+#define FINDTEMPSTRING_MAXSIZE 1024*1024
+
 enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, FINDINPROJECTS_DLG, MARK_DLG};
 
 #define DIR_DOWN true
@@ -121,7 +123,7 @@ public:
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
 	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection);
-	void add(FoundInfo fi, SearchResultMarkingLine mi, const TCHAR* foundline, size_t totalLineNumber);
+	const char* foundLine(FoundInfo fi, SearchResultMarkingLine mi, const TCHAR* foundline, size_t totalLineNumber);
 	void setFinderStyle();
 	void removeAll();
 	void openAll();
@@ -136,7 +138,7 @@ public:
 	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value 0 means this argument is not used
 	void deleteResult();
 	std::vector<generic_string> getResultFilePaths() const;
-	bool canFind(const TCHAR *fileName, size_t lineNumber) const;
+	bool canFind(const TCHAR *fileName, size_t lineNumber, size_t* indexToStartFrom) const;
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
 	generic_string getHitsString(int count) const;
 

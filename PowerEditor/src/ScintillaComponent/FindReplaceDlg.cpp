@@ -2741,6 +2741,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 	bool findAllFileNameAdded = false;
 
+	// A temporary string which is used to populate the search result window
 	std::unique_ptr<std::string> text2AddUtf8(new std::string());
 	size_t indexBuffer = 0;
 
@@ -2763,7 +2764,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		intptr_t foundTextLen = targetEnd - targetStart;
 		intptr_t replaceDelta = 0;
 		bool processed = true;
-		
+
 		switch (op)
 		{
 			case ProcessFindAll:
@@ -2802,7 +2803,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
 				text2AddUtf8->append(_pFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber));
 
-				if (text2AddUtf8->length() > FINDALL_BUFFERSIZE)
+				if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
 				{
 					_pFinder->setFinderReadOnly(false);
 					_pFinder->_scintView.execute(SCI_ADDTEXT, text2AddUtf8->length(), reinterpret_cast<LPARAM>(text2AddUtf8->c_str()));
@@ -2851,7 +2852,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 					}
 					text2AddUtf8->append(pFindersInfo->_pDestFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber));
 
-					if (text2AddUtf8->length() > FINDALL_BUFFERSIZE)
+					if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
 					{
 						pFindersInfo->_pDestFinder->setFinderReadOnly(false);
 						pFindersInfo->_pDestFinder->_scintView.execute(SCI_ADDTEXT, text2AddUtf8->length(), reinterpret_cast<LPARAM>(text2AddUtf8->c_str()));
@@ -4556,7 +4557,7 @@ const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, cons
 		{
 			const char* endOfLongLine = " ...\r\n"; // perfectly Utf8-encoded already
 			size_t lenEndOfLongLine = strlen(endOfLongLine);
-			size_t cut = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lenEndOfLongLine - 1;	
+			size_t cut = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lenEndOfLongLine - 1;
 
 			while ((cut > 0) && (!Utf8::isValid(&text2AddUtf8[cut], (int)(len - cut))))
 				cut--;

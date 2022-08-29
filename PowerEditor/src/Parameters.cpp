@@ -5477,7 +5477,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			//This is an option from previous versions of notepad++.  It is handled for compatibility with older settings.
 			const TCHAR* optStopFillingFindField = element->Attribute(TEXT("stopFillingFindField"));
-			if (optStopFillingFindField) {
+			if (optStopFillingFindField) 
+			{
 				_nppGUI._fillFindFieldWithSelected = (lstrcmp(optStopFillingFindField, TEXT("no")) == 0);
 				_nppGUI._fillFindFieldSelectCaret = _nppGUI._fillFindFieldWithSelected;
 			}

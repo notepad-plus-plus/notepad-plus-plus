@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.4.4:
+Updated to v8.4.5:
 - added new lines
 - fix wrongs description
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.4.4">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.4.5">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1054,13 +1054,15 @@ Updated to v8.4.4:
 					<Item id="6728" name="Колонтитулы"/>
 				</Print>
 				<Searching title="Поиск">
-					<Item id="6901" name="Не заполнять поле выделенным текстом в окне Поиска"/>
+				<!--	<Item id="6901" name="Не заполнять поле выделенным текстом в окне Поиска"/> -->
 					<Item id="6902" name="Моноширинный шрифт в окне поиска (необходим перезапуск Notepad++)"/>
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
 					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
 					<Item id="6905" name="Замена: не переходить к следующему совпадению, только при повторном нажатии"/>
 					<Item id="6906" name="Результаты Поиска: все найденные в строке совпадения отображать одной записью"/>
-					<Item id="6907" name="Не выделять ближайшее слово, когда окно Найти уже активно"/>
+					<Item id="6907" name="При вызове Окна Поиска"/>
+					<Item id="6908" name="Заполнить поле поиска выделенным текстом"/>
+					<Item id="6909" name="Выделить слово под курсором, когда ничего не выбрано"/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>

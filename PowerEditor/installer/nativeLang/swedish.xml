@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.4.4">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.4.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -33,7 +33,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="edit-lineOperations" name="&amp;Radoperationer"/>
 					<Item subMenuId="edit-comment" name="Ko&amp;mmentera/Avkommentera"/>
 					<Item subMenuId="edit-autoCompletion" name="Autokomple&amp;ttering"/>
-					<Item subMenuId="edit-eolConversion" name="Kon&amp;vertering av radbyten"/>
+					<Item subMenuId="edit-eolConversion" name="Kon&amp;vertering av radbrytningar"/>
 					<Item subMenuId="edit-blankOperations" name="&amp;Blanksteg"/>
 					<Item subMenuId="edit-pasteSpecial" name="Klistra in s&amp;pecial"/>
 					<Item subMenuId="edit-onSelection" name="För markerad te&amp;xt"/>
@@ -261,7 +261,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44011" name="Distraktionsfritt läge"/>
 					<Item id="44019" name="Visa alla tecken"/>
 					<Item id="44020" name="Visa hjälplinjer för indrag"/>
-					<Item id="44022" name="Radbytning"/>
+					<Item id="44022" name="Radbrytning"/>
 					<Item id="44023" name="Zooma &amp;in (Ctrl + mushjul upp)"/>
 					<Item id="44024" name="Zooma &amp;ut (Ctrl + mushjul ned)"/>
 					<Item id="44025" name="Visa mellanslag och tabb"/>
@@ -293,7 +293,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44034" name="Alltid överst"/>
 					<Item id="44035" name="Synkronisera vertikal rullning"/>
 					<Item id="44036" name="Synkronisera horisontell rullning"/>
-					<Item id="44041" name="Visa radbytningssymbol"/>
+					<Item id="44041" name="Visa radbrytningssymbol"/>
 					<Item id="44072" name="Fokus på nästa vy"/>
 					<Item id="44081" name="Projektpanel nr. 1"/>
 					<Item id="44082" name="Projektpanel nr. 2"/>
@@ -356,6 +356,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="50000" name="Funktionskomplettering"/>
 					<Item id="50001" name="Ordkomplettering"/>
 					<Item id="50002" name="Funktionsparameterhjälp"/>
+					<Item id="50010" name="Föregående funktionsparameterhjälp"/>
+					<Item id="50011" name="Nästa funktionsparameterhjälp"/>
 					<Item id="50005" name="Växla makroinspelning"/>
 					<Item id="50006" name="Sökvägskomplettering"/>
 					<Item id="44042" name="Dölj rader"/>
@@ -880,7 +882,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6222" name="L"/>
 					<Item id="6246" name="Möjliggör att styra kommandon för att gruppera/avgruppera nuvarande nivå"/>
 					<Item id="6225" name="Aktivera multiredigering (Ctrl + musklick/markering)"/>
-					<Item id="6227" name="Radbyte"/>
+					<Item id="6227" name="Radbrytning"/>
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Justerad"/>
 					<Item id="6230" name="Indrag"/>
@@ -1047,12 +1049,14 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 				</Print>
 
 				<Searching title="Sökning">
-					<Item id="6901" name="Fyll inte sökdialogens sökfält med markerade ord"/>
 					<Item id="6902" name="Använd typsnitt med fast bredd i sökdialogen (kräver omstart av Notepad++)"/>
 					<Item id="6903" name="Sökdialogen stannar öppen efter sökningar som matar ut till resultatfönstret"/>
 					<Item id="6904" name="Visa bekräftelsedialog för &quot;Ersätt alla i alla öppna dokument&quot;"/>
 					<Item id="6905" name="Ersätt: Hoppa inte till nästa förekomst"/>
 					<Item id="6906" name="Resultatfönstret: Visa endast en post per funnen rad"/>
+					<Item id="6907" name="När sökdialogen öppnas"/>
+					<Item id="6908" name="Fyll sökfältet med markerad text"/>
+					<Item id="6909" name="Markera ord under textmarkören när ingenting är markerat"/>
 				</Searching>
 
 				<RecentFilesHistory title="Senast öppnade filer">
@@ -1509,7 +1513,7 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<finder-clear-all value="Rensa alla"/>
 			<finder-open-all value="Öppna alla"/>
 			<finder-purge-for-every-search value="Rensa efter varje sökning"/>
-			<finder-wrap-long-lines value="Radbyt långa rader"/>
+			<finder-wrap-long-lines value="Radbryt långa rader"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Avbryt"/>
 			<common-name value="Namn: "/>

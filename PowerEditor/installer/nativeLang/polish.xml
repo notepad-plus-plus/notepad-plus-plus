@@ -1281,10 +1281,12 @@ Kontynuować?"/>
             <NoBackupDoSaveFile title="Zapisywanie" message="Nie udało się odnaleźć kopii zapasowej na dysku. Została usunięta.
 Żeby nie stracić danych, należy zapisać bieżące zmiany.
 Zapisać plik „$STR_REPLACE$”?"/>
-            <DoReloadOrNot title="Przeładowywanie" message="Plik „$STR_REPLACE$” został zmodyfikowany przez inny program.
+            <DoReloadOrNot title="Przeładowywanie" message="Plik „$STR_REPLACE$”
+został zmodyfikowany przez inny program.
 
 Przeładować go?"/>
-            <DoReloadOrNotAndLooseChange title="Przeładowywanie" message="Plik „$STR_REPLACE$” został zmodyfikowany przez inny program.
+            <DoReloadOrNotAndLooseChange title="Przeładowywanie" message="Plik „$STR_REPLACE$”
+został zmodyfikowany przez inny program.
 
 Przeładować go i stracić wszystkie zmiany dokonane w Notepad++?"/>
             <PrehistoricSystemDetected title="Antyczny system" message="Wykryto antyczny system operacyjny. Przepraszamy, ale ta funkcja działa jedynie na nowoczesnych systemach."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->

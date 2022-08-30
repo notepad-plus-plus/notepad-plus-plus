@@ -5,7 +5,7 @@
 <!-- Brazilian Portuguese updated by Marcello -->
 <!-- Updated: Jul 2022, for Notepad++ 8.4.1 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.1">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -358,6 +358,8 @@
                     <Item id="50000" name="Completar função"/>
                     <Item id="50001" name="Completar palavra"/>
                     <Item id="50002" name="Dica de parâmetros da função"/>
+                    <Item id="50010" name="Dica anterior de parâmetros da função"/> 
+                    <Item id="50011" name="Dica seguinte de parâmetros da função"/>                    
                     <Item id="50005" name="Alternar para gravação de macro"/>
                     <Item id="50006" name="Completar caminho de arquivo/diretório"/>
                     <Item id="44042" name="Ocultar linhas"/>
@@ -865,8 +867,10 @@
                     <Item id="6119" name="Multilinhas"/>
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Sair ao fechar a última aba"/>
-
+                    
+                    <Item id="6131" name="Menu"/>
                     <Item id="6122" name="Ocultar (use Alt ou F10 para alternar)"/>
+                    <Item id="6132" name="Esconder atalhos à direita ＋ ▼ ✕ da barra de menus (é necessário reiniciar o Notepad++)"/>
                     <Item id="6123" name="Idioma"/>
 
                     <Item id="6125" name="Painel da lista de documentos"/>
@@ -1051,12 +1055,14 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                 </Print>
 
                 <Searching title="Pesquisa">
-                    <Item id="6901" name="Não preencher o campo Localizar na caixa de diálogo Localizar com a palavra selecionada"/>
                     <Item id="6902" name="Usar fonte monoespaçada na caixa de diálogo Localizar (é necessário reiniciar o Notepad++)"/>
                     <Item id="6903" name="A caixa de diálogo Localizar permanece aberta após a pesquisa que resulta na janela de resultados"/>
                     <Item id="6904" name="Confirmar Substituir todos em todos os documentos abertos"/>
                     <Item id="6905" name="Substituir: não mova para a ocorrência seguinte"/>
                     <Item id="6906" name="Janela de resultados da busca: mostre apenas uma ocorrência por linha"/>
+					<Item id="6907" name="Quando a caixa de diálogo de localização for acionada"/> 
+					<Item id="6908" name="Preencher o texto selecionado no campo de localização"/> 
+					<Item id="6909" name="Selecionar palavra da posição atual do cursor quando nada for selecionado"/>
                 </Searching>
 
                 <RecentFilesHistory title="Histórico de arquivos recentes">

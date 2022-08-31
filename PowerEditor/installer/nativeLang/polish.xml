@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.4 (15.07.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.5 (31.08.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -366,6 +366,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="50000" name="Uzupełnianie funkcji"/>
                     <Item id="50001" name="Uzupełnianie słów"/>
                     <Item id="50002" name="Podpowiadanie parametrów funkcji"/>
+                    <Item id="50010" name="Poprzednia podpowiedź parametrów funckji"/>
+                    <Item id="50011" name="Następna podpowiedź parametrów funckji"/>
                     <Item id="50005" name="Przełącz nagrywanie makra"/>
                     <Item id="50006" name="Uzupełnianie ścieżek"/>
                     <Item id="44042" name="Ukryj zaznaczone linie"/>
@@ -874,7 +876,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6120" name="Pionowy"/>
                     <Item id="6121" name="Zamknięcie ostatniej karty zamyka Notepad++"/>
 
+                    <Item id="6131" name="Pasek menu"/>
                     <Item id="6122" name="Ukryj pasek menu (Alt lub F10 przełączają)"/>
+                    <Item id="6132" name="Ukryj przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu (wymagany restart Notepad++)"/>
                     <Item id="6123" name="Język interfejsu:"/>
 
                     <Item id="6128" name="Alternatywne ikony"/>
@@ -1054,12 +1058,14 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                 </Print>
 
                 <Searching title="Wyszukiwanie">
-                    <Item id="6901" name="W oknie wyszukiwania nie wprowadzaj wybranego słowa do pola z szukanym tekstem"/>
                     <Item id="6902" name="W oknie wyszukiwania użyj nieproporcjonalnego fontu (wymagany restart Notepad++)"/>
                     <Item id="6903" name="Okno wyszukiwania pozostaje otwarte po przywołaniu okna z wynikami wyszukiwania"/>
                     <Item id="6904" name="Potwierdź operację „Zamień we wszystkich otwartych plikach”"/>
                     <Item id="6905" name="Po wykonaniu operacji „Zamień” nie przechodź do następnego wystąpienia"/>
                     <Item id="6906" name="W oknie wyników wyszukiwania pokaż tylko jeden wpis dla znalezionej linii"/>
+                    <Item id="6907" name="Przywołując okno wyszukiwania"/>
+                    <Item id="6908" name="Wprowadź zaznaczony tekst do pola wyszukiwania"/>
+                    <Item id="6909" name="Jeśli nie zaznaczono tekstu to zaznacz słowo spod bieżącej pozycji kursora"/>
                 </Searching>
 
                 <RecentFilesHistory title="Historia ostatnich plików">
@@ -1521,7 +1527,7 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
             <common-cancel value="Anuluj"/>
             <common-name value="Nazwa: "/>
             <tabrename-title value="Zmiana nazwy bieżącej karty"/>
-            <tabrename-newname value="Nowa nazwa: "/>
+            <tabrename-newname value="Nowa nazwa: "/>
             <splitter-rotate-left value="Obróć w lewo"/>
             <splitter-rotate-right value="Obróć w prawo"/>
             <recent-file-history-maxfile value="Maks. plików: "/>
@@ -1574,4 +1580,3 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
-

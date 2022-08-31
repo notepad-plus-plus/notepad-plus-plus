@@ -21,60 +21,60 @@
             <Item menuId="Plugins" name="플러그인"/>
             <Item menuId="Window" name="창 관리"/>
         </Entries>
-        <!--  Sub Menu Entries -->
-        <SubEntries>
-            <Item subMenuId="file-openFolder" name="현재 폴더 열기(&amp;F)"/>
-            <Item subMenuId="file-closeMore" name="닫기 옵션...(&amp;M)"/>
-            <Item subMenuId="file-recentFiles" name="최근 파일(&amp;R)"/>
-            <Item subMenuId="edit-insert" name="삽입"/>
-            <Item subMenuId="edit-copyToClipboard" name="클립보드에 복사(&amp;y)"/>
-            <Item subMenuId="edit-indent" name="들여쓰기(&amp;I)"/>
-            <Item subMenuId="edit-convertCaseTo" name="대소문자 변환(&amp;v)"/>
-            <Item subMenuId="edit-lineOperations" name="줄단위 편집(&amp;L)"/>
-            <Item subMenuId="edit-comment" name="주석 달기/제거(&amp;m)"/>
-            <Item subMenuId="edit-autoCompletion" name="자동 완성(&amp;A)"/>
-            <Item subMenuId="edit-eolConversion" name="줄끝 문자(EOL) 변환(&amp;E)"/>
-            <Item subMenuId="edit-blankOperations" name="공백 기능(&amp;B)"/>
-            <Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능(&amp;P)"/>
-            <Item subMenuId="edit-onSelection" name="선택시(&amp;O)"/>
-            <Item subMenuId="search-markAll" name="모든 토큰에 형식 적용(&amp;A)"/>
-            <Item subMenuId="search-markOne" name="한 개 토큰에 형식 적용(&amp;O)"/>
-            <Item subMenuId="search-unmarkAll" name="형식 해제"/>
-            <Item subMenuId="search-jumpUp" name="위로 이동(&amp;J)"/>
-            <Item subMenuId="search-jumpDown" name="아래로 이동(&amp;D)"/>
-            <Item subMenuId="search-copyStyledText" name="형식을 가진 텍스트 복사(&amp;C)"/>
-            <Item subMenuId="search-bookmark" name="책갈피(&amp;B)"/>
-            <Item subMenuId="view-currentFileIn" name="파일 보기"/>
-            <Item subMenuId="view-showSymbol" name="기호 보기"/>
-            <Item subMenuId="view-zoom" name="확대/축소"/>
-            <Item subMenuId="view-moveCloneDocument" name="현재 문서 이동/복사"/>
-            <Item subMenuId="view-tab" name="탭"/>
-            <Item subMenuId="view-collapseLevel" name="단계 접기"/>
-            <Item subMenuId="view-uncollapseLevel" name="단계 펼치기"/>
-            <Item subMenuId="view-project" name="프로젝트"/>
-            <Item subMenuId="encoding-characterSets" name="문자 집합"/>
-            <Item subMenuId="encoding-arabic" name="아랍어"/>
-            <Item subMenuId="encoding-baltic" name="발트어"/>
-            <Item subMenuId="encoding-celtic" name="켈트어"/>
-            <Item subMenuId="encoding-cyrillic" name="키릴어"/>
-            <Item subMenuId="encoding-centralEuropean" name="중유럽어"/>
-            <Item subMenuId="encoding-chinese" name="중국어"/>
-            <Item subMenuId="encoding-easternEuropean" name="동유럽어"/>
-            <Item subMenuId="encoding-greek" name="그리스어"/>
-            <Item subMenuId="encoding-hebrew" name="히브리어"/>
-            <Item subMenuId="encoding-japanese" name="일본어"/>
-            <Item subMenuId="encoding-korean" name="한국어"/>
-            <Item subMenuId="encoding-northEuropean" name="북유럽어"/>
-            <Item subMenuId="encoding-thai" name="태국어"/>
-            <Item subMenuId="encoding-turkish" name="터키어"/>
-            <Item subMenuId="encoding-westernEuropean" name="서유럽어"/>
-            <Item subMenuId="encoding-vietnamese" name="베트남어"/>
-            <Item subMenuId="language-userDefinedLanguage" name="사용자 정의 언어"/>
-            <Item subMenuId="settings-import" name="가져오기"/>
-            <Item subMenuId="tools-md5"  name="MD5"/>
-            <Item subMenuId="tools-sha256"  name="SHA-256"/>
-            <Item subMenuId="window-sortby" name="정렬하기"/>
-        </SubEntries>
+    <!--  Sub Menu Entries -->
+    <SubEntries>
+        <Item subMenuId="file-openFolder" name="현재 폴더 열기(&amp;F)"/>
+        <Item subMenuId="file-closeMore" name="닫기 옵션...(&amp;M)"/>
+        <Item subMenuId="file-recentFiles" name="최근 파일(&amp;R)"/>
+        <Item subMenuId="edit-insert" name="삽입"/>
+        <Item subMenuId="edit-copyToClipboard" name="클립보드에 복사(&amp;y)"/>
+        <Item subMenuId="edit-indent" name="들여쓰기(&amp;I)"/>
+        <Item subMenuId="edit-convertCaseTo" name="대소문자 변환(&amp;v)"/>
+        <Item subMenuId="edit-lineOperations" name="줄단위 편집(&amp;L)"/>
+        <Item subMenuId="edit-comment" name="주석 달기/제거(&amp;m)"/>
+        <Item subMenuId="edit-autoCompletion" name="자동 완성(&amp;A)"/>
+        <Item subMenuId="edit-eolConversion" name="줄끝 문자(EOL) 변환(&amp;E)"/>
+        <Item subMenuId="edit-blankOperations" name="공백 기능(&amp;B)"/>
+        <Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능(&amp;P)"/>
+        <Item subMenuId="edit-onSelection" name="선택시(&amp;O)"/>
+        <Item subMenuId="search-markAll" name="모든 토큰에 형식 적용(&amp;A)"/>
+        <Item subMenuId="search-markOne" name="한 개 토큰에 형식 적용(&amp;O)"/>
+        <Item subMenuId="search-unmarkAll" name="형식 해제"/>
+        <Item subMenuId="search-jumpUp" name="위로 이동(&amp;J)"/>
+        <Item subMenuId="search-jumpDown" name="아래로 이동(&amp;D)"/>
+        <Item subMenuId="search-copyStyledText" name="형식을 가진 텍스트 복사(&amp;C)"/>
+        <Item subMenuId="search-bookmark" name="책갈피(&amp;B)"/>
+        <Item subMenuId="view-currentFileIn" name="파일 보기"/>
+        <Item subMenuId="view-showSymbol" name="기호 보기"/>
+        <Item subMenuId="view-zoom" name="확대/축소"/>
+        <Item subMenuId="view-moveCloneDocument" name="현재 문서 이동/복사"/>
+        <Item subMenuId="view-tab" name="탭"/>
+        <Item subMenuId="view-collapseLevel" name="단계 접기"/>
+        <Item subMenuId="view-uncollapseLevel" name="단계 펼치기"/>
+        <Item subMenuId="view-project" name="프로젝트"/>
+        <Item subMenuId="encoding-characterSets" name="문자 집합"/>
+        <Item subMenuId="encoding-arabic" name="아랍어"/>
+        <Item subMenuId="encoding-baltic" name="발트어"/>
+        <Item subMenuId="encoding-celtic" name="켈트어"/>
+        <Item subMenuId="encoding-cyrillic" name="키릴어"/>
+        <Item subMenuId="encoding-centralEuropean" name="중유럽어"/>
+        <Item subMenuId="encoding-chinese" name="중국어"/>
+        <Item subMenuId="encoding-easternEuropean" name="동유럽어"/>
+        <Item subMenuId="encoding-greek" name="그리스어"/>
+        <Item subMenuId="encoding-hebrew" name="히브리어"/>
+        <Item subMenuId="encoding-japanese" name="일본어"/>
+        <Item subMenuId="encoding-korean" name="한국어"/>
+        <Item subMenuId="encoding-northEuropean" name="북유럽어"/>
+        <Item subMenuId="encoding-thai" name="태국어"/>
+        <Item subMenuId="encoding-turkish" name="터키어"/>
+        <Item subMenuId="encoding-westernEuropean" name="서유럽어"/>
+        <Item subMenuId="encoding-vietnamese" name="베트남어"/>
+        <Item subMenuId="language-userDefinedLanguage" name="사용자 정의 언어"/>
+        <Item subMenuId="settings-import" name="가져오기"/>
+        <Item subMenuId="tools-md5"  name="MD5"/>
+        <Item subMenuId="tools-sha256"  name="SHA-256"/>
+        <Item subMenuId="window-sortby" name="정렬하기"/>
+    </SubEntries>
 
 <!--  all menu item -->
 <Commands>
@@ -356,6 +356,8 @@
   <Item id="50000" name="함수 자동 완성"/>
   <Item id="50001" name="단어 자동 완성"/>
   <Item id="50002" name="함수 인자 정보 보기"/>
+  <Item id="50010" name="함수 인자 이전 힌트"/>
+  <Item id="50011" name="함수 인자 다음 힌트"/>
   <Item id="50005" name="매크로 기록 켜기/끄기"/>
   <Item id="50006" name="경로 자동 완성"/>
   <Item id="44042" name="줄 숨기기"/>
@@ -1046,12 +1048,14 @@
 </Print>
 
 <Searching title="찾기">
-  <Item id="6901" name="찾기 대화창의 찾기 필드를 선택한 단어로 채우지 않기"/>
   <Item id="6902" name="찾기 창에서 고정폭 글꼴 사용 (Notepad++ 재시작 필요)"/>
   <Item id="6903" name="결과 창에 찾기 결과 표시 후에도 찾기 창 유지"/>
   <Item id="6904" name="모든 열린 문서에서 바꾸기를 실행할 때 확인"/>
   <Item id="6905" name="바꾸기: 다음 찾기 위치로 이동하지 않기"/>
   <Item id="6906" name="찾기 결과 창: 찾은 줄 당 한 개의 내용만 보임"/>
+  <Item id="6907" name="찾기 대화창을 실행할 때"/>
+  <Item id="6908" name="선택된 텍스트로 찾기 창 채우기"/>
+  <Item id="6909" name="아무 것도 선택되지 않으면 커서 아래의 단어 선택"/>
 </Searching>
 
 <RecentFilesHistory title="최근 파일 사용 기록">

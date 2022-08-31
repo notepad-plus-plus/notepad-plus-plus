@@ -356,6 +356,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
             <WordsStyle name="STRINGEOL" styleID="12" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
             <WordsStyle name="F STRING" styleID="16" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F CHARACTER" styleID="17" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F TRIPLE" styleID="18" fgColor="FF8000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

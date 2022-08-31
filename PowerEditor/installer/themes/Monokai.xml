@@ -47,7 +47,7 @@ Credits:
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="DEFAULT" styleID="11" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="instre1" />
-            <WordsStyle name="TYPEWORD" styleID="16" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="type1" />
+            <WordsStyle name="TYPE WORD" styleID="16" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="type1" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="AE81FF" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="STRING" styleID="6" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
@@ -380,6 +380,7 @@ Credits:
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="STRINGEOL" styleID="13" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
             <WordsStyle name="F STRING" styleID="16" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="F CHARACTER" styleID="17" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="F TRIPLE" styleID="18" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="10" />

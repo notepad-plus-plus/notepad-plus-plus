@@ -554,6 +554,7 @@
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="C0C0C0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="12" fgColor="008080" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
         </LexerType>
         <LexerType name="rc" desc="RC" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

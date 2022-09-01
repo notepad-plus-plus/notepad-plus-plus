@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 2 July 2022 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 1 September 2022 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
     Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.3">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -369,6 +369,8 @@
                     <Item id="50000" name="Dopuna &amp;funkcija"/>
                     <Item id="50001" name="Dopuna &amp;riječi"/>
                     <Item id="50002" name="&amp;Podsjetnik funkcijskih parametara"/>
+                    <Item id="50010" name="Prethodni savjet o parametrima funkcije"/>
+                    <Item id="50011" name="Sljedeći savjet o parametrima funkcije"/>
                     <Item id="50005" name="Uključi/isključi snimanje makroa"/>
                     <Item id="50006" name="&amp;Dopuna puta"/>
                     <Item id="44042" name="Sakri&amp;j retke"/>
@@ -562,6 +564,7 @@
                     <Item id="2230" name="Uključi podebljani font kao zadano"/>
                     <Item id="2231" name="Uključi kurzivni font kao zadano"/>
                     <Item id="2232" name="Uključi podcrtani font kao zadano"/>
+                    <Item id="2234" name="Idi na postavke"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -877,7 +880,9 @@
                     <Item id="6120" name="Okomito"/>
                     <Item id="6121" name="Izlaz iz programa pri zatvaranju zadnje kartice"/>
 
+                    <Item id="6131" name="Izbornik"/>
                     <Item id="6122" name="Sakrij izborničku vrpcu (za prikaz koristite Alt ili F10)"/>
+                    <Item id="6132" name="Sakrij prečace ＋ ▼ ✕ s desne strane izborničke vrpce (potreban je restart Notepada++)"/>
                     <Item id="6123" name="Jezik sučelja:"/>
                     <Item id="6125" name="Popis dokumenata"/>
                     <Item id="6126" name="Prikaži"/>

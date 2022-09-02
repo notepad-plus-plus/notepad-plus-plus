@@ -45,7 +45,7 @@ public:
 	};
 
 	void setColumnText(size_t i, generic_string txt2Set) {
-		LVCOLUMN lvColumn;
+		LVCOLUMN lvColumn{};
 		lvColumn.mask = LVCF_TEXT;
 		lvColumn.pszText = const_cast<TCHAR *>(txt2Set.c_str());
 		ListView_SetColumn(_hSelf, i, &lvColumn);
@@ -90,14 +90,6 @@ public:
 
 
 protected:
-	WNDPROC _defaultProc = nullptr;
 	int32_t _extraStyle = 0;
 	std::vector<columnInfo> _columnInfos;
-
-	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-
-	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((ListView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
-	};
 };
-

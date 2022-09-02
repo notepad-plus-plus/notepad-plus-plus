@@ -87,15 +87,8 @@ public:
 
 protected:
 	HIMAGELIST _hImaLst = nullptr;
-	WNDPROC _defaultProc = nullptr;
 
 	int _currentIndex = 0;
-
-	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-
-	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((VerticalFileSwitcherListView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
-	};
 
 	int find(BufferID bufferID, int iView) const;
 	int add(BufferID bufferID, int iView);

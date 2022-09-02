@@ -1797,10 +1797,7 @@ namespace NppDarkMode
 
 			if (wcscmp(className, WC_BUTTON) == 0)
 			{
-				if (g_isAtLeastWindows10)
-				{
-					NppDarkMode::subclassAndThemeButton(hwnd, p);
-				}
+				NppDarkMode::subclassAndThemeButton(hwnd, p);
 				return TRUE;
 			}
 

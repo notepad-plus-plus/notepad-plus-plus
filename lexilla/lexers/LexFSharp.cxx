@@ -372,12 +372,14 @@ Sci_Position SCI_METHOD LexerFSharp::WordListSet(int n, const char *wl) {
 void SCI_METHOD LexerFSharp::Lex(Sci_PositionU start, Sci_Position length, int initStyle, IDocument *pAccess) {
 	LexAccessor styler(pAccess);
 	StyleContext sc(start, static_cast<Sci_PositionU>(length), initStyle, styler);
+	Sci_Position lineCurrent = styler.GetLine(start);
 	Sci_PositionU cursor = 0;
 	UnicodeChar uniCh = UnicodeChar();
 	FSharpString fsStr = FSharpString();
 	constexpr Sci_Position MAX_WORD_LEN = 64;
 	constexpr int SPACE = ' ';
 	int currentBase = 10;
+	int levelNesting = (lineCurrent >= 1) ? styler.GetLineState(lineCurrent - 1) : 0;
 	bool isInterpolated = false;
 
 	while (sc.More()) {
@@ -454,9 +456,22 @@ void SCI_METHOD LexerFSharp::Lex(Sci_PositionU start, Sci_Position length, int i
 				}
 				break;
 			case SCE_FSHARP_COMMENT:
+				if (MatchStreamCommentStart(sc)) {
+					sc.Forward();
+					sc.ch = SPACE;
+					levelNesting++;
+				} else if (MatchStreamCommentEnd(sc)) {
+					if (levelNesting > 0)
+						levelNesting--;
+					else {
+						state = SCE_FSHARP_DEFAULT;
+						colorSpan++;
+					}
+				}
+				break;
 			case SCE_FSHARP_ATTRIBUTE:
 			case SCE_FSHARP_QUOTATION:
-				if (MatchStreamCommentEnd(sc) || MatchTypeAttributeEnd(sc) || MatchQuotedExpressionEnd(sc)) {
+				if (MatchTypeAttributeEnd(sc) || MatchQuotedExpressionEnd(sc)) {
 					state = SCE_FSHARP_DEFAULT;
 					colorSpan++;
 				}
@@ -598,6 +613,11 @@ void SCI_METHOD LexerFSharp::Lex(Sci_PositionU start, Sci_Position length, int i
 				break;
 		}
 
+		if (sc.MatchLineEnd()) {
+			styler.SetLineState(lineCurrent++, (sc.state == SCE_FSHARP_COMMENT) ? levelNesting : 0);
+			advance = true;
+		}
+
 		if (state >= SCE_FSHARP_DEFAULT) {
 			styler.ColourTo(colorSpan, sc.state);
 			sc.ChangeState(state);
@@ -660,9 +680,15 @@ void SCI_METHOD LexerFSharp::Fold(Sci_PositionU start, Sci_Position length, int 
 			}
 
 			if (options.foldCommentStream && style == SCE_FSHARP_COMMENT && !inLineComment) {
-				if (stylePrev != SCE_FSHARP_COMMENT) {
+				if (stylePrev != SCE_FSHARP_COMMENT ||
+				    (styler.Match(currentPos, "(*") &&
+				     !LineContains(styler, "*)", lineCurrent, SCE_FSHARP_COMMENT))) {
 					levelNext++;
-				} else if (styleNext != SCE_FSHARP_COMMENT && !atEOL) {
+				} else if ((styleNext != SCE_FSHARP_COMMENT ||
+					    ((styler.Match(currentPos, "*)") &&
+					      !LineContains(styler, "(*", lineCurrent, SCE_FSHARP_COMMENT)) &&
+					     styler.GetLineState(lineCurrent - 1) > 0)) &&
+					   !atEOL) {
 					levelNext--;
 				}
 			}

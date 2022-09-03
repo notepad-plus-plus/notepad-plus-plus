@@ -88,9 +88,6 @@ protected :
 	void putItemsToClipboard(bool isFullPath);
 	Buffer* getBuffer(int index) const;
 
-	static LONG_PTR originalListViewProc;
-	static LRESULT CALLBACK listViewProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;
 	SIZE _szMinButton = {};

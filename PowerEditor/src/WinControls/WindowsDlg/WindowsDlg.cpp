@@ -239,8 +239,6 @@ BEGIN_WINDOW_MAP(WindowsDlgMap)
 	ENDGROUP()
 END_WINDOW_MAP()
 
-LONG_PTR WindowsDlg::originalListViewProc = NULL;
-
 RECT WindowsDlg::_lastKnownLocation;
 
 WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap)
@@ -590,8 +588,6 @@ BOOL WindowsDlg::onInitDialog()
 	ListView_SetBkColor(_hList, bgColor);
 	ListView_SetTextBkColor(_hList, bgColor);
 	ListView_SetTextColor(_hList, fgColor);
-
-	originalListViewProc = ::SetWindowLongPtr(_hList, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(listViewProc));
 
 	RECT rc;
 	GetClientRect(_hList, &rc);
@@ -1111,12 +1107,6 @@ Buffer* WindowsDlg::getBuffer(int index) const
 	BufferID bufID = _pTab->getBufferByIndex(index);
 	return MainFileManager.getBufferByID(bufID);
 }
-
-LRESULT CALLBACK WindowsDlg::listViewProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
-{
-	return CallWindowProc(reinterpret_cast<WNDPROC>(originalListViewProc), hwnd, Message, wParam, lParam);
-}
-
 
 void WindowsMenu::init(HMENU hMainMenu)
 {

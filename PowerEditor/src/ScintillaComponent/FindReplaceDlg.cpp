@@ -664,15 +664,18 @@ vector<generic_string> Finder::getResultFilePaths() const
 	return paths;
 }
 
-bool Finder::canFind(const TCHAR *fileName, size_t lineNumber) const
+bool Finder::canFind(const TCHAR *fileName, size_t lineNumber, size_t* indexToStartFrom) const
 {
 	size_t len = _pMainFoundInfos->size();
-	for (size_t i = 0; i < len; ++i)
+	for (size_t i = *indexToStartFrom; i < len; ++i)
 	{
 		if ((*_pMainFoundInfos)[i]._fullPath == fileName)
 		{
 			if (lineNumber == (*_pMainFoundInfos)[i]._lineNumber)
+			{
+				*indexToStartFrom = i;
 				return true;
+			}
 		}
 	}
 	return false;
@@ -2728,6 +2731,10 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 	bool findAllFileNameAdded = false;
 
+	// A temporary string which is used to populate the search result window
+	std::unique_ptr<std::string> text2AddUtf8(new std::string());
+	size_t indexBuffer = 0;
+
 	while (targetStart >= 0)
 	{
 		targetStart = pEditView->searchInTarget(pTextFind, stringSizeFind, findReplaceInfo._startRange, findReplaceInfo._endRange);
@@ -2784,8 +2791,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				SearchResultMarkingLine srml;
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
-				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber);
+				text2AddUtf8->append(_pFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber));
 
+				if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
+				{
+					_pFinder->setFinderReadOnly(false);
+					_pFinder->_scintView.execute(SCI_ADDTEXT, text2AddUtf8->length(), reinterpret_cast<LPARAM>(text2AddUtf8->c_str()));
+					_pFinder->setFinderReadOnly(true);
+					text2AddUtf8->clear();
+				}
 				break;
 			}
 
@@ -2818,7 +2832,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				SearchResultMarkingLine srml;
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
 
-				processed = (!pOptions->_isMatchLineNumber) || (pFindersInfo->_pSourceFinder->canFind(pFileName, lineNumber + 1));
+				processed = (!pOptions->_isMatchLineNumber) || (pFindersInfo->_pSourceFinder->canFind(pFileName, lineNumber + 1, &indexBuffer));
 				if (processed)
 				{
 					if (!findAllFileNameAdded)	//add new filetitle in hits if we haven't already
@@ -2826,7 +2840,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
 					}
-					pFindersInfo->_pDestFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber);
+					text2AddUtf8->append(pFindersInfo->_pDestFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber));
+
+					if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
+					{
+						pFindersInfo->_pDestFinder->setFinderReadOnly(false);
+						pFindersInfo->_pDestFinder->_scintView.execute(SCI_ADDTEXT, text2AddUtf8->length(), reinterpret_cast<LPARAM>(text2AddUtf8->c_str()));
+						pFindersInfo->_pDestFinder->setFinderReadOnly(true);
+						text2AddUtf8->clear();
+					}
 				}
 				break;
 			}
@@ -2937,12 +2959,22 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		Finder *pFinder = nullptr;
 		if (op == ProcessFindAll)
 		{
+			_pFinder->setFinderReadOnly(false);
+			_pFinder->_scintView.execute(SCI_ADDTEXT, text2AddUtf8->length(), reinterpret_cast<LPARAM>(text2AddUtf8->c_str()));
+			_pFinder->setFinderReadOnly(true);
+			text2AddUtf8->clear();
 			pFinder = _pFinder;
 		}
 		else if (op == ProcessFindInFinder)
 		{
 			if (pFindersInfo && pFindersInfo->_pDestFinder)
+			{
+				pFindersInfo->_pDestFinder->setFinderReadOnly(false);
+				pFindersInfo->_pDestFinder->_scintView.execute(SCI_ADDTEXT, text2AddUtf8->length(), reinterpret_cast<LPARAM>(text2AddUtf8->c_str()));
+				pFindersInfo->_pDestFinder->setFinderReadOnly(true);
+				text2AddUtf8->clear();
 				pFinder = pFindersInfo->_pDestFinder;
+			}
 			else
 				pFinder = _pFinder;
 		}
@@ -4457,7 +4489,7 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 	setFinderReadOnly(true);
 }
 
-void Finder::add(FoundInfo fi, SearchResultMarkingLine miLine, const TCHAR* foundline, size_t totalLineNumber)
+const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, const TCHAR* foundline, size_t totalLineNumber)
 {
 	bool isRepeatedLine = false;
 
@@ -4504,6 +4536,7 @@ void Finder::add(FoundInfo fi, SearchResultMarkingLine miLine, const TCHAR* foun
 		// Add start and end markers into the previous line's info for colourizing 
 		_pMainMarkings->back()._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(miLine._segmentPostions[0].first, miLine._segmentPostions[0].second));
 		_pMainFoundInfos->back()._ranges.push_back(fi._ranges.back());
+		return "";
 	}
 	else // default mode: allow same found line has several entries in search result if the searched occurrence is matched several times in the same line
 	{
@@ -4523,10 +4556,9 @@ void Finder::add(FoundInfo fi, SearchResultMarkingLine miLine, const TCHAR* foun
 			len = cut + lenEndOfLongLine;
 		}
 
-		setFinderReadOnly(false);
-		_scintView.execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(text2AddUtf8));
-		setFinderReadOnly(true);
 		_pMainMarkings->push_back(miLine);
+
+		return text2AddUtf8;
 	}
 }
 

@@ -65,6 +65,8 @@ class OptionSet {
 					}
 					break;
 				}
+			default:
+				break;
 			}
 			return false;
 		}

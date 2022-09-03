@@ -553,6 +553,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="2230" name="Vet lettertype vervangen"/>
                     <Item id="2231" name="Cursief lettertype vervangen"/>
                     <Item id="2232" name="Onderstreept lettertype vervangen"/>
+                    <Item id="2234" name="Naar instellingen gaan"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -868,7 +869,9 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="6120" name="Verticale tabs"/>
                     <Item id="6121" name="Afsluiten bij sluiten van laatste tab"/>
 
+                    <Item id="6131" name="Menu"/>
                     <Item id="6122" name="Menubalk verbergen (tonen met Alt of F10)"/>
+                    <Item id="6132" name="Snelkoppelingen ＋ ▼ ✕ rechts in menubalk verbergen (Notepad++ moet opnieuw worden gestart)"/>
                     <Item id="6123" name="Taal"/>
 
                     <Item id="6128" name="Alternatieve pictogrammen"/>
@@ -895,6 +898,10 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="6653" name="Achtergrond markeren"/>
                     <Item id="6654" name="Frame"/>
                     <Item id="6655" name="Breedte"/>
+                    <Item id="6247" name="Regeleinde (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Standaard"/>
+                    <Item id="6249" name="Platte tekst"/>
+                    <Item id="6250" name="Aangepaste kleur"/>
                 </Scintillas>
 
                 <DarkMode title="Donkere modus">
@@ -918,6 +925,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="7124" name="Rand"/>
                     <Item id="7125" name="Koppeling"/>
                     <Item id="7126" name="Randmarkering"/>
+                    <Item id="7127" name="Rand uitgeschakeld"/>
                     <Item id="7130" name="Herstellen"/>
                     <Item id="7135" name="Tinten"/>
                 </DarkMode>
@@ -1048,6 +1056,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6903" name="Zoekvenster blijft open na zoekopdracht die naar het resultaatvenster uitvoert"/>
                     <Item id="6904" name="Alles vervangen in alle geopende documenten bevestigen"/>
                     <Item id="6905" name="Vervangen: niet naar de volgende overeenkomst gaan"/>
+                    <Item id="6906" name="Zoekresultaatvenster: slechts een item per gevonden regel weergeven"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recente bestanden">
@@ -1434,6 +1443,9 @@ Doorgaan?"/>
         <MiscStrings>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are place holders, don't translate these place holders -->
             <word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklikken op een selectie en bij het zoeken met de optie &quot;volledige woorden&quot; aangevinkt."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Ga naar  de stijlconfigurator om de standaard aangepaste regeleindekleur te wijzigen (&quot;EOL custom color&quot;).."/>
 
             <word-chars-list-warning-begin value="Let op: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spatie(s)"/>

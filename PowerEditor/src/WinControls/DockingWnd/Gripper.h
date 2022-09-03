@@ -43,8 +43,8 @@ static const WORD DotPattern[] =
 class Gripper final
 {
 public:
-	Gripper() = default;;
-    
+	Gripper() = default;
+
 	void init(HINSTANCE hInst, HWND hParent) {
 		_hInst   = hInst;	
 		_hParent = hParent;
@@ -148,4 +148,3 @@ private:
 	// get layout direction
 	bool _isRTL = false;
 };
-

@@ -29,7 +29,7 @@ void IconList::init(HINSTANCE hInst, int iconSize)
 	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMore);
 	if (!_hImglst)
 		throw std::runtime_error("IconList::create : ImageList_Create() function returns null");
-};
+}
 
 void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize)
 {
@@ -39,7 +39,7 @@ void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconI
 
 	for (int i = 0 ; i < iconIDArraySize ; ++i)
 		addIcon(iconIDArray[i]);
-};
+}
 
 void IconList::addIcon(int iconID) const 
 {
@@ -49,14 +49,13 @@ void IconList::addIcon(int iconID) const
 
 	ImageList_AddIcon(_hImglst, hIcon);
 	::DestroyIcon(hIcon);
-};
-
+}
 
 void IconList::addIcon(HICON hIcon) const
 {
 	if (hIcon)
 		ImageList_AddIcon(_hImglst, hIcon);
-};
+}
 
 bool IconList::changeIcon(size_t index, const TCHAR *iconLocation) const
 {
@@ -141,7 +140,7 @@ void ToolBarIcons::reInit(int size)
 
 			HDC dcScreen = ::GetDC(NULL);
 
-			BITMAP bmp;
+			BITMAP bmp{};
 			int nbByteBmp = ::GetObject(iconinfoSrc.hbmColor, sizeof(BITMAP), &bmp);
 
 			if (!nbByteBmp)
@@ -216,7 +215,6 @@ void ToolBarIcons::reInit(int size)
 	}
 }
 
-
 void ToolBarIcons::create(HINSTANCE hInst, int iconSize)
 {
 	_iconListVector.push_back(IconList());
@@ -250,7 +248,3 @@ void ToolBarIcons::destroy()
 	_iconListVector[HLIST_DISABLE].destroy();
 	_iconListVector[HLIST_DISABLE2].destroy();
 }
-
-
-
-

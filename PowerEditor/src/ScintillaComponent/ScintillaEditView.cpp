@@ -3387,7 +3387,7 @@ bool ScintillaEditView::getIndicatorRange(size_t indicatorNumber, size_t* from, 
 	if (to) *to = endPos;
 	if (cur) *cur = curPos;
 	return true;
-};
+}
 
 
 void ScintillaEditView::scrollPosToCenter(size_t pos)
@@ -3894,7 +3894,7 @@ pair<size_t, size_t> ScintillaEditView::getSelectedCharsAndLinesCount(long long 
 	}
 
 	return selectedCharsAndLines;
-};
+}
 
 size_t ScintillaEditView::getUnicodeSelectedLength() const
 {
@@ -3909,7 +3909,7 @@ size_t ScintillaEditView::getUnicodeSelectedLength() const
 	}
 
 	return length;
-};
+}
 
 
 void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= false*/)

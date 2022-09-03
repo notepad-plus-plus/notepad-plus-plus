@@ -43,14 +43,14 @@ void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 
 	i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, reinterpret_cast<LPARAM>(txt2add));
 	::SendMessage(hCombo, CB_SETCURSEL, i, 0);
-};
+}
 
 generic_string getTextFromCombo(HWND hCombo)
 {
 	TCHAR str[FINDREPLACE_MAXLENGTH] = { '\0' };
 	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
 	return generic_string(str);
-};
+}
 
 void delLeftWordInEdit(HWND hEdit)
 {
@@ -75,7 +75,7 @@ void delLeftWordInEdit(HWND hEdit)
 		::SendMessage(hEdit, EM_SETSEL, (WPARAM)wordstart, (LPARAM)cursor);
 		::SendMessage(hEdit, EM_REPLACESEL, (WPARAM)TRUE, reinterpret_cast<LPARAM>(L""));
 	}
-};
+}
 
 int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int length)
 {	//query may equal to result, since it always gets smaller

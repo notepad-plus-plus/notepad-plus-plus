@@ -3358,7 +3358,7 @@ void Notepad_plus::setLanguage(LangType langType)
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
 		_subEditView.restoreCurrentPosPreStep();
 	}
-};
+}
 
 LangType Notepad_plus::menuID2LangType(int cmdID)
 {
@@ -4703,7 +4703,7 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 		}
 	}
 	return  generic_string(extracted);
-};
+}
 
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {

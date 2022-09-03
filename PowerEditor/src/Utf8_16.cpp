@@ -584,7 +584,7 @@ bool Utf16_Iter::get(utf8 *c)
 		return true;
 	}
 	return false;
-};
+}
 
 void Utf16_Iter::pushout(ubyte c)
 {

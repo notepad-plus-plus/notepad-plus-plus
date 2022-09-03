@@ -130,7 +130,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
 	_toolBarIcons.create(_hInst, iconSize);
 	
-	INITCOMMONCONTROLSEX icex;
+	INITCOMMONCONTROLSEX icex{};
 	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
 	icex.dwICC  = ICC_WIN95_CLASSES|ICC_COOL_CLASSES|ICC_BAR_CLASSES|ICC_USEREX_CLASSES;
 	InitCommonControlsEx(&icex);
@@ -207,11 +207,11 @@ void ToolBar::destroy()
 	::DestroyWindow(_hSelf);
 	_hSelf = NULL;
 	_toolBarIcons.destroy();
-};
+}
 
 int ToolBar::getWidth() const
 {
-	RECT btnRect;
+	RECT btnRect{};
 	int totalWidth = 0;
 	for (size_t i = 0; i < _nbCurrentButtons; ++i)
 	{
@@ -279,7 +279,7 @@ void ToolBar::reset(bool create)
 	if (create && _hSelf)
 	{
 		//Store current button state information
-		TBBUTTON tempBtn;
+		TBBUTTON tempBtn{};
 		for (size_t i = 0; i < _nbCurrentButtons; ++i)
 		{
 			::SendMessage(_hSelf, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&tempBtn));
@@ -421,7 +421,7 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON ab
 	// Note: Register of buttons only possible before init!
 	if ((_hSelf == NULL) && (messageID != 0) && (iconHandles->hToolbarBmp != NULL))
 	{
-		DynamicCmdIcoBmp dynList;
+		DynamicCmdIcoBmp dynList{};
 		dynList._message = messageID;
 		dynList._hBmp = iconHandles->hToolbarBmp;
 
@@ -431,7 +431,7 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON ab
 		}
 		else
 		{
-			BITMAP bmp;
+			BITMAP bmp{};
 			int nbByteBmp = ::GetObject(dynList._hBmp, sizeof(BITMAP), &bmp);
 			if (!nbByteBmp)
 			{
@@ -463,7 +463,7 @@ void ToolBar::registerDynBtnDM(UINT messageID, toolbarIconsWithDarkMode* iconHan
 	if ((_hSelf == NULL) && (messageID != 0) && (iconHandles->hToolbarBmp != NULL) && 
 		(iconHandles->hToolbarIcon != NULL) && (iconHandles->hToolbarIconDarkMode != NULL))
 	{
-		DynamicCmdIcoBmp dynList;
+		DynamicCmdIcoBmp dynList{};
 		dynList._message = messageID;
 		dynList._hBmp = iconHandles->hToolbarBmp;
 		dynList._hIcon = iconHandles->hToolbarIcon;
@@ -554,7 +554,7 @@ LRESULT CALLBACK RebarSubclass(
 		case WM_ERASEBKGND:
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc;
+				RECT rc{};
 				GetClientRect(hWnd, &rc);
 				FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -582,7 +582,7 @@ void ReBar::init(HINSTANCE hInst, HWND hPere)
 
 	SetWindowSubclass(_hSelf, RebarSubclass, g_rebarSubclassID, 0);
 
-	REBARINFO rbi;
+	REBARINFO rbi{};
 	ZeroMemory(&rbi, sizeof(REBARINFO));
 	rbi.cbSize = sizeof(REBARINFO);
 	rbi.fMask  = 0;
@@ -726,4 +726,3 @@ bool ReBar::isIDTaken(int id)
 	}
 	return false;
 }
-

@@ -807,6 +807,21 @@ bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap)
 		success = false;
 	}
 
+	if (propertyMap.GetPropertyValue("testlexers.list.styles").value_or(0)) {
+		std::vector<bool> used(0x80);
+		for (Sci_Position pos = 0; pos < pdoc->Length(); pos++) {
+			const unsigned style = pdoc->StyleAt(pos);
+			used.at(style) = true;
+		}
+		std::cout << "    ";
+		for (int style = 0; style < 0x80; style++) {
+			if (used.at(style)) {
+				std::cout << style << " ";
+			}
+		}
+		std::cout << "\n";
+	}
+
 	const std::optional<int> perLineDisable = propertyMap.GetPropertyValue("testlexers.per.line.disable");
 	const bool disablePerLineTests = perLineDisable.value_or(false);
 

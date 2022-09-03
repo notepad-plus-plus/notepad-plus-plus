@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 25th, 2022 for version 8.4.2 by Patriccollu di Santa Maria è Sichè
 		- Updated on April 27th, 2022 for version 8.4.1 by Patriccollu di Santa Maria è Sichè
@@ -36,7 +37,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.3">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -184,7 +185,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42018" name="&amp;Principià u ricordu"/>
                     <Item id="42019" name="&amp;Fermà u ricordu"/>
                     <Item id="42021" name="&amp;Ripruduce"/>
-                    <Item id="42022" name="Attivà/Disattivà u cummentu di linea sola"/>
+                    <Item id="42022" name="Attivà o disattivà u cummentu di linea sola"/>
                     <Item id="42023" name="Mette in cummentu u bloccu selezziunatu"/>
                     <Item id="42047" name="Caccià u cummentu da u bloccu selezziunatu"/>
                     <Item id="42024" name="Ammuzzà i spazii di fine di linea"/>
@@ -226,7 +227,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43002" name="Circà &amp;seguente"/>
                     <Item id="43003" name="&amp;Rimpiazzà…"/>
                     <Item id="43004" name="&amp;Andà à…"/>
-                    <Item id="43005" name="Attivà/Disattivà l’indetta"/>
+                    <Item id="43005" name="Attivà o disattivà l’indetta"/>
                     <Item id="43006" name="Indetta seguente"/>
                     <Item id="43007" name="Indetta precedente"/>
                     <Item id="43008" name="Viutà tutte l’indette"/>
@@ -321,7 +322,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44097" name="Appustamentu (tail -f)"/>
                     <Item id="44098" name="Dispiazzà à l’unghjetta davanti"/>
                     <Item id="44099" name="Dispiazzà à l’unghjetta dinanzu"/>
-                    <Item id="44032" name="Attivà/Disattivà u modu di screnu sanu"/>
+                    <Item id="44032" name="Attivà o disattivà u modu di screnu sanu"/>
                     <Item id="44033" name="Risturà l’ingrandamentu predefinitu"/>
                     <Item id="44034" name="Sempre in primu pianu"/>
                     <Item id="44035" name="Sincrunizazione verticale di l’affissera"/>
@@ -389,7 +390,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="50000" name="Cumpiimentu di funzione"/>
                     <Item id="50001" name="Cumpiimentu di parolla"/>
                     <Item id="50002" name="Sugestione di parametri di funzione"/>
-                    <Item id="50005" name="Attivà/Disattivà l’arregistramentu d’una macro"/>
+                    <Item id="50010" name="Sugestione precedente di parametri di funzione"/>
+                    <Item id="50011" name="Sugestione seguente di parametri di funzione"/>
+                    <Item id="50005" name="Attivà o disattivà l’arregistramentu d’una macro"/>
                     <Item id="50006" name="Cumpiimentu di chjassu"/>
                     <Item id="44042" name="Piattà e linee"/>
                     <Item id="42040" name="Apre tutti i schedarii recenti"/>
@@ -579,6 +582,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="Permette stilu di grafia glubale grassu"/>
                     <Item id="2231" name="Permette stilu di grafia glubale italicu"/>
                     <Item id="2232" name="Permette stilu di gra. glub. sottulineatu"/>
+                    <Item id="2234" name="Andà à e preferenze"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -893,7 +897,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6120" name="Verticale"/>
                     <Item id="6121" name="Esce quandu l’ultima unghjetta si chjode"/>
 
-                    <Item id="6122" name="Piattà a barra di listinu (impiegà Alt o F10 per attivà/disattivà)"/>
+                    <Item id="6131" name="Listinu"/>
+                    <Item id="6122" name="Piattà a barra di listinu (impiegà Alt o F10 per attivà o disattivà)"/>
+                    <Item id="6132" name="Piattà l’accurtatoghji diritti ＋ ▼ ✕ da a barra di listinu (Richiede di rilancià Notepad++)"/>
                     <Item id="6123" name="Lingua"/>
 
                     <Item id="6128" name="Icone alternative"/>
@@ -1270,11 +1276,11 @@ Ci vole à rilancià Notepad++ per piglià in contu e mudificazioni di contextMe
             <SaveCurrentModifWarning title="Arregistrà a mudificazione currente" message="Ci vuleria à arregistrà e mudificazioni currente.
 Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
 
-Cuntinuà ?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
+Cuntinuà ?"/> <!-- HowToReproduce: when you opened file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Perdita di a pussibilità di disfà" message="Ci vuleria à arregistrà e mudificazioni currente.
 Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
 
-Cuntinuà ?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+Cuntinuà ?"/> <!-- HowToReproduce: when you opened file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Dispiazzà in una nova finestra Notepad++" message="U ducumentu hè mudificatu, arregistratelu è pruvate torna."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Ricaricà" message="Da veru, vulete ricaricà u schedariu currente è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
             <FileLockedWarning title="Arregistramentu fiascatu" message="Ci vole à verificà s’è stu schedariu hè dighjà apertu in un altru prugramma"/>

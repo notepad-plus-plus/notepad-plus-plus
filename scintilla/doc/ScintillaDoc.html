@@ -4708,6 +4708,10 @@ struct Sci_TextToFindFull {
      <p>If the call succeeded <code>SCI_GETBIDIRECTIONAL</code> will return the same value otherwise
      <code>SC_BIDIRECTIONAL_DISABLED</code> (0) is returned.
      </p>
+     <p>Opaque selection drawing (<a class="seealso" href="#SCI_SETSELECTIONLAYER">SC_LAYER_BASE</a>)
+     is not supported in bidirectional mode.
+     Use <code>SC_LAYER_UNDER_TEXT</code> or <code>SC_LAYER_OVER_TEXT</code> instead. 
+     </p>
 </div>
 
     <p><b id="SCI_GRABFOCUS">SCI_GRABFOCUS</b><br />

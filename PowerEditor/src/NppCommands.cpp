@@ -3345,6 +3345,14 @@ void Notepad_plus::command(int id)
 			showFunctionComp();
 			break;
 
+		case IDM_EDIT_FUNCCALLTIP_PREVIOUS :
+			showFunctionNextHint(false);
+			break;
+
+		case IDM_EDIT_FUNCCALLTIP_NEXT :
+			showFunctionNextHint();
+			break;
+
         case IDM_LANGSTYLE_CONFIG_DLG :
 		{
 			if (!(NppParameters::getInstance()).isStylerDocLoaded())

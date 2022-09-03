@@ -188,7 +188,7 @@ gchar *ScintillaGTKAccessible::GetTextRangeUTF8(Sci::Position startByte, Sci::Po
 	// like TargetAsUTF8, but avoids a double conversion
 	if (sci->IsUnicodeMode() || ! *(charSetBuffer = sci->CharacterSetID())) {
 		int len = endByte - startByte;
-		utf8Text = (char *) g_malloc(len + 1);
+		utf8Text = static_cast<gchar *>(g_malloc(len + 1));
 		sci->pdoc->GetCharRange(utf8Text, startByte, len);
 		utf8Text[len] = '\0';
 	} else {
@@ -196,7 +196,7 @@ gchar *ScintillaGTKAccessible::GetTextRangeUTF8(Sci::Position startByte, Sci::Po
 		std::string s = sci->RangeText(startByte, endByte);
 		std::string tmputf = ConvertText(&s[0], s.length(), "UTF-8", charSetBuffer, false);
 		size_t len = tmputf.length();
-		utf8Text = (char *) g_malloc(len + 1);
+		utf8Text = static_cast<gchar *>(g_malloc(len + 1));
 		memcpy(utf8Text, tmputf.c_str(), len);
 		utf8Text[len] = '\0';
 	}
@@ -1085,11 +1085,11 @@ static GType scintilla_object_accessible_get_type(GType parent_type G_GNUC_UNUSE
 static AtkObject *scintilla_object_accessible_new(GType parent_type, GObject *obj) {
 	g_return_val_if_fail(SCINTILLA_IS_OBJECT(obj), nullptr);
 
-	AtkObject *accessible = (AtkObject *) g_object_new(scintilla_object_accessible_get_type(parent_type),
+	AtkObject *accessible = static_cast<AtkObject *>(g_object_new(scintilla_object_accessible_get_type(parent_type),
 #if HAVE_WIDGET_SET_UNSET
 		"widget", obj,
 #endif
-		nullptr);
+		nullptr));
 	atk_object_initialize(accessible, obj);
 
 	return accessible;

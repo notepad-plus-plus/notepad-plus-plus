@@ -8,6 +8,7 @@
 // Maintain a dictionary of properties
 
 #include <cstdlib>
+#include <cassert>
 #include <cstring>
 
 #include <string>
@@ -68,6 +69,7 @@ const char *PropSetSimple::Get(std::string_view key) const {
 
 int PropSetSimple::GetInt(std::string_view key, int defaultValue) const {
 	const char *val = Get(key);
+	assert(val);
 	if (*val) {
 		return atoi(val);
 	}

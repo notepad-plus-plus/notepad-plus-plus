@@ -35,13 +35,6 @@ public:
 	void Show(RECT rectTitle, const TCHAR* pszTitleText, int iXOff = 0, int iWidthOff = 0);
 
 protected:
-	WNDPROC		_defaultProc = nullptr;
 	BOOL		_bTrackMouse = FALSE;
 	TOOLINFO	_ti = {};
-
-    static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-        return (((ToolTip *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));
-    };
-	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
-

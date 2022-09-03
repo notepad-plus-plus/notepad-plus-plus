@@ -113,3 +113,5 @@ There is some support for running benchmarks on lexers and folders. The properti
 testlexers.repeat.lex and testlexers.repeat.fold specify the number of times example
 documents are lexed or folded. Set to a large number like testlexers.repeat.lex=10000
 then run with a profiler.
+
+A list of styles used in a lex can be displayed with testlexers.list.styles=1.

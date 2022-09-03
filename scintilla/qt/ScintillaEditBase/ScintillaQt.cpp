@@ -53,8 +53,8 @@ ScintillaQt::~ScintillaQt()
 
 void ScintillaQt::execCommand(QAction *action)
 {
-	int command = action->data().toInt();
-	Command(command);
+	const int commandNum = action->data().toInt();
+	Command(commandNum);
 }
 
 #if defined(Q_OS_WIN)

@@ -1682,13 +1682,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDD_FINDINFILES_FIND_BUTTON:
 				{
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 256;
-					TCHAR filters[filterSize + 1];
-					filters[filterSize] = '\0';
 					TCHAR directory[MAX_PATH];
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
-					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-					_options._filters = filters;
+					_options._filters = GetDialogItemString(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
+					addText2Combo(&_options._filters[0], ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 					combo2ExtendedMode(IDFINDWHAT);
@@ -1731,12 +1727,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					std::lock_guard<std::mutex> lock(findOps_mutex);
 
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 256;
-					TCHAR filters[filterSize];
 					TCHAR directory[MAX_PATH];
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
-					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-					_options._filters = filters;
+					_options._filters = GetDialogItemString(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
+					addText2Combo(&_options._filters[0], ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
 					_options._directory = directory;
@@ -1772,11 +1765,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					std::lock_guard<std::mutex> lock(findOps_mutex);
 
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 256;
-					TCHAR filters[filterSize];
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
-					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-					_options._filters = filters;
+					_options._filters = GetDialogItemString(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
+					addText2Combo(&_options._filters[0], ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 					if (replaceInProjectsConfirmCheck())
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);

@@ -1137,6 +1137,20 @@ HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszTe
 	return hwndTip;
 }
 
+generic_string GetDialogItemString(HWND dialog, int item)
+{
+	constexpr int startSize = 256;
+	generic_string res(startSize, '\0');
+	auto stringSize = ::GetDlgItemText(dialog, item, &res[0], res.size());
+	while (stringSize == res.size() - 1)
+	{
+		res.resize(res.size() * 2);  //Double each time to close in onthe correct size quickly
+		stringSize = ::GetDlgItemText(dialog, item, &res[0], res.size());
+	}
+	res.resize(stringSize);  //Cut off unused space from the string
+	return res;
+}
+
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check)
 {
 	bool isOK = false;

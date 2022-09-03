@@ -182,7 +182,7 @@ bool isInList(const TCHAR *token2Find, ParamVector& params, bool eraseArg = true
 		}
 	}
 	return false;
-};
+}
 
 bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 {
@@ -248,7 +248,7 @@ intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParam
 	}
 	isParamePresent = true;
 	return static_cast<intptr_t>(_ttoi64(numStr.c_str()));
-};
+}
 
 generic_string getEasterEggNameFromParam(ParamVector & params, unsigned char & type)
 {

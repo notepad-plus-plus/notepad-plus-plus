@@ -51,4 +51,4 @@ namespace Utf8 { // could be a static class, instead of a namespace, if it needs
 			++charContinuationBytes;
 		return startingIndex-charContinuationBytes;
 	}
-};
+}

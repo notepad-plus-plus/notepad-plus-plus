@@ -55,7 +55,7 @@ static size_t keyTranslate(size_t keyIn) {
 		case VK_OEM_6:		return ']';
 		default:			return keyIn;
 	}
-};
+}
 
 struct KeyCombo {
 	bool _isCtrl = false;

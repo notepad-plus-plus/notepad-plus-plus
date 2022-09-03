@@ -43,7 +43,7 @@ int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSo
 		return result;
 
 	return (0 - result);
-};
+}
 
 void VerticalFileSwitcher::startColumnSort()
 {
@@ -121,7 +121,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					if (i == -1 || i >= nbItem)
 						return TRUE;
 
-					LVITEM item;
+					LVITEM item{};
 					item.mask = LVIF_PARAM;
 					item.iItem = i;	
 					ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
@@ -150,7 +150,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 						if (i == -1 || i >= nbItem)
  							return TRUE;
 
-						LVITEM item;
+						LVITEM item{};
 						item.mask = LVIF_PARAM;
 						item.iItem = i;	
 						ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
@@ -162,7 +162,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					if (nbSelectedFiles() >= 1)
 					{
 						// Redirect NM_RCLICK message to Notepad_plus handle
-						NMHDR	nmhdr;
+						NMHDR nmhdr{};
 						nmhdr.code = NM_RCLICK;
 						nmhdr.hwndFrom = _hSelf;
 						nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
@@ -206,7 +206,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					
 					LPNMHEADER test = (LPNMHEADER)lParam;
 					HWND hwndHD = ListView_GetHeader(_fileListView.getHSelf());
-					TCHAR HDtext[MAX_PATH];
+					TCHAR HDtext[MAX_PATH] = { '\0' };
 					HDITEM hdi = {};
 					hdi.mask = HDI_TEXT | HDI_WIDTH;
 					hdi.pszText = HDtext;
@@ -231,7 +231,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 							if (i == -1)
 								return TRUE;
 
-							LVITEM item;
+							LVITEM item{};
 							item.mask = LVIF_PARAM;
 							item.iItem = i;	
 							ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
@@ -336,7 +336,7 @@ void VerticalFileSwitcher::display(bool toShow) const
 {
 	DockingDlgInterface::display(toShow);
 	_fileListView.ensureVisibleCurrentItem();	// without this call the current item may stay above visible area after the program startup
-};
+}
 
 void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 {
@@ -359,7 +359,7 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 int VerticalFileSwitcher::setHeaderOrder(int columnIndex)
 {
 	HWND hListView = _fileListView.getHSelf();
-	LVCOLUMN lvc;
+	LVCOLUMN lvc{};
 	lvc.mask = LVCF_FMT;
 	
 	//strip HDF_SORTUP and HDF_SORTDOWN from old sort column
@@ -397,7 +397,7 @@ int VerticalFileSwitcher::setHeaderOrder(int columnIndex)
 void VerticalFileSwitcher::updateHeaderArrow()
 {
 	HWND hListView = _fileListView.getHSelf();
-	LVCOLUMN lvc;
+	LVCOLUMN lvc{};
 	lvc.mask = LVCF_FMT;
 	
 	SendMessage(hListView, LVM_GETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));

@@ -126,7 +126,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 		{
 			if (iEnd != -1)
 			{
-				TCHAR str[MAX_PATH];
+				TCHAR str[MAX_PATH] = { '\0' };
 				int m = 0;
 				for (int k = iBegin  ; k <= iEnd ; ++k)
 					str[m++] = strSrc[k];
@@ -425,4 +425,4 @@ void RunDlg::doDialog(bool isRTL)
     // Adjust the position in the center
 	goToCenter();
 	::SetFocus(::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH));
-};
+}

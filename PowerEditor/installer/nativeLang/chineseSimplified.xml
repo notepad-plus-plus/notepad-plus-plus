@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.4.3">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.4.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -356,6 +356,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="50000" name="函数自动完成"/>
                     <Item id="50001" name="单词自动完成"/>
                     <Item id="50002" name="函数参数提示"/>
+                    <Item id="50010" name="函数参数上一个提示"/>
+                    <Item id="50011" name="函数参数下一个提示"/>
                     <Item id="50005" name="启动/停止宏录制"/>
                     <Item id="50006" name="路径补全"/>
                     <Item id="44042" name="隐藏行"/>
@@ -548,6 +550,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="使用全局粗体样式"/>
                     <Item id="2231" name="使用全局斜体样式"/>
                     <Item id="2232" name="使用全局下划线样式"/>
+                    <Item id="2234" name="前往设置"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -863,7 +866,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6120" name="垂直显示"/>
                     <Item id="6121" name="关闭最后一个标签时退出"/>
 
+                    <Item id="6131" name="菜单"/>
                     <Item id="6122" name="隐藏菜单栏 (按下 Alt 或 F10 显示)"/>
+                    <Item id="6132" name="隐藏菜单栏右侧 ＋ ▼ ✕ 快捷键 (需重启Notepad++)"/>
                     <Item id="6123" name="界面语言"/>
 
                     <Item id="6128" name="自定义图标"/>
@@ -1043,12 +1048,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Print>
 
                 <Searching title="搜索">
-                    <Item id="6901" name="不要将所选内容填入“查找”对话框中的“查找”字段"/>
                     <Item id="6902" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
                     <Item id="6903" name="搜索输出到结果窗口后，保持查找对话框开启"/>
                     <Item id="6904" name="替换所有打开文件前需确认"/>
                     <Item id="6905" name="替换后不移动到下一个匹配项"/>
                     <Item id="6906" name="搜索结果窗口：每个找到的行仅显示一条"/>
+                    <Item id="6907" name="调用查找对话框时"/>
+                    <Item id="6908" name="用选中文本填充查找字段"/>
+                    <Item id="6909" name="未选中内容时选择插入符号下的词"/>
                 </Searching>
 
                 <RecentFilesHistory title="最近文件记录">

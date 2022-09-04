@@ -90,10 +90,14 @@ public :
 		return _pView;
 	};
 
+	void setIndividualTabColour(BufferID bufferId, int colorId);
+	int getIndividualTabColour(int tabIndex) override;
+
 private :
 	ScintillaEditView *_pView = nullptr;
 	static bool _hideTabBarStatus;
 
+	std::map<BufferID, int> tabIndexToColor;
 	std::vector<IconList *> _pIconListVector;
 	int _iconListIndexChoice = -1;
 };

@@ -208,6 +208,8 @@ public :
 
 	static void setColour(COLORREF colour2Set, tabColourIndex i);
 
+	virtual int getIndividualTabColour(int tabIndex) = 0;
+
 protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;

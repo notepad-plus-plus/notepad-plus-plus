@@ -367,6 +367,13 @@
     #define    IDM_VIEW_SWITCHTO_FUNC_LIST        (IDM_VIEW + 108)
     #define    IDM_VIEW_SWITCHTO_DOCLIST          (IDM_VIEW + 109)
 
+    #define    IDM_VIEW_TAB_COLOR_NONE            (IDM_VIEW + 110)
+    #define    IDM_VIEW_TAB_COLOR_1               (IDM_VIEW + 111)
+    #define    IDM_VIEW_TAB_COLOR_2               (IDM_VIEW + 112)
+    #define    IDM_VIEW_TAB_COLOR_3               (IDM_VIEW + 113)
+    #define    IDM_VIEW_TAB_COLOR_4               (IDM_VIEW + 114)
+    #define    IDM_VIEW_TAB_COLOR_5               (IDM_VIEW + 115)
+
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002
     #define    IDM_VIEW_GOTO_NEW_INSTANCE        10003

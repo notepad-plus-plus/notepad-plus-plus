@@ -49,8 +49,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
                     <Item subMenuId="view-tab"  name="Tab"/>
-                    <Item subMenuId="view-collapseLevel" name="Collapse Level"/>
-                    <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
+                    <Item subMenuId="view-collapseLevel" name="Fold Level"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Unfold Level"/>
                     <Item subMenuId="view-project" name="Project"/>
                     <Item subMenuId="encoding-characterSets"  name="Character Set"/>
                     <Item subMenuId="encoding-arabic"  name="Arabic"/>
@@ -267,8 +267,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44025" name="Show White Space and TAB"/>
                     <Item id="44026" name="Show End of Line"/>
                     <Item id="44029" name="Unfold All"/>
-                    <Item id="44030" name="Collapse Current Level"/>
-                    <Item id="44031" name="Uncollapse Current Level"/>
+                    <Item id="44030" name="Fold Current Level"/>
+                    <Item id="44031" name="Unfold Current Level"/>
                     <Item id="44049" name="Summary..."/>
                     <Item id="44080" name="Document Map"/>
                     <Item id="44070" name="Document List"/>
@@ -619,22 +619,22 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44102" name="View current file in Edge"/>
                     <Item id="50003" name="Switch to previous document"/>
                     <Item id="50004" name="Switch to next document"/>
-                    <Item id="44051" name="Collapse Level 1"/>
-                    <Item id="44052" name="Collapse Level 2"/>
-                    <Item id="44053" name="Collapse Level 3"/>
-                    <Item id="44054" name="Collapse Level 4"/>
-                    <Item id="44055" name="Collapse Level 5"/>
-                    <Item id="44056" name="Collapse Level 6"/>
-                    <Item id="44057" name="Collapse Level 7"/>
-                    <Item id="44058" name="Collapse Level 8"/>
-                    <Item id="44061" name="Uncollapse Level 1"/>
-                    <Item id="44062" name="Uncollapse Level 2"/>
-                    <Item id="44063" name="Uncollapse Level 3"/>
-                    <Item id="44064" name="Uncollapse Level 4"/>
-                    <Item id="44065" name="Uncollapse Level 5"/>
-                    <Item id="44066" name="Uncollapse Level 6"/>
-                    <Item id="44067" name="Uncollapse Level 7"/>
-                    <Item id="44068" name="Uncollapse Level 8"/>
+                    <Item id="44051" name="Fold Level 1"/>
+                    <Item id="44052" name="Fold Level 2"/>
+                    <Item id="44053" name="Fold Level 3"/>
+                    <Item id="44054" name="Fold Level 4"/>
+                    <Item id="44055" name="Fold Level 5"/>
+                    <Item id="44056" name="Fold Level 6"/>
+                    <Item id="44057" name="Fold Level 7"/>
+                    <Item id="44058" name="Fold Level 8"/>
+                    <Item id="44061" name="Unfold Level 1"/>
+                    <Item id="44062" name="Unfold Level 2"/>
+                    <Item id="44063" name="Unfold Level 3"/>
+                    <Item id="44064" name="Unfold Level 4"/>
+                    <Item id="44065" name="Unfold Level 5"/>
+                    <Item id="44066" name="Unfold Level 6"/>
+                    <Item id="44067" name="Unfold Level 7"/>
+                    <Item id="44068" name="Unfold Level 8"/>
                     <Item id="44081" name="Toggle Project Panel 1"/>
                     <Item id="44082" name="Toggle Project Panel 2"/>
                     <Item id="44083" name="Toggle Project Panel 3"/>
@@ -928,7 +928,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margins/Border/Edge">
-                    <Item id="6201" name="Folder Margin Style"/>
+                    <Item id="6201" name="Fold Margin Style"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Arrow"/>
                     <Item id="6204" name="Circle tree"/>
@@ -1376,8 +1376,8 @@ Continue?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>
             <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
-            <ExpandAllFoldersTip name="Expand all folders"/>
-            <CollapseAllFoldersTip name="Collapse all folders"/>
+            <ExpandAllFoldersTip name="Unfold all"/>
+            <CollapseAllFoldersTip name="Fold all"/>
             <LocateCurrentFileTip name="Locate current file"/>
             <Menus>
                 <Item id="3511" name="Remove"/>
@@ -1503,8 +1503,8 @@ Find in all files but exclude all folders log or logs recursively:
             <find-status-scope-forward value="from caret to end-of-file"/>
             <finder-find-in-finder value="Find in these search results..."/>
             <finder-close-this value="Close these search results"/>
-            <finder-collapse-all value="Collapse all"/>
-            <finder-uncollapse-all value="Uncollapse all"/>
+            <finder-collapse-all value="Fold all"/>
+            <finder-uncollapse-all value="Unfold all"/>
             <finder-copy value="Copy Selected Line(s)"/>
             <finder-copy-verbatim value="Copy"/>
             <finder-copy-paths value="Copy Pathname(s)"/>

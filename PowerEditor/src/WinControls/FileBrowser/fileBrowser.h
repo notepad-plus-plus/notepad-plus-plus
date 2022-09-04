@@ -176,8 +176,8 @@ protected:
 
 	std::vector<SortingData4lParam*> sortingDataArray;
 
-	generic_string _expandAllFolders = TEXT("Expand all folders");
-	generic_string _collapseAllFolders = TEXT("Collapse all folders");
+	generic_string _expandAllFolders = TEXT("Unfold all");
+	generic_string _collapseAllFolders = TEXT("Fold all");
 	generic_string _locateCurrentFile = TEXT("Locate current file");
 
 	void initPopupMenus();

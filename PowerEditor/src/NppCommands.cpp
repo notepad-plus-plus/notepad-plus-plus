@@ -977,6 +977,21 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_TAB_COLOUR_NONE:
+		case IDM_VIEW_TAB_COLOUR_1:
+		case IDM_VIEW_TAB_COLOUR_2:
+		case IDM_VIEW_TAB_COLOUR_3:
+		case IDM_VIEW_TAB_COLOUR_4:
+		case IDM_VIEW_TAB_COLOUR_5:
+		{
+			const int color_id = (id - IDM_VIEW_TAB_COLOUR_NONE) - 1;
+			const auto current_index = _pDocTab->getCurrentTabIndex();
+			BufferID buffer_id = _pDocTab->getBufferByIndex(current_index);
+			_pDocTab->setIndividualTabColour(buffer_id, color_id);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+		}
+		break;
+
 		case IDM_VIEW_TAB1:
 		case IDM_VIEW_TAB2:
 		case IDM_VIEW_TAB3:

@@ -539,6 +539,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RELOAD, TEXT("Reload")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, TEXT("Print")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
+				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_1, TEXT("Apply Color 1")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_2, TEXT("Apply Color 2")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_3, TEXT("Apply Color 3")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_4, TEXT("Apply Color 4")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_5, TEXT("Apply Color 5")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_NONE, TEXT("Remove Color")));
+				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CONTAININGFOLDERASWORKSPACE, TEXT("Open Containing Folder as Workspace")));
@@ -560,6 +567,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
 				_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
+			}
+
+			// Adds colour icons
+			for (int i = 0; i < 5; ++i)
+			{
+				COLORREF colour = NppDarkMode::getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
+				HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
+				SetMenuItemBitmaps(_tabPopupMenu.getMenuHandle(), IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
 			}
 
 			bool isEnable = ((::GetMenuState(_mainMenuHandle, IDM_FILE_SAVE, MF_BYCOMMAND)&MF_DISABLED) == 0);

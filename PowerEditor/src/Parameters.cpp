@@ -321,6 +321,12 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_SWITCHTO_FILEBROWSER,                false, false, false, TEXT("Switch to Folder as Workspace") },
 	{ VK_NULL,    IDM_VIEW_SWITCHTO_FUNC_LIST,                  false, false, false, TEXT("Switch to Function List") },
 	{ VK_NULL,    IDM_VIEW_SWITCHTO_DOCLIST,                    false, false, false, TEXT("Switch to Document List") },
+	{ VK_NULL,    IDM_VIEW_TAB_COLOUR_NONE,                     false, false, false, TEXT("Remove Tab Colour") },
+	{ VK_NULL,    IDM_VIEW_TAB_COLOUR_1,                        false, false, false, TEXT("Apply Tab Colour 1") },
+	{ VK_NULL,    IDM_VIEW_TAB_COLOUR_2,                        false, false, false, TEXT("Apply Tab Colour 2") },
+	{ VK_NULL,    IDM_VIEW_TAB_COLOUR_3,                        false, false, false, TEXT("Apply Tab Colour 3") },
+	{ VK_NULL,    IDM_VIEW_TAB_COLOUR_4,                        false, false, false, TEXT("Apply Tab Colour 4") },
+	{ VK_NULL,    IDM_VIEW_TAB_COLOUR_5,                        false, false, false, TEXT("Apply Tab Colour 5") },
 	{ VK_NULL,    IDM_VIEW_SYNSCROLLV,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_SYNSCROLLH,                          false, false, false, nullptr },
 	{ VK_R,       IDM_EDIT_RTL,                                 true,  true,  false, nullptr },
@@ -2280,6 +2286,12 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 
 					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, position, backupFilePath, fileModifiedTimestamp, mapPosition);
 
+					const TCHAR* intStrTabColour = (childNode->ToElement())->Attribute(TEXT("tabColourId"));
+					if (intStrTabColour)
+					{
+						sfi._individualTabColour = generic_atoi(intStrTabColour);
+					}
+
 					for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
 						markNode;
 						markNode = markNode->NextSibling(TEXT("Mark")))
@@ -3348,6 +3360,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestampHigh"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("tabColourId"), static_cast<int32_t>(viewSessionFiles[i]._individualTabColour));
 
 				// docMap 
 				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));

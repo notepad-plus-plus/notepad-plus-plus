@@ -1002,7 +1002,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 	return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 }
 
-
 void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 {
 	RECT rect = pDrawItemStruct->rcItem;
@@ -1032,7 +1031,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	HBRUSH hBrush = ::CreateSolidBrush(!isDarkMode ? ::GetSysColor(COLOR_BTNFACE) : NppDarkMode::getBackgroundColor());
 	::FillRect(hDC, &rect, hBrush);
 	::DeleteObject((HGDIOBJ)hBrush);
-	
+
 	// equalize drawing areas of active and inactive tabs
 	int paddingDynamicTwoX = NppParameters::getInstance()._dpiManager.scaleX(2);
 	int paddingDynamicTwoY = NppParameters::getInstance()._dpiManager.scaleY(2);
@@ -1072,7 +1071,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			rect.bottom += paddingDynamicTwoY;
 		}
 	}
-	
+
 	// the active tab's text with TCS_BUTTONS is lower than normal and gets clipped
 	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 	{
@@ -1085,6 +1084,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			rect.top -= 2;
 		}
 	}
+
+	const int individualColourId = getIndividualTabColour(nTab);
 
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
 	RECT barRect = rect;
@@ -1109,7 +1110,14 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			}
 
 			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, reinterpret_cast<LPARAM>(_hSelf)))
-				hBrush = ::CreateSolidBrush(_activeTopBarFocusedColour); // #FAAA3C
+			{
+				COLORREF topBarColour = _activeTopBarFocusedColour; // #FAAA3C
+				if (individualColourId != -1)
+				{
+					topBarColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, true);
+				}
+				hBrush = ::CreateSolidBrush(topBarColour);
+			}
 			else
 				hBrush = ::CreateSolidBrush(_activeTopBarUnfocusedColour); // #FAD296
 
@@ -1117,12 +1125,27 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			::DeleteObject((HGDIOBJ)hBrush);
 		}
 	}
-	else
+	else // inactive tabs
 	{
-		if (_drawInactiveTab)
+		bool draw = false;
+		RECT rect = _isCtrlMultiLine ? pDrawItemStruct->rcItem : barRect;
+		COLORREF brushColour{};
+
+		if (_drawInactiveTab && individualColourId == -1 && !isDarkMode)
 		{
-			hBrush = ::CreateSolidBrush(!isDarkMode ? _inactiveBgColour : NppDarkMode::getBackgroundColor());
-			::FillRect(hDC, &barRect, hBrush);
+			brushColour = _inactiveBgColour;
+			draw = true;
+		}
+		else if (individualColourId != -1)
+		{
+			brushColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, false);
+			draw = true;
+		}
+
+		if (draw)
+		{
+			hBrush = ::CreateSolidBrush(brushColour);
+			::FillRect(hDC, &rect, hBrush);
 			::DeleteObject((HGDIOBJ)hBrush);
 		}
 	}

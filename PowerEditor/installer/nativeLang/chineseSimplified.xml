@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.4.3">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -24,7 +24,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="打开所在文件夹(&amp;F)"/>
-                    <Item subMenuId="file-closeMore" name="更多关闭方式(&amp;M)"/>
+                    <Item subMenuId="file-closeMore" name="关闭多个文档(&amp;M)"/>
                     <Item subMenuId="file-recentFiles" name="近期文件(&amp;R)"/>
                     <Item subMenuId="edit-insert" name="插入"/>
                     <Item subMenuId="edit-copyToClipboard" name="复制到剪切板(&amp;Y)"/>
@@ -288,6 +288,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44097" name="监视日志 (tail -f)"/>
                     <Item id="44098" name="前移标签"/>
                     <Item id="44099" name="后移标签"/>
+                    <Item id="44110" name="移除颜色"/>
+                    <Item id="44111" name="使用颜色1"/>
+                    <Item id="44112" name="使用颜色2"/>
+                    <Item id="44113" name="使用颜色3"/>
+                    <Item id="44114" name="使用颜色4"/>
+                    <Item id="44115" name="使用颜色5"/>
                     <Item id="44032" name="切换全屏模式"/>
                     <Item id="44033" name="恢复默认缩放"/>
                     <Item id="44034" name="总在最前"/>
@@ -356,6 +362,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="50000" name="函数自动完成"/>
                     <Item id="50001" name="单词自动完成"/>
                     <Item id="50002" name="函数参数提示"/>
+                    <Item id="50010" name="函数参数上一个提示"/>
+                    <Item id="50011" name="函数参数下一个提示"/>
                     <Item id="50005" name="启动/停止宏录制"/>
                     <Item id="50006" name="路径补全"/>
                     <Item id="44042" name="隐藏行"/>
@@ -385,9 +393,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="4" name="打印当前文件..."/>
                     <Item CMID="5" name="移动到另一视图"/>
                     <Item CMID="6" name="复制到另一视图"/>
-                    <Item CMID="7" name="复制文件路径到剪切板"/>
-                    <Item CMID="8" name="复制文件名到剪切板"/>
-                    <Item CMID="9" name="复制当前路径到剪切板"/>
+                    <Item CMID="7" name="复制文件路径"/>
+                    <Item CMID="8" name="复制文件名"/>
+                    <Item CMID="9" name="复制当前路径"/>
                     <Item CMID="10" name="当前文件重命名..."/>
                     <Item CMID="11" name="当前文件移至回收站"/>
                     <Item CMID="12" name="设置为只读"/>
@@ -402,6 +410,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="21" name="使用默认查看器打开"/>
                     <Item CMID="22" name="关闭所有未修改"/>
                     <Item CMID="23" name="打开所在文件夹工作区"/>
+                    <Item CMID="24" name="使用颜色1"/>
+                    <Item CMID="25" name="使用颜色2"/>
+                    <Item CMID="26" name="使用颜色3"/>
+                    <Item CMID="27" name="使用颜色4"/>
+                    <Item CMID="28" name="使用颜色5"/>
+                    <Item CMID="29" name="移除颜色"/>
+                    <Item CMID="30" name="关闭多个标签"/>
+                    <Item CMID="31" name="打开至"/>
+                    <Item CMID="32" name="复制到剪贴板"/>
+                    <Item CMID="33" name="移动文档"/>
+                    <Item CMID="34" name="对标签使用颜色"/>
             </TabBar>
         </Menu>
 
@@ -509,7 +528,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="关闭"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="插件管理" titleAvailable="可用" titleUpdates="更新" titleInstalled="已安装">
+            <PluginsAdminDlg title="插件管理" titleAvailable="可用" titleUpdates="更新" titleInstalled="已安装" titleIncompatible="不兼容">
                 <ColumnPlugin   name="插件"/>
                 <ColumnVersion  name="版本"/>
                 <Item id="5501" name="搜索："/>
@@ -517,6 +536,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="5504" name="更新"/>
                 <Item id="5505" name="移除"/>
                 <Item id="5508" name="下一个"/>
+                <Item id="5509" name="插件列表版本："/>
+                <Item id="5511" name="插件列表仓库"/>
                 <Item id="2"    name="关闭"/>
             </PluginsAdminDlg>
 
@@ -548,6 +569,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="使用全局粗体样式"/>
                     <Item id="2231" name="使用全局斜体样式"/>
                     <Item id="2232" name="使用全局下划线样式"/>
+                    <Item id="2234" name="前往设置"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -646,6 +668,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="切换到文件夹工作区"/>
                     <Item id="44109" name="切换到文档列表"/>
                     <Item id="44108" name="切换到函数列表"/>
+                    <Item id="44110" name="移除标签颜色"/>
+                    <Item id="44111" name="使用标签颜色1"/>
+                    <Item id="44112" name="使用标签颜色2"/>
+                    <Item id="44113" name="使用标签颜色3"/>
+                    <Item id="44114" name="使用标签颜色4"/>
+                    <Item id="44115" name="使用标签颜色5"/>
                     <Item id="11002" name="按名称正序排序"/>
                     <Item id="11003" name="按名称倒序排序"/>
                     <Item id="11004" name="按路径正序排序"/>
@@ -863,7 +891,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6120" name="垂直显示"/>
                     <Item id="6121" name="关闭最后一个标签时退出"/>
 
+                    <Item id="6131" name="菜单"/>
                     <Item id="6122" name="隐藏菜单栏 (按下 Alt 或 F10 显示)"/>
+                    <Item id="6132" name="隐藏菜单栏右侧 ＋ ▼ ✕ 快捷键 (需重启Notepad++)"/>
                     <Item id="6123" name="界面语言"/>
 
                     <Item id="6128" name="自定义图标"/>
@@ -934,6 +964,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6292" name="变宽"/>
                     <Item id="6293" name="等宽"/>
                     <Item id="6207" name="显示标签栏"/>
+                    <Item id="6223" name="显示文件修改记录"/>
                     <Item id="6211" name="列边界设置"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="想要添加列标记，可用数字指示其列位置。
@@ -1043,12 +1074,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Print>
 
                 <Searching title="搜索">
-                    <Item id="6901" name="不要将所选内容填入“查找”对话框中的“查找”字段"/>
                     <Item id="6902" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
                     <Item id="6903" name="搜索输出到结果窗口后，保持查找对话框开启"/>
                     <Item id="6904" name="替换所有打开文件前需确认"/>
                     <Item id="6905" name="替换后不移动到下一个匹配项"/>
                     <Item id="6906" name="搜索结果窗口：每个找到的行仅显示一条"/>
+                    <Item id="6907" name="调用查找对话框时"/>
+                    <Item id="6908" name="用选中文本填充查找字段"/>
+                    <Item id="6909" name="未选中内容时选择插入符号下的词"/>
                 </Searching>
 
                 <RecentFilesHistory title="最近文件记录">
@@ -1329,6 +1362,7 @@ The comments are here for explanation, it's not necessary to translate them.
 Notepad++会在所有安装结束后重新启动。
 是否继续？"/>
             <NeedToRestartToLoadPlugins title="Notepad++需要重启" message="您必须重启Notepad++才能加载安装好的插件。"/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++需要重启" message="您必须重启Notepad++才能启用文件修改记录。"/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>
@@ -1369,8 +1403,8 @@ Notepad++会在所有安装结束后重新启动。
         <FolderAsWorkspace>
             <PanelTitle name="文件夹工作区"/>
             <SelectFolderFromBrowserString name="选择一个文件夹添加到文件夹工作区面板"/>
-            <ExpandAllFoldersTip name="展开所有文件夹"/>
-            <CollapseAllFoldersTip name="收起所有文件夹"/>
+            <ExpandAllFoldersTip name="全部展开"/>
+            <CollapseAllFoldersTip name="全部收起"/>
             <LocateCurrentFileTip name="定位当前文件"/>
             <Menus>
                 <Item id="3511" name="移除"/>

@@ -712,9 +712,9 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Fold All",                    IDM_VIEW_FOLDALL
         MENUITEM "Unfold All",                  IDM_VIEW_UNFOLDALL
-        MENUITEM "Collapse Current Level",      IDM_VIEW_FOLD_CURRENT
-        MENUITEM "Uncollapse Current Level",    IDM_VIEW_UNFOLD_CURRENT
-        POPUP "Collapse Level"
+        MENUITEM "Fold Current Level",          IDM_VIEW_FOLD_CURRENT
+        MENUITEM "Unfold Current Level",        IDM_VIEW_UNFOLD_CURRENT
+        POPUP "Fold Level"
         BEGIN
             MENUITEM "1",   IDM_VIEW_FOLD_1
             MENUITEM "2",   IDM_VIEW_FOLD_2
@@ -725,7 +725,7 @@ BEGIN
             MENUITEM "7",   IDM_VIEW_FOLD_7
             MENUITEM "8",   IDM_VIEW_FOLD_8
         END
-        POPUP "Uncollapse Level"
+        POPUP "Unfold Level"
         BEGIN
             MENUITEM "1",    IDM_VIEW_UNFOLD_1
             MENUITEM "2",    IDM_VIEW_UNFOLD_2

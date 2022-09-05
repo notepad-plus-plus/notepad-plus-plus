@@ -839,6 +839,9 @@ winVer NppParameters::getWindowsVersion()
    {
 		case VER_PLATFORM_WIN32_NT:
 		{
+			if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 22000)
+				return WV_WIN11;
+
 			if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0)
 				return WV_WIN10;
 

@@ -977,14 +977,14 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_VIEW_TAB_COLOR_NONE:
-		case IDM_VIEW_TAB_COLOR_1:
-		case IDM_VIEW_TAB_COLOR_2:
-		case IDM_VIEW_TAB_COLOR_3:
-		case IDM_VIEW_TAB_COLOR_4:
-		case IDM_VIEW_TAB_COLOR_5:
+		case IDM_VIEW_TAB_COLOUR_NONE:
+		case IDM_VIEW_TAB_COLOUR_1:
+		case IDM_VIEW_TAB_COLOUR_2:
+		case IDM_VIEW_TAB_COLOUR_3:
+		case IDM_VIEW_TAB_COLOUR_4:
+		case IDM_VIEW_TAB_COLOUR_5:
 		{
-			const int color_id = (id - IDM_VIEW_TAB_COLOR_NONE) - 1;
+			const int color_id = (id - IDM_VIEW_TAB_COLOUR_NONE) - 1;
 			const auto current_index = _pDocTab->getCurrentTabIndex();
 			BufferID buffer_id = _pDocTab->getBufferByIndex(current_index);
 			_pDocTab->setIndividualTabColour(buffer_id, color_id);

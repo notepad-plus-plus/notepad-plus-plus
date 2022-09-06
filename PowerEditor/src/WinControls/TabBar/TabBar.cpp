@@ -1002,29 +1002,29 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 	return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 }
 
-bool tryGetColourizedTabBrushColour(COLORREF& outColour, int colourId, bool darkMode, bool darkened)
+enum IndividualTablColourType
+{
+	ITCT_DARKMODE = 0,
+	ITCT_DARKENED = 1,
+	ITCT_DEFAULT = 2,
+	ITCT_LIGHT = 3,
+	ITCT_SATURATED = 4,
+
+	ITCT_MAX
+};
+
+bool tryGetColourizedTabBrushColour(COLORREF& outColour, int colourId, IndividualTablColourType colourType)
 {
 	if (colourId == -1 || colourId > 4) return false;
 
-	constexpr COLORREF IndividualTabColurs[]        { HEXRGB(0xecdedb), HEXRGB(0xe2ecdb), HEXRGB(0xdbe1ec), HEXRGB(0xece5db), HEXRGB(0xe7dfe7) };
-	constexpr COLORREF DarkenedIndividualTabColurs[]{ HEXRGB(0xc5aea9), HEXRGB(0xb5c5a9), HEXRGB(0xa9b3c5), HEXRGB(0xc5baa9), HEXRGB(0xbdafbe) };
-	constexpr COLORREF DarkIndividualTabColurs[]    { HEXRGB(0x2f221f), HEXRGB(0x262f1f), HEXRGB(0x1f252f), HEXRGB(0x2f291f), HEXRGB(0x2a222b) };
+	// red, green, blue, orange, purple
+	constexpr WORD hues[] { 0, 70, 144, 13, 195 };
 
-	if (darkMode)
-	{
-		outColour = DarkIndividualTabColurs[colourId];
-	}
-	else
-	{
-		if (darkened)
-		{
-			outColour = DarkenedIndividualTabColurs[colourId];
-		}
-		else
-		{
-			outColour = IndividualTabColurs[colourId];
-		}
-	}
+	static_assert(ITCT_MAX == 5, "IndividualTablColourType changed, update array below");
+	constexpr WORD saturations[] { 40, 190, 210, 210, 170 };
+	constexpr WORD lightness[] { 60, 50, 150, 210, 200 };
+
+	outColour = NppDarkMode::hlsColour(hues[colourId], saturations[colourType], lightness[colourType]);
 
 	return true;
 }
@@ -1112,6 +1112,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 	}
 
+	const int colourId = getIndividualTabColour(nTab);
+
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
 	RECT barRect = rect;
 	if (isSelected)
@@ -1135,7 +1137,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			}
 
 			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, reinterpret_cast<LPARAM>(_hSelf)))
-				hBrush = ::CreateSolidBrush(_activeTopBarFocusedColour); // #FAAA3C
+			{
+				COLORREF individualColour;
+				bool hasIndividualColour = tryGetColourizedTabBrushColour(individualColour, colourId, isDarkMode ? ITCT_LIGHT : ITCT_SATURATED);
+				hBrush = ::CreateSolidBrush(hasIndividualColour ? individualColour : _activeTopBarFocusedColour); // #FAAA3C
+			}
 			else
 				hBrush = ::CreateSolidBrush(_activeTopBarUnfocusedColour); // #FAD296
 
@@ -1145,11 +1151,10 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	}
 	else
 	{
-		int colourId = getIndividualTabColour(nTab);
 		if (_drawInactiveTab)
 		{
 			COLORREF brushColour = isDarkMode ? NppDarkMode::getBackgroundColor() : _inactiveBgColour;
-			tryGetColourizedTabBrushColour(brushColour, colourId, isDarkMode, true);
+			tryGetColourizedTabBrushColour(brushColour, colourId, isDarkMode ? ITCT_DARKMODE : ITCT_DARKENED);
 			hBrush = ::CreateSolidBrush(brushColour);
 			::FillRect(hDC, &barRect, hBrush);
 			::DeleteObject((HGDIOBJ)hBrush);
@@ -1157,7 +1162,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		else
 		{
 			COLORREF brushColour = 0;
-			if (tryGetColourizedTabBrushColour(brushColour, colourId, isDarkMode, false))
+			if (tryGetColourizedTabBrushColour(brushColour, colourId, isDarkMode ? ITCT_DARKMODE : ITCT_DEFAULT))
 			{
 				hBrush = ::CreateSolidBrush(brushColour);
 				::FillRect(hDC, &barRect, hBrush);

@@ -706,15 +706,15 @@ BEGIN
             MENUITEM "Move Tab Forward",        IDM_VIEW_TAB_MOVEFORWARD
             MENUITEM "Move Tab Backward",       IDM_VIEW_TAB_MOVEBACKWARD
             MENUITEM SEPARATOR
-            POPUP "Color"
+            POPUP "Colour"
             BEGIN
-              MENUITEM "Red",      IDM_VIEW_TAB_COLOR_1
-              MENUITEM "Green",    IDM_VIEW_TAB_COLOR_2
-              MENUITEM "Blue",     IDM_VIEW_TAB_COLOR_3
-              MENUITEM "Orange",   IDM_VIEW_TAB_COLOR_4
-              MENUITEM "Purple",   IDM_VIEW_TAB_COLOR_5
-              MENUITEM SEPARATOR
-              MENUITEM "None",     IDM_VIEW_TAB_COLOR_NONE
+                MENUITEM "Red",      IDM_VIEW_TAB_COLOUR_1
+                MENUITEM "Green",    IDM_VIEW_TAB_COLOUR_2
+                MENUITEM "Blue",     IDM_VIEW_TAB_COLOUR_3
+                MENUITEM "Orange",   IDM_VIEW_TAB_COLOUR_4
+                MENUITEM "Purple",   IDM_VIEW_TAB_COLOUR_5
+                MENUITEM SEPARATOR
+                MENUITEM "None",     IDM_VIEW_TAB_COLOUR_NONE
             END
         END
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP

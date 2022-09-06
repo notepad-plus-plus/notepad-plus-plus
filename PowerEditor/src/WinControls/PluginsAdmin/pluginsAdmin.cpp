@@ -139,10 +139,12 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	const TCHAR *available = TEXT("Available");
 	const TCHAR *updates = TEXT("Updates");
 	const TCHAR *installed = TEXT("Installed");
+	const TCHAR *incompatible = TEXT("Incompatible");
 
 	_tab.insertAtEnd(available);
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
+	_tab.insertAtEnd(incompatible);
 
 	rect.bottom -= dpiManager.scaleX(100);
 	_tab.reSizeTo(rect);
@@ -216,49 +218,45 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 	generic_string pluginStr = pNativeSpeaker->getAttrNameStr(TEXT("Plugin"), "PluginAdmin", "Plugin");
 	generic_string vesionStr = pNativeSpeaker->getAttrNameStr(TEXT("Version"), "PluginAdmin", "Version");
-	//generic_string stabilityStr = pNativeSpeaker->getAttrNameStr(TEXT("Stability"), "PluginAdmin", "Stability");
-
-	_availableList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
-	_availableList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	//_availableList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
-	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 
 	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
 	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
 
+	_availableList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
+	_availableList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
+	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
 	_availableList.initView(_hInst, _hSelf);
-
 	ListView_SetBkColor(_availableList.getViewHwnd(), bgColor);
 	ListView_SetTextBkColor(_availableList.getViewHwnd(), bgColor);
 	ListView_SetTextColor(_availableList.getViewHwnd(), fgColor);
-
 	_availableList.reSizeView(listRect);
 	
 	_updateList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
 	_updateList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	//_updateList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
-
 	_updateList.initView(_hInst, _hSelf);
-
 	ListView_SetBkColor(_updateList.getViewHwnd(), bgColor);
 	ListView_SetTextBkColor(_updateList.getViewHwnd(), bgColor);
 	ListView_SetTextColor(_updateList.getViewHwnd(), fgColor);
-
 	_updateList.reSizeView(listRect);
 
 	_installedList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
 	_installedList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	//_installedList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
-
 	_installedList.initView(_hInst, _hSelf);
-
 	ListView_SetBkColor(_installedList.getViewHwnd(), bgColor);
 	ListView_SetTextBkColor(_installedList.getViewHwnd(), bgColor);
 	ListView_SetTextColor(_installedList.getViewHwnd(), fgColor);
-
 	_installedList.reSizeView(listRect);
+
+	_incompatibleList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
+	_incompatibleList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
+	_incompatibleList.initView(_hInst, _hSelf);
+	ListView_SetBkColor(_incompatibleList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_incompatibleList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_incompatibleList.getViewHwnd(), fgColor);
+	_incompatibleList.reSizeView(listRect);
+
 
 	HWND hDesc = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
 	::MoveWindow(hDesc, descRect.left, descRect.top, descRect.right, descRect.bottom, TRUE);
@@ -466,6 +464,7 @@ void PluginsAdminDlg::changeColumnName(COLUMN_TYPE index, const TCHAR *name2chan
 	_availableList.changeColumnName(index, name2change);
 	_updateList.changeColumnName(index, name2change);
 	_installedList.changeColumnName(index, name2change);
+	_incompatibleList.changeColumnName(index, name2change);
 }
 
 void PluginViewList::changeColumnName(COLUMN_TYPE index, const TCHAR *name2change)
@@ -788,6 +787,9 @@ bool PluginsAdminDlg::updateList()
 	// initialize update list view
 	checkUpdates();
 
+	// initialize incompatible list view
+	initIncompatiblePluginList();
+
 	// initialize installed list view
 	loadFromPluginInfos();
 
@@ -818,6 +820,30 @@ bool PluginsAdminDlg::initAvailablePluginsViewFromList()
 			size_t j = _availableList._ui.findAlphabeticalOrderPos(i->_displayName, _availableList._sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? ListView::sortEncrease : ListView::sortDecrease);
 			_availableList._ui.addLine(values2Add, reinterpret_cast<LPARAM>(i), static_cast<int>(j));
 		}
+	}
+
+	return true;
+}
+
+
+bool PluginsAdminDlg::initIncompatiblePluginList()
+{
+	TCHAR nppFullPathName[MAX_PATH];
+	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
+
+	Version nppVer;
+	nppVer.setVersionFrom(nppFullPathName);
+
+	for (const auto& i : _incompatibleList._list)
+	{
+		vector<generic_string> values2Add;
+		values2Add.push_back(i->_displayName);
+		Version v = i->_version;
+		values2Add.push_back(v.toString());
+
+		// add in order
+		size_t j = _incompatibleList._ui.findAlphabeticalOrderPos(i->_displayName, _incompatibleList._sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? ListView::sortEncrease : ListView::sortDecrease);
+		_incompatibleList._ui.addLine(values2Add, reinterpret_cast<LPARAM>(i), static_cast<int>(j));
 	}
 
 	return true;
@@ -864,6 +890,27 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 			{
 				PluginUpdateInfo* pui2 = new PluginUpdateInfo(*foundInfo);
 				_updateList.pushBack(pui2);
+			}
+		}
+	}
+
+	// Search from unloaded incompatible plugins
+	for (size_t j = 0, nb = _incompatibleList.nbItem(); j < nb; j++)
+	{
+		PluginUpdateInfo* incompatiblePluginInfo = _incompatibleList.getPluginInfoFromUiIndex(j);
+		int listIndex;
+		PluginUpdateInfo* foundInfoOfAvailable = _availableList.findPluginInfoFromFolderName(incompatiblePluginInfo->_folderName, listIndex);
+
+		if (foundInfoOfAvailable)
+		{
+			// if the incompatible plugin version is smaller than the one on the available list, put it in the update list
+			if (foundInfoOfAvailable->_version > incompatiblePluginInfo->_version)
+			{
+				// Hide it from the available list
+				_availableList.hideFromListIndex(listIndex);
+
+				PluginUpdateInfo* pui = new PluginUpdateInfo(*foundInfoOfAvailable);
+				_updateList.pushBack(pui);
 			}
 		}
 	}
@@ -1024,7 +1071,7 @@ bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 void PluginsAdminDlg::switchDialog(int indexToSwitch)
 {
 	generic_string desc;
-	bool showAvailable, showUpdate, showInstalled;
+	bool showAvailable, showUpdate, showInstalled, showIncompatibile;
 	switch (indexToSwitch)
 	{
 		case 0: // available plugins
@@ -1032,6 +1079,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			showAvailable = true;
 			showUpdate = false;
 			showInstalled = false;
+			showIncompatibile = false;
 
 			long infoIndex = _availableList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_availableList.nbItem()))
@@ -1044,6 +1092,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			showAvailable = false;
 			showUpdate = true;
 			showInstalled = false;
+			showIncompatibile = false;
 			
 			long infoIndex = _updateList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_updateList.nbItem()))
@@ -1056,10 +1105,24 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			showAvailable = false;
 			showUpdate = false;
 			showInstalled = true;
+			showIncompatibile = false;
 
 			long infoIndex = _installedList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_installedList.nbItem()))
 				desc = _installedList.getPluginInfoFromUiIndex(infoIndex)->describe();
+		}
+		break;
+
+		case 3: // incompability plugins
+		{
+			showAvailable = false;
+			showUpdate = false;
+			showInstalled = false;
+			showIncompatibile = true;
+
+			long infoIndex = _incompatibleList.getSelectedIndex();
+			if (infoIndex != -1 && infoIndex < static_cast<long>(_incompatibleList.nbItem()))
+				desc = _incompatibleList.getPluginInfoFromUiIndex(infoIndex)->_description;
 		}
 		break;
 
@@ -1070,6 +1133,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	_availableList.displayView(showAvailable);
 	_updateList.displayView(showUpdate);
 	_installedList.displayView(showInstalled);
+	_incompatibleList.displayView(showIncompatibile);
 
 	::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 
@@ -1219,7 +1283,8 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			}
 			else if (pnmh->hwndFrom == _availableList.getViewHwnd() || 
                      pnmh->hwndFrom == _updateList.getViewHwnd() ||
-                     pnmh->hwndFrom == _installedList.getViewHwnd())
+                     pnmh->hwndFrom == _installedList.getViewHwnd() ||
+                     pnmh->hwndFrom == _incompatibleList.getViewHwnd())
 			{
 				PluginViewList* pViewList;
 				int buttonID;
@@ -1234,10 +1299,15 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					pViewList = &_updateList;
 					buttonID = IDC_PLUGINADM_UPDATE;
 				}
-				else // pnmh->hwndFrom == _installedList.getViewHwnd()
+				else if (pnmh->hwndFrom == _installedList.getViewHwnd())
 				{
 					pViewList = &_installedList;
 					buttonID = IDC_PLUGINADM_REMOVE;
+				}
+				else // pnmh->hwndFrom == _incompatibleList.getViewHwnd()
+				{
+					pViewList = &_incompatibleList;
+					buttonID = 0;
 				}
 
 				LPNMLISTVIEW pnmv = (LPNMLISTVIEW)lParam;
@@ -1249,16 +1319,19 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						if ((pnmv->uNewState & LVIS_STATEIMAGEMASK) == INDEXTOSTATEIMAGEMASK(2) || // checked
 							(pnmv->uNewState & LVIS_STATEIMAGEMASK) == INDEXTOSTATEIMAGEMASK(1))   // unchecked
 						{
-							HWND hButton = ::GetDlgItem(_hSelf, buttonID);
-							vector<size_t> checkedArray = pViewList->getCheckedIndexes();
-							bool showButton = checkedArray.size() > 0;
+							if (buttonID)
+							{
+								HWND hButton = ::GetDlgItem(_hSelf, buttonID);
+								vector<size_t> checkedArray = pViewList->getCheckedIndexes();
+								bool showButton = checkedArray.size() > 0;
 
-							::EnableWindow(hButton, showButton);
+								::EnableWindow(hButton, showButton);
+							}
 						}
 						else if (pnmv->uNewState & LVIS_SELECTED)
 						{
 							PluginUpdateInfo* pui = pViewList->getPluginInfoFromUiIndex(pnmv->iItem);
-							generic_string desc = pui->describe();
+							generic_string desc = buttonID ? pui->describe() : pui->_description;
 							::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 						}
 					}

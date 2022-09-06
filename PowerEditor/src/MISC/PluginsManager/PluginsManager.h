@@ -91,7 +91,7 @@ public:
 		_nppData = nppData;
 	}
 
-	bool loadPlugins(const TCHAR *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr);
+	bool loadPlugins(const TCHAR *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr, PluginViewList* pluginImcompatibleList = nullptr);
 
     bool unloadPlugin(int index, HWND nppHandle);
 
@@ -133,16 +133,14 @@ private:
 
 	int loadPluginFromPath(const TCHAR* pluginFilePath);
 
-	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature)
-	{
+	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature) {
 		generic_string msg = pluginName;
 		msg += TEXT(" just crashed in\r");
 		msg += funcSignature;
 		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Crash"), MB_OK|MB_ICONSTOP);
 	}
 
-	void pluginExceptionAlert(const TCHAR *pluginName, const std::exception& e)
-	{
+	void pluginExceptionAlert(const TCHAR *pluginName, const std::exception& e) {
 		generic_string msg = TEXT("An exception occurred due to plugin: ");
 		msg += pluginName;
 		msg += TEXT("\r\n\r\nException reason: ");
@@ -151,8 +149,7 @@ private:
 		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Exception"), MB_OK);
 	}
 
-	bool isInLoadedDlls(const TCHAR *fn) const
-	{
+	bool isInLoadedDlls(const TCHAR *fn) const {
 		for (size_t i = 0; i < _loadedDlls.size(); ++i)
 			if (generic_stricmp(fn, _loadedDlls[i]._fileName.c_str()) == 0)
 				return true;

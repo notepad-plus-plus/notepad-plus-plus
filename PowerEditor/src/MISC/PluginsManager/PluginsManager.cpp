@@ -317,7 +317,7 @@ int PluginsManager::loadPluginFromPath(const TCHAR *pluginFilePath)
 	}
 }
 
-bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList)
+bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList, PluginViewList* pluginImcompatibleList)
 {
 	if (_isDisabled)
 		return false;
@@ -349,6 +349,9 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
 	Version nppVer;
 	nppVer.setVersionFrom(nppFullPathName);
+
+	const TCHAR* incompatibleWarning = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.";
+	const TCHAR* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
 
 	// get plugin folder
 	if (hFindFolder != INVALID_HANDLE_VALUE && (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
@@ -385,6 +388,16 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 						{
 							// Find compatible Notepad++ versions
 							isCompatible = nppVer.isCompatibleTo(pui->_nppCompatibleVersions.first, pui->_nppCompatibleVersions.second);
+
+							if (!isCompatible && pluginImcompatibleList)
+							{
+								PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui);
+								incompatiblePlg->_version = v;
+								TCHAR msg[1024];
+								wsprintf(msg, incompatibleWarning, incompatiblePlg->_displayName.c_str(), v.toString().c_str(), nppVer.toString().c_str());
+								incompatiblePlg->_description = msg;
+								pluginImcompatibleList->pushBack(incompatiblePlg);
+							}
 						}
 						else if (v < pui->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
 							!(pui->_oldVersionCompatibility.first.first.empty() && pui->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
@@ -393,6 +406,16 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 							if (v.isCompatibleTo(pui->_oldVersionCompatibility.first.first, pui->_oldVersionCompatibility.first.second)) // dll older version found
 							{
 								isCompatible = nppVer.isCompatibleTo(pui->_oldVersionCompatibility.second.first, pui->_oldVersionCompatibility.second.second);
+
+								if (!isCompatible && pluginImcompatibleList)
+								{
+									PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui);
+									incompatiblePlg->_version = v;
+									TCHAR msg[1024];
+									wsprintf(msg, incompatibleWarningWithSolution, incompatiblePlg->_displayName.c_str(), v.toString().c_str(), nppVer.toString().c_str(), pui->_version.toString().c_str());
+									incompatiblePlg->_description = msg;
+									pluginImcompatibleList->pushBack(incompatiblePlg);
+								}
 							}
 						}
 					}
@@ -443,6 +466,16 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 							{
 								// Find compatible Notepad++ versions
 								isCompatible2 = nppVer.isCompatibleTo(pui2->_nppCompatibleVersions.first, pui2->_nppCompatibleVersions.second);
+
+								if (!isCompatible2 && pluginImcompatibleList)
+								{
+									PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui2);
+									incompatiblePlg->_version = v2;
+									TCHAR msg[1024];
+									wsprintf(msg, incompatibleWarning, incompatiblePlg->_displayName.c_str(), v2.toString().c_str(), nppVer.toString().c_str());
+									incompatiblePlg->_description = msg;
+									pluginImcompatibleList->pushBack(incompatiblePlg);
+								}
 							}
 							else if (v2 < pui2->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
 								!(pui2->_oldVersionCompatibility.first.first.empty() && pui2->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
@@ -451,6 +484,16 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 								if (v2.isCompatibleTo(pui2->_oldVersionCompatibility.first.first, pui2->_oldVersionCompatibility.first.second)) // dll older version found
 								{
 									isCompatible2 = nppVer.isCompatibleTo(pui2->_oldVersionCompatibility.second.first, pui2->_oldVersionCompatibility.second.second);
+
+									if (!isCompatible2 && pluginImcompatibleList)
+									{
+										PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui2);
+										incompatiblePlg->_version = v2;
+										TCHAR msg[1024];
+										wsprintf(msg, incompatibleWarningWithSolution, incompatiblePlg->_displayName.c_str(), v2.toString().c_str(), nppVer.toString().c_str(), pui2->_version.toString().c_str());
+										incompatiblePlg->_description = msg;
+										pluginImcompatibleList->pushBack(incompatiblePlg);
+									}
 								}
 							}
 						}

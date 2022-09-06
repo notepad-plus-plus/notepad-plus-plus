@@ -268,29 +268,51 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_CLOSEALL:
 		{
 			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-			fileCloseAll(isSnapshotMode, false);
-            checkDocState();
+			if (Notepad_plus::doCloseAllOrNot(_T("All")) == IDYES)
+			{
+				fileCloseAll(isSnapshotMode, false);
+				checkDocState();
+				break;
+			}
 			break;
 		}
 
-		case IDM_FILE_CLOSEALL_BUT_CURRENT :
-			fileCloseAllButCurrent();
-            checkDocState();
+		case IDM_FILE_CLOSEALL_BUT_CURRENT:
+		{
+			if (Notepad_plus::doCloseAllOrNot(_T("BUT This")) == IDYES)
+			{
+				fileCloseAllButCurrent();
+				checkDocState();
+				break;
+			}
+			break;
+		}
+
+		case IDM_FILE_CLOSEALL_TOLEFT:
+			if (Notepad_plus::doCloseAllOrNot(_T("Left")) == IDYES)
+			{
+				fileCloseAllToLeft();
+				checkDocState();
+				break;
+			}
 			break;
 
-		case IDM_FILE_CLOSEALL_TOLEFT :
-			fileCloseAllToLeft();
-			checkDocState();
-			break;
-
-		case IDM_FILE_CLOSEALL_TORIGHT :
-			fileCloseAllToRight();
-			checkDocState();
+		case IDM_FILE_CLOSEALL_TORIGHT:
+			if (Notepad_plus::doCloseAllOrNot(_T("Right")) == IDYES)
+			{
+				fileCloseAllToRight();
+				checkDocState();
+				break;
+			}
 			break;
 
 		case IDM_FILE_CLOSEALL_UNCHANGED:
-			fileCloseAllUnchanged();
-			checkDocState();
+			if (Notepad_plus::doCloseAllOrNot(_T("Unchanged")) == IDYES)
+			{
+				fileCloseAllUnchanged();
+				checkDocState();
+				break;
+			}
 			break;
 
 		case IDM_FILE_SAVE :

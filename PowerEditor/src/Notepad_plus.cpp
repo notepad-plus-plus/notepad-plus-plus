@@ -2135,6 +2135,55 @@ int Notepad_plus::doCloseOrNot(const TCHAR *fn)
 		fn);
 }
 
+int Notepad_plus::doCloseAllOrNot(const TCHAR *fn)
+{
+	const TCHAR CloseAll[] = _T("All"),
+		CloseLeft[] = _T("Left"),
+		CloseRight[] = _T("Right"),
+		CloseButThis[] = _T("BUT This"),
+		CloseUnchanged[] = _T("Unchanged");
+	if (NppParameters::getInstance().getNppGUI()._closeAllConfirm == TRUE) {
+		if (_tcscmp(fn, CloseAll) == 0)
+		{
+			return _nativeLangSpeaker.messageBox("DoCloseAllOrNot", _pPublicInterface->getHSelf(),
+				TEXT("Do you want to close All files?"),
+				TEXT("Close all"),
+				MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+				0,
+				fn);
+		}
+		else if (_tcscmp(fn, CloseLeft) == 0
+			|| _tcscmp(fn, CloseRight) == 0)
+		{
+			return _nativeLangSpeaker.messageBox("DoCloseAllOrNot1", _pPublicInterface->getHSelf(),
+				TEXT("Do you want to close all files to the $STR_REPLACE$?"),
+				TEXT("Close all"),
+				MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+				0,
+				fn);
+		}
+		else if (_tcscmp(fn, CloseUnchanged) == 0)
+		{
+			return _nativeLangSpeaker.messageBox("DoCloseAllOrNot", _pPublicInterface->getHSelf(),
+				TEXT("Do you want to close all Unchanged files?"),
+				TEXT("Close all"),
+				MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+				0,
+				fn);
+		}
+		else if (_tcscmp(fn, CloseButThis) == 0)
+		{
+			return _nativeLangSpeaker.messageBox("DoCloseAllOrNot", _pPublicInterface->getHSelf(),
+				TEXT("Do you want to close all files BUT This?"),
+				TEXT("Close all"),
+				MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+				0,
+				fn);
+		}
+	}
+	return IDYES;
+}
+
 int Notepad_plus::doDeleteOrNot(const TCHAR *fn)
 {
 	return _nativeLangSpeaker.messageBox("DoDeleteOrNot",

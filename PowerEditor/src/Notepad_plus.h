@@ -458,6 +458,7 @@ private:
 	int doSaveOrNot(const TCHAR *fn, bool isMulti = false);
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
+	int doCloseAllOrNot(const TCHAR *fn);
 	int doDeleteOrNot(const TCHAR *fn);
 	int doSaveAll();
 

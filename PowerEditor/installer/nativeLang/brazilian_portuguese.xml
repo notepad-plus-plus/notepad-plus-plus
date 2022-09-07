@@ -935,7 +935,7 @@
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margens e borda">
-                    <Item id="6201" name="Estilo da margem das dobragens"/>
+                    <Item id="6201" name="Estilo da margem para expansão"/>
                     <Item id="6202" name="Simples"/>
                     <Item id="6203" name="Seta"/>
                     <Item id="6204" name="Círculo"/>

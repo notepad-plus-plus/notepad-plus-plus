@@ -1169,7 +1169,7 @@ bool NppParameters::load()
 	//---------------------------------------------//
 	// Dlg theme texture function for xp and vista //
 	//---------------------------------------------//
-	_hUXTheme = ::LoadLibrary(TEXT("uxtheme.dll"));
+	_hUXTheme = ::LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (_hUXTheme)
 		_enableThemeDialogTextureFuncAddr = (WNDPROC)::GetProcAddress(_hUXTheme, "EnableThemeDialogTexture");
 

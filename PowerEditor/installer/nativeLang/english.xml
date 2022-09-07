@@ -1271,6 +1271,10 @@ you have to enable &quot;Open all files of folder instead of launching Folder as
             <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
 Keep this file in editor?"/>
+			<DoCloseAllOrNot title ="Close all" message="Do you want to close All files?"/>
+			<DoCloseAllOrNotDirection title ="Close all" message="Do you want to close all files to the $STR_REPLACE$?"/>
+			<DoCloseAllOrNotUnchanged title ="Close all" message="Do you want to close all Unchanged files?"/>
+			<DoCloseAllOrNotButThis title ="Close all" message="Do you want to close all files BUT This?"/>
             <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
 will be moved to your Recycle Bin and this document will be closed.
 Continue?"/>

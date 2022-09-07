@@ -2155,7 +2155,7 @@ int Notepad_plus::doCloseAllOrNot(const TCHAR *fn)
 		else if (_tcscmp(fn, CloseLeft) == 0
 			|| _tcscmp(fn, CloseRight) == 0)
 		{
-			return _nativeLangSpeaker.messageBox("DoCloseAllOrNot1", _pPublicInterface->getHSelf(),
+			return _nativeLangSpeaker.messageBox("DoCloseAllOrNotDirection", _pPublicInterface->getHSelf(),
 				TEXT("Do you want to close all files to the $STR_REPLACE$?"),
 				TEXT("Close all"),
 				MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
@@ -2164,7 +2164,7 @@ int Notepad_plus::doCloseAllOrNot(const TCHAR *fn)
 		}
 		else if (_tcscmp(fn, CloseUnchanged) == 0)
 		{
-			return _nativeLangSpeaker.messageBox("DoCloseAllOrNot", _pPublicInterface->getHSelf(),
+			return _nativeLangSpeaker.messageBox("DoCloseAllOrNotUnchanged", _pPublicInterface->getHSelf(),
 				TEXT("Do you want to close all Unchanged files?"),
 				TEXT("Close all"),
 				MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
@@ -2173,7 +2173,7 @@ int Notepad_plus::doCloseAllOrNot(const TCHAR *fn)
 		}
 		else if (_tcscmp(fn, CloseButThis) == 0)
 		{
-			return _nativeLangSpeaker.messageBox("DoCloseAllOrNot", _pPublicInterface->getHSelf(),
+			return _nativeLangSpeaker.messageBox("DoCloseAllOrNotButThis", _pPublicInterface->getHSelf(),
 				TEXT("Do you want to close all files BUT This?"),
 				TEXT("Close all"),
 				MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,

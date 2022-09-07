@@ -3,7 +3,7 @@
 <!-- Updated: Jul 2021 -->
 <!-- For Notepad++ 8.1.2 -->
 <!-- Brazilian Portuguese updated by Marcello -->
-<!-- Updated: Jul 2022, for Notepad++ 8.4.1 -->
+<!-- Updated: Sep 2022, for Notepad++ 8.4.6 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.5">
         <Menu>
@@ -26,7 +26,7 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Abrir pasta atual no"/>
-                    <Item subMenuId="file-closeMore" name="Mais opções fechar"/>
+                    <Item subMenuId="file-closeMore" name="Fechar Múltiplos Documentos"/>
                     <Item subMenuId="file-recentFiles" name="Arquivos recentes"/>
                     <Item subMenuId="edit-insert" name="Inserir"/>
                     <Item subMenuId="edit-copyToClipboard" name="Área de transferência"/>
@@ -181,8 +181,8 @@
                     <Item id="42029" name="Copiar caminho completo do arquivo"/>
                     <Item id="42030" name="Copiar nome do arquivo"/>
                     <Item id="42031" name="Copiar caminho da pasta atual"/>
-                    <Item id="42087" name="Todos os nomes de arquivos para a Área de Transferência"/>
-                    <Item id="42088" name="Todos os caminhos de arquivos para a Área de Transferência"/>
+                    <Item id="42087" name="Copiar todos os nomes de arquivos"/>
+                    <Item id="42088" name="Copiar todos os caminhos de arquivos"/>
                     <Item id="42032" name="Executar macro múltiplas vezes..."/>
                     <Item id="42033" name="Desmarcar como somente leitura"/>
                     <Item id="42035" name="Comentar linha única"/>
@@ -290,6 +290,12 @@
                     <Item id="44097" name="Monitorando (tail -f)"/>
                     <Item id="44098" name="Mover aba para frente"/>
                     <Item id="44099" name="Mover aba para trás"/>
+                    <Item id="44110" name="Remover Cor"/>
+                    <Item id="44111" name="Aplicar Cor 1"/>
+                    <Item id="44112" name="Aplicar Cor 2"/>
+                    <Item id="44113" name="Aplicar Cor 3"/>
+                    <Item id="44114" name="Aplicar Cor 4"/>
+                    <Item id="44115" name="Aplicar Cor 5"/>
                     <Item id="44032" name="Modo Tela Inteira"/>
                     <Item id="44033" name="Restaurar o zoom padrão"/>
                     <Item id="44034" name="Manter sobre as outras janelas"/>
@@ -406,6 +412,17 @@
                     <Item CMID="21" name="Abrir no visualizador padrão"/>
                     <Item CMID="22" name="Fechar todas inalteradas"/>
                     <Item CMID="23" name="Abrir o caminho como espaço de trabalho"/>
+		    <Item CMID="24" name="Aplicar Cor 1"/>
+                    <Item CMID="25" name="Aplicar Cor 2"/>
+                    <Item CMID="26" name="Aplicar Cor 3"/>
+                    <Item CMID="27" name="Aplicar Cor 4"/>
+                    <Item CMID="28" name="Aplicar Cor 5"/>
+                    <Item CMID="29" name="Remover Cor"/>
+                    <Item CMID="30" name="Fechar Múltiplas Abas"/>
+                    <Item CMID="31" name="Abrir em"/>
+                    <Item CMID="32" name="Copiar para Área de Transferência"/>
+                    <Item CMID="33" name="Mover Documento"/>
+                    <Item CMID="34" name="Aplicar Cor em Aba"/>
             </TabBar>
         </Menu>
 
@@ -513,7 +530,7 @@
                 <Item id="2"    name="Fechar"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados">
+            <PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versão"/>
                 <Item id="5501" name="Pesquisar:"/>
@@ -521,6 +538,8 @@
                 <Item id="5504" name="Atualizar"/>
                 <Item id="5505" name="Remover"/>
                 <Item id="5508" name="Próximo"/>
+                <Item id="5509" name="Versões de lista de Plugins: "/>
+                <Item id="5511" name="Repositório de lista de Plugins"/>
                 <Item id="2"    name="Fechar"/>
             </PluginsAdminDlg>
 
@@ -651,6 +670,12 @@
                     <Item id="44107" name="Mudar para pasta como espaço de trabalho"/>
                     <Item id="44109" name="Mudar para lista de documentos"/>
                     <Item id="44108" name="Mudar para lista de funções"/>
+                    <Item id="44110" name="Remover Cor de Aba"/>
+                    <Item id="44111" name="Aplicar Cor 1 de Aba"/>
+                    <Item id="44112" name="Aplicar Cor 2 de Aba"/>
+                    <Item id="44113" name="Aplicar Cor 3 de Aba"/>
+                    <Item id="44114" name="Aplicar Cor 4 de Aba"/>
+                    <Item id="44115" name="Aplicar Cor 5 de Aba"/>
                     <Item id="11002" name="Classificar por Nome A a Z"/>
                     <Item id="11003" name="Classificar por Nome Z a A"/>
                     <Item id="11004" name="Classificar por Caminho A a Z"/>
@@ -935,7 +960,7 @@
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margens e borda">
-                    <Item id="6201" name="Estilo da margem das dobragens"/>
+                    <Item id="6201" name="Estilo da margem para expansão"/>
                     <Item id="6202" name="Simples"/>
                     <Item id="6203" name="Seta"/>
                     <Item id="6204" name="Círculo"/>
@@ -946,6 +971,7 @@
                     <Item id="6292" name="Largura dinâmica"/>
                     <Item id="6293" name="Largura constante"/>
                     <Item id="6207" name="Exibir margem dos marcadores"/>
+		    <Item id="6223" name="Mostrar Histórico de Modificações"/>
                     <Item id="6211" name="Configurações do marcador de coluna"/>
                     <Item id="6213" name="Modo plano de fundo"/>
                     <Item id="6237" name="Adicione seu marcador de coluna, indicando sua posição com um número decimal.
@@ -1343,6 +1369,7 @@ Deseja iniciar o Notepad++ no modo Administrador?"/>
 O Notepad++ será reiniciado depois que todas as operações forem concluídas.
 Deseja continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para carregar os plugins instalados."/>
+	    <ChangeHistoryEnabledWarning title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para habilitar o Hisórico de Modificações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <SaveAllConfirm title="Confirmação de Salvar todos" message="Tem certeza de que deseja salvar todos os documentos?
 
 Escolha &quot;Cancelar&quot; se sua resposta sempre for &quot;Sim&quot; e essa pergunta não será feita novamente.

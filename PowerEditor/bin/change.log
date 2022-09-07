@@ -1,29 +1,23 @@
-Notepad++ v8.4.4 crash/regression-fixes and new enhancement:
+Notepad++ v8.4.5 crash/regression-fixes and new features:
 
-1.  Fix Find in Files crash regression.
-2.  Add shortcuts toward the settings of preferences dialog into Styler Configurator.
+1.  Add reduce mode in Find/Replace dialog.
+2.  Update to Scintilla 5.2.4 and Lexilla 5.1.8.
+3.  Enhance very long line's performance.
+4.  Fix crash on Wine.
+5.  Fix drag n drop documents crash between 2 instances.
+6.  Improve performance for "Find in Files" and ""Find all in...".
+7.  Add option to turn off selecting text when Field dialog is invoked.
+8.  Fix Notepad++ crash due to calling NPPM_GETLANGUAGENAME with -1 (WPARAM).
+9.  Fix erasing part of content make hanging issue.
+10. Fix detected language not being applied if Default languge is set in Document settings.
+11. Add cycling function hints ability by ALT-UP/DOWN shortcuts.
+12. Add carret block after option.
+13. Add an option for hiding the ＋ ▼ ✕ from the menu bar.
+14. Fix dark mode visual glichy in explorer panel under Windows 8.1.
 
-
-Notepad++ v8.4.3 crash/regression-fixes, bug-fixes & new enhancement:
-
-1.  Add an option which allows to show only 1 entry per found line in search result.
-2.  Make EOL (CRLF) display customizable.
-3.  Add 2 more shortcuts "plus" (new file) and "arrow" (drop down list of opened files) buttons on menu bar.
-4.  Update Lexilla to 5.1.7 & Scintilla to 5.2.3 and use new API for large files.
-5.  Fix Find in files performance regression since updating Scintilla 5.
-6.  Add dark mode support for plugins - support dark mode for plugins with docking GUI.
-7.  Fix a crash issue due to opening an empty .NFO file.
-8.  Fix language fonts regression in Style Configurator (make font definition possible again).
-9.  Add NPPM_CREATELEXER message for plugins to instantiate lexers.
-10. Enhance dark mode (edge colors).
-11. Fix "CMD Here" command open Explorer issue.
-12. Fix crash issue of “Style Configurator…” command if “stylers.xml” is absent.
-13. Fix Selected text changes color issue when editor window loses focus.
-14. Skip save all warning dialog if only current editing file is dirty.
-15. Fix a small regression in DebugInfo dialog.
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.4.4/
+https://notepad-plus-plus.org/downloads/v8.4.5/
 
 
 Included plugins:

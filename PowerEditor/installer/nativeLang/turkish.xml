@@ -353,6 +353,8 @@
 					<Item id="50000" name="Fonksiyonu Tamamla"/>
 					<Item id="50001" name="Kelimeyi Tamamla"/>
 					<Item id="50002" name="Fonksiyon Parametre İpuçlarını Tamamla"/>
+					<Item id="50010" name="Fonksiyon Parametreleri Önceki İpucu"/>
+					<Item id="50011" name="Fonksiyon Parametreleri Sonraki İpucu"/>
 					<Item id="50005" name="Makro kaydını başlat/durdur"/>
 					<Item id="50006" name="Yolu Tamamla"/>
 					<Item id="44042" name="Satırları Gizle"/>
@@ -548,6 +550,7 @@
 					<Item id="2230" name="Genel kalın yazı tipi stilini kullan"/>
 					<Item id="2231" name="Genel eğik yazı tipi stilini kullan"/>
 					<Item id="2232" name="Genel altı çizili yazı tipi stilini kullan"/>
+					<Item id="2234" name="Ayarlara git"/>
 				</SubDialog>
 
 			</StyleConfig>
@@ -863,7 +866,9 @@
 					<Item id="6120" name="Dikey"/>
 					<Item id="6121" name="Kapatılan son sekmeden çık"/>
 
+					<Item id="6131" name="Menü"/>
 					<Item id="6122" name="Menü çubuğunu gizle (Alt veya F10 tuşlarıyla göster/gizle)"/>
+					<Item id="6132" name="Sağdaki ＋ ▼ ✕ kısayolları menü çubuğundan gizle (Notepad++ yeniden başlatılmalıdır)"/>
 					<Item id="6123" name="Yerelleştir"/>
 					
 					<Item id="6128" name="Alternatif Simgeler"/>
@@ -1045,11 +1050,14 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 				</Print>
 				
                 <Searching title="Arama">
-                    <Item id="6901" name="Bul penceresinde bul boşluğunu seçilmiş kelime ile doldurma"/>
                     <Item id="6902" name="Bul penceresinde sabit genişlikli yazıtipi kullan (Notepad++ yeniden başlatılmalıdır)"/>
                     <Item id="6903" name="Bul penceresi, arama sonuçlar penceresine yönlendirdiğinde açık kalsın"/>
                     <Item id="6904" name="Tüm Açılmış Pencerelerde Tümünü Değiştirmeyi Onayla"/>
                     <Item id="6905" name="Değiştir: Sonraki eşleşmeye geçme"/>
+                    <Item id="6906" name="Bul Sonucu Penceresi: Her bulunan satır için sadece tek girdi göster"/>
+                    <Item id="6907" name="Bul Diyaloğu Başlatıldığı Zaman"/>
+                    <Item id="6908" name="Bul Alanını Seçili Yazı ile Doldur"/>
+                    <Item id="6909" name="Hiçbir Şey Seçilmediyse İşaretçi Altındaki kelimeyi Seç"/>
                 </Searching>
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">

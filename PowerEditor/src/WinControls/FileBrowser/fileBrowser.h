@@ -52,8 +52,8 @@ public:
 	void setName(generic_string name) { _name = name; };
 
 private:
-	FolderInfo *_parent = nullptr;
 	generic_string _name;
+	FolderInfo *_parent = nullptr;
 };
 
 
@@ -79,8 +79,8 @@ public:
 private:
 	std::vector<FolderInfo> _subFolders;
 	std::vector<FileInfo> _files;
-	FolderInfo* _parent = nullptr;
 	generic_string _name;
+	FolderInfo* _parent = nullptr;
 	generic_string _rootPath; // set only for root folder; empty for normal folder
 };
 

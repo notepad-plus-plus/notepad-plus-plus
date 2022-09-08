@@ -26,7 +26,7 @@ enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTIL
 
 class ShortcutMapper : public StaticDialog {
 public:
-	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {
+	ShortcutMapper() : StaticDialog(), _currentState(STATE_MENU) {
 		_shortcutFilter = TEXT("");
 		_dialogInitDone = false;
 	};

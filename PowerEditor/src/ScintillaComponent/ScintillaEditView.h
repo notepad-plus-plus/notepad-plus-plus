@@ -138,8 +138,8 @@ struct ColumnModeInfo {
 	intptr_t _selRpos = 0;
 	intptr_t _order = -1; // 0 based index
 	bool _direction = L2R; // L2R or R2L
-	intptr_t _nbVirtualCaretSpc = 0;
 	intptr_t _nbVirtualAnchorSpc = 0;
+	intptr_t _nbVirtualCaretSpc = 0;
 
 	ColumnModeInfo(intptr_t lPos, intptr_t rPos, intptr_t order, bool dir = L2R, intptr_t vAnchorNbSpc = 0, intptr_t vCaretNbSpc = 0)
 		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualAnchorSpc(vAnchorNbSpc), _nbVirtualCaretSpc(vCaretNbSpc){};

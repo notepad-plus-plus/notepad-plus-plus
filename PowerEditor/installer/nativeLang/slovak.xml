@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.5">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -18,13 +18,13 @@
                     <Item menuId="tools" name="Nás&amp;troje"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Sp&amp;ustiť"/>
-                    <Item idName="Plugins" name="&amp;Doplnky"/>
-                    <Item idName="Window" name="&amp;Okná"/>
+                    <Item menuId="Plugins" name="&amp;Doplnky"/>
+                    <Item menuId="Window" name="&amp;Okná"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Otvoriť priečinok &amp;súboru"/>
-                    <Item subMenuId="file-closeMore" name="Zavrieť &amp;viacero súborov"/>
+                    <Item subMenuId="file-closeMore" name="Zavrieť &amp;viacero dokumentov"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Naposledy otvorené súbory"/>
                     <Item subMenuId="edit-insert" name="Prilepiť"/>
                     <Item subMenuId="edit-copyToClipboard" name="Skopírovať do s&amp;chránky"/>
@@ -176,11 +176,11 @@
                     <Item id="42026" name="Smer textu sprava doľava"/>
                     <Item id="42027" name="Smer textu zľava doprava"/>
                     <Item id="42028" name="&amp;Nastaviť 'Iba na čítanie'"/>
-                    <Item id="42029" name="Skopírovať cestu k aktuálnemu súboru do schránky"/>
-                    <Item id="42030" name="Skopírovať názov aktuálneho súboru do schránky"/>
-                    <Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku do schránky"/>
-                    <Item id="42087" name="Všetky názvy súborov do schránky"/>
-                    <Item id="42088" name="Všetky cesty súborov do schránky"/>
+                    <Item id="42029" name="Skopírovať cestu k aktuálnemu súboru"/>
+                    <Item id="42030" name="Skopírovať názov aktuálneho súboru"/>
+                    <Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
+                    <Item id="42087" name="Všetky názvy súborov"/>
+                    <Item id="42088" name="Všetky cesty súborov"/>
                     <Item id="42032" name="Spustiť makro viacnásobne..."/>
                     <Item id="42033" name="Odstrániť označenie 'Iba na čítanie'"/>
                     <Item id="42035" name="Zakomentovať riadok"/>
@@ -288,6 +288,12 @@
                     <Item id="44097" name="Sledovanie zmien (tail -f)"/>
                     <Item id="44098" name="Presunúť kartu dopredu"/>
                     <Item id="44099" name="Presunúť kartu dozadu"/>
+                    <Item id="44110" name="Odstrániť farbu"/>
+                    <Item id="44111" name="Použiť farbu 1"/>
+                    <Item id="44112" name="Použiť farbu 2"/>
+                    <Item id="44113" name="Použiť farbu 3"/>
+                    <Item id="44114" name="Použiť farbu 4"/>
+                    <Item id="44115" name="Použiť farbu 5"/>
                     <Item id="44032" name="Prepnúť zobrazenie na celú obrazovku"/>
                     <Item id="44033" name="Obnoviť predvolené priblíženie"/>
                     <Item id="44034" name="Vždy navrchu"/>
@@ -381,15 +387,15 @@
             </Splitter>
             <TabBar>
                     <Item CMID="0" name="Zavrieť"/>
-                    <Item CMID="1" name="Zavrieť všetko OKREM tohto"/>
+                    <Item CMID="1" name="Zavrieť všetky OKREM tejto"/>
                     <Item CMID="2" name="Uložiť"/>
                     <Item CMID="3" name="Uložiť ako..."/>
                     <Item CMID="4" name="Tlačiť…"/>
                     <Item CMID="5" name="Presunúť do druhého náhľadu"/>
                     <Item CMID="6" name="Klonovať do druhého náhľadu"/>
-                    <Item CMID="7" name="Celá cesta k súboru do schránky"/>
-                    <Item CMID="8" name="Názov súboru do schránky"/>
-                    <Item CMID="9" name="Cesta k aktuálnemu priečinku do schránky"/>
+                    <Item CMID="7" name="Skopírovať celú cestu k súboru"/>
+                    <Item CMID="8" name="Skopírovať názov súboru"/>
+                    <Item CMID="9" name="Skopírovať cestu k aktuálnemu priečinku"/>
                     <Item CMID="10" name="Premenovať…"/>
                     <Item CMID="11" name="Presunúť do koša…"/>
                     <Item CMID="12" name="Iba na čítanie"/>
@@ -404,6 +410,17 @@
                     <Item CMID="21" name="Otvoriť v predvolenom prehliadači"/>
                     <Item CMID="22" name="Zavrieť všetky nezmenené"/>
                     <Item CMID="23" name="Otvoriť priečinok súboru ako pracovný priestor"/>
+                    <Item CMID="24" name="Použiť farbu 1"/>
+                    <Item CMID="25" name="Použiť farbu 2"/>
+                    <Item CMID="26" name="Použiť farbu 3"/>
+                    <Item CMID="27" name="Použiť farbu 4"/>
+                    <Item CMID="28" name="Použiť farbu 5"/>
+                    <Item CMID="29" name="Odstrániť farbu"/>
+                    <Item CMID="30" name="Zavrieť viacero kariet"/>
+                    <Item CMID="31" name="Otvoriť do"/>
+                    <Item CMID="32" name="Kopírovať do schránky"/>
+                    <Item CMID="33" name="Presunúť dokument"/>
+                    <Item CMID="34" name="Použiť farbu na kartu"/>
             </TabBar>
         </Menu>
 
@@ -436,8 +453,8 @@
                 <Item id="1658" name="Vo všet. podpriečinkoch"/>
                 <Item id="1659" name="V skrytých priečinkoch"/>
                 <Item id="1624" name="Režim vyhľadávania"/>
-                <Item id="1625" name="Normálny"/>
-                <Item id="1626" name="Rozšírený (\n, \r, \t, \0, \x...)"/>
+                <Item id="1625" name="&amp;Normálny"/>
+                <Item id="1626" name="&amp;Rozšírený (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Nahradiť v súboroch"/>
                 <Item id="1665" name="Nahradiť v projektoch"/>
                 <Item id="1661" name="Podľa aktuálneho dok."/>
@@ -463,24 +480,24 @@
                 <Item id="2901" name="Non-ASCII znaky (128-255)"/>
                 <Item id="2902" name="ASCII znaky (0 - 127)"/>
                 <Item id="2903" name="Vlastný rozsah:"/>
-                <Item id="2906" name="Hore"/>
-                <Item id="2907" name="Dole"/>
+                <Item id="2906" name="&amp;Hore"/>
+                <Item id="2907" name="&amp;Dole"/>
                 <Item id="2908" name="Smer"/>
-                <Item id="2909" name="Cyklicky"/>
+                <Item id="2909" name="&amp;Cyklicky"/>
                 <Item id="2910" name="Hľadať"/>
             </FindCharsInRange>
 
-            <GoToLine title="Ísť na">
-                <Item id="2007" name="Riadok"/>
-                <Item id="2008" name="Pozícia"/>
-                <Item id="1" 	name="&amp;Prejsť"/>
+            <GoToLine title="Ísť na…">
+                <Item id="2007" name="&amp;Riadok"/>
+                <Item id="2008" name="&amp;Pozícia"/>
+                <Item id="1" 	name="Prejsť"/>
                 <Item id="2" 	name="Zrušiť"/>
                 <Item id="2004" name="Aktuálny riadok/pozícia:"/>
                 <Item id="2005" name="Prejsť na riadok/pozíciu:"/>
                 <Item id="2006" name="Posledný riadok/pozícia:"/>
             </GoToLine>
 
-            <Run title="Spustiť">
+            <Run title="Spustiť…">
                 <Item id="1903" name="Program na spustenie"/>
                 <Item id="1" name="Spustiť"/>
                 <Item id="2"	name="Zrušiť"/>
@@ -511,7 +528,7 @@
                 <Item id="2" name="Zavrieť"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Správa doplnkov" titleAvailable = "Dostupné" titleUpdates = "Aktualizácie" titleInstalled = "Nainštalované">
+            <PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné">
                 <ColumnPlugin name="Doplnok"/>
                 <ColumnVersion name="Verzia"/>
                 <Item id="5501" name="Hľadať:"/>
@@ -519,6 +536,8 @@
                 <Item id="5504" name="Aktualizovať"/>
                 <Item id="5505" name="Odstrániť"/>
                 <Item id="5508" name="Ďalší"/>
+                <Item id="5509" name="Verzia zoznamu doplnkov: "/>
+                <Item id="5511" name="Repozitár zoznamu doplnkov"/>
                 <Item id="2" name="Zavrieť"/>
             </PluginsAdminDlg>
 
@@ -627,17 +646,17 @@
                     <Item id="44056" name="Zbaliť úroveň 6"/>
                     <Item id="44057" name="Zbaliť úroveň 7"/>
                     <Item id="44058" name="Zbaliť úroveň 8"/>
-                    <Item id="44061" name="Rozbaliť 1"/>
-                    <Item id="44062" name="Rozbaliť 2"/>
-                    <Item id="44063" name="Rozbaliť 3"/>
-                    <Item id="44064" name="Rozbaliť 4"/>
-                    <Item id="44065" name="Rozbaliť 5"/>
-                    <Item id="44066" name="Rozbaliť 6"/>
-                    <Item id="44067" name="Rozbaliť 7"/>
-                    <Item id="44068" name="Rozbaliť 8"/>
+                    <Item id="44061" name="Rozbaliť úroveň 1"/>
+                    <Item id="44062" name="Rozbaliť úroveň 2"/>
+                    <Item id="44063" name="Rozbaliť úroveň 3"/>
+                    <Item id="44064" name="Rozbaliť úroveň 4"/>
+                    <Item id="44065" name="Rozbaliť úroveň 5"/>
+                    <Item id="44066" name="Rozbaliť úroveň 6"/>
+                    <Item id="44067" name="Rozbaliť úroveň 7"/>
+                    <Item id="44068" name="Rozbaliť úroveň 8"/>
                     <Item id="44081" name="Prepnúť panel projektu 1"/>
                     <Item id="44082" name="Prepnúť panel projektu 2"/>
-                    <Item id="44082" name="Prepnúť panel projektu 3"/>
+                    <Item id="44083" name="Prepnúť panel projektu 3"/>
                     <Item id="44085" name="Prepnúť priečinok ako pracovný priestor"/>
                     <Item id="44080" name="Prepnúť mapu dokumentu"/>
                     <Item id="44070" name="Prepnúť zoznam dokumentov"/>
@@ -649,6 +668,12 @@
                     <Item id="44107" name="Prepnúť na Priečinok ako pracovný priestor"/>
                     <Item id="44109" name="Prepnúť na Zoznam dokumentov"/>
                     <Item id="44108" name="Prepnúť na Zoznam funkcií"/>
+                    <Item id="44110" name="Odstrániť farbu karty"/>
+                    <Item id="44111" name="Použiť farbu karty 1"/>
+                    <Item id="44112" name="Použiť farbu karty 2"/>
+                    <Item id="44113" name="Použiť farbu karty 3"/>
+                    <Item id="44114" name="Použiť farbu karty 4"/>
+                    <Item id="44115" name="Použiť farbu karty 5"/>
                     <Item id="11002" name="Zoradiť podľa názvu od A po Z"/>
                     <Item id="11003" name="Zoradiť podľa názvu od Z po A"/>
                     <Item id="11004" name="Zoradiť podľa cesty od A po Z"/>
@@ -867,7 +892,7 @@
                     <Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
 
                     <Item id="6131" name="Ponuka"/>
-                    <Item id="6122" name="Skryť panel ponuky (Na prepínanie použite klávesu Alt alebo F10)"/>
+                    <Item id="6122" name="Skryť panel ponuky (Prepínanie klávesom Alt alebo F10)"/>
                     <Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕ z panela ponuky (Vyžaduje reštart Notepad++)"/>
                     <Item id="6123" name="Lokalizácia"/>
 
@@ -900,35 +925,35 @@
                     <Item id="6249" name="Obyčajný text"/>
                     <Item id="6250" name="Vlastná farba"/>
                 </Scintillas>
-				
-                    <DarkMode title="Tmavý režim">
-                        <Item id="7101" name="Povoliť tmavý režim"/>
-                        <Item id="7102" name="Čierna"/>
-                        <Item id="7103" name="Červená"/>
-                        <Item id="7104" name="Zelená"/>
-                        <Item id="7105" name="Modrá"/>
-                        <Item id="7107" name="Fialová"/>
-                        <Item id="7108" name="Azúrová"/>
-                        <Item id="7109" name="Olivová"/>
-                        <Item id="7115" name="Vlastná"/>
-                        <Item id="7116" name="Horný panel"/>
-                        <Item id="7117" name="Položka hlavnej ponuky"/>
-                        <Item id="7118" name="Aktívna"/>
-                        <Item id="7119" name="Hlavné"/>
-                        <Item id="7120" name="Chyba"/>
-                        <Item id="7121" name="Text"/>
-                        <Item id="7122" name="Tmavší text"/>
-                        <Item id="7123" name="Neprístupný text"/>
-                        <Item id="7124" name="Orámovanie"/>
-                        <Item id="7125" name="Odkaz"/>
-                        <Item id="7126" name="Zvýraznenie okrajov"/>
-                        <Item id="7127" name="Vypnuté okraje"/>
-                        <Item id="7130" name="Obnoviť"/>
-                        <Item id="7135" name="Odtiene"/>
+
+                <DarkMode title="Tmavý režim">
+                    <Item id="7101" name="Povoliť tmavý režim"/>
+                    <Item id="7102" name="Čierna"/>
+                    <Item id="7103" name="Červená"/>
+                    <Item id="7104" name="Zelená"/>
+                    <Item id="7105" name="Modrá"/>
+                    <Item id="7107" name="Fialová"/>
+                    <Item id="7108" name="Azúrová"/>
+                    <Item id="7109" name="Olivová"/>
+                    <Item id="7115" name="Vlastná"/>
+                    <Item id="7116" name="Horný panel"/>
+                    <Item id="7117" name="Položka hlavnej ponuky"/>
+                    <Item id="7118" name="Aktívna"/>
+                    <Item id="7119" name="Hlavné"/>
+                    <Item id="7120" name="Chyba"/>
+                    <Item id="7121" name="Text"/>
+                    <Item id="7122" name="Tmavší text"/>
+                    <Item id="7123" name="Neprístupný text"/>
+                    <Item id="7124" name="Orámovanie"/>
+                    <Item id="7125" name="Odkaz"/>
+                    <Item id="7126" name="Zvýraznenie okrajov"/>
+                    <Item id="7127" name="Vypnuté okraje"/>
+                    <Item id="7130" name="Obnoviť"/>
+                    <Item id="7135" name="Odtiene"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Okraje a ohraničenia">
-                    <Item id="6201" name="Štýl stromu"/>
+                    <Item id="6201" name="Štýl rozbaľovania"/>
                     <Item id="6202" name="Jednoduchý"/>
                     <Item id="6203" name="Šípky"/>
                     <Item id="6204" name="Kruhy"/>
@@ -939,6 +964,7 @@
                     <Item id="6292" name="Dynamická šírka"/>
                     <Item id="6293" name="Konštantná šírka"/>
                     <Item id="6207" name="Zobraziť záložky"/>
+                    <Item id="6223" name="Zobraziť históriu zmien"/>
                     <Item id="6211" name="Nastavenie vertikálneho okraja"/>
                     <Item id="6213" name="Režim pozadia"/>
                     <Item id="6237" name="Pridajte značku stĺpca zadaním jej pozície (celé číslo).
@@ -1336,6 +1362,7 @@ Chcete spustiť Notepad++ v režime správcu?"/>
 Notepad++ sa reštartuje po ukončení všetkých operácií.
 Pokračovať?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných pluginov je potrebné Notepad++ reštartovať."/>
+            <ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>
@@ -1463,8 +1490,10 @@ Pokračovať?"/>
 
 Hľadá vo všetkých súboroch okrem exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
+
 Hľadá vo všetkých súboroch okrem priečinkov tests, bin &amp;&amp; bin64:
 *.* !\tests !\bin*
+
 Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
 *.* !+\log*"/>
             <find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/>

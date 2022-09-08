@@ -928,7 +928,7 @@
                 </DarkMode>
 
                 <MarginsBorderEdge title="Okraje a ohraničenia">
-                    <Item id="6201" name="Štýl stromu"/>
+                    <Item id="6201" name="Štýl rozbaľovania"/>
                     <Item id="6202" name="Jednoduchý"/>
                     <Item id="6203" name="Šípky"/>
                     <Item id="6204" name="Kruhy"/>

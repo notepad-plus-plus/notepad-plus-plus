@@ -30,7 +30,7 @@ struct PluginCommand
 	generic_string _pluginName;
 	int _funcID = 0;
 	PFUNCPLUGINCMD _pFunc = nullptr;
-	PluginCommand(const TCHAR *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _funcID(funcID), _pFunc(pFunc), _pluginName(pluginName){};
+	PluginCommand(const TCHAR *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _pluginName(pluginName), _funcID(funcID), _pFunc(pFunc) {};
 };
 
 struct PluginInfo

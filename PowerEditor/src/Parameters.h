@@ -185,7 +185,7 @@ public:
 struct sessionFileInfo : public Position
 {
 	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, bool userReadOnly, const Position& pos, const TCHAR *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
-		_isUserReadOnly(userReadOnly), _encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
+		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
@@ -332,7 +332,7 @@ struct PluginDlgDockingInfo final
 	bool _isVisible = false;
 
 	PluginDlgDockingInfo(const TCHAR* pluginName, int id, int curr, int prev, bool isVis)
-		: _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis), _name(pluginName)
+		: _name(pluginName), _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis)
 	{}
 
 	bool operator == (const PluginDlgDockingInfo& rhs) const
@@ -1082,8 +1082,8 @@ private:
 	StyleArray _styles;
 	generic_string _name;
 	generic_string _ext;
-	generic_string _udlVersion;
 	bool _isDarkModeTheme = false;
+	generic_string _udlVersion;
 
 	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
 	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS] = {false};

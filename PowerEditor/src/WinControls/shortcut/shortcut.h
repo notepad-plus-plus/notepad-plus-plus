@@ -198,7 +198,7 @@ private :
 
 class ScintillaKeyMap : public Shortcut {
 public:
-	ScintillaKeyMap(const Shortcut& sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {
+	ScintillaKeyMap(const Shortcut& sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _scintillaKeyID(scintillaKeyID), _menuCmdID(id) {
 		_keyCombos.clear();
 		_keyCombos.push_back(_keyCombo);
 		_keyCombo._key = 0;

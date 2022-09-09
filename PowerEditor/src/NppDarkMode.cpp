@@ -28,6 +28,8 @@
 
 #include <Shlwapi.h>
 
+#include <array>
+
 #ifdef __GNUC__
 #include <cmath>
 #define WINAPI_LAMBDA WINAPI
@@ -2857,4 +2859,69 @@ namespace NppDarkMode
 		}
 		return static_cast<INT_PTR>(NppDarkMode::onCtlColor(hdc));
 	}
+
+	struct HLSColour
+	{
+		WORD _Hue;
+		WORD _Lightness;
+		WORD _Saturation;
+
+		COLORREF toRGB() const { return hlsColour(_Hue, _Lightness, _Saturation); }
+	};
+
+	using IndividualTabColours = std::array<HLSColour, 5>;
+
+	static constexpr IndividualTabColours individualTabHuesFor_Dark      { { HLSColour{0, 40, 60}, HLSColour{70, 40, 60}, HLSColour{144, 40, 60}, HLSColour{13, 40, 60}, HLSColour{195, 40, 60} } };
+	static constexpr IndividualTabColours individualTabHuesFor_DarkRed   { { HLSColour{0, 60, 60}, HLSColour{70, 50, 60}, HLSColour{144, 50, 60}, HLSColour{13, 50, 60}, HLSColour{195, 50, 60} } };
+	static constexpr IndividualTabColours individualTabHuesFor_DarkGreen { { HLSColour{0, 50, 60}, HLSColour{70, 50, 60}, HLSColour{144, 50, 60}, HLSColour{13, 50, 60}, HLSColour{195, 50, 60} } };
+	static constexpr IndividualTabColours individualTabHuesFor_DarkBlue  { { HLSColour{0, 50, 60}, HLSColour{70, 50, 60}, HLSColour{144, 50, 60}, HLSColour{13, 50, 60}, HLSColour{195, 50, 60} } };
+	static constexpr IndividualTabColours individualTabHuesFor_DarkPurple{ { HLSColour{0, 50, 60}, HLSColour{70, 50, 60}, HLSColour{144, 50, 60}, HLSColour{13, 50, 60}, HLSColour{195, 60, 60} } };
+	static constexpr IndividualTabColours individualTabHuesFor_DarkCyna  { { HLSColour{0, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{13, 60, 60}, HLSColour{195, 60, 60} } };
+	static constexpr IndividualTabColours individualTabHuesFor_DarkOlive { { HLSColour{0, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 60, 60}, HLSColour{13, 60, 60}, HLSColour{195, 60, 60} } };
+
+	static const IndividualTabColours individualTabHues              { { HLSColour{0, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{13, 210, 150}, HLSColour{195, 210, 150} } };
+
+	const IndividualTabColours& getIndividualThemeDependantColours()
+	{
+		switch (g_colorToneChoice)
+		{
+			case redTone: return individualTabHuesFor_DarkRed;
+			case greenTone: return individualTabHuesFor_DarkGreen;
+			case blueTone: return individualTabHuesFor_DarkBlue;
+			case purpleTone: return individualTabHuesFor_DarkPurple;
+			case cyanTone: return individualTabHuesFor_DarkCyna;
+			case oliveTone: return individualTabHuesFor_DarkOlive;
+			default: return individualTabHuesFor_Dark;
+		}
+	}
+
+	COLORREF getIndividualTabColours(int colourIndex, bool themeDependant, bool saturated)
+	{
+		if (colourIndex < 0 || colourIndex > 4) return {};
+
+		HLSColour result;
+		if (themeDependant)
+		{
+			result = getIndividualThemeDependantColours()[colourIndex];
+
+			if (saturated)
+			{
+				result._Lightness = 146;
+				result._Saturation = min(240, result._Saturation + 100);
+			}
+		}
+		else
+		{
+			result = individualTabHues[colourIndex];
+
+			if (saturated)
+			{
+				result._Lightness = 140;
+				result._Saturation = min(240, result._Saturation + 30);
+			}
+		}
+
+		return result.toRGB();
+	}
+
 }

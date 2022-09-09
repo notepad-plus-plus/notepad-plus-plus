@@ -388,25 +388,31 @@ static const int tabContextMenuItemPos[] =
     5,   //  2: Save
     6,   //  3: Save As
    10,   //  4: Print
-   25,   //  5: Move to Other View
-   26,   //  6: Clone to Other View
-   21,   //  7: Full File Path to Clipboard
-   22,   //  8: Filename to Clipboard
-   23,   //  9: Current Dir. Path to Clipboard
-    7,   // 10: Rename
-    8,   // 11: Move to Recycle Bin
-   18,   // 12: Read-Only
-   19,   // 13: Clear Read-Only Flag
-   27,   // 14: Move to New Instance
-   28,   // 15: Open to New Instance
-    9,   // 16: Reload
-    2,   // 17: Close ALL to the Left
-    3,   // 18: Close ALL to the Right
-   12,   // 19: Open Containing Folder in Explorer
-   13,   // 20: Open Containing Folder in cmd
-   16,   // 21: Open in Default Viewer
-    4,   // 22: Close ALL Unchanged
-   14,   // 23: Open Containing Folder as Workspace
+   30,   //  5: Apply Color 1
+   31,   //  6: Apply Color 2
+   32,   //  7: Apply Color 3
+   33,   //  8: Apply Color 4
+   34,   //  9: Apply Color 5
+   35,   // 10: Remove Color
+   25,   // 11: Move to Other View
+   26,   // 12: Clone to Other View
+   21,   // 13: Full File Path to Clipboard
+   22,   // 14: Filename to Clipboard
+   23,   // 15: Current Dir. Path to Clipboard
+    7,   // 16: Rename
+    8,   // 17: Move to Recycle Bin
+   18,   // 18: Read-Only
+   19,   // 19: Clear Read-Only Flag
+   27,   // 20: Move to New Instance
+   28,   // 21: Open to New Instance
+    9,   // 22: Reload
+    2,   // 23: Close ALL to the Left
+    3,   // 24: Close ALL to the Right
+   12,   // 25: Open Containing Folder in Explorer
+   13,   // 26: Open Containing Folder in cmd
+   16,   // 27: Open in Default Viewer
+    4,   // 28: Close ALL Unchanged
+   14,   // 29: Open Containing Folder as Workspace
    -1    //-------End
 };
 

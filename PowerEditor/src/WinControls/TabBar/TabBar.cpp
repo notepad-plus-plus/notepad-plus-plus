@@ -1002,33 +1002,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 	return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 }
 
-enum IndividualTablColourType
-{
-	ITCT_DARKMODE = 0,
-	ITCT_DARKENED = 1,
-	ITCT_DEFAULT = 2,
-	ITCT_LIGHT = 3,
-	ITCT_SATURATED = 4,
-
-	ITCT_MAX
-};
-
-bool tryGetColourizedTabBrushColour(COLORREF& outColour, int colourId, IndividualTablColourType colourType)
-{
-	if (colourId == -1 || colourId > 4) return false;
-
-	// red, green, blue, orange, purple
-	constexpr WORD hues[] { 0, 70, 144, 13, 195 };
-
-	static_assert(ITCT_MAX == 5, "IndividualTablColourType changed, update array below");
-	constexpr WORD saturations[] { 40, 190, 210, 210, 170 };
-	constexpr WORD lightness[] { 60, 50, 150, 210, 200 };
-
-	outColour = NppDarkMode::hlsColour(hues[colourId], saturations[colourType], lightness[colourType]);
-
-	return true;
-}
-
 void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 {
 	RECT rect = pDrawItemStruct->rcItem;
@@ -1058,7 +1031,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	HBRUSH hBrush = ::CreateSolidBrush(!isDarkMode ? ::GetSysColor(COLOR_BTNFACE) : NppDarkMode::getBackgroundColor());
 	::FillRect(hDC, &rect, hBrush);
 	::DeleteObject((HGDIOBJ)hBrush);
-	
+
 	// equalize drawing areas of active and inactive tabs
 	int paddingDynamicTwoX = NppParameters::getInstance()._dpiManager.scaleX(2);
 	int paddingDynamicTwoY = NppParameters::getInstance()._dpiManager.scaleY(2);
@@ -1098,7 +1071,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			rect.bottom += paddingDynamicTwoY;
 		}
 	}
-	
+
 	// the active tab's text with TCS_BUTTONS is lower than normal and gets clipped
 	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 	{
@@ -1112,7 +1085,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 	}
 
-	const int colourId = getIndividualTabColour(nTab);
+	const int individualColourId = getIndividualTabColour(nTab);
 
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
 	RECT barRect = rect;
@@ -1138,9 +1111,12 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, reinterpret_cast<LPARAM>(_hSelf)))
 			{
-				COLORREF individualColour;
-				bool hasIndividualColour = tryGetColourizedTabBrushColour(individualColour, colourId, isDarkMode ? ITCT_LIGHT : ITCT_SATURATED);
-				hBrush = ::CreateSolidBrush(hasIndividualColour ? individualColour : _activeTopBarFocusedColour); // #FAAA3C
+				COLORREF topBarColour = _activeTopBarFocusedColour; // #FAAA3C
+				if (individualColourId != -1)
+				{
+					topBarColour = NppDarkMode::getIndividualTabColours(individualColourId, isDarkMode, true);
+				}
+				hBrush = ::CreateSolidBrush(topBarColour);
 			}
 			else
 				hBrush = ::CreateSolidBrush(_activeTopBarUnfocusedColour); // #FAD296
@@ -1149,25 +1125,38 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			::DeleteObject((HGDIOBJ)hBrush);
 		}
 	}
-	else
+	else // inactive tabs
 	{
-		if (_drawInactiveTab)
+		bool draw = false;
+		RECT rect{};
+		COLORREF brushColour{};
+
+		if (_drawInactiveTab && individualColourId == -1 && !isDarkMode)
 		{
-			COLORREF brushColour = isDarkMode ? NppDarkMode::getBackgroundColor() : _inactiveBgColour;
-			tryGetColourizedTabBrushColour(brushColour, colourId, isDarkMode ? ITCT_DARKMODE : ITCT_DARKENED);
-			hBrush = ::CreateSolidBrush(brushColour);
-			::FillRect(hDC, &barRect, hBrush);
-			::DeleteObject((HGDIOBJ)hBrush);
+			brushColour = _inactiveBgColour;
+			rect = barRect;
+			draw = true;
 		}
-		else
+		else if (individualColourId != -1)
 		{
-			COLORREF brushColour = 0;
-			if (tryGetColourizedTabBrushColour(brushColour, colourId, isDarkMode ? ITCT_DARKMODE : ITCT_DEFAULT))
+			if (isDarkMode)
 			{
-				hBrush = ::CreateSolidBrush(brushColour);
-				::FillRect(hDC, &barRect, hBrush);
-				::DeleteObject((HGDIOBJ)hBrush);
+				rect = barRect;
+				brushColour = NppDarkMode::getIndividualTabColours(individualColourId, true, false);
 			}
+			else
+			{
+				rect = pDrawItemStruct->rcItem;
+				brushColour = NppDarkMode::getIndividualTabColours(individualColourId, false, false);
+			}
+			draw = true;
+		}
+
+		if (draw)
+		{
+			hBrush = ::CreateSolidBrush(brushColour);
+			::FillRect(hDC, &rect, hBrush);
+			::DeleteObject((HGDIOBJ)hBrush);
 		}
 	}
 

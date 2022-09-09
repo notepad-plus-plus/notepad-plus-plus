@@ -100,7 +100,6 @@ namespace NppDarkMode
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
 	double calculatePerceivedLighness(COLORREF c);
-	COLORREF hlsColour(WORD hue, WORD lightness, WORD saturation);
 
 	void setDarkTone(ColorTone colorToneChoice);
 
@@ -133,6 +132,8 @@ namespace NppDarkMode
 	HPEN getEdgePen();
 	HPEN getHotEdgePen();
 	HPEN getDisabledEdgePen();
+
+	COLORREF getIndividualTabColours(int colourIndex, bool themeDependant, bool saturated);
 
 	void setBackgroundColor(COLORREF c);
 	void setSofterBackgroundColor(COLORREF c);

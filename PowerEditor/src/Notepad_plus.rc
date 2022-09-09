@@ -706,16 +706,12 @@ BEGIN
             MENUITEM "Move Tab Forward",        IDM_VIEW_TAB_MOVEFORWARD
             MENUITEM "Move Tab Backward",       IDM_VIEW_TAB_MOVEBACKWARD
             MENUITEM SEPARATOR
-            POPUP "Colour"
-            BEGIN
-                MENUITEM "Red",      IDM_VIEW_TAB_COLOUR_1
-                MENUITEM "Green",    IDM_VIEW_TAB_COLOUR_2
-                MENUITEM "Blue",     IDM_VIEW_TAB_COLOUR_3
-                MENUITEM "Orange",   IDM_VIEW_TAB_COLOUR_4
-                MENUITEM "Purple",   IDM_VIEW_TAB_COLOUR_5
-                MENUITEM SEPARATOR
-                MENUITEM "None",     IDM_VIEW_TAB_COLOUR_NONE
-            END
+            MENUITEM "Apply Color 1",           IDM_VIEW_TAB_COLOUR_1
+            MENUITEM "Apply Color 2",           IDM_VIEW_TAB_COLOUR_2
+            MENUITEM "Apply Color 3",           IDM_VIEW_TAB_COLOUR_3
+            MENUITEM "Apply Color 4",           IDM_VIEW_TAB_COLOUR_4
+            MENUITEM "Apply Color 5",           IDM_VIEW_TAB_COLOUR_5
+            MENUITEM "Remove Color",            IDM_VIEW_TAB_COLOUR_NONE
         END
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW

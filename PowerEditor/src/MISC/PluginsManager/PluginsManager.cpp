@@ -317,7 +317,7 @@ int PluginsManager::loadPluginFromPath(const TCHAR *pluginFilePath)
 	}
 }
 
-bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList, PluginViewList* pluginImcompatibleList)
+bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginUpdateInfoList, PluginViewList* pluginIncompatibleList)
 {
 	if (_isDisabled)
 		return false;
@@ -389,14 +389,14 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 							// Find compatible Notepad++ versions
 							isCompatible = nppVer.isCompatibleTo(pui->_nppCompatibleVersions.first, pui->_nppCompatibleVersions.second);
 
-							if (!isCompatible && pluginImcompatibleList)
+							if (!isCompatible && pluginIncompatibleList)
 							{
 								PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui);
 								incompatiblePlg->_version = v;
 								TCHAR msg[1024];
 								wsprintf(msg, incompatibleWarning, incompatiblePlg->_displayName.c_str(), v.toString().c_str(), nppVer.toString().c_str());
 								incompatiblePlg->_description = msg;
-								pluginImcompatibleList->pushBack(incompatiblePlg);
+								pluginIncompatibleList->pushBack(incompatiblePlg);
 							}
 						}
 						else if (v < pui->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
@@ -407,14 +407,14 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 							{
 								isCompatible = nppVer.isCompatibleTo(pui->_oldVersionCompatibility.second.first, pui->_oldVersionCompatibility.second.second);
 
-								if (!isCompatible && pluginImcompatibleList)
+								if (!isCompatible && pluginIncompatibleList)
 								{
 									PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui);
 									incompatiblePlg->_version = v;
 									TCHAR msg[1024];
 									wsprintf(msg, incompatibleWarningWithSolution, incompatiblePlg->_displayName.c_str(), v.toString().c_str(), nppVer.toString().c_str(), pui->_version.toString().c_str());
 									incompatiblePlg->_description = msg;
-									pluginImcompatibleList->pushBack(incompatiblePlg);
+									pluginIncompatibleList->pushBack(incompatiblePlg);
 								}
 							}
 						}
@@ -467,14 +467,14 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 								// Find compatible Notepad++ versions
 								isCompatible2 = nppVer.isCompatibleTo(pui2->_nppCompatibleVersions.first, pui2->_nppCompatibleVersions.second);
 
-								if (!isCompatible2 && pluginImcompatibleList)
+								if (!isCompatible2 && pluginIncompatibleList)
 								{
 									PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui2);
 									incompatiblePlg->_version = v2;
 									TCHAR msg[1024];
 									wsprintf(msg, incompatibleWarning, incompatiblePlg->_displayName.c_str(), v2.toString().c_str(), nppVer.toString().c_str());
 									incompatiblePlg->_description = msg;
-									pluginImcompatibleList->pushBack(incompatiblePlg);
+									pluginIncompatibleList->pushBack(incompatiblePlg);
 								}
 							}
 							else if (v2 < pui2->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
@@ -485,14 +485,14 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 								{
 									isCompatible2 = nppVer.isCompatibleTo(pui2->_oldVersionCompatibility.second.first, pui2->_oldVersionCompatibility.second.second);
 
-									if (!isCompatible2 && pluginImcompatibleList)
+									if (!isCompatible2 && pluginIncompatibleList)
 									{
 										PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui2);
 										incompatiblePlg->_version = v2;
 										TCHAR msg[1024];
 										wsprintf(msg, incompatibleWarningWithSolution, incompatiblePlg->_displayName.c_str(), v2.toString().c_str(), nppVer.toString().c_str(), pui2->_version.toString().c_str());
 										incompatiblePlg->_description = msg;
-										pluginImcompatibleList->pushBack(incompatiblePlg);
+										pluginIncompatibleList->pushBack(incompatiblePlg);
 									}
 								}
 							}

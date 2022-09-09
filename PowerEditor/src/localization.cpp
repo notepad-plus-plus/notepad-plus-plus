@@ -815,6 +815,7 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 				const char *titre1 = (dlgNode->ToElement())->Attribute("titleAvailable");
 				const char *titre2 = (dlgNode->ToElement())->Attribute("titleUpdates");
 				const char *titre3 = (dlgNode->ToElement())->Attribute("titleInstalled");
+				const char *titre4 = (dlgNode->ToElement())->Attribute("titleIncompatible");
 
 				if (titre1 && titre1[0])
 				{
@@ -830,6 +831,11 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(INSTALLED_LIST, nameW.c_str());
+				}
+				if (titre4 && titre4[0])
+				{
+					basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
+					pluginsAdminDlg.changeTabName(INCOMPATIBLE_LIST, nameW.c_str());
 				}
 			}
 

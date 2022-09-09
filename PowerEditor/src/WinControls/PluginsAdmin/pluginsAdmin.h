@@ -23,6 +23,7 @@
 #include "TabBar.h"
 #include "ListView.h"
 #include "tinyxml.h"
+#include "URLCtrl.h"
 
 class PluginsManager;
 
@@ -135,7 +136,7 @@ private:
 	SORT_TYPE _sortType = DISPLAY_NAME_ALPHABET_ENCREASE;
 };
 
-enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST };
+enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST, INCOMPATIBLE_LIST };
 
 
 class PluginsAdminDlg final : public StaticDialog
@@ -195,6 +196,9 @@ private :
 	generic_string _pluginListFullPath;
 
 	TabBar _tab;
+
+	std::wstring _pluginListVersion;
+	URLCtrl _repoLink;
 
 	PluginViewList _availableList;    // A permanent list, once it's loaded (no removal - only hide or show) 
 	PluginViewList _updateList;       // A dynamical list, items are removable

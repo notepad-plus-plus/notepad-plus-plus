@@ -157,6 +157,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
 	researchLabelRect.left = rect.left + marge;
+	long leftCusor = researchLabelRect.left + researchLabelRect.right;
 	researchLabelRect.top = topMarge + dpiManager.scaleY(4);
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
@@ -164,15 +165,17 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	HWND hResearchEdit = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT);
 	RECT researchEditRect;
 	::GetClientRect(hResearchEdit, &researchEditRect);
-	researchEditRect.left = researchLabelRect.right + marge;
-	researchEditRect.top = topMarge + dpiManager.scaleX(2);
+	researchEditRect.left = leftCusor;
+	leftCusor += researchEditRect.right;
+	researchEditRect.top = topMarge + dpiManager.scaleX(1);
 	::MoveWindow(hResearchEdit, researchEditRect.left, researchEditRect.top, researchEditRect.right, researchEditRect.bottom, TRUE);
 	::InvalidateRect(hResearchEdit, nullptr, TRUE);
 
 	HWND hNextButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_NEXT);
 	RECT researchNextRect;
 	::GetClientRect(hNextButton, &researchNextRect);
-	researchNextRect.left = researchEditRect.left + researchEditRect.right + marge;
+	researchNextRect.left = leftCusor + marge;
+	leftCusor = researchNextRect.left + researchNextRect.right;
 	researchNextRect.top = topMarge;
 	::MoveWindow(hNextButton, researchNextRect.left, researchNextRect.top, researchNextRect.right, researchNextRect.bottom, TRUE);
 	::InvalidateRect(hNextButton, nullptr, TRUE);
@@ -266,6 +269,12 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 	NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+
+	HWND hPluginListVersionNumber = ::GetDlgItem(_hSelf, IDC_PLUGINLIST_VERSIONNUMBER_STATIC);
+	::SetWindowText(hPluginListVersionNumber, _pluginListVersion.c_str());
+
+	_repoLink.init(_hInst, _hSelf);
+	_repoLink.create(::GetDlgItem(_hSelf, IDC_PLUGINLIST_ADDR), TEXT("https://github.com/notepad-plus-plus/nppPluginList"));
 
 	goToCenter();
 }
@@ -581,12 +590,19 @@ std::pair<std::pair<Version, Version>, std::pair<Version, Version>> getTwoInterv
 	return r;
 }
 
-bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, const json& j)
+bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, wstring& verStr, const json& j)
 {
 	if (j.empty())
 		return false;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+	json jVerStr = j["version"];
+	if (jVerStr.empty() || jVerStr.type() != json::value_t::string)
+		return false;
+
+	string s = jVerStr.get<std::string>();
+	verStr = wmc.char2wchar(s.c_str(), CP_ACP);
 
 	json jArray = j["npp-plugins"];
 	if (jArray.empty() || jArray.type() != json::value_t::array)
@@ -776,7 +792,7 @@ bool PluginsAdminDlg::initFromJson()
 #endif
 
 	
-	return loadFromJson(_availableList._list, j);
+	return loadFromJson(_availableList._list, _pluginListVersion, j);
 }
 
 bool PluginsAdminDlg::updateList()

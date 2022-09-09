@@ -472,11 +472,6 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	COLORREF hlsColour(WORD hue, WORD lightness, WORD saturation)
-	{
-		return ColorHLSToRGB(hue, lightness, saturation);
-	}
-
 	static TreeViewStyle g_treeViewStyle = TreeViewStyle::classic;
 	static COLORREF g_treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
 	static double g_lighnessTreeView = 50.0;
@@ -2866,7 +2861,7 @@ namespace NppDarkMode
 		WORD _Lightness;
 		WORD _Saturation;
 
-		COLORREF toRGB() const { return hlsColour(_Hue, _Lightness, _Saturation); }
+		COLORREF toRGB() const { return ColorHLSToRGB(_Hue, _Lightness, _Saturation); }
 	};
 
 	using IndividualTabColours = std::array<HLSColour, 5>;

@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on September 9th, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 25th, 2022 for version 8.4.2 by Patriccollu di Santa Maria è Sichè
@@ -37,7 +38,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.5">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -755,17 +756,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="21105" name="Documentazione :"/>
                     <Item id="21104" name="Situ timpurariu di documentazione :"/>
                     <Item id="21106" name="Piegatura &amp;cumpatta (piegà linee viote dinù)"/>
-                    <Item id="21220" name="Stilu di piegatura in codice 1 :"/>
+                    <Item id="21220" name="Stilu 1 di piegatura di codice :"/>
                     <Item id="21224" name="Apertura :"/>
                     <Item id="21225" name="Mezu :"/>
                     <Item id="21226" name="Chjusura :"/>
                     <Item id="21227" name="Stilu"/>
-                    <Item id="21320" name="Stilu di piegatura in codice 2 (separadori richiesti) :"/>
+                    <Item id="21320" name="Stilu 2 di piegatura di codice (separadori richiesti) :"/>
                     <Item id="21324" name="Apertura :"/>
                     <Item id="21325" name="Mezu :"/>
                     <Item id="21326" name="Chjusura :"/>
                     <Item id="21327" name="Stilu"/>
-                    <Item id="21420" name="Stilu di piegatura in cummentu :"/>
+                    <Item id="21420" name="Stilu di piegatura di cummentu :"/>
                     <Item id="21424" name="Apertura :"/>
                     <Item id="21425" name="Mezu :"/>
                     <Item id="21426" name="Chjusura :"/>
@@ -959,12 +960,12 @@ The comments are here for explanation, it's not necessary to translate them.
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margine è bordu">
-                    <Item id="6201" name="Margine di piegatura"/>
+                    <Item id="6201" name="Margine per piegatura"/>
                     <Item id="6202" name="Simplice"/>
                     <Item id="6203" name="Fleccia"/>
                     <Item id="6204" name="Linea è chjerchju"/>
                     <Item id="6205" name="Linea è quadratu"/>
-                    <Item id="6226" name="Alcuna"/>
+                    <Item id="6226" name="Nisuna"/>
                     <Item id="6291" name="Numeru di linea"/>
                     <Item id="6206" name="Affissà"/>
                     <Item id="6292" name="Larghezza dinamica"/>
@@ -1079,12 +1080,14 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Print>
 
                 <Searching title="Ricerche">
-                    <Item id="6901" name="Ùn micca riempie u campu di ricerca cù a parolla selezziunata"/>
                     <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
                     <Item id="6904" name="Cunfirmà tutti i rimpiazzamenti in tutti i ducumenti aperti"/>
                     <Item id="6905" name="Rimpiazzà : ùn movesi micca à a prossima occurrenza"/>
                     <Item id="6906" name="Risultati di ricerca : affissà un elementu unicu à a linea trova"/>
+                    <Item id="6907" name="Quandu u dialogu di ricerca hè chjamatu"/>
+                    <Item id="6908" name="Riempie u campu di ricerca cù u testu selezziunatu"/>
+                    <Item id="6909" name="Selezziunà a parolla sottu à u cursore s’è nunda hè selezziunatu"/>
                 </Searching>
 
                 <RecentFilesHistory title="Schedarii recenti">

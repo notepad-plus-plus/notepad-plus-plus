@@ -867,7 +867,7 @@
                     <Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
 
                     <Item id="6131" name="Ponuka"/>
-                    <Item id="6122" name="Skryť panel ponuky (Na prepínanie použite klávesu Alt alebo F10)"/>
+                    <Item id="6122" name="Skryť panel ponuky (Prepínanie klávesom Alt alebo F10)"/>
                     <Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕ z panela ponuky (Vyžaduje reštart Notepad++)"/>
                     <Item id="6123" name="Lokalizácia"/>
 

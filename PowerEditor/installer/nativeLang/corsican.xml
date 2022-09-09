@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on September 21st, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 25th, 2022 for version 8.4.2 by Patriccollu di Santa Maria è Sichè
@@ -37,7 +38,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.5">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -58,7 +59,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="A&amp;pre u cartulare cuntenendu u schedariu"/>
-                    <Item subMenuId="file-closeMore" name="C&amp;hjode altrimente"/>
+                    <Item subMenuId="file-closeMore" name="C&amp;hjode parechji ducumenti"/>
                     <Item subMenuId="file-recentFiles" name="Schedarii &amp;recenti"/>
                     <Item subMenuId="edit-insert" name="Framette"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Cupià in u &amp;preme’papei"/>
@@ -209,14 +210,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42025" name="&amp;Arregistrà a macro arricurdata…"/>
                     <Item id="42026" name="Testu da diritta à manca"/>
                     <Item id="42027" name="Testu da manca à diritta"/>
-                    <Item id="42028" name="&amp;Lettura-sola per u ducumentu attuale"/>
-                    <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
-                    <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
+                    <Item id="42028" name="&amp;Lettura-sola per u schedariu attuale"/>
+                    <Item id="42029" name="Cupià u chjassu cumpletu di u schedariu attuale"/>
+                    <Item id="42030" name="Cupià u nome di schedariu di u schedariu attuale"/>
                     <Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
                     <Item id="42087" name="Cupià tutti i nomi di schedariu"/>
                     <Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
                     <Item id="42032" name="&amp;Eseguisce una macro parechje volte…"/>
-                    <Item id="42033" name="Caccià a marca di lettura-sola da u ducumentu"/>
+                    <Item id="42033" name="Caccià a marca di lettura-sola da u schedariu"/>
                     <Item id="42035" name="Mette in cummentu a linea sola"/>
                     <Item id="42036" name="Caccià u cummentu da a linea sola"/>
                     <Item id="42055" name="Caccià e linee viote"/>
@@ -322,6 +323,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44097" name="Appustamentu (tail -f)"/>
                     <Item id="44098" name="Dispiazzà à l’unghjetta davanti"/>
                     <Item id="44099" name="Dispiazzà à l’unghjetta dinanzu"/>
+                    <Item id="44110" name="Caccià u culore"/>
+                    <Item id="44111" name="Appiecà u culore 1"/>
+                    <Item id="44112" name="Appiecà u culore 2"/>
+                    <Item id="44113" name="Appiecà u culore 3"/>
+                    <Item id="44114" name="Appiecà u culore 4"/>
+                    <Item id="44115" name="Appiecà u culore 5"/>
                     <Item id="44032" name="Attivà o disattivà u modu di screnu sanu"/>
                     <Item id="44033" name="Risturà l’ingrandamentu predefinitu"/>
                     <Item id="44034" name="Sempre in primu pianu"/>
@@ -421,8 +428,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="4" name="Stampà…"/>
                     <Item CMID="5" name="Dispiazzà in l’altra vista"/>
                     <Item CMID="6" name="Duppià in l’altra vista"/>
-                    <Item CMID="7" name="Chjassu cumpletu in u preme’papei"/>
-                    <Item CMID="8" name="Nome di schedariu in u preme’papei"/>
+                    <Item CMID="7" name="Cupià u chjassu cumpletu di schedariu"/>
+                    <Item CMID="8" name="Cupià u nome di schedariu"/>
                     <Item CMID="9" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
                     <Item CMID="10" name="Rinuminà…"/>
                     <Item CMID="11" name="Dispiazzà in a curbella"/>
@@ -438,6 +445,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="21" name="Apre in l’appiecazione predefinita"/>
                     <Item CMID="22" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
                     <Item CMID="23" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
+                    <Item CMID="24" name="Appiecà u culore 1"/>
+                    <Item CMID="25" name="Appiecà u culore 2"/>
+                    <Item CMID="26" name="Appiecà u culore 3"/>
+                    <Item CMID="27" name="Appiecà u culore 4"/>
+                    <Item CMID="28" name="Appiecà u culore 5"/>
+                    <Item CMID="29" name="Caccià u culore"/>
+                    <Item CMID="30" name="Chjode parechje unghjette"/>
+                    <Item CMID="31" name="Apre in"/>
+                    <Item CMID="32" name="Cupià in u preme’papei"/>
+                    <Item CMID="33" name="Dispiazzà u ducumentu"/>
+                    <Item CMID="34" name="Appiecà un culore à l’unghjetta"/>
             </TabBar>
         </Menu>
 
@@ -543,7 +561,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Chjode"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Ghjestione di l’estensioni" titleAvailable = "Dispunibule" titleUpdates = "Rinnovi" titleInstalled = "Installate">
+            <PluginsAdminDlg title="Ghjestione di l’estensioni" titleAvailable = "Dispunibule" titleUpdates = "Rinnovi" titleInstalled = "Installate" titleIncompatible="Incumpatibile">
                 <ColumnPlugin   name="Estensione"/>
                 <ColumnVersion  name="Versione"/>
                 <Item id="5501" name="Circà :"/>
@@ -551,6 +569,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="5504" name="Rinnovà"/>
                 <Item id="5505" name="Caccià"/>
                 <Item id="5508" name="Seguente"/>
+                <Item id="5509" name="Versione di u modulu di lista di l’estensioni : "/>
+                <Item id="5511" name="Dipositu di u modulu di lista di l’estensioni"/>
                 <Item id="2"    name="Chjode"/>
             </PluginsAdminDlg>
 
@@ -681,6 +701,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Passà à u cartulare cum’è spaziu di travagliu"/>
                     <Item id="44108" name="Passà à a lista di e funzioni"/>
                     <Item id="44109" name="Passà à a lista di i ducumenti"/>
+                    <Item id="44110" name="Caccià u culore da l’unghjetta"/>
+                    <Item id="44111" name="Appiecà u culore 1 à l’unghjetta"/>
+                    <Item id="44112" name="Appiecà u culore 2 à l’unghjetta"/>
+                    <Item id="44113" name="Appiecà u culore 3 à l’unghjetta"/>
+                    <Item id="44114" name="Appiecà u culore 4 à l’unghjetta"/>
+                    <Item id="44115" name="Appiecà u culore 5 à l’unghjetta"/>
                     <Item id="11002" name="Ordinà da nome da A à Z"/>
                     <Item id="11003" name="Ordinà da nome da Z à A"/>
                     <Item id="11004" name="Ordinà da chjassu d’accessu da A à Z"/>
@@ -755,17 +781,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="21105" name="Documentazione :"/>
                     <Item id="21104" name="Situ timpurariu di documentazione :"/>
                     <Item id="21106" name="Piegatura &amp;cumpatta (piegà linee viote dinù)"/>
-                    <Item id="21220" name="Stilu di piegatura in codice 1 :"/>
+                    <Item id="21220" name="Stilu 1 di piegatura di codice :"/>
                     <Item id="21224" name="Apertura :"/>
                     <Item id="21225" name="Mezu :"/>
                     <Item id="21226" name="Chjusura :"/>
                     <Item id="21227" name="Stilu"/>
-                    <Item id="21320" name="Stilu di piegatura in codice 2 (separadori richiesti) :"/>
+                    <Item id="21320" name="Stilu 2 di piegatura di codice (separadori richiesti) :"/>
                     <Item id="21324" name="Apertura :"/>
                     <Item id="21325" name="Mezu :"/>
                     <Item id="21326" name="Chjusura :"/>
                     <Item id="21327" name="Stilu"/>
-                    <Item id="21420" name="Stilu di piegatura in cummentu :"/>
+                    <Item id="21420" name="Stilu di piegatura di cummentu :"/>
                     <Item id="21424" name="Apertura :"/>
                     <Item id="21425" name="Mezu :"/>
                     <Item id="21426" name="Chjusura :"/>
@@ -959,17 +985,18 @@ The comments are here for explanation, it's not necessary to translate them.
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margine è bordu">
-                    <Item id="6201" name="Margine di piegatura"/>
+                    <Item id="6201" name="Margine per piegatura"/>
                     <Item id="6202" name="Simplice"/>
                     <Item id="6203" name="Fleccia"/>
                     <Item id="6204" name="Linea è chjerchju"/>
                     <Item id="6205" name="Linea è quadratu"/>
-                    <Item id="6226" name="Alcuna"/>
+                    <Item id="6226" name="Nisuna"/>
                     <Item id="6291" name="Numeru di linea"/>
                     <Item id="6206" name="Affissà"/>
                     <Item id="6292" name="Larghezza dinamica"/>
                     <Item id="6293" name="Larghezza custante"/>
                     <Item id="6207" name="Affissà a margine di l’indetta"/>
+                    <Item id="6223" name="Affissà a cronolugia di i cambiamenti"/>
                     <Item id="6211" name="Marcatore di culonna"/>
                     <Item id="6213" name="Culurisce u fondu"/>
                     <Item id="6237" name="Aghjunghje u vostru marcatore di culonna indichendu a so pusizione cù un numeru sanu.
@@ -1079,12 +1106,14 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Print>
 
                 <Searching title="Ricerche">
-                    <Item id="6901" name="Ùn micca riempie u campu di ricerca cù a parolla selezziunata"/>
                     <Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
                     <Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
                     <Item id="6904" name="Cunfirmà tutti i rimpiazzamenti in tutti i ducumenti aperti"/>
                     <Item id="6905" name="Rimpiazzà : ùn movesi micca à a prossima occurrenza"/>
                     <Item id="6906" name="Risultati di ricerca : affissà un elementu unicu à a linea trova"/>
+                    <Item id="6907" name="Quandu u dialogu di ricerca hè chjamatu"/>
+                    <Item id="6908" name="Riempie u campu di ricerca cù u testu selezziunatu"/>
+                    <Item id="6909" name="Selezziunà a parolla sottu à u cursore s’è nunda hè selezziunatu"/>
                 </Searching>
 
                 <RecentFilesHistory title="Schedarii recenti">
@@ -1366,7 +1395,8 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <ExitToUpdatePlugins title="Notepad++ stà per esce" message="S’è vo fate un cliccu nant’à « Sì », Notepad++ hà da piantassi per cuntinuà l’operazioni.
 Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
 Cuntinuà ?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <NeedToRestartToLoadPlugins title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per permette l’affissera di a cronolugia di i cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>

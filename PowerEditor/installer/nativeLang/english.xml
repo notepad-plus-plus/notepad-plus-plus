@@ -404,6 +404,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="21" name="Open in Default Viewer"/>
                     <Item CMID="22" name="Close All Unchanged"/>
                     <Item CMID="23" name="Open Containing Folder as Workspace"/>
+                    <Item CMID="24" name="Apply Color 1"/>
+                    <Item CMID="25" name="Apply Color 2"/>
+                    <Item CMID="26" name="Apply Color 3"/>
+                    <Item CMID="27" name="Apply Color 4"/>
+                    <Item CMID="28" name="Apply Color 5"/>
+                    <Item CMID="29" name="Remove Color"/>
             </TabBar>
         </Menu>
 

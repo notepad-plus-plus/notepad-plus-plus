@@ -379,41 +379,41 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 
 static const int tabContextMenuItemPos[] =
 {
-//  +-------------- The order in tab menu (NppNotification.cpp : if (!_tabPopupMenu.isCreated())
-//  |
-//  |        +------ Number in english.xml (<language>.xml) : <TabBar>
-//  |        |
-    0,   //  0: Close
-    1,   //  1: Close ALL BUT This
-    5,   //  2: Save
-    6,   //  3: Save As
-   10,   //  4: Print
-   30,   //  5: Apply Color 1
-   31,   //  6: Apply Color 2
-   32,   //  7: Apply Color 3
-   33,   //  8: Apply Color 4
-   34,   //  9: Apply Color 5
-   35,   // 10: Remove Color
-   25,   // 11: Move to Other View
-   26,   // 12: Clone to Other View
-   21,   // 13: Full File Path to Clipboard
-   22,   // 14: Filename to Clipboard
-   23,   // 15: Current Dir. Path to Clipboard
-    7,   // 16: Rename
-    8,   // 17: Move to Recycle Bin
-   18,   // 18: Read-Only
-   19,   // 19: Clear Read-Only Flag
-   27,   // 20: Move to New Instance
-   28,   // 21: Open to New Instance
-    9,   // 22: Reload
-    2,   // 23: Close ALL to the Left
-    3,   // 24: Close ALL to the Right
-   12,   // 25: Open Containing Folder in Explorer
-   13,   // 26: Open Containing Folder in cmd
-   16,   // 27: Open in Default Viewer
-    4,   // 28: Close ALL Unchanged
-   14,   // 29: Open Containing Folder as Workspace
-   -1    //-------End
+    //  +-------------- The item position in tab context menu
+    //  |
+    //  |        +------ Index order (CMDID) in <TabBar> of english.xml
+    //  |        |
+        0,   //  0: Close
+        1,   //  1: Close ALL BUT This
+        5,   //  2: Save
+        6,   //  3: Save As
+        10,  //  4: Print
+        32,  //  5: Move to Other View
+        33,  //  6: Clone to Other View
+        28,  //  7: Full File Path to Clipboard
+        29,  //  8: Filename to Clipboard
+        30,  //  9: Current Dir. Path to Clipboard
+        7,   // 10: Rename
+        8,   // 11: Move to Recycle Bin
+        25,  // 12: Read-Only
+        24,  // 13: Clear Read-Only Flag
+        34,  // 14: Move to New Instance
+        35,  // 15: Open to New Instance
+        9,   // 16: Reload
+        2,   // 17: Close ALL to the Left
+        3,   // 18: Close ALL to the Right
+        19,  // 19: Open Containing Folder in Explorer
+        20,  // 20: Open Containing Folder in cmd
+        23,  // 21: Open in Default Viewer
+        4,   // 22: Close ALL Unchanged
+        21,  // 23: Open Containing Folder as Workspace
+        12,  // 24: Apply Color
+        13,  // 25: Apply Color
+        14,  // 26: Apply Color
+        15,  // 27: Apply Color
+        16,  // 28: Apply Color
+        17,  // 29: Remove Color
+        -1   //-------End
 };
 
 

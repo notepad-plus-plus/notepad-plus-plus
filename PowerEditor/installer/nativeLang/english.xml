@@ -655,6 +655,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Switch to Folder as Workspace"/>
                     <Item id="44109" name="Switch to Document List"/>
                     <Item id="44108" name="Switch to Function List"/>
+                    <Item id="44110" name="Remove Tab Colour"/>
+                    <Item id="44111" name="Apply Tab Colour 1"/>
+                    <Item id="44112" name="Apply Tab Colour 2"/>
+                    <Item id="44113" name="Apply Tab Colour 3"/>
+                    <Item id="44114" name="Apply Tab Colour 4"/>
+                    <Item id="44115" name="Apply Tab Colour 5"/>
                     <Item id="11002" name="Sort By Name A to Z"/>
                     <Item id="11003" name="Sort By Name Z to A"/>
                     <Item id="11004" name="Sort By Path A to Z"/>

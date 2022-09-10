@@ -1128,27 +1128,17 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	else // inactive tabs
 	{
 		bool draw = false;
-		RECT rect{};
+		RECT rect = _isCtrlMultiLine ? pDrawItemStruct->rcItem : barRect;
 		COLORREF brushColour{};
 
 		if (_drawInactiveTab && individualColourId == -1 && !isDarkMode)
 		{
 			brushColour = _inactiveBgColour;
-			rect = barRect;
 			draw = true;
 		}
 		else if (individualColourId != -1)
 		{
-			if (isDarkMode)
-			{
-				rect = barRect;
-				brushColour = NppDarkMode::getIndividualTabColours(individualColourId, true, false);
-			}
-			else
-			{
-				rect = pDrawItemStruct->rcItem;
-				brushColour = NppDarkMode::getIndividualTabColours(individualColourId, false, false);
-			}
+			brushColour = NppDarkMode::getIndividualTabColours(individualColourId, isDarkMode, false);
 			draw = true;
 		}
 

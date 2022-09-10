@@ -333,7 +333,7 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t
 		return nullptr;
 
 	// Do not process empty strings
-	if (lenMbcs == 0 || lenMbcs == -1 && mbcs2Convert[0] == 0)
+	if (lenMbcs == 0 || (lenMbcs == -1 && mbcs2Convert[0] == 0))
 	{
 		_wideCharStr.empty();
 		return _wideCharStr;

@@ -329,10 +329,10 @@ size_t Printer::doPrint(bool justDoIt)
 	while (lengthPrinted < lengthDoc) 
 	{
 		bool printPage = (!(_pdlg.Flags & PD_PAGENUMS) ||
-		             (pageNum >= _pdlg.nFromPage) && (pageNum <= _pdlg.nToPage));
-					 
+					((pageNum >= _pdlg.nFromPage) && (pageNum <= _pdlg.nToPage)));
+
 		if (!justDoIt)
-			printPage = false;		 
+			printPage = false;
 
 		TCHAR pageString[32];
 		wsprintf(pageString, TEXT("%0d"), pageNum);

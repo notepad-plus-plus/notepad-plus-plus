@@ -635,12 +635,12 @@ void Utf16_Iter::operator++()
                 m_eState = eStart;
             } else if (m_nCur16 < 0x800) {
                 pushout(static_cast<ubyte>(0xC0 | m_nCur16 >> 6));
-                pushout(0x80 | m_nCur16 & 0x3f);
+                pushout(0x80 | (m_nCur16 & 0x3f));
                 m_eState = eStart;
             } else {
                 pushout(0xE0 | (m_nCur16 >> 12));
-                pushout(0x80 | (m_nCur16 >> 6) & 0x3f);
-                pushout(0x80 | m_nCur16 & 0x3f);
+                pushout(0x80 | ((m_nCur16 >> 6) & 0x3f));
+                pushout(0x80 | (m_nCur16 & 0x3f));
                 m_eState = eStart;
             }
             break;
@@ -649,10 +649,10 @@ void Utf16_Iter::operator++()
 			if ((m_nCur16 >= 0xDC00) && (m_nCur16 < 0xE000))
 			{ // valid surrogate pair
 				UINT code = 0x10000 + ((m_highSurrogate & 0x3ff) << 10) + (m_nCur16 & 0x3ff);
-				pushout(0xf0 | (code >> 18) & 0x07);
-				pushout(0x80 | (code >> 12) & 0x3f);
-				pushout(0x80 | (code >>  6) & 0x3f);
-				pushout(0x80 | code & 0x3f);
+				pushout(0xf0 | ((code >> 18) & 0x07));
+				pushout(0x80 | ((code >> 12) & 0x3f));
+				pushout(0x80 | ((code >>  6) & 0x3f));
+				pushout(0x80 | (code & 0x3f));
 			}
 			m_eState = eStart;
 			break;

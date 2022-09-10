@@ -509,7 +509,7 @@ private:
 	}
 
     void bookmarkDelete(size_t lineno) const {
-		if (lineno == -1)
+		if (lineno == static_cast<size_t>(-1))
 			lineno = _pEditView->getCurrentLineNumber();
 		while (bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);

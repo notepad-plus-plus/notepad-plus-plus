@@ -40,7 +40,7 @@ public:
 
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
-	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam = NULL);
+	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam = 0);
 	bool setItemParam(HTREEITEM Item2Set, LPARAM param);
 	LPARAM getItemParam(HTREEITEM Item2Get) const;
 	generic_string getItemDisplayName(HTREEITEM Item2Set) const;

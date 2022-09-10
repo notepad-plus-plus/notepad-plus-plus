@@ -1245,7 +1245,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
     char * source = new char[docLength];
     if (source == NULL)
         return;
-	_pEditView->execute(SCI_GETTEXT, docLength, reinterpret_cast<LPARAM>(source));
+    _pEditView->execute(SCI_GETTEXT, docLength, reinterpret_cast<LPARAM>(source));
 
     if (whichWay == tab2Space)
     {
@@ -5662,7 +5662,7 @@ void Notepad_plus::doSynScorll(HWND whichView)
 	intptr_t pixel;
 	intptr_t mainColumn, subColumn;
 
-    if (whichView == _mainEditView.getHSelf())
+	if (whichView == _mainEditView.getHSelf())
 	{
 		if (_syncInfo._isSynScollV)
 		{
@@ -5684,9 +5684,9 @@ void Notepad_plus::doSynScorll(HWND whichView)
 			column = mainColumn - _syncInfo._column - subColumn;
 		}
 		pView = &_subEditView;
-    }
-    else if (whichView == _subEditView.getHSelf())
-    {
+	}
+	else if (whichView == _subEditView.getHSelf())
+	{
 		if (_syncInfo._isSynScollV)
 		{
 			// Compute for Line
@@ -5707,9 +5707,9 @@ void Notepad_plus::doSynScorll(HWND whichView)
 			column = subColumn + _syncInfo._column - mainColumn;
 		}
 		pView = &_mainEditView;
-    }
-    else
-        return;
+	}
+	else
+		return;
 
 	pView->scroll(column, line);
 }

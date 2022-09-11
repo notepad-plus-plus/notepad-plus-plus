@@ -390,9 +390,9 @@ static const int tabContextMenuItemPos[] =
         10,  //  4: Print
         32,  //  5: Move to Other View
         33,  //  6: Clone to Other View
-        28,  //  7: Full File Path to Clipboard
-        29,  //  8: Filename to Clipboard
-        30,  //  9: Current Dir. Path to Clipboard
+        28,  //  7: Copy Full File Path
+        29,  //  8: Copy Filename
+        30,  //  9: Copy Current Dir. Path
         7,   // 10: Rename
         8,   // 11: Move to Recycle Bin
         25,  // 12: Read-Only

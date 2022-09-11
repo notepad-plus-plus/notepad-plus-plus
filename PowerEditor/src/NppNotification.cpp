@@ -49,11 +49,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (!notifyView)
 				return FALSE;
 
-			static bool prevWasEdit = false;
+			//static bool prevWasEdit = false;
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))
 			{
 				_pEditView->updateBeginEndSelectPosition(notification->modificationType & SC_MOD_INSERTTEXT, notification->position, notification->length);
-				prevWasEdit = true;
+				//prevWasEdit = true;
 				_linkTriggered = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
 			}
@@ -64,10 +64,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
 			}
 
-			if ((notification->modificationType & SC_MOD_CHANGEFOLD) || !(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
-			{
-				prevWasEdit = false;
-			}
+			//if ((notification->modificationType & SC_MOD_CHANGEFOLD) || !(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
+			//{
+			//	prevWasEdit = false;
+			//}
 
 			if (notification->modificationType & SC_MOD_CHANGEINDICATOR)
 			{

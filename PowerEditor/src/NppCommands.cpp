@@ -3793,8 +3793,8 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, NULL);
-				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, NULL);
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, 0);
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, 0);
 			}
 
 			_mainEditView.execute(SCI_SETCARETLINEFRAME, frameWidth);

@@ -49,7 +49,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 	_isVertical = isVertical;
 	_isMultiLine = isMultiLine;
 
-	INITCOMMONCONTROLSEX icce;
+	INITCOMMONCONTROLSEX icce{};
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
@@ -97,7 +97,7 @@ void TabBar::destroy()
 
 int TabBar::insertAtEnd(const TCHAR *subTabName)
 {
-	TCITEM tie;
+	TCITEM tie{};
 	tie.mask = TCIF_TEXT | TCIF_IMAGE;
 	int index = -1;
 
@@ -111,7 +111,7 @@ int TabBar::insertAtEnd(const TCHAR *subTabName)
 
 void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 {
-	TCITEM tci;
+	TCITEM tci{};
 	tci.mask = TCIF_TEXT;
 	tci.pszText = title;
 	tci.cchTextMax = titleLen-1;
@@ -150,11 +150,11 @@ void TabBar::activateAt(int index) const
 		::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);
 	}
 
-	TBHDR nmhdr;
-	nmhdr._hdr.hwndFrom = _hSelf;
-	nmhdr._hdr.code = TCN_SELCHANGE;
-	nmhdr._hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
-	nmhdr._tabOrigin = index;
+	//TBHDR nmhdr{};
+	//nmhdr._hdr.hwndFrom = _hSelf;
+	//nmhdr._hdr.code = TCN_SELCHANGE;
+	//nmhdr._hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
+	//nmhdr._tabOrigin = index;
 }
 
 
@@ -166,7 +166,7 @@ void TabBar::deletItemAt(size_t index)
 		//Therefore, scroll one tab to the left if only one tab visible
 		if (_nbItem > 1)
 		{
-			RECT itemRect;
+			RECT itemRect{};
 			::SendMessage(_hSelf, TCM_GETITEMRECT, index, reinterpret_cast<LPARAM>(&itemRect));
 			if (itemRect.left < 5) //if last visible tab, scroll left once (no more than 5px away should be safe, usually 2px depending on the drawing)
 			{
@@ -196,8 +196,8 @@ void TabBar::setImageList(HIMAGELIST himl)
 
 void TabBar::reSizeTo(RECT & rc2Ajust)
 {
-	RECT rowRect;
-	int rowCount, tabsHight;
+	RECT rowRect{};
+	int rowCount = 0, tabsHight = 0;
 
 	// Important to do that!
 	// Otherwise, the window(s) it contains will take all the resouce of CPU

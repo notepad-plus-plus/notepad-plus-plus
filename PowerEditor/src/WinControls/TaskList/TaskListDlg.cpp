@@ -22,7 +22,11 @@
 
 int TaskListDlg::_instanceCount = 0;
 
-LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
+static HWND hWndServer = nullptr;
+static HHOOK hook = nullptr;
+static winVer windowsVersion = WV_UNKNOWN;
+
+static LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
     {

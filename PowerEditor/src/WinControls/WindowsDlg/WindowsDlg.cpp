@@ -1145,13 +1145,13 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 	if (firstId > 0 && limitId > 0 && menuPosId > 0)
 	{
 		auto curDoc = pTab->getCurrentTabIndex();
-		size_t nMaxDoc = limitId - firstId + 1;
+		size_t nMaxDoc = static_cast<size_t>(limitId) - firstId + 1;
 		size_t nDoc = pTab->nbItem();
 		nDoc = min(nDoc, nMaxDoc);
 		UINT id = firstId;
 		UINT guard = firstId + static_cast<int32_t>(nDoc);
 		size_t pos = 0;
-		for (id, pos; id < guard; ++id, ++pos)
+		for (; id < guard; ++id, ++pos)
 		{
 			BufferID bufID = pTab->getBufferByIndex(pos);
 			Buffer* buf = MainFileManager.getBufferByID(bufID);

@@ -509,7 +509,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Fermer"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable = "Disponibles" titleUpdates = "Mises à jour" titleInstalled = "Installés">
+            <PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable = "Disponibles" titleUpdates = "Mises à jour" titleInstalled = "Installés" titleIncompatible="Incompatibilité">
                 <ColumnPlugin   name="Modules d'extension"/>
                 <ColumnVersion  name="Version"/>
                 <Item id="5501" name="Recherche : "/>
@@ -517,6 +517,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="5504" name="Mettre à jour"/>
                 <Item id="5505" name="Supprimer"/>
                 <Item id="5508" name="Suivant"/>
+                <Item id="5509" name="Version du module Plugin list : "/>
+                <Item id="5511" name="Dépot du module Plugin list"/>
                 <Item id="2"    name="Fermer"/>
             </PluginsAdminDlg>
 

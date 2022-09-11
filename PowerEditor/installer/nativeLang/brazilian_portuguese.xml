@@ -406,6 +406,12 @@
                     <Item CMID="21" name="Abrir no visualizador padrão"/>
                     <Item CMID="22" name="Fechar todas inalteradas"/>
                     <Item CMID="23" name="Abrir o caminho como espaço de trabalho"/>
+		    <Item CMID="24" name="Aplicar Cor 1"/>
+                    <Item CMID="25" name="Aplicar Cor 2"/>
+                    <Item CMID="26" name="Aplicar Cor 3"/>
+                    <Item CMID="27" name="Aplicar Cor 4"/>
+                    <Item CMID="28" name="Aplicar Cor 5"/>
+                    <Item CMID="29" name="Remover Cor"/>
             </TabBar>
         </Menu>
 
@@ -651,6 +657,12 @@
                     <Item id="44107" name="Mudar para pasta como espaço de trabalho"/>
                     <Item id="44109" name="Mudar para lista de documentos"/>
                     <Item id="44108" name="Mudar para lista de funções"/>
+                    <Item id="44110" name="Remover Cor de Aba"/>
+                    <Item id="44111" name="Aplicar Cor 1 de Aba"/>
+                    <Item id="44112" name="Aplicar Cor 2 de Aba"/>
+                    <Item id="44113" name="Aplicar Cor 3 de Aba"/>
+                    <Item id="44114" name="Aplicar Cor 4 de Aba"/>
+                    <Item id="44115" name="Aplicar Cor 5 de Aba"/>
                     <Item id="11002" name="Classificar por Nome A a Z"/>
                     <Item id="11003" name="Classificar por Nome Z a A"/>
                     <Item id="11004" name="Classificar por Caminho A a Z"/>

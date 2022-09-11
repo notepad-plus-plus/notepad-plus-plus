@@ -1114,7 +1114,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 				COLORREF topBarColour = _activeTopBarFocusedColour; // #FAAA3C
 				if (individualColourId != -1)
 				{
-					topBarColour = NppDarkMode::getIndividualTabColours(individualColourId, isDarkMode, true);
+					topBarColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, true);
 				}
 				hBrush = ::CreateSolidBrush(topBarColour);
 			}
@@ -1138,7 +1138,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 		else if (individualColourId != -1)
 		{
-			brushColour = NppDarkMode::getIndividualTabColours(individualColourId, isDarkMode, false);
+			brushColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, false);
 			draw = true;
 		}
 

@@ -133,7 +133,7 @@ namespace NppDarkMode
 	HPEN getHotEdgePen();
 	HPEN getDisabledEdgePen();
 
-	COLORREF getIndividualTabColours(int colourIndex, bool themeDependant, bool saturated);
+	COLORREF getIndividualTabColour(int colourIndex, bool themeDependant, bool saturated);
 
 	void setBackgroundColor(COLORREF c);
 	void setSofterBackgroundColor(COLORREF c);

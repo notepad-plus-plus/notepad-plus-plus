@@ -58,14 +58,14 @@ void DocTabView::closeBuffer(BufferID buffer)
 
 void DocTabView::setIndividualTabColour(BufferID bufferId, int colorId)
 {
-	tabIndexToColor[bufferId] = colorId;
+	_tabIndexToColour[bufferId] = colorId;
 }
 
 int DocTabView::getIndividualTabColour(int tabIndex)
 {
 	BufferID bufferId = getBufferByIndex(tabIndex);
-	auto it = tabIndexToColor.find(bufferId);
-	if (it != tabIndexToColor.end()) return it->second;
+	auto it = _tabIndexToColour.find(bufferId);
+	if (it != _tabIndexToColour.end()) return it->second;
 	else return -1;
 }
 

@@ -757,7 +757,7 @@ void ProjectPanel::setWorkSpaceDirty(bool isDirty)
 
 NodeType ProjectPanel::getNodeType(HTREEITEM hItem)
 {
-	TVITEM tvItem;
+	TVITEM tvItem{};
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
@@ -786,15 +786,14 @@ NodeType ProjectPanel::getNodeType(HTREEITEM hItem)
 
 void ProjectPanel::showContextMenu(int x, int y)
 {
-	TVHITTESTINFO tvHitInfo;
-	HTREEITEM hTreeItem;
+	TVHITTESTINFO tvHitInfo{};
 
 	// Detect if the given position is on the element TVITEM
 	tvHitInfo.pt.x = x;
 	tvHitInfo.pt.y = y;
 	tvHitInfo.flags = 0;
 	ScreenToClient(_treeView.getHSelf(), &(tvHitInfo.pt));
-	hTreeItem = TreeView_HitTest(_treeView.getHSelf(), &tvHitInfo);
+	TreeView_HitTest(_treeView.getHSelf(), &tvHitInfo);
 
 	if (tvHitInfo.hItem != NULL)
 	{
@@ -809,7 +808,7 @@ void ProjectPanel::showContextMenu(int x, int y)
 
 void ProjectPanel::showContextMenuFromMenuKey(HTREEITEM selectedItem, int x, int y)
 {
-	POINT p;
+	POINT p{};
 	p.x = x;
 	p.y = y;
 
@@ -844,8 +843,8 @@ HMENU ProjectPanel::getMenuHandler(HTREEITEM selectedItem)
 
 POINT ProjectPanel::getMenuDisplayPoint(int iButton)
 {
-	POINT p;
-	RECT btnRect;
+	POINT p{};
+	RECT btnRect{};
 	SendMessage(_hToolbarMenu, TB_GETITEMRECT, iButton, reinterpret_cast<LPARAM>(&btnRect));
 
 	p.x = btnRect.left;
@@ -1154,8 +1153,8 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			FileRelocalizerDlg fileRelocalizerDlg;
 			fileRelocalizerDlg.init(_hInst, _hParent);
 
-			TCHAR textBuffer[MAX_PATH];
-			TVITEM tvItem;
+			TCHAR textBuffer[MAX_PATH] = { '\0' };
+			TVITEM tvItem{};
 			tvItem.hItem = hTreeItem;
 			tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 			tvItem.pszText = textBuffer;

@@ -946,7 +946,6 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					{
 						const int row = _babygrid.getSelectedRow();
 						size_t shortcutIndex = _shortcutIndex[row-1];
-						DWORD cmdID = 0;
 						
 						// Menu data
 						int32_t posBase = 0;
@@ -966,7 +965,6 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							{
 								vector<MacroShortcut> & theMacros = nppParam.getMacroList();
 								vector<MacroShortcut>::iterator it = theMacros.begin();
-								cmdID = theMacros[shortcutIndex].getID();
 								theMacros.erase(it + shortcutIndex);
 
 								//save the current view
@@ -1001,7 +999,6 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							{
 								vector<UserCommand> & theUserCmds = nppParam.getUserCommandList();
 								vector<UserCommand>::iterator it = theUserCmds.begin();
-								cmdID = theUserCmds[shortcutIndex].getID();
 								theUserCmds.erase(it + shortcutIndex);
 
 								//save the current view

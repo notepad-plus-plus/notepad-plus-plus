@@ -1686,13 +1686,13 @@ LRESULT StringDlg::customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lP
 
 bool StringDlg::isAllowed(const generic_string & txt)
 {
+#ifndef __MINGW32__
 	for (auto ch : txt)
 	{
-	#ifndef __MINGW32__
 		if (std::find(_restrictedChars.cbegin(), _restrictedChars.cend(), ch) != _restrictedChars.cend())
 			return false;
-	#endif
 	}
+#endif
 	return true;
 }
 

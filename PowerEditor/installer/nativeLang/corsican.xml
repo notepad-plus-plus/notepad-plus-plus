@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on September 9th, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
+		- Updated on September 12th, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 25th, 2022 for version 8.4.2 by Patriccollu di Santa Maria è Sichè
@@ -210,14 +210,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42025" name="&amp;Arregistrà a macro arricurdata…"/>
                     <Item id="42026" name="Testu da diritta à manca"/>
                     <Item id="42027" name="Testu da manca à diritta"/>
-                    <Item id="42028" name="&amp;Lettura-sola per u ducumentu attuale"/>
-                    <Item id="42029" name="Cupià u chjassu cumpletu di u ducumentu attuale"/>
-                    <Item id="42030" name="Cupià u nome di schedariu di u ducumentu attuale"/>
+                    <Item id="42028" name="&amp;Lettura-sola per u schedariu attuale"/>
+                    <Item id="42029" name="Cupià u chjassu cumpletu di u schedariu attuale"/>
+                    <Item id="42030" name="Cupià u nome di schedariu di u schedariu attuale"/>
                     <Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
                     <Item id="42087" name="Cupià tutti i nomi di schedariu"/>
                     <Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
                     <Item id="42032" name="&amp;Eseguisce una macro parechje volte…"/>
-                    <Item id="42033" name="Caccià a marca di lettura-sola da u ducumentu"/>
+                    <Item id="42033" name="Caccià a marca di lettura-sola da u schedariu"/>
                     <Item id="42035" name="Mette in cummentu a linea sola"/>
                     <Item id="42036" name="Caccià u cummentu da a linea sola"/>
                     <Item id="42055" name="Caccià e linee viote"/>
@@ -422,8 +422,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="4" name="Stampà…"/>
                     <Item CMID="5" name="Dispiazzà in l’altra vista"/>
                     <Item CMID="6" name="Duppià in l’altra vista"/>
-                    <Item CMID="7" name="Chjassu cumpletu in u preme’papei"/>
-                    <Item CMID="8" name="Nome di schedariu in u preme’papei"/>
+                    <Item CMID="7" name="Cupià u chjassu cumpletu di schedariu"/>
+                    <Item CMID="8" name="Cupià u nome di schedariu"/>
                     <Item CMID="9" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
                     <Item CMID="10" name="Rinuminà…"/>
                     <Item CMID="11" name="Dispiazzà in a curbella"/>
@@ -544,7 +544,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Chjode"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Ghjestione di l’estensioni" titleAvailable = "Dispunibule" titleUpdates = "Rinnovi" titleInstalled = "Installate">
+            <PluginsAdminDlg title="Ghjestione di l’estensioni" titleAvailable = "Dispunibule" titleUpdates = "Rinnovi" titleInstalled = "Installate" titleIncompatible="Incumpatibile">
                 <ColumnPlugin   name="Estensione"/>
                 <ColumnVersion  name="Versione"/>
                 <Item id="5501" name="Circà :"/>
@@ -552,6 +552,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="5504" name="Rinnovà"/>
                 <Item id="5505" name="Caccià"/>
                 <Item id="5508" name="Seguente"/>
+                <Item id="5509" name="Versione di u modulu di lista di l’estensioni : "/>
+                <Item id="5511" name="Dipositu di u modulu di lista di l’estensioni"/>
                 <Item id="2"    name="Chjode"/>
             </PluginsAdminDlg>
 

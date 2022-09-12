@@ -402,6 +402,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="21" name="Ouvrir dans l'application par défaut"/>
                     <Item CMID="22" name="Fermer tous les documents non-modifiés"/>
                     <Item CMID="23" name="Ouvrir le répertoire du fichier en cours en tant qu'espace de travail"/>
+                    <Item CMID="24" name="Appliquer la couleur 1"/>
+                    <Item CMID="25" name="Appliquer la couleur 2"/>
+                    <Item CMID="26" name="Appliquer la couleur 3"/>
+                    <Item CMID="27" name="Appliquer la couleur 4"/>
+                    <Item CMID="28" name="Appliquer la couleur 5"/>
+                    <Item CMID="29" name="Enlever la couleur"/>
+                    <Item CMID="30" name="Fermer +"/>
+                    <Item CMID="31" name="Ouvrir dans"/>
+                    <Item CMID="32" name="Copier dans le presse-papiers"/>
+                    <Item CMID="33" name="Déplacer le document"/>
+                    <Item CMID="34" name="Appliquer la Couleur à l'onglet"/>
             </TabBar>
         </Menu>
 

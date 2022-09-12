@@ -377,43 +377,48 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 }
 
 
-static const int tabContextMenuItemPos[] =
+static const std::pair<int, int> tabContextMenuItemPos[] =
 {
     //  +-------------- The item position in tab context menu
     //  |
-    //  |        +------ Index order (CMDID) in <TabBar> of english.xml
+    //  |        +------ Index order (CMID) in <TabBar> of english.xml
     //  |        |
-        0,   //  0: Close
-        1,   //  1: Close ALL BUT This
-        5,   //  2: Save
-        6,   //  3: Save As
-        10,  //  4: Print
-        32,  //  5: Move to Other View
-        33,  //  6: Clone to Other View
-        28,  //  7: Copy Full File Path
-        29,  //  8: Copy Filename
-        30,  //  9: Copy Current Dir. Path
-        7,   // 10: Rename
-        8,   // 11: Move to Recycle Bin
-        25,  // 12: Read-Only
-        24,  // 13: Clear Read-Only Flag
-        34,  // 14: Move to New Instance
-        35,  // 15: Open to New Instance
-        9,   // 16: Reload
-        2,   // 17: Close ALL to the Left
-        3,   // 18: Close ALL to the Right
-        19,  // 19: Open Containing Folder in Explorer
-        20,  // 20: Open Containing Folder in cmd
-        23,  // 21: Open in Default Viewer
-        4,   // 22: Close ALL Unchanged
-        21,  // 23: Open Containing Folder as Workspace
-        12,  // 24: Apply Color
-        13,  // 25: Apply Color
-        14,  // 26: Apply Color
-        15,  // 27: Apply Color
-        16,  // 28: Apply Color
-        17,  // 29: Remove Color
-        -1   //-------End
+	{0, -1},  //  0: Close
+	{1, 0},  //  1: Close ALL BUT This
+	{2, -1},  //  2: Save
+	{3, -1},  //  3: Save As
+	{8, -1},  //  4: Print
+	{14, 0},  //  5: Move to Other View
+	{14, 1},  //  6: Clone to Other View
+	{13, 0},  //  7: Copy Full File Path
+	{13, 1},  //  8: Copy Filename
+	{13, 2},  //  9: Copy Current Dir. Path
+	{5, -1},   // 10: Rename
+	{6, -1},   // 11: Move to Recycle Bin
+	{10, -1},  // 12: Read-Only
+	{11, -1},  // 13: Clear Read-Only Flag
+	{14, 2},  // 14: Move to New Instance
+	{14, 3},  // 15: Open to New Instance
+	{7, -1},   // 16: Reload
+	{1, 1},   // 17: Close ALL to the Left
+	{1, 2},   // 18: Close ALL to the Right
+	{4, 0},  // 19: Open Containing Folder in Explorer
+	{4, 1},  // 20: Open Containing Folder in cmd
+	{4, 4},  // 21: Open in Default Viewer
+	{1, 3},   // 22: Close ALL Unchanged
+	{4, 2},  // 23: Open Containing Folder as Workspace
+	{15, 0},  // 24: Apply Color
+	{15, 1},  // 25: Apply Color
+	{15, 2},  // 26: Apply Color
+	{15, 3},  // 27: Apply Color
+	{15, 4},  // 28: Apply Color
+	{15, 5},  // 29: Remove Color
+	{1, -1},  // 30: Close More
+	{4, -1},  // 31: Open into
+	{13, -1},  // 32: Copy to Clipboard
+	{14, -1},  // 33: Move Document
+	{15, -1},  // Apply Color to Tab
+	{-1, -1},   //-------End
 };
 
 
@@ -428,7 +433,7 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 			if (tabBarMenu)
 			{
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				int nbCMItems = sizeof(tabContextMenuItemPos)/sizeof(int);
+				int nbCMItems = sizeof(tabContextMenuItemPos)/sizeof(std::pair<int, int>);
 
 				for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
 					childNode ;
@@ -440,13 +445,26 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 					if (!indexStr || (index < 0 || index >= nbCMItems-1))
 						continue;
 
-					int pos = tabContextMenuItemPos[index];
+					std::pair<int, int> pos = tabContextMenuItemPos[index];
 					const char *pName = element->Attribute("name");
 					if (pName)
 					{
 						const wchar_t *pNameW = wmc.char2wchar(pName, _nativeLangEncoding);
-						int cmdID = ::GetMenuItemID(hCM, pos);
-						::ModifyMenu(hCM, pos, MF_BYPOSITION, cmdID, pNameW);
+						
+						if (pos.second == -1) // the 1st level
+						{
+							int cmdID = ::GetMenuItemID(hCM, pos.first);
+							::ModifyMenu(hCM, pos.first, MF_BYPOSITION, cmdID, pNameW);
+						}
+						else // it's the sub-menu item
+						{
+							HMENU hSubMenu = ::GetSubMenu(hCM, pos.first);
+							if (!hSubMenu)
+								continue;
+
+							int cmdID = ::GetMenuItemID(hSubMenu, pos.second);
+							::ModifyMenu(hSubMenu, pos.second, MF_BYPOSITION, cmdID, pNameW);
+						}
 					}
 				}
 			}

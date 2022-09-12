@@ -404,6 +404,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="21" name="Open in Default Viewer"/>
                     <Item CMID="22" name="Close All Unchanged"/>
                     <Item CMID="23" name="Open Containing Folder as Workspace"/>
+                    <Item CMID="24" name="Apply Color 1"/>
+                    <Item CMID="25" name="Apply Color 2"/>
+                    <Item CMID="26" name="Apply Color 3"/>
+                    <Item CMID="27" name="Apply Color 4"/>
+                    <Item CMID="28" name="Apply Color 5"/>
+                    <Item CMID="29" name="Remove Color"/>
+                    <Item CMID="30" name="Close More"/>
+                    <Item CMID="31" name="Open into"/>
+                    <Item CMID="32" name="Copy to Clipboard"/>
+                    <Item CMID="33" name="Move Document"/>
+                    <Item CMID="34" name="Apply Color to Tab"/>
             </TabBar>
         </Menu>
 
@@ -651,6 +662,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Switch to Folder as Workspace"/>
                     <Item id="44109" name="Switch to Document List"/>
                     <Item id="44108" name="Switch to Function List"/>
+                    <Item id="44110" name="Remove Tab Colour"/>
+                    <Item id="44111" name="Apply Tab Colour 1"/>
+                    <Item id="44112" name="Apply Tab Colour 2"/>
+                    <Item id="44113" name="Apply Tab Colour 3"/>
+                    <Item id="44114" name="Apply Tab Colour 4"/>
+                    <Item id="44115" name="Apply Tab Colour 5"/>
                     <Item id="11002" name="Sort By Name A to Z"/>
                     <Item id="11003" name="Sort By Name Z to A"/>
                     <Item id="11004" name="Sort By Path A to Z"/>

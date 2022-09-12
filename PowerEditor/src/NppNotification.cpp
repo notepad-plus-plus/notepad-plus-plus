@@ -528,10 +528,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				// IMPORTANT: If list below is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
                 std::vector<MenuItemUnit> itemUnitArray;
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This"), TEXT("Close More")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left"), TEXT("Close More")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, TEXT("Close All to the Right"), TEXT("Close More")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_UNCHANGED, TEXT("Close All Unchanged"), TEXT("Close More")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This"), TEXT("Close Multiple Tabs")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left"), TEXT("Close Multiple Tabs")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, TEXT("Close All to the Right"), TEXT("Close Multiple Tabs")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_UNCHANGED, TEXT("Close All Unchanged"), TEXT("Close Multiple Tabs")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer"), TEXT("Open into")));

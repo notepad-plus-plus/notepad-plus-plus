@@ -68,7 +68,7 @@
 //10  Rename...
 //11  Close
 //12  Close All
-//13  Close More
+//13  Close Multiple Documents
 //14  Move to Recycle Bin
 //15  --------
 //16  Load Session...

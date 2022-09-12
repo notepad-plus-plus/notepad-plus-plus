@@ -24,7 +24,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Open Containing &amp;Folder"/>
-                    <Item subMenuId="file-closeMore" name="Close &amp;More"/>
+                    <Item subMenuId="file-closeMore" name="Close &amp;Multiple Documents"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Recent Files"/>
                     <Item subMenuId="edit-insert" name="Insert"/>
                     <Item subMenuId="edit-copyToClipboard" name="Cop&amp;y to Clipboard"/>
@@ -410,7 +410,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="27" name="Apply Color 4"/>
                     <Item CMID="28" name="Apply Color 5"/>
                     <Item CMID="29" name="Remove Color"/>
-                    <Item CMID="30" name="Close More"/>
+                    <Item CMID="30" name="Close Multiple Tabs"/>
                     <Item CMID="31" name="Open into"/>
                     <Item CMID="32" name="Copy to Clipboard"/>
                     <Item CMID="33" name="Move Document"/>

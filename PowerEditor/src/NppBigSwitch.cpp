@@ -205,7 +205,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// Notify plugins that Dark Mode changed
 			SCNotification scnN;
 			scnN.nmhdr.code = NPPN_DARKMODECHANGED;
-			scnN.nmhdr.hwndFrom = reinterpret_cast<void*>(lParam);
+			scnN.nmhdr.hwndFrom = hwnd;
 			scnN.nmhdr.idFrom = 0;
 			_pluginsManager.notify(&scnN);
 			return TRUE;

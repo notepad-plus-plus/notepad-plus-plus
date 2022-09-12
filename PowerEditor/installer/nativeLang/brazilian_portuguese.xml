@@ -519,7 +519,7 @@
                 <Item id="2"    name="Fechar"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados">
+            <PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versão"/>
                 <Item id="5501" name="Pesquisar:"/>
@@ -527,6 +527,10 @@
                 <Item id="5504" name="Atualizar"/>
                 <Item id="5505" name="Remover"/>
                 <Item id="5508" name="Próximo"/>
+                <Item id="5509" name="Versões de lista de Plugins: "/>
+                <Item id="5511" name="Repositório de lista de Plugins"/>
+                <Item id="2"    name="Close"/>
+
                 <Item id="2"    name="Fechar"/>
             </PluginsAdminDlg>
 

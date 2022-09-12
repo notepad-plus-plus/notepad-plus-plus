@@ -223,7 +223,8 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 					cc.lpCustColors = (LPDWORD) acrCustClr;
 					cc.rgbResult = _colour;
-					cc.Flags = CC_FULLOPEN | CC_RGBINIT;
+					cc.lpfnHook = chooseColorDlgProc;
+					cc.Flags = CC_FULLOPEN | CC_RGBINIT | CC_ENABLEHOOK;
 
 					display(false);
 					 
@@ -262,6 +263,64 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			return TRUE;
 		}
 		
+	}
+	return FALSE;
+}
+
+uintptr_t CALLBACK ColourPopup::chooseColorDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM) 
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			if (NppDarkMode::isExperimentalSupported())
+			{
+				NppDarkMode::setDarkTitleBar(hwnd);
+			}
+			NppDarkMode::autoSubclassAndThemeChildControls(hwnd);
+			break;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = {};
+				::GetClientRect(hwnd, &rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			break;
+		}
 	}
 	return FALSE;
 }

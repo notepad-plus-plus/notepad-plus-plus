@@ -393,6 +393,17 @@
                     <Item CMID="21" name="在預設檢視中開啟"/>
                     <Item CMID="22" name="關閉所有未更改的檔案"/>
                     <Item CMID="23" name="在工作區開啟此檔資料夾"/>
+                    <Item CMID="24" name="顏色一"/>
+                    <Item CMID="25" name="顏色二"/>
+                    <Item CMID="26" name="顏色三"/>
+                    <Item CMID="27" name="顏色四"/>
+                    <Item CMID="28" name="顏色五"/>
+                    <Item CMID="29" name="移除顏色"/>
+                    <Item CMID="30" name="關閉多個檔案"/>
+                    <Item CMID="31" name="開啟至"/>
+                    <Item CMID="32" name="複製到剪貼簿"/>
+                    <Item CMID="33" name="文件移至"/>
+                    <Item CMID="34" name="頁籤使用顏色"/>
             </TabBar>
         </Menu>
         <Dialog>

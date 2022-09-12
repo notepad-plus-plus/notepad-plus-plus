@@ -59,7 +59,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="A&amp;pre u cartulare cuntenendu u schedariu"/>
-                    <Item subMenuId="file-closeMore" name="C&amp;hjode altrimente"/>
+                    <Item subMenuId="file-closeMore" name="C&amp;hjode parechji ducumenti"/>
                     <Item subMenuId="file-recentFiles" name="Schedarii &amp;recenti"/>
                     <Item subMenuId="edit-insert" name="Framette"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Cupià in u &amp;preme’papei"/>
@@ -439,6 +439,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="21" name="Apre in l’appiecazione predefinita"/>
                     <Item CMID="22" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
                     <Item CMID="23" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
+                    <Item CMID="24" name="Appiecà u culore 1"/>
+                    <Item CMID="25" name="Appiecà u culore 2"/>
+                    <Item CMID="26" name="Appiecà u culore 3"/>
+                    <Item CMID="27" name="Appiecà u culore 4"/>
+                    <Item CMID="28" name="Appiecà u culore 5"/>
+                    <Item CMID="29" name="Caccià u culore"/>
+                    <Item CMID="30" name="Chjode parechje unghjette"/>
+                    <Item CMID="31" name="Apre in"/>
+                    <Item CMID="32" name="Cupià in u preme’papei"/>
+                    <Item CMID="33" name="Dispiazzà u ducumentu"/>
+                    <Item CMID="34" name="Appiecà un culore à l’unghjetta"/>
             </TabBar>
         </Menu>
 
@@ -684,6 +695,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Passà à u cartulare cum’è spaziu di travagliu"/>
                     <Item id="44108" name="Passà à a lista di e funzioni"/>
                     <Item id="44109" name="Passà à a lista di i ducumenti"/>
+                    <Item id="44110" name="Caccià u culore di l’unghjetta"/>
+                    <Item id="44111" name="Appiecà u culore 1 à l’unghjetta"/>
+                    <Item id="44112" name="Appiecà u culore 2 à l’unghjetta"/>
+                    <Item id="44113" name="Appiecà u culore 3 à l’unghjetta"/>
+                    <Item id="44114" name="Appiecà u culore 4 à l’unghjetta"/>
+                    <Item id="44115" name="Appiecà u culore 5 à l’unghjetta"/>
                     <Item id="11002" name="Ordinà da nome da A à Z"/>
                     <Item id="11003" name="Ordinà da nome da Z à A"/>
                     <Item id="11004" name="Ordinà da chjassu d’accessu da A à Z"/>
@@ -1604,5 +1621,6 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <contextMenu-clearStyle value="Spurgulà certi stili" />
             <contextMenu-PluginCommands value="Cumande d’estensione" />
         </MiscStrings>
+    </Native-Langue>
     </Native-Langue>
 </NotepadPlus>

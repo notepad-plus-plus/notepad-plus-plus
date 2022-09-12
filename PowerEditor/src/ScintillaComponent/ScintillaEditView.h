@@ -113,13 +113,11 @@ const UCHAR BASE_08 = 0x02; // Oct
 const UCHAR BASE_02 = 0x03; // Bin
 
 
-const int MARK_BOOKMARK = 24;
-const int MARK_HIDELINESBEGIN = 23;
-const int MARK_HIDELINESEND = 22;
-const int MARK_HIDELINESUNDERLINE = 21;
-//const int MARK_LINEMODIFIEDUNSAVED = 20;
-//const int MARK_LINEMODIFIEDSAVED = 19;
-// 24 - 16 reserved for Notepad++ internal used
+const int MARK_BOOKMARK = 20;
+const int MARK_HIDELINESBEGIN = 19;
+const int MARK_HIDELINESEND = 18;
+const int MARK_HIDELINESUNDERLINE = 17;
+// 20 - 16 reserved for Notepad++ internal used
 // 15 - 0  are free to use for plugins
 
 

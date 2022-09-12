@@ -379,46 +379,49 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 
 static const std::pair<int, int> tabContextMenuItemPos[] =
 {
-    //  +-------------- The item position in tab context menu
-    //  |
-    //  |        +------ Index order (CMID) in <TabBar> of english.xml
-    //  |        |
-	{0, -1},  //  0: Close
-	{1, 0},  //  1: Close ALL BUT This
-	{2, -1},  //  2: Save
-	{3, -1},  //  3: Save As
-	{8, -1},  //  4: Print
-	{14, 0},  //  5: Move to Other View
-	{14, 1},  //  6: Clone to Other View
-	{13, 0},  //  7: Copy Full File Path
-	{13, 1},  //  8: Copy Filename
-	{13, 2},  //  9: Copy Current Dir. Path
-	{5, -1},   // 10: Rename
-	{6, -1},   // 11: Move to Recycle Bin
-	{10, -1},  // 12: Read-Only
-	{11, -1},  // 13: Clear Read-Only Flag
-	{14, 2},  // 14: Move to New Instance
-	{14, 3},  // 15: Open to New Instance
-	{7, -1},   // 16: Reload
-	{1, 1},   // 17: Close ALL to the Left
-	{1, 2},   // 18: Close ALL to the Right
-	{4, 0},  // 19: Open Containing Folder in Explorer
-	{4, 1},  // 20: Open Containing Folder in cmd
-	{4, 4},  // 21: Open in Default Viewer
-	{1, 3},   // 22: Close ALL Unchanged
-	{4, 2},  // 23: Open Containing Folder as Workspace
-	{15, 0},  // 24: Apply Color
-	{15, 1},  // 25: Apply Color
-	{15, 2},  // 26: Apply Color
-	{15, 3},  // 27: Apply Color
-	{15, 4},  // 28: Apply Color
-	{15, 5},  // 29: Remove Color
-	{1, -1},  // 30: Close Multiple Tabs
-	{4, -1},  // 31: Open into
-	{13, -1},  // 32: Copy to Clipboard
-	{14, -1},  // 33: Move Document
-	{15, -1},  // Apply Color to Tab
-	{-1, -1},   //-------End
+//   +-------------- The item position on the top level of tab context menu
+//   |
+//   |    +-------------- The item position in sub-menu of tab context menu. The item is on top level if -1, otherwise it's in the sub-menu
+//   |    |
+//   |    |         +--------- Index order (CMID: Context Menu ID) in <TabBar> of english.xml - the number and the order of this array should be synchronized with <TabBar>
+//   |    |         |
+    {0,  -1},   //  0: Close
+    {1,   0},   //  1: Close ALL BUT This
+    {2,  -1},   //  2: Save
+    {3,  -1},   //  3: Save As
+    {8,  -1},   //  4: Print
+    {14,  0},   //  5: Move to Other View
+    {14,  1},   //  6: Clone to Other View
+    {13,  0},   //  7: Copy Full File Path
+    {13,  1},   //  8: Copy Filename
+    {13,  2},   //  9: Copy Current Dir. Path
+    {5,  -1},   // 10: Rename
+    {6,  -1},   // 11: Move to Recycle Bin
+    {10, -1},   // 12: Read-Only
+    {11, -1},   // 13: Clear Read-Only Flag
+    {14,  2},   // 14: Move to New Instance
+    {14,  3},   // 15: Open to New Instance
+    {7,  -1},   // 16: Reload
+    {1,   1},   // 17: Close ALL to the Left
+    {1,   2},   // 18: Close ALL to the Right
+    {4,   0},   // 19: Open Containing Folder in Explorer
+    {4,   1},   // 20: Open Containing Folder in cmd
+    {4,   4},   // 21: Open in Default Viewer
+    {1,   3},   // 22: Close ALL Unchanged
+    {4,   2},   // 23: Open Containing Folder as Workspace
+    {15,  0},   // 24: Apply Color
+    {15,  1},   // 25: Apply Color
+    {15,  2},   // 26: Apply Color
+    {15,  3},   // 27: Apply Color
+    {15,  4},   // 28: Apply Color
+    {15,  5},   // 29: Remove Color
+    {1,  -1},   // 30: Close Multiple Tabs
+    {4,  -1},   // 31: Open into
+    {13, -1},   // 32: Copy to Clipboard
+    {14, -1},   // 33: Move Document
+    {15, -1},   // Apply Color to Tab
+
+    {-1, -1},   //-------End
 };
 
 

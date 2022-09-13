@@ -314,7 +314,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Make backspace or delete work with multiple selections
 	_mainEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
 	_subEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
-
+	
 	// Turn virtual space on
 	int virtualSpaceOptions = SCVS_RECTANGULARSELECTION;
 	if(svp._virtualSpace)

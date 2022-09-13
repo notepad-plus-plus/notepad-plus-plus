@@ -2662,6 +2662,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_ENABLECHANGEHISTORY:
+		{
+			_mainEditView.execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS);
+			_subEditView.execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_CRLFLAUNCHSTYLECONF:
 		{
 			// Launch _configStyleDlg (create or display it)

@@ -796,8 +796,7 @@ void SetHomeRow(HWND hWnd,int SI,int row,int col)
 
 void SetHomeCol(HWND hWnd,int SI,int row,int col)
 	{
-      RECT gridrect,cellrect;
-      BOOL LASTCOLVISIBLE;
+      RECT gridrect{}, cellrect{};
       //get rect of grid window
       GetClientRect(hWnd,&gridrect);
       //get rect of current cell
@@ -807,16 +806,6 @@ void SetHomeCol(HWND hWnd,int SI,int row,int col)
           {
            //scroll right is needed
            BGHS[SI].homecol++;
-           //see if last column is visible
-           cellrect = GetCellRect(hWnd,SI,row,BGHS[SI].cols);
-           if(cellrect.right <= gridrect.right)
-               {
-                LASTCOLVISIBLE=TRUE;
-               }
-           else
-               {
-                LASTCOLVISIBLE=FALSE;
-               }
            cellrect = GetCellRect(hWnd,SI,row,col);
            InvalidateRect(hWnd,&gridrect,FALSE);
           }
@@ -826,16 +815,6 @@ void SetHomeCol(HWND hWnd,int SI,int row,int col)
           {
            //scroll left is needed
            BGHS[SI].homecol--;
-           //see if last column is visible
-           cellrect = GetCellRect(hWnd,SI,row,BGHS[SI].cols);
-           if(cellrect.right <= gridrect.right)
-               {
-                LASTCOLVISIBLE=TRUE;
-               }
-           else
-               {
-                LASTCOLVISIBLE=FALSE;
-               }
 
            cellrect = GetCellRect(hWnd,SI,row,col);
            InvalidateRect(hWnd,&gridrect,FALSE);
@@ -1352,20 +1331,17 @@ int FindLongestLine(HDC hdc, wchar_t* text, SIZE* size)
 
 LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	int wmId, wmEvent;
+	int wmId;
 	PAINTSTRUCT ps;
-	HDC hdc;
 	
 	TCHAR buffer[bufferLen];
 	int SelfIndex;
 	int ReturnValue;
-    HMENU SelfMenu;
 	HINSTANCE hInst;
     int iDataType;
 
 
 	SelfIndex=FindGrid(GetMenu(hWnd));
-    SelfMenu=BGHS[SelfIndex].gridmenu;
 
 	//update the grid width and height variable
 	{
@@ -1383,7 +1359,6 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_COMMAND:
 			wmId    = LOWORD(wParam);
-			wmEvent = HIWORD(wParam);
 			// Parse the menu selections:
 			switch (wmId)
 			{
@@ -1394,7 +1369,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 
 		case WM_PAINT:
-			hdc = BeginPaint(hWnd, &ps);
+			BeginPaint(hWnd, &ps);
 			RECT rt;
 			GetClientRect(hWnd, &rt);
 			CalcVisibleCellBoundaries(SelfIndex);

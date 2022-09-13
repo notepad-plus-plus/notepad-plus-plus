@@ -55,11 +55,11 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 
 				if (hFile!=INVALID_HANDLE_VALUE)
 				{
-					_MINIDUMP_EXCEPTION_INFORMATION ExInfo;
+					_MINIDUMP_EXCEPTION_INFORMATION ExInfo{};
 
 					ExInfo.ThreadId = ::GetCurrentThreadId();
 					ExInfo.ExceptionPointers = pExceptionInfo;
-					ExInfo.ClientPointers = NULL;
+					ExInfo.ClientPointers = FALSE;
 
 					// write the dump
 					BOOL bOK = pDump( GetCurrentProcess(), GetCurrentProcessId(), hFile, MiniDumpNormal, &ExInfo, NULL, NULL );

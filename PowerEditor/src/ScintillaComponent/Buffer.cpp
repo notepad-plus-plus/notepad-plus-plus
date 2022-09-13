@@ -136,7 +136,7 @@ void Buffer::setLangType(LangType lang, const TCHAR* userLangName)
 void Buffer::updateTimeStamp()
 {
 	FILETIME timeStampLive = {};
-	WIN32_FILE_ATTRIBUTE_DATA attributes;
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
 		timeStampLive = attributes.ftLastWriteTime;
@@ -163,7 +163,7 @@ void Buffer::updateTimeStamp()
 				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 				std::string msg = converter.to_bytes(_fullPathName);
 				char buf[1024];
-				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%u/%u) < _timeStamp (%u/%u)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%lu/%lu) < _timeStamp (%lu/%lu)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 				msg += buf;
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
@@ -254,7 +254,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	if (_currentStatus == DOC_UNNAMED || isMonitoringOn())
 		return false;
 
-	WIN32_FILE_ATTRIBUTE_DATA attributes;
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	bool isWow64Off = false;
 	NppParameters& nppParam = NppParameters::getInstance();
 
@@ -323,7 +323,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 					std::string msg = converter.to_bytes(_fullPathName);
 					char buf[1024];
-					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%u/%u) < _timeStamp (%u/%u)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%lu/%lu) < _timeStamp (%lu/%lu)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 					msg += buf;
 					writeLog(nppIssueLog.c_str(), msg.c_str());
 				}
@@ -359,7 +359,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 
 void Buffer::reload()
 {
-	WIN32_FILE_ATTRIBUTE_DATA attributes;
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
 		_timeStamp = attributes.ftLastWriteTime;
@@ -373,10 +373,10 @@ int64_t Buffer::getFileLength() const
 	if (_currentStatus == DOC_UNNAMED)
 		return -1;
 
-	WIN32_FILE_ATTRIBUTE_DATA attributes;
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
-		LARGE_INTEGER size;
+		LARGE_INTEGER size{};
 		size.LowPart = attributes.nFileSizeLow;
 		size.HighPart = attributes.nFileSizeHigh;
 		return size.QuadPart;
@@ -391,7 +391,7 @@ generic_string Buffer::getFileTime(fileTimeType ftt) const
 
 	if (_currentStatus != DOC_UNNAMED)
 	{
-		WIN32_FILE_ATTRIBUTE_DATA attributes;
+		WIN32_FILE_ATTRIBUTE_DATA attributes{};
 		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
 			FILETIME rawtime;

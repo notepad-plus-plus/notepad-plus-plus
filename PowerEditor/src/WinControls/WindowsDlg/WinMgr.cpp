@@ -383,7 +383,7 @@ CWinMgr::OnGetSizeInfo(SIZEINFO& szi, WINRECT* wrc, HWND hWnd)
 //
 BOOL CWinMgr::SendGetSizeInfo(SIZEINFO& szi, HWND hWnd, UINT nID)
 {
-	NMWINMGR nmw;
+	NMWINMGR nmw{};
 	nmw.code = NMWINMGR::GET_SIZEINFO;	// request size info
 	nmw.idFrom = nID;							// ID of child I'm computing
 	nmw.sizeinfo = szi;						// copy

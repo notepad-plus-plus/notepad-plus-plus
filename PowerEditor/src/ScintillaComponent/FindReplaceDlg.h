@@ -366,8 +366,8 @@ public :
 protected :
 	void resizeDialogElements(LONG newWidth);
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	static LONG_PTR originalFinderProc;
-	static LONG_PTR originalComboEditProc;
+	static WNDPROC originalFinderProc;
+	static WNDPROC originalComboEditProc;
 
 	static LRESULT FAR PASCAL comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 

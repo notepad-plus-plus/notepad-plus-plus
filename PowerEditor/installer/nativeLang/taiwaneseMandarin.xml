@@ -952,6 +952,7 @@
                     <Item id="6292" name="動態寬度"/>
                     <Item id="6293" name="恆定寬度"/>
                     <Item id="6207" name="顯示標記"/>
+                    <Item id="6223" name="顯示文件修改紀錄"/>
                     <Item id="6211" name="行界線設定"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="如欲添加列標記可以在下面以數字指示其列位置。
@@ -1319,6 +1320,7 @@
 在所有後續作業完成後，Notepad++ 將重新啟動。
 繼續嗎？"/>
             <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
+            <ChangeHistoryEnabledWarning title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能啟動文件修改紀錄。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>

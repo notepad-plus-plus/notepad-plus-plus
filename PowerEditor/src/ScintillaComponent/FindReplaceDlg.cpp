@@ -3066,7 +3066,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		::GetWindowRect(_pFinder->getHSelf(), &findRect);
 
 		// overwrite some default settings
-		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, false);
+		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYMBOL, false);
 		_pFinder->_scintView.setMakerStyle(FOLDER_STYLE_SIMPLE);
 
 		_pFinder->_scintView.display();
@@ -3196,7 +3196,7 @@ Finder * FindReplaceDlg::createFinder()
 	::GetWindowRect(pFinder->getHSelf(), &findRect);
 
 	// overwrite some default settings
-	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, false);
+	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYMBOL, false);
 	pFinder->_scintView.setMakerStyle(FOLDER_STYLE_SIMPLE);
 
 	pFinder->_scintView.display();

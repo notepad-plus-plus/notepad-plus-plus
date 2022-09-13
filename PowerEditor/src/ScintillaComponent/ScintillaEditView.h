@@ -304,11 +304,12 @@ public:
 
     //Marge member and method
     static const int _SC_MARGE_LINENUMBER;
-    static const int _SC_MARGE_SYBOLE;
+    static const int _SC_MARGE_SYMBOL;
     static const int _SC_MARGE_FOLDER;
-	//static const int _SC_MARGE_MODIFMARKER;
+    static const int _SC_MARGE_CHANGEHISTORY;
 
     void showMargin(int whichMarge, bool willBeShowed = true);
+    void showChangeHistoryMargin(bool willBeShowed = true);
 
     bool hasMarginShowed(int witchMarge) {
 		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);

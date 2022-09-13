@@ -616,7 +616,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				_smartHighlighter.highlightView(_pEditView, unfocusView);
 			}
-			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
+			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYMBOL) && !notification->modifiers)
 			{
 				if (!_pEditView->markerMarginClick(lineClick))
 					bookmarkToggle(lineClick);
@@ -631,7 +631,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else if (notification->nmhdr.hwndFrom == _subEditView.getHSelf())
 				switchEditViewTo(SUB_VIEW);
 
-			if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
+			if ((notification->margin == ScintillaEditView::_SC_MARGE_SYMBOL) && !notification->modifiers)
 			{
 				POINT p;
 				::GetCursorPos(&p);

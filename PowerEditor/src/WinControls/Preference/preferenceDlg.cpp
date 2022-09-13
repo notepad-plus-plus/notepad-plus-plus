@@ -1578,7 +1578,7 @@ void MarginsBorderEdgeSubDlg::initScintParam()
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_CONSTANT), svp._lineNumberMarginShow);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
-	
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_SETCHECK, svp._isChangeHistoryEnabled, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
 	
 	bool canBeBg = svp._edgeMultiColumnPos.size() == 1;
@@ -1730,6 +1730,28 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 					svp._bookMarkMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, 0);
 					return TRUE;
+
+				case IDC_CHECK_CHANGHISTORYMARGE:
+				{
+					bool isChangeHistoryEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_GETCHECK, 0, 0));
+					if (isChangeHistoryEnabled)
+					{
+						NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+						pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
+							_hSelf,
+							TEXT("You have to restart Notepad++ to enable Change History."),
+							TEXT("Notepad++ need to be relaunched"),
+							MB_OK | MB_APPLMODAL);
+						svp._isChangeHistoryEnabled4NextSession = true;
+					}
+					else
+					{
+						svp._isChangeHistoryEnabled = false;
+						svp._isChangeHistoryEnabled4NextSession = false;
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
+					}
+					return TRUE;
+				}
 
 				case IDC_CHECK_NOEDGE:
 					svp._showBorderEdge = !(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_GETCHECK, 0, 0));

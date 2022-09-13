@@ -33,8 +33,9 @@ int ScintillaEditView::_refCount = 0;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 
 const int ScintillaEditView::_SC_MARGE_LINENUMBER = 0;
-const int ScintillaEditView::_SC_MARGE_SYBOLE = 1;
-const int ScintillaEditView::_SC_MARGE_FOLDER = 2;
+const int ScintillaEditView::_SC_MARGE_SYMBOL = 1;
+const int ScintillaEditView::_SC_MARGE_CHANGEHISTORY = 2;
+const int ScintillaEditView::_SC_MARGE_FOLDER = 3;
 
 WNDPROC ScintillaEditView::_scintillaDefaultProc = NULL;
 string ScintillaEditView::_defaultCharList = "";
@@ -154,10 +155,6 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		"null"}
 };
 
-//const int MASK_RED   = 0xFF0000;
-//const int MASK_GREEN = 0x00FF00;
-//const int MASK_BLUE  = 0x0000FF;
-
 
 int getNbDigits(int aNum, int base)
 {
@@ -229,7 +226,17 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
 	showMargin(_SC_MARGE_FOLDER, true);
 
-	execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND) | (1<<MARK_HIDELINESUNDERLINE));
+	execute(SCI_SETMARGINMASKN, _SC_MARGE_SYMBOL, (1 << MARK_BOOKMARK) | (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND) | (1 << MARK_HIDELINESUNDERLINE));
+
+	execute(SCI_SETMARGINMASKN, _SC_MARGE_CHANGEHISTORY, (1 << SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN) | (1 << SC_MARKNUM_HISTORY_SAVED) | (1 << SC_MARKNUM_HISTORY_MODIFIED) | (1 << SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED));
+	COLORREF modifiedColor = RGB(255, 128, 0);
+	//COLORREF savedColor = RGB(0, 255, 0);
+	//COLORREF revertedToModifiedColor = RGB(255, 255, 0);
+	//COLORREF revertedToOriginColor = RGB(0, 0, 255);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_MODIFIED, modifiedColor);
+	//execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_SAVED, savedColor);
+	//execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, revertedToModifiedColor);
+	//execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, revertedToOriginColor);
 
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
 
@@ -253,10 +260,10 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		execute(SCI_MARKERDEFINERGBAIMAGE, MARK_HIDELINESEND, reinterpret_cast<LPARAM>(hidelines_end14));
 	}
 
-    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_FOLDER, true);
-    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_SYBOLE, true);
+    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_FOLDER, true); // Make margin sensitive for getting notification on mouse click
+    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_SYMBOL, true); // Make margin sensitive for getting notification on mouse click
 
-    execute(SCI_SETFOLDFLAGS, 16);
+    execute(SCI_SETFOLDFLAGS, SC_FOLDFLAG_LINEAFTER_CONTRACTED);
 	execute(SCI_SETSCROLLWIDTHTRACKING, true);
 	execute(SCI_SETSCROLLWIDTH, 1);	//default empty document: override default width of 2000
 
@@ -2001,6 +2008,11 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	setCRLF();
 
+	NppParameters& nppParam = NppParameters::getInstance();
+	const ScintillaViewParams& svp = nppParam.getSVP();
+	int enabledCH = svp._isChangeHistoryEnabled ? (SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS) : SC_CHANGE_HISTORY_DISABLED;
+	execute(SCI_SETCHANGEHISTORY, enabledCH);
+
     return;	//all done
 }
 
@@ -2528,12 +2540,20 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
 	{
 		DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 		int width = dpiManager.scaleX(3);
-		if (whichMarge == _SC_MARGE_SYBOLE)
+		if (whichMarge == _SC_MARGE_SYMBOL)
 			width = dpiManager.scaleX(16);
 		else if (whichMarge == _SC_MARGE_FOLDER)
 			width = dpiManager.scaleX(14);
+
 		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 	}
+}
+
+void ScintillaEditView::showChangeHistoryMargin(bool willBeShowed)
+{
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+	int	width = dpiManager.scaleX(9);
+	execute(SCI_SETMARGINWIDTHN, _SC_MARGE_CHANGEHISTORY, willBeShowed ? width : 0);
 }
 
 void ScintillaEditView::updateBeginEndSelectPosition(bool is_insert, size_t position, size_t length)
@@ -2708,8 +2728,8 @@ void ScintillaEditView::performGlobalStyles()
 	pStyle = stylers.findByName(TEXT("Bookmark margin"));
 	if (!pStyle)
 	{
-		pStyle = stylers.findByName(TEXT("Line number margin"));
-		if (pStyle)
+		pStyle = stylers.findByName(TEXT("Line number margin")); // "Line number margin" is used only for getting the bg color for _SC_MARGE_SYMBOL.
+		if (pStyle)                                              // "Line number margin" has its own style (styleID="33") for setting its bg & fg color
 		{
 			bookmarkMarginColor = pStyle->_bgColor;
 		}
@@ -2718,8 +2738,8 @@ void ScintillaEditView::performGlobalStyles()
 	{
 		bookmarkMarginColor = pStyle->_bgColor;
 	}
-	execute(SCI_SETMARGINTYPEN, _SC_MARGE_SYBOLE, SC_MARGIN_COLOUR);
-	execute(SCI_SETMARGINBACKN, _SC_MARGE_SYBOLE, bookmarkMarginColor);
+	execute(SCI_SETMARGINTYPEN, _SC_MARGE_SYMBOL, SC_MARGIN_COLOUR);
+	execute(SCI_SETMARGINBACKN, _SC_MARGE_SYMBOL, bookmarkMarginColor);
 
 	COLORREF urlHoveredFG = grey;
 	pStyle = stylers.findByName(TEXT("URL hovered"));

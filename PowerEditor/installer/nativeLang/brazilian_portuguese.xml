@@ -26,7 +26,7 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Abrir pasta atual no"/>
-                    <Item subMenuId="file-closeMore" name="Mais opções fechar"/>
+                    <Item subMenuId="file-closeMore" name="Fechar Múltiplos Documentos"/>
                     <Item subMenuId="file-recentFiles" name="Arquivos recentes"/>
                     <Item subMenuId="edit-insert" name="Inserir"/>
                     <Item subMenuId="edit-copyToClipboard" name="Área de transferência"/>
@@ -412,6 +412,11 @@
                     <Item CMID="27" name="Aplicar Cor 4"/>
                     <Item CMID="28" name="Aplicar Cor 5"/>
                     <Item CMID="29" name="Remover Cor"/>
+                    <Item CMID="30" name="Fechar Múltiplas Abas"/>
+                    <Item CMID="31" name="Abrir em"/>
+                    <Item CMID="32" name="Copiar para Área de Transferência"/>
+                    <Item CMID="33" name="Mover Documento"/>
+                    <Item CMID="34" name="Aplicar Cor em Aba"/>
             </TabBar>
         </Menu>
 

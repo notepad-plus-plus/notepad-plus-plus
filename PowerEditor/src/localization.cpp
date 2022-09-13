@@ -648,11 +648,6 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 	}
-	// for each control
-	//const int nbControl = 9;
-	//const char* translatedText[nbControl]{};
-	//for (int i = 0 ; i < nbControl ; ++i)
-	//	translatedText[i] = NULL;
 
 	for (TiXmlNodeA *childNode = userDefineDlgNode->FirstChildElement("Item");
 		childNode ;
@@ -674,15 +669,6 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 					::SetWindowText(hItem, nameW);
 				}
 			}
-			//else
-			//{
-			//	switch(id)
-			//	{
-			//		case 0: case 1: case 2: case 3: case 4:
-			//		case 5: case 6: case 7: case 8:
-			//			translatedText[id] = name; break;
-			//	}
-			//}
 		}
 	}
 	const int nbDlg = 4;

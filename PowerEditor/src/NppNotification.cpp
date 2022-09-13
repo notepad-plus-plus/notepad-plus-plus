@@ -49,11 +49,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (!notifyView)
 				return FALSE;
 
-			//static bool prevWasEdit = false;
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))
 			{
 				_pEditView->updateBeginEndSelectPosition(notification->modificationType & SC_MOD_INSERTTEXT, notification->position, notification->length);
-				//prevWasEdit = true;
 				_linkTriggered = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
 			}
@@ -63,11 +61,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				// for the backup system
 				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
 			}
-
-			//if ((notification->modificationType & SC_MOD_CHANGEFOLD) || !(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
-			//{
-			//	prevWasEdit = false;
-			//}
 
 			if (notification->modificationType & SC_MOD_CHANGEINDICATOR)
 			{
@@ -161,9 +154,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
 					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
 
-					RECT rect;
+					RECT rect{};
 					TabCtrl_GetItemRect(pTabDocView->getHSelf(), tbHdr->_tabOrigin, &rect);
-					POINT p;
+					POINT p{};
 					p.x = rect.left;
 					p.y = rect.bottom;
 					::ClientToScreen(pTabDocView->getHSelf(), &p);
@@ -262,7 +255,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				else
 				{
-					RECT nppZone;
+					RECT nppZone{};
 					::GetWindowRect(_pPublicInterface->getHSelf(), &nppZone);
 					bool isInNppZone = (((p.x >= nppZone.left) && (p.x <= nppZone.right)) && (p.y >= nppZone.top) && (p.y <= nppZone.bottom));
 					if (isInNppZone)
@@ -273,7 +266,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					generic_string quotFileName = TEXT("\"");
 					quotFileName += _pEditView->getCurrentBuffer()->getFullPathName();
 					quotFileName += TEXT("\"");
-					COPYDATASTRUCT fileNamesData;
+					COPYDATASTRUCT fileNamesData{};
 					fileNamesData.dwData = COPYDATA_FILENAMES;
 					fileNamesData.lpData = (void *)quotFileName.c_str();
 					fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
@@ -1128,7 +1121,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			//If N++ ID, use proper object
 			if (lpnm->wID == REBAR_BAR_TOOLBAR)
 			{
-				POINT pt;
+				POINT pt{};
 				pt.x = lpnm->rc.left;
 				pt.y = lpnm->rc.bottom;
 				ClientToScreen(notifRebar->getHSelf(), &pt);

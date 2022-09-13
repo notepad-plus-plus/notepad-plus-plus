@@ -149,12 +149,6 @@ void TabBar::activateAt(int index) const
 
 		::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);
 	}
-
-	//TBHDR nmhdr{};
-	//nmhdr._hdr.hwndFrom = _hSelf;
-	//nmhdr._hdr.code = TCN_SELCHANGE;
-	//nmhdr._hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
-	//nmhdr._tabOrigin = index;
 }
 
 
@@ -259,7 +253,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	_isVertical = isVertical;
 	_isMultiLine = isMultiLine;
 
-	INITCOMMONCONTROLSEX icce;
+	INITCOMMONCONTROLSEX icce{};
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
@@ -331,7 +325,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
 
-	LOGFONT LogFont;
+	LOGFONT LogFont{};
 
 	_hFont = (HFONT)::SendMessage(_hSelf, WM_GETFONT, 0, 0);
 
@@ -424,7 +418,7 @@ void TabBarPlus::doMultiLine()
 
 void TabBarPlus::notify(int notifyCode, int tabIndex)
 {
-	TBHDR nmhdr;
+	TBHDR nmhdr{};
 	nmhdr._hdr.hwndFrom = _hSelf;
 	nmhdr._hdr.code = notifyCode;
 	nmhdr._hdr.idFrom = reinterpret_cast<UINT_PTR>(this);

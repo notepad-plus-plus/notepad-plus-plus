@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.5">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -21,7 +21,7 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="このファイルのあるフォルダーを開く(&amp;F)"/>
-                    <Item subMenuId="file-closeMore" name="他のファイルを閉じる(&amp;M)"/>
+                    <Item subMenuId="file-closeMore" name="複数のファイルを閉じる(&amp;M)"/>
                     <Item subMenuId="file-recentFiles" name="最近使用したファイル(&amp;R)"/>
                     <Item subMenuId="edit-insert" name="挿入"/>
                     <Item subMenuId="edit-copyToClipboard" name="クリップボードにコピー(&amp;Y)"/>
@@ -285,6 +285,12 @@
                     <Item id="44097" name="ファイル監視(tail -f)"/>
                     <Item id="44098" name="タブを右へ移動"/>
                     <Item id="44099" name="タブを左へ移動"/>
+                    <Item id="44110" name="色を外す"/>
+                    <Item id="44111" name="色1をつける"/>
+                    <Item id="44112" name="色2をつける"/>
+                    <Item id="44113" name="色3をつける"/>
+                    <Item id="44114" name="色4をつける"/>
+                    <Item id="44115" name="色5をつける"/>
                     <Item id="44032" name="全画面表示"/>
                     <Item id="44033" name="標準倍率に戻す"/>
                     <Item id="44034" name="常に手前に表示"/>
@@ -407,6 +413,17 @@
                     <Item CMID="21" name="既定のアプリで開く"/>
                     <Item CMID="22" name="未変更をすべて閉じる"/>
                     <Item CMID="23" name="ファイルを含むフォルダーをワークスペースとして開く"/>
+                    <Item CMID="24" name="色1"/>
+                    <Item CMID="25" name="色2"/>
+                    <Item CMID="26" name="色3"/>
+                    <Item CMID="27" name="色4"/>
+                    <Item CMID="28" name="色5"/>
+                    <Item CMID="29" name="色を外す"/>
+                    <Item CMID="30" name="複数のタブを閉じる"/>
+                    <Item CMID="31" name="開く"/>
+                    <Item CMID="32" name="クリップボードにコピー"/>
+                    <Item CMID="33" name="文書を移動"/>
+                    <Item CMID="34" name="タブに色を付ける"/>
             </TabBar>
         </Menu>
 
@@ -514,7 +531,7 @@
                 <Item id="2"    name="閉じる"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="プラグイン管理" titleAvailable = "利用可能" titleUpdates = "アップデート" titleInstalled = "インストール済み">
+            <PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない">
                 <ColumnPlugin   name="プラグイン"/>
                 <ColumnVersion  name="バージョン"/>
                 <Item id="5501" name="検索："/>
@@ -522,6 +539,8 @@
                 <Item id="5504" name="更新"/>
                 <Item id="5505" name="削除"/>
                 <Item id="5508" name="次を検索"/>
+                <Item id="5509" name="プラグインリストのバージョン："/>
+                <Item id="5511" name="プラグインリストのレポジトリ"/>
                 <Item id="2"    name="閉じる"/>
             </PluginsAdminDlg>
 
@@ -652,6 +671,12 @@
                     <Item id="44107" name="ワークスペースフォルダーを表示"/>
                     <Item id="44109" name="文書一覧を表示"/>
                     <Item id="44108" name="関数リストを表示"/>
+                    <Item id="44110" name="タブの色を外す"/>
+                    <Item id="44111" name="タブに色1をつける"/>
+                    <Item id="44112" name="タブに色2をつける"/>
+                    <Item id="44113" name="タブに色3をつける"/>
+                    <Item id="44114" name="タブに色4をつける"/>
+                    <Item id="44115" name="タブに色5をつける"/>
                     <Item id="11002" name="ファイル名・昇順 で並べ替え"/>
                     <Item id="11003" name="ファイル名・降順 で並べ替え"/>
                     <Item id="11004" name="パス・昇順 で並べ替え"/>
@@ -943,6 +968,7 @@
                     <Item id="6292" name="表示に応じて幅を調整"/>
                     <Item id="6293" name="最大桁数で幅を固定"/>
                     <Item id="6207" name="ブックマークを表示"/>
+                    <Item id="6223" name="編集履歴マーカーを表示する"/>
                     <Item id="6211" name="ガイド線の表示設定"/>
                     <Item id="6213" name="背景色で表示"/>
                     <Item id="6237" name="線を表示したい桁位置を指定してください。
@@ -1341,6 +1367,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 すべての作業が完了すると Notepad++ は再起動します。
 処理を続けますか？"/>
             <NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
+            <ChangeHistoryEnabledWarning title="Notepad++ を再起動してください" message="編集履歴マーカーを有効にするには、Notepad++ を再起動してください。"/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1506,7 +1533,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <find-status-scope-forward value="（カーソル位置から ファイル末尾まで）"/>
             <finder-find-in-finder value="この検索結果から検索..."/>
             <finder-close-this value="この検索結果を閉じる"/>
-            <finder-collapse-all value="すべて折りたたむ"/>
+            <finder-collapse-all value="すべて畳む"/>
             <finder-uncollapse-all value="すべて展開する"/>
             <finder-copy value="選択行をコピー"/>
             <finder-copy-verbatim value="コピー"/>

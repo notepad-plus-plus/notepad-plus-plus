@@ -46,8 +46,8 @@
 					<Item subMenuId="view-zoom" name="&amp;Yakınlaştır"/>
 					<Item subMenuId="view-moveCloneDocument" name="Geçerli Belgeyi Taşı/Kopyala"/>
 					<Item subMenuId="view-tab" name="Sekme"/>
-					<Item subMenuId="view-collapseLevel" name="Blok Kapatma Seviyesi"/>
-					<Item subMenuId="view-uncollapseLevel" name="Blok Geri Açma Seviyesi"/>
+					<Item subMenuId="view-collapseLevel" name="Blok Daraltma Seviyesi"/>
+					<Item subMenuId="view-uncollapseLevel" name="Blok Genişletme Seviyesi"/>
 					<Item subMenuId="view-project" name="Proje"/>
 					<Item subMenuId="encoding-characterSets" name="&amp;Karakter Takımı"/>
 					<Item subMenuId="encoding-arabic" name="Arapça"/>
@@ -176,7 +176,7 @@
 					<Item id="42029" name="Geçerli Dosyanın Yolunu Kopyala"/>
 					<Item id="42030" name="Geçerli Dosya Adını Kopyala"/>
 					<Item id="42031" name="Geçerli Dizin Yolunu Kopyala"/>
-					<Item id="42087" name="Tüm Dosya İsimleri Panoya"/>
+					<Item id="42087" name="Tüm Dosya İsimlerini Panoya"/>
 					<Item id="42088" name="Tüm Dosya Yolları Panoya"/>
 					<Item id="42032" name="&amp;Makroyu Birden Çok Kez Çalıştır"/>
 					<Item id="42033" name="Salt Okunur İşaretini Kaldır"/>
@@ -384,9 +384,9 @@
 				<Item CMID="4" name="Yazdır..."/>
 				<Item CMID="5" name="Diğer Görünüme Taşı"/>
 				<Item CMID="6" name="Diğer Görünüme Kopyala"/>
-				<Item CMID="7" name="Tam Dosya Yolunu Panoya Kopyala"/>
-				<Item CMID="8" name="Dosya Adını Panoya Kopyala"/>
-				<Item CMID="9" name="Geçerli Dizin Yolunu Panoya Kopyala"/>
+				<Item CMID="7" name="Tam Dosya Yolunu Kopyala"/>
+				<Item CMID="8" name="Dosya Adını Kopyala"/>
+				<Item CMID="9" name="Geçerli Dizin Yolunu Kopyala"/>
 				<Item CMID="10" name="Yeniden Adlandır..."/>
 				<Item CMID="11" name="Geri Dönüşüm Kutusu'na Taşı"/>
 				<Item CMID="12" name="Salt Okunur Yap"/>
@@ -401,6 +401,17 @@
 				<Item CMID="21" name="Varsayılan Görüntüleyicide Aç"/>
 				<Item CMID="22" name="Tüm Değiştirilmemişleri Kapat"/>
 				<Item CMID="23" name="İçeren Klasörü Çalışma Alanı Olarak Aç"/>
+				<Item CMID="24" name="1. Rengi Uygula"/>
+				<Item CMID="25" name="2. Rengi Uygula"/>
+				<Item CMID="26" name="3. Rengi Uygula"/>
+				<Item CMID="27" name="4. Rengi Uygula"/>
+				<Item CMID="28" name="5. Rengi Uygula"/>
+				<Item CMID="29" name="Rengi Kaldır"/>
+				<Item CMID="30" name="Çoklu Sekme Kapatma"/>
+				<Item CMID="31" name="Şurada Aç"/>
+				<Item CMID="32" name="Panoya Kopyala"/>
+				<Item CMID="33" name="Dosyayı Taşı"/>
+				<Item CMID="34" name="Rengi Sekmeye Uygula"/>
 			</TabBar>
 		</Menu>
 
@@ -511,7 +522,7 @@
                 <Item id="2"    name="Kapat"/>
             </SHA256FromTextDlg>
 	
-			<PluginsAdminDlg title="Eklentiler Yöneticisi" titleAvailable = "Uygun" titleUpdates = "Güncellemeler" titleInstalled = "Yüklü">
+			<PluginsAdminDlg title="Eklentiler Yöneticisi" titleAvailable="Uygun" titleUpdates="Güncellemeler" titleInstalled="Yüklü" titleIncompatible="Uyumsuz">
                 <ColumnPlugin   name="Eklenti"/>
                 <ColumnVersion  name="Versiyon"/>
                 <Item id="5501" name="Ara:"/>
@@ -519,6 +530,8 @@
                 <Item id="5504" name="Güncelle"/>
                 <Item id="5505" name="Kaldır"/>
                 <Item id="5508" name="Sonraki"/>
+                <Item id="5509" name="Eklenti Listesi Yersiyonu: "/>
+                <Item id="5511" name="Eklenti Listesi Deposu"/>
                 <Item id="2"    name="Kapat"/>
             </PluginsAdminDlg>
 
@@ -649,6 +662,12 @@
                     <Item id="44107" name="Çalışma Alanı Olarak Klasöre Geç"/>
                     <Item id="44109" name="Belge Listesine Geç"/>
                     <Item id="44108" name="Fonksiyon Listesine Geç"/>
+                    <Item id="44110" name="Sekme Rengini Kaldır"/>
+                    <Item id="44111" name="Sekmeye 1. Rengi Uygula"/>
+                    <Item id="44112" name="Sekmeye 2. Rengi Uygula"/>
+                    <Item id="44113" name="Sekmeye 3. Rengi Uygula"/>
+                    <Item id="44114" name="Sekmeye 4. Rengi Uygula"/>
+                    <Item id="44115" name="Sekmeye 5. Rengi Uygula"/>
                     <Item id="11002" name="İsme Göre A'dan Z'ye Sırala"/>
                     <Item id="11003" name="İsme Göre Z'den A'ya Sırala"/>
                     <Item id="11004" name="Dizine Göre A'dan Z'ye Sırala"/>

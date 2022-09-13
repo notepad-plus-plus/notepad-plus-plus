@@ -534,8 +534,6 @@
                 <Item id="5508" name="Próximo"/>
                 <Item id="5509" name="Versões de lista de Plugins: "/>
                 <Item id="5511" name="Repositório de lista de Plugins"/>
-                <Item id="2"    name="Close"/>
-
                 <Item id="2"    name="Fechar"/>
             </PluginsAdminDlg>
 

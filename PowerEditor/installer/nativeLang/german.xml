@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-07-14 by schnurlos
+	last modified: 2022-09-21 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.3">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -365,6 +365,8 @@
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
 					<Item id="50002" name="Funktions&amp;parameter anzeigen"/>
+					<Item id="50010" name="Funktionsparameter Vorheriger Hinweis"/>
+					<Item id="50011" name="Funktionsparameter Nächster Hinweis"/>
 					<Item id="50005" name="Umschalten der Makroaufnahme"/>
 					<Item id="50006" name="&amp;Dateipfad vervollständigen"/>
 					<Item id="44042" name="Zeilen &amp;ausblenden"/>
@@ -411,6 +413,18 @@
 				<Item CMID="21" name="Im Standard-Betrachter öffnen"/>
 				<Item CMID="22" name="Alle unveränderten Dateien schließen"/>
 				<Item CMID="23" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
+				<Item CMID="24" name="Farbe 1 anwenden"/>
+				<Item CMID="25" name="Farbe 2 anwenden"/>
+				<Item CMID="26" name="Farbe 3 anwenden"/>
+				<Item CMID="27" name="Farbe 4 anwenden"/>
+				<Item CMID="28" name="Farbe 5 anwenden"/>
+				<Item CMID="29" name="Farbe entfernen"/>
+				<Item CMID="30" name="Mehrere Tabs schließen"/>
+				<Item CMID="31" name="Öffne in"/>
+				<Item CMID="32" name="In Zwischenablage kopieren"/>
+				<Item CMID="33" name="Dokument verschieben"/>
+				<Item CMID="34" name="Farbe auf Tab anwenden"/>
+
 			</TabBar>
 		</Menu>
 
@@ -518,7 +532,7 @@
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromTextDlg>
 
-			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable = "Verfügbar" titleUpdates = "Aktualisierungen" titleInstalled = "Installiert">
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert">
 				<ColumnPlugin   name="Plugin"/>
 				<ColumnVersion  name="Version"/>
 				<Item id="5501" name="Suchen:"/>
@@ -526,6 +540,8 @@
 				<Item id="5504" name="Aktualisieren"/>
 				<Item id="5505" name="Entfernen"/>
 				<Item id="5508" name="Nächstes finden"/>
+				<Item id="5509" name="Version der Plugin-Liste: "/>
+				<Item id="5511" name="Speicherort der Plugin-Liste"/>
 				<Item id="2"    name="Schließen"/>
 			</PluginsAdminDlg>
 
@@ -656,6 +672,12 @@
 					<Item id="44107" name="Zum Ordner als Arbeitsbereich wechseln"/>
 					<Item id="44109" name="Zur Dokumentenliste wechseln"/>
 					<Item id="44108" name="Zur Funktionsliste wechseln"/>
+					<Item id="44110" name="Entferne Farbe"/>
+					<Item id="44111" name="Farbe 1 anwenden"/>
+					<Item id="44112" name="Farbe 2 anwenden"/>
+					<Item id="44113" name="Farbe 3 anwenden"/>
+					<Item id="44114" name="Farbe 4 anwenden"/>
+					<Item id="44115" name="Farbe 5 anwenden"/>
 					<Item id="11002" name="Sortieren nach Name A bis Z"/>
 					<Item id="11003" name="Sortieren nach Name Z bis A"/>
 					<Item id="11004" name="Sortieren nach Pfad A bis Z"/>
@@ -873,7 +895,9 @@
 					<Item id="6120" name="Vertikal"/>
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 
+					<Item id="6131" name="Menü"/>
 					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
+					<Item id="6132" name="Schaltflächen ＋ ▼ ✕ innerhalb der Menüleiste verbergen (Neustart von Notepad++ erforderlich)"/>
 					<Item id="6123" name="Sprache:"/>
 
 					<Item id="6128" name="Alternative Symbole"/>
@@ -944,6 +968,7 @@
 					<Item id="6292" name="Dynamische Breite"/>
 					<Item id="6293" name="Konstante Breite"/>
 					<Item id="6207" name="Lesezeichen anzeigen"/>
+					<Item id="6223" name="Zeige Änderungshistorie"/>
 					<Item id="6211" name="Vertikale Randeinstellungen"/>
 					<Item id="6213" name="Hintergrundmodus"/>
 					<Item id="6237" name="Es können Spaltenmarkierung hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird.
@@ -1059,6 +1084,9 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
 					<Item id="6905" name="Ersetzen: Nach Ersetzung nicht zum nächsten Vorkommen springen"/>
 					<Item id="6906" name="Suchergebnisfenster: Zeige nur einen Eintrag pro gefundener Zeile"/>
+					<Item id="6907" name="Wenn der Suchdialog aufgerufen wird"/>
+					<Item id="6908" name="Im Suchfeld gewählten Text einsetzen"/>
+					<Item id="6909" name="Das Wort unter dem Cursor verwenden wenn nichts gewählt ist"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1339,6 +1367,7 @@ Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 Notepad++ wird neu gestartet.
 Fortsetzen?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ ist zum Laden der Plugins erforderlich."/>
+			<ChangeHistoryEnabledWarning title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ ist für das Aktivieren der Änderungshistorie erforderlich."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

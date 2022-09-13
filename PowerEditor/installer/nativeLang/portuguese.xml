@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.5">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -24,7 +24,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Abrir pasta de conteúdo"/>
-                    <Item subMenuId="file-closeMore" name="Fechar mais"/>
+                    <Item subMenuId="file-closeMore" name="Fechar múltiplos documentos"/>
                     <Item subMenuId="file-recentFiles" name="Ficheiros recentes"/>
                     <Item subMenuId="edit-insert" name="Inserir"/>
                     <Item subMenuId="edit-copyToClipboard" name="Copiar p/ a área de transferência"/>
@@ -49,7 +49,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="view-zoom" name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument" name="Mover/Clonar documento atual"/>
                     <Item subMenuId="view-tab"  name="Separador"/>
-                    <Item subMenuId="view-collapseLevel" name="Ocultar nível"/>
+                    <Item subMenuId="view-collapseLevel" name="Recolher nível"/>
                     <Item subMenuId="view-uncollapseLevel" name="Expandir nível"/>
                     <Item subMenuId="view-project" name="Projeto"/>
                     <Item subMenuId="encoding-characterSets" name="Código de carateres"/>
@@ -176,11 +176,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42026" name="Direção do texto - direita para a esquerda"/>
                     <Item id="42027" name="Direção do texto - esquerda para a direita"/>
                     <Item id="42028" name="Definir como apenas-leitura"/>
-                    <Item id="42029" name="Localização do ficheiro atual p/ área de transferência"/>
-                    <Item id="42030" name="Nome do ficheiro atual p/ área de transferência"/>
-                    <Item id="42031" name="Localização dir. atual p/ área de transferência"/>
-                    <Item id="42087" name="Todos os nomes de ficheiros p/ área de transferência"/>
-                    <Item id="42088" name="Todas as localizações de ficheiros p/ área de transferência"/>
+                    <Item id="42029" name="Copiar localização do ficheiro atual"/>
+                    <Item id="42030" name="Copiar nome do ficheiro atual"/>
+                    <Item id="42031" name="Copiar localização do dir. atual"/>
+                    <Item id="42087" name="Copiar todos os nomes de ficheiros"/>
+                    <Item id="42088" name="Copiar todas as localizações de ficheiros"/>
                     <Item id="42032" name="Executar macro várias vezes..."/>
                     <Item id="42033" name="Limpar símbolo apenas-leitura"/>
                     <Item id="42035" name="Comentar bloco"/>
@@ -267,7 +267,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44025" name="Mostrar espaços e tabulações"/>
                     <Item id="44026" name="Mostrar fim da linha"/>
                     <Item id="44029" name="Expandir tudo"/>
-                    <Item id="44030" name="Ocultar nível atual"/>
+                    <Item id="44030" name="Recolher nível atual"/>
                     <Item id="44031" name="Expandir nível atual"/>
                     <Item id="44049" name="Resumo..."/>
                     <Item id="44080" name="Mapa de documentos"/>
@@ -288,6 +288,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44097" name="Monitorização (tail -f)"/>
                     <Item id="44098" name="Mover separador para frente"/>
                     <Item id="44099" name="Mover separador para trás"/>
+                    <Item id="44110" name="Remover cor"/>
+                    <Item id="44111" name="Aplicar cor 1"/>
+                    <Item id="44112" name="Aplicar cor 2"/>
+                    <Item id="44113" name="Aplicar cor 3"/>
+                    <Item id="44114" name="Aplicar cor 4"/>
+                    <Item id="44115" name="Aplicar cor 5"/>
                     <Item id="44032" name="Alternar para modo de ecrã inteiro"/>
                     <Item id="44033" name="Restaurar zoom predefinido"/>
                     <Item id="44034" name="Sempre no topo"/>
@@ -387,7 +393,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="4" name="Imprimir"/>
                     <Item CMID="5" name="Mostrar/Fechar separador lado a lado"/>
                     <Item CMID="6" name="Clonar para outro separador"/>
-                    <Item CMID="7" name="Copiar localização do ficheiro completo"/>
+                    <Item CMID="7" name="Copiar localização completa do ficheiro"/>
                     <Item CMID="8" name="Copiar nome do ficheiro"/>
                     <Item CMID="9" name="Copiar localização dir. atual"/>
                     <Item CMID="10" name="Renomear"/>
@@ -404,6 +410,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="21" name="Abrir no visualizador predefinido"/>
                     <Item CMID="22" name="Fechar TUDO inalterado"/>
                     <Item CMID="23" name="Abrir pasta de conteúdo como área de trabalho"/>
+                    <Item CMID="24" name="Aplicar cor 1"/>
+                    <Item CMID="25" name="Aplicar cor 2"/>
+                    <Item CMID="26" name="Aplicar cor 3"/>
+                    <Item CMID="27" name="Aplicar cor 4"/>
+                    <Item CMID="28" name="Aplicar cor 5"/>
+                    <Item CMID="29" name="Remover cor"/>
+                    <Item CMID="30" name="Fechar múltiplos separadores"/>
+                    <Item CMID="31" name="Abrir em"/>
+                    <Item CMID="32" name="Copiar para a área de transferência"/>
+                    <Item CMID="33" name="Mover documento"/>
+                    <Item CMID="34" name="Aplicar cor ao separador"/>
             </TabBar>
         </Menu>
 
@@ -511,7 +528,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Fechar"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Admin de plugins" titleAvailable = "Disponível" titleUpdates = "Atualizações" titleInstalled = "Instalado">
+            <PluginsAdminDlg title="Admin de plugins" titleAvailable="Disponível" titleUpdates="Atualizações" titleInstalled="Instalado" titleIncompatible="Incompatível">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versão"/>
                 <Item id="5501" name="Pesquisa:"/>
@@ -519,6 +536,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="5504" name="Atualizar"/>
                 <Item id="5505" name="Remover"/>
                 <Item id="5508" name="Seguinte"/>
+                <Item id="5509" name="Versão da lista de plugins: "/>
+                <Item id="5511" name="Repositório de listas de plugins"/>
                 <Item id="2"    name="Fechar"/>
             </PluginsAdminDlg>
 
@@ -649,6 +668,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Mudar pasta como área de trabalho"/>
                     <Item id="44109" name="Mudar para lista de documentos"/>
                     <Item id="44108" name="Mudar lista de funções"/>
+                    <Item id="44110" name="Remover a cor do separador"/>
+                    <Item id="44111" name="Aplicar a cor do separador 1"/>
+                    <Item id="44112" name="Aplicar a cor do separador 2"/>
+                    <Item id="44113" name="Aplicar a cor do separador 3"/>
+                    <Item id="44114" name="Aplicar a cor do separador 4"/>
+                    <Item id="44115" name="Aplicar a cor do separador 5"/>
                     <Item id="11002" name="Ordenar por nome de A a Z"/>
                     <Item id="11003" name="Ordenar por nome de Z a A"/>
                     <Item id="11004" name="Ordenar por localização de A a Z"/>
@@ -928,7 +953,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margens/Borda/Limite">
-                    <Item id="6201" name="Estilo de margem da pasta"/>
+                    <Item id="6201" name="Recolher estilo da margem"/>
                     <Item id="6202" name="Simples"/>
                     <Item id="6203" name="Seta"/>
                     <Item id="6204" name="Árvore circular"/>
@@ -939,6 +964,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6292" name="Largura dinâmica"/>
                     <Item id="6293" name="Largura constante"/>
                     <Item id="6207" name="Mostrar marcador"/>
+                    <Item id="6223" name="Mostrar histórico de alterações"/>
                     <Item id="6211" name="Definições de limites verticais"/>
                     <Item id="6213" name="Modo de fundo"/>
                     <Item id="6237" name="Adicione o seu marcador de coluna, indicando a sua posição com um número decimal.
@@ -1336,6 +1362,7 @@ Deseja iniciar o Notepad++ em modo de Administrador?"/>
 O Notepad++ será reiniciado após a conclusão de todas as operações.
 Continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para carregar os plugins que instalou."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para ativar o histórico de alterações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1376,8 +1403,8 @@ Continuar?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Pasta como área de trabalho"/>
             <SelectFolderFromBrowserString name="Selecione uma pasta para adicionar em pasta como painel de área de trabalho"/>
-            <ExpandAllFoldersTip name="Expandir todas as pastas"/>
-            <CollapseAllFoldersTip name="Recolher todas as pastas"/>
+            <ExpandAllFoldersTip name="Expandir tudo"/>
+            <CollapseAllFoldersTip name="Recolher tudo"/>
             <LocateCurrentFileTip name="Localizar ficheiro atual"/>
             <Menus>
                 <Item id="3511" name="Remover"/>
@@ -1591,7 +1618,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-31/08/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+21/09/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

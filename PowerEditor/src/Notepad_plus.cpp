@@ -250,8 +250,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Configuration of 2 scintilla views
 	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp._lineNumberMarginShow);
 	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp._lineNumberMarginShow);
-	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp._bookMarkMarginShow);
-	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp._bookMarkMarginShow);
+	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYMBOL, svp._bookMarkMarginShow);
+	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYMBOL, svp._bookMarkMarginShow);
+	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_CHANGEHISTORY, true);
+	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_CHANGEHISTORY, true);
 
 	_mainEditView.showIndentGuideLine(svp._indentGuideLineShow);
 	_subEditView.showIndentGuideLine(svp._indentGuideLineShow);

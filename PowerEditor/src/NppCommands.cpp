@@ -3747,7 +3747,7 @@ void Notepad_plus::command(int id)
 			if (id == IDM_VIEW_LINENUMBER)
 				margin = ScintillaEditView::_SC_MARGE_LINENUMBER;
 			else //if (id == IDM_VIEW_SYMBOLMARGIN)
-				margin = ScintillaEditView::_SC_MARGE_SYBOLE;
+				margin = ScintillaEditView::_SC_MARGE_SYMBOL;
 
 			if (_mainEditView.hasMarginShowed(margin))
 			{

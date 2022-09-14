@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.4.1">
+    <Native-Langue name="English" filename="english.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -288,6 +288,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44097" name="Monitoring (tail -f)"/>
                     <Item id="44098" name="Move Tab Forward"/>
                     <Item id="44099" name="Move Tab Backward"/>
+                    <Item id="44110" name="Remove Color"/>
+                    <Item id="44111" name="Apply Color 1"/>
+                    <Item id="44112" name="Apply Color 2"/>
+                    <Item id="44113" name="Apply Color 3"/>
+                    <Item id="44114" name="Apply Color 4"/>
+                    <Item id="44115" name="Apply Color 5"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>

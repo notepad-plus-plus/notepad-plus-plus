@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="8.4.1">
+    <Native-Langue name="français" filename="french.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -285,6 +285,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44094" name="Onglet 9"/>
                     <Item id="44095" name="Onglet suivant"/>
                     <Item id="44096" name="Onglet précédent"/>
+                    <Item id="44110" name="Enlever la couleur"/>
+                    <Item id="44111" name="Appliquer la couleur 1"/>
+                    <Item id="44112" name="Appliquer la couleur 2"/>
+                    <Item id="44113" name="Appliquer la couleur 3"/>
+                    <Item id="44114" name="Appliquer la couleur 4"/>
+                    <Item id="44115" name="Appliquer la couleur 5"/>
                     <Item id="44097" name="Surveillance de Log (tail -f)"/>
                     <Item id="44098" name="Déplacer vers l'avant"/>
                     <Item id="44099" name="Déplacer vers l'arrière"/>
@@ -646,6 +652,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44066" name="Déplier le niveau 6"/>
                     <Item id="44067" name="Déplier le niveau 7"/>
                     <Item id="44068" name="Déplier le niveau 8"/>
+                    <Item id="44110" name="Enlever la couleur de l'onglet"/>
+                    <Item id="44111" name="Appliquer la couleur 1 à l'onglet"/>
+                    <Item id="44112" name="Appliquer la couleur 2 à l'onglet"/>
+                    <Item id="44113" name="Appliquer la couleur 3 à l'onglet"/>
+                    <Item id="44114" name="Appliquer la couleur 4 à l'onglet"/>
+                    <Item id="44115" name="Appliquer la couleur 5 à l'onglet"/>
                     <Item id="44081" name="Afficher/fermer Panneau de Projet 1"/>
                     <Item id="44082" name="Afficher/fermer Panneau de Projet 2"/>
                     <Item id="44083" name="Afficher/fermer Panneau de Projet 3"/>

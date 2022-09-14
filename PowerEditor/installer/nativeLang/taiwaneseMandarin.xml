@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.4.1">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -278,6 +278,12 @@
                     <Item id="44094" name="頁籤9"/>
                     <Item id="44095" name="下一頁籤"/>
                     <Item id="44096" name="上一頁籤"/>
+                    <Item id="44110" name="移除顏色"/>
+                    <Item id="44111" name="顏色一"/>
+                    <Item id="44112" name="顏色二"/>
+                    <Item id="44113" name="顏色三"/>
+                    <Item id="44114" name="顏色四"/>
+                    <Item id="44115" name="顏色五"/>
                     <Item id="44097" name="監控 (tail -f)"/>
                     <Item id="44098" name="前移頁籤"/>
                     <Item id="44099" name="後移頁籤"/>
@@ -633,6 +639,12 @@
                     <Item id="44066" name="展開層數 6"/>
                     <Item id="44067" name="展開層數 7"/>
                     <Item id="44068" name="展開層數 8"/>
+                    <Item id="44110" name="移除頁籤顏色"/>
+                    <Item id="44111" name="頁籤使用顏色一"/>
+                    <Item id="44112" name="頁籤使用顏色二"/>
+                    <Item id="44113" name="頁籤使用顏色三"/>
+                    <Item id="44114" name="頁籤使用顏色四"/>
+                    <Item id="44115" name="頁籤使用顏色五"/>
                     <Item id="44081" name="切換開關專案管理員 1"/>
                     <Item id="44082" name="切換開關專案管理員 2"/>
                     <Item id="44083" name="切換開關專案管理員 3"/>

@@ -18,8 +18,8 @@
                     <Item menuId="tools" name="Nás&amp;troje"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Sp&amp;ustiť"/>
-                    <Item idName="Plugins" name="&amp;Doplnky"/>
-                    <Item idName="Window" name="&amp;Okná"/>
+                    <Item menuId="Plugins" name="&amp;Doplnky"/>
+                    <Item menuId="Window" name="&amp;Okná"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -481,7 +481,7 @@
                 <Item id="2910" name="Hľadať"/>
             </FindCharsInRange>
 
-            <GoToLine title="Ísť na">
+            <GoToLine title="Ísť na…">
                 <Item id="2007" name="&amp;Riadok"/>
                 <Item id="2008" name="&amp;Pozícia"/>
                 <Item id="1" 	name="Prejsť"/>
@@ -491,7 +491,7 @@
                 <Item id="2006" name="Posledný riadok/pozícia:"/>
             </GoToLine>
 
-            <Run title="Spustiť">
+            <Run title="Spustiť…">
                 <Item id="1903" name="Program na spustenie"/>
                 <Item id="1" name="Spustiť"/>
                 <Item id="2"	name="Zrušiť"/>
@@ -650,7 +650,7 @@
                     <Item id="44068" name="Rozbaliť úroveň 8"/>
                     <Item id="44081" name="Prepnúť panel projektu 1"/>
                     <Item id="44082" name="Prepnúť panel projektu 2"/>
-                    <Item id="44082" name="Prepnúť panel projektu 3"/>
+                    <Item id="44083" name="Prepnúť panel projektu 3"/>
                     <Item id="44085" name="Prepnúť priečinok ako pracovný priestor"/>
                     <Item id="44080" name="Prepnúť mapu dokumentu"/>
                     <Item id="44070" name="Prepnúť zoznam dokumentov"/>
@@ -1482,8 +1482,10 @@ Pokračovať?"/>
 
 Hľadá vo všetkých súboroch okrem exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
+
 Hľadá vo všetkých súboroch okrem priečinkov tests, bin &amp;&amp; bin64:
 *.* !\tests !\bin*
+
 Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
 *.* !+\log*"/>
             <find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/>

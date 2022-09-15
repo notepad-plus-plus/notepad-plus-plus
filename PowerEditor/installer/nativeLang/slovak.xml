@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.5">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -288,6 +288,12 @@
                     <Item id="44097" name="Sledovanie zmien (tail -f)"/>
                     <Item id="44098" name="Presunúť kartu dopredu"/>
                     <Item id="44099" name="Presunúť kartu dozadu"/>
+                    <Item id="44110" name="Odstrániť farbu"/>
+                    <Item id="44111" name="Použiť farbu 1"/>
+                    <Item id="44112" name="Použiť farbu 2"/>
+                    <Item id="44113" name="Použiť farbu 3"/>
+                    <Item id="44114" name="Použiť farbu 4"/>
+                    <Item id="44115" name="Použiť farbu 5"/>
                     <Item id="44032" name="Prepnúť zobrazenie na celú obrazovku"/>
                     <Item id="44033" name="Obnoviť predvolené priblíženie"/>
                     <Item id="44034" name="Vždy navrchu"/>

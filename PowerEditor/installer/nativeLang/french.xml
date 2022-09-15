@@ -285,15 +285,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44094" name="Onglet 9"/>
                     <Item id="44095" name="Onglet suivant"/>
                     <Item id="44096" name="Onglet précédent"/>
+                    <Item id="44097" name="Surveillance de Log (tail -f)"/>
+                    <Item id="44098" name="Déplacer vers l'avant"/>
+                    <Item id="44099" name="Déplacer vers l'arrière"/>
                     <Item id="44110" name="Enlever la couleur"/>
                     <Item id="44111" name="Appliquer la couleur 1"/>
                     <Item id="44112" name="Appliquer la couleur 2"/>
                     <Item id="44113" name="Appliquer la couleur 3"/>
                     <Item id="44114" name="Appliquer la couleur 4"/>
                     <Item id="44115" name="Appliquer la couleur 5"/>
-                    <Item id="44097" name="Surveillance de Log (tail -f)"/>
-                    <Item id="44098" name="Déplacer vers l'avant"/>
-                    <Item id="44099" name="Déplacer vers l'arrière"/>
                     <Item id="44032" name="Activer/Désactiver le mode plein écran"/>
                     <Item id="44033" name="Restaurer zoom"/>
                     <Item id="44034" name="Toujours devant"/>
@@ -362,6 +362,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="50000" name="Complétion de fonction"/>
                     <Item id="50001" name="Complétion de mot"/>
                     <Item id="50002" name="Infobulle des paramètres de fonctions"/>
+                    <Item id="50010" name="Infobulle des paramètres de fonctions précédente"/>
+                    <Item id="50011" name="Infobulle des paramètres de fonctions suivante"/>
                     <Item id="50005" name="Démarrer/Arrêter l'enregistrement d'une macro"/>
                     <Item id="50006" name="Complétion de chemin d'accès du fichier"/>
                     <Item id="44042" name="Cacher les lignes"/>
@@ -652,12 +654,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44066" name="Déplier le niveau 6"/>
                     <Item id="44067" name="Déplier le niveau 7"/>
                     <Item id="44068" name="Déplier le niveau 8"/>
-                    <Item id="44110" name="Enlever la couleur de l'onglet"/>
-                    <Item id="44111" name="Appliquer la couleur 1 à l'onglet"/>
-                    <Item id="44112" name="Appliquer la couleur 2 à l'onglet"/>
-                    <Item id="44113" name="Appliquer la couleur 3 à l'onglet"/>
-                    <Item id="44114" name="Appliquer la couleur 4 à l'onglet"/>
-                    <Item id="44115" name="Appliquer la couleur 5 à l'onglet"/>
                     <Item id="44081" name="Afficher/fermer Panneau de Projet 1"/>
                     <Item id="44082" name="Afficher/fermer Panneau de Projet 2"/>
                     <Item id="44083" name="Afficher/fermer Panneau de Projet 3"/>
@@ -672,6 +668,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Basculer vers Dossier en tant qu'Espace de travail"/>
                     <Item id="44109" name="Basculer vers Liste des documents"/>
                     <Item id="44108" name="Basculer vers Liste des fonctions"/>
+                    <Item id="44110" name="Enlever la couleur d'onglet"/>
+                    <Item id="44111" name="Appliquer la couleur d'onglet 1"/>
+                    <Item id="44112" name="Appliquer la couleur d'onglet 2"/>
+                    <Item id="44113" name="Appliquer la couleur d'onglet 3"/>
+                    <Item id="44114" name="Appliquer la couleur d'onglet 4"/>
+                    <Item id="44115" name="Appliquer la couleur d'onglet 5"/>
                     <Item id="11002" name="Trier par nom de A à Z"/>
                     <Item id="11003" name="Trier par nom de Z à A"/>
                     <Item id="11004" name="Trier par chemin d'accès du fichier de A à Z"/>
@@ -888,6 +890,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6119" name="Multiligne"/>
                     <Item id="6120" name="Verticale"/>
                     <Item id="6121" name="Quitter lors de la fermeture du dernier onglet"/>
+
                     <Item id="6131" name="Menu"/>
                     <Item id="6122" name="Cacher (Alt ou F10 pour basculer)"/>
                     <Item id="6132" name="Cacher ＋ ▼ ✕ depuis le menu (nécessité de redémarrage)"/>
@@ -1071,12 +1074,14 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </Print>
 
                 <Searching title="Recherche">
-                    <Item id="6901" name="Ne pas remplir le champs de recherche avec le mot sélectionné"/>
                     <Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue &quot;Rechercher&quot; (nécessité de redémarrage)"/>
                     <Item id="6903" name="La boîte de dialogue &quot;Rechercher&quot; reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
                     <Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
                     <Item id="6905" name="&quot;Remplacer&quot; : ne pas passer à l'occurrence suivante"/>
                     <Item id="6906" name="Résultats de recherche : afficher une seule entrée par ligne trouvée"/>
+                    <Item id="6907" name="Quand la boîte de dialogue &quot;Rechercher&quot; est invoquée"/>
+                    <Item id="6908" name="Remplir le champ de recherche avec le texte sélectionné"/>
+                    <Item id="6909" name="Sélectionner le mot sous le curseur si rien n'est sélectionné"/>
                 </Searching>
 
                 <RecentFilesHistory title="Fichiers récents">
@@ -1592,3 +1597,4 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
+

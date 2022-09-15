@@ -25,7 +25,9 @@
 #include "UserDefineDialog.h"
 #include "WindowsDlgRc.h"
 
+#ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()
+#endif
 
 using namespace std;
 

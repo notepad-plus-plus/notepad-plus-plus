@@ -2321,7 +2321,7 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 
 bool doCheck(HMENU mainHandle, int id)
 {
-	MENUITEMINFO mii;
+	MENUITEMINFO mii{};
 	mii.cbSize = sizeof(MENUITEMINFO);
 	mii.fMask = MIIM_SUBMENU | MIIM_FTYPE | MIIM_ID | MIIM_STATE;
 
@@ -2741,6 +2741,18 @@ bool isUrlSchemeSupported(INTERNET_SCHEME s, TCHAR *url)
 		case INTERNET_SCHEME_MAILTO:
 		case INTERNET_SCHEME_FILE:
 			return true;
+
+		case INTERNET_SCHEME_PARTIAL:
+		case INTERNET_SCHEME_UNKNOWN:
+		case INTERNET_SCHEME_DEFAULT:
+		case INTERNET_SCHEME_GOPHER:
+		case INTERNET_SCHEME_NEWS:
+		case INTERNET_SCHEME_SOCKS:
+		case INTERNET_SCHEME_JAVASCRIPT:
+		case INTERNET_SCHEME_VBSCRIPT:
+		case INTERNET_SCHEME_RES:
+		default:
+			break;
 	}
 	generic_string const mySchemes = (NppParameters::getInstance()).getNppGUI()._uriSchemes + TEXT(" ");
 	TCHAR *p = (TCHAR *)mySchemes.c_str();
@@ -4581,6 +4593,13 @@ void Notepad_plus::checkUnicodeMenuItems() const
 		case uni16LE   : id = IDM_FORMAT_UTF_16LE; break;
 		case uniCookie : id = IDM_FORMAT_AS_UTF_8; break;
 		case uni8Bit   : id = IDM_FORMAT_ANSI; break;
+
+		case uni7Bit:
+		case uni16BE_NoBOM:
+		case uni16LE_NoBOM:
+		case uniEnd:
+		default:
+			break;
 	}
 
 	if (encoding == -1)
@@ -5298,7 +5317,7 @@ void Notepad_plus::fullScreenToggle()
 		_beforeSpecialView._winPlace.length = sizeof(_beforeSpecialView._winPlace);
 		::GetWindowPlacement(_pPublicInterface->getHSelf(), &_beforeSpecialView._winPlace);
 
-		RECT fullscreenArea;		//RECT used to calculate window fullscreen size
+		RECT fullscreenArea{};		//RECT used to calculate window fullscreen size
 		//Preset view area, in case something fails, primary monitor values
 		fullscreenArea.top = 0;
 		fullscreenArea.left = 0;
@@ -5308,7 +5327,7 @@ void Notepad_plus::fullScreenToggle()
 		//if (_winVersion != WV_NT)
 		{
 			HMONITOR currentMonitor;	//Handle to monitor where fullscreen should go
-			MONITORINFO mi;				//Info of that monitor
+			MONITORINFO mi{};				//Info of that monitor
 			//Caution, this will not work on windows 95, so probably add some checking of some sorts like Unicode checks, IF 95 were to be supported
 			currentMonitor = ::MonitorFromWindow(_pPublicInterface->getHSelf(), MONITOR_DEFAULTTONEAREST);	//should always be valid monitor handle
 			mi.cbSize = sizeof(MONITORINFO);
@@ -5739,7 +5758,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 	//Use _invisibleEditView to temporarily open documents to retrieve markers
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 	const int nbElem = 2;
-	DocTabView *docTab[nbElem];
+	DocTabView* docTab[nbElem]{};
 	docTab[0] = &_mainDocTab;
 	docTab[1] = &_subDocTab;
 	for (size_t k = 0; k < nbElem; ++k)
@@ -6002,7 +6021,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			{
 				prepareBufferChangedDialog(buffer);
 
-				SCNotification scnN;
+				SCNotification scnN{};
 				scnN.nmhdr.code = NPPN_FILEDELETED;
 				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
 				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
@@ -6037,7 +6056,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		bool isDirty = buffer->isDirty();
 
 		// To notify plugins ro status is changed
-		SCNotification scnN;
+		SCNotification scnN{};
 		scnN.nmhdr.hwndFrom = (void *)buffer->getID();
 		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTATUS_READONLY : 0) | (isDirty ? DOCSTATUS_BUFFERDIRTY : 0));
 		scnN.nmhdr.code = NPPN_READONLYCHANGED;
@@ -6087,7 +6106,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		else if (_subEditView.getCurrentBuffer() == buffer)
 			_autoCompleteSub.setLanguage(buffer->getLangType());
 
-		SCNotification scnN;
+		SCNotification scnN{};
 		scnN.nmhdr.code = NPPN_LANGCHANGED;
 		scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
 		scnN.nmhdr.idFrom = (uptr_t)_pEditView->getCurrentBufferID();
@@ -6138,7 +6157,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
 	::InvalidateRect(_subDocTab.getHSelf(), NULL, FALSE);
 
-	SCNotification scnN;
+	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_BUFFERACTIVATED;
 	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
 	scnN.nmhdr.idFrom = (uptr_t)bufid;
@@ -7928,8 +7947,9 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 }
 
 
-
+#ifdef _MSC_VER
 #pragma warning( disable : 4127 )
+#endif
 //-- undoStreamComment: New function to undo stream comment around or within selection end-points.
 bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 {

@@ -19,7 +19,9 @@
 #include "Parameters.h"
 #include "localization.h"
 
+#ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersion()
+#endif
 
 intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {

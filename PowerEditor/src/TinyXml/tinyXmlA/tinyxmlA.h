@@ -502,12 +502,12 @@ public:
 	/// Returns true if this node has no children.
 	bool NoChildren() const						{ return !firstChild; }
 
-	TiXmlDocumentA* ToDocument()	const		{ return ( this && type == DOCUMENT ) ? (TiXmlDocumentA*) this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
-	TiXmlElementA*  ToElement() const		{ return ( this && type == ELEMENT  ) ? (TiXmlElementA*)  this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
-	TiXmlCommentA*  ToComment() const		{ return ( this && type == COMMENT  ) ? (TiXmlCommentA*)  this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
-	TiXmlUnknownA*  ToUnknown() const		{ return ( this && type == UNKNOWN  ) ? (TiXmlUnknownA*)  this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
-	TiXmlTextA*	   ToText()    const		{ return ( this && type == TEXT     ) ? (TiXmlTextA*)     this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
-	TiXmlDeclarationA* ToDeclaration() const	{ return ( this && type == DECLARATION ) ? (TiXmlDeclarationA*) this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
+	TiXmlDocumentA* ToDocument()	const		{ return ( type == DOCUMENT ) ? (TiXmlDocumentA*) this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
+	TiXmlElementA*  ToElement() const		{ return ( type == ELEMENT  ) ? (TiXmlElementA*)  this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
+	TiXmlCommentA*  ToComment() const		{ return ( type == COMMENT  ) ? (TiXmlCommentA*)  this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
+	TiXmlUnknownA*  ToUnknown() const		{ return ( type == UNKNOWN  ) ? (TiXmlUnknownA*)  this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
+	TiXmlTextA*	   ToText()    const		{ return ( type == TEXT     ) ? (TiXmlTextA*)     this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
+	TiXmlDeclarationA* ToDeclaration() const	{ return ( type == DECLARATION ) ? (TiXmlDeclarationA*) this : 0; } ///< Cast to a more defined type. Will return null not of the requested type.
 
 	virtual TiXmlNodeA* Clone() const = 0;
 

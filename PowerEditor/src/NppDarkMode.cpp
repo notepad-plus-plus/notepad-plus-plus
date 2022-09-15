@@ -37,7 +37,9 @@
 #define WINAPI_LAMBDA
 #endif
 
+#ifdef _MSC_VER
 #pragma comment(lib, "uxtheme.lib")
+#endif
 
 namespace NppDarkMode
 {

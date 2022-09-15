@@ -1118,6 +1118,12 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								case STATE_MACRO:
 								case STATE_USER:
 									return ::SendMessage(_hSelf, WM_COMMAND, IDM_BABYGRID_DELETE, 0);
+
+								case STATE_MENU:
+								case STATE_PLUGIN:
+								case STATE_SCINTILLA:
+								default:
+									break;
 							}
 							return TRUE;
 						}

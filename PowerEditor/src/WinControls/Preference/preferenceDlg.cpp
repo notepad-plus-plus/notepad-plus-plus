@@ -1149,6 +1149,10 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case NppDarkMode::customizedTone:
 					id = IDC_RADIO_DARKMODE_CUSTOMIZED;
 					break;
+
+				case NppDarkMode::blackTone:
+				default:
+					break;
 			}
 			::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
 

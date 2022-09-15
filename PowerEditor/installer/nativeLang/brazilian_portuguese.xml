@@ -3,7 +3,7 @@
 <!-- Updated: Jul 2021 -->
 <!-- For Notepad++ 8.1.2 -->
 <!-- Brazilian Portuguese updated by Marcello -->
-<!-- Updated: Jul 2022, for Notepad++ 8.4.1 -->
+<!-- Updated: Sep 2022, for Notepad++ 8.4.6 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.5">
         <Menu>
@@ -290,6 +290,12 @@
                     <Item id="44097" name="Monitorando (tail -f)"/>
                     <Item id="44098" name="Mover aba para frente"/>
                     <Item id="44099" name="Mover aba para trás"/>
+                    <Item id="44110" name="Remover Cor"/>
+                    <Item id="44111" name="Aplicar Cor 1"/>
+                    <Item id="44112" name="Aplicar Cor 2"/>
+                    <Item id="44113" name="Aplicar Cor 3"/>
+                    <Item id="44114" name="Aplicar Cor 4"/>
+                    <Item id="44115" name="Aplicar Cor 5"/>
                     <Item id="44032" name="Modo Tela Inteira"/>
                     <Item id="44033" name="Restaurar o zoom padrão"/>
                     <Item id="44034" name="Manter sobre as outras janelas"/>

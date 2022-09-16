@@ -524,7 +524,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							case CPN_COLOURPICKED:
 							{
 								if (reinterpret_cast<HWND>(lParam) == _pFgColour->getHSelf())
-	sdds							{
+								{
 									updateColour(C_FOREGROUND);
 									notifyDataModified();
 									int tabColourIndex;

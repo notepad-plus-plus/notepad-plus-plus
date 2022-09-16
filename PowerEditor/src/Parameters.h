@@ -897,6 +897,7 @@ struct ScintillaViewParams
 	bool _lineNumberMarginShow = true;
 	bool _lineNumberMarginDynamicWidth = true;
 	bool _bookMarkMarginShow = true;
+	bool _isChangeHistoryEnabled = true;
 	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
 	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
 	bool _foldMarginShow = true;

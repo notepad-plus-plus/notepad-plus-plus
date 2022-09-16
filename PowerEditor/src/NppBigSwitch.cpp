@@ -2664,8 +2664,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_ENABLECHANGEHISTORY:
 		{
-			_mainEditView.execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS);
-			_subEditView.execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS);
+			const ScintillaViewParams& svp = nppParam.getSVP();
+			int enabledCH = svp._isChangeHistoryEnabled ? (SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS) : SC_CHANGE_HISTORY_DISABLED;
+
+			_mainEditView.execute(SCI_SETCHANGEHISTORY, enabledCH);
+			_subEditView.execute(SCI_SETCHANGEHISTORY, enabledCH);
+
+			_mainEditView.showChangeHistoryMargin(svp._isChangeHistoryEnabled);
+			_subEditView.showChangeHistoryMargin(svp._isChangeHistoryEnabled);
 			return TRUE;
 		}
 

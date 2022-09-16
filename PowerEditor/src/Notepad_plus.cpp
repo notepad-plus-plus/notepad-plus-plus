@@ -252,8 +252,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp._lineNumberMarginShow);
 	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYMBOL, svp._bookMarkMarginShow);
 	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYMBOL, svp._bookMarkMarginShow);
-	_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_CHANGEHISTORY, true);
-	_subEditView.showMargin(ScintillaEditView::_SC_MARGE_CHANGEHISTORY, true);
 
 	_mainEditView.showIndentGuideLine(svp._indentGuideLineShow);
 	_subEditView.showIndentGuideLine(svp._indentGuideLineShow);
@@ -316,7 +314,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Make backspace or delete work with multiple selections
 	_mainEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
 	_subEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
-	
+
 	// Turn virtual space on
 	int virtualSpaceOptions = SCVS_RECTANGULARSELECTION;
 	if(svp._virtualSpace)

@@ -155,10 +155,6 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		"null"}
 };
 
-//const int MASK_RED   = 0xFF0000;
-//const int MASK_GREEN = 0x00FF00;
-//const int MASK_BLUE  = 0x0000FF;
-
 
 int getNbDigits(int aNum, int base)
 {
@@ -233,7 +229,14 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_SYMBOL, (1 << MARK_BOOKMARK) | (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND) | (1 << MARK_HIDELINESUNDERLINE));
 
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_CHANGEHISTORY, (1 << SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN) | (1 << SC_MARKNUM_HISTORY_SAVED) | (1 << SC_MARKNUM_HISTORY_MODIFIED) | (1 << SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED));
-	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_MODIFIED, RGB(255, 0, 0));
+	COLORREF modifiedColor = RGB(255, 0, 0);
+	//COLORREF savedColor = RGB(0, 255, 0);
+	//COLORREF revertedToModifiedColor = RGB(255, 255, 0);
+	//COLORREF revertedToOriginColor = RGB(0, 0, 255);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_MODIFIED, modifiedColor);
+	//execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_SAVED, savedColor);
+	//execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, revertedToModifiedColor);
+	//execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, revertedToOriginColor);
 
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
 
@@ -2537,12 +2540,24 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
 			width = dpiManager.scaleX(16);
 		else if (whichMarge == _SC_MARGE_FOLDER)
 			width = dpiManager.scaleX(14);
-		else if (whichMarge == _SC_MARGE_CHANGEHISTORY)
-			width = dpiManager.scaleX(10);
+
 		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 	}
 }
 
+void ScintillaEditView::showChangeHistoryMargin(bool willBeShowed)
+{
+	const Style* pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
+	if (pStyle && willBeShowed)
+	{
+		execute(SCI_SETMARGINTYPEN, _SC_MARGE_CHANGEHISTORY, SC_MARGIN_COLOUR);
+		execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, pStyle->_bgColor);
+	}
+
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+	int	width = dpiManager.scaleX(10);
+	execute(SCI_SETMARGINWIDTHN, _SC_MARGE_CHANGEHISTORY, willBeShowed ? width : 0);
+}
 void ScintillaEditView::updateBeginEndSelectPosition(bool is_insert, size_t position, size_t length)
 {
 	if (_beginSelectPosition != -1 && static_cast<intptr_t>(position) < _beginSelectPosition - 1)

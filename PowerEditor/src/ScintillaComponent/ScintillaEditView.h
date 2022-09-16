@@ -309,6 +309,7 @@ public:
     static const int _SC_MARGE_CHANGEHISTORY;
 
     void showMargin(int whichMarge, bool willBeShowed = true);
+    void showChangeHistoryMargin(bool willBeShowed = true);
 
     bool hasMarginShowed(int witchMarge) {
 		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);

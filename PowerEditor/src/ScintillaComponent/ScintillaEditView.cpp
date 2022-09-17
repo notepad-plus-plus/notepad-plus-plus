@@ -34,8 +34,9 @@ UserDefineDialog ScintillaEditView::_userDefineDlg;
 
 const int ScintillaEditView::_SC_MARGE_LINENUMBER = 0;
 const int ScintillaEditView::_SC_MARGE_SYMBOL = 1;
-const int ScintillaEditView::_SC_MARGE_FOLDER = 2;
-const int ScintillaEditView::_SC_MARGE_CHANGEHISTORY = 3;
+const int ScintillaEditView::_SC_MARGE_CHANGEHISTORY = 2;
+const int ScintillaEditView::_SC_MARGE_FOLDER = 3;
+
 
 WNDPROC ScintillaEditView::_scintillaDefaultProc = NULL;
 string ScintillaEditView::_defaultCharList = "";
@@ -2008,7 +2009,12 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	runMarkers(true, 0, true, false);
 
 	setCRLF();
-	execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS);
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	const ScintillaViewParams& svp = nppParam.getSVP();
+	int enabledCH = svp._isChangeHistoryEnabled ? (SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS) : SC_CHANGE_HISTORY_DISABLED;
+	execute(SCI_SETCHANGEHISTORY, enabledCH);
+
     return;	//all done
 }
 
@@ -2547,17 +2553,11 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
 
 void ScintillaEditView::showChangeHistoryMargin(bool willBeShowed)
 {
-	const Style* pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
-	if (pStyle && willBeShowed)
-	{
-		execute(SCI_SETMARGINTYPEN, _SC_MARGE_CHANGEHISTORY, SC_MARGIN_COLOUR);
-		execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, pStyle->_bgColor);
-	}
-
 	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
-	int	width = dpiManager.scaleX(10);
+	int	width = dpiManager.scaleX(9);
 	execute(SCI_SETMARGINWIDTHN, _SC_MARGE_CHANGEHISTORY, willBeShowed ? width : 0);
 }
+
 void ScintillaEditView::updateBeginEndSelectPosition(bool is_insert, size_t position, size_t length)
 {
 	if (_beginSelectPosition != -1 && static_cast<intptr_t>(position) < _beginSelectPosition - 1)

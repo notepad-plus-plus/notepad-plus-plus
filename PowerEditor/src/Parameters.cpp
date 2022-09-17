@@ -5703,9 +5703,15 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	if (nm)
 	{
 		if (!lstrcmp(nm, TEXT("yes")))
+		{
 			_svp._isChangeHistoryEnabled = true;
+			_svp._isChangeHistoryEnabled4NextSession = true;
+		}
 		else if (!lstrcmp(nm, TEXT("no")))
+		{
 			_svp._isChangeHistoryEnabled = false;
+			_svp._isChangeHistoryEnabled4NextSession = false;
+		}
 	}
 
 	// Indent GuideLine
@@ -6173,7 +6179,7 @@ bool NppParameters::writeScintillaParams()
 										(_svp._folderStyle == FOLDER_STYLE_CIRCLE)?TEXT("circle"):
 										(_svp._folderStyle == FOLDER_STYLE_NONE)?TEXT("none"):TEXT("box");
 	(scintNode->ToElement())->SetAttribute(TEXT("folderMarkStyle"), pFolderStyleStr);
-	(scintNode->ToElement())->SetAttribute(TEXT("isChangeHistoryEnabled"), _svp._isChangeHistoryEnabled ? TEXT("yes") : TEXT("no"));
+	(scintNode->ToElement())->SetAttribute(TEXT("isChangeHistoryEnabled"), _svp._isChangeHistoryEnabled4NextSession ? TEXT("yes") : TEXT("no"));
 	const TCHAR *pWrapMethodStr = (_svp._lineWrapMethod == LINEWRAP_ALIGNED)?TEXT("aligned"):
 								(_svp._lineWrapMethod == LINEWRAP_INDENT)?TEXT("indent"):TEXT("default");
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);

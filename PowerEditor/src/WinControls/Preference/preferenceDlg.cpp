@@ -1732,9 +1732,21 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 					return TRUE;
 
 				case IDC_CHECK_CHANGHISTORYMARGE:
-					svp._isChangeHistoryEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_GETCHECK, 0, 0));
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
+				{
+					bool isChangeHistoryEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_GETCHECK, 0, 0));
+					if (isChangeHistoryEnabled)
+					{
+						printStr(L"You have to restart Notepad++ to enable Change History.");
+						svp._isChangeHistoryEnabled4NextSession = true;
+					}
+					else
+					{
+						svp._isChangeHistoryEnabled = false;
+						svp._isChangeHistoryEnabled4NextSession = false;
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
+					}
 					return TRUE;
+				}
 
 				case IDC_CHECK_NOEDGE:
 					svp._showBorderEdge = !(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_GETCHECK, 0, 0));

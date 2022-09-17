@@ -20,13 +20,13 @@
 #include "DarkMode/DarkMode.h"
 #include "DarkMode/UAHMenuBar.h"
 
-#include <Uxtheme.h>
-#include <Vssym32.h>
+#include <uxtheme.h>
+#include <vssym32.h>
 
 #include "Parameters.h"
 #include "resource.h"
 
-#include <Shlwapi.h>
+#include <shlwapi.h>
 
 #include <array>
 

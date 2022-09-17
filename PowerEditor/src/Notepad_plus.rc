@@ -381,7 +381,7 @@ IDI_FUNCLIST_RELOADBUTTON_DM       BITMAP      "icons/darkMode/panels/funclstRel
 IDI_FUNCLIST_PREFERENCEBUTTON_DM   BITMAP      "icons/darkMode/panels/funclstPreferences.bmp"
 
 
-IDI_GET_INFO_FROM_TOOLTIP       ICON        "icons/MoreOnTooltip.ico"
+IDI_GET_INFO_FROM_TOOLTIP       ICON        "icons/moreOnTooltip.ico"
 
 IDR_M30_MENU MENU
 BEGIN

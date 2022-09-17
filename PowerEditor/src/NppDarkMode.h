@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include <Windows.h>
+#include <windows.h>
 
 constexpr COLORREF HEXRGB(DWORD rrggbb) {
 	// from 0xRRGGBB like natural #RRGGBB

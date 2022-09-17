@@ -2955,7 +2955,7 @@ void Notepad_plus::command(int id)
 			{
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				pNativeSpeaker->messageBox("NeedToRestartToLoadPlugins",
-					NULL,
+					_pPublicInterface->getHSelf(),
 					TEXT("You have to restart Notepad++ to load plugins you installed."),
 					TEXT("Notepad++ need to be relaunched"),
 					MB_OK | MB_APPLMODAL);

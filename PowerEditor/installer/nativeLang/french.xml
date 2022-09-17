@@ -949,6 +949,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6292" name="Largeur dynamique"/>
                     <Item id="6293" name="Largeur constante"/>
                     <Item id="6207" name="Afficher la marge de signet"/>
+                    <Item id="6223" name="Afficher l'Historique de Modification"/>
                     <Item id="6211" name="Marqueur de colonne"/>
                     <Item id="6213" name="Colorer l’arrière-plan"/>
                     <Item id="6237" name="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier.
@@ -1344,6 +1345,7 @@ Voulez-vous lancer Notepad++ en mode &quot;Administrateur&quot; ?"/>
 Notepad++ sera relancé après.
 Continuer ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ a besoin d'être redémarré" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ a besoin d'être redémarré" message="Vous devez redémarrer Notepad++ pour activer Historique de Modification."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papier"/>

@@ -1736,7 +1736,12 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 					bool isChangeHistoryEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_GETCHECK, 0, 0));
 					if (isChangeHistoryEnabled)
 					{
-						printStr(L"You have to restart Notepad++ to enable Change History.");
+						NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+						pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
+							_hSelf,
+							TEXT("You have to restart Notepad++ to enable Change History."),
+							TEXT("Notepad++ need to be relaunched"),
+							MB_OK | MB_APPLMODAL);
 						svp._isChangeHistoryEnabled4NextSession = true;
 					}
 					else

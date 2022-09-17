@@ -958,6 +958,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6292" name="Dynamic width"/>
                     <Item id="6293" name="Constant width"/>
                     <Item id="6207" name="Display bookmark"/>
+                    <Item id="6223" name="Display Change History"/>
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6213" name="Background mode"/>
                     <Item id="6237" name="Add your column marker by indicating its position with a decimal number.
@@ -1355,6 +1356,7 @@ Do you want to launch Notepad++ in Administrator mode?"/>
 Notepad++ will be restarted after all the operations are terminated.
 Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

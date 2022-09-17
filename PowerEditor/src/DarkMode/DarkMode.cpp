@@ -1,11 +1,11 @@
-#include <Windows.h>
+#include <windows.h>
 
 #include "DarkMode.h"
 
 #include "IatHook.h"
 
-#include <Uxtheme.h>
-#include <Vssym32.h>
+#include <uxtheme.h>
+#include <vssym32.h>
 
 #include <unordered_set>
 #include <mutex>

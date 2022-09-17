@@ -28,7 +28,7 @@ SET(projIncludDir	../../scintilla/include/
 					./MISC/SysMsg/
 					./WinControls/StatusBar/
 					./WinControls/StaticDialog/RunDlg/
-					./tinyxml/
+					./TinyXml/
 					./WinControls/ColourPicker/
 					./Win32Explr/
 					./MISC/RegExt/
@@ -45,7 +45,7 @@ SET(projIncludDir	../../scintilla/include/
 					./WinControls/ToolTip/
 					./MISC/Exception/
 					./MISC/Common/
-					./tinyxml/tinyXmlA/
+					./TinyXml/tinyXmlA/
 					./WinControls/AnsiCharPanel/
 					./WinControls/ClipboardHistory/
 					./WinControls/FindCharsInRange/
@@ -144,7 +144,7 @@ SET(src_files
 			./uchardet/nsUniversalDetector.cpp
 			./uchardet/nsUTF8Prober.cpp
 			./Parameters.cpp
-			./Misc/PluginsManager/PluginsManager.cpp
+			./MISC/PluginsManager/PluginsManager.cpp
 			./WinControls/Preference/preferenceDlg.cpp
 			./ScintillaComponent/Printer.cpp
 			./WinControls/ProjectPanel/ProjectPanel.cpp
@@ -381,7 +381,7 @@ SET(rcFiles
 
 IF (WIN32)
 	SET(option WIN32)
-	SET(win32_LIBRARIES comctl32 shlwapi dbghelp version crypt32 wintrust sensapi wininet imm32 msimg32)
+	SET(win32_LIBRARIES comctl32 shlwapi dbghelp version crypt32 wintrust sensapi wininet imm32 msimg32 uxtheme)
 if ( MSVC )
 	#do not use for mingw builds
 	SET(CMAKE_CXX_FLAGS "/EHa /MP /W4")
@@ -390,7 +390,7 @@ if ( MSVC )
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 else ( MSVC )
 	# For possible MinGW compilation
-	SET(CMAKE_CXX_FLAGS "-include../gcc/include/various.h -std=c++17 -fpermissive -municode")
+	SET(CMAKE_CXX_FLAGS "-include../gcc/gcc-fixes.h -std=c++17 -fpermissive -municode")
 	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=0x0600 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL )
 endif ( MSVC )
 ENDIF (WIN32)
@@ -414,5 +414,5 @@ find_library(LEXILLA_STATIC_LIBRARY
 ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 
 
-TARGET_LINK_LIBRARIES (notepad++ ${win32_LIBRARIES} ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY})
+TARGET_LINK_LIBRARIES (notepad++ ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY} ${win32_LIBRARIES})
 

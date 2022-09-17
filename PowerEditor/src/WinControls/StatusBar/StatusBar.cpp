@@ -22,8 +22,8 @@
 #include <cassert>
 #include "Parameters.h"
 #include "NppDarkMode.h"
-#include <Uxtheme.h>
-#include <Vssym32.h>
+#include <uxtheme.h>
+#include <vssym32.h>
 
 //#define IDC_STATUSBAR 789
 

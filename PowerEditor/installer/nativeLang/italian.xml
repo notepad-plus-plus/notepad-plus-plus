@@ -1,13 +1,13 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.2.1
-    Last modified Mon, January 10th, 2022.
+    Italian translation for Notepad++ 8.4.6
+    Last modified Wed, Sep 21st, 2022.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
 
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.2.1">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -28,7 +28,7 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Apri cartella file"/>
-                    <Item subMenuId="file-closeMore" name="Chiudi speciale"/>
+                    <Item subMenuId="file-closeMore" name="Chiudi documenti multipli"/>
                     <Item subMenuId="file-recentFiles" name="File recenti"/>
                     <Item subMenuId="edit-insert" name="Inserisci"/>
                     <Item subMenuId="edit-copyToClipboard" name="Copia negli Appunti"/>
@@ -48,10 +48,10 @@
                     <Item subMenuId="search-jumpDown" name="Vai giù"/>
                     <Item subMenuId="search-copyStyledText" name="Copia il testo in stile"/>
                     <Item subMenuId="search-bookmark" name="Segnalibri"/>
-                    <Item subMenuId="view-currentFileIn" name="Visualizza file attuale in"/>
+                    <Item subMenuId="view-currentFileIn" name="Visualizza file corrente in"/>
                     <Item subMenuId="view-showSymbol" name="Simboli"/>
                     <Item subMenuId="view-zoom" name="Zoom"/>
-                    <Item subMenuId="view-moveCloneDocument" name="Sposta/clona documento attuale"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Sposta/clona documento corrente"/>
                     <Item subMenuId="view-tab" name="Schede"/>
                     <Item subMenuId="view-collapseLevel" name="Riduci livello"/>
                     <Item subMenuId="view-uncollapseLevel" name="Non ridurre livello"/>
@@ -77,6 +77,7 @@
                     <Item subMenuId="settings-import" name="Importa"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Ordina per"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -86,11 +87,11 @@
                     <Item id="41019" name="Esplora risorse"/>
                     <Item id="41020" name="Prompt comandi"/>
                     <Item id="41025" name="Cartella come Workspace"/>
-                    <Item id="41003" name="Chiudi"/>
+                    <Item id="41003" name="&amp;Chiudi"/>
                     <Item id="41004" name="C&amp;hiudi tutti"/>
-                    <Item id="41005" name="Chiudi tutti tranne il documento attuale"/>
-                    <Item id="41009" name="Chiudi le schede a sinistra della attuale"/>
-                    <Item id="41018" name="Chiudi le schede a destra della attuale"/>
+                    <Item id="41005" name="Chiudi tutti tranne il documento corrente"/>
+                    <Item id="41009" name="Chiudi le schede a sinistra della corrente"/>
+                    <Item id="41018" name="Chiudi le schede a destra della corrente"/>
                     <Item id="41024" name="Chiudi tutti quelli non modificati"/>
                     <Item id="41006" name="&amp;Salva"/>
                     <Item id="41007" name="Salva t&amp;utto"/>
@@ -103,7 +104,7 @@
                     <Item id="41014" name="Ricarica dal disco"/>
                     <Item id="41015" name="Salva una copia come..."/>
                     <Item id="41016" name="Sposta nel cestino"/>
-                    <Item id="41017" name="Rinomina..."/>
+                    <Item id="41017" name="&amp;Rinomina..."/>
                     <Item id="41021" name="Ripristina i file recenti"/>
                     <Item id="41022" name="Apri cartella come workspace..."/>
                     <Item id="41023" name="Apri con il visualizzatore predefinito"/>
@@ -120,13 +121,13 @@
                     <Item id="42086" name="Data e ora (formato personalizzato)"/>
                     <Item id="42008" name="Inserisci tabulazione (indent)"/>
                     <Item id="42009" name="Rimuovi tabulazione (outdent)"/>
-                    <Item id="42010" name="Duplica la riga attuale"/>
+                    <Item id="42010" name="Duplica la riga corrente"/>
                     <Item id="42079" name="Rimuovi righe duplicate"/>
                     <Item id="42077" name="Rimuovi le righe duplicate consecutive"/>
                     <Item id="42012" name="Dividi righe"/>
                     <Item id="42013" name="Unisci righe"/>
-                    <Item id="42014" name="Sposta in su la riga attuale"/>
-                    <Item id="42015" name="Sposta in giù la riga attuale"/>
+                    <Item id="42014" name="Sposta in su la riga corrente"/>
+                    <Item id="42015" name="Sposta in giù la riga corrente"/>
                     <Item id="42059" name="Ordina le righe in modo crescente"/>
                     <Item id="42060" name="Ordina le righe in modo decrescente"/>
                     <Item id="42080" name="Ordina le righe in modo crescente ignorando maiuscole/minuscole"/>
@@ -160,8 +161,8 @@
                     <Item id="42024" name="Elimina gli spazi a fine riga"/>
                     <Item id="42042" name="Elimina gli spazi iniziali"/>
                     <Item id="42043" name="Elimina gli spazi iniziali e finali"/>
-                    <Item id="42044" name="Converti EOL in Spazio"/>
-                    <Item id="42045" name="Rimuovi gli spazi e EOL non necessari"/>
+                    <Item id="42044" name="Converti Fine Riga (EOL) in Spazio"/>
+                    <Item id="42045" name="Rimuovi gli spazi e Fine Riga (EOL) non necessari"/>
                     <Item id="42046" name="Converti TAB in spazi"/>
                     <Item id="42054" name="Converti gli spazi in tabulazioni (ovunque)"/>
                     <Item id="42053" name="Converti gli spazi in tabulazioni (a inizio riga)"/>
@@ -179,19 +180,19 @@
                     <Item id="42026" name="Direzione del testo Destra-Sinistra"/>
                     <Item id="42027" name="Direzione del testo Sinistra-Destra"/>
                     <Item id="42028" name="File in sola lettura"/>
-                    <Item id="42029" name="Percorso file attuale"/>
-                    <Item id="42030" name="Nome file attuale"/>
-                    <Item id="42031" name="Cartella attuale"/>
-                    <Item id="42087" name="Tutti i nomi file negli Appunti"/>
-                    <Item id="42088" name="Tutti i percorsi file negli Appunti"/>
+                    <Item id="42029" name="Copia Percorso file corrente"/>
+                    <Item id="42030" name="Copia Nome file corrente"/>
+                    <Item id="42031" name="Copia percorso Cartella corrente"/>
+                    <Item id="42087" name="Copa Tutti i nomi file"/>
+                    <Item id="42088" name="Copia Tutti i percorsi file"/>
                     <Item id="42032" name="Esegui una macro più volte..."/>
                     <Item id="42033" name="Pulisci il flag di sola lettura"/>
                     <Item id="42035" name="Commenta singola riga"/>
                     <Item id="42036" name="Rimuovi commento per singola riga"/>
                     <Item id="42055" name="Rimuovi righe vuote"/>
                     <Item id="42056" name="Rimuovi righe vuote (contenenti caratteri vuoti)"/>
-                    <Item id="42057" name="Inserisci riga vuota sopra all&apos;attuale"/>
-                    <Item id="42058" name="Inserisci riga vuota sotto all&apos;attuale"/>
+                    <Item id="42057" name="Inserisci riga vuota sopra alla corrente"/>
+                    <Item id="42058" name="Inserisci riga vuota sotto alla corrente"/>
                     <Item id="43001" name="&amp;Trova..."/>
                     <Item id="43002" name="Trova &amp;successivo"/>
                     <Item id="43003" name="Sostitu&amp;isci..."/>
@@ -270,8 +271,8 @@
                     <Item id="44025" name="Visualizza gli spazi bianchi e tabulazioni"/>
                     <Item id="44026" name="Visualizza carattere di fine riga"/>
                     <Item id="44029" name="Espandi tutti i livelli"/>
-                    <Item id="44030" name="Contrai al livello attuale"/>
-                    <Item id="44031" name="Espandi il livello attuale"/>
+                    <Item id="44030" name="Contrai al livello corrente"/>
+                    <Item id="44031" name="Espandi il livello corrente"/>
                     <Item id="44049" name="Informazioni file..."/>
                     <Item id="44080" name="Mappa documento"/>
                     <Item id="44070" name="Elenco documenti"/>
@@ -291,6 +292,18 @@
                     <Item id="44097" name="Monitora (tail -f)"/>
                     <Item id="44098" name="Sposta scheda avanti"/>
                     <Item id="44099" name="Sposta scheda indietro"/>
+                    <Item id="44110" name="Rimuovi Colore"/> 
+                    <Item id="44111" name="Applica Colore 1"/> 
+                    <Item id="44112" name="Applica Colore 2"/> 
+                    <Item id="44113" name="Applica Colore 3"/> 
+                    <Item id="44114" name="Applica Colore 4"/> 
+                    <Item id="44115" name="Applica Colore 5"/>
+                    <Item id="44110" name="Rimuove Colore"/>
+                    <Item id="44111" name="Applica Colore 1"/>
+                    <Item id="44112" name="Applica Colore 2"/>
+                    <Item id="44113" name="Applica Colore 3"/>
+                    <Item id="44114" name="Applica Colore 4"/>
+                    <Item id="44115" name="Applica Colore 5"/>
                     <Item id="44032" name="Visualizzazione a tutto schermo"/>
                     <Item id="44033" name="Ripristina lo zoom predefinito"/>
                     <Item id="44034" name="Sempre in primo piano"/>
@@ -359,6 +372,8 @@
                     <Item id="50000" name="Completa funzione"/>
                     <Item id="50001" name="Completa parola"/>
                     <Item id="50002" name="Parametri funzione"/>
+                    <Item id="50010" name="Parametri funzione (precedente)"/>
+                    <Item id="50011" name="Parametri funzione (successiva)"/>
                     <Item id="50005" name="Attiva / Disattiva registrazione macro"/>
                     <Item id="50006" name="Completa percorso"/>
                     <Item id="44042" name="Nascondi righe"/>
@@ -366,7 +381,17 @@
                     <Item id="42041" name="Pulisci elenco file recenti"/>
                     <Item id="48016" name="Modifica scorciatoie/Elimina macro..."/>
                     <Item id="48017" name="Modifica scorciatoie/Elimina comando..."/>
-                </Commands>
+
+                    <Item id="11001" name="&amp;Finestre..."/>
+                    <Item id="11002" name="Nome A to Z"/>
+                    <Item id="11003" name="Nome Z to A"/>
+                    <Item id="11004" name="Percorso A to Z"/>
+                    <Item id="11005" name="Percorso Z to A"/>
+                    <Item id="11006" name="Tipo A to Z"/>
+                    <Item id="11007" name="Tipo Z to A"/>
+                    <Item id="11008" name="Dimensione Crescente"/>
+                    <Item id="11009" name="Dimensione Decrescente"/>
+        </Commands>
             </Main>
             <Splitter>
             </Splitter>
@@ -380,7 +405,7 @@
                 <Item CMID="6" name="Copia nell&apos;altra vista"/>
                 <Item CMID="7" name="Copia percorso file"/>
                 <Item CMID="8" name="Copia nome file"/>
-                <Item CMID="9" name="Copia percorso cartella"/>
+                <Item CMID="9" name="Copia percorso cartella corrente"/>
                 <Item CMID="10" name="Rinomina file..."/>
                 <Item CMID="11" name="Elimina file"/>
                 <Item CMID="12" name="Sola lettura"/>
@@ -395,6 +420,17 @@
                 <Item CMID="21" name="Apri con il visualizzatore predefinito"/>
                 <Item CMID="22" name="Chiudi tutti i documenti non modificati"/>
                 <Item CMID="23" name="Apri cartella contenuta come Workspace"/>
+                <Item CMID="24" name="Applica Colore 1"/>
+                <Item CMID="25" name="Applica Colore 2"/>
+                <Item CMID="26" name="Applica Colore 3"/>
+                <Item CMID="27" name="Applica Colore 4"/>
+                <Item CMID="28" name="Applica Colore 5"/>
+                <Item CMID="29" name="Rimuovi Colore"/>
+                <Item CMID="30" name="Chiudi Tab multipli"/>
+                <Item CMID="31" name="Apri in"/>
+                <Item CMID="32" name="Copia negli appunti"/>
+                <Item CMID="33" name="Sposta Documento"/>
+                <Item CMID="34" name="Applica Colori al Tab"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -430,11 +466,11 @@
                 <Item id="1626" name="Estesa (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Sostituisci nei file"/>
                 <Item id="1665" name="Sostituisci nei Progetti"/>
-                <Item id="1661" name="Segui documento attuale"/>
+                <Item id="1661" name="Segui documento corrente"/>
                 <Item id="1662" name="Pannello Progetto 1"/>
                 <Item id="1663" name="Pannello Progetto 2"/>
                 <Item id="1664" name="Pannello Progetto 3"/>
-                <Item id="1641" name="Trova tutto nel documento attuale"/>
+                <Item id="1641" name="Trova tutto nel documento corrente"/>
                 <Item id="1686" name="T&amp;rasparenza"/>
                 <Item id="1703" name="&amp;. significa &quot;a capo&quot;"/>
                 <Item id="1721" name="▲"/>
@@ -469,6 +505,7 @@
                 <Item id="2005" name="Vai alla riga/posizione:"/>
                 <Item id="2006" name="Ultima riga/pos. disponibile:"/>
             </GoToLine>
+
             <Run title="Esegui...">
                 <Item id="1903" name="Programma da eseguire"/>
                 <Item id="1" name="Esegui!"/>
@@ -500,7 +537,7 @@
                 <Item id="2" name="Chiudi"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Gestione plugin" titleAvailable = "Disponibili" titleUpdates="Aggiornamenti" titleInstalled="Installati">
+            <PluginsAdminDlg title="Gestione plugin" titleAvailable = "Disponibile" titleUpdates="Aggiornamento" titleInstalled="Installato" titleIncompatible="Incompatibile">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versione"/>
                 <Item id="5501" name="Cerca:"/>
@@ -508,12 +545,14 @@
                 <Item id="5504" name="Aggiorna"/>
                 <Item id="5505" name="Rimuovi"/>
                 <Item id="5508" name="Vai"/>
+                <Item id="5509" name="Elenco versioni Plugin: "/>
+                <Item id="5511" name="Elenco Plugin repository"/>
                 <Item id="2" name="Chiudi"/>
             </PluginsAdminDlg>
 
             <StyleConfig title="Configuratore di stili">
                 <Item id="2" name="Annulla"/>
-                <Item id="2301" name="Salva &amp;&amp; Chiudi"/>
+                <Item id="2301" name="Salva e Chiudi"/>
                 <Item id="2303" name="Trasparenza"/>
                 <Item id="2306" name="Seleziona tema: "/>
                 <SubDialog>
@@ -539,6 +578,7 @@
                     <Item id="2230" name="Abilita stile globale per il grassetto"/>
                     <Item id="2231" name="Abilita stile globale per il corsivo"/>
                     <Item id="2232" name="Abilita stile globale per il sottolineato"/>
+                    <Item id="2234" name="Vai alle impostazioni"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -607,14 +647,14 @@
                     <Item id="44102" name="Apri il file corrente in Edge"/>
                     <Item id="50003" name="Passa al documento precedente"/>
                     <Item id="50004" name="Passa al documento successivo"/>
-                    <Item id="44051" name="Collassa livello 1"/>
-                    <Item id="44052" name="Collassa livello 2"/>
-                    <Item id="44053" name="Collassa livello 3"/>
-                    <Item id="44054" name="Collassa livello 4"/>
-                    <Item id="44055" name="Collassa livello 5"/>
-                    <Item id="44056" name="Collassa livello 6"/>
-                    <Item id="44057" name="Collassa livello 7"/>
-                    <Item id="44058" name="Collassa livello 8"/>
+                    <Item id="44051" name="Contrai livello 1"/>
+                    <Item id="44052" name="Contrai livello 2"/>
+                    <Item id="44053" name="Contrai livello 3"/>
+                    <Item id="44054" name="Contrai livello 4"/>
+                    <Item id="44055" name="Contrai livello 5"/>
+                    <Item id="44056" name="Contrai livello 6"/>
+                    <Item id="44057" name="Contrai livello 7"/>
+                    <Item id="44058" name="Contrai livello 8"/>
                     <Item id="44061" name="Espandi livello 1"/>
                     <Item id="44062" name="Espandi livello 2"/>
                     <Item id="44063" name="Espandi livello 3"/>
@@ -637,6 +677,20 @@
                     <Item id="44107" name="Passa a Cartella come Workspace"/>
                     <Item id="44109" name="Passa a Elenco Documenti"/>
                     <Item id="44108" name="Passa a Elenco Funzioni"/>
+                    <Item id="44110" name="Rimuovi Colore Tab"/>
+                    <Item id="44111" name="Applica Colore Tab 1"/>
+                    <Item id="44112" name="Applica Colore Tab 2"/>
+                    <Item id="44113" name="Applica Colore Tab 3"/>
+                    <Item id="44114" name="Applica Colore Tab 4"/>
+                    <Item id="44115" name="Applica Colore Tab 5"/>
+                    <Item id="11002" name="Ordina per Nome da A a Z"/>
+                    <Item id="11003" name="Ordina per Nome da Z a A"/>
+                    <Item id="11004" name="Ordina per Percorso da A a Z"/>
+                    <Item id="11005" name="Ordina per Percorso da Z a A"/>
+                    <Item id="11006" name="Ordina per Tipo da A a Z"/>
+                    <Item id="11007" name="Ordina per Tipo da Z a A"/>
+                    <Item id="11008" name="Ordina per Dimensione Crescente"/>
+                    <Item id="11009" name="Ordina per Dimensione Decrescente"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Scelta rapida">
@@ -846,7 +900,9 @@
                     <Item id="6120" name="Verticale"/>
                     <Item id="6121" name="Esci alla chiusura dell&apos;ultima scheda"/>
 
-                    <Item id="6122" name="Nascondi barra dei menu (Alt o F10 per visualizzare)"/>
+                    <Item id="6131" name="Menu"/>
+                    <Item id="6122" name="Nascondi la barra dei menu (Alt o F10 per visualizzare)"/>
+                    <Item id="6132" name="Nascondi ＋ ▼ ✕ dalla barra dei menu (Necessita il riavvio di Notepad++)"/>
                     <Item id="6123" name="Lingua"/>
 
                     <Item id="6128" name="Alterna icone"/>
@@ -857,28 +913,38 @@
                     <Item id="6219" name="Velocità:"/>
                     <Item id="6221" name="V"/>
                     <Item id="6222" name="L"/>
+                    <Item id="6246" name="Rendi i comandi del livello corrente comprimi/espandi attivabili"/>
                     <Item id="6225" name="Abilita Selezione Multipla (Ctrl+clic/selezione)"/>
                     <Item id="6227" name="A Capo Automatico"/>
                     <Item id="6228" name="Predefinito"/>
                     <Item id="6229" name="Allineato"/>
                     <Item id="6230" name="Indentato"/>
                     <Item id="6234" name="Disabilita lo scorrimento avanzato in caso di problemi con il touch screen"/>
-                    <Item id="6214" name="Evidenzia la riga attuale"/>
                     <Item id="6215" name="Abilita l&apos;arrotondamento dei caratteri"/>
                     <Item id="6236" name="Abilita scorrimento oltre l&apos;ultima riga"/>
                     <Item id="6239" name="Mantieni la selezione quando clicchi con il tasto destro fuori da essa"/>
+                    <Item id="6245" name="Attiva spazio virtuale"/>
+                    <Item id="6651" name="Indica la linea corrente"/>
+                    <Item id="6652" name="None"/>
+                    <Item id="6653" name="Evidenzia sfondo"/>
+                    <Item id="6654" name="Struttura"/>
+                    <Item id="6655" name="Larghezza"/>
+                    <Item id="6247" name="Fine Riga (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Predefinito"/>
+                    <Item id="6249" name="Testo Normale"/>
+                    <Item id="6250" name="Colore Personalizzato"/>
                 </Scintillas>
 
-               <DarkMode title="Modalità scura">
+                <DarkMode title="Modalità scura">
                     <Item id="7101" name="Abilita modalità scura (dark mode)"/>
-                    <Item id="7102" name="Tonalità nero"/>
-                    <Item id="7103" name="Tonalità rosso"/>
-                    <Item id="7104" name="Tonalità verde"/>
-                    <Item id="7105" name="Tonalità blù"/>
-                    <Item id="7107" name="Tonalità viola"/>
-                    <Item id="7108" name="Tonalità ciano"/>
-                    <Item id="7109" name="Tonalità verde oliva"/>
-                    <Item id="7115" name="Tonalità personalizzata"/>
+                    <Item id="7102" name="Nero"/>
+                    <Item id="7103" name="Rosso"/>
+                    <Item id="7104" name="Verde"/>
+                    <Item id="7105" name="Blù"/>
+                    <Item id="7107" name="Viola"/>
+                    <Item id="7108" name="Ciano"/>
+                    <Item id="7109" name="Verde oliva"/>
+                    <Item id="7115" name="Personalizzata"/>
                     <Item id="7116" name="Alto"/>
                     <Item id="7117" name="Evidenziazione menu"/>
                     <Item id="7118" name="Attivo"/>
@@ -889,8 +955,11 @@
                     <Item id="7123" name="Testo disabilitato"/>
                     <Item id="7124" name="Bordo"/>
                     <Item id="7125" name="Indirizzo internet"/>
+                    <Item id="7126" name="Bordo evidenziato"/>
+                    <Item id="7127" name="Bordo disabilitato"/>
                     <Item id="7130" name="Ripristina"/>
-               </DarkMode>
+                    <Item id="7135" name="Tonalità"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="Margini e Bordi">
                     <Item id="6201" name="Stile Raggruppamenti"/>
@@ -904,6 +973,7 @@
                     <Item id="6292" name="Larghezza dinamica"/>
                     <Item id="6293" name="Larghezza costante"/>
                     <Item id="6207" name="Visualizza i segnalibri"/>
+                    <Item id="6223" name="Mostra Elenco Cambiamenti"/> 
                     <Item id="6211" name="Limite Di Colonna"/>
                     <Item id="6213" name="Modalità &quot;sfondo&quot;"/>
                     <Item id="6237" name="Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
@@ -934,7 +1004,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
 
                 <DefaultDir title="Cartella predefinita">
                     <Item id="6413" name="Cartella Predefinita per Apri/Salva"/>
-                    <Item id="6414" name="Secondo il documento attuale"/>
+                    <Item id="6414" name="Quella del documento corrente"/>
                     <Item id="6415" name="Ricorda l&apos;ultima cartella utilizzata"/>
                     <Item id="6431" name="Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento"/>
                 </DefaultDir>
@@ -980,7 +1050,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6604" name="Inverti"/>
                     <Item id="6605" name="Bianco e nero"/>
                     <Item id="6606" name="Non stampare i colori di sfondo"/>
-                    <Item id="6607" name="Impostazione Dei Margini (unità: mm)"/>
+                    <Item id="6607" name="Impostazione dei Margini (unità: mm)"/>
                     <Item id="6612" name="Sinistro"/>
                     <Item id="6613" name="Superiore"/>
                     <Item id="6614" name="Destro"/>
@@ -998,17 +1068,29 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6721" name="Sezione centrale"/>
                     <Item id="6722" name="Sezione di destra"/>
                     <Item id="6723" name="Aggiungi"/>
+                    <ComboBox id="6724">
+                        <Element name="Percorso completo"/>
+                        <Element name="Nome del file"/>
+                        <Element name="Percorso cartella"/>
+                        <Element name="Pagina"/>
+                        <Element name="Data (compatta)"/>
+                        <Element name="Data (estesa)"/>
+                        <Element name="Ora"/>
+                    </ComboBox>
                     <Item id="6725" name="Variabile:"/>
                     <Item id="6727" name="Seleziona parte"/>
-                    <Item id="6728" name="Intestazione E Piè Di Pagina"/>
+                    <Item id="6728" name="Intestazione e Piè Di Pagina"/>
                 </Print>
 
                 <Searching title="Ricerca">
-                    <Item id="6901" name="Non inserire le parole selezionate nella casella di ricerca"/>
                     <Item id="6902" name="Usa carattere a spaziatura fissa nella finestra di ricerca (necessita il riavvio di Notepad++)"/>
                     <Item id="6903" name="La finestra di ricerca rimane aperta dopo ricerche inviate alla finestra dei risultati"/>
                     <Item id="6904" name="Chiedi conferma prima di sostituire tutto in tutti i documenti"/>
                     <Item id="6905" name="Sostituisci: senza spostamento alla corrispondenza successiva"/>
+                    <Item id="6906" name="Finestra dei risultati di ricerca: mostra solo una voce per riga trovata"/>
+                    <Item id="6907" name="Quando viene richiamata la finestra di dialogo Trova"/>
+                    <Item id="6908" name="Compila il campo di ricerca con il testo selezionato"/>
+                    <Item id="6909" name="Proponi la parola del cursore quando non è selezionato nulla"/>
                 </Searching>
 
                 <RecentFilesHistory title="File recenti">
@@ -1028,8 +1110,8 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6819" name="Backup ogni"/>
                     <Item id="6821" name="secondi"/>
                     <Item id="6822" name="Cartella backup:"/>
-                    <Item id="6309" name="Ricorda sessione attuale al prossimo avvio"/>
-                    <Item id="6801" name="Backup Al Salvataggio"/>
+                    <Item id="6309" name="Ricorda sessione corrente al prossimo avvio"/>
+                    <Item id="6801" name="Backup al Salvataggio"/>
                     <Item id="6315" name="Nessuno"/>
                     <Item id="6316" name="Backup semplice"/>
                     <Item id="6317" name="Backup dettagliato"/>
@@ -1085,8 +1167,8 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
 
                 <Cloud title="Cloud e link">
                     <Item id="6262" name="Impostazioni sul Cloud"/>
-                    <Item id="6263" name="Nessun servizio cloud"/>
-                    <Item id="6267" name="Imposta qui il percorso della tua cartella cloud:"/>
+                    <Item id="6263" name="Nessun servizio Cloud"/>
+                    <Item id="6267" name="Imposta qui il percorso della tua cartella Cloud:"/>
                     <Item id="6318" name="Link Cliccabili"/>
                     <Item id="6319" name="Abilita"/>
                     <Item id="6320" name="Non sottolineare"/>
@@ -1191,18 +1273,15 @@ Questo dialogo può essere riattivato in seguito da Preferenze."/>
                 <Item id="7" name="&amp;No"/>
                 <Item id="4" name="Sì, sempre"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Modifica menu contestuale" message="La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.
 È necessario riavviare Notepad++ affinché le modifiche apportate al file contextMenu.xml abbiano effetto."/>
             <SaveCurrentModifWarning title="Salva modifiche correnti" message="Devi salvare le modifiche correnti.
 Tutte le modifiche salvate non possono essere ripristinate.
-
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Attenzione: Perdita della possibilità di ripristinare" message="Devi salvare le modifiche correnti.
 Tutte le modifiche salvate non possono essere ripristinate.
-
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Invia a una nuova istanza di Notepad++" message="Il documento è stato modificato, salvarlo prima di continuare."/>
             <DocReloadWarning title="Ricarica" message="Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa."/>
@@ -1213,7 +1292,7 @@ Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved,
 
             <NbFileToOpenImportantWarning title="Il numero di file da aprire è troppo grande" message="Si stanno aprendo $INT_REPLACE$ file.
 Sicuro di volerli aprire?"/>  <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-            <SettingsOnCloudError title="Impostazioni Cloud" message="Sembra che il percorso per le impostazioni nel cloud sia impostato su una cartella in sola lettura,
+            <SettingsOnCloudError title="Impostazioni Cloud" message="Sembra che il percorso per le impostazioni nel Cloud sia impostato su una cartella in sola lettura,
 o in una cartella che necessita dei privilegi di scrittura per poterci accedere.
 Le tue impostazioni nel cloud saranno cancellate. Reimposta un valore coerente dalle impostazioni."/>
             <FilePathNotFoundWarning title="Apertura file" message="Il file che si sta cercando di aprire non esiste."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1232,11 +1311,9 @@ Continuare?"/>
 Salvalo o i tuoi dati verranno persi.
 Vuoi salvare il file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Ricarica" message="&quot;$STR_REPLACE$&quot;
-
 Questo file è stato modificato da un altro programma.
 Vuoi ricaricarlo?"/>
             <DoReloadOrNotAndLooseChange title="Ricarica" message="&quot;$STR_REPLACE$&quot;
-
 Questo file è stato modificato da un altro programma.
 Vuoi ricaricarlo e perdere tutte le modifiche apportate in Notepad++?"/>
             <PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra tu stia usando un sistema preistorico. Questa funzionalità necessità di un sistema più moderno, scusaci."/>
@@ -1246,11 +1323,13 @@ Vuoi andare nella pagina di Notepad++ per scaricare l&apos;aggiornamento manualm
             <DocTooDirtyToMonitor title="Problema monitoraggio" message="Il documento è sporco. Salva le modifiche prima di avviare il monitoraggio."/>
             <DocNoExistToMonitor title="Problema monitoraggio" message="Il file deve esistere per essere monitorato."/>
             <FileTooBigToOpen title="Problema dimensione file" message="Il file è troppo grande per essere aperto con Notepad++"/>
+            <FileLoadingException title="Codice di eccezione: $STR_REPLACE$" message="Si è verificato un errore durante il caricamento del file!"/>
+            <WantToOpenHugeFile title="Apertura file di grandi dimensioni" message="L&apos;apertura di file superiori a 2GB+ potrebbe impegare svariati minuti.
+Vuoi proseguire?"/>
             <CreateNewFileOrNot title="Crea nuovo file" message="&quot;$STR_REPLACE$&quot; non esiste. Crearlo??"/>
             <CreateNewFileError title="Crea nuovo file" message="Impossibile creare il file &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="ERRORE" message="Impossibile aprire il file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="Backup File Fallito" message="La versione precedente del file non può essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
-
 Vuoi salvare il file ugualmente?"/>
             <LoadStylersFailed title="Caricamento stylers.xml fallito" message="Il caricamento di &quot;$STR_REPLACE$&quot; è fallito!"/>
             <LoadLangsFailed title="Configurazione" message="Il caricamento di langs.xml è fallito!
@@ -1262,19 +1341,19 @@ Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;."
             <ProjectPanelChanged title="$STR_REPLACE$" message="Il workspace è stato modificato. Vuoi salvarlo?"/>
             <ProjectPanelSaveError title="$STR_REPLACE$" message="Si è verificato un errore durante la scrittura del  file workspace.
 Il workspace non è stato salvato."/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Apri Workspace" message="Il workspace attuale è stato modificato. Vuoi salvare il progetto attuale?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="Nuovo Workspace" message="Il workspace attuale è stato modificato. Vuoi salvare il progetto attuale?"/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Apri Workspace" message="Il workspace corrente è stato modificato. Vuoi salvare il progetto corrente?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="Nuovo Workspace" message="Il workspace corrente è stato modificato. Vuoi salvare il progetto corrente?"/>
             <ProjectPanelOpenFailed title="Apri Workspace" message="Il workspace non può essere aperto.
 Sembra che il file da aprire non sia un file di progetto valido."/>
             <ProjectPanelRemoveFolderFromProject title="Rimuovi cartella dal progetto" message="Tutti i sotto-elementi saranno eliminati.
 Sei sicuro di voler rimuovere questa cartella dal progetto?"/>
             <ProjectPanelRemoveFileFromProject title="Rimuovi file dal progetto" message="Sei sicuro di voler rimuovere questo file dal progetto?"/>
             <ProjectPanelReloadError title="Ricarica Workspace" message="Impossibile trovare il file da ricaricare."/>
-            <ProjectPanelReloadDirty title="Ricarica Workspace" message="Il workspace attuale è stato modificato. Ricaricandolo perderai tutte le modifiche.
+            <ProjectPanelReloadDirty title="Ricarica Workspace" message="Il workspace corrente è stato modificato. Ricaricandolo perderai tutte le modifiche.
 Vuoi continuare?"/>
             <UDLNewNameError title="Errore UDL" message="Questo nome è utilizzato da un altro linguaggio,
 usane un altro."/>
-            <UDLRemoveCurrentLang title="Rimuovi il linguaggio attuale" message="Sei sicuro?"/>
+            <UDLRemoveCurrentLang title="Rimuovi il linguaggio corrente" message="Sei sicuro?"/>
             <SCMapperDoDeleteOrNot title="Sei sicuro?" message="Sei sicuro di voler eliminare questa scorciatoia?"/>
             <FindCharRangeValueError title="Problema nell&apos;intervallo di valori" message="Devi inserire un valore tra 0 e 255."/>
             <OpenInAdminMode title="Salvataggio fallito" message="Il file non può essere salvato e potrebbe essere protetto.
@@ -1282,11 +1361,12 @@ Vuoi avviare Notepad++ come amministratore?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvataggio fallito" message="Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?"/>
             <OpenInAdminModeFailed title="Apertura come amministratore fallita" message="Notepad++ non può essere aperto come amministratore."/>
-            <ViewInBrowser title="Visualizza file attuale nel browser" message="Applicazione non trovata nel sistema."/>
+            <ViewInBrowser title="Visualizza file corrente nel browser" message="Applicazione non trovata nel sistema."/>
             <ExitToUpdatePlugins title="Notepad++ sta per chiudersi" message="Se fai clic su &quot;Sì&quot;, uscirai da Notepad++ per continuare le operazioni.
 Notepad++ verrà riavviato dopo che le operazioni saranno state completate.
 Vuoi continuare?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ deve essere riavviato" message="Devi riavviare Notepad++ per caricare i plugin che hai installato."/>
+            <NeedToRestartToLoadPlugins title="Notepad++ deve essere riavviato" message="Notepad++ deve essere riavviato per caricare i plugin che hai installato."/>
+            <ChangeHistoryEnabledWarning title="Notepad++ deve essere riavviato" message="Notepad++ deve essere riavviato per abilitare elenco cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronologia Appunti"/>
@@ -1321,12 +1401,14 @@ Vuoi continuare?"/>
             <PanelTitle name="Elenco Funzioni"/>
             <SortTip name="Ordina"/>
             <ReloadTip name="Ricarica"/>
+            <PreferencesTip name="Preferenze"/>
+            <PreferencesInitialSort name="Funzioni di ricerca (A to Z) predefinite"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Cartella come Workspace"/>
             <SelectFolderFromBrowserString name="Seleziona una cartella da aggiungere come pannello spazio lavoro"/>
-            <ExpandAllFoldersTip name="Espandi tutte le cartelle"/>
-            <CollapseAllFoldersTip name="Riduci tutte le cartelle"/>
+            <ExpandAllFoldersTip name="Espandi tutto"/>
+            <CollapseAllFoldersTip name="Riduci tutto"/>
             <LocateCurrentFileTip name="Individua il file corrente"/>
             <Menus>
                 <Item id="3511" name="Rimuovi"/>
@@ -1392,6 +1474,9 @@ Vuoi continuare?"/>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Permette di includere caratteri aggiuntivi nell&apos;elenco dei caratteri considerati una parola, quando effettui un doppio clic per selezionare, o effettui una ricerca con l&apos;opzione &quot;Solo parole intere&quot; selezionata"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Vai alla configurazione dello stile per cambiare il colore predefinito del Fine Riga (&quot;EOL custom color&quot;).."/>
+
             <word-chars-list-warning-begin value="Attenzione: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spazi"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tab"/>
@@ -1406,7 +1491,6 @@ Vuoi continuare?"/>
             <file-rename-title value="Rinomina"/>
             <find-in-files-filter-tip value="Cerca in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
-
 Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
 Cerca in tutti i files, ma escludi la cartella tests, bin e bin64:
@@ -1432,14 +1516,14 @@ Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
             <find-status-replaceall-re-malformed value="Sostituisci tutti: l&apos;espressione regolare non è valida"/>
             <find-status-replaceall-1-replaced value="Sostituisci tutti: 1 corrispondenza è stata sostituita"/>
             <find-status-replaceall-nb-replaced value="Sostituisci tutti: $INT_REPLACE$ corrispondenze sono state sostituite"/>
-            <find-status-replaceall-readonly value="Sostituisci tutti: impossibile sostituire il testo. Il documento attuale è in sola lettura"/>
+            <find-status-replaceall-readonly value="Sostituisci tutti: impossibile sostituire il testo. Il documento corrente è in sola lettura"/>
             <find-status-replace-end-reached value="Sostituisci: sostituita la prima corrispondenza dall&apos;alto. È stata raggiunta la fine del documento"/>
             <find-status-replace-top-reached value="Sostituisci: sostituita la prima corrispondenza dal basso. È stato raggiunto l&apos;inizio del documento"/>
             <find-status-replaced-next-found value="Sostituisci: 1 corrispondenza è stata sostituita. Trovata l&apos;corrispondenza successiva"/>
             <find-status-replaced-without-continuing value="Sostituisci: 1 corrispondenza è stata sostituita."/>
             <find-status-replaced-next-not-found value="Sostituisci: 1 corrispondenza è stata sostituita. Nessuna corrispondenza successiva"/>
             <find-status-replace-not-found value="Sostituisci: nessuna corrispondenza trovata"/>
-            <find-status-replace-readonly value="Sostituisci: impossibile sostituire il testo. Il documento attuale è in sola lettura"/>
+            <find-status-replace-readonly value="Sostituisci: impossibile sostituire il testo. Il documento corrente è in sola lettura"/>
             <find-status-cannot-find value="Cerca: impossibile trovare il testo &quot;$STR_REPLACE$&quot;"/>
             <find-status-scope-selection value="nel testo selezionato"/>
             <find-status-scope-all value="in tutto il file"/>
@@ -1447,7 +1531,7 @@ Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
             <find-status-scope-forward value="dal cursore fino alla fine"/>
             <finder-find-in-finder value="Cerca in questi risultati..."/>
             <finder-close-this value="Chiudi i risultati"/>
-            <finder-collapse-all value="Collassa tutto"/>
+            <finder-collapse-all value="Riduci tutto"/>
             <finder-uncollapse-all value="Espandi tutto"/>
             <finder-copy value="Copia righe selezionate"/>
             <finder-copy-verbatim value="Copia"/>
@@ -1460,15 +1544,15 @@ Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
             <common-ok value="OK"/>
             <common-cancel value="Annulla"/>
             <common-name value="Nome: "/>
-            <tabrename-title value="Rinomina tab attuale"/>
+            <tabrename-title value="Rinomina tab corrente"/>
             <tabrename-newname value="Nuovo nome: "/>
             <splitter-rotate-left value="Ruota a sinistra"/>
             <splitter-rotate-right value="Ruota a destra"/>
             <recent-file-history-maxfile value="File max: "/>
             <language-tabsize value="Dimensione tab: "/>
             <userdefined-title-new value="Crea nuovo linguaggio..."/>
-            <userdefined-title-save value="Salva linguaggio attuale come..."/>
-            <userdefined-title-rename value="Rinomina linguaggio attuale"/>
+            <userdefined-title-save value="Salva linguaggio corrente come..."/>
+            <userdefined-title-rename value="Rinomina linguaggio corrente"/>
             <autocomplete-nb-char value="N. caratteri: "/>
             <edit-verticaledge-nb-col value="N. colonne:"/>
             <summary value="Sommario"/>

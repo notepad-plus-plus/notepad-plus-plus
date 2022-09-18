@@ -37,7 +37,6 @@ const int ScintillaEditView::_SC_MARGE_SYMBOL = 1;
 const int ScintillaEditView::_SC_MARGE_CHANGEHISTORY = 2;
 const int ScintillaEditView::_SC_MARGE_FOLDER = 3;
 
-
 WNDPROC ScintillaEditView::_scintillaDefaultProc = NULL;
 string ScintillaEditView::_defaultCharList = "";
 
@@ -261,9 +260,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		execute(SCI_MARKERDEFINERGBAIMAGE, MARK_HIDELINESEND, reinterpret_cast<LPARAM>(hidelines_end14));
 	}
 
-    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_FOLDER, true);
-    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_SYMBOL, true);
-    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_CHANGEHISTORY, true);
+    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_FOLDER, true); // Make margin sensitive for getting notification on mouse click
+    execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_SYMBOL, true); // Make margin sensitive for getting notification on mouse click
 
     execute(SCI_SETFOLDFLAGS, SC_FOLDFLAG_LINEAFTER_CONTRACTED);
 	execute(SCI_SETSCROLLWIDTHTRACKING, true);
@@ -2730,8 +2728,8 @@ void ScintillaEditView::performGlobalStyles()
 	pStyle = stylers.findByName(TEXT("Bookmark margin"));
 	if (!pStyle)
 	{
-		pStyle = stylers.findByName(TEXT("Line number margin"));
-		if (pStyle)
+		pStyle = stylers.findByName(TEXT("Line number margin")); // "Line number margin" is used only for getting the bg color for _SC_MARGE_SYMBOL.
+		if (pStyle)                                              // "Line number margin" has its own style (styleID="33") for setting its bg & fg color
 		{
 			bookmarkMarginColor = pStyle->_bgColor;
 		}

@@ -322,14 +322,15 @@ IDD_PREFERENCE_SUB_SEARCHING DIALOGEX 0, 0, 455, 185
 STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "When Find Dialog is Invoked", IDD_FILL_FIND_FIELD_GRP_STATIC, 31, 4, 323, 43, BS_CENTER
+    GROUPBOX        "When Find Dialog is Invoked", IDD_FILL_FIND_FIELD_GRP_STATIC, 31, 4, 323, 55, BS_CENTER
     CONTROL         "Fill Find Field with Selected Text", IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 16, 275, 10
     CONTROL         "Select Word Under Caret when Nothing Selected", IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 52, 31, 275, 10
-    CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)", IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 52, 350, 10
-    CONTROL         "Find dialog remains open after search that outputs to results window", IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 67, 350, 10
-    CONTROL         "Confirm Replace All in All Opened Documents", IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 82, 350, 10
-    CONTROL         "Replace: Don't move to the following occurrence", IDC_CHECK_REPLACEANDSTOP, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 97, 350, 10
-    CONTROL         "Search Result window: show only one entry per found line", IDC_CHECK_SHOWONCEPERFOUNDLINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 112, 350, 10
+    CONTROL         "Fill Replace Field Same as Find Field", IDC_CHECK_FILL_REPLACE_FIELD_AS_FIND_FIELD, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 52, 44, 275, 10
+    CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)", IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 65, 350, 10
+    CONTROL         "Find dialog remains open after search that outputs to results window", IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 80, 350, 10
+    CONTROL         "Confirm Replace All in All Opened Documents", IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 95, 350, 10
+    CONTROL         "Replace: Don't move to the following occurrence", IDC_CHECK_REPLACEANDSTOP, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 110, 350, 10
+    CONTROL         "Search Result window: show only one entry per found line", IDC_CHECK_SHOWONCEPERFOUNDLINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 125, 350, 10
 END
 
 

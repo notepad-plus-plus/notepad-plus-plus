@@ -1234,6 +1234,8 @@ void Notepad_plus::command(int id)
 			{
 				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
 				_findReplaceDlg.setSearchText(str);
+				if (nppGui._fillReplaceFieldAsFindField && (REPLACE_DLG == dlgID))
+					_findReplaceDlg.setReplaceText(str);
 			}
 
 			setFindReplaceFolderFilter(NULL, NULL);

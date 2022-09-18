@@ -802,6 +802,7 @@ struct NppGUI final
 	bool _backSlashIsEscapeCharacterForSql = true;
 	bool _fillFindFieldWithSelected = true;
 	bool _fillFindFieldSelectCaret = true;
+	bool _fillReplaceFieldAsFindField = false;
 	bool _monospacedFontFindDlg = false;
 	bool _findDlgAlwaysVisible = false;
 	bool _confirmReplaceInAllOpenDocs = true;

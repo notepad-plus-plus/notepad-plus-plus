@@ -3246,6 +3246,18 @@ void FindReplaceDlg::setSearchText(TCHAR * txt2find)
 	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 }
 
+void FindReplaceDlg::setReplaceText(TCHAR* txt2replace)
+{
+	HWND hCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+	if (txt2replace && txt2replace[0])
+	{
+		// We got a valid replace-string
+		::SendMessage(hCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
+		::SetDlgItemText(_hSelf, IDREPLACEWITH, txt2replace);
+		::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit (but only for nonempty strings)
+	}
+}
+
 void FindReplaceDlg::enableFindDlgItem(int dlgItemID, bool isEnable /* = true*/)
 {
 	HWND h = ::GetDlgItem(_hSelf, dlgItemID);

@@ -4952,9 +4952,11 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED, BM_SETCHECK, nppGUI._fillFindFieldWithSelected, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, nppGUI._fillFindFieldSelectCaret, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_REPLACE_FIELD_AS_FIND_FIELD, BM_SETCHECK, nppGUI._fillReplaceFieldAsFindField, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFindDlg, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, BM_SETCHECK, nppGUI._findDlgAlwaysVisible, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_REPLACE_FIELD_AS_FIND_FIELD), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CONFIRMREPLOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWONCEPERFOUNDLINE, BM_SETCHECK, nppGUI._finderShowOnlyOneEntryPerFoundLine, 0);
@@ -4988,10 +4990,13 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				{
 					nppGUI._fillFindFieldWithSelected = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE :FALSE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_REPLACE_FIELD_AS_FIND_FIELD), nppGUI._fillFindFieldWithSelected ? TRUE :FALSE);
 					if (!nppGUI._fillFindFieldWithSelected) 
 					{
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, BST_UNCHECKED, 0);
 						nppGUI._fillFindFieldSelectCaret = false;
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_REPLACE_FIELD_AS_FIND_FIELD, BM_SETCHECK, BST_UNCHECKED, 0);
+						nppGUI._fillReplaceFieldAsFindField = false;
 					}
 					return TRUE;
 				}
@@ -5035,6 +5040,13 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET:
 				{
 					nppGUI._fillFindFieldSelectCaret = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_FILL_REPLACE_FIELD_AS_FIND_FIELD:
+				{
+					nppGUI._fillReplaceFieldAsFindField = isCheckedOrNot(IDC_CHECK_FILL_REPLACE_FIELD_AS_FIND_FIELD);
 					return TRUE;
 				}
 				break;

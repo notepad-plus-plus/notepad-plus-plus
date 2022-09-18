@@ -338,6 +338,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
 				_findReplaceDlg.setSearchText(str);
+				if (nppGui._fillReplaceFieldAsFindField)
+					_findReplaceDlg.setReplaceText(str);
 			}
 
 			if (isFirstTime)

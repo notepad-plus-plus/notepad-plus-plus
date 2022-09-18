@@ -8,6 +8,7 @@ By Hiro5 <groccat at gmail>
 	<Native-Langue name="Català" filename="catalan.xml" version="7.8.7">
 		<Menu>
 			<Main>
+				<!-- Menú principal -->
 				<Entries>
 					<Item menuId="file" name="&amp;Fitxer"/>
 					<Item menuId="edit" name="&amp;Edita"/>
@@ -22,6 +23,7 @@ By Hiro5 <groccat at gmail>
 					<Item menuId="Plugins" name="C&amp;omplements"/>
 					<Item menuId="Window" name="Fine&amp;stres"/>
 				</Entries>
+				<!-- Entrades submenú -->
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Obre la carpeta contenidora"/>
 					<Item subMenuId="file-closeMore" name = "&amp;Més tancaments"/>
@@ -37,6 +39,7 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="edit-pasteSpecial" name="Engan&amp;xament especial"/>
 					<Item subMenuId="edit-onSelection" name="Operacions amb selecció"/>
 					<Item subMenuId="search-markAll" name="Marca&amp;-ho tot"/>
+					<Item subMenuId="search-markOne" name="Marca'n &amp;Un"/>
 					<Item subMenuId="search-unmarkAll" name="Desmarca-&amp;ho tot"/>
 					<Item subMenuId="search-jumpUp" name="Cerca &amp;marca anterior"/>
 					<Item subMenuId="search-jumpDown" name="Cerca marca se&amp;güent"/>
@@ -70,12 +73,16 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="settings-import" name="&amp;Importa"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="window-sortby" name="Ordenat per"/>
 				</SubEntries>
 				<Commands>
 					<Item id="41001" name="&amp;Nou"/>
 					<Item id="41002" name="&amp;Obre..."/>
 					<Item id="41019" name="Explorador de Windows"/>
 					<Item id="41020" name="Indicador d'ordres"/>
+					<Item id="41025" name="Carpeta com a espai de treball"/>
+					<Item id="41003" name="&amp;Tanca"/>
+					<Item id="41004" name="Tanca'&amp;ls tots"/>
 					<Item id="41023" name="Obre amb el visualitzador per defecte"/>
 					<Item id="41022" name="Obre carpeta de treball"/>
 					<Item id="41014" name="&amp;Recarrega des del disc"/>
@@ -84,8 +91,6 @@ By Hiro5 <groccat at gmail>
 					<Item id="41015" name="Anomena &amp;còpia i desa..."/>
 					<Item id="41007" name="D&amp;esa'ls tots"/>
 					<Item id="41017" name="Can&amp;via el nom..."/>
-					<Item id="41003" name="&amp;Tanca"/>
-					<Item id="41004" name="Tanca'&amp;ls tots"/>
 					<Item id="41005" name="Tanca'ls tots &amp;menys l'actiu"/>
 					<Item id="41009" name="Tanca tots els de l'&amp;esquerra"/>
 					<Item id="41018" name="Tanca tots els de la &amp;dreta"/>
@@ -891,6 +896,9 @@ By Hiro5 <groccat at gmail>
 					<Item id="6262" name="Paràmetres al núvol"/>
 					<Item id="6263" name="Sense núvol"/>
 					<Item id="6267" name="Indiqueu el directori del núvol aquí:"/>
+					<Item id="6318" name="Configuració dels enllaços clicables"/>
+					<Item id="6319" name="Habilita"/>
+					<Item id="6320" name="No subratllis"/>
 				</Cloud>
 				<MISC title="Miscel·lània">
 					<ComboBox id="6347">
@@ -910,9 +918,6 @@ By Hiro5 <groccat at gmail>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
 					<Item id="6323" name="Actualitza Notepad++ automàticament"/>
 					<Item id="6348" name="No omplis el camp del diàleg de cerca amb la paraula seleccionada"/>
-					<Item id="6318" name="Configuració dels enllaços clicables"/>
-					<Item id="6319" name="Habilita"/>
-					<Item id="6320" name="No subratllis"/>
 					<Item id="6312" name="Autodetecció d'estat del fitxer"/>
 					<Item id="6307" name="Habilita"/>
 					<Item id="6313" name="Actualitza en silenci"/>
@@ -927,6 +932,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
 					<Item id="6276" name="Establiu un motor de cerca aquí:"/>
+					<!--  No canvieu res després de l'exemple: -->
 					<Item id="6278" name="Exemple: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 			</Preference>

@@ -388,7 +388,13 @@ void VerticalFileSwitcherListView::resizeColumns(int totalWidth)
 		totalColWidthDynExceptName += pathWidthDyn;
 		ListView_SetColumnWidth(_hSelf, ++colIndex, pathWidthDyn);
 	}
-		
+
+	const auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
+	if ((style & WS_VSCROLL) == WS_VSCROLL)
+	{
+		totalColWidthDynExceptName += ::GetSystemMetrics(SM_CXVSCROLL);
+	}
+
 	ListView_SetColumnWidth(_hSelf, 0, totalWidth - totalColWidthDynExceptName);
 }
 

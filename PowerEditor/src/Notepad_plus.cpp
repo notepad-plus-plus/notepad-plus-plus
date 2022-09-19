@@ -491,7 +491,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 		int numLangs = ::GetMenuItemCount(hLangMenu);
 		const int bufferSize = 100;
-		TCHAR buffer[bufferSize];
+		TCHAR buffer[bufferSize] = { '\0' };
 		const TCHAR* lexerNameW = wmc.char2wchar(externalLangContainer._name.c_str(), CP_ACP);
 
 		int x = 0;
@@ -609,7 +609,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	willBeShown = nppGUI._toolbarShow;
 
 	// To notify plugins that toolbar icons can be registered
-	SCNotification scnN;
+	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_TBMODIFICATION;
 	scnN.nmhdr.hwndFrom = hwnd;
 	scnN.nmhdr.idFrom = 0;
@@ -820,7 +820,7 @@ bool Notepad_plus::saveGUIParams()
 
 	// When window is maximized GetWindowPlacement returns window's last non maximized coordinates.
 	// Save them so that those will be used when window is restored next time.
-	WINDOWPLACEMENT posInfo;
+	WINDOWPLACEMENT posInfo{};
 	posInfo.length = sizeof(WINDOWPLACEMENT);
 	::GetWindowPlacement(_pPublicInterface->getHSelf(), &posInfo);
 
@@ -2948,11 +2948,13 @@ bool removeUnwantedTrailingCharFromUrl (TCHAR const *text, int* length)
 				{
 					if (text [j] == closingParenthesis [i])
 						count++;
-					if (text [j] == openingParenthesis [i])
+					if (text[j] == openingParenthesis[i])
+					{
 						if (count > 0)
 							count--;
 						else
 							return false;
+					}
 				}
 				if (count != 0)
 					return false;
@@ -5937,10 +5939,6 @@ void Notepad_plus::prepareBufferChangedDialog(Buffer * buffer)
 
 void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 {
-	// To avoid to crash while MS-DOS style is set as default language,
-	// Checking the validity of current instance is necessary.
-	if (!this) return;
-
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = nppParam.getNppGUI();
 

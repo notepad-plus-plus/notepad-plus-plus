@@ -78,7 +78,7 @@ public:
 
 	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
 
-	BufferID loadFile(const TCHAR * filename, Document doc = NULL, int encoding = -1, const TCHAR *backupFileName = NULL, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
+	BufferID loadFile(const TCHAR * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const TCHAR *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
 	//create Buffer from existing Scintilla, used from new Scintillas. If dontIncrease = true, then the new document number isnt increased afterwards.
 	//usefull for temporary but neccesary docs
@@ -100,7 +100,7 @@ public:
 	static FileManager& getInstance() {
 		static FileManager instance;
 		return instance;
-	};
+	}
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
@@ -174,9 +174,9 @@ public:
 
 	bool isDirty() const { return _isDirty; }
 
-	bool isReadOnly() const { return (_isUserReadOnly || _isFileReadOnly); };
+	bool isReadOnly() const { return (_isUserReadOnly || _isFileReadOnly); }
 
-	bool isUntitled() const { return (_currentStatus == DOC_UNNAMED); }
+	bool isUntitled() const { return ((_currentStatus & DOC_UNNAMED) == DOC_UNNAMED); }
 
 	bool getFileReadOnly() const { return _isFileReadOnly; }
 
@@ -300,7 +300,7 @@ public:
 	void startMonitoring() { 
 		_isMonitoringOn = true; 
 		_eventHandle = ::CreateEvent(nullptr, TRUE, FALSE, nullptr);
-	};
+	}
 
 	HANDLE getMonitoringEvent() const { return _eventHandle; };
 
@@ -308,7 +308,7 @@ public:
 		_isMonitoringOn = false;
 		::SetEvent(_eventHandle);
 		::CloseHandle(_eventHandle);
-	};
+	}
 
 	bool isMonitoringOn() const { return _isMonitoringOn; };
 	void updateTimeStamp();

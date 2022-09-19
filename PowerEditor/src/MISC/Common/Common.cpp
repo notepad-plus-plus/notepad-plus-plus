@@ -132,7 +132,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		LARGE_INTEGER offset;
+		LARGE_INTEGER offset{};
 		offset.QuadPart = 0;
 		::SetFilePointerEx(hFile, offset, NULL, FILE_END);
 
@@ -189,7 +189,7 @@ generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
 
 void ClientRectToScreenRect(HWND hWnd, RECT* rect)
 {
-	POINT		pt;
+	POINT		pt{};
 
 	pt.x		 = rect->left;
 	pt.y		 = rect->top;
@@ -230,7 +230,7 @@ std::vector<generic_string> tokenizeString(const generic_string & tokenString, c
 
 void ScreenRectToClientRect(HWND hWnd, RECT* rect)
 {
-	POINT		pt;
+	POINT		pt{};
 
 	pt.x		 = rect->left;
 	pt.y		 = rect->top;
@@ -262,7 +262,7 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 	const size_t wordLen = 64;
 	size_t listLen = lstrlen(list);
 
-	TCHAR word[wordLen];
+	TCHAR word[wordLen] = { '\0' };
 	size_t i = 0;
 	size_t j = 0;
 
@@ -1149,7 +1149,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 	DWORD dwFormatType = 0;
 	PCMSG_SIGNER_INFO pSignerInfo = NULL;
 	DWORD dwSignerInfo = 0;
-	CERT_INFO CertInfo;
+	CERT_INFO CertInfo{};
 	LPTSTR szName = NULL;
 
 	generic_string subjectName;
@@ -1285,11 +1285,10 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 
 		// check if association exist
 		hres = AssocQueryString(ASSOCF_VERIFY|ASSOCF_INIT_IGNOREUNKNOWN, ASSOCSTR_COMMAND, ext, NULL, buffer, &bufferLen);
-        
+
         isAssoCommandExisting = (hres == S_OK)                  // check if association exist and no error
-			&& (buffer != NULL)                                 // check if buffer is not NULL
 			&& (wcsstr(buffer, TEXT("notepad++.exe")) == NULL); // check association with notepad++
-        
+
 	}
 	return isAssoCommandExisting;
 }

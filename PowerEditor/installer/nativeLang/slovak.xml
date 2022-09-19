@@ -964,6 +964,7 @@
                     <Item id="6292" name="Dynamická šírka"/>
                     <Item id="6293" name="Konštantná šírka"/>
                     <Item id="6207" name="Zobraziť záložky"/>
+                    <Item id="6223" name="Zobraziť históriu zmien"/>
                     <Item id="6211" name="Nastavenie vertikálneho okraja"/>
                     <Item id="6213" name="Režim pozadia"/>
                     <Item id="6237" name="Pridajte značku stĺpca zadaním jej pozície (celé číslo).
@@ -1361,6 +1362,7 @@ Chcete spustiť Notepad++ v režime správcu?"/>
 Notepad++ sa reštartuje po ukončení všetkých operácií.
 Pokračovať?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných pluginov je potrebné Notepad++ reštartovať."/>
+            <ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>

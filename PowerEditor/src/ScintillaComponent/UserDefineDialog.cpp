@@ -1718,8 +1718,8 @@ void StringDlg::HandlePaste(HWND hEdit)
 
 void StylerDlg::move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
 {
-    POINT p;
-    RECT rc;
+    POINT p{};
+    RECT rc{};
     ::GetWindowRect(::GetDlgItem(hwndDlg, ctrlID), &rc);
 
     p.x = rc.right + NppParameters::getInstance()._dpiManager.scaleX(5);
@@ -1764,7 +1764,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             for (size_t j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; ++j)
 				::SendMessage(hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[j]));
 
-            TCHAR size[10];
+            TCHAR size[10] = { '\0' };
             if (style._fontSize == -1)
                 size[0] = '\0';
             else
@@ -1883,13 +1883,13 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
                     if (i != 0)
                     {
 						const size_t intStrLen = 3;
-						TCHAR intStr[intStrLen];
+						TCHAR intStr[intStrLen] = { '\0' };
 						auto lbTextLen = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXTLEN, i, 0);
 						if (static_cast<size_t>(lbTextLen) > intStrLen - 1)
 							return TRUE;
 
 						::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(intStr));
-                        if ((!intStr) || (!intStr[0]))
+                        if (!intStr[0])
                             style._fontSize = -1;
                         else
                         {

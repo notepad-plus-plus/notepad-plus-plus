@@ -971,6 +971,7 @@
                     <Item id="6292" name="Largura dinâmica"/>
                     <Item id="6293" name="Largura constante"/>
                     <Item id="6207" name="Exibir margem dos marcadores"/>
+		    <Item id="6223" name="Mostrar Histórico de Modificações"/>
                     <Item id="6211" name="Configurações do marcador de coluna"/>
                     <Item id="6213" name="Modo plano de fundo"/>
                     <Item id="6237" name="Adicione seu marcador de coluna, indicando sua posição com um número decimal.
@@ -1368,6 +1369,7 @@ Deseja iniciar o Notepad++ no modo Administrador?"/>
 O Notepad++ será reiniciado depois que todas as operações forem concluídas.
 Deseja continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para carregar os plugins instalados."/>
+	    <ChangeHistoryEnabledWarning title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para habilitar o Hisórico de Modificações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <SaveAllConfirm title="Confirmação de Salvar todos" message="Tem certeza de que deseja salvar todos os documentos?
 
 Escolha &quot;Cancelar&quot; se sua resposta sempre for &quot;Sim&quot; e essa pergunta não será feita novamente.

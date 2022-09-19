@@ -302,7 +302,7 @@
     #define    IDM_VIEW_HIDELINES                 (IDM_VIEW + 42)
     #define    IDM_VIEW_DRAWTABBAR_VERTICAL       (IDM_VIEW + 43)
     #define    IDM_VIEW_DRAWTABBAR_MULTILINE      (IDM_VIEW + 44)
-    #define    IDM_VIEW_DOCCHANGEMARGIN           (IDM_VIEW + 45)
+    //#define    IDM_VIEW_DOCCHANGEMARGIN           (IDM_VIEW + 45)
     #define    IDM_VIEW_LWDEF                     (IDM_VIEW + 46)
     #define    IDM_VIEW_LWALIGN                   (IDM_VIEW + 47)
     #define    IDM_VIEW_LWINDENT                  (IDM_VIEW + 48)

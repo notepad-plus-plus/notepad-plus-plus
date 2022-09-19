@@ -3632,6 +3632,7 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 			_widgetStyleArray.addStyler(styleID, childNode);
 		}
 	}
+
 	const Style* pStyle = _widgetStyleArray.findByName(TEXT("EOL custom color"));
 	if (!pStyle)
 	{
@@ -3641,6 +3642,17 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		eolColorkNode->ToElement()->SetAttribute(TEXT("fgColor"), TEXT("DADADA"));
 
 		_widgetStyleArray.addStyler(0, eolColorkNode);
+	}
+
+	pStyle = _widgetStyleArray.findByName(TEXT("Change History margin"));
+	if (!pStyle)
+	{
+		TiXmlNode* changeHistoryNode = globalStyleRoot->InsertEndChild(TiXmlElement(TEXT("WidgetStyle")));
+		changeHistoryNode->ToElement()->SetAttribute(TEXT("name"), TEXT("Change History margin"));
+		changeHistoryNode->ToElement()->SetAttribute(TEXT("styleID"), TEXT("0"));
+		changeHistoryNode->ToElement()->SetAttribute(TEXT("bgColor"), TEXT("E0E0E0"));
+
+		_widgetStyleArray.addStyler(0, changeHistoryNode);
 	}
 
 	return true;

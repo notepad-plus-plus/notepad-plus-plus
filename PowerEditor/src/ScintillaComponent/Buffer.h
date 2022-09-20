@@ -100,7 +100,7 @@ public:
 	static FileManager& getInstance() {
 		static FileManager instance;
 		return instance;
-	}
+	};
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
@@ -297,18 +297,18 @@ public:
 
 	bool isLargeFile() const { return _isLargeFile; }
 
-	void startMonitoring() { 
-		_isMonitoringOn = true; 
+	void startMonitoring() {
+		_isMonitoringOn = true;
 		_eventHandle = ::CreateEvent(nullptr, TRUE, FALSE, nullptr);
-	}
+	};
 
 	HANDLE getMonitoringEvent() const { return _eventHandle; };
 
-	void stopMonitoring() { 
+	void stopMonitoring() {
 		_isMonitoringOn = false;
 		::SetEvent(_eventHandle);
 		::CloseHandle(_eventHandle);
-	}
+	};
 
 	bool isMonitoringOn() const { return _isMonitoringOn; };
 	void updateTimeStamp();

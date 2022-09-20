@@ -1230,12 +1230,17 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.doDialog(dlgID, _nativeLangSpeaker.isRTL());
 
 			const NppGUI & nppGui = (NppParameters::getInstance()).getNppGUI();
-			if (nppGui._fillFindFieldWithSelected)
 			{
 				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
-				_findReplaceDlg.setSearchText(str);
 				if (nppGui._fillReplaceFieldAsFindField && (REPLACE_DLG == dlgID))
+				{
+					_findReplaceDlg.setSearchText(str, true);
 					_findReplaceDlg.setReplaceText(str);
+				}
+				else
+				{
+					_findReplaceDlg.setSearchText(str);
+				}
 			}
 
 			setFindReplaceFolderFilter(NULL, NULL);

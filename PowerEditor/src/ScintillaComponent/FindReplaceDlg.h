@@ -274,8 +274,8 @@ public :
 
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
-	void setSearchText(TCHAR * txt2find);
-	void setReplaceText(TCHAR* txt2replace);
+	void setSearchText(const TCHAR* txt2find, bool isReplace = false);
+	void setReplaceText(const TCHAR* txt2replace);
 
 	void gotoNextFoundResult(int direction = 0) {if (_pFinder) _pFinder->gotoNextFoundResult(direction);};
 

@@ -3234,7 +3234,7 @@ bool FindReplaceDlg::removeFinder(Finder *finder2remove)
 	return false;
 }
 
-void FindReplaceDlg::setSearchText(TCHAR * txt2find)
+void FindReplaceDlg::setSearchText(const TCHAR* txt2find, bool isReplace)
 {
 	HWND hCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 	if (txt2find && txt2find[0])
@@ -3243,18 +3243,20 @@ void FindReplaceDlg::setSearchText(TCHAR * txt2find)
 		::SendMessage(hCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
 		::SetDlgItemText(_hSelf, IDFINDWHAT, txt2find);
 	}
-	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
+	if (!isReplace)
+		::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 }
 
-void FindReplaceDlg::setReplaceText(TCHAR* txt2replace)
+void FindReplaceDlg::setReplaceText(const TCHAR* txt2replace)
 {
 	HWND hCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 	if (txt2replace && txt2replace[0])
 	{
 		// We got a valid replace-string
+		::SetFocus(hCombo); // Find field has been already prefilled, now the Replace field will need user attention...
 		::SendMessage(hCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
 		::SetDlgItemText(_hSelf, IDREPLACEWITH, txt2replace);
-		::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit (but only for nonempty strings)
+		::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 	}
 }
 

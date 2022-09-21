@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.4.6
-    Last modified Sun, Sep 18th, 2022.
+    Last modified Wed, Sep 21st, 2022.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
@@ -28,7 +28,7 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Apri cartella file"/>
-                    <Item subMenuId="file-closeMore" name="Chiudi speciale"/>
+                    <Item subMenuId="file-closeMore" name="Chiudi documenti multipli"/>
                     <Item subMenuId="file-recentFiles" name="File recenti"/>
                     <Item subMenuId="edit-insert" name="Inserisci"/>
                     <Item subMenuId="edit-copyToClipboard" name="Copia negli Appunti"/>
@@ -180,11 +180,11 @@
                     <Item id="42026" name="Direzione del testo Destra-Sinistra"/>
                     <Item id="42027" name="Direzione del testo Sinistra-Destra"/>
                     <Item id="42028" name="File in sola lettura"/>
-                    <Item id="42029" name="Percorso file corrente"/>
-                    <Item id="42030" name="Nome file corrente"/>
-                    <Item id="42031" name="Cartella corrente"/>
-                    <Item id="42087" name="Tutti i nomi file negli Appunti"/>
-                    <Item id="42088" name="Tutti i percorsi file negli Appunti"/>
+                    <Item id="42029" name="Copia Percorso file corrente"/>
+                    <Item id="42030" name="Copia Nome file corrente"/>
+                    <Item id="42031" name="Copia percorso Cartella corrente"/>
+                    <Item id="42087" name="Copa Tutti i nomi file"/>
+                    <Item id="42088" name="Copia Tutti i percorsi file"/>
                     <Item id="42032" name="Esegui una macro più volte..."/>
                     <Item id="42033" name="Pulisci il flag di sola lettura"/>
                     <Item id="42035" name="Commenta singola riga"/>
@@ -292,6 +292,12 @@
                     <Item id="44097" name="Monitora (tail -f)"/>
                     <Item id="44098" name="Sposta scheda avanti"/>
                     <Item id="44099" name="Sposta scheda indietro"/>
+                    <Item id="44110" name="Rimuovi Colore"/> 
+                    <Item id="44111" name="Applica Colore 1"/> 
+                    <Item id="44112" name="Applica Colore 2"/> 
+                    <Item id="44113" name="Applica Colore 3"/> 
+                    <Item id="44114" name="Applica Colore 4"/> 
+                    <Item id="44115" name="Applica Colore 5"/>
                     <Item id="44110" name="Rimuove Colore"/>
                     <Item id="44111" name="Applica Colore 1"/>
                     <Item id="44112" name="Applica Colore 2"/>
@@ -399,7 +405,7 @@
                 <Item CMID="6" name="Copia nell&apos;altra vista"/>
                 <Item CMID="7" name="Copia percorso file"/>
                 <Item CMID="8" name="Copia nome file"/>
-                <Item CMID="9" name="Copia percorso cartella"/>
+                <Item CMID="9" name="Copia percorso cartella corrente"/>
                 <Item CMID="10" name="Rinomina file..."/>
                 <Item CMID="11" name="Elimina file"/>
                 <Item CMID="12" name="Sola lettura"/>
@@ -421,11 +427,10 @@
                 <Item CMID="28" name="Applica Colore 5"/>
                 <Item CMID="29" name="Rimuovi Colore"/>
                 <Item CMID="30" name="Chiudi Tab multipli"/>
-                <Item CMID="31" name="Open in"/>
+                <Item CMID="31" name="Apri in"/>
                 <Item CMID="32" name="Copia negli appunti"/>
                 <Item CMID="33" name="Sposta Documento"/>
                 <Item CMID="34" name="Applica Colori al Tab"/>
-
             </TabBar>
         </Menu>
         <Dialog>
@@ -532,7 +537,7 @@
                 <Item id="2" name="Chiudi"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Gestione plugin" titleAvailable = "Disponibili" titleUpdates="Aggiornamenti" titleInstalled="Installati">
+            <PluginsAdminDlg title="Gestione plugin" titleAvailable = "Disponibile" titleUpdates="Aggiornamento" titleInstalled="Installato" titleIncompatible="Incompatibile">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versione"/>
                 <Item id="5501" name="Cerca:"/>
@@ -541,7 +546,7 @@
                 <Item id="5505" name="Rimuovi"/>
                 <Item id="5508" name="Vai"/>
                 <Item id="5509" name="Elenco versioni Plugin: "/>
-                <Item id="5511" name="Plugin list repository"/>
+                <Item id="5511" name="Elenco Plugin repository"/>
                 <Item id="2" name="Chiudi"/>
             </PluginsAdminDlg>
 
@@ -642,14 +647,14 @@
                     <Item id="44102" name="Apri il file corrente in Edge"/>
                     <Item id="50003" name="Passa al documento precedente"/>
                     <Item id="50004" name="Passa al documento successivo"/>
-                    <Item id="44051" name="Collassa livello 1"/>
-                    <Item id="44052" name="Collassa livello 2"/>
-                    <Item id="44053" name="Collassa livello 3"/>
-                    <Item id="44054" name="Collassa livello 4"/>
-                    <Item id="44055" name="Collassa livello 5"/>
-                    <Item id="44056" name="Collassa livello 6"/>
-                    <Item id="44057" name="Collassa livello 7"/>
-                    <Item id="44058" name="Collassa livello 8"/>
+                    <Item id="44051" name="Contrai livello 1"/>
+                    <Item id="44052" name="Contrai livello 2"/>
+                    <Item id="44053" name="Contrai livello 3"/>
+                    <Item id="44054" name="Contrai livello 4"/>
+                    <Item id="44055" name="Contrai livello 5"/>
+                    <Item id="44056" name="Contrai livello 6"/>
+                    <Item id="44057" name="Contrai livello 7"/>
+                    <Item id="44058" name="Contrai livello 8"/>
                     <Item id="44061" name="Espandi livello 1"/>
                     <Item id="44062" name="Espandi livello 2"/>
                     <Item id="44063" name="Espandi livello 3"/>
@@ -968,6 +973,7 @@
                     <Item id="6292" name="Larghezza dinamica"/>
                     <Item id="6293" name="Larghezza costante"/>
                     <Item id="6207" name="Visualizza i segnalibri"/>
+                    <Item id="6223" name="Mostra Elenco Cambiamenti"/> 
                     <Item id="6211" name="Limite Di Colonna"/>
                     <Item id="6213" name="Modalità &quot;sfondo&quot;"/>
                     <Item id="6237" name="Aggiungi il tuo delimitatore di colonna indicante la sua posizione con un numero decimale.
@@ -1359,7 +1365,8 @@ Vuoi avviare Notepad++ come amministratore?"/>
             <ExitToUpdatePlugins title="Notepad++ sta per chiudersi" message="Se fai clic su &quot;Sì&quot;, uscirai da Notepad++ per continuare le operazioni.
 Notepad++ verrà riavviato dopo che le operazioni saranno state completate.
 Vuoi continuare?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ deve essere riavviato" message="Devi riavviare Notepad++ per caricare i plugin che hai installato."/>
+            <NeedToRestartToLoadPlugins title="Notepad++ deve essere riavviato" message="Notepad++ deve essere riavviato per caricare i plugin che hai installato."/>
+            <ChangeHistoryEnabledWarning title="Notepad++ deve essere riavviato" message="Notepad++ deve essere riavviato per abilitare elenco cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronologia Appunti"/>
@@ -1400,8 +1407,8 @@ Vuoi continuare?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Cartella come Workspace"/>
             <SelectFolderFromBrowserString name="Seleziona una cartella da aggiungere come pannello spazio lavoro"/>
-            <ExpandAllFoldersTip name="Espandi tutte le cartelle"/>
-            <CollapseAllFoldersTip name="Riduci tutte le cartelle"/>
+            <ExpandAllFoldersTip name="Espandi tutto"/>
+            <CollapseAllFoldersTip name="Riduci tutto"/>
             <LocateCurrentFileTip name="Individua il file corrente"/>
             <Menus>
                 <Item id="3511" name="Rimuovi"/>
@@ -1524,7 +1531,7 @@ Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
             <find-status-scope-forward value="dal cursore fino alla fine"/>
             <finder-find-in-finder value="Cerca in questi risultati..."/>
             <finder-close-this value="Chiudi i risultati"/>
-            <finder-collapse-all value="Collassa tutto"/>
+            <finder-collapse-all value="Riduci tutto"/>
             <finder-uncollapse-all value="Espandi tutto"/>
             <finder-copy value="Copia righe selezionate"/>
             <finder-copy-verbatim value="Copia"/>

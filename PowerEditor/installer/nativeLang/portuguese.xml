@@ -1362,6 +1362,7 @@ Deseja iniciar o Notepad++ em modo de Administrador?"/>
 O Notepad++ será reiniciado após a conclusão de todas as operações.
 Continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para carregar os plugins que instalou."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para ativar o histórico de alterações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1617,7 +1618,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-13/09/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+21/09/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

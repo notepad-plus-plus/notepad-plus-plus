@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.5 (31.08.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.6 (21.09.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.4.2">
+    <Native-Langue name="polski" filename="polish.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -34,7 +34,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- Menu rozwijane, główne -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Otwórz folder zawierający"/>
-                    <Item subMenuId="file-closeMore" name="Zamknij więcej"/>
+                    <Item subMenuId="file-closeMore" name="Zamknij wiele dokumentów"/>
                     <Item subMenuId="file-recentFiles" name="Ostatnio zamknięte &amp;pliki"/>
                     <Item subMenuId="edit-insert" name="Wstaw"/>
                     <Item subMenuId="edit-copyToClipboard" name="Kopiuj do schowka"/>
@@ -298,6 +298,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44097" name="Monitorowanie pliku (tail -f)"/>
                     <Item id="44098" name="Przesuń kartę do przodu"/>
                     <Item id="44099" name="Przesuń kartę do tyłu"/>
+                    <Item id="44110" name="Usuń kolor"/>
+                    <Item id="44111" name="Zastosuj kolor 1."/>
+                    <Item id="44112" name="Zastosuj kolor 2."/>
+                    <Item id="44113" name="Zastosuj kolor 3."/>
+                    <Item id="44114" name="Zastosuj kolor 4."/>
+                    <Item id="44115" name="Zastosuj kolor 5."/>
                     <Item id="44032" name="Przełącz tryb pełnoekranowy"/>
                     <Item id="44033" name="Przywróć domyślne"/>
                     <Item id="44034" name="Zawsze na wierzchu"/>
@@ -391,15 +397,15 @@ The comments are here for explanation, it's not necessary to translate them.
             </Splitter>
             <TabBar>
                     <Item CMID="0" name="Zamknij"/>
-                    <Item CMID="1" name="Zamknij wszystko PRÓCZ tego"/>
+                    <Item CMID="1" name="Zamknij wszystkie PRÓCZ tej"/>
                     <Item CMID="2" name="Zapisz"/>
                     <Item CMID="3" name="Zapisz jako..."/>
                     <Item CMID="4" name="Drukuj..."/>
                     <Item CMID="5" name="Przenieś do drugiego widoku"/>
                     <Item CMID="6" name="Klonuj do drugiego widoku"/>
-                    <Item CMID="7" name="Kopiuj ścieżkę pliku do schowka"/>
-                    <Item CMID="8" name="Kopiuj nazwę pliku do schowka"/>
-                    <Item CMID="9" name="Kopiuj ścieżkę katalogu pliku do schowka"/>
+                    <Item CMID="7" name="Kopiuj ścieżkę pliku"/>
+                    <Item CMID="8" name="Kopiuj nazwę pliku"/>
+                    <Item CMID="9" name="Kopiuj ścieżkę katalogu pliku"/>
                     <Item CMID="10" name="Zmień nazwę..."/>
                     <Item CMID="11" name="Przenieś do kosza"/>
                     <Item CMID="12" name="Zablokuj edycję"/>
@@ -407,13 +413,24 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="14" name="Przenieś do nowego okna"/>
                     <Item CMID="15" name="Otwórz w nowym oknie"/>
                     <Item CMID="16" name="Odśwież"/>
-                    <Item CMID="17" name="Zamknij wszystko po lewej"/>
-                    <Item CMID="18" name="Zamknij wszystko po prawej"/>
+                    <Item CMID="17" name="Zamknij wszystkie po lewej"/>
+                    <Item CMID="18" name="Zamknij wszystkie po prawej"/>
                     <Item CMID="19" name="Otwórz folder zawierający w eksploratorze plików"/>
                     <Item CMID="20" name="Otwórz folder zawierający w wierszu poleceń"/>
                     <Item CMID="21" name="Otwórz w domyślnym programie"/>
-                    <Item CMID="22" name="Zamknij wszystko niezmodyfikowane"/>
+                    <Item CMID="22" name="Zamknij wszystkie niezmodyfikowane"/>
                     <Item CMID="23" name="Otwórz folder zawierający w obszarze roboczym"/>
+                    <Item CMID="24" name="Zastosuj kolor 1."/>
+                    <Item CMID="25" name="Zastosuj kolor 2."/>
+                    <Item CMID="26" name="Zastosuj kolor 3."/>
+                    <Item CMID="27" name="Zastosuj kolor 4."/>
+                    <Item CMID="28" name="Zastosuj kolor 5."/>
+                    <Item CMID="29" name="Usuń kolor"/>
+                    <Item CMID="30" name="Zamknij wiele kart"/>
+                    <Item CMID="31" name="Otwórz w"/>
+                    <Item CMID="32" name="Kopiuj do schowka"/>
+                    <Item CMID="33" name="Przenieś dokument"/>
+                    <Item CMID="34" name="Zastosuj kolor do karty"/>
             </TabBar>
         </Menu>
 
@@ -521,7 +538,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Zamknij"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Zarządzanie wtyczkami" titleAvailable = "Dostępne" titleUpdates = "Aktualizacje" titleInstalled = "Zainstalowane">
+            <PluginsAdminDlg title="Zarządzanie wtyczkami" titleAvailable="Dostępne" titleUpdates="Aktualizacje" titleInstalled="Zainstalowane" titleIncompatible="Niekompatybilne">
                 <ColumnPlugin   name="Wtyczka"/>
                 <ColumnVersion  name="Wersja"/>
                 <Item id="5501" name="Wyszukaj:"/>
@@ -530,6 +547,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="5505" name="Usuń"/>
                 <Item id="5508" name="Następna"/>
                 <Item id="2"    name="Zamknij"/>
+                <Item id="5509" name="Wersja listy wtyczek: "/>
+                <Item id="5511" name="Repozytorium z listą wtyczek"/>
             </PluginsAdminDlg>
 
             <StyleConfig title="Konfigurator stylów">
@@ -659,6 +678,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Przejdź do obszaru roboczego"/>
                     <Item id="44109" name="Przejdź do listy dokumentów"/>
                     <Item id="44108" name="Przejdź do listy funkcji"/>
+                    <Item id="44110" name="Usuń kolor karty"/>
+                    <Item id="44111" name="Zastosuj 1. kolor karty"/>
+                    <Item id="44112" name="Zastosuj 2. kolor karty"/>
+                    <Item id="44113" name="Zastosuj 3. kolor karty"/>
+                    <Item id="44114" name="Zastosuj 4. kolor karty"/>
+                    <Item id="44115" name="Zastosuj 5. kolor karty"/>
                     <Item id="11002" name="Sortuj karty względem nazwy od A do Z"/>
                     <Item id="11003" name="Sortuj karty względem nazwy od Z do A"/>
                     <Item id="11004" name="Sortuj karty względem ścieżki od A do Z"/>
@@ -938,7 +963,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 </DarkMode>
 
                 <MarginsBorderEdge title="Marginesy i krawędzie"> <!-- Marginesy/Ramka/Krawędź -->
-                    <Item id="6201" name="Styl marginesu"/>
+                    <Item id="6201" name="Styl zwijania/rozwijania"/> <!-- Styl marginesu zwijania -->
                     <Item id="6202" name="Prosty"/>
                     <Item id="6203" name="Strzałki"/>
                     <Item id="6204" name="Kółka"/>
@@ -949,6 +974,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6292" name="Dynamiczna szerokość"/>
                     <Item id="6293" name="Stała szerokość"/>
                     <Item id="6207" name="Pokazuj zakładki"/>
+                    <Item id="6223" name="Pokazuj historię zmian"/>
                     <Item id="6211" name="Ustawienia krawędzi pionowej"/>
                     <Item id="6213" name="Podświetlenie tła"/>
                     <Item id="6237" name="Dodaj znacznik kolumny, wskazując jego pozycję za pomocą liczby dziesiętnej.
@@ -1346,6 +1372,7 @@ Czy chcesz uruchomić Notepad++ jako administrator?"/>
 Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
 Kontynuować?"/>
             <NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ musi zostać ponownie uruchomiony, aby historia zmian zaczęła działać."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>

@@ -416,7 +416,7 @@
                     <Item CMID="27" name="Použiť farbu 4"/>
                     <Item CMID="28" name="Použiť farbu 5"/>
                     <Item CMID="29" name="Odstrániť farbu"/>
-                    <Item CMID="30" name="Zavrieť viacero"/>
+                    <Item CMID="30" name="Zavrieť viacero kariet"/>
                     <Item CMID="31" name="Otvoriť do"/>
                     <Item CMID="32" name="Kopírovať do schránky"/>
                     <Item CMID="33" name="Presunúť dokument"/>
@@ -528,7 +528,7 @@
                 <Item id="2" name="Zavrieť"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Incompatible">
+            <PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné">
                 <ColumnPlugin name="Doplnok"/>
                 <ColumnVersion name="Verzia"/>
                 <Item id="5501" name="Hľadať:"/>

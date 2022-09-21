@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on September 12th, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
+		- Updated on September 21st, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
 		- Updated on May 25th, 2022 for version 8.4.2 by Patriccollu di Santa Maria è Sichè
@@ -323,6 +323,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44097" name="Appustamentu (tail -f)"/>
                     <Item id="44098" name="Dispiazzà à l’unghjetta davanti"/>
                     <Item id="44099" name="Dispiazzà à l’unghjetta dinanzu"/>
+                    <Item id="44110" name="Caccià u culore"/>
+                    <Item id="44111" name="Appiecà u culore 1"/>
+                    <Item id="44112" name="Appiecà u culore 2"/>
+                    <Item id="44113" name="Appiecà u culore 3"/>
+                    <Item id="44114" name="Appiecà u culore 4"/>
+                    <Item id="44115" name="Appiecà u culore 5"/>
                     <Item id="44032" name="Attivà o disattivà u modu di screnu sanu"/>
                     <Item id="44033" name="Risturà l’ingrandamentu predefinitu"/>
                     <Item id="44034" name="Sempre in primu pianu"/>
@@ -695,7 +701,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Passà à u cartulare cum’è spaziu di travagliu"/>
                     <Item id="44108" name="Passà à a lista di e funzioni"/>
                     <Item id="44109" name="Passà à a lista di i ducumenti"/>
-                    <Item id="44110" name="Caccià u culore di l’unghjetta"/>
+                    <Item id="44110" name="Caccià u culore da l’unghjetta"/>
                     <Item id="44111" name="Appiecà u culore 1 à l’unghjetta"/>
                     <Item id="44112" name="Appiecà u culore 2 à l’unghjetta"/>
                     <Item id="44113" name="Appiecà u culore 3 à l’unghjetta"/>
@@ -990,6 +996,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6292" name="Larghezza dinamica"/>
                     <Item id="6293" name="Larghezza custante"/>
                     <Item id="6207" name="Affissà a margine di l’indetta"/>
+                    <Item id="6223" name="Affissà a cronolugia di i cambiamenti"/>
                     <Item id="6211" name="Marcatore di culonna"/>
                     <Item id="6213" name="Culurisce u fondu"/>
                     <Item id="6237" name="Aghjunghje u vostru marcatore di culonna indichendu a so pusizione cù un numeru sanu.
@@ -1388,7 +1395,8 @@ Vulete dimarrà Notepad++ in modu Amministratore ?"/>
             <ExitToUpdatePlugins title="Notepad++ stà per esce" message="S’è vo fate un cliccu nant’à « Sì », Notepad++ hà da piantassi per cuntinuà l’operazioni.
 Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
 Cuntinuà ?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ hà bisognu d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <NeedToRestartToLoadPlugins title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per permette l’affissera di a cronolugia di i cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>

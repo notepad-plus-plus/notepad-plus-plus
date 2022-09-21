@@ -181,8 +181,8 @@
                     <Item id="42029" name="Copiar caminho completo do arquivo"/>
                     <Item id="42030" name="Copiar nome do arquivo"/>
                     <Item id="42031" name="Copiar caminho da pasta atual"/>
-                    <Item id="42087" name="Todos os nomes de arquivos para a Área de Transferência"/>
-                    <Item id="42088" name="Todos os caminhos de arquivos para a Área de Transferência"/>
+                    <Item id="42087" name="Copiar todos os nomes de arquivos"/>
+                    <Item id="42088" name="Copiar todos os caminhos de arquivos"/>
                     <Item id="42032" name="Executar macro múltiplas vezes..."/>
                     <Item id="42033" name="Desmarcar como somente leitura"/>
                     <Item id="42035" name="Comentar linha única"/>

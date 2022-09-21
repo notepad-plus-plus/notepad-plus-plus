@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.4.1">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.4.6>
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -21,7 +21,7 @@
 				<!-- Alt Menü Girişleri -->
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Dosya Konumunu Aç"/>
-					<Item subMenuId="file-closeMore" name="Kapatma Seçenekleri"/>
+					<Item subMenuId="file-closeMore" name="Çoklu Dosya Kapat"/>
 					<Item subMenuId="file-recentFiles" name="&amp;Son Kullanılan Dosyalar"/>
 					<Item subMenuId="edit-insert" name="Yerleştir"/>
 					<Item subMenuId="edit-copyToClipboard" name="Panoya Kopyala"/>
@@ -176,8 +176,8 @@
 					<Item id="42029" name="Geçerli Dosyanın Yolunu Kopyala"/>
 					<Item id="42030" name="Geçerli Dosya Adını Kopyala"/>
 					<Item id="42031" name="Geçerli Dizin Yolunu Kopyala"/>
-					<Item id="42087" name="Tüm Dosya İsimlerini Panoya"/>
-					<Item id="42088" name="Tüm Dosya Yolları Panoya"/>
+					<Item id="42087" name="Tüm Dosya İsimlerini Kopyala"/>
+					<Item id="42088" name="Tüm Dosya Yollarını Kopyala"/>
 					<Item id="42032" name="&amp;Makroyu Birden Çok Kez Çalıştır"/>
 					<Item id="42033" name="Salt Okunur İşaretini Kaldır"/>
 					<Item id="42035" name="Tek Satır Yorum Alanı Aç"/>
@@ -283,8 +283,14 @@
 					<Item id="44095" name="Sonraki Sekme"/>
 					<Item id="44096" name="Önceki Sekme"/>
 					<Item id="44097" name="Monitörleme (tail -f)"/>
-                    <Item id="44098" name="Sekmeyi İleriye Taşı"/>
-                    <Item id="44099" name="Sekmeyi Geriye Taşı"/>
+					<Item id="44098" name="Sekmeyi İleriye Taşı"/>
+					<Item id="44099" name="Sekmeyi Geriye Taşı"/>
+					<Item id="44110" name="Rengi Kaldır"/>
+					<Item id="44111" name="1. Rengi Uygula"/>
+					<Item id="44112" name="2. Rengi Uygula"/>
+					<Item id="44113" name="3. Rengi Uygula"/>
+					<Item id="44114" name="4. Rengi Uygula"/>
+					<Item id="44115" name="5. Rengi Uygula"/>
 					<Item id="44032" name="Tam Ekran Modunu Aç/Kapat"/>
 					<Item id="44033" name="&amp;Varsayılan Uzaklığa Geri Dön"/>
 					<Item id="44034" name="Pencereyi Her Zaman Üstte Göster"/>
@@ -949,7 +955,7 @@
 				</DarkMode>
 
 				<MarginsBorderEdge title="Boşluk/Sınır/Köşe">
-					<Item id="6201" name="Anahat Ağacı Stili"/>
+					<Item id="6201" name="Anahat Daraltma Stili"/>
 					<Item id="6202" name="Basit"/>
 					<Item id="6203" name="Ok"/>
 					<Item id="6204" name="Daire"/>
@@ -961,6 +967,7 @@
 					<Item id="6293" name="Sabit Genişlik"/>
 					<Item id="6207" name="Yer imini görüntüle"/>
 					<Item id="6211" name="Dikey Kenarlık Ayarları"/>
+					<Item id="6223" name="Değişim Geçmişini Göster"/>
 					<Item id="6213" name="Arka plan modu"/>
 					<Item id="6237" name="Sütun işaretçinizi, onun pozisyonunu ondalık sayıyla belirterek ekleyin.
 Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
@@ -1353,6 +1360,7 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
 Notepad++ tüm işlemler bitince yeniden başlatılacak.
 Devam edilsin mi?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ yeniden başlatılmalı" message="Kurduğunuz eklentilerin yüklenmesi için Notepad++ yeniden başlatılmalı."/>
+            <ChangeHistoryEnabledWarning title="Notepad++ yeniden başlatılmalı" message="Değişim Geçmişini etkinleştirmek için Notepad++'ı yeniden başlatılmanız gereklidir."/> <!-- NasılTekrarlanır: Tercihler penceresindeki "Boşluk/Sınır/Köşe" sekmesinde bulunan "Değişim Geçmişini Göster" seçeneğindeki işareti kaldırın. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>

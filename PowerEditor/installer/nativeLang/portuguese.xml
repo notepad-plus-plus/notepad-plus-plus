@@ -964,6 +964,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6292" name="Largura dinâmica"/>
                     <Item id="6293" name="Largura constante"/>
                     <Item id="6207" name="Mostrar marcador"/>
+                    <Item id="6223" name="Mostrar histórico de alterações"/>
                     <Item id="6211" name="Definições de limites verticais"/>
                     <Item id="6213" name="Modo de fundo"/>
                     <Item id="6237" name="Adicione o seu marcador de coluna, indicando a sua posição com um número decimal.

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-09-19 by schnurlos
+	last modified: 2022-09-21 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -532,7 +532,7 @@
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromTextDlg>
 
-			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable = "Verfügbar" titleUpdates = "Aktualisierungen" titleInstalled = "Installiert">
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert">
 				<ColumnPlugin   name="Plugin"/>
 				<ColumnVersion  name="Version"/>
 				<Item id="5501" name="Suchen:"/>
@@ -540,8 +540,8 @@
 				<Item id="5504" name="Aktualisieren"/>
 				<Item id="5505" name="Entfernen"/>
 				<Item id="5508" name="Nächstes finden"/>
-				<Item id="5509" name="Version Plugin-Liste: "/>
-				<Item id="5511" name="Speicherort Plugin-Liste"/>
+				<Item id="5509" name="Version der Plugin-Liste: "/>
+				<Item id="5511" name="Speicherort der Plugin-Liste"/>
 				<Item id="2"    name="Schließen"/>
 			</PluginsAdminDlg>
 

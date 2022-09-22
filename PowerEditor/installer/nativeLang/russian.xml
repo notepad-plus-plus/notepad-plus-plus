@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
 Updated to v8.4.6:
-- added new lines
-- fix wrongs description
+- hotfix
 -->
 <NotepadPlus>
 	<Native-Langue name="Русский" filename="russian.xml" version="8.4.6">
@@ -25,7 +24,7 @@ Updated to v8.4.6:
 				</Entries>
 				<SubEntries>
 					<Item subMenuId="file-openFolder"           name="&amp;Открыть папку файла"/>
-					<Item subMenuId="file-closeMore"            name="Управление вкладками"/>
+					<Item subMenuId="file-closeMore"            name="Закрытие вкладок"/>
 					<Item subMenuId="file-recentFiles"          name="Последние файлы"/>
 					<Item subMenuId="edit-insert"               name="Вставка"/>
 					<Item subMenuId="edit-copyToClipboard"      name="Копировать в &amp;Буфер"/>
@@ -48,7 +47,7 @@ Updated to v8.4.6:
 					<Item subMenuId="view-currentFileIn"        name="Открыть текущий файл в..."/>
 					<Item subMenuId="view-showSymbol"           name="Отображение символов"/>
 					<Item subMenuId="view-zoom"                 name="Масштаб текста"/>
-					<Item subMenuId="view-moveCloneDocument"    name="Перемещение / Дублирование файла"/>
+					<Item subMenuId="view-moveCloneDocument"    name="Управление вкладкой"/>
 					<Item subMenuId="view-tab"                  name="Выбор Вкладки"/>
 					<Item subMenuId="view-collapseLevel"        name="Свернуть все блоки уровня"/>
 					<Item subMenuId="view-uncollapseLevel"      name="Развернуть все блоки уровня"/>
@@ -95,7 +94,7 @@ Updated to v8.4.6:
 					<Item id="41003" name="Закрыть"/>
 					<Item id="41004" name="Закрыть вс&amp;е"/>
 
-					<Item id="41005" name="Закрыть все Кроме Активной"/>
+					<Item id="41005" name="Закрыть все Кроме Текущей"/>
 					<Item id="41009" name="Закрыть все Слева"/>
 					<Item id="41018" name="Закрыть все Справа"/>
 					<Item id="41024" name="Закрыть все Без Изменений"/>
@@ -432,15 +431,15 @@ Updated to v8.4.6:
 			</Splitter>
 			<TabBar>
 					<Item CMID="0"  name="Закрыть"/>
-					<Item CMID="1"  name="Закрыть все Кроме Активной"/>
+					<Item CMID="1"  name="Закрыть все Кроме Текущей"/>
 					<Item CMID="2"  name="Сохранить"/>
 					<Item CMID="3"  name="Сохранить как..."/>
 					<Item CMID="4"  name="Печать..."/>
 					<Item CMID="5"  name="Переместить в Другую Область"/>
 					<Item CMID="6"  name="Дублировать в Другой Области"/>
-					<Item CMID="7"  name="Полный Путь с Именем в буфер"/>
-					<Item CMID="8"  name="Имя файла в буфер"/>
-					<Item CMID="9"  name="Только Путь к файлу в буфер"/>
+					<Item CMID="7"  name="Полный Путь с Именем"/>
+					<Item CMID="8"  name="Имя файла"/>
+					<Item CMID="9"  name="Только Путь к файлу"/>
 					<Item CMID="10" name="Переименовать..."/>
 					<Item CMID="11" name="Удалить файл (в корзину)"/>
 					<Item CMID="12" name="&quot;Только Чтение&quot; файла"/>
@@ -462,10 +461,10 @@ Updated to v8.4.6:
 					<Item CMID="28" name="Применить цвет 5"/>
 					<Item CMID="29" name="Убрать Цвет"/>
 					<Item CMID="30" name="Закрытие Вкладок"/>
-					<Item CMID="31" name="Открыть в ..."/>
+					<Item CMID="31" name="Открыть папку файла"/>
 					<Item CMID="32" name="Копировать в Буфер"/>
-					<Item CMID="33" name="Перемещение / Дублирование файла"/>
-					<Item CMID="34" name="Применить Цвет к Вкладке"/>
+					<Item CMID="33" name="Управление Вкладкой"/>
+					<Item CMID="34" name="Применить цвет к Вкладке"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -571,8 +570,8 @@ Updated to v8.4.6:
 				<Item id="5504" name="Обновить"/>
 				<Item id="5505" name="Удалить"/>
 				<Item id="5508" name="Далее"/>
-				<Item id="5509" name="Список версий: "/>
-				<Item id="5511" name="Хранилище плагинов"/>
+				<Item id="5509" name="Версия плагина: "/>
+				<Item id="5511" name="Домашняя страница"/>
 				<Item id="2"    name="Закрыть"/>
 			</PluginsAdminDlg>
 			<StyleConfig    title="Определение стилей">

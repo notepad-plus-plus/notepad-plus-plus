@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.4.5  30/Aug/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.4.6  22/Sep/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.5">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -52,7 +52,7 @@
 					<Item subMenuId = "view-showSymbol" name = "Ukázat symboly"/>
 					<Item subMenuId = "view-zoom" name = "Lupa"/>
 					<Item subMenuId = "view-moveCloneDocument" name = "Přesunout/duplikovat aktuální dokument"/>
-					<Item subMenuId = "view-tab" name = "Karta dokumentu (Tab)"/>
+					<Item subMenuId = "view-tab" name = "Karta dokumentu (tab)"/>
 					<Item subMenuId = "view-collapseLevel" name = "Sbalit úroveň"/>
 					<Item subMenuId = "view-uncollapseLevel" name = "Rozbalit úroveň"/>
 					<Item subMenuId = "view-project" name = "Projekt"/>
@@ -135,9 +135,9 @@
 					<Item id = "42026" name = "Směr textu zprava doleva"/>
 					<Item id = "42027" name = "Směr textu zleva doprava"/>
 					<Item id = "42028" name = "Nastavit p&amp;říznak Pouze pro čtení"/>
-					<Item id = "42029" name = "Název (i s cestou) aktuálního souboru do Schránky"/>
-					<Item id = "42030" name = "Název aktuálního souboru do Schránky"/>
-					<Item id = "42031" name = "Název aktuálního adresáře (i s cestou) do Schránky"/>
+					<Item id = "42029" name = "Kopírovat název (i s cestou) aktuálního souboru"/>
+					<Item id = "42030" name = "Kopírovat název aktuálního souboru"/>
+					<Item id = "42031" name = "Kopírovat název (i s cestou) aktuálního adresáře souboru"/>
 					<Item id = "42032" name = "Spustit makro více&amp;krát..."/>
 					<Item id = "42033" name = "Zrušit p&amp;říznak Pouze pro čtení"/>
 					<Item id = "42034" name = "Editor s&amp;loupce..."/>
@@ -193,8 +193,8 @@
 					<Item id = "42084" name = "Aktuální čas a datum (kratší verze)"/>
 					<Item id = "42085" name = "Aktuální čas a datum (delší verze)"/>
 					<Item id = "42086" name = "Aktuální čas a datum (přizpůsobený)"/>
-					<Item id = "42087" name = "Všechny názvy souborů do Schránky"/>
-					<Item id = "42088" name = "Všechny souborové cesty do Schránky"/>
+					<Item id = "42087" name = "Kopírovat všechny názvy souborů"/>
+					<Item id = "42088" name = "Kopírovat všechny cesty souborů"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nah&amp;radit..."/>
@@ -307,6 +307,12 @@
 					<Item id = "44097" name = "Monitorování změn (tail -f)"/>
 					<Item id = "44098" name = "Přesunout kartu dopředu"/>
 					<Item id = "44099" name = "Přesunout kartu dozadu"/>
+					<Item id = "44110" name = "Odstranit barevné označení"/>
+					<Item id = "44111" name = "Označit barvou 1"/>
+					<Item id = "44112" name = "Označit barvou 2"/>
+					<Item id = "44113" name = "Označit barvou 3"/>
+					<Item id = "44114" name = "Označit barvou 4"/>
+					<Item id = "44115" name = "Označit barvou 5"/> 
 					<Item id = "45001" name = "Konvertovat do formátu Windows"/>
 					<Item id = "45002" name = "Konvertovat do formátu UNIX"/>
 					<Item id = "45003" name = "Konvertovat do formátu MAC"/>
@@ -398,9 +404,9 @@
 				<Item CMID = "4" name = "Tisk..."/>
 				<Item CMID = "5" name = "Přesunout do druhého náhledu"/>
 				<Item CMID = "6" name = "Vytvořit kopii v druhém náhledu"/>
-				<Item CMID = "7" name = "Název souboru i s cestou do Schránky"/>
-				<Item CMID = "8" name = "Název souboru do Schránky"/>
-				<Item CMID = "9" name = "Název aktuálního adresáře do Schránky"/>
+				<Item CMID = "7" name = "Kopírovat název souboru i s cestou"/>
+				<Item CMID = "8" name = "Kopírovat název souboru"/>
+				<Item CMID = "9" name = "Kopírovat název aktuálního adresáře souboru"/>
 				<Item CMID = "10" name = "Přejmenovat..."/>
 				<Item CMID = "11" name = "Smazat"/>
 				<Item CMID = "12" name = "Pouze ke čtení"/>
@@ -415,6 +421,17 @@
 				<Item CMID = "21" name = "Otevřít v implicitním prohlížeči"/>
 				<Item CMID = "22" name = "Zavřít všechny nezměněné"/>
 				<Item CMID = "23" name = "Otevřít složku obsahující akt. soubor jako Pracovní plochu"/>
+				<Item CMID = "24" name = "Označit barvou 1"/>
+				<Item CMID = "25" name = "Označit barvou 2"/>
+				<Item CMID = "26" name = "Označit barvou 3"/>
+				<Item CMID = "27" name = "Označit barvou 4"/>
+				<Item CMID = "28" name = "Označit barvou 5"/>
+				<Item CMID = "29" name = "Odstranit barevné označení"/>
+				<Item CMID = "30" name = "Zavřít vícero souborů/karet"/>
+				<Item CMID = "31" name = "Otevřít v"/>
+				<Item CMID = "32" name = "Kopírovat do Schránky"/>
+				<Item CMID = "33" name = "Přesunout dokument/kartu"/>
+				<Item CMID = "34" name = "Označit kartu barvou"/>
 			</TabBar>
 		</Menu>
 
@@ -523,7 +540,7 @@
 				<Item id = "2"    name = "Zavřít"/>
 			</SHA256FromTextDlg>
 			
-			<PluginsAdminDlg title="Správa pluginů" titleAvailable = "Dostupné" titleUpdates = "Aktualizované" titleInstalled = "Instalované">
+			<PluginsAdminDlg title="Správa pluginů" titleAvailable = "Dostupné" titleUpdates = "Aktualizované" titleInstalled = "Instalované" titleIncompatible = "Nekompatibilní">
 				<ColumnPlugin   name = "Plugin"/>
 				<ColumnVersion  name = "Verze"/>
 				<Item id = "5501" name = "Rešerše:"/>
@@ -531,6 +548,8 @@
 				<Item id = "5504" name = "Aktualizovat"/>
 				<Item id = "5505" name = "Odstranit"/>
 				<Item id = "5508" name = "Pokračovat"/>
+				<Item id = "5509" name = "Verze seznamu pluginů: "/>
+				<Item id = "5511" name = "Repozitář seznamu pluginů"/>
 				<Item id = "2"    name = "Ukončit"/>
 			</PluginsAdminDlg>
 
@@ -984,6 +1003,7 @@
 					<Item id = "6211" name = "Nastavení svislé vodící čáry"/>
 					<Item id = "6212" name = "Nerušivý mód"/>
 					<Item id = "6213" name = "Režim s pozadím"/>
+					<Item id = "6223" name = "Zobrazit historii změn"/> 
 					<Item id = "6226" name = "Žádný"/>
 					<Item id = "6231" name = "Šířka okraje"/>
 					<Item id = "6235" name = "Bez okraje"/>
@@ -1107,7 +1127,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 				</RecentFilesHistory>
 				<MISC title = "Různé">
 					<ComboBox id = "6347">
-						<Element name = "Povoleno"/>
+						<Element name = "Povoleno (pro aktivní tab/soubor)"/>
 						<Element name = "Povoleno pro všechny otevřené soubory"/>
 						<Element name = "Zakázáno"/>
 					</ComboBox>
@@ -1126,7 +1146,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6334" name = "Automatická detekce kódování znaků"/>
 					<Item id = "6337" name = "Přípona souboru pracovní plochy:"/>
 					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
-					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
+					<Item id = "6345" name = "Na kartě (tab) dokumentu"/>
 					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
 					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
 					<Item id = "6360" name = "Ztlumit všechny zvuky"/>
@@ -1343,7 +1363,8 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<OpenInAdminModeFailed title = "Otevření s administrátorskými právy selhalo" message = "Notepad++ nemůže být spuštěn s právy administrátora."/>
 			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
 			<ExitToUpdatePlugins title = "Notepad++ má být ukončen" message = "Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
-			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Musíte restartovat Notepad++, aby mohly být zavedeny nainstalované zásuvné moduly."/>
+			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Pro zavedení nainstalovaných zásuvných modulů musíte restartovat Notepad++."/>
+			<ChangeHistoryEnabledWarning title = "Notepad++ potřebuje být znovu spuštěn" message = "Pro aktivaci historie změn souborů musíte restartovat Notepad++."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 		</MessageBox>
 		
 		<ClipboardHistory>

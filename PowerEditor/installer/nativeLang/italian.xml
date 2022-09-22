@@ -537,16 +537,16 @@
                 <Item id="2" name="Chiudi"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Gestione plugin" titleAvailable = "Disponibile" titleUpdates="Aggiornamento" titleInstalled="Installato" titleIncompatible="Incompatibile">
+            <PluginsAdminDlg title="Gestione plugin" titleAvailable = "Disponibili" titleUpdates="Aggiornamenti" titleInstalled="Installati" titleIncompatible="Incompatibili">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versione"/>
                 <Item id="5501" name="Cerca:"/>
                 <Item id="5503" name="Installa"/>
                 <Item id="5504" name="Aggiorna"/>
                 <Item id="5505" name="Rimuovi"/>
-                <Item id="5508" name="Vai"/>
+                <Item id="5508" name="Successivo"/>
                 <Item id="5509" name="Elenco versioni Plugin: "/>
-                <Item id="5511" name="Elenco Plugin repository"/>
+                <Item id="5511" name="Archivio Elenco Plugin"/>
                 <Item id="2" name="Chiudi"/>
             </PluginsAdminDlg>
 

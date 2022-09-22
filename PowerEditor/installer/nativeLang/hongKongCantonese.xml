@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.5">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.6">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -196,11 +196,11 @@
 
                     <!-- type: Edit menu (cont'd) -->
                     <Item id="42028" name="將檔案 &amp;set 做唯讀"/>
-                    <Item id="42029" name="檔案路徑 → 剪貼簿"/>
-                    <Item id="42030" name="檔名 → 剪貼簿"/>
-                    <Item id="42031" name="資料夾路徑 → 剪貼簿"/>
-                    <Item id="42087" name="所有檔名 → 剪貼簿"/> <!-- #new v8.2.1 -->
-                    <Item id="42088" name="所有檔案路徑 → 剪貼簿"/> <!-- #new v8.2.1 -->
+                    <Item id="42029" name="抄低個檔案路徑"/>
+                    <Item id="42030" name="抄低個檔名"/>
+                    <Item id="42031" name="抄低個資料夾路徑"/>
+                    <Item id="42087" name="抄低所有檔名"/> <!-- #new v8.2.1 -->
+                    <Item id="42088" name="抄低所有檔案路徑"/> <!-- #new v8.2.1 -->
 
                     <!-- type: Macro menu (cont'd) -->
                     <Item id="42032" name="係咁執行 mac&amp;ro..."/>
@@ -318,6 +318,12 @@
                     <Item id="44097" name="監視模式 (tail --follow)"/>
                     <Item id="44098" name="向前移個 tab"/>
                     <Item id="44099" name="向後移個 tab"/>
+                    <Item id="44110" name="唔用顏色"/> <!-- #new v8.4.6 -->
+                    <Item id="44111" name="加顏色 1"/> <!-- #new v8.4.6 -->
+                    <Item id="44112" name="加顏色 2"/> <!-- #new v8.4.6 -->
+                    <Item id="44113" name="加顏色 3"/> <!-- #new v8.4.6 -->
+                    <Item id="44114" name="加顏色 4"/> <!-- #new v8.4.6 -->
+                    <Item id="44115" name="加顏色 5"/> <!-- #new v8.4.6 -->
                     <Item id="44032" name="全螢幕模式"/>
                     <Item id="44033" name="回復預設 zoom 大細"/>
                     <Item id="44034" name="保持最上層"/>
@@ -449,9 +455,9 @@
                 <Item CMID="4" name="Print 出嚟..."/>
                 <Item CMID="5" name="搬呢個檔案去另一邊視窗"/>
                 <Item CMID="6" name="抄呢個檔案去另一邊視窗"/>
-                <Item CMID="7" name="將檔案路徑抄去剪貼簿"/>
-                <Item CMID="8" name="將檔名抄去剪貼簿"/>
-                <Item CMID="9" name="將資料夾路徑抄去剪貼簿"/>
+                <Item CMID="7" name="抄低個檔案路徑"/>
+                <Item CMID="8" name="抄低個檔名"/>
+                <Item CMID="9" name="抄低個資料夾路徑"/>
                 <Item CMID="10" name="改名..."/>
                 <Item CMID="11" name="掉去垃圾桶"/>
                 <Item CMID="12" name="將檔案 set 做唯讀"/>
@@ -466,6 +472,17 @@
                 <Item CMID="21" name="喺系統預設程式度打開"/>
                 <Item CMID="22" name="閂晒啲 save 咗兼冇改過嘅檔案"/>
                 <Item CMID="23" name="喺資料夾工作區打開"/> <!-- #new v7.9.1 -->
+                <Item CMID="24" name="加顏色 1"/> <!-- #new v8.4.6 -->
+                <Item CMID="25" name="加顏色 2"/> <!-- #new v8.4.6 -->
+                <Item CMID="26" name="加顏色 3"/> <!-- #new v8.4.6 -->
+                <Item CMID="27" name="加顏色 4"/> <!-- #new v8.4.6 -->
+                <Item CMID="28" name="加顏色 5"/> <!-- #new v8.4.6 -->
+                <Item CMID="29" name="唔用顏色"/> <!-- #new v8.4.6 -->
+                <Item CMID="30" name="閂咁啲 tabs"/> <!-- #new v8.4.6 -->
+                <Item CMID="31" name="去...打開"/> <!-- #new v8.4.6 -->
+                <Item CMID="32" name="抄去剪貼簿"/> <!-- #new v8.4.6 -->
+                <Item CMID="33" name="移動文件"/> <!-- #new v8.4.6 -->
+                <Item CMID="34" name="幫個 tab 加顏色"/> <!-- #new v8.4.6 -->
             </TabBar>
         </Menu>
 
@@ -573,7 +590,7 @@
                 <Item id="2"    name="閂"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="外掛管理員" titleAvailable = "可安裝" titleUpdates = "更新" titleInstalled = "已安裝">
+            <PluginsAdminDlg title="外掛管理員" titleAvailable="可安裝" titleUpdates="更新" titleInstalled="已安裝" titleIncompatible="唔相容">
                 <ColumnPlugin   name="外掛"/>
                 <ColumnVersion  name="版本"/>
                 <Item id="5501" name="搵："/>
@@ -581,6 +598,8 @@
                 <Item id="5504" name="更新"/>
                 <Item id="5505" name="剷走"/>
                 <Item id="5508" name="下一個"/>
+                <Item id="5509" name="外掛清單版本："/> <!-- #new v8.4.6 -->
+                <Item id="5511" name="外掛清單存儲庫"/> <!-- #new v8.4.6 -->
                 <Item id="2"    name="閂"/>
             </PluginsAdminDlg>
 
@@ -711,6 +730,12 @@
                     <Item id="44107" name="跳去資料夾工作區"/>
                     <Item id="44109" name="跳去文件清單"/> <!-- #new v8.1.4 -->
                     <Item id="44108" name="跳去函式清單"/>
+                    <Item id="44110" name="剷走 tab 嘅顏色"/> <!-- #new v8.4.6 -->
+                    <Item id="44111" name="幫個 tab 加顏色 1"/> <!-- #new v8.4.6 -->
+                    <Item id="44112" name="幫個 tab 加顏色 2"/> <!-- #new v8.4.6 -->
+                    <Item id="44113" name="幫個 tab 加顏色 3"/> <!-- #new v8.4.6 -->
+                    <Item id="44114" name="幫個 tab 加顏色 4"/> <!-- #new v8.4.6 -->
+                    <Item id="44115" name="幫個 tab 加顏色 5"/> <!-- #new v8.4.6 -->
                     <Item id="11002" name="排次序：檔名 A 至 Z"/> <!-- #new v8.3.2 -->
                     <Item id="11003" name="排次序：檔名 Z 至 A"/> <!-- #new v8.3.2 -->
                     <Item id="11004" name="排次序：路徑 A 至 Z"/> <!-- #new v8.3.2 -->
@@ -1008,6 +1033,7 @@
                     <Item id="6292" name="動態闊度"/> <!-- #new v7.9.2 -->
                     <Item id="6293" name="固定闊度"/> <!-- #new v7.9.2 -->
                     <Item id="6207" name="顯示書籤"/>
+                    <Item id="6223" name="顯示修改紀錄"/> <!-- #new v8.4.6 -->
                     <Item id="6211" name="垂直邊緣線設定"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="條線用嚟參考每行字數嘅上限，輸入十進制數字去決定條線嘅位置。
@@ -1413,6 +1439,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 搞掂晒安裝程序，Notepad++ 就會重新啟動。
 係咪繼續？"/>
             <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至可以 load 啲外掛。"/>
+            <ChangeHistoryEnabledWarning title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至會顯示修改紀錄。"/> <!-- #new v8.4.6 -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>

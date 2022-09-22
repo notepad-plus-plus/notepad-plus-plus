@@ -920,6 +920,7 @@ Installation:
         <WidgetStyle name="Edge colour" styleID="0" fgColor="8B642B" fontStyle="0" bgColor="112435" fontSize="" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="8B642B" bgColor="43250B" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="43250B" />
+        <WidgetStyle name="Change History margin" styleID="0" bgColor="43250B" />
         <WidgetStyle name="Fold" styleID="0" fgColor="8B642B" bgColor="43250B" fontStyle="0" fontSize="8" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="CFBA28" fontStyle="0" bgColor="1A1A1A" fontSize="8" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="8B642B" bgColor="43250B" fontStyle="0" fontSize="" />

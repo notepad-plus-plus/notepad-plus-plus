@@ -787,6 +787,7 @@ Notepad++ Custom Style
         <WidgetStyle name="Edge colour" styleID="0" fgColor="445257" bgColor="112435" fontSize="" fontStyle="0" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="81969A" bgColor="3F4B4E" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="3F4B4E" />
+        <WidgetStyle name="Change History margin" styleID="0" bgColor="3F4B4E" />
         <WidgetStyle name="Fold" styleID="0" fgColor="6A8088" bgColor="2F383C" fontSize="" fontStyle="0" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="6A8088" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="343F41" bgColor="343F41" fontSize="" fontStyle="0" />

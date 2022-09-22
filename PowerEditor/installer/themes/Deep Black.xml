@@ -786,6 +786,7 @@ https://notepad-plus-plus.org/donate/
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" bgColor="112435" fontSize="" fontStyle="0" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="C0C0C0" bgColor="333333" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="333333" />
+        <WidgetStyle name="Change History margin" styleID="0" bgColor="333333" />
         <WidgetStyle name="Fold" styleID="0" fgColor="6A6A6A" bgColor="333333" fontSize="8" fontStyle="0" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="6A6A6A" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="1A1A1A" bgColor="1A1A1A" fontSize="8" fontStyle="0" />

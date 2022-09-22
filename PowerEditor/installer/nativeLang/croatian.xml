@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 1 September 2022 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 19 September 2022 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
     Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.5">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -181,11 +181,11 @@
                     <Item id="42026" name="&amp;Smjer teksta s desna na lijevo"/>
                     <Item id="42027" name="&amp;Smjer teksta s lijeva na desno"/>
                     <Item id="42028" name="Označ&amp;i samo za čitanje"/>
-                    <Item id="42029" name="Kopiraj naziv i &amp;put trenutne datoteke u međuspremnik"/>
-                    <Item id="42030" name="Kopiraj &amp;naziv trenutne datoteke u međuspremnik"/>
-                    <Item id="42031" name="Kopiraj naziv i put trenutne &amp;mape u međuspremnik"/>
-                    <Item id="42087" name="Svi nazivi otvorenih datoteka u međuspremnik"/>
-                    <Item id="42088" name="Svi nazivi i putovi otvorenih datoteka u međuspremnik"/>
+                    <Item id="42029" name="Kopiraj naziv i &amp;put trenutne datoteke"/>
+                    <Item id="42030" name="Kopiraj &amp;naziv trenutne datoteke"/>
+                    <Item id="42031" name="Kopiraj naziv i put trenutne &amp;mape"/>
+                    <Item id="42087" name="Kopiraj sve nazive otvorenih datoteka"/>
+                    <Item id="42088" name="Kopiraj sve nazive i putove otvorenih datoteka"/>
                     <Item id="42032" name="Pok&amp;reni makro više puta..."/>
                     <Item id="42033" name="O&amp;dstrani zaštitu od pisanja"/>
                     <Item id="42035" name="Zakomentiraj &amp;redak"/>
@@ -293,6 +293,12 @@
                     <Item id="44097" name="&amp;Nadzor u pozadini (tail -f)"/>
                     <Item id="44098" name="Premjesti &amp;karticu naprijed"/>
                     <Item id="44099" name="Premjesti k&amp;articu natrag"/>
+                    <Item id="44110" name="Ukloni boju"/>
+                    <Item id="44111" name="Primijeni boju 1"/>
+                    <Item id="44112" name="Primijeni boju 2"/>
+                    <Item id="44113" name="Primijeni boju 3"/>
+                    <Item id="44114" name="Primijeni boju 4"/>
+                    <Item id="44115" name="Primijeni boju 5"/>
                     <Item id="44032" name="&amp;Cijeli zaslon"/>
                     <Item id="44033" name="Vrati &amp;zadane postavke uvećavanja"/>
                     <Item id="44034" name="Uvijek na vr&amp;hu"/>
@@ -400,9 +406,9 @@
                     <Item CMID="4" name="Ispiši..."/>
                     <Item CMID="5" name="Premjesti u drugi prikaz"/>
                     <Item CMID="6" name="Kloniraj u drugi prikaz"/>
-                    <Item CMID="7" name="Kopiraj naziv i put datoteke u međuspremnik"/>
-                    <Item CMID="8" name="Kopiraj naziv datoteke u međuspremnik"/>
-                    <Item CMID="9" name="Kopiraj put mape u međuspremnik"/>
+                    <Item CMID="7" name="Kopiraj naziv i put datoteke"/>
+                    <Item CMID="8" name="Kopiraj naziv datoteke"/>
+                    <Item CMID="9" name="Kopiraj put mape"/>
                     <Item CMID="10" name="Preimenuj..."/>
                     <Item CMID="11" name="Izbriši"/>
                     <Item CMID="12" name="Samo za čitanje"/>
@@ -417,6 +423,17 @@
                     <Item CMID="21" name="Otvori u zadanom pregledniku"/>
                     <Item CMID="22" name="Zatvori sve nepromijenjene"/>
                     <Item CMID="23" name="Otvori mapu s trenutnom datotekom kao radni prostor"/>
+                    <Item CMID="24" name="Primijeni boju 1"/>
+                    <Item CMID="25" name="Primijeni boju 2"/>
+                    <Item CMID="26" name="Primijeni boju 3"/>
+                    <Item CMID="27" name="Primijeni boju 4"/>
+                    <Item CMID="28" name="Primijeni boju 5"/>
+                    <Item CMID="29" name="Ukloni boju"/>
+                    <Item CMID="30" name="Zatvori višestruke jezičke"/>
+                    <Item CMID="31" name="Otvori u"/>
+                    <Item CMID="32" name="Kopiraj u međuspremnik"/>
+                    <Item CMID="33" name="Premjesti dokument"/>
+                    <Item CMID="34" name="Primijeni boju na jezičak"/>
             </TabBar>
         </Menu>
 
@@ -525,7 +542,7 @@
                 <Item id="2"    name="Zatvori"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Uređivanje dodataka" titleAvailable = "Dostupno" titleUpdates = "Ažuriranja" titleInstalled = "Instalirano">
+            <PluginsAdminDlg title="Uređivanje dodataka" titleAvailable="Dostupno" titleUpdates="Ažuriranja" titleInstalled="Instalirano" titleIncompatible="Nekompatibilno">
                 <ColumnPlugin   name="Dodatak"/>
                 <ColumnVersion  name="Verzija"/>
                 <Item id="5501" name="Traži:"/>
@@ -533,6 +550,8 @@
                 <Item id="5504" name="Ažuriraj"/>
                 <Item id="5505" name="Ukloni"/>
                 <Item id="5508" name="Sljedeće"/>
+                <Item id="5509" name="Verzija popisa dodataka: "/>
+                <Item id="5511" name="Spremište popisa dodataka"/>
                 <Item id="2"    name="Zatvori"/>
             </PluginsAdminDlg>
 
@@ -663,6 +682,12 @@
                     <Item id="44107" name="Prijeđi na Mapu kao Radni prostor"/>
                     <Item id="44109" name="Prijeđi na Popis dokumenata"/>
                     <Item id="44108" name="Prijeđi na Listu funkcija"/>
+                    <Item id="44110" name="Ukloni boju jezička"/>
+                    <Item id="44111" name="Primijeni boju jezička 1"/>
+                    <Item id="44112" name="Primijeni boju jezička 2"/>
+                    <Item id="44113" name="Primijeni boju jezička 3"/>
+                    <Item id="44114" name="Primijeni boju jezička 4"/>
+                    <Item id="44115" name="Primijeni boju jezička 5"/>
                     <Item id="11002" name="Sortiraj prema Imenu od A do Z"/>
                     <Item id="11003" name="Sortiraj prema Imenu od Z do A"/>
                     <Item id="11004" name="Sortiraj prema Putu od A do Z"/>
@@ -884,9 +909,6 @@
                     <Item id="6122" name="Sakrij izborničku vrpcu (za prikaz koristite Alt ili F10)"/>
                     <Item id="6132" name="Sakrij prečace ＋ ▼ ✕ s desne strane izborničke vrpce (potreban je restart Notepada++)"/>
                     <Item id="6123" name="Jezik sučelja:"/>
-                    <Item id="6125" name="Popis dokumenata"/>
-                    <Item id="6126" name="Prikaži"/>
-                    <Item id="6127" name="Isključi stupac nastavaka"/>
                     <Item id="6128" name="Alternativne ikone"/>
                 </Global>
                 <Scintillas title="Uređivanje">
@@ -902,7 +924,7 @@
                     <Item id="6229" name="Poravnato"/>
                     <Item id="6230" name="Uvlaka"/>
                     <Item id="6234" name="Isključi funkciju naprednog skrolanja (ako imate problema s touchpadom)"/>
-                    <Item id="6214" name="Istakni trenutno aktivni redak"/>
+                    <Item id="6214" name="Omogući isticanje trenutno aktivnog retka"/>
                     <Item id="6215" name="Uključi glatki font"/>
                     <Item id="6236" name="Omogući klizanje nakon zadnjeg retka"/>
                     <Item id="6239" name="Zadrži izbor desnim klikom izvan izbora"/>
@@ -956,11 +978,11 @@
                     <Item id="6292" name="Dinamična širina"/>
                     <Item id="6293" name="Konstantna širina"/>
                     <Item id="6207" name="Prikaz knjižne oznake"/>
+                    <Item id="6223" name="Prikaz promjene povijesti"/>
                     <Item id="6211" name="Postavke okomitog ruba"/>
                     <Item id="6213" name="Pozadina"/>
-                    <Item id="6237" name="Dodajte svoj marker stupca naznačujući njegovu poziciju decimalnim brojem.
-Možete definirati više markera stupca korištenjem praznog mjesta za odjeljivanje različitih brojeva.
-Vidi Notepad++ online priručnik (Preferences)."/>
+                    <Item id="6237" name="Dodajte svoj marker stupca naznačujući njegovu poziciju brojem.
+Možete definirati više markera stupca korištenjem praznog mjesta za odjeljivanje različitih brojeva."/>
                     <Item id="6231" name="Širina obruba"/>
                     <Item id="6235" name="Bez ruba"/>
                     <Item id="6208" name="Udaljenost teksta od ruba"/>
@@ -1291,7 +1313,8 @@ Vaše postavke oblaka će biti poništene. Molim, resetirajte odgovarajuću vrij
             <DroppingFolderAsProjectModeWarning title="Pogrešna akcija" message="Možete ispustiti samo datoteke ili mape, ali ne oboje, jer ispuštate Mape u Projektnom načinu.
 Morate omogućiti &quot;Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radni prostor' pri prenošenju mape&quot; u odjeljku &quot;Zadana mapa&quot; dijaloga Postavki kako bi ova operacija radila."/>
             <SortingError title="Greška sortiranja" message="Nije moguće izvesti numeričko sortiranje zbog retka $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Savjet za Rad u stupcima" message="Molim upotrijebite &quot;ALT+izbor mišem&quot; ili &quot;Alt+Shift+strelica&quot; za prijelaz na rad u stupcima.
+            <ColumnModeTip title="Savjet za Rad u stupcima" message="Upotrijebite &quot;ALT+izbor mišem&quot; ili &quot;Alt+Shift+strelica&quot;
+za prijelaz na rad u stupcima.
 Vidi Notepad++ online priručnik (Editing) za detalje."/>
             <BufferInvalidWarning title="Greška spremanja" message="Ne mogu spremiti: Buffer je neispravan."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Zadrži nepostojeću datoteku" message="Datoteka &quot;$STR_REPLACE$&quot; više ne postoji.
@@ -1361,10 +1384,7 @@ molim izaberite neko drugo."/>
 Notepad++ će se restartati nakon što sve operacije završe.
 Nastaviti?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi učitali instalirane dodatke."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <SaveAllConfirm title="Potvrda spremanja svih datoteka" message="Jeste li sigurni da želite spremiti sve izmijenjene dokumente?
-
-Izaberite &quot;Poništi&quot; ako će vaš odgovor uvijek biti &quot;Da&quot; i više vam neće biti postavljano ovo pitanje.
-Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+            <ChangeHistoryEnabledWarning title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi omogućili promjenu povijesti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Povijest međuspremnika"/>
@@ -1405,8 +1425,8 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/> <!-- HowToReprod
         <FolderAsWorkspace>
             <PanelTitle name="Mapa kao radni prostor"/>
             <SelectFolderFromBrowserString name="Odaberi manu za dodavanje u panel Mapa kao radni prostor"/>
-            <ExpandAllFoldersTip name="Raširi sve mape"/>
-            <CollapseAllFoldersTip name="Skupi sve mape"/>
+            <ExpandAllFoldersTip name="Raširi sve razine"/>
+            <CollapseAllFoldersTip name="Skupi sve razine"/>
             <LocateCurrentFileTip name="Lociraj trenutnu datoteku"/>
             <Menus>
                 <Item id="3511" name="Ukloni"/>

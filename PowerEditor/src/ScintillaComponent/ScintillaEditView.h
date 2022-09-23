@@ -272,7 +272,7 @@ public:
 	};
 
 	Sci_CharacterRange getSelection() const {
-		Sci_CharacterRange crange;
+		Sci_CharacterRange crange{};
 		crange.cpMin = static_cast<Sci_PositionCR>(execute(SCI_GETSELECTIONSTART));
 		crange.cpMax = static_cast<Sci_PositionCR>(execute(SCI_GETSELECTIONEND));
 		return crange;
@@ -917,7 +917,7 @@ protected:
 
 	void setREBOLLexer() {
 		setLexer(L_REBOL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
-		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.’+-*&|=_~"));
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.'+-*&|=_~"));
 	};
 
 	void setRegistryLexer() {

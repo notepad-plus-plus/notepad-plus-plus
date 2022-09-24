@@ -2868,29 +2868,9 @@ namespace NppDarkMode
 
 	using IndividualTabColours = std::array<HLSColour, 5>;
 
-	static constexpr IndividualTabColours individualTabHuesFor_Dark      { { HLSColour{0, 40, 60}, HLSColour{70, 40, 60}, HLSColour{144, 40, 60}, HLSColour{13, 40, 60}, HLSColour{195, 40, 60} } };
-	static constexpr IndividualTabColours individualTabHuesFor_DarkRed   { { HLSColour{0, 60, 60}, HLSColour{70, 50, 60}, HLSColour{144, 50, 60}, HLSColour{13, 50, 60}, HLSColour{195, 50, 60} } };
-	static constexpr IndividualTabColours individualTabHuesFor_DarkGreen { { HLSColour{0, 50, 60}, HLSColour{70, 50, 60}, HLSColour{144, 50, 60}, HLSColour{13, 50, 60}, HLSColour{195, 50, 60} } };
-	static constexpr IndividualTabColours individualTabHuesFor_DarkBlue  { { HLSColour{0, 50, 60}, HLSColour{70, 50, 60}, HLSColour{144, 50, 60}, HLSColour{13, 50, 60}, HLSColour{195, 50, 60} } };
-	static constexpr IndividualTabColours individualTabHuesFor_DarkPurple{ { HLSColour{0, 50, 60}, HLSColour{70, 50, 60}, HLSColour{144, 50, 60}, HLSColour{13, 50, 60}, HLSColour{195, 60, 60} } };
-	static constexpr IndividualTabColours individualTabHuesFor_DarkCyan  { { HLSColour{0, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{13, 60, 60}, HLSColour{195, 60, 60} } };
-	static constexpr IndividualTabColours individualTabHuesFor_DarkOlive { { HLSColour{0, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 60, 60}, HLSColour{13, 60, 60}, HLSColour{195, 60, 60} } };
+	static constexpr IndividualTabColours individualTabHuesFor_Dark  { { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
+	static const IndividualTabColours individualTabHues              { { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}}};
 
-	static const IndividualTabColours individualTabHues              { { HLSColour{0, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{13, 210, 150}, HLSColour{195, 210, 150} } };
-
-	const IndividualTabColours& getIndividualThemeDependantColours()
-	{
-		switch (g_colorToneChoice)
-		{
-			case redTone: return individualTabHuesFor_DarkRed;
-			case greenTone: return individualTabHuesFor_DarkGreen;
-			case blueTone: return individualTabHuesFor_DarkBlue;
-			case purpleTone: return individualTabHuesFor_DarkPurple;
-			case cyanTone: return individualTabHuesFor_DarkCyan;
-			case oliveTone: return individualTabHuesFor_DarkOlive;
-			default: return individualTabHuesFor_Dark;
-		}
-	}
 
 	COLORREF getIndividualTabColour(int colourIndex, bool themeDependant, bool saturated)
 	{
@@ -2899,7 +2879,7 @@ namespace NppDarkMode
 		HLSColour result;
 		if (themeDependant)
 		{
-			result = getIndividualThemeDependantColours()[colourIndex];
+			result = individualTabHuesFor_Dark[colourIndex];
 
 			if (saturated)
 			{

@@ -1376,10 +1376,11 @@ void trim(generic_string& str)
 bool endsWith(const generic_string& s, const generic_string& suffix)
 {
 #if defined(_MSVC_LANG) && (_MSVC_LANG > 201402L)
-#error Replace this function with basic_string::ends_with
-#endif
+	return s.ends_with(suffix);
+#else
 	size_t pos = s.find(suffix);
 	return pos != s.npos && ((s.length() - pos) == suffix.length());
+#endif
 }
 
 int nbDigitsFromNbLines(size_t nbLines)

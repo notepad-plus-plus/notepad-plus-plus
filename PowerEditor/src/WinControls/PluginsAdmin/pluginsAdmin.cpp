@@ -146,7 +146,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(installed);
 	_tab.insertAtEnd(incompatible);
 
-	rect.bottom -= dpiManager.scaleX(100);
+	rect.bottom -= dpiManager.scaleY(105);
 	_tab.reSizeTo(rect);
 	_tab.display();
 
@@ -204,7 +204,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT listRect = rect;
 	RECT descRect = rect;
 
-	long descHeight = rect.bottom / 3 - marge * 2;
+	long descHeight = rect.bottom / 3 - marge;
 	long listHeight = (rect.bottom / 3) * 2 - marge * 3;
 
 	listRect.top += marge;

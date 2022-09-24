@@ -4,35 +4,41 @@
 
  - Microsoft Visual Studio 2019 (C/C++ Compiler, v142 toolset for win32, x64, arm64)
 
-There are two components which are built from one visual studio solution:
+There are three components which are built from one visual studio solution:
 
  - `notepad++.exe`: (contains `libSciLexer.lib`)
- - `libSciLexer.lib` : static library based on Scintilla
+ - `libScintilla.lib` : static library based on [Scintilla](https://www.scintilla.org/)
+ - `libLexilla.lib` : static library based on [Lexilla](https://www.scintilla.org/Lexilla.html)
 
-Notepad++ is always built **with** Boost regex PCRE support instead of default c++11 regex ECMAScript used by plain Scintilla\SciLexer.
+Notepad++ is always built **with** Boost regex PCRE support instead of default c++11 regex ECMAScript used by plain Scintilla.
 
 ## Build `notepad++.exe`:
 
  1. Open [`PowerEditor\visual.net\notepadPlus.sln`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.sln)
  2. Select a solution configuration (Debug or Release) and a solution platform (x64 or Win32 or ARM64)
- 3. Build Notepad++ solution like a normal Visual Studio project. This will also build the dependent SciLexer project.
+ 3. Build Notepad++ solution like a normal Visual Studio project. This will also build the dependent Scintilla and Lexilla projects.
 
-## Build `libSciLexer.lib`:
+## Build `libScintilla.lib` and `libLexilla.lib`:
 
-As mentioned above, you'll need `libSciLexer.lib` for the Notepad++ build. This is done automatically on building the whole solution. So normally you don't need to care about this.
+As mentioned above, you'll need `libScintilla.lib` and `libLexilla.lib` for the Notepad++ build. This is done automatically on building the whole solution. So normally you don't need to care about this.
 
-### Build `libSciLexer.lib` with boost via nmake:
+### Build `libScintilla.lib` with boost and `libLexilla.lib` via nmake:
 
 This is not necessary any more and just here for completeness as this option is still available.
-Boost is taken from [boost 1.76.0](https://www.boost.org/users/history/version_1_76_0.html) and stripped down to the project needs available at [boost](https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/boostregex/boost) in this repo.
+Boost is taken from [boost 1.78.0](https://www.boost.org/users/history/version_1_78_0.html) and stripped down to the project needs available at [boost](https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/boostregex/boost) in this repo.
 
 1. Open the Developer Command Prompt for Visual Studio
-2. Go into the `scintilla\win32\`
+2. Go into the [`scintilla\win32\`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/scintilla/win32/)
 3. Build the same configuration as notepad++:
    - Release: `nmake -f scintilla.mak`
    - Debug: `nmake DEBUG=1 -f scintilla.mak`
    - Example:
    `nmake -f scintilla.mak`
+4. Go into the [`lexilla\src\`](https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/lexilla/src/)
+5. Build the same configuration as notepad++:
+   - Release: `nmake -f lexilla.mak`
+   - Debug: `nmake DEBUG=1 -f lexilla.mak`
+   
 
 ## History:
 More about the previous build process: https://community.notepad-plus-plus.org/topic/13959/building-notepad-with-visual-studio-2015-2017

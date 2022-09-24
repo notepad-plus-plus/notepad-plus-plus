@@ -2871,10 +2871,6 @@ namespace NppDarkMode
 	static constexpr IndividualTabColours individualTabHuesFor_Dark  { { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
 	static const IndividualTabColours individualTabHues              { { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}}};
 
-	const IndividualTabColours& getIndividualThemeDependantColours()
-	{
-		 return individualTabHuesFor_Dark;
-	}
 
 	COLORREF getIndividualTabColour(int colourIndex, bool themeDependant, bool saturated)
 	{
@@ -2883,7 +2879,7 @@ namespace NppDarkMode
 		HLSColour result;
 		if (themeDependant)
 		{
-			result = getIndividualThemeDependantColours()[colourIndex];
+			result = individualTabHuesFor_Dark[colourIndex];
 
 			if (saturated)
 			{

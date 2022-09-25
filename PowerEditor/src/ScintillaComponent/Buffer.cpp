@@ -1086,7 +1086,6 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 	std::lock_guard<std::mutex> lock(save_mutex);
 
 	Buffer* buffer = getBufferByID(id);
-	LangType language = buffer->_lang;
 	bool isHiddenOrSys = false;
 	DWORD attrib = 0;
 
@@ -1157,11 +1156,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 			}
 		}
 
-		if (!_tcsrchr(buffer->_fileName, '.'))
-		{
-			// no extension -- check the language du fichier
-			language = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
-		}
+		// check the language du fichier
+		LangType language = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
 
 		UnicodeConvertor.closeFile();
 
@@ -1511,7 +1507,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
 
-				if (!_tcsrchr(filename, '.'))
+				if (fileFormat._language == L_TEXT)
 				{
 					// check the language du fichier
 					fileFormat._language = detectLanguageFromTextBegining((unsigned char *)data, lenFile);

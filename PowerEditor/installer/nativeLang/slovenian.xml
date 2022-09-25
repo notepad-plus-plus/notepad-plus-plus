@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.3.3
-        Last modified 05. May 2022 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.4.5
+        Last modified 25. Sept 2022 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.3.3">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="8.4.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -358,6 +358,8 @@
 					<Item id="50000" name="Dopolnjevanje funkcij"/>
 					<Item id="50001" name="Dopolnjevanje besed"/>
 					<Item id="50002" name="Namig za parametre funkcij"/>
+                    <Item id="50010" name="Prejšnji namig za parametre funkcij"/>
+                    <Item id="50011" name="Naslednji namig za parametre funkcij"/>
 					<Item id="50005" name="Preklop makro zapisa"/>
 					<Item id="50006" name="Pot dopolnitev"/>
 					<Item id="44042" name="Skrij vrstice"/>
@@ -550,6 +552,7 @@
                     <Item id="2230" name="Omogoči globalno krepki slog pisave"/>
                     <Item id="2231" name="Omogoči globalno ležeči slog pisave"/>
                     <Item id="2232" name="Omogoči globalno podčrtani slog pisave"/>
+                    <Item id="2234" name="Pojdi v nastavitve"/>					
                 </SubDialog>
             </StyleConfig>
 			 
@@ -865,7 +868,9 @@
 					<Item id="6120" name="Navpično"/>
 					<Item id="6121" name="Izhod ko zaprete zadnji zavihek"/>
 
+                    <Item id="6131" name="Meni"/>
 					<Item id="6122" name="Skrij menijsko vrstico (uporabite tipko Alt ali F10 za preklop)"/>
+                    <Item id="6132" name="Skrij desne bližnjice ＋ ▼ ✕ v menijski vrstici (potrebno je znova zagnati Notepad++)"/>
 					<Item id="6123" name="Lokalizacija"/>
 					
                     <Item id="6128" name="Nadomestne ikone"/>					
@@ -876,31 +881,40 @@
 					<Item id="6219" name="Hitrost utripanja:"/>
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
+			        <Item id="6246" name="Naredi preklopne ukaze za zlaganje/razpiranje na trenutni ravni"/>		
 					<Item id="6225" name="Omogoči (Ctrl+klik miške/izbor)"/>
 					<Item id="6227" name="Prelom vrstice"/>
 					<Item id="6228" name="Privzeto"/>
 					<Item id="6229" name="Poravnano"/>
 					<Item id="6230" name="Alineja"/>
 					<Item id="6234" name="Onemogoči napredno funkcijo drsenja zaradi težave s sledilno ploščico"/>			
-					<Item id="6214" name="Omogoči poudarjanje trenutne vrstice"/>
 					<Item id="6215" name="Omogoči gladko pisavo"/>
                     <Item id="6236" name="Omogoči pomikanje izven zadnje vrstice"/>
                     <Item id="6239" name="Obdrži izbor, ko z desno miškino tipko kliknete zunaj izbora"/>			
                     <Item id="6245" name="Omogoči virtualni prostor"/>
+                    <Item id="6651" name="Indikator trenutne vrstice"/>
+                    <Item id="6652" name="Nobena"/>
+                    <Item id="6653" name="Označi ozadje"/>
+                    <Item id="6654" name="Okvir"/>
+                    <Item id="6655" name="Širina"/>	
+                    <Item id="6247" name="EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Privzeto"/>
+                    <Item id="6249" name="Golo besedilo"/>
+                    <Item id="6250" name="Barva po meri"/>					
 				</Scintillas>
 				
                 <DarkMode title="Temni način">
                     <Item id="7101" name="Omogoči temni način"/>
-                    <Item id="7102" name="Črni ton"/>
-                    <Item id="7103" name="Rdeči ton"/>
-                    <Item id="7104" name="Zeleni ton"/>
-                    <Item id="7105" name="Modri ton"/>
-                    <Item id="7107" name="Vijolični ton"/>
-                    <Item id="7108" name="Cijan ton"/>
-                    <Item id="7109" name="Oljčni ton"/>
-                    <Item id="7115" name="Prilagojeni ton"/>
+                    <Item id="7102" name="Črno"/>
+                    <Item id="7103" name="Rdeče"/>
+                    <Item id="7104" name="Zeleno"/>
+                    <Item id="7105" name="Modro"/>
+                    <Item id="7107" name="Vijolično"/>
+                    <Item id="7108" name="Cijan"/>
+                    <Item id="7109" name="Oljčno"/>
+                    <Item id="7115" name="Prilagojeno"/>
                     <Item id="7116" name="Na vrh"/>
-                    <Item id="7117" name="Meni hot track"/>
+                    <Item id="7117" name="Meni vroč trak"/>
                     <Item id="7118" name="Aktivno"/>
                     <Item id="7119" name="Glavno"/>
                     <Item id="7120" name="Napaka"/>
@@ -908,8 +922,11 @@
                     <Item id="7122" name="Temnejše besedilo"/>
                     <Item id="7123" name="Onemogočeno besedilo"/>
                     <Item id="7124" name="Rob"/>
-                    <Item id="7125" name="Link"/>					
+                    <Item id="7125" name="Link"/>
+                    <Item id="7126" name="Poudarek robov"/>	
+                    <Item id="7127" name="Rob onemogočen"/>					
                     <Item id="7130" name="Ponastavi"/>
+                    <Item id="7135" name="Toni"/>					
                 </DarkMode>
 
                 <MarginsBorderEdge title="Robovi/Obroba/Rob">				
@@ -1032,12 +1049,15 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6728" name="Glava in noga"/>
 				</Print>
 				
-                <Searching title="Iskanje">
-                    <Item id="6901" name="Ne izpolni polja za iskanje v pogovornem oknu Najdi z izbrano besedo"/>
+                <Searching title="Iskanje">                   
                     <Item id="6902" name="V pogovornem oknu za iskanje uporabite monospace pisave (zahteva ponovni zagon Notepad++)"/>
                     <Item id="6903" name="Pogovorno okno za iskanje ostane odprto po iskanju, ki se prikaže v oknu z rezultati"/>
                     <Item id="6904" name="Potrdite Zamenjaj vse v vseh odprtih dokumentih"/>
-                    <Item id="6905" name="Zamenjaj: Ne premakni se na naslednji pojav"/>					
+                    <Item id="6905" name="Zamenjaj: Ne premakni se na naslednji pojav"/>
+                    <Item id="6906" name="Okno z rezultati iskanja: prikaže samo en vnos na najdeno vrstico"/>
+                    <Item id="6907" name="Ko se odpre pogovorno okno Najdi"/>
+                    <Item id="6908" name="Izpolni iskalno polje z izbranim besedilom"/>
+                    <Item id="6909" name="Izberi besedo pod znakom, ko ni izbrano nič"/>					
                 </Searching>
 
 				<RecentFilesHistory title="Nastavitev zgodovine datotek">
@@ -1424,6 +1444,9 @@ Nadaljujem?"/>
         <MiscStrings>
 			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 			<word-chars-list-tip value="To vam omogoča vključevati dodatni znak v aktualnih besednih znakih med dvoklikom za izbiro ali iskanje z &quot;Ujemanje samo cele besede&quot; možnost preverbe."/>
+
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Pojdite v konfigurator sloga, da spremenite privzeto barvo EOL po meri (&quot;EOL custom color&quot;).."/>
 
 			<word-chars-list-warning-begin value="Zavedajte se: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>

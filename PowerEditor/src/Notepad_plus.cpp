@@ -2141,7 +2141,7 @@ int Notepad_plus::doDeleteOrNot(const TCHAR *fn)
 		_pPublicInterface->getHSelf(),
 		TEXT("The file \"$STR_REPLACE$\"\rwill be moved to your Recycle Bin and this document will be closed.\rContinue?"),
 		TEXT("Delete file"),
-		MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+		MB_OKCANCEL | MB_ICONQUESTION | MB_APPLMODAL,
 		0, // not used
 		fn);
 }

@@ -1885,7 +1885,7 @@ bool Notepad_plus::fileDelete(BufferID id)
 	if (winVersion >= WV_WIN8 || winVersion == WV_UNKNOWN)
 	{
 		// Windows 8 (and version afer?) has no system alert, so we ask user's confirmation
-		goAhead = (doDeleteOrNot(fileNamePath) == IDYES);
+		goAhead = (doDeleteOrNot(fileNamePath) == IDOK);
 	}
 
 	if (goAhead)

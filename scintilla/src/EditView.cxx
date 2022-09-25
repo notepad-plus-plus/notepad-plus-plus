@@ -2140,7 +2140,7 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 								textFore = indicator.sacHover.fore;
 							}
 						} else {
-							if (indicator.sacNormal.style == IndicatorStyle::TextFore || (indicator.sacNormal.style == IndicatorStyle::ExplorerLink)) {
+							if (indicator.sacNormal.style == IndicatorStyle::TextFore) {
 								if (FlagSet(indicator.Flags(), IndicFlag::ValueFore))
 									textFore = ColourRGBA::FromRGB(indicatorValue & static_cast<int>(IndicValue::Mask));
 								else

@@ -3460,40 +3460,69 @@ void ScintillaEditView::hideLines()
 	if (startLine > endLine)
 		return;	//tried to hide line at edge
 
-	//Hide the lines. We add marks on the outside of the hidden section and hide the lines
-	//execute(SCI_HIDELINES, startLine, endLine);
-	//Add markers
-	execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESBEGIN);
-	execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESUNDERLINE);
-	execute(SCI_MARKERADD, endLine+1, MARK_HIDELINESEND);
-
-	//remove any markers in between
 	int scope = 0;
-	for (size_t i = startLine; i <= endLine; ++i)
+	bool recentMarkerWasOpen = false;
+
+	auto removeMarker = [this, &scope, &recentMarkerWasOpen](size_t line)
 	{
-		auto state = execute(SCI_MARKERGET, i);
-		bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);	//check close first, then open, since close closes scope
+		auto state = execute(SCI_MARKERGET, line);
+		bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);
 		bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+
 		if (closePresent)
 		{
-			execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
-			if (scope > 0) scope--;
+			execute(SCI_MARKERDELETE, line, MARK_HIDELINESEND);
+			recentMarkerWasOpen = false;
+			--scope;
 		}
 
 		if (openPresent)
 		{
-			execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
-			execute(SCI_MARKERDELETE, i, MARK_HIDELINESUNDERLINE);
+			execute(SCI_MARKERDELETE, line, MARK_HIDELINESBEGIN);
+			execute(SCI_MARKERDELETE, line, MARK_HIDELINESUNDERLINE);
+			recentMarkerWasOpen = true;
 			++scope;
 		}
+	};
+
+	size_t startMarker = startLine - 1;
+	size_t endMarker = endLine + 1;
+
+	// Remove all previous markers in between new ones
+	for (size_t i = startMarker; i <= endMarker; ++i)
+		removeMarker(i);
+
+	// When hiding lines just below/above other hidden lines,
+	// merge them into one hidden section:
+
+	if (scope == 0 && recentMarkerWasOpen)
+	{
+		// Special case: user wants to hide every line in between other hidden sections.
+		// Both "while" loops are executed (merge with above AND below hidden section):
+
+		while (scope == 0)
+			removeMarker(--startMarker);
+
+		while (scope != 0)
+			removeMarker(++endMarker);
 	}
-	if (scope != 0)
-	{	//something went wrong
-		//Someone managed to make overlapping hidelines sections.
-		//We cant do anything since this isnt supposed to happen
+	else
+	{
+		// User wants to hide some lines below/above other hidden section.
+		// If true, only one "while" loop is executed (merge with adjacent hidden section):
+
+		while (scope < 0)
+			removeMarker(--startMarker);
+
+		while (scope > 0)
+			removeMarker(++endMarker);
 	}
 
-	_currentBuffer->setHideLineChanged(true, startLine-1);
+	execute(SCI_MARKERADD, startMarker, MARK_HIDELINESBEGIN);
+	execute(SCI_MARKERADD, startMarker, MARK_HIDELINESUNDERLINE);
+	execute(SCI_MARKERADD, endMarker, MARK_HIDELINESEND);
+
+	_currentBuffer->setHideLineChanged(true, startMarker);
 }
 
 bool ScintillaEditView::markerMarginClick(size_t lineNumber)
@@ -3522,7 +3551,7 @@ bool ScintillaEditView::markerMarginClick(size_t lineNumber)
 
 		if (openPresent)
 		{
-			_currentBuffer->setHideLineChanged(false, lineNumber);
+			_currentBuffer->setHideLineChanged(false, lineNumber + 1);
 		}
 	}
 

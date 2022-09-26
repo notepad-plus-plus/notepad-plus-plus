@@ -3496,31 +3496,31 @@ void ScintillaEditView::hideLines()
 	_currentBuffer->setHideLineChanged(true, startLine-1);
 }
 
-bool ScintillaEditView::markerMarginClick(size_t lineNumber)
+bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 {
 	auto state = execute(SCI_MARKERGET, lineNumber);
-	bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
-	bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);
+	bool isOpen = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+	bool isClose = ((state & (1 << MARK_HIDELINESEND)) != 0);
 
-	if (!openPresent && !closePresent)
+	if (!isOpen && !isClose)
 		return false;
 
 	//Special func on buffer. First call show with location of opening marker. Then remove the marker manually
-	if (openPresent)
+	if (isOpen)
 	{
 		_currentBuffer->setHideLineChanged(false, lineNumber);
 	}
 
-	if (closePresent)
+	if (isClose)
 	{
-		openPresent = false;
-		for (lineNumber--; lineNumber >= 0 && !openPresent; lineNumber--)
+		isOpen = false;
+		for (lineNumber--; lineNumber >= 0 && !isOpen; lineNumber--)
 		{
 			state = execute(SCI_MARKERGET, lineNumber);
-			openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+			isOpen = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
 		}
 
-		if (openPresent)
+		if (isOpen)
 		{
 			_currentBuffer->setHideLineChanged(false, lineNumber);
 		}

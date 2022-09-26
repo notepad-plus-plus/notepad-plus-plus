@@ -741,19 +741,10 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		// restore the encoding (ANSI based) while opening the existing file
 		buf->setEncoding(-1);
 
-		NppParameters& nppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
-
-		// if no file extension, or the file type is unknown, and the language has been detected, we use the detected value
-		if (!newBuf->_isLargeFile &&
-			// case 1: no file extension
-			(!_tcsrchr(newBuf->_fileName, '.') ||
-				// case 2: file extension found, but the file type is unknown (i.e. unchanged from the default)
-				(buf->_lang == L_TEXT || buf->_lang == ndds._lang)
-			&& loadedFileFormat._language != L_TEXT))
-		{
+		// if no file extension, and the language has been detected,  we use the detected value
+		if (!newBuf->_isLargeFile && loadedFileFormat._language != L_TEXT)
 			buf->setLangType(loadedFileFormat._language);
-		}
+
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 
 		//determine buffer properties

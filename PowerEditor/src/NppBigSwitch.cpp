@@ -1811,8 +1811,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			if (notification->nmhdr.code == SCN_UPDATEUI)
 			{
-				checkClipboard(); //6
-				checkUndoState(); //4
+				checkClipboard();
+				checkUndoState();
+				enableCommand(IDM_VIEW_HIDELINES, _pEditView->canHideLines(), MENU);
 			}
 
 			if (wParam == LINKTRIGGERED)

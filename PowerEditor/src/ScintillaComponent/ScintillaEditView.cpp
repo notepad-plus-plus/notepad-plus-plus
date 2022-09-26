@@ -3439,14 +3439,43 @@ void ScintillaEditView::scrollPosToCenter(size_t pos)
 	execute(SCI_ENSUREVISIBLEENFORCEPOLICY, line);
 }
 
-void ScintillaEditView::hideLines()
+bool ScintillaEditView::canHideLines()
 {
-	//Folding can screw up hide lines badly if it unfolds a hidden section.
-	//Adding runMarkers(hide, foldstart) directly (folding on single document) can help
-
-	//Special func on buffer. If markers are added, create notification with location of start, and hide bool set to true
 	size_t startLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONSTART));
 	size_t endLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONEND));
+
+	auto startLineState = execute(SCI_MARKERGET, startLine);
+	auto endLineState = execute(SCI_MARKERGET, endLine);
+
+	// Avoid to override the markers to lead to an inconsistent situation
+	// so it's forbiden to hide (hidden line + 1) and (hidden line - 1) 
+	bool isStartLineHasOpen = ((startLineState & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+	bool isStartLineHasClose = ((startLineState & (1 << MARK_HIDELINESEND)) != 0);
+	bool isEndLineHasOpen = ((endLineState & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+	bool isEndLineHaClose = ((endLineState & (1 << MARK_HIDELINESEND)) != 0);
+	if (isStartLineHasOpen || isStartLineHasClose || isEndLineHasOpen || isEndLineHaClose)
+		return false;
+
+	return true;
+}
+
+void ScintillaEditView::hideLines()
+{
+	size_t startLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONSTART));
+	size_t endLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONEND));
+
+	auto startLineState = execute(SCI_MARKERGET, startLine);
+	auto endLineState = execute(SCI_MARKERGET, endLine);
+
+	// Avoid to override the markers to lead to an inconsistent situation
+	// so it's forbiden to hide (hidden line + 1) and (hidden line - 1) 
+	bool isStartLineHasOpen = ((startLineState & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+	bool isStartLineHasClose = ((startLineState & (1 << MARK_HIDELINESEND)) != 0);
+	bool isEndLineHasOpen = ((endLineState & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+	bool isEndLineHaClose = ((endLineState & (1 << MARK_HIDELINESEND)) != 0);
+	if (isStartLineHasOpen || isStartLineHasClose || isEndLineHasOpen || isEndLineHaClose)
+		return;
+
 	//perform range check: cannot hide very first and very last lines
 	//Offset them one off the edges, and then check if they are within the reasonable
 	size_t nbLines = execute(SCI_GETLINECOUNT);

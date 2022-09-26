@@ -536,6 +536,7 @@ public:
 	void setCurrentBuffer(Buffer *buf2set) { _currentBuffer = buf2set; };
 	void styleChange();
 
+	bool canHideLines();
 	void hideLines();
 
 	bool markerMarginClick(intptr_t lineNumber);	//true if it did something

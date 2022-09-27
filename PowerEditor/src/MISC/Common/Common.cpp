@@ -1139,14 +1139,13 @@ HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszTe
 
 generic_string GetDialogItemString(HWND dialog, int item)
 {
-	constexpr size_t startSize = 256;
+	constexpr int startSize = 256;
 	generic_string res(startSize, '\0');
-	auto stringSize = ::GetDlgItemText(dialog, item, &res[0], static_cast<int>(res.size()));
+	auto stringSize = ::GetDlgItemText(dialog, item, &res[0], res.size());
 	while (stringSize == res.size() - 1)
 	{
-		res.resize(res.size() * 2); //Double each time to close in on the correct size quickly
-		if (res.size() > INT_MAX) break;
-		stringSize = ::GetDlgItemText(dialog, item, &res[0], static_cast<int>(res.size()));
+		res.resize(res.size() * 2);  //Double each time to close in onthe correct size quickly
+		stringSize = ::GetDlgItemText(dialog, item, &res[0], res.size());
 	}
 	res.resize(stringSize);  //Cut off unused space from the string
 	return res;

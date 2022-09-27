@@ -3525,7 +3525,7 @@ void ScintillaEditView::hideLines()
 	_currentBuffer->setHideLineChanged(true, startMarker);
 }
 
-bool ScintillaEditView::markerMarginClick(size_t lineNumber)
+bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 {
 	auto state = execute(SCI_MARKERGET, lineNumber);
 	bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);

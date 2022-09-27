@@ -538,7 +538,7 @@ public:
 
 	void hideLines();
 
-	bool markerMarginClick(size_t lineNumber);	//true if it did something
+	bool markerMarginClick(intptr_t lineNumber);	//true if it did something
 	void notifyMarkers(Buffer * buf, bool isHide, size_t location, bool del);
 	void runMarkers(bool doHide, size_t searchStart, bool endOfDoc, bool doDelete);
 

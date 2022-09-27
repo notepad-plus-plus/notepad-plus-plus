@@ -1685,7 +1685,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDD_FINDINFILES_FIND_BUTTON:
 				{
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 256;
+					const int filterSize = 1024;
 					TCHAR filters[filterSize + 1];
 					filters[filterSize] = '\0';
 					TCHAR directory[MAX_PATH];
@@ -1734,7 +1734,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					std::lock_guard<std::mutex> lock(findOps_mutex);
 
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 256;
+					const int filterSize = 1024;
 					TCHAR filters[filterSize];
 					TCHAR directory[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
@@ -1775,7 +1775,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					std::lock_guard<std::mutex> lock(findOps_mutex);
 
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 256;
+					const int filterSize = 1024;
 					TCHAR filters[filterSize];
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));

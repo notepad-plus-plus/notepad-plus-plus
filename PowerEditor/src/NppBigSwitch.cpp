@@ -2073,7 +2073,26 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				generic_string nppIssueLog = nppParam.getUserPath();
 				pathAppend(nppIssueLog, issueFn);
 
-				writeLog(nppIssueLog.c_str(), "WM_QUERYENDSESSION =====================================");
+				string wmqesType = std::to_string(lParam);
+				if (0 == lParam)
+				{
+					wmqesType += " - ordinary system shutdown/restart";
+				}
+				else
+				{
+					// the lParam here is a bit mask, it can be one or more of the following values
+					if (lParam & ENDSESSION_CLOSEAPP)
+						wmqesType += " - ENDSESSION_CLOSEAPP";
+					if (lParam & ENDSESSION_CRITICAL)
+						wmqesType += " - ENDSESSION_CRITICAL";
+					if (lParam & ENDSESSION_LOGOFF)
+						wmqesType += " - ENDSESSION_LOGOFF";
+				}
+				string queryEndSession = "WM_QUERYENDSESSION (lParam: " + wmqesType + ") =====================================";
+				if (WM_QUERYENDSESSION == message)
+					writeLog(nppIssueLog.c_str(), queryEndSession.c_str());
+				else
+					writeLog(nppIssueLog.c_str(), "WM_CLOSE (isQueryEndSessionStarted == true)");
 			}
 
 			if (_pPublicInterface->isPrelaunch())
@@ -2226,7 +2245,29 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				generic_string nppIssueLog = nppParam.getUserPath();
 				pathAppend(nppIssueLog, issueFn);
 
-				writeLog(nppIssueLog.c_str(), "WM_ENDSESSION");
+				string wmesType = std::to_string(lParam);
+				if (0 == lParam)
+				{
+					wmesType += " - ordinary system shutdown/restart";
+				}
+				else
+				{
+					// the lParam here is a bit mask, it can be one or more of the following values
+					if (lParam & ENDSESSION_CLOSEAPP)
+						wmesType += " - ENDSESSION_CLOSEAPP";
+					if (lParam & ENDSESSION_CRITICAL)
+						wmesType += " - ENDSESSION_CRITICAL";
+					if (lParam & ENDSESSION_LOGOFF)
+						wmesType += " - ENDSESSION_LOGOFF";
+				}
+				string endSession = "WM_ENDSESSION (wParam: ";
+				if (wParam)
+					endSession += "TRUE, lParam: ";
+				else
+					endSession += "FALSE, lParam: ";
+				endSession += wmesType + ")";
+
+				writeLog(nppIssueLog.c_str(), endSession.c_str());
 			}
 
 			if (wParam == TRUE)

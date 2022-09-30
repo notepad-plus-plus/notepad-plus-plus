@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.4.6
-    Last modified Wed, Sep 21st, 2022.
+    Last modified Fri, Sep 30th, 2022.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
@@ -179,14 +179,14 @@
                     <Item id="42025" name="Salva la macro registrata..."/>
                     <Item id="42026" name="Direzione del testo Destra-Sinistra"/>
                     <Item id="42027" name="Direzione del testo Sinistra-Destra"/>
-                    <Item id="42028" name="File in sola lettura"/>
+                    <Item id="42028" name="Sessione documento in sola lettura"/>
                     <Item id="42029" name="Copia Percorso file corrente"/>
                     <Item id="42030" name="Copia Nome file corrente"/>
                     <Item id="42031" name="Copia percorso Cartella corrente"/>
-                    <Item id="42087" name="Copa Tutti i nomi file"/>
+                    <Item id="42087" name="Copia tutti i Nomi File"/>
                     <Item id="42088" name="Copia Tutti i percorsi file"/>
                     <Item id="42032" name="Esegui una macro più volte..."/>
-                    <Item id="42033" name="Pulisci il flag di sola lettura"/>
+                    <Item id="42033" name="Rimuovi attributo di sola lettura del file"/>
                     <Item id="42035" name="Commenta singola riga"/>
                     <Item id="42036" name="Rimuovi commento per singola riga"/>
                     <Item id="42055" name="Rimuovi righe vuote"/>
@@ -453,7 +453,7 @@
                 <Item id="1687" name="Se perde il focus"/>
                 <Item id="1688" name="Sempre"/>
                 <Item id="1632" name="Nella selezione"/>
-                <Item id="1633" name="Pulisci segnalibri"/>
+                <Item id="1633" name="Pulisci evidenziazioni"/>
                 <Item id="1635" name="Sostituisci tutto nei documenti aperti"/>
                 <Item id="1636" name="Cerca in tutti i documenti aperti"/>
                 <Item id="1654" name="Filtri:"/>
@@ -878,23 +878,23 @@
             <Preference title="Preferenze">
                 <Item id="6001" name="Chiudi"/>
                 <Global title="Generale">
-                    <Item id="6101" name="Barra strumenti"/>
+                    <Item id="6101" name="Barra degli strumenti"/>
                     <Item id="6102" name="Nascondi"/>
-                    <Item id="6103" name="Fluent UI: Icone piccole"/>
-                    <Item id="6104" name="Fluent UI: Icone grandi"/>
-                    <Item id="6129" name="Filled Fluent UI: Icone piccole"/>
-                    <Item id="6130" name="Filled Fluent UI: Icone grandi"/>
+                    <Item id="6103" name="Icone piccole"/>
+                    <Item id="6104" name="Icone grandi"/>
+                    <Item id="6129" name="Icone piene (piccole)"/>
+                    <Item id="6130" name="Icone piene (grandi)"/>
                     <Item id="6105" name="Icone standard"/>
 
-                    <Item id="6106" name="Barra schede"/>
-                    <Item id="6107" name="Barra delle schede compatta"/>
+                    <Item id="6106" name="Barra delle schede"/>
+                    <Item id="6107" name="Compatta la Barra delle schede"/>
                     <Item id="6108" name="Blocca schede (no trascinamento)"/>
                     <Item id="6109" name="Oscura schede inattive"/>
                     <Item id="6110" name="Barra colorata su scheda attiva"/>
 
-                    <Item id="6111" name="Attiva barra di stato"/>
+                    <Item id="6111" name="Attiva la barra di stato"/>
                     <Item id="6112" name="Pulsante di chiusura su ogni scheda"/>
-                    <Item id="6113" name="Il Doppio clic chiude una scheda"/>
+                    <Item id="6113" name="Chiudere una scheda con Doppio clic"/>
                     <Item id="6118" name="Nascondi"/>
                     <Item id="6119" name="Utilizza più righe"/>
                     <Item id="6120" name="Verticale"/>
@@ -905,7 +905,7 @@
                     <Item id="6132" name="Nascondi ＋ ▼ ✕ dalla barra dei menu (Necessita il riavvio di Notepad++)"/>
                     <Item id="6123" name="Lingua"/>
 
-                    <Item id="6128" name="Alterna icone"/>
+                    <Item id="6128" name="Icone alternative"/>
                 </Global>
                 <Scintillas title="Visualizzazione">
                     <Item id="6216" name="Cursore"/>
@@ -1201,7 +1201,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6323" name="Aggiorna automaticamente Notepad++"/>
                     <Item id="6324" name="Cambia Documento (Ctrl+TAB)"/>
                     <Item id="6331" name="Visualizza solo il nome file nella barra del titolo"/>
-                    <Item id="6334" name="Rileva automaticamente codifica caratteri"/>
+                    <Item id="6334" name="Rileva automaticamente la codifica caratteri"/>
                     <Item id="6349" name="Utilizza DirectWrite (può migliorare la visualizzazione dei caratteri speciali, necessita riavvio di Notepad++)"/>
                     <Item id="6337" name="Est. file workspace:"/>
                     <Item id="6114" name="Abilita"/>
@@ -1210,7 +1210,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6345" name="Anteprima sulle schede"/>
                     <Item id="6346" name="Anteprima sulla mappa documento"/>
                     <Item id="6360" name="Disattiva suoni"/>
-                    <Item id="6361" name="Abilita il dialogo di conferma Salva Tutto"/>
+                    <Item id="6361" name="Visualizza messaggio di conferma per Salva Tutto"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Esegui macro più volte">
@@ -1267,8 +1267,8 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
             <DoSaveAll title="Conferma di Salva tutto">
                 <Item id="1766" name="Vuoi salvare tutti i documenti modificati?
 
-seleziona &quot;Sì, sempre&quot; per non vedere nuovamente il dialogo.
-Questo dialogo può essere riattivato in seguito da Preferenze."/>
+seleziona &quot;Sì, sempre&quot; per non visualizzare più il messaggio.
+Il messaggio può essere riattivato da Preferenze."/>
                 <Item id="6" name="&amp;Sì"/>
                 <Item id="7" name="&amp;No"/>
                 <Item id="4" name="Sì, sempre"/>

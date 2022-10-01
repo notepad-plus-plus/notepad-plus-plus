@@ -896,7 +896,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6132" name="Ocultar atalhos ＋ ▼ ✕ da barra de menu (é necessário reiniciar)"/>
                     <Item id="6123" name="Idioma"/>
 
-                    <Item id="6128" name="Alternar ícones"/>
+                    <Item id="6128" name="Ícones alternativos"/>
                 </Global>
                 <Scintillas title="Edição">
                     <Item id="6216" name="Definições do cursor"/>
@@ -1618,7 +1618,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-21/09/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+01/10/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

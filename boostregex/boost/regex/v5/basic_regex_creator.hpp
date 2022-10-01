@@ -1019,6 +1019,8 @@ int basic_regex_creator<charT, traits>::calculate_backstep(re_syntax_base* state
             {
                if(rep->max != rep->min)
                   return -1;
+               if (static_cast<std::size_t>((std::numeric_limits<int>::max)() - result) < rep->min)
+                  return -1; // protection against overflow, we can't calculate a backstep in this case and the expression is probably ill-formed.
                result += static_cast<int>(rep->min);
                state = rep->alt.p;
                continue;

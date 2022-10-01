@@ -1,4 +1,4 @@
-//  This file was automatically generated on Tue Aug 17 16:27:31 2021
+//  This file was automatically generated on Sun Jun  5 16:50:18 2022
 //  by libs/config/tools/generate.cpp
 //  Copyright John Maddock 2002-21.
 //  Use, modification and distribution are subject to the 
@@ -163,6 +163,7 @@
 #endif
 
 #if defined(BOOST_NO_CXX14)\
+   || defined(BOOST_NO_CXX17_DEDUCTION_GUIDES)\
    || defined(BOOST_NO_CXX17_FOLD_EXPRESSIONS)\
    || defined(BOOST_NO_CXX17_HDR_ANY)\
    || defined(BOOST_NO_CXX17_HDR_CHARCONV)\
@@ -195,7 +196,8 @@
    || defined(BOOST_NO_CXX20_HDR_SOURCE_LOCATION)\
    || defined(BOOST_NO_CXX20_HDR_SPAN)\
    || defined(BOOST_NO_CXX20_HDR_STOP_TOKEN)\
-   || defined(BOOST_NO_CXX20_HDR_SYNCSTREAM)
+   || defined(BOOST_NO_CXX20_HDR_SYNCSTREAM)\
+   || defined(BOOST_NO_CXX20_HDR_VERSION)
 #    define BOOST_NO_CXX20
 #endif
 

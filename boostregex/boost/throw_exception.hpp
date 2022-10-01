@@ -7,10 +7,9 @@
 # pragma once
 #endif
 
-//
 //  boost/throw_exception.hpp
 //
-//  Copyright (c) 2002, 2018, 2019 Peter Dimov
+//  Copyright (c) 2002, 2018-2022 Peter Dimov
 //  Copyright (c) 2008-2009 Emil Dotchevski and Reverge Studios, Inc.
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
@@ -18,14 +17,17 @@
 //  http://www.boost.org/LICENSE_1_0.txt)
 //
 //  http://www.boost.org/libs/throw_exception
-//
 
 #include <boost/exception/exception.hpp>
 #include <boost/assert/source_location.hpp>
 #include <boost/config.hpp>
 #include <boost/config/workaround.hpp>
 #include <exception>
+#include <utility>
 #include <cstddef>
+#if !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
+#include <type_traits>
+#endif
 
 #if !defined( BOOST_EXCEPTION_DISABLE ) && defined( BOOST_BORLANDC ) && BOOST_WORKAROUND( BOOST_BORLANDC, BOOST_TESTED_AT(0x593) )
 # define BOOST_EXCEPTION_DISABLE
@@ -104,6 +106,7 @@ public:
         set_info( *this, throw_file( loc.file_name() ) );
         set_info( *this, throw_line( loc.line() ) );
         set_info( *this, throw_function( loc.function_name() ) );
+        set_info( *this, throw_column( loc.column() ) );
     }
 
     virtual boost::exception_detail::clone_base const * clone() const BOOST_OVERRIDE
@@ -113,7 +116,7 @@ public:
 
         boost::exception_detail::copy_boost_exception( p, this );
 
-        del.p_ = 0;
+        del.p_ = BOOST_NULLPTR;
         return p;
     }
 
@@ -177,5 +180,99 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::sourc
 // BOOST_THROW_EXCEPTION
 
 #define BOOST_THROW_EXCEPTION(x) ::boost::throw_exception(x, BOOST_CURRENT_LOCATION)
+
+namespace boost
+{
+
+// throw_with_location
+
+namespace detail
+{
+
+struct BOOST_SYMBOL_VISIBLE throw_location
+{
+    boost::source_location location_;
+
+    explicit throw_location( boost::source_location const & loc ): location_( loc )
+    {
+    }
+};
+
+template<class E> class BOOST_SYMBOL_VISIBLE with_throw_location: public E, public throw_location
+{
+public:
+
+    with_throw_location( E const & e, boost::source_location const & loc ): E( e ), throw_location( loc )
+    {
+    }
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+
+    with_throw_location( E && e, boost::source_location const & loc ): E( std::move( e ) ), throw_location( loc )
+    {
+    }
+
+#endif
+};
+
+} // namespace detail
+
+#if !defined(BOOST_NO_EXCEPTIONS)
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
+
+template<class E> BOOST_NORETURN void throw_with_location( E && e, boost::source_location const & loc = BOOST_CURRENT_LOCATION )
+{
+    throw_exception_assert_compatibility( e );
+    throw detail::with_throw_location<typename std::decay<E>::type>( std::forward<E>( e ), loc );
+}
+
+#else
+
+template<class E> BOOST_NORETURN void throw_with_location( E const & e, boost::source_location const & loc = BOOST_CURRENT_LOCATION )
+{
+    throw_exception_assert_compatibility( e );
+    throw detail::with_throw_location<E>( e, loc );
+}
+
+#endif
+
+#else
+
+template<class E> BOOST_NORETURN void throw_with_location( E const & e, boost::source_location const & loc = BOOST_CURRENT_LOCATION )
+{
+    boost::throw_exception( e, loc );
+}
+
+#endif
+
+// get_throw_location
+
+template<class E> boost::source_location get_throw_location( E const & e )
+{
+#if defined(BOOST_NO_RTTI)
+
+    (void)e;
+    return boost::source_location();
+
+#else
+
+    if( detail::throw_location const* pl = dynamic_cast< detail::throw_location const* >( &e ) )
+    {
+        return pl->location_;
+    }
+    else if( boost::exception const* px = dynamic_cast< boost::exception const* >( &e ) )
+    {
+        return exception_detail::get_exception_throw_location( *px );
+    }
+    else
+    {
+        return boost::source_location();
+    }
+
+#endif
+}
+
+} // namespace boost
 
 #endif // #ifndef BOOST_THROW_EXCEPTION_HPP_INCLUDED

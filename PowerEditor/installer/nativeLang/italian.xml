@@ -880,8 +880,8 @@
                 <Global title="Generale">
                     <Item id="6101" name="Barra degli strumenti"/>
                     <Item id="6102" name="Nascondi"/>
-                    <Item id="6103" name="Icone piccole"/>
-                    <Item id="6104" name="Icone grandi"/>
+                    <Item id="6103" name="Icone di contorno piccole"/>
+                    <Item id="6104" name="Icone di contorno grandi"/>
                     <Item id="6129" name="Icone piene (piccole)"/>
                     <Item id="6130" name="Icone piene (grandi)"/>
                     <Item id="6105" name="Icone standard"/>

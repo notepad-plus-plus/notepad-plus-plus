@@ -28,7 +28,7 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Apri cartella file"/>
-                    <Item subMenuId="file-closeMore" name="Chiudi documenti multipli"/>
+                    <Item subMenuId="file-closeMore" name="Chiudi schede multiple"/>
                     <Item subMenuId="file-recentFiles" name="File recenti"/>
                     <Item subMenuId="edit-insert" name="Inserisci"/>
                     <Item subMenuId="edit-copyToClipboard" name="Copia negli Appunti"/>
@@ -88,21 +88,21 @@
                     <Item id="41020" name="Prompt comandi"/>
                     <Item id="41025" name="Cartella come Workspace"/>
                     <Item id="41003" name="&amp;Chiudi"/>
-                    <Item id="41004" name="C&amp;hiudi tutti"/>
-                    <Item id="41005" name="Chiudi tutti tranne il documento corrente"/>
+                    <Item id="41004" name="C&amp;hiudi tutto"/>
+                    <Item id="41005" name="Chiudi tutte tranne la scheda corrente"/>
                     <Item id="41009" name="Chiudi le schede a sinistra della corrente"/>
                     <Item id="41018" name="Chiudi le schede a destra della corrente"/>
-                    <Item id="41024" name="Chiudi tutti quelli non modificati"/>
+                    <Item id="41024" name="Chiudi tutte quelle non modificate"/>
                     <Item id="41006" name="&amp;Salva"/>
                     <Item id="41007" name="Salva t&amp;utto"/>
-                    <Item id="41008" name="S&amp;alva come..."/>
+                    <Item id="41008" name="S&amp;alva con nome..."/>
                     <Item id="41010" name="Stampa..."/>
                     <Item id="1001"  name="Stampa subito!"/>
                     <Item id="41011" name="&amp;Esci"/>
                     <Item id="41012" name="Apri sessione..."/>
                     <Item id="41013" name="Salva sessione..."/>
                     <Item id="41014" name="Ricarica dal disco"/>
-                    <Item id="41015" name="Salva una copia come..."/>
+                    <Item id="41015" name="Salva una copia con nome..."/>
                     <Item id="41016" name="Sposta nel cestino"/>
                     <Item id="41017" name="&amp;Rinomina..."/>
                     <Item id="41021" name="Ripristina i file recenti"/>
@@ -116,28 +116,28 @@
                     <Item id="42006" name="&amp;Elimina"/>
                     <Item id="42007" name="Seleziona t&amp;utto"/>
                     <Item id="42020" name="Inizio/Fine selezione"/>
-                    <Item id="42084" name="Data e ora (formato corto)"/>
-                    <Item id="42085" name="Data e ora (formato lungo)"/>
+                    <Item id="42084" name="Data e ora (formato ridotto)"/>
+                    <Item id="42085" name="Data e ora (formato esteso)"/>
                     <Item id="42086" name="Data e ora (formato personalizzato)"/>
                     <Item id="42008" name="Inserisci tabulazione (indent)"/>
                     <Item id="42009" name="Rimuovi tabulazione (outdent)"/>
                     <Item id="42010" name="Duplica la riga corrente"/>
-                    <Item id="42079" name="Rimuovi righe duplicate"/>
+                    <Item id="42079" name="Rimuovi le righe duplicate"/>
                     <Item id="42077" name="Rimuovi le righe duplicate consecutive"/>
-                    <Item id="42012" name="Dividi righe"/>
-                    <Item id="42013" name="Unisci righe"/>
+                    <Item id="42012" name="Dividi le righe"/>
+                    <Item id="42013" name="Unisci le righe"/>
                     <Item id="42014" name="Sposta in su la riga corrente"/>
                     <Item id="42015" name="Sposta in giù la riga corrente"/>
-                    <Item id="42059" name="Ordina le righe in modo crescente"/>
-                    <Item id="42060" name="Ordina le righe in modo decrescente"/>
-                    <Item id="42080" name="Ordina le righe in modo crescente ignorando maiuscole/minuscole"/>
-                    <Item id="42081" name="Ordina le righe in modo decrescente ignorando maiuscole/minuscole"/>
-                    <Item id="42061" name="Ordina le righe come interi in modo crescente"/>
-                    <Item id="42062" name="Ordina le righe come interi in modo decrescente"/>
-                    <Item id="42063" name="Ordina le righe come valori decimali (virgola) in modo crescente"/>
-                    <Item id="42064" name="Ordina le righe come valori decimali (virgola) in modo decrescente"/>
-                    <Item id="42065" name="Ordina le righe come valori decimali (punto) in modo crescente"/>
-                    <Item id="42066" name="Ordina le righe come valori decimali (punto) in modo decrescente"/>
+                    <Item id="42059" name="Ordina le righe crescente"/>
+                    <Item id="42060" name="Ordina le righe decrescente"/>
+                    <Item id="42080" name="Ordina le righe crescente ignorando maiuscole/minuscole"/>
+                    <Item id="42081" name="Ordina le righe decrescente ignorando maiuscole/minuscole"/>
+                    <Item id="42061" name="Ordina le righe come interi crescenti"/>
+                    <Item id="42062" name="Ordina le righe come interi decrescenti"/>
+                    <Item id="42063" name="Ordina le righe come valori decimali (virgola) crescenti"/>
+                    <Item id="42064" name="Ordina le righe come valori decimali (virgola) decrescenti"/>
+                    <Item id="42065" name="Ordina le righe come valori decimali (punto) crescenti"/>
+                    <Item id="42066" name="Ordina le righe come valori decimali (punto) decrescenti"/>
                     <Item id="42083" name="Inverti l&apos;ordine delle righe"/>
                     <Item id="42078" name="Ordina le righe in modo casuale"/>
                     <Item id="42016" name="TUTTO MAIUSCOLE"/>
@@ -180,7 +180,7 @@
                     <Item id="42026" name="Direzione del testo Destra-Sinistra"/>
                     <Item id="42027" name="Direzione del testo Sinistra-Destra"/>
                     <Item id="42028" name="Sessione documento in sola lettura"/>
-                    <Item id="42029" name="Copia Percorso file corrente"/>
+                    <Item id="42029" name="Copia Percorso file completo corrente"/>
                     <Item id="42030" name="Copia Nome file corrente"/>
                     <Item id="42031" name="Copia percorso Cartella corrente"/>
                     <Item id="42087" name="Copia tutti i Nomi File"/>
@@ -190,14 +190,14 @@
                     <Item id="42035" name="Commenta singola riga"/>
                     <Item id="42036" name="Rimuovi commento per singola riga"/>
                     <Item id="42055" name="Rimuovi righe vuote"/>
-                    <Item id="42056" name="Rimuovi righe vuote (contenenti caratteri vuoti)"/>
+                    <Item id="42056" name="Rimuovi righe vuote (anche con solo spazi/tab)"/>
                     <Item id="42057" name="Inserisci riga vuota sopra alla corrente"/>
                     <Item id="42058" name="Inserisci riga vuota sotto alla corrente"/>
                     <Item id="43001" name="&amp;Trova..."/>
                     <Item id="43002" name="Trova &amp;successivo"/>
                     <Item id="43003" name="Sostitu&amp;isci..."/>
                     <Item id="43004" name="Vai alla riga/posizione..."/>
-                    <Item id="43005" name="Segnalibro"/>
+                    <Item id="43005" name="Attiva/Disattiva Segnalibro"/>
                     <Item id="43006" name="Segnalibro seguente"/>
                     <Item id="43007" name="Segnalibro precedente"/>
                     <Item id="43008" name="Elimina tutti i segnalibri"/>
@@ -268,7 +268,7 @@
                     <Item id="44022" name="Attiva a capo automatico"/>
                     <Item id="44023" name="&amp;Ingrandisci testo"/>
                     <Item id="44024" name="&amp;Riduci testo"/>
-                    <Item id="44025" name="Visualizza gli spazi bianchi e tabulazioni"/>
+                    <Item id="44025" name="Visualizza gli spazi e le tabulazioni"/>
                     <Item id="44026" name="Visualizza carattere di fine riga"/>
                     <Item id="44029" name="Espandi tutti i livelli"/>
                     <Item id="44030" name="Contrai al livello corrente"/>
@@ -383,12 +383,12 @@
                     <Item id="48017" name="Modifica scorciatoie/Elimina comando..."/>
 
                     <Item id="11001" name="&amp;Finestre..."/>
-                    <Item id="11002" name="Nome A to Z"/>
-                    <Item id="11003" name="Nome Z to A"/>
-                    <Item id="11004" name="Percorso A to Z"/>
-                    <Item id="11005" name="Percorso Z to A"/>
-                    <Item id="11006" name="Tipo A to Z"/>
-                    <Item id="11007" name="Tipo Z to A"/>
+                    <Item id="11002" name="Nome dalla A alla Z"/>
+                    <Item id="11003" name="Nome dalla Z alla A"/>
+                    <Item id="11004" name="Percorso dalla A alla Z"/>
+                    <Item id="11005" name="Percorso dalla Z alla A"/>
+                    <Item id="11006" name="Tipo dalla A alla Z"/>
+                    <Item id="11007" name="Tipo dalla Z alla A"/>
                     <Item id="11008" name="Dimensione Crescente"/>
                     <Item id="11009" name="Dimensione Decrescente"/>
         </Commands>
@@ -399,38 +399,38 @@
                 <Item CMID="0" name="Chiudi"/>
                 <Item CMID="1" name="Chiudi tutte tranne questa"/>
                 <Item CMID="2" name="Salva"/>
-                <Item CMID="3" name="Salva come..."/>
+                <Item CMID="3" name="Salva con nome..."/>
                 <Item CMID="4" name="Stampa..."/>
                 <Item CMID="5" name="Sposta nell&apos;altra vista"/>
                 <Item CMID="6" name="Copia nell&apos;altra vista"/>
-                <Item CMID="7" name="Copia percorso file"/>
+                <Item CMID="7" name="Copia percorso file completo"/>
                 <Item CMID="8" name="Copia nome file"/>
-                <Item CMID="9" name="Copia percorso cartella corrente"/>
+                <Item CMID="9" name="Copia percorso cartella"/>
                 <Item CMID="10" name="Rinomina file..."/>
                 <Item CMID="11" name="Elimina file"/>
                 <Item CMID="12" name="Sola lettura"/>
-                <Item CMID="13" name="Reimposta flag sola lettura"/>
+                <Item CMID="13" name="Rimuovi attributo di sola lettura del file"/>
                 <Item CMID="14" name="Sposta in una nuova finestra"/>
                 <Item CMID="15" name="Copia in una nuova finestra"/>
                 <Item CMID="16" name="Ricarica"/>
                 <Item CMID="17" name="Chiudi tutte le schede a sinistra"/>
                 <Item CMID="18" name="Chiudi tutte le schede a destra"/>
-                <Item CMID="19" name="Apri cartella file in Esplora risorse"/>
-                <Item CMID="20" name="Apri prompt dei comandi in cartella file"/>
+                <Item CMID="19" name="Apri cartella in Esplora risorse"/>
+                <Item CMID="20" name="Apri cartella nel prompt dei comandi"/>
                 <Item CMID="21" name="Apri con il visualizzatore predefinito"/>
                 <Item CMID="22" name="Chiudi tutti i documenti non modificati"/>
-                <Item CMID="23" name="Apri cartella contenuta come Workspace"/>
+                <Item CMID="23" name="Apri cartella come Workspace"/>
                 <Item CMID="24" name="Applica Colore 1"/>
                 <Item CMID="25" name="Applica Colore 2"/>
                 <Item CMID="26" name="Applica Colore 3"/>
                 <Item CMID="27" name="Applica Colore 4"/>
                 <Item CMID="28" name="Applica Colore 5"/>
                 <Item CMID="29" name="Rimuovi Colore"/>
-                <Item CMID="30" name="Chiudi Tab multipli"/>
+                <Item CMID="30" name="Chiudi schede multiple"/>
                 <Item CMID="31" name="Apri in"/>
                 <Item CMID="32" name="Copia negli appunti"/>
                 <Item CMID="33" name="Sposta Documento"/>
-                <Item CMID="34" name="Applica Colori al Tab"/>
+                <Item CMID="34" name="Applica Colori alla scheda"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -677,12 +677,12 @@
                     <Item id="44107" name="Passa a Cartella come Workspace"/>
                     <Item id="44109" name="Passa a Elenco Documenti"/>
                     <Item id="44108" name="Passa a Elenco Funzioni"/>
-                    <Item id="44110" name="Rimuovi Colore Tab"/>
-                    <Item id="44111" name="Applica Colore Tab 1"/>
-                    <Item id="44112" name="Applica Colore Tab 2"/>
-                    <Item id="44113" name="Applica Colore Tab 3"/>
-                    <Item id="44114" name="Applica Colore Tab 4"/>
-                    <Item id="44115" name="Applica Colore Tab 5"/>
+                    <Item id="44110" name="Rimuovi Colore scheda"/>
+                    <Item id="44111" name="Applica Colore 1 a scheda"/>
+                    <Item id="44112" name="Applica Colore 2 a scheda"/>
+                    <Item id="44113" name="Applica Colore 3 a scheda"/>
+                    <Item id="44114" name="Applica Colore 4 a scheda"/>
+                    <Item id="44115" name="Applica Colore 5 a scheda"/>
                     <Item id="11002" name="Ordina per Nome da A a Z"/>
                     <Item id="11003" name="Ordina per Nome da Z a A"/>
                     <Item id="11004" name="Ordina per Percorso da A a Z"/>
@@ -708,7 +708,7 @@
                 <Item id="20002" name="Rinomina"/>
                 <Item id="20003" name="Crea nuovo..."/>
                 <Item id="20004" name="Rimuovi"/>
-                <Item id="20005" name="Salva come..."/>
+                <Item id="20005" name="Salva con nome..."/>
                 <Item id="20007" name="Linguaggio personalizzato: "/>
                 <Item id="20009" name="Estensione:"/>
                 <Item id="20012" name="Ignora Maius./minus."/>
@@ -887,7 +887,7 @@
                     <Item id="6105" name="Icone standard"/>
 
                     <Item id="6106" name="Barra delle schede"/>
-                    <Item id="6107" name="Compatta la Barra delle schede"/>
+                    <Item id="6107" name="Compatta"/>
                     <Item id="6108" name="Blocca schede (no trascinamento)"/>
                     <Item id="6109" name="Oscura schede inattive"/>
                     <Item id="6110" name="Barra colorata su scheda attiva"/>
@@ -1150,7 +1150,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6154" name="Predefinito (istanza unica)"/>
                     <Item id="6155" name="* La modifica di queste impostazioni richiede il riavvio di Notepad++"/>
                     <Item id="6171" name="Inserimento Data e ora personalizzata"/>
-                    <Item id="6175" name="Inverti l&apos;ordinamento di date e ora predefinite (formato lungo &amp;&amp; corto)"/>
+                    <Item id="6175" name="Inverti l&apos;ordinamento di date e ora predefinite (formato esteso e ridotto)"/>
                     <Item id="6172" name="formati personalizzati:"/>
                 </MultiInstance>
 
@@ -1190,7 +1190,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                 <MISC title="Varie">
                     <ComboBox id="6347">
                         <Element name="Attiva"/>
-                        <Element name="Attiva per tutti i tab"/>
+                        <Element name="Attiva per tutte le schede"/>
                         <Element name="Disattiva"/>
                     </ComboBox>
                     <Item id="6308" name="Minimizza nell&apos;area di notifica"/>
@@ -1287,7 +1287,7 @@ Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved,
             <DocReloadWarning title="Ricarica" message="Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa."/>
             <FileLockedWarning title="Salvataggio fallito" message="Verificare che il file non sia aperto con un altro programma."/>
             <FileAlreadyOpenedInNpp title="" message="Il file è già aperto in Notepad++."/>
-            <RenameTabTemporaryNameAlreadyInUse title="Rinomina fallita" message="Il file specificato è già in uso su un altro tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+            <RenameTabTemporaryNameAlreadyInUse title="Rinomina fallita" message="Il file specificato è già in uso su un'altra scheda."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Eliminazione file" message="Eliminazione del file fallita."/>
 
             <NbFileToOpenImportantWarning title="Il numero di file da aprire è troppo grande" message="Si stanno aprendo $INT_REPLACE$ file.
@@ -1402,7 +1402,7 @@ Vuoi continuare?"/>
             <SortTip name="Ordina"/>
             <ReloadTip name="Ricarica"/>
             <PreferencesTip name="Preferenze"/>
-            <PreferencesInitialSort name="Funzioni di ricerca (A to Z) predefinite"/>
+            <PreferencesInitialSort name="Funzioni di ricerca (dalla A alla Z) predefinite"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Cartella come Workspace"/>
@@ -1438,8 +1438,8 @@ Vuoi continuare?"/>
                     <Item id="3123" name="Apri workspace"/>
                     <Item id="3124" name="Ricarica workspace"/>
                     <Item id="3125" name="Salva"/>
-                    <Item id="3126" name="Salva come..."/>
-                    <Item id="3127" name="Salva una copia come..."/>
+                    <Item id="3126" name="Salva con nome..."/>
+                    <Item id="3127" name="Salva una copia con nome..."/>
                     <Item id="3121" name="Aggiungi nuovo progetto"/>
                     <Item id="3128" name="Cerca nei Progetti..."/>
                 </WorkspaceMenu>
@@ -1540,19 +1540,19 @@ Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
             <finder-clear-all value="Pulisci tutto"/>
             <finder-open-all value="Apri tutto"/>
             <finder-purge-for-every-search value="Pulisci per ogni ricerca"/>
-            <finder-wrap-long-lines value="A capo nelle righe lunghe"/>
+            <finder-wrap-long-lines value="Attiva a capo automatico"/>
             <common-ok value="OK"/>
             <common-cancel value="Annulla"/>
             <common-name value="Nome: "/>
-            <tabrename-title value="Rinomina tab corrente"/>
+            <tabrename-title value="Rinomina scheda corrente"/>
             <tabrename-newname value="Nuovo nome: "/>
             <splitter-rotate-left value="Ruota a sinistra"/>
             <splitter-rotate-right value="Ruota a destra"/>
             <recent-file-history-maxfile value="File max: "/>
             <language-tabsize value="Dimensione tab: "/>
             <userdefined-title-new value="Crea nuovo linguaggio..."/>
-            <userdefined-title-save value="Salva linguaggio corrente come..."/>
-            <userdefined-title-rename value="Rinomina linguaggio corrente"/>
+            <userdefined-title-save value="Salva il linguaggio corrente come..."/>
+            <userdefined-title-rename value="Rinomina il linguaggio corrente"/>
             <autocomplete-nb-char value="N. caratteri: "/>
             <edit-verticaledge-nb-col value="N. colonne:"/>
             <summary value="Sommario"/>

@@ -63,7 +63,7 @@ for:
             Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
         }
     # xml files syntax checks
-    - if "%platform%/%configuration%" EQU "Win32/Debug" set PATH=C:\Python38;C:\Python38\Scripts;%PATH%
+    - if "%platform%/%configuration%" EQU "Win32/Debug" set PATH=C:\Python310;C:\Python310\Scripts;%PATH%
     - if "%platform%/%configuration%" EQU "Win32/Debug" python -m pip install requests rfc3987 pywin32 lxml
     - if "%platform%/%configuration%" EQU "Win32/Debug" python PowerEditor\Test\xmlValidator\validator_xml.py
     # tests

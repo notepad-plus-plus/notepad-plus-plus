@@ -117,8 +117,8 @@ const int MARK_BOOKMARK = 20;
 const int MARK_HIDELINESBEGIN = 19;
 const int MARK_HIDELINESEND = 18;
 const int MARK_HIDELINESUNDERLINE = 17;
-// 20 - 16 reserved for Notepad++ internal used
-// 15 - 0  are free to use for plugins
+// 20 - 17 reserved for Notepad++ internal used
+// 16 - 0  are free to use for plugins
 
 
 int getNbDigits(int aNum, int base);

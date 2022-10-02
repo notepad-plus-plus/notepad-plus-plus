@@ -415,8 +415,8 @@
 #define ID_PLUGINS_CMD_DYNAMIC_LIMIT       24999
 
 
-#define MARKER_PLUGINS          3
-#define MARKER_PLUGINS_LIMIT   19
+#define MARKER_PLUGINS          1
+#define MARKER_PLUGINS_LIMIT   15
 
 
 

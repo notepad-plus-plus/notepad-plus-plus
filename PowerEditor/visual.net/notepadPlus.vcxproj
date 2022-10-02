@@ -436,7 +436,6 @@ copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\FunctionList\functionParser.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\GoToLineDlg.cpp" />
     <ClCompile Include="..\src\WinControls\DockingWnd\Gripper.cpp" />
-    <ClCompile Include="..\src\MISC\PluginsManager\IDAllocator.cpp" />
     <ClCompile Include="..\src\WinControls\ImageListSet\ImageListSet.cpp" />
     <ClCompile Include="..\src\uchardet\JpCntx.cpp" />
     <ClCompile Include="..\src\uchardet\LangBulgarianModel.cpp" />

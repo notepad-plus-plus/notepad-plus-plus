@@ -116,7 +116,7 @@ public:
 	bool allocateCmdID(int numberRequired, int *start);
 	bool inDynamicRange(int id) { return _dynamicIDAlloc.isInRange(id); }
 
-	bool allocateMarker(int numberRequired, int *start);
+	bool allocateMarker(int numberRequired, int* start);
 	generic_string getLoadedPluginNames() const;
 
 private:

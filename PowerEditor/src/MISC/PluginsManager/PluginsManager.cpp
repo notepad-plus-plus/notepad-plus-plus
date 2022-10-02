@@ -808,11 +808,11 @@ bool PluginsManager::allocateCmdID(int numberRequired, int *start)
 	return retVal;
 }
 
-bool PluginsManager::allocateMarker(int numberRequired, int *start)
+bool PluginsManager::allocateMarker(int numberRequired, int* start)
 {
 	bool retVal = true;
 	*start = _markerAlloc.allocate(numberRequired);
-	if (-1 == *start)
+	if (*start == -1)
 	{
 		*start = 0;
 		retVal = false;

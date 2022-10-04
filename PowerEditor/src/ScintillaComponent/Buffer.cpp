@@ -211,6 +211,8 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 			newLang = nppParamInst.getLangFromExt(ext);
 		}
 	}
+	else if (!isUntitled()) // existing file with no extension
+		newLang = L_TEXT;
 
 	if (newLang == defaultLang || newLang == L_TEXT)	//language can probably be refined
 	{

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Mon, January 10th, 2022.
+    Last modified Tue, October 4th, 2022.
     Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="8.2.1">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -77,6 +77,7 @@
                     <Item subMenuId="settings-import" name="Inporta"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="Órdena par"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -255,10 +256,10 @@
                     <Item id="43048" name="Seƚesiona e cata seguente"/>
                     <Item id="43049" name="Seƚesiona e cata presedente"/>
                     <Item id="43054" name="Evidensia..."/>
-                    <Item id="43501" name="Sara su i seƚezionà"/>
+                    <Item id="43501" name="Sara su i seƚesionà"/>
                     <Item id="43502" name="Sara su i altri"/>
-                    <Item id="43503" name="Còpia i nomi file de i selezionà"/>
-                    <Item id="43504" name="Còpia i percorsi file de i selezionà"/>
+                    <Item id="43503" name="Còpia i nomi file de i selesionà"/>
+                    <Item id="43504" name="Còpia i percorsi file de i selesionà"/>
                     <Item id="44009" name="Modaƚità Post-it"/>
                     <Item id="44010" name="Conprimi tute ƚe struture"/>
                     <Item id="44011" name="Modaƚità sensa distrasion"/>
@@ -317,6 +318,18 @@
                     <Item id="45060" name="Big5 (tradisionaƚe)"/>
                     <Item id="45061" name="GB2312 (senplificà)"/>
                     <Item id="45054" name="OEM 861: Ixƚandexe"/>
+                    <Item id="45005" name="Codefega en UTF-8-BOM"/>
+                    <Item id="45006" name="Codefega en UTF-16 BE BOM"/>
+                    <Item id="45007" name="Codefega en UTF-16 LE BOM"/>
+                    <Item id="45008" name="Codefega en UTF-8"/>
+                    <Item id="45009" name="Converti en ANSI"/>
+                    <Item id="45010" name="Converti en UTF-8"/>
+                    <Item id="45011" name="Converti en UTF-8-BOM"/>
+                    <Item id="45012" name="Converti en UTF-16 BE BOM"/>
+                    <Item id="45013" name="Converti en UTF-16 LE BOM"/>
+                    <Item id="45060" name="Big5 (tradisionaƚe)"/>
+                    <Item id="45061" name="GB2312 (senplificà)"/>
+                    <Item id="45054" name="OEM 861: Ixƚandexe"/>
                     <Item id="45057" name="OEM 865: Nordico"/>
                     <Item id="45053" name="OEM 860: Portoghexe"/>
                     <Item id="45056" name="OEM 863: Fransexe"/>
@@ -359,6 +372,8 @@
                     <Item id="50000" name="Conpleta funsion"/>
                     <Item id="50001" name="Conpleta paròƚa"/>
                     <Item id="50002" name="Parametri funsion"/>
+                    <Item id="50010" name="Parametri funsion (presedente)"/>
+                    <Item id="50011" name="Parametri funsion (seguente)"/>
                     <Item id="50005" name="Ativa / Dixativa registrasion macro"/>
                     <Item id="50006" name="Conpleta percorso"/>
                     <Item id="44042" name="Scondi righe"/>
@@ -366,7 +381,17 @@
                     <Item id="42041" name="Puƚisi ƚista de i file resenti"/>
                     <Item id="48016" name="Modìfega scorciatoie/Scanseƚa macro..."/>
                     <Item id="48017" name="Modìfega scorciatoie/Scanseƚa comando..."/>
-                </Commands>
+
+                    <Item id="11001" name="&amp;Fenèstre..."/>
+                    <Item id="11002" name="Nòme da A a Z"/>
+                    <Item id="11003" name="Nòme da Z a A"/>
+                    <Item id="11004" name="Percorso da A a Z"/>
+                    <Item id="11005" name="Percorso da Z a A"/>
+                    <Item id="11006" name="Tipo da A a Z"/>
+                    <Item id="11007" name="Tipo da Z a A"/>
+                    <Item id="11008" name="Dimension Cresente"/>
+                    <Item id="11009" name="Dimension Decresente"/>
+        </Commands>
             </Main>
             <Splitter>
             </Splitter>
@@ -395,6 +420,17 @@
                 <Item CMID="21" name="Vèrxi co el visuaƚixatore predefinìo"/>
                 <Item CMID="22" name="Sara su tuti cueƚi no modifegà"/>
                 <Item CMID="23" name="Vèrxi carteƚa contegnù cofà Workspace"/>
+                <Item CMID="24" name="Aplica Coƚore 1"/>
+                <Item CMID="25" name="Aplica Coƚore 2"/>
+                <Item CMID="26" name="Aplica Coƚore 3"/>
+                <Item CMID="27" name="Aplica Coƚore 4"/>
+                <Item CMID="28" name="Aplica Coƚore 5"/>
+                <Item CMID="29" name="Rimovi Coƚore"/>
+                <Item CMID="30" name="Sara su schede multiple"/>
+                <Item CMID="31" name="Verxi en"/>
+                <Item CMID="32" name="Còpia ne i apunti"/>
+                <Item CMID="33" name="Sposta scheda"/>
+                <Item CMID="34" name="Aplica Coƚori a ƚa scheda"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -508,6 +544,8 @@
                 <Item id="5504" name="Axorna"/>
                 <Item id="5505" name="Rimovi"/>
                 <Item id="5508" name="Và"/>
+               <Item id="5509" name="Elenco versioni Plugin: "/>
+                <Item id="5511" name="Archivio Elenco Plugin"/>
                 <Item id="2"    name="Sara su"/>
             </PluginsAdminDlg>
 
@@ -539,6 +577,7 @@
                     <Item id="2230" name="Abìƚita stiƚe gƚobaƚe par el graseto"/>
                     <Item id="2231" name="Abìƚita stiƚe gƚobaƚe par el corsivo"/>
                     <Item id="2232" name="Abìƚita stiƚe gƚobaƚe par el sotoƚineà"/>
+                    <Item id="2234" name="Va a ƚe inpostasion"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -637,6 +676,20 @@
                     <Item id="44107" name="Pasa a Carteƚa cofà Workspace"/>
                     <Item id="44109" name="Pasa a Eƚenco Documenti"/>
                     <Item id="44108" name="Pasa a Eƚenco funsion"/>
+                    <Item id="44110" name="Rimovi Coƚore a Scheda"/>
+                    <Item id="44111" name="Aplica Coƚore 1 a Scheda"/>
+                    <Item id="44112" name="Aplica Coƚore 2 a Scheda"/>
+                    <Item id="44113" name="Aplica Coƚore 3 a Scheda"/>
+                    <Item id="44114" name="Aplica Coƚore 4 a Scheda"/>
+                    <Item id="44115" name="Aplica Coƚore 5 a Scheda"/>
+                    <Item id="11002" name="Órdena par Nòme da A a Z"/>
+                    <Item id="11003" name="Órdena par Nòme da Z a A"/>
+                    <Item id="11004" name="Órdena par Percorso da A a Z"/>
+                    <Item id="11005" name="Órdena par Percorso da Z a A"/>
+                    <Item id="11006" name="Órdena par Tipo da A a Z"/>
+                    <Item id="11007" name="Órdena par Tipo da Z a A"/>
+                    <Item id="11008" name="Órdena par Dimension Cresente"/>
+                    <Item id="11009" name="Órdena par Dimension Decresente"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Sèlta ràpida">
@@ -846,10 +899,12 @@
                     <Item id="6120" name="Verticaƚe"/>
                     <Item id="6121" name="Va fora na vòlta sarà ƚ&apos;ùltima scheda"/>
 
+                    <Item id="6131" name="Menu"/>
                     <Item id="6122" name="Scondi bara de i menu (Alt o F10 par mostrare)"/>
+                    <Item id="6132" name="Scondi ＋ ▼ ✕ da ƚa bara de i menu (Bisogna riaviare Notepad++)"/>
                     <Item id="6123" name="Ƚengua"/>
 
-                    <Item id="6128" name="Alterna icone"/>
+                    <Item id="6128" name="Icone Alternative"/>
                 </Global>
                 <Scintillas title="Mostrar">
                     <Item id="6216" name="Cursore"/>
@@ -857,16 +912,26 @@
                     <Item id="6219" name="Veƚosità:"/>
                     <Item id="6221" name="V"/>
                     <Item id="6222" name="Ƚ"/>
+                    <Item id="6246" name="Rendi i comandi del liveƚo corente comprimi/espandi attivabili"/>
                     <Item id="6225" name="Abìƚita Seƚesion Multipla (Ctrl+clic/seƚesion)"/>
                     <Item id="6227" name="A Capo Otomàtico"/>
                     <Item id="6228" name="Predefinìo"/>
                     <Item id="6229" name="Aƚineà"/>
                     <Item id="6230" name="Indentà"/>
                     <Item id="6234" name="Disabìƚita el scorimento avansà en caxo de problemi co touchpad"/>
-                    <Item id="6214" name="Evidensìa ƚa riga corente"/>
                     <Item id="6215" name="Abìƚita &apos;l arotondamento caràtari"/>
                     <Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
                     <Item id="6239" name="Mantien ƚa seƚesion cò the clichi col tasto de drita fora de ƚa seƚesion"/>
+                    <Item id="6245" name="Ativa spasio virtuaƚe"/>
+                    <Item id="6651" name="Indica ƚa linea corente"/>
+                    <Item id="6652" name="No"/>
+                    <Item id="6653" name="Evidensia sfondo"/>
+                    <Item id="6654" name="Strutura"/>
+                    <Item id="6655" name="Larghesa"/>
+                    <Item id="6247" name="Fine Riga (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Predefinìo"/>
+                    <Item id="6249" name="Testo Normaƚe"/>
+                    <Item id="6250" name="Coƚore Personaƚixà"/>
                 </Scintillas>
 
                 <DarkMode title="Modaƚità scura">
@@ -889,7 +954,10 @@
                     <Item id="7123" name="Testo disabilità"/>
                     <Item id="7124" name="Bordo"/>
                     <Item id="7125" name="Indiriso internet"/>
+                    <Item id="7126" name="Bordo evidensià"/>
+                    <Item id="7127" name="Bordo disabiƚità"/>
                     <Item id="7130" name="Ripristina"/>
+                    <Item id="7135" name="Tonaƚità"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margini/Bordi">
@@ -904,6 +972,7 @@
                     <Item id="6292" name="Ƚarghesa dinamica"/>
                     <Item id="6293" name="Ƚarghesa fisa"/>
                     <Item id="6207" name="Mostra i segnaƚibri"/>
+                    <Item id="6223" name="Mostra Eƚenco Canbiamenti"/>  
                     <Item id="6211" name="Ƚimite De Coƚona"/>
                     <Item id="6213" name="Modaƚità &apos;sfondo&apos;"/>
                     <Item id="6237" name="Xonta el to deƚimitatore de coƚona indicando ƚa so poxision co on nùmaro desimaƚe.
@@ -998,17 +1067,29 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="6721" name="Sesion sentraƚe"/>
                     <Item id="6722" name="Sesion de drita"/>
                     <Item id="6723" name="Xonta"/>
+                    <ComboBox id="6724">
+                        <Element name="Percorso conpleto"/>
+                        <Element name="Nòme de el file"/>
+                        <Element name="Percorso carteƚa"/>
+                        <Element name="Paxina"/>
+                        <Element name="Data (compata)"/>
+                        <Element name="Data (estesa)"/>
+                        <Element name="Ora"/>
+                    </ComboBox>
                     <Item id="6725" name="Variabiƚe:"/>
                     <Item id="6727" name="Seƚesiona parte"/>
                     <Item id="6728" name="Intestasion E Piè De Pàgina"/>
                 </Print>
 
                 <Searching title="Riserca">
-                    <Item id="6901" name="No propore ƚe paròƚe seƚesionà inte ƚa fenèstra de riserca"/>
                     <Item id="6902" name="Uxa caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
                     <Item id="6903" name="Ƚasa vèrta ƚa fenèstra de dialogo dopo aver catà cuel output inte ƚa fenèstra de i rixultadi"/>
                     <Item id="6904" name="Conferma Sostituisi tuto cuanto en tuti i documenti vèrti"/>
                     <Item id="6905" name="Sostituisi: sensa spostamento a ƚa corispondensa sucesiva"/>
+                    <Item id="6906" name="Fenèstra de i risultadi de riserca: mostra soƚo na vose par riga trovà"/>
+                    <Item id="6907" name="Cò vien riciamà ƚa fenèstra de dialogo Trova"/>
+                    <Item id="6908" name="Conpila el canpo de riserca co el testo selesionà"/>
+                    <Item id="6909" name="Proponi ƚa paroƚa del cursore cò no xè selezionà gnente"/>
                 </Searching>
 
                 <RecentFilesHistory title="File resenti">
@@ -1184,25 +1265,21 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
             </DoSaveOrNot>
             <DoSaveAll title="Conferma de Salva tuto">
                 <Item id="1766" name="Vuto salvare tuti cuanti i documenti modificà?
-
 selesiona &quot;Sì, senpre&quot; par non védere il dialogo de novo.
 Te poi riativare de novo sto dialogo da Prefarense."/>
                 <Item id="6" name="&amp;Sì"/>
                 <Item id="7" name="&amp;Nò"/>
                 <Item id="4" name="Sì, senpre"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Modìfega menu contestuaƚe" message="Ƚa modìfega de&apos;l file contextMenu.xml parmete de modifegare el menu contestuaƚe de Notepad++.
 Bisogna inviare de novo Notepad++ parchè ƚe modìfeghe aportà a&apos;l file contextMenu.xml ƚe gàpia efeto."/>
             <SaveCurrentModifWarning title="Salva modìfeghe corenti" message="Te devi salvare ƚe modìfeghe corenti.
 Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
-
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Òcio: Te perdi ƚa posibiƚità de ripristinare" message="Te devi salvare ƚe modìfeghe corenti.
 Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
-
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Manda a na nova istansa de Notepad++" message="El documento el xe stà modifegà, salvarƚo vanti de continuare."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Carga de novo" message="Sito sicuro de voƚer cargare de novo el file? Ogni modìfega aportà ƚa vegnerà persa."/>
@@ -1232,11 +1309,9 @@ Continuare?"/>
 Salvaƚo o i to dati i vegnerà persi.
 Vuto salvare el file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Recarga" message="&quot;$STR_REPLACE$&quot;
-
 Sto file el xe xà stà modifegà da &apos;n altro programa.
 Vuto recargarƚo?"/>
             <DoReloadOrNotAndLooseChange title="Recarga" message="&quot;$STR_REPLACE$&quot;
-
 Sto file el xe stà modifegà da &apos;n altro programa.
 Vuto recargarƚo e perdare tute ƚe modìfeghe aportà en Notepad++?"/>
             <PrehistoricSystemDetected title="Catà on sistema preistorico" message="Senbra che te si drìo uxare on sistema preistorico. Sta funsionaƚità ƚa ga bisogno de on sistema pì moderno, scusane."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
@@ -1246,11 +1321,13 @@ Vuto &apos;ndare inte ƚa pàgina de Notepad++ par descargare ƚ&apos;axornament
             <DocTooDirtyToMonitor title="Problema monitoragio" message="El documento el xe sporco. Salva ƚe modìfeghe vanti de scomisiare el monitoragio."/>
             <DocNoExistToMonitor title="Problema monitoragio" message="El file el deve existare par èsare monitorà."/>
             <FileTooBigToOpen title="Problema dimension file" message="El file el xe masa grando par èsare vèrto co Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Codexe de ecesion: $STR_REPLACE$" message="Si è verificato un errore durante il caricamento del file!"/>
+            <WantToOpenHugeFile title="Vertaura file de grandi dimensioni" message="Par ƚa vertaura de file superiori a 2GB+ poderìa volerghe un mucio de minudi.
+Vuto ndar vanti?"/>
             <CreateNewFileOrNot title="Crea novo file" message="&quot;$STR_REPLACE$&quot; no existe. Crearƚo??"/>
             <CreateNewFileError title="Crea novo file" message="Inposibiƚe creare el file &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERORE" message="Inposibiƚe vèrxare el file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="Backup File Faƚìo" message="Ƚa version presedente de&apos;l file no ƚa poƚe èsare salvà inte ƚa carteƚa de backup &quot;$STR_REPLACE$&quot;.
-
 Vuto salvare el file ƚo steso?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Cargamento stylers.xml faƚìo" message="El cargamento de &quot;$STR_REPLACE$&quot; el xe faƚìo!"/>
             <LoadLangsFailed title="Configurasion" message="El cargamento de langs.xml el xe faƚìo!
@@ -1287,6 +1364,7 @@ Vuto inviare Notepad++ cofà aministradore?"/>
 Notepad++ el vegnerà invià de novo dòpo che ƚe operasion ƚe vegnerà conpletà.
 Vuto continuare?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ el deve èsare invià de novo" message="Te devi inviare de novo Notepad++ par cargare i plugin che te ghe instaƚà."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ el deve esere riavià" message="Notepad++ el deve esere riavvià par abiƚitare eƚenco canbiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronoƚogia Scarabòci"/>
@@ -1321,6 +1399,8 @@ Vuto continuare?"/>
             <PanelTitle name="Eƚenco Funsion"/>
             <SortTip name="Órdena"/>
             <ReloadTip name="Recarga"/>
+            <PreferencesTip name="Preferense"/>
+            <PreferencesInitialSort name="Funsioni de riserca (da A a Z) predefinìe"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Carteƚa cofà Workspace"/>
@@ -1392,6 +1472,9 @@ Vuto continuare?"/>
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Parmete de includare caràtari xontà inte ƚa ƚista de i caràtari considerà na paròƚa, cuando te fè on dopio clic par seƚesionare, o te efetui na riserca co ƚ&apos;opsion &quot;Soƚo paròƚe intiere&quot; seƚesionà"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Va a ƚa configurasion de el stiƚe par canbiare el coƚore predefinìo del Fine Riga (&quot;EOL custom color&quot;).."/>
+
             <word-chars-list-warning-begin value="Òcio: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ spasi"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ tab"/>
@@ -1406,7 +1489,6 @@ Vuto continuare?"/>
             <file-rename-title value="Rinomina"/>
             <find-in-files-filter-tip value="Ruma en cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
-
 Ruma en tuti i file a ecesion exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
 Ruma en tuti i files, ma escludi ƚa carteƚa tests, bin e bin64:
@@ -1507,7 +1589,7 @@ Runa en tuti i files, ma escludi tute le carteƚe o sotocarteƚe log o logs:
             <IncrementalFind-FSNotFound value="Frase no trovà" />
             <IncrementalFind-FSTopReached value="Xè stà raxunto &apos;l inisio de ƚa pàgina, se continuerà da&apos;l fondo" />
             <IncrementalFind-FSEndReached value="Xè stà raxunta ƚa fine de ƚa pàgina, se continuerà da&apos;l inisio" />
-            <contextMenu-styleAlloccurrencesOfToken value="Marca stiƚe per tutte le corrispondenze" />
+            <contextMenu-styleAlloccurrencesOfToken value="Marca stiƚe par tute le corispondense" />
             <contextMenu-styleOneToken value="Marca stiƚe ƚa prima corispondensa" />
             <contextMenu-clearStyle value="Rimovi marcatura Stiƚe" />
             <contextMenu-PluginCommands value="Comandi plugin" />

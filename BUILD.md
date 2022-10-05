@@ -2,7 +2,7 @@
 
 **Pre-requisites:**
 
- - Microsoft Visual Studio 2019 (C/C++ Compiler, v142 toolset for win32, x64, arm64)
+ - Microsoft Visual Studio 2022 (C/C++ Compiler, v143 toolset for win32, x64, arm64)
 
 There are three components which are built from one visual studio solution:
 

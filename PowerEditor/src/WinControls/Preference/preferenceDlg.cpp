@@ -2873,25 +2873,8 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 					if ((lmi._langType >= L_EXTERNAL) && (lmi._langType < nppParam.L_END))
 					{
-						bool found(false);
-						for (size_t x = 0; x < nppParam.getExternalLexerDoc()->size() && !found; ++x)
-						{
-							TiXmlNode *lexersRoot = nppParam.getExternalLexerDoc()->at(x)->FirstChild(TEXT("NotepadPlus"))->FirstChildElement(TEXT("LexerStyles"));
-							for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
-								childNode ;
-								childNode = childNode->NextSibling(TEXT("LexerType")))
-							{
-								TiXmlElement *element = childNode->ToElement();
-
-								if (generic_string(element->Attribute(TEXT("name"))) == lmi._langName)
-								{
-									element->SetAttribute(TEXT("excluded"), (LOWORD(wParam)==IDC_BUTTON_REMOVE)?TEXT("yes"):TEXT("no"));
-									nppParam.getExternalLexerDoc()->at(x)->SaveFile();
-									found = true;
-									break;
-								}
-							}
-						}
+						int index = nppParam.getExternalLangIndexFromName(lmi._langName.c_str());
+						nppParam.getELCFromIndex(index).setExcluded(LOWORD(wParam) == IDC_BUTTON_REMOVE);
 					}
 
 					HWND grandParent = ::GetParent(_hParent);
@@ -2906,16 +2889,46 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						HMENU menu = HMENU(::SendMessage(grandParent, NPPM_INTERNAL_GETMENU, 0, 0));
 						HMENU subMenu = ::GetSubMenu(menu, MENUINDEX_LANGUAGE);
 
-						// Add back a languge menu item always before the 3 last items:
-						// 1. -----------------------
-						// 2. Define your language...
-						// 3. User-Defined
+						// Find the separator after IDM_LANG_TEXT
 						int nbItem = ::GetMenuItemCount(subMenu);
+						int x = 0;
+						MENUITEMINFO menuItemInfo
+						{
+							.cbSize = sizeof(MENUITEMINFO),
+							.fMask = MIIM_FTYPE
+						};
+						for (; x < nbItem; ++x)
+						{
+							::GetMenuItemInfo(subMenu, x, TRUE, &menuItemInfo);
+							if (menuItemInfo.fType & MFT_SEPARATOR)
+							{
+								break;
+							}
+						}
 
-						if (nbItem < 3)
-							return FALSE;
+						TCHAR firstLetter = lmi._langName.empty() ? TEXT('\0') : towupper(lmi._langName[0]);
+						TCHAR buffer[MAX_EXTERNAL_LEXER_NAME_LEN]{TEXT('\0')};
+						menuItemInfo.fMask = MIIM_SUBMENU;
+						for (++x; x < nbItem; ++x)
+						{
+							::GetMenuItemInfo(subMenu, x, TRUE, &menuItemInfo);
+							::GetMenuString(subMenu, x, buffer, MAX_EXTERNAL_LEXER_NAME_LEN, MF_BYPOSITION);
 
-						::InsertMenu(subMenu, nbItem - 3, MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
+							// Check if using compact language menu.
+							if (menuItemInfo.hSubMenu && buffer[0] == firstLetter)
+							{
+								// Found the submenu for the language's first letter. Search in it instead.
+								subMenu = menuItemInfo.hSubMenu;
+								nbItem = ::GetMenuItemCount(subMenu);
+								x = -1;
+							}
+							else if (lstrcmp(lmi._langName.c_str(), buffer) < 0)
+							{
+								break;
+							}
+						}
+
+						::InsertMenu(subMenu, x, MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
 					}
 					::DrawMenuBar(grandParent);
 					return TRUE;

@@ -98,7 +98,6 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_colourHooker.hookOn(_hStyleInfoStaticText);
 
 			_currentThemeIndex = -1;
-			int defaultThemeIndex = 0;
 			ThemeSwitcher & themeSwitcher = nppParamInst.getThemeSwitcher();
 			for (size_t i = 0 ; i < themeSwitcher.size() ; ++i)
 			{
@@ -109,14 +108,10 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 					_currentThemeIndex = j;
 					_themeName.assign(themeInfo.second);
 				}
-				if (! themeInfo.first.compare(TEXT("Default")) )
-				{
-					defaultThemeIndex = j;
-				}
 			}
 			if (_currentThemeIndex == -1)
 			{
-				_currentThemeIndex = defaultThemeIndex;
+				_currentThemeIndex = 0;
 			}
 			::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 

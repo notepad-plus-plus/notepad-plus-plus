@@ -656,6 +656,225 @@ void cutStringBy(const TCHAR* str2cut, vector<generic_string>& patternVect, char
 }
 
 
+ExternalLexer::ExternalLexer(const TCHAR* baseConfigDirectory, const TCHAR* confgiFileName)
+{
+	size_t len = wcslen(baseConfigDirectory) + 1;
+	_baseConfigDirectory = new TCHAR[len];
+	wcscpy_s(const_cast<TCHAR*>(_baseConfigDirectory), len, baseConfigDirectory);
+
+	len = wcslen(confgiFileName) + 1;
+	_configFileName = new TCHAR[len];
+	wcscpy_s(const_cast<TCHAR*>(_configFileName), len, confgiFileName);
+}
+
+ExternalLexer::~ExternalLexer()
+{
+	if (_baseConfigDirectory)
+	{
+		delete[] _baseConfigDirectory;
+	}
+	if (_configFileName)
+	{
+		delete[] _configFileName;
+	}
+	if (_pXmlExternalLexerDoc)
+	{
+		delete _pXmlExternalLexerDoc;
+	}
+}
+
+bool ExternalLexer::checkBaseConfig()
+{
+	generic_string defaultThemeName = NppParameters::getInstance().getThemeSwitcher().getDefaultThemeName();
+	if (_currentLoadedThemeName == defaultThemeName && _pXmlExternalLexerDoc)
+	{
+		// Base config is already loaded.
+		return true;
+	}
+
+	TCHAR configFilePath[MAX_PATH];
+	wcscpy_s(configFilePath, MAX_PATH, _baseConfigDirectory);
+	PathAppend(configFilePath, _configFileName);
+
+	if (_pXmlExternalLexerDoc)
+	{
+		delete _pXmlExternalLexerDoc;
+	}
+	_pXmlExternalLexerDoc = new TiXmlDocument(configFilePath);
+
+	if (!_pXmlExternalLexerDoc->LoadFile())
+	{
+		delete _pXmlExternalLexerDoc;
+		_pXmlExternalLexerDoc = nullptr;
+		return false;
+	}
+
+	_currentLoadedThemeName = defaultThemeName;
+	return true;
+}
+
+bool ExternalLexer::loadCurrentThemedConfig()
+{
+	return loadThemedConfig(NppParameters::getInstance().getThemeSwitcher().getCurrentThemeName());
+}
+
+bool ExternalLexer::loadThemedConfig(generic_string themeName)
+{
+	NppParameters& nppParams = NppParameters::getInstance();
+	if (themeName != _currentLoadedThemeName || !_pXmlExternalLexerDoc)
+	{
+		// Theme changed. Load config file for the new theme.
+		TCHAR configFilePath[MAX_PATH];
+		wcscpy_s(configFilePath, MAX_PATH, _baseConfigDirectory);
+		bool isDefaultTheme = (themeName == nppParams.getThemeSwitcher().getDefaultThemeName());
+		if (!isDefaultTheme)
+		{
+			PathAppend(configFilePath, TEXT("themes"));
+			PathAppend(configFilePath, themeName.c_str());
+
+			if (!PathFileExists(configFilePath))
+			{
+				::CreateDirectory(configFilePath, NULL);
+			}
+		}
+
+		PathAppend(configFilePath, _configFileName);
+		if (!PathFileExists(configFilePath))
+		{
+			if (isDefaultTheme)
+			{
+				// Shouldn't happen
+				return false;
+			}
+
+			// Themed config file doesn't exist. Copy from base config file.
+			TCHAR baseConfigFilePath[MAX_PATH];
+			wcscpy_s(baseConfigFilePath, MAX_PATH, _baseConfigDirectory);
+			PathAppend(baseConfigFilePath, _configFileName);
+
+			if (!::CopyFile(baseConfigFilePath, configFilePath, FALSE))
+			{
+				return false;
+			}
+		}
+
+		if (_pXmlExternalLexerDoc)
+		{
+			delete _pXmlExternalLexerDoc;
+		}
+		_pXmlExternalLexerDoc = new TiXmlDocument(configFilePath);
+
+		if (!_pXmlExternalLexerDoc->LoadFile())
+		{
+			delete _pXmlExternalLexerDoc;
+			_pXmlExternalLexerDoc = nullptr;
+			return false;
+		}
+
+		_currentLoadedThemeName = themeName;
+	}
+
+	nppParams.loadExternalLexerConfig(this);
+	return true;
+}
+
+void ExternalLexer::setExcluded(const TCHAR* langName, bool excluded)
+{
+	auto element = findConfigElementByLangName(langName);
+	if (std::get<0>(element))
+	{
+		std::get<0>(element)->SetAttribute(TEXT("excluded"), excluded ? TEXT("yes") : TEXT("no"));
+		std::get<1>(element)->SaveFile();
+	}
+
+	if (std::get<2>(element))
+	{
+		delete std::get<1>(element);
+	}
+}
+
+bool ExternalLexer::isExcluded(const TCHAR* langName) const
+{
+	bool excluded(false);
+	auto element = findConfigElementByLangName(langName);
+	if (std::get<0>(element))
+	{
+		const TCHAR* lexerExcluded = std::get<0>(element)->Attribute(TEXT("excluded"));
+		if (lexerExcluded != NULL && (lstrcmp(lexerExcluded, TEXT("yes")) == 0))
+		{
+			excluded = true;
+		}
+	}
+
+	if (std::get<2>(element))
+	{
+		delete std::get<1>(element);
+	}
+
+	return excluded;
+}
+
+std::tuple<TiXmlElement*, TiXmlDocument*, bool> ExternalLexer::findConfigElementByLangName(const TCHAR* langName) const
+{
+	// "excluded" flag is always set in base config file.
+	TiXmlDocument* pXmlBaseConfig{nullptr};
+	ThemeSwitcher& themeSwitcher = NppParameters::getInstance().getThemeSwitcher();
+	bool baseConfigAlreadyLoaded = (_currentLoadedThemeName == themeSwitcher.getDefaultThemeName());
+	if (baseConfigAlreadyLoaded)
+	{
+		// If currently loaded theme is the default theme, just use the already opened XML doc.
+		pXmlBaseConfig = _pXmlExternalLexerDoc;
+	}
+	else
+	{
+		TCHAR baseConfigFilePath[MAX_PATH];
+		wcscpy_s(baseConfigFilePath, MAX_PATH, _baseConfigDirectory);
+		PathAppend(baseConfigFilePath, _configFileName);
+
+		pXmlBaseConfig = new TiXmlDocument(baseConfigFilePath);
+
+		if (!pXmlBaseConfig->LoadFile())
+		{
+			delete pXmlBaseConfig;
+			throw (generic_string(baseConfigFilePath) + TEXT(" failed to load."));
+		}
+	}
+
+	TiXmlNode* lexersRoot = pXmlBaseConfig->FirstChild(TEXT("NotepadPlus"))->FirstChildElement(TEXT("LexerStyles"));
+	for (TiXmlNode* childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
+		childNode;
+		childNode = childNode->NextSibling(TEXT("LexerType")))
+	{
+		TiXmlElement* element = childNode->ToElement();
+
+		if (!lstrcmp(element->Attribute(TEXT("name")), langName))
+		{
+			// Found the config element. If pXmlBaseConfig is newly created, pass the ownership back to caller for proper clean up.
+			return std::tuple<TiXmlElement*, TiXmlDocument*, bool>(element, pXmlBaseConfig, !baseConfigAlreadyLoaded);
+		}
+	}
+
+	return std::tuple<TiXmlElement*, TiXmlDocument*, bool>(nullptr, pXmlBaseConfig, !baseConfigAlreadyLoaded);
+}
+
+void ExternalLangContainer::setExcluded(bool excluded)
+{
+	if (_pLexer)
+	{
+		_pLexer->setExcluded(WcharMbcsConvertor::getInstance().char2wchar(_name.c_str(), CP_ACP), excluded);
+	}
+}
+
+bool ExternalLangContainer::isExcluded() const
+{
+	if (_pLexer)
+	{
+		return _pLexer->isExcluded(WcharMbcsConvertor::getInstance().char2wchar(_name.c_str(), CP_ACP));
+	}
+
+	return false;
+}
+
 std::wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
 {
 	size_t nbItem = sizeof(localizationDefs)/sizeof(LocalizationSwitcher::LocalizationDefinition);
@@ -706,11 +925,26 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 {
 	if (!xmlFullPath || !xmlFullPath[0])
 		return generic_string();
+
+	if (!_themeList.empty() && _themeList[0].second == xmlFullPath)
+	{
+		return _defaultThemeName;
+	}
+
 	generic_string fn(::PathFindFileName(xmlFullPath));
 	PathRemoveExtension(const_cast<TCHAR *>(fn.c_str()));
 	return fn;
 }
 
+generic_string ThemeSwitcher::getCurrentThemeName() const
+{
+	if (_themeList.empty())
+	{
+		return generic_string();
+	}
+
+	return getThemeFromXmlFileName(NppParameters::getInstance().getNppGUI()._themeName.c_str());
+}
 
 winVer NppParameters::getWindowsVersion()
 {
@@ -860,13 +1094,13 @@ NppParameters::~NppParameters()
 		delete _LRFileList[i];
 	for (int i = 0 ; i < _nbUserLang ; ++i)
 		delete _userLangArray[i];
+	for (int i = 0 ; i < _nbExternalLang ; ++i)
+		delete _externalLangArray[i];
 	if (_hUXTheme)
 		FreeLibrary(_hUXTheme);
 
-	for (std::vector<TiXmlDocument *>::iterator it = _pXmlExternalLexerDoc.begin(), end = _pXmlExternalLexerDoc.end(); it != end; ++it )
-		delete (*it);
-
-	_pXmlExternalLexerDoc.clear();
+	for (const auto& pExternalLexer : _externalLexers)
+		delete pExternalLexer;
 }
 
 
@@ -904,9 +1138,10 @@ bool NppParameters::reloadStylers(const TCHAR* stylePath)
 	getUserStylersFromXmlTree();
 
 	//  Reload plugin styles.
-	for ( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
+	generic_string themeName = _themeSwitcher.getThemeFromXmlFileName(stylePath);
+	for (const auto& pExternalLexer : _externalLexers)
 	{
-		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
+		pExternalLexer->loadThemedConfig(themeName);
 	}
 	return true;
 }
@@ -1409,10 +1644,6 @@ bool NppParameters::load()
 			getSessionFromXmlTree(pXmlSessionDoc, _session);
 
 		delete pXmlSessionDoc;
-
-		for (size_t i = 0, len = _pXmlExternalLexerDoc.size() ; i < len ; ++i)
-			if (_pXmlExternalLexerDoc[i])
-				delete _pXmlExternalLexerDoc[i];
 	}
 
 	//-------------------------------------------------------------//
@@ -1686,12 +1917,12 @@ void NppParameters::getLangKeywordsFromXmlTree()
 }
 
 
-void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc)
+void NppParameters::loadExternalLexerConfig(ExternalLexer* pExternalLexer)
 {
-	TiXmlNode *root = externalLexerDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNode *root = pExternalLexer->_pXmlExternalLexerDoc->FirstChild(TEXT("NotepadPlus"));
 		if (!root) return;
 	feedKeyWordsParameters(root);
-	feedStylerArray(root);
+	feedStylerArray(root, pExternalLexer);
 }
 
 
@@ -3586,7 +3817,7 @@ void NppParameters::feedUserStyles(TiXmlNode *node)
 	}
 }
 
-bool NppParameters::feedStylerArray(TiXmlNode *node)
+bool NppParameters::feedStylerArray(TiXmlNode *node, ExternalLexer* pExternalLexer)
 {
 	TiXmlNode *styleRoot = node->FirstChildElement(TEXT("LexerStyles"));
 	if (!styleRoot) return false;
@@ -3600,14 +3831,15 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		const TCHAR *lexerName = element->Attribute(TEXT("name"));
 		const TCHAR *lexerDesc = element->Attribute(TEXT("desc"));
 		const TCHAR *lexerUserExt = element->Attribute(TEXT("ext"));
-		const TCHAR *lexerExcluded = element->Attribute(TEXT("excluded"));
 		if (lexerName)
 		{
 			_lexerStylerVect.addLexerStyler(lexerName, lexerDesc, lexerUserExt, childNode);
-			if (lexerExcluded != NULL && (lstrcmp(lexerExcluded, TEXT("yes")) == 0))
+
+			// External lexer can be disabled by specifying "excluded" attribute in the lexer's base config file.
+			if (pExternalLexer)
 			{
 				int index = getExternalLangIndexFromName(lexerName);
-				if (index != -1)
+				if (index != -1 && pExternalLexer->isExcluded(lexerName))
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)(index + L_EXTERNAL)));
 			}
 		}
@@ -7276,9 +7508,9 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 		}
 	}
 
-	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
+	for (const auto& pExternalLexer : _externalLexers)
 	{
-		TiXmlNode* lexersRoot2 = ( _pXmlExternalLexerDoc[x]->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
+		TiXmlNode* lexersRoot2 = (pExternalLexer->_pXmlExternalLexerDoc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
 		for (TiXmlNode* childNode = lexersRoot2->FirstChildElement(TEXT("LexerType"));
 			childNode ;
 			childNode = childNode->NextSibling(TEXT("LexerType")))
@@ -7309,7 +7541,7 @@ generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, Styl
 				}
 			}
 		}
-		_pXmlExternalLexerDoc[x]->SaveFile();
+		pExternalLexer->_pXmlExternalLexerDoc->SaveFile();
 	}
 
 	TiXmlNode *globalStylesRoot = (_pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("GlobalStyles"));

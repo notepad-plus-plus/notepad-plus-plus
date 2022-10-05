@@ -199,35 +199,12 @@ int PluginsManager::loadPluginFromPath(const TCHAR *pluginFilePath)
 			//if (!GetNameSpace)
 				//throw generic_string(TEXT("Loading GetNameSpace function failed."));
 
-			// Assign a buffer for the lexer name.
-			char lexName[MAX_EXTERNAL_LEXER_NAME_LEN];
-			lexName[0] = '\0';
-
-			int numLexers = GetLexerCount();
-
-			ExternalLangContainer* containers[30];
-
-			for (int x = 0; x < numLexers; ++x)
-			{
-				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
-				if (!nppParams.isExistingExternalLangName(lexName) && nppParams.ExternalLangHasRoom())
-				{
-					containers[x] = new ExternalLangContainer;
-					containers[x]->_name = lexName;
-					containers[x]->fnCL = CreateLexer;
-					//containers[x]->fnGLPN = GetLibraryPropertyNames;
-					//containers[x]->fnSLP = SetLibraryProperty;
-				}
-				else
-				{
-					containers[x] = NULL;
-				}
-			}
-
 			TCHAR xmlPath[MAX_PATH];
 			wcscpy_s(xmlPath, nppParams.getNppPath().c_str());
 			PathAppend(xmlPath, TEXT("plugins\\Config"));
-            PathAppend(xmlPath, pi->_moduleName.c_str());
+			size_t dirEndIndex = wcslen(xmlPath);
+
+			PathAppend(xmlPath, pi->_moduleName.c_str());
 			PathRemoveExtension(xmlPath);
 			PathAddExtension(xmlPath, TEXT(".xml"));
 
@@ -236,34 +213,49 @@ int PluginsManager::loadPluginFromPath(const TCHAR *pluginFilePath)
 				lstrcpyn(xmlPath, TEXT("\0"), MAX_PATH );
 				wcscpy_s(xmlPath, nppParams.getAppDataNppDir() );
 				PathAppend(xmlPath, TEXT("plugins\\Config"));
-                PathAppend(xmlPath, pi->_moduleName.c_str());
+				dirEndIndex = wcslen(xmlPath);
+
+				PathAppend(xmlPath, pi->_moduleName.c_str());
 				PathRemoveExtension( xmlPath );
 				PathAddExtension( xmlPath, TEXT(".xml") );
 
 				if (! PathFileExists( xmlPath ) )
 				{
-					throw generic_string(generic_string(xmlPath) + TEXT(" is missing."));
+					throw (generic_string(xmlPath) + TEXT(" is missing."));
 				}
 			}
 
-			TiXmlDocument *pXmlDoc = new TiXmlDocument(xmlPath);
+			xmlPath[dirEndIndex] = TEXT('\0');
+			ExternalLexer* pExternalLexer = new ExternalLexer(xmlPath, xmlPath + dirEndIndex + 1);
 
-			if (!pXmlDoc->LoadFile())
+			// Make sure base config file can be loaded
+			if (!pExternalLexer->checkBaseConfig())
 			{
-				delete pXmlDoc;
-				pXmlDoc = NULL;
-				throw generic_string(generic_string(xmlPath) + TEXT(" failed to load."));
+				delete pExternalLexer;
+				xmlPath[dirEndIndex] = TEXT('\\');
+				throw (generic_string(xmlPath) + TEXT(" failed to load."));
 			}
 
-			for (int x = 0; x < numLexers; ++x) // postpone adding in case the xml is missing/corrupt
+			// Assign a buffer for the lexer name.
+			char lexName[MAX_EXTERNAL_LEXER_NAME_LEN]{'\0'};
+			int numLexers = GetLexerCount();
+			for (int x = 0; x < numLexers; ++x)
 			{
-				if (containers[x] != NULL)
-					nppParams.addExternalLangToEnd(containers[x]);
+				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
+				if (!nppParams.isExistingExternalLangName(lexName) && nppParams.ExternalLangHasRoom())
+				{
+					ExternalLangContainer *container = new ExternalLangContainer;
+					container->_name = lexName;
+					container->fnCL = CreateLexer;
+					//container->fnGLPN = GetLibraryPropertyNames;
+					//container->fnSLP = SetLibraryProperty;
+					container->_pLexer = pExternalLexer;
+					nppParams.addExternalLangToEnd(container);
+				}
 			}
 
-			nppParams.getExternalLexerFromXmlTree(pXmlDoc);
-			nppParams.getExternalLexerDoc()->push_back(pXmlDoc);
-
+			pExternalLexer->loadCurrentThemedConfig();
+			nppParams.getExternalLexers().push_back(pExternalLexer);
 
 			//const char *pDllName = wmc.wchar2char(pluginFilePath, CP_ACP);
 			//::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, reinterpret_cast<LPARAM>(pDllName));

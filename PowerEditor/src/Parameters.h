@@ -1114,6 +1114,28 @@ private:
 #define MAX_EXTERNAL_LEXER_NAME_LEN 128
 
 
+class ExternalLexer final
+{
+friend class NppParameters;
+public:
+	ExternalLexer(const TCHAR* baseConfigDirectory, const TCHAR* confgiFileName);
+	~ExternalLexer();
+
+	bool checkBaseConfig();
+	bool loadCurrentThemedConfig();
+	bool loadThemedConfig(generic_string themeName);
+
+	void setExcluded(const TCHAR* langName, bool excluded);
+	bool isExcluded(const TCHAR* langName) const;
+
+private:
+	std::tuple<TiXmlElement*, TiXmlDocument*, bool> findConfigElementByLangName(const TCHAR* langName) const;
+
+	const TCHAR* _baseConfigDirectory{nullptr};
+	const TCHAR* _configFileName{nullptr};
+	generic_string _currentLoadedThemeName{};
+	TiXmlDocument* _pXmlExternalLexerDoc{nullptr};
+};
 
 class ExternalLangContainer final
 {
@@ -1123,9 +1145,13 @@ public:
 	Lexilla::CreateLexerFn fnCL = nullptr;
 	//Lexilla::GetLibraryPropertyNamesFn fnGLPN = nullptr;
 	//Lexilla::SetLibraryPropertyFn fnSLP = nullptr;
+	ExternalLexer* _pLexer{nullptr};
 
 	// For Notepad++
 	ExternalLexerAutoIndentMode _autoIndentMode = ExternalLexerAutoIndentMode::Standard;
+
+	void setExcluded(bool excluded);
+	bool isExcluded() const;
 };
 
 
@@ -1261,6 +1287,8 @@ public:
 	void setThemeDirPath(generic_string themeDirPath) { _themeDirPath = themeDirPath; }
 	generic_string getThemeDirPath() const { return _themeDirPath; }
 
+	generic_string getCurrentThemeName() const;
+	generic_string getDefaultThemeName() const { return _defaultThemeName; }
 	generic_string getDefaultThemeLabel() const { return _defaultThemeLabel; }
 
 	generic_string getSavePathFrom(const generic_string& path) const {
@@ -1283,7 +1311,8 @@ private:
 	std::vector<std::pair<generic_string, generic_string>> _themeList;
 	std::map<generic_string, generic_string> _themeStylerSavePath;
 	generic_string _themeDirPath;
-	const generic_string _defaultThemeLabel = TEXT("Default (stylers.xml)");
+	const generic_string _defaultThemeName{TEXT("Default")};
+	const generic_string _defaultThemeLabel{TEXT("Default (stylers.xml)")};
 	generic_string _stylesXmlPath;
 };
 
@@ -1446,8 +1475,8 @@ public:
 
 	bool ExternalLangHasRoom() const {return _nbExternalLang < NB_MAX_EXTERNAL_LANG;};
 
-	void getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc);
-	std::vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc; };
+	void loadExternalLexerConfig(ExternalLexer* pExternalLexer);
+	std::vector<ExternalLexer*>& getExternalLexers() { return _externalLexers; };
 
 	void writeDefaultUDL();
 	void writeNonDefaultUDL();
@@ -1721,8 +1750,6 @@ private:
 	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr; // nativeLang.xml
 	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml
 
-	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
-
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
 	Lang* _langList[NB_LANG] = { nullptr };
@@ -1743,6 +1770,7 @@ private:
 	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
 	generic_string _userDefineLangsFolderPath;
 	generic_string _userDefineLangPath;
+	std::vector<ExternalLexer*> _externalLexers;
 	ExternalLangContainer* _externalLangArray[NB_MAX_EXTERNAL_LANG] = { nullptr };
 	int _nbExternalLang = 0;
 
@@ -1884,7 +1912,7 @@ private:
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);
-	bool feedStylerArray(TiXmlNode *node);
+	bool feedStylerArray(TiXmlNode *node, ExternalLexer* pExternalLexer = nullptr);
 	std::pair<unsigned char, unsigned char> feedUserLang(TiXmlNode *node);
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);

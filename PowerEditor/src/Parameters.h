@@ -561,9 +561,13 @@ private :
 struct NewDocDefaultSettings final
 {
 	EolType _format = EolType::osdefault;
+
 	UniMode _unicodeMode = uniCookie;
 	bool _openAnsiAsUtf8 = true;
+
 	LangType _lang = L_TEXT;
+	//bool _openFileAsDefaultLang = true; // open file with the language non-identified as default language
+
 	int _codepage = -1; // -1 when not using
 };
 

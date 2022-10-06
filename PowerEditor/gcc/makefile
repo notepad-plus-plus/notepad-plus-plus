@@ -37,7 +37,7 @@ LEXILLA_DIRECTORY := ../../lexilla
 LEXILLA_TARGET := liblexilla.a
 
 CXX := $(CROSS_COMPILE)g++
-CXXFLAGS := -include $(GCC_DIRECTORY)/gcc-fixes.h -std=c++17 -Wno-conversion-null
+CXXFLAGS := -include $(GCC_DIRECTORY)/gcc-fixes.h -std=c++20
 RC := $(CROSS_COMPILE)windres
 RCFLAGS :=
 CPP_PATH := $(SCINTILLA_DIRECTORY)/include $(LEXILLA_DIRECTORY)/include
@@ -59,7 +59,7 @@ LDFLAGS += -s
 else
 BUILD_TYPE := debug
 BUILD_SUFFIX := -debug
-CXXFLAGS += -Og -g -Wall -Wpedantic -Wconversion-null
+CXXFLAGS += -Og -g -Wall -Wpedantic
 CPP_DEFINE += DEBUG
 endif
 

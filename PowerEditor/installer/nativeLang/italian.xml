@@ -85,8 +85,8 @@
                     <Item id="41001" name="&amp;Nuovo"/>
                     <Item id="41002" name="&amp;Apri..."/>
                     <Item id="41019" name="Esplora risorse"/>
-                    <Item id="41020" name="Prompt comandi"/>
-                    <Item id="41025" name="Cartella come Workspace"/>
+                    <Item id="41020" name="Prompt dei Comandi"/>
+                    <Item id="41025" name="Cartella come Area di Lavoro"/>
                     <Item id="41003" name="&amp;Chiudi"/>
                     <Item id="41004" name="C&amp;hiudi tutto"/>
                     <Item id="41005" name="Chiudi tutte tranne la scheda corrente"/>
@@ -106,7 +106,7 @@
                     <Item id="41016" name="Sposta nel cestino"/>
                     <Item id="41017" name="&amp;Rinomina..."/>
                     <Item id="41021" name="Ripristina i file recenti"/>
-                    <Item id="41022" name="Apri cartella come workspace..."/>
+                    <Item id="41022" name="Apri cartella come Area di Lavoro..."/>
                     <Item id="41023" name="Apri con il visualizzatore predefinito"/>
                     <Item id="42001" name="Tag&amp;lia"/>
                     <Item id="42002" name="&amp;Copia"/>
@@ -180,9 +180,9 @@
                     <Item id="42026" name="Direzione del testo Destra-Sinistra"/>
                     <Item id="42027" name="Direzione del testo Sinistra-Destra"/>
                     <Item id="42028" name="Sessione documento in sola lettura"/>
-                    <Item id="42029" name="Copia Percorso file completo corrente"/>
+                    <Item id="42029" name="Copia il percorso completo del file corrente"/>
                     <Item id="42030" name="Copia Nome file corrente"/>
-                    <Item id="42031" name="Copia percorso Cartella corrente"/>
+                    <Item id="42031" name="Copia il percorso della cartella corrente"/>
                     <Item id="42087" name="Copia tutti i Nomi File"/>
                     <Item id="42088" name="Copia Tutti i percorsi file"/>
                     <Item id="42032" name="Esegui una macro più volte..."/>
@@ -277,7 +277,7 @@
                     <Item id="44080" name="Mappa documento"/>
                     <Item id="44070" name="Elenco documenti"/>
                     <Item id="44084" name="Elenco funzioni"/>
-                    <Item id="44085" name="Cartella come workspace"/>
+                    <Item id="44085" name="Cartella come Area di Lavoro"/>
                     <Item id="44086" name="Prima scheda"/>
                     <Item id="44087" name="Seconda scheda"/>
                     <Item id="44088" name="Terza scheda"/>
@@ -342,7 +342,7 @@
                     <Item id="46001" name="Configura gli stili..."/>
                     <Item id="46250" name="Definisci il tuo linguaggio..."/>
                     <Item id="46300" name="Apri cartella linguaggi definiti dall&apos;utente..."/>
-                    <Item id="46301" name="Personalizzazione Linguaggio Notepad++"/>
+                    <Item id="46301" name="Collezione dei linguaggi Notepad++ definiti dall&apos;utente"/>
                     <Item id="46180" name="Definito dall&apos;utente"/>
                     <Item id="47000" name="Informazioni su Notepad++"/>
                     <Item id="47010" name="Argomenti riga di comando..."/>
@@ -403,13 +403,13 @@
                 <Item CMID="4" name="Stampa..."/>
                 <Item CMID="5" name="Sposta nell&apos;altra vista"/>
                 <Item CMID="6" name="Copia nell&apos;altra vista"/>
-                <Item CMID="7" name="Copia percorso file completo"/>
+                <Item CMID="7" name="Copia il percorso completo del file"/>
                 <Item CMID="8" name="Copia nome file"/>
-                <Item CMID="9" name="Copia percorso cartella"/>
+                <Item CMID="9" name="Copia il percorso della cartella"/>
                 <Item CMID="10" name="Rinomina file..."/>
                 <Item CMID="11" name="Elimina file"/>
                 <Item CMID="12" name="Sola lettura"/>
-                <Item CMID="13" name="Rimuovi attributo di sola lettura del file"/>
+                <Item CMID="13" name="Rimuovi l&apos;attributo di sola lettura del file"/>
                 <Item CMID="14" name="Sposta in una nuova finestra"/>
                 <Item CMID="15" name="Copia in una nuova finestra"/>
                 <Item CMID="16" name="Ricarica"/>
@@ -419,7 +419,7 @@
                 <Item CMID="20" name="Apri cartella nel prompt dei comandi"/>
                 <Item CMID="21" name="Apri con il visualizzatore predefinito"/>
                 <Item CMID="22" name="Chiudi tutti i documenti non modificati"/>
-                <Item CMID="23" name="Apri cartella come Workspace"/>
+                <Item CMID="23" name="Apri cartella come Area di Lavoro"/>
                 <Item CMID="24" name="Applica Colore 1"/>
                 <Item CMID="25" name="Applica Colore 2"/>
                 <Item CMID="26" name="Applica Colore 3"/>
@@ -540,7 +540,7 @@
             <PluginsAdminDlg title="Gestione plugin" titleAvailable = "Disponibili" titleUpdates="Aggiornamenti" titleInstalled="Installati" titleIncompatible="Incompatibili">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versione"/>
-                <Item id="5501" name="Cerca:"/>
+                <Item id="5501" name="Trova:"/>
                 <Item id="5503" name="Installa"/>
                 <Item id="5504" name="Aggiorna"/>
                 <Item id="5505" name="Rimuovi"/>
@@ -666,7 +666,7 @@
                     <Item id="44081" name="Mostra/Nascondi Panello di progetto 1"/>
                     <Item id="44082" name="Mostra/Nascondi Panello di progetto 2"/>
                     <Item id="44083" name="Mostra/Nascondi Panello di progetto 3"/>
-                    <Item id="44085" name="Mostra/Nascondi Cartella come Workspace"/>
+                    <Item id="44085" name="Mostra/Nascondi Cartella come Area di lavoro"/>
                     <Item id="44080" name="Mostra/Nascondi Mappa documento"/>
                     <Item id="44070" name="Mostra/Nascondi Elenco Documenti"/>
                     <Item id="44084" name="Mostra/Nascondi Elenco funzioni"/>
@@ -674,7 +674,7 @@
                     <Item id="44104" name="Passa a Panello di progetto 1"/>
                     <Item id="44105" name="Passa a Panello di progetto 2"/>
                     <Item id="44106" name="Passa a Panello di progetto 3"/>
-                    <Item id="44107" name="Passa a Cartella come Workspace"/>
+                    <Item id="44107" name="Passa a Cartella come Area di Lavoro"/>
                     <Item id="44109" name="Passa a Elenco Documenti"/>
                     <Item id="44108" name="Passa a Elenco Funzioni"/>
                     <Item id="44110" name="Rimuovi Colore scheda"/>
@@ -683,12 +683,12 @@
                     <Item id="44113" name="Applica Colore 3 a scheda"/>
                     <Item id="44114" name="Applica Colore 4 a scheda"/>
                     <Item id="44115" name="Applica Colore 5 a scheda"/>
-                    <Item id="11002" name="Ordina per Nome da A a Z"/>
-                    <Item id="11003" name="Ordina per Nome da Z a A"/>
-                    <Item id="11004" name="Ordina per Percorso da A a Z"/>
-                    <Item id="11005" name="Ordina per Percorso da Z a A"/>
-                    <Item id="11006" name="Ordina per Tipo da A a Z"/>
-                    <Item id="11007" name="Ordina per Tipo da Z a A"/>
+                    <Item id="11002" name="Ordina per Nome dalla A alla Z"/>
+                    <Item id="11003" name="Ordina per Nome dalla Z alla A"/>
+                    <Item id="11004" name="Ordina per Percorso dalla A alla Z"/>
+                    <Item id="11005" name="Ordina per Percorso dalla Z alla A"/>
+                    <Item id="11006" name="Ordina per Tipo dalla A alla Z"/>
+                    <Item id="11007" name="Ordina per Tipo dalla Z alla A"/>
                     <Item id="11008" name="Ordina per Dimensione Crescente"/>
                     <Item id="11009" name="Ordina per Dimensione Decrescente"/>
                 </MainCommandNames>
@@ -751,7 +751,7 @@
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Annulla"/>
                 </StylerDialog>
-                <Folder title="Cartelle &amp;&amp; Predefiniti">
+                <Folder title="Cartelle e Predefiniti">
                     <Item id="21101" name="Impostazioni stile predefinito"/>
                     <Item id="21102" name="Stile"/>
                     <Item id="21105" name="Documentazione:"/>
@@ -799,7 +799,7 @@
                     <Item id="22572" name="Stile"/>
                     <Item id="22622" name="Stile"/>
                 </Keywords>
-                <Comment title="Commenti &amp;&amp; Numeri">
+                <Comment title="Commenti e Numeri">
                     <Item id="23003" name="Posizione commenti in linea"/>
                     <Item id="23004" name="Permetti ovunque"/>
                     <Item id="23005" name="Forza ad inizio riga"/>
@@ -927,7 +927,7 @@
                     <Item id="6651" name="Indicatore di linea corrente"/>
                     <Item id="6652" name="Nessuno"/>
                     <Item id="6653" name="Evidenzia sfondo"/>
-                    <Item id="6654" name="Struttura"/>
+                    <Item id="6654" name="Cornice"/>
                     <Item id="6655" name="Larghezza"/>
                     <Item id="6247" name="Fine Riga (CRLF)"/> <!-- Don't translate "(CRLF)" -->
                     <Item id="6248" name="Predefinito"/>
@@ -1006,7 +1006,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6413" name="Cartella Predefinita per Apri/Salva"/>
                     <Item id="6414" name="Quella del documento corrente"/>
                     <Item id="6415" name="Ricorda l&apos;ultima cartella utilizzata"/>
-                    <Item id="6431" name="Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento"/>
+                    <Item id="6431" name="Apri tutti i file della cartella invece di avviare Cartella come Area di Lavoro al trascinamento"/>
                 </DefaultDir>
 
                 <FileAssoc title="Associazione file">
@@ -1100,7 +1100,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6429" name="Visualizza"/>
                     <Item id="6424" name="In un sottomenù"/>
                     <Item id="6425" name="Solo nome file"/>
-                    <Item id="6426" name="Intero percorso"/>
+                    <Item id="6426" name="Percorso completo del file"/>
                     <Item id="6427" name="Personalizza lunghezza massima:"/>
                 </RecentFilesHistory>
 
@@ -1151,7 +1151,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6155" name="* La modifica di queste impostazioni richiede il riavvio di Notepad++"/>
                     <Item id="6171" name="Inserimento Data e ora personalizzata"/>
                     <Item id="6175" name="Inverti l&apos;ordinamento di date e ora predefinite (formato esteso e ridotto)"/>
-                    <Item id="6172" name="formati personalizzati:"/>
+                    <Item id="6172" name="Formati personalizzati:"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimitatori">
@@ -1161,7 +1161,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6256" name="Permetti su più righe"/>
                     <Item id="6161" name="Elenco delimitatori di parola"/>
                     <Item id="6162" name="Utilizza i delimitatori di parola standard"/>
-                    <Item id="6163" name="Aggiungi i tuoi caratteri delimitatori di parola
+                    <Item id="6163" name="Aggiungi i tuoi caratteri come delimitatori di parola
 (non selezionarlo se non sai cosa stai facendo)"/>
                 </Delimiter>
 
@@ -1203,7 +1203,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6331" name="Visualizza solo il nome file nella barra del titolo"/>
                     <Item id="6334" name="Rileva automaticamente la codifica caratteri"/>
                     <Item id="6349" name="Utilizza DirectWrite (può migliorare la visualizzazione dei caratteri speciali, richiede il riavvio di Notepad++)"/>
-                    <Item id="6337" name="Est. file workspace:"/>
+                    <Item id="6337" name="Est. file Area di Lavoro:"/>
                     <Item id="6114" name="Abilita"/>
                     <Item id="6117" name="Precedenza ai file più recenti"/>
                     <Item id="6344" name="Anteprima documenti"/>
@@ -1287,22 +1287,22 @@ Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved,
             <DocReloadWarning title="Ricarica" message="Vuoi ricaricare il file? Ogni modifica apportata andrà persa."/>
             <FileLockedWarning title="Salvataggio fallito" message="Verificare che il file non sia aperto con un altro programma."/>
             <FileAlreadyOpenedInNpp title="" message="Il file è già aperto in Notepad++."/>
-            <RenameTabTemporaryNameAlreadyInUse title="Rinomina fallita" message="Il file specificato è già in uso su un'altra scheda."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+            <RenameTabTemporaryNameAlreadyInUse title="Rinomina fallita" message="Il file specificato è già in uso su un&apos;altra scheda."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Eliminazione file" message="Eliminazione del file fallita."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
             <NbFileToOpenImportantWarning title="Il numero di file da aprire è troppo grande" message="Si stanno aprendo $INT_REPLACE$ file.
 Vuoi procedere?"/>  <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-            <SettingsOnCloudError title="Impostazioni Cloud" message="Sembra che il percorso per le impostazioni nel Cloud sia impostato su una cartella in sola lettura,
-o in una cartella che necessita dei privilegi di scrittura per poterci accedere.
-Le tue impostazioni nel cloud saranno cancellate. Reimposta un valore coerente dalle impostazioni."/>
+            <SettingsOnCloudError title="Impostazioni Cloud" message="Sembra che le impostazioni del Cloud facciano riferimento a un&apos;unità in sola lettura,
+o a una cartella riservata.
+Le impostazioni del cloud saranno annullate. Reimposta un valore coerente dalle preferenze."/>
             <FilePathNotFoundWarning title="Apertura file" message="Il file che si sta cercando di aprire non esiste."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <SessionFileInvalidError title="Impossibile caricare la sessione" message="Il file di sessione è corrotto o non è valido."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
-            <DroppingFolderAsProjectModeWarning title="Azione non valida" message="Puoi portare file o cartelle, ma non entrambe, perché sei in modalità rilascia Cartella come Progetto.
-devi abilitare &quot;Apri tutti i file della cartella invece di avviare Cartella come Workspace al trascinamento&quot; nella sezione &quot;Cartella predefinita&quot; delle preferenze per attivare questa funzionalità."/>
+            <SessionFileInvalidError title="Impossibile caricare la sessione" message="Il file di sessione è danneggiato o non è valido."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+            <DroppingFolderAsProjectModeWarning title="Azione non valida" message="Puoi trascinare file o cartelle, ma non entrambi, perché sei in modalità Trascina Cartella come Progetto.
+Devi abilitare &quot;Apri tutti i file della cartella invece di avviare Cartella come Area di Lavoro al trascinamento&quot; nella sezione &quot;Cartella predefinita&quot; delle preferenze per attivare questa funzionalità."/>
             <SortingError title="Errore ordinamento" message="Impossibile effettuare un ordinamento numerico a causa della riga $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="Selezione in modalità colonna" message="Utilizza &quot;ALT+Selezione Mouse&quot; o &quot;Alt+Shift+Tasti frecce&quot; per passare alla modalità colonna."/>
             <BufferInvalidWarning title="Salvataggio fallito" message="Impossibile salvare: il buffer non è valido."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <DoCloseOrNot title="Mantieni file non esistente" message="Il file &quot;$STR_REPLACE$&quot; non esiste più.
+            <DoCloseOrNot title="Mantenere file inesistente" message="Il file &quot;$STR_REPLACE$&quot; è inesistente.
 Mantenere il file aperto?"/>
             <DoDeleteOrNot title="Elimina file" message="Il file &quot;$STR_REPLACE$&quot;
 verrà spostato nel Cestino e il documento verrà chiuso.
@@ -1316,13 +1316,13 @@ Vuoi ricaricarlo?"/>
             <DoReloadOrNotAndLooseChange title="Ricarica" message="&quot;$STR_REPLACE$&quot;
 Questo file è stato modificato da un altro programma.
 Vuoi ricaricarlo e perdere tutte le modifiche apportate in Notepad++?"/>
-            <PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra tu stia usando un sistema preistorico. Questa funzionalità necessità di un sistema più moderno, scusaci."/>
+            <PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra tu stia usando un sistema preistorico. Questa funzionalità richiede un sistema più moderno, scusaci."/>
             <XpUpdaterProblem title="Aggiornamento Notepad++" message="L&apos;aggiornamento automatico di Notepad++ non è compatibile con XP a causa di un sistema di permessi obsoleto.
-Vuoi andare nella pagina di Notepad++ per scaricare l&apos;aggiornamento manualmente?"/>
+Vuoi aprire la pagina di Notepad++ per scaricare l&apos;aggiornamento manualmente?"/>
             <GUpProxyConfNeedAdminMode title="Impostazioni proxy" message="Rilancia Notepad++ con privilegi di amministratore per configurare il proxy."/>
-            <DocTooDirtyToMonitor title="Problema monitoraggio" message="Il documento è sporco. Salva le modifiche prima di avviare il monitoraggio."/>
+            <DocTooDirtyToMonitor title="Problema monitoraggio" message="Il documento è stato modificato. Salva le modifiche prima di avviare il monitoraggio."/>
             <DocNoExistToMonitor title="Problema monitoraggio" message="Il file deve esistere per essere monitorato."/>
-            <FileTooBigToOpen title="Problema dimensione file" message="Il file è troppo grande per essere aperto con Notepad++"/>
+            <FileTooBigToOpen title="Problema dimensione file" message="Il file è troppo grande per essere aperto con Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
             <FileLoadingException title="Codice di eccezione: $STR_REPLACE$" message="Si è verificato un errore durante il caricamento del file!"/>
             <WantToOpenHugeFile title="Apertura file di grandi dimensioni" message="L&apos;apertura di file superiori a 2GB+ potrebbe impegare svariati minuti.
 Vuoi proseguire?"/>
@@ -1335,38 +1335,38 @@ Vuoi salvare il file ugualmente?"/>
             <LoadLangsFailed title="Configurazione" message="Il caricamento di langs.xml è fallito!
 Vuoi ripristinare il file langs.xml?"/>
             <LoadLangsFailedFinal title="Configurazione" message="Il caricamento di langs.xml è fallito!"/>
-            <FolderAsWorspaceSubfolderExists title="Problema per Cartella come Workspace" message="Una sotto cartella della cartella che vuoi aggiungere esiste già.
+            <FolderAsWorspaceSubfolderExists title="Problema per Cartella come Area di Lavoro" message="Una sotto cartella della cartella che vuoi aggiungere esiste già.
 Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;."/>
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="Il workspace è stato modificato. Vuoi salvarlo?"/>
-            <ProjectPanelSaveError title="$STR_REPLACE$" message="Si è verificato un errore durante la scrittura del  file workspace.
-Il workspace non è stato salvato."/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Apri Workspace" message="Il workspace corrente è stato modificato. Vuoi salvare il progetto corrente?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="Nuovo Workspace" message="Il workspace corrente è stato modificato. Vuoi salvare il progetto corrente?"/>
-            <ProjectPanelOpenFailed title="Apri Workspace" message="Il workspace non può essere aperto.
+            <ProjectPanelChanged title="$STR_REPLACE$" message="L&apos;Area di Lavoro è stata modificata. Vuoi salvarla?"/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="Si è verificato un errore durante la scrittura del file Area di Lavoro.
+Il file Area di Lavoro non è stato salvato."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Apri Area di Lavoro" message="L&apos;Area di Lavoro corrente è stata modificata. Vuoi salvare il progetto corrente?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="Nuova Area di Lavoro" message="L&apos;Area di Lavoro corrente è stata modificata. Vuoi salvare il progetto corrente?"/>
+            <ProjectPanelOpenFailed title="Apri Area di Lavoro" message="L&apos;Area di Lavoro non può essere aperta.
 Sembra che il file da aprire non sia un file di progetto valido."/>
-            <ProjectPanelRemoveFolderFromProject title="Rimuovi cartella dal progetto" message="Tutti i sotto-elementi saranno eliminati.
+            <ProjectPanelRemoveFolderFromProject title="Rimuovi cartella dal progetto" message="Tutti i sotto-elementi saranno rimossi.
 Sei sicuro di voler rimuovere questa cartella dal progetto?"/>
-            <ProjectPanelRemoveFileFromProject title="Rimuovi file dal progetto" message="Sei sicuro di voler rimuovere questo file dal progetto?"/>
-            <ProjectPanelReloadError title="Ricarica Workspace" message="Impossibile trovare il file da ricaricare."/>
-            <ProjectPanelReloadDirty title="Ricarica Workspace" message="Il workspace corrente è stato modificato. Ricaricandolo perderai tutte le modifiche.
+            <ProjectPanelRemoveFileFromProject title="Rimuovi file dal progetto" message="Vuoi rimuovere questo file dal progetto?"/>
+            <ProjectPanelReloadError title="Ricarica Area di Lavoro" message="Impossibile trovare il file da ricaricare."/>
+            <ProjectPanelReloadDirty title="Ricarica Area di Lavoro" message="L&apos;Area di Lavoro corrente è stata modificata. Ricaricandola perderai tutte le modifiche.
 Vuoi continuare?"/>
             <UDLNewNameError title="Errore UDL" message="Questo nome è utilizzato da un altro linguaggio,
 usane un altro."/>
-            <UDLRemoveCurrentLang title="Rimuovi il linguaggio corrente" message="Sei sicuro?"/>
-            <SCMapperDoDeleteOrNot title="Sei sicuro?" message="Sei sicuro di voler eliminare questa scorciatoia?"/>
+            <UDLRemoveCurrentLang title="Rimuovi il linguaggio corrente" message="Vuoi rimuovere il linguaggio corrente?"/>
+            <SCMapperDoDeleteOrNot title="Eliminare scorciatoia" message="Sei sicuro di voler eliminare questa scorciatoia?"/>
             <FindCharRangeValueError title="Problema nell&apos;intervallo di valori" message="Devi inserire un valore tra 0 e 255."/>
             <OpenInAdminMode title="Salvataggio fallito" message="Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvataggio fallito" message="Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?"/>
             <OpenInAdminModeFailed title="Apertura come amministratore fallita" message="Notepad++ non può essere aperto come amministratore."/>
-            <ViewInBrowser title="Visualizza file corrente nel browser" message="Applicazione non trovata nel sistema."/>
-            <ExitToUpdatePlugins title="Notepad++ sta per chiudersi" message="Se fai clic su &quot;Sì&quot;, uscirai da Notepad++ per continuare le operazioni.
+            <ViewInBrowser title="Visualizza il file corrente nel browser" message="Applicazione non trovata nel sistema."/>
+            <ExitToUpdatePlugins title="Notepad++ sta per chiudersi" message="Cliccando &quot;Sì&quot;, uscirai da Notepad++ per continuare le operazioni.
 Notepad++ verrà riavviato dopo che le operazioni saranno state completate.
 Vuoi continuare?"/>
-            <NeedToRestartToLoadPlugins title="Riavvio Notepad++" message="Notepad++ deve essere riavviato per caricare i plugin che hai installato."/>
-            <ChangeHistoryEnabledWarning title="Riavvio Notepad++" message="Notepad++ deve essere riavviato per abilitare elenco cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <NeedToRestartToLoadPlugins title="Riavvio Notepad++" message="Notepad++ deve essere riavviato per caricare i plugin che sono stati installati."/>
+            <ChangeHistoryEnabledWarning title="Riavvio Notepad++" message="Notepad++ deve essere riavviato per abilitare la cronologia delle modifiche."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronologia Appunti"/>
@@ -1402,11 +1402,11 @@ Vuoi continuare?"/>
             <SortTip name="Ordina"/>
             <ReloadTip name="Ricarica"/>
             <PreferencesTip name="Preferenze"/>
-            <PreferencesInitialSort name="Funzioni di ricerca (dalla A alla Z) predefinite"/>
+            <PreferencesInitialSort name="Funzioni di ricerca predefinite (dalla A alla Z)"/>
         </FunctionList>
         <FolderAsWorkspace>
-            <PanelTitle name="Cartella come Workspace"/>
-            <SelectFolderFromBrowserString name="Seleziona una cartella da aggiungere come pannello spazio lavoro"/>
+            <PanelTitle name="Cartella come Area di Lavoro"/>
+            <SelectFolderFromBrowserString name="Aggiungi cartella come Area di Lavoro"/>
             <ExpandAllFoldersTip name="Espandi tutto"/>
             <CollapseAllFoldersTip name="Riduci tutto"/>
             <LocateCurrentFileTip name="Individua il file corrente"/>
@@ -1418,25 +1418,25 @@ Vuoi continuare?"/>
                 <Item id="3515" name="Apri"/>
                 <Item id="3516" name="Copia percorso"/>
                 <Item id="3517" name="Trova nei file..."/>
-                <Item id="3518" name="Sfoglia qui"/>
-                <Item id="3519" name="CMD qui"/>
+                <Item id="3518" name="Apri cartella in Esplora Risorse"/>
+                <Item id="3519" name="Apri cartella nel Prompt dei Comandi"/>
                 <Item id="3520" name="Copia nome file"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
-            <PanelTitle name="Progetti"/>
-            <WorkspaceRootName name="Workspace"/>
+            <PanelTitle name="Progetto"/>
+            <WorkspaceRootName name="Area di Lavoro"/>
             <NewProjectName name="Nome progetto"/>
             <NewFolderName name="Nome cartella"/>
             <Menus>
                 <Entries>
-                    <Item id="0" name="Workspace"/>
+                    <Item id="0" name="Area di Lavoro"/>
                     <Item id="1" name="Modifica"/>
                 </Entries>
                 <WorkspaceMenu>
-                    <Item id="3122" name="Nuovo workspace"/>
-                    <Item id="3123" name="Apri workspace"/>
-                    <Item id="3124" name="Ricarica workspace"/>
+                    <Item id="3122" name="Nuova Area di Lavoro"/>
+                    <Item id="3123" name="Apri Area di Lavoro"/>
+                    <Item id="3124" name="Ricarica Area di Lavoro"/>
                     <Item id="3125" name="Salva"/>
                     <Item id="3126" name="Salva con nome..."/>
                     <Item id="3127" name="Salva una copia con nome..."/>

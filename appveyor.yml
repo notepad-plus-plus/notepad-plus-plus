@@ -1,5 +1,5 @@
 version: 8.4.{build}
-image: Visual Studio 2019
+image: Visual Studio 2022
 
 #skip_commits:
 #  files:

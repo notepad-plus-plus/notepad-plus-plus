@@ -208,15 +208,15 @@ all: $(SCINTILLA_TARGET) $(LEXILLA_TARGET)
 	$(AT)$(MAKE) -f $(firstword $(MAKEFILE_LIST)) $(SUBMAKEFLAGS) binary
 
 $(BUILD_DIRECTORY):
-	@echo * creating BUILD_DIRECTORY $@
+	@echo + creating BUILD_DIRECTORY $@
 	$(AT)$(MKDIR) $(call normalize-path,$(sort $@ $(patsubst %/,%,$(dir $(CXX_TARGETS) $(RC_TARGETS)))))
 
 $(SCINTILLA_BUILD_DIRECTORY):
-	@echo * creating SCINTILLA_BUILD_DIRECTORY $@
+	@echo + creating SCINTILLA_BUILD_DIRECTORY $@
 	$(AT)$(MKDIR) $(call normalize-path,$(SCINTILLA_BUILD_DIRECTORY))
 
 $(LEXILLA_BUILD_DIRECTORY):
-	@echo * creating LEXILLA_BUILD_DIRECTORY $@
+	@echo + creating LEXILLA_BUILD_DIRECTORY $@
 	$(AT)$(MKDIR) $(call normalize-path,$(LEXILLA_BUILD_DIRECTORY))
 
 ifeq "$(MAKELEVEL)" "0"
@@ -231,47 +231,47 @@ $(LEXILLA_TARGET): | $(BUILD_DIRECTORY) $(LEXILLA_BUILD_DIRECTORY)
 	$(AT)$(MAKE) $(SUBMAKEFLAGS) -C $(LEXILLA_DIRECTORY)/src DIR_O=$(LEXILLA_BUILD_PATH) LIBLEXILLA=$(LEXILLA_TARGET_PATH) $(LEXILLA_TARGET_PATH)
 
 binary: $(TARGET_BINARY) data
-	@echo *** $(TARGET_CPU) $(BUILD_TYPE) : $(CURDIR)/$(TARGET_BINARY) ***
+	@echo +++ $(TARGET_CPU) $(BUILD_TYPE) : $(CURDIR)/$(TARGET_BINARY) ***
 
 $(CXX_TARGETS): $(BUILD_DIRECTORY)/%.o: %.cpp | $(BUILD_DIRECTORY)
-	@echo * compiling $<
+	@echo + compiling $<
 	$(AT)$(CXX) $(CXXFLAGS) $(addprefix -I,$(CPP_PATH)) $(addprefix -D,$(CPP_DEFINE)) -MMD -c -o $@ $<
 
 $(RC_TARGETS): $(BUILD_DIRECTORY)/%.res: %.rc | $(BUILD_DIRECTORY)
-	@echo * compiling $<
+	@echo + compiling $<
 	$(AT)$(RC) $(RCFLAGS) $(addprefix -I,$(CPP_PATH)) $(addprefix -D,$(CPP_DEFINE)) -O coff -o $@ -i $<
 
 ifeq "$(TARGET_CPU)" "i686"
 $(TARGET_BINARY): $(BUILD_DIRECTORY)/libsensapi.a
 $(BUILD_DIRECTORY)/libsensapi.a: | $(BUILD_DIRECTORY)
-	@echo * generating $@
+	@echo + generating $@
 	$(AT)gendef $(call normalize-path,$(firstword $(wildcard $(WIN_DIR)/syswow64/SensApi.dll $(WIN_DIR)/system32/SensApi.dll)))
 	$(AT)dlltool -mi386 -f--32 -d SensApi.def -k -l $(call normalize-path,$@)
 	$(AT)$(RM) SensApi.def
 endif
 
 $(TARGET_DIRECTORY):
-	@echo * creating TARGET_DIRECTORY $@
+	@echo + creating TARGET_DIRECTORY $@
 	$(AT)$(MKDIR) $(call normalize-path,$@)
 
 $(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET) $(LEXILLA_TARGET) | $(TARGET_DIRECTORY)
-	@echo * linking $@
+	@echo + linking $@
 	$(AT)$(LD) $(LDFLAGS) $(filter-out %.a,$^) $(addprefix -L,$(LD_PATH)) $(addprefix -l,$(LD_LINK)) -static -o $@
 
 data: $(patsubst %/,%,$(SRC_DATA) $(BIN_DATA) $(INSTALLER_DATA))
 
 $(patsubst %/,%,$(filter %/,$(SRC_DATA))): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
-	@echo * copying $@
+	@echo + copying $@
 	$(AT)$(CPDIR) $(call normalize-path,$< $@)
 $(filter-out %/,$(SRC_DATA)): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
-	@echo * copying $@
+	@echo + copying $@
 	$(AT)$(CP) $(call normalize-path,$< $@)
 
 $(patsubst %/,%,$(filter %/,$(BIN_DATA))): $(TARGET_DIRECTORY)/%: $(BIN_DIRECTORY)/% | $(TARGET_DIRECTORY)
-	@echo * copying $@
+	@echo + copying $@
 	$(AT)$(CPDIR) $(call normalize-path,$< $@)
 $(filter-out %/,$(BIN_DATA)): $(TARGET_DIRECTORY)/%: $(BIN_DIRECTORY)/% | $(TARGET_DIRECTORY)
-	@echo * copying $@
+	@echo + copying $@
 	$(AT)$(CP) $(call normalize-path,$< $@)
 
 $(TARGET_DIRECTORY)/autoCompletion: $(INSTALLER_DIRECTORY)/APIs
@@ -279,10 +279,10 @@ $(TARGET_DIRECTORY)/functionList: $(INSTALLER_DIRECTORY)/functionList
 $(TARGET_DIRECTORY)/localization: $(INSTALLER_DIRECTORY)/nativeLang
 $(TARGET_DIRECTORY)/themes: $(INSTALLER_DIRECTORY)/themes
 $(patsubst %/,%,$(filter %/,$(INSTALLER_DATA))): | $(TARGET_DIRECTORY)
-	@echo * copying $@
+	@echo + copying $@
 	$(AT)$(CPDIR) $(call normalize-path,$< $@)
 $(filter-out %/,$(INSTALLER_DATA)): | $(TARGET_DIRECTORY)
-	@echo * copying $@
+	@echo + copying $@
 	$(AT)$(CP) $(call normalize-path,$< $@)
 
 clean:

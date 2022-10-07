@@ -46,6 +46,8 @@ public :
         if (toShow)
             ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
     };
+    
+    void updateLinesNumbers() const;
 
 protected :
 	enum mode {go2line, go2offsset};
@@ -54,8 +56,6 @@ protected :
 
 private :
     ScintillaEditView **_ppEditView = nullptr;
-
-    void updateLinesNumbers() const;
 
     void cleanLineEdit() const {
         ::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));

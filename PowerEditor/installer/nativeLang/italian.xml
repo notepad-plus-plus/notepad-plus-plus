@@ -298,12 +298,6 @@
                     <Item id="44113" name="Applica Colore 3"/> 
                     <Item id="44114" name="Applica Colore 4"/> 
                     <Item id="44115" name="Applica Colore 5"/>
-                    <Item id="44110" name="Rimuove Colore"/>
-                    <Item id="44111" name="Applica Colore 1"/>
-                    <Item id="44112" name="Applica Colore 2"/>
-                    <Item id="44113" name="Applica Colore 3"/>
-                    <Item id="44114" name="Applica Colore 4"/>
-                    <Item id="44115" name="Applica Colore 5"/>
                     <Item id="44032" name="Visualizzazione a tutto schermo"/>
                     <Item id="44033" name="Ripristina lo zoom predefinito"/>
                     <Item id="44034" name="Sempre in primo piano"/>
@@ -433,11 +427,12 @@
                 <Item CMID="34" name="Applica Colori alla scheda"/>
             </TabBar>
         </Menu>
+
         <Dialog>
-            <Find title = "" titleFind = "Trova" titleReplace = "Sostituisci" titleFindInFiles = "Cerca nei file" titleFindInProjects="Cerca nei Progetti" titleMark = "Evidenzia">
-                <Item id="1" name="Trova Successivo"/>
+            <Find title="" titleFind="Trova" titleReplace = "Sostituisci" titleFindInFiles = "Cerca nei file" titleFindInProjects="Cerca nei Progetti" titleMark = "Evidenzia">
+                <Item id="1"    name="Trova Successivo"/>
                 <Item id="1722" name="Trova Precedente"/>
-                <Item id="2" name="Chiudi"/>
+                <Item id="2"    name="Chiudi"/>
                 <Item id="1620" name="Trova:"/>
                 <Item id="1603" name="Solo &amp;parole intere"/>
                 <Item id="1604" name="Distingui tra ma&amp;iuscole e minuscole"/>
@@ -499,8 +494,8 @@
             <GoToLine title="Vai alla riga/posizione #">
                 <Item id="2007" name="Riga"/>
                 <Item id="2008" name="Posizione carattere"/>
-                <Item id="1" name="&amp;Vai !"/>
-                <Item id="2" name="Annulla"/>
+                <Item id="1"    name="&amp;Vai !"/>
+                <Item id="2"    name="Annulla"/>
                 <Item id="2004" name="Sei alla riga/posizione:"/>
                 <Item id="2005" name="Vai alla riga/posizione:"/>
                 <Item id="2006" name="Ultima riga/pos. disponibile:"/>
@@ -508,27 +503,27 @@
 
             <Run title="Esegui...">
                 <Item id="1903" name="Programma da eseguire"/>
-                <Item id="1" name="Esegui!"/>
-                <Item id="2" name="Annulla"/>
+                <Item id="1"    name="Esegui!"/>
+                <Item id="2"    name="Annulla"/>
                 <Item id="1904" name="Salva..."/>
             </Run>
 
             <MD5FromFilesDlg title="Genera firma MD5 di file">
                 <Item id="1922" name="Scegli i file di cui generare MD5..."/>
                 <Item id="1924" name="Copia negli Appunti"/>
-                <Item id="2" name="Chiudi"/>
+                <Item id="2"    name="Chiudi"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Genera firma MD5">
                 <Item id="1932" name="Considera ogni riga come una stringa separata"/>
                 <Item id="1934" name="Copia negli Appunti"/>
-                <Item id="2" name="Chiudi"/>
+                <Item id="2"    name="Chiudi"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Genera firma SHA-256 da file">
                 <Item id="1922" name="Scegli i file da cui generare SHA-256..."/>
                 <Item id="1924" name="Copia negli Appunti"/>
-                <Item id="2" name="Chiudi"/>
+                <Item id="2"    name="Chiudi"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Genera firma SHA-256">
@@ -551,7 +546,7 @@
             </PluginsAdminDlg>
 
             <StyleConfig title="Configuratore di stili">
-                <Item id="2" name="Annulla"/>
+                <Item id="2"    name="Annulla"/>
                 <Item id="2301" name="Salva e Chiudi"/>
                 <Item id="2303" name="Trasparenza"/>
                 <Item id="2306" name="Seleziona tema: "/>
@@ -1279,9 +1274,11 @@ Il messaggio può essere riattivato da Preferenze."/>
 È richiesto il riavvio di Notepad++ affinché le modifiche a contextMenu.xml abbiano effetto."/>
             <SaveCurrentModifWarning title="Salva modifiche correnti" message="Devi salvare le modifiche correnti.
 Tutte le modifiche salvate non possono essere ripristinate.
+
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Attenzione: Perdita della possibilità di ripristinare" message="Devi salvare le modifiche correnti.
 Tutte le modifiche salvate non possono essere ripristinate.
+
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Invia a una nuova istanza di Notepad++" message="Il documento è stato modificato, salvarlo prima di continuare."/>
             <DocReloadWarning title="Ricarica" message="Vuoi ricaricare il file? Ogni modifica apportata andrà persa."/>
@@ -1311,9 +1308,11 @@ Continuare?"/>
 Salvalo o i tuoi dati verranno persi.
 Vuoi salvare il file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Ricarica" message="&quot;$STR_REPLACE$&quot;
+
 Questo file è stato modificato da un altro programma.
 Vuoi ricaricarlo?"/>
             <DoReloadOrNotAndLooseChange title="Ricarica" message="&quot;$STR_REPLACE$&quot;
+
 Questo file è stato modificato da un altro programma.
 Vuoi ricaricarlo e perdere tutte le modifiche apportate in Notepad++?"/>
             <PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra tu stia usando un sistema preistorico. Questa funzionalità richiede un sistema più moderno, scusaci."/>
@@ -1330,6 +1329,7 @@ Vuoi proseguire?"/>
             <CreateNewFileError title="Crea nuovo file" message="Impossibile creare il file &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="ERRORE" message="Impossibile aprire il file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="Backup File Fallito" message="La versione precedente del file non può essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
+
 Vuoi salvare il file ugualmente?"/>
             <LoadStylersFailed title="Caricamento stylers.xml fallito" message="Il caricamento di &quot;$STR_REPLACE$&quot; è fallito!"/>
             <LoadLangsFailed title="Configurazione" message="Il caricamento di langs.xml è fallito!
@@ -1353,7 +1353,7 @@ Sei sicuro di voler rimuovere questa cartella dal progetto?"/>
 Vuoi continuare?"/>
             <UDLNewNameError title="Errore UDL" message="Questo nome è utilizzato da un altro linguaggio,
 usane un altro."/>
-            <UDLRemoveCurrentLang title="Rimuovi il linguaggio corrente" message="Vuoi rimuovere il linguaggio corrente?"/>
+            <UDLRemoveCurrentLang title="Rimuovere il linguaggio corrente" message="Vuoi rimuovere il linguaggio corrente?"/>
             <SCMapperDoDeleteOrNot title="Eliminare scorciatoia" message="Sei sicuro di voler eliminare questa scorciatoia?"/>
             <FindCharRangeValueError title="Problema nell&apos;intervallo di valori" message="Devi inserire un valore tra 0 e 255."/>
             <OpenInAdminMode title="Salvataggio fallito" message="Il file non può essere salvato e potrebbe essere protetto.
@@ -1491,10 +1491,13 @@ Vuoi continuare?"/>
             <file-rename-title value="Rinomina"/>
             <find-in-files-filter-tip value="Cerca in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
+
 Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
+
 Cerca in tutti i files, ma escludi la cartella tests, bin e bin64:
 *.* !\tests !\bin*
+
 Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
 *.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
             <find-in-files-select-folder value="Seleziona la cartella di ricerca"/> <!-- HowToReproduce: Search > Find in Files > [...] -->

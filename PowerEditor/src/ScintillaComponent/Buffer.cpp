@@ -1177,11 +1177,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		}
 
 		buffer->setFileName(fullpath);
-		if (buffer->_lang == L_HTML && detectedLang == L_XML) // exception, ignore
-		{
-			// Do nothing
-		}
-		else if (detectedLang != L_TEXT) // detected lang > ext
+		if (buffer->_lang == L_TEXT && detectedLang != L_TEXT)
 		{
 			buffer->_lang = detectedLang;
 			buffer->doNotify(BufferChangeFilename | BufferChangeTimestamp | BufferChangeLanguage);

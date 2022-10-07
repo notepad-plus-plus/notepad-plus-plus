@@ -3873,6 +3873,11 @@ void Notepad_plus::updateStatusBar()
 	_statusBar.setText(strLnColSel, STATUSBAR_CUR_POS);
 
 	_statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
+	
+	if (_goToLineDlg.isCreated() && _goToLineDlg.isVisible())
+	{
+		_goToLineDlg.updateLinesNumbers();
+	}
 }
 
 void Notepad_plus::dropFiles(HDROP hdrop)

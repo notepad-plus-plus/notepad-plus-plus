@@ -3873,6 +3873,9 @@ void Notepad_plus::updateStatusBar()
 	_statusBar.setText(strLnColSel, STATUSBAR_CUR_POS);
 
 	_statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
+	
+	//updating "Go To" dialog
+	_goToLineDlg.updateLinesNumbers();
 }
 
 void Notepad_plus::dropFiles(HDROP hdrop)
@@ -6178,6 +6181,9 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	}
 
 	_linkTriggered = true;
+	
+	//updating "Go To" dialog
+	_goToLineDlg.updateLinesNumbers();
 }
 
 std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams)

@@ -1524,7 +1524,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
 
-				if (fileFormat._language == L_TEXT)
+				bool isLargeFile = fileSize >= NPP_STYLING_FILESIZE_LIMIT;
+				if (!isLargeFile && fileFormat._language == L_TEXT)
 				{
 					// check the language du fichier
 					fileFormat._language = detectLanguageFromTextBegining((unsigned char *)data, lenFile);

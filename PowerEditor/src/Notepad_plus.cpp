@@ -6181,9 +6181,6 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	}
 
 	_linkTriggered = true;
-	
-	//updating "Go To" dialog
-	_goToLineDlg.updateLinesNumbers();
 }
 
 std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams)

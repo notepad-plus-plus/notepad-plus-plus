@@ -1155,9 +1155,6 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 			}
 		}
 
-		// check the language du fichier
-		LangType detectedLang = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
-
 		UnicodeConvertor.closeFile();
 
 		// Error, we didn't write the entire document to disk.
@@ -1177,10 +1174,19 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		}
 
 		buffer->setFileName(fullpath);
-		if (buffer->_lang == L_TEXT && detectedLang != L_TEXT)
+
+		// if not a large file and language is normal text (not defined)
+		// we may try determinate its language from its content 
+		if (!buffer->isLargeFile() && buffer->_lang == L_TEXT)
 		{
-			buffer->_lang = detectedLang;
-			buffer->doNotify(BufferChangeFilename | BufferChangeTimestamp | BufferChangeLanguage);
+			LangType detectedLang = detectLanguageFromTextBegining((unsigned char*)buf, lengthDoc);
+
+			// if a language is detected from the content
+			if (detectedLang != L_TEXT)
+			{
+				buffer->_lang = detectedLang;
+				buffer->doNotify(BufferChangeFilename | BufferChangeTimestamp | BufferChangeLanguage);
+			}
 		}
 		buffer->setDirty(false);
 		buffer->setUnsync(false);

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-09-21 by schnurlos
+	last modified: 2022-10-09 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -297,6 +297,12 @@
 					<Item id="44097" name="Überwachen (tail -f)"/>
 					<Item id="44098" name="Tab vorwärts bewegen"/>
 					<Item id="44099" name="Tab rückwärts bewegen"/>
+					<Item id="44110" name="Entferne Farbe"/>
+					<Item id="44111" name="Farbe 1 anwenden"/>
+					<Item id="44112" name="Farbe 2 anwenden"/>
+					<Item id="44113" name="Farbe 3 anwenden"/>
+					<Item id="44114" name="Farbe 4 anwenden"/>
+					<Item id="44115" name="Farbe 5 anwenden"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -424,7 +430,6 @@
 				<Item CMID="32" name="In Zwischenablage kopieren"/>
 				<Item CMID="33" name="Dokument verschieben"/>
 				<Item CMID="34" name="Farbe auf Tab anwenden"/>
-
 			</TabBar>
 		</Menu>
 
@@ -1078,7 +1083,6 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 				</Print>
 
 				<Searching title="Suche">
-					<Item id="6901" name="Aktuelle Auswahl nicht in das Suchfeld der Suche übernehmen"/>
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
@@ -1602,3 +1606,4 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+

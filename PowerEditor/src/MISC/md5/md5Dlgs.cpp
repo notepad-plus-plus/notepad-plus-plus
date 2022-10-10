@@ -32,10 +32,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			int fontDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
-			HFONT hFont = ::CreateFontA(fontDpiDynamicalHeight, 0, 0, 0, 0, FALSE, FALSE, FALSE, ANSI_CHARSET,
-				OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-				DEFAULT_PITCH | FF_DONTCARE, "Courier New");
+			HFONT hFont = createFont(TEXT("Courier New"), 9, false, _hSelf);
 
 			const HWND hHashPathEdit = ::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT);
 			const HWND hHashResult = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT);
@@ -344,10 +341,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			int fontDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
-			HFONT hFont = ::CreateFontA(fontDpiDynamicalHeight, 0, 0, 0, 0, FALSE, FALSE, FALSE, ANSI_CHARSET,
-				OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-				DEFAULT_PITCH | FF_DONTCARE, "Courier New");
+			HFONT hFont = createFont(TEXT("Courier New"), 9, false, _hSelf);
 
 			const HWND hHashTextEdit = ::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT);
 			const HWND hHashResult = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT);

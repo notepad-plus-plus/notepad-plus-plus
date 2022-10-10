@@ -166,6 +166,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			_delimiterSubDlg.init(_hInst, _hSelf);
 			_delimiterSubDlg.create(IDD_PREFERENCE_SUB_DELIMITER, false, false);
+			
+			_performanceSubDlg.init(_hInst, _hSelf);
+			_performanceSubDlg.create(IDD_PREFERENCE_SUB_PERFORMANCE, false, false);
 
 			_cloudAndLinkSubDlg.init(_hInst, _hSelf);
 			_cloudAndLinkSubDlg.create(IDD_PREFERENCE_SUB_CLOUD_LINK, false, false);
@@ -189,6 +192,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_wVector.push_back(DlgInfo(&_autoCompletionSubDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
 			_wVector.push_back(DlgInfo(&_multiInstanceSubDlg, TEXT("Multi-Instance & Date"), TEXT("MultiInstance")));
 			_wVector.push_back(DlgInfo(&_delimiterSubDlg, TEXT("Delimiter"), TEXT("Delimiter")));
+			_wVector.push_back(DlgInfo(&_performanceSubDlg, TEXT("Performance"), TEXT("Performance")));
 			_wVector.push_back(DlgInfo(&_cloudAndLinkSubDlg, TEXT("Cloud & Link"), TEXT("Cloud")));
 			_wVector.push_back(DlgInfo(&_searchEngineSubDlg, TEXT("Search Engine"), TEXT("SearchEngine")));
 			_wVector.push_back(DlgInfo(&_miscSubDlg, TEXT("MISC."), TEXT("MISC")));
@@ -219,6 +223,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_autoCompletionSubDlg.reSizeTo(rc);
 			_multiInstanceSubDlg.reSizeTo(rc);
 			_delimiterSubDlg.reSizeTo(rc);
+			_performanceSubDlg.reSizeTo(rc);
 			_cloudAndLinkSubDlg.reSizeTo(rc);
 			_searchEngineSubDlg.reSizeTo(rc);
 
@@ -422,6 +427,7 @@ void PreferenceDlg::destroy()
 	_autoCompletionSubDlg.destroy();
 	_multiInstanceSubDlg.destroy();
 	_delimiterSubDlg.destroy();
+	_performanceSubDlg.destroy();
 }
 
 void GeneralSubDlg::setToolIconsFromStdToSmall()
@@ -3820,7 +3826,6 @@ void BackupSubDlg::updateBackupGUI()
 		isEnableGlobableCheck = true;
 		isEnableLocalCheck = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_GETCHECK, 0, 0);
 	}
-	//::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_USERCUSTOMDIR_GRPSTATIC), isEnableGlobableCheck);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_CHECK), isEnableGlobableCheck);
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_EDIT), isEnableLocalCheck);
@@ -4843,6 +4848,199 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 			}
 		}																						
+	}
+	return FALSE;
+}
+
+intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, LPARAM lParam)
+{
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+
+	if (HIWORD(wParam) == EN_CHANGE)
+	{
+		switch (LOWORD(wParam))
+		{
+			case  IDC_EDIT_PERFORMANCE_FILESIZE:
+			{
+				const int stringSize = 16;
+				TCHAR str[stringSize];
+
+				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
+
+				if (lstrcmp(str, TEXT("")) == 0)
+					return TRUE;
+				
+				size_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+
+				if (fileLenInMB > 4096)
+				{
+					fileLenInMB = 4096;
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
+				}
+
+				nppGUI._largeFileLimit._largeFileSizeDefInByte = fileLenInMB * 1024 * 1024;
+			}
+			return TRUE;
+		}
+	}
+	else if (HIWORD(wParam) == EN_KILLFOCUS)
+	{
+		switch (LOWORD(wParam))
+		{
+			case  IDC_EDIT_PERFORMANCE_FILESIZE:
+			{
+				const int stringSize = 16;
+				TCHAR str[stringSize];
+				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
+
+				if (lstrcmp(str, TEXT("")) == 0)
+				{
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024, FALSE);
+					return TRUE;
+				}
+
+				size_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+
+				if (fileLenInMB == 0)
+				{
+					fileLenInMB = (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024;
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
+					return TRUE;
+				}
+			}
+			return TRUE;
+		}
+	}
+
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			int64_t fileLenInMB = (nppGUI._largeFileLimit._largeFileSizeDefInByte / 1024) / 1024;
+			::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ENABLE, BM_SETCHECK, nppGUI._largeFileLimit._isEnabled ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH, BM_SETCHECK, nppGUI._largeFileLimit._allowBraceMatch ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION, BM_SETCHECK, nppGUI._largeFileLimit._allowAutoCompletion ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE, BM_SETCHECK, nppGUI._largeFileLimit._allowSmartHilite ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP, BM_SETCHECK, nppGUI._largeFileLimit._allowWordWrap ? BST_CHECKED : BST_UNCHECKED, 0);
+			
+			bool largeFileRestrictionEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE), largeFileRestrictionEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH), largeFileRestrictionEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION), largeFileRestrictionEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE), largeFileRestrictionEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP), largeFileRestrictionEnabled);
+
+		}
+		break;
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+
+			bool isStaticText = (dlgCtrlID == IDC_STATIC_PERFORMANCE_FILESIZE || dlgCtrlID == IDC_STATIC_PERFORMANCE_MB);
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (isStaticText)
+			{
+				bool isTextEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
+				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
+			}
+
+			if (NppDarkMode::isEnabled())
+			{
+				if (dlgCtrlID == IDC_EDIT_PERFORMANCE_FILESIZE)
+				{
+					return NppDarkMode::onCtlColor(hdcStatic);
+				}
+				return NppDarkMode::onCtlColorDarker(hdcStatic);
+			}
+			return FALSE;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDC_CHECK_PERFORMANCE_ENABLE:
+				{
+					bool largeFileRestrictionEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
+					nppGUI._largeFileLimit._isEnabled = largeFileRestrictionEnabled;
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE), largeFileRestrictionEnabled);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH), largeFileRestrictionEnabled);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION), largeFileRestrictionEnabled);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE), largeFileRestrictionEnabled);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP), largeFileRestrictionEnabled);
+
+					redraw();
+				}
+				return TRUE;
+
+				case IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH:
+				{
+					bool isAllowed = isCheckedOrNot(int(wParam));
+					nppGUI._largeFileLimit._allowBraceMatch = isAllowed;
+					if (!isAllowed)
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CLEANBRACEMATCH, 0, 0);
+				}
+				return TRUE;
+
+				case IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION:
+				{
+					bool isAllowed = isCheckedOrNot(int(wParam));
+					nppGUI._largeFileLimit._allowAutoCompletion = isAllowed;
+				}
+				return TRUE;
+
+				case IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE:
+				{
+					bool isAllowed = isCheckedOrNot(int(wParam));
+					nppGUI._largeFileLimit._allowSmartHilite = isAllowed;
+					if (!isAllowed)
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CLEANSMARTHILITING, 0, 0);
+				}
+				return TRUE;
+
+				case IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP:
+				{
+					bool isAllowed = isCheckedOrNot(int(wParam));
+					nppGUI._largeFileLimit._allowWordWrap = isAllowed;
+				}
+				return TRUE;
+
+				default:
+					return FALSE;
+			}
+		}
+		break;
 	}
 	return FALSE;
 }

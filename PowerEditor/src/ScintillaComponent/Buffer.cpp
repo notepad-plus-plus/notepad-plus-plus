@@ -38,6 +38,7 @@ static const int LF = 0x0A;
 
 long Buffer::_recentTagCtr = 0;
 
+
 namespace // anonymous
 {
 	static EolType getEOLFormatForm(const char* const data, size_t length, EolType defvalue = EolType::osdefault)
@@ -669,10 +670,13 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	// * the auto-completion feature will be disabled for large files
 	// * the session snapshotsand periodic backups feature will be disabled for large files
 	// * the backups on save feature will be disabled for large files
-	bool isLargeFile = fileSize >= NPP_STYLING_FILESIZE_LIMIT;
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	bool isLargeFile = false;
+	if (nppGui._largeFileLimit._isEnabled)
+		isLargeFile = fileSize >= nppGui._largeFileLimit._largeFileSizeDefInByte;
 
 	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
-	if (isLargeFile)
+	if (isLargeFile && !nppGui._largeFileLimit._allowWordWrap)
 	{
 		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
 		if (isWrap)
@@ -1511,6 +1515,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
             if (isFirstTime)
             {
+				NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+
 				// check if file contain any BOM
                 if (Utf8_16_Read::determineEncoding((unsigned char *)data, lenFile) != uni8Bit)
                 {
@@ -1520,11 +1526,11 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 				}
 				else if (fileFormat._encoding == -1)
 				{
-					if (nppParam.getNppGUI()._detectEncoding)
+					if (nppGui._detectEncoding)
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
-
-				bool isLargeFile = fileSize >= NPP_STYLING_FILESIZE_LIMIT;
+				
+				bool isLargeFile = fileSize >= nppGui._largeFileLimit._largeFileSizeDefInByte;
 				if (!isLargeFile && fileFormat._language == L_TEXT)
 				{
 					// check the language du fichier

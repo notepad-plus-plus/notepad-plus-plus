@@ -133,6 +133,8 @@ const int COPYDATA_FULL_CMDLINE = 3;
 #define ONEDRIVE_AVAILABLE 2
 #define GOOGLEDRIVE_AVAILABLE 4
 
+#define NPP_STYLING_FILESIZE_LIMIT_DEFAULT (200 * 1024 * 1024) // 200MB+ file won't be styled
+
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
@@ -720,6 +722,18 @@ struct DarkModeConf final
 	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
 };
 
+
+struct LargeFileLimitSettings final
+{
+	int64_t _largeFileSizeDefInByte = NPP_STYLING_FILESIZE_LIMIT_DEFAULT;
+	bool _isEnabled = true;
+
+	bool _allowBraceMatch = false;
+	bool _allowAutoCompletion = false;
+	bool _allowSmartHilite = false;
+	bool _allowWordWrap = false;
+};
+
 struct NppGUI final
 {
 	NppGUI()
@@ -890,7 +904,10 @@ struct NppGUI final
 
 	DarkModeConf _darkmode;
 	DarkModeConf _darkmodeplugins;
+
+	LargeFileLimitSettings _largeFileLimit;
 };
+
 
 struct ScintillaViewParams
 {

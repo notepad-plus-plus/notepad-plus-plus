@@ -5387,6 +5387,13 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			else
 				_nppGUI._delimiterSelectionOnEntireDocument = false;
 		}
+		else if (!lstrcmp(nm, TEXT("performanceSettings")))
+		{
+			int fileSizeLimit4StylingMB = 0;
+			element->Attribute(TEXT("stylingMaxFileSizeMB"), &fileSizeLimit4StylingMB);
+			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB < 4096)
+				_nppGUI._fileSizeLimit4Styling = (fileSizeLimit4StylingMB * 1024 * 1024);
+		}
 		else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
 			int val = 0;
@@ -6605,6 +6612,13 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("leftmostDelimiter"), _nppGUI._leftmostDelimiter);
 		GUIConfigElement->SetAttribute(TEXT("rightmostDelimiter"), _nppGUI._rightmostDelimiter);
 		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument ? TEXT("yes") : TEXT("no"));
+	}
+
+	// <GUIConfig name="performanceSettings" stylingMaxFileSizeMB="200" />
+	{
+		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("performanceSettings"));
+		GUIConfigElement->SetAttribute(TEXT("stylingMaxFileSizeMB"), static_cast<int>((_nppGUI._fileSizeLimit4Styling / 1024) / 1024));
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />

@@ -671,7 +671,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	// * the session snapshotsand periodic backups feature will be disabled for large files
 	// * the backups on save feature will be disabled for large files
 	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-	bool isLargeFile = fileSize >= nppGui._fileSizeLimit4Styling;
+	bool isLargeFile = fileSize >= nppGui._largeFileLimit._largeFileSizeDefInByte;
 
 	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
 	if (isLargeFile)
@@ -1528,7 +1528,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
 				
-				bool isLargeFile = fileSize >= nppGui._fileSizeLimit4Styling;
+				bool isLargeFile = fileSize >= nppGui._largeFileLimit._largeFileSizeDefInByte;
 				if (!isLargeFile && fileFormat._language == L_TEXT)
 				{
 					// check the language du fichier

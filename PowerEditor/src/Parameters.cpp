@@ -5387,12 +5387,30 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			else
 				_nppGUI._delimiterSelectionOnEntireDocument = false;
 		}
-		else if (!lstrcmp(nm, TEXT("performanceSettings")))
+		else if (!lstrcmp(nm, TEXT("largeFileLimit")))
 		{
 			int fileSizeLimit4StylingMB = 0;
-			element->Attribute(TEXT("stylingMaxFileSizeMB"), &fileSizeLimit4StylingMB);
+			element->Attribute(TEXT("fileSizeMB"), &fileSizeLimit4StylingMB);
 			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB < 4096)
-				_nppGUI._fileSizeLimit4Styling = (fileSizeLimit4StylingMB * 1024 * 1024);
+				_nppGUI._largeFileLimit._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
+
+			const TCHAR* boolVal = element->Attribute(TEXT("allowAutoCompletion"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileLimit._allowAutoCompletion = true;
+			else
+				_nppGUI._largeFileLimit._allowAutoCompletion = false;
+
+			boolVal = element->Attribute(TEXT("allowBraceMatch"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileLimit._allowBraceMatch = true;
+			else
+				_nppGUI._largeFileLimit._allowBraceMatch = false;
+
+			boolVal = element->Attribute(TEXT("allowSmartHilite"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileLimit._allowSmartHilite = true;
+			else
+				_nppGUI._largeFileLimit._allowSmartHilite = false;
 		}
 		else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
@@ -6617,8 +6635,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// <GUIConfig name="performanceSettings" stylingMaxFileSizeMB="200" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("performanceSettings"));
-		GUIConfigElement->SetAttribute(TEXT("stylingMaxFileSizeMB"), static_cast<int>((_nppGUI._fileSizeLimit4Styling / 1024) / 1024));
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("largeFileLimit"));
+		GUIConfigElement->SetAttribute(TEXT("fileSizeMB"), static_cast<int>((_nppGUI._largeFileLimit._largeFileSizeDefInByte / 1024) / 1024));
+		GUIConfigElement->SetAttribute(TEXT("allowAutoCompletion"), _nppGUI._largeFileLimit._allowAutoCompletion ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowBraceMatch"), _nppGUI._largeFileLimit._allowBraceMatch ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileLimit._allowSmartHilite ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />

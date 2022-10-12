@@ -722,6 +722,16 @@ struct DarkModeConf final
 	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
 };
 
+
+struct LargeFileLimitSettings final
+{
+	int64_t _largeFileSizeDefInByte = NPP_STYLING_FILESIZE_LIMIT_DEFAULT;
+
+	bool _allowBraceMatch = false;
+	bool _allowAutoCompletion = false;
+	bool _allowSmartHilite = false;
+};
+
 struct NppGUI final
 {
 	NppGUI()
@@ -893,8 +903,9 @@ struct NppGUI final
 	DarkModeConf _darkmode;
 	DarkModeConf _darkmodeplugins;
 
-	int64_t _fileSizeLimit4Styling = NPP_STYLING_FILESIZE_LIMIT_DEFAULT;
+	LargeFileLimitSettings _largeFileLimit;
 };
+
 
 struct ScintillaViewParams
 {

@@ -2584,7 +2584,8 @@ void Notepad_plus::findMatchingBracePos(intptr_t& braceAtCaret, intptr_t& braceO
 bool Notepad_plus::braceMatch()
 {
 	Buffer* currentBuf = _pEditView->getCurrentBuffer();
-	if (currentBuf->isLargeFile())
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	if (currentBuf->isLargeFile() && !nppGui._largeFileLimit._allowBraceMatch)
 		return false;
 
 	intptr_t braceAtCaret = -1;

@@ -73,6 +73,17 @@ Var Dialog
 Var NoUserDataCheckboxHandle
 Var ShortcutCheckboxHandle
 Var WinVer
+Var noUserDataChecked
+Var createShortcutChecked
+
+; The definition of "OnChange" event for checkbox
+Function OnChange_NoUserDataCheckBox
+	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
+FunctionEnd
+
+Function OnChange_ShortcutCheckBox
+	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+FunctionEnd
 
 Function ExtraOptions
 	nsDialogs::Create 1018
@@ -90,6 +101,12 @@ Function ExtraOptions
 	
 	${NSD_CreateCheckbox} 0 120 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
 	Pop $NoUserDataCheckboxHandle
+	IfFileExists $INSTDIR\doLocalConf.xml doLocalConfExists doLocalConfDoesNotExists
+	doLocalConfExists:
+		 ; a previous portable N++ installation detected
+		${NSD_SetState} $NoUserDataCheckboxHandle ${BST_CHECKED}
+		StrCpy $noUserDataChecked ${BST_CHECKED}
+	doLocalConfDoesNotExists:
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
 	StrLen $0 $PROGRAMFILES
@@ -142,18 +159,6 @@ ws2003_openDlPage:
 ws2003_goQuit:
 		Abort
 ws2003_endTest:
-FunctionEnd
-
-Var noUserDataChecked
-Var createShortcutChecked
-
-; The definition of "OnChange" event for checkbox
-Function OnChange_NoUserDataCheckBox
-	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
-FunctionEnd
-
-Function OnChange_ShortcutCheckBox
-	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
 FunctionEnd
 
 

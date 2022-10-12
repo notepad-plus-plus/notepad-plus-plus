@@ -5411,6 +5411,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._largeFileLimit._allowSmartHilite = true;
 			else
 				_nppGUI._largeFileLimit._allowSmartHilite = false;
+
+			boolVal = element->Attribute(TEXT("allowWordWrap"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileLimit._allowWordWrap = true;
+			else
+				_nppGUI._largeFileLimit._allowWordWrap = false;
 		}
 		else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
@@ -6640,6 +6646,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("allowAutoCompletion"), _nppGUI._largeFileLimit._allowAutoCompletion ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("allowBraceMatch"), _nppGUI._largeFileLimit._allowBraceMatch ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileLimit._allowSmartHilite ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowWordWrap"), _nppGUI._largeFileLimit._allowWordWrap ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />

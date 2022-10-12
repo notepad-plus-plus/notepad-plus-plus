@@ -674,7 +674,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	bool isLargeFile = fileSize >= nppGui._largeFileLimit._largeFileSizeDefInByte;
 
 	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
-	if (isLargeFile)
+	if (isLargeFile && !nppGui._largeFileLimit._allowWordWrap)
 	{
 		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
 		if (isWrap)

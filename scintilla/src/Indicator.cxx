@@ -265,15 +265,15 @@ void Indicator::Draw(Surface *surface, const PRectangle &rc, const PRectangle &r
 	case IndicatorStyle::Point:
 	case IndicatorStyle::PointCharacter:
 		if (rcCharacter.Width() >= 0.1) {
-			const XYPOSITION pixelHeight = std::floor(rc.Height() - 1.0f);	// 1 pixel onto next line if multiphase
+			const XYPOSITION pixelHeight = std::floor(rc.Height());	// 1 pixel onto next line if multiphase
 			const XYPOSITION x = (sacDraw.style == IndicatorStyle::Point) ? (rcCharacter.left) : ((rcCharacter.right + rcCharacter.left) / 2);
 			// 0.5f is to hit midpoint of pixels:
 			const XYPOSITION ix = std::round(x) + 0.5f;
-			const XYPOSITION iy = std::floor(rc.top) + 0.5f;
+			const XYPOSITION iy = std::ceil(rc.bottom) + 0.5f;
 			const Point pts[] = {
-				Point(ix - pixelHeight, iy + pixelHeight),	// Left
-				Point(ix + pixelHeight, iy + pixelHeight),	// Right
-				Point(ix, iy)								// Top
+				Point(ix - pixelHeight, iy),	// Left
+				Point(ix + pixelHeight, iy),	// Right
+				Point(ix, iy - pixelHeight)								// Top
 			};
 			surface->Polygon(pts, std::size(pts), FillStroke(sacDraw.fore));
 		}
@@ -281,11 +281,11 @@ void Indicator::Draw(Surface *surface, const PRectangle &rc, const PRectangle &r
 
 	case IndicatorStyle::PointTop:
 		if (rcCharacter.Width() >= 0.1) {
-			const XYPOSITION pixelHeight = std::floor(rc.Height() - 1.0f);	// 1 pixel onto previous line if multiphase
+			const XYPOSITION pixelHeight = std::floor(rc.Height());	// 1 pixel onto previous line if multiphase
 			const XYPOSITION x = rcCharacter.left;
 			// 0.5f is to hit midpoint of pixels:
 			const XYPOSITION ix = std::round(x) + 0.5f;
-			const XYPOSITION iy = std::floor(rcLine.top) + 0.5f;
+			const XYPOSITION iy = std::floor(rcLine.top) - 0.5f;
 			const Point pts[] = {
 				Point(ix - pixelHeight, iy),	// Left
 				Point(ix + pixelHeight, iy),	// Right

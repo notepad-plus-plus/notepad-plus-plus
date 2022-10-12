@@ -82,7 +82,6 @@ signals:
     void modified(int position, int modification_type, const QByteArray &text, int length,
 		  int linesAdded, int line, int foldLevelNow, int foldLevelPrev);
     void style_needed(int pos);
-    void lexer_changed();
     void error_occurred(int status);
 
     friend class ::WatcherHelper;

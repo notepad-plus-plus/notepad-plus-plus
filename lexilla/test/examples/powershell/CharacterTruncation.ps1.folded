@@ -1,0 +1,10 @@
+ 0 400 400   # -*- coding: utf-8 -*-
+ 0 400 400   # Show problem with character value truncation causing U+0121 'ġ' (LATIN SMALL LETTER G WITH DOT ABOVE)
+ 0 400 400   # to be styled as an operator as static_cast<char>(0x121) = 0x21 == '!' which is an operator
+ 1 400 400   
+ 0 400 400   # Isolate
+ 0 400 400   ġ
+ 1 400 400   
+ 0 400 400   # Continuing from operator
+ 0 400 400   (ġ)
+ 0 400   0   

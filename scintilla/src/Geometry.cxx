@@ -75,10 +75,14 @@ XYPOSITION PixelAlignFloor(XYPOSITION xy, int pixelDivisions) noexcept {
 	return std::floor(xy * pixelDivisions) / pixelDivisions;
 }
 
+XYPOSITION PixelAlignCeil(XYPOSITION xy, int pixelDivisions) noexcept {
+	return std::ceil(xy * pixelDivisions) / pixelDivisions;
+}
+
 Point PixelAlign(const Point &pt, int pixelDivisions) noexcept {
 	return Point(
-		     std::round(pt.x * pixelDivisions) / pixelDivisions,
-		     std::round(pt.y * pixelDivisions) / pixelDivisions);
+		PixelAlign(pt.x, pixelDivisions),
+		PixelAlign(pt.y, pixelDivisions));
 }
 
 PRectangle PixelAlign(const PRectangle &rc, int pixelDivisions) noexcept {
@@ -88,19 +92,19 @@ PRectangle PixelAlign(const PRectangle &rc, int pixelDivisions) noexcept {
 	// On retina displays, the positions should be moved to the nearest device
 	// pixel which is the nearest half logical pixel.
 	return PRectangle(
-		std::round(rc.left * pixelDivisions) / pixelDivisions,
+		PixelAlign(rc.left, pixelDivisions),
 		PixelAlignFloor(rc.top, pixelDivisions),
-		std::round(rc.right * pixelDivisions) / pixelDivisions,
+		PixelAlign(rc.right, pixelDivisions),
 		PixelAlignFloor(rc.bottom, pixelDivisions));
 }
 
 PRectangle PixelAlignOutside(const PRectangle &rc, int pixelDivisions) noexcept {
 	// Move left and right side to extremes (floor(left) ceil(right)) to avoid blurry visuals.
 	return PRectangle(
-		std::floor(rc.left * pixelDivisions) / pixelDivisions,
-		std::floor(rc.top * pixelDivisions) / pixelDivisions,
-		std::ceil(rc.right * pixelDivisions) / pixelDivisions,
-		std::floor(rc.bottom * pixelDivisions) / pixelDivisions);
+		PixelAlignFloor(rc.left, pixelDivisions),
+		PixelAlignFloor(rc.top, pixelDivisions),
+		PixelAlignCeil(rc.right, pixelDivisions),
+		PixelAlignFloor(rc.bottom, pixelDivisions));
 }
 
 ColourRGBA ColourRGBA::MixedWith(ColourRGBA other) const noexcept {

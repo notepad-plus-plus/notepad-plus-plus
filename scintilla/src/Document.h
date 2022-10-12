@@ -484,7 +484,6 @@ public:
 	Sci::Position GetEndStyled() const noexcept { return endStyled; }
 	void EnsureStyledTo(Sci::Position pos);
 	void StyleToAdjustingLineDuration(Sci::Position pos);
-	void LexerChanged();
 	int GetStyleClock() const noexcept { return styleClock; }
 	void IncrementStyleClock() noexcept;
 	void SCI_METHOD DecorationSetCurrentIndicator(int indicator) override;
@@ -621,7 +620,6 @@ public:
 	virtual void NotifyModified(Document *doc, DocModification mh, void *userData) = 0;
 	virtual void NotifyDeleted(Document *doc, void *userData) noexcept = 0;
 	virtual void NotifyStyleNeeded(Document *doc, void *userData, Sci::Position endPos) = 0;
-	virtual void NotifyLexerChanged(Document *doc, void *userData) = 0;
 	virtual void NotifyErrorOccurred(Document *doc, void *userData, Scintilla::Status status) = 0;
 };
 

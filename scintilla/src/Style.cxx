@@ -72,7 +72,8 @@ Style::Style(const char *fontName_) noexcept :
 	caseForce(CaseForce::mixed),
 	visible(true),
 	changeable(true),
-	hotspot(false) {
+	hotspot(false),
+	invisibleRepresentation{} {
 }
 
 void Style::Copy(std::shared_ptr<Font> font_, const FontMeasurements &fm_) noexcept {

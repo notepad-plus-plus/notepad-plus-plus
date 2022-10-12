@@ -32,7 +32,7 @@ def UpdateFile(filename, updated):
         newOrChanged = "New"
     with codecs.open(filename, "w", "utf-8") as outfile:
         outfile.write(updated)
-    print("%s %s" % (newOrChanged, filename))
+    print("%s:0: %s" % (filename, newOrChanged))
 
 # Automatically generated sections contain start and end comments,
 # a definition line and the results.

@@ -45,7 +45,7 @@ void ChangeStack::PushDeletion(Sci::Position positionDeletion, int edition) {
 void ChangeStack::PushInsertion(Sci::Position positionInsertion, Sci::Position length, int edition) {
 	steps.back()++;
 	insertions.push_back({ positionInsertion, length, edition, InsertionSpan::Direction::insertion });
-};
+}
 
 size_t ChangeStack::PopStep() noexcept {
 	const size_t spans = steps.back();

@@ -29,19 +29,19 @@
 using namespace Lexilla;
 
 // Extended to accept accented characters
-static inline bool IsAWordChar(int ch) {
+static inline bool IsAWordChar(int ch) noexcept {
 	return ch >= 0x80 || isalnum(ch) || ch == '-' || ch == '_';
 }
 
 static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 				   WordList *keywordlists[], Accessor &styler) {
 
-	WordList &keywords = *keywordlists[0];
-	WordList &keywords2 = *keywordlists[1];
-	WordList &keywords3 = *keywordlists[2];
-	WordList &keywords4 = *keywordlists[3];
-	WordList &keywords5 = *keywordlists[4];
-	WordList &keywords6 = *keywordlists[5];
+	const WordList &keywords = *keywordlists[0];
+	const WordList &keywords2 = *keywordlists[1];
+	const WordList &keywords3 = *keywordlists[2];
+	const WordList &keywords4 = *keywordlists[3];
+	const WordList &keywords5 = *keywordlists[4];
+	const WordList &keywords6 = *keywordlists[5];
 
 	styler.StartAt(startPos);
 
@@ -50,7 +50,7 @@ static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, 
 	for (; sc.More(); sc.Forward()) {
 
 		if (sc.state == SCE_POWERSHELL_COMMENT) {
-			if (sc.atLineEnd) {
+			if (sc.MatchLineEnd()) {
 				sc.SetState(SCE_POWERSHELL_DEFAULT);
 			}
 		} else if (sc.state == SCE_POWERSHELL_COMMENTSTREAM) {
@@ -107,7 +107,7 @@ static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, 
 				sc.SetState(SCE_POWERSHELL_DEFAULT);
 			}
 		} else if (sc.state == SCE_POWERSHELL_OPERATOR) {
-			if (!isoperator(static_cast<char>(sc.ch))) {
+			if (!isoperator(sc.ch)) {
 				sc.SetState(SCE_POWERSHELL_DEFAULT);
 			}
 		} else if (sc.state == SCE_POWERSHELL_IDENTIFIER) {
@@ -148,7 +148,7 @@ static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, 
 				sc.SetState(SCE_POWERSHELL_VARIABLE);
 			} else if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
 				sc.SetState(SCE_POWERSHELL_NUMBER);
-			} else if (isoperator(static_cast<char>(sc.ch))) {
+			} else if (isoperator(sc.ch)) {
 				sc.SetState(SCE_POWERSHELL_OPERATOR);
 			} else if (IsAWordChar(sc.ch)) {
 				sc.SetState(SCE_POWERSHELL_IDENTIFIER);
@@ -165,10 +165,10 @@ static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, 
 // and to make it possible to fiddle the current level for "} else {".
 static void FoldPowerShellDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 			      WordList *[], Accessor &styler) {
-	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
-	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	bool foldAtElse = styler.GetPropertyInt("fold.at.else", 0) != 0;
-	Sci_PositionU endPos = startPos + length;
+	const bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
+	const bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
+	const bool foldAtElse = styler.GetPropertyInt("fold.at.else", 0) != 0;
+	const Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
 	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelCurrent = SC_FOLDLEVELBASE;
@@ -180,12 +180,12 @@ static void FoldPowerShellDoc(Sci_PositionU startPos, Sci_Position length, int i
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
 	for (Sci_PositionU i = startPos; i < endPos; i++) {
-		char ch = chNext;
+		const char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
-		int stylePrev = style;
+		const int stylePrev = style;
 		style = styleNext;
 		styleNext = styler.StyleAt(i + 1);
-		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
+		const bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 		if (style == SCE_POWERSHELL_OPERATOR) {
 			if (ch == '{') {
 				// Measure the minimum before a '{' to allow

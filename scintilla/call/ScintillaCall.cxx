@@ -647,6 +647,18 @@ bool ScintillaCall::StyleGetCheckMonospaced(int style) {
 	return Call(Message::StyleGetCheckMonospaced, style);
 }
 
+void ScintillaCall::StyleSetInvisibleRepresentation(int style, const char *representation) {
+	CallString(Message::StyleSetInvisibleRepresentation, style, representation);
+}
+
+int ScintillaCall::StyleGetInvisibleRepresentation(int style, char *representation) {
+	return static_cast<int>(CallPointer(Message::StyleGetInvisibleRepresentation, style, representation));
+}
+
+std::string ScintillaCall::StyleGetInvisibleRepresentation(int style) {
+	return CallReturnString(Message::StyleGetInvisibleRepresentation, style);
+}
+
 void ScintillaCall::SetElementColour(Scintilla::Element element, ColourAlpha colourElement) {
 	Call(Message::SetElementColour, static_cast<uintptr_t>(element), colourElement);
 }

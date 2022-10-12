@@ -435,6 +435,21 @@ void LayoutSegments(IPositionCache *pCache,
 						std::string_view(&ll->chars[ts.start], ts.length), &ll->positions[ts.start + 1], multiThreaded);
 				}
 			}
+		} else if (vstyle.styles[ll->styles[ts.start]].invisibleRepresentation[0]) {
+			const int styleInvisible = ll->styles[ts.start];
+			const std::string_view text = vstyle.styles[styleInvisible].invisibleRepresentation;
+			XYPOSITION positionsRepr[Representation::maxLength + 1];
+			// invisibleRepresentation is UTF-8 which only matches cache if document is UTF-8
+			// or it only contains ASCII which is a subset of all currently supported encodings.
+			if (textUnicode || ViewIsASCII(text)) {
+				pCache->MeasureWidths(surface, vstyle, styleInvisible, text, positionsRepr, multiThreaded);
+			} else {
+				surface->MeasureWidthsUTF8(vstyle.styles[styleInvisible].font.get(), text, positionsRepr);
+			}
+			const XYPOSITION representationWidth = positionsRepr[text.length() - 1];
+			for (int ii = 0; ii < ts.length; ii++) {
+				ll->positions[ts.start + 1 + ii] = representationWidth;
+			}
 		}
 	}
 }
@@ -1244,7 +1259,8 @@ static void DrawIndicator(int indicNum, Sci::Position startPos, Sci::Position en
 
 	const XYPOSITION left = ll->XInLine(startPos) + horizontalOffset;
 	const XYPOSITION right = ll->XInLine(endPos) + horizontalOffset;
-	const PRectangle rcIndic(left, rcLine.top + vsDraw.maxAscent, right, rcLine.top + vsDraw.maxAscent + 3);
+	const PRectangle rcIndic(left, rcLine.top + vsDraw.maxAscent, right,
+		std::max(rcLine.top + vsDraw.maxAscent + 3, rcLine.bottom));
 
 	if (bidiEnabled) {
 		ScreenLine screenLine(ll, subLine, vsDraw, rcLine.right - xStart, tabWidthMinimumPixels);
@@ -1637,6 +1653,11 @@ void EditView::DrawAnnotation(Surface *surface, const EditModel &model, const Vi
 			if (subLine == ll->lines + annotationLines - 1) {
 				surface->FillRectangle(Side(rcBorder, Edge::bottom, 1), colourBorder);
 			}
+		}
+	} else {
+		// No annotation to draw so show bug with bugColour
+		if (FlagSet(phase, DrawPhase::back)) {
+			surface->FillRectangle(rcSegment, bugColour.Opaque());
 		}
 	}
 }
@@ -2224,6 +2245,15 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 						surface->DrawTextNoClip(rcSegment, textFont,
 							rcSegment.top + vsDraw.maxAscent, text, textFore, textBack);
 					}
+				} else if (vsDraw.styles[styleMain].invisibleRepresentation[0]) {
+					const std::string_view text = vsDraw.styles[styleMain].invisibleRepresentation;
+  					if (phasesDraw != PhasesDraw::One) {
+						surface->DrawTextTransparentUTF8(rcSegment, textFont,
+							rcSegment.top + vsDraw.maxAscent, text, textFore);
+					} else {
+						surface->DrawTextNoClipUTF8(rcSegment, textFont,
+							rcSegment.top + vsDraw.maxAscent, text, textFore, textBack);
+					}
 				}
 				if (vsDraw.viewWhitespace != WhiteSpace::Invisible ||
 					(inIndentation && vsDraw.viewIndentationGuides != IndentView::None)) {
@@ -2349,6 +2379,11 @@ void EditView::DrawLine(Surface *surface, const EditModel &model, const ViewStyl
 		return; // No further drawing
 	}
 
+	const bool clipLine = !bufferedDraw && !LinesOverlap();
+	if (clipLine) {
+		surface->SetClip(rcLine);
+	}
+
 	// See if something overrides the line background colour.
 	const std::optional<ColourRGBA> background = vsDraw.Background(model.GetMark(line), model.caret.active, ll->containsCaret);
 
@@ -2423,6 +2458,10 @@ void EditView::DrawLine(Surface *surface, const EditModel &model, const ViewStyl
 
 	if (FlagSet(phase, DrawPhase::lineTranslucent)) {
 		DrawTranslucentLineState(surface, model, vsDraw, ll, line, rcLine, subLine, Layer::OverText);
+	}
+
+	if (clipLine) {
+		surface->PopClip();
 	}
 }
 
@@ -2771,10 +2810,10 @@ Sci::Position EditView::FormatRange(bool draw, CharacterRangeFull chrg, Rectangl
 
 	// Turn off change history marker backgrounds
 	constexpr unsigned int changeMarkers =
-	1u << static_cast<unsigned int>(MarkerOutline::HistoryRevertedToOrigin) |
-	1u << static_cast<unsigned int>(MarkerOutline::HistorySaved) |
-	1u << static_cast<unsigned int>(MarkerOutline::HistoryModified) |
-	1u << static_cast<unsigned int>(MarkerOutline::HistoryRevertedToModified);
+		1u << static_cast<unsigned int>(MarkerOutline::HistoryRevertedToOrigin) |
+		1u << static_cast<unsigned int>(MarkerOutline::HistorySaved) |
+		1u << static_cast<unsigned int>(MarkerOutline::HistoryModified) |
+		1u << static_cast<unsigned int>(MarkerOutline::HistoryRevertedToModified);
 	vsPrint.maskInLine &= ~changeMarkers;
 
 	const Sci::Line linePrintStart = model.pdoc->SciLineFromPosition(chrg.cpMin);

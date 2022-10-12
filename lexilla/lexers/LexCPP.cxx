@@ -169,7 +169,7 @@ class EscapeSequence {
 	int digitsLeft = 0;
 public:
 	EscapeSequence() = default;
-	void resetEscapeState(int nextChar) {
+	void resetEscapeState(int nextChar) noexcept {
 		digitsLeft = 0;
 		escapeSetValid = &setNoneNumeric;
 		if (nextChar == 'U') {
@@ -186,7 +186,7 @@ public:
 			escapeSetValid = &setOctDigits;
 		}
 	}
-	bool atEscapeEnd(int currChar) const {
+	bool atEscapeEnd(int currChar) const noexcept {
 		return (digitsLeft <= 0) || !escapeSetValid->Contains(currChar);
 	}
 	void consumeDigit() noexcept {
@@ -314,9 +314,8 @@ public:
 	LinePPState ForLine(Sci_Position line) const noexcept {
 		if ((line > 0) && (vlls.size() > static_cast<size_t>(line))) {
 			return vlls[line];
-		} else {
-			return LinePPState();
 		}
+		return {};
 	}
 	void Add(Sci_Position line, LinePPState lls) {
 		vlls.resize(line+1);
@@ -727,6 +726,8 @@ Sci_Position SCI_METHOD LexerCPP::WordListSet(int n, const char *wl) {
 		break;
 	case 5:
 		wordListN = &markerList;
+		break;
+	default:
 		break;
 	}
 	Sci_Position firstModification = -1;
@@ -1427,7 +1428,7 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 							if (options.updatePreprocessor && preproc.IsActive()) {
 								const std::string restOfLine = GetRestOfLine(styler, sc.currentPos + 5, false);
 								Tokens tokens = Tokenize(restOfLine);
-								if (tokens.size() >= 1) {
+								if (!tokens.empty()) {
 									const std::string key = tokens[0];
 									preprocessorDefinitions.erase(key);
 									ppDefineHistory.push_back(PPDefinition(lineCurrent, key, "", true));
@@ -1813,7 +1814,7 @@ bool LexerCPP::EvaluateExpression(const std::string &expr, const SymbolTable &pr
 
 	// "0" or "" -> false else true
 	const bool isFalse = tokens.empty() ||
-		((tokens.size() == 1) && ((tokens[0] == "") || tokens[0] == "0"));
+		((tokens.size() == 1) && (tokens[0].empty() || tokens[0] == "0"));
 	return !isFalse;
 }
 

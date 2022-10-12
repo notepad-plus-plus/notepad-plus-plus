@@ -168,6 +168,17 @@ class XiteWin():
 			self.face.features.update(faceLex.features)
 		except FileNotFoundError:
 			print("Can't find " + "LexicalStyles.iface")
+		if scintillaIncludesLexers:
+			sciName = "SciLexer.DLL"
+		else:
+			sciName = "Scintilla.DLL"
+		try:
+			scintillaDLLPath = os.path.join(scintillaBinDirectory, sciName)
+			ctypes.cdll.LoadLibrary(scintillaDLLPath)
+		except OSError:
+			print("Can't find " + sciName)
+			print("Python is built for " + " ".join(platform.architecture()))
+			sys.exit()
 
 		self.titleDirty = True
 		self.fullPath = ""
@@ -208,17 +219,6 @@ class XiteWin():
 
 	def OnCreate(self, hwnd):
 		self.win = hwnd
-		if scintillaIncludesLexers:
-			sciName = "SciLexer.DLL"
-		else:
-			sciName = "Scintilla.DLL"
-		try:
-			scintillaDLLPath = os.path.join(scintillaBinDirectory, sciName)
-			ctypes.cdll.LoadLibrary(scintillaDLLPath)
-		except OSError:
-			print("Can't find " + sciName)
-			print("Python is built for " + " ".join(platform.architecture()))
-			sys.exit()
 		self.sciHwnd = user32.CreateWindowExW(0,
 			"Scintilla", "Source",
 			WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN,

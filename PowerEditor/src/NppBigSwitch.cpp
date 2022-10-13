@@ -209,6 +209,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_STYLECHANGE:
+		{
+			_mainEditView.styleChange();
+			_subEditView.styleChange();
+			return TRUE;
+		}
+
 		case WM_DRAWITEM:
 		{
 			DRAWITEMSTRUCT *dis = reinterpret_cast<DRAWITEMSTRUCT *>(lParam);

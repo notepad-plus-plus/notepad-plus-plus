@@ -808,6 +808,7 @@ struct NppGUI final
 	bool _replaceStopsWithoutFindingNext = false;
 	bool _muteSounds = false;
 	bool _enableFoldCmdToggable = false;
+	bool _enableCommentFoldingCpp = false;
 	bool _hideMenuRightShortcuts = false;
 	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
 	bool _isWordCharDefault = true;

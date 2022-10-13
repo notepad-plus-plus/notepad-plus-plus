@@ -5492,6 +5492,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optEnableFoldCmdToggable)
 				_nppGUI._enableFoldCmdToggable = lstrcmp(optEnableFoldCmdToggable, TEXT("yes")) == 0;
 
+			const TCHAR * optEnableCommentFoldingCpp = element->Attribute(TEXT("enableCommentFoldingCpp"));
+			if (optEnableCommentFoldingCpp)
+				_nppGUI._enableCommentFoldingCpp = lstrcmp(optEnableCommentFoldingCpp, TEXT("yes")) == 0;
+
 			const TCHAR * hideMenuRightShortcuts = element->Attribute(TEXT("hideMenuRightShortcuts"));
 			if (hideMenuRightShortcuts)
 				_nppGUI._hideMenuRightShortcuts = lstrcmp(hideMenuRightShortcuts, TEXT("yes")) == 0;
@@ -6632,6 +6636,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("saveDlgExtFilterToAllTypes"), _nppGUI._setSaveDlgExtFiltToAllTypes ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("muteSounds"), _nppGUI._muteSounds ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("enableFoldCmdToggable"), _nppGUI._enableFoldCmdToggable ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("enableCommentFoldingCpp"), _nppGUI._enableCommentFoldingCpp ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("hideMenuRightShortcuts"), _nppGUI._hideMenuRightShortcuts ? TEXT("yes") : TEXT("no"));
 	}
 

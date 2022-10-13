@@ -5394,29 +5394,35 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB < 4096)
 				_nppGUI._largeFileLimit._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
 
-			const TCHAR* boolVal = element->Attribute(TEXT("allowAutoCompletion"));
+			const TCHAR* boolVal = element->Attribute(TEXT("isEnabled"));
 			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
-				_nppGUI._largeFileLimit._allowAutoCompletion = true;
+				_nppGUI._largeFileLimit._isEnabled = true;
 			else
+				_nppGUI._largeFileLimit._isEnabled = false;
+
+			boolVal = element->Attribute(TEXT("allowAutoCompletion"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
 				_nppGUI._largeFileLimit._allowAutoCompletion = false;
+			else
+				_nppGUI._largeFileLimit._allowAutoCompletion = true;
 
 			boolVal = element->Attribute(TEXT("allowBraceMatch"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
-				_nppGUI._largeFileLimit._allowBraceMatch = true;
-			else
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
 				_nppGUI._largeFileLimit._allowBraceMatch = false;
+			else
+				_nppGUI._largeFileLimit._allowBraceMatch = true;
 
 			boolVal = element->Attribute(TEXT("allowSmartHilite"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
-				_nppGUI._largeFileLimit._allowSmartHilite = true;
-			else
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
 				_nppGUI._largeFileLimit._allowSmartHilite = false;
+			else
+				_nppGUI._largeFileLimit._allowSmartHilite = true;
 
 			boolVal = element->Attribute(TEXT("allowWordWrap"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
-				_nppGUI._largeFileLimit._allowWordWrap = true;
-			else
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
 				_nppGUI._largeFileLimit._allowWordWrap = false;
+			else
+				_nppGUI._largeFileLimit._allowWordWrap = true;
 		}
 		else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
@@ -6638,11 +6644,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="performanceSettings" stylingMaxFileSizeMB="200" />
+	// <GUIConfig name="largeFileLimit" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" allowSmartHilite="no" allowWordWrap="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("largeFileLimit"));
 		GUIConfigElement->SetAttribute(TEXT("fileSizeMB"), static_cast<int>((_nppGUI._largeFileLimit._largeFileSizeDefInByte / 1024) / 1024));
+		GUIConfigElement->SetAttribute(TEXT("isEnabled"), _nppGUI._largeFileLimit._isEnabled ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("allowAutoCompletion"), _nppGUI._largeFileLimit._allowAutoCompletion ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("allowBraceMatch"), _nppGUI._largeFileLimit._allowBraceMatch ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileLimit._allowSmartHilite ? TEXT("yes") : TEXT("no"));

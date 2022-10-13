@@ -726,6 +726,7 @@ struct DarkModeConf final
 struct LargeFileLimitSettings final
 {
 	int64_t _largeFileSizeDefInByte = NPP_STYLING_FILESIZE_LIMIT_DEFAULT;
+	bool _isEnabled = true;
 
 	bool _allowBraceMatch = false;
 	bool _allowAutoCompletion = false;

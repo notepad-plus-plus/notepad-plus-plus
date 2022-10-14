@@ -4916,7 +4916,7 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 	{
 		case WM_INITDIALOG:
 		{
-			size_t fileLenInMB = (nppGUI._largeFileLimit._largeFileSizeDefInByte / 1024) / 1024;
+			int64_t fileLenInMB = (nppGUI._largeFileLimit._largeFileSizeDefInByte / 1024) / 1024;
 			::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ENABLE, BM_SETCHECK, nppGUI._largeFileLimit._isEnabled ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH, BM_SETCHECK, nppGUI._largeFileLimit._allowBraceMatch ? BST_CHECKED : BST_UNCHECKED, 0);

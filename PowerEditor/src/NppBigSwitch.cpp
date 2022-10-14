@@ -2719,6 +2719,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CLEANSMARTHILITING:
+		{
+			_mainEditView.clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+			_subEditView.clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_CRLFLAUNCHSTYLECONF:
 		{
 			// Launch _configStyleDlg (create or display it)

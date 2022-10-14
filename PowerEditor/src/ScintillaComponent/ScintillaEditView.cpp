@@ -3695,22 +3695,25 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 
 void ScintillaEditView::setTabSettings(Lang *lang)
 {
-	if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
+	if (lang && !lang->_useDefaultTab)
 	{
 		if (lang->_langID == L_JAVASCRIPT)
 		{
 			Lang *ljs = NppParameters::getInstance().getLangFromID(L_JS);
 			execute(SCI_SETTABWIDTH, ljs->_tabSize > 0 ? ljs->_tabSize : lang->_tabSize);
+			execute(SCI_SETINDENT, ljs->_indentSize > 0 ? ljs->_indentSize : lang->_indentSize);
 			execute(SCI_SETUSETABS, !ljs->_isTabReplacedBySpace);
 			return;
 		}
 		execute(SCI_SETTABWIDTH, lang->_tabSize);
+		execute(SCI_SETINDENT, lang->_indentSize);
 		execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
 	}
     else
 	{
 		const NppGUI & nppgui = NppParameters::getInstance().getNppGUI();
-		execute(SCI_SETTABWIDTH, nppgui._tabSize  > 0 ? nppgui._tabSize : 4);
+		execute(SCI_SETTABWIDTH, nppgui._tabSize > 0 ? nppgui._tabSize : 8);
+		execute(SCI_SETINDENT, nppgui._indentSize > 0 ? nppgui._indentSize : 4);
 		execute(SCI_SETUSETABS, !nppgui._tabReplacedBySpace);
 	}
 }

@@ -141,11 +141,13 @@ public :
 	LanguageSubDlg() = default;
 	virtual void destroy() {
 		_tabSizeVal.destroy();
+		_indentSizeVal.destroy();
 	};
 
 private :
     LexerStylerArray _lsArray;
 	URLCtrl _tabSizeVal;
+	URLCtrl _indentSizeVal;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	std::vector<LangMenuItem> _langList;
 };

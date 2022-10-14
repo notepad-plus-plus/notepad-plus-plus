@@ -4982,12 +4982,19 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("TabSetting")))
 		{
 			int i;
-			const TCHAR* val = element->Attribute(TEXT("size"), &i);
+			const TCHAR* val = element->Attribute(TEXT("indentSize"), &i);
+			if (val)
+				_nppGUI._indentSize = i;
+
+			if (_nppGUI._indentSize < 1)
+				_nppGUI._indentSize = 4;
+
+			val = element->Attribute(TEXT("tabSize"), &i);
 			if (val)
 				_nppGUI._tabSize = i;
 
-			if ((_nppGUI._tabSize == -1) || (_nppGUI._tabSize == 0))
-				_nppGUI._tabSize = 4;
+			if (_nppGUI._tabSize < 1)
+				_nppGUI._tabSize = 8;
 
 			val = element->Attribute(TEXT("replaceBySpace"));
 			if (val)
@@ -6707,13 +6714,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 
-	// <GUIConfig name = "TabSetting" size = "4" replaceBySpace = "no" / >
+	// <GUIConfig name = "TabSetting" indentSize = "4" tabSize = "8" replaceBySpace = "no" / >
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("TabSetting"));
 		const TCHAR *pStr = _nppGUI._tabReplacedBySpace ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("replaceBySpace"), pStr);
-		GUIConfigElement->SetAttribute(TEXT("size"), _nppGUI._tabSize);
+		GUIConfigElement->SetAttribute(TEXT("indentSize"), _nppGUI._indentSize);
+		GUIConfigElement->SetAttribute(TEXT("tabSize"), _nppGUI._tabSize);
 	}
 
 	// <GUIConfig name = "AppPosition" x = "3900" y = "446" width = "2160" height = "1380" isMaximized = "no" / >

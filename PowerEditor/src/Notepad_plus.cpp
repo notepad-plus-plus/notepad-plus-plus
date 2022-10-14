@@ -3327,7 +3327,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	intptr_t curLine = _pEditView->getCurrentLineNumber();
 	intptr_t prevLine = curLine - 1;
 	intptr_t indentAmountPrevLine = 0;
-	intptr_t tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+	intptr_t tabWidth = _pEditView->execute(SCI_GETINDENT);
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 	ExternalLexerAutoIndentMode autoIndentMode = ExternalLexerAutoIndentMode::Standard;

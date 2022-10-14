@@ -1744,7 +1744,7 @@ void Notepad_plus::command(int id)
 				// zero-length selection (simple single caret) or selected text is all on single line
 				// depart from Scintilla behavior and do it our way
 				size_t currentIndent = _pEditView->execute(SCI_GETLINEINDENTATION, lineNumber);
-				intptr_t indentDelta = _pEditView->execute(SCI_GETTABWIDTH);
+				intptr_t indentDelta = _pEditView->execute(SCI_GETINDENT);
 				if (!forwards) indentDelta = -indentDelta;
 				_pEditView->setLineIndent(lineNumber, static_cast<intptr_t>(currentIndent) + indentDelta);
 			}

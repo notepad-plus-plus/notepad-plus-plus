@@ -1163,6 +1163,19 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 (não o escolha a menos que saiba o que está fazendo)"/>
                 </Delimiter>
 
+                <Performance title="Desempenho">
+                    <Item id="7141" name="Restrição para Arquivos Grandes"/>
+                    <Item id="7142" name="Ao abrir um arquivo grande, alguns recursos são desativados para otiimizar o desempenho. É possível configurá-los aqui."/>
+                    <Item id="7143" name="Habilitar Restrição para Arquivos Grandes"/>
+                    <Item id="7144" name="Definir Tamanho de Arquivos Grandes:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Permitr Chaves Correspondentes"/>
+                    <Item id="7148" name="Permitir Autocompletar"/>
+                    <Item id="7149" name="Permitir Destaque Inteligente"/>
+                    <Item id="7150" name="Permitir quebras de linhas automáticas"/>
+                </Performance>
+		    
+		    
                 <Cloud title="Nuvem e link">
                     <Item id="6262" name="Configurações na nuvem"/>
                     <Item id="6263" name="Sem nuvem"/>

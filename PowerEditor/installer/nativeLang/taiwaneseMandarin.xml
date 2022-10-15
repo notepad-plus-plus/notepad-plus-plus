@@ -1128,8 +1128,6 @@
                     <Item id="6171" name="插入日期時間自訂"/>
                     <Item id="6175" name="顛倒日期時間內定順序（簡短與完整格式）"/>
                     <Item id="6172" name="自訂格式："/>
-					
-					
                 </MultiInstance>
 
                 <Delimiter title="分隔字元">
@@ -1141,6 +1139,18 @@
                     <Item id="6162" name="使用預設的單字字元集（建議）"/>
                     <Item id="6163" name="添加字元（不了解此選項的話不建議選取）"/>
                 </Delimiter>
+				
+                <Performance title="性能">
+                    <Item id="7141" name="大型檔案限制"/>
+                    <Item id="7142" name="在開啟大型文件時，為了優化性能，一些功能會被關閉。 您可以在此處自開啟它們。"/>
+                    <Item id="7143" name="啟動大型檔案限制"/>
+                    <Item id="7144" name="定義大型檔案文件長度大小："/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="允許顏色顯示對應括號"/>
+                    <Item id="7148" name="允許自動完成功能"/>
+                    <Item id="7149" name="允許智慧醒目提示"/>
+                    <Item id="7150" name="允許自動換行"/>
+                </Performance>
 
                 <Cloud title="雲端與連結">
                     <Item id="6262" name="雲端設定"/>

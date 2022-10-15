@@ -1156,6 +1156,18 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 (ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
                 </Delimiter>
 
+                <Performance title="Performance">
+                    <Item id="7141" name="Restriction des fichiers volumineux"/>
+                    <Item id="7142" name="Lors de l'ouverture d'un fichier volumineux, certaines fonctionnalités sont désactivées pour optimiser les performances. Vous pouvez les personnaliser ici."/>
+                    <Item id="7143" name="Activer la restriction des fichiers volumineux"/>
+                    <Item id="7144" name="Définir la taille du fichier volumineux :"/>
+                    <Item id="7146" name="Mo   (1 - 4096)"/>
+                    <Item id="7147" name="Permettre de colorer délimiteur symétrique"/>
+                    <Item id="7148" name="Permettre d'activer la complétion automatique"/>
+                    <Item id="7149" name="Permettre d'activer le coloriage automatique"/>
+                    <Item id="7150" name="Permettre d'activer le retour automatique à la ligne"/>
+                </Performance>
+
                 <Cloud title="Cloud &amp; Lien">
                     <Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
                     <Item id="6263" name="Par défaut"/>

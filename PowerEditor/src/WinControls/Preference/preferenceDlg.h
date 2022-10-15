@@ -252,6 +252,15 @@ private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
+class PerformanceSubDlg : public StaticDialog
+{
+public :
+	PerformanceSubDlg() = default;
+
+private :
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+};
+
 class PreferenceDlg : public StaticDialog
 {
 friend class NativeLangSpeaker;
@@ -306,6 +315,7 @@ private :
 	AutoCompletionSubDlg _autoCompletionSubDlg;
 	MultiInstanceSubDlg _multiInstanceSubDlg;
 	DelimiterSubDlg _delimiterSubDlg;
+	PerformanceSubDlg _performanceSubDlg;
 	CloudAndLinkSubDlg _cloudAndLinkSubDlg;
 	SearchEngineSubDlg _searchEngineSubDlg;
 	SearchingSubDlg _searchingSubDlg;

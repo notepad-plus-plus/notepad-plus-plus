@@ -2074,15 +2074,22 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		if (lastOpened != BUFFER_INVALID)
 		{
 			showView(MAIN_VIEW);
-			const TCHAR *pLn = session._mainViewFiles[i]._langName.c_str();
-			int id = getLangFromMenuName(pLn);
+			const TCHAR* pLn = nullptr;
 			LangType typeToSet = L_TEXT;
-			if (id != 0 && id != IDM_LANG_USER)
-				typeToSet = menuID2LangType(id);
-			if (typeToSet == L_EXTERNAL )
-				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
+			Buffer* buf = MainFileManager.getBufferByID(lastOpened);
 
-			Buffer *buf = MainFileManager.getBufferByID(lastOpened);
+			if (!buf->isLargeFile())
+			{
+				pLn = session._mainViewFiles[i]._langName.c_str();
+
+				int id = getLangFromMenuName(pLn);
+				
+				if (id != 0 && id != IDM_LANG_USER)
+					typeToSet = menuID2LangType(id);
+				if (typeToSet == L_EXTERNAL)
+					typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
+			}
+			
 
 			if (session._mainViewFiles[i]._foldStates.size() > 0)
 			{

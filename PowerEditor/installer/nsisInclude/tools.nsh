@@ -107,7 +107,7 @@ Function ExtraOptions
 	nsDialogs::Show
 FunctionEnd
 
-Function checkCompability
+Function preventInstall
 
 	${GetWindowsVersion} $WinVer
 	

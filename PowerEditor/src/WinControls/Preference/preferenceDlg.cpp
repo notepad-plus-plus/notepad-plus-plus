@@ -5008,6 +5008,8 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 				{
 					bool isAllowed = isCheckedOrNot(int(wParam));
 					nppGUI._largeFileLimit._allowBraceMatch = isAllowed;
+					if (!isAllowed)
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CLEANBRACEMATCH, 0, 0);
 				}
 				return TRUE;
 
@@ -5022,7 +5024,8 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 				{
 					bool isAllowed = isCheckedOrNot(int(wParam));
 					nppGUI._largeFileLimit._allowSmartHilite = isAllowed;
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CLEANSMARTHILITING, 0, 0);
+					if (!isAllowed)
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CLEANSMARTHILITING, 0, 0);
 				}
 				return TRUE;
 

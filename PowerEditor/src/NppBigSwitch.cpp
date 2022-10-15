@@ -2719,6 +2719,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CLEANBRACEMATCH:
+		{
+			_mainEditView.execute(SCI_SETHIGHLIGHTGUIDE, 0);
+			_subEditView.execute(SCI_SETHIGHLIGHTGUIDE, 0);
+			_mainEditView.execute(SCI_BRACEBADLIGHT, WPARAM(-1));
+			_subEditView.execute(SCI_BRACEBADLIGHT, WPARAM(-1));
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_CLEANSMARTHILITING:
 		{
 			_mainEditView.clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);

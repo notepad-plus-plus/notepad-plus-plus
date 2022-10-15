@@ -172,7 +172,7 @@ updaterDone:
 
 	Call SetRoughEstimation		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
-	Call preventInstall		; check unsupported OSes and CPUs
+	Call checkCompatibility		; check unsupported OSes and CPUs
 		
 	; look for previously selected language
 	ClearErrors

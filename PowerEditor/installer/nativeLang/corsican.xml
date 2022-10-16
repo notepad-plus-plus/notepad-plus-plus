@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on October 16th, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 21st, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
@@ -38,7 +39,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.6">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1189,6 +1190,18 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6163" name="Aghjunghje u vostru caratteru cum’è una parte di parolla
 (solu s’è voi site sicuri di ciò chì voi fate)"/>
                 </Delimiter>
+
+                <Performance title="Perfurmenze">
+                    <Item id="7141" name="Ristrizzione di i schedarii maiò"/>
+                    <Item id="7142" name="À l’apertura d’un schedariu maiò, certe funzioni sò disattivate per migliurà e perfurmenze. Pudete persunalizalle quì."/>
+                    <Item id="7143" name="Attivà a ristrizzione di i schedarii maiò"/>
+                    <Item id="7144" name="Definisce a dimensione d’un schedariu maiò :"/>
+                    <Item id="7146" name="Mo   (1 - 4096)"/>
+                    <Item id="7147" name="Permette d’attivà a currispundenza trà e parentesi"/>
+                    <Item id="7148" name="Permette d’attivà di l’empiimentu autumaticu"/>
+                    <Item id="7149" name="Permette d’attivà u sopralineamentu astutu"/>
+                    <Item id="7150" name="Permette d’attivà u ritornu autumaticu à a linea"/>
+                </Performance>
 
                 <Cloud title="Nivulu è liame">
                     <Item id="6262" name="Preferenze di nivulu"/>

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+The comments are here for explanation, it's not necessary to translate them.
+
+*** This file contains untranslated Strings: please translate them and remove this comment (it hasn't translated since 2009 or earlier) ***
+-->
 <NotepadPlus>
-    <Native-Langue name="Furlan" filename="friulian.xml" >
+    <Native-Langue name="Furlan" filename="friulian.xml" version="8.4.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -12,7 +17,7 @@
                     <Item menuId="encoding" name="For&amp;mât"/>
                     <Item menuId="language" name="&amp;Lengaç"/>
                     <Item menuId="settings" name="&amp;Impostazions"/>
-
+                    <Item menuId="tools" name="To&amp;ols"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="Invie"/>
                     <Item menuId="Plugins" name="&amp;Plugins"/>
@@ -20,10 +25,10 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-
-
-
-
+                    <Item subMenuId="file-openFolder" name="Open Containing &amp;Folder"/>
+                    <Item subMenuId="file-closeMore" name="Close &amp;Multiple Documents"/>
+                    <Item subMenuId="file-recentFiles" name="&amp;Recent Files"/>
+                    <Item subMenuId="edit-insert" name="Insert"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Copie tai Aponts"/>
                     <Item subMenuId="edit-indent" name="Indentazion"/>
                     <Item subMenuId="edit-convertCaseTo" name="Conversion Maiuscul/Minuscul"/>
@@ -32,23 +37,23 @@
                     <Item subMenuId="edit-autoCompletion" name="Auto completament"/>
                     <Item subMenuId="edit-eolConversion" name="Conversion caratars di fin rie"/>
                     <Item subMenuId="edit-blankOperations" name="Operazions sui spazis blancs"/>
-
-
+                    <Item subMenuId="edit-pasteSpecial" name="&amp;Paste Special"/>
+                    <Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
                     <Item subMenuId="search-markAll" name="Segne dut"/>
-
+                    <Item subMenuId="search-markOne" name="Style &amp;One Token"/>
                     <Item subMenuId="search-unmarkAll" name="Gjave ducj i segns"/>
                     <Item subMenuId="search-jumpUp" name="Salte sù"/>
                     <Item subMenuId="search-jumpDown" name="Salte jù"/>
-
+                    <Item subMenuId="search-copyStyledText" name="&amp;Copy Styled Text"/>
                     <Item subMenuId="search-bookmark" name="Segnelibri"/>
-
+                    <Item subMenuId="view-currentFileIn" name="View Current File in"/>
                     <Item subMenuId="view-showSymbol"  name="Mostre simbul"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Môf/Clone il document atuâl"/>
                     <Item subMenuId="view-tab"  name="Tab"/>
                     <Item subMenuId="view-collapseLevel" name="Espant il nivel"/>
                     <Item subMenuId="view-uncollapseLevel" name="Sclace il nivel"/>
-
+                    <Item subMenuId="view-project" name="Project"/>
                     <Item subMenuId="encoding-characterSets"  name="Set di caratars"/>
                     <Item subMenuId="encoding-arabic"  name="Arap"/>
                     <Item subMenuId="encoding-baltic"  name="Baltic"/>
@@ -66,26 +71,26 @@
                     <Item subMenuId="encoding-turkish" name="Turc"/>
                     <Item subMenuId="encoding-westernEuropean" name="European ocidentâl"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamite"/>
-
+                    <Item subMenuId="language-userDefinedLanguage" name="User Defined Language"/>
                     <Item subMenuId="settings-import" name="Impuarte"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
-
+                    <Item subMenuId="window-sortby" name="Sort By"/>
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="G&amp;nûf"/>
                     <Item id="41002" name="&amp;Vierç"/>
-
+                    <Item id="41019" name="Explorer"/>
                     <Item id="41020" name="cmd"/>
-
+                    <Item id="41025" name="Folder as Workspace"/>
                     <Item id="41003" name="Siere"/>
                     <Item id="41004" name="Sie&amp;re dut"/>
                     <Item id="41005" name="Siere dut fûr che il document atuâl"/>
-
-
-
+                    <Item id="41009" name="Close All to the Left"/>
+                    <Item id="41018" name="Close All to the Right"/>
+                    <Item id="41024" name="Close All Unchanged"/>
                     <Item id="41006" name="&amp;Salve"/>
                     <Item id="41007" name="Salv&amp;e dut"/>
                     <Item id="41008" name="Salve &amp;cul non..."/>
@@ -98,9 +103,9 @@
                     <Item id="41015" name="Salve une copie come..."/>
                     <Item id="41016" name="Elimine dal disc"/>
                     <Item id="41017" name="Cambie non..."/>
-
-
-
+                    <Item id="41021" name="Restore Recent Closed File"/>
+                    <Item id="41022" name="Open Folder as &amp;Workspace..."/>
+                    <Item id="41023" name="Open in &amp;Default Viewer"/>
                     <Item id="42001" name="&amp;Taie"/>
                     <Item id="42002" name="&amp;Copie"/>
                     <Item id="42003" name="&amp;Anule"/>
@@ -108,43 +113,43 @@
                     <Item id="42005" name="Tac&amp;he"/>
                     <Item id="42006" name="&amp;Elimine"/>
                     <Item id="42007" name="Selezione d&amp;ut"/>
-
-
-
-
+                    <Item id="42020" name="Begin/End &amp;Select"/>
+                    <Item id="42084" name="Date Time (short)"/>
+                    <Item id="42085" name="Date Time (long)"/>
+                    <Item id="42086" name="Date Time (customized)"/>
                     <Item id="42008" name="Inserìs TAB (Pare dentri)"/>
                     <Item id="42009" name="Gjave TAB (Pare fûr)"/>
                     <Item id="42010" name="Dupliche rie atuâl"/>
-
-
+                    <Item id="42079" name="Remove Duplicate Lines"/>
+                    <Item id="42077" name="Remove Consecutive Duplicate Lines"/>
                     <Item id="42012" name="Divît riis"/>
                     <Item id="42013" name="Unìs riis"/>
                     <Item id="42014" name="Pare sù la rie atuâl"/>
                     <Item id="42015" name="Pare jù la rie atuâl"/>
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="42059" name="Sort Lines Lexicographically Ascending"/>
+                    <Item id="42060" name="Sort Lines Lexicographically Descending"/>
+                    <Item id="42080" name="Sort Lines Lex. Ascending Ignoring Case"/>
+                    <Item id="42081" name="Sort Lines Lex. Descending Ignoring Case"/>
+                    <Item id="42061" name="Sort Lines As Integers Ascending"/>
+                    <Item id="42062" name="Sort Lines As Integers Descending"/>
+                    <Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>
+                    <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
+                    <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
+                    <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
+                    <Item id="42083" name="Reverse Line Order"/>
+                    <Item id="42078" name="Randomize Line Order"/>
                     <Item id="42016" name="in MAIUSCUL"/>
                     <Item id="42017" name="in minuscul"/>
-
-
-
-
-
-
-
-
-
-
+                    <Item id="42067" name="&amp;Proper Case"/>
+                    <Item id="42068" name="Proper Case (blend)"/>
+                    <Item id="42069" name="&amp;Sentence case"/>
+                    <Item id="42070" name="Sentence case (blend)"/>
+                    <Item id="42071" name="&amp;iNVERT cASE"/>
+                    <Item id="42072" name="&amp;ranDOm CasE"/>
+                    <Item id="42073" name="Open File"/>
+                    <Item id="42074" name="Open Containing Folder in Explorer"/>
+                    <Item id="42075" name="Search on Internet"/>
+                    <Item id="42076" name="Change Search Engine..."/>
                     <Item id="42018" name="&amp;Scomence a regjistrâ"/>
                     <Item id="42019" name="Ferme di regji&amp;strâ"/>
                     <Item id="42021" name="Ri&amp;produzion"/>
@@ -157,18 +162,18 @@
                     <Item id="42044" name="EOL in Spazi"/>
                     <Item id="42045" name="Gjave i spazis che no coventin e EOL"/>
                     <Item id="42046" name="TAB in Spazi"/>
-
-
-
-
-
-
-
-
-
+                    <Item id="42054" name="Space to TAB (All)"/>
+                    <Item id="42053" name="Space to TAB (Leading)"/>
+                    <Item id="42038" name="Paste HTML Content"/>
+                    <Item id="42039" name="Paste RTF Content"/>
+                    <Item id="42048" name="Copy Binary Content"/>
+                    <Item id="42049" name="Cut Binary Content"/>
+                    <Item id="42050" name="Paste Binary Content"/>
+                    <Item id="42082" name="Copy link"/>
+                    <Item id="42037" name="Column Mode..."/>
                     <Item id="42034" name="Editôr des colonis..."/>
-
-
+                    <Item id="42051" name="Character &amp;Panel"/>
+                    <Item id="42052" name="Clipboard &amp;History"/>
                     <Item id="42025" name="Salve la macro in regjistrazion"/>
                     <Item id="42026" name="Direzion dal test RTL"/>
                     <Item id="42027" name="Direzion dal test LTR"/>
@@ -176,16 +181,16 @@
                     <Item id="42029" name="Percors complet dal file atuâl tai Aponts"/>
                     <Item id="42030" name="Non dal file atuâl tai Aponts"/>
                     <Item id="42031" name="Cartele dal percors atuâl tai Aponts"/>
-
-
+                    <Item id="42087" name="Copy All Filenames"/>
+                    <Item id="42088" name="Copy All File Paths"/>
                     <Item id="42032" name="Riprodûs une macro plui voltis..."/>
                     <Item id="42033" name="Nete l'atribût dome in leture"/>
                     <Item id="42035" name="Comente bloc"/>
                     <Item id="42036" name="Gjave coment al bloc"/>
-
-
-
-
+                    <Item id="42055" name="Remove Empty Lines"/>
+                    <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
+                    <Item id="42057" name="Insert Blank Line Above Current"/>
+                    <Item id="42058" name="Insert Blank Line Below Current"/>
                     <Item id="43001" name="&amp;Cjate..."/>
                     <Item id="43002" name="Cjate c&amp;hel dopo"/>
                     <Item id="43003" name="Sostituìs..."/>
@@ -198,10 +203,10 @@
                     <Item id="43019" name="Copie riis salvadis tai segnelibris"/>
                     <Item id="43020" name="Tache (Sostituìs) tes riis salvadis tai segnelibris"/>
                     <Item id="43021" name="Elimine riis salvadis tai segnelibris"/>
-
+                    <Item id="43051" name="Remove Unmarked Lines"/>
                     <Item id="43050" name="Segnelibri invertît"/>
-
-
+                    <Item id="43052" name="Find characters in rang&amp;e..."/>
+                    <Item id="43053" name="Select All Between &amp;Matching Braces"/>
                     <Item id="43009" name="Va ae parentesi corispuindinte"/>
                     <Item id="43010" name="Cjate chel prime"/>
                     <Item id="43011" name="Ricercje &amp;incrementâl..."/>
@@ -231,28 +236,28 @@
                     <Item id="43042" name="Cuart stîl"/>
                     <Item id="43043" name="Cuint stîl"/>
                     <Item id="43044" name="Cjate stîl"/>
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="43055" name="1st Style"/>
+                    <Item id="43056" name="2nd Style"/>
+                    <Item id="43057" name="3rd Style"/>
+                    <Item id="43058" name="4th Style"/>
+                    <Item id="43059" name="5th Style"/>
+                    <Item id="43060" name="All Styles"/>
+                    <Item id="43061" name="Find Mark Style"/>
+                    <Item id="43062" name="Using 1st Style"/>
+                    <Item id="43063" name="Using 2nd Style"/>
+                    <Item id="43064" name="Using 3rd Style"/>
+                    <Item id="43065" name="Using 4th Style"/>
+                    <Item id="43066" name="Using 5th Style"/>
                     <Item id="43045" name="Barcon dai risultâts de ricercje"/>
                     <Item id="43046" name="Prossim risultât de ricercje"/>
                     <Item id="43047" name="Precedent risultât de ricercje"/>
                     <Item id="43048" name="Selezione e cjate il prossim"/>
                     <Item id="43049" name="Selezione e cjate il precedent"/>
-
-
-
-
-
+                    <Item id="43054" name="Mar&amp;k..."/>
+                    <Item id="43501" name="Close Selected"/>
+                    <Item id="43502" name="Close Others"/>
+                    <Item id="43503" name="Copy Selected Names"/>
+                    <Item id="43504" name="Copy Selected Pathnames"/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Sclace dut"/>
                     <Item id="44011" name="Definizion dai lengaçs dal utent"/>
@@ -267,30 +272,30 @@
                     <Item id="44030" name="Sclace il nivel atuâl"/>
                     <Item id="44031" name="Espant il nivel atuâl"/>
                     <Item id="44049" name="Somari..."/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="44080" name="Document Map"/>
+                    <Item id="44070" name="Document List"/>
+                    <Item id="44084" name="Function List"/>
+                    <Item id="44085" name="Folder as Workspace"/>
+                    <Item id="44086" name="1st Tab"/>
+                    <Item id="44087" name="2nd Tab"/>
+                    <Item id="44088" name="3rd Tab"/>
+                    <Item id="44089" name="4th Tab"/>
+                    <Item id="44090" name="5th Tab"/>
+                    <Item id="44091" name="6th Tab"/>
+                    <Item id="44092" name="7th Tab"/>
+                    <Item id="44093" name="8th Tab"/>
+                    <Item id="44094" name="9th Tab"/>
+                    <Item id="44095" name="Next Tab"/>
+                    <Item id="44096" name="Previous Tab"/>
+                    <Item id="44097" name="Monitoring (tail -f)"/>
+                    <Item id="44098" name="Move Tab Forward"/>
+                    <Item id="44099" name="Move Tab Backward"/>
+                    <Item id="44110" name="Remove Color"/>
+                    <Item id="44111" name="Apply Color 1"/>
+                    <Item id="44112" name="Apply Color 2"/>
+                    <Item id="44113" name="Apply Color 3"/>
+                    <Item id="44114" name="Apply Color 4"/>
+                    <Item id="44115" name="Apply Color 5"/>
                     <Item id="44032" name="Modalitât a dut il visôr"/>
                     <Item id="44033" name="Torne al zoom predeterminât  Ctrl+/(tastierute numeriche)"/>
                     <Item id="44034" name="Simpri in prin plan"/>
@@ -298,9 +303,9 @@
                     <Item id="44036" name="Sincronize scoriment orizontâl"/>
                     <Item id="44041" name="Mostre simbul di tai"/>
                     <Item id="44072" name="Focus suntune altre viodude"/>
-
-
-
+                    <Item id="44081" name="Project Panel 1"/>
+                    <Item id="44082" name="Project Panel 2"/>
+                    <Item id="44083" name="Project Panel 3"/>
                     <Item id="45001" name="Convertìs tal formât Windows"/>
                     <Item id="45002" name="Convertìs tal formât UNIX"/>
                     <Item id="45003" name="Convertìs tal formât MAC"/>
@@ -314,12 +319,12 @@
                     <Item id="45011" name="Convertìs in UTF-8-BOM"/>
                     <Item id="45012" name="Convertìs in UTF-16 BE BOM"/>
                     <Item id="45013" name="Convertìs in UTF-16 LE BOM"/>
-
-
-
-
-
-
+                    <Item id="45060" name="Big5 (Traditional)"/>
+                    <Item id="45061" name="GB2312 (Simplified)"/>
+                    <Item id="45054" name="OEM 861: Icelandic"/>
+                    <Item id="45057" name="OEM 865: Nordic"/>
+                    <Item id="45053" name="OEM 860: Portuguese"/>
+                    <Item id="45056" name="OEM 863: French"/>
 
                     <Item id="10001" name="Va a une altre viodude"/>
                     <Item id="10002" name="Clone intune altre viodude"/>
@@ -327,12 +332,12 @@
                     <Item id="10004" name="Vierç intune gnove istance"/>
 
                     <Item id="46001" name="Configurazion dai stîi..."/>
-
-
-
+                    <Item id="46250" name="Define your language..."/>
+                    <Item id="46300" name="Open User Defined Language folder..."/>
+                    <Item id="46301" name="Notepad++ User Defined Languages Collection"/>
                     <Item id="46180" name="Definît dal utent"/>
                     <Item id="47000" name="Informazions su Notepad++"/>
-
+                    <Item id="47010" name="Command Line Arguments..."/>
                     <Item id="47001" name="Sît di Notepad++"/>
                     <Item id="47002" name="Pagjine dal progjet di Notepad++"/>
                     <Item id="47003" name="Jutori in linee"/>
@@ -340,44 +345,44 @@
                     <Item id="47012" name="Debug Info..."/>
                     <Item id="47005" name="Cjate altris plugins"/>
                     <Item id="47006" name="Inzorne Notepad++"/>
-
+                    <Item id="47009" name="Set Updater Proxy..."/>
                     <Item id="48005" name="Impuarte plugins..."/>
                     <Item id="48006" name="Impuarte temis..."/>
                     <Item id="48018" name="Personalize il menù contestuâl"/>
                     <Item id="48009" name="Configurazion des scurtis..."/>
                     <Item id="48011" name="Preferencis..."/>
-
-
-
-
-
-
-
-
+                    <Item id="48014" name="Open Plugins Folder..."/>
+                    <Item id="48015" name="Plugins Admin..."/>
+                    <Item id="48501" name="Generate..."/>
+                    <Item id="48502" name="Generate from files..."/>
+                    <Item id="48503" name="Generate from selection into clipboard"/>
+                    <Item id="48504" name="Generate..."/>
+                    <Item id="48505" name="Generate from files..."/>
+                    <Item id="48506" name="Generate from selection into clipboard"/>
                     <Item id="49000" name="&amp;Invie..."/>
 
                     <Item id="50000" name="Completament funzions"/>
                     <Item id="50001" name="Completament peraulis"/>
                     <Item id="50002" name="Sugjeriment parametris funzions"/>
-
-
-
-
+                    <Item id="50010" name="Function Parameters Previous Hint"/>
+                    <Item id="50011" name="Function Parameters Next Hint"/>
+                    <Item id="50005" name="Toggle macro record"/>
+                    <Item id="50006" name="Path Completion"/>
                     <Item id="44042" name="Plate riis"/>
                     <Item id="42040" name="Vierç ducj i ultins files"/>
                     <Item id="42041" name="Nete la liste dai ultins files"/>
                     <Item id="48016" name="Modifiche scurte/Elimine macro..."/>
                     <Item id="48017" name="Modifiche scurte/Elimine comant..."/>
 
-
-
-
-
-
-
-
-
-
+                    <Item id="11001" name="&amp;Windows..."/>
+                    <Item id="11002" name="Name A to Z"/>
+                    <Item id="11003" name="Name Z to A"/>
+                    <Item id="11004" name="Path A to Z"/>
+                    <Item id="11005" name="Path Z to A"/>
+                    <Item id="11006" name="Type A to Z"/>
+                    <Item id="11007" name="Type Z to A"/>
+                    <Item id="11008" name="Size Smaller to Larger"/>
+                    <Item id="11009" name="Size Larger to Smaller"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -399,19 +404,38 @@
                     <Item CMID="13" name="Gjave l'atribût Dome in leture"/>
                     <Item CMID="14" name="Môf intune gnove istance"/>
                     <Item CMID="15" name="Vierç intune gnove istance"/>
+                    <Item CMID="16" name="Reload"/>
+                    <Item CMID="17" name="Close All to the Left"/>
+                    <Item CMID="18" name="Close All to the Right"/>
+                    <Item CMID="19" name="Open Containing Folder in Explorer"/>
+                    <Item CMID="20" name="Open Containing Folder in cmd"/>
+                    <Item CMID="21" name="Open in Default Viewer"/>
+                    <Item CMID="22" name="Close All Unchanged"/>
+                    <Item CMID="23" name="Open Containing Folder as Workspace"/>
+                    <Item CMID="24" name="Apply Color 1"/>
+                    <Item CMID="25" name="Apply Color 2"/>
+                    <Item CMID="26" name="Apply Color 3"/>
+                    <Item CMID="27" name="Apply Color 4"/>
+                    <Item CMID="28" name="Apply Color 5"/>
+                    <Item CMID="29" name="Remove Color"/>
+                    <Item CMID="30" name="Close Multiple Tabs"/>
+                    <Item CMID="31" name="Open into"/>
+                    <Item CMID="32" name="Copy to Clipboard"/>
+                    <Item CMID="33" name="Move Document"/>
+                    <Item CMID="34" name="Apply Color to Tab"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Cjate" titleReplace="Sostituìs" titleFindInFiles = "Cjate tai files">
                 <Item id="1"    name="Cjate prossim"/>
-
+                <Item id="1722" name="Backward direction"/>
                 <Item id="2"    name="Siere"/>
                 <Item id="1620" name="Ce cjatâ:"/>
                 <Item id="1603" name="C&amp;jate dome peraulis intiris"/>
                 <Item id="1604" name="Maiusc&amp;ul/Minuscul"/>
                 <Item id="1605" name="&amp;Espression regolâr"/>
-
+                <Item id="1606" name="Wra&amp;p around"/>
                 <Item id="1614" name="Conte"/>
                 <Item id="1615" name="Cjate dut"/>
                 <Item id="1616" name="Segne la rie"/>
@@ -434,17 +458,17 @@
                 <Item id="1625" name="Normâl"/>
                 <Item id="1626" name="Estindût (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Sostituìs tai files"/>
-
+                <Item id="1665" name="Replace in Projects"/>
                 <Item id="1661" name="Seguìs doc. atuâl"/>
-
-
-
+                <Item id="1662" name="Project Panel 1"/>
+                <Item id="1663" name="Project Panel 2"/>
+                <Item id="1664" name="Project Panel 3"/>
                 <Item id="1641" name="Cjate dut tal document atuâl"/>
                 <Item id="1686" name="Trasparence"/>
-
+                <Item id="1703" name="&amp;. matches newline"/>
                 <Item id="1721" name="▲"/>
-
-
+                <Item id="1723" name="▼ Find Next"/>
+                <Item id="1725" name="Copy Marked Text"/>
             </Find>
 
             <IncrementalFind title="">
@@ -483,14 +507,14 @@
             </Run>
 
             <MD5FromFilesDlg title="Generate MD5 digest from files">
-
-
+                <Item id="1922" name="Choose files to generate MD5..."/>
+                <Item id="1924" name="Copy to Clipboard"/>
                 <Item id="2"    name="Siere"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generate MD5 digest">
-
-
+                <Item id="1932" name="Treat each line as a separate string"/>
+                <Item id="1934" name="Copy to Clipboard"/>
                 <Item id="2"    name="Siere"/>
             </MD5FromTextDlg>
 
@@ -547,134 +571,133 @@
                     <Item id="2230" name="Ative stîl gruessut dal caratar globâl"/>
                     <Item id="2231" name="Ative stîl corsîf dal caratar globâl"/>
                     <Item id="2232" name="Ative stîl sotlineât dal caratar globâl"/>
-
+                    <Item id="2234" name="Go to settings"/>
                 </SubDialog>
             </StyleConfig>
 
-
             <ShortcutMapper title="Shortcut Mapper">
-
-
-
-
+                <Item id="2602" name="Modify"/>
+                <Item id="2603" name="Delete"/>
+                <Item id="2606" name="Clear"/>
+                <Item id="2607" name="Filter: "/>
                 <Item id="1" name="Siere"/>
-
-
-
+                <ColumnName name="Name"/>
+                <ColumnShortcut name="Shortcut"/>
+                <ColumnCategory name="Category"/>
                 <ColumnPlugin name="Plugin"/>
-
-
-
-
-
-
-
+                <MainMenuTab name="Main menu"/>
+                <MacrosTab name="Macros"/>
+                <RunCommandsTab name="Run commands"/>
+                <PluginCommandsTab name="Plugin commands"/>
+                <ScintillaCommandsTab name="Scintilla commands"/>
+                <ConflictInfoOk name="No shortcut conflicts for this item."/>
+                <ConflictInfoEditing name="No conflicts . . ."/>
                 <MainCommandNames>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="41019" name="Open containing folder in Explorer"/>
+                    <Item id="41020" name="Open containing folder in Command Prompt"/>
+                    <Item id="41021" name="Restore Recent Closed File"/>
+                    <Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
+                    <Item id="45002" name="EOL Conversion to Unix (LF)"/>
+                    <Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
+                    <Item id="43022" name="Style all using 1st style"/>
+                    <Item id="43024" name="Style all using 2nd style"/>
+                    <Item id="43026" name="Style all using 3rd style"/>
+                    <Item id="43028" name="Style all using 4th style"/>
+                    <Item id="43030" name="Style all using 5th style"/>
+                    <Item id="43062" name="Style one using 1st style"/>
+                    <Item id="43063" name="Style one using 2nd style"/>
+                    <Item id="43064" name="Style one using 3rd style"/>
+                    <Item id="43065" name="Style one using 4th style"/>
+                    <Item id="43066" name="Style one using 5th style"/>
+                    <Item id="43023" name="Clear 1st style"/>
+                    <Item id="43025" name="Clear 2nd style"/>
+                    <Item id="43027" name="Clear 3rd style"/>
+                    <Item id="43029" name="Clear 4th style"/>
+                    <Item id="43031" name="Clear 5th style"/>
+                    <Item id="43032" name="Clear all styles"/>
+                    <Item id="43033" name="Previous style of 1st style"/>
+                    <Item id="43034" name="Previous style of 2nd style"/>
+                    <Item id="43035" name="Previous style of 3rd style"/>
+                    <Item id="43036" name="Previous style of 4th style"/>
+                    <Item id="43037" name="Previous style of 5th style"/>
+                    <Item id="43038" name="Previous style of Find Mark style"/>
+                    <Item id="43039" name="Next style of 1st style"/>
+                    <Item id="43040" name="Next style of 2nd style"/>
+                    <Item id="43041" name="Next style of 3rd style"/>
+                    <Item id="43042" name="Next style of 4th style"/>
+                    <Item id="43043" name="Next style of 5th style"/>
+                    <Item id="43044" name="Next style of Find Mark style"/>
+                    <Item id="43055" name="Copy Styled Text of 1st Style"/>
+                    <Item id="43056" name="Copy Styled Text of 2nd Style"/>
+                    <Item id="43057" name="Copy Styled Text of 3rd Style"/>
+                    <Item id="43058" name="Copy Styled Text of 4th Style"/>
+                    <Item id="43059" name="Copy Styled Text of 5th Style"/>
+                    <Item id="43060" name="Copy Styled Text of All Styles"/>
+                    <Item id="43061" name="Copy Styled Text of Find Mark style"/>
+                    <Item id="44100" name="View current file in Firefox"/>
+                    <Item id="44101" name="View current file in Chrome"/>
+                    <Item id="44103" name="View current file in IE"/>
+                    <Item id="44102" name="View current file in Edge"/>
+                    <Item id="50003" name="Switch to previous document"/>
+                    <Item id="50004" name="Switch to next document"/>
+                    <Item id="44051" name="Fold Level 1"/>
+                    <Item id="44052" name="Fold Level 2"/>
+                    <Item id="44053" name="Fold Level 3"/>
+                    <Item id="44054" name="Fold Level 4"/>
+                    <Item id="44055" name="Fold Level 5"/>
+                    <Item id="44056" name="Fold Level 6"/>
+                    <Item id="44057" name="Fold Level 7"/>
+                    <Item id="44058" name="Fold Level 8"/>
+                    <Item id="44061" name="Unfold Level 1"/>
+                    <Item id="44062" name="Unfold Level 2"/>
+                    <Item id="44063" name="Unfold Level 3"/>
+                    <Item id="44064" name="Unfold Level 4"/>
+                    <Item id="44065" name="Unfold Level 5"/>
+                    <Item id="44066" name="Unfold Level 6"/>
+                    <Item id="44067" name="Unfold Level 7"/>
+                    <Item id="44068" name="Unfold Level 8"/>
+                    <Item id="44081" name="Toggle Project Panel 1"/>
+                    <Item id="44082" name="Toggle Project Panel 2"/>
+                    <Item id="44083" name="Toggle Project Panel 3"/>
+                    <Item id="44085" name="Toggle Folder as Workspace"/>
+                    <Item id="44080" name="Toggle Document Map"/>
+                    <Item id="44070" name="Toggle Document List"/>
+                    <Item id="44084" name="Toggle Function List"/>
+                    <Item id="50005" name="Toggle macro recording"/>
+                    <Item id="44104" name="Switch to Project Panel 1"/>
+                    <Item id="44105" name="Switch to Project Panel 2"/>
+                    <Item id="44106" name="Switch to Project Panel 3"/>
+                    <Item id="44107" name="Switch to Folder as Workspace"/>
+                    <Item id="44109" name="Switch to Document List"/>
+                    <Item id="44108" name="Switch to Function List"/>
+                    <Item id="44110" name="Remove Tab Colour"/>
+                    <Item id="44111" name="Apply Tab Colour 1"/>
+                    <Item id="44112" name="Apply Tab Colour 2"/>
+                    <Item id="44113" name="Apply Tab Colour 3"/>
+                    <Item id="44114" name="Apply Tab Colour 4"/>
+                    <Item id="44115" name="Apply Tab Colour 5"/>
+                    <Item id="11002" name="Sort By Name A to Z"/>
+                    <Item id="11003" name="Sort By Name Z to A"/>
+                    <Item id="11004" name="Sort By Path A to Z"/>
+                    <Item id="11005" name="Sort By Path Z to A"/>
+                    <Item id="11006" name="Sort By Type A to Z"/>
+                    <Item id="11007" name="Sort By Type Z to A"/>
+                    <Item id="11008" name="Sort By Size Smaller to Larger"/>
+                    <Item id="11009" name="Sort By Size Larger to Smaller"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Shortcut">
                 <Item id="1" name="Va ben"/>
                 <Item id="2" name="Scancele"/>
-
-
-
-
-
-
+                <Item id="5006" name="Name"/>
+                <Item id="5008" name="Add"/>
+                <Item id="5009" name="Remove"/>
+                <Item id="5010" name="Apply"/>
+                <Item id="5007" name="This will remove shortcut from this command"/>
+                <Item id="5012" name="CONFLICT FOUND!"/>
             </ShortcutMapperSubDialg>
             <UserDefine title = "Definît dal utent">
-
+                <Item id="20001" name="Dock"/>
                 <Item id="20002" name="Cambie non"/>
                 <Item id="20003" name="Cree gnûf..."/>
                 <Item id="20004" name="Gjave"/>
@@ -685,169 +708,164 @@
                 <Item id="20011" name="Trasparence"/>
                 <Item id="20015" name="Espuarte..."/>
                 <Item id="20016" name="Impuarte..."/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <StylerDialog title="Styler Dialog">
+                    <Item id="25030" name="Font options:"/>
+                    <Item id="25006" name="Foreground colour"/>
+                    <Item id="25007" name="Background colour"/>
+                    <Item id="25031" name="Name:"/>
+                    <Item id="25032" name="Size:"/>
+                    <Item id="25001" name="Bold"/>
+                    <Item id="25002" name="Italic"/>
+                    <Item id="25003" name="Underline"/>
+                    <Item id="25029" name="Nesting:"/>
+                    <Item id="25008" name="Delimiter 1"/>
+                    <Item id="25009" name="Delimiter 2"/>
+                    <Item id="25010" name="Delimiter 3"/>
+                    <Item id="25011" name="Delimiter 4"/>
+                    <Item id="25012" name="Delimiter 5"/>
+                    <Item id="25013" name="Delimiter 6"/>
+                    <Item id="25014" name="Delimiter 7"/>
+                    <Item id="25015" name="Delimiter 8"/>
+                    <Item id="25018" name="Keyword 1"/>
+                    <Item id="25019" name="Keyword 2"/>
+                    <Item id="25020" name="Keyword 3"/>
+                    <Item id="25021" name="Keyword 4"/>
+                    <Item id="25022" name="Keyword 5"/>
+                    <Item id="25023" name="Keyword 6"/>
+                    <Item id="25024" name="Keyword 7"/>
+                    <Item id="25025" name="Keyword 8"/>
+                    <Item id="25016" name="Comment"/>
+                    <Item id="25017" name="Comment line"/>
+                    <Item id="25026" name="Operator 1"/>
+                    <Item id="25027" name="Operator 2"/>
+                    <Item id="25028" name="Numbers"/>
+                    <Item id="25033" name="Transparent"/>
+                    <Item id="25034" name="Transparent"/>
+                    <Item id="1" name="OK"/>
+                    <Item id="2" name="Cancel"/>
+                </StylerDialog>
                 <Folder title = "Cartele &amp;&amp; predeterminât">
                     <Item id="21101" name="Impostazion stîl predeterminât"/>
-                    <Item id="21201" name="Vierzidure bloc di codiç"/>
-                    <Item id="21301" name="Sieradure bloc di codiç"/>
-
-
-
-
-
-                    <Item id="21226" name="Siere:"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="21102" name="Styler"/>
+                    <Item id="21105" name="Documentation:"/>
+                    <Item id="21104" name="Temporary doc site:"/>
+                    <Item id="21106" name="Fold &amp;compact (fold empty lines too)"/>
+                    <Item id="21220" name="Folding in code 1 style:"/>
+                    <Item id="21224" name="Open:"/>
+                    <Item id="21225" name="Middle:"/>
+                    <Item id="21226" name="Close:"/>
+                    <Item id="21227" name="Styler"/>
+                    <Item id="21320" name="Folding in code 2 style (separators needed):"/>
+                    <Item id="21324" name="Open:"/>
+                    <Item id="21325" name="Middle:"/>
+                    <Item id="21326" name="Close:"/>
+                    <Item id="21327" name="Styler"/>
+                    <Item id="21420" name="Folding in comment style:"/>
+                    <Item id="21424" name="Open:"/>
+                    <Item id="21425" name="Middle:"/>
+                    <Item id="21426" name="Close:"/>
+                    <Item id="21427" name="Styler"/>
                 </Folder>
                 <Keywords title = "Liste di peraulis clâfs">
                     <Item id="22101" name="Prin grup"/>
                     <Item id="22201" name="Secont grup"/>
                     <Item id="22301" name="Tierç grup"/>
                     <Item id="22401" name="Cuart grup"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="22451" name="5th Group"/>
+                    <Item id="22501" name="6th Group"/>
+                    <Item id="22551" name="7th Group"/>
+                    <Item id="22601" name="8th Group"/>
+                    <Item id="22121" name="Prefix mode"/>
+                    <Item id="22221" name="Prefix mode"/>
+                    <Item id="22321" name="Prefix mode"/>
+                    <Item id="22421" name="Prefix mode"/>
+                    <Item id="22471" name="Prefix mode"/>
+                    <Item id="22521" name="Prefix mode"/>
+                    <Item id="22571" name="Prefix mode"/>
+                    <Item id="22621" name="Prefix mode"/>
+                    <Item id="22122" name="Styler"/>
+                    <Item id="22222" name="Styler"/>
+                    <Item id="22322" name="Styler"/>
+                    <Item id="22422" name="Styler"/>
+                    <Item id="22472" name="Styler"/>
+                    <Item id="22522" name="Styler"/>
+                    <Item id="22572" name="Styler"/>
+                    <Item id="22622" name="Styler"/>
                 </Keywords>
                 <Comment title = "Coment &amp;&amp; Numar">
-
-
-
-
-
-
-
-
-
+                    <Item id="23003" name="Line comment position"/>
+                    <Item id="23004" name="Allow anywhere"/>
+                    <Item id="23005" name="Force at beginning of line"/>
+                    <Item id="23006" name="Allow preceding whitespace"/>
+                    <Item id="23001" name="Allow folding of comments"/>
+                    <Item id="23326" name="Styler"/>
+                    <Item id="23323" name="Open"/>
+                    <Item id="23324" name="Continue character"/>
+                    <Item id="23325" name="Close"/>
                     <Item id="23301" name="Rie di coment"/>
-
-
+                    <Item id="23124" name="Styler"/>
+                    <Item id="23122" name="Open"/>
                     <Item id="23123" name="Siere"/>
                     <Item id="23101" name="Bloc di coment"/>
                     <Item id="23201" name="Numar"/>
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="23220" name="Styler"/>
+                    <Item id="23230" name="Prefix 1"/>
+                    <Item id="23232" name="Prefix 2"/>
+                    <Item id="23234" name="Extras 1"/>
+                    <Item id="23236" name="Extras 2"/>
+                    <Item id="23238" name="Suffix 1"/>
+                    <Item id="23240" name="Suffix 2"/>
+                    <Item id="23242" name="Range:"/>
+                    <Item id="23244" name="Decimal separator"/>
+                    <Item id="23245" name="Dot"/>
+                    <Item id="23246" name="Comma"/>
+                    <Item id="23247" name="Both"/>
                 </Comment>
                 <Operator title = "Operatôr">
                     <Item id="24101" name="Operatôrs ativâts"/>
-
-
-
+                    <Item id="24113" name="Styler"/>
+                    <Item id="24116" name="Operators 1"/>
+                    <Item id="24117" name="Operators 2 (separators required)"/>
                     <Item id="24201" name="Delimitatôr 1"/>
-
-
-
-
+                    <Item id="24220" name="Open:"/>
+                    <Item id="24221" name="Escape:"/>
+                    <Item id="24222" name="Siere:"/>
+                    <Item id="24223" name="Styler"/>
                     <Item id="24301" name="Delimitatôr 2"/>
-
-
-
-
+                    <Item id="24320" name="Open:"/>
+                    <Item id="24321" name="Escape:"/>
+                    <Item id="24322" name="Siere:"/>
+                    <Item id="24323" name="Styler"/>
                     <Item id="24401" name="Delimitatôr 3"/>
-
-
+                    <Item id="24420" name="Open:"/>
+                    <Item id="24421" name="Escape:"/>
                     <Item id="24422" name="Siere:"/>
-
+                    <Item id="24423" name="Styler"/>
                     <Item id="24451" name="Delimitatôr 4"/>
-
-
+                    <Item id="24470" name="Open:"/>
+                    <Item id="24471" name="Escape:"/>
                     <Item id="24472" name="Siere:"/>
-
+                    <Item id="24473" name="Styler"/>
                     <Item id="24501" name="Delimitatôr 5"/>
-
-
+                    <Item id="24520" name="Open:"/>
+                    <Item id="24521" name="Escape:"/>
                     <Item id="24522" name="Siere:"/>
-
+                    <Item id="24523" name="Styler"/>
                     <Item id="24551" name="Delimitatôr 6"/>
-
-
+                    <Item id="24570" name="Open:"/>
+                    <Item id="24571" name="Escape:"/>
                     <Item id="24572" name="Siere:"/>
-
+                    <Item id="24573" name="Styler"/>
                     <Item id="24601" name="Delimitatôr 7"/>
-
-
+                    <Item id="24620" name="Open:"/>
+                    <Item id="24621" name="Escape:"/>
                     <Item id="24622" name="Siere:"/>
-
-
-
-
+                    <Item id="24623" name="Styler"/>
+                    <Item id="24651" name="Delimiter 8 style"/>
+                    <Item id="24670" name="Open:"/>
+                    <Item id="24671" name="Escape:"/>
                     <Item id="24672" name="Siere:"/>
-
+                    <Item id="24673" name="Styler"/>
                 </Operator>
             </UserDefine>
             <Preference title = "Preferencis">
@@ -875,12 +893,12 @@
                     <Item id="6120" name="Verticâl"/>
                     <Item id="6121" name="Sbare dai menù"/>
 
-
+                    <Item id="6131" name="Menu"/>
                     <Item id="6122" name = "Plate (dopre Alt o F10 par mostrâle)"/>
-
+                    <Item id="6132" name="Hide right shortcuts ＋ ▼ ✕ from the menu bar (Need to restart Notepad++)"/>
                     <Item id="6123" name="Traduzion"/>
 
-
+                    <Item id="6128" name="Alternate icons"/>
                 </Global>
                 <Scintillas title="Modifiche components">
                     <Item id="6216" name="Impostazions cursôr"/>
@@ -888,52 +906,52 @@
                     <Item id="6219" name="Velocitât lampade:"/>
                     <Item id="6221" name="V"/>
                     <Item id="6222" name="P"/>
-
+                    <Item id="6246" name="Make current level folding/unfolding commands toggleable"/>
                     <Item id="6225" name="Ative (Ctrl+Clic dal mouse/selezion)"/>
                     <Item id="6227" name="Cemût comedâ lis riis lungjis"/>
                     <Item id="6228" name="Predeterminât"/>
                     <Item id="6229" name="Alineât"/>
                     <Item id="6230" name="Indentât"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="6234" name="Disable advanced scrolling feature due to touchpad issue"/>
+                    <Item id="6215" name="Enable smooth font"/>
+                    <Item id="6236" name="Enable scrolling beyond last line"/>
+                    <Item id="6239" name="Keep selection when right-click outside of selection"/>
+                    <Item id="6245" name="Enable virtual space"/>
+                    <Item id="6651" name="Current Line Indicator"/>
+                    <Item id="6652" name="None"/>
+                    <Item id="6653" name="Highlight Background"/>
+                    <Item id="6654" name="Frame"/>
+                    <Item id="6655" name="Width"/>
+                    <Item id="6247" name="EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="Default"/>
+                    <Item id="6249" name="Plain Text"/>
+                    <Item id="6250" name="Custom Color"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="7101" name="Enable dark mode"/>
+                    <Item id="7102" name="Black"/>
+                    <Item id="7103" name="Red"/>
+                    <Item id="7104" name="Green"/>
+                    <Item id="7105" name="Blue"/>
+                    <Item id="7107" name="Purple"/>
+                    <Item id="7108" name="Cyan"/>
+                    <Item id="7109" name="Olive"/>
+                    <Item id="7115" name="Customized"/>
+                    <Item id="7116" name="Top"/>
+                    <Item id="7117" name="Menu hot track"/>
+                    <Item id="7118" name="Active"/>
+                    <Item id="7119" name="Main"/>
+                    <Item id="7120" name="Error"/>
+                    <Item id="7121" name="Text"/>
+                    <Item id="7122" name="Darker text"/>
+                    <Item id="7123" name="Disabled text"/>
+                    <Item id="7124" name="Edge"/>
+                    <Item id="7125" name="Link"/>
+                    <Item id="7126" name="Edge highlight"/>
+                    <Item id="7127" name="Edge disabled"/>
+                    <Item id="7130" name="Reset"/>
+                    <Item id="7135" name="Tones"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Margins/Border/Edge">
@@ -943,22 +961,22 @@
                     <Item id="6204" name = "Arbul + cercli"/>
                     <Item id="6205" name = "Arbul + cuadrât"/>
                     <Item id="6226" name="Nissun"/>
-
+                    <Item id="6291" name="Line Number"/>
                     <Item id="6206" name = "Mostre numars di rie sul margjin"/>
-
-
+                    <Item id="6292" name="Dynamic width"/>
+                    <Item id="6293" name="Constant width"/>
                     <Item id="6207" name = "Mostre segnelibris sul margjin"/>
-
+                    <Item id="6223" name="Display Change History"/>
                     <Item id="6211" name = "Impostazion ôr verticâl"/>
                     <Item id="6213" name = "Modalitât sfont"/>
-
-
-
-
-                    <Item id = "6208" name = "Mostre ôr verticâl"/>
-                    <Item id = "6209" name = "Numar di colonis:"/>
-
-                    <Item id = "6212" name = "Modalitât linee"/>
+                    <Item id="6237" name="Add your column marker by indicating its position with a decimal number.
+You can define several column markers by using white space to separate the different numbers."/>
+                    <Item id="6231" name="Border Width"/>
+                    <Item id="6235" name="No edge"/>
+                    <Item id="6208" name = "Mostre ôr verticâl"/>
+                    <Item id="6209" name = "Numar di colonis:"/>
+                    <Item id="6210" name="Right"/>
+                    <Item id="6212" name = "Modalitât linee"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title = "Gnûf document/Cartele predeterminade">
@@ -981,11 +999,11 @@
                     <Item id="6413" name="Cartele predeterminate (Vierç/Salve)"/>
                     <Item id="6414" name="Va daûr dal document atuâl"/>
                     <Item id="6415" name="Visiti la ultime cartele doprade"/>
-
+                    <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
                 </DefaultDir>
 
                 <FileAssoc title = "Associazions files">
-
+                    <Item id="4008" name="Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature."/>
                     <Item id="4009" name="Est. supuartadis:"/>
                     <Item id="4010" name="Est. regjistradis:"/>
                 </FileAssoc>
@@ -998,24 +1016,24 @@
                     <Item id="6302" name="Sostituìs cun spazi"/>
                     <Item id="6303" name="Dimension Tab: "/>
                     <Item id="6510" name="Dopre valôr predeterminât"/>
-
+                    <Item id="6335" name="Treat backslash as escape character for SQL"/>
                 </Language>
 
                 <Highlighting title="Highlighting">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <Item id="6351" name="Style All Occurrences of Token"/>
+                    <Item id="6352" name="Match case"/>
+                    <Item id="6353" name="Match whole word only"/>
+                    <Item id="6333" name="Smart Highlighting"/>
+                    <Item id="6326" name="Enable"/>
+                    <Item id="6354" name="Matching"/>
+                    <Item id="6332" name="Match case"/>
+                    <Item id="6338" name="Match whole word only"/>
+                    <Item id="6339" name="Use Find dialog settings"/>
+                    <Item id="6340" name="Highlight another view"/>
+                    <Item id="6329" name="Highlight Matching Tags"/>
+                    <Item id="6327" name="Enable"/>
+                    <Item id="6328" name="Highlight tag attributes"/>
+                    <Item id="6330" name="Highlight comment/php/asp zone"/>
                 </Highlighting>
 
                 <Print title = "Stampe">
@@ -1043,49 +1061,49 @@
                     <Item id="6721" name="Toc tal mieç"/>
                     <Item id="6722" name="Toc a diestre"/>
                     <Item id="6723" name="Zonte"/>
-
-
-
-
-
-
-
-
-
+                    <ComboBox id="6724">
+                        <Element name="Full file name path"/>
+                        <Element name="File name"/>
+                        <Element name="File directory"/>
+                        <Element name="Page"/>
+                        <Element name="Short date format"/>
+                        <Element name="Long date format"/>
+                        <Element name="Time"/>
+                    </ComboBox>
                     <Item id="6725" name="Variabil:"/>
-
+                    <Item id="6727" name="Here display your variable settings"/>
                     <Item id="6728" name="Intestazion e Fin"/>
                 </Print>
 
                 <Searching title="Searching">
-
-
-
-
-
-
-
-
+                    <Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+                    <Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
+                    <Item id="6904" name="Confirm Replace All in All Opened Documents"/>
+                    <Item id="6905" name="Replace: Don't move to the following occurrence"/>
+                    <Item id="6906" name="Search Result window: show only one entry per found line"/>
+                    <Item id="6907" name="When Find Dialog is Invoked"/>
+                    <Item id="6908" name="Fill Find Field with Selected Text"/>
+                    <Item id="6909" name="Select Word Under Caret when Nothing Selected"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recent Files History">
-
-
-
-
-
-
-
-
+                    <Item id="6304" name="Recent Files History"/>
+                    <Item id="6306" name="Max. number of entries :"/>
+                    <Item id="6305" name="Don't check at launch time"/>
+                    <Item id="6429" name="Display"/>
+                    <Item id="6424" name="In Submenu"/>
+                    <Item id="6425" name="Only File Name"/>
+                    <Item id="6426" name="Full File Name Path"/>
+                    <Item id="6427" name="Customize Maximum Length:"/>
                 </RecentFilesHistory>
 
                 <Backup title = "Backup">
-
-
-
-
-
-
+                    <Item id="6817" name="Session snapshot and periodic backup"/>
+                    <Item id="6818" name="Enable session snapshot and periodic backup"/>
+                    <Item id="6819" name="Backup in every"/>
+                    <Item id="6821" name="seconds"/>
+                    <Item id="6822" name="Backup path:"/>
+                    <Item id="6309" name="Remember current session for next launch"/>
                     <Item id="6801" name="Backup"/>
                     <Item id="6315" name="Nissun"/>
                     <Item id="6316" name="Backup sempliç"/>
@@ -1095,99 +1113,109 @@
                 </Backup>
 
                 <AutoCompletion title="Auto completament">
-
-                   <Item id="6807" name="Auto completament"/>
+                    <Item id="6115" name="Auto-indent"/>
+                    <Item id="6807" name="Auto completament"/>
                     <Item id="6808" name="Ative auto completament par ogni input"/>
                     <Item id="6809" name="Completament funzions"/>
                     <Item id="6810" name="Completament peraulis"/>
-
-
-
-
-
+                    <Item id="6816" name="Function and word completion"/>
+                    <Item id="6869" name="Insert Selection"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6824" name="Ignore numbers"/>
                     <Item id="6811" name="Dal"/>
                     <Item id="6813" name="° caratar"/>
                     <Item id="6814" name="Valôrs valits: 1 - 9"/>
                     <Item id="6815" name="Sugjeriment parametris funzions in input"/>
-
-
-
-
-
-
-
+                    <Item id="6851" name="Auto-Insert"/>
+                    <Item id="6857" name=" html/xml close tag"/>
+                    <Item id="6858" name="Open"/>
+                    <Item id="6859" name="Close"/>
+                    <Item id="6860" name="Matched pair 1:"/>
+                    <Item id="6863" name="Matched pair 2:"/>
+                    <Item id="6866" name="Matched pair 3:"/>
                 </AutoCompletion>
 
                 <MultiInstance title="Multi-Instance &amp; Date">
-
-
-
-
-
-
-
-
+                    <Item id="6151" name="Multi-instance settings"/>
+                    <Item id="6152" name="Open session in a new instance (and save session automatically on exit)"/>
+                    <Item id="6153" name="Always in multi-instance mode"/>
+                    <Item id="6154" name="Default (mono-instance)"/>
+                    <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+                    <Item id="6171" name="Customize insert Date Time"/>
+                    <Item id="6175" name="Reverse default date time order (short &amp;&amp; long formats)"/>
+                    <Item id="6172" name="Custom format:"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimiter">
-
-
-
-
-
-
-
-
+                    <Item id="6251" name="Delimiter selection settings (Ctrl + Mouse double click)"/>
+                    <Item id="6252" name="Open"/>
+                    <Item id="6255" name="Close"/>
+                    <Item id="6256" name="Allow on several lines"/>
+                    <Item id="6161" name="Word character list"/>
+                    <Item id="6162" name="Use default Word character list as it is"/>
+                    <Item id="6163" name="Add your character as part of word
+(don't choose it unless you know what you're doing)"/>
                 </Delimiter>
 
+                <Performance title="Performance">
+                    <Item id="7141" name="Large File Restriction"/>
+                    <Item id="7142" name="While opening a large file, some features are turned off for optimizing the performance. You can customize them here."/>
+                    <Item id="7143" name="Enable Large File Restriction"/>
+                    <Item id="7144" name="Define Large File Size:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Allow Brace Match"/>
+                    <Item id="7148" name="Allow Auto-Completion"/>
+                    <Item id="7149" name="Allow Smart Highlighting"/>
+                    <Item id="7150" name="Allow Word Wrap"/>
+                </Performance>
+
                 <Cloud title="Cloud &amp; Link">
-
-
-
-
-
-
-
-
+                    <Item id="6262" name="Settings on cloud"/>
+                    <Item id="6263" name="No Cloud"/>
+                    <Item id="6267" name="Set your cloud location path here:"/>
+                    <Item id="6318" name="Clickable Link Settings"/>
+                    <Item id="6319" name="Enable"/>
+                    <Item id="6320" name="No underline"/>
+                    <Item id="6350" name="Enable fullbox mode"/>
+                    <Item id="6264" name="URI customized schemes:"/>
                 </Cloud>
 
                 <SearchEngine title="Search Engine">
-
+                    <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
                     <Item id="6275" name="Yahoo!"/>
-
+                    <Item id="6276" name="Set your search engine here:"/>
                     <!-- Don't change anything after Example: -->
                     <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
+
                 <MISC title = "Variis">
-                    <Item id="6304" name="Impostazions file cronologjie"/>
-                    <Item id="6305" name="No stâ controlâ al inviament"/>
-                    <Item id="6306" name="Numar massim files te cronologjie:"/>
-                    <Item id="6307" name="Ative"/>
+                    <ComboBox id="6347">
+                        <Element name="Enable"/>
+                        <Element name="Enable for all opened files"/>
+                        <Element name="Disable"/>
+                    </ComboBox>
                     <Item id="6308" name="Minimize te tray di sisteme"/>
-                    <Item id="6309" name="Visiti la session atuâl al prossim inviament"/>
                     <Item id="6312" name="Rilevament automatic stât file"/>
                     <Item id="6313" name="Inzorne cidin"/>
-                    <Item id="6318" name="Impostazions leams cjalcjabii"/>
                     <Item id="6325" name="Va ae ultime rie dopo dal inzornament"/>
-                    <Item id="6319" name="Ative"/>
-                    <Item id="6320" name="No stâ piturâ une rie sot"/>
                     <Item id="6322" name="Est. files de session:"/>
                     <Item id="6323" name="Ative auto inzornament di Notepad++"/>
                     <Item id="6324" name="Cambi di document cun Ctrl+TAB"/>
-                    <Item id="6326" name="Ative evidenziazion inteligjente"/>
-                    <Item id="6329" name="Evidenzie i tags che a corispuindin"/>
-                    <Item id="6327" name="Ative"/>
-                    <Item id="6328" name="Evidenzie i atribûts dai tags"/>
-                    <Item id="6330" name="Evidenzie la zone Coment/Php/Asp"/>
-
                     <Item id="6331" name="Mostre dome il non dal file te sbare dal titul"/>
+                    <Item id="6334" name="Autodetect character encoding"/>
+                    <Item id="6349" name="Use DirectWrite (May improve rendering special characters, need to restart Notepad++)"/>
+                    <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Ative"/>
-                    <Item id="6115" name="Rientri automatic"/>
                     <Item id="6117" name="Ative compuartament MRU"/>
-
+                    <Item id="6344" name="Document Peeker"/>
+                    <Item id="6345" name="Peek on tab"/>
+                    <Item id="6346" name="Peek on document map"/>
+                    <Item id="6360" name="Mute all sounds"/>
+                    <Item id="6361" name="Enable Save All confirm dialog"/>
                 </MISC>
             </Preference>
             <MultiMacro title = "Riprodûs une macro plui voltis">
@@ -1221,360 +1249,366 @@
                 <Item id="2" name="Scancele"/>
             </ColumnEditor>
             <FindInFinder title="Find in search results">
+                <Item id="1"    name="Find All"/>
+                <Item id="2"    name="Close"/>
+                <Item id="1711" name="&amp;Find what :"/>
+                <Item id="1713" name="Search only in found lines"/>
+                <Item id="1714" name="Match &amp;whole word only"/>
+                <Item id="1715" name="Match &amp;case"/>
+                <Item id="1716" name="Search Mode"/>
+                <Item id="1717" name="&amp;Normal"/>
+                <Item id="1719" name="Re&amp;gular expression"/>
+                <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. matches newline"/>
             </FindInFinder>
-            <DoSaveOrNot title="Salve">
-
-
-
-
-
-
+            <DoSaveOrNot title="Save">
+                <Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
+                <Item id="6" name="&amp;Yes"/>
+                <Item id="7" name="&amp;No"/>
+                <Item id="2" name="&amp;Cancel"/>
+                <Item id="4" name="Yes to &amp;all"/>
+                <Item id="5" name="N&amp;o to all"/>
             </DoSaveOrNot>
+            <DoSaveAll title="Save All Confirmation">
+                <Item id="1766" name="Are you sure you want to save all modified documents?
 
-
-
-
-
-
-
-
-
-
-
+Choose &quot;Always Yes&quot; if you don't want to see this dialog again.
+You can re-activate this dialog in Preferences later."/>
+                <Item id="6" name="&amp;Yes"/>
+                <Item id="7" name="&amp;No"/>
+                <Item id="4" name="Always Yes"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
+You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
+All the saved modifications can not be undone.
+
+Continue?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
+All the saved modifications can not be undone.
+
+Continue?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+            <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+            <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/> <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+            <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="The specified name is already in use on another tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+            <DeleteFileFailed title="Delete File" message="Delete File failed"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
+Are you sure you want to open them?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
+or on a folder needed privilege right for writing access.
+Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+            <DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
+you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+            <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
+            <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
+Keep this file in editor?"/>
+            <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
+will be moved to your Recycle Bin and this document will be closed.
+Continue?"/>
+            <NoBackupDoSaveFile title="Save" message="Your backup file cannot be found (deleted from outside).
+Save it otherwise your data will be lost
+Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
+            <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
+
+This file has been modified by another program.
+Do you want to reload it?"/>
+            <DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
+
+This file has been modified by another program.
+Do you want to reload it and lose the changes made in Notepad++?"/>
+            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+            <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
+Do you want to go to Notepad++ page to download the latest version?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+            <GUpProxyConfNeedAdminMode title="Proxy Settings" message="Please relaunch Notepad++ in Admin mode to configure proxy."/>
+            <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
+            <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
+            <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Exception code: $STR_REPLACE$" message="An error occurred while loading the file!"/>
+            <WantToOpenHugeFile title="Opening huge file warning" message="Opening a huge file of 2GB+ could take several minutes.
+Do you want to open it?"/>
+            <CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?"/>
+            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
+            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
+
+Do you want to save the current file anyways?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
+            <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
+Do you want to recover your langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+            <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
+Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
+
+            <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
+            <ProjectPanelSaveError title="$STR_REPLACE$" message="An error occurred while writing your workspace file.
+Your workspace has not been saved."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
+            <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.
+It seems the file to open is not a valid project file."/>
+            <ProjectPanelRemoveFolderFromProject title="Remove folder from project" message="All the sub-items will be removed.
+Are you sure you want to remove this folder from the project?"/>
+            <ProjectPanelRemoveFileFromProject title="Remove file from project" message="Are you sure you want to remove this file from the project?"/>
+            <ProjectPanelReloadError title="Reload Workspace" message="Cannot find the file to reload."/>
+            <ProjectPanelReloadDirty title="Reload Workspace" message="The current workspace was modified. Reloading will discard all modifications.
+Do you want to continue?"/>
+            <UDLNewNameError title="UDL Error" message="This name is used by another language,
+please give another one."/>
+            <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
+            <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
+            <FindCharRangeValueError title="Range Value problem" message="You should type between 0 and 255."/>
+            <OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.
+Do you want to launch Notepad++ in Administrator mode?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
+Do you want to launch Notepad++ in Administrator mode?"/>
+            <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+            <ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
+            <ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
+Notepad++ will be restarted after all the operations are terminated.
+Continue?"/>
+            <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+        </MessageBox>
+        <ClipboardHistory>
+            <PanelTitle name="Clipboard History"/>
+        </ClipboardHistory>
+        <DocList>
+            <PanelTitle name="Document List"/>
+            <ColumnName name="Name"/>
+            <ColumnExt name="Ext."/>
+            <ColumnPath name="Path"/>
+        </DocList>
+        <WindowsDlg>
+            <ColumnName name="Name"/>
+            <ColumnPath name="Path"/>
+            <ColumnType name="Type"/>
+            <ColumnSize name="Size"/>
+            <NbDocsTotal name="total documents:"/>
+            <MenuCopyName name="Copy Name(s)"/>
+            <MenuCopyPath name="Copy Pathname(s)"/>
+        </WindowsDlg>
+        <AsciiInsertion>
+            <PanelTitle name="ASCII Codes Insertion Panel"/>
+            <ColumnVal name="Value"/>
+            <ColumnHex name="Hex"/>
+            <ColumnChar name="Character"/>
+            <ColumnHtmlNumber name="HTML Number"/>
+            <ColumnHtmlName name="HTML Code"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="Document Map"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="Function List"/>
+            <SortTip name="Sort"/>
+            <ReloadTip name="Reload"/>
+            <PreferencesTip name="Preferences"/>
+            <PreferencesInitialSort name="Sort functions (A to Z) by default"/>
+        </FunctionList>
+        <FolderAsWorkspace>
+            <PanelTitle name="Folder as Workspace"/>
+            <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
+            <ExpandAllFoldersTip name="Unfold all"/>
+            <CollapseAllFoldersTip name="Fold all"/>
+            <LocateCurrentFileTip name="Locate current file"/>
+            <Menus>
+                <Item id="3511" name="Remove"/>
+                <Item id="3512" name="Remove All"/>
+                <Item id="3513" name="Add"/>
+                <Item id="3514" name="Run by system"/>
+                <Item id="3515" name="Open"/>
+                <Item id="3516" name="Copy path"/>
+                <Item id="3517" name="Find in Files..."/>
+                <Item id="3518" name="Explorer here"/>
+                <Item id="3519" name="CMD here"/>
+                <Item id="3520" name="Copy file name"/>
+            </Menus>
+        </FolderAsWorkspace>
+        <ProjectManager>
+            <PanelTitle name="Project"/>
+            <WorkspaceRootName name="Workspace"/>
+            <NewProjectName name="Project Name"/>
+            <NewFolderName name="Folder Name"/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="Workspace"/>
+                    <Item id="1" name="Edit"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="New Workspace"/>
+                    <Item id="3123" name="Open Workspace"/>
+                    <Item id="3124" name="Reload Workspace"/>
+                    <Item id="3125" name="Save"/>
+                    <Item id="3126" name="Save As..."/>
+                    <Item id="3127" name="Save a Copy As..."/>
+                    <Item id="3121" name="Add New Project"/>
+                    <Item id="3128" name="Find in Projects..."/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="Rename"/>
+                    <Item id="3112" name="Add Folder"/>
+                    <Item id="3113" name="Add Files..."/>
+                    <Item id="3117" name="Add Files from Directory..."/>
+                    <Item id="3114" name="Remove"/>
+                    <Item id="3118" name="Move Up"/>
+                    <Item id="3119" name="Move Down"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="Rename"/>
+                    <Item id="3112" name="Add Folder"/>
+                    <Item id="3113" name="Add Files..."/>
+                    <Item id="3117" name="Add Files from Directory..."/>
+                    <Item id="3114" name="Remove"/>
+                    <Item id="3118" name="Move Up"/>
+                    <Item id="3119" name="Move Down"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="Rename"/>
+                    <Item id="3115" name="Remove"/>
+                    <Item id="3116" name="Modify File Path"/>
+                    <Item id="3118" name="Move Up"/>
+                    <Item id="3119" name="Move Down"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
+        <MiscStrings>
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="Go to Style Configurator to change the default EOL custom color (&quot;EOL custom color&quot;).."/>
+
+            <word-chars-list-warning-begin value="Be aware: "/>
+            <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
+            <word-chars-list-warning-end value="  in your character list."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Select a folder as backup directory"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+            <cloud-invalid-warning value="Invalid path."/>
+            <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+            <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Select a folder as default directory"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+            <shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
+            <two-find-buttons-tip value="2 find buttons mode"/>
+            <file-rename-title value="Rename"/>
+            <find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Find in all files except exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+
+Find in all files but exclude folders tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+Find in all files but exclude all folders log or logs recursively:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Select a folder to search from"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
+            <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
+            <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
+            <find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
+            <find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
+            <find-status-replaceinfiles-re-malformed value="Replace in Opened Files: The regular expression is malformed"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
+            <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
+            <find-status-invalid-re value="Find: Invalid regular expression"/>
+            <find-status-search-failed value="Find: Search failed"/>
+            <find-status-mark-1-match value="Mark: 1 match"/>
+            <find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
+            <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
+            <find-status-count-1-match value="Count: 1 match"/>
+            <find-status-count-nb-matches value="Count: $INT_REPLACE$ matches"/>
+            <find-status-replaceall-re-malformed value="Replace All: The regular expression is malformed"/>
+            <find-status-replaceall-1-replaced value="Replace All: 1 occurrence was replaced"/>
+            <find-status-replaceall-nb-replaced value="Replace All: $INT_REPLACE$ occurrences were replaced"/>
+            <find-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>
+            <find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
+            <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
+            <find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
+            <find-status-replaced-without-continuing value="Replace: 1 occurrence was replaced."/>
+            <find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
+            <find-status-replace-not-found value="Replace: no occurrence was found"/>
+            <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
+            <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
+            <find-status-scope-selection value="in selected text"/>
+            <find-status-scope-all value="in entire file"/>
+            <find-status-scope-backward value="from start-of-file to caret"/>
+            <find-status-scope-forward value="from caret to end-of-file"/>
+            <finder-find-in-finder value="Find in these search results..."/>
+            <finder-close-this value="Close these search results"/>
+            <finder-collapse-all value="Fold all"/>
+            <finder-uncollapse-all value="Unfold all"/>
+            <finder-copy value="Copy Selected Line(s)"/>
+            <finder-copy-verbatim value="Copy"/>
+            <finder-copy-paths value="Copy Pathname(s)"/>
+            <finder-select-all value="Select all"/>
+            <finder-clear-all value="Clear all"/>
+            <finder-open-all value="Open all"/>
+            <finder-purge-for-every-search value="Purge for every search"/>
+            <finder-wrap-long-lines value="Word wrap long lines"/>
             <common-ok value="Va ben"/>
             <common-cancel value="Scancele"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <common-name value="Name: "/>
+            <tabrename-title value="Rename Current Tab"/>
+            <tabrename-newname value="New Name: "/>
+            <splitter-rotate-left value="Rotate to left"/>
+            <splitter-rotate-right value="Rotate to right"/>
+            <recent-file-history-maxfile value="Max File: "/>
+            <language-tabsize value="Tab Size: "/>
+            <userdefined-title-new value="Create New Language..."/>
+            <userdefined-title-save value="Save Current Language Name As..."/>
+            <userdefined-title-rename value="Rename Current Language Name"/>
+            <autocomplete-nb-char value="Nb char: "/>
+            <edit-verticaledge-nb-col value="Nb of Column:"/>
+            <summary value="Summary"/>
+            <summary-filepath value="Full file path: "/>
+            <summary-filecreatetime value="Created: "/>
+            <summary-filemodifytime value="Modified: "/>
+            <summary-nbchar value="Characters (without line endings): "/>
+            <summary-nbword value="Words: "/>
+            <summary-nbline value="Lines: "/>
+            <summary-nbbyte value="Document length: "/>
+            <summary-nbsel1 value=" selected characters ("/>
+            <summary-nbsel2 value=" bytes) in "/>
+            <summary-nbrange value=" ranges"/>
+            <find-in-files-progress-title value="Find In Files progress..."/>
+            <replace-in-files-confirm-title value="Are you sure?"/>
+            <replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
+            <replace-in-files-confirm-filetype value="For file type :"/>
+            <replace-in-files-progress-title value="Replace In Files progress..."/>
+            <replace-in-projects-confirm-title value="Are you sure?"/>
+            <replace-in-projects-confirm-message value="Do you want to replace all occurrences in all documents in the selected Project Panel(s)?"/>
+            <replace-in-open-docs-confirm-title value="Are you sure?"/>
+            <replace-in-open-docs-confirm-message value="Are you sure you want to replace all occurrences in all open documents?"/>
+            <find-result-caption value="Search results"/>
+            <find-result-title value="Search"/> <!-- Must not begin with space or tab character -->
+            <find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
+            <find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
+            <find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
+            <find-result-hits value="($INT_REPLACE$ hits)"/>
+            <find-result-line-prefix value="Line"/> <!-- Must not begin with space or tab character -->
+            <find-regex-zero-length-match value="zero length match" />
+            <session-save-folder-as-workspace value="Save Folder as Workspace" />
+            <tab-untitled-string value="new " />
+            <file-save-assign-type value="&amp;Append extension" />
+            <close-panel-tip value="Close" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ matches" />
+            <IncrementalFind-FSNotFound value="Phrase not found" />
+            <IncrementalFind-FSTopReached value="Reached top of page, continued from bottom" />
+            <IncrementalFind-FSEndReached value="Reached end of page, continued from top" />
+            <contextMenu-styleAlloccurrencesOfToken value="Style all occurrences of token" />
+            <contextMenu-styleOneToken value="Style one token" />
+            <contextMenu-clearStyle value="Clear style" />
+            <contextMenu-PluginCommands value="Plugin commands" />
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
+

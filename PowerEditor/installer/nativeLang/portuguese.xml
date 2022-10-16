@@ -1156,6 +1156,18 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 (não o escolha a menos que saiba o que está a fazer)"/>
                 </Delimiter>
 
+                <Performance title="Desempenho">
+                    <Item id="7141" name="Restrição de ficheiros grandes"/>
+                    <Item id="7142" name="Ao abrir um ficheiro grande, algumas funcionalidades são desligadas para optimizar o desempenho. Pode personalizá-las aqui."/>
+                    <Item id="7143" name="Ativar restrição de ficheiros grandes"/>
+                    <Item id="7144" name="Definir tamanho de ficheiro grande:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Permitir a coloração simétrica do delimitador"/>
+                    <Item id="7148" name="Permitir conclusão automática"/>
+                    <Item id="7149" name="Permitir destaque inteligente"/>
+                    <Item id="7150" name="Permitir quebra de linha"/>
+                </Performance>
+
                 <Cloud title="Nuvem e Ligação">
                     <Item id="6262" name="Definições na nuvem"/>
                     <Item id="6263" name="Sem nuvem"/>
@@ -1618,7 +1630,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-01/10/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+16/10/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

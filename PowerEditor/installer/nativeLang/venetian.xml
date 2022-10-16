@@ -1164,6 +1164,18 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
 (no seƚesionarƚo se no te se cosa te si drìo fare)"/>
                 </Delimiter>
 
+                <Performance title="Prestazioni">
+                    <Item id="7141" name="Restrision par File de grandi dimension"/>
+                    <Item id="7142" name="A vertaura de i file de grandi dimension, cualche funsionalità le vien dixabilità par migliorare le prestasion. qua te poi personalixarle."/>
+                    <Item id="7143" name="Abilita restrisioni par i file de grandi dimension"/>
+                    <Item id="7144" name="Definision de i file de grandi dimension:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Parmeti l&apos;evidensiasion de la parentesi corispondente"/>
+                    <Item id="7148" name="Parmeti l&apos;ativasion Auto-Conpletamento"/>
+                    <Item id="7149" name="Parmeti l&apos;ativasion la colorasione automatica"/>
+                    <Item id="7150" name="Parmeti l&apos;ativasion A capo automatico"/>
+                </Performance>
+
                 <Cloud title="Cloud e coƚegamenti">
                     <Item id="6262" name="Inpostasion sul Cloud"/>
                     <Item id="6263" name="Nisun servisio cloud"/>

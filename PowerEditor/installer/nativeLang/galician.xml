@@ -1039,6 +1039,20 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
                     <Item id="6163" name="Engadir os seus caracteres como parte da palabra
 (non o escolla a menos que sepa como funciona)"/>
                 </Delimiter>
+
+                <Performance title="Performance">
+                    <Item id="7141" name="Large File Restriction"/>
+                    <Item id="7142" name="While opening a large file, some features are turned off for optimizing the performance. You can customize them here."/>
+                    <Item id="7143" name="Enable Large File Restriction"/>
+                    <Item id="7144" name="Define Large File Size:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Allow Brace Match"/>
+                    <Item id="7148" name="Allow Auto-Completion"/>
+                    <Item id="7149" name="Allow Smart Highlighting"/>
+                    <Item id="7150" name="Allow Word Wrap"/>
+                </Performance>
+
+
                 <Cloud title="Nube &amp; Ligazóns">
                     <Item id="6262" name="Axustes da nube"/>
                     <Item id="6263" name="Sen nube"/>

@@ -1162,7 +1162,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="7143" name="Povoliť obmedzenie veľkých súborov"/>
                     <Item id="7144" name="Veľký súbor je:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
-                    <Item id="7147" name="Povoliť párované zátvorky"/>
+                    <Item id="7147" name="Povoliť párové zátvorky"/>
                     <Item id="7148" name="Povoliť automatické dokončovanie"/>
                     <Item id="7149" name="Povoliť inteligentné zvýrazňovanie"/>
                     <Item id="7150" name="Povoliť zalamovanie slov"/>

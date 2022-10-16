@@ -1134,7 +1134,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6866" name="Párové znaky 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Viacnásobné spustenie a dátum">
+                <MultiInstance title="Viac inštancií a dátum">
                     <Item id="6151" name="Nastavenie viacnásobného spustenia"/>
                     <Item id="6152" name="Otvoriť reláciu v novej inštancii (a pri ukončení ju automaticky uložiť)"/>
                     <Item id="6153" name="Režim viacerých inštancií programu"/>
@@ -1155,6 +1155,18 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6163" name="Pridať vlastný znak ako časť výrazu
 (zvoľte, iba ak viete, čo robíte)"/>
                 </Delimiter>
+                
+                <Performance title="Výkon">
+                    <Item id="7141" name="Obmedzenie veľkých súborov"/>
+                    <Item id="7142" name="Pri otváraní veľkého súboru sú niektoré funkcie vypnuté kvôli optimalizácii výkonu. Môžete si ich prispôsobiť tu."/>
+                    <Item id="7143" name="Povoliť obmedzenie veľkých súborov"/>
+                    <Item id="7144" name="Veľký súbor je:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Povoliť párované zátvorky"/>
+                    <Item id="7148" name="Povoliť automatické dokončovanie"/>
+                    <Item id="7149" name="Povoliť inteligentné zvýrazňovanie"/>
+                    <Item id="7150" name="Povoliť zalamovanie slov"/>
+                </Performance>
 
                 <Cloud title="Odkaz na cloud">
                     <Item id="6262" name="Nastavenia programu v cloude"/>

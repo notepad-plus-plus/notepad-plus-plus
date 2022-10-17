@@ -799,7 +799,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			::SendMessage(::GetDlgItem(_hSelf, IDC_WIDTH_COMBO), CB_SETCURSEL, nppGUI._caretWidth, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FOLDINGTOGGLE, BM_SETCHECK, nppGUI._enableFoldCmdToggable, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_COMMENTFOLDINGCPP, BM_SETCHECK, nppGUI._enableCommentFoldingCpp, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_SETCHECK, nppGUI._enableMultiSelection, 0);
 			
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMIN, TRUE, BLINKRATE_FASTEST);
@@ -1027,11 +1026,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_CHECK_FOLDINGTOGGLE:
 					nppGUI._enableFoldCmdToggable = isCheckedOrNot(IDC_CHECK_FOLDINGTOGGLE);
-					return TRUE;
-
-				case IDC_CHECK_COMMENTFOLDINGCPP:
-					nppGUI._enableCommentFoldingCpp = isCheckedOrNot(IDC_CHECK_COMMENTFOLDINGCPP);
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_STYLECHANGE, 0, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWDEF:
@@ -2680,6 +2674,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL, BM_SETCHECK, nppGUI._backSlashIsEscapeCharacterForSql, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_COMMENTFOLDINGCPP, BM_SETCHECK, nppGUI._enableCommentFoldingCpp, 0);
 
 			return TRUE;
 		}
@@ -2831,6 +2826,13 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL:
 				{
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
+					return TRUE;
+				}
+
+				case IDC_CHECK_COMMENTFOLDINGCPP:
+				{
+					nppGUI._enableCommentFoldingCpp = isCheckedOrNot(IDC_CHECK_COMMENTFOLDINGCPP);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_STYLECHANGE, 0, 0);
 					return TRUE;
 				}
 

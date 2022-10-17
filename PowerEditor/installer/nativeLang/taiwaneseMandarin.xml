@@ -1011,6 +1011,7 @@
                     <Item id="6353" name="僅符合整個單字"/>
                     <Item id="6333" name="智慧醒目提示"/>
                     <Item id="6326" name="啟動智慧醒目提示"/>
+                    <Item id="6354" name="匹配"/>
                     <Item id="6332" name="區分大小寫"/>
                     <Item id="6338" name="僅符合整個單字"/>
                     <Item id="6339" name="使用尋找與取代對話方塊的設定"/>
@@ -1142,7 +1143,7 @@
 				
                 <Performance title="性能">
                     <Item id="7141" name="大型檔案限制"/>
-                    <Item id="7142" name="在開啟大型文件時，為了優化性能，一些功能會被關閉。 您可以在此處自開啟它們。"/>
+                    <Item id="7142" name="在開啟大型文件時，為了優化性能，一些功能會被關閉。 你可以在此處自開啟它們。"/>
                     <Item id="7143" name="啟動大型檔案限制"/>
                     <Item id="7144" name="定義大型檔案文件長度大小："/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
@@ -1546,6 +1547,8 @@
             <contextMenu-styleOneToken value="僅樣式化選擇的字串" />
             <contextMenu-clearStyle value="清除樣式" />
             <contextMenu-PluginCommands value="外掛模組" />
+            <enable-disable-largeFileRestriction-tip value="切換「啟動大型檔案限制」 僅在關閉並重新打開大型文件後生效" />
+            <change-largeFileRestriction_fileLength-tip value="修改大型檔案長度大小值只有在關閉並重新打開大文件後生效" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

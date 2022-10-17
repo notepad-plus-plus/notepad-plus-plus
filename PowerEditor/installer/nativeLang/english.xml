@@ -1605,7 +1605,8 @@ Find in all files but exclude all folders log or logs recursively:
             <contextMenu-styleAlloccurrencesOfToken value="Style all occurrences of token" />
             <contextMenu-styleOneToken value="Style one token" />
             <contextMenu-clearStyle value="Clear style" />
-            <contextMenu-PluginCommands value="Plugin commands" />
+            <enable-disable-largeFileRestriction-tip value="Toggling &quot;Enable Large File Restriction&quot; takes effect only after closing and re-opening the large file" />
+            <change-largeFileRestriction_fileLength-tip value="Modifying file size value takes effect only after closing and re-opening the large file" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

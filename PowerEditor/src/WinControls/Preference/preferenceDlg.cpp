@@ -263,6 +263,12 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
+
+			if (_performanceSubDlg._enableLargeFileRestrictionTip)
+				NppDarkMode::setDarkTooltips(_performanceSubDlg._enableLargeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
+			if (_performanceSubDlg._changeLargeFileLengthTip)
+				NppDarkMode::setDarkTooltips(_performanceSubDlg._changeLargeFileLengthTip, NppDarkMode::ToolTipsType::tooltip);
+
 			return TRUE;
 		}
 
@@ -4931,6 +4937,11 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE), largeFileRestrictionEnabled);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP), largeFileRestrictionEnabled);
 
+			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID("enable-disable-largeFileRestriction-tip", TEXT("Toggling \"Enable Large File Restriction\" takes effect only after closing and re-opening the large file"));
+			generic_string editTip = pNativeSpeaker->getLocalizedStrFromID("change-largeFileRestriction_fileLength-tip", TEXT("Modifying file size value takes effect only after closing and re-opening the large file"));
+			_enableLargeFileRestrictionTip = CreateToolTip(IDC_CHECK_PERFORMANCE_ENABLE, _hSelf, _hInst, const_cast<PTSTR>(checkboxTip.c_str()), false);
+			_changeLargeFileLengthTip = CreateToolTip(IDC_EDIT_PERFORMANCE_FILESIZE, _hSelf, _hInst, const_cast<PTSTR>(editTip.c_str()), false);
 		}
 		break;
 

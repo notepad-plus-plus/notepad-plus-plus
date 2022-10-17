@@ -254,11 +254,21 @@ private :
 
 class PerformanceSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public :
 	PerformanceSubDlg() = default;
+	~PerformanceSubDlg() {
+		if (_enableLargeFileRestrictionTip)
+			::DestroyWindow(_enableLargeFileRestrictionTip);
+		if (_changeLargeFileLengthTip)
+			::DestroyWindow(_changeLargeFileLengthTip);
+	};
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+	HWND _enableLargeFileRestrictionTip = nullptr;
+	HWND _changeLargeFileLengthTip = nullptr;
 };
 
 class PreferenceDlg : public StaticDialog

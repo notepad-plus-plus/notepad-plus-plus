@@ -4982,7 +4982,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("TabSetting")))
 		{
 			int i;
-			const TCHAR* val = element->Attribute(TEXT("indentSize"), &i);
+			const TCHAR* val = element->Attribute(TEXT("size"), &i);
+			if (val)    // Interpret single "size" as "indentSize" (old format)
+				_nppGUI._indentSize = i;
+
+			val = element->Attribute(TEXT("indentSize"), &i);
 			if (val)
 				_nppGUI._indentSize = i;
 

@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on October 16th, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
+		- Updated on October 18th, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 21st, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
@@ -1641,6 +1641,8 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <contextMenu-styleOneToken value="Stilizà l’occurenza unica di testu" />
             <contextMenu-clearStyle value="Spurgulà certi stili" />
             <contextMenu-PluginCommands value="Cumande d’estensione" />
+            <enable-disable-largeFileRestriction-tip value="U cambiamentu di l’ozzione « Attivà a ristrizzione di i schedarii maiò » serà pigliatu in contu solu dopu a chjusura è a riapertura di u schedariu maiò" />
+            <change-largeFileRestriction_fileLength-tip value="A mudificazione di u valore di a dimensione di u schedariu serà pigliata in contu solu dopu a chjusura è a riapertura di u schedariu maiò" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

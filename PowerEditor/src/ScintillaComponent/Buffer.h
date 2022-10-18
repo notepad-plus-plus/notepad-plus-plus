@@ -70,6 +70,7 @@ public:
 	int getBufferIndexByID(BufferID id);
 	Buffer * getBufferByIndex(size_t index);
 	Buffer * getBufferByID(BufferID id) {return static_cast<Buffer*>(id);}
+	Buffer * getBufferByExternalLexer(void* pExternalLexer);
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
 
@@ -124,7 +125,7 @@ private:
 	FileManager& operator=(FileManager&&) = delete;
 
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, int64_t fileSize, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
+	std::pair<bool, void*> loadFileData(Document doc, int64_t fileSize, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
 	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 	Notepad_plus* _pNotepadPlus = nullptr;
@@ -188,6 +189,9 @@ public:
 		_isUserReadOnly = ro;
 		doNotify(BufferChangeReadonly);
 	}
+
+	void* getExternalLexer() const { return _pExternalLexer; }
+	void setExternalLexer(void* pExternalLexer) { _pExternalLexer = pExternalLexer; }
 
 	EolType getEolFormat() const { return _eolFormat; }
 
@@ -345,6 +349,7 @@ private:
 	int _encoding = -1;
 	bool _isUserReadOnly = false;
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
+	void* _pExternalLexer{nullptr}; // when this buffer is lexed by an external lexer
 	//these properties have to be duplicated because of multiple references
 
 	//All the vectors must have the same size at all times

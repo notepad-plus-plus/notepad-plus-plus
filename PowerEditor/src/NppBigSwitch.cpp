@@ -495,6 +495,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return reinterpret_cast<LRESULT>(BUFFER_INVALID);
 		}
 
+		case NPPM_GETBUFFERIDFROMLEXER:
+		{
+			return reinterpret_cast<LRESULT>(MainFileManager.getBufferByExternalLexer(reinterpret_cast<void*>(wParam)));
+		}
+
 		case NPPM_GETCURRENTBUFFERID:
 		{
 			return reinterpret_cast<LRESULT>(_pEditView->getCurrentBufferID());

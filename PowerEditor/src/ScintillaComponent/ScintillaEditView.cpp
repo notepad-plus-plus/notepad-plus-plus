@@ -900,6 +900,9 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 		return;
 	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(iLex5));
 
+	Buffer* buf = MainFileManager.getBufferByID(_currentBufferID);
+	buf->setExternalLexer(iLex5);
+
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const wchar_t* lexerNameW = wmc.char2wchar(externalLexer._name.c_str(), CP_ACP);
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerNameW);

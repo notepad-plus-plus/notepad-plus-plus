@@ -615,6 +615,18 @@ Buffer* FileManager::getBufferByIndex(size_t index)
 	return _buffers.at(index);
 }
 
+Buffer* FileManager::getBufferByExternalLexer(void* pExternalLexer)
+{
+	for (const auto& buffer : _buffers)
+	{
+		if (buffer->getExternalLexer() == pExternalLexer)
+		{
+			return buffer;
+		}
+	}
+
+	return nullptr;
+}
 
 void FileManager::beNotifiedOfBufferChange(Buffer* theBuf, int mask)
 {
@@ -715,7 +727,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	loadedFileFormat._eolFormat = EolType::unknown;
 	loadedFileFormat._language = L_TEXT;
 
-	bool res = loadFileData(doc, fileSize, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
+	auto [res, pExternalLexer] = loadFileData(doc, fileSize, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
 
 	delete[] data;
 
@@ -736,6 +748,8 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		LONG res = CompareFileTime(&fileNameTimestamp, &zeroTimeStamp);
 		if (res != 0) // res == 1 or res == -1
 			newBuf->_timeStamp = fileNameTimestamp;
+
+		newBuf->setExternalLexer(pExternalLexer);
 
 		_buffers.push_back(newBuf);
 		++_nbBufs;
@@ -789,7 +803,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	fclose(fp);
 
 	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
-	bool res = loadFileData(doc, fileSize, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
+	auto [res, pExternalLexer] = loadFileData(doc, fileSize, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
 	buf->_canNotify = true;
 
 	delete[] data;
@@ -801,6 +815,8 @@ bool FileManager::reloadBuffer(BufferID id)
 		buf->setDirty(false); // if the _isUnsync was true before the reloading, the _isDirty had been set to true somehow in the loadFileData()
 
 		buf->setSavePointDirty(false);
+
+		buf->setExternalLexer(pExternalLexer);
 
 		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
@@ -1411,11 +1427,11 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
+std::pair<bool, void*> FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
-		return false;
+		return std::make_pair(false, nullptr);
 
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	int64_t bufferSizeRequested = fileSize +min(1 << 20, fileSize / 6);
@@ -1435,7 +1451,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 				MB_OK | MB_APPLMODAL);
 
 			fclose(fp);
-			return false;
+			return std::make_pair(false, nullptr);
 		}
 		else // x64
 		{
@@ -1453,7 +1469,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 			else
 			{
 				fclose(fp);
-				return false;
+				return std::make_pair(false, nullptr);
 			}
 		}
 	}
@@ -1468,7 +1484,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 	}
 	_pscratchTilla->execute(SCI_CLEARALL);
 
-
+	void* pExternalLexer = nullptr;
 	if (fileFormat._language < L_EXTERNAL)
 	{
 		const char* lexerNameID = ScintillaEditView::_langNameInfoArray[fileFormat._language]._lexerID;
@@ -1480,7 +1496,10 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		ExternalLangContainer& externalLexer = nppParam.getELCFromIndex(id);
 		const char* lexerName = externalLexer._name.c_str();
 		if (externalLexer.fnCL)
-			_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(externalLexer.fnCL(lexerName)));
+		{
+			pExternalLexer = externalLexer.fnCL(lexerName);
+			_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(pExternalLexer));
+		}
 	}
 
 	if (fileFormat._encoding != -1)
@@ -1645,7 +1664,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
-	return success;
+	return std::make_pair(success, pExternalLexer);
 }
 
 

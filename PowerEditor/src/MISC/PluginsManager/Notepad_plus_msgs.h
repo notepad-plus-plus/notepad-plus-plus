@@ -548,6 +548,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// void* NPPM_GETBOOKMARKID(0, 0)
 	// Returns the bookmark ID
 
+	#define NPPM_GETBUFFERIDFROMLEXER (NPPMSG + 112)
+	// LRESULT NPPM_GETBUFFERIDFROMLEXER(void* pExternalLexer)
+	// wParam: Pointer to external lexer instance
+	// Returns Buffer ID if a buffer is lexed by given lexer instance, or 0 if invalid
 
 
 	// For RUNCOMMAND_USER

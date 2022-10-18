@@ -1605,7 +1605,8 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <contextMenu-styleAlloccurrencesOfToken value="Použiť štýl na všetky výskyty tokenu" />
             <contextMenu-styleOneToken value="Použiť štýl na jeden token" />
             <contextMenu-clearStyle value="Vymazať štýl" />
-            <contextMenu-PluginCommands value="Príkazy pluginu" />
+            <enable-disable-largeFileRestriction-tip value="Prepínanie &quot;Povoliť obmedzenie veľkých súborov&quot; sa prejaví až po zatvorení a opätovnom otvorení veľkého súboru" />
+            <change-largeFileRestriction_fileLength-tip value="Úprava hodnoty veľkosti súboru sa prejaví až po zatvorení a opätovnom otvorení veľkého súboru" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

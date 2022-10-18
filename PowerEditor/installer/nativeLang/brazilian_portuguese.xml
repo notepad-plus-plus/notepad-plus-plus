@@ -1617,7 +1617,8 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
             <contextMenu-styleAlloccurrencesOfToken value="Estilizar todas as ocorrências do termo" />
             <contextMenu-styleOneToken value="Estilizar um termo" />
             <contextMenu-clearStyle value="Limpar estilo" />
-            <contextMenu-PluginCommands value="Comandos de Plugin" />
+            <enable-disable-largeFileRestriction-tip value="A opção &quot;Habilitar Restrição para Arquivos Grandes&quot; somente é efetivada após o fechamento e reabertura do arquivo" />
+            <change-largeFileRestriction_fileLength-tip value="A modificação do tamanho do arquivo somente é efetivada após o fechamento e reabertura do arquivo" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

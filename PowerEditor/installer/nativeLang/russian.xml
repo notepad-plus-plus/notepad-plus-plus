@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.4.6:
-- hotfix
+Updated to v8.4.7:
+- add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.4.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.4.7">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1177,6 +1177,17 @@ Updated to v8.4.6:
 					<Item id="6162" name="Использовать символы по умолчанию"/>
 					<Item id="6163" name="Добавить свои символы, как часть слова&#x0A;(не используйте это, если вы не знаете, что делаете)"/>
 				</Delimiter>
+				<Performance title="Производительность">
+					<Item id="7141" name="Ограничение на Большой Файл"/>
+					<Item id="7142" name="При открытии большого файла некоторые функции отключаются для оптимизации. Вы можете настроить их здесь."/>
+					<Item id="7143" name="Включить ограничение для больших файлов"/>
+					<Item id="7144" name="Указать размер большого файла:"/>
+					<Item id="7146" name="МБ   (1 - 4096)"/>
+					<Item id="7147" name="Разрешить Парные скобки"/>
+					<Item id="7148" name="Разрешить Автозавершение"/>
+					<Item id="7149" name="Разрешить Подсветку слов"/>
+					<Item id="7150" name="Разрешить Перенос строк"/>
+				</Performance>
 				<Cloud title="Облако и Ссылки">
 					<Item id="6262" name="Настройки Облачного Хранения"/>
 					<Item id="6263" name="Без Облака"/>
@@ -1587,6 +1598,8 @@ Updated to v8.4.6:
 			<contextMenu-styleOneToken              value="Пометить только Одно"/>
 			<contextMenu-clearStyle                 value="Очистить Пометки"/>
 			<contextMenu-PluginCommands             value="Команды Плагина"/>
+			<enable-disable-largeFileRestriction-tip    value="Переключение &quot;Ограничение на Большой Файл&quot; вступит в силу только после закрытия и повторного открытия файла."/>
+			<change-largeFileRestriction_fileLength-tip value="Изменение размера файла вступит в силу только после закрытия и повторного открытия файла."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -264,10 +264,8 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
 
-			if (_performanceSubDlg._enableLargeFileRestrictionTip)
-				NppDarkMode::setDarkTooltips(_performanceSubDlg._enableLargeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
-			if (_performanceSubDlg._changeLargeFileLengthTip)
-				NppDarkMode::setDarkTooltips(_performanceSubDlg._changeLargeFileLengthTip, NppDarkMode::ToolTipsType::tooltip);
+			if (_performanceSubDlg._largeFileRestrictionTip)
+				NppDarkMode::setDarkTooltips(_performanceSubDlg._largeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
 
 			return TRUE;
 		}
@@ -4938,12 +4936,8 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP), largeFileRestrictionEnabled);
 
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string enablePerfTip = pNativeSpeaker->getLocalizedStrFromID("enable-disable-largeFileRestriction-tip", TEXT("Toggling \"Enable Large File Restriction\" takes effect only after closing and re-opening the large file"));
-			generic_string fileLenTip = pNativeSpeaker->getLocalizedStrFromID("change-largeFileRestriction_fileLength-tip", TEXT("Modifying file size value takes effect only after closing and re-opening the large file"));
-			generic_string wordWrapLenTip = pNativeSpeaker->getLocalizedStrFromID("largeFileRestriction_wordWrap-tip", TEXT("Enabling \"Deactivate Word Wrap globally\" option will deactivate Word Wrap for all opened documents after opening a large file. You can reactivate Word Wrap feature manually."));
-			_enableLargeFileRestrictionTip = CreateToolTip(IDC_CHECK_PERFORMANCE_ENABLE, _hSelf, _hInst, const_cast<PTSTR>(enablePerfTip.c_str()), false);
-			_changeLargeFileLengthTip = CreateToolTip(IDC_EDIT_PERFORMANCE_FILESIZE, _hSelf, _hInst, const_cast<PTSTR>(fileLenTip.c_str()), false);
-			_deactivateWordWrapTip = CreateToolTip(IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP, _hSelf, _hInst, const_cast<PTSTR>(wordWrapLenTip.c_str()), false);
+			generic_string enablePerfTip = pNativeSpeaker->getLocalizedStrFromID("enable-disable-largeFileRestriction-tip", TEXT("Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.\n\nNOTE:\n1. Modifying \"Enable Large File Restriction\" and \"Define Large File Size\" will not affect the currently opened large files. You should close and re-open them to take effect.\n\n2. If \"Deactivate Word Wrap globally\" is checked and you open a large file, \"Word Wrap\" will be disabled for all files. You can re-enable it via menu \"View->Word Wrap\"."));
+			_largeFileRestrictionTip = CreateToolTip(IDD_PERFORMANCE_TIP_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(enablePerfTip.c_str()), false);
 		}
 		break;
 

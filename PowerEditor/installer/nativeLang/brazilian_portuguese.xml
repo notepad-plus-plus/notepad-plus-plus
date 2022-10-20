@@ -1166,13 +1166,13 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                 <Performance title="Desempenho">
                     <Item id="7141" name="Restrição para Arquivos Grandes"/>
                     <Item id="7142" name="Ao abrir um arquivo grande, alguns recursos são desativados para otiimizar o desempenho. É possível configurá-los aqui."/>
-                    <Item id="7143" name="Habilitar Restrição para Arquivos Grandes"/>
+                    <Item id="7143" name="Habilitar Restrição para Arquivos Grandes (sem destaque de sintaxe)"/>
                     <Item id="7144" name="Definir Tamanho de Arquivos Grandes:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
                     <Item id="7147" name="Permitr Chaves Correspondentes"/>
                     <Item id="7148" name="Permitir Autocompletar"/>
                     <Item id="7149" name="Permitir Destaque Inteligente"/>
-                    <Item id="7150" name="Permitir quebras de linhas automáticas"/>
+                    <Item id="7150" name="Desativar quebras de linhas automáticas de forma global"/>
                 </Performance>
 		    
 		    
@@ -1619,6 +1619,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
             <contextMenu-clearStyle value="Limpar estilo" />
             <enable-disable-largeFileRestriction-tip value="A opção &quot;Habilitar Restrição para Arquivos Grandes&quot; somente é efetivada após o fechamento e reabertura do arquivo" />
             <change-largeFileRestriction_fileLength-tip value="A modificação do tamanho do arquivo somente é efetivada após o fechamento e reabertura do arquivo" />
+	    <largeFileRestriction_wordWrap-tip value="Ao ativar a opção &quot;Desativar quebras de linhas automáticas de forma global&quot;, a opção de quebrar linhas será automaticamente desativada para todos os documentos abertos após a abertura de um arquivo grande. É possível reativar a opção de quebra automática manualmente." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -5418,6 +5418,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			else
 				_nppGUI._largeFileRestriction._allowSmartHilite = false;
 
+			boolVal = element->Attribute(TEXT("allowClickableLink"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._allowClickableLink = true;
+			else
+				_nppGUI._largeFileRestriction._allowClickableLink = false;
+
 			boolVal = element->Attribute(TEXT("deactivateWordWrap"));
 			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
 				_nppGUI._largeFileRestriction._deactivateWordWrap = false;
@@ -6644,7 +6650,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="largeFileRestriction" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" deactivateWordWrap="yes" allowWordWrap="no" />
+	// <GUIConfig name="largeFileRestriction" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" deactivateWordWrap="yes" allowClickableLink="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("largeFileRestriction"));
@@ -6653,6 +6659,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("allowAutoCompletion"), _nppGUI._largeFileRestriction._allowAutoCompletion ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("allowBraceMatch"), _nppGUI._largeFileRestriction._allowBraceMatch ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileRestriction._allowSmartHilite ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowClickableLink"), _nppGUI._largeFileRestriction._allowClickableLink ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("deactivateWordWrap"), _nppGUI._largeFileRestriction._deactivateWordWrap ? TEXT("yes") : TEXT("no"));
 	}
 

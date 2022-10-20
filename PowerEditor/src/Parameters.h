@@ -733,6 +733,7 @@ struct LargeFileRestriction final
 	bool _allowBraceMatch = false;
 	bool _allowAutoCompletion = false;
 	bool _allowSmartHilite = false;
+	bool _allowClickableLink = false;
 };
 
 struct NppGUI final

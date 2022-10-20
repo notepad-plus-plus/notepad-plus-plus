@@ -549,12 +549,12 @@ The comments are here for explanation, it's not necessary to translate them.
                 <SubDialog>
                     <Item id="2204" name="Bold"/>
                     <Item id="2205" name="Italic"/>
-                    <Item id="2206" name="Foreground colour"/>
-                    <Item id="2207" name="Background colour"/>
+                    <Item id="2206" name="Foreground color"/>
+                    <Item id="2207" name="Background color"/>
                     <Item id="2208" name="Font name:"/>
                     <Item id="2209" name="Font size:"/>
                     <Item id="2211" name="Style:"/>
-                    <Item id="2212" name="Colour Style"/>
+                    <Item id="2212" name="Color Style"/>
                     <Item id="2213" name="Font Style"/>
                     <Item id="2214" name="Default ext.:"/>
                     <Item id="2216" name="User ext.:"/>
@@ -562,8 +562,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2219" name="Default keywords"/>
                     <Item id="2221" name="User-defined keywords"/>
                     <Item id="2225" name="Language:"/>
-                    <Item id="2226" name="Enable global foreground colour"/>
-                    <Item id="2227" name="Enable global background colour"/>
+                    <Item id="2226" name="Enable global foreground color"/>
+                    <Item id="2227" name="Enable global background color"/>
                     <Item id="2228" name="Enable global font"/>
                     <Item id="2229" name="Enable global font size"/>
                     <Item id="2230" name="Enable global bold font style"/>
@@ -668,12 +668,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Switch to Folder as Workspace"/>
                     <Item id="44109" name="Switch to Document List"/>
                     <Item id="44108" name="Switch to Function List"/>
-                    <Item id="44110" name="Remove Tab Colour"/>
-                    <Item id="44111" name="Apply Tab Colour 1"/>
-                    <Item id="44112" name="Apply Tab Colour 2"/>
-                    <Item id="44113" name="Apply Tab Colour 3"/>
-                    <Item id="44114" name="Apply Tab Colour 4"/>
-                    <Item id="44115" name="Apply Tab Colour 5"/>
+                    <Item id="44110" name="Remove Tab Color"/>
+                    <Item id="44111" name="Apply Tab Color 1"/>
+                    <Item id="44112" name="Apply Tab Color 2"/>
+                    <Item id="44113" name="Apply Tab Color 3"/>
+                    <Item id="44114" name="Apply Tab Color 4"/>
+                    <Item id="44115" name="Apply Tab Color 5"/>
                     <Item id="11002" name="Sort By Name A to Z"/>
                     <Item id="11003" name="Sort By Name Z to A"/>
                     <Item id="11004" name="Sort By Path A to Z"/>
@@ -708,8 +708,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20016" name="Export..."/>
                 <StylerDialog title="Styler Dialog">
                     <Item id="25030" name="Font options:"/>
-                    <Item id="25006" name="Foreground colour"/>
-                    <Item id="25007" name="Background colour"/>
+                    <Item id="25006" name="Foreground color"/>
+                    <Item id="25007" name="Background color"/>
                     <Item id="25031" name="Name:"/>
                     <Item id="25032" name="Size:"/>
                     <Item id="25001" name="Bold"/>
@@ -881,7 +881,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6107" name="Reduce"/>
                     <Item id="6108" name="Lock (no drag and drop)"/>
                     <Item id="6109" name="Darken inactive tabs"/>
-                    <Item id="6110" name="Draw a coloured bar on active tab"/>
+                    <Item id="6110" name="Draw a colored bar on active tab"/>
 
                     <Item id="6111" name="Show status bar"/>
                     <Item id="6112" name="Show close button on each tab"/>
@@ -1036,11 +1036,11 @@ You can define several column markers by using white space to separate the diffe
 
                 <Print title="Print">
                     <Item id="6601" name="Print line number"/>
-                    <Item id="6602" name="Colour Options"/>
+                    <Item id="6602" name="Color Options"/>
                     <Item id="6603" name="WYSIWYG"/>
                     <Item id="6604" name="Invert"/>
                     <Item id="6605" name="Black on white"/>
-                    <Item id="6606" name="No background colour"/>
+                    <Item id="6606" name="No background color"/>
                     <Item id="6607" name="Margin Settings (Unit:mm)"/>
                     <Item id="6612" name="Left"/>
                     <Item id="6613" name="Top"/>
@@ -1158,7 +1158,6 @@ You can define several column markers by using white space to separate the diffe
 
                 <Performance title="Performance">
                     <Item id="7141" name="Large File Restriction"/>
-                    <Item id="7142" name="While opening a large file, some features are turned off for optimizing the performance. You can customize them here."/>
                     <Item id="7143" name="Enable Large File Restriction (no syntax highlighting)"/>
                     <Item id="7144" name="Define Large File Size:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
@@ -1166,6 +1165,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="7148" name="Allow Auto-Completion"/>
                     <Item id="7149" name="Allow Smart Highlighting"/>
                     <Item id="7150" name="Deactivate Word Wrap globally"/>
+                    <Item id="7151" name="Allow URL Clickable Link"/>
                 </Performance>
 
                 <Cloud title="Cloud &amp; Link">
@@ -1605,9 +1605,12 @@ Find in all files but exclude all folders log or logs recursively:
             <contextMenu-styleAlloccurrencesOfToken value="Style all occurrences of token" />
             <contextMenu-styleOneToken value="Style one token" />
             <contextMenu-clearStyle value="Clear style" />
-            <enable-disable-largeFileRestriction-tip value="Toggling &quot;Enable Large File Restriction&quot; takes effect only after closing and re-opening the large file" />
-            <change-largeFileRestriction_fileLength-tip value="Modifying file size value takes effect only after closing and re-opening the large file" />
-            <largeFileRestriction_wordWrap-tip value="Enabling &quot;Deactivate Word Wrap globally&quot; option will deactivate Word Wrap for all opened documents after opening a large file. You can reactivate Word Wrap feature manually." />
+            <largeFileRestriction-tip value="Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.
+
+NOTE:
+1. Modifying options here requires re-open currently opened large files to get proper behavior.
+
+2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

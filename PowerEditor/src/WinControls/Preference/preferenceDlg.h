@@ -258,20 +258,14 @@ friend class PreferenceDlg;
 public :
 	PerformanceSubDlg() = default;
 	~PerformanceSubDlg() {
-		if (_enableLargeFileRestrictionTip)
-			::DestroyWindow(_enableLargeFileRestrictionTip);
-		if (_changeLargeFileLengthTip)
-			::DestroyWindow(_changeLargeFileLengthTip);
-		if (_deactivateWordWrapTip)
-			::DestroyWindow(_deactivateWordWrapTip);
+		if (_largeFileRestrictionTip)
+			::DestroyWindow(_largeFileRestrictionTip);
 	};
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
-	HWND _enableLargeFileRestrictionTip = nullptr;
-	HWND _changeLargeFileLengthTip = nullptr;
-	HWND _deactivateWordWrapTip = nullptr;
+	HWND _largeFileRestrictionTip = nullptr;
 };
 
 class PreferenceDlg : public StaticDialog

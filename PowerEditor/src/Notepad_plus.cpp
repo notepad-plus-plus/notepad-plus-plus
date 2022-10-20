@@ -3011,11 +3011,11 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 
 void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
-	Buffer* currentBuf = _pEditView->getCurrentBuffer();
-	if (currentBuf->isLargeFile())
-		return;
-
 	ScintillaEditView* pView = view ? view : _pEditView;
+
+	Buffer* currentBuf = pView->getCurrentBuffer();
+	if (!currentBuf->allowClickableLink())
+		return;
 
 	int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
 	LPARAM indicStyle = (urlAction == urlNoUnderLineFg) || (urlAction == urlNoUnderLineBg) ? INDIC_HIDDEN : INDIC_PLAIN;

@@ -499,7 +499,7 @@ private:
 	intptr_t findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
 
-	void addHotSpot(ScintillaEditView* view = NULL);
+	void addHotSpot(ScintillaEditView* view = nullptr);
 
     void bookmarkAdd(intptr_t lineno) const {
 		if (lineno == -1)

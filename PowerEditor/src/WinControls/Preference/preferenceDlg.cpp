@@ -4884,7 +4884,7 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
 				}
 
-				nppGUI._largeFileLimit._largeFileSizeDefInByte = fileLenInMB * 1024 * 1024;
+				nppGUI._largeFileRestriction._largeFileSizeDefInByte = fileLenInMB * 1024 * 1024;
 			}
 			return TRUE;
 		}
@@ -4922,26 +4922,28 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 	{
 		case WM_INITDIALOG:
 		{
-			int64_t fileLenInMB = (nppGUI._largeFileLimit._largeFileSizeDefInByte / 1024) / 1024;
+			int64_t fileLenInMB = (nppGUI._largeFileRestriction._largeFileSizeDefInByte / 1024) / 1024;
 			::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ENABLE, BM_SETCHECK, nppGUI._largeFileLimit._isEnabled ? BST_CHECKED : BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH, BM_SETCHECK, nppGUI._largeFileLimit._allowBraceMatch ? BST_CHECKED : BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION, BM_SETCHECK, nppGUI._largeFileLimit._allowAutoCompletion ? BST_CHECKED : BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE, BM_SETCHECK, nppGUI._largeFileLimit._allowSmartHilite ? BST_CHECKED : BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP, BM_SETCHECK, nppGUI._largeFileLimit._allowWordWrap ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ENABLE, BM_SETCHECK, nppGUI._largeFileRestriction._isEnabled ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH, BM_SETCHECK, nppGUI._largeFileRestriction._allowBraceMatch ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION, BM_SETCHECK, nppGUI._largeFileRestriction._allowAutoCompletion ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE, BM_SETCHECK, nppGUI._largeFileRestriction._allowSmartHilite ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP, BM_SETCHECK, nppGUI._largeFileRestriction._deactivateWordWrap ? BST_CHECKED : BST_UNCHECKED, 0);
 			
 			bool largeFileRestrictionEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE), largeFileRestrictionEnabled);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH), largeFileRestrictionEnabled);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION), largeFileRestrictionEnabled);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE), largeFileRestrictionEnabled);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP), largeFileRestrictionEnabled);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP), largeFileRestrictionEnabled);
 
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID("enable-disable-largeFileRestriction-tip", TEXT("Toggling \"Enable Large File Restriction\" takes effect only after closing and re-opening the large file"));
-			generic_string editTip = pNativeSpeaker->getLocalizedStrFromID("change-largeFileRestriction_fileLength-tip", TEXT("Modifying file size value takes effect only after closing and re-opening the large file"));
-			_enableLargeFileRestrictionTip = CreateToolTip(IDC_CHECK_PERFORMANCE_ENABLE, _hSelf, _hInst, const_cast<PTSTR>(checkboxTip.c_str()), false);
-			_changeLargeFileLengthTip = CreateToolTip(IDC_EDIT_PERFORMANCE_FILESIZE, _hSelf, _hInst, const_cast<PTSTR>(editTip.c_str()), false);
+			generic_string enablePerfTip = pNativeSpeaker->getLocalizedStrFromID("enable-disable-largeFileRestriction-tip", TEXT("Toggling \"Enable Large File Restriction\" takes effect only after closing and re-opening the large file"));
+			generic_string fileLenTip = pNativeSpeaker->getLocalizedStrFromID("change-largeFileRestriction_fileLength-tip", TEXT("Modifying file size value takes effect only after closing and re-opening the large file"));
+			generic_string wordWrapLenTip = pNativeSpeaker->getLocalizedStrFromID("largeFileRestriction_wordWrap-tip", TEXT("Enabling \"Deactivate Word Wrap globally\" option will deactivate Word Wrap for all opened documents after opening a large file. You can reactivate Word Wrap feature manually."));
+			_enableLargeFileRestrictionTip = CreateToolTip(IDC_CHECK_PERFORMANCE_ENABLE, _hSelf, _hInst, const_cast<PTSTR>(enablePerfTip.c_str()), false);
+			_changeLargeFileLengthTip = CreateToolTip(IDC_EDIT_PERFORMANCE_FILESIZE, _hSelf, _hInst, const_cast<PTSTR>(fileLenTip.c_str()), false);
+			_deactivateWordWrapTip = CreateToolTip(IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP, _hSelf, _hInst, const_cast<PTSTR>(wordWrapLenTip.c_str()), false);
 		}
 		break;
 
@@ -5003,13 +5005,13 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 				case IDC_CHECK_PERFORMANCE_ENABLE:
 				{
 					bool largeFileRestrictionEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
-					nppGUI._largeFileLimit._isEnabled = largeFileRestrictionEnabled;
+					nppGUI._largeFileRestriction._isEnabled = largeFileRestrictionEnabled;
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE), largeFileRestrictionEnabled);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH), largeFileRestrictionEnabled);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION), largeFileRestrictionEnabled);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE), largeFileRestrictionEnabled);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP), largeFileRestrictionEnabled);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP), largeFileRestrictionEnabled);
 
 					redraw();
 				}
@@ -5018,7 +5020,7 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 				case IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH:
 				{
 					bool isAllowed = isCheckedOrNot(int(wParam));
-					nppGUI._largeFileLimit._allowBraceMatch = isAllowed;
+					nppGUI._largeFileRestriction._allowBraceMatch = isAllowed;
 					if (!isAllowed)
 						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CLEANBRACEMATCH, 0, 0);
 				}
@@ -5027,23 +5029,23 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 				case IDC_CHECK_PERFORMANCE_ALLOWAUTOCOMPLETION:
 				{
 					bool isAllowed = isCheckedOrNot(int(wParam));
-					nppGUI._largeFileLimit._allowAutoCompletion = isAllowed;
+					nppGUI._largeFileRestriction._allowAutoCompletion = isAllowed;
 				}
 				return TRUE;
 
 				case IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE:
 				{
 					bool isAllowed = isCheckedOrNot(int(wParam));
-					nppGUI._largeFileLimit._allowSmartHilite = isAllowed;
+					nppGUI._largeFileRestriction._allowSmartHilite = isAllowed;
 					if (!isAllowed)
 						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CLEANSMARTHILITING, 0, 0);
 				}
 				return TRUE;
 
-				case IDC_CHECK_PERFORMANCE_ALLOWWORDWRAP:
+				case IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP:
 				{
-					bool isAllowed = isCheckedOrNot(int(wParam));
-					nppGUI._largeFileLimit._allowWordWrap = isAllowed;
+					bool isDeactivated = isCheckedOrNot(int(wParam));
+					nppGUI._largeFileRestriction._deactivateWordWrap = isDeactivated;
 				}
 				return TRUE;
 

@@ -544,6 +544,23 @@ void Buffer::setDeferredReload() // triggers a reload on the next Document acces
 	doNotify(BufferChangeDirty);
 }
 
+bool Buffer::allowBraceMach() const
+{
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	return (!_isLargeFile || nppGui._largeFileRestriction._allowBraceMatch) || !nppGui._largeFileRestriction._isEnabled;
+}
+
+bool Buffer::allowAutoCompletion() const
+{
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	return (!_isLargeFile || nppGui._largeFileRestriction._allowAutoCompletion) || !nppGui._largeFileRestriction._isEnabled;
+}
+
+bool Buffer::allowSmartHilite() const
+{
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	return (!_isLargeFile || nppGui._largeFileRestriction._allowSmartHilite) || !nppGui._largeFileRestriction._isEnabled;
+}
 
 //filemanager
 
@@ -672,11 +689,11 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	// * the backups on save feature will be disabled for large files
 	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	bool isLargeFile = false;
-	if (nppGui._largeFileLimit._isEnabled)
-		isLargeFile = fileSize >= nppGui._largeFileLimit._largeFileSizeDefInByte;
+	if (nppGui._largeFileRestriction._isEnabled)
+		isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
 
 	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
-	if (isLargeFile && !nppGui._largeFileLimit._allowWordWrap)
+	if (isLargeFile && nppGui._largeFileRestriction._deactivateWordWrap)
 	{
 		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
 		if (isWrap)
@@ -1530,7 +1547,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
 				
-				bool isLargeFile = fileSize >= nppGui._largeFileLimit._largeFileSizeDefInByte;
+				bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
 				if (!isLargeFile && fileFormat._language == L_TEXT)
 				{
 					// check the language du fichier

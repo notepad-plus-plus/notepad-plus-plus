@@ -5387,42 +5387,42 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			else
 				_nppGUI._delimiterSelectionOnEntireDocument = false;
 		}
-		else if (!lstrcmp(nm, TEXT("largeFileLimit")))
+		else if (!lstrcmp(nm, TEXT("largeFileRestriction")))
 		{
 			int fileSizeLimit4StylingMB = 0;
 			element->Attribute(TEXT("fileSizeMB"), &fileSizeLimit4StylingMB);
 			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB < 4096)
-				_nppGUI._largeFileLimit._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
+				_nppGUI._largeFileRestriction._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
 
 			const TCHAR* boolVal = element->Attribute(TEXT("isEnabled"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
-				_nppGUI._largeFileLimit._isEnabled = true;
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
+				_nppGUI._largeFileRestriction._isEnabled = false;
 			else
-				_nppGUI._largeFileLimit._isEnabled = false;
+				_nppGUI._largeFileRestriction._isEnabled = true;
 
 			boolVal = element->Attribute(TEXT("allowAutoCompletion"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
-				_nppGUI._largeFileLimit._allowAutoCompletion = false;
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._allowAutoCompletion = true;
 			else
-				_nppGUI._largeFileLimit._allowAutoCompletion = true;
+				_nppGUI._largeFileRestriction._allowAutoCompletion = false;
 
 			boolVal = element->Attribute(TEXT("allowBraceMatch"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
-				_nppGUI._largeFileLimit._allowBraceMatch = false;
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._allowBraceMatch = true;
 			else
-				_nppGUI._largeFileLimit._allowBraceMatch = true;
+				_nppGUI._largeFileRestriction._allowBraceMatch = false;
 
 			boolVal = element->Attribute(TEXT("allowSmartHilite"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
-				_nppGUI._largeFileLimit._allowSmartHilite = false;
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._allowSmartHilite = true;
 			else
-				_nppGUI._largeFileLimit._allowSmartHilite = true;
+				_nppGUI._largeFileRestriction._allowSmartHilite = false;
 
-			boolVal = element->Attribute(TEXT("allowWordWrap"));
+			boolVal = element->Attribute(TEXT("deactivateWordWrap"));
 			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
-				_nppGUI._largeFileLimit._allowWordWrap = false;
+				_nppGUI._largeFileRestriction._deactivateWordWrap = false;
 			else
-				_nppGUI._largeFileLimit._allowWordWrap = true;
+				_nppGUI._largeFileRestriction._deactivateWordWrap = true;
 		}
 		else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
@@ -6644,16 +6644,16 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="largeFileLimit" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" allowSmartHilite="no" allowWordWrap="no" />
+	// <GUIConfig name="largeFileRestriction" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" deactivateWordWrap="yes" allowWordWrap="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("largeFileLimit"));
-		GUIConfigElement->SetAttribute(TEXT("fileSizeMB"), static_cast<int>((_nppGUI._largeFileLimit._largeFileSizeDefInByte / 1024) / 1024));
-		GUIConfigElement->SetAttribute(TEXT("isEnabled"), _nppGUI._largeFileLimit._isEnabled ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("allowAutoCompletion"), _nppGUI._largeFileLimit._allowAutoCompletion ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("allowBraceMatch"), _nppGUI._largeFileLimit._allowBraceMatch ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileLimit._allowSmartHilite ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("allowWordWrap"), _nppGUI._largeFileLimit._allowWordWrap ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("largeFileRestriction"));
+		GUIConfigElement->SetAttribute(TEXT("fileSizeMB"), static_cast<int>((_nppGUI._largeFileRestriction._largeFileSizeDefInByte / 1024) / 1024));
+		GUIConfigElement->SetAttribute(TEXT("isEnabled"), _nppGUI._largeFileRestriction._isEnabled ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowAutoCompletion"), _nppGUI._largeFileRestriction._allowAutoCompletion ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowBraceMatch"), _nppGUI._largeFileRestriction._allowBraceMatch ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileRestriction._allowSmartHilite ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("deactivateWordWrap"), _nppGUI._largeFileRestriction._deactivateWordWrap ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />

@@ -1144,13 +1144,13 @@
                 <Performance title="性能">
                     <Item id="7141" name="大型檔案限制"/>
                     <Item id="7142" name="在開啟大型文件時，為了優化性能，一些功能會被關閉。 你可以在此處自開啟它們。"/>
-                    <Item id="7143" name="啟動大型檔案限制"/>
+                    <Item id="7143" name="啟動大型檔案限制（沒有語法醒目提示）"/>
                     <Item id="7144" name="定義大型檔案文件長度大小："/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
                     <Item id="7147" name="允許顏色顯示對應括號"/>
                     <Item id="7148" name="允許自動完成功能"/>
                     <Item id="7149" name="允許智慧醒目提示"/>
-                    <Item id="7150" name="允許自動換行"/>
+                    <Item id="7150" name="停用自動換行"/>
                 </Performance>
 
                 <Cloud title="雲端與連結">
@@ -1549,6 +1549,7 @@
             <contextMenu-PluginCommands value="外掛模組" />
             <enable-disable-largeFileRestriction-tip value="切換「啟動大型檔案限制」 僅在關閉並重新打開大型文件後生效" />
             <change-largeFileRestriction_fileLength-tip value="修改大型檔案長度大小值只有在關閉並重新打開大文件後生效" />
+            <largeFileRestriction_wordWrap-tip value="啟用「停用自動換行」選項將在打開大型文件後為所有打開的文檔停用自動換行。 您可以自行重新啟動自動換行功能。" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

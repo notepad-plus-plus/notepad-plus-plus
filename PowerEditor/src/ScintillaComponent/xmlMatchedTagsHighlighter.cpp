@@ -620,7 +620,7 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 
 	XmlMatchedTagsPos xmlTags;
 
-    // Detect if it's a xml/html tag. If yes, Colour it!
+    // Detect if it's a xml/html tag. If yes, Colorize it
 	if (getXmlMatchedTagsPos(xmlTags))
 	{
 		_pEditView->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_TAGMATCH);

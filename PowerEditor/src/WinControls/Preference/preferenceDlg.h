@@ -262,6 +262,8 @@ public :
 			::DestroyWindow(_enableLargeFileRestrictionTip);
 		if (_changeLargeFileLengthTip)
 			::DestroyWindow(_changeLargeFileLengthTip);
+		if (_deactivateWordWrapTip)
+			::DestroyWindow(_deactivateWordWrapTip);
 	};
 
 private :
@@ -269,6 +271,7 @@ private :
 
 	HWND _enableLargeFileRestrictionTip = nullptr;
 	HWND _changeLargeFileLengthTip = nullptr;
+	HWND _deactivateWordWrapTip = nullptr;
 };
 
 class PreferenceDlg : public StaticDialog

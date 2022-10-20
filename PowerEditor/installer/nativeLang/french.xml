@@ -1159,13 +1159,13 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 <Performance title="Performance">
                     <Item id="7141" name="Restriction des fichiers volumineux"/>
                     <Item id="7142" name="Lors de l'ouverture d'un fichier volumineux, certaines fonctionnalités sont désactivées pour optimiser les performances. Vous pouvez les personnaliser ici."/>
-                    <Item id="7143" name="Activer la restriction des fichiers volumineux"/>
+                    <Item id="7143" name="Activer la restriction des fichiers volumineux (pas de coloration syntaxique)"/>
                     <Item id="7144" name="Définir la taille du fichier volumineux :"/>
                     <Item id="7146" name="Mo   (1 - 4096)"/>
                     <Item id="7147" name="Permettre de colorer délimiteur symétrique"/>
                     <Item id="7148" name="Permettre d'activer la complétion automatique"/>
                     <Item id="7149" name="Permettre d'activer le coloriage automatique"/>
-                    <Item id="7150" name="Permettre d'activer le retour automatique à la ligne"/>
+                    <Item id="7150" name="Désactiver le retour automatique à la ligne globalement"/>
                 </Performance>
 
                 <Cloud title="Cloud &amp; Lien">
@@ -1608,6 +1608,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <contextMenu-PluginCommands value="Modules d'extension" />
             <enable-disable-largeFileRestriction-tip value="Basculer &quot;Activer la restriction des fichiers volumineux&quot; ne prend effet qu'après la fermeture et la réouverture du fichier volumineux" />
             <change-largeFileRestriction_fileLength-tip value="La modification de la valeur de la taille du fichier ne prend effet qu'après la fermeture et la réouverture du fichier volumineux" />
+            <largeFileRestriction_wordWrap-tip value="L'activation de l'option &quot;Désactiver Retour automatique à la ligne globalement&quot; désactivera « Retour automatique à la ligne » pour tous les documents ouverts après l'ouverture d'un fichier volumineux. Vous pouvez réactiver la fonctionnalité « Retour automatique à la ligne » manuellement." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

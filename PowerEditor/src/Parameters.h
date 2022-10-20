@@ -723,15 +723,16 @@ struct DarkModeConf final
 };
 
 
-struct LargeFileLimitSettings final
+struct LargeFileRestriction final
 {
 	int64_t _largeFileSizeDefInByte = NPP_STYLING_FILESIZE_LIMIT_DEFAULT;
 	bool _isEnabled = true;
 
+	bool _deactivateWordWrap = true;
+
 	bool _allowBraceMatch = false;
 	bool _allowAutoCompletion = false;
 	bool _allowSmartHilite = false;
-	bool _allowWordWrap = false;
 };
 
 struct NppGUI final
@@ -905,7 +906,7 @@ struct NppGUI final
 	DarkModeConf _darkmode;
 	DarkModeConf _darkmodeplugins;
 
-	LargeFileLimitSettings _largeFileLimit;
+	LargeFileRestriction _largeFileRestriction;
 };
 
 

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-10-09 by schnurlos
+	last modified: 2022-10-20 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.6">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1165,6 +1165,18 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 (nicht verwenden wenn man nicht sicher ist)"/>
 				</Delimiter>
 
+				<Performance title="Leistung">
+					<Item id="7141" name="Einschränkung für große Dateien"/>
+					<Item id="7142" name="Beim Öffnen von großen Dateien werden einige Funktionen beschränkt um die Leistung zu optimieren. Das kann hier eingestellt werden."/>
+					<Item id="7143" name="Aktivieren der Einschränkung für große Dateien (keine Syntaxhervorhebung)"/>
+					<Item id="7144" name="Große Dateigröße definieren:"/>
+					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7147" name="Klammerübereinstimmung zulassen"/>
+					<Item id="7148" name="Auto-Vervollständigung zulassen"/>
+					<Item id="7149" name="Intelligente Hervorhebung zulassen"/>
+					<Item id="7150" name="Wortumbruch global deaktivieren"/>
+				</Performance>
+
 				<Cloud title="Cloud &amp; Links">
 					<Item id="6262" name="Cloud-Einstellungen"/>
 					<Item id="6263" name="Einstellungen nicht in der Cloud speichern"/>
@@ -1602,7 +1614,9 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<contextMenu-styleAlloccurrencesOfToken value="Alle Vorkommen hervorheben" />
 			<contextMenu-styleOneToken value="Dieses Vorkommen hervorheben" />
 			<contextMenu-clearStyle value="Alle Hervorhebungen entfernen" />
-			<contextMenu-PluginCommands value="Plugin-Befehle" />
+			<enable-disable-largeFileRestriction-tip value="Für das Umschalten der &quot;Einschränkung für große Dateien&quot; muss diese Datei geschlossen und erneut geöffnet werden" />
+			<change-largeFileRestriction_fileLength-tip value="Das Ändern der Werte für die Dateigröße tritt erst nach dem Schließen und neuem Öffnen der großen Datei in Kraft" />
+			<largeFileRestriction_wordWrap-tip value="Das Aktivieren von &quot;Wortumbruch global deaktivieren&quot; deaktiviert den Wortumbruch für alle geöffneten Dokumente nachdem eine große Datei geöffnet wurde. Der Wortumbruck kann manuell reativiert werden." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -50,7 +50,8 @@ END
 //
 
 //IDI_ICON_NPP          ICON                    "icon\\npp_1.ico"
-IDI_ICON_NPP          ICON                    "icon\\nppNewIcon.ico"
+//IDI_ICON_NPP          ICON                    "icon\\nppNewIcon.ico"
+IDI_ICON_NPP          ICON                    "icon\\Edit_Text.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////

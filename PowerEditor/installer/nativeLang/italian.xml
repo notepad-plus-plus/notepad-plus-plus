@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.4.7
-    Last modified Fri, Oct 16th, 2022.
+    Last modified Fri, Oct 20th, 2022.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
@@ -1088,7 +1088,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6909" name="Proponi la parola del cursore quando non è selezionato nulla"/>
                 </Searching>
 
-                <RecentFilesHistory title="Cronologia dei File Recenti">
+                <RecentFilesHistory title="Cronologia File Recenti">
                     <Item id="6304" name="Cronologia dei File Recenti"/>
                     <Item id="6306" name="Massimo numero di voci:"/>
                     <Item id="6305" name="Non controllare all&apos;avvio"/>
@@ -1169,7 +1169,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="7147" name="Permetti l&apos;evidenziazione della parentesi corrispondente"/>
                     <Item id="7148" name="Permetti l&apos;attivazione Auto-Completamento"/>
                     <Item id="7149" name="Permetti l&apos;attivazione la colorazione automatica"/>
-                    <Item id="7150" name="Permetti l&apos;attivazione A capo automatico"/>
+                    <Item id="7150" name="Disattiva lo A capo automatico globalmente"/>
                 </Performance>
 
 
@@ -1274,7 +1274,6 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
             </DoSaveOrNot>
             <DoSaveAll title="Conferma di Salva tutto">
                 <Item id="1766" name="Vuoi salvare tutti i documenti modificati?
-
 seleziona &quot;Sì, sempre&quot; per non visualizzare più il messaggio.
 Il messaggio può essere riattivato da Preferenze."/>
                 <Item id="6" name="&amp;Sì"/>
@@ -1287,11 +1286,9 @@ Il messaggio può essere riattivato da Preferenze."/>
 È richiesto il riavvio di Notepad++ affinché le modifiche a contextMenu.xml abbiano effetto."/>
             <SaveCurrentModifWarning title="Salva modifiche correnti" message="Devi salvare le modifiche correnti.
 Tutte le modifiche salvate non possono essere ripristinate.
-
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Attenzione: Perdita della possibilità di ripristinare" message="Devi salvare le modifiche correnti.
 Tutte le modifiche salvate non possono essere ripristinate.
-
 Continuare?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Invia a una nuova istanza di Notepad++" message="Il documento è stato modificato, salvarlo prima di continuare."/>
             <DocReloadWarning title="Ricarica" message="Vuoi ricaricare il file? Ogni modifica apportata andrà persa."/>
@@ -1321,11 +1318,9 @@ Continuare?"/>
 Salvalo o i tuoi dati verranno persi.
 Vuoi salvare il file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Ricarica" message="&quot;$STR_REPLACE$&quot;
-
 Questo file è stato modificato da un altro programma.
 Vuoi ricaricarlo?"/>
             <DoReloadOrNotAndLooseChange title="Ricarica" message="&quot;$STR_REPLACE$&quot;
-
 Questo file è stato modificato da un altro programma.
 Vuoi ricaricarlo e perdere tutte le modifiche apportate in Notepad++?"/>
             <PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra tu stia usando un sistema preistorico. Questa funzionalità richiede un sistema più moderno, scusaci."/>
@@ -1342,7 +1337,6 @@ Vuoi proseguire?"/>
             <CreateNewFileError title="Crea nuovo file" message="Impossibile creare il file &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="ERRORE" message="Impossibile aprire il file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="Backup File Fallito" message="La versione precedente del file non può essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
-
 Vuoi salvare il file ugualmente?"/>
             <LoadStylersFailed title="Caricamento stylers.xml fallito" message="Il caricamento di &quot;$STR_REPLACE$&quot; è fallito!"/>
             <LoadLangsFailed title="Configurazione" message="Il caricamento di langs.xml è fallito!
@@ -1504,13 +1498,10 @@ Vuoi continuare?"/>
             <file-rename-title value="Rinomina"/>
             <find-in-files-filter-tip value="Cerca in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
-
 Cerca in tutti i file eccetto exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
-
 Cerca in tutti i files, ma escludi la cartella tests, bin e bin64:
 *.* !\tests !\bin*
-
 Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
 *.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
             <find-in-files-select-folder value="Seleziona la cartella di ricerca"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
@@ -1611,6 +1602,9 @@ Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
             <contextMenu-styleOneToken value="Applica stile per la prima corrispondenza" />
             <contextMenu-clearStyle value="Rimuovi applicazione Stile" />
             <contextMenu-PluginCommands value="Comandi plugin" />
+            <enable-disable-largeFileRestriction-tip value="La modifica di &quot;Restrizioni per File di grandi dimensioni&quot; avranno effetto solo dopo la chiusura e riapertura dei file di grandi dimensioni" />
+            <change-largeFileRestriction_fileLength-tip value="La modifica della dimensione dei file avrà effetto solo dopo la chiusura e riapertura dei file di grandi dimensioni" />
+            <largeFileRestriction_wordWrap-tip value="Abilitando &quot;Disattiva lo A capo automatico globalmente&quot; disattiverà il ritorno a capo per tutti i documenti aperti dopo l'apertura di file di grandi dimensioni. È possibile riattivare il ritorno a capo automatico manualmente." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

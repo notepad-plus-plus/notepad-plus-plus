@@ -75,9 +75,9 @@ bool findStrNoCase(const generic_string & strHaystack, const generic_string & st
 	return (it != strHaystack.end());
 }
 
-bool PluginsAdminDlg::isFoundInAvailableListFromIndex(int index, const generic_string& str2search, bool inWhichPart) const
+bool PluginsAdminDlg::isFoundInAvailableListFromIndex(const PluginViewList& inWhichList, int index, const generic_string& str2search, bool inWhichPart) const
 {
-	PluginUpdateInfo* pui = _availableList.getPluginInfoFromUiIndex(index);
+	PluginUpdateInfo* pui = inWhichList.getPluginInfoFromUiIndex(index);
 	generic_string searchIn;
 	if (inWhichPart == _inNames)
 		searchIn = pui->_displayName;
@@ -87,17 +87,17 @@ bool PluginsAdminDlg::isFoundInAvailableListFromIndex(int index, const generic_s
 	return (findStrNoCase(searchIn, str2search));
 }
 
-long PluginsAdminDlg::searchFromCurrentSel(const generic_string& str2search, bool inWhichPart, bool isNextMode) const
+long PluginsAdminDlg::searchFromCurrentSel(const PluginViewList& inWhichList, const generic_string& str2search, bool inWhichPart, bool isNextMode) const
 {
 	// search from curent selected item or from the beginning
-	long currentIndex = _availableList.getSelectedIndex();
-	int nbItem = static_cast<int>(_availableList.nbItem());
+	long currentIndex = inWhichList.getSelectedIndex();
+	int nbItem = static_cast<int>(inWhichList.nbItem());
 	if (currentIndex == -1)
 	{
 		// no selection, let's search from 0 to the end
 		for (int i = 0; i < nbItem; ++i)
 		{
-			if (isFoundInAvailableListFromIndex(i, str2search, inWhichPart))
+			if (isFoundInAvailableListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 	}
@@ -106,14 +106,14 @@ long PluginsAdminDlg::searchFromCurrentSel(const generic_string& str2search, boo
 		// from current position to the end
 		for (int i = currentIndex + (isNextMode ? 1 : 0); i < nbItem; ++i)
 		{
-			if (isFoundInAvailableListFromIndex(i, str2search, inWhichPart))
+			if (isFoundInAvailableListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 
 		// from to begining to current position
 		for (int i = 0; i < currentIndex + (isNextMode ? 1 : 0); ++i)
 		{
-			if (isFoundInAvailableListFromIndex(i, str2search, inWhichPart))
+			if (isFoundInAvailableListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 	}
@@ -1072,14 +1072,36 @@ bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 	if (lstrlen(txt2search) < 2)
 		return false;
 
-	long foundIndex = searchInNamesFromCurrentSel(txt2search, isNextMode);
+	HWND tabHandle = _tab.getHSelf();
+	int inWhichTab = int(::SendMessage(tabHandle, TCM_GETCURSEL, 0, 0));
+
+	const PluginViewList* inWhichList = nullptr;
+	switch (inWhichTab)
+	{
+	case 3:
+		inWhichList = &_incompatibleList;
+		break;
+	case 2:
+		inWhichList = &_installedList;
+		break;
+	case 1:
+		inWhichList = &_updateList;
+		break;
+	case 0:
+	default:
+		inWhichList = &_availableList;
+		break;
+	}
+
+
+	long foundIndex = searchInNamesFromCurrentSel(*inWhichList, txt2search, isNextMode);
 	if (foundIndex == -1)
-		foundIndex = searchInDescsFromCurrentSel(txt2search, isNextMode);
+		foundIndex = searchInDescsFromCurrentSel(*inWhichList, txt2search, isNextMode);
 
 	if (foundIndex == -1)
 		return false;
 
-	_availableList.setSelection(foundIndex);
+	inWhichList->setSelection(foundIndex);
 
 	return true;
 }

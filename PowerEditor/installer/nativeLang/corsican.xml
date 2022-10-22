@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on October 20th, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
+		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 21st, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on June 27th, 2022 for version 8.4.3 by Patriccollu di Santa Maria è Sichè
@@ -1192,15 +1192,15 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Delimiter>
 
                 <Performance title="Perfurmenze">
-                    <Item id="7141" name="Ristrizzione di i schedarii maiò"/>
-                    <Item id="7142" name="À l’apertura d’un schedariu maiò, certe funzioni sò disattivate per migliurà e perfurmenze. Pudete persunalizalle quì."/>
-                    <Item id="7143" name="Attivà a ristrizzione di i schedarii maiò (senza messa in evidenza di a sintassa)"/>
-                    <Item id="7144" name="Definisce a dimensione d’un schedariu maiò :"/>
+                    <Item id="7141" name="Ristrizzione di i schedarii tamanti"/>
+                    <Item id="7143" name="Attivà a ristrizzione di i schedarii tamanti (senza messa in evidenza di a sintassa)"/>
+                    <Item id="7144" name="Definisce a dimensione d’un schedariu tamantu :"/>
                     <Item id="7146" name="Mo   (1 - 4096)"/>
                     <Item id="7147" name="Permette d’attivà a currispundenza trà e parentesi"/>
                     <Item id="7148" name="Permette d’attivà di l’empiimentu autumaticu"/>
                     <Item id="7149" name="Permette d’attivà u sopralineamentu astutu"/>
                     <Item id="7150" name="Disattivà di manera glubale u ritornu autumaticu à a linea"/>
+                    <Item id="7151" name="Permette d’attivà u liame clicchevule"/>
                 </Performance>
 
                 <Cloud title="Nivulu è liame">
@@ -1641,9 +1641,10 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <contextMenu-styleOneToken value="Stilizà l’occurenza unica di testu" />
             <contextMenu-clearStyle value="Spurgulà certi stili" />
             <contextMenu-PluginCommands value="Cumande d’estensione" />
-            <enable-disable-largeFileRestriction-tip value="U cambiamentu di l’ozzione « Attivà a ristrizzione di i schedarii maiò » serà pigliatu in contu solu dopu a chjusura è a riapertura di u schedariu maiò" />
-            <change-largeFileRestriction_fileLength-tip value="A mudificazione di u valore di a dimensione di u schedariu serà pigliata in contu solu dopu a chjusura è a riapertura di u schedariu maiò" />
-            <largeFileRestriction_wordWrap-tip value="L’attivazione di l’ozzione « Disattivà di manera glubale u ritornu autumaticu à a linea » disattiverà u ritornu autumaticu à a linea per tutti i ducumenti aperti dopu l’apertura d’un schedariu maiò. Pudete attivà torna sta funzione manualmente." />
+            <largeFileRestriction-tip value="Certe funzioni ponu rallentà e perfurmenze durante l¹apertura di i schedarii tamanti. Quelle funzioni ponu esse disattivate autumaticamente à l’apertura d’un schedariu tamantu. Pudete persunalizalle quì.
+NOTA :
+1. Per funziunà bè, a mudificazione di quelle ozzioni richiede d’apre torna i schedarii tamanti chì sò dighjà aperti.
+2. S’è l’ozzione « Disattivà di manera glubale u ritornu autumaticu à a linea » hè attiva è chì un schedariu tamantu hè apertu, tandu u ritornu autumaticu à a linea serà disattivatu per tutti i schedarii. Pudete attivallu torna via l’ozzione di listinu Affissera > Ritornu autumaticu à a linea." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

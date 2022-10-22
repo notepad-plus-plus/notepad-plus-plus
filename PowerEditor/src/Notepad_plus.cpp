@@ -3014,7 +3014,7 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	ScintillaEditView* pView = view ? view : _pEditView;
 
 	Buffer* currentBuf = pView->getCurrentBuffer();
-	if (currentBuf->isLargeFile())
+	if (!currentBuf->allowClickableLink())
 		return;
 
 	int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;

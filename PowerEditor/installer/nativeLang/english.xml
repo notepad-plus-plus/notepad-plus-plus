@@ -1165,6 +1165,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="7148" name="Allow Auto-Completion"/>
                     <Item id="7149" name="Allow Smart Highlighting"/>
                     <Item id="7150" name="Deactivate Word Wrap globally"/>
+                    <Item id="7151" name="Allow URL Clickable Link"/>
                 </Performance>
 
                 <Cloud title="Cloud &amp; Link">
@@ -1607,7 +1608,7 @@ Find in all files but exclude all folders log or logs recursively:
             <largeFileRestriction-tip value="Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.
 
 NOTE:
-1. Modifying &quot;Enable Large File Restriction&quot; and &quot;Define Large File Size&quot;&quot; requires re-open currently opened large files to get proper behavior.
+1. Modifying options here requires re-open currently opened large files to get proper behavior.
 
 2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
         </MiscStrings>

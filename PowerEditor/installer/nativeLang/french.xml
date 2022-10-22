@@ -1165,6 +1165,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="7148" name="Permettre d'activer la complétion automatique"/>
                     <Item id="7149" name="Permettre d'activer le coloriage automatique"/>
                     <Item id="7150" name="Désactiver le retour automatique à la ligne globalement"/>
+                    <Item id="7151" name="Permettre d'activer le lien cliquable"/>
                 </Performance>
 
                 <Cloud title="Cloud &amp; Lien">
@@ -1608,7 +1609,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <largeFileRestriction-tip value="Certaines fonctionnalités peuvent ralentir les performances lors de l'ouverture du fichier volumineux. Ces fonctionnalités peuvent être automatiquement désactivées à l'ouverture d'un fichier volumineux. Vous pouvez les personnaliser ici.
 
 REMARQUE:
-1. Modification &quot;Activer la restriction des fichiers volumineux&quot; et &quot;Définir la taille de fichier volumineux&quot;&quot; nécessite de rouvrir les fichiers volumineux actuellement ouverts pour obtenir un résultat correct.
+1. Modification ies options ici nécessite de rouvrir les fichiers volumineux actuellement ouverts pour obtenir un résultat correct.
 
 2. Si &quot;Désactiver Retour automatique à la ligne globalement&quot; est cochée et vous ouvrez un fichier volumineux, &quot;Retour automatique à la ligne&quot; sera désactivé pour tous les fichiers. Vous pouvez le réactiver via le menu &quot;Affichage-&gt;Retour automatique à la ligne&quot;." />
         </MiscStrings>

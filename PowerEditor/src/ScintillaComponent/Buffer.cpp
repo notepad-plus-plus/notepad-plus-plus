@@ -562,6 +562,12 @@ bool Buffer::allowSmartHilite() const
 	return (!_isLargeFile || nppGui._largeFileRestriction._allowSmartHilite) || !nppGui._largeFileRestriction._isEnabled;
 }
 
+bool Buffer::allowClickableLink() const
+{
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	return (!_isLargeFile || nppGui._largeFileRestriction._allowClickableLink) || !nppGui._largeFileRestriction._isEnabled;
+}
+
 //filemanager
 
 FileManager::~FileManager()

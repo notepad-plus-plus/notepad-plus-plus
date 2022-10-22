@@ -6,8 +6,10 @@
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
 -->
+
+
 <NotepadPlus>
-    <Native-Langue name="Vèneto" filename="venetian.xml" version="8.4.6">
+    <Native-Langue name="Vèneto" filename="venetian.xml" version="8.4.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -433,6 +435,7 @@
                 <Item CMID="34" name="Aplica Coƚori a ƚa scheda"/>
             </TabBar>
         </Menu>
+
         <Dialog>
             <Find title="" titleFind="Cata" titleReplace="Sostituisi" titleFindInFiles="Ruma inte i file" titleFindInProjects="Ruma inte&apos;l progeto" titleMark="Evidensia">
                 <Item id="1" name="Cata el Seguente"/>
@@ -505,6 +508,7 @@
                 <Item id="2005" name="Và a ƚa riga:"/>
                 <Item id="2006" name="Ùltima riga disponibiƚe:"/>
             </GoToLine>
+
             <Run title="Exegui...">
                 <Item id="1903" name="Programa da exeguire"/>
                 <Item id="1"    name="Exegui!"/>
@@ -1173,8 +1177,9 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="7147" name="Parmeti l&apos;evidensiasion de la parentesi corispondente"/>
                     <Item id="7148" name="Parmeti l&apos;ativasion Auto-Conpletamento"/>
                     <Item id="7149" name="Parmeti l&apos;ativasion la colorasione automatica"/>
-                    <Item id="7150" name="Parmeti l&apos;ativasion A capo automatico"/>
+                    <Item id="7150" name="Dixativa el Ritorno a capo automatego globalmente"/>
                 </Performance>
+
 
                 <Cloud title="Cloud e coƚegamenti">
                     <Item id="6262" name="Inpostasion sul Cloud"/>
@@ -1605,6 +1610,9 @@ Runa en tuti i files, ma escludi tute le carteƚe o sotocarteƚe log o logs:
             <contextMenu-styleOneToken value="Marca stiƚe ƚa prima corispondensa" />
             <contextMenu-clearStyle value="Rimovi marcatura Stiƚe" />
             <contextMenu-PluginCommands value="Comandi plugin" />
+            <enable-disable-largeFileRestriction-tip value="La modifega de &quot;Restrision par File de grandi dimension&quot; ƚa gaverà efeto soƚo dopo aver sarà e riverto i file de grandi dimension" />
+            <change-largeFileRestriction_fileLength-tip value="La modifega de la dimension de i file ƚa gaverà efeto soƚo dopo aver sarà e riverto i file de grandi dimension" />
+            <largeFileRestriction_wordWrap-tip value="Abilitando &quot;Dixativa el Ritorno a capo automatego globalmente&quot; dixativerà el ritorno a capo par tuti i documenti verti dopo aver verto i file de grandi dimensioni. Xe posibile riativare el ritorno a capo automatico manualmente." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

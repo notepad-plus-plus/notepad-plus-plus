@@ -845,6 +845,12 @@ bool Notepad_plus::saveGUIParams()
 	return true;
 }
 
+bool Notepad_plus::saveColumnEditorParams()
+{
+	NppParameters& nppParams = NppParameters::getInstance();
+	return nppParams.writeColumnEditorSettings();
+}
+
 bool Notepad_plus::saveProjectPanelsParams()
 {
 	NppParameters& nppParams = NppParameters::getInstance();

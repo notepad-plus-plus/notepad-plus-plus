@@ -2139,6 +2139,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 				if (!saveProjectPanelsParams()) allClosed = false; //writeProjectPanelsSettings
 				saveFileBrowserParam();
+				saveColumnEditorParams();
 
 				if (!allClosed)
 				{

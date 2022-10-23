@@ -1188,7 +1188,18 @@ struct FindHistory final
 	bool _regexBackward4PowerUser = false;
 };
 
+struct ColumnEditorParam final
+{
+	bool _mainChoice = true; //  true (1): text   false (0): number 
 
+	std::wstring _insertedTextContent;
+
+	int _initialNum = -1;
+	int _increaseNum = -1;
+	int _repeatNum = -1;
+	bool _isLeadingZeros = false;
+	int _formatChoice = 0; // 0:Dec 1:Hex 2:Oct 3:Bin
+};
 
 class LocalizationSwitcher final
 {
@@ -1429,6 +1440,7 @@ public:
 	bool writeHistory(const TCHAR *fullpath);
 
 	bool writeProjectPanelsSettings() const;
+	bool writeColumnEditorSettings() const;
 	bool writeFileBrowserSettings(const std::vector<generic_string> & rootPath, const generic_string & latestSelectedItemPath) const;
 
 	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName, const TCHAR *attributName, const TCHAR *attributVal) const;
@@ -1696,13 +1708,11 @@ public:
 		_cmdSettingsDir = settingsDir;
 	};
 
-	void setTitleBarAdd(const generic_string& titleAdd)
-	{
+	void setTitleBarAdd(const generic_string& titleAdd) {
 		_titleBarAdditional = titleAdd;
 	}
 
-	const generic_string& getTitleBarAdd() const
-	{
+	const generic_string& getTitleBarAdd() const {
 		return _titleBarAdditional;
 	}
 
@@ -1714,6 +1724,8 @@ public:
 	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
 	void removeIndexFromXmlUdls(size_t i);
 	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; };
+
+	ColumnEditorParam _columnEditParam;
 
 private:
 	NppParameters();
@@ -1903,6 +1915,7 @@ private:
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);
+	void feedColumnEditorParameters(TiXmlNode *node);
 	bool feedStylerArray(TiXmlNode *node);
 	std::pair<unsigned char, unsigned char> feedUserLang(TiXmlNode *node);
 	void feedUserStyles(TiXmlNode *node);

@@ -195,6 +195,7 @@ public:
 	bool saveGUIParams();
 	bool saveProjectPanelsParams();
 	bool saveFileBrowserParam();
+	bool saveColumnEditorParams();
 	void saveDockingParams();
     void saveUserDefineLangs();
     void saveShortcuts();

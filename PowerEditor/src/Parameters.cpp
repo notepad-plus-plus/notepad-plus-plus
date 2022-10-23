@@ -1744,6 +1744,9 @@ bool NppParameters::getUserParametersFromXmlTree()
 	//Get File browser parameters
 	feedFileBrowserParameters(root);
 
+	//Get Column editor parameters
+	feedColumnEditorParameters(root);
+
 	return true;
 }
 
@@ -2342,6 +2345,63 @@ void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
 			}
 		}
 	}
+}
+
+void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
+{
+	TiXmlNode * columnEditorRoot = node->FirstChildElement(TEXT("ColumnEditor"));
+	if (!columnEditorRoot) return;
+
+	const TCHAR* strVal = (columnEditorRoot->ToElement())->Attribute(TEXT("choice"));
+	if (strVal)
+	{
+		if (lstrcmp(strVal, TEXT("text")) == 0)
+			_columnEditParam._mainChoice = false;
+		else
+			_columnEditParam._mainChoice = true;
+	}
+	TiXmlNode *childNode = columnEditorRoot->FirstChildElement(TEXT("text"));
+	if (!childNode) return;
+
+	const TCHAR* content = (childNode->ToElement())->Attribute(TEXT("content"));
+	if (content)
+	{
+		_columnEditParam._insertedTextContent = content;
+	}
+
+	childNode = columnEditorRoot->FirstChildElement(TEXT("number"));
+	if (!childNode) return;
+
+	int val;
+	strVal = (childNode->ToElement())->Attribute(TEXT("initial"), &val);
+	if (strVal)
+		_columnEditParam._initialNum = val;
+
+	strVal = (childNode->ToElement())->Attribute(TEXT("increase"), &val);
+	if (strVal)
+		_columnEditParam._increaseNum = val;
+
+	strVal = (childNode->ToElement())->Attribute(TEXT("repeat"), &val);
+	if (strVal)
+		_columnEditParam._repeatNum = val;
+
+	strVal = (childNode->ToElement())->Attribute(TEXT("formatChoice"));
+
+	if (strVal)
+	{
+		if (lstrcmp(strVal, TEXT("hex")) == 0)
+			_columnEditParam._formatChoice = 1;
+		else if (lstrcmp(strVal, TEXT("oct")) == 0)
+			_columnEditParam._formatChoice = 2;
+		else if (lstrcmp(strVal, TEXT("bin")) == 0)
+			_columnEditParam._formatChoice = 3;
+		else // "bin"
+			_columnEditParam._formatChoice = 0;
+	}
+
+	const TCHAR* boolStr = (childNode->ToElement())->Attribute(TEXT("leadingZeros"));
+	if (boolStr)
+		_columnEditParam._isLeadingZeros = (lstrcmp(TEXT("yes"), boolStr) == 0);
 }
 
 void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
@@ -3786,6 +3846,54 @@ bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
 	(historyNode->ToElement())->SetAttribute(TEXT("nbMaxFile"), nbMaxFile!=-1?nbMaxFile:_nbMaxRecentFile);
 	(historyNode->ToElement())->SetAttribute(TEXT("inSubMenu"), _putRecentFileInSubMenu?TEXT("yes"):TEXT("no"));
 	(historyNode->ToElement())->SetAttribute(TEXT("customLength"), _recentFileCustomLength);
+	return true;
+}
+
+bool NppParameters::writeColumnEditorSettings() const
+{
+	if (!_pXmlUserDoc) return false;
+
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!nppRoot)
+	{
+		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+	}
+
+	TiXmlNode *oldColumnEditorNode = nppRoot->FirstChildElement(TEXT("ColumnEditor"));
+	if (oldColumnEditorNode)
+	{
+		// Erase the Project Panel root
+		nppRoot->RemoveChild(oldColumnEditorNode);
+	}
+
+	// Create the new ColumnEditor root
+	TiXmlElement columnEditorRootNode{TEXT("ColumnEditor")};
+	(columnEditorRootNode.ToElement())->SetAttribute(TEXT("choice"), _columnEditParam._mainChoice ? L"number" : L"text");
+
+	TiXmlElement textNode{ TEXT("text") };
+	(textNode.ToElement())->SetAttribute(TEXT("content"), _columnEditParam._insertedTextContent.c_str());
+	(columnEditorRootNode.ToElement())->InsertEndChild(textNode);
+
+	TiXmlElement numberNode{ TEXT("number") };
+	(numberNode.ToElement())->SetAttribute(TEXT("initial"), _columnEditParam._initialNum);
+	(numberNode.ToElement())->SetAttribute(TEXT("increase"), _columnEditParam._increaseNum);
+	(numberNode.ToElement())->SetAttribute(TEXT("repeat"), _columnEditParam._repeatNum);
+	(numberNode.ToElement())->SetAttribute(TEXT("leadingZeros"), _columnEditParam._isLeadingZeros ? L"yes" : L"no");
+
+	wstring format = TEXT("dec");
+	if (_columnEditParam._formatChoice == 1)
+		format = TEXT("hex");
+	else if (_columnEditParam._formatChoice == 2)
+		format = TEXT("oct");
+	else if (_columnEditParam._formatChoice == 3)
+		format = TEXT("bin");
+	(numberNode.ToElement())->SetAttribute(TEXT("formatChoice"), format);
+	(columnEditorRootNode.ToElement())->InsertEndChild(numberNode);
+
+
+
+	// (Re)Insert the Project Panel root
+	(nppRoot->ToElement())->InsertEndChild(columnEditorRootNode);
 	return true;
 }
 

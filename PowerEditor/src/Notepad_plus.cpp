@@ -2057,6 +2057,9 @@ void Notepad_plus::filePrint(bool showDialog)
 
 int Notepad_plus::doSaveOrNot(const TCHAR* fn, bool isMulti)
 {
+	if ((NppParameters::getInstance()).isEndSessionCritical())
+		return IDCANCEL; // simulate Esc-key or Cancel-button as there should not be any big delay / code-flow block
+
 	// In case Notepad++ is iconized into notification zone
 	if (!::IsWindowVisible(_pPublicInterface->getHSelf()))
 	{

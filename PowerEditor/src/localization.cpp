@@ -1365,6 +1365,9 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 
 int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *defaultMessage, const TCHAR *defaultTitle, int msgBoxType, int intInfo, const TCHAR *strInfo)
 {
+	if ((NppParameters::getInstance()).isEndSessionCritical())
+		return IDCANCEL; // simulate Esc-key or Cancel-button as there should not be any big delay / code-flow block
+
 	generic_string msg, title;
 	if (!getMsgBoxLang(msgBoxTagName, title, msg))
 	{

@@ -1874,7 +1874,8 @@ private:
 	bool _doNppLogNetworkDriveIssue = false;
 
 	bool _doNppLogNulContentCorruptionIssue = false;
-	bool _isQueryEndSessionStarted = false;
+	bool _isEndSessionStarted = false;
+	bool _isEndSessionCritical = false;
 
 public:
 	generic_string getWingupFullPath() const { return _wingupFullPath; };
@@ -1888,8 +1889,10 @@ public:
 
 	bool doNppLogNetworkDriveIssue() { return _doNppLogNetworkDriveIssue; };
 	bool doNppLogNulContentCorruptionIssue() { return _doNppLogNulContentCorruptionIssue; };
-	void queryEndSessionStart() { _isQueryEndSessionStarted = true; };
-	bool isQueryEndSessionStarted() { return _isQueryEndSessionStarted; };
+	void endSessionStart() { _isEndSessionStarted = true; };
+	bool isEndSessionStarted() { return _isEndSessionStarted; };
+	void makeEndSessionCritical() { _isEndSessionCritical = true; };
+	bool isEndSessionCritical() { return _isEndSessionCritical; };
 
 private:
 	void getLangKeywordsFromXmlTree();

@@ -334,6 +334,7 @@
                     <Item id="45057" name="OEM 865: Nordic"/>
                     <Item id="45053" name="OEM 860: Portuguese"/>
                     <Item id="45056" name="OEM 863: French"/>
+
                     <Item id="10001" name="Deloku al alia vido"/>
                     <Item id="10002" name="Montru ankaŭ en alia vido"/>
                     <Item id="10003" name="Deloku al nova ekzemplo de Notepad++"/>
@@ -678,12 +679,12 @@
                     <Item id="44107" name="Switch to Folder as Workspace"/>
                     <Item id="44109" name="Switch to Document List"/>
                     <Item id="44108" name="Switch to Function List"/>
-                    <Item id="44110" name="Remove Tab Colour"/>
-                    <Item id="44111" name="Apply Tab Colour 1"/>
-                    <Item id="44112" name="Apply Tab Colour 2"/>
-                    <Item id="44113" name="Apply Tab Colour 3"/>
-                    <Item id="44114" name="Apply Tab Colour 4"/>
-                    <Item id="44115" name="Apply Tab Colour 5"/>
+                    <Item id="44110" name="Remove Tab Color"/>
+                    <Item id="44111" name="Apply Tab Color 1"/>
+                    <Item id="44112" name="Apply Tab Color 2"/>
+                    <Item id="44113" name="Apply Tab Color 3"/>
+                    <Item id="44114" name="Apply Tab Color 4"/>
+                    <Item id="44115" name="Apply Tab Color 5"/>
                     <Item id="11002" name="Sort By Name A to Z"/>
                     <Item id="11003" name="Sort By Name Z to A"/>
                     <Item id="11004" name="Sort By Path A to Z"/>
@@ -1168,14 +1169,14 @@ You can define several column markers by using white space to separate the diffe
 
                 <Performance title="Performance">
                     <Item id="7141" name="Large File Restriction"/>
-                    <Item id="7142" name="While opening a large file, some features are turned off for optimizing the performance. You can customize them here."/>
-                    <Item id="7143" name="Enable Large File Restriction"/>
+                    <Item id="7143" name="Enable Large File Restriction (no syntax highlighting)"/>
                     <Item id="7144" name="Define Large File Size:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
                     <Item id="7147" name="Allow Brace Match"/>
                     <Item id="7148" name="Allow Auto-Completion"/>
                     <Item id="7149" name="Allow Smart Highlighting"/>
-                    <Item id="7150" name="Allow Word Wrap"/>
+                    <Item id="7150" name="Deactivate Word Wrap globally"/>
+                    <Item id="7151" name="Allow URL Clickable Link"/>
                 </Performance>
 
                 <Cloud title="Cloud &amp; Link">
@@ -1326,7 +1327,6 @@ Continue?"/>
 Save it otherwise your data will be lost
 Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
-
 This file has been modified by another program.
 Do you want to reload it?"/>
             <DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
@@ -1347,7 +1347,6 @@ Do you want to open it?"/>
             <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
-
 Do you want to save the current file anyways?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
             <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
@@ -1615,13 +1614,16 @@ Find in all files but exclude all folders log or logs recursively:
             <contextMenu-styleAlloccurrencesOfToken value="Style all occurrences of token" />
             <contextMenu-styleOneToken value="Style one token" />
             <contextMenu-clearStyle value="Clear style" />
-            <contextMenu-PluginCommands value="Plugin commands" />
-            <enable-disable-largeFileRestriction-tip value="Toggling &quot;Enable Large File Restriction&quot; takes effect only after closing and re-opening the large file" />
-            <change-largeFileRestriction_fileLength-tip value="Modifying file size value takes effect only after closing and re-opening the large file" />
-            <largeFileRestriction_wordWrap-tip value="Enabling &quot;Deactivate Word Wrap globally&quot; option will deactivate Word Wrap for all opened documents after opening a large file. You can reactivate Word Wrap feature manually." />
+            <largeFileRestriction-tip value="Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.
+
+NOTE:
+1. Modifying options here requires re-open currently opened large files to get proper behavior.
+
+2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
+
 <!--
 ne plu uzataj (?)
 

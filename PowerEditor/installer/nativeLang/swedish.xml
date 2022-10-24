@@ -1158,14 +1158,14 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 
 				<Performance title="Prestanda">
 					<Item id="7141" name="Begränsning för stora filer"/>
-					<Item id="7142" name="När du öppnar en stor fil inaktiveras vissa funktioner för att optimera prestandan. Du kan anpassa dem här."/>
-					<Item id="7143" name="Aktivera begränsning för stora filer"/>
+					<Item id="7143" name="Aktivera begränsning för stora filer (ingen syntaxmarkering)"/>
 					<Item id="7144" name="Definiera stor filstorlek:"/>
 					<Item id="7146" name="MB   (1 - 4096)"/>
 					<Item id="7147" name="Tillåt matchande klamrar"/>
 					<Item id="7148" name="Tillåt automatisk komplettering"/>
 					<Item id="7149" name="Tillåt smart markering"/>
-					<Item id="7150" name="Tillåt radbrytning"/>
+					<Item id="7150" name="Inaktivera radbrytning globalt"/>
+					<Item id="7151" name="Tillåt klickbara webbadresslänkar"/>
 				</Performance>
 
 				<Cloud title="Moln och länkar">
@@ -1606,6 +1606,10 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<contextMenu-styleOneToken value="Stilsätt en förekomst" />
 			<contextMenu-clearStyle value="Rensa stilsättning" />
 			<contextMenu-PluginCommands value="Kommandon från insticksprogram" />
+			<largeFileRestriction-tip value="Vissa funktioner kan förminska prestandan i stora filer. Dessa funktioner kan inaktiveras automatiskt när en stor fil öppnas. Du kan anpassa de här.
+OBS:
+1. När dessa alternativ modifieras måste de öppnade stora filer stängas och öppnas igen för att fungera ordentligt.
+2. Om &quot;Inaktivera radbrytning globalt&quot; markeras och du öppnar en stor fil kommer &quot;Radbrytning&quot; inaktiveras för alla filer. Du kan återaktivera detta via menyn &quot;Visa-&gt;Radbrytning&quot;." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

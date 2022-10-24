@@ -323,6 +323,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45057" name="OEM 865: Nordike"/>
                     <Item id="45053" name="OEM 860: Portugeze"/>
                     <Item id="45056" name="OEM 863: Frëngjisht"/>
+
                     <Item id="10001" name="Lëviz te pamja tjetër"/>
                     <Item id="10002" name="Klono te pamja tjetër"/>
                     <Item id="10003" name="Lëviz në instancën e re"/>
@@ -569,8 +570,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2231" name="Aftëso stilin global të shkrimit kursiv"/>
                     <Item id="2232" name="Aftëso stilin global të shkrimit të nënvizuar"/>
                     <Item id="2234" name="Go to settings"/>
-                </SubDialog>                
-                
+                </SubDialog>
             </StyleConfig>
 
             <ShortcutMapper title="Shortcut Mapper">
@@ -668,12 +668,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44107" name="Switch to Folder as Workspace"/>
                     <Item id="44109" name="Switch to Document List"/>
                     <Item id="44108" name="Switch to Function List"/>
-                    <Item id="44110" name="Remove Tab Colour"/>
-                    <Item id="44111" name="Apply Tab Colour 1"/>
-                    <Item id="44112" name="Apply Tab Colour 2"/>
-                    <Item id="44113" name="Apply Tab Colour 3"/>
-                    <Item id="44114" name="Apply Tab Colour 4"/>
-                    <Item id="44115" name="Apply Tab Colour 5"/>
+                    <Item id="44110" name="Remove Tab Color"/>
+                    <Item id="44111" name="Apply Tab Color 1"/>
+                    <Item id="44112" name="Apply Tab Color 2"/>
+                    <Item id="44113" name="Apply Tab Color 3"/>
+                    <Item id="44114" name="Apply Tab Color 4"/>
+                    <Item id="44115" name="Apply Tab Color 5"/>
                     <Item id="11002" name="Sort By Name A to Z"/>
                     <Item id="11003" name="Sort By Name Z to A"/>
                     <Item id="11004" name="Sort By Path A to Z"/>
@@ -876,7 +876,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6129" name="Filled Fluent UI: small"/>
                     <Item id="6130" name="Filled Fluent UI: large"/>
                     <Item id="6105" name="Ikona standarde"/>
-                    
+
                     <Item id="6106" name="Linja Tab"/>
                     <Item id="6107" name="Zvogëlo"/>
                     <Item id="6108" name="Kyë (jo tërhiq dhe lësho)"/>
@@ -910,8 +910,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6228" name="Standard"/>
                     <Item id="6229" name="Radhitur"/>
                     <Item id="6230" name="Kryeradhë"/>
-                    <Item id="6234" name="Pasivizo tiparin e avancuar të rrëshqitjes
-(nëse keni problem me fushën e prekjes)"/>
+                    <Item id="6234" name="Pasivizo tiparin e avancuar të rrëshqitjes(nëse keni problem me fushën e prekjes)"/>
                     <Item id="6215" name="Enable smooth font"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
                     <Item id="6239" name="Keep selection when right-click outside of selection"/>
@@ -925,9 +924,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Default"/>
                     <Item id="6249" name="Plain Text"/>
                     <Item id="6250" name="Custom Color"/>
-
-
-
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
@@ -942,7 +938,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7115" name="Customized"/>
                     <Item id="7116" name="Top"/>
                     <Item id="7117" name="Menu hot track"/>
-			 
                     <Item id="7118" name="Active"/>
                     <Item id="7119" name="Main"/>
                     <Item id="7120" name="Error"/>
@@ -982,12 +977,11 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6212" name="Distraction Free"/>
                 </MarginsBorderEdge>
 
-
                 <NewDoc title="Dokument i ri">
                     <Item id="6401" name="Formati"/>
-                    <Item id="6402" name="Windows"/>
-                    <Item id="6403" name="Unix"/>
-                    <Item id="6404" name="Mac"/>
+                    <Item id="6402" name="Windows (CR LF)"/>
+                    <Item id="6403" name="Unix (LF)"/>
+                    <Item id="6404" name="Macintosh (CR)"/>
                     <Item id="6405" name="Kodimi"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8 pa BOM"/>
@@ -1073,7 +1067,7 @@ You can define several column markers by using white space to separate the diffe
                         <Element name="Short date format"/>
                         <Element name="Long date format"/>
                         <Element name="Time"/>
-                    </ComboBox>										
+                    </ComboBox>
                     <Item id="6725" name="Variabli:"/>
                     <Item id="6727" name="Shfaq këtu rregullimet e variablit tuaj"/>
                     <Item id="6728" name="Koka dhe këmba"/>
@@ -1164,17 +1158,17 @@ You can define several column markers by using white space to separate the diffe
 
                 <Performance title="Performance">
                     <Item id="7141" name="Large File Restriction"/>
-                    <Item id="7142" name="While opening a large file, some features are turned off for optimizing the performance. You can customize them here."/>
-                    <Item id="7143" name="Enable Large File Restriction"/>
+                    <Item id="7143" name="Enable Large File Restriction (no syntax highlighting)"/>
                     <Item id="7144" name="Define Large File Size:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
                     <Item id="7147" name="Allow Brace Match"/>
                     <Item id="7148" name="Allow Auto-Completion"/>
                     <Item id="7149" name="Allow Smart Highlighting"/>
-                    <Item id="7150" name="Allow Word Wrap"/>
+                    <Item id="7150" name="Deactivate Word Wrap globally"/>
+                    <Item id="7151" name="Allow URL Clickable Link"/>
                 </Performance>
 
-                <Cloud title="Cloud">
+                <Cloud title="Cloud &amp; Link">
                     <Item id="6262" name="Rregullimet në cloud"/>
                     <Item id="6263" name="Jo re"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
@@ -1182,7 +1176,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6319" name="Enable"/>
                     <Item id="6320" name="No underline"/>
                     <Item id="6350" name="Enable fullbox mode"/>
-                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6264" name="URI customized schemes:"/>
                 </Cloud>
 
                 <SearchEngine title="Search Engine">
@@ -1275,7 +1269,6 @@ You can define several column markers by using white space to separate the diffe
             </DoSaveOrNot>
             <DoSaveAll title="Save All Confirmation">
                 <Item id="1766" name="Are you sure you want to save all modified documents?
-
 Choose &quot;Always Yes&quot; if you don't want to see this dialog again.
 You can re-activate this dialog in Preferences later."/>
                 <Item id="6" name="&amp;Yes"/>
@@ -1283,26 +1276,24 @@ You can re-activate this dialog in Preferences later."/>
                 <Item id="4" name="Always Yes"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox>
-            <ContextMenuXmlEditWarning title="Korrigjimi i menysë së përmbajtjes" message="Korrigjimi i contextMenu.xml ju lejon të modifikoni menytë taf-paf (popup) të përmbajtjes së Notepad++.\rDuhet të rifilloni Notepad++, që të hyjë në efekt pas modifikimit të contextMenu.xml."/>
-
-            <SaveCurrentModifWarning title="Ruaj modifikimin aktual" message="Duhet të ruani modifikimet aktuale.\rTë gjitha modifikimet e ruajtura nuk mund të ribëhen.\r\rVazhdo?"/>
-
-
-
-            <LoseUndoAbilityWarning title="Humb paralajmërimin e aftësisë mosbëj" message="Duhet të ruani modifikimin aktual.\rTë gjitha modifikimet e ruajtura nuk mund të ribëhen.\r\rVazhdo?"/>
-
-
-
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <ContextMenuXmlEditWarning title="Korrigjimi i menysë së përmbajtjes" message="Korrigjimi i contextMenu.xml ju lejon të modifikoni menytë taf-paf (popup) të përmbajtjes së Notepad++.
+Duhet të rifilloni Notepad++, që të hyjë në efekt pas modifikimit të contextMenu.xml."/>
+            <SaveCurrentModifWarning title="Ruaj modifikimin aktual" message="Duhet të ruani modifikimet aktuale.
+Të gjitha modifikimet e ruajtura nuk mund të ribëhen.
+Vazhdo?"/>
+            <LoseUndoAbilityWarning title="Humb paralajmërimin e aftësisë mosbëj" message="Duhet të ruani modifikimin aktual.
+Të gjitha modifikimet e ruajtura nuk mund të ribëhen.
+Vazhdo?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Lëviz për tek Instanca e re Notepad++" message="Dokumenti është modifikuar, ruaje atë pastaj provo përsëri."/>
             <DocReloadWarning title="Ringarko" message="A jeni i sigurtë se doni të ringarkomi filin aktual dhe humbni ndryshimet e bëra në Notepad++?"/>
             <FileLockedWarning title="Ruajtja dështoi" message="Ju lutem, kontrollo nëse ky fil është i hapur në ndonjë program tjetër"/>
             <FileAlreadyOpenedInNpp title="" message="Fili është ndërkohë i hapur në Notepad++."/>
             <RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="The specified name is already in use on another tab."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
             <DeleteFileFailed title="Fshij filin" message="Fshirja e filit dështoi"/>
-            
-            <NbFileToOpenImportantWarning title="Numri i fileve për t'u hapur është tepër i madh" message="$INT_REPLACE$ filet janë duke u hapur.\rA jeni i sigurtë për t'i hapur ato?"/>
 
+            <NbFileToOpenImportantWarning title="Numri i fileve për t'u hapur është tepër i madh" message="$INT_REPLACE$ filet janë duke u hapur.
+A jeni i sigurtë për t'i hapur ato?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
             <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
 or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
@@ -1322,11 +1313,9 @@ Continue?"/>
 Save it otherwise your data will be lost
 Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
-
 This file has been modified by another program.
 Do you want to reload it?"/>
             <DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
-
 This file has been modified by another program.
 Do you want to reload it and lose the changes made in Notepad++?"/>
             <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
@@ -1343,7 +1332,6 @@ Do you want to open it?"/>
             <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
             <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
-
 Do you want to save the current file anyways?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
             <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
@@ -1505,13 +1493,10 @@ Continue?"/>
             <file-rename-title value="Rename"/>
             <find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
-
 Find in all files except exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
-
 Find in all files but exclude folders tests, bin &amp;&amp; bin64:
 *.* !\tests !\bin*
-
 Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
             <find-in-files-select-folder value="Select a folder to search from"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
@@ -1611,10 +1596,10 @@ Find in all files but exclude all folders log or logs recursively:
             <contextMenu-styleAlloccurrencesOfToken value="Style all occurrences of token" />
             <contextMenu-styleOneToken value="Style one token" />
             <contextMenu-clearStyle value="Clear style" />
-            <contextMenu-PluginCommands value="Plugin commands" />
-            <enable-disable-largeFileRestriction-tip value="Toggling &quot;Enable Large File Restriction&quot; takes effect only after closing and re-opening the large file" />
-            <change-largeFileRestriction_fileLength-tip value="Modifying file size value takes effect only after closing and re-opening the large file" />
-            <largeFileRestriction_wordWrap-tip value="Enabling &quot;Deactivate Word Wrap globally&quot; option will deactivate Word Wrap for all opened documents after opening a large file. You can reactivate Word Wrap feature manually." />
+            <largeFileRestriction-tip value="Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.
+NOTE:
+1. Modifying options here requires re-open currently opened large files to get proper behavior.
+2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

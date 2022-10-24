@@ -2059,14 +2059,28 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		}
 
 		case WM_QUERYENDSESSION:
-		case WM_CLOSE:
 		{
-			if (message == WM_QUERYENDSESSION)
-			{
-				nppParam.queryEndSessionStart();
-			}
+			// app should return TRUE or FALSE immediately upon receiving this message,
+			// and defer any cleanup operations until it receives WM_ENDSESSION (with WPARAM TRUE)
 
-			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+			// for a bigger tidy-up/save operations we can kick off a background thread here to prepare for shutdown
+			// and when we get the WM_END­SESSION TRUE, we wait there until that background operation completes
+			// before telling the system, "ok, you can shut down now...", i.e. returning 0 there
+
+			// whatever we do from here - make sure that it is ok for the operation to occur even if the shutdown
+			// is then subsequently canceled
+
+			// here we could also display a prompt to ask the users whether they want to save their unsaved changes etc.,
+			// but in practice, this is usually not a good idea because if we do not respond to this message
+			// after a few seconds (e.g. user is away from PC...), the system will shut down without us
+
+			bool isFirstQueryEndSession = !nppParam.isEndSessionStarted();
+
+			nppParam.endSessionStart();
+			if (lParam & ENDSESSION_CRITICAL)
+				nppParam.endSessionCritical();
+
+			if (nppParam.doNppLogNulContentCorruptionIssue())
 			{
 				generic_string issueFn = nppLogNulContentCorruptionIssue;
 				issueFn += TEXT(".log");
@@ -2089,12 +2103,137 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						wmqesType += " - ENDSESSION_LOGOFF";
 				}
 				string queryEndSession = "WM_QUERYENDSESSION (lParam: " + wmqesType + ") =====================================";
-				if (WM_QUERYENDSESSION == message)
-					writeLog(nppIssueLog.c_str(), queryEndSession.c_str());
-				else
-					writeLog(nppIssueLog.c_str(), "WM_CLOSE (isQueryEndSessionStarted == true)");
+				writeLog(nppIssueLog.c_str(), queryEndSession.c_str());
 			}
 
+			// here is also the right place to unblock a possible modal-dlg blocking the main N++ wnd
+			// (it is then too late to do so at the WM_ENDSESSION time, as for this we need this thread message queue...)
+			if (!::IsWindowEnabled(hwnd))
+			{
+				// we probably have a blocking modal-window like MessageBox (e.g. the "Reload" or "Keep non existing file")
+				if (!nppParam.isEndSessionCritical() && isFirstQueryEndSession)
+					return FALSE; // request abort of the shutdown (for a non-critical one we can give the user a chance to solve whatever is needed)
+
+				// in most cases we will need to take care and programmatically close such dialogs in order to exit gracefully,
+				// otherwise the N++ most probably crashes itself without any tidy-up
+
+				string strLog = "Main N++ wnd is disabled by (an active modal-dlg?):  ";
+				char szBuf[MAX_PATH + 128] = { 0 };
+
+				HWND hActiveWnd = ::GetActiveWindow();
+				if (hActiveWnd)
+				{
+					if (::GetWindowTextA(hActiveWnd, szBuf, _countof(szBuf)))
+						strLog += szBuf;
+					::SendMessage(hActiveWnd, WM_CLOSE, 0, 0);
+				}
+				else
+				{
+					// no active child window, so it is most probably the system dialog box class #32770 (used e.g. by the MessageBox WINAPI)
+					// - so our main hwnd here is not the PARENT but OWNER of that top-level window
+					hActiveWnd = ::GetLastActivePopup(hwnd);
+					if (hActiveWnd)
+					{
+						if (::GetWindowTextA(hActiveWnd, szBuf, _countof(szBuf)))
+							strLog += szBuf;
+						::GetClassNameA(hActiveWnd, szBuf, _countof(szBuf));
+						if (0 == lstrcmpiA("#32770", szBuf))
+							strLog += " (MessageBox)";
+						// we cannot use here the usual sending of the WM_CLOSE as it will not always work (e.g. for a MB_YESNO MessageBox)
+						if (!::EndDialog(hActiveWnd, 0))
+						{
+							strLog += "  -> EndDialog failed with ErrorCode: ";
+							strLog += std::to_string(::GetLastError());
+							// last attempt
+							::SendMessage(hActiveWnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+						}
+					}
+					else
+					{
+						strLog += "???";
+					}
+				}
+
+				// re-test
+				if (::IsWindowEnabled(hwnd))
+					strLog += "  -> Main N++ wnd has been successfully reenabled.";
+
+				if (nppParam.doNppLogNulContentCorruptionIssue())
+				{
+					generic_string issueFn = nppLogNulContentCorruptionIssue;
+					issueFn += TEXT(".log");
+					generic_string nppIssueLog = nppParam.getUserPath();
+					pathAppend(nppIssueLog, issueFn);
+					writeLog(nppIssueLog.c_str(), strLog.c_str());
+				}
+			}
+
+			// TODO: here is the last opportunity to call the following WINAPI in a possible future version of the N++
+			// 
+			// flags RESTART_NO_PATCH and RESTART_NO_REBOOT are not set, so we should be restarted if terminated by an update or restart
+			//::RegisterApplicationRestart(restartCommandLine.c_str(), RESTART_NO_CRASH | RESTART_NO_HANG);
+
+			return TRUE; // nowadays, with the monstrous Win10+ Windows Update behind, is futile to try to interrupt the shutdown by returning FALSE here
+						 // (if one really needs so, there is the ShutdownBlockReasonCreate WINAPI for the rescue ...)
+		}
+
+		case WM_ENDSESSION:
+		{
+			// this message informs our app whether the session is really ending
+
+			if (nppParam.doNppLogNulContentCorruptionIssue())
+			{
+				generic_string issueFn = nppLogNulContentCorruptionIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
+
+				string wmesType = std::to_string(lParam);
+				if (0 == lParam)
+				{
+					wmesType += " - ordinary system shutdown/restart";
+				}
+				else
+				{
+					// the lParam here is a bit mask, it can be one or more of the following values
+					if (lParam & ENDSESSION_CLOSEAPP)
+						wmesType += " - ENDSESSION_CLOSEAPP";
+					if (lParam & ENDSESSION_CRITICAL)
+						wmesType += " - ENDSESSION_CRITICAL";
+					if (lParam & ENDSESSION_LOGOFF)
+						wmesType += " - ENDSESSION_LOGOFF";
+				}
+				string endSession = "WM_ENDSESSION (wParam: ";
+				if (wParam)
+					endSession += "TRUE, lParam: ";
+				else
+					endSession += "FALSE, lParam: ";
+				endSession += wmesType + ")";
+
+				writeLog(nppIssueLog.c_str(), endSession.c_str());
+			}
+
+			if (TRUE == wParam)
+			{
+				// the session is being ended, it can end ANY TIME after all apps running have returned from processing this message,
+				// so DO NOT e.g. Send/Post any message from here onwards!!!
+				nppParam.endSessionStart(); // ensure
+				nppParam.endSessionCritical(); // set our exit-flag to critical even if the bitmask has not the ENDSESSION_CRITICAL set
+				// do not return 0 here and continue to the N++ standard WM_CLOSE code-part (no verbose GUI there this time!!!)
+			}
+			else
+			{
+				// the session is not being ended after all
+				// - it happens when either the N++ returns FALSE to non-critical WM_QUERYENDSESSION or any other app with higher shutdown level
+				//   than N++ (app shuttdown order can be checked by the GetProcessShutdownParameters WINAPI)
+				// - we will not try to reset back our nppParam _isEndSessionStarted flag somehow, because of we should now that there was already
+				//   a previous shutdown attempt, otherwise we could stubbornly repeat returning FALSE for the next WM_QUERYENDSESSION and
+				//   the system will terminate us
+				return 0; // return here and do not continue to the WM_CLOSE part
+			}
+		} // case WM_ENDSESSION:
+		case WM_CLOSE:
+		{
 			if (_pPublicInterface->isPrelaunch())
 			{
 				SendMessage(hwnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
@@ -2102,9 +2241,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			else
 			{
 				SCNotification scnN{};
-				scnN.nmhdr.code = NPPN_BEFORESHUTDOWN;
 				scnN.nmhdr.hwndFrom = hwnd;
 				scnN.nmhdr.idFrom = 0;
+				scnN.nmhdr.code = NPPN_BEFORESHUTDOWN;
 				_pluginsManager.notify(&scnN);
 
 				if (_pTrayIco)
@@ -2140,15 +2279,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (!saveProjectPanelsParams()) allClosed = false; //writeProjectPanelsSettings
 				saveFileBrowserParam();
 
-				if (!allClosed)
+				if (!allClosed && !nppParam.isEndSessionCritical())
 				{
-					//User cancelled the shutdown
+					// cancelled by user
 					scnN.nmhdr.code = NPPN_CANCELSHUTDOWN;
 					_pluginsManager.notify(&scnN);
-					
 					if (isSnapshotMode)
 						::LockWindowUpdate(NULL);
-					return FALSE;
+					return 0; // abort quitting
 				}
 
 				if (_beforeSpecialView._isFullScreen)	//closing, return to windowed mode
@@ -2161,7 +2299,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 				scnN.nmhdr.code = NPPN_SHUTDOWN;
 				_pluginsManager.notify(&scnN);
-
 
 				saveScintillasZoom(); 
 				saveGUIParams(); //writeGUIParams writeScintillaParams
@@ -2182,18 +2319,23 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				//
 				saveShortcuts();
 
-				//
-				// saving session.xml
-				//
-				if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)
-					saveSession(currentSession);
+				if (!_isNppSessionSavedAtExit)
+				{
+					_isNppSessionSavedAtExit = true; // prevents emptying of the session.xml file on another WM_ENDSESSION or WM_CLOSE
 
-				//
-				// saving session.xml into loaded session if a saved session is loaded and saveLoadedSessionOnExit option is enabled
-				//
-				generic_string loadedSessionFilePath = nppParam.getLoadedSessionFilePath();
-				if (!loadedSessionFilePath.empty() && PathFileExists(loadedSessionFilePath.c_str()))
-					nppParam.writeSession(currentSession, loadedSessionFilePath.c_str());
+					//
+					// saving session.xml
+					//
+					if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)
+						saveSession(currentSession);
+
+					//
+					// saving session.xml into loaded session if a saved session is loaded and saveLoadedSessionOnExit option is enabled
+					//
+					generic_string loadedSessionFilePath = nppParam.getLoadedSessionFilePath();
+					if (!loadedSessionFilePath.empty() && PathFileExists(loadedSessionFilePath.c_str()))
+						nppParam.writeSession(currentSession, loadedSessionFilePath.c_str());
+				}
 
 				// write settings on cloud if enabled, if the settings files don't exist
 				if (nppgui._cloudPath != TEXT("") && nppParam.isCloudPathChanged())
@@ -2214,82 +2356,30 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					::LockWindowUpdate(NULL);
 
 				//Sends WM_DESTROY, Notepad++ will end
-				if (message == WM_CLOSE)
-					::DestroyWindow(hwnd);
-
-				generic_string updaterFullPath = nppParam.getWingupFullPath();
-				if (!updaterFullPath.empty())
-				{
-					Process updater(updaterFullPath.c_str(), nppParam.getWingupParams().c_str(), nppParam.getWingupDir().c_str());
-					updater.run(nppParam.shouldDoUAC());
-				}
-			}
-
-			// _isEndingSessionButNotReady is true means WM_QUERYENDSESSION is sent but no time to finish saving data
-            // then WM_ENDSESSION is sent with wParam == FALSE - Notepad++ should exit in this case
-			if (_isEndingSessionButNotReady) 
 				::DestroyWindow(hwnd);
 
-			if (message == WM_CLOSE)
-				return 0;
-
-			return TRUE;
-		}
-
-		case WM_ENDSESSION:
-		{
-			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
-			{
-				generic_string issueFn = nppLogNulContentCorruptionIssue;
-				issueFn += TEXT(".log");
-				generic_string nppIssueLog = nppParam.getUserPath();
-				pathAppend(nppIssueLog, issueFn);
-
-				string wmesType = std::to_string(lParam);
-				if (0 == lParam)
+				if (!nppParam.isEndSessionCritical())
 				{
-					wmesType += " - ordinary system shutdown/restart";
+					generic_string updaterFullPath = nppParam.getWingupFullPath();
+					if (!updaterFullPath.empty())
+					{
+						Process updater(updaterFullPath.c_str(), nppParam.getWingupParams().c_str(), nppParam.getWingupDir().c_str());
+						updater.run(nppParam.shouldDoUAC());
+					}
 				}
-				else
-				{
-					// the lParam here is a bit mask, it can be one or more of the following values
-					if (lParam & ENDSESSION_CLOSEAPP)
-						wmesType += " - ENDSESSION_CLOSEAPP";
-					if (lParam & ENDSESSION_CRITICAL)
-						wmesType += " - ENDSESSION_CRITICAL";
-					if (lParam & ENDSESSION_LOGOFF)
-						wmesType += " - ENDSESSION_LOGOFF";
-				}
-				string endSession = "WM_ENDSESSION (wParam: ";
-				if (wParam)
-					endSession += "TRUE, lParam: ";
-				else
-					endSession += "FALSE, lParam: ";
-				endSession += wmesType + ")";
-
-				writeLog(nppIssueLog.c_str(), endSession.c_str());
 			}
 
-			if (wParam == TRUE)
-			{
-				::DestroyWindow(hwnd);
-			}
-			else
-			{
-				_isEndingSessionButNotReady = true;
-			}
-			return 0;
+			return 0; // both WM_CLOSE and a possible WM_ENDSESSION should return 0
 		}
 
 		case WM_DESTROY:
 		{
-			if (nppParam.isQueryEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+			if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 			{
 				generic_string issueFn = nppLogNulContentCorruptionIssue;
 				issueFn += TEXT(".log");
 				generic_string nppIssueLog = nppParam.getUserPath();
 				pathAppend(nppIssueLog, issueFn);
-
 				writeLog(nppIssueLog.c_str(), "WM_DESTROY");
 			}
 

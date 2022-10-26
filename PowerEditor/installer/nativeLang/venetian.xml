@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Tue, October 4th, 2022.
+    Last modified Wed, October 26th, 2022.
     Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
@@ -294,6 +294,12 @@
                     <Item id="44097" name="Monitora (tail -f)"/>
                     <Item id="44098" name="Spòsta scheda vanti"/>
                     <Item id="44099" name="Spòsta scheda indrìo"/>
+                    <Item id="44110" name="Rimovi Coƚore"/>
+                    <Item id="44111" name="Applica Coƚore 1"/>
+                    <Item id="44112" name="Applica Coƚore 2"/>
+                    <Item id="44113" name="Applica Coƚore 3"/>
+                    <Item id="44114" name="Applica Coƚore 4"/>
+                    <Item id="44115" name="Applica Coƚore 5"/>
                     <Item id="44032" name="Vixuaƚixasion a tuto schermo"/>
                     <Item id="44033" name="Ripristina ƚo zoom predefinìo"/>
                     <Item id="44034" name="Senpre en primo pian"/>
@@ -320,18 +326,6 @@
                     <Item id="45060" name="Big5 (tradisionaƚe)"/>
                     <Item id="45061" name="GB2312 (senplificà)"/>
                     <Item id="45054" name="OEM 861: Ixƚandexe"/>
-                    <Item id="45005" name="Codefega en UTF-8-BOM"/>
-                    <Item id="45006" name="Codefega en UTF-16 BE BOM"/>
-                    <Item id="45007" name="Codefega en UTF-16 LE BOM"/>
-                    <Item id="45008" name="Codefega en UTF-8"/>
-                    <Item id="45009" name="Converti en ANSI"/>
-                    <Item id="45010" name="Converti en UTF-8"/>
-                    <Item id="45011" name="Converti en UTF-8-BOM"/>
-                    <Item id="45012" name="Converti en UTF-16 BE BOM"/>
-                    <Item id="45013" name="Converti en UTF-16 LE BOM"/>
-                    <Item id="45060" name="Big5 (tradisionaƚe)"/>
-                    <Item id="45061" name="GB2312 (senplificà)"/>
-                    <Item id="45054" name="OEM 861: Ixƚandexe"/>
                     <Item id="45057" name="OEM 865: Nordico"/>
                     <Item id="45053" name="OEM 860: Portoghexe"/>
                     <Item id="45056" name="OEM 863: Fransexe"/>
@@ -343,7 +337,7 @@
 
                     <Item id="46001" name="Configura i stiƚi..."/>
                     <Item id="46250" name="Definisi el to ƚenguagio..."/>
-                    <Item id="46300" name ="Vèrxi carteƚa ƚenguagi definìi da &apos;l utente..." />
+                    <Item id="46300" name="Vèrxi carteƚa ƚenguagi definìi da &apos;l utente..." />
                     <Item id="46301" name="Personalixasion Ƚenguagio Notepad++"/>
                     <Item id="46180" name="Definìo da ƚ&apos;utente"/>
                     <Item id="47000" name="Informasion so Notepad++"/>
@@ -393,7 +387,7 @@
                     <Item id="11007" name="Tipo da Z a A"/>
                     <Item id="11008" name="Dimension Cresente"/>
                     <Item id="11009" name="Dimension Decresente"/>
-        </Commands>
+            </Commands>
             </Main>
             <Splitter>
             </Splitter>
@@ -438,9 +432,9 @@
 
         <Dialog>
             <Find title="" titleFind="Cata" titleReplace="Sostituisi" titleFindInFiles="Ruma inte i file" titleFindInProjects="Ruma inte&apos;l progeto" titleMark="Evidensia">
-                <Item id="1" name="Cata el Seguente"/>
+                <Item id="1"    name="Cata el Seguente"/>
                 <Item id="1722" name="Cata el Presedente"/>
-                <Item id="2" name="Sara su"/>
+                <Item id="2"    name="Sara su"/>
                 <Item id="1620" name="Cata:"/>
                 <Item id="1603" name="Soƚo &amp;paròƚe intiere"/>
                 <Item id="1604" name="Distingui tra ma&amp;iùscoƚe e minùscoƚe"/>
@@ -1170,7 +1164,6 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
 
                 <Performance title="Prestazioni">
                     <Item id="7141" name="Restrision par File de grandi dimension"/>
-                    <Item id="7142" name="A vertaura de i file de grandi dimension, cualche funsionalità le vien dixabilità par migliorare le prestasion. qua te poi personalixarle."/>
                     <Item id="7143" name="Abilita restrisioni par i file de grandi dimension"/>
                     <Item id="7144" name="Definision de i file de grandi dimension:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
@@ -1178,8 +1171,8 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                     <Item id="7148" name="Parmeti l&apos;ativasion Auto-Conpletamento"/>
                     <Item id="7149" name="Parmeti l&apos;ativasion la colorasione automatica"/>
                     <Item id="7150" name="Dixativa el Ritorno a capo automatego globalmente"/>
+                    <Item id="7151" name="Parmeti URL Clicabili"/>
                 </Performance>
-
 
                 <Cloud title="Cloud e coƚegamenti">
                     <Item id="6262" name="Inpostasion sul Cloud"/>
@@ -1260,8 +1253,8 @@ Te poi definire vari deƚimitatori de coƚona uxando spasi par spartire i divers
                 <Item id="2" name="Anuƚa"/>
             </ColumnEditor>
             <FindInFinder title="Cata tra i rixultadi">
-                <Item id="1" name="Cata tuti cuanti"/>
-                <Item id="2" name="Sara su"/>
+                <Item id="1"    name="Cata tuti cuanti"/>
+                <Item id="2"    name="Sara su"/>
                 <Item id="1711" name="Ruma:"/>
                 <Item id="1713" name="Ruma soƚo inte ƚe righe catà"/>
                 <Item id="1714" name="Soƚo paròƚe intiere"/>
@@ -1609,10 +1602,10 @@ Runa en tuti i files, ma escludi tute le carteƚe o sotocarteƚe log o logs:
             <contextMenu-styleAlloccurrencesOfToken value="Marca stiƚe par tute le corispondense" />
             <contextMenu-styleOneToken value="Marca stiƚe ƚa prima corispondensa" />
             <contextMenu-clearStyle value="Rimovi marcatura Stiƚe" />
-            <contextMenu-PluginCommands value="Comandi plugin" />
-            <enable-disable-largeFileRestriction-tip value="La modifega de &quot;Restrision par File de grandi dimension&quot; ƚa gaverà efeto soƚo dopo aver sarà e riverto i file de grandi dimension" />
-            <change-largeFileRestriction_fileLength-tip value="La modifega de la dimension de i file ƚa gaverà efeto soƚo dopo aver sarà e riverto i file de grandi dimension" />
-            <largeFileRestriction_wordWrap-tip value="Abilitando &quot;Dixativa el Ritorno a capo automatego globalmente&quot; dixativerà el ritorno a capo par tuti i documenti verti dopo aver verto i file de grandi dimensioni. Xe posibile riativare el ritorno a capo automatico manualmente." />
+            <largeFileRestriction-tip value="Alcune funsionaƚità ƚe poderia raƚentare ƚe prestasion co file de grandi dimension. Ste funsionalità ƚe poƚe esare inpostà par auto-disabilitarse a ƚa vertaura de file de grandi dimension. Le poƚe esare dixabilità chive.
+NOTE:
+1. Par ƚa modifega de ste opsioni bixogna riverxare i file de grandi dimension.
+2. Se &quot;Dixativa el Ritorno a capo automatego globalmente&quot; el xe selesionà e vien verto on file de grandi dimension, &quot;Ritorno a capo automatego&quot; el sarà dixabilità par tuti cuanti i file. Xe posibiƚe riabiƚitarƚo da el menu &quot;Visualixa-&gt;Ativa a capo automatego&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

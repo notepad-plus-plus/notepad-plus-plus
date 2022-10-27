@@ -1160,14 +1160,14 @@ You can define several column markers by using white space to separate the diffe
 
                 <Performance title="Performance">
                     <Item id="7141" name="Large File Restriction"/>
-                    <Item id="7142" name="While opening a large file, some features are turned off for optimizing the performance. You can customize them here."/>
-                    <Item id="7143" name="Enable Large File Restriction"/>
+                    <Item id="7143" name="Enable Large File Restriction (no syntax highlighting)"/>
                     <Item id="7144" name="Define Large File Size:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
                     <Item id="7147" name="Allow Brace Match"/>
                     <Item id="7148" name="Allow Auto-Completion"/>
                     <Item id="7149" name="Allow Smart Highlighting"/>
-                    <Item id="7150" name="Allow Word Wrap"/>
+                    <Item id="7150" name="Deactivate Word Wrap globally"/>
+                    <Item id="7151" name="Allow URL Clickable Link"/>
                 </Performance>
 
                 <Cloud title="Cloud &amp; Link">
@@ -1284,11 +1284,9 @@ You can re-activate this dialog in Preferences later."/>
 You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
             <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
 All the saved modifications can not be undone.
-
 Continue?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
             <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
 All the saved modifications can not be undone.
-
 Continue?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
@@ -1318,11 +1316,9 @@ Continue?"/>
 Save it otherwise your data will be lost
 Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
-
 This file has been modified by another program.
 Do you want to reload it?"/>
             <DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
-
 This file has been modified by another program.
 Do you want to reload it and lose the changes made in Notepad++?"/>
             <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
@@ -1501,13 +1497,10 @@ Continue?"/>
             <file-rename-title value="Rename"/>
             <find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
-
 Find in all files except exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
-
 Find in all files but exclude folders tests, bin &amp;&amp; bin64:
 *.* !\tests !\bin*
-
 Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
             <find-in-files-select-folder value="Select a folder to search from"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
@@ -1608,6 +1601,10 @@ Find in all files but exclude all folders log or logs recursively:
             <contextMenu-styleOneToken value="Style one token" />
             <contextMenu-clearStyle value="Clear style" />
             <contextMenu-PluginCommands value="Plugin commands" />
+            <largeFileRestriction-tip value="Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.
+NOTE:
+1. Modifying options here requires re-open currently opened large files to get proper behavior.
+2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Venetian translation for Notepad++
-    Last modified Wed, October 26th, 2022.
+    Last modified Wed, October 27th, 2022.
     Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
@@ -1602,6 +1602,7 @@ Runa en tuti i files, ma escludi tute le carteƚe o sotocarteƚe log o logs:
             <contextMenu-styleAlloccurrencesOfToken value="Marca stiƚe par tute le corispondense" />
             <contextMenu-styleOneToken value="Marca stiƚe ƚa prima corispondensa" />
             <contextMenu-clearStyle value="Rimovi marcatura Stiƚe" />
+            <contextMenu-PluginCommands value="Comandi plugin" />
             <largeFileRestriction-tip value="Alcune funsionaƚità ƚe poderia raƚentare ƚe prestasion co file de grandi dimension. Ste funsionalità ƚe poƚe esare inpostà par auto-disabilitarse a ƚa vertaura de file de grandi dimension. Le poƚe esare dixabilità chive.
 NOTE:
 1. Par ƚa modifega de ste opsioni bixogna riverxare i file de grandi dimension.

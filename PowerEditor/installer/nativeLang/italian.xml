@@ -1600,11 +1600,10 @@ Cerca in tutti i files, ma escludi tutte le cartelle o sottocartelle log o logs:
             <contextMenu-styleAlloccurrencesOfToken value="Applica stile per tutte le corrispondenze" />
             <contextMenu-styleOneToken value="Applica stile per la prima corrispondenza" />
             <contextMenu-clearStyle value="Rimuovi applicazione Stile" />
+            <contextMenu-PluginCommands value="Comandi plugin" />
             <largeFileRestriction-tip value="Alcune funzionalità potrebbero rallentare le prestazioni con file di grandi dimensioni. Queste funzionalità possono essere impostate per auto-disabilitarsi all'apertura di file di grandi dimensioni. Possono essere disabilitate qui.
-
 NOTE:
 1. La modifica di queste opzioni richiede la riapertura dei file di grandi dimensioni.
-
 2. Se &quot;Disattiva il Ritorno A capo automatico globalmente&quot; è selezionato e viene aperto un file di grandi dimensioni, &quot;Ritorno a capo automatico&quot; sarà disabilitato per tutti i file. E' possibile riabilitarlo dal menu &quot;Visualizza-&gt;Attiva a capo automatico&quot;." />
         </MiscStrings>
     </Native-Langue>

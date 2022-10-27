@@ -1617,6 +1617,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
             <contextMenu-styleAlloccurrencesOfToken value="Estilizar todas as ocorrências do termo" />
             <contextMenu-styleOneToken value="Estilizar um termo" />
             <contextMenu-clearStyle value="Limpar estilo" />
+	    <contextMenu-PluginCommands value="Comandos de Plugin" />
             <largeFileRestriction-tip value="Alguns recursos podem reduzir a performance em arquivos grandes. Estes recursos podem ser automaticamente desativados ao se abrir um arquivo grande. É possível configurá-los aqui.
 OBSERVAÇÃO:
 1. A modificação de opções aqui requerem a reabertura de arquivos grandes já abertos para obter o comportamento desejado.

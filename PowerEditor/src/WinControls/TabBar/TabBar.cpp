@@ -331,9 +331,11 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 
 	if (_hFont == NULL)
 		_hFont = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+		setFont(TEXT("Segoe UI"), NppParameters::getInstance()._dpiManager.scaleY(16));
 
 	if (_hLargeFont == NULL)
 		_hLargeFont = (HFONT)::GetStockObject(SYSTEM_FONT);
+		setFont(TEXT("Segoe UI"), NppParameters::getInstance()._dpiManager.scaleY(16));
 
 	if (::GetObject(_hFont, sizeof(LOGFONT), &LogFont) != 0)
 	{

@@ -282,7 +282,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
 	int tabDpiDynamicalHeight = dpiManager.scaleY(13);
-	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
+	_tab.setFont(TEXT("Segoe UI"), tabDpiDynamicalHeight);
 
 	const TCHAR *find = TEXT("Find");
 	const TCHAR *replace = TEXT("Replace");

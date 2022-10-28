@@ -555,7 +555,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			 ANSI_CHARSET, OUT_DEFAULT_PRECIS,
 			 CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 			 DEFAULT_PITCH | FF_ROMAN,
-			 TEXT("MS Shell Dlg"));
+			 TEXT("Segoe UI"));
 
 		hOldFont = (HFONT)::SelectObject(hDc, hFont);
 		::DrawText(hDc, _pszCaption.c_str(), length, &rc, DT_BOTTOM | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);

@@ -991,7 +991,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
             NppDarkMode::subclassTabControl(_ctrlTab.getHSelf());
 
             int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(13);
-            _ctrlTab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
+            _ctrlTab.setFont(TEXT("Segoe UI"), tabDpiDynamicalHeight);
 
             _folderStyleDlg.init(_hInst, _hSelf);
             _folderStyleDlg.create(IDD_FOLDER_STYLE_DLG);

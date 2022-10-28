@@ -114,11 +114,11 @@ void ShortcutMapper::initBabyGrid()
 	_hGridFonts.at(GFONT_HEADER) = ::CreateFont(
 		NppParameters::getInstance()._dpiManager.scaleY(18), 0, 0, 0, FW_BOLD,
 		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,
-		TEXT("MS Shell Dlg"));
+		TEXT("Segoe UI"));
 	_hGridFonts.at(GFONT_ROWS) = ::CreateFont(
 		NppParameters::getInstance()._dpiManager.scaleY(16), 0, 0, 0, FW_NORMAL,
 		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,
-		TEXT("MS Shell Dlg"));
+		TEXT("Segoe UI"));
 	
 	_babygrid.init(_hInst, _hSelf, IDD_BABYGRID_ID1);
 

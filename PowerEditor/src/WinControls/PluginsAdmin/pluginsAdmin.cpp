@@ -134,7 +134,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 
 	int tabDpiDynamicalHeight = dpiManager.scaleY(13);
-	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
+	_tab.setFont(TEXT("Segoe UI"), tabDpiDynamicalHeight);
 
 	const TCHAR *available = TEXT("Available");
 	const TCHAR *updates = TEXT("Updates");

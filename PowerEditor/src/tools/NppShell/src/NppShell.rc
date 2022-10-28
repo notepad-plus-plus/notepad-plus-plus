@@ -61,7 +61,7 @@ IDI_ICON_NPP          ICON                    "icon\\nppNewIcon.ico"
 IDD_DIALOG_SETTINGS DIALOGEX 0, 0, 286, 149
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "NppShell Settings"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+FONT 9, "Segoe UI", 400, 0, 0x1
 BEGIN
     GROUPBOX        "Context Menu",IDC_STATIC,6,6,132,114
     CONTROL         "Add context menu item",IDC_CHECK_USECONTEXT,"Button",BS_AUTO3STATE | WS_TABSTOP,18,24,90,10

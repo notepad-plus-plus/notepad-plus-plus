@@ -3018,10 +3018,7 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
 	ScintillaEditView* pView = view ? view : _pEditView;
-
 	Buffer* currentBuf = pView->getCurrentBuffer();
-	if (!currentBuf->allowClickableLink())
-		return;
 
 	int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
 	LPARAM indicStyle = (urlAction == urlNoUnderLineFg) || (urlAction == urlNoUnderLineBg) ? INDIC_HIDDEN : INDIC_PLAIN;
@@ -3042,7 +3039,7 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	pView->getVisibleStartAndEndPosition(&startPos, &endPos);
 	if (startPos >= endPos) return;
 	pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
-	if (urlAction == urlDisable)
+	if (urlAction == urlDisable || !currentBuf->allowClickableLink())
 	{
 		pView->execute(SCI_INDICATORCLEARRANGE, startPos, endPos - startPos);
 		return;

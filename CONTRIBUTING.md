@@ -85,7 +85,7 @@ In short: The easier the code review is, the better the chance your pull request
 
     private:
         int _x;
-    }
+    };
     ```
 2. ##### Use tabs instead of white-spaces (we usually set our editors to 4 white-spaces for 1 tab, but the choice is up to you).
 

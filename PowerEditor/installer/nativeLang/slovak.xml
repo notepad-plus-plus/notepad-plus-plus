@@ -1605,6 +1605,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <contextMenu-styleAlloccurrencesOfToken value="Použiť štýl na všetky výskyty tokenu" />
             <contextMenu-styleOneToken value="Použiť štýl na jeden token" />
             <contextMenu-clearStyle value="Vymazať štýl" />
+            <contextMenu-PluginCommands value="Príkazy pluginu" />
             <largeFileRestriction-tip value="Niektoré funkcie môžu pri veľkých súboroch spomaliť výkon. Tieto funkcie je možné pri otvorení veľkého súboru automaticky vypnúť. Môžete si ich prispôsobiť tu.
 POZNÁMKA:
 1. Pri zmene týchto možností sa pre správne fungovanie vyžaduje opätovné otvorenie aktuálne otvorených veľkých súborov.

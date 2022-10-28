@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.6 (21.09.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.7 (28.10.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.4.6">
+    <Native-Langue name="polski" filename="polish.xml" version="8.4.7">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -1166,6 +1166,18 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
 (wybierz tę opcję tylko, jeżeli wiesz, co robisz)"/>
                 </Delimiter>
 
+                <Performance title="Wydajność">
+                    <Item id="7141" name="Ograniczenia dla dużych plików"/>
+                    <Item id="7143" name="Włącz ograniczenia dla dużych plików (trwały brak podświetlania składni)"/>
+                    <Item id="7144" name="Zdefiniuj rozmiar dużego pliku:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Zezwól na dopasowanie nawiasów"/>
+                    <Item id="7148" name="Zezwól na autouzupełnianie"/>
+                    <Item id="7149" name="Zezwól na inteligentne podświetlanie"/>
+                    <Item id="7150" name="Wyłącz zawijanie wierszy globalnie"/>
+                    <Item id="7151" name="Zezwól na klikalne hiperłącza w treści"/>
+                </Performance>
+
                 <Cloud title="Chmura i hiperłącza">
                     <Item id="6262" name="Ustawienia chmury"/>
                     <Item id="6263" name="Nie korzystaj z chmury"/>
@@ -1604,6 +1616,12 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
             <contextMenu-styleOneToken value="Wyróżnij jedno" />
             <contextMenu-clearStyle value="Usuń wyróżnienia" />
             <contextMenu-PluginCommands value="Polecenia wtyczek" />
+            <largeFileRestriction-tip value="Niektóre funkcje mogą spowolnić działanie dużych plików. Te funkcje można automatycznie wyłączyć w trakcie otwierania dużego pliku. Tutaj możesz je dostosować.
+
+UWAGI:
+1. Modyfikowanie tych opcji wymaga ponownego otwarcia aktualnie wczytanych dużych plików, aby uzyskać w pełni oczekiwane zachowanie.
+
+2. Jeśli opcja „Wyłącz zawijanie wierszy globalnie” jest zaznaczona i otwierasz duży plik to funkcja „Zawijaj wiersze” zostanie wyłączona dla wszystkich plików. Możesz ją ponownie włączyć za pomocą menu „Widok->Zawijaj wiersze”." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

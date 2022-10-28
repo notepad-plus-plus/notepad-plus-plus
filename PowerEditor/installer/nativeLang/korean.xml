@@ -3,7 +3,7 @@
   <localization work version="7.8.1~8.4.5" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
 -->
 <NotepadPlus>
-    <Native-Langue name="한국어" filename="korean.xml" version="8.4.5">
+    <Native-Langue name="한국어" filename="korean.xml" version="8.4.6">
     <Menu>
     <Main>
         <!--  Main Menu Entries -->
@@ -24,7 +24,7 @@
     <!--  Sub Menu Entries -->
     <SubEntries>
         <Item subMenuId="file-openFolder" name="현재 폴더 열기(&amp;F)"/>
-        <Item subMenuId="file-closeMore" name="닫기 옵션...(&amp;M)"/>
+        <Item subMenuId="file-closeMore" name="여러 문서 닫기(&amp;M)"/>
         <Item subMenuId="file-recentFiles" name="최근 파일(&amp;R)"/>
         <Item subMenuId="edit-insert" name="삽입"/>
         <Item subMenuId="edit-copyToClipboard" name="클립보드에 복사(&amp;y)"/>
@@ -176,11 +176,11 @@
   <Item id="42026" name="텍스트 방향 (오른쪽->왼쪽)"/>
   <Item id="42027" name="텍스트 방향 (왼쪽->오른쪽)"/>
   <Item id="42028" name="읽기 전용으로 설정(&amp;S)"/>
-  <Item id="42029" name="현재 파일 경로를 클립보드로"/>
-  <Item id="42030" name="현재 파일명을 클립보드로"/>
-  <Item id="42031" name="현재 디렉토리 경로를 클립보드로"/>
-  <Item id="42087" name="모든 파일 이름을 클립보드로"/>
-  <Item id="42088" name="모든 파일 경로를 클립보드로"/>
+  <Item id="42029" name="현재 파일 경로 복사"/>
+  <Item id="42030" name="현재 파일 이름 복사"/>
+  <Item id="42031" name="현재 디렉토리 경로 복사"/>
+  <Item id="42087" name="모든 파일 이름 복사"/>
+  <Item id="42088" name="모든 파일 경로 복사"/>
   <Item id="42032" name="매크로 반복 실행...(&amp;R)"/>
   <Item id="42033" name="읽기 전용 해제"/>
   <Item id="42035" name="한 줄 주석 달기"/>
@@ -288,6 +288,12 @@
   <Item id="44097" name="모니터링 (tail -f)"/>
   <Item id="44098" name="탭 앞으로 이동"/>
   <Item id="44099" name="탭 뒤로 이동"/>
+  <Item id="44110" name="색 제거"/>
+  <Item id="44111" name="색 1 적용"/>
+  <Item id="44112" name="색 2 적용"/>
+  <Item id="44113" name="색 3 적용"/>
+  <Item id="44114" name="색 4 적용"/>
+  <Item id="44115" name="색 5 적용"/>
   <Item id="44032" name="전체화면 전환"/>
   <Item id="44033" name="기본값 복원"/>
   <Item id="44034" name="항상 위에 표시"/>
@@ -387,9 +393,9 @@
   <Item CMID="4" name="인쇄..."/>
   <Item CMID="5" name="분할 창으로 이동"/>
   <Item CMID="6" name="분할 창으로 복사"/>
-  <Item CMID="7" name="전체 파일 경로를 클립보드에 복사"/>
-  <Item CMID="8" name="파일명을 클립보드에 복사"/>
-  <Item CMID="9" name="현재 디렉토리 경로를 클립보드에 복사"/>
+  <Item CMID="7" name="전체 파일 경로 복사"/>
+  <Item CMID="8" name="파일 이름 복사"/>
+  <Item CMID="9" name="현재 디렉토리 경로 복사"/>
   <Item CMID="10" name="이름 변경..."/>
   <Item CMID="11" name="휴지통으로 이동"/>
   <Item CMID="12" name="읽기 전용 설정"/>
@@ -404,6 +410,17 @@
   <Item CMID="21" name="기본 프로그램으로 열기"/>
   <Item CMID="22" name="바뀌지 않은 문서 모두 닫기"/>
   <Item CMID="23" name="문서의 폴더를 작업 영역으로 열기"/>
+  <Item CMID="24" name="색 1 적용"/>
+  <Item CMID="25" name="색 2 적용"/>
+  <Item CMID="26" name="색 3 적용"/>
+  <Item CMID="27" name="색 4 적용"/>
+  <Item CMID="28" name="색 5 적용"/>
+  <Item CMID="29" name="색 제거"/>
+  <Item CMID="30" name="여러 탭 닫기"/>
+  <Item CMID="31" name="열기"/>
+  <Item CMID="32" name="클립보드에 복사"/>
+  <Item CMID="33" name="문서 이동"/>
+  <Item CMID="34" name="탭에 색 적용"/>
   </TabBar>
   </Menu>
 
@@ -511,7 +528,7 @@
   <Item id="2"    name="닫기"/>
 </SHA256FromTextDlg>
 
-<PluginsAdminDlg title="플러그인 관리" titleAvailable = "사용 가능" titleUpdates = "업데이트" titleInstalled = "설치됨">
+<PluginsAdminDlg title="플러그인 관리" titleAvailable = "사용 가능" titleUpdates = "업데이트" titleInstalled = "설치됨"  titleIncompatible="호환되지 않음">
     <ColumnPlugin   name="플러그인"/>
     <ColumnVersion  name="버전"/>
     <Item id="5501" name="찾기:"/>
@@ -519,6 +536,8 @@
     <Item id="5504" name="업데이트"/>
     <Item id="5505" name="삭제"/>
     <Item id="5508" name="다음"/>
+    <Item id="5509" name="플러그인 목록 버전: "/>
+    <Item id="5511" name="플러그인 목록 저장소"/>
     <Item id="2"    name="닫기"/>
 </PluginsAdminDlg>
 
@@ -649,6 +668,12 @@
     <Item id="44107" name="작업 영역으로 폴더 지정으로 전환"/>
     <Item id="44109" name="문서 목록으로 전환"/>
     <Item id="44108" name="함수 목록으로 전환"/>
+    <Item id="44110" name="탭 색 제거"/>
+    <Item id="44111" name="탭 색 1 적용"/>
+    <Item id="44112" name="탭 색 2 적용"/>
+    <Item id="44113" name="탭 색 3 적용"/>
+    <Item id="44114" name="탭 색 4 적용"/>
+    <Item id="44115" name="탭 색 5 적용"/>
     <Item id="11002" name="이름 알파벳 순으로 정렬"/>
     <Item id="11003" name="이름 알파벳 역순으로 정렬"/>
     <Item id="11004" name="경로 알파벳 순으로 정렬"/>
@@ -928,7 +953,7 @@
   </DarkMode>
 
 <MarginsBorderEdge title="여백/경계선/가장자리">
-  <Item id="6201" name="폴더 형식"/>
+  <Item id="6201" name="여백 형식 접기"/>
   <Item id="6202" name="단순"/>
   <Item id="6203" name="화살표"/>
   <Item id="6204" name="원형 트리"/>
@@ -939,6 +964,7 @@
   <Item id="6292" name="동적 넓이"/>
   <Item id="6293" name="고정 넓이"/>
   <Item id="6207" name="책갈피 표시"/>
+  <Item id="6223" name="변경 이력 표시"/>
   <Item id="6211" name="열표식 설정" />
   <Item id="6213" name="배경 모드"/>
   <Item id="6237" name="십진수로 위치를 지정하여 열 표식을 추가하십시오.
@@ -1129,6 +1155,18 @@
   <Item id="6163" name="아래의 문자도 단어의 일부로 인식되도록 설정
 (잘 모르면 설정하지 마세요)"/>
 </Delimiter>
+
+<Performance title="성능">
+  <Item id="7141" name="큰 파일 제한"/>
+  <Item id="7143" name="큰 파일 제한 활성화 (구문 강조 없음)"/>
+  <Item id="7144" name="큰 파일 크기 정의:"/>
+  <Item id="7146" name="MB   (1 - 4096)"/>
+  <Item id="7147" name="중괄호 대응표시 허용"/>
+  <Item id="7148" name="자동완성 허용"/>
+  <Item id="7149" name="지능적 구문강조 허용"/>
+  <Item id="7150" name="전역적인 자동 줄바꿈 끄기"/>
+  <Item id="7151" name="URL 클릭 링크 허용"/>
+</Performance>
 
 <Cloud title="클라우드 &amp; 연결">
   <Item id="6262" name="클라우드 설정"/>
@@ -1336,6 +1374,7 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
 모든 작업이 종료된 다음 Notepad++를 재시작합니다.
 계속하시겠습니까?"/>
   <NeedToRestartToLoadPlugins title="Notepad++ 재시작이 필요합니다" message="설치한 플러그인을 사용하려면 Notepad++을 재시작해야 합니다."/>  <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+  <ChangeHistoryEnabledWarning title="Notepad++ 재시작이 필요합니다" message="변경 이력 기능을 사용하려면 Notepad++을 재시작해야 합니다."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 </MessageBox>
 <ClipboardHistory>
   <PanelTitle name="클립보드 사용 기록"/>
@@ -1567,6 +1606,12 @@ log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾�
     <contextMenu-styleOneToken value="한 토큰에 형식 지정" />
     <contextMenu-clearStyle value="형식 해제" />
     <contextMenu-PluginCommands value="플러그인 명령" />
+    <largeFileRestriction-tip value="일부 기능은 큰 파일에 대해 성능을 저하시킬 수 있습니다. 이런 기능들은 큰 파일을 열 때 자동으로 꺼질 수 있습니다. 여기서 설정을 바꿀 수 있습니다.
+
+NOTE:
+1. 설정을 변경하면 올바른 동작을 위해 지금 열려있는 큰 파일을 다시 열어야 합니다.
+
+2. &quot;전역적인 자동 줄바꿈 끄기&quot; 를 선택하고 큰 파일을 열면, &quot;자동 줄바꿈&quot; 이 모든 파일에 대해 꺼집니다. &quot;보기-&gt;자동 줄바꿈&quot; 메뉴에서 다시 켤 수 있습니다." />
 </MiscStrings>
 </Native-Langue>
 </NotepadPlus>

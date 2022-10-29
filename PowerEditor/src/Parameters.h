@@ -1879,7 +1879,7 @@ public:
 	bool doNppLogNulContentCorruptionIssue() { return _doNppLogNulContentCorruptionIssue; };
 	void endSessionStart() { _isEndSessionStarted = true; };
 	bool isEndSessionStarted() { return _isEndSessionStarted; };
-	void endSessionCritical() { _isEndSessionCritical = true; };
+	void makeEndSessionCritical() { _isEndSessionCritical = true; };
 	bool isEndSessionCritical() { return _isEndSessionCritical; };
 
 private:

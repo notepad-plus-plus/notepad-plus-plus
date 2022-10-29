@@ -2075,10 +2075,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// after a few seconds (e.g. user is away from PC...), the system will shut down without us
 
 			bool isFirstQueryEndSession = !nppParam.isEndSessionStarted();
+			bool isForcedShuttingDown = (lParam & ENDSESSION_CRITICAL);
 
 			nppParam.endSessionStart();
-			if (lParam & ENDSESSION_CRITICAL)
-				nppParam.endSessionCritical();
+			if (isForcedShuttingDown)
+				nppParam.makeEndSessionCritical();
 
 			if (nppParam.doNppLogNulContentCorruptionIssue())
 			{
@@ -2088,7 +2089,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				pathAppend(nppIssueLog, issueFn);
 
 				string wmqesType = std::to_string(lParam);
-				if (0 == lParam)
+				if (lParam == 0)
 				{
 					wmqesType += " - ordinary system shutdown/restart";
 				}
@@ -2102,8 +2103,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					if (lParam & ENDSESSION_LOGOFF)
 						wmqesType += " - ENDSESSION_LOGOFF";
 				}
-				string queryEndSession = "WM_QUERYENDSESSION (lParam: " + wmqesType + ") =====================================";
-				writeLog(nppIssueLog.c_str(), queryEndSession.c_str());
+				string msg = "WM_QUERYENDSESSION (lParam: " + wmqesType + ") =====================================";
+				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 
 			// here is also the right place to unblock a possible modal-dlg blocking the main N++ wnd
@@ -2111,7 +2112,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (!::IsWindowEnabled(hwnd))
 			{
 				// we probably have a blocking modal-window like MessageBox (e.g. the "Reload" or "Keep non existing file")
-				if (!nppParam.isEndSessionCritical() && isFirstQueryEndSession)
+				if (!isForcedShuttingDown && isFirstQueryEndSession)
 					return FALSE; // request abort of the shutdown (for a non-critical one we can give the user a chance to solve whatever is needed)
 
 				// in most cases we will need to take care and programmatically close such dialogs in order to exit gracefully,
@@ -2137,7 +2138,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						if (::GetWindowTextA(hActiveWnd, szBuf, _countof(szBuf)))
 							strLog += szBuf;
 						::GetClassNameA(hActiveWnd, szBuf, _countof(szBuf));
-						if (0 == lstrcmpiA("#32770", szBuf))
+						if (lstrcmpiA("#32770", szBuf) == 0)
 							strLog += " (MessageBox)";
 						// we cannot use here the usual sending of the WM_CLOSE as it will not always work (e.g. for a MB_YESNO MessageBox)
 						if (!::EndDialog(hActiveWnd, 0))
@@ -2189,7 +2190,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				pathAppend(nppIssueLog, issueFn);
 
 				string wmesType = std::to_string(lParam);
-				if (0 == lParam)
+				if (lParam == 0)
 				{
 					wmesType += " - ordinary system shutdown/restart";
 				}
@@ -2203,22 +2204,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					if (lParam & ENDSESSION_LOGOFF)
 						wmesType += " - ENDSESSION_LOGOFF";
 				}
-				string endSession = "WM_ENDSESSION (wParam: ";
+				string msg = "WM_ENDSESSION (wParam: ";
 				if (wParam)
-					endSession += "TRUE, lParam: ";
+					msg += "TRUE, lParam: ";
 				else
-					endSession += "FALSE, lParam: ";
-				endSession += wmesType + ")";
+					msg += "FALSE, lParam: ";
+				msg += wmesType + ")";
 
-				writeLog(nppIssueLog.c_str(), endSession.c_str());
+				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 
-			if (TRUE == wParam)
+			if (wParam == TRUE)
 			{
 				// the session is being ended, it can end ANY TIME after all apps running have returned from processing this message,
 				// so DO NOT e.g. Send/Post any message from here onwards!!!
 				nppParam.endSessionStart(); // ensure
-				nppParam.endSessionCritical(); // set our exit-flag to critical even if the bitmask has not the ENDSESSION_CRITICAL set
+				nppParam.makeEndSessionCritical(); // set our exit-flag to critical even if the bitmask has not the ENDSESSION_CRITICAL set
 				// do not return 0 here and continue to the N++ standard WM_CLOSE code-part (no verbose GUI there this time!!!)
 			}
 			else
@@ -2232,6 +2233,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return 0; // return here and do not continue to the WM_CLOSE part
 			}
 		} // case WM_ENDSESSION:
+
 		case WM_CLOSE:
 		{
 			if (_pPublicInterface->isPrelaunch())

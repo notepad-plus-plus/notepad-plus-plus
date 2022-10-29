@@ -415,7 +415,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 				// get the current text selection
 
-				Sci_CharacterRange range = getSelection();
+				Sci_CharacterRangeFull range = getSelection();
 				if (range.cpMax == range.cpMin)
 				{
 					// no selection: select the current word instead
@@ -2379,15 +2379,15 @@ char * ScintillaEditView::getSelectedText(char * txt, size_t size, bool expand)
 {
 	if (!size)
 		return NULL;
-	Sci_CharacterRange range = getSelection();
+	Sci_CharacterRangeFull range = getSelection();
 	if (range.cpMax == range.cpMin && expand)
 	{
 		expandWordSelection();
 		range = getSelection();
 	}
-	if (!(static_cast<Sci_PositionCR>(size) > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
+	if (!(static_cast<Sci_Position>(size) > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
 	{
-		range.cpMax = range.cpMin + (Sci_PositionCR)size -1;	//keep room for zero terminator
+		range.cpMax = range.cpMin + size -1;	//keep room for zero terminator
 	}
 	//getText(txt, range.cpMin, range.cpMax);
 	return getWordFromRange(txt, size, range.cpMin, range.cpMax);
@@ -2790,40 +2790,40 @@ void ScintillaEditView::showIndentGuideLine(bool willBeShowed)
 
 void ScintillaEditView::setLineIndent(size_t line, size_t indent) const
 {
-	Sci_CharacterRange crange = getSelection();
-	size_t posBefore = execute(SCI_GETLINEINDENTPOSITION, line);
+	Sci_CharacterRangeFull crange = getSelection();
+	int64_t posBefore = execute(SCI_GETLINEINDENTPOSITION, line);
 	execute(SCI_SETLINEINDENTATION, line, indent);
-	size_t posAfter = execute(SCI_GETLINEINDENTPOSITION, line);
+	int64_t posAfter = execute(SCI_GETLINEINDENTPOSITION, line);
 	long long posDifference = posAfter - posBefore;
 	if (posAfter > posBefore)
 	{
 		// Move selection on
-		if (crange.cpMin >= static_cast<Sci_PositionCR>(posBefore))
+		if (crange.cpMin >= posBefore)
 		{
-			crange.cpMin += static_cast<Sci_PositionCR>(posDifference);
+			crange.cpMin += posDifference;
 		}
-		if (crange.cpMax >= static_cast<Sci_PositionCR>(posBefore))
+		if (crange.cpMax >= posBefore)
 		{
-			crange.cpMax += static_cast<Sci_PositionCR>(posDifference);
+			crange.cpMax += posDifference;
 		}
 	}
 	else if (posAfter < posBefore)
 	{
 		// Move selection back
-		if (crange.cpMin >= static_cast<Sci_PositionCR>(posAfter))
+		if (crange.cpMin >= posAfter)
 		{
-			if (crange.cpMin >= static_cast<Sci_PositionCR>(posBefore))
-				crange.cpMin += static_cast<Sci_PositionCR>(posDifference);
+			if (crange.cpMin >= posBefore)
+				crange.cpMin += posDifference;
 			else
-				crange.cpMin = static_cast<Sci_PositionCR>(posAfter);
+				crange.cpMin = posAfter;
 		}
 
-		if (crange.cpMax >= static_cast<Sci_PositionCR>(posAfter))
+		if (crange.cpMax >= posAfter)
 		{
-			if (crange.cpMax >= static_cast<Sci_PositionCR>(posBefore))
-				crange.cpMax += static_cast<Sci_PositionCR>(posDifference);
+			if (crange.cpMax >= posBefore)
+				crange.cpMax += posDifference;
 			else
-				crange.cpMax = static_cast<Sci_PositionCR>(posAfter);
+				crange.cpMax = posAfter;
 		}
 	}
 	execute(SCI_SETSEL, crange.cpMin, crange.cpMax);

@@ -1440,12 +1440,12 @@ void Notepad_plus::command(int id)
 			else // (id == IDM_SEARCH_MARKONEEXT5)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
-			Sci_CharacterRange range = _pEditView->getSelection();
+			Sci_CharacterRangeFull range = _pEditView->getSelection();
 			if (range.cpMin == range.cpMax)
 			{
 				auto caretPos = _pEditView->execute(SCI_GETCURRENTPOS, 0, 0);
-				range.cpMin = static_cast<Sci_PositionCR>(_pEditView->execute(SCI_WORDSTARTPOSITION, caretPos, true));
-				range.cpMax = static_cast<Sci_PositionCR>(_pEditView->execute(SCI_WORDENDPOSITION, caretPos, true));
+				range.cpMin = _pEditView->execute(SCI_WORDSTARTPOSITION, caretPos, true);
+				range.cpMax = _pEditView->execute(SCI_WORDENDPOSITION, caretPos, true);
 			}
 			if (range.cpMax > range.cpMin)
 			{

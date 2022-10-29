@@ -1993,7 +1993,7 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 	int nbTotal = 0;
 	Buffer * pBuf = _pEditView->getCurrentBuffer();
 
-	Sci_CharacterRange mainSelection = _pEditView->getSelection();  // remember selection before switching view
+	Sci_CharacterRangeFull mainSelection = _pEditView->getSelection();  // remember selection before switching view
 
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;

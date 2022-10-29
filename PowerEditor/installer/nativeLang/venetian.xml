@@ -6,8 +6,6 @@
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
     The comments are here for explanation, it's not necessary to translate them.
 -->
-
-
 <NotepadPlus>
     <Native-Langue name="Vèneto" filename="venetian.xml" version="8.4.7">
         <Menu>

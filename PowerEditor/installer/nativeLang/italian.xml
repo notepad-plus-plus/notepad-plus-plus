@@ -1162,7 +1162,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
 
                 <Performance title="Prestazioni">
                     <Item id="7141" name="Restrizioni per File di grandi dimensioni"/>
-                    <Item id="7143" name="Abilita restrizioni per i file di grandi dimensioni (no evidenziazione sintattica"/>
+                    <Item id="7143" name="Abilita restrizioni per i file di grandi dimensioni (no evidenziazione sintattica)"/>
                     <Item id="7144" name="Definizione dei file di grandi dimensioni:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
                     <Item id="7147" name="Permetti l&apos;evidenziazione della parentesi corrispondente"/>

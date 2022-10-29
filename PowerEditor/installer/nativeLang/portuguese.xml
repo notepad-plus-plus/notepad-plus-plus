@@ -1605,6 +1605,7 @@ Procurar em todos os ficheiros mas excluir todos os registos de pastas ou regist
             <contextMenu-styleAlloccurrencesOfToken value="Marcar tudo" />
             <contextMenu-styleOneToken value="Marcar uma" />
             <contextMenu-clearStyle value="Limpar estilo" />
+            <contextMenu-PluginCommands value="Comandos de plugin" />
             <largeFileRestriction-tip value="Algumas funcionalidades podem abrandar o desempenho em ficheiros grandes. Estas funcionalidades podem ser desativadas automaticamente ao abrir um ficheiro grande. Pode personalizá-las aqui.
 
 NOTA:
@@ -1635,7 +1636,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-23/10/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+29/10/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

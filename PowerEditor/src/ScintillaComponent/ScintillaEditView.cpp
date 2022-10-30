@@ -2800,11 +2800,11 @@ void ScintillaEditView::setLineIndent(size_t line, size_t indent) const
 		// Move selection on
 		if (crange.cpMin >= posBefore)
 		{
-			crange.cpMin += posDifference;
+			crange.cpMin += static_cast<Sci_Position>(posDifference);
 		}
 		if (crange.cpMax >= posBefore)
 		{
-			crange.cpMax += posDifference;
+			crange.cpMax += static_cast<Sci_Position>(posDifference);
 		}
 	}
 	else if (posAfter < posBefore)
@@ -2813,17 +2813,17 @@ void ScintillaEditView::setLineIndent(size_t line, size_t indent) const
 		if (crange.cpMin >= posAfter)
 		{
 			if (crange.cpMin >= posBefore)
-				crange.cpMin += posDifference;
+				crange.cpMin += static_cast<Sci_Position>(posDifference);
 			else
-				crange.cpMin = posAfter;
+				crange.cpMin = static_cast<Sci_Position>(posAfter);
 		}
 
 		if (crange.cpMax >= posAfter)
 		{
 			if (crange.cpMax >= posBefore)
-				crange.cpMax += posDifference;
+				crange.cpMax += static_cast<Sci_Position>(posDifference);
 			else
-				crange.cpMax = posAfter;
+				crange.cpMax = static_cast<Sci_Position>(posAfter);
 		}
 	}
 	execute(SCI_SETSEL, crange.cpMin, crange.cpMax);

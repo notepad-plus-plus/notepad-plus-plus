@@ -2107,13 +2107,40 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 
-			// here is also the right place to unblock a possible modal-dlg blocking the main N++ wnd
-			// (it is then too late to do so at the WM_ENDSESSION time, as for this we need this thread message queue...)
-			if (!::IsWindowEnabled(hwnd))
+			if (::IsWindowEnabled(hwnd))
+			{
+				if (MainFileManager.getNbDirtyBuffers() > 0)
+				{
+					// we have unsaved filebuffer(s), give the user a chance to respond (non-critical shutdown only)
+					if (!isForcedShuttingDown && isFirstQueryEndSession)
+					{
+						// if N++ has been minimized or invisible, we need to show it 1st
+						if (::IsIconic(hwnd))
+						{
+							::ShowWindow(hwnd, SW_RESTORE);
+						}
+						else
+						{
+							if (!::IsWindowVisible(hwnd))
+							{
+								// systray etc...
+								::ShowWindow(hwnd, SW_SHOW);
+								::SendMessage(hwnd, WM_SIZE, 0, 0);	// to make window fit (specially to show tool bar.)
+							}
+						}
+						::PostMessage(hwnd, WM_COMMAND, IDM_FILE_SAVEALL, 0); // posting will not block us here
+						return FALSE; // request abort of the shutdown 
+					}
+				}
+			}
+			else
 			{
 				// we probably have a blocking modal-window like MessageBox (e.g. the "Reload" or "Keep non existing file")
 				if (!isForcedShuttingDown && isFirstQueryEndSession)
 					return FALSE; // request abort of the shutdown (for a non-critical one we can give the user a chance to solve whatever is needed)
+
+				// here is the right place to unblock the modal-dlg blocking the main N++ wnd, because then it will be too late
+				// to do so at the WM_ENDSESSION time (for that we need this thread message queue...)
 
 				// in most cases we will need to take care and programmatically close such dialogs in order to exit gracefully,
 				// otherwise the N++ most probably crashes itself without any tidy-up
@@ -2214,15 +2241,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 
-			if (wParam == TRUE)
-			{
-				// the session is being ended, it can end ANY TIME after all apps running have returned from processing this message,
-				// so DO NOT e.g. Send/Post any message from here onwards!!!
-				nppParam.endSessionStart(); // ensure
-				nppParam.makeEndSessionCritical(); // set our exit-flag to critical even if the bitmask has not the ENDSESSION_CRITICAL set
-				// do not return 0 here and continue to the N++ standard WM_CLOSE code-part (no verbose GUI there this time!!!)
-			}
-			else
+			if (wParam == FALSE)
 			{
 				// the session is not being ended after all
 				// - it happens when either the N++ returns FALSE to non-critical WM_QUERYENDSESSION or any other app with higher shutdown level
@@ -2232,10 +2251,27 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				//   the system will terminate us
 				return 0; // return here and do not continue to the WM_CLOSE part
 			}
+			else
+			{
+				// the session is being ended, it can end ANY TIME after all apps running have returned from processing this message,
+				// so DO NOT e.g. Send/Post any message from here onwards!!!
+				nppParam.endSessionStart(); // ensure
+				nppParam.makeEndSessionCritical(); // set our exit-flag to critical even if the bitmask has not the ENDSESSION_CRITICAL set
+				// do not return 0 here and continue to the N++ standard WM_CLOSE code-part (no verbose GUI there this time!!!)
+			}
 		} // case WM_ENDSESSION:
 
 		case WM_CLOSE:
 		{
+			if (nppParam.doNppLogNulContentCorruptionIssue() && nppParam.isEndSessionStarted() && (message == WM_CLOSE))
+			{
+				generic_string issueFn = nppLogNulContentCorruptionIssue;
+				issueFn += TEXT(".log");
+				generic_string nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
+				writeLog(nppIssueLog.c_str(), "WM_CLOSE (isEndSessionStarted == true)");
+			}
+
 			if (_pPublicInterface->isPrelaunch())
 			{
 				SendMessage(hwnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
@@ -2382,7 +2418,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				issueFn += TEXT(".log");
 				generic_string nppIssueLog = nppParam.getUserPath();
 				pathAppend(nppIssueLog, issueFn);
-				writeLog(nppIssueLog.c_str(), "WM_DESTROY");
+				writeLog(nppIssueLog.c_str(), "WM_DESTROY (isEndSessionStarted == true)");
 			}
 
 			killAllChildren();

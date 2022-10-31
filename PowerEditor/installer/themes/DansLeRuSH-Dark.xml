@@ -688,6 +688,11 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
             <WordsStyle name="OPERATOR" styleID="8" fgColor="8F8F8F" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="INFIX" styleID="10" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="9" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INFIXEOL" styleID="11" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BACKTICKS" styleID="12" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="RAWSTRING" styleID="13" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="RAWSTRING2" styleID="14" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ESCAPESEQUENCE" styleID="15" fgColor="0000FF" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="rc" desc="RC" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="FF5757" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" />

@@ -549,7 +549,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <SubDialog>
                     <Item id="2204" name="Тоўсты"/>
                     <Item id="2205" name="Курсіў"/>
-                    <Item id="2206" name="Колер пярэдняга плана"/>
+                    <Item id="2206" name="Асноўны колер"/>
                     <Item id="2207" name="Колер фону"/>
                     <Item id="2208" name="Назва шрыфту:"/>
                     <Item id="2209" name="Памер шрыфту:"/>
@@ -708,7 +708,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20016" name="Экспарт..."/>
                 <StylerDialog title="Стыль">
                     <Item id="25030" name="Параметры шрыфту:"/>
-                    <Item id="25006" name="Колер пярэдняга плана"/>
+                    <Item id="25006" name="Асноўны колер"/>
                     <Item id="25007" name="Колер фону"/>
                     <Item id="25031" name="Назва:"/>
                     <Item id="25032" name="Памер:"/>
@@ -1036,7 +1036,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <Print title="Друк">
                     <Item id="6601" name="Друкаваць нумары радкоў"/>
-                    <Item id="6602" name="Схема колераў"/>
+                    <Item id="6602" name="Параметры колеру"/>
                     <Item id="6603" name="WYSIWYG"/>
                     <Item id="6604" name="Інвертаваць"/>
                     <Item id="6605" name="Чорным па белым"/>
@@ -1158,7 +1158,6 @@ The comments are here for explanation, it's not necessary to translate them.
 
                 <Performance title="Прадукцыйнасць">
                     <Item id="7141" name="Забараняць вялікія файлы"/>
-                    <Item id="7142" name="Падчас адкрыцця вялікага файла, некаторыя функцыі будуць адключаны для аптымізацыі прадукцыйнасці. Вы можаце дапасаваць іх тут."/>
                     <Item id="7143" name="Уключыць забарону вялікіх файлаў (без падсветкі сінтаксісу)"/>
                     <Item id="7144" name="Вызначыць памер вялікага файла:"/>
                     <Item id="7146" name="МБ  (1 - 4096)"/>
@@ -1166,6 +1165,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="7148" name="Дазваляць аўтазавяршэнне"/>
                     <Item id="7149" name="Дазваляць інтэлектуальнае падсветку"/>
                     <Item id="7150" name="Дэактываваць агульны перанос слоў"/>
+                    <Item id="7151" name="Дазваляць націсканальныя спасылкі"/>
                 </Performance>
 
                 <Cloud title="Воблачная  спасылка">
@@ -1603,9 +1603,13 @@ The comments are here for explanation, it's not necessary to translate them.
             <contextMenu-styleAlloccurrencesOfToken value="Стыль усіх супадзенняў токена" />
             <contextMenu-styleOneToken value="Стыль аднаго токена" />
             <contextMenu-clearStyle value="Ачысціць стыль" />
-            <enable-disable-largeFileRestriction-tip value="Пераключэнне на &quot;Уключыць забарону вялікіх файлаў&quot; пачне дзейнічаць толькі пасля закрыцця і паўторнага адкрыцця вялікага файла" />
-            <change-largeFileRestriction_fileLength-tip value="Змяненне значэння памеру файла пачне дзейнічаць толькі пасля закрыцця і паўторнага адкрыцця вялікага файла" />
-            <largeFileRestriction_wordWrap-tip value="Уключэнне параметра &quot;Дэактываваць агульны перанос слоў&quot; прывядзе да дэактывацыі пераносу слоў для ўсіх адкрытых дакументаў пасля адкрыцця вялікага файла. Вы можаце паўторна актываваць гэту функцыю ўручную." />
+            <contextMenu-PluginCommands value="Каманды ўбудовы" />
+            <largeFileRestriction-tip value="Некаторыя функцыі могуць запаволіць прадукцыйнасць у вялікіх файлах. Гэтыя функцыі можна аўтаматычна адключаць пры адкрыцці вялікага файла. Вы можаце дапасаваць іх тут:
+
+НАТАТКА:
+1. Параметры, якія будуць тут зменены запатрабуюць паўторнага адкрыцця бягучых файлаў з вялікім памерам для дасягнення карэктных паводзін.
+
+2. Калі пазначана &quot;Дэактываваць агульны перанос слоў&quot; і вы адкрываеце вялікі файл, то &quot;Перанос слоў&quot; будзе адключаны для ўсіх файлаў. Вы зможаце паўторна ўключыць яго праз меню &quot;Выгляд&gt;Перанос слоў&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

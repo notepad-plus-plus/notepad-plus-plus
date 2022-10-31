@@ -2590,8 +2590,9 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 
 				case IDC_CUSTOMIZELENGTHVAL_STATIC:
 				{
+					generic_string staticText = pNativeSpeaker->getLocalizedStrFromID("recent-file-history-customlength", TEXT("Length: "));
 					ValueDlg customLengthDlg;
-					customLengthDlg.init(NULL, _hSelf, nppParam.getRecentFileCustomLength(), TEXT("Length: "));
+					customLengthDlg.init(NULL, _hSelf, nppParam.getRecentFileCustomLength(), staticText.c_str());
 					customLengthDlg.setNBNumber(3);
 
 					POINT p;

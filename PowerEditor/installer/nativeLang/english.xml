@@ -1560,6 +1560,7 @@ Find in all files but exclude all folders log or logs recursively:
             <splitter-rotate-left value="Rotate to left"/>
             <splitter-rotate-right value="Rotate to right"/>
             <recent-file-history-maxfile value="Max File: "/>
+            <recent-file-history-customlength value="Length: "/>
             <language-tabsize value="Tab Size: "/>
             <userdefined-title-new value="Create New Language..."/>
             <userdefined-title-save value="Save Current Language Name As..."/>

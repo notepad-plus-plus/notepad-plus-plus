@@ -44,7 +44,6 @@ for:
   build_script:
     - gcc --version
     - gcc -v
-    - where gcc
     - mingw32-make -v
     #- mingw32-make -f PowerEditor\gcc\makefile
   after_build:

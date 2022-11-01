@@ -222,7 +222,7 @@ void Buffer::setFileName(const TCHAR *fn)
 			determinatedLang = L_PYTHON;
 		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Rakefile")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Vagrantfile")) == 0))
 			determinatedLang = L_RUBY;
-		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("crontab")) == 0))
+		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("crontab")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("PKGBUILD")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("APKBUILD")) == 0))
 			determinatedLang = L_BASH;
 	}
 

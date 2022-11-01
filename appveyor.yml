@@ -16,7 +16,7 @@ environment:
 
 configuration:
     - Release
-    - Debug
+    #- Debug
 
 before_build:
     - ps: |

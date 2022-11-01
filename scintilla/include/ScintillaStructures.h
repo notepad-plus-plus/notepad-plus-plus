@@ -12,7 +12,7 @@
 
 namespace Scintilla {
 
-using PositionCR = long;
+using PositionCR = intptr_t;
 
 struct CharacterRange {
 	PositionCR cpMin;

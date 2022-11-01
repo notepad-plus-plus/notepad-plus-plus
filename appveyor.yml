@@ -39,11 +39,23 @@ for:
     #- bash -lc "pacman --noconfirm -Syuu"
     #- if "%platform%" EQU "i686" bash -lc "pacman --noconfirm -S mingw-w64-i686-gcc mingw-w64-i686-make"
     #- if "%platform%" EQU "x86_64" bash -lc "pacman --noconfirm -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make"
-    - if "%platform%" EQU "i686" set PATH=C:\msys64\mingw32\bin;%PATH:C:\Program Files\Git\usr\bin;=%
-    - if "%platform%" EQU "x86_64" set PATH=C:\msys64\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+    - if "%platform%" EQU "i686" set PATH=C:\msys64\mingw32\bin;%PATH%
+    - if "%platform%" EQU "x86_64" set PATH=C:\msys64\mingw64\bin;%PATH%
   build_script:
-    - gcc --version
-    - gcc -v
-    - mingw32-make -v
-    #- mingw32-make -f PowerEditor\gcc\makefile
+    - mingw32-make -f PowerEditor\gcc\makefile
   after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:compiler.$env:platform.$env:configuration.exe"
+        if ("$env:platform/$env:configuration" -eq "i686/Release") {
+            Push-AppveyorArtifact "bin.i686\notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "i686/Debug") {
+            Push-AppveyorArtifact "bin.i686-debug\notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x86_64/Release") {
+            Push-AppveyorArtifact "bin.x86_64\notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x86_64/Debug") {
+            Push-AppveyorArtifact "bin.x86_64-debug\notepad++.exe" -FileName "$nppFileName"
+        }

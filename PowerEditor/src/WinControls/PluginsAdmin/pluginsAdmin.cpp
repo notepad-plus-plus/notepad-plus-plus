@@ -75,7 +75,7 @@ bool findStrNoCase(const generic_string & strHaystack, const generic_string & st
 	return (it != strHaystack.end());
 }
 
-bool PluginsAdminDlg::isFoundInAvailableListFromIndex(const PluginViewList& inWhichList, int index, const generic_string& str2search, bool inWhichPart) const
+bool PluginsAdminDlg::isFoundInListFromIndex(const PluginViewList& inWhichList, int index, const generic_string& str2search, bool inWhichPart) const
 {
 	PluginUpdateInfo* pui = inWhichList.getPluginInfoFromUiIndex(index);
 	generic_string searchIn;
@@ -97,7 +97,7 @@ long PluginsAdminDlg::searchFromCurrentSel(const PluginViewList& inWhichList, co
 		// no selection, let's search from 0 to the end
 		for (int i = 0; i < nbItem; ++i)
 		{
-			if (isFoundInAvailableListFromIndex(inWhichList, i, str2search, inWhichPart))
+			if (isFoundInListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 	}
@@ -106,14 +106,14 @@ long PluginsAdminDlg::searchFromCurrentSel(const PluginViewList& inWhichList, co
 		// from current position to the end
 		for (int i = currentIndex + (isNextMode ? 1 : 0); i < nbItem; ++i)
 		{
-			if (isFoundInAvailableListFromIndex(inWhichList, i, str2search, inWhichPart))
+			if (isFoundInListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 
 		// from to begining to current position
 		for (int i = 0; i < currentIndex + (isNextMode ? 1 : 0); ++i)
 		{
-			if (isFoundInAvailableListFromIndex(inWhichList, i, str2search, inWhichPart))
+			if (isFoundInListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 	}

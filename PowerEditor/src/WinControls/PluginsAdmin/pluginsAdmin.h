@@ -212,7 +212,7 @@ private :
 	bool searchInPlugins(bool isNextMode) const;
 	const bool _inNames = true;
 	const bool _inDescs = false;
-	bool isFoundInAvailableListFromIndex(const PluginViewList& inWhichList,int index, const generic_string& str2search, bool inWhichPart) const;
+	bool isFoundInListFromIndex(const PluginViewList& inWhichList,int index, const generic_string& str2search, bool inWhichPart) const;
 	long searchFromCurrentSel(const PluginViewList& inWhichList, const generic_string& str2search, bool inWhichPart, bool isNextMode) const;
 	long searchInNamesFromCurrentSel(const PluginViewList& inWhichList, const generic_string& str2search, bool isNextMode) const {
 		return searchFromCurrentSel(inWhichList, str2search, _inNames, isNextMode);

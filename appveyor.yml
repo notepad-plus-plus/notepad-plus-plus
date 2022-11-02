@@ -42,7 +42,7 @@ for:
     #- if "%platform%" EQU "x86_64" bash -lc "pacman --noconfirm -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make"
     - if "%platform%" EQU "i686" set PATH=C:\msys64\mingw32\bin;%PATH%
     - if "%platform%" EQU "x86_64" set PATH=C:\msys64\mingw64\bin;%PATH%
-    -ps |
+    -ps: |
         Write-Output "Tools version:"
         Write-Output (((gcc --version) | select-object -first 1) + " " + (gcc -dumpmachine))
         Write-Output (mingw32-make --version) | select-object -first 1

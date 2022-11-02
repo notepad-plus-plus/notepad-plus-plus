@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 19 September 2022 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 1 November 2022 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
     Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.6">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -49,7 +49,7 @@
                     <Item subMenuId="search-jumpDown" name="Skoči &amp;dolje"/>
                     <Item subMenuId="search-copyStyledText" name="Kopiraj &amp;tekst označen stilom"/>
                     <Item subMenuId="search-bookmark" name="Knji&amp;žne oznake"/>
-                    <Item subMenuId="view-currentFileIn" name="&amp;Vidi trenutnu datoteku u"/>
+                    <Item subMenuId="view-currentFileIn" name="&amp;Vidi trenutnu datoteku u pregledniku"/>
                     <Item subMenuId="view-showSymbol" name="Prika&amp;ži znakove"/>
                     <Item subMenuId="view-zoom" name="Uve&amp;ćaj"/>
                     <Item subMenuId="view-moveCloneDocument" name="Prem&amp;jesti/kloniraj trenutni dokument"/>
@@ -85,9 +85,9 @@
                 <Commands>
                     <Item id="41001" name="&amp;Novo"/>
                     <Item id="41002" name="&amp;Otvori..."/>
-                    <Item id="41019" name="&amp;Eksplorer"/>
-                    <Item id="41020" name="&amp;Komandna linija"/>
-                    <Item id="41025" name="Mapa kao &amp;radni prostor"/>
+                    <Item id="41019" name="U &amp;Eksploreru"/>
+                    <Item id="41020" name="U &amp;komandnoj liniji"/>
+                    <Item id="41025" name="U mapi kao &amp;radnom prostoru"/>
                     <Item id="41003" name="&amp;Zatvori"/>
                     <Item id="41004" name="Z&amp;atvori sve"/>
                     <Item id="41005" name="Zatvori sve &amp;osim trenutne"/>
@@ -102,7 +102,7 @@
                     <Item id="41011" name="Iz&amp;laz"/>
                     <Item id="41012" name="&amp;Učitaj sesiju..."/>
                     <Item id="41013" name="Spremi sesi&amp;ju..."/>
-                    <Item id="41014" name="Ponovno u&amp;čitaj"/>
+                    <Item id="41014" name="Ponovno u&amp;čitaj s diska"/>
                     <Item id="41015" name="Spre&amp;mi kopiju kao..."/>
                     <Item id="41016" name="Iz&amp;briši s diska"/>
                     <Item id="41017" name="Pre&amp;imenuj..."/>
@@ -173,7 +173,7 @@
                     <Item id="42049" name="&amp;Izreži binarni sadržaj"/>
                     <Item id="42050" name="&amp;Zalijepi binarni sadržaj"/>
                     <Item id="42082" name="Kopiraj vezu"/>
-                    <Item id="42037" name="&amp;Rad sa stupcima..."/>
+                    <Item id="42037" name="&amp;Rad u stupcima..."/>
                     <Item id="42034" name="Ure&amp;đivanje stupaca..."/>
                     <Item id="42051" name="Pane&amp;l ASCII kodova"/>
                     <Item id="42052" name="Povi&amp;jest međuspremnika"/>
@@ -325,7 +325,7 @@
                     <Item id="45060" name="Big5 (tradicionalni)"/>
                     <Item id="45061" name="GB2312 (pojednostavljeni)"/>
                     <Item id="45054" name="OEM 861: Islandski"/>
-                    <Item id="45057" name="OEM 865: Nordijski"/>
+                    <Item id="45057" name="OEM 865: Skandinavski"/>
                     <Item id="45053" name="OEM 860: Portugalski"/>
                     <Item id="45056" name="OEM 863: Francuski"/>
 
@@ -356,7 +356,7 @@
                     <Item id="47012" name="&amp;Debug informacije..."/>
                     <Item id="47005" name="Više dodataka"/>
                     <Item id="47006" name="Až&amp;uriraj Notepad++"/>
-                    <Item id="47009" name="&amp;Postavke Proxy ažuriranja..."/>
+                    <Item id="47009" name="&amp;Postavke Proxy servera za ažuriranje..."/>
                     <Item id="48005" name="Uvoz &amp;dodataka..."/>
                     <Item id="48006" name="Uvoz &amp;tema..."/>
                     <Item id="48018" name="Uredi skočni &amp;kontekstni izbornik"/>
@@ -408,7 +408,7 @@
                     <Item CMID="6" name="Kloniraj u drugi prikaz"/>
                     <Item CMID="7" name="Kopiraj naziv i put datoteke"/>
                     <Item CMID="8" name="Kopiraj naziv datoteke"/>
-                    <Item CMID="9" name="Kopiraj put mape"/>
+                    <Item CMID="9" name="Kopiraj put trenutne mape"/>
                     <Item CMID="10" name="Preimenuj..."/>
                     <Item CMID="11" name="Izbriši"/>
                     <Item CMID="12" name="Samo za čitanje"/>
@@ -429,8 +429,8 @@
                     <Item CMID="27" name="Primijeni boju 4"/>
                     <Item CMID="28" name="Primijeni boju 5"/>
                     <Item CMID="29" name="Ukloni boju"/>
-                    <Item CMID="30" name="Zatvori višestruke jezičke"/>
-                    <Item CMID="31" name="Otvori u"/>
+                    <Item CMID="30" name="Zatvori višestruke kartice"/>
+                    <Item CMID="31" name="Otvori mapu"/>
                     <Item CMID="32" name="Kopiraj u međuspremnik"/>
                     <Item CMID="33" name="Premjesti dokument"/>
                     <Item CMID="34" name="Primijeni boju na jezičak"/>
@@ -893,7 +893,7 @@
 
                     <Item id="6106" name="Vrpca s kartičnim jezičcima"/>
                     <Item id="6107" name="Smanji"/>
-                    <Item id="6108" name="Zaključaj (bez &quot;povuci i ispusti&quot;)"/>
+                    <Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
                     <Item id="6109" name="Zatamni neaktivne jezičke"/>
                     <Item id="6110" name="Vrh aktivnog jezička u boji"/>
 
@@ -961,12 +961,12 @@
                     <Item id="7124" name="Rub"/>
                     <Item id="7125" name="Poveznica"/>
                     <Item id="7126" name="Isticanje ruba"/>
-                    <Item id="7127" name="Rubovi isključeni"/>
+                    <Item id="7127" name="Isključeni rubovi"/>
                     <Item id="7130" name="Resetiranje"/>
                     <Item id="7135" name="Tonovi"/>
                 </DarkMode>
 
-                <MarginsBorderEdge title="Margine i rubovi">
+                <MarginsBorderEdge title="Margine Okviri Rubovi">
                     <Item id="6201" name="Grane za motanje"/>
                     <Item id="6202" name="Crtice"/>
                     <Item id="6203" name="Strelice"/>
@@ -978,11 +978,11 @@
                     <Item id="6292" name="Dinamična širina"/>
                     <Item id="6293" name="Konstantna širina"/>
                     <Item id="6207" name="Prikaz knjižne oznake"/>
-                    <Item id="6223" name="Prikaz promjene povijesti"/>
-                    <Item id="6211" name="Postavke okomitog ruba"/>
-                    <Item id="6213" name="Pozadina"/>
-                    <Item id="6237" name="Dodajte svoj marker stupca naznačujući njegovu poziciju brojem.
-Možete definirati više markera stupca korištenjem praznog mjesta za odjeljivanje različitih brojeva."/>
+                    <Item id="6223" name="Prikaz povijesti promjena"/>
+                    <Item id="6211" name="Postavke okomite linije"/>
+                    <Item id="6213" name="U pozadini"/>
+                    <Item id="6237" name="Dodajte okomitu liniju naznačujući njenu poziciju brojem stupca.
+Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljivanje različitih brojeva stupaca."/>
                     <Item id="6231" name="Širina obruba"/>
                     <Item id="6235" name="Bez ruba"/>
                     <Item id="6208" name="Udaljenost teksta od ruba"/>
@@ -1027,7 +1027,7 @@ Možete definirati više markera stupca korištenjem praznog mjesta za odjeljiva
                     <Item id="6508" name="Izbornik jezika"/>
                     <Item id="6301" name="Postavke tabulatora"/>
                     <Item id="6302" name="Zamijeni razmacima"/>
-                    <Item id="6303" name="Veličina tabulatora: "/>
+                    <Item id="6303" name="Širina tabulatora: "/>
                     <Item id="6510" name="Koristi zadanu vrijednost"/>
                     <Item id="6335" name="Tretiraj backslash kao escape karakter za SQL"/>
                 </Language>
@@ -1101,7 +1101,7 @@ Možete definirati više markera stupca korištenjem praznog mjesta za odjeljiva
                 </Searching>
 
                 <RecentFilesHistory title="Povijest datoteka">
-                    <Item id="6304" name="Postavke povijesti datoteka"/>
+                    <Item id="6304" name="Postavke povijesti otvaranja datoteka"/>
                     <Item id="6306" name="Najveći broj upisa:"/>
                     <Item id="6305" name="Ne provjeravaj pri pokretanju"/>
                     <Item id="6429" name="Prikaz"/>
@@ -1144,7 +1144,7 @@ Možete definirati više markera stupca korištenjem praznog mjesta za odjeljiva
                     <Item id="6851" name="Automatsko umetanje"/>
                     <Item id="6857" name=" html/xml zatv. tag"/>
                     <Item id="6858" name="Početak"/>
-                    <Item id="6859" name="Kraj"/>
+                    <Item id="6859" name=" Kraj"/>
                     <Item id="6860" name="Odgovarajući par 1:"/>
                     <Item id="6863" name="Odgovarajući par 2:"/>
                     <Item id="6866" name="Odgovarajući par 3:"/>
@@ -1153,7 +1153,7 @@ Možete definirati više markera stupca korištenjem praznog mjesta za odjeljiva
                 <MultiInstance title="Instance i vrijeme">
                     <Item id="6151" name="Postavke više-instančnog rada"/>
                     <Item id="6152" name="Otvori sesiju u novoj instanci
-(i automatski snimi sesiju pri izlazu)"/>
+(i automatski spremi sesiju pri izlazu)"/>
                     <Item id="6153" name="Uvijek u više-instančnom načinu"/>
                     <Item id="6154" name="Zadano (jedno-instančni način)"/>
                     <Item id="6155" name="Promjena ove postavke zahtijeva restart Notepada++"/>
@@ -1175,6 +1175,18 @@ Možete definirati više markera stupca korištenjem praznog mjesta za odjeljiva
 (nemojte odabrati ako ne znate što radite)"/>
                 </Delimiter>
 
+                <Performance title="Performanse">
+                    <Item id="7141" name="Ograničenja za velike datoteke"/>
+                    <Item id="7143" name="Omogući ograničenja za velike datoteke (bez označavanja sintakse)"/>
+                    <Item id="7144" name="Definiraj veličinu velike datoteke:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Omogući nalaženje pripadajućih zagrada"/>
+                    <Item id="7148" name="Omogući automatsko dopunjavanje"/>
+                    <Item id="7149" name="Omogući pametno označavanje"/>
+                    <Item id="7150" name="Isključi prijelom teksta globalno"/>
+                    <Item id="7151" name="Omogući klikabilne URL poveznice"/>
+                </Performance>
+
                 <Cloud title="Oblak i poveznice">
                     <Item id="6261" name="Za aktivaciju promjena restartajte Notepad++"/>
                     <Item id="6262" name="Postavke oblaka"/>
@@ -1184,7 +1196,7 @@ Možete definirati više markera stupca korištenjem praznog mjesta za odjeljiva
                     <Item id="6319" name="Omogući"/>
                     <Item id="6320" name="Bez podvlačenja"/>
                     <Item id="6350" name="Omogući fullbox način"/>
-                    <Item id="6264" name="URI prilagođene sheme:"/>
+                    <Item id="6264" name="Prilagođene URI sheme:"/>
                 </Cloud>
 
                 <SearchEngine title="Tražilice">
@@ -1200,14 +1212,14 @@ Možete definirati više markera stupca korištenjem praznog mjesta za odjeljiva
 
                 <MISC title="Razno">
                     <ComboBox id="6347">
-                        <Element name="Uključi"/>
+                        <Element name="Uključi za aktivnu datoteku"/>
                         <Element name="Uključi za sve otvorene datoteke"/>
                         <Element name="Isključi"/>
                     </ComboBox>
                     <Item id="6308" name="Minimiziraj u paletu sustava"/>
                     <Item id="6312" name="Automatsko prepoznavanje stanja datoteke"/>
                     <Item id="6313" name="Tiho ažuriranje"/>
-                    <Item id="6325" name="Po ažuriranju prijeđi na posljednji redak"/>
+                    <Item id="6325" name="Po ažuriranju idi na posljednji redak"/>
                     <Item id="6322" name="Nastavak datoteke sesije:"/>
                     <Item id="6323" name="Automatska nadogradnja Notepada++"/>
                     <Item id="6324" name="Promjena kartica (Ctrl+Tab)"/>
@@ -1215,10 +1227,10 @@ Možete definirati više markera stupca korištenjem praznog mjesta za odjeljiva
                     <Item id="6334" name="Automatski detektiraj enkoding"/>
                     <Item id="6349" name="Koristi DirectWrite (može poboljšati renderiranje specijalnih karaktera, potreban je restart Notepada++)"/>
                     <Item id="6337" name="Nast. datoteke radnog prostora:"/>
-                    <Item id="6114" name="Uključi"/>
-                    <Item id="6117" name="Uključi povijest dokumenata"/>
-                    <Item id="6344" name="Pogled na dokument"/>
-                    <Item id="6345" name="Pogled na karticu"/>
+                    <Item id="6114" name="Omogući promjenu kartica"/>
+                    <Item id="6117" name="Uključi povijest otvaranja datoteka"/>
+                    <Item id="6344" name="Pogled na neaktivni dokument"/>
+                    <Item id="6345" name="Pogled na karticu dokumenta"/>
                     <Item id="6346" name="Pogled na mapu dokumenta"/>
                     <Item id="6360" name="Isključi sve zvukove"/>
                     <Item id="6361" name="Uključi dijalog za potvrdu spremanja svih datoteka"/>
@@ -1317,7 +1329,7 @@ Morate omogućiti &quot;Otvori sve datoteke mape umjesto pokretanja 'Mapa kao ra
 za prijelaz na rad u stupcima.
 Vidi Notepad++ online priručnik (Editing) za detalje."/>
             <BufferInvalidWarning title="Greška spremanja" message="Ne mogu spremiti: Buffer je neispravan."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <DoCloseOrNot title="Zadrži nepostojeću datoteku" message="Datoteka &quot;$STR_REPLACE$&quot; više ne postoji.
+            <DoCloseOrNot title="Zadrži nepostojeću datoteku" message="Datoteka &quot;$STR_REPLACE$&quot; više ne postoji na disku.
 Želite li ju zadržati u editoru?"/>
             <DoDeleteOrNot title="Izbriši datoteku" message="Datoteka &quot;$STR_REPLACE$&quot;
 će biti premještena u Kantu za smeće kada ovaj dokument bude zatvoren.
@@ -1336,7 +1348,8 @@ Ovu datoteku je izmijenio drugi program.
             <PrehistoricSystemDetected title="Detektiran prapovijesni sistem" message="Izgleda da još koristite prapovijesni sistem. Žao mi je, ali ova mogućnost radi samo na modernim sistemima."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
             <XpUpdaterProblem title="Notepad++ ažuriranje" message="Notepad++ ažuriranje nije kompatibilno s XP zbog zastarjele sigurnosne zaštite pod XP.
 Želite li preuzeti najnoviju verziju s Notepad++ web stranica?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-            <GUpProxyConfNeedAdminMode title="Postavke proxyja" message="Molim restartajte Notepad++ u Administratorskom načinu kako bi konfigurirali proxy."/>
+            <GUpProxyConfNeedAdminMode title="Postavke proxyja" message="Molim restartajte Notepad++ u Administratorskom načinu
+kako bi konfigurirali proxy."/>
             <DocTooDirtyToMonitor title="Problem nadgledanja" message="Dokument je nečist. Molim spremite izmijene prije nadgledanja."/>
             <DocNoExistToMonitor title="Problem nadgledanja" message="Datoteka mora postojati da bi se nadgledala."/>
             <FileTooBigToOpen title="Problem s veličinom datoteke" message="Datoteka je prevelika da bi se otvorila u Notepadu++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
@@ -1384,7 +1397,7 @@ molim izaberite neko drugo."/>
 Notepad++ će se restartati nakon što sve operacije završe.
 Nastaviti?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi učitali instalirane dodatke."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <ChangeHistoryEnabledWarning title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi omogućili promjenu povijesti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <ChangeHistoryEnabledWarning title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi omogućili povijest promjena."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Povijest međuspremnika"/>
@@ -1616,6 +1629,12 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
             <contextMenu-styleOneToken value="Označi stilom jednom"/>
             <contextMenu-clearStyle value="Poništi oznake stilom"/>
             <contextMenu-PluginCommands value="Naredbe dodataka"/>
+            <largeFileRestriction-tip value="Neke značajke mogu usporiti rad s velikim datotekama. Ove značajke mogu se automatski onemogućiti pri otvaranju velike datoteke. Ovdje ih možete prilagoditi.
+
+NAPOMENE:
+1. Promjena ovih opcija zahtijeva ponovno otvaranje trenutno otvorenih velikih datoteka kako bi se postiglo ispravno ponašanje.
+
+2. Ako je aktivirano &quot;Isključi prijelom teksta globalno&quot; i otvorite veliku datoteku, &quot;Prijelom teksta&quot; će biti onemogućen za sve datoteke. Možete ga ponovno uključiti putem izbornika &quot;Prikaz-&gt;Prijelom teksta&quot;."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

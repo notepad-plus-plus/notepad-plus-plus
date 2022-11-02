@@ -47,7 +47,7 @@ for:
         Write-Output (((gcc --version) | select-object -first 1) + " " + (gcc -dumpmachine))
         Write-Output (mingw32-make --version) | select-object -first 1
         Write-Output (sh --version) | select-object -first 1
-        Write-Output
+        Write-Output ""
   build_script:
     - mingw32-make -f PowerEditor\gcc\makefile
   after_build:

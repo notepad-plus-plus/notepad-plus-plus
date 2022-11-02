@@ -49,3 +49,7 @@ for:
         Write-Output (mingw32-make --version) | select-object -first 1
         Write-Output (sh --version) | select-object -first 1
         Write-Output ""
+  build_script:
+    - echo test
+  after_build:
+

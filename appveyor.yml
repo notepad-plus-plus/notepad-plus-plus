@@ -30,6 +30,7 @@ for:
     only:
       - compiler: GCC
   install:
+    - echo %PATH%
     - set PATH=C:\msys64\usr\bin
     - if "%platform%" EQU "i686" set $env:MSYSTEM = 'MINGW32'
     - if "%platform%" EQU "x86_64" set $env:MSYSTEM = 'MINGW64'
@@ -43,9 +44,19 @@ for:
     - if "%platform%" EQU "x86_64" set PATH=C:\msys64\mingw64\bin;%PATH%
   build_script:
     - cmd: echo TEST
-    - cmd: where gcc
-    - cmd: where git
-    - cmd: where ls
     - cmd: echo %PATH%
+    - cmd: git -v
+    - ps: (get-command git).Path
+    - cmd: sh --version
+    - ps: (get-command sh).Path
+    - cmd: bash --version
+    - ps: (get-command bash).Path
+    - cmd: ls --version
+    - ps: (get-command ls).Path
+    - cmd: set
+    - cmd: mingw32-make --eval="$(error $(SHELL))"
+    - cmd: mingw32-make --eval="$(error $(shell echo %OS%))"
+    - cmd: mingw32-make --eval="$(error $(shell echo $$OS))"
+    - cmd: mingw32-make --eval="$(error $(shell echo $$WINDIR))"
     #- mingw32-make -f PowerEditor\gcc\makefile
   after_build:

@@ -1102,7 +1102,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 
                 <RecentFilesHistory title="Povijest datoteka">
                     <Item id="6304" name="Postavke povijesti otvaranja datoteka"/>
-                    <Item id="6306" name="Najveći broj upisa:"/>
+                    <Item id="6306" name="Najveći broj datoteka:"/>
                     <Item id="6305" name="Ne provjeravaj pri pokretanju"/>
                     <Item id="6429" name="Prikaz"/>
                     <Item id="6424" name="U podizborniku"/>
@@ -1582,7 +1582,7 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
             <tabrename-newname value="Novo ime: "/>
             <splitter-rotate-left value="Rotiraj lijevo"/>
             <splitter-rotate-right value="Rotiraj desno"/>
-            <recent-file-history-maxfile value="Max. datoteka: "/>
+            <recent-file-history-maxfile value="Max. stavki: "/>
             <language-tabsize value="Veličina kartice: "/>
             <userdefined-title-new value="Kreiraj novi jezik..."/>
             <userdefined-title-save value="Spremi ime trenutnog jezika kao..."/>

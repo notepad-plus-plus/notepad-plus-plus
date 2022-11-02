@@ -49,8 +49,7 @@ for:
         Write-Output (sh --version) | select-object -first 1
         Write-Output ""
   build_script:
-    - cmd: echo aaa
-    - cmd: echo.
+    - cmd:
     - mingw32-make -f PowerEditor\gcc\makefile
-    - cmd: @echo.
+    - cmd:
 

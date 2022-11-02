@@ -20,6 +20,7 @@ configuration:
 
 before_build:
     - ps: |
+        Write-Output "Build parameters:"
         Write-Output "Compiler : $env:compiler"
         Write-Output "Platform : $env:platform"
         Write-Output "Configuration : $env:configuration"
@@ -30,10 +31,9 @@ for:
     only:
       - compiler: GCC
   install:
-    - echo %PATH%
-    - set PATH=C:\msys64\usr\bin
-    - if "%platform%" EQU "i686" set $env:MSYSTEM = 'MINGW32'
-    - if "%platform%" EQU "x86_64" set $env:MSYSTEM = 'MINGW64'
+    - set PATH=C:\msys64\usr\bin;%PATH%
+    - if "%platform%" EQU "i686" set MSYSTEM=MINGW32
+    - if "%platform%" EQU "x86_64" set MSYSTEM=MINGW64
     - if "%configuration%" EQU "Debug" set DEBUG=1
     # uncomment lines below to update packages to use latest gcc
     #- bash -lc "pacman --noconfirm -Syuu"
@@ -42,21 +42,12 @@ for:
     #- if "%platform%" EQU "x86_64" bash -lc "pacman --noconfirm -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make"
     - if "%platform%" EQU "i686" set PATH=C:\msys64\mingw32\bin;%PATH%
     - if "%platform%" EQU "x86_64" set PATH=C:\msys64\mingw64\bin;%PATH%
+    -ps |
+        Write-Output "Tools version:"
+        Write-Output (((gcc --version) | select-object -first 1) + " " + (gcc -dumpmachine))
+        Write-Output (mingw32-make --version) | select-object -first 1
+        Write-Output (sh --version) | select-object -first 1
+    - echo %PATH%
   build_script:
-    - cmd: echo TEST
-    - cmd: echo %PATH%
-    - cmd: git -v
-    - ps: (get-command git).Path
-    - cmd: sh --version
-    - ps: (get-command sh).Path
-    - cmd: bash --version
-    - ps: (get-command bash).Path
-    - cmd: ls --version
-    - ps: (get-command ls).Path
-    - cmd: set
-    - cmd: mingw32-make --eval="$(error $(SHELL))"
-    - cmd: mingw32-make --eval="$(error $(shell echo %OS%))"
-    - cmd: mingw32-make --eval="$(error $(shell echo $$OS))"
-    - cmd: mingw32-make --eval="$(error $(shell echo $$WINDIR))"
     #- mingw32-make -f PowerEditor\gcc\makefile
   after_build:

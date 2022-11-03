@@ -5,10 +5,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
+Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.4.1">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -29,7 +29,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="&amp;Bevattende map openen"/>
-                    <Item subMenuId="file-closeMore" name="&amp;Meerdere sluiten"/>
+                    <Item subMenuId="file-closeMore" name="&amp;Meerdere documenten sluiten"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Recente bestanden"/>
                     <Item subMenuId="edit-insert" name="Invoegen"/>
                     <Item subMenuId="edit-copyToClipboard" name="Naar &amp;klembord kopiëren"/>
@@ -181,11 +181,11 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="42026" name="Tekstrichting rechts-links"/>
                     <Item id="42027" name="Tekstrichting links-rechts"/>
                     <Item id="42028" name="Instellen als alleen-&amp;lezen"/>
-                    <Item id="42029" name="Huidig bestandspad naar klembord kopiëren"/>
-                    <Item id="42030" name="Huidige bestandsnaam naar klembord kopiëren"/>
-                    <Item id="42031" name="Pad naar huidige map naar klembord kopiëren"/>
-                    <Item id="42087" name="Alle bestandsnamen naar klembord kopiëren"/>
-                    <Item id="42088" name="Alle bestandspaden naar klembord kopiëren"/>
+                    <Item id="42029" name="Huidig bestandspad kopiëren"/>
+                    <Item id="42030" name="Huidige bestandsnaam kopiëren"/>
+                    <Item id="42031" name="Pad naar huidige map kopiëren"/>
+                    <Item id="42087" name="Alle bestandsnamen kopiëren"/>
+                    <Item id="42088" name="Alle bestandspaden kopiëren"/>
                     <Item id="42032" name="Macro meerdere keren uitvoeren..."/>
                     <Item id="42033" name="Alleen-lezen opheffen"/>
                     <Item id="42035" name="Regelcommentaar aan"/>
@@ -210,7 +210,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="43050" name="Bladwijzers omkeren"/>
                     <Item id="43052" name="Zoeken naar tekens in &amp;bereik..."/>
                     <Item id="43053" name="Alles selecteren tussen bij elkaar horende &amp;haakjes"/>
-                    <Item id="43009" name="Ga naar overeenkomende &amp;accolade"/>
+                    <Item id="43009" name="Ga naar overeenkomend &amp;haakje"/>
                     <Item id="43010" name="Vorig&amp;e zoeken"/>
                     <Item id="43011" name="&amp;Snel zoeken..."/>
                     <Item id="43013" name="Zoeken in &amp;bestanden"/>
@@ -262,7 +262,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="43503" name="Geselecteerde namen kopiëren"/>
                     <Item id="43504" name="Geselecteerde padnamen kopiëren"/>
                     <Item id="44009" name="Interface verbergen"/>
-                    <Item id="44010" name="Gegevensstructuur samenvouwen"/>
+                    <Item id="44010" name="Alles samenvouwen"/>
                     <Item id="44011" name="Afleidingsvrije modus"/>
                     <Item id="44019" name="Alle tekens weergeven"/>
                     <Item id="44020" name="Aanduiding voor inspringing weergeven"/>
@@ -271,7 +271,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="44024" name="&amp;Uitzoomen (Ctrl + Omlaag scrollen)"/>
                     <Item id="44025" name="Spaties en tabs weergeven"/>
                     <Item id="44026" name="Regeleindemarkering weergeven"/>
-                    <Item id="44029" name="Gegevensstructuur uitvouwen"/>
+                    <Item id="44029" name="Alles uitvouwen"/>
                     <Item id="44030" name="Huidig niveau samenvouwen"/>
                     <Item id="44031" name="Huidig niveau uitvouwen"/>
                     <Item id="44049" name="Samenvatting..."/>
@@ -293,6 +293,12 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="44097" name="Monitoren (tail -f)"/>
                     <Item id="44098" name="Tabblad vooruit verplaatsen"/>
                     <Item id="44099" name="Tabblad achteruit verplaatsen"/>
+                    <Item id="44110" name="Kleur verwijderen"/>
+                    <Item id="44111" name="Kleur 1 toepassen"/>
+                    <Item id="44112" name="Kleur 2 toepassen"/>
+                    <Item id="44113" name="Kleur 3 toepassen"/>
+                    <Item id="44114" name="Kleur 4 toepassen"/>
+                    <Item id="44115" name="Kleur 5 toepassen"/>
                     <Item id="44032" name="Volledig scherm"/>
                     <Item id="44033" name="Standaardzoom herstellen"/>
                     <Item id="44034" name="Altijd op voorgrond"/>
@@ -360,7 +366,9 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
 
                     <Item id="50000" name="Functies aanvullen"/>
                     <Item id="50001" name="Woorden aanvullen"/>
-                    <Item id="50002" name="Functie-argumenten weergeven"/>
+                    <Item id="50002" name="Functie-argumenten tips"/>
+                    <Item id="50010" name="Functie-argumenten vorige tip"/>
+                    <Item id="50011" name="Functie-argumenten volgende tip"/>
                     <Item id="50005" name="Macro-opname aan/uit"/>
                     <Item id="50006" name="Bestandspad aanvullen"/>
                     <Item id="44042" name="Regels verbergen"/>
@@ -390,9 +398,9 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item CMID="4" name="Afdrukken..."/>
                     <Item CMID="5" name="Naar deelvenster verplaatsen"/>
                     <Item CMID="6" name="Naar deelvenster kopiëren"/>
-                    <Item CMID="7" name="Volledig bestandspad naar klembord kopiëren"/>
-                    <Item CMID="8" name="Bestandsnaam naar klembord kopiëren"/>
-                    <Item CMID="9" name="Pad naar huidige map naar klembord kopiëren"/>
+                    <Item CMID="7" name="Volledig bestandspad kopiëren"/>
+                    <Item CMID="8" name="Bestandsnaam kopiëren"/>
+                    <Item CMID="9" name="Pad naar huidige map kopiëren"/>
                     <Item CMID="10" name="Naam wijzigen..."/>
                     <Item CMID="11" name="Naar prullenbak verplaatsen"/>
                     <Item CMID="12" name="Alleen-lezen"/>
@@ -407,6 +415,17 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item CMID="21" name="In standaardviewer openen"/>
                     <Item CMID="22" name="Ongewijzigde documenten sluiten"/>
                     <Item CMID="23" name="Bevattende map als werkruimte openen"/>
+                    <Item CMID="24" name="Kleur 1 toepassen"/>
+                    <Item CMID="25" name="Kleur 2 toepassen"/>
+                    <Item CMID="26" name="Kleur 3 toepassen"/>
+                    <Item CMID="27" name="Kleur 4 toepassen"/>
+                    <Item CMID="28" name="Kleur 5 toepassen"/>
+                    <Item CMID="29" name="Kleur verwijderen"/>
+                    <Item CMID="30" name="Meerdere tabs sluiten"/>
+                    <Item CMID="31" name="Openen in"/>
+                    <Item CMID="32" name="Naar klembord kopiëren"/>
+                    <Item CMID="33" name="Document verplaatsen"/>
+                    <Item CMID="34" name="Kleur toepassen op tab"/>
             </TabBar>
         </Menu>
 
@@ -514,7 +533,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                 <Item id="2"    name="Sluiten"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Plugin-beheer" titleAvailable="Beschikbaar" titleUpdates="Updates" titleInstalled="Geïnstalleerd">
+            <PluginsAdminDlg title="Plugin-beheer" titleAvailable="Beschikbaar" titleUpdates="Updates" titleInstalled="Geïnstalleerd" titleIncompatible="Niet compatibel">>
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versie"/>
                 <Item id="5501" name="Zoeken:"/>
@@ -522,6 +541,8 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                 <Item id="5504" name="Bijwerken"/>
                 <Item id="5505" name="Verwijderen"/>
                 <Item id="5508" name="Volgende"/>
+                <Item id="5509" name="Plugin-lijst versie: "/>
+                <Item id="5511" name="Plugin-lijst repository"/>
                 <Item id="2"    name="Sluiten"/>
             </PluginsAdminDlg>
 
@@ -652,6 +673,12 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="44107" name="Wisselen naar map als werkruimte"/>
                     <Item id="44109" name="Wisselen naar documentenlijst"/>
                     <Item id="44108" name="Wisselen naar functielijst"/>
+                    <Item id="44110" name="Tab-kleur verwijderen"/>
+                    <Item id="44111" name="Tab-kleur 1 toepassen"/>
+                    <Item id="44112" name="Tab-kleur 2 toepassen"/>
+                    <Item id="44113" name="Tab-kleur 3 toepassen"/>
+                    <Item id="44114" name="Tab-kleur 4 toepassen"/>
+                    <Item id="44115" name="Tab-kleur 5 toepassen"/>
                     <Item id="11002" name="Sorteren op naam van A naar Z"/>
                     <Item id="11003" name="Sorteren op naam van Z naar A"/>
                     <Item id="11004" name="Sorteren op pad van A naar Z"/>
@@ -931,7 +958,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                 </DarkMode>
 
                 <MarginsBorderEdge title="Marges/grens/rand">
-                    <Item id="6201" name="Stijl map-marge"/>
+                    <Item id="6201" name="Stijl vouwmarge"/>
                     <Item id="6202" name="Eenvoudig"/>
                     <Item id="6203" name="Pijl"/>
                     <Item id="6204" name="Cirkelboom"/>
@@ -942,6 +969,7 @@ Last modified on 2022-06-01 by Thomas De Rocker (RockyTDR).
                     <Item id="6292" name="Dynamische breedte"/>
                     <Item id="6293" name="Constante breedte"/>
                     <Item id="6207" name="Bladwijzers weergeven"/>
+                    <Item id="6223" name="Geschiedenis van wijzigingen weergeven"/>
                     <Item id="6211" name="Instellingen verticale rand"/>
                     <Item id="6213" name="Achtergrondmodus"/>
                     <Item id="6237" name="Voeg uw kolommarkering toe door de positie aan te geven met een decimaal getal.
@@ -1051,12 +1079,14 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 </Print>
 
                 <Searching title="Zoeken">
-                    <Item id="6901" name="Het zoekveld in het zoekvenster niet invullen met het geselecteerde woord"/>
                     <Item id="6902" name="Monospace-lettertype gebruiken in het zoekvenster (Notepad++ moet opnieuw worden opgestart)"/>
                     <Item id="6903" name="Zoekvenster blijft open na zoekopdracht die naar het resultaatvenster uitvoert"/>
                     <Item id="6904" name="Alles vervangen in alle geopende documenten bevestigen"/>
                     <Item id="6905" name="Vervangen: niet naar de volgende overeenkomst gaan"/>
                     <Item id="6906" name="Zoekresultaatvenster: slechts een item per gevonden regel weergeven"/>
+                    <Item id="6907" name="Wanneer het zoekvenster opgeroepen is"/>
+                    <Item id="6908" name="Zoekveld vullen met geselecteerde tekst"/>
+                    <Item id="6909" name="Woord onder 'dakje' selecteren wanneer niets geselecteerd is"/>
                 </Searching>
 
                 <RecentFilesHistory title="Recente bestanden">
@@ -1130,6 +1160,18 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6163" name="Aanvullende woordtekens
 (niet gebruiken, tenzij u weet waar u mee bezig bent)"/>
                 </Delimiter>
+
+                <Performance title="Prestaties">
+                    <Item id="7141" name="Beperking grote bestanden"/>
+                    <Item id="7143" name="Beperking grote bestanden inschakelen (geen syntaxismarkering)"/>
+                    <Item id="7144" name="Grootte van groot bestand opgeven:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Overeenkomende haakjes toestaan"/>
+                    <Item id="7148" name="Automatisch aanvullen toestaan"/>
+                    <Item id="7149" name="Slim markeren toestaan"/>
+                    <Item id="7150" name="Automatische terugloop globaal uitschakelen"/>
+                    <Item id="7151" name="URL-koppeling aanklikken toestaan"/>
+                </Performance>
 
                 <Cloud title="Online opslag">
                     <Item id="6262" name="Instellingen online opslaan"/>
@@ -1337,6 +1379,7 @@ Wilt u Notepad++ starten in beheerdersmodus?"/>
 Notepad++ zal opnieuw starten nadat alle acties afgewerkt zijn.
 Doorgaan?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om de geïnstalleerde plug-ins te laden."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om geschiedenis van wijzigingen in te schakelen."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Geschiedenis van klembord"/>
@@ -1377,8 +1420,8 @@ Doorgaan?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Map als Werkruimte"/>
             <SelectFolderFromBrowserString name="Selecteer een map om toe te voegen aan het paneel map-als-werkruimte"/>
-            <ExpandAllFoldersTip name="Alle mappen uitvouwen"/>
-            <CollapseAllFoldersTip name="Alle mappen samenvouwen"/>
+            <ExpandAllFoldersTip name="Alles uitvouwen"/>
+            <CollapseAllFoldersTip name="Alles samenvouwen"/>
             <LocateCurrentFileTip name="Huidig bestand lokaliseren"/>
             <Menus>
                 <Item id="3511" name="Verwijderen"/>
@@ -1568,6 +1611,12 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
             <contextMenu-styleOneToken value="Eén token stileren" />
             <contextMenu-clearStyle value="Stijl wissen" />
             <contextMenu-PluginCommands value="Plugin-opdrachten" />
+            <largeFileRestriction-tip value="Sommige functies kunnen de prestaties bij grote bestanden vertragen. Deze functies kunnen automatisch uitgeschakeld worden bij het openen van een groot bestand. U kunt ze hier aanpassen.
+
+OPMERKING:
+1. Aanpassen van deze opties vereist dat u grote bestanden opnieuw opent om juist gedrag te verkrijgen.
+
+2. Als &quot;Automatische terugloop globaal uitschakelen&quot; aangevinkt is en u een groot bestand opent, zal &quot;automatische terugloop&quot; voor alle bestanden uitgeschakeld worden. U kunt het opnieuw inschakelen via het menu &quot;Beeld-&gt;Automatische terugloop&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

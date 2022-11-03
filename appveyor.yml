@@ -32,6 +32,8 @@ before_build:
         Write-Output "Compiler : $env:compiler"
         Write-Output "Platform : $env:platform"
         Write-Output "Configuration : $env:configuration"
+        Write-Output $env:APPVEYOR_REPO_COMMIT_MESSAGE
+        Exit-AppVeyorBuild
 
 for:
 - matrix:

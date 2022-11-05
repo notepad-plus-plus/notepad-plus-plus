@@ -1331,7 +1331,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
 					// Maintain the coherence in preferences
-					if (nppGUI._darkmode._isEnabled)
+					if (nppGUI._darkmode._isEnabled && !nppParam.isDarkNoThemeIconsChange())
 					{
 						// For toolbar: if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
 						bool isStandardChecked = false;

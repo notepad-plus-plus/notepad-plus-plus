@@ -7820,6 +7820,8 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
 		}
 
+		const bool allowThemeIconsChange = !nppParams.isDarkNoThemeIconsChange();
+
 		toolBarStatusType state = _toolBar.getState();
 		switch (state)
 		{
@@ -7841,43 +7843,46 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 
 			case TB_STANDARD:
 				// Force standard colorful icon to Fluent UI small icon in dark mode
-				if (NppDarkMode::isEnabled())
+				if (NppDarkMode::isEnabled() && allowThemeIconsChange)
 					_toolBar.reduce();
 				break;
 		}
 
-		ThemeSwitcher& themeSwitcher = nppParams.getThemeSwitcher();
-		generic_string themePath;
-		generic_string themeName;
-		const TCHAR darkModeXmlFileName[] = TEXT("DarkModeDefault.xml");
-		if (NppDarkMode::isEnabled())
+		if (allowThemeIconsChange)
 		{
-			themePath = themeSwitcher.getThemeDirPath();
-			pathAppend(themePath, darkModeXmlFileName);
-
-			themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
-		}
-		else
-		{
-			//use _stylerPath;
-
-			pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(0);
-			themePath = themeInfo.second;
-			themeName = themeSwitcher.getDefaultThemeLabel();
-		}
-
-		if (::PathFileExists(themePath.c_str()))
-		{
-			nppParams.getNppGUI()._themeName = themePath;
-
-			if (_configStyleDlg.isCreated())
+			ThemeSwitcher& themeSwitcher = nppParams.getThemeSwitcher();
+			generic_string themePath;
+			generic_string themeName;
+			const TCHAR darkModeXmlFileName[] = TEXT("DarkModeDefault.xml");
+			if (NppDarkMode::isEnabled())
 			{
-				_configStyleDlg.selectThemeByName(themeName.c_str());
+				themePath = themeSwitcher.getThemeDirPath();
+				pathAppend(themePath, darkModeXmlFileName);
+
+				themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
 			}
 			else
 			{
-				nppParams.reloadStylers(themePath.c_str());
-				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
+				//use _stylerPath;
+
+				pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(0);
+				themePath = themeInfo.second;
+				themeName = themeSwitcher.getDefaultThemeLabel();
+			}
+
+			if (::PathFileExists(themePath.c_str()))
+			{
+				nppParams.getNppGUI()._themeName = themePath;
+
+				if (_configStyleDlg.isCreated())
+				{
+					_configStyleDlg.selectThemeByName(themeName.c_str());
+				}
+				else
+				{
+					nppParams.reloadStylers(themePath.c_str());
+					::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
+				}
 			}
 		}
 

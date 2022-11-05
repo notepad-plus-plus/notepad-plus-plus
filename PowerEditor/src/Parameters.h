@@ -139,6 +139,7 @@ const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
 const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
+constexpr TCHAR darkModeGuardFile[] = TEXT("darkModeNoThemeIconsChange.xml");
 
 // issue xml/log file name
 const TCHAR nppLogNetworkDriveIssue[] = TEXT("nppLogNetworkDriveIssue");
@@ -1667,7 +1668,11 @@ public:
 
 	bool isLocal() const {
 		return _isLocal;
-	};
+	}
+
+	constexpr bool isDarkNoThemeIconsChange() const {
+		return _isDarkNoThemeIconsChange;
+	}
 
 	void saveConfig_xml();
 
@@ -1795,6 +1800,7 @@ private:
 	WNDPROC _enableThemeDialogTextureFuncAddr = nullptr;
 	bool _isLocal = false;
 	bool _isx64 = false; // by default 32-bit
+	bool _isDarkNoThemeIconsChange = false;
 
 	generic_string _cmdSettingsDir;
 	generic_string _titleBarAdditional;

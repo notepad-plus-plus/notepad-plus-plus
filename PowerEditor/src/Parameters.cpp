@@ -1334,6 +1334,14 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 
+	//---------------------------------------------- //
+	// darkModeNoThemeIconsChange.xml : for per user //
+	//---------------------------------------------- //
+	generic_string darkModeNoThemeIconsChangePath(_userPath);
+	pathAppend(darkModeNoThemeIconsChangePath, darkModeGuardFile);
+
+	_isDarkNoThemeIconsChange = (PathFileExists(darkModeNoThemeIconsChangePath.c_str()) == TRUE);
+
 	//------------------------------//
 	// shortcuts.xml : for per user //
 	//------------------------------//

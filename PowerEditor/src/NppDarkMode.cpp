@@ -338,6 +338,7 @@ namespace NppDarkMode
 	}
 
 	static Options _options;			// actual runtime options
+	static AdvancedOptions g_advOptions;
 
 	Options configuredOptions()
 	{
@@ -361,9 +362,25 @@ namespace NppDarkMode
 		_options = configuredOptions();
 
 		initExperimentalDarkMode();
+		initAdvancedOptions();
+
+		if (NppDarkMode::isWindowsModeEnabled() && NppDarkMode::isWindows10())
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParam.getNppGUI();
+			nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg() && !IsHighContrast();
+			_options.enable = nppGUI._darkmode._isEnabled;
+			_options.enableMenubar = _options.enable;
+		}
+
 		setDarkMode(_options.enable, true);
 
 		g_isAtLeastWindows10 = NppDarkMode::isWindows10();
+
+		if (!g_isAtLeastWindows10)
+		{
+			g_advOptions._enableWindowsMode = false;
+		}
 
 		using PWINEGETVERSION = const CHAR* (__cdecl *)(void);
 
@@ -411,6 +428,12 @@ namespace NppDarkMode
 		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, static_cast<WPARAM>(!forceRefresh), 0);
 	}
 
+	void initAdvancedOptions()
+	{
+		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+		g_advOptions = nppGui._darkmode._advOptions;
+	}
+
 	bool isEnabled()
 	{
 		return _options.enable;
@@ -434,6 +457,74 @@ namespace NppDarkMode
 	bool isExperimentalSupported()
 	{
 		return g_darkModeSupported;
+	}
+
+	bool isWindowsModeEnabled()
+	{
+		return g_advOptions._enableWindowsMode;
+	}
+
+	void setWindowsMode(bool enable)
+	{
+		g_advOptions._enableWindowsMode = enable;
+	}
+
+	void setThemeName(const generic_string& newThemeName)
+	{
+		if (NppDarkMode::isEnabled())
+			g_advOptions._darkDefaults._xmlFileName = newThemeName;
+		else
+			g_advOptions._lightDefaults._xmlFileName = newThemeName;
+	}
+
+	generic_string getThemeName()
+	{
+		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._xmlFileName : g_advOptions._lightDefaults._xmlFileName;
+	}
+
+	static bool g_isCustomToolIconUsed = NppParameters::getInstance().getCustomizedToolIcons() != nullptr;
+
+	void setToolBarIconSet(int state2Set, bool useDark)
+	{
+		if (useDark)
+			g_advOptions._darkDefaults._toolBarIconSet = state2Set;
+		else
+			g_advOptions._lightDefaults._toolBarIconSet = state2Set;
+	}
+
+	int getToolBarIconSet(bool useDark)
+	{
+		if (g_isCustomToolIconUsed)
+		{
+			return -1;
+		}
+		return useDark ? g_advOptions._darkDefaults._toolBarIconSet : g_advOptions._lightDefaults._toolBarIconSet;
+	}
+
+	void setTabIconSet(bool useAltIcons, bool useDark)
+	{
+		if (useDark)
+			g_advOptions._darkDefaults._tabIconSet = useAltIcons ? 1 : 2;
+		else	
+			g_advOptions._lightDefaults._tabIconSet = useAltIcons ? 1 : 0;
+	}
+
+	int getTabIconSet(bool useDark)
+	{
+		return useDark ? g_advOptions._darkDefaults._tabIconSet : g_advOptions._lightDefaults._tabIconSet;
+	}
+
+	bool useTabTheme()
+	{
+		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._tabUseTheme : g_advOptions._lightDefaults._tabUseTheme;
+	}
+
+	void setAdvancedOptions()
+	{
+		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+		auto& advOpt = nppGui._darkmode._advOptions;
+
+		advOpt = g_advOptions;
 	}
 
 	bool isWindows10()
@@ -623,7 +714,7 @@ namespace NppDarkMode
 
 	// handle events
 
-	void handleSettingChange(HWND hwnd, LPARAM lParam)
+	void handleSettingChange(HWND hwnd, LPARAM lParam, bool isFromBtn)
 	{
 		UNREFERENCED_PARAMETER(hwnd);
 
@@ -632,10 +723,28 @@ namespace NppDarkMode
 			return;
 		}
 
-		if (IsColorSchemeChangeMessage(lParam))
+		if (IsColorSchemeChangeMessage(lParam) || isFromBtn)
 		{
-			g_darkModeEnabled = ShouldAppsUseDarkMode() && !IsHighContrast();
+			// ShouldAppsUseDarkMode() is not reliable from 1903+, use NppDarkMode::isDarkModeReg() instead
+			g_darkModeEnabled = NppDarkMode::isDarkModeReg() && !IsHighContrast();
 		}
+	}
+
+	bool isDarkModeReg()
+	{
+		DWORD data{};
+		DWORD dwBufSize = sizeof(data);
+		LPCTSTR lpSubKey = L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize";
+		LPCTSTR lpValue = L"AppsUseLightTheme";
+
+		auto result = RegGetValue(HKEY_CURRENT_USER, lpSubKey, lpValue, RRF_RT_REG_DWORD, nullptr, &data, &dwBufSize);
+		if (result != ERROR_SUCCESS)
+		{
+			return false;
+		}
+
+		// dark mode is 0, light mode is 1
+		return data == 0UL;
 	}
 
 	// processes messages related to UAH / custom menubar drawing.

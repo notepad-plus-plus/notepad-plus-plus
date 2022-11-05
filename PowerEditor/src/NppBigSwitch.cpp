@@ -194,6 +194,54 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			NppDarkMode::handleSettingChange(hwnd, lParam);
 
+			const bool enableDarkMode = NppDarkMode::isExperimentalActive();
+
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParam.getNppGUI();
+
+			// Windows mode is enabled
+			// and don't change if Notepad++ is already in same mode as OS after changing OS mode
+			if (NppDarkMode::isWindowsModeEnabled() && (enableDarkMode != NppDarkMode::isEnabled()))
+			{
+				nppGUI._darkmode._isEnabled = enableDarkMode;
+				if (!_preference.isCreated())
+				{
+					const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
+					toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
+					switch (state)
+					{
+						case TB_SMALL:
+							_toolBar.reduce();
+							break;
+
+						case TB_LARGE:
+							_toolBar.enlarge();
+							break;
+
+						case TB_SMALL2:
+							_toolBar.reduceToSet2();
+							break;
+
+						case TB_LARGE2:
+							_toolBar.enlargeToSet2();
+							break;
+
+						case TB_STANDARD:
+							_toolBar.setToBmpIcons();
+							break;
+					}
+					NppDarkMode::refreshDarkMode(hwnd, false);
+				}
+				else
+				{
+					HWND hSubDlg = _preference._darkModeSubDlg.getHSelf();
+
+					// don't use IDC_RADIO_DARKMODE_FOLLOWWINDOWS, it is only for button,
+					// it calls NppDarkMode::handleSettingChange, which is not needed here
+					::SendMessage(hSubDlg, WM_COMMAND, IDC_RADIO_DARKMODE_DARKMODE, 0);
+				}
+			}
+
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 
@@ -781,7 +829,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					_pDocumentListPanel = nullptr;
 
 					//relaunch with new icons
-					launchDocumentListPanel();
+					launchDocumentListPanel(static_cast<bool>(wParam));
 				}
 				else //if doclist is closed
 				{
@@ -790,7 +838,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					_pDocumentListPanel = nullptr;
 
 					//relaunch doclist with new icons and close it
-					launchDocumentListPanel();
+					launchDocumentListPanel(static_cast<bool>(wParam));
 					if (_pDocumentListPanel)
 					{
 						_pDocumentListPanel->display(false);

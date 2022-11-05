@@ -18,6 +18,8 @@
 
 #include <windows.h>
 
+#include "Common.h" // for generic_string
+
 constexpr COLORREF HEXRGB(DWORD rrggbb) {
 	// from 0xRRGGBB like natural #RRGGBB
 	// to the little-endian 0xBBGGRR
@@ -86,13 +88,43 @@ namespace NppDarkMode
 		dark = 2
 	};
 
+	struct AdvOptDefaults
+	{
+		generic_string _xmlFileName;
+		int _toolBarIconSet = -1;
+		int _tabIconSet = -1;
+		bool _tabUseTheme = false;
+	};
+
+	struct AdvancedOptions
+	{
+		bool _enableWindowsMode = false;
+
+		NppDarkMode::AdvOptDefaults _darkDefaults{};
+		NppDarkMode::AdvOptDefaults _lightDefaults{};
+	};
+
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
+
+	void initAdvancedOptions();
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();
 	bool isEnabledForPlugins();
+	bool isExperimentalActive();
 	bool isExperimentalSupported();
+
+	bool isWindowsModeEnabled();
+	void setWindowsMode(bool enable);
+	generic_string getThemeName();
+	void setThemeName(const generic_string& newThemeName);
+	int getToolBarIconSet(bool useDark);
+	void setToolBarIconSet(int state2Set, bool useDark);
+	int getTabIconSet(bool useDark);
+	void setTabIconSet(bool useAltIcons, bool useDark);
+	bool useTabTheme();
+	void setAdvancedOptions();
 
 	bool isWindows10();
 	bool isWindows11();
@@ -152,7 +184,8 @@ namespace NppDarkMode
 	void changeCustomTheme(const Colors& colors);
 
 	// handle events
-	void handleSettingChange(HWND hwnd, LPARAM lParam);
+	void handleSettingChange(HWND hwnd, LPARAM lParam, bool isFromBtn = false);
+	bool isDarkModeReg();
 
 	// processes messages related to UAH / custom menubar drawing.
 	// return true if handled, false to continue with normal processing in your wndproc

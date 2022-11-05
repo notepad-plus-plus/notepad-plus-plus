@@ -404,6 +404,9 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 
+						const TCHAR* fn = ::PathFindFileName(_themeName.c_str());
+						NppDarkMode::setThemeName(fn);
+
 						return TRUE;
 					}
 

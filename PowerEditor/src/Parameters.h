@@ -720,6 +720,7 @@ struct DarkModeConf final
 	bool _isEnabledPlugin = true;
 	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
 	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
+	NppDarkMode::AdvancedOptions _advOptions{};
 };
 
 
@@ -905,7 +906,6 @@ struct NppGUI final
 	bool _shouldSortFunctionList = false;
 
 	DarkModeConf _darkmode;
-	DarkModeConf _darkmodeplugins;
 
 	LargeFileRestriction _largeFileRestriction;
 };
@@ -1667,7 +1667,7 @@ public:
 
 	bool isLocal() const {
 		return _isLocal;
-	};
+	}
 
 	void saveConfig_xml();
 

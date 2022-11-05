@@ -260,6 +260,29 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		}
 	}
 
+	if (NppDarkMode::isWindowsModeEnabled())
+	{
+		generic_string themePath;
+		generic_string xmlFileName = NppDarkMode::getThemeName();
+		if (!xmlFileName.empty())
+		{
+			themePath = themeSwitcher.getThemeDirPath();
+			pathAppend(themePath, xmlFileName);
+		}
+		else
+		{
+			auto& themeInfo = themeSwitcher.getElementFromIndex(0);
+			themePath = themeInfo.second;
+		}
+
+		if (::PathFileExists(themePath.c_str()))
+		{
+			nppGUI._themeName.assign(themePath);
+			nppParams.reloadStylers(themePath.c_str());
+			::SendMessage(_hSelf, WM_UPDATESCINTILLAS, 0, 0);
+		}
+	}
+
 	// Restore all dockable panels from the last session
 	for (size_t i = 0, len = _notepad_plus_plus_core._internalFuncIDs.size() ; i < len ; ++i)
 		::SendMessage(_hSelf, WM_COMMAND, _notepad_plus_plus_core._internalFuncIDs[i], 0);

@@ -5673,7 +5673,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
 
-			//_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(TEXT("enablePlugin"));
+			//_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(TEXT("enablePlugin", true));
 
 			int i;
 			const TCHAR* val;
@@ -5729,6 +5729,48 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			val = element->Attribute(TEXT("customColorDisabledEdge"), &i);
 			if (val)
 				_nppGUI._darkmode._customColors.disabledEdge = i;
+
+			// advanced options section
+			auto parseStringAttribute = [&element](const TCHAR* name, const TCHAR* defaultName = TEXT("")) -> const TCHAR* {
+				const TCHAR* val = element->Attribute(name);
+				if (val != nullptr && val[0])
+				{
+					return element->Attribute(name);
+				}
+				return defaultName;
+			};
+
+			auto parseToolBarIconsAttribute = [&element](const TCHAR* name, int defaultValue = -1) -> int {
+				int val;
+				const TCHAR* valStr = element->Attribute(name, &val);
+				if (valStr != nullptr && (val >= 0 && val <= 4))
+				{
+					return val;
+				}
+				return defaultValue;
+			};
+
+			auto parseTabIconsAttribute = [&element](const TCHAR* name, int defaultValue = -1) -> int {
+				int val;
+				const TCHAR* valStr = element->Attribute(name, &val);
+				if (valStr != nullptr && (val >= 0 && val <= 2))
+				{
+					return val;
+				}
+				return defaultValue;
+			};
+
+			_nppGUI._darkmode._advOptions._enableWindowsMode = parseYesNoBoolAttribute(TEXT("enableWindowsMode"));
+
+			_nppGUI._darkmode._advOptions._darkDefaults._xmlFileName = parseStringAttribute(TEXT("darkThemeName"), TEXT("DarkModeDefault.xml"));
+			_nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("darkToolBarIconSet"), 0);
+			_nppGUI._darkmode._advOptions._darkDefaults._tabIconSet = parseTabIconsAttribute(TEXT("darkTabIconSet"), 2);
+			_nppGUI._darkmode._advOptions._darkDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("darkTabUseTheme"));
+
+			_nppGUI._darkmode._advOptions._lightDefaults._xmlFileName = parseStringAttribute(TEXT("lightThemeName"));
+			_nppGUI._darkmode._advOptions._lightDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("lightToolBarIconSet"), 4);
+			_nppGUI._darkmode._advOptions._lightDefaults._tabIconSet = parseTabIconsAttribute(TEXT("lightTabIconSet"), 0);
+			_nppGUI._darkmode._advOptions._lightDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("lightTabUseTheme"), true);
 		}
 	}
 }
@@ -6850,13 +6892,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("DarkMode"));
 
+		NppDarkMode::setAdvancedOptions();
+
 		auto setYesNoBoolAttribute = [&GUIConfigElement](const TCHAR* name, bool value) {
 			const TCHAR* pStr = value ? TEXT("yes") : TEXT("no");
 			GUIConfigElement->SetAttribute(name, pStr);
 		};
 
 		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode._isEnabled);
-		//setYesNoBoolAttribute(TEXT("enablePlugin"), _nppGUI._darkmode._isEnabledPlugin);
 		GUIConfigElement->SetAttribute(TEXT("colorTone"), _nppGUI._darkmode._colorTone);
 
 		GUIConfigElement->SetAttribute(TEXT("customColorTop"), _nppGUI._darkmode._customColors.pureBackground);
@@ -6871,6 +6914,19 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("customColorEdge"), _nppGUI._darkmode._customColors.edge);
 		GUIConfigElement->SetAttribute(TEXT("customColorHotEdge"), _nppGUI._darkmode._customColors.hotEdge);
 		GUIConfigElement->SetAttribute(TEXT("customColorDisabledEdge"), _nppGUI._darkmode._customColors.disabledEdge);
+
+		// advanced options section
+		setYesNoBoolAttribute(TEXT("enableWindowsMode"), _nppGUI._darkmode._advOptions._enableWindowsMode);
+
+		GUIConfigElement->SetAttribute(TEXT("darkThemeName"), _nppGUI._darkmode._advOptions._darkDefaults._xmlFileName.c_str());
+		GUIConfigElement->SetAttribute(TEXT("darkToolBarIconSet"), _nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet);
+		GUIConfigElement->SetAttribute(TEXT("darkTabIconSet"), _nppGUI._darkmode._advOptions._darkDefaults._tabIconSet);
+		setYesNoBoolAttribute(TEXT("darkTabUseTheme"), _nppGUI._darkmode._advOptions._darkDefaults._tabUseTheme);
+
+		GUIConfigElement->SetAttribute(TEXT("lightThemeName"), _nppGUI._darkmode._advOptions._lightDefaults._xmlFileName.c_str());
+		GUIConfigElement->SetAttribute(TEXT("lightToolBarIconSet"), _nppGUI._darkmode._advOptions._lightDefaults._toolBarIconSet);
+		GUIConfigElement->SetAttribute(TEXT("lightTabIconSet"), _nppGUI._darkmode._advOptions._lightDefaults._tabIconSet);
+		setYesNoBoolAttribute(TEXT("lightTabUseTheme"), _nppGUI._darkmode._advOptions._lightDefaults._tabUseTheme);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

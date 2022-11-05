@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-10-22 by schnurlos
+	last modified: 2022-11-05 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -1614,6 +1614,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<contextMenu-styleAlloccurrencesOfToken value="Alle Vorkommen hervorheben" />
 			<contextMenu-styleOneToken value="Dieses Vorkommen hervorheben" />
 			<contextMenu-clearStyle value="Alle Hervorhebungen entfernen" />
+			<contextMenu-PluginCommands value="Plugin-Befehle" />
 			<largeFileRestriction-tip value="Einige Funktionen können die Leistung bei großen Dateien beeinträchtigen. Diese Funktionen können beim Öffnen einer großen Datei automatisch deaktiviert werden - das kann hier angepasst werden.
 
 ACHTUNG:
@@ -1623,4 +1624,3 @@ ACHTUNG:
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

@@ -281,7 +281,58 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		}
 
 		case PREF_MSG_SETTOOLICONSFROMSTDTOSMALL:
-			_generalSubDlg.setToolIconsFromStdToSmall();
+			if (NppDarkMode::isDefaultsEnabled())
+			{
+				const HWND generalSubDlg = _generalSubDlg.getHSelf();
+
+				auto checkOrUncheckBtn = [&generalSubDlg](int id, WPARAM check = BST_UNCHECKED) -> void
+				{
+					::SendDlgItemMessage(generalSubDlg, id, BM_SETCHECK, check, 0);
+				};
+
+				checkOrUncheckBtn(IDC_RADIO_STANDARD);
+				checkOrUncheckBtn(IDC_RADIO_SMALLICON);
+				checkOrUncheckBtn(IDC_RADIO_BIGICON);
+				checkOrUncheckBtn(IDC_RADIO_SMALLICON2);
+				checkOrUncheckBtn(IDC_RADIO_BIGICON2);
+
+				switch (NppDarkMode::getToolBarIconSet(static_cast<bool>(wParam)))
+				{
+				case 1:
+				{
+					checkOrUncheckBtn(IDC_RADIO_BIGICON, BST_CHECKED);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE, 0);
+					break;
+				}
+				case 2:
+				{
+					checkOrUncheckBtn(IDC_RADIO_SMALLICON2, BST_CHECKED);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE_SET2, 0);
+					break;
+				}
+				case 3:
+				{
+					checkOrUncheckBtn(IDC_RADIO_BIGICON2, BST_CHECKED);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE_SET2, 0);
+					break;
+				}
+				case 4:
+				{
+					checkOrUncheckBtn(IDC_RADIO_STANDARD, BST_CHECKED);
+					::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
+					break;
+				}
+				case 0:
+				default:
+					checkOrUncheckBtn(IDC_RADIO_SMALLICON, BST_CHECKED);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
+					break;
+				}
+			}
+			else
+			{
+				_generalSubDlg.setToolIconsFromStdToSmall();
+			}
 			return TRUE;
 
 		case PREF_MSG_DISABLETABBARALTERNATEICONS:
@@ -1331,16 +1382,29 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
 					// Maintain the coherence in preferences
-					if (nppGUI._darkmode._isEnabled && !nppParam.isDarkNoThemeIconsChange())
+					if (NppDarkMode::allowToolIconsChange())
 					{
-						// For toolbar: if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
-						bool isStandardChecked = false;
-						::SendMessage(_hParent, PREF_MSG_ISCHECKED_GENERALPAGE, IDC_RADIO_STANDARD, LPARAM(&isStandardChecked));
-						if (isStandardChecked)
-							::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, 0, 0);
+						if (enableDarkMode && !NppDarkMode::isDefaultsEnabled())
+						{
+							// For toolbar: if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
+							bool isStandardChecked = false;
+							::SendMessage(_hParent, PREF_MSG_ISCHECKED_GENERALPAGE, IDC_RADIO_STANDARD, LPARAM(&isStandardChecked));
+							if (isStandardChecked)
+								::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, static_cast<WPARAM>(enableDarkMode), 0);
+						}
+						else if (NppDarkMode::isDefaultsEnabled())
+						{
+							::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, static_cast<WPARAM>(enableDarkMode), 0);
+						}
+					}
 
-						// For tabbar: uncheck Alternate icons checkbox
-						::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
+					if (NppDarkMode::allowTabIconsChange())
+					{
+						if (enableDarkMode)
+						{
+							// For tabbar: uncheck Alternate icons checkbox
+							::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
+						}
 					}
 
 					changed = true;

@@ -147,6 +147,12 @@ Notepad_plus::Notepad_plus()
         _toolBar.initTheme(toolIconsDocRoot);
     }
 
+	TiXmlDocument* darkModeAdvOptDocRoot = nppParam.getDarkModeAdvOpt();
+	if (darkModeAdvOptDocRoot != nullptr)
+	{
+		NppDarkMode::initAdvancedOptions(darkModeAdvOptDocRoot);
+	}
+
 	// Determine if user is administrator.
 	BOOL is_admin;
 	winVer ver = nppParam.getWinVersion();
@@ -7820,9 +7826,8 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
 		}
 
-		const bool allowThemeIconsChange = !nppParams.isDarkNoThemeIconsChange();
-
-		toolBarStatusType state = _toolBar.getState();
+		int toolIconDefault = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
+		toolBarStatusType state = (toolIconDefault == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(toolIconDefault);
 		switch (state)
 		{
 			case TB_SMALL:
@@ -7843,21 +7848,22 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 
 			case TB_STANDARD:
 				// Force standard colorful icon to Fluent UI small icon in dark mode
-				if (NppDarkMode::isEnabled() && allowThemeIconsChange)
+				if (NppDarkMode::isEnabled() && NppDarkMode::allowToolIconsChange() && !NppDarkMode::isDefaultsEnabled())
 					_toolBar.reduce();
 				break;
 		}
 
-		if (allowThemeIconsChange)
+		if (NppDarkMode::allowThemeChange())
 		{
 			ThemeSwitcher& themeSwitcher = nppParams.getThemeSwitcher();
 			generic_string themePath;
 			generic_string themeName;
-			const TCHAR darkModeXmlFileName[] = TEXT("DarkModeDefault.xml");
-			if (NppDarkMode::isEnabled())
+
+			generic_string xmlFileName = NppDarkMode::getThemeName();
+			if (!xmlFileName.empty())
 			{
 				themePath = themeSwitcher.getThemeDirPath();
-				pathAppend(themePath, darkModeXmlFileName);
+				pathAppend(themePath, xmlFileName);
 
 				themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
 			}

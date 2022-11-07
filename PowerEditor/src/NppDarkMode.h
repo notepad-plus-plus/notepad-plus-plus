@@ -18,6 +18,8 @@
 
 #include <windows.h>
 
+#include "tinyxml.h"
+
 constexpr COLORREF HEXRGB(DWORD rrggbb) {
 	// from 0xRRGGBB like natural #RRGGBB
 	// to the little-endian 0xBBGGRR
@@ -86,13 +88,38 @@ namespace NppDarkMode
 		dark = 2
 	};
 
+	struct AdvancedOptions
+	{
+		bool disablePluginSupport = false;
+		bool disableThemeChange = false;
+		bool disableToolBarIconsChange = false;
+		bool disableTabIconsChange = false;
+
+		bool enableDefaults = false;
+
+		generic_string darkModeXmlFileName;
+		generic_string lightModeXmlFileName;
+
+		int darkToolBarIconSet = -1;
+		int lightToolBarIconSet = -1;
+	};
+
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
+
+	void initAdvancedOptions(TiXmlDocument* darkModeDocRoot);
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();
 	bool isEnabledForPlugins();
 	bool isExperimentalSupported();
+
+	bool allowThemeChange();
+	bool allowToolIconsChange();
+	bool allowTabIconsChange();
+	bool isDefaultsEnabled();
+	generic_string getThemeName();
+	int getToolBarIconSet(bool useDark);
 
 	bool isWindows10();
 	bool isWindows11();

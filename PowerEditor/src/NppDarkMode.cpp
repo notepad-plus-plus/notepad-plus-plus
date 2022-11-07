@@ -411,6 +411,83 @@ namespace NppDarkMode
 		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, static_cast<WPARAM>(!forceRefresh), 0);
 	}
 
+	static AdvancedOptions _advOptions;
+
+	void initAdvancedOptions(TiXmlDocument* darkModeDocRoot)
+	{
+		auto rootNode = darkModeDocRoot->FirstChild(TEXT("NotepadPlus"));
+
+		auto parseBoolAttribute = [](TiXmlNode* node, const TCHAR* name, bool defaultValue = false) -> bool {
+			const TCHAR* val = node->ToElement()->Attribute(name);
+			if (val != nullptr)
+			{
+				if (!lstrcmp(val, TEXT("1")))
+					return true;
+				else if (!lstrcmp(val, TEXT("0")))
+					return false;
+			}
+			return defaultValue;
+		};
+
+		auto parseToolBarIconsAttribute = [](TiXmlNode* node, const TCHAR* name, int defaultValue = 0) -> int {
+			const TCHAR* val = node->ToElement()->Attribute(name);
+			if (val != nullptr)
+			{
+				if (!lstrcmp(val, TEXT("1")))
+				{
+					return 1;
+				}
+				else if (!lstrcmp(val, TEXT("2")))
+				{
+					return 2;
+				}
+				else if (!lstrcmp(val, TEXT("3")))
+				{
+					return 3;
+				}
+				else if (!lstrcmp(val, TEXT("4")))
+				{
+					return 4;
+				}
+			}
+			return defaultValue;
+		};
+
+		auto parseStringAttribute = [](TiXmlNode* node, const TCHAR* name) -> const TCHAR* {
+			return node->ToElement()->Attribute(name);
+		};
+
+		if (rootNode != nullptr)
+		{
+			auto optNode = rootNode->FirstChild(TEXT("DarkModeAdvancedOptions"));
+			if (optNode != nullptr)
+			{
+				_advOptions.disablePluginSupport = parseBoolAttribute(optNode, TEXT("disablePluginSupport"));
+				_advOptions.disableThemeChange = parseBoolAttribute(optNode, TEXT("disableThemeChange"));
+				_advOptions.disableToolBarIconsChange = parseBoolAttribute(optNode, TEXT("disableToolBarIconsChange"));
+				_advOptions.disableTabIconsChange = parseBoolAttribute(optNode, TEXT("disableTabIconsChange"));
+				_advOptions.enableDefaults = parseBoolAttribute(optNode, TEXT("enableDefaults"));
+
+				if (_advOptions.enableDefaults)
+				{
+					auto darkNode = optNode->NextSibling(TEXT("DarkModeDefaults"));
+					if (darkNode != nullptr)
+					{
+						_advOptions.darkModeXmlFileName = parseStringAttribute(darkNode, TEXT("theme"));
+						_advOptions.darkToolBarIconSet = parseToolBarIconsAttribute(darkNode, TEXT("toolBarIconSet"));
+					}
+
+					auto lightNode = optNode->NextSibling(TEXT("LightModeDefaults"));
+					if (lightNode != nullptr)
+					{
+						_advOptions.lightModeXmlFileName = parseStringAttribute(lightNode, TEXT("theme"));
+						_advOptions.lightToolBarIconSet = parseToolBarIconsAttribute(lightNode, TEXT("toolBarIconSet"));
+					}
+				}
+			}
+		}
+	}
+
 	bool isEnabled()
 	{
 		return _options.enable;
@@ -418,7 +495,7 @@ namespace NppDarkMode
 
 	bool isEnabledForPlugins()
 	{
-		return _options.enablePlugin;
+		return _options.enablePlugin && !_advOptions.disablePluginSupport;
 	}
 
 	bool isDarkMenuEnabled()
@@ -434,6 +511,49 @@ namespace NppDarkMode
 	bool isExperimentalSupported()
 	{
 		return g_darkModeSupported;
+	}
+
+	bool allowThemeChange()
+	{
+		return !_advOptions.disableThemeChange;
+	}
+
+	bool allowToolIconsChange()
+	{
+		return !_advOptions.disableToolBarIconsChange;
+	}
+
+	bool allowTabIconsChange()
+	{
+		return !_advOptions.disableTabIconsChange;
+	}
+
+	bool isDefaultsEnabled()
+	{
+		return _advOptions.enableDefaults;
+	}
+
+	generic_string getThemeName()
+	{
+		if (!NppDarkMode::isDefaultsEnabled() || !NppDarkMode::allowThemeChange())
+		{
+			generic_string themeName = NppDarkMode::isEnabled() ? TEXT("DarkModeDefault.xml") : TEXT("");
+			return themeName;
+		}
+		return NppDarkMode::isEnabled() ? _advOptions.darkModeXmlFileName : _advOptions.lightModeXmlFileName;
+	}
+
+	static bool g_isCustomToolIconUsed = NppParameters::getInstance().getCustomizedToolIcons() != nullptr;
+
+	int getToolBarIconSet(bool useDark)
+	{
+		if (!NppDarkMode::isDefaultsEnabled()
+			|| !NppDarkMode::allowToolIconsChange()
+			|| g_isCustomToolIconUsed)
+		{
+			return -1;
+		}
+		return useDark ? _advOptions.darkToolBarIconSet : _advOptions.lightToolBarIconSet;
 	}
 
 	bool isWindows10()

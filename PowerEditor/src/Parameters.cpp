@@ -1334,13 +1334,21 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 
-	//---------------------------------------------- //
-	// darkModeNoThemeIconsChange.xml : for per user //
-	//---------------------------------------------- //
-	generic_string darkModeNoThemeIconsChangePath(_userPath);
-	pathAppend(darkModeNoThemeIconsChangePath, darkModeGuardFile);
+	//---------------------------------- //
+	// darkModeAdvOpt.xml : for per user //
+	//---------------------------------- //
+	generic_string darkModeAdvOptPath(_userPath);
+	pathAppend(darkModeAdvOptPath, TEXT("darkModeAdvOpt.xml"));
 
-	_isDarkNoThemeIconsChange = (PathFileExists(darkModeNoThemeIconsChangePath.c_str()) == TRUE);
+	_pXmlDarkModeAdvOptDoc = new TiXmlDocument(darkModeAdvOptPath);
+
+	loadOkay = _pXmlDarkModeAdvOptDoc->LoadFile();
+	if (!loadOkay)
+	{
+		delete _pXmlDarkModeAdvOptDoc;
+		_pXmlDarkModeAdvOptDoc = nullptr;
+		isAllLaoded = false;
+	}
 
 	//------------------------------//
 	// shortcuts.xml : for per user //
@@ -1484,6 +1492,7 @@ void NppParameters::destroyInstance()
 
 	delete _pXmlNativeLangDocA;
 	delete _pXmlToolIconsDoc;
+	delete _pXmlDarkModeAdvOptDoc;
 	delete _pXmlShortcutDoc;
 	delete _pXmlContextMenuDocA;
 	delete _pXmlBlacklistDoc;

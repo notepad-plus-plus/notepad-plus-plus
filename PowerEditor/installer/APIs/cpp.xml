@@ -128,6 +128,9 @@
 				<Param name="const char *nptr" />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="atomic_cancel" />
+		<KeyWord name="atomic_commit" />
+		<KeyWord name="atomic_noexcept" />
 		<KeyWord name="auto" />
 		<KeyWord name="auto_ptr" />
 		<KeyWord name="back" />
@@ -195,6 +198,7 @@
 		<KeyWord name="char" />
 		<KeyWord name="char16_t" />
 		<KeyWord name="char32_t" />
+		<KeyWord name="char8_t" />
 		<KeyWord name="char_type" />
 		<KeyWord name="chdir" func="yes">
 			<Overload retVal="int" >
@@ -240,6 +244,9 @@
 		<KeyWord name="closegraph" />
 		<KeyWord name="clreol" />
 		<KeyWord name="clrscr" />
+		<KeyWord name="co_await" />
+		<KeyWord name="co_return" />
+		<KeyWord name="co_yield" />
 		<KeyWord name="compare" />
 		<KeyWord name="compl" />
 		<KeyWord name="complex" />
@@ -1345,6 +1352,7 @@
 		</KeyWord>
 		<KeyWord name="rectangle" />
 		<KeyWord name="reference" />
+		<KeyWord name="reflexpr" />
 		<KeyWord name="register" />
 		<KeyWord name="registerbgidriver" />
 		<KeyWord name="registerbgifont" />
@@ -1753,6 +1761,7 @@
 		<KeyWord name="switch" />
 		<KeyWord name="sync" />
 		<KeyWord name="sync_with_stdio" />
+		<KeyWord name="synchronized" />
 		<KeyWord name="system" func="yes">
 			<Overload retVal="int" >
 				<Param name="const char *string" />

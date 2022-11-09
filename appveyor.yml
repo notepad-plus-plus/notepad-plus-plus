@@ -107,7 +107,7 @@ for:
     - ps: |
         Write-Output "Tools version:"
         Write-Output (((gcc --version) | select-object -first 1) + " " + (gcc -dumpmachine))
-        Write-Output (mingw32-make --version) | select-object -first 1
+        Write-Output (make --version) | select-object -first 1
         Write-Output (sh --version) | select-object -first 1
         Write-Output ""
   build_script:

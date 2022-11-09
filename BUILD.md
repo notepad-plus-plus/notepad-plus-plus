@@ -48,9 +48,9 @@ uses features from Boost's `Boost.Regex` library.
 
 # Building Notepad++ with GCC
 
-If you have [MinGW-w64](https://www.mingw-w64.org/) installed, you can compile Notepad++ with GCC. Otherwise MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/files/).  You can also download some collection of tools which supports MinGW-w64, like [MSYS2](https://www.msys2.org/) or [WinLibs](https://winlibs.com/).
+If you have [MinGW-w64](https://www.mingw-w64.org/) installed, you can compile Notepad++ with GCC. Otherwise MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/files/). You can also download some collection of tools which supports MinGW-w64, like [MSYS2](https://www.msys2.org/) or [WinLibs](https://winlibs.com/).
 
-Building Notepad++ is regularly tested on a Windows system by using  [MSYS2](https://www.msys2.org/) project.  Current versions of tools  used to building (such as GCC, Make or Bash) can be checked by looking at some logos from the finished building (for example in the [current-build page](https://ci.appveyor.com/project/donho/notepad-plus-plus)). Other versions may also work but are untested.
+Building Notepad++ is regularly tested on a Windows system by using [MSYS2](https://www.msys2.org/) project. Current versions of tools used to building (such as GCC, Make or Bash) can be checked by looking at some logs from the finished building (for example in the [current-build page](https://ci.appveyor.com/project/donho/notepad-plus-plus)). Other versions may also work but are untested.
 
 **Note:** Before building make sure that the system `PATH` environment variable contains `$MinGW-root$\bin` directory. Otherwise you have to set this directory yourself in Windows settings. You can also use a command like `set PATH=$MinGW-root$\bin;%PATH%` each time `cmd` is launched. But beware that if `PATH` contains several versions of MinGW-w64 GCC, only the first one will be usable.
 

@@ -17,8 +17,8 @@ environment:
     - compiler: MSC
       platform: arm64
 
-    - compiler: GCC
-      platform: i686
+#    - compiler: GCC
+#      platform: i686
 
     - compiler: GCC
       platform: x86_64

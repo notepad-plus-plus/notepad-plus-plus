@@ -17,7 +17,7 @@
 #
 # definitions
 #
-
+SHELL = bash.exe
 GCC_DIRECTORY := ../gcc
 GCC_EXCLUDE := $(GCC_DIRECTORY)/gcc-%
 SRC_DIRECTORY := ../src

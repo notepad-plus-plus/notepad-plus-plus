@@ -32,8 +32,6 @@ before_build:
         Write-Output "Compiler : $env:compiler"
         Write-Output "Platform : $env:platform"
         Write-Output "Configuration : $env:configuration"
-        Write-Output $env:APPVEYOR_REPO_COMMIT_MESSAGE
-        Exit-AppVeyorBuild
 
 for:
 - matrix:
@@ -107,7 +105,7 @@ for:
     - if "%platform%" EQU "i686" set PATH=C:\msys64\mingw32\bin;%PATH:C:\Program Files\Git\usr\bin;=%
     - if "%platform%" EQU "x86_64" set PATH=C:\msys64\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
   build_script:
-    - mingw32-make -f PowerEditor\gcc\makefile
+    - make -f PowerEditor\gcc\makefile
   after_build:
     # artifacts
     - ps: |

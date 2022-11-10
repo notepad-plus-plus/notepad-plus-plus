@@ -429,6 +429,10 @@ namespace NppDarkMode
 			return defaultValue;
 		};
 
+		auto parseStringAttribute = [](TiXmlNode* node, const TCHAR* name) -> const TCHAR* {
+			return node->ToElement()->Attribute(name);
+		};
+
 		auto parseToolBarIconsAttribute = [](TiXmlNode* node, const TCHAR* name, int defaultValue = 0) -> int {
 			const TCHAR* val = node->ToElement()->Attribute(name);
 			if (val != nullptr)
@@ -453,8 +457,24 @@ namespace NppDarkMode
 			return defaultValue;
 		};
 
-		auto parseStringAttribute = [](TiXmlNode* node, const TCHAR* name) -> const TCHAR* {
-			return node->ToElement()->Attribute(name);
+		auto parseTabIconsAttribute = [](TiXmlNode* node, const TCHAR* name, int defaultValue = -1) -> int {
+			const TCHAR* val = node->ToElement()->Attribute(name);
+			if (val != nullptr)
+			{
+				if (!lstrcmp(val, TEXT("0")))
+				{
+					return 0;
+				}
+				else if (!lstrcmp(val, TEXT("1")))
+				{
+					return 1;
+				}
+				else if (!lstrcmp(val, TEXT("2")))
+				{
+					return 2;
+				}
+			}
+			return defaultValue;
 		};
 
 		if (rootNode != nullptr)
@@ -475,6 +495,7 @@ namespace NppDarkMode
 					{
 						_advOptions.darkModeXmlFileName = parseStringAttribute(darkNode, TEXT("theme"));
 						_advOptions.darkToolBarIconSet = parseToolBarIconsAttribute(darkNode, TEXT("toolBarIconSet"));
+						_advOptions.darkTabIconSet = parseTabIconsAttribute(darkNode, TEXT("tabIconSet"));
 					}
 
 					auto lightNode = optNode->NextSibling(TEXT("LightModeDefaults"));
@@ -482,6 +503,7 @@ namespace NppDarkMode
 					{
 						_advOptions.lightModeXmlFileName = parseStringAttribute(lightNode, TEXT("theme"));
 						_advOptions.lightToolBarIconSet = parseToolBarIconsAttribute(lightNode, TEXT("toolBarIconSet"));
+						_advOptions.lightTabIconSet = parseTabIconsAttribute(lightNode, TEXT("tabIconSet"));
 					}
 				}
 			}
@@ -554,6 +576,16 @@ namespace NppDarkMode
 			return -1;
 		}
 		return useDark ? _advOptions.darkToolBarIconSet : _advOptions.lightToolBarIconSet;
+	}
+
+	int getTabIconSet(bool useDark)
+	{
+		if (!NppDarkMode::isDefaultsEnabled()
+			|| !NppDarkMode::allowTabIconsChange())
+		{
+			return -1;
+		}
+		return useDark ? _advOptions.darkTabIconSet : _advOptions.lightTabIconSet;
 	}
 
 	bool isWindows10()

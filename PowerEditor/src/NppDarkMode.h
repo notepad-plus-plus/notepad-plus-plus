@@ -102,6 +102,9 @@ namespace NppDarkMode
 
 		int darkToolBarIconSet = -1;
 		int lightToolBarIconSet = -1;
+
+		int darkTabIconSet = -1;
+		int lightTabIconSet = -1;
 	};
 
 	void initDarkMode();				// pulls options from NppParameters
@@ -120,6 +123,7 @@ namespace NppDarkMode
 	bool isDefaultsEnabled();
 	generic_string getThemeName();
 	int getToolBarIconSet(bool useDark);
+	int getTabIconSet(bool useDark);
 
 	bool isWindows10();
 	bool isWindows11();

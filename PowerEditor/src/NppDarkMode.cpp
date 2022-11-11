@@ -496,6 +496,7 @@ namespace NppDarkMode
 						_advOptions.darkModeXmlFileName = parseStringAttribute(darkNode, TEXT("theme"));
 						_advOptions.darkToolBarIconSet = parseToolBarIconsAttribute(darkNode, TEXT("toolBarIconSet"));
 						_advOptions.darkTabIconSet = parseTabIconsAttribute(darkNode, TEXT("tabIconSet"));
+						_advOptions.darkTabUseTheme = parseBoolAttribute(darkNode, TEXT("tabUseTheme"));
 					}
 
 					auto lightNode = optNode->NextSibling(TEXT("LightModeDefaults"));
@@ -504,6 +505,7 @@ namespace NppDarkMode
 						_advOptions.lightModeXmlFileName = parseStringAttribute(lightNode, TEXT("theme"));
 						_advOptions.lightToolBarIconSet = parseToolBarIconsAttribute(lightNode, TEXT("toolBarIconSet"));
 						_advOptions.lightTabIconSet = parseTabIconsAttribute(lightNode, TEXT("tabIconSet"));
+						_advOptions.lightTabUseTheme = parseBoolAttribute(lightNode, TEXT("tabUseTheme"));
 					}
 				}
 			}
@@ -586,6 +588,15 @@ namespace NppDarkMode
 			return -1;
 		}
 		return useDark ? _advOptions.darkTabIconSet : _advOptions.lightTabIconSet;
+	}
+
+	bool useTabTheme()
+	{
+		if (!NppDarkMode::isDefaultsEnabled())
+		{
+			return NppDarkMode::isEnabled() ? false : true;
+		}
+		return NppDarkMode::isEnabled() ? _advOptions.darkTabUseTheme : _advOptions.lightTabUseTheme;
 	}
 
 	bool isWindows10()

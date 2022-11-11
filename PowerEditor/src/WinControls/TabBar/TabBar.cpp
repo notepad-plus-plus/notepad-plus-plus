@@ -1007,8 +1007,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	}
 	bool isSelected = (nTab == ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
-	TCHAR label[MAX_PATH];
-	TCITEM tci;
+	TCHAR label[MAX_PATH] = { '\0' };
+	TCITEM tci{};
 	tci.mask = TCIF_TEXT|TCIF_IMAGE;
 	tci.pszText = label;
 	tci.cchTextMax = MAX_PATH-1;
@@ -1017,12 +1017,33 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		::MessageBox(NULL, TEXT("! TCM_GETITEM"), TEXT(""), MB_OK);
 	}
+
+	const COLORREF colorActiveBg = isDarkMode ? NppDarkMode::getSofterBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
+	const COLORREF colorInactiveBgBase = isDarkMode ? NppDarkMode::getBackgroundColor() : grey;
+	
+	COLORREF colorInactiveBg = liteGrey;
+	COLORREF colorActiveText = ::GetSysColor(COLOR_BTNTEXT);
+	COLORREF colorInactiveText = grey;
+
+	if (!NppDarkMode::useTabTheme() && isDarkMode)
+	{
+		colorInactiveBg = NppDarkMode::getBackgroundColor();
+		colorActiveText = NppDarkMode::getTextColor();
+		colorInactiveText = NppDarkMode::getDarkerTextColor();
+	}
+	else
+	{
+		colorInactiveBg = _inactiveBgColour;
+		colorActiveText = _activeTextColour;
+		colorInactiveText = _inactiveTextColour;
+	}
+
 	HDC hDC = pDrawItemStruct->hDC;
 
 	int nSavedDC = ::SaveDC(hDC);
 
 	::SetBkMode(hDC, TRANSPARENT);
-	HBRUSH hBrush = ::CreateSolidBrush(!isDarkMode ? ::GetSysColor(COLOR_BTNFACE) : NppDarkMode::getBackgroundColor());
+	HBRUSH hBrush = ::CreateSolidBrush(colorInactiveBgBase);
 	::FillRect(hDC, &rect, hBrush);
 	::DeleteObject((HGDIOBJ)hBrush);
 
@@ -1085,10 +1106,10 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	RECT barRect = rect;
 	if (isSelected)
 	{
-		if (isDarkMode)
-		{
-			::FillRect(hDC, &pDrawItemStruct->rcItem, NppDarkMode::getSofterBackgroundBrush());
-		}
+		hBrush = ::CreateSolidBrush(colorActiveBg);
+		::FillRect(hDC, &pDrawItemStruct->rcItem, hBrush);
+		::DeleteObject(static_cast<HGDIOBJ>(hBrush));
+
 		if (_drawTopBar)
 		{
 			int topBarHeight = NppParameters::getInstance()._dpiManager.scaleX(4);
@@ -1121,27 +1142,25 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	}
 	else // inactive tabs
 	{
-		bool draw = false;
 		RECT rect = _isCtrlMultiLine ? pDrawItemStruct->rcItem : barRect;
 		COLORREF brushColour{};
 
-		if (_drawInactiveTab && individualColourId == -1 && !isDarkMode)
+		if (_drawInactiveTab && individualColourId == -1)
 		{
-			brushColour = _inactiveBgColour;
-			draw = true;
+			brushColour = colorInactiveBg;
 		}
 		else if (individualColourId != -1)
 		{
 			brushColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, false);
-			draw = true;
+		}
+		else
+		{
+			brushColour = colorActiveBg;
 		}
 
-		if (draw)
-		{
-			hBrush = ::CreateSolidBrush(brushColour);
-			::FillRect(hDC, &rect, hBrush);
-			::DeleteObject((HGDIOBJ)hBrush);
-		}
+		hBrush = ::CreateSolidBrush(brushColour);
+		::FillRect(hDC, &rect, hBrush);
+		::DeleteObject((HGDIOBJ)hBrush);
 	}
 
 	// draw close button
@@ -1158,10 +1177,9 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		else
 			idCloseImg = isSelected ? (isDarkMode ? IDR_CLOSETAB_DM : IDR_CLOSETAB) : (isDarkMode ? IDR_CLOSETAB_INACT_DM : IDR_CLOSETAB_INACT);
 
-		HDC hdcMemory;
-		hdcMemory = ::CreateCompatibleDC(hDC);
+		HDC hdcMemory = ::CreateCompatibleDC(hDC);
 		HBITMAP hBmp = ::LoadBitmap(_hInst, MAKEINTRESOURCE(idCloseImg));
-		BITMAP bmp;
+		BITMAP bmp{};
 		::GetObject(hBmp, sizeof(bmp), &bmp);
 
 		int bmDpiDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(bmp.bmWidth);
@@ -1180,7 +1198,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 	if (hImgLst && tci.iImage >= 0)
 	{
-		IMAGEINFO info;
+		IMAGEINFO info{};
 		ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
 
 		RECT& imageRect = info.rcImage;
@@ -1221,11 +1239,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		else
 			SelectObject(hDC, _hLargeFont);
 	}
-	SIZE charPixel;
+	SIZE charPixel{};
 	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
 	int spaceUnit = charPixel.cx;
 
-	TEXTMETRIC textMetrics;
+	TEXTMETRIC textMetrics{};
 	GetTextMetrics(hDC, &textMetrics);
 	int textHeight = textMetrics.tmHeight;
 	int textDescent = textMetrics.tmDescent;
@@ -1235,7 +1253,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	// This code will read in one character at a time and remove every first ampersand (&).
 	// ex. If input "test && test &&& test &&&&" then output will be "test & test && test &&&".
 	// Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
-	TCHAR decodedLabel[MAX_PATH];
+	TCHAR decodedLabel[MAX_PATH] = { '\0' };
 	const TCHAR* in = label;
 	TCHAR* out = decodedLabel;
 	while (*in != 0)
@@ -1275,11 +1293,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		rect.left += spaceUnit;
 	}
 
-	COLORREF textColor = isSelected ? _activeTextColour : _inactiveTextColour;
-	if (isDarkMode)
-	{
-		textColor = NppDarkMode::invertLightnessSofter(textColor);
-	}
+	COLORREF textColor = isSelected ? colorActiveText : colorInactiveText;
 
 	::SetTextColor(hDC, textColor);
 

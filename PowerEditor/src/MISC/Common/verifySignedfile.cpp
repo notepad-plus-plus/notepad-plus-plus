@@ -36,14 +36,8 @@ SecurityMode SecurityGuard::_securityMode = sm_certif;
 
 SecurityGuard::SecurityGuard()
 {
-	_scilexerSha256.push_back(TEXT("03c9177631d2b32de3d32c73a8841cf68fc2cb17f306825489dc3df98000db85")); // v3.5.6 32 bit (signed)
-	_scilexerSha256.push_back(TEXT("9896c4089275e21412fd80421827912ebd80e357394b05145a613d190462e211")); // v3.5.6 64 bit (signed)
-
 	_gupSha256.push_back(TEXT("4c8191f511c2ad67148ef809b40c1108aaa074130547157c335a959404d8d6f6")); // v5.1 32 bit (signed)
 	_gupSha256.push_back(TEXT("268a65829e86d5c3d324eea79b51e59f0a7d07c69d3ba0f700c9cb3aa772566f")); // v5.1 64 bit (signed)
-
-	_pluginListSha256.push_back(TEXT("be9e251a30fd712fd2ff98febd360805df51110b6659de8c9a0000220d7ae535")); // v1.0.7 32 bit (unsigned)
-	_pluginListSha256.push_back(TEXT("3ecd7f9c56bcd659a4126c659eb69b354789c78574a82390749ac751ae539bc6")); // v1.0.7 64 bit (unsigned)
 
 	_pluginListSha256.push_back(TEXT("a4a7e57d605f29b294378d0d94fc867b9febd6a1cc63f1bb69bcb7609dc25f2c")); // v1.0.8 32 bit (unsigned)
 	_pluginListSha256.push_back(TEXT("1c404fd3578273f5ecde585af82179ff3b63c635fb4fa24be21ebde708e403e4")); // v1.0.8 64 bit (unsigned)
@@ -53,7 +47,7 @@ bool SecurityGuard::checkModule(const std::wstring& filePath, NppModule module2c
 {
 #ifndef _DEBUG
 	if (_securityMode == sm_certif)
-		return verifySignedLibrary(filePath, module2check);
+		return verifySignedLibrary(filePath);
 	else if (_securityMode == sm_sha256)
 		return checkSha256(filePath, module2check);
 	else
@@ -87,9 +81,8 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 		wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha2hash[i]);
 
 	std::vector<std::wstring>* moduleSha256 = nullptr;
-	if (module2check == nm_scilexer)
-		moduleSha256 = &_scilexerSha256;
-	else if (module2check == nm_gup)
+
+	if (module2check == nm_gup)
 		moduleSha256 = &_gupSha256;
 	else if (module2check == nm_pluginList)
 		moduleSha256 = &_pluginListSha256;
@@ -109,7 +102,7 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 	return false;
 }
 
-bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath, NppModule module2check)
+bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 {
 	wstring display_name;
 	wstring key_id_hex;
@@ -292,20 +285,14 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath, NppModule 
 
 	}
 	catch (const wstring& s) {
-		if (module2check == nm_scilexer)
-			::MessageBox(NULL, s.c_str(), TEXT("DLL signature verification failed"), MB_ICONERROR);
-		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
+		wstring msg = s;
+		msg += TEXT(" - VerifyLibrary: error while getting certificate informations\n");
+		OutputDebugString(msg.c_str());
 		status = false;
 	}
 	catch (...) {
 		// Unknown error
 		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
-		if (module2check == nm_scilexer)
-		{
-			wstring errMsg(TEXT("Unknown exception occurred. "));
-			errMsg += GetLastErrorAsString(GetLastError());
-			::MessageBox(NULL, errMsg.c_str(), TEXT("DLL signature verification failed"), MB_ICONERROR);
-		}
 		status = false;
 	}
 

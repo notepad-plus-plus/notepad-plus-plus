@@ -102,17 +102,21 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 	return false;
 }
 
+// Debug use
+bool doLogCertifError = false;
+
 bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 {
 	wstring display_name;
 	wstring key_id_hex;
 	wstring subject;
 
-	wstring dmsg(TEXT("VerifyLibrary: "));
-	dmsg += filepath;
-	dmsg += TEXT("\n");
-
-	OutputDebugString(dmsg.c_str());
+	if (doLogCertifError)
+	{	
+		string dmsg("VerifyLibrary: ");
+		dmsg += ws2s(filepath);
+		writeLog(TEXT("c:\\tmp\\certifError.log"), dmsg.c_str());
+	}	
 
 	//
 	// Signature verification
@@ -136,7 +140,9 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 	if (!_doCheckRevocation)
 	{
 		winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
-		OutputDebugString(TEXT("VerifyLibrary: certificate revocation checking is disabled\n"));
+
+		if (doLogCertifError)
+			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: certificate revocation checking is disabled");
 	}
 	else
 	{
@@ -153,7 +159,9 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		if (!online)
 		{
 			winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
-			OutputDebugString(TEXT("VerifyLibrary: system is offline - certificate revocation wont be checked\n"));
+
+			if (doLogCertifError)
+				writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: system is offline - certificate revocation wont be checked");
 		}
 	}
 
@@ -169,13 +177,17 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 
 		if (vtrust)
 		{
-			OutputDebugString(TEXT("VerifyLibrary: trust verification failed\n"));
+			if (doLogCertifError)
+				writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: trust verification failed");
+
 			return false;
 		}
 
 		if (t2)
 		{
-			OutputDebugString(TEXT("VerifyLibrary: error encountered while cleaning up after WinVerifyTrust\n"));
+			if (doLogCertifError)
+				writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: error encountered while cleaning up after WinVerifyTrust");
+
 			return false;
 		}
 	}
@@ -198,27 +210,27 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 
 		if (!result)
 		{
-			throw wstring(TEXT("Checking certificate of ")) + filepath + TEXT(" : ") + GetLastErrorAsString(GetLastError());
+			throw string("Checking certificate of ") + ws2s(filepath) + " : " + ws2s(GetLastErrorAsString(GetLastError()));
 		}
 
 		// Get signer information size.
 		result = ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, NULL, &dwSignerInfo);
 		if (!result)
 		{
-			throw wstring(TEXT("CryptMsgGetParam first call: ")) + GetLastErrorAsString(GetLastError());
+			throw string("CryptMsgGetParam first call: ") + ws2s(GetLastErrorAsString(GetLastError()));
 		}
 
 		// Get Signer Information.
 		pSignerInfo = (PCMSG_SIGNER_INFO)LocalAlloc(LPTR, dwSignerInfo);
 		if (NULL == pSignerInfo)
 		{
-			throw wstring(TEXT("Failed to allocate memory for signature processing"));
+			throw string("Failed to allocate memory for signature processing");
 		}
 
 		result = ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, (PVOID)pSignerInfo, &dwSignerInfo);
 		if (!result)
 		{
-			throw wstring(TEXT("CryptMsgGetParam: ")) + GetLastErrorAsString(GetLastError());
+			throw string("CryptMsgGetParam: ") + ws2s(GetLastErrorAsString(GetLastError()));
 		}
 
 		// Get the signer certificate from temporary certificate store.	
@@ -228,20 +240,20 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		PCCERT_CONTEXT context = ::CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&cert_info, NULL);
 		if (!context)
 		{
-			throw wstring(TEXT("Certificate context: ")) + GetLastErrorAsString(GetLastError());
+			throw string("Certificate context: ") + ws2s(GetLastErrorAsString(GetLastError()));
 		}
 
 		// Getting the full subject				
 		auto subject_sze = ::CertNameToStr(X509_ASN_ENCODING, &context->pCertInfo->Subject, CERT_X500_NAME_STR, NULL, 0);
 		if (subject_sze <= 1)
 		{
-			throw wstring(TEXT("Getting x509 field size problem."));
+			throw string("Getting x509 field size problem.");
 		}
 
 		std::unique_ptr<TCHAR[]> subject_buffer(new TCHAR[subject_sze]);
 		if (::CertNameToStr(X509_ASN_ENCODING, &context->pCertInfo->Subject, CERT_X500_NAME_STR, subject_buffer.get(), subject_sze) <= 1)
 		{
-			throw wstring(TEXT("Failed to get x509 filed infos from certificate."));
+			throw string("Failed to get x509 filed infos from certificate.");
 		}
 		subject = subject_buffer.get();
 
@@ -249,13 +261,13 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		DWORD key_id_sze = 0;
 		if (!::CertGetCertificateContextProperty(context, CERT_KEY_IDENTIFIER_PROP_ID, NULL, &key_id_sze))
 		{
-			throw wstring(TEXT("x509 property not found")) + GetLastErrorAsString(GetLastError());
+			throw string("x509 property not found") + ws2s(GetLastErrorAsString(GetLastError()));
 		}
 
 		std::unique_ptr<BYTE[]> key_id_buff(new BYTE[key_id_sze]);
 		if (!::CertGetCertificateContextProperty(context, CERT_KEY_IDENTIFIER_PROP_ID, key_id_buff.get(), &key_id_sze))
 		{
-			throw wstring(TEXT("Getting certificate property problem.")) + GetLastErrorAsString(GetLastError());
+			throw string("Getting certificate property problem.") + ws2s(GetLastErrorAsString(GetLastError()));
 		}
 
 		wstringstream ss;
@@ -265,56 +277,68 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 				<< key_id_buff[i];
 		}
 		key_id_hex = ss.str();
-		wstring dbg = key_id_hex + TEXT("\n");
-		OutputDebugString(dbg.c_str());
+
+		if (doLogCertifError)
+			writeLog(TEXT("c:\\tmp\\certifError.log"), ws2s(key_id_hex).c_str());
 
 		// Getting the display name			
 		auto sze = ::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, NULL, 0);
 		if (sze <= 1)
 		{
-			throw wstring(TEXT("Getting data size problem.")) + GetLastErrorAsString(GetLastError());
+			throw string("Getting data size problem.") + ws2s(GetLastErrorAsString(GetLastError()));
 		}
 
 		// Get display name.
 		std::unique_ptr<TCHAR[]> display_name_buffer(new TCHAR[sze]);
 		if (::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, display_name_buffer.get(), sze) <= 1)
 		{
-			throw wstring(TEXT("Cannot get certificate info.")) + GetLastErrorAsString(GetLastError());
+			throw string("Cannot get certificate info." + ws2s(GetLastErrorAsString(GetLastError())));
 		}
 		display_name = display_name_buffer.get();
 
 	}
-	catch (const wstring& s) {
-		wstring msg = s;
-		msg += TEXT(" - VerifyLibrary: error while getting certificate informations\n");
-		OutputDebugString(msg.c_str());
+	catch (const string& s) {
+		if (doLogCertifError)
+		{
+			string msg = s;
+			msg += " - VerifyLibrary: error while getting certificate informations";
+			writeLog(TEXT("c:\\tmp\\certifError.log"), msg.c_str());
+		}
 		status = false;
 	}
 	catch (...) {
 		// Unknown error
-		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
+		if (doLogCertifError)
+			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: error while getting certificate informations");
+
 		status = false;
 	}
 
 	//
 	// fields verifications - if status is true, and string to compare (from the parameter) is not empty, then do compare
 	//
-	if (status &&  _signer_display_name != display_name)
+	if (status &&  (_signer_display_name != display_name))
 	{
 		status = false;
-		OutputDebugString(TEXT("VerifyLibrary: Invalid certificate display name\n"));
+
+		if (doLogCertifError)
+			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: Invalid certificate display name");
 	}
 
-	if (status && _signer_subject != subject)
+	if (status && (_signer_subject != subject))
 	{
 		status = false;
-		OutputDebugString(TEXT("VerifyLibrary: Invalid certificate subject\n"));
+
+		if (doLogCertifError)
+			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: Invalid certificate subject");
 	}
 
-	if (status && _signer_key_id != key_id_hex)
+	if (status && (_signer_key_id != key_id_hex))
 	{
 		status = false;
-		OutputDebugString(TEXT("VerifyLibrary: Invalid certificate key id\n"));
+
+		if (doLogCertifError)
+			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: Invalid certificate key id");
 	}
 
 	// Clean up.

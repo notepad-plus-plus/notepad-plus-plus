@@ -363,6 +363,8 @@ namespace NppDarkMode
 		initExperimentalDarkMode();
 		setDarkMode(_options.enable, true);
 
+		initAdvancedOptions();
+
 		g_isAtLeastWindows10 = NppDarkMode::isWindows10();
 
 		using PWINEGETVERSION = const CHAR* (__cdecl *)(void);
@@ -411,105 +413,12 @@ namespace NppDarkMode
 		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, static_cast<WPARAM>(!forceRefresh), 0);
 	}
 
-	static AdvancedOptions _advOptions;
+	static AdvancedOptions g_advOptions;
 
-	void initAdvancedOptions(TiXmlDocument* darkModeDocRoot)
+	void initAdvancedOptions()
 	{
-		auto rootNode = darkModeDocRoot->FirstChild(TEXT("NotepadPlus"));
-
-		auto parseBoolAttribute = [](TiXmlNode* node, const TCHAR* name, bool defaultValue = false) -> bool {
-			const TCHAR* val = node->ToElement()->Attribute(name);
-			if (val != nullptr)
-			{
-				if (!lstrcmp(val, TEXT("1")))
-					return true;
-				else if (!lstrcmp(val, TEXT("0")))
-					return false;
-			}
-			return defaultValue;
-		};
-
-		auto parseStringAttribute = [](TiXmlNode* node, const TCHAR* name) -> const TCHAR* {
-			return node->ToElement()->Attribute(name);
-		};
-
-		auto parseToolBarIconsAttribute = [](TiXmlNode* node, const TCHAR* name, int defaultValue = 0) -> int {
-			const TCHAR* val = node->ToElement()->Attribute(name);
-			if (val != nullptr)
-			{
-				if (!lstrcmp(val, TEXT("1")))
-				{
-					return 1;
-				}
-				else if (!lstrcmp(val, TEXT("2")))
-				{
-					return 2;
-				}
-				else if (!lstrcmp(val, TEXT("3")))
-				{
-					return 3;
-				}
-				else if (!lstrcmp(val, TEXT("4")))
-				{
-					return 4;
-				}
-			}
-			return defaultValue;
-		};
-
-		auto parseTabIconsAttribute = [](TiXmlNode* node, const TCHAR* name, int defaultValue = -1) -> int {
-			const TCHAR* val = node->ToElement()->Attribute(name);
-			if (val != nullptr)
-			{
-				if (!lstrcmp(val, TEXT("0")))
-				{
-					return 0;
-				}
-				else if (!lstrcmp(val, TEXT("1")))
-				{
-					return 1;
-				}
-				else if (!lstrcmp(val, TEXT("2")))
-				{
-					return 2;
-				}
-			}
-			return defaultValue;
-		};
-
-		if (rootNode != nullptr)
-		{
-			auto optNode = rootNode->FirstChild(TEXT("DarkModeAdvancedOptions"));
-			if (optNode != nullptr)
-			{
-				_advOptions.disablePluginSupport = parseBoolAttribute(optNode, TEXT("disablePluginSupport"));
-				_advOptions.disableThemeChange = parseBoolAttribute(optNode, TEXT("disableThemeChange"));
-				_advOptions.disableToolBarIconsChange = parseBoolAttribute(optNode, TEXT("disableToolBarIconsChange"));
-				_advOptions.disableTabIconsChange = parseBoolAttribute(optNode, TEXT("disableTabIconsChange"));
-				_advOptions.enableDefaults = parseBoolAttribute(optNode, TEXT("enableDefaults"));
-
-				if (_advOptions.enableDefaults)
-				{
-					auto darkNode = optNode->NextSibling(TEXT("DarkModeDefaults"));
-					if (darkNode != nullptr)
-					{
-						_advOptions.darkModeXmlFileName = parseStringAttribute(darkNode, TEXT("theme"));
-						_advOptions.darkToolBarIconSet = parseToolBarIconsAttribute(darkNode, TEXT("toolBarIconSet"));
-						_advOptions.darkTabIconSet = parseTabIconsAttribute(darkNode, TEXT("tabIconSet"));
-						_advOptions.darkTabUseTheme = parseBoolAttribute(darkNode, TEXT("tabUseTheme"));
-					}
-
-					auto lightNode = optNode->NextSibling(TEXT("LightModeDefaults"));
-					if (lightNode != nullptr)
-					{
-						_advOptions.lightModeXmlFileName = parseStringAttribute(lightNode, TEXT("theme"));
-						_advOptions.lightToolBarIconSet = parseToolBarIconsAttribute(lightNode, TEXT("toolBarIconSet"));
-						_advOptions.lightTabIconSet = parseTabIconsAttribute(lightNode, TEXT("tabIconSet"));
-						_advOptions.lightTabUseTheme = parseBoolAttribute(lightNode, TEXT("tabUseTheme"));
-					}
-				}
-			}
-		}
+		NppGUI nppGui = NppParameters::getInstance().getNppGUI();
+		g_advOptions = nppGui._darkmode._advOptions;
 	}
 
 	bool isEnabled()
@@ -519,7 +428,7 @@ namespace NppDarkMode
 
 	bool isEnabledForPlugins()
 	{
-		return _options.enablePlugin && !_advOptions.disablePluginSupport;
+		return _options.enablePlugin;
 	}
 
 	bool isDarkMenuEnabled()
@@ -539,22 +448,22 @@ namespace NppDarkMode
 
 	bool allowThemeChange()
 	{
-		return !_advOptions.disableThemeChange;
+		return !g_advOptions._disableThemeChange;
 	}
 
 	bool allowToolIconsChange()
 	{
-		return !_advOptions.disableToolBarIconsChange;
+		return !g_advOptions._disableToolBarIconsChange;
 	}
 
 	bool allowTabIconsChange()
 	{
-		return !_advOptions.disableTabIconsChange;
+		return !g_advOptions._disableTabIconsChange;
 	}
 
 	bool isDefaultsEnabled()
 	{
-		return _advOptions.enableDefaults;
+		return g_advOptions._enableDefaults;
 	}
 
 	generic_string getThemeName()
@@ -564,7 +473,7 @@ namespace NppDarkMode
 			generic_string themeName = NppDarkMode::isEnabled() ? TEXT("DarkModeDefault.xml") : TEXT("");
 			return themeName;
 		}
-		return NppDarkMode::isEnabled() ? _advOptions.darkModeXmlFileName : _advOptions.lightModeXmlFileName;
+		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._xmlFileName : g_advOptions._lightDefaults._xmlFileName;
 	}
 
 	static bool g_isCustomToolIconUsed = NppParameters::getInstance().getCustomizedToolIcons() != nullptr;
@@ -577,7 +486,7 @@ namespace NppDarkMode
 		{
 			return -1;
 		}
-		return useDark ? _advOptions.darkToolBarIconSet : _advOptions.lightToolBarIconSet;
+		return useDark ? g_advOptions._darkDefaults._toolBarIconSet : g_advOptions._lightDefaults._toolBarIconSet;
 	}
 
 	int getTabIconSet(bool useDark)
@@ -587,7 +496,7 @@ namespace NppDarkMode
 		{
 			return -1;
 		}
-		return useDark ? _advOptions.darkTabIconSet : _advOptions.lightTabIconSet;
+		return useDark ? g_advOptions._darkDefaults._tabIconSet : g_advOptions._lightDefaults._tabIconSet;
 	}
 
 	bool useTabTheme()
@@ -596,7 +505,7 @@ namespace NppDarkMode
 		{
 			return NppDarkMode::isEnabled() ? false : true;
 		}
-		return NppDarkMode::isEnabled() ? _advOptions.darkTabUseTheme : _advOptions.lightTabUseTheme;
+		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._tabUseTheme : g_advOptions._lightDefaults._tabUseTheme;
 	}
 
 	bool isWindows10()

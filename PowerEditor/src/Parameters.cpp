@@ -1334,22 +1334,6 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 
-	//---------------------------------- //
-	// darkModeAdvOpt.xml : for per user //
-	//---------------------------------- //
-	generic_string darkModeAdvOptPath(_userPath);
-	pathAppend(darkModeAdvOptPath, TEXT("darkModeAdvOpt.xml"));
-
-	_pXmlDarkModeAdvOptDoc = new TiXmlDocument(darkModeAdvOptPath);
-
-	loadOkay = _pXmlDarkModeAdvOptDoc->LoadFile();
-	if (!loadOkay)
-	{
-		delete _pXmlDarkModeAdvOptDoc;
-		_pXmlDarkModeAdvOptDoc = nullptr;
-		isAllLaoded = false;
-	}
-
 	//------------------------------//
 	// shortcuts.xml : for per user //
 	//------------------------------//
@@ -1492,7 +1476,6 @@ void NppParameters::destroyInstance()
 
 	delete _pXmlNativeLangDocA;
 	delete _pXmlToolIconsDoc;
-	delete _pXmlDarkModeAdvOptDoc;
 	delete _pXmlShortcutDoc;
 	delete _pXmlContextMenuDocA;
 	delete _pXmlBlacklistDoc;
@@ -5690,7 +5673,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
 
-			//_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(TEXT("enablePlugin"));
+			//_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(TEXT("enablePlugin", true));
 
 			int i;
 			const TCHAR* val;
@@ -5746,6 +5729,70 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			val = element->Attribute(TEXT("customColorDisabledEdge"), &i);
 			if (val)
 				_nppGUI._darkmode._customColors.disabledEdge = i;
+
+			// advanced options section
+			auto parseStringAttribute = [&element](const TCHAR* name) -> const TCHAR* {
+				return element->Attribute(name);
+			};
+
+			auto parseToolBarIconsAttribute = [&element](const TCHAR* name, int defaultValue = 0) -> int {
+				const TCHAR* val = element->Attribute(name);
+				if (val != nullptr)
+				{
+					if (!lstrcmp(val, TEXT("1")))
+					{
+						return 1;
+					}
+					else if (!lstrcmp(val, TEXT("2")))
+					{
+						return 2;
+					}
+					else if (!lstrcmp(val, TEXT("3")))
+					{
+						return 3;
+					}
+					else if (!lstrcmp(val, TEXT("4")))
+					{
+						return 4;
+					}
+				}
+				return defaultValue;
+			};
+
+			auto parseTabIconsAttribute = [&element](const TCHAR* name, int defaultValue = -1) -> int {
+				const TCHAR* val = element->Attribute(name);
+				if (val != nullptr)
+				{
+					if (!lstrcmp(val, TEXT("0")))
+					{
+						return 0;
+					}
+					else if (!lstrcmp(val, TEXT("1")))
+					{
+						return 1;
+					}
+					else if (!lstrcmp(val, TEXT("2")))
+					{
+						return 2;
+					}
+				}
+				return defaultValue;
+			};
+
+			_nppGUI._darkmode._advOptions._disableThemeChange = parseYesNoBoolAttribute(TEXT("disableThemeChange"));
+			_nppGUI._darkmode._advOptions._disableToolBarIconsChange = parseYesNoBoolAttribute(TEXT("disableToolBarIconsChange"));
+			_nppGUI._darkmode._advOptions._disableTabIconsChange = parseYesNoBoolAttribute(TEXT("disableTabIconsChange"));
+			_nppGUI._darkmode._advOptions._enableDefaults = parseYesNoBoolAttribute(TEXT("enableDefaults"));
+
+			_nppGUI._darkmode._advOptions._darkDefaults._xmlFileName = parseStringAttribute(TEXT("darkThemeName"));
+			_nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("darkToolBarIconSet"));
+			_nppGUI._darkmode._advOptions._darkDefaults._tabIconSet = parseTabIconsAttribute(TEXT("darkTabIconSet"));
+			_nppGUI._darkmode._advOptions._darkDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("darkTabUseTheme"));
+
+			_nppGUI._darkmode._advOptions._lightDefaults._xmlFileName = parseStringAttribute(TEXT("lightThemeName"));
+			_nppGUI._darkmode._advOptions._lightDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("lightToolBarIconSet"));
+			_nppGUI._darkmode._advOptions._lightDefaults._tabIconSet = parseTabIconsAttribute(TEXT("lightTabIconSet"));
+			_nppGUI._darkmode._advOptions._lightDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("lightTabUseTheme"));
 		}
 	}
 }
@@ -6888,6 +6935,22 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("customColorEdge"), _nppGUI._darkmode._customColors.edge);
 		GUIConfigElement->SetAttribute(TEXT("customColorHotEdge"), _nppGUI._darkmode._customColors.hotEdge);
 		GUIConfigElement->SetAttribute(TEXT("customColorDisabledEdge"), _nppGUI._darkmode._customColors.disabledEdge);
+
+		// advanced options section
+		setYesNoBoolAttribute(TEXT("disableThemeChange"), _nppGUI._darkmode._advOptions._disableThemeChange);
+		setYesNoBoolAttribute(TEXT("disableToolBarIconsChange"), _nppGUI._darkmode._advOptions._disableToolBarIconsChange);
+		setYesNoBoolAttribute(TEXT("disableTabIconsChange"), _nppGUI._darkmode._advOptions._disableTabIconsChange);
+		setYesNoBoolAttribute(TEXT("enableDefaults"), _nppGUI._darkmode._advOptions._enableDefaults);
+
+		GUIConfigElement->SetAttribute(TEXT("darkThemeName"), _nppGUI._darkmode._advOptions._darkDefaults._xmlFileName.c_str());
+		GUIConfigElement->SetAttribute(TEXT("darkToolBarIconSet"), _nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet);
+		GUIConfigElement->SetAttribute(TEXT("darkTabIconSet"), _nppGUI._darkmode._advOptions._darkDefaults._tabIconSet);
+		setYesNoBoolAttribute(TEXT("darkTabUseTheme"), _nppGUI._darkmode._advOptions._darkDefaults._tabUseTheme);
+
+		GUIConfigElement->SetAttribute(TEXT("lightThemeName"), _nppGUI._darkmode._advOptions._lightDefaults._xmlFileName.c_str());
+		GUIConfigElement->SetAttribute(TEXT("lightToolBarIconSet"), _nppGUI._darkmode._advOptions._lightDefaults._toolBarIconSet);
+		GUIConfigElement->SetAttribute(TEXT("lightTabIconSet"), _nppGUI._darkmode._advOptions._lightDefaults._tabIconSet);
+		setYesNoBoolAttribute(TEXT("lightTabUseTheme"), _nppGUI._darkmode._advOptions._lightDefaults._tabUseTheme);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

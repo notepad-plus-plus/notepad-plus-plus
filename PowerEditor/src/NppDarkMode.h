@@ -18,7 +18,7 @@
 
 #include <windows.h>
 
-#include "tinyxml.h"
+#include "Common.h" // for generic_string
 
 constexpr COLORREF HEXRGB(DWORD rrggbb) {
 	// from 0xRRGGBB like natural #RRGGBB
@@ -88,32 +88,30 @@ namespace NppDarkMode
 		dark = 2
 	};
 
+	struct AdvOptDefaults
+	{
+		generic_string _xmlFileName;
+		int _toolBarIconSet = -1;
+		int _tabIconSet = -1;
+		bool _tabUseTheme = false;
+	};
+
 	struct AdvancedOptions
 	{
-		bool disablePluginSupport = false;
-		bool disableThemeChange = false;
-		bool disableToolBarIconsChange = false;
-		bool disableTabIconsChange = false;
+		bool _disableThemeChange = false;
+		bool _disableToolBarIconsChange = false;
+		bool _disableTabIconsChange = false;
 
-		bool enableDefaults = false;
+		bool _enableDefaults = false;
 
-		generic_string darkModeXmlFileName;
-		generic_string lightModeXmlFileName;
-
-		int darkToolBarIconSet = -1;
-		int lightToolBarIconSet = -1;
-
-		int darkTabIconSet = -1;
-		int lightTabIconSet = -1;
-
-		bool darkTabUseTheme = false;
-		bool lightTabUseTheme = false;
+		NppDarkMode::AdvOptDefaults _darkDefaults{};
+		NppDarkMode::AdvOptDefaults _lightDefaults{};
 	};
 
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
 
-	void initAdvancedOptions(TiXmlDocument* darkModeDocRoot);
+	void initAdvancedOptions();
 
 	bool isEnabled();
 	bool isDarkMenuEnabled();

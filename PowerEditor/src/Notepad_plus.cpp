@@ -147,12 +147,6 @@ Notepad_plus::Notepad_plus()
         _toolBar.initTheme(toolIconsDocRoot);
     }
 
-	TiXmlDocument* darkModeAdvOptDocRoot = nppParam.getDarkModeAdvOpt();
-	if (darkModeAdvOptDocRoot != nullptr)
-	{
-		NppDarkMode::initAdvancedOptions(darkModeAdvOptDocRoot);
-	}
-
 	// Determine if user is administrator.
 	BOOL is_admin;
 	winVer ver = nppParam.getWinVersion();

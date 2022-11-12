@@ -720,6 +720,7 @@ struct DarkModeConf final
 	bool _isEnabledPlugin = true;
 	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
 	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
+	NppDarkMode::AdvancedOptions _advOptions{};
 };
 
 
@@ -905,7 +906,6 @@ struct NppGUI final
 	bool _shouldSortFunctionList = false;
 
 	DarkModeConf _darkmode;
-	DarkModeConf _darkmodeplugins;
 
 	LargeFileRestriction _largeFileRestriction;
 };
@@ -1513,8 +1513,6 @@ public:
 
 	TiXmlDocument * getCustomizedToolIcons() const {return _pXmlToolIconsDoc;};
 
-	TiXmlDocument* getDarkModeAdvOpt() const { return _pXmlDarkModeAdvOptDoc; };
-
 	bool isTransparentAvailable() const {
 		return (_transparentFuncAddr != NULL);
 	}
@@ -1748,7 +1746,6 @@ private:
 	TiXmlDocument *_pXmlUserLangDoc = nullptr; // userDefineLang.xml
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
 	TiXmlDocument *_pXmlToolIconsDoc = nullptr; // toolbarIcons.xml
-	TiXmlDocument* _pXmlDarkModeAdvOptDoc = nullptr; // darkModeAdvOpt.xml
 	TiXmlDocument *_pXmlShortcutDoc = nullptr; // shortcuts.xml
 	TiXmlDocument *_pXmlBlacklistDoc = nullptr; // not implemented
 

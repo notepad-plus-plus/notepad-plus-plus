@@ -338,6 +338,7 @@ namespace NppDarkMode
 	}
 
 	static Options _options;			// actual runtime options
+	static AdvancedOptions g_advOptions;
 
 	Options configuredOptions()
 	{
@@ -375,6 +376,11 @@ namespace NppDarkMode
 		setDarkMode(_options.enable, true);
 
 		g_isAtLeastWindows10 = NppDarkMode::isWindows10();
+
+		if (!g_isAtLeastWindows10)
+		{
+			g_advOptions._enableWindowsMode = false;
+		}
 
 		using PWINEGETVERSION = const CHAR* (__cdecl *)(void);
 
@@ -421,8 +427,6 @@ namespace NppDarkMode
 		// wParam == true, will reset style and toolbar icon
 		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, static_cast<WPARAM>(!forceRefresh), 0);
 	}
-
-	static AdvancedOptions g_advOptions;
 
 	void initAdvancedOptions()
 	{

@@ -361,9 +361,18 @@ namespace NppDarkMode
 		_options = configuredOptions();
 
 		initExperimentalDarkMode();
-		setDarkMode(_options.enable, true);
-
 		initAdvancedOptions();
+
+		if (NppDarkMode::isWindowsModeEnabled())
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParam.getNppGUI();
+			nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg();
+			_options.enable = nppGUI._darkmode._isEnabled;
+			_options.enableMenubar = _options.enable;
+		}
+
+		setDarkMode(_options.enable, true);
 
 		g_isAtLeastWindows10 = NppDarkMode::isWindows10();
 
@@ -446,6 +455,11 @@ namespace NppDarkMode
 		return g_darkModeSupported;
 	}
 
+	bool isWindowsModeEnabled()
+	{
+		return g_advOptions._enableWindowsMode;
+	}
+
 	bool allowThemeChange()
 	{
 		return !g_advOptions._disableThemeChange;
@@ -464,6 +478,11 @@ namespace NppDarkMode
 	bool isDefaultsEnabled()
 	{
 		return g_advOptions._enableDefaults;
+	}
+
+	bool isDefaultsForced()
+	{
+		return g_advOptions._forceDefaults;
 	}
 
 	generic_string getThemeName()
@@ -706,8 +725,26 @@ namespace NppDarkMode
 
 		if (IsColorSchemeChangeMessage(lParam))
 		{
-			g_darkModeEnabled = ShouldAppsUseDarkMode() && !IsHighContrast();
+			// ShouldAppsUseDarkMode() is not reliable from 1903+, use NppDarkMode::isDarkModeReg() instead
+			g_darkModeEnabled = NppDarkMode::isDarkModeReg() && !IsHighContrast();
 		}
+	}
+
+	bool isDarkModeReg()
+	{
+		DWORD data{};
+		DWORD dwBufSize = sizeof(data);
+		LPCTSTR lpSubKey = L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize";
+		LPCTSTR lpValue = L"AppsUseLightTheme";
+
+		auto result = RegGetValue(HKEY_CURRENT_USER, lpSubKey, lpValue, RRF_RT_REG_DWORD, nullptr, &data, &dwBufSize);
+		if (result != ERROR_SUCCESS)
+		{
+			return false;
+		}
+
+		// dark mode is 0, light mode is 1
+		return data == 0UL;
 	}
 
 	// processes messages related to UAH / custom menubar drawing.

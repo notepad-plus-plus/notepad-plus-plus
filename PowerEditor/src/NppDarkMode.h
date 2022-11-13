@@ -98,11 +98,14 @@ namespace NppDarkMode
 
 	struct AdvancedOptions
 	{
+		bool _enableWindowsMode = false;
+
 		bool _disableThemeChange = false;
 		bool _disableToolBarIconsChange = false;
 		bool _disableTabIconsChange = false;
 
 		bool _enableDefaults = false;
+		bool _forceDefaults = false;
 
 		NppDarkMode::AdvOptDefaults _darkDefaults{};
 		NppDarkMode::AdvOptDefaults _lightDefaults{};
@@ -116,12 +119,15 @@ namespace NppDarkMode
 	bool isEnabled();
 	bool isDarkMenuEnabled();
 	bool isEnabledForPlugins();
+	bool isExperimentalActive();
 	bool isExperimentalSupported();
 
+	bool isWindowsModeEnabled();
 	bool allowThemeChange();
 	bool allowToolIconsChange();
 	bool allowTabIconsChange();
 	bool isDefaultsEnabled();
+	bool isDefaultsForced();
 	generic_string getThemeName();
 	int getToolBarIconSet(bool useDark);
 	int getTabIconSet(bool useDark);
@@ -186,6 +192,7 @@ namespace NppDarkMode
 
 	// handle events
 	void handleSettingChange(HWND hwnd, LPARAM lParam);
+	bool isDarkModeReg();
 
 	// processes messages related to UAH / custom menubar drawing.
 	// return true if handled, false to continue with normal processing in your wndproc

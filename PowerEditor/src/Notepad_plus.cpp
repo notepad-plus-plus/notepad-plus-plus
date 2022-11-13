@@ -236,8 +236,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	pIconListVector.push_back(&_docTabIconListDarkMode);// 2
 
 	const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
-	const bool isTabIconSetForced = tabIconSet != -1;
-	unsigned char indexDocTabIcon = (isTabIconSetForced ? static_cast<unsigned char>(tabIconSet) : (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : NppDarkMode::allowTabIconsChange() && NppDarkMode::isEnabled() ? 2 : 0));
+	const bool isTabIconSetForced = NppDarkMode::isDefaultsForced();
+	unsigned char indexDocTabIcon = (isTabIconSetForced ? static_cast<unsigned char>(tabIconSet) : (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : NppDarkMode::allowTabIconsChange() && NppDarkMode::isEnabled() && tabIconSet != 0 ? 2 : 0));
 	if (isTabIconSetForced)
 	{
 		_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
@@ -611,6 +611,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 
 	//-- Tool Bar Section --//
+	if (NppDarkMode::isDefaultsForced())
+	{
+		nppGUI._toolBarStatus = static_cast<toolBarStatusType>(NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled()));
+	}
 	toolBarStatusType tbStatus = nppGUI._toolBarStatus;
 	willBeShown = nppGUI._toolbarShow;
 
@@ -6723,7 +6727,7 @@ void Notepad_plus::launchDocumentListPanel()
 		_pDocumentListPanel = new VerticalFileSwitcher;
 
 		HIMAGELIST hImgLst = nullptr;
-		const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
+		const int tabIconSet = NppDarkMode::isDefaultsForced() ? NppDarkMode::getTabIconSet(NppDarkMode::isEnabled()) : -1;
 		switch (tabIconSet)
 		{
 		case 0:

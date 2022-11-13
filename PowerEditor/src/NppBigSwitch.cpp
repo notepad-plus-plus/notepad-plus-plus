@@ -194,6 +194,80 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			NppDarkMode::handleSettingChange(hwnd, lParam);
 
+			const bool enableDarkMode = NppDarkMode::isExperimentalActive();
+			if (NppDarkMode::isWindowsModeEnabled() && (enableDarkMode != NppDarkMode::isEnabled()))
+			{
+				NppParameters& nppParam = NppParameters::getInstance();
+				NppGUI& nppGUI = nppParam.getNppGUI();
+				nppGUI._darkmode._isEnabled = NppDarkMode::isExperimentalActive();
+
+				HWND hPref = _preference.getHSelf();
+
+				if (hPref == nullptr)
+				{
+					const bool useDefaults = NppDarkMode::isDefaultsEnabled();
+					if (NppDarkMode::allowToolIconsChange())
+					{
+
+						toolBarStatusType state = _toolBar.getState();
+						if (state == TB_STANDARD && enableDarkMode && !useDefaults)
+						{
+							_toolBar.reduce();
+						}
+						else if (useDefaults)
+						{
+							const int iconState = NppDarkMode::getToolBarIconSet(static_cast<bool>(wParam));
+							if (static_cast<int>(state) != iconState)
+							{
+								switch (iconState)
+								{
+									case 1:
+									{
+										_toolBar.enlarge();
+										break;
+									}
+									case 2:
+									{
+										_toolBar.reduceToSet2();
+										break;
+									}
+									case 3:
+									{
+										_toolBar.enlargeToSet2();
+										break;
+									}
+									case 4:
+									{
+										_toolBar.setToBmpIcons();
+										break;
+									}
+									case 0:
+									default:
+										_toolBar.reduce();
+										break;
+								}
+							}
+						}
+					}
+
+					if (NppDarkMode::allowTabIconsChange() && !useDefaults)
+					{
+						if (enableDarkMode)
+						{
+							nppGUI._tabStatus &= ~TAB_ALTICONS;
+						}
+					}
+
+					NppDarkMode::refreshDarkMode(hwnd, false);
+				}
+				else
+				{
+					HWND hSubDlg = _preference._darkModeSubDlg.getHSelf();
+					::SendDlgItemMessage(hSubDlg, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, NppDarkMode::isExperimentalActive(), 0);
+					::SendMessage(hSubDlg, WM_COMMAND, IDC_CHECK_DARKMODE_ENABLE, 0);
+				}
+			}
+
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 

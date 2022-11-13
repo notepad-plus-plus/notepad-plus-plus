@@ -5779,10 +5779,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				return defaultValue;
 			};
 
+			_nppGUI._darkmode._advOptions._enableWindowsMode = parseYesNoBoolAttribute(TEXT("enableWindowsMode"));
 			_nppGUI._darkmode._advOptions._disableThemeChange = parseYesNoBoolAttribute(TEXT("disableThemeChange"));
 			_nppGUI._darkmode._advOptions._disableToolBarIconsChange = parseYesNoBoolAttribute(TEXT("disableToolBarIconsChange"));
 			_nppGUI._darkmode._advOptions._disableTabIconsChange = parseYesNoBoolAttribute(TEXT("disableTabIconsChange"));
 			_nppGUI._darkmode._advOptions._enableDefaults = parseYesNoBoolAttribute(TEXT("enableDefaults"));
+			_nppGUI._darkmode._advOptions._forceDefaults = parseYesNoBoolAttribute(TEXT("forceDefaults"));
 
 			_nppGUI._darkmode._advOptions._darkDefaults._xmlFileName = parseStringAttribute(TEXT("darkThemeName"));
 			_nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("darkToolBarIconSet"));
@@ -6937,10 +6939,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("customColorDisabledEdge"), _nppGUI._darkmode._customColors.disabledEdge);
 
 		// advanced options section
+		setYesNoBoolAttribute(TEXT("enableWindowsMode"), _nppGUI._darkmode._advOptions._enableWindowsMode);
 		setYesNoBoolAttribute(TEXT("disableThemeChange"), _nppGUI._darkmode._advOptions._disableThemeChange);
 		setYesNoBoolAttribute(TEXT("disableToolBarIconsChange"), _nppGUI._darkmode._advOptions._disableToolBarIconsChange);
 		setYesNoBoolAttribute(TEXT("disableTabIconsChange"), _nppGUI._darkmode._advOptions._disableTabIconsChange);
 		setYesNoBoolAttribute(TEXT("enableDefaults"), _nppGUI._darkmode._advOptions._enableDefaults);
+		setYesNoBoolAttribute(TEXT("forceDefaults"), _nppGUI._darkmode._advOptions._forceDefaults);
 
 		GUIConfigElement->SetAttribute(TEXT("darkThemeName"), _nppGUI._darkmode._advOptions._darkDefaults._xmlFileName.c_str());
 		GUIConfigElement->SetAttribute(TEXT("darkToolBarIconSet"), _nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet);

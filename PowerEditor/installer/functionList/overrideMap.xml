@@ -125,6 +125,7 @@
 		-->
 			<!-- ==================== User Defined Languages ============================ -->
 			<association id= "krl.xml"				userDefinedLangName="KRL"/>
+			<association id= "nppexec.xml"			userDefinedLangName="NppExec"/>
 			<association id= "sinumerik.xml"		userDefinedLangName="Sinumerik"/>
 			<association id= "universe_basic.xml"	userDefinedLangName="UniVerse BASIC"/>
 			<!-- ======================================================================== -->

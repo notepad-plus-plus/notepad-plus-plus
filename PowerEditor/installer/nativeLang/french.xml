@@ -1560,6 +1560,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <splitter-rotate-left value="Tourner vers la gauche"/>
             <splitter-rotate-right value="Tourner vers la droite"/>
             <recent-file-history-maxfile value="Max. fichier : "/>
+            <recent-file-history-customlength value="Longueur : "/>
             <language-tabsize value="Taille tabulation : "/>
             <userdefined-title-new value="Langage nouveau..."/>
             <userdefined-title-save value="Enregistrer langage actuel sous..."/>

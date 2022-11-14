@@ -233,7 +233,7 @@ public:
 	void replaceSelWith(const char * replaceText);
 
 	intptr_t getSelectedTextCount() {
-		Sci_CharacterRange range = getSelection();
+		Sci_CharacterRangeFull range = getSelection();
 		return (range.cpMax - range.cpMin);
 	};
 
@@ -271,10 +271,10 @@ public:
 		return size_t(execute(SCI_GETLENGTH));
 	};
 
-	Sci_CharacterRange getSelection() const {
-		Sci_CharacterRange crange{};
-		crange.cpMin = static_cast<Sci_PositionCR>(execute(SCI_GETSELECTIONSTART));
-		crange.cpMax = static_cast<Sci_PositionCR>(execute(SCI_GETSELECTIONEND));
+	Sci_CharacterRangeFull getSelection() const {
+		Sci_CharacterRangeFull crange{};
+		crange.cpMin = execute(SCI_GETSELECTIONSTART);
+		crange.cpMax = execute(SCI_GETSELECTIONEND);
 		return crange;
 	};
 
@@ -543,8 +543,8 @@ public:
 	void runMarkers(bool doHide, size_t searchStart, bool endOfDoc, bool doDelete);
 
 	bool isSelecting() const {
-		static Sci_CharacterRange previousSelRange = getSelection();
-		Sci_CharacterRange currentSelRange = getSelection();
+		static Sci_CharacterRangeFull previousSelRange = getSelection();
+		Sci_CharacterRangeFull currentSelRange = getSelection();
 
 		if (currentSelRange.cpMin == currentSelRange.cpMax)
 		{

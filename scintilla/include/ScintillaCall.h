@@ -200,6 +200,9 @@ public:
 	void StyleSetHotSpot(int style, bool hotspot);
 	void StyleSetCheckMonospaced(int style, bool checkMonospaced);
 	bool StyleGetCheckMonospaced(int style);
+	void StyleSetInvisibleRepresentation(int style, const char *representation);
+	int StyleGetInvisibleRepresentation(int style, char *representation);
+	std::string StyleGetInvisibleRepresentation(int style);
 	void SetElementColour(Scintilla::Element element, ColourAlpha colourElement);
 	ColourAlpha ElementColour(Scintilla::Element element);
 	void ResetElementColour(Scintilla::Element element);

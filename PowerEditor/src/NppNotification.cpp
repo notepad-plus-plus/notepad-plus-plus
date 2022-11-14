@@ -902,7 +902,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
 			}
 			
-			if (nppGui._enableSmartHilite && !currentBuf->allowSmartHilite())
+			if (nppGui._enableSmartHilite && currentBuf->allowSmartHilite())
 			{
 				if (nppGui._disableSmartHiliteTmp)
 					nppGui._disableSmartHiliteTmp = false;

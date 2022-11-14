@@ -17,10 +17,12 @@ noExplicitConstructor
 // code legibility.
 passedByValue
 
+// This could be fixed but it should be rewritten to use string_view which doesn't have resize
+uselessCallsSubstr:lexilla/lexers/LexCPP.cxx
+
 // Suppress most lexer warnings since the lexers are maintained by others
 redundantCondition:lexilla/lexers/LexA68k.cxx
 constParameter:lexilla/lexers/LexAbaqus.cxx
-unusedStructMember:lexilla/lexers/LexAsciidoc.cxx
 constParameterCallback:lexilla/lexers/LexAsn1.cxx
 knownConditionTrueFalse:lexilla/lexers/LexAU3.cxx
 shadowVariable:lexilla/lexers/LexAU3.cxx
@@ -43,6 +45,7 @@ knownConditionTrueFalse:lexilla/lexers/LexEiffel.cxx
 variableScope:lexilla/lexers/LexErlang.cxx
 knownConditionTrueFalse:lexilla/lexers/LexEScript.cxx
 constParameter:lexilla/lexers/LexFortran.cxx
+redundantContinue:lexilla/lexers/LexFortran.cxx
 redundantCondition:lexilla/lexers/LexFSharp.cxx
 knownConditionTrueFalse:lexilla/lexers/LexFSharp.cxx
 constParameter:lexilla/lexers/LexGDScript.cxx
@@ -102,12 +105,16 @@ knownConditionTrueFalse:lexilla/lexers/LexTxt2tags.cxx
 knownConditionTrueFalse:lexilla/lexers/LexVB.cxx
 constParameter:lexilla/lexers/LexVerilog.cxx
 variableScope:lexilla/lexers/LexVerilog.cxx
+badBitmaskCheck:lexilla/lexers/LexVerilog.cxx
+uselessCallsSubstr:lexilla/lexers/LexVerilog.cxx
 constParameter:lexilla/lexers/LexVHDL.cxx
 shadowVariable:lexilla/lexers/LexVHDL.cxx
 unreadVariable:lexilla/lexers/LexVHDL.cxx
 variableScope:lexilla/lexers/LexVHDL.cxx
 unreadVariable:lexilla/lexers/LexVisualProlog.cxx
 unreadVariable:lexilla/lexers/LexX12.cxx
+constVariable:lexilla/lexers/LexX12.cxx
+uselessCallsSubstr:lexilla/lexers/LexX12.cxx
 constParameter:lexilla/lexers/LexYAML.cxx
 knownConditionTrueFalse:lexilla/lexers/LexYAML.cxx
 
@@ -136,7 +143,6 @@ constVariable:lexilla/lexers/LexModula.cxx
 constVariable:lexilla/lexers/LexOpal.cxx
 constVariable:lexilla/lexers/LexPS.cxx
 constVariable:lexilla/lexers/LexPascal.cxx
-constVariable:lexilla/lexers/LexR.cxx
 constVariable:lexilla/lexers/LexRebol.cxx
 constVariable:lexilla/lexers/LexRuby.cxx
 constVariable:lexilla/lexers/LexSorcus.cxx

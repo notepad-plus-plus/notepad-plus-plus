@@ -149,6 +149,7 @@ Interval HorizontalBounds(PRectangle rc) noexcept;
 
 XYPOSITION PixelAlign(XYPOSITION xy, int pixelDivisions) noexcept;
 XYPOSITION PixelAlignFloor(XYPOSITION xy, int pixelDivisions) noexcept;
+XYPOSITION PixelAlignCeil(XYPOSITION xy, int pixelDivisions) noexcept;
 
 Point PixelAlign(const Point &pt, int pixelDivisions) noexcept;
 

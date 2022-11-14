@@ -49,7 +49,7 @@
 #include <vector>
 
 enum SecurityMode { sm_certif = 0, sm_sha256 = 1 };
-enum NppModule { nm_scilexer = 0, nm_gup = 1, nm_pluginList = 2 };
+enum NppModule { nm_gup = 1, nm_pluginList = 2 };
 
 class SecurityGuard final
 {
@@ -60,7 +60,6 @@ public:
 private:
 	// SHA256
 	static SecurityMode _securityMode;
-	std::vector<std::wstring> _scilexerSha256;
 	std::vector<std::wstring> _gupSha256;
 	std::vector<std::wstring> _pluginListSha256;
 
@@ -73,6 +72,6 @@ private:
 	bool _doCheckRevocation = false;
 	bool _doCheckChainOfTrust = false;
 
-	bool verifySignedLibrary(const std::wstring& filepath, NppModule module2check);
+	bool verifySignedLibrary(const std::wstring& filepath);
 };
 

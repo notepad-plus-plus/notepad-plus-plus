@@ -310,6 +310,7 @@
 		<KeyWord name="min" />
 		<KeyWord name="min-height" />
 		<KeyWord name="min-width" />
+		<KeyWord name="minlength" />
 		<KeyWord name="mix" />
 		<KeyWord name="move" />
 		<KeyWord name="ms" />

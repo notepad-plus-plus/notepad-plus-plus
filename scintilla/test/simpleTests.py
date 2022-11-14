@@ -708,6 +708,32 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.IsRangeWord(6, 7), 0)
 		self.assertEquals(self.ed.IsRangeWord(6, 8), 1)
 
+class TestChangeHistory(unittest.TestCase):
+
+	def setUp(self):
+		self.xite = Xite.xiteFrame
+		self.ed = self.xite.ed
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+		self.data = b"xy"
+
+	def testChangeHistory(self):
+		self.assertEquals(self.ed.ChangeHistory, 0)
+		self.assertEquals(self.ed.UndoCollection, 1)
+		self.ed.UndoCollection = 0
+		self.assertEquals(self.ed.UndoCollection, 0)
+		self.ed.InsertText(0, self.data)
+		self.ed.UndoCollection = 1
+		self.ed.ChangeHistory = 1
+		self.assertEquals(self.ed.ChangeHistory, 1)
+		self.ed.InsertText(0, self.data)
+		self.ed.DeleteRange(0, 2)
+		self.ed.ChangeHistory = 0
+		self.assertEquals(self.ed.ChangeHistory, 0)
+		self.ed.ChangeHistory = 1
+		self.assertEquals(self.ed.ChangeHistory, 1)
+		self.ed.Undo()
+
 MODI = 1
 UNDO = 2
 REDO = 4
@@ -1930,6 +1956,7 @@ class TestStyleAttributes(unittest.TestCase):
 		self.ed.EmptyUndoBuffer()
 		self.testColour = 0x171615
 		self.testFont = b"Georgia"
+		self.testRepresentation = "\N{BULLET}".encode("utf-8")
 
 	def tearDown(self):
 		self.ed.StyleResetDefault()
@@ -1944,6 +1971,13 @@ class TestStyleAttributes(unittest.TestCase):
 		self.assertEquals(self.ed.StyleGetSizeFractional(self.ed.STYLE_DEFAULT), 12*self.ed.SC_FONT_SIZE_MULTIPLIER)
 		self.ed.StyleSetSizeFractional(self.ed.STYLE_DEFAULT, 1234)
 		self.assertEquals(self.ed.StyleGetSizeFractional(self.ed.STYLE_DEFAULT), 1234)
+
+	def testInvisibleRepresentation(self):
+		self.assertEquals(self.ed.StyleGetInvisibleRepresentation(self.ed.STYLE_DEFAULT), b"")
+		self.ed.StyleSetInvisibleRepresentation(self.ed.STYLE_DEFAULT, self.testRepresentation)
+		self.assertEquals(self.ed.StyleGetInvisibleRepresentation(self.ed.STYLE_DEFAULT), self.testRepresentation)
+		self.ed.StyleSetInvisibleRepresentation(self.ed.STYLE_DEFAULT, b"\000")
+		self.assertEquals(self.ed.StyleGetInvisibleRepresentation(self.ed.STYLE_DEFAULT), b"")
 
 	def testBold(self):
 		self.ed.StyleSetBold(self.ed.STYLE_DEFAULT, 1)

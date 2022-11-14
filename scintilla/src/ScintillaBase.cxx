@@ -809,10 +809,6 @@ void ScintillaBase::NotifyStyleToNeeded(Sci::Position endStyleNeeded) {
 	Editor::NotifyStyleToNeeded(endStyleNeeded);
 }
 
-void ScintillaBase::NotifyLexerChanged(Document *, void *) {
-	vs.EnsureStyle(0xff);
-}
-
 sptr_t ScintillaBase::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 	switch (iMessage) {
 	case Message::AutoCShow:

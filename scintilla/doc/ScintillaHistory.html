@@ -571,9 +571,67 @@
 	<td>Christian Schmitz</td>
 	<td>Michael Berlenz</td>
 	<td>Jacky Yang</td>
+      </tr><tr>
+	<td>Reinhard Nißl</td>
+	<td>Ferdinand Oeinck</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla531.zip">Release 5.3.1</a>
+    </h3>
+    <ul>
+	<li>
+	Released 12 October 2022.
+	</li>
+	<li>
+	Added SCI_STYLESETINVISIBLEREPRESENTATION to make it easier to edit around invisible text.
+	This also allows representing long lexemes with a single character to provide a summarized view.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1453/">Feature #1453</a>.
+	</li>
+	<li>
+	Removed NotifyLexerChanged notification from DocWatcher.
+	This is a private interface but could be used by independent platform layers
+	and was exposed by ScintillaDocument in the Qt implementation of ScintillaEdit.
+	</li>
+	<li>
+	Draw lines more consistently in SC_PHASES_TWO and SC_PHASES_ONE modes by
+	clipping drawing to just the line rectangle.
+	This stops drawing some extreme ascenders, descenders and portions of indicators which
+	may appear and then disappear depending on which lines were drawn.
+	</li>
+	<li>
+	Draw SC_MARK_BAR markers underneath other markers
+	as they often cover multiple lines for change history and other markers mark individual lines.
+	</li>
+	<li>
+	Enlarge point and point top indicators and scale to be larger with larger text.
+	</li>
+	<li>
+	Suppress change history background line shading when printing.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2358/">Bug #2358</a>.
+	</li>
+	<li>
+	Make SCI_LINESCROLL more accurate when width of space not integer.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2357/">Bug #2357</a>.
+	</li>
+	<li>
+	On Win32 implement horizontal scrolling mouse wheel.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1450/">Feature #1450</a>.
+	</li>
+	<li>
+	On Win32 implement horizontal scrolling with Shift + mouse wheel.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/749/">Feature #749</a>,
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1451/">Feature #1451</a>.
+	</li>
+	<li>
+	On Win32 ensure page and step clicks on horizontal scroll bar do not overshoot document width.
+	</li>
+	<li>
+	On GTK, fix bug where there were too many or too few lines when wrapping.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2349/">Bug #2349</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla530.zip">Release 5.3.0</a>
     </h3>

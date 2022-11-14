@@ -93,6 +93,16 @@ constexpr bool IsADigit(int ch) noexcept {
 	return (ch >= '0') && (ch <= '9');
 }
 
+constexpr bool IsAHeXDigit(int ch) noexcept {
+	return (ch >= '0' && ch <= '9')
+		|| (ch >= 'A' && ch <= 'F')
+		|| (ch >= 'a' && ch <= 'f');
+}
+
+constexpr bool IsAnOctalDigit(int ch) noexcept {
+	return ch >= '0' && ch <= '7';
+}
+
 constexpr bool IsADigit(int ch, int base) noexcept {
 	if (base <= 10) {
 		return (ch >= '0') && (ch < '0' + base);

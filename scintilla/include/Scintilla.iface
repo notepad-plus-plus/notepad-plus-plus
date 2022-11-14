@@ -694,6 +694,12 @@ set void StyleSetCheckMonospaced=2254(int style, bool checkMonospaced)
 # Get whether a style may be monospaced.
 get bool StyleGetCheckMonospaced=2255(int style,)
 
+# Set the invisible representation for a style.
+set void StyleSetInvisibleRepresentation=2256(int style, string representation)
+
+# Get the invisible representation for a style.
+get int StyleGetInvisibleRepresentation=2257(int style, stringresult representation)
+
 enu Element=SC_ELEMENT_
 val SC_ELEMENT_LIST=0
 val SC_ELEMENT_LIST_BACK=1

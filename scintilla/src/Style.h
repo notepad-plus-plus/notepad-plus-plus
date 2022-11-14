@@ -51,6 +51,7 @@ public:
 	bool visible;
 	bool changeable;
 	bool hotspot;
+	char invisibleRepresentation[5];
 
 	std::shared_ptr<Font> font;
 

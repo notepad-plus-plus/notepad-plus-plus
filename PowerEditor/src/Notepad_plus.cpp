@@ -1461,11 +1461,11 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	FindOption env;
 	if (isBlankContained)
 	{
-		env._str2Search = TEXT("^([\\t ]*$(\\r?\\n|\\r))(\\1)+|^[\\t ]*$(\\r?\\n|\\r)");
+		env._str2Search = TEXT("^([\\t ]*$(\\r?\\n|\\r))(\\1)*");
 	}
 	else
 	{
-		env._str2Search = TEXT("^$(\\r?\\n|\\r)(\\1)+|^$(\\r?\\n|\\r)");
+		env._str2Search = TEXT("^$(\\r?\\n|\\r)(\\1)*");
 	}
 	env._str4Replace = TEXT("");
 	env._searchType = FindRegex;

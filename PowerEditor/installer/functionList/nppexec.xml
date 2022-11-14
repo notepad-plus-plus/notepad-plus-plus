@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ===================================================== [ NppExec ] -->
+
+		<parser
+			displayName="NppExec"
+			id         ="nppexec_syntax"
+		>
+			<!-- Define NppExec script as the range started by a pair of colons 
+				 and ending right before the next pair of colons or the file's
+				 end, respectively
+			-->
+			<classRange
+				mainExpr="(?x)                     # free-spacing (see `RegEx - Pattern Modifiers`)
+						  (?ims)                   # ignore case, ^ and $ match start/end of line, dot matches newline
+						  ^\h*
+						  ::
+						  .*?
+						  (?=::|\Z)
+						 "
+			>
+				<className>
+					<!-- The script's name is shown without its preceding pair
+						 of colons
+					-->
+					<nameExpr expr="(?im-s)^\h*::\K(?:(.+?)(?=\h*\/{2}|$))" />
+				</className>
+				
+				<!-- Define jump labels as functions. Names are starting with one
+					 or two colons (thus the script's name itself is shown as a
+					 function) and terminated by a line comment, the line's end
+					 or the file's end
+				-->
+				<function
+					mainExpr="(?x)                 # free-spacing (see `RegEx - Pattern Modifiers`)
+							  (?im-s)              # ignore case, ^ and $ match start/end of line, dot doesn't match newline
+							  ^\h*
+							  :{1,2}.+?
+							  \h*(?=\/{2}|$|\Z)
+							 "
+				>
+					 <functionName>
+						<!-- The script name is shown including its preceding pair
+							 of colons, jump labels are shown without the preceding
+							 single colon
+						-->
+						<funcNameExpr expr="(?im-s)\h*(?(?=::)(.+)|(?::\K(.+)))" />
+					</functionName>
+				</function>
+			</classRange>
+		</parser>
+	</functionList>
+</NotepadPlus>

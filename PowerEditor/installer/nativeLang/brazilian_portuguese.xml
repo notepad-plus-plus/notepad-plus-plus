@@ -3,9 +3,9 @@
 <!-- Updated: Jul 2021 -->
 <!-- For Notepad++ 8.1.2 -->
 <!-- Brazilian Portuguese updated by Marcello -->
-<!-- Updated: Oct 2022, for Notepad++ 8.4.6 -->
+<!-- Updated: Nov 2022, for Notepad++ 8.4.7 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.5">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1572,6 +1572,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
             <splitter-rotate-left value="Girar para a esquerda"/>
             <splitter-rotate-right value="Girar para a direita"/>
             <recent-file-history-maxfile value="Arquivo máximo: "/>
+            <recent-file-history-customlength value="Tamanho: "/>
             <language-tabsize value="Tamanho da aba: "/>
             <userdefined-title-new value="Criar nova linguagem..."/>
             <userdefined-title-save value="Salvar o nome da linguagem atual como..."/>

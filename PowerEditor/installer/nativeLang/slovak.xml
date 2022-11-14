@@ -1559,7 +1559,8 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <tabrename-newname value="Nový názov: "/>
             <splitter-rotate-left value="Otočiť doľava"/>
             <splitter-rotate-right value="Otočiť doprava"/>
-            <recent-file-history-maxfile value="Max. súbor: "/>
+            <recent-file-history-maxfile value="Max. počet: "/>
+            <recent-file-history-customlength value="Dĺžka: "/>
             <language-tabsize value="Veľkosť karty: "/>
             <userdefined-title-new value="Vytvoriť nový jazyk"/>
             <userdefined-title-save value="Uložiť aktuálny názov jazyka"/>

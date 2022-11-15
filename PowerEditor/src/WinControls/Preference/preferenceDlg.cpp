@@ -289,7 +289,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				::SendDlgItemMessage(generalSubDlg, id, BM_SETCHECK, check, 0);
 			};
 
-			const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
+			const int iconState = NppDarkMode::getToolBarIconSet(static_cast<bool>(wParam));
 			NppParameters& nppParams = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParams.getNppGUI();
 
@@ -364,7 +364,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case PREF_MSG_DISABLETABBARALTERNATEICONS:
 		{
-			const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
+			const int tabIconSet = NppDarkMode::getTabIconSet(static_cast<bool>(wParam));
 			if (tabIconSet != -1)
 			{
 				_generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
@@ -1416,7 +1416,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
 					::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, static_cast<WPARAM>(enableDarkMode), 0);
-					::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
+					::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, static_cast<WPARAM>(enableDarkMode), 0);
 
 					changed = true;
 				}

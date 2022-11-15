@@ -199,63 +199,33 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				NppParameters& nppParam = NppParameters::getInstance();
 				NppGUI& nppGUI = nppParam.getNppGUI();
-				nppGUI._darkmode._isEnabled = NppDarkMode::isExperimentalActive();
+				nppGUI._darkmode._isEnabled = enableDarkMode;
 
-				HWND hPref = _preference.getHSelf();
-
-				if (hPref == nullptr)
+				if (!_preference.isCreated())
 				{
-					const bool useDefaults = NppDarkMode::isDefaultsEnabled();
-					if (NppDarkMode::allowToolIconsChange())
+					const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
+					toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
+					switch (state)
 					{
-
-						toolBarStatusType state = _toolBar.getState();
-						if (state == TB_STANDARD && enableDarkMode && !useDefaults)
-						{
+						case TB_SMALL:
 							_toolBar.reduce();
-						}
-						else if (useDefaults)
-						{
-							const int iconState = NppDarkMode::getToolBarIconSet(static_cast<bool>(wParam));
-							if (static_cast<int>(state) != iconState)
-							{
-								switch (iconState)
-								{
-									case 1:
-									{
-										_toolBar.enlarge();
-										break;
-									}
-									case 2:
-									{
-										_toolBar.reduceToSet2();
-										break;
-									}
-									case 3:
-									{
-										_toolBar.enlargeToSet2();
-										break;
-									}
-									case 4:
-									{
-										_toolBar.setToBmpIcons();
-										break;
-									}
-									case 0:
-									default:
-										_toolBar.reduce();
-										break;
-								}
-							}
-						}
-					}
+							break;
 
-					if (NppDarkMode::allowTabIconsChange() && !useDefaults)
-					{
-						if (enableDarkMode)
-						{
-							nppGUI._tabStatus &= ~TAB_ALTICONS;
-						}
+						case TB_LARGE:
+							_toolBar.enlarge();
+							break;
+
+						case TB_SMALL2:
+							_toolBar.reduceToSet2();
+							break;
+
+						case TB_LARGE2:
+							_toolBar.enlargeToSet2();
+							break;
+
+						case TB_STANDARD:
+							_toolBar.setToBmpIcons();
+							break;
 					}
 
 					NppDarkMode::refreshDarkMode(hwnd, false);

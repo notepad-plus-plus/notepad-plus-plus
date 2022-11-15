@@ -464,38 +464,8 @@ namespace NppDarkMode
 		return g_advOptions._enableWindowsMode;
 	}
 
-	bool allowThemeChange()
-	{
-		return !g_advOptions._disableThemeChange;
-	}
-
-	bool allowToolIconsChange()
-	{
-		return !g_advOptions._disableToolBarIconsChange;
-	}
-
-	bool allowTabIconsChange()
-	{
-		return !g_advOptions._disableTabIconsChange;
-	}
-
-	bool isDefaultsEnabled()
-	{
-		return g_advOptions._enableDefaults;
-	}
-
-	bool isDefaultsForced()
-	{
-		return g_advOptions._forceDefaults;
-	}
-
 	generic_string getThemeName()
 	{
-		if (!NppDarkMode::isDefaultsEnabled() || !NppDarkMode::allowThemeChange())
-		{
-			generic_string themeName = NppDarkMode::isEnabled() ? TEXT("DarkModeDefault.xml") : TEXT("");
-			return themeName;
-		}
 		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._xmlFileName : g_advOptions._lightDefaults._xmlFileName;
 	}
 
@@ -503,9 +473,7 @@ namespace NppDarkMode
 
 	int getToolBarIconSet(bool useDark)
 	{
-		if (!NppDarkMode::isDefaultsEnabled()
-			|| !NppDarkMode::allowToolIconsChange()
-			|| g_isCustomToolIconUsed)
+		if (g_isCustomToolIconUsed)
 		{
 			return -1;
 		}
@@ -514,20 +482,11 @@ namespace NppDarkMode
 
 	int getTabIconSet(bool useDark)
 	{
-		if (!NppDarkMode::isDefaultsEnabled()
-			|| !NppDarkMode::allowTabIconsChange())
-		{
-			return -1;
-		}
 		return useDark ? g_advOptions._darkDefaults._tabIconSet : g_advOptions._lightDefaults._tabIconSet;
 	}
 
 	bool useTabTheme()
 	{
-		if (!NppDarkMode::isDefaultsEnabled())
-		{
-			return NppDarkMode::isEnabled() ? false : true;
-		}
 		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._tabUseTheme : g_advOptions._lightDefaults._tabUseTheme;
 	}
 

@@ -236,11 +236,35 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	pIconListVector.push_back(&_docTabIconListDarkMode);// 2
 
 	const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
-	const bool isTabIconSetForced = NppDarkMode::isDefaultsForced();
-	unsigned char indexDocTabIcon = (isTabIconSetForced ? static_cast<unsigned char>(tabIconSet) : (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : NppDarkMode::allowTabIconsChange() && NppDarkMode::isEnabled() && tabIconSet != 0 ? 2 : 0));
-	if (isTabIconSetForced)
+	const int altIconsBit = TAB_ALTICONS;
+	unsigned char indexDocTabIcon = 0;
+	switch (tabIconSet)
 	{
-		_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
+		case 0:
+		{
+			nppGUI._tabStatus &= ~altIconsBit;
+			break;
+		}
+
+		case 1:
+		{
+			nppGUI._tabStatus |= altIconsBit;
+			indexDocTabIcon = 1;
+			break;
+		}
+
+		case 2:
+		{
+			nppGUI._tabStatus &= ~altIconsBit;
+			indexDocTabIcon = 2;
+			break;
+		}
+
+		//case -1:
+		default:
+		{
+			indexDocTabIcon = (indexDocTabIcon = ((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : NppDarkMode::isEnabled() ? 2 : 0);
+		}
 	}
 
 	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, pIconListVector, indexDocTabIcon);
@@ -611,9 +635,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 
 	//-- Tool Bar Section --//
-	if (NppDarkMode::isDefaultsForced())
+	
+	const int toolbarState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
+	if (toolbarState != -1)
 	{
-		nppGUI._toolBarStatus = static_cast<toolBarStatusType>(NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled()));
+		nppGUI._toolBarStatus = static_cast<toolBarStatusType>(toolbarState);
 	}
 	toolBarStatusType tbStatus = nppGUI._toolBarStatus;
 	willBeShown = nppGUI._toolbarShow;
@@ -6727,7 +6753,7 @@ void Notepad_plus::launchDocumentListPanel()
 		_pDocumentListPanel = new VerticalFileSwitcher;
 
 		HIMAGELIST hImgLst = nullptr;
-		const int tabIconSet = NppDarkMode::isDefaultsForced() ? NppDarkMode::getTabIconSet(NppDarkMode::isEnabled()) : -1;
+		const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
 		switch (tabIconSet)
 		{
 		case 0:
@@ -6747,7 +6773,7 @@ void Notepad_plus::launchDocumentListPanel()
 		}
 		//case -1:
 		default:
-			hImgLst = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? _docTabIconListAlt.getHandle() : NppDarkMode::allowTabIconsChange() && NppDarkMode::isEnabled() ? _docTabIconListDarkMode.getHandle() : _docTabIconList.getHandle());
+			hImgLst = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? _docTabIconListAlt.getHandle() : NppDarkMode::isEnabled() ? _docTabIconListDarkMode.getHandle() : _docTabIconList.getHandle());
 		}
 
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
@@ -7848,26 +7874,23 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			::SendMessage(_pClipboardHistoryPanel->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 		}
 
-		if (NppDarkMode::allowTabIconsChange())
+		const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
+		if (tabIconSet != -1)
 		{
-			const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
-			if (tabIconSet != -1)
+			_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, tabIconSet);
+		}
+		else
+		{
+			const bool isChecked = _preference._generalSubDlg.isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
+			if (!isChecked)
 			{
-				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, tabIconSet);
-				_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
-			}
-			else
-			{
-				const bool isChecked = _preference._generalSubDlg.isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
-				if (!isChecked)
-				{
-					::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
-				}
+				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
 			}
 		}
 
-		const int toolIconDefault = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
-		toolBarStatusType state = (toolIconDefault == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(toolIconDefault);
+		const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
+		toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
 		switch (state)
 		{
 			case TB_SMALL:
@@ -7887,48 +7910,43 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 				break;
 
 			case TB_STANDARD:
-				// Force standard colorful icon to Fluent UI small icon in dark mode
-				if (NppDarkMode::isEnabled() && NppDarkMode::allowToolIconsChange() && !NppDarkMode::isDefaultsEnabled())
-					_toolBar.reduce();
+				_toolBar.setToBmpIcons();
 				break;
 		}
 
-		if (NppDarkMode::allowThemeChange())
+		ThemeSwitcher& themeSwitcher = nppParams.getThemeSwitcher();
+		generic_string themePath;
+		generic_string themeName;
+
+		generic_string xmlFileName = NppDarkMode::getThemeName();
+		if (!xmlFileName.empty())
 		{
-			ThemeSwitcher& themeSwitcher = nppParams.getThemeSwitcher();
-			generic_string themePath;
-			generic_string themeName;
+			themePath = themeSwitcher.getThemeDirPath();
+			pathAppend(themePath, xmlFileName);
 
-			generic_string xmlFileName = NppDarkMode::getThemeName();
-			if (!xmlFileName.empty())
+			themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
+		}
+		else
+		{
+			//use _stylerPath;
+
+			pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(0);
+			themePath = themeInfo.second;
+			themeName = themeSwitcher.getDefaultThemeLabel();
+		}
+
+		if (::PathFileExists(themePath.c_str()))
+		{
+			nppParams.getNppGUI()._themeName = themePath;
+
+			if (_configStyleDlg.isCreated())
 			{
-				themePath = themeSwitcher.getThemeDirPath();
-				pathAppend(themePath, xmlFileName);
-
-				themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
+				_configStyleDlg.selectThemeByName(themeName.c_str());
 			}
 			else
 			{
-				//use _stylerPath;
-
-				pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(0);
-				themePath = themeInfo.second;
-				themeName = themeSwitcher.getDefaultThemeLabel();
-			}
-
-			if (::PathFileExists(themePath.c_str()))
-			{
-				nppParams.getNppGUI()._themeName = themePath;
-
-				if (_configStyleDlg.isCreated())
-				{
-					_configStyleDlg.selectThemeByName(themeName.c_str());
-				}
-				else
-				{
-					nppParams.reloadStylers(themePath.c_str());
-					::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
-				}
+				nppParams.reloadStylers(themePath.c_str());
+				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
 			}
 		}
 

@@ -5731,11 +5731,16 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._darkmode._customColors.disabledEdge = i;
 
 			// advanced options section
-			auto parseStringAttribute = [&element](const TCHAR* name) -> const TCHAR* {
-				return element->Attribute(name);
+			auto parseStringAttribute = [&element](const TCHAR* name, const TCHAR* defaultName = TEXT("")) -> const TCHAR* {
+				const TCHAR* val = element->Attribute(name);
+				if (val != nullptr)
+				{
+					return element->Attribute(name);
+				}
+				return defaultName;
 			};
 
-			auto parseToolBarIconsAttribute = [&element](const TCHAR* name, int defaultValue = 0) -> int {
+			auto parseToolBarIconsAttribute = [&element](const TCHAR* name, int defaultValue = -1) -> int {
 				const TCHAR* val = element->Attribute(name);
 				if (val != nullptr)
 				{
@@ -5754,6 +5759,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					else if (!lstrcmp(val, TEXT("4")))
 					{
 						return 4;
+					}
+					else if (defaultValue != -1 && !lstrcmp(val, TEXT("-1")))
+					{
+						return -1;
 					}
 				}
 				return defaultValue;
@@ -5775,26 +5784,25 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					{
 						return 2;
 					}
+					else if (defaultValue != -1 && !lstrcmp(val, TEXT("-1")))
+					{
+						return -1;
+					}
 				}
 				return defaultValue;
 			};
 
 			_nppGUI._darkmode._advOptions._enableWindowsMode = parseYesNoBoolAttribute(TEXT("enableWindowsMode"));
-			_nppGUI._darkmode._advOptions._disableThemeChange = parseYesNoBoolAttribute(TEXT("disableThemeChange"));
-			_nppGUI._darkmode._advOptions._disableToolBarIconsChange = parseYesNoBoolAttribute(TEXT("disableToolBarIconsChange"));
-			_nppGUI._darkmode._advOptions._disableTabIconsChange = parseYesNoBoolAttribute(TEXT("disableTabIconsChange"));
-			_nppGUI._darkmode._advOptions._enableDefaults = parseYesNoBoolAttribute(TEXT("enableDefaults"));
-			_nppGUI._darkmode._advOptions._forceDefaults = parseYesNoBoolAttribute(TEXT("forceDefaults"));
 
-			_nppGUI._darkmode._advOptions._darkDefaults._xmlFileName = parseStringAttribute(TEXT("darkThemeName"));
-			_nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("darkToolBarIconSet"));
-			_nppGUI._darkmode._advOptions._darkDefaults._tabIconSet = parseTabIconsAttribute(TEXT("darkTabIconSet"));
+			_nppGUI._darkmode._advOptions._darkDefaults._xmlFileName = parseStringAttribute(TEXT("darkThemeName"), TEXT("DarkModeDefault.xml"));
+			_nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("darkToolBarIconSet"), 0);
+			_nppGUI._darkmode._advOptions._darkDefaults._tabIconSet = parseTabIconsAttribute(TEXT("darkTabIconSet"), 2);
 			_nppGUI._darkmode._advOptions._darkDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("darkTabUseTheme"));
 
 			_nppGUI._darkmode._advOptions._lightDefaults._xmlFileName = parseStringAttribute(TEXT("lightThemeName"));
-			_nppGUI._darkmode._advOptions._lightDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("lightToolBarIconSet"));
-			_nppGUI._darkmode._advOptions._lightDefaults._tabIconSet = parseTabIconsAttribute(TEXT("lightTabIconSet"));
-			_nppGUI._darkmode._advOptions._lightDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("lightTabUseTheme"));
+			_nppGUI._darkmode._advOptions._lightDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("lightToolBarIconSet"), 4);
+			_nppGUI._darkmode._advOptions._lightDefaults._tabIconSet = parseTabIconsAttribute(TEXT("lightTabIconSet"), 0);
+			_nppGUI._darkmode._advOptions._lightDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("lightTabUseTheme"), true);
 		}
 	}
 }
@@ -6940,11 +6948,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		// advanced options section
 		setYesNoBoolAttribute(TEXT("enableWindowsMode"), _nppGUI._darkmode._advOptions._enableWindowsMode);
-		setYesNoBoolAttribute(TEXT("disableThemeChange"), _nppGUI._darkmode._advOptions._disableThemeChange);
-		setYesNoBoolAttribute(TEXT("disableToolBarIconsChange"), _nppGUI._darkmode._advOptions._disableToolBarIconsChange);
-		setYesNoBoolAttribute(TEXT("disableTabIconsChange"), _nppGUI._darkmode._advOptions._disableTabIconsChange);
-		setYesNoBoolAttribute(TEXT("enableDefaults"), _nppGUI._darkmode._advOptions._enableDefaults);
-		setYesNoBoolAttribute(TEXT("forceDefaults"), _nppGUI._darkmode._advOptions._forceDefaults);
 
 		GUIConfigElement->SetAttribute(TEXT("darkThemeName"), _nppGUI._darkmode._advOptions._darkDefaults._xmlFileName.c_str());
 		GUIConfigElement->SetAttribute(TEXT("darkToolBarIconSet"), _nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet);

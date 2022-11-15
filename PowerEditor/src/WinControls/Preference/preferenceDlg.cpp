@@ -281,63 +281,96 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		}
 
 		case PREF_MSG_SETTOOLICONSFROMSTDTOSMALL:
-			if (NppDarkMode::isDefaultsEnabled())
+		{
+			const HWND generalSubDlg = _generalSubDlg.getHSelf();
+
+			auto checkOrUncheckBtn = [&generalSubDlg](int id, WPARAM check = BST_UNCHECKED) -> void
 			{
-				const HWND generalSubDlg = _generalSubDlg.getHSelf();
+				::SendDlgItemMessage(generalSubDlg, id, BM_SETCHECK, check, 0);
+			};
 
-				auto checkOrUncheckBtn = [&generalSubDlg](int id, WPARAM check = BST_UNCHECKED) -> void
+			const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
+			NppParameters& nppParams = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParams.getNppGUI();
+
+			if (iconState != -1)
+			{
+				nppGUI._toolBarStatus = static_cast<toolBarStatusType>(iconState);
+			}
+			else
+			{
+				auto state = TB_STANDARD;
+				if (_generalSubDlg.isCheckedOrNot(IDC_RADIO_SMALLICON))
 				{
-					::SendDlgItemMessage(generalSubDlg, id, BM_SETCHECK, check, 0);
-				};
-
-				checkOrUncheckBtn(IDC_RADIO_STANDARD);
-				checkOrUncheckBtn(IDC_RADIO_SMALLICON);
-				checkOrUncheckBtn(IDC_RADIO_BIGICON);
-				checkOrUncheckBtn(IDC_RADIO_SMALLICON2);
-				checkOrUncheckBtn(IDC_RADIO_BIGICON2);
-
-				switch (NppDarkMode::getToolBarIconSet(static_cast<bool>(wParam)))
+					state = TB_SMALL;
+				}
+				else if (_generalSubDlg.isCheckedOrNot(IDC_RADIO_BIGICON))
 				{
-				case 1:
+					state = TB_LARGE;
+				}
+				else if (_generalSubDlg.isCheckedOrNot(IDC_RADIO_SMALLICON2))
+				{
+					state = TB_SMALL2;
+				}
+				else if (_generalSubDlg.isCheckedOrNot(IDC_RADIO_BIGICON2))
+				{
+					state = TB_LARGE2;
+				}
+				nppGUI._toolBarStatus = state;
+			}
+
+			checkOrUncheckBtn(IDC_RADIO_STANDARD);
+			checkOrUncheckBtn(IDC_RADIO_SMALLICON);
+			checkOrUncheckBtn(IDC_RADIO_BIGICON);
+			checkOrUncheckBtn(IDC_RADIO_SMALLICON2);
+			checkOrUncheckBtn(IDC_RADIO_BIGICON2);
+
+			switch (nppGUI._toolBarStatus)
+			{
+				case TB_LARGE:
 				{
 					checkOrUncheckBtn(IDC_RADIO_BIGICON, BST_CHECKED);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE, 0);
 					break;
 				}
-				case 2:
+				case TB_SMALL2:
 				{
 					checkOrUncheckBtn(IDC_RADIO_SMALLICON2, BST_CHECKED);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE_SET2, 0);
 					break;
 				}
-				case 3:
+				case TB_LARGE2:
 				{
 					checkOrUncheckBtn(IDC_RADIO_BIGICON2, BST_CHECKED);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE_SET2, 0);
 					break;
 				}
-				case 4:
+				case TB_STANDARD:
 				{
 					checkOrUncheckBtn(IDC_RADIO_STANDARD, BST_CHECKED);
-					::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
 					break;
 				}
-				case 0:
+				//case TB_SMALL:
 				default:
+				{
 					checkOrUncheckBtn(IDC_RADIO_SMALLICON, BST_CHECKED);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
-					break;
 				}
 			}
-			else
-			{
-				_generalSubDlg.setToolIconsFromStdToSmall();
-			}
+
 			return TRUE;
+		}
 
 		case PREF_MSG_DISABLETABBARALTERNATEICONS:
-			_generalSubDlg.setTabbarAlternateIcons(false);
+		{
+			const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
+			if (tabIconSet != -1)
+			{
+				_generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
+			}
 			return TRUE;
+		}
 
 		case WM_COMMAND :
 		{
@@ -485,17 +518,10 @@ void PreferenceDlg::destroy()
 	_performanceSubDlg.destroy();
 }
 
-void GeneralSubDlg::setToolIconsFromStdToSmall()
-{
-	::SendDlgItemMessage(_hSelf, IDC_RADIO_STANDARD, BM_SETCHECK, BST_UNCHECKED, 0);
-	::SendDlgItemMessage(_hSelf, IDC_RADIO_SMALLICON, BM_SETCHECK, BST_CHECKED, 0);
-	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
-}
-
 void GeneralSubDlg::setTabbarAlternateIcons(bool enable)
 {
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-	int altIconsBit = TAB_ALTICONS;
+	const int altIconsBit = TAB_ALTICONS;
 	if (!enable)
 	{
 		nppGUI._tabStatus &= ~altIconsBit;
@@ -676,7 +702,8 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					NppGUI& nppGUI = nppParam.getNppGUI();
 					nppGUI._tabStatus ^= TAB_ALTICONS;
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_GETCHECK, 0, 0));
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, 0, isChecked ? 1 : (NppDarkMode::allowTabIconsChange() && nppGUI._darkmode._isEnabled ? 2 : 0));
+					const int tabIconSet = NppDarkMode::getTabIconSet(nppGUI._darkmode._isEnabled);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, 0, (tabIconSet != -1) ? tabIconSet : (isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0)));
 					return TRUE;
 				}
 
@@ -1388,31 +1415,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					doEnableCustomizedColorCtrls = enableDarkMode && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone;
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
-					// Maintain the coherence in preferences
-					if (NppDarkMode::allowToolIconsChange())
-					{
-						if (enableDarkMode && !NppDarkMode::isDefaultsEnabled())
-						{
-							// For toolbar: if dark mode enabled & TB_STANDARD is selected, switch to TB_SMALL
-							bool isStandardChecked = false;
-							::SendMessage(_hParent, PREF_MSG_ISCHECKED_GENERALPAGE, IDC_RADIO_STANDARD, LPARAM(&isStandardChecked));
-							if (isStandardChecked)
-								::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, static_cast<WPARAM>(enableDarkMode), 0);
-						}
-						else if (NppDarkMode::isDefaultsEnabled())
-						{
-							::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, static_cast<WPARAM>(enableDarkMode), 0);
-						}
-					}
-
-					if (NppDarkMode::allowTabIconsChange())
-					{
-						if (enableDarkMode)
-						{
-							// For tabbar: uncheck Alternate icons checkbox
-							::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
-						}
-					}
+					::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, static_cast<WPARAM>(enableDarkMode), 0);
+					::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, 0, 0);
 
 					changed = true;
 				}

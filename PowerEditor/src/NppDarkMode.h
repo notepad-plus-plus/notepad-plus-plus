@@ -100,13 +100,6 @@ namespace NppDarkMode
 	{
 		bool _enableWindowsMode = false;
 
-		bool _disableThemeChange = false;
-		bool _disableToolBarIconsChange = false;
-		bool _disableTabIconsChange = false;
-
-		bool _enableDefaults = false;
-		bool _forceDefaults = false;
-
 		NppDarkMode::AdvOptDefaults _darkDefaults{};
 		NppDarkMode::AdvOptDefaults _lightDefaults{};
 	};
@@ -123,11 +116,6 @@ namespace NppDarkMode
 	bool isExperimentalSupported();
 
 	bool isWindowsModeEnabled();
-	bool allowThemeChange();
-	bool allowToolIconsChange();
-	bool allowTabIconsChange();
-	bool isDefaultsEnabled();
-	bool isDefaultsForced();
 	generic_string getThemeName();
 	int getToolBarIconSet(bool useDark);
 	int getTabIconSet(bool useDark);

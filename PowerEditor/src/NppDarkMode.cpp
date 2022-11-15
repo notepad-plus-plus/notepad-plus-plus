@@ -430,7 +430,7 @@ namespace NppDarkMode
 
 	void initAdvancedOptions()
 	{
-		NppGUI nppGui = NppParameters::getInstance().getNppGUI();
+		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 		g_advOptions = nppGui._darkmode._advOptions;
 	}
 

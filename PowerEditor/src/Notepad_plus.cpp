@@ -263,7 +263,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		//case -1:
 		default:
 		{
-			indexDocTabIcon = (indexDocTabIcon = ((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : NppDarkMode::isEnabled() ? 2 : 0);
+			indexDocTabIcon = ((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : (NppDarkMode::isEnabled() ? 2 : 0);
 		}
 	}
 

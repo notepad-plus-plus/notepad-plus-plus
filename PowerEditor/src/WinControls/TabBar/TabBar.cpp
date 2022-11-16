@@ -1017,9 +1017,9 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		::MessageBox(NULL, TEXT("! TCM_GETITEM"), TEXT(""), MB_OK);
 	}
-
+	
 	const COLORREF colorActiveBg = isDarkMode ? NppDarkMode::getSofterBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
-	const COLORREF colorInactiveBgBase = isDarkMode ? NppDarkMode::getBackgroundColor() : grey;
+	const COLORREF colorInactiveBgBase = isDarkMode ? NppDarkMode::getBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
 	
 	COLORREF colorInactiveBg = liteGrey;
 	COLORREF colorActiveText = ::GetSysColor(COLOR_BTNTEXT);
@@ -1037,7 +1037,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		colorActiveText = _activeTextColour;
 		colorInactiveText = _inactiveTextColour;
 	}
-
+	
 	HDC hDC = pDrawItemStruct->hDC;
 
 	int nSavedDC = ::SaveDC(hDC);

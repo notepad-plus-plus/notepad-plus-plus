@@ -5733,7 +5733,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			// advanced options section
 			auto parseStringAttribute = [&element](const TCHAR* name, const TCHAR* defaultName = TEXT("")) -> const TCHAR* {
 				const TCHAR* val = element->Attribute(name);
-				if (val != nullptr)
+				if (val != nullptr || val[0])
 				{
 					return element->Attribute(name);
 				}

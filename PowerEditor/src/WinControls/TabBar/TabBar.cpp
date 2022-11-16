@@ -1019,7 +1019,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	}
 
 	const COLORREF colorActiveBg = isDarkMode ? NppDarkMode::getSofterBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
-	const COLORREF colorInactiveBgBase = isDarkMode ? NppDarkMode::getBackgroundColor() : grey;
+	const COLORREF colorInactiveBgBase = isDarkMode ? NppDarkMode::getBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
 	
 	COLORREF colorInactiveBg = liteGrey;
 	COLORREF colorActiveText = ::GetSysColor(COLOR_BTNTEXT);

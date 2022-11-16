@@ -825,7 +825,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					_pDocumentListPanel = nullptr;
 
 					//relaunch with new icons
-					launchDocumentListPanel();
+					launchDocumentListPanel(static_cast<bool>(wParam));
 				}
 				else //if doclist is closed
 				{
@@ -834,7 +834,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					_pDocumentListPanel = nullptr;
 
 					//relaunch doclist with new icons and close it
-					launchDocumentListPanel();
+					launchDocumentListPanel(static_cast<bool>(wParam));
 					if (_pDocumentListPanel)
 					{
 						_pDocumentListPanel->display(false);

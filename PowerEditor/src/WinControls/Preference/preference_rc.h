@@ -17,7 +17,7 @@
 #ifndef PREFERENCE_RC_H
 #define PREFERENCE_RC_H
 
-	#define	PREF_MSG_ISCHECKED_GENERALPAGE (WM_USER + 1) // wParam:checkbox/radiobutton ID in General page. lParam is type of "bool *" to get result
+	//#define	PREF_MSG_ISCHECKED_GENERALPAGE (WM_USER + 1) // wParam:checkbox/radiobutton ID in General page. lParam is type of "bool *" to get result
 	#define	PREF_MSG_SETTOOLICONSFROMSTDTOSMALL (WM_USER + 2) 
 	#define	PREF_MSG_DISABLETABBARALTERNATEICONS (WM_USER + 3) 
 

@@ -236,30 +236,26 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	pIconListVector.push_back(&_docTabIconListDarkMode);// 2
 
 	const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
-	const int altIconsBit = TAB_ALTICONS;
 	unsigned char indexDocTabIcon = 0;
 	switch (tabIconSet)
 	{
 		case 0:
 		{
-			nppGUI._tabStatus &= ~altIconsBit;
+			nppGUI._tabStatus &= ~TAB_ALTICONS;
 			break;
 		}
-
 		case 1:
 		{
-			nppGUI._tabStatus |= altIconsBit;
+			nppGUI._tabStatus |= TAB_ALTICONS;
 			indexDocTabIcon = 1;
 			break;
 		}
-
 		case 2:
 		{
-			nppGUI._tabStatus &= ~altIconsBit;
+			nppGUI._tabStatus &= ~TAB_ALTICONS;
 			indexDocTabIcon = 2;
 			break;
 		}
-
 		//case -1:
 		default:
 		{
@@ -6743,7 +6739,7 @@ void Notepad_plus::launchClipboardHistoryPanel()
 }
 
 
-void Notepad_plus::launchDocumentListPanel()
+void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 {
 	if (!_pDocumentListPanel)
 	{
@@ -6753,27 +6749,27 @@ void Notepad_plus::launchDocumentListPanel()
 		_pDocumentListPanel = new VerticalFileSwitcher;
 
 		HIMAGELIST hImgLst = nullptr;
-		const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
+		const int tabIconSet = changeFromBtnCmd ? -1 : NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
 		switch (tabIconSet)
 		{
-		case 0:
-		{
-			hImgLst = _docTabIconList.getHandle();
-			break;
-		}
-		case 1:
-		{
-			hImgLst = _docTabIconListAlt.getHandle();
-			break;
-		}
-		case 2:
-		{
-			hImgLst = _docTabIconListDarkMode.getHandle();
-			break;
-		}
-		//case -1:
-		default:
-			hImgLst = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? _docTabIconListAlt.getHandle() : NppDarkMode::isEnabled() ? _docTabIconListDarkMode.getHandle() : _docTabIconList.getHandle());
+			case 0:
+			{
+				hImgLst = _docTabIconList.getHandle();
+				break;
+			}
+			case 1:
+			{
+				hImgLst = _docTabIconListAlt.getHandle();
+				break;
+			}
+			case 2:
+			{
+				hImgLst = _docTabIconListDarkMode.getHandle();
+				break;
+			}
+			//case -1:
+			default:
+				hImgLst = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? _docTabIconListAlt.getHandle() : NppDarkMode::isEnabled() ? _docTabIconListDarkMode.getHandle() : _docTabIconList.getHandle());
 		}
 
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
@@ -7878,14 +7874,14 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		if (tabIconSet != -1)
 		{
 			_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, tabIconSet);
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(false), tabIconSet);
 		}
 		else
 		{
 			const bool isChecked = _preference._generalSubDlg.isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
 			if (!isChecked)
 			{
-				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, 0, NppDarkMode::isEnabled() ? 2 : 0);
+				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(false), NppDarkMode::isEnabled() ? 2 : 0);
 			}
 		}
 

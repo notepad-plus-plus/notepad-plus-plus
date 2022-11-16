@@ -270,15 +270,15 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case PREF_MSG_ISCHECKED_GENERALPAGE:
-		{
-			if (!lParam)
-				return FALSE;
+		//case PREF_MSG_ISCHECKED_GENERALPAGE:
+		//{
+		//	if (!lParam)
+		//		return FALSE;
 
-			bool isChecked = _generalSubDlg.isCheckedOrNot(static_cast<int>(wParam));
-			*((bool*)lParam) = isChecked;
-			return TRUE;
-		}
+		//	bool isChecked = _generalSubDlg.isCheckedOrNot(static_cast<int>(wParam));
+		//	*((bool*)lParam) = isChecked;
+		//	return TRUE;
+		//}
 
 		case PREF_MSG_SETTOOLICONSFROMSTDTOSMALL:
 		{
@@ -521,15 +521,14 @@ void PreferenceDlg::destroy()
 void GeneralSubDlg::setTabbarAlternateIcons(bool enable)
 {
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-	const int altIconsBit = TAB_ALTICONS;
 	if (!enable)
 	{
-		nppGUI._tabStatus &= ~altIconsBit;
+		nppGUI._tabStatus &= ~TAB_ALTICONS;
 		::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, BST_UNCHECKED, 0);
 	}
 	else
 	{
-		nppGUI._tabStatus |= altIconsBit;
+		nppGUI._tabStatus |= TAB_ALTICONS;
 		::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, BST_CHECKED, 0);
 	}
 }
@@ -701,9 +700,9 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					NppGUI& nppGUI = nppParam.getNppGUI();
 					nppGUI._tabStatus ^= TAB_ALTICONS;
-					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_GETCHECK, 0, 0));
-					const int tabIconSet = NppDarkMode::getTabIconSet(nppGUI._darkmode._isEnabled);
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, 0, (tabIconSet != -1) ? tabIconSet : (isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0)));
+					const bool isChecked = isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
+					const bool isBtnCmd = true;
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(isBtnCmd), isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0));
 					return TRUE;
 				}
 

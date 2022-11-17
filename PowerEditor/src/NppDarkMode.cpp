@@ -471,6 +471,14 @@ namespace NppDarkMode
 
 	static bool g_isCustomToolIconUsed = NppParameters::getInstance().getCustomizedToolIcons() != nullptr;
 
+	void setToolBarIconSet(int state2Set, bool useDark)
+	{
+		if (useDark)
+			g_advOptions._darkDefaults._toolBarIconSet = state2Set;
+		else
+			g_advOptions._lightDefaults._toolBarIconSet = state2Set;
+	}
+
 	int getToolBarIconSet(bool useDark)
 	{
 		if (g_isCustomToolIconUsed)
@@ -478,6 +486,14 @@ namespace NppDarkMode
 			return -1;
 		}
 		return useDark ? g_advOptions._darkDefaults._toolBarIconSet : g_advOptions._lightDefaults._toolBarIconSet;
+	}
+
+	void setTabIconSet(bool useAltIcons, bool useDark)
+	{
+		if (useDark)
+			g_advOptions._darkDefaults._tabIconSet = useAltIcons ? 1 : 2;
+		else	
+			g_advOptions._lightDefaults._tabIconSet = useAltIcons ? 1 : 0;
 	}
 
 	int getTabIconSet(bool useDark)

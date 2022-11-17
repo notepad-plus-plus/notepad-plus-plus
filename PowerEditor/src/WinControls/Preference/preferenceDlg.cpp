@@ -270,17 +270,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		//case PREF_MSG_ISCHECKED_GENERALPAGE:
-		//{
-		//	if (!lParam)
-		//		return FALSE;
-
-		//	bool isChecked = _generalSubDlg.isCheckedOrNot(static_cast<int>(wParam));
-		//	*((bool*)lParam) = isChecked;
-		//	return TRUE;
-		//}
-
-		case PREF_MSG_SETTOOLICONSFROMSTDTOSMALL:
+		case PREF_MSG_RESETGUITOOLICONSSET:
 		{
 			const HWND generalSubDlg = _generalSubDlg.getHSelf();
 
@@ -362,7 +352,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case PREF_MSG_DISABLETABBARALTERNATEICONS:
+		case PREF_MSG_RESETGUITABBARALTICONS:
 		{
 			const int tabIconSet = NppDarkMode::getTabIconSet(static_cast<bool>(wParam));
 			if (tabIconSet != -1)
@@ -703,6 +693,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					const bool isChecked = isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
 					const bool isBtnCmd = true;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(isBtnCmd), isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0));
+					NppDarkMode::setTabIconSet(isChecked, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -739,22 +730,27 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					
 				case IDC_RADIO_SMALLICON :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
+					NppDarkMode::setToolBarIconSet(0, NppDarkMode::isEnabled());
 					return TRUE;
 					
 				case IDC_RADIO_BIGICON :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE, 0);
+					NppDarkMode::setToolBarIconSet(1, NppDarkMode::isEnabled());
 					return TRUE;
 
 				case IDC_RADIO_SMALLICON2:
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE_SET2, 0);
+					NppDarkMode::setToolBarIconSet(2, NppDarkMode::isEnabled());
 					return TRUE;
 
 				case IDC_RADIO_BIGICON2:
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE_SET2, 0);
+					NppDarkMode::setToolBarIconSet(3, NppDarkMode::isEnabled());
 					return TRUE;
 
 				case IDC_RADIO_STANDARD :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
+					NppDarkMode::setToolBarIconSet(4, NppDarkMode::isEnabled());
 					return TRUE;
 
 				default :
@@ -1414,8 +1410,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					doEnableCustomizedColorCtrls = enableDarkMode && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone;
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
-					::SendMessage(_hParent, PREF_MSG_SETTOOLICONSFROMSTDTOSMALL, static_cast<WPARAM>(enableDarkMode), 0);
-					::SendMessage(_hParent, PREF_MSG_DISABLETABBARALTERNATEICONS, static_cast<WPARAM>(enableDarkMode), 0);
+					::SendMessage(_hParent, PREF_MSG_RESETGUITOOLICONSSET, static_cast<WPARAM>(enableDarkMode), 0);
+					::SendMessage(_hParent, PREF_MSG_RESETGUITABBARALTICONS, static_cast<WPARAM>(enableDarkMode), 0);
 
 					changed = true;
 				}

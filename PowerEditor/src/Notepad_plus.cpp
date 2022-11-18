@@ -1477,14 +1477,19 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 
 	// remove the last line if it's an empty line.
-	auto lastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+	auto lastLineDoc = _pEditView->execute(SCI_GETLINECOUNT) - 1;
 	auto str2Search = isBlankContained ? TEXT("[\\r\\n]+^[\\t ]*$|^[\\t ]+$") : TEXT("[\\r\\n]+^$");
-	auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastLine - 1);
-	auto endPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastLine) + _pEditView->execute(SCI_LINELENGTH, lastLine);
+	auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastLineDoc - 1);
+	auto endPos = _pEditView->execute(SCI_GETLENGTH);
 	if (!isEntireDoc)
 	{
 		startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
-		endPos  = _pEditView->execute(SCI_GETSELECTIONEND);
+		endPos = _pEditView->execute(SCI_GETSELECTIONEND);
+		auto endLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
+		if (endPos != (_pEditView->execute(SCI_POSITIONFROMLINE, endLine) + _pEditView->execute(SCI_LINELENGTH, endLine)))
+		{
+			return;
+		}
 	}
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 	auto posFound = _pEditView->searchInTarget(str2Search, lstrlen(str2Search), startPos, endPos);

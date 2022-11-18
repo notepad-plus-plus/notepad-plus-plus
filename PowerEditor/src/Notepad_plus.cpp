@@ -1461,11 +1461,11 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	FindOption env;
 	if (isBlankContained)
 	{
-		env._str2Search = TEXT("^([\\t ]*$(\\r?\\n|\\r))(\\1)*");
+		env._str2Search = TEXT("^(?>[\\t ]*[\\r\\n]+)+");
 	}
 	else
 	{
-		env._str2Search = TEXT("^$(\\r?\\n|\\r)(\\1)*");
+		env._str2Search = TEXT("^[\\r\\n]+");
 	}
 	env._str4Replace = TEXT("");
 	env._searchType = FindRegex;
@@ -1477,15 +1477,20 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 
 	// remove the last line if it's an empty line.
-	if (isBlankContained)
+	auto lastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+	auto str2Search = isBlankContained ? TEXT("[\\r\\n]+^[\\t ]*$|^[\\t ]+$") : TEXT("[\\r\\n]+^$");
+	auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastLine - 1);
+	auto endPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastLine) + _pEditView->execute(SCI_LINELENGTH, lastLine);
+	if (!isEntireDoc)
 	{
-		env._str2Search = TEXT("(\\r?\\n|\\r)^[\\t ]*$");
+		startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
+		endPos  = _pEditView->execute(SCI_GETSELECTIONEND);
 	}
-	else
-	{
-		env._str2Search = TEXT("(\\r?\\n|\\r)^$");
+	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
+	auto posFound = _pEditView->searchInTarget(str2Search, lstrlen(str2Search), startPos, endPos);
+	if (posFound >= 0){
+		_pEditView->replaceTarget(TEXT(""), posFound, endPos);
 	}
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 }
 
 void Notepad_plus::removeDuplicateLines()

@@ -464,6 +464,14 @@ namespace NppDarkMode
 		return g_advOptions._enableWindowsMode;
 	}
 
+	void setThemeName(const generic_string& newThemeName)
+	{
+		if (NppDarkMode::isEnabled())
+			g_advOptions._darkDefaults._xmlFileName = newThemeName;
+		else
+			g_advOptions._lightDefaults._xmlFileName = newThemeName;
+	}
+
 	generic_string getThemeName()
 	{
 		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._xmlFileName : g_advOptions._lightDefaults._xmlFileName;
@@ -504,6 +512,14 @@ namespace NppDarkMode
 	bool useTabTheme()
 	{
 		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._tabUseTheme : g_advOptions._lightDefaults._tabUseTheme;
+	}
+
+	void setAdvancedOptions()
+	{
+		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+		auto& advOpt = nppGui._darkmode._advOptions;
+
+		advOpt = g_advOptions;
 	}
 
 	bool isWindows10()

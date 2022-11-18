@@ -18,8 +18,8 @@
 #define PREFERENCE_RC_H
 
 	//#define	PREF_MSG_ISCHECKED_GENERALPAGE (WM_USER + 1) // wParam:checkbox/radiobutton ID in General page. lParam is type of "bool *" to get result
-	#define	PREF_MSG_RESETGUITOOLICONSSET (WM_USER + 2) 
-	#define	PREF_MSG_RESETGUITABBARALTICONS (WM_USER + 3) 
+	#define	PREF_MSG_SETGUITOOLICONSSET (WM_USER + 2) 
+	#define	PREF_MSG_SETGUITABBARICONS (WM_USER + 3) 
 
 #define	IDD_PREFERENCE_BOX 6000
 	#define	IDC_BUTTON_CLOSE (IDD_PREFERENCE_BOX + 1)

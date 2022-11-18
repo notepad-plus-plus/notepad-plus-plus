@@ -270,7 +270,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case PREF_MSG_RESETGUITOOLICONSSET:
+		case PREF_MSG_SETGUITOOLICONSSET:
 		{
 			const HWND generalSubDlg = _generalSubDlg.getHSelf();
 
@@ -352,7 +352,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case PREF_MSG_RESETGUITABBARALTICONS:
+		case PREF_MSG_SETGUITABBARICONS:
 		{
 			const int tabIconSet = NppDarkMode::getTabIconSet(static_cast<bool>(wParam));
 			if (tabIconSet != -1)
@@ -1410,8 +1410,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					doEnableCustomizedColorCtrls = enableDarkMode && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone;
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
-					::SendMessage(_hParent, PREF_MSG_RESETGUITOOLICONSSET, static_cast<WPARAM>(enableDarkMode), 0);
-					::SendMessage(_hParent, PREF_MSG_RESETGUITABBARALTICONS, static_cast<WPARAM>(enableDarkMode), 0);
+					::SendMessage(_hParent, PREF_MSG_SETGUITOOLICONSSET, static_cast<WPARAM>(enableDarkMode), 0);
+					::SendMessage(_hParent, PREF_MSG_SETGUITABBARICONS, static_cast<WPARAM>(enableDarkMode), 0);
 
 					changed = true;
 				}

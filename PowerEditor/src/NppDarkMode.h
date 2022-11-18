@@ -117,11 +117,13 @@ namespace NppDarkMode
 
 	bool isWindowsModeEnabled();
 	generic_string getThemeName();
+	void setThemeName(const generic_string& newThemeName);
 	int getToolBarIconSet(bool useDark);
 	void setToolBarIconSet(int state2Set, bool useDark);
 	int getTabIconSet(bool useDark);
 	void setTabIconSet(bool useAltIcons, bool useDark);
 	bool useTabTheme();
+	void setAdvancedOptions();
 
 	bool isWindows10();
 	bool isWindows11();

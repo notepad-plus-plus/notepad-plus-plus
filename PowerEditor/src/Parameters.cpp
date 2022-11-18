@@ -5741,53 +5741,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			};
 
 			auto parseToolBarIconsAttribute = [&element](const TCHAR* name, int defaultValue = -1) -> int {
-				const TCHAR* val = element->Attribute(name);
-				if (val != nullptr)
+				int val;
+				const TCHAR* valStr = element->Attribute(name, &val);
+				if (valStr != nullptr && (val >= 0 && val <= 4))
 				{
-					if (!lstrcmp(val, TEXT("1")))
-					{
-						return 1;
-					}
-					else if (!lstrcmp(val, TEXT("2")))
-					{
-						return 2;
-					}
-					else if (!lstrcmp(val, TEXT("3")))
-					{
-						return 3;
-					}
-					else if (!lstrcmp(val, TEXT("4")))
-					{
-						return 4;
-					}
-					else if (defaultValue != -1 && !lstrcmp(val, TEXT("-1")))
-					{
-						return -1;
-					}
+					return val;
 				}
 				return defaultValue;
 			};
 
 			auto parseTabIconsAttribute = [&element](const TCHAR* name, int defaultValue = -1) -> int {
-				const TCHAR* val = element->Attribute(name);
-				if (val != nullptr)
+				int val;
+				const TCHAR* valStr = element->Attribute(name, &val);
+				if (valStr != nullptr && (val >= 0 && val <= 2))
 				{
-					if (!lstrcmp(val, TEXT("0")))
-					{
-						return 0;
-					}
-					else if (!lstrcmp(val, TEXT("1")))
-					{
-						return 1;
-					}
-					else if (!lstrcmp(val, TEXT("2")))
-					{
-						return 2;
-					}
-					else if (defaultValue != -1 && !lstrcmp(val, TEXT("-1")))
-					{
-						return -1;
-					}
+					return val;
 				}
 				return defaultValue;
 			};
@@ -6924,13 +6892,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("DarkMode"));
 
+		NppDarkMode::setAdvancedOptions();
+
 		auto setYesNoBoolAttribute = [&GUIConfigElement](const TCHAR* name, bool value) {
 			const TCHAR* pStr = value ? TEXT("yes") : TEXT("no");
 			GUIConfigElement->SetAttribute(name, pStr);
 		};
 
 		setYesNoBoolAttribute(TEXT("enable"), _nppGUI._darkmode._isEnabled);
-		//setYesNoBoolAttribute(TEXT("enablePlugin"), _nppGUI._darkmode._isEnabledPlugin);
 		GUIConfigElement->SetAttribute(TEXT("colorTone"), _nppGUI._darkmode._colorTone);
 
 		GUIConfigElement->SetAttribute(TEXT("customColorTop"), _nppGUI._darkmode._customColors.pureBackground);

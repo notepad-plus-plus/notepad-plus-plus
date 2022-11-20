@@ -1471,8 +1471,11 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	env._searchType = FindRegex;
 	auto mainSelStart = _pEditView->execute(SCI_GETSELECTIONSTART);
 	auto mainSelEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+	auto mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
+	auto mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	auto mainSelLength = mainSelEnd - mainSelStart;
 	bool isEntireDoc = mainSelLength == 0;
+	int nbTotal = 0;
 	if (!isEntireDoc)
 	{
 		env._isInSelection = !isEntireDoc;
@@ -1481,10 +1484,10 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 		auto newSelEnd = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.second) + _pEditView->execute(SCI_LINELENGTH, lineRange.second);
 		_pEditView->execute(SCI_SETSEL, newSelStart, newSelEnd);
 	}
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	nbTotal = _findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 
 	// remove the last line if it's an empty line.
-	size_t lastLineDoc = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+	auto lastLineDoc = _pEditView->execute(SCI_GETLINECOUNT) - 1;
 	auto str2Search = isBlankContained ? TEXT("[\\r\\n]+^[\\t ]*$|^[\\t ]+$") : TEXT("[\\r\\n]+^$");
 	auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastLineDoc - 1);
 	auto endPos = _pEditView->execute(SCI_GETLENGTH);
@@ -1493,13 +1496,26 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 		pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
 		startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
 		endPos = _pEditView->execute(SCI_GETSELECTIONEND);
-		if (lineRange.second != lastLineDoc)
+		if (lineRange.second != static_cast<size_t>(lastLineDoc)){
+			if (nbTotal == 0)
+			{
+				_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
+				_pEditView->execute(SCI_SETCURRENTPOS, mainSelCaretPos);
+			}
 			return;
+		}
 	}
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 	auto posFound = _pEditView->searchInTarget(str2Search, lstrlen(str2Search), startPos, endPos);
 	if (posFound >= 0)
+	{
 		_pEditView->replaceTarget(TEXT(""), posFound, endPos);
+	}
+	else if (!isEntireDoc && nbTotal == 0)
+	{
+		_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
+		_pEditView->execute(SCI_SETCURRENTPOS, mainSelCaretPos);
+	}
 }
 
 void Notepad_plus::removeDuplicateLines()

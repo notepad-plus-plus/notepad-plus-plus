@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.7">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -389,41 +389,41 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="閉じる"/>
-                    <Item CMID="1" name="他のタブをすべて閉じる"/>
-                    <Item CMID="2" name="上書き保存"/>
-                    <Item CMID="3" name="名前を付けて保存..."/>
-                    <Item CMID="4" name="印刷..."/>
-                    <Item CMID="5" name="別のビューへ移動"/>
-                    <Item CMID="6" name="別のビューへ複製"/>
-                    <Item CMID="7" name="フルパスをコピー"/>
-                    <Item CMID="8" name="ファイル名をコピー"/>
-                    <Item CMID="9" name="ディレクトリをコピー"/>
-                    <Item CMID="10" name="名前の変更..."/>
-                    <Item CMID="11" name="ごみ箱に移動"/>
-                    <Item CMID="12" name="読み取り専用モード"/>
-                    <Item CMID="13" name="ファイルの読み取り専用を解除"/>
-                    <Item CMID="14" name="新しいウィンドウへ移動"/>
-                    <Item CMID="15" name="新しいウィンドウで開く"/>
-                    <Item CMID="16" name="再読み込み"/>
-                    <Item CMID="17" name="左をすべて閉じる"/>
-                    <Item CMID="18" name="右をすべて閉じる"/>
-                    <Item CMID="19" name="ファイルの場所をエクスプローラーで開く"/>
-                    <Item CMID="20" name="ファイルの場所をコマンドプロンプトで開く"/>
-                    <Item CMID="21" name="既定のアプリで開く"/>
-                    <Item CMID="22" name="未変更をすべて閉じる"/>
-                    <Item CMID="23" name="ファイルを含むフォルダーをワークスペースとして開く"/>
-                    <Item CMID="24" name="色1"/>
-                    <Item CMID="25" name="色2"/>
-                    <Item CMID="26" name="色3"/>
-                    <Item CMID="27" name="色4"/>
-                    <Item CMID="28" name="色5"/>
-                    <Item CMID="29" name="色を外す"/>
-                    <Item CMID="30" name="複数のタブを閉じる"/>
-                    <Item CMID="31" name="開く"/>
-                    <Item CMID="32" name="クリップボードにコピー"/>
-                    <Item CMID="33" name="文書を移動"/>
-                    <Item CMID="34" name="タブに色を付ける"/>
+                <Item CMDID="41003" name="閉じる"/>
+                <Item CMDID="0" name="複数のタブを閉じる"/>
+                <Item CMDID="41005" name="他のタブをすべて閉じる"/>
+                <Item CMDID="41009" name="左をすべて閉じる"/>
+                <Item CMDID="41018" name="右をすべて閉じる"/>
+                <Item CMDID="41024" name="未変更をすべて閉じる"/>
+                <Item CMDID="41006" name="上書き保存"/>
+                <Item CMDID="41008" name="名前を付けて保存..."/>
+                <Item CMDID="1" name="開く"/>
+                <Item CMDID="41019" name="ファイルの場所をエクスプローラーで開く"/>
+                <Item CMDID="41020" name="ファイルの場所をコマンドプロンプトで開く"/>
+                <Item CMDID="41025" name="ファイルを含むフォルダーをワークスペースとして開く"/>
+                <Item CMDID="41023" name="既定のアプリで開く"/>
+                <Item CMDID="41017" name="名前の変更..."/>
+                <Item CMDID="41016" name="ごみ箱に移動"/>
+                <Item CMDID="41014" name="再読み込み"/>
+                <Item CMDID="41010" name="印刷..."/>
+                <Item CMDID="42028" name="読み取り専用モード"/>
+                <Item CMDID="42033" name="ファイルの読み取り専用を解除"/>
+                <Item CMDID="2" name="クリップボードにコピー"/>
+                <Item CMDID="42029" name="フルパスをコピー"/>
+                <Item CMDID="42030" name="ファイル名をコピー"/>
+                <Item CMDID="42031" name="ディレクトリをコピー"/>
+                <Item CMDID="3" name="文書を移動"/>
+                <Item CMDID="10001" name="別のビューへ移動"/>
+                <Item CMDID="10002" name="別のビューへ複製"/>
+                <Item CMDID="10003" name="新しいウィンドウへ移動"/>
+                <Item CMDID="10004" name="新しいウィンドウで開く"/>
+                <Item CMDID="4" name="タブに色を付ける"/>
+                <Item CMDID="44111" name="色1"/>
+                <Item CMDID="44112" name="色2"/>
+                <Item CMDID="44113" name="色3"/>
+                <Item CMDID="44114" name="色4"/>
+                <Item CMDID="44115" name="色5"/>
+                <Item CMDID="44110" name="色を外す"/>
             </TabBar>
         </Menu>
 
@@ -931,7 +931,9 @@
                 </Scintillas>
 
                 <DarkMode title="ダークモード">
-                    <Item id="7101" name="ダークモードを有効にする"/>
+                    <Item id="7131" name="ライトモード"/>
+                    <Item id="7132" name="ダークモード"/>
+                    <Item id="7133" name="システム設定に従う"/>
                     <Item id="7102" name="黒"/>
                     <Item id="7103" name="赤"/>
                     <Item id="7104" name="緑"/>
@@ -1380,6 +1382,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 処理を続けますか？"/>
             <NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
             <ChangeHistoryEnabledWarning title="Notepad++ を再起動してください" message="編集履歴マーカーを有効にするには、Notepad++ を再起動してください。"/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - Windows セッションの終了" message="Windows セッションを終了しようとしていますが、保存されていない文書があります。Notepad++ を終了してもよろしいですか？"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1562,12 +1565,13 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <tabrename-newname value="新ﾌｧｲﾙ名: "/>
             <splitter-rotate-left value="左回りに回す"/>
             <splitter-rotate-right value="右回りに回す"/>
-            <recent-file-history-maxfile value="最大数: "/>
-            <language-tabsize value="タブ幅: "/>
+            <recent-file-history-maxfile value="最大数:"/>
+            <recent-file-history-customlength value="長さ:"/>
+            <language-tabsize value="タブ幅:"/>
             <userdefined-title-new value="新しい言語定義を作成..."/>
             <userdefined-title-save value="言語定義に名前をつけて保存..."/>
             <userdefined-title-rename value="言語定義の名前を変更"/>
-            <autocomplete-nb-char value="数値: "/>
+            <autocomplete-nb-char value="数値:"/>
             <edit-verticaledge-nb-col value="桁位置:"/>
             <summary value="概要"/>
             <summary-filepath value="フルパス: "/>

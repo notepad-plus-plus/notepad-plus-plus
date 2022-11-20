@@ -517,9 +517,11 @@ namespace NppDarkMode
 	void setAdvancedOptions()
 	{
 		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-		auto& advOpt = nppGui._darkmode._advOptions;
+		auto& darkAdvOptDefault = nppGui._darkmode._advOptions._darkDefaults;
+		auto& liteAdvOptDefault = nppGui._darkmode._advOptions._lightDefaults;
 
-		advOpt = g_advOptions;
+		darkAdvOptDefault = g_advOptions._darkDefaults;
+		liteAdvOptDefault = g_advOptions._lightDefaults;
 	}
 
 	bool isWindows10()

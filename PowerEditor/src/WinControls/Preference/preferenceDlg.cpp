@@ -1213,7 +1213,22 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
 		case WM_INITDIALOG:
 		{
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode._isEnabled, 0);
+			// light mode : !_isEnabled
+			// dark mode : _isEnabled && !_enableWindowsMode
+			// follow windows : _isEnabled && _enableWindowsMode
+			//::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode._isEnabled, 0);
+
+			int topControlID = IDC_RADIO_DARKMODE_LIGHTMODE;
+			if (nppGUI._darkmode._isEnabled)
+			{
+				if (nppGUI._darkmode._advOptions._enableWindowsMode)
+					topControlID = IDC_RADIO_DARKMODE_FOLLOWWINDOWS;
+				else
+					topControlID = IDC_RADIO_DARKMODE_DARKMODE;
+
+			}
+
+			::SendDlgItemMessage(_hSelf, topControlID, BM_SETCHECK, TRUE, 0);
 
 			int id = IDC_RADIO_DARKMODE_BLACK;
 			switch (nppGUI._darkmode._colorTone)
@@ -1394,8 +1409,15 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			switch (wParam)
 			{
 				case IDC_CHECK_DARKMODE_ENABLE:
+				case IDC_RADIO_DARKMODE_LIGHTMODE:
+				case IDC_RADIO_DARKMODE_DARKMODE:
 				{
-					bool enableDarkMode = isCheckedOrNot(static_cast<int>(wParam));
+					// lParam == 0 => IDC_RADIO_DARKMODE_LIGHTMODE or IDC_RADIO_DARKMODE_DARKMODE
+					// lParam == 1 => Send via WM_SETTINGCHANGE due to Windows application change to DarkMode
+					// lParam == 2 => Send via WM_SETTINGCHANGE due to Windows application change to LiteMode
+					bool isFollowWindows = lParam !=  0 ? true: false;
+
+					bool enableDarkMode = isCheckedOrNot(IDC_RADIO_DARKMODE_DARKMODE) || lParam == 1;
 					nppGUI._darkmode._isEnabled = enableDarkMode;
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_BLACK), enableDarkMode);
@@ -1413,7 +1435,17 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					::SendMessage(_hParent, PREF_MSG_SETGUITOOLICONSSET, static_cast<WPARAM>(enableDarkMode), 0);
 					::SendMessage(_hParent, PREF_MSG_SETGUITABBARICONS, static_cast<WPARAM>(enableDarkMode), 0);
 
+					if (!isFollowWindows)
+						nppGUI._darkmode._advOptions._enableWindowsMode = false;
+
 					changed = true;
+				}
+				break;
+
+				case IDC_RADIO_DARKMODE_FOLLOWWINDOWS:
+				{
+					nppGUI._darkmode._isEnabled = true;
+					nppGUI._darkmode._advOptions._enableWindowsMode = true;
 				}
 				break;
 
@@ -1426,6 +1458,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_RADIO_DARKMODE_OLIVE:
 				case IDC_RADIO_DARKMODE_CUSTOMIZED:
 				case IDD_CUSTOMIZED_RESET_BUTTON:
+				{
 					if (wParam == IDC_RADIO_DARKMODE_BLACK)
 					{
 						if (nppGUI._darkmode._colorTone == NppDarkMode::blackTone)
@@ -1475,7 +1508,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						nppGUI._darkmode._colorTone = NppDarkMode::customizedTone;
 						doEnableCustomizedColorCtrls = true;
 					}
-					
+
 					else if (wParam == IDD_CUSTOMIZED_RESET_BUTTON)
 					{
 						nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors();
@@ -1491,7 +1524,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					forceRefresh = true;
 
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
-					break;
+				}
+				break;
 
 				default:
 					switch (HIWORD(wParam))

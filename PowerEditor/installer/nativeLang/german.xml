@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-09-21 by schnurlos
+	last modified: 2022-12-04 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.6">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -90,7 +90,7 @@
 					<Item id="41001" name="&amp;Neu"/>
 					<Item id="41002" name="&amp;Öffnen …"/>
 					<Item id="41019" name="E&amp;xplorer"/>
-					<Item id="41020" name="&amp;Eingabeaufforderung"/>
+					<Item id="41020" name="&amp;Eingabeaufforderung (cmd)"/>
 					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="41003" name="S&amp;chließen"/>
 					<Item id="41004" name="All&amp;e schließen"/>
@@ -196,7 +196,7 @@
 					<Item id="42036" name="Auskommentierung der Zeilen a&amp;ufheben"/>
 					<Item id="42055" name="&amp;Leerzeilen (nur völlig leere) löschen"/>
 					<Item id="42056" name="Leerzeilen (&amp;auch mit Leerzeichen) löschen"/>
-					<Item id="42057" name="Leerzeile &amp;über aktueller Zeile einfügen"/>
+					<Item id="42057" name="Leerzeile oberhalb aktueller Zeile einf&amp;ügen"/>
 					<Item id="42058" name="Leerzeile u&amp;nter aktueller Zeile einfügen"/>
 					<Item id="43001" name="&amp;Suchen …"/>
 					<Item id="43002" name="&amp;Weitersuchen"/>
@@ -297,6 +297,12 @@
 					<Item id="44097" name="Überwachen (tail -f)"/>
 					<Item id="44098" name="Tab vorwärts bewegen"/>
 					<Item id="44099" name="Tab rückwärts bewegen"/>
+					<Item id="44110" name="Entferne Farbe"/>
+					<Item id="44111" name="Farbe 1 anwenden"/>
+					<Item id="44112" name="Farbe 2 anwenden"/>
+					<Item id="44113" name="Farbe 3 anwenden"/>
+					<Item id="44114" name="Farbe 4 anwenden"/>
+					<Item id="44115" name="Farbe 5 anwenden"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -389,42 +395,41 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0"  name="S&amp;chließen"/>
-				<Item CMID="1"  name="&amp;Alle Dateien bis auf die aktuelle schließen"/>
-				<Item CMID="2"  name="&amp;Speichern"/>
-				<Item CMID="3"  name="Speichern &amp;unter …"/>
-				<Item CMID="4"  name="&amp;Drucken …"/>
-				<Item CMID="5"  name="In zweite Ansicht &amp;verschieben"/>
-				<Item CMID="6"  name="In zw&amp;eite Ansicht duplizieren"/>
-				<Item CMID="7"  name="Vollständigen Dateipfad &amp;kopieren"/>
-				<Item CMID="8"  name="Nur Datei&amp;namen kopieren"/>
-				<Item CMID="9"  name="Nur Verzeichnis&amp;pfad kopieren"/>
-				<Item CMID="10" name="Um&amp;benennen …"/>
-				<Item CMID="11" name="L&amp;öschen"/>
-				<Item CMID="12" name="Sch&amp;reibschutz"/>
-				<Item CMID="13" name="Schreibschutz au&amp;fheben"/>
-				<Item CMID="14" name="In neue &amp;Instanz verschieben"/>
-				<Item CMID="15" name="In neue Instan&amp;z duplizieren"/>
-				<Item CMID="16" name="Neu &amp;laden"/>
-				<Item CMID="17" name="Dateien links von aktueller Datei schlie&amp;ßen"/>
-				<Item CMID="18" name="Dateien rech&amp;ts von aktueller Datei schließen"/>
-				<Item CMID="19" name="Ordner im E&amp;xplorer öffnen"/>
-				<Item CMID="20" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
-				<Item CMID="21" name="Im Standard-Betrachter öffnen"/>
-				<Item CMID="22" name="Alle unveränderten Dateien schließen"/>
-				<Item CMID="23" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
-				<Item CMID="24" name="Farbe 1 anwenden"/>
-				<Item CMID="25" name="Farbe 2 anwenden"/>
-				<Item CMID="26" name="Farbe 3 anwenden"/>
-				<Item CMID="27" name="Farbe 4 anwenden"/>
-				<Item CMID="28" name="Farbe 5 anwenden"/>
-				<Item CMID="29" name="Farbe entfernen"/>
-				<Item CMID="30" name="Mehrere Tabs schließen"/>
-				<Item CMID="31" name="Öffne in"/>
-				<Item CMID="32" name="In Zwischenablage kopieren"/>
-				<Item CMID="33" name="Dokument verschieben"/>
-				<Item CMID="34" name="Farbe auf Tab anwenden"/>
-
+				<Item CMID="41003"  name="S&amp;chließen"/>
+				<Item CMID="0" name="Mehrere Tabs schließen"/>
+				<Item CMID="41005"  name="&amp;Alle Dateien bis auf die aktuelle schließen"/>
+				<Item CMID="41009" name="Dateien links von aktueller Datei schlie&amp;ßen"/>
+				<Item CMID="41018" name="Dateien rech&amp;ts von aktueller Datei schließen"/>
+				<Item CMID="41024" name="Alle unveränderten Dateien schließen"/>
+				<Item CMID="41006"  name="&amp;Speichern"/>
+				<Item CMID="41008"  name="Speichern &amp;unter …"/>
+				<Item CMID="1" name="Öffne in"/>
+				<Item CMID="41019" name="Ordner im E&amp;xplorer öffnen"/>
+				<Item CMID="41020" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
+				<Item CMID="41025" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
+				<Item CMID="41023" name="Im Standard-Betrachter öffnen"/>
+				<Item CMID="41017" name="Um&amp;benennen …"/>
+				<Item CMID="41016" name="L&amp;öschen"/>
+				<Item CMID="41014" name="Neu &amp;laden"/>
+				<Item CMID="41010"  name="&amp;Drucken …"/>
+				<Item CMID="42028" name="Sch&amp;reibschutz"/>
+				<Item CMID="42033" name="Schreibschutz au&amp;fheben"/>
+				<Item CMID="2" name="In Zwischenablage kopieren"/>
+				<Item CMID="42029"  name="Vollständigen Dateipfad &amp;kopieren"/>
+				<Item CMID="42030"  name="Nur Datei&amp;namen kopieren"/>
+				<Item CMID="42031"  name="Nur Verzeichnis&amp;pfad kopieren"/>
+				<Item CMID="3" name="Dokument verschieben"/>
+				<Item CMID="10001"  name="In zweite Ansicht &amp;verschieben"/>
+				<Item CMID="10002"  name="In zw&amp;eite Ansicht duplizieren"/>
+				<Item CMID="10003" name="In neue &amp;Instanz verschieben"/>
+				<Item CMID="10004" name="In neuer Instan&amp;z öffnen"/>
+				<Item CMID="4" name="Farbe auf Tab anwenden"/>
+				<Item CMID="44111" name="Farbe 1 anwenden"/>
+				<Item CMID="44112" name="Farbe 2 anwenden"/>
+				<Item CMID="44113" name="Farbe 3 anwenden"/>
+				<Item CMID="44114" name="Farbe 4 anwenden"/>
+				<Item CMID="44115" name="Farbe 5 anwenden"/>
+				<Item CMID="44110" name="Farbe entfernen"/>
 			</TabBar>
 		</Menu>
 
@@ -547,14 +552,14 @@
 
 			<StyleConfig title="Stil-Konfigurator">
 				<Item id="2"    name="Abbrechen"/>
-				<Item id="2301" name="Speichern &amp;&amp; Schließen"/>
+				<Item id="2301" name="Speichern &amp;&amp; Exit"/>
 				<Item id="2303" name="Transparenz"/>
 				<Item id="2306" name="Thema auswählen:"/>
 				<SubDialog>
 					<Item id="2204" name="Fett"/>
 					<Item id="2205" name="Kursiv"/>
-					<Item id="2206" name="Vordergrundfarbe:"/>
-					<Item id="2207" name="Hintergrundfarbe:"/>
+					<Item id="2206" name="Vordergrund:"/>
+					<Item id="2207" name="Hintergrund:"/>
 					<Item id="2208" name="Schriftart:"/>
 					<Item id="2209" name="Größe:"/>
 					<Item id="2211" name="Stilbeschreibung:"/>
@@ -566,8 +571,8 @@
 					<Item id="2219" name="Standard-Schlüsselwörter:"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter:"/>
 					<Item id="2225" name="Sprache:"/>
-					<Item id="2226" name="Standard-Vordergrundfarbe"/>
-					<Item id="2227" name="Standard-Hintergrundfarbe"/>
+					<Item id="2226" name="Standardfarbe Vordergrund"/>
+					<Item id="2227" name="Standardfarbe Hintergrund"/>
 					<Item id="2228" name="Schriftart als Standard setzen"/>
 					<Item id="2229" name="Schriftgröße als Standard setzen"/>
 					<Item id="2230" name="Fettschrift als Standard setzen"/>
@@ -897,7 +902,7 @@
 
 					<Item id="6131" name="Menü"/>
 					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
-					<Item id="6132" name="Schaltflächen ＋ ▼ ✕ innerhalb der Menüleiste verbergen (Neustart von Notepad++ erforderlich)"/>
+					<Item id="6132" name="Schaltflächen '＋ ▼ ✕' der Menüleiste verbergen (Neustart von Notepad++ erforderlich)"/>
 					<Item id="6123" name="Sprache:"/>
 
 					<Item id="6128" name="Alternative Symbole"/>
@@ -931,7 +936,9 @@
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
-					<Item id="7101" name="Dunklen Modus aktivieren"/>
+					<Item id="7131" name="Hellen Modus aktivieren"/>
+					<Item id="7132" name="Dunkler Modus"/>
+					<Item id="7133" name="Folge Windows"/>
 					<Item id="7102" name="Schwarz"/>
 					<Item id="7103" name="Rot"/>
 					<Item id="7104" name="Grün"/>
@@ -1078,7 +1085,6 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 				</Print>
 
 				<Searching title="Suche">
-					<Item id="6901" name="Aktuelle Auswahl nicht in das Suchfeld der Suche übernehmen"/>
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
@@ -1161,6 +1167,18 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 (nicht verwenden wenn man nicht sicher ist)"/>
 				</Delimiter>
 
+				<Performance title="Leistung">
+					<Item id="7141" name="Einschränkung für große Dateien"/>
+					<Item id="7143" name="Aktivieren der Einschränkung für große Dateien (keine Syntaxhervorhebung)"/>
+					<Item id="7144" name="Große Dateigröße definieren:"/>
+					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7147" name="Klammerübereinstimmung zulassen"/>
+					<Item id="7148" name="Auto-Vervollständigung zulassen"/>
+					<Item id="7149" name="Intelligente Hervorhebung zulassen"/>
+					<Item id="7150" name="Wortumbruch global deaktivieren"/>
+					<Item id="7151" name="URL anklickbaren Link zulassen"/>
+				</Performance>
+
 				<Cloud title="Cloud &amp; Links">
 					<Item id="6262" name="Cloud-Einstellungen"/>
 					<Item id="6263" name="Einstellungen nicht in der Cloud speichern"/>
@@ -1196,7 +1214,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
 					<Item id="6323" name="Automatische Updates aktivieren"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
-					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
+					<Item id="6331" name="Nur Dateinamen in der Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
 					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - erfordert Neustart von Notepad++)"/>
 					<Item id="6337" name="Arbeitsbereichdatei-Erw.:"/>
@@ -1271,7 +1289,7 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 			</DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.
+			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei 'contextMenu.xml' können Sie das Kontextmenü von Notepad++ anpassen.
 Nach dem Bearbeiten müssen Sie Notepad++ neu starten, damit die Änderungen wirksam werden."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.
 Alle gespeicherten Änderungen können nicht rückgängig gemacht werden.
@@ -1368,6 +1386,7 @@ Notepad++ wird neu gestartet.
 Fortsetzen?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ ist zum Laden der Plugins erforderlich."/>
 			<ChangeHistoryEnabledWarning title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ ist für das Aktivieren der Änderungshistorie erforderlich."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="Notepad++ - Windows wird beendet" message="Windows wird beendet aber es gibt noch ungespeicherte Daten. Soll Notepad++ jetzt beendet werden?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1553,6 +1572,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<splitter-rotate-left value="Nach links drehen"/>
 			<splitter-rotate-right value="Nach rechts drehen"/>
 			<recent-file-history-maxfile value="Max. Datei: "/>
+			<recent-file-history-customlength value="Länge: "/>
 			<language-tabsize value="Registergröße: "/>
 			<userdefined-title-new value="Neue Sprache erstellen …"/>
 			<userdefined-title-save value="Akt. Sprache speichern als …"/>
@@ -1599,6 +1619,13 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<contextMenu-styleOneToken value="Dieses Vorkommen hervorheben" />
 			<contextMenu-clearStyle value="Alle Hervorhebungen entfernen" />
 			<contextMenu-PluginCommands value="Plugin-Befehle" />
+			<largeFileRestriction-tip value="Einige Funktionen können die Leistung bei großen Dateien beeinträchtigen. Diese Funktionen können beim Öffnen einer großen Datei automatisch deaktiviert werden - das kann hier angepasst werden.
+
+ACHTUNG:
+1. Wenn Sie die Optionen hier ändern, müssen Sie die aktuell geöffneten großen Dateien erneut öffnen um die Änderung zu erhalten.
+
+2. Wenn &quot;Wortumbruch global deaktivieren&quot; aktiv ist und Sie eine große Datei öffnen, wird &quot;Wortumbruch&quot; für alle Dateien deaktiviert. Sie können das aber über das Menü &quot;Ansicht-&gt;Wortumbruch&quot; wieder aktivieren." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+

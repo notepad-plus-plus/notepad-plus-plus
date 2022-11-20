@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-09-21 by schnurlos
+	last modified: 2022-11-20 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.6">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -297,6 +297,12 @@
 					<Item id="44097" name="Überwachen (tail -f)"/>
 					<Item id="44098" name="Tab vorwärts bewegen"/>
 					<Item id="44099" name="Tab rückwärts bewegen"/>
+					<Item id="44110" name="Entferne Farbe"/>
+					<Item id="44111" name="Farbe 1 anwenden"/>
+					<Item id="44112" name="Farbe 2 anwenden"/>
+					<Item id="44113" name="Farbe 3 anwenden"/>
+					<Item id="44114" name="Farbe 4 anwenden"/>
+					<Item id="44115" name="Farbe 5 anwenden"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -424,7 +430,6 @@
 				<Item CMID="32" name="In Zwischenablage kopieren"/>
 				<Item CMID="33" name="Dokument verschieben"/>
 				<Item CMID="34" name="Farbe auf Tab anwenden"/>
-
 			</TabBar>
 		</Menu>
 
@@ -1078,7 +1083,6 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 				</Print>
 
 				<Searching title="Suche">
-					<Item id="6901" name="Aktuelle Auswahl nicht in das Suchfeld der Suche übernehmen"/>
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
@@ -1160,6 +1164,18 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6163" name="Zeichen als Teil der Wortzeichen hinzufügen
 (nicht verwenden wenn man nicht sicher ist)"/>
 				</Delimiter>
+
+				<Performance title="Leistung">
+					<Item id="7141" name="Einschränkung für große Dateien"/>
+					<Item id="7143" name="Aktivieren der Einschränkung für große Dateien (keine Syntaxhervorhebung)"/>
+					<Item id="7144" name="Große Dateigröße definieren:"/>
+					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7147" name="Klammerübereinstimmung zulassen"/>
+					<Item id="7148" name="Auto-Vervollständigung zulassen"/>
+					<Item id="7149" name="Intelligente Hervorhebung zulassen"/>
+					<Item id="7150" name="Wortumbruch global deaktivieren"/>
+					<Item id="7151" name="URL anklickbaren Link zulassen"/>
+				</Performance>
 
 				<Cloud title="Cloud &amp; Links">
 					<Item id="6262" name="Cloud-Einstellungen"/>
@@ -1553,6 +1569,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<splitter-rotate-left value="Nach links drehen"/>
 			<splitter-rotate-right value="Nach rechts drehen"/>
 			<recent-file-history-maxfile value="Max. Datei: "/>
+			<recent-file-history-customlength value="Länge: "/>
 			<language-tabsize value="Registergröße: "/>
 			<userdefined-title-new value="Neue Sprache erstellen …"/>
 			<userdefined-title-save value="Akt. Sprache speichern als …"/>
@@ -1599,6 +1616,13 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<contextMenu-styleOneToken value="Dieses Vorkommen hervorheben" />
 			<contextMenu-clearStyle value="Alle Hervorhebungen entfernen" />
 			<contextMenu-PluginCommands value="Plugin-Befehle" />
+			<largeFileRestriction-tip value="Einige Funktionen können die Leistung bei großen Dateien beeinträchtigen. Diese Funktionen können beim Öffnen einer großen Datei automatisch deaktiviert werden - das kann hier angepasst werden.
+
+ACHTUNG:
+1. Wenn Sie die Optionen hier ändern, müssen Sie die aktuell geöffneten großen Dateien erneut öffnen um die Änderung zu erhalten.
+
+2. Wenn &quot;Wortumbruch global deaktivieren&quot; aktiv ist und Sie eine große Datei öffnen, wird &quot;Wortumbruch&quot; für alle Dateien deaktiviert. Sie können das aber über das Menü &quot;Ansicht-&gt;Wortumbruch&quot; wieder aktivieren." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+

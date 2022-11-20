@@ -1412,10 +1412,10 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_RADIO_DARKMODE_LIGHTMODE:
 				case IDC_RADIO_DARKMODE_DARKMODE:
 				{
-					// lParam == 0 => IDC_RADIO_DARKMODE_LIGHTMODE or IDC_RADIO_DARKMODE_DARKMODE
+					// lParam == hwnd => IDC_RADIO_DARKMODE_LIGHTMODE or IDC_RADIO_DARKMODE_DARKMODE
 					// lParam == 1 => Send via WM_SETTINGCHANGE due to Windows application change to DarkMode
 					// lParam == 2 => Send via WM_SETTINGCHANGE due to Windows application change to LiteMode
-					bool isFollowWindows = lParam !=  0 ? true: false;
+					bool isFollowWindows = lParam ==  1 || lParam == 2 ? true: false;
 
 					bool enableDarkMode = isCheckedOrNot(IDC_RADIO_DARKMODE_DARKMODE) || lParam == 1;
 					nppGUI._darkmode._isEnabled = enableDarkMode;

@@ -368,7 +368,7 @@ namespace NppDarkMode
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParam.getNppGUI();
-			nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg();
+			//nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg();
 			_options.enable = nppGUI._darkmode._isEnabled;
 			_options.enableMenubar = _options.enable;
 		}

@@ -203,9 +203,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (nppGUI._darkmode._isEnabled && nppGUI._darkmode._advOptions._enableWindowsMode && (enableDarkMode != NppDarkMode::isEnabled()))
 			{
 				//nppGUI._darkmode._isEnabled = enableDarkMode;
-
 				if (!_preference.isCreated())
 				{
+					/*
 					const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
 					toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
 					switch (state)
@@ -230,13 +230,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 							_toolBar.setToBmpIcons();
 							break;
 					}
-
-					NppDarkMode::refreshDarkMode(hwnd, false);
+					*/
+					NppDarkMode::refreshDarkMode(hwnd, true);
 				}
 				else
 				{
 					HWND hSubDlg = _preference._darkModeSubDlg.getHSelf();
-					//::SendDlgItemMessage(hSubDlg, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, NppDarkMode::isExperimentalActive(), 0);
 					::SendMessage(hSubDlg, WM_COMMAND, IDC_CHECK_DARKMODE_ENABLE, NppDarkMode::isExperimentalActive() ? 1 : 2);
 				}
 			}

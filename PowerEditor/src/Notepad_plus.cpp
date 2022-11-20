@@ -1473,29 +1473,33 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	auto mainSelEnd = _pEditView->execute(SCI_GETSELECTIONEND);
 	auto mainSelLength = mainSelEnd - mainSelStart;
 	bool isEntireDoc = mainSelLength == 0;
-	env._isInSelection = !isEntireDoc;
+	if (!isEntireDoc)
+	{
+		env._isInSelection = !isEntireDoc;
+		pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
+		auto newSelStart = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.first);
+		auto newSelEnd = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.second) + _pEditView->execute(SCI_LINELENGTH, lineRange.second);
+		_pEditView->execute(SCI_SETSEL, newSelStart, newSelEnd);
+	}
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 
 	// remove the last line if it's an empty line.
-	auto lastLineDoc = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+	size_t lastLineDoc = _pEditView->execute(SCI_GETLINECOUNT) - 1;
 	auto str2Search = isBlankContained ? TEXT("[\\r\\n]+^[\\t ]*$|^[\\t ]+$") : TEXT("[\\r\\n]+^$");
 	auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastLineDoc - 1);
 	auto endPos = _pEditView->execute(SCI_GETLENGTH);
 	if (!isEntireDoc)
 	{
+		pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
 		startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
 		endPos = _pEditView->execute(SCI_GETSELECTIONEND);
-		auto endLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
-		if (endPos != (_pEditView->execute(SCI_POSITIONFROMLINE, endLine) + _pEditView->execute(SCI_LINELENGTH, endLine)))
-		{
+		if (lineRange.second != lastLineDoc)
 			return;
-		}
 	}
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 	auto posFound = _pEditView->searchInTarget(str2Search, lstrlen(str2Search), startPos, endPos);
-	if (posFound >= 0){
+	if (posFound >= 0)
 		_pEditView->replaceTarget(TEXT(""), posFound, endPos);
-	}
 }
 
 void Notepad_plus::removeDuplicateLines()

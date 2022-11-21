@@ -129,7 +129,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 26 August 2022 NH</p>
+    <p>Last edited 1 October 2022 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -1338,11 +1338,17 @@ struct Sci_TextToFindFull {
 
     <p>Scintilla can display document changes (modified, saved, ...) in the margin or in the text.</p>
 
+    <p>The main states are original text that has not been modified, modified, and modified then saved.
+    As it is possible to undo to before the save point, there are additional states for reverted from save and
+    reverted back to original from save.
+    The reverted states are different to the saved document on disk so some applications may want to
+    display these states just like the main modified state.</p>
+
     <p><img src="ChangeHistory.png" alt="Change history markers and indicators." /></p>
 
     <p>The image shows the default visuals which can be altered by the application.
     In the text, inserted characters appear with coloured underlines and points where characters were deleted are shown with small triangles.
-    The margin shows a block indicating the overall state of the line, prioritising the more consequential modified states.
+    The margin shows a block indicating the overall state of the line, prioritizing the more consequential modified states.
     The states are
     modified (<span style="color:#FF8000">orange</span>),
     saved (<span style="color:#00A000">green</span>),
@@ -1352,6 +1358,9 @@ struct Sci_TextToFindFull {
 
     <p>This feature uses a moderate amount of memory proportional to the amount of modifications made.
     On huge documents, this could be significant so could be disabled when it would cause excessive memory use.</p>
+
+    <p>If the applications wants to display a simplified set of visuals without differentiating between modifications
+    that have been reverted then assign the same attributes to multiple markers and indicators.</p>
 
     <code><a class="message" href="#SCI_SETCHANGEHISTORY">SCI_SETCHANGEHISTORY(int changeHistory)</a><br />
      <a class="message" href="#SCI_GETCHANGEHISTORY">SCI_GETCHANGEHISTORY &rarr; int</a><br />
@@ -1414,8 +1423,8 @@ struct Sci_TextToFindFull {
 
           <td>21</td>
 
-          <td>A change was made to this line and saved but then reverted to its original state.
-	  This line is different to its state on disk.</td>
+          <td>A change was made to this line and saved but then reverted to its original state.</td>
+          <td>This line is different to its state on disk.</td>
         </tr>
 
         <tr>
@@ -1423,7 +1432,8 @@ struct Sci_TextToFindFull {
 
           <td>22</td>
 
-          <td>This line was modified and saved. This line is the same as its state on disk.</td>
+          <td>This line was modified and saved.</td>
+          <td>This line is the same as its state on disk.</td>
         </tr>
 
         <tr>
@@ -1431,7 +1441,8 @@ struct Sci_TextToFindFull {
 
           <td>23</td>
 
-          <td>This line was modified but not yet saved. This line is different to its state on disk.</td>
+          <td>This line was modified but not yet saved.</td>
+          <td>This line is different to its state on disk.</td>
         </tr>
 
         <tr>
@@ -1439,8 +1450,8 @@ struct Sci_TextToFindFull {
 
           <td>24</td>
 
-          <td>A change was made to this line and saved but then reverted but not to its original state.
-	  This line is different to its state on disk.</td>
+          <td>A change was made to this line and saved but then reverted but not to its original state.</td>
+          <td>This line is different to its state on disk.</td>
         </tr>
       </tbody>
     </table>
@@ -1452,50 +1463,54 @@ struct Sci_TextToFindFull {
         <tr>
           <th align="left"><code>INDICATOR_HISTORY_REVERTED_TO_ORIGIN_INSERTION</code></th>
           <td>36</td>
-          <td>Text was deleted and saved but then reverted to its original state.
-	  This text is not present on disk.</td>
+          <td>Text was deleted and saved but then reverted to its original state.</td>
+          <td>This text has not been saved to disk.</td>
         </tr>
 
         <tr>
           <th align="left"><code>INDICATOR_HISTORY_REVERTED_TO_ORIGIN_DELETION</code></th>
           <td>37</td>
-          <td>Text was inserted and saved but then reverted to its original state.
-	  This range is different to its state on disk.</td>
+          <td>Text was inserted and saved but then reverted to its original state.</td>
+          <td>There is text on disk that is missing.</td>
         </tr>
 
         <tr>
           <th align="left"><code>INDICATOR_HISTORY_SAVED_INSERTION</code></th>
           <td>38</td>
-          <td>Text was inserted and saved. This text is the same as on disk.</td>
+          <td>Text was inserted and saved.</td>
+          <td>This text is the same as on disk.</td>
         </tr>
         <tr>
           <th align="left"><code>INDICATOR_HISTORY_SAVED_DELETION</code></th>
           <td>39</td>
-          <td>Text was deleted and saved. This range is the same as on disk.</td>
+          <td>Text was deleted and saved.</td>
+          <td>This range is the same as on disk.</td>
         </tr>
 
         <tr>
           <th align="left"><code>INDICATOR_HISTORY_MODIFIED_INSERTION</code></th>
           <td>40</td>
-          <td>Text was inserted but not yet saved. This text is not present on disk.</td>
+          <td>Text was inserted but not yet saved.</td>
+          <td>This text has not been saved to disk.</td>
         </tr>
         <tr>
           <th align="left"><code>INDICATOR_HISTORY_MODIFIED_DELETION</code></th>
           <td>41</td>
-          <td>Text was deleted but not yet saved. This range is different to its state on disk.</td>
+          <td>Text was deleted but not yet saved.</td>
+          <td>There is text on disk that is missing.</td>
         </tr>
 
         <tr>
           <th align="left"><code>INDICATOR_HISTORY_REVERTED_TO_MODIFIED_INSERTION</code></th>
           <td>42</td>
-          <td>Text was deleted and saved but then reverted but not to its original state.
-	  This text is not present on disk.</td>
+          <td>Text was deleted and saved but then reverted but not to its original state.</td>
+          <td>This text has not been saved to disk.</td>
         </tr>
         <tr>
           <th align="left"><code>INDICATOR_HISTORY_REVERTED_TO_MODIFIED_DELETION</code></th>
           <td>43</td>
-          <td>Text was inserted and saved but then reverted but not to its original state.
-	  This range is different to its state on disk.</td>
+          <td>Text was inserted and saved but then reverted but not to its original state.</td>
+          <td>There is text on disk that is missing.</td>
         </tr>
       </tbody>
     </table>
@@ -3233,6 +3248,8 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_STYLESETCHECKMONOSPACED">SCI_STYLESETCHECKMONOSPACED(int style, bool
     checkMonospaced)</a><br />
     <a class="message" href="#SCI_STYLEGETCHECKMONOSPACED">SCI_STYLEGETCHECKMONOSPACED(int style) &rarr; bool</a><br />
+    <a class="message" href="#SCI_STYLESETINVISIBLEREPRESENTATION">SCI_STYLESETINVISIBLEREPRESENTATION(int style, const char *representation)</a><br />
+    <a class="message" href="#SCI_STYLEGETINVISIBLEREPRESENTATION">SCI_STYLEGETINVISIBLEREPRESENTATION(int style, char *representation NUL-terminated) &rarr; int</a><br />
     <a class="message" href="#SCI_SETFONTLOCALE">SCI_SETFONTLOCALE(&lt;unused&gt;, const char *localeName)</a><br />
     <a class="message" href="#SCI_GETFONTLOCALE">SCI_GETFONTLOCALE(&lt;unused&gt;, char *localeName) &rarr; int</a><br />
     </code>
@@ -3498,6 +3515,15 @@ struct Sci_TextToFindFull {
     that may have different spacings because of kerning or ligatures.
     Applications may apply the 'check monospaced' attribute just to fonts known to be monospaced or on all fonts, leaving it to Scintilla to
     reject fonts that are proportional.</p>
+
+    <p><b id="SCI_STYLESETINVISIBLEREPRESENTATION">SCI_STYLESETINVISIBLEREPRESENTATION(int style, const char *representation)</b><br />
+    <b id="SCI_STYLEGETINVISIBLEREPRESENTATION">SCI_STYLEGETINVISIBLEREPRESENTATION(int style, char *representation NUL-terminated) &rarr; int</b><br />
+     When a style is made invisible with <a class="seealso" href="#SCI_STYLESETVISIBLE">SCI_STYLESETVISIBLE</a>, text is difficult to edit as
+     the cursor can be at both sides of the invisible text segment. With these messages invisible text segements can be made visible with a single
+     UTF8 characater giving the user an indication if the cursor is left or right of the invisible text. The character is displayed using the current style.</p>
+
+    <p>The <code>representation</code> parameter is a zero terminated string holding the one character used to represent the invisible text segment. Only the first character
+    is used, the character is decoded as UTF-8.</p>
 
     <p><b id="SCI_SETFONTLOCALE">SCI_SETFONTLOCALE(&lt;unused&gt;, const char *localeName)</b><br />
     <b id="SCI_GETFONTLOCALE">SCI_GETFONTLOCALE(&lt;unused&gt;, char *localeName NUL-terminated) &rarr; int</b><br />
@@ -5160,8 +5186,11 @@ struct Sci_TextToFindFull {
     (<code>SC_MARK_</code>*) or you can use characters. By default, all 32 markers are set to
     <code>SC_MARK_CIRCLE</code> with a black foreground and a white background.</p>
 
-    <p>The markers are drawn in the order of their numbers, so higher numbered markers appear on
-    top of lower numbered ones. Markers try to move with their text by tracking where the start of
+    <p>The markers are drawn in the order of their numbers (except for <code>SC_MARK_BAR</code>), so higher
+    numbered markers appear on top of lower numbered ones.
+    <code>SC_MARK_BAR</code> markers are drawn first so they are underneath as they often cover
+    multiple lines for change history and other markers mark individual lines.
+    Markers try to move with their text by tracking where the start of
     their line moves. When a line is deleted, its markers are combined, by an <code>OR</code>
     operation, with the markers of the next line.</p>
     <code><a class="message" href="#SCI_MARKERDEFINE">SCI_MARKERDEFINE(int markerNumber, int

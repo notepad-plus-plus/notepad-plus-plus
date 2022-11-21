@@ -315,6 +315,11 @@ public:
 
 	void langHasBeenSetFromMenu() { _hasLangBeenSetFromMenu = true; };
 
+	bool allowBraceMach() const;
+	bool allowAutoCompletion() const;
+	bool allowSmartHilite() const;
+	bool allowClickableLink() const;
+
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 

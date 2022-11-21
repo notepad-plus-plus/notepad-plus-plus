@@ -676,7 +676,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					maintainIndentation(static_cast<TCHAR>(notification->ch));
 
 				Buffer* currentBuf = _pEditView->getCurrentBuffer();
-				if (!currentBuf->isLargeFile() || nppGui._largeFileLimit._allowAutoCompletion)
+				if (currentBuf->allowAutoCompletion())
 				{
 					AutoCompletion* autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
 					bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
@@ -883,8 +883,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				break;
 
 			Buffer* currentBuf = _pEditView->getCurrentBuffer();
-
-			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf() && (!currentBuf->isLargeFile() || nppGui._largeFileLimit._allowSmartHilite)) // notification come from unfocus view - both views ae visible
+			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf() && currentBuf->allowSmartHilite()) // notification come from unfocus view - both views ae visible
 			{
 				if (nppGui._smartHiliteOnAnotherView)
 				{
@@ -897,13 +896,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			braceMatch();
 
-			if (nppGui._enableTagsMatchHilite && !currentBuf->isLargeFile())
+			if (nppGui._enableTagsMatchHilite)
 			{
 				XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
 				xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
 			}
-
-			if (nppGui._enableSmartHilite && (!currentBuf->isLargeFile() || nppGui._largeFileLimit._allowSmartHilite))
+			
+			if (nppGui._enableSmartHilite && currentBuf->allowSmartHilite())
 			{
 				if (nppGui._disableSmartHiliteTmp)
 					nppGui._disableSmartHiliteTmp = false;

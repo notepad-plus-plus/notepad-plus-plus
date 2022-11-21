@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.4.6  22/Sep/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.4.7  28/Oct/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.6">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1211,6 +1211,17 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6162" name = "Použít implicitní seznam znaků pro Slova tak, jak je"/>
 					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
 				</Delimiter>
+				<Performance title = "Výkon"> 
+					<Item id = "7141" name = "Omezení funkcí pro velké soubory"/> 
+					<Item id = "7143" name = "Povolit vypnutí zvýrazňování syntaxe pro velké soubory"/> 
+					<Item id = "7144" name = "Velký soubor je >= "/> 
+					<Item id = "7146" name = "MB   (1 - 4096)"/> 
+					<Item id = "7147" name = "Povolit párování závorek"/> 
+					<Item id = "7148" name = "Povolit automatické dokončování"/> 
+					<Item id = "7149" name = "Povolit inteligentní zvýrazňování"/> 
+					<Item id = "7150" name = "Deaktivivat (globálně) zalamování řádků"/> 
+					<Item id = "7151" name = "Povolit klikatelné URL odkazy"/> 
+				</Performance> 
 				<Cloud title = "Cloud a odkazy">
 					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
 					<Item id = "6262" name = "Nastavení internetového úložiště"/>
@@ -1603,6 +1614,12 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<contextMenu-styleOneToken value = "Označit token (jeden) stylem"/>
 			<contextMenu-clearStyle value = "Odstranit označení stylem u tokenů"/>
 			<contextMenu-PluginCommands value = "Pluginové povely"/>
+			<largeFileRestriction-tip value = "Některé funkce mohou u velkých souborů způsobit snížení výkonu. Tyto funkce je možné při otevření velkého souboru automaticky vypnout. Zde si můžete přizpůsobit jejich nastavení.
+
+POZN.:
+1. Pro správnou funkčnost musíte po modifikaci nastavení znovuotevřít aktuálně otevřené velké soubory.
+
+2. Jestliže je povolena možnost &quot;Deaktivivat (globálně) zalamování řádků&quot; a vy otevřete velký soubor, volba &quot;Zalomit řádky&quot; bude vypnuta pro všechny soubory. Můžete ji znovu zapnout v menu &quot;Zobrazit-&gt;Zalomit řádky&quot;." />
 		</MiscStrings>
 
 	</Native-Langue>

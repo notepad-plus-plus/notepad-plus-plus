@@ -148,36 +148,49 @@ TEST_CASE("PRectangle") {
 		// Whole pixels
 		REQUIRE(PixelAlign(1.0, 1) == 1.0);
 		REQUIRE(PixelAlignFloor(1.0, 1) == 1.0);
+		REQUIRE(PixelAlignCeil(1.0, 1) == 1.0);
 
 		REQUIRE(PixelAlign(1.25, 1) == 1.0);
 		REQUIRE(PixelAlignFloor(1.25, 1) == 1.0);
+		REQUIRE(PixelAlignCeil(1.25, 1) == 2.0);
 
 		REQUIRE(PixelAlign(1.5, 1) == 2.0);
 		REQUIRE(PixelAlignFloor(1.5, 1) == 1.0);
+		REQUIRE(PixelAlignCeil(1.5, 1) == 2.0);
 
 		REQUIRE(PixelAlign(1.75, 1) == 2.0);
 		REQUIRE(PixelAlignFloor(1.75, 1) == 1.0);
+		REQUIRE(PixelAlignCeil(1.75, 1) == 2.0);
+
+		REQUIRE(PixelAlign(Point(1.75, 1.25), 1) == Point(2.0, 1.0));
+		REQUIRE(PixelAlign(Point(1.5, 1.0), 1) == Point(2.0, 1.0));
 
 		// Half pixels
 		REQUIRE(PixelAlign(1.0, 2) == 1.0);
 		REQUIRE(PixelAlignFloor(1.0, 2) == 1.0);
+		REQUIRE(PixelAlignCeil(1.0, 2) == 1.0);
 
 		REQUIRE(PixelAlign(1.25, 2) == 1.5);
 		REQUIRE(PixelAlignFloor(1.25, 2) == 1.0);
+		REQUIRE(PixelAlignCeil(1.25, 2) == 1.5);
 
 		REQUIRE(PixelAlign(1.5, 2) == 1.5);
 		REQUIRE(PixelAlignFloor(1.5, 2) == 1.5);
+		REQUIRE(PixelAlignCeil(1.5, 2) == 1.5);
 
 		REQUIRE(PixelAlign(1.75, 2) == 2.0);
 		REQUIRE(PixelAlignFloor(1.75, 2) == 1.5);
+		REQUIRE(PixelAlignCeil(1.75, 2) == 2.0);
 
 		REQUIRE(PixelAlign(Point(1.75, 1.25), 2) == Point(2.0, 1.5));
 		REQUIRE(PixelAlign(Point(1.5, 1.0), 2) == Point(1.5, 1.0));
 
 		// x->round, y->floored
+		REQUIRE(PixelAlign(PRectangle(1.0, 1.25, 1.5, 1.75), 1) == PRectangle(1.0, 1.0, 2.0, 1.0));
 		REQUIRE(PixelAlign(PRectangle(1.0, 1.25, 1.5, 1.75), 2) == PRectangle(1.0, 1.0, 1.5, 1.5));
 
 		// x->outside(floor left, ceil right), y->floored
+		REQUIRE(PixelAlignOutside(PRectangle(1.1, 1.25, 1.6, 1.75), 1) == PRectangle(1.0, 1.0, 2.0, 1.0));
 		REQUIRE(PixelAlignOutside(PRectangle(1.1, 1.25, 1.6, 1.75), 2) == PRectangle(1.0, 1.0, 2.0, 1.5));
 	}
 

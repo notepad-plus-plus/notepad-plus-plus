@@ -1744,6 +1744,9 @@ bool NppParameters::getUserParametersFromXmlTree()
 	//Get File browser parameters
 	feedFileBrowserParameters(root);
 
+	//Get Column editor parameters
+	feedColumnEditorParameters(root);
+
 	return true;
 }
 
@@ -2342,6 +2345,63 @@ void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
 			}
 		}
 	}
+}
+
+void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
+{
+	TiXmlNode * columnEditorRoot = node->FirstChildElement(TEXT("ColumnEditor"));
+	if (!columnEditorRoot) return;
+
+	const TCHAR* strVal = (columnEditorRoot->ToElement())->Attribute(TEXT("choice"));
+	if (strVal)
+	{
+		if (lstrcmp(strVal, TEXT("text")) == 0)
+			_columnEditParam._mainChoice = false;
+		else
+			_columnEditParam._mainChoice = true;
+	}
+	TiXmlNode *childNode = columnEditorRoot->FirstChildElement(TEXT("text"));
+	if (!childNode) return;
+
+	const TCHAR* content = (childNode->ToElement())->Attribute(TEXT("content"));
+	if (content)
+	{
+		_columnEditParam._insertedTextContent = content;
+	}
+
+	childNode = columnEditorRoot->FirstChildElement(TEXT("number"));
+	if (!childNode) return;
+
+	int val;
+	strVal = (childNode->ToElement())->Attribute(TEXT("initial"), &val);
+	if (strVal)
+		_columnEditParam._initialNum = val;
+
+	strVal = (childNode->ToElement())->Attribute(TEXT("increase"), &val);
+	if (strVal)
+		_columnEditParam._increaseNum = val;
+
+	strVal = (childNode->ToElement())->Attribute(TEXT("repeat"), &val);
+	if (strVal)
+		_columnEditParam._repeatNum = val;
+
+	strVal = (childNode->ToElement())->Attribute(TEXT("formatChoice"));
+
+	if (strVal)
+	{
+		if (lstrcmp(strVal, TEXT("hex")) == 0)
+			_columnEditParam._formatChoice = 1;
+		else if (lstrcmp(strVal, TEXT("oct")) == 0)
+			_columnEditParam._formatChoice = 2;
+		else if (lstrcmp(strVal, TEXT("bin")) == 0)
+			_columnEditParam._formatChoice = 3;
+		else // "bin"
+			_columnEditParam._formatChoice = 0;
+	}
+
+	const TCHAR* boolStr = (childNode->ToElement())->Attribute(TEXT("leadingZeros"));
+	if (boolStr)
+		_columnEditParam._isLeadingZeros = (lstrcmp(TEXT("yes"), boolStr) == 0);
 }
 
 void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
@@ -3786,6 +3846,54 @@ bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
 	(historyNode->ToElement())->SetAttribute(TEXT("nbMaxFile"), nbMaxFile!=-1?nbMaxFile:_nbMaxRecentFile);
 	(historyNode->ToElement())->SetAttribute(TEXT("inSubMenu"), _putRecentFileInSubMenu?TEXT("yes"):TEXT("no"));
 	(historyNode->ToElement())->SetAttribute(TEXT("customLength"), _recentFileCustomLength);
+	return true;
+}
+
+bool NppParameters::writeColumnEditorSettings() const
+{
+	if (!_pXmlUserDoc) return false;
+
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!nppRoot)
+	{
+		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+	}
+
+	TiXmlNode *oldColumnEditorNode = nppRoot->FirstChildElement(TEXT("ColumnEditor"));
+	if (oldColumnEditorNode)
+	{
+		// Erase the Project Panel root
+		nppRoot->RemoveChild(oldColumnEditorNode);
+	}
+
+	// Create the new ColumnEditor root
+	TiXmlElement columnEditorRootNode{TEXT("ColumnEditor")};
+	(columnEditorRootNode.ToElement())->SetAttribute(TEXT("choice"), _columnEditParam._mainChoice ? L"number" : L"text");
+
+	TiXmlElement textNode{ TEXT("text") };
+	(textNode.ToElement())->SetAttribute(TEXT("content"), _columnEditParam._insertedTextContent.c_str());
+	(columnEditorRootNode.ToElement())->InsertEndChild(textNode);
+
+	TiXmlElement numberNode{ TEXT("number") };
+	(numberNode.ToElement())->SetAttribute(TEXT("initial"), _columnEditParam._initialNum);
+	(numberNode.ToElement())->SetAttribute(TEXT("increase"), _columnEditParam._increaseNum);
+	(numberNode.ToElement())->SetAttribute(TEXT("repeat"), _columnEditParam._repeatNum);
+	(numberNode.ToElement())->SetAttribute(TEXT("leadingZeros"), _columnEditParam._isLeadingZeros ? L"yes" : L"no");
+
+	wstring format = TEXT("dec");
+	if (_columnEditParam._formatChoice == 1)
+		format = TEXT("hex");
+	else if (_columnEditParam._formatChoice == 2)
+		format = TEXT("oct");
+	else if (_columnEditParam._formatChoice == 3)
+		format = TEXT("bin");
+	(numberNode.ToElement())->SetAttribute(TEXT("formatChoice"), format);
+	(columnEditorRootNode.ToElement())->InsertEndChild(numberNode);
+
+
+
+	// (Re)Insert the Project Panel root
+	(nppRoot->ToElement())->InsertEndChild(columnEditorRootNode);
 	return true;
 }
 
@@ -5387,42 +5495,48 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			else
 				_nppGUI._delimiterSelectionOnEntireDocument = false;
 		}
-		else if (!lstrcmp(nm, TEXT("largeFileLimit")))
+		else if (!lstrcmp(nm, TEXT("largeFileRestriction")))
 		{
 			int fileSizeLimit4StylingMB = 0;
 			element->Attribute(TEXT("fileSizeMB"), &fileSizeLimit4StylingMB);
 			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB < 4096)
-				_nppGUI._largeFileLimit._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
+				_nppGUI._largeFileRestriction._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
 
 			const TCHAR* boolVal = element->Attribute(TEXT("isEnabled"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
-				_nppGUI._largeFileLimit._isEnabled = true;
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
+				_nppGUI._largeFileRestriction._isEnabled = false;
 			else
-				_nppGUI._largeFileLimit._isEnabled = false;
+				_nppGUI._largeFileRestriction._isEnabled = true;
 
 			boolVal = element->Attribute(TEXT("allowAutoCompletion"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
-				_nppGUI._largeFileLimit._allowAutoCompletion = false;
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._allowAutoCompletion = true;
 			else
-				_nppGUI._largeFileLimit._allowAutoCompletion = true;
+				_nppGUI._largeFileRestriction._allowAutoCompletion = false;
 
 			boolVal = element->Attribute(TEXT("allowBraceMatch"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
-				_nppGUI._largeFileLimit._allowBraceMatch = false;
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._allowBraceMatch = true;
 			else
-				_nppGUI._largeFileLimit._allowBraceMatch = true;
+				_nppGUI._largeFileRestriction._allowBraceMatch = false;
 
 			boolVal = element->Attribute(TEXT("allowSmartHilite"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
-				_nppGUI._largeFileLimit._allowSmartHilite = false;
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._allowSmartHilite = true;
 			else
-				_nppGUI._largeFileLimit._allowSmartHilite = true;
+				_nppGUI._largeFileRestriction._allowSmartHilite = false;
 
-			boolVal = element->Attribute(TEXT("allowWordWrap"));
-			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
-				_nppGUI._largeFileLimit._allowWordWrap = false;
+			boolVal = element->Attribute(TEXT("allowClickableLink"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._allowClickableLink = true;
 			else
-				_nppGUI._largeFileLimit._allowWordWrap = true;
+				_nppGUI._largeFileRestriction._allowClickableLink = false;
+
+			boolVal = element->Attribute(TEXT("deactivateWordWrap"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
+				_nppGUI._largeFileRestriction._deactivateWordWrap = false;
+			else
+				_nppGUI._largeFileRestriction._deactivateWordWrap = true;
 		}
 		else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
@@ -6648,16 +6762,17 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="largeFileLimit" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" allowSmartHilite="no" allowWordWrap="no" />
+	// <GUIConfig name="largeFileRestriction" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" deactivateWordWrap="yes" allowClickableLink="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("largeFileLimit"));
-		GUIConfigElement->SetAttribute(TEXT("fileSizeMB"), static_cast<int>((_nppGUI._largeFileLimit._largeFileSizeDefInByte / 1024) / 1024));
-		GUIConfigElement->SetAttribute(TEXT("isEnabled"), _nppGUI._largeFileLimit._isEnabled ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("allowAutoCompletion"), _nppGUI._largeFileLimit._allowAutoCompletion ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("allowBraceMatch"), _nppGUI._largeFileLimit._allowBraceMatch ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileLimit._allowSmartHilite ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("allowWordWrap"), _nppGUI._largeFileLimit._allowWordWrap ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("largeFileRestriction"));
+		GUIConfigElement->SetAttribute(TEXT("fileSizeMB"), static_cast<int>((_nppGUI._largeFileRestriction._largeFileSizeDefInByte / 1024) / 1024));
+		GUIConfigElement->SetAttribute(TEXT("isEnabled"), _nppGUI._largeFileRestriction._isEnabled ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowAutoCompletion"), _nppGUI._largeFileRestriction._allowAutoCompletion ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowBraceMatch"), _nppGUI._largeFileRestriction._allowBraceMatch ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileRestriction._allowSmartHilite ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("allowClickableLink"), _nppGUI._largeFileRestriction._allowClickableLink ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("deactivateWordWrap"), _nppGUI._largeFileRestriction._deactivateWordWrap ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />

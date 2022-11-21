@@ -34,6 +34,7 @@
 		<KeyWord name="#line" />
 		<KeyWord name="#pragma" />
 		<KeyWord name="#undef" />
+		<KeyWord name="NULL" />
 		<KeyWord name="abort" func="yes">
 			<Overload retVal="void" >
 				<Param name="void" />
@@ -63,10 +64,14 @@
 		<KeyWord name="adjacent_difference" />
 		<KeyWord name="adjacent_find" />
 		<KeyWord name="advance" />
+		<KeyWord name="alignas" />
+		<KeyWord name="alignof" />
 		<KeyWord name="allocate" />
 		<KeyWord name="allocator" />
 		<KeyWord name="allocmem" />
 		<KeyWord name="always_noconv" />
+		<KeyWord name="and" />
+		<KeyWord name="and_eq" />
 		<KeyWord name="any" />
 		<KeyWord name="append" />
 		<KeyWord name="arc" />
@@ -123,6 +128,9 @@
 				<Param name="const char *nptr" />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="atomic_cancel" />
+		<KeyWord name="atomic_commit" />
+		<KeyWord name="atomic_noexcept" />
 		<KeyWord name="auto" />
 		<KeyWord name="auto_ptr" />
 		<KeyWord name="back" />
@@ -151,6 +159,8 @@
 		<KeyWord name="biosmemory" />
 		<KeyWord name="biosprint" />
 		<KeyWord name="biostime" />
+		<KeyWord name="bitand" />
+		<KeyWord name="bitor" />
 		<KeyWord name="bitset" />
 		<KeyWord name="bool" />
 		<KeyWord name="boolalpha" />
@@ -186,6 +196,9 @@
 		<KeyWord name="cerr" />
 		<KeyWord name="cgets" />
 		<KeyWord name="char" />
+		<KeyWord name="char16_t" />
+		<KeyWord name="char32_t" />
+		<KeyWord name="char8_t" />
 		<KeyWord name="char_type" />
 		<KeyWord name="chdir" func="yes">
 			<Overload retVal="int" >
@@ -216,6 +229,7 @@
 				<Param name="void" />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="clock_t" />
 		<KeyWord name="clog" />
 		<KeyWord name="close" func="yes">
 			<Overload retVal="int" >
@@ -230,14 +244,22 @@
 		<KeyWord name="closegraph" />
 		<KeyWord name="clreol" />
 		<KeyWord name="clrscr" />
+		<KeyWord name="co_await" />
+		<KeyWord name="co_return" />
+		<KeyWord name="co_yield" />
 		<KeyWord name="compare" />
+		<KeyWord name="compl" />
 		<KeyWord name="complex" />
+		<KeyWord name="concept" />
 		<KeyWord name="conj" />
 		<KeyWord name="const" />
 		<KeyWord name="construct" />
 		<KeyWord name="const_cast" />
 		<KeyWord name="const_pointer" />
 		<KeyWord name="const_reference" />
+		<KeyWord name="consteval" />
+		<KeyWord name="constexpr" />
+		<KeyWord name="constinit" />
 		<KeyWord name="container" />
 		<KeyWord name="continue" />
 		<KeyWord name="copy" />
@@ -284,6 +306,7 @@
 		<KeyWord name="deallocate" />
 		<KeyWord name="dec" />
 		<KeyWord name="decimal_point" />
+		<KeyWord name="decltype" />
 		<KeyWord name="default" />
 		<KeyWord name="delay" />
 		<KeyWord name="delete" />
@@ -433,6 +456,7 @@
 		</KeyWord>
 		<KeyWord name="expl" />
 		<KeyWord name="explicit" />
+		<KeyWord name="export" />
 		<KeyWord name="extern" />
 		<KeyWord name="extern_type" />
 		<KeyWord name="fabs" func="yes">
@@ -515,6 +539,7 @@
 		<KeyWord name="fillellipse" />
 		<KeyWord name="fillpoly" />
 		<KeyWord name="fill_n" />
+		<KeyWord name="final" />
 		<KeyWord name="find" />
 		<KeyWord name="findfirst" />
 		<KeyWord name="findnext" />
@@ -802,12 +827,26 @@
 		<KeyWord name="installuserdriver" />
 		<KeyWord name="installuserfont" />
 		<KeyWord name="int" />
+		<KeyWord name="int16_t" />
+		<KeyWord name="int32_t" />
+		<KeyWord name="int64_t" />
 		<KeyWord name="int86" />
 		<KeyWord name="int86x" />
+		<KeyWord name="int8_t" />
+		<KeyWord name="int_fast16_t" />
+		<KeyWord name="int_fast32_t" />
+		<KeyWord name="int_fast64_t" />
+		<KeyWord name="int_fast8_t" />
+		<KeyWord name="int_least16_t" />
+		<KeyWord name="int_least32_t" />
+		<KeyWord name="int_least64_t" />
+		<KeyWord name="int_least8_t" />
 		<KeyWord name="intdos" />
 		<KeyWord name="intdosx" />
 		<KeyWord name="internal" />
 		<KeyWord name="intern_type" />
+		<KeyWord name="intmax_t" />
+		<KeyWord name="intptr_t" />
 		<KeyWord name="Intl" />
 		<KeyWord name="intr" />
 		<KeyWord name="int_type" />
@@ -1088,6 +1127,7 @@
 		<KeyWord name="new" />
 		<KeyWord name="next_permutation" />
 		<KeyWord name="noboolalpha" />
+		<KeyWord name="noexcept" />
 		<KeyWord name="none" />
 		<KeyWord name="norm" />
 		<KeyWord name="normvideo" />
@@ -1096,13 +1136,16 @@
 		<KeyWord name="noshowpos" />
 		<KeyWord name="noskipws" />
 		<KeyWord name="nosound" />
+		<KeyWord name="not" />
 		<KeyWord name="not1" />
 		<KeyWord name="not2" />
 		<KeyWord name="not_eof" />
+		<KeyWord name="not_eq" />
 		<KeyWord name="not_equal_to" />
 		<KeyWord name="nounitbuf" />
 		<KeyWord name="nouppercase" />
 		<KeyWord name="nth_element" />
+		<KeyWord name="nullptr" />
 		<KeyWord name="numeric_limits" />
 		<KeyWord name="oct" />
 		<KeyWord name="off_type" />
@@ -1150,6 +1193,8 @@
 		<KeyWord name="operator^" />
 		<KeyWord name="operator^=" />
 		<KeyWord name="operator~" />
+		<KeyWord name="or" />
+		<KeyWord name="or_eq" />
 		<KeyWord name="ostream" />
 		<KeyWord name="ostream_type" />
 		<KeyWord name="ostringstream" />
@@ -1162,6 +1207,7 @@
 		<KeyWord name="outtext" />
 		<KeyWord name="outtextxy" />
 		<KeyWord name="overflow" />
+		<KeyWord name="override" />
 		<KeyWord name="pair" />
 		<KeyWord name="parsfnm" />
 		<KeyWord name="partial_sort" />
@@ -1218,6 +1264,7 @@
 		<KeyWord name="private" />
 		<KeyWord name="protected" />
 		<KeyWord name="ptr_fun" />
+		<KeyWord name="ptrdiff_t" />
 		<KeyWord name="pubimbue" />
 		<KeyWord name="public" />
 		<KeyWord name="pubseekoff" />
@@ -1305,6 +1352,7 @@
 		</KeyWord>
 		<KeyWord name="rectangle" />
 		<KeyWord name="reference" />
+		<KeyWord name="reflexpr" />
 		<KeyWord name="register" />
 		<KeyWord name="registerbgidriver" />
 		<KeyWord name="registerbgifont" />
@@ -1332,6 +1380,7 @@
 		<KeyWord name="replace_copy" />
 		<KeyWord name="replace_copy_if" />
 		<KeyWord name="replace_if" />
+		<KeyWord name="requires" />
 		<KeyWord name="reserve" />
 		<KeyWord name="reset" />
 		<KeyWord name="resetiosflag" />
@@ -1486,6 +1535,7 @@
 		<KeyWord name="sinl" />
 		<KeyWord name="size" />
 		<KeyWord name="sizeof" />
+		<KeyWord name="size_t" />
 		<KeyWord name="size_type" />
 		<KeyWord name="skipws" />
 		<KeyWord name="sleep" func="yes">
@@ -1535,6 +1585,7 @@
 				<Param name="..." />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="ssize_t" />
 		<KeyWord name="stable_partition" />
 		<KeyWord name="stable_sort" />
 		<KeyWord name="stack" />
@@ -1548,6 +1599,7 @@
 		<KeyWord name="state" />
 		<KeyWord name="state_type" />
 		<KeyWord name="static" />
+		<KeyWord name="static_assert" />
 		<KeyWord name="static_cast" />
 		<KeyWord name="stime" />
 		<KeyWord name="stpcpy" />
@@ -1709,6 +1761,7 @@
 		<KeyWord name="switch" />
 		<KeyWord name="sync" />
 		<KeyWord name="sync_with_stdio" />
+		<KeyWord name="synchronized" />
 		<KeyWord name="system" func="yes">
 			<Overload retVal="int" >
 				<Param name="const char *string" />
@@ -1743,6 +1796,7 @@
 		<KeyWord name="thousands_sep" />
 		<KeyWord name="thread" />
 		<KeyWord name="thread2" />
+		<KeyWord name="thread_local" />
 		<KeyWord name="throw" />
 		<KeyWord name="tie" />
 		<KeyWord name="time" func="yes">
@@ -1750,6 +1804,7 @@
 				<Param name="time_t *timer" />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="time_t" />
 		<KeyWord name="times" func="yes">
 			<Overload retVal="clock_t" >
 				<Param name="struct tms *buffer" />
@@ -1798,6 +1853,20 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="uflow" />
+		<KeyWord name="uint16_t" />
+		<KeyWord name="uint32_t" />
+		<KeyWord name="uint64_t" />
+		<KeyWord name="uint8_t" />
+		<KeyWord name="uint_fast16_t" />
+		<KeyWord name="uint_fast32_t" />
+		<KeyWord name="uint_fast64_t" />
+		<KeyWord name="uint_fast8_t" />
+		<KeyWord name="uint_least16_t" />
+		<KeyWord name="uint_least32_t" />
+		<KeyWord name="uint_least64_t" />
+		<KeyWord name="uint_least8_t" />
+		<KeyWord name="uintmax_t" />
+		<KeyWord name="uintptr_t" />
 		<KeyWord name="ultoa" />
 		<KeyWord name="umask" func="yes">
 			<Overload retVal="mode_t" >
@@ -1936,6 +2005,8 @@
 		<KeyWord name="wstringbuf" />
 		<KeyWord name="wstringstream" />
 		<KeyWord name="xalloc" />
+		<KeyWord name="xor" />
+		<KeyWord name="xor_eq" />
 		<KeyWord name="xsgetn" />
 		<KeyWord name="xsputn" />
 		<KeyWord name="_atold" />

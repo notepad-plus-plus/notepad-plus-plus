@@ -586,6 +586,43 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/lexilla520.zip">Release 5.2.0</a>
+    </h3>
+    <ul>
+	<li>
+	Released 12 October 2022.
+	</li>
+	<li>
+	PowerShell: End comment before \r carriage return so \r and \n in same
+	SCE_POWERSHELL_DEFAULT style.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/99">Pull request #99</a>.
+	</li>
+	<li>
+	PowerShell: Fix character truncation bug that lead to 'ġ' styled as an operator since its low 8 bits
+	are equal to '!'.
+	</li>
+	<li>
+	R: Support hexadecimal, float exponent and number suffix.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/101">Issue #101</a>.
+	</li>
+	<li>
+	R: Highlight backticks.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/102">Pull request #102</a>.
+	</li>
+	<li>
+	R: Highlight raw strings.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/100">Issue #100</a>.
+	</li>
+	<li>
+	R: Optionally highlight escape sequences in strings.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/100">Issue #100</a>.
+	</li>
+	<li>
+	Fix early truncation from LexAccessor::GetRange and LexAccessor::GetRangeLowered.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/17">Issue #17</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/lexilla519.zip">Release 5.1.9</a>
     </h3>
     <ul>

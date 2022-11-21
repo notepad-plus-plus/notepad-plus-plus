@@ -1795,7 +1795,7 @@ namespace NppDarkMode
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
 			auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
-			constexpr size_t classNameLen = 16;
+			constexpr size_t classNameLen = 32;
 			TCHAR className[classNameLen]{};
 			GetClassName(hwnd, className, classNameLen);
 
@@ -1853,6 +1853,24 @@ namespace NppDarkMode
 				NppDarkMode::themeRichEdit(hwnd, p);
 				return TRUE;
 			}
+
+			/*
+			// for debugging 
+			if (wcscmp(className, L"#32770") == 0)
+			{
+				return TRUE;
+			}
+
+			if (wcscmp(className, L"Static") == 0)
+			{
+				return TRUE;
+			}
+
+			if (wcscmp(className, L"msctls_trackbar32") == 0)
+			{
+				return TRUE;
+			}
+			*/
 
 			return TRUE;
 		}, reinterpret_cast<LPARAM>(&p));

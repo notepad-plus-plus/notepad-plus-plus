@@ -896,7 +896,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6132" name="Ocultar atalhos ＋ ▼ ✕ da barra de menu (é necessário reiniciar)"/>
                     <Item id="6123" name="Idioma"/>
 
-                    <Item id="6128" name="Alternar ícones"/>
+                    <Item id="6128" name="Ícones alternativos"/>
                 </Global>
                 <Scintillas title="Edição">
                     <Item id="6216" name="Definições do cursor"/>
@@ -1155,6 +1155,18 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6163" name="Adicione o seu caráter como parte da palavra
 (não o escolha a menos que saiba o que está a fazer)"/>
                 </Delimiter>
+
+                <Performance title="Desempenho">
+                    <Item id="7141" name="Restrição de ficheiros grandes"/>
+                    <Item id="7143" name="Ativar restrição de ficheiros grandes (sem destaque de sintaxe)"/>
+                    <Item id="7144" name="Definir tamanho de ficheiro grande:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Permitir a coloração simétrica do delimitador"/>
+                    <Item id="7148" name="Permitir conclusão automática"/>
+                    <Item id="7149" name="Permitir destaque inteligente"/>
+                    <Item id="7150" name="Desativar Quebra de linha globalmente"/>
+                    <Item id="7151" name="Permitir ligação URL clicável"/>
+                </Performance>
 
                 <Cloud title="Nuvem e Ligação">
                     <Item id="6262" name="Definições na nuvem"/>
@@ -1594,6 +1606,12 @@ Procurar em todos os ficheiros mas excluir todos os registos de pastas ou regist
             <contextMenu-styleOneToken value="Marcar uma" />
             <contextMenu-clearStyle value="Limpar estilo" />
             <contextMenu-PluginCommands value="Comandos de plugin" />
+            <largeFileRestriction-tip value="Algumas funcionalidades podem abrandar o desempenho em ficheiros grandes. Estas funcionalidades podem ser desativadas automaticamente ao abrir um ficheiro grande. Pode personalizá-las aqui.
+
+NOTA:
+1. Modificar as opções de aqui requer a reabertura de ficheiros grandes atualmente abertos para obter um comportamento adequado.
+
+2. If &quot;Desativar a quebra de linha globalmente&quot; é verificada e abre-se um ficheiro grande, a &quot;Quebra de linha&quot; será desativada para todos os ficheiros. Pode voltar a ativá-la através do menu &quot;Visualização-&gt;Quebra de linha&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
@@ -1618,7 +1636,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-21/09/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+29/10/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

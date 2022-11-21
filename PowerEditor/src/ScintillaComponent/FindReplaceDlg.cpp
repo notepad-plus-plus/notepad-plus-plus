@@ -1428,7 +1428,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
-				Sci_CharacterRange cr = (*_ppEditView)->getSelection();
+				Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
 				intptr_t nbSelected = cr.cpMax - cr.cpMin;
 
 				_options._isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK)?1:0;
@@ -2256,7 +2256,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	}
 
 	intptr_t docLength = (*_ppEditView)->execute(SCI_GETLENGTH);
-	Sci_CharacterRange cr = (*_ppEditView)->getSelection();
+	Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
 
 
 	//The search "zone" is relative to the selection, so search happens 'outside'
@@ -2445,13 +2445,13 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	FindOption replaceOptions = options ? *options : *_env;
 	replaceOptions._incrementalType = FirstIncremental;
 
-	Sci_CharacterRange currentSelection = (*_ppEditView)->getSelection();
+	Sci_CharacterRangeFull currentSelection = (*_ppEditView)->getSelection();
 	FindStatus status;
 	moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_FINDNEXTFORREPLACE);
 
 	if (moreMatches)
 	{
-		Sci_CharacterRange nextFind = (*_ppEditView)->getSelection();
+		Sci_CharacterRangeFull nextFind = (*_ppEditView)->getSelection();
 
 		// If the next find is the same as the last, then perform the replacement
 		if (nextFind.cpMin == currentSelection.cpMin && nextFind.cpMax == currentSelection.cpMax)
@@ -2567,7 +2567,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	const TCHAR *txt2find = pOptions->_str2Search.c_str();
 	const TCHAR *txt2replace = pOptions->_str4Replace.c_str();
 
-	Sci_CharacterRange cr = (*_ppEditView)->getSelection();
+	Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
 	size_t docLength = (*_ppEditView)->execute(SCI_GETLENGTH);
 
 	// Default :
@@ -3825,7 +3825,7 @@ void FindReplaceDlg::clearMarks(const FindOption& opt)
 {
 	if (opt._isInSelection)
 	{
-		Sci_CharacterRange cr = (*_ppEditView)->getSelection();
+		Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
 
 		intptr_t startPosition = cr.cpMin;
 		intptr_t endPosition = cr.cpMax;
@@ -5178,7 +5178,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				// selected (no change, if there was no selection)
 				if (updateCase && !isFound)
 				{
-					Sci_CharacterRange range = (*(_pFRDlg->_ppEditView))->getSelection();
+					Sci_CharacterRangeFull range = (*(_pFRDlg->_ppEditView))->getSelection();
 					(*(_pFRDlg->_ppEditView))->execute(SCI_SETSEL, static_cast<WPARAM>(-1), range.cpMin);
 				}
 			}
@@ -5226,7 +5226,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 		return;
 
 	//Get selection
-	Sci_CharacterRange range = (*(_pFRDlg->_ppEditView))->getSelection();
+	Sci_CharacterRangeFull range = (*(_pFRDlg->_ppEditView))->getSelection();
 
 	//If nothing selected, dont mark anything
 	if (range.cpMin == range.cpMax)

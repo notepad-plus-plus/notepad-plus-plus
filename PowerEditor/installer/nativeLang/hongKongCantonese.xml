@@ -1227,6 +1227,18 @@
 （唔好揀呢項，除非你知道搞緊咩啦）"/>
                 </Delimiter>
 
+                <Performance title="性能"> <!-- #new #next -->
+                    <Item id="7141" name="大型檔案限制"/> <!-- #new #next -->
+                    <Item id="7143" name="啟用大型檔案限制（會失去語法突顯功能）"/> <!-- #new #next -->
+                    <Item id="7144" name="定義大檔案 size："/> <!-- #new #next -->
+                    <Item id="7146" name="MB   (1 - 4096)"/> <!-- #new #next -->
+                    <Item id="7147" name="容許顯示對應括號"/> <!-- #new #next -->
+                    <Item id="7148" name="容許自動完成功能"/> <!-- #new #next -->
+                    <Item id="7149" name="容許醒目提示功能"/> <!-- #new #next -->
+                    <Item id="7150" name="將全局自動換行功能閂咗佢"/> <!-- #new #next -->
+                    <Item id="7151" name="容許 URL 連結 click 得到"/> <!-- #new #next -->
+                </Performance>
+
                 <Cloud title="雲端同埋連結">
                     <Item id="6262" name="雲端設定"/>
                     <Item id="6263" name="唔搞"/>
@@ -1671,6 +1683,12 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <contextMenu-styleOneToken value="標記一次" /> <!-- #new v8.2.1 -->
             <contextMenu-clearStyle value="清除風格標記" /> <!-- #new v8.2.1 -->
             <contextMenu-PluginCommands value="外掛指令" /> <!-- #new v8.2.1 -->
+            <largeFileRestriction-tip value="開大型檔案嗰陣，某啲功能可能會軟件令性能降低，Notepad++ 會將就吓自動閂咁啲，你可以喺呢度做設定。
+
+注意：
+1. 改過呢啲設定之後，要將啲大檔案閂咗佢再重新開過，咁先至會正常。
+
+2. 如果揀咗「將全局自動換行功能閂咗佢」，當你打開大檔案嗰陣，全部開咗嘅檔案都會唔再自動換行，你可以事後喺 menu 度開返佢（「睇」 → 「自動換行」）" /> <!-- #new #next -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

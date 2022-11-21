@@ -58,7 +58,6 @@ LexInterface::~LexInterface() noexcept = default;
 
 void LexInterface::SetInstance(ILexer5 *instance_) {
 	instance.reset(instance_);
-	pdoc->LexerChanged();
 }
 
 void LexInterface::Colourise(Sci::Position start, Sci::Position end) {
@@ -2430,13 +2429,6 @@ void Document::StyleToAdjustingLineDuration(Sci::Position pos) {
 	ElapsedPeriod epStyling;
 	EnsureStyledTo(pos);
 	durationStyleOneByte.AddSample(pos - stylingStart, epStyling.Duration());
-}
-
-void Document::LexerChanged() {
-	// Tell the watchers the lexer has changed.
-	for (const WatcherWithUserData &watcher : watchers) {
-		watcher.watcher->NotifyLexerChanged(this, watcher.userData);
-	}
 }
 
 LexInterface *Document::GetLexInterface() const noexcept {

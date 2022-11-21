@@ -844,7 +844,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6121" name="Salir al cerrar pestaña próxima"/>
 					<Item id="6122" name="Ocultar (Alt o F10 para des/activar)"/>
 					<Item id="6123" name="Localización"/>
-					<Item id="6128" name="Iconos alternados"/>
+					<Item id="6128" name="Iconos alternativos"/>
 				</Global>
 				<Scintillas title="Edición">
 					<Item id="6216" name="Configuración del cursor"/>

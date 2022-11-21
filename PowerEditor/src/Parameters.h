@@ -723,15 +723,17 @@ struct DarkModeConf final
 };
 
 
-struct LargeFileLimitSettings final
+struct LargeFileRestriction final
 {
 	int64_t _largeFileSizeDefInByte = NPP_STYLING_FILESIZE_LIMIT_DEFAULT;
 	bool _isEnabled = true;
 
+	bool _deactivateWordWrap = true;
+
 	bool _allowBraceMatch = false;
 	bool _allowAutoCompletion = false;
 	bool _allowSmartHilite = false;
-	bool _allowWordWrap = false;
+	bool _allowClickableLink = false;
 };
 
 struct NppGUI final
@@ -906,7 +908,7 @@ struct NppGUI final
 	DarkModeConf _darkmode;
 	DarkModeConf _darkmodeplugins;
 
-	LargeFileLimitSettings _largeFileLimit;
+	LargeFileRestriction _largeFileRestriction;
 };
 
 
@@ -1187,7 +1189,18 @@ struct FindHistory final
 	bool _regexBackward4PowerUser = false;
 };
 
+struct ColumnEditorParam final
+{
+	bool _mainChoice = true; //  true (1): text   false (0): number 
 
+	std::wstring _insertedTextContent;
+
+	int _initialNum = -1;
+	int _increaseNum = -1;
+	int _repeatNum = -1;
+	bool _isLeadingZeros = false;
+	int _formatChoice = 0; // 0:Dec 1:Hex 2:Oct 3:Bin
+};
 
 class LocalizationSwitcher final
 {
@@ -1428,6 +1441,7 @@ public:
 	bool writeHistory(const TCHAR *fullpath);
 
 	bool writeProjectPanelsSettings() const;
+	bool writeColumnEditorSettings() const;
 	bool writeFileBrowserSettings(const std::vector<generic_string> & rootPath, const generic_string & latestSelectedItemPath) const;
 
 	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName, const TCHAR *attributName, const TCHAR *attributVal) const;
@@ -1695,13 +1709,11 @@ public:
 		_cmdSettingsDir = settingsDir;
 	};
 
-	void setTitleBarAdd(const generic_string& titleAdd)
-	{
+	void setTitleBarAdd(const generic_string& titleAdd) {
 		_titleBarAdditional = titleAdd;
 	}
 
-	const generic_string& getTitleBarAdd() const
-	{
+	const generic_string& getTitleBarAdd() const {
 		return _titleBarAdditional;
 	}
 
@@ -1713,6 +1725,8 @@ public:
 	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
 	void removeIndexFromXmlUdls(size_t i);
 	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; };
+
+	ColumnEditorParam _columnEditParam;
 
 private:
 	NppParameters();
@@ -1861,7 +1875,8 @@ private:
 	bool _doNppLogNetworkDriveIssue = false;
 
 	bool _doNppLogNulContentCorruptionIssue = false;
-	bool _isQueryEndSessionStarted = false;
+	bool _isEndSessionStarted = false;
+	bool _isEndSessionCritical = false;
 
 public:
 	generic_string getWingupFullPath() const { return _wingupFullPath; };
@@ -1875,8 +1890,10 @@ public:
 
 	bool doNppLogNetworkDriveIssue() { return _doNppLogNetworkDriveIssue; };
 	bool doNppLogNulContentCorruptionIssue() { return _doNppLogNulContentCorruptionIssue; };
-	void queryEndSessionStart() { _isQueryEndSessionStarted = true; };
-	bool isQueryEndSessionStarted() { return _isQueryEndSessionStarted; };
+	void endSessionStart() { _isEndSessionStarted = true; };
+	bool isEndSessionStarted() { return _isEndSessionStarted; };
+	void makeEndSessionCritical() { _isEndSessionCritical = true; };
+	bool isEndSessionCritical() { return _isEndSessionCritical; };
 
 private:
 	void getLangKeywordsFromXmlTree();
@@ -1902,6 +1919,7 @@ private:
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);
+	void feedColumnEditorParameters(TiXmlNode *node);
 	bool feedStylerArray(TiXmlNode *node);
 	std::pair<unsigned char, unsigned char> feedUserLang(TiXmlNode *node);
 	void feedUserStyles(TiXmlNode *node);

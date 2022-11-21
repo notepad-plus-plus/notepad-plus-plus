@@ -1786,6 +1786,12 @@ void ScintillaGTK::Resize(int width, int height) {
 	}
 	if (IS_WIDGET_MAPPED(PWidget(wMain))) {
 		ChangeSize();
+	} else {
+		const PRectangle rcTextArea = GetTextRectangle();
+		if (wrapWidth != rcTextArea.Width()) {
+			wrapWidth = rcTextArea.Width();
+			NeedWrapping();
+		}
 	}
 
 	alloc.x = 0;

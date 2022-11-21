@@ -1158,14 +1158,14 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 
                 <Performance title="Performance">
                     <Item id="7141" name="Restriction des fichiers volumineux"/>
-                    <Item id="7142" name="Lors de l'ouverture d'un fichier volumineux, certaines fonctionnalités sont désactivées pour optimiser les performances. Vous pouvez les personnaliser ici."/>
-                    <Item id="7143" name="Activer la restriction des fichiers volumineux"/>
+                    <Item id="7143" name="Activer la restriction des fichiers volumineux (pas de coloration syntaxique)"/>
                     <Item id="7144" name="Définir la taille du fichier volumineux :"/>
                     <Item id="7146" name="Mo   (1 - 4096)"/>
                     <Item id="7147" name="Permettre de colorer délimiteur symétrique"/>
                     <Item id="7148" name="Permettre d'activer la complétion automatique"/>
                     <Item id="7149" name="Permettre d'activer le coloriage automatique"/>
-                    <Item id="7150" name="Permettre d'activer le retour automatique à la ligne"/>
+                    <Item id="7150" name="Désactiver le retour automatique à la ligne globalement"/>
+                    <Item id="7151" name="Permettre d'activer le lien cliquable"/>
                 </Performance>
 
                 <Cloud title="Cloud &amp; Lien">
@@ -1606,6 +1606,12 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <contextMenu-styleOneToken value="Appliquer le style à 1 seul occurrence" />
             <contextMenu-clearStyle value="Dégager le style" />
             <contextMenu-PluginCommands value="Modules d'extension" />
+            <largeFileRestriction-tip value="Certaines fonctionnalités peuvent ralentir les performances lors de l'ouverture du fichier volumineux. Ces fonctionnalités peuvent être automatiquement désactivées à l'ouverture d'un fichier volumineux. Vous pouvez les personnaliser ici.
+
+REMARQUE:
+1. Modification ies options ici nécessite de rouvrir les fichiers volumineux actuellement ouverts pour obtenir un résultat correct.
+
+2. Si &quot;Désactiver Retour automatique à la ligne globalement&quot; est cochée et vous ouvrez un fichier volumineux, &quot;Retour automatique à la ligne&quot; sera désactivé pour tous les fichiers. Vous pouvez le réactiver via le menu &quot;Affichage-&gt;Retour automatique à la ligne&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

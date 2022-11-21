@@ -175,14 +175,14 @@
                     <Item id="42025" name="Uložiť aktuálne zaznamenané ma&amp;kro..."/>
                     <Item id="42026" name="Smer textu sprava doľava"/>
                     <Item id="42027" name="Smer textu zľava doprava"/>
-                    <Item id="42028" name="&amp;Nastaviť 'Iba na čítanie'"/>
+                    <Item id="42028" name="&amp;Nastaviť &quot;Iba na čítanie&quot;"/>
                     <Item id="42029" name="Skopírovať cestu k aktuálnemu súboru"/>
                     <Item id="42030" name="Skopírovať názov aktuálneho súboru"/>
                     <Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
                     <Item id="42087" name="Všetky názvy súborov"/>
                     <Item id="42088" name="Všetky cesty súborov"/>
                     <Item id="42032" name="Spustiť makro viacnásobne..."/>
-                    <Item id="42033" name="Odstrániť označenie 'Iba na čítanie'"/>
+                    <Item id="42033" name="Odstrániť označenie &quot;Iba na čítanie&quot;"/>
                     <Item id="42035" name="Zakomentovať riadok"/>
                     <Item id="42036" name="Odkomentovať riadok"/>
                     <Item id="42055" name="Odstrániť prázdne riadky"/>
@@ -399,7 +399,7 @@
                     <Item CMID="10" name="Premenovať…"/>
                     <Item CMID="11" name="Presunúť do koša…"/>
                     <Item CMID="12" name="Iba na čítanie"/>
-                    <Item CMID="13" name="Odstrániť označenie 'Iba na čítanie'"/>
+                    <Item CMID="13" name="Odstrániť označenie &quot;Iba na čítanie&quot;"/>
                     <Item CMID="14" name="Presunúť do novej inštancie"/>
                     <Item CMID="15" name="Otvoriť v novej inštancii"/>
                     <Item CMID="16" name="Obnoviť"/>
@@ -1134,7 +1134,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6866" name="Párové znaky 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Viacnásobné spustenie a dátum">
+                <MultiInstance title="Viac inštancií a dátum">
                     <Item id="6151" name="Nastavenie viacnásobného spustenia"/>
                     <Item id="6152" name="Otvoriť reláciu v novej inštancii (a pri ukončení ju automaticky uložiť)"/>
                     <Item id="6153" name="Režim viacerých inštancií programu"/>
@@ -1155,6 +1155,18 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6163" name="Pridať vlastný znak ako časť výrazu
 (zvoľte, iba ak viete, čo robíte)"/>
                 </Delimiter>
+                
+                <Performance title="Výkon">
+                    <Item id="7141" name="Obmedzenie veľkých súborov"/>
+                    <Item id="7143" name="Povoliť obmedzenie veľkých súborov (bez zvýraznenia syntaxe)"/>
+                    <Item id="7144" name="Veľký súbor je:"/>
+                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7147" name="Povoliť párové zátvorky"/>
+                    <Item id="7148" name="Povoliť automatické dokončovanie"/>
+                    <Item id="7149" name="Povoliť inteligentné zvýrazňovanie"/>
+                    <Item id="7150" name="Globálne zakázať zalamovanie riadkov"/>
+                    <Item id="7151" name="Povoliť klikateľné odkazy URL"/>
+                </Performance>
 
                 <Cloud title="Odkaz na cloud">
                     <Item id="6262" name="Nastavenia programu v cloude"/>
@@ -1594,6 +1606,10 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <contextMenu-styleOneToken value="Použiť štýl na jeden token" />
             <contextMenu-clearStyle value="Vymazať štýl" />
             <contextMenu-PluginCommands value="Príkazy pluginu" />
+            <largeFileRestriction-tip value="Niektoré funkcie môžu pri veľkých súboroch spomaliť výkon. Tieto funkcie je možné pri otvorení veľkého súboru automaticky vypnúť. Môžete si ich prispôsobiť tu.
+POZNÁMKA:
+1. Pri zmene týchto možností sa pre správne fungovanie vyžaduje opätovné otvorenie aktuálne otvorených veľkých súborov.
+2. Ak je povolená možnosť &quot;Globálne zakázať zalamovanie riadkov&quot; a otvoríte veľký súbor, &quot;Zalamovaie riadkov&quot; bude deaktivované pre všetky súbory. Môžete ho znovu aktivovať cez ponuku &quot;Zobrazenie-&gt;Zalomiť riadky&quot;." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

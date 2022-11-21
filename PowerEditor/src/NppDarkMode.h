@@ -184,7 +184,7 @@ namespace NppDarkMode
 	void changeCustomTheme(const Colors& colors);
 
 	// handle events
-	void handleSettingChange(HWND hwnd, LPARAM lParam);
+	void handleSettingChange(HWND hwnd, LPARAM lParam, bool isFromBtn = false);
 	bool isDarkModeReg();
 
 	// processes messages related to UAH / custom menubar drawing.

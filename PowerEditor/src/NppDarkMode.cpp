@@ -364,11 +364,11 @@ namespace NppDarkMode
 		initExperimentalDarkMode();
 		initAdvancedOptions();
 
-		if (NppDarkMode::isWindowsModeEnabled())
+		if (NppDarkMode::isWindowsModeEnabled() && NppDarkMode::isWindows10())
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParam.getNppGUI();
-			nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg();
+			nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg() && !IsHighContrast();
 			_options.enable = nppGUI._darkmode._isEnabled;
 			_options.enableMenubar = _options.enable;
 		}
@@ -714,7 +714,7 @@ namespace NppDarkMode
 
 	// handle events
 
-	void handleSettingChange(HWND hwnd, LPARAM lParam)
+	void handleSettingChange(HWND hwnd, LPARAM lParam, bool isFromBtn)
 	{
 		UNREFERENCED_PARAMETER(hwnd);
 
@@ -723,7 +723,7 @@ namespace NppDarkMode
 			return;
 		}
 
-		if (IsColorSchemeChangeMessage(lParam))
+		if (IsColorSchemeChangeMessage(lParam) || isFromBtn)
 		{
 			// ShouldAppsUseDarkMode() is not reliable from 1903+, use NppDarkMode::isDarkModeReg() instead
 			g_darkModeEnabled = NppDarkMode::isDarkModeReg() && !IsHighContrast();

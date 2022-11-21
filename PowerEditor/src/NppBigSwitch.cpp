@@ -199,6 +199,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParam.getNppGUI();
 
+			// Windows mode is enabled
+			// and don't change if Notepad++ is already in same mode as OS after changing OS mode
 			if (NppDarkMode::isWindowsModeEnabled() && (enableDarkMode != NppDarkMode::isEnabled()))
 			{
 				nppGUI._darkmode._isEnabled = enableDarkMode;
@@ -208,32 +210,35 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
 					switch (state)
 					{
-					case TB_SMALL:
-						_toolBar.reduce();
-						break;
+						case TB_SMALL:
+							_toolBar.reduce();
+							break;
 
-					case TB_LARGE:
-						_toolBar.enlarge();
-						break;
+						case TB_LARGE:
+							_toolBar.enlarge();
+							break;
 
-					case TB_SMALL2:
-						_toolBar.reduceToSet2();
-						break;
+						case TB_SMALL2:
+							_toolBar.reduceToSet2();
+							break;
 
-					case TB_LARGE2:
-						_toolBar.enlargeToSet2();
-						break;
+						case TB_LARGE2:
+							_toolBar.enlargeToSet2();
+							break;
 
-					case TB_STANDARD:
-						_toolBar.setToBmpIcons();
-						break;
+						case TB_STANDARD:
+							_toolBar.setToBmpIcons();
+							break;
 					}
 					NppDarkMode::refreshDarkMode(hwnd, false);
 				}
 				else
 				{
 					HWND hSubDlg = _preference._darkModeSubDlg.getHSelf();
-					::SendMessage(hSubDlg, WM_COMMAND, IDC_RADIO_DARKMODE_FOLLOWWINDOWS, 0);
+
+					// don't use IDC_RADIO_DARKMODE_FOLLOWWINDOWS, it is only for button,
+					// it calls NppDarkMode::handleSettingChange, which is not needed here
+					::SendMessage(hSubDlg, WM_COMMAND, IDC_RADIO_DARKMODE_DARKMODE, 0);
 				}
 			}
 

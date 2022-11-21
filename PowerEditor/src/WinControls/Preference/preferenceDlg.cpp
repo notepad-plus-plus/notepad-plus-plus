@@ -1213,7 +1213,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
 		case WM_INITDIALOG:
 		{
-			const int topControlID = NppDarkMode::isWindowsModeEnabled() ? IDC_RADIO_DARKMODE_FOLLOWWINDOWS : NppDarkMode::isEnabled() ? IDC_RADIO_DARKMODE_DARKMODE : IDC_RADIO_DARKMODE_LIGHTMODE;
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_FOLLOWWINDOWS), NppDarkMode::isWindows10());
+			const int topControlID = NppDarkMode::isWindowsModeEnabled() && NppDarkMode::isWindows10() ? IDC_RADIO_DARKMODE_FOLLOWWINDOWS : NppDarkMode::isEnabled() ? IDC_RADIO_DARKMODE_DARKMODE : IDC_RADIO_DARKMODE_LIGHTMODE;
 			::SendDlgItemMessage(_hSelf, topControlID, BM_SETCHECK, BST_CHECKED, 0);
 
 			int id = IDC_RADIO_DARKMODE_BLACK;
@@ -1394,9 +1395,12 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			bool doEnableCustomizedColorCtrls = false;
 			switch (wParam)
 			{
+				case IDC_RADIO_DARKMODE_FOLLOWWINDOWS:
+				{
+					NppDarkMode::handleSettingChange(nullptr, 0, true);
+				}
 				case IDC_RADIO_DARKMODE_LIGHTMODE:
 				case IDC_RADIO_DARKMODE_DARKMODE:
-				case IDC_RADIO_DARKMODE_FOLLOWWINDOWS:
 				{
 					const bool isFollowWindows = isCheckedOrNot(IDC_RADIO_DARKMODE_FOLLOWWINDOWS);
 					NppDarkMode::setWindowsMode(isFollowWindows);

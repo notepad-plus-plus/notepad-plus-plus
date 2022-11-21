@@ -199,44 +199,41 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParam.getNppGUI();
 
-			//if (NppDarkMode::isWindowsModeEnabled() && (enableDarkMode != NppDarkMode::isEnabled()))
-			if (nppGUI._darkmode._isEnabled && nppGUI._darkmode._advOptions._enableWindowsMode && (enableDarkMode != NppDarkMode::isEnabled()))
+			if (NppDarkMode::isWindowsModeEnabled() && (enableDarkMode != NppDarkMode::isEnabled()))
 			{
-				//nppGUI._darkmode._isEnabled = enableDarkMode;
+				nppGUI._darkmode._isEnabled = enableDarkMode;
 				if (!_preference.isCreated())
 				{
-					/*
 					const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
 					toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
 					switch (state)
 					{
-						case TB_SMALL:
-							_toolBar.reduce();
-							break;
+					case TB_SMALL:
+						_toolBar.reduce();
+						break;
 
-						case TB_LARGE:
-							_toolBar.enlarge();
-							break;
+					case TB_LARGE:
+						_toolBar.enlarge();
+						break;
 
-						case TB_SMALL2:
-							_toolBar.reduceToSet2();
-							break;
+					case TB_SMALL2:
+						_toolBar.reduceToSet2();
+						break;
 
-						case TB_LARGE2:
-							_toolBar.enlargeToSet2();
-							break;
+					case TB_LARGE2:
+						_toolBar.enlargeToSet2();
+						break;
 
-						case TB_STANDARD:
-							_toolBar.setToBmpIcons();
-							break;
+					case TB_STANDARD:
+						_toolBar.setToBmpIcons();
+						break;
 					}
-					*/
-					NppDarkMode::refreshDarkMode(hwnd, true);
+					NppDarkMode::refreshDarkMode(hwnd, false);
 				}
 				else
 				{
 					HWND hSubDlg = _preference._darkModeSubDlg.getHSelf();
-					::SendMessage(hSubDlg, WM_COMMAND, IDC_CHECK_DARKMODE_ENABLE, NppDarkMode::isExperimentalActive() ? 1 : 2);
+					::SendMessage(hSubDlg, WM_COMMAND, IDC_RADIO_DARKMODE_FOLLOWWINDOWS, 0);
 				}
 			}
 

@@ -368,7 +368,7 @@ namespace NppDarkMode
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParam.getNppGUI();
-			//nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg();
+			nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg();
 			_options.enable = nppGUI._darkmode._isEnabled;
 			_options.enableMenubar = _options.enable;
 		}
@@ -464,6 +464,11 @@ namespace NppDarkMode
 		return g_advOptions._enableWindowsMode;
 	}
 
+	void setWindowsMode(bool enable)
+	{
+		g_advOptions._enableWindowsMode = enable;
+	}
+
 	void setThemeName(const generic_string& newThemeName)
 	{
 		if (NppDarkMode::isEnabled())
@@ -517,11 +522,9 @@ namespace NppDarkMode
 	void setAdvancedOptions()
 	{
 		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-		auto& darkAdvOptDefault = nppGui._darkmode._advOptions._darkDefaults;
-		auto& liteAdvOptDefault = nppGui._darkmode._advOptions._lightDefaults;
+		auto& advOpt = nppGui._darkmode._advOptions;
 
-		darkAdvOptDefault = g_advOptions._darkDefaults;
-		liteAdvOptDefault = g_advOptions._lightDefaults;
+		advOpt = g_advOptions;
 	}
 
 	bool isWindows10()

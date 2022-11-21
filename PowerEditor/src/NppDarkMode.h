@@ -116,6 +116,7 @@ namespace NppDarkMode
 	bool isExperimentalSupported();
 
 	bool isWindowsModeEnabled();
+	void setWindowsMode(bool enable);
 	generic_string getThemeName();
 	void setThemeName(const generic_string& newThemeName);
 	int getToolBarIconSet(bool useDark);

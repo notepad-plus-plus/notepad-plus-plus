@@ -1213,22 +1213,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	{
 		case WM_INITDIALOG:
 		{
-			// light mode : !_isEnabled
-			// dark mode : _isEnabled && !_enableWindowsMode
-			// follow windows : _isEnabled && _enableWindowsMode
-			//::SendDlgItemMessage(_hSelf, IDC_CHECK_DARKMODE_ENABLE, BM_SETCHECK, nppGUI._darkmode._isEnabled, 0);
-
-			int topControlID = IDC_RADIO_DARKMODE_LIGHTMODE;
-			if (nppGUI._darkmode._isEnabled)
-			{
-				if (nppGUI._darkmode._advOptions._enableWindowsMode)
-					topControlID = IDC_RADIO_DARKMODE_FOLLOWWINDOWS;
-				else
-					topControlID = IDC_RADIO_DARKMODE_DARKMODE;
-
-			}
-
-			::SendDlgItemMessage(_hSelf, topControlID, BM_SETCHECK, TRUE, 0);
+			const int topControlID = NppDarkMode::isWindowsModeEnabled() ? IDC_RADIO_DARKMODE_FOLLOWWINDOWS : NppDarkMode::isEnabled() ? IDC_RADIO_DARKMODE_DARKMODE : IDC_RADIO_DARKMODE_LIGHTMODE;
+			::SendDlgItemMessage(_hSelf, topControlID, BM_SETCHECK, BST_CHECKED, 0);
 
 			int id = IDC_RADIO_DARKMODE_BLACK;
 			switch (nppGUI._darkmode._colorTone)
@@ -1408,16 +1394,14 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			bool doEnableCustomizedColorCtrls = false;
 			switch (wParam)
 			{
-				case IDC_CHECK_DARKMODE_ENABLE:
 				case IDC_RADIO_DARKMODE_LIGHTMODE:
 				case IDC_RADIO_DARKMODE_DARKMODE:
+				case IDC_RADIO_DARKMODE_FOLLOWWINDOWS:
 				{
-					// lParam == hwnd => IDC_RADIO_DARKMODE_LIGHTMODE or IDC_RADIO_DARKMODE_DARKMODE
-					// lParam == 1 => Send via WM_SETTINGCHANGE due to Windows application change to DarkMode
-					// lParam == 2 => Send via WM_SETTINGCHANGE due to Windows application change to LiteMode
-					bool isFollowWindows = lParam ==  1 || lParam == 2 ? true: false;
+					const bool isFollowWindows = isCheckedOrNot(IDC_RADIO_DARKMODE_FOLLOWWINDOWS);
+					NppDarkMode::setWindowsMode(isFollowWindows);
 
-					bool enableDarkMode = isCheckedOrNot(IDC_RADIO_DARKMODE_DARKMODE) || lParam == 1;
+					const bool enableDarkMode = isCheckedOrNot(IDC_RADIO_DARKMODE_DARKMODE) || (isFollowWindows && NppDarkMode::isExperimentalActive());
 					nppGUI._darkmode._isEnabled = enableDarkMode;
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DARKMODE_BLACK), enableDarkMode);
@@ -1435,17 +1419,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					::SendMessage(_hParent, PREF_MSG_SETGUITOOLICONSSET, static_cast<WPARAM>(enableDarkMode), 0);
 					::SendMessage(_hParent, PREF_MSG_SETGUITABBARICONS, static_cast<WPARAM>(enableDarkMode), 0);
 
-					if (!isFollowWindows)
-						nppGUI._darkmode._advOptions._enableWindowsMode = false;
-
 					changed = true;
-				}
-				break;
-
-				case IDC_RADIO_DARKMODE_FOLLOWWINDOWS:
-				{
-					nppGUI._darkmode._isEnabled = true;
-					nppGUI._darkmode._advOptions._enableWindowsMode = true;
 				}
 				break;
 

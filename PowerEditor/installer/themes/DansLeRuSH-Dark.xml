@@ -456,10 +456,10 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
             <WordsStyle name="OPERATOR" styleID="8" fgColor="E3CEAB" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="URI" styleID="9" fgColor="FFFF80" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMPACT IRI" styleID="10" fgColor="0000FF" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="KEYWORD" styleID="11" fgColor="18AF8A" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
+            <WordsStyle name="KEYWORD" styleID="11" fgColor="18AF8A" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="LD KEYWORD" styleID="12" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
-            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />		
-		</LexerType>
+            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />
+        </LexerType>
         <LexerType name="kix" desc="KiXtart" ext="">
             <WordsStyle name="DEFAULT" styleID="31" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
@@ -907,11 +907,11 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
         <WidgetStyle name="White space symbol" styleID="0" fgColor="4D4D4D" bgColor="2E2E2E" fontStyle="0" fontSize="" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="2E2E2E" fgColor="555753" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="2E2E2E" fgColor="A88AB6" fontName="" fontSize="10" fontStyle="0" />
-        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="2E2E2E" fontStyle="0" fgColor="E0E2E4" />
-        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="2E2E2E" fontStyle="0" fgColor="E0E2E4" fontSize="14" />
-        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="2E2E2E" fontStyle="0" fgColor="666666" fontSize="10" />
-        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="2E2E2E" fontStyle="0" fgColor="F57F3D" fontSize="" />
-        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="2E2E2E" fontStyle="0" fgColor="AB7967" />
+        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="88B090" fontStyle="0" fgColor="E0E2E4" />
+        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="F8F893" fontStyle="0" fgColor="E0E2E4" fontSize="14" />
+        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="F18C96" fontStyle="0" fgColor="666666" fontSize="10" />
+        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="408040" fontStyle="0" fgColor="F57F3D" fontSize="" />
+        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="968CF1" fontStyle="0" fgColor="AB7967" />
         <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="2E2E2E" fgColor="B2CCD6" fontStyle="0" />
         <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="2E2E2E" fgColor="A88AB6" fontStyle="0" />
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="2E2E2E" fgColor="B2CCD6" fontStyle="0" />

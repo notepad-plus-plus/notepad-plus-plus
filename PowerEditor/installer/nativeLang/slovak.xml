@@ -927,7 +927,9 @@
                 </Scintillas>
 
                 <DarkMode title="Tmavý režim">
-                    <Item id="7101" name="Povoliť tmavý režim"/>
+                    <Item id="7131" name="Svetlý režim"/>
+                    <Item id="7132" name="Tmavý režim"/>
+                    <Item id="7133" name="Podľa systému"/>
                     <Item id="7102" name="Čierna"/>
                     <Item id="7103" name="Červená"/>
                     <Item id="7104" name="Zelená"/>

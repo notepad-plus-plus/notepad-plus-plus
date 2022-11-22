@@ -927,7 +927,9 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Scintillas>
 
                 <DarkMode title="Mode Sombre">
-                    <Item id="7101" name="Activer mode sombre"/>
+                    <Item id="7131" name="Mode sombre"/>
+                    <Item id="7132" name="Mode lumineux"/>
+                    <Item id="7133" name="Suivre Windows"/>
                     <Item id="7102" name="noir"/>
                     <Item id="7103" name="rouge"/>
                     <Item id="7104" name="vert"/>

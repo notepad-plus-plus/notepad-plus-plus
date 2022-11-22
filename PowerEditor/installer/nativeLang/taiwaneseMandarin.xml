@@ -916,7 +916,9 @@
                 </Scintillas>
 
                 <DarkMode title="黑暗模式">
-                    <Item id="7101" name="啟動黑暗模式"/>
+                    <Item id="7131" name="黑暗模式"/>
+                    <Item id="7132" name="鮮明模式"/>
+                    <Item id="7133" name="跟隨 Windows 模式"/>
                     <Item id="7102" name="黑色"/>
                     <Item id="7103" name="紅色"/>
                     <Item id="7104" name="綠色"/>

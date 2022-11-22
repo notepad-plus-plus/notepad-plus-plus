@@ -19,8 +19,8 @@
                     <Item menuId="settings" name="გამართვა"/>
                     <Item menuId="macro" name="მაკრო"/>
                     <Item menuId="run" name="გაშვება"/>
-                    <Item idName="Plugins" name="დანამატები"/>
-                    <Item idName="Window" name="ფანჯარა"/>
+                    <Item menuId="Plugins" name="დანამატები"/>
+                    <Item menuId="Window" name="ფანჯარა"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
@@ -277,14 +277,10 @@
                 <Item id="1604" name="რეგისტრის &amp;დამთხვევა"/>
                 <Item id="1605" name="ზოგადი &amp;დამთხვევა"/>
                 <Item id="1606" name="მთლიან დოკუმენტში &amp;ძებნა"/>
-                <Item id="1612" name="&amp;მაღლა"/>
-                <Item id="1613" name="&amp;დაბლა"/>
                 <Item id="1614" name="რაოდენობა"/>
                 <Item id="1615" name="ყველგან მოძებნა"/>
                 <Item id="1616" name="ხაზის დანიშვნა"/>
-                <Item id="1617" name="ნაპოვნის მონიშვნა"/>
                 <Item id="1618" name="წინა (ძებნის დროს) სანიშნების მოცილება"/>
-                <Item id="1621" name="მიმართულება"/>
                 <Item id="1611" name="ჩანა&amp;ცვლება:"/>
                 <Item id="1608" name="&amp;ჩანაცვლება"/>
                 <Item id="1609" name="ყველას ჩ&amp;ანაცვლება"/>
@@ -295,7 +291,6 @@
                 <Item id="1633" name="გასუფთავება"/>
                 <Item id="1635" name="ყველა გახსნილ დოკუმენტში ჩანაცვლება"/>
                 <Item id="1636" name="ყველა გახსნილ დოკუმენტში ძებნა"/>
-                <Item id="1637" name="ფაილებში ძებნა"/>
                 <Item id="1654" name="ფილტრი:"/>
                 <Item id="1655" name="საქაღალდე:"/>
                 <Item id="1656" name="ყველგან ძებნა"/>

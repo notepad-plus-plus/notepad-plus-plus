@@ -8,12 +8,13 @@
 #ifndef SCINTILLAWIN_H
 #define SCINTILLAWIN_H
 
+namespace Scintilla::Internal {
+
 class ScintillaWin;
 
-namespace Scintilla {
-
 int ResourcesRelease(bool fromDllMain) noexcept;
-sptr_t DirectFunction(ScintillaWin *sci, UINT iMessage, uptr_t wParam, sptr_t lParam);
+int RegisterClasses(void *hInstance) noexcept;
+Scintilla::sptr_t DirectFunction(ScintillaWin *sci, UINT iMessage, Scintilla::uptr_t wParam, Scintilla::sptr_t lParam);
 
 }
 

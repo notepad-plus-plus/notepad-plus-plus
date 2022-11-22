@@ -1,6 +1,6 @@
-//  This file was automatically generated on Wed Mar  3 12:23:02 2021
+//  This file was automatically generated on Sun Jun  5 16:50:18 2022
 //  by libs/config/tools/generate.cpp
-//  Copyright John Maddock 2002-4.
+//  Copyright John Maddock 2002-21.
 //  Use, modification and distribution are subject to the 
 //  Boost Software License, Version 1.0. (See accompanying file 
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -12,6 +12,9 @@
 #include <boost/config.hpp>
 #include <boost/config/assert_cxx14.hpp>
 
+#ifdef BOOST_NO_CXX17_DEDUCTION_GUIDES
+#  error "Your compiler appears not to be fully C++17 compliant.  Detected via defect macro BOOST_NO_CXX17_DEDUCTION_GUIDES."
+#endif
 #ifdef BOOST_NO_CXX17_FOLD_EXPRESSIONS
 #  error "Your compiler appears not to be fully C++17 compliant.  Detected via defect macro BOOST_NO_CXX17_FOLD_EXPRESSIONS."
 #endif

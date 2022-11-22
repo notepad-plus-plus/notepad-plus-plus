@@ -18,16 +18,65 @@
 #include "GoToLineDlg.h"
 
 
-INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, TRUE, 0);
 			goToCenter();
 			return TRUE;
 		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = {};
+				getClientRect(rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_COMMAND : 
 		{
 			switch (wParam)
@@ -39,25 +88,25 @@ INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 				case IDOK :
                 {
-                    int line = getLine();
+                    long long line = getLine();
                     if (line != -1)
                     {
                         display(false);
                         cleanLineEdit();
 						if (_mode == go2line)
 						{
-							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, line-1);
-							(*_ppEditView)->execute(SCI_GOTOLINE, line-1);
+							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, static_cast<WPARAM>(line - 1));
+							(*_ppEditView)->execute(SCI_GOTOLINE, static_cast<WPARAM>(line - 1));
 						}
 						else
 						{
-							int posToGoto = 0;
+							size_t posToGoto = 0;
 							if (line > 0)
 							{
 								// make sure not jumping into the middle of a multibyte character
 								// or into the middle of a CR/LF pair for Windows files
-								auto before = (*_ppEditView)->execute(SCI_POSITIONBEFORE, line);
-								posToGoto = static_cast<int>((*_ppEditView)->execute(SCI_POSITIONAFTER, before));
+								auto before = (*_ppEditView)->execute(SCI_POSITIONBEFORE, static_cast<WPARAM>(line));
+								posToGoto = (*_ppEditView)->execute(SCI_POSITIONAFTER, before);
 							}
 							auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posToGoto);
 							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
@@ -117,25 +166,27 @@ INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		default :
 			return FALSE;
 	}
+	return FALSE;
 }
 
 void GoToLineDlg::updateLinesNumbers() const 
 {
-	unsigned int current = 0;
-	unsigned int limit = 0;
+	size_t current = 0;
+	size_t limit = 0;
 	
 	if (_mode == go2line)
 	{
-		current = static_cast<unsigned int>((*_ppEditView)->getCurrentLineNumber() + 1);
-		limit = static_cast<unsigned int>((*_ppEditView)->execute(SCI_GETLINECOUNT));
+		current = (*_ppEditView)->getCurrentLineNumber() + 1;
+		limit = (*_ppEditView)->execute(SCI_GETLINECOUNT);
 	}
 	else
 	{
-		current = static_cast<unsigned int>((*_ppEditView)->execute(SCI_GETCURRENTPOS));
-		int currentDocLength = (*_ppEditView)->getCurrentDocLen();
-		limit = static_cast<unsigned int>(currentDocLength > 0 ? currentDocLength - 1 : 0);
+		current = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+		size_t currentDocLength = (*_ppEditView)->getCurrentDocLen();
+		limit = (currentDocLength > 0 ? currentDocLength - 1 : 0);
 	}
-    ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
-    ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);
+    
+	
+	::SetDlgItemTextA(_hSelf, ID_CURRLINE, std::to_string(current).c_str());
+	::SetDlgItemTextA(_hSelf, ID_LASTLINE, std::to_string(limit).c_str());
 }
-

@@ -1,0 +1,30 @@
+{6}#{0} Checking resolution of bug 2247{1}
+
+{21}~~~sql
+SELECT datetime() AS `date`;
+~~~{1}
+
+{20}```sql
+SELECT datetime() AS `date`;
+```{1}
+
+{0}List of examples:{1}
+
+{13}-{0}   example {4}*one*{1}
+
+{13}-{0}   example {5}_two_{1}
+
+{13}-{0}   example `inline code without end{1}
+
+{12}   {0} In case of {2}**AAA**{0}:{1}
+{12}   {0} {1}
+{12}   {0} {20}```sql
+    SELECT strftime('%Y-%m-%d %H:%M:%S', 'now') AS `date`;
+    ```{1}
+{12}   {0} {1}
+{12}   {0} or, in case of {3}__BBB__{0}:{1}
+{12}   {0} . . .{1}
+
+{13}-{0}   example {4}*three*{1}
+
+{0}Last paragraph.{1}

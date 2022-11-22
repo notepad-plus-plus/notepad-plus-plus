@@ -1,4 +1,6 @@
-// Unit Tests for Scintilla internal data structures
+/** @file testPerLine.cxx
+ ** Unit Tests for Scintilla internal data structures
+ **/
 
 #include <cstddef>
 #include <cstring>
@@ -6,12 +8,14 @@
 #include <string_view>
 #include <vector>
 #include <forward_list>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "ScintillaTypes.h"
 
-#include "Scintilla.h"
+#include "Debugging.h"
+
 #include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
@@ -21,9 +25,35 @@
 
 #include "catch.hpp"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
+
+constexpr int FoldBase = static_cast<int>(Scintilla::FoldLevel::Base);
 
 // Test MarkerHandleSet.
+
+TEST_CASE("CompileCopying MarkerHandleSet") {
+
+	// These are compile-time tests to check that basic copy and move
+	// operations are defined correctly.
+
+	SECTION("CopyingMoving") {
+		MarkerHandleSet s;
+		MarkerHandleSet s2;
+
+		// Copy constructor
+		MarkerHandleSet sa(s);
+		// Copy assignment
+		MarkerHandleSet sb;
+		sb = s;
+
+		// Move constructor
+		MarkerHandleSet sc(std::move(s));
+		// Move assignment
+		MarkerHandleSet sd;
+		sd = (std::move(s2));
+	}
+
+}
 
 TEST_CASE("MarkerHandleSet") {
 
@@ -167,41 +197,41 @@ TEST_CASE("LineLevels") {
 
 	SECTION("Initial") {
 		// Initial State
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(0));
+		REQUIRE(FoldBase == ll.GetLevel(0));
 	}
 
 	SECTION("SetLevel") {
-		REQUIRE(SC_FOLDLEVELBASE == ll.SetLevel(1, 200, 5));
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(0));
+		REQUIRE(FoldBase == ll.SetLevel(1, 200, 5));
+		REQUIRE(FoldBase == ll.GetLevel(0));
 		REQUIRE(200 == ll.GetLevel(1));
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(2));
+		REQUIRE(FoldBase == ll.GetLevel(2));
 		ll.ClearLevels();
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(1));
+		REQUIRE(FoldBase == ll.GetLevel(1));
 		ll.ExpandLevels(5);
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(7));
+		REQUIRE(FoldBase == ll.GetLevel(7));
 	}
 
 	SECTION("InsertRemoveLine") {
 		ll.SetLevel(1, 1, 5);
 		ll.SetLevel(2, 2, 5);
 		ll.InsertLine(2);
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(0));
+		REQUIRE(FoldBase == ll.GetLevel(0));
 		REQUIRE(1 == ll.GetLevel(1));
 		REQUIRE(2 == ll.GetLevel(2));
 		REQUIRE(2 == ll.GetLevel(3));
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(4));
+		REQUIRE(FoldBase == ll.GetLevel(4));
 		ll.RemoveLine(2);
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(0));
+		REQUIRE(FoldBase == ll.GetLevel(0));
 		REQUIRE(1 == ll.GetLevel(1));
 		REQUIRE(2 == ll.GetLevel(2));
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(3));
+		REQUIRE(FoldBase == ll.GetLevel(3));
 		ll.InsertLines(2, 2);
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(0));
+		REQUIRE(FoldBase == ll.GetLevel(0));
 		REQUIRE(1 == ll.GetLevel(1));
 		REQUIRE(2 == ll.GetLevel(2));
 		REQUIRE(2 == ll.GetLevel(3));
 		REQUIRE(2 == ll.GetLevel(4));
-		REQUIRE(SC_FOLDLEVELBASE == ll.GetLevel(5));
+		REQUIRE(FoldBase == ll.GetLevel(5));
 	}
 }
 
@@ -220,11 +250,11 @@ TEST_CASE("LineState") {
 	}
 
 	SECTION("SetLineState") {
-		REQUIRE(0 == ls.SetLineState(1, 200));
+		REQUIRE(0 == ls.SetLineState(1, 200, 2));
 		REQUIRE(0 == ls.GetLineState(0));
 		REQUIRE(200 == ls.GetLineState(1));
 		REQUIRE(0 == ls.GetLineState(2));
-		REQUIRE(0 == ls.SetLineState(2, 400));
+		REQUIRE(0 == ls.SetLineState(2, 400, 3));
 		REQUIRE(0 == ls.GetLineState(0));
 		REQUIRE(200 == ls.GetLineState(1));
 		REQUIRE(400 == ls.GetLineState(2));
@@ -238,11 +268,11 @@ TEST_CASE("LineState") {
 
 	SECTION("InsertRemoveLine") {
 		REQUIRE(0 == ls.GetMaxLineState());
-		ls.SetLineState(1, 1);
-		ls.SetLineState(2, 2);
-		REQUIRE(3 == ls.GetMaxLineState());
-		ls.InsertLine(2);
+		ls.SetLineState(1, 1, 3);
+		ls.SetLineState(2, 2, 3);
 		REQUIRE(4 == ls.GetMaxLineState());
+		ls.InsertLine(2);
+		REQUIRE(5 == ls.GetMaxLineState());
 		REQUIRE(0 == ls.GetLineState(0));
 		REQUIRE(1 == ls.GetLineState(1));
 		REQUIRE(2 == ls.GetLineState(2));

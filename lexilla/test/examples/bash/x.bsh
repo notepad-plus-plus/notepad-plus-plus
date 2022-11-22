@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -e
+# -----------------------------------------------------------------------------
+# Voluptatem dolore magnam eius quisquam eius dolor labore. Porro dolor amet ut.
+# Numquam labore amet modi. Dolorem velit numquam porro est quiquia ipsum quisquam.
+# Magnam consectetur est voluptatem aliquam adipisci. Sed dolorem quaerat quiquia.
+# -----------------------------------------------------------------------------
+export PYTHONPATH="scripts:$PYTHONPATH"
+
+if [[ -z "$1" ]]; then
+  PROJECT_DIR=$(rlwrap -S "Enter source path: " -e '' -i -o cat)
+  PROJECT_PATH="$(pwd)/$PROJECT_DIR"
+else
+  PROJECT_PATH="$(pwd)/${1}"
+fi
+
+OUT_FILE=${PROJECT_PATH}/testing.txt
+
+(cat<<EOF
+  Last run $(date +'%Y-%m-%d') at $(date +'%H:%M:%S.%2N')
+EOF
+) > $OUT_FILE
+
+find "$PROJECT_PATH/src" -maxdepth 1 -type f |\
+while read -r f; do
+  {
+    python3 -c "print();print('='*50)";\
+    echo `basename "$f"` | tr -d 'x';\
+    python3 -c "print('='*50)";\
+    python3 "$f";\
+  } >> $OUT_FILE
+done
+
+INVALID_NUMBER=0#0000

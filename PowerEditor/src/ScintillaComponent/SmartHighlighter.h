@@ -28,5 +28,5 @@ public:
 	void highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Hilite);
 
 private:
-	FindReplaceDlg * _pFRDlg;
+	FindReplaceDlg * _pFRDlg = nullptr;
 };

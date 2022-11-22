@@ -13,13 +13,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #include <iostream>
 #include <stdexcept>
 #include "ColourPicker.h"
 #include "ColourPopup.h"
-
-
-
+#include "NppDarkMode.h"
 
 void ColourPicker::init(HINSTANCE hInst, HWND parent)
 {
@@ -60,7 +59,16 @@ void ColourPicker::drawBackground(HDC hDC)
 	getClientRect(rc);
 	hbrush = ::CreateSolidBrush(_currentColour);
 	HGDIOBJ oldObj = ::SelectObject(hDC, hbrush);
+	HPEN holdPen = nullptr;
+	if (NppDarkMode::isEnabled())
+	{
+		holdPen = static_cast<HPEN>(::SelectObject(hDC, NppDarkMode::getEdgePen()));
+	}
 	::Rectangle(hDC, 0, 0, rc.right, rc.bottom);
+	if (NppDarkMode::isEnabled() && holdPen)
+	{
+		::SelectObject(hDC, holdPen);
+	}
 	::SelectObject(hDC, oldObj);
 	//FillRect(hDC, &rc, hbrush);
 	::DeleteObject(hbrush);
@@ -131,6 +139,15 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			if (_pColourPopup)
+			{
+				::SendMessage(_pColourPopup->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+			}
+			return TRUE;
+		}
+
 		case WM_ERASEBKGND:
 		{
 			HDC dc = (HDC)wParam;
@@ -161,7 +178,7 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 		{
 			if ((BOOL)wParam == FALSE)
 			{
-				_currentColour = ::GetSysColor(COLOR_3DFACE);
+				_currentColour = NppDarkMode::isEnabled() ? NppDarkMode::getDarkerBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
 				redraw();
 			}
 			return TRUE;

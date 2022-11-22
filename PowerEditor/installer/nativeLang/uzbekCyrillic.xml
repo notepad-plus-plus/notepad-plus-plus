@@ -18,8 +18,8 @@
 					<Item menuId="settings" name = "Танловлар"/>
 					<Item menuId="macro" name = "Макрослар"/>
 					<Item menuId="run" name = "Ишга тушириш"/>
-					<Item idName = "Plugins" name = "Қўшимчалар"/>
-					<Item idName = "Window" name = "Ойналар"/>
+					<Item menuId = "Plugins" name = "Қўшимчалар"/>
+					<Item menuId = "Window" name = "Ойналар"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -227,14 +227,10 @@
                 <Item id = "1604" name = "Регистрни ҳисобга олиш"/>
                 <Item id = "1605" name = "Мунтазам иборалар"/>
                 <Item id = "1606" name = "Сўзларни сатрдан-сатрга ўтказиш"/>
-                <Item id = "1612" name = "Юқорига"/>
-                <Item id = "1613" name = "Пастга"/>
                 <Item id = "1614" name = "Санаб чиқиш"/>
                 <Item id = "1615" name = "Барчасини излаш"/>
                 <Item id = "1616" name = "Сатр белгилари"/>
-                <Item id = "1617" name = "Белгилаш услуби"/>
                 <Item id = "1618" name = "Ҳар бир қидиришда тозалаш"/>
-                <Item id = "1621" name = "Йўналиш"/>
                 <Item id = "1611" name = "Қуйидагига алмаштириш:"/>
                 <Item id = "1608" name = "Алмаштириш"/>
                 <Item id = "1609" name = "Барчасини алмаштириш"/>
@@ -247,8 +243,6 @@
 			 	<Item id = "1633" name = "Олиб ташлаш"/>
 			 	<Item id = "1635" name = "Очиқ файлларда барчасини алмаштириш"/>
 			 	<Item id = "1636" name = "Барча очиқ файлларда топиш"/>
-			 	<Item id = "1637" name = "Файлларда қидириш"/>
-			 	<Item id = "1640" name = "Қидириш/Алмаштириш"/>
 				<Item id = "1641" name = "Жорий ҳужжатда барчасини топиш"/>
 				<Item id = "1654" name = "Фильтрлар:"/>
 				<Item id = "1655" name = "Папка:"/>

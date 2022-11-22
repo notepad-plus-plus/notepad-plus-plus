@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;বিন্যাস"/>
                     <Item menuId="macro" name="ম্যাক্রো"/>
                     <Item menuId="run" name="চালান"/>
-                    <Item idName="Plugins" name="প্লাগইন"/>
-                    <Item idName="Window" name="জানালা"/>
+                    <Item menuId="Plugins" name="প্লাগইন"/>
+                    <Item menuId="Window" name="জানালা"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -319,14 +319,10 @@
                 <Item id="1604" name="&amp;ম্যাচ ক্ষেত্রে"/>
                 <Item id="1605" name="&amp;রেগুলার এক্সপ্রেশন"/>
                 <Item id="1606" name="চারপাশে মোড়ানো&amp;"/>
-                <Item id="1612" name="&amp;উপর"/>
-                <Item id="1613" name="&amp;নিচে"/>
                 <Item id="1614" name="ভাঁজ"/>
                 <Item id="1615" name="অনুসন্ধান"/>
                 <Item id="1616" name="লাইন চিহ্নিত"/>
-                <Item id="1617" name="টোকেন পেয়েছেন শৈলী "/>
                 <Item id="1618" name="প্রতিটি অনুসন্ধানের জন্য অভিযোগমোচন"/>
-                <Item id="1621" name="অভিমুখ "/>
                 <Item id="1611" name="&amp;এই পরিবর্তনের সাথে সাথে :"/>
                 <Item id="1608" name="&amp;পরিবর্তন"/>
                 <Item id="1609" name="&amp;সমস্ত পরিবর্তন "/>
@@ -337,7 +333,6 @@
                 <Item id="1633" name="পরিষ্কার"/>
                 <Item id="1635" name="সমস্ত নথি পরিবর্তন খোলা "/>
                 <Item id="1636" name="সব খোলা নথি অনুসন্ধান"/>
-                <Item id="1637" name="ফাইল খুঁজুন"/>
                 <Item id="1654" name="ব্যাগ:"/>
                 <Item id="1655" name="ডিরেক্টরি:"/>
                 <Item id="1656" name="অনুসন্ধান"/>
@@ -833,11 +828,11 @@
         <ClipboardHistory>
 			<PanelTitle name="ক্লিপবোর্ড ইতিহাস"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="ডকুমেন্ট পরিবর্তনকারী"/>
 			<ColumnName name="নাম"/>
 			<ColumnExt name="প্রসার(Ext.)"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="একটিগুলিগআমি(ASCII) সন্নিবেশ প্যানেল"/>
 			<ColumnVal name="মূল্য"/>

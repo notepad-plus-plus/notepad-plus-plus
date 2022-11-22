@@ -7,9 +7,9 @@
 
 #include "DBCS.h"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 bool DBCSIsLeadByte(int codePage, char ch) noexcept {
 	// Byte ranges found in Wikipedia articles with relevant search strings in each case
@@ -37,6 +37,18 @@ bool DBCSIsLeadByte(int codePage, char ch) noexcept {
 			((uch >= 0xE0) && (uch <= 0xF9));
 	}
 	return false;
+}
+
+bool IsDBCSValidSingleByte(int codePage, int ch) noexcept {
+	switch (codePage) {
+	case 932:
+		return ch == 0x80
+			|| (ch >= 0xA0 && ch <= 0xDF)
+			|| (ch >= 0xFD);
+
+	default:
+		return false;
+	}
 }
 
 }

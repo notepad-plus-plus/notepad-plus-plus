@@ -8,7 +8,7 @@
 #ifndef CONTRACTIONSTATE_H
 #define CONTRACTIONSTATE_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 /**
 */
@@ -36,6 +36,7 @@ public:
 
 	virtual bool GetExpanded(Sci::Line lineDoc) const noexcept=0;
 	virtual bool SetExpanded(Sci::Line lineDoc, bool isExpanded)=0;
+	virtual bool ExpandAll()=0;
 	virtual Sci::Line ContractedNext(Sci::Line lineDocStart) const noexcept =0;
 
 	virtual int GetHeight(Sci::Line lineDoc) const noexcept=0;

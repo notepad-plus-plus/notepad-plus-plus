@@ -10,7 +10,7 @@
 #ifndef RUNSTYLES_H
 #define RUNSTYLES_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 // Return for RunStyles::FillRange reports if anything was changed and the
 // range that was changed. This may be trimmed from the requested range
@@ -25,8 +25,8 @@ struct FillResult {
 template <typename DISTANCE, typename STYLE>
 class RunStyles {
 private:
-	std::unique_ptr<Partitioning<DISTANCE>> starts;
-	std::unique_ptr<SplitVector<STYLE>> styles;
+	Partitioning<DISTANCE> starts;
+	SplitVector<STYLE> styles;
 	DISTANCE RunFromPosition(DISTANCE position) const noexcept;
 	DISTANCE SplitRun(DISTANCE position);
 	void RemoveRun(DISTANCE run);
@@ -34,12 +34,6 @@ private:
 	void RemoveRunIfSameAsPrevious(DISTANCE run);
 public:
 	RunStyles();
-	// Deleted so RunStyles objects can not be copied.
-	RunStyles(const RunStyles &) = delete;
-	RunStyles(RunStyles &&) = delete;
-	void operator=(const RunStyles &) = delete;
-	void operator=(RunStyles &&) = delete;
-	~RunStyles();
 	DISTANCE Length() const noexcept;
 	STYLE ValueAt(DISTANCE position) const noexcept;
 	DISTANCE FindNextChange(DISTANCE position, DISTANCE end) const noexcept;

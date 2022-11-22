@@ -29,38 +29,39 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
 		
 		Use FolderName (optional) to create sub-menu. FolderName can be used in any type of item.
 		FolderName value can be in any language.
+		TranslateID is for translating FolderName's value. If you create your FolderName, don't add TranslateID.
 		-->
-        <Item FolderName="Style all occurrences of token" id="43022"/>
-        <Item FolderName="Style all occurrences of token" id="43024"/>
-        <Item FolderName="Style all occurrences of token" id="43026"/>
-        <Item FolderName="Style all occurrences of token" id="43028"/>
-        <Item FolderName="Style all occurrences of token" id="43030"/>
+        <Item FolderName="Style all occurrences of token" TranslateID="contextMenu-styleAlloccurrencesOfToken" id="43022"/>
+        <Item FolderName="Style all occurrences of token" TranslateID="contextMenu-styleAlloccurrencesOfToken" id="43024"/>
+        <Item FolderName="Style all occurrences of token" TranslateID="contextMenu-styleAlloccurrencesOfToken" id="43026"/>
+        <Item FolderName="Style all occurrences of token" TranslateID="contextMenu-styleAlloccurrencesOfToken" id="43028"/>
+        <Item FolderName="Style all occurrences of token" TranslateID="contextMenu-styleAlloccurrencesOfToken" id="43030"/>
 		
-        <Item FolderName="Style one token" id="43062"/>
-        <Item FolderName="Style one token" id="43063"/>
-        <Item FolderName="Style one token" id="43064"/>
-        <Item FolderName="Style one token" id="43065"/>
-        <Item FolderName="Style one token" id="43066"/>
+        <Item FolderName="Style one token"  TranslateID="contextMenu-styleOneToken" id="43062"/>
+        <Item FolderName="Style one token"  TranslateID="contextMenu-styleOneToken" id="43063"/>
+        <Item FolderName="Style one token"  TranslateID="contextMenu-styleOneToken" id="43064"/>
+        <Item FolderName="Style one token"  TranslateID="contextMenu-styleOneToken" id="43065"/>
+        <Item FolderName="Style one token"  TranslateID="contextMenu-styleOneToken" id="43066"/>
 		
-        <Item FolderName="Remove style" id="43023"/>
-        <Item FolderName="Remove style" id="43025"/>
-        <Item FolderName="Remove style" id="43027"/>
-        <Item FolderName="Remove style" id="43029"/>
-        <Item FolderName="Remove style" id="43031"/>
-        <Item FolderName="Remove style" id="43032"/>
+        <Item FolderName="Clear style"  TranslateID="contextMenu-clearStyle" id="43023"/>
+        <Item FolderName="Clear style"  TranslateID="contextMenu-clearStyle" id="43025"/>
+        <Item FolderName="Clear style"  TranslateID="contextMenu-clearStyle" id="43027"/>
+        <Item FolderName="Clear style"  TranslateID="contextMenu-clearStyle" id="43029"/>
+        <Item FolderName="Clear style"  TranslateID="contextMenu-clearStyle" id="43031"/>
+        <Item FolderName="Clear style"  TranslateID="contextMenu-clearStyle" id="43032"/>
         <Item id="0"/>
 		
 		<!--
 		To add plugin commands, you have to use PluginEntryName and PluginCommandItemName to localize the plugin commands
 		-->
-		<Item FolderName="Plugin commands" PluginEntryName="MIME Tools" PluginCommandItemName="Base64 Encode" />
-        <Item FolderName="Plugin commands" PluginEntryName="MIME Tools" PluginCommandItemName="Base64 Decode" />
+		<Item FolderName="Plugin commands" TranslateID="contextMenu-PluginCommands" PluginEntryName="MIME Tools" PluginCommandItemName="Base64 Encode" />
+        <Item FolderName="Plugin commands" TranslateID="contextMenu-PluginCommands" PluginEntryName="MIME Tools" PluginCommandItemName="Base64 Decode" />
 		
 		<!--
 		Use ItemNameAs (optional) to rename the menu item name in the context menu 
 		ItemNameAs can be used in any type of item. ItemNameAs value can be in any language.
 		-->
-        <Item FolderName="Plugin commands" PluginEntryName="NppExport" PluginCommandItemName="Copy all formats to clipboard" ItemNameAs="Copy Text with Syntax Highlighting" />
+        <Item FolderName="Plugin commands"  TranslateID="contextMenu-PluginCommands" PluginEntryName="NppExport" PluginCommandItemName="Copy all formats to clipboard" ItemNameAs="Copy Text with Syntax Highlighting" />
         <Item id="0"/>
         <Item MenuEntryName="Edit" MenuItemName="UPPERCASE"/>
         <Item MenuEntryName="Edit" MenuItemName="lowercase"/>

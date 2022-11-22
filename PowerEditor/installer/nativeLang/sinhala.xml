@@ -21,8 +21,8 @@
                    <Item menuId="settings" name="සිටවුම්"/>
                    <Item menuId="macro" name="නියෝග එකලස"/>
                    <Item menuId="run" name="ධාවනය"/>
-                   <Item idName="Plugins" name="පේනු මෘදුකාංග"/>
-                   <Item idName="Window" name="කවුළුව"/>
+                   <Item menuId="Plugins" name="පේනු මෘදුකාංග"/>
+                   <Item menuId="Window" name="කවුළුව"/>
 
                </Entries>
 
@@ -290,14 +290,10 @@
                <Item id="1604" name="අක්ෂර තත්වය ගලපන්න"/>
                <Item id="1605" name="නිත්‍ය ප්‍රකාශනය"/>
                <Item id="1606" name="වටේ ඔතන්න"/>
-               <Item id="1612" name="ඉහලට"/>
-               <Item id="1613" name="පහලට"/>
                <Item id="1614" name="ගනින්න"/>
                <Item id="1615" name="සියල්ල සොයන්න"/>
                <Item id="1616" name="පේලිය ලකුණු කරන්න"/>
-               <Item id="1617" name="විලාස සහිත ටෝකනය"/>
                <Item id="1618" name="සෑම සෙවීමක් පවිත්‍ර කිරීම"/>
-               <Item id="1621" name="දිශාව"/>
                <Item id="1611" name="මෙය සමඟ ප්‍රතිස්ථාන ගත කරන්න:"/>
                <Item id="1608" name="ප්‍රතිස්ථානගත කිරීම"/>
                <Item id="1609" name="සියල්ල ප්‍රතිස්ථානගත කිරීම"/>
@@ -308,7 +304,6 @@
                <Item id="1633" name="හිස් කරන්න"/>
                <Item id="1635" name="විවෘත සියලු ගොනු තුල ප්‍රතිස්ථාන ගත කරන්න"/>
                <Item id="1636" name="විවෘත සියලු ගොනු තුල සියල්ල සොයන්න"/>
-               <Item id="1637" name="ගොනු තුල සොයන්න"/>
                <Item id="1654" name="පෙරහන්:"/>
                <Item id="1655" name="ඩිරෙක්ටරිය:"/>
                <Item id="1656" name="සියල්ල සොයන්න"/>

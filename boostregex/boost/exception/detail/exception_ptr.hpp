@@ -40,6 +40,37 @@
 namespace
 boost
     {
+    namespace
+    exception_detail
+        {
+#ifndef BOOST_NO_CXX11_HDR_EXCEPTION
+        struct
+        std_exception_ptr_wrapper:
+            std::exception
+            {
+            std::exception_ptr p;
+            explicit std_exception_ptr_wrapper( std::exception_ptr const & ptr ) BOOST_NOEXCEPT:
+                p(ptr)
+                {
+                }
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+            explicit std_exception_ptr_wrapper( std::exception_ptr && ptr ) BOOST_NOEXCEPT:
+                p(static_cast<std::exception_ptr &&>(ptr))
+                {
+                }
+#endif
+            };
+        shared_ptr<exception_detail::clone_base const>
+        inline
+        wrap_exception_ptr( std::exception_ptr const & e )
+            {
+            exception_detail::clone_base const & base =
+                boost::enable_current_exception(std_exception_ptr_wrapper(std::current_exception()));
+            return shared_ptr<exception_detail::clone_base const>(base.clone());
+            }
+#endif
+        }
+
     class exception_ptr;
     namespace exception_detail { void rethrow_exception_( exception_ptr const & ); }
 
@@ -54,6 +85,12 @@ boost
         exception_ptr()
             {
             }
+#ifndef BOOST_NO_CXX11_HDR_EXCEPTION
+        exception_ptr( std::exception_ptr const & e ):
+            ptr_(exception_detail::wrap_exception_ptr(e))
+            {
+            }
+#endif
         explicit
         exception_ptr( impl const & ptr ):
             ptr_(ptr)
@@ -307,24 +344,6 @@ boost
                 return boost::copy_exception(unknown_exception(e));
             }
 
-#ifndef BOOST_NO_CXX11_HDR_EXCEPTION
-        struct
-        std_exception_ptr_wrapper
-            {
-            std::exception_ptr p;
-            explicit std_exception_ptr_wrapper( std::exception_ptr const & ptr ) BOOST_NOEXCEPT:
-                p(ptr)
-                {
-                }
-#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-            explicit std_exception_ptr_wrapper( std::exception_ptr && ptr ) BOOST_NOEXCEPT:
-                p(static_cast<std::exception_ptr &&>(ptr))
-                {
-                }
-#endif
-            };
-#endif
-
         inline
         exception_ptr
         current_exception_impl()
@@ -457,10 +476,7 @@ boost
 #ifndef BOOST_NO_CXX11_HDR_EXCEPTION
                         try
                             {
-                            // wrap the std::exception_ptr in a clone-enabled Boost.Exception object
-                            exception_detail::clone_base const & base =
-                                boost::enable_current_exception(std_exception_ptr_wrapper(std::current_exception()));
-                            return exception_ptr(shared_ptr<exception_detail::clone_base const>(base.clone()));
+                            return exception_ptr(std::current_exception());
                             }
                         catch(
                         ...)

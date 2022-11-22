@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org" />
+    <meta name="generator" content="SciTE" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
+    <meta name="Description"
+    content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
+    <meta name="Date.Modified" content="20221012" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
+        .logo {
+            background: url(https://www.scintilla.org/LexillaLogo.png) no-repeat;
+            background-image: image-set(
+                        url(https://www.scintilla.org/LexillaLogo.png) 1x,
+                        url(https://www.scintilla.org/LexillaLogo2x.png) 2x  );
+            height:150px;
+        }
+        #versionlist {
+            margin: 0;
+            padding: .5em;
+            list-style-type: none;
+            color: #FFCC99;
+            background: #000000;
+        }
+        #versionlist li {
+            margin-bottom: .5em;
+        }
+        #menu {
+            margin: 0;
+            padding: .5em 0;
+            list-style-type: none;
+            font-size: larger;
+            background: #CCCCCC;
+        }
+        #menu li {
+            margin: 0;
+            padding: 0 .5em;
+            display: inline;
+        }
+    </style>
+    <script type="text/javascript">
+   	function IsRemote() {
+		var loc = '' + window.location;
+		return (loc.indexOf('http:')) != -1 || (loc.indexOf('https:') != -1);
+   	}
+    </script>
+     <title>
+       Lexilla
+     </title>
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td width="256">
+        </td>
+        <td width="40%" align="left">
+          <font color="#FFCC99" size="4"> A library of language lexers for use with Scintilla</font>
+        </td>
+        <td width="40%" align="right">
+          <font color="#FFCC99" size="3">Release version 5.2.0<br />
+           Site last modified October 12 2022</font>
+        </td>
+        <td width="20%">
+          &nbsp;
+        </td>
+      </tr>
+    </table>
+    <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td width="100%" class="logo">
+          &nbsp;
+        </td>
+      </tr>
+    </table>
+    <ul id="versionlist">
+      <li>Version 5.2.0 improves PowerShell and R.</li>
+      <li>Version 5.1.9 improves Julia and Properties.</li>
+      <li>Version 5.1.8 improves F#, MS SQL, PowerShell, and Visual Prolog.</li>
+      <li>Version 5.1.7 improves CMake, HTML, Matlab, Raku, Ruby, and VHDL.</li>
+      <li>Version 5.1.6 improves Markdown and Ruby.</li>
+      <li>Version 5.1.5 improves Bash, Batch, F#, HTML, Inno Setup, and Python.</li>
+    </ul>
+    <ul id="menu">
+      <li id="remote1"><a href="https://www.scintilla.org/SciTEImage.html">Screenshot</a></li>
+      <li id="remote2"><a href="https://www.scintilla.org/LexillaDownload.html">Download</a></li>
+      <li><a href="https://www.scintilla.org/LexillaDoc.html">Documentation</a></li>
+      <li><a href="https://github.com/ScintillaOrg/lexilla/issues">Bugs</a></li>
+      <li id="remote3"><a href="https://www.scintilla.org/SciTE.html">SciTE</a></li>
+      <li><a href="https://www.scintilla.org/LexillaHistory.html">History</a></li>
+      <li><a href="https://www.scintilla.org/ScintillaRelated.html">Related</a></li>
+      <li id="remote4"><a href="https://www.scintilla.org/Privacy.html">Privacy</a></li>
+    </ul>
+<script type="text/javascript" language="JavaScript"><!--
+if (!IsRemote()) { //if NOT remote...
+    document.getElementById('remote1').style.display='none';
+    document.getElementById('remote2').style.display='none';
+    document.getElementById('remote3').style.display='none';
+    document.getElementById('remote4').style.display='none';
+}
+//--></script>
+    <p>
+       <a href="https://www.scintilla.org/LexillaDoc.html">Lexilla</a> is a free library of language
+       lexers that can be used with the <a href="https://www.scintilla.org/index.html">Scintilla</a>
+       editing component.
+       It comes with complete source code and a <a href="https://www.scintilla.org/License.txt">license</a> that
+       permits use in any free project or commercial product.
+    </p>
+    <p>
+       Originally, this functionality was incorporated inside Scintilla.
+       It has been extracted as a separate project to make it easier for contributors to work on
+       support for new languages and to fix bugs in existing lexers.
+       It also defines a protocol where projects can implement their own lexers and distribute
+       them as they wish.
+    </p>
+    <p>
+       Current development requires a recent C++ compiler that supports C++17.
+       The testing framework uses some C++20 features but the basic library only uses C++17.
+    </p>
+    <p>
+       Lexilla is currently available for Intel Win32, macOS, and Linux compatible operating
+      systems. It has been run on Windows 10, macOS 10.13+, and on Ubuntu 20.04 but is likely
+      to run on earlier systems as it has no GUI functionality.
+    </p>
+    <p>
+       You can <a href="https://www.scintilla.org/LexillaDownload.html">download Lexilla.</a>
+    </p>
+    <p>
+       The source code can be downloaded via Git at GitHub
+	<a href="https://github.com/ScintillaOrg/lexilla">Lexilla project page</a>.<br />
+        git clone https://github.com/ScintillaOrg/lexilla
+    </p>
+    <p>Current repository status:<br />
+    <a href="https://github.com/ScintillaOrg/lexilla/actions/workflows/build-check.yml"><img src="https://github.com/ScintillaOrg/lexilla/actions/workflows/build-check.yml/badge.svg" /></a><br />
+    <a href="https://github.com/ScintillaOrg/lexilla/actions/workflows/build-check-win32.yml"><img src="https://github.com/ScintillaOrg/lexilla/actions/workflows/build-check-win32.yml/badge.svg" /></a><br />
+    <a href="https://github.com/ScintillaOrg/lexilla/actions/workflows/build-check-macos.yml"><img src="https://github.com/ScintillaOrg/lexilla/actions/workflows/build-check-macos.yml/badge.svg" /></a>
+    </p>
+    <p>
+       <a href="https://www.scintilla.org/ScintillaRelated.html">Related sites.</a>
+    </p>
+    <p>
+       <a href="https://github.com/ScintillaOrg/lexilla/issues">Bugs and other issues.</a>
+    </p>
+    <p>
+       <a href="https://www.scintilla.org/LexillaHistory.html">History and contribution credits.</a>
+    </p>
+    <p>
+      Questions and comments about Lexilla should be directed to the
+      <a href="https://groups.google.com/forum/#!forum/scintilla-interest">scintilla-interest</a>
+      mailing list,
+      which is for discussion of Scintilla and related projects, their bugs and future features.
+      This is a low traffic list, averaging less than 20 messages per week.
+      To avoid spam, only list members can write to the list.
+      New versions of Lexilla are announced on scintilla-interest.
+      <br />
+    </p>
+  </body>
+</html>
+

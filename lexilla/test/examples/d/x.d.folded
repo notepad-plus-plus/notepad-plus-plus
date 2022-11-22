@@ -1,0 +1,48 @@
+ 0 400 400   $
+ 0 400 400   // /++ +/ doccomments are not yet supported
+ 0 400 400   /* */
+ 0 400 400   /** */
+ 0 400 400   /// drdr
+ 0 400 400   /+ /+ +/ +/
+ 0 400 400   //keyword test
+ 0 400 400   keyword1
+ 0 400 400   keyword2
+ 0 400 400   keyword4
+ 0 400 400   keyword5
+ 0 400 400   keyword6
+ 0 400 400   keyword7
+ 0 400 400   //unicode identifier test
+ 0 400 400   вапёasdÓΘΣαԷԸՑהכ拉麺とひシマイ단결을
+ 0 400 400   //strings test
+ 0 400 400   's
+ 0 400 400   '
+ 0 400 400   w's'w
+ 0 400 400   "multiline
+ 0 400 400   			string"w
+ 0 400 400   e"zz"e
+ 0 400 400   r"asd\"e
+ 0 400 400   r"multiline
+ 0 400 400   			string"c
+ 0 400 400   r`asd\`e
+ 0 400 400   `multiline
+ 0 400 400   			string`d
+ 0 400 400   x"023 abc"e
+ 0 400 400   x"023
+ 0 400 400   	abc"w
+ 0 400 400   //numbers test
+ 0 400 400   a[3..4]=3
+ 0 400 400   2.stringof
+ 0 400 400   2.0.stringof
+ 0 400 400   2.
+ 0 400 400   2.2e+2
+ 0 400 400   2.2e-2
+ 0 400 400   .2e+2
+ 0 400 400   .2
+ 0 400 400   2e+2
+ 0 400 400   0x2e+2
+ 0 400 400   0x2ep+10
+ 0 400 400   ,.2.stringof,
+ 1 400 400   
+ 0 400 400   end
+ 1 400 400    	  	 
+ 0 400   0   

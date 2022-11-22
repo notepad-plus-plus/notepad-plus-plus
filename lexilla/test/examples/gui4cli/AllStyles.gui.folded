@@ -1,0 +1,27 @@
+ 0 401   0 | /* Comment (2), followed by Default (0) */
+ 1 401   0 | 
+ 0 401   0 | /* File does not include Line Comment (1) as that causes \r\n failures in test runner */
+ 1 401   0 | 
+ 0 401   0 | /* Global (3) 'G4C' */
+ 2 400   0 + G4C MyGui
+ 1 401   0 | 
+ 0 401   0 | /* String (8) */
+ 2 400   0 + Window 10 10 200 300 "My window"
+ 1 401   0 | 
+ 0 401   0 | /* Event (4) */
+ 2 400   0 + xOnLoad
+ 0 401   0 |      /* Command (7) */
+ 0 401   0 |      GuiOpen MyGui
+ 1 401   0 | 
+ 2 400   0 + xButton 10 10 100 20 "Double it!"
+ 0 401   0 |      /* Attribute (5) */
+ 0 401   0 |      attr frame sunk
+ 0 401   0 |      Input "Enter a number" var
+ 0 401   0 |      /* Control (6) 'if', Operator (9) '$', '>', '=' */
+ 0 401   0 |      if $var > 9999
+ 0 401   0 |           var = 9999
+ 0 401   0 |      endif
+ 0 401   0 |      var2 = $($var * 2)
+ 0 401   0 |      MsgBox "$var times 2 equals $var2" OK/INFO
+ 0 401   0 |      GuiQuit #this
+ 0 401   0 | 

@@ -22,7 +22,11 @@
 
 int TaskListDlg::_instanceCount = 0;
 
-LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
+static HWND hWndServer = nullptr;
+static HHOOK hook = nullptr;
+static winVer windowsVersion = WV_UNKNOWN;
+
+static LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
     {
@@ -56,12 +60,14 @@ LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 	return static_cast<int32_t>(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_TASKLIST_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
 }
 
-INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SendMessage(_hParent, WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&_taskListInfo), 0);
 			int nbTotal = static_cast<int32_t>(_taskListInfo._tlfsLst.size());
 
@@ -90,6 +96,25 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, hookProc, _hInst, 0);
 			hook = _hHooker;
 			return FALSE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
 		}
 
 		case WM_DESTROY :
@@ -184,13 +209,13 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	const int aSpaceWidth = ListView_GetStringWidth(_taskList.getHSelf(), TEXT(" "));
 
-	COLORREF textColor = darkGrey;
+	COLORREF textColor = NppDarkMode::isEnabled() ? NppDarkMode::getDarkerTextColor() : darkGrey;
 	int imgStyle = ILD_SELECTED;
 
 	if (lpDrawItemStruct->itemState & ODS_SELECTED)
 	{
 		imgStyle = ILD_TRANSPARENT;
-		textColor = black;
+		textColor = NppDarkMode::isEnabled() ? NppDarkMode::getTextColor() : black;
 		::SelectObject(hDC, _taskList.GetFontSelected());
 	}
 	

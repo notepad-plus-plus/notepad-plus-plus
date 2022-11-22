@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
 #include <stdexcept>
 #include "DockingManager.h"
 #include "DockingSplitter.h"
@@ -206,7 +205,10 @@ void DockingManager::showFloatingContainers(bool show)
 	{
 		size_t iElementCnt = _vContainer[i]->getElementCnt();
 		if (iElementCnt > 0)
-			_vContainer[i]->display(show);
+		{
+			if (0 < ::SendMessage(_vContainer[i]->getTabWnd(), TCM_GETITEMCOUNT, 0, 0)) // any real item(s)?
+				_vContainer[i]->display(show);
+		}
 	}
 }
 
@@ -559,8 +561,8 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 		// create image list if not exist
 		if (_hImageList == NULL)
 		{
-			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleY(14);
-			_hImageList = ::ImageList_Create(iconDpiDynamicalSize,iconDpiDynamicalSize,ILC_COLOR8, 0, 0);
+			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleY(12) + 2;
+			_hImageList = ::ImageList_Create(iconDpiDynamicalSize, iconDpiDynamicalSize, ILC_COLOR32 | ILC_MASK, 0, 0);
 		}
 
 		// add icon
@@ -568,6 +570,11 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 
 		// do the reference here to find later the correct position
 		_vImageList.push_back(data.hClient);
+	}
+
+	if ((data.uMask & DWS_USEOWNDARKMODE) != DWS_USEOWNDARKMODE && NppDarkMode::isEnabledForPlugins())
+	{
+		NppDarkMode::autoSubclassAndThemePluginDockWindow(data.hClient);
 	}
 
 	// create additional containers if necessary
@@ -971,5 +978,3 @@ int DockingManager::FindEmptyContainer()
     // search for empty arrays
     return iRetCont;
 }
-
-

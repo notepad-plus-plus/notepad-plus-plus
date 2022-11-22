@@ -247,7 +247,7 @@ protected :
     //Shared data
     static UserLangContainer *_pUserLang;
     static ScintillaEditView *_pScintilla;
-    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     bool setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set);
     virtual void setKeywords2List(int ctrlID) = 0;
 };
@@ -258,7 +258,7 @@ public:
     FolderStyleDialog() = default;
     void updateDlg();
 protected :
-    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int ctrlID);
 private :
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
@@ -271,7 +271,7 @@ public:
     KeyWordsStyleDialog() = default;
     void updateDlg();
 protected :
-    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 };
 
@@ -281,10 +281,10 @@ public :
     CommentStyleDialog() = default;
     void updateDlg();
 protected :
-    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 private :
-    void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
+    void retrieve(TCHAR *dest, const TCHAR *toRetrieve, const TCHAR *prefix) const;
 };
 
 class SymbolsStyleDialog : public SharedParametersDialog
@@ -293,7 +293,7 @@ public :
     SymbolsStyleDialog() = default;
     void updateDlg();
 protected :
-    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 private :
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
@@ -358,17 +358,17 @@ public :
         _ctrlTab.renameTab(index, name2set);
     };
 protected :
-    virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+    virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 private :
     ControlsTab _ctrlTab;
     WindowVector _wVector;
-    UserLangContainer *_pCurrentUserLang;
+    UserLangContainer *_pCurrentUserLang = nullptr;
     FolderStyleDialog       _folderStyleDlg;
     KeyWordsStyleDialog     _keyWordsStyleDlg;
     CommentStyleDialog      _commentStyleDlg;
     SymbolsStyleDialog      _symbolsStyleDlg;
     bool _status = UNDOCK;
-    RECT _dlgPos;
+    RECT _dlgPos = {};
     int _currentHight = 0;
     int _yScrollPos = 0;
     int _prevHightVal = 0;
@@ -401,14 +401,14 @@ public :
 		}
 	};
 
-    INT_PTR doDialog() {
+    intptr_t doDialog() {
         return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
     virtual void destroy() {};
 	
 protected :
-    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
 
 	// Custom proc to subclass edit control
 	LRESULT static CALLBACK customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -433,7 +433,7 @@ public:
         _hInst(hInst), _parent(parent), _stylerIndex(stylerIndex), _enabledNesters(enabledNesters) {
         _pFgColour = new ColourPicker;
         _pBgColour = new ColourPicker;
-        _initialStyle = SharedParametersDialog::_pUserLang->_styleArray.getStyler(stylerIndex);
+        _initialStyle = SharedParametersDialog::_pUserLang->_styles.getStyler(stylerIndex);
     };
 
     ~StylerDlg() {
@@ -447,13 +447,16 @@ public:
 		return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _parent, dlgProc, reinterpret_cast<LPARAM>(this)));
     };
 
-    static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-public:
-    HINSTANCE _hInst;
-    HWND _parent;
-    int _stylerIndex;
-    int _enabledNesters;
-    ColourPicker * _pFgColour;
-    ColourPicker * _pBgColour;
+    static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+    HINSTANCE _hInst = nullptr;
+    HWND _parent = nullptr;
+    int _stylerIndex = 0;
+    int _enabledNesters = 0;
+    ColourPicker * _pFgColour = nullptr;
+    ColourPicker * _pBgColour = nullptr;
     Style _initialStyle;
+
+    void move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 };

@@ -8,11 +8,17 @@
 #ifndef CASEFOLDER_H
 #define CASEFOLDER_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 class CaseFolder {
 public:
-	virtual ~CaseFolder();
+	CaseFolder() = default;
+	// Deleted so CaseFolder objects can not be copied.
+	CaseFolder(const CaseFolder &source) = delete;
+	CaseFolder(CaseFolder &&) = delete;
+	CaseFolder &operator=(const CaseFolder &) = delete;
+	CaseFolder &operator=(CaseFolder &&) = delete;
+	virtual ~CaseFolder() = default;
 	virtual size_t Fold(char *folded, size_t sizeFolded, const char *mixed, size_t lenMixed) = 0;
 };
 
@@ -21,7 +27,6 @@ protected:
 	char mapping[256];
 public:
 	CaseFolderTable() noexcept;
-	~CaseFolderTable() override;
 	size_t Fold(char *folded, size_t sizeFolded, const char *mixed, size_t lenMixed) override;
 	void SetTranslation(char ch, char chTranslation) noexcept;
 	void StandardASCII() noexcept;

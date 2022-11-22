@@ -23,7 +23,6 @@ class FileNameStringSplitter
 public:
 	FileNameStringSplitter(const TCHAR *fileNameStr)
 	{
-		//if (!fileNameStr) return;
 		TCHAR *pStr = NULL;
 		bool isInsideQuotes = false;
 		const int filePathLength = MAX_PATH;

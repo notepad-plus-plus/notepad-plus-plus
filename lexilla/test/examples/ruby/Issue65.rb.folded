@@ -1,0 +1,72 @@
+ 0 400   0   def dbg_args(a, b=1, c:, d: 6, &block) = puts("Args passed: #{[a, b, c, d, block.call]}")
+ 0 400   0   dbg_args(0, c: 5) { 7 }
+ 1 400   0   
+ 2 400   0 + class A
+ 0 401   0 | 	def attr = @attr
+ 2 401   0 + 	def attr=(value)
+ 0 402   0 | 		@attr = value
+ 0 402   0 | 	end
+ 0 401   0 | 	def attr? = !!@attr
+ 0 401   0 | 	def attr! = @attr = true
+ 0 401   0 | 	# unary operator
+ 0 401   0 | 	def -@ = 1
+ 0 401   0 | 	def +@ = 1
+ 0 401   0 | 	def ! = 1
+ 0 401   0 | 	def !@ = 1
+ 0 401   0 | 	# binary operator
+ 0 401   0 | 	def +(value) = 1 + value
+ 0 401   0 | 	def -(value) = 1 - value
+ 0 401   0 | 	def *(value) = 1 * value
+ 0 401   0 | 	def **(value) = 1 ** value
+ 0 401   0 | 	def /(value) = 1 / value
+ 0 401   0 | 	def %(value) = 1 % value
+ 0 401   0 | 	def &(value) = 1 & value
+ 0 401   0 | 	def ^(value) = 1 ^ value
+ 0 401   0 | 	def >>(value) = 1 >> value
+ 0 401   0 | 	def <<(value) = 1 << value
+ 0 401   0 | 	def ==(other) = true
+ 0 401   0 | 	def !=(other) = true
+ 0 401   0 | 	def ===(other) = true
+ 0 401   0 | 	def =~(other) = true
+ 0 401   0 | 	def <=>(other) = true
+ 0 401   0 | 	def <(other) = true
+ 0 401   0 | 	def <=(other) = true
+ 0 401   0 | 	def >(other) = true
+ 0 401   0 | 	def >=(other) = true
+ 0 401   0 | 	# element reference and assignment
+ 0 401   0 | 	def [](a, b) = puts(a + b)
+ 2 401   0 + 	def []=(a, b, c)
+ 0 402   0 | 		puts a + b + c
+ 0 402   0 | 	end
+ 0 401   0 | 	# array decomposition
+ 0 401   0 | 	def dec(((a, b), c)) = puts(a + b + c)
+ 0 401   0 | 	# class method
+ 0 401   0 | 	def self.say(*s) = puts(s)
+ 0 401   0 | 	# test short method name
+ 0 401   0 | 	def a = 1
+ 0 401   0 | 	def ab = 1
+ 0 401   0 | end
+ 1 400   0   
+ 0 400   0   # class method
+ 2 400   0 + def String.hello
+ 0 401   0 |   "Hello, world!"
+ 0 401   0 | end
+ 0 400   0   # singleton method
+ 0 400   0   greeting = "Hello"
+ 2 400   0 + def greeting.broaden
+ 0 401   0 |   self + ", world!"
+ 0 401   0 | end
+ 0 400   0   # one line definition
+ 0 400   0   def a(b, c) b; c end
+ 0 400   0   # parentheses omitted
+ 2 400   0 + def ab c
+ 0 401   0 | 	puts c
+ 0 401   0 | end
+ 1 400   0   
+ 0 400   0   # Test folding of multi-line SCE_RB_STRING_QW
+ 2 400   0 + puts %W(
+ 0 401   0 | a
+ 0 401   0 | b
+ 0 401   0 | c
+ 0 401   0 | )
+ 0 400   0   

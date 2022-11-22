@@ -12,6 +12,7 @@ cmake_minimum_required(VERSION 3.4)
 PROJECT(Notepad++)
 
 SET(projIncludDir	../../scintilla/include/
+					../../lexilla/include/
 					./
 					./WinControls/AboutDlg/
 					./WinControls/
@@ -27,7 +28,7 @@ SET(projIncludDir	../../scintilla/include/
 					./MISC/SysMsg/
 					./WinControls/StatusBar/
 					./WinControls/StaticDialog/RunDlg/
-					./tinyxml/
+					./TinyXml/
 					./WinControls/ColourPicker/
 					./Win32Explr/
 					./MISC/RegExt/
@@ -44,7 +45,7 @@ SET(projIncludDir	../../scintilla/include/
 					./WinControls/ToolTip/
 					./MISC/Exception/
 					./MISC/Common/
-					./tinyxml/tinyXmlA/
+					./TinyXml/tinyXmlA/
 					./WinControls/AnsiCharPanel/
 					./WinControls/ClipboardHistory/
 					./WinControls/FindCharsInRange/
@@ -63,9 +64,11 @@ SET(projIncludDir	../../scintilla/include/
 
 
 SET(src_files
+			./DarkMode/DarkMode.cpp
 			./MISC/Common/verifySignedfile.cpp
 			./MISC/md5/md5Dlgs.cpp
 			./MISC/sha2/sha-256.cpp
+			./NppDarkMode.cpp
 			./MISC/Process/Processus.cpp
 			./WinControls/AboutDlg/AboutDlg.cpp
 			./WinControls/AnsiCharPanel/ansiCharPanel.cpp
@@ -81,6 +84,7 @@ SET(src_files
 			./WinControls/ColourPicker/ColourPopup.cpp
 			./ScintillaComponent/columnEditor.cpp
 			./MISC/Common/Common.cpp
+			./MISC/Common/FileInterface.cpp
 			./WinControls/ContextMenu/ContextMenu.cpp
 			./WinControls/OpenSaveFileDialog/CustomFileDialog.cpp
 			./WinControls/PluginsAdmin/pluginsAdmin.cpp
@@ -102,7 +106,6 @@ SET(src_files
 			./WinControls/FunctionList/functionParser.cpp
 			./ScintillaComponent/GoToLineDlg.cpp
 			./WinControls/DockingWnd/Gripper.cpp
-			./MISC/PluginsManager/IDAllocator.cpp
 			./WinControls/ImageListSet/ImageListSet.cpp
 			./uchardet/JpCntx.cpp
 			./uchardet/LangBulgarianModel.cpp
@@ -140,7 +143,7 @@ SET(src_files
 			./uchardet/nsUniversalDetector.cpp
 			./uchardet/nsUTF8Prober.cpp
 			./Parameters.cpp
-			./Misc/PluginsManager/PluginsManager.cpp
+			./MISC/PluginsManager/PluginsManager.cpp
 			./WinControls/Preference/preferenceDlg.cpp
 			./ScintillaComponent/Printer.cpp
 			./WinControls/ProjectPanel/ProjectPanel.cpp
@@ -191,6 +194,9 @@ SET(src_files
 
 SET(include_files
 			./clipboardFormats.h
+			./DarkMode/DarkMode.h
+			./DarkMode/IatHook.h
+			./DarkMode/UAHMenuBar.h
 			./dpiManager.h
 			./keys.h
 			./localizationString.h
@@ -200,6 +206,7 @@ SET(include_files
 			./MISC/md5/md5Dlgs.h
 			./MISC/md5/md5Dlgs_rc.h
 			./MISC/sha2/sha-256.h
+			./NppDarkMode.h
 			./ScintillaComponent/columnEditor_rc.h
 			./ScintillaComponent/FindReplaceDlg_rc.h
 			./ScintillaComponent/ScintillaRef.h
@@ -226,6 +233,7 @@ SET(include_files
 			./WinControls/ColourPicker/ColourPopup.h
 			./ScintillaComponent/columnEditor.h
 			./MISC/Common/Common.h
+			./MISC/Common/FileInterface.h
 			./WinControls/ContextMenu/ContextMenu.h
 			./WinControls/OpenSaveFileDialog/CustomFileDialog.h
 			./WinControls/PluginsAdmin/pluginsAdmin.h
@@ -372,7 +380,8 @@ SET(rcFiles
 
 IF (WIN32)
 	SET(option WIN32)
-	SET(win32_LIBRARIES comctl32 shlwapi dbghelp version crypt32 wintrust sensapi wininet imm32 msimg32)
+	SET(win32_LIBRARIES comctl32 shlwapi dbghelp version crypt32 wintrust sensapi wininet imm32 msimg32 uxtheme)
+	set(CMAKE_CXX_STANDARD 20)
 if ( MSVC )
 	#do not use for mingw builds
 	SET(CMAKE_CXX_FLAGS "/EHa /MP /W4")
@@ -381,7 +390,7 @@ if ( MSVC )
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 else ( MSVC )
 	# For possible MinGW compilation
-	SET(CMAKE_CXX_FLAGS "-include../gcc/include/various.h -std=c++17 -fpermissive -municode")
+	SET(CMAKE_CXX_FLAGS "-include../gcc/gcc-fixes.h -std=c++20 -fpermissive -municode")
 	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=0x0600 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL )
 endif ( MSVC )
 ENDIF (WIN32)
@@ -390,14 +399,20 @@ ADD_DEFINITIONS(${defs})
 
 INCLUDE_DIRECTORIES(${projIncludDir})
 
-find_library(SCILEXER_STATIC_LIBRARY
-	NAMES libscilexer
+find_library(SCINTILLA_STATIC_LIBRARY
+	NAMES libscintilla
 	HINTS "../../scintilla/bin"
+	REQUIRED
+)
+
+find_library(LEXILLA_STATIC_LIBRARY
+	NAMES liblexilla
+	HINTS "../../lexilla/bin"
 	REQUIRED
 )
 
 ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 
 
-TARGET_LINK_LIBRARIES (notepad++ ${win32_LIBRARIES} ${SCILEXER_STATIC_LIBRARY})
+TARGET_LINK_LIBRARIES (notepad++ ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY} ${win32_LIBRARIES})
 

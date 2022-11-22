@@ -19,8 +19,8 @@ https://github.com/AndresTraks/
                     <Item menuId="tools" name="T&amp;ööriistad"/>
                     <Item menuId="macro" name="Makro"/>
                     <Item menuId="run" name="Käivita"/>
-                    <Item idName="Plugins" name="Pluginad"/>
-                    <Item idName="Window" name="Aken"/>
+                    <Item menuId="Plugins" name="Pluginad"/>
+                    <Item menuId="Window" name="Aken"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -350,13 +350,10 @@ https://github.com/AndresTraks/
                 <Item id="1604" name="&amp;Tõusutundlik"/>
                 <Item id="1605" name="Re&amp;gulaaravaldis"/>
                 <Item id="1606" name="&amp;Jätka algusest"/>
-                <Item id="1612" name="&amp;Üles"/>
-                <Item id="1613" name="&amp;Alla"/>
                 <Item id="1614" name="Loe kokku"/>
                 <Item id="1615" name="Leia kõik"/>
                 <Item id="1616" name="Märgi read"/>
                 <Item id="1618" name="Eemalda märkimised enne uut otsingut"/>
-                <Item id="1621" name="Suund"/>
                 <Item id="1611" name="A&amp;sendus:"/>
                 <Item id="1608" name="As&amp;enda"/>
                 <Item id="1609" name="Asenda &amp;kõik"/>
@@ -926,11 +923,11 @@ Pärast faili salvestamist tuleb muudatuste rakendamiseks Notepad++ uuesti käiv
         <ClipboardHistory>
             <PanelTitle name="Lõikepuhvri ajalugu"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Dokumentide vahetamine"/>
             <ColumnName name="Nimi"/>
             <ColumnExt name="Laiend"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="Tähemärkide sisestamine"/>
             <ColumnVal name="Väärtus"/>

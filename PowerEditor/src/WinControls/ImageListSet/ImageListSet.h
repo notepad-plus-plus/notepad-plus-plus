@@ -33,11 +33,16 @@ public :
 	void destroy() {
 		ImageList_Destroy(_hImglst);
 	};
+
+	void removeAll() {
+		ImageList_RemoveAll(_hImglst);
+	};
+
 	HIMAGELIST getHandle() const {return _hImglst;};
 	void addIcon(int iconID) const;
 	void addIcon(HICON hIcon) const;
 
-	bool changeIcon(int index, const TCHAR *iconLocation) const;
+	bool changeIcon(size_t index, const TCHAR *iconLocation) const;
 	void addIcons(int size) const;
 
 
@@ -139,9 +144,11 @@ public :
 		return _tbiis[i]._stdIcon;
 	};
 
-	bool replaceIcon(int witchList, int iconIndex, const TCHAR *iconLocation) const {
+	bool replaceIcon(size_t witchList, size_t iconIndex, const TCHAR *iconLocation) const {
 		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_DISABLE) && 
-			(witchList != HLIST_DEFAULT2) && (witchList != HLIST_DISABLE2))
+			(witchList != HLIST_DEFAULT2) && (witchList != HLIST_DISABLE2) &&
+			(witchList != HLIST_DEFAULT_DM) && (witchList != HLIST_DISABLE_DM) && 
+			(witchList != HLIST_DEFAULT_DM2) && (witchList != HLIST_DISABLE_DM2))
 			return false;
 
 		return _iconListVector[witchList].changeIcon(iconIndex, iconLocation);

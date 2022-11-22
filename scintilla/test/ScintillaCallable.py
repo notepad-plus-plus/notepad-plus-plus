@@ -9,10 +9,22 @@ from ctypes import c_int, c_ulong, c_char_p, c_wchar_p, c_ushort, c_uint, c_long
 def IsEnumeration(t):
 	return t[:1].isupper()
 
+basicTypes = ["bool", "int", "position", "line", "pointer", "colour", "colouralpha"]
+
+def BasicTypeOrEnumeration(t):
+	return t in basicTypes or IsEnumeration(t)
+
 class TEXTRANGE(ctypes.Structure):
 	_fields_= (\
 		('cpMin', c_long),
 		('cpMax', c_long),
+		('lpstrText', ctypes.POINTER(ctypes.c_char)),
+	)
+
+class TEXTRANGEFULL(ctypes.Structure):
+	_fields_= (\
+		('cpMin', c_ssize_t),
+		('cpMax', c_ssize_t),
 		('lpstrText', ctypes.POINTER(ctypes.c_char)),
 	)
 
@@ -23,6 +35,15 @@ class FINDTEXT(ctypes.Structure):
 		('lpstrText', c_char_p),
 		('cpMinText', c_long),
 		('cpMaxText', c_long),
+	)
+
+class FINDTEXTFULL(ctypes.Structure):
+	_fields_= (\
+		('cpMin', c_ssize_t),
+		('cpMax', c_ssize_t),
+		('lpstrText', c_char_p),
+		('cpMinText', c_ssize_t),
+		('cpMaxText', c_ssize_t),
 	)
 
 class SciCall:
@@ -86,8 +107,7 @@ class ScintillaCallable:
 				not name.startswith("Get") and \
 				not feature["Param1Type"] and \
 				not feature["Param2Type"] and \
-				(feature["ReturnType"] in ["bool", "int", "position", "line", "pointer"] or \
-				IsEnumeration(feature["ReturnType"])):
+				BasicTypeOrEnumeration(feature["ReturnType"]):
 				#~ print("property", feature)
 				return self._scifn(self._sciptr, value, None, None)
 		elif name.startswith("SCN_") and name in self.k:
@@ -105,7 +125,7 @@ class ScintillaCallable:
 			value = int(feature["Value"], 0)
 			#~ print("setproperty", feature)
 			if feature["FeatureType"] == "set" and not name.startswith("Set"):
-				if feature["Param1Type"] in ["bool", "int", "position", "line"] or IsEnumeration(feature["Param1Type"]):
+				if BasicTypeOrEnumeration(feature["Param1Type"]):
 					return self._scifn(self._sciptr, value, c_char_p(val), None)
 				elif feature["Param2Type"] in ["string"]:
 					return self._scifn(self._sciptr, value, None, c_char_p(val))
@@ -132,6 +152,16 @@ class ScintillaCallable:
 		text = tr.lpstrText[:length]
 		text += b"\0" * (length - len(text))
 		return text
+	def ByteRangeFull(self, start, end):
+		tr = TEXTRANGEFULL()
+		tr.cpMin = start
+		tr.cpMax = end
+		length = end - start
+		tr.lpstrText = ctypes.create_string_buffer(length + 1)
+		self.GetTextRangeFull(0, ctypes.byref(tr))
+		text = tr.lpstrText[:length]
+		text += b"\0" * (length - len(text))
+		return text
 	def StyledTextRange(self, start, end):
 		tr = TEXTRANGE()
 		tr.cpMin = start
@@ -150,6 +180,16 @@ class ScintillaCallable:
 		ft.cpMinText = 0
 		ft.cpMaxText = 0
 		pos = self.FindText(flags, ctypes.byref(ft))
+		#~ print(start, end, ft.cpMinText, ft.cpMaxText)
+		return pos
+	def FindBytesFull(self, start, end, s, flags):
+		ft = FINDTEXTFULL()
+		ft.cpMin = start
+		ft.cpMax = end
+		ft.lpstrText = s
+		ft.cpMinText = 0
+		ft.cpMaxText = 0
+		pos = self.FindTextFull(flags, ctypes.byref(ft))
 		#~ print(start, end, ft.cpMinText, ft.cpMaxText)
 		return pos
 

@@ -1,0 +1,50 @@
+{5}#define{0} app_copyright {10}"Copyright 1999, app corporation"{0}
+
+{1}; comment{0}
+
+{4}[Setup]{0}
+{2}AppName{0}=MyApp
+{2}AppCopyright{0}={6}{#app_copyright}{0}
+{2}WizardSmallImageFile{0}=WizardSmallImageFile.bmp
+{2}OnlyBelowVersion{0}=6.01
+
+{4}[Files]{0}
+{3}Source{0}: {10}"app.exe"{0}; {3}DestDir{0}: {10}"{tmp}"{0}; {3}OnlyBelowVersion{0}: 6.01
+
+{4}[INI]{0}
+{3}Key{0}: {10}"keyname1"{0}; {3}String{0}: {10}"unterminated{0}
+{3}Key{0}: {11}'keyname2'{0}; {3}String{0}: {11}'unterminated{0}
+
+{4}[Registry]{0}
+{3}Root{0}: HKLM; {3}ValueType{0}: string
+
+{4}[CustomMessages]{0}
+keyname     =Other tasks:'not string
+
+{4}[Messages]{0}
+keyname="{6}{#app_copyright}{0}"not string
+
+{4}[Code]{0}
+
+{7}// comment{0}
+
+{7}(* comment *){0}
+
+{7}{ comment }{0}
+
+{7}{ *) comment }{0}
+
+{7}(* } comment *){0}
+
+{7}(*
+comment *){0}
+
+{7}{
+comment }{0}
+
+{8}function{0} ShouldInstallComCtlUpdate: Boolean;
+{8}begin{0}
+  Result := {8}False{0};
+  Log({11}'string'{0});
+  IsEscaped({11}'''good'''{0}, {11}''{0}bad{11}');{0}
+{8}end{0};

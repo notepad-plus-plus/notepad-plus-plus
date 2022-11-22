@@ -15,8 +15,8 @@
 					<Item menuId="settings" name="Po&amp;stavke"/>
 					<Item menuId="macro" name="Makro"/>
 					<Item menuId="run" name="Pokreni"/>
-					<Item idName="Plugins" name="Dodaci"/>
-					<Item idName="Window" name="Prozor"/>
+					<Item menuId="Plugins" name="Dodaci"/>
+					<Item menuId="Window" name="Prozor"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -276,15 +276,11 @@
                 <Item id="1604" name="Ista velika/&amp;mala slova"/>
                 <Item id="1605" name="Uobičajeni &amp;izrazi"/>
                 <Item id="1606" name="Pri kraju reda &amp;započni novi"/>
-                <Item id="1612" name="&amp;Gore"/>
-                <Item id="1613" name="&amp;Dole"/>
                 <Item id="1614" name="Prebroj"/>
                 <Item id="1615" name="Pronađi sve"/>
                 <Item id="1616" name="Označi liniju"/>
-                <Item id="1617" name="Istakni pronađeno"/>
                 <Item id="1618" name="Pri svakom pretraživanju očisti"/>
 				<Item id="1620" name="Pronađi :"/>
-                <Item id="1621" name="Usmjerenje"/>
 				<Item id="1624" name="Način pretraživanja"/>
 			 	<Item id="1625" name="Normalno"/>
 			 	<Item id="1626" name="Prošireno (\n, \r, \t, \0, \x...)"/>
@@ -298,8 +294,6 @@
 			 	<Item id="1633" name="Očisti"/>
 			 	<Item id="1635" name="Zamijeni sve u svim otvorenim dokumentima"/>
 			 	<Item id="1636" name="Pronađi sve u svim otvorenim dokumentima"/>
-			 	<Item id="1637" name="Pronađi u datotekama"/>
-			 	<Item id="1640" name="Zamijeni dijalog"/>
 			 	<Item id="1654" name="Filteri :"/>
 			 	<Item id="1655" name="Putanja :"/>
 			 	<Item id="1656" name="Pronađi sve"/>

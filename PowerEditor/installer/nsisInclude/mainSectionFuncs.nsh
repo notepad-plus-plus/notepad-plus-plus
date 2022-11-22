@@ -84,6 +84,8 @@ Function copyCommonFiles
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
 	
+	; For debug logs
+	File "..\bin\nppLogNulContentCorruptionIssue.xml"
 
 	
 	; Set Section Files and Shortcuts
@@ -104,6 +106,7 @@ Function copyCommonFiles
 	SetOutPath "$UPDATE_PATH\userDefineLangs\"
 	Delete "$UPDATE_PATH\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 	File "..\bin\userDefineLangs\markdown._preinstalled.udl.xml"
+	File "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml"
 
 	; Localization
 	; Default language English 
@@ -227,15 +230,107 @@ Function removeUnstablePlugins
 		MessageBox MB_OK "Due to NppSaveAsAdmin plugin's incompatibility issue in version $R0, NppSaveAsAdmin.dll will be deleted. Use Plugins Admin to add back (the latest version of) NppSaveAsAdmin." /SD IDOK
 		Rename "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll" "$INSTDIR\plugins\disabled\NppSaveAsAdmin.dll"
 		Delete "$INSTDIR\plugins\NppSaveAsAdmin\NppSaveAsAdmin.dll"
-	NppSaveAsAdminTestEnd:
-	
-	; https://github.com/chcg/NPP_HexEdit/issues/51
-	IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 HexEditorTestEnd
-		MessageBox MB_OK "Due to HexEditor plugin's crash issue on Notepad++ v8 (and later versions), HexEditor.dll will be removed." /SD IDOK
+NppSaveAsAdminTestEnd:
+
+!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
+
+	; HexEditor makes Notepad++ x64 crash. "0.9.12" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 HexEditorTestEnd64
+		${GetFileVersion} "$INSTDIR\plugins\HexEditor\HexEditor.dll" $R0
+		${VersionCompare} $R0 "0.9.12" $R1 ;   0: equal to 0.9.12   1: $R0 is newer   2: 0.9.12 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to HexEditor plugin's incompatibility issue in version $R0, HexEditor.dll will be deleted. Use Plugins Admin to add back (the latest version of) HexEditor." /SD IDOK
 		Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
 		Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
-	HexEditorTestEnd:
-	
+HexEditorTestEnd64:
+
+	; ComparePlugin makes Notepad++ x64 crash. "2.0.2" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" 0 CompareTestEnd64
+		${GetFileVersion} "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" $R0
+		${VersionCompare} $R0 "2.0.2" $R1 ;   0: equal to 2.0.2   1: $R0 is newer   2: 2.0.2 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to ComparePlugin plugin's incompatibility issue in version $R0, ComparePlugin.dll will be deleted. Use Plugins Admin to add back (the latest version of) ComparePlugin." /SD IDOK
+		Rename "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll" "$INSTDIR\plugins\disabled\ComparePlugin.dll"
+		Delete "$INSTDIR\plugins\ComparePlugin\ComparePlugin.dll"
+CompareTestEnd64:
+
+	; DSpellCheck makes Notepad++ x64 crash. "1.4.23" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" 0 DSpellCheckTestEnd64
+		${GetFileVersion} "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" $R0
+		${VersionCompare} $R0 "1.4.23" $R1 ;   0: equal to 1.4.23   1: $R0 is newer   2: 1.4.23 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to DSpellCheck plugin's incompatibility issue in version $R0, DSpellCheck.dll will be deleted. Use Plugins Admin to add back (the latest version of) DSpellCheck." /SD IDOK
+		Rename "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
+		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
+DSpellCheckTestEnd64:
+
+	; SpeechPlugin makes Notepad++ x64 crash. "0.4.0.0" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" 0 SpeechPluginTestEnd64
+		${GetFileVersion} "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" $R0
+		${VersionCompare} $R0 "0.4.0.0" $R1 ;   0: equal to 0.4.0.0   1: $R0 is newer   2: 0.4.0.0 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to SpeechPlugin plugin's incompatibility issue in version $R0, SpeechPlugin.dll will be deleted. Use Plugins Admin to add back (the latest version of) SpeechPlugin." /SD IDOK
+		Rename "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll" "$INSTDIR\plugins\disabled\SpeechPlugin.dll"
+		Delete "$INSTDIR\plugins\SpeechPlugin\SpeechPlugin.dll"
+SpeechPluginTestEnd64:
+
+	; XMLTools makes Notepad++ x64 crash. "3.1.1.12" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\XMLTools\XMLTools.dll" 0 XMLToolsTestEnd64
+		${GetFileVersion} "$INSTDIR\plugins\XMLTools\XMLTools.dll" $R0
+		${VersionCompare} $R0 "3.1.1.12" $R1 ;   0: equal to 3.1.1.12   1: $R0 is newer   2: 3.1.1.12 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to XMLTools plugin's incompatibility issue in version $R0, XMLTools.dll will be deleted. Use Plugins Admin to add back (the latest version of) XMLTools." /SD IDOK
+		Rename "$INSTDIR\plugins\XMLTools\XMLTools.dll" "$INSTDIR\plugins\disabled\XMLTools.dll"
+		Delete "$INSTDIR\plugins\XMLTools\XMLTools.dll"
+XMLToolsTestEnd64:
+
+	; NppTaskList makes Notepad++ x64 crash. "2.4" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" 0 NppTaskListTestEnd64
+		${GetFileVersion} "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" $R0
+		${VersionCompare} $R0 "2.4" $R1 ;   0: equal to 2.4   1: $R0 is newer   2: 2.4 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to NppTaskList plugin's incompatibility issue in version $R0, NppTaskList.dll will be deleted. Use Plugins Admin to add back (the latest version of) NppTaskList." /SD IDOK
+		Rename "$INSTDIR\plugins\NppTaskList\NppTaskList.dll" "$INSTDIR\plugins\disabled\NppTaskList.dll"
+		Delete "$INSTDIR\plugins\NppTaskList\NppTaskList.dll"
+NppTaskListTestEnd64:
+
+	; jN makes Notepad++ x64 crash. "2.2.185.7" is its 1st version which contains the fix
+	IfFileExists "$INSTDIR\plugins\jN\jN.dll" 0 jN64
+		${GetFileVersion} "$INSTDIR\plugins\jN\jN.dll" $R0
+		${VersionCompare} $R0 "2.2.185.7" $R1 ;   0: equal to 2.2.185.7   1: $R0 is newer   2: 2.4 is newer
+		StrCmp $R1 "0" +5 0 ; if equal skip all & go to end, else go to next
+		StrCmp $R1 "1" +4 0 ; if newer skip all & go to end, else older (2) then go to next
+		MessageBox MB_OK "Due to jN plugin's incompatibility issue in version $R0, jN.dll will be deleted. Use Plugins Admin to add back (the latest version of) jN." /SD IDOK
+		Rename "$INSTDIR\plugins\jN\jN.dll" "$INSTDIR\plugins\disabled\jN.dll"
+		Delete "$INSTDIR\plugins\jN\jN.dll"
+jN64:
+
+
+	IfFileExists "$INSTDIR\plugins\NppQCP\NppQCP.dll" 0 NppQCPTestEnd64
+		MessageBox MB_OK "Due to NppQCP plugin's crash issue on Notepad++ x64 binary, NppQCP.dll will be removed." /SD IDOK
+		Rename "$INSTDIR\plugins\NppQCP\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
+		Delete "$INSTDIR\plugins\NppQCP\NppQCP.dll"
+NppQCPTestEnd64:
+
+
+!else ; 32-bit installer
+
+		; https://github.com/chcg/NPP_HexEdit/issues/51
+		IfFileExists "$INSTDIR\plugins\HexEditor\HexEditor.dll" 0 noDeleteHEPlugin32
+			MessageBox MB_YESNO "HexEditor plugin is unstable, we suggest you to remove it.$\nRemove HexEditor plugin?" /SD IDYES IDYES doDeleteHEPlugin32 IDNO noDeleteHEPlugin32 ;IDYES remove
+doDeleteHEPlugin32:
+                Rename "$INSTDIR\plugins\HexEditor\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll"
+                Delete "$INSTDIR\plugins\HexEditor\HexEditor.dll"
+noDeleteHEPlugin32:
+
+!endif
+
 FunctionEnd
 
 Function removeOldContextMenu

@@ -23,8 +23,8 @@
                     <Item menuId="tools" name="أ&amp;دوات"/>
                     <Item menuId="macro" name="&amp;ماكرو"/>
                     <Item menuId="run" name="&amp;تشغيل"/>
-                    <Item idName="Plugins" name="إ&amp;ضافات"/>
-                    <Item idName="Window" name="&amp;نافذة"/>
+                    <Item menuId="Plugins" name="إ&amp;ضافات"/>
+                    <Item menuId="Window" name="&amp;نافذة"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -1057,11 +1057,11 @@
         <ClipboardHistory>
             <PanelTitle name="سجل الذاكرة"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="مبدل المستند"/>
             <ColumnName name="الاسم"/>
             <ColumnExt name="الامتداد"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="الاسم"/>
             <ColumnPath name="المسار"/>

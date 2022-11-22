@@ -167,7 +167,7 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 
 		// update the wrap needed data
 		_displayWidth = editZoneWidth;
-		_displayZoom = static_cast<int32_t>(pEditView->execute(SCI_GETZOOM));
+		_displayZoom = pEditView->execute(SCI_GETZOOM);
 		double zr = zoomRatio[_displayZoom + 10];
 
 		// compute doc map width: dzw/ezw = 1/zoomRatio
@@ -183,8 +183,8 @@ void DocumentMap::wrapMap(const ScintillaEditView *editView)
 
 		if (svp._paddingLeft || svp._paddingRight)
 		{
-			int paddingMapLeft = static_cast<int>(svp._paddingLeft / (editZoneWidth / docMapWidth));
-			int paddingMapRight = static_cast<int>(svp._paddingRight / (editZoneWidth / docMapWidth));
+			intptr_t paddingMapLeft = static_cast<intptr_t>(svp._paddingLeft / (editZoneWidth / docMapWidth));
+			intptr_t paddingMapRight = static_cast<intptr_t>(svp._paddingRight / (editZoneWidth / docMapWidth));
 			_pMapView->execute(SCI_SETMARGINLEFT, 0, paddingMapLeft);
 			_pMapView->execute(SCI_SETMARGINRIGHT, 0, paddingMapRight);
 		}
@@ -270,7 +270,7 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos)
 		}
 		else
 		{
-			higherY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, static_cast<int32_t>(mapPos._higherPos));
+			higherY = _pMapView->execute(SCI_POINTYFROMPOSITION, 0, mapPos._higherPos);
 			auto lineHeight = _pMapView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
 			lowerY = mapPos._nbLine * lineHeight + higherY;
 		}
@@ -315,9 +315,10 @@ void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 void DocumentMap::redraw(bool) const
 {
 	_pMapView->execute(SCI_COLOURISE, 0, -1);
+	DockingDlgInterface::redraw(true);
 }
 
-INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
@@ -345,7 +346,9 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_pMapView->showMargin(1, false);
 			_pMapView->showMargin(2, false);
 			_pMapView->showMargin(3, false);
-			
+
+			NppDarkMode::setBorder(_hwndScintilla);
+
             return TRUE;
         }
 
@@ -421,9 +424,9 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		{
 			int newPosY = HIWORD(lParam);
 			int currentCenterPosY = _vzDlg.getCurrentCenterPosY();
-			int pixelPerLine = static_cast<int32_t>(_pMapView->execute(SCI_TEXTHEIGHT, 0));
-			int jumpDistance = newPosY - currentCenterPosY;
-			int nbLine2jump = jumpDistance/pixelPerLine;
+			intptr_t pixelPerLine = _pMapView->execute(SCI_TEXTHEIGHT, 0);
+			intptr_t jumpDistance = newPosY - currentCenterPosY;
+			intptr_t nbLine2jump = jumpDistance/pixelPerLine;
 			(*_ppEditView)->execute(SCI_LINESCROLL, 0, nbLine2jump);
 
 			scrollMap();
@@ -442,14 +445,36 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
+COLORREF ViewZoneDlg::_focus = RGB(0xFF, 0x80, 0x00);
+COLORREF ViewZoneDlg::_frost = RGB(0xFF, 0xFF, 0xFF);
+
+void ViewZoneDlg::setColour(COLORREF colour2Set, ViewZoneColorIndex i)
+{
+	switch (i)
+	{
+		case ViewZoneColorIndex::focus:
+		{
+			_focus = colour2Set;
+			break;
+		}
+
+		case ViewZoneColorIndex::frost:
+		{
+			_frost = colour2Set;
+			break;
+		}
+
+		default:
+			return;
+	}
+}
+
 void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT *pdis)
 {
 	RECT rc = pdis->rcItem;
-	
-	const COLORREF orange = RGB(0xFF, 0x80, 0x00);
-	const COLORREF white = RGB(0xFF, 0xFF, 0xFF);
-	HBRUSH hbrushFg = CreateSolidBrush(orange);
-	HBRUSH hbrushBg = CreateSolidBrush(white);					
+
+	HBRUSH hbrushFg = CreateSolidBrush(ViewZoneDlg::_focus);
+	HBRUSH hbrushBg = CreateSolidBrush(ViewZoneDlg::_frost);
 	FillRect(pdis->hDC, &rc, hbrushBg);
 
 	rc.top = _higherY;
@@ -468,9 +493,9 @@ void ViewZoneDlg::doDialog()
 		create(win10 ? IDD_VIEWZONE : IDD_VIEWZONE_CLASSIC);
 	}
 	display();
-};
+}
 
-INT_PTR CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{

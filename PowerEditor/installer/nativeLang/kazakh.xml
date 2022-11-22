@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "Теңшеу"/>
 					<Item menuId="macro" name = "Макростар"/>
 					<Item menuId="run" name = "Жегу"/>
-					<Item idName = "Plugins" name = "Қондырмалар"/>
-					<Item idName = "Window" name = "Терезе"/>
+					<Item menuId = "Plugins" name = "Қондырмалар"/>
+					<Item menuId = "Window" name = "Терезе"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
@@ -215,14 +215,10 @@
 				<Item id = "1604" name = "Үлкен-кішілігін ескеріп"/>
 				<Item id = "1605" name = "Қайталанатын өрнек"/>
 				<Item id = "1606" name = "Сөздерді тасымалдау"/>
-				<Item id = "1612" name = "Жоғарылату"/>
-				<Item id = "1613" name = "Төмендету"/>
 				<Item id = "1614" name = "Санақ"/>
 				<Item id = "1615" name = "Бәрін табу"/>
 				<Item id = "1616" name = "Жолды шендеу"/>
-				<Item id = "1617" name = "Нәтижелерді мәнерлеу"/>
 				<Item id = "1618" name = "Әрбір іздеу үшін өшіру"/>
-				<Item id = "1621" name = "Бағыт"/>
 				<Item id = "1611" name = "Ауыстыру:"/>
 				<Item id = "1608" name = "Ауыстыру"/>
 				<Item id = "1609" name = "Бәрін ауыстыру"/>
@@ -233,8 +229,6 @@
 				<Item id = "1633" name = "Аластау"/>
 				<Item id = "1635" name = "Барлық ашық құжаттарда бәрін ауыстыру"/>
 				<Item id = "1636" name = "Барлық ашық құжаттарда бәрін табу"/>
-				<Item id = "1637" name = "Файлдардан табу"/>
-				<Item id = "1640" name = "Тілқатысуды ауыстыру"/>
 				<Item id = "1654" name = "Сүзгілер:"/>
 				<Item id = "1655" name = "Тізімдеме:"/>
 			 	<Item id = "1656" name = "Бұлардың бәрін табу"/>

@@ -85,8 +85,8 @@ public :
 
 private :
 	Window						**_ppWindow = nullptr;
-	RECT						_rcWork;
-	RECT						_rect;
+	RECT						_rcWork = {};
+	RECT						_rect = {};
 	Window						**_ppMainWindow = nullptr;
 	std::vector<HWND>			_vImageList;
 	HIMAGELIST					_hImageList = nullptr;
@@ -94,8 +94,8 @@ private :
 	tDockMgr					_dockData;
 	static BOOL					_isRegistered;
 	BOOL						_isInitialized = FALSE;
-	int							_iContMap[CONT_MAP_MAX];
-	std::vector<DockingSplitter *>	_vSplitter;
+	int							_iContMap[CONT_MAP_MAX] = { 0 };
+	std::vector<DockingSplitter*>	_vSplitter;
 
 
 	static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);

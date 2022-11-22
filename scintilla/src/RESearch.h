@@ -9,7 +9,7 @@
 #ifndef RESEARCH_H
 #define RESEARCH_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 class CharacterIndexer {
 public:
@@ -23,7 +23,6 @@ class RESearch {
 public:
 	explicit RESearch(CharClassify *charClassTable);
 	// No dynamic allocation so default copy constructor and assignment operator are OK.
-	~RESearch();
 	void Clear() noexcept;
 	void GrabMatches(const CharacterIndexer &ci);
 	const char *Compile(const char *pattern, Sci::Position length, bool caseSensitive, bool posix) noexcept;

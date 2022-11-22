@@ -1,0 +1,105 @@
+ 0 400   0   /* This file contains snippets of Transact-SQL that exercise various aspects of the language. */
+ 2 400   0 + /**
+ 0 401   0 |  /*
+ 0 401   0 |   AllStyles.tsql
+ 0 401   0 |   /*
+ 0 401   0 |     /****** Object:  Database [AllStyles]    Script Date: 06/16/2022 10:56:35 PM ******/
+ 0 401   0 |    */
+ 0 401   0 |   */
+ 0 401   0 |  */
+ 0 400   0   IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+ 2 400   0 + BEGIN
+ 0 401   0 |     EXEC sp_fulltext_database @action = 'enable';
+ 0 401   0 | END
+ 0 400   0   USE AllStyles;
+ 0 400   0   GO
+ 0 400   0   SELECT *
+ 0 400   0   FROM Production.Product
+ 0 400   0   ORDER BY Name ASC;
+ 0 400   0   -- Alternate way.
+ 0 400   0   USE AllStyles;
+ 0 400   0   GO
+ 0 400   0   SELECT p.*
+ 0 400   0   FROM Production.Product AS p
+ 0 400   0   ORDER BY Name ASC;
+ 0 400   0   GO
+ 1 400   0   
+ 0 400   0   SELECT "COLUMN" FROM "TABLE"
+ 0 400   0   SELECT "COLUMN" int FROM "TABLE"
+ 1 400   0   
+ 0 400   0   SELECT schema_name
+ 0 400   0       (tab.schema_id) AS schema_name
+ 0 400   0       -- retrieve the name, too
+ 0 400   0       ,tab.name
+ 0 400   0   FROM sys.tables AS tab;
+ 1 400   0   
+ 0 400   0   SELECT DISTINCT Name
+ 0 400   0   FROM Production.Product AS p
+ 0 400   0   WHERE EXISTS
+ 0 400   0       (SELECT *
+ 0 400   0        FROM Production.ProductModel AS pm
+ 0 400   0        WHERE p.ProductModelID = pm.ProductModelID
+ 0 400   0              AND pm.Name LIKE 'Long-Sleeve Logo Jersey%');
+ 1 400   0   
+ 0 400   0   SELECT DISTINCT p.LastName, p.FirstName
+ 0 400   0   FROM Person.Person AS p
+ 0 400   0   JOIN HumanResources.Employee AS e
+ 0 400   0       ON e.BusinessEntityID = p.BusinessEntityID WHERE 5000.00 IN
+ 0 400   0       (SELECT Bonus
+ 0 400   0        FROM Sales.SalesPerson AS sp
+ 0 400   0        WHERE e.BusinessEntityID = sp.BusinessEntityID);
+ 1 400   0   
+ 0 400   0   CREATE PROCEDURE findjobs @nm sysname = NULL
+ 0 400   0   AS
+ 0 400   0   IF @nm IS NULL
+ 2 400   0 +     BEGIN
+ 0 401   0 |         PRINT 'You must give a user name'
+ 0 401   0 |         RETURN
+ 0 401   0 |     END
+ 0 400   0   ELSE
+ 2 400   0 +     BEGIN
+ 0 401   0 |         SELECT o.name, o.id, o.uid
+ 0 401   0 |         FROM sysobjects o INNER JOIN master.syslogins l
+ 0 401   0 |             ON o.uid = l.sid
+ 0 401   0 |         WHERE l.name = @nm
+ 0 401   0 |     END;
+ 1 400   0   
+ 0 400   0   CREATE TABLE TestTable (cola INT, colb CHAR(3));
+ 0 400   0   -- Declare the variable to be used.
+ 0 400   0   DECLARE @MyCounter INT;
+ 1 400   0   
+ 0 400   0   -- Initialize the variable.
+ 0 400   0   SET @MyCounter = 0;
+ 0 400   0   WHILE (@MyCounter < 26)
+ 2 400   0 + BEGIN;
+ 0 401   0 |    -- Insert a row into the table.
+ 0 401   0 |    INSERT INTO TestTable VALUES
+ 0 401   0 |        -- Use the variable to provide the integer value
+ 0 401   0 |        -- for cola. Also use it to generate a unique letter
+ 0 401   0 |        -- for each row. Use the ASCII function to get the
+ 0 401   0 |        -- integer value of 'a'. Add @MyCounter. Use CHAR to
+ 0 401   0 |        -- convert the sum back to the character @MyCounter
+ 0 401   0 |        -- characters after 'a'.
+ 0 401   0 |        (@MyCounter,
+ 0 401   0 |         CHAR( ( @MyCounter + ASCII('a') ) )
+ 0 401   0 |        );
+ 0 401   0 |    -- Increment the variable to count this iteration
+ 0 401   0 |    -- of the loop.
+ 0 401   0 |    SET @MyCounter = @MyCounter + 1;
+ 0 401   0 | END;
+ 1 400   0   
+ 0 400   0   IF @@ERROR = 547
+ 2 400   0 +     BEGIN
+ 0 401   0 |     PRINT N'A check constraint violation occurred.';
+ 0 401   0 |     END
+ 0 400   0   GO
+ 1 400   0   
+ 0 400   0   USE [AllStyles].[dbo].[test]
+ 0 400   0   GO
+ 1 400   0   
+ 0 400   0   SELECT ProductID
+ 0 400   0   FROM Production.Product
+ 0 400   0   INTERSECT
+ 0 400   0   SELECT ProductID
+ 0 400   0   FROM Production.WorkOrder ;
+ 0 400   0   

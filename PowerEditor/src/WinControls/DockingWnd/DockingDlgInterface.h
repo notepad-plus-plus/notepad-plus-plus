@@ -63,7 +63,9 @@ public:
 		::SendMessage(_hParent, NPPM_DMMUPDATEDISPINFO, 0, reinterpret_cast<LPARAM>(_hSelf));
 	}
 
-    virtual void destroy() {}
+    virtual void destroy() {
+		StaticDialog::destroy();
+	}
 
 	virtual void setBackgroundColor(COLORREF) {}
 	virtual void setForegroundColor(COLORREF) {}
@@ -92,7 +94,7 @@ protected :
 	generic_string _pluginName;
 	bool _isClosed = false;
 
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) {
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) {
 		switch (message)
 		{
 			case WM_ERASEBKGND:
@@ -102,10 +104,10 @@ protected :
 					break;
 				}
 
-				RECT rc = { 0 };
+				RECT rc = {};
 				getClientRect(rc);
-				FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
-				return 1;
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
 			}
 			case WM_NOTIFY: 
 			{

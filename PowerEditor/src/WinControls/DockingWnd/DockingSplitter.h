@@ -49,5 +49,8 @@ private:
 
 	static BOOL _isVertReg;
 	static BOOL _isHoriReg;
+
+	// get layout direction
+	bool _isRTL = false;
 };
 

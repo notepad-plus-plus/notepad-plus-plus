@@ -217,17 +217,27 @@
 				<Param name="callback key_compare_func"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="array_key_exists" func="yes">
+			<Overload retVal="bool">
+				<Param name="mixed key"/>
+				<Param name="array search"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="array_key_first" func="yes">
+			<Overload retVal="int|string|NULL">
+				<Param name="array array"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="array_key_last" func="yes">
+			<Overload retVal="int|string|NULL">
+				<Param name="array array"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="array_keys" func="yes">
 			<Overload retVal="array">
 				<Param name="array input"/>
 				<Param name="[mixed search_value"/>
 				<Param name="[bool strict=false]]"/>
-			</Overload>
-		</KeyWord>
-		<KeyWord name="array_key_exists" func="yes">
-			<Overload retVal="bool">
-				<Param name="mixed key"/>
-				<Param name="array search"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="array_map" func="yes">
@@ -5808,6 +5818,11 @@
 	   			<Param name="mixed var"/>
 	   			<Param name="[bool syntax_only"/>
 	   			<Param name="[string callable_name]]"/>
+	   		</Overload>
+		</KeyWord>
+		<KeyWord name="is_countable" func="yes">
+	   		<Overload retVal="bool">
+	   			<Param name="mixed value"/>
 	   		</Overload>
 		</KeyWord>
 		<KeyWord name="is_dir" func="yes">

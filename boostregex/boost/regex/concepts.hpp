@@ -29,7 +29,7 @@
 #endif
 #include <bitset>
 #include <vector>
-#include <iostream>
+#include <ostream>
 
 #ifdef BOOST_REGEX_CXX03
 #define RW_NS boost

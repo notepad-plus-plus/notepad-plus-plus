@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 #include <stdexcept>
 #include <windows.h>
 #include <commctrl.h>
@@ -23,19 +22,16 @@
 #include <cassert>
 #include "Parameters.h"
 #include "NppDarkMode.h"
-#include <Uxtheme.h>
-#include <Vssym32.h>
+#include <uxtheme.h>
+#include <vssym32.h>
 
 //#define IDC_STATUSBAR 789
-
 
 
 enum
 {
 	defaultPartWidth = 5,
 };
-
-
 
 
 StatusBar::~StatusBar()
@@ -48,6 +44,7 @@ void StatusBar::init(HINSTANCE, HWND)
 {
 	assert(false and "should never be called");
 }
+
 
 struct StatusBarSubclassInfo
 {
@@ -77,7 +74,9 @@ struct StatusBarSubclassInfo
 	}
 };
 
+
 constexpr UINT_PTR g_statusBarSubclassID = 42;
+
 
 LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
@@ -111,7 +110,7 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 				int horizontal;
 				int vertical;
 				int between;
-			} borders = { 0 };
+			} borders = {};
 
 			SendMessage(hWnd, SB_GETBORDERS, 0, (LPARAM)&borders);
 
@@ -120,6 +119,8 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
+
+			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
 
 			HFONT holdFont = (HFONT)::SelectObject(hdc, NppParameters::getInstance().getDefaultUIFont());
 
@@ -132,20 +133,30 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			std::wstring str;
 			for (int i = 0; i < nParts; ++i)
 			{
-				RECT rcPart = { 0 };
+				RECT rcPart = {};
 				SendMessage(hWnd, SB_GETRECT, i, (LPARAM)&rcPart);
-				RECT rcIntersect = { 0 };
+				RECT rcIntersect = {};
 				if (!IntersectRect(&rcIntersect, &rcPart, &ps.rcPaint))
 				{
 					continue;
+				}
+
+				if (nParts > 2) //to not apply on status bar in find dialog
+				{
+					POINT edges[] = {
+						{rcPart.right - 2, rcPart.top + 1},
+						{rcPart.right - 2, rcPart.bottom - 3}
+					};
+					Polyline(hdc, edges, _countof(edges));
 				}
 
 				RECT rcDivider = { rcPart.right - borders.vertical, rcPart.top, rcPart.right, rcPart.bottom };
 
 				DWORD cchText = 0;
 				cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
-				str.resize(cchText + 1);
-				LRESULT lr = SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)str.data());
+				str.resize(cchText + 1); // technically the std::wstring might not have an internal null character at the end of the buffer, so add one
+				LRESULT lr = SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)&str[0]);
+				str.resize(cchText); // remove the extra NULL character
 				bool ownerDraw = false;
 				if (cchText == 0 && (lr & ~(SBT_NOBORDERS | SBT_POPOUT | SBT_RTLREADING)) != 0)
 				{
@@ -189,7 +200,7 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			if (isSizeGrip)
 			{
 				pStatusBarInfo->ensureTheme(hWnd);
-				SIZE gripSize = { 0 };
+				SIZE gripSize = {};
 				GetThemePartSize(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rcClient, TS_DRAW, &gripSize);
 				RECT rc = rcClient;
 				rc.left = rc.right - gripSize.cx;
@@ -198,6 +209,7 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			}
 
 			::SelectObject(hdc, holdFont);
+			::SelectObject(hdc, holdPen);
 
 			EndPaint(hWnd, &ps);
 			return FALSE;
@@ -214,10 +226,11 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
+
 void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 {
 	Window::init(hInst, hPere);
-    InitCommonControls();
+	InitCommonControls();
 
 	// _hSelf = CreateStatusWindow(WS_CHILD | WS_CLIPSIBLINGS, NULL, _hParent, IDC_STATUSBAR);
 	_hSelf = ::CreateWindowEx(
@@ -240,7 +253,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (nbParts > 0)
 		_partWidthArray.resize(nbParts, defaultPartWidth);
 
-    // Allocate an array for holding the right edge coordinates.
+	// Allocate an array for holding the right edge coordinates.
 	if (_partWidthArray.size())
 		_lpParts = new int[_partWidthArray.size()];
 
@@ -285,17 +298,17 @@ int StatusBar::getHeight() const
 
 void StatusBar::adjustParts(int clientWidth)
 {
-    // Calculate the right edge coordinate for each part, and
-    // copy the coordinates to the array.
-    int nWidth = std::max<int>(clientWidth - 20, 0);
+	// Calculate the right edge coordinate for each part, and
+	// copy the coordinates to the array.
+	int nWidth = std::max<int>(clientWidth - 20, 0);
 
 	for (int i = static_cast<int>(_partWidthArray.size()) - 1; i >= 0; i--)
-    {
+	{
 		_lpParts[i] = nWidth;
 		nWidth -= _partWidthArray[i];
 	}
 
-    // Tell the status bar to create the window parts.
+	// Tell the status bar to create the window parts.
 	::SendMessage(_hSelf, SB_SETPARTS, _partWidthArray.size(), reinterpret_cast<LPARAM>(_lpParts));
 }
 

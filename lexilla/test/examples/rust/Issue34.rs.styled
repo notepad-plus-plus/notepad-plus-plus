@@ -1,0 +1,11 @@
+{3}/**
+ * SCE_RUST_COMMENTBLOCKDOC
+ */{0}
+{6}fn{0} {17}main{16}(){0} {16}{{0}
+    {4}/// SCE_RUST_COMMENTLINEDOC{0}
+    {19}println!{16}({13}"Hello, World!"{16});{0}
+{16}}{0}
+{2}// SCE_RUST_COMMENTLINE{0}
+{1}/*
+ * SCE_RUST_COMMENTBLOCK
+ */{0}

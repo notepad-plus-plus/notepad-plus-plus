@@ -19,8 +19,8 @@ gan/by Aled Powell
                     <Item menuId="settings" name="Gosodiadau (&amp;T)"/>
                     <Item menuId="macro" name="Macro"/>
                     <Item menuId="run" name="Rhedeg"/>
-                    <Item idName="Plugins" name="Ategolion"/>
-                    <Item idName="Window" name="Ffenestr"/>
+                    <Item menuId="Plugins" name="Ategolion"/>
+                    <Item menuId="Window" name="Ffenestr"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -324,14 +324,10 @@ gan/by Aled Powell
                 <Item id="1604" name="Yr un prif/is-lythrennau (&amp;c)"/>
                 <Item id="1605" name="Myne&amp;giad rheolaidd"/>
                 <Item id="1606" name="Amla&amp;pio o amgylch"/>
-                <Item id="1612" name="Fyny (&amp;U)"/>
-                <Item id="1613" name="Lawr (&amp;D)"/>
                 <Item id="1614" name="Cyfrif"/>
                 <Item id="1615" name="Canfod y Cwbl"/>
                 <Item id="1616" name="Nodi llinell"/>
-                <Item id="1617" name="Arddull tocyn canfuwyd"/>
                 <Item id="1618" name="Clirio ar gyfer pob chwiliad"/>
-                <Item id="1621" name="Cyfeiriad"/>
                 <Item id="1611" name="Newid gyda (&amp;p):"/>
                 <Item id="1608" name="&amp;Newid"/>
                 <Item id="1609" name="Newid y Cwbl (&amp;A)"/>
@@ -342,7 +338,6 @@ gan/by Aled Powell
                 <Item id="1633" name="Clirio"/>
                 <Item id="1635" name="Newid y Cwbl ym Mhob Dogfen ar Agor"/>
                 <Item id="1636" name="Canfod y Cwbl ym Mhob Dogfen ar Agor"/>
-                <Item id="1637" name="Canfod mewn Ffeilau"/>
                 <Item id="1654" name="Hidlyddion:"/>
                 <Item id="1655" name="Cyfeiriadur:"/>
                 <Item id="1656" name="Canfod y Cwbl"/>
@@ -847,11 +842,11 @@ gan/by Aled Powell
         <ClipboardHistory>
 			<PanelTitle name="Hanes Clipfwrdd"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Newidydd Dogfennau"/>
 			<ColumnName name="Enw"/>
 			<ColumnExt name="Est."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="Panel Mewnosod ASCII"/>
 			<ColumnVal name="Gwerth"/>

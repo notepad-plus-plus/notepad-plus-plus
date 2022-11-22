@@ -1,0 +1,9 @@
+{1}# -*- coding: utf-8 -*-{0}
+{1}# Show problem with character value truncation causing U+0121 'ġ' (LATIN SMALL LETTER G WITH DOT ABOVE){0}
+{1}# to be styled as an operator as static_cast<char>(0x121) = 0x21 == '!' which is an operator{0}
+
+{1}# Isolate{0}
+{7}ġ{0}
+
+{1}# Continuing from operator{0}
+{6}({7}ġ{6}){0}

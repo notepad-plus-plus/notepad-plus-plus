@@ -23,8 +23,8 @@
                     <Item menuId="tools" name="To&amp;amathuluzi"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="&amp;Run"/>
-                    <Item idName="Plugins" name="&amp;Ama-plugin"/>
-                    <Item idName="Window" name="&amp;Iwindi"/>
+                    <Item menuId="Plugins" name="&amp;Ama-plugin"/>
+                    <Item menuId="Window" name="&amp;Iwindi"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -1045,11 +1045,11 @@ Ingabe ufuna ukuqala i-Notepad ++ kwimodi ye-Administrator?"/>
         <ClipboardHistory>
             <PanelTitle name="Umlando we-Clipboard"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="I-Doc Switcher"/>
             <ColumnName name="Igama"/>
             <ColumnExt name="I-Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Igama"/>
             <ColumnPath name="Indlela"/>

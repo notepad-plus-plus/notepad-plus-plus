@@ -7,11 +7,11 @@ Last update: 2009 July 07
 -->
 <!--
 Uzbek (Latin) translation for Notepad++
-Updated to v7.9.5:
+Updated to v8.1.4:
 Updater: Shamsiddinov Zafar
 -->
 <NotepadPlus>
-	<Native-Langue name="Oʻzbekcha" filename="uzbek.xml" version="7.9">
+	<Native-Langue name="Oʻzbekcha" filename="uzbek.xml" version="8.1.4">
 		<Menu>
 			<Main>
 
@@ -26,8 +26,8 @@ Updater: Shamsiddinov Zafar
 					<Item menuId="tools" name="Qoʻshimchalar"/>
 					<Item menuId="macro" name="&amp;Makroslar"/>
 					<Item menuId="run" name="&amp;Ishga tushirmoq"/>
-					<Item idName="Plugins" name="&amp;Ilovalar"/>
-					<Item idName="Window"  name="&amp;Xatchoʻplar"/>
+					<Item menuId="Plugins" name="&amp;Ilovalar"/>
+					<Item menuId="Window"  name="&amp;Xatchoʻplar"/>
 				</Entries>
 
 				<SubEntries>
@@ -44,6 +44,8 @@ Updater: Shamsiddinov Zafar
 					<Item subMenuId="edit-blankOperations" name="Probellar bilan amallar"/>
 					<Item subMenuId="edit-pasteSpecial" name="Maxsus joylashtirlash"/>
 					<Item subMenuId="edit-onSelection" name="Ajratmoq"/>
+					<Item subMenuId="search-markAll" name="&amp;Tokenning barcha hodisalari uslubi"/>
+                    <Item subMenuId="search-markOne" name="Yagona &amp;token uslubi"/>
 					<Item subMenuId="search-markAll" name="Ajratishlarni belgilamoq"/>
 					<Item subMenuId="search-unmarkAll" name="Belgilarni olib tashlamoq"/>
 					<Item subMenuId="search-jumpUp" name="Yuqoriga oʻtmoq"/>
@@ -82,13 +84,18 @@ Updater: Shamsiddinov Zafar
 				</SubEntries>
 
 				<Commands>
-					<Item id="1001"  name="&amp;Pdf shaklida saqlamoq!"/>
+					<Item id="1001"  name="&amp;Pdf shaklida saqlamoq"/>
 					<Item id="41001" name="Yangi fayl"/>
 					<Item id="41002" name="Ochmoq"/>
 					<Item id="41019" name="&amp;Fayl jildini ochmoq"/>
+					<Item id="41020" name="Jildlarni &amp;cmd konsolida ochmoq"/>
+					<Item id="41025" name="Loyiha tarzidagi hujjat jildi"/>
 					<Item id="41003" name="Yopmoq"/>
 					<Item id="41004" name="&amp;Barini yopmoq"/>
 					<Item id="41005" name="Faoldan boshqa, barini yopmoq"/>
+					<Item id="41009" name="Chapdagilarni barini yopmoq"/>
+                    <Item id="41018" name="Oʻngdagilarni barini yopmoq"/>
+                    <Item id="41024" name="Barcha oʻzgarmaganlarini yopmoq"/>
 					<Item id="41006" name="Saqlamoq"/>
 					<Item id="41007" name="Barini saqlamoq"/>
 					<Item id="41008" name="Quyidagidek saqlamoq..."/>
@@ -241,6 +248,7 @@ Updater: Shamsiddinov Zafar
                     <Item id="43061" name="Uslubni izlamoq (Belgilangan)"/>
 					<Item id="44009" name="Matn butun Darcha boʻylab"/>
 					<Item id="44010" name="Barcha bloklarni yigʻmoq"/>
+					<Item id="44011" name="Chalgʻitmaslik rejimi"/>
 					<Item id="44019" name="Barcha belgilarni koʻrsatmoq"/>
 					<Item id="44020" name="Chekinishlarni koʻrsatmoq"/>
 					<Item id="44022" name="Satrga koʻchirish"/>
@@ -259,8 +267,9 @@ Updater: Shamsiddinov Zafar
 					<Item id="44041" name="Satr Koʻchirish belgisini koʻrsatmoq"/>
 					<Item id="44042" name="Belgilangan satrlarni berkitmoq"/>
 					<Item id="44049" name="Fayl haqida ma’lumot..."/>
+					<Item id="44070" name="Fayllar roʻyxati"/>
 					<Item id="44072" name="Boshqa Hududga oʻtkazmoq"/>
-					<Item id="44080" name="Fayl Xaritasi"/>
+					<Item id="44080" name="Fayl xaritasi"/>
 					<Item id="44081" name="1-loyiha paneli"/>
 					<Item id="44082" name="2-loyiha paneli"/>
 					<Item id="44083" name="3-loyiha paneli"/>
@@ -765,6 +774,27 @@ Updater: Shamsiddinov Zafar
 Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
 					<Item id="6239" name="Sichqn. oʻng tugm. bosilmaganda ham belgilashni saqlamoq"/>
 				</Scintillas>
+				<DarkMode title="Qorongʻu tema">
+                    <Item id="7101" name="Qorongʻu temani yoqish"/>
+                    <Item id="7102" name="Qoramtir tusda"/>
+                    <Item id="7103" name="Qizgʻish tusda"/>
+                    <Item id="7104" name="Yashil tusda"/>
+                    <Item id="7105" name="Koʻkimtir tusda"/>
+                    <Item id="7107" name="Pushti tusda"/>
+                    <Item id="7108" name="Toʻq koʻk tusda"/>
+                    <Item id="7109" name="Toʻq yashil tusda"/>
+                    <Item id="7115" name="Tanlovli tusda"/>
+                    <Item id="7116" name="Yuqori qismi"/>
+                    <Item id="7117" name="Menu hot track"/>
+                    <Item id="7118" name="Faol qism"/>
+                    <Item id="7119" name="Asosiy qism"/>
+                    <Item id="7120" name="Xatoliklar matni"/>
+                    <Item id="7121" name="Umumiy matn"/>
+                    <Item id="7122" name="Toʻq qora matn"/>
+                    <Item id="7123" name="Faol boʻlmagan matn"/>
+                    <Item id="7124" name="Hoshiya tusi"/>
+                    <Item id="7130" name="Asliga"/>
+                </DarkMode>
 				<MarginsBorderEdge title="Bloklar/Hoshiyalar/Maydonlar">
                     <Item id="6201" name="Blok uslubi"/>
                     <Item id="6202" name="Oddiy"/>
@@ -856,6 +886,7 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
 					<Item id="6427" name="Uzunlikni koʻrsatmoq:"/>
 				</RecentFilesHistory>
 				<Highlighting title="Rangli ajratkich">
+					<Item id="6351" name="Tokenning barcha hodisalari uslubi"/>
 					<Item id="6333" name="Oʻxshash soʻzlarni rang bilan ajratmoq"/>
 					<Item id="6326" name="Faollashtirmoq"/>
 					<Item id="6332" name="Registr hisobini olmoq"/>
@@ -1082,11 +1113,11 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
         <ClipboardHistory>
             <PanelTitle name="Bufer tarixi"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Fayllar"/>
             <ColumnName name="Nomi"/>
             <ColumnExt name="Keng."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nomi"/>
             <ColumnPath name="Yoʻlagi"/>

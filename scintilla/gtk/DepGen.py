@@ -13,8 +13,8 @@ from scripts import Dependencies
 topComment = "# Created by DepGen.py. To recreate, run DepGen.py.\n"
 
 def Generate():
-	sources = ["../src/*.cxx", "../lexlib/*.cxx", "../lexers/*.cxx"]
-	includes = ["../include", "../src", "../lexlib"]
+	sources = ["../src/*.cxx"]
+	includes = ["../include", "../src"]
 
 	deps = Dependencies.FindDependencies(["../gtk/*.cxx"] + sources, ["../gtk"] + includes, ".o", "../gtk/")
 	Dependencies.UpdateDependencies("../gtk/deps.mak", deps, topComment)

@@ -10,27 +10,29 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		271FA52C0F850BE20033D021 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 271FA52B0F850BE20033D021 /* AppController.mm */; };
 		2791F4490FC1A8E9009DBCF9 /* TestData.sql in Resources */ = {isa = PBXBuildFile; fileRef = 2791F4480FC1A8E9009DBCF9 /* TestData.sql */; };
-		27AF7EC30FC2C351007160EF /* Scintilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2744E5EA0FC16BE200E85C33 /* Scintilla.framework */; };
-		27AF7ECA0FC2C388007160EF /* Scintilla.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2744E5EA0FC16BE200E85C33 /* Scintilla.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		286F8E5125F8474400EC8D60 /* Scintilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 286F8E4E25F845B000EC8D60 /* Scintilla.framework */; };
+		286F8E5225F8474400EC8D60 /* Scintilla.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 286F8E4E25F845B000EC8D60 /* Scintilla.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		286F8E7525F8506B00EC8D60 /* liblexilla.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 286F8E7325F8504800EC8D60 /* liblexilla.dylib */; };
+		286F8E7625F8506B00EC8D60 /* liblexilla.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 286F8E7325F8504800EC8D60 /* liblexilla.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2744E5E90FC16BE200E85C33 /* PBXContainerItemProxy */ = {
+		286F8E4D25F845B000EC8D60 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2744E5E20FC16BE200E85C33 /* ScintillaFramework.xcodeproj */;
+			containerPortal = 286F8E4925F845B000EC8D60 /* Scintilla.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteGlobalIDString = 287F3C41246F8DC70040E76F;
 			remoteInfo = Scintilla;
 		};
-		27AF7EC60FC2C36A007160EF /* PBXContainerItemProxy */ = {
+		286F8E7225F8504800EC8D60 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2744E5E20FC16BE200E85C33 /* ScintillaFramework.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = Scintilla;
+			containerPortal = 286F8E6E25F8504800EC8D60 /* Lexilla.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 280262A5246DF655000DF3B8;
+			remoteInfo = lexilla;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -41,7 +43,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				27AF7ECA0FC2C388007160EF /* Scintilla.framework in CopyFiles */,
+				286F8E7625F8506B00EC8D60 /* liblexilla.dylib in CopyFiles */,
+				286F8E5225F8474400EC8D60 /* Scintilla.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,8 +55,9 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		271FA52A0F850BE20033D021 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		271FA52B0F850BE20033D021 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; wrapsLines = 0; };
-		2744E5E20FC16BE200E85C33 /* ScintillaFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ScintillaFramework.xcodeproj; path = ../ScintillaFramework/ScintillaFramework.xcodeproj; sourceTree = SOURCE_ROOT; };
 		2791F4480FC1A8E9009DBCF9 /* TestData.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestData.sql; sourceTree = "<group>"; };
+		286F8E4925F845B000EC8D60 /* Scintilla.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Scintilla.xcodeproj; path = ../Scintilla/Scintilla.xcodeproj; sourceTree = "<group>"; };
+		286F8E6E25F8504800EC8D60 /* Lexilla.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lexilla.xcodeproj; path = ../../../lexilla/src/Lexilla/Lexilla.xcodeproj; sourceTree = "<group>"; };
 		28E78A40224C33FE00456881 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		28E78A41224C33FE00456881 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -69,7 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27AF7EC30FC2C351007160EF /* Scintilla.framework in Frameworks */,
+				286F8E5125F8474400EC8D60 /* Scintilla.framework in Frameworks */,
+				286F8E7525F8506B00EC8D60 /* liblexilla.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,10 +117,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2744E5E30FC16BE200E85C33 /* Products */ = {
+		286F8E4A25F845B000EC8D60 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2744E5EA0FC16BE200E85C33 /* Scintilla.framework */,
+				286F8E4E25F845B000EC8D60 /* Scintilla.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		286F8E6F25F8504800EC8D60 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				286F8E7325F8504800EC8D60 /* liblexilla.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,7 +136,8 @@
 		29B97314FDCFA39411CA2CEA /* ScintillaTest */ = {
 			isa = PBXGroup;
 			children = (
-				2744E5E20FC16BE200E85C33 /* ScintillaFramework.xcodeproj */,
+				286F8E6E25F8504800EC8D60 /* Lexilla.xcodeproj */,
+				286F8E4925F845B000EC8D60 /* Scintilla.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -177,7 +191,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				27AF7EC70FC2C36A007160EF /* PBXTargetDependency */,
 			);
 			name = ScintillaTest;
 			productInstallPath = "$(HOME)/Applications";
@@ -191,7 +204,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1250;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ScintillaTest" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -205,8 +218,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 2744E5E30FC16BE200E85C33 /* Products */;
-					ProjectRef = 2744E5E20FC16BE200E85C33 /* ScintillaFramework.xcodeproj */;
+					ProductGroup = 286F8E6F25F8504800EC8D60 /* Products */;
+					ProjectRef = 286F8E6E25F8504800EC8D60 /* Lexilla.xcodeproj */;
+				},
+				{
+					ProductGroup = 286F8E4A25F845B000EC8D60 /* Products */;
+					ProjectRef = 286F8E4925F845B000EC8D60 /* Scintilla.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -217,11 +234,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		2744E5EA0FC16BE200E85C33 /* Scintilla.framework */ = {
+		286F8E4E25F845B000EC8D60 /* Scintilla.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Scintilla.framework;
-			remoteRef = 2744E5E90FC16BE200E85C33 /* PBXContainerItemProxy */;
+			remoteRef = 286F8E4D25F845B000EC8D60 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		286F8E7325F8504800EC8D60 /* liblexilla.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = liblexilla.dylib;
+			remoteRef = 286F8E7225F8504800EC8D60 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -251,14 +275,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		27AF7EC70FC2C36A007160EF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Scintilla;
-			targetProxy = 27AF7EC60FC2C36A007160EF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -284,6 +300,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -297,6 +315,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sun.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = ScintillaTest;
@@ -310,6 +329,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -321,6 +342,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sun.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = ScintillaTest;
@@ -345,6 +367,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -362,9 +385,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = "../../../lexilla/**";
 			};
 			name = Debug;
 		};
@@ -384,6 +409,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -399,8 +425,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = "../../../lexilla/**";
 			};
 			name = Release;
 		};

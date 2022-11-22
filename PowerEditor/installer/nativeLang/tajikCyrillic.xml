@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;Танзимот"/>
                     <Item menuId="macro" name="Макрос"/>
                     <Item menuId="run" name="Иҷро"/>
-                    <Item idName="Plugins" name="Афзунаҳо"/>
-                    <Item idName="Window" name="Панҷара"/>
+                    <Item menuId="Plugins" name="Афзунаҳо"/>
+                    <Item menuId="Window" name="Панҷара"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -329,13 +329,10 @@
                 <Item id="1604" name="Бо назардошти ҳуруф (регистр)"/>
                 <Item id="1605" name="Иборати маъмулӣ"/>
                 <Item id="1606" name="Печидани пиромун"/>
-                <Item id="1612" name="Боло"/>
-                <Item id="1613" name="Поин"/>
                 <Item id="1614" name="Шумурдан"/>
                 <Item id="1615" name="Ёфтани ҳама"/>
                 <Item id="1616" name="Аломатгузории хат"/>
 				<Item id="1618" name="Барои ҳар ҷустуҷӯ холӣ шав"/>
-                <Item id="1621" name="Ҷиҳат/Самт"/>
                 <Item id="1611" name="Ҷойгузин бо:"/>
                 <Item id="1608" name="Ҷойгузин"/>
                 <Item id="1609" name="Ҷойгузини ҳама"/>
@@ -866,11 +863,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Таърихи миёнгири табодул"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Таъвизи санад"/>
 			<ColumnName name="Ном"/>
 			<ColumnExt name="Пасв."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="Ҷадвали аломатҳои ASCII"/>
 			<ColumnVal name="Арзиш"/>

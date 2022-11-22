@@ -8,7 +8,7 @@
 #ifndef CALLTIP_H
 #define CALLTIP_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 struct Chunk {
 	size_t start;
@@ -24,13 +24,13 @@ struct Chunk {
 class CallTip {
 	Chunk highlight;    // character offset to start and end of highlighted text
 	std::string val;
-	Font font;
+	std::shared_ptr<Font> font;
 	PRectangle rectUp;      // rectangle of last up angle in the tip
 	PRectangle rectDown;    // rectangle of last down arrow in the tip
 	int lineHeight;         // vertical line spacing
 	int offsetMain;         // The alignment point of the call tip
 	int tabSize;            // Tab size in pixels, <=0 no TAB expand
-	bool useStyleCallTip;   // if true, STYLE_CALLTIP should be used
+	bool useStyleCallTip;   // if true, StyleCallTip should be used
 	bool above;		// if true, display calltip above text
 
 	int DrawChunk(Surface *surface, int x, std::string_view sv,
@@ -44,11 +44,11 @@ public:
 	Window wDraw;
 	bool inCallTipMode;
 	Sci::Position posStartCallTip;
-	ColourDesired colourBG;
-	ColourDesired colourUnSel;
-	ColourDesired colourSel;
-	ColourDesired colourShade;
-	ColourDesired colourLight;
+	ColourRGBA colourBG;
+	ColourRGBA colourUnSel;
+	ColourRGBA colourSel;
+	ColourRGBA colourShade;
+	ColourRGBA colourLight;
 	int codePage;
 	int clickPlace;
 
@@ -71,10 +71,9 @@ public:
 
 	/// Setup the calltip and return a rectangle of the area required.
 	PRectangle CallTipStart(Sci::Position pos, Point pt, int textHeight, const char *defn,
-		const char *faceName, int size, int codePage_,
-		int characterSet, int technology, const Window &wParent);
+		int codePage_, Surface *surfaceMeasure, std::shared_ptr<Font> font_);
 
-	void CallTipCancel();
+	void CallTipCancel() noexcept;
 
 	/// Set a range of characters to be displayed in a highlight style.
 	/// Commonly used to highlight the current parameter.
@@ -90,7 +89,7 @@ public:
 	bool UseStyleCallTip() const noexcept;
 
 	// Modify foreground and background colours
-	void SetForeBack(const ColourDesired &fore, const ColourDesired &back) noexcept;
+	void SetForeBack(ColourRGBA fore, ColourRGBA back) noexcept;
 };
 
 }

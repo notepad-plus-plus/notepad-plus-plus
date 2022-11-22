@@ -20,8 +20,6 @@
 #ifndef BOOST_REGEX_V5_BASIC_REGEX_CREATOR_HPP
 #define BOOST_REGEX_V5_BASIC_REGEX_CREATOR_HPP
 
-#include <boost/regex/v5/indexed_bit_flag.hpp>
-
 #ifdef BOOST_REGEX_MSVC
 #  pragma warning(push)
 #pragma warning(disable:4459)
@@ -29,6 +27,8 @@
 #pragma warning(disable:4800)
 #endif
 #endif
+
+#include <set>
 
 namespace boost{
 
@@ -232,7 +232,6 @@ protected:
    bool                          m_icase;              // true for case insensitive matches
    unsigned                      m_repeater_id;        // the state_id of the next repeater
    bool                          m_has_backrefs;       // true if there are actually any backrefs
-   indexed_bit_flag              m_backrefs;           // bitmask of permitted backrefs
    std::uintmax_t                m_bad_repeats;        // bitmask of repeats we can't deduce a startmap for;
    bool                          m_has_recursions;     // set when we have recursive expressions to fixup
    std::vector<unsigned char>    m_recursion_checks;   // notes which recursions we've followed while analysing this expression
@@ -1020,6 +1019,8 @@ int basic_regex_creator<charT, traits>::calculate_backstep(re_syntax_base* state
             {
                if(rep->max != rep->min)
                   return -1;
+               if (static_cast<std::size_t>((std::numeric_limits<int>::max)() - result) < rep->min)
+                  return -1; // protection against overflow, we can't calculate a backstep in this case and the expression is probably ill-formed.
                result += static_cast<int>(rep->min);
                state = rep->alt.p;
                continue;

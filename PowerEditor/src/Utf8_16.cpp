@@ -28,13 +28,6 @@ const Utf8_16::utf8 Utf8_16::k_Boms[][3] = {
 
 // ==================================================================
 
-Utf8_16_Read::Utf8_16_Read() {
-	m_eEncoding		= uni8Bit;
-	m_nAllocatedBufSize = 0;
-	m_nNewBufSize   = 0;
-	m_pNewBuf		= NULL;
-	m_bFirstRead	= true;
-}
 
 Utf8_16_Read::~Utf8_16_Read()
 {
@@ -222,7 +215,7 @@ void Utf8_16_Read::determineEncoding()
 		m_nSkip = 3;
 	}
 	// try to detect UTF-16 little-endian without BOM
-	else if (m_nLen > 1 && m_nLen % 2 == 0 && m_pBuf[0] != NULL && m_pBuf[1] == NULL && IsTextUnicode(m_pBuf, static_cast<int32_t>(m_nLen), &uniTest))
+	else if (m_nLen > 1 && m_nLen % 2 == 0 && m_pBuf[0] != 0 && m_pBuf[1] == 0 && IsTextUnicode(m_pBuf, static_cast<int32_t>(m_nLen), &uniTest))
 	{
 		m_eEncoding = uni16LE_NoBOM;
 		m_nSkip = 0;
@@ -278,7 +271,6 @@ UniMode Utf8_16_Read::determineEncoding(const unsigned char *buf, size_t bufLen)
 Utf8_16_Write::Utf8_16_Write()
 {
 	m_eEncoding = uni8Bit;
-	m_pFile = NULL;
 	m_pNewBuf = NULL;
 	m_bFirstWrite = true;
 	m_nBufSize = 0;
@@ -286,39 +278,48 @@ Utf8_16_Write::Utf8_16_Write()
 
 Utf8_16_Write::~Utf8_16_Write()
 {
-	fclose();
+	closeFile();
 }
 
-FILE * Utf8_16_Write::fopen(const TCHAR *_name, const TCHAR *_type)
+bool Utf8_16_Write::openFile(const TCHAR *name)
 {
-	m_pFile = ::generic_fopen(_name, _type);
+	m_pFile = std::make_unique<Win32_IO_File>(name);
+
+	if (!m_pFile)
+		return false;
+
+	if (!m_pFile->isOpened())
+	{
+		m_pFile = nullptr;
+		return false;
+	}
 
 	m_bFirstWrite = true;
 
-	return m_pFile;
+	return true;
 }
 
-size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
+bool Utf8_16_Write::writeFile(const void* p, unsigned long _size)
 {
     // no file open
 	if (!m_pFile)
     {
-		return 0;
+		return false;
 	}
 
-    size_t  ret = 0;
-    
 	if (m_bFirstWrite)
     {
         switch (m_eEncoding)
         {
             case uniUTF8: {
-                ::fwrite(k_Boms[m_eEncoding], 3, 1, m_pFile);
+                if (!m_pFile->write(k_Boms[m_eEncoding], 3))
+					return false;
                 break;
             }    
             case uni16BE:
             case uni16LE:
-                ::fwrite(k_Boms[m_eEncoding], 2, 1, m_pFile);
+                if (!m_pFile->write(k_Boms[m_eEncoding], 2))
+					return false;
                 break;
             default:
                 // nothing to do
@@ -326,7 +327,9 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
         }
 		m_bFirstWrite = false;
     }
-    
+
+    bool isOK = false;
+
     switch (m_eEncoding)
     {
 		case uni7Bit:
@@ -334,38 +337,40 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
         case uniCookie:
         case uniUTF8: {
             // Normal write
-            ret = ::fwrite(p, _size, 1, m_pFile);
+			if (m_pFile->write(p, _size))
+				isOK = true;
             break;
         }
         case uni16BE_NoBOM:
         case uni16LE_NoBOM:
         case uni16BE:
         case uni16LE: {
-			static const int bufSize = 64*1024;
-			utf16 buf[bufSize];
+			static const unsigned int bufSize = 64*1024;
+			utf16* buf = new utf16[bufSize];
             
             Utf8_Iter iter8;
             iter8.set(static_cast<const ubyte*>(p), _size, m_eEncoding);
 
-			int bufIndex = 0;
+			unsigned int bufIndex = 0;
 			while (iter8) {
 				++iter8;
 				while ((bufIndex < bufSize) && iter8.canGet())
 					iter8.get(&buf [bufIndex++]);
 
 				if (bufIndex == bufSize || !iter8) {
-					if (!::fwrite(buf, bufIndex*sizeof(utf16), 1, m_pFile)) return 0;
+					if (!m_pFile->write(buf, bufIndex*sizeof(utf16))) return 0;
 					bufIndex = 0;
 				}
 			}
-            ret = 1;
+			isOK = true;
+			delete[] buf;
             break;
         }    
         default:
             break;
     }
 
-    return ret;
+    return isOK;
 }
 
 
@@ -374,6 +379,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
 	if (m_pNewBuf)
     {
 		delete [] m_pNewBuf;
+		m_pNewBuf = NULL;
 	}
 
     switch (m_eEncoding)
@@ -436,7 +442,7 @@ void Utf8_16_Write::setEncoding(UniMode eType)
 }
 
 
-void Utf8_16_Write::fclose()
+void Utf8_16_Write::closeFile()
 {
 	if (m_pNewBuf)
 	{
@@ -445,11 +451,7 @@ void Utf8_16_Write::fclose()
 	}
 
 	if (m_pFile)
-	{
-		::fflush(m_pFile);
-		::fclose(m_pFile);
-		m_pFile = NULL;
-	}
+		m_pFile = nullptr;
 }
 
 
@@ -582,7 +584,7 @@ bool Utf16_Iter::get(utf8 *c)
 		return true;
 	}
 	return false;
-};
+}
 
 void Utf16_Iter::pushout(ubyte c)
 {
@@ -633,12 +635,12 @@ void Utf16_Iter::operator++()
                 m_eState = eStart;
             } else if (m_nCur16 < 0x800) {
                 pushout(static_cast<ubyte>(0xC0 | m_nCur16 >> 6));
-                pushout(0x80 | m_nCur16 & 0x3f);
+                pushout(0x80 | (m_nCur16 & 0x3f));
                 m_eState = eStart;
             } else {
                 pushout(0xE0 | (m_nCur16 >> 12));
-                pushout(0x80 | (m_nCur16 >> 6) & 0x3f);
-                pushout(0x80 | m_nCur16 & 0x3f);
+                pushout(0x80 | ((m_nCur16 >> 6) & 0x3f));
+                pushout(0x80 | (m_nCur16 & 0x3f));
                 m_eState = eStart;
             }
             break;
@@ -647,10 +649,10 @@ void Utf16_Iter::operator++()
 			if ((m_nCur16 >= 0xDC00) && (m_nCur16 < 0xE000))
 			{ // valid surrogate pair
 				UINT code = 0x10000 + ((m_highSurrogate & 0x3ff) << 10) + (m_nCur16 & 0x3ff);
-				pushout(0xf0 | (code >> 18) & 0x07);
-				pushout(0x80 | (code >> 12) & 0x3f);
-				pushout(0x80 | (code >>  6) & 0x3f);
-				pushout(0x80 | code & 0x3f);
+				pushout(0xf0 | ((code >> 18) & 0x07));
+				pushout(0x80 | ((code >> 12) & 0x3f));
+				pushout(0x80 | ((code >>  6) & 0x3f));
+				pushout(0x80 | (code & 0x3f));
 			}
 			m_eState = eStart;
 			break;

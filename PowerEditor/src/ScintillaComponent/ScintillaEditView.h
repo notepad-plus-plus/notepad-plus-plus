@@ -113,14 +113,12 @@ const UCHAR BASE_08 = 0x02; // Oct
 const UCHAR BASE_02 = 0x03; // Bin
 
 
-const int MARK_BOOKMARK = 24;
-const int MARK_HIDELINESBEGIN = 23;
-const int MARK_HIDELINESEND = 22;
-const int MARK_HIDELINESUNDERLINE = 21;
-//const int MARK_LINEMODIFIEDUNSAVED = 20;
-//const int MARK_LINEMODIFIEDSAVED = 19;
-// 24 - 16 reserved for Notepad++ internal used
-// 15 - 0  are free to use for plugins
+const int MARK_BOOKMARK = 20;
+const int MARK_HIDELINESBEGIN = 19;
+const int MARK_HIDELINESEND = 18;
+const int MARK_HIDELINESUNDERLINE = 17;
+// 20 - 17 reserved for Notepad++ internal used
+// 16 - 0  are free to use for plugins
 
 
 int getNbDigits(int aNum, int base);
@@ -134,15 +132,14 @@ const bool L2R = true;
 const bool R2L = false;
 
 struct ColumnModeInfo {
-	int _selLpos;
-	int _selRpos;
-	int _order; // 0 based index
-	bool _direction; // L2R or R2L
-	int _nbVirtualCaretSpc;
-	int _nbVirtualAnchorSpc;
+	intptr_t _selLpos = 0;
+	intptr_t _selRpos = 0;
+	intptr_t _order = -1; // 0 based index
+	bool _direction = L2R; // L2R or R2L
+	intptr_t _nbVirtualAnchorSpc = 0;
+	intptr_t _nbVirtualCaretSpc = 0;
 
-	ColumnModeInfo() : _selLpos(0), _selRpos(0), _order(-1), _direction(L2R), _nbVirtualAnchorSpc(0), _nbVirtualCaretSpc(0){};
-	ColumnModeInfo(int lPos, int rPos, int order, bool dir = L2R, int vAnchorNbSpc = 0, int vCaretNbSpc = 0)
+	ColumnModeInfo(intptr_t lPos, intptr_t rPos, intptr_t order, bool dir = L2R, intptr_t vAnchorNbSpc = 0, intptr_t vCaretNbSpc = 0)
 		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualAnchorSpc(vAnchorNbSpc), _nbVirtualCaretSpc(vCaretNbSpc){};
 
 	bool isValid() const {
@@ -170,12 +167,12 @@ struct SortInPositionOrder {
 
 typedef std::vector<ColumnModeInfo> ColumnModeInfos;
 
-struct LanguageName {
-	const TCHAR * lexerName;
-	const TCHAR * shortName;
-	const TCHAR * longName;
-	LangType LangID;
-	int lexerID;
+struct LanguageNameInfo {
+	const TCHAR* _langName = nullptr;
+	const TCHAR* _shortName = nullptr;
+	const TCHAR* _longName = nullptr;
+	LangType _langID = L_TEXT;
+	const char* _lexerID = nullptr;
 };
 
 #define URL_INDIC 8
@@ -199,10 +196,6 @@ public:
 
 			for (BufferStyleMap::iterator it(_hotspotStyles.begin()); it != _hotspotStyles.end(); ++it )
 			{
-				for (StyleMap::iterator it2(it->second->begin()) ; it2 != it->second->end() ; ++it2)
-				{
-					delete [] it2->second._fontName;
-				}
 				delete it->second;
 			}
 		}
@@ -227,39 +220,39 @@ public:
 		}
 	};
 
-	void activateBuffer(BufferID buffer);
+	void activateBuffer(BufferID buffer, bool force = false);
 
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 
 	void getText(char *dest, size_t start, size_t end) const;
 	void getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const;
-	void getGenericText(TCHAR *dest, size_t deslen, int start, int end, int *mstart, int *mend) const;
+	void getGenericText(TCHAR *dest, size_t deslen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const;
 	generic_string getGenericTextAsString(size_t start, size_t end) const;
 	void insertGenericTextFrom(size_t position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
-	int getSelectedTextCount() {
-		Sci_CharacterRange range = getSelection();
+	intptr_t getSelectedTextCount() {
+		Sci_CharacterRangeFull range = getSelection();
 		return (range.cpMax - range.cpMin);
 	};
 
-	void getVisibleStartAndEndPosition(int * startPos, int * endPos);
-    char * getWordFromRange(char * txt, int size, int pos1, int pos2);
-	char * getSelectedText(char * txt, int size, bool expand = true);
-    char * getWordOnCaretPos(char * txt, int size);
+	void getVisibleStartAndEndPosition(intptr_t* startPos, intptr_t* endPos);
+    char * getWordFromRange(char * txt, size_t size, size_t pos1, size_t pos2);
+	char * getSelectedText(char * txt, size_t size, bool expand = true);
+    char * getWordOnCaretPos(char * txt, size_t size);
     TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
-	int searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
+	intptr_t searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appandGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append) const;
-	void addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const;
-	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
-	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
+	void addGenericText(const TCHAR * text2Append, intptr_t* mstart, intptr_t* mend) const;
+	intptr_t replaceTarget(const TCHAR * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
+	intptr_t replaceTargetRegExMode(const TCHAR * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	void showAutoComletion(size_t lenEntered, const TCHAR * list);
-	void showCallTip(int startPos, const TCHAR * def);
+	void showCallTip(size_t startPos, const TCHAR * def);
 	generic_string getLine(size_t lineNumber);
-	void getLine(size_t lineNumber, TCHAR * line, int lineBufferLen);
+	void getLine(size_t lineNumber, TCHAR * line, size_t lineBufferLen);
 	void addText(size_t length, const char *buf);
 
 	void insertNewLineAboveCurrentLine();
@@ -274,18 +267,18 @@ public:
 		return _beginSelectPosition != -1;
 	};
 
-	int getCurrentDocLen() const {
-		return int(execute(SCI_GETLENGTH));
+	size_t getCurrentDocLen() const {
+		return size_t(execute(SCI_GETLENGTH));
 	};
 
-	Sci_CharacterRange getSelection() const {
-		Sci_CharacterRange crange;
-		crange.cpMin = long(execute(SCI_GETSELECTIONSTART));
-		crange.cpMax = long(execute(SCI_GETSELECTIONEND));
+	Sci_CharacterRangeFull getSelection() const {
+		Sci_CharacterRangeFull crange{};
+		crange.cpMin = execute(SCI_GETSELECTIONSTART);
+		crange.cpMax = execute(SCI_GETSELECTIONEND);
 		return crange;
 	};
 
-	void getWordToCurrentPos(TCHAR * str, int strLen) const {
+	void getWordToCurrentPos(TCHAR * str, intptr_t strLen) const {
 		auto caretPos = execute(SCI_GETCURRENTPOS);
 		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
@@ -311,11 +304,12 @@ public:
 
     //Marge member and method
     static const int _SC_MARGE_LINENUMBER;
-    static const int _SC_MARGE_SYBOLE;
+    static const int _SC_MARGE_SYMBOL;
     static const int _SC_MARGE_FOLDER;
-	//static const int _SC_MARGE_MODIFMARKER;
+    static const int _SC_MARGE_CHANGEHISTORY;
 
     void showMargin(int whichMarge, bool willBeShowed = true);
+    void showChangeHistoryMargin(bool willBeShowed = true);
 
     bool hasMarginShowed(int witchMarge) {
 		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);
@@ -396,63 +390,63 @@ public:
 		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
     };
 
-	size_t getCurrentLineNumber()const {
-		return static_cast<size_t>(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
+	intptr_t getCurrentLineNumber()const {
+		return execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS));
 	};
 
-	int32_t lastZeroBasedLineNumber() const {
+	intptr_t lastZeroBasedLineNumber() const {
 		auto endPos = execute(SCI_GETLENGTH);
-		return static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, endPos));
+		return execute(SCI_LINEFROMPOSITION, endPos);
 	};
 
-	long getCurrentXOffset()const{
-		return long(execute(SCI_GETXOFFSET));
+	intptr_t getCurrentXOffset()const{
+		return execute(SCI_GETXOFFSET);
 	};
 
 	void setCurrentXOffset(long xOffset){
 		execute(SCI_SETXOFFSET,xOffset);
 	};
 
-	void scroll(int column, int line){
+	void scroll(intptr_t column, intptr_t line){
 		execute(SCI_LINESCROLL, column, line);
 	};
 
-	long getCurrentPointX()const{
-		return long (execute(SCI_POINTXFROMPOSITION, 0, execute(SCI_GETCURRENTPOS)));
+	intptr_t getCurrentPointX()const{
+		return execute(SCI_POINTXFROMPOSITION, 0, execute(SCI_GETCURRENTPOS));
 	};
 
-	long getCurrentPointY()const{
-		return long (execute(SCI_POINTYFROMPOSITION, 0, execute(SCI_GETCURRENTPOS)));
+	intptr_t getCurrentPointY()const{
+		return execute(SCI_POINTYFROMPOSITION, 0, execute(SCI_GETCURRENTPOS));
 	};
 
-	long getTextHeight()const{
-		return long(execute(SCI_TEXTHEIGHT));
+	intptr_t getTextHeight()const{
+		return execute(SCI_TEXTHEIGHT);
 	};
 
 	int getTextZoneWidth() const;
 
-	void gotoLine(int line){
+	void gotoLine(intptr_t line){
 		if (line < execute(SCI_GETLINECOUNT))
 			execute(SCI_GOTOLINE,line);
 	};
 
-	long getCurrentColumnNumber() const {
-        return long(execute(SCI_GETCOLUMN, execute(SCI_GETCURRENTPOS)));
+	intptr_t getCurrentColumnNumber() const {
+        return execute(SCI_GETCOLUMN, execute(SCI_GETCURRENTPOS));
     };
 
-	std::pair<int, int> getSelectedCharsAndLinesCount(int maxSelectionsForLineCount = -1) const;
+	std::pair<size_t, size_t> getSelectedCharsAndLinesCount(long long maxSelectionsForLineCount = -1) const;
 
-	int getUnicodeSelectedLength() const;
+	size_t getUnicodeSelectedLength() const;
 
-	long getLineLength(int line) const {
-		return long(execute(SCI_GETLINEENDPOSITION, line) - execute(SCI_POSITIONFROMLINE, line));
+	intptr_t getLineLength(size_t line) const {
+		return execute(SCI_GETLINEENDPOSITION, line) - execute(SCI_POSITIONFROMLINE, line);
 	};
 
-	long getLineIndent(int line) const {
-		return long(execute(SCI_GETLINEINDENTATION, line));
+	intptr_t getLineIndent(size_t line) const {
+		return execute(SCI_GETLINEINDENTATION, line);
 	};
 
-	void setLineIndent(int line, int indent) const;
+	void setLineIndent(size_t line, size_t indent) const;
 
 	void updateLineNumbersMargin(bool forcedToHide) {
 		const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
@@ -471,27 +465,15 @@ public:
 	}
 
 	void updateLineNumberWidth();
-	
-
-	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
-		execute(SCI_SETCARETLINEVISIBLE, isHiliting);
-		if (!isHiliting)
-			return;
-		execute(SCI_SETCARETLINEBACK, bgColor);
-	};
-
-	bool isCurrentLineHiLiting() const {
-		return (execute(SCI_GETCARETLINEVISIBLE) != 0);
-	};
-
 	void performGlobalStyles();
 
-	void expand(size_t& line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
+	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);
 
-	std::pair<int, int> getSelectionLinesRange(int selectionNumber = -1) const;
+	std::pair<size_t, size_t> getSelectionLinesRange(intptr_t selectionNumber = -1) const;
     void currentLinesUp() const;
     void currentLinesDown() const;
 
+	intptr_t caseConvertRange(intptr_t start, intptr_t end, TextCase caseToConvert);
 	void changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const;
 	void convertSelectedTextTo(const TextCase & caseToConvert);
 	void setMultiSelections(const ColumnModeInfos & cmi);
@@ -525,9 +507,10 @@ public:
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
 	void fold(size_t line, bool mode);
-	bool isFolded(size_t line) {
+	bool isFolded(size_t line) const {
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
 	};
+	bool isCurrentLineFolded() const;
 	void foldCurrentPos(bool mode);
 	int getCodepage() const {return _codepage;};
 
@@ -536,17 +519,16 @@ public:
 	void columnReplace(ColumnModeInfos & cmi, const TCHAR *str);
 	void columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, UCHAR format);
 
-	void foldChanged(size_t line, int levelNow, int levelPrev);
 	void clearIndicator(int indicatorNumber) {
-		int docStart = 0;
-		int docEnd = getCurrentDocLen();
+		size_t docStart = 0;
+		size_t docEnd = getCurrentDocLen();
 		execute(SCI_SETINDICATORCURRENT, indicatorNumber);
-		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
+		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd - docStart);
 	};
 
-	bool getIndicatorRange(int indicatorNumber, int *from = NULL, int *to = NULL, int *cur = NULL);
+	bool getIndicatorRange(size_t indicatorNumber, size_t* from = NULL, size_t* to = NULL, size_t* cur = NULL);
 
-	static LanguageName langNames[L_EXTERNAL+1];
+	static LanguageNameInfo _langNameInfoArray[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
 	BufferID getCurrentBufferID() { return _currentBufferID; };
@@ -556,13 +538,13 @@ public:
 
 	void hideLines();
 
-	bool markerMarginClick(int lineNumber);	//true if it did something
-	void notifyMarkers(Buffer * buf, bool isHide, int location, bool del);
+	bool markerMarginClick(intptr_t lineNumber);	//true if it did something
+	void notifyMarkers(Buffer * buf, bool isHide, size_t location, bool del);
 	void runMarkers(bool doHide, size_t searchStart, bool endOfDoc, bool doDelete);
 
 	bool isSelecting() const {
-		static Sci_CharacterRange previousSelRange = getSelection();
-		Sci_CharacterRange currentSelRange = getSelection();
+		static Sci_CharacterRangeFull previousSelRange = getSelection();
+		Sci_CharacterRangeFull currentSelRange = getSelection();
 
 		if (currentSelRange.cpMin == currentSelRange.cpMax)
 		{
@@ -591,6 +573,7 @@ public:
 	void addCustomWordChars();
 	void restoreDefaultWordChars();
 	void setWordChars();
+	void setCRLF(long color = -1);
 
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
@@ -646,7 +629,7 @@ protected:
 	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
 
-	long long _beginSelectPosition = -1;
+	intptr_t _beginSelectPosition = -1;
 
 	static std::string _defaultCharList;
 
@@ -654,7 +637,8 @@ protected:
 	void restyleBuffer();
 	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
-	void setLexer(int lexerID, LangType langType, int whichList);
+	void setLexer(LangType langID, int whichList);
+	bool setLexerFromLangID(int langID);
 	void makeStyle(LangType langType, const TCHAR **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(const Style & styleToSet);	//by reference
@@ -674,182 +658,180 @@ protected:
     void setEmbeddedPhpLexer();
     void setEmbeddedAspLexer();
 	void setJsonLexer();
+	void setTypeScriptLexer();
+
 	//Simple lexers
 	void setCssLexer() {
-		setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1);
+		setLexer(L_CSS, LIST_0 | LIST_1 | LIST_4 | LIST_6);
 	};
 
 	void setLuaLexer() {
-		setLexer(SCLEX_LUA, L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
 
 	void setMakefileLexer() {
-		execute(SCI_SETLEXER, SCLEX_MAKEFILE);
-		makeStyle(L_MAKEFILE);
+		setLexer(L_MAKEFILE, LIST_NONE);
 	};
 
 	void setIniLexer() {
-		execute(SCI_SETLEXER, SCLEX_PROPERTIES);
+		setLexer(L_INI, LIST_NONE);
 		execute(SCI_STYLESETEOLFILLED, SCE_PROPS_SECTION, true);
-		makeStyle(L_INI);
-		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
-		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 	};
 
 
 	void setSqlLexer() {
 		const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
-		setLexer(SCLEX_SQL, L_SQL, LIST_0 | LIST_1 | LIST_4);
+		setLexer(L_SQL, LIST_0 | LIST_1 | LIST_4);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 	};
 
 	void setBashLexer() {
-		setLexer(SCLEX_BASH, L_BASH, LIST_0);
+		setLexer(L_BASH, LIST_0);
 	};
 
 	void setVBLexer() {
-		setLexer(SCLEX_VB, L_VB, LIST_0);
+		setLexer(L_VB, LIST_0);
 	};
 
 	void setPascalLexer() {
-		setLexer(SCLEX_PASCAL, L_PASCAL, LIST_0);
+		setLexer(L_PASCAL, LIST_0);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setPerlLexer() {
-		setLexer(SCLEX_PERL, L_PERL, LIST_0);
+		setLexer(L_PERL, LIST_0);
 	};
 
 	void setPythonLexer() {
-		setLexer(SCLEX_PYTHON, L_PYTHON, LIST_0 | LIST_1);
+		setLexer(L_PYTHON, LIST_0 | LIST_1);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setBatchLexer() {
-		setLexer(SCLEX_BATCH, L_BATCH, LIST_0);
+		setLexer(L_BATCH, LIST_0);
 	};
 
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
-		setLexer(SCLEX_TEX, L_TEX, 0);
+		setLexer(L_TEX, LIST_NONE);
 	};
 
 	void setNsisLexer() {
-		setLexer(SCLEX_NSIS, L_NSIS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_NSIS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
 
 	void setFortranLexer() {
-		setLexer(SCLEX_FORTRAN, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setFortran77Lexer() {
-		setLexer(SCLEX_F77, L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setLispLexer(){
-		setLexer(SCLEX_LISP, L_LISP, LIST_0 | LIST_1);
+		setLexer(L_LISP, LIST_0 | LIST_1);
 	};
 
 	void setSchemeLexer(){
-		setLexer(SCLEX_LISP, L_SCHEME, LIST_0 | LIST_1);
+		setLexer(L_SCHEME, LIST_0 | LIST_1);
 	};
 
 	void setAsmLexer(){
-		setLexer(SCLEX_ASM, L_ASM, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_ASM, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 	};
 
 	void setDiffLexer(){
-		setLexer(SCLEX_DIFF, L_DIFF, LIST_NONE);
+		setLexer(L_DIFF, LIST_NONE);
 	};
 
 	void setPropsLexer(){
-		setLexer(SCLEX_PROPERTIES, L_PROPS, LIST_NONE);
+		setLexer(L_PROPS, LIST_NONE);
 	};
 
 	void setPostscriptLexer(){
-		setLexer(SCLEX_PS, L_PS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_PS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
 
 	void setRubyLexer(){
-		setLexer(SCLEX_RUBY, L_RUBY, LIST_0);
+		setLexer(L_RUBY, LIST_0);
 		execute(SCI_STYLESETEOLFILLED, SCE_RB_POD, true);
 	};
 
 	void setSmalltalkLexer(){
-		setLexer(SCLEX_SMALLTALK, L_SMALLTALK, LIST_0);
+		setLexer(L_SMALLTALK, LIST_0);
 	};
 
 	void setVhdlLexer(){
-		setLexer(SCLEX_VHDL, L_VHDL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(L_VHDL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
 
 	void setKixLexer(){
-		setLexer(SCLEX_KIX, L_KIX, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_KIX, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setAutoItLexer(){
-		setLexer(SCLEX_AU3, L_AU3, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(L_AU3, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setCamlLexer(){
-		setLexer(SCLEX_CAML, L_CAML, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_CAML, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setAdaLexer(){
-		setLexer(SCLEX_ADA, L_ADA, LIST_0);
+		setLexer(L_ADA, LIST_0);
 	};
 
 	void setVerilogLexer(){
-		setLexer(SCLEX_VERILOG, L_VERILOG, LIST_0 | LIST_1);
+		setLexer(L_VERILOG, LIST_0 | LIST_1);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setMatlabLexer(){
-		setLexer(SCLEX_MATLAB, L_MATLAB, LIST_0);
+		setLexer(L_MATLAB, LIST_0);
 	};
 
 	void setHaskellLexer(){
-		setLexer(SCLEX_HASKELL, L_HASKELL, LIST_0);
+		setLexer(L_HASKELL, LIST_0);
 	};
 
 	void setInnoLexer() {
-		setLexer(SCLEX_INNOSETUP, L_INNO, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_INNO, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 	};
 
 	void setCmakeLexer() {
-		setLexer(SCLEX_CMAKE, L_CMAKE, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_CMAKE, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setYamlLexer() {
-		setLexer(SCLEX_YAML, L_YAML, LIST_0);
+		setLexer(L_YAML, LIST_0);
 	};
 
     //--------------------
 
     void setCobolLexer() {
-		setLexer(SCLEX_COBOL, L_COBOL, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_COBOL, LIST_0 | LIST_1 | LIST_2);
 	};
     void setGui4CliLexer() {
-		setLexer(SCLEX_GUI4CLI, L_GUI4CLI, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4);
+		setLexer(L_GUI4CLI, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4);
 	};
     void setDLexer() {
-		setLexer(SCLEX_D, L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
     void setPowerShellLexer() {
-		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_5);
+		setLexer(L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_5);
 	};
     void setRLexer() {
-		setLexer(SCLEX_R, L_R, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_R, LIST_0 | LIST_1 | LIST_2);
 	};
 
     void setCoffeeScriptLexer() {
-		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
+		setLexer(L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
 	};
 
 	void setBaanCLexer() {
-		setLexer(SCLEX_BAAN, L_BAANC, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8);
+		setLexer(L_BAANC, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.baan.styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$:"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
@@ -861,110 +843,114 @@ protected:
 	};
 
 	void setSrecLexer() {
-		setLexer(SCLEX_SREC, L_SREC, LIST_NONE);
+		setLexer(L_SREC, LIST_NONE);
 	};
 
 	void setIHexLexer() {
-		setLexer(SCLEX_IHEX, L_IHEX, LIST_NONE);
+		setLexer(L_IHEX, LIST_NONE);
 	};
 
 	void setTEHexLexer() {
-		setLexer(SCLEX_TEHEX, L_TEHEX, LIST_NONE);
+		setLexer(L_TEHEX, LIST_NONE);
 	};
 
 	void setAsn1Lexer() {
-		setLexer(SCLEX_ASN1, L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+		setLexer(L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
 	void setAVSLexer() {
-		setLexer(SCLEX_AVS, L_AVS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_AVS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
 	};
 
 	void setBlitzBasicLexer() {
-		setLexer(SCLEX_BLITZBASIC, L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+		setLexer(L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
 	void setPureBasicLexer() {
-		setLexer(SCLEX_PUREBASIC, L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+		setLexer(L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
 	void setFreeBasicLexer() {
-		setLexer(SCLEX_FREEBASIC, L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+		setLexer(L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
 	void setCsoundLexer() {
-		setLexer(SCLEX_CSOUND, L_CSOUND, LIST_0 | LIST_1 | LIST_2);
+		setLexer(L_CSOUND, LIST_0 | LIST_1 | LIST_2);
 		execute(SCI_STYLESETEOLFILLED, SCE_CSOUND_STRINGEOL, true);
 	};
 
 	void setErlangLexer() {
-		setLexer(SCLEX_ERLANG, L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+		setLexer(L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
 	};
 
 	void setESCRIPTLexer() {
-		setLexer(SCLEX_ESCRIPT, L_ESCRIPT, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_ESCRIPT, LIST_0 | LIST_1 | LIST_2); 
 	};
 
 	void setForthLexer() {
-		setLexer(SCLEX_FORTH, L_FORTH, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_FORTH, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
 	};
 
 	void setLatexLexer() {
-		setLexer(SCLEX_LATEX, L_LATEX, LIST_NONE); 
+		setLexer(L_LATEX, LIST_NONE); 
 	};
 
 	void setMMIXALLexer() {
-		setLexer(SCLEX_MMIXAL, L_MMIXAL, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_MMIXAL, LIST_0 | LIST_1 | LIST_2); 
 	};
 
 	void setNimrodLexer() {
-		setLexer(SCLEX_NIMROD, L_NIM, LIST_0);
+		setLexer(L_NIM, LIST_0);
 	};
 
 	void setNncrontabLexer() {
-		setLexer(SCLEX_NNCRONTAB, L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2); 
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
 	};
 
 	void setOScriptLexer() {
-		setLexer(SCLEX_OSCRIPT, L_OSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(L_OSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$"));
 	};
 
 	void setREBOLLexer() {
-		setLexer(SCLEX_REBOL, L_REBOL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
-		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.’+-*&|=_~"));
+		setLexer(L_REBOL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.'+-*&|=_~"));
 	};
 
 	void setRegistryLexer() {
-		setLexer(SCLEX_REGISTRY, L_REGISTRY, LIST_NONE); 
+		setLexer(L_REGISTRY, LIST_NONE); 
 	};
 
 	void setRustLexer() {
-		setLexer(SCLEX_RUST, L_RUST, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
+		setLexer(L_RUST, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
 	};
 
 	void setSpiceLexer() {
-		setLexer(SCLEX_SPICE, L_SPICE, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_SPICE, LIST_0 | LIST_1 | LIST_2); 
 	};
 
 	void setTxt2tagsLexer() {
-		setLexer(SCLEX_TXT2TAGS, L_TXT2TAGS, LIST_NONE); 
+		setLexer(L_TXT2TAGS, LIST_NONE); 
 	};
 
 	void setVisualPrologLexer() {
-		setLexer(SCLEX_VISUALPROLOG, L_VISUALPROLOG, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_VISUALPROLOG, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	}
 
     //--------------------
 
 	void setSearchResultLexer() {
+		if (execute(SCI_GETLEXER) == SCLEX_SEARCHRESULT)
+		{
+			return;
+		}
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_FILE_HEADER, true);
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_SEARCH_HEADER, true);
-		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, 0);
+		setLexer(L_SEARCHRESULT, LIST_NONE);
 	};
 
 	bool isNeededFolderMarge(LangType typeDoc) const {
@@ -1006,7 +992,7 @@ protected:
 		}
 	};
 
-	std::pair<int, int> getWordRange();
+	std::pair<size_t, size_t> getWordRange();
 	bool expandWordSelection();
 	void getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor);
 };

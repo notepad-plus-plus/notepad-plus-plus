@@ -26,7 +26,7 @@ enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTIL
 
 class ShortcutMapper : public StaticDialog {
 public:
-	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {
+	ShortcutMapper() : StaticDialog(), _currentState(STATE_MENU) {
 		_shortcutFilter = TEXT("");
 		_dialogInitDone = false;
 	};
@@ -59,7 +59,7 @@ public:
 	bool isFilterValid(PluginCmdShortcut sc);
 
 protected :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	BabyGridWrapper _babygrid;
@@ -88,11 +88,11 @@ private:
 		GFONT_ROWS,
 		MAX_GRID_FONTS
 	};
-	LONG _clientWidth;
-	LONG _clientHeight;
-	LONG _initClientWidth;
-	LONG _initClientHeight;
-	bool _dialogInitDone;
+	LONG _clientWidth = 0;
+	LONG _clientHeight = 0;
+	LONG _initClientWidth = 0;
+	LONG _initClientHeight = 0;
+	bool _dialogInitDone = false;
 
 	void initTabs();
 	void initBabyGrid();

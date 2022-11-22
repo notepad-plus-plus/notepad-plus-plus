@@ -161,7 +161,7 @@ public:
    }
    char_type translate_nocase(char_type c) const
    {
-      return ::u_tolower(c);
+      return ::u_foldCase(c, U_FOLD_CASE_DEFAULT);
    }
    char_type translate(char_type c, bool icase) const
    {

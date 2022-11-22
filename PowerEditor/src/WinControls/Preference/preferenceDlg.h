@@ -30,18 +30,17 @@ public :
 	MiscSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class GeneralSubDlg : public StaticDialog
 {
 public :
 	GeneralSubDlg() = default;
-	void setToolIconsFromStdToSmall();
-	void disableTabbarAlternateIcons();
+	void setTabbarAlternateIcons(bool enable = false);
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class EditingSubDlg : public StaticDialog
@@ -50,8 +49,11 @@ public :
 	EditingSubDlg() = default;
 	
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	HWND _tip = nullptr;
+
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
+	void changeLineHiliteMode(bool enableSlider);
 };
 
 class DarkModeSubDlg : public StaticDialog
@@ -60,7 +62,22 @@ public:
 	DarkModeSubDlg() = default;
 
 private:
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	ColourPicker* _pBackgroundColorPicker = nullptr;
+	ColourPicker* _pSofterBackgroundColorPicker = nullptr;
+	ColourPicker* _pHotBackgroundColorPicker = nullptr;
+	ColourPicker* _pPureBackgroundColorPicker = nullptr;
+	ColourPicker* _pErrorBackgroundColorPicker = nullptr;
+	ColourPicker* _pTextColorPicker = nullptr;
+	ColourPicker* _pDarkerTextColorPicker = nullptr;
+	ColourPicker* _pDisabledTextColorPicker = nullptr;
+	ColourPicker* _pEdgeColorPicker = nullptr;
+	ColourPicker* _pLinkColorPicker = nullptr;
+	ColourPicker* _pHotEdgeColorPicker = nullptr;
+	ColourPicker* _pDisabledEdgeColorPicker = nullptr;
+
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void enableCustomizedColorCtrls(bool doEnable);
+	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 };
 
 class MarginsBorderEdgeSubDlg : public StaticDialog
@@ -69,13 +86,13 @@ public :
 	MarginsBorderEdgeSubDlg() = default;
 	
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
 };
 
 struct LangID_Name
 {
-	LangType _id;
+	LangType _id = L_TEXT;
 	generic_string _name;
 	LangID_Name(LangType id, const generic_string& name) : _id(id), _name(name){};
 };
@@ -86,13 +103,12 @@ public :
 	NewDocumentSubDlg() = default;
 
 private :
-	std::vector<LangID_Name> _langList;
 	void makeOpenAnsiAsUtf8(bool doIt){
 		if (!doIt)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
 	};
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class DefaultDirectorySubDlg : public StaticDialog
@@ -101,7 +117,7 @@ public :
 	DefaultDirectorySubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class RecentFilesHistorySubDlg : public StaticDialog
@@ -115,9 +131,8 @@ public :
 private :
 	URLCtrl _nbHistoryVal;
 	URLCtrl _customLenVal;
-	std::vector<LangID_Name> _langList;
 	void setCustomLen(int val);
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class LanguageSubDlg : public StaticDialog
@@ -131,7 +146,7 @@ public :
 private :
     LexerStylerArray _lsArray;
 	URLCtrl _tabSizeVal;
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	std::vector<LangMenuItem> _langList;
 };
 
@@ -142,7 +157,7 @@ public :
 
 private :
 
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 
@@ -152,13 +167,7 @@ public:
 	SearchingSubDlg() = default;
 
 private:
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-};
-
-struct strCouple {
-	generic_string _varDesc;
-	generic_string _var;
-	strCouple(const TCHAR *varDesc, const TCHAR *var): _varDesc(varDesc), _var(var){};
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class PrintSubDlg : public StaticDialog
@@ -167,8 +176,8 @@ public :
 	PrintSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	std::vector<strCouple> varList;
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	std::vector<generic_string> varList;
 	int _focusedEditCtrl = 0;
 };
 
@@ -179,7 +188,7 @@ public :
 
 private :
 	void updateBackupGUI();
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 
@@ -189,7 +198,7 @@ public :
 	AutoCompletionSubDlg() = default;
 private :
 	URLCtrl _nbCharVal;
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class MultiInstanceSubDlg : public StaticDialog
@@ -198,7 +207,8 @@ public :
 	MultiInstanceSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	const SYSTEMTIME _BTTF_time = {1985, 10, 6, 26, 16, 24, 42, 0};
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class DelimiterSubDlg : public StaticDialog
@@ -211,11 +221,13 @@ public :
 	};
 
 private :
-	POINT _singleLineModePoint, _multiLineModePoint;
-	RECT _closerRect, _closerLabelRect;
+	POINT _singleLineModePoint = {};
+	POINT _multiLineModePoint = {};
+	RECT _closerRect = {};
+	RECT _closerLabelRect = {};
 	HWND _tip = nullptr;
 
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void detectSpace(const char *text2Check, int & nbSp, int & nbTab) const;
 	generic_string getWarningText(size_t nbSp, size_t nbTab) const;
 	void setWarningIfNeed() const;
@@ -227,7 +239,7 @@ public :
 	CloudAndLinkSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 class SearchEngineSubDlg : public StaticDialog
@@ -236,13 +248,29 @@ public :
 	SearchEngineSubDlg() = default;
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+};
+
+class PerformanceSubDlg : public StaticDialog
+{
+friend class PreferenceDlg;
+public :
+	PerformanceSubDlg() = default;
+	~PerformanceSubDlg() {
+		if (_largeFileRestrictionTip)
+			::DestroyWindow(_largeFileRestrictionTip);
+	};
+
+private :
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+	HWND _largeFileRestrictionTip = nullptr;
 };
 
 class PreferenceDlg : public StaticDialog
 {
 friend class NativeLangSpeaker;
-
+friend class Notepad_plus;
 public :
 	PreferenceDlg() = default;
 
@@ -267,10 +295,12 @@ public :
 	void showDialogByName(const TCHAR *name) const;
 	bool setListSelection(size_t currentSel) const;
 
+	bool goToSection(size_t iPage, intptr_t ctrlID = -1);
+
 	virtual void destroy();
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void makeCategoryList();
 	int32_t getIndexFromName(const TCHAR *name) const;
 	void showDialogByIndex(size_t index) const;
@@ -291,6 +321,7 @@ private :
 	AutoCompletionSubDlg _autoCompletionSubDlg;
 	MultiInstanceSubDlg _multiInstanceSubDlg;
 	DelimiterSubDlg _delimiterSubDlg;
+	PerformanceSubDlg _performanceSubDlg;
 	CloudAndLinkSubDlg _cloudAndLinkSubDlg;
 	SearchEngineSubDlg _searchEngineSubDlg;
 	SearchingSubDlg _searchingSubDlg;

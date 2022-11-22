@@ -47,11 +47,11 @@ public :
     };
 
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
     ScintillaEditView **_ppEditView = nullptr;
-	bool findCharInRange(unsigned char beginRange, unsigned char endRange, int startPos, bool direction, bool wrap);
+	bool findCharInRange(unsigned char beginRange, unsigned char endRange, intptr_t startPos, bool direction, bool wrap);
 	bool getRangeFromUI(unsigned char & startRange, unsigned char & endRange);
 	void getDirectionFromUI(bool & whichDirection, bool & isWrap);
 };

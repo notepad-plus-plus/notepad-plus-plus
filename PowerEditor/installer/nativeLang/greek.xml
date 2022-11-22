@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="Εργαλεία"/>
 					<Item menuId="macro" name="Μακροεντολή"/>
 					<Item menuId="run" name="Εκτέλεση"/>
-					<Item idName="Plugins" name="Πρόσθετα"/>
-					<Item idName="Window" name="Παράθυρο"/>
+					<Item menuId="Plugins" name="Πρόσθετα"/>
+					<Item menuId="Window" name="Παράθυρο"/>
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -1235,11 +1235,11 @@ Continue?"/>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Doc Switcher"/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>
             <ColumnPath name="Path"/>

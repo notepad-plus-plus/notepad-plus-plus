@@ -192,6 +192,11 @@
 #else
 #define _COMPILER_VERSION_WORKAROUND_GUARD 0
 #endif
+#ifndef __clang_major__
+#define __clang_major___WORKAROUND_GUARD 1
+#else
+#define __clang_major___WORKAROUND_GUARD 0
+#endif
 
 #ifndef _RWSTD_VER
 #define _RWSTD_VER_WORKAROUND_GUARD 1
@@ -254,6 +259,12 @@
 #else
 #define BOOST_INTEL_WORKAROUND_GUARD 0
 #endif
+#ifndef BOOST_CLANG_VERSION
+#define BOOST_CLANG_VERSION_WORKAROUND_GUARD 1
+#else
+#define BOOST_CLANG_VERSION_WORKAROUND_GUARD 0
+#endif
+
 // Always define to zero, if it's used it'll be defined my MPL:
 #define BOOST_MPL_CFG_GCC_WORKAROUND_GUARD 0
 

@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="&amp;Oolstay"/>
                     <Item menuId="macro" name="Acro&amp;may"/>
                     <Item menuId="run" name="Un&amp;ray"/>
-                    <Item idName="Plugins" name="Ugins&amp;play"/>
-                    <Item idName="Window" name="Indo&amp;wway"/>
+                    <Item menuId="Plugins" name="Ugins&amp;play"/>
+                    <Item menuId="Window" name="Indo&amp;wway"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -1023,11 +1023,11 @@
         <ClipboardHistory>
             <PanelTitle name="Ipboardclay Istoryhay"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Ocday Itchersway"/>
             <ColumnName name="Amenay"/>
             <ColumnExt name="Extyay."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Amenay"/>
             <ColumnPath name="Athpay"/>

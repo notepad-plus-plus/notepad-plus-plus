@@ -186,15 +186,22 @@ void ClipboardHistoryPanel::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &(lpDrawItemStruct->rcItem), DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 }
 
-INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
 			_hwndNextCbViewer = ::SetClipboardViewer(_hSelf);
-            return TRUE;
-        }
+			NppDarkMode::setDarkScrollBar(::GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD));
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::setDarkScrollBar(GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD));
+			return TRUE;
+		}
 
 		case WM_CHANGECBCHAIN:
 			if (_hwndNextCbViewer == reinterpret_cast<HWND>(wParam))

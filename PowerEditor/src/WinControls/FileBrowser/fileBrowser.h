@@ -52,8 +52,8 @@ public:
 	void setName(generic_string name) { _name = name; };
 
 private:
-	FolderInfo *_parent = nullptr;
 	generic_string _name;
+	FolderInfo *_parent = nullptr;
 };
 
 
@@ -79,8 +79,8 @@ public:
 private:
 	std::vector<FolderInfo> _subFolders;
 	std::vector<FileInfo> _files;
-	FolderInfo *_parent = nullptr;
 	generic_string _name;
+	FolderInfo* _parent = nullptr;
 	generic_string _rootPath; // set only for root folder; empty for normal folder
 };
 
@@ -99,7 +99,7 @@ public:
 
 private:
 	FolderInfo _rootFolder;
-	FileBrowser *_pFileBrowser = nullptr;
+	FileBrowser* _pFileBrowser = nullptr;
 	HANDLE _watchThreadHandle = nullptr;
 	HANDLE _EventHandle = nullptr;
 	static DWORD WINAPI watching(void *param);
@@ -114,7 +114,7 @@ struct SortingData4lParam {
 
 	SortingData4lParam(generic_string rootPath, generic_string label, bool isFolder) : _rootPath(rootPath), _label(label), _isFolder(isFolder) {}
 };
-;
+
 
 class FileBrowser : public DockingDlgInterface {
 public:
@@ -176,13 +176,12 @@ protected:
 
 	std::vector<SortingData4lParam*> sortingDataArray;
 
-	generic_string _expandAllFolders = TEXT("Expand all folders");
-	generic_string _collapseAllFolders = TEXT("Collapse all folders");
+	generic_string _expandAllFolders = TEXT("Unfold all");
+	generic_string _collapseAllFolders = TEXT("Fold all");
 	generic_string _locateCurrentFile = TEXT("Locate current file");
 
 	void initPopupMenus();
 	void destroyMenus();
-	BOOL setImageList(int root_open_id, int root_close_id, int open_node_id, int closed_node_id, int leaf_id);
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
@@ -208,7 +207,7 @@ protected:
 
 	void removeNamesAlreadyInNode(HTREEITEM parent, std::vector<generic_string> & labels) const;
 
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
 	void openSelectFile();

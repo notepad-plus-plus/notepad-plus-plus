@@ -18,8 +18,8 @@
 					<Item menuId="settings" name = "&amp;Astellungen"/>
 					<Item menuId="macro" name = "&amp;Makro"/>
 					<Item menuId="run" name = "Ausféie&amp;ren"/>
-					<Item idName = "Plugins" name = "Er&amp;weiderungen"/>
-					<Item idName = "Window" name = "Fë&amp;nster"/>
+					<Item menuId = "Plugins" name = "Er&amp;weiderungen"/>
+					<Item menuId = "Window" name = "Fë&amp;nster"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
@@ -184,14 +184,10 @@
 				<Item id = "1604" name = "Grouss-/&amp;Klengbuschtawen"/>
 				<Item id = "1605" name = "&amp;Regulär Ausdréck"/>
 				<Item id = "1606" name = "&amp;Um Enn erëm vun vir ufängen"/>
-				<Item id = "1612" name = "H&amp;annertzeg"/>
-				<Item id = "1613" name = "&amp;Vijenzeg"/>
 				<Item id = "1614" name = "&amp;Zielen"/>
 				<Item id = "1615" name = "Alleguer sichen"/>
 				<Item id = "1616" name = "&amp;Lieszeechen setzen"/>
-				<Item id = "1617" name = "&amp;Treffer markéieren"/>
 				<Item id = "1618" name = "Fir &amp;jidder Sich läschen"/>
-				<Item id = "1621" name = "Sichrichtung"/>
 				<Item id = "1611" name = "&amp;Remplacéieren duerch"/>
 				<Item id = "1608" name = "&amp;Remplacéieren"/>
 				<Item id = "1609" name = "&amp;Alles remplacéieren"/>
@@ -204,8 +200,6 @@
 				<Item id = "1633" name = "Zrécksetzen"/>
 				<Item id = "1635" name = "Alles wat fonnd ginn ass, an allen &amp;oppenen Dateien ersetzen"/>
 				<Item id = "1636" name = "Sichen an allen &amp;oppen Dateien"/>
-				<Item id = "1637" name = "An Dateien sichen"/>
-				<Item id = "1640" name = "Ëmschaltdialog"/>
 				<Item id = "1659" name = "&amp;Verstoppen Repertoiren"/>
 				<Item id = "1654" name = "Filter"/>
 				<Item id = "1655" name = "Repertoire"/>

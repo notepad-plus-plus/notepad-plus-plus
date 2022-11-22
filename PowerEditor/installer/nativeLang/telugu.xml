@@ -21,8 +21,8 @@
                     <Item menuId="settings" name="సెట్టింగ్స్ (&amp;T)"/>
                     <Item menuId="macro" name="మ్యాక్రో"/>
                     <Item menuId="run" name="రన్"/>
-                    <Item idName="Plugins" name="ప్లగిన్స్"/>
-                    <Item idName="Window" name="విండొ"/>
+                    <Item menuId="Plugins" name="ప్లగిన్స్"/>
+                    <Item menuId="Window" name="విండొ"/>
                 </Entries>
                     <!-- Sub Menu Entries -->
                     <SubEntries>
@@ -265,14 +265,10 @@
                     <Item id="1604" name="మ్యాచ్ కేస్ (&amp;C)"/>
                     <Item id="1605" name="రెగ్యులర్ ఎక్స్‌ప్రెషన్ (&amp;E)"/>
                     <Item id="1606" name="ర్యాప్ అరౌండ్ (&amp;D)"/>
-                    <Item id="1612" name="అప్ (&amp;U)"/>
-                    <Item id="1613" name="డౌన్ (&amp;D)"/>
                     <Item id="1614" name="కౌంట్"/>
                     <Item id="1615" name="ఫైండ్ ఆల్"/>
                     <Item id="1616" name="మార్క్ లైన్"/>
-                    <Item id="1617" name="స్టైల్ ఫౌండ్ టోకెన్"/>
                     <Item id="1618" name="పర్జ్ ఫోర్ ఈచ్ సర్చ్"/>
-                    <Item id="1621" name="డైరెక్షన్"/>
                     <Item id="1611" name="రీప్లేస్ విత్ (&amp;P):"/>
                     <Item id="1608" name="రీప్లేస్ (&amp;R)"/>
                     <Item id="1609" name="రీప్లేస్ ఆల్ (&amp;A)"/>
@@ -283,7 +279,6 @@
                     <Item id="1633" name="క్లియర్"/>
                     <Item id="1635" name="రీప్లేస్ ఆల్ ఇన్ ఆల్ ఓపెనెడ్ డాక్యుమెంట్స్"/>
                     <Item id="1636" name="ఫైండ్ ఆల్ ఇన్ ఆల్ ఓపెనెడ్ డాక్యుమెంట్స్"/>
-                    <Item id="1637" name="ఫైండ్ ఇన్ ఫైల్స్"/>
                     <Item id="1654" name="ఫిల్‌టర్స్:"/>
                     <Item id="1655" name="డైరెక్టరీ:"/>
                     <Item id="1656" name="ఫైండ్ ఆల్"/>

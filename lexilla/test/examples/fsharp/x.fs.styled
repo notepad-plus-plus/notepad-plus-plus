@@ -1,0 +1,53 @@
+{9}// x.fs{0}
+{9}// Sample source file to test F# syntax highlighting{0}
+
+{18}[<AutoOpen>]{0}
+{1}module{0} {6}Example{0}
+
+{11}#line 7 "A compiler directive"{0}
+{10}#if DEBUG{0}
+  {1}open{0} {3}System{0}
+  {1}open{0} {3}System{0}.{3}IO{0}
+  {1}open{0} {3}System{0}.{6}Diagnostics{0}
+{10}#endif{0}
+
+{11}# 14 @"See: https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/strings#remarks"{0}
+{9}// verbatim string{0}
+{1}let{0} {6}xmlFragment1{0} {12}={0} {16}@"<book href=""https://www.worldcat.org/title/paradise-lost/oclc/1083714070"" title=""Paradise Lost"">"{0}
+
+{9}// triple-quoted string{0}
+{1}let{0} {6}xmlFragment2{0} {12}={0} {15}"""<book href="https://www.worldcat.org/title/paradise-lost/oclc/1083714070" title="Paradise Lost">"""{0}
+
+{8}(* you need .NET 5.0 to compile this:
+  https://docs.microsoft.com/en-us/dotnet/fsharp/whats-new/fsharp-50#string-interpolation
+*){0}
+{1}let{0} {6}interpolated{0} {12}={0} {15}$"""C:\{System.DateTime.Now.ToString("yyyy-MM-dd")}\"""{0} {12}+{0} {15}$"{System.Random().Next(System.Int32.MaxValue)}.log"{0}
+
+{1}let{0} {7}``a byte literal``{0} {12}={0} {14}'\209'B{0}
+
+{9}// quoted expression{0}
+{1}let{0} {6}expr{0} {12}={0}
+    {17}<@@
+        let foo () = "bar"
+        foo ()
+    @@>{0}
+
+{1}let{0} {6}bigNum{0} {12}({6}unused{12}:{0} {12}'{6}a{12}):{0} {3}float{0} {3}option{0} {12}={0}
+    {3}Seq{0}.{2}init{0} {13}10_000{0} {12}({3}float{0} {12}>>{0} {12}({1}fun{0} {6}i{0} {12}->{0} {6}i{0} {12}+{0} {13}11.{12})){0}
+    {12}|>{0} {12}({3}List{0}.{2}ofSeq{0}
+        {12}>>{0} {3}List{0}.{2}take{0} {13}5{0}
+        {12}>>{0} {3}List{0}.{2}fold{0} {12}(*){0} {13}1.0{12}){0}
+    {12}|>{0} {3}Some{0}
+
+{1}match{0} {6}bigNum{0} {1}(){0} {1}with{0}
+{12}|{0} {3}Some{0} {6}num{0} {12}->{0} {2}sprintf{0} {15}"{19}%.2f{15} > {19}%u{15}"{0} {6}num{0} {7}``a byte literal``{0}
+{12}|{0} {3}None{0} {12}->{0} {2}sprintf{0} {15}"{19}%A{15}"{0} {15}"Have a byte string!"B{0}
+{12}|>{0} {2}printfn{0} {15}"{19}%s{15}"{0}
+
+{9}// GitHub Issue #38{0}
+{1}let{0} {6}unescapeWinPath{0} {12}({6}path{12}:{0} {3}string{12}){0} {12}={0}
+    {6}path{0}.{6}Replace{12}({15}"\\\\"{12},{0} {15}"\\"{12}){0}.{6}Replace{12}({15}"\""{12},{0} {15}""{12}){0}
+
+{6}unescapeWinPath{0} {15}"\\\"Program Files (x86)\\Windows NT\\Accessories\\\""{0}
+{12}|>{0} {3}System{0}.{3}IO{0}.{6}Directory{0}.{6}GetFiles{0}
+{12}|>{0} {2}printfn{0} {15}"{19}%A{15}"{0}

@@ -15,6 +15,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+// don't use resource editor it will corrupt this file,
+// it will default to default ANSI code page (e.g. #pragma code_page(1252)),
+// this will ignore line with #pragma code_page(65001) below,
+// and change non ANSI symbol to ?
+#pragma code_page(65001)
+
 #include <windows.h>
 #include "resource.h"
 #include "menuCmdID.h"
@@ -37,10 +43,10 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE    "CompanyName",        "Don HO don.h@free.fr\0"
-            VALUE    "FileDescription",    "Notepad++ : a free (GPL) source code editor\0"
+            VALUE    "FileDescription",    "Notepad++\0"
             VALUE    "FileVersion",        VERSION_VALUE
             VALUE    "InternalName",       "notepad++.exe\0"
-            VALUE    "LegalCopyright",     "Copyleft 1998-2021 by Don HO\0"
+            VALUE    "LegalCopyright",     "Copyleft 1998-2022 by Don HO\0"
             VALUE    "OriginalFilename",   "notepad++.exe\0"
             VALUE    "ProductName",        "Notepad++\0"
             VALUE    "ProductVersion",     VERSION_VALUE
@@ -52,6 +58,7 @@ END
 // remains consistent on all systems.
 IDI_M30ICON                     ICON      "icons/npp.ico"
 IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
+IDI_CHAMELEON_DM                ICON      "icons/darkMode/about/chameleon.ico"
 //IDI_JESUISCHARLIE             ICON      "icons/Je_suis_Charlie.ico"
 //IDI_GILETJAUNE                ICON      "icons/giletJaune.ico"
 //IDI_SAMESEXMARRIAGE           ICON      "icons/same-sexMarriageTaiwan.ico"
@@ -102,6 +109,7 @@ IDI_SYNCV_DISABLE_ICON          ICON      "icons/syncV_dis.ico"
 IDI_SYNCH_ICON                  ICON      "icons/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON          ICON      "icons/syncH_dis.ico"
 IDI_VIEW_DOC_MAP_ICON           ICON      "icons/docMap_off.ico" 
+IDI_VIEW_DOCLIST_ICON           ICON      "icons/docList_off.ico" 
 IDI_VIEW_FUNCLIST_ICON          ICON      "icons/funcList_off.ico" 
 IDI_VIEW_FILEBROWSER_ICON       ICON      "icons/fileBrowser_off.ico" 
 IDI_VIEW_MONITORING_ICON        ICON      "icons/monitoring_off.ico"
@@ -151,6 +159,7 @@ IDI_SYNCV_DISABLE_ICON2         ICON      "icons/filledFluentUI/syncV_dis.ico"
 IDI_SYNCH_ICON2                 ICON      "icons/filledFluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON2         ICON      "icons/filledFluentUI/syncH_dis.ico"
 IDI_VIEW_DOC_MAP_ICON2          ICON      "icons/filledFluentUI/docMap_off.ico" 
+IDI_VIEW_DOCLIST_ICON2          ICON      "icons/filledFluentUI/docList_off.ico" 
 IDI_VIEW_FUNCLIST_ICON2         ICON      "icons/filledFluentUI/funcList_off.ico" 
 IDI_VIEW_FILEBROWSER_ICON2      ICON      "icons/filledFluentUI/fileBrowser_off.ico" 
 IDI_VIEW_MONITORING_ICON2       ICON      "icons/filledFluentUI/monitoring_off.ico"
@@ -200,6 +209,7 @@ IDI_SYNCV_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/sy
 IDI_SYNCH_ICON_DM                  ICON      "icons/darkMode/toolbar/FluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/syncH_dis.ico"
 IDI_VIEW_DOC_MAP_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docMap_off.ico" 
+IDI_VIEW_DOCLIST_ICON_DM           ICON      "icons/darkMode/toolbar/FluentUI/docList_off.ico" 
 IDI_VIEW_FUNCLIST_ICON_DM          ICON      "icons/darkMode/toolbar/FluentUI/funcList_off.ico" 
 IDI_VIEW_FILEBROWSER_ICON_DM       ICON      "icons/darkMode/toolbar/FluentUI/fileBrowser_off.ico" 
 IDI_VIEW_MONITORING_ICON_DM        ICON      "icons/darkMode/toolbar/FluentUI/monitoring_off.ico"
@@ -249,6 +259,7 @@ IDI_SYNCV_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluen
 IDI_SYNCH_ICON_DM2                 ICON      "icons/darkMode/toolbar/filledFluentUI/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/syncH_dis.ico"
 IDI_VIEW_DOC_MAP_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docMap_off.ico" 
+IDI_VIEW_DOCLIST_ICON_DM2          ICON      "icons/darkMode/toolbar/filledFluentUI/docList_off.ico" 
 IDI_VIEW_FUNCLIST_ICON_DM2         ICON      "icons/darkMode/toolbar/filledFluentUI/funcList_off.ico" 
 IDI_VIEW_FILEBROWSER_ICON_DM2      ICON      "icons/darkMode/toolbar/filledFluentUI/fileBrowser_off.ico" 
 IDI_VIEW_MONITORING_ICON_DM2       ICON      "icons/darkMode/toolbar/filledFluentUI/monitoring_off.ico"
@@ -313,17 +324,32 @@ IDR_CLOSETAB_INACT_DM           BITMAP    "icons/darkMode/tabbar/closeTabButton_
 IDR_CLOSETAB_HOVER_DM           BITMAP    "icons/darkMode/tabbar/closeTabButton_hover.bmp"
 IDR_CLOSETAB_PUSH_DM            BITMAP    "icons/darkMode/tabbar/closeTabButton_push.bmp"
 IDR_DOCMAP                      BITMAP    "icons/docMap.bmp"
+IDR_DOCLIST                     BITMAP    "icons/docList.bmp"
 IDR_FUNC_LIST                   BITMAP    "icons/functionList.bmp"
 IDR_FILEBROWSER                 BITMAP    "icons/fileBrowser.bmp"
 IDR_FILEMONITORING              BITMAP    "icons/fileMonitoring.bmp"
 
 IDR_DOCMAP_ICO                  ICON      "icons/docMap.ico"
+IDR_DOCMAP_ICO2                 ICON      "icons/docMap2.ico"
+IDR_DOCMAP_ICO_DM               ICON      "icons/darkMode/panels/docMap.ico"
+IDR_DOCLIST_ICO                 ICON      "icons/docList.ico"
+IDR_DOCLIST_ICO2                ICON      "icons/docList2.ico"
+IDR_DOCLIST_ICO_DM              ICON      "icons/darkMode/panels/docList.ico"
 IDR_FUNC_LIST_ICO               ICON      "icons/functionList.ico"
+IDR_FUNC_LIST_ICO2              ICON      "icons/functionList2.ico"
+IDR_FUNC_LIST_ICO_DM            ICON      "icons/darkMode/panels/functionList.ico"
 IDR_PROJECTPANEL_ICO            ICON      "icons/projectPanel.ico"
+IDR_PROJECTPANEL_ICO2           ICON      "icons/projectPanel2.ico"
+IDR_PROJECTPANEL_ICO_DM         ICON      "icons/darkMode/panels/projectPanel.ico"
 IDR_FILEBROWSER_ICO             ICON      "icons/fileBrowser.ico"
+IDR_FILEBROWSER_ICO2            ICON      "icons/fileBrowser2.ico"
+IDR_FILEBROWSER_ICO_DM          ICON      "icons/darkMode/panels/fileBrowser.ico"
 IDR_CLIPBOARDPANEL_ICO          ICON      "icons/clipboardPanel.ico"
+IDR_CLIPBOARDPANEL_ICO2         ICON      "icons/clipboardPanel2.ico"
+IDR_CLIPBOARDPANEL_ICO_DM       ICON      "icons/darkMode/panels/clipboardPanel.ico"
 IDR_ASCIIPANEL_ICO              ICON      "icons/asciiPanel.ico"
-IDR_DOCSWITCHER_ICO             ICON      "icons/docSwitcher.ico"
+IDR_ASCIIPANEL_ICO2             ICON      "icons/asciiPanel2.ico"
+IDR_ASCIIPANEL_ICO_DM           ICON      "icons/darkMode/panels/asciiPanel.ico"
 
 
 IDI_PROJECT_WORKSPACE           BITMAP      "icons/project_work_space.bmp"
@@ -339,17 +365,23 @@ IDI_FB_ROOTCLOSE                BITMAP      "icons/fb_root_close.bmp"
 IDI_FB_SELECTCURRENTFILE        BITMAP      "icons/fb_select_current_file.bmp"
 IDI_FB_FOLDALL                  BITMAP      "icons/fb_fold_all.bmp"
 IDI_FB_EXPANDALL                BITMAP      "icons/fb_expand_all.bmp"
+IDI_FB_SELECTCURRENTFILE_DM     BITMAP      "icons/darkMode/panels/fb_select_current_file.bmp"
+IDI_FB_FOLDALL_DM               BITMAP      "icons/darkMode/panels/fb_fold_all.bmp"
+IDI_FB_EXPANDALL_DM             BITMAP      "icons/darkMode/panels/fb_expand_all.bmp"
 
 IDI_FUNCLIST_ROOT               BITMAP      "icons/project_file.bmp"
 IDI_FUNCLIST_NODE               BITMAP      "icons/funcList_node.bmp"
 IDI_FUNCLIST_LEAF               BITMAP      "icons/funcList_leaf.bmp"
 
-IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons/funclstSort.bmp"
-IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons/funclstReload.bmp"
+IDI_FUNCLIST_SORTBUTTON            BITMAP      "icons/funclstSort.bmp"
+IDI_FUNCLIST_RELOADBUTTON          BITMAP      "icons/funclstReload.bmp"
+IDI_FUNCLIST_PREFERENCEBUTTON      BITMAP      "icons/funclstPreferences.bmp"
+IDI_FUNCLIST_SORTBUTTON_DM         BITMAP      "icons/darkMode/panels/funclstSort.bmp"
+IDI_FUNCLIST_RELOADBUTTON_DM       BITMAP      "icons/darkMode/panels/funclstReload.bmp"
+IDI_FUNCLIST_PREFERENCEBUTTON_DM   BITMAP      "icons/darkMode/panels/funclstPreferences.bmp"
 
 
-
-IDI_GET_INFO_FROM_TOOLTIP       ICON        "icons/MoreOnTooltip.ico"
+IDI_GET_INFO_FROM_TOOLTIP       ICON        "icons/moreOnTooltip.ico"
 
 IDR_M30_MENU MENU
 BEGIN
@@ -361,7 +393,7 @@ BEGIN
         BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
-			MENUITEM SEPARATOR
+            MENUITEM SEPARATOR
             MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
         END
         MENUITEM "Open in &Default Viewer",          IDM_FILE_OPEN_DEFAULT_VIEWER
@@ -374,7 +406,7 @@ BEGIN
         MENUITEM "&Rename...",                       IDM_FILE_RENAME
         MENUITEM "&Close",                           IDM_FILE_CLOSE
         MENUITEM "Clos&e All",                       IDM_FILE_CLOSEALL
-        POPUP "Close &More"
+        POPUP "Close &Multiple Documents"
         BEGIN
             MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
             MENUITEM "Close All to the Left",            IDM_FILE_CLOSEALL_TOLEFT
@@ -404,11 +436,20 @@ BEGIN
         MENUITEM "&Select All",                      IDM_EDIT_SELECTALL
         MENUITEM "Begin/End &Select",                IDM_EDIT_BEGINENDSELECT
         MENUITEM SEPARATOR
+        POPUP "Insert"
+        BEGIN
+                MENUITEM "Date Time (short)",        IDM_EDIT_INSERT_DATETIME_SHORT
+                MENUITEM "Date Time (long)",         IDM_EDIT_INSERT_DATETIME_LONG
+                MENUITEM "Date Time (customized)",   IDM_EDIT_INSERT_DATETIME_CUSTOMIZED
+        END
         POPUP "Cop&y to Clipboard"
         BEGIN
-                MENUITEM "Current Full File path to Clipboard",    IDM_EDIT_FULLPATHTOCLIP
-                MENUITEM "Current Filename to Clipboard",          IDM_EDIT_FILENAMETOCLIP
-                MENUITEM "Current Dir. Path to Clipboard",         IDM_EDIT_CURRENTDIRTOCLIP
+                MENUITEM "Copy Current Full File path",    IDM_EDIT_FULLPATHTOCLIP
+                MENUITEM "Copy Current Filename",          IDM_EDIT_FILENAMETOCLIP
+                MENUITEM "Copy Current Dir. Path",         IDM_EDIT_CURRENTDIRTOCLIP
+                MENUITEM SEPARATOR
+                MENUITEM "Copy All Filenames",             IDM_EDIT_COPY_ALL_NAMES
+                MENUITEM "Copy All File Paths",            IDM_EDIT_COPY_ALL_PATHS
         END
         POPUP "&Indent"
         BEGIN
@@ -467,6 +508,8 @@ BEGIN
             MENUITEM "Function Completion",         IDM_EDIT_AUTOCOMPLETE
             MENUITEM "Word Completion",             IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
             MENUITEM "Function Parameters Hint",    IDM_EDIT_FUNCCALLTIP
+            MENUITEM "Function Parameters Previous Hint", IDM_EDIT_FUNCCALLTIP_PREVIOUS
+            MENUITEM "Function Parameters Next Hint",     IDM_EDIT_FUNCCALLTIP_NEXT
             MENUITEM "Path Completion",             IDM_EDIT_AUTOCOMPLETE_PATH
         END
         POPUP "&EOL Conversion"
@@ -535,7 +578,7 @@ BEGIN
         MENUITEM "Mar&k...",                    IDM_SEARCH_MARK
         MENUITEM SEPARATOR
 
-        POPUP "Mark &All"
+        POPUP "Style &All Occurrences of Token"
         BEGIN
             MENUITEM "Using 1st Style",    IDM_SEARCH_MARKALLEXT1
             MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKALLEXT2
@@ -543,7 +586,7 @@ BEGIN
             MENUITEM "Using 4th Style",    IDM_SEARCH_MARKALLEXT4
             MENUITEM "Using 5th Style",    IDM_SEARCH_MARKALLEXT5
         END
-        POPUP "Mark &One"
+        POPUP "Style &One Token"
         BEGIN
             MENUITEM "Using 1st Style",    IDM_SEARCH_MARKONEEXT1
             MENUITEM "Using 2nd Style",    IDM_SEARCH_MARKONEEXT2
@@ -551,7 +594,7 @@ BEGIN
             MENUITEM "Using 4th Style",    IDM_SEARCH_MARKONEEXT4
             MENUITEM "Using 5th Style",    IDM_SEARCH_MARKONEEXT5
         END
-        POPUP "&Unmark All"
+        POPUP "Clear Style"
         BEGIN
             MENUITEM "Clear 1st Style",     IDM_SEARCH_UNMARKALLEXT1
             MENUITEM "Clear 2nd Style",     IDM_SEARCH_UNMARKALLEXT2
@@ -567,7 +610,7 @@ BEGIN
             MENUITEM "3rd Style",     IDM_SEARCH_GOPREVMARKER3
             MENUITEM "4th Style",     IDM_SEARCH_GOPREVMARKER4
             MENUITEM "5th Style",     IDM_SEARCH_GOPREVMARKER5
-            MENUITEM "Find Style",    IDM_SEARCH_GOPREVMARKER_DEF
+            MENUITEM "Find Mark Style",    IDM_SEARCH_GOPREVMARKER_DEF
         END
         POPUP "Jump &Down"
         BEGIN
@@ -576,7 +619,7 @@ BEGIN
             MENUITEM "3rd Style",      IDM_SEARCH_GONEXTMARKER3
             MENUITEM "4th Style",      IDM_SEARCH_GONEXTMARKER4
             MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
-            MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
+            MENUITEM "Find Mark Style",     IDM_SEARCH_GONEXTMARKER_DEF
         END
         POPUP "&Copy Styled Text"
         BEGIN
@@ -586,7 +629,7 @@ BEGIN
             MENUITEM "4th Style",               IDM_SEARCH_STYLE4TOCLIP
             MENUITEM "5th Style",               IDM_SEARCH_STYLE5TOCLIP
             MENUITEM "All Styles",              IDM_SEARCH_ALLSTYLESTOCLIP
-            MENUITEM "Find Style (Marked)",     IDM_SEARCH_MARKEDTOCLIP
+            MENUITEM "Find Mark Style",     IDM_SEARCH_MARKEDTOCLIP
         END
         MENUITEM SEPARATOR
         POPUP "&Bookmark"
@@ -662,16 +705,23 @@ BEGIN
             MENUITEM SEPARATOR
             MENUITEM "Move Tab Forward",        IDM_VIEW_TAB_MOVEFORWARD
             MENUITEM "Move Tab Backward",       IDM_VIEW_TAB_MOVEBACKWARD
+            MENUITEM SEPARATOR
+            MENUITEM "Apply Color 1",           IDM_VIEW_TAB_COLOUR_1
+            MENUITEM "Apply Color 2",           IDM_VIEW_TAB_COLOUR_2
+            MENUITEM "Apply Color 3",           IDM_VIEW_TAB_COLOUR_3
+            MENUITEM "Apply Color 4",           IDM_VIEW_TAB_COLOUR_4
+            MENUITEM "Apply Color 5",           IDM_VIEW_TAB_COLOUR_5
+            MENUITEM "Remove Color",            IDM_VIEW_TAB_COLOUR_NONE
         END
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
         MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
         MENUITEM SEPARATOR
-        MENUITEM "Fold All",                    IDM_VIEW_TOGGLE_FOLDALL
-        MENUITEM "Unfold All",                  IDM_VIEW_TOGGLE_UNFOLDALL
-        MENUITEM "Collapse Current Level",      IDM_VIEW_FOLD_CURRENT
-        MENUITEM "Uncollapse Current Level",    IDM_VIEW_UNFOLD_CURRENT
-        POPUP "Collapse Level"
+        MENUITEM "Fold All",                    IDM_VIEW_FOLDALL
+        MENUITEM "Unfold All",                  IDM_VIEW_UNFOLDALL
+        MENUITEM "Fold Current Level",          IDM_VIEW_FOLD_CURRENT
+        MENUITEM "Unfold Current Level",        IDM_VIEW_UNFOLD_CURRENT
+        POPUP "Fold Level"
         BEGIN
             MENUITEM "1",   IDM_VIEW_FOLD_1
             MENUITEM "2",   IDM_VIEW_FOLD_2
@@ -682,7 +732,7 @@ BEGIN
             MENUITEM "7",   IDM_VIEW_FOLD_7
             MENUITEM "8",   IDM_VIEW_FOLD_8
         END
-        POPUP "Uncollapse Level"
+        POPUP "Unfold Level"
         BEGIN
             MENUITEM "1",    IDM_VIEW_UNFOLD_1
             MENUITEM "2",    IDM_VIEW_UNFOLD_2
@@ -705,6 +755,7 @@ BEGIN
             END
         MENUITEM "Folder as Workspace",   IDM_VIEW_FILEBROWSER
         MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
+        MENUITEM "Document List",         IDM_VIEW_DOCLIST
         MENUITEM "Function List",         IDM_VIEW_FUNC_LIST
         MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",      IDM_VIEW_SYNSCROLLV
@@ -921,6 +972,7 @@ BEGIN
         MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
         MENUITEM "TeX",                     IDM_LANG_TEX
         MENUITEM "txt2tags",                IDM_LANG_TXT2TAGS
+        MENUITEM "TypeScript",              IDM_LANG_TYPESCRIPT
         MENUITEM "Verilog",                 IDM_LANG_VERILOG
         MENUITEM "VHDL",                    IDM_LANG_VHDL
         MENUITEM "Visual Basic",            IDM_LANG_VB
@@ -930,6 +982,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Define your language...", IDM_LANG_USER_DLG
         MENUITEM "Open User Defined Language folder...",      IDM_LANG_OPENUDLDIR
+        MENUITEM "Notepad++ User Defined Languages Collection", IDM_LANG_UDLCOLLECTION_PROJECT_SITE
         MENUITEM "User-Defined",            IDM_LANG_USER
     END
 
@@ -1062,6 +1115,7 @@ BEGIN
         MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
         MENUITEM "TeX",                   IDM_LANG_TEX
         MENUITEM "txt2tags",              IDM_LANG_TXT2TAGS
+        MENUITEM "TypeScript",            IDM_LANG_TYPESCRIPT
     END
     POPUP "V"
     BEGIN
@@ -1077,6 +1131,7 @@ BEGIN
     BEGIN
         MENUITEM "Define your language...",   IDM_LANG_USER_DLG
         MENUITEM "Open User Defined Language folder...",        IDM_LANG_OPENUDLDIR
+        MENUITEM "Notepad++ User Defined Languages Collection", IDM_LANG_UDLCOLLECTION_PROJECT_SITE
     END
     MENUITEM "User-Defined",              IDM_LANG_USER
     END
@@ -1126,13 +1181,36 @@ BEGIN
         MENUITEM "&Run...",    IDM_EXECUTE
     END
 
+    POPUP "&Plugins"
+    BEGIN
+        MENUITEM "Open Plugins Folder...",    IDM_SETTING_OPENPLUGINSDIR
+    END
+
+    POPUP "&Window"
+    BEGIN
+        POPUP "Sort By"
+            BEGIN
+                MENUITEM "Name A to Z",                 IDM_WINDOW_SORT_FN_ASC
+                MENUITEM "Name Z to A",                 IDM_WINDOW_SORT_FN_DSC
+                MENUITEM "Path A to Z",                 IDM_WINDOW_SORT_FP_ASC
+                MENUITEM "Path Z to A",                 IDM_WINDOW_SORT_FP_DSC
+                MENUITEM "Type A to Z",                 IDM_WINDOW_SORT_FT_ASC
+                MENUITEM "Type Z to A",                 IDM_WINDOW_SORT_FT_DSC
+                MENUITEM "Size Smaller to Larger",      IDM_WINDOW_SORT_FS_ASC
+                MENUITEM "Size Larger to Smaller",      IDM_WINDOW_SORT_FS_DSC
+            END
+        MENUITEM "&Windows...",                 IDM_WINDOW_WINDOWS
+        MENUITEM SEPARATOR
+        MENUITEM "Recent Window",               IDM_WINDOW_MRU_FIRST, GRAYED
+    END
+
     POPUP "&?"
     BEGIN
         MENUITEM "Command Line Arguments...",      IDM_CMDLINEARGUMENTS
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",                 IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",         IDM_PROJECTPAGE
-        MENUITEM "Notepad++ Online Document",      IDM_ONLINEDOCUMENT
+        MENUITEM "Notepad++ Online User Manual",   IDM_ONLINEDOCUMENT
         MENUITEM "Notepad++ Community (Forum)",    IDM_FORUM
         MENUITEM SEPARATOR
         MENUITEM "Update Notepad++",               IDM_UPDATE_NPP
@@ -1142,7 +1220,12 @@ BEGIN
         MENUITEM "About Notepad++",                IDM_ABOUT
     END
 
-    MENUITEM "X",    IDM_FILE_CLOSE, HELP
+    MENUITEM "＋",               IDM_FILE_NEW, HELP
+    POPUP "▼"
+    BEGIN
+        MENUITEM "Recent Window",               IDM_DROPLIST_LIST, GRAYED
+    END
+    MENUITEM "✕",               IDM_FILE_CLOSE, HELP
 END
 
 IDR_SYSTRAYPOPUP_MENU MENU
@@ -1165,18 +1248,22 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
     EDITTEXT        IDC_BUILD_DATETIME,150,2,150,10, ES_READONLY | NOT WS_BORDER
-    CONTROL         "",IDI_CHAMELEON,"Static",SS_OWNERDRAW,20,5,64,64
-    //CONTROL         "",IDI_JESUISCHARLIE,"Static",SS_OWNERDRAW,20,5,64,64
-    //CONTROL         "",IDI_GILETJAUNE,"Static",SS_OWNERDRAW,20,5,64,64
-    //CONTROL         "", IDI_SAMESEXMARRIAGE,"Static",SS_OWNERDRAW,20,5,64,64
-    LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,70,20,140,11
-    LTEXT           "bit",IDC_VERSION_BIT,150,20,140,11
+    CONTROL         "", IDI_NPPABOUT_LOGO,"Static",SS_OWNERDRAW,10,5,128,128
+    LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,85,25,140,11
+    LTEXT           "bit",IDC_VERSION_BIT,160,25,140,11
     //LTEXT           "Author :",IDC_STATIC,21,45,31,8
     //LTEXT           "FREE UYGHUR",IDC_AUTHOR_NAME,70,32,70,8
     //LTEXT           "Stand with Hong Kong",IDC_AUTHOR_NAME,70,32,80,8
     //LTEXT           "pour Samuel Paty",IDC_AUTHOR_NAME,70,32,80,8
-    LTEXT           "Home:",IDC_STATIC,21,52,47,8
-    LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,52,126,8
+    //LTEXT           "Boycott Beijing 2022",IDC_AUTHOR_NAME,85,38,80,8
+    //LTEXT           "Declare variables, not war",IDC_AUTHOR_NAME,85,38,100,8
+    //LTEXT           "Make Apps, not war",IDC_AUTHOR_NAME,85,38,100,8
+    //LTEXT           "Stand Up For Ukraine",IDC_AUTHOR_NAME,85,38,100,8
+    //LTEXT           "Unhappy Users' Edition",IDC_AUTHOR_NAME,85,38,100,8
+    //LTEXT           "Happy Users' Edition",IDC_AUTHOR_NAME,85,38,100,8
+    //LTEXT           "I want to get a refund",IDC_HOME_ADDR,85,48,126,8
+    LTEXT           "Home:",IDC_STATIC,21,58,47,8
+    LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,58,126,8
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER
     DEFPUSHBUTTON   "OK",IDOK,106,215,50,14,BS_FLAT
     // IDC_LICENCE_EDIT should be the last line, don't know why
@@ -1185,7 +1272,7 @@ END
 
 IDD_DEBUGINFOBOX DIALOGEX 0, 0, 271, 200
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Debug Info"
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
@@ -1196,11 +1283,11 @@ END
 
 IDD_DOSAVEORNOTBOX DIALOGEX 0, 0, 310, 80
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_WINDOWEDGE
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Save"
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
-    LTEXT           "",IDC_DOSAVEORNOTTEX,7,10,290,40,SS_EDITCONTROL
+    LTEXT           "",IDC_DOSAVEORNOTTEXT,7,10,290,40,SS_EDITCONTROL
     DEFPUSHBUTTON   "&Yes",IDYES,10,60,50,14,BS_FLAT
     PUSHBUTTON   "&No",IDNO,65,60,50,14,BS_FLAT
     PUSHBUTTON   "&Cancel",IDCANCEL,120,60,50,14,BS_FLAT
@@ -1208,9 +1295,21 @@ BEGIN
     PUSHBUTTON   "N&o to all",IDIGNORE,240,60,60,14,BS_FLAT
 END
 
+IDD_DOSAVEALLBOX DIALOGEX 0, 0, 260, 100
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Save"
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+BEGIN
+    LTEXT           "",IDC_DOSAVEALLTEXT,7,10,250,70,SS_EDITCONTROL
+    DEFPUSHBUTTON   "&Yes",IDYES,47,75,50,14,BS_FLAT
+    PUSHBUTTON   "Always Yes", IDRETRY, 102, 75, 60, 14, BS_FLAT
+    PUSHBUTTON   "&No",IDNO,167,75,50,14,BS_FLAT
+END
+
 IDD_GOLINE DIALOGEX 26, 41, 261, 88
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Go To..."
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x0
 BEGIN
@@ -1228,11 +1327,11 @@ END
 
 IDD_VALUE_DLG DIALOGEX 0, 0, 74, 17
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
 BEGIN
     LTEXT             "STATIC :",IDC_VALUE_STATIC,6,4,45,8
-    EDITTEXT        IDC_VALUE_EDIT,49,2,18,14,ES_NUMBER,WS_EX_DLGMODALFRAME
+    EDITTEXT        IDC_VALUE_EDIT,49,3,18,11,ES_NUMBER
 END
 
 IDD_BUTTON_DLG DIALOGEX 0, 0, 12, 10

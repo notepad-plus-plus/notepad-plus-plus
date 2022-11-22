@@ -315,7 +315,6 @@
             <WordsStyle name="IDENTIFIER" styleID="12" fgColor="C0C0C0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="java" desc="Java" ext="">
-            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="11" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="0000FF" bgColor="000040" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="TYPE WORD" styleID="16" fgColor="8000FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
@@ -347,6 +346,22 @@
             <WordsStyle name="COMMENTLINE" styleID="43" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTDOC" styleID="44" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
+        <LexerType name="json" desc="JSON" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="C3BE98" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="1" fgColor="FF8000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="2" fgColor="DCDCCC" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING EOL" styleID="3" fgColor="808080" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PROPERTY NAME" styleID="4" fgColor="8CD0D3" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ESCAPE SEQUENCE" styleID="5" fgColor="0000FF" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="LINE COMMENT" styleID="6" fgColor="008000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BLOCK COMMENT" styleID="7" fgColor="008000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="8" fgColor="E3CEAB" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="URI" styleID="9" fgColor="FFFF80" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMPACT IRI" styleID="10" fgColor="0000FF" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="11" fgColor="18AF8A" bgColor="000040" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
+            <WordsStyle name="LD KEYWORD" styleID="12" fgColor="FF0000" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />		
+		</LexerType>
         <LexerType name="kix" desc="KiXtart" ext="">
             <!--
             <WordsStyle name="" styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -539,6 +554,7 @@
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="C0C0C0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="12" fgColor="008080" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
         </LexerType>
         <LexerType name="rc" desc="RC" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -735,6 +751,7 @@
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="000040" />
+        <WidgetStyle name="Change History margin" styleID="0" bgColor="000040" />
         <WidgetStyle name="Fold" styleID="0" fgColor="FFFFFF" bgColor="000040" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="000040" bgColor="000040" />
@@ -756,5 +773,6 @@
         <WidgetStyle name="Unsaved change marker" styleID="0" bgColor="FF0000" />
         <WidgetStyle name="Saved change marker" styleID="0" bgColor="80FF00" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
+        <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
     </GlobalStyles>
 </NotepadPlus>

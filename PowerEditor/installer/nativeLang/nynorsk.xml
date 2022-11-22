@@ -18,8 +18,8 @@
                     <Item menuId="settings" name="&amp;Innstillingar"/>
                     <Item menuId="macro" name="Makro"/>
                     <Item menuId="run" name="Køyr"/>
-                    <Item idName="Plugins" name="Programtillegg"/>
-                    <Item idName="Window" name="Vindauge"/>
+                    <Item menuId="Plugins" name="Programtillegg"/>
+                    <Item menuId="Window" name="Vindauge"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
@@ -287,14 +287,10 @@
                 <Item id="1604" name="Skil mellom &amp;store/småe bokstavar"/>
                 <Item id="1605" name="Regulært &amp;uttrykk"/>
                 <Item id="1606" name="&amp;Bryt tekst"/>
-                <Item id="1612" name="&amp;Opp"/>
-                <Item id="1613" name="&amp;Ned"/>
                 <Item id="1614" name="Ordtelling"/>
                 <Item id="1615" name="Søk etter alle"/>
                 <Item id="1616" name="Merk linje"/>
-                <Item id="1617" name="Framhev søkeresultat"/>
                 <Item id="1618" name="Tøm før neste søk"/>
-                <Item id="1621" name="Søkeretning"/>
                 <Item id="1611" name="B&amp;ytt ut med:"/>
                 <Item id="1608" name="&amp;Bytt ut"/>
                 <Item id="1609" name="Bytt ut &amp;alle"/>
@@ -305,7 +301,6 @@
                 <Item id="1633" name="Tøm"/>
                 <Item id="1635" name="Bytt ut alle i alle opne dokument"/>
                 <Item id="1636" name="Søk etter alle i alle opne dokument"/>
-                <Item id="1637" name="Søk i filer"/>
                 <Item id="1654" name="Filter:"/>
                 <Item id="1655" name="Mappe:"/>
                 <Item id="1656" name="Søk etter alle"/>

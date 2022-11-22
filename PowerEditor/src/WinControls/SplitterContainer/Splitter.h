@@ -81,7 +81,8 @@ private:
 	static bool _isHorizontalFixedRegistered;
 	static bool _isVerticalFixedRegistered;
 
-	RECT _clickZone2TL, _clickZone2BR;
+	RECT _clickZone2TL = {};
+	RECT _clickZone2BR = {};
 
 	static LRESULT CALLBACK staticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lParam);

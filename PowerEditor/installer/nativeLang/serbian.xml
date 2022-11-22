@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "P&amp;ostavke"/>
 					<Item menuId="macro" name = "Makro"/>
 					<Item menuId="run" name = "Pokreni"/>
-					<Item idName = "Plugins" name = "Dodaci"/>
-					<Item idName = "Window" name = "Prozor"/>
+					<Item menuId = "Plugins" name = "Dodaci"/>
+					<Item menuId = "Window" name = "Prozor"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -163,14 +163,10 @@
                 <Item id = "1604" name = "Ista &amp;velika i mala slova"/>
                 <Item id = "1605" name = "Regularni &amp;izraz"/>
                 <Item id = "1606" name = "Obavij &amp;oko"/>
-                <Item id = "1612" name = "&amp;Gore"/>
-                <Item id = "1613" name = "&amp;Dole"/>
                 <Item id = "1614" name = "Prebroj"/>
                 <Item id = "1615" name = "Pronaði sve"/>
                 <Item id = "1616" name = "Obeleži liniju"/>
-                <Item id = "1617" name = "Naðen je token"/>
                 <Item id = "1618" name = "Za svaku pretragu"/>
-                <Item id = "1621" name = "Smer"/>
                 <Item id = "1611" name = "Zame &amp;ni sa:"/>
                 <Item id = "1608" name = "&amp;Zameni"/>
                 <Item id = "1609" name = "Zameni &amp;sve"/>
@@ -181,8 +177,6 @@
 			 	<Item id = "1633" name = "Oèisti"/>
 			 	<Item id = "1635" name = "Zameni sve u svim otvorenim dokumentima"/>
 			 	<Item id = "1636" name = "Pronaði sve u svim otvorenim dokumentima"/>
-			 	<Item id = "1637" name = "Pronaði u dokumentima"/>
-				<Item id = "1640" name = "Zameni dijalog"/>
 			 	<Item id = "1654" name = "Filteri :"/>
 			 	<Item id = "1655" name = "Folder :"/>
 			 	<Item id = "1656" name = "Naði sve"/>

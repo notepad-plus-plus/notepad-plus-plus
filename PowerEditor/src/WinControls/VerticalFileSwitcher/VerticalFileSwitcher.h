@@ -21,26 +21,24 @@
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 
-#define FS_PROJECTPANELTITLE		TEXT("Doc Switcher")
+#define FS_PROJECTPANELTITLE		TEXT("Document List")
 
 struct sortCompareData {
-  HWND hListView;
-  int columnIndex;
-  int sortDirection;
+  HWND hListView = nullptr;
+  int columnIndex = 0;
+  int sortDirection = 0;
 };
 
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:
-	VerticalFileSwitcher(): DockingDlgInterface(IDD_FILESWITCHER_PANEL) {};
+	VerticalFileSwitcher(): DockingDlgInterface(IDD_DOCLIST) {};
 
 	void init(HINSTANCE hInst, HWND hPere, HIMAGELIST hImaLst) {
 		DockingDlgInterface::init(hInst, hPere);
 		_hImaLst = hImaLst;
 	};
 
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
-    };
+	virtual void display(bool toShow = true) const; 
 
     void setParent(HWND parent2set){
         _hParent = parent2set;
@@ -101,8 +99,13 @@ public:
 		_fileListView.setForegroundColor(fgColour);
     };
 protected:
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	HMENU _hGlobalMenu = NULL;
+
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void initPopupMenus();
+	void popupMenuCmd(int cmdID);
 private:
+	bool colHeaderRClick = false;
 	int _lastSortingColumn = 0;
 	int _lastSortingDirection = SORT_DIRECTION_NONE;
 	VerticalFileSwitcherListView _fileListView;

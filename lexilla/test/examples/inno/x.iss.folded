@@ -1,0 +1,51 @@
+ 0 400   0   #define app_copyright "Copyright 1999, app corporation"
+ 0 400   0   
+ 0 400   0   ; comment
+ 0 400   0   
+ 2 400   0 + [Setup]
+ 0 401   0 | AppName=MyApp
+ 0 401   0 | AppCopyright={#app_copyright}
+ 0 401   0 | WizardSmallImageFile=WizardSmallImageFile.bmp
+ 0 401   0 | OnlyBelowVersion=6.01
+ 0 401   0 | 
+ 2 400   0 + [Files]
+ 0 401   0 | Source: "app.exe"; DestDir: "{tmp}"; OnlyBelowVersion: 6.01
+ 0 401   0 | 
+ 2 400   0 + [INI]
+ 0 401   0 | Key: "keyname1"; String: "unterminated
+ 0 401   0 | Key: 'keyname2'; String: 'unterminated
+ 0 401   0 | 
+ 2 400   0 + [Registry]
+ 0 401   0 | Root: HKLM; ValueType: string
+ 0 401   0 | 
+ 2 400   0 + [CustomMessages]
+ 0 401   0 | keyname     =Other tasks:'not string
+ 0 401   0 | 
+ 2 400   0 + [Messages]
+ 0 401   0 | keyname="{#app_copyright}"not string
+ 0 401   0 | 
+ 2 400   0 + [Code]
+ 0 401   0 | 
+ 0 401   0 | // comment
+ 0 401   0 | 
+ 0 401   0 | (* comment *)
+ 0 401   0 | 
+ 0 401   0 | { comment }
+ 0 401   0 | 
+ 0 401   0 | { *) comment }
+ 0 401   0 | 
+ 0 401   0 | (* } comment *)
+ 0 401   0 | 
+ 0 401   0 | (*
+ 0 401   0 | comment *)
+ 0 401   0 | 
+ 0 401   0 | {
+ 0 401   0 | comment }
+ 0 401   0 | 
+ 0 401   0 | function ShouldInstallComCtlUpdate: Boolean;
+ 0 401   0 | begin
+ 0 401   0 |   Result := False;
+ 0 401   0 |   Log('string');
+ 0 401   0 |   IsEscaped('''good''', ''bad');
+ 0 401   0 | end;
+ 0 400   0   

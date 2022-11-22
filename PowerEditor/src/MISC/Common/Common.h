@@ -22,6 +22,7 @@
 #include <cstdint>
 #include <unordered_set>
 #include <algorithm>
+#include <tchar.h>
 
 
 const bool dirUp = true;
@@ -77,12 +78,13 @@ void ScreenRectToClientRect(HWND hWnd, RECT* rect);
 std::wstring string2wstring(const std::string & rString, UINT codepage);
 std::string wstring2string(const std::wstring & rwString, UINT codepage);
 bool isInList(const TCHAR *token, const TCHAR *list);
-generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename);
+generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename, bool ordinalNumber = true);
 
 std::string getFileContent(const TCHAR *file2read);
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
 void writeFileContent(const TCHAR *file2write, const char *content2write);
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
+bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_string>& patterns, size_t level);
 bool allPatternsAreExclusion(const std::vector<generic_string> patterns);
 
 class WcharMbcsConvertor final
@@ -93,12 +95,12 @@ public:
 		return instance;
 	}
 
-	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
-	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
-	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn = -1, int *pLenOut = NULL);
-	const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
+	const wchar_t * char2wchar(const char *mbStr, size_t codepage, int lenMbcs =-1, int* pLenOut=NULL, int* pBytesNotProcessed=NULL);
+	const wchar_t * char2wchar(const char *mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend);
+	const char * wchar2char(const wchar_t *wcStr, size_t codepage, int lenIn = -1, int* pLenOut = NULL);
+	const char * wchar2char(const wchar_t *wcStr, size_t codepage, intptr_t* mstart, intptr_t* mend);
 
-	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL)
+	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn = -1, int* pLenOut=NULL, int* pBytesNotProcessed=NULL)
 	{
 		int lenWc = 0;
         const wchar_t * strW = char2wchar(txt2Encode, fromCodepage, lenIn, &lenWc, pBytesNotProcessed);
@@ -158,14 +160,10 @@ protected:
 };
 
 
-
-#define MACRO_RECORDING_IN_PROGRESS 1
-#define MACRO_RECORDING_HAS_STOPPED 2
-
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 
 generic_string PathRemoveFileSpec(generic_string & path);
-generic_string PathAppend(generic_string &strDest, const generic_string & str2append);
+generic_string pathAppend(generic_string &strDest, const generic_string & str2append);
 COLORREF getCtrlBgColor(HWND hWnd);
 generic_string stringToUpper(generic_string strToConvert);
 generic_string stringToLower(generic_string strToConvert);
@@ -179,13 +177,15 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 int OrdinalIgnoreCaseCompareStrings(LPCTSTR sz1, LPCTSTR sz2);
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);
+class Buffer;
+bool buf2Clipborad(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd);
 
 generic_string GetLastErrorAsString(DWORD errorCode = 0);
 
 generic_string intToString(int val);
 generic_string uintToString(unsigned int val);
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText, bool isRTL);
 HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszText, const RECT rc);
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
@@ -227,3 +227,61 @@ template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSort
 void trim(generic_string& str);
 
 int nbDigitsFromNbLines(size_t nbLines);
+
+generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st);
+
+HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent);
+
+class Version final
+{
+public:
+	Version() = default;
+	Version(const generic_string& versionStr);
+
+	void setVersionFrom(const generic_string& filePath);
+	generic_string toString();
+	bool isNumber(const generic_string& s) const {
+		return !s.empty() &&
+			find_if(s.begin(), s.end(), [](TCHAR c) { return !_istdigit(c); }) == s.end();
+	};
+
+	int compareTo(const Version& v2c) const;
+
+	bool operator < (const Version& v2c) const {
+		return compareTo(v2c) == -1;
+	};
+
+	bool operator <= (const Version& v2c) const {
+		int r = compareTo(v2c);
+		return r == -1 || r == 0;
+	};
+
+	bool operator > (const Version& v2c) const {
+		return compareTo(v2c) == 1;
+	};
+
+	bool operator >= (const Version& v2c) const {
+		int r = compareTo(v2c);
+		return r == 1 || r == 0;
+	};
+
+	bool operator == (const Version& v2c) const {
+		return compareTo(v2c) == 0;
+	};
+
+	bool operator != (const Version& v2c) const {
+		return compareTo(v2c) != 0;
+	};
+
+	bool empty() const {
+		return _major == 0 && _minor == 0 && _patch == 0 && _build == 0;
+	}
+
+	bool isCompatibleTo(const Version& from, const Version& to) const;
+
+private:
+	unsigned long _major = 0;
+	unsigned long _minor = 0;
+	unsigned long _patch = 0;
+	unsigned long _build = 0;
+};

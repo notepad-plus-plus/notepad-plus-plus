@@ -19,8 +19,10 @@
 
 #include "SizeableDlg.h"
 #include "Common.h"
+#include "ContextMenu.h"
 
 class DocTabView;
+class Buffer;
 
 typedef enum {
 	WDT_ACTIVATE = 1,
@@ -32,11 +34,11 @@ typedef enum {
 
 struct NMWINDLG : public NMHDR {
 
-	BOOL processed;
-	WinDlgNotifyType type;
-	UINT curSel;
-	UINT nItems;
-	UINT *Items;
+	BOOL processed = FALSE;
+	WinDlgNotifyType type = WDT_ACTIVATE;
+	UINT curSel = 0;
+	UINT nItems = 0;
+	UINT *Items = 0;
 
 	// ctor: initialize to zeroes
 	NMWINDLG() { memset(this,0,sizeof(NMWINDLG)); }
@@ -53,11 +55,21 @@ public :
 	WindowsDlg();
 	int doDialog();
 	virtual void init(HINSTANCE hInst, HWND parent, DocTabView *pTab);
-
+	void doSortToTabs();
+	void doSort();
+	void sort(int columnID, bool reverseSort);
+	void sortFileNameASC();
+	void sortFileNameDSC();
+	void sortFilePathASC();
+	void sortFilePathDSC();
+	void sortFileTypeASC();
+	void sortFileTypeDSC();
+	void sortFileSizeASC();
+	void sortFileSizeDSC();
 	void doRefresh(bool invalidate = false);
 
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	virtual BOOL onInitDialog();
 	virtual void onSize(UINT nType, int cx, int cy);
 	virtual void onGetMinMaxInfo(MINMAXINFO* lpMMI);
@@ -68,21 +80,24 @@ protected :
 	void resetSelection();
 	void doSave();
 	void doClose();
-	void doSortToTabs();
 	void updateButtonState();
 	void activateCurrent();
 	void doColumnSort();
 	void doCount();
+	void refreshMap();
+	void putItemsToClipboard(bool isFullPath);
+	Buffer* getBuffer(int index) const;
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;
-	SIZE _szMinButton;
-	SIZE _szMinListCtrl;
-	DocTabView *_pTab = nullptr;
+	SIZE _szMinButton = {};
+	SIZE _szMinListCtrl = {};
+	DocTabView* _pTab = nullptr;
 	std::vector<int> _idxMap;
 	int _currentColumn = -1;
 	int _lastSort = -1;
 	bool _reverseSort = false;
+	ContextMenu _listMenu;
 
 private:
 	virtual void init(HINSTANCE hInst, HWND parent);	
@@ -91,12 +106,13 @@ private:
 class WindowsMenu
 {
 public:
-	WindowsMenu();
-	~WindowsMenu();
-	void init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation); 
+	WindowsMenu() {};
+	~WindowsMenu() {};
+	void init(HMENU hMainMenu); 
 	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 
 private:
 	HMENU _hMenu = nullptr;
+	HMENU _hMenuList = nullptr;
+	UINT _limitPrev = 0;
 };
-

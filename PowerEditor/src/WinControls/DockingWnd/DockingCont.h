@@ -144,7 +144,7 @@ protected :
 		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
 	};
 
-    virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+    virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 	// drawing functions
 	void drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct);
@@ -172,55 +172,56 @@ protected :
 
 private:
 	// handles
-	BOOL					_isActive;
-	bool					_isFloating;
-	HWND					_hCaption;
-	HWND					_hContTab;
+	BOOL _isActive = FALSE;
+	bool _isFloating = FALSE;
+	HWND _hCaption = nullptr;
+	HWND _hContTab = nullptr;
+	HWND _hTabUpdown = nullptr;
 
 	// horizontal font for caption and tab
-	HFONT					_hFont;
+	HFONT _hFont = nullptr;
 
 	// caption params
-	BOOL					_isTopCaption;
-	generic_string		    _pszCaption;
+	BOOL _isTopCaption = FALSE;
+	generic_string _pszCaption;
 
-	BOOL					_isMouseDown;
-	BOOL					_isMouseClose;
-	BOOL					_isMouseOver;
-	RECT					_rcCaption;
+	BOOL _isMouseDown = FALSE;
+	BOOL _isMouseClose = FALSE;
+	BOOL _isMouseOver = FALSE;
+	RECT _rcCaption = {};
 	
 	// tab style
-	BOOL					_bDrawOgLine;
+	BOOL _bDrawOgLine = FALSE;
 
 	// Important value for DlgMoving class
-	BOOL					_dragFromTab;
+	BOOL _dragFromTab = FALSE;
 
 	// subclassing handle for caption
-	WNDPROC					_hDefaultCaptionProc;
+	WNDPROC _hDefaultCaptionProc = nullptr;
 
 	// subclassing handle for tab
-	WNDPROC					_hDefaultTabProc;
+	WNDPROC _hDefaultTabProc = nullptr;
 
 	// for moving and reordering
-	UINT					_prevItem;
-	BOOL					_beginDrag;
+	UINT _prevItem = 0;
+	BOOL _beginDrag = FALSE;
 
 	// Is tooltip
-	BOOL					_bTabTTHover;
-	INT						_iLastHovered;
+	BOOL _bTabTTHover = FALSE;
+	INT _iLastHovered = 0;
 
-	BOOL					_bCaptionTT;
-	BOOL					_bCapTTHover;
-	eMousePos				_hoverMPos;
+	BOOL _bCaptionTT = FALSE;
+	BOOL _bCapTTHover = FALSE;
+	eMousePos _hoverMPos = posOutside;
 
 	int _captionHeightDynamic = HIGH_CAPTION;
 	int _captionGapDynamic = CAPTION_GAP;
 	int _closeButtonPosLeftDynamic = CLOSEBTN_POS_LEFT;
 	int _closeButtonPosTopDynamic = CLOSEBTN_POS_TOP;
-	int _closeButtonWidth;
-	int _closeButtonHeight;
+	int _closeButtonWidth = 12;
+	int _closeButtonHeight = 12;
 
 	// data of added windows
-	std::vector<tTbData *>		_vTbData;
+	std::vector<tTbData *> _vTbData;
 };
 

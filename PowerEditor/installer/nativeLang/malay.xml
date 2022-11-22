@@ -21,8 +21,8 @@ Desc: Malay translation for Notepad++
 <Item menuId="settings" name="&amp;Ketetapan"/>
 <Item menuId="macro" name="Mak&amp;ro"/>
 <Item menuId="run" name="&amp;Jalan"/>
-<Item idName="Plugins" name="Plu&amp;gin"/>
-<Item idName="Window" name="&amp;Tetingkap"/>
+<Item menuId="Plugins" name="Plu&amp;gin"/>
+<Item menuId="Window" name="&amp;Tetingkap"/>
 </Entries>
 <!-- Sub Menu Entries -->
 
@@ -181,14 +181,10 @@ Desc: Malay translation for Notepad++
 <Item id="1604" name="Padankan atur &amp;huruf"/>
 <Item id="1605" name="&amp;Ungkapan nalar"/>
 <Item id="1606" name="Baluti"/>
-<Item id="1612" name="Ke &amp;Atas"/>
-<Item id="1613" name="Ke &amp;Bawah"/>
 <Item id="1614" name="Kira"/>
 <Item id="1615" name="Temukan Semua"/>
 <Item id="1616" name="Tandakan Baris"/>
-<Item id="1617" name="Gayakan token yang ditemui"/>
 <Item id="1618" name="Singkir bagi setiap carian"/>
-<Item id="1621" name="Arah"/>
 <Item id="1611" name="Ganti &amp;dengan :"/>
 <Item id="1608" name="&amp;Ganti"/>
 <Item id="1609" name="Ganti &amp;Semua"/>
@@ -199,8 +195,6 @@ Desc: Malay translation for Notepad++
 <Item id="1633" name="Bersihkan"/>
 <Item id="1635" name="Ganti semua dlm semua dokumen dibuka"/>
 <Item id="1636" name="Temukan semua dlm semua dokumen dibuka"/>
-<Item id="1637" name="Temukan dalam fail"/>
-<Item id="1640" name="Tukar dialog"/>
 <Item id="1654" name="Penapis :"/>
 <Item id="1655" name="Direktori :"/>
 <Item id="1656" name="Temukan semuanya"/>

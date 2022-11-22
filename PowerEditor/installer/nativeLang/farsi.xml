@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="تنظیمات"/>
                     <Item menuId="macro" name="ماکرو"/>
                     <Item menuId="run" name="اِجرا"/>
-                    <Item idName="Plugins" name="افزونه ها"/>
-                    <Item idName="Window" name="پنجره"/>
+                    <Item menuId="Plugins" name="افزونه ها"/>
+                    <Item menuId="Window" name="پنجره"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -340,13 +340,10 @@
                 <Item id="1604" name="تطبیق حروف"/>
                 <Item id="1605" name="عبارت معمولی"/>
                 <Item id="1606" name="پیچیدن پیرامون"/>
-                <Item id="1612" name="بالا"/>
-                <Item id="1613" name="پایین"/>
                 <Item id="1614" name="شمردن"/>
                 <Item id="1615" name="یافتن همه"/>
                 <Item id="1616" name="علامت گذاری خط"/>
                 <Item id="1618" name="برای هر جستجو، خالی شو"/>
-                <Item id="1621" name="جهت"/>
                 <Item id="1611" name="جایگزینی با:"/>
                 <Item id="1608" name="جایگزینی"/>
                 <Item id="1609" name="جایگزینی همه"/>
@@ -898,11 +895,11 @@
         <ClipboardHistory>
             <PanelTitle name="تاریخچه کلیپ برد"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="تعویض کننده سند"/>
             <ColumnName name="نام"/>
             <ColumnExt name="پسوند."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="پسوند."/>
             <ColumnVal name="مقدار"/>

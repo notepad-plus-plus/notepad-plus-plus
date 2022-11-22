@@ -20,12 +20,14 @@
 #include "Parameters.h"
 #include "localization.h"
 
-INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SendDlgItemMessage(_hSelf, IDC_RANGESTART_EDIT, EM_LIMITTEXT, 3, 0);
 			::SendDlgItemMessage(_hSelf, IDC_RANGEEND_EDIT, EM_LIMITTEXT, 3, 0);
 			::SendDlgItemMessage(_hSelf, IDC_NONASCCI_RADIO, BM_SETCHECK, TRUE, 0);
@@ -33,6 +35,53 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 			goToCenter();
 			return TRUE;
 		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = {};
+				getClientRect(rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_COMMAND :
 		{
 			switch (wParam)
@@ -43,7 +92,7 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 				case ID_FINDCHAR_NEXT:
 				{
-					int currentPos = static_cast<int32_t>((*_ppEditView)->execute(SCI_GETCURRENTPOS));
+					intptr_t currentPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
 					unsigned char startRange = 0;
 					unsigned char endRange = 255;
 					bool direction = dirDown;
@@ -72,58 +121,63 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 		default :
 			return FALSE;
 	}
+	return FALSE;
 }
 
-bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned char endRange, int startPos, bool direction, bool wrap)
+bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned char endRange, intptr_t startPos, bool direction, bool wrap)
 {
-	int totalSize = (*_ppEditView)->getCurrentDocLen();
+	size_t totalSize = (*_ppEditView)->getCurrentDocLen();
 	if (startPos == -1)
-		startPos = direction==dirDown?0:totalSize-1;
-	if (startPos > totalSize)
+		startPos = direction == dirDown ? 0 : totalSize - 1;
+	if (static_cast<size_t>(startPos) > totalSize)
 		return false;
 
-	char *content = new char[totalSize+1];
+	char *content = new char[totalSize + 1];
 	(*_ppEditView)->getText(content, 0, totalSize);
-	int found = -1;
 
-	for (int i = startPos-(direction == dirUp?1:0); 
-		(direction == dirDown)?i < totalSize:i >= 0 ;
-		(direction == dirDown)?(++i):(--i))
+	bool isFound = false;
+	size_t found = 0;
+
+	for (intptr_t i = startPos - (direction == dirUp ? 1 : 0); 
+		(direction == dirDown) ? i < static_cast<long long>(totalSize) : i >= 0 ;
+		(direction == dirDown) ? (++i) : (--i))
 	{
 		if (static_cast<unsigned char>(content[i]) >= beginRange && static_cast<unsigned char>(content[i]) <= endRange)
 		{
 			found = i;
+			isFound = true;
 			break;
 		}
 	}
 	
-	if (found == -1)
+	if (!isFound)
 	{
 		if (wrap)
 		{
-			for (int i = (direction == dirUp?totalSize-1:0); 
-				(direction == dirDown)?i < totalSize:i >= 0 ;
-				(direction == dirDown)?(++i):(--i))
+			for (size_t i = (direction == dirUp ? totalSize - 1 : 0); 
+				(direction == dirDown) ? i < totalSize : i >= 0 ;
+				(direction == dirDown) ? (++i) : (--i))
 			{
 				if (static_cast<unsigned char>(content[i]) >= beginRange && static_cast<unsigned char>(content[i]) <= endRange)
 				{
 					found = i;
+					isFound = true;
 					break;
 				}
 			}
 		}
 	}
 
-	if (found != -1)
+	if (isFound)
 	{
 		//printInt(found);
 		auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, found);
 		(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
 		(*_ppEditView)->execute(SCI_GOTOPOS, found);
-		(*_ppEditView)->execute(SCI_SETSEL, (direction == dirDown)?found:found+1, (direction == dirDown)?found+1:found);
+		(*_ppEditView)->execute(SCI_SETSEL, (direction == dirDown)? found : found+1, (direction == dirDown) ? found + 1 : found);
 	}
 	delete [] content;
-	return (found != -1);
+	return isFound;
 }
 
 void FindCharsInRangeDlg::getDirectionFromUI(bool & whichDirection, bool & isWrap)

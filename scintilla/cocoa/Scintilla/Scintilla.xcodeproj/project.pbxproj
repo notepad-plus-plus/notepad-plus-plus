@@ -7,25 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2807B4EA28964CA40063A31A /* ChangeHistory.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2807B4E828964CA40063A31A /* ChangeHistory.cxx */; };
+		2807B4EB28964CA40063A31A /* ChangeHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2807B4E928964CA40063A31A /* ChangeHistory.h */; };
 		282936DF24E2D55D00C84BA2 /* QuartzTextLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936D324E2D55D00C84BA2 /* QuartzTextLayout.h */; };
 		282936E024E2D55D00C84BA2 /* InfoBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 282936D424E2D55D00C84BA2 /* InfoBar.mm */; };
 		282936E124E2D55D00C84BA2 /* QuartzTextStyleAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936D524E2D55D00C84BA2 /* QuartzTextStyleAttribute.h */; };
 		282936E224E2D55D00C84BA2 /* ScintillaCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936D624E2D55D00C84BA2 /* ScintillaCocoa.h */; };
 		282936E324E2D55D00C84BA2 /* PlatCocoa.mm in Sources */ = {isa = PBXBuildFile; fileRef = 282936D724E2D55D00C84BA2 /* PlatCocoa.mm */; };
 		282936E424E2D55D00C84BA2 /* PlatCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936D824E2D55D00C84BA2 /* PlatCocoa.h */; };
-		282936E524E2D55D00C84BA2 /* InfoBarCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936D924E2D55D00C84BA2 /* InfoBarCommunicator.h */; };
-		282936E624E2D55D00C84BA2 /* InfoBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936DA24E2D55D00C84BA2 /* InfoBar.h */; };
+		282936E524E2D55D00C84BA2 /* InfoBarCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936D924E2D55D00C84BA2 /* InfoBarCommunicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		282936E624E2D55D00C84BA2 /* InfoBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936DA24E2D55D00C84BA2 /* InfoBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		282936E724E2D55D00C84BA2 /* QuartzTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936DB24E2D55D00C84BA2 /* QuartzTextStyle.h */; };
 		282936E824E2D55D00C84BA2 /* ScintillaView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 282936DC24E2D55D00C84BA2 /* ScintillaView.mm */; };
 		282936E924E2D55D00C84BA2 /* ScintillaCocoa.mm in Sources */ = {isa = PBXBuildFile; fileRef = 282936DD24E2D55D00C84BA2 /* ScintillaCocoa.mm */; };
-		282936EA24E2D55D00C84BA2 /* ScintillaView.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936DE24E2D55D00C84BA2 /* ScintillaView.h */; };
+		282936EA24E2D55D00C84BA2 /* ScintillaView.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936DE24E2D55D00C84BA2 /* ScintillaView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2829372E24E2D58800C84BA2 /* DBCS.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 282936EB24E2D58400C84BA2 /* DBCS.cxx */; };
 		2829372F24E2D58800C84BA2 /* ElapsedPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936EC24E2D58400C84BA2 /* ElapsedPeriod.h */; };
 		2829373024E2D58800C84BA2 /* CallTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936ED24E2D58400C84BA2 /* CallTip.h */; };
 		2829373124E2D58800C84BA2 /* PositionCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936EE24E2D58400C84BA2 /* PositionCache.h */; };
 		2829373224E2D58800C84BA2 /* KeyMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936EF24E2D58400C84BA2 /* KeyMap.h */; };
 		2829373324E2D58800C84BA2 /* LineMarker.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 282936F024E2D58400C84BA2 /* LineMarker.cxx */; };
-		2829373424E2D58800C84BA2 /* Catalogue.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936F124E2D58400C84BA2 /* Catalogue.h */; };
 		2829373524E2D58800C84BA2 /* Style.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936F224E2D58400C84BA2 /* Style.h */; };
 		2829373624E2D58800C84BA2 /* UniqueString.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 282936F324E2D58400C84BA2 /* UniqueString.cxx */; };
 		2829373724E2D58800C84BA2 /* RunStyles.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936F424E2D58400C84BA2 /* RunStyles.h */; };
@@ -40,10 +41,7 @@
 		2829374024E2D58800C84BA2 /* XPM.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 282936FD24E2D58400C84BA2 /* XPM.cxx */; };
 		2829374124E2D58800C84BA2 /* CharClassify.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936FE24E2D58400C84BA2 /* CharClassify.h */; };
 		2829374224E2D58800C84BA2 /* Decoration.h in Headers */ = {isa = PBXBuildFile; fileRef = 282936FF24E2D58400C84BA2 /* Decoration.h */; };
-		2829374324E2D58800C84BA2 /* ExternalLexer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829370024E2D58400C84BA2 /* ExternalLexer.cxx */; };
-		2829374424E2D58800C84BA2 /* IntegerRectangle.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829370124E2D58500C84BA2 /* IntegerRectangle.h */; };
 		2829374524E2D58800C84BA2 /* PositionCache.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829370224E2D58500C84BA2 /* PositionCache.cxx */; };
-		2829374624E2D58800C84BA2 /* Catalogue.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829370324E2D58500C84BA2 /* Catalogue.cxx */; };
 		2829374724E2D58800C84BA2 /* Style.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829370424E2D58500C84BA2 /* Style.cxx */; };
 		2829374824E2D58800C84BA2 /* RESearch.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829370524E2D58500C84BA2 /* RESearch.cxx */; };
 		2829374924E2D58800C84BA2 /* CallTip.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829370624E2D58500C84BA2 /* CallTip.cxx */; };
@@ -72,7 +70,6 @@
 		2829376024E2D58800C84BA2 /* XPM.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829371D24E2D58600C84BA2 /* XPM.h */; };
 		2829376124E2D58800C84BA2 /* ScintillaBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829371E24E2D58600C84BA2 /* ScintillaBase.h */; };
 		2829376224E2D58800C84BA2 /* Partitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829371F24E2D58700C84BA2 /* Partitioning.h */; };
-		2829376324E2D58800C84BA2 /* FontQuality.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829372024E2D58700C84BA2 /* FontQuality.h */; };
 		2829376424E2D58800C84BA2 /* SplitVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829372124E2D58700C84BA2 /* SplitVector.h */; };
 		2829376524E2D58800C84BA2 /* UniqueString.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829372224E2D58700C84BA2 /* UniqueString.h */; };
 		2829376624E2D58800C84BA2 /* CaseConvert.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829372324E2D58700C84BA2 /* CaseConvert.h */; };
@@ -83,43 +80,33 @@
 		2829376B24E2D58800C84BA2 /* Editor.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829372824E2D58700C84BA2 /* Editor.cxx */; };
 		2829376C24E2D58800C84BA2 /* Selection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829372924E2D58700C84BA2 /* Selection.h */; };
 		2829376D24E2D58800C84BA2 /* RunStyles.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829372A24E2D58800C84BA2 /* RunStyles.cxx */; };
-		2829376E24E2D58800C84BA2 /* ExternalLexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829372B24E2D58800C84BA2 /* ExternalLexer.h */; };
 		2829376F24E2D58800C84BA2 /* Document.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829372C24E2D58800C84BA2 /* Document.h */; };
 		2829377024E2D58800C84BA2 /* EditView.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829372D24E2D58800C84BA2 /* EditView.cxx */; };
-		2829378D24E2D5C900C84BA2 /* PropSetSimple.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377124E2D5C600C84BA2 /* PropSetSimple.h */; };
-		2829378E24E2D5C900C84BA2 /* OptionSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377224E2D5C600C84BA2 /* OptionSet.h */; };
-		2829378F24E2D5C900C84BA2 /* PropSetSimple.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829377324E2D5C600C84BA2 /* PropSetSimple.cxx */; };
-		2829379024E2D5C900C84BA2 /* CharacterSet.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829377424E2D5C600C84BA2 /* CharacterSet.cxx */; };
-		2829379124E2D5C900C84BA2 /* CharacterSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377524E2D5C600C84BA2 /* CharacterSet.h */; };
-		2829379224E2D5C900C84BA2 /* CharacterCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377624E2D5C600C84BA2 /* CharacterCategory.h */; };
-		2829379324E2D5C900C84BA2 /* LexerBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377724E2D5C600C84BA2 /* LexerBase.h */; };
-		2829379424E2D5C900C84BA2 /* SparseState.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377824E2D5C700C84BA2 /* SparseState.h */; };
-		2829379524E2D5C900C84BA2 /* LexerNoExceptions.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829377924E2D5C700C84BA2 /* LexerNoExceptions.cxx */; };
-		2829379624E2D5C900C84BA2 /* Accessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377A24E2D5C700C84BA2 /* Accessor.h */; };
-		2829379724E2D5C900C84BA2 /* WordList.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377B24E2D5C700C84BA2 /* WordList.h */; };
-		2829379824E2D5C900C84BA2 /* LexerBase.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829377C24E2D5C700C84BA2 /* LexerBase.cxx */; };
-		2829379924E2D5C900C84BA2 /* LexerSimple.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829377D24E2D5C700C84BA2 /* LexerSimple.h */; };
-		2829379A24E2D5C900C84BA2 /* LexerModule.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829377E24E2D5C700C84BA2 /* LexerModule.cxx */; };
-		2829379B24E2D5C900C84BA2 /* DefaultLexer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829377F24E2D5C700C84BA2 /* DefaultLexer.cxx */; };
-		2829379C24E2D5C900C84BA2 /* SubStyles.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829378024E2D5C700C84BA2 /* SubStyles.h */; };
-		2829379D24E2D5C900C84BA2 /* StyleContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829378124E2D5C700C84BA2 /* StyleContext.h */; };
-		2829379E24E2D5C900C84BA2 /* WordList.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829378224E2D5C700C84BA2 /* WordList.cxx */; };
-		2829379F24E2D5C900C84BA2 /* LexAccessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829378324E2D5C800C84BA2 /* LexAccessor.h */; };
-		282937A024E2D5C900C84BA2 /* LexerNoExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829378424E2D5C800C84BA2 /* LexerNoExceptions.h */; };
-		282937A124E2D5C900C84BA2 /* DefaultLexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829378524E2D5C800C84BA2 /* DefaultLexer.h */; };
-		282937A224E2D5C900C84BA2 /* StyleContext.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829378624E2D5C800C84BA2 /* StyleContext.cxx */; };
-		282937A324E2D5C900C84BA2 /* Accessor.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829378724E2D5C800C84BA2 /* Accessor.cxx */; };
-		282937A424E2D5C900C84BA2 /* CharacterCategory.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829378824E2D5C800C84BA2 /* CharacterCategory.cxx */; };
-		282937A524E2D5C900C84BA2 /* CatalogueModules.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829378924E2D5C800C84BA2 /* CatalogueModules.h */; };
-		282937A624E2D5C900C84BA2 /* LexerModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829378A24E2D5C800C84BA2 /* LexerModule.h */; };
-		282937A724E2D5C900C84BA2 /* StringCopy.h in Headers */ = {isa = PBXBuildFile; fileRef = 2829378B24E2D5C800C84BA2 /* StringCopy.h */; };
-		282937A824E2D5C900C84BA2 /* LexerSimple.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 2829378C24E2D5C800C84BA2 /* LexerSimple.cxx */; };
 		282937AA24E2D60E00C84BA2 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 282937A924E2D60E00C84BA2 /* res */; };
+		2867917C26BB448C007C2905 /* mac_cursor_busy.png in Resources */ = {isa = PBXBuildFile; fileRef = 2867917626BB448C007C2905 /* mac_cursor_busy.png */; };
+		2867917D26BB448C007C2905 /* mac_cursor_flipped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2867917726BB448C007C2905 /* mac_cursor_flipped@2x.png */; };
+		2867917E26BB448C007C2905 /* info_bar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2867917826BB448C007C2905 /* info_bar_bg.png */; };
+		2867917F26BB448C007C2905 /* mac_cursor_busy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2867917926BB448C007C2905 /* mac_cursor_busy@2x.png */; };
+		2867918026BB448C007C2905 /* mac_cursor_flipped.png in Resources */ = {isa = PBXBuildFile; fileRef = 2867917A26BB448C007C2905 /* mac_cursor_flipped.png */; };
+		2867918126BB448C007C2905 /* info_bar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2867917B26BB448C007C2905 /* info_bar_bg@2x.png */; };
+		286F8E6325F84F7400EC8D60 /* Sci_Position.h in Headers */ = {isa = PBXBuildFile; fileRef = 286F8E5F25F84F7400EC8D60 /* Sci_Position.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		286F8E6425F84F7400EC8D60 /* ILexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 286F8E6025F84F7400EC8D60 /* ILexer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		286F8E6525F84F7400EC8D60 /* ILoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 286F8E6125F84F7400EC8D60 /* ILoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		286F8E6625F84F7400EC8D60 /* Scintilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 286F8E6225F84F7400EC8D60 /* Scintilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		286F8EDE260448C300EC8D60 /* Platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 286F8EDB260448C300EC8D60 /* Platform.h */; };
+		286F8EDF260448C300EC8D60 /* Geometry.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 286F8EDC260448C300EC8D60 /* Geometry.cxx */; };
+		286F8EE0260448C300EC8D60 /* Geometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 286F8EDD260448C300EC8D60 /* Geometry.h */; };
 		287F3C6A246F90240040E76F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287F3C69246F90240040E76F /* Cocoa.framework */; };
 		287F3C6C246F90300040E76F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287F3C6B246F90300040E76F /* QuartzCore.framework */; };
+		28EA9CAE255894B4007710C4 /* CharacterCategoryMap.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28EA9CAA255894B4007710C4 /* CharacterCategoryMap.cxx */; };
+		28EA9CAF255894B4007710C4 /* CharacterType.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28EA9CAB255894B4007710C4 /* CharacterType.cxx */; };
+		28EA9CB0255894B4007710C4 /* CharacterCategoryMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 28EA9CAC255894B4007710C4 /* CharacterCategoryMap.h */; };
+		28EA9CB1255894B4007710C4 /* CharacterType.h in Headers */ = {isa = PBXBuildFile; fileRef = 28EA9CAD255894B4007710C4 /* CharacterType.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2807B4E828964CA40063A31A /* ChangeHistory.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChangeHistory.cxx; path = ../../src/ChangeHistory.cxx; sourceTree = "<group>"; };
+		2807B4E928964CA40063A31A /* ChangeHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeHistory.h; path = ../../src/ChangeHistory.h; sourceTree = "<group>"; };
 		282936D324E2D55D00C84BA2 /* QuartzTextLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzTextLayout.h; path = ../QuartzTextLayout.h; sourceTree = "<group>"; };
 		282936D424E2D55D00C84BA2 /* InfoBar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = InfoBar.mm; path = ../InfoBar.mm; sourceTree = "<group>"; };
 		282936D524E2D55D00C84BA2 /* QuartzTextStyleAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzTextStyleAttribute.h; path = ../QuartzTextStyleAttribute.h; sourceTree = "<group>"; };
@@ -138,7 +125,6 @@
 		282936EE24E2D58400C84BA2 /* PositionCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PositionCache.h; path = ../../src/PositionCache.h; sourceTree = "<group>"; };
 		282936EF24E2D58400C84BA2 /* KeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyMap.h; path = ../../src/KeyMap.h; sourceTree = "<group>"; };
 		282936F024E2D58400C84BA2 /* LineMarker.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LineMarker.cxx; path = ../../src/LineMarker.cxx; sourceTree = "<group>"; };
-		282936F124E2D58400C84BA2 /* Catalogue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Catalogue.h; path = ../../src/Catalogue.h; sourceTree = "<group>"; };
 		282936F224E2D58400C84BA2 /* Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Style.h; path = ../../src/Style.h; sourceTree = "<group>"; };
 		282936F324E2D58400C84BA2 /* UniqueString.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UniqueString.cxx; path = ../../src/UniqueString.cxx; sourceTree = "<group>"; };
 		282936F424E2D58400C84BA2 /* RunStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RunStyles.h; path = ../../src/RunStyles.h; sourceTree = "<group>"; };
@@ -153,10 +139,7 @@
 		282936FD24E2D58400C84BA2 /* XPM.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XPM.cxx; path = ../../src/XPM.cxx; sourceTree = "<group>"; };
 		282936FE24E2D58400C84BA2 /* CharClassify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharClassify.h; path = ../../src/CharClassify.h; sourceTree = "<group>"; };
 		282936FF24E2D58400C84BA2 /* Decoration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Decoration.h; path = ../../src/Decoration.h; sourceTree = "<group>"; };
-		2829370024E2D58400C84BA2 /* ExternalLexer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExternalLexer.cxx; path = ../../src/ExternalLexer.cxx; sourceTree = "<group>"; };
-		2829370124E2D58500C84BA2 /* IntegerRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntegerRectangle.h; path = ../../src/IntegerRectangle.h; sourceTree = "<group>"; };
 		2829370224E2D58500C84BA2 /* PositionCache.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PositionCache.cxx; path = ../../src/PositionCache.cxx; sourceTree = "<group>"; };
-		2829370324E2D58500C84BA2 /* Catalogue.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Catalogue.cxx; path = ../../src/Catalogue.cxx; sourceTree = "<group>"; };
 		2829370424E2D58500C84BA2 /* Style.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Style.cxx; path = ../../src/Style.cxx; sourceTree = "<group>"; };
 		2829370524E2D58500C84BA2 /* RESearch.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RESearch.cxx; path = ../../src/RESearch.cxx; sourceTree = "<group>"; };
 		2829370624E2D58500C84BA2 /* CallTip.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CallTip.cxx; path = ../../src/CallTip.cxx; sourceTree = "<group>"; };
@@ -185,7 +168,6 @@
 		2829371D24E2D58600C84BA2 /* XPM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPM.h; path = ../../src/XPM.h; sourceTree = "<group>"; };
 		2829371E24E2D58600C84BA2 /* ScintillaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScintillaBase.h; path = ../../src/ScintillaBase.h; sourceTree = "<group>"; };
 		2829371F24E2D58700C84BA2 /* Partitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Partitioning.h; path = ../../src/Partitioning.h; sourceTree = "<group>"; };
-		2829372024E2D58700C84BA2 /* FontQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontQuality.h; path = ../../src/FontQuality.h; sourceTree = "<group>"; };
 		2829372124E2D58700C84BA2 /* SplitVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SplitVector.h; path = ../../src/SplitVector.h; sourceTree = "<group>"; };
 		2829372224E2D58700C84BA2 /* UniqueString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniqueString.h; path = ../../src/UniqueString.h; sourceTree = "<group>"; };
 		2829372324E2D58700C84BA2 /* CaseConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaseConvert.h; path = ../../src/CaseConvert.h; sourceTree = "<group>"; };
@@ -196,43 +178,31 @@
 		2829372824E2D58700C84BA2 /* Editor.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Editor.cxx; path = ../../src/Editor.cxx; sourceTree = "<group>"; };
 		2829372924E2D58700C84BA2 /* Selection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Selection.h; path = ../../src/Selection.h; sourceTree = "<group>"; };
 		2829372A24E2D58800C84BA2 /* RunStyles.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RunStyles.cxx; path = ../../src/RunStyles.cxx; sourceTree = "<group>"; };
-		2829372B24E2D58800C84BA2 /* ExternalLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExternalLexer.h; path = ../../src/ExternalLexer.h; sourceTree = "<group>"; };
 		2829372C24E2D58800C84BA2 /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Document.h; path = ../../src/Document.h; sourceTree = "<group>"; };
 		2829372D24E2D58800C84BA2 /* EditView.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditView.cxx; path = ../../src/EditView.cxx; sourceTree = "<group>"; };
-		2829377124E2D5C600C84BA2 /* PropSetSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PropSetSimple.h; path = ../../lexlib/PropSetSimple.h; sourceTree = "<group>"; };
-		2829377224E2D5C600C84BA2 /* OptionSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionSet.h; path = ../../lexlib/OptionSet.h; sourceTree = "<group>"; };
-		2829377324E2D5C600C84BA2 /* PropSetSimple.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PropSetSimple.cxx; path = ../../lexlib/PropSetSimple.cxx; sourceTree = "<group>"; };
-		2829377424E2D5C600C84BA2 /* CharacterSet.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterSet.cxx; path = ../../lexlib/CharacterSet.cxx; sourceTree = "<group>"; };
-		2829377524E2D5C600C84BA2 /* CharacterSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterSet.h; path = ../../lexlib/CharacterSet.h; sourceTree = "<group>"; };
-		2829377624E2D5C600C84BA2 /* CharacterCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterCategory.h; path = ../../lexlib/CharacterCategory.h; sourceTree = "<group>"; };
-		2829377724E2D5C600C84BA2 /* LexerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerBase.h; path = ../../lexlib/LexerBase.h; sourceTree = "<group>"; };
-		2829377824E2D5C700C84BA2 /* SparseState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparseState.h; path = ../../lexlib/SparseState.h; sourceTree = "<group>"; };
-		2829377924E2D5C700C84BA2 /* LexerNoExceptions.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexerNoExceptions.cxx; path = ../../lexlib/LexerNoExceptions.cxx; sourceTree = "<group>"; };
-		2829377A24E2D5C700C84BA2 /* Accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Accessor.h; path = ../../lexlib/Accessor.h; sourceTree = "<group>"; };
-		2829377B24E2D5C700C84BA2 /* WordList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordList.h; path = ../../lexlib/WordList.h; sourceTree = "<group>"; };
-		2829377C24E2D5C700C84BA2 /* LexerBase.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexerBase.cxx; path = ../../lexlib/LexerBase.cxx; sourceTree = "<group>"; };
-		2829377D24E2D5C700C84BA2 /* LexerSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerSimple.h; path = ../../lexlib/LexerSimple.h; sourceTree = "<group>"; };
-		2829377E24E2D5C700C84BA2 /* LexerModule.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexerModule.cxx; path = ../../lexlib/LexerModule.cxx; sourceTree = "<group>"; };
-		2829377F24E2D5C700C84BA2 /* DefaultLexer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DefaultLexer.cxx; path = ../../lexlib/DefaultLexer.cxx; sourceTree = "<group>"; };
-		2829378024E2D5C700C84BA2 /* SubStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubStyles.h; path = ../../lexlib/SubStyles.h; sourceTree = "<group>"; };
-		2829378124E2D5C700C84BA2 /* StyleContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleContext.h; path = ../../lexlib/StyleContext.h; sourceTree = "<group>"; };
-		2829378224E2D5C700C84BA2 /* WordList.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WordList.cxx; path = ../../lexlib/WordList.cxx; sourceTree = "<group>"; };
-		2829378324E2D5C800C84BA2 /* LexAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexAccessor.h; path = ../../lexlib/LexAccessor.h; sourceTree = "<group>"; };
-		2829378424E2D5C800C84BA2 /* LexerNoExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerNoExceptions.h; path = ../../lexlib/LexerNoExceptions.h; sourceTree = "<group>"; };
-		2829378524E2D5C800C84BA2 /* DefaultLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultLexer.h; path = ../../lexlib/DefaultLexer.h; sourceTree = "<group>"; };
-		2829378624E2D5C800C84BA2 /* StyleContext.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StyleContext.cxx; path = ../../lexlib/StyleContext.cxx; sourceTree = "<group>"; };
-		2829378724E2D5C800C84BA2 /* Accessor.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Accessor.cxx; path = ../../lexlib/Accessor.cxx; sourceTree = "<group>"; };
-		2829378824E2D5C800C84BA2 /* CharacterCategory.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterCategory.cxx; path = ../../lexlib/CharacterCategory.cxx; sourceTree = "<group>"; };
-		2829378924E2D5C800C84BA2 /* CatalogueModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatalogueModules.h; path = ../../lexlib/CatalogueModules.h; sourceTree = "<group>"; };
-		2829378A24E2D5C800C84BA2 /* LexerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerModule.h; path = ../../lexlib/LexerModule.h; sourceTree = "<group>"; };
-		2829378B24E2D5C800C84BA2 /* StringCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCopy.h; path = ../../lexlib/StringCopy.h; sourceTree = "<group>"; };
-		2829378C24E2D5C800C84BA2 /* LexerSimple.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexerSimple.cxx; path = ../../lexlib/LexerSimple.cxx; sourceTree = "<group>"; };
 		282937A924E2D60E00C84BA2 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../res; sourceTree = "<group>"; };
 		282937AF24E2D80E00C84BA2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2867917626BB448C007C2905 /* mac_cursor_busy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mac_cursor_busy.png; path = ../res/mac_cursor_busy.png; sourceTree = "<group>"; };
+		2867917726BB448C007C2905 /* mac_cursor_flipped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mac_cursor_flipped@2x.png"; path = "../res/mac_cursor_flipped@2x.png"; sourceTree = "<group>"; };
+		2867917826BB448C007C2905 /* info_bar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = info_bar_bg.png; path = ../res/info_bar_bg.png; sourceTree = "<group>"; };
+		2867917926BB448C007C2905 /* mac_cursor_busy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mac_cursor_busy@2x.png"; path = "../res/mac_cursor_busy@2x.png"; sourceTree = "<group>"; };
+		2867917A26BB448C007C2905 /* mac_cursor_flipped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mac_cursor_flipped.png; path = ../res/mac_cursor_flipped.png; sourceTree = "<group>"; };
+		2867917B26BB448C007C2905 /* info_bar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "info_bar_bg@2x.png"; path = "../res/info_bar_bg@2x.png"; sourceTree = "<group>"; };
+		286F8E5F25F84F7400EC8D60 /* Sci_Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sci_Position.h; path = ../../include/Sci_Position.h; sourceTree = "<group>"; };
+		286F8E6025F84F7400EC8D60 /* ILexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILexer.h; path = ../../include/ILexer.h; sourceTree = "<group>"; };
+		286F8E6125F84F7400EC8D60 /* ILoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILoader.h; path = ../../include/ILoader.h; sourceTree = "<group>"; };
+		286F8E6225F84F7400EC8D60 /* Scintilla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scintilla.h; path = ../../include/Scintilla.h; sourceTree = "<group>"; };
+		286F8EDB260448C300EC8D60 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Platform.h; path = ../../src/Platform.h; sourceTree = "<group>"; };
+		286F8EDC260448C300EC8D60 /* Geometry.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Geometry.cxx; path = ../../src/Geometry.cxx; sourceTree = "<group>"; };
+		286F8EDD260448C300EC8D60 /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Geometry.h; path = ../../src/Geometry.h; sourceTree = "<group>"; };
 		287F3C41246F8DC70040E76F /* Scintilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Scintilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		287F3C69246F90240040E76F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		287F3C6B246F90300040E76F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		287F3E0F246F9AE50040E76F /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = SOURCE_ROOT; };
+		28EA9CAA255894B4007710C4 /* CharacterCategoryMap.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterCategoryMap.cxx; path = ../../src/CharacterCategoryMap.cxx; sourceTree = "<group>"; };
+		28EA9CAB255894B4007710C4 /* CharacterType.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterType.cxx; path = ../../src/CharacterType.cxx; sourceTree = "<group>"; };
+		28EA9CAC255894B4007710C4 /* CharacterCategoryMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterCategoryMap.h; path = ../../src/CharacterCategoryMap.h; sourceTree = "<group>"; };
+		28EA9CAD255894B4007710C4 /* CharacterType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterType.h; path = ../../src/CharacterType.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,8 +240,6 @@
 		287F3C4D246F8E4A0040E76F /* Backend */ = {
 			isa = PBXGroup;
 			children = (
-				2829378724E2D5C800C84BA2 /* Accessor.cxx */,
-				2829377A24E2D5C700C84BA2 /* Accessor.h */,
 				2829371624E2D58600C84BA2 /* AutoComplete.cxx */,
 				2829370A24E2D58500C84BA2 /* AutoComplete.h */,
 				2829370624E2D58500C84BA2 /* CallTip.cxx */,
@@ -280,15 +248,14 @@
 				2829372324E2D58700C84BA2 /* CaseConvert.h */,
 				282936F924E2D58400C84BA2 /* CaseFolder.cxx */,
 				2829372524E2D58700C84BA2 /* CaseFolder.h */,
-				2829370324E2D58500C84BA2 /* Catalogue.cxx */,
-				282936F124E2D58400C84BA2 /* Catalogue.h */,
-				2829378924E2D5C800C84BA2 /* CatalogueModules.h */,
 				2829372624E2D58700C84BA2 /* CellBuffer.cxx */,
 				2829371924E2D58600C84BA2 /* CellBuffer.h */,
-				2829378824E2D5C800C84BA2 /* CharacterCategory.cxx */,
-				2829377624E2D5C600C84BA2 /* CharacterCategory.h */,
-				2829377424E2D5C600C84BA2 /* CharacterSet.cxx */,
-				2829377524E2D5C600C84BA2 /* CharacterSet.h */,
+				2807B4E828964CA40063A31A /* ChangeHistory.cxx */,
+				2807B4E928964CA40063A31A /* ChangeHistory.h */,
+				28EA9CAA255894B4007710C4 /* CharacterCategoryMap.cxx */,
+				28EA9CAC255894B4007710C4 /* CharacterCategoryMap.h */,
+				28EA9CAB255894B4007710C4 /* CharacterType.cxx */,
+				28EA9CAD255894B4007710C4 /* CharacterType.h */,
 				2829371524E2D58600C84BA2 /* CharClassify.cxx */,
 				282936FE24E2D58400C84BA2 /* CharClassify.h */,
 				2829370E24E2D58500C84BA2 /* ContractionState.cxx */,
@@ -297,8 +264,6 @@
 				2829370924E2D58500C84BA2 /* DBCS.h */,
 				2829370824E2D58500C84BA2 /* Decoration.cxx */,
 				282936FF24E2D58400C84BA2 /* Decoration.h */,
-				2829377F24E2D5C700C84BA2 /* DefaultLexer.cxx */,
-				2829378524E2D5C800C84BA2 /* DefaultLexer.h */,
 				2829371A24E2D58600C84BA2 /* Document.cxx */,
 				2829372C24E2D58800C84BA2 /* Document.h */,
 				2829371224E2D58500C84BA2 /* EditModel.cxx */,
@@ -308,61 +273,45 @@
 				2829372D24E2D58800C84BA2 /* EditView.cxx */,
 				2829371324E2D58600C84BA2 /* EditView.h */,
 				282936EC24E2D58400C84BA2 /* ElapsedPeriod.h */,
-				2829370024E2D58400C84BA2 /* ExternalLexer.cxx */,
-				2829372B24E2D58800C84BA2 /* ExternalLexer.h */,
-				2829372024E2D58700C84BA2 /* FontQuality.h */,
+				286F8EDC260448C300EC8D60 /* Geometry.cxx */,
+				286F8EDD260448C300EC8D60 /* Geometry.h */,
+				286F8E6025F84F7400EC8D60 /* ILexer.h */,
+				286F8E6125F84F7400EC8D60 /* ILoader.h */,
 				282936F624E2D58400C84BA2 /* Indicator.cxx */,
 				282936FB24E2D58400C84BA2 /* Indicator.h */,
-				2829370124E2D58500C84BA2 /* IntegerRectangle.h */,
 				2829370B24E2D58500C84BA2 /* KeyMap.cxx */,
 				282936EF24E2D58400C84BA2 /* KeyMap.h */,
-				2829378324E2D5C800C84BA2 /* LexAccessor.h */,
-				2829377C24E2D5C700C84BA2 /* LexerBase.cxx */,
-				2829377724E2D5C600C84BA2 /* LexerBase.h */,
-				2829377E24E2D5C700C84BA2 /* LexerModule.cxx */,
-				2829378A24E2D5C800C84BA2 /* LexerModule.h */,
-				2829377924E2D5C700C84BA2 /* LexerNoExceptions.cxx */,
-				2829378424E2D5C800C84BA2 /* LexerNoExceptions.h */,
-				2829378C24E2D5C800C84BA2 /* LexerSimple.cxx */,
-				2829377D24E2D5C700C84BA2 /* LexerSimple.h */,
 				282936F024E2D58400C84BA2 /* LineMarker.cxx */,
 				2829371B24E2D58600C84BA2 /* LineMarker.h */,
 				2829371824E2D58600C84BA2 /* MarginView.cxx */,
 				282936F724E2D58400C84BA2 /* MarginView.h */,
-				2829377224E2D5C600C84BA2 /* OptionSet.h */,
 				2829371F24E2D58700C84BA2 /* Partitioning.h */,
 				2829371024E2D58500C84BA2 /* PerLine.cxx */,
 				282936FA24E2D58400C84BA2 /* PerLine.h */,
+				286F8EDB260448C300EC8D60 /* Platform.h */,
 				282936F824E2D58400C84BA2 /* Position.h */,
 				2829370224E2D58500C84BA2 /* PositionCache.cxx */,
 				282936EE24E2D58400C84BA2 /* PositionCache.h */,
-				2829377324E2D5C600C84BA2 /* PropSetSimple.cxx */,
-				2829377124E2D5C600C84BA2 /* PropSetSimple.h */,
 				2829370524E2D58500C84BA2 /* RESearch.cxx */,
 				282936F524E2D58400C84BA2 /* RESearch.h */,
 				2829372A24E2D58800C84BA2 /* RunStyles.cxx */,
 				282936F424E2D58400C84BA2 /* RunStyles.h */,
+				286F8E5F25F84F7400EC8D60 /* Sci_Position.h */,
+				286F8E6225F84F7400EC8D60 /* Scintilla.h */,
 				2829372424E2D58700C84BA2 /* ScintillaBase.cxx */,
 				2829371E24E2D58600C84BA2 /* ScintillaBase.h */,
 				2829370D24E2D58500C84BA2 /* Selection.cxx */,
 				2829372924E2D58700C84BA2 /* Selection.h */,
-				2829377824E2D5C700C84BA2 /* SparseState.h */,
 				2829371124E2D58500C84BA2 /* SparseVector.h */,
 				2829372124E2D58700C84BA2 /* SplitVector.h */,
-				2829378B24E2D5C800C84BA2 /* StringCopy.h */,
 				2829370424E2D58500C84BA2 /* Style.cxx */,
 				282936F224E2D58400C84BA2 /* Style.h */,
-				2829378624E2D5C800C84BA2 /* StyleContext.cxx */,
-				2829378124E2D5C700C84BA2 /* StyleContext.h */,
-				2829378024E2D5C700C84BA2 /* SubStyles.h */,
 				2829370F24E2D58500C84BA2 /* UniConversion.cxx */,
 				282936FC24E2D58400C84BA2 /* UniConversion.h */,
 				282936F324E2D58400C84BA2 /* UniqueString.cxx */,
 				2829372224E2D58700C84BA2 /* UniqueString.h */,
 				2829371724E2D58600C84BA2 /* ViewStyle.cxx */,
 				2829370C24E2D58500C84BA2 /* ViewStyle.h */,
-				2829378224E2D5C700C84BA2 /* WordList.cxx */,
-				2829377B24E2D5C700C84BA2 /* WordList.h */,
 				282936FD24E2D58400C84BA2 /* XPM.cxx */,
 				2829371D24E2D58600C84BA2 /* XPM.h */,
 			);
@@ -393,6 +342,12 @@
 			isa = PBXGroup;
 			children = (
 				282937AF24E2D80E00C84BA2 /* Info.plist */,
+				2867917826BB448C007C2905 /* info_bar_bg.png */,
+				2867917B26BB448C007C2905 /* info_bar_bg@2x.png */,
+				2867917626BB448C007C2905 /* mac_cursor_busy.png */,
+				2867917926BB448C007C2905 /* mac_cursor_busy@2x.png */,
+				2867917A26BB448C007C2905 /* mac_cursor_flipped.png */,
+				2867917726BB448C007C2905 /* mac_cursor_flipped@2x.png */,
 				282937A924E2D60E00C84BA2 /* res */,
 			);
 			name = Resources;
@@ -417,22 +372,21 @@
 				2829374C24E2D58800C84BA2 /* DBCS.h in Headers */,
 				2829373024E2D58800C84BA2 /* CallTip.h in Headers */,
 				2829374224E2D58800C84BA2 /* Decoration.h in Headers */,
-				2829379924E2D5C900C84BA2 /* LexerSimple.h in Headers */,
 				2829375624E2D58800C84BA2 /* EditView.h in Headers */,
-				2829376E24E2D58800C84BA2 /* ExternalLexer.h in Headers */,
-				282937A124E2D5C900C84BA2 /* DefaultLexer.h in Headers */,
 				2829375424E2D58800C84BA2 /* SparseVector.h in Headers */,
+				286F8E6325F84F7400EC8D60 /* Sci_Position.h in Headers */,
 				2829373224E2D58800C84BA2 /* KeyMap.h in Headers */,
-				2829376324E2D58800C84BA2 /* FontQuality.h in Headers */,
 				2829373E24E2D58800C84BA2 /* Indicator.h in Headers */,
+				286F8EDE260448C300EC8D60 /* Platform.h in Headers */,
 				2829375C24E2D58800C84BA2 /* CellBuffer.h in Headers */,
 				2829373F24E2D58800C84BA2 /* UniConversion.h in Headers */,
-				2829379624E2D5C900C84BA2 /* Accessor.h in Headers */,
 				2829373D24E2D58800C84BA2 /* PerLine.h in Headers */,
 				2829373724E2D58800C84BA2 /* RunStyles.h in Headers */,
+				28EA9CB0255894B4007710C4 /* CharacterCategoryMap.h in Headers */,
 				282936E624E2D55D00C84BA2 /* InfoBar.h in Headers */,
 				2829375E24E2D58800C84BA2 /* LineMarker.h in Headers */,
 				2829376824E2D58800C84BA2 /* CaseFolder.h in Headers */,
+				286F8E6425F84F7400EC8D60 /* ILexer.h in Headers */,
 				2829376524E2D58800C84BA2 /* UniqueString.h in Headers */,
 				2829375F24E2D58800C84BA2 /* Editor.h in Headers */,
 				2829376624E2D58800C84BA2 /* CaseConvert.h in Headers */,
@@ -441,41 +395,30 @@
 				2829376A24E2D58800C84BA2 /* EditModel.h in Headers */,
 				282936E724E2D55D00C84BA2 /* QuartzTextStyle.h in Headers */,
 				2829376F24E2D58800C84BA2 /* Document.h in Headers */,
-				282937A024E2D5C900C84BA2 /* LexerNoExceptions.h in Headers */,
 				2829374A24E2D58800C84BA2 /* ContractionState.h in Headers */,
 				2829376024E2D58800C84BA2 /* XPM.h in Headers */,
 				2829372F24E2D58800C84BA2 /* ElapsedPeriod.h in Headers */,
-				2829373424E2D58800C84BA2 /* Catalogue.h in Headers */,
-				2829379224E2D5C900C84BA2 /* CharacterCategory.h in Headers */,
+				28EA9CB1255894B4007710C4 /* CharacterType.h in Headers */,
 				2829373A24E2D58800C84BA2 /* MarginView.h in Headers */,
-				282937A524E2D5C900C84BA2 /* CatalogueModules.h in Headers */,
+				286F8E6525F84F7400EC8D60 /* ILoader.h in Headers */,
 				282936EA24E2D55D00C84BA2 /* ScintillaView.h in Headers */,
-				2829378D24E2D5C900C84BA2 /* PropSetSimple.h in Headers */,
-				2829379D24E2D5C900C84BA2 /* StyleContext.h in Headers */,
 				282936E124E2D55D00C84BA2 /* QuartzTextStyleAttribute.h in Headers */,
 				2829376224E2D58800C84BA2 /* Partitioning.h in Headers */,
-				282937A724E2D5C900C84BA2 /* StringCopy.h in Headers */,
+				286F8E6625F84F7400EC8D60 /* Scintilla.h in Headers */,
 				2829376424E2D58800C84BA2 /* SplitVector.h in Headers */,
 				2829373B24E2D58800C84BA2 /* Position.h in Headers */,
 				282936E224E2D55D00C84BA2 /* ScintillaCocoa.h in Headers */,
 				2829373524E2D58800C84BA2 /* Style.h in Headers */,
 				282936E424E2D55D00C84BA2 /* PlatCocoa.h in Headers */,
+				2807B4EB28964CA40063A31A /* ChangeHistory.h in Headers */,
 				2829376C24E2D58800C84BA2 /* Selection.h in Headers */,
-				2829379C24E2D5C900C84BA2 /* SubStyles.h in Headers */,
-				2829374424E2D58800C84BA2 /* IntegerRectangle.h in Headers */,
 				2829376124E2D58800C84BA2 /* ScintillaBase.h in Headers */,
 				2829373824E2D58800C84BA2 /* RESearch.h in Headers */,
-				282937A624E2D5C900C84BA2 /* LexerModule.h in Headers */,
 				282936E524E2D55D00C84BA2 /* InfoBarCommunicator.h in Headers */,
-				2829379424E2D5C900C84BA2 /* SparseState.h in Headers */,
-				2829379324E2D5C900C84BA2 /* LexerBase.h in Headers */,
 				2829374D24E2D58800C84BA2 /* AutoComplete.h in Headers */,
-				2829378E24E2D5C900C84BA2 /* OptionSet.h in Headers */,
-				2829379124E2D5C900C84BA2 /* CharacterSet.h in Headers */,
 				2829374124E2D58800C84BA2 /* CharClassify.h in Headers */,
 				2829373124E2D58800C84BA2 /* PositionCache.h in Headers */,
-				2829379724E2D5C900C84BA2 /* WordList.h in Headers */,
-				2829379F24E2D5C900C84BA2 /* LexAccessor.h in Headers */,
+				286F8EE0260448C300EC8D60 /* Geometry.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,7 +480,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2867917C26BB448C007C2905 /* mac_cursor_busy.png in Resources */,
+				2867918126BB448C007C2905 /* info_bar_bg@2x.png in Resources */,
 				282937AA24E2D60E00C84BA2 /* res in Resources */,
+				2867917F26BB448C007C2905 /* mac_cursor_busy@2x.png in Resources */,
+				2867917E26BB448C007C2905 /* info_bar_bg.png in Resources */,
+				2867918026BB448C007C2905 /* mac_cursor_flipped.png in Resources */,
+				2867917D26BB448C007C2905 /* mac_cursor_flipped@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,42 +504,33 @@
 				2829372E24E2D58800C84BA2 /* DBCS.cxx in Sources */,
 				2829375924E2D58800C84BA2 /* AutoComplete.cxx in Sources */,
 				2829375724E2D58800C84BA2 /* CaseConvert.cxx in Sources */,
-				282937A224E2D5C900C84BA2 /* StyleContext.cxx in Sources */,
 				2829374524E2D58800C84BA2 /* PositionCache.cxx in Sources */,
-				2829379A24E2D5C900C84BA2 /* LexerModule.cxx in Sources */,
 				2829375B24E2D58800C84BA2 /* MarginView.cxx in Sources */,
 				2829373924E2D58800C84BA2 /* Indicator.cxx in Sources */,
 				2829375D24E2D58800C84BA2 /* Document.cxx in Sources */,
 				2829375524E2D58800C84BA2 /* EditModel.cxx in Sources */,
 				2829375124E2D58800C84BA2 /* ContractionState.cxx in Sources */,
 				2829374924E2D58800C84BA2 /* CallTip.cxx in Sources */,
+				2807B4EA28964CA40063A31A /* ChangeHistory.cxx in Sources */,
 				2829375824E2D58800C84BA2 /* CharClassify.cxx in Sources */,
 				2829373324E2D58800C84BA2 /* LineMarker.cxx in Sources */,
-				2829379E24E2D5C900C84BA2 /* WordList.cxx in Sources */,
-				2829374624E2D58800C84BA2 /* Catalogue.cxx in Sources */,
-				2829378F24E2D5C900C84BA2 /* PropSetSimple.cxx in Sources */,
 				2829374E24E2D58800C84BA2 /* KeyMap.cxx in Sources */,
 				2829376D24E2D58800C84BA2 /* RunStyles.cxx in Sources */,
+				28EA9CAF255894B4007710C4 /* CharacterType.cxx in Sources */,
 				2829376B24E2D58800C84BA2 /* Editor.cxx in Sources */,
-				2829379B24E2D5C900C84BA2 /* DefaultLexer.cxx in Sources */,
-				2829379824E2D5C900C84BA2 /* LexerBase.cxx in Sources */,
 				2829373C24E2D58800C84BA2 /* CaseFolder.cxx in Sources */,
 				2829374824E2D58800C84BA2 /* RESearch.cxx in Sources */,
 				2829377024E2D58800C84BA2 /* EditView.cxx in Sources */,
 				2829376724E2D58800C84BA2 /* ScintillaBase.cxx in Sources */,
-				2829374324E2D58800C84BA2 /* ExternalLexer.cxx in Sources */,
 				2829374724E2D58800C84BA2 /* Style.cxx in Sources */,
 				2829375A24E2D58800C84BA2 /* ViewStyle.cxx in Sources */,
 				282936E024E2D55D00C84BA2 /* InfoBar.mm in Sources */,
+				28EA9CAE255894B4007710C4 /* CharacterCategoryMap.cxx in Sources */,
 				2829374024E2D58800C84BA2 /* XPM.cxx in Sources */,
-				2829379024E2D5C900C84BA2 /* CharacterSet.cxx in Sources */,
 				2829374B24E2D58800C84BA2 /* Decoration.cxx in Sources */,
-				282937A424E2D5C900C84BA2 /* CharacterCategory.cxx in Sources */,
-				2829379524E2D5C900C84BA2 /* LexerNoExceptions.cxx in Sources */,
+				286F8EDF260448C300EC8D60 /* Geometry.cxx in Sources */,
 				2829373624E2D58800C84BA2 /* UniqueString.cxx in Sources */,
-				282937A324E2D5C900C84BA2 /* Accessor.cxx in Sources */,
 				282936E824E2D55D00C84BA2 /* ScintillaView.mm in Sources */,
-				282937A824E2D5C900C84BA2 /* LexerSimple.cxx in Sources */,
 				2829376924E2D58800C84BA2 /* CellBuffer.cxx in Sources */,
 				2829375324E2D58800C84BA2 /* PerLine.cxx in Sources */,
 			);
@@ -625,7 +565,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -633,7 +573,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.4.6;
+				CURRENT_PROJECT_VERSION = 5.3.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -642,7 +582,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+					DEBUG,
 					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -651,7 +591,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -687,7 +627,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -695,19 +635,20 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.4.6;
+				CURRENT_PROJECT_VERSION = 5.3.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -724,17 +665,16 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4.4.6;
+				CURRENT_PROJECT_VERSION = 5.3.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREPROCESSOR_DEFINITIONS = SCI_EMPTYCATALOGUE;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				HEADER_SEARCH_PATHS = (
 					../../include,
 					../../src,
-					../../lexlib,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -743,7 +683,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.scintilla.Scintilla;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -759,17 +699,16 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4.4.6;
+				CURRENT_PROJECT_VERSION = 5.3.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREPROCESSOR_DEFINITIONS = SCI_EMPTYCATALOGUE;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				HEADER_SEARCH_PATHS = (
 					../../include,
 					../../src,
-					../../lexlib,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -778,7 +717,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.scintilla.Scintilla;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

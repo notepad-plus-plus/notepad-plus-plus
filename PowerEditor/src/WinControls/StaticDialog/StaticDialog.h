@@ -23,16 +23,16 @@ enum class PosAlign { left, right, top, bottom };
 
 struct DLGTEMPLATEEX
 {
-      WORD   dlgVer;
-      WORD   signature;
-      DWORD  helpID;
-      DWORD  exStyle;
-      DWORD  style;
-      WORD   cDlgItems;
-      short  x;
-      short  y;
-      short  cx;
-      short  cy;
+      WORD   dlgVer = 0;
+      WORD   signature = 0;
+      DWORD  helpID = 0;
+      DWORD  exStyle = 0;
+      DWORD  style = 0;
+      WORD   cDlgItems = 0;
+      short  x = 0;
+      short  y = 0;
+      short  cx = 0;
+      short  cy = 0;
       // The structure has more fields but are variable length
 };
 
@@ -68,10 +68,9 @@ public :
     virtual void destroy() override;
 
 protected:
-	RECT _rc;
-	static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
+	RECT _rc = {};
+	static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 
-    void alignWith(HWND handle, HWND handle2Align, PosAlign pos, POINT & point);
 	HGLOBAL makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplate);
 };

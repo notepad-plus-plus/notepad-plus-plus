@@ -21,9 +21,9 @@ public:
 	void Terminate();
 
 private:
-	LPCTSTR _szFile;
-	DWORD _dwNotifyFilter;
-	WIN32_FILE_ATTRIBUTE_DATA _lastFileInfo;
+	LPCTSTR _szFile = nullptr;
+	DWORD _dwNotifyFilter = 0;
+	WIN32_FILE_ATTRIBUTE_DATA _lastFileInfo = {};
 
 };
 

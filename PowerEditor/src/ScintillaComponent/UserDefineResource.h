@@ -293,6 +293,8 @@
     #define IDC_STYLER_STATIC_FONT_OPTIONS                  (IDD_STYLER_POPUP_DLG + 30)
     #define IDC_STYLER_NAME_STATIC                          (IDD_STYLER_POPUP_DLG + 31)
     #define IDC_STYLER_SIZE_STATIC                          (IDD_STYLER_POPUP_DLG + 32)
+    #define IDC_STYLER_CHECK_FG_TRANSPARENT                 (IDD_STYLER_POPUP_DLG + 33)
+    #define IDC_STYLER_CHECK_BG_TRANSPARENT                 (IDD_STYLER_POPUP_DLG + 34)
 
 #define    IDD_STRING_DLG   26000   //IDD_GLOBAL_USERDEFINE_DLG + 6000
     #define    IDC_STRING_STATIC                            (IDD_STRING_DLG + 1)

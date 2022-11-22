@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="ಸೆಟ್ಟಿಂಗ್ಸ್"/>
                     <Item menuId="macro" name="ಮ್ಯಾಕ್ರೋ"/>
                     <Item menuId="run" name="ರನ್"/>
-                    <Item idName="Plugins" name="ಪ್ಲುಗೀನ್ಸ್"/>
-                    <Item idName="Window" name="ವಿಂಡೊ"/>
+                    <Item menuId="Plugins" name="ಪ್ಲುಗೀನ್ಸ್"/>
+                    <Item menuId="Window" name="ವಿಂಡೊ"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -318,14 +318,10 @@
                 <Item id="1604" name="ಮ್ಯಾಚ್ ಕೇಸ್(&amp;C)"/>
                 <Item id="1605" name="ರೆಗ್ಯುಲರ್ ಎಕ್ಸ್‌ಪ್ರೆಶನ್(&amp;E)"/>
                 <Item id="1606" name="ರ್ಯಾಪ್ ಅರೌಂಡ್(&amp;D)"/>
-                <Item id="1612" name="ಅಪ್(&amp;U)"/>
-                <Item id="1613" name="ಡೌನ್(&amp;D)"/>
                 <Item id="1614" name="ಕೌಂಟ್"/>
                 <Item id="1615" name="ಫೈಂಡ್ ಆಲ್"/>
                 <Item id="1616" name="ಮಾರ್ಕ್ ಲೈನ್"/>
-                <Item id="1617" name="ಸ್ಟೈಲ್ ಫೌಂಡ್ ಟೋಕನ್"/>
                 <Item id="1618" name="ಪರ್ಜ್ ಫಾರ್ ಈಚ್ ಸರ್ಚ್"/>
-                <Item id="1621" name="ಡೈರೆಕ್ಶನ್"/>
                 <Item id="1611" name="ರೀಪ್ಲೇಸ್ ವಿತ್:   (&amp;P)"/>
                 <Item id="1608" name="ರೀಪ್ಲೇಸ್   (&amp;R)"/>
                 <Item id="1609" name="ರೀಪ್ಲೇಸ್ ಆಲ್(&amp;A)"/>
@@ -336,7 +332,6 @@
                 <Item id="1633" name="ಕ್ಲಿಯರ್"/>
                 <Item id="1635" name="ರೀಪ್ಲೇಸ್ ಆಲ್ ಇನ್ ಆಲ್ ಓಪಂಡ್ ಡಾಕ್ಯುಮೆಂಟ್ಸ್"/>
                 <Item id="1636" name="ಫೈಂಡ್ ಆಲ್ ಇನ್ ಆಲ್ ಓಪಂಡ್ ಡಾಕ್ಯುಮೆಂಟ್ಸ್"/>
-                <Item id="1637" name="ಫೈಂಡ್ ಇನ್ ಫೈಲ್ಸ್"/>
                 <Item id="1654" name="ಫಿಲ್‌ಟರ್ಸ್:"/>
                 <Item id="1655" name="ಡೈರೆಕ್ಟರೀ:"/>
                 <Item id="1656" name="ಫೈಂಡ್ ಆಲ್"/>
@@ -847,11 +842,11 @@
         <ClipboardHistory>
 			<PanelTitle name="ಕ್ಲಿಪ್‌ಬೋರ್ಡ್ ಹಿಸ್ಟರೀ"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="ಡಾಕ್ ಸ್ವಿತ್ಚೇರ್"/>
 			<ColumnName name="ನೇಮ್"/>
 			<ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII ಇನ್ಸರ್‌ಶನ್ ಪ್ಯಾನಲ್"/>
 			<ColumnVal name="ವ್ಯಾಲ್ಯೂ"/>

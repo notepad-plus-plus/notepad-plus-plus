@@ -15,8 +15,8 @@
 					<Item menuId="tools" name="&amp;כלים"/>
 					<Item menuId="macro" name="מאקרו מקשים"/>
 					<Item menuId="run" name="הפעלה"/>
-					<Item idName="Plugins" name="תוספים"/>
-					<Item idName="Window"  name="חלון"/>
+					<Item menuId="Plugins" name="תוספים"/>
+					<Item menuId="Window"  name="חלון"/>
 
 				</Entries>
 
@@ -130,7 +130,7 @@
 					<Item id="43032" name="נקה כל הסיגנונות"/>
 
 					<Item id="44009" name="הרחב את הדף"/>
-                    <Item id="44011" name="תיבת שיח הגדרת משתמש"/>
+                    <Item id="44011" name="מצב ללא הסחות-דעת"/>
                     <Item id="44025" name="הצג מרווחים וטאבים"/>
                     <Item id="44026" name="הצג סוף שורה"/>
                     <Item id="44019" name="הצג את כל הסימנים המוסתרים"/>
@@ -273,14 +273,10 @@
                 <Item id="1604" name="התאם מקרה"/>
                 <Item id="1605" name="ביטוי רגיל"/>
                 <Item id="1606" name="כרוך מסביב"/>
-                <Item id="1612" name="למ&amp;עלה"/>
-                <Item id="1613" name="למ&amp;טה"/>
                 <Item id="1614" name="ספירה"/>
                 <Item id="1615" name="מצא הכל"/>
                 <Item id="1616" name="הדגש שורה"/>
-                <Item id="1617" name="סגנון מצא סימן"/>
                 <Item id="1618" name="נקה בכל חיפוש"/>
-                <Item id="1621" name="כיוון חיפוש"/>
 				<Item id="1624" name="מצב חיפוש"/>
 				<Item id="1625" name="נורמלי"/>
 				<Item id="1626" name="מורחב"/>

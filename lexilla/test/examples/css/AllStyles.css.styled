@@ -1,0 +1,89 @@
+{9}/* Enumerate all styles: 0 to 23 */{0}
+
+{9}/* comment=9 */{0}
+
+{9}/* whitespace=0 */{0}
+	{9}/* */{0}
+
+{9}/* tag=1 */{0}
+{1}html{9}/**/{1}
+{5}{}{0}
+
+{9}/* class=2 */{0}
+{5}.{2}hidden{1}
+{5}{}{0}
+
+{9}/* pseudoclass=3 */{0}
+{5}:{3}link{1}
+{5}{}{0}
+
+{9}/* unknown pseudoclass=4 */{0}
+{5}:{4}unknown{1}
+{5}{}{0}
+
+{9}/* operator=5 */{0}
+{5}#{1}
+{5}{}{0}
+
+{9}/* identifier=6 */{0}
+{1}*{5}{{6}margin{5}:}{0}
+
+{9}/* unknown identifier=7 */{0}
+{1}*{5}{{7}unknown{5}:}{0}
+
+{9}/* value=8 */{0}
+{1}*{5}{:{8}88{5}}{0}
+
+{9}/* identifier=10 */{0}
+{5}#{10}identifier{1}
+{5}{}{0}
+
+{9}/* important=11 */{0}
+{1}* {5}{{6} margin{5}:{8} 0 {5}!{11} important{5};{6} {5}}{0}
+
+{9}/* directive=12 */{0}
+{5}@{12}directive
+{5}{{6} {5}}{0}
+
+{9}/* doublestring=13 */{0}
+{1}* {5}{{7} font-family{5}:{8} {13}"doublestring"{5};{6} {5}}{0}
+
+{9}/* singlestring=14 */{0}
+{1}* {5}{{7} font-family{5}:{8} {14}'singlestring'{5};{6} {5}}{0}
+
+{9}/* identifier2=15 */{0}
+{1}* {5}{{15} identifier2{5}:{8} 0{5}}{0}
+
+{9}/* attribute=16 */{0}
+{5}[{16}attribute{5}]{1}
+{5}{}{0}
+
+{9}/* identifier3=17 */{0}
+{1}* {5}{{17} identifier3{5}:{8} 0{5}}{0}
+
+{9}/* pseudoelement=18 */{0}
+{5}::{18}pseudoelement{1}
+{5}{}{0}
+
+{9}/* extended_identifier=19 */{0}
+{1}* {5}{{19} extended_identifier{5}:{8} 0{5}}{0}
+
+{9}/* extended_pseudoclass=20 */{0}
+{5}:{20}extended_pseudoclass{1}
+{5}{}{0}
+
+{9}/* extended_pseudoelement=21 */{0}
+{5}::{21}extended_pseudo_element{1}
+{5}{}{0}
+
+{9}/* media=22 */{0}
+{5}@{22}media (orientation: portrait)
+{5}{{0} {5}}{0}
+
+{9}/* group rule=22 */{0}
+{5}@{22}supports ( display: flex ) {5}{{0}
+  {1}body {5}{{7} display{5}:{8} flex{5};{6} {5}}{6}
+{5}}{0}
+
+{9}/* variable=23 */{0}
+{23}$variable{5}:{8}#428bca{5};{0}

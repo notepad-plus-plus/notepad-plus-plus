@@ -14,8 +14,8 @@
 					<Item menuId="settings" name="ตั้งค่า (&amp;T)"/>
 					<Item menuId="macro" name="มาโคร"/>
 					<Item menuId="run" name="เรียก"/>
-					<Item idName="Plugins" name="ปลั๊กอิน"/>
-					<Item idName="Window" name="หน้าต่าง"/>
+					<Item menuId="Plugins" name="ปลั๊กอิน"/>
+					<Item menuId="Window" name="หน้าต่าง"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
@@ -275,14 +275,10 @@
 				<Item id="1604" name="ตรงกับตัวอักษรเล็ก/ใหญ่ (&amp;C)"/>
                 <Item id="1605" name="Regular &amp;expression"/>
                 <Item id="1606" name="Wrap aroun&amp;d"/>
-				<Item id="1612" name="ขึ้น (&amp;U)"/>
-				<Item id="1613" name="ลง (&amp;D)"/>
 				<Item id="1614" name="นับ"/>
 				<Item id="1615" name="ค้นหาทั้งหมด"/>
 				<Item id="1616" name="มาร์คบรรทัด"/>
-                <Item id="1617" name="Style found token"/>
                 <Item id="1618" name="ล้างแต่ละการค้นหา"/>
-				<Item id="1621" name="ทิศทาง"/>
 				<Item id="1611" name="แทนที่ด้วย (&amp;P):"/>
 				<Item id="1608" name="แทนที่ (&amp;R)"/>
 				<Item id="1609" name="แทนที่ทั้งหมด (&amp;A)"/>
@@ -293,7 +289,6 @@
 				<Item id="1633" name="ล้าง"/>
 				<Item id="1635" name="แทนที่ทั้งหมดในทุกเอกสารที่เปิดอยู่"/>
 				<Item id="1636" name="ค้นหาทั้งหมดในทุกเอกสารที่เปิดอยู่"/>
-				<Item id="1637" name="ค้นหาในไฟล์"/>
 				<Item id="1654" name="ตัวกรอง:"/>
 				<Item id="1655" name="ไดเรกทอรี:"/>
 				<Item id="1656" name="ค้นหาทั้งหมด"/>

@@ -18,8 +18,8 @@
 #pragma once
 
 struct EncodingUnit {
-   int _codePage;
-   const char *_aliasList;
+   int _codePage = 0;
+   const char *_aliasList = nullptr;
 };
 
 class EncodingMapper {

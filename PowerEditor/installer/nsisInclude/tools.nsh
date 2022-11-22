@@ -73,6 +73,17 @@ Var Dialog
 Var NoUserDataCheckboxHandle
 Var ShortcutCheckboxHandle
 Var WinVer
+Var noUserDataChecked
+Var createShortcutChecked
+
+; The definition of "OnChange" event for checkbox
+Function OnChange_NoUserDataCheckBox
+	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
+FunctionEnd
+
+Function OnChange_ShortcutCheckBox
+	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+FunctionEnd
 
 Function ExtraOptions
 	nsDialogs::Create 1018
@@ -88,8 +99,14 @@ Function ExtraOptions
 	${NSD_Check} $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 	
-	${NSD_CreateCheckbox} 0 80 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
+	${NSD_CreateCheckbox} 0 120 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
 	Pop $NoUserDataCheckboxHandle
+	IfFileExists $INSTDIR\doLocalConf.xml doLocalConfExists doLocalConfDoesNotExists
+	doLocalConfExists:
+		 ; a previous portable N++ installation detected
+		${NSD_SetState} $NoUserDataCheckboxHandle ${BST_CHECKED}
+		StrCpy $noUserDataChecked ${BST_CHECKED}
+	doLocalConfDoesNotExists:
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
 	StrLen $0 $PROGRAMFILES
@@ -107,28 +124,28 @@ Function ExtraOptions
 	nsDialogs::Show
 FunctionEnd
 
-Function preventInstallInWin9x
-	;Test if window9x
+Function checkCompatibility
+
 	${GetWindowsVersion} $WinVer
 	
 	StrCmp $WinVer "95" 0 +3
-		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
+		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "98" 0 +3
-		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
+		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "ME" 0 +3
-		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
+		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "2000" 0 +3 ; Windows 2000
-		MessageBox MB_OK "Notepad++ does not support your OS. The installation will be aborted."
+		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "XP" 0 xp_endTest ; XP
-		MessageBox MB_YESNO "This version of Notepad++ doesn't support Windows XP. The installation will be aborted.$\nDo you want to go to Notepad++ download page for downloading the last version which supports XP (v7.9.2)?" IDYES xp_openDlPage IDNO xp_goQuit
+		MessageBox MB_YESNO|MB_ICONSTOP "This version of Notepad++ doesn't support Windows XP. The installation will be aborted.$\n$\nDo you want to go to Notepad++ download page for downloading the last version which supports XP (v7.9.2)?" IDYES xp_openDlPage IDNO xp_goQuit
 xp_openDlPage:
 		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
 xp_goQuit:
@@ -136,24 +153,26 @@ xp_goQuit:
 xp_endTest:
 		
 	StrCmp $WinVer "2003" 0 ws2003_endTest ; Windows Server 2003
-		MessageBox MB_YESNO "This version of Notepad++ doesn't support Windows Server 2003. The installation will be aborted.$\nDo you want to go to Notepad++ download page for downloading the last version which supports this OS?" IDYES ws2003_openDlPage IDNO ws2003_goQuit
+		MessageBox MB_YESNO|MB_ICONSTOP "This version of Notepad++ doesn't support Windows Server 2003. The installation will be aborted.$\n$\nDo you want to go to Notepad++ download page for downloading the last version which supports this OS?" IDYES ws2003_openDlPage IDNO ws2003_goQuit
 ws2003_openDlPage:
 		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
 ws2003_goQuit:
 		Abort
 ws2003_endTest:
-FunctionEnd
 
-Var noUserDataChecked
-Var createShortcutChecked
+!ifdef ARCHARM64
+	${If} ${IsNativeARM64}
+		; OK
+	${Else}
+		; we cannot run ARM64 binaries on a x86/x64 CPU (the other way around is possible - x86 on ARM64 CPU)
+		MessageBox MB_YESNO|MB_ICONSTOP "This installer contains ARM64 version of Notepad++ incompatible with your computer processor running, so the installation will be aborted.$\n$\nDo you want to go to the Notepad++ site to download a compatible (x86/x64) installer instead?" IDYES arm64_openDlPage IDNO arm64_goQuit
+arm64_openDlPage:
+		ExecShell "open" "https://notepad-plus-plus.org/downloads/"
+arm64_goQuit:
+		Abort
+	${EndIf}
+!endif
 
-; The definition of "OnChange" event for checkbox
-Function OnChange_NoUserDataCheckBox
-	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
-FunctionEnd
-
-Function OnChange_ShortcutCheckBox
-	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
 FunctionEnd
 
 
@@ -171,7 +190,8 @@ Function writeInstallInfoInRegistry
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "Notepad++ Team"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MajorVersion" "${VERSION_MAJOR}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MinorVersion" "${VERSION_MINOR}"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "UninstallString" '"$INSTDIR\uninstall.exe"'
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "QuietUninstallString" '"$INSTDIR\uninstall.exe" /S'
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayIcon" "$INSTDIR\notepad++.exe"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayVersion" "${APPVERSION}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "URLInfoAbout" "${APPWEBSITE}"

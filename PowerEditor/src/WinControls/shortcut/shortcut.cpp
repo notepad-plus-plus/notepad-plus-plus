@@ -27,11 +27,9 @@
 
 using namespace std;
 
-const int KEY_STR_LEN = 16;
-
 struct KeyIDNAME {
-	const TCHAR * name;
-	UCHAR id;
+	const TCHAR * name = nullptr;
+	UCHAR id = 0;
 };
 
 KeyIDNAME namedKeyArray[] = {
@@ -161,8 +159,8 @@ void Shortcut::setName(const TCHAR * menuName, const TCHAR * shortcutName)
 {
 	lstrcpyn(_menuName, menuName, nameLenMax);
 	TCHAR const * name = shortcutName ? shortcutName : menuName;
-	int i = 0, j = 0;
-	while (name[j] != 0 && i < (nameLenMax-1))
+	size_t i = 0, j = 0;
+	while (name[j] != 0 && i < (nameLenMax - 1))
 	{
 		if (name[j] != '&')
 		{
@@ -274,7 +272,7 @@ void getKeyStrFromVal(UCHAR keyVal, generic_string & str)
 {
 	str = TEXT("");
 	bool found = false;
-	int i;
+	size_t i;
 	for (i = 0; i < nbKeys; ++i)
 	{
 		if (keyVal == namedKeyArray[i].id)
@@ -369,12 +367,14 @@ void Shortcut::updateConflictState(const bool endSession) const
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CONFLICT_STATIC), isConflict ? SW_SHOW : SW_HIDE);
 }
 
-INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
 {
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _canModifyName ? getMenuName() : getName());	//display the menu name, with ampersands, for macros
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
@@ -403,6 +403,55 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
 			goToCenter();
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_NAME_EDIT)
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -476,6 +525,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		default :
 			return FALSE;
 	}
+	return FALSE;
 }
 
 // return true if one of CommandShortcuts is deleted. Otherwise false.
@@ -496,10 +546,9 @@ void Accelerator::updateShortcuts()
 	size_t nbPluginCmd = pluginCommands.size();
 
 	delete [] _pAccelArray;
-	_pAccelArray = new ACCEL[nbMenu+nbMacro+nbUserCmd+nbPluginCmd];
+	_pAccelArray = new ACCEL[nbMenu + nbMacro+nbUserCmd + nbPluginCmd];
 	vector<ACCEL> incrFindAcc;
-
-	ACCEL *pSearchFindAccel = nullptr;
+	vector<ACCEL> findReplaceAcc;
 	int offset = 0;
 	size_t i = 0;
 	//no validation performed, it might be that invalid shortcuts are being used by default. Allows user to 'hack', might be a good thing
@@ -515,8 +564,9 @@ void Accelerator::updateShortcuts()
 			if (std::find(incrFindAccIds.begin(), incrFindAccIds.end(), shortcuts[i].getID()) != incrFindAccIds.end())
 				incrFindAcc.push_back(_pAccelArray[offset]);
 
-			if (shortcuts[i].getID() == IDM_SEARCH_FIND)
-				pSearchFindAccel = &_pAccelArray[offset];
+			if (shortcuts[i].getID() == IDM_SEARCH_FIND || shortcuts[i].getID() == IDM_SEARCH_REPLACE ||
+				shortcuts[i].getID() == IDM_SEARCH_FINDINFILES || shortcuts[i].getID() == IDM_SEARCH_MARK)
+				findReplaceAcc.push_back(_pAccelArray[offset]);
 
 			++offset;
 		}
@@ -582,11 +632,13 @@ void Accelerator::updateShortcuts()
 
 	if (_hFindAccTab)
 		::DestroyAcceleratorTable(_hFindAccTab);
-	if (pSearchFindAccel != nullptr)
+	size_t nbFindReplaceAcc = findReplaceAcc.size();
+	if (nbFindReplaceAcc)
 	{
-		ACCEL *tmpFindAccelArray = new ACCEL[1];
-		tmpFindAccelArray[0] = *pSearchFindAccel;
-		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, 1);
+		ACCEL* tmpFindAccelArray = new ACCEL[nbFindReplaceAcc];
+		for (size_t i = 0; i < nbFindReplaceAcc; ++i)
+			tmpFindAccelArray[i] = findReplaceAcc[i];
+		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, static_cast<int>(nbFindReplaceAcc));
 		delete[] tmpFindAccelArray;
 	}
 
@@ -988,13 +1040,15 @@ void ScintillaKeyMap::updateListItem(int index)
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, index+1, 0);
 }
 
-INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
 {
 	
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _name);
 			_keyCombo = _keyCombos[0];
 
@@ -1018,6 +1072,54 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
 			goToCenter();
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorListbox(wParam, lParam);
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_NAME_EDIT)
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -1121,18 +1223,20 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 		default :
 			return FALSE;
 	}
-
-	//return FALSE;
+	return FALSE;
 }
 
 CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)
 {
 	_shortcutName = sc.getName();
-	if ( _id < IDM_EDIT)
+	if ( _id >= IDM_WINDOW_SORT_FN_ASC and _id <= IDM_WINDOW_SORT_FS_DSC)
+		_category = TEXT("Window");
+	else if ( _id < IDM_EDIT)
 		_category = TEXT("File");
 	else if ( _id < IDM_SEARCH)
 		_category = TEXT("Edit");
-	else if (_id >= IDM_EDIT_AUTOCOMPLETE and _id <= IDM_EDIT_AUTOCOMPLETE_PATH)
+	else if (((_id >= IDM_EDIT_AUTOCOMPLETE) && (_id <= IDM_EDIT_AUTOCOMPLETE_PATH)) || 
+			 ((_id >= IDM_EDIT_FUNCCALLTIP_PREVIOUS) && (_id <= IDM_EDIT_FUNCCALLTIP_NEXT)))
 		_category = TEXT("Edit");
 	else if ( _id < IDM_VIEW)
 		_category = TEXT("Search");

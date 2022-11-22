@@ -25,12 +25,12 @@ void AnsiCharPanel::switchEncoding()
 	_listView.resetValues(codepage);
 }
 
-INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-        case WM_INITDIALOG :
-        {
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			generic_string valStr = pNativeSpeaker->getAttrNameStr(TEXT("Value"), "AsciiInsertion", "ColumnVal");
@@ -50,12 +50,21 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_listView.setValues(codepage==-1?0:codepage);
 			_listView.display();
 
-            return TRUE;
-        }
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
 
 		case WM_NOTIFY:
 		{
-			switch (((LPNMHDR)lParam)->code)
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
 			{
 				case DMN_CLOSE:
 				{
@@ -119,27 +128,27 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		}
 		return TRUE;
 
-        case WM_SIZE:
-        {
-            int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
+		case WM_SIZE:
+		{
+			int width = LOWORD(lParam);
+			int height = HIWORD(lParam);
 			::MoveWindow(_listView.getHSelf(), 0, 0, width, height, TRUE);
-            break;
-        }
+			break;
+		}
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default :
+			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
 void AnsiCharPanel::insertChar(unsigned char char2insert) const
 {
-    char charStr[2];
-    charStr[0] = char2insert;
-    charStr[1] = '\0';
-    wchar_t wCharStr[10];
-    char multiByteStr[10];
+	char charStr[2];
+	charStr[0] = char2insert;
+	charStr[1] = '\0';
+	wchar_t wCharStr[10];
+	char multiByteStr[10];
 	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 	if (codepage == -1)
 	{

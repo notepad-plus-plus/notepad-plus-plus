@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "Con&amp;figuracions"/>
 					<Item menuId="macro" name = "&amp;Macro"/>
 					<Item menuId="run" name = "La&amp;nçar"/>
-					<Item idName = "Plugins" name = "&amp;Pedaçi"/>
-					<Item idName = "Window" name = "&amp;Hiestra"/>
+					<Item menuId = "Plugins" name = "&amp;Pedaçi"/>
+					<Item menuId = "Window" name = "&amp;Hiestra"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -144,14 +144,10 @@
                 <Item id = "1604" name = "Trapar ma&amp;júscules"/>
                 <Item id = "1605" name = "Expression &amp;Regular"/>
                 <Item id = "1606" name = "Cercar en tot eth &amp;Document"/>
-                <Item id = "1612" name = "&amp;Naut"/>
-                <Item id = "1613" name = "B&amp;aish"/>
                 <Item id = "1614" name = "Condar"/>
                 <Item id = "1615" name = "Cercar totes"/>
                 <Item id = "1616" name = "Mercar Linha"/>
-                <Item id = "1617" name = "Trapar Mèrques d'estil"/>
                 <Item id = "1618" name = "Trèir en cada cerca"/>
-                <Item id = "1621" name = "Direccion"/>
                 <Item id = "1611" name = "Esca&amp;mbiar per :"/>
                 <Item id = "1608" name = "&amp;Escambiar"/>
                 <Item id = "1609" name = "Escambia'c &amp;Tot"/>
@@ -160,8 +156,6 @@
 			 	<Item id = "1633" name = "Limpiar"/>
 			 	<Item id = "1635" name = "Escambia'c tot en toti es documents duberts"/>
 			 	<Item id = "1636" name = "Cerca'c tot en toti es documents duberts"/>
-			 	<Item id = "1637" name = "Cercar en es archius"/>
-			 	<Item id = "1640" name = "Cambiar dialòg"/>
             </Find>
             <GoToLine title = "Anar ara Linha #">
                 <Item id = "1" name = "&amp;Anar !"/>

@@ -1,0 +1,4 @@
+% Ensure escape sequences still work in octave
+% Octave terminates string at 3rd ", Matlab at 4th
+i="\" "; % " %
+% end

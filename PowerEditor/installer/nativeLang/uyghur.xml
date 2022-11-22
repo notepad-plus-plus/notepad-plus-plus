@@ -18,8 +18,8 @@
                     <Item menuId="settings" name="تەڭشەك"/>
                     <Item menuId="macro" name="ماكرو"/>
                     <Item menuId="run" name="ئىجرا"/>
-                    <Item idName="Plugins" name="قېتىلما"/>
-                    <Item idName="Window" name="كۆزنەك"/>
+                    <Item menuId="Plugins" name="قېتىلما"/>
+                    <Item menuId="Window" name="كۆزنەك"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
@@ -276,14 +276,10 @@
                 <Item id="1604" name="چوڭكىچىك يېزىلىشى ماس كەلسۇن"/>
                 <Item id="1605" name="تۇراقلىق ئىبارىلەر"/>
                 <Item id="1606" name="قۇر ئالماشتۇرۇپ دەۋرىي ئىزدەش"/>
-                <Item id="1612" name="&amp;يۇقۇرىغا"/>
-                <Item id="1613" name="&amp;تۆۋەنگە"/>
                 <Item id="1614" name="ساناش"/>
                 <Item id="1615" name=" ھەممىنى ئىزدەش"/>
                 <Item id="1616" name=" قۇر بەلگىلەش"/>
-                <Item id="1617" name="تاپتىم ئۇسلوبى"/>
                 <Item id="1618" name=" تاپتىم بەلگىسىنى ئۆچۈرۈش"/>
-                <Item id="1621" name="يۆنىلىش"/>
                 <Item id="1611" name="بىلەن ئالماشتۇرۇش:"/>
                 <Item id="1608" name="&amp;ئالماشتۇرۇش"/>
                 <Item id="1609" name=" ھەممىنى ئالماشتۇرۇش "/>
@@ -294,7 +290,6 @@
 			 	<Item id="1633" name="تازىلاش"/>
 			 	<Item id="1635" name="ئېچىلغان ھۈججەتلەردە ئالماشتۇرۇش"/>
 			 	<Item id="1636" name=" ئېچىلغان ھۈججەتلەردە ئىزدەش"/>
-			 	<Item id="1637" name="ھۈججەتلەردىن ئىزدەش"/>
 			 	<Item id="1654" name="سۈزۈش:"/>
 			 	<Item id="1655" name="مۇندەرىجە:"/>
 			 	<Item id="1656" name=" ھەممىنى ئىزدەش"/>

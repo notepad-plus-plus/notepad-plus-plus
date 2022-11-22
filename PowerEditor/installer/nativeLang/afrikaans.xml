@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "&amp;Stellings"/>
 					<Item menuId="macro" name = "Makro"/>
 					<Item menuId="run" name = "Loop"/>
-					<Item idName = "Plugins" name = "Inkoppeling"/>
-					<Item idName = "Window" name = "Venster"/>
+					<Item menuId = "Plugins" name = "Inkoppeling"/>
+					<Item menuId = "Window" name = "Venster"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -215,14 +215,10 @@
                 <Item id = "1604" name = "Vergelyk &amp;case"/>
                 <Item id = "1605" name = "Gewoone &amp;stelling"/>
                 <Item id = "1606" name = "&amp;Gaan om"/>
-                <Item id = "1612" name = "&amp;Op"/>
-                <Item id = "1613" name = "&amp;Af"/>
                 <Item id = "1614" name = "Tel"/>
                 <Item id = "1615" name = "Vind almal"/>
                 <Item id = "1616" name = "Merk lyn"/>
-                <Item id = "1617" name = "Styl vind token"/>
                 <Item id = "1618" name = "Doen vir elke soek"/>
-                <Item id = "1621" name = "Direksie"/>
                 <Item id = "1611" name = "&amp;Vervang met :"/>
                 <Item id = "1608" name = "&amp;Vervang"/>
                 <Item id = "1609" name = "Vervang &amp;Als"/>
@@ -233,8 +229,6 @@
 			 	<Item id = "1633" name = "Maak skoon"/>
 			 	<Item id = "1635" name = "Vervang als in alle oop dokumente"/>
 			 	<Item id = "1636" name = "Vind als in alle oop dokumente"/>
-			 	<Item id = "1637" name = "Vind in Leêrs"/>
-			 	<Item id = "1640" name = "Skakel dialoog"/>
 			 	<Item id = "1654" name = "Filters :"/>
 			 	<Item id = "1655" name = "Gids :"/>
 			 	<Item id = "1656" name = "Vind almal"/>

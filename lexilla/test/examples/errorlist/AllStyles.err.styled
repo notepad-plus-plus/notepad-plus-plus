@@ -1,0 +1,111 @@
+{0}Default 0
+Some text in default
+
+
+Python Error 1
+{1}  File "x.err", line 2
+{0}
+
+Gcc Error 2, Find In Files Match 21
+{2}ScintillaGTKAccessible.cxx:153:13:{21} warning: Deprecated pre-processor symbol, replace with 
+{0}
+
+Microsoft Error 3
+{3}LexErrorList.cxx(15): fatal error C1083: Cannot open include file: 'ILexer.h': No such file or directory
+{0}
+{3}PlatQt.obj : error LNK2019: unresolved external symbol "class Scintilla::PRectangle __cdecl Scintilla::PixelAlign(class Scintilla::PRectangle const &,int)" (?PixelAlign@Scintilla@@YA?AVPRectangle@1@AEBV21@H@Z) referenced in function "public: virtual void __cdecl Scintilla::SurfaceImpl::FillRectangleAligned(class Scintilla::PRectangle,class Scintilla::Fill)" (?FillRectangleAligned@SurfaceImpl@Scintilla@@UEAAXVPRectangle@2@VFill@2@@Z)
+{0}
+{3}NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX64\x64\link.EXE"' : return code '0x460'
+{0}
+
+Command 4
+{4}>pwd
+{0}
+
+Borland Error 5
+{5}Error E2378 oddEven.c 16: For statement missing ; in function main()
+{0}
+
+Perl Error 6
+{6}Bareword found where operator expected at LexMMIXAL.cxx line 1, near "// Scintilla"
+{0}
+
+DotNET Traceback 7
+{7}   at ExceptionTrace.Program.f4() in C:\Ivan\dev\exp\ExceptionTrace\Program.cs:line 18
+{0}
+
+Lua Error 8
+{8}last token read: `result' at line 40 in file `Test.lua'
+{0}
+
+Ctags 9
+{9}IsAWordChar	LexMMIXAL.cxx	/^static inline bool IsAWordChar(const int ch) {$/;"	f	file:
+{0}
+
+Diff Changed ! 10
+{10}! 		GdkColor white = { 0, 0xFFFF, 0xFFFF, 0xFFFF};
+{0}
+
+Diff Addition + 11
+{11}+    <PlatformToolset>v142</PlatformToolset>
+{0}
+
+Diff Deletion - 12
+{12}-    <PlatformToolset>v141</PlatformToolset>
+{0}
+
+Diff Message --- 13
+{13}--- a/win32/SciTE.vcxproj	Fri Jan 31 12:23:51 2020 +1100
+{0}
+
+PHP error 14
+{14}Fatal error: Call to undefined function:  foo() in example.php on line 11
+{0}
+
+Essential Lahey Fortran 90 Error 15
+{15}Line 11, file c:\fortran90\codigo\demo.f90
+{0}
+
+Intel Fortran Compiler Error 16
+{16}Error 71 at (17:teste.f90) : The program unit has no name
+{0}
+
+Intel Fortran Compiler v8.0 Error 17
+{17}fortcom: Error: shf.f90, line 5602: This name does not have ...
+{0}
+
+Absoft Pro Fortran 90 Error 18
+{18}cf90-113 f90fe: ERROR SHF3D, File = shf.f90, Line = 1101, Column = 19
+{0}
+
+HTML Tidy 19
+{19}line 8 column 1 - Error: unexpected </head> in <meta>
+{0}
+
+Java Runtime Stack Trace 20
+{20}	at MethodName>(FileName.java:33)
+{0}
+
+GCC Include Path 22
+{22}In file included from /usr/include/gtk-2.0/gtk/gtkobject.h:37,
+{0}
+
+GCC Pointer 25
+{25}  236 | void            gtk_type_init   (GTypeDebugFlags    debug_flags);
+      |                                                                ^
+{0}
+
+Escape Sequence 23
+{23}[K{0}
+
+
+Escape Sequence Unknown 24
+{24}[1n{0}
+
+
+Escape Sequence Colour 40
+{23}[0m{40}Colour 0 is 40
+{0}
+
+Escape Sequence Colour 41
+{23}[31m{41}Colour 1 is 41

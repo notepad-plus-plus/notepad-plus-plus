@@ -23,13 +23,14 @@
 #include "IDAllocator.h"
 
 typedef BOOL (__cdecl * PFUNCISUNICODE)();
+class PluginViewList;
 
 struct PluginCommand
 {
 	generic_string _pluginName;
-	int _funcID;
-	PFUNCPLUGINCMD _pFunc;
-	PluginCommand(const TCHAR *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _funcID(funcID), _pFunc(pFunc), _pluginName(pluginName){};
+	int _funcID = 0;
+	PFUNCPLUGINCMD _pFunc = nullptr;
+	PluginCommand(const TCHAR *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _pluginName(pluginName), _funcID(funcID), _pFunc(pFunc) {};
 };
 
 struct PluginInfo
@@ -64,8 +65,13 @@ struct LoadedDllInfo
 {
 	generic_string _fullFilePath;
 	generic_string _fileName;
+	generic_string _displayName;
 
-	LoadedDllInfo(const generic_string & fullFilePath, const generic_string & fileName) : _fullFilePath(fullFilePath), _fileName(fileName) {};
+	LoadedDllInfo(const generic_string & fullFilePath, const generic_string & fileName) : _fullFilePath(fullFilePath), _fileName(fileName)
+	{
+		// the plugin module's name, without '.dll'
+		_displayName = fileName.substr(0, fileName.find_last_of('.'));
+	};
 };
 
 class PluginsManager
@@ -78,9 +84,6 @@ public:
 	{
 		for (size_t i = 0, len = _pluginInfos.size(); i < len; ++i)
 			delete _pluginInfos[i];
-
-		if (_hPluginsMenu)
-			DestroyMenu(_hPluginsMenu);
 	}
 
 	void init(const NppData & nppData)
@@ -88,8 +91,7 @@ public:
 		_nppData = nppData;
 	}
 
-    int loadPlugin(const TCHAR *pluginFilePath);
-	bool loadPluginsV2(const TCHAR *dir = NULL);
+	bool loadPlugins(const TCHAR *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr, PluginViewList* pluginImcompatibleList = nullptr);
 
     bool unloadPlugin(int index, HWND nppHandle);
 
@@ -97,7 +99,7 @@ public:
 	void runPluginCommand(const TCHAR *pluginName, int commandID);
 
     void addInMenuFromPMIndex(int i);
-	HMENU setMenu(HMENU hMenu, const TCHAR *menuName, bool enablePluginAdmin = false);
+	HMENU initMenu(HMENU hMenu, bool enablePluginAdmin = false);
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
 	bool removeShortcutByCmdID(int cmdID);
 
@@ -114,7 +116,7 @@ public:
 	bool allocateCmdID(int numberRequired, int *start);
 	bool inDynamicRange(int id) { return _dynamicIDAlloc.isInRange(id); }
 
-	bool allocateMarker(int numberRequired, int *start);
+	bool allocateMarker(int numberRequired, int* start);
 	generic_string getLoadedPluginNames() const;
 
 private:
@@ -129,16 +131,16 @@ private:
 	IDAllocator _markerAlloc;
 	bool _noMoreNotification = false;
 
-	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature)
-	{
+	int loadPluginFromPath(const TCHAR* pluginFilePath);
+
+	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature) {
 		generic_string msg = pluginName;
 		msg += TEXT(" just crashed in\r");
 		msg += funcSignature;
 		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Crash"), MB_OK|MB_ICONSTOP);
 	}
 
-	void pluginExceptionAlert(const TCHAR *pluginName, const std::exception& e)
-	{
+	void pluginExceptionAlert(const TCHAR *pluginName, const std::exception& e) {
 		generic_string msg = TEXT("An exception occurred due to plugin: ");
 		msg += pluginName;
 		msg += TEXT("\r\n\r\nException reason: ");
@@ -147,8 +149,7 @@ private:
 		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Exception"), MB_OK);
 	}
 
-	bool isInLoadedDlls(const TCHAR *fn) const
-	{
+	bool isInLoadedDlls(const TCHAR *fn) const {
 		for (size_t i = 0; i < _loadedDlls.size(); ++i)
 			if (generic_stricmp(fn, _loadedDlls[i]._fileName.c_str()) == 0)
 				return true;
@@ -159,10 +160,3 @@ private:
 		_loadedDlls.push_back(LoadedDllInfo(fullPath, fn));
 	}
 };
-
-#define EXT_LEXER_DECL __stdcall
-
-// External Lexer function definitions...
-typedef int (EXT_LEXER_DECL *GetLexerCountFn)();
-typedef void (EXT_LEXER_DECL *GetLexerNameFn)(unsigned int Index, char *name, int buflength);
-typedef void (EXT_LEXER_DECL *GetLexerStatusTextFn)(unsigned int Index, TCHAR *desc, int buflength);

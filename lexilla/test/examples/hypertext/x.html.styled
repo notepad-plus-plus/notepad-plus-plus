@@ -1,0 +1,13 @@
+{1}<html{8} {3}xmlns{8}={6}"http://www.w3.org/1999/xhtml"{1}>{0}
+{1}<script{8} {3}type{8}={6}"text/javascript"{1}>{40}
+{47}var{41} {46}b{41} {50}={41} {52}/abc/i{46}.test{50}({49}'abc'{50});{41}
+{49}'x\
+</t>'{41}
+{1}</script>{0}
+{1}<head>{0}
+    {1}<meta{8} {3}name{8}={6}"Date.Modified"{8} {3}content{8}={6}"20010515"{8} {11}/>{0}
+    {1}<title>{0}SinkWorld - Portability{1}</title>{0}
+    {2}<unknown>{0}SinkWorld - Portability{2}</unknown>{0}
+    {1}<img{8} {3}src{8}={6}"SciTEIco.png"{8} {3}height{8}={5}64{8} {3}width{8}={5}64{8} {11}/>{0}
+    {1}<link{8} {3}rel{8}={6}"stylesheet"{8} {3}type{8}={6}"text/css"{8} {3}href{8}={6}"SW.css"{1}>{0}
+{1}</head>{0}

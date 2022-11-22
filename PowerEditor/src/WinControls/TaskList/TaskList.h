@@ -51,7 +51,7 @@ public:
 
 protected:
 
-	WNDPROC _defaultProc;
+	WNDPROC _defaultProc = nullptr;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
@@ -62,6 +62,6 @@ protected:
 	HFONT _hFontSelected = nullptr;
 	int _nbItem = 0;
 	int _currentIndex = 0;
-	RECT _rc;
+	RECT _rc = {};
 };
 

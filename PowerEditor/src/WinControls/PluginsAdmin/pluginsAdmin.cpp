@@ -22,7 +22,6 @@
 #include <cctype>
 #include <shlobj.h>
 #include <shlwapi.h>
-#include <uxtheme.h>
 #include "pluginsAdmin.h"
 #include "ScintillaEditView.h"
 #include "localization.h"
@@ -36,134 +35,7 @@
 using namespace std;
 using nlohmann::json;
 
-Version::Version(const generic_string& versionStr)
-{
-	try {
-		auto ss = tokenizeString(versionStr, '.');
 
-		if (ss.size() > 4)
-			throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
-		
-		int i = 0;
-		vector<unsigned long*> v = {&_major, &_minor, &_patch, &_build};
-		for (const auto& s : ss)
-		{
-			if (!isNumber(s))
-			{
-				throw generic_string(TEXT("The string to parse is not a valid version format. Let's make it default value in catch block."));
-			}
-			*(v[i]) = std::stoi(s);
-
-			++i;
-		}
-	}
-	catch (...)
-	{
-		_major = 0;
-		_minor = 0;
-		_patch = 0;
-		_build = 0;
-	}
-}
-
-void Version::setVersionFrom(const generic_string& filePath)
-{
-	if (!filePath.empty() && ::PathFileExists(filePath.c_str()))
-	{
-		DWORD handle = 0;
-		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &handle);
-
-		if (bufferSize <= 0)
-			return;
-
-		unsigned char* buffer = new unsigned char[bufferSize];
-		::GetFileVersionInfo(filePath.c_str(), handle, bufferSize, buffer);
-
-		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
-		UINT cbFileInfo = 0;
-		VerQueryValue(buffer, TEXT("\\"), reinterpret_cast<LPVOID*>(&lpFileInfo), &cbFileInfo);
-		if (cbFileInfo)
-		{
-			_major = (lpFileInfo->dwFileVersionMS & 0xFFFF0000) >> 16;
-			_minor = lpFileInfo->dwFileVersionMS & 0x0000FFFF;
-			_patch = (lpFileInfo->dwFileVersionLS & 0xFFFF0000) >> 16;
-			_build = lpFileInfo->dwFileVersionLS & 0x0000FFFF;
-		}
-		delete[] buffer;
-	}
-}
-
-generic_string Version::toString()
-{
-	if (_build == 0 && _patch == 0 && _minor == 0 && _major == 0) // ""
-	{
-		return TEXT("");
-	}	
-	else if (_build == 0 && _patch == 0 && _minor == 0) // "major"
-	{
-		return std::to_wstring(_major);
-	}
-	else if (_build == 0 && _patch == 0) // "major.minor"
-	{
-		std::wstring v = std::to_wstring(_major);
-		v += TEXT(".");
-		v += std::to_wstring(_minor);
-		return v;
-	}
-	else if (_build == 0) // "major.minor.patch"
-	{
-		std::wstring v = std::to_wstring(_major);
-		v += TEXT(".");
-		v += std::to_wstring(_minor);
-		v += TEXT(".");
-		v += std::to_wstring(_patch);
-		return v;
-	}
-
-	// "major.minor.patch.build"
-	std::wstring ver = std::to_wstring(_major);
-	ver += TEXT(".");
-	ver += std::to_wstring(_minor);
-	ver += TEXT(".");
-	ver += std::to_wstring(_patch);
-	ver += TEXT(".");
-	ver += std::to_wstring(_build);
-
-	return ver;
-}
-
-int Version::compareTo(const Version& v2c) const
-{
-	if (_major > v2c._major)
-		return 1;
-	else if (_major < v2c._major)
-		return -1;
-	else // (_major == v2c._major)
-	{
-		if (_minor > v2c._minor)
-			return 1;
-		else if (_minor < v2c._minor)
-			return -1;
-		else // (_minor == v2c._minor)
-		{
-			if (_patch > v2c._patch)
-				return 1;
-			else if (_patch < v2c._patch)
-				return -1;
-			else // (_patch == v2c._patch)
-			{
-				if (_build > v2c._build)
-					return 1;
-				else if (_build < v2c._build)
-					return -1;
-				else // (_build == v2c._build)
-				{
-					return 0;
-				}
-			}
-		}
-	}
-}
 
 generic_string PluginUpdateInfo::describe()
 {
@@ -203,9 +75,9 @@ bool findStrNoCase(const generic_string & strHaystack, const generic_string & st
 	return (it != strHaystack.end());
 }
 
-bool PluginsAdminDlg::isFoundInAvailableListFromIndex(int index, const generic_string& str2search, bool inWhichPart) const
+bool PluginsAdminDlg::isFoundInListFromIndex(const PluginViewList& inWhichList, int index, const generic_string& str2search, bool inWhichPart) const
 {
-	PluginUpdateInfo* pui = _availableList.getPluginInfoFromUiIndex(index);
+	PluginUpdateInfo* pui = inWhichList.getPluginInfoFromUiIndex(index);
 	generic_string searchIn;
 	if (inWhichPart == _inNames)
 		searchIn = pui->_displayName;
@@ -215,17 +87,17 @@ bool PluginsAdminDlg::isFoundInAvailableListFromIndex(int index, const generic_s
 	return (findStrNoCase(searchIn, str2search));
 }
 
-long PluginsAdminDlg::searchFromCurrentSel(const generic_string& str2search, bool inWhichPart, bool isNextMode) const
+long PluginsAdminDlg::searchFromCurrentSel(const PluginViewList& inWhichList, const generic_string& str2search, bool inWhichPart, bool isNextMode) const
 {
 	// search from curent selected item or from the beginning
-	long currentIndex = _availableList.getSelectedIndex();
-	int nbItem = static_cast<int>(_availableList.nbItem());
+	long currentIndex = inWhichList.getSelectedIndex();
+	int nbItem = static_cast<int>(inWhichList.nbItem());
 	if (currentIndex == -1)
 	{
 		// no selection, let's search from 0 to the end
 		for (int i = 0; i < nbItem; ++i)
 		{
-			if (isFoundInAvailableListFromIndex(i, str2search, inWhichPart))
+			if (isFoundInListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 	}
@@ -234,14 +106,14 @@ long PluginsAdminDlg::searchFromCurrentSel(const generic_string& str2search, boo
 		// from current position to the end
 		for (int i = currentIndex + (isNextMode ? 1 : 0); i < nbItem; ++i)
 		{
-			if (isFoundInAvailableListFromIndex(i, str2search, inWhichPart))
+			if (isFoundInListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 
 		// from to begining to current position
 		for (int i = 0; i < currentIndex + (isNextMode ? 1 : 0); ++i)
 		{
-			if (isFoundInAvailableListFromIndex(i, str2search, inWhichPart))
+			if (isFoundInListFromIndex(inWhichList, i, str2search, inWhichPart))
 				return i;
 		}
 	}
@@ -258,45 +130,52 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT rect;
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
-	int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(13);
+	NppDarkMode::subclassTabControl(_tab.getHSelf());
+	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+
+	int tabDpiDynamicalHeight = dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
 	const TCHAR *available = TEXT("Available");
 	const TCHAR *updates = TEXT("Updates");
 	const TCHAR *installed = TEXT("Installed");
+	const TCHAR *incompatible = TEXT("Incompatible");
 
 	_tab.insertAtEnd(available);
 	_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
+	_tab.insertAtEnd(incompatible);
 
-	rect.bottom -= 100;
+	rect.bottom -= dpiManager.scaleY(105);
 	_tab.reSizeTo(rect);
 	_tab.display();
 
-	const long marge = 10;
-
-	const int topMarge = 42;
+	const long marge = dpiManager.scaleX(10);
+	const int topMarge = dpiManager.scaleY(42);
 
 	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_STATIC);
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
-	researchLabelRect.left = rect.left + 10;
-	researchLabelRect.top = topMarge + 4;
+	researchLabelRect.left = rect.left + marge;
+	long leftCusor = researchLabelRect.left + researchLabelRect.right;
+	researchLabelRect.top = topMarge + dpiManager.scaleY(4);
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
 
 	HWND hResearchEdit = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT);
 	RECT researchEditRect;
 	::GetClientRect(hResearchEdit, &researchEditRect);
-	researchEditRect.left = researchLabelRect.right + marge;
-	researchEditRect.top = topMarge + 2;
+	researchEditRect.left = leftCusor;
+	leftCusor += researchEditRect.right;
+	researchEditRect.top = topMarge + dpiManager.scaleX(1);
 	::MoveWindow(hResearchEdit, researchEditRect.left, researchEditRect.top, researchEditRect.right, researchEditRect.bottom, TRUE);
 	::InvalidateRect(hResearchEdit, nullptr, TRUE);
 
 	HWND hNextButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_NEXT);
 	RECT researchNextRect;
 	::GetClientRect(hNextButton, &researchNextRect);
-	researchNextRect.left = researchEditRect.left + researchEditRect.right + marge;
+	researchNextRect.left = leftCusor + marge;
+	leftCusor = researchNextRect.left + researchNextRect.right;
 	researchNextRect.top = topMarge;
 	::MoveWindow(hNextButton, researchNextRect.left, researchNextRect.top, researchNextRect.right, researchNextRect.bottom, TRUE);
 	::InvalidateRect(hNextButton, nullptr, TRUE);
@@ -318,14 +197,14 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
 	::InvalidateRect(hActionButton, nullptr, TRUE);
 
-	long actionZoneHeight = 50;
+	long actionZoneHeight = dpiManager.scaleY(50);
 	rect.top += actionZoneHeight;
 	rect.bottom -= actionZoneHeight;
 
 	RECT listRect = rect;
 	RECT descRect = rect;
 
-	long descHeight = rect.bottom / 3 - marge * 2;
+	long descHeight = rect.bottom / 3 - marge;
 	long listHeight = (rect.bottom / 3) * 2 - marge * 3;
 
 	listRect.top += marge;
@@ -342,31 +221,45 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 	generic_string pluginStr = pNativeSpeaker->getAttrNameStr(TEXT("Plugin"), "PluginAdmin", "Plugin");
 	generic_string vesionStr = pNativeSpeaker->getAttrNameStr(TEXT("Version"), "PluginAdmin", "Version");
-	//generic_string stabilityStr = pNativeSpeaker->getAttrNameStr(TEXT("Stability"), "PluginAdmin", "Stability");
+
+	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
+	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
 
 	_availableList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
 	_availableList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	//_availableList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
-
 	_availableList.initView(_hInst, _hSelf);
+	ListView_SetBkColor(_availableList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_availableList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_availableList.getViewHwnd(), fgColor);
 	_availableList.reSizeView(listRect);
 	
 	_updateList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
 	_updateList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	//_updateList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
-
 	_updateList.initView(_hInst, _hSelf);
+	ListView_SetBkColor(_updateList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_updateList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_updateList.getViewHwnd(), fgColor);
 	_updateList.reSizeView(listRect);
 
 	_installedList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
 	_installedList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	//_installedList.addColumn(columnInfo(stabilityStr, nppParam._dpiManager.scaleX(70)));
 	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
-
 	_installedList.initView(_hInst, _hSelf);
+	ListView_SetBkColor(_installedList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_installedList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_installedList.getViewHwnd(), fgColor);
 	_installedList.reSizeView(listRect);
+
+	_incompatibleList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
+	_incompatibleList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
+	_incompatibleList.initView(_hInst, _hSelf);
+	ListView_SetBkColor(_incompatibleList.getViewHwnd(), bgColor);
+	ListView_SetTextBkColor(_incompatibleList.getViewHwnd(), bgColor);
+	ListView_SetTextColor(_incompatibleList.getViewHwnd(), fgColor);
+	_incompatibleList.reSizeView(listRect);
+
 
 	HWND hDesc = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
 	::MoveWindow(hDesc, descRect.left, descRect.top, descRect.right, descRect.bottom, TRUE);
@@ -374,9 +267,14 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	switchDialog(0);
 
-	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
-	if (enableDlgTheme)
-		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+	NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+
+	HWND hPluginListVersionNumber = ::GetDlgItem(_hSelf, IDC_PLUGINLIST_VERSIONNUMBER_STATIC);
+	::SetWindowText(hPluginListVersionNumber, _pluginListVersion.c_str());
+
+	_repoLink.init(_hInst, _hSelf);
+	_repoLink.create(::GetDlgItem(_hSelf, IDC_PLUGINLIST_ADDR), TEXT("https://github.com/notepad-plus-plus/nppPluginList"));
 
 	goToCenter();
 }
@@ -413,18 +311,18 @@ PluginsAdminDlg::PluginsAdminDlg()
 	// Get wingup path
 	NppParameters& nppParameters = NppParameters::getInstance();
 	_updaterDir = nppParameters.getNppPath();
-	PathAppend(_updaterDir, TEXT("updater"));
+	pathAppend(_updaterDir, TEXT("updater"));
 	_updaterFullPath = _updaterDir;
-	PathAppend(_updaterFullPath, TEXT("gup.exe"));
+	pathAppend(_updaterFullPath, TEXT("gup.exe"));
 
 	// get plugin-list path
 	_pluginListFullPath = nppParameters.getPluginConfDir();
 
 #ifdef DEBUG // if not debug, then it's release
 	// load from nppPluginList.json instead of nppPluginList.dll
-	PathAppend(_pluginListFullPath, TEXT("nppPluginList.json"));
+	pathAppend(_pluginListFullPath, TEXT("nppPluginList.json"));
 #else //RELEASE
-	PathAppend(_pluginListFullPath, TEXT("nppPluginList.dll"));
+	pathAppend(_pluginListFullPath, TEXT("nppPluginList.dll"));
 #endif
 }
 
@@ -575,6 +473,7 @@ void PluginsAdminDlg::changeColumnName(COLUMN_TYPE index, const TCHAR *name2chan
 	_availableList.changeColumnName(index, name2change);
 	_updateList.changeColumnName(index, name2change);
 	_installedList.changeColumnName(index, name2change);
+	_incompatibleList.changeColumnName(index, name2change);
 }
 
 void PluginViewList::changeColumnName(COLUMN_TYPE index, const TCHAR *name2change)
@@ -614,19 +513,96 @@ void PluginViewList::pushBack(PluginUpdateInfo* pi)
 	values2Add.push_back(pi->_displayName);
 	Version v = pi->_version;
 	values2Add.push_back(v.toString());
-	//values2Add.push_back(TEXT("Yes"));
 
 	// add in order
 	size_t i = _ui.findAlphabeticalOrderPos(pi->_displayName, _sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? _ui.sortEncrease : _ui.sortDecrease);
 	_ui.addLine(values2Add, reinterpret_cast<LPARAM>(pi), static_cast<int>(i));
 }
 
-bool loadFromJson(PluginViewList & pl, const json& j)
+// intervalVerStr format:
+// 
+// "6.9"          : exact version 6.9
+// "[4.2,6.6.6]"  : from version 4.2 to 6.6.6 inclusive
+// "[8.3,]"       : any version from 8.3 to the latest one
+// "[,8.2.1]"     : 8.2.1 and any previous version
+//
+std::pair<Version, Version> getIntervalVersions(generic_string intervalVerStr)
+{
+	std::pair<Version, Version> result;
+
+	if (intervalVerStr.empty())
+		return result;
+
+	const size_t indexEnd = intervalVerStr.length() - 1;
+	if (intervalVerStr[0] == '[' && intervalVerStr[indexEnd] == ']') // interval versions format
+	{
+		generic_string cleanIntervalVerStr = intervalVerStr.substr(1, indexEnd - 1);
+		vector<generic_string> versionVect;
+		cutStringBy(cleanIntervalVerStr.c_str(), versionVect, ',', true);
+		if (versionVect.size() == 2)
+		{
+			if (!versionVect[0].empty() && !versionVect[1].empty()) // "[4.2,6.6.6]" : from version 4.2 to 6.6.6 inclusive
+			{
+				result.first = Version(versionVect[0]);
+				result.second = Version(versionVect[1]);
+			}
+			else if (!versionVect[0].empty() && versionVect[1].empty()) // "[8.3,]" : any version from 8.3 to the latest one
+			{
+				result.first = Version(versionVect[0]);
+			}
+			else if (versionVect[0].empty() && !versionVect[1].empty()) // "[,8.2.1]" : 8.2.1 and any previous version
+			{
+				result.second = Version(versionVect[1]);
+			}
+		}
+	}
+	else if (intervalVerStr[0] != '[' && intervalVerStr[indexEnd] != ']') // one version format -> "6.9" : exact version 6.9
+	{
+		result.first = Version(intervalVerStr);
+		result.second = Version(intervalVerStr);
+	}
+	else // invalid format
+	{
+		// do nothing
+	}
+
+	return result;
+}
+
+// twoIntervalVerStr format:
+// "[4.2,6.6.6][6.4,8.9]"  : The 1st interval from version 4.2 to 6.6.6 inclusive, the 2nd interval from version 6.4 to 8.9
+// "[8.3,][6.9,6.9]"       : The 1st interval any version from 8.3 to the latest version, the 2nd interval present only version 6.9
+// "[,8.2.1][4.4,]"        : The 1st interval 8.2.1 and any previous version, , the 2nd interval any version from 4.4 to the latest version
+std::pair<std::pair<Version, Version>, std::pair<Version, Version>> getTwoIntervalVersions(generic_string twoIntervalVerStr)
+{
+	std::pair<std::pair<Version, Version>, std::pair<Version, Version>> r;
+	generic_string sep = TEXT("][");
+	generic_string::size_type pos = twoIntervalVerStr.find(sep, 0);
+	if (pos == string::npos)
+		return r;
+
+	generic_string intervalStr1 = twoIntervalVerStr.substr(0, pos + 1);
+	generic_string intervalStr2 = twoIntervalVerStr.substr(pos + 1, twoIntervalVerStr.length() - pos + 1);
+
+	r.first = getIntervalVersions(intervalStr1);
+	r.second = getIntervalVersions(intervalStr2);
+
+	return r;
+}
+
+bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, wstring& verStr, const json& j)
 {
 	if (j.empty())
 		return false;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+	json jVerStr = j["version"];
+	if (jVerStr.empty() || jVerStr.type() != json::value_t::string)
+		return false;
+
+	string s = jVerStr.get<std::string>();
+	verStr = wmc.char2wchar(s.c_str(), CP_ACP);
 
 	json jArray = j["npp-plugins"];
 	if (jArray.empty() || jArray.type() != json::value_t::array)
@@ -635,7 +611,6 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 	for (const auto& i : jArray)
 	{
 		try {
-			//std::unique_ptr<PluginUpdateInfo*> pi = make_unique<PluginUpdateInfo*>();
 			PluginUpdateInfo* pi = new PluginUpdateInfo();
 
 			string valStr = i.at("folder-name").get<std::string>();
@@ -653,21 +628,61 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 			valStr = i.at("id").get<std::string>();
 			pi->_id = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
-			valStr = i.at("version").get<std::string>();
-			generic_string newValStr(valStr.begin(), valStr.end());
-			pi->_version = Version(newValStr);
+			try {
+				valStr = i.at("version").get<std::string>();
+				generic_string newValStr(valStr.begin(), valStr.end());
+				pi->_version = Version(newValStr);
 
+				if (i.contains("npp-compatible-versions"))
+				{
+					json jNppCompatibleVer = i["npp-compatible-versions"];
+
+					string versionsStr = jNppCompatibleVer.get<std::string>();
+					generic_string nppCompatibleVersionStr(versionsStr.begin(), versionsStr.end());
+					pi->_nppCompatibleVersions = getIntervalVersions(nppCompatibleVersionStr);
+				}
+
+				if (i.contains("old-versions-compatibility"))
+				{
+					json jOldVerCompatibility = i["old-versions-compatibility"];
+
+					string versionsStr = jOldVerCompatibility.get<std::string>();
+					generic_string oldVerCompatibilityStr(versionsStr.begin(), versionsStr.end());
+					pi->_oldVersionCompatibility = getTwoIntervalVersions(oldVerCompatibilityStr);
+				}
+			}
+			catch (const wstring& s)
+			{
+				wstring msg = pi->_displayName;
+				msg += L": ";
+				throw msg + s;
+			}
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
 			valStr = i.at("homepage").get<std::string>();
 			pi->_homepage = wmc.char2wchar(valStr.c_str(), CP_ACP);
 
-
-			pl.pushBack(pi);
+			pl.push_back(pi);
 		}
-		catch (...) // Every field is mandatory. If one of property is missing, an exception is thrown then this plugin will be ignored
+#ifdef DEBUG
+		catch (const wstring& s)
 		{
+			::MessageBox(NULL, s.c_str(), TEXT("Exception caught in: PluginsAdmin loadFromJson()"), MB_ICONERROR);
+			continue;
+		}
+
+		catch (std::exception& e)
+		{
+			::MessageBoxA(NULL, e.what(), "Exception caught in: PluginsAdmin loadFromJson()", MB_ICONERROR);
+			continue;
+		}
+#endif
+		catch (...) // If one of mandatory properties is missing or with the incorrect format, an exception is thrown then this plugin will be ignored
+		{
+#ifdef DEBUG
+			::MessageBoxA(NULL, "An unknown exception is just caught", "Unknown Exception", MB_OK);
+#endif
 			continue; 
 		}
 	}
@@ -692,7 +707,7 @@ PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const gen
 typedef const char * (__cdecl * PFUNCGETPLUGINLIST)();
 
 
-bool PluginsAdminDlg::isValide()
+bool PluginsAdminDlg::initFromJson()
 {
 	// GUP.exe doesn't work under XP
 	winVer winVersion = (NppParameters::getInstance()).getWinVersion();
@@ -711,44 +726,33 @@ bool PluginsAdminDlg::isValide()
 		return false;
 	}
 
+	json j;
+
 #ifdef DEBUG // if not debug, then it's release
 	
-	return true;
+	// load from nppPluginList.json instead of nppPluginList.dll
+#ifdef __MINGW32__
+	ifstream nppPluginListJson(wstring2string(_pluginListFullPath, CP_UTF8));
+#else // MSVC supports UTF-16 path names in file stream constructors 
+	ifstream nppPluginListJson(_pluginListFullPath);
+#endif
+	nppPluginListJson >> j;
 
 #else //RELEASE
 
 	// check the signature on default location : %APPDATA%\Notepad++\plugins\config\pl\nppPluginList.dll or NPP_INST_DIR\plugins\config\pl\nppPluginList.dll
 	
-	SecurityGard securityGard;
-	bool isOK = securityGard.checkModule(_pluginListFullPath, nm_pluginList);
+	SecurityGuard securityGuard;
+	bool isSecured = securityGuard.checkModule(_pluginListFullPath, nm_pluginList);
 
-	if (!isOK)
-		return isOK;
+	if (!isSecured)
+		return false;
 
-	isOK = securityGard.checkModule(_updaterFullPath, nm_gup);
-	return isOK;
-#endif
-}
+	isSecured = securityGuard.checkModule(_updaterFullPath, nm_gup);
 
-bool PluginsAdminDlg::updateListAndLoadFromJson()
-{
-	HMODULE hLib = NULL;
-
-	try
+	if (isSecured)
 	{
-		if (!isValide())
-			return false;
-
-		json j;
-
-#ifdef DEBUG // if not debug, then it's release
-
-		// load from nppPluginList.json instead of nppPluginList.dll
-		ifstream nppPluginListJson(_pluginListFullPath);
-		nppPluginListJson >> j;
-
-#else //RELEASE
-
+		HMODULE hLib = NULL;
 		hLib = ::LoadLibraryEx(_pluginListFullPath.c_str(), 0, LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE);
 
 		if (!hLib)
@@ -783,39 +787,83 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 
 		delete[] buffer;
 
-#endif
-		// if absent then download it
-
-
-		// check the update for nppPluginList.json
-
-
-		// download update if present
-
-
-		// load pl.json
-		// 
-
-		loadFromJson(_availableList, j);
-
-		// initialize update list view
-		checkUpdates();
-
-		// initialize installed list view
-		loadFromPluginInfos();
-
 		::FreeLibrary(hLib);
-		return true;
 	}
-	catch (...)
-	{
-		// whichever exception
-		if (hLib)
-			::FreeLibrary(hLib);
-		return false;
-	}
+#endif
+
+	
+	return loadFromJson(_availableList._list, _pluginListVersion, j);
 }
 
+bool PluginsAdminDlg::updateList()
+{
+	// initialize the primary view with the plugin list loaded from json 
+	initAvailablePluginsViewFromList();
+
+	// initialize update list view
+	checkUpdates();
+
+	// initialize incompatible list view
+	initIncompatiblePluginList();
+
+	// initialize installed list view
+	loadFromPluginInfos();
+
+	return true;
+}
+
+
+bool PluginsAdminDlg::initAvailablePluginsViewFromList()
+{
+	TCHAR nppFullPathName[MAX_PATH];
+	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
+
+	Version nppVer;
+	nppVer.setVersionFrom(nppFullPathName);
+
+	for (const auto& i : _availableList._list)
+	{
+		bool isCompatible = nppVer.isCompatibleTo(i->_nppCompatibleVersions.first, i->_nppCompatibleVersions.second);
+
+		if (isCompatible)
+		{
+			vector<generic_string> values2Add;
+			values2Add.push_back(i->_displayName);
+			Version v = i->_version;
+			values2Add.push_back(v.toString());
+
+			// add in order
+			size_t j = _availableList._ui.findAlphabeticalOrderPos(i->_displayName, _availableList._sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? ListView::sortEncrease : ListView::sortDecrease);
+			_availableList._ui.addLine(values2Add, reinterpret_cast<LPARAM>(i), static_cast<int>(j));
+		}
+	}
+
+	return true;
+}
+
+
+bool PluginsAdminDlg::initIncompatiblePluginList()
+{
+	TCHAR nppFullPathName[MAX_PATH];
+	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
+
+	Version nppVer;
+	nppVer.setVersionFrom(nppFullPathName);
+
+	for (const auto& i : _incompatibleList._list)
+	{
+		vector<generic_string> values2Add;
+		values2Add.push_back(i->_displayName);
+		Version v = i->_version;
+		values2Add.push_back(v.toString());
+
+		// add in order
+		size_t j = _incompatibleList._ui.findAlphabeticalOrderPos(i->_displayName, _incompatibleList._sortType == DISPLAY_NAME_ALPHABET_ENCREASE ? ListView::sortEncrease : ListView::sortDecrease);
+		_incompatibleList._ui.addLine(values2Add, reinterpret_cast<LPARAM>(i), static_cast<int>(j));
+	}
+
+	return true;
+}
 
 bool PluginsAdminDlg::loadFromPluginInfos()
 {
@@ -858,6 +906,27 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 			{
 				PluginUpdateInfo* pui2 = new PluginUpdateInfo(*foundInfo);
 				_updateList.pushBack(pui2);
+			}
+		}
+	}
+
+	// Search from unloaded incompatible plugins
+	for (size_t j = 0, nb = _incompatibleList.nbItem(); j < nb; j++)
+	{
+		PluginUpdateInfo* incompatiblePluginInfo = _incompatibleList.getPluginInfoFromUiIndex(j);
+		int listIndex;
+		PluginUpdateInfo* foundInfoOfAvailable = _availableList.findPluginInfoFromFolderName(incompatiblePluginInfo->_folderName, listIndex);
+
+		if (foundInfoOfAvailable)
+		{
+			// if the incompatible plugin version is smaller than the one on the available list, put it in the update list
+			if (foundInfoOfAvailable->_version > incompatiblePluginInfo->_version)
+			{
+				// Hide it from the available list
+				_availableList.hideFromListIndex(listIndex);
+
+				PluginUpdateInfo* pui = new PluginUpdateInfo(*foundInfoOfAvailable);
+				_updateList.pushBack(pui);
 			}
 		}
 	}
@@ -1003,14 +1072,36 @@ bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 	if (lstrlen(txt2search) < 2)
 		return false;
 
-	long foundIndex = searchInNamesFromCurrentSel(txt2search, isNextMode);
+	HWND tabHandle = _tab.getHSelf();
+	int inWhichTab = int(::SendMessage(tabHandle, TCM_GETCURSEL, 0, 0));
+
+	const PluginViewList* inWhichList = nullptr;
+	switch (inWhichTab)
+	{
+	case 3:
+		inWhichList = &_incompatibleList;
+		break;
+	case 2:
+		inWhichList = &_installedList;
+		break;
+	case 1:
+		inWhichList = &_updateList;
+		break;
+	case 0:
+	default:
+		inWhichList = &_availableList;
+		break;
+	}
+
+
+	long foundIndex = searchInNamesFromCurrentSel(*inWhichList, txt2search, isNextMode);
 	if (foundIndex == -1)
-		foundIndex = searchInDescsFromCurrentSel(txt2search, isNextMode);
+		foundIndex = searchInDescsFromCurrentSel(*inWhichList, txt2search, isNextMode);
 
 	if (foundIndex == -1)
 		return false;
 
-	_availableList.setSelection(foundIndex);
+	inWhichList->setSelection(foundIndex);
 
 	return true;
 }
@@ -1018,7 +1109,7 @@ bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 void PluginsAdminDlg::switchDialog(int indexToSwitch)
 {
 	generic_string desc;
-	bool showAvailable, showUpdate, showInstalled;
+	bool showAvailable, showUpdate, showInstalled, showIncompatibile;
 	switch (indexToSwitch)
 	{
 		case 0: // available plugins
@@ -1026,6 +1117,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			showAvailable = true;
 			showUpdate = false;
 			showInstalled = false;
+			showIncompatibile = false;
 
 			long infoIndex = _availableList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_availableList.nbItem()))
@@ -1038,6 +1130,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			showAvailable = false;
 			showUpdate = true;
 			showInstalled = false;
+			showIncompatibile = false;
 			
 			long infoIndex = _updateList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_updateList.nbItem()))
@@ -1050,10 +1143,24 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			showAvailable = false;
 			showUpdate = false;
 			showInstalled = true;
+			showIncompatibile = false;
 
 			long infoIndex = _installedList.getSelectedIndex();
 			if (infoIndex != -1 && infoIndex < static_cast<long>(_installedList.nbItem()))
 				desc = _installedList.getPluginInfoFromUiIndex(infoIndex)->describe();
+		}
+		break;
+
+		case 3: // incompability plugins
+		{
+			showAvailable = false;
+			showUpdate = false;
+			showInstalled = false;
+			showIncompatibile = true;
+
+			long infoIndex = _incompatibleList.getSelectedIndex();
+			if (infoIndex != -1 && infoIndex < static_cast<long>(_incompatibleList.nbItem()))
+				desc = _incompatibleList.getPluginInfoFromUiIndex(infoIndex)->_description;
 		}
 		break;
 
@@ -1064,6 +1171,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	_availableList.displayView(showAvailable);
 	_updateList.displayView(showUpdate);
 	_installedList.displayView(showInstalled);
+	_incompatibleList.displayView(showIncompatibile);
 
 	::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 
@@ -1096,12 +1204,57 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	::EnableWindow(hRemoveButton, showInstalled);
 }
 
-INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-        case WM_INITDIALOG :
+		case WM_CTLCOLOREDIT:
 		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				HWND hwnd = reinterpret_cast<HWND>(lParam);
+				if (hwnd == ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT))
+				{
+					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+				}
+				else
+				{
+					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				}
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -1121,8 +1274,12 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			switch (wParam)
 			{
-				case IDCANCEL :
-				case IDOK :
+				case IDOK:
+					if (::GetFocus() == ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT))
+						::PostMessage(_hSelf, WM_NEXTDLGCTL, 0, 0L);
+					return TRUE;
+
+				case IDCANCEL:
 					display(false);
 					return TRUE;
 
@@ -1164,7 +1321,8 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			}
 			else if (pnmh->hwndFrom == _availableList.getViewHwnd() || 
                      pnmh->hwndFrom == _updateList.getViewHwnd() ||
-                     pnmh->hwndFrom == _installedList.getViewHwnd())
+                     pnmh->hwndFrom == _installedList.getViewHwnd() ||
+                     pnmh->hwndFrom == _incompatibleList.getViewHwnd())
 			{
 				PluginViewList* pViewList;
 				int buttonID;
@@ -1179,10 +1337,15 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					pViewList = &_updateList;
 					buttonID = IDC_PLUGINADM_UPDATE;
 				}
-				else // pnmh->hwndFrom == _installedList.getViewHwnd()
+				else if (pnmh->hwndFrom == _installedList.getViewHwnd())
 				{
 					pViewList = &_installedList;
 					buttonID = IDC_PLUGINADM_REMOVE;
+				}
+				else // pnmh->hwndFrom == _incompatibleList.getViewHwnd()
+				{
+					pViewList = &_incompatibleList;
+					buttonID = 0;
 				}
 
 				LPNMLISTVIEW pnmv = (LPNMLISTVIEW)lParam;
@@ -1194,16 +1357,19 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if ((pnmv->uNewState & LVIS_STATEIMAGEMASK) == INDEXTOSTATEIMAGEMASK(2) || // checked
 							(pnmv->uNewState & LVIS_STATEIMAGEMASK) == INDEXTOSTATEIMAGEMASK(1))   // unchecked
 						{
-							HWND hButton = ::GetDlgItem(_hSelf, buttonID);
-							vector<size_t> checkedArray = pViewList->getCheckedIndexes();
-							bool showButton = checkedArray.size() > 0;
+							if (buttonID)
+							{
+								HWND hButton = ::GetDlgItem(_hSelf, buttonID);
+								vector<size_t> checkedArray = pViewList->getCheckedIndexes();
+								bool showButton = checkedArray.size() > 0;
 
-							::EnableWindow(hButton, showButton);
+								::EnableWindow(hButton, showButton);
+							}
 						}
 						else if (pnmv->uNewState & LVIS_SELECTED)
 						{
 							PluginUpdateInfo* pui = pViewList->getPluginInfoFromUiIndex(pnmv->iItem);
-							generic_string desc = pui->describe();
+							generic_string desc = buttonID ? pui->describe() : pui->_description;
 							::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 						}
 					}
@@ -1220,4 +1386,3 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	}
 	return FALSE;
 }
-

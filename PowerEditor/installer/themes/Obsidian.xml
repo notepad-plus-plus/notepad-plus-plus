@@ -322,7 +322,6 @@ Notepad++ Custom Style
             <WordsStyle name="IDENTIFIER" styleID="12" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="java" desc="Java" ext="">
-            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="11" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="TYPE WORD" styleID="16" fgColor="678CB1" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
@@ -560,6 +559,7 @@ Notepad++ Custom Style
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="13" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
             <WordsStyle name="F STRING" styleID="16" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F CHARACTER" styleID="17" fgColor="FF8409" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F TRIPLE" styleID="18" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
@@ -788,6 +788,7 @@ Notepad++ Custom Style
         <WidgetStyle name="Edge colour" styleID="0" fgColor="445257" bgColor="112435" fontSize="" fontStyle="0" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="81969A" bgColor="3F4B4E" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="3F4B4E" />
+        <WidgetStyle name="Change History margin" styleID="0" bgColor="3F4B4E" />
         <WidgetStyle name="Fold" styleID="0" fgColor="6A8088" bgColor="2F383C" fontSize="" fontStyle="0" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="6A8088" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="343F41" bgColor="343F41" fontSize="" fontStyle="0" />
@@ -807,5 +808,6 @@ Notepad++ Custom Style
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" bgColor="0080FF" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
+        <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
     </GlobalStyles>
 </NotepadPlus>

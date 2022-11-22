@@ -15,10 +15,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
 #include "lesDlgs.h"
 #include "resource.h"
 #include "menuCmdID.h"
+#include "NppDarkMode.h"
 
 void ValueDlg::init(HINSTANCE hInst, HWND parent, int valueToSet, const TCHAR *text) 
 {
@@ -73,12 +73,14 @@ int ValueDlg::reSizeValueBox()
 	return newWidth - w;
 }
 
-INT_PTR CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+intptr_t CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			::SetDlgItemText(_hSelf, IDC_VALUE_STATIC, _name.c_str());
 			::SetDlgItemInt(_hSelf, IDC_VALUE_EDIT, _defaultValue, FALSE);
 
@@ -87,6 +89,52 @@ INT_PTR CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			int size = reSizeValueBox();
 			::MoveWindow(_hSelf, _p.x, _p.y, rc.right - rc.left + size, rc.bottom - rc.top, TRUE);
 			
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = {};
+				getClientRect(rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -112,16 +160,63 @@ INT_PTR CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		default :
 			return FALSE;
 	}
+	return FALSE;
 }
 
 
-
-INT_PTR CALLBACK ButtonDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+intptr_t CALLBACK ButtonDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = {};
+				getClientRect(rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
 
@@ -166,10 +261,8 @@ INT_PTR CALLBACK ButtonDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		default :
 			return FALSE;
 	}
+	return FALSE;
 }
-
-
-
 
 void ButtonDlg::doDialog(bool isRTL) 
 {

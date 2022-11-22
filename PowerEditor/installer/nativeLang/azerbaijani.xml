@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="Nizamlar"/>
                     <Item menuId="macro" name="Makro"/>
                     <Item menuId="run" name="İşə sal"/>
-                    <Item idName="Plugins" name="Plaginlər"/>
-                    <Item idName="Window" name="Pəncərə"/>
+                    <Item menuId="Plugins" name="Plaginlər"/>
+                    <Item menuId="Window" name="Pəncərə"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
@@ -266,14 +266,10 @@
                 <Item id="1604" name="Registeri nəzərə al"/>
                 <Item id="1605" name="Daimi ifadə"/>
                 <Item id="1606" name="Axtarışa davam et"/>
-                <Item id="1612" name="Yuxarı"/>
-                <Item id="1613" name="Aşağı"/>
                 <Item id="1614" name="Say"/>
                 <Item id="1615" name="Hamısını tap"/>
                 <Item id="1616" name="Sətiri seç"/>
-                <Item id="1617" name="Tapılanları seç"/>
                 <Item id="1618" name="Yeni axtarış üçün təmizlə"/>
-                <Item id="1621" name="İstiqamət"/>
                 <Item id="1611" name="Fərqli əvəz et :"/>
                 <Item id="1608" name="Əvəz et"/>
                 <Item id="1609" name="Hamısını əvəz et"/>
@@ -284,7 +280,6 @@
 			 	<Item id="1633" name="Təmizlə"/>
 			 	<Item id="1635" name="Açıq olan sənədlərdə hamısını əvəz et"/>
 			 	<Item id="1636" name="Açıq olan sənədlərdə hamısını axtar"/>
-			 	<Item id="1637" name="Filterlərdə tap"/>
 			 	<Item id="1654" name="Filterlər :"/>
 			 	<Item id="1655" name="Qovluq :"/>
 			 	<Item id="1656" name="Hamısını tap"/>

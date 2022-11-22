@@ -15,8 +15,8 @@
 					<Item menuId="tools" name="&amp;Aisinas"/>
 					<Item menuId="macro" name="Macrò"/>
 					<Item menuId="run" name="Executar"/>
-					<Item idName="Plugins" name="Ajustons"/>
-					<Item idName="Window" name="Fenèstra"/>
+					<Item menuId="Plugins" name="Ajustons"/>
+					<Item menuId="Window" name="Fenèstra"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
@@ -361,9 +361,7 @@
 				<Item id="1614" name="Comptar"/>
 				<Item id="1615" name="Recercar tot"/>
 				<Item id="1616" name="Marcar las linhas"/>
-				<Item id="1617" name="Estil dels elements trobats"/>
 				<Item id="1618" name="Voidar a cada recèrca"/>
-				<Item id="1621" name="Direccion"/>
 				<Item id="1611" name="Rem&amp;plaçar per :"/>
 				<Item id="1608" name="&amp;Remplaçar"/>
 				<Item id="1609" name="Remplaçar &amp;tot"/>
@@ -1025,11 +1023,11 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 		<ClipboardHistory>
 			<PanelTitle name="Istoric del quichapapièrs"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Cambiaire de documents"/>
 			<ColumnName name="Nom"/>
 			<ColumnExt name="Ext."/>
-		</DocSwitcher>
+		</DocList>
 		<AsciiInsertion>
 			<PanelTitle name="Panèl d'insercion ASCII"/>
 			<ColumnVal name="Valor"/>

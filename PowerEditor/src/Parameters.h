@@ -29,6 +29,9 @@
 #include "NppDarkMode.h"
 #include <assert.h>
 #include <tchar.h>
+#include <map>
+#include "ILexer.h"
+#include "Lexilla.h"
 
 #ifdef _WIN64
 
@@ -42,6 +45,8 @@
 #define ARCH_TYPE IMAGE_FILE_MACHINE_I386
 
 #endif
+
+#define CMD_INTERPRETER TEXT("%COMSPEC%")
 
 class NativeLangSpeaker;
 
@@ -113,6 +118,7 @@ const int LANG_INDEX_TYPE7 = 8;
 const int COPYDATA_PARAMS = 0;
 const int COPYDATA_FILENAMESA = 1;
 const int COPYDATA_FILENAMESW = 2;
+const int COPYDATA_FULL_CMDLINE = 3;
 
 #define PURE_LC_NONE	0
 #define PURE_LC_BOL	 1
@@ -127,55 +133,61 @@ const int COPYDATA_FILENAMESW = 2;
 #define ONEDRIVE_AVAILABLE 2
 #define GOOGLEDRIVE_AVAILABLE 4
 
+#define NPP_STYLING_FILESIZE_LIMIT_DEFAULT (200 * 1024 * 1024) // 200MB+ file won't be styled
+
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
 const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
-const TCHAR pluginsForAllUsersFile[] = TEXT("pluginsForAllUsers.xml");
+
+// issue xml/log file name
+const TCHAR nppLogNetworkDriveIssue[] = TEXT("nppLogNetworkDriveIssue");
+const TCHAR nppLogNulContentCorruptionIssue[] = TEXT("nppLogNulContentCorruptionIssue");
 
 void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
+void cutStringBy(const TCHAR *str2cut, std::vector<generic_string> & patternVect, char byChar, bool allowEmptyStr);
 
 
 struct Position
 {
-	int _firstVisibleLine = 0;
-	int _startPos = 0;
-	int _endPos = 0;
-	int _xOffset = 0;
-	int _selMode = 0;
-	int _scrollWidth = 1;
-	int _offset = 0;
-	int _wrapCount = 0;
+	intptr_t _firstVisibleLine = 0;
+	intptr_t _startPos = 0;
+	intptr_t _endPos = 0;
+	intptr_t _xOffset = 0;
+	intptr_t _selMode = 0;
+	intptr_t _scrollWidth = 1;
+	intptr_t _offset = 0;
+	intptr_t _wrapCount = 0;
 };
 
 
 struct MapPosition
 {
-	int32_t _firstVisibleDisplayLine = -1;
+private:
+	intptr_t _maxPeekLenInKB = 512; // 512 KB
+public:
+	intptr_t _firstVisibleDisplayLine = -1;
 
-	int32_t _firstVisibleDocLine = -1; // map
-	int32_t _lastVisibleDocLine = -1;  // map
-	int32_t _nbLine = -1;              // map
-	int32_t _higherPos = -1;           // map
-	int32_t _width = -1;
-	int32_t _height = -1;
-	int32_t _wrapIndentMode = -1;
+	intptr_t _firstVisibleDocLine = -1; // map
+	intptr_t _lastVisibleDocLine = -1;  // map
+	intptr_t _nbLine = -1;              // map
+	intptr_t _higherPos = -1;           // map
+	intptr_t _width = -1;
+	intptr_t _height = -1;
+	intptr_t _wrapIndentMode = -1;
 
-	int64_t _KByteInDoc = _maxPeekLenInKB;
+	intptr_t _KByteInDoc = _maxPeekLenInKB;
 
 	bool _isWrap = false;
 	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
 	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
-
-private:
-	int64_t _maxPeekLenInKB = 512; // 512 KB
 };
 
 
 struct sessionFileInfo : public Position
 {
 	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, bool userReadOnly, const Position& pos, const TCHAR *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
-		_isUserReadOnly(userReadOnly), _encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
+		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
@@ -191,6 +203,7 @@ struct sessionFileInfo : public Position
 	int	_encoding = -1;
 	bool _isUserReadOnly = false;
 	bool _isMonitoring = false;
+	int _individualTabColour = -1;
 
 	generic_string _backupFilePath;
 	FILETIME _originalFileLastModifTimestamp = {};
@@ -223,23 +236,26 @@ struct CmdLineParams
 	bool _isPreLaunch = false;
 	bool _showLoadingTime = false;
 	bool _alwaysOnTop = false;
-	int _line2go   = -1;
-	int _column2go = -1;
-	int _pos2go = -1;
+	intptr_t _line2go   = -1;
+	intptr_t _column2go = -1;
+	intptr_t _pos2go = -1;
 
-	POINT _point;
+	POINT _point = {};
 	bool _isPointXValid = false;
 	bool _isPointYValid = false;
 
 	bool _isSessionFile = false;
 	bool _isRecursive = false;
 	bool _openFoldersAsWorkspace = false;
+	bool _monitorFiles = false;
 
 	LangType _langType = L_EXTERNAL;
 	generic_string _localizationPath;
+	generic_string _udlName;
+	generic_string _pluginMessage;
 
 	generic_string _easterEggName;
-	unsigned char _quoteType = '\0';
+	unsigned char _quoteType = 0;
 	int _ghostTypingSpeed = -1; // -1: initial value  1: slow  2: fast  3: speed of light
 
 	CmdLineParams()
@@ -262,12 +278,15 @@ struct CmdLineParamsDTO
 	bool _isSessionFile = false;
 	bool _isRecursive = false;
 	bool _openFoldersAsWorkspace = false;
+	bool _monitorFiles = false;
 
-	int _line2go = 0;
-	int _column2go = 0;
-	int _pos2go = 0;
+	intptr_t _line2go = 0;
+	intptr_t _column2go = 0;
+	intptr_t _pos2go = 0;
 
 	LangType _langType = L_EXTERNAL;
+	wchar_t _udlName[MAX_PATH] = {'\0'};
+	wchar_t _pluginMessage[MAX_PATH] = {'\0'};
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{
@@ -277,21 +296,23 @@ struct CmdLineParamsDTO
 		dto._isSessionFile = params._isSessionFile;
 		dto._isRecursive = params._isRecursive;
 		dto._openFoldersAsWorkspace = params._openFoldersAsWorkspace;
+		dto._monitorFiles = params._monitorFiles;
 
 		dto._line2go = params._line2go;
 		dto._column2go = params._column2go;
 		dto._pos2go = params._pos2go;
-		
-		dto._langType = params._langType;
 
+		dto._langType = params._langType;
+		wcsncpy(dto._udlName, params._udlName.c_str(), MAX_PATH);
+		wcsncpy(dto._pluginMessage, params._pluginMessage.c_str(), MAX_PATH);
 		return dto;
 	}
 };
 
 struct FloatingWindowInfo
 {
-	int _cont;
-	RECT _pos;
+	int _cont = 0;
+	RECT _pos = {};
 
 	FloatingWindowInfo(int cont, int x, int y, int w, int h)
 		: _cont(cont)
@@ -314,7 +335,7 @@ struct PluginDlgDockingInfo final
 	bool _isVisible = false;
 
 	PluginDlgDockingInfo(const TCHAR* pluginName, int id, int curr, int prev, bool isVis)
-		: _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis), _name(pluginName)
+		: _name(pluginName), _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis)
 	{}
 
 	bool operator == (const PluginDlgDockingInfo& rhs) const
@@ -376,81 +397,24 @@ const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
 
 
 
-struct Style
+struct Style final
 {
-	int _styleID = -1;
-	const TCHAR* _styleDesc = nullptr;
+	int _styleID = STYLE_NOT_USED;
+	generic_string _styleDesc;
 
 	COLORREF _fgColor = COLORREF(STYLE_NOT_USED);
 	COLORREF _bgColor = COLORREF(STYLE_NOT_USED);
 	int _colorStyle = COLORSTYLE_ALL;
-	const TCHAR* _fontName = nullptr;
+
+	bool _isFontEnabled = false;
+	generic_string _fontName;
 	int _fontStyle = FONTSTYLE_NONE;
 	int _fontSize = STYLE_NOT_USED;
+
 	int _nesting = FONTSTYLE_NONE;
 
 	int _keywordClass = STYLE_NOT_USED;
-	generic_string* _keywords = nullptr;
-
-
-	Style() = default;
-
-	Style(const Style & style)
-	{
-		_styleID	  = style._styleID;
-		_styleDesc	= style._styleDesc;
-		_fgColor	  = style._fgColor;
-		_bgColor	  = style._bgColor;
-		_colorStyle   = style._colorStyle;
-		_fontName	 = style._fontName;
-		_fontSize	 = style._fontSize;
-		_fontStyle	= style._fontStyle;
-		_keywordClass = style._keywordClass;
-		_nesting	  = style._nesting;
-		_keywords	 = (style._keywords) ? new generic_string(*(style._keywords)) : nullptr;
-	}
-
-	~Style()
-	{
-		delete _keywords;
-	}
-
-
-	Style& operator = (const Style & style)
-	{
-		if (this != &style)
-		{
-			_styleID	  = style._styleID;
-			_styleDesc	= style._styleDesc;
-			_fgColor	  = style._fgColor;
-			_bgColor	  = style._bgColor;
-			_colorStyle   = style._colorStyle;
-			_fontName	 = style._fontName;
-			_fontSize	 = style._fontSize;
-			_fontStyle	= style._fontStyle;
-			_keywordClass = style._keywordClass;
-			_nesting	  = style._nesting;
-
-			if (!(_keywords) && style._keywords)
-				_keywords = new generic_string(*(style._keywords));
-			else if (_keywords && style._keywords)
-				_keywords->assign(*(style._keywords));
-			else if (_keywords && !(style._keywords))
-			{
-				delete (_keywords);
-				_keywords = nullptr;
-			}
-		}
-		return *this;
-	}
-
-	void setKeywords(const TCHAR *str)
-	{
-		if (!_keywords)
-			_keywords = new generic_string(str);
-		else
-			*_keywords = str;
-	}
+	generic_string _keywords;
 };
 
 
@@ -466,69 +430,48 @@ struct GlobalOverride final
 	bool enableUnderLine = false;
 };
 
-
 struct StyleArray
 {
-public:
-	StyleArray & operator=(const StyleArray & sa)
-	{
-		if (this != &sa)
-		{
-			this->_nbStyler = sa._nbStyler;
-			for (int i = 0 ; i < _nbStyler ; ++i)
-			{
-				this->_styleArray[i] = sa._styleArray[i];
-			}
-		}
-		return *this;
-	}
+	auto begin() { return _styleVect.begin(); };
+	auto end() { return _styleVect.end(); };
+	void clear() { _styleVect.clear(); };
 
-	int getNbStyler() const {return _nbStyler;};
-	void setNbStyler(int nb) {_nbStyler = nb;};
+	Style& getStyler(size_t index) {
+		assert(index < _styleVect.size());
+		return _styleVect[index];
+	};
 
-	Style& getStyler(size_t index)
-	{
-		assert(index < SCE_STYLE_ARRAY_SIZE);
-		return _styleArray[index];
-	}
-
-	bool hasEnoughSpace() {return (_nbStyler < SCE_STYLE_ARRAY_SIZE);};
 	void addStyler(int styleID, TiXmlNode *styleNode);
 
-	void addStyler(int styleID, const TCHAR *styleName)
-	{
-		_styleArray[styleID]._styleID = styleID;
-		_styleArray[styleID]._styleDesc = styleName;
-		_styleArray[styleID]._fgColor = black;
-		_styleArray[styleID]._bgColor = white;
-		++_nbStyler;
-	}
+	void addStyler(int styleID, const generic_string& styleName) {
+		_styleVect.emplace_back();
+		Style& s = _styleVect.back();
+		s._styleID = styleID;
+		s._styleDesc = styleName;
+		s._fgColor = black;
+		s._bgColor = white;
+	};
 
-	int getStylerIndexByID(int id)
-	{
-		for (int i = 0 ; i < _nbStyler ; ++i)
+	Style* findByID(int id) {
+		for (size_t i = 0; i < _styleVect.size(); ++i)
 		{
-			if (_styleArray[i]._styleID == id)
-				return i;
+			if (_styleVect[i]._styleID == id)
+				return &(_styleVect[i]);
 		}
-		return -1;
-	}
+		return nullptr;
+	};
 
-	int getStylerIndexByName(const TCHAR *name) const
-	{
-		if (!name)
-			return -1;
-		for (int i = 0 ; i < _nbStyler ; ++i)
+	Style* findByName(const generic_string& name) {
+		for (size_t i = 0; i < _styleVect.size(); ++i)
 		{
-			if (!lstrcmp(_styleArray[i]._styleDesc, name))
-				return i;
+			if (_styleVect[i]._styleDesc == name)
+				return &(_styleVect[i]);
 		}
-		return -1;
-	}
+		return nullptr;
+	};
 
 protected:
-	Style _styleArray[SCE_STYLE_ARRAY_SIZE];
-	int _nbStyler = 0;
+	std::vector<Style> _styleVect;
 };
 
 
@@ -572,51 +515,48 @@ private :
 	generic_string _lexerUserExt;
 };
 
-
-
-const int MAX_LEXER_STYLE = 100;
+struct SortLexersInAlphabeticalOrder {
+	bool operator() (LexerStyler& l, LexerStyler& r) {
+		if (!lstrcmp(l.getLexerDesc(), TEXT("Search result")))
+			return false;
+		if (!lstrcmp(r.getLexerDesc(), TEXT("Search result")))
+			return true;
+		return lstrcmp(l.getLexerDesc(), r.getLexerDesc()) < 0;
+	}
+};
 
 struct LexerStylerArray
 {
-public :
-	LexerStylerArray() : _nbLexerStyler(0){};
+	size_t getNbLexer() const { return _lexerStylerVect.size(); }
+	void clear() { _lexerStylerVect.clear(); }
 
-	LexerStylerArray & operator=(const LexerStylerArray & lsa)
+	LexerStyler & getLexerFromIndex(size_t index)
 	{
-		if (this != &lsa)
-		{
-			this->_nbLexerStyler = lsa._nbLexerStyler;
-			for (int i = 0 ; i < this->_nbLexerStyler ; ++i)
-				this->_lexerStylerArray[i] = lsa._lexerStylerArray[i];
-		}
-		return *this;
-	}
-
-	int getNbLexer() const {return _nbLexerStyler;};
-
-	LexerStyler & getLexerFromIndex(int index)
-	{
-		return _lexerStylerArray[index];
+		assert(index < _lexerStylerVect.size());
+		return _lexerStylerVect[index];
 	};
 
-	const TCHAR * getLexerNameFromIndex(int index) const {return _lexerStylerArray[index].getLexerName();}
-	const TCHAR * getLexerDescFromIndex(int index) const {return _lexerStylerArray[index].getLexerDesc();}
+	const TCHAR * getLexerNameFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerName(); }
+	const TCHAR * getLexerDescFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerDesc(); }
 
 	LexerStyler * getLexerStylerByName(const TCHAR *lexerName) {
-		if (!lexerName) return NULL;
-		for (int i = 0 ; i < _nbLexerStyler ; ++i)
+		if (!lexerName) return nullptr;
+		for (size_t i = 0 ; i < _lexerStylerVect.size() ; ++i)
 		{
-			if (!lstrcmp(_lexerStylerArray[i].getLexerName(), lexerName))
-				return &(_lexerStylerArray[i]);
+			if (!lstrcmp(_lexerStylerVect[i].getLexerName(), lexerName))
+				return &(_lexerStylerVect[i]);
 		}
-		return NULL;
+		return nullptr;
 	};
-	bool hasEnoughSpace() {return (_nbLexerStyler < MAX_LEXER_STYLE);};
+
 	void addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt, TiXmlNode *lexerNode);
-	void eraseAll();
+
+	void sort() {
+		std::sort(_lexerStylerVect.begin(), _lexerStylerVect.end(), SortLexersInAlphabeticalOrder());
+	};
+
 private :
-	LexerStyler _lexerStylerArray[MAX_LEXER_STYLE];
-	int _nbLexerStyler;
+	std::vector<LexerStyler> _lexerStylerVect;
 };
 
 
@@ -632,8 +572,8 @@ struct NewDocDefaultSettings final
 
 struct LangMenuItem final
 {
-	LangType _langType;
-	int	_cmdID;
+	LangType _langType = L_TEXT;
+	int	_cmdID = -1;
 	generic_string _langName;
 
 	LangMenuItem(LangType lt, int cmdID = 0, const generic_string& langName = TEXT("")):
@@ -658,7 +598,7 @@ struct PrintSettings final {
 	int _footerFontStyle = 0;
 	int _footerFontSize = 0;
 
-	RECT _marge;
+	RECT _marge = {};
 
 	PrintSettings() {
 		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
@@ -774,6 +714,28 @@ public:
 	bool _doDoubleQuotes = false;
 };
 
+struct DarkModeConf final
+{
+	bool _isEnabled = false;
+	bool _isEnabledPlugin = true;
+	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
+	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
+	NppDarkMode::AdvancedOptions _advOptions{};
+};
+
+
+struct LargeFileRestriction final
+{
+	int64_t _largeFileSizeDefInByte = NPP_STYLING_FILESIZE_LIMIT_DEFAULT;
+	bool _isEnabled = true;
+
+	bool _deactivateWordWrap = true;
+
+	bool _allowBraceMatch = false;
+	bool _allowAutoCompletion = false;
+	bool _allowSmartHilite = false;
+	bool _allowClickableLink = false;
+};
 
 struct NppGUI final
 {
@@ -816,20 +778,23 @@ struct NppGUI final
 
 	bool _finderLinesAreCurrentlyWrapped = false;
 	bool _finderPurgeBeforeEverySearch = false;
+	bool _finderShowOnlyOneEntryPerFoundLine = true;
 
 	int _fileAutoDetection = cdEnabledNew;
 
 	bool _checkHistoryFiles = false;
 
-	RECT _appPos;
+	RECT _appPos = {};
 
-	RECT _findWindowPos;
+	RECT _findWindowPos = {};
+	bool _findWindowLessMode = false;
 
 	bool _isMaximized = false;
 	bool _isMinimizedToTray = false;
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _detectEncoding = true;
+	bool _saveAllConfirm = true;
 	bool _setSaveDlgExtFiltToAllTypes = false;
 	bool _doTaskList = true;
 	bool _maitainIndent = true;
@@ -852,12 +817,15 @@ struct NppGUI final
 	char _rightmostDelimiter = ')';
 	bool _delimiterSelectionOnEntireDocument = false;
 	bool _backSlashIsEscapeCharacterForSql = true;
-	bool _stopFillingFindField = false;
+	bool _fillFindFieldWithSelected = true;
+	bool _fillFindFieldSelectCaret = true;
 	bool _monospacedFontFindDlg = false;
 	bool _findDlgAlwaysVisible = false;
 	bool _confirmReplaceInAllOpenDocs = true;
 	bool _replaceStopsWithoutFindingNext = false;
 	bool _muteSounds = false;
+	bool _enableFoldCmdToggable = false;
+	bool _hideMenuRightShortcuts = false;
 	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
@@ -865,6 +833,8 @@ struct NppGUI final
 	generic_string _uriSchemes = TEXT("svn:// cvs:// git:// imap:// irc:// irc6:// ircs:// ldap:// ldaps:// news: telnet:// gopher:// ssh:// sftp:// smb:// skype: snmp:// spotify: steam:// sms: slack:// chrome:// bitcoin:");
 	NewDocDefaultSettings _newDocDefaultSettings;
 
+	generic_string _dateTimeFormat = TEXT("yyyy-MM-dd HH:mm:ss");
+	bool _dateTimeReverseDefaultOrder = false;
 
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
 	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};
@@ -881,13 +851,15 @@ struct NppGUI final
 	AutocStatus _autocStatus = autoc_both;
 	size_t  _autocFromLen = 1;
 	bool _autocIgnoreNumbers = true;
+	bool _autocInsertSelectedUseENTER = true;
+	bool _autocInsertSelectedUseTAB = true;
 	bool _funcParams = true;
 	MatchedPairConf _matchedPairConf;
 
 	generic_string _definedSessionExt;
 	generic_string _definedWorkspaceExt;
 
-	generic_string _commandLineInterpreter = TEXT("cmd");
+	generic_string _commandLineInterpreter = CMD_INTERPRETER;
 
 	struct AutoUpdateOptions
 	{
@@ -911,7 +883,10 @@ struct NppGUI final
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
 	generic_string _themeName;
 	MultiInstSetting _multiInstSetting = monoInst;
-	bool _fileSwitcherWithoutExtColumn = false;
+	bool _fileSwitcherWithoutExtColumn = true;
+	int _fileSwitcherExtWidth = 50;
+	bool _fileSwitcherWithoutPathColumn = true;
+	int _fileSwitcherPathWidth = 50;
 	bool isSnapshotMode() const {return _isSnapshotMode && _rememberLastSession && !_isCmdlineNosessionActivated;};
 	bool _isSnapshotMode = true;
 	size_t _snapshotBackupTiming = 7000;
@@ -927,29 +902,42 @@ struct NppGUI final
 	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
 
-	NppDarkMode::Options _darkmode;
+	// function list should be sorted by default on new file open
+	bool _shouldSortFunctionList = false;
+
+	DarkModeConf _darkmode;
+
+	LargeFileRestriction _largeFileRestriction;
 };
+
 
 struct ScintillaViewParams
 {
 	bool _lineNumberMarginShow = true;
 	bool _lineNumberMarginDynamicWidth = true;
 	bool _bookMarkMarginShow = true;
+	bool _isChangeHistoryEnabled = true;
+	bool _isChangeHistoryEnabled4NextSession = true;
 	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
 	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
 	bool _foldMarginShow = true;
 	bool _indentGuideLineShow = true;
-	bool _currentLineHilitingShow = true;
+	lineHiliteMode _currentLineHiliteMode = LINEHILITE_HILITE;
+	unsigned char _currentLineFrameWidth = 1; // 1-6 pixel
 	bool _wrapSymbolShow = false;
 	bool _doWrap = false;
 	bool _isEdgeBgMode = false;
 
 	std::vector<size_t> _edgeMultiColumnPos;
-	int _zoom = 0;
-	int _zoom2 = 0;
+	intptr_t _zoom = 0;
+	intptr_t _zoom2 = 0;
 	bool _whiteSpaceShow = false;
 	bool _eolShow = false;
+	enum crlfMode {plainText = 0, roundedRectangleText = 1, plainTextCustomColor = 2, roundedRectangleTextCustomColor = 3};
+	crlfMode _eolMode = roundedRectangleText;
+
 	int _borderWidth = 2;
+	bool _virtualSpace = false;
 	bool _scrollBeyondLastLine = true;
 	bool _rightClickKeepsSelection = false;
 	bool _disableAdvancedScrolling = false;
@@ -995,11 +983,11 @@ struct Lang final
 {
 	LangType _langID = L_TEXT;
 	generic_string _langName;
-	const TCHAR *_defaultExtList = nullptr;
-	const TCHAR *_langKeyWordList[NB_LIST];
-	const TCHAR *_pCommentLineSymbol = nullptr;
-	const TCHAR *_pCommentStart = nullptr;
-	const TCHAR *_pCommentEnd = nullptr;
+	const TCHAR* _defaultExtList = nullptr;
+	const TCHAR* _langKeyWordList[NB_LIST];
+	const TCHAR* _pCommentLineSymbol = nullptr;
+	const TCHAR* _pCommentStart = nullptr;
+	const TCHAR* _pCommentEnd = nullptr;
 
 	bool _isTabReplacedBySpace = false;
 	int _tabSize = -1;
@@ -1068,14 +1056,13 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer() :_name(TEXT("new user define")), _ext(TEXT("")), _udlVersion(TEXT(""))
-	{
-		init();
+	UserLangContainer() :_name(TEXT("new user define")), _ext(TEXT("")), _udlVersion(TEXT("")) {
+		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
 
-	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer)
-	{
-		init();
+	UserLangContainer(const TCHAR *name, const TCHAR *ext, bool isDarkModeTheme, const TCHAR *udlVer):
+		_name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer) {
+		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
 
 	UserLangContainer & operator = (const UserLangContainer & ulc)
@@ -1084,17 +1071,16 @@ public:
 		{
 			this->_name = ulc._name;
 			this->_ext = ulc._ext;
+			this->_isDarkModeTheme = ulc._isDarkModeTheme;
 			this->_udlVersion = ulc._udlVersion;
 			this->_isCaseIgnored = ulc._isCaseIgnored;
-			this->_styleArray = ulc._styleArray;
+			this->_styles = ulc._styles;
 			this->_allowFoldOfComments = ulc._allowFoldOfComments;
 			this->_forcePureLC = ulc._forcePureLC;
 			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
-			int nbStyler = this->_styleArray.getNbStyler();
-			for (int i = 0 ; i < nbStyler ; ++i)
+			for (Style & st : this->_styles)
 			{
-				Style & st = this->_styleArray.getStyler(i);
 				if (st._bgColor == COLORREF(-1))
 					st._bgColor = white;
 				if (st._fgColor == COLORREF(-1))
@@ -1115,19 +1101,20 @@ public:
 	const TCHAR * getUdlVersion() {return _udlVersion.c_str();};
 
 private:
-	StyleArray _styleArray;
+	StyleArray _styles;
 	generic_string _name;
 	generic_string _ext;
+	bool _isDarkModeTheme = false;
 	generic_string _udlVersion;
 
 	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
-	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS];
+	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS] = {false};
 
-	bool _isCaseIgnored;
-	bool _allowFoldOfComments;
-	int  _forcePureLC;
-	int _decimalSeparator;
-	bool _foldCompact;
+	bool _isCaseIgnored = false;
+	bool _allowFoldOfComments = false;
+	int  _forcePureLC = PURE_LC_NONE;
+	int _decimalSeparator = DECSEP_DOT;
+	bool _foldCompact = false;
 
 	// nakama zone
 	friend class Notepad_plus;
@@ -1141,39 +1128,23 @@ private:
 	friend class SymbolsStyleDialog;
 	friend class UserDefineDialog;
 	friend class StylerDlg;
-
-	void init()
-	{
-		_forcePureLC = PURE_LC_NONE;
-		_decimalSeparator = DECSEP_DOT;
-		_foldCompact = false;
-		_isCaseIgnored = false;
-		_allowFoldOfComments = false;
-
-		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i)
-			*_keywordLists[i] = '\0';
-
-		for (int i = 0; i < SCE_USER_TOTAL_KEYWORD_GROUPS; ++i)
-			_isPrefix[i] = false;
-	}
 };
 
-#define MAX_EXTERNAL_LEXER_NAME_LEN 16
-#define MAX_EXTERNAL_LEXER_DESC_LEN 32
+#define MAX_EXTERNAL_LEXER_NAME_LEN 128
 
 
 
 class ExternalLangContainer final
 {
 public:
-	TCHAR _name[MAX_EXTERNAL_LEXER_NAME_LEN];
-	TCHAR _desc[MAX_EXTERNAL_LEXER_DESC_LEN];
+	// Mandatory for Lexilla
+	std::string _name;
+	Lexilla::CreateLexerFn fnCL = nullptr;
+	//Lexilla::GetLibraryPropertyNamesFn fnGLPN = nullptr;
+	//Lexilla::SetLibraryPropertyFn fnSLP = nullptr;
 
-	ExternalLangContainer(const TCHAR* name, const TCHAR* desc)
-	{
-		generic_strncpy(_name, name, MAX_EXTERNAL_LEXER_NAME_LEN);
-		generic_strncpy(_desc, desc, MAX_EXTERNAL_LEXER_DESC_LEN);
-	}
+	// For Notepad++
+	ExternalLexerAutoIndentMode _autoIndentMode = ExternalLexerAutoIndentMode::Standard;
 };
 
 
@@ -1217,7 +1188,18 @@ struct FindHistory final
 	bool _regexBackward4PowerUser = false;
 };
 
+struct ColumnEditorParam final
+{
+	bool _mainChoice = true; //  true (1): text   false (0): number 
 
+	std::wstring _insertedTextContent;
+
+	int _initialNum = -1;
+	int _increaseNum = -1;
+	int _repeatNum = -1;
+	bool _isLeadingZeros = false;
+	int _formatChoice = 0; // 0:Dec 1:Hex 2:Oct 3:Bin
+};
 
 class LocalizationSwitcher final
 {
@@ -1225,8 +1207,8 @@ friend class NppParameters;
 public:
 	struct LocalizationDefinition
 	{
-		const wchar_t *_langName;
-		const wchar_t *_xmlFileName;
+		const wchar_t *_langName = nullptr;
+		const wchar_t *_xmlFileName = nullptr;
 	};
 
 	bool addLanguageFromXml(const std::wstring& xmlFullPath);
@@ -1270,40 +1252,34 @@ class ThemeSwitcher final
 friend class NppParameters;
 
 public:
-	void addThemeFromXml(const generic_string& xmlFullPath)
-	{
+	void addThemeFromXml(const generic_string& xmlFullPath) {
 		_themeList.push_back(std::pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
 	}
 
-	void addDefaultThemeFromXml(const generic_string& xmlFullPath)
-	{
+	void addDefaultThemeFromXml(const generic_string& xmlFullPath) {
 		_themeList.push_back(std::pair<generic_string, generic_string>(_defaultThemeLabel, xmlFullPath));
 	}
 
 	generic_string getThemeFromXmlFileName(const TCHAR *fn) const;
 
-	generic_string getXmlFilePathFromThemeName(const TCHAR *themeName) const
-	{
+	generic_string getXmlFilePathFromThemeName(const TCHAR *themeName) const {
 		if (!themeName || themeName[0])
 			return generic_string();
 		generic_string themePath = _stylesXmlPath;
 		return themePath;
 	}
 
-	bool themeNameExists(const TCHAR *themeName)
-	{
+	bool themeNameExists(const TCHAR *themeName) {
 		for (size_t i = 0; i < _themeList.size(); ++i )
 		{
-			if (! (getElementFromIndex(i)).first.compare(themeName))
+			auto themeNameOnList = getElementFromIndex(i).first;
+			if (lstrcmp(themeName, themeNameOnList.c_str()) == 0)
 				return true;
 		}
 		return false;
 	}
 
-	size_t size() const
-	{
-		return _themeList.size();
-	}
+	size_t size() const { return _themeList.size(); }
 
 
 	std::pair<generic_string, generic_string> & getElementFromIndex(size_t index)
@@ -1317,24 +1293,28 @@ public:
 
 	generic_string getDefaultThemeLabel() const { return _defaultThemeLabel; }
 
+	generic_string getSavePathFrom(const generic_string& path) const {
+		const auto iter = _themeStylerSavePath.find(path);
+		if (iter == _themeStylerSavePath.end())
+		{
+			return TEXT("");
+		}
+		else
+		{
+			return iter->second;
+		}
+	};
+
+	void addThemeStylerSavePath(generic_string key, generic_string val) {
+		_themeStylerSavePath[key] = val;
+	};
+
 private:
 	std::vector<std::pair<generic_string, generic_string>> _themeList;
+	std::map<generic_string, generic_string> _themeStylerSavePath;
 	generic_string _themeDirPath;
 	const generic_string _defaultThemeLabel = TEXT("Default (stylers.xml)");
 	generic_string _stylesXmlPath;
-};
-
-
-class PluginList final
-{
-public :
-	void add(generic_string fn, bool isInBL)
-	{
-		_list.push_back(std::pair<generic_string, bool>(fn, isInBL));
-	}
-
-private:
-	std::vector<std::pair<generic_string, bool>>_list;
 };
 
 
@@ -1347,8 +1327,6 @@ struct UdlXmlFileState final {
 };
 
 const int NB_LANG = 100;
-const bool DUP = true;
-const bool FREE = false;
 
 const int RECENTFILES_SHOWFULLPATH = -1;
 const int RECENTFILES_SHOWONLYFILENAME = 0;
@@ -1462,6 +1440,7 @@ public:
 	bool writeHistory(const TCHAR *fullpath);
 
 	bool writeProjectPanelsSettings() const;
+	bool writeColumnEditorSettings() const;
 	bool writeFileBrowserSettings(const std::vector<generic_string> & rootPath, const generic_string & latestSelectedItemPath) const;
 
 	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName, const TCHAR *attributName, const TCHAR *attributVal) const;
@@ -1469,10 +1448,10 @@ public:
 	bool writeScintillaParams();
 	void createXmlTreeFromGUIParams();
 
-	void writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers);
+	generic_string writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers); // return "" if saving file succeeds, otherwise return the new saved file path
 	bool insertTabInfo(const TCHAR *langName, int tabInfo);
 
-	LexerStylerArray & getLStylerArray() {return _lexerStylerArray;};
+	LexerStylerArray & getLStylerArray() {return _lexerStylerVect;};
 	StyleArray & getGlobalStylers() {return _widgetStyleArray;};
 
 	StyleArray & getMiscStylerArray() {return _widgetStyleArray;};
@@ -1498,7 +1477,7 @@ public:
 
 	bool ExternalLangHasRoom() const {return _nbExternalLang < NB_MAX_EXTERNAL_LANG;};
 
-	void getExternalLexerFromXmlTree(TiXmlDocument *doc);
+	void getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc);
 	std::vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc; };
 
 	void writeDefaultUDL();
@@ -1526,13 +1505,13 @@ public:
 	int addUserLangToEnd(const UserLangContainer & userLang, const TCHAR *newName);
 	void removeUserLang(size_t index);
 
-	bool isExistingExternalLangName(const TCHAR *newName) const;
+	bool isExistingExternalLangName(const char* newName) const;
 
 	int addExternalLangToEnd(ExternalLangContainer * externalLang);
 
 	TiXmlDocumentA * getNativeLangA() const {return _pXmlNativeLangDocA;};
 
-	TiXmlDocument * getToolIcons() const {return _pXmlToolIconsDoc;};
+	TiXmlDocument * getCustomizedToolIcons() const {return _pXmlToolIconsDoc;};
 
 	bool isTransparentAvailable() const {
 		return (_transparentFuncAddr != NULL);
@@ -1548,6 +1527,7 @@ public:
 	{
 		_cmdLineParams = cmdLineParams;
 	}
+
 	const CmdLineParamsDTO & getCmdLineParams() const {return _cmdLineParams;};
 
 	const generic_string& getCmdLineString() const { return _cmdLineString; }
@@ -1620,6 +1600,15 @@ public:
 	};
 
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
+
+	void setLoadedSessionFilePath(const generic_string & loadedSessionFilePath) {
+		_loadedSessionFullFilePath = loadedSessionFilePath;
+	};
+
+	generic_string getLoadedSessionFilePath() {
+		return _loadedSessionFullFilePath;
+	};
+
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
 
@@ -1667,7 +1656,6 @@ public:
 		return false;
 	}
 
-	PluginList & getPluginList() {return _pluginList;};
 	bool importUDLFromFile(const generic_string& sourceFile);
 	bool exportUDLToFile(size_t langIndex2export, const generic_string& fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
@@ -1679,7 +1667,7 @@ public:
 
 	bool isLocal() const {
 		return _isLocal;
-	};
+	}
 
 	void saveConfig_xml();
 
@@ -1720,13 +1708,11 @@ public:
 		_cmdSettingsDir = settingsDir;
 	};
 
-	void setTitleBarAdd(const generic_string& titleAdd)
-	{
+	void setTitleBarAdd(const generic_string& titleAdd) {
 		_titleBarAdditional = titleAdd;
 	}
 
-	const generic_string& getTitleBarAdd() const
-	{
+	const generic_string& getTitleBarAdd() const {
 		return _titleBarAdditional;
 	}
 
@@ -1737,6 +1723,9 @@ public:
 	void setUdlXmlDirtyFromIndex(size_t i);
 	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
 	void removeIndexFromXmlUdls(size_t i);
+	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; };
+
+	ColumnEditorParam _columnEditParam;
 
 private:
 	NppParameters();
@@ -1751,27 +1740,27 @@ private:
 	NppParameters& operator=(NppParameters&&) = delete;
 
 
-	TiXmlDocument *_pXmlDoc = nullptr;
-	TiXmlDocument *_pXmlUserDoc = nullptr;
-	TiXmlDocument *_pXmlUserStylerDoc = nullptr;
-	TiXmlDocument *_pXmlUserLangDoc = nullptr;
-	std::vector<UdlXmlFileState> _pXmlUserLangsDoc;
-	TiXmlDocument *_pXmlToolIconsDoc = nullptr;
-	TiXmlDocument *_pXmlShortcutDoc = nullptr;
-	TiXmlDocument *_pXmlBlacklistDoc = nullptr;
+	TiXmlDocument *_pXmlDoc = nullptr; // langs.xml
+	TiXmlDocument *_pXmlUserDoc = nullptr; // config.xml
+	TiXmlDocument *_pXmlUserStylerDoc = nullptr; // stylers.xml
+	TiXmlDocument *_pXmlUserLangDoc = nullptr; // userDefineLang.xml
+	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
+	TiXmlDocument *_pXmlToolIconsDoc = nullptr; // toolbarIcons.xml
+	TiXmlDocument *_pXmlShortcutDoc = nullptr; // shortcuts.xml
+	TiXmlDocument *_pXmlBlacklistDoc = nullptr; // not implemented
 
-	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr;
-	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr;
+	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr; // nativeLang.xml
+	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml
 
-	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc;
+	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
-	Lang *_langList[NB_LANG] = {};
+	Lang* _langList[NB_LANG] = { nullptr };
 	int _nbLang = 0;
 
 	// Recent File History
-	generic_string *_LRFileList[NB_MAX_LRF_FILE];
+	generic_string* _LRFileList[NB_MAX_LRF_FILE] = { nullptr };
 	int _nbRecentFile = 0;
 	int _nbMaxRecentFile = 10;
 	bool _putRecentFileInSubMenu = false;
@@ -1781,11 +1770,11 @@ private:
 
 	FindHistory _findHistory;
 
-	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
+	UserLangContainer* _userLangArray[NB_MAX_USER_LANG] = { nullptr };
 	unsigned char _nbUserLang = 0; // won't be exceeded to 255;
 	generic_string _userDefineLangsFolderPath;
 	generic_string _userDefineLangPath;
-	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
+	ExternalLangContainer* _externalLangArray[NB_MAX_EXTERNAL_LANG] = { nullptr };
 	int _nbExternalLang = 0;
 
 	CmdLineParamsDTO _cmdLineParams;
@@ -1794,23 +1783,23 @@ private:
 	int _fileSaveDlgFilterIndex = -1;
 
 	// All Styles (colours & fonts)
-	LexerStylerArray _lexerStylerArray;
+	LexerStylerArray _lexerStylerVect;
 	StyleArray _widgetStyleArray;
 
 	std::vector<generic_string> _fontlist;
 	std::vector<generic_string> _blacklist;
-	PluginList _pluginList;
 
 	HMODULE _hUXTheme = nullptr;
 
 	WNDPROC _transparentFuncAddr = nullptr;
 	WNDPROC _enableThemeDialogTextureFuncAddr = nullptr;
-	bool _isLocal;
+	bool _isLocal = false;
 	bool _isx64 = false; // by default 32-bit
 
 	generic_string _cmdSettingsDir;
-
 	generic_string _titleBarAdditional;
+
+	generic_string _loadedSessionFullFilePath;
 
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };
@@ -1858,19 +1847,19 @@ private:
 	std::vector<generic_string> _fileBrowserRoot;
 	generic_string _fileBrowserSelectedItemPath;
 
-	Accelerator *_pAccelerator;
-	ScintillaAccelerator * _pScintAccelerator;
+	Accelerator* _pAccelerator = nullptr;
+	ScintillaAccelerator* _pScintAccelerator = nullptr;
 
 	FindDlgTabTitiles _findDlgTabTitiles;
 	bool _asNotepadStyle = false;
 
-	winVer _winVersion;
-	Platform _platForm;
+	winVer _winVersion = WV_UNKNOWN;
+	Platform _platForm = PF_UNKNOWN;
 
 	NativeLangSpeaker *_pNativeLangSpeaker = nullptr;
 
-	COLORREF _currentDefaultBgColor;
-	COLORREF _currentDefaultFgColor;
+	COLORREF _currentDefaultBgColor = RGB(0xFF, 0xFF, 0xFF);
+	COLORREF _currentDefaultFgColor = RGB(0x00, 0x00, 0x00);
 
 	generic_string _initialCloudChoice;
 
@@ -1882,6 +1871,12 @@ private:
 
 	bool _isSelectFgColorEnabled = false;
 
+	bool _doNppLogNetworkDriveIssue = false;
+
+	bool _doNppLogNulContentCorruptionIssue = false;
+	bool _isEndSessionStarted = false;
+	bool _isEndSessionCritical = false;
+
 public:
 	generic_string getWingupFullPath() const { return _wingupFullPath; };
 	generic_string getWingupParams() const { return _wingupParams; };
@@ -1891,6 +1886,13 @@ public:
 	void setWingupParams(const generic_string& val2set) { _wingupParams = val2set; };
 	void setWingupDir(const generic_string& val2set) { _wingupDir = val2set; };
 	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; };
+
+	bool doNppLogNetworkDriveIssue() { return _doNppLogNetworkDriveIssue; };
+	bool doNppLogNulContentCorruptionIssue() { return _doNppLogNulContentCorruptionIssue; };
+	void endSessionStart() { _isEndSessionStarted = true; };
+	bool isEndSessionStarted() { return _isEndSessionStarted; };
+	void makeEndSessionCritical() { _isEndSessionCritical = true; };
+	bool isEndSessionCritical() { return _isEndSessionCritical; };
 
 private:
 	void getLangKeywordsFromXmlTree();
@@ -1916,6 +1918,7 @@ private:
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);
+	void feedColumnEditorParameters(TiXmlNode *node);
 	bool feedStylerArray(TiXmlNode *node);
 	std::pair<unsigned char, unsigned char> feedUserLang(TiXmlNode *node);
 	void feedUserStyles(TiXmlNode *node);
@@ -1931,14 +1934,13 @@ private:
 	void getActions(TiXmlNode *node, Macro & macro);
 	bool getShortcuts(TiXmlNode *node, Shortcut & sc);
 
-	void writeStyle2Element(Style & style2Write, Style & style2Sync, TiXmlElement *element);
+	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
 	void insertCmd(TiXmlNode *cmdRoot, const CommandShortcut & cmd);
 	void insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro);
 	void insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd);
 	void insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
 	void insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
-	void stylerStrOp(bool op);
 	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHAR *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);

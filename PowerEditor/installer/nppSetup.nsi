@@ -111,7 +111,39 @@ InstType "Minimalist"
 Var diffArchDir2Remove
 Var noUpdater
 
+!ifdef ARCH64 || ARCHARM64
+; this is needed for the 64-bit InstallDirRegKey patch
+!include "StrFunc.nsh"
+${StrStr} # Supportable for Install Sections and Functions
+!endif
+
 Function .onInit
+
+	; --- PATCH BEGIN (it can be deleted without side-effects, when the NSIS N++ x64 installer binary becomes x64 too)---
+	;
+	; 64-bit patch for the NSIS attribute InstallDirRegKey (used in globalDef.nsh)
+	; - this is needed because of the NSIS binary, generated for 64-bit Notepad++ installations, is still a 32-bit app,
+	;   so the InstallDirRegKey checks for the irrelevant HKLM\SOFTWARE\WOW6432Node\Notepad++, explanation:
+	;   https://nsis.sourceforge.io/Reference/SetRegView
+	;
+!ifdef ARCH64 || ARCHARM64
+	${If} ${RunningX64}
+		System::Call kernel32::GetCommandLine()t.r0 ; get the original cmdline (where a possible "/D=..." is not hidden from us by NSIS)
+		${StrStr} $1 $0 "/D="
+		${If} "$1" == ""
+			; "/D=..." was NOT used for sure, so we can continue in this InstallDirRegKey x64 patch 
+			SetRegView 64 ; disable registry redirection
+			ReadRegStr $0 HKLM "Software\${APPNAME}" ""
+			${If} "$0" != ""
+				; a previous installation path has been detected, so offer that as the $INSTDIR
+				StrCpy $INSTDIR "$0"
+			${EndIf}
+			SetRegView 32 ; restore the original state
+		${EndIf}
+	${EndIf}
+!endif
+	;
+	; --- PATCH END ---
 
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
@@ -140,9 +172,20 @@ updaterDone:
 
 	Call SetRoughEstimation		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
-	Call preventInstallInWin9x
+	Call checkCompatibility		; check unsupported OSes and CPUs
 		
+	; look for previously selected language
+	ClearErrors
+	Var /GLOBAL tempLng
+	ReadRegStr $tempLng HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage'
+	${IfNot} ${Errors}
+		StrCpy $LANGUAGE "$tempLng" ; set default language
+	${EndIf}
+	
 	!insertmacro MUI_LANGDLL_DISPLAY
+
+	; save selected language to registry
+	WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
 
 !ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
 	${If} ${RunningX64}
@@ -248,6 +291,9 @@ ${MementoSectionDone}
     !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
     !insertmacro MUI_DESCRIPTION_TEXT ${functionListComponent} 'Install the function list files you need for the function list feature (Ctrl+Space).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${NppExport} 'Copy your syntax highlighted source code as HTML/RTF into clipboard, or save them as HTML/RTF files.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${MimeTools} 'Encode/decode selected text with Base64, Quoted-printable, URL encoding, and SAML.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Converter} 'Convert ASCII to binary, octal, hexadecimal and decimal string.'
     !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'

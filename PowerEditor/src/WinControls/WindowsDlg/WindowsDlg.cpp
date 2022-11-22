@@ -39,10 +39,12 @@ using namespace std;
 #define WD_CLMNTYPE					"ColumnType"
 #define WD_CLMNSIZE					"ColumnSize"
 #define WD_NBDOCSTOTAL				"NbDocsTotal"
+#define WD_MENUCOPYNAME				"MenuCopyName"
+#define WD_MENUCOPYPATH				"MenuCopyPath"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
-
+/*
 inline static DWORD GetStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
 }
@@ -68,7 +70,7 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 	::SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwNewStyle);
 	return TRUE;
 }
-
+*/
 
 struct NumericStringEquivalence
 {
@@ -131,10 +133,10 @@ struct NumericStringEquivalence
 struct BufferEquivalent
 {
 	NumericStringEquivalence _strequiv;
-	DocTabView *_pTab;
+	DocTabView* _pTab;
 	int _iColumn;
 	bool _reverse;
-	BufferEquivalent(DocTabView *pTab, int iColumn, bool reverse)
+	BufferEquivalent(DocTabView* pTab, int iColumn, bool reverse)
 		: _pTab(pTab), _iColumn(iColumn), _reverse(reverse)
 	{}
 
@@ -258,7 +260,7 @@ void WindowsDlg::init(HINSTANCE hInst, HWND parent)
 	_pTab = NULL;
 }
 
-INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -266,7 +268,36 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
 		}
 
 		case WM_COMMAND :
@@ -313,6 +344,22 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					doColumnSort();
 					break;
 				}
+
+				default:
+					if (HIWORD(wParam) == 0)
+					{
+						// Menu
+						switch (LOWORD(wParam))
+						{
+						case IDM_WINDOW_COPY_NAME:
+							putItemsToClipboard(false);
+							break;
+						case IDM_WINDOW_COPY_PATH:
+							putItemsToClipboard(true);
+							break;
+						}
+					}
+					break;
 			}
 			break;
 		}
@@ -335,34 +382,20 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					if (pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
-						size_t index = pLvdi->item.iItem;
-						if (index >= _pTab->nbItem() || index >= _idxMap.size())
+						Buffer* buf = getBuffer(pLvdi->item.iItem);
+						if (!buf)
 							return FALSE;
-						index = _idxMap[index];
-
-						//const Buffer& buffer = _pView->getBufferAt(index);
-						BufferID bufID = _pTab->getBufferByIndex(index);
-						Buffer * buf = MainFileManager.getBufferByID(bufID);
+						generic_string text;
 						if (pLvdi->item.iSubItem == 0) // file name
 						{
-							int len = pLvdi->item.cchTextMax;
-							const TCHAR *fileName = buf->getFileName();
-							generic_strncpy(pLvdi->item.pszText, fileName, len-1);
-							pLvdi->item.pszText[len-1] = 0;
-							len = lstrlen(pLvdi->item.pszText);
+							text = buf->getFileName();
 							if (buf->isDirty())
 							{
-								if (len < pLvdi->item.cchTextMax)
-								{
-									pLvdi->item.pszText[len++] = '*';
-									pLvdi->item.pszText[len] = 0;
-								}
+								text += '*';
 							}
 							else if (buf->isReadOnly())
 							{
-								len += lstrlen(readonlyString);
-								if (len <= pLvdi->item.cchTextMax)
-									wcscat_s(pLvdi->item.pszText, pLvdi->item.cchTextMax, readonlyString);
+								text += readonlyString;
 							}
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory
@@ -374,30 +407,27 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 								len = 1;
 								fullName = TEXT("");
 							}
-							if (pLvdi->item.cchTextMax < len)
-								len = pLvdi->item.cchTextMax;
-							generic_strncpy(pLvdi->item.pszText, fullName, len-1);
-							pLvdi->item.pszText[len-1] = 0;
+							text.assign(fullName, len);
 						}
 						else if (pLvdi->item.iSubItem == 2) // Type
 						{
-							int len = pLvdi->item.cchTextMax;
 							NppParameters& nppParameters = NppParameters::getInstance();
 							Lang *lang = nppParameters.getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
-								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
+								text = lang->getLangName();
 							}
 						}
 						else if (pLvdi->item.iSubItem == 3) // size
 						{
-							int docSize = buf->docLength();
+							size_t docSize = buf->docLength();
 							string docSizeText = to_string(docSize);
-							wstring wstr = wstring(docSizeText.begin(), docSizeText.end());
-							const wchar_t * wstrp = wstr.c_str();
-							int docSizeTextLen = lstrlen(wstrp);
-							generic_strncpy(pLvdi->item.pszText, wstrp, docSizeTextLen);
-							pLvdi->item.pszText[docSizeTextLen] = 0;
+							text = wstring(docSizeText.begin(), docSizeText.end());
+						}
+						if (static_cast<int>(text.length()) < pLvdi->item.cchTextMax)
+						{
+							// Copy the resulting text to destination with a null terminator.
+							_tcscpy_s(pLvdi->item.pszText, text.length() + 1, text.c_str());
 						}
 					}
 					return TRUE;
@@ -438,20 +468,49 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				else if (pNMHDR->code == LVN_KEYDOWN)
 				{
 					NMLVKEYDOWN *lvkd = (NMLVKEYDOWN *)pNMHDR;
-					// Ctrl+A
 					short ctrl = GetKeyState(VK_CONTROL);
 					short alt = GetKeyState(VK_MENU);
 					short shift = GetKeyState(VK_SHIFT);
-					if (lvkd->wVKey == 0x41/*a*/ && ctrl<0 && alt>=0 && shift>=0)
+					if (lvkd->wVKey == 'A' && ctrl<0 && alt>=0 && shift>=0)
 					{
+						// Ctrl + A
 						for (int i=0, n=ListView_GetItemCount(_hList); i<n; ++i)
 							ListView_SetItemState(_hList, i, LVIS_SELECTED, LVIS_SELECTED);
+					}
+					else if (lvkd->wVKey == 'C' && ctrl & 0x80)
+					{
+						// Ctrl + C
+						if (ListView_GetSelectedCount(_hList) != 0)
+							putItemsToClipboard(true);
 					}
 					return TRUE;
 				}
 			}
 			break;
 		}
+
+		case WM_CONTEXTMENU:
+			{
+				if (!_listMenu.isCreated())
+				{
+					NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+					const std::vector<MenuItemUnit> itemUnitArray
+					{
+						{IDM_WINDOW_COPY_NAME, pNativeSpeaker->getAttrNameStr(TEXT("Copy Name(s)"), WD_ROOTNODE, WD_MENUCOPYNAME)},
+						{IDM_WINDOW_COPY_PATH, pNativeSpeaker->getAttrNameStr(TEXT("Copy Pathname(s)"), WD_ROOTNODE, WD_MENUCOPYPATH)}
+					};
+					_listMenu.create(_hSelf, itemUnitArray);
+				}
+
+				const bool enableMenu = ListView_GetSelectedCount(_hList) != 0;
+				_listMenu.enableItem(IDM_WINDOW_COPY_NAME, enableMenu);
+				_listMenu.enableItem(IDM_WINDOW_COPY_PATH, enableMenu);
+
+				POINT p = {};
+				::GetCursorPos(&p);
+				_listMenu.display(p);
+			}
+			return TRUE;
 	}
 	return MyBaseClass::run_dlgProc(message, wParam, lParam);
 }
@@ -501,7 +560,7 @@ void WindowsDlg::updateButtonState()
 int WindowsDlg::doDialog()
 {
 	return static_cast<int>(DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-};
+}
 
 BOOL WindowsDlg::onInitDialog()
 {
@@ -522,6 +581,13 @@ BOOL WindowsDlg::onInitDialog()
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hList);
 	exStyle |= LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_DOUBLEBUFFER;
 	ListView_SetExtendedListViewStyle(_hList, exStyle);
+
+	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
+	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+
+	ListView_SetBkColor(_hList, bgColor);
+	ListView_SetTextBkColor(_hList, bgColor);
+	ListView_SetTextColor(_hList, fgColor);
 
 	RECT rc;
 	GetClientRect(_hList, &rc);
@@ -736,6 +802,8 @@ void WindowsDlg::fitColumnsToSize()
 
 void WindowsDlg::resetSelection()
 {
+	assert(_pTab != nullptr);
+
 	auto curSel = _pTab->getCurrentTabIndex();
 	int pos = 0;
 	for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr, ++pos)
@@ -824,9 +892,9 @@ void WindowsDlg::doClose()
 	{
 		// Trying to retain sort order. fairly sure there is a much better algorithm for this
 		vector<int>::iterator kitr = key.begin();
-		for (UINT i=0; i<n; ++i, ++kitr)
+		for (UINT i = 0; i < n; ++i, ++kitr)
 		{
-			if (nmdlg.Items[i] == -1)
+			if (nmdlg.Items[i] == ((UINT)-1))
 			{
 				int oldVal = _idxMap[*kitr];
 				_idxMap[*kitr] = -1;
@@ -873,6 +941,110 @@ void WindowsDlg::doCount()
 	SetWindowText(_hSelf,msg.c_str());
 }
 
+void WindowsDlg::doSort()
+{
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;	
+	std::vector<UINT> items(count);
+	auto currrentTabIndex = _pTab->getCurrentTabIndex();
+	NMWINDLG nmdlg = {};
+	nmdlg.type = WDT_SORT;
+	nmdlg.hwndFrom = _hSelf;
+	nmdlg.curSel = currrentTabIndex;
+	nmdlg.code = WDN_NOTIFY;
+	nmdlg.nItems = static_cast<UINT>(count);
+	nmdlg.Items = items.data();
+	for (size_t i=0; i < count; ++i)
+	{
+		nmdlg.Items[i] = _idxMap[i];		
+	}
+	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	if (nmdlg.processed)
+	{
+		_idxMap.clear();		
+		refreshMap();
+	}
+	
+	//After sorting, need to open the active tab before sorting
+	//This will be helpful when large number of documents are opened
+	__int64 newPosition = -1;
+	std::vector<int>::iterator it = std::find(_idxMap.begin(), _idxMap.end(), currrentTabIndex);
+	if (it != _idxMap.end())
+	{
+		newPosition = it - _idxMap.begin();
+	}
+	nmdlg.type = WDT_ACTIVATE;
+	nmdlg.curSel = static_cast<UINT>(newPosition);
+	nmdlg.hwndFrom = _hSelf;
+	nmdlg.code = WDN_NOTIFY;	
+	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+}
+
+void WindowsDlg::sort(int columnID, bool reverseSort)
+{
+	refreshMap();
+	_currentColumn = columnID;
+	_reverseSort = reverseSort;
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+}
+
+void WindowsDlg::sortFileNameASC()
+{
+	sort(0, false);
+}
+
+void WindowsDlg::sortFileNameDSC()
+{
+	sort(0, true);	
+}
+
+void WindowsDlg::sortFilePathASC()
+{
+	sort(1, false);
+}
+
+void WindowsDlg::sortFilePathDSC()
+{
+	sort(1, true);
+}
+
+void WindowsDlg::sortFileTypeASC()
+{
+	sort(2, false);
+}
+
+void WindowsDlg::sortFileTypeDSC()
+{
+	sort(2, true);
+}
+
+void WindowsDlg::sortFileSizeASC()
+{
+	sort(3, false);
+}
+
+void WindowsDlg::sortFileSizeDSC()
+{
+	sort(3, true);
+}
+
+void WindowsDlg::refreshMap()
+{
+	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
+	size_t oldSize = _idxMap.size();
+	if (count == oldSize)
+		return;
+
+	if (count != oldSize)
+	{
+		size_t lo = 0;
+		_idxMap.resize(count);
+		if (oldSize < count)
+			lo = oldSize;
+		for (size_t i = lo; i < count; ++i)
+			_idxMap[i] = int(i);
+	}
+}
+
 void WindowsDlg::doSortToTabs()
 {
 	int curSel = ListView_GetNextItem(_hList, -1, LVNI_SELECTED);
@@ -907,86 +1079,121 @@ void WindowsDlg::doSortToTabs()
 	delete[] nmdlg.Items;
 }
 
-WindowsMenu::WindowsMenu()
-{}
-
-WindowsMenu::~WindowsMenu()
+void WindowsDlg::putItemsToClipboard(bool isFullPath)
 {
-	if (_hMenu)
-		DestroyMenu(_hMenu);
-}
-
-void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation)
-{
-	_hMenu = ::LoadMenu(hInst, MAKEINTRESOURCE(IDR_WINDOWS_MENU));
-
-	if (translation && translation[0])
+	std::vector<Buffer*> buffers;
+	for (int i = -1, j = 0; ; ++j)
 	{
-		generic_string windowStr(translation);
-		windowStr += TEXT("...");
-		::ModifyMenu(_hMenu, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowStr.c_str());
+		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
+		if (i < 0)
+			break;
+		// Get the file name.
+		// Do not use ListView_GetItemText() because 1st column may contain "*" or "[Read Only]".
+		buffers.push_back(getBuffer(i));
 	}
 
-	int32_t pos = 0;
-	for (pos = GetMenuItemCount(hMainMenu) - 1; pos > 0; --pos)
-	{
-		if ((GetMenuState(hMainMenu, pos, MF_BYPOSITION) & MF_POPUP) != MF_POPUP)
-			continue;
-		break;
-	}
-
-	MENUITEMINFO mii;
-	memset(&mii, 0, sizeof(mii));
-	mii.cbSize = sizeof(mii);
-	mii.fMask = MIIM_STRING|MIIM_SUBMENU;
-
-	TCHAR buffer[32];
-	LoadString(hInst, IDR_WINDOWS_MENU, buffer, 32);
-	mii.dwTypeData = (TCHAR *)((translation && translation[0])?translation:buffer);
-	mii.hSubMenu = _hMenu;
-	InsertMenuItem(hMainMenu, pos, TRUE, &mii);
+	buf2Clipborad(buffers, isFullPath, _hList);
 }
 
-void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
+Buffer* WindowsDlg::getBuffer(int index) const
 {
+	if (index < 0 || index >= static_cast<int>(_idxMap.size()))
+		return nullptr;
+
+	index = _idxMap[index];
+	if (index < 0 || !_pTab || index >= static_cast<int>(_pTab->nbItem()))
+		return nullptr;
+
+	BufferID bufID = _pTab->getBufferByIndex(index);
+	return MainFileManager.getBufferByID(bufID);
+}
+
+void WindowsMenu::init(HMENU hMainMenu)
+{
+	_hMenu = ::GetSubMenu(hMainMenu, MENUINDEX_WINDOW);
+	_hMenuList = ::GetSubMenu(hMainMenu, MENUINDEX_LIST);
+}
+
+void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
+{
+	bool isDropListMenu = false;
+
+	UINT firstId = 0;
+	UINT limitId = 0;
+	UINT menuPosId = 0;
+
 	if (hMenu == _hMenu)
 	{
+		firstId = IDM_WINDOW_MRU_FIRST;
+		limitId = IDM_WINDOW_MRU_LIMIT;
+		menuPosId = IDM_WINDOW_WINDOWS;
+	}
+	else if (hMenu == _hMenuList)
+	{
+		isDropListMenu = true;
+
+		if (_limitPrev < pTab->nbItem())
+		{
+			_limitPrev = static_cast<UINT>(pTab->nbItem());
+		}
+
+		firstId = IDM_DROPLIST_MRU_FIRST;
+		limitId = IDM_DROPLIST_MRU_FIRST + _limitPrev - 1;
+		menuPosId = IDM_DROPLIST_LIST;
+	}
+
+	if (firstId > 0 && limitId > 0 && menuPosId > 0)
+	{
 		auto curDoc = pTab->getCurrentTabIndex();
-		size_t nMaxDoc = IDM_WINDOW_MRU_LIMIT - IDM_WINDOW_MRU_FIRST + 1;
+		size_t nMaxDoc = static_cast<size_t>(limitId) - firstId + 1;
 		size_t nDoc = pTab->nbItem();
 		nDoc = min(nDoc, nMaxDoc);
-		int id;
-		size_t pos;
-		for (id = IDM_WINDOW_MRU_FIRST, pos = 0; id < IDM_WINDOW_MRU_FIRST + static_cast<int32_t>(nDoc); ++id, ++pos)
+		UINT id = firstId;
+		UINT guard = firstId + static_cast<int32_t>(nDoc);
+		size_t pos = 0;
+		for (; id < guard; ++id, ++pos)
 		{
 			BufferID bufID = pTab->getBufferByIndex(pos);
-			Buffer * buf = MainFileManager.getBufferByID(bufID);
+			Buffer* buf = MainFileManager.getBufferByID(bufID);
 
-			MENUITEMINFO mii;
-			memset(&mii, 0, sizeof(mii));
+			MENUITEMINFO mii{};
 			mii.cbSize = sizeof(mii);
-			mii.fMask = MIIM_STRING|MIIM_STATE|MIIM_ID;
-			generic_string strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName()));
-			// Can't make mii.dwTypeData = strBuffer.c_str() because of const cast.
-			// So, making temporary buffer for this.
+			mii.fMask = MIIM_STRING | MIIM_STATE | MIIM_ID;
+
+			generic_string strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName(), !isDropListMenu));
 			std::vector<TCHAR> vBuffer(strBuffer.begin(), strBuffer.end());
 			vBuffer.push_back('\0');
 			mii.dwTypeData = (&vBuffer[0]);
-			mii.fState &= ~(MF_GRAYED|MF_DISABLED|MF_CHECKED);
-			if (int(pos) == curDoc)
+
+			mii.fState &= ~(MF_GRAYED | MF_DISABLED | MF_CHECKED);
+			if (static_cast<int32_t>(pos) == curDoc)
+			{
 				mii.fState |= MF_CHECKED;
+			}
 			mii.wID = id;
 
 			UINT state = GetMenuState(hMenu, id, MF_BYCOMMAND);
-			if (state == -1)
-				InsertMenuItem(hMenu, IDM_WINDOW_WINDOWS, FALSE, &mii);
+			if (state == static_cast<UINT>(-1))
+			{
+				InsertMenuItem(hMenu, menuPosId, TRUE, &mii);
+				if (isDropListMenu)
+				{
+					DeleteMenu(hMenu, menuPosId, FALSE);
+				}
+			}
 			else
+			{
 				SetMenuItemInfo(hMenu, id, FALSE, &mii);
+			}
 		}
-		for ( ; id<=IDM_WINDOW_MRU_LIMIT; ++id)
+		for (; id <= limitId; ++id)
 		{
 			DeleteMenu(hMenu, id, FALSE);
 		}
+
+		if (isDropListMenu)
+		{
+			_limitPrev = static_cast<UINT>(pTab->nbItem());
+		}
 	}
 }
-

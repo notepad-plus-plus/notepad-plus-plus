@@ -22,8 +22,8 @@
           <Item menuId="tools" name="टूल्स"/>
           <Item menuId="macro" name="मेक्रो"/>
           <Item menuId="run" name="चलाये"/>
-          <Item idName="Plugins" name="प्लगिन्स"/>
-          <Item idName="Window" name="विन्डों"/>
+          <Item menuId="Plugins" name="प्लगिन्स"/>
+          <Item menuId="Window" name="विन्डों"/>
         </Entries>
 
         <!-- Sub Menu Entries -->
@@ -1085,11 +1085,11 @@
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
     </ClipboardHistory>
-    <DocSwitcher>
+    <DocList>
       <PanelTitle name="डॉक स्विचर (Doc Switcher)"/>
       <ColumnName name="नाम"/>
       <ColumnExt name="Ext."/>
-    </DocSwitcher>
+    </DocList>
     <WindowsDlg>
       <ColumnName name="नाम"/>
       <ColumnPath name="पाथ"/>

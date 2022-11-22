@@ -21,6 +21,7 @@
 #include "shortcut.h"
 #include "Parameters.h"
 #include "Notepad_plus.h"
+#include <strsafe.h>
 
 
 void Command::extractArgs(TCHAR* cmd2Exec, size_t cmd2ExecLen, TCHAR* args, size_t argsLen, const TCHAR* cmdEntier)
@@ -95,6 +96,8 @@ int whichVar(TCHAR *str)
 		return CURRENT_LINE;
 	else if (!lstrcmp(currentColumn, str))
 		return CURRENT_COLUMN;
+	else if (!lstrcmp(currentLineStr, str))
+		return CURRENT_LINESTR;
 
 	return VAR_NOT_RECOGNIZED;
 }
@@ -123,7 +126,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 		{
 			if (iEnd != -1)
 			{
-				TCHAR str[MAX_PATH];
+				TCHAR str[MAX_PATH] = { '\0' };
 				int m = 0;
 				for (int k = iBegin  ; k <= iEnd ; ++k)
 					str[m++] = strSrc[k];
@@ -140,11 +143,12 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 				}
 				else
 				{
-					TCHAR expandedStr[CURRENTWORD_MAXLENGTH];
+					TCHAR expandedStr[CURRENTWORD_MAXLENGTH] = { '\0' };
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
-						auto lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
-						wsprintf(expandedStr, TEXT("%d"), lineNumber);
+						size_t lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
+						std::wstring lineNumStr = std::to_wstring(lineNumber);
+						StringCchCopyW(expandedStr, CURRENTWORD_MAXLENGTH, lineNumStr.c_str());
 					}
 					else
 						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(expandedStr));
@@ -217,7 +221,7 @@ HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
 	// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
 	// If the function succeeds, it returns a value greater than 32.
 	// If the function fails, it returns an error value that indicates the cause of the failure.
-	int retResult = static_cast<int>(reinterpret_cast<INT_PTR>(res));
+	int retResult = static_cast<int>(reinterpret_cast<intptr_t>(res));
 	if (retResult <= 32)
 	{
 		generic_string errorMsg;
@@ -238,13 +242,60 @@ HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
 	return res;
 }
 
-INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
 		case NPPM_INTERNAL_FINDKEYCONFLICTS:
 		{
 			return ::SendMessage(_hParent, message, wParam, lParam);
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				RECT rc = {};
+				getClientRect(rc);
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
 		}
 
 		case WM_COMMAND : 
@@ -262,7 +313,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					_cmdLine = cmd;
 
 					HINSTANCE hInst = run(_hParent);
-					if (reinterpret_cast<INT_PTR>(hInst) > 32)
+					if (reinterpret_cast<intptr_t>(hInst) > 32)
 					{
 						addTextToCombo(_cmdLine.c_str());
 						display(false);
@@ -369,7 +420,9 @@ void RunDlg::doDialog(bool isRTL)
 	if (!isCreated())
 		create(IDD_RUN_DLG, isRTL);
 
+	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
     // Adjust the position in the center
 	goToCenter();
 	::SetFocus(::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH));
-};
+}

@@ -26,6 +26,8 @@
 #define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 2)
 #define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
 
+const TCHAR VIEWZONE_DOCUMENTMAP[64] = TEXT("Document map");
+
 class ScintillaEditView;
 class Buffer;
 struct MapPosition;
@@ -43,6 +45,11 @@ class ViewZoneDlg : public StaticDialog
 {
 public :
 	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(NULL), _canvasDefaultProc(nullptr), _higherY(0), _lowerY(0) {}
+
+	enum class ViewZoneColorIndex {
+		focus,
+		frost
+	};
 
 	void doDialog();
 
@@ -63,11 +70,16 @@ public :
 		return (_lowerY - _higherY)/2 + _higherY;
 	};
 
+	static void setColour(COLORREF colour2Set, ViewZoneColorIndex i);
+
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+	static COLORREF _focus;
+	static COLORREF _frost;
 
 	void drawPreviewZone(DRAWITEMSTRUCT *pdis);
 
@@ -75,8 +87,8 @@ private :
 	HWND _viewZoneCanvas = nullptr;
 	WNDPROC _canvasDefaultProc = nullptr;
 	
-	long _higherY;
-	long _lowerY;
+	long _higherY = 0;
+	long _lowerY = 0;
 };
 
 
@@ -125,18 +137,18 @@ public:
 	void setTemporarilyShowing(bool tempShowing) { _isTemporarilyShowing = tempShowing; }
 
 protected:
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool needToRecomputeWith(const ScintillaEditView *editView = nullptr);
 
 private:
-	ScintillaEditView **_ppEditView = nullptr;
-	ScintillaEditView *_pMapView = nullptr;
+	ScintillaEditView**_ppEditView = nullptr;
+	ScintillaEditView*_pMapView = nullptr;
 	ViewZoneDlg _vzDlg;
-	HWND _hwndScintilla;
+	HWND _hwndScintilla = nullptr;
 	bool _isTemporarilyShowing = false;
 
 	// for needToRecomputeWith function
-	int _displayZoom = -1;
-	int _displayWidth = 0;
+	intptr_t _displayZoom = -1;
+	intptr_t _displayWidth = 0;
 	generic_string id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 };

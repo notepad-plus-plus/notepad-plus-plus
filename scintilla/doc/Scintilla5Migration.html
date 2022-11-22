@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator"
+    content="HTML Tidy for Windows (vers 1st August 2002), see www.w3.org" />
+    <meta name="generator" content="SciTE" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+    <title>Migration to Scintilla 5.x.</title>
+
+    <style type="text/css">
+<!--
+/*<![CDATA[*/
+	CODE { font-weight: bold; font-family: Menlo,Consolas,Bitstream Vera Sans Mono,Courier New,monospace; }
+	CODE.example { background: #EBFFF7;}
+	CODE.windows { background: #E7F0FF;}
+	CODE.unix { background: #FFFFD7;}
+	A:visited { color: blue; }
+	A:hover { text-decoration: underline ! important; }
+	A.message { text-decoration: none; font-weight: bold; font-family: Menlo,Consolas,Bitstream Vera Sans Mono,Courier New,monospace; }
+	A.seealso { text-decoration: none; font-weight: bold; font-family: Menlo,Consolas,Bitstream Vera Sans Mono,Courier New,monospace; }
+	A.toc { text-decoration: none; }
+	A.jump { text-decoration: none; }
+	LI.message { text-decoration: none; font-weight: bold; font-family: Menlo,Consolas,Bitstream Vera Sans Mono,Courier New,monospace; }
+	H2 { background: #E0EAFF; }
+
+	table {
+		border: 0px;
+		border-collapse: collapse;
+	}
+
+        div.console {
+            font-family: Menlo,Consolas,Bitstream Vera Sans Mono,Courier New,monospace;
+            color: #008000;
+            font-weight: bold;
+            background: #F7FCF7;
+            border: 1px solid #C0D7C0;
+            margin: 0.3em 3em;
+            padding: 0.3em 0.6em;
+        }
+        span.console {
+            font-family: Menlo,Consolas,Bitstream Vera Sans Mono,Courier New,monospace;
+            color: #008000;
+            font-weight: bold;
+            background: #F7FCF7;
+            border: 1px solid #C0D7C0;
+            margin: 0.1em 0em;
+            padding: 0.1em 0.3em;
+        }
+
+        .name {
+		color: #B08000;
+        }
+/*]]>*/
+-->
+    </style>
+  </head>
+
+  <body bgcolor="#FFFFFF" text="#000000">
+    <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0"
+    summary="Banner">
+      <tr>
+        <td><img src="SciTEIco.png" border="3" height="64" width="64" alt="Lexilla icon" /></td>
+
+        <td><a href="index.html"
+        style="color:white;text-decoration:none;font-size:200%">Scintilla</a></td>
+      </tr>
+    </table>
+
+    <h1>Migrating Applications to Scintilla 5 with Lexilla.</h1>
+
+    <h2>Introduction</h2>
+
+    <p>With Scintilla 5.0, all lexers were moved from Scintilla into the Lexilla library
+    which is a <a href="https://www.scintilla.org/Lexilla.html">separate project</a>.
+    Lexilla may be either a static library
+    that is linked into an application or a shared library that is loaded at runtime.</p>
+
+    <p>Lexilla has its own <a href="LexillaDoc.html">documentation</a>.</p>
+
+    <h2>Basics</h2>
+
+    <p>With Scintilla 4.x, it was most common for applications to set a lexer either by lexer name or lexer ID (<span class="name">SCLEX_...</span>) by calling
+    <code>SCI_SETLEXERLANGUAGE("&lt;name&gt;")</code> or <code>SCI_SETLEXER(SCLEX_*)</code>.</p>
+
+    <p>With Scintilla 5, the normal technique is to call Lexilla's <span class="name">CreateLexer</span> function
+    with a lexer name, then apply the result with
+    Scintilla's <span class="name">SCI_SETILEXER</span> method:<br />
+    <code>ILexer5 *pLexer = CreateLexer("&lt;name&gt;")<br />
+    SCI_SETILEXER(pLexer)</code></p>
+
+    <p>Lexer names are now strongly preferred to lexer IDs and applications should switch where possible.
+    Some lexers will not have lexer IDs but all will have names.</p>
+
+    <p>Applications may be written in C++ or C; may contain a statically linked Lexilla library or load a Lexilla
+    shared library; and may use the raw Lexilla API or the LexillaAccess C++ helper module.</p>
+
+    <h2>From C++: LexillaAccess</h2>
+
+    <p>The easiest technique is to implement in C++ using LexillaAccess and load a Lexilla shared library.</p>
+
+    <p>LexillaAccess simplifies use of Lexilla, hides operating system differences, and allows loading
+    multiple libraries that support the Lexilla protocol.
+    It is defined in lexilla/access/LexillaAccess.h and the source code is in lexilla/access/LexillaAccess.cxx.
+    Add these to the build dependencies of the project or build file.</p>
+
+    <p>Both SciTE and TestLexers (used to test Lexilla) in lexilla/test use LexillaAccess.
+    TestLexers is much simpler than SciTE so can be a good example to examine.</p>
+
+    <h3>Building</h3>
+
+    <p>Header files for lexers and for using Lexilla will be included so build files will need to reference these new locations.
+    LexillaAccess.cxx should be added to the set of source files.
+    In make, for example, this may appear similar to:</p>
+
+    <code class="example">
+    LEXILLA_DIR ?= $(srcdir)/../../lexilla<br />
+    INCLUDES += -I $(LEXILLA_DIR)/include  -I $(LEXILLA_DIR)/access<br />
+    SOURCES += $(LEXILLA_DIR)/access/LexillaAccess.cxx<br />
+    </code>
+
+    <h3>Steps in code</h3>
+
+    <p>Set the directory to search for Lexilla when full paths aren't provided.
+    This may be a known good system or user directory or the directory of the application
+    depending on the operating system conventions.</p>
+    <code class="example">
+    std::string homeDirectory = "/Users/Me/bin";<br />
+    Lexilla::SetDefaultDirectory(homeDirectory);<br />
+    </code>
+    <p>Load Lexilla or another library that implements the Lexilla protocol.
+    The name "." means the standard name and extension (liblexilla.so / liblexilla.dylib / lexilla.dll)
+    in the default directory so is often a good choice. Names without extensions have the operating system's preferred
+    shared library extension added.
+    A full path can also be used.
+    Multiple libraries can be loaded at once by listing them separated by ';'.
+    Something like one of these lines:</p>
+    <code class="example">
+    Lexilla::Load(".");<br />
+    Lexilla::Load("lexilla;lexpeg;XMLexers");<br />
+    Lexilla::Load("/usr/lib/liblexilla.so;/home/aardvark/bin/libpeg.so");<br />
+    </code>
+    <p>Choose the name of the lexer to use. This may be determined from the file extension or some other mechanism.</p>
+    <code class="example">
+    std::string lexerName = "cpp";<br />
+    </code>
+    <p>Create a lexer and apply it to a Scintilla instance.</p>
+    <code class="example">
+    Scintilla::ILexer5 *pLexer = Lexilla::MakeLexer(lexerName);<br />
+    CallScintilla(scintilla, SCI_SETILEXER, 0, pLexer);<br />
+    </code>
+    <p>Some applications may use integer lexer IDs from SciLexer.h with an "SCLEX_" prefix like
+    <span class="name">SCLEX_CPP</span>.
+    These can be converted to a name with NameFromID before passing to MakeLexer.</p>
+    <code class="example">
+    Scintilla::ILexer5 *pLexer = Lexilla::MakeLexer(Lexilla::NameFromID(SCLEX_CPP));<br />
+    </code>
+
+    <h2>From C: Lexilla.h and system APIs</h2>
+
+    <p>Applications written in C or C++ can use the raw Lexilla API which is defined in lexilla/include/Lexilla.h.
+    Since the ILexer interface is difficult to define for C, C applications should treat the result of CreateLexer as a
+    <code>void*</code> that is simply passed through to Scintilla.
+    If there is a need to call methods on the lexer
+    before passing it to Scintilla then it would be best to use some C++ code although it may be possible
+    for a sufficiently motivated developer to call methods on the lexer from C.</p>
+
+    <p>There is an example for using Lexilla from C in examples/CheckLexilla.</p>
+
+    <h3>Steps in code</h3>
+
+    <p>Include the system header for loading shared objects.
+    This depends on the operating system: &lt;windows.h&gt; for <code class="windows">Windows</code> or
+    &lt;dlfcn.h&gt; for <code class="unix">Unix</code>.</p>
+    <code class="windows">#include &lt;windows.h&gt;<br /></code>
+    <code class="unix">#include &lt;dlfcn.h&gt;<br /></code>
+    <p>Define a path to the Lexilla shared library.
+    This may be a known good system or user directory or the directory of the application
+    depending on the operating system conventions.</p>
+    <code class="example">
+    #include "Lexilla.h"<br />
+    char szLexillaPath[] = "../../bin/" LEXILLA_LIB LEXILLA_EXTENSION;<br />
+    </code>
+    <p>Load Lexilla using the appropriate operating system function: either LoadLibrary on Windows or
+    dlopen on Unix.</p>
+    <code class="windows">HMODULE lexillaLibrary = LoadLibrary(szLexillaPath);<br /></code>
+    <code class="unix">void *lexillaLibrary = dlopen(szLexillaPath, RTLD_LAZY);<br /></code>
+    <p>Find the CreateLexer function inside the shared library using either GetProcAddress on Windows or
+    dlsym on Unix.</p>
+    <code class="windows">FARPROC fun = GetProcAddress(lexillaLibrary, LEXILLA_CREATELEXER);<br /></code>
+    <code class="unix">void *fun = dlsym(lexillaLibrary, LEXILLA_CREATELEXER);<br /></code>
+    <p>Cast this to the correct type.</p>
+    <code class="example">CreateLexerFn lexerCreate = (CreateLexerFn)(fun);<br /></code>
+    <p>Choose the name of the lexer to use. This may be determined from the file extension or some other mechanism.</p>
+    <code class="example">char lexerName[] = "cpp";<br /></code>
+    <p>Create a lexer and apply it to a Scintilla instance.</p>
+    <code class="example">
+    void *pLexer = lexerCreate(lexerName);<br />
+    CallScintilla(scintilla, SCI_SETILEXER, 0, pLexer);<br />
+    </code>
+
+    <p>If the application uses integer lexer IDs then find the <span class="name">LEXILLA_LEXERNAMEFROMID</span>
+    function, cast to <span class="name">LexerNameFromIDFn</span> then call with the ID before using the result to call
+    <span class="name">CreateLexer</span>.</p>
+    <code class="windows">FARPROC funName = GetProcAddress(lexillaLibrary, LEXILLA_LEXERNAMEFROMID);<br /></code>
+    <code class="unix">void *funName = dlsym(lexillaLibrary, LEXILLA_LEXERNAMEFROMID);<br /></code>
+    <code class="example">LexerNameFromIDFn lexerNameFromID = (LexerNameFromIDFn)(funName);<br /></code>
+    <code class="example">const char *name = lexerNameFromID(lexerID);<br /></code>
+
+    <h2>Static linking</h2>
+
+    <p>Lexilla may be linked directly into an application or built into a static library that is then
+    linked into the application, then there is no need to load a shared library and
+    <span class="name">CreateLexer</span> can be directly called.</p>
+
+    <p>It is possible to link Lexilla into an application and then dynamically load other
+    shared libraries that implement the Lexilla protocol.
+    SciTE on Windows implements this as an option when built with STATIC_BUILD defined.</p>
+
+  </body>
+</html>
+

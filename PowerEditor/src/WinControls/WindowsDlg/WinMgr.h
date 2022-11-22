@@ -207,15 +207,15 @@ struct NMWINMGR : public NMHDR {
 
 	// each notification code has its own part of union
 	union {
-		SIZEINFO sizeinfo;	// used for GET_SIZEINFO
+		SIZEINFO sizeinfo{};	// used for GET_SIZEINFO
 		struct {					// used for SIZEBAR_MOVED
-			POINT ptMoved;		//  distance moved (x or y = zero)
+			POINT ptMoved{};		//  distance moved (x or y = zero)
 		} sizebar;
 	};
-	BOOL processed;
+	BOOL processed = FALSE;
 
 	// ctor: initialize to zeroes
-	NMWINMGR() { memset(this,0,sizeof(NMWINMGR)); }
+	NMWINMGR() : NMHDR{ nullptr, 0, 0 }, sizeinfo{}, processed(FALSE) {}
 };
 
 ///////////////////

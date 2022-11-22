@@ -1,4 +1,6 @@
-// Unit Tests for Scintilla internal data structures
+/** @file testSplitVector.cxx
+ ** Unit Tests for Scintilla internal data structures
+ **/
 
 #include <cstddef>
 #include <cstring>
@@ -6,23 +8,71 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "Debugging.h"
 
 #include "Position.h"
 #include "SplitVector.h"
 
 #include "catch.hpp"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 // Test SplitVector.
 
+using UniqueInt = std::unique_ptr<int>;
+
+// Test SplitVector.
+
+TEST_CASE("CompileCopying SplitVector") {
+
+	// These are compile-time tests to check that basic copy and move
+	// operations are defined correctly.
+
+	SECTION("CopyingMoving") {
+		SplitVector<int> s;
+		SplitVector<int> s2;
+
+		// Copy constructor fails
+		SplitVector<int> sa(s);
+		// Copy assignment fails
+		SplitVector<int> sb;
+		sb = s;
+
+		// Move constructor fails
+		SplitVector<int> sc(std::move(s));
+		// Move assignment fails
+		SplitVector<int> sd;
+		sd = (std::move(s2));
+	}
+
+	SECTION("MoveOnly") {
+		SplitVector<UniqueInt> s;
+
+#if defined(SHOW_COPY_BUILD_FAILURES)
+		// Copy is not defined for std::unique_ptr
+		// Copy constructor fails
+		SplitVector<UniqueInt> sa(s);
+		// Copy assignment fails
+		SplitVector<UniqueInt> sb;
+		sb = s;
+#endif
+
+		// Move constructor fails
+		SplitVector<UniqueInt> sc(std::move(s));
+		// Move assignment fails
+		SplitVector<UniqueInt> sd;
+		sd = (std::move(s));
+	}
+
+}
+
 struct StringSetHolder {
 	SplitVector<std::string> sa;
-	bool Check() {
+	bool Check() const noexcept {
 		for (int i = 0; i < sa.Length(); i++) {
 			if (sa[i].empty()) {
 				return false;
@@ -32,7 +82,7 @@ struct StringSetHolder {
 	}
 };
 
-const int lengthTestArray = 4;
+constexpr int lengthTestArray = 4;
 static const int testArray[4] = {3, 4, 5, 6};
 
 TEST_CASE("SplitVector") {
@@ -276,7 +326,7 @@ TEST_CASE("SplitVector") {
 	SECTION("ReplaceUp") {
 		// Replace each element by inserting and then deleting the displaced element
 		// This should perform many moves
-		const int testLength=105;
+		constexpr int testLength=105;
 		sv.EnsureLength(testLength);
 		for (int i=0; i<testLength; i++)
 			sv.SetValueAt(i, i+2);
@@ -292,7 +342,7 @@ TEST_CASE("SplitVector") {
 	SECTION("ReplaceDown") {
 		// From the end, replace each element by inserting and then deleting the displaced element
 		// This should perform many moves
-		const int testLength=24;
+		constexpr int testLength=24;
 		sv.EnsureLength(testLength);
 		for (int i=0; i<testLength; i++)
 			sv.SetValueAt(i, i+12);
@@ -310,9 +360,9 @@ TEST_CASE("SplitVector") {
 		sv.InsertFromArray(0, testArray, 0, lengthTestArray);
 		sv.Insert(0, 99);	// This moves the gap so that BufferPointer() must also move
 		REQUIRE(1 == sv.GapPosition());
-		const int lengthAfterInsertion = 1 + lengthTestArray;
+		constexpr int lengthAfterInsertion = 1 + lengthTestArray;
 		REQUIRE(lengthAfterInsertion == (sv.Length()));
-		int *retrievePointer = sv.BufferPointer();
+		const int *retrievePointer = sv.BufferPointer();
 		for (int i=1; i<sv.Length(); i++) {
 			REQUIRE((i+3-1) == retrievePointer[i]);
 		}

@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "&amp;Impostazions"/>
 					<Item menuId="macro" name = "Macro"/>
 					<Item menuId="run" name = "Invie"/>
-					<Item idName = "Plugins" name = "Plugins"/>
-					<Item idName = "Window" name = "Barcon"/>
+					<Item menuId = "Plugins" name = "Plugins"/>
+					<Item menuId = "Window" name = "Barcon"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -268,14 +268,10 @@
                 <Item id = "1604" name = "Maiusc&amp;ul/Minuscul"/>
                 <Item id = "1605" name = "&amp;Espression regolâr"/>
                 <Item id = "1606" name = "Wrap aroun&amp;d"/>
-                <Item id = "1612" name = "&amp;Sù"/>
-                <Item id = "1613" name = "&amp;Jù"/>
                 <Item id = "1614" name = "Conte"/>
                 <Item id = "1615" name = "Cjate dut"/>
                 <Item id = "1616" name = "Segne la rie"/>
-                <Item id = "1617" name = "Stîl element cjatât"/>
                 <Item id = "1618" name = "Nete a ogni ricercje"/>
-                <Item id = "1621" name = "Direzion"/>
                 <Item id = "1611" name = "Sost&amp;ituìs cun:"/>
                 <Item id = "1608" name = "&amp;Sostituìs"/>
                 <Item id = "1609" name = "Sostituìs &amp;dut"/>
@@ -286,7 +282,6 @@
 			 	<Item id = "1633" name = "Nete"/>
 			 	<Item id = "1635" name = "Sostituìs dut in ducj i documents vierts"/>
 			 	<Item id = "1636" name = "Cjate dut in ducj i documents vierts"/>
-			 	<Item id = "1637" name = "Cjate tai files"/>
 			 	<Item id = "1654" name = "Filtris:"/>
 			 	<Item id = "1655" name = "Cartele:"/>
 			 	<Item id = "1656" name = "Cjatiju ducj"/>

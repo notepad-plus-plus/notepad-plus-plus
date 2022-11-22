@@ -55,13 +55,13 @@ static size_t keyTranslate(size_t keyIn) {
 		case VK_OEM_6:		return ']';
 		default:			return keyIn;
 	}
-};
+}
 
 struct KeyCombo {
-	bool _isCtrl;
-	bool _isAlt;
-	bool _isShift;
-	UCHAR _key;
+	bool _isCtrl = false;
+	bool _isAlt = false;
+	bool _isShift = false;
+	UCHAR _key = 0;
 };
 
 class Shortcut  : public StaticDialog {
@@ -120,7 +120,7 @@ public:
 		return !(a == b);
 	};
 
-	virtual INT_PTR doDialog()
+	virtual intptr_t doDialog()
 	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
@@ -174,10 +174,10 @@ public:
 
 protected :
 	KeyCombo _keyCombo;
-	virtual INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	bool _canModifyName;
-	TCHAR _name[nameLenMax];		//normal name is plain text (for display purposes)
-	TCHAR _menuName[nameLenMax];	//menu name has ampersands for quick keys
+	virtual intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	bool _canModifyName = false;
+	TCHAR _name[nameLenMax] = {'\0'};		//normal name is plain text (for display purposes)
+	TCHAR _menuName[nameLenMax] = { '\0' };	//menu name has ampersands for quick keys
 	void updateConflictState(const bool endSession = false) const;
 };
 		 
@@ -198,7 +198,7 @@ private :
 
 class ScintillaKeyMap : public Shortcut {
 public:
-	ScintillaKeyMap(const Shortcut& sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {
+	ScintillaKeyMap(const Shortcut& sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _scintillaKeyID(scintillaKeyID), _menuCmdID(id) {
 		_keyCombos.clear();
 		_keyCombos.push_back(_keyCombo);
 		_keyCombo._key = 0;
@@ -208,7 +208,7 @@ public:
 	int getMenuCmdID() const {return _menuCmdID;};
 	size_t toKeyDef(size_t index) const {
 		KeyCombo kc = _keyCombos[index];
-		int keymod = (kc._isCtrl?SCMOD_CTRL:0) | (kc._isAlt?SCMOD_ALT:0) | (kc._isShift?SCMOD_SHIFT:0);
+		size_t keymod = (kc._isCtrl ? SCMOD_CTRL : 0) | (kc._isAlt ? SCMOD_ALT : 0) | (kc._isShift ? SCMOD_SHIFT : 0);
 		return keyTranslate(kc._key) + (keymod << 16);
 	};
 
@@ -227,7 +227,7 @@ public:
 	generic_string toString() const;
 	generic_string toString(size_t index) const;
 
-	INT_PTR doDialog()
+	intptr_t doDialog()
 	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
@@ -264,7 +264,7 @@ private:
 	void showCurrentSettings();
 	void updateListItem(int index);
 protected :
-	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 

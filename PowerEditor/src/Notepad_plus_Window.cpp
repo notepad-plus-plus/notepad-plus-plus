@@ -52,6 +52,14 @@ namespace // anonymous
 } // anonymous namespace
 
 
+void Notepad_plus_Window::setStartupBgColor(COLORREF BgColor)
+{
+	RECT windowClientArea;
+	HDC hdc = GetDCEx(_hSelf, NULL, DCX_CACHE | DCX_LOCKWINDOWUPDATE); //lock window update flag due to PaintLocker
+	GetClientRect(_hSelf, &windowClientArea);
+	FillRect(hdc, &windowClientArea, CreateSolidBrush(BgColor));
+	ReleaseDC(_hSelf, hdc);
+}
 
 
 
@@ -93,7 +101,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	_hIconAbsent = ::LoadIcon(hInst, MAKEINTRESOURCE(IDI_ICONABSENT));
 
 	_hSelf = ::CreateWindowEx(
-		WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL()?WS_EX_LAYOUTRTL:0),
+		WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL() ? WS_EX_LAYOUTRTL : 0),
 		_className,
 		TEXT("Notepad++"),
 		(WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN),
@@ -139,6 +147,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 		//SetWindowPlacement will take care of situations, where saved position was in no longer available monitor
 		::SetWindowPlacement(_hSelf,&posInfo);
+		
+		if (NppDarkMode::isEnabled())
+			setStartupBgColor(NppDarkMode::getBackgroundColor()); //draw dark background when opening Npp without position data
 	}
 
 	if ((nppGUI._tabStatus & TAB_MULTILINE) != 0)
@@ -180,6 +191,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core._pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, NPPM_INTERNAL_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 		_notepad_plus_plus_core._pTrayIco->doTrayIcon(ADD);
 	}
+
+	if(cmdLineParams->isPointValid() && NppDarkMode::isEnabled())
+		setStartupBgColor(NppDarkMode::getBackgroundColor()); //draw dark background when opening Npp through cmd with position data
+
 	std::vector<generic_string> fileNames;
 	std::vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));
@@ -188,9 +203,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	LocalizationSwitcher & localizationSwitcher = nppParams.getLocalizationSwitcher();
 	std::wstring localizationDir = nppDir;
-	PathAppend(localizationDir, TEXT("localization\\"));
+	pathAppend(localizationDir, TEXT("localization\\"));
 
-	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), patterns, fileNames, false, false);
+	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), 0, patterns, fileNames, false, false);
 	for (size_t i = 0, len = fileNames.size(); i < len; ++i)
 		localizationSwitcher.addLanguageFromXml(fileNames[i]);
 
@@ -200,13 +215,12 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	//  Get themes from both npp install themes dir and app data themes dir with the per user
 	//  overriding default themes of the same name.
 
-	generic_string themeDir;
+	generic_string appDataThemeDir;
     if (nppParams.getAppDataNppDir() && nppParams.getAppDataNppDir()[0])
     {
-        themeDir = nppParams.getAppDataNppDir();
-	    PathAppend(themeDir, TEXT("themes\\"));
-		themeSwitcher.setThemeDirPath(themeDir);
-	    _notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
+		appDataThemeDir = nppParams.getAppDataNppDir();
+	    pathAppend(appDataThemeDir, TEXT("themes\\"));
+	    _notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), 0, patterns, fileNames, false, false);
 	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
 	    {
 		    themeSwitcher.addThemeFromXml(fileNames[i]);
@@ -214,20 +228,58 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
     }
 
 	fileNames.clear();
-	themeDir.clear();
-	themeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
-	PathAppend(themeDir, TEXT("themes\\"));
 
-	if (themeSwitcher.getThemeDirPath().empty())
-		themeSwitcher.setThemeDirPath(themeDir);
+	generic_string nppThemeDir;
+	nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
+	pathAppend(nppThemeDir, TEXT("themes\\"));
 
-	_notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
+	// Set theme directory to their installation directory
+	themeSwitcher.setThemeDirPath(nppThemeDir);
+
+	_notepad_plus_plus_core.getMatchedFileNames(nppThemeDir.c_str(), 0, patterns, fileNames, false, false);
 	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{
 		generic_string themeName( themeSwitcher.getThemeFromXmlFileName(fileNames[i].c_str()) );
-		if (! themeSwitcher.themeNameExists(themeName.c_str()) )
+		if (!themeSwitcher.themeNameExists(themeName.c_str()) )
 		{
 			themeSwitcher.addThemeFromXml(fileNames[i]);
+			
+			if (!appDataThemeDir.empty())
+			{
+				generic_string appDataThemePath = appDataThemeDir;
+
+				if (!::PathFileExists(appDataThemePath.c_str()))
+				{
+					::CreateDirectory(appDataThemePath.c_str(), NULL);
+				}
+
+				TCHAR* fn = PathFindFileName(fileNames[i].c_str());
+				pathAppend(appDataThemePath, fn);
+				themeSwitcher.addThemeStylerSavePath(fileNames[i], appDataThemePath);
+			}
+		}
+	}
+
+	if (NppDarkMode::isWindowsModeEnabled())
+	{
+		generic_string themePath;
+		generic_string xmlFileName = NppDarkMode::getThemeName();
+		if (!xmlFileName.empty())
+		{
+			themePath = themeSwitcher.getThemeDirPath();
+			pathAppend(themePath, xmlFileName);
+		}
+		else
+		{
+			auto& themeInfo = themeSwitcher.getElementFromIndex(0);
+			themePath = themeInfo.second;
+		}
+
+		if (::PathFileExists(themePath.c_str()))
+		{
+			nppGUI._themeName.assign(themePath);
+			nppParams.reloadStylers(themePath.c_str());
+			::SendMessage(_hSelf, WM_UPDATESCINTILLAS, 0, 0);
 		}
 	}
 
@@ -247,6 +299,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core.launchFileBrowser(fns, emptyStr, true);
 	}
 	::SendMessage(_hSelf, WM_ACTIVATE, WA_ACTIVE, 0);
+
+	::SendMessage(_hSelf, NPPM_INTERNAL_CRLFFORMCHANGED, 0, 0);
+
+	::SendMessage(_hSelf, NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
 
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;

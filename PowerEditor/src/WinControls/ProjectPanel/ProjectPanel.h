@@ -65,13 +65,13 @@ public:
 		_panelID = panelID;
 	}
 
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
-    };
+	virtual void display(bool toShow = true) const {
+		DockingDlgInterface::display(toShow);
+	};
 
-    void setParent(HWND parent2set){
-        _hParent = parent2set;
-    };
+	void setParent(HWND parent2set){
+		_hParent = parent2set;
+	};
 
 	void setPanelTitle(generic_string title) {
 		_panelTitle = title;
@@ -98,10 +98,10 @@ public:
 
 	virtual void setBackgroundColor(COLORREF bgColour) {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
-    };
+	};
 	virtual void setForegroundColor(COLORREF fgColour) {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
-    };
+	};
 	bool enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames);
 
 protected:
@@ -120,7 +120,6 @@ protected:
 
 	void initMenus();
 	void destroyMenus();
-	BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
 	void addFiles(HTREEITEM hTreeItem);
 	void addFilesFromDirectory(HTREEITEM hTreeItem);
 	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);
@@ -133,7 +132,7 @@ protected:
 	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplayPoint(int iButton);
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
@@ -155,15 +154,15 @@ public :
 
 	int doDialog(const TCHAR *fn, bool isRTL = false);
 
-    virtual void destroy() {
-    };
+	virtual void destroy() {
+	};
 
 	generic_string getFullFilePath() {
 		return _fullFilePath;
 	};
 
 protected :
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
 	generic_string _fullFilePath;

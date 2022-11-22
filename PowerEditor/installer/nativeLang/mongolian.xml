@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;Тохиргоо"/>
                     <Item menuId="macro" name="Макро"/>
                     <Item menuId="run" name="Ажиллуулах"/>
-                    <Item idName="Plugins" name="Нэмэлтүүд"/>
-                    <Item idName="Window" name="Цонх"/>
+                    <Item menuId="Plugins" name="Нэмэлтүүд"/>
+                    <Item menuId="Window" name="Цонх"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -318,14 +318,10 @@
                 <Item id="1604" name="&amp;Үсгийн том жижиг хамаарах"/>
                 <Item id="1605" name="&amp;Энгийн илэрхийлэл"/>
                 <Item id="1606" name="&amp;Тодруул"/>
-                <Item id="1612" name="&amp;Дээш"/>
-                <Item id="1613" name="Доо&amp;ш"/>
                 <Item id="1614" name="Тоолох"/>
                 <Item id="1615" name="Бүгдийг олох"/>
                 <Item id="1616" name="Мөрийг тэмдэглэх"/>
-                <Item id="1617" name="Загвар токен оллоо"/>
                 <Item id="1618" name="Хайлт хийх болгонд хайх талбарыг цэвэрлэсан байх"/>
-                <Item id="1621" name="Чиглэл"/>
                 <Item id="1611" name="Со&amp;лих утга:"/>
                 <Item id="1608" name="&amp;Солих"/>
                 <Item id="1609" name="Бүгди&amp;йг солих"/>
@@ -336,7 +332,6 @@
                 <Item id="1633" name="Цэвэрлэх"/>
                 <Item id="1635" name="Бүх нээлттэй байгаа файлд бүгдийг солих"/>
                 <Item id="1636" name="Бүх нээлттэй байгаа файлаас олох"/>
-                <Item id="1637" name="Файлуудаас олох"/>
                 <Item id="1654" name="Шүүлтүүрүүд:"/>
                 <Item id="1655" name="Хавтас:"/>
                 <Item id="1656" name="Бүгдийг олох"/>
@@ -847,11 +842,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Түр санах ойн түүх"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Баримт хооронд шилжигч"/>
 			<ColumnName name="Нэр"/>
 			<ColumnExt name="Өргөтгөл"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII оруулах талбар"/>
 			<ColumnVal name="Утга"/>

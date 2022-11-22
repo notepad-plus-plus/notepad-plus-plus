@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;ਸੈਟਿੰਗ"/>
                     <Item menuId="macro" name="ਮੈਕਰੋ"/>
                     <Item menuId="run" name="ਰਨ"/>
-                    <Item idName="Plugins" name="ਪਲੱਗਇਨ"/>
-                    <Item idName="Window" name="ਝਰੋਖਾ"/>
+                    <Item menuId="Plugins" name="ਪਲੱਗਇਨ"/>
+                    <Item menuId="Window" name="ਝਰੋਖਾ"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                  <SubEntries>
@@ -337,13 +337,10 @@
                 <Item id="1604" name="ਮੈਚ &amp; ਮਾਮਲੇ '"/>
                 <Item id="1605" name="ਰੈਗੂਲਰ &amp; ਸਮੀਕਰਨ"/>
                 <Item id="1606" name="ਆਲੇ-ਦੁਆਲੇ ਦੇ ਸਮੇਟਣਾ"/>
-                <Item id="1612" name="&amp; ਉੱਪਰ"/>
-                <Item id="1613" name="&amp;ਡਾਊਨ"/>
                 <Item id="1614" name="ਗਿਣਤੀ"/>
                 <Item id="1615" name="ਸਾਰੇ ਲੱਭੋ"/>
                 <Item id="1616" name="ਮਰਕੁਸ ਲਾਈਨ"/>
                 <Item id="1618" name="ਹਰ ਇੱਕ ਦੀ ਖੋਜ ਲਈ ਅਲੱਗ"/>
-                <Item id="1621" name="ਦਿਸ਼ਾ"/>
                 <Item id="1611" name="ਮੁੜ &amp; ਜਗ੍ਹਾ ਦੇ ਨਾਲ:"/>
                 <Item id="1608" name="&amp; ਤਬਦੀਲ"/>
                 <Item id="1609" name="ਤਬਦੀਲ &amp; ਸਾਰੇ"/>
@@ -874,11 +871,11 @@
        <ClipboardHistory>
             <PanelTitle name="ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਅਤੀਤ"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="ਡਾਕ (Doc) ਸਵਿੱਚਰ"/>
             <ColumnName name="ਨਾਮੇ "/>
             <ColumnExt name="ਏਕ੍ਸਟ  (Ext.)"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="ASCII ਇੰਸੇਰ੍ਤਿਓਂ  ਪੈਨੇਲ "/>
             <ColumnVal name="ਵਾਲੁਏ"/>

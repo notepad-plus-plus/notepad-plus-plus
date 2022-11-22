@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# WidgetGen.py - regenerate the ScintillaWidgetCpp.cpp and ScintillaWidgetCpp.h files
+# WidgetGen.py - regenerate the ScintillaEdit.cpp and ScintillaEdit.h files
 # Check that API includes all gtkscintilla2 functions
 
 import sys
@@ -42,6 +42,7 @@ typeAliases = {
 	"line": "int",
 	"pointer": "int",
 	"colour": "int",
+	"colouralpha": "int",
 	"keymod": "int",
 	"string": "const char *",
 	"stringresult": "const char *",
@@ -57,7 +58,7 @@ def cppAlias(s):
 		return s
 
 understoodTypes = ["", "void", "int", "bool", "position", "line", "pointer",
-	"colour", "keymod", "string", "stringresult", "cells"]
+	"colour", "colouralpha", "keymod", "string", "stringresult", "cells"]
 
 def understoodType(t):
 	return t in understoodTypes or Face.IsEnumeration(t)
@@ -90,20 +91,6 @@ def arguments(v, stringResult, options):
 			ret = ret + ", "
 		ret = ret + p2Type + " " + normalisedName(v["Param2Name"], options)
 	return ret
-
-def printPyFile(f, options):
-	out = []
-	for name in f.order:
-		v = f.features[name]
-		if v["Category"] != "Deprecated":
-			feat = v["FeatureType"]
-			if feat in ["val"]:
-				out.append(name + "=" + v["Value"])
-			if feat in ["evt"]:
-				out.append("SCN_" + name.upper() + "=" + v["Value"])
-			if feat in ["fun"]:
-				out.append("SCI_" + name.upper() + "=" + v["Value"])
-	return out
 
 def printHFile(f, options):
 	out = []
@@ -201,7 +188,7 @@ def gtkNames():
 def usage():
 	print("WidgetGen.py [-c|--clean][-h|--help][-u|--underscore-names]")
 	print("")
-	print("Generate full APIs for ScintillaEdit class and ScintillaConstants.py.")
+	print("Generate full APIs for ScintillaEdit class.")
 	print("")
 	print("options:")
 	print("")
@@ -241,9 +228,6 @@ def main(argv):
 			"/* ", True, printCPPFile(f, options))
 		GenerateFile("ScintillaEdit.h.template", "ScintillaEdit.h",
 			"/* ", True, printHFile(f, options))
-		GenerateFile("../ScintillaEditPy/ScintillaConstants.py.template",
-			"../ScintillaEditPy/ScintillaConstants.py",
-			"# ", True, printPyFile(f, options))
 		if checkGTK:
 			names = set(methodNames(f))
 			#~ print("\n".join(names))
@@ -258,7 +242,7 @@ def main(argv):
 		raise
 
 	if cleanGenerated:
-		for file in ["ScintillaEdit.cpp", "ScintillaEdit.h", "../ScintillaEditPy/ScintillaConstants.py"]:
+		for file in ["ScintillaEdit.cpp", "ScintillaEdit.h"]:
 			try:
 				os.remove(file)
 			except OSError:

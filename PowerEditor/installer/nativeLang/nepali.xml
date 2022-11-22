@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="उपकरणहरू"/>
                     <Item menuId="macro" name="&amp;म्याक्रो"/>
                     <Item menuId="run" name="&amp;चलाउनुहोस्"/>
-                    <Item idname="Plugins" name="&amp;प्लगइनहरू"/>
-                    <Item idname="Window" name="&amp;विन्डो"/>
+                    <Item menuId="Plugins" name="&amp;प्लगइनहरू"/>
+                    <Item menuId="Window" name="&amp;विन्डो"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -1102,11 +1102,11 @@ ContextMenu.xML परिमार्जन गरेपछि प्रभा�
         <ClipboardHistory>
             <PanelTitle Name="क्लिपबोर्ड ईतिहास"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle Name="कागजात स्विचर"/>
             <ColumnName Name="नाम"/>
             <ColumnExt Name="अतिरिक्त."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName Name="नाम"/>
             <ColumnPath Name="पथ"/>

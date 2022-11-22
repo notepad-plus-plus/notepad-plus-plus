@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="To&amp;ols"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="&amp;Run"/>
-                    <Item idName="Plugins" name="&amp;Plugins"/>
-                    <Item idName="Window" name="&amp;Window"/>
+                    <Item menuId="Plugins" name="&amp;Plugins"/>
+                    <Item menuId="Window" name="&amp;Window"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -844,6 +844,7 @@
                     <Item id="6215" name="Enable smooth font"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
                     <Item id="6239" name="Keep selection when right-click outside of selection"/>
+                    <Item id="6245" name="Enable virtual space"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
@@ -1233,11 +1234,11 @@ Continue?"/>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Doc Switcher"/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>
             <ColumnPath name="Path"/>
@@ -1396,6 +1397,7 @@ Find in all files except exe, obj &amp;&amp; log:
             <splitter-rotate-left value="Rotate to left"/>
             <splitter-rotate-right value="Rotate to right"/>
             <recent-file-history-maxfile value="Max File: "/>
+            <recent-file-history-customlength value="Length: "/>
             <language-tabsize value="Tab Size: "/>
             <userdefined-title-new value="Create New Language..."/>
             <userdefined-title-save value="Save Current Language Name As..."/>

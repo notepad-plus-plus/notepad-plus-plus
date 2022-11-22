@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Basque" filename="basque.xml" version="7.5">
+    <Native-Langue name="Basque" filename="basque.xml" version="8.3.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -18,14 +18,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="&amp;Tresnak"/>
                     <Item menuId="macro" name="&amp;Makroa"/>
                     <Item menuId="run" name="E&amp;xekutatu"/>
-                    <Item idName="Plugins" name="&amp;Pluginak"/>
-                    <Item idName="Window" name="&amp;Leihoa"/>
+                    <Item menuId="Plugins" name="&amp;Pluginak"/>
+                    <Item menuId="Window" name="&amp;Leihoa"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Ireki dagoen Karpeta"/>
                     <Item subMenuId="file-closeMore" name="Itxi Gehiago"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Orain dela gutxiko Fitxategiak"/>
+                    <Item subMenuId="edit-insert" name="Txertatu"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Kopiatu Arbelera"/>
                     <Item subMenuId="edit-indent" name="Koska eskuinera"/>
                     <Item subMenuId="edit-convertCaseTo" name="Bihurtu Letrak"/>
@@ -36,9 +37,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-blankOperations" name="Zuriuneen Eragiketak"/>
                     <Item subMenuId="edit-pasteSpecial" name="Itsaste Berezia"/>
                     <Item subMenuId="edit-onSelection" name="Hautapenean"/>
-                    <Item subMenuId="search-markAll" name="Markatu Denak"/>
-                    <Item subMenuId="search-markOne" name="Markatu Bat"/>
-                    <Item subMenuId="search-unmarkAll" name="Ezmarkatu Denak"/>
+                    <Item subMenuId="search-markAll" name="Nabarmendu katearen gertaera guztiak"/>
+                    <Item subMenuId="search-markOne" name="Nabarmendu gertaera bakarra"/>
+                    <Item subMenuId="search-unmarkAll" name="Garbitu nabarmentzea"/>
                     <Item subMenuId="search-jumpUp" name="Jauzia Gora"/>
                     <Item subMenuId="search-jumpDown" name="Jauzia Behera"/>
                     <Item subMenuId="search-copyStyledText" name="Kopiatu Estilodun Testua"/>
@@ -72,7 +73,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="settings-import" name="Inportatu"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
-            </SubEntries>
+                    <Item subMenuId="window-sortby" name="Ordenatze irizpidea"/>
+                </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
@@ -110,6 +112,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="Ezabatu"/>
                     <Item id="42007" name="Hautatu Guztia"/>
                     <Item id="42020" name="Hasi/Amaitu Hautapena"/>
+                    <Item id="42084" name="Data Ordua (laburra)"/>
+                    <Item id="42085" name="Data Ordua (luzea)"/>
+                    <Item id="42086" name="Data Ordua (pertsonalizatua)"/>
                     <Item id="42008" name="Handitu Lerro-koska"/>
                     <Item id="42009" name="Gutxitu Lerro-koska"/>
                     <Item id="42010" name="Bikoiztu Oraingo Lerroa"/>
@@ -130,7 +135,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42065" name="Ordenatu Lerroak Zenbaki Hamartar Gisa (Puntua) Gorantz"/>
                     <Item id="42066" name="Ordenatu Lerroak Zenbaki Hamartar Gisa (Puntua) Beherantz"/>
                     <Item id="42083" name="Ordenatu Lerroak Alderantziz"/> 
-                    <Item id="42078" name="Ordenatu Lerroak Ausaz"/>
+                    <Item id="42078" name="Ausazkotu Lerroen Ordena"/>
                     <Item id="42016" name="MAIUSKULAK"/>
                     <Item id="42017" name="minuskulak"/>
                     <Item id="42067" name="Izenburu Modua"/>
@@ -174,6 +179,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42029" name="Kopiatu Arbelera Oraingo Fitxategiaren Bidea"/>
                     <Item id="42030" name="Kopiatu Arbelera Oraingo Fitxategiaren Izena"/>
                     <Item id="42031" name="Kopiatu Arbelera oraingo Direktorioaren Bidea"/>
+                    <Item id="42087" name="Fitxategi guztien izenak Arbelera"/>
+                    <Item id="42088" name="Fitxategi guztien bideak Arbelera"/>
                     <Item id="42032" name="Exekutatu Makro bat Hainbat Aldiz..."/>
                     <Item id="42033" name="Kendu Irakurtzeko-Bakarrik Marka"/>
                     <Item id="42035" name="Gehitu Lerro Bakarreko Iruzkina"/>
@@ -220,20 +227,20 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43035" name="3. estiloa"/>
                     <Item id="43036" name="4. estiloa"/>
                     <Item id="43037" name="5. estiloa"/>
-                    <Item id="43038" name="Aurkitu estiloa"/>
+                    <Item id="43038" name="Aurkitu nabarmentze-estiloa"/>
                     <Item id="43039" name="1. estiloa"/>
                     <Item id="43040" name="2. estiloa"/>
                     <Item id="43041" name="3. estiloa"/>
                     <Item id="43042" name="4. estiloa"/>
                     <Item id="43043" name="5. estiloa"/>
-                    <Item id="43044" name="Aurkitu estiloa"/>
+                    <Item id="43044" name="Aurkitu nabarmentze-estiloa"/>
                     <Item id="43055" name="1. estiloa"/>
                     <Item id="43056" name="2. estiloa"/>
                     <Item id="43057" name="3. estiloa"/>
                     <Item id="43058" name="4. estiloa"/>
                     <Item id="43059" name="5. estiloa"/>
                     <Item id="43060" name="Estilo Guztiak"/>
-                    <Item id="43061" name="Aurkitu Estiloak (Markatuta)"/>
+                    <Item id="43061" name="Aurkitu nabarmentze-estiloa"/>
                     <Item id="43062" name="1. Estiloa Erabiltzen"/>
                     <Item id="43063" name="2. Estiloa Erabiltzen"/>
                     <Item id="43064" name="3. Estiloa Erabiltzen"/>
@@ -245,6 +252,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43048" name="Hautatu eta Bilatu Hurrengoa"/>
                     <Item id="43049" name="Hautatu eta Bilatu Aurrekoa"/>
                     <Item id="43054" name="Markatu..."/>
+                    <Item id="43501" name="Itxi Aukeratutakoa(k)"/>
+                    <Item id="43502" name="Itxi Besteak"/>
+                    <Item id="43503" name="Kopiatu Aukeratutako Izenak"/>
+                    <Item id="43504" name="Kopiatu Aukeratutako Bideak"/>
                     <Item id="44009" name="Oharra"/>
                     <Item id="44010" name="Tolestu dena"/>
                     <Item id="44011" name="Distrazio Gabeko Modua"/>
@@ -260,6 +271,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44031" name="Zabaldu Oraingo Maila"/>
                     <Item id="44049" name="Laburpena..."/>
                     <Item id="44080" name="Dokumentu-Mapa"/>
+                    <Item id="44070" name="Dokumentu-zerrenda"/>
                     <Item id="44084" name="Funtzioen Zerrenda"/>
                     <Item id="44085" name="Karpeta laneko area gisa"/>
                     <Item id="44086" name="1. Fitxa"/>
@@ -314,12 +326,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="46001" name="Estilo Konfiguratzailea..."/>
                     <Item id="46250" name="Zehaztu zure hizkuntza..."/>
                     <Item id="46300" name="Ireki Erabiltzaileak Zehaztutako Hizkuntza Karpeta..."/>
+                    <Item id="46301" name="Notepad++ Erabiltzaileak Zehaztutako Hizkuntzen Bilduma"/>
                     <Item id="46180" name="Erabiltzaileak Zehaztuta"/>
                     <Item id="47000" name="Notepad++ Buruz..."/>
                     <Item id="47010" name="Komando Lerroko Argumentuak..."/>
                     <Item id="47001" name="Notepad++ Hasiera"/>
                     <Item id="47002" name="Notepad++ Proiektuaren Webgunea"/>
-                    <Item id="47003" name="Online Dokumentazioa"/>
+                    <Item id="47003" name="Notepad++ Onlineko Erabiltzaile-manuala"/>
                     <Item id="47004" name="Notepad++ Komunitatea (Foroa)"/>
                     <Item id="47012" name="Arazte-informazioa..."/>
                     <Item id="47005" name="Lortu Plugin Gehiago"/>
@@ -350,6 +363,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42041" name="Hustu Orain Dela Gutxiko Fitxategien Zerrenda"/>
                     <Item id="48016" name="Aldatu Lasterbidea/Ezabatu Makroa..."/>
                     <Item id="48017" name="Aldatu Lasterbidea/Ezabatu Komandoa..."/>
+
+                    <Item id="11001" name="&amp;Leihoak..."/>
+                    <Item id="11002" name="Izena Atik Zra"/>
+                    <Item id="11003" name="Izena Ztik Ara"/>
+                    <Item id="11004" name="Bidea Atik Zra"/>
+                    <Item id="11005" name="Bidea Ztik Ara"/>
+                    <Item id="11006" name="Mota Atik Zra"/>
+                    <Item id="11007" name="Mota Ztik Ara"/>
+                    <Item id="11008" name="Tamaina Txikienetik Handienera"/>
+                    <Item id="11009" name="Tamaina Handienetik Txikienera"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -426,6 +449,12 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1723" name="▼ Bilatu Hurrengoa"/>
                 <Item id="1725" name="Kopiatu Markatutako Testua"/>
             </Find>
+
+            <IncrementalFind title="">
+                <Item id="1681" name="Aurkitu"/>
+                <Item id="1685" name="Bat datozen kasuak"/>
+                <Item id="1690" name="Nabarmendu guztiak"/>
+            </IncrementalFind>
             
             <FindCharsInRange title = "Bilatu Karaktereak Tartean...">
                 <Item id="2"    name="Itxi"/>
@@ -546,41 +575,41 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="Bihurtu EOL-ak Windows formatura (CR LF)"/>
                     <Item id="45002" name="Bihurtu EOL-ak Unix formatura(LF)"/>
                     <Item id="45003" name="Bihurtu EOL-ak Macintosh formatura (CR)"/>
-                    <Item id="43022" name="Markatu guztiak 1. estiloa erabilita"/>
-                    <Item id="43024" name="Markatu guztiak 2. estiloa erabilita"/>
-                    <Item id="43026" name="Markatu guztiak 3. estiloa erabilita"/>
-                    <Item id="43028" name="Markatu guztiak 4. estiloa erabilita"/>
-                    <Item id="43030" name="Markatu guztiak 5. estiloa erabilita"/>
-                    <Item id="43062" name="Markatu bat 1. estiloa erabilita"/>
-                    <Item id="43063" name="Markatu bat 2. estiloa erabilita"/>
-                    <Item id="43064" name="Markatu bat 3. estiloa erabilita"/>
-                    <Item id="43065" name="Markatu bat 4. estiloa erabilita"/>
-                    <Item id="43066" name="Markatu bat 5. estiloa erabilita"/>
-                    <Item id="43023" name="Garbitu markak 1. estiloa erabilita"/>
-                    <Item id="43025" name="Garbitu markak 2. estiloa erabilita"/>
-                    <Item id="43027" name="Garbitu markak 3. estiloa erabilita"/>
-                    <Item id="43029" name="Garbitu markak 4. estiloa erabilita"/>
-                    <Item id="43031" name="Garbitu markak 5. estiloa erabilita"/>
-                    <Item id="43032" name="Garbitu markak edozein estiloa erabilita"/>
-                    <Item id="43033" name="1. estiloa erabiltzen duen aurreko marka"/>
-                    <Item id="43034" name="2. estiloa erabiltzen duen aurreko marka"/>
-                    <Item id="43035" name="3. estiloa erabiltzen duen aurreko marka"/>
-                    <Item id="43036" name="4. estiloa erabiltzen duen aurreko marka"/>
-                    <Item id="43037" name="5. estiloa erabiltzen duen aurreko marka"/>
-                    <Item id="43038" name="Markatutako aurreko marka"/>
-                    <Item id="43039" name="1. estiloa erabiltzen duen hurrengo marka"/>
-                    <Item id="43040" name="2. estiloa erabiltzen duen hurrengo marka"/>
-                    <Item id="43041" name="3. estiloa erabiltzen duen hurrengo marka"/>
-                    <Item id="43042" name="4. estiloa erabiltzen duen hurrengo marka"/>
-                    <Item id="43043" name="5. estiloa erabiltzen duen hurrengo marka"/>
-                    <Item id="43044" name="Markatutako hurrengo marka"/>
-                    <Item id="43055" name="Kopiatu Estilodun Testua - 1. estiloa"/>
-                    <Item id="43056" name="Kopiatu Estilodun Testua - 2. estiloa"/>
-                    <Item id="43057" name="Kopiatu Estilodun Testua - 3. estiloa"/>
-                    <Item id="43058" name="Kopiatu Estilodun Testua - 4. estiloa"/>
-                    <Item id="43059" name="Kopiatu Estilodun Testua - 5. estiloa"/>
-                    <Item id="43060" name="Kopiatu Estilodun Testua - Estilo Guztiak"/>
-                    <Item id="43061" name="Kopiatu Estilodun Testua - Aurkitu Estiloa (Markatutakoa)"/>
+                    <Item id="43022" name="Nabarmendu guztiak 1. estiloa erabilita"/>
+                    <Item id="43024" name="Nabarmendu guztiak 2. estiloa erabilita"/>
+                    <Item id="43026" name="Nabarmendu guztiak 3. estiloa erabilita"/>
+                    <Item id="43028" name="Nabarmendu guztiak 4. estiloa erabilita"/>
+                    <Item id="43030" name="Nabarmendu guztiak 5. estiloa erabilita"/>
+                    <Item id="43062" name="Nabarmendu bat 1. estiloa erabilita"/>
+                    <Item id="43063" name="Nabarmendu bat 2. estiloa erabilita"/>
+                    <Item id="43064" name="Nabarmendu bat 3. estiloa erabilita"/>
+                    <Item id="43065" name="Nabarmendu bat 4. estiloa erabilita"/>
+                    <Item id="43066" name="Nabarmendu bat 5. estiloa erabilita"/>
+                    <Item id="43023" name="Garbitu 1. estiloa"/>
+                    <Item id="43025" name="Garbitu 2. estiloa"/>
+                    <Item id="43027" name="Garbitu 3. estiloa"/>
+                    <Item id="43029" name="Garbitu 4. estiloa"/>
+                    <Item id="43031" name="Garbitu 5. estiloa"/>
+                    <Item id="43032" name="Garbitu estiloa guztiak"/>
+                    <Item id="43033" name="1. estiloaren aurreko estiloa"/>
+                    <Item id="43034" name="2. estiloaren aurreko estiloa"/>
+                    <Item id="43035" name="3. estiloaren aurreko estiloa"/>
+                    <Item id="43036" name="4. estiloaren aurreko estiloa"/>
+                    <Item id="43037" name="5. estiloaren aurreko estiloa"/>
+                    <Item id="43038" name="Aurkitu nabarmentze-estiloaren aurreko estiloa"/>
+                    <Item id="43039" name="1. estiloaren hurrengo estiloa"/>
+                    <Item id="43040" name="2. estiloaren hurrengo estiloa"/>
+                    <Item id="43041" name="3. estiloaren hurrengo estiloa"/>
+                    <Item id="43042" name="4. estiloaren hurrengo estiloa"/>
+                    <Item id="43043" name="5. estiloaren hurrengo estiloa"/>
+                    <Item id="43044" name="Aurkitu nabarmentze-estiloaren hurrengo estiloa"/>
+                    <Item id="43055" name="Kopiatu 1. estiloaren Testu nabarmendua"/>
+                    <Item id="43056" name="Kopiatu 2. estiloaren Testu nabarmendua"/>
+                    <Item id="43057" name="Kopiatu 3. estiloaren Testu nabarmendua"/>
+                    <Item id="43058" name="Kopiatu 4. estiloaren Testu nabarmendua"/>
+                    <Item id="43059" name="Kopiatu 5. estiloaren Testu nabarmendua"/>
+                    <Item id="43060" name="Kopiatu estilo guztietako Testu nabarmendua"/>
+                    <Item id="43061" name="Kopiatu Aurkitu nabarmentze-estiloaren Testu nabarmendua"/>
                     <Item id="44100" name="Ikusi oraingo fitxategia Firefox-en"/>
                     <Item id="44101" name="Ikusi oraingo fitxategia Chrome-n"/>
                     <Item id="44103" name="Ikusi oraingo fitxategia IE-n"/>
@@ -608,13 +637,23 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44083" name="Zabaldu/Itxi Proiektuaren 3.Panela"/>
                     <Item id="44085" name="Zabaldu/Itxi Karpeta laneko area gisa"/>
                     <Item id="44080" name="Zabaldu/Itxi Dokumentu-Mapa"/>
+                    <Item id="44070" name="Zabaldu/Itxi Dokumentu-Zerrenda"/>
                     <Item id="44084" name="Zabaldu/Itxi Funtzioen Zerrenda"/>
                     <Item id="50005" name="Zabaldu/Itxi makro-grabatzailea"/>
                     <Item id="44104" name="Aldatu Proiektuaren 1.Panelera"/>
                     <Item id="44105" name="Aldatu Proiektuaren 2.Panelera"/>
                     <Item id="44106" name="Aldatu Proiektuaren 3.Panelera"/>
                     <Item id="44107" name="Aldatu Karpeta laneko area gisara"/>
+                    <Item id="44109" name="Aldatu Dokumentu-Zerrendara"/>
                     <Item id="44108" name="Aldatu Funtzioen Zerrendara"/>
+                    <Item id="11002" name="Ordenatu Izenaren Arabera Atik Zra"/>
+                    <Item id="11003" name="Ordenatu Izenaren Arabera Ztik Ara"/>
+                    <Item id="11004" name="Ordenatu Bidearen Arabera Atik Zra"/>
+                    <Item id="11005" name="Ordenatu Bidearen Arabera Ztik Ara"/>
+                    <Item id="11006" name="Ordenatu Motaren Arabera Atik Zra"/>
+                    <Item id="11007" name="Ordenatu Motaren Arabera Ztik Ara"/>
+                    <Item id="11008" name="Ordenatu Tamainaren Arabera Txikienetik Handienera"/>
+                    <Item id="11009" name="Ordenatu Tamainaren Arabera Handienetik Txikienera"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Laster-tekla">
@@ -670,6 +709,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25026" name="1. Eragilea"/>
                     <Item id="25027" name="2. Eragilea"/>
                     <Item id="25028" name="Zenbakiak"/>
+                    <Item id="25033" name="Gardena"/>
+                    <Item id="25034" name="Gardena"/>
                     <Item id="1" name="Ados"/>
                     <Item id="2" name="Utzi"/>
                 </StylerDialog>
@@ -825,10 +866,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6122" name="Ezkutatu menu-barra (erabili Alt edo F10 tekla erakutsi/ezkutatzeko)"/>
                     <Item id="6123" name="Lokalizazioa"/>
 
-                    <Item id="6125" name="Dokumentuen Zerrenda-panela"/>
-                    <Item id="6126" name="Erakutsi"/>
-                    <Item id="6127" name="Desgaitu luzapen-zutabea"/>
-
                     <Item id="6128" name="Ordezko ikonoak"/>
                 </Global>
                 <Scintillas title="Editatzea">
@@ -843,15 +880,38 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6229" name="Lerrokatuta"/>
                     <Item id="6230" name="Lerro-koska"/>
                     <Item id="6234" name="Desgaitu korritze aurreratuaren funtzioaren ukitze-panelaren arazoa"/>
-                    <Item id="6214" name="Gaitu uneko lerroaren nabarmentzea"/>
                     <Item id="6215" name="Gaitu letra-mota leuna"/>
                     <Item id="6236" name="Gaitu azken lerrotik haratagoko korritzea"/>
                     <Item id="6239" name="Mantendu hautapena hautapenetik kanpo eskuin-klika egitean"/>
+                    <Item id="6245" name="Gaitu espazio birtuala"/>
+                    <Item id="6651" name="Uneko Lerroaren Adierazlea"/>
+                    <Item id="6652" name="Bat ere ez"/>
+                    <Item id="6653" name="Nabarmendu Atzeko Planoa"/>
+                    <Item id="6654" name="Ertza"/>
+                    <Item id="6655" name="Zabalera"/>
                 </Scintillas>
 
                 <DarkMode title="Modu Iluna"> 
                     <Item id="7101" name="Gaitu modu iluna"/> 
-                    <Item id="7106" name="* Notepad++ berrabiarazi behar da aldaketak guztiz aplikatzeko"/> 
+                    <Item id="7102" name="Tonu beltza"/>
+                    <Item id="7103" name="Tonu gorria"/>
+                    <Item id="7104" name="Tonu berdea"/>
+                    <Item id="7105" name="Tonu urdina"/>
+                    <Item id="7107" name="Tonu morea"/>
+                    <Item id="7108" name="Tonu urdin argia"/>
+                    <Item id="7109" name="Tonu berde iluna"/>
+                    <Item id="7115" name="Tonu pertsonalizatua"/>
+                    <Item id="7116" name="Goragokoa"/>
+                    <Item id="7117" name="Menuko aukera beroa"/>
+                    <Item id="7118" name="Aktiboa"/>
+                    <Item id="7119" name="Nagusia"/>
+                    <Item id="7120" name="Errorea"/>
+                    <Item id="7121" name="Testua"/>
+                    <Item id="7122" name="Testu ilunagoa"/>
+                    <Item id="7123" name="Desgaitutako testua"/>
+                    <Item id="7124" name="Ertza"/>
+                    <Item id="7125" name="Esteka"/>
+                    <Item id="7130" name="Berrabiarazi"/>
                 </DarkMode>
 
                 <MarginsBorderEdge title="Ertzak">
@@ -919,7 +979,7 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
                 </Language>
 
                 <Highlighting title="Nabarmentzea">
-                    <Item id="6351" name="Markatu Guztiak"/>
+                    <Item id="6351" name="Nabarmendu katearen bat-etortze Guztiak"/>
                     <Item id="6352" name="Ezberdindu maiuskula eta minuskulak"/>
                     <Item id="6353" name="Bat etorri soilik hitz-osoa"/>
                     <Item id="6333" name="Nabarmentze Adimentsua"/>
@@ -960,6 +1020,15 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
                     <Item id="6721" name="Erdialdea"/>
                     <Item id="6722" name="Eskuinaldea"/>
                     <Item id="6723" name="Gehitu"/>
+                    <ComboBox id="6724">
+                        <Element name="Fitxategi-izenaren bide osoa"/>
+                        <Element name="Fitxategi-izena"/>
+                        <Element name="Fitxategiaren direktorioa"/>
+                        <Element name="Orria"/>
+                        <Element name="Data laburra formatua"/>
+                        <Element name="Data laburra formatua"/>
+                        <Element name="Ordua"/>
+                    </ComboBox>
                     <Item id="6725" name="Aldaera :"/>
                     <Item id="6727" name="Hemen erakutsi zure aldagaien ezarpenak"/>
                     <Item id="6728" name="Goiburua eta Oina"/>
@@ -1006,6 +1075,9 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
                     <Item id="6809" name="Funtzio-osaketa"/>
                     <Item id="6810" name="Hitz-osaketa"/>
                     <Item id="6816" name="Funtzio eta Hitzen osaketa"/>
+                    <Item id="6869" name="Txertatu Aukeratutakoa"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Baztertu zenbakiak"/>
                     <Item id="6811" name=""/>
                     <Item id="6813" name=". karakteretik hasita"/>
@@ -1020,12 +1092,15 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
                     <Item id="6866" name="Parekatutako 3. bikotea:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Instantzia Anitzak">
+                <MultiInstance title="Instantzia Anitzak eta Data">
                     <Item id="6151" name="Instantzia Anitzen ezarpenak"/>
                     <Item id="6152" name="Ireki saioa Notepad++ instantzia berri batean"/>
                     <Item id="6153" name="Beti instantzia-anitzen moduan"/>
                     <Item id="6154" name="Lehenetsitakoa (instantzia-bakarra)"/>
                     <Item id="6155" name="* Ezarpen honen aldaketak Notepad++ berrabiaraztea behar du"/>
+                    <Item id="6171" name="Pertsonalizatu txertatu Data Ordua"/>
+                    <Item id="6175" name="Aldatu data eta orduaren orden lehenetsia (formatu laburra &amp;&amp; luzea)"/>
+                    <Item id="6172" name="Formatu pertsonalizatua:"/>
                 </MultiInstance>
 
                 <Delimiter title="Mugatzailea">
@@ -1084,6 +1159,7 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
                     <Item id="6345" name="Aurrebista fitxan"/>
                     <Item id="6346" name="Aurrebista dokumentu-mapan"/>
                     <Item id="6360" name="Mututu soinu guztiak"/>
+                    <Item id="6361" name="Gaitu Gorde Guztiak baieztatze-mezua"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exekutatu Makroa Hainbat Aldiz">
@@ -1137,6 +1213,15 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
                 <Item id="4" name="B&amp;ai guztiari"/>
                 <Item id="5" name="E&amp;z guztiari"/>
             </DoSaveOrNot>
+            <DoSaveAll title="Gorde Guztiak Baieztatzea">
+                <Item id="1766" name="Ziur zaude aldatutako dokumentu guztiak gorde nahi dituzula?
+
+Aukeratu &quot;Bai, beti&quot; mezu hau berriz ikusi nahi ez baduzu.
+Beranduago mezu hau Hobespenak ataletik berriz aktibatu dezakezu."/>
+                <Item id="6" name="&amp;Bai"/>
+                <Item id="7" name="&amp;Ez"/>
+                <Item id="4" name="Bai, beti"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="contextMenu editatzen" message="contextMenu.xml editatzeak Notepad++eko oharleihoen testuinguru-menua aldatzea ahalbidetzen dizu.
@@ -1191,6 +1276,9 @@ Notepad++eko webgunera joan eta azken bertsioa jaitsi nahi duzu?"/> <!-- HowToRe
             <DocTooDirtyToMonitor title="Monitorizatze arazoa" message="Dokumentua zikin dago. Gorde ezazu mesedez egindako aldaketak monitorizatu aurretik."/>
             <DocNoExistToMonitor title="Monitorizatze arazoa" message="Fitxategia existitu behar da monitorizatua izan dadin."/>
             <FileTooBigToOpen title="Arazoa fitxategi-tamainarekin" message="Fitxategia handiegia da Notepad++en ireki ahal izateko"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Salbuespen-kodea: $STR_REPLACE$" message="Errorea gertatu da fitxategia kargatzerakoan!"/>
+            <WantToOpenHugeFile title="Fitxategi erraldoia irekitzen oharra" message="2GBtik gorako fitxategi erraldoia irekitzeak hainbat minutu eraman dezake.
+Ziur zaude ireki nahi duzula?"/>
             <CreateNewFileOrNot title="Sortu fitxategi berria" message="&quot;$STR_REPLACE$&quot; ez da existitzen. Sortu nahi duzu?"/>
             <CreateNewFileError title="Sortu fitxategi berria" message="Ezin da &quot;$STR_REPLACE$&quot; fitxategia sortu."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERROREA" message="Ezin da  &quot;$STR_REPLACE$&quot; fitxategia sortu."/>
@@ -1236,51 +1324,56 @@ Jarraitu?"/>
         <ClipboardHistory>
              <PanelTitle name="Arbelaren Historia"/>
          </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
              <PanelTitle name="Dokumentu Aldatzailea"/>
              <ColumnName name="Izena"/>
              <ColumnExt name="Luzap."/>
-        </DocSwitcher>
+             <ColumnPath name="Bidea"/>
+        </DocList>
         <WindowsDlg>
-            <ColumnName name="Name"/>
-            <ColumnPath name="Path"/>
-            <ColumnType name="Type"/>
-            <ColumnSize name="Size"/>
-            <NbDocsTotal name="total documents:"/>
+            <ColumnName name="Izena"/>
+            <ColumnPath name="Bidea"/>
+            <ColumnType name="Mota"/>
+            <ColumnSize name="Tamaina"/>
+            <NbDocsTotal name="dokumentu kopurua:"/>
+            <MenuCopyName name="Kopiatu Izena(k)"/>
+            <MenuCopyPath name="Kopiatu Bidea(k)"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="ASCII Codes Insertion Panel"/>
-            <ColumnVal name="Value"/>
+            <PanelTitle name="ASCII Kodeak Txertatzeko Panela"/>
+            <ColumnVal name="Balioa"/>
             <ColumnHex name="Hex"/>
-            <ColumnChar name="Character"/>
-            <ColumnHtmlNumber name="HTML Number"/>
-            <ColumnHtmlName name="HTML Code"/>
+            <ColumnChar name="Karakterea"/>
+            <ColumnHtmlNumber name="HTML Zenbakia"/>
+            <ColumnHtmlName name="HTML Kodea"/>
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name="Document Map"/>
+            <PanelTitle name="Dokumentu Mapa"/>
         </DocumentMap>
         <FunctionList>
-            <PanelTitle name="Function List"/>
-            <SortTip name="Sort"/>
-            <ReloadTip name="Reload"/>
+            <PanelTitle name="Funtzioen Zerrenda"/>
+            <SortTip name="Ordenatu"/>
+            <ReloadTip name="Berriz kargatu"/>
+            <PreferencesTip name="Hobespenak"/>
+            <PreferencesInitialSort name="Ordenatu funtzioak (Atik Zra) modu lehenetsian"/>
         </FunctionList>
         <FolderAsWorkspace>
-            <PanelTitle name="Folder as Workspace"/>
-            <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
-            <ExpandAllFoldersTip name="Expand all folders"/>
-            <CollapseAllFoldersTip name="Collapse all folders"/>
-            <LocateCurrentFileTip name="Locate current file"/>
+            <PanelTitle name="Karpeta Lan-inguru gisa"/>
+            <SelectFolderFromBrowserString name="Aukeratu karpena bat Karpeta Lan-inguru gisa panelean gehitzeko"/>
+            <ExpandAllFoldersTip name="Zabaldu karpeta guztiak"/>
+            <CollapseAllFoldersTip name="Tolestu karpeta guztiak"/>
+            <LocateCurrentFileTip name="Aurkitu oraingo fitxategia"/>
             <Menus>
-                <Item id="3511" name="Remove"/>
-                <Item id="3512" name="Remove All"/>
-                <Item id="3513" name="Add"/>
-                <Item id="3514" name="Run by system"/>
-                <Item id="3515" name="Open"/>
-                <Item id="3516" name="Copy path"/>
-                <Item id="3517" name="Find in Files..."/>
-                <Item id="3518" name="Explorer here"/>
-                <Item id="3519" name="CMD here"/>
-                <Item id="3520" name="Copy file name"/>
+                <Item id="3511" name="Kendu"/>
+                <Item id="3512" name="Kendu Guztiak"/>
+                <Item id="3513" name="Gehitu"/>
+                <Item id="3514" name="Exekutatu sistemaren bidez"/>
+                <Item id="3515" name="Ireki"/>
+                <Item id="3516" name="Kopiatu bidea"/>
+                <Item id="3517" name="Bilatu Fitxategietan..."/>
+                <Item id="3518" name="Esploratzailea hemen"/>
+                <Item id="3519" name="Komando lerria hemen"/>
+                <Item id="3520" name="Kopiatu fitxategi izena"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1294,14 +1387,14 @@ Jarraitu?"/>
                     <Item id="1" name="Editatu"/>
                 </Entries>
                 <WorkspaceMenu>
-                    <Item id="3122" name="New Workspace"/>
-                    <Item id="3123" name="Open Workspace"/>
-                    <Item id="3124" name="Reload Workspace"/>
-                    <Item id="3125" name="Save"/>
-                    <Item id="3126" name="Save As..."/>
-                    <Item id="3127" name="Save a Copy As..."/>
-                    <Item id="3121" name="Add New Project"/>
-                    <Item id="3128" name="Find in Projects..."/>
+                    <Item id="3122" name="Lan-inguru berria"/>
+                    <Item id="3123" name="Ireki Lan-ingurua"/>
+                    <Item id="3124" name="Berriz kargatu Lan-ingurua"/>
+                    <Item id="3125" name="Gorde"/>
+                    <Item id="3126" name="Gorde honela..."/>
+                    <Item id="3127" name="Gorde kopia gisa honela..."/>
+                    <Item id="3121" name="Gehitu Proiektu berria"/>
+                    <Item id="3128" name="Bilatu Proiektuetan..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Aldatu Izena"/>
@@ -1338,16 +1431,24 @@ Jarraitu?"/>
             <word-chars-list-space-warning value="$INT_REPLACE$ zuriune"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ FITXA"/>
             <word-chars-list-warning-end value="  zure karaktere zerrendan."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Aukeratu karpeta bat segurtasun-kopien direktorio gisa"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Bide baliogabea."/>
             <cloud-restart-warning value="Berrabiarazi ezazu mesedez Notepad++ aplikatzeko."/>
             <cloud-select-folder value="Aukeratu karpeta bat Notepad++ek ezarpenak bertatik irakurri eta bertara idatzi ditzan"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Aukeratu karpeta bat lehenetsitako gisa"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Erabili Shift+Enter kontrako norantzan bilatzeko"/>
             <two-find-buttons-tip value="2 bilaketa-botoiko modua"/>
+            <file-rename-title value="Aldatu izena"/>
             <find-in-files-filter-tip value="Bilatu hurrengo fitxategietan: cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Bilatu fitxategi guztietan hurrengoetan izan ezik: exe, obj eta log:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+*.* !*.exe !*.obj !*.log
+Bilatu fitxategi guztietan baina alde batera utzi tests, bin eta bin64 karpetak:
+*.* !\tests !\bin*
+Bilatu fitxategi guztietan baina alde batera utzi log ala logs karpetak modu errekurtsiboan:
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="Aukeratu karpeta bat bertan bilatzeko"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Bilatu: Amaieratik hasi eta lehen emaitza aurkitu da. Dokumentuaren hasierara iritsi zara."/>
             <find-status-end-reached value="Bilatu: Hasieratik hasi eta azken emaitza aurkitu da. Dokumentuaren amaierara iritsi zara."/>
             <find-status-replaceinfiles-1-replaced value="Ordeztu Fitxategietan: emaitza bat ordezkatu da"/>
@@ -1436,7 +1537,15 @@ Bilatu fitxategi guztietan hurrengoetan izan ezik: exe, obj eta log:
             <session-save-folder-as-workspace value="Gorde Karpeta Lan eremu gisa" />
             <tab-untitled-string value="berria " />
             <file-save-assign-type value="&amp;Gehitu luzapena" />
+            <close-panel-tip value="Itxi" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ bat-etortzeak" />
+            <IncrementalFind-FSNotFound value="Esaldia ez da aurkitu" />
+            <IncrementalFind-FSTopReached value="Orriaren hasierara iritsi da, azpitik jarraitu da" />
+            <IncrementalFind-FSEndReached value="Orriaren amaierara iritsi da, goitik jarraitu da" />
+            <contextMenu-styleAlloccurrencesOfToken value="Nabarmendu katearen bat-etortze guztiak" />
+            <contextMenu-styleOneToken value="Nabarmendu kate bakarra" />
+            <contextMenu-clearStyle value="Garbitu nabarmentzea" />
+            <contextMenu-PluginCommands value="Pluginen komandoak" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
-

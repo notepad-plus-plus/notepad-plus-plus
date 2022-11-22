@@ -1,4 +1,6 @@
-// Unit Tests for Scintilla internal data structures
+/** @file testSparseVector.cxx
+ ** Unit Tests for Scintilla internal data structures
+ **/
 
 #include <cstddef>
 #include <cassert>
@@ -7,10 +9,11 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
-#include "Platform.h"
+#include "Debugging.h"
 
 #include "Position.h"
 #include "UniqueString.h"
@@ -20,9 +23,54 @@
 
 #include "catch.hpp"
 
-using namespace Scintilla;
+using namespace Scintilla::Internal;
 
 // Test SparseVector.
+
+using UniqueInt = std::unique_ptr<int>;
+
+TEST_CASE("CompileCopying SparseVector") {
+
+	// These are compile-time tests to check that basic copy and move
+	// operations are defined correctly.
+
+	SECTION("CopyingMoving") {
+		SparseVector<int> s;
+		SparseVector<int> s2;
+
+		// Copy constructor
+		SparseVector<int> sa(s);
+		// Copy assignment
+		SparseVector<int> sb;
+		sb = s;
+
+		// Move constructor
+		SparseVector<int> sc(std::move(s));
+		// Move assignment
+		SparseVector<int> sd;
+		sd = (std::move(s2));
+	}
+
+	SECTION("MoveOnly") {
+		SparseVector<UniqueInt> s;
+
+#if defined(SHOW_COPY_BUILD_FAILURES)
+		// Copy is not defined for std::unique_ptr
+		// Copy constructor fails
+		SparseVector<UniqueInt> sa(s);
+		// Copy assignment fails
+		SparseVector<UniqueInt> sb;
+		sb = s;
+#endif
+
+		// Move constructor
+		SparseVector<UniqueInt> sc(std::move(s));
+		// Move assignment
+		SparseVector<UniqueInt> sd;
+		sd = (std::move(s));
+	}
+
+}
 
 // Helper to produce a string representation of a SparseVector<const char *>
 // to simplify checks.
@@ -176,6 +224,10 @@ TEST_CASE("SparseVector") {
 		REQUIRE(1 == st.Elements());
 		REQUIRE("------" == Representation(st));
 		st.Check();
+		st.SetValueAt(5, nullptr);
+		REQUIRE(1 == st.Elements());
+		REQUIRE("------" == Representation(st));
+		st.Check();
 	}
 
 	SECTION("CheckDeletionLeavesOrdered") {
@@ -203,6 +255,9 @@ TEST_CASE("SparseVector") {
 		st.SetValueAt(3, UniqueStringCopy("3"));
 		REQUIRE(5 == st.Elements());
 		REQUIRE("---34--7-9-" == Representation(st));
+		st.DeleteAll();
+		REQUIRE(1 == st.Elements());
+		REQUIRE("-" == Representation(st));
 		st.Check();
 	}
 
@@ -371,6 +426,21 @@ TEST_CASE("SparseTextInt") {
 		REQUIRE(3 == st.PositionOfElement(1));
 		REQUIRE(2 == st.IndexAfter(3));
 		REQUIRE(5 == st.PositionOfElement(2));
+		REQUIRE(2 == st.IndexAfter(4));
+	}
+
+	SECTION("PositionNext") {
+		st.InsertSpace(0, 5);
+		REQUIRE(1 == st.Elements());
+		REQUIRE(5 == st.PositionNext(-1));
+		REQUIRE(5 == st.PositionNext(0));
+		REQUIRE(6 == st.PositionNext(5));
+		st.SetValueAt(3, 3);
+		REQUIRE(2 == st.Elements());
+		REQUIRE(3 == st.PositionNext(-1));
+		REQUIRE(3 == st.PositionNext(0));
+		REQUIRE(5 == st.PositionNext(3));
+		REQUIRE(6 == st.PositionNext(5));
 	}
 }
 

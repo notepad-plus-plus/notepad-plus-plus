@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="&amp;Кораллар"/>
 					<Item menuId="macro" name="&amp;Макрослар"/>
                     <Item menuId="run" name="&amp;Җибәрү"/>
-                    <Item idName="Plugins" name="&amp;Плагиннар"/>
-                    <Item idName="Window"  name="&amp;Тәрәзәләр"/>
+                    <Item menuId="Plugins" name="&amp;Плагиннар"/>
+                    <Item menuId="Window"  name="&amp;Тәрәзәләр"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -352,15 +352,11 @@
                 <Item id="1608" name="&amp;Алыштырырга"/>
                 <Item id="1609" name="&amp;Бөтенесен алыштыру"/>
                 <Item id="1611" name="Алыштырырга моңа:"/>
-                <Item id="1612" name="Өскә"/>
-                <Item id="1613" name="Аска"/>
                 <Item id="1614" name="&amp;Санап чыгарырга"/>
                 <Item id="1615" name="Бөтенесен тамгаларга"/>
                 <Item id="1616" name="Билге белән тамгаларга"/>
-                <Item id="1617" name="Тапканны тамгаларга"/>
                 <Item id="1618" name="Элекке тамгаларны бетерергә"/>
                 <Item id="1620" name="Табарга:"/>
-                <Item id="1621" name="Юнәлеш"/>
                 <Item id="1624" name="Эзләү режимы"/>
                 <Item id="1625" name="Гади"/>
                 <Item id="1626" name="&amp;Киңәйтелгән (\n, \r, \t, \0, \x...)"/>
@@ -368,7 +364,6 @@
                 <Item id="1633" name="Тамгаларны бетерергә"/>
                 <Item id="1635" name="Ачык документларда бөтенесен алыштыру"/>
                 <Item id="1636" name="Ачык документларда бөтенесен табарга"/>
-                <Item id="1637" name="Файлларда эзләргә"/>
                 <Item id="1641" name="Хәзерге Документта&#x0A;Бөтенесен табарга"/>
                 <Item id="1654" name="Фильтрлар:"/>
                 <Item id="1655" name="Папка:"/>
@@ -905,11 +900,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Буфер тарихы"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Документны алыштыру"/>
 			<ColumnName name="Исем"/>
 			<ColumnExt name="Төре"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII символлар җәдвәле"/>
 			<ColumnVal name="Билге"/>

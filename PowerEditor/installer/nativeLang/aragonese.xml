@@ -19,8 +19,8 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 					<Item menuId="settings" name="Co&amp;nfiguraciÃƒÂ³n"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="E&amp;xecutar"/>
-					<Item idName="Plugins" name="C&amp;omplementos"/>
-					<Item idName="Window" name="F&amp;inestras"/>
+					<Item menuId="Plugins" name="C&amp;omplementos"/>
+					<Item menuId="Window" name="F&amp;inestras"/>
                 </Entries>
 
 
@@ -298,14 +298,10 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
                 <Item id="1604" name="Diferenciar mayusclas y minusclas"/>
                 <Item id="1605" name="ExpresiÃƒÂ³n &amp;regular"/>
                 <Item id="1606" name="En rematar, tornar a l'inicio"/>
-                <Item id="1612" name="&amp;Alto"/>
-                <Item id="1613" name="A&amp;baixo"/>
                 <Item id="1614" name="Contar as coincidencias"/>
                 <Item id="1615" name="Trobar-los totz"/>
                 <Item id="1616" name="Marcar a linia"/>
-				<Item id="1617" name="Teste d'estilo trobau"/> <!--"Style found token"-->
                 <Item id="1618" name="Vuedar ta cada busca"/>
-                <Item id="1621" name="Endrecera"/>
                 <Item id="1611" name="Substituir-lo &amp;por:"/>
                 <Item id="1608" name="&amp;Substituir "/>
                 <Item id="1609" name="Substituir-lo &amp;tot"/>
@@ -316,7 +312,6 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 				<Item id="1633" name="Vuedar"/>
 				<Item id="1635" name="Substituir-lo tot en totz os documentos ubiertos"/>
 				<Item id="1636" name="Mirar-lo tot en totz os documentos ubiertos"/>
-                <Item id="1637" name="Mirar en os fichers"/>
 				<Item id="1654" name="Filtros:"/>
 				<Item id="1655" name="Directorio:"/>
 				<Item id="1656" name="Mirar-los totz"/>

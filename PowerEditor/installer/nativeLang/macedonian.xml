@@ -19,8 +19,8 @@
 					<Item menuId="settings" name = "По&amp;десувања"/>
 					<Item menuId="macro" name = "Macro"/>
 					<Item menuId="run" name = "Вклучи"/>
-					<Item idName = "Plugins" name = "Plugin-ови"/>
-					<Item idName = "Window" name = "Прозорец"/>
+					<Item menuId = "Plugins" name = "Plugin-ови"/>
+					<Item menuId = "Window" name = "Прозорец"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -220,14 +220,10 @@
                 <Item id = "1604" name = "Исти &amp;големи/мали букви"/>
                 <Item id = "1605" name = "Но&amp;рмални изрази"/>
                 <Item id = "1606" name = "Свиткај окол&amp;у"/>
-                <Item id = "1612" name = "&amp;Нагоре"/>
-                <Item id = "1613" name = "Н&amp;адоле"/>
                 <Item id = "1614" name = "Брои"/>
                 <Item id = "1615" name = "Барај се"/>
                 <Item id = "1616" name = "Означи ја линијата"/>
-                <Item id = "1617" name = "Означи го симболот"/>
                 <Item id = "1618" name = "Исчисти при секое барање"/>
-                <Item id = "1621" name = "Правец"/>
                 <Item id = "1611" name = "За&amp;мени со :"/>
                 <Item id = "1608" name = "&amp;Замени"/>
                 <Item id = "1609" name = "Замени ги си&amp;те"/>
@@ -238,7 +234,6 @@
 			 	<Item id = "1633" name = "Исчисти"/>
 			 	<Item id = "1635" name = "Замени ги сите во сите Отворени документи"/>
 			 	<Item id = "1636" name = "Барај ги сите во сите Отворени документи"/>
-			 	<Item id = "1637" name = "Барај во фајловите"/>
 			 	<Item id = "1654" name = "Филтри :"/>
 			 	<Item id = "1655" name = "Директориум :"/>
 			 	<Item id = "1656" name = "Барај се"/>

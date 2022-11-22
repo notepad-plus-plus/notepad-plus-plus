@@ -6,13 +6,14 @@
 // Author: Jason Haslam
 //
 // Additions Copyright (c) 2011 Archaeopteryx Software, Inc. d/b/a Wingware
-// ScintillaQt.h - Qt specific subclass of ScintillaBase
+// @file ScintillaQt.h - Qt specific subclass of ScintillaBase
 
 #ifndef SCINTILLAQT_H
 #define SCINTILLAQT_H
 
 #include <cstddef>
 #include <cstdlib>
+#include <cstdint>
 #include <cassert>
 #include <cstring>
 #include <cctype>
@@ -24,14 +25,21 @@
 #include <string_view>
 #include <vector>
 #include <map>
+#include <set>
+#include <optional>
 #include <algorithm>
 #include <memory>
 
+#include "ScintillaTypes.h"
+#include "ScintillaMessages.h"
+#include "ScintillaStructures.h"
 #include "Scintilla.h"
+#include "Debugging.h"
+#include "Geometry.h"
 #include "Platform.h"
 #include "ILoader.h"
 #include "ILexer.h"
-#include "CharacterCategory.h"
+#include "CharacterCategoryMap.h"
 #include "Position.h"
 #include "UniqueString.h"
 #include "SplitVector.h"
@@ -67,7 +75,7 @@
 
 class ScintillaEditBase;
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 class ScintillaQt : public QObject, public ScintillaBase {
 	Q_OBJECT
@@ -82,14 +90,14 @@ signals:
 	void horizontalRangeChanged(int max, int page);
 	void verticalRangeChanged(int max, int page);
 
-	void notifyParent(SCNotification scn);
+	void notifyParent(Scintilla::NotificationData scn);
 	void notifyChange();
 
 	// Clients can use this hook to add additional
 	// formats (e.g. rich text) to the MIME data.
 	void aboutToCopy(QMimeData *data);
 
-	void command(uptr_t wParam, sptr_t lParam);
+	void command(Scintilla::uptr_t wParam, Scintilla::sptr_t lParam);
 
 private slots:
 	void onIdle();
@@ -101,6 +109,8 @@ private:
 	void Finalise() override;
 	bool DragThreshold(Point ptStart, Point ptNow) override;
 	bool ValidCodePage(int codePage) const override;
+	std::string UTF8FromEncoded(std::string_view encoded) const override;
+	std::string EncodedFromUTF8(std::string_view utf8) const override;
 
 private:
 	void ScrollText(Sci::Line linesToMove) override;
@@ -116,9 +126,9 @@ private:
 	void ClaimSelection() override;
 	void NotifyChange() override;
 	void NotifyFocus(bool focus) override;
-	void NotifyParent(SCNotification scn) override;
+	void NotifyParent(Scintilla::NotificationData scn) override;
 	void NotifyURIDropped(const char *uri);
-	int timers[tickDwell+1];
+	int timers[static_cast<size_t>(TickReason::dwell)+1]{};
 	bool FineTickerRunning(TickReason reason) override;
 	void FineTickerStart(TickReason reason, int millis, int tolerance) override;
 	void CancelTimers();
@@ -128,20 +138,22 @@ private:
 	void SetMouseCapture(bool on) override;
 	bool HaveMouseCapture() override;
 	void StartDrag() override;
-	int CharacterSetOfDocument() const;
+	Scintilla::CharacterSet CharacterSetOfDocument() const;
 	const char *CharacterSetIDOfDocument() const;
 	QString StringFromDocument(const char *s) const;
 	QByteArray BytesForDocument(const QString &text) const;
-	CaseFolder *CaseFolderForEncoding() override;
-	std::string CaseMapString(const std::string &s, int caseMapping) override;
+	std::unique_ptr<CaseFolder> CaseFolderForEncoding() override;
+	std::string CaseMapString(const std::string &s, CaseMapping caseMapping) override;
 
 	void CreateCallTipWindow(PRectangle rc) override;
-	void AddToPopUp(const char *label, int cmd = 0, bool enabled = true) override;
-	sptr_t WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) override;
-	sptr_t DefWndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) override;
+	void AddToPopUp(const char *label, int cmd, bool enabled) override;
+	sptr_t WndProc(Scintilla::Message iMessage, uptr_t wParam, sptr_t lParam) override;
+	sptr_t DefWndProc(Scintilla::Message iMessage, uptr_t wParam, sptr_t lParam) override;
 
 	static sptr_t DirectFunction(sptr_t ptr,
 				     unsigned int iMessage, uptr_t wParam, sptr_t lParam);
+	static sptr_t DirectStatusFunction(sptr_t ptr,
+				     unsigned int iMessage, uptr_t wParam, sptr_t lParam, int *pStatus);
 
 protected:
 
@@ -170,4 +182,4 @@ private:
 
 }
 
-#endif // SCINTILLAQT_H
+#endif /* SCINTILLAQT_H */

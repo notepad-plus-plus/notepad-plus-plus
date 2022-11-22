@@ -22,6 +22,7 @@
 #endif
 #include <comdef.h>		// _com_error
 #include <comip.h>		// _com_ptr_t
+#include <unordered_map>
 #include "CustomFileDialog.h"
 #include "Parameters.h"
 
@@ -90,18 +91,9 @@ namespace // anonymous
 		return name.find_last_of('.') != generic_string::npos;
 	}
 
-	bool endsWith(const generic_string& s, const generic_string& suffix)
-	{
-#if defined(_MSVC_LANG) && (_MSVC_LANG > 201402L)
-	#error Replace this function with basic_string::ends_with
-#endif
-		size_t pos = s.find(suffix);
-		return pos != s.npos && ((s.length() - pos) == suffix.length());
-	}
-
 	void expandEnv(generic_string& s)
 	{
-		TCHAR buffer[MAX_PATH] = { 0 };
+		TCHAR buffer[MAX_PATH] = { '\0' };
 		// This returns the resulting string length or 0 in case of error.
 		DWORD ret = ExpandEnvironmentStrings(s.c_str(), buffer, static_cast<DWORD>(std::size(buffer)));
 		if (ret != 0)
@@ -137,15 +129,21 @@ namespace // anonymous
 		return result;
 	}
 
-	bool setDialogFolder(IFileDialog* dialog, const TCHAR* folder)
+	bool setDialogFolder(IFileDialog* dialog, const TCHAR* path)
 	{
-		IShellItem* psi = nullptr;
-		HRESULT hr = SHCreateItemFromParsingName(folder,
-			0,
-			IID_IShellItem,
-			reinterpret_cast<void**>(&psi));
+		com_ptr<IShellItem> shellItem;
+		HRESULT hr = SHCreateItemFromParsingName(path,
+			nullptr,
+			IID_PPV_ARGS(&shellItem));
+		if (SUCCEEDED(hr) && shellItem && !::PathIsDirectory(path))
+		{
+			com_ptr<IShellItem> parentItem;
+			hr = shellItem->GetParent(&parentItem);
+			if (SUCCEEDED(hr))
+				shellItem = parentItem;
+		}
 		if (SUCCEEDED(hr))
-			hr = dialog->SetFolder(psi);
+			hr = dialog->SetFolder(shellItem);
 		return SUCCEEDED(hr);
 	}
 
@@ -172,6 +170,18 @@ namespace // anonymous
 		if (SUCCEEDED(hr))
 			return getFilename(psi);
 		return {};
+	}
+
+	HWND getDialogHandle(IFileDialog* dialog)
+	{
+		com_ptr<IOleWindow> pOleWnd = dialog;
+		if (pOleWnd)
+		{
+			HWND hwnd = nullptr;
+			if (SUCCEEDED(pOleWnd->GetWindow(&hwnd)))
+				return hwnd;
+		}
+		return nullptr;
 	}
 
 	// Backs up the current directory in constructor and restores it in destructor.
@@ -245,21 +255,24 @@ public:
 	}
 	IFACEMETHODIMP OnFolderChange(IFileDialog*) override
 	{
-		// First launch order: 3. Custom controls are added but inactive.
+		// Dialog startup calling order: 3. Custom controls are added but inactive.
+		if (!foundControls())
+			findControls();
 		return S_OK;
 	}
 	IFACEMETHODIMP OnFolderChanging(IFileDialog*, IShellItem* psi) override
 	{
 		// Called when the current dialog folder is about to change.
-		// First launch order: 2. Buttons are added, correct window title.
+		// Dialog startup calling order: 2. Buttons are added, correct window title.
 		_lastUsedFolder = getFilename(psi);
 		return S_OK;
 	}
 	IFACEMETHODIMP OnSelectionChange(IFileDialog*) override
 	{
-		// First launch order: 4. Main window is shown.
-		if (shouldInitControls())
-			initControls();
+		// This event may not be triggered in an empty folder (Windows 10+).
+		// Dialog startup calling order: 4. Main window is shown.
+		if (!foundControls())
+			findControls();
 		return S_OK;
 	}
 	IFACEMETHODIMP OnShareViolation(IFileDialog*, IShellItem*, FDE_SHAREVIOLATION_RESPONSE*) override
@@ -268,7 +281,7 @@ public:
 	}
 	IFACEMETHODIMP OnTypeChange(IFileDialog*) override
 	{
-		// First launch order: 1. Inactive, window title might be wrong.
+		// Dialog startup calling order: 1. Inactive, window title might be wrong.
 		UINT dialogIndex = 0;
 		if (SUCCEEDED(_dialog->GetFileTypeIndex(&dialogIndex)))
 		{
@@ -289,12 +302,25 @@ public:
 		_currentType = dialogIndex;
 		generic_string name = getDialogFileName(_dialog);
 		if (changeExt(name, dialogIndex - 1))
-			return SUCCEEDED(_dialog->SetFileName(name.c_str()));
+		{
+			// Set the file name and clear the selection in the edit box.
+			// The selection is implicitly modified by SetFileName().
+			DWORD selStart = 0;
+			DWORD selEnd = 0;
+			bool ok = SUCCEEDED(_dialog->SetFileName(name.c_str()));
+			if (ok)
+				SendMessage(_hwndNameEdit, EM_SETSEL, selStart, selEnd);
+			return ok;
+		}
 		return false;
 	}
 
 	IFACEMETHODIMP OnOverwrite(IFileDialog*, IShellItem*, FDE_OVERWRITE_RESPONSE*) override
 	{
+		// Called when a file with a given name already exists.
+		// Focus the file name edit box to make it easier to pick a new name.
+		if (_hwndNameEdit)
+			SetFocus(_hwndNameEdit);
 		return S_OK;
 	}
 
@@ -337,17 +363,17 @@ public:
 		return E_NOTIMPL;
 	}
 
-
 	FileDialogEventHandler(IFileDialog* dlg, const std::vector<Filter>& filterSpec, int fileIndex, int wildcardIndex)
 		: _cRef(1), _dialog(dlg), _customize(dlg), _filterSpec(filterSpec), _currentType(fileIndex + 1),
 		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
 	{
-		_staticThis = this;
+		installHooks();
 	}
 
 	~FileDialogEventHandler()
 	{
-		_staticThis = nullptr;
+		eraseHandles();
+		removeHooks();
 	}
 
 	const generic_string& getLastUsedFolder() const { return _lastUsedFolder; }
@@ -358,28 +384,72 @@ private:
 	FileDialogEventHandler(FileDialogEventHandler&&) = delete;
 	FileDialogEventHandler& operator=(FileDialogEventHandler&&) = delete;
 
-	// Overrides window procedures for file name edit and ok button.
+	// Find window handles for file name edit and ok button.
 	// Call this as late as possible to ensure all the controls of the dialog are created.
-	void initControls()
+	bool findControls()
 	{
 		assert(_dialog);
-		com_ptr<IOleWindow> pOleWnd = _dialog;
-		if (pOleWnd)
+		HWND hwndDlg = getDialogHandle(_dialog);
+		if (hwndDlg)
 		{
-			HWND hwndDlg = nullptr;
-			HRESULT hr = pOleWnd->GetWindow(&hwndDlg);
-			if (SUCCEEDED(hr) && hwndDlg)
-			{
-				EnumChildWindows(hwndDlg, &EnumChildProc, 0);
-				if (_staticThis->_hwndButton)
-					_staticThis->_okButtonProc = (WNDPROC)SetWindowLongPtr(_staticThis->_hwndButton, GWLP_WNDPROC, (LPARAM)&OkButtonWndProc);
-			}
+			EnumChildWindows(hwndDlg, &EnumChildProc, reinterpret_cast<LPARAM>(this));
+			if (_hwndButton)
+				s_handleMap[_hwndButton] = this;
+			if (_hwndNameEdit)
+				s_handleMap[_hwndNameEdit] = this;
 		}
+		return foundControls();
 	}
 
-	bool shouldInitControls() const
+	bool foundControls() const
 	{
-		return !_okButtonProc && !_fileNameProc;
+		return _hwndButton && _hwndNameEdit;
+	}
+
+	void installHooks()
+	{
+		_prevKbdHook = ::SetWindowsHookEx(WH_KEYBOARD,
+			reinterpret_cast<HOOKPROC>(&FileDialogEventHandler::KbdProcHook),
+			nullptr,
+			::GetCurrentThreadId()
+		);
+		_prevCallHook = ::SetWindowsHookEx(WH_CALLWNDPROC,
+			reinterpret_cast<HOOKPROC>(&FileDialogEventHandler::CallProcHook),
+			nullptr,
+			::GetCurrentThreadId()
+		);
+	}
+
+	void removeHooks()
+	{
+		if (_prevKbdHook)
+			::UnhookWindowsHookEx(_prevKbdHook);
+		if (_prevCallHook)
+			::UnhookWindowsHookEx(_prevCallHook);
+		_prevKbdHook = nullptr;
+		_prevCallHook = nullptr;
+	}
+
+	void eraseHandles()
+	{
+		if (_hwndButton && _hwndNameEdit)
+		{
+			s_handleMap.erase(_hwndButton);
+			s_handleMap.erase(_hwndNameEdit);
+		}
+		else
+		{
+			std::vector<HWND> handlesToErase;
+			for (auto&& x : s_handleMap)
+			{
+				if (x.second == this)
+					handlesToErase.push_back(x.first);
+			}
+			for (auto&& h : handlesToErase)
+			{
+				s_handleMap.erase(h);
+			}
+		}
 	}
 
 	bool changeExt(generic_string& name, int extIndex)
@@ -387,7 +457,7 @@ private:
 		if (extIndex >= 0 && extIndex < static_cast<int>(_filterSpec.size()))
 		{
 			const generic_string ext = get1stExt(_filterSpec[extIndex].ext);
-			if (!endsWith(ext, _T(".*")))
+			if (!ext.ends_with(_T(".*")))
 				return replaceExt(name, ext);
 		}
 		return false;
@@ -397,7 +467,7 @@ private:
 	{
 		if (::PathIsRelative(fileName.c_str()))
 		{
-			TCHAR buffer[MAX_PATH] = { 0 };
+			TCHAR buffer[MAX_PATH] = { '\0' };
 			const generic_string folder = getDialogFolder(_dialog);
 			LPTSTR ret = ::PathCombine(buffer, folder.c_str(), fileName.c_str());
 			if (ret)
@@ -453,53 +523,68 @@ private:
 	}
 
 	// Enumerates the child windows of a dialog.
-	// Sets up window procedure overrides for "OK" button and file name edit box.
-	static BOOL CALLBACK EnumChildProc(HWND hwnd, LPARAM)
+	// Remember handles of "OK" button and file name edit box.
+	static BOOL CALLBACK EnumChildProc(HWND hwnd, LPARAM param)
 	{
 		const int bufferLen = MAX_PATH;
 		static TCHAR buffer[bufferLen];
+		static bool isRTL = false;
 
-		if (GetClassName(hwnd, buffer, bufferLen) != 0)
+		auto* inst = reinterpret_cast<FileDialogEventHandler*>(param);
+		if (!inst)
+			return FALSE;
+
+		if (IsWindowEnabled(hwnd) && GetClassName(hwnd, buffer, bufferLen) != 0)
 		{
 			if (lstrcmpi(buffer, _T("ComboBox")) == 0)
 			{
 				// The edit box of interest is a child of the combo box and has empty window text.
-				// Note that file type dropdown is a combo box also (but without an edit box).
+				// We use the first combo box, but there might be the others (file type dropdown, address bar, etc).
 				HWND hwndChild = FindWindowEx(hwnd, nullptr, _T("Edit"), _T(""));
-				if (hwndChild)
+				if (hwndChild && !inst->_hwndNameEdit)
 				{
-					_staticThis->_fileNameProc = (WNDPROC)SetWindowLongPtr(hwndChild, GWLP_WNDPROC, (LPARAM)&FileNameWndProc);
-					_staticThis->_hwndNameEdit = hwndChild;
+					inst->_hwndNameEdit = hwndChild;
 				}
 			}
 			else if (lstrcmpi(buffer, _T("Button")) == 0)
 			{
 				// Find the OK button.
+				// Preconditions:
 				// Label could be "Open" or "Save".
 				// Label could be localized (that's why can't search by window text).
 				// Dialog could have other buttons ("Cancel", "Help", etc).
-				// Don't rely on the order of the EnumChildWindows() traversal since it could be changed.
+				// The order of the EnumChildWindows() traversal may change.
+				// Solutions:
+				// 1. Find the leftmost (or the rightmost if RTL) button. The current solution.
+				// 2. Find by text. Get the localized text from windows resource DLL.
+				//    Problem: Resource ID might be changed or relocated to a different DLL.
+				// 3. Find by text. Set the localized text for the OK button beforehand (IFileDialog::SetOkButtonLabel). 
+				//    Problem: Localization might be not installed; need to use the OS language not the app language.
+				// 4. Just get the first button found. Save/Open button has control ID value lower than Cancel button. 
+				//    Problem: It may work or may not, depending on the initialization order or other environment factors.
 				LONG style = GetWindowLong(hwnd, GWL_STYLE);
-				if (IsWindowEnabled(hwnd) && (style & (WS_CHILDWINDOW | WS_GROUP)))
+				if (style & (WS_CHILDWINDOW | WS_GROUP))
 				{
 					DWORD type = style & 0xF;
 					DWORD appearance = style & 0xF0;
 					if ((type == BS_PUSHBUTTON || type == BS_DEFPUSHBUTTON) && (appearance == BS_TEXT))
 					{
 						// Get the leftmost button.
-						if (_staticThis->_hwndButton)
+						if (inst->_hwndButton)
 						{
 							RECT rc1 = {};
 							RECT rc2 = {};
-							if (GetWindowRect(hwnd, &rc1) && GetWindowRect(_staticThis->_hwndButton, &rc2))
+							if (GetWindowRect(hwnd, &rc1) && GetWindowRect(inst->_hwndButton, &rc2))
 							{
-								if (rc1.left < rc2.left)
-									_staticThis->_hwndButton = hwnd;
+								const bool isLess = isRTL ? (rc1.right > rc2.right) : (rc1.left < rc2.left);
+								if (isLess)
+									inst->_hwndButton = hwnd;
 							}
 						}
 						else
 						{
-							_staticThis->_hwndButton = hwnd;
+							isRTL = GetWindowLong(hwnd, GWL_EXSTYLE) & WS_EX_LAYOUTRTL;
+							inst->_hwndButton = hwnd;
 						}
 					}
 				}
@@ -508,79 +593,60 @@ private:
 		return TRUE;
 	}
 
-	static LRESULT CALLBACK OkButtonWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+	static LRESULT CALLBACK CallProcHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
-		// The ways to press a button:
-		// 1. space/enter is pressed when the button has focus (WM_KEYDOWN)
-		// 2. left mouse click on a button (WM_LBUTTONDOWN)
-		// 3. Alt + S
-		bool pressed = false;
-		switch (msg)
+		if (nCode == HC_ACTION)
 		{
-		case BM_SETSTATE:
-			// Sent after all press events above except when press return while focused.
-			pressed = (wparam == TRUE);
-			break;
-		case WM_GETDLGCODE:
-			// Sent for the keyboard input.
-			pressed = (wparam == VK_RETURN);
-			break;
-		}
-		if (pressed)
-			_staticThis->onPreFileOk();
-		return CallWindowProc(_staticThis->_okButtonProc, hwnd, msg, wparam, lparam);
-	}
-
-	static LRESULT CALLBACK FileNameWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
-	{
-		// WM_KEYDOWN with wparam == VK_RETURN isn't delivered here.
-		// So watch for the keyboard input while the control has focus.
-		// Initially, the control has focus.
-		// WM_SETFOCUS is sent if control regains focus after losing it.
-		static bool processingReturn = false;
-		switch (msg)
-		{
-		case WM_SETFOCUS:
-			_staticThis->_monitorKeyboard = true;
-			break;
-		case WM_KILLFOCUS:
-			_staticThis->_monitorKeyboard = false;
-			break;
-		}
-		// Avoid unnecessary processing by polling keyboard only on some messages.
-		bool checkMsg = msg > WM_USER;
-		if (_staticThis->_monitorKeyboard && !processingReturn && checkMsg)
-		{
-			SHORT state = GetAsyncKeyState(VK_RETURN);
-			if (state & 0x8000)
+			auto* msg = reinterpret_cast<CWPSTRUCT*>(lParam);
+			if (msg && msg->message == WM_COMMAND && HIWORD(msg->wParam) == BN_CLICKED)
 			{
-				// Avoid re-entrance because the call might generate some messages.
-				processingReturn = true;
-				_staticThis->onPreFileOk();
-				processingReturn = false;
+				// Handle Save/Open button click.
+				// Different ways to press a button:
+				// 1. space/enter is pressed when the button has focus (WM_KEYDOWN)
+				// 2. left mouse click on a button (WM_LBUTTONDOWN)
+				// 3. Alt + S
+				auto ctrlId = LOWORD(msg->wParam);
+				HWND hwnd = GetDlgItem(msg->hwnd, ctrlId);
+				auto it = s_handleMap.find(hwnd);
+				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndButton)
+					it->second->onPreFileOk();
 			}
 		}
-		return CallWindowProc(_staticThis->_fileNameProc, hwnd, msg, wparam, lparam);
+		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
 	}
 
-	static FileDialogEventHandler* _staticThis;
+	static LRESULT CALLBACK KbdProcHook(int nCode, WPARAM wParam, LPARAM lParam)
+	{
+		if (nCode == HC_ACTION)
+		{
+			if (wParam == VK_RETURN)
+			{
+				// Handle return key passed to the file name edit box.
+				HWND hwnd = GetFocus();
+				auto it = s_handleMap.find(hwnd);
+				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
+					it->second->onPreFileOk();
+			}
+		}
+		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
+	}
+
+	static std::unordered_map<HWND, FileDialogEventHandler*> s_handleMap;
 
 	long _cRef;
 	com_ptr<IFileDialog> _dialog;
 	com_ptr<IFileDialogCustomize> _customize;
 	const std::vector<Filter> _filterSpec;
 	generic_string _lastUsedFolder;
+	HHOOK _prevKbdHook = nullptr;
+	HHOOK _prevCallHook = nullptr;
 	HWND _hwndNameEdit = nullptr;
 	HWND _hwndButton = nullptr;
-	WNDPROC _okButtonProc = nullptr;
-	WNDPROC _fileNameProc = nullptr;
 	UINT _currentType = 0;  // File type currenly selected in dialog.
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
-	bool _monitorKeyboard = true;
 };
-
-FileDialogEventHandler* FileDialogEventHandler::_staticThis;
+std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -641,7 +707,7 @@ public:
 				if (!hasExt(newFileName))
 				{
 					const generic_string ext = get1stExt(_filterSpec[_fileTypeIndex].ext);
-					if (!endsWith(ext, _T(".*")))
+					if (!ext.ends_with(_T(".*")))
 						newFileName += ext;
 				}
 			}
@@ -717,10 +783,16 @@ public:
 
 	bool show()
 	{
+		// Allow only one instance of the dialog to be active at a time.
+		static bool isActive = false;
+		if (isActive)
+			return false;
+
 		assert(_dialog);
 		if (!_dialog)
 			return false;
 
+		isActive = true;
 		HRESULT hr = S_OK;
 		DWORD dwCookie = 0;
 		com_ptr<IFileDialogEvents> dialogEvents = _events;
@@ -738,7 +810,7 @@ public:
 			okPressed = SUCCEEDED(hr);
 
 			NppParameters& params = NppParameters::getInstance();
-			if (params.getNppGUI()._openSaveDir == dir_last)
+			if (okPressed && params.getNppGUI()._openSaveDir == dir_last)
 			{
 				// Note: IFileDialog doesn't modify the current directory.
 				// At least, after it is hidden, the current directory is the same as before it was shown.
@@ -748,6 +820,8 @@ public:
 
 		if (dialogEvents)
 			_dialog->Unadvise(dwCookie);
+
+		isActive = false;
 
 		return okPressed;
 	}

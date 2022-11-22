@@ -105,6 +105,8 @@ copy /Y ..\src\shortcuts.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalist\
+If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\DarkModeDefault.xml" .\minimalist\themes\
@@ -134,6 +136,8 @@ copy /Y ..\src\shortcuts.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist64\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalist64\
+If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\DarkModeDefault.xml" .\minimalist64\themes\
@@ -162,6 +166,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalistArm64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\minimalistArm64\
 If ErrorLevel 1 goto End
@@ -243,6 +249,8 @@ copy /Y ..\src\shortcuts.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release\
+If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 goto End
 
@@ -264,6 +272,8 @@ copy /Y ..\src\shortcuts.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release64\
+If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\zipped.package.release64\
 If ErrorLevel 1 goto End
 
@@ -284,6 +294,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.releaseArm64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
@@ -345,6 +357,12 @@ copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package
 If ErrorLevel 1 goto End
 copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package.releaseArm64\userDefineLangs\
 If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml" .\zipped.package.release\userDefineLangs\
+If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml" .\zipped.package.release64\userDefineLangs\
+If ErrorLevel 1 goto End
+copy /Y "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml" .\zipped.package.releaseArm64\userDefineLangs\
+If ErrorLevel 1 goto End
 
 rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders
 copy /Y ".\themes\*.xml" .\zipped.package.release\themes\
@@ -370,6 +388,8 @@ copy /Y ..\bin\updater\LICENSE .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\README.md .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
+copy /Y ..\bin\updater\updater.ico .\zipped.package.release\updater\
+If ErrorLevel 1 goto End
 
 rem For disabling auto-updater
 copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release64\config.xml
@@ -386,6 +406,8 @@ copy /Y ..\bin64\updater\LICENSE .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\README.md .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
+copy /Y ..\bin64\updater\updater.ico .\zipped.package.release64\updater\
+If ErrorLevel 1 goto End
 
 rem For disabling auto-updater
 copy /Y ..\src\config.4zipPackage.xml .\zipped.package.releaseArm64\config.xml
@@ -401,6 +423,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\binarm64\updater\LICENSE .\zipped.package.releaseArm64\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\updater\README.md .\zipped.package.releaseArm64\updater\
+If ErrorLevel 1 goto End
+copy /Y ..\binarm64\updater\updater.ico .\zipped.package.releaseArm64\updater\
 If ErrorLevel 1 goto End
 
 

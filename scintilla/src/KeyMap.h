@@ -8,24 +8,26 @@
 #ifndef KEYMAP_H
 #define KEYMAP_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
-#define SCI_NORM 0
-#define SCI_SHIFT SCMOD_SHIFT
-#define SCI_CTRL SCMOD_CTRL
-#define SCI_ALT SCMOD_ALT
-#define SCI_META SCMOD_META
-#define SCI_SUPER SCMOD_SUPER
-#define SCI_CSHIFT (SCI_CTRL | SCI_SHIFT)
-#define SCI_ASHIFT (SCI_ALT | SCI_SHIFT)
+#define SCI_NORM KeyMod::Norm
+#define SCI_SHIFT KeyMod::Shift
+#define SCI_CTRL KeyMod::Ctrl
+#define SCI_ALT KeyMod::Alt
+#define SCI_META KeyMod::Meta
+#define SCI_SUPER KeyMod::Super
+#define SCI_CSHIFT (KeyMod::Ctrl | KeyMod::Shift)
+#define SCI_ASHIFT (KeyMod::Alt | KeyMod::Shift)
 
 /**
  */
 class KeyModifiers {
 public:
-	int key;
-	int modifiers;
-	KeyModifiers(int key_, int modifiers_) noexcept : key(key_), modifiers(modifiers_) {
+	Scintilla::Keys key;
+	Scintilla::KeyMod modifiers;
+	KeyModifiers() noexcept : key{}, modifiers(KeyMod::Norm) {
+	};
+	KeyModifiers(Scintilla::Keys key_, Scintilla::KeyMod modifiers_) noexcept : key(key_), modifiers(modifiers_) {
 	}
 	bool operator<(const KeyModifiers &other) const noexcept {
 		if (key == other.key)
@@ -39,24 +41,23 @@ public:
  */
 class KeyToCommand {
 public:
-	int key;
-	int modifiers;
-	unsigned int msg;
+	Scintilla::Keys key;
+	Scintilla::KeyMod modifiers;
+	Scintilla::Message msg;
 };
 
 /**
  */
 class KeyMap {
-	std::map<KeyModifiers, unsigned int> kmap;
+	std::map<KeyModifiers, Scintilla::Message> kmap;
 	static const KeyToCommand MapDefault[];
 
 public:
 	KeyMap();
-	~KeyMap();
 	void Clear() noexcept;
-	void AssignCmdKey(int key, int modifiers, unsigned int msg);
-	unsigned int Find(int key, int modifiers) const;	// 0 returned on failure
-	const std::map<KeyModifiers, unsigned int> &GetKeyMap() const noexcept;
+	void AssignCmdKey(Scintilla::Keys key, Scintilla::KeyMod modifiers, Scintilla::Message msg);
+	Scintilla::Message Find(Scintilla::Keys key, Scintilla::KeyMod modifiers) const;	// 0 returned on failure
+	const std::map<KeyModifiers, Scintilla::Message> &GetKeyMap() const noexcept;
 };
 
 }

@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;Rregullimet"/>
                     <Item menuId="macro" name="Makro"/>
                     <Item menuId="run" name="Ekzekuto"/>
-                    <Item idName="Plugins" name="Shtojca"/>
-                    <Item idName="Window" name="Dritare"/>
+                    <Item menuId="Plugins" name="Shtojca"/>
+                    <Item menuId="Window" name="Dritare"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -336,13 +336,10 @@
                 <Item id="1604" name="Përkon &amp;kasa"/>
                 <Item id="1605" name="&amp;Shprehje e rregullt"/>
                 <Item id="1606" name="Mble&amp;dh rrotull"/>
-                <Item id="1612" name="&amp;Lart"/>
-                <Item id="1613" name="&amp;Poshtë"/>
                 <Item id="1614" name="Numrin"/>
                 <Item id="1615" name="Gjej të gjitha"/>
                 <Item id="1616" name="Shënjo linjën"/>
                 <Item id="1618" name="Zbraz për secilin kërkim"/>
-                <Item id="1621" name="Drejtimi"/>
                 <Item id="1611" name="Zë&amp;vendëso me:"/>
                 <Item id="1608" name="&amp;Zëvendëso"/>
                 <Item id="1609" name="Zëvendëso të gjith&amp;a"/>
@@ -873,11 +870,11 @@
         <ClipboardHistory>
             <PanelTitle name="Historia e Clipboard"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Shkëmbyesi Doc"/>
             <ColumnName name="Emri"/>
             <ColumnExt name="Ekst."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="Paneli i futjes ASCII"/>
             <ColumnVal name="Vlera"/>

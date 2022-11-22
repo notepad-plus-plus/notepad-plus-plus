@@ -34,9 +34,6 @@ void ToolTip::init(HINSTANCE hInst, HWND hParent)
 		}
 
 		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::tooltip);
-
-		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-		_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticWinProc)));
 	}
 }
 
@@ -70,10 +67,3 @@ void ToolTip::Show(RECT rectTitle, const TCHAR * pszTitle, int iXOff, int iWidth
 	::SendMessage(_hSelf, TTM_TRACKPOSITION, 0, MAKELONG(_ti.rect.left + iXOff, _ti.rect.top + iWidthOff));
 	::SendMessage(_hSelf, TTM_TRACKACTIVATE, true, reinterpret_cast<LPARAM>(&_ti));
 }
-
-
-LRESULT ToolTip::runProc(UINT message, WPARAM wParam, LPARAM lParam)
-{
-	return ::CallWindowProc(_defaultProc, _hSelf, message, wParam, lParam);
-}
-

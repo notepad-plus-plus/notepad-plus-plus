@@ -32,13 +32,15 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_ASN1, L_AVS, L_BLITZBASIC, L_PUREBASIC, L_FREEBASIC, \
 			   L_CSOUND, L_ERLANG, L_ESCRIPT, L_FORTH, L_LATEX, \
 			   L_MMIXAL, L_NIM, L_NNCRONTAB, L_OSCRIPT, L_REBOL, \
-			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG,\
+			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG, L_TYPESCRIPT,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};
+enum class ExternalLexerAutoIndentMode { Standard, C_Like, Custom };
+enum class MacroStatus { Idle, RecordInProgress, RecordingStopped, PlayingBack };
 
-enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10};
-enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
+enum winVer { WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10, WV_WIN11 };
+enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 
 
@@ -195,11 +197,31 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//void NPPM_TRIGGERTABBARCONTEXTMENU(int view, int index2Activate)
 
 	#define NPPM_GETNPPVERSION (NPPMSG + 50)
-	// int NPPM_GETNPPVERSION(0, 0)
-	// return version
-	// ex : v4.6
-	// HIWORD(version) == 4
-	// LOWORD(version) == 6
+	// int NPPM_GETNPPVERSION(BOOL ADD_ZERO_PADDING, 0)
+	// Get Notepad++ version
+	// HIWORD(returned_value) is major part of version: the 1st number
+	// LOWORD(returned_value) is minor part of version: the 3 last numbers
+	// 
+	// ADD_ZERO_PADDING == TRUE
+	// 
+	// version  | HIWORD | LOWORD
+	//------------------------------
+	// 8.9.6.4  | 8      | 964
+	// 9        | 9      | 0
+	// 6.9      | 6      | 900
+	// 6.6.6    | 6      | 660
+	// 13.6.6.6 | 13     | 666
+	// 
+	// 
+	// ADD_ZERO_PADDING == FALSE
+	// 
+	// version  | HIWORD | LOWORD
+	//------------------------------
+	// 8.9.6.4  | 8      | 964
+	// 9        | 9      | 0
+	// 6.9      | 6      | 9
+	// 6.6.6    | 6      | 66
+	// 13.6.6.6 | 13     | 666
 
 	#define NPPM_HIDETABBAR (NPPMSG + 51)
 	// BOOL NPPM_HIDETABBAR(0, BOOL hideOrNot)
@@ -346,7 +368,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	#define NPPM_ALLOCATEMARKER  (NPPMSG + 82)
     // BOOL NPPM_ALLOCATEMARKER(int numberRequested, int* startNumber)
     // sets startNumber to the initial command ID if successful
-    // Allocates a marker number to a plugin
+    // Allocates a marker number to a plugin: if a plugin need to add a marker on Notepad++'s Scintilla marker margin,
+	// it has to use this message to get marker number, in order to prevent from the conflict with the other plugins.
     // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
 
 	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
@@ -365,14 +388,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGEDESC function the 2nd time
 	// by passing allocated buffer as argument langDesc
 
-	#define NPPM_SHOWDOCSWITCHER    (NPPMSG + 85)
-	// VOID NPPM_SHOWDOCSWITCHER(0, BOOL toShowOrNot)
-	// Send this message to show or hide doc switcher.
-	// if toShowOrNot is TRUE then show doc switcher, otherwise hide it.
+	#define NPPM_SHOWDOCLIST    (NPPMSG + 85)
+	// VOID NPPM_SHOWDOCLIST(0, BOOL toShowOrNot)
+	// Send this message to show or hide Document List.
+	// if toShowOrNot is TRUE then show Document List, otherwise hide it.
 
-	#define NPPM_ISDOCSWITCHERSHOWN    (NPPMSG + 86)
-	// BOOL NPPM_ISDOCSWITCHERSHOWN(0, 0)
-	// Check to see if doc switcher is shown.
+	#define NPPM_ISDOCLISTSHOWN    (NPPMSG + 86)
+	// BOOL NPPM_ISDOCLISTSHOWN(0, 0)
+	// Check to see if Document List is shown.
 
 	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
 	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
@@ -382,9 +405,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// INT NPPM_GETCURRENTVIEW(0, 0)
 	// Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
 
-	#define NPPM_DOCSWITCHERDISABLECOLUMN    (NPPMSG + 89)
-	// VOID NPPM_DOCSWITCHERDISABLECOLUMN(0, BOOL disableOrNot)
-	// Disable or enable extension column of doc switcher
+	#define NPPM_DOCLISTDISABLEEXTCOLUMN    (NPPMSG + 89)
+	// VOID NPPM_DOCLISTDISABLEEXTCOLUMN(0, BOOL disableOrNot)
+	// Disable or enable extension column of Document List
+
+	#define NPPM_DOCLISTDISABLEPATHCOLUMN    (NPPMSG + 102)
+	// VOID NPPM_DOCLISTDISABLEPATHCOLUMN(0, BOOL disableOrNot)
+	// Disable or enable path column of Document List
 
 	#define NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR    (NPPMSG + 90)
 	// INT NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR(0, 0)
@@ -449,20 +476,97 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 		HICON	hToolbarIconDarkMode;
 	};
 
-#define VAR_NOT_RECOGNIZED 0
-#define FULL_CURRENT_PATH 1
-#define CURRENT_DIRECTORY 2
-#define FILE_NAME 3
-#define NAME_PART 4
-#define EXT_PART 5
-#define CURRENT_WORD 6
-#define NPP_DIRECTORY 7
-#define CURRENT_LINE 8
-#define CURRENT_COLUMN 9
-#define NPP_FULL_FILE_PATH 10
-#define GETFILENAMEATCURSOR 11
+	#define NPPM_GETEXTERNALLEXERAUTOINDENTMODE  (NPPMSG + 103)
+	// BOOL NPPM_GETEXTERNALLEXERAUTOINDENTMODE(const TCHAR *languageName, ExternalLexerAutoIndentMode &autoIndentMode)
+	// Get ExternalLexerAutoIndentMode for an installed external programming language.
+	// - Standard means Notepad++ will keep the same TAB indentation between lines;
+	// - C_Like means Notepad++ will perform a C-Language style indentation for the selected external language;
+	// - Custom means a Plugin will be controlling auto-indentation for the current language.
+	// returned values: TRUE for successful searches, otherwise FALSE.
 
-#define	RUNCOMMAND_USER    (WM_USER + 3000)
+	#define NPPM_SETEXTERNALLEXERAUTOINDENTMODE  (NPPMSG + 104)
+	// BOOL NPPM_SETEXTERNALLEXERAUTOINDENTMODE(const TCHAR *languageName, ExternalLexerAutoIndentMode autoIndentMode)
+	// Set ExternalLexerAutoIndentMode for an installed external programming language.
+	// - Standard means Notepad++ will keep the same TAB indentation between lines;
+	// - C_Like means Notepad++ will perform a C-Language style indentation for the selected external language;
+	// - Custom means a Plugin will be controlling auto-indentation for the current language.
+	// returned value: TRUE if function call was successful, otherwise FALSE.
+
+	#define NPPM_ISAUTOINDENTON  (NPPMSG + 105)
+	// BOOL NPPM_ISAUTOINDENTON(0, 0)
+	// Returns the current Use Auto-Indentation setting in Notepad++ Preferences.
+
+	#define NPPM_GETCURRENTMACROSTATUS (NPPMSG + 106)
+	// MacroStatus NPPM_GETCURRENTMACROSTATUS(0, 0)
+	// Gets current enum class MacroStatus { Idle - means macro is not in use and it's empty, RecordInProgress, RecordingStopped, PlayingBack }
+
+	#define NPPM_ISDARKMODEENABLED (NPPMSG + 107)
+	// bool NPPM_ISDARKMODEENABLED(0, 0)
+	// Returns true when Notepad++ Dark Mode is enable, false when it is not.
+
+	#define NPPM_GETDARKMODECOLORS (NPPMSG + 108)
+	// bool NPPM_GETDARKMODECOLORS (size_t cbSize, NppDarkMode::Colors* returnColors)
+	// - cbSize must be filled with sizeof(NppDarkMode::Colors).
+	// - returnColors must be a pre-allocated NppDarkMode::Colors struct.
+	// Returns true when successful, false otherwise.
+	// You need to uncomment the following code to use NppDarkMode::Colors structure:
+	//
+	// namespace NppDarkMode
+	// {
+	//	struct Colors
+	//	{
+	//		COLORREF background = 0;
+	//		COLORREF softerBackground = 0;
+	//		COLORREF hotBackground = 0;
+	//		COLORREF pureBackground = 0;
+	//		COLORREF errorBackground = 0;
+	//		COLORREF text = 0;
+	//		COLORREF darkerText = 0;
+	//		COLORREF disabledText = 0;
+	//		COLORREF linkText = 0;
+	//		COLORREF edge = 0;
+	//		COLORREF hotEdge = 0;
+	//		COLORREF disabledEdge = 0;
+	//	};
+	// }
+	//
+	// Note: in the case of calling failure ("false" is returned), you may need to change NppDarkMode::Colors structure to:
+	// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/NppDarkMode.h#L32
+
+	#define NPPM_GETCURRENTCMDLINE (NPPMSG + 109)
+	// INT NPPM_GETCURRENTCMDLINE(size_t strLen, TCHAR *commandLineStr)
+	// Get the Current Command Line string.
+	// Returns the number of TCHAR copied/to copy.
+	// Users should call it with commandLineStr as NULL to get the required number of TCHAR (not including the terminating nul character),
+	// allocate commandLineStr buffer with the return value + 1, then call it again to get the current command line string.
+
+	#define NPPM_CREATELEXER (NPPMSG + 110)
+	// void* NPPN_CREATELEXER(0, const TCHAR *lexer_name)
+	// Returns the ILexer pointer created by Lexilla
+
+	#define NPPM_GETBOOKMARKID (NPPMSG + 111)
+	// void* NPPM_GETBOOKMARKID(0, 0)
+	// Returns the bookmark ID
+
+
+
+	// For RUNCOMMAND_USER
+	#define VAR_NOT_RECOGNIZED 0
+	#define FULL_CURRENT_PATH 1
+	#define CURRENT_DIRECTORY 2
+	#define FILE_NAME 3
+	#define NAME_PART 4
+	#define EXT_PART 5
+	#define CURRENT_WORD 6
+	#define NPP_DIRECTORY 7
+	#define CURRENT_LINE 8
+	#define CURRENT_COLUMN 9
+	#define NPP_FULL_FILE_PATH 10
+	#define GETFILENAMEATCURSOR 11
+	#define CURRENT_LINESTR 12
+
+	#define	RUNCOMMAND_USER    (WM_USER + 3000)
+
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)
 	#define NPPM_GETFILENAME			(RUNCOMMAND_USER + FILE_NAME)
@@ -471,6 +575,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	#define NPPM_GETCURRENTWORD			(RUNCOMMAND_USER + CURRENT_WORD)
 	#define NPPM_GETNPPDIRECTORY		(RUNCOMMAND_USER + NPP_DIRECTORY)
 	#define NPPM_GETFILENAMEATCURSOR	(RUNCOMMAND_USER + GETFILENAMEATCURSOR)
+	#define NPPM_GETCURRENTLINESTR      (RUNCOMMAND_USER + CURRENT_LINESTR)
 	// BOOL NPPM_GETXXXXXXXXXXXXXXXX(size_t strLen, TCHAR *str)
 	// where str is the allocated TCHAR array,
 	//	     strLen is the allocated array size
@@ -485,7 +590,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	// return the caret current position column
 
 	#define NPPM_GETNPPFULLFILEPATH			(RUNCOMMAND_USER + NPP_FULL_FILE_PATH)
-
 
 
 // Notification code
@@ -631,3 +735,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	//scnNotification->nmhdr.code = NPPN_FILEDELETED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_DARKMODECHANGED (NPPN_FIRST + 27) // To notify plugins that Dark Mode was enabled/disabled
+	//scnNotification->nmhdr.code = NPPN_DARKMODECHANGED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = 0;
+
+	#define NPPN_CMDLINEPLUGINMSG (NPPN_FIRST + 28)  // To notify plugins that the new argument for plugins (via '-pluginMessage="YOUR_PLUGIN_ARGUMENT"' in command line) is available
+	//scnNotification->nmhdr.code = NPPN_CMDLINEPLUGINMSG;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = pluginMessage; //where pluginMessage is pointer of type wchar_t

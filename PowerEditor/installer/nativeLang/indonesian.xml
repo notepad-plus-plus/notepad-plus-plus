@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="Alat"/>
                     <Item menuId="macro" name="Makro"/>
                     <Item menuId="run" name="Jalankan"/>
-                    <Item idName="Plugins" name="Plugin"/>
-                    <Item idName="Window" name="Jendela"/>
+                    <Item menuId="Plugins" name="Plugin"/>
+                    <Item menuId="Window" name="Jendela"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
@@ -955,11 +955,11 @@
         <ClipboardHistory>
             <PanelTitle name="Riwayat Papan klip"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Penukar Dok."/>
             <ColumnName name="Nama"/>
             <ColumnExt name="Ekst."/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Nama"/>
             <ColumnPath name="Jalur"/>

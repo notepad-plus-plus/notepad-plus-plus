@@ -8,7 +8,7 @@
 #ifndef PERLINE_H
 #define PERLINE_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 /**
  * This holds the marker identifier and the marker type to display.
@@ -28,12 +28,6 @@ class MarkerHandleSet {
 
 public:
 	MarkerHandleSet();
-	// Deleted so MarkerHandleSet objects can not be copied.
-	MarkerHandleSet(const MarkerHandleSet &) = delete;
-	MarkerHandleSet(MarkerHandleSet &&) = delete;
-	void operator=(const MarkerHandleSet &) = delete;
-	void operator=(MarkerHandleSet &&) = delete;
-	~MarkerHandleSet();
 	bool Empty() const noexcept;
 	int MarkValue() const noexcept;	///< Bit set of marker numbers.
 	bool Contains(int handle) const noexcept;
@@ -51,12 +45,6 @@ class LineMarkers : public PerLine {
 public:
 	LineMarkers() : handleCurrent(0) {
 	}
-	// Deleted so LineMarkers objects can not be copied.
-	LineMarkers(const LineMarkers &) = delete;
-	LineMarkers(LineMarkers &&) = delete;
-	void operator=(const LineMarkers &) = delete;
-	void operator=(LineMarkers &&) = delete;
-	~LineMarkers() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
 	void InsertLines(Sci::Line line, Sci::Line lines) override;
@@ -78,12 +66,6 @@ class LineLevels : public PerLine {
 public:
 	LineLevels() {
 	}
-	// Deleted so LineLevels objects can not be copied.
-	LineLevels(const LineLevels &) = delete;
-	LineLevels(LineLevels &&) = delete;
-	void operator=(const LineLevels &) = delete;
-	void operator=(LineLevels &&) = delete;
-	~LineLevels() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
 	void InsertLines(Sci::Line line, Sci::Line lines) override;
@@ -100,18 +82,12 @@ class LineState : public PerLine {
 public:
 	LineState() {
 	}
-	// Deleted so LineState objects can not be copied.
-	LineState(const LineState &) = delete;
-	LineState(LineState &&) = delete;
-	void operator=(const LineState &) = delete;
-	void operator=(LineState &&) = delete;
-	~LineState() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
 	void InsertLines(Sci::Line line, Sci::Line lines) override;
 	void RemoveLine(Sci::Line line) override;
 
-	int SetLineState(Sci::Line line, int state);
+	int SetLineState(Sci::Line line, int state, Sci::Line lines);
 	int GetLineState(Sci::Line line);
 	Sci::Line GetMaxLineState() const noexcept;
 };
@@ -121,12 +97,8 @@ class LineAnnotation : public PerLine {
 public:
 	LineAnnotation() {
 	}
-	// Deleted so LineAnnotation objects can not be copied.
-	LineAnnotation(const LineAnnotation &) = delete;
-	LineAnnotation(LineAnnotation &&) = delete;
-	void operator=(const LineAnnotation &) = delete;
-	void operator=(LineAnnotation &&) = delete;
-	~LineAnnotation() override;
+
+	[[nodiscard]] bool Empty() const noexcept;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
 	void InsertLines(Sci::Line line, Sci::Line lines) override;
@@ -151,12 +123,6 @@ class LineTabstops : public PerLine {
 public:
 	LineTabstops() {
 	}
-	// Deleted so LineTabstops objects can not be copied.
-	LineTabstops(const LineTabstops &) = delete;
-	LineTabstops(LineTabstops &&) = delete;
-	void operator=(const LineTabstops &) = delete;
-	void operator=(LineTabstops &&) = delete;
-	~LineTabstops() override;
 	void Init() override;
 	void InsertLine(Sci::Line line) override;
 	void InsertLines(Sci::Line line, Sci::Line lines) override;

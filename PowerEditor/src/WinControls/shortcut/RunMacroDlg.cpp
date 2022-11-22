@@ -30,7 +30,7 @@ void RunMacroDlg::initMacroList()
 
 	::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_RESETCONTENT, 0, 0);
 
-	if (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS, 0, 0) == MACRO_RECORDING_HAS_STOPPED)
+	if (static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS, 0, 0)) == MacroStatus::RecordingStopped)
 		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Current recorded macro")));
 
 	for (size_t i = 0, len = macroList.size(); i < len ; ++i)
@@ -40,12 +40,14 @@ void RunMacroDlg::initMacroList()
 	_macroIndex = 0;
 }
 
-INT_PTR CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {	
 	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
 			initMacroList();
 			::SetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, _times, FALSE);
 			switch (_mode)
@@ -62,7 +64,50 @@ INT_PTR CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			return TRUE;
 		}
-		
+
+		case WM_CTLCOLOREDIT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			}
+			break;
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
 		case WM_COMMAND : 
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
@@ -129,7 +174,6 @@ void RunMacroDlg::check(int id)
 
 int RunMacroDlg::getMacro2Exec() const 
 {
-	bool isCurMacroPresent = ::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS, 0, 0) == MACRO_RECORDING_HAS_STOPPED;
+	bool isCurMacroPresent = static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS, 0, 0)) == MacroStatus::RecordingStopped;
 	return isCurMacroPresent?(_macroIndex - 1):_macroIndex;
 }
-

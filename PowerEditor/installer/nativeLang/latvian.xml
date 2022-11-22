@@ -16,8 +16,8 @@
 					<Item menuId="settings" name="Ies&amp;tatījumi"/>
 					<Item menuId="macro" name="&amp;Makrokomandas"/>
 					<Item menuId="run" name="&amp;Palaist"/>
-					<Item idName="Plugins" name="Spra&amp;udņi"/>
-					<Item idName="Window" name="&amp;Cilnes"/>
+					<Item menuId="Plugins" name="Spra&amp;udņi"/>
+					<Item menuId="Window" name="&amp;Cilnes"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
@@ -321,14 +321,10 @@
 				<Item id="1604" name="Saskaņot r&amp;eģistru"/>
 				<Item id="1605" name="Regulārā i&amp;zteiksme"/>
 				<Item id="1606" name="Meklēt &amp;visā dokumentā"/>
-				<Item id="1612" name="&amp;Augšup"/>
-				<Item id="1613" name="&amp;Lejup"/>
 				<Item id="1614" name="Skaits"/>
 				<Item id="1615" name="Atrast visus"/>
 				<Item id="1616" name="Atzīmēt rindu"/>
-				<Item id="1617" name="Stilu atrašanas marķieris"/>
 				<Item id="1618" name="Mainīt stilu katrai meklēšanai"/>
-				<Item id="1621" name="Virziens"/>
 				<Item id="1611" name="Ai&amp;zstāt ar:"/>
 				<Item id="1608" name="&amp;Aizstāt"/>
 				<Item id="1609" name="Aizstāt &amp;visus"/>
@@ -339,7 +335,6 @@
 				<Item id="1633" name="Notīrīt"/>
 				<Item id="1635" name="Aizstāt visos atvērtajos dokumentos"/>
 				<Item id="1636" name="Atrast visu visos atvētajos dokumentos"/>
-				<Item id="1637" name="Atrast failos"/>
 				<Item id="1654" name="Filtri:"/>
 				<Item id="1655" name="Mape:"/>
 				<Item id="1656" name="Atrast visus"/>
@@ -863,11 +858,11 @@
         <ClipboardHistory>
 			<PanelTitle name="Starpliktuves vēsture"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="Failu saraksts"/>
 			<ColumnName name="Vārds"/>
 			<ColumnExt name="pap."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="ASCII simboli"/>
 			<ColumnVal name="Dec."/>

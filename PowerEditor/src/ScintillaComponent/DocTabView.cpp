@@ -30,7 +30,7 @@ void DocTabView::addBuffer(BufferID buffer)
 {
 	if (buffer == BUFFER_INVALID)	//valid only
 		return;
-	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
+	if (getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
 	Buffer * buf = MainFileManager.getBufferByID(buffer);
 	TCITEM tie;
@@ -56,6 +56,18 @@ void DocTabView::closeBuffer(BufferID buffer)
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
+void DocTabView::setIndividualTabColour(BufferID bufferId, int colorId)
+{
+	_tabIndexToColour[bufferId] = colorId;
+}
+
+int DocTabView::getIndividualTabColour(int tabIndex)
+{
+	BufferID bufferId = getBufferByIndex(tabIndex);
+	auto it = _tabIndexToColour.find(bufferId);
+	if (it != _tabIndexToColour.end()) return it->second;
+	else return -1;
+}
 
 bool DocTabView::activateBuffer(BufferID buffer)
 {

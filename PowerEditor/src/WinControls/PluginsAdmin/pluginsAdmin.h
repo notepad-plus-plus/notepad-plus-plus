@@ -23,44 +23,9 @@
 #include "TabBar.h"
 #include "ListView.h"
 #include "tinyxml.h"
+#include "URLCtrl.h"
 
 class PluginsManager;
-
-struct Version
-{
-	unsigned long _major = 0;
-	unsigned long _minor = 0;
-	unsigned long _patch = 0;
-	unsigned long _build = 0;
-
-	Version() = default;
-	Version(const generic_string& versionStr);
-
-	void setVersionFrom(const generic_string& filePath);
-	generic_string toString();
-	bool isNumber(const generic_string& s) const {
-		return !s.empty() && 
-			find_if(s.begin(), s.end(), [](_TCHAR c) { return !_istdigit(c); }) == s.end();
-	};
-
-	int compareTo(const Version& v2c) const;
-
-	bool operator < (const Version& v2c) const {
-		return compareTo(v2c) == -1;
-	};
-
-	bool operator > (const Version& v2c) const {
-		return compareTo(v2c) == 1;
-	};
-
-	bool operator == (const Version& v2c) const {
-		return compareTo(v2c) == 0;
-	};
-
-	bool operator != (const Version& v2c) const {
-		return compareTo(v2c) != 0;
-	};
-};
 
 struct PluginUpdateInfo
 {
@@ -69,6 +34,20 @@ struct PluginUpdateInfo
 	generic_string _folderName;   // plugin folder name - should be the same name with plugin and should be uniq among the plugins
 	generic_string _displayName;  // plugin description name
 	Version _version;
+	// Optional
+	std::pair<Version, Version> _nppCompatibleVersions; // compatible to Notepad++ interval versions: <from, to> example: 
+	                                                    // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions (due to invalid format set)
+	                                                    // <6.9, 6.9>: plugin is compatible to only v6.9
+	                                                    // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
+	                                                    // <0.0.0.0, 8.2.1> all until v8.2.1 (included)
+	                                                    // <8.3, 0.0.0.0> from v8.3 (included) to all
+
+	// Optional
+	std::pair<std::pair<Version, Version>, std::pair<Version, Version>> _oldVersionCompatibility; // Used only by Plugin Manager to filter plugins while loading plugins
+	                                                                                              // The 1st interval versions are for old plugins' versions
+	                                                                                              // The 2nd interval versions are for Notepad++ versions
+	                                                                                              // which are compatible with the old plugins' versions given in the 1st interval
+	
 	generic_string _homepage;
 	generic_string _sourceUrl;
 	generic_string _description;
@@ -84,12 +63,12 @@ struct PluginUpdateInfo
 
 struct NppCurrentStatus
 {
-	bool _isAdminMode;              // can launch gitup en Admin mode directly
+	bool _isAdminMode = false;         // can launch gitup en Admin mode directly
 
-	bool _isInProgramFiles;         // true: install/update/remove on "Program files" (ADMIN MODE)
-									// false: install/update/remove on NPP_INST or install on %APPDATA%, update/remove on %APPDATA% & NPP_INST (NORMAL MODE)
+	bool _isInProgramFiles = true;     // true: install/update/remove on "Program files" (ADMIN MODE)
+	                                   // false: install/update/remove on NPP_INST or install on %APPDATA%, update/remove on %APPDATA% & NPP_INST (NORMAL MODE)
 									
-	bool _isAppDataPluginsAllowed;  // true: install on %APPDATA%, update / remove on %APPDATA% & "Program files" or NPP_INST
+	bool _isAppDataPluginsAllowed = false;  // true: install on %APPDATA%, update / remove on %APPDATA% & "Program files" or NPP_INST
 
 	generic_string _nppInstallPath;
 	generic_string _appdataPath;
@@ -114,6 +93,8 @@ struct SortDisplayNameDecrease final
 
 class PluginViewList
 {
+friend class PluginsAdminDlg;
+
 public:
 	PluginViewList() = default;
 	~PluginViewList() {
@@ -148,13 +129,14 @@ public:
 	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
 
 private:
+	// _list & _ui should keep being synchronized
 	std::vector<PluginUpdateInfo*> _list;
 	ListView _ui;
 
 	SORT_TYPE _sortType = DISPLAY_NAME_ALPHABET_ENCREASE;
 };
 
-enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST };
+enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST, INCOMPATIBLE_LIST };
 
 
 class PluginsAdminDlg final : public StaticDialog
@@ -182,12 +164,12 @@ public :
 	    display();
     };
 
-	bool isValide();
+	bool initFromJson();
 
 	void switchDialog(int indexToSwitch);
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
 
-	bool updateListAndLoadFromJson();
+	bool updateList();
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
 
 	bool installPlugins();
@@ -197,9 +179,16 @@ public :
 	void changeTabName(LIST_TYPE index, const TCHAR *name2change);
 	void changeColumnName(COLUMN_TYPE index, const TCHAR *name2change);
 	generic_string getPluginListVerStr() const;
+	const PluginViewList & getAvailablePluginUpdateInfoList() const {
+		return _availableList;
+	};
+	
+	PluginViewList & getIncompatibleList() {
+		return _incompatibleList;
+	};
 
 protected:
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
 	generic_string _updaterDir;
@@ -208,9 +197,13 @@ private :
 
 	TabBar _tab;
 
-	PluginViewList _availableList; // A permanent list, once it's loaded (no removal - only hide or show) 
-	PluginViewList _updateList;    // A dynamical list, items are removable
-	PluginViewList _installedList; // A dynamical list, items are removable
+	std::wstring _pluginListVersion;
+	URLCtrl _repoLink;
+
+	PluginViewList _availableList;    // A permanent list, once it's loaded (no removal - only hide or show) 
+	PluginViewList _updateList;       // A dynamical list, items are removable
+	PluginViewList _installedList;    // A dynamical list, items are removable
+	PluginViewList _incompatibleList; // A permanent list, once it's loaded (no removal - only hide or show) 
 
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
@@ -219,16 +212,18 @@ private :
 	bool searchInPlugins(bool isNextMode) const;
 	const bool _inNames = true;
 	const bool _inDescs = false;
-	bool isFoundInAvailableListFromIndex(int index, const generic_string& str2search, bool inWhichPart) const;
-	long searchFromCurrentSel(const generic_string& str2search, bool inWhichPart, bool isNextMode) const;
-	long searchInNamesFromCurrentSel(const generic_string& str2search, bool isNextMode) const {
-		return searchFromCurrentSel(str2search, _inNames, isNextMode);
+	bool isFoundInListFromIndex(const PluginViewList& inWhichList,int index, const generic_string& str2search, bool inWhichPart) const;
+	long searchFromCurrentSel(const PluginViewList& inWhichList, const generic_string& str2search, bool inWhichPart, bool isNextMode) const;
+	long searchInNamesFromCurrentSel(const PluginViewList& inWhichList, const generic_string& str2search, bool isNextMode) const {
+		return searchFromCurrentSel(inWhichList, str2search, _inNames, isNextMode);
 	};
 
-	long searchInDescsFromCurrentSel(const generic_string& str2search, bool isNextMode) const {
-		return searchFromCurrentSel(str2search, _inDescs, isNextMode);
+	long searchInDescsFromCurrentSel(const PluginViewList& inWhichList, const generic_string& str2search, bool isNextMode) const {
+		return searchFromCurrentSel(inWhichList, str2search, _inDescs, isNextMode);
 	};
 	
+	bool initAvailablePluginsViewFromList();
+	bool initIncompatiblePluginList();
 	bool loadFromPluginInfos();
 	bool checkUpdates();
 

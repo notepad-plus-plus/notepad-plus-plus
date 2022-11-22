@@ -17,8 +17,8 @@
 					<Item menuId="settings" name = "&amp;Тескөө"/>
 					<Item menuId="macro" name = "&amp;Макростор"/>
 					<Item menuId="run" name = "&amp;Иштет"/>
-					<Item idName = "Plugins" name = "Ко&amp;шумчалар"/>
-					<Item idName = "Window" name = "Т&amp;ерезелер"/>
+					<Item menuId = "Plugins" name = "Ко&amp;шумчалар"/>
+					<Item menuId = "Window" name = "Т&amp;ерезелер"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -258,14 +258,10 @@
                 <Item id = "1604" name = "Регистрин эске ал"/>
                 <Item id = "1605" name = "Кайталануучу сүйлөм"/>
                 <Item id = "1606" name = "Сөздөрдү ташы"/>
-                <Item id = "1612" name = "Жогору"/>
-                <Item id = "1613" name = "Төмөн"/>
                 <Item id = "1614" name = "Эсепте"/>
                 <Item id = "1615" name = "Бардыгын изде"/>
                 <Item id = "1616" name = "Сапты белгиле"/>
-                <Item id = "1617" name = "Табылгандарды стилде"/>
                 <Item id = "1618" name = "Арбир издегенде тазала"/>
-                <Item id = "1621" name = "Багыты"/>
                 <Item id = "1611" name = "Буга алмаштыр:"/>
                 <Item id = "1608" name = "Алмаштыр"/>
                 <Item id = "1609" name = "Бардыгын алмаштыр"/>
@@ -277,8 +273,6 @@
 			 	<Item id = "1633" name = "Тазала"/>
 			 	<Item id = "1635" name = "Бардык ачык файлдарда алмаштыр"/>
 			 	<Item id = "1636" name = "Бардык ачык файлдарда изде"/>
-			 	<Item id = "1637" name = "Файлдарда изде"/>
-				<Item id = "1640" name = "Изде/Алмаштыр"/>
 			 	<Item id = "1641" name = "Азыркы документте бардыгын тап"/>
 				<Item id = "1654" name = "Чыпкалар:"/>
 				<Item id = "1655" name = "Баштык:"/>

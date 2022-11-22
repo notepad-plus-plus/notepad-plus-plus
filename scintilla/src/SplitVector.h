@@ -9,7 +9,7 @@
 #ifndef SPLITVECTOR_H
 #define SPLITVECTOR_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 template <typename T>
 class SplitVector {
@@ -19,35 +19,42 @@ protected:
 	ptrdiff_t lengthBody;
 	ptrdiff_t part1Length;
 	ptrdiff_t gapLength;	/// invariant: gapLength == body.size() - lengthBody
-	ptrdiff_t growSize;
+	size_t growSize;
 
 	/// Move the gap to a particular position so that insertion and
 	/// deletion at that point will not require much copying and
 	/// hence be fast.
 	void GapTo(ptrdiff_t position) noexcept {
 		if (position != part1Length) {
-			if (position < part1Length) {
-				// Moving the gap towards start so moving elements towards end
-				std::move_backward(
-					body.data() + position,
-					body.data() + part1Length,
-					body.data() + gapLength + part1Length);
-			} else {	// position > part1Length
-				// Moving the gap towards end so moving elements towards start
-				std::move(
-					body.data() + part1Length + gapLength,
-					body.data() + gapLength + position,
-					body.data() + part1Length);
+			try {
+				if (gapLength > 0) {	// If gap to move
+					// This can never fail but std::move and std::move_backward are not noexcept.
+					if (position < part1Length) {
+						// Moving the gap towards start so moving elements towards end
+						std::move_backward(
+							body.data() + position,
+							body.data() + part1Length,
+							body.data() + gapLength + part1Length);
+					} else {	// position > part1Length
+						// Moving the gap towards end so moving elements towards start
+						std::move(
+							body.data() + part1Length + gapLength,
+							body.data() + gapLength + position,
+							body.data() + part1Length);
+					}
+				}
+				part1Length = position;
+			} catch (...) {
+				// Ignore any exception
 			}
-			part1Length = position;
 		}
 	}
 
 	/// Check that there is room in the buffer for an insertion,
 	/// reallocating if more space needed.
 	void RoomFor(ptrdiff_t insertionLength) {
-		if (gapLength <= insertionLength) {
-			while (growSize < static_cast<ptrdiff_t>(body.size() / 6))
+		if (gapLength < insertionLength) {
+			while (growSize < body.size() / 6)
 				growSize *= 2;
 			ReAllocate(body.size() + insertionLength + growSize);
 		}
@@ -64,37 +71,25 @@ protected:
 
 public:
 	/// Construct a split buffer.
-	SplitVector() : empty(), lengthBody(0), part1Length(0), gapLength(0), growSize(8) {
+	SplitVector(size_t growSize_=8) : empty(), lengthBody(0), part1Length(0), gapLength(0), growSize(growSize_) {
 	}
 
-	// Deleted so SplitVector objects can not be copied.
-	SplitVector(const SplitVector &) = delete;
-	SplitVector(SplitVector &&) = delete;
-	void operator=(const SplitVector &) = delete;
-	void operator=(SplitVector &&) = delete;
-
-	~SplitVector() {
-	}
-
-	ptrdiff_t GetGrowSize() const noexcept {
+	size_t GetGrowSize() const noexcept {
 		return growSize;
 	}
 
-	void SetGrowSize(ptrdiff_t growSize_) noexcept {
+	void SetGrowSize(size_t growSize_) noexcept {
 		growSize = growSize_;
 	}
 
 	/// Reallocate the storage for the buffer to be newSize and
 	/// copy existing contents to the new buffer.
 	/// Must not be used to decrease the size of the buffer.
-	void ReAllocate(ptrdiff_t newSize) {
-		if (newSize < 0)
-			throw std::runtime_error("SplitVector::ReAllocate: negative size.");
-
-		if (newSize > static_cast<ptrdiff_t>(body.size())) {
+	void ReAllocate(size_t newSize) {
+		if (newSize > body.size()) {
 			// Move the gap to the end
 			GapTo(lengthBody);
-			gapLength += newSize - static_cast<ptrdiff_t>(body.size());
+			gapLength += newSize - body.size();
 			// RoomFor implements a growth strategy but so does vector::resize so
 			// ensure vector::resize allocates exactly the amount wanted by
 			// calling reserve first.
@@ -280,7 +275,7 @@ public:
 	}
 
 	/// Retrieve a range of elements into an array
-	void GetRange(T *buffer, ptrdiff_t position, ptrdiff_t retrieveLength) const noexcept {
+	void GetRange(T *buffer, ptrdiff_t position, ptrdiff_t retrieveLength) const {
 		// Split into up to 2 ranges, before and after the split then use memcpy on each.
 		ptrdiff_t range1Length = 0;
 		if (position < part1Length) {
@@ -318,6 +313,16 @@ public:
 			} else {
 				return body.data() + position;
 			}
+		} else {
+			return body.data() + position + gapLength;
+		}
+	}
+
+	/// Return a pointer to a single element.
+	/// Does not rearrange the buffer.
+	const T *ElementPointer(ptrdiff_t position) const noexcept {
+		if (position < part1Length) {
+			return body.data() + position;
 		} else {
 			return body.data() + position + gapLength;
 		}

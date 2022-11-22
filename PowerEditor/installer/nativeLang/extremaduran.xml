@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "&amp;Configurazión"/>
 					<Item menuId="macro" name = "Macru"/>
 					<Item menuId="run" name = "Ehecutal"/>
-					<Item idName = "Plugins" name = "'Plugins'"/>
-					<Item idName = "Window" name = "Ventana"/>
+					<Item menuId = "Plugins" name = "'Plugins'"/>
+					<Item menuId = "Window" name = "Ventana"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -171,14 +171,10 @@
                 <Item id = "1604" name = "Coincíl &amp;may./min."/>
                 <Item id = "1605" name = "&amp;Espresión regulal"/>
                 <Item id = "1606" name = "Landeal en tó el &amp;documentu"/>
-                <Item id = "1612" name = "&amp;Zimará"/>
-                <Item id = "1613" name = "&amp;Embahu"/>
                 <Item id = "1614" name = "Cuental"/>
                 <Item id = "1615" name = "Landeal tó"/>
                 <Item id = "1616" name = "Marcal la línia"/>
-                <Item id = "1617" name = "Marcal tó lu alcuentráu"/>
                 <Item id = "1618" name = "Achinal en cá landéu"/>
-                <Item id = "1621" name = "Direzión"/>
                 <Item id = "1611" name = "Re&amp;mprazal con :"/>
                 <Item id = "1608" name = "&amp;Remprazal"/>
                 <Item id = "1609" name = "Remprazar &amp;tó"/>
@@ -189,8 +185,6 @@
 			 	<Item id = "1633" name = "Achinal"/>
 			 	<Item id = "1635" name = "Remprazal tó en tolos documentus abiertus"/>
 			 	<Item id = "1636" name = "Landeal tó en tolos documentus abiertus"/>
-			 	<Item id = "1637" name = "Landeal en ficherus"/>
-			 	<Item id = "1640" name = "Diálogu"/>
 			 	<Item id = "1654" name = "Filtrus :"/>
 			 	<Item id = "1655" name = "Direhtoriu :"/>
 			 	<Item id = "1656" name = "Landealus tós"/>

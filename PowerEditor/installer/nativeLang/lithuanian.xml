@@ -21,8 +21,8 @@
                     <Item menuId="tools" name="Į&amp;rankiai"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Palei&amp;dimas"/>
-                    <Item idName="Plugins" name="&amp;Papildiniai"/>
-                    <Item idName="Window" name="L&amp;angas"/>
+                    <Item menuId="Plugins" name="&amp;Papildiniai"/>
+                    <Item menuId="Window" name="L&amp;angas"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -1042,11 +1042,11 @@ Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
         <ClipboardHistory>
             <PanelTitle name="Mainų srities istorija"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Dok. perjungimas"/>
             <ColumnName name="Pavadinimas"/>
             <ColumnExt name="Išplėtimas"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Pavadinimas"/>
             <ColumnPath name="Kelias"/>

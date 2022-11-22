@@ -8,7 +8,7 @@
 #ifndef AUTOCOMPLETE_H
 #define AUTOCOMPLETE_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 /**
  */
@@ -25,6 +25,7 @@ public:
 
 	bool ignoreCase;
 	bool chooseSingle;
+	AutoCompleteOption options;
 	std::unique_ptr<ListBox> lb;
 	Sci::Position posStart;
 	Sci::Position startLen;
@@ -32,16 +33,21 @@ public:
 	bool cancelAtStartPos;
 	bool autoHide;
 	bool dropRestOfWord;
-	unsigned int ignoreCaseBehaviour;
+	Scintilla::CaseInsensitiveBehaviour ignoreCaseBehaviour;
 	int widthLBDefault;
 	int heightLBDefault;
-	/** SC_ORDER_PRESORTED:   Assume the list is presorted; selection will fail if it is not alphabetical<br />
-	 *  SC_ORDER_PERFORMSORT: Sort the list alphabetically; start up performance cost for sorting<br />
-	 *  SC_ORDER_CUSTOM:      Handle non-alphabetical entries; start up performance cost for generating a sorted lookup table
+	/** Ordering::PreSorted:   Assume the list is presorted; selection will fail if it is not alphabetical<br />
+	 *  Ordering::PerformSort: Sort the list alphabetically; start up performance cost for sorting<br />
+	 *  Ordering::Custom:      Handle non-alphabetical entries; start up performance cost for generating a sorted lookup table
 	 */
-	int autoSort;
+	Scintilla::Ordering autoSort;
 
 	AutoComplete();
+	// Deleted so AutoComplete objects can not be copied.
+	AutoComplete(const AutoComplete &) = delete;
+	AutoComplete(AutoComplete &&) = delete;
+	AutoComplete &operator=(const AutoComplete &) = delete;
+	AutoComplete &operator=(AutoComplete &&) = delete;
 	~AutoComplete();
 
 	/// Is the auto completion list displayed?
@@ -49,7 +55,8 @@ public:
 
 	/// Display the auto completion list positioned to be near a character position
 	void Start(Window &parent, int ctrlID, Sci::Position position, Point location,
-		Sci::Position startLen_, int lineHeight, bool unicodeMode, int technology);
+		Sci::Position startLen_, int lineHeight, bool unicodeMode, Scintilla::Technology technology,
+		ListOptions listOptions);
 
 	/// The stop chars are characters which, when typed, cause the auto completion list to disappear
 	void SetStopChars(const char *stopChars_);
@@ -77,7 +84,7 @@ public:
 	std::string GetValue(int item) const;
 
 	void Show(bool show);
-	void Cancel();
+	void Cancel() noexcept;
 
 	/// Move the current list element by delta, scrolling appropriately
 	void Move(int delta);

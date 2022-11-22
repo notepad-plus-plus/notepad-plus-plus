@@ -26,14 +26,14 @@ using namespace std;
 void ListView::init(HINSTANCE hInst, HWND parent)
 {
 	Window::init(hInst, parent);
-    INITCOMMONCONTROLSEX icex;
+	INITCOMMONCONTROLSEX icex{};
 
-    // Ensure that the common control DLL is loaded.
-    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-    icex.dwICC  = ICC_LISTVIEW_CLASSES;
-    InitCommonControlsEx(&icex);
+	// Ensure that the common control DLL is loaded.
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	icex.dwICC  = ICC_LISTVIEW_CLASSES;
+	InitCommonControlsEx(&icex);
 
-    // Create the list-view window in report view with label editing enabled.
+	// Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT | LVS_NOSORTHEADER\
 						| LVS_SINGLESEL | LVS_AUTOARRANGE\
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
@@ -54,16 +54,13 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
 	}
 
-	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
-
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
-	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | _extraStyle;
+	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER | _extraStyle;
 	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
 
 	if (_columnInfos.size())
 	{
-		LVCOLUMN lvColumn;
+		LVCOLUMN lvColumn{};
 		lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
 
 		short i = 0;
@@ -71,7 +68,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		{
 			lvColumn.cx = static_cast<int>(it->_width);
 			lvColumn.pszText = const_cast<TCHAR *>(it->_label.c_str());
-			ListView_InsertColumn(_hSelf, ++i, &lvColumn);
+			ListView_InsertColumn(_hSelf, ++i, &lvColumn);  // index is not 0 based but 1 based
 		}
 	}
 }
@@ -92,7 +89,7 @@ void ListView::addLine(const vector<generic_string> & values2Add, LPARAM lParam,
 
 	auto it = values2Add.begin();
 
-	LVITEM item;
+	LVITEM item{};
 	item.mask = LVIF_TEXT | LVIF_PARAM;
 
 	item.pszText = const_cast<TCHAR *>(it->c_str());
@@ -117,7 +114,7 @@ size_t ListView::findAlphabeticalOrderPos(const generic_string& string2Cmp, Sort
 
 	for (size_t i = 0; i < nbItem; ++i)
 	{
-		TCHAR str[MAX_PATH];
+		TCHAR str[MAX_PATH] = { '\0' };
 		ListView_GetItemText(_hSelf, i, 0, str, sizeof(str));
 
 		int res = lstrcmp(string2Cmp.c_str(), str);
@@ -143,7 +140,7 @@ size_t ListView::findAlphabeticalOrderPos(const generic_string& string2Cmp, Sort
 
 LPARAM ListView::getLParamFromIndex(int itemIndex) const
 {
-	LVITEM item;
+	LVITEM item{};
 	item.mask = LVIF_PARAM;
 	item.iItem = itemIndex;
 	ListView_GetItem(_hSelf, &item);
@@ -163,9 +160,3 @@ std::vector<size_t> ListView::getCheckedIndexes() const
 	}
 	return checkedIndexes;
 }
-
-LRESULT ListView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
-{
-	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
-}
-

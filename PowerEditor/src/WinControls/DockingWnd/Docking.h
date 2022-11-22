@@ -36,6 +36,7 @@
 #define DWS_ICONTAB			0x00000001			// Icon for tabs are available
 #define DWS_ICONBAR			0x00000002			// Icon for icon bar are available (currently not supported)
 #define DWS_ADDINFO			0x00000004			// Additional information are in use
+#define DWS_USEOWNDARKMODE	0x00000008			// Use plugin's own dark mode
 #define DWS_PARAMSALL		(DWS_ICONTAB|DWS_ICONBAR|DWS_ADDINFO)
 
 // default docking values for first call of plugin
@@ -46,27 +47,27 @@
 #define DWS_DF_FLOATING		0x80000000			// default state is floating
 
 
-typedef struct {
-	HWND		hClient;		// client Window Handle
-	const TCHAR	*pszName;		// name of plugin (shown in window)
-	int			dlgID;			// a funcItem provides the function pointer to start a dialog. Please parse here these ID
+struct tTbData {
+	HWND hClient = nullptr;                // client Window Handle
+	const TCHAR* pszName = nullptr;        // name of plugin (shown in window)
+	int dlgID = 0;                         // a funcItem provides the function pointer to start a dialog. Please parse here these ID
 
 	// user modifications
-	UINT		uMask;			// mask params: look to above defines
-	HICON		hIconTab;		// icon for tabs
-	const TCHAR *pszAddInfo;		// for plugin to display additional informations
+	UINT uMask = 0;                        // mask params: look to above defines
+	HICON hIconTab = nullptr;              // icon for tabs
+	const TCHAR* pszAddInfo = nullptr;     // for plugin to display additional informations
 
 	// internal data, do not use !!!
-	RECT		rcFloat;		// floating position
-	int			iPrevCont;		// stores the privious container (toggling between float and dock)
-	const TCHAR*	pszModuleName;	// it's the plugin file name. It's used to identify the plugin
-} tTbData;
+	RECT rcFloat = {};                    // floating position
+	int iPrevCont = 0;                     // stores the privious container (toggling between float and dock)
+	const TCHAR* pszModuleName = nullptr;  // it's the plugin file name. It's used to identify the plugin
+};
 
 
-typedef struct {
-	HWND		hWnd;							// the docking manager wnd
-	RECT		rcRegion[DOCKCONT_MAX];			// position of docked dialogs
-} tDockMgr;
+struct tDockMgr {
+	HWND hWnd = nullptr;                   // the docking manager wnd
+	RECT rcRegion[DOCKCONT_MAX] = {{}};   // position of docked dialogs
+};
 
 
 #define	HIT_TEST_THICKNESS		20

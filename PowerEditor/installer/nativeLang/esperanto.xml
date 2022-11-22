@@ -22,8 +22,8 @@
 					<Item menuId="settings" name="&amp;Agordoj"/>
 					<Item menuId="macro" name="&amp;Makroo"/>
 					<Item menuId="run" name="&amp;Lanĉado"/>
-					<Item idName="Plugins" name="Kromaĵoj"/>
-					<Item idName="Window" name="Fenestro"/>
+					<Item menuId="Plugins" name="Kromaĵoj"/>
+					<Item menuId="Window" name="Fenestro"/>
 				</Entries>
 
 				<!-- Subĉefaj menuoj -->
@@ -337,14 +337,10 @@
 				<Item id="1604" name="&amp;Uskleca kongruo"/>
 				<Item id="1605" name="Regula esprimo"/>
 				<Item id="1606" name="Al&amp;komenciĝu se fino atingitas"/>
-				<Item id="1612" name="&amp;Supren"/>
-				<Item id="1613" name="&amp;Suben"/>
 				<Item id="1614" name="Nombru"/>
 				<Item id="1615" name="Serĉu ĉiujn"/>
 				<Item id="1616" name="Marku liniojn kun trovitaĵoj"/>
-				<Item id="1617" name="Evidentigu la trovitaĵojn"/>
 				<Item id="1618" name="Malmarku antaŭ ĉiu serĉo"/>
-				<Item id="1621" name="Direkto"/>
 				<Item id="1611" name="Ansta&amp;taŭigu per:"/>
 				<Item id="1608" name="&amp;Anstataŭigu"/>
 				<Item id="1609" name="Ansta&amp;taŭigu ĉiujn"/>
@@ -355,7 +351,6 @@
 				<Item id="1633" name="Malmarku"/>
 				<Item id="1635" name="Anstataŭigu ĉiujn en la malfermitaj dosieroj"/>
 				<Item id="1636" name="Serĉu ĉiujn en la malfermitaj dosieroj"/>
-				<Item id="1637" name="Serĉu en la dosieroj"/>
 				<Item id="1654" name="Filtriloj:"/>
 				<Item id="1655" name="Dosierujo:"/>
 				<Item id="1656" name="Serĉu ĉiujn"/>
@@ -924,7 +919,6 @@
 <!--
 ne plu uzataj (?)
 
-				<Item id="1640" name="Alternigu la fenestron"/> // el la itala, sed mi ne komprenis ĉu/kie oni uzas ĝin
 
 					<operators><Item id="24103" name="Disponeblaj simboloj"/>
 					<Item id="24101" name="Aktivaj operatoroj"/>

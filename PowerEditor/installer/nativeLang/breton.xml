@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="&amp;Ostilhoù"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="&amp;Sekutiñ"/>
-                    <Item idName="Plugins" name="&amp;Lugantoù"/>
-                    <Item idName="Window" name="&amp;Prenestr"/>
+                    <Item menuId="Plugins" name="&amp;Lugantoù"/>
+                    <Item menuId="Window" name="&amp;Prenestr"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -1096,11 +1096,11 @@ Kenderc'hel ganti?"/>
         <ClipboardHistory>
             <PanelTitle name="Roll-istor ar golver"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Gwinter teuliadoù"/>
             <ColumnName name="Anv"/>
             <ColumnExt name="Astenn"/>
-        </DocSwitcher>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="Anv"/>
             <ColumnPath name="Hent"/>

@@ -7,7 +7,7 @@
 #ifndef DECORATION_H
 #define DECORATION_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 class IDecoration {
 public:
@@ -32,7 +32,7 @@ public:
 	virtual void SetCurrentIndicator(int indicator) = 0;
 	virtual int GetCurrentIndicator() const noexcept = 0;
 
-	virtual void SetCurrentValue(int value) = 0;
+	virtual void SetCurrentValue(int value) noexcept = 0;
 	virtual int GetCurrentValue() const noexcept = 0;
 
 	// Returns with changed=true if some values may have changed

@@ -16,15 +16,12 @@
 
 // created by Daniel Volk mordorpost@volkarts.com
 
-#pragma once
-
 #include <windows.h>
 #include "RunMacroDlg_rc.h"
 
 IDD_RUN_MACRO_DLG DIALOGEX 0, 0, 168, 110
-STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Run a Macro Multiple Times"
 FONT 8, TEXT("MS Shell Dlg"), 400, 0, 0x1
 BEGIN

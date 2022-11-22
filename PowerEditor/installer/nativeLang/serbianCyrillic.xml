@@ -20,8 +20,8 @@
                     <Item menuId="settings" name="П&amp;оставке"/>
                     <Item menuId="macro" name="Макро"/>
                     <Item menuId="run" name="Покрени"/>
-                    <Item idName ="Plugins" name="Додаци"/>
-                    <Item idName ="Window" name="Прозор"/>
+                    <Item menuId ="Plugins" name="Додаци"/>
+                    <Item menuId ="Window" name="Прозор"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
@@ -278,14 +278,10 @@
                 <Item id="1604" name="Упореди &amp;подударне"/>
                 <Item id="1605" name="Правилан &amp;израз"/>
                 <Item id="1606" name="Прелом &amp;реда"/>
-                <Item id="1612" name="&amp;Горе"/>
-                <Item id="1613" name="&amp;Доле"/>
                 <Item id="1614" name="Преброј"/>
                 <Item id="1615" name="Пронађи све"/>
                 <Item id="1616" name="Обележи ред"/>
-                <Item id="1617" name="Истакни пронађено"/>
                 <Item id="1618" name="За сваку претрагу"/>
-                <Item id="1621" name="Смер"/>
                 <Item id="1611" name="Заме&amp;ни са:"/>
                 <Item id="1608" name="&amp;Замени"/>
                 <Item id="1609" name="Замени &amp;све"/>
@@ -296,7 +292,6 @@
 			 	<Item id="1633" name="Очисти"/>
 			 	<Item id="1635" name="Замени све у свим отвореним документима"/>
 			 	<Item id="1636" name="Пронађи све у свим отвореним документима"/>
-			 	<Item id="1637" name="Пронађи у датотекама"/>
 			 	<Item id="1654" name="Филтери:"/>
 			 	<Item id="1655" name="Фасцикла:"/>
 			 	<Item id="1656" name="Нађи све"/>

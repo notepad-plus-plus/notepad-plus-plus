@@ -17,6 +17,7 @@ x86/
 
 #-- Visual C++ cache files
 .vs/
+.vscode/
 ipch/
 *.aps
 *.ncb
@@ -36,6 +37,7 @@ UpgradeLog*.htm
 *_p.c
 *.ilk
 *.meta
+*.exe
 *.obj
 *.pch
 #*.pdb
@@ -52,8 +54,11 @@ UpgradeLog*.htm
 .builds
 *.pidb
 *.vcxproj.filters
+*.bak
 
 PowerEditor/bin/notepad++.exe
+PowerEditor/bin/Notepad++.exp
+PowerEditor/bin/Notepad++.lib
 PowerEditor/bin/SciLexer.dll
 PowerEditor/bin/config.xml
 PowerEditor/bin/stylers.xml
@@ -84,10 +89,14 @@ PowerEditor/installer/zipped.package.release64/
 PowerEditor/installer/zipped.package.releaseArm64/
 PowerEditor/visual.net/Unicode Debug/
 PowerEditor/visual.net/Unicode Release/
+PowerEditor/visual.net/Debug/
+PowerEditor/visual.net/Release/
 PowerEditor/visual.net/notepadPlus.sln
 PowerEditor/visual.net/notepadPlus.vcxproj.filters
 PowerEditor/visual.net/x64/Unicode Debug/
 PowerEditor/visual.net/x64/Unicode Release/
+PowerEditor/visual.net/x64/Debug/
+PowerEditor/visual.net/x64/Release/
 PowerEditor/visual.net/ARM64
 PowerEditor/src/tools/NppShell/build_ARM64
 PowerEditor/src/tools/NppShell/build_Win32
@@ -96,15 +105,14 @@ PowerEditor/src/tools/NppShell/build_x64
 # scintilla - generated files
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
-scintilla/bin/libscilexer.a
-scintilla/bin/libscintilla.a
 scintilla/bin/libscintilla.lib
 scintilla/win32/*.lib
-scintilla/win32/Lexers.a
 scintilla/win32/ScintRes.res
 scintilla/win32/ARM64
 scintilla/win32/Unicode Release/
 scintilla/win32/Unicode Debug/
+scintilla/win32/Release/
+scintilla/win32/Debug/
 scintilla/boostregex/bin
 scintilla/boostregex/boostpath.mak
 
@@ -146,19 +154,11 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 *.zip
 
 #-------------------------------------------------------------------------------
-# GNU GCC MinGW
+# MinGW-w64 GCC
 
-#-- Generated during makefile build
-*.d
-*.o
-/PowerEditor/gcc/resources.res
-/PowerEditor/bin/NotepadPP.exe
-/PowerEditor/bin/NotepadPP.exe_dynamic
+bin.*
+scintilla/win32/*.o
 
-#-- Generated manually to make Notepad++ execute properly on Linux using Wine
-/PowerEditor/bin/libgcc_s_sjlj-1.dll
-/PowerEditor/bin/libstdc++-6.dll
-/PowerEditor/bin/libwinpthread-1.dll
 
 PowerEditor/src/MISC/md5/RCa06792
 *.db

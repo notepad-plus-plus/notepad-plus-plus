@@ -34,12 +34,12 @@ enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_SMALL2, TB_LARGE2, TB_STANDARD};
 
 
 struct iconLocator {
-	int listIndex;
-	int iconIndex;
-	generic_string iconLocation;
+	size_t _listIndex = 0;
+	size_t _iconIndex = 0;
+	generic_string _iconLocation;
 
-	iconLocator(int iList, int iIcon, const generic_string& iconLoc)
-		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
+	iconLocator(size_t iList, size_t iIcon, const generic_string& iconLoc)
+		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconLoc){};
 };
 
 class ReBar;
@@ -82,15 +82,15 @@ public :
 		return _state;
 	};
 
-    bool changeIcons() {    
+    bool change2CustomIconsIfAny() {    
 	    if (!_toolIcons) return false;
 
 	    for (size_t i = 0, len = _customIconVect.size(); i < len; ++i)
-		    changeIcons(_customIconVect[i].listIndex, _customIconVect[i].iconIndex, (_customIconVect[i].iconLocation).c_str());
+		    changeIcons(_customIconVect[i]._listIndex, _customIconVect[i]._iconIndex, (_customIconVect[i]._iconLocation).c_str());
         return true;
     };
 
-	bool changeIcons(int whichLst, int iconIndex, const TCHAR *iconLocation){
+	bool changeIcons(size_t whichLst, size_t iconIndex, const TCHAR *iconLocation){
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
 	};
 
@@ -111,8 +111,9 @@ private :
 	size_t _nbTotalButtons = 0;
 	size_t _nbCurrentButtons = 0;
 	ReBar * _pRebar = nullptr;
-	REBARBANDINFO _rbBand;
+	REBARBANDINFO _rbBand = {};
     std::vector<iconLocator> _customIconVect;
+
     TiXmlNode *_toolIcons = nullptr;
 
 	void setDefaultImageList() {
@@ -145,6 +146,14 @@ private :
 
 	void setDisableImageListDM2() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSetDM2()));
+	};
+	
+	void setHoveredImageListDM() {
+		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));
+	};
+
+	void setHoveredImageListDM2() {
+		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstSet2()));
 	};
 
 	void reset(bool create = false);

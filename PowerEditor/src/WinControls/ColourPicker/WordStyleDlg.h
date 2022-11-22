@@ -18,6 +18,7 @@
 #pragma once
 
 #include "ColourPicker.h"
+#include "URLCtrl.h"
 #include "WordStyleDlgRes.h"
 #include "Parameters.h"
 
@@ -45,8 +46,8 @@ public :
 		_oldProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(staticHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 	};
 private :
-	COLORREF _colour;
-	WNDPROC _oldProc;
+	COLORREF _colour = RGB(0xFF, 0xFF, 0xFF);
+	WNDPROC _oldProc = nullptr;
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
 		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
@@ -109,6 +110,9 @@ public :
 
 	bool selectThemeByName(const TCHAR* themeName);
 
+	bool goToSection(const TCHAR* sectionNames); // sectionNames is formed as following: "Language name:Style name"
+	                                             // ex: "Global Styles:EOL custom color" will set Language on "Global Styles", then set Style on "EOL custom color" if both are found.
+
 private :
     ColourPicker *_pFgColour = nullptr;
     ColourPicker *_pBgColour = nullptr;
@@ -129,6 +133,8 @@ private :
 	HWND _hFontSizeStaticText = nullptr;
 	HWND _hStyleInfoStaticText = nullptr;
 
+	URLCtrl _goToSettings;
+
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;
 	generic_string _themeName;
@@ -138,13 +144,14 @@ private :
 	GlobalOverride _gOverride2restored;
 	bool _restoreInvalid = false;
 
-	ColourStaticTextHooker colourHooker;
+	ColourStaticTextHooker _colourHooker;
 
 	bool _isDirty = false;
 	bool _isThemeDirty = false;
 	bool _isShownGOCtrls = false;
 
-	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
 
 	Style & getCurrentStyler() {
@@ -163,8 +170,11 @@ private :
         }
 	};
 
-	int whichTabColourIndex();
+	bool getStyleName(TCHAR *styleName, const size_t styleNameLen);
 
+	int whichTabColourIndex();
+	bool isDocumentMapStyle();
+	void move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	void updateColour(bool which);
 	void updateFontStyleStatus(fontStyleType whitchStyle);
 	void updateExtension();
@@ -173,28 +183,9 @@ private :
 	void updateUserKeywords();
 	void switchToTheme();
 	void updateThemeName(const generic_string& themeName);
+	std::pair<intptr_t, intptr_t> goToPreferencesSettings();
 
 	void loadLangListFromNppParam();
-
-	void enableFg(bool isEnable) {
-		::EnableWindow(_pFgColour->getHSelf(), isEnable);
-		::EnableWindow(_hFgColourStaticText, isEnable);
-	};
-
-	void enableBg(bool isEnable) {
-		::EnableWindow(_pBgColour->getHSelf(), isEnable);
-		::EnableWindow(_hBgColourStaticText, isEnable);
-	};
-
-	void enableFontName(bool isEnable) {
-		::EnableWindow(_hFontNameCombo, isEnable);
-		::EnableWindow(_hFontNameStaticText, isEnable);
-	};
-
-	void enableFontSize(bool isEnable) {
-		::EnableWindow(_hFontSizeCombo, isEnable);
-		::EnableWindow(_hFontSizeStaticText, isEnable);
-	};
 
 	void enableFontStyle(bool isEnable) {
 		::EnableWindow(_hCheckBold, isEnable);

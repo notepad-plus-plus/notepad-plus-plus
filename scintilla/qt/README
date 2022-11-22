@@ -1,6 +1,6 @@
 README for building of Scintilla on Qt
 
-There are three different Scintilla libraries that can be produced:
+There are two different Scintilla libraries that can be produced:
 
 	ScintillaEditBase
 A basic widget callable from C++ which is small and can be used just as is
@@ -9,9 +9,6 @@ or with higher level functionality added.
 	ScintillaEdit
 A more complete C++ widget with a method for every Scintilla API and a
 secondary API allowing direct access to document objects.
-
-	ScintillaEditPy
-A Python callable version of ScintillaEdit using the PySide bindings.
 
 	Building a library
 
@@ -33,6 +30,3 @@ After the generation command has run, the ScintillaEdit.h and
 ScintillaEdit.cpp files will have been populated with the Scintilla API
 methods.
 To build, use Qt Creator or qmake and make as for ScintillaEditBase.
-
-ScintillaEditPy is more complex and instructions are found in
-ScintillaEditPy/README.

@@ -9,7 +9,7 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20201201" />
+    <meta name="Date.Modified" content="20221012" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type="text/css">
         #versionlist {
@@ -53,11 +53,11 @@
         </td>
         <td width="40%" align="left">
           <font color="#FFCC99" size="4"> A free source code editing component for Win32,
-          GTK, and OS X</font>
+          GTK, and macOS</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 4.4.6<br />
-           Site last modified December 1 2020</font>
+          <font color="#FFCC99" size="3"> Release version 5.3.1<br />
+           Site last modified October 12 2022</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -66,29 +66,28 @@
     </table>
     <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td width="100%" style="background: url(https://www.scintilla.org/SciBreak.jpg) no-repeat;height:150px;">
+        <td width="100%" style="background: url(SciBreak.jpg) no-repeat;height:150px;">
           &nbsp;
         </td>
       </tr>
     </table>
     <ul id="versionlist">
-      <li>Version 4.4.6 fixes building with Xcode 12.</li>
-      <li>Version 4.4.5 fixes bugs with indicators, margin text, and ineffective layout caching.</li>
-      <li>Version 4.4.4 implements end of line annotations.</li>
-      <li>Version 4.4.3 was released just to fix SciTE.</li>
-      <li>Version 4.4.2 fixes Lexilla build problems with Xcode and as a static library on Win32.</li>
-      <li>Version 4.4.0 builds Scintilla without lexers as a shared library for GTK,
-      and adds Xcode projects for Scintilla without lexers and Lexilla on macOS.</li>
+      <li>Version 5.3.1 can represent invisible text with a character to simplify editing and provide summarized views.</li>
+      <li>Version 5.3.0 adds change history.</li>
+      <li>Version 5.2.4 fixes failures on GTK with multi-threaded layout.</li>
+      <li>Version 5.2.3 adds 64-bit safe APIs and fixes scrollbar on GTK with Xorg.</li>
+      <li>Version 5.2.2 on GTK, scroll horizontally with Shift + Scroll Wheel.</li>
     </ul>
     <ul id="menu">
       <li id="remote1"><a href="https://www.scintilla.org/SciTEImage.html">Screenshot</a></li>
       <li id="remote2"><a href="https://www.scintilla.org/ScintillaDownload.html">Download</a></li>
-      <li><a href="https://www.scintilla.org/ScintillaDoc.html">Documentation</a></li>
-      <li><a href="https://www.scintilla.org/ScintillaToDo.html">Bugs</a></li>
-      <li id="remote3"><a href="https://www.scintilla.org/SciTE.html">SciTE</a></li>
-      <li><a href="https://www.scintilla.org/ScintillaHistory.html">History</a></li>
-      <li><a href="https://www.scintilla.org/ScintillaRelated.html">Related</a></li>
-      <li id="remote4"><a href="https://www.scintilla.org/Privacy.html">Privacy</a></li>
+      <li><a href="ScintillaDoc.html">Documentation</a></li>
+      <li><a href="ScintillaToDo.html">Bugs</a></li>
+      <li id="remote3"><a href="https://www.scintilla.org/Lexilla.html">Lexilla</a></li>
+      <li id="remote4"><a href="https://www.scintilla.org/SciTE.html">SciTE</a></li>
+      <li><a href="ScintillaHistory.html">History</a></li>
+      <li><a href="ScintillaRelated.html">Related</a></li>
+      <li id="remote5"><a href="https://www.scintilla.org/Privacy.html">Privacy</a></li>
     </ul>
 <script type="text/javascript" language="JavaScript"><!--
 if (!IsRemote()) { //if NOT remote...
@@ -96,10 +95,11 @@ if (!IsRemote()) { //if NOT remote...
     document.getElementById('remote2').style.display='none';
     document.getElementById('remote3').style.display='none';
     document.getElementById('remote4').style.display='none';
+    document.getElementById('remote5').style.display='none';
 }
 //--></script>
     <p>
-       <a href="https://www.scintilla.org/ScintillaDoc.html">Scintilla</a> is a free source code editing component.
+       <a href="ScintillaDoc.html">Scintilla</a> is a free source code editing component.
        It comes with complete source code and a <a href="https://www.scintilla.org/License.txt">license</a> that
        permits use in any free project or commercial product.
     </p>
@@ -113,11 +113,12 @@ if (!IsRemote()) { //if NOT remote...
        colours and multiple fonts.
     </p>
     <p>
-       Current development occurs on the default branch as 4.* which requires a recent
+       Current development occurs on the default branch as 5.* which requires a recent
        C++ compiler that supports C++17.
     </p>
     <p>
-       For projects that need to work with older systems, a LongTerm3 branch is available which uses only features from C++11.
+       <a href="https://www.scintilla.org/Lexilla.html">Lexilla</a> is a library of lexers that can
+       be used with Scintilla.
     </p>
     <p>
        <a href="https://www.scintilla.org/SciTE.html">SciTE</a> is a SCIntilla based Text Editor. Originally built to
@@ -134,8 +135,8 @@ if (!IsRemote()) { //if NOT remote...
       code, styling should not be persisted as it can be mechanically recreated.
     </p>
     <p>
-       Scintilla and SciTE are currently available for Intel Win32, OS X, and Linux compatible operating
-      systems with GTK. They have been run on Windows XP, Windows 7, OS X 10.7+, and on Ubuntu 14.04
+       Scintilla and SciTE are currently available for Intel Win32, macOS, and Linux compatible operating
+      systems with GTK. They have been run on Windows XP, Windows 7, macOS 10.9+, and on Ubuntu 18.04
       with GTK 2.24. <a href="https://www.scintilla.org/SciTEImage.html">Here is a screenshot of
       SciTE.</a><br />
     </p>
@@ -147,20 +148,16 @@ if (!IsRemote()) { //if NOT remote...
 	<a href="https://sourceforge.net/projects/scintilla/">Scintilla project page</a>.
     </p>
     <p>
-       <a href="https://www.scintilla.org/ScintillaRelated.html">Related sites.</a>
+       <a href="ScintillaRelated.html">Related sites.</a>
     </p>
     <p>
-       <a href="https://www.scintilla.org/ScintillaToDo.html">Bugs and To Do list.</a>
+       <a href="ScintillaToDo.html">Bugs and To Do list.</a>
     </p>
     <p>
-       <a href="https://www.scintilla.org/ScintillaHistory.html">History and contribution credits.</a>
+       <a href="ScintillaHistory.html">History and contribution credits.</a>
     </p>
     <p>
        <a href="https://www.scintilla.org/Icons.html">Icons that can be used with Scintilla.</a>
-    </p>
-    <p>
-       The <a href="https://scintilla.sourceforge.io/LongTermDownload.html">LongTerm3</a>
-       branch of Scintilla avoids using features from C++14 or later in order to support older systems.
     </p>
     <p>
       Questions and comments about Scintilla should be directed to the
@@ -172,8 +169,6 @@ if (!IsRemote()) { //if NOT remote...
       New versions of Scintilla are announced on scintilla-interest and may also be received by SourceForge
       members by clicking on the Monitor column icon for "scintilla" on
       <a href="https://sourceforge.net/project/showfiles.php?group_id=2439">the downloads page</a>.
-      Messages sent to my personal email address that could have been sent to the list
-      may receive no response.
       <br />
     </p>
 There is a <a href="https://sourceforge.net/projects/scintilla/">Scintilla project page</a>

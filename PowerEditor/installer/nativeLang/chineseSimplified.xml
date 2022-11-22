@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.9.4">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.4.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -18,30 +18,32 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="tools" name="工具(&amp;O)"/>
                     <Item menuId="macro" name="宏(&amp;M)"/>
                     <Item menuId="run" name="运行(&amp;R)"/>
-                    <Item idName="Plugins" name="插件(&amp;P)"/>
-                    <Item idName="Window" name="窗口(&amp;W)"/>
+                    <Item menuId="Plugins" name="插件(&amp;P)"/>
+                    <Item menuId="Window" name="窗口(&amp;W)"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="打开所在文件夹"/>
-                    <Item subMenuId="file-closeMore" name="更多关闭方式"/>
+                    <Item subMenuId="file-openFolder" name="打开所在文件夹(&amp;F)"/>
+                    <Item subMenuId="file-closeMore" name="关闭多个文档(&amp;M)"/>
                     <Item subMenuId="file-recentFiles" name="近期文件(&amp;R)"/>
-                    <Item subMenuId="edit-copyToClipboard" name="复制到剪切板"/>
-                    <Item subMenuId="edit-indent" name="缩进"/>
-                    <Item subMenuId="edit-convertCaseTo" name="转换大小写"/>
-                    <Item subMenuId="edit-lineOperations" name="行操作"/>
-                    <Item subMenuId="edit-comment" name="注释/取消注释"/>
-                    <Item subMenuId="edit-autoCompletion" name="自动完成"/>
-                    <Item subMenuId="edit-eolConversion" name="文档格式转换"/>
-                    <Item subMenuId="edit-blankOperations" name="空白字符操作"/>
-                    <Item subMenuId="edit-pasteSpecial" name="选择性粘贴"/>
-                    <Item subMenuId="edit-onSelection" name="对选中内容操作"/>
-                    <Item subMenuId="search-markAll" name="标记所有"/>
-                    <Item subMenuId="search-unmarkAll" name="清除颜色标记"/>
-                    <Item subMenuId="search-jumpUp" name="到上一个颜色标记"/>
-                    <Item subMenuId="search-jumpDown" name="到下一个颜色标记"/>
-                    <Item subMenuId="search-copyStyledText" name="复制样式文本"/>
-                    <Item subMenuId="search-bookmark" name="书签"/>
+                    <Item subMenuId="edit-insert" name="插入"/>
+                    <Item subMenuId="edit-copyToClipboard" name="复制到剪切板(&amp;Y)"/>
+                    <Item subMenuId="edit-indent" name="缩进(&amp;I)"/>
+                    <Item subMenuId="edit-convertCaseTo" name="转换大小写(&amp;V)"/>
+                    <Item subMenuId="edit-lineOperations" name="行操作(&amp;L)"/>
+                    <Item subMenuId="edit-comment" name="注释/取消注释(&amp;M)"/>
+                    <Item subMenuId="edit-autoCompletion" name="自动完成(&amp;A)"/>
+                    <Item subMenuId="edit-eolConversion" name="文档格式转换(&amp;E)"/>
+                    <Item subMenuId="edit-blankOperations" name="空白字符操作(&amp;B)"/>
+                    <Item subMenuId="edit-pasteSpecial" name="选择性粘贴(&amp;P)"/>
+                    <Item subMenuId="edit-onSelection" name="对选中内容操作(&amp;O)"/>
+                    <Item subMenuId="search-markAll" name="用格式标记全部(&amp;A)"/>
+                    <Item subMenuId="search-markOne" name="用格式标记一处(&amp;O)"/>
+                    <Item subMenuId="search-unmarkAll" name="清除格式标记"/>
+                    <Item subMenuId="search-jumpUp" name="到上一个格式标记(&amp;J)"/>
+                    <Item subMenuId="search-jumpDown" name="到下一个格式标记(&amp;D)"/>
+                    <Item subMenuId="search-copyStyledText" name="复制格式标记文本(&amp;C)"/>
+                    <Item subMenuId="search-bookmark" name="书签(&amp;B)"/>
                     <Item subMenuId="view-currentFileIn" name="将当前文件显示到"/>
                     <Item subMenuId="view-showSymbol" name="显示符号"/>
                     <Item subMenuId="view-zoom" name="缩放"/>
@@ -71,6 +73,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="settings-import" name="导入"/>
                     <Item subMenuId="tools-md5" name="MD5"/>
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
+                    <Item subMenuId="window-sortby" name="排序方式"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -89,26 +92,29 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="41006" name="保存(&amp;S)"/>
                     <Item id="41007" name="全部保存(&amp;E)"/>
                     <Item id="41008" name="另存为(&amp;A)..."/>
-                    <Item id="41010" name="打印..."/>
-                    <Item id="1001"  name="立即打印"/>
+                    <Item id="41010" name="打印...(&amp;P)"/>
+                    <Item id="1001"  name="立即打印(&amp;W)"/>
                     <Item id="41011" name="退出(&amp;X)"/>
-                    <Item id="41012" name="读取会话..."/>
-                    <Item id="41013" name="保存会话..."/>
+                    <Item id="41012" name="读取会话...(&amp;I)"/>
+                    <Item id="41013" name="保存会话...(&amp;I)"/>
                     <Item id="41014" name="重新读取文件(&amp;L)"/>
-                    <Item id="41015" name="拷贝另存为..."/>
-                    <Item id="41016" name="从磁盘删除"/>
-                    <Item id="41017" name="重命名..."/>
+                    <Item id="41015" name="拷贝另存为...(&amp;Y)"/>
+                    <Item id="41016" name="从磁盘删除(&amp;B)"/>
+                    <Item id="41017" name="重命名...(&amp;R)"/>
                     <Item id="41021" name="恢复最近关闭的文件"/>
-                    <Item id="41022" name="打开文件夹作为工作区..."/>
-                    <Item id="41023" name="使用默认查看器打开"/>
+                    <Item id="41022" name="打开文件夹作为工作区...(&amp;W)"/>
+                    <Item id="41023" name="使用默认查看器打开(&amp;D)"/>
                     <Item id="42001" name="剪切(&amp;T)"/>
                     <Item id="42002" name="复制(&amp;C)"/>
                     <Item id="42003" name="撤消(&amp;U)"/>
                     <Item id="42004" name="恢复(&amp;R)"/>
                     <Item id="42005" name="粘贴(&amp;P)"/>
                     <Item id="42006" name="删除(&amp;D)"/>
-                    <Item id="42007" name="全选(&amp;L)"/>
-                    <Item id="42020" name="开始/结束 选择"/>
+                    <Item id="42007" name="全选(&amp;S)"/>
+                    <Item id="42020" name="开始/结束 选择(&amp;S)"/>
+                    <Item id="42084" name="日期时间(短版)"/>
+                    <Item id="42085" name="日期时间(长版)"/>
+                    <Item id="42086" name="日期时间(自定义版)"/>
                     <Item id="42008" name="插入制表符(缩进)"/>
                     <Item id="42009" name="删除制表符(退格)"/>
                     <Item id="42010" name="复制当前行"/>
@@ -128,6 +134,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42064" name="降序排列小数（逗号作为小数点）"/>
                     <Item id="42065" name="升序排列小数（句点作为小数点）"/>
                     <Item id="42066" name="降序排列小数（句点作为小数点）"/>
+                    <Item id="42083" name="逆序排列行"/>
                     <Item id="42078" name="随机排列行"/>
                     <Item id="42016" name="转成大写(&amp;U)"/>
                     <Item id="42017" name="转成小写(&amp;L)"/>
@@ -162,16 +169,18 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42050" name="粘贴二进制"/>
                     <Item id="42082" name="复制链接"/>
                     <Item id="42037" name="列块模式..."/>
-                    <Item id="42034" name="列块编辑..."/>
-                    <Item id="42051" name="字符面版"/>
-                    <Item id="42052" name="历史剪切板"/>
+                    <Item id="42034" name="列块编辑...(&amp;N)"/>
+                    <Item id="42051" name="字符面版(&amp;P)"/>
+                    <Item id="42052" name="历史剪切板(&amp;H)"/>
                     <Item id="42025" name="保存录制宏(&amp;S)..."/>
                     <Item id="42026" name="文字方向从右到左"/>
                     <Item id="42027" name="文字方向从左到右"/>
-                    <Item id="42028" name="设为只读"/>
+                    <Item id="42028" name="设为只读(&amp;S)"/>
                     <Item id="42029" name="复制当前文件路径"/>
                     <Item id="42030" name="复制当前文件名"/>
                     <Item id="42031" name="复制当前目录路径"/>
+                    <Item id="42087" name="复制所有文件名"/>
+                    <Item id="42088" name="复制所有文件路径"/>
                     <Item id="42032" name="重复运行宏(&amp;R)..."/>
                     <Item id="42033" name="清除只读标记"/>
                     <Item id="42035" name="设置行注释"/>
@@ -194,14 +203,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43021" name="删除书签行"/>
                     <Item id="43051" name="删除未标记行"/>
                     <Item id="43050" name="反向标记书签"/>
-                    <Item id="43052" name="查找范围内的字符..."/>
-                    <Item id="43053" name="选中所有匹配括号间字符"/>
-                    <Item id="43009" name="转到匹配的括号"/>
+                    <Item id="43052" name="查找范围内的字符...(&amp;E)"/>
+                    <Item id="43053" name="选中所有匹配括号间字符(&amp;M)"/>
+                    <Item id="43009" name="转到匹配的括号(&amp;M)"/>
                     <Item id="43010" name="查找上一个(&amp;P)"/>
                     <Item id="43011" name="增量查找(&amp;I)..."/>
-                    <Item id="43013" name="在文件中查找"/>
-                    <Item id="43014" name="快速查找下一个"/>
-                    <Item id="43015" name="快速查找上一个"/>
+                    <Item id="43013" name="在文件中查找(&amp;L)"/>
+                    <Item id="43014" name="快速查找下一个(&amp;V)"/>
+                    <Item id="43015" name="快速查找上一个(&amp;V)"/>
                     <Item id="43022" name="使用格式1"/>
                     <Item id="43023" name="清除格式1"/>
                     <Item id="43024" name="使用格式2"/>
@@ -218,28 +227,38 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43035" name="格式三"/>
                     <Item id="43036" name="格式四"/>
                     <Item id="43037" name="格式五"/>
-                    <Item id="43038" name="寻找格式"/>
+                    <Item id="43038" name="寻找格式标记"/>
                     <Item id="43039" name="格式一"/>
                     <Item id="43040" name="格式二"/>
                     <Item id="43041" name="格式三"/>
                     <Item id="43042" name="格式四"/>
                     <Item id="43043" name="格式五"/>
-                    <Item id="43044" name="寻找格式"/>
+                    <Item id="43044" name="寻找格式标记"/>
                     <Item id="43055" name="格式一"/>
                     <Item id="43056" name="格式二"/>
                     <Item id="43057" name="格式三"/>
                     <Item id="43058" name="格式四"/>
                     <Item id="43059" name="格式五"/>
                     <Item id="43060" name="所有格式"/>
-                    <Item id="43061" name="寻找标记样式"/>
-                    <Item id="43045" name="寻找结果"/>
-                    <Item id="43046" name="下一个寻找结果"/>
-                    <Item id="43047" name="上一个寻找结果"/>
-                    <Item id="43048" name="选定并寻找下一个"/>
-                    <Item id="43049" name="选定并寻找上一个"/>
+                    <Item id="43061" name="寻找格式标记"/>
+                    <Item id="43062" name="使用格式一"/>
+                    <Item id="43063" name="使用格式二"/>
+                    <Item id="43064" name="使用格式三"/>
+                    <Item id="43065" name="使用格式四"/>
+                    <Item id="43066" name="使用格式五"/>
+                    <Item id="43045" name="寻找结果(&amp;W)"/>
+                    <Item id="43046" name="下一个寻找结果(&amp;T)"/>
+                    <Item id="43047" name="上一个寻找结果(&amp;T)"/>
+                    <Item id="43048" name="选定并寻找下一个(&amp;S)"/>
+                    <Item id="43049" name="选定并寻找上一个(&amp;S)"/>
                     <Item id="43054" name="标记(&amp;K)..."/>
+                    <Item id="43501" name="关闭选中"/>
+                    <Item id="43502" name="关闭其他"/>
+                    <Item id="43503" name="复制选中名称"/>
+                    <Item id="43504" name="复制选中路径"/>
                     <Item id="44009" name="便签模式"/>
                     <Item id="44010" name="折叠所有层次"/>
+                    <Item id="44011" name="沉浸模式"/>
                     <Item id="44019" name="显示所有字符"/>
                     <Item id="44020" name="显示缩进参考线"/>
                     <Item id="44022" name="自动换行"/>
@@ -252,6 +271,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44031" name="展开当前层次"/>
                     <Item id="44049" name="摘要..."/>
                     <Item id="44080" name="文档结构图"/>
+                    <Item id="44070" name="文档列表"/>
                     <Item id="44084" name="函数列表"/>
                     <Item id="44085" name="文件夹工作区"/>
                     <Item id="44086" name="标签页1"/>
@@ -268,6 +288,12 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44097" name="监视日志 (tail -f)"/>
                     <Item id="44098" name="前移标签"/>
                     <Item id="44099" name="后移标签"/>
+                    <Item id="44110" name="移除颜色"/>
+                    <Item id="44111" name="使用颜色1"/>
+                    <Item id="44112" name="使用颜色2"/>
+                    <Item id="44113" name="使用颜色3"/>
+                    <Item id="44114" name="使用颜色4"/>
+                    <Item id="44115" name="使用颜色5"/>
                     <Item id="44032" name="切换全屏模式"/>
                     <Item id="44033" name="恢复默认缩放"/>
                     <Item id="44034" name="总在最前"/>
@@ -283,14 +309,14 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45003" name="转为 Macintosh (CR)"/>
                     <Item id="45004" name="使用 ANSI 编码"/>
                     <Item id="45005" name="使用 UTF-8-BOM 编码"/>
-                    <Item id="45006" name="使用 UCS-2 Big Endian 编码"/>
-                    <Item id="45007" name="使用 UCS-2 Little Endian 编码"/>
+                    <Item id="45006" name="使用 UTF-16 Big Endian 编码"/>
+                    <Item id="45007" name="使用 UTF-16 Little Endian 编码"/>
                     <Item id="45008" name="使用 UTF-8 编码"/>
                     <Item id="45009" name="转为 ANSI 编码"/>
                     <Item id="45010" name="转为 UTF-8 编码"/>
                     <Item id="45011" name="转为 UTF-8-BOM 编码"/>
-                    <Item id="45012" name="转为 UCS-2 Big Endian 编码"/>
-                    <Item id="45013" name="转为 UCS-2 Little Endian 编码"/>
+                    <Item id="45012" name="转为 UTF-16 Big Endian 编码"/>
+                    <Item id="45013" name="转为 UTF-16 Little Endian 编码"/>
                     <Item id="45060" name="Big5 (繁体中文)"/>
                     <Item id="45061" name="GB2312 (简体中文)"/>
                     <Item id="45054" name="OEM 861: 冰岛语"/>
@@ -306,12 +332,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="46001" name="语言格式设置..."/>
                     <Item id="46250" name="自定义语言格式..."/>
                     <Item id="46300" name="打开用户自定义语言文件夹..."/>
+                    <Item id="46301" name="Notepad++ 用户自定义语言仓库"/>
                     <Item id="46180" name="用户自定义"/>
                     <Item id="47000" name="关于 Notepad++"/>
                     <Item id="47010" name="命令行参数..."/>
                     <Item id="47001" name="Notepad++ 官方主页"/>
                     <Item id="47002" name="Notepad++ 项目主页"/>
-                    <Item id="47003" name="在线帮助"/>
+                    <Item id="47003" name="Notepad++ 在线用户手册"/>
                     <Item id="47004" name="Notepad++ 社区（论坛）"/>
                     <Item id="47012" name="调试信息..."/>
                     <Item id="47005" name="获取插件"/>
@@ -335,6 +362,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="50000" name="函数自动完成"/>
                     <Item id="50001" name="单词自动完成"/>
                     <Item id="50002" name="函数参数提示"/>
+                    <Item id="50010" name="函数参数上一个提示"/>
+                    <Item id="50011" name="函数参数下一个提示"/>
                     <Item id="50005" name="启动/停止宏录制"/>
                     <Item id="50006" name="路径补全"/>
                     <Item id="44042" name="隐藏行"/>
@@ -342,6 +371,16 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42041" name="清除文件列表"/>
                     <Item id="48016" name="管理快捷键..."/>
                     <Item id="48017" name="管理快捷键..."/>
+
+                    <Item id="11001" name="文件窗口(&amp;W)..."/>
+                    <Item id="11002" name="名称正序"/>
+                    <Item id="11003" name="名称倒序"/>
+                    <Item id="11004" name="路径正序"/>
+                    <Item id="11005" name="路径倒序"/>
+                    <Item id="11006" name="类型正序"/>
+                    <Item id="11007" name="类型倒序"/>
+                    <Item id="11008" name="体积从小到大"/>
+                    <Item id="11009" name="体积从大到小"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -354,9 +393,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="4" name="打印当前文件..."/>
                     <Item CMID="5" name="移动到另一视图"/>
                     <Item CMID="6" name="复制到另一视图"/>
-                    <Item CMID="7" name="复制文件路径到剪切板"/>
-                    <Item CMID="8" name="复制文件名到剪切板"/>
-                    <Item CMID="9" name="复制当前路径到剪切板"/>
+                    <Item CMID="7" name="复制文件路径"/>
+                    <Item CMID="8" name="复制文件名"/>
+                    <Item CMID="9" name="复制当前路径"/>
                     <Item CMID="10" name="当前文件重命名..."/>
                     <Item CMID="11" name="当前文件移至回收站"/>
                     <Item CMID="12" name="设置为只读"/>
@@ -371,6 +410,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item CMID="21" name="使用默认查看器打开"/>
                     <Item CMID="22" name="关闭所有未修改"/>
                     <Item CMID="23" name="打开所在文件夹工作区"/>
+                    <Item CMID="24" name="使用颜色1"/>
+                    <Item CMID="25" name="使用颜色2"/>
+                    <Item CMID="26" name="使用颜色3"/>
+                    <Item CMID="27" name="使用颜色4"/>
+                    <Item CMID="28" name="使用颜色5"/>
+                    <Item CMID="29" name="移除颜色"/>
+                    <Item CMID="30" name="关闭多个标签"/>
+                    <Item CMID="31" name="打开至"/>
+                    <Item CMID="32" name="复制到剪贴板"/>
+                    <Item CMID="33" name="移动文档"/>
+                    <Item CMID="34" name="对标签使用颜色"/>
             </TabBar>
         </Menu>
 
@@ -418,6 +468,12 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1723" name="▼ 查找下一个"/>
                 <Item id="1725" name="复制标记文本"/>
             </Find>
+
+            <IncrementalFind title="">
+                <Item id="1681" name="查找"/>
+                <Item id="1685" name="匹配大小写"/>
+                <Item id="1690" name="全部高亮"/>
+            </IncrementalFind>
 
             <FindCharsInRange title="查找范围内的字符...">
                 <Item id="2" name="关闭"/>
@@ -472,7 +528,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="关闭"/>
             </SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="插件管理" titleAvailable="可用" titleUpdates="更新" titleInstalled="已安装">
+            <PluginsAdminDlg title="插件管理" titleAvailable="可用" titleUpdates="更新" titleInstalled="已安装" titleIncompatible="不兼容">
                 <ColumnPlugin   name="插件"/>
                 <ColumnVersion  name="版本"/>
                 <Item id="5501" name="搜索："/>
@@ -480,6 +536,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="5504" name="更新"/>
                 <Item id="5505" name="移除"/>
                 <Item id="5508" name="下一个"/>
+                <Item id="5509" name="插件列表版本："/>
+                <Item id="5511" name="插件列表仓库"/>
                 <Item id="2"    name="关闭"/>
             </PluginsAdminDlg>
 
@@ -511,6 +569,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="2230" name="使用全局粗体样式"/>
                     <Item id="2231" name="使用全局斜体样式"/>
                     <Item id="2232" name="使用全局下划线样式"/>
+                    <Item id="2234" name="前往设置"/>
                 </SubDialog>
             </StyleConfig>
 
@@ -538,36 +597,41 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="45001" name="换行符转为 Windows (CR LF)"/>
                     <Item id="45002" name="换行符转为 Unix (LF)"/>
                     <Item id="45003" name="换行符转为 Macintosh (CR)"/>
-                    <Item id="43022" name="使用格式1标记文本"/>
-                    <Item id="43024" name="使用格式2标记文本"/>
-                    <Item id="43026" name="使用格式3标记文本"/>
-                    <Item id="43028" name="使用格式4标记文本"/>
-                    <Item id="43030" name="使用格式5标记文本"/>
+                    <Item id="43022" name="使用格式1标记全部"/>
+                    <Item id="43024" name="使用格式2标记全部"/>
+                    <Item id="43026" name="使用格式3标记全部"/>
+                    <Item id="43028" name="使用格式4标记全部"/>
+                    <Item id="43030" name="使用格式5标记全部"/>
+                    <Item id="43062" name="使用格式1标记全部"/>
+                    <Item id="43063" name="使用格式2标记全部"/>
+                    <Item id="43064" name="使用格式3标记全部"/>
+                    <Item id="43065" name="使用格式4标记全部"/>
+                    <Item id="43066" name="使用格式5标记全部"/>
                     <Item id="43023" name="清除格式1标记"/>
                     <Item id="43025" name="清除格式2标记"/>
                     <Item id="43027" name="清除格式3标记"/>
                     <Item id="43029" name="清除格式4标记"/>
                     <Item id="43031" name="清除格式5标记"/>
-                    <Item id="43032" name="清除所有格式的标记"/>
+                    <Item id="43032" name="清除所有格式标记"/>
                     <Item id="43033" name="到上一个格式1标记"/>
                     <Item id="43034" name="到上一个格式2标记"/>
                     <Item id="43035" name="到上一个格式3标记"/>
                     <Item id="43036" name="到上一个格式4标记"/>
                     <Item id="43037" name="到上一个格式5标记"/>
-                    <Item id="43038" name="上一个用标记面板创建的标记"/>
-                    <Item id="43039" name="使用格式1到下一个标记"/>
-                    <Item id="43040" name="使用格式2到下一个标记"/>
-                    <Item id="43041" name="使用格式3到下一个标记"/>
-                    <Item id="43042" name="使用格式4到下一个标记"/>
-                    <Item id="43043" name="使用格式5到下一个标记"/>
-                    <Item id="43044" name="下一个用标记面板创建的标记"/>
-                    <Item id="43055" name="复制样式1文本"/>
-                    <Item id="43056" name="复制样式2文本"/>
-                    <Item id="43057" name="复制样式3文本"/>
-                    <Item id="43058" name="复制样式4文本"/>
-                    <Item id="43059" name="复制样式5文本"/>
-                    <Item id="43060" name="复制所有样式文本"/>
-                    <Item id="43061" name="复制寻找的标记样式文本"/>
+                    <Item id="43038" name="上一个标记面板格式标记"/>
+                    <Item id="43039" name="到下一个格式1标记"/>
+                    <Item id="43040" name="到下一个格式2标记"/>
+                    <Item id="43041" name="到下一个格式3标记"/>
+                    <Item id="43042" name="到下一个格式4标记"/>
+                    <Item id="43043" name="到下一个格式5标记"/>
+                    <Item id="43044" name="下一个标记面板格式标记"/>
+                    <Item id="43055" name="复制格式1文本"/>
+                    <Item id="43056" name="复制格式2文本"/>
+                    <Item id="43057" name="复制格式3文本"/>
+                    <Item id="43058" name="复制格式4文本"/>
+                    <Item id="43059" name="复制格式5文本"/>
+                    <Item id="43060" name="复制所有格式文本"/>
+                    <Item id="43061" name="复制寻找的格式标记文本"/>
                     <Item id="44100" name="在Firefox中查看当前文件"/>
                     <Item id="44101" name="在Chrome中查看当前文件"/>
                     <Item id="44103" name="在IE中查看当前文件"/>
@@ -595,13 +659,29 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44083" name="开启/关闭工程面板3"/>
                     <Item id="44085" name="开启/关闭文件夹工作区"/>
                     <Item id="44080" name="开启/关闭文档结构图"/>
+                    <Item id="44070" name="开启/关闭文档列表"/>
                     <Item id="44084" name="开启/关闭函数列表"/>
                     <Item id="50005" name="开启/关闭宏录制"/>
                     <Item id="44104" name="切换到工程面板1"/>
                     <Item id="44105" name="切换到工程面板2"/>
                     <Item id="44106" name="切换到工程面板3"/>
                     <Item id="44107" name="切换到文件夹工作区"/>
+                    <Item id="44109" name="切换到文档列表"/>
                     <Item id="44108" name="切换到函数列表"/>
+                    <Item id="44110" name="移除标签颜色"/>
+                    <Item id="44111" name="使用标签颜色1"/>
+                    <Item id="44112" name="使用标签颜色2"/>
+                    <Item id="44113" name="使用标签颜色3"/>
+                    <Item id="44114" name="使用标签颜色4"/>
+                    <Item id="44115" name="使用标签颜色5"/>
+                    <Item id="11002" name="按名称正序排序"/>
+                    <Item id="11003" name="按名称倒序排序"/>
+                    <Item id="11004" name="按路径正序排序"/>
+                    <Item id="11005" name="按路径倒序排序"/>
+                    <Item id="11006" name="按类型正序排序"/>
+                    <Item id="11007" name="按类型倒序排序"/>
+                    <Item id="11008" name="按体积从小到大排序"/>
+                    <Item id="11009" name="按体积从大到小排序"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="快捷键设置">
@@ -657,6 +737,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25026" name="运算符 1"/>
                     <Item id="25027" name="运算符 2"/>
                     <Item id="25028" name="数字"/>
+                    <Item id="25033" name="透明"/>
+                    <Item id="25034" name="透明"/>
                     <Item id="1" name="确认"/>
                     <Item id="2" name="取消"/>
                 </StylerDialog>
@@ -789,9 +871,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="常用">
                     <Item id="6101" name="工具栏"/>
                     <Item id="6102" name="隐藏"/>
-                    <Item id="6103" name="小图标"/>
-                    <Item id="6104" name="大图标"/>
-                    <Item id="6105" name="小型标准图标"/>
+                    <Item id="6103" name="Fluent UI 图标：小"/>
+                    <Item id="6104" name="Fluent UI 图标：大"/>
+                    <Item id="6129" name="Fluent UI 填充图标：小"/>
+                    <Item id="6130" name="Fluent UI 填充图标：大"/>
+                    <Item id="6105" name="标准图标：小"/>
 
                     <Item id="6106" name="标签栏"/>
                     <Item id="6107" name="缩小"/>
@@ -807,12 +891,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6120" name="垂直显示"/>
                     <Item id="6121" name="关闭最后一个标签时退出"/>
 
+                    <Item id="6131" name="菜单"/>
                     <Item id="6122" name="隐藏菜单栏 (按下 Alt 或 F10 显示)"/>
+                    <Item id="6132" name="隐藏菜单栏右侧 ＋ ▼ ✕ 快捷键 (需重启Notepad++)"/>
                     <Item id="6123" name="界面语言"/>
-
-                    <Item id="6125" name="文件列表面板"/>
-                    <Item id="6126" name="显示"/>
-                    <Item id="6127" name="隐藏扩展名栏"/>
 
                     <Item id="6128" name="自定义图标"/>
                 </Global>
@@ -822,17 +904,53 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="闪烁频率 :"/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
+                    <Item id="6246" name="让当前级别的折叠/展开指令可以切换"/>
                     <Item id="6225" name="启用多列编辑 (Ctrl+鼠标点选)"/>
                     <Item id="6227" name="折行"/>
                     <Item id="6228" name="默认"/>
                     <Item id="6229" name="对齐"/>
                     <Item id="6230" name="缩排"/>
                     <Item id="6234" name="禁用高级滚动功能以解决触摸板问题"/>
-                    <Item id="6214" name="启用当前行高亮模式"/>
                     <Item id="6215" name="启用平滑字体"/>
                     <Item id="6236" name="允许滚动到末尾行之后"/>
                     <Item id="6239" name="选区外右键点击时保留选区"/>
+                    <Item id="6245" name="启用行尾虚拟空格"/>
+                    <Item id="6651" name="当前行指示器"/>
+                    <Item id="6652" name="不显示"/>
+                    <Item id="6653" name="背景高亮"/>
+                    <Item id="6654" name="边框高亮"/>
+                    <Item id="6655" name="宽度"/>
+                    <Item id="6247" name="换行符(CRLF)"/> <!-- Don't translate "(CRLF)" -->
+                    <Item id="6248" name="默认"/>
+                    <Item id="6249" name="纯文本"/>
+                    <Item id="6250" name="自定义颜色"/>
                 </Scintillas>
+
+                <DarkMode title="暗黑模式">
+                    <Item id="7101" name="开启暗黑模式"/>
+                    <Item id="7102" name="黑色"/>
+                    <Item id="7103" name="红色"/>
+                    <Item id="7104" name="绿色"/>
+                    <Item id="7105" name="蓝色"/>
+                    <Item id="7107" name="紫色"/>
+                    <Item id="7108" name="青色"/>
+                    <Item id="7109" name="橄榄色"/>
+                    <Item id="7115" name="自定义色"/>
+                    <Item id="7116" name="顶部"/>
+                    <Item id="7117" name="菜单栏高亮"/>
+                    <Item id="7118" name="激活项"/>
+                    <Item id="7119" name="主区域"/>
+                    <Item id="7120" name="错误"/>
+                    <Item id="7121" name="文字"/>
+                    <Item id="7122" name="深色文字"/>
+                    <Item id="7123" name="禁用文字"/>
+                    <Item id="7124" name="边框"/>
+                    <Item id="7125" name="链接"/>
+                    <Item id="7126" name="高亮边框"/>
+                    <Item id="7127" name="禁用边框"/>
+                    <Item id="7130" name="重置"/>
+                    <Item id="7135" name="色调"/>
+                </DarkMode>
 
                 <MarginsBorderEdge title="边距/边框/边缘">
                     <Item id="6201" name="代码折叠标志"/>
@@ -846,12 +964,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6292" name="变宽"/>
                     <Item id="6293" name="等宽"/>
                     <Item id="6207" name="显示标签栏"/>
+                    <Item id="6223" name="显示文件修改记录"/>
                     <Item id="6211" name="列边界设置"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6237" name="想要添加列标记，可用数字指示其列位置。
 用空格分隔不同数字以定义多个列标记。"/>
                     <Item id="6231" name="边框宽度"/>
                     <Item id="6235" name="无边框"/>
+                    <Item id="6208" name="边距"/>
+                    <Item id="6209" name="左"/>
+                    <Item id="6210" name="右"/>
+                    <Item id="6212" name="沉浸模式"/>
                 </MarginsBorderEdge>
 
                 <NewDoc title="新建">
@@ -863,8 +986,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8 (无BOM)"/>
                     <Item id="6408" name="UTF-8 含 BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian 含 BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian 含 BOM"/>
+                    <Item id="6409" name="UTF-16 Big Endian 含 BOM"/>
+                    <Item id="6410" name="UTF-16 Little Endian 含 BOM"/>
                     <Item id="6411" name="默认语言 :"/>
                     <Item id="6419" name="新建文档"/>
                     <Item id="6420" name="应用于打开 ANSI 文件"/>
@@ -895,8 +1018,12 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Language>
 
                 <Highlighting title="高亮">
+                    <Item id="6351" name="用格式标记全部"/>
+                    <Item id="6352" name="匹配大小写"/>
+                    <Item id="6353" name="仅全词匹配"/>
                     <Item id="6333" name="智能高亮"/>
                     <Item id="6326" name="启用智能高亮"/>
+                    <Item id="6354" name="匹配规则"/>
                     <Item id="6332" name="区分大小写"/>
                     <Item id="6338" name="仅匹配完整词"/>
                     <Item id="6339" name="使用查找对话框设置"/>
@@ -932,16 +1059,29 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6721" name="中"/>
                     <Item id="6722" name="右"/>
                     <Item id="6723" name="添加"/>
+                    <ComboBox id="6724">
+                        <Element name="完整文件名路径"/>
+                        <Element name="文件名"/>
+                        <Element name="文件夹"/>
+                        <Element name="页数"/>
+                        <Element name="短日期格式"/>
+                        <Element name="长日期格式"/>
+                        <Element name="时间"/>
+                    </ComboBox>
                     <Item id="6725" name="变量:"/>
                     <Item id="6727" name="这里显示你的变量设置"/>
                     <Item id="6728" name="页眉与页脚"/>
                 </Print>
 
                 <Searching title="搜索">
-                    <Item id="6901" name="不要将所选内容填入“查找”对话框中的“查找”字段"/>
                     <Item id="6902" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
                     <Item id="6903" name="搜索输出到结果窗口后，保持查找对话框开启"/>
                     <Item id="6904" name="替换所有打开文件前需确认"/>
+                    <Item id="6905" name="替换后不移动到下一个匹配项"/>
+                    <Item id="6906" name="搜索结果窗口：每个找到的行仅显示一条"/>
+                    <Item id="6907" name="调用查找对话框时"/>
+                    <Item id="6908" name="用选中文本填充查找字段"/>
+                    <Item id="6909" name="未选中内容时选择插入符号下的词"/>
                 </Searching>
 
                 <RecentFilesHistory title="最近文件记录">
@@ -977,6 +1117,9 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6809" name="函数自动完成"/>
                     <Item id="6810" name="单词自动完成"/>
                     <Item id="6816" name="参数与单词"/>
+                    <Item id="6869" name="插入选中项"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTER(回车)"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="忽略数字"/>
                     <Item id="6811" name="从第"/>
                     <Item id="6813" name="个字符开始"/>
@@ -991,12 +1134,15 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6866" name="匹配对3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="多实例">
+                <MultiInstance title="多实例 &amp; 日期">
                     <Item id="6151" name="多实例设定"/>
-                    <Item id="6152" name="使用新Notepad++实例启动会话"/>
+                    <Item id="6152" name="使用新实例启动会话(并在退出时自动保存会话)"/>
                     <Item id="6153" name="始终使用多实例模式"/>
                     <Item id="6154" name="默认 (单实例)"/>
                     <Item id="6155" name="* 修改此项设置需重启Notepad++方可生效"/>
+                    <Item id="6171" name="自定义插入日期时间"/>
+                    <Item id="6175" name="调转默认日期时间顺序(短 &amp;&amp; 长 格式)"/>
+                    <Item id="6172" name="自定义格式："/>
                 </MultiInstance>
 
                 <Delimiter title="定界符">
@@ -1044,7 +1190,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6325" name="更新后定位到末行"/>
                     <Item id="6322" name="会话文件扩展名:"/>
                     <Item id="6323" name="启用 Notepad++ 自动更新"/>
-                    <Item id="6351" name="将保存对话框中的文件扩展名过滤器设为 *.*"/>
                     <Item id="6324" name="文档切换 (Ctrl+TAB)"/>
                     <Item id="6331" name="在标题栏仅显示文件名"/>
                     <Item id="6334" name="自动检测字符编码"/>
@@ -1056,6 +1201,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6345" name="在标签中启用速览"/>
                     <Item id="6346" name="在文档结构图中启用速览"/>
                     <Item id="6360" name="全部静音"/>
+                    <Item id="6361" name="启用全部保存确认对话框"/>
                 </MISC>
             </Preference>
             <MultiMacro title="重复运行宏">
@@ -1071,7 +1217,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2" name="确定(&amp;O)"/>
                 <Item id="7002" name="保存文件(&amp;S)"/>
                 <Item id="7003" name="关闭文件(&amp;C)"/>
-                <Item id="7004" name="文件排序(&amp;T)"/>
+                <Item id="7004" name="窗口排序(&amp;T)"/>
             </Window>
             <ColumnEditor title="列编辑">
                 <Item id="2023" name="插入文本(&amp;T)"/>
@@ -1109,6 +1255,15 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="4" name="全选是(&amp;A)"/>
                 <Item id="5" name="全选否(&amp;O)"/>
             </DoSaveOrNot>
+            <DoSaveAll title="全部保存确认">
+                <Item id="1766" name="您确认要保存所有已修改的文档么？
+
+如果您不想再看到此对话框，请选择“始终允许”。
+您之后可以在首选项当中重新启用此对话框。"/>
+                <Item id="6" name="&amp;确定"/>
+                <Item id="7" name="&amp;取消"/>
+                <Item id="4" name="始终允许"/>
+            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="编辑快捷菜单" message="您可以通过编辑contextMenu.xml文件来修改Notepad++的快捷菜单。
@@ -1163,6 +1318,9 @@ The comments are here for explanation, it's not necessary to translate them.
             <DocTooDirtyToMonitor title="监视问题" message="文档没有保存，请先保存修改再监视它。"/>
             <DocNoExistToMonitor title="监视问题" message="文件需要存在才能监视。"/>
             <FileTooBigToOpen title="文件大小问题" message="文件太大，Notepad++打不开。"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="异常代码: $STR_REPLACE$" message="加载文件时出错！"/>
+            <WantToOpenHugeFile title="打开超大文件警告" message="打开 2GB 以上的超大文件可能需要数分钟。
+确定要打开么？"/>
             <CreateNewFileOrNot title="创建新文件" message="“$STR_REPLACE$”不存在。新建一个？"/>
             <CreateNewFileError title="创建新文件" message="无法创建文件“$STR_REPLACE$”。"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="出错" message="无法打开文件“$STR_REPLACE$”。"/>
@@ -1204,21 +1362,25 @@ The comments are here for explanation, it's not necessary to translate them.
 Notepad++会在所有安装结束后重新启动。
 是否继续？"/>
             <NeedToRestartToLoadPlugins title="Notepad++需要重启" message="您必须重启Notepad++才能加载安装好的插件。"/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++需要重启" message="您必须重启Notepad++才能启用文件修改记录。"/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="文件列表"/>
             <ColumnName name="文件名"/>
             <ColumnExt name="扩展名"/>
-        </DocSwitcher>
+            <ColumnPath name="路径"/>
+        </DocList>
         <WindowsDlg>
             <ColumnName name="文件名"/>
             <ColumnPath name="路径"/>
             <ColumnType name="类型"/>
             <ColumnSize name="大小"/>
             <NbDocsTotal name="总计:"/>
+            <MenuCopyName name="复制名称"/>
+            <MenuCopyPath name="复制路径"/>
         </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII编码输入面板"/>
@@ -1235,12 +1397,14 @@ Notepad++会在所有安装结束后重新启动。
             <PanelTitle name="函数功能表"/>
             <SortTip name="排序"/>
             <ReloadTip name="重新载入"/>
+            <PreferencesTip name="首选项"/>
+            <PreferencesInitialSort name="默认按正序排列函数"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="文件夹工作区"/>
             <SelectFolderFromBrowserString name="选择一个文件夹添加到文件夹工作区面板"/>
-            <ExpandAllFoldersTip name="展开所有文件夹"/>
-            <CollapseAllFoldersTip name="收起所有文件夹"/>
+            <ExpandAllFoldersTip name="全部展开"/>
+            <CollapseAllFoldersTip name="全部收起"/>
             <LocateCurrentFileTip name="定位当前文件"/>
             <Menus>
                 <Item id="3511" name="移除"/>
@@ -1306,20 +1470,33 @@ Notepad++会在所有安装结束后重新启动。
             <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="这允许您在双击选择或选中“全词匹配”选项的情况下,在当前单词字符列表中附加字符。"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
+            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+            <eol-custom-color-tip value="前往语言格式设置，修改默认换行符自定义颜色 (&quot;EOL custom color&quot;).."/>
+
             <word-chars-list-warning-begin value="警告："/>
             <word-chars-list-space-warning value="$INT_REPLACE$ 空格"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
             <word-chars-list-warning-end value="  在你的字符列表中。"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="选择备份目录用文件夹"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="无效路径。"/>
             <cloud-restart-warning value="请重启Notepad++以生效。"/>
             <cloud-select-folder value="请选择一个供Notepad++读写设置的文件夹"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="将文件夹设置为默认目录"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="使用Shift+Enter反向查找"/>
             <two-find-buttons-tip value="双按钮查找模式"/>
+            <file-rename-title value="重命名"/>
             <find-in-files-filter-tip value="在 cpp，cxx，h，hxx &amp;&amp; hpp 中查找：
 *.cpp *.cxx *.h *.hxx *.hpp
 
-查找除exe，obj &amp;&amp; log以外的所有文件:
-*.* !*.exe !*.obj !*.log"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+查找除exe，obj &amp;&amp; log以外的所有文件：
+*.* !*.exe !*.obj !*.log
+
+查找所有文件但排除文件夹 tests, bin &amp;&amp; bin64：
+*.* !\tests !\bin*
+
+查找所有文件但递归式排除所有叫 log 或 logs 的文件夹：
+*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+            <find-in-files-select-folder value="选择要搜索的文件夹"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="查找：查找到从下到上的首个匹配项。已查找至文档最顶部。"/>
             <find-status-end-reached value="查找：查找到从上到下的首个匹配项。已查找至文档最底部。"/>
             <find-status-replaceinfiles-1-replaced value="在文件中替换：已替换1个匹配项。"/>
@@ -1329,6 +1506,7 @@ Notepad++会在所有安装结束后重新启动。
             <find-status-replaceinopenedfiles-nb-replaced value="替换所有打开文件：已替换$INT_REPLACE$个匹配项。"/>
             <find-status-mark-re-malformed value="标记：搜索的正则表达式格式不正确。"/>
             <find-status-invalid-re value="查找：无效的正则表达式。"/>
+            <find-status-search-failed value="查找：搜索失败"/>
             <find-status-mark-1-match value="标记：1次匹配"/>
             <find-status-mark-nb-matches value="标记：$INT_REPLACE$次匹配"/>
             <find-status-count-re-malformed value="计数：搜索的正则表达式格式不正确。"/>
@@ -1341,6 +1519,7 @@ Notepad++会在所有安装结束后重新启动。
             <find-status-replace-end-reached value="替换：替换到从上到下的首个匹配项。已查找至文档最底部。"/>
             <find-status-replace-top-reached value="替换：替换到从下到上的首个匹配项。已查找至文档最顶部。"/>
             <find-status-replaced-next-found value="替换：已替换1个匹配项，并找到了下一个。"/>
+            <find-status-replaced-without-continuing value="替换：已替换1个匹配项。"/>
             <find-status-replaced-next-not-found value="替换：已替换1个匹配项，找不到别的了。"/>
             <find-status-replace-not-found value="替换：没有找到匹配项。"/>
             <find-status-replace-readonly value="替换：无法替换文本，当前文件只读。"/>
@@ -1355,9 +1534,11 @@ Notepad++会在所有安装结束后重新启动。
             <finder-uncollapse-all value="全部展开"/>
             <finder-copy value="复制选中行"/>
             <finder-copy-verbatim value="复制"/>
+            <finder-copy-paths value="复制路径"/>
             <finder-select-all value="全部选择"/>
             <finder-clear-all value="全部清除"/>
             <finder-open-all value="全部打开"/>
+            <finder-purge-for-every-search value="每次搜索时清除"/>
             <finder-wrap-long-lines value="自动换行"/>
             <common-ok value="确定"/>
             <common-cancel value="取消"/>
@@ -1402,6 +1583,17 @@ Notepad++会在所有安装结束后重新启动。
             <find-result-line-prefix value="行"/> <!-- Must not begin with space or tab character -->
             <find-regex-zero-length-match value="零长度字符匹配" />
             <session-save-folder-as-workspace value="保存文件夹工作区" />
+            <tab-untitled-string value="新文件 " />
+            <file-save-assign-type value="&amp;追加扩展名" />
+            <close-panel-tip value="关闭" />
+            <IncrementalFind-FSFound value="$INT_REPLACE$ 次匹配" />
+            <IncrementalFind-FSNotFound value="未找到短语" />
+            <IncrementalFind-FSTopReached value="已到页面最上方，从下面继续" />
+            <IncrementalFind-FSEndReached value="已到页面最下方，从上面继续" />
+            <contextMenu-styleAlloccurrencesOfToken value="用格式标记全部" />
+            <contextMenu-styleOneToken value="用格式标记一处" />
+            <contextMenu-clearStyle value="清除格式" />
+            <contextMenu-PluginCommands value="插件命令" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

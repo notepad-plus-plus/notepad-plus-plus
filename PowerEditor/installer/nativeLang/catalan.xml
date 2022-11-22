@@ -19,8 +19,8 @@ By Hiro5 <groccat at gmail>
 					<Item menuId="tools" name="E&amp;ines"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="E&amp;xecuta"/>
-					<Item idName="Plugins" name="C&amp;omplements"/>
-					<Item idName="Window" name="Fine&amp;stres"/>
+					<Item menuId="Plugins" name="C&amp;omplements"/>
+					<Item menuId="Window" name="Fine&amp;stres"/>
 				</Entries>
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Obre la carpeta contenidora"/>
@@ -368,8 +368,6 @@ By Hiro5 <groccat at gmail>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
-				<Item id="1617" name="Estil de símbol trobat"/>
-				<Item id="1637" name="Cerca als fitxers"/>
 				<Item id="1"    name="Cerca següent"/>
 				<Item id="1722" name="Inverteix direcció"/>
 				<Item id="1614" name="Compta coincidències"/>
@@ -749,6 +747,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6215" name="Activa suavitzat de lletra"/>
 					<Item id="6236" name="Permet desplaç. després de l'última línia"/>
 					<Item id="6234" name="Desactiva el desplaçament avançat&#xD;(si teniu problemes amb el touchpad)"/>
+					<Item id="6245" name="Activar espai virtual"/>
 				</Scintillas>
 				<NewDoc title="Document nou">
 					<Item id="6419" name="Document nou"/>
@@ -1043,11 +1042,11 @@ By Hiro5 <groccat at gmail>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>
 		</ClipboardHistory>
-		<DocSwitcher>
+		<DocList>
 			<PanelTitle name="Documents"/>
 			<ColumnName name="Nom"/>
 			<ColumnExt name="Ext."/>
-		</DocSwitcher>
+		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Nom"/>
 			<ColumnPath name="Camí"/>

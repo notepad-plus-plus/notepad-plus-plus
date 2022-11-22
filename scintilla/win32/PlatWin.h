@@ -8,7 +8,7 @@
 #ifndef PLATWIN_H
 #define PLATWIN_H
 
-namespace Scintilla {
+namespace Scintilla::Internal {
 
 #ifndef USER_DEFAULT_SCREEN_DPI
 #define USER_DEFAULT_SCREEN_DPI		96
@@ -43,37 +43,6 @@ inline HWND HwndFromWindow(const Window &w) noexcept {
 void *PointerFromWindow(HWND hWnd) noexcept;
 void SetWindowPointer(HWND hWnd, void *ptr) noexcept;
 
-/// Find a function in a DLL and convert to a function pointer.
-/// This avoids undefined and conditionally defined behaviour.
-template<typename T>
-T DLLFunction(HMODULE hModule, LPCSTR lpProcName) noexcept {
-	if (!hModule) {
-		return nullptr;
-	}
-	FARPROC function = ::GetProcAddress(hModule, lpProcName);
-	static_assert(sizeof(T) == sizeof(function));
-	T fp;
-	memcpy(&fp, &function, sizeof(T));
-	return fp;
-}
-
-// Release an IUnknown* and set to nullptr.
-// While IUnknown::Release must be noexcept, it isn't marked as such so produces
-// warnings which are avoided by the catch.
-template <class T>
-void ReleaseUnknown(T *&ppUnknown) noexcept {
-	if (ppUnknown) {
-		try {
-			ppUnknown->Release();
-		}
-		catch (...) {
-			// Never occurs
-		}
-		ppUnknown = nullptr;
-	}
-}
-
-
 UINT DpiForWindow(WindowID wid) noexcept;
 
 int SystemMetricsForDpi(int nIndex, UINT dpi) noexcept;
@@ -84,6 +53,15 @@ HCURSOR LoadReverseArrowCursor(UINT dpi) noexcept;
 extern bool LoadD2D();
 extern ID2D1Factory *pD2DFactory;
 extern IDWriteFactory *pIDWriteFactory;
+
+struct RenderingParams {
+	std::unique_ptr<IDWriteRenderingParams, UnknownReleaser> defaultRenderingParams;
+	std::unique_ptr<IDWriteRenderingParams, UnknownReleaser> customRenderingParams;
+};
+
+struct ISetRenderingParams {
+	virtual void SetRenderingParams(std::shared_ptr<RenderingParams> renderingParams_) = 0;
+};
 #endif
 
 }

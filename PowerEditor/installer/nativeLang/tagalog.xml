@@ -14,8 +14,8 @@
 					<Item menuId="settings" name = "Ka&amp;lagayan"/>
 					<Item menuId="macro" name = "Laki"/>
 					<Item menuId="run" name = "Takbo"/>
-					<Item idName = "Plugins" name = "Mga Plugin"/>
-					<Item idName = "Window" name = "Dungawan"/>
+					<Item menuId = "Plugins" name = "Mga Plugin"/>
+					<Item menuId = "Window" name = "Dungawan"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -215,14 +215,10 @@
                 <Item id = "1604" name = "Itambal sa &amp;kaso"/>
                 <Item id = "1605" name = "Karaniwang ka&amp;wikain"/>
                 <Item id = "1606" name = "Ibalot paiko&amp;t"/>
-                <Item id = "1612" name = "&amp;Taas"/>
-                <Item id = "1613" name = "&amp;Baba"/>
                 <Item id = "1614" name = "Bilang"/>
                 <Item id = "1615" name = "Hanapin Lahat"/>
                 <Item id = "1616" name = "Tatakan ang Taludtod"/>
-                <Item id = "1617" name = "Style found token"/>
                 <Item id = "1618" name = "Purgahin sa bawat paghahanap"/>
-                <Item id = "1621" name = "Patunguhan"/>
                 <Item id = "1611" name = "Re&amp;place with :"/>
                 <Item id = "1608" name = "&amp;Palitan"/>
                 <Item id = "1609" name = "Palitan &amp;Lahat"/>
@@ -233,8 +229,6 @@
 			 	<Item id = "1633" name = "Burahin"/>
 			 	<Item id = "1635" name = "Palitan lahat sa lahat ng nakabukas na kasulatan"/>
 			 	<Item id = "1636" name = "Hanapin lahat sa lahat ng nakabukas na kasulatan"/>
-			 	<Item id = "1637" name = "Hanapin sa mga pila"/>
-			 	<Item id = "1640" name = "Switch sa Dialog"/>
 			 	<Item id = "1654" name = "Pansala :"/>
 			 	<Item id = "1655" name = "Direktorya :"/>
 			 	<Item id = "1656" name = "Hanapin sila lahat"/>

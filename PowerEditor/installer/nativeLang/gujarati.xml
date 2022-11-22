@@ -14,8 +14,8 @@
                     <Item menuId="settings" name="&amp;સેટિંગ"/>
                     <Item menuId="macro" name="મેક્રો"/>
                     <Item menuId="run" name="ચલાવો"/>
-                    <Item idName="Plugins" name="પ્લગઇન્સ"/>
-                    <Item idName="Window" name="વિન્ડો"/>
+                    <Item menuId="Plugins" name="પ્લગઇન્સ"/>
+                    <Item menuId="Window" name="વિન્ડો"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -317,14 +317,10 @@
                 <Item id="1604" name="&amp;કેસ મેચ કરો"/>
                 <Item id="1605" name="&amp;રેગ્યુલર એક્ષ્પ્રેશન"/>
                 <Item id="1606" name="વ્રેપ અરાઊન્ડ&amp;"/>
-                <Item id="1612" name="&amp;ઉપ્પર"/>
-                <Item id="1613" name="&amp;નીચે"/>
                 <Item id="1614" name="ગણો"/>
                 <Item id="1615" name="બધા શોધો"/>
                 <Item id="1616" name="લાઈન માર્ક કરો"/>
-                <Item id="1617" name="સ્ટાઈલ મળ્યા નું ટોકન "/>
                 <Item id="1618" name="દરેક સર્ચ માટે પર્જ"/>
-                <Item id="1621" name="દિશા "/>
                 <Item id="1611" name="&amp;આની જોડે બદલો :"/>
                 <Item id="1608" name="&amp;બદલો"/>
                 <Item id="1609" name="&amp;બધા બદલો "/>
@@ -335,7 +331,6 @@
                 <Item id="1633" name="ક્લીયર"/>
                 <Item id="1635" name="બધા ને ખુલ્લા ડોક્યુમેન્ટસ માં બદલો "/>
                 <Item id="1636" name="બધા ને ખુલ્લા ડોક્યુમેન્ટસ માં શોધો"/>
-                <Item id="1637" name="ફાઈલ્સ માં શોધો"/>
                 <Item id="1654" name="ફીલ્તટ્ઝ:"/>
                 <Item id="1655" name="ડિરેક્ટરી:"/>
                 <Item id="1656" name="બધા શોધો"/>
@@ -831,11 +826,11 @@
         <ClipboardHistory>
 			<PanelTitle name="ક્લિપબોર્ડ હિસ્ટ્ર"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
 			<PanelTitle name="ડોક્યુમેન્ટ સ્વીચર"/>
 			<ColumnName name="નામ"/>
 			<ColumnExt name="એક્ષ્તેન્શન(Ext.)"/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
 			<PanelTitle name="આસ્કી(ASCII) ઇન્સર્શન પેનલ"/>
 			<ColumnVal name="કિંમત"/>

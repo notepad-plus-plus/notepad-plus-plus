@@ -34,7 +34,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 	LPCTSTR szResult = NULL;
 	bool retval = false;
 
-	HMODULE hDll = ::LoadLibrary( TEXT("DBGHELP.DLL") );	//that wont work on older windows version than XP, #care :)
+	HMODULE hDll = ::LoadLibraryEx(TEXT("DBGHELP.DLL"), nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);	//that wont work on older windows version than XP, #care :)
 
 	if (hDll)
 	{
@@ -55,11 +55,11 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 
 				if (hFile!=INVALID_HANDLE_VALUE)
 				{
-					_MINIDUMP_EXCEPTION_INFORMATION ExInfo;
+					_MINIDUMP_EXCEPTION_INFORMATION ExInfo{};
 
 					ExInfo.ThreadId = ::GetCurrentThreadId();
 					ExInfo.ExceptionPointers = pExceptionInfo;
-					ExInfo.ClientPointers = NULL;
+					ExInfo.ClientPointers = FALSE;
 
 					// write the dump
 					BOOL bOK = pDump( GetCurrentProcess(), GetCurrentProcessId(), hFile, MiniDumpNormal, &ExInfo, NULL, NULL );

@@ -1,25 +1,26 @@
-# This makefile should be included in the main scintilla.mak file,
-# just after where LOBJS is defined (around line 
-# 
-# The following line should be added around line 211 of scintilla.mak
-# !INCLUDE nppSpecifics.mak
+# This makefile should be listed after main Scintilla makefile
+# by using the -f option for both makefiles
 
 # Set your boost path (the root of where you've unpacked your boost zip).
 # Boost is available from www.boost.org
 
 
-SRC_OBJS+=\
-	BoostRegexSearch.o \
-	UTF8DocumentIterator.o
+DIR_BOOST = ../../boostregex
 
-INCLUDES+= -I../../boostregex
+vpath %.h $(DIR_BOOST)
+vpath %.cxx $(DIR_BOOST)
 
-CXXFLAGS+= -DSCI_OWNREGEX
+INCLUDES += -I $(DIR_BOOST)
+CXXFLAGS += -DSCI_OWNREGEX
 
+BOOST_OBJS = \
+	$(DIR_O)/BoostRegExSearch.o \
+	$(DIR_O)/UTF8DocumentIterator.o
 
-UTF8DocumentIterator.o:: ../../boostregex/UTF8DocumentIterator.cxx
-	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS -c ../../boostregex/UTF8DocumentIterator.cxx	
+$(BOOST_OBJS): $(DIR_O)/%.o: %.cxx
+	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -MMD -c $< -o $@
 
-BoostRegexSearch.o:: ../../boostregex/BoostRegexSearch.cxx ../src/CharClassify.h ../src/RESearch.h	
-	$(CXX) $(CXX_ALL_FLAGS) $(CXXFLAGS) -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS -c ../../boostregex/BoostRegexSearch.cxx
+$(LIBSCI): $(BOOST_OBJS)
+
+-include $(BOOST_OBJS:.o=.d)
 

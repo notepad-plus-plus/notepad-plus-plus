@@ -30,7 +30,7 @@
 !define VERSION_MAJOR 6
 !define VERSION_MINOR 9
 
-!define APPWEBSITE "http://notepad-plus-plus.org/"
+!define APPWEBSITE "https://notepad-plus-plus.org/"
 
 !define UNINSTALL_REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
 !define MEMENTO_REGISTRY_ROOT HKLM
@@ -344,15 +344,15 @@ Function .onInit
 	${GetWindowsVersion} $WinVer
 	
 	StrCmp $WinVer "95" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
 		Abort
 		
 	StrCmp $WinVer "98" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
 		Abort
 		
 	StrCmp $WinVer "ME" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
 		Abort
 
   !insertmacro MUI_LANGDLL_DISPLAY

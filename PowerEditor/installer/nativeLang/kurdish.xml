@@ -15,8 +15,8 @@
                     <Item menuId="tools" name="ئام&amp;رازەكان"/>
                     <Item menuId="macro" name="ماكرۆ"/>
                     <Item menuId="run" name="به‌ڕێوه‌به‌ردن"/>
-                    <Item idName="Plugins" name="پێوەكراوەكان"/>
-                    <Item idName="Window" name="پەنجەرە"/>
+                    <Item menuId="Plugins" name="پێوەكراوەكان"/>
+                    <Item menuId="Window" name="پەنجەرە"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -934,11 +934,11 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
         </ClipboardHistory>
-        <DocSwitcher>
+        <DocList>
             <PanelTitle name="Doc Switcher"/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
-        </DocSwitcher>
+        </DocList>
         <AsciiInsertion>
             <PanelTitle name="ASCII Insertion Panel"/>
             <ColumnVal name="Value"/>

@@ -25,7 +25,7 @@ Bug reports are appreciated. Following a few guidelines listed below will help s
 
 Your pull requests are welcome; however, they may not be accepted for various reasons. If you want to make some GUI enhancement like renaming some graphic items or fixing typos, please create the issue instead of the pull requests. All Pull Requests, except for translations and user documentation, need to be attached to a issue on GitHub. For Pull Requests regarding enhancements and questions, the issue must first be approved by one of project's administrators before being merged into the project. An approved issue will have the label `Accepted`. For issues that have not been accepted, you may request to be assigned to that issue.
 
-Opening a issue beforehand allows the administrators and the community to discuss bugs and enhancements before work begins, preventing wasted effort.
+Opening an issue beforehand allows the administrators and the community to discuss bugs and enhancements before work begins, preventing wasted effort.
 
 
 
@@ -55,19 +55,38 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Good:
     ```cpp
-    if ()
+    void MyClass::method1()
     {
-        // Do something
+        if (aCondition)
+        {
+            // Do something
+        }
     }
     ```
 
   * ###### Bad:
     ```cpp
-    if () {
-        // Do something
+    void MyClass::method1() {
+        if (aCondition) {
+            // Do something
+        }
     }
     ```
+  However, the method definition could be defined in a header file (.h), if there's one line code only. In this case, Java-like braces should be used.
+  * ###### Good:
+    ```cpp
+    class MyClass
+    {
+    public:
+        void method1();
+        int method2() {
+            return _x; // only one line code can be placed in .h as method definition
+        };
 
+    private:
+        int _x;
+    }
+    ```
 2. ##### Use tabs instead of white-spaces (we usually set our editors to 4 white-spaces for 1 tab, but the choice is up to you).
 
 
@@ -168,7 +187,7 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Good:
     ```cpp
-    if (not string.empty())
+    if (!string.empty())
     ...
     ```
 

@@ -1,0 +1,30 @@
+ 0 400   0   # -*- coding: utf-8 -*-
+ 1 400   0   
+ 0 400   0   # single character strings
+ 0 400   0   puts ?a
+ 0 400   0   puts ?\n
+ 0 400   0   puts ?\s
+ 0 400   0   puts ?\\#
+ 0 400   0   puts ?\u{41}
+ 0 400   0   puts ?\C-a
+ 0 400   0   puts ?\M-a
+ 0 400   0   puts ?\M-\C-a
+ 0 400   0   puts ?\C-\M-a
+ 0 400   0   puts ?あ
+ 0 400   0   puts ?"
+ 0 400   0   puts ?/
+ 0 400   0   puts ?[[1, 2]
+ 0 400   0   puts ?/\
+ 1 400   0   
+ 0 400   0   # symbol and ternary operator
+ 0 400   0   ab = /\d+/
+ 0 400   0   cd = /\w+/
+ 0 400   0   puts :ab, :cd, :/, :[]
+ 0 400   0   puts :/\
+ 1 400   0   
+ 0 400   0   # TODO: space after '?' and ':' is not needed
+ 0 400   0   puts true ?ab : cd
+ 0 400   0   puts true ? /\d+/ : /\w+/
+ 0 400   0   puts false ?ab : cd
+ 0 400   0   puts false ? /\d+/ : /\w+/
+ 0 400   0   

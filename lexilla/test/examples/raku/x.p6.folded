@@ -1,0 +1,56 @@
+ 0 400 400   use v6;
+ 1 400 400   
+ 0 400 400   # Normal single line comment
+ 0 400 400   my Int $i = 0;
+ 0 400 400   my Rat $r = 3.142;
+ 0 400 400   my Str $backslash = "\\";
+ 0 400 400   my Str $s = "Hello, world! \$i == $i and \$r == $r";
+ 0 400 400   say $s;
+ 1 400 400   
+ 2 400 401 + #`{{
+ 0 401 401 | *** This is a multi-line comment ***
+ 0 401 400 | }}
+ 1 400 400   
+ 0 400 400   my @array = #`[[ inline comment ]] <f fo foo food>;
+ 0 400 400   my %hash = ( AAA => 1, BBB => 2 );
+ 1 400 400   
+ 0 400 400   say q[This back\slash stays];
+ 0 400 400   say q[This back\\slash stays]; # Identical output
+ 0 400 400   say Q:q!Just a literal "\n" here!;
+ 1 400 400   
+ 2 400 401 + =begin pod
+ 0 401 401 | POD Documentation...
+ 0 401 400 | =end pod
+ 1 400 400   
+ 0 400 400   say qq:to/END/;
+ 0 400 400   A multi-line
+ 0 400 400   string with interpolated vars: $i, $r
+ 0 400 400   END
+ 1 400 400   
+ 2 400 401 + sub function {
+ 0 401 401 | 	return q:to/END/;
+ 0 401 401 | Here is
+ 0 401 401 | some multi-line
+ 0 401 401 | string
+ 0 401 401 | END
+ 0 401 400 | }
+ 1 400 400   
+ 0 400 400   my $func = &function;
+ 0 400 400   say $func();
+ 1 400 400   
+ 2 400 401 + grammar Calculator {
+ 0 401 401 | 	token TOP					{ <calc-op> }
+ 0 401 401 | 	proto rule calc-op			{*}
+ 0 401 401 | 		  rule calc-op:sym<add>	{ <num> '+' <num> }
+ 0 401 401 | 		  rule calc-op:sym<sub>	{ <num> '-' <num> }
+ 0 401 401 |     token num					{ \d+ }
+ 0 401 400 | }
+ 1 400 400   
+ 2 400 401 + class Calculations {
+ 0 401 401 | 	method TOP              ($/) { make $<calc-op>.made; }
+ 0 401 401 | 	method calc-op:sym<add> ($/) { make [+] $<num>; }
+ 0 401 401 | 	method calc-op:sym<sub> ($/) { make [-] $<num>; }
+ 0 401 400 | }
+ 1 400 400   
+ 0 400 400   say Calculator.parse('2 + 3', actions => Calculations).made;
+ 0 400   0   

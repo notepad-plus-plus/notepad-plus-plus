@@ -38,8 +38,8 @@
 					<Item menuId="settings" name = "C&amp;onfiguratzione"/>
 					<Item menuId="macro" name = "Macro"/>
 					<Item menuId="run" name = "Esecuta"/>
-					<Item idName = "Plugins" name = "Plugins"/>
-					<Item idName = "Window" name = "Ventana"/>
+					<Item menuId = "Plugins" name = "Plugins"/>
+					<Item menuId = "Window" name = "Ventana"/>
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -303,15 +303,11 @@
 				<Item id = "1608" name = "Càmbia"/>
                 <Item id = "1609" name = "Càmbia &amp;totus"/>
                 <Item id = "1611" name = "Càmbia cun: "/>
-				<Item id = "1612" name = "A susu"/>
-                <Item id = "1613" name = "A giosso"/>
                 <Item id = "1614" name = "Conta ocurrèntzias"/>
                 <Item id = "1615" name = "Agata totus"/>
                 <Item id = "1616" name = "Imposta sinnalibru in sa riga"/>
-                <Item id = "1617" name = "Evidèntzia is resurtados"/>
                 <Item id = "1618" name = "Lìmpia pro onni chirca"/>
 				<Item id = "1620" name = "Agata:"/>
-                <Item id = "1621" name = "Diretzione"/>
 				<Item id = "1624" name = "Tipu de chirca"/>
                 <Item id = "1625" name = "Normale"/>
                 <Item id = "1626" name = "Islargada (\n, \r, \t, \0, \x...)"/>
@@ -319,8 +315,6 @@
                 <Item id = "1633" name = "Lìmpia"/>
                 <Item id = "1635" name = "Càmbia totu in is documentos abertos"/>
                 <Item id = "1636" name = "Chirca in is documentos abertos"/>
-                <Item id = "1637" name = "Chirca in is file"/>
-                <Item id = "1640" name = "Intrèvera ventana"/>
 				<Item id = "1641" name = "Agata totu in su documentu currente"/>
                 <Item id = "1654" name = "Filtros:"/>
                 <Item id = "1655" name = "Cartella:"/>

@@ -27,8 +27,8 @@ class ScintillaEditView;
 struct MatchedCharInserted {
 	MatchedCharInserted() = delete;
 	char _c;
-	int _pos;
-	MatchedCharInserted(char c, int pos) : _c(c), _pos(pos) {};
+	size_t _pos;
+	MatchedCharInserted(char c, size_t pos) : _c(c), _pos(pos) {};
 };
 
 class InsertedMatchedChars {
@@ -37,7 +37,7 @@ public:
 	void removeInvalidElements(MatchedCharInserted mci);
 	void add(MatchedCharInserted mci);
 	bool isEmpty() const { return _insertedMatchedChars.size() == 0; };
-	int search(char startChar, char endChar, int posToDetect);
+	intptr_t search(char startChar, char endChar, size_t posToDetect);
 
 private:
 	std::vector<MatchedCharInserted> _insertedMatchedChars;
@@ -53,6 +53,16 @@ public:
 
 	~AutoCompletion(){
 		delete _pXmlFile;
+	};
+
+	enum class AutocompleteColorIndex {
+		autocompleteText,
+		autocompleteBg,
+		selectedText,
+		selectedBg,
+		calltipBg,
+		calltipText,
+		calltipHighlight
 	};
 
 	bool setLanguage(LangType language);
@@ -73,12 +83,25 @@ public:
 	void callTipClick(size_t direction);
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
 
+	static void setColour(COLORREF colour2Set, AutocompleteColorIndex i);
+	static void drawAutocomplete(ScintillaEditView* pEditView);
+
+protected:
+	static COLORREF _autocompleteBg;
+	static COLORREF _autocompleteText;
+	static COLORREF _selectedBg;
+	static COLORREF _selectedText;
+	static COLORREF _calltipBg;
+	static COLORREF _calltipText;
+	static COLORREF _calltipHighlight;
+
 private:
 	bool _funcCompletionActive = false;
 	ScintillaEditView * _pEditView = nullptr;
 	LangType _curLang = L_TEXT;
 	TiXmlDocument *_pXmlFile = nullptr;
 	TiXmlElement *_pXmlKeyword = nullptr;
+	bool _isFxImageRegistered = false;
 
 	InsertedMatchedChars _insertedMatchedChars;
 

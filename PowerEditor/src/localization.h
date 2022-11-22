@@ -29,10 +29,10 @@ class PluginsAdminDlg;
 
 class MenuPosition {
 public:
-	int _x;
-	int _y;
-	int _z;
-	char _id[64];
+	int _x = -1; // menu
+	int _y = -1; // sub-menu
+	int _z = -1; // sub-sub-menu
+	char _id[64] = { '\0' }; // a unique string defined in localization XML file
 };
 
 
@@ -49,7 +49,7 @@ public:
 	generic_string getNativeLangMenuString(int itemID) const;
 	generic_string getShortcutNameString(int itemID) const;
 
-	void changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans);
+	void changeMenuLang(HMENU menuHandle);
 	void changeShortcutLang();
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
     void changeUserDefineLang(UserDefineDialog *userDefineDlg);

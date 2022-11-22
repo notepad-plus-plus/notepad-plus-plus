@@ -27,76 +27,82 @@ using namespace std;
 
 MenuPosition menuPos[] = {
 //==============================================
-//	{L0, L1, L2, id},
+//	{L0,  L1, L2, id},
 //==============================================
-	{ 0, -1, -1, "file" },
-	{ 1, -1, -1, "edit" },
-	{ 2, -1, -1, "search" },
-	{ 3, -1, -1, "view" },
-	{ 4, -1, -1, "encoding" },
-	{ 5, -1, -1, "language" },
-	{ 6, -1, -1, "settings" },
-	{ 7, -1, -1, "tools" },
-	{ 8, -1, -1, "macro" },
-	{ 9, -1, -1, "run" },
+	{ 0,  -1, -1, "file" },
+	{ 1,  -1, -1, "edit" },
+	{ 2,  -1, -1, "search" },
+	{ 3,  -1, -1, "view" },
+	{ 4,  -1, -1, "encoding" },
+	{ 5,  -1, -1, "language" },
+	{ 6,  -1, -1, "settings" },
+	{ 7,  -1, -1, "tools" },
+	{ 8,  -1, -1, "macro" },
+	{ 9,  -1, -1, "run" },
+	{ 10, -1, -1, "Plugins" },
+	{ 11, -1, -1, "Window" },
 
-	{ 0,  2, -1, "file-openFolder" },
-	{ 0, 13, -1, "file-closeMore" },
-	{ 0, 22, -1, "file-recentFiles" },
+	{ 0,   2, -1, "file-openFolder" },
+	{ 0,  13, -1, "file-closeMore" },
+	{ 0,  22, -1, "file-recentFiles" },
 
-	{ 1, 10, -1, "edit-copyToClipboard" },
-	{ 1, 11, -1, "edit-indent" },
-	{ 1, 12, -1, "edit-convertCaseTo" },
-	{ 1, 13, -1, "edit-lineOperations" },
-	{ 1, 14, -1, "edit-comment" },
-	{ 1, 15, -1, "edit-autoCompletion" },
-	{ 1, 16, -1, "edit-eolConversion" },
-	{ 1, 17, -1, "edit-blankOperations" },
-	{ 1, 18, -1, "edit-pasteSpecial" },
-	{ 1, 19, -1, "edit-onSelection" },
+	{ 1,  10, -1, "edit-insert" },
+	{ 1,  11, -1, "edit-copyToClipboard" },
+	{ 1,  12, -1, "edit-indent" },
+	{ 1,  13, -1, "edit-convertCaseTo" },
+	{ 1,  14, -1, "edit-lineOperations" },
+	{ 1,  15, -1, "edit-comment" },
+	{ 1,  16, -1, "edit-autoCompletion" },
+	{ 1,  17, -1, "edit-eolConversion" },
+	{ 1,  18, -1, "edit-blankOperations" },
+	{ 1,  19, -1, "edit-pasteSpecial" },
+	{ 1,  20, -1, "edit-onSelection" },
 
-	{ 2, 18, -1, "search-markAll" },
-	{ 2, 19, -1, "search-markOne" },
-	{ 2, 20, -1, "search-unmarkAll" },
-	{ 2, 21, -1, "search-jumpUp" },
-	{ 2, 22, -1, "search-jumpDown" },
-	{ 2, 23, -1, "search-copyStyledText" },
-	{ 2, 25, -1, "search-bookmark" },
+	{ 2,  18, -1, "search-markAll" },
+	{ 2,  19, -1, "search-markOne" },
+	{ 2,  20, -1, "search-unmarkAll" },
+	{ 2,  21, -1, "search-jumpUp" },
+	{ 2,  22, -1, "search-jumpDown" },
+	{ 2,  23, -1, "search-copyStyledText" },
+	{ 2,  25, -1, "search-bookmark" },
 
-	{ 3,  5, -1, "view-currentFileIn" },
-	{ 3,  7, -1, "view-showSymbol" },
-	{ 3,  8, -1, "view-zoom" },
-	{ 3,  9, -1, "view-moveCloneDocument" },
-	{ 3, 10, -1, "view-tab" },
-	{ 3, 19, -1, "view-collapseLevel" },
-	{ 3, 20, -1, "view-uncollapseLevel" },
-	{ 3, 24, -1, "view-project" },
+	{ 3,   5, -1, "view-currentFileIn" },
+	{ 3,   7, -1, "view-showSymbol" },
+	{ 3,   8, -1, "view-zoom" },
+	{ 3,   9, -1, "view-moveCloneDocument" },
+	{ 3,  10, -1, "view-tab" },
+	{ 3,  19, -1, "view-collapseLevel" },
+	{ 3,  20, -1, "view-uncollapseLevel" },
+	{ 3,  24, -1, "view-project" },
 
-	{ 4,  5, -1, "encoding-characterSets" },
-	{ 4,  5,  0, "encoding-arabic" },
-	{ 4,  5,  1, "encoding-baltic" },
-	{ 4,  5,  2, "encoding-celtic" },
-	{ 4,  5,  3, "encoding-cyrillic" },
-	{ 4,  5,  4, "encoding-centralEuropean" },
-	{ 4,  5,  5, "encoding-chinese" },
-	{ 4,  5,  6, "encoding-easternEuropean" },
-	{ 4,  5,  7, "encoding-greek" },
-	{ 4,  5,  8, "encoding-hebrew" },
-	{ 4,  5,  9, "encoding-japanese" },
-	{ 4,  5, 10, "encoding-korean" },
-	{ 4,  5, 11, "encoding-northEuropean" },
-	{ 4,  5, 12, "encoding-thai" },
-	{ 4,  5, 13, "encoding-turkish" },
-	{ 4,  5, 14, "encoding-westernEuropean" },
-	{ 4,  5, 15, "encoding-vietnamese" },
+	{ 4,   5, -1, "encoding-characterSets" },
+	{ 4,   5,  0, "encoding-arabic" },
+	{ 4,   5,  1, "encoding-baltic" },
+	{ 4,   5,  2, "encoding-celtic" },
+	{ 4,   5,  3, "encoding-cyrillic" },
+	{ 4,   5,  4, "encoding-centralEuropean" },
+	{ 4,   5,  5, "encoding-chinese" },
+	{ 4,   5,  6, "encoding-easternEuropean" },
+	{ 4,   5,  7, "encoding-greek" },
+	{ 4,   5,  8, "encoding-hebrew" },
+	{ 4,   5,  9, "encoding-japanese" },
+	{ 4,   5, 10, "encoding-korean" },
+	{ 4,   5, 11, "encoding-northEuropean" },
+	{ 4,   5, 12, "encoding-thai" },
+	{ 4,   5, 13, "encoding-turkish" },
+	{ 4,   5, 14, "encoding-westernEuropean" },
+	{ 4,   5, 15, "encoding-vietnamese" },
 
-	{ 5, 25, -1, "language-userDefinedLanguage" },
+	{ 5,  25, -1, "language-userDefinedLanguage" },
 
-	{ 6,  4, -1, "settings-import" },
+	{ 6,   4, -1, "settings-import" },
 
-	{ 7,  0, -1, "tools-md5" },
-	{ 7,  1, -1, "tools-sha256" },
-	{ -1, -1, -1, "" } // End of array
+	{ 7,   0, -1, "tools-md5" },
+	{ 7,   1, -1, "tools-sha256" },
+
+	{ 11,  0, -1, "window-sortby"},
+
+	{ -1,  -1, -1, "" } // End of array
 };
 
 void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish)
@@ -275,7 +281,7 @@ MenuPosition & getMenuPosition(const char *id)
 	return menuPos[nbSubMenuPos-1];
 }
 
-void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans)
+void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 {
 	if (nullptr == _nativeLangA)
 		return;
@@ -292,7 +298,6 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 	if (nullptr == entriesRoot)
 		return;
 
-	const char* idName = nullptr;
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
@@ -309,24 +314,6 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 				const char *name = element->Attribute("name");
 				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::ModifyMenu(menuHandle, menuPos._x, MF_BYPOSITION, 0, nameW);
-			}
-		}
-		else
-		{
-			idName = element->Attribute("idName");
-			if (idName)
-			{
-				const char *name = element->Attribute("name");
-				if (!strcmp(idName, "Plugins"))
-				{
-					const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
-					pluginsTrans = nameW;
-				}
-				else if (!strcmp(idName, "Window"))
-				{
-					const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
-					windowTrans = nameW;
-				}
 			}
 		}
 	}
@@ -352,8 +339,6 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 		childNode = childNode->NextSibling("Item") )
 	{
 		TiXmlElementA* element = childNode->ToElement();
-		//const char *xStr = element->Attribute("posX", &x);
-		//const char *yStr = element->Attribute("posY", &y);
 		const char* subMenuIdStr = element->Attribute("subMenuId");
 		const char* name = element->Attribute("name");
 
@@ -392,37 +377,51 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 }
 
 
-static const int tabContextMenuItemPos[] =
+static const std::pair<int, int> tabContextMenuItemPos[] =
 {
-//  +-------------- The order in tab menu (NppNotification.cpp : if (!_tabPopupMenu.isCreated())
-//  |
-//  |        +------ Number in english.xml (<language>.xml) : <TabBar>
-//  |        |
-    0,   //  0: Close
-    1,   //  1: Close ALL BUT This
-    5,   //  2: Save
-    6,   //  3: Save As
-   10,   //  4: Print
-   25,   //  5: Move to Other View
-   26,   //  6: Clone to Other View
-   21,   //  7: Full File Path to Clipboard
-   22,   //  8: Filename to Clipboard
-   23,   //  9: Current Dir. Path to Clipboard
-    7,   // 10: Rename
-    8,   // 11: Move to Recycle Bin
-   18,   // 12: Read-Only
-   19,   // 13: Clear Read-Only Flag
-   27,   // 14: Move to New Instance
-   28,   // 15: Open to New Instance
-    9,   // 16: Reload
-    2,   // 17: Close ALL to the Left
-    3,   // 18: Close ALL to the Right
-   12,   // 19: Open Containing Folder in Explorer
-   13,   // 20: Open Containing Folder in cmd
-   16,   // 21: Open in Default Viewer
-    4,   // 22: Close ALL Unchanged
-   14,   // 23: Open Containing Folder as Workspace
-   -1    //-------End
+//   +-------------- The item position on the top level of tab context menu
+//   |
+//   |    +-------------- The item position in sub-menu of tab context menu. The item is on top level if -1, otherwise it's in the sub-menu
+//   |    |
+//   |    |         +--------- Index order (CMID: Context Menu ID) in <TabBar> of english.xml - the number and the order of this array should be synchronized with <TabBar>
+//   |    |         |
+    {0,  -1},   //  0: Close
+    {1,   0},   //  1: Close ALL BUT This
+    {2,  -1},   //  2: Save
+    {3,  -1},   //  3: Save As
+    {8,  -1},   //  4: Print
+    {14,  0},   //  5: Move to Other View
+    {14,  1},   //  6: Clone to Other View
+    {13,  0},   //  7: Copy Full File Path
+    {13,  1},   //  8: Copy Filename
+    {13,  2},   //  9: Copy Current Dir. Path
+    {5,  -1},   // 10: Rename
+    {6,  -1},   // 11: Move to Recycle Bin
+    {10, -1},   // 12: Read-Only
+    {11, -1},   // 13: Clear Read-Only Flag
+    {14,  2},   // 14: Move to New Instance
+    {14,  3},   // 15: Open to New Instance
+    {7,  -1},   // 16: Reload
+    {1,   1},   // 17: Close ALL to the Left
+    {1,   2},   // 18: Close ALL to the Right
+    {4,   0},   // 19: Open Containing Folder in Explorer
+    {4,   1},   // 20: Open Containing Folder in cmd
+    {4,   4},   // 21: Open in Default Viewer
+    {1,   3},   // 22: Close ALL Unchanged
+    {4,   2},   // 23: Open Containing Folder as Workspace
+    {15,  0},   // 24: Apply Color
+    {15,  1},   // 25: Apply Color
+    {15,  2},   // 26: Apply Color
+    {15,  3},   // 27: Apply Color
+    {15,  4},   // 28: Apply Color
+    {15,  5},   // 29: Remove Color
+    {1,  -1},   // 30: Close Multiple Tabs
+    {4,  -1},   // 31: Open into
+    {13, -1},   // 32: Copy to Clipboard
+    {14, -1},   // 33: Move Document
+    {15, -1},   // Apply Color to Tab
+
+    {-1, -1},   //-------End
 };
 
 
@@ -437,7 +436,7 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 			if (tabBarMenu)
 			{
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				int nbCMItems = sizeof(tabContextMenuItemPos)/sizeof(int);
+				int nbCMItems = sizeof(tabContextMenuItemPos)/sizeof(std::pair<int, int>);
 
 				for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
 					childNode ;
@@ -449,13 +448,26 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 					if (!indexStr || (index < 0 || index >= nbCMItems-1))
 						continue;
 
-					int pos = tabContextMenuItemPos[index];
+					std::pair<int, int> pos = tabContextMenuItemPos[index];
 					const char *pName = element->Attribute("name");
 					if (pName)
 					{
 						const wchar_t *pNameW = wmc.char2wchar(pName, _nativeLangEncoding);
-						int cmdID = ::GetMenuItemID(hCM, pos);
-						::ModifyMenu(hCM, pos, MF_BYPOSITION, cmdID, pNameW);
+						
+						if (pos.second == -1) // the 1st level
+						{
+							int cmdID = ::GetMenuItemID(hCM, pos.first);
+							::ModifyMenu(hCM, pos.first, MF_BYPOSITION, cmdID, pNameW);
+						}
+						else // it's the sub-menu item
+						{
+							HMENU hSubMenu = ::GetSubMenu(hCM, pos.first);
+							if (!hSubMenu)
+								continue;
+
+							int cmdID = ::GetMenuItemID(hSubMenu, pos.second);
+							::ModifyMenu(hSubMenu, pos.second, MF_BYPOSITION, cmdID, pNameW);
+						}
 					}
 				}
 			}
@@ -657,11 +669,6 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 	}
-	// for each control
-	const int nbControl = 9;
-	const char *translatedText[nbControl];
-	for (int i = 0 ; i < nbControl ; ++i)
-		translatedText[i] = NULL;
 
 	for (TiXmlNodeA *childNode = userDefineDlgNode->FirstChildElement("Item");
 		childNode ;
@@ -683,19 +690,10 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 					::SetWindowText(hItem, nameW);
 				}
 			}
-			else
-			{
-				switch(id)
-				{
-					case 0: case 1: case 2: case 3: case 4:
-					case 5: case 6: case 7: case 8: 
- 						translatedText[id] = name; break;
-				}
-			}
 		}
 	}
 	const int nbDlg = 4;
-	HWND hDlgArrary[nbDlg];
+	HWND hDlgArrary[nbDlg]{};
 	hDlgArrary[0] = userDefineDlg->getFolderHandle();
 	hDlgArrary[1] = userDefineDlg->getKeywordsHandle();
 	hDlgArrary[2] = userDefineDlg->getCommentHandle();
@@ -830,6 +828,7 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 				const char *titre1 = (dlgNode->ToElement())->Attribute("titleAvailable");
 				const char *titre2 = (dlgNode->ToElement())->Attribute("titleUpdates");
 				const char *titre3 = (dlgNode->ToElement())->Attribute("titleInstalled");
+				const char *titre4 = (dlgNode->ToElement())->Attribute("titleIncompatible");
 
 				if (titre1 && titre1[0])
 				{
@@ -845,6 +844,11 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(INSTALLED_LIST, nameW.c_str());
+				}
+				if (titre4 && titre4[0])
+				{
+					basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
+					pluginsAdminDlg.changeTabName(INCOMPATIBLE_LIST, nameW.c_str());
 				}
 			}
 
@@ -977,6 +981,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Delimiter"), nameW);
+	}
+
+	changeDlgLang(preference._performanceSubDlg.getHSelf(), "Performance", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("Performance"), nameW);
 	}
 
 	changeDlgLang(preference._cloudAndLinkSubDlg.getHSelf(), "Cloud", titre, titreMaxSize);
@@ -1200,18 +1211,16 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 		int id;
 		element->Attribute("id", &id);
 		HWND hCombo = ::GetDlgItem(hDlg, id);
+		if (!hCombo) return false;
 
-		if (hCombo)
+		for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
+			gChildNode;
+			gChildNode = gChildNode->NextSibling("Element"))
 		{
-			for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
-				gChildNode;
-				gChildNode = gChildNode->NextSibling("Element"))
-			{
-				TiXmlElementA *comBoelement = gChildNode->ToElement();
-				const char *name = comBoelement->Attribute("name");
-				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
-				comboElms.push_back(nameW);
-			}
+			TiXmlElementA *comBoelement = gChildNode->ToElement();
+			const char *name = comBoelement->Attribute("name");
+			const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+			comboElms.push_back(nameW);
 		}
 
 		size_t count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
@@ -1356,6 +1365,9 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 
 int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *defaultMessage, const TCHAR *defaultTitle, int msgBoxType, int intInfo, const TCHAR *strInfo)
 {
+	if ((NppParameters::getInstance()).isEndSessionCritical())
+		return IDCANCEL; // simulate Esc-key or Cancel-button as there should not be any big delay / code-flow block
+
 	generic_string msg, title;
 	if (!getMsgBoxLang(msgBoxTagName, title, msg))
 	{

@@ -927,8 +927,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
-                    <Item id="7131" name="Dark mode"/>
-                    <Item id="7132" name="Light mode"/>
+                    <Item id="7131" name="Light mode"/>
+                    <Item id="7132" name="Dark mode"/>
                     <Item id="7133" name="Follow Windows"/>
                     <Item id="7102" name="Black"/>
                     <Item id="7103" name="Red"/>

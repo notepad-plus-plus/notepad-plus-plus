@@ -405,7 +405,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 
 						const TCHAR* fn = ::PathFindFileName(_themeName.c_str());
-						NppDarkMode::setThemeName(fn);
+						NppDarkMode::setThemeName(lstrcmp(fn, L"stylers.xml") == 0 ? L"" : fn);
 
 						return TRUE;
 					}

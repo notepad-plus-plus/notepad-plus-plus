@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on November 23rd, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 21st, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
@@ -39,7 +40,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.7">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -960,7 +961,9 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Scintillas>
 
                 <DarkMode title="Modu scuru">
-                    <Item id="7101" name="Attivà u modu scuru"/>
+                    <Item id="7131" name="Modu chjaru"/>
+                    <Item id="7132" name="Modu scuru"/>
+                    <Item id="7133" name="Seguità Windows"/>
                     <Item id="7102" name="Neru"/>
                     <Item id="7103" name="Rossu"/>
                     <Item id="7104" name="Verde"/>
@@ -1118,14 +1121,14 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Searching>
 
                 <RecentFilesHistory title="Schedarii recenti">
-                    <Item id="6304" name="Cronolugia di schedarii recenti"/>
+                    <Item id="6304" name="Cronolugia di i schedarii recenti"/>
                     <Item id="6306" name="Numeru massimu d’elementi :"/>
-                    <Item id="6305" name="Ùn verificà à u mumentu di l’avviu"/>
-                    <Item id="6429" name="Affissà"/>
-                    <Item id="6424" name="In sottu-listinu"/>
+                    <Item id="6305" name="Ùn verificà micca à l’avviu"/>
+                    <Item id="6429" name="Affissera"/>
+                    <Item id="6424" name="In sottulistinu"/>
                     <Item id="6425" name="Nome di schedariu solu"/>
                     <Item id="6426" name="Chjassu cumpletu di schedariu"/>
-                    <Item id="6427" name="Persunalizà longhezza massima :"/>
+                    <Item id="6427" name="Persunalizà a longhezza massima :"/>
                 </RecentFilesHistory>
 
                 <Backup title="Salvaguardia">
@@ -1594,7 +1597,8 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <tabrename-newname value="Novu nome : "/>
             <splitter-rotate-left value="Girà à manca"/>
             <splitter-rotate-right value="Girà à diritta"/>
-            <recent-file-history-maxfile value="Mass. sched. : "/>
+            <recent-file-history-maxfile value="Numeru : "/>
+            <recent-file-history-customlength value="Longhezza : "/>
             <language-tabsize value="Dimens. tabul. : "/>
             <userdefined-title-new value="Creà un novu linguaghju…"/>
             <userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>

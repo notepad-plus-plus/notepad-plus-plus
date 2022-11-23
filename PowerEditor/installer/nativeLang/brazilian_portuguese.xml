@@ -934,7 +934,9 @@
                 </Scintillas>
 
                 <DarkMode title="Modo escuro">
-                    <Item id="7101" name="Habilitar modo escuro"/>
+                    <Item id="7131" name="Modo Claro"/>
+                    <Item id="7132" name="Modo Escuro"/>
+                    <Item id="7133" name="Seguir padrão do Windows"/>
                     <Item id="7102" name="Tom preto"/> 
                     <Item id="7103" name="Tom vermelho"/> 
                     <Item id="7104" name="Tom verde"/> 

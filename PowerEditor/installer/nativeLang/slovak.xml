@@ -1372,7 +1372,7 @@ Chcete spustiť Notepad++ v režime správcu?"/>
 Chcete spustiť Notepad++ v režime správcu?"/>
             <OpenInAdminModeFailed title="Otvorenie v režime správcu zlyhalo" message="Notepad++ nie je možné spustiť v režime správcu."/>
             <ViewInBrowser title="Zobrazenie aktuálneho súboru v prehliadači" message="Aplikácia sa v systéme nenašla."/>
-            <ExitToUpdatePlugins title="Notepad++ sa chystá ukončiť" message="Ak kliknete na ÁNO, ukončíte Notepad++ a budete môcť pokračovať v operáciách.
+            <ExitToUpdatePlugins title="Notepad++ sa chystá ukončiť" message="Ak kliknete na ÁNO, Notepad++ sa zavrie, aby mohol pokračovať v operáciách.
 Notepad++ sa reštartuje po ukončení všetkých operácií.
 Pokračovať?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných pluginov je potrebné Notepad++ reštartovať."/>

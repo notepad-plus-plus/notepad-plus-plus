@@ -116,11 +116,19 @@ int PluginsManager::loadPluginFromPath(const TCHAR *pluginFilePath)
 		int archType = nppParams.archType();
 		if (getBinaryArchitectureType(pluginFilePath) != archType)
 		{
-			const TCHAR *archErrMsg = TEXT("Cannot load 64-bit plugin."); // IMAGE_FILE_MACHINE_I386 by default
-			if (archType == IMAGE_FILE_MACHINE_ARM64)
-				archErrMsg = TEXT("Cannot load 32-bit or non-ARM64 plugin.");
-			else if(archType == IMAGE_FILE_MACHINE_AMD64)
-				archErrMsg = TEXT("Cannot load 32-bit plugin.");
+			const TCHAR* archErrMsg = TEXT("Cannot load plugin.");
+			switch (archType)
+			{
+				case IMAGE_FILE_MACHINE_ARM64:
+					archErrMsg = TEXT("Cannot load ARM64 plugin.");
+					break;
+				case IMAGE_FILE_MACHINE_I386:
+					archErrMsg = TEXT("Cannot load 32-bit plugin.");
+					break;
+				case IMAGE_FILE_MACHINE_AMD64:
+					archErrMsg = TEXT("Cannot load 64-bit plugin.");
+					break;
+			}
 
 			throw generic_string(archErrMsg);
 		}

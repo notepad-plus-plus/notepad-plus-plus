@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.6">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.7">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -996,7 +996,10 @@
                 </Scintillas>
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
-                    <Item id="7101" name="啟用 dark mode"/> <!-- #new v7.9.6 -->
+                    <Item id="7101" name="啟用 dark mode"/> <!-- #legacy v8.4.7 -->
+                    <Item id="7131" name="Light mode"/> <!-- #new #next -->
+                    <Item id="7132" name="Dark mode"/> <!-- #new #next -->
+                    <Item id="7133" name="跟返 Windows"/> <!-- #new #next -->
                     <Item id="7102" name="黑色"/> <!-- #new v8.1.2 -->
                     <Item id="7103" name="紅色"/> <!-- #new v8.1.2 -->
                     <Item id="7104" name="綠色"/> <!-- #new v8.1.2 -->
@@ -1227,16 +1230,16 @@
 （唔好揀呢項，除非你知道搞緊咩啦）"/>
                 </Delimiter>
 
-                <Performance title="性能"> <!-- #new #next -->
-                    <Item id="7141" name="大型檔案限制"/> <!-- #new #next -->
-                    <Item id="7143" name="啟用大型檔案限制（會失去語法突顯功能）"/> <!-- #new #next -->
-                    <Item id="7144" name="定義大檔案 size："/> <!-- #new #next -->
-                    <Item id="7146" name="MB   (1 - 4096)"/> <!-- #new #next -->
-                    <Item id="7147" name="容許顯示對應括號"/> <!-- #new #next -->
-                    <Item id="7148" name="容許自動完成功能"/> <!-- #new #next -->
-                    <Item id="7149" name="容許醒目提示功能"/> <!-- #new #next -->
-                    <Item id="7150" name="將全局自動換行功能閂咗佢"/> <!-- #new #next -->
-                    <Item id="7151" name="容許 URL 連結 click 得到"/> <!-- #new #next -->
+                <Performance title="性能"> <!-- #new v8.4.7 -->
+                    <Item id="7141" name="大型檔案限制"/> <!-- #new v8.4.7 -->
+                    <Item id="7143" name="啟用大型檔案限制（會失去語法突顯功能）"/> <!-- #new v8.4.7 -->
+                    <Item id="7144" name="定義大檔案 size："/> <!-- #new v8.4.7 -->
+                    <Item id="7146" name="MB   (1 - 4096)"/> <!-- #new v8.4.7 -->
+                    <Item id="7147" name="容許顯示對應括號"/> <!-- #new v8.4.7 -->
+                    <Item id="7148" name="容許自動完成功能"/> <!-- #new v8.4.7 -->
+                    <Item id="7149" name="容許醒目提示功能"/> <!-- #new v8.4.7 -->
+                    <Item id="7150" name="將全局自動換行功能閂咗佢"/> <!-- #new v8.4.7 -->
+                    <Item id="7151" name="容許 URL 連結 click 得到"/> <!-- #new v8.4.7 -->
                 </Performance>
 
                 <Cloud title="雲端同埋連結">
@@ -1637,6 +1640,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <splitter-rotate-left value="向左旋轉"/> <!-- #new v7.9.4 -->
             <splitter-rotate-right value="向右旋轉"/> <!-- #new v7.9.4 -->
             <recent-file-history-maxfile value="檔案數量："/>
+            <recent-file-history-customlength value="長度："/> <!-- #new #next -->
             <language-tabsize value="縮排大細："/>
             <userdefined-title-new value="開新語言..."/>
             <userdefined-title-save value="另 Save 而家個語言名..."/>
@@ -1688,7 +1692,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 注意：
 1. 改過呢啲設定之後，要將啲大檔案閂咗佢再重新開過，咁先至會正常。
 
-2. 如果揀咗「將全局自動換行功能閂咗佢」，當你打開大檔案嗰陣，全部開咗嘅檔案都會唔再自動換行，你可以事後喺 menu 度開返佢（「睇」 → 「自動換行」）" /> <!-- #new #next -->
+2. 如果揀咗「將全局自動換行功能閂咗佢」，當你打開大檔案嗰陣，全部開咗嘅檔案都會唔再自動換行，你可以事後喺 menu 度開返佢（「睇」 → 「自動換行」）" /> <!-- #new v8.4.7 -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

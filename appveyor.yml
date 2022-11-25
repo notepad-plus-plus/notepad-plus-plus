@@ -36,34 +36,27 @@ before_build:
         Write-Output ""
         # XML validation mode
         if ($env:APPVEYOR_PULL_REQUEST_NUMBER){
-            git diff --name-only HEAD~1
-            @(git diff --name-only HEAD~1).length
-            git show --stat --pretty="format:" --name-only HEAD
-            @(git show --stat --pretty="format:" --name-only HEAD).length
-            git diff-tree --no-commit-id --name-only -r HEAD
-            @(git diff-tree --no-commit-id --name-only -r HEAD).length
-            $files_modified = @(git show --stat --pretty="format:" --name-only)
+            $files_modified = @(git diff --name-only HEAD~1)
             $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.xml$"})
-            if ($files_modified.length -gt 0 -and $files_notmached.length -eq 0){
+            if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\(xml\)"){
                 Write-Output "XML validation mode`n"
                 if ("$env:platform/$env:configuration" -eq "Win32/Debug"){
-                    if (@($files_modified | Where-Object {$_ -notmatch "\\functionList\\"}).length -eq 0){
+                    if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0){
                         $env:Path = "C:\Python310;C:\Python310\Scripts;" + $env:Path
                         python -m pip install requests rfc3987 pywin32 lxml
                         python PowerEditor\Test\xmlValidator\validator_xml.py
                         if ($LastExitCode -eq 0){
-                            Write-Output "All XML files are valid."
+                            Write-Output "`nAll XML files are valid.`n"
                             Exit-AppVeyorBuild
                         }
                         else{
-                            Write-Output "Some XML files are invalid."
-                            #$host.SetShouldExit($LastExitCode)
-                            #throw "Some XML files are invalid."
+                            Write-Output "`nSome XML files are invalid.`n"
+                            $host.SetShouldExit($LastExitCode)
                         }
                     }
                 }
                 else{
-                    Write-Output "In XML validation mode only Win32/Debug performs the proper tasks."
+                    Write-Output "In XML validation mode only Win32/Debug performs the proper tasks.`n"
                     Exit-AppVeyorBuild
                 }
             }

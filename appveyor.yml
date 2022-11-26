@@ -8,13 +8,16 @@ image: Visual Studio 2022
 
 environment:
   matrix:
-    - compiler: MSC-off
+    #- compiler: MSC-off
+      #platform: Win32
+
+    - compiler: MSC_x32
       platform: Win32
 
-    - compiler: MSC
+    - compiler: MSC_x64
       platform: x64
 
-    - compiler: MSC
+    - compiler: MSC_arm
       platform: arm64
 
     - compiler: GCC
@@ -38,7 +41,7 @@ before_build:
         if ($env:APPVEYOR_PULL_REQUEST_NUMBER){
             $files_modified = @(git diff --name-only HEAD~1)
             $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.xml$"})
-            if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\(xml\)"){
+            if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\(force xml\)"){
                 Write-Output "XML validation mode`n"
                 if ("$env:platform/$env:configuration" -eq "Win32/Debug"){
                     if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0){
@@ -72,7 +75,7 @@ for:
 
 - matrix:
     only:
-      - compiler: MSC
+      - compiler: MSC_x32
   build:
     parallel: true
     project: PowerEditor\visual.net\notepadPlus.sln
@@ -85,18 +88,6 @@ for:
         }
         if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
-        }
-        if ("$env:platform/$env:configuration" -eq "x64/Release") {
-            Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
-        }
-        if ("$env:platform/$env:configuration" -eq "x64/Debug") {
-            Push-AppveyorArtifact "PowerEditor\visual.net\x64\Debug\Notepad++.exe" -FileName "$nppFileName"
-        }
-        if ("$env:platform/$env:configuration" -eq "arm64/Release") {
-            Push-AppveyorArtifact "PowerEditor\binarm64\Notepad++.exe" -FileName "$nppFileName"
-        }
-        if ("$env:platform/$env:configuration" -eq "arm64/Debug") {
-            Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
         }
     # xml files syntax checks
     - if "%platform%/%configuration%" EQU "Win32/Debug" set PATH=C:\Python310;C:\Python310\Scripts;%PATH%
@@ -117,7 +108,7 @@ for:
 
             cd .\PowerEditor\Test\FunctionList\
             .\unitTestLauncher.ps1
-            if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
+            if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
 
             cd ..\UrlDetection
             .\verifyUrlDetection.ps1
@@ -127,7 +118,47 @@ for:
 
 - matrix:
     only:
+      - compiler: MSC_x64
+  skip_commits:
+    message: /\(xml\)/
+  build:
+    parallel: true
+    project: PowerEditor\visual.net\notepadPlus.sln
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        if ("$env:platform/$env:configuration" -eq "x64/Release") {
+            Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x64/Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\x64\Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+
+- matrix:
+    only:
+      - compiler: MSC_arm
+  skip_commits:
+    message: /\(xml\)/
+  build:
+    parallel: true
+    project: PowerEditor\visual.net\notepadPlus.sln
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        if ("$env:platform/$env:configuration" -eq "arm64/Release") {
+            Push-AppveyorArtifact "PowerEditor\binarm64\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "arm64/Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+
+- matrix:
+    only:
       - compiler: GCC
+  skip_commits:
+    message: /\(xml\)/
   #install:
   build_script:
     - set PATH=C:\msys64\usr\bin;%PATH%

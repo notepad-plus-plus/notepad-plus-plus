@@ -8,9 +8,6 @@ image: Visual Studio 2022
 
 environment:
   matrix:
-    #- compiler: MSC-off
-      #platform: Win32
-
     - compiler: MSC_x32
       platform: Win32
 
@@ -66,12 +63,6 @@ before_build:
         }
 
 for:
-
-- matrix:
-    only:
-      - compiler: MSC-off
-  build_script:
-    - TIMEOUT 10
 
 - matrix:
     only:
@@ -166,7 +157,6 @@ for:
       - compiler: GCC
   skip_commits:
     message: /\(xml\)/
-  #install:
   build_script:
     - set PATH=C:\msys64\usr\bin;%PATH%
     - if "%platform%" EQU "i686" set MSYSTEM=MINGW32 && set PATH=C:\msys64\mingw32\bin;%PATH%
@@ -183,7 +173,6 @@ for:
         Write-Output (make --version) | select-object -first 1
         Write-Output (sh --version) | select-object -first 1
         Write-Output ""
-  #build_script:
     - make -f PowerEditor\gcc\makefile
   after_build:
     # artifacts

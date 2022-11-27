@@ -8,13 +8,13 @@ image: Visual Studio 2022
 
 environment:
   matrix:
-    - compiler: MSC_x32
+    - compiler: MSC
       platform: Win32
 
-    - compiler: MSC_x64
+    - compiler: MSC
       platform: x64
 
-    - compiler: MSC_arm
+    - compiler: MSC
       platform: arm64
 
     - compiler: GCC
@@ -66,7 +66,8 @@ for:
 
 - matrix:
     only:
-      - compiler: MSC_x32
+      - compiler: MSC
+        platform: Win32
         configuration: Release
   skip_commits:
     message: /\(xml\)/
@@ -81,7 +82,8 @@ for:
 
 - matrix:
     only:
-      - compiler: MSC_x32
+      - compiler: MSC
+        platform: Win32
         configuration: Debug
   build:
     parallel: true
@@ -118,7 +120,8 @@ for:
 
 - matrix:
     only:
-      - compiler: MSC_x64
+      - compiler: MSC
+        platform: x64
   skip_commits:
     message: /\(xml\)/
   build:
@@ -137,7 +140,8 @@ for:
 
 - matrix:
     only:
-      - compiler: MSC_arm
+      - compiler: MSC
+        platform: arm64
   skip_commits:
     message: /\(xml\)/
   build:

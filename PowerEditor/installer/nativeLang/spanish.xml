@@ -28,7 +28,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="file-recentFiles" name="Archivos &amp;recientes"/>
 					<Item subMenuId="edit-insert" name="Insertar"/>
 					<Item subMenuId="edit-copyToClipboard" name="C&amp;opiar al portapapeles"/>
-					<Item subMenuId="edit-indent" name="Tabulac&ión"/>
+					<Item subMenuId="edit-indent" name="Tabulac&amp;ión"/>
 					<Item subMenuId="edit-convertCaseTo" name="Conversión de &amp;mayúsculas y minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operaciones con &amp;líneas"/>
 					<Item subMenuId="edit-comment" name="Comen&amp;tar / Descomentar"/>

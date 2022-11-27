@@ -76,6 +76,13 @@ for:
 - matrix:
     only:
       - compiler: MSC_x32
+        configuration: Release
+  skip_commits:
+    message: /\(xml\)/
+
+- matrix:
+    only:
+      - compiler: MSC_x32
   build:
     parallel: true
     project: PowerEditor\visual.net\notepadPlus.sln

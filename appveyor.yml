@@ -70,10 +70,6 @@ for:
         configuration: Release
   skip_commits:
     message: /\(xml\)/
-
-- matrix:
-    only:
-      - compiler: MSC_x32
   build:
     parallel: true
     project: PowerEditor\visual.net\notepadPlus.sln
@@ -81,38 +77,44 @@ for:
     # artifacts
     - ps: |
         $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
-        if ("$env:platform/$env:configuration" -eq "Win32/Release") {
-            Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
-        }
-        if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
-            Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
-        }
+        Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
+
+- matrix:
+    only:
+      - compiler: MSC_x32
+        configuration: Debug
+  build:
+    parallel: true
+    project: PowerEditor\visual.net\notepadPlus.sln
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
     # xml files syntax checks
-    - if "%platform%/%configuration%" EQU "Win32/Debug" set PATH=C:\Python310;C:\Python310\Scripts;%PATH%
-    - if "%platform%/%configuration%" EQU "Win32/Debug" python -m pip install requests rfc3987 pywin32 lxml
-    - if "%platform%/%configuration%" EQU "Win32/Debug" python PowerEditor\Test\xmlValidator\validator_xml.py
+    - set PATH=C:\Python310;C:\Python310\Scripts;%PATH%
+    - if python -m pip install requests rfc3987 pywin32 lxml
+    - if python PowerEditor\Test\xmlValidator\validator_xml.py
     # tests
     - ps: |
-        if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\shortcuts.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\contextMenu.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\shortcuts.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\contextMenu.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
 
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\regexGlobalTest.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
-            Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\overrideMap.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\regexGlobalTest.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\overrideMap.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
 
-            cd .\PowerEditor\Test\FunctionList\
-            .\unitTestLauncher.ps1
-            if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
+        cd .\PowerEditor\Test\FunctionList\
+        .\unitTestLauncher.ps1
+        if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
 
-            cd ..\UrlDetection
-            .\verifyUrlDetection.ps1
+        cd ..\UrlDetection
+        .\verifyUrlDetection.ps1
 
-            cd "$env:APPVEYOR_BUILD_FOLDER"
-        }
+        cd "$env:APPVEYOR_BUILD_FOLDER"
 
 - matrix:
     only:

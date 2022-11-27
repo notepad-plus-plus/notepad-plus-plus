@@ -2106,6 +2106,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_WINDOWSSESSIONEXIT:
+		{
+			int answer = _nativeLangSpeaker.messageBox("WindowsSessionExit",
+				_pPublicInterface->getHSelf(),
+				TEXT("Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"),
+				TEXT("Notepad++ - Windows session exit"),
+				MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+			if (answer == IDYES)
+				::PostMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
+			return TRUE;
+		}
+
 		case WM_QUERYENDSESSION:
 		{
 			// app should return TRUE or FALSE immediately upon receiving this message,
@@ -2176,7 +2188,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 								::SendMessage(hwnd, WM_SIZE, 0, 0);	// to make window fit (specially to show tool bar.)
 							}
 						}
-						::PostMessage(hwnd, WM_COMMAND, IDM_FILE_SAVEALL, 0); // posting will not block us here
+						::PostMessage(hwnd, NPPM_INTERNAL_WINDOWSSESSIONEXIT, 0, 0); // posting will not block us here
 						return FALSE; // request abort of the shutdown 
 					}
 				}

@@ -1503,6 +1503,8 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	env._searchType = FindRegex;
 	auto mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
 	auto mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	auto recSelAnchorVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE);
+	auto recSelCaretVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE);
 	bool isSelRec = _pEditView->execute(SCI_GETSELECTIONS) > 1 && _pEditView->execute(SCI_GETSELECTIONMODE) == 1;
 	bool isEntireDoc = mainSelAnchor == mainSelCaretPos;
 	int nbTotal = 0;
@@ -1534,7 +1536,9 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 				if (isSelRec)
 				{
 					_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHOR, mainSelAnchor);
+					_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE, recSelAnchorVirt);
 					_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARET, mainSelCaretPos);
+					_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE, recSelCaretVirt);
 				}
 				else
 				{
@@ -1560,7 +1564,9 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 		if (isSelRec)
 		{
 			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHOR, mainSelAnchor);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE, recSelAnchorVirt);
 			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARET, mainSelCaretPos);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE, recSelCaretVirt);
 		}
 		else
 		{

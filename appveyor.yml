@@ -95,8 +95,8 @@ for:
         Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
     # xml files syntax checks
     - set PATH=C:\Python310;C:\Python310\Scripts;%PATH%
-    - if python -m pip install requests rfc3987 pywin32 lxml
-    - if python PowerEditor\Test\xmlValidator\validator_xml.py
+    - python -m pip install requests rfc3987 pywin32 lxml
+    - python PowerEditor\Test\xmlValidator\validator_xml.py
     # tests
     - ps: |
         Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"

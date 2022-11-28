@@ -427,7 +427,7 @@ static const std::pair<int, int> tabContextMenuItemPos[] =
 
 void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 {
-	if (nullptr != _nativeLangA)
+	if (_nativeLangA != nullptr && !NppParameters::getInstance().hasCustomTabContextMenu())
 	{
 		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
 		if (tabBarMenu)

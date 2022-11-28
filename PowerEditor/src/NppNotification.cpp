@@ -518,45 +518,53 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (!_tabPopupMenu.isCreated())
 			{
-				// IMPORTANT: If list below is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
-                std::vector<MenuItemUnit> itemUnitArray;
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This"), TEXT("Close Multiple Tabs")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left"), TEXT("Close Multiple Tabs")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, TEXT("Close All to the Right"), TEXT("Close Multiple Tabs")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_UNCHANGED, TEXT("Close All Unchanged"), TEXT("Close Multiple Tabs")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer"), TEXT("Open into")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd"), TEXT("Open into")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CONTAININGFOLDERASWORKSPACE, TEXT("Open Containing Folder as Workspace"), TEXT("Open into")));
-				itemUnitArray.push_back(MenuItemUnit(0, NULL, TEXT("Open into")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, TEXT("Open in Default Viewer"), TEXT("Open into")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, TEXT("Move to Recycle Bin")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RELOAD, TEXT("Reload")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, TEXT("Print")));
-				itemUnitArray.push_back(MenuItemUnit(0, NULL));
-				itemUnitArray.push_back(MenuItemUnit(0, NULL));
-				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY,   TEXT("Read-Only")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear Read-Only Flag")));
-				itemUnitArray.push_back(MenuItemUnit(0, NULL));
-				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP,   TEXT("Copy Full File Path"), TEXT("Copy to Clipboard")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   TEXT("Copy Filename"), TEXT("Copy to Clipboard")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, TEXT("Copy Current Dir. Path"), TEXT("Copy to Clipboard")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Move to Other View"), TEXT("Move Document")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View"), TEXT("Move Document")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance"), TEXT("Move Document")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance"), TEXT("Move Document")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_1, TEXT("Apply Color 1"), TEXT("Apply Color to Tab")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_2, TEXT("Apply Color 2"), TEXT("Apply Color to Tab")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_3, TEXT("Apply Color 3"), TEXT("Apply Color to Tab")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_4, TEXT("Apply Color 4"), TEXT("Apply Color to Tab")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_5, TEXT("Apply Color 5"), TEXT("Apply Color to Tab")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_NONE, TEXT("Remove Color"), TEXT("Apply Color to Tab")));
-				// IMPORTANT: If list above is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
+				std::vector<MenuItemUnit> itemUnitArray;
+				NppParameters& nppParam = NppParameters::getInstance();
 
-				_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
+				if (nppParam.hasCustomTabContextMenu())
+				{
+					itemUnitArray = nppParam.getTabContextMenuItems();
+				}
+				else // default tab context menu
+				{
+					// IMPORTANT: If list below is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
+					
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This"), TEXT("Close Multiple Tabs")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left"), TEXT("Close Multiple Tabs")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, TEXT("Close All to the Right"), TEXT("Close Multiple Tabs")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_UNCHANGED, TEXT("Close All Unchanged"), TEXT("Close Multiple Tabs")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer"), TEXT("Open into")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd"), TEXT("Open into")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CONTAININGFOLDERASWORKSPACE, TEXT("Open Containing Folder as Workspace"), TEXT("Open into")));
+					itemUnitArray.push_back(MenuItemUnit(0, NULL, TEXT("Open into")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, TEXT("Open in Default Viewer"), TEXT("Open into")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, TEXT("Move to Recycle Bin")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RELOAD, TEXT("Reload")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, TEXT("Print")));
+					itemUnitArray.push_back(MenuItemUnit(0, NULL));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, TEXT("Read-Only")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear Read-Only Flag")));
+					itemUnitArray.push_back(MenuItemUnit(0, NULL));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP, TEXT("Copy Full File Path"), TEXT("Copy to Clipboard")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP, TEXT("Copy Filename"), TEXT("Copy to Clipboard")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, TEXT("Copy Current Dir. Path"), TEXT("Copy to Clipboard")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Move to Other View"), TEXT("Move Document")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View"), TEXT("Move Document")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance"), TEXT("Move Document")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance"), TEXT("Move Document")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_1, TEXT("Apply Color 1"), TEXT("Apply Color to Tab")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_2, TEXT("Apply Color 2"), TEXT("Apply Color to Tab")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_3, TEXT("Apply Color 3"), TEXT("Apply Color to Tab")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_4, TEXT("Apply Color 4"), TEXT("Apply Color to Tab")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_5, TEXT("Apply Color 5"), TEXT("Apply Color to Tab")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_NONE, TEXT("Remove Color"), TEXT("Apply Color to Tab")));
+					// IMPORTANT: If list above is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
+				}
+				_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray, _mainMenuHandle);
 				_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
 			}
 

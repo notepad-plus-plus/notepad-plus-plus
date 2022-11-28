@@ -1390,6 +1390,20 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 
+	//---------------------------------------------//
+	// tabContextMenu.xml : for per user, optional //
+	//---------------------------------------------//
+	_tabContextMenuPath = _userPath;
+	pathAppend(_tabContextMenuPath, TEXT("tabContextMenu.xml"));
+
+	_pXmlTabContextMenuDocA = new TiXmlDocumentA();
+	loadOkay = _pXmlTabContextMenuDocA->LoadUnicodeFilePath(_tabContextMenuPath.c_str());
+	if (!loadOkay)
+	{
+		delete _pXmlTabContextMenuDocA;
+		_pXmlTabContextMenuDocA = nullptr;
+	}
+
 	//----------------------------//
 	// session.xml : for per user //
 	//----------------------------//
@@ -1478,6 +1492,7 @@ void NppParameters::destroyInstance()
 	delete _pXmlToolIconsDoc;
 	delete _pXmlShortcutDoc;
 	delete _pXmlContextMenuDocA;
+	delete _pXmlTabContextMenuDocA;
 	delete _pXmlBlacklistDoc;
 	delete 	getInstancePointer();
 }
@@ -1979,18 +1994,22 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 	return -1;
 }
 
-bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu)
+bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu, bool isEditCM)
 {
-	if (!_pXmlContextMenuDocA)
+	std::vector<MenuItemUnit>& contextMenuItems = isEditCM ? _contextMenuItems : _tabContextMenuItems;
+	TiXmlDocumentA* pXmlContextMenuDocA = isEditCM ? _pXmlContextMenuDocA : _pXmlTabContextMenuDocA;
+	std::string cmName = isEditCM ? "ScintillaContextMenu" : "TabContextMenu";
+
+	if (!pXmlContextMenuDocA)
 		return false;
-	TiXmlNodeA *root = _pXmlContextMenuDocA->FirstChild("NotepadPlus");
+	TiXmlNodeA *root = pXmlContextMenuDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-	TiXmlNodeA *contextMenuRoot = root->FirstChildElement("ScintillaContextMenu");
+	TiXmlNodeA *contextMenuRoot = root->FirstChildElement(cmName.c_str());
 	if (contextMenuRoot)
 	{
 		for (TiXmlNodeA *childNode = contextMenuRoot->FirstChildElement("Item");
@@ -2015,7 +2034,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 			const char *idStr = (childNode->ToElement())->Attribute("id", &id);
 			if (idStr)
 			{
-				_contextMenuItems.push_back(MenuItemUnit(id, displayAs.c_str(), folderName.c_str()));
+				contextMenuItems.push_back(MenuItemUnit(id, displayAs.c_str(), folderName.c_str()));
 			}
 			else
 			{
@@ -2031,7 +2050,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 				{
 					int cmd = getCmdIdFromMenuEntryItemName(mainMenuHadle, menuEntryName, menuItemName);
 					if (cmd != -1)
-						_contextMenuItems.push_back(MenuItemUnit(cmd, displayAs.c_str(), folderName.c_str()));
+						contextMenuItems.push_back(MenuItemUnit(cmd, displayAs.c_str(), folderName.c_str()));
 				}
 				else
 				{
@@ -2048,7 +2067,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 					{
 						int pluginCmdId = getPluginCmdIdFromMenuEntryItemName(pluginsMenu, pluginName, pluginCmdName);
 						if (pluginCmdId != -1)
-							_contextMenuItems.push_back(MenuItemUnit(pluginCmdId, displayAs.c_str(), folderName.c_str()));
+							contextMenuItems.push_back(MenuItemUnit(pluginCmdId, displayAs.c_str(), folderName.c_str()));
 					}
 				}
 			}

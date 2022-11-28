@@ -60,9 +60,9 @@ before_build:
                     Exit-AppVeyorBuild
                 }
             }
-            #else if ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\(xml\)") {
-                #throw "Changed files on this pull request require full build."
-            #}
+            else if ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\(xml\)" && $env:APPVEYOR_REPO_COMMIT_MESSAGE -nomatch "\(force compile\)") {
+                throw "Changed files on this pull request require full build."
+            }
         }
 
 for:

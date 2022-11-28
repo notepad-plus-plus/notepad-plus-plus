@@ -2106,7 +2106,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_WINSESSIONEXIT:
+		case NPPM_INTERNAL_WINDOWSSESSIONEXIT:
 		{
 			int answer = _nativeLangSpeaker.messageBox("WindowsSessionExit",
 				_pPublicInterface->getHSelf(),
@@ -2188,7 +2188,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 								::SendMessage(hwnd, WM_SIZE, 0, 0);	// to make window fit (specially to show tool bar.)
 							}
 						}
-						::PostMessage(hwnd, NPPM_INTERNAL_WINSESSIONEXIT, 0, 0); // posting will not block us here
+						::PostMessage(hwnd, NPPM_INTERNAL_WINDOWSSESSIONEXIT, 0, 0); // posting will not block us here
 						return FALSE; // request abort of the shutdown 
 					}
 				}

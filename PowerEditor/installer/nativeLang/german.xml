@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-11-20 by schnurlos
+	last modified: 2022-11-28 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -936,7 +936,9 @@
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
-					<Item id="7101" name="Dunklen Modus aktivieren"/>
+					<Item id="7131" name="Hellen Modus aktivieren"/>
+					<Item id="7132" name="Dunkler Modus"/>
+					<Item id="7133" name="Folge Windows"/>
 					<Item id="7102" name="Schwarz"/>
 					<Item id="7103" name="Rot"/>
 					<Item id="7104" name="Grün"/>
@@ -1625,4 +1627,3 @@ ACHTUNG:
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

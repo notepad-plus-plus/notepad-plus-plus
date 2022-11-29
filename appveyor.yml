@@ -38,7 +38,7 @@ before_build:
         if ($env:APPVEYOR_PULL_REQUEST_NUMBER) {
             $files_modified = @(git diff --name-only HEAD~1)
             $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.xml$"})
-            if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\(force xml\)") {
+            if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force xml\]") {
                 Write-Output "XML validation mode`n"
                 if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
                     if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0) {
@@ -60,7 +60,7 @@ before_build:
                     Exit-AppVeyorBuild
                 }
             }
-            elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\(xml\)" -and $env:APPVEYOR_REPO_COMMIT_MESSAGE -notmatch "\(force compile\)") {
+            elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[xml\]" -and $env:APPVEYOR_REPO_COMMIT_MESSAGE -notmatch "\[force compile\]") {
                 throw "Changed files on this pull request require full build."
             }
         }
@@ -73,7 +73,7 @@ for:
         platform: Win32
         configuration: Release
   skip_commits:
-    message: /\(xml\)/
+    message: /\[xml\]/
   build:
     parallel: true
     project: PowerEditor\visual.net\notepadPlus.sln
@@ -126,7 +126,7 @@ for:
       - compiler: MSC
         platform: x64
   skip_commits:
-    message: /\(xml\)/
+    message: /\[xml\]/
   build:
     parallel: true
     project: PowerEditor\visual.net\notepadPlus.sln
@@ -146,7 +146,7 @@ for:
       - compiler: MSC
         platform: arm64
   skip_commits:
-    message: /\(xml\)/
+    message: /\[xml\]/
   build:
     parallel: true
     project: PowerEditor\visual.net\notepadPlus.sln
@@ -165,7 +165,7 @@ for:
     only:
       - compiler: GCC
   skip_commits:
-    message: /\(xml\)/
+    message: /\[xml\]/
   build_script:
     - set PATH=C:\msys64\usr\bin;%PATH%
     - if "%platform%" EQU "i686" set MSYSTEM=MINGW32 && set PATH=C:\msys64\mingw32\bin;%PATH%

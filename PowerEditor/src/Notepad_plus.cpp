@@ -1505,8 +1505,8 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	auto mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	auto recSelAnchorVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE);
 	auto recSelCaretVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE);
-	bool isRecSel = _pEditView->execute(SCI_GETSELECTIONS) > 1 && _pEditView->execute(SCI_GETSELECTIONMODE) == 1;
-	bool isEntireDoc = mainSelAnchor == mainSelCaretPos;
+	bool isRecSel = _pEditView->execute(SCI_GETSELECTIONMODE) == 1;
+	bool isEntireDoc = mainSelAnchor == mainSelCaretPos && !isRecSel;
 	bool delRecSel = false;
 	int nbTotal = 0;
 	if (!isEntireDoc)
@@ -1555,7 +1555,7 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 			}
 			return;
 		}
-		else if (lineCount > 1 && (endPos - startPos > 0))
+		else if ((lineCount > 1 && (endPos - startPos > 0)) || delRecSel)
 		{
 			startPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.first - 1);
 		}

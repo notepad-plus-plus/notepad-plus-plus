@@ -1385,8 +1385,8 @@ O Notepad++ será reiniciado depois que todas as operações forem concluídas.
 Deseja continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para carregar os plugins instalados."/>
 	    <ChangeHistoryEnabledWarning title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para habilitar o Hisórico de Modificações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - Encerramento da sessão do Windows" message="A sessão do Windows irá ser encerrada, mas há dados não salvos. Deseja sair do Notepad++ agora?"/>
             <SaveAllConfirm title="Confirmação de Salvar todos" message="Tem certeza de que deseja salvar todos os documentos?
-
 Escolha &quot;Cancelar&quot; se sua resposta sempre for &quot;Sim&quot; e essa pergunta não será feita novamente.
 Você pode reabilitar esta caixa de diálogo na caixa de diálogo Preferências mais tarde." />
         </MessageBox>

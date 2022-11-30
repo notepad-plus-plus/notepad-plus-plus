@@ -424,7 +424,7 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 						::ModifyMenu(hCM, cmd, MF_BYCOMMAND, cmd, pNameW);
 
 						// Here CMDID are default Tab Context Menu commands.
-						// User can always add any command beyond the default commandsin tabContextMenu.xml file.
+						// User can always add any command beyond the default commands in tabContextMenu.xml file.
 						// But such command won't be translated.
 					}
 					else // sub-menu entry id.

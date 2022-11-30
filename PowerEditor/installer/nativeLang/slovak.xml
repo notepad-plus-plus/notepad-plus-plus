@@ -1377,7 +1377,7 @@ Notepad++ sa reštartuje po ukončení všetkých operácií.
 Pokračovať?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných pluginov je potrebné Notepad++ reštartovať."/>
             <ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/>
-            <WindowsSessionExit title="Notepad++ - Ukončenie relácie Windowsu" message=Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete Notepad++ ukončiť teraz?"/>
+            <WindowsSessionExit title="Notepad++ - Ukončenie relácie Windowsu" message="Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete Notepad++ ukončiť teraz?"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>

@@ -8,16 +8,16 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
 -->
 <NotepadPlus>
     <TabContextMenu>
-		<!-- 
-		Use MenuEntryName and MenuItemName to localize your commands to add. 
-		The values should be in English but not in translated language.
-		(You can set Notepad++ language back to English from Preferences dialog via menu "Settings->Preferences...")
-		-->
+        <!-- 
+        Use MenuEntryName and MenuItemName to localize your commands to add. 
+        The values should be in English but not in translated language.
+        (You can set Notepad++ language back to English from Preferences dialog via menu "Settings->Preferences...")
+        -->
         <Item MenuEntryName="File" MenuItemName="Close"/>
 
-		<!--
-		Use FolderName (optional) to create sub-menu. FolderName value can be in any language (French, Japanese...).
-		-->
+        <!--
+        Use FolderName (optional) to create sub-menu. FolderName value can be in any language (French, Japanese...).
+        -->
         <Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All but Active Document"/>
         <Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All to the Left"/>
         <Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All to the Right"/>
@@ -25,24 +25,25 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
 
         <Item MenuEntryName="File" MenuItemName="Save"/>
         <Item MenuEntryName="File" MenuItemName="Save As..."/>
-		
+        
         <Item FolderName="Open into" MenuEntryName="File" MenuItemName="Explorer"/>
         <Item FolderName="Open into" MenuEntryName="File" MenuItemName="cmd"/>
-        <Item FolderName="Open into" id="0"/>
         <Item FolderName="Open into" MenuEntryName="File" MenuItemName="Folder as Workspace"/>
+        <Item FolderName="Open into" id="0"/>
+        <Item FolderName="Open into" MenuEntryName="File" MenuItemName="Open in Default Viewer"/>
 
         <Item MenuEntryName="File" MenuItemName="Rename..."/>
         <Item MenuEntryName="File" MenuItemName="Reload from Disk"/>
         <Item MenuEntryName="File" MenuItemName="Print..."/>
 
-		<!-- id="0" is the separator -->
+        <!-- id="0" is the separator -->
         <Item id="0"/>
 
         <Item MenuEntryName="Edit" MenuItemName="Set Read-Only"/>
         <Item MenuEntryName="Edit" MenuItemName="Clear Read-Only Flag"/>
 
         <Item id="0"/>
-		
+        
         <Item FolderName="Copy to Clipboard" MenuEntryName="Edit" MenuItemName="Copy Current Full File Path"/>
         <Item FolderName="Copy to Clipboard" MenuEntryName="Edit" MenuItemName="Copy Current Filename"/>
         <Item FolderName="Copy to Clipboard" MenuEntryName="Edit" MenuItemName="Copy Current Dir. Path"/>

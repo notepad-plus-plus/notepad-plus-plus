@@ -1395,15 +1395,6 @@ bool NppParameters::load()
 	//---------------------------------------------//
 	_tabContextMenuPath = _userPath;
 	pathAppend(_tabContextMenuPath, TEXT("tabContextMenu.xml"));
-	/*
-	if (!PathFileExists(_tabContextMenuPath.c_str()))
-	{
-		generic_string srcTabContextMenuPath(_nppPath);
-		pathAppend(srcTabContextMenuPath, TEXT("tabContextMenu.xml"));
-
-		::CopyFile(srcTabContextMenuPath.c_str(), _tabContextMenuPath.c_str(), TRUE);
-	}
-	*/
 
 	_pXmlTabContextMenuDocA = new TiXmlDocumentA();
 	loadOkay = _pXmlTabContextMenuDocA->LoadUnicodeFilePath(_tabContextMenuPath.c_str());

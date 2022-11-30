@@ -386,41 +386,41 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Fermer"/>
-                    <Item CMID="1" name="Fermer tout sauf ce fichier"/>
-                    <Item CMID="2" name="Enregistrer"/>
-                    <Item CMID="3" name="Enregistrer sous..."/>
-                    <Item CMID="4" name="Imprimer"/>
-                    <Item CMID="5" name="Déplacer vers l'autre vue"/>
-                    <Item CMID="6" name="Cloner dans l'autre vue"/>
-                    <Item CMID="7" name="Copier le chemin complet du document actuel"/>
-                    <Item CMID="8" name="Copier le nom du fichier actuel"/>
-                    <Item CMID="9" name="Copier le dossier du fichier actuel"/>
-                    <Item CMID="10" name="Renommer le fichier actuel"/>
-                    <Item CMID="11" name="Supprimer le fichier actuel"/>
-                    <Item CMID="12" name="Lecture seule pour le document actuel"/>
-                    <Item CMID="13" name="Enlever l’attribut de lecture seule du fichier"/>
-                    <Item CMID="14" name="Déplacer vers une nouvelle fenêtre"/>
-                    <Item CMID="15" name="Ouvrir dans une nouvelle fenêtre"/>
-                    <Item CMID="16" name="Recharger"/>
-                    <Item CMID="17" name="Fermer les onglets sur la gauche"/>
-                    <Item CMID="18" name="Fermer les onglets sur la droite"/>
-                    <Item CMID="19" name="Ouvrir le répertoire du fichier en cours dans l'explorateur"/>
-                    <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans l'invite de commande"/>
-                    <Item CMID="21" name="Ouvrir dans l'application par défaut"/>
-                    <Item CMID="22" name="Fermer tous les documents non-modifiés"/>
-                    <Item CMID="23" name="Ouvrir le répertoire du fichier en cours en tant qu'espace de travail"/>
-                    <Item CMID="24" name="Appliquer la couleur 1"/>
-                    <Item CMID="25" name="Appliquer la couleur 2"/>
-                    <Item CMID="26" name="Appliquer la couleur 3"/>
-                    <Item CMID="27" name="Appliquer la couleur 4"/>
-                    <Item CMID="28" name="Appliquer la couleur 5"/>
-                    <Item CMID="29" name="Enlever la couleur"/>
-                    <Item CMID="30" name="Fermer plusieurs onglets"/>
-                    <Item CMID="31" name="Ouvrir dans"/>
-                    <Item CMID="32" name="Copier dans le presse-papiers"/>
-                    <Item CMID="33" name="Déplacer le document"/>
-                    <Item CMID="34" name="Appliquer la Couleur à l'onglet"/>
+                <Item CMDID="41003" name="Fermer"/>
+                <Item CMDID="0" name="Fermer plusieurs onglets"/>
+                <Item CMDID="41005" name="Fermer tout sauf ce fichier"/>
+                <Item CMDID="41009" name="Fermer les onglets sur la gauche"/>
+                <Item CMDID="41018" name="Fermer les onglets sur la droite"/>
+                <Item CMDID="41024" name="Fermer tous les documents non-modifiés"/>
+                <Item CMDID="41006" name="Enregistrer"/>
+                <Item CMDID="41008" name="Enregistrer sous..."/>
+                <Item CMDID="1" name="Ouvrir dans"/>
+                <Item CMDID="41019" name="Ouvrir le répertoire du fichier en cours dans l'explorateur"/>
+                <Item CMDID="41020" name="Ouvrir le répertoire du fichier en cours dans l'invite de commande"/>
+                <Item CMDID="41025" name="Ouvrir le répertoire du fichier en cours en tant qu'espace de travail"/>
+                <Item CMDID="41023" name="Ouvrir dans l'application par défaut"/>
+                <Item CMDID="41017" name="Renommer le fichier actuel"/>
+                <Item CMDID="41016" name="Supprimer le fichier actuel"/>
+                <Item CMDID="41014" name="Recharger"/>
+                <Item CMDID="41010" name="Imprimer"/>
+                <Item CMDID="42028" name="Lecture seule pour le document actuel"/>
+                <Item CMDID="42033" name="Enlever l’attribut de lecture seule du fichier"/>
+                <Item CMDID="2" name="Copier dans le presse-papiers"/>
+                <Item CMDID="42029" name="Copier le chemin complet du document actuel"/>
+                <Item CMDID="42030" name="Copier le nom du fichier actuel"/>
+                <Item CMDID="42031" name="Copier le dossier du fichier actuel"/>
+                <Item CMDID="3" name="Déplacer le document"/>
+                <Item CMDID="10001" name="Déplacer vers l'autre vue"/>
+                <Item CMDID="10002" name="Cloner dans l'autre vue"/>
+                <Item CMDID="10003" name="Déplacer vers une nouvelle fenêtre"/>
+                <Item CMDID="10004" name="Ouvrir dans une nouvelle fenêtre"/>
+                <Item CMDID="4" name="Appliquer la Couleur à l'onglet"/>
+                <Item CMDID="44111" name="Appliquer la couleur 1"/>
+                <Item CMDID="44112" name="Appliquer la couleur 2"/>
+                <Item CMDID="44113" name="Appliquer la couleur 3"/>
+                <Item CMDID="44114" name="Appliquer la couleur 4"/>
+                <Item CMDID="44115" name="Appliquer la couleur 5"/>
+                <Item CMDID="44110" name="Enlever la couleur"/>
             </TabBar>
         </Menu>
 

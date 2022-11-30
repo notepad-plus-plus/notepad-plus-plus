@@ -527,7 +527,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				else // default tab context menu
 				{
-					// IMPORTANT: If list below is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
+					// IMPORTANT: If any submenu entry is added/moved/removed, you have to change the value of tabCmSubMenuEntryPos[] in localization.cpp file
 					
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This"), TEXT("Close Multiple Tabs")));
@@ -562,7 +562,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_4, TEXT("Apply Color 4"), TEXT("Apply Color to Tab")));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_5, TEXT("Apply Color 5"), TEXT("Apply Color to Tab")));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_NONE, TEXT("Remove Color"), TEXT("Apply Color to Tab")));
-					// IMPORTANT: If list above is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
+
+					// IMPORTANT: If any submenu entry is added/moved/removed, you have to change the value of tabCmSubMenuEntryPos[] in localization.cpp file
 				}
 				_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray, _mainMenuHandle);
 				_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());

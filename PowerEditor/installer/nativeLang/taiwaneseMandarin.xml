@@ -375,41 +375,41 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="關閉"/>
-                    <Item CMID="1" name="除此之外全部關閉"/>
-                    <Item CMID="2" name="儲存"/>
-                    <Item CMID="3" name="另存新檔..."/>
-                    <Item CMID="4" name="列印"/>
-                    <Item CMID="5" name="移動到另一檢視"/>
-                    <Item CMID="6" name="仿製到另一檢視"/>
-                    <Item CMID="7" name="複製完整路徑檔名"/>
-                    <Item CMID="8" name="複製檔名"/>
-                    <Item CMID="9" name="複製路徑"/>
-                    <Item CMID="10" name="重新命名..."/>
-                    <Item CMID="11" name="移至回收筒"/>
-                    <Item CMID="12" name="唯讀"/>
-                    <Item CMID="13" name="取消唯讀"/>
-                    <Item CMID="14" name="移到新執行個體"/>
-                    <Item CMID="15" name="在新執行個體開啟"/>
-                    <Item CMID="16" name="重新載入"/>
-                    <Item CMID="17" name="關閉左側所有檔案"/>
-                    <Item CMID="18" name="關閉右側所有檔案"/>
-                    <Item CMID="19" name="在檔案總管開啟資料夾路徑"/>
-                    <Item CMID="20" name="在 CMD 開啟資料夾路徑"/>
-                    <Item CMID="21" name="在預設檢視中開啟"/>
-                    <Item CMID="22" name="關閉所有未更改的檔案"/>
-                    <Item CMID="23" name="在工作區開啟此檔資料夾"/>
-                    <Item CMID="24" name="顏色一"/>
-                    <Item CMID="25" name="顏色二"/>
-                    <Item CMID="26" name="顏色三"/>
-                    <Item CMID="27" name="顏色四"/>
-                    <Item CMID="28" name="顏色五"/>
-                    <Item CMID="29" name="移除顏色"/>
-                    <Item CMID="30" name="關閉多個檔案"/>
-                    <Item CMID="31" name="開啟至"/>
-                    <Item CMID="32" name="複製到剪貼簿"/>
-                    <Item CMID="33" name="文件移至"/>
-                    <Item CMID="34" name="頁籤使用顏色"/>
+                <Item CMDID="41003" name="關閉"/>
+                <Item CMDID="0" name="關閉多個檔案"/>
+                <Item CMDID="41005" name="除此之外全部關閉"/>
+                <Item CMDID="41009" name="關閉左側所有檔案"/>
+                <Item CMDID="41018" name="關閉右側所有檔案"/>
+                <Item CMDID="41024" name="關閉所有未更改的檔案"/>
+                <Item CMDID="41006" name="儲存"/>
+                <Item CMDID="41008" name="另存新檔..."/>
+                <Item CMDID="1" name="開啟至"/>
+                <Item CMDID="41019" name="在檔案總管開啟資料夾路徑"/>
+                <Item CMDID="41020" name="在 CMD 開啟資料夾路徑"/>
+                <Item CMDID="41025" name="在工作區開啟此檔資料夾"/>
+                <Item CMDID="41023" name="在預設檢視中開啟"/>
+                <Item CMDID="41017" name="重新命名..."/>
+                <Item CMDID="41016" name="移至回收筒"/>
+                <Item CMDID="41014" name="重新載入"/>
+                <Item CMDID="41010" name="列印"/>
+                <Item CMDID="42028" name="唯讀"/>
+                <Item CMDID="42033" name="取消唯讀"/>
+                <Item CMDID="2" name="複製到剪貼簿"/>
+                <Item CMDID="42029" name="複製完整路徑檔名"/>
+                <Item CMDID="42030" name="複製檔名"/>
+                <Item CMDID="42031" name="複製路徑"/>
+                <Item CMDID="3" name="文件移至"/>
+                <Item CMDID="10001" name="移動到另一檢視"/>
+                <Item CMDID="10002" name="仿製到另一檢視"/>
+                <Item CMDID="10003" name="移到新執行個體"/>
+                <Item CMDID="10004" name="在新執行個體開啟"/>
+                <Item CMDID="4" name="頁籤使用顏色"/>
+                <Item CMDID="44111" name="顏色一"/>
+                <Item CMDID="44112" name="顏色二"/>
+                <Item CMDID="44113" name="顏色三"/>
+                <Item CMDID="44114" name="顏色四"/>
+                <Item CMDID="44115" name="顏色五"/>
+                <Item CMDID="44110" name="移除顏色"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -454,14 +454,14 @@
                 <Item id="1703" name="「.」包含換行字元"/>
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ 找下一個"/>
-		<Item id="1725" name="複製標記文字"/>
+                <Item id="1725" name="複製標記文字"/>
             </Find>
             <IncrementalFind title="">
                 <Item id="1681" name="搜尋："/>
                 <Item id="1685" name="區分大小寫"/>
                 <Item id="1690" name="醒目提示所有"/>
             </IncrementalFind>
-			<FindCharsInRange title="以字元編號搜尋字元">
+            <FindCharsInRange title="以字元編號搜尋字元">
                 <Item id="2"    name="關閉"/>
                 <Item id="2901" name="非 ASCII 字元（128-255）"/>
                 <Item id="2902" name="ASCII 字元（0-127）"/>
@@ -1142,7 +1142,7 @@
                     <Item id="6162" name="使用預設的單字字元集（建議）"/>
                     <Item id="6163" name="添加字元（不了解此選項的話不建議選取）"/>
                 </Delimiter>
-				
+
                 <Performance title="性能">
                     <Item id="7141" name="大型檔案限制"/>
                     <Item id="7143" name="啟動大型檔案限制（沒有語法醒目提示）"/>
@@ -1446,7 +1446,7 @@
             <default-open-save-select-folder value="選擇一個你要設定為內定資料夾的資料夾"/>
             <shift-change-direction-tip value="使用「Shift + Enter」以相反方向進行搜尋"/>
             <two-find-buttons-tip value="顯示「找上一個」按鈕"/>
-			<find-in-files-filter-tip value="只在 cpp, cxx, h, hxx &amp;&amp; hpp 中找尋:
+            <find-in-files-filter-tip value="只在 cpp, cxx, h, hxx &amp;&amp; hpp 中找尋:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 所有檔案除了 exe, obj &amp;&amp; log 之外:

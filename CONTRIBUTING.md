@@ -8,7 +8,7 @@ Bug reports are appreciated. Following a few guidelines listed below will help s
 
 1. Search the issue tracker to see if it has already been reported.
 2. Disable your plugins to see if one of them is the problem. You can do this by renaming your `plugins` folder to something else.
-3. Only report an issue with a plugin if it is one of the standard plugins included in the Notepad++ installation. Any other plugin issue should be reported to its respective issue tracker (see e.g. [plugin_list_x86.md](https://github.com/notepad-plus-plus/nppPluginList/blob/master/doc/plugin_list_x86.md) or [plugin_list_x64.md](https://github.com/notepad-plus-plus/nppPluginList/blob/master/doc/plugin_list_x64.md) to find the homepage with further informations on that for a plugins). The standard plugins include (for v7.9.5):
+3. Only report an issue with a plugin if it is one of the standard plugins included in the Notepad++ installation. Any other plugin issue should be reported to its respective issue tracker (see e.g. [plugin_list_x86.md](https://github.com/notepad-plus-plus/nppPluginList/blob/master/doc/plugin_list_x86.md) or [plugin_list_x64.md](https://github.com/notepad-plus-plus/nppPluginList/blob/master/doc/plugin_list_x64.md) to find the homepage with further information on that for a plugins). The standard plugins include (for v7.9.5):
     * NppExport
     * Converter
     * mimeTools
@@ -274,7 +274,7 @@ Any member variable name of class/struct should be preceded by an underscore.
 
 #### COMMENTS
 
-1. ##### Use C++ comment line style than C comment style.
+1. ##### Use C++ comment line style rather than C comment style.
 
   * ###### Good:
     ```
@@ -315,7 +315,7 @@ Any member variable name of class/struct should be preceded by an underscore.
   ```
   (It does not change anything for built-in types but it would bring consistency)
 
-4. ##### Avoid using pointers. Prefer references. You might need the variable to be assigned a NULL value: in this case the NULL value has semantics and must be checked. Wherever possible, use a SmartPtr instead of old-school pointers.
+4. ##### Avoid using pointers. References are preferred instead. You might need the variable to be assigned a NULL value: in this case the NULL value has semantics and must be checked. Wherever possible, use a SmartPtr instead of old-school pointers.
 
 5. ##### Avoid using new if you can use automatic variable. However, avoid `shared_ptr` as much as possible. Prefer `unique_ptr` instead.
 

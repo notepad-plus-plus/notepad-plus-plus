@@ -1133,7 +1133,7 @@
                     <Item id="6172" name="自訂格式："/>
                 </MultiInstance>
 
-                <Delimiter title="分隔字元">
+                <Delimiterr title="分隔字元">
                     <Item id="6251" name="分隔選取設定（Ctrl + 雙擊滑鼠左鍵）"/>
                     <Item id="6252" name="起始"/>
                     <Item id="6255" name="結束"/>

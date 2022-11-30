@@ -1376,7 +1376,8 @@ Voulez-vous lancer Notepad++ en mode &quot;Administrateur&quot; ?"/>
 Notepad++ sera relancé après.
 Continuer ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ a besoin d'être redémarré" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <ChangeHistoryEnabledWarning title="Notepad++ a besoin d'être redémarré" message="Vous devez redémarrer Notepad++ pour activer Historique de Modification."/>
+            <ChangeHistoryEnabledWarning title="Notepad++ a besoin d'être redémarré" message="Vous devez redémarrer Notepad++ pour activer Historique de Modification."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - Fermeture de session Windows" message="La session Windows session est sur le point d'être fermée, mais vous avez des données non-sauvées. Voulez-vous quitter Notepad++ maintenant ?"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papier"/>
@@ -1562,6 +1563,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <splitter-rotate-left value="Tourner vers la gauche"/>
             <splitter-rotate-right value="Tourner vers la droite"/>
             <recent-file-history-maxfile value="Max. fichier : "/>
+            <recent-file-history-customlength value="Longueur : "/>
             <language-tabsize value="Taille tabulation : "/>
             <userdefined-title-new value="Langage nouveau..."/>
             <userdefined-title-save value="Enregistrer langage actuel sous..."/>
@@ -1611,7 +1613,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <largeFileRestriction-tip value="Certaines fonctionnalités peuvent ralentir les performances lors de l'ouverture du fichier volumineux. Ces fonctionnalités peuvent être automatiquement désactivées à l'ouverture d'un fichier volumineux. Vous pouvez les personnaliser ici.
 
 REMARQUE:
-1. Modification ies options ici nécessite de rouvrir les fichiers volumineux actuellement ouverts pour obtenir un résultat correct.
+1. Modification les options ici nécessite de rouvrir les fichiers volumineux actuellement ouverts pour obtenir un résultat correct.
 
 2. Si &quot;Désactiver Retour automatique à la ligne globalement&quot; est cochée et vous ouvrez un fichier volumineux, &quot;Retour automatique à la ligne&quot; sera désactivé pour tous les fichiers. Vous pouvez le réactiver via le menu &quot;Affichage-&gt;Retour automatique à la ligne&quot;." />
         </MiscStrings>

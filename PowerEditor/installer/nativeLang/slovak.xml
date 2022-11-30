@@ -386,41 +386,41 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Zavrieť"/>
-                    <Item CMID="1" name="Zavrieť všetky OKREM tejto"/>
-                    <Item CMID="2" name="Uložiť"/>
-                    <Item CMID="3" name="Uložiť ako..."/>
-                    <Item CMID="4" name="Tlačiť…"/>
-                    <Item CMID="5" name="Presunúť do druhého náhľadu"/>
-                    <Item CMID="6" name="Klonovať do druhého náhľadu"/>
-                    <Item CMID="7" name="Skopírovať celú cestu k súboru"/>
-                    <Item CMID="8" name="Skopírovať názov súboru"/>
-                    <Item CMID="9" name="Skopírovať cestu k aktuálnemu priečinku"/>
-                    <Item CMID="10" name="Premenovať…"/>
-                    <Item CMID="11" name="Presunúť do koša…"/>
-                    <Item CMID="12" name="Iba na čítanie"/>
-                    <Item CMID="13" name="Odstrániť označenie &quot;Iba na čítanie&quot;"/>
-                    <Item CMID="14" name="Presunúť do novej inštancie"/>
-                    <Item CMID="15" name="Otvoriť v novej inštancii"/>
-                    <Item CMID="16" name="Obnoviť"/>
-                    <Item CMID="17" name="Zavrieť všetky vľavo"/>
-                    <Item CMID="18" name="Zavrieť všetky vpravo"/>
-                    <Item CMID="19" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
-                    <Item CMID="20" name="Otvoriť priečinok súboru v Príkazovom riadku"/>
-                    <Item CMID="21" name="Otvoriť v predvolenom prehliadači"/>
-                    <Item CMID="22" name="Zavrieť všetky nezmenené"/>
-                    <Item CMID="23" name="Otvoriť priečinok súboru ako pracovný priestor"/>
-                    <Item CMID="24" name="Použiť farbu 1"/>
-                    <Item CMID="25" name="Použiť farbu 2"/>
-                    <Item CMID="26" name="Použiť farbu 3"/>
-                    <Item CMID="27" name="Použiť farbu 4"/>
-                    <Item CMID="28" name="Použiť farbu 5"/>
-                    <Item CMID="29" name="Odstrániť farbu"/>
-                    <Item CMID="30" name="Zavrieť viacero kariet"/>
-                    <Item CMID="31" name="Otvoriť do"/>
-                    <Item CMID="32" name="Kopírovať do schránky"/>
-                    <Item CMID="33" name="Presunúť dokument"/>
-                    <Item CMID="34" name="Použiť farbu na kartu"/>
+                <Item CMDID="41003" name="Zavrieť"/>
+                <Item CMDID="0" name="Zavrieť viacero kariet"/>
+                <Item CMDID="41005" name="Zavrieť všetky OKREM tejto"/>
+                <Item CMDID="41009" name="Zavrieť všetky vľavo"/>
+                <Item CMDID="41018" name="Zavrieť všetky vpravo"/>
+                <Item CMDID="41024" name="Zavrieť všetky nezmenené"/>
+                <Item CMDID="41006" name="Uložiť"/>
+                <Item CMDID="41008" name="Uložiť ako…"/>
+                <Item CMDID="1" name="Otvoriť do"/>
+                <Item CMDID="41019" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
+                <Item CMDID="41020" name="Otvoriť priečinok súboru v Príkazovom riadku"/>
+                <Item CMDID="41025" name="Otvoriť priečinok súboru ako pracovný priestor"/>
+                <Item CMDID="41023" name="Otvoriť v predvolenom prehliadači"/>
+                <Item CMDID="41017" name="Premenovať…"/>
+                <Item CMDID="41016" name="Presunúť do koša…"/>
+                <Item CMDID="41014" name="Obnoviť"/>
+                <Item CMDID="41010" name="Tlačiť…"/>
+                <Item CMDID="42028" name="Iba na čítanie"/>
+                <Item CMDID="42033" name="Odstrániť označenie Iba na čítanie"/>
+                <Item CMDID="2" name="Kopírovať do schránky"/>
+                <Item CMDID="42029" name="Skopírovať celú cestu k súboru"/>
+                <Item CMDID="42030" name="Skopírovať názov súboru"/>
+                <Item CMDID="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
+                <Item CMDID="3" name="Presunúť dokument"/>
+                <Item CMDID="10001" name="Presunúť do druhého náhľadu"/>
+                <Item CMDID="10002" name="Klonovať do druhého náhľadu"/>
+                <Item CMDID="10003" name="Presunúť do novej inštancie"/>
+                <Item CMDID="10004" name="Otvoriť v novej inštancii"/>
+                <Item CMDID="4" name="Použiť farbu na kartu"/>
+                <Item CMDID="44111" name="Použiť farbu 1"/>
+                <Item CMDID="44112" name="Použiť farbu 2"/>
+                <Item CMDID="44113" name="Použiť farbu 3"/>
+                <Item CMDID="44114" name="Použiť farbu 4"/>
+                <Item CMDID="44115" name="Použiť farbu 5"/>
+                <Item CMDID="44110" name="Odstrániť farbu"/>
             </TabBar>
         </Menu>
 

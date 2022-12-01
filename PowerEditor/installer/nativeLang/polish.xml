@@ -12,7 +12,7 @@ The comments are here for explanation, it's not necessary to translate them.
     The most recent version of this file can usually be downloaded from:
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
-<NotepadPlus>  
+<NotepadPlus>
     <Native-Langue name="polski" filename="polish.xml" version="8.4.7">
         <Menu>
             <Main>

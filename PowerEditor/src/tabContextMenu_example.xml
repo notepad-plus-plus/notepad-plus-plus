@@ -33,6 +33,7 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
         <Item FolderName="Open into" MenuEntryName="File" MenuItemName="Open in Default Viewer"/>
 
         <Item MenuEntryName="File" MenuItemName="Rename..."/>
+        <Item MenuEntryName="File" MenuItemName="Move to Recycle Bin"/>
         <Item MenuEntryName="File" MenuItemName="Reload from Disk"/>
         <Item MenuEntryName="File" MenuItemName="Print..."/>
 

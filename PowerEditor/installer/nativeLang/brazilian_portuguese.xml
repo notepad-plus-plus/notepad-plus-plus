@@ -388,41 +388,41 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Fechar esta aba"/>
-                    <Item CMID="1" name="Fechar todas exceto esta"/>
-                    <Item CMID="2" name="Salvar"/>
-                    <Item CMID="3" name="Salvar como..."/>
-                    <Item CMID="4" name="Imprimir"/>
-                    <Item CMID="5" name="Mover para outra tela"/>
-                    <Item CMID="6" name="Clonar para outra tela"/>
-                    <Item CMID="7" name="Copiar caminho completo"/>
-                    <Item CMID="8" name="Copiar nome do arquivo"/>
-                    <Item CMID="9" name="Copiar caminho da pasta"/>
-                    <Item CMID="10" name="Renomear..."/>
-                    <Item CMID="11" name="Mover para a lixeira"/>
-                    <Item CMID="12" name="Somente leitura"/>
-                    <Item CMID="13" name="Desmarcar somente leitura"/>
-                    <Item CMID="14" name="Mover para nova janela"/>
-                    <Item CMID="15" name="Abrir em uma nova janela"/>
-                    <Item CMID="16" name="Recarregar"/>
-                    <Item CMID="17" name="Fechar todas à esquerda"/>
-                    <Item CMID="18" name="Fechar todas à direita"/>
-                    <Item CMID="19" name="Abrir o caminho no Explorer"/>
-                    <Item CMID="20" name="Abrir o caminho no CMD (Prompt de Comando)"/>
-                    <Item CMID="21" name="Abrir no visualizador padrão"/>
-                    <Item CMID="22" name="Fechar todas inalteradas"/>
-                    <Item CMID="23" name="Abrir o caminho como espaço de trabalho"/>
-		    <Item CMID="24" name="Aplicar Cor 1"/>
-                    <Item CMID="25" name="Aplicar Cor 2"/>
-                    <Item CMID="26" name="Aplicar Cor 3"/>
-                    <Item CMID="27" name="Aplicar Cor 4"/>
-                    <Item CMID="28" name="Aplicar Cor 5"/>
-                    <Item CMID="29" name="Remover Cor"/>
-                    <Item CMID="30" name="Fechar Múltiplas Abas"/>
-                    <Item CMID="31" name="Abrir em"/>
-                    <Item CMID="32" name="Copiar para Área de Transferência"/>
-                    <Item CMID="33" name="Mover Documento"/>
-                    <Item CMID="34" name="Aplicar Cor em Aba"/>
+                <Item CMDID="41003" name="Fechar esta aba"/>
+                <Item CMDID="0" name="Fechar Múltiplas Abas"/>
+                <Item CMDID="41005" name="Fechar todas exceto esta"/>
+                <Item CMDID="41009" name="Fechar todas à esquerda"/>
+                <Item CMDID="41018" name="Fechar todas à direita"/>
+                <Item CMDID="41024" name="Fechar todas inalteradas"/>
+                <Item CMDID="41006" name="Salvar"/>
+                <Item CMDID="41008" name="Salvar como..."/>
+                <Item CMDID="1" name="Abrir em"/>
+                <Item CMDID="41019" name="Abrir o caminho no Explorer"/>
+                <Item CMDID="41020" name="Abrir o caminho no CMD (Prompt de Comando)"/>
+                <Item CMDID="41025" name="Abrir o caminho como espaço de trabalho"/>
+                <Item CMDID="41023" name="Abrir no visualizador padrão"/>
+                <Item CMDID="41017" name="Renomear..."/>
+                <Item CMDID="41016" name="Mover para a Lixeira"/>
+                <Item CMDID="41014" name="Recarregar"/>
+                <Item CMDID="41010" name="Imprimir..."/>
+                <Item CMDID="12" name="Somente leitura"/>
+                <Item CMDID="13" name="Desmarcar somente leitura"/>
+                <Item CMDID="2" name="Copiar para Área de Transferência"/>
+                <Item CMDID="42029" name="Copiar caminho completo do arquivo"/>
+                <Item CMDID="42030" name="Copiar nome do arquivo"/>
+                <Item CMDID="42031" name="Copiar caminho completo"/>
+                <Item CMDID="3" name="Mover Documento"/>
+                <Item CMDID="10001" name="Mover para outra tela"/>
+                <Item CMDID="10002" name="Clonar para outra tela"/>
+                <Item CMDID="10003" name="Mover para outra Janela"/>
+                <Item CMDID="10004" name="Abrir em outra Janela"/>
+                <Item CMDID="4" name="Aplicar Cor em Aba"/>
+                <Item CMDID="44111" name="Aplicar Cor 1"/>
+                <Item CMDID="44112" name="Aplicar Cor 2"/>
+                <Item CMDID="44113" name="Aplicar Cor 3"/>
+                <Item CMDID="44114" name="Aplicar Cor 4"/>
+                <Item CMDID="44115" name="Aplicar Cor 5"/>
+                <Item CMDID="44110" name="Remover Cor"/>
             </TabBar>
         </Menu>
 

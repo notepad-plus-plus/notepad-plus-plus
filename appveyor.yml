@@ -44,25 +44,27 @@ before_build:
                     Write-Output "Changed files on this commit don't require any additional tasks.`n"
                     Exit-AppVeyorBuild
                 }
-                Write-Output "XML validation mode`n"
-                if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
-                    if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0) {
-                        $env:Path = "C:\Python310;C:\Python310\Scripts;" + $env:Path
-                        python -m pip install requests rfc3987 pywin32 lxml
-                        python PowerEditor\Test\xmlValidator\validator_xml.py
-                        if ($LastExitCode -eq 0) {
-                            Write-Output "`nAll XML files are valid.`n"
-                            Exit-AppVeyorBuild
-                        }
-                        else {
-                            Write-Output "`nSome XML files are invalid.`n"
-                            $host.SetShouldExit($LastExitCode)
+                else {
+                    Write-Output "XML validation mode`n"
+                    if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
+                        if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0) {
+                            $env:Path = "C:\Python310;C:\Python310\Scripts;" + $env:Path
+                            python -m pip install requests rfc3987 pywin32 lxml
+                            python PowerEditor\Test\xmlValidator\validator_xml.py
+                            if ($LastExitCode -eq 0) {
+                                Write-Output "`nAll XML files are valid.`n"
+                                Exit-AppVeyorBuild
+                            }
+                            else {
+                                Write-Output "`nSome XML files are invalid.`n"
+                                $host.SetShouldExit($LastExitCode)
+                            }
                         }
                     }
-                }
-                else {
-                    Write-Output "In XML validation mode only Win32/Debug performs the proper tasks.`n"
-                    Exit-AppVeyorBuild
+                    else {
+                        Write-Output "In XML validation mode only Win32/Debug performs the proper tasks.`n"
+                        Exit-AppVeyorBuild
+                    }
                 }
             }
             elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[xml\]" -and $env:APPVEYOR_REPO_COMMIT_MESSAGE -notmatch "\[force compile\]") {

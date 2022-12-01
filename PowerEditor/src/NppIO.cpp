@@ -28,6 +28,7 @@
 #include "fileBrowser.h"
 #include <tchar.h>
 #include <unordered_set>
+#include <iostream>
 
 using namespace std;
 
@@ -169,6 +170,13 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	generic_string targetFileName = fileName;
 	resolveLinkFile(targetFileName);
 
+	bool WindowsFileNamingIssue = false;
+
+	if (targetFileName.at(0) == '\\' && targetFileName.at(1) == '\\' && targetFileName.at(2) == '?' && targetFileName.at(3) == '\\')
+		WindowsFileNamingIssue = true;
+
+	
+
 	//If [GetFullPathName] succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.
 	//If the lpBuffer buffer is too small to contain the path, the return value [of GetFullPathName] is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.
 	//If [GetFullPathName] fails for any other reason, the return value is zero.
@@ -261,7 +269,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 
 	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{
-		if (!PathFileExists(longFileName) && !globbing)
+		if (!PathFileExists(longFileName) && !globbing || WindowsFileNamingIssue)
 		{
 			generic_string longFileDir(longFileName);
 			PathRemoveFileSpec(longFileDir);
@@ -300,9 +308,15 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 			{
 				generic_string str2display = TEXT("\"");
 				str2display += longFileName;
-				str2display += TEXT("\" cannot be opened:\nFolder \"");
-				str2display += longFileDir;
-				str2display += TEXT("\" doesn't exist.");
+				if (WindowsFileNamingIssue)
+				{
+					str2display += TEXT("\" cannot be opened:\n\\\\?\\ was used at beginning of filename. \"");
+				}
+				else {
+					str2display += TEXT("\" cannot be opened:\nFolder \"");
+					str2display += longFileDir;
+					str2display += TEXT("\" doesn't exist.");
+				}
 				::MessageBox(_pPublicInterface->getHSelf(), str2display.c_str(), TEXT("Cannot open file"), MB_OK);
 			}
 

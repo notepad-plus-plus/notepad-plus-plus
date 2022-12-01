@@ -61,3 +61,52 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
 
     </TabContextMenu>
 </NotepadPlus>
+
+<!--
+The content below is the old layout of tab context menu (with the most commands on the top level).
+If you prefer the old layout, comment the section above, and uncomment the section below.
+-->
+
+
+<!--
+<NotepadPlus>
+    <TabContextMenu>
+        <Item MenuEntryName="File" MenuItemName="Close"/>
+        <Item MenuEntryName="File" MenuItemName="Close All BUT Active Document" ItemNameAs="Close All BUT This"/>
+        <Item MenuEntryName="File" MenuItemName="Close All to the Left"/>
+        <Item MenuEntryName="File" MenuItemName="Close All to the Right"/>
+        <Item MenuEntryName="File" MenuItemName="Close All Unchanged"/>
+        <Item MenuEntryName="File" MenuItemName="Save"/>
+        <Item MenuEntryName="File" MenuItemName="Save As..."/>
+        <Item MenuEntryName="File" MenuItemName="Rename..."/>
+        <Item MenuEntryName="File" MenuItemName="Move to Recycle Bin"/>
+        <Item MenuEntryName="File" MenuItemName="Reload from Disk" ItemNameAs="Reload"/>
+        <Item MenuEntryName="File" MenuItemName="Print..."/>
+        <Item id="0"/>
+        <Item MenuEntryName="File" MenuItemName="Explorer" ItemNameAs="Open Containing Folder in Explorer"/>
+        <Item MenuEntryName="File" MenuItemName="cmd" ItemNameAs="Open Containing Folder in cmd"/>
+        <Item MenuEntryName="File" MenuItemName="Folder as Workspace" ItemNameAs="Open Containing Folder as Workspace"/>
+        <Item id="0"/>
+        <Item MenuEntryName="File" MenuItemName="Open in Default Viewer"/>
+        <Item id="0"/>
+        <Item MenuEntryName="Edit" MenuItemName="Set Read-Only" ItemNameAs="Read-Only"/>
+        <Item MenuEntryName="Edit" MenuItemName="Clear Read-Only Flag"/>
+        <Item id="0"/>
+        <Item MenuEntryName="Edit" MenuItemName="Copy Current Full File Path" ItemNameAs="Full File Path to Clipboard"/>
+        <Item MenuEntryName="Edit" MenuItemName="Copy Current Filename" ItemNameAs="Filename to Clipboard"/>
+        <Item MenuEntryName="Edit" MenuItemName="Copy Current Dir. Path" ItemNameAs="Current Dir. Path to Clipboard"/>
+        <Item id="0"/>
+        <Item MenuEntryName="View" MenuItemName="Move to Other View"/>
+        <Item MenuEntryName="View" MenuItemName="Clone to Other View"/>
+        <Item MenuEntryName="View" MenuItemName="Move to New Instance"/>
+        <Item MenuEntryName="View" MenuItemName="Open in New Instance"/>
+        <Item id="0"/>
+        <Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Apply Color 1"/>
+        <Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Apply Color 2"/>
+        <Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Apply Color 3"/>
+        <Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Apply Color 4"/>
+        <Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Apply Color 5"/>
+        <Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Remove Color"/>
+    </TabContextMenu>
+</NotepadPlus>
+-->

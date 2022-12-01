@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on November 23rd, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
+		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 21st, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
 		- Updated on August 24th, 2022 for version 8.4.5 by Patriccollu di Santa Maria è Sichè
@@ -423,41 +423,41 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Chjode"/>
-                    <Item CMID="1" name="Tuttu chjode for di què"/>
-                    <Item CMID="2" name="Arregistrà"/>
-                    <Item CMID="3" name="Arregistrà cù u nome…"/>
-                    <Item CMID="4" name="Stampà…"/>
-                    <Item CMID="5" name="Dispiazzà in l’altra vista"/>
-                    <Item CMID="6" name="Duppià in l’altra vista"/>
-                    <Item CMID="7" name="Cupià u chjassu cumpletu di schedariu"/>
-                    <Item CMID="8" name="Cupià u nome di schedariu"/>
-                    <Item CMID="9" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
-                    <Item CMID="10" name="Rinuminà…"/>
-                    <Item CMID="11" name="Dispiazzà in a curbella"/>
-                    <Item CMID="12" name="Lettura-sola"/>
-                    <Item CMID="13" name="Caccià a marca di lettura-sola da u ducumentu"/>
-                    <Item CMID="14" name="Dispiazzà in una nova finestra"/>
-                    <Item CMID="15" name="Apre in una nova finestra"/>
-                    <Item CMID="16" name="Ricaricà"/>
-                    <Item CMID="17" name="Tuttu chjode ciò chì hè à manu manca"/>
-                    <Item CMID="18" name="Tuttu chjode ciò chì hè à manu diritta"/>
-                    <Item CMID="19" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
-                    <Item CMID="20" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
-                    <Item CMID="21" name="Apre in l’appiecazione predefinita"/>
-                    <Item CMID="22" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
-                    <Item CMID="23" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
-                    <Item CMID="24" name="Appiecà u culore 1"/>
-                    <Item CMID="25" name="Appiecà u culore 2"/>
-                    <Item CMID="26" name="Appiecà u culore 3"/>
-                    <Item CMID="27" name="Appiecà u culore 4"/>
-                    <Item CMID="28" name="Appiecà u culore 5"/>
-                    <Item CMID="29" name="Caccià u culore"/>
-                    <Item CMID="30" name="Chjode parechje unghjette"/>
-                    <Item CMID="31" name="Apre in"/>
-                    <Item CMID="32" name="Cupià in u preme’papei"/>
-                    <Item CMID="33" name="Dispiazzà u ducumentu"/>
-                    <Item CMID="34" name="Appiecà un culore à l’unghjetta"/>
+                <Item CMDID="41003" name="Chjode"/>
+                <Item CMDID="0" name="Chjode parechje unghjette"/>
+                <Item CMDID="41005" name="Tuttu chjode for di què"/>
+                <Item CMDID="41009" name="Tuttu chjode ciò chì hè à manu manca"/>
+                <Item CMDID="41018" name="Tuttu chjode ciò chì hè à manu diritta"/>
+                <Item CMDID="41024" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
+                <Item CMDID="41006" name="Arregistrà"/>
+                <Item CMDID="41008" name="Arregistrà cù u nome…"/>
+                <Item CMDID="1" name="Apre in"/>
+                <Item CMDID="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
+                <Item CMDID="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
+                <Item CMDID="41025" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
+                <Item CMDID="41023" name="Apre in l’appiecazione predefinita"/>
+                <Item CMDID="41017" name="Rinuminà…"/>
+                <Item CMDID="41016" name="Dispiazzà in a curbella"/>
+                <Item CMDID="41014" name="Ricaricà"/>
+                <Item CMDID="41010" name="Stampà…"/>
+                <Item CMDID="42028" name="Lettura-sola"/>
+                <Item CMDID="42033" name="Caccià a marca di lettura-sola da u ducumentu"/>
+                <Item CMDID="2" name="Cupià in u preme’papei"/>
+                <Item CMDID="42029" name="Cupià u chjassu cumpletu di schedariu"/>
+                <Item CMDID="42030" name="Cupià u nome di schedariu"/>
+                <Item CMDID="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
+                <Item CMDID="3" name="Dispiazzà u ducumentu"/>
+                <Item CMDID="10001" name="Dispiazzà in l’altra vista"/>
+                <Item CMDID="10002" name="Duppià in l’altra vista"/>
+                <Item CMDID="10003" name="Dispiazzà in una nova finestra"/>
+                <Item CMDID="10004" name="Apre in una nova finestra"/>
+                <Item CMDID="4" name="Appiecà un culore à l’unghjetta"/>
+                <Item CMDID="44111" name="Appiecà u culore 1"/>
+                <Item CMDID="44112" name="Appiecà u culore 2"/>
+                <Item CMDID="44113" name="Appiecà u culore 3"/>
+                <Item CMDID="44114" name="Appiecà u culore 4"/>
+                <Item CMDID="44115" name="Appiecà u culore 5"/>
+                <Item CMDID="44110" name="Caccià u culore"/>
             </TabBar>
         </Menu>
 
@@ -1413,6 +1413,7 @@ Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
 Cuntinuà ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per permette l’affissera di a cronolugia di i cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - Fine di a sessione Windows" message="A sessione Windows stà per piantassi ma ci hè qualchì datu chì ùn hè micca arregistratu. Vulete esce di Notepad++ subitu ?"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>

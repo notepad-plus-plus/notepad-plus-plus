@@ -35,7 +35,8 @@ before_build:
         Write-Output "Configuration : $env:configuration"
         Write-Output ""
         # XML validation mode
-        #if ($env:APPVEYOR_PULL_REQUEST_NUMBER) {
+        $allowMaster = $true
+        if ($allowMaster -or $env:APPVEYOR_PULL_REQUEST_NUMBER) {
             $files_nowork = "md|txt|log"
             $files_modified = @(git diff --name-only HEAD~1)
             $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$"})
@@ -70,7 +71,7 @@ before_build:
             elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[xml\]" -and $env:APPVEYOR_REPO_COMMIT_MESSAGE -notmatch "\[force compile\]") {
                 throw "Changed files on this commit require full build."
             }
-        #}
+        }
 
 for:
 

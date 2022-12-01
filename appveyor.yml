@@ -36,10 +36,11 @@ before_build:
         Write-Output ""
         # XML validation mode
         if ($env:APPVEYOR_PULL_REQUEST_NUMBER) {
+            $files_nowork = "md|txt|log"
             $files_modified = @(git diff --name-only HEAD~1)
-            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|md|txt|log)$"})
+            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$"})
             if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force xml\]") {
-                if (@($files_modified | Where-Object {$_ -notmatch "\.(md|txt|log)$"}).length -eq 0) {
+                if (@($files_modified | Where-Object {$_ -notmatch "\.($files_nowork)$"}).length -eq 0) {
                     Write-Output "Changed files on this commit don't require any additional tasks.`n"
                     Exit-AppVeyorBuild
                 }
@@ -65,7 +66,7 @@ before_build:
                 }
             }
             elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[xml\]" -and $env:APPVEYOR_REPO_COMMIT_MESSAGE -notmatch "\[force compile\]") {
-                throw "Changed files on this pull request require full build."
+                throw "Changed files on this commit require full build."
             }
         }
 

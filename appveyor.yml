@@ -35,33 +35,41 @@ before_build:
         Write-Output "Configuration : $env:configuration"
         Write-Output ""
         # XML validation mode
-        if ($env:APPVEYOR_PULL_REQUEST_NUMBER) {
+        $allowMaster = $true
+        if ($allowMaster -or $env:APPVEYOR_PULL_REQUEST_NUMBER) {
+            $files_nowork = "md|txt|log"
             $files_modified = @(git diff --name-only HEAD~1)
-            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.xml$"})
-            if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force xml\]") {
-                Write-Output "XML validation mode`n"
-                if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
-                    if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0) {
-                        $env:Path = "C:\Python310;C:\Python310\Scripts;" + $env:Path
-                        python -m pip install requests rfc3987 pywin32 lxml
-                        python PowerEditor\Test\xmlValidator\validator_xml.py
-                        if ($LastExitCode -eq 0) {
-                            Write-Output "`nAll XML files are valid.`n"
-                            Exit-AppVeyorBuild
-                        }
-                        else {
-                            Write-Output "`nSome XML files are invalid.`n"
-                            $host.SetShouldExit($LastExitCode)
-                        }
-                    }
+            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$"})
+            if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force (xml|nowork)\]") {
+                if (@($files_modified | Where-Object {$_ -notmatch "\.($files_nowork)$"}).length -eq 0 -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force nowork\]") {
+                    Write-Output "Changed files on this commit don't require any additional tasks.`n"
+                    Exit-AppVeyorBuild
                 }
                 else {
-                    Write-Output "In XML validation mode only Win32/Debug performs the proper tasks.`n"
-                    Exit-AppVeyorBuild
+                    Write-Output "XML validation mode`n"
+                    if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
+                        if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0) {
+                            $env:Path = "C:\Python310;C:\Python310\Scripts;" + $env:Path
+                            python -m pip install requests rfc3987 pywin32 lxml
+                            python PowerEditor\Test\xmlValidator\validator_xml.py
+                            if ($LastExitCode -eq 0) {
+                                Write-Output "`nAll XML files are valid.`n"
+                                Exit-AppVeyorBuild
+                            }
+                            else {
+                                Write-Output "`nSome XML files are invalid.`n"
+                                $host.SetShouldExit($LastExitCode)
+                            }
+                        }
+                    }
+                    else {
+                        Write-Output "In XML validation mode only Win32/Debug performs the proper tasks.`n"
+                        Exit-AppVeyorBuild
+                    }
                 }
             }
             elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[xml\]" -and $env:APPVEYOR_REPO_COMMIT_MESSAGE -notmatch "\[force compile\]") {
-                throw "Changed files on this pull request require full build."
+                throw "Changed files on this commit require full build."
             }
         }
 

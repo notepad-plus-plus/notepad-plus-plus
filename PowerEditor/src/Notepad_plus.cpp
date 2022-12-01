@@ -1507,8 +1507,9 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	auto recSelCaretVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE);
 	bool isRecSel = _pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE || _pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN;
 	bool isEntireDoc = mainSelAnchor == mainSelCaretPos && !isRecSel;
-	bool delRecSel = false;
-	int nbTotal = 0;
+	auto docLength = _pEditView->execute(SCI_GETLENGTH);
+	bool checkLastLine = true;
+	bool isRecSelLastLine = false;
 	if (!isEntireDoc)
 	{
 		env._isInSelection = !isEntireDoc;
@@ -1520,11 +1521,11 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 			auto newLineEnd = _pEditView->execute(SCI_LINEFROMPOSITION, _pEditView->execute(SCI_GETSELECTIONEND));
 			newSelEnd = _pEditView->execute(SCI_POSITIONFROMLINE, newLineEnd) + _pEditView->execute(SCI_LINELENGTH, newLineEnd);
 			if (newLineEnd == _pEditView->execute(SCI_GETLINECOUNT) - 1)
-				delRecSel = true;
+				isRecSelLastLine = true;
 		}
 		_pEditView->execute(SCI_SETSEL, newSelStart, newSelEnd);
 	}
-	nbTotal = _findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 
 	// remove the last line if it's an empty line.
 	auto lineCount = _pEditView->execute(SCI_GETLINECOUNT);
@@ -1537,37 +1538,25 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 		pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
 		startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
 		endPos = _pEditView->execute(SCI_GETSELECTIONEND);
-		if ((!isRecSel && lineRange.second != static_cast<size_t>(lastLineDoc)) || (isRecSel && !delRecSel))
+		if ((!isRecSel && lineRange.second != static_cast<size_t>(lastLineDoc)) || (isRecSel && !isRecSelLastLine))
 		{
-			if (nbTotal == 0)
-			{
-				if (isRecSel)
-				{
-					_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHOR, mainSelAnchor);
-					_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE, recSelAnchorVirt);
-					_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARET, mainSelCaretPos);
-					_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE, recSelCaretVirt);
-				}
-				else
-				{
-				_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
-				_pEditView->execute(SCI_SETCURRENTPOS, mainSelCaretPos);
-				}
-			}
-			return;
+			checkLastLine = false;
 		}
-		else if ((lineCount > 1 && (endPos - startPos > 0)) || delRecSel)
+		else if ((lineCount > 1 && (endPos - startPos > 0)) || isRecSelLastLine)
 		{
 			startPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.first - 1);
 		}
 	}
-	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
-	auto posFound = _pEditView->searchInTarget(str2Search, lstrlen(str2Search), startPos, endPos);
-	if (posFound >= 0)
+	if (checkLastLine)
 	{
-		_pEditView->replaceTarget(TEXT(""), posFound, endPos);
+		_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
+		auto posFound = _pEditView->searchInTarget(str2Search, lstrlen(str2Search), startPos, endPos);
+		if (posFound >= 0)
+		{
+			_pEditView->replaceTarget(TEXT(""), posFound, endPos);
+		}
 	}
-	else if (!isEntireDoc && nbTotal == 0)
+	if (!isEntireDoc && docLength == _pEditView->execute(SCI_GETLENGTH))
 	{
 		if (isRecSel)
 		{

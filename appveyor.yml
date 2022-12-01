@@ -37,8 +37,12 @@ before_build:
         # XML validation mode
         if ($env:APPVEYOR_PULL_REQUEST_NUMBER) {
             $files_modified = @(git diff --name-only HEAD~1)
-            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.xml$"})
+            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|md|txt|log)$"})
             if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force xml\]") {
+                if (@($files_modified | Where-Object {$_ -notmatch "\.(md|txt|log)$"}).length -eq 0) {
+                    Write-Output "Changed files on this commit don't require any additional tasks.`n"
+                    Exit-AppVeyorBuild
+                }
                 Write-Output "XML validation mode`n"
                 if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
                     if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0) {

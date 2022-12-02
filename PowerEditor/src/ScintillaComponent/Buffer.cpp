@@ -679,6 +679,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	{
 		pPath = backupFileName;
 	}
+
 	if (pPath)
 	{
 		FILE* fp = generic_fopen(pPath, TEXT("rb"));
@@ -1312,7 +1313,8 @@ BufferID FileManager::newEmptyDocument()
 
 BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)
 {
-	generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+	NppParameters& nppParamInst = NppParameters::getInstance();
+	generic_string newTitle = (nppParamInst.getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 	TCHAR nb[10];
 	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
 	newTitle += nb;
@@ -1322,6 +1324,8 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
+	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
+	newBuf->_lang = ndds._lang;
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 

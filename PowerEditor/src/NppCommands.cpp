@@ -650,7 +650,7 @@ void Notepad_plus::command(int id)
 			bool hasLineSelection = false;
 			if (_pEditView->execute(SCI_GETSELECTIONS) > 1)
 			{
-				if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
+				if (_pEditView->execute(SCI_SELECTIONISRECTANGLE) || _pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN)
 				{
 					size_t rectSelAnchor = _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHOR);
 					size_t rectSelCaret = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARET);

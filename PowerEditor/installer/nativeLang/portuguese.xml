@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.6">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -386,41 +386,41 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Fechar"/>
-                    <Item CMID="1" name="Fechar tudo EXCETO este"/>
-                    <Item CMID="2" name="Guardar"/>
-                    <Item CMID="3" name="Guardar como..."/>
-                    <Item CMID="4" name="Imprimir"/>
-                    <Item CMID="5" name="Mostrar/Fechar separador lado a lado"/>
-                    <Item CMID="6" name="Clonar para outro separador"/>
-                    <Item CMID="7" name="Copiar localização completa do ficheiro"/>
-                    <Item CMID="8" name="Copiar nome do ficheiro"/>
-                    <Item CMID="9" name="Copiar localização dir. atual"/>
-                    <Item CMID="10" name="Renomear"/>
-                    <Item CMID="11" name="Mover para a Reciclagem"/>
-                    <Item CMID="12" name="Apenas-leitura"/>
-                    <Item CMID="13" name="Limpar símbolo apenas-leitura"/>
-                    <Item CMID="14" name="Mover para nova janela"/>
-                    <Item CMID="15" name="Abrir numa nova janela"/>
-                    <Item CMID="16" name="Recarregar"/>
-                    <Item CMID="17" name="Fechar TUDO para a esquerda"/>
-                    <Item CMID="18" name="Fechar TUDO para a direita"/>
-                    <Item CMID="19" name="Abrir pasta de conteúdo no Explorador"/>
-                    <Item CMID="20" name="Abrir pasta de conteúdo na janela de CMD"/>
-                    <Item CMID="21" name="Abrir no visualizador predefinido"/>
-                    <Item CMID="22" name="Fechar TUDO inalterado"/>
-                    <Item CMID="23" name="Abrir pasta de conteúdo como área de trabalho"/>
-                    <Item CMID="24" name="Aplicar cor 1"/>
-                    <Item CMID="25" name="Aplicar cor 2"/>
-                    <Item CMID="26" name="Aplicar cor 3"/>
-                    <Item CMID="27" name="Aplicar cor 4"/>
-                    <Item CMID="28" name="Aplicar cor 5"/>
-                    <Item CMID="29" name="Remover cor"/>
-                    <Item CMID="30" name="Fechar múltiplos separadores"/>
-                    <Item CMID="31" name="Abrir em"/>
-                    <Item CMID="32" name="Copiar para a área de transferência"/>
-                    <Item CMID="33" name="Mover documento"/>
-                    <Item CMID="34" name="Aplicar cor ao separador"/>
+                <Item CMDID="41003" name="Fechar"/>
+                <Item CMDID="0" name="Fechar múltiplos separadores"/>
+                <Item CMDID="41005" name="Fechar TUDO EXCETO este"/>
+                <Item CMDID="41009" name="Fechar TUDO à esquerda"/>
+                <Item CMDID="41018" name="Fechar TUDO à direita"/>
+                <Item CMDID="41024" name="Fechar TUDO inalterado"/>
+                <Item CMDID="41006" name="Guardar"/>
+                <Item CMDID="41008" name="Guardar como..."/>
+                <Item CMDID="1" name="Abrir em"/>
+                <Item CMDID="41019" name="Abrir a pasta de conteúdo no Explorador"/>
+                <Item CMDID="41020" name="Abrir a pasta de conteúdo na Linha de comandos"/>
+                <Item CMDID="41025" name="Abrir a pasta de conteúdo como Área de trabalho"/>
+                <Item CMDID="41023" name="Abrir no visualizador predefinido"/>
+                <Item CMDID="41017" name="Renomear..."/>
+                <Item CMDID="41016" name="Mover para a Reciclagem"/>
+                <Item CMDID="41014" name="Recarregar"/>
+                <Item CMDID="41010" name="Imprimir..."/>
+                <Item CMDID="42028" name="Apenas-leitura"/>
+                <Item CMDID="42033" name="Limpar símbolo apenas-leitura"/>
+                <Item CMDID="2" name="Copiar para a área de transferência"/>
+                <Item CMDID="42029" name="Copiar caminho completo do ficheiro"/>
+                <Item CMDID="42030" name="Copiar nome do ficheiro"/>
+                <Item CMDID="42031" name="Copiar caminho do diretório atual"/>
+                <Item CMDID="3" name="Mover documento"/>
+                <Item CMDID="10001" name="Mover para outra visualização"/>
+                <Item CMDID="10002" name="Clonar para outra visualização"/>
+                <Item CMDID="10003" name="Mover para nova instância"/>
+                <Item CMDID="10004" name="Abrir numa nova instância"/>
+                <Item CMDID="4" name="Aplicar cor ao separador"/>
+                <Item CMDID="44111" name="Aplicar cor 1"/>
+                <Item CMDID="44112" name="Aplicar cor 2"/>
+                <Item CMDID="44113" name="Aplicar cor 3"/>
+                <Item CMDID="44114" name="Aplicar cor 4"/>
+                <Item CMDID="44115" name="Aplicar cor 5"/>
+                <Item CMDID="44110" name="Remover cor"/>
             </TabBar>
         </Menu>
 
@@ -591,8 +591,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ConflictInfoOk name="Sem conflito de atalhos para este item."/>
                 <ConflictInfoEditing name="Sem conflitos . . ."/>
                 <MainCommandNames>
-                    <Item id="41019" name="Abrir a pasta de conteúdo no Explorar"/>
-                    <Item id="41020" name="Abrir a pasta de conteúdo no prompt de comando"/>
+                    <Item id="41019" name="Abrir a pasta de conteúdo no Explorador"/>
+                    <Item id="41020" name="Abrir a pasta de conteúdo na Linha de comandos"/>
                     <Item id="41021" name="Restaurar ficheiro fechado recentemente"/>
                     <Item id="45001" name="EOL conversão para Windows (CR LF)"/>
                     <Item id="45002" name="EOL conversão para Unix (LF)"/>
@@ -927,7 +927,9 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
-                    <Item id="7101" name="Ativar modo escuro"/>
+                    <Item id="7131" name="Modo claro"/>
+                    <Item id="7132" name="Modo escuro"/>
+                    <Item id="7133" name="Seguir o Windows"/>
                     <Item id="7102" name="Preto"/>
                     <Item id="7103" name="Vermelho"/>
                     <Item id="7104" name="Verde"/>
@@ -1375,6 +1377,7 @@ O Notepad++ será reiniciado após a conclusão de todas as operações.
 Continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para carregar os plugins que instalou."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para ativar o histórico de alterações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - Sair da sessão do Windows" message="A sessão do Windows está prestes a terminar mas tem alguns dados não guardados. Quer sair do Notepad++ agora?"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1560,6 +1563,7 @@ Procurar em todos os ficheiros mas excluir todos os registos de pastas ou regist
             <splitter-rotate-left value="Rodar para a esquerda"/>
             <splitter-rotate-right value="Rodar para a direita"/>
             <recent-file-history-maxfile value="Ficheiro máximo: "/>
+            <recent-file-history-customlength value="Comprimento: "/>
             <language-tabsize value="Tamanho do separador: "/>
             <userdefined-title-new value="Criar nova linguagem..."/>
             <userdefined-title-save value="Guardar o nome da linguagem atual como..."/>
@@ -1636,7 +1640,7 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-29/10/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+15/12/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

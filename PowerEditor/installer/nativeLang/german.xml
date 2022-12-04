@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++
-	last modified: 2022-12-03 by schnurlos
+	last modified: 2022-12-04 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -90,7 +90,7 @@
 					<Item id="41001" name="&amp;Neu"/>
 					<Item id="41002" name="&amp;Öffnen …"/>
 					<Item id="41019" name="E&amp;xplorer"/>
-					<Item id="41020" name="&amp;Eingabeaufforderung"/>
+					<Item id="41020" name="&amp;Eingabeaufforderung (cmd)"/>
 					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="41003" name="S&amp;chließen"/>
 					<Item id="41004" name="All&amp;e schließen"/>
@@ -196,7 +196,7 @@
 					<Item id="42036" name="Auskommentierung der Zeilen a&amp;ufheben"/>
 					<Item id="42055" name="&amp;Leerzeilen (nur völlig leere) löschen"/>
 					<Item id="42056" name="Leerzeilen (&amp;auch mit Leerzeichen) löschen"/>
-					<Item id="42057" name="Leerzeile &amp;über aktueller Zeile einfügen"/>
+					<Item id="42057" name="Leerzeile oberhalb aktueller Zeile einf&amp;ügen"/>
 					<Item id="42058" name="Leerzeile u&amp;nter aktueller Zeile einfügen"/>
 					<Item id="43001" name="&amp;Suchen …"/>
 					<Item id="43002" name="&amp;Weitersuchen"/>
@@ -552,14 +552,14 @@
 
 			<StyleConfig title="Stil-Konfigurator">
 				<Item id="2"    name="Abbrechen"/>
-				<Item id="2301" name="Speichern &amp;&amp; Schließen"/>
+				<Item id="2301" name="Speichern &amp;&amp; Exit"/>
 				<Item id="2303" name="Transparenz"/>
 				<Item id="2306" name="Thema auswählen:"/>
 				<SubDialog>
 					<Item id="2204" name="Fett"/>
 					<Item id="2205" name="Kursiv"/>
-					<Item id="2206" name="Vordergrundfarbe:"/>
-					<Item id="2207" name="Hintergrundfarbe:"/>
+					<Item id="2206" name="Vordergrund:"/>
+					<Item id="2207" name="Hintergrund:"/>
 					<Item id="2208" name="Schriftart:"/>
 					<Item id="2209" name="Größe:"/>
 					<Item id="2211" name="Stilbeschreibung:"/>
@@ -571,8 +571,8 @@
 					<Item id="2219" name="Standard-Schlüsselwörter:"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter:"/>
 					<Item id="2225" name="Sprache:"/>
-					<Item id="2226" name="Standard-Vordergrundfarbe"/>
-					<Item id="2227" name="Standard-Hintergrundfarbe"/>
+					<Item id="2226" name="Standardfarbe Vordergrund"/>
+					<Item id="2227" name="Standardfarbe Hintergrund"/>
 					<Item id="2228" name="Schriftart als Standard setzen"/>
 					<Item id="2229" name="Schriftgröße als Standard setzen"/>
 					<Item id="2230" name="Fettschrift als Standard setzen"/>
@@ -902,7 +902,7 @@
 
 					<Item id="6131" name="Menü"/>
 					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
-					<Item id="6132" name="Schaltflächen ＋ ▼ ✕ innerhalb der Menüleiste verbergen (Neustart von Notepad++ erforderlich)"/>
+					<Item id="6132" name="Schaltflächen '＋ ▼ ✕' der Menüleiste verbergen (Neustart von Notepad++ erforderlich)"/>
 					<Item id="6123" name="Sprache:"/>
 
 					<Item id="6128" name="Alternative Symbole"/>
@@ -1214,7 +1214,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
 					<Item id="6323" name="Automatische Updates aktivieren"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
-					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
+					<Item id="6331" name="Nur Dateinamen in der Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
 					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - erfordert Neustart von Notepad++)"/>
 					<Item id="6337" name="Arbeitsbereichdatei-Erw.:"/>
@@ -1289,7 +1289,7 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 			</DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.
+			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei 'contextMenu.xml' können Sie das Kontextmenü von Notepad++ anpassen.
 Nach dem Bearbeiten müssen Sie Notepad++ neu starten, damit die Änderungen wirksam werden."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.
 Alle gespeicherten Änderungen können nicht rückgängig gemacht werden.

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.4.7:
+Updated to v8.4.8:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.4.7">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.4.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -430,41 +430,41 @@ Updated to v8.4.7:
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item CMID="0"  name="Закрыть"/>
-					<Item CMID="1"  name="Закрыть все Кроме Текущей"/>
-					<Item CMID="2"  name="Сохранить"/>
-					<Item CMID="3"  name="Сохранить как..."/>
-					<Item CMID="4"  name="Печать..."/>
-					<Item CMID="5"  name="Переместить в Другую Область"/>
-					<Item CMID="6"  name="Дублировать в Другой Области"/>
-					<Item CMID="7"  name="Полный Путь с Именем"/>
-					<Item CMID="8"  name="Имя файла"/>
-					<Item CMID="9"  name="Только Путь к файлу"/>
-					<Item CMID="10" name="Переименовать..."/>
-					<Item CMID="11" name="Удалить файл (в корзину)"/>
-					<Item CMID="12" name="&quot;Только Чтение&quot; файла"/>
-					<Item CMID="13" name="Снять &quot;Только Чтение&quot;"/>
-					<Item CMID="14" name="Переместить в Новый Экземпляр"/>
-					<Item CMID="15" name="Открыть в Новом Экземпляре"/>
-					<Item CMID="16" name="Обновить с диска"/>
-					<Item CMID="17" name="Закрыть все Вкладки Слева"/>
-					<Item CMID="18" name="Закрыть все Вкладки Справа"/>
-					<Item CMID="19" name="Открыть папку файла"/>
-					<Item CMID="20" name="Открыть папку файла в cmd"/>
-					<Item CMID="21" name="Открыть стандартным приложением"/>
-					<Item CMID="22" name="Закрыть все Без Изменений"/>
-					<Item CMID="23" name="Открыть папку файла как Проект"/>
-					<Item CMID="24" name="Применить цвет 1"/>
-					<Item CMID="25" name="Применить цвет 2"/>
-					<Item CMID="26" name="Применить цвет 3"/>
-					<Item CMID="27" name="Применить цвет 4"/>
-					<Item CMID="28" name="Применить цвет 5"/>
-					<Item CMID="29" name="Убрать Цвет"/>
-					<Item CMID="30" name="Закрытие Вкладок"/>
-					<Item CMID="31" name="Открыть папку файла"/>
-					<Item CMID="32" name="Копировать в Буфер"/>
-					<Item CMID="33" name="Управление Вкладкой"/>
-					<Item CMID="34" name="Применить цвет к Вкладке"/>
+					<Item CMDID="41003" name="Закрыть"/>
+					<Item CMDID="0" name="Закрытие Вкладок"/>
+					<Item CMDID="41005" name="Закрыть все Кроме Текущей"/>
+					<Item CMDID="41009" name="Закрыть все Вкладки Слева"/>
+					<Item CMDID="41018" name="Закрыть все Вкладки Справа"/>
+					<Item CMDID="41024" name="Закрыть все Без Изменений"/>
+					<Item CMDID="41006" name="Сохранить"/>
+					<Item CMDID="41008" name="Сохранить как..."/>
+					<Item CMDID="1" name="Открыть папку файла"/>
+					<Item CMDID="41019" name="Открыть папку файла"/>
+					<Item CMDID="41020" name="Открыть папку файла в cmd"/>
+					<Item CMDID="41025" name="Открыть папку файла как Проект"/>
+					<Item CMDID="41023" name="Открыть стандартным приложением"/>
+					<Item CMDID="41017" name="Переименовать..."/>
+					<Item CMDID="41016" name="Удалить файл в корзину"/>
+					<Item CMDID="41014" name="Обновить с диска"/>
+					<Item CMDID="41010" name="Печать..."/>
+					<Item CMDID="42028" name="&quot;Только Чтение&quot; файла"/>
+					<Item CMDID="42033" name="Снять &quot;Только Чтение&quot;"/>
+					<Item CMDID="2" name="Копировать в Буфер"/>
+					<Item CMDID="42029" name="Полный Путь с Именем"/>
+					<Item CMDID="42030" name="Имя файла"/>
+					<Item CMDID="42031" name="Только Путь к файлу"/>
+					<Item CMDID="3" name="Управление Вкладкой"/>
+					<Item CMDID="10001" name="Переместить в Другую Область"/>
+					<Item CMDID="10002" name="Дублировать в Другой Области"/>
+					<Item CMDID="10003" name="Переместить в Новый Экземпляр"/>
+					<Item CMDID="10004" name="Открыть в Новом Экземпляре"/>
+					<Item CMDID="4" name="Применить цвет к Вкладке"/>
+					<Item CMDID="44111" name="Применить цвет 1"/>
+					<Item CMDID="44112" name="Применить цвет 2"/>
+					<Item CMDID="44113" name="Применить цвет 3"/>
+					<Item CMDID="44114" name="Применить цвет 4"/>
+					<Item CMDID="44115" name="Применить цвет 5"/>
+					<Item CMDID="44110" name="Убрать Цвет"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -967,7 +967,10 @@ Updated to v8.4.7:
 				</Scintillas>
 
 				<DarkMode title="Тёмный Режим">
-					<Item id="7101" name="Включить Тёмный Режим"/>
+					<Item id="7131" name="Светлый режим"/>
+					<Item id="7132" name="Тёмный режим"/>
+					<Item id="7133" name="Как у Системы"/>
+
 					<Item id="7102" name="Чёрная"/>
 					<Item id="7103" name="Красная"/>
 					<Item id="7104" name="Зелёная"/>
@@ -1367,6 +1370,7 @@ Updated to v8.4.7:
 			<ExitToUpdatePlugins                 title="Завершение работы Notepad++"                message="Notepad++ завершит работу для продолжения операции.&#x0A;Программа будет перезапущена после завершения всех операций.&#x0A;Продолжить?"/>
 			<NeedToRestartToLoadPlugins          title="Необходимо перезапустить Notepad++"         message="Для установки загруженных плагинов, необходимо перезапустить Notepad++."/>
 			<ChangeHistoryEnabledWarning         title="Необходимо перезапустить Notepad++"         message="Для включения Истории Изменений, необходимо перезапустить Notepad++."/>
+			<WindowsSessionExit                  title="Notepad++ - Завершение работы Windows"      message="Windows завершает свою работу и у вас есть несохраненные данные. Вы хотите выйти из Notepad++ сейчас?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1566,6 +1570,7 @@ Updated to v8.4.7:
 			<summary-nbsel1              value=" выделенных символов ("/>
 			<summary-nbsel2              value=" байт) в "/>
 			<summary-nbrange             value=" диапазоне(ах)"/>
+			<recent-file-history-customlength     value="Длина: "/>
 			<find-in-files-progress-title         value="Прогресс поиска в файлах..."/>
 			<replace-in-files-confirm-title       value="Вы уверены?"/>
 			<replace-in-files-confirm-directory   value="Вы точно хотите заменить все совпадения в директории :"/>

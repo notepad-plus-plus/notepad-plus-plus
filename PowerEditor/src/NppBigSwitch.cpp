@@ -2171,8 +2171,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (MainFileManager.getNbDirtyBuffers() > 0)
 				{
-					// we have unsaved filebuffer(s), give the user a chance to respond (non-critical shutdown only)
-					if (!isForcedShuttingDown && isFirstQueryEndSession)
+					// we have unsaved filebuffer(s), give the user a chance to respond
+					// (but only for a non-critical OS restart/shutdown and while the N++ backup mode is OFF)
+					if (!isForcedShuttingDown && isFirstQueryEndSession && !nppParam.getNppGUI().isSnapshotMode())
 					{
 						// if N++ has been minimized or invisible, we need to show it 1st
 						if (::IsIconic(hwnd))

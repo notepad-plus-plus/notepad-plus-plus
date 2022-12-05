@@ -577,8 +577,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//disable "Search Results Window" under Search Menu 
 	::EnableMenuItem(_mainMenuHandle, IDM_FOCUS_ON_FOUND_RESULTS, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
 
-	//Main menu is loaded, now load context menu items
+	//Main menu is loaded, now load editor context menu items
 	nppParam.getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
+
+	//Main menu is loaded, now load tab context menu items
+	nppParam.getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle(), false);
 
 	if (nppParam.hasCustomContextMenu())
 	{
@@ -593,7 +596,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//Windows menu
 	_windowsMenu.init(_mainMenuHandle);
 
-	// Update context menu strings (translated)
+	// Update Scintilla context menu strings (translated)
 	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
 	size_t len = tmp.size();
 	TCHAR menuName[64];
@@ -603,6 +606,19 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		{
 			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
 			tmp[i]._itemName = purgeMenuItemString(menuName);
+		}
+	}
+
+	// Update tab context menu strings (translated)
+	vector<MenuItemUnit>& tmp2 = nppParam.getTabContextMenuItems();
+	size_t len2 = tmp2.size();
+
+	for (size_t i = 0; i < len2; ++i)
+	{
+		if (tmp2[i]._itemName.empty())
+		{
+			::GetMenuString(_mainMenuHandle, tmp2[i]._cmdID, menuName, 64, MF_BYCOMMAND);
+			tmp2[i]._itemName = purgeMenuItemString(menuName);
 		}
 	}
 

@@ -1552,10 +1552,12 @@ public:
 	std::vector<int> & getScintillaModifiedKeyIndices() { return _scintillaModifiedKeyIndices; };
 	void addScintillaModifiedIndex(int index);
 
-	std::vector<MenuItemUnit> & getContextMenuItems() { return _contextMenuItems; };
 	const Session & getSession() const {return _session;};
 
+	std::vector<MenuItemUnit>& getContextMenuItems() { return _contextMenuItems; };
+	std::vector<MenuItemUnit>& getTabContextMenuItems() { return _tabContextMenuItems; };
 	bool hasCustomContextMenu() const {return !_contextMenuItems.empty();};
+	bool hasCustomTabContextMenu() const {return !_tabContextMenuItems.empty();};
 
 	void setAccelerator(Accelerator *pAccel) {_pAccelerator = pAccel;};
 	Accelerator * getAccelerator() {return _pAccelerator;};
@@ -1628,7 +1630,7 @@ public:
 		return getPluginCmdsFromXmlTree();
 	}
 
-	bool getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
+	bool getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu, bool isEditCM = true);
 	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
 	winVer getWinVersion() const {return _winVersion;};
 	generic_string getWinVersionStr() const;
@@ -1751,6 +1753,7 @@ private:
 
 	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr; // nativeLang.xml
 	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml
+	TiXmlDocumentA *_pXmlTabContextMenuDocA = nullptr; // tabContextMenu.xml
 
 	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
 
@@ -1827,12 +1830,13 @@ private:
 
 	ThemeSwitcher _themeSwitcher;
 
-	//vector<generic_string> _noMenuCmdNames;
 	std::vector<MenuItemUnit> _contextMenuItems;
+	std::vector<MenuItemUnit> _tabContextMenuItems;
 	Session _session;
 
 	generic_string _shortcutsPath;
 	generic_string _contextMenuPath;
+	generic_string _tabContextMenuPath;
 	generic_string _sessionPath;
 	generic_string _nppPath;
 	generic_string _userPath;

@@ -1331,6 +1331,31 @@ const int NB_LANG = 100;
 const int RECENTFILES_SHOWFULLPATH = -1;
 const int RECENTFILES_SHOWONLYFILENAME = 0;
 
+class DynamicMenu final
+{
+public:
+	bool attach(HMENU hMenu, size_t posBase);
+	bool createMenu() const;
+	bool clearMenu() const;
+	int getTopLevelItemNumber() const;
+	void push_back(const MenuItemUnit& m) {
+		_menuItems.push_back(m);
+	};
+
+	MenuItemUnit& getItemFromIndex(size_t i) {
+		return _menuItems[i];
+	};
+
+	void erase(size_t i) {
+		_menuItems.erase(_menuItems.begin() + i);
+	}
+
+private:
+	std::vector<MenuItemUnit> _menuItems;
+	HMENU _hMenu = nullptr;
+	size_t _posBase = 0;
+};
+
 class NppParameters final
 {
 private:
@@ -1556,6 +1581,7 @@ public:
 
 	std::vector<MenuItemUnit>& getContextMenuItems() { return _contextMenuItems; };
 	std::vector<MenuItemUnit>& getTabContextMenuItems() { return _tabContextMenuItems; };
+	DynamicMenu& getMacroMenuItems() { return _macroMenuItems; };
 	bool hasCustomContextMenu() const {return !_contextMenuItems.empty();};
 	bool hasCustomTabContextMenu() const {return !_tabContextMenuItems.empty();};
 
@@ -1832,6 +1858,7 @@ private:
 
 	std::vector<MenuItemUnit> _contextMenuItems;
 	std::vector<MenuItemUnit> _tabContextMenuItems;
+	DynamicMenu _macroMenuItems;
 	Session _session;
 
 	generic_string _shortcutsPath;
@@ -1936,12 +1963,12 @@ private:
 	bool feedBlacklist(TiXmlNode *node);
 
 	void getActions(TiXmlNode *node, Macro & macro);
-	bool getShortcuts(TiXmlNode *node, Shortcut & sc);
+	bool getShortcuts(TiXmlNode *node, Shortcut & sc, generic_string* folderName = nullptr);
 
 	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
 	void insertCmd(TiXmlNode *cmdRoot, const CommandShortcut & cmd);
-	void insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro);
+	void insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro, const generic_string& folderName);
 	void insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd);
 	void insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
 	void insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);

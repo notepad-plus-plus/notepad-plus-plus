@@ -1519,6 +1519,106 @@ HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestPar
 	return newFont;
 }
 
+bool isRawWin32FileName(const generic_string& fileName)
+{
+	// TODO:
+	// ?! how to handle similar NT Object Manager path style prefix case \??\...
+	// (the \??\ prefix instructs the NT Object Manager to search in the caller's local device directory for an allias...)
+
+	// the following covers the \\?\... raw Win32-filenames or the \\?\UNC\... UNC equivalents
+	// and also its *nix like forward slash equivalents
+	return (fileName.starts_with(TEXT("\\\\?\\")) || fileName.starts_with(TEXT("//?/")));
+}
+
+bool isRawWin32FileName(const TCHAR* szFileName)
+{
+	const generic_string fileName = szFileName;
+	return isRawWin32FileName(fileName);
+}
+
+const generic_string reservedWinOSNamesList[] = {
+	TEXT("CON"), TEXT("PRN"), TEXT("AUX"), TEXT("NUL"),
+	TEXT("COM1"), TEXT("COM2"), TEXT("COM3"), TEXT("COM4"), TEXT("COM5"), TEXT("COM6"), TEXT("COM7"), TEXT("COM8"), TEXT("COM9"),
+	TEXT("LPT1"), TEXT("LPT2"), TEXT("LPT3"), TEXT("LPT4"), TEXT("LPT5"), TEXT("LPT6"), TEXT("LPT7"), TEXT("LPT8"), TEXT("LPT9")
+};
+const std::vector<generic_string> rwnlVector(reservedWinOSNamesList, reservedWinOSNamesList + sizeof(reservedWinOSNamesList) / sizeof(reservedWinOSNamesList[0]));
+
+bool isUnsupportedFileName(const generic_string& fileName)
+{
+	bool isUnsupported = true;
+
+	// until the N++ (and its plugins) will not be prepared for filenames longer than the MAX_PATH,
+	// we have to limit also the maximum supported lenght below
+	if ((fileName.size() > 0) || (fileName.size() < MAX_PATH))
+	{
+		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the N++ advanced
+		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs curently do not handle this well
+		// (but e.g. direct N++ Ctrl+S works ok even with these filenames)
+		if (!fileName.ends_with(_T('.')) && !fileName.ends_with(_T(' ')))
+		{
+			bool invalidASCIIChar = false;
+
+			for (size_t pos = 0; pos < fileName.size(); ++pos)
+			{
+				TCHAR c = fileName.at(pos);
+				if (c <= 31)
+				{
+					invalidASCIIChar = true;
+				}
+				else
+				{
+					// as this could be also a complete filename with path and there could be also a globbing used,
+					// we tolerate here some other reserved Win32-filename chars: /, \, :, ?, *
+					switch (c)
+					{
+						case '<':
+						case '>':
+						case '"':
+						case '|':
+							invalidASCIIChar = true;
+							break;
+					}
+				}
+
+				if (invalidASCIIChar)
+					break;
+			}
+
+			if (!invalidASCIIChar)
+			{
+				// strip input string to a filename without a possible path and extension(s)
+				generic_string fileNameOnly;
+				size_t pos = fileName.find_first_of(TEXT("."));
+				if (pos != std::string::npos)
+					fileNameOnly = fileName.substr(0, pos);
+				else
+					fileNameOnly = fileName;
+				pos = fileNameOnly.find_last_of(TEXT("\\"));
+				if (pos == std::string::npos)
+					pos = fileNameOnly.find_last_of(TEXT("/"));
+				if (pos != std::string::npos)
+					fileNameOnly = fileNameOnly.substr(pos + 1);
+
+				// last check is for all the old reserved Windows OS filenames
+				if (std::find(rwnlVector.begin(), rwnlVector.end(), fileNameOnly) == rwnlVector.end())
+				{
+					// ok, the current filename tested is not even on the blacklist
+					isUnsupported = false;
+				}
+			}
+		}
+	}
+
+	return isUnsupported;
+}
+
+bool isUnsupportedFileName(const TCHAR* szFileName)
+{
+	const generic_string fileName = szFileName;
+	return isUnsupportedFileName(fileName);
+}
+
+
 Version::Version(const generic_string& versionStr)
 {
 	try {

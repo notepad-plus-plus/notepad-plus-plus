@@ -1503,25 +1503,25 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	env._searchType = FindRegex;
 	auto mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
 	auto mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
-	auto recSelAnchorVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE);
-	auto recSelCaretVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE);
-	bool isRecSel = _pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE || _pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN;
-	bool isEntireDoc = mainSelAnchor == mainSelCaretPos && recSelAnchorVirt == recSelCaretVirt;
+	auto rectSelAnchorVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE);
+	auto rectSelCaretVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE);
+	bool isRectSel = (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
+	bool isEntireDoc = (mainSelAnchor == mainSelCaretPos) && (rectSelAnchorVirt == rectSelCaretVirt);
 	auto docLength = _pEditView->execute(SCI_GETLENGTH);
 	bool checkLastLine = true;
-	bool isRecSelLastLine = false;
+	bool isRectSelLastLine = false;
 	if (!isEntireDoc)
 	{
 		env._isInSelection = !isEntireDoc;
 		pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
 		auto newSelStart = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.first);
 		auto newSelEnd = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.second) + _pEditView->execute(SCI_LINELENGTH, lineRange.second);
-		if (isRecSel)
+		if (isRectSel)
 		{
 			auto newLineEnd = _pEditView->execute(SCI_LINEFROMPOSITION, _pEditView->execute(SCI_GETSELECTIONEND));
 			newSelEnd = _pEditView->execute(SCI_POSITIONFROMLINE, newLineEnd) + _pEditView->execute(SCI_LINELENGTH, newLineEnd);
 			if (newLineEnd == _pEditView->execute(SCI_GETLINECOUNT) - 1)
-				isRecSelLastLine = true;
+				isRectSelLastLine = true;
 		}
 		_pEditView->execute(SCI_SETSEL, newSelStart, newSelEnd);
 	}
@@ -1538,15 +1538,16 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 		pair<size_t, size_t> lineRange = _pEditView->getSelectionLinesRange();
 		startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
 		endPos = _pEditView->execute(SCI_GETSELECTIONEND);
-		if ((!isRecSel && lineRange.second != static_cast<size_t>(lastLineDoc)) || (isRecSel && !isRecSelLastLine))
+		if ((!isRectSel && (lineRange.second != static_cast<size_t>(lastLineDoc))) || (isRectSel && !isRectSelLastLine))
 		{
 			checkLastLine = false;
 		}
-		else if ((lineCount > 1 && startPos != endPos) || isRecSelLastLine)
+		else if ((lineCount > 1 && startPos != endPos) || isRectSelLastLine)
 		{
 			startPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.first - 1);
 		}
 	}
+
 	if (checkLastLine)
 	{
 		_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
@@ -1556,14 +1557,15 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 			_pEditView->replaceTarget(TEXT(""), posFound, endPos);
 		}
 	}
-	if (!isEntireDoc && docLength == _pEditView->execute(SCI_GETLENGTH))
+
+	if (!isEntireDoc && (docLength == _pEditView->execute(SCI_GETLENGTH)))
 	{
-		if (isRecSel)
+		if (isRectSel)
 		{
 			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHOR, mainSelAnchor);
-			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE, recSelAnchorVirt);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE, rectSelAnchorVirt);
 			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARET, mainSelCaretPos);
-			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE, recSelCaretVirt);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE, rectSelCaretVirt);
 		}
 		else
 		{

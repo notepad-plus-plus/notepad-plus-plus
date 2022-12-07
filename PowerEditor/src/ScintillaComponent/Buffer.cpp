@@ -717,11 +717,19 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		ownDoc = true;
 	}
 
-	TCHAR fullpath[MAX_PATH];
-	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	if (_tcschr(fullpath, '~'))
+	WCHAR fullpath[MAX_PATH] = { 0 };
+	if (isWin32NamespacePrefixedFileName(filename))
 	{
-		::GetLongPathName(fullpath, fullpath, MAX_PATH);
+		// use directly the raw file name, skip the GetFullPathName WINAPI
+		wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
+	}
+	else
+	{
+		::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
+		if (wcschr(fullpath, '~'))
+		{
+			::GetLongPathName(fullpath, fullpath, MAX_PATH);
+		}
 	}
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
@@ -1116,11 +1124,19 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 	bool isHiddenOrSys = false;
 	DWORD attrib = 0;
 
-	TCHAR fullpath[MAX_PATH];
-	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	if (_tcschr(fullpath, '~'))
+	WCHAR fullpath[MAX_PATH] = { 0 };
+	if (isWin32NamespacePrefixedFileName(filename))
 	{
-		::GetLongPathName(fullpath, fullpath, MAX_PATH);
+		// use directly the raw file name, skip the GetFullPathName WINAPI
+		wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
+	}
+	else
+	{
+		::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
+		if (wcschr(fullpath, '~'))
+		{
+			::GetLongPathName(fullpath, fullpath, MAX_PATH);
+		}
 	}
 
 	if (PathFileExists(fullpath))

@@ -28,6 +28,7 @@
 #include "fileBrowser.h"
 #include <tchar.h>
 #include <unordered_set>
+#include "Common.h"
 
 using namespace std;
 
@@ -120,8 +121,10 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	return EXIT_SUCCESS;
 }
 
-void resolveLinkFile(generic_string& linkFilePath)
+bool resolveLinkFile(generic_string& linkFilePath)
 {
+	bool isResolved = false;
+
 	IShellLink* psl;
 	WCHAR targetFilePath[MAX_PATH];
 	WIN32_FIND_DATA wfd = {};
@@ -149,6 +152,7 @@ void resolveLinkFile(generic_string& linkFilePath)
 						if (SUCCEEDED(hres) && hres != S_FALSE)
 						{
 							linkFilePath = targetFilePath;
+							isResolved = true;
 						}
 					}
 				}
@@ -158,6 +162,8 @@ void resolveLinkFile(generic_string& linkFilePath)
 		}
 		CoUninitialize();
 	}
+
+	return isResolved;
 }
 
 BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
@@ -167,30 +173,75 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 		return BUFFER_INVALID;
 
 	generic_string targetFileName = fileName;
-	resolveLinkFile(targetFileName);
+	bool isResolvedLinkFileName = resolveLinkFile(targetFileName);
+
+	bool isRawFileName;
+	if (isResolvedLinkFileName)
+		isRawFileName = false;
+	else
+		isRawFileName = isWin32NamespacePrefixedFileName(fileName);
+
+	if (isUnsupportedFileName(isResolvedLinkFileName ? targetFileName : fileName))
+	{
+		// TODO:
+		// for the raw filenames we can allow even the usually unsupported filenames in the future,
+		// but not now as it is not fully supported by the N++ COM IFileDialog based Open/SaveAs dialogs
+		//if (isRawFileName)
+		//{
+		//	int answer = _nativeLangSpeaker.messageBox("OpenNonconformingWin32FileName",
+		//		_pPublicInterface->getHSelf(),
+		//		TEXT("You are about to open a file with unusual filename:\n\"$STR_REPLACE$\""),
+		//		TEXT("Open Nonconforming Win32-Filename"),
+		//		MB_OKCANCEL | MB_ICONWARNING | MB_APPLMODAL,
+		//		0,
+		//		isResolvedLinkFileName ? targetFileName.c_str() : fileName.c_str());
+		//	if (answer != IDOK)
+		//		return BUFFER_INVALID; // aborted by user
+		//}
+		//else
+		//{
+			// unsupported, use the existing N++ file dialog to report
+			_nativeLangSpeaker.messageBox("OpenFileError",
+				_pPublicInterface->getHSelf(),
+				TEXT("Cannot open file \"$STR_REPLACE$\"."),
+				TEXT("ERROR"),
+				MB_OK,
+				0,
+				isResolvedLinkFileName ? targetFileName.c_str() : fileName.c_str());
+			return BUFFER_INVALID;
+		//}
+	}
 
 	//If [GetFullPathName] succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.
 	//If the lpBuffer buffer is too small to contain the path, the return value [of GetFullPathName] is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.
 	//If [GetFullPathName] fails for any other reason, the return value is zero.
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	TCHAR longFileName[longFileNameBufferSize];
+	WCHAR longFileName[longFileNameBufferSize] = { 0 };
 
-	const DWORD getFullPathNameResult = ::GetFullPathName(targetFileName.c_str(), longFileNameBufferSize, longFileName, NULL);
-	if (getFullPathNameResult == 0)
+	if (isRawFileName)
 	{
-		return BUFFER_INVALID;
+		// use directly the raw file name, skip the GetFullPathName WINAPI and alike...)
+		wcsncpy_s(longFileName, _countof(longFileName), fileName.c_str(), _TRUNCATE);
 	}
-	if (getFullPathNameResult > longFileNameBufferSize)
+	else
 	{
-		return BUFFER_INVALID;
-	}
-	assert(_tcslen(longFileName) == getFullPathNameResult);
+		const DWORD getFullPathNameResult = ::GetFullPathName(targetFileName.c_str(), longFileNameBufferSize, longFileName, NULL);
+		if (getFullPathNameResult == 0)
+		{
+			return BUFFER_INVALID;
+		}
+		if (getFullPathNameResult > longFileNameBufferSize)
+		{
+			return BUFFER_INVALID;
+		}
+		assert(wcslen(longFileName) == getFullPathNameResult);
 
-	if (_tcschr(longFileName, '~'))
-	{
-		// ignore the returned value of function due to win64 redirection system
-		::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
+		if (wcschr(longFileName, '~'))
+		{
+			// ignore the returned value of function due to win64 redirection system
+			::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
+		}
 	}
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
@@ -257,7 +308,11 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         isWow64Off = true;
     }
 
-    bool globbing = wcsrchr(longFileName, TCHAR('*')) || wcsrchr(longFileName, TCHAR('?'));
+	bool globbing;
+	if (isRawFileName)
+		globbing = (wcsrchr(longFileName, TCHAR('*')) || (abs(longFileName - wcsrchr(longFileName, TCHAR('?'))) > 3));
+	else
+		globbing = (wcsrchr(longFileName, TCHAR('*')) || wcsrchr(longFileName, TCHAR('?')));
 
 	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{

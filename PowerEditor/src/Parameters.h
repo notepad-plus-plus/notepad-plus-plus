@@ -1334,7 +1334,7 @@ const int RECENTFILES_SHOWONLYFILENAME = 0;
 class DynamicMenu final
 {
 public:
-	bool attach(HMENU hMenu, size_t posBase);
+	bool attach(HMENU hMenu, size_t posBase, int lastCmd, const generic_string& lastCmdLabel);
 	bool createMenu() const;
 	bool clearMenu() const;
 	int getTopLevelItemNumber() const;
@@ -1354,6 +1354,8 @@ private:
 	std::vector<MenuItemUnit> _menuItems;
 	HMENU _hMenu = nullptr;
 	size_t _posBase = 0;
+	int _lastCmd = 0;
+	generic_string _lastCmdLabel;
 };
 
 class NppParameters final
@@ -1582,6 +1584,7 @@ public:
 	std::vector<MenuItemUnit>& getContextMenuItems() { return _contextMenuItems; };
 	std::vector<MenuItemUnit>& getTabContextMenuItems() { return _tabContextMenuItems; };
 	DynamicMenu& getMacroMenuItems() { return _macroMenuItems; };
+	DynamicMenu& getRunMenuItems() { return _runMenuItems; };
 	bool hasCustomContextMenu() const {return !_contextMenuItems.empty();};
 	bool hasCustomTabContextMenu() const {return !_tabContextMenuItems.empty();};
 
@@ -1859,6 +1862,7 @@ private:
 	std::vector<MenuItemUnit> _contextMenuItems;
 	std::vector<MenuItemUnit> _tabContextMenuItems;
 	DynamicMenu _macroMenuItems;
+	DynamicMenu _runMenuItems;
 	Session _session;
 
 	generic_string _shortcutsPath;
@@ -1969,7 +1973,7 @@ private:
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
 	void insertCmd(TiXmlNode *cmdRoot, const CommandShortcut & cmd);
 	void insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro, const generic_string& folderName);
-	void insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd);
+	void insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd, const generic_string& folderName);
 	void insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
 	void insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
 	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHAR *name, bool bVal);

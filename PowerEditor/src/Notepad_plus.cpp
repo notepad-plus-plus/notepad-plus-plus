@@ -464,33 +464,36 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	// Macro Menu
 	HMENU hMacroMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_MACRO);
-	size_t const posBase = 6;
-	size_t nbTopLevelItem = nppParam.getMacroMenuItems().getTopLevelItemNumber();
-	if (nbTopLevelItem >= 1)
-		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
-
+	size_t const macroPosBase = 6;
 	DynamicMenu& macroMenuItems = nppParam.getMacroMenuItems();
-	macroMenuItems.attach(hMacroMenu, posBase);
+	size_t nbMacroTopLevelItem = macroMenuItems.getTopLevelItemNumber();
+	if (nbMacroTopLevelItem >= 1)
+		::InsertMenu(hMacroMenu, macroPosBase - 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
+
+	macroMenuItems.attach(hMacroMenu, macroPosBase, IDM_SETTING_SHORTCUT_MAPPER_MACRO, TEXT("Modify Shortcut/Delete Macro..."));
 
 
 	// Run Menu
-	std::vector<UserCommand> & userCommands = nppParam.getUserCommandList();
 	HMENU hRunMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_RUN);
 	int const runPosBase = 2;
-	size_t nbUserCommand = userCommands.size();
-	if (nbUserCommand >= 1)
+	DynamicMenu& runMenuItems = nppParam.getRunMenuItems();
+	size_t nbRunTopLevelItem = runMenuItems.getTopLevelItemNumber();
+	if (nbRunTopLevelItem >= 1)
 		::InsertMenu(hRunMenu, runPosBase - 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
-	for (size_t i = 0; i < nbUserCommand; ++i)
+	runMenuItems.attach(hRunMenu, runPosBase, IDM_SETTING_SHORTCUT_MAPPER_RUN, TEXT("Modify Shortcut/Delete Command..."));
+	/*
+	for (size_t i = 0; i < nbRunTopLevelItem; ++i)
 	{
 		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + i), MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
 	}
 
-	if (nbUserCommand >= 1)
+	if (nbRunTopLevelItem >= 1)
 	{
-		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + nbUserCommand + 1), MF_BYPOSITION, static_cast<UINT>(-1), 0);
-		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + nbUserCommand + 2), MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, TEXT("Modify Shortcut/Delete Command..."));
+		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + nbRunTopLevelItem + 1), MF_BYPOSITION, static_cast<UINT>(-1), 0);
+		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + nbRunTopLevelItem + 2), MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, TEXT("Modify Shortcut/Delete Command..."));
 	}
+	*/
 
 	// Updater menu item
 	if (!nppGUI._doesExistUpdater)

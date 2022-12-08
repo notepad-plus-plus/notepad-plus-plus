@@ -327,11 +327,15 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 
 				case IDC_BUTTON_SAVE :
 				{
-					std::vector<UserCommand> & theUserCmds = (NppParameters::getInstance()).getUserCommandList();
+					NppParameters& nppParams = NppParameters::getInstance();
+					std::vector<UserCommand> & theUserCmds = nppParams.getUserCommandList();
 
 					int nbCmd = static_cast<int32_t>(theUserCmds.size());
-
 					int cmdID = ID_USER_CMD + nbCmd;
+
+					DynamicMenu& runMenu = nppParams.getRunMenuItems();
+					int nbTopLevelItem = runMenu.getTopLevelItemNumber();
+
 					TCHAR cmd[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
 					UserCommand uc(Shortcut(), cmd, cmdID);
@@ -343,23 +347,24 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						HMENU hRunMenu = ::GetSubMenu(mainMenu, MENUINDEX_RUN);
 						int const posBase = 2;
 						
-						if (nbCmd == 0)
+						if (nbTopLevelItem == 0)
 							::InsertMenu(hRunMenu, posBase - 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
 						
 						theUserCmds.push_back(uc);
-						::InsertMenu(hRunMenu, posBase + nbCmd, MF_BYPOSITION, cmdID, uc.toMenuItemString().c_str());
+						runMenu.push_back(MenuItemUnit(cmdID, uc.getName()));
+						::InsertMenu(hRunMenu, posBase + nbTopLevelItem, MF_BYPOSITION, cmdID, uc.toMenuItemString().c_str());
 
 						NppParameters& nppParams = NppParameters::getInstance();
-                        if (nbCmd == 0)
+                        if (nbTopLevelItem == 0)
                         {
                             // Insert the separator and modify/delete command
-							::InsertMenu(hRunMenu, posBase + nbCmd + 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
+							::InsertMenu(hRunMenu, posBase + nbTopLevelItem + 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
 							NativeLangSpeaker *pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
 							generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
 							if (nativeLangShortcutMapperMacro == TEXT(""))
 								nativeLangShortcutMapperMacro = TEXT("Modify Shortcut/Delete Command...");
 
-							::InsertMenu(hRunMenu, posBase + nbCmd + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, nativeLangShortcutMapperMacro.c_str());
+							::InsertMenu(hRunMenu, posBase + nbTopLevelItem + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, nativeLangShortcutMapperMacro.c_str());
                         }
 						nppParams.getAccelerator()->updateShortcuts();
 						nppParams.setShortcutDirty();

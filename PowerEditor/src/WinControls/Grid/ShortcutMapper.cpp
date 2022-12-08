@@ -947,10 +947,6 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						const int row = _babygrid.getSelectedRow();
 						size_t shortcutIndex = _shortcutIndex[row-1];
 						
-						// Menu data
-						int32_t posBase = 0;
-						size_t nbElem = 0;
-						HMENU hMenu = NULL;
 						switch(_currentState) 
 						{
 							case STATE_MENU:
@@ -963,10 +959,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							case STATE_MACRO: 
 							{
 								vector<MacroShortcut> & theMacros = nppParam.getMacroList();
-								vector<MacroShortcut>::iterator it = theMacros.begin();
-								theMacros.erase(it + shortcutIndex);
-
-
+								theMacros.erase(theMacros.begin() + shortcutIndex);
 
 								//save the current view
 								_lastHomeRow[_currentState] = _babygrid.getHomeRow();
@@ -987,8 +980,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								// Erase the menu item
 								macroMenu.erase(shortcutIndex);
 
-
-								nbElem = theMacros.size();
+								size_t nbElem = theMacros.size();
 								for (size_t i = shortcutIndex; i < nbElem; ++i)	//lower the IDs of the remaining items so there are no gaps
 								{
 									MacroShortcut ms = theMacros[i];
@@ -1003,8 +995,10 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								macroMenu.createMenu();
 
 								HMENU m = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
-								hMenu = ::GetSubMenu(m, MENUINDEX_MACRO);
-								posBase = 6;
+								HMENU hMenu = ::GetSubMenu(m, MENUINDEX_MACRO);
+								if (!hMenu) return FALSE;
+
+								int32_t posBase = macroMenu.getPosBase();
 								if (nbElem == 0)
 								{
 									::RemoveMenu(hMenu, IDM_SETTING_SHORTCUT_MAPPER_MACRO, MF_BYCOMMAND);
@@ -1019,8 +1013,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							case STATE_USER: 
 							{
 								vector<UserCommand> & theUserCmds = nppParam.getUserCommandList();
-								vector<UserCommand>::iterator it = theUserCmds.begin();
-								theUserCmds.erase(it + shortcutIndex);
+								theUserCmds.erase(theUserCmds.begin() + shortcutIndex);
 
 								//save the current view
 								_lastHomeRow[_currentState] = _babygrid.getHomeRow();
@@ -1034,24 +1027,34 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 								fillOutBabyGrid();
 
-								// preparing to remove from menu
-								posBase = 2;
-								nbElem = theUserCmds.size();
-								HMENU m = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
-								hMenu = ::GetSubMenu(m, MENUINDEX_RUN);
+								// clear all menu
+								DynamicMenu& runMenu = nppParam.getRunMenuItems();
+								runMenu.clearMenu();
 
+								// Erase the menu item
+								runMenu.erase(shortcutIndex);
+
+								// preparing to remove from menu
+			
+								size_t nbElem = theUserCmds.size();
 								for (size_t i = shortcutIndex; i < nbElem; ++i)	//lower the IDs of the remaining items so there are no gaps
 								{
 									UserCommand uc = theUserCmds[i];
 									uc.setID(uc.getID() - 1);	//shift all IDs
 									theUserCmds[i] = uc;
-								}
 
+									// Ajust menu items
+									MenuItemUnit& miu = runMenu.getItemFromIndex(i);
+									miu._cmdID -= 1;	//shift all IDs
+								}
+								// create from scratch according the new menu items structure
+								runMenu.createMenu();
+
+								HMENU m = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
+								HMENU hMenu = ::GetSubMenu(m, MENUINDEX_RUN);
 								if (!hMenu) return FALSE;
 
-								// All menu items are shifted up. So we delete the last item
-								::RemoveMenu(hMenu, posBase + static_cast<int32_t>(nbElem), MF_BYPOSITION);
-
+								int32_t posBase = runMenu.getPosBase();
 								if (nbElem == 0)
 								{
 									::RemoveMenu(hMenu, IDM_SETTING_SHORTCUT_MAPPER_RUN, MF_BYCOMMAND);

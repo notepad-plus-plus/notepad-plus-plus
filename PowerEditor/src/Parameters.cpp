@@ -751,7 +751,7 @@ int DynamicMenu::getTopLevelItemNumber() const
 	return nb;
 }
 
-bool DynamicMenu::attach(HMENU hMenu, size_t posBase, int lastCmd, const generic_string& lastCmdLabel)
+bool DynamicMenu::attach(HMENU hMenu, unsigned int posBase, int lastCmd, const generic_string& lastCmdLabel)
 {
 	if (!hMenu) return false;
 

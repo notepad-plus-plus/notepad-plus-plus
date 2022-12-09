@@ -998,7 +998,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								HMENU hMenu = ::GetSubMenu(m, MENUINDEX_MACRO);
 								if (!hMenu) return FALSE;
 
-								int32_t posBase = 6;
+								int32_t posBase = macroMenu.getPosBase();
 								if (nbElem == 0)
 								{
 									::RemoveMenu(hMenu, IDM_SETTING_SHORTCUT_MAPPER_MACRO, MF_BYCOMMAND);
@@ -1054,7 +1054,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								HMENU hMenu = ::GetSubMenu(m, MENUINDEX_RUN);
 								if (!hMenu) return FALSE;
 
-								int32_t posBase = 2;
+								int32_t posBase = runMenu.getPosBase();
 								if (nbElem == 0)
 								{
 									::RemoveMenu(hMenu, IDM_SETTING_SHORTCUT_MAPPER_RUN, MF_BYCOMMAND);

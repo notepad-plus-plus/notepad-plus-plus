@@ -1334,7 +1334,7 @@ const int RECENTFILES_SHOWONLYFILENAME = 0;
 class DynamicMenu final
 {
 public:
-	bool attach(HMENU hMenu, size_t posBase, int lastCmd, const generic_string& lastCmdLabel);
+	bool attach(HMENU hMenu, unsigned int posBase, int lastCmd, const generic_string& lastCmdLabel);
 	bool createMenu() const;
 	bool clearMenu() const;
 	int getTopLevelItemNumber() const;
@@ -1350,10 +1350,14 @@ public:
 		_menuItems.erase(_menuItems.begin() + i);
 	}
 
+	unsigned int getPosBase() const { return _posBase; };
+
+	generic_string getLastCmdLabel() const { return _lastCmdLabel; };
+
 private:
 	std::vector<MenuItemUnit> _menuItems;
 	HMENU _hMenu = nullptr;
-	size_t _posBase = 0;
+	unsigned int _posBase = 0;
 	int _lastCmd = 0;
 	generic_string _lastCmdLabel;
 };

@@ -752,7 +752,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					// which are closest to the clicked position.
 					for (int32_t i = static_cast<int32_t>(position_of_click); i >= 0; --i)
 					{
-						if (bufstring.empty())
+						if (i >= bufstring.size())
 							return FALSE;
 
 						if (bufstring.at(i) == nppGUI._leftmostDelimiter)

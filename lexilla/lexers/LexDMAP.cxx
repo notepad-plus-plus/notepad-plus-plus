@@ -28,6 +28,11 @@
 #include "LexerModule.h"
 /***************************************/
 
+#if defined(__clang__) && !defined(__APPLE__)
+// Disable warning for numNonBlank
+#pragma clang diagnostic ignored "-Wunused-but-set-variable"
+#endif
+
 using namespace Lexilla;
 
 /***********************************************/

@@ -46,6 +46,7 @@
 #include <iterator>
 #include <functional>
 #include <memory>
+#include <regex>
 #include <iostream>
 #include <sstream>
 #include <fstream>

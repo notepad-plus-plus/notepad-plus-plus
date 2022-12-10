@@ -154,6 +154,10 @@ fun void SetSavePoint=2014(,)
 # Returns the number of bytes in the buffer not including terminating NULs.
 fun position GetStyledText=2015(, textrange tr)
 
+# Retrieve a buffer of cells that can be past 2GB.
+# Returns the number of bytes in the buffer not including terminating NULs.
+fun position GetStyledTextFull=2778(, textrangefull tr)
+
 # Are there any redoable actions in the undo history?
 fun bool CanRedo=2016(,)
 
@@ -1445,6 +1449,10 @@ fun position ReplaceTarget=2194(position length, string text)
 # Returns the length of the replacement text including any change
 # caused by processing the \d patterns.
 fun position ReplaceTargetRE=2195(position length, string text)
+
+# Replace the target text with the argument text but ignore prefix and suffix that
+# are the same as current.
+fun position ReplaceTargetMinimal=2779(position length, string text)
 
 # Search for a counted string in the target and set the target to the found
 # range. Text is counted so it can contain NULs.
@@ -3346,6 +3354,7 @@ val SC_AC_DOUBLECLICK=2
 val SC_AC_TAB=3
 val SC_AC_NEWLINE=4
 val SC_AC_COMMAND=5
+val SC_AC_SINGLE_CHOICE=6
 
 ali SC_AC_FILLUP=FILL_UP
 ali SC_AC_DOUBLECLICK=DOUBLE_CLICK

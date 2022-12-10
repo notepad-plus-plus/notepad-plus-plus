@@ -63,6 +63,7 @@ typedef sptr_t (*SciFnDirectStatus)(sptr_t ptr, unsigned int iMessage, uptr_t wP
 #define SCI_SELECTALL 2013
 #define SCI_SETSAVEPOINT 2014
 #define SCI_GETSTYLEDTEXT 2015
+#define SCI_GETSTYLEDTEXTFULL 2778
 #define SCI_CANREDO 2016
 #define SCI_MARKERLINEFROMHANDLE 2017
 #define SCI_MARKERDELETEHANDLE 2018
@@ -557,6 +558,7 @@ typedef sptr_t (*SciFnDirectStatus)(sptr_t ptr, unsigned int iMessage, uptr_t wP
 #define SCI_TARGETWHOLEDOCUMENT 2690
 #define SCI_REPLACETARGET 2194
 #define SCI_REPLACETARGETRE 2195
+#define SCI_REPLACETARGETMINIMAL 2779
 #define SCI_SEARCHINTARGET 2197
 #define SCI_SETSEARCHFLAGS 2198
 #define SCI_GETSEARCHFLAGS 2199
@@ -1240,6 +1242,7 @@ typedef sptr_t (*SciFnDirectStatus)(sptr_t ptr, unsigned int iMessage, uptr_t wP
 #define SC_AC_TAB 3
 #define SC_AC_NEWLINE 4
 #define SC_AC_COMMAND 5
+#define SC_AC_SINGLE_CHOICE 6
 #define SC_CHARACTERSOURCE_DIRECT_INPUT 0
 #define SC_CHARACTERSOURCE_TENTATIVE_INPUT 1
 #define SC_CHARACTERSOURCE_IME_RESULT 2

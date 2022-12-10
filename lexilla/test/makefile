@@ -44,7 +44,7 @@ endif
 vpath %.cxx ../access
 
 DEFINES += -D$(if $(DEBUG),DEBUG,NDEBUG)
-BASE_FLAGS += $(if $(DEBUG),-g,-Os)
+BASE_FLAGS += $(if $(DEBUG),-g,-O3)
 
 INCLUDES = -I ../../scintilla/include -I ../include -I ../access
 BASE_FLAGS += $(WARNINGS)

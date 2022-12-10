@@ -57,7 +57,7 @@ DEFINES += -DNO_CXX11_REGEX
 endif
 
 DEFINES += -D$(if $(DEBUG),DEBUG,NDEBUG)
-BASE_FLAGS += $(if $(DEBUG),-g,-Os)
+BASE_FLAGS += $(if $(DEBUG),-g,-O3)
 
 ifndef DEBUG
 STRIPFLAG=$(STRIPOPTION)

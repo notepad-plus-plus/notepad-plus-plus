@@ -74,15 +74,21 @@ bool textQuoted(const char *lineBuffer, Sci_PositionU endPos) {
 	char strBuffer[1024];
 	strncpy(strBuffer, lineBuffer, endPos);
 	strBuffer[endPos] = '\0';
-	char *pQuote;
-	pQuote = strchr(strBuffer, '"');
 	bool CurrentStatus = false;
-	while (pQuote != NULL)
-	{
-		if (!IsEscaped(strBuffer, pQuote - strBuffer)) {
-			CurrentStatus = !CurrentStatus;
+	const char strQuotes[] = "\"'";
+	const size_t strLength = strlen(strQuotes);
+	for (size_t i = 0; i < strLength; i++) {
+		const char *pQuote = strchr(strBuffer, strQuotes[i]);
+		while (pQuote != NULL)
+		{
+			if (!IsEscaped(strBuffer, pQuote - strBuffer)) {
+				CurrentStatus = !CurrentStatus;
+			}
+			pQuote = strchr(pQuote + 1, strQuotes[i]);
 		}
-		pQuote = strchr(pQuote + 1, '"');
+		if (CurrentStatus) {
+			break;
+		}
 	}
 	return CurrentStatus;
 }
@@ -196,9 +202,11 @@ void ColouriseBatchDoc(
 				// Check for Comment - return if found
 				if (continueProcessing) {
 					if ((CompareCaseInsensitive(wordBuffer, "rem") == 0) || (wordBuffer[0] == ':' && wordBuffer[1] == ':')) {
-						styler.ColourTo(startLine + offset - strlen(wordBuffer) - 1, SCE_BAT_DEFAULT);
-						styler.ColourTo(endPos, SCE_BAT_COMMENT);
-						break;
+						if ((offset == wbl) || !textQuoted(lineBuffer, offset - wbl)) {
+							styler.ColourTo(startLine + offset - wbl - 1, SCE_BAT_DEFAULT);
+							styler.ColourTo(endPos, SCE_BAT_COMMENT);
+							break;
+						}
 					}
 				}
 				// Check for Separator

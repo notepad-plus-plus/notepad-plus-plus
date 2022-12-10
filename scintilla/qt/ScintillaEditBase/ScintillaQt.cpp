@@ -755,6 +755,13 @@ sptr_t ScintillaQt::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam)
 		case Message::GetDirectPointer:
 			return reinterpret_cast<sptr_t>(this);
 
+		case Message::SetRectangularSelectionModifier:
+			rectangularSelectionModifier = static_cast<int>(wParam);
+			break;
+
+		case Message::GetRectangularSelectionModifier:
+			return rectangularSelectionModifier;
+
 		default:
 			return ScintillaBase::WndProc(iMessage, wParam, lParam);
 		}

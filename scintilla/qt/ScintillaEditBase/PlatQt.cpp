@@ -12,6 +12,7 @@
 
 #include "PlatQt.h"
 #include "Scintilla.h"
+#include "XPM.h"
 #include "UniConversion.h"
 #include "DBCS.h"
 
@@ -1146,7 +1147,9 @@ void ListBoxImpl::RegisterQPixmapImage(int type, const QPixmap& pm)
 
 void ListBoxImpl::RegisterImage(int type, const char *xpmData)
 {
-	RegisterQPixmapImage(type, QPixmap(reinterpret_cast<const char * const *>(xpmData)));
+	XPM xpmImage(xpmData);
+	RGBAImage rgbaImage(xpmImage);
+	RegisterRGBAImage(type, rgbaImage.GetWidth(), rgbaImage.GetHeight(), rgbaImage.Pixels());
 }
 
 void ListBoxImpl::RegisterRGBAImage(int type, int width, int height, const unsigned char *pixelsImage)

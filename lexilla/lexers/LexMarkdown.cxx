@@ -387,6 +387,9 @@ static void ColorizeMarkdownDoc(Sci_PositionU startPos, Sci_Position length, int
                     sc.SetState(SCE_MARKDOWN_OLIST_ITEM);
                     sc.Forward(digitCount + 1);
                     sc.SetState(SCE_MARKDOWN_DEFAULT);
+                } else {
+                    // a textual number at the margin should be plain text
+                    sc.SetState(SCE_MARKDOWN_DEFAULT);
                 }
             }
             // Alternate Ordered list

@@ -253,6 +253,12 @@ void SCI_METHOD LexerDMIS::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, i
 					char tmpStr[MAX_STR_LEN];
 					memset(tmpStr, 0, MAX_STR_LEN*sizeof(char));
 					scCTX.GetCurrent(tmpStr, (MAX_STR_LEN-1));
+					// The following strncpy is copying from a string back onto itself which is weird and causes warnings
+					// but is harmless so turn off the warning
+#if defined(__GNUC__) && !defined(__APPLE__)
+// Disable warning for strncpy
+#pragma GCC diagnostic ignored "-Wrestrict"
+#endif
 					strncpy(tmpStr, this->UpperCase(tmpStr), (MAX_STR_LEN-1));
 
 					if (this->m_minorWords.InList(tmpStr)) {

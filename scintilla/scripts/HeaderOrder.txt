@@ -76,6 +76,7 @@
 #include <commctrl.h>
 #include <richedit.h>
 #include <windowsx.h>
+#include <shellscalingapi.h>
 #include <zmouse.h>
 #include <ole2.h>
 #include <d2d1.h>

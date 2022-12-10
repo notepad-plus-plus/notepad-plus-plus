@@ -586,6 +586,43 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/lexilla521.zip">Release 5.2.1</a>
+    </h3>
+    <ul>
+	<li>
+	Released 6 December 2022.
+	</li>
+	<li>
+	Update to Unicode 14.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1461/">Feature #1461</a>.
+	</li>
+	<li>
+	Change default compilation optimization option to favour speed over space.
+	-O2 for MSVC and -O3 for gcc and clang.
+	</li>
+	<li>
+	Batch: Fix comments starting inside strings.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/115">Issue #115</a>.
+	</li>
+	<li>
+	F#: Lex signed numeric literals more accurately.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/110">Issue #110</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/111">Issue #111</a>.
+	</li>
+	<li>
+	F#: Add specifiers for 64-bit integer and floating point literals.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/112">Issue #112</a>.
+	</li>
+	<li>
+	Markdown: Stop styling numbers at line start in PRECHAR style.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/117">Issue #117</a>.
+	</li>
+	<li>
+	PowerShell: Recognise numeric literals more accurately.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/118">Issue #118</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/lexilla520.zip">Release 5.2.0</a>
     </h3>
     <ul>
@@ -1804,7 +1841,7 @@
 	</li>
  	<li>
 	SciTE supports changing caret style via caret.style property.
-	<a href="https://sourceforge.net/p/scintilla/feature-requests/1264/">Feature #1624</a>.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1264/">Feature #1264</a>.
 	</li>
  	<li>
 	Lexer added for .NET's Common Intermediate Language CIL.
@@ -2303,15 +2340,15 @@
 	</li>
 	<li>
 	Minor undefined behaviour fixed.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1978">Bug #1978</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1978/">Bug #1978</a>.
 	</li>
 	<li>
 	On Cocoa, improve scrolling on macOS 10.12.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1885">Bug #1885</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1885/">Bug #1885</a>.
 	</li>
 	<li>
 	On Cocoa, fix line selection by clicking in the margin when scrolled.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1971">Bug #1971</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1971/">Bug #1971</a>.
 	</li>
     </ul>
     <h3>
@@ -2396,7 +2433,7 @@
 	</li>
 	<li>
 	On GTK+ fix drawing problems including incorrect scrollbar redrawing and flickering of text.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1876">Bug #1876</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1876/">Bug #1876</a>.
 	</li>
 	<li>
 	On Linux, both for GTK+ and Qt, the default modifier key for rectangular selection is now Alt.
@@ -2407,7 +2444,7 @@
 	<li>
 	On Cocoa, fix doCommandBySelector but avoid double effect of 'delete'
 	key.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1958">Bug #1958</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1958/">Bug #1958</a>.
 	</li>
 	<li>
 	On Qt, the updateUi signal includes the 'updated' flags.
@@ -5460,7 +5497,7 @@
 	</li>
 	<li>
 	Added ncurses platform definitions. Implementation is maintained separately as
-	<a href="https://foicica.com/scinterm/">Scinterm</a>.
+	<a href="https://orbitalquark.github.io/scinterm">Scinterm</a>.
 	</li>
     </ul>
     <h3>

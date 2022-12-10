@@ -8,8 +8,8 @@ jobs:
         runs-on: windows-latest
 
         steps:
-        - uses: actions/checkout@v2
-        - name: Preparing nmake    
+        - uses: actions/checkout@v3
+        - name: Preparing nmake
           uses: ilammy/msvc-dev-cmd@v1
           with:
             arch: x64

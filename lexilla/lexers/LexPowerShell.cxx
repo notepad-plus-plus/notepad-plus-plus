@@ -33,6 +33,41 @@ static inline bool IsAWordChar(int ch) noexcept {
 	return ch >= 0x80 || isalnum(ch) || ch == '-' || ch == '_';
 }
 
+static bool IsNumericLiteral(int chPrev, int ch, int chNext) {
+	// integers
+	if (ch >= '0' && ch <= '9') {
+		return true;
+	}
+	// hex 0x or a-f
+	if ((ch == 'x' && chPrev == '0') || (ch >= 'a' && ch <= 'f')) {
+		return true;
+	}
+	// decimal point
+	if (ch == '.' && chNext != '.') {
+		return true;
+	}
+	// optional -/+ sign after exponent
+	if ((ch == '+' || ch == '-') && chPrev == 'e') {
+		return true;
+	}
+	// suffix
+	switch (ch) {
+	//case 'b': see hex
+	case 'g':
+	case 'k':
+	case 'l':
+	case 'm':
+	case 'n':
+	case 'p':
+	case 's':
+	case 't':
+	case 'u':
+	case 'y':
+		return true;
+	}
+	return false;
+}
+
 static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 				   WordList *keywordlists[], Accessor &styler) {
 
@@ -99,8 +134,14 @@ static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, 
 				sc.SetState(SCE_POWERSHELL_DEFAULT);
 			}
 		} else if (sc.state == SCE_POWERSHELL_NUMBER) {
-			if (!IsADigit(sc.ch)) {
-				sc.SetState(SCE_POWERSHELL_DEFAULT);
+			if (!IsNumericLiteral(MakeLowerCase(sc.chPrev),
+					      MakeLowerCase(sc.ch),
+					      MakeLowerCase(sc.chNext))) {
+				if (sc.MatchLineEnd() || IsASpaceOrTab(sc.ch) || isoperator(sc.ch)) {
+					sc.SetState(SCE_POWERSHELL_DEFAULT);
+				} else {
+					sc.ChangeState(SCE_POWERSHELL_IDENTIFIER);
+				}
 			}
 		} else if (sc.state == SCE_POWERSHELL_VARIABLE) {
 			if (!IsAWordChar(sc.ch)) {
@@ -146,7 +187,7 @@ static void ColourisePowerShellDoc(Sci_PositionU startPos, Sci_Position length, 
 				sc.SetState(SCE_POWERSHELL_HERE_CHARACTER);
 			} else if (sc.ch == '$') {
 				sc.SetState(SCE_POWERSHELL_VARIABLE);
-			} else if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
+			} else if (IsADigit(sc.ch) || (sc.chPrev != '.' && sc.ch == '.' && IsADigit(sc.chNext))) {
 				sc.SetState(SCE_POWERSHELL_NUMBER);
 			} else if (isoperator(sc.ch)) {
 				sc.SetState(SCE_POWERSHELL_OPERATOR);

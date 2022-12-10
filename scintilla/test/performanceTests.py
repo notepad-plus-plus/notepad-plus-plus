@@ -26,7 +26,7 @@ class TestPerformance(unittest.TestCase):
 	def testAddLine(self):
 		data = (string.ascii_letters + string.digits + "\n").encode('utf-8')
 		start = timer()
-		for i in range(1000):
+		for i in range(2000):
 			self.ed.AddText(len(data), data)
 			self.assertEquals(self.ed.LineCount, i + 2)
 		end = timer()
@@ -38,7 +38,7 @@ class TestPerformance(unittest.TestCase):
 	def testAddLineMiddle(self):
 		data = (string.ascii_letters + string.digits + "\n").encode('utf-8')
 		start = timer()
-		for i in range(1000):
+		for i in range(2000):
 			self.ed.AddText(len(data), data)
 			self.assertEquals(self.ed.LineCount, i + 2)
 		end = timer()
@@ -64,7 +64,7 @@ class TestPerformance(unittest.TestCase):
 		insert = (string.digits + "\n").encode('utf-8')
 		self.ed.AddText(len(data), data)
 		start = timer()
-		for i in range(1000):
+		for i in range(2000):
 			self.ed.InsertText(0, insert)
 		end = timer()
 		duration = end - start
@@ -96,7 +96,7 @@ class TestPerformance(unittest.TestCase):
 		self.ed.AddText(len(manyLines), manyLines)
 		searchString = "φ".encode('utf-8')
 		start = timer()
-		for i in range(10):
+		for i in range(1000):
 			self.ed.TargetStart = 0
 			self.ed.TargetEnd = self.ed.Length-1
 			self.ed.SearchFlags = self.ed.SCFIND_MATCHCASE
@@ -115,7 +115,7 @@ class TestPerformance(unittest.TestCase):
 		self.ed.AddText(len(manyLines), manyLines)
 		searchString = "φ".encode('utf-8')
 		start = timer()
-		for i in range(10):
+		for i in range(20):
 			self.ed.TargetStart = 0
 			self.ed.TargetEnd = self.ed.Length-1
 			self.ed.SearchFlags = 0
@@ -124,6 +124,25 @@ class TestPerformance(unittest.TestCase):
 		end = timer()
 		duration = end - start
 		print("%6.3f testUTF8Searches" % duration)
+		self.xite.DoEvents()
+
+	def testUTF8AsciiSearches(self):
+		self.ed.SetCodePage(65001)
+		oneLine = "Fold Margin=NagasakiOsakaHiroshimaHanedaKyoto(&F)\n".encode('utf-8')
+		manyLines = oneLine * 100000
+		manyLines = manyLines + "φ\n".encode('utf-8')
+		self.ed.AddText(len(manyLines), manyLines)
+		searchString = "φ".encode('utf-8')
+		start = timer()
+		for i in range(20):
+			self.ed.TargetStart = 0
+			self.ed.TargetEnd = self.ed.Length-1
+			self.ed.SearchFlags = 0
+			pos = self.ed.SearchInTarget(len(searchString), searchString)
+			self.assert_(pos > 0)
+		end = timer()
+		duration = end - start
+		print("%6.3f testUTF8AsciiSearches" % duration)
 		self.xite.DoEvents()
 
 if __name__ == '__main__':

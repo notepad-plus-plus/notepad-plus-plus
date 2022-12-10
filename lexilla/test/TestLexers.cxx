@@ -750,9 +750,10 @@ void TestILexer(Scintilla::ILexer5 *plex) {
 	}
 }
 
-void SetProperties(Scintilla::ILexer5 *plex, const PropertyMap &propertyMap, std::string_view fileName) {
+bool SetProperties(Scintilla::ILexer5 *plex, const PropertyMap &propertyMap, std::filesystem::path path) {
 	assert(plex);
 
+	const std::string fileName = path.filename().string();
 	// Set keywords, keywords2, ... keywords9, for this file
 	for (int kw = 0; kw < 10; kw++) {
 		std::string kwChoice("keywords");
@@ -762,7 +763,24 @@ void SetProperties(Scintilla::ILexer5 *plex, const PropertyMap &propertyMap, std
 		kwChoice.append(".*");
 		std::optional<std::string> keywordN = propertyMap.GetPropertyForFile(kwChoice, fileName);
 		if (keywordN) {
-			plex->WordListSet(kw, keywordN->c_str());
+			// New lexer object has all word lists empty so check null effect from setting empty
+			const Sci_Position changedEmpty = plex->WordListSet(kw, "");
+			if (changedEmpty != -1) {
+				std::cout << path.string() << ":1: does not return -1 for null WordListSet(" << kw << ")\n";
+				return false;
+			}
+			const Sci_Position changedAt = plex->WordListSet(kw, keywordN->c_str());
+			if (keywordN->empty()) {
+				if (changedAt != -1) {
+					std::cout << path.string() << ":1: does not return -1 for WordListSet(" << kw << ") to same empty" << "\n";
+					return false;
+				}
+			} else {
+				if (changedAt == -1) {
+					std::cout << path.string() << ":1: returns -1 for WordListSet(" << kw << ")\n";
+					return false;
+				}
+			}
 		}
 	}
 
@@ -776,6 +794,8 @@ void SetProperties(Scintilla::ILexer5 *plex, const PropertyMap &propertyMap, std
 			plex->PropertySet(key.c_str(), val.c_str());
 		}
 	}
+
+	return true;
 }
 
 
@@ -792,7 +812,9 @@ bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap)
 		return false;
 	}
 
-	SetProperties(plex, propertyMap, path.filename().string());
+	if (!SetProperties(plex, propertyMap, path)) {
+		return false;
+	}
 
 	TestILexer(plex);
 

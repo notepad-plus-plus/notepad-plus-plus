@@ -286,7 +286,6 @@ void ScintillaEditBase::keyPressEvent(QKeyEvent *event)
 	emit keyPressed(event);
 }
 
-#ifdef Q_WS_X11
 static int modifierTranslated(int sciModifier)
 {
 	switch (sciModifier) {
@@ -302,7 +301,6 @@ static int modifierTranslated(int sciModifier)
 			return 0;
 	}
 }
-#endif
 
 void ScintillaEditBase::mousePressEvent(QMouseEvent *event)
 {
@@ -323,13 +321,7 @@ void ScintillaEditBase::mousePressEvent(QMouseEvent *event)
 	if (event->button() == Qt::LeftButton) {
 		bool shift = QApplication::keyboardModifiers() & Qt::ShiftModifier;
 		bool ctrl  = QApplication::keyboardModifiers() & Qt::ControlModifier;
-#ifdef Q_WS_X11
-		// On X allow choice of rectangular modifier since most window
-		// managers grab alt + click for moving windows.
 		bool alt   = QApplication::keyboardModifiers() & modifierTranslated(sqt->rectangularSelectionModifier);
-#else
-		bool alt   = QApplication::keyboardModifiers() & Qt::AltModifier;
-#endif
 
 		sqt->ButtonDownWithModifiers(pos, time.elapsed(), ModifierFlags(shift, ctrl, alt));
 	}
@@ -365,13 +357,7 @@ void ScintillaEditBase::mouseMoveEvent(QMouseEvent *event)
 
 	bool shift = QApplication::keyboardModifiers() & Qt::ShiftModifier;
 	bool ctrl  = QApplication::keyboardModifiers() & Qt::ControlModifier;
-#ifdef Q_WS_X11
-	// On X allow choice of rectangular modifier since most window
-	// managers grab alt + click for moving windows.
 	bool alt   = QApplication::keyboardModifiers() & modifierTranslated(sqt->rectangularSelectionModifier);
-#else
-	bool alt   = QApplication::keyboardModifiers() & Qt::AltModifier;
-#endif
 
 	const KeyMod modifiers = ModifierFlags(shift, ctrl, alt);
 

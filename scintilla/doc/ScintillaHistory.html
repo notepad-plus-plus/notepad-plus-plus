@@ -574,9 +574,61 @@
       </tr><tr>
 	<td>Reinhard Nißl</td>
 	<td>Ferdinand Oeinck</td>
+	<td>Michael Heath</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla532.zip">Release 5.3.2</a>
+    </h3>
+    <ul>
+	<li>
+	Released 6 December 2022.
+	</li>
+	<li>
+	Add SCI_REPLACETARGETMINIMAL to change text without causing unchanged prefix and suffix
+	to be marked as modified in change history.
+	</li>
+	<li>
+	Draw background colour for EOL annotations with standard and boxed visuals.
+	</li>
+	<li>
+	Add SCI_GETSTYLEDTEXTFULL to support 64-bit document positions on Win32 replacing
+	SCI_GETSTYLEDTEXT which is not safe for huge documents.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1455/">Feature #1455</a>.
+	</li>
+	<li>
+	Send SCN_AUTOCCOMPLETED for SCI_AUTOCSHOW
+	triggering insertion because of SCI_AUTOCSETCHOOSESINGLE mode.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1459/">Feature #1459</a>.
+	</li>
+	<li>
+	Change 'paragraph up' commands SCI_PARAUP and SCI_PARAUPEXTEND to
+	go to the start position of the paragraph containing the caret.
+	Only if the caret is already at the start of the paragraph will it go to the start
+	of the previous paragraph.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2363/">Bug #2363</a>.
+	</li>
+	<li>
+	Change release compilation optimization option to favour speed over space.
+	-O2 for MSVC and -O3 for gcc and clang.
+	</li>
+	<li>
+	On Win32, avoid blurry display with DirectWrite in GDI scaling mode.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2344/">Bug #2344</a>.
+	</li>
+	<li>
+	On Win32, use the top-level window to find the monitor for DirectWrite rendering parameters.
+	Temporarily switch DPI awareness to find correct monitor in GDI scaling mode.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2344/">Bug #2344</a>.
+	</li>
+	<li>
+	On Qt, implement SCI_SETRECTANGULARSELECTIONMODIFIER for all platforms.
+	</li>
+	<li>
+	On Qt, allow string form XPM images for SCI_REGISTERIMAGE.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla531.zip">Release 5.3.1</a>
     </h3>
@@ -1933,7 +1985,7 @@
 	</li>
  	<li>
 	SciTE supports changing caret style via caret.style property.
-	<a href="https://sourceforge.net/p/scintilla/feature-requests/1264/">Feature #1624</a>.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1264/">Feature #1264</a>.
 	</li>
  	<li>
 	Lexer added for .NET's Common Intermediate Language CIL.
@@ -2432,15 +2484,15 @@
 	</li>
 	<li>
 	Minor undefined behaviour fixed.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1978">Bug #1978</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1978/">Bug #1978</a>.
 	</li>
 	<li>
 	On Cocoa, improve scrolling on macOS 10.12.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1885">Bug #1885</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1885/">Bug #1885</a>.
 	</li>
 	<li>
 	On Cocoa, fix line selection by clicking in the margin when scrolled.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1971">Bug #1971</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1971/">Bug #1971</a>.
 	</li>
     </ul>
     <h3>
@@ -2525,7 +2577,7 @@
 	</li>
 	<li>
 	On GTK+ fix drawing problems including incorrect scrollbar redrawing and flickering of text.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1876">Bug #1876</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1876/">Bug #1876</a>.
 	</li>
 	<li>
 	On Linux, both for GTK+ and Qt, the default modifier key for rectangular selection is now Alt.
@@ -2536,7 +2588,7 @@
 	<li>
 	On Cocoa, fix doCommandBySelector but avoid double effect of 'delete'
 	key.
-	<a href="https://sourceforge.net/p/scintilla/bugs/1958">Bug #1958</a>.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1958/">Bug #1958</a>.
 	</li>
 	<li>
 	On Qt, the updateUi signal includes the 'updated' flags.

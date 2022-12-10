@@ -309,20 +309,6 @@ public:
 	}
 };
 
-class MouseWheelDelta {
-	int wheelDelta = 0;
-public:
-	bool Accumulate(WPARAM wParam) noexcept {
-		wheelDelta -= GET_WHEEL_DELTA_WPARAM(wParam);
-		return std::abs(wheelDelta) >= WHEEL_DELTA;
-	}
-	int Actions() noexcept {
-		const int actions = wheelDelta / WHEEL_DELTA;
-		wheelDelta = wheelDelta % WHEEL_DELTA;
-		return actions;
-	}
-};
-
 struct HorizontalScrollRange {
 	int pageWidth;
 	int documentWidth;
@@ -370,6 +356,8 @@ class ScintillaWin :
 	static HINSTANCE hInstance;
 	static ATOM scintillaClassAtom;
 	static ATOM callClassAtom;
+
+	int deviceScaleFactor = 1;
 
 #if defined(USE_D2D)
 	ID2D1RenderTarget *pRenderTarget;
@@ -650,7 +638,8 @@ bool ScintillaWin::UpdateRenderingParams(bool force) noexcept {
 			return false;
 		}
 	}
-	HMONITOR monitor = ::MonitorFromWindow(MainHWND(), MONITOR_DEFAULTTONEAREST);
+	const HWND hRootWnd = ::GetAncestor(MainHWND(), GA_ROOT);
+	const HMONITOR monitor = Internal::MonitorFromWindowHandleScaling(hRootWnd);
 	if (!force && monitor == hCurrentMonitor && renderingParams->defaultRenderingParams) {
 		return false;
 	}
@@ -672,11 +661,23 @@ bool ScintillaWin::UpdateRenderingParams(bool force) noexcept {
 	}
 
 	hCurrentMonitor = monitor;
+	deviceScaleFactor = Internal::GetDeviceScaleFactorWhenGdiScalingActive(hRootWnd);
 	renderingParams->defaultRenderingParams.reset(monitorRenderingParams);
 	renderingParams->customRenderingParams.reset(customClearTypeRenderingParams);
 	return true;
 }
 
+namespace {
+
+D2D1_SIZE_U GetSizeUFromRect(const RECT &rc, const int scaleFactor) noexcept {
+	const long width = rc.right - rc.left;
+	const long height = rc.bottom - rc.top;
+	const UINT32 scaledWidth = width * scaleFactor;
+	const UINT32 scaledHeight = height * scaleFactor;
+	return D2D1::SizeU(scaledWidth, scaledHeight);
+}
+
+}
 
 void ScintillaWin::EnsureRenderTarget(HDC hdc) {
 	if (!renderTargetValid) {
@@ -688,19 +689,15 @@ void ScintillaWin::EnsureRenderTarget(HDC hdc) {
 		RECT rc;
 		::GetClientRect(hw, &rc);
 
-		const D2D1_SIZE_U size = D2D1::SizeU(rc.right - rc.left, rc.bottom - rc.top);
-
 		// Create a Direct2D render target.
 		D2D1_RENDER_TARGET_PROPERTIES drtp {};
 		drtp.type = D2D1_RENDER_TARGET_TYPE_DEFAULT;
-		drtp.pixelFormat.format = DXGI_FORMAT_UNKNOWN;
-		drtp.pixelFormat.alphaMode = D2D1_ALPHA_MODE_UNKNOWN;
-		drtp.dpiX = 96.0;
-		drtp.dpiY = 96.0;
 		drtp.usage = D2D1_RENDER_TARGET_USAGE_NONE;
 		drtp.minLevel = D2D1_FEATURE_LEVEL_DEFAULT;
 
 		if (technology == Technology::DirectWriteDC) {
+			drtp.dpiX = 96.f;
+			drtp.dpiY = 96.f;
 			// Explicit pixel format needed.
 			drtp.pixelFormat = D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM,
 				D2D1_ALPHA_MODE_IGNORE);
@@ -715,9 +712,14 @@ void ScintillaWin::EnsureRenderTarget(HDC hdc) {
 			}
 
 		} else {
+			drtp.dpiX = 96.f * deviceScaleFactor;
+			drtp.dpiY = 96.f * deviceScaleFactor;
+			drtp.pixelFormat = D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN,
+				D2D1_ALPHA_MODE_UNKNOWN);
+
 			D2D1_HWND_RENDER_TARGET_PROPERTIES dhrtp {};
 			dhrtp.hwnd = hw;
-			dhrtp.pixelSize = size;
+			dhrtp.pixelSize = ::GetSizeUFromRect(rc, deviceScaleFactor);
 			dhrtp.presentOptions = (technology == Technology::DirectWriteRetain) ?
 			D2D1_PRESENT_OPTIONS_RETAIN_CONTENTS : D2D1_PRESENT_OPTIONS_NONE;
 
@@ -3668,10 +3670,12 @@ LRESULT PASCAL ScintillaWin::CTWndProc(
 					surfaceWindow->Init(ps.hdc, hWnd);
 				} else {
 #if defined(USE_D2D)
+					const int scaleFactor = sciThis->deviceScaleFactor;
+
 					// Create a Direct2D render target.
 					D2D1_HWND_RENDER_TARGET_PROPERTIES dhrtp {};
 					dhrtp.hwnd = hWnd;
-					dhrtp.pixelSize = D2D1::SizeU(rc.right - rc.left, rc.bottom - rc.top);
+					dhrtp.pixelSize = ::GetSizeUFromRect(rc, scaleFactor);
 					dhrtp.presentOptions = (sciThis->technology == Technology::DirectWriteRetain) ?
 						D2D1_PRESENT_OPTIONS_RETAIN_CONTENTS : D2D1_PRESENT_OPTIONS_NONE;
 
@@ -3679,8 +3683,8 @@ LRESULT PASCAL ScintillaWin::CTWndProc(
 					drtp.type = D2D1_RENDER_TARGET_TYPE_DEFAULT;
 					drtp.pixelFormat.format = DXGI_FORMAT_UNKNOWN;
 					drtp.pixelFormat.alphaMode = D2D1_ALPHA_MODE_UNKNOWN;
-					drtp.dpiX = 96.0;
-					drtp.dpiY = 96.0;
+					drtp.dpiX = 96.f * scaleFactor;
+					drtp.dpiY = 96.f * scaleFactor;
 					drtp.usage = D2D1_RENDER_TARGET_USAGE_NONE;
 					drtp.minLevel = D2D1_FEATURE_LEVEL_DEFAULT;
 

@@ -62,6 +62,15 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.GetStyleAt(0), 0)
 		self.assertEquals(self.ed.StyledTextRange(0, 1), b"x\0")
 
+	def testStyledTextRangeFull(self):
+		self.assertEquals(self.ed.EndStyled, 0)
+		self.ed.AddStyledText(4, b"x\002y\377")
+		self.assertEquals(self.ed.StyledTextRangeFull(0, 1), b"x\002")
+		self.assertEquals(self.ed.StyledTextRangeFull(1, 2), b"y\377")
+		self.ed.ClearDocumentStyle()
+		self.assertEquals(self.ed.Length, 2)
+		self.assertEquals(self.ed.StyledTextRangeFull(0, 1), b"x\0")
+
 	def testStyling(self):
 		self.assertEquals(self.ed.EndStyled, 0)
 		self.ed.AddStyledText(4, b"x\002y\003")
@@ -625,6 +634,45 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.TargetStart, 4)
 		self.assertEquals(self.ed.TargetEnd, 5)
 
+	def testReplaceTargetMinimal(self):
+		# 1: No common characters
+		self.ed.SetContents(b"abcd")
+		self.ed.TargetStart = 1
+		self.ed.TargetEnd = 3
+		self.assertEquals(self.ed.TargetStart, 1)
+		self.assertEquals(self.ed.TargetEnd, 3)
+		rep = b"321"
+		self.ed.ReplaceTargetMinimal(len(rep), rep)
+		self.assertEquals(self.ed.Contents(), b"a321d")
+
+		# 2: New characters with common prefix and suffix
+		self.ed.TargetStart = 1
+		self.ed.TargetEnd = 4
+		rep = b"3<>1"
+		self.ed.ReplaceTargetMinimal(len(rep), rep)
+		self.assertEquals(self.ed.Contents(), b"a3<>1d")
+
+		# 3: Remove characters with common prefix and suffix
+		self.ed.TargetStart = 1
+		self.ed.TargetEnd = 5
+		rep = b"31"
+		self.ed.ReplaceTargetMinimal(len(rep), rep)
+		self.assertEquals(self.ed.Contents(), b"a31d")
+
+		# 4: Common prefix
+		self.ed.TargetStart = 1
+		self.ed.TargetEnd = 3
+		rep = b"3bc"
+		self.ed.ReplaceTargetMinimal(len(rep), rep)
+		self.assertEquals(self.ed.Contents(), b"a3bcd")
+
+		# 5: Common suffix
+		self.ed.TargetStart = 2
+		self.ed.TargetEnd = 5
+		rep = b"cd"
+		self.ed.ReplaceTargetMinimal(len(rep), rep)
+		self.assertEquals(self.ed.Contents(), b"a3cd")
+
 	def testTargetWhole(self):
 		self.ed.SetContents(b"abcd")
 		self.ed.TargetStart = 1
@@ -972,6 +1020,46 @@ class TestKeyCommands(unittest.TestCase):
 		self.assertEquals(self.selRange(), (0, 3))
 		self.ed.DocumentEndExtend()
 		self.assertEquals(self.selRange(), (10, 3))
+
+	def testParagraphMove(self):
+		example = b"a\n\nbig\n\n\n\nboat"
+		self.ed.AddText(len(example), example)
+		start1 = 0	# Before 'a'
+		start2 = 3	# Before 'big'
+		start3 = 10	# Before 'boat'
+
+		# Paragraph 2 to 1
+		self.ed.SetSel(start2, start2)
+		self.ed.ParaUp()
+		self.assertEquals(self.selRange(), (start1, start1))
+		self.ed.ParaDown()
+		self.assertEquals(self.selRange(), (start2, start2))
+		self.ed.SetSel(start2, start2)
+		self.ed.ParaUpExtend()
+		self.assertEquals(self.selRange(), (start1, start2))
+		self.ed.ParaDownExtend()
+		self.assertEquals(self.selRange(), (start2, start2))
+
+		# Inside paragraph 2 to start paragraph 2
+		mid2 = start2+1
+		self.ed.SetSel(mid2, mid2)
+		# Next line behaved differently before change for bug #2363
+		self.ed.ParaUp()
+		self.assertEquals(self.selRange(), (start2, start2))
+		self.ed.ParaDown()
+		self.assertEquals(self.selRange(), (start3, start3))
+		self.ed.SetSel(mid2, mid2)
+		self.ed.ParaUpExtend()
+		self.assertEquals(self.selRange(), (start2, mid2))
+		self.ed.ParaDownExtend()
+		self.assertEquals(self.selRange(), (start3, mid2))
+
+		# Paragraph 3 to 2
+		self.ed.SetSel(start3, start3)
+		self.ed.ParaUp()
+		self.assertEquals(self.selRange(), (start2, start2))
+		self.ed.ParaDown()
+		self.assertEquals(self.selRange(), (start3, start3))
 
 
 class TestMarkers(unittest.TestCase):

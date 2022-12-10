@@ -172,6 +172,16 @@ class ScintillaCallable:
 		styledText = tr.lpstrText[:length]
 		styledText += b"\0" * (length - len(styledText))
 		return styledText
+	def StyledTextRangeFull(self, start, end):
+		tr = TEXTRANGEFULL()
+		tr.cpMin = start
+		tr.cpMax = end
+		length = 2 * (end - start)
+		tr.lpstrText = ctypes.create_string_buffer(length + 2)
+		self.GetStyledTextFull(0, ctypes.byref(tr))
+		styledText = tr.lpstrText[:length]
+		styledText += b"\0" * (length - len(styledText))
+		return styledText
 	def FindBytes(self, start, end, s, flags):
 		ft = FINDTEXT()
 		ft.cpMin = start

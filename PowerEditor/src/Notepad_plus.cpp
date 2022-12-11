@@ -1486,8 +1486,10 @@ void Notepad_plus::doTrim(trimOp whichPart)
 	else
 		return;
 	env._str4Replace = TEXT("");
-    env._searchType = FindRegex;
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+	env._searchType = FindRegex;
+	bool isEntireDoc = _pEditView->execute(SCI_GETSELECTIONSTART) == _pEditView->execute(SCI_GETSELECTIONEND);
+	env._isInSelection = !isEntireDoc;
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 }
 
 void Notepad_plus::removeEmptyLine(bool isBlankContained)

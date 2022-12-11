@@ -1545,7 +1545,7 @@ bool isUnsupportedFileName(const generic_string& fileName)
 
 	// until the N++ (and its plugins) will not be prepared for filenames longer than the MAX_PATH,
 	// we have to limit also the maximum supported length below
-	if ((fileName.size() > 0) || (fileName.size() < MAX_PATH))
+	if ((fileName.size() > 0) && (fileName.size() < MAX_PATH))
 	{
 		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the N++ advanced
 		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs currently do not handle this well

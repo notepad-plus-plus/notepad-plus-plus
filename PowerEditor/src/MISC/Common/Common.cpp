@@ -1519,40 +1519,36 @@ HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestPar
 	return newFont;
 }
 
-bool isRawWin32FileName(const generic_string& fileName)
+// "For file I/O, the "\\?\" prefix to a path string tells the Windows APIs to disable all string parsing
+// and to send the string that follows it straight to the file system..."
+// Ref: https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#win32-file-namespaces
+bool isWin32NamespacePrefixedFileName(const generic_string& fileName)
 {
 	// TODO:
 	// ?! how to handle similar NT Object Manager path style prefix case \??\...
-	// (the \??\ prefix instructs the NT Object Manager to search in the caller's local device directory for an allias...)
+	// (the \??\ prefix instructs the NT Object Manager to search in the caller's local device directory for an alias...)
 
 	// the following covers the \\?\... raw Win32-filenames or the \\?\UNC\... UNC equivalents
 	// and also its *nix like forward slash equivalents
 	return (fileName.starts_with(TEXT("\\\\?\\")) || fileName.starts_with(TEXT("//?/")));
 }
 
-bool isRawWin32FileName(const TCHAR* szFileName)
+bool isWin32NamespacePrefixedFileName(const TCHAR* szFileName)
 {
 	const generic_string fileName = szFileName;
-	return isRawWin32FileName(fileName);
+	return isWin32NamespacePrefixedFileName(fileName);
 }
-
-const generic_string reservedWinOSNamesList[] = {
-	TEXT("CON"), TEXT("PRN"), TEXT("AUX"), TEXT("NUL"),
-	TEXT("COM1"), TEXT("COM2"), TEXT("COM3"), TEXT("COM4"), TEXT("COM5"), TEXT("COM6"), TEXT("COM7"), TEXT("COM8"), TEXT("COM9"),
-	TEXT("LPT1"), TEXT("LPT2"), TEXT("LPT3"), TEXT("LPT4"), TEXT("LPT5"), TEXT("LPT6"), TEXT("LPT7"), TEXT("LPT8"), TEXT("LPT9")
-};
-const std::vector<generic_string> rwnlVector(reservedWinOSNamesList, reservedWinOSNamesList + sizeof(reservedWinOSNamesList) / sizeof(reservedWinOSNamesList[0]));
 
 bool isUnsupportedFileName(const generic_string& fileName)
 {
 	bool isUnsupported = true;
 
 	// until the N++ (and its plugins) will not be prepared for filenames longer than the MAX_PATH,
-	// we have to limit also the maximum supported lenght below
-	if ((fileName.size() > 0) && (fileName.size() < MAX_PATH))
+	// we have to limit also the maximum supported length below
+	if ((fileName.size() > 0) || (fileName.size() < MAX_PATH))
 	{
 		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the N++ advanced
-		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs curently do not handle this well
+		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs currently do not handle this well
 		// (but e.g. direct N++ Ctrl+S works ok even with these filenames)
 		if (!fileName.ends_with(_T('.')) && !fileName.ends_with(_T(' ')))
 		{
@@ -1593,14 +1589,21 @@ bool isUnsupportedFileName(const generic_string& fileName)
 					fileNameOnly = fileName.substr(0, pos);
 				else
 					fileNameOnly = fileName;
+
 				pos = fileNameOnly.find_last_of(TEXT("\\"));
 				if (pos == std::string::npos)
 					pos = fileNameOnly.find_last_of(TEXT("/"));
 				if (pos != std::string::npos)
 					fileNameOnly = fileNameOnly.substr(pos + 1);
 
+				const std::vector<generic_string>  reservedWin32NamespaceDeviceList{
+				TEXT("CON"), TEXT("PRN"), TEXT("AUX"), TEXT("NUL"),
+				TEXT("COM1"), TEXT("COM2"), TEXT("COM3"), TEXT("COM4"), TEXT("COM5"), TEXT("COM6"), TEXT("COM7"), TEXT("COM8"), TEXT("COM9"),
+				TEXT("LPT1"), TEXT("LPT2"), TEXT("LPT3"), TEXT("LPT4"), TEXT("LPT5"), TEXT("LPT6"), TEXT("LPT7"), TEXT("LPT8"), TEXT("LPT9")
+				};
+
 				// last check is for all the old reserved Windows OS filenames
-				if (std::find(rwnlVector.begin(), rwnlVector.end(), fileNameOnly) == rwnlVector.end())
+				if (std::find(reservedWin32NamespaceDeviceList.begin(), reservedWin32NamespaceDeviceList.end(), fileNameOnly) == reservedWin32NamespaceDeviceList.end())
 				{
 					// ok, the current filename tested is not even on the blacklist
 					isUnsupported = false;

@@ -718,7 +718,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	}
 
 	TCHAR fullpath[MAX_PATH] = { 0 };
-	if (isRawWin32FileName(filename))
+	if (isWin32NamespacePrefixedFileName(filename))
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
 		_tcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
@@ -735,7 +735,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
 	{
-		_tcscpy_s(fullpath, MAX_PATH, filename); // we restore fullpath with filename, in our case is "new  #"
+		wcscpy_s(fullpath, MAX_PATH, filename); // we restore fullpath with filename, in our case is "new  #"
 	}
 
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
@@ -1125,7 +1125,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 	DWORD attrib = 0;
 
 	TCHAR fullpath[MAX_PATH] = { 0 };
-	if (isRawWin32FileName(filename))
+	if (isWin32NamespacePrefixedFileName(filename))
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
 		_tcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);

@@ -179,7 +179,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	if (isResolvedLinkFileName)
 		isRawFileName = false;
 	else
-		isRawFileName = isRawWin32FileName(fileName);
+		isRawFileName = isWin32NamespacePrefixedFileName(fileName);
 
 	if (isUnsupportedFileName(isResolvedLinkFileName ? targetFileName : fileName))
 	{
@@ -247,7 +247,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED
 	{
-		_tcscpy_s(longFileName, targetFileName.c_str());
+		wcscpy_s(longFileName, targetFileName.c_str());
 	}
     _lastRecentFileList.remove(longFileName);
 
@@ -458,7 +458,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
             vector<generic_string> patterns;
             if (globbing)
             {
-                const TCHAR * substring = _tcsrchr(targetFileName.c_str(), TCHAR('\\'));
+                const TCHAR * substring = wcsrchr(targetFileName.c_str(), TCHAR('\\'));
 				if (substring)
 				{
 					size_t pos = substring - targetFileName.c_str();

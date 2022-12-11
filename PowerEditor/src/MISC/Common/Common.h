@@ -232,8 +232,8 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 
 HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent);
 
-bool isRawWin32FileName(const generic_string& fileName);
-bool isRawWin32FileName(const TCHAR* szFileName);
+bool isWin32NamespacePrefixedFileName(const generic_string& fileName);
+bool isWin32NamespacePrefixedFileName(const TCHAR* szFileName);
 bool isUnsupportedFileName(const generic_string& fileName);
 bool isUnsupportedFileName(const TCHAR* szFileName);
 

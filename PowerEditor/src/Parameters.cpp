@@ -711,6 +711,137 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 	return fn;
 }
 
+int DynamicMenu::getTopLevelItemNumber() const
+{
+	int nb = 0;
+	generic_string previousFolderName;
+	for (const MenuItemUnit& i : _menuItems)
+	{
+		if (i._parentFolderName.empty())
+		{
+			++nb;
+		}
+		else
+		{
+			if (previousFolderName.empty())
+			{
+				++nb;
+				previousFolderName = i._parentFolderName;
+			}
+			else // previousFolderName is not empty
+			{
+				if (i._parentFolderName.empty())
+				{
+					++nb;
+					previousFolderName = i._parentFolderName;
+				}
+				else if (previousFolderName == i._parentFolderName)
+				{
+					// maintain the number and do nothinh
+				}
+				else
+				{
+					++nb;
+					previousFolderName = i._parentFolderName;
+				}
+			}
+		}
+	}
+
+	return nb;
+}
+
+bool DynamicMenu::attach(HMENU hMenu, unsigned int posBase, int lastCmd, const generic_string& lastCmdLabel)
+{
+	if (!hMenu) return false;
+
+	_hMenu = hMenu;
+	_posBase = posBase;
+	_lastCmd = lastCmd;
+	_lastCmdLabel = lastCmdLabel;
+
+	return createMenu();
+}
+
+bool DynamicMenu::clearMenu() const
+{
+	if (!_hMenu) return false;
+
+	int nbTopItem = getTopLevelItemNumber();
+	for (int i = nbTopItem + 1; i >= 0 ; --i)
+	{
+		::DeleteMenu(_hMenu, static_cast<int32_t>(_posBase) + i, MF_BYPOSITION);
+	}
+
+	return true;
+}
+
+bool DynamicMenu::createMenu() const
+{
+	if (!_hMenu) return false;
+
+	bool lastIsSep = false;
+	HMENU hParentFolder = NULL;
+	generic_string currentParentFolderStr;
+	int j = 0;
+
+	size_t nb = _menuItems.size();
+	size_t i = 0;
+	for (; i < nb; ++i)
+	{
+		const MenuItemUnit& item = _menuItems[i];
+		if (item._parentFolderName.empty())
+		{
+			currentParentFolderStr.clear();
+			hParentFolder = NULL;
+			j = 0;
+		}
+		else
+		{
+			if (item._parentFolderName != currentParentFolderStr)
+			{
+				currentParentFolderStr = item._parentFolderName;
+				hParentFolder = ::CreateMenu();
+				j = 0;
+
+				::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i), MF_BYPOSITION | MF_POPUP, (UINT_PTR)hParentFolder, currentParentFolderStr.c_str());
+			}
+		}
+
+		unsigned int flag = MF_BYPOSITION | ((item._cmdID == 0) ? MF_SEPARATOR : 0);
+		if (hParentFolder)
+		{
+			::InsertMenu(hParentFolder, j++, flag, item._cmdID, item._itemName.c_str());
+			lastIsSep = false;
+		}
+		else if ((i == 0 || i == _menuItems.size() - 1) && item._cmdID == 0)
+		{
+			lastIsSep = true;
+		}
+		else if (item._cmdID != 0)
+		{
+			::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i), flag, item._cmdID, item._itemName.c_str());
+			lastIsSep = false;
+		}
+		else if (item._cmdID == 0 && !lastIsSep)
+		{
+			::InsertMenu(_hMenu, static_cast<int32_t>(_posBase + i), flag, item._cmdID, item._itemName.c_str());
+			lastIsSep = true;
+		}
+		else // last item is separator and current item is separator
+		{
+			lastIsSep = true;
+		}
+	}
+
+	if (nb > 0)
+	{
+		::InsertMenu(_hMenu, static_cast<int32_t>(_posBase + i), MF_BYPOSITION | MF_SEPARATOR, 0, nullptr);
+		::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i + 2), MF_BYCOMMAND, _lastCmd, _lastCmdLabel.c_str());
+	}
+
+	return true;
+}
 
 winVer NppParameters::getWindowsVersion()
 {
@@ -2611,13 +2742,14 @@ void NppParameters::feedMacros(TiXmlNode *node)
 		childNode = childNode->NextSibling(TEXT("Macro")) )
 	{
 		Shortcut sc;
-		if (getShortcuts(childNode, sc))// && sc.isValid())
+		generic_string fdnm;
+		if (getShortcuts(childNode, sc, &fdnm))
 		{
 			Macro macro;
 			getActions(childNode, macro);
 			int cmdID = ID_MACRO + static_cast<int32_t>(_macros.size());
-			MacroShortcut ms(sc, macro, cmdID);
-			_macros.push_back(ms);
+			_macros.push_back(MacroShortcut(sc, macro, cmdID));
+			_macroMenuItems.push_back(MenuItemUnit(cmdID, sc.getName(), fdnm));
 		}
 	}
 }
@@ -2663,7 +2795,8 @@ void NppParameters::feedUserCmds(TiXmlNode *node)
 		childNode = childNode->NextSibling(TEXT("Command")) )
 	{
 		Shortcut sc;
-		if (getShortcuts(childNode, sc))
+		generic_string fdnm;
+		if (getShortcuts(childNode, sc, &fdnm))
 		{
 			TiXmlNode *aNode = childNode->FirstChild();
 			if (aNode)
@@ -2672,8 +2805,8 @@ void NppParameters::feedUserCmds(TiXmlNode *node)
 				if (cmdStr)
 				{
 					int cmdID = ID_USER_CMD + static_cast<int32_t>(_userCommands.size());
-					UserCommand uc(sc, cmdStr, cmdID);
-					_userCommands.push_back(uc);
+					_userCommands.push_back(UserCommand(sc, cmdStr, cmdID));
+					_runMenuItems.push_back(MenuItemUnit(cmdID, sc.getName(), fdnm));
 				}
 			}
 		}
@@ -2797,7 +2930,7 @@ bool NppParameters::feedBlacklist(TiXmlNode *node)
 	return true;
 }
 
-bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)
+bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc, generic_string* folderName)
 {
 	if (!node) return false;
 
@@ -2824,6 +2957,12 @@ bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)
 	const TCHAR *keyStr = (node->ToElement())->Attribute(TEXT("Key"), &key);
 	if (!keyStr)
 		return false;
+
+	if (folderName)
+	{
+		const TCHAR* fn = (node->ToElement())->Attribute(TEXT("FolderName"));
+		*folderName = fn ? fn : L"";
+	}
 
 	sc = Shortcut(name, isCtrl, isAlt, isShift, static_cast<unsigned char>(key));
 	return true;
@@ -3221,7 +3360,7 @@ void NppParameters::insertCmd(TiXmlNode *shortcutsRoot, const CommandShortcut & 
 }
 
 
-void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro)
+void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro, const generic_string& folderName)
 {
 	const KeyCombo & key = macro.getKeyCombo();
 	TiXmlNode *macroRoot = macrosRoot->InsertEndChild(TiXmlElement(TEXT("Macro")));
@@ -3230,6 +3369,8 @@ void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & mac
 	macroRoot->ToElement()->SetAttribute(TEXT("Alt"), key._isAlt?TEXT("yes"):TEXT("no"));
 	macroRoot->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
 	macroRoot->ToElement()->SetAttribute(TEXT("Key"), key._key);
+	if (!folderName.empty())
+		macroRoot->ToElement()->SetAttribute(TEXT("FolderName"), folderName);
 
 	for (size_t i = 0, len = macro._macro.size(); i < len ; ++i)
 	{
@@ -3244,7 +3385,7 @@ void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & mac
 }
 
 
-void NppParameters::insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd)
+void NppParameters::insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd, const generic_string& folderName)
 {
 	const KeyCombo & key = userCmd.getKeyCombo();
 	TiXmlNode *cmdRoot = userCmdRoot->InsertEndChild(TiXmlElement(TEXT("Command")));
@@ -3254,6 +3395,8 @@ void NppParameters::insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & us
 	cmdRoot->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
 	cmdRoot->ToElement()->SetAttribute(TEXT("Key"), key._key);
 	cmdRoot->InsertEndChild(TiXmlText(userCmd._cmd.c_str()));
+	if (!folderName.empty())
+		cmdRoot->ToElement()->SetAttribute(TEXT("FolderName"), folderName);
 }
 
 
@@ -3442,7 +3585,7 @@ void NppParameters::writeShortcuts()
 
 	for (size_t i = 0, len = _macros.size(); i < len ; ++i)
 	{
-		insertMacro(macrosRoot, _macros[i]);
+		insertMacro(macrosRoot, _macros[i], _macroMenuItems.getItemFromIndex(i)._parentFolderName);
 	}
 
 	TiXmlNode *userCmdRoot = root->FirstChild(TEXT("UserDefinedCommands"));
@@ -3453,7 +3596,7 @@ void NppParameters::writeShortcuts()
 
 	for (size_t i = 0, len = _userCommands.size(); i < len ; ++i)
 	{
-		insertUserCmd(userCmdRoot, _userCommands[i]);
+		insertUserCmd(userCmdRoot, _userCommands[i], _runMenuItems.getItemFromIndex(i)._parentFolderName);
 	}
 
 	TiXmlNode *pluginCmdRoot = root->FirstChild(TEXT("PluginCommands"));

@@ -820,7 +820,7 @@ protected:
 		setLexer(L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
     void setPowerShellLexer() {
-		setLexer(L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_5);
+		setLexer(L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 	};
     void setRLexer() {
 		setLexer(L_R, LIST_0 | LIST_1 | LIST_2);

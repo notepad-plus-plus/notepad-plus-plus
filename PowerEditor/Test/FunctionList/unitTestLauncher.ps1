@@ -1,5 +1,5 @@
 $testRoot = ".\"
-
+ 
 Get-ChildItem -Path $testRoot -Attribute Directory | 
 Foreach-Object {
 

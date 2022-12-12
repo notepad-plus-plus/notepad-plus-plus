@@ -164,9 +164,9 @@
                     <Item id="42053" name="Konvertovať medzery na tabulátor (Začiatočné)"/>
                     <Item id="42038" name="Prilepiť HTML obsah"/>
                     <Item id="42039" name="Prilepiť RTF obsah"/>
-                    <Item id="42048" name="Kopírovať Binárny obsah"/>
-                    <Item id="42049" name="Vystrihnúť Binárny obsah"/>
-                    <Item id="42050" name="Prilepiť Binárny obsah"/>
+                    <Item id="42048" name="Kopírovať binárny obsah"/>
+                    <Item id="42049" name="Vystrihnúť binárny obsah"/>
+                    <Item id="42050" name="Prilepiť binárny obsah"/>
                     <Item id="42082" name="Kopírovať odkaz"/>
                     <Item id="42037" name="Stĺpcový reži&amp;m..."/>
                     <Item id="42034" name="S&amp;tĺpcový editor..."/>

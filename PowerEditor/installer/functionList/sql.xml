@@ -14,7 +14,7 @@
 				mainExpr="^[ \t]*((PROCEDURE)|(FUNCTION))[\s]+[A-Za-z][\w_]*([\s]*(?'open'\().*?(\)))?(([\s]*;)|([\s]*([ia]s)\s)|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)\s))))"
 				displayMode="$className->$functionName"
 			>
-        <functionName>
+			<functionName>
 					<nameExpr expr="[\s]+[A-Za-z][\w_]*([\s]*(?'open'\().*?(\)))?(([\s]*;)|([\s]*([ia]s)\s)|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)\s))))"/>
 					<nameExpr expr="[A-Za-z][\w_]*([\s]*(?'open'\().*?(\)))?(([\s]*;)|([\s]*([ia]s)\s)|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)\s))))"/>
 					<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]+(RETURN)([\s]+[\w%\.]+)+))*"/>

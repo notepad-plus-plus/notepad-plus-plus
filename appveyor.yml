@@ -48,8 +48,8 @@ before_build:
                 }
                 else {
                     Write-Output "XML validation mode`n"
-                    if ("$env:platform/$env:configuration" -eq "Win32/Debug") {Write-Output "AAAAAAAAAAAAAA"
-                        if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {Write-Output "BBBBBBBBBBBBBB"
+                    if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
+                        if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {
                             $env:Path = "C:\Python310;C:\Python310\Scripts;" + $env:Path
                             python -m pip install requests rfc3987 pywin32 lxml
                             python PowerEditor\Test\xmlValidator\validator_xml.py
@@ -62,7 +62,6 @@ before_build:
                                 $host.SetShouldExit($LastExitCode)
                             }
                         }
-                        Write-Output "CCCCCCCCCCCCCCCC"
                     }
                     else {
                         Write-Output "In XML validation mode only Win32/Debug performs the proper tasks.`n"

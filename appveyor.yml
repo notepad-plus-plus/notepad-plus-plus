@@ -37,9 +37,10 @@ before_build:
         # XML validation mode
         $allowMaster = $true
         if ($allowMaster -or $env:APPVEYOR_PULL_REQUEST_NUMBER) {
+            $folders_onejob = "PowerEditor/Test/|/filesForTesting/|/functionList/"
             $files_nowork = "md|txt|log"
             $files_modified = @(git diff --name-only HEAD~1)
-            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$"})
+            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_onejob"})
             if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force (xml|nowork)\]") {
                 if (@($files_modified | Where-Object {$_ -notmatch "\.($files_nowork)$"}).length -eq 0 -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force nowork\]") {
                     Write-Output "Changed files on this commit don't require any additional tasks.`n"
@@ -48,7 +49,7 @@ before_build:
                 else {
                     Write-Output "XML validation mode`n"
                     if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
-                        if (@($files_modified | Where-Object {$_ -match "/functionList/"}).length -eq 0) {
+                        if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {
                             $env:Path = "C:\Python310;C:\Python310\Scripts;" + $env:Path
                             python -m pip install requests rfc3987 pywin32 lxml
                             python PowerEditor\Test\xmlValidator\validator_xml.py

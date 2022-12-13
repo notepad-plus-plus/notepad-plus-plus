@@ -745,8 +745,7 @@
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="80FF80" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="FF8000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="000040" />
-        <WidgetStyle name="Mark colour" styleID="0" fgColor="C00000" bgColor="000040" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="2050D0" />
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="2050D0" fgColor="000000" /><!-- fgColor can be unlocked with a enableSelectFgColor.xml file -->
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFF00" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -756,8 +755,8 @@
         <WidgetStyle name="Fold active" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="000040" bgColor="000040" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="004040" />
-        <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="2050D0" />
-        <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFF00" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
+        <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="2050D0" />
+        <WidgetStyle name="Find Mark Style" styleID="31" bgColor="000040" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="00FFFF" />
         <WidgetStyle name="Mark Style 2" styleID="24" bgColor="FF8000" />
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="FFFF00" />
@@ -770,9 +769,8 @@
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="FFCAB0" />
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="8080C0" bgColor="CECECE" />
-        <WidgetStyle name="Unsaved change marker" styleID="0" bgColor="FF0000" />
-        <WidgetStyle name="Saved change marker" styleID="0" bgColor="80FF00" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
+        <WidgetStyle name="Document map" styleID="0" fgColor="FFFFBF" bgColor="000040" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
     </GlobalStyles>
 </NotepadPlus>

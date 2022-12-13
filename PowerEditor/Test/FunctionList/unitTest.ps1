@@ -39,7 +39,9 @@ Try {
 		}
 		else
 		{
-			Get-Content $testRoot$dirName\unitTest.result.json
+			$expectedRes
+			"vs"
+			$generatedRes
 			return -1
 		}	
 	}

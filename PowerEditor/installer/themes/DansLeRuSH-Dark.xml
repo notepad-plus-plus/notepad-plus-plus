@@ -893,33 +893,33 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="4D4D4D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="9865A8" bgColor="A88AB6" fontName="" fontStyle="1" fontSize="10" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="A88AB6" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="10" />
-        <WidgetStyle name="Current line background colour" styleID="0" bgColor="363636" fontStyle="0" fgColor="C7C7C7" fontSize="" />
-        <WidgetStyle name="Mark colour" styleID="0" fgColor="A88AB6" bgColor="2E2E2E" fontStyle="0" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="4D4D4D" fgColor="C0C0C0" fontStyle="0" />
-        <WidgetStyle name="Caret colour" styleID="2069" fgColor="A7A7A7" fontStyle="0" bgColor="2E2E2E" fontSize="" />
-        <WidgetStyle name="Edge colour" styleID="0" fgColor="EEEEEC" bgColor="2E2E2E" fontStyle="0" fontSize="9" />
+        <WidgetStyle name="Current line background colour" styleID="0" bgColor="363636" />
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="4D4D4D" fgColor="C0C0C0" /><!-- fgColor can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Caret colour" styleID="2069" fgColor="A7A7A7" />
+        <WidgetStyle name="Edge colour" styleID="0" fgColor="EEEEEC" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="8F8F8F" bgColor="363636" fontName="" fontStyle="0" fontSize="9" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="363636" />
         <WidgetStyle name="Change History margin" styleID="0" bgColor="363636" />
-        <WidgetStyle name="Fold" styleID="0" fgColor="4D4D4D" bgColor="2E2E2E" fontStyle="0" fontSize="" />
-        <WidgetStyle name="Fold margin" styleID="0" fgColor="2E2E2E" bgColor="2E2E2E" fontStyle="0" />
-        <WidgetStyle name="Fold active" styleID="0" fgColor="666666" fontStyle="0" bgColor="00FF00" fontSize="" />
-        <WidgetStyle name="White space symbol" styleID="0" fgColor="4D4D4D" bgColor="2E2E2E" fontStyle="0" fontSize="" />
-        <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="2E2E2E" fgColor="555753" fontStyle="0" fontSize="10" />
-        <WidgetStyle name="Find Mark Style" styleID="31" bgColor="2E2E2E" fgColor="A88AB6" fontName="" fontSize="10" fontStyle="0" />
-        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="88B090" fontStyle="0" fgColor="E0E2E4" />
-        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="F8F893" fontStyle="0" fgColor="E0E2E4" fontSize="14" />
-        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="F18C96" fontStyle="0" fgColor="666666" fontSize="10" />
-        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="408040" fontStyle="0" fgColor="F57F3D" fontSize="" />
-        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="968CF1" fontStyle="0" fgColor="AB7967" />
-        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="2E2E2E" fgColor="B2CCD6" fontStyle="0" />
-        <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="2E2E2E" fgColor="A88AB6" fontStyle="0" />
-        <WidgetStyle name="Tags attribute" styleID="26" bgColor="2E2E2E" fgColor="B2CCD6" fontStyle="0" />
-        <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="666666" bgColor="2E2E2E" fontStyle="0" />
-        <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="C792EA" bgColor="2E2E2E" fontStyle="0" />
-        <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" bgColor="C0C0C0" fontStyle="0" />
-        <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" fontStyle="0" />
+        <WidgetStyle name="Fold" styleID="0" fgColor="4D4D4D" bgColor="2E2E2E" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="666666" />
+        <WidgetStyle name="Fold margin" styleID="0" fgColor="2E2E2E" bgColor="2E2E2E" />
+        <WidgetStyle name="White space symbol" styleID="0" fgColor="4D4D4D" />
+        <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="2E2E2E" />
+        <WidgetStyle name="Find Mark Style" styleID="31" bgColor="2E2E2E" />
+        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="88B090" />
+        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="F8F893" />
+        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="F18C96" />
+        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="408040" />
+        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="968CF1" />
+        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="2E2E2E" />
+        <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="2E2E2E" />
+        <WidgetStyle name="Tags attribute" styleID="26" bgColor="2E2E2E" />
+        <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="666666" />
+        <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="C792EA" />
+        <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
+        <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
+        <WidgetStyle name="Document map" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
     </GlobalStyles>
 </NotepadPlus>

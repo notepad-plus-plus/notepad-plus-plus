@@ -971,7 +971,7 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 	}
 	else if (style._styleDesc == TEXT("URL hovered"))
 	{
-		result.first = 16;
+		result.first = 17;
 		result.second = IDC_CHECK_CLICKABLELINK_ENABLE;
 	}
 	else if (style._styleDesc == TEXT("EOL custom color"))

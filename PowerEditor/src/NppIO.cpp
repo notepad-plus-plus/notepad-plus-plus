@@ -217,12 +217,12 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	//If [GetFullPathName] fails for any other reason, the return value is zero.
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	TCHAR longFileName[longFileNameBufferSize] = { 0 };
+	WCHAR longFileName[longFileNameBufferSize] = { 0 };
 
 	if (isRawFileName)
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI and alike...)
-		_tcsncpy_s(longFileName, _countof(longFileName), fileName.c_str(), _TRUNCATE);
+		wcsncpy_s(longFileName, _countof(longFileName), fileName.c_str(), _TRUNCATE);
 	}
 	else
 	{
@@ -235,9 +235,9 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 		{
 			return BUFFER_INVALID;
 		}
-		assert(_tcslen(longFileName) == getFullPathNameResult);
+		assert(wcslen(longFileName) == getFullPathNameResult);
 
-		if (_tcschr(longFileName, '~'))
+		if (wcschr(longFileName, '~'))
 		{
 			// ignore the returned value of function due to win64 redirection system
 			::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
@@ -310,9 +310,9 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 
 	bool globbing;
 	if (isRawFileName)
-		globbing = (_tcsrchr(longFileName, TCHAR('*')) || (abs(longFileName - _tcsrchr(longFileName, TCHAR('?'))) > 3));
+		globbing = (wcsrchr(longFileName, TCHAR('*')) || (abs(longFileName - wcsrchr(longFileName, TCHAR('?'))) > 3));
 	else
-		globbing = (_tcsrchr(longFileName, TCHAR('*')) || _tcsrchr(longFileName, TCHAR('?')));
+		globbing = (wcsrchr(longFileName, TCHAR('*')) || wcsrchr(longFileName, TCHAR('?')));
 
 	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{

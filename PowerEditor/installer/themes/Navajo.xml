@@ -920,7 +920,8 @@ Installation:
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="000000" bgColor="00FFFF" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="BCBCBC" bgColor="5F0000" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="B39674" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="BCBCBC" />
+        <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="BCBCBC" fgColor="000000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="181880" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="000000" bgColor="808080" fontName="" fontStyle="0" fontSize="" />
@@ -930,8 +931,8 @@ Installation:
         <WidgetStyle name="Fold active" styleID="0" fgColor="FF0000" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="808080" bgColor="808080" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="106060" />
-        <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="BCBCBC" />
-        <WidgetStyle name="Find Mark Style" styleID="31" bgColor="3b4092" />
+        <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="BCBCBC" />
+        <WidgetStyle name="Find Mark Style" styleID="31" bgColor="3B4092" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="870087" />
         <WidgetStyle name="Mark Style 2" styleID="24" bgColor="C00058" />
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="181880" />
@@ -945,6 +946,7 @@ Installation:
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="181880" bgColor="BA9C80" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
+        <WidgetStyle name="Document map" styleID="0" fgColor="000000" bgColor="BA9C80" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
     </GlobalStyles>
 </NotepadPlus>

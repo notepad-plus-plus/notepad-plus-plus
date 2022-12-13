@@ -931,7 +931,8 @@ Installation:
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="DC322F" bgColor="859900" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="D33682" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="EEE8D5" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="073642" />
+        <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="073642" fgColor="000000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="073642" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="93A1A1" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="93A1A1" bgColor="EEE8D5" fontName="" fontStyle="0" fontSize="" />
@@ -941,7 +942,7 @@ Installation:
         <WidgetStyle name="Fold active" styleID="0" fgColor="DC322F" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="93A1A1" bgColor="EEE8D5" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="B58900" />
-        <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="002B36" />
+        <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="002B36" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="6C71C4" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="DC322F" />
         <WidgetStyle name="Mark Style 2" styleID="24" bgColor="268BD2" />
@@ -956,6 +957,7 @@ Installation:
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="073642" bgColor="93A1A1" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="808040" />
+        <WidgetStyle name="Document map" styleID="0" fgColor="657B83" bgColor="FDF6E3" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
     </GlobalStyles>
 </NotepadPlus>

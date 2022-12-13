@@ -943,6 +943,11 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 		result.first = 3;
 		result.second = IDC_CHECK_BOOKMARKMARGE;
 	}
+	else if (style._styleDesc == TEXT("Change History margin"))
+	{
+		result.first = 3;
+		result.second = IDC_CHECK_CHANGHISTORYMARGE;
+	}
 	else if (style._styleDesc == TEXT("Fold") || style._styleDesc == TEXT("Fold active") || style._styleDesc == TEXT("Fold margin"))
 	{
 		result.first = 3;

@@ -782,7 +782,8 @@ https://notepad-plus-plus.org/donate/
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="FF0000" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="333333" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="6699CC" fgColor="CC0000" /><!-- fgColor can be unlocked with a enableSelectFgColor.xml file -->
+        <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="6699CC" fgColor="CC0000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="C0C0C0" bgColor="333333" fontName="" fontStyle="0" fontSize="" />

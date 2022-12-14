@@ -745,7 +745,8 @@
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="80FF80" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="FF8000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="000040" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="2050D0" fgColor="000000" /><!-- fgColor can be unlocked with a enableSelectFgColor.xml file -->
+        <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="2050D0" fgColor="000000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFF00" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

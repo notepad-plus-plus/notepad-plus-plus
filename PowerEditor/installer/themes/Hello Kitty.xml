@@ -753,7 +753,8 @@ so your enhanced file can be included in Notepad++ future release.
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="12" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="800000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="FF80C0" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="FFD5FF" fgColor="CC0000" /><!-- fgColor can be unlocked with a enableSelectFgColor.xml file -->
+        <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="FFD5FF" fgColor="CC0000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="FF80FF" fontName="" fontStyle="0" fontSize="" />

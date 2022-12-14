@@ -629,7 +629,8 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="273A4B" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="0000FF" fgColor="C00000" /><!-- fgColor can be unlocked with a enableSelectFgColor.xml file -->
+        <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="0000FF" fgColor="C00000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="1F4661" fontName="" fontStyle="0" fontSize="8" />

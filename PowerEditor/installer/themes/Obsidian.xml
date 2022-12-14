@@ -783,7 +783,8 @@ Notepad++ Custom Style
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="F3DB2E" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="FB0000" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="2F393C" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="404E51" fgColor="C00000" /><!-- fgColor can be unlocked with a enableSelectFgColor.xml file -->
+        <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="404E51" fgColor="C00000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="C1CBD2" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="445257" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="81969A" bgColor="3F4B4E" fontName="" fontStyle="0" fontSize="" />

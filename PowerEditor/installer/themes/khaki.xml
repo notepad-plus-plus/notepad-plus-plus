@@ -920,7 +920,8 @@ Installation:
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="D7D7AF" bgColor="005F00" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="FF005F" bgColor="D7D7AF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="AFAF87" />
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="D7FF87" fgColor="000000" /><!-- fgColor can be unlocked with a enableSelectFgColor.xml file -->
+        <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="D7FF87" fgColor="000000" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="5F5F00" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="AFAF87" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="5F5F00" bgColor="AFAF87" fontName="" fontStyle="0" fontSize="" />

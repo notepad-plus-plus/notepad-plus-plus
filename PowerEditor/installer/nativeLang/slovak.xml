@@ -432,9 +432,9 @@
                 <Item id="1620" name="Hľadať:"/>
                 <Item id="1603" name="Hľadať iba &amp;celé slová"/>
                 <Item id="1604" name="Rozlišovať &amp;malé/VEĽKÉ písmená"/>
-                <Item id="1605" name="Regulárny &amp;výraz"/>
+                <Item id="1605" name="Re&amp;gulárny výraz"/>
                 <Item id="1606" name="Cy&amp;klicky"/>
-                <Item id="1614" name="Spočítať"/>
+                <Item id="1614" name="&amp;Spočítať"/>
                 <Item id="1615" name="Označiť všetko"/>
                 <Item id="1616" name="Označiť riadok"/>
                 <Item id="1618" name="Odstrániť pred každým vyhľadávaním"/>
@@ -445,15 +445,15 @@
                 <Item id="1688" name="Vždy"/>
                 <Item id="1632" name="Vo výbere"/>
                 <Item id="1633" name="Odstrániť označenie"/>
-                <Item id="1635" name="Nahradiť všetko vo všetkých otvorených dok."/>
-                <Item id="1636" name="Hľadať všetko vo všetkých otvorených dok."/>
+                <Item id="1635" name="Nahradiť všetk&amp;o vo všetkých otvorených dok."/>
+                <Item id="1636" name="Hľadať všetk&amp;o vo všetkých otvorených dok."/>
                 <Item id="1654" name="Filtre:"/>
                 <Item id="1655" name="Priečinok:"/>
                 <Item id="1656" name="Hľadať všetko"/>
                 <Item id="1658" name="Vo všet. podpriečinkoch"/>
                 <Item id="1659" name="V skrytých priečinkoch"/>
                 <Item id="1624" name="Režim vyhľadávania"/>
-                <Item id="1625" name="&amp;Normálny"/>
+                <Item id="1625" name="Normáln&amp;y"/>
                 <Item id="1626" name="&amp;Rozšírený (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Nahradiť v súboroch"/>
                 <Item id="1665" name="Nahradiť v projektoch"/>
@@ -461,7 +461,7 @@
                 <Item id="1662" name="Panel projektu 1"/>
                 <Item id="1663" name="Panel projektu 2"/>
                 <Item id="1664" name="Panel projektu 3"/>
-                <Item id="1641" name="Hľadať všetko v aktuálnom dokumente"/>
+                <Item id="1641" name="Hľadať &amp;všetko v aktuálnom dokumente"/>
                 <Item id="1686" name="Priehľadnosť"/>
                 <Item id="1703" name=". -> nový riadok"/>
                 <Item id="1721" name="▲"/>
@@ -1257,7 +1257,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                 <Item id="1715" name="Rozlišovať &amp;malé/VEĽKÉ písmená"/>
                 <Item id="1716" name="Režim vyhľadávania"/>
                 <Item id="1717" name="Normálny"/>
-                <Item id="1719" name="Regulárny &amp;výraz"/>
+                <Item id="1719" name="Re&amp;gulárny výraz"/>
                 <Item id="1718" name="Rozšírený (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name=". -> nový riadok"/>
             </FindInFinder>

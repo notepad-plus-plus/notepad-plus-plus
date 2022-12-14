@@ -7,6 +7,7 @@ image: Visual Studio 2022
 #    - PowerEditor/installer/*/*.xml
 
 environment:
+  python_ver: Python311-x64
   matrix:
     - compiler: MSC
       platform: Win32
@@ -50,7 +51,7 @@ before_build:
                     Write-Output "XML validation mode`n"
                     if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
                         if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {
-                            $env:Path = "C:\Python311-x64;C:\Python311-x64\Scripts;" + $env:Path
+                            $env:Path = "C:\$env:python_ver;C:\$env:python_ver\Scripts;" + $env:Path
                             python -m pip install requests rfc3987 pywin32 lxml
                             python PowerEditor\Test\xmlValidator\validator_xml.py
                             if ($LastExitCode -eq 0) {
@@ -106,7 +107,7 @@ for:
         $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
         Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
     # xml files syntax checks
-    - set PATH=C:\Python311-x64;C:\Python311-x64\Scripts;%PATH%
+    - set PATH=C:\%python_ver%;C:\%python_ver%\Scripts;%PATH%
     - python -m pip install requests rfc3987 pywin32 lxml
     - python PowerEditor\Test\xmlValidator\validator_xml.py
     # tests

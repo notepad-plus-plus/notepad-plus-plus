@@ -866,7 +866,7 @@
                     <Item id="24673" name="Nastaviť štýl"/>
                 </Operator>
             </UserDefine>
-            <Preference title="Preferencie">
+            <Preference title="Predvoľby">
                 <Item id="6001" name="Zavrieť"/>
                 <Global title="Všeobecné">
                     <Item id="6101" name="Panel nástrojov"/>

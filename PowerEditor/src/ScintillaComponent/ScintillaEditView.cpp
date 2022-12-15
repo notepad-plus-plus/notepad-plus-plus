@@ -1541,7 +1541,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			setMakefileLexer(); break;
 
 		case L_INI :
-			setIniLexer(); break;
+			setPropsLexer(false); break;
 
 		case L_USER : {
 			const TCHAR * langExt = _currentBuffer->getUserDefineLangName();

@@ -673,11 +673,11 @@ protected:
 		setLexer(L_MAKEFILE, LIST_NONE);
 	};
 
-	void setIniLexer() {
-		setLexer(L_INI, LIST_NONE);
+	void setPropsLexer(bool notPropsButIni = false) {
+		LangType L_id = notPropsButIni ? L_INI : L_PROPS;
+		setLexer(L_id, LIST_NONE);
 		execute(SCI_STYLESETEOLFILLED, SCE_PROPS_SECTION, true);
 	};
-
 
 	void setSqlLexer() {
 		const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
@@ -743,10 +743,6 @@ protected:
 
 	void setDiffLexer(){
 		setLexer(L_DIFF, LIST_NONE);
-	};
-
-	void setPropsLexer(){
-		setLexer(L_PROPS, LIST_NONE);
 	};
 
 	void setPostscriptLexer(){
@@ -962,7 +958,6 @@ protected:
 			case L_MAKEFILE:
 			case L_ASM:
 			case L_HASKELL:
-			case L_PROPS:
 			case L_SMALLTALK:
 			case L_KIX:
 			case L_ADA:

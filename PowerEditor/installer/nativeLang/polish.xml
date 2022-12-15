@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.7 (28.10.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.8 (15.12.2022)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.4.7">
+    <Native-Langue name="polski" filename="polish.xml" version="8.4.8">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -396,41 +396,41 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Zamknij"/>
-                    <Item CMID="1" name="Zamknij wszystkie PRÓCZ tej"/>
-                    <Item CMID="2" name="Zapisz"/>
-                    <Item CMID="3" name="Zapisz jako..."/>
-                    <Item CMID="4" name="Drukuj..."/>
-                    <Item CMID="5" name="Przenieś do drugiego widoku"/>
-                    <Item CMID="6" name="Klonuj do drugiego widoku"/>
-                    <Item CMID="7" name="Kopiuj ścieżkę pliku"/>
-                    <Item CMID="8" name="Kopiuj nazwę pliku"/>
-                    <Item CMID="9" name="Kopiuj ścieżkę katalogu pliku"/>
-                    <Item CMID="10" name="Zmień nazwę..."/>
-                    <Item CMID="11" name="Przenieś do kosza"/>
-                    <Item CMID="12" name="Zablokuj edycję"/>
-                    <Item CMID="13" name="Usuń atrybut tylko do odczytu z pliku"/>
-                    <Item CMID="14" name="Przenieś do nowego okna"/>
-                    <Item CMID="15" name="Otwórz w nowym oknie"/>
-                    <Item CMID="16" name="Odśwież"/>
-                    <Item CMID="17" name="Zamknij wszystkie po lewej"/>
-                    <Item CMID="18" name="Zamknij wszystkie po prawej"/>
-                    <Item CMID="19" name="Otwórz folder zawierający w eksploratorze plików"/>
-                    <Item CMID="20" name="Otwórz folder zawierający w wierszu poleceń"/>
-                    <Item CMID="21" name="Otwórz w domyślnym programie"/>
-                    <Item CMID="22" name="Zamknij wszystkie niezmodyfikowane"/>
-                    <Item CMID="23" name="Otwórz folder zawierający w obszarze roboczym"/>
-                    <Item CMID="24" name="Zastosuj kolor 1."/>
-                    <Item CMID="25" name="Zastosuj kolor 2."/>
-                    <Item CMID="26" name="Zastosuj kolor 3."/>
-                    <Item CMID="27" name="Zastosuj kolor 4."/>
-                    <Item CMID="28" name="Zastosuj kolor 5."/>
-                    <Item CMID="29" name="Usuń kolor"/>
-                    <Item CMID="30" name="Zamknij wiele kart"/>
-                    <Item CMID="31" name="Otwórz w"/>
-                    <Item CMID="32" name="Kopiuj do schowka"/>
-                    <Item CMID="33" name="Przenieś dokument"/>
-                    <Item CMID="34" name="Zastosuj kolor do karty"/>
+                <Item CMDID="41003" name="Zamknij"/>
+                <Item CMDID="0" name="Zamknij wiele kart"/>
+                <Item CMDID="41005" name="Zamknij wszystkie PRÓCZ tej"/>
+                <Item CMDID="41009" name="Zamknij wszystkie po lewej"/>
+                <Item CMDID="41018" name="Zamknij wszystkie po prawej"/>
+                <Item CMDID="41024" name="Zamknij wszystkie niezmodyfikowane"/>
+                <Item CMDID="41006" name="Zapisz"/>
+                <Item CMDID="41008" name="Zapisz jako..."/>
+                <Item CMDID="1" name="Otwórz w"/>
+                <Item CMDID="41019" name="Otwórz folder zawierający w eksploratorze plików"/>
+                <Item CMDID="41020" name="Otwórz folder zawierający w wierszu poleceń"/>
+                <Item CMDID="41025" name="Otwórz folder zawierający w obszarze roboczym"/>
+                <Item CMDID="41023" name="Otwórz w domyślnym programie"/>
+                <Item CMDID="41017" name="Zmień nazwę..."/>
+                <Item CMDID="41016" name="Przenieś do kosza"/>
+                <Item CMDID="41014" name="Odśwież"/>
+                <Item CMDID="41010" name="Drukuj..."/>
+                <Item CMDID="42028" name="Zablokuj edycję"/>
+                <Item CMDID="42033" name="Usuń atrybut tylko do odczytu z pliku"/>
+                <Item CMDID="2" name="Kopiuj do schowka"/>
+                <Item CMDID="42029" name="Kopiuj ścieżkę pliku"/>
+                <Item CMDID="42030" name="Kopiuj nazwę pliku"/>
+                <Item CMDID="42031" name="Kopiuj ścieżkę katalogu pliku"/>
+                <Item CMDID="3" name="Przenieś dokument"/>
+                <Item CMDID="10001" name="Przenieś do drugiego widoku"/>
+                <Item CMDID="10002" name="Klonuj do drugiego widoku"/>
+                <Item CMDID="10003" name="Przenieś do nowego okna"/>
+                <Item CMDID="10004" name="Otwórz w nowym oknie"/>
+                <Item CMDID="4" name="Zastosuj kolor do karty"/>
+                <Item CMDID="44111" name="Zastosuj kolor 1."/>
+                <Item CMDID="44112" name="Zastosuj kolor 2."/>
+                <Item CMDID="44113" name="Zastosuj kolor 3."/>
+                <Item CMDID="44114" name="Zastosuj kolor 4."/>
+                <Item CMDID="44115" name="Zastosuj kolor 5."/>
+                <Item CMDID="44110" name="Usuń kolor"/>
             </TabBar>
         </Menu>
 
@@ -937,7 +937,9 @@ The comments are here for explanation, it's not necessary to translate them.
                 </Scintillas>
 
                 <DarkMode title="Tryb ciemny">
-                    <Item id="7101" name="Włącz tryb ciemny"/>
+                    <Item id="7131" name="Tryb jasny"/>
+                    <Item id="7132" name="Tryb ciemny"/>
+                    <Item id="7133" name="Tryb z ustawień Windowsa"/>
                     <Item id="7102" name="Czarny"/>
                     <Item id="7103" name="Czerwony"/>
                     <Item id="7104" name="Zielony"/>
@@ -1385,6 +1387,7 @@ Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zako
 Kontynuować?"/>
             <NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ musi zostać ponownie uruchomiony, aby historia zmian zaczęła działać."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - wyjście z sesji systemu Windows" message="Sesja systemu Windows wkrótce zostanie zakończona, ale masz niezapisane dane. Czy chcesz teraz zamknąć Notepad++?"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
@@ -1570,6 +1573,7 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
             <splitter-rotate-left value="Obróć w lewo"/>
             <splitter-rotate-right value="Obróć w prawo"/>
             <recent-file-history-maxfile value="Maks. plików: "/>
+            <recent-file-history-customlength value="Długość: "/>
             <language-tabsize value="Rozmiar tab.: "/>
             <userdefined-title-new value="Nowy język..."/>
             <userdefined-title-save value="Zapisz bieżący język jako..."/>

@@ -408,7 +408,7 @@ struct Style final
 
 	bool _isFontEnabled = false;
 	generic_string _fontName;
-	int _fontStyle = FONTSTYLE_NONE;
+	int _fontStyle = STYLE_NOT_USED;
 	int _fontSize = STYLE_NOT_USED;
 
 	int _nesting = FONTSTYLE_NONE;

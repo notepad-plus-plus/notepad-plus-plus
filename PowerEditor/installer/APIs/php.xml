@@ -9698,7 +9698,7 @@
 		<KeyWord name="pcntl_signal" func="yes">
 			<Overload retVal="bool">
 				<Param name="int signo"/>
-				<Param name="callback handle"/>
+				<Param name="callback handler"/>
 				<Param name="[bool restart_syscalls]"/>
 			</Overload>
 		</KeyWord>

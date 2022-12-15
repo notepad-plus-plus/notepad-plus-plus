@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.4.7  28/Oct/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.4.8  15/Dec/2022  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.7">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -397,41 +397,41 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID = "0" name = "Zavřít"/>
-				<Item CMID = "1" name = "Zavřít vše kromě aktuálního"/>
-				<Item CMID = "2" name = "Uložit"/>
-				<Item CMID = "3" name = "Uložit jako..."/>
-				<Item CMID = "4" name = "Tisk..."/>
-				<Item CMID = "5" name = "Přesunout do druhého náhledu"/>
-				<Item CMID = "6" name = "Vytvořit kopii v druhém náhledu"/>
-				<Item CMID = "7" name = "Kopírovat název souboru i s cestou"/>
-				<Item CMID = "8" name = "Kopírovat název souboru"/>
-				<Item CMID = "9" name = "Kopírovat název aktuálního adresáře souboru"/>
-				<Item CMID = "10" name = "Přejmenovat..."/>
-				<Item CMID = "11" name = "Smazat"/>
-				<Item CMID = "12" name = "Pouze ke čtení"/>
-				<Item CMID = "13" name = "Vymazat příznak Pouze ke čtení"/>
-				<Item CMID = "14" name = "Přesunout do nové instance"/>
-				<Item CMID = "15" name = "Otevřít v nové instanci"/>
-				<Item CMID = "16" name = "Znovu načíst"/>
-				<Item CMID = "17" name = "Zavřít vše nalevo"/>
-				<Item CMID = "18" name = "Zavřít vše napravo"/>
-				<Item CMID = "19" name = "Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
-				<Item CMID = "20" name = "Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
-				<Item CMID = "21" name = "Otevřít v implicitním prohlížeči"/>
-				<Item CMID = "22" name = "Zavřít všechny nezměněné"/>
-				<Item CMID = "23" name = "Otevřít složku obsahující akt. soubor jako Pracovní plochu"/>
-				<Item CMID = "24" name = "Označit barvou 1"/>
-				<Item CMID = "25" name = "Označit barvou 2"/>
-				<Item CMID = "26" name = "Označit barvou 3"/>
-				<Item CMID = "27" name = "Označit barvou 4"/>
-				<Item CMID = "28" name = "Označit barvou 5"/>
-				<Item CMID = "29" name = "Odstranit barevné označení"/>
-				<Item CMID = "30" name = "Zavřít vícero souborů/karet"/>
-				<Item CMID = "31" name = "Otevřít v"/>
-				<Item CMID = "32" name = "Kopírovat do Schránky"/>
-				<Item CMID = "33" name = "Přesunout dokument/kartu"/>
-				<Item CMID = "34" name = "Označit kartu barvou"/>
+				<Item CMDID = "41003" name = "Zavřít"/>
+				<Item CMDID = "0" name = "Zavřít vícero souborů/karet"/>
+				<Item CMDID = "41005" name = "Zavřít vše kromě aktuálního"/>
+				<Item CMDID = "41009" name = "Zavřít vše nalevo"/>
+				<Item CMDID = "41018" name = "Zavřít vše napravo"/>
+				<Item CMDID = "41024" name = "Zavřít všechny nezměněné"/>
+				<Item CMDID = "41006" name = "Uložit"/>
+				<Item CMDID = "41008" name = "Uložit jako..."/>
+				<Item CMDID = "1" name = "Otevřít v"/>
+				<Item CMDID = "41019" name = "Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
+				<Item CMDID = "41020" name = "Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
+				<Item CMDID = "41025" name = "Otevřít složku obsahující akt. soubor jako Pracovní plochu"/>
+				<Item CMDID = "41023" name = "Otevřít v implicitním prohlížeči"/>
+				<Item CMDID = "41017" name = "Přejmenovat..."/>
+				<Item CMDID = "41016" name = "Přesunout do Koše"/>
+				<Item CMDID = "41014" name = "Znovu načíst"/>
+				<Item CMDID = "41010" name = "Tisk..."/>
+				<Item CMDID = "42028" name = "Pouze pro čtení"/>
+				<Item CMDID = "42033" name = "Vymazat příznak 'Pouze pro čtení'"/>
+				<Item CMDID = "2" name = "Kopírovat do Schránky"/>
+				<Item CMDID = "42029" name = "Kopírovat název souboru i s cestou"/>
+				<Item CMDID = "42030" name = "Kopírovat název souboru"/>
+				<Item CMDID = "42031" name = "Kopírovat název aktuálního adresáře souboru"/>
+				<Item CMDID = "3" name = "Přesunout dokument/kartu"/>
+				<Item CMDID = "10001" name = "Přesunout do druhého náhledu"/>
+				<Item CMDID = "10002" name = "Vytvořit kopii v druhém náhledu"/>
+				<Item CMDID = "10003" name = "Přesunout do nové instance"/>
+				<Item CMDID = "10004" name = "Otevřít v nové instanci"/>
+				<Item CMDID = "4" name = "Označit kartu barvou"/>
+				<Item CMDID = "44111" name = "Označit barvou 1"/>
+				<Item CMDID = "44112" name = "Označit barvou 2"/>
+				<Item CMDID = "44113" name = "Označit barvou 3"/>
+				<Item CMDID = "44114" name = "Označit barvou 4"/>
+				<Item CMDID = "44115" name = "Označit barvou 5"/>
+				<Item CMDID = "44110" name = "Odstranit barevné označení"/>
 			</TabBar>
 		</Menu>
 
@@ -965,7 +965,6 @@
 					<Item id = "6250" name = "Vlastní barva"/>
 				</Scintillas>
 				<DarkMode title = "Tmavý režim">
-					<Item id = "7101" name = "Povolit tmavý režim"/>
 					<Item id = "7102" name = "Černý"/>
 					<Item id = "7103" name = "Červený"/>
 					<Item id = "7104" name = "Zelený"/>
@@ -987,6 +986,9 @@
 					<Item id = "7126" name = "Zvýraznění okrajů"/>
 					<Item id = "7127" name = "Deaktivované okraje"/>
 					<Item id = "7130" name = "Obnovit"/>
+					<Item id = "7131" name = "Světlý režim"/> 
+					<Item id = "7132" name = "Tmavý režim"/> 
+					<Item id = "7133" name = "Podle systému Windows"/> 
 					<Item id = "7135" name = "Odstíny"/>
 				</DarkMode>
 				<MarginsBorderEdge title = "Okraje/Lem/Hrana">
@@ -1376,6 +1378,7 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<ExitToUpdatePlugins title = "Notepad++ má být ukončen" message = "Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
 			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Pro zavedení nainstalovaných zásuvných modulů musíte restartovat Notepad++."/>
 			<ChangeHistoryEnabledWarning title = "Notepad++ potřebuje být znovu spuštěn" message = "Pro aktivaci historie změn souborů musíte restartovat Notepad++."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title = "Notepad++ - Ukončení relace Windows" message = "Relace systému Windows má být ukončena, ale některá data nemáte uložena. Chcete nyní ukončit Notepad++?"/>
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1567,7 +1570,8 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<tabrename-newname value = "Nový název: "/>
 			<splitter-rotate-left value="Otočit doleva"/>
 			<splitter-rotate-right value="Otočit doprava"/>
-			<recent-file-history-maxfile value = "Max. soubor: "/>
+			<recent-file-history-maxfile value = "Max.souborů: "/>
+			<recent-file-history-customlength value = "Max. délka: "/>
 			<language-tabsize value = "Velikost záložky (Tab): "/>
 			<userdefined-title-new value = "Vytvořit novou syntaxi..."/>
 			<userdefined-title-save value = "Uložit název aktuální syntaxe jako..."/>

@@ -2804,18 +2804,18 @@
 		<KeyWord name="file_get_contents" func="yes">
 			<Overload retVal="string|false">
 				<Param name="string filename"/>
-				<Param name="[int flags=0"/>
-				<Param name="[resource context"/>
-				<Param name="[int offset=-1"/>
-				<Param name="[int maxlen=-1]]]]"/>
+				<Param name="[bool use_include_path=false"/>
+				<Param name="[resource context=NULL"/>
+				<Param name="[int offset=0"/>
+				<Param name="[int length]]]]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="file_put_contents" func="yes">
 			<Overload retVal="int|false">
-				<Param name="string file"/>
+				<Param name="string filename"/>
 				<Param name="mixed data"/>
 				<Param name="[int flags=0"/>
-				<Param name="[resource context]]"/>
+				<Param name="[resource context=NULL]]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="file_register_wrapper" func="yes">
@@ -9698,7 +9698,7 @@
 		<KeyWord name="pcntl_signal" func="yes">
 			<Overload retVal="bool">
 				<Param name="int signo"/>
-				<Param name="callback handle"/>
+				<Param name="callback handler"/>
 				<Param name="[bool restart_syscalls]"/>
 			</Overload>
 		</KeyWord>
@@ -12221,10 +12221,10 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="stream_get_contents" func="yes">
-			<Overload retVal="string">
-				<Param name="resource handle"/>
-				<Param name="[int maxlength=-1"/>
-				<Param name="[int offset=0]]"/>
+			<Overload retVal="string|false">
+				<Param name="resource stream"/>
+				<Param name="[int length=-1"/>
+				<Param name="[int offset=-1]]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="stream_get_filters" func="yes">

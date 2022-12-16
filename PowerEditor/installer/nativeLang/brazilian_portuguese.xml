@@ -76,7 +76,7 @@
                     <Item subMenuId="tools-sha256" name="SHA-256"/>
                     <Item subMenuId="window-sortby" name="Classificar por"/>
                 </SubEntries>
-				
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Novo"/>
@@ -324,12 +324,12 @@
                     <Item id="45057" name="OEM 865: Nórdico"/>
                     <Item id="45053" name="OEM 860: Português"/>
                     <Item id="45056" name="OEM 863: Francês"/>
-					
+
                     <Item id="10001" name="Mover para outra tela"/>
                     <Item id="10002" name="Duplicar tela (clonar)"/>
                     <Item id="10003" name="Mover para uma nova janela"/>
                     <Item id="10004" name="Abrir em uma nova janela"/>
-					
+
                     <Item id="46001" name="Configurador de estilos..."/>
                     <Item id="46250" name="Defina a sua linguagem..."/>
                     <Item id="46300" name="Pasta de Linguagens definidas pelo usuário..."/>
@@ -359,12 +359,12 @@
                     <Item id="48505" name="Gerar dos arquivos..."/>
                     <Item id="48506" name="Gerar a partir da seleção na área de transferência"/>
                     <Item id="49000" name="Executa&amp;r..."/>
-					
+
                     <Item id="50000" name="Completar função"/>
                     <Item id="50001" name="Completar palavra"/>
                     <Item id="50002" name="Dica de parâmetros da função"/>
-                    <Item id="50010" name="Dica anterior de parâmetros da função"/> 
-                    <Item id="50011" name="Dica seguinte de parâmetros da função"/>                    
+                    <Item id="50010" name="Dica anterior de parâmetros da função"/>
+                    <Item id="50011" name="Dica seguinte de parâmetros da função"/>
                     <Item id="50005" name="Alternar para gravação de macro"/>
                     <Item id="50006" name="Completar caminho de arquivo/diretório"/>
                     <Item id="44042" name="Ocultar linhas"/>
@@ -372,7 +372,7 @@
                     <Item id="42041" name="Limpar lista de arquivos recentes"/>
                     <Item id="48016" name="Modificar atalho/Excluir macro..."/>
                     <Item id="48017" name="Modificar atalho/Excluir comando..."/>
-					
+
                     <Item id="11001" name="&amp;Janelas..."/>
                     <Item id="11002" name="Nome A a Z"/>
                     <Item id="11003" name="Nome Z a A"/>
@@ -424,7 +424,7 @@
                 <Item CMDID="44110" name="Remover Cor"/>
             </TabBar>
         </Menu>
-		
+
         <Dialog>
             <Find title="" titleFind="Localizar" titleReplace="Substituir" titleFindInFiles="Localizar nos arquivos" titleFindInProjects="Localizar nos projetos" titleMark="Marcar">
                 <Item id="1"    name="Localizar próximo"/>
@@ -469,13 +469,13 @@
                 <Item id="1723" name="▼ Localizar próximo"/>
                 <Item id="1725" name="Copiar texto marcado"/>
             </Find>
-			
+
             <IncrementalFind title="">
                 <Item id="1681" name="Procurar"/>
                 <Item id="1685" name="Diferenciar maiúsc/minúsc"/>
                 <Item id="1690" name="Destacar todos"/>
             </IncrementalFind>
-			
+
             <FindCharsInRange title="Localizar caracteres em um intervalo...">
                 <Item id="2" name="Fechar"/>
                 <Item id="2901" name="Caracteres não ASCII (128-255)"/>
@@ -487,7 +487,7 @@
                 <Item id="2909" name="Pesquisa circular"/>
                 <Item id="2910" name="Localizar"/>
             </FindCharsInRange>
-			
+
             <GoToLine title="Ir para...">
                 <Item id="2007" name="&amp;Linha"/>
                 <Item id="2008" name="&amp;Caractere"/>
@@ -497,38 +497,38 @@
                 <Item id="2005" name="Deseja ir para :"/>
                 <Item id="2006" name="Você não pode exceder :"/>
             </GoToLine>
-			
+
             <Run title="Executar...">
                 <Item id="1903" name="Programa que deseja executar"/>
                 <Item id="1"    name="Executar"/>
                 <Item id="2"    name="Cancelar"/>
                 <Item id="1904" name="Salvar..."/>
             </Run>
-			
+
             <MD5FromFilesDlg title="Gerar MD5 dos arquivos">
                 <Item id="1922" name="Escolher arquivos para gerar MD5..."/>
                 <Item id="1924" name="Copiar"/>
                 <Item id="2"    name="Fechar"/>
             </MD5FromFilesDlg>
-			
+
             <MD5FromTextDlg title="Gerar MD5">
                 <Item id="1932" name="Tratar cada linha como uma string separada"/>
                 <Item id="1934" name="Copiar"/>
                 <Item id="2"    name="Fechar"/>
             </MD5FromTextDlg>
-			
+
             <SHA256FromFilesDlg title="Gerar SHA-256 dos arquivos">
                 <Item id="1922" name="Escolha arquivos para gerar o SHA-256..."/>
                 <Item id="1924" name="Copiar"/>
                 <Item id="2"    name="Fechar"/>
             </SHA256FromFilesDlg>
-			
+
             <SHA256FromTextDlg title="Gerar SHA-256">
                 <Item id="1932" name="Tratar cada linha como uma string separada"/>
                 <Item id="1934" name="Copiar"/>
                 <Item id="2"    name="Fechar"/>
             </SHA256FromTextDlg>
-			
+
             <PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">
                 <ColumnPlugin   name="Plugin"/>
                 <ColumnVersion  name="Versão"/>
@@ -541,7 +541,7 @@
                 <Item id="5511" name="Repositório de lista de Plugins"/>
                 <Item id="2"    name="Fechar"/>
             </PluginsAdminDlg>
-			
+
             <StyleConfig title="Configurador de estilos">
                 <Item id="2"    name="Cancelar"/>
                 <Item id="2301" name="Salvar e fechar"/>
@@ -573,7 +573,7 @@
                     <Item id="2234" name="Ir para configuração"/>
                 </SubDialog>
             </StyleConfig>
-			
+
             <ShortcutMapper title="Mapeador de atalhos">
                 <Item id="2602" name="Modificar"/>
                 <Item id="2603" name="Excluir"/>
@@ -877,13 +877,13 @@
                     <Item id="6129" name="Filled Fluent UI: ícones pequenos"/>
                     <Item id="6130" name="Filled Fluent UI: ícones grandes"/>
                     <Item id="6105" name="Padrão: ícones pequenos"/>
-					
+
                     <Item id="6106" name="Barra de abas"/>
                     <Item id="6107" name="Reduzir"/>
                     <Item id="6108" name="Travar (sem arrastar e soltar)"/>
                     <Item id="6109" name="Esmaecer abas inativas"/>
                     <Item id="6110" name="Destacar topo da aba ativa"/>
-					
+
                     <Item id="6111" name="Exibir barra de estado"/>
                     <Item id="6112" name="Habilitar o botão fechar em cada aba"/>
                     <Item id="6113" name="Fechar documento com duplo clique"/>
@@ -891,7 +891,7 @@
                     <Item id="6119" name="Multilinhas"/>
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Sair ao fechar a última aba"/>
-                    
+
                     <Item id="6131" name="Menu"/>
                     <Item id="6122" name="Ocultar (use Alt ou F10 para alternar)"/>
                     <Item id="6132" name="Esconder atalhos à direita ＋ ▼ ✕ da barra de menus (é necessário reiniciar o Notepad++)"/>
@@ -927,36 +927,36 @@
                     <Item id="6249" name="Texto comum"/>
                     <Item id="6250" name="Cor Customizada"/>
                 </Scintillas>
-				
+
                 <DarkMode title="Modo Escuro">
                     <Item id="7101" name="Habilitar modo escuro"/>
-					<Item id="7131" name="Modo claro"/>
-					<Item id="7132" name="Modo escuro/>
+                    <Item id="7131" name="Modo Claro"/>
+                    <Item id="7132" name="Modo Escuro"/>
 					<Item id="7133" name="Seguir padrão Windows"/>
-                    <Item id="7102" name="Tom preto"/> 
-                    <Item id="7103" name="Tom vermelho"/> 
-                    <Item id="7104" name="Tom verde"/> 
-                    <Item id="7105" name="Tom azul"/> 
-                    <Item id="7107" name="Tom roxo"/> 
-                    <Item id="7108" name="Tom ciano"/> 
-                    <Item id="7109" name="Tom oliva"/> 
-                    <Item id="7115" name="Tom personalizado"/> 
-                    <Item id="7116" name="Topo"/> 
-                    <Item id="7117" name="Trilha do menu"/> 
-                    <Item id="7118" name="Ativo"/> 
-                    <Item id="7119" name="Principal"/> 
-                    <Item id="7120" name="Erro"/> 
-                    <Item id="7121" name="Texto"/> 
-                    <Item id="7122" name="Texto mais escuro"/> 
-                    <Item id="7123" name="Texto desabilitado"/> 
-                    <Item id="7124" name="Borda"/> 
+                    <Item id="7102" name="Tom preto"/>
+                    <Item id="7103" name="Tom vermelho"/>
+                    <Item id="7104" name="Tom verde"/>
+                    <Item id="7105" name="Tom azul"/>
+                    <Item id="7107" name="Tom roxo"/>
+                    <Item id="7108" name="Tom ciano"/>
+                    <Item id="7109" name="Tom oliva"/>
+                    <Item id="7115" name="Tom personalizado"/>
+                    <Item id="7116" name="Topo"/>
+                    <Item id="7117" name="Trilha do menu"/>
+                    <Item id="7118" name="Ativo"/>
+                    <Item id="7119" name="Principal"/>
+                    <Item id="7120" name="Erro"/>
+                    <Item id="7121" name="Texto"/>
+                    <Item id="7122" name="Texto mais escuro"/>
+                    <Item id="7123" name="Texto desabilitado"/>
+                    <Item id="7124" name="Borda"/>
                     <Item id="7125" name="Link"/>
                     <Item id="7126" name="Borda destacada"/>
                     <Item id="7127" name="Borda desabilitada"/>
-                    <Item id="7130" name="Redefinir"/> 
+                    <Item id="7130" name="Redefinir"/>
                     <Item id="7135" name="Tons"/>
                 </DarkMode>
-				
+
                 <MarginsBorderEdge title="Margens e borda">
                     <Item id="6201" name="Estilo da margem para expansão"/>
                     <Item id="6202" name="Simples"/>
@@ -981,7 +981,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6210" name="Direita"/>
                     <Item id="6212" name="Sem distração"/>
                 </MarginsBorderEdge>
-				
+
                 <NewDoc title="Novo documento">
                     <Item id="6401" name="Formato (Quebra de linha)"/>
                     <Item id="6402" name="Windows (CR LF)"/>
@@ -997,14 +997,14 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6419" name="Novo documento"/>
                     <Item id="6420" name="Aplicar ao abrir arquivos ANSI"/>
                 </NewDoc>
-				
+
                 <DefaultDir title="Diretório padrão">
                     <Item id="6413" name="Diretório padrão (Abrir/Salvar)"/>
                     <Item id="6414" name="De acordo com documento atual"/>
                     <Item id="6415" name="Lembrar último diretório"/>
                     <Item id="6431" name="Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho"/>
                 </DefaultDir>
-				
+
                 <FileAssoc title="Tipos de arquivos">
                     <Item id="4008" name="Por favor, saia do Notepad++ e reinicie o Notepad++ no modo Administrador para usar esse recurso."/>
                     <Item id="4009" name="Extensões suportadas:"/>
@@ -1021,7 +1021,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6510" name="Usar valor padrão"/>
                     <Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
                 </Language>
-				
+
                 <Highlighting title="Destaque">
                     <Item id="6351" name="Marcar todos"/>
                     <Item id="6352" name="Coincidir maiúsculas/minúsculas"/>
@@ -1038,7 +1038,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6328" name="Destacar atributos de etiquetas"/>
                     <Item id="6330" name="Destacar zona comentários/php/asp"/>
                 </Highlighting>
-				
+
                 <Print title="Impressão">
                     <Item id="6601" name="Imprimir número da linha"/>
                     <Item id="6602" name="Opções de cores"/>
@@ -1077,18 +1077,18 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6727" name="Aqui aparece sua configuração variável"/>
                     <Item id="6728" name="Cabeçalho e rodapé"/>
                 </Print>
-				
+
                 <Searching title="Pesquisa">
                     <Item id="6902" name="Usar fonte monoespaçada na caixa de diálogo Localizar (é necessário reiniciar o Notepad++)"/>
                     <Item id="6903" name="A caixa de diálogo Localizar permanece aberta após a pesquisa que resulta na janela de resultados"/>
                     <Item id="6904" name="Confirmar Substituir todos em todos os documentos abertos"/>
                     <Item id="6905" name="Substituir: não mova para a ocorrência seguinte"/>
                     <Item id="6906" name="Janela de resultados da busca: mostre apenas uma ocorrência por linha"/>
-					<Item id="6907" name="Quando a caixa de diálogo de localização for acionada"/> 
-					<Item id="6908" name="Preencher o texto selecionado no campo de localização"/> 
+					<Item id="6907" name="Quando a caixa de diálogo de localização for acionada"/>
+					<Item id="6908" name="Preencher o texto selecionado no campo de localização"/>
 					<Item id="6909" name="Selecionar palavra da posição atual do cursor quando nada for selecionado"/>
                 </Searching>
-				
+
                 <RecentFilesHistory title="Histórico de arquivos recentes">
                     <Item id="6304" name="Histórico de arquivos recentes"/>
                     <Item id="6306" name="Número máximo de entradas :"/>
@@ -1099,7 +1099,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6426" name="Caminho completo do arquivo"/>
                     <Item id="6427" name="Personalizar tamanho máximo:"/>
                 </RecentFilesHistory>
-				
+
                 <Backup title="Backup">
                     <Item id="6817" name="Captura da sessão e backup periódico"/>
                     <Item id="6818" name="Habilitar captura da sessão e backup periódico"/>
@@ -1114,7 +1114,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6804" name="Personalizar pasta de backup"/>
                     <Item id="6803" name="Pasta :"/>
                 </Backup>
-				
+
                 <AutoCompletion title="Autocompletar">
                     <Item id="6115" name="Autoindentar"/>
                     <Item id="6807" name="Autocompletar"/>
@@ -1138,7 +1138,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6863" name="Par coincidido 2:"/>
                     <Item id="6866" name="Par coincidido 3:"/>
                 </AutoCompletion>
-				
+
                 <MultiInstance title="Múltiplas instâncias">
                     <Item id="6151" name="Configurações de múltiplas instâncias"/>
                     <Item id="6152" name="Abrir sessão em uma nova instância do Notepad++"/>
@@ -1149,7 +1149,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6175" name="Inverter formato padrão de data e hora (formatos curto &amp;&amp; longo)"/>
                     <Item id="6172" name="Formato customizado:"/>
                 </MultiInstance>
-				
+
                 <Delimiter title="Delimitador">
                     <Item id="6251" name="Delimitador das configurações de seleção (Ctrl + 2 cliques do mouse)"/>
                     <Item id="6252" name="Abertura"/>
@@ -1160,7 +1160,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6163" name="Adicionar seus caracteres como parte da palavra
 (não o escolha a menos que saiba o que está fazendo)"/>
                 </Delimiter>
-				
+
                 <Performance title="Desempenho">
                     <Item id="7141" name="Restrição para Arquivos Grandes"/>
                     <Item id="7143" name="Habilitar Restrição para Arquivos Grandes (sem destaque de sintaxe)"/>
@@ -1171,8 +1171,8 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="7149" name="Permitir Destaque Inteligente"/>
                     <Item id="7150" name="Desativar quebras de linhas automáticas de forma global"/>
                     <Item id="7151" name="Permitir URL como link clicável"/>
-                </Performance>		    
-		    
+                </Performance>
+
                 <Cloud title="Nuvem e link">
                     <Item id="6262" name="Configurações na nuvem"/>
                     <Item id="6263" name="Sem nuvem"/>
@@ -1183,7 +1183,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6350" name="Habilitar modo fullbox"/>
                     <Item id="6264" name="Esquemas URI personalizados:"/>
                 </Cloud>
-				
+
                 <SearchEngine title="Motor de busca">
                     <Item id="6271" name="Motor de busca (para o comando &quot;Pesquisar na Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -1194,7 +1194,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <!-- Don't change anything after Example: -->
                     <Item id="6278" name="Exemplo: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
-				
+
                 <MISC title="Diversos">
                     <ComboBox id="6347">
                         <Element name="Habilitar"/>
@@ -1218,7 +1218,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6345" name="Espiar na aba"/>
                     <Item id="6346" name="Espiar no mapa do documento"/>
                     <Item id="6360" name="Silenciar todos os sons"/>
-                    <Item id="6361" name="Habilitar caixa de diálogo de confirmação Salvar todos"/> 
+                    <Item id="6361" name="Habilitar caixa de diálogo de confirmação Salvar todos"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Executar macro múltiplas vezes">
@@ -1303,7 +1303,7 @@ ou está em uma pasta que necessita de privilégios para escrita.
 Suas configurações na nuvem serão canceladas. Por favor, redefina um valor coerente através da caixa de diálogo Preferências."/>
             <FilePathNotFoundWarning title="Abrir arquivo" message="O arquivo que você está tentando abrir não existe."/>  <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <SessionFileInvalidError title="Não foi possível carregar a sessão" message="O arquivo de sessão está corrompido ou não é válido."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
-            <DroppingFolderAsProjectModeWarning title="Você só pode soltar arquivos ou pastas, mas não ambos, porque você está soltando Pasta como modo Projeto. 
+            <DroppingFolderAsProjectModeWarning title="Você só pode soltar arquivos ou pastas, mas não ambos, porque você está soltando Pasta como modo Projeto.
 Você tem que habilitar o &quot;Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho&quot; na seção &quot;Diretório padrão&quot; em Preferências para fazer esta operação funcionar."/>
             <SortingError title="Erro de Classificação" message="Não é possível realizar a classificação numérica devido à linha $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="Dica de Modo Coluna" message="Por favor, use &quot;ALT+Seleção com Mouse&quot; ou &quot;Alt+Shift+Seta&quot; para alternar para o modo coluna."/>
@@ -1482,7 +1482,7 @@ Deseja continuar?"/>
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
             <eol-custom-color-tip value="Acesse Configuração de Estilos para mudar a cor padrão de caracter Final de Linha (&quot;EOL custom color&quot;).."/>
-			
+
             <word-chars-list-warning-begin value="Esteja ciente "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ espaço(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
@@ -1494,7 +1494,7 @@ Deseja continuar?"/>
             <default-open-save-select-folder value="Selecione uma pasta como padta padrão"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Usar Shift+Enter para pesquisar na direção oposta."/>
             <two-find-buttons-tip value="Modo 2 botões"/>
-            <file-rename-title value="Renomear"/> 
+            <file-rename-title value="Renomear"/>
             <find-in-files-filter-tip value="Procurar em cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 Procurar em todos os arquivos, exceto exe, obj &amp;&amp; log:
@@ -1601,7 +1601,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
             <contextMenu-styleAlloccurrencesOfToken value="Estilizar todas as ocorrências do termo" />
             <contextMenu-styleOneToken value="Estilizar um termo" />
             <contextMenu-clearStyle value="Limpar estilo" />
-	    <contextMenu-PluginCommands value="Comandos de Plugin" />
+			<contextMenu-PluginCommands value="Comandos de Plugin" />
             <largeFileRestriction-tip value="Alguns recursos podem reduzir a performance em arquivos grandes. Estes recursos podem ser automaticamente desativados ao se abrir um arquivo grande. É possível configurá-los aqui.
 OBSERVAÇÃO:
 1. A modificação de opções aqui requerem a reabertura de arquivos grandes já abertos para obter o comportamento desejado.

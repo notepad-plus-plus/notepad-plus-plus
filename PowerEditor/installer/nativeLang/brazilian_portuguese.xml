@@ -1371,7 +1371,7 @@ Deseja iniciar o Notepad++ no modo Administrador?"/>
 O Notepad++ será reiniciado depois que todas as operações forem concluídas.
 Deseja continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para carregar os plugins instalados."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para habilitar o Hisórico de Modificações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<ChangeHistoryEnabledWarning title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para habilitar o Hisórico de Modificações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge". -->
 			<WindowsSessionExit title="Notepad++ - Fechar sessão no Windows" message="A sessão do Windows está prestes a ser encerrada, mas há dados não salvos. Deseja encerrar o Notepad++ agora?"/>
         </MessageBox>
         <ClipboardHistory>

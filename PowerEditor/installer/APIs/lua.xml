@@ -133,7 +133,7 @@ finishes this function, so that the caller continues its execution.
 
 Note that commands for debug.debug are not lexically nested within any function, and so 
 have no direct access to local variables. 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="debug.getfenv" func="yes">
             <Overload retVal="void" descr="
@@ -199,7 +199,7 @@ Returns the metatable of the given object or nil if it does not have a metatable
         <KeyWord name="debug.getregistry" func="yes">
             <Overload retVal="void" descr="
 Returns the registry table (see §3.5). 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="debug.getupvalue" func="yes">
             <Overload retVal="void" descr="
@@ -420,7 +420,7 @@ Equivalent to file:close(). Without a file, closes the default output file.
         <KeyWord name="io.flush" func="yes">
             <Overload retVal="void" descr="
 Equivalent to file:flush over the default output file. 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="io.input" func="yes">
             <Overload retVal="void" descr="
@@ -499,7 +499,7 @@ Equivalent to io.input():read.
             <Overload retVal="void" descr="
 Returns a handle for a temporary file. This file is opened in update mode and it is automatically 
 removed when the program ends. 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="io.type" func="yes">
             <Overload retVal="void" descr="
@@ -819,7 +819,7 @@ fields.
         <KeyWord name="os.clock" func="yes">
             <Overload retVal="void" descr="
 Returns an approximation of the amount in seconds of CPU time used by the program. 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="os.date" func="yes">
             <Overload retVal="void" descr="
@@ -940,7 +940,7 @@ On some systems (POSIX), this function also creates a file with that name, to av
 creating the file.) You still have to open the file to use it and to remove it (even if you do not use it).
 
 When possible, you may prefer to use io.tmpfile, which automatically removes the file when the program ends. 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="package.cpath" func="no"/>
         <KeyWord name="package.loaded" func="no"/>

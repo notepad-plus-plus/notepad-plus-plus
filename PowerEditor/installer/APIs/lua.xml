@@ -2,7 +2,40 @@
 <NotepadPlus>
     <AutoComplete language="LUA">
         <Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=".:" />
+
+        <!-- Lua syntax-->
+        <KeyWord name="break" func="no" />
         <KeyWord name="and" func="no" />
+        <KeyWord name="do" func="no" />
+        <KeyWord name="else" func="no" />
+        <KeyWord name="elseif" func="no" />
+        <KeyWord name="end" func="no" />
+        <KeyWord name="false" func="no" />
+        <KeyWord name="for" func="no" />
+        <KeyWord name="function" func="no" />
+        <KeyWord name="if" func="no" />
+        <KeyWord name="in" func="no" />
+        <KeyWord name="local" func="no" />
+        <KeyWord name="nil" func="no" />
+        <KeyWord name="not" func="no" />
+        <KeyWord name="or" func="no" />
+        <KeyWord name="repeat" func="no" />
+        <KeyWord name="return" func="no" />
+        <KeyWord name="then" func="no" />
+        <KeyWord name="true" func="no" />
+        <KeyWord name="until" func="no" />
+        <KeyWord name="while" func="no" />
+
+        <!-- Newer syntax additions-->
+        <KeyWord name="goto" func="no" />
+
+        <!-- Odd ones out-->
+        <KeyWord name="self" func="no" /> <!-- This one still qualifies as a keyword sometimes-->
+        <KeyWord name="_G" func="no" /> <!-- May not always exist?-->
+        <KeyWord name="_ENV" func="no" /> <!-- May not always exist? And depends on version-->
+
+        <!-- Lua 5.1 standard library-->
+        <KeyWord name="_VERSION" func="no" />
         <KeyWord name="assert" func="yes">
             <Overload retVal="void" descr="
 Issues an error when the value of its argument v is false (i.e., nil or false);
@@ -12,7 +45,6 @@ defaults to 'assertion failed!'">
                 <Param name="String:[message]" />
             </Overload>
         </KeyWord>
-        <KeyWord name="break" func="no" />
         <KeyWord name="collectgarbage" func="yes">
             <Overload retVal="void" descr="This function is a generic interface to the garbage collector.
 It performs different functions according to its first argument, opt:
@@ -253,7 +285,6 @@ beginning of the traceback. An optional level number tells at which level to sta
                 <Param name="[, level]" />
             </Overload>
         </KeyWord>
-        <KeyWord name="do" func="no" />
         <KeyWord name="dofile" func="yes">
             <Overload retVal="void" descr="
 Opens the named file and executes its contents as a Lua chunk. When called without arguments, dofile 
@@ -263,9 +294,6 @@ of errors, dofile propagates the error to its caller (that is, dofile does not r
                 <Param name="filename" />
             </Overload>
         </KeyWord>
-        <KeyWord name="else" func="no" />
-        <KeyWord name="elseif" func="no" />
-        <KeyWord name="end" func="no" />
         <KeyWord name="error" func="yes">
             <Overload retVal="void" descr="
 Terminates the last protected function called and returns message as the error message. 
@@ -281,7 +309,6 @@ information to the message.
                 <Param name="[, level]" />
             </Overload>
         </KeyWord>
-        <KeyWord name="false" func="no" />
         <KeyWord name="file:close" func="yes">
             <Overload retVal="void" descr="
 Closes file. Note that files are automatically closed when their handles are garbage collected, 
@@ -365,8 +392,6 @@ other values, use tostring or string.format before write.
                 <Param name="···" />
             </Overload>
         </KeyWord>
-        <KeyWord name="for" func="no" />
-        <KeyWord name="function" func="no" />
         <KeyWord name="getfenv" func="yes">
             <Overload retVal="void" descr="
 Returns the current environment in use by the function. f can be a Lua function or a number that specifies 
@@ -384,8 +409,6 @@ field, returns the associated value. Otherwise, returns the metatable of the giv
                 <Param name="object" />
             </Overload>
         </KeyWord>
-        <KeyWord name="if" func="no" />
-        <KeyWord name="in" func="no" />
         <KeyWord name="io.close" func="yes">
             <Overload retVal="void" descr="
 Equivalent to file:close(). Without a file, closes the default output file. 
@@ -538,7 +561,6 @@ When absent, chunkname defaults to the given string.
                 <Param name="[, chunkname]" />
             </Overload>
         </KeyWord>
-        <KeyWord name="local" func="no" />
         <KeyWord name="math.abs" func="yes">
             <Overload retVal="void" descr="
 Returns the absolute value of x. 
@@ -793,9 +815,6 @@ fields.
                 <Param name="[, index]" />
             </Overload>
         </KeyWord>
-        <KeyWord name="nil" func="no" />
-        <KeyWord name="not" func="no" />
-        <KeyWord name="or" func="no" />
         <KeyWord name="os.clock" func="yes">
             <Overload retVal="void" descr="
 Returns an approximation of the amount in seconds of CPU time used by the program. 
@@ -1016,7 +1035,6 @@ This function returns table.
                 <Param name="value" />
             </Overload>
         </KeyWord>
-        <KeyWord name="repeat" func="no" />
         <KeyWord name="require" func="yes">
             <Overload retVal="void" descr="
 Loads the given module. The function starts by looking into the package.loaded table to 
@@ -1044,7 +1062,6 @@ the module, then require signals an error.
                 <Param name="modname" />
             </Overload>
         </KeyWord>
-        <KeyWord name="return" func="no" />
         <KeyWord name="select" func="yes">
             <Overload retVal="void" descr="
 If index is a number, returns all arguments after argument number index. Otherwise, index 
@@ -1314,7 +1331,6 @@ their relative positions changed by the sort.
                 <Param name="[, comp]" />
             </Overload>
         </KeyWord>
-        <KeyWord name="then" func="no" />
         <KeyWord name="tonumber" func="yes">
             <Overload retVal="void" descr="
 Tries to convert its argument to a number. If the argument is already a number or a string 
@@ -1341,7 +1357,6 @@ e as argument, and uses the result of the call as its result.
                 <Param name="e" />
             </Overload>
         </KeyWord>
-        <KeyWord name="true" func="no" />
         <KeyWord name="type" func="yes">
             <Overload retVal="void" descr="
 Returns the type of its only argument, coded as a string. The possible results of this function 
@@ -1363,8 +1378,6 @@ j is the length of the list, as defined by the length operator (see §2.5.5).
                 <Param name="[, i [, j]]" />
             </Overload>
         </KeyWord>
-        <KeyWord name="until" func="no" />
-        <KeyWord name="while" func="no" />
         <KeyWord name="xpcall" func="yes">
             <Overload retVal="void" descr="
 This function is similar to pcall, except that you can set a new error handler.
@@ -1379,579 +1392,382 @@ after this first result. In case of any error, xpcall returns false plus the res
                 <Param name="err" />
             </Overload>
         </KeyWord>
-        <KeyWord name="Bitmap Masks for tableViews and scrollViews" />
-        <KeyWord name="SQLite3" />
-        <KeyWord name="Scene Template" />
-        <KeyWord name="Slider ()" />
-        <KeyWord name="_G" />
-        <KeyWord name="ads.hide()" />
-        <KeyWord name="ads.init()" />
-        <KeyWord name="ads.show()" />
-        <KeyWord name="analytics.init()" />
-        <KeyWord name="analytics.logEvent()" />
-        <KeyWord name="assert()" />
-        <KeyWord name="audio.dispose()" />
-        <KeyWord name="audio.fade()" />
-        <KeyWord name="audio.fadeOut()" />
-        <KeyWord name="audio.findFreeChannel()" />
-        <KeyWord name="audio.freeChannels" />
-        <KeyWord name="audio.getDuration()" />
-        <KeyWord name="audio.getMaxVolume()" />
-        <KeyWord name="audio.getMinVolume()" />
-        <KeyWord name="audio.getVolume()" />
-        <KeyWord name="audio.isChannelActive()" />
-        <KeyWord name="audio.isChannelPaused()" />
-        <KeyWord name="audio.isChannelPlaying()" />
-        <KeyWord name="audio.loadSound()" />
-        <KeyWord name="audio.loadStream()" />
-        <KeyWord name="audio.pause()" />
-        <KeyWord name="audio.play()" />
-        <KeyWord name="audio.reserveChannels()" />
-        <KeyWord name="audio.reservedChannels" />
-        <KeyWord name="audio.resume()" />
-        <KeyWord name="audio.rewind()" />
-        <KeyWord name="audio.seek()" />
-        <KeyWord name="audio.setMaxVolume()" />
-        <KeyWord name="audio.setMinVolume()" />
-        <KeyWord name="audio.setVolume()" />
-        <KeyWord name="audio.stop()" />
-        <KeyWord name="audio.stopWithDelay()" />
-        <KeyWord name="audio.totalChannels" />
-        <KeyWord name="audio.unreservedFreeChannels" />
-        <KeyWord name="audio.unreservedUsedChannels" />
-        <KeyWord name="audio.usedChannels" />
-        <KeyWord name="body.angularDamping" />
-        <KeyWord name="body.angularVelocity" />
-        <KeyWord name="body.bodyType" />
-        <KeyWord name="body.isAwake" />
-        <KeyWord name="body.isBodyActive" />
-        <KeyWord name="body.isBullet" />
-        <KeyWord name="body.isFixedRotation" />
-        <KeyWord name="body.isSensor" />
-        <KeyWord name="body.isSleepingAllowed" />
-        <KeyWord name="body.linearDamping" />
-        <KeyWord name="body:applyAngularImpulse()" />
-        <KeyWord name="body:applyForce()" />
-        <KeyWord name="body:applyLinearImpulse()" />
-        <KeyWord name="body:applyTorque()" />
-        <KeyWord name="body:getLinearVelocity()" />
-        <KeyWord name="body:resetMassData()" />
-        <KeyWord name="body:setLinearVelocity" />
-        <KeyWord name="credits.init()" />
-        <KeyWord name="credits.requestUpdate()" />
-        <KeyWord name="credits.showOffers()" />
-        <KeyWord name="crypto.digest()" />
-        <KeyWord name="crypto.hmac()" />
-        <KeyWord name="crypto.md4" />
-        <KeyWord name="crypto.md5" />
-        <KeyWord name="crypto.sha1" />
-        <KeyWord name="crypto.sha224" />
-        <KeyWord name="crypto.sha256" />
-        <KeyWord name="crypto.sha384" />
-        <KeyWord name="crypto.sha512" />
-        <KeyWord name="display.captureScreen()" />
-        <KeyWord name="display.contentCenterX" />
-        <KeyWord name="display.contentCenterY" />
-        <KeyWord name="display.contentHeight" />
-        <KeyWord name="display.contentScaleX" />
-        <KeyWord name="display.contentScaleY" />
-        <KeyWord name="display.contentWidth" />
-        <KeyWord name="display.getCurrentStage()" />
-        <KeyWord name="display.loadRemoteImage()" />
-        <KeyWord name="display.newCircle()" />
-        <KeyWord name="display.newEmbossedText()" />
-        <KeyWord name="display.newGroup()" />
-        <KeyWord name="display.newImage()" />
-        <KeyWord name="display.newImageRect()" />
-        <KeyWord name="display.newLine()" />
-        <KeyWord name="display.newRect()" />
-        <KeyWord name="display.newRetinaText()" />
-        <KeyWord name="display.newRoundedRect()" />
-        <KeyWord name="display.newText()" />
-        <KeyWord name="display.remove()" />
-        <KeyWord name="display.save()" />
-        <KeyWord name="display.screenOriginX" />
-        <KeyWord name="display.screenOriginY" />
-        <KeyWord name="display.setDefault()" />
-        <KeyWord name="display.setStatusBar()" />
-        <KeyWord name="display.statusBarHeight" />
-        <KeyWord name="display.viewableContentHeight" />
-        <KeyWord name="display.viewableContentWidth" />
-        <KeyWord name="easing.inExpo()" />
-        <KeyWord name="easing.inOutExpo()" />
-        <KeyWord name="easing.inOutQuad()" />
-        <KeyWord name="easing.inQuad()" />
-        <KeyWord name="easing.linear()" />
-        <KeyWord name="easing.outExpo()" />
-        <KeyWord name="easing.outQuad()" />
-        <KeyWord name="error()" />
-        <KeyWord name="event.accuracy" />
-        <KeyWord name="event.action" />
-        <KeyWord name="event.address" />
-        <KeyWord name="event.altitude" />
-        <KeyWord name="event.blob" />
-        <KeyWord name="event.channel" />
-        <KeyWord name="event.city" />
-        <KeyWord name="event.cityDetail" />
-        <KeyWord name="event.completed" />
-        <KeyWord name="event.count" />
-        <KeyWord name="event.country" />
-        <KeyWord name="event.countryCode" />
-        <KeyWord name="event.custom" />
-        <KeyWord name="event.data" />
-        <KeyWord name="event.delta" />
-        <KeyWord name="event.deltaTime" />
-        <KeyWord name="event.deltaTime" />
-        <KeyWord name="event.direction" />
-        <KeyWord name="event.errorCode" />
-        <KeyWord name="event.errorCode" />
-        <KeyWord name="event.errorCode" />
-        <KeyWord name="event.errorMessage" />
-        <KeyWord name="event.errorMessage" />
-        <KeyWord name="event.errorMessage" />
-        <KeyWord name="event.errorMessage" />
-        <KeyWord name="event.force" />
-        <KeyWord name="event.friction" />
-        <KeyWord name="event.geographic" />
-        <KeyWord name="event.handle" />
-        <KeyWord name="event.id" />
-        <KeyWord name="event.index" />
-        <KeyWord name="event.invalidProducts" />
-        <KeyWord name="event.isConnectionOnDemand" />
-        <KeyWord name="event.isConnectionRequired" />
-        <KeyWord name="event.isError" />
-        <KeyWord name="event.isInteractionRequired" />
-        <KeyWord name="event.isReachable" />
-        <KeyWord name="event.isReachableViaCellular" />
-        <KeyWord name="event.isReachableViaWiFi" />
-        <KeyWord name="event.isShake" />
-        <KeyWord name="event.keyName" />
-        <KeyWord name="event.latitude" />
-        <KeyWord name="event.localPlayerScore" />
-        <KeyWord name="event.longitude" />
-        <KeyWord name="event.magnetic" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.name" />
-        <KeyWord name="event.newCredits" />
-        <KeyWord name="event.numTaps" />
-        <KeyWord name="event.object1" />
-        <KeyWord name="event.object2" />
-        <KeyWord name="event.other" />
-        <KeyWord name="event.other" />
-        <KeyWord name="event.phase" />
-        <KeyWord name="event.phase" />
-        <KeyWord name="event.phase" />
-        <KeyWord name="event.phase" />
-        <KeyWord name="event.postalCode" />
-        <KeyWord name="event.products" />
-        <KeyWord name="event.provider" />
-        <KeyWord name="event.region" />
-        <KeyWord name="event.regionDetail" />
-        <KeyWord name="event.source" />
-        <KeyWord name="event.speed" />
-        <KeyWord name="event.sprite" />
-        <KeyWord name="event.street" />
-        <KeyWord name="event.streetDetail" />
-        <KeyWord name="event.target" />
-        <KeyWord name="event.target" />
-        <KeyWord name="event.time" />
-        <KeyWord name="event.time" />
-        <KeyWord name="event.time" />
-        <KeyWord name="event.time" />
-        <KeyWord name="event.totalCredits" />
-        <KeyWord name="event.transaction" />
-        <KeyWord name="event.type" />
-        <KeyWord name="event.type" />
-        <KeyWord name="event.type" />
-        <KeyWord name="event.type" />
-        <KeyWord name="event.url" />
-        <KeyWord name="event.x" />
-        <KeyWord name="event.x" />
-        <KeyWord name="event.xGravity" />
-        <KeyWord name="event.xInstant" />
-        <KeyWord name="event.xRotation" />
-        <KeyWord name="event.xStart" />
-        <KeyWord name="event.y" />
-        <KeyWord name="event.y" />
-        <KeyWord name="event.yGravity" />
-        <KeyWord name="event.yInstant" />
-        <KeyWord name="event.yRotation" />
-        <KeyWord name="event.yStart" />
-        <KeyWord name="event.zGravity" />
-        <KeyWord name="event.zInstant" />
-        <KeyWord name="event.zRotation" />
-        <KeyWord name="facebook.login()" />
-        <KeyWord name="facebook.logout()" />
-        <KeyWord name="facebook.request()" />
-        <KeyWord name="facebook.showDialog()" />
-        <KeyWord name="file:close()" />
-        <KeyWord name="file:flush()" />
-        <KeyWord name="file:lines()" />
-        <KeyWord name="file:read()" />
-        <KeyWord name="file:seek()" />
-        <KeyWord name="file:setvbuf()" />
-        <KeyWord name="file:write()" />
-        <KeyWord name="gameNetwork.init()" />
-        <KeyWord name="gameNetwork.request()" />
-        <KeyWord name="gameNetwork.show()" />
-        <KeyWord name="getfenv()" />
-        <KeyWord name="getmetatable()" />
-        <KeyWord name="graphics.newGradient()" />
-        <KeyWord name="graphics.newMask()" />
-        <KeyWord name="group.numChildren" />
-        <KeyWord name="group:insert()" />
-        <KeyWord name="group:remove()" />
-        <KeyWord name="io.close()" />
-        <KeyWord name="io.flush()" />
-        <KeyWord name="io.input()" />
-        <KeyWord name="io.lines()" />
-        <KeyWord name="io.open()" />
-        <KeyWord name="io.output()" />
-        <KeyWord name="io.read()" />
-        <KeyWord name="io.tmpfile()" />
-        <KeyWord name="io.type()" />
-        <KeyWord name="io.write()" />
-        <KeyWord name="ipairs()" />
-        <KeyWord name="joint.dampingRatio" />
-        <KeyWord name="joint.frequency" />
-        <KeyWord name="joint.isLimitEnabled" />
-        <KeyWord name="joint.isMotorEnabled" />
-        <KeyWord name="joint.jointAngle" />
-        <KeyWord name="joint.jointSpeed" />
-        <KeyWord name="joint.jointTranslation" />
-        <KeyWord name="joint.length" />
-        <KeyWord name="joint.length1" />
-        <KeyWord name="joint.length2" />
-        <KeyWord name="joint.maxForce" />
-        <KeyWord name="joint.maxMotorForce" />
-        <KeyWord name="joint.maxMotorTorque" />
-        <KeyWord name="joint.maxTorque" />
-        <KeyWord name="joint.motorForce" />
-        <KeyWord name="joint.motorSpeed" />
-        <KeyWord name="joint.motorTorque" />
-        <KeyWord name="joint.ratio" />
-        <KeyWord name="joint.reactionTorque" />
-        <KeyWord name="joint:getAnchorA()" />
-        <KeyWord name="joint:getAnchorB()" />
-        <KeyWord name="joint:getLimits()" />
-        <KeyWord name="joint:getReactionForce()" />
-        <KeyWord name="joint:getRotationLimits()" />
-        <KeyWord name="joint:setLimits()" />
-        <KeyWord name="joint:setRotationLimits()" />
-        <KeyWord name="json.decode()" />
-        <KeyWord name="json.encode()" />
-        <KeyWord name="json.null()" />
-        <KeyWord name="math.abs()" />
-        <KeyWord name="math.acos()" />
-        <KeyWord name="math.asin()" />
-        <KeyWord name="math.atan()" />
-        <KeyWord name="math.atan2()" />
-        <KeyWord name="math.ceil()" />
-        <KeyWord name="math.cos()" />
-        <KeyWord name="math.cosh()" />
-        <KeyWord name="math.deg()" />
-        <KeyWord name="math.exp()" />
-        <KeyWord name="math.floor()" />
-        <KeyWord name="math.fmod()" />
-        <KeyWord name="math.frexp()" />
-        <KeyWord name="math.inf" />
-        <KeyWord name="math.ldexp()" />
-        <KeyWord name="math.log()" />
-        <KeyWord name="math.log10()" />
-        <KeyWord name="math.max()" />
-        <KeyWord name="math.min()" />
-        <KeyWord name="math.modf()" />
-        <KeyWord name="math.pi" />
-        <KeyWord name="math.pow()" />
-        <KeyWord name="math.rad()" />
-        <KeyWord name="math.random()" />
-        <KeyWord name="math.randomseed()" />
-        <KeyWord name="math.round()" />
-        <KeyWord name="math.sin()" />
-        <KeyWord name="math.sinh()" />
-        <KeyWord name="math.sqrt()" />
-        <KeyWord name="math.tan()" />
-        <KeyWord name="math.tanh()" />
-        <KeyWord name="media.getSoundVolume" />
-        <KeyWord name="media.newEventSound()" />
-        <KeyWord name="media.newRecording()" />
-        <KeyWord name="media.pauseSound()" />
-        <KeyWord name="media.playEventSound()" />
-        <KeyWord name="media.playSound()" />
-        <KeyWord name="media.playVideo()" />
-        <KeyWord name="media.setSoundVolume()" />
-        <KeyWord name="media.show()" />
-        <KeyWord name="media.stopSound()" />
-        <KeyWord name="memoryWarning *iOS only*" />
-        <KeyWord name="module()" />
-        <KeyWord name="movieclip.newAnim()" />
-        <KeyWord name="myMap.isLocationVisible" />
-        <KeyWord name="myMap.isScrollEnabled" />
-        <KeyWord name="myMap.isZoomEnabled" />
-        <KeyWord name="myMap.mapType" />
-        <KeyWord name="myMap:addMarker()" />
-        <KeyWord name="myMap:getAddressLocation()" />
-        <KeyWord name="myMap:getUserLocation()" />
-        <KeyWord name="myMap:nearestAddress()" />
-        <KeyWord name="myMap:removeAllMarkers()" />
-        <KeyWord name="myMap:setCenter()" />
-        <KeyWord name="myMap:setRegion()" />
-        <KeyWord name="native.cancelAlert()" />
-        <KeyWord name="native.cancelWebPopup()" />
-        <KeyWord name="native.getFontNames()" />
-        <KeyWord name="native.getSync()" />
-        <KeyWord name="native.newFont()" />
-        <KeyWord name="native.newMapView()" />
-        <KeyWord name="native.newTextBox()" />
-        <KeyWord name="native.newTextField()" />
-        <KeyWord name="native.newVideo()" />
-        <KeyWord name="native.newWebView()" />
-        <KeyWord name="native.setActivityIndicator()" />
-        <KeyWord name="native.setKeyboardFocus()" />
-        <KeyWord name="native.setSync()" />
-        <KeyWord name="native.showAlert()" />
-        <KeyWord name="native.showPopup()" />
-        <KeyWord name="native.showWebPopup()" />
-        <KeyWord name="native.systemFont" />
-        <KeyWord name="network.canDetectNetworkStatusChanges" />
-        <KeyWord name="network.download()" />
-        <KeyWord name="network.request()" />
-        <KeyWord name="network.setStatusListener" />
-        <KeyWord name="next()" />
-        <KeyWord name="object.align" />
-        <KeyWord name="object.align" />
-        <KeyWord name="object.alpha" />
-        <KeyWord name="object.contentBounds" />
-        <KeyWord name="object.contentHeight" />
-        <KeyWord name="object.contentWidth" />
-        <KeyWord name="object.font" />
-        <KeyWord name="object.font" />
-        <KeyWord name="object.hasBackground" />
-        <KeyWord name="object.height" />
-        <KeyWord name="object.inputType" />
-        <KeyWord name="object.isEditable" />
-        <KeyWord name="object.isHitTestMasked" />
-        <KeyWord name="object.isHitTestable" />
-        <KeyWord name="object.isSecure" />
-        <KeyWord name="object.isVisible" />
-        <KeyWord name="object.length **old**" />
-        <KeyWord name="object.maskRotation" />
-        <KeyWord name="object.maskScaleX" />
-        <KeyWord name="object.maskScaleY" />
-        <KeyWord name="object.maskX" />
-        <KeyWord name="object.maskY" />
-        <KeyWord name="object.parent" />
-        <KeyWord name="object.rotation" />
-        <KeyWord name="object.size" />
-        <KeyWord name="object.size" />
-        <KeyWord name="object.size" />
-        <KeyWord name="object.stageBounds **old**" />
-        <KeyWord name="object.stageHeight **old**" />
-        <KeyWord name="object.stageWidth **old**" />
-        <KeyWord name="object.strokeWidth" />
-        <KeyWord name="object.text" />
-        <KeyWord name="object.text" />
-        <KeyWord name="object.text" />
-        <KeyWord name="object.width" />
-        <KeyWord name="object.x" />
-        <KeyWord name="object.xOrigin" />
-        <KeyWord name="object.xReference" />
-        <KeyWord name="object.xScale" />
-        <KeyWord name="object.y" />
-        <KeyWord name="object.yOrigin" />
-        <KeyWord name="object.yReference" />
-        <KeyWord name="object.yScale" />
-        <KeyWord name="object:addEventListener" />
-        <KeyWord name="object:append()" />
-        <KeyWord name="object:contentToLocal()" />
-        <KeyWord name="object:dispatchEvent()" />
-        <KeyWord name="object:getParent() **old**" />
-        <KeyWord name="object:getSampleRate()" />
-        <KeyWord name="object:getTunerFrequency()" />
-        <KeyWord name="object:getTunerVolume()" />
-        <KeyWord name="object:isRecording()" />
-        <KeyWord name="object:localToContent()" />
-        <KeyWord name="object:nextFrame()" />
-        <KeyWord name="object:play()" />
-        <KeyWord name="object:previousFrame()" />
-        <KeyWord name="object:removeEventListener()" />
-        <KeyWord name="object:removeSelf()" />
-        <KeyWord name="object:reverse()" />
-        <KeyWord name="object:rotate()" />
-        <KeyWord name="object:scale()" />
-        <KeyWord name="object:setColor()" />
-        <KeyWord name="object:setDrag()" />
-        <KeyWord name="object:setFillColor()" />
-        <KeyWord name="object:setLabels()" />
-        <KeyWord name="object:setMask()" />
-        <KeyWord name="object:setReferencePoint()" />
-        <KeyWord name="object:setSampleRate()" />
-        <KeyWord name="object:setStrokeColor()" />
-        <KeyWord name="object:setTextColor()" />
-        <KeyWord name="object:setTextColor()" />
-        <KeyWord name="object:setTextColor()" />
-        <KeyWord name="object:startRecording()" />
-        <KeyWord name="object:startTuner()" />
-        <KeyWord name="object:stop()" />
-        <KeyWord name="object:stopAtFrame()" />
-        <KeyWord name="object:stopRecording()" />
-        <KeyWord name="object:stopTuner()" />
-        <KeyWord name="object:toBack()" />
-        <KeyWord name="object:toFront()" />
-        <KeyWord name="object:translate()" />
-        <KeyWord name="openfeint.downloadBlob()" />
-        <KeyWord name="openfeint.init()" />
-        <KeyWord name="openfeint.launchDashboard()" />
-        <KeyWord name="openfeint.setHighScore()" />
-        <KeyWord name="openfeint.unlockAchievement()" />
-        <KeyWord name="openfeint.uploadBlob()" />
-        <KeyWord name="os.clock()" />
-        <KeyWord name="os.date()" />
-        <KeyWord name="os.difftime()" />
-        <KeyWord name="os.execute()" />
-        <KeyWord name="os.exit()" />
-        <KeyWord name="os.remove()" />
-        <KeyWord name="os.rename()" />
-        <KeyWord name="os.time()" />
-        <KeyWord name="package.loaded" />
-        <KeyWord name="package.loaders" />
-        <KeyWord name="package.seeall" />
-        <KeyWord name="pairs()" />
-        <KeyWord name="pcall()" />
-        <KeyWord name="physics.addBody()" />
-        <KeyWord name="physics.getGravity()" />
-        <KeyWord name="physics.newJoint()" />
-        <KeyWord name="physics.pause()" />
-        <KeyWord name="physics.removeBody()" />
-        <KeyWord name="physics.setDrawMode()" />
-        <KeyWord name="physics.setGravity()" />
-        <KeyWord name="physics.setPositionIterations()" />
-        <KeyWord name="physics.setScale()" />
-        <KeyWord name="physics.setVelocityIterations()" />
-        <KeyWord name="physics.start()" />
-        <KeyWord name="physics.stop()" />
-        <KeyWord name="print()" />
-        <KeyWord name="rawequal()" />
-        <KeyWord name="rawget()" />
-        <KeyWord name="rawset()" />
-        <KeyWord name="require()" />
-        <KeyWord name="Runtime:addEventListener()" />
-        <KeyWord name="Runtime:hasEventSource()" />
-        <KeyWord name="Runtime:removeEventListener()" />
-        <KeyWord name="scrollView ()" />
-        <KeyWord name="select()" />
-        <KeyWord name="setfenv()" />
-        <KeyWord name="setmetatable()" />
-        <KeyWord name="sprite.add()" />
-        <KeyWord name="sprite.newSprite()" />
-        <KeyWord name="sprite.newSpriteMultiSet()" />
-        <KeyWord name="sprite.newSpriteSet()" />
-        <KeyWord name="sprite.newSpriteSheet()" />
-        <KeyWord name="sprite.newSpriteSheetFromData()" />
-        <KeyWord name="spriteInstance.animating" />
-        <KeyWord name="spriteInstance.currentFrame" />
-        <KeyWord name="spriteInstance.sequence" />
-        <KeyWord name="spriteInstance.timeScale" />
-        <KeyWord name="spriteInstance:addEventListener()" />
-        <KeyWord name="spriteInstance:pause()" />
-        <KeyWord name="spriteInstance:play()" />
-        <KeyWord name="spriteInstance:prepare()" />
-        <KeyWord name="spriteSheet:dispose()" />
-        <KeyWord name="stage:setFocus()" />
-        <KeyWord name="store.canMakePurchases" />
-        <KeyWord name="store.finishTransaction()" />
-        <KeyWord name="store.init()" />
-        <KeyWord name="store.loadProducts()" />
-        <KeyWord name="store.purchase()" />
-        <KeyWord name="store.restore()" />
-        <KeyWord name="storyboard.disableAutoPurge" />
-        <KeyWord name="storyboard.getCurrentSceneName()" />
-        <KeyWord name="storyboard.getPrevious()" />
-        <KeyWord name="storyboard.getScene()" />
-        <KeyWord name="storyboard.gotoScene()" />
-        <KeyWord name="storyboard.hideOverlay()" />
-        <KeyWord name="storyboard.isDebug" />
-        <KeyWord name="storyboard.loadScene()" />
-        <KeyWord name="storyboard.newScene()" />
-        <KeyWord name="storyboard.printMemUsage()" />
-        <KeyWord name="storyboard.purgeAll()" />
-        <KeyWord name="storyboard.purgeOnSceneChange" />
-        <KeyWord name="storyboard.purgeScene()" />
-        <KeyWord name="storyboard.reloadScene()" />
-        <KeyWord name="storyboard.removeAll()" />
-        <KeyWord name="storyboard.removeScene()" />
-        <KeyWord name="storyboard.showOverlay()" />
-        <KeyWord name="storyboard.stage" />
-        <KeyWord name="string.byte()" />
-        <KeyWord name="string.char()" />
-        <KeyWord name="string.find()" />
-        <KeyWord name="string.format()" />
-        <KeyWord name="string.gmatch()" />
-        <KeyWord name="string.gsub()" />
-        <KeyWord name="string.len()" />
-        <KeyWord name="string.lower()" />
-        <KeyWord name="string.match()" />
-        <KeyWord name="string.rep()" />
-        <KeyWord name="string.reverse()" />
-        <KeyWord name="string.sub()" />
-        <KeyWord name="string.upper()" />
-        <KeyWord name="system.DocumentsDirectory" />
-        <KeyWord name="system.ResourceDirectory" />
-        <KeyWord name="system.TemporaryDirectory" />
-        <KeyWord name="system.activate()" />
-        <KeyWord name="system.cancelNotification()" />
-        <KeyWord name="system.deactivate()" />
-        <KeyWord name="system.getInfo()" />
-        <KeyWord name="system.getPreference()" />
-        <KeyWord name="system.getTimer()" />
-        <KeyWord name="system.openURL()" />
-        <KeyWord name="system.orientation" />
-        <KeyWord name="system.pathForFile()" />
-        <KeyWord name="system.scheduleNotification()" />
-        <KeyWord name="system.setAccelerometerInterval()" />
-        <KeyWord name="system.setGyroscopeInterval()" />
-        <KeyWord name="system.setIdleTimer()" />
-        <KeyWord name="system.setLocationAccuracy()" />
-        <KeyWord name="system.setLocationThreshold()" />
-        <KeyWord name="system.vibrate()" />
-        <KeyWord name="table.concat()" />
-        <KeyWord name="table.copy()" />
-        <KeyWord name="table.indexOf()" />
-        <KeyWord name="table.insert()" />
-        <KeyWord name="table.maxn()" />
-        <KeyWord name="table.remove()" />
-        <KeyWord name="table.sort()" />
-        <KeyWord name="timer.cancel()" />
-        <KeyWord name="timer.pause()" />
-        <KeyWord name="timer.performWithDelay()" />
-        <KeyWord name="timer.resume()" />
-        <KeyWord name="tonumber()" />
-        <KeyWord name="tostring()" />
-        <KeyWord name="transition.cancel()" />
-        <KeyWord name="transition.dissolve()" />
-        <KeyWord name="transition.from()" />
-        <KeyWord name="transition.to()" />
-        <KeyWord name="type()" />
-        <KeyWord name="unpack()" />
-        <KeyWord name="widget.newButton()" />
-        <KeyWord name="widget.newPickerWheel()" />
-        <KeyWord name="widget.newTabBar()" />
-        <KeyWord name="widget.newTableView()" />
-        <KeyWord name="widget.setTheme()" />
+
+        <!-- Lua 5.2 standard library-->
+        <KeyWord name="rawlen" func="yes">
+            <Overload retVal="void" descr="
+Returns the length of the object v, which must be a table or a string, without invoking any metamethod.
+Returns an integer number.
+        ">
+                <Param name="v" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="package.config" func="no" />
+        <KeyWord name="package.searchers" func="no" />
+        <KeyWord name="package.searchers" func="no" />
+        <KeyWord name="table.pack" func="yes">
+            <Overload retVal="void" descr="
+Returns a new table with all parameters stored into keys 1, 2, etc. and with a field 'n' with the total
+number of parameters. Note that the resulting table may not be a sequence.
+        ">
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="table.unpack" func="yes">
+            <Overload retVal="void" descr="
+Returns the elements from the given table. This function is equivalent to
+
+     return list[i], list[i+1], ···, list[j]
+
+By default, i is 1 and j is #list.
+        ">
+                <Param name="list" />
+                <Param name="[, i [, j]]" />
+            </Overload>
+        </KeyWord>
+        
+        <KeyWord name="bit32.arshift" func="yes">
+            <Overload retVal="void" descr="
+Returns the number x shifted disp bits to the right. The number disp may be any representable integer.
+Negative displacements shift to the left.
+
+This shift operation is what is called arithmetic shift. Vacant bits on the left are filled with copies
+of the higher bit of x; vacant bits on the right are filled with zeros. In particular, displacements with
+absolute values higher than 31 result in zero or 0xFFFFFFFF (all original bits are shifted out).
+        ">
+                <Param name="x" />
+                <Param name="disp" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.band" func="yes">
+            <Overload retVal="void" descr="
+Returns the bitwise and of its operands.
+        ">
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.bnot" func="yes">
+            <Overload retVal="void" descr="
+Returns the bitwise negation of x. For any integer x, the following identity holds:
+
+     assert(bit32.bnot(x) == (-1 - x) % 2^32)
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.bor" func="yes">
+            <Overload retVal="void" descr="
+Returns the bitwise or of its operands.
+        ">
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.btest" func="yes">
+            <Overload retVal="void" descr="
+Returns a boolean signaling whether the bitwise and of its operands is different from zero.
+        ">
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.bxor" func="yes">
+            <Overload retVal="void" descr="
+Returns the bitwise exclusive or of its operands.
+        ">
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.extract" func="yes">
+            <Overload retVal="void" descr="
+Returns the unsigned number formed by the bits field to field + width - 1 from n.
+Bits are numbered from 0 (least significant) to 31 (most significant).
+All accessed bits must be in the range [0, 31].
+
+The default for width is 1.
+        ">
+                <Param name="n" />
+                <Param name="[, width]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.replace" func="yes">
+            <Overload retVal="void" descr="
+Returns a copy of n with the bits field to field + width - 1 replaced by the value v.
+See bit32.extract for details about field and width.
+        ">
+                <Param name="n" />
+                <Param name="v" />
+                <Param name="[, width]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.lrotate" func="yes">
+            <Overload retVal="void" descr="
+Returns the number x rotated disp bits to the left. The number disp may be any representable integer.
+
+For any valid displacement, the following identity holds:
+
+     assert(bit32.lrotate(x, disp) == bit32.lrotate(x, disp % 32))
+In particular, negative displacements rotate to the right.
+        ">
+                <Param name="x" />
+                <Param name="disp" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.lshift" func="yes">
+            <Overload retVal="void" descr="
+Returns the number x shifted disp bits to the left. The number disp may be any representable integer.
+Negative displacements shift to the right. In any direction, vacant bits are filled with zeros.
+In particular, displacements with absolute values higher than 31 result in zero (all bits are shifted out).
+
+For positive displacements, the following equality holds:
+
+     assert(bit32.lshift(b, disp) == (b * 2^disp) % 2^32)
+        ">
+                <Param name="x" />
+                <Param name="disp" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.rrotate" func="yes">
+            <Overload retVal="void" descr="
+Returns the number x rotated disp bits to the right. The number disp may be any representable integer.
+
+For any valid displacement, the following identity holds:
+
+     assert(bit32.rrotate(x, disp) == bit32.rrotate(x, disp % 32))
+In particular, negative displacements rotate to the left.
+        ">
+                <Param name="x" />
+                <Param name="disp" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="bit32.rshift" func="yes">
+            <Overload retVal="void" descr="
+Returns the number x shifted disp bits to the right. The number disp may be any representable integer.
+Negative displacements shift to the left. In any direction, vacant bits are filled with zeros.
+In particular, displacements with absolute values higher than 31 result in zero (all bits are shifted out).
+
+For positive displacements, the following equality holds:
+
+     assert(bit32.rshift(b, disp) == math.floor(b % 2^32 / 2^disp))
+This shift operation is what is called logical shift.
+        ">
+                <Param name="x" />
+                <Param name="disp" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.getuservalue" func="yes">
+            <Overload retVal="void" descr="
+Returns the Lua value associated to u. If u is not a userdata, returns nil.
+        ">
+                <Param name="u" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.setuservalue" func="yes">
+            <Overload retVal="void" descr="
+Sets the given value as the Lua value associated to the given udata. value must be a table or nil;
+udata must be a full userdata.
+
+Returns udata.
+        ">
+                <Param name="udata" />
+                <Param name="value" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.upvalueid" func="yes">
+            <Overload retVal="void" descr="
+Returns an unique identifier (as a light userdata) for the upvalue numbered n from the given function.
+
+These unique identifiers allow a program to check whether different closures share upvalues.
+Lua closures that share an upvalue (that is, that access a same external local variable) will return
+identical ids for those upvalue indices.
+        ">
+                <Param name="f" />
+                <Param name="n" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="debug.upvaluejoin" func="yes">
+            <Overload retVal="void" descr="
+Make the n1-th upvalue of the Lua closure f1 refer to the n2-th upvalue of the Lua closure f2.
+        ">
+                <Param name="f1" />
+                <Param name="n1" />
+                <Param name="f2" />
+                <Param name="n2" />
+            </Overload>
+        </KeyWord>
+
+        <!-- Lua 5.3 standard library-->
+        <KeyWord name="coroutine.isyieldable" func="yes">
+            <Overload retVal="void" descr="
+Returns true when the running coroutine can yield.
+
+A running coroutine is yieldable if it is not the main thread and it is not inside a non-yieldable C function.
+">
+            </Overload>
+        </KeyWord>
+        <KeyWord name="package.searchpath" func="yes">
+            <Overload retVal="void" descr="
+Searches for the given name in the given path.
+
+A path is a string containing a sequence of templates separated by semicolons. For each template,
+the function replaces each interrogation mark (if any) in the template with a copy of name wherein
+all occurrences of sep (a dot, by default) were replaced by rep (the system's directory separator, by default),
+and then tries to open the resulting file name.
+
+For instance, if the path is the string
+
+     './?.lua;./?.lc;/usr/local/?/init.lua'
+the search for the name foo.a will try to open the files ./foo/a.lua, ./foo/a.lc, and /usr/local/foo/a/init.lua,
+in that order.
+
+Returns the resulting name of the first file that it can open in read mode (after closing the file),
+or nil plus an error message if none succeeds. (This error message lists all file names it tried to open.)
+        ">
+                <Param name="name" />
+                <Param name="path [, sep [, rep]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.pack" func="yes">
+            <Overload retVal="void" descr="
+Returns a binary string containing the values v1, v2, etc. packed (that is, serialized in binary form) according
+to the format string fmt (see §6.4.2).
+
+string.packsize (fmt)
+        ">
+                <Param name="fmt" />
+                <Param name="v1" />
+                <Param name="v2" />
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.packsize" func="yes">
+            <Overload retVal="void" descr="
+Returns the size of a string resulting from string.pack with the given format. The format string cannot have the
+variable-length options 's' or 'z' (see §6.4.2).
+        ">
+                <Param name="fmt" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="string.unpack" func="yes">
+            <Overload retVal="void" descr="
+Returns the values packed in string s (see string.pack) according to the format string fmt (see §6.4.2).
+An optional pos marks where to start reading in s (default is 1). After the read values, this function also
+returns the index of the first unread byte in s.
+        ">
+                <Param name="fmt" />
+                <Param name="s [, pos]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="utf8.char" func="yes">
+            <Overload retVal="void" descr="
+Receives zero or more integers, converts each one to its corresponding UTF-8 byte sequence and returns a
+string with the concatenation of all these sequences.
+        ">
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="utf8.charpattern" func="no" />
+        <KeyWord name="utf8.codes" func="yes">
+            <Overload retVal="void" descr="
+Returns values so that the construction
+
+     for p, c in utf8.codes(s) do body end
+will iterate over all characters in string s, with p being the position (in bytes) and c the code point of
+each character. It raises an error if it meets any invalid byte sequence.
+        ">
+                <Param name="s" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="utf8.codepoint" func="yes">
+            <Overload retVal="void" descr="
+Returns the codepoints (as integers) from all characters in s that start between byte position i and j (both included).
+The default for i is 1 and for j is i. It raises an error if it meets any invalid byte sequence.
+        ">
+                <Param name="s" />
+                <Param name="[, i [, j]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="utf8.len" func="yes">
+            <Overload retVal="void" descr="
+Returns the number of UTF-8 characters in string s that start between positions i and j (both inclusive).
+The default for i is 1 and for j is -1. If it finds any invalid byte sequence, returns a false value plus the
+position of the first invalid byte.
+        ">
+                <Param name="s" />
+                <Param name="[, i [, j]]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="utf8.offset" func="yes">
+            <Overload retVal="void" descr="
+Returns the position (in bytes) where the encoding of the n-th character of s (counting from position i) starts.
+A negative n gets characters before position i. The default for i is 1 when n is non-negative and #s + 1 otherwise,
+so that utf8.offset(s, -n) gets the offset of the n-th character from the end of the string. If the specified character
+is neither in the subject nor right after its end, the function returns nil.
+As a special case, when n is 0 the function returns the start of the encoding of the character that contains the i-th byte of s.
+
+This function assumes that s is a valid UTF-8 string.
+        ">
+                <Param name="s" />
+                <Param name="n [, i]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="table.move" func="yes">
+            <Overload retVal="void" descr="
+Moves elements from table a1 to table a2, performing the equivalent to the following multiple assignment: a2[t],··· = a1[f],···,a1[e].
+The default for a2 is a1. The destination range can overlap with the source range. The number of elements to be moved must fit in a Lua integer.
+
+Returns the destination table a2.
+        ">
+                <Param name="a1" />
+                <Param name="f" />
+                <Param name="e" />
+                <Param name="t [,a2]" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.maxinteger" func="no" />
+        <KeyWord name="math.mininteger" func="no" />
+        <KeyWord name="math.tointeger" func="yes">
+            <Overload retVal="void" descr="
+If the value x is convertible to an integer, returns that integer. Otherwise, returns nil.
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.type" func="yes">
+            <Overload retVal="void" descr="
+Returns 'integer' if x is an integer, 'float' if it is a float, or nil if x is not a number.
+        ">
+                <Param name="x" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="math.ult" func="yes">
+            <Overload retVal="void" descr="
+Returns a boolean, true if and only if integer m is below integer n when they are compared as unsigned integers.
+        ">
+                <Param name="m" />
+                <Param name="n" />
+            </Overload>
+        </KeyWord>
+
+        <!-- Lua 5.4 standard library-->
+        <KeyWord name="warn" func="yes">
+            <Overload retVal="void" descr="
+Emits a warning with a message composed by the concatenation of all its arguments (which should be strings).
+
+By convention, a one-piece message starting with '@' is intended to be a control message, which is a message
+to the warning system itself. In particular, the standard warning function in Lua recognizes the control messages '@off',
+to stop the emission of warnings, and '@on', to (re)start the emission; it ignores unknown control messages.
+        ">
+                <Param name="msg1" />
+                <Param name="..." />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="coroutine.close" func="yes">
+            <Overload retVal="void" descr="
+Closes coroutine co, that is, closes all its pending to-be-closed variables and puts the coroutine in a dead state.
+The given coroutine must be dead or suspended. In case of error (either the original error that stopped the coroutine
+or errors in closing methods), returns false plus the error object; otherwise returns true.
+">
+                <Param name="co" />
+            </Overload>
+        </KeyWord>
     </AutoComplete>
 </NotepadPlus>

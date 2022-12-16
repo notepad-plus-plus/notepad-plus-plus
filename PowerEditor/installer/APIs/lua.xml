@@ -314,12 +314,12 @@ information to the message.
             <Overload retVal="void" descr="
 Closes file. Note that files are automatically closed when their handles are garbage collected, 
 but that takes an unpredictable amount of time to happen. 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="file:flush" func="yes">
             <Overload retVal="void" descr="
 Saves any written data to file. 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="file:lines" func="yes">
             <Overload retVal="void" descr="
@@ -327,7 +327,7 @@ Returns an iterator function that, each time it is called, returns a new line fr
 Therefore, the construction
 for line in file:lines() do body end
 will iterate over all lines of the file. (Unlike io.lines, this function does not close the file when the loop ends.) 
-        "/>
+        "></Overload>
         </KeyWord>
         <KeyWord name="file:read" func="yes">
             <Overload retVal="void" descr="

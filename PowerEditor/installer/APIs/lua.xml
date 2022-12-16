@@ -93,8 +93,7 @@ message.
         <KeyWord name="coroutine.running" func="yes">
             <Overload retVal="void" descr="
 Returns the running coroutine, or nil when called by the main thread. 
-        ">
-            </Overload>
+        "></Overload>
         </KeyWord>
         <KeyWord name="coroutine.status" func="yes">
             <Overload retVal="void" descr="

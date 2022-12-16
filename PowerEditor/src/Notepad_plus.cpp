@@ -1477,17 +1477,52 @@ void Notepad_plus::doTrim(trimOp whichPart)
 	FindOption env;
 	if (whichPart == lineHeader)
 	{
-		env._str2Search = TEXT("^[	 ]+");
+		env._str2Search = TEXT("^[\\t ]+");
 	}
 	else if (whichPart == lineTail)
 	{
-		env._str2Search = TEXT("[	 ]+$");
+		env._str2Search = TEXT("[\\t ]+$");
+	}
+	else if (whichPart == lineFull)
+	{
+		env._str2Search = TEXT("^[\\t ]+|[\\t ]+$");
 	}
 	else
 		return;
 	env._str4Replace = TEXT("");
-    env._searchType = FindRegex;
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+	env._searchType = FindRegex;
+	bool isEntireDoc = _pEditView->execute(SCI_GETSELECTIONSTART) == _pEditView->execute(SCI_GETSELECTIONEND);
+	env._isInSelection = !isEntireDoc;
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+
+	// fix first partially selected line
+	if (!isEntireDoc && (whichPart == lineHeader || whichPart == lineFull))
+	{
+		auto startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
+		auto startLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
+		auto endPos = _pEditView->execute(SCI_GETSELECTIONEND);
+		auto endLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
+
+		if (startPos == endPos || startPos == _pEditView->execute(SCI_POSITIONFROMLINE, startLine))
+			return;
+
+		if (startLine != endLine)
+			endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startLine);
+
+		char *text = new char[endPos - startPos + 1];
+		int counter = 0;
+		_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+		_pEditView->execute(SCI_GETTARGETTEXT, 0, reinterpret_cast<LPARAM>(text));
+
+		while (text[counter] == ' ' || text[counter] == '\t')
+			counter += 1;
+
+		if (counter)
+			_pEditView->replaceTarget(TEXT(""), startPos, startPos + counter);
+
+		delete [] text;
+	}
+
 }
 
 void Notepad_plus::removeEmptyLine(bool isBlankContained)

@@ -1704,6 +1704,10 @@ public:
 		return _isLocal;
 	}
 
+	bool isCloud() const {
+		return _isCloud;
+	}
+
 	void saveConfig_xml();
 
 	generic_string getUserPath() const {
@@ -1831,6 +1835,7 @@ private:
 	WNDPROC _enableThemeDialogTextureFuncAddr = nullptr;
 	bool _isLocal = false;
 	bool _isx64 = false; // by default 32-bit
+	bool _isCloud = false;
 
 	generic_string _cmdSettingsDir;
 	generic_string _titleBarAdditional;

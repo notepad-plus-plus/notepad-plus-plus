@@ -70,7 +70,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		timestampBegin = time(NULL);
 
 	Window::init(hInst, parent);
-	WNDCLASS nppClass;
+	WNDCLASS nppClass{};
 
 	nppClass.style = CS_BYTEALIGNWINDOW | CS_DBLCLKS;
 	nppClass.lpfnWndProc = Notepad_plus_Proc;
@@ -128,8 +128,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 	else
 	{
-		WINDOWPLACEMENT posInfo;
-	    posInfo.length = sizeof(WINDOWPLACEMENT);
+		WINDOWPLACEMENT posInfo{};
+		posInfo.length = sizeof(WINDOWPLACEMENT);
 		posInfo.flags = 0;
 		if (_isPrelaunch)
 			posInfo.showCmd = SW_HIDE;
@@ -215,22 +215,24 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	//  Get themes from both npp install themes dir and app data themes dir with the per user
 	//  overriding default themes of the same name.
 
-	generic_string appDataThemeDir;
-    if (nppParams.getAppDataNppDir() && nppParams.getAppDataNppDir()[0])
-    {
-		appDataThemeDir = nppParams.getAppDataNppDir();
-	    pathAppend(appDataThemeDir, TEXT("themes\\"));
-	    _notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), 0, patterns, fileNames, false, false);
-	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
-	    {
-		    themeSwitcher.addThemeFromXml(fileNames[i]);
-	    }
-    }
+	generic_string appDataThemeDir = nppParams.isCloud() ? nppParams.getUserPath() : nppParams.getAppDataNppDir();
+	if (!appDataThemeDir.empty())
+	{
+		pathAppend(appDataThemeDir, TEXT("themes\\"));
+		_notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), 0, patterns, fileNames, false, false);
+		for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
+		{
+			themeSwitcher.addThemeFromXml(fileNames[i]);
+		}
+	}
 
 	fileNames.clear();
 
 	generic_string nppThemeDir;
-	nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
+	if (!nppParams.isLocal())
+	{
+		nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
+	}
 	pathAppend(nppThemeDir, TEXT("themes\\"));
 
 	// Set theme directory to their installation directory
@@ -240,7 +242,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{
 		generic_string themeName( themeSwitcher.getThemeFromXmlFileName(fileNames[i].c_str()) );
-		if (!themeSwitcher.themeNameExists(themeName.c_str()) )
+		if (!themeSwitcher.themeNameExists(themeName.c_str()))
 		{
 			themeSwitcher.addThemeFromXml(fileNames[i]);
 			
@@ -266,8 +268,18 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		generic_string xmlFileName = NppDarkMode::getThemeName();
 		if (!xmlFileName.empty())
 		{
-			themePath = themeSwitcher.getThemeDirPath();
-			pathAppend(themePath, xmlFileName);
+			if (!nppParams.isLocal() || nppParams.isCloud())
+			{
+				themePath = nppParams.getUserPath();
+				pathAppend(themePath, TEXT("themes\\"));
+				pathAppend(themePath, xmlFileName);
+			}
+
+			if (::PathFileExists(themePath.c_str()) == FALSE || themePath.empty())
+			{
+				themePath = themeSwitcher.getThemeDirPath();
+				pathAppend(themePath, xmlFileName);
+			}
 		}
 		else
 		{
@@ -275,7 +287,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 			themePath = themeInfo.second;
 		}
 
-		if (::PathFileExists(themePath.c_str()))
+		if (::PathFileExists(themePath.c_str()) == TRUE)
 		{
 			nppGUI._themeName.assign(themePath);
 			nppParams.reloadStylers(themePath.c_str());
@@ -305,7 +317,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	::SendMessage(_hSelf, NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
 
 	// Notify plugins that Notepad++ is ready
-	SCNotification scnN;
+	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_READY;
 	scnN.nmhdr.hwndFrom = _hSelf;
 	scnN.nmhdr.idFrom = 0;

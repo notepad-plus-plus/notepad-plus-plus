@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 3 November 2022 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 17 December 2022 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
     Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.7">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -399,41 +399,41 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Zatvori ovu karticu"/>
-                    <Item CMID="1" name="Zatvori sve osim ove"/>
-                    <Item CMID="2" name="Spremi"/>
-                    <Item CMID="3" name="Spremi kao..."/>
-                    <Item CMID="4" name="Ispiši..."/>
-                    <Item CMID="5" name="Premjesti u drugi prikaz"/>
-                    <Item CMID="6" name="Kloniraj u drugi prikaz"/>
-                    <Item CMID="7" name="Kopiraj naziv i put datoteke"/>
-                    <Item CMID="8" name="Kopiraj naziv datoteke"/>
-                    <Item CMID="9" name="Kopiraj put trenutne mape"/>
-                    <Item CMID="10" name="Preimenuj..."/>
-                    <Item CMID="11" name="Izbriši"/>
-                    <Item CMID="12" name="Samo za čitanje"/>
-                    <Item CMID="13" name="Odstrani zaštitu od pisanja"/>
-                    <Item CMID="14" name="Premjesti u novu instancu"/>
-                    <Item CMID="15" name="Otvori u novoj instanci"/>
-                    <Item CMID="16" name="Ponovo učitaj"/>
-                    <Item CMID="17" name="Zatvori sve s lijeve strane"/>
-                    <Item CMID="18" name="Zatvori sve s desne strane"/>
-                    <Item CMID="19" name="Otvori mapu s trenutnom datotekom u Eksploreru"/>
-                    <Item CMID="20" name="Otvori mapu s trenutnom datotekom u komandnoj liniji"/>
-                    <Item CMID="21" name="Otvori u zadanom pregledniku"/>
-                    <Item CMID="22" name="Zatvori sve nepromijenjene"/>
-                    <Item CMID="23" name="Otvori mapu s trenutnom datotekom kao radni prostor"/>
-                    <Item CMID="24" name="Primijeni boju 1"/>
-                    <Item CMID="25" name="Primijeni boju 2"/>
-                    <Item CMID="26" name="Primijeni boju 3"/>
-                    <Item CMID="27" name="Primijeni boju 4"/>
-                    <Item CMID="28" name="Primijeni boju 5"/>
-                    <Item CMID="29" name="Ukloni boju"/>
-                    <Item CMID="30" name="Zatvori višestruke kartice"/>
-                    <Item CMID="31" name="Otvori mapu"/>
-                    <Item CMID="32" name="Kopiraj u međuspremnik"/>
-                    <Item CMID="33" name="Premjesti dokument"/>
-                    <Item CMID="34" name="Primijeni boju na jezičak"/>
+                <Item CMDID="41003" name="Zatvori"/>
+                <Item CMDID="0" name="Zatvori višestruke kartice"/>
+                <Item CMDID="41005" name="Zatvori sve osim ove"/>
+                <Item CMDID="41009" name="Zatvori sve s lijeve strane"/>
+                <Item CMDID="41018" name="Zatvori sve s desne strane"/>
+                <Item CMDID="41024" name="Zatvori sve nepromijenjene"/>
+                <Item CMDID="41006" name="Spremi"/>
+                <Item CMDID="41008" name="Spremi kao..."/>
+                <Item CMDID="1" name="Otvori mapu"/>
+                <Item CMDID="41019" name="Otvori mapu s trenutnom datotekom u Eksploreru"/>
+                <Item CMDID="41020" name="Otvori mapu s trenutnom datotekom u komandnoj liniji"/>
+                <Item CMDID="41025" name="Otvori mapu s trenutnom datotekom kao radni prostor"/>
+                <Item CMDID="41023" name="Otvori u zadanom pregledniku"/>
+                <Item CMDID="41017" name="Preimenuj..."/>
+                <Item CMDID="41016" name="Izbriši"/>
+                <Item CMDID="41014" name="Ponovo učitaj"/>
+                <Item CMDID="41010" name="Ispiši..."/>
+                <Item CMDID="42028" name="Samo za čitanje"/>
+                <Item CMDID="42033" name="Odstrani oznaku Samo za čitanje"/>
+                <Item CMDID="2" name="Kopiraj u međuspremnik"/>
+                <Item CMDID="42029" name="Kopiraj naziv i put datoteke"/>
+                <Item CMDID="42030" name="Kopiraj naziv datoteke"/>
+                <Item CMDID="42031" name="Kopiraj put trenutne mape"/>
+                <Item CMDID="3" name="Premjesti dokument"/>
+                <Item CMDID="10001" name="Premjesti u drugi prikaz"/>
+                <Item CMDID="10002" name="Kloniraj u drugi prikaz"/>
+                <Item CMDID="10003" name="Premjesti u novu instancu"/>
+                <Item CMDID="10004" name="Otvori u novoj instanci"/>
+                <Item CMDID="4" name="Primijeni boju na jezičak"/>
+                <Item CMDID="44111" name="Primijeni boju 1"/>
+                <Item CMDID="44112" name="Primijeni boju 2"/>
+                <Item CMDID="44113" name="Primijeni boju 3"/>
+                <Item CMDID="44114" name="Primijeni boju 4"/>
+                <Item CMDID="44115" name="Primijeni boju 5"/>
+                <Item CMDID="44110" name="Ukloni boju"/>
             </TabBar>
         </Menu>
 
@@ -924,7 +924,6 @@
                     <Item id="6229" name="Poravnato"/>
                     <Item id="6230" name="Uvlaka"/>
                     <Item id="6234" name="Isključi funkciju naprednog skrolanja (ako imate problema s touchpadom)"/>
-                    <Item id="6214" name="Omogući isticanje trenutno aktivnog retka"/>
                     <Item id="6215" name="Uključi glatki font"/>
                     <Item id="6236" name="Omogući klizanje nakon zadnjeg retka"/>
                     <Item id="6239" name="Zadrži izbor desnim klikom izvan izbora"/>
@@ -941,7 +940,9 @@
                 </Scintillas>
 
                 <DarkMode title="Tamni način">
-                    <Item id="7101" name="Omogući tamni način"/>
+                    <Item id="7131" name="Svijetli način"/>
+                    <Item id="7132" name="Tamni način"/>
+                    <Item id="7133" name="Prema postavkama Windowsa"/>
                     <Item id="7102" name="Crno"/>
                     <Item id="7103" name="Crveno"/>
                     <Item id="7104" name="Zeleno"/>
@@ -1089,7 +1090,6 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
                 </Print>
 
                 <Searching title="Pretraživanje">
-                    <Item id="6901" name="Ne ispunjavaj polje za pretraživanje u dijalogu pretraživanja označenom riječju"/>
                     <Item id="6902" name="Koristi font fiksne širine u dijalogu pretraživanja (potreban je restart Notepada++)"/>
                     <Item id="6903" name="Dijalog pretraživanja ostaje otvoren nakon pretraživanja koje otvara prozor s rezultatima"/>
                     <Item id="6904" name="Potvrdi Zamijeni sve u svim otvorenim dokumentima"/>
@@ -1398,6 +1398,7 @@ Notepad++ će se restartati nakon što sve operacije završe.
 Nastaviti?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi učitali instalirane dodatke."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi omogućili povijest promjena."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - Izlaz iz Windows sesije" message="Windows sesija će biti prekinuta, ali imate neke podatke koji nisu spremljeni. Želite li sada zatvoriti Notepad++?"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Povijest međuspremnika"/>
@@ -1583,6 +1584,7 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
             <splitter-rotate-left value="Rotiraj lijevo"/>
             <splitter-rotate-right value="Rotiraj desno"/>
             <recent-file-history-maxfile value="Max. stavki: "/>
+            <recent-file-history-customlength value="Max. duljina: "/>
             <language-tabsize value="Veličina kartice: "/>
             <userdefined-title-new value="Kreiraj novi jezik..."/>
             <userdefined-title-save value="Spremi ime trenutnog jezika kao..."/>

@@ -1180,7 +1180,8 @@ bool NppParameters::load()
 	//
 	// the 2nd priority: cloud Choice Path
 	//
-	if (::PathFileExists(cloudChoicePath.c_str()))
+	_isCloud = (::PathFileExists(cloudChoicePath.c_str()) == TRUE);
+	if (_isCloud)
 	{
 		// Read cloud choice
 		std::string cloudChoiceStr = getFileContent(cloudChoicePath.c_str());
@@ -1192,6 +1193,10 @@ bool NppParameters::load()
 			_userPath = cloudChoiceStrW;
 			_nppGUI._cloudPath = cloudChoiceStrW;
 			_initialCloudChoice = _nppGUI._cloudPath;
+		}
+		else
+		{
+			_isCloud = false;
 		}
 	}
 

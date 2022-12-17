@@ -7932,8 +7932,18 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		generic_string xmlFileName = NppDarkMode::getThemeName();
 		if (!xmlFileName.empty())
 		{
-			themePath = themeSwitcher.getThemeDirPath();
-			pathAppend(themePath, xmlFileName);
+			if (!nppParams.isLocal() || nppParams.isCloud())
+			{
+				themePath = nppParams.getUserPath();
+				pathAppend(themePath, TEXT("themes\\"));
+				pathAppend(themePath, xmlFileName);
+			}
+
+			if (::PathFileExists(themePath.c_str()) == FALSE || themePath.empty())
+			{
+				themePath = themeSwitcher.getThemeDirPath();
+				pathAppend(themePath, xmlFileName);
+			}
 
 			themeName = themeSwitcher.getThemeFromXmlFileName(themePath.c_str());
 		}
@@ -7946,7 +7956,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			themeName = themeSwitcher.getDefaultThemeLabel();
 		}
 
-		if (::PathFileExists(themePath.c_str()))
+		if (::PathFileExists(themePath.c_str()) == TRUE)
 		{
 			nppParams.getNppGUI()._themeName = themePath;
 

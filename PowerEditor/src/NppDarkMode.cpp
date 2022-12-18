@@ -2863,6 +2863,11 @@ namespace NppDarkMode
 		}
 	}
 
+	bool isThemeDark()
+	{
+		return g_treeViewStyle == TreeViewStyle::dark;
+	}
+
 	void setBorder(HWND hwnd, bool border)
 	{
 		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));

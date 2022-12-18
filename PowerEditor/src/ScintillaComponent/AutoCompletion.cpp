@@ -79,6 +79,64 @@ const char* xpmfn[] = {
 	"uuuuuuuuuuuuuuuu"
 };
 
+const char* xpmfnDark[] = {
+	/* columns rows colors chars-per-pixel */
+	"16 16 36 1 ",
+	"u c None",
+	"  c #ECECEC",
+	". c #DADADA",
+	"X c #E9E9E9",
+	"o c #DFDFDF",
+	"O c #C6C6C6",
+	"+ c #DBDBDB",
+	"@ c #D7D7D7",
+	"# c #B1B1B1",
+	"$ c #CBCBCB",
+	"% c #A4A4A4",
+	"& c #A0A0A0",
+	"* c #9D9D9D",
+	"= c #404040",
+	"- c #BFBFBF",
+	"; c #BCBCBC",
+	": c #B9B9B9",
+	"> c #B7B7B7",
+	", c #494949",
+	"< c #B6B6B6",
+	"1 c #6D6D6D",
+	"2 c #646464",
+	"3 c #9C9C9C",
+	"4 c #9A9A9A",
+	"5 c #505050",
+	"6 c #484848",
+	"7 c #8A8A8A",
+	"8 c #323232",
+	"9 c #7A7A7A",
+	"0 c #797979",
+	"q c #222222",
+	"w c #1E1E1E",
+	"e c #161616",
+	"r c #111111",
+	"t c #6A6A6A",
+	"y c #090909",
+	/* pixels */
+	"uuuuuuuuuuuuuuuu",
+	"uuuuu5o.:uuuuuuu",
+	"uuuu8 $:.0uuuuuu",
+	"uuuu2 uuuuuuuuuu",
+	"uuu6$ 46uuuuuuuu",
+	"uuuO   Ouuuuuuuu",
+	"uuuu;#uuuuuuuuuu",
+	"uuuu##u& 3uu<+uu",
+	"uuuu#;0.@X0, >uu",
+	"uuuu+>uuuoo >uuu",
+	"uuuu >uuu* =uuuu",
+	"uuuu 2uu, Xotuuu",
+	"uuu# 4u< >9 %ouu",
+	"u:,#X0uO>uu1 $ u",
+	"u- +7uuuuuuuuuuu",
+	"uuuuuuuuuuuuuuuu"
+};
+
 const auto BOX_IMG_ID = 1001;
 const char* xpmbox[] = {
     /* columns rows colors chars-per-pixel */
@@ -135,6 +193,60 @@ const char* xpmbox[] = {
     "rrrrrrrrrrrrrrrr"
 };
 
+const char* xpmboxDark[] = {
+	/* columns rows colors chars-per-pixel */
+	"16 16 33 1 ",
+	"r c None",
+	"  c #FFFFFF",
+	". c #FCFCFC",
+	"X c #EFEFEF",
+	"o c #E7E7E7",
+	"O c #DFDFDF",
+	"+ c #D7D7D7",
+	"@ c #E6E6E6",
+	"# c #DDDDDD",
+	"$ c #DADADA",
+	"% c #B7B7B7",
+	"& c #AFAFAF",
+	"* c #9F9F9F",
+	"= c #BBBBBB",
+	"- c #B8B8B8",
+	"; c #AFAFAF",
+	": c #ACACAC",
+	"> c #A9A9A9",
+	", c #686868",
+	"< c #656565",
+	"1 c #606060",
+	"2 c #585858",
+	"3 c #505050",
+	"4 c #484848",
+	"5 c #8A8A8A",
+	"6 c #898989",
+	"7 c #878787",
+	"8 c #7E7E7E",
+	"9 c #282828",
+	"0 c #202020",
+	"q c #181818",
+	"w c #101010",
+	"e c #686868",
+	/* pixels */
+	"rrrrrrrrrrrrrrrr",
+	"rrrrrrrrrrrrrrrr",
+	"rrre4;$  *rrrrrr",
+	"r4@ $-rr6;X rrrr",
+	"r1oX>rrrrr5+  rr",
+	"r1*r%OrrrXO*&;rr",
+	"r1*rrr==%rrr1;rr",
+	"r1*rrrr$rrrr1;rr",
+	"r1*rrrr$rrrr1;rr",
+	"r1*rrrr$rrrr1;rr",
+	"r1*rrrr$rrrr1;rr",
+	"r3o<rrr$rrr8$;rr",
+	"rr7#%rr$rr #;rrr",
+	"rrrr,o.$.%:rrrrr",
+	"rrrrrr7*7rrrrrrr",
+	"rrrrrrrrrrrrrrrr"
+};
 
 using namespace std;
 
@@ -173,12 +285,29 @@ bool AutoCompletion::showApiComplete()
 	if (len >= _keyWordMaxLen)
 		return false;
 
-	if (!_isFxImageRegistered)
+	if (NppDarkMode::isThemeDark())
 	{
-		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
-		_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmbox));
-		_isFxImageRegistered = true;
+		if (!_isFxImageRegisteredDark)
+		{
+			_pEditView->execute(SCI_CLEARREGISTEREDIMAGES);
+			_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfnDark));
+			_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmboxDark));
+			_isFxImageRegistered = false;
+			_isFxImageRegisteredDark = true;
+		}
 	}
+	else
+	{
+		if (!_isFxImageRegistered)
+		{
+			_pEditView->execute(SCI_CLEARREGISTEREDIMAGES);
+			_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+			_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmbox));
+			_isFxImageRegistered = true;
+			_isFxImageRegisteredDark = false;
+		}
+	}
+
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
@@ -259,12 +388,30 @@ bool AutoCompletion::showApiAndWordComplete()
 	}
 
 	// Make Scintilla show the autocompletion menu
-	if (!_isFxImageRegistered)
+
+	if (NppDarkMode::isThemeDark())
 	{
-		_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
-		_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmbox));
-		_isFxImageRegistered = true;
+		if (!_isFxImageRegisteredDark)
+		{
+			_pEditView->execute(SCI_CLEARREGISTEREDIMAGES);
+			_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfnDark));
+			_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmboxDark));
+			_isFxImageRegistered = false;
+			_isFxImageRegisteredDark = true;
+		}
 	}
+	else
+	{
+		if (!_isFxImageRegistered)
+		{
+			_pEditView->execute(SCI_CLEARREGISTEREDIMAGES);
+			_pEditView->execute(SCI_REGISTERIMAGE, FUNC_IMG_ID, LPARAM(xpmfn));
+			_pEditView->execute(SCI_REGISTERIMAGE, BOX_IMG_ID, LPARAM(xpmbox));
+			_isFxImageRegistered = true;
+			_isFxImageRegisteredDark = false;
+		}
+	}
+
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);

@@ -102,6 +102,7 @@ private:
 	TiXmlDocument *_pXmlFile = nullptr;
 	TiXmlElement *_pXmlKeyword = nullptr;
 	bool _isFxImageRegistered = false;
+	bool _isFxImageRegisteredDark = false;
 
 	InsertedMatchedChars _insertedMatchedChars;
 

@@ -239,6 +239,7 @@ namespace NppDarkMode
 	void disableVisualStyle(HWND hwnd, bool doDisable);
 	void calculateTreeViewStyle();
 	void setTreeViewStyle(HWND hwnd);
+	bool isThemeDark();
 	void setBorder(HWND hwnd, bool border = true);
 
 	BOOL CALLBACK enumAutocompleteProc(HWND hwnd, LPARAM lParam);

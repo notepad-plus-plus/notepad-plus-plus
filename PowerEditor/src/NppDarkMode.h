@@ -100,8 +100,8 @@ namespace NppDarkMode
 	{
 		bool _enableWindowsMode = false;
 
-		NppDarkMode::AdvOptDefaults _darkDefaults{};
-		NppDarkMode::AdvOptDefaults _lightDefaults{};
+		NppDarkMode::AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", 0, 2, false };
+		NppDarkMode::AdvOptDefaults _lightDefaults{ L"", 4, 0, true };
 	};
 
 	void initDarkMode();				// pulls options from NppParameters

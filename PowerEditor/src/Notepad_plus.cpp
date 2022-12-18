@@ -5934,7 +5934,29 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 void Notepad_plus::drawAutocompleteColoursFromTheme(COLORREF fgColor, COLORREF bgColor)
 {
 	if (bgColor == 0xFFFFFF)
+	{
+		// default colors from PlatWin.cxx void ListBoxX::Draw(DRAWITEMSTRUCT *pDrawItem)
+		COLORREF autocompleteBg = ::GetSysColor(COLOR_WINDOW);
+		COLORREF selectedBg = ::GetSysColor(COLOR_HIGHLIGHT);
+		COLORREF autocompleteText = ::GetSysColor(COLOR_WINDOWTEXT);
+		COLORREF selectedText = ::GetSysColor(COLOR_HIGHLIGHTTEXT);
+
+		AutoCompletion::setColour(autocompleteBg, AutoCompletion::AutocompleteColorIndex::autocompleteBg);
+		AutoCompletion::setColour(selectedBg, AutoCompletion::AutocompleteColorIndex::selectedBg);
+		AutoCompletion::setColour(autocompleteText, AutoCompletion::AutocompleteColorIndex::autocompleteText);
+		AutoCompletion::setColour(selectedText, AutoCompletion::AutocompleteColorIndex::selectedText);
+
+		// default colors from CallTip.cxx CallTip::CallTip() noexcept
+		COLORREF colourBG = bgColor;
+		COLORREF colourUnSel = RGB(0x80, 0x80, 0x80);
+		COLORREF colourSel = RGB(0, 0, 0x80);
+
+		AutoCompletion::setColour(colourBG, AutoCompletion::AutocompleteColorIndex::calltipBg);
+		AutoCompletion::setColour(colourUnSel, AutoCompletion::AutocompleteColorIndex::calltipText);
+		AutoCompletion::setColour(colourSel, AutoCompletion::AutocompleteColorIndex::calltipHighlight);
+
 		return;
+	}
 
 	int rbv = GetRValue(bgColor);
 	int gbv = GetGValue(bgColor);

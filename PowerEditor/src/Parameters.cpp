@@ -5608,8 +5608,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR *themePath = element->Attribute(TEXT("path"));
 			if (themePath != NULL && themePath[0])
 			{
-				// for local/portable setup only themefilename.xml is needed 
-				if (_isLocal)
+				// for local/portable setup, only themefilename.xml is needed
+				// ignore if cloud setting is used
+				if (_isLocal && !_isCloud)
 				{
 					auto themeFileName = ::PathFindFileName(themePath);
 					generic_string nppThemePath = _nppPath;

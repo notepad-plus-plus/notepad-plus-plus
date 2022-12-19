@@ -349,7 +349,7 @@ public :
 	}
 
 	void updateFinderScintilla() {
-		if (_pFinder && _pFinder->isCreated() && _pFinder->isVisible())
+		if (_pFinder && _pFinder->isCreated())
 		{
 			_pFinder->setFinderStyle();
 		}

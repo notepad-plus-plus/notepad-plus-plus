@@ -228,11 +228,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	fileNames.clear();
 
-	generic_string nppThemeDir;
-	if (!nppParams.isLocal())
-	{
-		nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
-	}
+	generic_string nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
 	pathAppend(nppThemeDir, TEXT("themes\\"));
 
 	// Set theme directory to their installation directory

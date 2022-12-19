@@ -101,6 +101,8 @@ copy /Y ..\src\stylers.model.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\minimalist\
 If ErrorLevel 1 goto End
+copy /Y ..\src\tabContextMenu_example.xml .\minimalist\
+If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist\
@@ -132,6 +134,8 @@ copy /Y ..\src\stylers.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\minimalist64\
 If ErrorLevel 1 goto End
+copy /Y ..\src\tabContextMenu_example.xml .\minimalist64\
+If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\minimalist64\
@@ -162,6 +166,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\minimalistArm64\
+If ErrorLevel 1 goto End
+copy /Y ..\src\tabContextMenu_example.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\minimalistArm64\
 If ErrorLevel 1 goto End

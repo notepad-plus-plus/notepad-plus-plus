@@ -1902,7 +1902,7 @@ void Notepad_plus::command(int id)
 			std::lock_guard<std::mutex> lock(command_mutex);
 
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			doTrim(lineFull);
+			doTrim(lineBoth);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
 		}
@@ -1919,7 +1919,7 @@ void Notepad_plus::command(int id)
 			std::lock_guard<std::mutex> lock(command_mutex);
 
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			doTrim(lineFull);
+			doTrim(lineBoth);
 			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);

@@ -1473,7 +1473,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 
 void Notepad_plus::doTrim(trimOp whichPart)
 {
-	// whichPart : line head or line tail
+	// whichPart : line head or line tail or line both
 	FindOption env;
 	if (whichPart == lineHeader)
 	{
@@ -1483,7 +1483,7 @@ void Notepad_plus::doTrim(trimOp whichPart)
 	{
 		env._str2Search = TEXT("[\\t ]+$");
 	}
-	else if (whichPart == lineFull)
+	else if (whichPart == lineBoth)
 	{
 		env._str2Search = TEXT("^[\\t ]+|[\\t ]+$");
 	}
@@ -1491,38 +1491,47 @@ void Notepad_plus::doTrim(trimOp whichPart)
 		return;
 	env._str4Replace = TEXT("");
 	env._searchType = FindRegex;
-	bool isEntireDoc = _pEditView->execute(SCI_GETSELECTIONSTART) == _pEditView->execute(SCI_GETSELECTIONEND);
-	env._isInSelection = !isEntireDoc;
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
-
-	// fix first partially selected line
-	if (!isEntireDoc && (whichPart == lineHeader || whichPart == lineFull))
+	auto mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
+	auto mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	auto rectSelAnchorVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE);
+	auto rectSelCaretVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE);
+	bool isRectSel = (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
+	bool isEntireDoc = (mainSelAnchor == mainSelCaretPos) && (rectSelAnchorVirt == rectSelCaretVirt);
+	auto docLength = _pEditView->execute(SCI_GETLENGTH);
+	// auto-expand of partially selected lines
+	if (!isEntireDoc)
 	{
+		env._isInSelection = !isEntireDoc;
 		auto startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
 		auto startLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
 		auto endPos = _pEditView->execute(SCI_GETSELECTIONEND);
 		auto endLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
 
-		if (startPos == endPos || startPos == _pEditView->execute(SCI_POSITIONFROMLINE, startLine))
-			return;
+		if (startPos != _pEditView->execute(SCI_POSITIONFROMLINE, startLine))
+			startPos = _pEditView->execute(SCI_POSITIONFROMLINE, startLine);
 
-		if (startLine != endLine)
-			endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startLine);
+		if (endPos != _pEditView->execute(SCI_POSITIONFROMLINE, endLine) && endPos < _pEditView->execute(SCI_GETLINEENDPOSITION, endLine))
+			endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, endLine);
 
-		char *text = new char[endPos - startPos + 1];
-		int counter = 0;
-		_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
-		_pEditView->execute(SCI_GETTARGETTEXT, 0, reinterpret_cast<LPARAM>(text));
-
-		while (text[counter] == ' ' || text[counter] == '\t')
-			counter += 1;
-
-		if (counter)
-			_pEditView->replaceTarget(TEXT(""), startPos, startPos + counter);
-
-		delete [] text;
+		_pEditView->execute(SCI_SETSEL, startPos, endPos);
 	}
-
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	// restore original selection if nothing has changed
+	if (!isEntireDoc && (docLength == _pEditView->execute(SCI_GETLENGTH)))
+	{
+		if (isRectSel)
+		{
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHOR, mainSelAnchor);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE, rectSelAnchorVirt);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARET, mainSelCaretPos);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE, rectSelCaretVirt);
+		}
+		else
+		{
+		_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
+		_pEditView->execute(SCI_SETCURRENTPOS, mainSelCaretPos);
+		}
+	}
 }
 
 void Notepad_plus::removeEmptyLine(bool isBlankContained)

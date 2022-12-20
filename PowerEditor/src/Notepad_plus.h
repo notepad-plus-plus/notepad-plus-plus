@@ -66,7 +66,7 @@ enum WindowStatus {	//bitwise mask
 enum trimOp {
 	lineHeader = 0,
 	lineTail = 1,
-	lineFull = 2,
+	lineBoth = 2,
 	lineEol = 3
 };
 

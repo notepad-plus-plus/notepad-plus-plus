@@ -61,8 +61,10 @@ public:
 		return *this;
 	}
 
-		UTF8DocumentIterator& operator ++ ();
-		UTF8DocumentIterator& operator -- ();
+	UTF8DocumentIterator& operator = (const UTF8DocumentIterator& other) = default;
+
+	UTF8DocumentIterator& operator ++ ();
+	UTF8DocumentIterator& operator -- ();
 
 	Sci::Position pos() const
 	{
@@ -79,7 +81,7 @@ private:
 	}
 
 	Sci::Position m_pos = 0;
-	wchar_t m_character[2];
+	wchar_t m_character[2]{};
 	Sci::Position m_end = 0;
 	int m_characterIndex = 0;
 	int m_utf8Length = 0;

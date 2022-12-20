@@ -87,7 +87,7 @@ public:
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
 		{
-			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+			std::stable_sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
 			{
 				if (isDescending())
 				{
@@ -131,7 +131,7 @@ public:
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
 		{
-			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+			std::stable_sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
 				{
 					if (isDescending())
 					{
@@ -170,7 +170,7 @@ public:
 	{
 		if (isSortingSpecificColumns())
 		{
-			std::sort(lines.begin(), lines.end(), [this](generic_string aIn, generic_string bIn)
+			std::stable_sort(lines.begin(), lines.end(), [this](generic_string aIn, generic_string bIn)
 			{
 				generic_string a = getSortKey(aIn);
 				generic_string b = getSortKey(bIn);
@@ -559,7 +559,7 @@ public:
 		}
 		assert(nonEmptyInputAsNumbers.size() + empties.size() == lines.size());
 		const bool descending = isDescending();
-		std::sort(nonEmptyInputAsNumbers.begin(), nonEmptyInputAsNumbers.end(), [descending](std::pair<size_t, T_Num> a, std::pair<size_t, T_Num> b)
+		std::stable_sort(nonEmptyInputAsNumbers.begin(), nonEmptyInputAsNumbers.end(), [descending](std::pair<size_t, T_Num> a, std::pair<size_t, T_Num> b)
 		{
 			if (descending)
 			{

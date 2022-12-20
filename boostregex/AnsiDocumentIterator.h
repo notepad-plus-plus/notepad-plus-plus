@@ -78,6 +78,8 @@ public:
 		return charAt(m_pos);
 	}
 
+	AnsiDocumentIterator& operator = (const AnsiDocumentIterator& other) = default;
+
 	AnsiDocumentIterator& operator ++ ()
 	{
 		PLATFORM_ASSERT(m_pos < m_end);

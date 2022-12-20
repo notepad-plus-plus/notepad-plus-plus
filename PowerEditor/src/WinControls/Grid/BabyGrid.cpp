@@ -1693,10 +1693,10 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                    int j = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_GETCOUNT, 0, 0));
                     if(j>0)
                         {
-						auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, j-1, 0);
-						if (static_cast<size_t>(lbTextLen) > bufferLen)
-							return TRUE;
-							SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, j - 1, reinterpret_cast<LPARAM>(buffer));
+                        auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, j-1, 0);
+                        if (static_cast<size_t>(lbTextLen) > bufferLen)
+                            return TRUE;
+                         SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, j - 1, reinterpret_cast<LPARAM>(buffer));
                          buffer[5]=0x00;
                          j=generic_atoi(buffer);
                          if(j>SendMessage(hWnd,BGM_GETROWS,0,0))
@@ -1784,11 +1784,11 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
-					  wParam = MAKEWPARAM(GetMenu(hWnd), BGN_OUTOFRANGE);
-                   lParam = 0;
-                   SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
-				   ReturnValue = -1;
-                   break;
+                    wParam = MAKEWPARAM(GetMenu(hWnd), BGN_OUTOFRANGE);
+                    lParam = 0;
+                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
+                    ReturnValue = -1;
+                    break;
                   }
               wsprintf(buffer, TEXT("%05d-%03d"),LPBGcell->row,LPBGcell->col);
               //see if that cell is already loaded
@@ -1796,28 +1796,28 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               if(FindResult != LB_ERR)
                   {
                    //it was found, get it
-				  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
-				  if (static_cast<size_t>(lbTextLen) > bufferLen)
-					  return TRUE;
-					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
-				   switch (buffer[10]) // no need to call BGM_GETPROTECTION separately for this
-					{
-					 case 'U': ReturnValue = 0; break;
-					 case 'P': ReturnValue = 1; break;
-					 default : ReturnValue = 0; break;
-					}
-				   switch (buffer[11]) // no need to call BGM_GETTYPE separately for this
-				    {
-				     case 'A': ReturnValue |= 1 << 4; break;
-				     case 'N': ReturnValue |= 2 << 4; break;
-				     case 'T': ReturnValue |= 3 << 4; break;
-				     case 'F': ReturnValue |= 4 << 4; break;
-				     case 'G': ReturnValue |= 5 << 4; break;
-				     default : ReturnValue |= 1 << 4; break;
-				    }
+                  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
+                  if (static_cast<size_t>(lbTextLen) > bufferLen)
+                      return TRUE;
+                  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
+                  switch (buffer[10]) // no need to call BGM_GETPROTECTION separately for this
+                   {
+                    case 'U': ReturnValue = 0; break;
+                    case 'P': ReturnValue = 1; break;
+                    default : ReturnValue = 0; break;
+                   }
+                  switch (buffer[11]) // no need to call BGM_GETTYPE separately for this
+                   {
+                    case 'A': ReturnValue |= 1 << 4; break;
+                    case 'N': ReturnValue |= 2 << 4; break;
+                    case 'T': ReturnValue |= 3 << 4; break;
+                    case 'F': ReturnValue |= 4 << 4; break;
+                    case 'G': ReturnValue |= 5 << 4; break;
+                    default : ReturnValue |= 1 << 4; break;
+                   }
                    int j,k,c;
                    TCHAR tbuffer[1000];
-				   wcscpy_s(tbuffer,buffer);
+                   wcscpy_s(tbuffer,buffer);
                    k=lstrlen(tbuffer);
                    c=0;
                    for(j=13;j<k;j++)
@@ -1826,7 +1826,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         c++;
                        }
                    buffer[c]=0x00;
-				   wcscpy_s((TCHAR*)lParam, bufferLen, buffer);
+                   wcscpy_s((TCHAR*)lParam, bufferLen, buffer);
                   }
 			  else
 			  {
@@ -1939,14 +1939,14 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               ReturnValue = BGHS[SelfIndex].cursorcol;
             break;
 
-		case BGM_GETTYPE:
+        case BGM_GETTYPE:
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
                    wParam=MAKEWPARAM(GetMenu(hWnd),BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
-				   ReturnValue = -1;
+                   ReturnValue = -1;
                    break;
                   }
               wsprintf(buffer, TEXT("%05d-%03d"),LPBGcell->row,LPBGcell->col);
@@ -1955,48 +1955,48 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               if(FindResult != LB_ERR)
                   {
                    //it was found, get it
-				  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
-				  if (static_cast<size_t>(lbTextLen) > bufferLen)
-					  return TRUE;
-					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
-				   switch (buffer[11])
-				   {
-				   case 'A':ReturnValue=1;break;
-				   case 'N':ReturnValue=2;break;
-				   case 'T':ReturnValue=3;break;
-				   case 'F':ReturnValue=4;break;
-				   case 'G':ReturnValue=5;break;
-				   default: ReturnValue =1;break;
-				   }
+                  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
+                  if (static_cast<size_t>(lbTextLen) > bufferLen)
+                      return TRUE;
+                  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
+                  switch (buffer[11])
+                   {
+                   case 'A':ReturnValue=1;break;
+                   case 'N':ReturnValue=2;break;
+                   case 'T':ReturnValue=3;break;
+                   case 'F':ReturnValue=4;break;
+                   case 'G':ReturnValue=5;break;
+                   default: ReturnValue =1;break;
+                   }
                   }
-			break;
-		case BGM_GETPROTECTION:
+            break;
+        case BGM_GETPROTECTION:
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
                    wParam=MAKEWPARAM(GetMenu(hWnd),BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
-				   ReturnValue = -1;
+                   ReturnValue = -1;
                    break;
                   }
               wsprintf(buffer, TEXT("%05d-%03d"),LPBGcell->row,LPBGcell->col);
               //see if that cell is already loaded
-			  ReturnValue = 0;
+              ReturnValue = 0;
               FindResult = BinarySearchListBox(BGHS[SelfIndex].hlist1,buffer);
               if(FindResult != LB_ERR)
                   {
                    //it was found, get it
-				  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
-				  if (static_cast<size_t>(lbTextLen) > bufferLen)
-					  return TRUE;
-					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
-				   switch (buffer[10])
-				   {
-				   case 'U':ReturnValue=0;break;
-				   case 'P':ReturnValue=1;break;
-				   default: ReturnValue =0;break;
-				   }
+                  auto lbTextLen = ::SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXTLEN, FindResult, 0);
+                  if (static_cast<size_t>(lbTextLen) > bufferLen)
+                      return TRUE;
+                  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
+                  switch (buffer[10])
+                   {
+                  case 'U':ReturnValue=0;break;
+                  case 'P':ReturnValue=1;break;
+                  default: ReturnValue =0;break;
+                   }
                   }
 
 			break;

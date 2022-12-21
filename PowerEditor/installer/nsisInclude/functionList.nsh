@@ -185,7 +185,7 @@ SectionGroup "Function List Files" functionListComponent
 
 	${MementoSection} "Pascal" Pascal
 		SetOutPath "$INSTDIR\functionList"
-		File ".\functionList\pascl.xml"
+		File ".\functionList\pascal.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "NppExecScript" NppExecScript

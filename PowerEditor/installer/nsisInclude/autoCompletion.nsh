@@ -152,6 +152,13 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\typescript.xml"
 	${MementoSectionEnd}
+
+	${MementoSection} "PowerShell" PowerShell
+		SetOutPath "$INSTDIR\autoCompletion"
+		File ".\APIs\powershell.xml"
+	${MementoSectionEnd}
+
+
 SectionGroupEnd
 
 
@@ -264,5 +271,10 @@ SectionGroup un.autoCompletionComponent
 	Section un.TypeScript
 		Delete "$INSTDIR\autoCompletion\typescript.xml"
 	SectionEnd
+
+	Section un.PowerShell
+		Delete "$INSTDIR\autoCompletion\powershell.xml"
+	SectionEnd
+
 
 SectionGroupEnd

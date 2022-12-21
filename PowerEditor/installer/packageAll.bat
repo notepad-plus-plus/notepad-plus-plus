@@ -251,6 +251,8 @@ copy /Y ..\src\stylers.model.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
+copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.release\
+If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
@@ -274,6 +276,8 @@ copy /Y ..\src\stylers.model.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
+copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.release64\
+If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release64\
@@ -296,6 +300,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\contextMenu.xml .\zipped.package.releaseArm64\
+If ErrorLevel 1 goto End
+copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\shortcuts.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End

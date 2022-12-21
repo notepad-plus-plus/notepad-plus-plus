@@ -183,6 +183,16 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\typescript.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "Pascal" Pascal
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\pascl.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "NppExecScript" NppExecScript
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\nppexec.xml"
+	${MementoSectionEnd}
+	
 	SetOverwrite off
 	${MementoSection} "Override Map" OverrideMap_FL
 		SetOutPath "$INSTDIR\functionList"
@@ -329,5 +339,12 @@ SectionGroup un.functionListComponent
 		Delete "$INSTDIR\functionList\typescript.xml"
 	SectionEnd
 
+	Section un.Pascal
+		Delete "$INSTDIR\functionList\pascal.xml"
+	SectionEnd
+
+	Section un.NppExecScript
+		Delete "$INSTDIR\functionList\nppexec.xml"
+	SectionEnd
 
 SectionGroupEnd

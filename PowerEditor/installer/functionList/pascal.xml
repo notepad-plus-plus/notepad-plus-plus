@@ -16,6 +16,7 @@
 			commentExpr="(?x)                                                                      # Utilize inline comments (see `RegEx - Pattern Modifiers`)
 						   (?s:\x7B.*?\x7D)                                                        # Multi Line Comment 1st variant
 						 | (?s:\x28\x2A.*?\x2A\x29)                                                # Multi Line Comment 2nd variant
+						 | (?is:Interface.*?Implementation)                                        # Multi Line Comment 3nd variant Ignore function definition for Units
 						 | (?m-s:\x2F{2}.*$)                                                       # Single Line Comment
 						 "
 		>

@@ -1244,7 +1244,7 @@ bool NppParameters::load()
 	BOOL doRecover = FALSE;
 	if (::PathFileExists(langs_xml_path.c_str()))
 	{
-		WIN32_FILE_ATTRIBUTE_DATA attributes;
+		WIN32_FILE_ATTRIBUTE_DATA attributes{};
 
 		if (GetFileAttributesEx(langs_xml_path.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
@@ -1792,7 +1792,7 @@ void NppParameters::setFontList(HWND hWnd)
 	//---------------//
 	// Sys font list //
 	//---------------//
-	LOGFONT lf;
+	LOGFONT lf{};
 	_fontlist.clear();
 	_fontlist.reserve(64); // arbitrary
 	_fontlist.push_back(generic_string());
@@ -2350,7 +2350,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 					const TCHAR *encStr = (childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
 					const TCHAR *backupFilePath = (childNode->ToElement())->Attribute(TEXT("backupFilePath"));
 
-					FILETIME fileModifiedTimestamp;
+					FILETIME fileModifiedTimestamp{};
 					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwLowDateTime));
 					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestampHigh"), reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwHighDateTime));
 
@@ -5603,28 +5603,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 		}
 
-		else if (!lstrcmp(nm, TEXT("stylerTheme")))
-		{
-			const TCHAR *themePath = element->Attribute(TEXT("path"));
-			if (themePath != NULL && themePath[0])
-			{
-				// for local/portable setup, only themefilename.xml is needed
-				// ignore if cloud setting is used
-				if (_isLocal && !_isCloud)
-				{
-					auto themeFileName = ::PathFindFileName(themePath);
-					generic_string nppThemePath = _nppPath;
-					pathAppend(nppThemePath, TEXT("themes\\"));
-					pathAppend(nppThemePath, themeFileName);
-					_nppGUI._themeName = nppThemePath;
-				}
-				else
-				{
-					_nppGUI._themeName.assign(themePath);
-				}
-			}
-		}
-
 		else if (!lstrcmp(nm, TEXT("insertDateTime")))
 		{
 			const TCHAR* customFormat = element->Attribute(TEXT("customizedFormat"));
@@ -5942,17 +5920,60 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				return defaultValue;
 			};
 
-			_nppGUI._darkmode._advOptions._enableWindowsMode = parseYesNoBoolAttribute(TEXT("enableWindowsMode"));
+			auto& windowsMode = _nppGUI._darkmode._advOptions._enableWindowsMode;
+			windowsMode = parseYesNoBoolAttribute(TEXT("enableWindowsMode"));
 
-			_nppGUI._darkmode._advOptions._darkDefaults._xmlFileName = parseStringAttribute(TEXT("darkThemeName"), TEXT("DarkModeDefault.xml"));
-			_nppGUI._darkmode._advOptions._darkDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("darkToolBarIconSet"), 0);
-			_nppGUI._darkmode._advOptions._darkDefaults._tabIconSet = parseTabIconsAttribute(TEXT("darkTabIconSet"), 2);
-			_nppGUI._darkmode._advOptions._darkDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("darkTabUseTheme"));
+			auto& darkDefaults = _nppGUI._darkmode._advOptions._darkDefaults;
+			auto& darkThemeName = darkDefaults._xmlFileName;
+			darkThemeName = parseStringAttribute(TEXT("darkThemeName"), TEXT("DarkModeDefault.xml"));
+			darkDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("darkToolBarIconSet"), 0);
+			darkDefaults._tabIconSet = parseTabIconsAttribute(TEXT("darkTabIconSet"), 2);
+			darkDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("darkTabUseTheme"));
 
-			_nppGUI._darkmode._advOptions._lightDefaults._xmlFileName = parseStringAttribute(TEXT("lightThemeName"));
-			_nppGUI._darkmode._advOptions._lightDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("lightToolBarIconSet"), 4);
-			_nppGUI._darkmode._advOptions._lightDefaults._tabIconSet = parseTabIconsAttribute(TEXT("lightTabIconSet"), 0);
-			_nppGUI._darkmode._advOptions._lightDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("lightTabUseTheme"), true);
+			auto& lightDefaults = _nppGUI._darkmode._advOptions._lightDefaults;
+			auto& lightThemeName = lightDefaults._xmlFileName;
+			lightThemeName = parseStringAttribute(TEXT("lightThemeName"));
+			lightDefaults._toolBarIconSet = parseToolBarIconsAttribute(TEXT("lightToolBarIconSet"), 4);
+			lightDefaults._tabIconSet = parseTabIconsAttribute(TEXT("lightTabIconSet"), 0);
+			lightDefaults._tabUseTheme = parseYesNoBoolAttribute(TEXT("lightTabUseTheme"), true);
+
+			// Windows mode is handled later in Notepad_plus_Window::init from Notepad_plus_Window.cpp
+			if (!windowsMode)
+			{
+				generic_string themePath;
+				generic_string xmlFileName = _nppGUI._darkmode._isEnabled ? darkThemeName : lightThemeName;
+				const bool isLocalOnly = _isLocal && !_isCloud;
+
+				if (!xmlFileName.empty() && lstrcmp(xmlFileName.c_str(), TEXT("stylers.xml")) != 0)
+				{
+					themePath = isLocalOnly ? _nppPath : _userPath;
+					pathAppend(themePath, TEXT("themes\\"));
+					pathAppend(themePath, xmlFileName);
+
+					if (!isLocalOnly && ::PathFileExists(themePath.c_str()) == FALSE)
+					{
+						themePath = _nppPath;
+						pathAppend(themePath, TEXT("themes\\"));
+						pathAppend(themePath, xmlFileName);
+					}
+				}
+				else
+				{
+					themePath = isLocalOnly ? _nppPath : _userPath;
+					pathAppend(themePath, TEXT("stylers.xml"));
+
+					if (!isLocalOnly && ::PathFileExists(themePath.c_str()) == FALSE)
+					{
+						themePath = _nppPath;
+						pathAppend(themePath, TEXT("stylers.xml"));
+					}
+				}
+
+				if (::PathFileExists(themePath.c_str()) == TRUE)
+				{
+					_nppGUI._themeName.assign(themePath);
+				}
+			}
 		}
 	}
 }
@@ -6945,13 +6966,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("titleBar"));
 		const TCHAR *pStr = (_nppGUI._shortTitlebar) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("short"), pStr);
-	}
-
-	// <GUIConfig name="stylerTheme" path="C:\sources\notepad-plus-plus\PowerEditor\visual.net\..\bin\stylers.xml" />
-	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("stylerTheme"));
-		GUIConfigElement->SetAttribute(TEXT("path"), _nppGUI._themeName.c_str());
 	}
 
 	// <GUIConfig name="insertDateTime" path="C:\sources\notepad-plus-plus\PowerEditor\visual.net\..\bin\stylers.xml" />

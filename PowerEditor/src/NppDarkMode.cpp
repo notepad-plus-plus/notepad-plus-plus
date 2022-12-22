@@ -479,7 +479,8 @@ namespace NppDarkMode
 
 	generic_string getThemeName()
 	{
-		return NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._xmlFileName : g_advOptions._lightDefaults._xmlFileName;
+		auto& theme = NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._xmlFileName : g_advOptions._lightDefaults._xmlFileName;
+		return (lstrcmp(theme.c_str(), L"stylers.xml") == 0) ? L"" : theme;
 	}
 
 	static bool g_isCustomToolIconUsed = NppParameters::getInstance().getCustomizedToolIcons() != nullptr;

@@ -10,6 +10,8 @@
 	<functionList>
 		<!-- ====================================================== [ Pascal ] -->
 
+		<!-- ====================================================== [ Pascal ] -->
+
 		<parser
 			displayName="Pascal"
 			id         ="pascal_syntax"
@@ -17,7 +19,7 @@
 						   (?s:\x7B.*?\x7D)                                                        # Multi Line Comment 1st variant
 						 | (?s:\x28\x2A.*?\x2A\x29)                                                # Multi Line Comment 2nd variant
 						 | (?m-s:\x2F{2}.*$)                                                       # Single Line Comment
-						 "
+						"
 		>
 			<classRange
 				mainExpr="(?x)                                                                     # Utilize inline comments (see `RegEx - Pattern Modifiers`)
@@ -135,18 +137,12 @@
 						  (?:\s*OVERLOAD\s*;)?                                                     # function/procedure overloading
 						  (?:\s*(?:REGISTER|PASCAL|CDECL|STDCALL|SAFECALL)\s*;)?                   # calling convention
 						  (?:                                                                      # external function from object file
-							(?:\s*(?:VARARGS)\s*;)                                                   # variadic C function with cdecl calling convention
+							  (?:\s*(?:VARARGS)\s*;)                                                 # variadic C function with cdecl calling convention
 							| (?:\s*(?:EXTERNAL)\s+[^;]+;)                                           # or normal function
 						  )?
-						  (?!\s*(?:FORWARD)\s*;)                                                   # prevent matching forward declarations
-						  (?=(?:\s*                                                                # only match function/procedure definitions
-							   (?:                                                                 # optional comment
-								(?s:\x7B.*?\x7D)                                                     #     multi line comment 1st variant
-								| (?s:\x28\x2A.*?\x2A\x29)                                           # or  multi line comment 2nd variant
-								| (?-s:\x2F{2}.*$)                                                   # or single line comment
-							   )
-						   )*
-						   \s*(?:CONST|TYPE|VAR|LABEL|BEGIN|(?R))\s*                               # declaration block
+						  (?!
+						      (?s:.*?^\h*IMPLEMENTATION\s+)                                        # prevent matching declarations in interface section of unit
+						    | (?:\s*FORWARD\s*;)                                                   # prevent matching forward declarations in implementation section of unit
 						  )
 						 "
 			>

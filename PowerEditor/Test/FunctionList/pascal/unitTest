@@ -7,11 +7,6 @@ uses
   System.SysUtils, System.Types, System.Classes;
 
 
-// ATTENTION!!! This is a known issue!
-// The following function should NOT be part of the function list tree.
-// However, it is still included because of the TYPE keyword after its declaration.
-// Global functions or procedures should therefor be declared immediately before
-// the keyword IMPLEMENTATION.
 function FreeFunc(const Param: integer): integer;
 
 
@@ -131,13 +126,25 @@ type
     class function FromString(const AString: string): TStdClass; static;
   end;
 
-  
+
 
 // -----------------------------------------------------------------------------
 // Free routines
 // -----------------------------------------------------------------------------
 
-function FreeFunc2(const Param: integer): integer;
+function  FreeFunc2(const Param: integer): integer;
+
+procedure Foo(AParam: integer);
+function  Bar(const AParam: string): integer;
+
+{function  Unused1(ANum: double): cardinal;}
+
+procedure Boo(AParam: integer);
+
+(*
+function  Unused2(ANum: double): cardinal;
+function  Unused3(ANum: double): cardinal;
+*)
 
 
 
@@ -161,6 +168,46 @@ function FreeFunc3(const Param: integer): integer; forward;
 function FreeFunc(const Param: integer): integer;
 begin
   //
+end;
+
+
+
+{ Free function Foo }
+
+procedure Foo(AParam: integer);
+begin
+  // Do something
+end;
+
+
+
+{ Free function Bar }
+
+function Bar(const AParam: string): integer;
+begin
+  // Do something
+
+  Result := 0;
+end;
+
+
+
+{ Free function Test }
+function Test(Tnum: Double): DWord;
+begin
+  // Do something
+
+  Result := 0;
+end;
+
+
+
+{ Free function Boo }
+procedure Boo(AParam: integer);
+begin
+  // Do something
+
+  Result := 0;
 end;
 
 
@@ -416,10 +463,10 @@ class function TEnumHelper.FromString(const AString: string): TEnum;
 begin
   if SameText(AString, 'Member 2') then
     Result := enMember2
-    
+
   if SameText(AString, 'Member 3') then
     Result := enMember3
-    
+
   else
     Result := enMember1;
 end;

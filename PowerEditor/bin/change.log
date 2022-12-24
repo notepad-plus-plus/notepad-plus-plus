@@ -1,25 +1,31 @@
-Notepad++ v8.4.7 bug-fixes and new features:
+Notepad++ v8.4.8 bug-fixes and new features:
 
-1.  Fix empty session issue due to forced Windows update restart.
-2.  Fix printing with extra background colors issue due to Change History.
-3.  Update to Scintilla 5.3.1 and Lexilla 5.2.0.
-4.  Updated nlohmann json to 3.11.2 and Boost to 1.80.0.
-5.  Make large file restriction configurable.
-6.  Optimizing open/save large files time.
-7.  Remember Column Editor settings through the sessions.
-8.  Fix plugin admin search issue.
-9.  Installer enhancement: prevent arm64 installer from installing on non ARM64 system.
-10. Installer enhancement: remember "Don't use_%APPDATA%" option.
-11. Add new API NPPM_GETBOOKMARKID for getting bookmark ID.
-12. Enhance "Go To" dialog: update line/position data dynamically.
-13. Fix lines hiding issue.
-14. Fix language detected from content not applied if default language is set.
-15. Fix long filters get truncated in Find in Files feature.
-16. Add ESC Key for aborting "Move to Recycle Bin" confirmation prompt.
-
+1.  Update to Scintilla 5.3.2 and Lexilla 5.2.1.
+2.  Dark mode: Add "Follow Windows dark/light mode" feature, and toolbar, tabbar and theme choices are remembered for 2 modes separately.
+3.  Fix inconsistencies at OS-forced Notepad++ v8.4.7 exit.
+4.  Make tab context menu customizable.
+5.  Make Macro & Run menu reorganizable with sub-menu by modifying shortcuts.xml.
+6.  Fix crash on Win32 Namespace prefixed file name.
+7.  Fix delimiter selection crash issue.
+8.  Improve performance for the "Remove Empty Lines" command.
+9.  Fix theme not working in cloud mode and portable mode issue.
+10. Fix autocomplete/calltip colors not applied when changing themes.
+11. Add dark autocompletion icons for dark themes.
+12. Fix search result not applying new theme.
+13. Fix sorting failure in zero-length column mode selection.
+14. Fix Default Language not working for the 1st empty file with empty session.
+15. Enhance "Go to settings" in Style Configurator.
+16. Fix themes' inconsistent behaviour.
+17. Fix incorrect plugin architecture reports partially.
+18. Enhance Properties file: add/improve the syntax folding/highlighting.
+19. Add vertical scroll bar on all combobox in Find Replace dialog.
+20. Function List: Add Pascal/Delphi & NppExec plugin's scripting, enhance SQL.
+21. Autocompletion: add PowerShell, fix some entries in PHP, update for Lua.
+22. Update CPP & PowerShell keywords.
+23. Fix tab context menu reload command's state not synchronized.
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.4.7/
+https://notepad-plus-plus.org/downloads/v8.4.8/
 
 
 Included plugins:

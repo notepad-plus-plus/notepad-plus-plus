@@ -41,6 +41,15 @@
 #pragma comment(lib, "uxtheme.lib")
 #endif
 
+constexpr COLORREF HEXRGB(DWORD rrggbb) {
+	// from 0xRRGGBB like natural #RRGGBB
+	// to the little-endian 0xBBGGRR
+	return
+		((rrggbb & 0xFF0000) >> 16) |
+		((rrggbb & 0x00FF00)) |
+		((rrggbb & 0x0000FF) << 16);
+}
+
 namespace NppDarkMode
 {
 	struct Brushes
@@ -364,7 +373,13 @@ namespace NppDarkMode
 		initExperimentalDarkMode();
 		initAdvancedOptions();
 
-		if (NppDarkMode::isWindowsModeEnabled() && NppDarkMode::isWindows10())
+		g_isAtLeastWindows10 = NppDarkMode::isWindows10();
+
+		if (!g_isAtLeastWindows10)
+		{
+			g_advOptions._enableWindowsMode = false;
+		}
+		else if (NppDarkMode::isWindowsModeEnabled())
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParam.getNppGUI();
@@ -374,13 +389,6 @@ namespace NppDarkMode
 		}
 
 		setDarkMode(_options.enable, true);
-
-		g_isAtLeastWindows10 = NppDarkMode::isWindows10();
-
-		if (!g_isAtLeastWindows10)
-		{
-			g_advOptions._enableWindowsMode = false;
-		}
 
 		using PWINEGETVERSION = const CHAR* (__cdecl *)(void);
 
@@ -760,14 +768,15 @@ namespace NppDarkMode
 		case WM_UAHDRAWMENU:
 		{
 			UAHMENU* pUDM = (UAHMENU*)lParam;
-			RECT rc = {};
+			RECT rc{};
 
 			// get the menubar rect
 			{
-				MENUBARINFO mbi = { sizeof(mbi) };
+				MENUBARINFO mbi{};
+				mbi.cbSize = sizeof(MENUBARINFO);
 				GetMenuBarInfo(hWnd, OBJID_MENU, 0, &mbi);
 
-				RECT rcWindow;
+				RECT rcWindow{};
 				GetWindowRect(hWnd, &rcWindow);
 
 				// the rcBar is offset by the window rect
@@ -789,8 +798,10 @@ namespace NppDarkMode
 
 			// get the menu item string
 			wchar_t menuString[256] = { '\0' };
-			MENUITEMINFO mii = { sizeof(mii), MIIM_STRING };
+			MENUITEMINFO mii{};
 			{
+				mii.cbSize = sizeof(MENUITEMINFO);
+				mii.fMask = MIIM_STRING;
 				mii.dwTypeData = menuString;
 				mii.cch = (sizeof(menuString) / 2) - 1;
 
@@ -851,7 +862,8 @@ namespace NppDarkMode
 			{
 				DrawThemeBackground(g_menuTheme, pUDMI->um.hdc, MENU_POPUPITEM, iBackgroundStateID, &pUDMI->dis.rcItem, nullptr);
 			}
-			DTTOPTS dttopts = { sizeof(dttopts) };
+			DTTOPTS dttopts{};
+			dttopts.dwSize = sizeof(DTTOPTS);
 			if (iTextStateID == MPI_NORMAL || iTextStateID == MPI_HOT)
 			{
 				dttopts.dwFlags |= DTT_TEXTCOLOR;
@@ -880,17 +892,18 @@ namespace NppDarkMode
 
 	void drawUAHMenuNCBottomLine(HWND hWnd)
 	{
-		MENUBARINFO mbi = { sizeof(mbi) };
+		MENUBARINFO mbi{};
+		mbi.cbSize = sizeof(MENUBARINFO);
 		if (!GetMenuBarInfo(hWnd, OBJID_MENU, 0, &mbi))
 		{
 			return;
 		}
 
-		RECT rcClient = {};
+		RECT rcClient{};
 		GetClientRect(hWnd, &rcClient);
 		MapWindowPoints(hWnd, nullptr, (POINT*)&rcClient, 2);
 
-		RECT rcWindow = {};
+		RECT rcWindow{};
 		GetWindowRect(hWnd, &rcWindow);
 
 		OffsetRect(&rcClient, -rcWindow.left, -rcWindow.top);
@@ -978,16 +991,16 @@ namespace NppDarkMode
 
 	void renderButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
 	{
-		RECT rcClient = {};
+		RECT rcClient{};
 		WCHAR szText[256] = { '\0' };
 		DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
 		DWORD uiState = static_cast<DWORD>(SendMessage(hwnd, WM_QUERYUISTATE, 0, 0));
-		DWORD nStyle = GetWindowLong(hwnd, GWL_STYLE);
+		auto nStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 
 		HFONT hFont = nullptr;
 		HFONT hOldFont = nullptr;
 		HFONT hCreatedFont = nullptr;
-		LOGFONT lf = {};
+		LOGFONT lf{};
 		if (SUCCEEDED(GetThemeFont(hTheme, hdc, iPartID, iStateID, TMT_FONT, &lf)))
 		{
 			hCreatedFont = CreateFontIndirect(&lf);
@@ -1032,7 +1045,9 @@ namespace NppDarkMode
 		DrawThemeParentBackground(hwnd, hdc, &rcClient);
 		DrawThemeBackground(hTheme, hdc, iPartID, iStateID, &rcBackground, nullptr);
 
-		DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
+		DTTOPTS dtto{};
+		dtto.dwSize = sizeof(DTTOPTS);
+		dtto.dwFlags = DTT_TEXTCOLOR;
 		dtto.crText = NppDarkMode::getTextColor();
 
 		if (nStyle & WS_DISABLED)
@@ -1094,14 +1109,15 @@ namespace NppDarkMode
 			return;
 		}
 
-		BP_ANIMATIONPARAMS animParams = { sizeof(animParams) };
+		BP_ANIMATIONPARAMS animParams{};
+		animParams.cbSize = sizeof(BP_ANIMATIONPARAMS);
 		animParams.style = BPAS_LINEAR;
 		if (iStateID != buttonData.iStateID)
 		{
 			GetThemeTransitionDuration(buttonData.hTheme, iPartID, buttonData.iStateID, iStateID, TMT_TRANSITIONDURATIONS, &animParams.dwDuration);
 		}
 
-		RECT rcClient = {};
+		RECT rcClient{};
 		GetClientRect(hwnd, &rcClient);
 
 		HDC hdcFrom = nullptr;
@@ -1173,7 +1189,7 @@ namespace NppDarkMode
 			case WM_PAINT:
 				if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
 				{
-					PAINTSTRUCT ps = {};
+					PAINTSTRUCT ps{};
 					HDC hdc = reinterpret_cast<HDC>(wParam);
 					if (!hdc)
 					{
@@ -1218,12 +1234,12 @@ namespace NppDarkMode
 
 	void paintGroupbox(HWND hwnd, HDC hdc, ButtonData& buttonData)
 	{
-		DWORD nStyle = GetWindowLong(hwnd, GWL_STYLE);
+		auto nStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 		bool isDisabled = (nStyle & WS_DISABLED) == WS_DISABLED;
 		int iPartID = BP_GROUPBOX;
 		int iStateID = isDisabled ? GBS_DISABLED : GBS_NORMAL;
 
-		RECT rcClient = {};
+		RECT rcClient{};
 		GetClientRect(hwnd, &rcClient);
 
 		RECT rcText = rcClient;
@@ -1232,7 +1248,7 @@ namespace NppDarkMode
 		HFONT hFont = nullptr;
 		HFONT hOldFont = nullptr;
 		HFONT hCreatedFont = nullptr;
-		LOGFONT lf = {};
+		LOGFONT lf{};
 		if (SUCCEEDED(GetThemeFont(buttonData.hTheme, hdc, iPartID, iStateID, TMT_FONT, &lf)))
 		{
 			hCreatedFont = CreateFontIndirect(&lf);
@@ -1254,7 +1270,7 @@ namespace NppDarkMode
 
 		if (szText[0])
 		{
-			SIZE textSize = {};
+			SIZE textSize{};
 			GetTextExtentPoint32(hdc, szText, static_cast<int>(wcslen(szText)), &textSize);
 
 			int centerPosX = isCenter ? ((rcClient.right - rcClient.left - textSize.cx) / 2) : 7;
@@ -1268,7 +1284,7 @@ namespace NppDarkMode
 		}
 		else
 		{
-			SIZE textSize = {};
+			SIZE textSize{};
 			GetTextExtentPoint32(hdc, L"M", 1, &textSize);
 			rcBackground.top += textSize.cy / 2;
 		}
@@ -1288,7 +1304,9 @@ namespace NppDarkMode
 			rcText.right -= 2;
 			rcText.left += 2;
 
-			DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
+			DTTOPTS dtto{};
+			dtto.dwSize = sizeof(DTTOPTS);
+			dtto.dwFlags = DTT_TEXTCOLOR;
 			dtto.crText = isDisabled ? NppDarkMode::getDisabledTextColor() : NppDarkMode::getTextColor();
 
 			DWORD textFlags = isCenter ? DT_CENTER : DT_LEFT;
@@ -1337,7 +1355,7 @@ namespace NppDarkMode
 		case WM_PAINT:
 			if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
 			{
-				PAINTSTRUCT ps = {};
+				PAINTSTRUCT ps{};
 				HDC hdc = reinterpret_cast<HDC>(wParam);
 				if (!hdc)
 				{
@@ -1397,7 +1415,7 @@ namespace NppDarkMode
 				break;
 			}
 
-			PAINTSTRUCT ps;
+			PAINTSTRUCT ps{};
 			HDC hdc = ::BeginPaint(hWnd, &ps);
 			::FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
 
@@ -1413,7 +1431,7 @@ namespace NppDarkMode
 			HFONT hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
 			auto hOldFont = SelectObject(hdc, hFont);
 
-			POINT ptCursor = {};
+			POINT ptCursor{};
 			::GetCursorPos(&ptCursor);
 			ScreenToClient(hWnd, &ptCursor);
 
@@ -1422,11 +1440,11 @@ namespace NppDarkMode
 			int nSelTab = TabCtrl_GetCurSel(hWnd);
 			for (int i = 0; i < nTabs; ++i)
 			{
-				RECT rcItem = {};
+				RECT rcItem{};
 				TabCtrl_GetItemRect(hWnd, i, &rcItem);
 				RECT rcFrame = rcItem;
 
-				RECT rcIntersect = {};
+				RECT rcIntersect{};
 				if (IntersectRect(&rcIntersect, &ps.rcPaint, &rcItem))
 				{
 					bool bHot = PtInRect(&rcItem, ptCursor);
@@ -1450,7 +1468,7 @@ namespace NppDarkMode
 					SetBkMode(hdc, TRANSPARENT);
 
 					TCHAR label[MAX_PATH]{};
-					TCITEM tci = {};
+					TCITEM tci{};
 					tci.mask = TCIF_TEXT;
 					tci.pszText = label;
 					tci.cchTextMax = MAX_PATH - 1;
@@ -1713,7 +1731,7 @@ namespace NppDarkMode
 					break;
 				}
 
-				RECT rc = {};
+				RECT rc{};
 				::GetClientRect(hWnd, &rc);
 
 				PAINTSTRUCT ps{};
@@ -1768,7 +1786,7 @@ namespace NppDarkMode
 					hasFocus = ::GetFocus() == hwndEdit;
 				}
 
-				POINT ptCursor = {};
+				POINT ptCursor{};
 				::GetCursorPos(&ptCursor);
 				::ScreenToClient(hWnd, &ptCursor);
 
@@ -2051,7 +2069,7 @@ namespace NppDarkMode
 
 		if ((style & CBS_DROPDOWNLIST) == CBS_DROPDOWNLIST || (style & CBS_DROPDOWN) == CBS_DROPDOWN)
 		{
-			COMBOBOXINFO cbi = {};
+			COMBOBOXINFO cbi{};
 			cbi.cbSize = sizeof(COMBOBOXINFO);
 			BOOL result = ::GetComboBoxInfo(hwnd, &cbi);
 			if (result == TRUE)
@@ -2384,7 +2402,7 @@ namespace NppDarkMode
 			{
 				if (NppDarkMode::isEnabled())
 				{
-					RECT rect = {};
+					RECT rect{};
 					GetClientRect(hWnd, &rect);
 					::FillRect(reinterpret_cast<HDC>(wParam), &rect, NppDarkMode::getDarkerBackgroundBrush());
 					return TRUE;
@@ -2461,12 +2479,12 @@ namespace NppDarkMode
 						{
 							return NppDarkMode::darkToolBarNotifyCustomDraw(lParam);
 						}
-								
+
 						if (wcscmp(className, WC_LISTVIEW) == 0)
 						{
 							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
 						}
-								
+
 						if (wcscmp(className, WC_TREEVIEW) == 0)
 						{
 							return NppDarkMode::darkTreeViewNotifyCustomDraw(lParam);
@@ -2503,7 +2521,7 @@ namespace NppDarkMode
 		{
 			case WM_NCDESTROY:
 			{
-				::RemoveWindowSubclass(hWnd, PluginDockWindowSubclass, uIdSubclass);
+				::RemoveWindowSubclass(hWnd, WindowNotifySubclass, uIdSubclass);
 				break;
 			}
 
@@ -2523,12 +2541,12 @@ namespace NppDarkMode
 						{
 							return NppDarkMode::darkToolBarNotifyCustomDraw(lParam);
 						}
-								
+
 						if (wcscmp(className, WC_LISTVIEW) == 0)
 						{
 							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
 						}
-								
+
 						if (wcscmp(className, WC_TREEVIEW) == 0)
 						{
 							return NppDarkMode::darkTreeViewNotifyCustomDraw(lParam);
@@ -2592,7 +2610,7 @@ namespace NppDarkMode
 					rcClient.right, rcClient.bottom
 				};
 
-				POINT ptCursor = {};
+				POINT ptCursor{};
 				::GetCursorPos(&ptCursor);
 				::ScreenToClient(hWnd, &ptCursor);
 
@@ -2612,7 +2630,7 @@ namespace NppDarkMode
 					::FillRect(hdc, &rcArrowRight, isHotRight ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getBackgroundBrush());
 				}
 
-				LOGFONT lf = {};
+				LOGFONT lf{};
 				auto font = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
 				::GetObject(font, sizeof(lf), &lf);
 				lf.lfHeight = (dpiManager.scaleY(16) - 5) * -1;
@@ -3033,5 +3051,4 @@ namespace NppDarkMode
 
 		return result.toRGB();
 	}
-
 }

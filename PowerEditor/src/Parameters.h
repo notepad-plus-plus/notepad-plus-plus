@@ -883,6 +883,14 @@ struct NppGUI final
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
 	generic_string _themeName;
 	MultiInstSetting _multiInstSetting = monoInst;
+	bool _clipboardHistoryPanelKeepOpen = false;
+	bool _docListKeepOpen = false;
+	bool _charPanelKeepOpen = false;
+	bool _fileBrowserKeepOpen = false;
+	bool _projectPanelKeepOpen = false;
+	bool _docMapKeepOpen = false;
+	bool _funcListKeepOpen = false;
+	bool _pluginPanelKeepOpen = false;
 	bool _fileSwitcherWithoutExtColumn = true;
 	int _fileSwitcherExtWidth = 50;
 	bool _fileSwitcherWithoutPathColumn = true;

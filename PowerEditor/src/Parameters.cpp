@@ -5686,6 +5686,27 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (val < 0 || val > 2)
 				val = 0;
 			_nppGUI._multiInstSetting = (MultiInstSetting)val;
+
+			auto parseYesNoBoolAttribute = [&element](const TCHAR* name, bool defaultValue = false) -> bool {
+				const TCHAR* val = element->Attribute(name);
+				if (val != nullptr)
+				{
+					if (!lstrcmp(val, TEXT("yes")))
+						return true;
+					else if (!lstrcmp(val, TEXT("no")))
+						return false;
+				}
+				return defaultValue;
+			};
+
+			_nppGUI._clipboardHistoryPanelKeepOpen = parseYesNoBoolAttribute(TEXT("clipboardHistory"));
+			_nppGUI._docListKeepOpen = parseYesNoBoolAttribute(TEXT("documentList"));
+			_nppGUI._charPanelKeepOpen = parseYesNoBoolAttribute(TEXT("characterPanel"));
+			_nppGUI._fileBrowserKeepOpen = parseYesNoBoolAttribute(TEXT("folderAsWorkspace"));
+			_nppGUI._projectPanelKeepOpen = parseYesNoBoolAttribute(TEXT("projectPanels"));
+			_nppGUI._docMapKeepOpen = parseYesNoBoolAttribute(TEXT("documentMap"));
+			_nppGUI._funcListKeepOpen = parseYesNoBoolAttribute(TEXT("fuctionList"));
+			_nppGUI._pluginPanelKeepOpen = parseYesNoBoolAttribute(TEXT("pluginPanels"));
 		}
 		else if (!lstrcmp(nm, TEXT("searchEngine")))
 		{
@@ -6995,6 +7016,20 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("multiInst"));
 		GUIConfigElement->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
+
+		auto setYesNoBoolAttribute = [&GUIConfigElement](const TCHAR* name, bool value) -> void {
+			const TCHAR* pStr = value ? TEXT("yes") : TEXT("no");
+			GUIConfigElement->SetAttribute(name, pStr);
+		};
+
+		setYesNoBoolAttribute(TEXT("clipboardHistory"), _nppGUI._clipboardHistoryPanelKeepOpen);
+		setYesNoBoolAttribute(TEXT("documentList"), _nppGUI._docListKeepOpen);
+		setYesNoBoolAttribute(TEXT("characterPanel"), _nppGUI._charPanelKeepOpen);
+		setYesNoBoolAttribute(TEXT("folderAsWorkspace"), _nppGUI._fileBrowserKeepOpen);
+		setYesNoBoolAttribute(TEXT("projectPanels"), _nppGUI._projectPanelKeepOpen);
+		setYesNoBoolAttribute(TEXT("documentMap"), _nppGUI._docMapKeepOpen);
+		setYesNoBoolAttribute(TEXT("fuctionList"), _nppGUI._funcListKeepOpen);
+		setYesNoBoolAttribute(TEXT("pluginPanels"), _nppGUI._pluginPanelKeepOpen);
 	}
 
 	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />

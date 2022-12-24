@@ -1137,7 +1137,7 @@ You can define several column markers by using white space to separate the diffe
                 </AutoCompletion>
 
                 <MultiInstance title="Multi-Instance &amp; Date">
-                    <Item id="6151" name="Multi-instance settings"/>
+                    <Item id="6151" name="Multi-instance settings *"/>
                     <Item id="6152" name="Open session in a new instance (and save session automatically on exit)"/>
                     <Item id="6153" name="Always in multi-instance mode"/>
                     <Item id="6154" name="Default (mono-instance)"/>
@@ -1145,6 +1145,15 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6171" name="Customize insert Date Time"/>
                     <Item id="6175" name="Reverse default date time order (short &amp;&amp; long formats)"/>
                     <Item id="6172" name="Custom format:"/>
+                    <Item id="6181" name="Panel state ignore -nosession *"/>
+                    <Item id="6182" name="Clipboard History"/>
+                    <Item id="6183" name="Document List"/>
+                    <Item id="6184" name="Character Panel"/>
+                    <Item id="6185" name="Folder as Workspace"/>
+                    <Item id="6186" name="Project Panels"/>
+                    <Item id="6187" name="Document Map"/>
+                    <Item id="6188" name="Function List"/>
+                    <Item id="6189" name="Plugin Panels"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimiter">

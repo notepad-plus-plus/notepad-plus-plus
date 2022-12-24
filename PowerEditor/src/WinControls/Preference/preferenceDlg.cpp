@@ -4297,6 +4297,20 @@ intptr_t CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 	{
 		case WM_INITDIALOG :
 		{
+			auto checkOrUncheckBtn = [this](int id, bool check) -> void
+			{
+				::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, check ? BST_CHECKED : BST_UNCHECKED, 0);
+			};
+
+			checkOrUncheckBtn(IDC_CHECK_CLIPBOARDHISTORY, nppGUI._clipboardHistoryPanelKeepState);
+			checkOrUncheckBtn(IDC_CHECK_DOCLIST, nppGUI._docListKeepState);
+			checkOrUncheckBtn(IDC_CHECK_CHARPANEL, nppGUI._charPanelKeepState);
+			checkOrUncheckBtn(IDC_CHECK_FILEBROWSER, nppGUI._fileBrowserKeepState);
+			checkOrUncheckBtn(IDC_CHECK_PROJECTPANEL, nppGUI._projectPanelKeepState);
+			checkOrUncheckBtn(IDC_CHECK_DOCMAP, nppGUI._docMapKeepState);
+			checkOrUncheckBtn(IDC_CHECK_FUNCLIST, nppGUI._funcListKeepState);
+			checkOrUncheckBtn(IDC_CHECK_PLUGINPANEL, nppGUI._pluginPanelKeepState);
+
 			MultiInstSetting multiInstSetting = nppGUI._multiInstSetting;
 
 			::SendDlgItemMessage(_hSelf, IDC_SESSIONININST_RADIO, BM_SETCHECK, multiInstSetting == multiInstOnSession?BST_CHECKED:BST_UNCHECKED, 0);
@@ -4376,6 +4390,54 @@ intptr_t CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 				case IDD_DATETIMEFORMAT_REVERSEORDER_CHECK:
 				{
 					nppGUI._dateTimeReverseDefaultOrder = isCheckedOrNot(IDD_DATETIMEFORMAT_REVERSEORDER_CHECK);
+				}
+				break;
+
+				case IDC_CHECK_CLIPBOARDHISTORY:
+				{
+					nppGUI._clipboardHistoryPanelKeepState = isCheckedOrNot(IDC_CHECK_CLIPBOARDHISTORY);
+				}
+				break;
+
+				case IDC_CHECK_DOCLIST:
+				{
+					nppGUI._docListKeepState = isCheckedOrNot(IDC_CHECK_DOCLIST);
+				}
+				break;
+
+				case IDC_CHECK_CHARPANEL:
+				{
+					nppGUI._charPanelKeepState = isCheckedOrNot(IDC_CHECK_CHARPANEL);
+				}
+				break;
+
+				case IDC_CHECK_FILEBROWSER:
+				{
+					nppGUI._fileBrowserKeepState = isCheckedOrNot(IDC_CHECK_FILEBROWSER);
+				}
+				break;
+
+				case IDC_CHECK_PROJECTPANEL:
+				{
+					nppGUI._projectPanelKeepState = isCheckedOrNot(IDC_CHECK_PROJECTPANEL);
+				}
+				break;
+
+				case IDC_CHECK_DOCMAP:
+				{
+					nppGUI._docMapKeepState = isCheckedOrNot(IDC_CHECK_DOCMAP);
+				}
+				break;
+
+				case IDC_CHECK_FUNCLIST:
+				{
+					nppGUI._funcListKeepState = isCheckedOrNot(IDC_CHECK_FUNCLIST);
+				}
+				break;
+
+				case IDC_CHECK_PLUGINPANEL:
+				{
+					nppGUI._pluginPanelKeepState = isCheckedOrNot(IDC_CHECK_PLUGINPANEL);
 				}
 				break;
 

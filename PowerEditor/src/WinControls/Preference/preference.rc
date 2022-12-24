@@ -400,23 +400,35 @@ BEGIN
 END
 
 
-IDD_PREFERENCE_SUB_MULTIINSTANCE DIALOGEX 0, 0, 455, 210
+IDD_PREFERENCE_SUB_MULTIINSTANCE DIALOGEX 115, 10, 460, 205
 STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Multi-instance settings",IDC_MULTIINST_GB_STATIC,89,3,268,92,BS_CENTER
-    CONTROL         "Open session in a new instance (and save session automatically on exit)",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON|BS_MULTILINE,122,14,226,20
-    CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,38,218,10
-    CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,122,55,196,10
-    LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,110,74,239,20
-    GROUPBOX        "Customize insert Date Time",IDC_DATETIMEFORMAT_GB_STATIC,90,100,268,102,BS_CENTER
-    CONTROL         "Reverse default date time order (short && long formats)",IDD_DATETIMEFORMAT_REVERSEORDER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,103,116,241,10
-    RTEXT           "yyyy-MM-dd HH:mm:ss\nH:m d/M/yyyy\nMMM d, yyyy  tt h:m",IDC_STATIC,134,142,77,25
-    LTEXT           "1985-10-26 16:24:42\n16:24 26/10/1985\nOct 26, 1985  PM 4:24",IDC_STATIC,234,142,94,25
-    RTEXT           "Custom format:",IDD_DATETIMEFORMAT_STATIC,92,172,77,8
-    EDITTEXT        IDC_DATETIMEFORMAT_EDIT,170,170,182,14,ES_AUTOHSCROLL
-    LTEXT           "",IDD_DATETIMEFORMAT_RESULT_STATIC,172,187,180,8
+    GROUPBOX        "Multi-instance settings *",IDC_MULTIINST_GB_STATIC,11,3,268,71,BS_CENTER
+    CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,17,16,256,10
+    CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,17,31,256,10
+    CONTROL         "Open session in a new instance (and save session automatically on exit)",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON | BS_MULTILINE | BS_TOP,17,46,256,20
 
+    GROUPBOX        "Customize insert Date Time",IDC_DATETIMEFORMAT_GB_STATIC,11,80,268,98,BS_CENTER
+    CONTROL         "Reverse default date time order (short && long formats)",IDD_DATETIMEFORMAT_REVERSEORDER_CHECK,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | BS_TOP | WS_TABSTOP,17,93,256,20
+    RTEXT           "yyyy-MM-dd HH:mm:ss\nH:m d/M/yyyy\nMMM d, yyyy  tt h:m",IDC_STATIC,36,118,77,25
+    LTEXT           "1985-10-26 16:24:42\n16:24 26/10/1985\nOct 26, 1985  PM 4:24",IDC_STATIC,136,118,94,25
+    RTEXT           "Custom format :",IDD_DATETIMEFORMAT_STATIC,14,148,77,8
+    EDITTEXT        IDC_DATETIMEFORMAT_EDIT,92,146,175,14,ES_AUTOHSCROLL
+    LTEXT           "",IDD_DATETIMEFORMAT_RESULT_STATIC,94,163,180,8
+
+    GROUPBOX        "Panel State and [-nosession] *",IDC_PANEL_IGNORESESSION_GB_STATIC,288,3,160,175,BS_CENTER
+    LTEXT           "Remember panel state (panel is open) in other instances (multi-instance mode) or when using command line parameter [-nosession]",IDD_STATIC_PANELSTATE_DESCRIPTION,294,14,150,40
+    CONTROL         "Clipboard History",IDC_CHECK_CLIPBOARDHISTORY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,55,134,10
+    CONTROL         "Document List",IDC_CHECK_DOCLIST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,70,134,10
+    CONTROL         "Character Panel",IDC_CHECK_CHARPANEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,85,134,10
+    CONTROL         "Folder as Workspace",IDC_CHECK_FILEBROWSER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,100,134,10
+    CONTROL         "Project Panels",IDC_CHECK_PROJECTPANEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,115,134,10
+    CONTROL         "Document Map",IDC_CHECK_DOCMAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,130,134,10
+    CONTROL         "Function List",IDC_CHECK_FUNCLIST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,145,134,10
+    CONTROL         "Plugin Panels",IDC_CHECK_PLUGINPANEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,294,160,134,10
+
+    LTEXT           "* The modification of this setting needs to restart Notepad++",IDD_STATIC_RESTARTNOTE,15,187,239,20
 END
 
 

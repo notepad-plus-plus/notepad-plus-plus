@@ -204,7 +204,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			rc.top += NppParameters::getInstance()._dpiManager.scaleY(10);
 			rc.bottom -= NppParameters::getInstance()._dpiManager.scaleY(50);
-			rc.left += NppParameters::getInstance()._dpiManager.scaleX(150);
+			rc.left += NppParameters::getInstance()._dpiManager.scaleX(170);
 			
 			_generalSubDlg.reSizeTo(rc);
 			_editingSubDlg.reSizeTo(rc);

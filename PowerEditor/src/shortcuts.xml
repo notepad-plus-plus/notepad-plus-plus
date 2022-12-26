@@ -4,7 +4,7 @@
 
     <!--
     You can organize your Macro menu & Run menus by adding the attribute 'FolderName="My sub-menu name"' to any Macro or Command node.
-    This will place the corresponding node within a "My sub-menu name" sub-menu. Please consider the following examples:
+    This will place the corresponding node within a "My sub-menu name" sub-menu in the appropriate menu. Please consider the following examples:
     -->
     <Macros>
         <!--

@@ -3,8 +3,8 @@
     <InternalCommands />
 
     <!--
-    You can reorganize you Macro menu & Run menu by adding attribute 'FolderName="My sub-menu name"' in the Macro nodes & Command nodes respectively,
-    for having "My sub-menu name" as your sub-menu entry name. Please consider the following examples:
+    You can organize your Macro menu & Run menus by adding the attribute 'FolderName="My sub-menu name"' to any Macro or Command node.
+    This will place the corresponding node within a "My sub-menu name" sub-menu. Please consider the following examples:
     -->
     <Macros>
         <!--

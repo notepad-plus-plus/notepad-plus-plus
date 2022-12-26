@@ -136,8 +136,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_CONTAININGFOLDERASWORKSPACE:
 		{
-			TCHAR currentFile[CURRENTWORD_MAXLENGTH];
-			TCHAR currentDir[CURRENTWORD_MAXLENGTH];
+			TCHAR currentFile[CURRENTWORD_MAXLENGTH] = { '\0' };
+			TCHAR currentDir[CURRENTWORD_MAXLENGTH] = { '\0' };
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETFULLCURRENTPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentFile));
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
 	
@@ -490,10 +490,10 @@ void Notepad_plus::command(int id)
 				return;
 
 			HWND hwnd = _pPublicInterface->getHSelf();
-			TCHAR curentWord[CURRENTWORD_MAXLENGTH];
+			TCHAR curentWord[CURRENTWORD_MAXLENGTH] = { '\0' };
 			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
 			
-			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
+			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
 			if (id == IDM_EDIT_OPENINFOLDER)
 			{
 				wcscpy_s(cmd2Exec, TEXT("explorer"));
@@ -517,7 +517,7 @@ void Notepad_plus::command(int id)
 			}
 			else // Full file path - need concatenate with current full file path
 			{
-				TCHAR currentDir[CURRENTWORD_MAXLENGTH];
+				TCHAR currentDir[CURRENTWORD_MAXLENGTH] = { '\0' };
 				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
 
 				generic_string fullFilePath = id == IDM_EDIT_OPENINFOLDER ? TEXT("/select,") : TEXT("");
@@ -1070,12 +1070,12 @@ void Notepad_plus::command(int id)
 				--newTabIndex;
 			}
 
-			TCITEM tciMove, tciShift;
+			TCITEM tciMove{}, tciShift{};
 			tciMove.mask = tciShift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
 
 			const int strSizeMax = 256;
-			TCHAR strMove[strSizeMax];
-			TCHAR strShift[strSizeMax];
+			TCHAR strMove[strSizeMax] = { '\0' };
+			TCHAR strShift[strSizeMax] = { '\0' };
 
 			tciMove.pszText = strMove;
 			tciMove.cchTextMax = strSizeMax;
@@ -1218,7 +1218,7 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_MARK :
 		{
 			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			TCHAR str[strSize] = { '\0' };
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 
@@ -1252,7 +1252,7 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_FINDINCREMENT :
 		{
 			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			TCHAR str[strSize] = { '\0' };
 
 			static bool isFirstTime = true;
 			if (isFirstTime)
@@ -1310,7 +1310,7 @@ void Notepad_plus::command(int id)
 				_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL(), false);
 
 			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			TCHAR str[strSize] = { '\0' };
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str);
 			_findReplaceDlg._env->_str2Search = str;
@@ -1361,7 +1361,7 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{
-			TCHAR text2Find[MAX_PATH];
+			TCHAR text2Find[MAX_PATH] = { '\0' };
 			_pEditView->getGenericSelectedText(text2Find, MAX_PATH);
 
 			FindOption op;
@@ -1402,8 +1402,8 @@ void Notepad_plus::command(int id)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
 			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR selectedText[strSize];
-			TCHAR wordOnCaret[strSize];
+			TCHAR selectedText[strSize] = { '\0' };
+			TCHAR wordOnCaret[strSize] = { '\0' };
 
 			_pEditView->getGenericSelectedText(selectedText, strSize, false);
 			_pEditView->getGenericWordOnCaretPos(wordOnCaret, strSize);
@@ -2239,7 +2239,7 @@ void Notepad_plus::command(int id)
 
 				TCHAR valData[MAX_PATH] = {'\0'};
 				DWORD valDataLen = MAX_PATH * sizeof(TCHAR);
-				DWORD valType;
+				DWORD valType = 0;
 				HKEY hKey2Check = nullptr;
 				generic_string appEntry = TEXT("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\");
 				appEntry += appName;
@@ -3512,7 +3512,25 @@ void Notepad_plus::command(int id)
 					if (TaskListDlg::_instanceCount == 0)
 					{
 						TaskListDlg tld;
-						HIMAGELIST hImgLst = _docTabIconList.getHandle();
+						HIMAGELIST hImgLst = nullptr;
+						const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
+						switch (tabIconSet)
+						{
+							case 1:
+							{
+								hImgLst = _docTabIconListAlt.getHandle();
+								break;
+							}
+							case 2:
+							{
+								hImgLst = _docTabIconListDarkMode.getHandle();
+								break;
+							}
+							//case 0:
+							//case -1:
+							default:
+								hImgLst = _docTabIconList.getHandle();
+						}
 						tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
 						tld.doDialog();
 					}

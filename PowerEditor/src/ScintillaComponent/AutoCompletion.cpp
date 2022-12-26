@@ -268,6 +268,25 @@ static bool isAllDigits(const generic_string &str)
 	return true;
 }
 
+void sortInsensitive(vector<generic_string> &wordArray)
+{
+	sort(
+		wordArray.begin(),
+		wordArray.end(),
+		[](const generic_string &a, const generic_string &b)
+		{
+			return lexicographical_compare(
+				a.begin(), a.end(),
+				b.begin(), b.end(),
+				[](const wchar_t &ch1, const wchar_t &ch2)
+				{
+					return toupper(ch1) < toupper(ch2);
+				}
+			);
+		}
+	);
+}
+
 
 bool AutoCompletion::showApiComplete()
 {
@@ -311,6 +330,7 @@ bool AutoCompletion::showApiComplete()
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
+	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
 	return true;
@@ -376,7 +396,10 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	// Sort word array and convert it to a single string with space-separated words
 
-	sort(wordArray.begin(), wordArray.end());
+	if (_ignoreCase)
+		sortInsensitive(wordArray);
+	else
+		sort(wordArray.begin(), wordArray.end());
 
 	generic_string words;
 
@@ -415,6 +438,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('\x1E'));
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
+	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
 }
@@ -610,6 +634,7 @@ void AutoCompletion::showPathCompletion()
 	// Show autocompletion box.
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, true);
+	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, true);
 	_pEditView->showAutoComletion(rawPath.length(), autoCompleteEntries.c_str());
 	return;
 }
@@ -658,7 +683,10 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	// Sort word array and convert it to a single string with space-separated words
 
-	sort(wordArray.begin(), wordArray.end());
+	if (_ignoreCase)
+		sortInsensitive(wordArray);
+	else
+		sort(wordArray.begin(), wordArray.end());
 
 	generic_string words(TEXT(""));
 
@@ -673,6 +701,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
+	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
 }
@@ -1193,7 +1222,10 @@ bool AutoCompletion::setLanguage(LangType language)
 			}
 		}
 
-		sort(_keyWordArray.begin(), _keyWordArray.end());
+		if (_ignoreCase)
+			sortInsensitive(_keyWordArray);
+		else
+			sort(_keyWordArray.begin(), _keyWordArray.end());
 
 		for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
 		{

@@ -150,7 +150,7 @@
                     <Item id="42042" name="Trim Leading Space"/>
                     <Item id="42043" name="Trim Leading and Trailing Space"/>
                     <Item id="42044" name="EOL to Space"/>
-                    <Item id="42045" name="Remove Unnecessary Blank and EOL"/>
+                    <Item id="42045" name="Trim both and EOL to Space"/>
                     <Item id="42046" name="TAB to Space"/>
                     <Item id="42054" name="Space to TAB (All)"/>
                     <Item id="42053" name="Space to TAB (Leading)"/>

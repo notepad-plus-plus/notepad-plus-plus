@@ -312,8 +312,14 @@ bool AutoCompletion::showApiComplete()
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, _ignoreCase);
+
+	if (_ignoreCase)
+		_pEditView->execute(SCI_AUTOCSETORDER, SC_ORDER_PERFORMSORT);
+
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
+	if (_ignoreCase)
+		_pEditView->execute(SCI_AUTOCSETORDER, SC_ORDER_PRESORTED);
 	return true;
 }
 

@@ -1909,8 +1909,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_EOL2WS:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
-			_pEditView->execute(SCI_LINESJOIN);
+			eol2ws();
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
 
@@ -1919,9 +1918,10 @@ void Notepad_plus::command(int id)
 			std::lock_guard<std::mutex> lock(command_mutex);
 
 			_pEditView->execute(SCI_BEGINUNDOACTION);
+			bool isEntireDoc = _pEditView->execute(SCI_GETANCHOR) == _pEditView->execute(SCI_GETCURRENTPOS);
 			doTrim(lineBoth);
-			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
-			_pEditView->execute(SCI_LINESJOIN);
+			if (isEntireDoc || _pEditView->execute(SCI_GETANCHOR) != _pEditView->execute(SCI_GETCURRENTPOS))
+				eol2ws();
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
 		}

@@ -1534,6 +1534,13 @@ void Notepad_plus::doTrim(trimOp whichPart)
 	}
 }
 
+void Notepad_plus::eol2ws()
+{
+	bool isEntireDoc = _pEditView->execute(SCI_GETANCHOR) == _pEditView->execute(SCI_GETCURRENTPOS);
+	isEntireDoc ? _pEditView->execute(SCI_TARGETWHOLEDOCUMENT) : _pEditView->execute(SCI_TARGETFROMSELECTION);
+	_pEditView->execute(SCI_LINESJOIN);
+}
+
 void Notepad_plus::removeEmptyLine(bool isBlankContained)
 {
 	// whichPart : line head or line tail

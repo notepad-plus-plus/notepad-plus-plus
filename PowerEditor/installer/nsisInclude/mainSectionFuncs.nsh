@@ -81,6 +81,7 @@ Function copyCommonFiles
 	File "..\bin\langs.model.xml"
 	File "..\bin\stylers.model.xml"
 	File "..\bin\contextMenu.xml"
+	File "..\bin\toolbarIcons.xml"
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"

@@ -230,6 +230,7 @@ Section Uninstall
 		Delete "$INSTDIR\nativeLang.xml"
 		Delete "$INSTDIR\userDefineLang.xml"
 		Delete "$INSTDIR\nppLogNulContentCorruptionIssue.xml"
+		Delete "$INSTDIR\toolbarIcons.xml"
 	${endIf}
 	
 	Delete "$INSTDIR\config.model.xml"
@@ -269,6 +270,7 @@ Section Uninstall
 		Delete "$APPDATA\${APPNAME}\userDefineLang.xml"
 		Delete "$APPDATA\${APPNAME}\insertExt.ini"
 		Delete "$APPDATA\${APPNAME}\nppLogNulContentCorruptionIssue.log"
+		Delete "$APPDATA\${APPNAME}\toolbarIcons.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled.udl.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled_DM.udl.xml"

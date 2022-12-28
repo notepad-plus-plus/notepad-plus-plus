@@ -312,14 +312,8 @@ bool AutoCompletion::showApiComplete()
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, _ignoreCase);
-
-	if (_ignoreCase)
-		_pEditView->execute(SCI_AUTOCSETORDER, SC_ORDER_PERFORMSORT);
-
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
-	if (_ignoreCase)
-		_pEditView->execute(SCI_AUTOCSETORDER, SC_ORDER_PRESORTED);
 	return true;
 }
 
@@ -1209,7 +1203,13 @@ bool AutoCompletion::setLanguage(LangType language)
 			}
 		}
 
-		sort(_keyWordArray.begin(), _keyWordArray.end());
+		if (_ignoreCase)
+			sort(_keyWordArray.begin(), _keyWordArray.end(), [](const generic_string &a, const generic_string &b)
+			{
+				return (generic_stricmp(a.c_str(), b.c_str()) < 0);
+			});
+		else
+			sort(_keyWordArray.begin(), _keyWordArray.end());
 
 		for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
 		{

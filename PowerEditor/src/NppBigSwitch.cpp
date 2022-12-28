@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <shlwapi.h>
+#include <uxtheme.h> // for EnableThemeDialogTexture
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
@@ -2658,9 +2659,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_GETENABLETHEMETEXTUREFUNC:
+		case NPPM_GETENABLETHEMETEXTUREFUNC_DEPRECATED:
 		{
-			return (LRESULT)nppParam.getEnableThemeDlgTexture();
+			return reinterpret_cast<LRESULT>(&EnableThemeDialogTexture);
 		}
 
 		case NPPM_GETPLUGINSCONFIGDIR:

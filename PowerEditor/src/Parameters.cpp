@@ -991,8 +991,6 @@ NppParameters::~NppParameters()
 		delete _LRFileList[i];
 	for (int i = 0 ; i < _nbUserLang ; ++i)
 		delete _userLangArray[i];
-	if (_hUXTheme)
-		FreeLibrary(_hUXTheme);
 
 	for (std::vector<TiXmlDocument *>::iterator it = _pXmlExternalLexerDoc.begin(), end = _pXmlExternalLexerDoc.end(); it != end; ++it )
 		delete (*it);
@@ -1220,20 +1218,6 @@ bool NppParameters::load()
 			_sessionPath = _userPath; // reset session path
 		}
 	}
-
-	//-------------------------------------//
-	// Transparent function for w2k and xp //
-	//-------------------------------------//
-	HMODULE hUser32 = ::GetModuleHandle(TEXT("User32"));
-	if (hUser32)
-		_transparentFuncAddr = (WNDPROC)::GetProcAddress(hUser32, "SetLayeredWindowAttributes");
-
-	//---------------------------------------------//
-	// Dlg theme texture function for xp and vista //
-	//---------------------------------------------//
-	_hUXTheme = ::LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
-	if (_hUXTheme)
-		_enableThemeDialogTextureFuncAddr = (WNDPROC)::GetProcAddress(_hUXTheme, "EnableThemeDialogTexture");
 
 	//--------------------------//
 	// langs.xml : for per user //
@@ -1619,7 +1603,7 @@ void NppParameters::destroyInstance()
 	delete _pXmlUserStylerDoc;
 	
 	//delete _pXmlUserLangDoc; will be deleted in the vector
-	for (auto l : _pXmlUserLangsDoc)
+	for (auto& l : _pXmlUserLangsDoc)
 	{
 		delete l._udlXmlDoc;
 	}
@@ -1651,22 +1635,19 @@ void NppParameters::setWorkSpaceFilePath(int i, const TCHAR* wsFile)
 
 void NppParameters::removeTransparent(HWND hwnd)
 {
-	if (hwnd != NULL)
-		::SetWindowLongPtr(hwnd, GWL_EXSTYLE,  ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) & ~0x00080000);
+	if (hwnd != nullptr)
+		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) & ~WS_EX_LAYERED);
 }
 
 
 void NppParameters::SetTransparent(HWND hwnd, int percent)
 {
-	if (nullptr != _transparentFuncAddr)
-	{
-		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | 0x00080000);
-		if (percent > 255)
-			percent = 255;
-		if (percent < 0)
-			percent = 0;
-		_transparentFuncAddr(hwnd, 0, percent, 0x00000002);
-	}
+	::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+	if (percent > 255)
+		percent = 255;
+	else if (percent < 0)
+		percent = 0;
+	::SetLayeredWindowAttributes(hwnd, 0, static_cast<BYTE>(percent), LWA_ALPHA);
 }
 
 

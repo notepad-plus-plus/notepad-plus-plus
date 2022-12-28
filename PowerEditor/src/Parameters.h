@@ -1272,7 +1272,7 @@ public:
 	bool themeNameExists(const TCHAR *themeName) {
 		for (size_t i = 0; i < _themeList.size(); ++i )
 		{
-			auto themeNameOnList = getElementFromIndex(i).first;
+			auto& themeNameOnList = getElementFromIndex(i).first;
 			if (lstrcmp(themeName, themeNameOnList.c_str()) == 0)
 				return true;
 		}
@@ -1545,7 +1545,7 @@ public:
 	TiXmlDocument * getCustomizedToolIcons() const {return _pXmlToolIconsDoc;};
 
 	bool isTransparentAvailable() const {
-		return (_transparentFuncAddr != NULL);
+		return (_winVersion >= WV_VISTA);
 	}
 
 	// 0 <= percent < 256
@@ -1645,7 +1645,6 @@ public:
 	};
 
 	int langTypeToCommandID(LangType lt) const;
-	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
 
 	struct FindDlgTabTitiles final {
 		generic_string _find;
@@ -1829,10 +1828,6 @@ private:
 	std::vector<generic_string> _fontlist;
 	std::vector<generic_string> _blacklist;
 
-	HMODULE _hUXTheme = nullptr;
-
-	WNDPROC _transparentFuncAddr = nullptr;
-	WNDPROC _enableThemeDialogTextureFuncAddr = nullptr;
 	bool _isLocal = false;
 	bool _isx64 = false; // by default 32-bit
 	bool _isCloud = false;

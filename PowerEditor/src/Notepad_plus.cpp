@@ -1536,9 +1536,48 @@ void Notepad_plus::doTrim(trimOp whichPart)
 
 void Notepad_plus::eol2ws()
 {
-	bool isEntireDoc = _pEditView->execute(SCI_GETANCHOR) == _pEditView->execute(SCI_GETCURRENTPOS);
-	isEntireDoc ? _pEditView->execute(SCI_TARGETWHOLEDOCUMENT) : _pEditView->execute(SCI_TARGETFROMSELECTION);
+	auto mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
+	auto mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	auto rectSelAnchorVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE);
+	auto rectSelCaretVirt = _pEditView->execute(SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE);
+	bool isRectSel = (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
+	bool isEntireDoc = (mainSelAnchor == mainSelCaretPos) && (rectSelAnchorVirt == rectSelCaretVirt);
+	auto docLength = _pEditView->execute(SCI_GETLENGTH);
+	auto lines = _pEditView->execute(SCI_GETLINECOUNT);
+	// auto-expand of partially selected lines
+	if (!isEntireDoc)
+	{
+		auto startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
+		auto startLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
+		auto endPos = _pEditView->execute(SCI_GETSELECTIONEND);
+		auto endLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
+
+		if (startPos != _pEditView->execute(SCI_POSITIONFROMLINE, startLine))
+			startPos = _pEditView->execute(SCI_POSITIONFROMLINE, startLine);
+
+		if (endPos != _pEditView->execute(SCI_POSITIONFROMLINE, endLine) && endPos < _pEditView->execute(SCI_GETLINEENDPOSITION, endLine))
+			endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, endLine);
+
+		_pEditView->execute(SCI_SETSEL, startPos, endPos);
+	}
+	_pEditView->execute(isEntireDoc ? SCI_TARGETWHOLEDOCUMENT: SCI_TARGETFROMSELECTION);
 	_pEditView->execute(SCI_LINESJOIN);
+	// restore original selection if nothing has changed
+	if (!isEntireDoc && (docLength == _pEditView->execute(SCI_GETLENGTH)) && (lines == _pEditView->execute(SCI_GETLINECOUNT)))
+	{
+		if (isRectSel)
+		{
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHOR, mainSelAnchor);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE, rectSelAnchorVirt);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARET, mainSelCaretPos);
+			_pEditView->execute(SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE, rectSelCaretVirt);
+		}
+		else
+		{
+		_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
+		_pEditView->execute(SCI_SETCURRENTPOS, mainSelCaretPos);
+		}
+	}
 }
 
 void Notepad_plus::removeEmptyLine(bool isBlankContained)

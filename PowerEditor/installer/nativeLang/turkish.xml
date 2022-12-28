@@ -46,8 +46,8 @@
 					<Item subMenuId="view-zoom" name="&amp;Yakınlaştır"/>
 					<Item subMenuId="view-moveCloneDocument" name="Geçerli Belgeyi Taşı/Kopyala"/>
 					<Item subMenuId="view-tab" name="Sekme"/>
-					<Item subMenuId="view-collapseLevel" name="Blok Daraltma Seviyesi"/>
-					<Item subMenuId="view-uncollapseLevel" name="Blok Genişletme Seviyesi"/>
+					<Item subMenuId="view-collapseLevel" name="Bloğu Katla"/>
+					<Item subMenuId="view-uncollapseLevel" name="Bloğu Aç"/>
 					<Item subMenuId="view-project" name="Proje"/>
 					<Item subMenuId="encoding-characterSets" name="&amp;Karakter Takımı"/>
 					<Item subMenuId="encoding-arabic" name="Arapça"/>
@@ -264,8 +264,8 @@
 					<Item id="44025" name="Beyaz Boşluğu ve Sekmeleri Göster"/>
 					<Item id="44026" name="Satır Sonlarını Göster"/>
 					<Item id="44029" name="Tüm Blokları Geri Aç"/>
-					<Item id="44030" name="Geçerli Blok Seviyesini Daralt"/>
-					<Item id="44031" name="Geçerli Blok Seviyesini Genişlet"/>
+					<Item id="44030" name="Geçerli Bloğu Katla"/>
+					<Item id="44031" name="Geçerli Bloğu Aç"/>
 					<Item id="44049" name="Özet…"/>
 					<Item id="44080" name="Belge &amp;Haritası"/>
 					<Item id="44070" name="Dosya Listesi"/>
@@ -383,41 +383,41 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0" name="Kapat"/>
-				<Item CMID="1" name="Diğerlerini Kapat"/>
-				<Item CMID="2" name="Kaydet"/>
-				<Item CMID="3" name="Farklı Kaydet"/>
-				<Item CMID="4" name="Yazdır..."/>
-				<Item CMID="5" name="Diğer Görünüme Taşı"/>
-				<Item CMID="6" name="Diğer Görünüme Kopyala"/>
-				<Item CMID="7" name="Tam Dosya Yolunu Kopyala"/>
-				<Item CMID="8" name="Dosya Adını Kopyala"/>
-				<Item CMID="9" name="Geçerli Dizin Yolunu Kopyala"/>
-				<Item CMID="10" name="Yeniden Adlandır..."/>
-				<Item CMID="11" name="Geri Dönüşüm Kutusu'na Taşı"/>
-				<Item CMID="12" name="Salt Okunur Yap"/>
-				<Item CMID="13" name="Salt Okunur İşaretini Kaldır"/>
-				<Item CMID="14" name="Yeni Uygulama Penceresine Taşı"/>
-				<Item CMID="15" name="Yeni Uygulama Penceresinde Aç"/>
-				<Item CMID="16" name="Yeniden Yükle"/>
-				<Item CMID="17" name="Soldaki Sekmeleri Kapat"/>
-				<Item CMID="18" name="Sağdaki Sekmeleri Kapat"/>
-				<Item CMID="19" name="Dosya Konumunu Windows Gezgini'nde Aç"/>
-				<Item CMID="20" name="Dosya Konumunu Komut İstemi'nde Aç"/>
-				<Item CMID="21" name="Varsayılan Görüntüleyicide Aç"/>
-				<Item CMID="22" name="Tüm Değiştirilmemişleri Kapat"/>
-				<Item CMID="23" name="İçeren Klasörü Çalışma Alanı Olarak Aç"/>
-				<Item CMID="24" name="1. Rengi Uygula"/>
-				<Item CMID="25" name="2. Rengi Uygula"/>
-				<Item CMID="26" name="3. Rengi Uygula"/>
-				<Item CMID="27" name="4. Rengi Uygula"/>
-				<Item CMID="28" name="5. Rengi Uygula"/>
-				<Item CMID="29" name="Rengi Kaldır"/>
-				<Item CMID="30" name="Çoklu Sekme Kapatma"/>
-				<Item CMID="31" name="Şurada Aç"/>
-				<Item CMID="32" name="Panoya Kopyala"/>
-				<Item CMID="33" name="Dosyayı Taşı"/>
-				<Item CMID="34" name="Rengi Sekmeye Uygula"/>
+				<Item CMDID="41003" name="Kapat"/>
+				<Item CMDID="0" name="Çoklu Sekme Kapat"/>
+				<Item CMDID="41005" name="BU Hariç Tümünü Kapat"/>
+				<Item CMDID="41009" name="Soldakilerin Tümünü Kapat"/>
+				<Item CMDID="41018" name="Sağdakilerin Tümünü Kapat"/>
+				<Item CMDID="41024" name="Tüm Değişmeyenleri Kapat"/>
+				<Item CMDID="41006" name="Kaydet"/>
+				<Item CMDID="41008" name="Farklı Kaydet..."/>
+				<Item CMDID="1" name="Şurada Aç"/>
+				<Item CMDID="41019" name="İçeren Klasörü Dosya Gezgininde Aç"/>
+				<Item CMDID="41020" name="İçeren Klasörü Komut Satırında Aç"/>
+				<Item CMDID="41025" name="İçeren Klasörü Çalışma Klasörü Olarak Aç"/>
+				<Item CMDID="41023" name="Varsayılan Görüntüleyicide Aç"/>
+				<Item CMDID="41017" name="Yeniden Adlandır..."/>
+				<Item CMDID="41016" name="Çöp Kutusuna Taşı"/>
+				<Item CMDID="41014" name="Yeniden Yükle"/>
+				<Item CMDID="41010" name="Yazdır..."/>
+				<Item CMDID="42028" name="Salt Okunur"/>
+				<Item CMDID="42033" name="Salt Okunur Özniteliğini Temizle"/>
+				<Item CMDID="2" name="Panoya Kopyala"/>
+				<Item CMDID="42029" name="Tam Dosya Yolunu Kopyala"/>
+				<Item CMDID="42030" name="Dosya Adını Kopyala"/>
+				<Item CMDID="42031" name="Şimdiki Dizin Yolunu Kopyala"/>
+				<Item CMDID="3" name="Belgeyi Taşı"/>
+				<Item CMDID="10001" name="Diğer Görünüme Taşı"/>
+				<Item CMDID="10002" name="Diğer Görünüme Kopyasını Çıkart"/>
+				<Item CMDID="10003" name="Yeni Pencereye Taşı"/>
+				<Item CMDID="10004" name="Yeni Pencerede Aç"/>
+				<Item CMDID="4" name="Sekmeye Renk Uygula"/>
+				<Item CMDID="44111" name="1. Rengi Uygula"/>
+				<Item CMDID="44112" name="2. Rengi Uygula"/>
+				<Item CMDID="44113" name="3. Rengi Uygula"/>
+				<Item CMDID="44114" name="4. Rengi Uygula"/>
+				<Item CMDID="44115" name="5. Rengi Uygula"/>
+				<Item CMDID="44110" name="Rengi Kaldır"/>
 			</TabBar>
 		</Menu>
 
@@ -638,22 +638,22 @@
                     <Item id="44102" name="Dosyayı Edge ile Görüntüle"/>
                     <Item id="50003" name="Önceki Dosyaya Geç"/>
                     <Item id="50004" name="Sonraki Dosyaya Geç"/>
-                    <Item id="44051" name="Seviye 1'i Daralt"/>
-                    <Item id="44052" name="Seviye 2'yi Daralt"/>
-                    <Item id="44053" name="Seviye 3'ü Daralt"/>
-                    <Item id="44054" name="Seviye 4'ü Daralt"/>
-                    <Item id="44055" name="Seviye 5'i Daralt"/>
-                    <Item id="44056" name="Seviye 6'yı Daralt"/>
-                    <Item id="44057" name="Seviye 7'yi Daralt"/>
-                    <Item id="44058" name="Seviye 8'i Daralt"/>
-                    <Item id="44061" name="Seviye 1'i Genişlet"/>
-                    <Item id="44062" name="Seviye 2'yi Genişlet"/>
-                    <Item id="44063" name="Seviye 3'ü Genişlet"/>
-                    <Item id="44064" name="Seviye 4'ü Genişlet"/>
-                    <Item id="44065" name="Seviye 5'i Genişlet"/>
-                    <Item id="44066" name="Seviye 6'yı Genişlet"/>
-                    <Item id="44067" name="Seviye 7'yi Genişlet"/>
-                    <Item id="44068" name="Seviye 8'i Genişlet"/>
+                    <Item id="44051" name="Seviye 1'i Katla"/>
+                    <Item id="44052" name="Seviye 2'yi Katla"/>
+                    <Item id="44053" name="Seviye 3'ü Katla"/>
+                    <Item id="44054" name="Seviye 4'ü Katla"/>
+                    <Item id="44055" name="Seviye 5'i Katla"/>
+                    <Item id="44056" name="Seviye 6'yı Katla"/>
+                    <Item id="44057" name="Seviye 7'yi Katla"/>
+                    <Item id="44058" name="Seviye 8'i Katla"/>
+                    <Item id="44061" name="Seviye 1'i Aç"/>
+                    <Item id="44062" name="Seviye 2'yi Aç"/>
+                    <Item id="44063" name="Seviye 3'ü Aç"/>
+                    <Item id="44064" name="Seviye 4'ü Aç"/>
+                    <Item id="44065" name="Seviye 5'i Aç"/>
+                    <Item id="44066" name="Seviye 6'yı Aç"/>
+                    <Item id="44067" name="Seviye 7'yi Aç"/>
+                    <Item id="44068" name="Seviye 8'i Aç"/>
                     <Item id="44081" name="Proje Paneli 1'i Değiştir"/>
                     <Item id="44082" name="Proje Paneli 2'yi Değiştir"/>
                     <Item id="44083" name="Proje Paneli 3'ü Değiştir"/>
@@ -929,7 +929,9 @@
 				</Scintillas>
 
 				<DarkMode title="Koyu Mod">
-					<Item id="7101" name="Koyu Modu Etkinleştir"/>
+					<Item id="7131" name="Açık Mod"/>
+					<Item id="7132" name="Koyu Mod"/>
+					<Item id="7133" name="Windows'u Takip Et"/>
 					<Item id="7102" name="Siyah"/>
 					<Item id="7103" name="Kırmızı"/>
 					<Item id="7104" name="Yeşil"/>
@@ -955,7 +957,7 @@
 				</DarkMode>
 
 				<MarginsBorderEdge title="Boşluk/Sınır/Köşe">
-					<Item id="6201" name="Anahat Daraltma Stili"/>
+					<Item id="6201" name="Anahat Katlama Stili"/>
 					<Item id="6202" name="Basit"/>
 					<Item id="6203" name="Ok"/>
 					<Item id="6204" name="Daire"/>
@@ -966,8 +968,8 @@
 					<Item id="6292" name="Hareketli Genişlik"/>
 					<Item id="6293" name="Sabit Genişlik"/>
 					<Item id="6207" name="Yer imini görüntüle"/>
-					<Item id="6211" name="Dikey Kenarlık Ayarları"/>
 					<Item id="6223" name="Değişim Geçmişini Göster"/>
+					<Item id="6211" name="Dikey Kenarlık Ayarları"/>
 					<Item id="6213" name="Arka plan modu"/>
 					<Item id="6237" name="Sütun işaretçinizi, onun pozisyonunu ondalık sayıyla belirterek ekleyin.
 Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
@@ -1157,6 +1159,18 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
                     <Item id="6163" name="Karakterini kelimenin bir parçası gibi ekle
 (ne yaptığını bilmiyorsan seçme)"/>
 				</Delimiter>
+
+				<Performance title="Performans">
+					<Item id="7141" name="Büyük Dosya Kısıtlaması"/>
+					<Item id="7143" name="Büyük Dosya Kısıtlamasını Etkinleştir (Sözdizim Vurgulamasız)"/>
+					<Item id="7144" name="Büyük Dosya Boyutunu Belirle:"/>
+					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7147" name="Ayraç Eşleştirmeye İzin Ver"/>
+					<Item id="7148" name="Otomatik Tamamlamaya İzin Ver"/>
+					<Item id="7149" name="Akıllı Vurgulamaya İzin Ver"/>
+					<Item id="7150" name="Sözcük Kaydırmayı Tümden Etkisizleştir"/>
+					<Item id="7151" name="Tıklanabilir URL Linklere İzin Ver"/>
+				</Performance>
 
 				<Cloud title="Bulut &amp; Linki">
 					<Item id="6262" name="Buluta Yedekleme Ayarları"/>
@@ -1361,6 +1375,7 @@ Notepad++ tüm işlemler bitince yeniden başlatılacak.
 Devam edilsin mi?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ yeniden başlatılmalı" message="Kurduğunuz eklentilerin yüklenmesi için Notepad++ yeniden başlatılmalı."/>
             <ChangeHistoryEnabledWarning title="Notepad++ yeniden başlatılmalı" message="Değişim Geçmişini etkinleştirmek için Notepad++'ı yeniden başlatılmanız gereklidir."/> <!-- NasılTekrarlanır: Tercihler penceresindeki "Boşluk/Sınır/Köşe" sekmesinde bulunan "Değişim Geçmişini Göster" seçeneğindeki işareti kaldırın. -->
+            <WindowsSessionExit title="Notepad++ - Windows Oturum Sonlandırması" message="Windows oturumu sonlandırılmak üzere, fakat bazı kaydedilmemiş verileriniz var. Şimdi Notepad++'tan çıkmak istiyor musunuz?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -1401,8 +1416,8 @@ Devam edilsin mi?"/>
 		<FolderAsWorkspace>
             <PanelTitle name="Çalışma Alanı Olarak Klasör"/>
             <SelectFolderFromBrowserString name="Çalışma Alanı Olarak Klasör paneline eklemek için bir klasör seçin."/>
-            <ExpandAllFoldersTip name="Tüm Klasörleri Genişlet"/>
-            <CollapseAllFoldersTip name="Tüm Klasörleri Daralt"/>
+            <ExpandAllFoldersTip name="Tümünü Aç"/>
+            <CollapseAllFoldersTip name="Tümünü Katla"/>
             <LocateCurrentFileTip name="Şu Anki Dosyayı Bul"/>
             <Menus>
                 <Item id="3511" name="Kaldır"/>
@@ -1412,8 +1427,8 @@ Devam edilsin mi?"/>
                 <Item id="3515" name="Aç"/>
                 <Item id="3516" name="Yolu kopyala"/>
                 <Item id="3517" name="Dosyalarda bul..."/>
-                <Item id="3518" name="Explorer buraya"/>
-                <Item id="3519" name="CMD buraya"/>
+                <Item id="3518" name="Gezginde Göster"/>
+                <Item id="3519" name="Komut Satırında Aç"/>
                 <Item id="3520" name="Dosya Adını Kopyala"/>
             </Menus>
 		</FolderAsWorkspace>
@@ -1529,8 +1544,8 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<find-status-scope-forward value="içboşluk simgesinden dosya sonuna kadar"/>
 			<finder-find-in-finder value="Bu arama sonuçları arasında bul..."/>
 			<finder-close-this value="Bu arama sonuçlarını kapat"/>
-			<finder-collapse-all value="Tümünü Daralt"/>
-			<finder-uncollapse-all value="Tümünü Genişlet"/>
+			<finder-collapse-all value="Tümünü Katla"/>
+			<finder-uncollapse-all value="Tümünü Aç"/>
 			<finder-copy value="Seçili Satır(lar)ı Kopyala"/>
 			<finder-copy-verbatim value="Kopyala"/>
 			<finder-copy-paths value="Yol Ad(lar)ını Kopyala"/>
@@ -1547,6 +1562,7 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<splitter-rotate-left value="Sola Döndür"/>
 			<splitter-rotate-right value="Sağa Döndür"/>
 			<recent-file-history-maxfile value="En Fazla Dosya: "/>
+			<recent-file-history-customlength value="Uzunluk: "/>
 			<language-tabsize value="Sekme Ölçüsü: "/>
 			<userdefined-title-new value="Yeni Dil Üret..."/>
 			<userdefined-title-save value="Şimdiki Dil İsmini Şöyle Kaydet..."/>
@@ -1592,6 +1608,12 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<contextMenu-styleOneToken value="Bir işareti stillendir" />
 			<contextMenu-clearStyle value="Stili temizle" />
 			<contextMenu-PluginCommands value="Eklenti komutları" />
+			<largeFileRestriction-tip value="Büyük dosyalarda bazı özellikler performansı yavaşlatabilir. Bu özellikler büyük dosya açımında otomatik olarak etkisizleştirilebilir. Onları burada özelleştirebilirsiniz.
+
+NOT:
+1. Burada seçenekleri değiştirmek, kararlı davranışlar elde etmek için şu anda açılmış büyük boyutlu dosyaların tekrar açılmasını gerektirir.
+
+2. Eğer &quot;Sözcük Kaydırmayı Tümden Etkisizleştir&quot; işaretlenmişse ve büyük dosya açarsanız, &quot;Sözcük Kaydır&quot; tüm dosyalar için etkisizleştirilir. Bunu tekrardan &quot;Görünüm-&gt;Sözcük Kaydır&quot; ile etkinleştirebilirsiniz." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

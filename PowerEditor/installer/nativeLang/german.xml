@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <!--
 	German localization for Notepad++
-	last modified: 2022-12-04 by schnurlos
+	last modified: 2022-12-29 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
 	The most recent version of this file can usually be downloaded from
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/german.xml
-	http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
+	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
-
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.8">
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.9"><!-- basiert auf english.xml vom 29.12.2022 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -395,41 +393,41 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="41003"  name="S&amp;chließen"/>
-				<Item CMID="0" name="Mehrere Tabs schließen"/>
-				<Item CMID="41005"  name="&amp;Alle Dateien bis auf die aktuelle schließen"/>
-				<Item CMID="41009" name="Dateien links von aktueller Datei schlie&amp;ßen"/>
-				<Item CMID="41018" name="Dateien rech&amp;ts von aktueller Datei schließen"/>
-				<Item CMID="41024" name="Alle unveränderten Dateien schließen"/>
-				<Item CMID="41006"  name="&amp;Speichern"/>
-				<Item CMID="41008"  name="Speichern &amp;unter …"/>
-				<Item CMID="1" name="Öffne in"/>
-				<Item CMID="41019" name="Ordner im E&amp;xplorer öffnen"/>
-				<Item CMID="41020" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
-				<Item CMID="41025" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
-				<Item CMID="41023" name="Im Standard-Betrachter öffnen"/>
-				<Item CMID="41017" name="Um&amp;benennen …"/>
-				<Item CMID="41016" name="L&amp;öschen"/>
-				<Item CMID="41014" name="Neu &amp;laden"/>
-				<Item CMID="41010"  name="&amp;Drucken …"/>
-				<Item CMID="42028" name="Sch&amp;reibschutz"/>
-				<Item CMID="42033" name="Schreibschutz au&amp;fheben"/>
-				<Item CMID="2" name="In Zwischenablage kopieren"/>
-				<Item CMID="42029"  name="Vollständigen Dateipfad &amp;kopieren"/>
-				<Item CMID="42030"  name="Nur Datei&amp;namen kopieren"/>
-				<Item CMID="42031"  name="Nur Verzeichnis&amp;pfad kopieren"/>
-				<Item CMID="3" name="Dokument verschieben"/>
-				<Item CMID="10001"  name="In zweite Ansicht &amp;verschieben"/>
-				<Item CMID="10002"  name="In zw&amp;eite Ansicht duplizieren"/>
-				<Item CMID="10003" name="In neue &amp;Instanz verschieben"/>
-				<Item CMID="10004" name="In neuer Instan&amp;z öffnen"/>
-				<Item CMID="4" name="Farbe auf Tab anwenden"/>
-				<Item CMID="44111" name="Farbe 1 anwenden"/>
-				<Item CMID="44112" name="Farbe 2 anwenden"/>
-				<Item CMID="44113" name="Farbe 3 anwenden"/>
-				<Item CMID="44114" name="Farbe 4 anwenden"/>
-				<Item CMID="44115" name="Farbe 5 anwenden"/>
-				<Item CMID="44110" name="Farbe entfernen"/>
+				<Item CMDID="41003"  name="S&amp;chließen"/>
+				<Item CMDID="0" name="Mehrere Tabs schließen"/>
+				<Item CMDID="41005"  name="&amp;Alle Dateien bis auf die aktuelle schließen"/>
+				<Item CMDID="41009" name="Dateien links von aktueller Datei schlie&amp;ßen"/>
+				<Item CMDID="41018" name="Dateien rech&amp;ts von aktueller Datei schließen"/>
+				<Item CMDID="41024" name="Alle unveränderten Dateien schließen"/>
+				<Item CMDID="41006"  name="&amp;Speichern"/>
+				<Item CMDID="41008"  name="Speichern &amp;unter …"/>
+				<Item CMDID="1" name="Öffne in"/>
+				<Item CMDID="41019" name="Ordner im E&amp;xplorer öffnen"/>
+				<Item CMDID="41020" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
+				<Item CMDID="41025" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
+				<Item CMDID="41023" name="Im Standard-Betrachter öffnen"/>
+				<Item CMDID="41017" name="Um&amp;benennen …"/>
+				<Item CMDID="41016" name="L&amp;öschen"/>
+				<Item CMDID="41014" name="Neu &amp;laden"/>
+				<Item CMDID="41010"  name="&amp;Drucken …"/>
+				<Item CMDID="42028" name="Sch&amp;reibschutz"/>
+				<Item CMDID="42033" name="Schreibschutz au&amp;fheben"/>
+				<Item CMDID="2" name="In Zwischenablage kopieren"/>
+				<Item CMDID="42029"  name="Vollständigen Dateipfad &amp;kopieren"/>
+				<Item CMDID="42030"  name="Nur Datei&amp;namen kopieren"/>
+				<Item CMDID="42031"  name="Nur Verzeichnis&amp;pfad kopieren"/>
+				<Item CMDID="3" name="Dokument verschieben"/>
+				<Item CMDID="10001"  name="In zweite Ansicht &amp;verschieben"/>
+				<Item CMDID="10002"  name="In zw&amp;eite Ansicht duplizieren"/>
+				<Item CMDID="10003" name="In neue &amp;Instanz verschieben"/>
+				<Item CMDID="10004" name="In neuer Instan&amp;z öffnen"/>
+				<Item CMDID="4" name="Farbe auf Tab anwenden"/>
+				<Item CMDID="44111" name="Farbe 1 anwenden"/>
+				<Item CMDID="44112" name="Farbe 2 anwenden"/>
+				<Item CMDID="44113" name="Farbe 3 anwenden"/>
+				<Item CMDID="44114" name="Farbe 4 anwenden"/>
+				<Item CMDID="44115" name="Farbe 5 anwenden"/>
+				<Item CMDID="44110" name="Farbe entfernen"/>
 			</TabBar>
 		</Menu>
 
@@ -537,7 +535,7 @@
 				<Item id="2"    name="Schließen"/>
 			</SHA256FromTextDlg>
 
-			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert">
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel">
 				<ColumnPlugin   name="Plugin"/>
 				<ColumnVersion  name="Version"/>
 				<Item id="5501" name="Suchen:"/>
@@ -929,7 +927,7 @@
 					<Item id="6653" name="Hintergrund hervorheben"/>
 					<Item id="6654" name="Rahmen"/>
 					<Item id="6655" name="Breite"/>
-					<Item id="6247" name="Zeilenende (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+					<Item id="6247" name="Zeilenende EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Standard"/>
 					<Item id="6249" name="Klartext"/>
 					<Item id="6250" name="Benutzerdefinierte Farbe"/>
@@ -1022,7 +1020,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6507" name="Sprachmenü verschachtelt darstellen"/>
 					<Item id="6508" name="Sprachmenü"/>
 					<Item id="6301" name="Tabulatoren"/>
-					<Item id="6302" name="Durch Leerzeichen ersetzen"/>
+					<Item id="6302" name="Ersetzt durch Leerzeichen"/>
 					<Item id="6303" name="Tabulatorbreite:"/>
 					<Item id="6510" name="Standard verwenden"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
@@ -1071,7 +1069,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6722" name="Rechte Seite:"/>
 					<Item id="6723" name="Hinzufügen"/>
 					<ComboBox id="6724">
-						<Element name="Dateipfad &amp; Name"/>
+						<Element name="Pfad &amp; Name"/>
 						<Element name="Dateiname"/>
 						<Element name="Dateipfad"/>
 						<Element name="Seite"/>
@@ -1129,8 +1127,8 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6810" name="Wortvervollständigung"/>
 					<Item id="6816" name="Wort- und Funktionsvervollständigung"/>
 					<Item id="6869" name="Auswahl einfügen"/>
-					<Item id="6870" name="Tab"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
-					<Item id="6871" name="Enter"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6824" name="Zahlen ignorieren"/>
 					<Item id="6811" name="ab"/>
 					<Item id="6813" name="Zeichen"/>
@@ -1191,7 +1189,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 				</Cloud>
 
 				<SearchEngine title="Suchmaschine">
-					<Item id="6271" name="Suchmaschine (für den Befehl &quot;Suche im Internet&quot;)"/>
+					<Item id="6271" name="Suchmaschine (für den Befehl 'Suche im Internet')"/>
 					<Item id="6272" name="DuckDuckGo"/>
 					<Item id="6273" name="Google"/>
 					<Item id="6274" name="Bing"/>

@@ -667,7 +667,13 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	// Sort word array and convert it to a single string with space-separated words
 
-	sort(wordArray.begin(), wordArray.end());
+	if (_ignoreCase)
+		sort(wordArray.begin(), wordArray.end(), [](const generic_string &a, const generic_string &b)
+		{
+			return (generic_stricmp(a.c_str(), b.c_str()) < 0);
+		});
+	else
+		sort(wordArray.begin(), wordArray.end());
 
 	generic_string words(TEXT(""));
 

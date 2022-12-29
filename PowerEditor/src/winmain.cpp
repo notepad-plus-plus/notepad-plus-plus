@@ -323,7 +323,7 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 	TCHAR tmpDir[1024];
 	GetTempPath(1024, tmpDir);
 	generic_string emergencySavedDir = tmpDir;
-	emergencySavedDir += TEXT("\\N++RECOV");
+	emergencySavedDir += TEXT("\\Notepad++ RECOV");
 
 	bool res = notepad_plus_plus.emergency(emergencySavedDir);
 	if (res)

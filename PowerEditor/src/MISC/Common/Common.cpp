@@ -1296,7 +1296,7 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 std::wstring s2ws(const std::string& str)
 {
 	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX("Error in N++ string conversion s2ws!", L"Error in N++ string conversion s2ws!");
+	std::wstring_convert<convert_typeX, wchar_t> converterX("Error in Notepad++ string conversion s2ws!", L"Error in Notepad++ string conversion s2ws!");
 
 	return converterX.from_bytes(str);
 }
@@ -1304,7 +1304,7 @@ std::wstring s2ws(const std::string& str)
 std::string ws2s(const std::wstring& wstr)
 {
 	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX("Error in N++ string conversion ws2s!", L"Error in N++ string conversion ws2s!");
+	std::wstring_convert<convert_typeX, wchar_t> converterX("Error in Notepad++ string conversion ws2s!", L"Error in Notepad++ string conversion ws2s!");
 
 	return converterX.to_bytes(wstr);
 }
@@ -1543,13 +1543,13 @@ bool isUnsupportedFileName(const generic_string& fileName)
 {
 	bool isUnsupported = true;
 
-	// until the N++ (and its plugins) will not be prepared for filenames longer than the MAX_PATH,
+	// until the Notepad++ (and its plugins) will not be prepared for filenames longer than the MAX_PATH,
 	// we have to limit also the maximum supported length below
 	if ((fileName.size() > 0) && (fileName.size() < MAX_PATH))
 	{
-		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the N++ advanced
+		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the Notepad++ advanced
 		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs currently do not handle this well
-		// (but e.g. direct N++ Ctrl+S works ok even with these filenames)
+		// (but e.g. direct Notepad++ Ctrl+S works ok even with these filenames)
 		if (!fileName.ends_with(_T('.')) && !fileName.ends_with(_T(' ')))
 		{
 			bool invalidASCIIChar = false;

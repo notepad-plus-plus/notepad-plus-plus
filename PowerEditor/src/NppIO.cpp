@@ -185,7 +185,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	{
 		// TODO:
 		// for the raw filenames we can allow even the usually unsupported filenames in the future,
-		// but not now as it is not fully supported by the N++ COM IFileDialog based Open/SaveAs dialogs
+		// but not now as it is not fully supported by the Notepad++ COM IFileDialog based Open/SaveAs dialogs
 		//if (isRawFileName)
 		//{
 		//	int answer = _nativeLangSpeaker.messageBox("OpenNonconformingWin32FileName",
@@ -200,7 +200,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 		//}
 		//else
 		//{
-			// unsupported, use the existing N++ file dialog to report
+			// unsupported, use the existing Notepad++ file dialog to report
 			_nativeLangSpeaker.messageBox("OpenFileError",
 				_pPublicInterface->getHSelf(),
 				TEXT("Cannot open file \"$STR_REPLACE$\"."),

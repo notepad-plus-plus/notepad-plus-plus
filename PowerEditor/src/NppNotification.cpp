@@ -1127,7 +1127,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (_rebarBottom.getHSelf() == lpnm->hdr.hwndFrom)
 				notifRebar = &_rebarBottom;
 
-			//If N++ ID, use proper object
+			//If Notepad++ ID, use proper object
 			if (lpnm->wID == REBAR_BAR_TOOLBAR)
 			{
 				POINT pt{};

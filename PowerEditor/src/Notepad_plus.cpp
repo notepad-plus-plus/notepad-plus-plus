@@ -6219,7 +6219,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 	if (mask & (BufferChangeLanguage))
 	{
-		checkLangsMenu(-1);	//let N++ do search for the item
+		checkLangsMenu(-1);	//let Notepad++ do search for the item
 		setLangStatus(buffer->getLangType());
 		if (_mainEditView.getCurrentBuffer() == buffer)
 			_autoCompleteMain.setLanguage(buffer->getLangType());

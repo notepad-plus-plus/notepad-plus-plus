@@ -7619,6 +7619,7 @@ generic_string NppParameters:: getWinVersionStr() const
 		case WV_WIN8: return TEXT("Windows 8");
 		case WV_WIN81: return TEXT("Windows 8.1");
 		case WV_WIN10: return TEXT("Windows 10");
+		case WV_WIN11: return TEXT("Windows 11");
 		default: /*case WV_UNKNOWN:*/ return TEXT("Windows unknown version");
 	}
 }

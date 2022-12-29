@@ -2,7 +2,7 @@
 //http://www.thunderguy.com/semicolon/2002/08/15/visual-c-exception-handling/3/
 //(Visual C++ exception handling)
 //By Bennett
-//Formatting Slightly modified for N++
+//Formatting Slightly modified for Notepad++
 
 // This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>

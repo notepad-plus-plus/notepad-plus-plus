@@ -580,7 +580,7 @@ void AutoCompletion::showPathCompletion()
 		hFind = ::FindFirstFile(searchString.c_str(), &data);
 		if (hFind != INVALID_HANDLE_VALUE)
 		{
-			// Maximum number of entries to show. Without this it appears to the user like N++ hangs when autocompleting
+			// Maximum number of entries to show. Without this it appears to the user like Notepad++ hangs when autocompleting
 			// some really large directories (c:\windows\winxsys on my system for instance).
 			const unsigned int maxEntries = 2000;
 			unsigned int counter = 0;

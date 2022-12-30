@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.7">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.4.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -154,11 +154,11 @@
                     <Item id="42022" name="Zakomentovať/Odkomentovať riadok"/>
                     <Item id="42023" name="Zakomentovať blok textu"/>
                     <Item id="42047" name="Odkomentovať blok textu"/>
-                    <Item id="42024" name="Odstrániť koncové medzery"/>
-                    <Item id="42042" name="Odstrániť začiatočné medzery"/>
-                    <Item id="42043" name="Odstrániť začiatočné a koncové medzery"/>
+                    <Item id="42024" name="Orezať koncové medzery"/>
+                    <Item id="42042" name="Orezať začiatočné medzery"/>
+                    <Item id="42043" name="Orezať začiatočné a koncové medzery"/>
                     <Item id="42044" name="Konvertovať konce riadkov (EOL) na medzery"/>
-                    <Item id="42045" name="Odstrániť zbytočné prázdne znaky a konce riadkov"/>
+                    <Item id="42045" name="Orezať obe a konvertovať konce riadkov (EOL) na medzery"/>
                     <Item id="42046" name="Konvertovať tabulátor na medzery"/>
                     <Item id="42054" name="Konvertovať medzery na tabulátor (Všetky)"/>
                     <Item id="42053" name="Konvertovať medzery na tabulátor (Začiatočné)"/>
@@ -348,7 +348,7 @@
                     <Item id="48006" name="Importovať témy..."/>
                     <Item id="48018" name="Úprava kontextovej ponuky…"/>
                     <Item id="48009" name="Nastavenie klávesových skratiek..."/>
-                    <Item id="48011" name="Preferencie..."/>
+                    <Item id="48011" name="Predvoľby..."/>
                     <Item id="48014" name="Otvoriť priečinok pluginov..."/>
                     <Item id="48015" name="Správa doplnkov..."/>
                     <Item id="48501" name="Vytvoriť..."/>

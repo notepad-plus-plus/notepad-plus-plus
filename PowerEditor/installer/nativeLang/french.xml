@@ -158,7 +158,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42042" name="Enlever les blancs en début de ligne"/>
                     <Item id="42043" name="Enlever les blancs en début et fin de ligne"/>
                     <Item id="42044" name="Transformer les fins de ligne en espaces"/>
-                    <Item id="42045" name="Supprimer les espacements et fins de ligne inutiles"/>
+                    <Item id="42045" name="Enlever les blancs et fins de ligne vers Espace"/>
                     <Item id="42046" name="Transformer les tabulations en espaces"/>
                     <Item id="42054" name="Transformer tous les espaces en tabulations"/>
                     <Item id="42053" name="Transformer les espaces de début de ligne en tabulations"/>
@@ -1137,7 +1137,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 </AutoCompletion>
 
                 <MultiInstance title="Instance multiple &amp; date">
-                    <Item id="6151" name="Options d'instance multiple"/>
+                    <Item id="6151" name="Options d'instance multiple *"/>
                     <Item id="6152" name="Ouverture de session dans une nouvelle instance (et enregistrer la session automatiquement en sortant)"/>
                     <Item id="6153" name="Toujours en mode instance multiple"/>
                     <Item id="6154" name="Défaut (instance unique)"/>
@@ -1145,6 +1145,16 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6171" name="Personnalisation d'insertion de la date et l'heure"/>
                     <Item id="6175" name="Inverser l'ordre de la date et l'heure par défaut (format court &amp;&amp; long)"/>
                     <Item id="6172" name="Format personnalisé :"/>
+                    <Item id="6181" name="État du panneau et [-nosession] *"/>
+                    <Item id="6182" name="Se rappeler de l'état du panneau (panneau ouvert) dans les autres instances (mode multi-instance) ou avec la ligne de commande [-nosession]"/>
+                    <Item id="6183" name="Historique du presse-papier"/>
+                    <Item id="6184" name="Liste des documents"/>
+                    <Item id="6185" name="Panneau du caractère"/>
+                    <Item id="6186" name="Dossier en tant qu'Espace de travail"/>
+                    <Item id="6187" name="Panneaux projet"/>
+                    <Item id="6188" name="Plan du document"/>
+                    <Item id="6189" name="Liste des fonctions"/>
+                    <Item id="6190" name="Panneaux d'extension"/>
                 </MultiInstance>
 
                 <Delimiter title="Délimiteur">

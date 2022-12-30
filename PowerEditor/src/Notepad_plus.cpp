@@ -1543,7 +1543,6 @@ void Notepad_plus::eol2ws()
 	bool isRectSel = (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
 	bool isEntireDoc = (mainSelAnchor == mainSelCaretPos) && (rectSelAnchorVirt == rectSelCaretVirt);
 	auto docLength = _pEditView->execute(SCI_GETLENGTH);
-	auto lines = _pEditView->execute(SCI_GETLINECOUNT);
 	// auto-expand of partially selected lines
 	if (!isEntireDoc)
 	{
@@ -1563,7 +1562,7 @@ void Notepad_plus::eol2ws()
 	_pEditView->execute(isEntireDoc ? SCI_TARGETWHOLEDOCUMENT: SCI_TARGETFROMSELECTION);
 	_pEditView->execute(SCI_LINESJOIN);
 	// restore original selection if nothing has changed
-	if (!isEntireDoc && (docLength == _pEditView->execute(SCI_GETLENGTH)) && (lines == _pEditView->execute(SCI_GETLINECOUNT)))
+	if (!isEntireDoc && (docLength == _pEditView->execute(SCI_GETLENGTH)))
 	{
 		if (isRectSel)
 		{

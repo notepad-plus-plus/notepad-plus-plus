@@ -199,33 +199,6 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 
 			makeCategoryList();
-			RECT rc;
-			getClientRect(rc);
-
-			rc.top += NppParameters::getInstance()._dpiManager.scaleY(10);
-			rc.bottom -= NppParameters::getInstance()._dpiManager.scaleY(50);
-			rc.left += NppParameters::getInstance()._dpiManager.scaleX(170);
-			
-			_generalSubDlg.reSizeTo(rc);
-			_editingSubDlg.reSizeTo(rc);
-			_darkModeSubDlg.reSizeTo(rc);
-			_marginsBorderEdgeSubDlg.reSizeTo(rc);
-			_miscSubDlg.reSizeTo(rc);
-			_newDocumentSubDlg.reSizeTo(rc);
-			_defaultDirectorySubDlg.reSizeTo(rc);
-			_recentFilesHistorySubDlg.reSizeTo(rc);
-			_fileAssocDlg.reSizeTo(rc);
-			_languageSubDlg.reSizeTo(rc);
-			_highlightingSubDlg.reSizeTo(rc);
-			_printSubDlg.reSizeTo(rc);
-			_searchingSubDlg.reSizeTo(rc);
-			_backupSubDlg.reSizeTo(rc);
-			_autoCompletionSubDlg.reSizeTo(rc);
-			_multiInstanceSubDlg.reSizeTo(rc);
-			_delimiterSubDlg.reSizeTo(rc);
-			_performanceSubDlg.reSizeTo(rc);
-			_cloudAndLinkSubDlg.reSizeTo(rc);
-			_searchEngineSubDlg.reSizeTo(rc);
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
@@ -421,7 +394,7 @@ bool PreferenceDlg::setListSelection(size_t currentSel) const
 {
 	// Stupid LB API doesn't allow LB_SETSEL to be used on single select listbox, so we do it in a hard way
 	const size_t selStrLenMax = 255;
-	TCHAR selStr[selStrLenMax + 1];
+	TCHAR selStr[selStrLenMax + 1] = { '\0' };
 	auto lbTextLen = ::SendMessage(_hSelf, LB_GETTEXTLEN, currentSel, 0);
 
 	if (static_cast<size_t>(lbTextLen) > selStrLenMax)
@@ -764,7 +737,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								{
 									LocalizationSwitcher & localizationSwitcher = nppParam.getLocalizationSwitcher();
 									auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
-									TCHAR langName[MAX_PATH];
+									TCHAR langName[MAX_PATH] = { '\0' };
 									auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXTLEN, index, 0);
 									if (cbTextLen > MAX_PATH - 1)
 										return TRUE;
@@ -1186,8 +1159,8 @@ void DarkModeSubDlg::enableCustomizedColorCtrls(bool doEnable)
 
 void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
 {
-	POINT p;
-	RECT rc;
+	POINT p{};
+	RECT rc{};
 	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
 
 	NppParameters& nppParam = NppParameters::getInstance();

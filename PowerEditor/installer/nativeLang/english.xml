@@ -1145,7 +1145,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6171" name="Customize insert Date Time"/>
                     <Item id="6175" name="Reverse default date time order (short &amp;&amp; long formats)"/>
                     <Item id="6172" name="Custom format:"/>
-                    <Item id="6181" name="Panel state ignore -nosession *"/>
+                    <Item id="6181" name="Remember Panel State in (-nosession) *"/>
                     <Item id="6182" name="Clipboard History"/>
                     <Item id="6183" name="Document List"/>
                     <Item id="6184" name="Character Panel"/>

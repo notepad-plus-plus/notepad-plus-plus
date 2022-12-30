@@ -5699,14 +5699,14 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				return defaultValue;
 			};
 
-			_nppGUI._clipboardHistoryPanelKeepOpen = parseYesNoBoolAttribute(TEXT("clipboardHistory"));
-			_nppGUI._docListKeepOpen = parseYesNoBoolAttribute(TEXT("documentList"));
-			_nppGUI._charPanelKeepOpen = parseYesNoBoolAttribute(TEXT("characterPanel"));
-			_nppGUI._fileBrowserKeepOpen = parseYesNoBoolAttribute(TEXT("folderAsWorkspace"));
-			_nppGUI._projectPanelKeepOpen = parseYesNoBoolAttribute(TEXT("projectPanels"));
-			_nppGUI._docMapKeepOpen = parseYesNoBoolAttribute(TEXT("documentMap"));
-			_nppGUI._funcListKeepOpen = parseYesNoBoolAttribute(TEXT("fuctionList"));
-			_nppGUI._pluginPanelKeepOpen = parseYesNoBoolAttribute(TEXT("pluginPanels"));
+			_nppGUI._clipboardHistoryPanelKeepState = parseYesNoBoolAttribute(TEXT("clipboardHistory"));
+			_nppGUI._docListKeepState = parseYesNoBoolAttribute(TEXT("documentList"));
+			_nppGUI._charPanelKeepState = parseYesNoBoolAttribute(TEXT("characterPanel"));
+			_nppGUI._fileBrowserKeepState = parseYesNoBoolAttribute(TEXT("folderAsWorkspace"));
+			_nppGUI._projectPanelKeepState = parseYesNoBoolAttribute(TEXT("projectPanels"));
+			_nppGUI._docMapKeepState = parseYesNoBoolAttribute(TEXT("documentMap"));
+			_nppGUI._funcListKeepState = parseYesNoBoolAttribute(TEXT("fuctionList"));
+			_nppGUI._pluginPanelKeepState = parseYesNoBoolAttribute(TEXT("pluginPanels"));
 		}
 		else if (!lstrcmp(nm, TEXT("searchEngine")))
 		{
@@ -7022,14 +7022,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 			GUIConfigElement->SetAttribute(name, pStr);
 		};
 
-		setYesNoBoolAttribute(TEXT("clipboardHistory"), _nppGUI._clipboardHistoryPanelKeepOpen);
-		setYesNoBoolAttribute(TEXT("documentList"), _nppGUI._docListKeepOpen);
-		setYesNoBoolAttribute(TEXT("characterPanel"), _nppGUI._charPanelKeepOpen);
-		setYesNoBoolAttribute(TEXT("folderAsWorkspace"), _nppGUI._fileBrowserKeepOpen);
-		setYesNoBoolAttribute(TEXT("projectPanels"), _nppGUI._projectPanelKeepOpen);
-		setYesNoBoolAttribute(TEXT("documentMap"), _nppGUI._docMapKeepOpen);
-		setYesNoBoolAttribute(TEXT("fuctionList"), _nppGUI._funcListKeepOpen);
-		setYesNoBoolAttribute(TEXT("pluginPanels"), _nppGUI._pluginPanelKeepOpen);
+		setYesNoBoolAttribute(TEXT("clipboardHistory"), _nppGUI._clipboardHistoryPanelKeepState);
+		setYesNoBoolAttribute(TEXT("documentList"), _nppGUI._docListKeepState);
+		setYesNoBoolAttribute(TEXT("characterPanel"), _nppGUI._charPanelKeepState);
+		setYesNoBoolAttribute(TEXT("folderAsWorkspace"), _nppGUI._fileBrowserKeepState);
+		setYesNoBoolAttribute(TEXT("projectPanels"), _nppGUI._projectPanelKeepState);
+		setYesNoBoolAttribute(TEXT("documentMap"), _nppGUI._docMapKeepState);
+		setYesNoBoolAttribute(TEXT("fuctionList"), _nppGUI._funcListKeepState);
+		setYesNoBoolAttribute(TEXT("pluginPanels"), _nppGUI._pluginPanelKeepState);
 	}
 
 	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />

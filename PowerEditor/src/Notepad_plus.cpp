@@ -775,7 +775,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 			bool showPanel = true;
 			if (nppGUI._isCmdlineNosessionActivated)
 			{
-				const bool isProjectPanel = isInternalFunc
+				const bool showProjectPanel = isInternalFunc
+					&& nppGUI._projectPanelKeepState
 					&& (pdi._internalID != IDM_EDIT_CLIPBOARDHISTORY_PANEL
 						&& pdi._internalID != IDM_VIEW_DOCLIST
 						&& pdi._internalID != IDM_EDIT_CHAR_PANEL
@@ -784,15 +785,15 @@ LRESULT Notepad_plus::init(HWND hwnd)
 						&& pdi._internalID != IDM_VIEW_FUNC_LIST);
 
 				const bool showInternalPanel = isInternalFunc
-					&& ((pdi._internalID == IDM_EDIT_CLIPBOARDHISTORY_PANEL && nppGUI._clipboardHistoryPanelKeepOpen)
-						|| (pdi._internalID == IDM_VIEW_DOCLIST && nppGUI._docListKeepOpen)
-						|| (pdi._internalID == IDM_EDIT_CHAR_PANEL && nppGUI._charPanelKeepOpen)
-						|| (pdi._internalID == IDM_VIEW_FILEBROWSER && nppGUI._fileBrowserKeepOpen)
-						|| (isProjectPanel && nppGUI._projectPanelKeepOpen)
-						|| (pdi._internalID == IDM_VIEW_DOC_MAP && nppGUI._docMapKeepOpen)
-						|| (pdi._internalID == IDM_VIEW_FUNC_LIST && nppGUI._funcListKeepOpen));
+					&& ((pdi._internalID == IDM_EDIT_CLIPBOARDHISTORY_PANEL && nppGUI._clipboardHistoryPanelKeepState)
+						|| (pdi._internalID == IDM_VIEW_DOCLIST && nppGUI._docListKeepState)
+						|| (pdi._internalID == IDM_EDIT_CHAR_PANEL && nppGUI._charPanelKeepState)
+						|| (pdi._internalID == IDM_VIEW_FILEBROWSER && nppGUI._fileBrowserKeepState)
+						|| (showProjectPanel)
+						|| (pdi._internalID == IDM_VIEW_DOC_MAP && nppGUI._docMapKeepState)
+						|| (pdi._internalID == IDM_VIEW_FUNC_LIST && nppGUI._funcListKeepState));
 
-				showPanel = ((!isInternalFunc && nppGUI._pluginPanelKeepOpen) || showInternalPanel);
+				showPanel = ((!isInternalFunc && nppGUI._pluginPanelKeepState) || showInternalPanel);
 			}
 
 			if (pdi._isVisible && showPanel)

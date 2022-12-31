@@ -1521,12 +1521,12 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 
 	if (changeDataCount)
 	{
-		vector<int> bookmarks;
-		vector<int> folding;
+		vector<intptr_t> bookmarks;
+		vector<intptr_t> folding;
 
 		_pEditView->execute(SCI_BEGINUNDOACTION);
 
-		for (int i = startLine; i <= endLine; ++i)
+		for (intptr_t i = startLine; i <= endLine; ++i)
 		{
 			if (bookmarkPresent(i))
 			{
@@ -1552,10 +1552,10 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 			_pEditView->execute(SCI_GOTOPOS, newCurrentPos);
 		}
 
-		for (size_t i = 0; i < bookmarks.size(); ++i)
+		for (intptr_t i = 0; i < bookmarks.size(); ++i)
 			_pEditView->execute(SCI_MARKERADD, bookmarks[i], MARK_BOOKMARK);
 
-		for (size_t i = 0; i < folding.size(); ++i)
+		for (intptr_t i = 0; i < folding.size(); ++i)
 			_pEditView->fold(folding[i], false);
 
 		_pEditView->execute(SCI_ENDUNDOACTION);

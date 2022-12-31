@@ -1526,7 +1526,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 
 		_pEditView->execute(SCI_BEGINUNDOACTION);
 
-		for (int i = static_cast<int>startLine; i <= endLine; ++i)
+		for (int i = static_cast<int>(startLine); i <= endLine; ++i)
 		{
 			if (bookmarkPresent(i))
 			{

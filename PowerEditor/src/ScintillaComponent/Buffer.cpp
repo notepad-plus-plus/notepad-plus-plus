@@ -1036,7 +1036,7 @@ bool FileManager::backupCurrentBuffer()
 
 				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 				{
-					isWrittenSuccessful = UnicodeConvertor.writeFile(buf, static_cast<unsigned long>(lengthDoc));
+					isWrittenSuccessful = UnicodeConvertor.writeFile(buf, lengthDoc);
 					if (lengthDoc == 0)
 						isWrittenSuccessful = true;
 				}
@@ -1054,7 +1054,7 @@ bool FileManager::backupCurrentBuffer()
 						int incompleteMultibyteChar = 0;
 						const char *newData = wmc.encode(SC_CP_UTF8, encoding, buf+i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
 						grabSize -= incompleteMultibyteChar;
-						isWrittenSuccessful = UnicodeConvertor.writeFile(newData, static_cast<unsigned long>(newDataLen));
+						isWrittenSuccessful = UnicodeConvertor.writeFile(newData, newDataLen);
 					}
 					if (lengthDoc == 0)
 						isWrittenSuccessful = true;
@@ -1170,7 +1170,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{
-			isWrittenSuccessful = UnicodeConvertor.writeFile(buf, static_cast<unsigned long>(lengthDoc));
+			isWrittenSuccessful = UnicodeConvertor.writeFile(buf, lengthDoc);
 			if (lengthDoc == 0)
 				isWrittenSuccessful = true;
 		}
@@ -1194,7 +1194,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 					int incompleteMultibyteChar = 0;
 					const char* newData = wmc.encode(SC_CP_UTF8, encoding, buf + i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
 					grabSize -= incompleteMultibyteChar;
-					isWrittenSuccessful = UnicodeConvertor.writeFile(newData, static_cast<unsigned long>(newDataLen));
+					isWrittenSuccessful = UnicodeConvertor.writeFile(newData, newDataLen);
 				}
 			}
 		}

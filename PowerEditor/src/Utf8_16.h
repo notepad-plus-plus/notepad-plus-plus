@@ -140,7 +140,7 @@ public:
 	void setEncoding(UniMode eType);
 
 	bool openFile(const TCHAR *name);
-	bool writeFile(const void* p, unsigned long _size);
+	bool writeFile(const void* p, size_t _size);
 	void closeFile();
 
 	size_t convert(char* p, size_t _size);

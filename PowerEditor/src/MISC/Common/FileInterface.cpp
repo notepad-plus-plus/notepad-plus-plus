@@ -122,15 +122,38 @@ unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
 }
 */
 
-bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
+bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 {
 	if (!isOpened() || (wbuf == nullptr))
 		return false;
 
-	DWORD bytes_written = 0;
+	// we need to split any 4GB+ data for the WriteFile WINAPI later
+	constexpr DWORD c_max_dword = ~(DWORD(0)); // 0xFFFFFFFF
+	size_t total_bytes_written = 0;
+	size_t bytes_left_to_write = buf_size;
+
+	BOOL success = FALSE;
+
+	do
+	{
+		const DWORD bytes_to_write = (bytes_left_to_write < static_cast<size_t>(c_max_dword)) ?
+			static_cast<DWORD>(bytes_left_to_write) : c_max_dword;
+		DWORD bytes_written = 0;
+
+		success = ::WriteFile(_hFile, static_cast<const char*>(wbuf) + total_bytes_written,
+			bytes_to_write, &bytes_written, NULL);
+
+		if (success)
+		{
+			success = (bytes_written == bytes_to_write);
+			bytes_left_to_write -= static_cast<size_t>(bytes_written);
+			total_bytes_written += static_cast<size_t>(bytes_written);
+		}
+	} while (success && bytes_left_to_write);
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	if (::WriteFile(_hFile, wbuf, buf_size, &bytes_written, NULL) == FALSE)
+
+	if (success == FALSE)
 	{
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
@@ -160,7 +183,7 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 
 			std::string msg = _path;
 			msg += "  ";
-			msg += std::to_string(bytes_written);
+			msg += std::to_string(total_bytes_written);
 			msg += "/";
 			msg += std::to_string(buf_size);
 			msg += " bytes are written.";
@@ -171,6 +194,6 @@ bool Win32_IO_File::write(const void *wbuf, unsigned long buf_size)
 	if (!_written)
 		_written = true;
 
-	return (bytes_written == buf_size);
+	return (total_bytes_written == buf_size);
 }
 

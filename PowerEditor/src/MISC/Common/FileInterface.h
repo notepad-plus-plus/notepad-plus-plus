@@ -45,10 +45,10 @@ public:
 	//int_fast64_t getSize();
 	//unsigned long read(void *rbuf, unsigned long buf_size);
 
-	bool write(const void *wbuf, unsigned long buf_size);
+	bool write(const void *wbuf, size_t buf_size);
 
 	bool writeStr(const std::string& str) {
-		return write(str.c_str(), static_cast<unsigned long>(str.length()));
+		return write(str.c_str(), str.length());
 	};
 
 private:

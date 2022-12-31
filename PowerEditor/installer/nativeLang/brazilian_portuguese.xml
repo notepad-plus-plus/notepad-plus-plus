@@ -1140,7 +1140,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                 </AutoCompletion>
 
                 <MultiInstance title="Múltiplas instâncias">
-                    <Item id="6151" name="Configurações de múltiplas instâncias"/>
+                    <Item id="6151" name="Configurações de múltiplas instâncias *"/>
                     <Item id="6152" name="Abrir sessão em uma nova instância do Notepad++"/>
                     <Item id="6153" name="Sempre usar o modo múltipla instância"/>
                     <Item id="6154" name="Padrão (somente uma instância)"/>
@@ -1148,6 +1148,16 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                     <Item id="6171" name="Configurar inserção de Data e Hora"/>
                     <Item id="6175" name="Inverter formato padrão de data e hora (formatos curto &amp;&amp; longo)"/>
                     <Item id="6172" name="Formato customizado:"/>
+                    <Item id="6181" name="Estado do Painel e [-nosession] *"/>
+                    <Item id="6182" name="Lembrar estado do painel (painel está aberto) em outras instâncias (em modo de múltiplas instâncias) ou quando se utiliza o parâmetro [-nosession] em linha de comando"/>
+                    <Item id="6183" name="Histórico da Área de Transferência"/>
+                    <Item id="6184" name="Lista de Documentos"/>
+                    <Item id="6185" name="Painel de Caracteres"/>
+                    <Item id="6186" name="Pasta como Área de Trabalho"/>
+                    <Item id="6187" name="Painéis de Projeto"/>
+                    <Item id="6188" name="Mapa de Documentos"/>
+                    <Item id="6189" name="Lista de Funções"/>
+                    <Item id="6190" name="Painéis de Plugins"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimitador">

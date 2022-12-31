@@ -349,7 +349,7 @@
                     <Item id="48018" name="Úprava kontextovej ponuky…"/>
                     <Item id="48009" name="Nastavenie klávesových skratiek..."/>
                     <Item id="48011" name="Predvoľby..."/>
-                    <Item id="48014" name="Otvoriť priečinok pluginov..."/>
+                    <Item id="48014" name="Otvoriť priečinok doplnkov..."/>
                     <Item id="48015" name="Správa doplnkov..."/>
                     <Item id="48501" name="Vytvoriť..."/>
                     <Item id="48502" name="Vytvoriť zo súborov..."/>
@@ -1137,7 +1137,7 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                 </AutoCompletion>
 
                 <MultiInstance title="Viac inštancií a dátum">
-                    <Item id="6151" name="Nastavenie viacnásobného spustenia"/>
+                    <Item id="6151" name="Nastavenie viacnásobného spustenia *"/>
                     <Item id="6152" name="Otvoriť reláciu v novej inštancii (a pri ukončení ju automaticky uložiť)"/>
                     <Item id="6153" name="Režim viacerých inštancií programu"/>
                     <Item id="6154" name="Len jedna inštancia programu (Predvolené)"/>
@@ -1145,6 +1145,16 @@ Zadať môžete viacero značiek pomocou medzery na oddelenie rôznych čísel."
                     <Item id="6171" name="Prispôsobiť vloženie dátumu a času"/>
                     <Item id="6175" name="Obrátiť predvolené poradie dátumu a času (krátke a dlhé formáty)"/>
                     <Item id="6172" name="Vlastný formát:"/>
+                    <Item id="6181" name="Stav panelov a [-nosession] *"/>
+                    <Item id="6182" name="Zapamätať si stav panela (panel je otvorený) v iných inštanciách (režim viacerých inštancií) alebo pri použití parametra príkazového riadka [-nosession]"/>
+                    <Item id="6183" name="História schránky"/>
+                    <Item id="6184" name="Zoznam dokumentov"/>
+                    <Item id="6185" name="Panel ASCII znakov"/>
+                    <Item id="6186" name="Priečinok ako pracovný priestor"/>
+                    <Item id="6187" name="Panely projektu"/>
+                    <Item id="6188" name="Mapa dokumentu"/>
+                    <Item id="6189" name="Zoznam funkcií"/>
+                    <Item id="6190" name="Panely doplnku"/>
                 </MultiInstance>
 
                 <Delimiter title="Oddeľovací znak">
@@ -1375,7 +1385,7 @@ Chcete spustiť Notepad++ v režime správcu?"/>
             <ExitToUpdatePlugins title="Notepad++ sa chystá ukončiť" message="Ak kliknete na ÁNO, Notepad++ sa zavrie, aby mohol pokračovať v operáciách.
 Notepad++ sa reštartuje po ukončení všetkých operácií.
 Pokračovať?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných pluginov je potrebné Notepad++ reštartovať."/>
+            <NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných doplnkov je potrebné Notepad++ reštartovať."/>
             <ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/>
             <WindowsSessionExit title="Notepad++ - Ukončenie relácie Windowsu" message="Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete Notepad++ ukončiť teraz?"/>
         </MessageBox>
@@ -1609,7 +1619,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <contextMenu-styleAlloccurrencesOfToken value="Použiť štýl na všetky výskyty tokenu" />
             <contextMenu-styleOneToken value="Použiť štýl na jeden token" />
             <contextMenu-clearStyle value="Vymazať štýl" />
-            <contextMenu-PluginCommands value="Príkazy pluginu" />
+            <contextMenu-PluginCommands value="Príkazy doplnku" />
             <largeFileRestriction-tip value="Niektoré funkcie môžu pri veľkých súboroch spomaliť výkon. Tieto funkcie je možné pri otvorení veľkého súboru automaticky vypnúť. Môžete si ich prispôsobiť tu.
 POZNÁMKA:
 1. Pri zmene týchto možností sa pre správne fungovanie vyžaduje opätovné otvorenie aktuálne otvorených veľkých súborov.

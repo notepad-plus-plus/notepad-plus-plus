@@ -1280,220 +1280,288 @@ bool Notepad_plus::replaceInOpenedFiles()
 	return true;
 }
 
-
 void Notepad_plus::wsTabConvert(spaceTab whichWay)
 {
+	// block selection is not supported
+	if ((_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN))
+		return;
+
 	intptr_t tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
 	intptr_t currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
-    intptr_t lastLine = _pEditView->lastZeroBasedLineNumber();
-	intptr_t docLength = _pEditView->execute(SCI_GETLENGTH) + 1;
-    if (docLength < 2)
-        return;
+	intptr_t currentLine = _pEditView->execute(SCI_LINEFROMPOSITION, currentPos);
+	intptr_t currentPosInLine = currentPos - _pEditView->execute(SCI_POSITIONFROMLINE, currentLine);
 
-    intptr_t count = 0;
-    intptr_t column = 0;
-    intptr_t newCurrentPos = 0;
-	intptr_t tabStop = tabWidth - 1;   // remember, counting from zero !
-    bool onlyLeading = false;
-    vector<int> bookmarks;
-    vector<int> folding;
+	intptr_t startLine = 0;
+	intptr_t endLine = _pEditView->lastZeroBasedLineNumber();
+	intptr_t endLineCorrect = endLine;
+	intptr_t dataLength = _pEditView->execute(SCI_GETLENGTH) + 1;
+	intptr_t mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
+	bool isEntireDoc = (mainSelAnchor == currentPos);
 
-    for (int i=0; i<lastLine; ++i)
-    {
-        if (bookmarkPresent(i))
-            bookmarks.push_back(i);
+	// restore original selection if nothing has changed
+	auto restoreSelection = [this, mainSelAnchor, currentPos, isEntireDoc]()
+	{
+		if (!isEntireDoc)
+		{
+			_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
+			_pEditView->execute(SCI_SETCURRENTPOS, currentPos);
+		}
+	};
 
-        if ((_pEditView->execute(SCI_GETFOLDLEVEL, i) & SC_FOLDLEVELHEADERFLAG))
-            if (_pEditView->execute(SCI_GETFOLDEXPANDED, i) == 0)
-                folding.push_back(i);
-    }
+	// auto-expand of partially selected lines
+	if (!isEntireDoc)
+	{
+		intptr_t startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
+		startLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
+		intptr_t endPos = _pEditView->execute(SCI_GETSELECTIONEND);
+		endLine = endLineCorrect = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
 
-    char * source = new char[docLength];
-    if (source == NULL)
-        return;
-    _pEditView->execute(SCI_GETTEXT, docLength, reinterpret_cast<LPARAM>(source));
+		if (startPos != _pEditView->execute(SCI_POSITIONFROMLINE, startLine))
+			startPos = _pEditView->execute(SCI_POSITIONFROMLINE, startLine);
 
-    if (whichWay == tab2Space)
-    {
-        // count how many tabs are there
-        for (const char * ch=source; *ch; ++ch)
-        {
-            if (*ch == '\t')
-                ++count;
-        }
-        if (count == 0)
-        {
-            delete [] source;
-            return;
-        }
-    }
-    // allocate tabwidth-1 chars extra per tab, just to be safe
-    size_t newlen = docLength + count * (tabWidth - 1) + 1;
-    char * destination = new char[newlen];
-    if (destination == NULL)
-    {
-        delete [] source;
-        return;
-    }
-    char * dest = destination;
+		if (endPos == _pEditView->execute(SCI_POSITIONFROMLINE, endLine))
+			endLineCorrect = endLine - 1;
+		else if (endPos < _pEditView->execute(SCI_GETLINEENDPOSITION, endLine))
+			endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, endLine);
 
-    switch (whichWay)
-    {
-        case tab2Space:
-        {
-            // rip through each line of the file
-            for (int i = 0; source[i] != '\0'; ++i)
-            {
-                if (source[i] == '\t')
-                {
-                    intptr_t insertTabs = tabWidth - (column % tabWidth);
-                    for (int j = 0; j < insertTabs; ++j)
-                    {
-                        *dest++ = ' ';
-                        if (i <= currentPos)
-                            ++newCurrentPos;
-                    }
-                    column += insertTabs;
-                }
-                else
-                {
-                    *dest++ = source[i];
-                    if (i <= currentPos)
-                        ++newCurrentPos;
-                    if ((source[i] == '\n') || (source[i] == '\r'))
-                        column = 0;
-                    else if ((source[i] & 0xC0) != 0x80)  // UTF_8 support: count only bytes that don't start with 10......
-                        ++column;
-                }
-            }
-            *dest = '\0';
-            break;
-        }
-        case space2TabLeading:
-        {
-            onlyLeading = true;
-        }
-        case space2TabAll:
-        {
-            bool nextChar = false;
-			int counter = 0;
-			bool nonSpaceFound = false;
-            for (int i=0; source[i] != '\0'; ++i)
-            {
-                if (nonSpaceFound == false)
-                {
-                    while (source[i + counter] == ' ')
-                    {
-                        if ((column + counter) == tabStop)
-                        {
-                            tabStop += tabWidth;
-                            if (counter >= 1)        // counter is counted from 0, so counter >= max-1
-                            {
-                                *dest++ = '\t';
-                                i += counter;
-                                column += counter + 1;
-                                counter = 0;
-                                nextChar = true;
-                                if (i <= currentPos)
-                                    ++newCurrentPos;
-                                break;
-                            }
-                            else if (source[i+1] == ' ' || source[i+1] == '\t')  // if followed by space or TAB, convert even a single space to TAB
-                            {
-                                *dest++ = '\t';
-                                i++;
-                                column += 1;
-                                counter = 0;
-                                if (i <= currentPos)
-                                    ++newCurrentPos;
-                            }
-                            else       // single space, don't convert it to TAB
-                            {
-                                *dest++ = source[i];
-                                column += 1;
-                                counter = 0;
-                                nextChar = true;
-                                if (i <= currentPos)
-                                    ++newCurrentPos;
-                                break;
-                            }
-                        }
-                        else
-                            ++counter;
-                    }
+		dataLength = endPos - startPos + 1;
+		_pEditView->execute(SCI_SETSEL, startPos, endPos);
+	}
 
-                    if (nextChar == true)
-                    {
-                        nextChar = false;
-                        continue;
-                    }
+	if (dataLength < 2)
+	{
+		restoreSelection();
+		return;
+	}
 
-                    if (source[i] == ' ' && source[i + counter] == '\t') // spaces "absorbed" by a TAB on the right
-                    {
-                        *dest++ = '\t';
-                        i += counter;
-                        column = tabStop + 1;
-                        tabStop += tabWidth;
-                        counter = 0;
-                        if (i <= currentPos)
-                            ++newCurrentPos;
-                        continue;
-                    }
-                }
+	intptr_t changeDataCount = 0;
+	intptr_t newCurrentPos = 0;
+	vector<intptr_t> folding;
 
-                if (onlyLeading == true && nonSpaceFound == false)
-                    nonSpaceFound = true;
+	_pEditView->execute(SCI_BEGINUNDOACTION);
 
-                if (source[i] == '\n' || source[i] == '\r')
-                {
-                    *dest++ = source[i];
-                    column = 0;
-                    tabStop = tabWidth - 1;
-                    nonSpaceFound = false;
-                }
-                else if (source[i] == '\t')
-                {
-                    *dest++ = source[i];
-                    column = tabStop + 1;
-                    tabStop += tabWidth;
-                    counter = 0;
-                }
-                else
-                {
-                    *dest++ = source[i];
-                    counter = 0;
-                    if ((source[i] & 0xC0) != 0x80)   // UTF_8 support: count only bytes that don't start with 10......
-                    {
-                        ++column;
+	for (intptr_t idx = startLine; idx < endLineCorrect + 1; ++idx)
+	{
+		intptr_t startPos = _pEditView->execute(SCI_POSITIONFROMLINE, idx);
+		intptr_t endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, idx);
+		dataLength = endPos - startPos + 1;
 
-                        if (column > 0 && column % tabWidth == 0)
-                            tabStop += tabWidth;
-                    }
-                }
+		char * source = new char[dataLength];
+		if (source == NULL)
+			continue;
 
-                if (i <= currentPos)
-                    ++newCurrentPos;
-            }
-            *dest = '\0';
-            break;
-        }
-    }
+		source[dataLength - 1] = '\0'; // make sure to have correct data termination
+		_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+		_pEditView->execute(SCI_GETTARGETTEXT, 0, reinterpret_cast<LPARAM>(source));
 
-    _pEditView->execute(SCI_BEGINUNDOACTION);
-	_pEditView->execute(SCI_SETTEXT, 0, reinterpret_cast<LPARAM>(destination));
-    _pEditView->execute(SCI_GOTOPOS, newCurrentPos);
+		intptr_t count = 0;
+		intptr_t column = 0;
+		intptr_t tabStop = tabWidth - 1;   // remember, counting from zero !
+		bool onlyLeading = false;
 
-    for (size_t i=0; i<bookmarks.size(); ++i)
-        _pEditView->execute(SCI_MARKERADD, bookmarks[i], MARK_BOOKMARK);
+		if (whichWay == tab2Space)
+		{
+			// count how many tabs are there
+			for (const char * ch = source; *ch; ++ch)
+			{
+				if (*ch == '\t')
+					++count;
+			}
+			if (count == 0)
+			{
+				delete [] source;
+				continue;
+			}
+		}
+		// allocate tabwidth-1 chars extra per tab, just to be safe
+		size_t newLen = dataLength + count * (tabWidth - 1) + 1;
+		char * destination = new char[newLen];
+		if (destination == NULL)
+		{
+			delete [] source;
+			continue;
+		}
+		char * dest = destination;
+		intptr_t changeDataLineCount = 0;
 
-    for (size_t i=0; i<folding.size(); ++i)
-        _pEditView->fold(folding[i], false);
+		switch (whichWay)
+		{
+			case tab2Space:
+			{
+				// rip through each line of the file
+				for (int i = 0; source[i] != '\0'; ++i)
+				{
+					if (source[i] == '\t')
+					{
+						intptr_t insertTabs = tabWidth - (column % tabWidth);
+						for (int j = 0; j < insertTabs; ++j)
+						{
+							*dest++ = ' ';
+							changeDataCount++;
+							changeDataLineCount++;
+							if (idx == currentLine && i < currentPosInLine)
+								++newCurrentPos;
+						}
+						column += insertTabs;
+					}
+					else
+					{
+						*dest++ = source[i];
+						if (idx == currentLine && i < currentPosInLine)
+							++newCurrentPos;
+						if ((source[i] == '\n') || (source[i] == '\r'))
+							column = 0;
+						else if ((source[i] & 0xC0) != 0x80)  // UTF_8 support: count only bytes that don't start with 10......
+							++column;
+					}
+				}
+				*dest = '\0';
+				break;
+			}
+			case space2TabLeading:
+			{
+				onlyLeading = true;
+			}
+			case space2TabAll:
+			{
+				bool nextChar = false;
+				int counter = 0;
+				bool nonSpaceFound = false;
+				for (int i = 0; source[i] != '\0'; ++i)
+				{
+					if (nonSpaceFound == false)
+					{
+						while (source[i + counter] == ' ')
+						{
+							if ((column + counter) == tabStop)
+							{
+								tabStop += tabWidth;
+								if (counter >= 1)        // counter is counted from 0, so counter >= max-1
+								{
+									*dest++ = '\t';
+									changeDataCount++;
+									changeDataLineCount++;
+									i += counter;
+									column += counter + 1;
+									counter = 0;
+									nextChar = true;
+									if (idx == currentLine && i <= currentPosInLine)
+										++newCurrentPos;
+									break;
+								}
+								else if (source[i + 1] == ' ' || source[i + 1] == '\t')  // if followed by space or TAB, convert even a single space to TAB
+								{
+									*dest++ = '\t';
+									changeDataCount++;
+									changeDataLineCount++;
+									i++;
+									column += 1;
+									counter = 0;
+									if (idx == currentLine && i <= currentPosInLine)
+										++newCurrentPos;
+								}
+								else       // single space, don't convert it to TAB
+								{
+									*dest++ = source[i];
+									column += 1;
+									counter = 0;
+									nextChar = true;
+									if (idx == currentLine && i <= currentPosInLine)
+										++newCurrentPos;
+									break;
+								}
+							}
+							else
+								++counter;
+						}
 
-    _pEditView->execute(SCI_ENDUNDOACTION);
+						if (nextChar == true)
+						{
+							nextChar = false;
+							continue;
+						}
 
-    // clean up
-    delete [] source;
-    delete [] destination;
+						if (source[i] == ' ' && source[i + counter] == '\t') // spaces "absorbed" by a TAB on the right
+						{
+							*dest++ = '\t';
+							changeDataCount++;
+							changeDataLineCount++;
+							i += counter;
+							column = tabStop + 1;
+							tabStop += tabWidth;
+							counter = 0;
+							if (idx == currentLine && i <= currentPosInLine)
+								++newCurrentPos;
+							continue;
+						}
+					}
+
+					if (onlyLeading == true && nonSpaceFound == false)
+						nonSpaceFound = true;
+
+					if (source[i] == '\n' || source[i] == '\r')
+					{
+						*dest++ = source[i];
+						column = 0;
+						tabStop = tabWidth - 1;
+						nonSpaceFound = false;
+					}
+					else if (source[i] == '\t')
+					{
+						*dest++ = source[i];
+						column = tabStop + 1;
+						tabStop += tabWidth;
+						counter = 0;
+					}
+					else
+					{
+						*dest++ = source[i];
+						counter = 0;
+						if ((source[i] & 0xC0) != 0x80)   // UTF_8 support: count only bytes that don't start with 10......
+						{
+							++column;
+
+							if (column > 0 && column % tabWidth == 0)
+								tabStop += tabWidth;
+						}
+					}
+
+					if (idx == currentLine && i < currentPosInLine)
+						++newCurrentPos;
+				}
+				*dest = '\0';
+				break;
+			}
+		}
+
+		if ((_pEditView->execute(SCI_GETFOLDLEVEL, idx) & SC_FOLDLEVELHEADERFLAG))
+			if (_pEditView->execute(SCI_GETFOLDEXPANDED, idx) == 0)
+				folding.push_back(idx);
+
+		if (changeDataLineCount)
+			_pEditView->execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(destination));
+
+		// clean up
+		delete [] source;
+		delete [] destination;
+	
+	}
+
+	_pEditView->execute(SCI_ENDUNDOACTION);
+
+	if (changeDataCount)
+	{
+		if (!isEntireDoc)
+			_pEditView->execute(SCI_SETSEL, _pEditView->execute(SCI_POSITIONFROMLINE, startLine), endLineCorrect != endLine ? _pEditView->execute(SCI_POSITIONFROMLINE, endLine) : _pEditView->execute(SCI_GETLINEENDPOSITION, endLine));
+		else
+			_pEditView->execute(SCI_GOTOPOS, _pEditView->execute(SCI_POSITIONFROMLINE, currentLine) + newCurrentPos);
+
+		for (size_t i = 0; i < folding.size(); ++i)
+			_pEditView->fold(folding[i], false);
+	}
+	else
+		restoreSelection();
+
 }
 
 void Notepad_plus::doTrim(trimOp whichPart)

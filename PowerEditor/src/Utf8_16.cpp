@@ -299,7 +299,7 @@ bool Utf8_16_Write::openFile(const TCHAR *name)
 	return true;
 }
 
-bool Utf8_16_Write::writeFile(const void* p, unsigned long _size)
+bool Utf8_16_Write::writeFile(const void* p, size_t _size)
 {
     // no file open
 	if (!m_pFile)

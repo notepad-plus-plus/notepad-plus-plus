@@ -2,7 +2,7 @@
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy -->
 <!-- Updated: Jul 2021, for Notepad++ 8.1.2 -->
 <!-- Brazilian Portuguese updated by Marcello -->
-<!-- Updated: Dec 2022, for Notepad++ 8.4.8 -->
+<!-- Updated: 30 Dec 2022, for Notepad++ 8.4.8 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.8">
         <Menu>
@@ -159,7 +159,7 @@
                     <Item id="42042" name="Limpar espaços à esquerda"/>
                     <Item id="42043" name="Limpar espaços à direita e à esquerda"/>
                     <Item id="42044" name="EOL para Espaços"/>
-                    <Item id="42045" name="Remover Espaços e EOL desnecessários"/>
+                    <Item id="42045" name="Limpar brancos e EOL para Espaços"/>
                     <Item id="42046" name="TAB para Espaço"/>
                     <Item id="42054" name="Espaço para TAB (Todos)"/>
                     <Item id="42053" name="Espaço para TAB (Principal)"/>

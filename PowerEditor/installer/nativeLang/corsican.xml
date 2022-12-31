@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
 		- Updated on September 21st, 2022 for version 8.4.6 by Patriccollu di Santa Maria è Sichè
@@ -40,7 +41,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.8">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -195,7 +196,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42042" name="Ammuzzà i spazii di principiu di linea"/>
                     <Item id="42043" name="Ammuzzà i spazii di principiu è di fine di linea"/>
                     <Item id="42044" name="Trasfurmà e fine di linea in spazii"/>
-                    <Item id="42045" name="Caccià i bianchi è fine di linea inutile"/>
+                    <Item id="42045" name="Ammuzzà i spazii è trasfurmà e fine in spazii"/>
                     <Item id="42046" name="Trasfurmà e tabulazioni in spazii"/>
                     <Item id="42054" name="Trasfurmà i spazii in tabulazioni (tutti)"/>
                     <Item id="42053" name="Trasfurmà i spazii in tabulazioni (principiu)"/>
@@ -1171,7 +1172,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </AutoCompletion>
 
                 <MultiInstance title="Multi-finestra è data">
-                    <Item id="6151" name="Preferenze di multi-finestra"/>
+                    <Item id="6151" name="Preferenze di multi-finestra *"/>
                     <Item id="6152" name="Apre una sessione in una nova finestra (è arregistralla autumaticamente à l’esce)"/>
                     <Item id="6153" name="Sempre in modu multi-finestra"/>
                     <Item id="6154" name="Predefinitu (mono-finestra)"/>
@@ -1179,6 +1180,16 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6171" name="Persunalizazione d’inserzione di a data è l’ora"/>
                     <Item id="6175" name="Invertisce l’ordine predefinitu di a data è l’ora (furmatu cortu è longu)"/>
                     <Item id="6172" name="persunalizatu :"/>
+                    <Item id="6181" name="Statu di u pannellu è [-nosession] *"/>
+                    <Item id="6182" name="Arricurdassi di u statu di u pannellu (pannellu hè apertu) in d’altre istanze (modu multi-finestra) o quandu s’impiega u parametru di linea di cumanda [-nosession]"/>
+                    <Item id="6183" name="Cronolugia di u preme’papei"/>
+                    <Item id="6184" name="Lista di i ducumenti"/>
+                    <Item id="6185" name="Pannellu di i caratteri"/>
+                    <Item id="6186" name="Cartulare cum’è spaziu di travagliu"/>
+                    <Item id="6187" name="Pannelli di prughjettu"/>
+                    <Item id="6188" name="Cartugrafia di u ducumentu"/>
+                    <Item id="6189" name="Lista di e funzioni"/>
+                    <Item id="6190" name="Pannelli di modulu d’estensione"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimitatore">

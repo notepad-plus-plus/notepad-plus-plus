@@ -1387,7 +1387,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 					{
 						*dest++ = ' ';
 						changeDataCount += 1;
-						if (i <= currentPos)
+						if (i < currentPos)
 							++newCurrentPos;
 					}
 					column += insertTabs;
@@ -1395,7 +1395,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 				else
 				{
 					*dest++ = source[i];
-					if (i <= currentPos)
+					if (i < currentPos)
 						++newCurrentPos;
 					if ((source[i] == '\n') || (source[i] == '\r'))
 						column = 0;
@@ -1511,7 +1511,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 					}
 				}
 
-				if (i <= currentPos)
+				if (i < currentPos)
 					++newCurrentPos;
 			}
 			*dest = '\0';

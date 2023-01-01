@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.4.8:
+Updated to v8.4.9:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.4.8">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.4.9">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1160,7 +1160,7 @@ Updated to v8.4.8:
 					<Item id="6363" name="Сортировать функции по имени"/>
 				</MISC>
 				<MultiInstance title = "Режим Откр. и Дата">
-					<Item id="6151" name="Режим Открытия Файлов"/>
+					<Item id="6151" name="Режим Открытия Файлов*"/>
 					<Item id="6152" name="Только сессии открываются в новом окне&#x0A; (автоматическое сохранение сессии при выходе)"/>
 					<Item id="6153" name="Каждый файл открывается в новом окне"/>
 					<Item id="6154" name="Все файлы открываются в одном окне"/>
@@ -1168,6 +1168,16 @@ Updated to v8.4.8:
 					<Item id="6171" name="Настроить дату и время вставки"/>
 					<Item id="6175" name="Обратный порядок даты и времени (короткий и длинный формат)"/>
 					<Item id="6172" name="Польз. формат:"/>
+					<Item id="6181" name="Состояние Панели и [-nosession] *"/>
+					<Item id="6182" name="Запомнить состояние панели (панель открыта) в других Экземплярах или когда используется параметр командной строки [-nosession]"/>
+					<Item id="6183" name="История Буфера"/>
+					<Item id="6184" name="Список Файлов"/>
+					<Item id="6185" name="Таблица символов ASCII"/>
+					<Item id="6186" name="Папка как Проект"/>
+					<Item id="6187" name="Проект-панель"/>
+					<Item id="6188" name="Карта Документа"/>
+					<Item id="6189" name="Список Функций"/>
+					<Item id="6190" name="Панели Плагинов"/>
 				</MultiInstance>
 				<Delimiter title = "Разделитель">
 					<Item id="6251" name="Параметры разделителя  (Ctrl + 2 щелчка Мыши)"/>

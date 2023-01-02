@@ -53,13 +53,13 @@ SUBMAKEFLAGS := -O --no-print-directory
 ifeq "$(filter-out 0,$(DEBUG))" ""
 BUILD_TYPE := release
 BUILD_SUFFIX :=
-CXXFLAGS += -Os
+CXXFLAGS += -Os -Wconversion
 CPP_DEFINE += NDEBUG
 LDFLAGS += -s
 else
 BUILD_TYPE := debug
 BUILD_SUFFIX := -debug
-CXXFLAGS += -Og -g -Wall -Wpedantic
+CXXFLAGS += -Og -g -Wall -Wpedantic -Wconversion
 CPP_DEFINE += DEBUG
 endif
 

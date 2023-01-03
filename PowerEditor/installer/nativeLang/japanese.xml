@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.8">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -155,7 +155,7 @@
                     <Item id="42042" name="行頭の空白を削除"/>
                     <Item id="42043" name="行頭・行末の空白を削除"/>
                     <Item id="42044" name="改行コードをスペースに"/>
-                    <Item id="42045" name="不要な空白と改行コードを削除"/>
+                    <Item id="42045" name="行頭・行末の空白を削除し、改行コードをスペースに"/>
                     <Item id="42046" name="タブをスペースに"/>
                     <Item id="42054" name="スペースをタブに(すべて)"/>
                     <Item id="42053" name="スペースをタブに(行頭のみ)"/>
@@ -1142,7 +1142,7 @@
                 </AutoCompletion>
 
                 <MultiInstance title="複数起動、日時書式">
-                    <Item id="6151" name="複数起動（マルチインスタンス）の設定"/>
+                    <Item id="6151" name="複数起動（マルチインスタンス）の設定 *"/>
                     <Item id="6152" name="セッションを新しいインスタンスで開く（セッションは終了時に自動保存）"/>
                     <Item id="6153" name="常にマルチインスタンスモードとする"/>
                     <Item id="6154" name="デフォルト（1つのインスタンス）"/>
@@ -1150,6 +1150,16 @@
                     <Item id="6171" name="挿入する日時の書式設定"/>
                     <Item id="6175" name="日付と時刻の順序を逆にする（短い形式、長い形式の場合）"/>
                     <Item id="6172" name="カスタム書式:"/>
+                    <Item id="6181" name="パネルの表示状態と -nosession *"/>
+                    <Item id="6182" name="ほかのインスタンス（複数起動）のパネルの表示状態や、コマンドラインで -nosession を指定したときの表示状態を、保存するかを設定します"/>
+                    <Item id="6183" name="クリップボード履歴"/>
+                    <Item id="6184" name="文書一覧"/>
+                    <Item id="6185" name="文字コード表"/>
+                    <Item id="6186" name="ワークスペース フォルダー"/>
+                    <Item id="6187" name="プロジェクトパネル"/>
+                    <Item id="6188" name="文書マップ"/>
+                    <Item id="6189" name="関数リスト"/>
+                    <Item id="6190" name="プラグイン"/>
                 </MultiInstance>
 
                 <Delimiter title="区切り記号">

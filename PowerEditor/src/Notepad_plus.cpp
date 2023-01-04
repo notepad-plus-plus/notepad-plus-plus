@@ -1350,7 +1350,8 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 		if (source == NULL)
 			continue;
 
-		_pEditView->execute(SCI_SETSEL, startPos, endPos);
+		_pEditView->execute(SCI_SETSELECTIONSTART, startPos);
+		_pEditView->execute(SCI_SETSELECTIONEND, endPos);
 		_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(source));
 
 		intptr_t count = 0;

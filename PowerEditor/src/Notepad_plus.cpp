@@ -1336,6 +1336,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 
 	intptr_t changeDataCount = 0;
 	intptr_t newCurrentPos = 0;
+	vector<intptr_t> folding;
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
@@ -1532,6 +1533,10 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 			}
 		}
 
+		if ((_pEditView->execute(SCI_GETFOLDLEVEL, idx) & SC_FOLDLEVELHEADERFLAG))
+			if (_pEditView->execute(SCI_GETFOLDEXPANDED, idx) == 0)
+				folding.push_back(idx);
+
 		if (changeDataLineCount)
 		{
 			_pEditView->execute(SCI_TARGETFROMSELECTION);
@@ -1552,6 +1557,9 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 			_pEditView->execute(SCI_SETSEL, _pEditView->execute(SCI_POSITIONFROMLINE, startLine), endLineCorrect != endLine ? _pEditView->execute(SCI_POSITIONFROMLINE, endLine) : _pEditView->execute(SCI_GETLINEENDPOSITION, endLine));
 		else
 			_pEditView->execute(SCI_GOTOPOS, _pEditView->execute(SCI_POSITIONFROMLINE, currentLine) + newCurrentPos);
+
+		for (size_t i = 0; i < folding.size(); ++i)
+			_pEditView->fold(folding[i], false);
 	}
 	else
 		restoreSelection();

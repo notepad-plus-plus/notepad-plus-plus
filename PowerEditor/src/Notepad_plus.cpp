@@ -1298,19 +1298,11 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 	intptr_t mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
 	bool isEntireDoc = (mainSelAnchor == currentPos);
 
-	auto restoreSelection = [this, mainSelAnchor, currentPos, isEntireDoc]()
+	auto restoreSelection = [this, mainSelAnchor, currentPos]()
 	{
 		// restore original selection if nothing has changed
-		if (!isEntireDoc)
-		{
 			_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
 			_pEditView->execute(SCI_SETCURRENTPOS, currentPos);
-		}
-		else
-		{
-			_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
-			_pEditView->execute(SCI_SETCURRENTPOS, currentPos);
-		}
 	};
 
 	// auto-expand of partially selected lines

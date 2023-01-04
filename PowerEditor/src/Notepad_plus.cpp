@@ -1306,6 +1306,11 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 			_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
 			_pEditView->execute(SCI_SETCURRENTPOS, currentPos);
 		}
+		else
+		{
+			_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
+			_pEditView->execute(SCI_SETCURRENTPOS, currentPos);
+		}
 	};
 
 	// auto-expand of partially selected lines

@@ -1298,11 +1298,14 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 	intptr_t mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
 	bool isEntireDoc = (mainSelAnchor == currentPos);
 
-	auto restoreSelection = [this, mainSelAnchor, currentPos]()
+	// restore original selection if nothing has changed
+	auto restoreSelection = [this, mainSelAnchor, currentPos, isEntireDoc]()
 	{
-		// restore original selection if nothing has changed
+		if (!isEntireDoc)
+		{
 			_pEditView->execute(SCI_SETANCHOR, mainSelAnchor);
 			_pEditView->execute(SCI_SETCURRENTPOS, currentPos);
+		}
 	};
 
 	// auto-expand of partially selected lines
@@ -1347,9 +1350,9 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 		if (source == NULL)
 			continue;
 
-		_pEditView->execute(SCI_SETSELECTIONSTART, startPos);
-		_pEditView->execute(SCI_SETSELECTIONEND, endPos);
-		_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(source));
+		source[dataLength - 1] = '\0'; // make sure to have correct data termination
+		_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+		_pEditView->execute(SCI_GETTARGETTEXT, 0, reinterpret_cast<LPARAM>(source));
 
 		intptr_t count = 0;
 		intptr_t column = 0;
@@ -1536,10 +1539,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 				folding.push_back(idx);
 
 		if (changeDataLineCount)
-		{
-			_pEditView->execute(SCI_TARGETFROMSELECTION);
 			_pEditView->execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(destination));
-		}
 
 		// clean up
 		delete [] source;

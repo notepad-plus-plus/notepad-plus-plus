@@ -16,7 +16,7 @@
 			<KeyWord name="else" />
 			<KeyWord name="extends" />
 			<KeyWord name="false" />
-			<keyWord name="finally" />
+			<KeyWord name="finally" />
 			<KeyWord name="for" />
 			<KeyWord name="if" />
 			<KeyWord name="in" />
@@ -26,16 +26,16 @@
 			<KeyWord name="instanceof" />
 			<KeyWord name="loop" />
 			<KeyWord name="new" />
-			<keyWord name="not" />
+			<KeyWord name="not" />
 			<KeyWord name="null" />
 			<KeyWord name="NaN" />
 			<KeyWord name="of" />
 			<KeyWord name="or" />
 			<KeyWord name="on" />
-			<keyWord name="no" />
+			<KeyWord name="no" />
 			<KeyWord name="return" />
 			<KeyWord name="switch" />
-			<keyWord name="super" />
+			<KeyWord name="super" />
 			<KeyWord name="then" />
 			<KeyWord name="this" />
 			<KeyWord name="throw" />
@@ -46,9 +46,9 @@
 			<KeyWord name="unless" />
 			<KeyWord name="when" />
 			<KeyWord name="while" />
-			<keyWord name="yes" />
+			<KeyWord name="yes" />
 			<KeyWord name="yield" />
-			<keyWord name="=>" />
-			<keyWord name="->" />
+			<KeyWord name="=>" />
+			<KeyWord name="->" />
 		</AutoComplete>
 </NotepadPlus>

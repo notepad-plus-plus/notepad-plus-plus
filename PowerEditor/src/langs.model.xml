@@ -205,6 +205,7 @@
             <Keywords name="instre1">false null true</Keywords>
             <Keywords name="instre2">@id @context @type @value @language @container @list @set @reverse @index @base @vocab @graph</Keywords>
         </Language>
+        <Language name="json5" ext="json5 jsonc" commentLine="//" commentStart="/*" commentEnd="*/"/>
         <Language name="jsp" ext="jsp" commentLine="//" commentStart="/*" commentEnd="*/"/>
         <Language name="kix" ext="kix" commentLine=";" commentStart="" commentEnd="">
             <Keywords name="instre1">? and beep big break call cd cls color cookie1 copy debug del dim display do until exit flushkb for each next function endfunction get gets global go gosub goto if else endif md or password play quit rd redim return run select case endselect set setl setm settime shell sleep small use while loop</Keywords>

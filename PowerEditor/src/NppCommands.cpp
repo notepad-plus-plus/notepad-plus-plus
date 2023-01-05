@@ -3390,6 +3390,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_XML :
         case IDM_LANG_JS :
 		case IDM_LANG_JSON :
+		case IDM_LANG_JSON5 :
         case IDM_LANG_PHP :
         case IDM_LANG_ASP :
         case IDM_LANG_CSS :

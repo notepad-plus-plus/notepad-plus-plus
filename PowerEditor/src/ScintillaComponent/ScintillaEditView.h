@@ -657,7 +657,7 @@ protected:
 	void setEmbeddedJSLexer();
     void setEmbeddedPhpLexer();
     void setEmbeddedAspLexer();
-	void setJsonLexer();
+	void setJsonLexer(bool isJson5 = false);
 	void setTypeScriptLexer();
 
 	//Simple lexers

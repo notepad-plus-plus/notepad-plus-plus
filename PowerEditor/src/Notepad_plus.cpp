@@ -3280,7 +3280,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
 		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS || type == L_PERL || 
-		type == L_RUST || type == L_POWERSHELL || type == L_JSON || autoIndentMode == ExternalLexerAutoIndentMode::C_Like)
+		type == L_RUST || type == L_POWERSHELL || type == L_JSON || type == L_JSON5 || autoIndentMode == ExternalLexerAutoIndentMode::C_Like)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))
@@ -3323,7 +3323,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			}
 			// These languages do no support single line control structures without braces.
-			else if (type == L_PERL || type == L_RUST || type == L_POWERSHELL || type == L_JSON)
+			else if (type == L_PERL || type == L_RUST || type == L_POWERSHELL || type == L_JSON || type == L_JSON5)
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			}
@@ -3502,6 +3502,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
 			return L_JAVASCRIPT;
 		case IDM_LANG_JSON:
 			return L_JSON;
+		case IDM_LANG_JSON5:
+			return L_JSON5;
         case IDM_LANG_PHP :
             return L_PHP;
         case IDM_LANG_ASP :

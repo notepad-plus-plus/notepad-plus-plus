@@ -933,6 +933,7 @@ BEGIN
         MENUITEM "Java",                    IDM_LANG_JAVA
         MENUITEM "JavaScript",              IDM_LANG_JS
         MENUITEM "JSON",                    IDM_LANG_JSON
+        MENUITEM "JSON5",                   IDM_LANG_JSON5
         MENUITEM "JSP",                     IDM_LANG_JSP
         MENUITEM "KIXtart",                 IDM_LANG_KIX
         MENUITEM "LISP",                    IDM_LANG_LISP
@@ -1052,6 +1053,7 @@ BEGIN
         MENUITEM "Java",                  IDM_LANG_JAVA
         MENUITEM "JavaScript",            IDM_LANG_JS
         MENUITEM "JSON",                  IDM_LANG_JSON
+        MENUITEM "JSON5",                 IDM_LANG_JSON5
         MENUITEM "JSP",                   IDM_LANG_JSP
     END
     MENUITEM "KIXtart",                   IDM_LANG_KIX

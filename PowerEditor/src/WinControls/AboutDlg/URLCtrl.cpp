@@ -117,6 +117,8 @@ void URLCtrl::create(HWND itemHandle, const TCHAR * link, COLORREF linkColor)
 
 	// save hwnd
 	_hSelf = itemHandle;
+
+	_hCursorPredefined = ::LoadCursor(nullptr, IDC_HAND);
 }
 void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
 {
@@ -137,14 +139,39 @@ void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
 
 	// save hwnd
 	_hSelf = itemHandle;
+
+	_hCursorPredefined = ::LoadCursor(nullptr, IDC_HAND);
 }
 
 void URLCtrl::destroy()
 {
-    	if (_hfUnderlined)
-            ::DeleteObject(_hfUnderlined);
-        if (_hCursor)
-            ::DestroyCursor(_hCursor);
+	if (_hfUnderlined)
+	{
+		::DeleteObject(_hfUnderlined);
+		_hfUnderlined = nullptr;
+	}
+
+	// only nonshared cursor should be destroyed
+	if (_hCursor)
+	{
+		::DestroyCursor(_hCursor);
+		_hCursor = nullptr;
+	}
+}
+
+HCURSOR& URLCtrl::getCursor()
+{
+	if (_hCursorPredefined != nullptr)
+	{
+		return _hCursorPredefined;
+	}
+
+	if (_hCursor == nullptr)
+	{
+		_hCursor = ::CreateCursor(::GetModuleHandle(0), 5, 2, 32, 32, XORMask, ANDMask);
+	}
+
+	return _hCursor;
 }
 
 void URLCtrl::action()
@@ -161,13 +188,13 @@ void URLCtrl::action()
 		::UpdateWindow(_hSelf);
 
 		// Open a browser
-		if (_URL != TEXT(""))
+		if (!_URL.empty())
 		{
 			::ShellExecute(NULL, TEXT("open"), _URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
 		}
 		else
 		{
-			TCHAR szWinText[MAX_PATH];
+			TCHAR szWinText[MAX_PATH] = { '\0' };
 			::GetWindowText(_hSelf, szWinText, MAX_PATH);
 			::ShellExecute(NULL, TEXT("open"), szWinText, NULL, NULL, SW_SHOWNORMAL);
 		}
@@ -195,10 +222,10 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		    if (dwStyle & SS_RIGHT)		 dwDTStyle |= DT_RIGHT;
 		    if (dwStyle & SS_CENTERIMAGE) dwDTStyle |= DT_VCENTER;
 
-	        RECT		rect;
+			RECT rect{};
             ::GetClientRect(hwnd, &rect);
 
-            PAINTSTRUCT ps;
+			PAINTSTRUCT ps{};
             HDC hdc = ::BeginPaint(hwnd, &ps);
 
 			if ((_linkColor == _visitedColor) || (_linkColor == NppDarkMode::getDarkerTextColor()))
@@ -218,10 +245,10 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
             ::SetBkColor(hdc, getCtrlBgColor(GetParent(hwnd))); ///*::GetSysColor(COLOR_3DFACE)*/);
 
 		    // Create an underline font
-		    if (_hfUnderlined == 0)
+		    if (_hfUnderlined == nullptr)
 		    {
 			    // Get the default GUI font
-			    LOGFONT lf;
+				LOGFONT lf{};
                 HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 
 			    // Add UNDERLINE attribute
@@ -235,7 +262,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		    HANDLE hOld = SelectObject(hdc, _hfUnderlined);
 
 		    // Draw the text!
-            TCHAR szWinText[MAX_PATH];
+			TCHAR szWinText[MAX_PATH] = { '\0' };
             ::GetWindowText(hwnd, szWinText, MAX_PATH);
             ::DrawText(hdc, szWinText, -1, &rect, dwDTStyle);
 
@@ -256,10 +283,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	    //case WM_SETCURSOR:
         case WM_MOUSEMOVE:
         {
-            if (_hCursor == 0)
-                _hCursor = ::CreateCursor(::GetModuleHandle(0), 5, 2, 32, 32, XORMask, ANDMask);
-
-            SetCursor(_hCursor);
+            ::SetCursor(getCursor());
             return TRUE;
         }
 

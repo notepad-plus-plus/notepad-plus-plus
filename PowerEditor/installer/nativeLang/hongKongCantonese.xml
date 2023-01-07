@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.7">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.8">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -168,7 +168,7 @@
                     <Item id="42042" name="剔走行前啲空格同埋 tab"/>
                     <Item id="42043" name="剔走呢行頭尾啲空格同埋 tab"/>
                     <Item id="42044" name="EOL → 空格"/>
-                    <Item id="42045" name="剷走冇用嘅空格同埋 EOL"/>
+                    <Item id="42045" name="剷走冇用嘅空格同埋 EOL"/> <!-- #next #review -->
                     <Item id="42046" name="Tab → 空格"/>
                     <Item id="42054" name="空格 → tab（成份檔案）"/>
                     <Item id="42053" name="空格 → tab（淨係行首）"/>
@@ -448,41 +448,77 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                <Item CMID="0" name="閂埋呢個檔案"/>
-                <Item CMID="1" name="除咗呢個檔案，閂晒其它佢"/>
-                <Item CMID="2" name="Save"/>
-                <Item CMID="3" name="Save 做新檔案..."/>
-                <Item CMID="4" name="Print 出嚟..."/>
-                <Item CMID="5" name="搬呢個檔案去另一邊視窗"/>
-                <Item CMID="6" name="抄呢個檔案去另一邊視窗"/>
-                <Item CMID="7" name="抄低個檔案路徑"/>
-                <Item CMID="8" name="抄低個檔名"/>
-                <Item CMID="9" name="抄低個資料夾路徑"/>
-                <Item CMID="10" name="改名..."/>
-                <Item CMID="11" name="掉去垃圾桶"/>
-                <Item CMID="12" name="將檔案 set 做唯讀"/>
-                <Item CMID="13" name="取消唯讀屬性"/>
-                <Item CMID="14" name="搬呢個檔案去新視窗"/>
-                <Item CMID="15" name="抄呢個檔案去新視窗"/>
-                <Item CMID="16" name="喺磁碟重新 load 過"/>
-                <Item CMID="17" name="閂晒左邊所有檔案"/>
-                <Item CMID="18" name="閂晒右邊所有檔案"/>
-                <Item CMID="19" name="喺檔案總管打開檔案嘅資料夾"/>
-                <Item CMID="20" name="喺 CMD 打開檔案嘅資料夾"/>
-                <Item CMID="21" name="喺系統預設程式度打開"/>
-                <Item CMID="22" name="閂晒啲 save 咗兼冇改過嘅檔案"/>
-                <Item CMID="23" name="喺資料夾工作區打開"/> <!-- #new v7.9.1 -->
-                <Item CMID="24" name="加顏色 1"/> <!-- #new v8.4.6 -->
-                <Item CMID="25" name="加顏色 2"/> <!-- #new v8.4.6 -->
-                <Item CMID="26" name="加顏色 3"/> <!-- #new v8.4.6 -->
-                <Item CMID="27" name="加顏色 4"/> <!-- #new v8.4.6 -->
-                <Item CMID="28" name="加顏色 5"/> <!-- #new v8.4.6 -->
-                <Item CMID="29" name="唔用顏色"/> <!-- #new v8.4.6 -->
-                <Item CMID="30" name="閂咁啲 tabs"/> <!-- #new v8.4.6 -->
-                <Item CMID="31" name="去...打開"/> <!-- #new v8.4.6 -->
-                <Item CMID="32" name="抄去剪貼簿"/> <!-- #new v8.4.6 -->
-                <Item CMID="33" name="移動文件"/> <!-- #new v8.4.6 -->
-                <Item CMID="34" name="幫個 tab 加顏色"/> <!-- #new v8.4.6 -->
+                <Item CMID="0" name="閂埋呢個檔案"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="1" name="除咗呢個檔案，閂晒其它佢"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="2" name="Save"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="3" name="Save 做新檔案..."/> <!-- #legacy v8.4.7 -->
+                <Item CMID="4" name="Print 出嚟..."/> <!-- #legacy v8.4.7 -->
+                <Item CMID="5" name="搬呢個檔案去另一邊視窗"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="6" name="抄呢個檔案去另一邊視窗"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="7" name="抄低個檔案路徑"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="8" name="抄低個檔名"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="9" name="抄低個資料夾路徑"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="10" name="改名..."/> <!-- #legacy v8.4.7 -->
+                <Item CMID="11" name="掉去垃圾桶"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="12" name="將檔案 set 做唯讀"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="13" name="取消唯讀屬性"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="14" name="搬呢個檔案去新視窗"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="15" name="抄呢個檔案去新視窗"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="16" name="喺磁碟重新 load 過"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="17" name="閂晒左邊所有檔案"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="18" name="閂晒右邊所有檔案"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="19" name="喺檔案總管打開檔案嘅資料夾"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="20" name="喺 CMD 打開檔案嘅資料夾"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="21" name="喺系統預設程式度打開"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="22" name="閂晒啲 save 咗兼冇改過嘅檔案"/> <!-- #legacy v8.4.7 -->
+                <Item CMID="23" name="喺資料夾工作區打開"/> <!-- #new v7.9.1 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="24" name="加顏色 1"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="25" name="加顏色 2"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="26" name="加顏色 3"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="27" name="加顏色 4"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="28" name="加顏色 5"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="29" name="唔用顏色"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="30" name="閂咁啲 tabs"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="31" name="去...打開"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="32" name="抄去剪貼簿"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="33" name="移動文件"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMID="34" name="幫個 tab 加顏色"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+
+                <Item CMDID="41003" name="閂埋呢個檔案"/> <!-- #new v8.4.8 -->
+                <Item CMDID="0" name="閂咁啲 tabs"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41005" name="除咗呢個檔案，閂晒其它佢"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41009" name="閂晒左邊所有檔案"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41018" name="閂晒右邊所有檔案"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41024" name="閂晒啲 save 咗兼冇改過嘅檔案"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41006" name="Save"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41008" name="Save 做新檔案..."/> <!-- #new v8.4.8 -->
+                <Item CMDID="1" name="去...打開"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41019" name="喺檔案總管打開檔案嘅資料夾"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41020" name="喺 CMD 打開檔案嘅資料夾"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41025" name="喺資料夾工作區打開檔案嘅資料夾"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41023" name="喺系統預設程式度打開"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41017" name="改名..."/> <!-- #new v8.4.8 -->
+                <Item CMDID="41016" name="掉去垃圾桶"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41014" name="喺磁碟重新 load 過"/> <!-- #new v8.4.8 -->
+                <Item CMDID="41010" name="Print 出嚟..."/> <!-- #new v8.4.8 -->
+                <Item CMDID="42028" name="唯讀"/> <!-- #new v8.4.8 -->
+                <Item CMDID="42033" name="取消唯讀屬性"/> <!-- #new v8.4.8 -->
+                <Item CMDID="2" name="抄去剪貼簿"/> <!-- #new v8.4.8 -->
+                <Item CMDID="42029" name="抄低個檔案路徑"/> <!-- #new v8.4.8 -->
+                <Item CMDID="42030" name="抄低個檔名"/> <!-- #new v8.4.8 -->
+                <Item CMDID="42031" name="抄低個資料夾路徑"/> <!-- #new v8.4.8 -->
+                <Item CMDID="3" name="移動文件"/> <!-- #new v8.4.8 -->
+                <Item CMDID="10001" name="搬呢個檔案去另一邊視窗"/> <!-- #new v8.4.8 -->
+                <Item CMDID="10002" name="抄呢個檔案去另一邊視窗"/> <!-- #new v8.4.8 -->
+                <Item CMDID="10003" name="搬呢個檔案去新視窗"/> <!-- #new v8.4.8 -->
+                <Item CMDID="10004" name="抄呢個檔案去新視窗"/> <!-- #new v8.4.8 -->
+                <Item CMDID="4" name="幫個 tab 加顏色"/> <!-- #new v8.4.8 -->
+                <Item CMDID="44111" name="加顏色 1"/> <!-- #new v8.4.8 -->
+                <Item CMDID="44112" name="加顏色 2"/> <!-- #new v8.4.8 -->
+                <Item CMDID="44113" name="加顏色 3"/> <!-- #new v8.4.8 -->
+                <Item CMDID="44114" name="加顏色 4"/> <!-- #new v8.4.8 -->
+                <Item CMDID="44115" name="加顏色 5"/> <!-- #new v8.4.8 -->
+                <Item CMDID="44110" name="唔用顏色"/> <!-- #new v8.4.8 -->
             </TabBar>
         </Menu>
 
@@ -997,9 +1033,9 @@
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
                     <Item id="7101" name="啟用 dark mode"/> <!-- #legacy v8.4.7 -->
-                    <Item id="7131" name="Light mode"/> <!-- #new #next -->
-                    <Item id="7132" name="Dark mode"/> <!-- #new #next -->
-                    <Item id="7133" name="跟返 Windows"/> <!-- #new #next -->
+                    <Item id="7131" name="Light mode"/> <!-- #new v8.4.8 -->
+                    <Item id="7132" name="Dark mode"/> <!-- #new v8.4.8 -->
+                    <Item id="7133" name="跟返 Windows"/> <!-- #new v8.4.8 -->
                     <Item id="7102" name="黑色"/> <!-- #new v8.1.2 -->
                     <Item id="7103" name="紅色"/> <!-- #new v8.1.2 -->
                     <Item id="7104" name="綠色"/> <!-- #new v8.1.2 -->
@@ -1209,7 +1245,7 @@
                 </AutoCompletion>
 
                 <MultiInstance title="程式個體／插入時間">
-                    <Item id="6151" name="多重程式個體設定 (multi-instance)"/>
+                    <Item id="6151" name="多重程式個體設定 (multi-instance) *"/>
                     <Item id="6152" name="打開工作階段嗰陣時，開新嘅程式個體（閂佢會自動 save）"/>
                     <Item id="6153" name="幾時都以多重程式個體模式運作"/>
                     <Item id="6154" name="預設（單一程式個體）"/>
@@ -1217,6 +1253,16 @@
                     <Item id="6171" name="自訂日期時間插入功能"/> <!-- #new v8.1.5 -->
                     <Item id="6175" name="將日期同埋時間調轉（插入完整/簡短日期時間功能）"/> <!-- #new v8.1.5 -->
                     <Item id="6172" name="自訂格式："/> <!-- #new v8.1.5 -->
+                    <Item id="6181" name="Panel 狀態同埋 [-nosession] *"/> <!-- #new #next -->
+                    <Item id="6182" name="用緊多重程式個體嗰陣，又或者用咗 command line 參數「-nosession」，記住呢啲 panel 狀態"/> <!-- #new #next -->
+                    <Item id="6183" name="剪貼簿記錄"/> <!-- #new #next -->
+                    <Item id="6184" name="文件清單"/> <!-- #new #next -->
+                    <Item id="6185" name="ASCII 字元表"/> <!-- #new #next -->
+                    <Item id="6186" name="資料夾工作區"/> <!-- #new #next -->
+                    <Item id="6187" name="Project Panels"/> <!-- #new #next -->
+                    <Item id="6188" name="文件地圖"/> <!-- #new #next -->
+                    <Item id="6189" name="函式清單"/> <!-- #new #next -->
+                    <Item id="6190" name="外掛 Panels"/> <!-- #new #next -->
                 </MultiInstance>
 
                 <Delimiter title="分隔符號">
@@ -1455,6 +1501,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 係咪繼續？"/>
             <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至可以 load 啲外掛。"/>
             <ChangeHistoryEnabledWarning title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至會顯示修改紀錄。"/> <!-- #new v8.4.6 -->
+            <WindowsSessionExit title="Notepad++ - Windows 工作階段結束" message="Windows 工作階段即將結束，但係你有啲資料未 save，係咪真係就咁閂埋 Notepad++ 佢？"/> <!-- #new v8.4.8 -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
@@ -1640,7 +1687,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <splitter-rotate-left value="向左旋轉"/> <!-- #new v7.9.4 -->
             <splitter-rotate-right value="向右旋轉"/> <!-- #new v7.9.4 -->
             <recent-file-history-maxfile value="檔案數量："/>
-            <recent-file-history-customlength value="長度："/> <!-- #new #next -->
+            <recent-file-history-customlength value="長度："/> <!-- #new v8.4.8 -->
             <language-tabsize value="縮排大細："/>
             <userdefined-title-new value="開新語言..."/>
             <userdefined-title-save value="另 Save 而家個語言名..."/>

@@ -26,6 +26,7 @@ public:
 	void create(HWND itemHandle, int cmd, HWND msgDest = NULL);
     void destroy();
 private:
+	HCURSOR& loadHandCursor();
 	void action();
 protected :
     generic_string _URL;
@@ -36,7 +37,7 @@ protected :
 	unsigned long _cmdID = 0;
 
     WNDPROC  _oldproc = nullptr;
-    COLORREF _linkColor = RGB(0xFF, 0xFF, 0xFF);			
+    COLORREF _linkColor = RGB(0xFF, 0xFF, 0xFF);
     COLORREF _visitedColor = RGB(0xFF, 0xFF, 0xFF);
     bool  _clicking = false;
 

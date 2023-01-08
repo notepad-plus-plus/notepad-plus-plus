@@ -1147,7 +1147,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 		auto curDoc = pTab->getCurrentTabIndex();
 		size_t nMaxDoc = static_cast<size_t>(limitId) - firstId + 1;
 		size_t nDoc = pTab->nbItem();
-		nDoc = min(nDoc, nMaxDoc);
+		nDoc = std::min<size_t>(nDoc, nMaxDoc);
 		UINT id = firstId;
 		UINT guard = firstId + static_cast<int32_t>(nDoc);
 		size_t pos = 0;

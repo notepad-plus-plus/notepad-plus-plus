@@ -143,8 +143,8 @@ CWinMgr::CalcGroup(WINRECT* pGroup, HWND hWnd)
 	RECT rcTotal = pGroup->GetRect();
 	int w,h;
 	if (pGroup->GetMargins(w,h)) {
-		w = min(abs(w), RectWidth(rcTotal)/2);
-		h = min(abs(h), RectHeight(rcTotal)/2);
+		w = std::min<int>(abs(w), RectWidth(rcTotal)/2);
+		h = std::min<int>(abs(h), RectHeight(rcTotal)/2);
 		::InflateRect(&rcTotal, -w, -h);
 	}
 
@@ -161,7 +161,7 @@ CWinMgr::CalcGroup(WINRECT* pGroup, HWND hWnd)
 		SIZEINFO szi;
 		OnGetSizeInfo(szi, wrc, hWnd);
 		int hwMin = bRow ? szi.szMin.cy : szi.szMin.cx;
-		hwMin = min(hwMin, hwRemaining);		// truncate
+		hwMin = std::min<int>(hwMin, hwRemaining);		// truncate
 		wrc->SetHeightOrWidth(hwMin, bRow);	// set
 		hwRemaining -= hwMin;					// decrement remaining height/width
 		assert(hwRemaining>=0);
@@ -223,7 +223,7 @@ CWinMgr::AdjustSize(WINRECT* wrc, BOOL bRow,
 	//
 	int hwCurrent = wrc->GetHeightOrWidth(bRow); // current size
 	int hwExtra = hw - hwCurrent;						// amount extra
-	hwExtra = min(max(hwExtra, 0), hwRemaining);	// truncate
+	hwExtra = std::min<int>(std::max<int>(hwExtra, 0), hwRemaining);	// truncate
 	hw = hwCurrent + hwExtra;							// new height-or-width
 	wrc->SetHeightOrWidth(hw, bRow);				// set...
 	hwRemaining -= hwExtra;								// and adjust remaining
@@ -287,20 +287,20 @@ CWinMgr::OnGetSizeInfo(SIZEINFO& szi, WINRECT* wrc, HWND hWnd)
 			SIZEINFO szi2;
 			OnGetSizeInfo(szi2, wrc2, hWnd);
 			if (bRow) {
-				szi.szMin.cx = max(szi.szMin.cx, szi2.szMin.cx);
+				szi.szMin.cx = std::max<LONG>(szi.szMin.cx, szi2.szMin.cx);
 				szi.szMin.cy += szi2.szMin.cy;
-				szi.szMax.cx = min(szi.szMax.cx, szi2.szMax.cx);
-				szi.szMax.cy = min(szi.szMax.cy + szi2.szMax.cy, SHRT_MAX);
-				szi.szDesired.cx = max(szi.szDesired.cx, szi2.szDesired.cx);
+				szi.szMax.cx = std::min<LONG>(szi.szMax.cx, szi2.szMax.cx);
+				szi.szMax.cy = std::min<LONG>(szi.szMax.cy + szi2.szMax.cy, SHRT_MAX);
+				szi.szDesired.cx = std::max<LONG>(szi.szDesired.cx, szi2.szDesired.cx);
 				szi.szDesired.cy += szi2.szDesired.cy;
 
 			} else {
 				szi.szMin.cx += szi2.szMin.cx;
-				szi.szMin.cy = max(szi.szMin.cy, szi2.szMin.cy);
-				szi.szMax.cx = min(szi.szMax.cx + szi2.szMax.cx, SHRT_MAX);
-				szi.szMax.cy = min(szi.szMax.cy, szi2.szMax.cy);
+				szi.szMin.cy = std::max<LONG>(szi.szMin.cy, szi2.szMin.cy);
+				szi.szMax.cx = std::min<LONG>(szi.szMax.cx + szi2.szMax.cx, SHRT_MAX);
+				szi.szMax.cy = std::min<LONG>(szi.szMax.cy, szi2.szMax.cy);
 				szi.szDesired.cx += szi2.szDesired.cx;
-				szi.szDesired.cy = max(szi.szDesired.cy, szi2.szDesired.cy);
+				szi.szDesired.cy = std::max<LONG>(szi.szDesired.cy, szi2.szDesired.cy);
 			}
 		}
 
@@ -308,8 +308,8 @@ CWinMgr::OnGetSizeInfo(SIZEINFO& szi, WINRECT* wrc, HWND hWnd)
 		int w2,h2;
 		wrc->GetMargins(w2,h2);			// get margins
 		w2<<=1; h2<<=1;					// double
-		szi.szMin.cx += max(0,w2);		// negative margins ==> don't include in min
-		szi.szMin.cy += max(0,h2);		// ditto
+		szi.szMin.cx += std::max<LONG>(0,w2);		// negative margins ==> don't include in min
+		szi.szMin.cy += std::max<LONG>(0,h2);		// ditto
 		szi.szDesired.cx += abs(w2);	// for desired size, use abs vallue
 		szi.szDesired.cy += abs(h2);	// ditto
 

@@ -1396,7 +1396,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	// Is there a \r or \n in the buffer? If so, truncate it
 	auto cr = buf2Test.find("\r");
 	auto nl = buf2Test.find("\n");
-	auto crnl = min(cr, nl);
+	auto crnl = std::min<size_t>(cr, nl);
 	if (crnl != std::string::npos && crnl < longestLength)
 		buf2Test = std::string((const char *)data + i, crnl);
 
@@ -1461,7 +1461,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		return false;
 
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
-	int64_t bufferSizeRequested = fileSize +min(1 << 20, fileSize / 6);
+	int64_t bufferSizeRequested = fileSize + std::min<int64_t>(1LL << 20, fileSize / 6);
 	
 	NppParameters& nppParam = NppParameters::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();

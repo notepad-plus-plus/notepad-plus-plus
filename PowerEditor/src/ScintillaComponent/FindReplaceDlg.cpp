@@ -455,7 +455,7 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string
 	TCHAR text[FINDREPLACE_MAXLENGTH] = { '\0' };
 	HWND hCombo = ::GetDlgItem(_hSelf, id);
 	int count = static_cast<int32_t>(::SendMessage(hCombo, CB_GETCOUNT, 0, 0));
-	count = min(count, maxcount);
+	count = std::min<int>(count, maxcount);
 
 	if (count == CB_ERR) return 0;
 

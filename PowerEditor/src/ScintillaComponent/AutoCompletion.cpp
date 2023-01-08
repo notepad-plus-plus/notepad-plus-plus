@@ -551,9 +551,9 @@ void AutoCompletion::showPathCompletion()
 	generic_string currentLine;
 	{
 		const intptr_t bufSize = MAX_PATH;
-		TCHAR buf[bufSize + 1];
+		TCHAR buf[bufSize + 1] = { '\0' };
 		const intptr_t currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
-		const auto startPos = max(0, currentPos - bufSize);
+		const auto startPos = std::max<intptr_t>(0, currentPos - bufSize);
 		_pEditView->getGenericText(buf, bufSize + 1, startPos, currentPos);
 		currentLine = buf;
 	}

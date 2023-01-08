@@ -13,6 +13,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <assert.h>
 #include <windows.h>
 
@@ -57,11 +58,11 @@ inline RECT &OffsetRect(RECT& rc, POINT pt) {
 
 // handy functions to take the min or max of a SIZE
 inline SIZE minsize(SIZE a, SIZE b) {
-	return GetSize(min(a.cx, b.cx), min(a.cy, b.cy));
+	return GetSize(std::min<LONG>(a.cx, b.cx), std::min<LONG>(a.cy, b.cy));
 }
 
 inline SIZE maxsize(SIZE a, SIZE b) {
-	return GetSize(max(a.cx, b.cx), max(a.cy, b.cy));
+	return GetSize(std::max<LONG>(a.cx, b.cx), std::max<LONG>(a.cy, b.cy));
 }
 
 //////////////////

@@ -567,7 +567,7 @@ namespace NppDarkMode
 		WORD l = 0;
 		ColorRGBToHLS(c, &h, &l, &s);
 
-		l = min(240 - l, 211);
+		l = std::min<WORD>(240U - l, 211U);
 
 		COLORREF invert_c = ColorHLSToRGB(h, l, s);
 
@@ -3066,8 +3066,8 @@ namespace NppDarkMode
 
 			if (saturated)
 			{
-				result._lightness = 146;
-				result._saturation = min(240, result._saturation + 100);
+				result._lightness = 146U;
+				result._saturation = std::min<WORD>(240U, result._saturation + 100U);
 			}
 		}
 		else
@@ -3076,8 +3076,8 @@ namespace NppDarkMode
 
 			if (saturated)
 			{
-				result._lightness = 140;
-				result._saturation = min(240, result._saturation + 30);
+				result._lightness = 140U;
+				result._saturation = std::min<WORD>(240U, result._saturation + 30U);
 			}
 		}
 

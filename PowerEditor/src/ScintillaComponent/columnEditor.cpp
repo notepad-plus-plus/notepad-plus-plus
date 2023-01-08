@@ -289,7 +289,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							int endNumber = *numbers.rbegin();
 							int nbEnd = getNbDigits(endNumber, base);
 							int nbInit = getNbDigits(initialNumber, base);
-							int nb = max(nbInit, nbEnd);
+							int nb = std::max<int>(nbInit, nbEnd);
 
 
 							for (size_t i = cursorLine ; i <= size_t(endLine) ; ++i)

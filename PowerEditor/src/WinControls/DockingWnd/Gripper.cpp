@@ -561,10 +561,10 @@ void Gripper::drawRectangle(const POINT* pPt)
 			if (rcOld.left==rcNew.left && rcOld.right==rcNew.right && rcOld.top== rcNew.top && rcOld.bottom==rcNew.bottom)
 				return;
 
-			rc.left   = min(rcOld.left, rcNew.left);
-			rc.top    = min(rcOld.top,  rcNew.top);
-			rc.right  = max(rcOld.left + rcOld.right,  rcNew.left + rcNew.right);
-			rc.bottom = max(rcOld.top  + rcOld.bottom, rcNew.top  + rcNew.bottom);
+			rc.left   = std::min<LONG>(rcOld.left, rcNew.left);
+			rc.top    = std::min<LONG>(rcOld.top,  rcNew.top);
+			rc.right  = std::max<LONG>(rcOld.left + rcOld.right,  rcNew.left + rcNew.right);
+			rc.bottom = std::max<LONG>(rcOld.top  + rcOld.bottom, rcNew.top  + rcNew.bottom);
 			rc.right -= rc.left;
 			rc.bottom-= rc.top;
 		}

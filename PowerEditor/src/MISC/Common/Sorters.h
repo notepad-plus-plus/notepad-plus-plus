@@ -182,7 +182,7 @@ public:
 				{
 					if (aNumIndex >= a.length() || bNumIndex >= b.length())
 					{
-						compareResult = a.compare(min(aNumIndex, a.length()), generic_string::npos, b, min(bNumIndex, b.length()), generic_string::npos);
+						compareResult = a.compare(std::min<size_t>(aNumIndex, a.length()), generic_string::npos, b, std::min<size_t>(bNumIndex, b.length()), generic_string::npos);
 						break;
 					}
 
@@ -349,7 +349,7 @@ public:
 				{
 					if (aNumIndex >= a.length() || bNumIndex >= b.length())
 					{
-						compareResult = a.compare(min(aNumIndex, a.length()), generic_string::npos, b, min(bNumIndex, b.length()), generic_string::npos);
+						compareResult = a.compare(std::min<size_t>(aNumIndex, a.length()), generic_string::npos, b, std::min<size_t>(bNumIndex, b.length()), generic_string::npos);
 						break;
 					}
 

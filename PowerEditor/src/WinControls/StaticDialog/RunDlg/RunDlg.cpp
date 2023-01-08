@@ -31,7 +31,7 @@ void Command::extractArgs(TCHAR* cmd2Exec, size_t cmd2ExecLen, TCHAR* args, size
 
 	size_t cmdEntierLen = lstrlen(cmdEntier);
 
-	size_t shortest = min(cmd2ExecLen, argsLen);
+	size_t shortest = std::min<size_t>(cmd2ExecLen, argsLen);
 
 	if (cmdEntierLen > shortest)
 		cmdEntierLen = shortest - 1;

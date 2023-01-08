@@ -35,7 +35,7 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	// Get the range of text visible and highlight everything in it
 	intptr_t firstLine = pHighlightView->execute(SCI_GETFIRSTVISIBLELINE);
 	intptr_t nbLineOnScreen = pHighlightView->execute(SCI_LINESONSCREEN);
-	intptr_t nbLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
+	intptr_t nbLines = std::min<intptr_t>(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
 	intptr_t lastLine = firstLine + nbLines;
 	size_t startPos = 0;
 	intptr_t endPos = 0;

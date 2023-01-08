@@ -107,10 +107,10 @@ size_t Printer::doPrint(bool justDoIt)
 		userMargins.right  = MulDiv(nppGUI._printSettings._marge.right*100, ptDpi.x, 2540);
 		userMargins.bottom  = MulDiv(nppGUI._printSettings._marge.bottom*100, ptDpi.y, 2540);
 	
-		rectMargins.left	= max(rectPhysMargins.left, userMargins.left);
-		rectMargins.top		= max(rectPhysMargins.top, userMargins.top);
-		rectMargins.right	= max(rectPhysMargins.right, userMargins.right);
-		rectMargins.bottom	= max(rectPhysMargins.bottom, userMargins.bottom);
+		rectMargins.left	= std::max<LONG>(rectPhysMargins.left, userMargins.left);
+		rectMargins.top		= std::max<LONG>(rectPhysMargins.top, userMargins.top);
+		rectMargins.right	= std::max<LONG>(rectPhysMargins.right, userMargins.right);
+		rectMargins.bottom	= std::max<LONG>(rectPhysMargins.bottom, userMargins.bottom);
 	}
 	else
 	{

@@ -159,10 +159,20 @@ ParamVector convertParamsToNotepadStyle(PWSTR pCmdLine)
 	}
 
 	// Now form a file name from the remaining commandline (if any is left)
-	if ( *pCmdLine != '\0' )
+	if ( *pCmdLine != L'\0' )
 	{
+		// strip possible surrounding quotes
+		size_t len = wcslen(pCmdLine);
+		if (len > 0)
+		{
+			if (pCmdLine[0] == L'\"')
+				++pCmdLine;
+			if (pCmdLine[len - 1] == L'\"')
+				pCmdLine[len - 1] = L'\0';
+		}
+
 		generic_string str(pCmdLine);
-		if ( *PathFindExtension(str.c_str()) == '\0' )
+		if ( *PathFindExtension(str.c_str()) == L'\0' )
 		{
 			str.append(TEXT(".txt")); // If joined path has no extension, Notepad adds a .txt extension
 		}
@@ -572,7 +582,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 			quotFileName += TEXT("\"");
 			quotFileName += relativeFilePathToFullFilePath(currentFile);
-			quotFileName += TEXT("\" ");
+			if ((i + 1) < nbFilesToOpen)
+				quotFileName += TEXT("\" "); // use 'space'-char delimiter
+			else
+				quotFileName += TEXT("\""); // last item
 		}
 	}
 

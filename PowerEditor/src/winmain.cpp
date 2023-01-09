@@ -165,10 +165,10 @@ ParamVector convertParamsToNotepadStyle(PWSTR pCmdLine)
 		size_t len = wcslen(pCmdLine);
 		if (len > 0)
 		{
-			if (pCmdLine[0] == L'\"')
-				++pCmdLine;
 			if (pCmdLine[len - 1] == L'\"')
 				pCmdLine[len - 1] = L'\0';
+			if (pCmdLine[0] == L'\"')
+				++pCmdLine;
 		}
 
 		generic_string str(pCmdLine);

@@ -154,11 +154,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42022" name="Alternar comentário de linha"/>
                     <Item id="42023" name="Bloquear comentário"/>
                     <Item id="42047" name="Bloquear descomentar"/>
-                    <Item id="42024" name="Remover o espaço do fim da linha"/>
-                    <Item id="42042" name="Remover espaço no início da linha"/>
-                    <Item id="42043" name="Remover o espaço no início e no fim da linha"/>
-                    <Item id="42044" name="Fim da linha do espaço"/>
-                    <Item id="42045" name="Remover o espaço em branco e do fim da linha"/>
+                    <Item id="42024" name="Remover espaços em branco no fim da linha"/>
+                    <Item id="42042" name="Remover espaços em branco no início da linha"/>
+                    <Item id="42043" name="Remover espaços em branco no início e no fim da linha"/>
+                    <Item id="42044" name="Transformar os fins de linha em espaços"/>
+                    <Item id="42045" name="Remover espaços em branco e fins de linha para espaços"/>
                     <Item id="42046" name="TAB para Espaço"/>
                     <Item id="42054" name="Espaço para TAB (Tudo)"/>
                     <Item id="42053" name="Espaço para TAB (Leading)"/>
@@ -1137,7 +1137,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 </AutoCompletion>
 
                 <MultiInstance title="Multi-instância e Data">
-                    <Item id="6151" name="Definições de multi-instância"/>
+                    <Item id="6151" name="Definições de multi-instância *"/>
                     <Item id="6152" name="Abrir sessão numa nova instância (e guardar sessão automaticamente ao sair)"/>
                     <Item id="6153" name="Sempre no modo de multi-instância"/>
                     <Item id="6154" name="Predefinição (mono-instância)"/>
@@ -1145,6 +1145,16 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6171" name="Personalizar inserção de Data e Hora"/>
                     <Item id="6175" name="Inverter ordem predefenida de data e hora (formatos curto e longo)"/>
                     <Item id="6172" name="Formato personalizado:"/>
+                    <Item id="6181" name="Estado do painel e [-nosession] *"/>
+                    <Item id="6182" name="Lembrar o estado do painel (o painel está aberto) noutras instâncias (modo multi-instância) ou quando se usa o parâmetro de linha de comandos [-nosession]"/>
+                    <Item id="6183" name="Histórico da Área de transferência"/>
+                    <Item id="6184" name="Lista de documentos"/>
+                    <Item id="6185" name="Painel de caracteres"/>
+                    <Item id="6186" name="Pasta como área de trabalho"/>
+                    <Item id="6187" name="Painéis de Projeto"/>
+                    <Item id="6188" name="Mapa de documentos"/>
+                    <Item id="6189" name="Lista de funções"/>
+                    <Item id="6190" name="Painéis de Plugins"/>
                 </MultiInstance>
 
                 <Delimiter title="Delimitador">
@@ -1406,7 +1416,7 @@ Continuar?"/>
             <ColumnHtmlName name="Código HTML"/>
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name="Mapa documento"/>
+            <PanelTitle name="Mapa de documentos"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Lista da função"/>
@@ -1631,16 +1641,18 @@ David Cunha <ling.fude@gmail.com>
 10/09/2012
 
 Luis Neves <luis.a.neves@sapo.pt>
-27/09/2013 (versão 6.4.5)
+27/09/2013
 
 Manuela Silva <manuela.silva@sky.com>
-20/09/2014 (versão 6.6.9)
+20/09/2014
 
 João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-15/12/2022 (versão 8.0, 8.1, 8.2, 8.3, 8.4)
+07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4)
+
+Last change: 10/01/2023 (Hugo Carvalho)
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

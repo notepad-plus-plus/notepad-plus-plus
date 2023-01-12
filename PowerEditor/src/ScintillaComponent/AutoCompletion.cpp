@@ -278,7 +278,7 @@ void sortInsensitive(vector<generic_string> &wordArray)
 			return lexicographical_compare(
 				a.begin(), a.end(),
 				b.begin(), b.end(),
-				[](const char &ch1, const char &ch2)
+				[](const wchar_t &ch1, const wchar_t &ch2)
 				{
 					return toupper(ch1) < toupper(ch2);
 				}

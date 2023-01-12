@@ -268,6 +268,25 @@ static bool isAllDigits(const generic_string &str)
 	return true;
 }
 
+void sortInsensitive(vector<generic_string> &wordArray)
+{
+	sort(
+		wordArray.begin(),
+		wordArray.end(),
+		[](const generic_string &a, const generic_string &b)
+		{
+			return lexicographical_compare(
+				a.begin(), a.end(),
+				b.begin(), b.end(),
+				[](const char &ch1, const char &ch2)
+				{
+					return toupper(ch1) < toupper(ch2);
+				}
+			);
+		}
+	);
+}
+
 
 bool AutoCompletion::showApiComplete()
 {
@@ -378,10 +397,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	// Sort word array and convert it to a single string with space-separated words
 
 	if (_ignoreCase)
-		sort(wordArray.begin(), wordArray.end(), [](const generic_string &a, const generic_string &b)
-		{
-			return (generic_stricmp(a.c_str(), b.c_str()) < 0);
-		});
+		sortInsensitive(wordArray);
 	else
 		sort(wordArray.begin(), wordArray.end());
 
@@ -668,10 +684,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	// Sort word array and convert it to a single string with space-separated words
 
 	if (_ignoreCase)
-		sort(wordArray.begin(), wordArray.end(), [](const generic_string &a, const generic_string &b)
-		{
-			return (generic_stricmp(a.c_str(), b.c_str()) < 0);
-		});
+		sortInsensitive(wordArray);
 	else
 		sort(wordArray.begin(), wordArray.end());
 
@@ -1210,10 +1223,7 @@ bool AutoCompletion::setLanguage(LangType language)
 		}
 
 		if (_ignoreCase)
-			sort(_keyWordArray.begin(), _keyWordArray.end(), [](const generic_string &a, const generic_string &b)
-			{
-				return (generic_stricmp(a.c_str(), b.c_str()) < 0);
-			});
+			sortInsensitive(_keyWordArray);
 		else
 			sort(_keyWordArray.begin(), _keyWordArray.end());
 

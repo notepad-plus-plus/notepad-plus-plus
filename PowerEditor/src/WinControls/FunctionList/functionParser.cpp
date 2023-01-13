@@ -735,7 +735,7 @@ void FunctionMixParser::parse(std::vector<foundInfo> & foundInfos, size_t begin,
 	{
 		for (size_t i = 0, len = nonScannedZones.size(); i < len; ++i)
 		{
-			_funcUnitPaser->funcParse(foundInfos, nonScannedZones[i].first, nonScannedZones[i].second, ppEditView, classStructName);
+			_funcUnitPaser->funcParse(foundInfos, nonScannedZones[i].first, nonScannedZones[i].second, ppEditView, classStructName, &commentZones);
 		}
 	}
 }

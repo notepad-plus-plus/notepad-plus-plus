@@ -359,8 +359,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="48506" name="从选区生成并复制到剪贴板"/>
                     <Item id="49000" name="运行(&amp;R)..."/>
 
-                    <Item id="50000" name="函数自动完成"/>
-                    <Item id="50001" name="单词自动完成"/>
+                    <Item id="50000" name="函数补全"/>
+                    <Item id="50001" name="单词补全"/>
                     <Item id="50002" name="函数参数提示"/>
                     <Item id="50010" name="函数参数上一个提示"/>
                     <Item id="50011" name="函数参数下一个提示"/>

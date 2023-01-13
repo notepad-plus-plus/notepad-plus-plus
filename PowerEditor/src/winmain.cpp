@@ -143,32 +143,15 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 // 1. Converts /p to -quickPrint if it exists as the first parameter
 // 2. Concatenates all remaining parameters to form a file path, adding appending .txt extension if necessary
 // This seems to mirror Notepad's behaviour
-ParamVector convertParamsToNotepadStyle(PWSTR pCmdLine)
+void convertParamsToNotepadStyle(ParamVector& params)
 {
-	ParamVector params;
-	if ( _tcsnicmp(TEXT("/p"), pCmdLine, 2) == 0 ) // Notepad accepts both /p and /P, so compare case insensitively
+	for (auto it = params.begin(); it != params.end(); )
 	{
-		params.emplace_back(TEXT("-quickPrint"));
-		pCmdLine += 2; // Length of "/p"
-	}
-
-	// Advance to the first non-whitespace character
-	while ( iswspace( *pCmdLine ) )
-	{
-		++pCmdLine;
-	}
-
-	// Now form a file name from the remaining commandline (if any is left)
-	if ( *pCmdLine != '\0' )
-	{
-		generic_string str(pCmdLine);
-		if ( *PathFindExtension(str.c_str()) == '\0' )
+		if (lstrcmp(it->c_str(), TEXT("/p")) == 0 || lstrcmp(it->c_str(), TEXT("/P")) == 0)
 		{
-			str.append(TEXT(".txt")); // If joined path has no extension, Notepad adds a .txt extension
+			it->assign(TEXT("-quickPrint"));
 		}
-		params.push_back(std::move(str));
 	}
-	return params;
 }
 
 bool isInList(const TCHAR *token2Find, ParamVector& params, bool eraseArg = true)
@@ -336,70 +319,23 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 		::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."), TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
 }
 
-PWSTR advanceCmdLine(PWSTR pCmdLine, const generic_string& string)
-{
-	const size_t len = string.length();
-	while (true)
-	{
-		PWSTR ignoredString = wcsstr(pCmdLine, string.c_str());
-		if (ignoredString == nullptr)
-		{
-			// Should never happen - tokenized parameters contain string somewhere, so it HAS to match
-			// This is there just in case
-			break;
-		}
-	
-		// Match the substring only if it matched an entire substring		
-		if ((ignoredString == pCmdLine || iswspace(*(ignoredString - 1))) && // Check start
-			(iswspace(*(ignoredString + len)) || *(ignoredString + len) == '\0' || *(ignoredString + len) == '"'))
-		{
-			ignoredString += len;
-
-			// Advance to the first non-whitespace and not quotation mark character
-			while ( iswspace( *ignoredString ) || *ignoredString == L'"' )
-			{
-				++ignoredString;
-			}
-			pCmdLine = ignoredString;
-			break;
-		}
-		else
-		{
-			pCmdLine = ignoredString+len; // Just skip this match and resume from another
-		}
-	}
-	return pCmdLine;
-}
-
 // Looks for -z arguments and strips command line arguments following those, if any
 // Also advances pCmdLine to point after the last ignored parameter
 // -notepadStyleCmdline is also considered an ignored parameter here, as we don't want it to be part of the assembled file name
-PWSTR stripIgnoredParams(ParamVector & params, PWSTR pCmdLine)
+void stripIgnoredParams(ParamVector & params)
 {
 	for ( auto it = params.begin(); it != params.end(); )
 	{
 		if (lstrcmp(it->c_str(), TEXT("-z")) == 0)
 		{
-			pCmdLine = advanceCmdLine(pCmdLine, *it);
-
 			auto nextIt = std::next(it);
 			if ( nextIt != params.end() )
 			{
-				pCmdLine = advanceCmdLine(pCmdLine, *nextIt);
 				params.erase(nextIt);
 			}
 			it = params.erase(it);
 		}
-		else if (lstrcmp(it->c_str(), FLAG_NOTEPAD_COMPATIBILITY) == 0)
-		{
-			pCmdLine = advanceCmdLine(pCmdLine, *it++);
-		}
-		else
-		{
-			++it;
-		}
 	}
-	return pCmdLine;
 }
 
 } // namespace
@@ -423,10 +359,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 
 	// Convert commandline to notepad-compatible format, if applicable
 	// For treating "-notepadStyleCmdline" "/P" and "-z"
+	stripIgnoredParams(params);
 	if ( isInList(FLAG_NOTEPAD_COMPATIBILITY, params) )
 	{
-		PWSTR pCmdLineWithoutIgnores = stripIgnoredParams(params, pCmdLine);
-		params = convertParamsToNotepadStyle(pCmdLineWithoutIgnores);
+		convertParamsToNotepadStyle(params);
 	}
 
 	bool isParamePresent;

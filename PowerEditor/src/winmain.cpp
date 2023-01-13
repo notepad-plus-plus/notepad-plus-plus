@@ -409,22 +409,23 @@ PWSTR stripIgnoredParams(ParamVector & params, PWSTR pCmdLine)
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 {
-	generic_string cmdLineString = pCmdLine ? pCmdLine : _T("");
-	ParamVector params;
-	parseCommandLine(pCmdLine, params);
-	PWSTR pCmdLineWithoutIgnores = stripIgnoredParams(params, pCmdLine);
-
-	MiniDumper mdump;	//for debugging purposes.
-
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);
 	::CreateMutex(NULL, false, TEXT("nppInstance"));
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
 
+
+	generic_string cmdLineString = pCmdLine ? pCmdLine : _T("");
+	ParamVector params;
+	parseCommandLine(pCmdLine, params);
+
+
 	// Convert commandline to notepad-compatible format, if applicable
+	// For treating "-notepadStyleCmdline" "/P" and "-z"
 	if ( isInList(FLAG_NOTEPAD_COMPATIBILITY, params) )
 	{
+		PWSTR pCmdLineWithoutIgnores = stripIgnoredParams(params, pCmdLine);
 		params = convertParamsToNotepadStyle(pCmdLineWithoutIgnores);
 	}
 
@@ -723,6 +724,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	MSG msg;
 	msg.wParam = 0;
 	Win32Exception::installHandler();
+	MiniDumper mdump;	//for debugging purposes.
 	try
 	{
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);

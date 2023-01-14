@@ -140,8 +140,7 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 	delete[] cmdLine;
 }
 
-// 1. Converts /p to -quickPrint if it exists as the first parameter
-// 2. Concatenates all remaining parameters to form a file path, adding appending .txt extension if necessary
+// Converts /p or /P to -quickPrint if it exists as the first parameter
 // This seems to mirror Notepad's behaviour
 void convertParamsToNotepadStyle(ParamVector& params)
 {
@@ -320,8 +319,6 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 }
 
 // Looks for -z arguments and strips command line arguments following those, if any
-// Also advances pCmdLine to point after the last ignored parameter
-// -notepadStyleCmdline is also considered an ignored parameter here, as we don't want it to be part of the assembled file name
 void stripIgnoredParams(ParamVector & params)
 {
 	for (auto it = params.begin(); it != params.end(); )

@@ -145,7 +145,7 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 // This seems to mirror Notepad's behaviour
 void convertParamsToNotepadStyle(ParamVector& params)
 {
-	for (auto it = params.begin(); it != params.end(); )
+	for (auto it = params.begin(); it != params.end(); ++it)
 	{
 		if (lstrcmp(it->c_str(), TEXT("/p")) == 0 || lstrcmp(it->c_str(), TEXT("/P")) == 0)
 		{
@@ -324,7 +324,7 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 // -notepadStyleCmdline is also considered an ignored parameter here, as we don't want it to be part of the assembled file name
 void stripIgnoredParams(ParamVector & params)
 {
-	for ( auto it = params.begin(); it != params.end(); )
+	for (auto it = params.begin(); it != params.end(); )
 	{
 		if (lstrcmp(it->c_str(), TEXT("-z")) == 0)
 		{
@@ -334,6 +334,10 @@ void stripIgnoredParams(ParamVector & params)
 				params.erase(nextIt);
 			}
 			it = params.erase(it);
+		}
+		else
+		{
+			++it;
 		}
 	}
 }

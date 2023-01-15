@@ -1309,21 +1309,19 @@ void SizeGrid(HWND hWnd,int /*SI*/)
 
 int FindLongestLine(HDC hdc, wchar_t* text, SIZE* size)
 {
-	int longest = 0;
-	wchar_t temptext[1000];
-	wchar_t *p;
+    int longest = 0;
+    wchar_t* buffer = nullptr;
+    wchar_t* token = WCSTOK(text, TEXT("\n"), &buffer);;
 
-	wcscpy_s(temptext, text);
-    p = wcstok(temptext, TEXT("\n"));
-    while (p)
+    while (token)
     {
-        GetTextExtentPoint32(hdc, p, lstrlen(p), size);
+        ::GetTextExtentPoint32(hdc, token, lstrlen(token), size);
         if (size->cx > longest)
         {
              longest=size->cx;
         }
-		wchar_t temptext2[2] = {'\0'};
-        p = wcstok(temptext2, TEXT("\n"));
+
+        token = WCSTOK(nullptr, TEXT("\n"), &buffer);
     }
     return longest;
 }

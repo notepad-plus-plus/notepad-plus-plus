@@ -389,30 +389,31 @@ void AsciiListView::setValues(int codepage)
 
 	for (int i = 0 ; i < 256 ; ++i)
 	{
-		TCHAR dec[8];
-		TCHAR hex[8];
-		TCHAR htmlNumber[8];
+		constexpr size_t bufSize = 8;
+		TCHAR dec[bufSize];
+		TCHAR hex[bufSize];
+		TCHAR htmlNumber[bufSize];
 		generic_string htmlName;
-		generic_sprintf(dec, TEXT("%d"), i);
-		generic_sprintf(hex, TEXT("%02X"), i);
+		generic_sprintf(dec, bufSize, TEXT("%d"), i);
+		generic_sprintf(hex, bufSize, TEXT("%02X"), i);
 		generic_string s = getAscii(static_cast<unsigned char>(i));
 
 		if (codepage == 0 || codepage == 1252)
 		{
 			if ((i >= 32 && i <= 126) || (i >= 160 && i <= 255))
 			{
-				generic_sprintf(htmlNumber, TEXT("&#%d"), i);
+				generic_sprintf(htmlNumber, bufSize, TEXT("&#%d"), i);
 			}
 			else
 			{
 				int n = getHtmlNumber(static_cast<unsigned char>(i));
 				if (n > -1)
 				{
-					generic_sprintf(htmlNumber, TEXT("&#%d"), n);
+					generic_sprintf(htmlNumber, bufSize, TEXT("&#%d"), n);
 				}
 				else
 				{
-					generic_sprintf(htmlNumber, TEXT(""));
+					generic_sprintf(htmlNumber, bufSize, TEXT(""));
 				}
 			}
 
@@ -420,7 +421,7 @@ void AsciiListView::setValues(int codepage)
 		}
 		else
 		{
-			generic_sprintf(htmlNumber, TEXT(""));
+			generic_sprintf(htmlNumber, bufSize, TEXT(""));
 			htmlName = TEXT("");
 		}
 

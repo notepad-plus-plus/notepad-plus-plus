@@ -210,11 +210,14 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			HKEY hKey;
 			DWORD dataSize = 0;
 
-			TCHAR szProductName[96] = {'\0'};
-			TCHAR szCurrentBuildNumber[32] = {'\0'};
+			constexpr size_t bufSize = 96;
+			TCHAR szProductName[bufSize] = {'\0'};
+			constexpr size_t bufSizeBuildNumber = 32;
+			TCHAR szCurrentBuildNumber[bufSizeBuildNumber] = {'\0'};
 			TCHAR szReleaseId[32] = {'\0'};
 			DWORD dwUBR = 0;
-			TCHAR szUBR[12] = TEXT("0");
+			constexpr size_t bufSizeUBR = 12;
+			TCHAR szUBR[bufSizeUBR] = TEXT("0");
 
 			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
 			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
@@ -238,7 +241,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				dataSize = sizeof(DWORD);
 				if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
 				{
-					generic_sprintf(szUBR, TEXT("%u"), dwUBR);
+					generic_sprintf(szUBR, bufSizeUBR, TEXT("%u"), dwUBR);
 				}
 
 				RegCloseKey(hKey);
@@ -247,19 +250,19 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			// Get alternative OS information
 			if (szProductName[0] == '\0')
 			{
-				generic_sprintf(szProductName, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
+				generic_sprintf(szProductName, bufSize, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
 			}
 
 			// Override ProductName if it's Windows 11
 			if (NppDarkMode::isWindows11())
-				generic_sprintf(szProductName, TEXT("%s"), TEXT("Windows 11"));
+				generic_sprintf(szProductName, bufSize, TEXT("%s"), TEXT("Windows 11"));
 
 			if (szCurrentBuildNumber[0] == '\0')
 			{
 				DWORD dwVersion = GetVersion();
 				if (dwVersion < 0x80000000)
 				{
-					generic_sprintf(szCurrentBuildNumber, TEXT("%u"), HIWORD(dwVersion));
+					generic_sprintf(szCurrentBuildNumber, bufSizeBuildNumber, TEXT("%u"), HIWORD(dwVersion));
 				}
 			}
 
@@ -287,8 +290,9 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			}
 
 			{
-				TCHAR szACP[32];
-				generic_sprintf(szACP, TEXT("%u"), ::GetACP());
+				constexpr size_t bufSizeACP = 32;
+				TCHAR szACP[bufSizeACP] = { '\0' };
+				generic_sprintf(szACP, bufSizeACP, TEXT("%u"), ::GetACP());
 				_debugInfoStr += TEXT("Current ANSI codepage : ");
  				_debugInfoStr += szACP;
 				_debugInfoStr += TEXT("\r\n");
@@ -304,8 +308,9 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			if (pWGV != nullptr)
 			{
-				TCHAR szWINEVersion[32];
-				generic_sprintf(szWINEVersion, TEXT("%hs"), pWGV());
+				constexpr size_t bufSizeWineVer = 32;
+				TCHAR szWINEVersion[bufSizeWineVer] = { '\0' };
+				generic_sprintf(szWINEVersion, bufSizeWineVer, TEXT("%hs"), pWGV());
 
 				_debugInfoStr += TEXT("WINE : ");
 				_debugInfoStr += szWINEVersion;

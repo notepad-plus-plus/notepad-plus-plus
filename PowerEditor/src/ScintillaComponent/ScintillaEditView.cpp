@@ -3165,7 +3165,8 @@ bool ScintillaEditView::expandWordSelection()
 TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading)
 {
 	if (nbChiffre >= strLen) return NULL;
-	TCHAR f[64];
+	constexpr size_t bufSize = 64;
+	TCHAR f[bufSize] = { '\0' };
 	TCHAR fStr[2] = TEXT("d");
 	if (base == 16)
 		fStr[0] = 'X';
@@ -3200,8 +3201,8 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 		{
 			// use sprintf or swprintf instead of wsprintf
 			// to make octal format work
-			generic_sprintf(f, TEXT("%%%s"), fStr);
-			generic_sprintf(str, f, number);
+			generic_sprintf(f, bufSize, TEXT("%%%s"), fStr);
+			generic_sprintf(str, strLen, f, number);
 		}
 		int i = lstrlen(str);
 		for ( ; i < nbChiffre ; ++i)
@@ -3214,8 +3215,8 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 		{
 			// use sprintf or swprintf instead of wsprintf
 			// to make octal format work
-			generic_sprintf(f, TEXT("%%.%d%s"), nbChiffre, fStr);
-			generic_sprintf(str, f, number);
+			generic_sprintf(f, bufSize, TEXT("%%.%d%s"), nbChiffre, fStr);
+			generic_sprintf(str, strLen, f, number);
 		}
 		// else already done.
 	}

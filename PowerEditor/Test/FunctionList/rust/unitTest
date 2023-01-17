@@ -56,6 +56,14 @@ unsafe fn unsafe_example(n: u32) {
     }
 }
 
+/* 
+unsafe fn commented_func(n: u32) {
+    for n in 1..n + 1 {
+        fizzbuzz(n);
+    }
+}
+*/
+
 // Declares a function with the "C" ABI
 extern "C" fn new_i32() -> i32 { 0 }
 

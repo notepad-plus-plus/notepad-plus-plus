@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
     <GUIConfigs>
+		<!--
+        <GUIConfig name="comment">comment</GUIConfig>
+		-->
         <GUIConfig name="ToolBar" visible="yes">standard</GUIConfig>
         <GUIConfig name="StatusBar">show</GUIConfig>
         <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" />

@@ -38,7 +38,7 @@ before_build:
         # XML validation mode
         $allowMaster = $true
         if ($allowMaster -or $env:APPVEYOR_PULL_REQUEST_NUMBER) {
-            $folders_onejob = "PowerEditor/Test/|/filesForTesting/|/functionList/"
+            $folders_onejob = "PowerEditor/(Test|(installer/(filesForTesting|functionList)))/"
             $files_nowork = "md|txt|log"
             $files_modified = @(git diff --name-only HEAD~1)
             $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_onejob"})

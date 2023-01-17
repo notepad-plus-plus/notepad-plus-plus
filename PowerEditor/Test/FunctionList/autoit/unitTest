@@ -29,6 +29,14 @@ Func logoff()				; Start of the logoff function
 	Exit					; Quit the program
 EndFunc						; End of the logoff Function
 
+#CS 
+Func logoff()
+	GUISetState(@SW_HIDE)
+	Run("u:\logoff.bat")
+	Exit
+EndFunc
+#CE
+
 Func cancel()				; Start of the cancel function
 	GUISetState(@SW_HIDE)	; Hide the Window
 	Exit					; Quit the program

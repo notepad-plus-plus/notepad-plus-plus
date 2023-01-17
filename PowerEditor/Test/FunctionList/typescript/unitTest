@@ -15,6 +15,16 @@ function extractKeywords(text) {
     filter(function(v, i, a) { return a.lastIndexOf(v) === i; });
 }
 
+/*
+function commentedFunc(text) {
+  if (!text) return [];
+
+  return text.
+    split(/\s+/).
+    filter(function(v) { return v.length > 2; }).
+    filter(function(v, i, a) { return a.lastIndexOf(v) === i; });
+}
+*/
 
 function convertBasicMarkup(input, allowHtml) {
   var strongRe = /[*]{2}([^*]+)[*]{2}/gm;

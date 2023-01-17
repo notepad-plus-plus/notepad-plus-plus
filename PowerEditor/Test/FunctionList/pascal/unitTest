@@ -146,6 +146,7 @@ function  Unused2(ANum: double): cardinal;
 function  Unused3(ANum: double): cardinal;
 *)
 
+// function CommentedFunc1(const Param: integer): integer;
 
 
 implementation
@@ -488,5 +489,12 @@ begin
   Result := TStdClass.Create.Convert<TStdClass>(AString);
 end;
 
+
+{
+function CommentedFunc1(const Param: integer): integer;
+begin
+  Result := 0;
+end;
+}
 
 end.

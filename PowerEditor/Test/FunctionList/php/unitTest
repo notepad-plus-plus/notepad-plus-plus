@@ -27,14 +27,23 @@ abstract class PageGrille extends PageMotsBleus{
 		return str_replace ( "\\" , "" , $pStr);
 	}
 
-	function GetJavascriptMajax() {
+	function GetJavascriptMajax() { /* a block comment */
 		return "ABC";
 	}
+	/*
+	function commentedFunc1() {
+		return "commented 1";
+	}
+	*/
 }
 
 function stringContainAsterisk_test1(){
 	$target = '/path/to/files/*';
 }
+
+/*function commentedFunc2(){
+	return "commented 2";
+}*/
 
 function stringContainAsterisk_test2(){
 	$target = '/path/to/files/*.jpg';

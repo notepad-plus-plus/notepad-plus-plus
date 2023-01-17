@@ -516,6 +516,18 @@ int decStrVal(const TCHAR *str)
 	return strVal(str, 10);
 }
 
+/*
+int commentedFunc1()
+{
+	return 1;
+}
+*/
+
+/*int commentedFunc2()
+{
+	return 2;
+}*/
+
 int hexStrVal(const TCHAR *str)
 {
 	return strVal(str, 16);

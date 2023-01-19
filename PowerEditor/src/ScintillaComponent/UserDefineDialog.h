@@ -395,7 +395,7 @@ public :
 		_textValue = text2Set;
 		_txtLen = txtLen;
 		_shouldGotoCenter = bGotoCenter;
-		if (restrictedChars && _tcslen(restrictedChars))
+		if (restrictedChars && wcslen(restrictedChars))
 		{
 			_restrictedChars = restrictedChars;
 		}

@@ -720,7 +720,7 @@ COLORREF getCtrlBgColor(HWND hWnd)
 generic_string stringToUpper(generic_string strToConvert)
 {
     std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), 
-        [](TCHAR ch){ return static_cast<TCHAR>(_totupper(ch)); }
+        [](wchar_t ch){ return static_cast<wchar_t>(towupper(ch)); }
     );
     return strToConvert;
 }
@@ -932,7 +932,7 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 		::CloseClipboard();
 		return false;
 	}
-	_tcscpy_s(pStr, len2Allocate / sizeof(TCHAR), str2cpy.c_str());
+	wcscpy_s(pStr, len2Allocate / sizeof(TCHAR), str2cpy.c_str());
 	::GlobalUnlock(hglbCopy);
 	// Place the handle on the clipboard.
 	unsigned int clipBoardFormat = CF_UNICODETEXT;
@@ -1510,7 +1510,7 @@ HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestPar
 	if (isBold)
 		logFont.lfWeight = FW_BOLD;
 
-	_tcscpy_s(logFont.lfFaceName, fontName);
+	wcscpy_s(logFont.lfFaceName, fontName);
 
 	HFONT newFont = CreateFontIndirect(&logFont);
 

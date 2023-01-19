@@ -2294,7 +2294,7 @@ void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start
 	getText(destA, start, end);
 	size_t cp = execute(SCI_GETCODEPAGE);
 	const TCHAR *destW = wmc.char2wchar(destA, cp);
-	_tcsncpy_s(dest, destlen, destW, _TRUNCATE);
+	wcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 }
 
@@ -2308,7 +2308,7 @@ void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start
 	getText(destA, start, end);
 	size_t cp = execute(SCI_GETCODEPAGE)    ;
 	const TCHAR *destW = wmc.char2wchar(destA, cp, mstart, mend);
-	_tcsncpy_s(dest, destlen, destW, _TRUNCATE);
+	wcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 }
 

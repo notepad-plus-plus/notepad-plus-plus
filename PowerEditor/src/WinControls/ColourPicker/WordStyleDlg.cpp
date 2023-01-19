@@ -710,7 +710,7 @@ void WordStyleDlg::updateFontSize()
 		else
 		{
 			TCHAR *finStr;
-			style._fontSize = generic_strtol(intStr, &finStr, 10);
+			style._fontSize = wcstol(intStr, &finStr, 10);
 			if (*finStr != '\0')
 				style._fontSize = STYLE_NOT_USED;
 		}

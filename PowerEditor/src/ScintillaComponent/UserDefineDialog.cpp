@@ -1894,7 +1894,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
                         else
                         {
                             TCHAR *finStr;
-                            style._fontSize = generic_strtol(intStr, &finStr, 10);
+                            style._fontSize = wcstol(intStr, &finStr, 10);
                             if (*finStr != '\0')
                                 style._fontSize = -1;
                         }

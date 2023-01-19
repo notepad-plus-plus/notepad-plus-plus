@@ -37,7 +37,6 @@ const bool dirDown = false;
 #define BCKGRD_COLOR (RGB(255,102,102))
 #define TXT_COLOR    (RGB(255,255,255))
 
-#define generic_strtol wcstol
 #define generic_strncpy wcsncpy
 #define generic_stricmp wcsicmp
 #define generic_strncmp wcsncmp

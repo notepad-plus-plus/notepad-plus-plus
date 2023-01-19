@@ -5397,9 +5397,9 @@ HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 		::UpdateWindow(hwnd);
 
 	if (header)
-		_tcscpy_s(_header, _countof(_header), header);
+		wcscpy_s(_header, _countof(_header), header);
 	else
-		_tcscpy_s(_header, _countof(_header), cDefaultHeader);
+		wcscpy_s(_header, _countof(_header), cDefaultHeader);
 
 	_hThread = ::CreateThread(NULL, 0, threadFunc, this, 0, NULL);
 	if (!_hThread)

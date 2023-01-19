@@ -561,7 +561,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			TCHAR longNameFullpath[MAX_PATH];
 			const TCHAR* pFilePath = reinterpret_cast<const TCHAR*>(lParam);
 			wcscpy_s(longNameFullpath, MAX_PATH, pFilePath);
-			if (_tcschr(longNameFullpath, '~'))
+			if (wcschr(longNameFullpath, '~'))
 			{
 				::GetLongPathName(longNameFullpath, longNameFullpath, MAX_PATH);
 			}

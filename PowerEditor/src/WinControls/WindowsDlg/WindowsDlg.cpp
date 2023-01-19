@@ -103,7 +103,7 @@ struct NumericStringEquivalence
 			}
 			if (_istdigit(*str1) && _istdigit(*str2))
 			{
-				lcmp = generic_strtol(str1, &p1, 10) - generic_strtol(str2, &p2, 10);
+				lcmp = wcstol(str1, &p1, 10) - wcstol(str2, &p2, 10);
 				if ( lcmp == 0 )
 					lcmp = static_cast<int32_t>((p2 - str2) - (p1 - str1));
 				if ( lcmp != 0 )
@@ -113,11 +113,11 @@ struct NumericStringEquivalence
 			else
 			{
 				if (_istascii(*str1) && _istupper(*str1))
-					c1 = _totlower(*str1);
+					c1 = towlower(*str1);
 				else
 					c1 = *str1;
 				if (_istascii(*str2) && _istupper(*str2))
-					c2 = _totlower(*str2);
+					c2 = towlower(*str2);
 				else
 					c2 = *str2;
 				lcmp = (c1 - c2);
@@ -427,7 +427,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						if (static_cast<int>(text.length()) < pLvdi->item.cchTextMax)
 						{
 							// Copy the resulting text to destination with a null terminator.
-							_tcscpy_s(pLvdi->item.pszText, text.length() + 1, text.c_str());
+							wcscpy_s(pLvdi->item.pszText, text.length() + 1, text.c_str());
 						}
 					}
 					return TRUE;

@@ -3577,7 +3577,7 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						if (!intStr[0])
 							*pVal = 0;
 						else
-							*pVal = generic_strtol(intStr, NULL, 10);
+							*pVal = wcstol(intStr, NULL, 10);
 					}
 					break;
 

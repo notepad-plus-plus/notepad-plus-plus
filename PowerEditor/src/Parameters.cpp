@@ -568,7 +568,7 @@ int strVal(const TCHAR *str, int base)
 	if (!str[0]) return 0;
 
 	TCHAR *finStr;
-	int result = generic_strtol(str, &finStr, base);
+	int result = wcstol(str, &finStr, base);
 	if (*finStr != '\0')
 		return -1;
 	return result;
@@ -1680,7 +1680,7 @@ const TCHAR* NppParameters::getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *ful
 		// Force to use dark mode UDL in dark mode or to use  light mode UDL in light mode
 		for (size_t j = 0, len = extVect.size(); j < len; ++j)
 		{
-			if (!generic_stricmp(extVect[j].c_str(), ext) || (_tcschr(fullName, '.') && !generic_stricmp(extVect[j].c_str(), fullName)))
+			if (!generic_stricmp(extVect[j].c_str(), ext) || (wcschr(fullName, '.') && !generic_stricmp(extVect[j].c_str(), fullName)))
 			{
 				// preserve ext matched UDL
 				iMatched = i;
@@ -3723,7 +3723,6 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 			else if (!lstrcmp(keywordsName, TEXT("Comment")))
 			{
 				kwl = (valueNode)?valueNode->Value():TEXT("");
-				//int len = _tcslen(kwl);
 				basic_string<TCHAR> temp{TEXT(" ")};
 
 				temp += kwl;
@@ -3760,7 +3759,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 				if (globalMappper().keywordIdMapper.find(keywordsName) != globalMappper().keywordIdMapper.end())
 				{
 					id = globalMappper().keywordIdMapper[keywordsName];
-					if (_tcslen(kwl) < max_char)
+					if (wcslen(kwl) < max_char)
 					{
 						wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
 					}

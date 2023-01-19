@@ -1015,7 +1015,7 @@ bool FileManager::backupCurrentBuffer()
 
 			TCHAR fullpath[MAX_PATH];
 			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
-			if (_tcschr(fullpath, '~'))
+			if (wcschr(fullpath, '~'))
 			{
 				::GetLongPathName(fullpath, fullpath, MAX_PATH);
 			}

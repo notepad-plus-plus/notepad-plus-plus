@@ -234,7 +234,7 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 		if (end && end - p <= 3 + 4)
 		{
 			TCHAR* hexend;
-			auto val = generic_strtol(p + 3, &hexend, 16);
+			auto val = wcstol(p + 3, &hexend, 16);
 			if (hexend == end)
 			{
 				*value = static_cast<TCHAR>(val);

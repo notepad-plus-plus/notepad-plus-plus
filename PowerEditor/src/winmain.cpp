@@ -531,17 +531,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			// First of all, destroy static object NppParameters
 			nppParameters.destroyInstance();
 
-			int sw = 0;
-
-			if (::IsZoomed(hNotepad_plus))
-				sw = SW_MAXIMIZE;
-			else if (::IsIconic(hNotepad_plus))
-				sw = SW_RESTORE;
-
-			if (sw != 0)
-				::ShowWindow(hNotepad_plus, sw);
-
-			::SetForegroundWindow(hNotepad_plus);
+			// Restore the window, bring it to front, etc
+			::SendMessage(hNotepad_plus, NPPM_INTERNAL_RESTOREMONOINSTANCE, 0, 0 );
 
 			if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
 			{

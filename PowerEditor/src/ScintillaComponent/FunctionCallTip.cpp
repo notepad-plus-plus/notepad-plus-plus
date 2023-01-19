@@ -266,7 +266,7 @@ bool FunctionCallTip::getCursorFunction()
 			if (_ignoreCase)
 				same = testNameNoCase(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 			else
-				same = generic_strncmp(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
+				same = wcsncmp(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 		}
 		if (!same)
 		{	//check if we need to reload data

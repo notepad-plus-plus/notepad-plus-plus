@@ -267,7 +267,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					quotFileName += _pEditView->getCurrentBuffer()->getFullPathName();
 					quotFileName += TEXT("\"");
 					COPYDATASTRUCT fileNamesData{};
-					fileNamesData.dwData = COPYDATA_FILENAMES;
+					fileNamesData.dwData = COPYDATA_FILENAMESW;
 					fileNamesData.lpData = (void *)quotFileName.c_str();
 					fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
 

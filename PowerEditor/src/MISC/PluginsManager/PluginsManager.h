@@ -151,7 +151,7 @@ private:
 
 	bool isInLoadedDlls(const TCHAR *fn) const {
 		for (size_t i = 0; i < _loadedDlls.size(); ++i)
-			if (generic_stricmp(fn, _loadedDlls[i]._fileName.c_str()) == 0)
+			if (wcsicmp(fn, _loadedDlls[i]._fileName.c_str()) == 0)
 				return true;
 		return false;
 	}

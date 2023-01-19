@@ -495,7 +495,7 @@ const TCHAR * TiXmlElement::Attribute( const TCHAR * name, double* d ) const
 	if ( d )
 	{
 		if ( s )
-			*d = generic_atof( s );
+			*d = _wtof( s );
 		else
 			*d = 0;
 	}
@@ -758,7 +758,7 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 		const int BUF_SIZE = 2048;
 		TCHAR buf[BUF_SIZE];
 
-		while( generic_fgets( buf, BUF_SIZE, file ) )
+		while(fgetws( buf, BUF_SIZE, file ) )
 		{
 			data += buf;
 		}
@@ -918,14 +918,14 @@ void TiXmlAttribute::StreamOut( TIXML_OSTREAM * stream ) const
 
 int TiXmlAttribute::QueryIntValue( int* ival ) const
 {
-	if ( generic_sscanf( value.c_str(), TEXT("%d"), ival ) == 1 )
+	if (swscanf( value.c_str(), L"%d", ival ) == 1 )
 		return TIXML_SUCCESS;
 	return TIXML_WRONG_TYPE;
 }
 
 int TiXmlAttribute::QueryDoubleValue( double* dval ) const
 {
-	if ( generic_sscanf( value.c_str(), TEXT("%lf"), dval ) == 1 )
+	if (swscanf( value.c_str(), L"%lf", dval ) == 1 )
 		return TIXML_SUCCESS;
 	return TIXML_WRONG_TYPE;
 }
@@ -951,7 +951,7 @@ const int TiXmlAttribute::IntValue() const
 
 const double  TiXmlAttribute::DoubleValue() const
 {
-	return generic_atof (value.c_str ());
+	return _wtof(value.c_str ());
 }
 
 void TiXmlComment::Print( std::string& outputStream, int depth ) const

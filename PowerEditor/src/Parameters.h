@@ -116,7 +116,7 @@ const int LANG_INDEX_TYPE6 = 7;
 const int LANG_INDEX_TYPE7 = 8;
 
 const int COPYDATA_PARAMS = 0;
-const int COPYDATA_FILENAMESA = 1;
+//const int COPYDATA_FILENAMESA = 1; // obsolete, no more useful
 const int COPYDATA_FILENAMESW = 2;
 const int COPYDATA_FULL_CMDLINE = 3;
 

@@ -357,7 +357,7 @@ bool AutoCompletion::showApiAndWordComplete()
 		if (_ignoreCase)
 		{
 			generic_string kwSufix = _keyWordArray[i].substr(0, len);
-			compareResult = generic_stricmp(beginChars, kwSufix.c_str());
+			compareResult = wcsicmp(beginChars, kwSufix.c_str());
 		}
 		else
 		{
@@ -449,7 +449,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 		{
 			TCHAR w[bufSize];
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
-			if (!allChars || (generic_strncmp (w, allChars, bufSize) != 0))
+			if (!allChars || (wcsncmp(w, allChars, bufSize) != 0))
 			{
 				if (!isInList(w, wordArray))
 					wordArray.push_back(w);

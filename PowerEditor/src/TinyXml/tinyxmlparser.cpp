@@ -228,9 +228,9 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 	int i;
 
 	// Handle the &#x entities.
-	if (generic_strncmp( TEXT("&#x"), p, 3 ) == 0)
+	if (wcsncmp( TEXT("&#x"), p, 3 ) == 0)
 	{
-		const TCHAR* end = generic_strchr(p+3, TEXT(';'));
+		const TCHAR* end = wcschr(p+3, L';');
 		if (end && end - p <= 3 + 4)
 		{
 			TCHAR* hexend;
@@ -246,7 +246,7 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 	// Now try to match it.
 	for (i=0; i<NUM_ENTITY; ++i)
 	{
-		if ( generic_strncmp( entity[i].str, p, entity[i].strLength ) == 0 )
+		if (wcsncmp( entity[i].str, p, entity[i].strLength ) == 0 )
 		{
 			assert(static_cast<unsigned int>(lstrlen(entity[i].str)) == entity[i].strLength );
 			*value = entity[i].chr;

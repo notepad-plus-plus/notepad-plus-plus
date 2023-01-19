@@ -275,7 +275,7 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 				word[j] = '\0';
 				j = 0;
 
-				if (!generic_stricmp(token, word))
+				if (!wcsicmp(token, word))
 					return true;
 			}
 		}

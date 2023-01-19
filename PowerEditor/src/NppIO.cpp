@@ -1609,7 +1609,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				today = localtime(&ltime);
 				if (today)
 				{
-					generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d_%H%M%S"), today);
+					wcsftime(tmpbuf, temBufLen, L"%Y-%m-%d_%H%M%S", today);
 
 					fn_bak += name;
 					fn_bak += TEXT(".");
@@ -2034,7 +2034,7 @@ bool Notepad_plus::isFileSession(const TCHAR * filename)
 		}
 		usrSessionExt += definedSessionExt;
 
-		if (!generic_stricmp(pExt, usrSessionExt.c_str()))
+		if (!wcsicmp(pExt, usrSessionExt.c_str()))
 		{
 			return true;
 		}
@@ -2058,7 +2058,7 @@ bool Notepad_plus::isFileWorkspace(const TCHAR * filename)
 		}
 		usrWorkspaceExt += definedWorkspaceExt;
 
-		if (!generic_stricmp(pExt, usrWorkspaceExt.c_str()))
+		if (!wcsicmp(pExt, usrWorkspaceExt.c_str()))
 		{
 			return true;
 		}

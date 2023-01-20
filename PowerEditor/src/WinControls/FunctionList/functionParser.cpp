@@ -388,15 +388,15 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 	int flags = SCFIND_REGEXP | SCFIND_POSIX | SCFIND_REGEXP_DOTMATCHESNL;
 
 	(*ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	size_t targetStart = (*ppEditView)->searchInTarget(_functionExpr.c_str(), _functionExpr.length(), begin, end);
-	size_t targetEnd = 0;
+	intptr_t targetStart = (*ppEditView)->searchInTarget(_functionExpr.c_str(), _functionExpr.length(), begin, end);
+	intptr_t targetEnd = 0;
 	
 	//foundInfos.clear();
 	while (targetStart >= 0)
 	{
 		targetStart = (*ppEditView)->execute(SCI_GETTARGETSTART);
 		targetEnd = (*ppEditView)->execute(SCI_GETTARGETEND);
-		if (targetEnd > end) //we found a result but outside our range, therefore do not process it
+		if (targetEnd > static_cast<intptr_t>(end)) //we found a result but outside our range, therefore do not process it
 		{
 			break;
 		}

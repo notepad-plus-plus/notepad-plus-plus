@@ -241,7 +241,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				dataSize = sizeof(DWORD);
 				if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
 				{
-					generic_sprintf(szUBR, bufSizeUBR, TEXT("%u"), dwUBR);
+					swprintf(szUBR, bufSizeUBR, TEXT("%u"), dwUBR);
 				}
 
 				RegCloseKey(hKey);
@@ -250,19 +250,19 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			// Get alternative OS information
 			if (szProductName[0] == '\0')
 			{
-				generic_sprintf(szProductName, bufSize, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
+				swprintf(szProductName, bufSize, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
 			}
 
 			// Override ProductName if it's Windows 11
 			if (NppDarkMode::isWindows11())
-				generic_sprintf(szProductName, bufSize, TEXT("%s"), TEXT("Windows 11"));
+				swprintf(szProductName, bufSize, TEXT("%s"), TEXT("Windows 11"));
 
 			if (szCurrentBuildNumber[0] == '\0')
 			{
 				DWORD dwVersion = GetVersion();
 				if (dwVersion < 0x80000000)
 				{
-					generic_sprintf(szCurrentBuildNumber, bufSizeBuildNumber, TEXT("%u"), HIWORD(dwVersion));
+					swprintf(szCurrentBuildNumber, bufSizeBuildNumber, TEXT("%u"), HIWORD(dwVersion));
 				}
 			}
 
@@ -292,7 +292,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				constexpr size_t bufSizeACP = 32;
 				TCHAR szACP[bufSizeACP] = { '\0' };
-				generic_sprintf(szACP, bufSizeACP, TEXT("%u"), ::GetACP());
+				swprintf(szACP, bufSizeACP, TEXT("%u"), ::GetACP());
 				_debugInfoStr += TEXT("Current ANSI codepage : ");
  				_debugInfoStr += szACP;
 				_debugInfoStr += TEXT("\r\n");
@@ -310,7 +310,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				constexpr size_t bufSizeWineVer = 32;
 				TCHAR szWINEVersion[bufSizeWineVer] = { '\0' };
-				generic_sprintf(szWINEVersion, bufSizeWineVer, TEXT("%hs"), pWGV());
+				swprintf(szWINEVersion, bufSizeWineVer, TEXT("%hs"), pWGV());
 
 				_debugInfoStr += TEXT("WINE : ");
 				_debugInfoStr += szWINEVersion;

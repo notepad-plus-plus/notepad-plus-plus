@@ -538,7 +538,7 @@ void CommentStyleDialog::setKeywords2List(int id)
         TCHAR intBuffer[10] = { '0', 0 };
         for (int i = 0; static_cast<size_t>(i) < sizeof(list) / sizeof(int); ++i)
         {
-            generic_itoa(i, intBuffer + 1, 10);
+            _itow(i, intBuffer + 1, 10);
             ::GetDlgItemText(_hSelf, list[i], buffer, max_char);
             convertTo(newList, max_char, buffer, intBuffer);
         }
@@ -601,7 +601,7 @@ void CommentStyleDialog::updateDlg()
     TCHAR intBuffer[10] = { '0', 0 };
     for (int i = 0; static_cast<size_t>(i) < sizeof(list) / sizeof(int); ++i)
     {
-        generic_itoa(i, intBuffer + 1, 10);
+        _itow(i, intBuffer + 1, 10);
         retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS], intBuffer);
         ::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
     }
@@ -662,9 +662,9 @@ void SymbolsStyleDialog::updateDlg()
     for (int i = 0; static_cast<size_t>(i) < sizeof(list)/sizeof(int); ++i)
     {
         if (i < 10)
-            generic_itoa(i, intBuffer + 1, 10);
+            _itow(i, intBuffer + 1, 10);
         else
-            generic_itoa(i, intBuffer, 10);
+            _itow(i, intBuffer, 10);
 
         retrieve(buffer, _pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS], intBuffer);
 		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer));
@@ -856,9 +856,9 @@ void SymbolsStyleDialog::setKeywords2List(int id)
             for (int i = 0; static_cast<size_t>(i) < sizeof(list)/sizeof(int); ++i)
             {
                 if (i < 10)
-                    generic_itoa(i, intBuffer+1, 10);
+                    _itow(i, intBuffer+1, 10);
                 else
-                    generic_itoa(i, intBuffer, 10);
+                    _itow(i, intBuffer, 10);
 
                 int dd = list[i];
                 ::GetDlgItemText(_hSelf, dd, buffer, max_char);
@@ -1060,13 +1060,13 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 
             TCHAR temp[32];
             generic_string udlVersion = TEXT("User Defined Language v.");
-            udlVersion += generic_itoa(SCE_UDL_VERSION_MAJOR, temp, 10);
+            udlVersion += _itow(SCE_UDL_VERSION_MAJOR, temp, 10);
             udlVersion += TEXT(".");
-            udlVersion += generic_itoa(SCE_UDL_VERSION_MINOR, temp, 10);
+            udlVersion += _itow(SCE_UDL_VERSION_MINOR, temp, 10);
             udlVersion += TEXT(".");
-            udlVersion += generic_itoa(SCE_UDL_VERSION_BUILD, temp, 10);
+            udlVersion += _itow(SCE_UDL_VERSION_BUILD, temp, 10);
             udlVersion += TEXT(".");
-            udlVersion += generic_itoa(SCE_UDL_VERSION_REVISION, temp, 10);
+            udlVersion += _itow(SCE_UDL_VERSION_REVISION, temp, 10);
 
             ::SetWindowText(_hSelf, udlVersion.c_str());
 

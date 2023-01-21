@@ -682,7 +682,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 
 	if (pPath)
 	{
-		FILE* fp = generic_fopen(pPath, TEXT("rb"));
+		FILE* fp = _wfopen(pPath, TEXT("rb"));
 		if (fp)
 		{
 			_fseeki64(fp, 0, SEEK_END);
@@ -813,7 +813,7 @@ bool FileManager::reloadBuffer(BufferID id)
 
 
 	//Get file size
-	FILE* fp = generic_fopen(buf->getFullPathName(), TEXT("rb"));
+	FILE* fp = _wfopen(buf->getFullPathName(), TEXT("rb"));
 	if (!fp)
 		return false;
 	_fseeki64(fp, 0, SEEK_END);
@@ -1271,7 +1271,7 @@ size_t FileManager::nextUntitledNewNumber() const
 			{
 				generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 				TCHAR *numberStr = buf->_fileName + newTitle.length();
-				int usedNumber = generic_atoi(numberStr);
+				int usedNumber = _wtoi(numberStr);
 				usedNumbers.push_back(usedNumber);
 			}
 		}
@@ -1456,7 +1456,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
-	FILE *fp = generic_fopen(filename, TEXT("rb"));
+	FILE *fp = _wfopen(filename, TEXT("rb"));
 	if (!fp)
 		return false;
 

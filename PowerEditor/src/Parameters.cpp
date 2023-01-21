@@ -2345,7 +2345,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 					const TCHAR* intStrTabColour = (childNode->ToElement())->Attribute(TEXT("tabColourId"));
 					if (intStrTabColour)
 					{
-						sfi._individualTabColour = generic_atoi(intStrTabColour);
+						sfi._individualTabColour = _wtoi(intStrTabColour);
 					}
 
 					for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
@@ -4852,7 +4852,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				const TCHAR* val = n->Value();
 				if (val)
 				{
-					int const i = generic_atoi (val);
+					int const i = _wtoi (val);
 					if ((i >= urlMin) && (i <= urlMax))
 						_nppGUI._styleURL = urlMode(i);
 				}
@@ -6847,7 +6847,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// <GUIConfig name="URL">2</GUIConfig>
 	{
 		TCHAR szStr [12] = TEXT("0");
-		generic_itoa(_nppGUI._styleURL, szStr, 10);
+		_itow(_nppGUI._styleURL, szStr, 10);
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("URL"));
 		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
@@ -7860,9 +7860,9 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 	TCHAR temp[32];
 	generic_string udlVersion;
-	udlVersion += generic_itoa(SCE_UDL_VERSION_MAJOR, temp, 10);
+	udlVersion += _itow(SCE_UDL_VERSION_MAJOR, temp, 10);
 	udlVersion += TEXT(".");
-	udlVersion += generic_itoa(SCE_UDL_VERSION_MINOR, temp, 10);
+	udlVersion += _itow(SCE_UDL_VERSION_MINOR, temp, 10);
 
 	rootElement->SetAttribute(TEXT("name"), userLang->_name);
 	rootElement->SetAttribute(TEXT("ext"), userLang->_ext);
@@ -8113,9 +8113,9 @@ Date::Date(const TCHAR *dateStr)
 		generic_string mm(ds, 4, 2);
 		generic_string dd(ds, 6, 2);
 
-		int y = generic_atoi(yyyy.c_str());
-		int m = generic_atoi(mm.c_str());
-		int d = generic_atoi(dd.c_str());
+		int y = _wtoi(yyyy.c_str());
+		int m = _wtoi(mm.c_str());
+		int d = _wtoi(dd.c_str());
 
 		if ((y > 0 && y <= 9999) && (m > 0 && m <= 12) && (d > 0 && d <= 31))
 		{

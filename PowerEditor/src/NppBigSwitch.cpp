@@ -1391,10 +1391,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			int mainVer = 0, auxVer = 0;
 			if (mainVerStr[0])
-				mainVer = generic_atoi(mainVerStr);
+				mainVer = _wtoi(mainVerStr);
 
 			if (auxVerStr[0])
-				auxVer = generic_atoi(auxVerStr);
+				auxVer = _wtoi(auxVerStr);
 
 			return MAKELONG(auxVer, mainVer);
 		}

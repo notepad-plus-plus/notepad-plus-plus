@@ -58,7 +58,7 @@ std::string getFileContent(const TCHAR *file2read)
 	const size_t blockSize = 1024;
 	char data[blockSize];
 	std::string wholeFileContent = "";
-	FILE *fp = generic_fopen(file2read, TEXT("rb"));
+	FILE *fp = _wfopen(file2read, TEXT("rb"));
 
 	size_t lenFile = 0;
 	do

@@ -3201,8 +3201,8 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 		{
 			// use sprintf or swprintf instead of wsprintf
 			// to make octal format work
-			generic_sprintf(f, bufSize, TEXT("%%%s"), fStr);
-			generic_sprintf(str, strLen, f, number);
+			swprintf(f, bufSize, TEXT("%%%s"), fStr);
+			swprintf(str, strLen, f, number);
 		}
 		int i = lstrlen(str);
 		for ( ; i < nbChiffre ; ++i)
@@ -3215,8 +3215,8 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 		{
 			// use sprintf or swprintf instead of wsprintf
 			// to make octal format work
-			generic_sprintf(f, bufSize, TEXT("%%.%d%s"), nbChiffre, fStr);
-			generic_sprintf(str, strLen, f, number);
+			swprintf(f, bufSize, TEXT("%%.%d%s"), nbChiffre, fStr);
+			swprintf(str, strLen, f, number);
 		}
 		// else already done.
 	}

@@ -240,8 +240,8 @@ int CALLBACK FunctionListPanel::categorySortFunc(LPARAM lParam1, LPARAM lParam2,
 	generic_string* posString1 = reinterpret_cast<generic_string*>(lParam1);
 	generic_string* posString2 = reinterpret_cast<generic_string*>(lParam2);
 	
-	size_t pos1 = generic_atoi(posString1->c_str());
-	size_t pos2 = generic_atoi(posString2->c_str());
+	size_t pos1 = _wtoi(posString1->c_str());
+	size_t pos2 = _wtoi(posString2->c_str());
 	if (pos1 > pos2)
 		return 1;
 	else 
@@ -486,7 +486,7 @@ void FunctionListPanel::findMarkEntry(HTREEITEM htItem, LONG line)
 			generic_string *posStr = reinterpret_cast<generic_string *>(tvItem.lParam);
 			if (posStr)
 			{
-				int pos = generic_atoi(posStr->c_str());
+				int pos = _wtoi(posStr->c_str());
 				if (pos != -1)
 				{
 					LONG sci_line = static_cast<LONG>((*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos));
@@ -570,7 +570,7 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 	if (!posStr)
 		return false;
 
-	int pos = generic_atoi(posStr->c_str());
+	int pos = _wtoi(posStr->c_str());
 	if (pos == -1)
 		return false;
 

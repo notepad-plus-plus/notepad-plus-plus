@@ -43,11 +43,6 @@ const bool dirDown = false;
 #define WCSTOK wcstok_s
 #endif
 
-#define generic_atoi _wtoi
-#define generic_itoa _itow
-#define generic_fprintf fwprintf
-#define generic_sprintf swprintf
-#define generic_fopen _wfopen
 
 #define NPP_INTERNAL_FUCTION_STR L"Notepad++::InternalFunction"
 

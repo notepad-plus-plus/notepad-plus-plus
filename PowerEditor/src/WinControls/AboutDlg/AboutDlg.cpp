@@ -252,10 +252,18 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				swprintf(szProductName, bufSize, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
 			}
-
-			// Override ProductName if it's Windows 11
-			if (NppDarkMode::isWindows11())
-				swprintf(szProductName, bufSize, TEXT("%s"), TEXT("Windows 11"));
+			else if (NppDarkMode::isWindows11())
+			{
+				generic_string tmpProductName = szProductName;
+				constexpr size_t strLen = 10U;
+				const TCHAR strWin10[strLen + 1U] = TEXT("Windows 10");
+				const size_t pos = tmpProductName.find(strWin10);
+				if (pos < (bufSize - strLen - 1U))
+				{
+					tmpProductName.replace(pos, strLen, TEXT("Windows 11"));
+					swprintf(szProductName, bufSize, TEXT("%s"), tmpProductName.c_str());
+				}
+			}
 
 			if (szCurrentBuildNumber[0] == '\0')
 			{
@@ -270,7 +278,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += szProductName;
 			_debugInfoStr += TEXT(" (");
 			_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
-			_debugInfoStr += TEXT(") ");
+			_debugInfoStr += TEXT(")");
 			_debugInfoStr += TEXT("\r\n");
 
 			if (szReleaseId[0] != '\0')

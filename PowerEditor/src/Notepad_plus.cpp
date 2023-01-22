@@ -8354,7 +8354,10 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 			}
 			//-- Finally, if there is no stream-comment, return
 			else
+			{
+				_pEditView->execute(SCI_ENDUNDOACTION);
 				return retVal;
+			}
 		}
 
 		//-- Ok, there are valid start-comment and valid end-comment around the caret-position.
@@ -8421,7 +8424,6 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 	}
 	while (1); //do as long as stream-comments are within selection
 
-	_pEditView->execute(SCI_ENDUNDOACTION);
 }
 
 void Notepad_plus::monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting)

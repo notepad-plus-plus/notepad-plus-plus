@@ -8270,6 +8270,8 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 	size_t start_comment_length = start_comment.length();
 	size_t end_comment_length = end_comment.length();
 
+	_pEditView->execute(SCI_BEGINUNDOACTION);
+
 	// do as long as stream-comments are within selection
 	do
 	{
@@ -8418,6 +8420,8 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		}
 	}
 	while (1); //do as long as stream-comments are within selection
+
+	_pEditView->execute(SCI_ENDUNDOACTION);
 }
 
 void Notepad_plus::monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStarting)

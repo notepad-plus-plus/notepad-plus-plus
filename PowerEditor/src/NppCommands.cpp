@@ -95,9 +95,12 @@ void Notepad_plus::command(int id)
 				dateTimeStr += TEXT(" ");
 				dateTimeStr += dateStr;
 			}
+			_pEditView->execute(SCI_BEGINUNDOACTION);
 
 			_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
 			_pEditView->addGenericText(dateTimeStr.c_str());
+
+			_pEditView->execute(SCI_ENDUNDOACTION);
 		}
 		break;
 
@@ -109,8 +112,12 @@ void Notepad_plus::command(int id)
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 			generic_string dateTimeStr = getDateTimeStrFrom(nppGUI._dateTimeFormat, currentTime);
 
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+
 			_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
 			_pEditView->addGenericText(dateTimeStr.c_str());
+
+			_pEditView->execute(SCI_ENDUNDOACTION);
 		}
 		break;
 

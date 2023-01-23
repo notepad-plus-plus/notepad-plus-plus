@@ -1006,7 +1006,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6431" name="Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses"/>
+					<Item id="6431" name="Verzeichnis-Drag&amp;&amp;Drop öffnet alle enthaltenen Dateien statt &quot;Verzeichnis als Arbeitsbereich&quot; zu starten"/>
 				</DefaultDir>
 
 				<FileAssoc title="Dateiverknüpfungen">

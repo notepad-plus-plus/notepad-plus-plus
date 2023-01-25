@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.8 (15.12.2022)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.9 (25.01.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.4.8">
+    <Native-Langue name="polski" filename="polish.xml" version="8.4.9">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -1147,14 +1147,24 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                 </AutoCompletion>
 
                 <MultiInstance title="Wiele instancji i data"> <!-- Wieloinstancyjność -->
-                    <Item id="6151" name="Ustawienia wieloinstancyjności"/>
+                    <Item id="6151" name="Ustawienia wieloinstancyjności *"/>
                     <Item id="6152" name="Otwieraj sesje w nowych instancjach Notepad++ (i zapisuje je automatycznie przy wyjściu)"/>
                     <Item id="6153" name="Zawsze w trybie wieloinstancyjności"/>
                     <Item id="6154" name="Domyślne (jedna instancja)"/>
-                    <Item id="6155" name="Zmiana tego ustawienia wymaga ponownego uruchomienia Notepad++."/>
+                    <Item id="6155" name="* Zmiana tego ustawienia wymaga ponownego uruchomienia Notepad++."/>
                     <Item id="6171" name="Dostosuj wstawianą datę i czas"/>
                     <Item id="6175" name="Odwróć domyślną kolejność daty i czasu (krótki i długi format)"/>
                     <Item id="6172" name="Własny format:"/>
+                    <Item id="6181" name="Stan panelu i [-nosession] *"/>
+                    <Item id="6182" name="Pamiętaj stan panelu (panel jest otwarty) w innych instancjach (tryb wieloinstancyjności) lub przy użyciu argumentu wiersza poleceń [-nosession]"/>
+                    <Item id="6183" name="Historia schowka"/>
+                    <Item id="6184" name="Lista dokumentów"/>
+                    <Item id="6185" name="Tablica znaków"/>
+                    <Item id="6186" name="Obszar roboczy"/>
+                    <Item id="6187" name="Panele projektów"/>
+                    <Item id="6188" name="Mapa dokumentu"/>
+                    <Item id="6189" name="Lista funkcji"/>
+                    <Item id="6190" name="Panele wtyczek"/>
                 </MultiInstance>
 
                 <Delimiter title="Separator">

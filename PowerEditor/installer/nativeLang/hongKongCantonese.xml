@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.8">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.9">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -1253,16 +1253,16 @@
                     <Item id="6171" name="自訂日期時間插入功能"/> <!-- #new v8.1.5 -->
                     <Item id="6175" name="將日期同埋時間調轉（插入完整/簡短日期時間功能）"/> <!-- #new v8.1.5 -->
                     <Item id="6172" name="自訂格式："/> <!-- #new v8.1.5 -->
-                    <Item id="6181" name="Panel 狀態同埋 [-nosession] *"/> <!-- #new #next -->
-                    <Item id="6182" name="用緊多重程式個體嗰陣，又或者用咗 command line 參數「-nosession」，記住呢啲 panel 狀態"/> <!-- #new #next -->
-                    <Item id="6183" name="剪貼簿記錄"/> <!-- #new #next -->
-                    <Item id="6184" name="文件清單"/> <!-- #new #next -->
-                    <Item id="6185" name="ASCII 字元表"/> <!-- #new #next -->
-                    <Item id="6186" name="資料夾工作區"/> <!-- #new #next -->
-                    <Item id="6187" name="Project Panels"/> <!-- #new #next -->
-                    <Item id="6188" name="文件地圖"/> <!-- #new #next -->
-                    <Item id="6189" name="函式清單"/> <!-- #new #next -->
-                    <Item id="6190" name="外掛 Panels"/> <!-- #new #next -->
+                    <Item id="6181" name="Panel 狀態同埋 [-nosession] *"/> <!-- #new v8.4.9 -->
+                    <Item id="6182" name="用緊多重程式個體嗰陣，又或者用咗 command line 參數「-nosession」，記住呢啲 panel 狀態"/> <!-- #new v8.4.9 -->
+                    <Item id="6183" name="剪貼簿記錄"/> <!-- #new v8.4.9 -->
+                    <Item id="6184" name="文件清單"/> <!-- #new v8.4.9 -->
+                    <Item id="6185" name="ASCII 字元表"/> <!-- #new v8.4.9 -->
+                    <Item id="6186" name="資料夾工作區"/> <!-- #new v8.4.9 -->
+                    <Item id="6187" name="Project Panels"/> <!-- #new v8.4.9 -->
+                    <Item id="6188" name="文件地圖"/> <!-- #new v8.4.9 -->
+                    <Item id="6189" name="函式清單"/> <!-- #new v8.4.9 -->
+                    <Item id="6190" name="外掛 Panels"/> <!-- #new v8.4.9 -->
                 </MultiInstance>
 
                 <Delimiter title="分隔符號">

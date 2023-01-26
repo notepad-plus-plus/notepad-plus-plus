@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 17 December 2022 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 23 January 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
     Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.8">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -162,8 +162,8 @@
                     <Item id="42024" name="Izbriši &amp;prateće razmake"/>
                     <Item id="42042" name="Izbriši &amp;vodeće razmake"/>
                     <Item id="42043" name="Izbriši vodeće &amp;i prateće razmake"/>
-                    <Item id="42044" name="&amp;Kraj retka (EOL) u razmak"/>
-                    <Item id="42045" name="Izbriši &amp;nepotrebne praznine i krajeve retka"/>
+                    <Item id="42044" name="&amp;Krajevi retka (EOL) u razmake"/>
+                    <Item id="42045" name="Iz&amp;briši vodeće i prateće razmake, i krajevi retka u razmake"/>
                     <Item id="42046" name="&amp;Tabulatori u razmake"/>
                     <Item id="42054" name="&amp;Razmaci u tabulatore (svi)"/>
                     <Item id="42053" name="R&amp;azmaci u tabulatore (na početku retka)"/>
@@ -1151,7 +1151,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
                 </AutoCompletion>
 
                 <MultiInstance title="Instance i vrijeme">
-                    <Item id="6151" name="Postavke više-instančnog rada"/>
+                    <Item id="6151" name="Postavke više-instančnog rada *"/>
                     <Item id="6152" name="Otvori sesiju u novoj instanci
 (i automatski spremi sesiju pri izlazu)"/>
                     <Item id="6153" name="Uvijek u više-instančnom načinu"/>
@@ -1160,6 +1160,16 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
                     <Item id="6171" name="Prilagodi umetanje vremena i datuma"/>
                     <Item id="6175" name="Obratni redoslijed: prvo datum, pa vrijeme (kratki i dugi format)"/>
                     <Item id="6172" name="Prilagođeni format:"/>
+                    <Item id="6181" name="Stanje panela i [-nosession] *"/>
+                    <Item id="6182" name="Zapamti stanje panela (panel je otvoren) u drugim instancama (više-instančni rad) ili pri korištenju parametra komandne linije [-nosession]"/>
+                    <Item id="6183" name="Povijest međuspremnika"/>
+                    <Item id="6184" name="Popis dokumenata"/>
+                    <Item id="6185" name="Popis znakova"/>
+                    <Item id="6186" name="Mapa kao radni prostor"/>
+                    <Item id="6187" name="Projektni paneli"/>
+                    <Item id="6188" name="Pregledni prikaz dokumenta"/>
+                    <Item id="6189" name="Popis funkcija"/>
+                    <Item id="6190" name="Paneli dodataka"/>
                 </MultiInstance>
 
                 <Delimiter title="Graničnici">

@@ -151,13 +151,24 @@
 							   )
 						  )
 						  (?:\s*OVERLOAD\s*;)?                                                     # function/procedure overloading
-						  (?:\s*(?:REGISTER|PASCAL|CDECL|STDCALL|SAFECALL)\s*;)?                   # calling convention
+						  (?:\s*INLINE\s*;)?                                                       # function/procedure inlining
+						  (?:\s*(?:REGISTER|PASCAL|CDECL|STDCALL|SAFECALL|WINAPI)\s*;)?            # calling convention
 						  (?:                                                                      # external function from object file
 							   (?:\s*(?:VARARGS)\s*;)                                                # variadic C function with cdecl calling convention
 							 | (?:\s*(?:EXTERNAL)\s+[^;]+;)                                          # or normal function
 						  )?
 						  (?!
-							 (?:\s*FORWARD\s*;)                                                  # prevent matching forward declarations in implementation section of unit
+							 (?:\s*FORWARD\s*;)                                                    # prevent matching forward declarations in implementation section of unit
+						  )
+						  (?=                                                                      # only match function/procedure definitions
+							 (?:\s*
+								(?:                                                                  # optional comment
+									 (?s:\x7B.*?\x7D)                                                  #     multi line comment 1st variant
+								   | (?s:\x28\x2A.*?\x2A\x29)                                          # or  multi line comment 2nd variant
+								   | (?-s:\x2F{2}.*$)                                                  # or single line comment
+								)
+							 )*
+							 \s*(?:CONST|TYPE|VAR|LABEL|BEGIN|(?R))\s*                               # declaration block
 						  )
 						 "
 			>

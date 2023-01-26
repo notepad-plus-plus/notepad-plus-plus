@@ -743,7 +743,7 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 		data.reserve( length );
 
 		const int BUF_SIZE = 2048;
-		TCHAR buf[BUF_SIZE];
+		wchar_t buf[BUF_SIZE];
 
 		while(fgetws( buf, BUF_SIZE, file ) )
 		{

@@ -2735,6 +2735,27 @@ void NppParameters::feedMacros(TiXmlNode *node)
 			getActions(childNode, macro);
 			int cmdID = ID_MACRO + static_cast<int32_t>(_macros.size());
 			_macros.push_back(MacroShortcut(sc, macro, cmdID));
+
+			// User could add folder name in his/her native language,
+			// so let's make non-western languages displayable here.
+			if (!fdnm.empty())
+			{
+				// The function WideCharToMultiByte with CP_ACP doesn't work.
+				// So we use our way to convert to char from wchar_t:
+				size_t len = fdnm.size();
+				const wchar_t* fdnmW = fdnm.c_str();
+				char* fdnmA = new char[len+1];
+				for (size_t i = 0; i < len; ++i)
+				{
+					fdnmA[i] = (char)fdnmW[i];
+				}
+				fdnmA[len] = '\0';
+
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+				fdnm = wmc.char2wchar(fdnmA, SC_CP_UTF8);
+
+				delete[] fdnmA;
+			}
 			_macroMenuItems.push_back(MenuItemUnit(cmdID, sc.getName(), fdnm));
 		}
 	}
@@ -2792,6 +2813,28 @@ void NppParameters::feedUserCmds(TiXmlNode *node)
 				{
 					int cmdID = ID_USER_CMD + static_cast<int32_t>(_userCommands.size());
 					_userCommands.push_back(UserCommand(sc, cmdStr, cmdID));
+
+					// User could add folder name in his/her native language,
+					// so let's make non-western languages displayable here.
+					if (!fdnm.empty())
+					{
+						// The function WideCharToMultiByte with CP_ACP doesn't work.
+						// So we use our way to convert to char from wchar_t:
+						size_t len = fdnm.size();
+						const wchar_t* fdnmW = fdnm.c_str();
+						char* fdnmA = new char[len + 1];
+						for (size_t i = 0; i < len; ++i)
+						{
+							fdnmA[i] = (char)fdnmW[i];
+						}
+						fdnmA[len] = '\0';
+
+						WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+						fdnm = wmc.char2wchar(fdnmA, SC_CP_UTF8);
+
+						delete[] fdnmA;
+					}
+
 					_runMenuItems.push_back(MenuItemUnit(cmdID, sc.getName(), fdnm));
 				}
 			}

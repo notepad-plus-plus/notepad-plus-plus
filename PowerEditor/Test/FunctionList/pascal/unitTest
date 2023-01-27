@@ -164,9 +164,6 @@ type
 
   TInternalClass = class(TObject)
   public
-    constructor Create;
-    destructor  Destroy; override;
-
     function    Init(Cnt: integer): boolean;
     procedure   SetValue(Cnt: integer);
     

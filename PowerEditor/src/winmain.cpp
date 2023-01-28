@@ -532,7 +532,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			nppParameters.destroyInstance();
 
 			// Restore the window, bring it to front, etc
-			::SendMessage(hNotepad_plus, NPPM_INTERNAL_RESTOREMONOINSTANCE, 0, 0 );
+			::SendMessage(hNotepad_plus, NPPM_INTERNAL_RESTOREMONOINSTANCE, 0, 0);
 
 			if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
 			{

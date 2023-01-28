@@ -2493,7 +2493,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_RESTOREMONOINSTANCE:
 		{
 			// When mono instance, bring this one to front
-			if (nullptr != _pTrayIco && _pTrayIco->isInTray())
+			if (_pTrayIco != nullptr && _pTrayIco->isInTray())
 			{
 				// We are in tray, restore properly..
 				::SendMessage(hwnd, NPPM_INTERNAL_MINIMIZED_TRAY, 0, WM_LBUTTONUP);

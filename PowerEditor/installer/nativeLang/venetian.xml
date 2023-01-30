@@ -371,30 +371,30 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                <Item CMID="0" name="Sara su"/>
-                <Item CMID="1" name="Sara su tute cuante, vìa che cuesta"/>
-                <Item CMID="2" name="Salva"/>
-                <Item CMID="3" name="Salva cofà..."/>
-                <Item CMID="4" name="Stanpa..."/>
-                <Item CMID="5" name="Spòsta inte ƚ&apos;altra vista"/>
-                <Item CMID="6" name="Còpia inte ƚ&apos;altra vista"/>
-                <Item CMID="7" name="Còpia percorso file"/>
-                <Item CMID="8" name="Còpia nòme file"/>
-                <Item CMID="9" name="Còpia percorso carteƚa"/>
-                <Item CMID="10" name="Rinomina file..."/>
-                <Item CMID="11" name="Scanseƚa file"/>
-                <Item CMID="12" name="Soƚa ƚetura"/>
-                <Item CMID="13" name="Reinposta flag soƚa ƚetura"/>
-                <Item CMID="14" name="Spòsta en na nova fenèstra"/>
-                <Item CMID="15" name="Còpia en na nova fenèstra"/>
-                <Item CMID="16" name="Recarga"/>
-                <Item CMID="17" name="Sara su tute cuante a sanca"/>
-                <Item CMID="18" name="Sara su tute cuante a drita"/>
-                <Item CMID="19" name="Vèrxi carteƚa file en Esplora risorse"/>
-                <Item CMID="20" name="Vèrxi prompt dei comandi en carteƚa file"/>
-                <Item CMID="21" name="Vèrxi co el visuaƚixatore predefinìo"/>
-                <Item CMID="22" name="Sara su tuti cueƚi no modifegà"/>
-                <Item CMID="23" name="Vèrxi carteƚa contegnù cofà Workspace"/>
+                <Item CMDID="0" name="Sara su"/>
+                <Item CMDID="1" name="Sara su tute cuante, vìa che cuesta"/>
+                <Item CMDID="2" name="Salva"/>
+                <Item CMDID="3" name="Salva cofà..."/>
+                <Item CMDID="4" name="Stanpa..."/>
+                <Item CMDID="5" name="Spòsta inte ƚ&apos;altra vista"/>
+                <Item CMDID="6" name="Còpia inte ƚ&apos;altra vista"/>
+                <Item CMDID="7" name="Còpia percorso file"/>
+                <Item CMDID="8" name="Còpia nòme file"/>
+                <Item CMDID="9" name="Còpia percorso carteƚa"/>
+                <Item CMDID="10" name="Rinomina file..."/>
+                <Item CMDID="11" name="Scanseƚa file"/>
+                <Item CMDID="12" name="Soƚa ƚetura"/>
+                <Item CMDID="13" name="Reinposta flag soƚa ƚetura"/>
+                <Item CMDID="14" name="Spòsta en na nova fenèstra"/>
+                <Item CMDID="15" name="Còpia en na nova fenèstra"/>
+                <Item CMDID="16" name="Recarga"/>
+                <Item CMDID="17" name="Sara su tute cuante a sanca"/>
+                <Item CMDID="18" name="Sara su tute cuante a drita"/>
+                <Item CMDID="19" name="Vèrxi carteƚa file en Esplora risorse"/>
+                <Item CMDID="20" name="Vèrxi prompt dei comandi en carteƚa file"/>
+                <Item CMDID="21" name="Vèrxi co el visuaƚixatore predefinìo"/>
+                <Item CMDID="22" name="Sara su tuti cueƚi no modifegà"/>
+                <Item CMDID="23" name="Vèrxi carteƚa contegnù cofà Workspace"/>
             </TabBar>
         </Menu>
         <Dialog>

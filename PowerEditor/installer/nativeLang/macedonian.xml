@@ -192,22 +192,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID = "0" name = "Затвори"/>
-                    <Item CMID = "1" name = "Затвори ги сите освен Ова"/>
-                    <Item CMID = "2" name = "Зачувај"/>
-                    <Item CMID = "3" name = "Зачувај како..."/>
-                    <Item CMID = "4" name = "Печати"/>
-                    <Item CMID = "5" name = "Промена во друг поглед"/>
-                    <Item CMID = "6" name = "Клонирај во друг поглед"/>
-					<Item CMID = "7" name = "Складирај ја целосната патека на фајлот"/>
-					<Item CMID = "8" name = "Складирај го името на фајлот"/>
-					<Item CMID = "9" name = "Складирај ја патеката на одредениот директориум"/>
-					<Item CMID = "10" name = "Преимени"/>
-					<Item CMID = "11" name = "Избриши"/>
-					<Item CMID = "12" name = "Само за читање"/>
-					<Item CMID = "13" name = "Исчисти го знаменцето Само за читање"/>
-					<Item CMID = "14" name = "Помести во нова инстанца"/>
-					<Item CMID = "15" name = "Отвори во нова инстанца"/>
+                    <Item CMDID = "0" name = "Затвори"/>
+                    <Item CMDID = "1" name = "Затвори ги сите освен Ова"/>
+                    <Item CMDID = "2" name = "Зачувај"/>
+                    <Item CMDID = "3" name = "Зачувај како..."/>
+                    <Item CMDID = "4" name = "Печати"/>
+                    <Item CMDID = "5" name = "Промена во друг поглед"/>
+                    <Item CMDID = "6" name = "Клонирај во друг поглед"/>
+					<Item CMDID = "7" name = "Складирај ја целосната патека на фајлот"/>
+					<Item CMDID = "8" name = "Складирај го името на фајлот"/>
+					<Item CMDID = "9" name = "Складирај ја патеката на одредениот директориум"/>
+					<Item CMDID = "10" name = "Преимени"/>
+					<Item CMDID = "11" name = "Избриши"/>
+					<Item CMDID = "12" name = "Само за читање"/>
+					<Item CMDID = "13" name = "Исчисти го знаменцето Само за читање"/>
+					<Item CMDID = "14" name = "Помести во нова инстанца"/>
+					<Item CMDID = "15" name = "Отвори во нова инстанца"/>
             </TabBar>
         </Menu>
 

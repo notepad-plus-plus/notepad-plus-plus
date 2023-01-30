@@ -333,29 +333,29 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Dún"/>
-                    <Item CMID="1" name="Dún uile ACH AMHÁIN an ceann seo"/>
-                    <Item CMID="2" name="Taisc"/>
-                    <Item CMID="3" name="Taisc mar..."/>
-                    <Item CMID="4" name="Clóbhuail"/>
-                    <Item CMID="5" name="Bog chuig amharc eile"/>
-                    <Item CMID="6" name="Clone to Other View"/>
-                    <Item CMID="7" name="Full File Path chuig an ngearrthaisce"/>
-                    <Item CMID="8" name="Filename chuig an ngearrthaisce"/>
-                    <Item CMID="9" name="Current Dir. Path chuig an ngearrthaisce"/>
-                    <Item CMID="10" name="Athainmnigh"/>
-                    <Item CMID="11" name="Move to Recycle Bin"/>
-                    <Item CMID="12" name="Inléite-Amháin"/>
-                    <Item CMID="13" name="Glan Read-Only Flag"/>
-                    <Item CMID="14" name="Move to New Instance"/>
-                    <Item CMID="15" name="Oscail in New Instance"/>
-                    <Item CMID="16" name="Athluchtaigh é"/>
-                    <Item CMID="17" name="Dún GACH CEANN ar chlé"/>
-                    <Item CMID="18" name="Dún GACH CEANN ar dheis"/>
-                    <Item CMID="19" name="Oscail Containing Folder in Explorer"/>
-                    <Item CMID="20" name="Oscail Containing Folder in cmd"/>
-                    <Item CMID="21" name="Oscail san amharcóir réamhshocraithe"/>
-                    <Item CMID="22" name="Dún GACH CEANN gan athrú"/>
+                    <Item CMDID="0" name="Dún"/>
+                    <Item CMDID="1" name="Dún uile ACH AMHÁIN an ceann seo"/>
+                    <Item CMDID="2" name="Taisc"/>
+                    <Item CMDID="3" name="Taisc mar..."/>
+                    <Item CMDID="4" name="Clóbhuail"/>
+                    <Item CMDID="5" name="Bog chuig amharc eile"/>
+                    <Item CMDID="6" name="Clone to Other View"/>
+                    <Item CMDID="7" name="Full File Path chuig an ngearrthaisce"/>
+                    <Item CMDID="8" name="Filename chuig an ngearrthaisce"/>
+                    <Item CMDID="9" name="Current Dir. Path chuig an ngearrthaisce"/>
+                    <Item CMDID="10" name="Athainmnigh"/>
+                    <Item CMDID="11" name="Move to Recycle Bin"/>
+                    <Item CMDID="12" name="Inléite-Amháin"/>
+                    <Item CMDID="13" name="Glan Read-Only Flag"/>
+                    <Item CMDID="14" name="Move to New Instance"/>
+                    <Item CMDID="15" name="Oscail in New Instance"/>
+                    <Item CMDID="16" name="Athluchtaigh é"/>
+                    <Item CMDID="17" name="Dún GACH CEANN ar chlé"/>
+                    <Item CMDID="18" name="Dún GACH CEANN ar dheis"/>
+                    <Item CMDID="19" name="Oscail Containing Folder in Explorer"/>
+                    <Item CMDID="20" name="Oscail Containing Folder in cmd"/>
+                    <Item CMDID="21" name="Oscail san amharcóir réamhshocraithe"/>
+                    <Item CMDID="22" name="Dún GACH CEANN gan athrú"/>
             </TabBar>
         </Menu>
 

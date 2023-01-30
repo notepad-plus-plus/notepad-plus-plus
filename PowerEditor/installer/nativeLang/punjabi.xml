@@ -304,27 +304,27 @@
             <Splitter>
             </Splitter>
            <TabBar>
-                    <Item CMID="0" name="ਬੰਦ ਕਰੋ"/>
-                    <Item CMID="1" name="ਬੰਦ ਕਰੋ ਸਾਰੇ ਪਰ ਇਸ"/>
-                    <Item CMID="2" name="ਸੰਭਾਲੋ"/>
-                    <Item CMID="3" name="ਨਾਤੇ ਸੰਭਾਲੋ ..."/>
-                    <Item CMID="4" name="ਪ੍ਰਿੰਟ"/>
-                    <Item CMID="5" name="ਹੋਰ ਦੇਖੋ ਭੇਜੋ"/>
-                    <Item CMID="6" name="ਹੋਰ ਦੇਖੋ ਨੂੰ ਕਲੋਨ"/>
-                    <Item CMID="7" name="ਪੂਰਾ ਫਾਇਲ ਮਾਰਗ ਕਲਿੱਪਬੋਰਡ"/>
-                    <Item CMID="8" name="ਫਾਇਲ ਕਲਿੱਪਬੋਰਡ ਨੂੰ"/>
-                    <Item CMID="9" name="ਮੌਜੂਦਾ ਦੀਰ. ਮਾਰਗ ਕਲਿੱਪਬੋਰਡ ਨੂੰ"/>
-                    <Item CMID="10" name="ਬਦਲੋ"/>
-                    <Item CMID="11" name="ਬਿਨ ਨੂੰ ਰੀਸਾਈਕਲ ਕਰਨ ਭੇਜੋ"/>
-                    <Item CMID="12" name="ਸਿਰਫ-ਪੜਨ ਲਈ"/>
-                    <Item CMID="13" name="ਆਸਮਾਨ ਸਾਫ ਸਿਰਫ-ਪੜਨ ਲਈ ਝੰਡਾ"/>
-                    <Item CMID="14" name="ਨ੍ਯੂ ਮਿਸਾਲ ਭੇਜੋ"/>
-                    <Item CMID="15" name="ਨ੍ਯੂ ਮੌਕੇ ਵਿੱਚ ਓਪਨ"/>
-                    <Item CMID="16" name="ਲੋਡ"/>
-                    <Item CMID="17" name="ਖੱਬੇ ਕਰਨ ਲਈ ਸਾਰੇ ਬੰਦ ਕਰੋ"/>
-                    <Item CMID="18" name="ਸੱਜੇ ਕਰਨ ਲਈ ਸਾਰੇ ਬੰਦ ਕਰੋ"/>
-                    <Item CMID="19" name="ਐਕਸਪਲੋਰਰ ਵਿੱਚ ਫੋਲਡਰ ਰੱਖਣ ਖੋਲ੍ਹੋ"/>
-                    <Item CMID="20" name="ਸੀ.ਐਮ.ਡੀ. ਵਿੱਚ ਫੋਲਡਰ ਰੱਖਣ ਖੋਲ੍ਹੋ"/>
+                    <Item CMDID="0" name="ਬੰਦ ਕਰੋ"/>
+                    <Item CMDID="1" name="ਬੰਦ ਕਰੋ ਸਾਰੇ ਪਰ ਇਸ"/>
+                    <Item CMDID="2" name="ਸੰਭਾਲੋ"/>
+                    <Item CMDID="3" name="ਨਾਤੇ ਸੰਭਾਲੋ ..."/>
+                    <Item CMDID="4" name="ਪ੍ਰਿੰਟ"/>
+                    <Item CMDID="5" name="ਹੋਰ ਦੇਖੋ ਭੇਜੋ"/>
+                    <Item CMDID="6" name="ਹੋਰ ਦੇਖੋ ਨੂੰ ਕਲੋਨ"/>
+                    <Item CMDID="7" name="ਪੂਰਾ ਫਾਇਲ ਮਾਰਗ ਕਲਿੱਪਬੋਰਡ"/>
+                    <Item CMDID="8" name="ਫਾਇਲ ਕਲਿੱਪਬੋਰਡ ਨੂੰ"/>
+                    <Item CMDID="9" name="ਮੌਜੂਦਾ ਦੀਰ. ਮਾਰਗ ਕਲਿੱਪਬੋਰਡ ਨੂੰ"/>
+                    <Item CMDID="10" name="ਬਦਲੋ"/>
+                    <Item CMDID="11" name="ਬਿਨ ਨੂੰ ਰੀਸਾਈਕਲ ਕਰਨ ਭੇਜੋ"/>
+                    <Item CMDID="12" name="ਸਿਰਫ-ਪੜਨ ਲਈ"/>
+                    <Item CMDID="13" name="ਆਸਮਾਨ ਸਾਫ ਸਿਰਫ-ਪੜਨ ਲਈ ਝੰਡਾ"/>
+                    <Item CMDID="14" name="ਨ੍ਯੂ ਮਿਸਾਲ ਭੇਜੋ"/>
+                    <Item CMDID="15" name="ਨ੍ਯੂ ਮੌਕੇ ਵਿੱਚ ਓਪਨ"/>
+                    <Item CMDID="16" name="ਲੋਡ"/>
+                    <Item CMDID="17" name="ਖੱਬੇ ਕਰਨ ਲਈ ਸਾਰੇ ਬੰਦ ਕਰੋ"/>
+                    <Item CMDID="18" name="ਸੱਜੇ ਕਰਨ ਲਈ ਸਾਰੇ ਬੰਦ ਕਰੋ"/>
+                    <Item CMDID="19" name="ਐਕਸਪਲੋਰਰ ਵਿੱਚ ਫੋਲਡਰ ਰੱਖਣ ਖੋਲ੍ਹੋ"/>
+                    <Item CMDID="20" name="ਸੀ.ਐਮ.ਡੀ. ਵਿੱਚ ਫੋਲਡਰ ਰੱਖਣ ਖੋਲ੍ਹੋ"/>
             </TabBar>
         </Menu>
 

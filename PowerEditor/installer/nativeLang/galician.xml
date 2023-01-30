@@ -387,41 +387,41 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID = "0" name = "Pechar"/>
-                    <Item CMID = "1" name = "Pechar todos excepto actual"/>
-                    <Item CMID = "2" name = "Gardar"/>
-                    <Item CMID = "3" name = "Gardar como..."/>
-                    <Item CMID = "4" name = "Imprimir"/>
-                    <Item CMID = "5" name = "Mover a outra vista"/>
-                    <Item CMID = "6" name = "Clonar noutra vista"/>
-                    <Item CMID = "7" name = "Copiar ruta completa do arquivo"/>
-                    <Item CMID = "8" name = "Copiar nome do arquivo"/>
-                    <Item CMID = "9" name = "Copiar ruta actual da carpeta"/>
-                    <Item CMID = "10" name = "Renomear"/>
-                    <Item CMID = "11" name = "Mover á papeleira de reciclaxe"/>
-                    <Item CMID = "12" name = "Só lectura"/>
-                    <Item CMID = "13" name = "Quitar marca de só lectura"/>
-                    <Item CMID = "14" name = "Mover a unha nova ventá"/>
-                    <Item CMID = "15" name = "Abrir nunha nova ventá"/>
-                    <Item CMID = "16" name = "Recargar"/>
-                    <Item CMID = "17" name = "Pechar todo á esquerda"/>
-                    <Item CMID = "18" name = "Pechar todo á dereita"/>
-                    <Item CMID = "19" name = "Abrir a carpeta contedora no explorador de arquivos"/>
-                    <Item CMID = "20" name = "Abrir a carpeta contedora en CMD"/>
-                    <Item CMID = "21" name = "Abrir no visualizador predeterminado"/>
-                    <Item CMID = "22" name = "Pechar todo sen cambios"/>
-                    <Item CMID = "23" name = "Abrir carpeta contedora como espazo de traballo"/>
-                    <Item CMID = "24" name = "Aplicar cor 1"/>
-                    <Item CMID = "25" name = "Aplicar cor 2"/>
-                    <Item CMID = "26" name = "Aplicar cor 3"/>
-                    <Item CMID = "27" name = "Aplicar cor 4"/>
-                    <Item CMID = "28" name = "Aplicar cor 5"/>
-                    <Item CMID = "29" name = "Quitar cor"/>
-                    <Item CMID = "30" name = "Pechar múltiples pestanas"/>
-                    <Item CMID = "31" name = "Abrir en"/>
-                    <Item CMID = "32" name = "Copiar ao portapapeis"/>
-                    <Item CMID = "33" name = "Mover documento"/>
-                    <Item CMID = "34" name = "Aplicar cor á pestana"/>
+                    <Item CMDID = "0" name = "Pechar"/>
+                    <Item CMDID = "1" name = "Pechar todos excepto actual"/>
+                    <Item CMDID = "2" name = "Gardar"/>
+                    <Item CMDID = "3" name = "Gardar como..."/>
+                    <Item CMDID = "4" name = "Imprimir"/>
+                    <Item CMDID = "5" name = "Mover a outra vista"/>
+                    <Item CMDID = "6" name = "Clonar noutra vista"/>
+                    <Item CMDID = "7" name = "Copiar ruta completa do arquivo"/>
+                    <Item CMDID = "8" name = "Copiar nome do arquivo"/>
+                    <Item CMDID = "9" name = "Copiar ruta actual da carpeta"/>
+                    <Item CMDID = "10" name = "Renomear"/>
+                    <Item CMDID = "11" name = "Mover á papeleira de reciclaxe"/>
+                    <Item CMDID = "12" name = "Só lectura"/>
+                    <Item CMDID = "13" name = "Quitar marca de só lectura"/>
+                    <Item CMDID = "14" name = "Mover a unha nova ventá"/>
+                    <Item CMDID = "15" name = "Abrir nunha nova ventá"/>
+                    <Item CMDID = "16" name = "Recargar"/>
+                    <Item CMDID = "17" name = "Pechar todo á esquerda"/>
+                    <Item CMDID = "18" name = "Pechar todo á dereita"/>
+                    <Item CMDID = "19" name = "Abrir a carpeta contedora no explorador de arquivos"/>
+                    <Item CMDID = "20" name = "Abrir a carpeta contedora en CMD"/>
+                    <Item CMDID = "21" name = "Abrir no visualizador predeterminado"/>
+                    <Item CMDID = "22" name = "Pechar todo sen cambios"/>
+                    <Item CMDID = "23" name = "Abrir carpeta contedora como espazo de traballo"/>
+                    <Item CMDID = "24" name = "Aplicar cor 1"/>
+                    <Item CMDID = "25" name = "Aplicar cor 2"/>
+                    <Item CMDID = "26" name = "Aplicar cor 3"/>
+                    <Item CMDID = "27" name = "Aplicar cor 4"/>
+                    <Item CMDID = "28" name = "Aplicar cor 5"/>
+                    <Item CMDID = "29" name = "Quitar cor"/>
+                    <Item CMDID = "30" name = "Pechar múltiples pestanas"/>
+                    <Item CMDID = "31" name = "Abrir en"/>
+                    <Item CMDID = "32" name = "Copiar ao portapapeis"/>
+                    <Item CMDID = "33" name = "Mover documento"/>
+                    <Item CMDID = "34" name = "Aplicar cor á pestana"/>
             </TabBar>
         </Menu>
 

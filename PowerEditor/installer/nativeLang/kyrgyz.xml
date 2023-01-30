@@ -230,22 +230,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID = "0" name = "Мени жап"/>
-                    <Item CMID = "1" name = "Менден башкасынын бардыгын жап"/>
-                    <Item CMID = "2" name = "Мени сакта"/>
-                    <Item CMID = "3" name = "Мындайча сакта..."/>
-                    <Item CMID = "4" name = "Бастыр"/>
-                    <Item CMID = "5" name = "Экинчи бөлүм катары ач"/>
-                    <Item CMID = "6" name = "Экинчи бөлүмгө көчүр"/>
-					<Item CMID = "7" name = "Файлдын толук жолун алмашуу буферине"/>
-					<Item CMID = "8" name = "Файлдын атын алмашуу буферине"/>
-					<Item CMID = "9" name = "Азыркы директория жолун алмашуу буферине"/>
-					<Item CMID = "10" name = "Атын өзгөрт"/>
-					<Item CMID = "11" name = "Өчүр"/>
-					<Item CMID = "12" name = "Окуганга гана"/>
-					<Item CMID = "13" name = "Окуганга гана белгисин алып сал"/>
-					<Item CMID = "14" name = "Жаңы терезеге жылдыр"/>
-					<Item CMID = "15" name = "Жаңы терезеге көчүр"/>
+                    <Item CMDID = "0" name = "Мени жап"/>
+                    <Item CMDID = "1" name = "Менден башкасынын бардыгын жап"/>
+                    <Item CMDID = "2" name = "Мени сакта"/>
+                    <Item CMDID = "3" name = "Мындайча сакта..."/>
+                    <Item CMDID = "4" name = "Бастыр"/>
+                    <Item CMDID = "5" name = "Экинчи бөлүм катары ач"/>
+                    <Item CMDID = "6" name = "Экинчи бөлүмгө көчүр"/>
+					<Item CMDID = "7" name = "Файлдын толук жолун алмашуу буферине"/>
+					<Item CMDID = "8" name = "Файлдын атын алмашуу буферине"/>
+					<Item CMDID = "9" name = "Азыркы директория жолун алмашуу буферине"/>
+					<Item CMDID = "10" name = "Атын өзгөрт"/>
+					<Item CMDID = "11" name = "Өчүр"/>
+					<Item CMDID = "12" name = "Окуганга гана"/>
+					<Item CMDID = "13" name = "Окуганга гана белгисин алып сал"/>
+					<Item CMDID = "14" name = "Жаңы терезеге жылдыр"/>
+					<Item CMDID = "15" name = "Жаңы терезеге көчүр"/>
             </TabBar>
         </Menu>
 

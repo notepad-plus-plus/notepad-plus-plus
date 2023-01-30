@@ -378,30 +378,30 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Luk"/>
-                    <Item CMID="1" name="Luk alle, undtagen dette"/>
-                    <Item CMID="2" name="Gem"/>
-                    <Item CMID="3" name="Gem som..."/>
-                    <Item CMID="4" name="Udskriv"/>
-                    <Item CMID="5" name="Flyt til anden visning"/>
-                    <Item CMID="6" name="Klon til anden visning"/>
-                    <Item CMID="7" name="Kopier fuld filsti"/>
-                    <Item CMID="8" name="Kopier filnavn"/>
-                    <Item CMID="9" name="Kopier mappesti"/>
-                    <Item CMID="10" name="Omdøb"/>
-                    <Item CMID="11" name="Flyt til papirkurv"/>
-                    <Item CMID="12" name="Skrivebeskyttet"/>
-                    <Item CMID="13" name="Fjern skrivebeskyttelse"/>
-                    <Item CMID="14" name="Flyt til ny instans"/>
-                    <Item CMID="15" name="Åbn i ny instans"/>
-                    <Item CMID="16" name="Genindlæs"/>
-                    <Item CMID="17" name="Luk alle til venstre"/>
-                    <Item CMID="18" name="Luk alle til højre"/>
-                    <Item CMID="19" name="Åbn kildemappe i stifinder"/>
-                    <Item CMID="20" name="Åbn kildemappe i kommandoprompt"/>
-                    <Item CMID="21" name="Åbn i standardprogram"/>
-                    <Item CMID="22" name="Luk alle uændrede"/>
-                    <Item CMID="23" name="Åbn kildemappe som arbejdsrum"/>
+                    <Item CMDID="0" name="Luk"/>
+                    <Item CMDID="1" name="Luk alle, undtagen dette"/>
+                    <Item CMDID="2" name="Gem"/>
+                    <Item CMDID="3" name="Gem som..."/>
+                    <Item CMDID="4" name="Udskriv"/>
+                    <Item CMDID="5" name="Flyt til anden visning"/>
+                    <Item CMDID="6" name="Klon til anden visning"/>
+                    <Item CMDID="7" name="Kopier fuld filsti"/>
+                    <Item CMDID="8" name="Kopier filnavn"/>
+                    <Item CMDID="9" name="Kopier mappesti"/>
+                    <Item CMDID="10" name="Omdøb"/>
+                    <Item CMDID="11" name="Flyt til papirkurv"/>
+                    <Item CMDID="12" name="Skrivebeskyttet"/>
+                    <Item CMDID="13" name="Fjern skrivebeskyttelse"/>
+                    <Item CMDID="14" name="Flyt til ny instans"/>
+                    <Item CMDID="15" name="Åbn i ny instans"/>
+                    <Item CMDID="16" name="Genindlæs"/>
+                    <Item CMDID="17" name="Luk alle til venstre"/>
+                    <Item CMDID="18" name="Luk alle til højre"/>
+                    <Item CMDID="19" name="Åbn kildemappe i stifinder"/>
+                    <Item CMDID="20" name="Åbn kildemappe i kommandoprompt"/>
+                    <Item CMDID="21" name="Åbn i standardprogram"/>
+                    <Item CMDID="22" name="Luk alle uændrede"/>
+                    <Item CMDID="23" name="Åbn kildemappe som arbejdsrum"/>
             </TabBar>
         </Menu>
 

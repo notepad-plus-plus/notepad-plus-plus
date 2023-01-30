@@ -303,27 +303,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Mbyll"/>
-                    <Item CMID="1" name="Mbyll të gjitha VEÇ kësaj"/>
-                    <Item CMID="2" name="Ruaj"/>
-                    <Item CMID="3" name="Ruaj si..."/>
-                    <Item CMID="4" name="Printo"/>
-                    <Item CMID="5" name="Lëviz tek pamje tjera"/>
-                    <Item CMID="6" name="Klono tek pamje tjera"/>
-                    <Item CMID="7" name="Rruga e filit të plotë në Clipboard"/>
-                    <Item CMID="8" name="Emti i filit në Clipboard"/>
-                    <Item CMID="9" name="Dosja aktuale. Rruga tek Clipboard"/>
-                    <Item CMID="10" name="Riemëro"/>
-                    <Item CMID="11" name="Lëviz tek Recycle Bin"/>
-                    <Item CMID="12" name="Vetëm-lexo"/>
-                    <Item CMID="13" name="Pastro flamurin vetëm-lexo"/>
-                    <Item CMID="14" name="Lëviz tek Instanca e re"/>
-                    <Item CMID="15" name="Hap në Instancën e re"/>
-                    <Item CMID="16" name="Ringarko"/>
-                    <Item CMID="17" name="Mbylli të gjitha në të majtë"/>
-                    <Item CMID="18" name="Mbylli të gjitha në të djathtë"/>
-                    <Item CMID="19" name="Hap dosjen e përmbajtjes në Explorer"/>
-                    <Item CMID="20" name="Hap dosjen e përmbajtjes në cmd"/>
+                    <Item CMDID="0" name="Mbyll"/>
+                    <Item CMDID="1" name="Mbyll të gjitha VEÇ kësaj"/>
+                    <Item CMDID="2" name="Ruaj"/>
+                    <Item CMDID="3" name="Ruaj si..."/>
+                    <Item CMDID="4" name="Printo"/>
+                    <Item CMDID="5" name="Lëviz tek pamje tjera"/>
+                    <Item CMDID="6" name="Klono tek pamje tjera"/>
+                    <Item CMDID="7" name="Rruga e filit të plotë në Clipboard"/>
+                    <Item CMDID="8" name="Emti i filit në Clipboard"/>
+                    <Item CMDID="9" name="Dosja aktuale. Rruga tek Clipboard"/>
+                    <Item CMDID="10" name="Riemëro"/>
+                    <Item CMDID="11" name="Lëviz tek Recycle Bin"/>
+                    <Item CMDID="12" name="Vetëm-lexo"/>
+                    <Item CMDID="13" name="Pastro flamurin vetëm-lexo"/>
+                    <Item CMDID="14" name="Lëviz tek Instanca e re"/>
+                    <Item CMDID="15" name="Hap në Instancën e re"/>
+                    <Item CMDID="16" name="Ringarko"/>
+                    <Item CMDID="17" name="Mbylli të gjitha në të majtë"/>
+                    <Item CMDID="18" name="Mbylli të gjitha në të djathtë"/>
+                    <Item CMDID="19" name="Hap dosjen e përmbajtjes në Explorer"/>
+                    <Item CMDID="20" name="Hap dosjen e përmbajtjes në cmd"/>
             </TabBar>
         </Menu>
         

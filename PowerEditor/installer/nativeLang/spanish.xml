@@ -381,40 +381,40 @@ The comments are here for explanation, it's not necessary to translate them.
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0" name="Cerrar"/>
-				<Item CMID="1" name="Cerrar todos excepto actual"/>
-				<Item CMID="2" name="Guardar"/>
-				<Item CMID="3" name="Guardar como..."/>
-				<Item CMID="4" name="Imprimir"/>
-				<Item CMID="5" name="Mover a otra vista"/>
-				<Item CMID="6" name="Clonar en otra vista"/>
-				<Item CMID="7" name="Copiar ruta completa del archivo"/>
-				<Item CMID="8" name="Copiar nombre del archivo"/>
-				<Item CMID="9" name="Copiar ruta actual de la carpeta"/>
-				<Item CMID="10" name="Renombrar"/>
-				<Item CMID="11" name="Mover a la papelera de reciclaje"/>
-				<Item CMID="12" name="Solo lectura"/>
-				<Item CMID="13" name="Quitar marca de solo lectura"/>
-				<Item CMID="14" name="Mover a una nueva ventana"/>
-				<Item CMID="15" name="Abrir en una nueva ventana"/>
-				<Item CMID="16" name="Recargar"/>
-				<Item CMID="17" name="Cerrar todo a la izquierda"/>
-				<Item CMID="18" name="Cerrar todo a la derecha"/>
-				<Item CMID="19" name="Abrir la carpeta contenedora en explorador de archivos"/>
-				<Item CMID="20" name="Abrir la carpeta contenedora en CMD"/>
-				<Item CMID="21" name="Abrir en visor predeterminado"/>
-				<Item CMID="23" name="Abrir carpeta contenedora como espacio de trabajo"/>
-				<Item CMID="24" name="Aplicar color 1"/>
-				<Item CMID="25" name="Aplicar color 2"/>
-				<Item CMID="26" name="Aplicar color 3"/>
-				<Item CMID="27" name="Aplicar color 4"/>
-				<Item CMID="28" name="Aplicar color 5"/>
-				<Item CMID="29" name="Quitar color"/>
-				<Item CMID="30" name="Cerrar múltiples pestañas"/>
-				<Item CMID="31" name="Abrir en"/>
-				<Item CMID="32" name="Copiar a portapapeles"/>
-				<Item CMID="33" name="Mover documento"/>
-				<Item CMID="34" name="Aplicar color a la pestaña"/>
+				<Item CMDID="0" name="Cerrar"/>
+				<Item CMDID="1" name="Cerrar todos excepto actual"/>
+				<Item CMDID="2" name="Guardar"/>
+				<Item CMDID="3" name="Guardar como..."/>
+				<Item CMDID="4" name="Imprimir"/>
+				<Item CMDID="5" name="Mover a otra vista"/>
+				<Item CMDID="6" name="Clonar en otra vista"/>
+				<Item CMDID="7" name="Copiar ruta completa del archivo"/>
+				<Item CMDID="8" name="Copiar nombre del archivo"/>
+				<Item CMDID="9" name="Copiar ruta actual de la carpeta"/>
+				<Item CMDID="10" name="Renombrar"/>
+				<Item CMDID="11" name="Mover a la papelera de reciclaje"/>
+				<Item CMDID="12" name="Solo lectura"/>
+				<Item CMDID="13" name="Quitar marca de solo lectura"/>
+				<Item CMDID="14" name="Mover a una nueva ventana"/>
+				<Item CMDID="15" name="Abrir en una nueva ventana"/>
+				<Item CMDID="16" name="Recargar"/>
+				<Item CMDID="17" name="Cerrar todo a la izquierda"/>
+				<Item CMDID="18" name="Cerrar todo a la derecha"/>
+				<Item CMDID="19" name="Abrir la carpeta contenedora en explorador de archivos"/>
+				<Item CMDID="20" name="Abrir la carpeta contenedora en CMD"/>
+				<Item CMDID="21" name="Abrir en visor predeterminado"/>
+				<Item CMDID="23" name="Abrir carpeta contenedora como espacio de trabajo"/>
+				<Item CMDID="24" name="Aplicar color 1"/>
+				<Item CMDID="25" name="Aplicar color 2"/>
+				<Item CMDID="26" name="Aplicar color 3"/>
+				<Item CMDID="27" name="Aplicar color 4"/>
+				<Item CMDID="28" name="Aplicar color 5"/>
+				<Item CMDID="29" name="Quitar color"/>
+				<Item CMDID="30" name="Cerrar múltiples pestañas"/>
+				<Item CMDID="31" name="Abrir en"/>
+				<Item CMDID="32" name="Copiar a portapapeles"/>
+				<Item CMDID="33" name="Mover documento"/>
+				<Item CMDID="34" name="Aplicar color a la pestaña"/>
 			</TabBar>
 		</Menu>
 		<Dialog>

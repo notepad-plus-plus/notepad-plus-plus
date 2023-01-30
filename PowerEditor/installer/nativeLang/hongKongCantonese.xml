@@ -448,41 +448,41 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                <Item CMID="0" name="閂埋呢個檔案"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="1" name="除咗呢個檔案，閂晒其它佢"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="2" name="Save"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="3" name="Save 做新檔案..."/> <!-- #legacy v8.4.7 -->
-                <Item CMID="4" name="Print 出嚟..."/> <!-- #legacy v8.4.7 -->
-                <Item CMID="5" name="搬呢個檔案去另一邊視窗"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="6" name="抄呢個檔案去另一邊視窗"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="7" name="抄低個檔案路徑"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="8" name="抄低個檔名"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="9" name="抄低個資料夾路徑"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="10" name="改名..."/> <!-- #legacy v8.4.7 -->
-                <Item CMID="11" name="掉去垃圾桶"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="12" name="將檔案 set 做唯讀"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="13" name="取消唯讀屬性"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="14" name="搬呢個檔案去新視窗"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="15" name="抄呢個檔案去新視窗"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="16" name="喺磁碟重新 load 過"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="17" name="閂晒左邊所有檔案"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="18" name="閂晒右邊所有檔案"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="19" name="喺檔案總管打開檔案嘅資料夾"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="20" name="喺 CMD 打開檔案嘅資料夾"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="21" name="喺系統預設程式度打開"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="22" name="閂晒啲 save 咗兼冇改過嘅檔案"/> <!-- #legacy v8.4.7 -->
-                <Item CMID="23" name="喺資料夾工作區打開"/> <!-- #new v7.9.1 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="24" name="加顏色 1"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="25" name="加顏色 2"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="26" name="加顏色 3"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="27" name="加顏色 4"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="28" name="加顏色 5"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="29" name="唔用顏色"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="30" name="閂咁啲 tabs"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="31" name="去...打開"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="32" name="抄去剪貼簿"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="33" name="移動文件"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
-                <Item CMID="34" name="幫個 tab 加顏色"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="0" name="閂埋呢個檔案"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="1" name="除咗呢個檔案，閂晒其它佢"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="2" name="Save"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="3" name="Save 做新檔案..."/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="4" name="Print 出嚟..."/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="5" name="搬呢個檔案去另一邊視窗"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="6" name="抄呢個檔案去另一邊視窗"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="7" name="抄低個檔案路徑"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="8" name="抄低個檔名"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="9" name="抄低個資料夾路徑"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="10" name="改名..."/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="11" name="掉去垃圾桶"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="12" name="將檔案 set 做唯讀"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="13" name="取消唯讀屬性"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="14" name="搬呢個檔案去新視窗"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="15" name="抄呢個檔案去新視窗"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="16" name="喺磁碟重新 load 過"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="17" name="閂晒左邊所有檔案"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="18" name="閂晒右邊所有檔案"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="19" name="喺檔案總管打開檔案嘅資料夾"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="20" name="喺 CMD 打開檔案嘅資料夾"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="21" name="喺系統預設程式度打開"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="22" name="閂晒啲 save 咗兼冇改過嘅檔案"/> <!-- #legacy v8.4.7 -->
+                <Item CMDID="23" name="喺資料夾工作區打開"/> <!-- #new v7.9.1 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="24" name="加顏色 1"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="25" name="加顏色 2"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="26" name="加顏色 3"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="27" name="加顏色 4"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="28" name="加顏色 5"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="29" name="唔用顏色"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="30" name="閂咁啲 tabs"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="31" name="去...打開"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="32" name="抄去剪貼簿"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="33" name="移動文件"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
+                <Item CMDID="34" name="幫個 tab 加顏色"/> <!-- #new v8.4.6 --> <!-- #legacy v8.4.7 -->
 
                 <Item CMDID="41003" name="閂埋呢個檔案"/> <!-- #new v8.4.8 -->
                 <Item CMDID="0" name="閂咁啲 tabs"/> <!-- #new v8.4.8 -->

@@ -317,27 +317,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0"  name="Ябарга"/>
-                    <Item CMID="1"  name="Бусыннан кала бөтенесен ябарга"/>
-                    <Item CMID="2"  name="Сакларга"/>
-                    <Item CMID="3"  name="Ничек сакларга..."/>
-                    <Item CMID="4"  name="Бастыру"/>
-                    <Item CMID="5"  name="Башка Өлкәгә күчерергә"/>
-                    <Item CMID="6"  name="Башка Өлкәдә кабатларга"/>
-                    <Item CMID="7"  name="Файлга тулы юлны буферга"/>
-                    <Item CMID="8"  name="Файл исемен буферга"/>
-                    <Item CMID="9"  name="Файл урнашкан җиргә юлны буферга"/>
-                    <Item CMID="10" name="Исемен үзгәртергә"/>
-                    <Item CMID="11" name="Файлны бетерергә (кәрзингә)"/>
-                    <Item CMID="12" name="Уку гына"/>
-                    <Item CMID="13" name="&quot;Уку гына&quot; атрибутын бетерергә"/>
-                    <Item CMID="14" name="Яңа Нөсхәгә күчерергә"/>
-                    <Item CMID="15" name="Яңа Нөсхәдә ачарга"/>
-                    <Item CMID="16" name="Дисктан яңабаштан йөкләргә"/>
-					<Item CMID="17" name="Бөтен сул яктагы битләрне ябарга"/>
-					<Item CMID="18" name="Бөтен уң яктагы битләрне ябарга"/>
-                    <Item CMID="19" name="Документ папкасын ачарга"/>
-                    <Item CMID="20" name="cmd -да документ папкасын ачарга"/>
+                    <Item CMDID="0"  name="Ябарга"/>
+                    <Item CMDID="1"  name="Бусыннан кала бөтенесен ябарга"/>
+                    <Item CMDID="2"  name="Сакларга"/>
+                    <Item CMDID="3"  name="Ничек сакларга..."/>
+                    <Item CMDID="4"  name="Бастыру"/>
+                    <Item CMDID="5"  name="Башка Өлкәгә күчерергә"/>
+                    <Item CMDID="6"  name="Башка Өлкәдә кабатларга"/>
+                    <Item CMDID="7"  name="Файлга тулы юлны буферга"/>
+                    <Item CMDID="8"  name="Файл исемен буферга"/>
+                    <Item CMDID="9"  name="Файл урнашкан җиргә юлны буферга"/>
+                    <Item CMDID="10" name="Исемен үзгәртергә"/>
+                    <Item CMDID="11" name="Файлны бетерергә (кәрзингә)"/>
+                    <Item CMDID="12" name="Уку гына"/>
+                    <Item CMDID="13" name="&quot;Уку гына&quot; атрибутын бетерергә"/>
+                    <Item CMDID="14" name="Яңа Нөсхәгә күчерергә"/>
+                    <Item CMDID="15" name="Яңа Нөсхәдә ачарга"/>
+                    <Item CMDID="16" name="Дисктан яңабаштан йөкләргә"/>
+					<Item CMDID="17" name="Бөтен сул яктагы битләрне ябарга"/>
+					<Item CMDID="18" name="Бөтен уң яктагы битләрне ябарга"/>
+                    <Item CMDID="19" name="Документ папкасын ачарга"/>
+                    <Item CMDID="20" name="cmd -да документ папкасын ачарга"/>
             </TabBar>
         </Menu>
 

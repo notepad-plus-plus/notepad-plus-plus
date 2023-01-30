@@ -249,22 +249,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Zatvori"/>
-                    <Item CMID="1" name="Zatvori sve ostale"/>
-                    <Item CMID="2" name="Sačuvaj"/>
-                    <Item CMID="3" name="Sačuvaj kao..."/>
-                    <Item CMID="4" name="Ispiši"/>
-                    <Item CMID="5" name="Premjesti u drugi prikaz"/>
-                    <Item CMID="6" name="Preslikaj u drugi prikaz"/>
-					<Item CMID="7" name="Potpunu putanju datoteke u clipboard"/>
-					<Item CMID="8" name="Naziv datoteke u clipboard"/>
-					<Item CMID="9" name="Putanju tekuće datoteke u clipboard"/>
-					<Item CMID="10" name="Preimenuj"/>
-					<Item CMID="11" name="Izbriši"/>
-					<Item CMID="12" name="Samo za čitanje"/>
-					<Item CMID="13" name="Odstraniti zaštitu od pisanja"/>
-					<Item CMID="14" name="Prebaciti u novi nivo"/>
-					<Item CMID="15" name="Otvori u novom nivou"/>
+                    <Item CMDID="0" name="Zatvori"/>
+                    <Item CMDID="1" name="Zatvori sve ostale"/>
+                    <Item CMDID="2" name="Sačuvaj"/>
+                    <Item CMDID="3" name="Sačuvaj kao..."/>
+                    <Item CMDID="4" name="Ispiši"/>
+                    <Item CMDID="5" name="Premjesti u drugi prikaz"/>
+                    <Item CMDID="6" name="Preslikaj u drugi prikaz"/>
+					<Item CMDID="7" name="Potpunu putanju datoteke u clipboard"/>
+					<Item CMDID="8" name="Naziv datoteke u clipboard"/>
+					<Item CMDID="9" name="Putanju tekuće datoteke u clipboard"/>
+					<Item CMDID="10" name="Preimenuj"/>
+					<Item CMDID="11" name="Izbriši"/>
+					<Item CMDID="12" name="Samo za čitanje"/>
+					<Item CMDID="13" name="Odstraniti zaštitu od pisanja"/>
+					<Item CMDID="14" name="Prebaciti u novi nivo"/>
+					<Item CMDID="15" name="Otvori u novom nivou"/>
             </TabBar>
         </Menu>
 

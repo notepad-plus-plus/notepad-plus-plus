@@ -350,28 +350,28 @@ Updater: Shamsiddinov Zafar
             <Splitter>
             </Splitter>
             <TabBar>
-					<Item CMID="0"  name="Yopmoq"/>
-					<Item CMID="1"  name="Bundan boshqasini yopmoq"/>
-					<Item CMID="2"  name="Saqlamoq"/>
-					<Item CMID="3"  name="Quyidagidek saqlamoq..."/>
-					<Item CMID="4"  name="Chop etmoq"/>
-					<Item CMID="5"  name="Boshqa Hududga koʻchirmoq"/>
-					<Item CMID="6"  name="Boshqa Hududga nusxalamoq"/>
-					<Item CMID="7"  name="Fayl toʻliq yoʻlagi (buferda)"/>
-					<Item CMID="8"  name="Fayl nomi (buferda)"/>
-					<Item CMID="9"  name="Fayl jildiga yoʻl (buferda)"/>
-					<Item CMID="10" name="Qayta nomlamoq"/>
-					<Item CMID="11" name="Faylni olib tashlamoq (Savatga)"/>
-					<Item CMID="12" name="&quot;Faqat oʻqish&quot; rejimi"/>
-					<Item CMID="13" name="&quot;Faqat oʻqish&quot; rejimini olib tashlamoq"/>
-					<Item CMID="14" name="Yangi Namunada koʻchirmoq"/>
-					<Item CMID="15" name="Yangi Namunada ochmoq"/>
-					<Item CMID="16" name="Diskdan yangilamoq"/>
-					<Item CMID="17" name="Chapdagi barcha xatchoʻplarni yopmoq"/>
-					<Item CMID="18" name="Oʻngdagi barcha xatchoʻplarni yopmoq"/>
-					<Item CMID="19" name="Fayl jildini ochmoq"/>
-					<Item CMID="20" name="Jilddagi faylni cmd’da ochmoq"/>
-					<Item CMID="21" name="Standart ilovada ochmoq"/>
+					<Item CMDID="0"  name="Yopmoq"/>
+					<Item CMDID="1"  name="Bundan boshqasini yopmoq"/>
+					<Item CMDID="2"  name="Saqlamoq"/>
+					<Item CMDID="3"  name="Quyidagidek saqlamoq..."/>
+					<Item CMDID="4"  name="Chop etmoq"/>
+					<Item CMDID="5"  name="Boshqa Hududga koʻchirmoq"/>
+					<Item CMDID="6"  name="Boshqa Hududga nusxalamoq"/>
+					<Item CMDID="7"  name="Fayl toʻliq yoʻlagi (buferda)"/>
+					<Item CMDID="8"  name="Fayl nomi (buferda)"/>
+					<Item CMDID="9"  name="Fayl jildiga yoʻl (buferda)"/>
+					<Item CMDID="10" name="Qayta nomlamoq"/>
+					<Item CMDID="11" name="Faylni olib tashlamoq (Savatga)"/>
+					<Item CMDID="12" name="&quot;Faqat oʻqish&quot; rejimi"/>
+					<Item CMDID="13" name="&quot;Faqat oʻqish&quot; rejimini olib tashlamoq"/>
+					<Item CMDID="14" name="Yangi Namunada koʻchirmoq"/>
+					<Item CMDID="15" name="Yangi Namunada ochmoq"/>
+					<Item CMDID="16" name="Diskdan yangilamoq"/>
+					<Item CMDID="17" name="Chapdagi barcha xatchoʻplarni yopmoq"/>
+					<Item CMDID="18" name="Oʻngdagi barcha xatchoʻplarni yopmoq"/>
+					<Item CMDID="19" name="Fayl jildini ochmoq"/>
+					<Item CMDID="20" name="Jilddagi faylni cmd’da ochmoq"/>
+					<Item CMDID="21" name="Standart ilovada ochmoq"/>
             </TabBar>
         </Menu>
 

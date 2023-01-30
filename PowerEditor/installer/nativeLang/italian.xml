@@ -390,41 +390,41 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                <Item CMID="0" name="Chiudi"/>
-                <Item CMID="1" name="Chiudi tutte tranne questa"/>
-                <Item CMID="2" name="Salva"/>
-                <Item CMID="3" name="Salva con nome..."/>
-                <Item CMID="4" name="Stampa..."/>
-                <Item CMID="5" name="Sposta nell&apos;altra vista"/>
-                <Item CMID="6" name="Copia nell&apos;altra vista"/>
-                <Item CMID="7" name="Copia il percorso completo del file"/>
-                <Item CMID="8" name="Copia il nome del file"/>
-                <Item CMID="9" name="Copia il percorso della cartella"/>
-                <Item CMID="10" name="Rinomina il file..."/>
-                <Item CMID="11" name="Elimina il file"/>
-                <Item CMID="12" name="Sola lettura"/>
-                <Item CMID="13" name="Rimuovi l&apos;attributo di sola lettura del file"/>
-                <Item CMID="14" name="Sposta in una nuova finestra"/>
-                <Item CMID="15" name="Copia in una nuova finestra"/>
-                <Item CMID="16" name="Ricarica"/>
-                <Item CMID="17" name="Chiudi tutte le schede a sinistra"/>
-                <Item CMID="18" name="Chiudi tutte le schede a destra"/>
-                <Item CMID="19" name="Apri la cartella in Esplora risorse"/>
-                <Item CMID="20" name="Apri la cartella nel prompt dei comandi"/>
-                <Item CMID="21" name="Apri con il visualizzatore predefinito"/>
-                <Item CMID="22" name="Chiudi tutti i documenti non modificati"/>
-                <Item CMID="23" name="Apri la cartella come Area di Lavoro"/>
-                <Item CMID="24" name="Applica il Colore 1"/>
-                <Item CMID="25" name="Applica il Colore 2"/>
-                <Item CMID="26" name="Applica il Colore 3"/>
-                <Item CMID="27" name="Applica il Colore 4"/>
-                <Item CMID="28" name="Applica il Colore 5"/>
-                <Item CMID="29" name="Rimuovi il Colore"/>
-                <Item CMID="30" name="Chiudi schede multiple"/>
-                <Item CMID="31" name="Apri in"/>
-                <Item CMID="32" name="Copia negli appunti"/>
-                <Item CMID="33" name="Sposta il Documento"/>
-                <Item CMID="34" name="Applica il Colore alla scheda"/>
+                <Item CMDID="0" name="Chiudi"/>
+                <Item CMDID="1" name="Chiudi tutte tranne questa"/>
+                <Item CMDID="2" name="Salva"/>
+                <Item CMDID="3" name="Salva con nome..."/>
+                <Item CMDID="4" name="Stampa..."/>
+                <Item CMDID="5" name="Sposta nell&apos;altra vista"/>
+                <Item CMDID="6" name="Copia nell&apos;altra vista"/>
+                <Item CMDID="7" name="Copia il percorso completo del file"/>
+                <Item CMDID="8" name="Copia il nome del file"/>
+                <Item CMDID="9" name="Copia il percorso della cartella"/>
+                <Item CMDID="10" name="Rinomina il file..."/>
+                <Item CMDID="11" name="Elimina il file"/>
+                <Item CMDID="12" name="Sola lettura"/>
+                <Item CMDID="13" name="Rimuovi l&apos;attributo di sola lettura del file"/>
+                <Item CMDID="14" name="Sposta in una nuova finestra"/>
+                <Item CMDID="15" name="Copia in una nuova finestra"/>
+                <Item CMDID="16" name="Ricarica"/>
+                <Item CMDID="17" name="Chiudi tutte le schede a sinistra"/>
+                <Item CMDID="18" name="Chiudi tutte le schede a destra"/>
+                <Item CMDID="19" name="Apri la cartella in Esplora risorse"/>
+                <Item CMDID="20" name="Apri la cartella nel prompt dei comandi"/>
+                <Item CMDID="21" name="Apri con il visualizzatore predefinito"/>
+                <Item CMDID="22" name="Chiudi tutti i documenti non modificati"/>
+                <Item CMDID="23" name="Apri la cartella come Area di Lavoro"/>
+                <Item CMDID="24" name="Applica il Colore 1"/>
+                <Item CMDID="25" name="Applica il Colore 2"/>
+                <Item CMDID="26" name="Applica il Colore 3"/>
+                <Item CMDID="27" name="Applica il Colore 4"/>
+                <Item CMDID="28" name="Applica il Colore 5"/>
+                <Item CMDID="29" name="Rimuovi il Colore"/>
+                <Item CMDID="30" name="Chiudi schede multiple"/>
+                <Item CMDID="31" name="Apri in"/>
+                <Item CMDID="32" name="Copia negli appunti"/>
+                <Item CMDID="33" name="Sposta il Documento"/>
+                <Item CMDID="34" name="Applica il Colore alla scheda"/>
             </TabBar>
         </Menu>
 

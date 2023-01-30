@@ -253,22 +253,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="बंद करा"/>
-                    <Item CMID="1" name="हे वगळता सर्व बंद करा"/>
-                    <Item CMID="2" name="सेव्ह"/>
-                    <Item CMID="3" name="या रुपात सेव्ह करा..."/>
-                    <Item CMID="4" name="छापा"/>
-                    <Item CMID="5" name="इतर व्यू पाहा"/>
-                    <Item CMID="6" name="दूसरे व्यू क्लोन करा"/>
-                    <Item CMID="7" name="पूर्ण फाइल पथ क्लिपबोर्ड वर घ्या"/>
-                    <Item CMID="8" name="पूर्ण फाइल नाव क्लिपबोर्ड वर घ्या"/>
-                    <Item CMID="9" name="सध्याच्या डिरेक्टरी पथ क्लिपबोर्ड वर घ्या"/>
-                    <Item CMID="10" name="नाव बदला"/>
-                    <Item CMID="11" name="नष्ट करा"/>
-                    <Item CMID="12" name="केवळ वाचनीय"/>
-                    <Item CMID="13" name="केवळ वाचनीय फ्लेग काढा"/>
-                    <Item CMID="14" name="नवीन इन्स्टन्समध्ये जा"/>
-                    <Item CMID="15" name="नवीन इन्स्टन्स उघडा"/>
+                    <Item CMDID="0" name="बंद करा"/>
+                    <Item CMDID="1" name="हे वगळता सर्व बंद करा"/>
+                    <Item CMDID="2" name="सेव्ह"/>
+                    <Item CMDID="3" name="या रुपात सेव्ह करा..."/>
+                    <Item CMDID="4" name="छापा"/>
+                    <Item CMDID="5" name="इतर व्यू पाहा"/>
+                    <Item CMDID="6" name="दूसरे व्यू क्लोन करा"/>
+                    <Item CMDID="7" name="पूर्ण फाइल पथ क्लिपबोर्ड वर घ्या"/>
+                    <Item CMDID="8" name="पूर्ण फाइल नाव क्लिपबोर्ड वर घ्या"/>
+                    <Item CMDID="9" name="सध्याच्या डिरेक्टरी पथ क्लिपबोर्ड वर घ्या"/>
+                    <Item CMDID="10" name="नाव बदला"/>
+                    <Item CMDID="11" name="नष्ट करा"/>
+                    <Item CMDID="12" name="केवळ वाचनीय"/>
+                    <Item CMDID="13" name="केवळ वाचनीय फ्लेग काढा"/>
+                    <Item CMDID="14" name="नवीन इन्स्टन्समध्ये जा"/>
+                    <Item CMDID="15" name="नवीन इन्स्टन्स उघडा"/>
             </TabBar>
         </Menu>
 

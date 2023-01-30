@@ -384,30 +384,30 @@
           <Splitter>
           </Splitter>
             <TabBar>
-                 <Item CMID="0" name="Bezárás"/>
-                 <Item CMID="1" name="Többi fül bezárása"/>
-                 <Item CMID="2" name="Mentés"/>
-                 <Item CMID="3" name="Mentés másként..."/>
-                 <Item CMID="4" name="Nyomtatás..."/>
-                 <Item CMID="5" name="Mozgatás a másik nézetbe"/>
-                 <Item CMID="6" name="Megnyitás a másik nézetben is"/>
-                 <Item CMID="7" name="Teljes elérési útvonal másolása a vágólapra"/>
-                 <Item CMID="8" name="Fájlnév másolása a vágólapra"/>
-                 <Item CMID="9" name="Mappa útvonalának másolása a vágólapra"/>
-                 <Item CMID="10" name="Átnevezés..."/>
-                 <Item CMID="11" name="Törlés"/>
-                 <Item CMID="12" name="Írásvédett"/>
-                 <Item CMID="13" name="Írásvédett attribútum törlése"/>
-                 <Item CMID="14" name="Mozgatás egy új program példányba"/>
-                 <Item CMID="15" name="Megnyitás egy új program példányban is"/>
-                 <Item CMID="16" name="Újbóli betöltés"/>
-                 <Item CMID="17" name="Balra lévő fülek bezárása"/>
-                 <Item CMID="18" name="Jobbra lévő fülek bezárása"/>
-                 <Item CMID="19" name="Tartalmazó mappa megnyitása Intézőben"/>
-                 <Item CMID="20" name="Tartalmazó mappa megnyitása parancssorban"/>
-                 <Item CMID="21" name="Megnyitás alapértelmezett programban"/>
-                 <Item CMID="22" name="Minden változatlan bezárása"/>
-                 <Item CMID="23" name="Tartalmazó mappa megnyitása munkaterületként"/>
+                 <Item CMDID="0" name="Bezárás"/>
+                 <Item CMDID="1" name="Többi fül bezárása"/>
+                 <Item CMDID="2" name="Mentés"/>
+                 <Item CMDID="3" name="Mentés másként..."/>
+                 <Item CMDID="4" name="Nyomtatás..."/>
+                 <Item CMDID="5" name="Mozgatás a másik nézetbe"/>
+                 <Item CMDID="6" name="Megnyitás a másik nézetben is"/>
+                 <Item CMDID="7" name="Teljes elérési útvonal másolása a vágólapra"/>
+                 <Item CMDID="8" name="Fájlnév másolása a vágólapra"/>
+                 <Item CMDID="9" name="Mappa útvonalának másolása a vágólapra"/>
+                 <Item CMDID="10" name="Átnevezés..."/>
+                 <Item CMDID="11" name="Törlés"/>
+                 <Item CMDID="12" name="Írásvédett"/>
+                 <Item CMDID="13" name="Írásvédett attribútum törlése"/>
+                 <Item CMDID="14" name="Mozgatás egy új program példányba"/>
+                 <Item CMDID="15" name="Megnyitás egy új program példányban is"/>
+                 <Item CMDID="16" name="Újbóli betöltés"/>
+                 <Item CMDID="17" name="Balra lévő fülek bezárása"/>
+                 <Item CMDID="18" name="Jobbra lévő fülek bezárása"/>
+                 <Item CMDID="19" name="Tartalmazó mappa megnyitása Intézőben"/>
+                 <Item CMDID="20" name="Tartalmazó mappa megnyitása parancssorban"/>
+                 <Item CMDID="21" name="Megnyitás alapértelmezett programban"/>
+                 <Item CMDID="22" name="Minden változatlan bezárása"/>
+                 <Item CMDID="23" name="Tartalmazó mappa megnyitása munkaterületként"/>
            </TabBar>
        </Menu>
 

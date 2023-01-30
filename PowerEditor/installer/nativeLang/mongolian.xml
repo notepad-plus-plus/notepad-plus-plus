@@ -285,27 +285,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Хаах"/>
-                    <Item CMID="1" name="Үүнээс бусдыг хаах"/>
-                    <Item CMID="2" name="Хадгалах"/>
-                    <Item CMID="3" name="Хадгалах..."/>
-                    <Item CMID="4" name="Хэвлэх"/>
-                    <Item CMID="5" name="Өөрөөр харах"/>
-                    <Item CMID="6" name="Харах нөгөө талруу шилжүүлэх"/>
-                    <Item CMID="7" name="Түр санах ойруу бүтэн замыг хуулах"/>
-                    <Item CMID="8" name="Файлыг түр санах ойд хуулах"/>
-                    <Item CMID="9" name="Түр санах ойруу агуулагч хавтасны замыг хуулах"/>
-                    <Item CMID="10" name="Нэрийг өөрчлөх"/>
-                    <Item CMID="11" name="Хогын савруу хаях"/>
-                    <Item CMID="12" name="Зөвхөн-унших боломжтой"/>
-                    <Item CMID="13" name="Зөвхөн-унших боломжтой тэмдэглэгээг арилгах"/>
-                    <Item CMID="14" name="Шинэ цонхоруу гаргах"/>
-                    <Item CMID="15" name="Шинэ цонхонд харах"/>
-                    <Item CMID="16" name="Сэргээх"/>
-					<Item CMID="17" name="Зүүн талын бүх файлыг хаах"/>
-                    <Item CMID="18" name="Баруун талын бүх файлыг хаах"/>
-                    <Item CMID="19" name="Агуулагч хавтсыг Explorer-р нээх"/>
-                    <Item CMID="20" name="Агуулагч хавтсыг cmd-д нээх"/>
+                    <Item CMDID="0" name="Хаах"/>
+                    <Item CMDID="1" name="Үүнээс бусдыг хаах"/>
+                    <Item CMDID="2" name="Хадгалах"/>
+                    <Item CMDID="3" name="Хадгалах..."/>
+                    <Item CMDID="4" name="Хэвлэх"/>
+                    <Item CMDID="5" name="Өөрөөр харах"/>
+                    <Item CMDID="6" name="Харах нөгөө талруу шилжүүлэх"/>
+                    <Item CMDID="7" name="Түр санах ойруу бүтэн замыг хуулах"/>
+                    <Item CMDID="8" name="Файлыг түр санах ойд хуулах"/>
+                    <Item CMDID="9" name="Түр санах ойруу агуулагч хавтасны замыг хуулах"/>
+                    <Item CMDID="10" name="Нэрийг өөрчлөх"/>
+                    <Item CMDID="11" name="Хогын савруу хаях"/>
+                    <Item CMDID="12" name="Зөвхөн-унших боломжтой"/>
+                    <Item CMDID="13" name="Зөвхөн-унших боломжтой тэмдэглэгээг арилгах"/>
+                    <Item CMDID="14" name="Шинэ цонхоруу гаргах"/>
+                    <Item CMDID="15" name="Шинэ цонхонд харах"/>
+                    <Item CMDID="16" name="Сэргээх"/>
+					<Item CMDID="17" name="Зүүн талын бүх файлыг хаах"/>
+                    <Item CMDID="18" name="Баруун талын бүх файлыг хаах"/>
+                    <Item CMDID="19" name="Агуулагч хавтсыг Explorer-р нээх"/>
+                    <Item CMDID="20" name="Агуулагч хавтсыг cmd-д нээх"/>
             </TabBar>
         </Menu>
 

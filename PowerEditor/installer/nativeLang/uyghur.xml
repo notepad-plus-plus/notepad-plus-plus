@@ -248,22 +248,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="يېپىش"/>
-                    <Item CMID="1" name="باشقىنى يېپىش"/>
-                    <Item CMID="2" name="ساقلاش"/>
-                    <Item CMID="3" name=" پەرىقلىق ساقلاش..."/>
-                    <Item CMID="4" name="بېسىش"/>
-                    <Item CMID="5" name=" باشقا كۆرۈنۈشكە يۆتكەش"/>
-                    <Item CMID="6" name=" باشقا كۆرۈنۈشكە كۆچۈرۈش"/>
-                    <Item CMID="7" name="ھۈججەت يولىنى ئىشتاختىغا كۆچۈرۈش"/>
-                    <Item CMID="8" name="ھۈججەت نامىنى ئىشتاختىغا كۆچۈرۈش"/>
-                    <Item CMID="9" name="مۇندەرىجە يولىنى ئىشتاختىغا كۆچۈرۈش"/>
-                    <Item CMID="10" name="نامىنى ئۆزگەرتىش"/>
-                    <Item CMID="11" name="ئۆچۈرۈش"/>
-                    <Item CMID="12" name="پەقەت ئوقۇش خاسلىقى"/>
-                    <Item CMID="13" name=" پەقەت ئوقۇش خاسلىقىنى تازىلاش"/>
-                    <Item CMID="14" name="  يېڭى كۆزنەككە يۆتكەش"/>
-                    <Item CMID="15" name=" يېڭى كۆزنەكتە ئېچىش"/>
+                    <Item CMDID="0" name="يېپىش"/>
+                    <Item CMDID="1" name="باشقىنى يېپىش"/>
+                    <Item CMDID="2" name="ساقلاش"/>
+                    <Item CMDID="3" name=" پەرىقلىق ساقلاش..."/>
+                    <Item CMDID="4" name="بېسىش"/>
+                    <Item CMDID="5" name=" باشقا كۆرۈنۈشكە يۆتكەش"/>
+                    <Item CMDID="6" name=" باشقا كۆرۈنۈشكە كۆچۈرۈش"/>
+                    <Item CMDID="7" name="ھۈججەت يولىنى ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item CMDID="8" name="ھۈججەت نامىنى ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item CMDID="9" name="مۇندەرىجە يولىنى ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item CMDID="10" name="نامىنى ئۆزگەرتىش"/>
+                    <Item CMDID="11" name="ئۆچۈرۈش"/>
+                    <Item CMDID="12" name="پەقەت ئوقۇش خاسلىقى"/>
+                    <Item CMDID="13" name=" پەقەت ئوقۇش خاسلىقىنى تازىلاش"/>
+                    <Item CMDID="14" name="  يېڭى كۆزنەككە يۆتكەش"/>
+                    <Item CMDID="15" name=" يېڭى كۆزنەكتە ئېچىش"/>
             </TabBar>
         </Menu>
 

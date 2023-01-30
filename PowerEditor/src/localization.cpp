@@ -465,7 +465,7 @@ void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
 			{
 				TiXmlElementA *element = childNode->ToElement();
 				int ordre;
-				element->Attribute("CMID", &ordre);
+				element->Attribute("CMDID", &ordre);
 				if (ordre == 5)
 					goToViewA = element->Attribute("name");
 				else if (ordre == 6)

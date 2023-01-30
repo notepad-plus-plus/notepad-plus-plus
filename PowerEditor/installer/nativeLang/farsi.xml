@@ -307,27 +307,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="بستن"/>
-                    <Item CMID="1" name="همه را جز این ببند"/>
-                    <Item CMID="2" name="ذخیره"/>
-                    <Item CMID="3" name="ذخیره بعنوان.."/>
-                    <Item CMID="4" name="چاپ"/>
-                    <Item CMID="5" name="انتقال به نمای دیگر"/>
-                    <Item CMID="6" name="شبیه سازی در نمای دیگر"/>
-                    <Item CMID="7" name="مسیر کامل فایل به کلیپ برد"/>
-                    <Item CMID="8" name="نام فایل به کلیپ برد"/>
-                    <Item CMID="9" name="مسیر دایرکتوری فعلی به کلیپ برد"/>
-                    <Item CMID="10" name="تغییرنام"/>
-                    <Item CMID="11" name="انتقال به سطل زباله"/>
-                    <Item CMID="12" name="فقط خواندنی"/>
-                    <Item CMID="13" name="پاکسازی نشانه فقط-خواندنی"/>
-                    <Item CMID="14" name="انتقال به نمونه جدید"/>
-                    <Item CMID="15" name="بازکردن در نمونه جدید"/>
-                    <Item CMID="16" name="بارگیری مجدد"/>
-                    <Item CMID="17" name="بستن همه به چپ"/>
-                    <Item CMID="18" name="بستن همه به راست"/>
-                    <Item CMID="19" name="بازکردن پوشه شامل در اکسپلورر"/>
-                    <Item CMID="20" name="بازکردن پوشه شامل در فرمان خطی"/>
+                    <Item CMDID="0" name="بستن"/>
+                    <Item CMDID="1" name="همه را جز این ببند"/>
+                    <Item CMDID="2" name="ذخیره"/>
+                    <Item CMDID="3" name="ذخیره بعنوان.."/>
+                    <Item CMDID="4" name="چاپ"/>
+                    <Item CMDID="5" name="انتقال به نمای دیگر"/>
+                    <Item CMDID="6" name="شبیه سازی در نمای دیگر"/>
+                    <Item CMDID="7" name="مسیر کامل فایل به کلیپ برد"/>
+                    <Item CMDID="8" name="نام فایل به کلیپ برد"/>
+                    <Item CMDID="9" name="مسیر دایرکتوری فعلی به کلیپ برد"/>
+                    <Item CMDID="10" name="تغییرنام"/>
+                    <Item CMDID="11" name="انتقال به سطل زباله"/>
+                    <Item CMDID="12" name="فقط خواندنی"/>
+                    <Item CMDID="13" name="پاکسازی نشانه فقط-خواندنی"/>
+                    <Item CMDID="14" name="انتقال به نمونه جدید"/>
+                    <Item CMDID="15" name="بازکردن در نمونه جدید"/>
+                    <Item CMDID="16" name="بارگیری مجدد"/>
+                    <Item CMDID="17" name="بستن همه به چپ"/>
+                    <Item CMDID="18" name="بستن همه به راست"/>
+                    <Item CMDID="19" name="بازکردن پوشه شامل در اکسپلورر"/>
+                    <Item CMDID="20" name="بازکردن پوشه شامل در فرمان خطی"/>
             </TabBar>
         </Menu>
 

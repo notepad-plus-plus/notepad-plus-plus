@@ -363,30 +363,30 @@ Updated to v8.0.0:
 			</Main>
 			<Splitter />
 			<TabBar>
-					<Item CMID="0" name="Sulje"/>
-					<Item CMID="1" name="Sulje kaikki paitsi tämä"/>
-					<Item CMID="2" name="Tallenna"/>
-					<Item CMID="3" name="Tallenna nimellä..."/>
-					<Item CMID="4" name="Tulosta"/>
-					<Item CMID="5" name="Vaihda näkymää"/>
-					<Item CMID="6" name="Kahdenna näkymä"/>
-					<Item CMID="7" name="Koko tiedostopolku leikepöydälle"/>
-					<Item CMID="8" name="Tiedostonimi leikepöydälle"/>
-					<Item CMID="9" name="Nykyinen hakemistopolku leikepöydälle"/>
-					<Item CMID="10" name="Nimeä uudelleen"/>
-					<Item CMID="11" name="Siirrä roskakoriin"/>
-					<Item CMID="12" name="Aseta kirjoitussuojaus"/>
-					<Item CMID="13" name="Poista kirjoitussuojaus"/>
-					<Item CMID="14" name="Siirry uuteen esiintymään"/>
-					<Item CMID="15" name="Avaa uudessa esiintymässä"/>
-					<Item CMID="16" name="Lataa uudelleen" />
-					<Item CMID="17" name="Sulje kaikki vasemmanpuoleiset" />
-					<Item CMID="18" name="Sulje kaikki oikeanpuoleiset"  />
-					<Item CMID="19" name="Avaa kansio resurssienhallinnassa"/>
-					<Item CMID="20" name="Avaa kansio komentokehotteessa"/>
-					<Item CMID="21" name="Avaa oletuskatseluohjelmalla"/>
-                    <Item CMID="22" name="Sulje kaikki muuttamattomat"/>
-					<Item CMID="23" name="Avaa kansio työtilana"/>
+					<Item CMDID="0" name="Sulje"/>
+					<Item CMDID="1" name="Sulje kaikki paitsi tämä"/>
+					<Item CMDID="2" name="Tallenna"/>
+					<Item CMDID="3" name="Tallenna nimellä..."/>
+					<Item CMDID="4" name="Tulosta"/>
+					<Item CMDID="5" name="Vaihda näkymää"/>
+					<Item CMDID="6" name="Kahdenna näkymä"/>
+					<Item CMDID="7" name="Koko tiedostopolku leikepöydälle"/>
+					<Item CMDID="8" name="Tiedostonimi leikepöydälle"/>
+					<Item CMDID="9" name="Nykyinen hakemistopolku leikepöydälle"/>
+					<Item CMDID="10" name="Nimeä uudelleen"/>
+					<Item CMDID="11" name="Siirrä roskakoriin"/>
+					<Item CMDID="12" name="Aseta kirjoitussuojaus"/>
+					<Item CMDID="13" name="Poista kirjoitussuojaus"/>
+					<Item CMDID="14" name="Siirry uuteen esiintymään"/>
+					<Item CMDID="15" name="Avaa uudessa esiintymässä"/>
+					<Item CMDID="16" name="Lataa uudelleen" />
+					<Item CMDID="17" name="Sulje kaikki vasemmanpuoleiset" />
+					<Item CMDID="18" name="Sulje kaikki oikeanpuoleiset"  />
+					<Item CMDID="19" name="Avaa kansio resurssienhallinnassa"/>
+					<Item CMDID="20" name="Avaa kansio komentokehotteessa"/>
+					<Item CMDID="21" name="Avaa oletuskatseluohjelmalla"/>
+                    <Item CMDID="22" name="Sulje kaikki muuttamattomat"/>
+					<Item CMDID="23" name="Avaa kansio työtilana"/>
 			</TabBar>
 		</Menu>
 		<Dialog>

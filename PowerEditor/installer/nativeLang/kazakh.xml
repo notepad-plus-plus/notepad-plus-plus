@@ -187,22 +187,22 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID = "0" name = "Бұны жабу"/>
-				<Item CMID = "1" name = "Бұндан тыс бәрін жабу"/>
-				<Item CMID = "2" name = "Бұны сақтау"/>
-				<Item CMID = "3" name = "Бұны басқаша сақта..."/>
-				<Item CMID = "4" name = "Бұны басып шығару"/>
-				<Item CMID = "5" name = "Басқа қойындыға өту"/>
-				<Item CMID = "6" name = "Басқа қойындыға көшіру"/>
-				<Item CMID = "7" name = "Файлдың толық жолын аралық сақтағышқа"/>
-				<Item CMID = "8" name = "Файл атын аралық сақтағышқа"/>
-				<Item CMID = "9" name = "Ағымдық қалта жолын аралық сақтағышқа"/>
-				<Item CMID = "10" name = "Бұны қайта атау"/>
-				<Item CMID = "11" name = "Бұны жою"/>
-				<Item CMID = "12" name = "Тек оқу үшін"/>
-				<Item CMID = "13" name = "Тек оқу үшін төлсипатын аластау"/>
-				<Item CMID = "14" name = "Жаңа терезеге өту"/>
-				<Item CMID = "15" name = "Жаңа терезеде ашу"/>
+				<Item CMDID = "0" name = "Бұны жабу"/>
+				<Item CMDID = "1" name = "Бұндан тыс бәрін жабу"/>
+				<Item CMDID = "2" name = "Бұны сақтау"/>
+				<Item CMDID = "3" name = "Бұны басқаша сақта..."/>
+				<Item CMDID = "4" name = "Бұны басып шығару"/>
+				<Item CMDID = "5" name = "Басқа қойындыға өту"/>
+				<Item CMDID = "6" name = "Басқа қойындыға көшіру"/>
+				<Item CMDID = "7" name = "Файлдың толық жолын аралық сақтағышқа"/>
+				<Item CMDID = "8" name = "Файл атын аралық сақтағышқа"/>
+				<Item CMDID = "9" name = "Ағымдық қалта жолын аралық сақтағышқа"/>
+				<Item CMDID = "10" name = "Бұны қайта атау"/>
+				<Item CMDID = "11" name = "Бұны жою"/>
+				<Item CMDID = "12" name = "Тек оқу үшін"/>
+				<Item CMDID = "13" name = "Тек оқу үшін төлсипатын аластау"/>
+				<Item CMDID = "14" name = "Жаңа терезеге өту"/>
+				<Item CMDID = "15" name = "Жаңа терезеде ашу"/>
 			</TabBar>
 		</Menu>
 

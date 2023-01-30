@@ -386,41 +386,41 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Закрыць"/>
-                    <Item CMID="1" name="Закрыць усе, акрамя гэтай"/>
-                    <Item CMID="2" name="Захаваць"/>
-                    <Item CMID="3" name="Захаваць як..."/>
-                    <Item CMID="4" name="Друк..."/>
-                    <Item CMID="5" name="Перамясціць у іншы выгляд"/>
-                    <Item CMID="6" name="Кланіраваць у іншы выгляд"/>
-                    <Item CMID="7" name="Капіяваць поўны шлях да файла"/>
-                    <Item CMID="8" name="Капіяваць назву файла"/>
-                    <Item CMID="9" name="Капіяваць шлях да бягучага каталога"/>
-                    <Item CMID="10" name="Перайменаваць..."/>
-                    <Item CMID="11" name="Перамясціць у сметніцу"/>
-                    <Item CMID="12" name="Толькі чытанне"/>
-                    <Item CMID="13" name="Зняць атрыбут толькі чытанне"/>
-                    <Item CMID="14" name="Перамясціць у новы экзэмпляр"/>
-                    <Item CMID="15" name="Адкрыць у новым экзэмпляры"/>
-                    <Item CMID="16" name="Перазагрузіць"/>
-                    <Item CMID="17" name="Закрыць усе злева"/>
-                    <Item CMID="18" name="Закрыць усе справа"/>
-                    <Item CMID="19" name="Адкрыць папку размяшчэння ў правадніку"/>
-                    <Item CMID="20" name="Адкрыць папку размяшчэння ў cmd"/>
-                    <Item CMID="21" name="Адкрыць у прадвызначаным аглядальніку"/>
-                    <Item CMID="22" name="Закрыць усе не змененыя"/>
-                    <Item CMID="23" name="Адкрыць папку размяшчэння як працоўную вобласць"/>
-                    <Item CMID="24" name="Ужыць колер 1"/>
-                    <Item CMID="25" name="Ужыць колер 2"/>
-                    <Item CMID="26" name="Ужыць колер 3"/>
-                    <Item CMID="27" name="Ужыць колер 4"/>
-                    <Item CMID="28" name="Ужыць колер 5"/>
-                    <Item CMID="29" name="Выдаліць колер"/>
-                    <Item CMID="30" name="Закрыць некалькі ўкладак"/>
-                    <Item CMID="31" name="Адкрыць у"/>
-                    <Item CMID="32" name="Капіяваць у буфер абмену"/>
-                    <Item CMID="33" name="Перамясціць дакумент"/>
-                    <Item CMID="34" name="Ужыць колер да ўкладкі"/>
+                    <Item CMDID="0" name="Закрыць"/>
+                    <Item CMDID="1" name="Закрыць усе, акрамя гэтай"/>
+                    <Item CMDID="2" name="Захаваць"/>
+                    <Item CMDID="3" name="Захаваць як..."/>
+                    <Item CMDID="4" name="Друк..."/>
+                    <Item CMDID="5" name="Перамясціць у іншы выгляд"/>
+                    <Item CMDID="6" name="Кланіраваць у іншы выгляд"/>
+                    <Item CMDID="7" name="Капіяваць поўны шлях да файла"/>
+                    <Item CMDID="8" name="Капіяваць назву файла"/>
+                    <Item CMDID="9" name="Капіяваць шлях да бягучага каталога"/>
+                    <Item CMDID="10" name="Перайменаваць..."/>
+                    <Item CMDID="11" name="Перамясціць у сметніцу"/>
+                    <Item CMDID="12" name="Толькі чытанне"/>
+                    <Item CMDID="13" name="Зняць атрыбут толькі чытанне"/>
+                    <Item CMDID="14" name="Перамясціць у новы экзэмпляр"/>
+                    <Item CMDID="15" name="Адкрыць у новым экзэмпляры"/>
+                    <Item CMDID="16" name="Перазагрузіць"/>
+                    <Item CMDID="17" name="Закрыць усе злева"/>
+                    <Item CMDID="18" name="Закрыць усе справа"/>
+                    <Item CMDID="19" name="Адкрыць папку размяшчэння ў правадніку"/>
+                    <Item CMDID="20" name="Адкрыць папку размяшчэння ў cmd"/>
+                    <Item CMDID="21" name="Адкрыць у прадвызначаным аглядальніку"/>
+                    <Item CMDID="22" name="Закрыць усе не змененыя"/>
+                    <Item CMDID="23" name="Адкрыць папку размяшчэння як працоўную вобласць"/>
+                    <Item CMDID="24" name="Ужыць колер 1"/>
+                    <Item CMDID="25" name="Ужыць колер 2"/>
+                    <Item CMDID="26" name="Ужыць колер 3"/>
+                    <Item CMDID="27" name="Ужыць колер 4"/>
+                    <Item CMDID="28" name="Ужыць колер 5"/>
+                    <Item CMDID="29" name="Выдаліць колер"/>
+                    <Item CMDID="30" name="Закрыць некалькі ўкладак"/>
+                    <Item CMDID="31" name="Адкрыць у"/>
+                    <Item CMDID="32" name="Капіяваць у буфер абмену"/>
+                    <Item CMDID="33" name="Перамясціць дакумент"/>
+                    <Item CMDID="34" name="Ужыць колер да ўкладкі"/>
             </TabBar>
         </Menu>
 

@@ -329,29 +329,29 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="إغلاق"/>
-                    <Item CMID="1" name="إغلاق الكل باستثناء هذا"/>
-                    <Item CMID="2" name="حفظ"/>
-                    <Item CMID="3" name="حفظ باسم..."/>
-                    <Item CMID="4" name="طباعة"/>
-                    <Item CMID="5" name="نقل إلى العرض الآخر"/>
-                    <Item CMID="6" name="استنساخ إلى العرض الآخر"/>
-                    <Item CMID="7" name="مسار الملف الكامل إلى الذاكرة"/>
-                    <Item CMID="8" name="اسم الملف إلى الذاكرة"/>
-                    <Item CMID="9" name="مسار المجلد الحالي إلى الذاكرة"/>
-                    <Item CMID="10" name="إعادة تسمية"/>
-                    <Item CMID="11" name="نقل إلى سلة المهملات"/>
-                    <Item CMID="12" name="للقراءة فقط"/>
-                    <Item CMID="13" name="مسح علامة للقراءة فقط"/>
-                    <Item CMID="14" name="نقل إلى مثيل جديد"/>
-                    <Item CMID="15" name="فتح في مثيل جديد"/>
-                    <Item CMID="16" name="إعادة تحميل"/>
-                    <Item CMID="17" name="إغلاق الكل إلى اليسار"/>
-                    <Item CMID="18" name="إغلاق الكل إلى اليمين"/>
-                    <Item CMID="19" name="فتح مجلد الهدف في مستعرض الملفات"/>
-                    <Item CMID="20" name="فتح مجلد الهدف في cmd"/>
-                    <Item CMID="21" name="فتح في العارض الافتراضي"/>
-                    <Item CMID="22" name="إغلاق الكل بدون تغيير"/>
+                    <Item CMDID="0" name="إغلاق"/>
+                    <Item CMDID="1" name="إغلاق الكل باستثناء هذا"/>
+                    <Item CMDID="2" name="حفظ"/>
+                    <Item CMDID="3" name="حفظ باسم..."/>
+                    <Item CMDID="4" name="طباعة"/>
+                    <Item CMDID="5" name="نقل إلى العرض الآخر"/>
+                    <Item CMDID="6" name="استنساخ إلى العرض الآخر"/>
+                    <Item CMDID="7" name="مسار الملف الكامل إلى الذاكرة"/>
+                    <Item CMDID="8" name="اسم الملف إلى الذاكرة"/>
+                    <Item CMDID="9" name="مسار المجلد الحالي إلى الذاكرة"/>
+                    <Item CMDID="10" name="إعادة تسمية"/>
+                    <Item CMDID="11" name="نقل إلى سلة المهملات"/>
+                    <Item CMDID="12" name="للقراءة فقط"/>
+                    <Item CMDID="13" name="مسح علامة للقراءة فقط"/>
+                    <Item CMDID="14" name="نقل إلى مثيل جديد"/>
+                    <Item CMDID="15" name="فتح في مثيل جديد"/>
+                    <Item CMDID="16" name="إعادة تحميل"/>
+                    <Item CMDID="17" name="إغلاق الكل إلى اليسار"/>
+                    <Item CMDID="18" name="إغلاق الكل إلى اليمين"/>
+                    <Item CMDID="19" name="فتح مجلد الهدف في مستعرض الملفات"/>
+                    <Item CMDID="20" name="فتح مجلد الهدف في cmd"/>
+                    <Item CMDID="21" name="فتح في العارض الافتراضي"/>
+                    <Item CMDID="22" name="إغلاق الكل بدون تغيير"/>
             </TabBar>
         </Menu>
 

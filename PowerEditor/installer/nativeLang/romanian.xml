@@ -324,29 +324,29 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Închidere"/>
-                    <Item CMID="1" name="Închidere toate fără acesta"/>
-                    <Item CMID="2" name="Salvare"/>
-                    <Item CMID="3" name="Salvare ca..."/>
-                    <Item CMID="4" name="Tipărire"/>
-                    <Item CMID="5" name="Mutare în altă vedere"/>
-                    <Item CMID="6" name="Clonare în altă vedere"/>
-                    <Item CMID="7" name="Copiere cale fișier în Clipboard"/>
-                    <Item CMID="8" name="Copiere nume fișier în Clipboard"/>
-                    <Item CMID="9" name="Copiere cale folder în Clipboard"/>
-                    <Item CMID="10" name="Redenumire"/>
-                    <Item CMID="11" name="Mutare în coșul de reciclare"/>
-                    <Item CMID="12" name="Blocare salvare modificări"/>
-                    <Item CMID="13" name="Anulare blocare salvare modificări"/>
-                    <Item CMID="14" name="Mutare în instanță nouă"/>
-                    <Item CMID="15" name="Deschidere în instanță nouă"/>
-                    <Item CMID="16" name="Reîncărcare"/>
-                    <Item CMID="17" name="Închidere toate spre stânga"/>
-                    <Item CMID="18" name="Închidere toate spre dreapta"/>
-                    <Item CMID="19" name="Deschidere folder gazdă în Explorer"/>
-                    <Item CMID="20" name="Deschidere folder gazdă în cmd"/>
-                    <Item CMID="21" name="Deschidere în vizualizator implicit"/>
-                    <Item CMID="22" name="Închidere toate neschimbate"/>
+                    <Item CMDID="0" name="Închidere"/>
+                    <Item CMDID="1" name="Închidere toate fără acesta"/>
+                    <Item CMDID="2" name="Salvare"/>
+                    <Item CMDID="3" name="Salvare ca..."/>
+                    <Item CMDID="4" name="Tipărire"/>
+                    <Item CMDID="5" name="Mutare în altă vedere"/>
+                    <Item CMDID="6" name="Clonare în altă vedere"/>
+                    <Item CMDID="7" name="Copiere cale fișier în Clipboard"/>
+                    <Item CMDID="8" name="Copiere nume fișier în Clipboard"/>
+                    <Item CMDID="9" name="Copiere cale folder în Clipboard"/>
+                    <Item CMDID="10" name="Redenumire"/>
+                    <Item CMDID="11" name="Mutare în coșul de reciclare"/>
+                    <Item CMDID="12" name="Blocare salvare modificări"/>
+                    <Item CMDID="13" name="Anulare blocare salvare modificări"/>
+                    <Item CMDID="14" name="Mutare în instanță nouă"/>
+                    <Item CMDID="15" name="Deschidere în instanță nouă"/>
+                    <Item CMDID="16" name="Reîncărcare"/>
+                    <Item CMDID="17" name="Închidere toate spre stânga"/>
+                    <Item CMDID="18" name="Închidere toate spre dreapta"/>
+                    <Item CMDID="19" name="Deschidere folder gazdă în Explorer"/>
+                    <Item CMDID="20" name="Deschidere folder gazdă în cmd"/>
+                    <Item CMDID="21" name="Deschidere în vizualizator implicit"/>
+                    <Item CMDID="22" name="Închidere toate neschimbate"/>
             </TabBar>
         </Menu>
         <Dialog>

@@ -326,29 +326,29 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Serriñ"/>
-                    <Item CMID="1" name="Serriñ pep-tra NEMET an dra-se"/>
-                    <Item CMID="2" name="Enrollañ"/>
-                    <Item CMID="3" name="Enrollañ dindan..."/>
-                    <Item CMID="4" name="Moullañ"/>
-                    <Item CMID="5" name="Fiñval d'ar mod-gwelet all"/>
-                    <Item CMID="6" name="Klonañ er mod-gwelet all"/>
-                    <Item CMID="7" name="Eilañ hent klok ar restr er golver"/>
-                    <Item CMID="8" name="Eilañ an anv-restr er golver"/>
-                    <Item CMID="9" name="Eilañ hent an doser-red er golver"/>
-                    <Item CMID="10" name="Adenvel"/>
-                    <Item CMID="11" name="Fiñval d'ar pod-lastez"/>
-                    <Item CMID="12" name="Lenn-Hepken"/>
-                    <Item CMID="13" name="Diverkañ banniel al Lenn-Hepken"/>
-                    <Item CMID="14" name="Fiñval d'an iñstañs nevez"/>
-                    <Item CMID="15" name="Digeriñ e-barzh un iñstañs nevez"/>
-                    <Item CMID="16" name="Freskaat"/>
-                    <Item CMID="17" name="Serriñ pep-tra war-gleiz"/>
-                    <Item CMID="18" name="Serriñ pep-tra war-zehoù"/>
-                    <Item CMID="19" name="Digeriñ an doser-red en Ergerzher"/>
-                    <Item CMID="20" name="Digeriñ an doser-red en urzhiad"/>
-                    <Item CMID="21" name="Digeriñ er gweler dre ziouer"/>
-                    <Item CMID="22" name="Serriñ an holl teuliadoù chomet dicheñch"/>
+                    <Item CMDID="0" name="Serriñ"/>
+                    <Item CMDID="1" name="Serriñ pep-tra NEMET an dra-se"/>
+                    <Item CMDID="2" name="Enrollañ"/>
+                    <Item CMDID="3" name="Enrollañ dindan..."/>
+                    <Item CMDID="4" name="Moullañ"/>
+                    <Item CMDID="5" name="Fiñval d'ar mod-gwelet all"/>
+                    <Item CMDID="6" name="Klonañ er mod-gwelet all"/>
+                    <Item CMDID="7" name="Eilañ hent klok ar restr er golver"/>
+                    <Item CMDID="8" name="Eilañ an anv-restr er golver"/>
+                    <Item CMDID="9" name="Eilañ hent an doser-red er golver"/>
+                    <Item CMDID="10" name="Adenvel"/>
+                    <Item CMDID="11" name="Fiñval d'ar pod-lastez"/>
+                    <Item CMDID="12" name="Lenn-Hepken"/>
+                    <Item CMDID="13" name="Diverkañ banniel al Lenn-Hepken"/>
+                    <Item CMDID="14" name="Fiñval d'an iñstañs nevez"/>
+                    <Item CMDID="15" name="Digeriñ e-barzh un iñstañs nevez"/>
+                    <Item CMDID="16" name="Freskaat"/>
+                    <Item CMDID="17" name="Serriñ pep-tra war-gleiz"/>
+                    <Item CMDID="18" name="Serriñ pep-tra war-zehoù"/>
+                    <Item CMDID="19" name="Digeriñ an doser-red en Ergerzher"/>
+                    <Item CMDID="20" name="Digeriñ an doser-red en urzhiad"/>
+                    <Item CMDID="21" name="Digeriñ er gweler dre ziouer"/>
+                    <Item CMDID="22" name="Serriñ an holl teuliadoù chomet dicheñch"/>
             </TabBar>
         </Menu>
 

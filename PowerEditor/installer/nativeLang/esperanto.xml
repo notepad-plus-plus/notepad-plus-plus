@@ -306,25 +306,25 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item CMID="0" name="Fermu"/>
-					<Item CMID="1" name="Fermu ĉiujn KROM tiu ĉi"/>
-					<Item CMID="2" name="Konservu"/>
-					<Item CMID="3" name="Konservu kiel..."/>
-					<Item CMID="4" name="Presu"/>
-					<Item CMID="5" name="Deloku al alia vido"/>
-					<Item CMID="6" name="Montru ankaŭ en alia vido"/>
-					<Item CMID="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
-					<Item CMID="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
-					<Item CMID="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
-					<Item CMID="10" name="Alinomu"/>
-					<Item CMID="11" name="Forigu"/>
-					<Item CMID="12" name="Nurlegigu"/>
-					<Item CMID="13" name="Purigu la indikilon de nurlego"/>
-					<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
-					<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
-					<Item CMID="16" name="Reŝargu"/>
-					<Item CMID="17" name="Fermu ĉiujn maldekstre"/>
-					<Item CMID="18" name="Fermu ĉiujn dekstre"/>
+					<Item CMDID="0" name="Fermu"/>
+					<Item CMDID="1" name="Fermu ĉiujn KROM tiu ĉi"/>
+					<Item CMDID="2" name="Konservu"/>
+					<Item CMDID="3" name="Konservu kiel..."/>
+					<Item CMDID="4" name="Presu"/>
+					<Item CMDID="5" name="Deloku al alia vido"/>
+					<Item CMDID="6" name="Montru ankaŭ en alia vido"/>
+					<Item CMDID="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
+					<Item CMDID="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
+					<Item CMDID="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
+					<Item CMDID="10" name="Alinomu"/>
+					<Item CMDID="11" name="Forigu"/>
+					<Item CMDID="12" name="Nurlegigu"/>
+					<Item CMDID="13" name="Purigu la indikilon de nurlego"/>
+					<Item CMDID="14" name="Deloku al nova ekzemplo de Notepad++"/>
+					<Item CMDID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
+					<Item CMDID="16" name="Reŝargu"/>
+					<Item CMDID="17" name="Fermu ĉiujn maldekstre"/>
+					<Item CMDID="18" name="Fermu ĉiujn dekstre"/>
 			</TabBar>
 		</Menu>
 

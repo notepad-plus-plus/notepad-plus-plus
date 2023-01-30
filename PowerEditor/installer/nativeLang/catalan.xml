@@ -341,29 +341,29 @@ By Hiro5 <groccat at gmail>
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0"  name="&amp;Tanca"/>
-				<Item CMID="1"  name="Tanca'ls tots m&amp;enys aquest"/>
-				<Item CMID="17" name="Tanca tots els de l'esquerra"/>
-				<Item CMID="18" name="Tanca tots els de la dreta"/>
-				<Item CMID="22" name="Tanca tots els no canviats"/>
-				<Item CMID="2"  name="&amp;Desa"/>
-				<Item CMID="3"  name="Desa &amp;com a..."/>
-				<Item CMID="10" name="Canvia el &amp;nom..."/>
-				<Item CMID="11" name="Su&amp;primeix"/>
-				<Item CMID="16" name="Recarre&amp;ga"/>
-				<Item CMID="4"  name="&amp;Imprimeix..."/>
-				<Item CMID="19" name="Obre la carpeta contenidora amb l'Explorador"/>
-				<Item CMID="20" name="Obre la carpeta contenidora amb l'Indicador d'ordres"/>
-				<Item CMID="21" name="Obre amb el visualitzador per defecte"/>
-				<Item CMID="12" name="&amp;Mode de Només-Lectura"/>
-				<Item CMID="13" name="Treu m&amp;arca de Només-Lectura"/>
-				<Item CMID="7"  name="Copia el camí sence&amp;r d'aquest fitxer"/>
-				<Item CMID="8"  name="C&amp;opia el nom d'aquest fitxer"/>
-				<Item CMID="9"  name="Copia el camí del di&amp;rectori d'aquest fitxer"/>
-				<Item CMID="5"  name="Mou a una altra &amp;vista"/>
-				<Item CMID="6"  name="Clona a una altra vi&amp;sta"/>
-				<Item CMID="14" name="Mou a una nova &amp;finestra"/>
-				<Item CMID="15" name="C&amp;lona a una nova finestra"/>
+				<Item CMDID="0"  name="&amp;Tanca"/>
+				<Item CMDID="1"  name="Tanca'ls tots m&amp;enys aquest"/>
+				<Item CMDID="17" name="Tanca tots els de l'esquerra"/>
+				<Item CMDID="18" name="Tanca tots els de la dreta"/>
+				<Item CMDID="22" name="Tanca tots els no canviats"/>
+				<Item CMDID="2"  name="&amp;Desa"/>
+				<Item CMDID="3"  name="Desa &amp;com a..."/>
+				<Item CMDID="10" name="Canvia el &amp;nom..."/>
+				<Item CMDID="11" name="Su&amp;primeix"/>
+				<Item CMDID="16" name="Recarre&amp;ga"/>
+				<Item CMDID="4"  name="&amp;Imprimeix..."/>
+				<Item CMDID="19" name="Obre la carpeta contenidora amb l'Explorador"/>
+				<Item CMDID="20" name="Obre la carpeta contenidora amb l'Indicador d'ordres"/>
+				<Item CMDID="21" name="Obre amb el visualitzador per defecte"/>
+				<Item CMDID="12" name="&amp;Mode de Només-Lectura"/>
+				<Item CMDID="13" name="Treu m&amp;arca de Només-Lectura"/>
+				<Item CMDID="7"  name="Copia el camí sence&amp;r d'aquest fitxer"/>
+				<Item CMDID="8"  name="C&amp;opia el nom d'aquest fitxer"/>
+				<Item CMDID="9"  name="Copia el camí del di&amp;rectori d'aquest fitxer"/>
+				<Item CMDID="5"  name="Mou a una altra &amp;vista"/>
+				<Item CMDID="6"  name="Clona a una altra vi&amp;sta"/>
+				<Item CMDID="14" name="Mou a una nova &amp;finestra"/>
+				<Item CMDID="15" name="C&amp;lona a una nova finestra"/>
 			</TabBar>
 		</Menu>
 		<Dialog>

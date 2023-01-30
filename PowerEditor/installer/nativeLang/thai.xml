@@ -247,22 +247,22 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0" name="ปิด"/>
-				<Item CMID="1" name="ปิดทั้งหมดยกเว้นเอกสารนี้"/>
-				<Item CMID="2" name="บันทึก"/>
-				<Item CMID="3" name="บันทึกเป็น..."/>
-				<Item CMID="4" name="พิมพ์"/>
-				<Item CMID="5" name="ย้ายไปยังมุมมองอื่น"/>
-				<Item CMID="6" name="คัดลอกไปยังมุมมองอื่น"/>
-				<Item CMID="7" name="คัดลอกไฟล์พาธเต็มไปยังคลิปบอร์ด"/>
-				<Item CMID="8" name="คัดลอกชื่อไฟล์ไปยังคลิปบอร์ด"/>
-				<Item CMID="9" name="คัดลอกไดเรกทอรีนี้ไปยังคลิปบอร์ด"/>
-				<Item CMID="10" name="เปลี่ยนชื่อ"/>
-				<Item CMID="11" name="ลบ"/>
-				<Item CMID="12" name="อ่านอย่างเดียว"/>
-				<Item CMID="13" name="ยกเลิกอ่านอย่างเดียว"/>
-				<Item CMID="14" name="ยังไปยังหน้าต่างใหม่"/>
-				<Item CMID="15" name="เปิดในหน้าต่างใหม่"/>
+				<Item CMDID="0" name="ปิด"/>
+				<Item CMDID="1" name="ปิดทั้งหมดยกเว้นเอกสารนี้"/>
+				<Item CMDID="2" name="บันทึก"/>
+				<Item CMDID="3" name="บันทึกเป็น..."/>
+				<Item CMDID="4" name="พิมพ์"/>
+				<Item CMDID="5" name="ย้ายไปยังมุมมองอื่น"/>
+				<Item CMDID="6" name="คัดลอกไปยังมุมมองอื่น"/>
+				<Item CMDID="7" name="คัดลอกไฟล์พาธเต็มไปยังคลิปบอร์ด"/>
+				<Item CMDID="8" name="คัดลอกชื่อไฟล์ไปยังคลิปบอร์ด"/>
+				<Item CMDID="9" name="คัดลอกไดเรกทอรีนี้ไปยังคลิปบอร์ด"/>
+				<Item CMDID="10" name="เปลี่ยนชื่อ"/>
+				<Item CMDID="11" name="ลบ"/>
+				<Item CMDID="12" name="อ่านอย่างเดียว"/>
+				<Item CMDID="13" name="ยกเลิกอ่านอย่างเดียว"/>
+				<Item CMDID="14" name="ยังไปยังหน้าต่างใหม่"/>
+				<Item CMDID="15" name="เปิดในหน้าต่างใหม่"/>
 			</TabBar>
 		</Menu>
 

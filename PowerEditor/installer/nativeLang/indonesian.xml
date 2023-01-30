@@ -314,28 +314,28 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Tutup"/>
-                    <Item CMID="1" name="Tutup Semua Kecuali Ini"/>
-                    <Item CMID="2" name="Simpan"/>
-                    <Item CMID="3" name="Simpan Sebagai..."/>
-                    <Item CMID="4" name="Cetak"/>
-                    <Item CMID="5" name="Pindah ke Tampilan Lain"/>
-                    <Item CMID="6" name="Duplikat ke Tampilan Lain"/>
-                    <Item CMID="7" name="Path Lengkap Berkas ke Klipbor"/>
-                    <Item CMID="8" name="Nama Berkas ke Klipbor"/>
-                    <Item CMID="9" name="Path Direktori Aktif ke Klipbor"/>
-                    <Item CMID="10" name="Ganti Nama"/>
-                    <Item CMID="11" name="Hapus"/>
-                    <Item CMID="12" name="Hanya-Baca"/>
-                    <Item CMID="13" name="Hapus Tanda Hanya-Baca"/>
-                    <Item CMID="14" name="Pindahkan ke Perwujudan Baru"/>
-                    <Item CMID="15" name="Buka dalam Perwujudan Baru"/>
-                    <Item CMID="16" name="Muat ulang"/>
-                    <Item CMID="17" name="Tutup Semua ke Kiri"/>
-                    <Item CMID="18" name="Tutup Semua ke Kanan"/>
-                    <Item CMID="19" name="Buka Folder Terkait di Penjelajah"/>
-                    <Item CMID="20" name="Buka Folder Terkait di cmd"/>
-                    <Item CMID="21" name="Buka di Penampil Bawaan"/>
+                    <Item CMDID="0" name="Tutup"/>
+                    <Item CMDID="1" name="Tutup Semua Kecuali Ini"/>
+                    <Item CMDID="2" name="Simpan"/>
+                    <Item CMDID="3" name="Simpan Sebagai..."/>
+                    <Item CMDID="4" name="Cetak"/>
+                    <Item CMDID="5" name="Pindah ke Tampilan Lain"/>
+                    <Item CMDID="6" name="Duplikat ke Tampilan Lain"/>
+                    <Item CMDID="7" name="Path Lengkap Berkas ke Klipbor"/>
+                    <Item CMDID="8" name="Nama Berkas ke Klipbor"/>
+                    <Item CMDID="9" name="Path Direktori Aktif ke Klipbor"/>
+                    <Item CMDID="10" name="Ganti Nama"/>
+                    <Item CMDID="11" name="Hapus"/>
+                    <Item CMDID="12" name="Hanya-Baca"/>
+                    <Item CMDID="13" name="Hapus Tanda Hanya-Baca"/>
+                    <Item CMDID="14" name="Pindahkan ke Perwujudan Baru"/>
+                    <Item CMDID="15" name="Buka dalam Perwujudan Baru"/>
+                    <Item CMDID="16" name="Muat ulang"/>
+                    <Item CMDID="17" name="Tutup Semua ke Kiri"/>
+                    <Item CMDID="18" name="Tutup Semua ke Kanan"/>
+                    <Item CMDID="19" name="Buka Folder Terkait di Penjelajah"/>
+                    <Item CMDID="20" name="Buka Folder Terkait di cmd"/>
+                    <Item CMDID="21" name="Buka di Penampil Bawaan"/>
             </TabBar>
         </Menu>
 

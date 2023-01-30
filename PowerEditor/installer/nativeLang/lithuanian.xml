@@ -318,28 +318,28 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Uždaryti"/>
-                    <Item CMID="1" name="Uždaryti visus dokumentus išskyrus šį"/>
-                    <Item CMID="2" name="Išsaugoti"/>
-                    <Item CMID="3" name="Išsaugoti kaip..."/>
-                    <Item CMID="4" name="Spausdinti"/>
-                    <Item CMID="5" name="Perkelti į kitą vaizdą"/>
-                    <Item CMID="6" name="Klonuoti į kitą vaizdą"/>
-                    <Item CMID="7" name="Pilnas failo kelias į mainų sritį"/>
-                    <Item CMID="8" name="Failo pavadinimas į mainų sritį"/>
-                    <Item CMID="9" name="Dabartinio katalogo kelias į mainų sritį"/>
-                    <Item CMID="10" name="Pervadinti"/>
-                    <Item CMID="11" name="Šalinti"/>
-                    <Item CMID="12" name="Tik skaitymas"/>
-                    <Item CMID="13" name="Išvalyti vėliavėlę 'Tik skaitymas'"/>
-                    <Item CMID="14" name="Perkelti į naują programos langą"/>
-                    <Item CMID="15" name="Atidaryti naujame programos lange"/>
-                    <Item CMID="16" name="Iš naujo įkelti"/>
-                    <Item CMID="17" name="Uždaryti visus kairėje"/>
-                    <Item CMID="18" name="Uždaryti visus dešinėje"/>
-                    <Item CMID="19" name="Atidaryti failo katalogą naršyklėje (Explorer)"/>
-                    <Item CMID="20" name="Atidaryti failo katalogą komandų eil. (cmd)"/>
-                    <Item CMID="21" name="Atidaryti su numatyta peržiūros programa"/>
+                    <Item CMDID="0" name="Uždaryti"/>
+                    <Item CMDID="1" name="Uždaryti visus dokumentus išskyrus šį"/>
+                    <Item CMDID="2" name="Išsaugoti"/>
+                    <Item CMDID="3" name="Išsaugoti kaip..."/>
+                    <Item CMDID="4" name="Spausdinti"/>
+                    <Item CMDID="5" name="Perkelti į kitą vaizdą"/>
+                    <Item CMDID="6" name="Klonuoti į kitą vaizdą"/>
+                    <Item CMDID="7" name="Pilnas failo kelias į mainų sritį"/>
+                    <Item CMDID="8" name="Failo pavadinimas į mainų sritį"/>
+                    <Item CMDID="9" name="Dabartinio katalogo kelias į mainų sritį"/>
+                    <Item CMDID="10" name="Pervadinti"/>
+                    <Item CMDID="11" name="Šalinti"/>
+                    <Item CMDID="12" name="Tik skaitymas"/>
+                    <Item CMDID="13" name="Išvalyti vėliavėlę 'Tik skaitymas'"/>
+                    <Item CMDID="14" name="Perkelti į naują programos langą"/>
+                    <Item CMDID="15" name="Atidaryti naujame programos lange"/>
+                    <Item CMDID="16" name="Iš naujo įkelti"/>
+                    <Item CMDID="17" name="Uždaryti visus kairėje"/>
+                    <Item CMDID="18" name="Uždaryti visus dešinėje"/>
+                    <Item CMDID="19" name="Atidaryti failo katalogą naršyklėje (Explorer)"/>
+                    <Item CMDID="20" name="Atidaryti failo katalogą komandų eil. (cmd)"/>
+                    <Item CMDID="21" name="Atidaryti su numatyta peržiūros programa"/>
             </TabBar>
         </Menu>
 

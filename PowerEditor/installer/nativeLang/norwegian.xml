@@ -380,30 +380,30 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item CMID="0" name="Lukk" />
-					<Item CMID="1" name="Lukk alle utenom denne" />
-					<Item CMID="2" name="Lagre" />
-					<Item CMID="3" name="Lagre som..." />
-					<Item CMID="4" name="Skriv ut..." />
-					<Item CMID="5" name="Flytt til annen visning" />
-					<Item CMID="6" name="Klon til annen visning" />
-					<Item CMID="7" name="Kopier full filsti til utklippstavlen"/>
-					<Item CMID="8" name="Kopier filnavn til utklippstavlen"/>
-					<Item CMID="9" name="Kopier gjeldende mappesti til utklippstavlen"/>
-					<Item CMID="10" name="Endre navn"/>
-					<Item CMID="11" name="Flytt til papirkurven"/>
-					<Item CMID="12" name="Skrivebeskyttet"/>
-					<Item CMID="13" name="Fjern skrivebeskyttelse"/>
-					<Item CMID="14" name="Flytt til ny instans"/>
-					<Item CMID="15" name="Åpne i ny instans"/>
-					<Item CMID="16" name="Last inn på nytt"/>
-                    <Item CMID="17" name="Lukk alle til venstre"/>
-                    <Item CMID="18" name="Lukk alle til høyre"/>
-                    <Item CMID="19" name="Åpne klidemappe i Utforker"/>
-                    <Item CMID="20" name="Åpne klidemappe i cmd"/>
-                    <Item CMID="21" name="Åpne i standardprogram"/>
-                    <Item CMID="22" name="Lukk alle uendrede"/>
-                    <Item CMID="23" name="Åpne klidemappe som arbeidsområde"/>
+					<Item CMDID="0" name="Lukk" />
+					<Item CMDID="1" name="Lukk alle utenom denne" />
+					<Item CMDID="2" name="Lagre" />
+					<Item CMDID="3" name="Lagre som..." />
+					<Item CMDID="4" name="Skriv ut..." />
+					<Item CMDID="5" name="Flytt til annen visning" />
+					<Item CMDID="6" name="Klon til annen visning" />
+					<Item CMDID="7" name="Kopier full filsti til utklippstavlen"/>
+					<Item CMDID="8" name="Kopier filnavn til utklippstavlen"/>
+					<Item CMDID="9" name="Kopier gjeldende mappesti til utklippstavlen"/>
+					<Item CMDID="10" name="Endre navn"/>
+					<Item CMDID="11" name="Flytt til papirkurven"/>
+					<Item CMDID="12" name="Skrivebeskyttet"/>
+					<Item CMDID="13" name="Fjern skrivebeskyttelse"/>
+					<Item CMDID="14" name="Flytt til ny instans"/>
+					<Item CMDID="15" name="Åpne i ny instans"/>
+					<Item CMDID="16" name="Last inn på nytt"/>
+                    <Item CMDID="17" name="Lukk alle til venstre"/>
+                    <Item CMDID="18" name="Lukk alle til høyre"/>
+                    <Item CMDID="19" name="Åpne klidemappe i Utforker"/>
+                    <Item CMDID="20" name="Åpne klidemappe i cmd"/>
+                    <Item CMDID="21" name="Åpne i standardprogram"/>
+                    <Item CMDID="22" name="Lukk alle uendrede"/>
+                    <Item CMDID="23" name="Åpne klidemappe som arbeidsområde"/>
 			</TabBar>
 		</Menu>
 

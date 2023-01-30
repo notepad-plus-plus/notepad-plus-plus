@@ -296,27 +296,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Бастан"/>
-                    <Item CMID="1" name="Ҳамаро ҷуз ин бибанд"/>
-                    <Item CMID="2" name="Захира"/>
-                    <Item CMID="3" name="Захира ба унвон..."/>
-                    <Item CMID="4" name="Чоп"/>
-                    <Item CMID="5" name="Интиқол ба намои дигар"/>
-                    <Item CMID="6" name="Шабеҳсозӣ дар намои дигар"/>
-                    <Item CMID="7" name="Масири комил ба миёнбури табодул"/>
-                    <Item CMID="8" name="Номи файл ба миёнбури табодул"/>
-                    <Item CMID="9" name="Феҳрити феълӣ ба миёнбури табодул"/>
-                    <Item CMID="10" name="Тағйири ном"/>
-                    <Item CMID="11" name="Ҳазф"/>
-                    <Item CMID="12" name="Фақат-хонданӣ"/>
-                    <Item CMID="13" name="Поксозии нишонаи фақат-хонданӣ"/>
-                    <Item CMID="14" name="Интиқол ба намунаи ҷадид"/>
-                    <Item CMID="15" name="Боз кардан дар намунаи ҷадид"/>
-                    <Item CMID="16" name="Боргирии муҷаддад"/>
-					<Item CMID="17" name="Бастани ҳама ба чап"/>
-                    <Item CMID="18" name="Бастани ҳама ба рост"/>
-                    <Item CMID="19" name="Боз кардани санад"/>
-                    <Item CMID="20" name="Боз кардани санад дар cmd"/>
+                    <Item CMDID="0" name="Бастан"/>
+                    <Item CMDID="1" name="Ҳамаро ҷуз ин бибанд"/>
+                    <Item CMDID="2" name="Захира"/>
+                    <Item CMDID="3" name="Захира ба унвон..."/>
+                    <Item CMDID="4" name="Чоп"/>
+                    <Item CMDID="5" name="Интиқол ба намои дигар"/>
+                    <Item CMDID="6" name="Шабеҳсозӣ дар намои дигар"/>
+                    <Item CMDID="7" name="Масири комил ба миёнбури табодул"/>
+                    <Item CMDID="8" name="Номи файл ба миёнбури табодул"/>
+                    <Item CMDID="9" name="Феҳрити феълӣ ба миёнбури табодул"/>
+                    <Item CMDID="10" name="Тағйири ном"/>
+                    <Item CMDID="11" name="Ҳазф"/>
+                    <Item CMDID="12" name="Фақат-хонданӣ"/>
+                    <Item CMDID="13" name="Поксозии нишонаи фақат-хонданӣ"/>
+                    <Item CMDID="14" name="Интиқол ба намунаи ҷадид"/>
+                    <Item CMDID="15" name="Боз кардан дар намунаи ҷадид"/>
+                    <Item CMDID="16" name="Боргирии муҷаддад"/>
+					<Item CMDID="17" name="Бастани ҳама ба чап"/>
+                    <Item CMDID="18" name="Бастани ҳама ба рост"/>
+                    <Item CMDID="19" name="Боз кардани санад"/>
+                    <Item CMDID="20" name="Боз кардани санад дар cmd"/>
             </TabBar>
         </Menu>
 

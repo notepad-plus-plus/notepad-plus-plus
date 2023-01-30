@@ -291,27 +291,27 @@ gan/by Aled Powell
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Cau"/>
-                    <Item CMID="1" name="Cau'r CWBL OND Hwn"/>
-                    <Item CMID="2" name="Cadw"/>
-                    <Item CMID="3" name="Cadw Fel..."/>
-                    <Item CMID="4" name="Argraffu"/>
-                    <Item CMID="5" name="Symud i Olwg Arall"/>
-                    <Item CMID="6" name="Clonio i Olwg Arall"/>
-                    <Item CMID="7" name="Llwybr Ffeil Llawn i Glipfwrdd"/>
-                    <Item CMID="8" name="Enw Ffeil i Glipfwrdd"/>
-                    <Item CMID="9" name="Llwybr Cyfeiriadur Pres. i Glipfwrdd"/>
-                    <Item CMID="10" name="Ailenwi"/>
-                    <Item CMID="11" name="Symud i'r Bin Ailgylchu"/>
-                    <Item CMID="12" name="Darllen-yn-Unig"/>
-                    <Item CMID="13" name="Clirio'r Fflag Darllen-yn-Unig"/>
-                    <Item CMID="14" name="Symud i Ystyr Newydd`"/>
-                    <Item CMID="15" name="Agor mewn Ystyr Newydd"/>
-                    <Item CMID="16" name="Ail-lwytho"/>
-					<Item CMID="17" name="Cau'r CWBL i'r Chwith"/>
-                    <Item CMID="18" name="Cau'r CWBL i'r Dde"/>
-                    <Item CMID="19" name="Agor Ffolder Lleoliad yn Explorer"/>
-                    <Item CMID="20" name="Agor Ffolder Lleoliad yn cmd"/>
+                    <Item CMDID="0" name="Cau"/>
+                    <Item CMDID="1" name="Cau'r CWBL OND Hwn"/>
+                    <Item CMDID="2" name="Cadw"/>
+                    <Item CMDID="3" name="Cadw Fel..."/>
+                    <Item CMDID="4" name="Argraffu"/>
+                    <Item CMDID="5" name="Symud i Olwg Arall"/>
+                    <Item CMDID="6" name="Clonio i Olwg Arall"/>
+                    <Item CMDID="7" name="Llwybr Ffeil Llawn i Glipfwrdd"/>
+                    <Item CMDID="8" name="Enw Ffeil i Glipfwrdd"/>
+                    <Item CMDID="9" name="Llwybr Cyfeiriadur Pres. i Glipfwrdd"/>
+                    <Item CMDID="10" name="Ailenwi"/>
+                    <Item CMDID="11" name="Symud i'r Bin Ailgylchu"/>
+                    <Item CMDID="12" name="Darllen-yn-Unig"/>
+                    <Item CMDID="13" name="Clirio'r Fflag Darllen-yn-Unig"/>
+                    <Item CMDID="14" name="Symud i Ystyr Newydd`"/>
+                    <Item CMDID="15" name="Agor mewn Ystyr Newydd"/>
+                    <Item CMDID="16" name="Ail-lwytho"/>
+					<Item CMDID="17" name="Cau'r CWBL i'r Chwith"/>
+                    <Item CMDID="18" name="Cau'r CWBL i'r Dde"/>
+                    <Item CMDID="19" name="Agor Ffolder Lleoliad yn Explorer"/>
+                    <Item CMDID="20" name="Agor Ffolder Lleoliad yn cmd"/>
             </TabBar>
         </Menu>
 

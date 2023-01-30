@@ -157,22 +157,22 @@
 			</Main>
 			<Splitter />
 			<TabBar>
-				<Item CMID = "0" name = "Zoumaa&amp;chen"/>
-				<Item CMID = "1" name = "&amp;All déi anner zoumaachen"/>
-				<Item CMID = "2" name = "S&amp;päicheren"/>
-				<Item CMID = "3" name = "Späicheren &amp;ënnert ..."/>
-				<Item CMID = "10" name = "Datei ëm&amp;benennen"/>
-				<Item CMID = "11" name = "Datei &amp;läschen"/>
-				<Item CMID = "4" name = "&amp;Drécken"/>
-				<Item CMID = "12" name = "Schreifschut&amp;z"/>
-				<Item CMID = "13" name = "Schreifschutz ophiwen"/>
-				<Item CMID = "7" name = "Vollstännegen Pad &amp;kopéieren"/>
-				<Item CMID = "8" name = "Nëmmen d'Datei&amp;nimm kopéieren"/>
-				<Item CMID = "9" name = "Nëmmen d'Repertoire&amp;pied kopéieren"/>
-				<Item CMID = "5" name = "An déi z&amp;weeter Usiicht réckelen"/>
-				<Item CMID = "6" name = "An der zwee&amp;ter Usiicht kopéieren"/>
-				<Item CMID = "14" name = "An eng nei &amp;Instanz réckelen"/>
-				<Item CMID = "15" name = "An eng nei Instan&amp;z kopéieren"/>
+				<Item CMDID = "0" name = "Zoumaa&amp;chen"/>
+				<Item CMDID = "1" name = "&amp;All déi anner zoumaachen"/>
+				<Item CMDID = "2" name = "S&amp;päicheren"/>
+				<Item CMDID = "3" name = "Späicheren &amp;ënnert ..."/>
+				<Item CMDID = "10" name = "Datei ëm&amp;benennen"/>
+				<Item CMDID = "11" name = "Datei &amp;läschen"/>
+				<Item CMDID = "4" name = "&amp;Drécken"/>
+				<Item CMDID = "12" name = "Schreifschut&amp;z"/>
+				<Item CMDID = "13" name = "Schreifschutz ophiwen"/>
+				<Item CMDID = "7" name = "Vollstännegen Pad &amp;kopéieren"/>
+				<Item CMDID = "8" name = "Nëmmen d'Datei&amp;nimm kopéieren"/>
+				<Item CMDID = "9" name = "Nëmmen d'Repertoire&amp;pied kopéieren"/>
+				<Item CMDID = "5" name = "An déi z&amp;weeter Usiicht réckelen"/>
+				<Item CMDID = "6" name = "An der zwee&amp;ter Usiicht kopéieren"/>
+				<Item CMDID = "14" name = "An eng nei &amp;Instanz réckelen"/>
+				<Item CMDID = "15" name = "An eng nei Instan&amp;z kopéieren"/>
 			</TabBar>
 		</Menu>
 		<Dialog>

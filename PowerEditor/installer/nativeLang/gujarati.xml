@@ -284,27 +284,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="બંધ કરો"/>
-                    <Item CMID="1" name="આના સિવાય ના બધા બંધ કરો "/>
-                    <Item CMID="2" name="સેવ કરો"/>
-                    <Item CMID="3" name="નવા નામ થી સેવ કરો ..."/>
-                    <Item CMID="4" name="પ્રિન્ટ કરો"/>
-                    <Item CMID="5" name="બીજા વ્યુ પર જાઓ"/>
-                    <Item CMID="6" name="બીજા વ્યુ પર ક્લોન કરો"/>
-                    <Item CMID="7" name="આખો ફાઈલ પાથ ક્લિપબોર્ડ પર "/>
-                    <Item CMID="8" name="ફાઈલ નેમ ક્લિપબોર્ડ પર"/>
-                    <Item CMID="9" name="હાલનો ડિરેક્ટરી પાથ ક્લિપબોર્ડ પર "/>
-                    <Item CMID="10" name="નામ બદલો"/>
-                    <Item CMID="11" name="રીસાઈકલ બિન માં મુકલો"/>
-                    <Item CMID="12" name="રીડ-ઓન્લી"/>
-                    <Item CMID="13" name="રીડ-ઓન્લી ફ્લેગ કાઢો"/>
-                    <Item CMID="14" name="નવા ઇન્સ્ટન્સ પર જાઓ"/>
-                    <Item CMID="15" name="નવા ઇન્સ્ટન્સ માં ખોલો"/>
-                    <Item CMID="16" name="ફરી લોડ કરો"/>
-					<Item CMID="17" name="ડાબી બાજુ ના તમામ બંધ કરો"/>
-                    <Item CMID="18" name="જમણી બાજુ ના તમામ બંધ કરો"/>
-                    <Item CMID="19" name="સમાસિત ફોલ્ડર એક્ષ્પ્લોરર માં ખોલો"/>
-                    <Item CMID="20" name="સમાસિત ફોલ્ડર સીએમડી(cmd)માં ખોલો"/>
+                    <Item CMDID="0" name="બંધ કરો"/>
+                    <Item CMDID="1" name="આના સિવાય ના બધા બંધ કરો "/>
+                    <Item CMDID="2" name="સેવ કરો"/>
+                    <Item CMDID="3" name="નવા નામ થી સેવ કરો ..."/>
+                    <Item CMDID="4" name="પ્રિન્ટ કરો"/>
+                    <Item CMDID="5" name="બીજા વ્યુ પર જાઓ"/>
+                    <Item CMDID="6" name="બીજા વ્યુ પર ક્લોન કરો"/>
+                    <Item CMDID="7" name="આખો ફાઈલ પાથ ક્લિપબોર્ડ પર "/>
+                    <Item CMDID="8" name="ફાઈલ નેમ ક્લિપબોર્ડ પર"/>
+                    <Item CMDID="9" name="હાલનો ડિરેક્ટરી પાથ ક્લિપબોર્ડ પર "/>
+                    <Item CMDID="10" name="નામ બદલો"/>
+                    <Item CMDID="11" name="રીસાઈકલ બિન માં મુકલો"/>
+                    <Item CMDID="12" name="રીડ-ઓન્લી"/>
+                    <Item CMDID="13" name="રીડ-ઓન્લી ફ્લેગ કાઢો"/>
+                    <Item CMDID="14" name="નવા ઇન્સ્ટન્સ પર જાઓ"/>
+                    <Item CMDID="15" name="નવા ઇન્સ્ટન્સ માં ખોલો"/>
+                    <Item CMDID="16" name="ફરી લોડ કરો"/>
+					<Item CMDID="17" name="ડાબી બાજુ ના તમામ બંધ કરો"/>
+                    <Item CMDID="18" name="જમણી બાજુ ના તમામ બંધ કરો"/>
+                    <Item CMDID="19" name="સમાસિત ફોલ્ડર એક્ષ્પ્લોરર માં ખોલો"/>
+                    <Item CMDID="20" name="સમાસિત ફોલ્ડર સીએમડી(cmd)માં ખોલો"/>
             </TabBar>
         </Menu>
 

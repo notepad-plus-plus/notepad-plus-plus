@@ -249,23 +249,23 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Затвори"/>
-                    <Item CMID="1" name="Затвори све остале"/>
-                    <Item CMID="2" name="Сачувај"/>
-                    <Item CMID="3" name="Сачувај као..."/>
-                    <Item CMID="4" name="Штампач"/>
-                    <Item CMID="5" name="Приказ у другом делу"/>
-                    <Item CMID="6" name="Дуплирани приказ"/>
-                    <Item CMID="7" name="Сачувај целу путању датотеке у остави"/>
-                    <Item CMID="8" name="Сачувај име датотеке у остави"/>
-                    <Item CMID="9" name="Сачувај путању тренутне фасцикле у остави"/>
-                    <Item CMID="10" name="Преименуј"/>
-                    <Item CMID="11" name="Избриши"/>
-                    <Item CMID="12" name="Само за читање"/>
-                    <Item CMID="13" name="Одстрани заштиту од писања"/>
-                    <Item CMID="14" name="Пребаци другој надлежности"/>
-                    <Item CMID="15" name="Отвори у новој надлежности"/>
-                    <Item CMID="16" name="Поново учитај"/>
+                    <Item CMDID="0" name="Затвори"/>
+                    <Item CMDID="1" name="Затвори све остале"/>
+                    <Item CMDID="2" name="Сачувај"/>
+                    <Item CMDID="3" name="Сачувај као..."/>
+                    <Item CMDID="4" name="Штампач"/>
+                    <Item CMDID="5" name="Приказ у другом делу"/>
+                    <Item CMDID="6" name="Дуплирани приказ"/>
+                    <Item CMDID="7" name="Сачувај целу путању датотеке у остави"/>
+                    <Item CMDID="8" name="Сачувај име датотеке у остави"/>
+                    <Item CMDID="9" name="Сачувај путању тренутне фасцикле у остави"/>
+                    <Item CMDID="10" name="Преименуј"/>
+                    <Item CMDID="11" name="Избриши"/>
+                    <Item CMDID="12" name="Само за читање"/>
+                    <Item CMDID="13" name="Одстрани заштиту од писања"/>
+                    <Item CMDID="14" name="Пребаци другој надлежности"/>
+                    <Item CMDID="15" name="Отвори у новој надлежности"/>
+                    <Item CMDID="16" name="Поново учитај"/>
             </TabBar>
         </Menu>
 

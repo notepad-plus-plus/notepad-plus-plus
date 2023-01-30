@@ -286,27 +286,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="নিকট"/>
-                    <Item CMID="1" name="তাছাড়া, সব বন্ধ "/>
-                    <Item CMID="2" name="সংরক্ষণ করুন"/>
-                    <Item CMID="3" name="নতুন নাম সংরক্ষণ করুন ..."/>
-                    <Item CMID="4" name="ছাপা"/>
-                    <Item CMID="5" name="অন্য দৃশ্য যান"/>
-                    <Item CMID="6" name="দ্বিতীয় দৃশ্য ক্লোন"/>
-                    <Item CMID="7" name="ক্লিপবোর্ডে সম্পূর্ণ ফাইল পাথ "/>
-                    <Item CMID="8" name="ক্লিপবোর্ড থেকে ফাইল নাম"/>
-                    <Item CMID="9" name="ক্লিপবোর্ডে বর্তমান ডিরেক্টরির পাথ "/>
-                    <Item CMID="10" name="নাম পরিবর্তন"/>
-                    <Item CMID="11" name="বিন জিনিসকে পাঠান"/>
-                    <Item CMID="12" name="শুধুমাত্র পাঠযোগ্য"/>
-                    <Item CMID="13" name="শুধুমাত্র পাঠযোগ্য পতাকা সরান"/>
-                    <Item CMID="14" name="নতুন উদাহরণস্বরূপ যান"/>
-                    <Item CMID="15" name="নতুন উদাহরণস্বরূপ খুলুন"/>
-                    <Item CMID="16" name="পুনরায় লোড করুন"/>
-					<Item CMID="17" name="বাম দিকে সব বন্ধ করুন"/>
-                    <Item CMID="18" name="ডান দিকে সব বন্ধ করুন"/>
-                    <Item CMID="19" name="এক্সপ্লোরার ফোল্ডার খুলুন"/>
-                    <Item CMID="20" name="খুলুন সিএমডি (cmd) ধারণকারী ফোল্ডার"/>
+                    <Item CMDID="0" name="নিকট"/>
+                    <Item CMDID="1" name="তাছাড়া, সব বন্ধ "/>
+                    <Item CMDID="2" name="সংরক্ষণ করুন"/>
+                    <Item CMDID="3" name="নতুন নাম সংরক্ষণ করুন ..."/>
+                    <Item CMDID="4" name="ছাপা"/>
+                    <Item CMDID="5" name="অন্য দৃশ্য যান"/>
+                    <Item CMDID="6" name="দ্বিতীয় দৃশ্য ক্লোন"/>
+                    <Item CMDID="7" name="ক্লিপবোর্ডে সম্পূর্ণ ফাইল পাথ "/>
+                    <Item CMDID="8" name="ক্লিপবোর্ড থেকে ফাইল নাম"/>
+                    <Item CMDID="9" name="ক্লিপবোর্ডে বর্তমান ডিরেক্টরির পাথ "/>
+                    <Item CMDID="10" name="নাম পরিবর্তন"/>
+                    <Item CMDID="11" name="বিন জিনিসকে পাঠান"/>
+                    <Item CMDID="12" name="শুধুমাত্র পাঠযোগ্য"/>
+                    <Item CMDID="13" name="শুধুমাত্র পাঠযোগ্য পতাকা সরান"/>
+                    <Item CMDID="14" name="নতুন উদাহরণস্বরূপ যান"/>
+                    <Item CMDID="15" name="নতুন উদাহরণস্বরূপ খুলুন"/>
+                    <Item CMDID="16" name="পুনরায় লোড করুন"/>
+					<Item CMDID="17" name="বাম দিকে সব বন্ধ করুন"/>
+                    <Item CMDID="18" name="ডান দিকে সব বন্ধ করুন"/>
+                    <Item CMDID="19" name="এক্সপ্লোরার ফোল্ডার খুলুন"/>
+                    <Item CMDID="20" name="খুলুন সিএমডি (cmd) ধারণকারী ফোল্ডার"/>
             </TabBar>
         </Menu>
 

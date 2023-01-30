@@ -187,22 +187,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID = "0" name = "Isara ako"/>
-                    <Item CMID = "1" name = "Isara lahat maliban sa kin"/>
-                    <Item CMID = "2" name = "Itabi ako"/>
-                    <Item CMID = "3" name = "Itabi ako Bilang..."/>
-                    <Item CMID = "4" name = "I-Print ako"/>
-                    <Item CMID = "5" name = "Ilipat sa iba pang Tanawin"/>
-                    <Item CMID = "6" name = "I-Clone sa iba pang Tanawin"/>
-					<Item CMID = "7" name = "Full file path to Clipboard"/>
-					<Item CMID = "8" name = "File name to Clipboard"/>
-					<Item CMID = "9" name = "Current dir path to Clipboard"/>
-					<Item CMID = "10" name = "Pangalanang muli ako"/>
-					<Item CMID = "11" name = "Burahin ako"/>
-					<Item CMID = "12" name = "Basahin lang"/>
-					<Item CMID = "13" name = "Burahin ang basahin lang na watawat"/>
-					<Item CMID = "14" name = "Pumunta sa bagong kasaglitan"/>
-					<Item CMID = "15" name = "Buksan sa bagong kasaglitan"/>
+                    <Item CMDID = "0" name = "Isara ako"/>
+                    <Item CMDID = "1" name = "Isara lahat maliban sa kin"/>
+                    <Item CMDID = "2" name = "Itabi ako"/>
+                    <Item CMDID = "3" name = "Itabi ako Bilang..."/>
+                    <Item CMDID = "4" name = "I-Print ako"/>
+                    <Item CMDID = "5" name = "Ilipat sa iba pang Tanawin"/>
+                    <Item CMDID = "6" name = "I-Clone sa iba pang Tanawin"/>
+					<Item CMDID = "7" name = "Full file path to Clipboard"/>
+					<Item CMDID = "8" name = "File name to Clipboard"/>
+					<Item CMDID = "9" name = "Current dir path to Clipboard"/>
+					<Item CMDID = "10" name = "Pangalanang muli ako"/>
+					<Item CMDID = "11" name = "Burahin ako"/>
+					<Item CMDID = "12" name = "Basahin lang"/>
+					<Item CMDID = "13" name = "Burahin ang basahin lang na watawat"/>
+					<Item CMDID = "14" name = "Pumunta sa bagong kasaglitan"/>
+					<Item CMDID = "15" name = "Buksan sa bagong kasaglitan"/>
             </TabBar>
         </Menu>
 

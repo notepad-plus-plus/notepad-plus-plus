@@ -323,28 +323,28 @@
 			</Splitter>
 			
 			<TabBar>
-					<Item CMID="0" name="Tampar"/>
-					<Item CMID="1" name="Tampar totes levat aqueste"/>
-					<Item CMID="2" name="Salvar"/>
-					<Item CMID="3" name="Salvar coma..."/>
-					<Item CMID="4" name="estampar"/>
-					<Item CMID="5" name="Anar a una autra visualizacion"/>
-					<Item CMID="6" name="Clonar dins una autra visualizacion"/>
-					<Item CMID="7" name="Salvar lo camin de fichièr complet dins lo quichapapièrs"/>
-					<Item CMID="8" name="Salvar lo nom de fichièr dins lo quichapapièrs"/>
-					<Item CMID="9" name="Salvar lo camin del dorsièr dins lo quichapapièrs"/>
-					<Item CMID="10" name="Tornar nomenar"/>
-					<Item CMID="11" name="Suprimir"/>
-					<Item CMID="12" name="Lectura-Sola"/>
-					<Item CMID="13" name="Suprimir l'atribut Lectura-Sola"/>
-					<Item CMID="14" name="Desplaçar dins una novèla fenèstra"/>
-					<Item CMID="15" name="Dobrir dins una novèla fenèstra"/>
-					<Item CMID="16" name="Tornar cargar"/>
-					<Item CMID="17" name="Tampar tot a esquèrra"/>
-					<Item CMID="18" name="Tampar tot a dreita"/>
-					<Item CMID="19" name="Dobrir lo dorsièr parent dins l'explorator"/>
-					<Item CMID="20" name="Dobrir lo dorsièr parent dins cmd"/>
-					<Item CMID="21" name="Dobrir dins la visualizacion per defaut"/>
+					<Item CMDID="0" name="Tampar"/>
+					<Item CMDID="1" name="Tampar totes levat aqueste"/>
+					<Item CMDID="2" name="Salvar"/>
+					<Item CMDID="3" name="Salvar coma..."/>
+					<Item CMDID="4" name="estampar"/>
+					<Item CMDID="5" name="Anar a una autra visualizacion"/>
+					<Item CMDID="6" name="Clonar dins una autra visualizacion"/>
+					<Item CMDID="7" name="Salvar lo camin de fichièr complet dins lo quichapapièrs"/>
+					<Item CMDID="8" name="Salvar lo nom de fichièr dins lo quichapapièrs"/>
+					<Item CMDID="9" name="Salvar lo camin del dorsièr dins lo quichapapièrs"/>
+					<Item CMDID="10" name="Tornar nomenar"/>
+					<Item CMDID="11" name="Suprimir"/>
+					<Item CMDID="12" name="Lectura-Sola"/>
+					<Item CMDID="13" name="Suprimir l'atribut Lectura-Sola"/>
+					<Item CMDID="14" name="Desplaçar dins una novèla fenèstra"/>
+					<Item CMDID="15" name="Dobrir dins una novèla fenèstra"/>
+					<Item CMDID="16" name="Tornar cargar"/>
+					<Item CMDID="17" name="Tampar tot a esquèrra"/>
+					<Item CMDID="18" name="Tampar tot a dreita"/>
+					<Item CMDID="19" name="Dobrir lo dorsièr parent dins l'explorator"/>
+					<Item CMDID="20" name="Dobrir lo dorsièr parent dins cmd"/>
+					<Item CMDID="21" name="Dobrir dins la visualizacion per defaut"/>
 			</TabBar>
 		</Menu>
 		

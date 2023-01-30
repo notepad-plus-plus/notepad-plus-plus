@@ -245,22 +245,22 @@
 			<Splitter>
 			</Splitter>
             <TabBar>
-                	<Item CMID="0" name="סגור אותי"/>
-					<Item CMID="1" name="סגור את הכל חוץ ממני"/>
-					<Item CMID="2" name="שמור אותי"/>
-					<Item CMID="3" name="שמור אותי בשם..."/>
-					<Item CMID="4" name="הדפס אותי"/>
-					<Item CMID="5" name="עבור לתצוגה אחרת"/>
-					<Item CMID="6" name="שכפל לתצוגה אחרת"/>
-					<Item CMID="7" name="מסלול קובץ מלא לזיכרון"/>
-					<Item CMID="8" name="שם קובץ לזיכרון"/>
-					<Item CMID="9" name="מסלול תיקיה נוכחית לזיכרון"/>
-					<Item CMID="10" name="שנה את שמי"/>
-					<Item CMID="11" name="מחק אותי"/>
-					<Item CMID="12" name="קריאה בלבד"/>
-					<Item CMID="13" name="נקה דגל קריאה בלבד"/>
-					<Item CMID="14" name="העבר לחלון חדש"/>
-					<Item CMID="15" name="פתח בחלון חדש"/>
+                	<Item CMDID="0" name="סגור אותי"/>
+					<Item CMDID="1" name="סגור את הכל חוץ ממני"/>
+					<Item CMDID="2" name="שמור אותי"/>
+					<Item CMDID="3" name="שמור אותי בשם..."/>
+					<Item CMDID="4" name="הדפס אותי"/>
+					<Item CMDID="5" name="עבור לתצוגה אחרת"/>
+					<Item CMDID="6" name="שכפל לתצוגה אחרת"/>
+					<Item CMDID="7" name="מסלול קובץ מלא לזיכרון"/>
+					<Item CMDID="8" name="שם קובץ לזיכרון"/>
+					<Item CMDID="9" name="מסלול תיקיה נוכחית לזיכרון"/>
+					<Item CMDID="10" name="שנה את שמי"/>
+					<Item CMDID="11" name="מחק אותי"/>
+					<Item CMDID="12" name="קריאה בלבד"/>
+					<Item CMDID="13" name="נקה דגל קריאה בלבד"/>
+					<Item CMDID="14" name="העבר לחלון חדש"/>
+					<Item CMDID="15" name="פתח בחלון חדש"/>
 			</TabBar>
 		</Menu>
 

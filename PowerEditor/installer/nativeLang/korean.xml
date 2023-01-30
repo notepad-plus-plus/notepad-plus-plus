@@ -386,41 +386,41 @@
 <Splitter>
 </Splitter>
 <TabBar>
-  <Item CMID="0" name="닫기"/>
-  <Item CMID="1" name="현재 문서만 남기고 닫기"/>
-  <Item CMID="2" name="저장"/>
-  <Item CMID="3" name="다른 이름으로 저장..."/>
-  <Item CMID="4" name="인쇄..."/>
-  <Item CMID="5" name="분할 창으로 이동"/>
-  <Item CMID="6" name="분할 창으로 복사"/>
-  <Item CMID="7" name="전체 파일 경로 복사"/>
-  <Item CMID="8" name="파일 이름 복사"/>
-  <Item CMID="9" name="현재 디렉토리 경로 복사"/>
-  <Item CMID="10" name="이름 변경..."/>
-  <Item CMID="11" name="휴지통으로 이동"/>
-  <Item CMID="12" name="읽기 전용 설정"/>
-  <Item CMID="13" name="읽기 전용 해제"/>
-  <Item CMID="14" name="새 창으로 이동"/>
-  <Item CMID="15" name="새 창에서 열기"/>
-  <Item CMID="16" name="다시 불러오기"/>
-  <Item CMID="17" name="왼쪽에 있는 문서 모두 닫기"/>
-  <Item CMID="18" name="오른쪽에 있는 문서 모두 닫기"/>
-  <Item CMID="19" name="탐색기로 문서의 폴더 열기"/>
-  <Item CMID="20" name="CMD에서 문서의 폴더 열기"/>
-  <Item CMID="21" name="기본 프로그램으로 열기"/>
-  <Item CMID="22" name="바뀌지 않은 문서 모두 닫기"/>
-  <Item CMID="23" name="문서의 폴더를 작업 영역으로 열기"/>
-  <Item CMID="24" name="색 1 적용"/>
-  <Item CMID="25" name="색 2 적용"/>
-  <Item CMID="26" name="색 3 적용"/>
-  <Item CMID="27" name="색 4 적용"/>
-  <Item CMID="28" name="색 5 적용"/>
-  <Item CMID="29" name="색 제거"/>
-  <Item CMID="30" name="여러 탭 닫기"/>
-  <Item CMID="31" name="열기"/>
-  <Item CMID="32" name="클립보드에 복사"/>
-  <Item CMID="33" name="문서 이동"/>
-  <Item CMID="34" name="탭에 색 적용"/>
+  <Item CMDID="0" name="닫기"/>
+  <Item CMDID="1" name="현재 문서만 남기고 닫기"/>
+  <Item CMDID="2" name="저장"/>
+  <Item CMDID="3" name="다른 이름으로 저장..."/>
+  <Item CMDID="4" name="인쇄..."/>
+  <Item CMDID="5" name="분할 창으로 이동"/>
+  <Item CMDID="6" name="분할 창으로 복사"/>
+  <Item CMDID="7" name="전체 파일 경로 복사"/>
+  <Item CMDID="8" name="파일 이름 복사"/>
+  <Item CMDID="9" name="현재 디렉토리 경로 복사"/>
+  <Item CMDID="10" name="이름 변경..."/>
+  <Item CMDID="11" name="휴지통으로 이동"/>
+  <Item CMDID="12" name="읽기 전용 설정"/>
+  <Item CMDID="13" name="읽기 전용 해제"/>
+  <Item CMDID="14" name="새 창으로 이동"/>
+  <Item CMDID="15" name="새 창에서 열기"/>
+  <Item CMDID="16" name="다시 불러오기"/>
+  <Item CMDID="17" name="왼쪽에 있는 문서 모두 닫기"/>
+  <Item CMDID="18" name="오른쪽에 있는 문서 모두 닫기"/>
+  <Item CMDID="19" name="탐색기로 문서의 폴더 열기"/>
+  <Item CMDID="20" name="CMD에서 문서의 폴더 열기"/>
+  <Item CMDID="21" name="기본 프로그램으로 열기"/>
+  <Item CMDID="22" name="바뀌지 않은 문서 모두 닫기"/>
+  <Item CMDID="23" name="문서의 폴더를 작업 영역으로 열기"/>
+  <Item CMDID="24" name="색 1 적용"/>
+  <Item CMDID="25" name="색 2 적용"/>
+  <Item CMDID="26" name="색 3 적용"/>
+  <Item CMDID="27" name="색 4 적용"/>
+  <Item CMDID="28" name="색 5 적용"/>
+  <Item CMDID="29" name="색 제거"/>
+  <Item CMDID="30" name="여러 탭 닫기"/>
+  <Item CMDID="31" name="열기"/>
+  <Item CMDID="32" name="클립보드에 복사"/>
+  <Item CMDID="33" name="문서 이동"/>
+  <Item CMDID="34" name="탭에 색 적용"/>
   </TabBar>
   </Menu>
 

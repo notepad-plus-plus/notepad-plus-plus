@@ -240,22 +240,22 @@
             </Main>
 			<Splitter />
             <TabBar>
-				<Item CMID = "0" name = "Særa"/>
-				<Item CMID = "1" name = "Særa tutte levòu questa chi"/>
-				<Item CMID = "2" name = "Sarva"/>
-				<Item CMID = "3" name = "Sarva comme..."/>
-				<Item CMID = "4" name = "Stanpa"/>
-				<Item CMID = "5" name = "Spòsta inte l&apos;atra vista"/>
-				<Item CMID = "6" name = "Còpia inte l&apos;atra vista"/>
-				<Item CMID = "7" name = "Còpia percorso de file"/>
-				<Item CMID = "8" name = "Còpia nomme do file"/>
-				<Item CMID = "9" name = "Còpia percorso da cartèlla"/>
-				<Item CMID = "10" name = "Rinomina file"/>
-				<Item CMID = "11" name = "Elimina file"/>
-				<Item CMID = "12" name = "Sola letua"/>
-				<Item CMID = "13" name = "Reinpòsta bandea de sola letua"/>
-				<Item CMID = "14" name = "Spòsta inte 'n neuvo barcon"/>
-				<Item CMID = "15" name = "Còpia inte 'n neuvo barcon"/>
+				<Item CMDID = "0" name = "Særa"/>
+				<Item CMDID = "1" name = "Særa tutte levòu questa chi"/>
+				<Item CMDID = "2" name = "Sarva"/>
+				<Item CMDID = "3" name = "Sarva comme..."/>
+				<Item CMDID = "4" name = "Stanpa"/>
+				<Item CMDID = "5" name = "Spòsta inte l&apos;atra vista"/>
+				<Item CMDID = "6" name = "Còpia inte l&apos;atra vista"/>
+				<Item CMDID = "7" name = "Còpia percorso de file"/>
+				<Item CMDID = "8" name = "Còpia nomme do file"/>
+				<Item CMDID = "9" name = "Còpia percorso da cartèlla"/>
+				<Item CMDID = "10" name = "Rinomina file"/>
+				<Item CMDID = "11" name = "Elimina file"/>
+				<Item CMDID = "12" name = "Sola letua"/>
+				<Item CMDID = "13" name = "Reinpòsta bandea de sola letua"/>
+				<Item CMDID = "14" name = "Spòsta inte 'n neuvo barcon"/>
+				<Item CMDID = "15" name = "Còpia inte 'n neuvo barcon"/>
             </TabBar>
         </Menu>
         <Dialog>

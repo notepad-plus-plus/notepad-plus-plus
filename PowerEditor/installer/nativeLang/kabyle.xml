@@ -281,27 +281,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Mdel"/>
-                    <Item CMID="1" name="Mdel kulec ala wagi"/>
-                    <Item CMID="2" name="Sekles"/>
-                    <Item CMID="3" name="Sekles daw..."/>
-                    <Item CMID="4" name="Siggez"/>
-                    <Item CMID="5" name="Move to Other View"/>
-                    <Item CMID="6" name="Clone to Other View"/>
-                    <Item CMID="7" name="Nɣel abrid ummid n ufaylu"/>
-                    <Item CMID="8" name="Nɣel isem n ufaylu"/>
-                    <Item CMID="9" name="Nɣel abrid n ukaram amiran"/>
-                    <Item CMID="10" name="Beddel isem"/>
-                    <Item CMID="11" name="Move to Recycle Bin"/>
-                    <Item CMID="12" name="Zzmam i ttɣuri kan"/>
-                    <Item CMID="13" name="Kkes askar i tɣuri kan"/>
-                    <Item CMID="14" name="Smutti ɣer usfaylu amaynut"/>
-                    <Item CMID="15" name="Lli deg usfaylu amaynut"/>
-                    <Item CMID="16" name="Zedm-d tikkelt niḍen"/>
-					<Item CMID="17" name="Mdel kulec ɣer zelmaḍ"/>
-                    <Item CMID="18" name="Mdel kulec ɣer yeffus"/>
-                    <Item CMID="19" name="Open Containing Folder in Explorer"/>
-                    <Item CMID="20" name="Open Containing Folder in cmd"/>
+                    <Item CMDID="0" name="Mdel"/>
+                    <Item CMDID="1" name="Mdel kulec ala wagi"/>
+                    <Item CMDID="2" name="Sekles"/>
+                    <Item CMDID="3" name="Sekles daw..."/>
+                    <Item CMDID="4" name="Siggez"/>
+                    <Item CMDID="5" name="Move to Other View"/>
+                    <Item CMDID="6" name="Clone to Other View"/>
+                    <Item CMDID="7" name="Nɣel abrid ummid n ufaylu"/>
+                    <Item CMDID="8" name="Nɣel isem n ufaylu"/>
+                    <Item CMDID="9" name="Nɣel abrid n ukaram amiran"/>
+                    <Item CMDID="10" name="Beddel isem"/>
+                    <Item CMDID="11" name="Move to Recycle Bin"/>
+                    <Item CMDID="12" name="Zzmam i ttɣuri kan"/>
+                    <Item CMDID="13" name="Kkes askar i tɣuri kan"/>
+                    <Item CMDID="14" name="Smutti ɣer usfaylu amaynut"/>
+                    <Item CMDID="15" name="Lli deg usfaylu amaynut"/>
+                    <Item CMDID="16" name="Zedm-d tikkelt niḍen"/>
+					<Item CMDID="17" name="Mdel kulec ɣer zelmaḍ"/>
+                    <Item CMDID="18" name="Mdel kulec ɣer yeffus"/>
+                    <Item CMDID="19" name="Open Containing Folder in Explorer"/>
+                    <Item CMDID="20" name="Open Containing Folder in cmd"/>
             </TabBar>
         </Menu>
 

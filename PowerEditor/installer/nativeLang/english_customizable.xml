@@ -352,30 +352,30 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Close"/>
-                    <Item CMID="1" name="Close All BUT This"/>
-                    <Item CMID="2" name="Save"/>
-                    <Item CMID="3" name="Save As..."/>
-                    <Item CMID="4" name="Print..."/>
-                    <Item CMID="5" name="Move to Other View"/>
-                    <Item CMID="6" name="Clone to Other View"/>
-                    <Item CMID="7" name="Full File Path to Clipboard"/>
-                    <Item CMID="8" name="Filename to Clipboard"/>
-                    <Item CMID="9" name="Current Dir. Path to Clipboard"/>
-                    <Item CMID="10" name="Rename..."/>
-                    <Item CMID="11" name="Move to Recycle Bin"/>
-                    <Item CMID="12" name="Read-Only"/>
-                    <Item CMID="13" name="Clear Read-Only Flag"/>
-                    <Item CMID="14" name="Move to New Instance"/>
-                    <Item CMID="15" name="Open in New Instance"/>
-                    <Item CMID="16" name="Reload"/>
-                    <Item CMID="17" name="Close All to the Left"/>
-                    <Item CMID="18" name="Close All to the Right"/>
-                    <Item CMID="19" name="Open Containing Folder in Explorer"/>
-                    <Item CMID="20" name="Open Containing Folder in cmd"/>
-                    <Item CMID="21" name="Open in Default Viewer"/>
-                    <Item CMID="22" name="Close All Unchanged"/>
-                    <Item CMID="23" name="Open Containing Folder as Workspace"/>
+                    <Item CMDID="0" name="Close"/>
+                    <Item CMDID="1" name="Close All BUT This"/>
+                    <Item CMDID="2" name="Save"/>
+                    <Item CMDID="3" name="Save As..."/>
+                    <Item CMDID="4" name="Print..."/>
+                    <Item CMDID="5" name="Move to Other View"/>
+                    <Item CMDID="6" name="Clone to Other View"/>
+                    <Item CMDID="7" name="Full File Path to Clipboard"/>
+                    <Item CMDID="8" name="Filename to Clipboard"/>
+                    <Item CMDID="9" name="Current Dir. Path to Clipboard"/>
+                    <Item CMDID="10" name="Rename..."/>
+                    <Item CMDID="11" name="Move to Recycle Bin"/>
+                    <Item CMDID="12" name="Read-Only"/>
+                    <Item CMDID="13" name="Clear Read-Only Flag"/>
+                    <Item CMDID="14" name="Move to New Instance"/>
+                    <Item CMDID="15" name="Open in New Instance"/>
+                    <Item CMDID="16" name="Reload"/>
+                    <Item CMDID="17" name="Close All to the Left"/>
+                    <Item CMDID="18" name="Close All to the Right"/>
+                    <Item CMDID="19" name="Open Containing Folder in Explorer"/>
+                    <Item CMDID="20" name="Open Containing Folder in cmd"/>
+                    <Item CMDID="21" name="Open in Default Viewer"/>
+                    <Item CMDID="22" name="Close All Unchanged"/>
+                    <Item CMDID="23" name="Open Containing Folder as Workspace"/>
             </TabBar>
         </Menu>
 

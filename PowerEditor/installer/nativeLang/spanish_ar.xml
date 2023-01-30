@@ -279,25 +279,25 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0" name="Cerrar"/>
-				<Item CMID="1" name="Cerrar todos excepto actual"/>
-				<Item CMID="2" name="Guardar"/>
-				<Item CMID="3" name="Guardar como..."/>
-				<Item CMID="4" name="Imprimir"/>
-				<Item CMID="5" name="Mover a otra vista"/>
-				<Item CMID="6" name="Clonar en otra vista"/>
-				<Item CMID="7" name="Copiar ruta completa del archivo"/>
-				<Item CMID="8" name="Copiar nombre del archivo"/>
-				<Item CMID="9" name="Copiar ruta de la carpeta"/>
-				<Item CMID="10" name="Renombrar"/>
-				<Item CMID="11" name="Eliminar"/>
-				<Item CMID="12" name="Solo lectura"/>
-				<Item CMID="13" name="Quitar marca de solo lectura"/>
-				<Item CMID="14" name="Mover a nueva ventana"/>
-				<Item CMID="15" name="Abrir en nueva ventana"/>
-				<Item CMID="16" name="Releer"/>
-				<Item CMID="17" name="Cerrar todo lo de la izquierda"/>
-				<Item CMID="18" name="Cerrar todo lo de la derecha"/>
+				<Item CMDID="0" name="Cerrar"/>
+				<Item CMDID="1" name="Cerrar todos excepto actual"/>
+				<Item CMDID="2" name="Guardar"/>
+				<Item CMDID="3" name="Guardar como..."/>
+				<Item CMDID="4" name="Imprimir"/>
+				<Item CMDID="5" name="Mover a otra vista"/>
+				<Item CMDID="6" name="Clonar en otra vista"/>
+				<Item CMDID="7" name="Copiar ruta completa del archivo"/>
+				<Item CMDID="8" name="Copiar nombre del archivo"/>
+				<Item CMDID="9" name="Copiar ruta de la carpeta"/>
+				<Item CMDID="10" name="Renombrar"/>
+				<Item CMDID="11" name="Eliminar"/>
+				<Item CMDID="12" name="Solo lectura"/>
+				<Item CMDID="13" name="Quitar marca de solo lectura"/>
+				<Item CMDID="14" name="Mover a nueva ventana"/>
+				<Item CMDID="15" name="Abrir en nueva ventana"/>
+				<Item CMDID="16" name="Releer"/>
+				<Item CMDID="17" name="Cerrar todo lo de la izquierda"/>
+				<Item CMDID="18" name="Cerrar todo lo de la derecha"/>
 			</TabBar>
 		</Menu>
 

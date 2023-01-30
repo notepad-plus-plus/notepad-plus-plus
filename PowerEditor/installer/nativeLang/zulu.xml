@@ -322,28 +322,28 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Vala"/>
-                    <Item CMID="1" name="Vala konke KULO"/>
-                    <Item CMID="2" name="Londoloza"/>
-                    <Item CMID="3" name="Igcine njenge..."/>
-                    <Item CMID="4" name="Phrinta"/>
-                    <Item CMID="5" name="Hambisa kwenye Ukubuka"/>
-                    <Item CMID="6" name="Clone kwenye Ukubuka Okunye"/>
-                    <Item CMID="7" name="Ifayela eligcwele lefayela ku-clipboard"/>
-                    <Item CMID="8" name="Igama lokufaka ku-Clipboard"/>
-                    <Item CMID="9" name="UkushayelaokwamanjeIndlelaeyaebhodinilokunamathisela"/>
-                    <Item CMID="10" name="Qamba kabusha"/>
-                    <Item CMID="11" name="Hambisa ku-Recycle Bin"/>
-                    <Item CMID="12" name="Funda kuphela"/>
-                    <Item CMID="13" name="Sula i-Flag kuphela"/>
-                    <Item CMID="14" name="Hambisa kusimo esisha"/>
-                    <Item CMID="15" name="Vula ku-New Instance"/>
-                    <Item CMID="16" name="Phinda ulayishe kabusha"/>
-                    <Item CMID="17" name="Vala konke kuya kwesobunxele"/>
-                    <Item CMID="18" name="Vala konke kuya kwesokudla"/>
-                    <Item CMID="19" name="Vula Iqukethe Ifolda Ku-Explorer"/>
-                    <Item CMID="20" name="Vula Iqukethe Ifolda ku-cmd"/>
-                    <Item CMID="21" name="Vula ku-Viewer Okuzenzakalelayo"/>
+                    <Item CMDID="0" name="Vala"/>
+                    <Item CMDID="1" name="Vala konke KULO"/>
+                    <Item CMDID="2" name="Londoloza"/>
+                    <Item CMDID="3" name="Igcine njenge..."/>
+                    <Item CMDID="4" name="Phrinta"/>
+                    <Item CMDID="5" name="Hambisa kwenye Ukubuka"/>
+                    <Item CMDID="6" name="Clone kwenye Ukubuka Okunye"/>
+                    <Item CMDID="7" name="Ifayela eligcwele lefayela ku-clipboard"/>
+                    <Item CMDID="8" name="Igama lokufaka ku-Clipboard"/>
+                    <Item CMDID="9" name="UkushayelaokwamanjeIndlelaeyaebhodinilokunamathisela"/>
+                    <Item CMDID="10" name="Qamba kabusha"/>
+                    <Item CMDID="11" name="Hambisa ku-Recycle Bin"/>
+                    <Item CMDID="12" name="Funda kuphela"/>
+                    <Item CMDID="13" name="Sula i-Flag kuphela"/>
+                    <Item CMDID="14" name="Hambisa kusimo esisha"/>
+                    <Item CMDID="15" name="Vula ku-New Instance"/>
+                    <Item CMDID="16" name="Phinda ulayishe kabusha"/>
+                    <Item CMDID="17" name="Vala konke kuya kwesobunxele"/>
+                    <Item CMDID="18" name="Vala konke kuya kwesokudla"/>
+                    <Item CMDID="19" name="Vula Iqukethe Ifolda Ku-Explorer"/>
+                    <Item CMDID="20" name="Vula Iqukethe Ifolda ku-cmd"/>
+                    <Item CMDID="21" name="Vula ku-Viewer Okuzenzakalelayo"/>
             </TabBar>
         </Menu>
 

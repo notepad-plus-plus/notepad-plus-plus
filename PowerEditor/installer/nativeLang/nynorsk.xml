@@ -258,23 +258,23 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Lukk"/>
-                    <Item CMID="1" name="Lukk alle utanom det aktive dokumentet"/>
-                    <Item CMID="2" name="Lagre"/>
-                    <Item CMID="3" name="Lagre som..."/>
-                    <Item CMID="4" name="Skriv ut"/>
-                    <Item CMID="5" name="Flytt til anna vindauge"/>
-                    <Item CMID="6" name="Kopier til anna vindauge"/>
-                    <Item CMID="7" name="Kopier heile filstien til utklippstavla"/>
-                    <Item CMID="8" name="Kopier filnamnet til utklippstavla"/>
-                    <Item CMID="9" name="Kopier den aktive mappa til utklippstavla"/>
-                    <Item CMID="10" name="Gje nytt namn"/>
-                    <Item CMID="11" name="Slett"/>
-                    <Item CMID="12" name="Lås for redigering"/>
-                    <Item CMID="13" name="Fjern merke for låsing"/>
-                    <Item CMID="14" name="Flytt til nytt vindauge"/>
-                    <Item CMID="15" name="Opne i nytt vindauge"/>
-                    <Item CMID="16" name="Opne på nytt"/>
+                    <Item CMDID="0" name="Lukk"/>
+                    <Item CMDID="1" name="Lukk alle utanom det aktive dokumentet"/>
+                    <Item CMDID="2" name="Lagre"/>
+                    <Item CMDID="3" name="Lagre som..."/>
+                    <Item CMDID="4" name="Skriv ut"/>
+                    <Item CMDID="5" name="Flytt til anna vindauge"/>
+                    <Item CMDID="6" name="Kopier til anna vindauge"/>
+                    <Item CMDID="7" name="Kopier heile filstien til utklippstavla"/>
+                    <Item CMDID="8" name="Kopier filnamnet til utklippstavla"/>
+                    <Item CMDID="9" name="Kopier den aktive mappa til utklippstavla"/>
+                    <Item CMDID="10" name="Gje nytt namn"/>
+                    <Item CMDID="11" name="Slett"/>
+                    <Item CMDID="12" name="Lås for redigering"/>
+                    <Item CMDID="13" name="Fjern merke for låsing"/>
+                    <Item CMDID="14" name="Flytt til nytt vindauge"/>
+                    <Item CMDID="15" name="Opne i nytt vindauge"/>
+                    <Item CMDID="16" name="Opne på nytt"/>
             </TabBar>
         </Menu>
 

@@ -238,22 +238,22 @@
                 <Splitter>
                 </Splitter>
                 <TabBar>
-                    <Item CMID="0" name="క్లోస్"/>
-                    <Item CMID="1" name="క్లోస్ ఆల్ బట్ దిస్"/>
-                    <Item CMID="2" name="సేవ్"/>
-                    <Item CMID="3" name="సేవ్ య్యాస్..."/>
-                    <Item CMID="4" name="ప్రింట్"/>
-                    <Item CMID="5" name="మూవ్ టు అదర్ వ్యూ"/>
-                    <Item CMID="6" name="క్లోన్ టు అదర్ వ్యూ"/>
-                    <Item CMID="7" name="ఫుల్ ఫైల్ పాత్ టు క్లిప్‌బోర్డ్"/>
-                    <Item CMID="8" name="ఫైల్‌నేమ్ టు క్లిప్‌బోర్డ్"/>
-                    <Item CMID="9" name="కరెంట్ డైర్. పాత్ టు క్లిప్‌బోర్డ్"/>
-                    <Item CMID="10" name="రినేమ్"/>
-                    <Item CMID="11" name="డెలీట్"/>
-                    <Item CMID="12" name="రీడ్-ఓన్లీ"/>
-                    <Item CMID="13" name="క్లియర్ రీడ్-ఓన్లీ ఫ్లాగ్"/>
-                    <Item CMID="14" name="మూవ్ టు న్యూ ఇన్స్టెన్స్"/>
-                    <Item CMID="15" name="ఓపెన్ ఇన్ న్యూ ఇన్స్టెన్స్"/>
+                    <Item CMDID="0" name="క్లోస్"/>
+                    <Item CMDID="1" name="క్లోస్ ఆల్ బట్ దిస్"/>
+                    <Item CMDID="2" name="సేవ్"/>
+                    <Item CMDID="3" name="సేవ్ య్యాస్..."/>
+                    <Item CMDID="4" name="ప్రింట్"/>
+                    <Item CMDID="5" name="మూవ్ టు అదర్ వ్యూ"/>
+                    <Item CMDID="6" name="క్లోన్ టు అదర్ వ్యూ"/>
+                    <Item CMDID="7" name="ఫుల్ ఫైల్ పాత్ టు క్లిప్‌బోర్డ్"/>
+                    <Item CMDID="8" name="ఫైల్‌నేమ్ టు క్లిప్‌బోర్డ్"/>
+                    <Item CMDID="9" name="కరెంట్ డైర్. పాత్ టు క్లిప్‌బోర్డ్"/>
+                    <Item CMDID="10" name="రినేమ్"/>
+                    <Item CMDID="11" name="డెలీట్"/>
+                    <Item CMDID="12" name="రీడ్-ఓన్లీ"/>
+                    <Item CMDID="13" name="క్లియర్ రీడ్-ఓన్లీ ఫ్లాగ్"/>
+                    <Item CMDID="14" name="మూవ్ టు న్యూ ఇన్స్టెన్స్"/>
+                    <Item CMDID="15" name="ఓపెన్ ఇన్ న్యూ ఇన్స్టెన్స్"/>
                 </TabBar>
             </Menu>
             <Dialog>

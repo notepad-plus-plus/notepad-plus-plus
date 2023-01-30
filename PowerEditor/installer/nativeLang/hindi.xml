@@ -331,29 +331,29 @@
       <Splitter>
       </Splitter>
       <TabBar>
-        <Item CMID="0" name="बंद करें"/>
-        <Item CMID="1" name="इसके अलावा सभी बंद करें"/>
-        <Item CMID="2" name="सेव करें"/>
-        <Item CMID="3" name="की तरह सेव करें..."/>
-        <Item CMID="4" name="प्रिंट"/>
-        <Item CMID="5" name="दूसरे व्यू पे जायें"/>
-        <Item CMID="6" name="दूसरे व्यू पे क्लोन करें"/>
-        <Item CMID="7" name="फ़ाईल के पूरे पाथ को क्लिपबोर्ड पर"/>
-        <Item CMID="8" name="फाईल के नाम को क्लिपबोर्ड पर"/>
-        <Item CMID="9" name="वर्तमान डायरेक्टरी पाथ को क्लिपबोर्ड पर"/>
-        <Item CMID="10" name="पुनः नामांकन"/>
-        <Item CMID="11" name="Recycle Bin में भेजें"/>
-        <Item CMID="12" name="Read-Only"/>
-        <Item CMID="13" name="Read-Only फ्लेग निकालें"/>
-        <Item CMID="14" name="नए इंस्टैंस पर जायें"/>
-        <Item CMID="15" name="नया इंस्टैंस खोलें"/>
-        <Item CMID="16" name="रीलोड (Reload)"/>
-        <Item CMID="17" name="बाएं और सभी बंद करें"/>
-        <Item CMID="18" name="दाएं और सभी बंद करें"/>
-        <Item CMID="19" name="धारक फोल्डर को एक्स्प्लोरर में खोलें"/>
-        <Item CMID="20" name="धारक फोल्डर को cmd में खोलें"/>
-        <Item CMID="21" name="डिफ़ॉल्ट व्यूअर में खोलें"/>
-        <Item CMID="22" name="सभी अनचेंज्ड बंद करें"/>
+        <Item CMDID="0" name="बंद करें"/>
+        <Item CMDID="1" name="इसके अलावा सभी बंद करें"/>
+        <Item CMDID="2" name="सेव करें"/>
+        <Item CMDID="3" name="की तरह सेव करें..."/>
+        <Item CMDID="4" name="प्रिंट"/>
+        <Item CMDID="5" name="दूसरे व्यू पे जायें"/>
+        <Item CMDID="6" name="दूसरे व्यू पे क्लोन करें"/>
+        <Item CMDID="7" name="फ़ाईल के पूरे पाथ को क्लिपबोर्ड पर"/>
+        <Item CMDID="8" name="फाईल के नाम को क्लिपबोर्ड पर"/>
+        <Item CMDID="9" name="वर्तमान डायरेक्टरी पाथ को क्लिपबोर्ड पर"/>
+        <Item CMDID="10" name="पुनः नामांकन"/>
+        <Item CMDID="11" name="Recycle Bin में भेजें"/>
+        <Item CMDID="12" name="Read-Only"/>
+        <Item CMDID="13" name="Read-Only फ्लेग निकालें"/>
+        <Item CMDID="14" name="नए इंस्टैंस पर जायें"/>
+        <Item CMDID="15" name="नया इंस्टैंस खोलें"/>
+        <Item CMDID="16" name="रीलोड (Reload)"/>
+        <Item CMDID="17" name="बाएं और सभी बंद करें"/>
+        <Item CMDID="18" name="दाएं और सभी बंद करें"/>
+        <Item CMDID="19" name="धारक फोल्डर को एक्स्प्लोरर में खोलें"/>
+        <Item CMDID="20" name="धारक फोल्डर को cmd में खोलें"/>
+        <Item CMDID="21" name="डिफ़ॉल्ट व्यूअर में खोलें"/>
+        <Item CMDID="22" name="सभी अनचेंज्ड बंद करें"/>
       </TabBar>
     </Menu>
 

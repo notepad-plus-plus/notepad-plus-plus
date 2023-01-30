@@ -391,41 +391,41 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Sluiten"/>
-                    <Item CMID="1" name="Overige documenten sluiten"/>
-                    <Item CMID="2" name="Opslaan"/>
-                    <Item CMID="3" name="Opslaan als..."/>
-                    <Item CMID="4" name="Afdrukken..."/>
-                    <Item CMID="5" name="Naar deelvenster verplaatsen"/>
-                    <Item CMID="6" name="Naar deelvenster kopiëren"/>
-                    <Item CMID="7" name="Volledig bestandspad kopiëren"/>
-                    <Item CMID="8" name="Bestandsnaam kopiëren"/>
-                    <Item CMID="9" name="Pad naar huidige map kopiëren"/>
-                    <Item CMID="10" name="Naam wijzigen..."/>
-                    <Item CMID="11" name="Naar prullenbak verplaatsen"/>
-                    <Item CMID="12" name="Alleen-lezen"/>
-                    <Item CMID="13" name="Alleen-lezen opheffen"/>
-                    <Item CMID="14" name="Naar een nieuw venster verplaatsen"/>
-                    <Item CMID="15" name="Naar een nieuw venster kopiëren"/>
-                    <Item CMID="16" name="Opnieuw laden"/>
-                    <Item CMID="17" name="Documenten aan de linkerkant sluiten"/>
-                    <Item CMID="18" name="Documenten aan de rechterkant sluiten"/>
-                    <Item CMID="19" name="Bevattende map in Verkenner weergeven"/>
-                    <Item CMID="20" name="Bevattende map in opdrachtprompt openen"/>
-                    <Item CMID="21" name="In standaardviewer openen"/>
-                    <Item CMID="22" name="Ongewijzigde documenten sluiten"/>
-                    <Item CMID="23" name="Bevattende map als werkruimte openen"/>
-                    <Item CMID="24" name="Kleur 1 toepassen"/>
-                    <Item CMID="25" name="Kleur 2 toepassen"/>
-                    <Item CMID="26" name="Kleur 3 toepassen"/>
-                    <Item CMID="27" name="Kleur 4 toepassen"/>
-                    <Item CMID="28" name="Kleur 5 toepassen"/>
-                    <Item CMID="29" name="Kleur verwijderen"/>
-                    <Item CMID="30" name="Meerdere tabs sluiten"/>
-                    <Item CMID="31" name="Openen in"/>
-                    <Item CMID="32" name="Naar klembord kopiëren"/>
-                    <Item CMID="33" name="Document verplaatsen"/>
-                    <Item CMID="34" name="Kleur toepassen op tab"/>
+                    <Item CMDID="0" name="Sluiten"/>
+                    <Item CMDID="1" name="Overige documenten sluiten"/>
+                    <Item CMDID="2" name="Opslaan"/>
+                    <Item CMDID="3" name="Opslaan als..."/>
+                    <Item CMDID="4" name="Afdrukken..."/>
+                    <Item CMDID="5" name="Naar deelvenster verplaatsen"/>
+                    <Item CMDID="6" name="Naar deelvenster kopiëren"/>
+                    <Item CMDID="7" name="Volledig bestandspad kopiëren"/>
+                    <Item CMDID="8" name="Bestandsnaam kopiëren"/>
+                    <Item CMDID="9" name="Pad naar huidige map kopiëren"/>
+                    <Item CMDID="10" name="Naam wijzigen..."/>
+                    <Item CMDID="11" name="Naar prullenbak verplaatsen"/>
+                    <Item CMDID="12" name="Alleen-lezen"/>
+                    <Item CMDID="13" name="Alleen-lezen opheffen"/>
+                    <Item CMDID="14" name="Naar een nieuw venster verplaatsen"/>
+                    <Item CMDID="15" name="Naar een nieuw venster kopiëren"/>
+                    <Item CMDID="16" name="Opnieuw laden"/>
+                    <Item CMDID="17" name="Documenten aan de linkerkant sluiten"/>
+                    <Item CMDID="18" name="Documenten aan de rechterkant sluiten"/>
+                    <Item CMDID="19" name="Bevattende map in Verkenner weergeven"/>
+                    <Item CMDID="20" name="Bevattende map in opdrachtprompt openen"/>
+                    <Item CMDID="21" name="In standaardviewer openen"/>
+                    <Item CMDID="22" name="Ongewijzigde documenten sluiten"/>
+                    <Item CMDID="23" name="Bevattende map als werkruimte openen"/>
+                    <Item CMDID="24" name="Kleur 1 toepassen"/>
+                    <Item CMDID="25" name="Kleur 2 toepassen"/>
+                    <Item CMDID="26" name="Kleur 3 toepassen"/>
+                    <Item CMDID="27" name="Kleur 4 toepassen"/>
+                    <Item CMDID="28" name="Kleur 5 toepassen"/>
+                    <Item CMDID="29" name="Kleur verwijderen"/>
+                    <Item CMDID="30" name="Meerdere tabs sluiten"/>
+                    <Item CMDID="31" name="Openen in"/>
+                    <Item CMDID="32" name="Naar klembord kopiëren"/>
+                    <Item CMDID="33" name="Document verplaatsen"/>
+                    <Item CMDID="34" name="Kleur toepassen op tab"/>
             </TabBar>
         </Menu>
 

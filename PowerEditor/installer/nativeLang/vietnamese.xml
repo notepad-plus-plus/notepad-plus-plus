@@ -385,41 +385,41 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Đóng"/>
-                    <Item CMID="1" name="Đóng tất cả trừ cái này"/>
-                    <Item CMID="2" name="Lưu"/>
-                    <Item CMID="3" name="Lưu như..."/>
-                    <Item CMID="4" name="In..."/>
-                    <Item CMID="5" name="Di chuyển đến khung nhìn khác"/>
-                    <Item CMID="6" name="Sao đôi sang khung nhìn khác"/>
-                    <Item CMID="7" name="Đường dẫn tệp đầy đủ vào bảng tạm"/>
-                    <Item CMID="8" name="Tên tập tin vào bảng tạm"/>
-                    <Item CMID="9" name="Đường dẫn thư mục hiện tại vào bảng tạm"/>
-                    <Item CMID="10" name="Đổi tên..."/>
-                    <Item CMID="11" name="Di chuyển đến thùng rác"/>
-                    <Item CMID="12" name="Chỉ đọc"/>
-                    <Item CMID="13" name="Xóa cờ chỉ-đọc"/>
-                    <Item CMID="14" name="Di chuyển đến hiện thể mới"/>
-                    <Item CMID="15" name="Mở trong hiện thể mới"/>
-                    <Item CMID="16" name="Tải lại"/>
-                    <Item CMID="17" name="Đóng tất cả bên trái"/>
-                    <Item CMID="18" name="Đóng tất cả bên phải"/>
-                    <Item CMID="19" name="Mở thư mục chứa trong Explorer"/>
-                    <Item CMID="20" name="Mở thư mục chứa trong CMD"/>
-                    <Item CMID="21" name="Mở trong trình xem mặc định"/>
-                    <Item CMID="22" name="Đóng tất cả không thay đổi"/>
-                    <Item CMID="23" name="Mở thư mục chứa như là không gian làm việc"/>
-                    <Item CMID="24" name="Áp dụng màu 1"/>
-                    <Item CMID="25" name="Áp dụng màu 2"/>
-                    <Item CMID="26" name="Áp dụng màu 3"/>
-                    <Item CMID="27" name="Áp dụng màu 4"/>
-                    <Item CMID="28" name="Áp dụng màu 5"/>
-                    <Item CMID="29" name="Loại bỏ màu"/>
-                    <Item CMID="30" name="Đóng nhiều thẻ"/>
-                    <Item CMID="31" name="Mở vào"/>
-                    <Item CMID="32" name="Sao chép vào bảng tạm"/>
-                    <Item CMID="33" name="Di chuyển tài liệu"/>
-                    <Item CMID="34" name="Áp dụng màu vào thẻ"/>
+                    <Item CMDID="0" name="Đóng"/>
+                    <Item CMDID="1" name="Đóng tất cả trừ cái này"/>
+                    <Item CMDID="2" name="Lưu"/>
+                    <Item CMDID="3" name="Lưu như..."/>
+                    <Item CMDID="4" name="In..."/>
+                    <Item CMDID="5" name="Di chuyển đến khung nhìn khác"/>
+                    <Item CMDID="6" name="Sao đôi sang khung nhìn khác"/>
+                    <Item CMDID="7" name="Đường dẫn tệp đầy đủ vào bảng tạm"/>
+                    <Item CMDID="8" name="Tên tập tin vào bảng tạm"/>
+                    <Item CMDID="9" name="Đường dẫn thư mục hiện tại vào bảng tạm"/>
+                    <Item CMDID="10" name="Đổi tên..."/>
+                    <Item CMDID="11" name="Di chuyển đến thùng rác"/>
+                    <Item CMDID="12" name="Chỉ đọc"/>
+                    <Item CMDID="13" name="Xóa cờ chỉ-đọc"/>
+                    <Item CMDID="14" name="Di chuyển đến hiện thể mới"/>
+                    <Item CMDID="15" name="Mở trong hiện thể mới"/>
+                    <Item CMDID="16" name="Tải lại"/>
+                    <Item CMDID="17" name="Đóng tất cả bên trái"/>
+                    <Item CMDID="18" name="Đóng tất cả bên phải"/>
+                    <Item CMDID="19" name="Mở thư mục chứa trong Explorer"/>
+                    <Item CMDID="20" name="Mở thư mục chứa trong CMD"/>
+                    <Item CMDID="21" name="Mở trong trình xem mặc định"/>
+                    <Item CMDID="22" name="Đóng tất cả không thay đổi"/>
+                    <Item CMDID="23" name="Mở thư mục chứa như là không gian làm việc"/>
+                    <Item CMDID="24" name="Áp dụng màu 1"/>
+                    <Item CMDID="25" name="Áp dụng màu 2"/>
+                    <Item CMDID="26" name="Áp dụng màu 3"/>
+                    <Item CMDID="27" name="Áp dụng màu 4"/>
+                    <Item CMDID="28" name="Áp dụng màu 5"/>
+                    <Item CMDID="29" name="Loại bỏ màu"/>
+                    <Item CMDID="30" name="Đóng nhiều thẻ"/>
+                    <Item CMDID="31" name="Mở vào"/>
+                    <Item CMDID="32" name="Sao chép vào bảng tạm"/>
+                    <Item CMDID="33" name="Di chuyển tài liệu"/>
+                    <Item CMDID="34" name="Áp dụng màu vào thẻ"/>
             </TabBar>
         </Menu>
 

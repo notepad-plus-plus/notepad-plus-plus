@@ -382,30 +382,30 @@
             <Splitter>
             </Splitter>
             <TabBar>
-					<Item CMID="0" name="Zapri"/>
-					<Item CMID="1" name="Zapri vse razen tega"/>
-					<Item CMID="2" name="Shrani"/>
-					<Item CMID="3" name="Shrani kot..."/>
-					<Item CMID="4" name="Natisni..."/>
-					<Item CMID="5" name="Premakni v drugi pogled"/>
-					<Item CMID="6" name="Kloniraj v drugi pogled"/>
-					<Item CMID="7" name="Celotna pot trenutne datoteke v odložišče"/>
-					<Item CMID="8" name="Ime datoteke v odložišče"/>
-					<Item CMID="9" name="Pot trenutne mape v odložišče"/>
-					<Item CMID="10" name="Preimenuj..."/>
-					<Item CMID="11" name="Premakni v Koš"/>
-					<Item CMID="12" name="Samo za branje"/>
-					<Item CMID="13" name="Počisti oznako Samo za branje"/>
-					<Item CMID="14" name="Premakni v novo pojavitev"/>
-					<Item CMID="15" name="Odpri v novi pojavitvi"/>
-					<Item CMID="16" name="Osveži"/>
-					<Item CMID="17" name="Zapri vse na levo"/>
-					<Item CMID="18" name="Zapri vse na desno"/>
-					<Item CMID="19" name="Odpri vsebino mape v Raziskovalcu"/>
-					<Item CMID="20" name="Odpri vsebino mape v cmd.exe oknu"/>
-					<Item CMID="21" name="Odpri v privzetem pregledovalniku"/>
-					<Item CMID="22" name="Zapri vse nespremenjeno"/>
-					<Item CMID="23" name="Odpri vsebino mape as Workspace"/>				
+					<Item CMDID="0" name="Zapri"/>
+					<Item CMDID="1" name="Zapri vse razen tega"/>
+					<Item CMDID="2" name="Shrani"/>
+					<Item CMDID="3" name="Shrani kot..."/>
+					<Item CMDID="4" name="Natisni..."/>
+					<Item CMDID="5" name="Premakni v drugi pogled"/>
+					<Item CMDID="6" name="Kloniraj v drugi pogled"/>
+					<Item CMDID="7" name="Celotna pot trenutne datoteke v odložišče"/>
+					<Item CMDID="8" name="Ime datoteke v odložišče"/>
+					<Item CMDID="9" name="Pot trenutne mape v odložišče"/>
+					<Item CMDID="10" name="Preimenuj..."/>
+					<Item CMDID="11" name="Premakni v Koš"/>
+					<Item CMDID="12" name="Samo za branje"/>
+					<Item CMDID="13" name="Počisti oznako Samo za branje"/>
+					<Item CMDID="14" name="Premakni v novo pojavitev"/>
+					<Item CMDID="15" name="Odpri v novi pojavitvi"/>
+					<Item CMDID="16" name="Osveži"/>
+					<Item CMDID="17" name="Zapri vse na levo"/>
+					<Item CMDID="18" name="Zapri vse na desno"/>
+					<Item CMDID="19" name="Odpri vsebino mape v Raziskovalcu"/>
+					<Item CMDID="20" name="Odpri vsebino mape v cmd.exe oknu"/>
+					<Item CMDID="21" name="Odpri v privzetem pregledovalniku"/>
+					<Item CMDID="22" name="Zapri vse nespremenjeno"/>
+					<Item CMDID="23" name="Odpri vsebino mape as Workspace"/>				
 			</TabBar>
         </Menu>
 

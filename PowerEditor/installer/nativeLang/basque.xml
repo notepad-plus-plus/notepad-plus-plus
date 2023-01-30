@@ -378,30 +378,30 @@ The comments are here for explanation, it's not necessary to translate them.
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Itxi "/>
-                    <Item CMID="1" name="Itxi Denak HAU EZIK"/>
-                    <Item CMID="2" name="Gorde"/>
-                    <Item CMID="3" name="Gorde honela..."/>
-                    <Item CMID="4" name="Inprimatu"/>
-                    <Item CMID="5" name="Mugitu Beste Ikuspegira"/>
-                    <Item CMID="6" name="Klonatu Beste Ikuspegira"/>
-                    <Item CMID="7" name="Kopiatu Fitxategiaren Bide Osoa Arbelera"/>
-                    <Item CMID="8" name="Kopiatu Fitxategiaren Izena Arbelera"/>
-                    <Item CMID="9" name="Kopiatu Fitx.-aren Direktorioaren Bide Osoa Arbelera"/>
-                    <Item CMID="10" name="Aldatu Izena"/>
-                    <Item CMID="11" name="Mugitu Zakarrontzira"/>
-                    <Item CMID="12" name="Irakurtzeko-Bakarrik"/>
-                    <Item CMID="13" name="Garbitu Irakurtzeko-Bakarrik Marka"/>
-                    <Item CMID="14" name="Mugitu Instantzia Berrira"/>
-                    <Item CMID="15" name="Ireki Instantzia Berrian"/>
-                    <Item CMID="16" name="Berriz kargatu"/>
-                    <Item CMID="17" name="Itxi Ezkerreko Guztiak"/>
-                    <Item CMID="18" name="Itxi Eskuineko Guztiak"/>
-                    <Item CMID="19" name="Ireki Dagoen Karpeta Esploratzailean"/>
-                    <Item CMID="20" name="Ireki Dagoen Karpeta Komando-lerroan"/>
-                    <Item CMID="21" name="Ireki Lehenetsitako Ikusgailuan"/>
-                    <Item CMID="22" name="Itxi Aldatu Gabeko Guztiak"/>
-                    <Item CMID="23" name="Ireki Dagoen Karpeta laneko area gisa"/>
+                    <Item CMDID="0" name="Itxi "/>
+                    <Item CMDID="1" name="Itxi Denak HAU EZIK"/>
+                    <Item CMDID="2" name="Gorde"/>
+                    <Item CMDID="3" name="Gorde honela..."/>
+                    <Item CMDID="4" name="Inprimatu"/>
+                    <Item CMDID="5" name="Mugitu Beste Ikuspegira"/>
+                    <Item CMDID="6" name="Klonatu Beste Ikuspegira"/>
+                    <Item CMDID="7" name="Kopiatu Fitxategiaren Bide Osoa Arbelera"/>
+                    <Item CMDID="8" name="Kopiatu Fitxategiaren Izena Arbelera"/>
+                    <Item CMDID="9" name="Kopiatu Fitx.-aren Direktorioaren Bide Osoa Arbelera"/>
+                    <Item CMDID="10" name="Aldatu Izena"/>
+                    <Item CMDID="11" name="Mugitu Zakarrontzira"/>
+                    <Item CMDID="12" name="Irakurtzeko-Bakarrik"/>
+                    <Item CMDID="13" name="Garbitu Irakurtzeko-Bakarrik Marka"/>
+                    <Item CMDID="14" name="Mugitu Instantzia Berrira"/>
+                    <Item CMDID="15" name="Ireki Instantzia Berrian"/>
+                    <Item CMDID="16" name="Berriz kargatu"/>
+                    <Item CMDID="17" name="Itxi Ezkerreko Guztiak"/>
+                    <Item CMDID="18" name="Itxi Eskuineko Guztiak"/>
+                    <Item CMDID="19" name="Ireki Dagoen Karpeta Esploratzailean"/>
+                    <Item CMDID="20" name="Ireki Dagoen Karpeta Komando-lerroan"/>
+                    <Item CMDID="21" name="Ireki Lehenetsitako Ikusgailuan"/>
+                    <Item CMDID="22" name="Itxi Aldatu Gabeko Guztiak"/>
+                    <Item CMDID="23" name="Ireki Dagoen Karpeta laneko area gisa"/>
             </TabBar>
         </Menu>
 

@@ -267,25 +267,25 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="&amp;Zarrar"/>
-                    <Item CMID="1" name="Zarrar-los &amp;totz fueras d'iste"/>
-                    <Item CMID="2" name="&amp;Alzar"/>
-                    <Item CMID="3" name="Alzar &amp;como..."/>
-                    <Item CMID="4" name="&amp;Imprentar"/>
-                    <Item CMID="5" name="Mover ta l'atra &amp;vista"/>
-                    <Item CMID="6" name="Clonar en l'atra vi&amp;sta"/>
-                    <Item CMID="7" name="Copiar o camÃƒÂ­n d'iste &amp;fichero t'o portafuellas"/>
-                    <Item CMID="8" name="C&amp;opiar o nombre d'iste fichero t'o portafuellas"/>
-                    <Item CMID="9" name="Copiar o ca&amp;mÃƒÂ­n d'o directorio actual t'o portafuellas"/>
-                    <Item CMID="10" name="Tornar a &amp;nombrar"/>
-                    <Item CMID="11" name="&amp;Suprimir"/>
-                    <Item CMID="12" name="&amp;Modo de NomÃƒÂ¡s-Lectura"/>
-                    <Item CMID="13" name="Suprimir a m&amp;arca de NomÃƒÂ¡s-Lectura"/>
-                    <Item CMID="14" name="Mover ta una nueva &amp;finestra"/>
-                    <Item CMID="15" name="C&amp;lonar en una nueva finestra"/>
-					<Item CMID="16" name="&amp;Tornar a cargar"/>
-					<Item CMID="17" name="Zarrar totz dende ista t'a cucha"/>
-                    <Item CMID="18" name="Zarrar totz dende ista t'a dreita"/>
+                    <Item CMDID="0" name="&amp;Zarrar"/>
+                    <Item CMDID="1" name="Zarrar-los &amp;totz fueras d'iste"/>
+                    <Item CMDID="2" name="&amp;Alzar"/>
+                    <Item CMDID="3" name="Alzar &amp;como..."/>
+                    <Item CMDID="4" name="&amp;Imprentar"/>
+                    <Item CMDID="5" name="Mover ta l'atra &amp;vista"/>
+                    <Item CMDID="6" name="Clonar en l'atra vi&amp;sta"/>
+                    <Item CMDID="7" name="Copiar o camÃƒÂ­n d'iste &amp;fichero t'o portafuellas"/>
+                    <Item CMDID="8" name="C&amp;opiar o nombre d'iste fichero t'o portafuellas"/>
+                    <Item CMDID="9" name="Copiar o ca&amp;mÃƒÂ­n d'o directorio actual t'o portafuellas"/>
+                    <Item CMDID="10" name="Tornar a &amp;nombrar"/>
+                    <Item CMDID="11" name="&amp;Suprimir"/>
+                    <Item CMDID="12" name="&amp;Modo de NomÃƒÂ¡s-Lectura"/>
+                    <Item CMDID="13" name="Suprimir a m&amp;arca de NomÃƒÂ¡s-Lectura"/>
+                    <Item CMDID="14" name="Mover ta una nueva &amp;finestra"/>
+                    <Item CMDID="15" name="C&amp;lonar en una nueva finestra"/>
+					<Item CMDID="16" name="&amp;Tornar a cargar"/>
+					<Item CMDID="17" name="Zarrar totz dende ista t'a cucha"/>
+                    <Item CMDID="18" name="Zarrar totz dende ista t'a dreita"/>
             </TabBar>
         </Menu>
 

@@ -313,28 +313,28 @@
             </Main>
             <Splitter></Splitter>
             <TabBar>
-                <Item CMID="0" name="Oseclay"/>
-                <Item CMID="1" name="Oseclay Allyay UTBAY Isthay"/>
-                <Item CMID="2" name="Avesay"/>
-                <Item CMID="3" name="Avesay Asyay..."/>
-                <Item CMID="4" name="Intpray"/>
-                <Item CMID="5" name="Ovemay otay Otheryay Iewvay"/>
-                <Item CMID="6" name="Oneclay otay Otheryay Iewvay"/>
-                <Item CMID="7" name="Ullfay Ilefay Athpay otay Ipboardclay"/>
-                <Item CMID="8" name="Ilenamefay otay Ipboardclay"/>
-                <Item CMID="9" name="Urrentcay Irday. Athpay otay Ipboardclay"/>
-                <Item CMID="10" name="Enameray"/>
-                <Item CMID="11" name="Ovemay otay Ecycleray Bin"/>
-                <Item CMID="12" name="Eadray-Onlyyay"/>
-                <Item CMID="13" name="Earclay Eadray-Onlyyay Agflay"/>
-                <Item CMID="14" name="Ovemay otay Ewnay Instanceyay"/>
-                <Item CMID="15" name="Openyay inyay Ewnay Instanceyay"/>
-                <Item CMID="16" name="Eloadray"/>
-                <Item CMID="17" name="Oseclay Allyay otay ethay Eftlay"/>
-                <Item CMID="18" name="Oseclay Allyay otay ethay Ightray"/>
-                <Item CMID="19" name="Openyay Ontainingcay Olderfay inyay Exploreryay"/>
-                <Item CMID="20" name="Openyay Ontainingcay Olderfay inyay cmd"/>
-                <Item CMID="21" name="Openyay inyay Efaultday Iewervay"/>
+                <Item CMDID="0" name="Oseclay"/>
+                <Item CMDID="1" name="Oseclay Allyay UTBAY Isthay"/>
+                <Item CMDID="2" name="Avesay"/>
+                <Item CMDID="3" name="Avesay Asyay..."/>
+                <Item CMDID="4" name="Intpray"/>
+                <Item CMDID="5" name="Ovemay otay Otheryay Iewvay"/>
+                <Item CMDID="6" name="Oneclay otay Otheryay Iewvay"/>
+                <Item CMDID="7" name="Ullfay Ilefay Athpay otay Ipboardclay"/>
+                <Item CMDID="8" name="Ilenamefay otay Ipboardclay"/>
+                <Item CMDID="9" name="Urrentcay Irday. Athpay otay Ipboardclay"/>
+                <Item CMDID="10" name="Enameray"/>
+                <Item CMDID="11" name="Ovemay otay Ecycleray Bin"/>
+                <Item CMDID="12" name="Eadray-Onlyyay"/>
+                <Item CMDID="13" name="Earclay Eadray-Onlyyay Agflay"/>
+                <Item CMDID="14" name="Ovemay otay Ewnay Instanceyay"/>
+                <Item CMDID="15" name="Openyay inyay Ewnay Instanceyay"/>
+                <Item CMDID="16" name="Eloadray"/>
+                <Item CMDID="17" name="Oseclay Allyay otay ethay Eftlay"/>
+                <Item CMDID="18" name="Oseclay Allyay otay ethay Ightray"/>
+                <Item CMDID="19" name="Openyay Ontainingcay Olderfay inyay Exploreryay"/>
+                <Item CMDID="20" name="Openyay Ontainingcay Olderfay inyay cmd"/>
+                <Item CMDID="21" name="Openyay inyay Efaultday Iewervay"/>
             </TabBar>
         </Menu>
 

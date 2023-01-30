@@ -317,27 +317,27 @@ https://github.com/AndresTraks/
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Sule"/>
-                    <Item CMID="1" name="Sule kõik teised"/>
-                    <Item CMID="2" name="Salvesta"/>
-                    <Item CMID="3" name="Salvesta nimega..."/>
-                    <Item CMID="4" name="Prindi"/>
-                    <Item CMID="5" name="Liiguta teise vaatesse"/>
-                    <Item CMID="6" name="Klooni teise vaatesse"/>
-                    <Item CMID="7" name="Kopeeri faili rada lõikepuhvrisse"/>
-                    <Item CMID="8" name="Kopeeri faili nimi lõikepuhvrisse"/>
-                    <Item CMID="9" name="Kopeeri faili kausta rada lõikepuhvrisse"/>
-                    <Item CMID="10" name="Nimeta ümber"/>
-                    <Item CMID="11" name="Liiguta prügikasti"/>
-                    <Item CMID="12" name="Märgi fail kirjutuskaitstuks"/>
-                    <Item CMID="13" name="Eemalda faililt kirjutuskaitse atribuut"/>
-                    <Item CMID="14" name="Liiguta uude protsessi"/>
-                    <Item CMID="15" name="Ava uues protsessis"/>
-                    <Item CMID="16" name="Laadi uuesti"/>
-                    <Item CMID="17" name="Sule kõik vasakul pool"/>
-                    <Item CMID="18" name="Sule kõik paremal pool"/>
-                    <Item CMID="19" name="Ava faili sisaldav kaust Exploreris"/>
-                    <Item CMID="20" name="Ava faili sisaldav kaust käsureal"/>
+                    <Item CMDID="0" name="Sule"/>
+                    <Item CMDID="1" name="Sule kõik teised"/>
+                    <Item CMDID="2" name="Salvesta"/>
+                    <Item CMDID="3" name="Salvesta nimega..."/>
+                    <Item CMDID="4" name="Prindi"/>
+                    <Item CMDID="5" name="Liiguta teise vaatesse"/>
+                    <Item CMDID="6" name="Klooni teise vaatesse"/>
+                    <Item CMDID="7" name="Kopeeri faili rada lõikepuhvrisse"/>
+                    <Item CMDID="8" name="Kopeeri faili nimi lõikepuhvrisse"/>
+                    <Item CMDID="9" name="Kopeeri faili kausta rada lõikepuhvrisse"/>
+                    <Item CMDID="10" name="Nimeta ümber"/>
+                    <Item CMDID="11" name="Liiguta prügikasti"/>
+                    <Item CMDID="12" name="Märgi fail kirjutuskaitstuks"/>
+                    <Item CMDID="13" name="Eemalda faililt kirjutuskaitse atribuut"/>
+                    <Item CMDID="14" name="Liiguta uude protsessi"/>
+                    <Item CMDID="15" name="Ava uues protsessis"/>
+                    <Item CMDID="16" name="Laadi uuesti"/>
+                    <Item CMDID="17" name="Sule kõik vasakul pool"/>
+                    <Item CMDID="18" name="Sule kõik paremal pool"/>
+                    <Item CMDID="19" name="Ava faili sisaldav kaust Exploreris"/>
+                    <Item CMDID="20" name="Ava faili sisaldav kaust käsureal"/>
             </TabBar>
         </Menu>
 

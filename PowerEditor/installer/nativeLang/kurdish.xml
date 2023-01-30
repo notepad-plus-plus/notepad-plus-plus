@@ -312,28 +312,28 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="داخستن"/>
-                    <Item CMID="1" name="Close All BUT This"/>
-                    <Item CMID="2" name="پاشەكەوتكردن"/>
-                    <Item CMID="3" name="پاشەكەوتكردن لە..."/>
-                    <Item CMID="4" name="چاپكردن"/>
-                    <Item CMID="5" name="گواستنەوە بۆ بینینی زیاتر"/>
-                    <Item CMID="6" name="لێكچوون بۆ بینینی زیاتر"/>
-                    <Item CMID="7" name="Full File Path to Clipboard"/>
-                    <Item CMID="8" name="Filename to Clipboard"/>
-                    <Item CMID="9" name="Current Dir. Path to Clipboard"/>
-                    <Item CMID="10" name="ناونانه‌وه‌"/>
-                    <Item CMID="11" name="گواستنەوە بۆ تەنەكەی خۆڵ"/>
-                    <Item CMID="12" name="Read-Only"/>
-                    <Item CMID="13" name="Clear Read-Only Flag"/>
-                    <Item CMID="14" name="Move to New Instance"/>
-                    <Item CMID="15" name="Open in New Instance"/>
-                    <Item CMID="16" name="باركردنەوە"/>
-                    <Item CMID="17" name="داخستنی هەموو بۆ لای چەپ"/>
-                    <Item CMID="18" name="داخستنی هەموو بۆ لای ڕاست"/>
-                    <Item CMID="19" name="كردنەوەی بوخچەی پەیوەندیدار لە دۆزه‌ر"/>
-                    <Item CMID="20" name="كردنەوەی بوخچەی پەیوەندیدار لە cmd"/>
-					<Item CMID="21" name="كردنەوە لە بنەڕەتی بینین"/>
+                    <Item CMDID="0" name="داخستن"/>
+                    <Item CMDID="1" name="Close All BUT This"/>
+                    <Item CMDID="2" name="پاشەكەوتكردن"/>
+                    <Item CMDID="3" name="پاشەكەوتكردن لە..."/>
+                    <Item CMDID="4" name="چاپكردن"/>
+                    <Item CMDID="5" name="گواستنەوە بۆ بینینی زیاتر"/>
+                    <Item CMDID="6" name="لێكچوون بۆ بینینی زیاتر"/>
+                    <Item CMDID="7" name="Full File Path to Clipboard"/>
+                    <Item CMDID="8" name="Filename to Clipboard"/>
+                    <Item CMDID="9" name="Current Dir. Path to Clipboard"/>
+                    <Item CMDID="10" name="ناونانه‌وه‌"/>
+                    <Item CMDID="11" name="گواستنەوە بۆ تەنەكەی خۆڵ"/>
+                    <Item CMDID="12" name="Read-Only"/>
+                    <Item CMDID="13" name="Clear Read-Only Flag"/>
+                    <Item CMDID="14" name="Move to New Instance"/>
+                    <Item CMDID="15" name="Open in New Instance"/>
+                    <Item CMDID="16" name="باركردنەوە"/>
+                    <Item CMDID="17" name="داخستنی هەموو بۆ لای چەپ"/>
+                    <Item CMDID="18" name="داخستنی هەموو بۆ لای ڕاست"/>
+                    <Item CMDID="19" name="كردنەوەی بوخچەی پەیوەندیدار لە دۆزه‌ر"/>
+                    <Item CMDID="20" name="كردنەوەی بوخچەی پەیوەندیدار لە cmd"/>
+					<Item CMDID="21" name="كردنەوە لە بنەڕەتی بینین"/>
             </TabBar>
         </Menu>
 

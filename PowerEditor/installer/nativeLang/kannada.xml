@@ -285,27 +285,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="ಕ್ಲೋಸ್"/>
-                    <Item CMID="1" name="ಕ್ಲೋಸ್ ಆಲ್ ಬಟ್ ದಿಸ್"/>
-                    <Item CMID="2" name="ಸಾವೆ"/>
-                    <Item CMID="3" name="ಸಾವೆ ಆಸ್..."/>
-                    <Item CMID="4" name="ಪ್ರಿಂಟ್"/>
-                    <Item CMID="5" name="ಮೂವ್ ತೋ ಅದರ್ ವ್ಯೂ"/>
-                    <Item CMID="6" name="ಕ್ಲೋನ್ ತೋ ಅದರ್ ವ್ಯೂ"/>
-                    <Item CMID="7" name="ಫುಲ್ ಫೈಲ್ ಪಾತ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
-                    <Item CMID="8" name="ಫೈಲ್‌ನೇಮ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
-                    <Item CMID="9" name="ಕರೆಂಟ್ ಡಿರ್. ಪಾತ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
-                    <Item CMID="10" name="ರಿನೇಮ್"/>
-                    <Item CMID="11" name="ಮೂವ್ ತೋ ರಿಸೈಕಲ್ ಬಿನ್"/>
-                    <Item CMID="12" name="ರೆಡ್-ಓನ್ಲೀ"/>
-                    <Item CMID="13" name="ಕ್ಲಿಯರ್ ರೆಡ್-ಓನ್ಲೀ ಫ್ಲ್ಯಾಗ್"/>
-                    <Item CMID="14" name="ಮೂವ್ ತೋ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್"/>
-                    <Item CMID="15" name="ಓಪನ್ ಇನ್ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್"/>
-                    <Item CMID="16" name="ರಿಲೋಡ್"/>
-					<Item CMID="17" name="ಕ್ಲೋಸ್ ಆಲ್ ತೋ ತೆ ಲೆಫ್ಟ್"/>
-                    <Item CMID="18" name="ಕ್ಲೋಸ್ ಆಲ್ ತೋ ತೆ ರೈಟ್"/>
-                    <Item CMID="19" name="ಓಪನ್ ಕಂಟೇನಿಂಗ್ ಫೋಲ್ಡರ್ ಇನ್ ಎಕ್ಸ್‌ಪ್ಲೋರರ್"/>
-                    <Item CMID="20" name="ಓಪನ್ ಕಂಟೇನಿಂಗ್ ಫೋಲ್ಡರ್ ಇನ್ cmd"/>
+                    <Item CMDID="0" name="ಕ್ಲೋಸ್"/>
+                    <Item CMDID="1" name="ಕ್ಲೋಸ್ ಆಲ್ ಬಟ್ ದಿಸ್"/>
+                    <Item CMDID="2" name="ಸಾವೆ"/>
+                    <Item CMDID="3" name="ಸಾವೆ ಆಸ್..."/>
+                    <Item CMDID="4" name="ಪ್ರಿಂಟ್"/>
+                    <Item CMDID="5" name="ಮೂವ್ ತೋ ಅದರ್ ವ್ಯೂ"/>
+                    <Item CMDID="6" name="ಕ್ಲೋನ್ ತೋ ಅದರ್ ವ್ಯೂ"/>
+                    <Item CMDID="7" name="ಫುಲ್ ಫೈಲ್ ಪಾತ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+                    <Item CMDID="8" name="ಫೈಲ್‌ನೇಮ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+                    <Item CMDID="9" name="ಕರೆಂಟ್ ಡಿರ್. ಪಾತ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+                    <Item CMDID="10" name="ರಿನೇಮ್"/>
+                    <Item CMDID="11" name="ಮೂವ್ ತೋ ರಿಸೈಕಲ್ ಬಿನ್"/>
+                    <Item CMDID="12" name="ರೆಡ್-ಓನ್ಲೀ"/>
+                    <Item CMDID="13" name="ಕ್ಲಿಯರ್ ರೆಡ್-ಓನ್ಲೀ ಫ್ಲ್ಯಾಗ್"/>
+                    <Item CMDID="14" name="ಮೂವ್ ತೋ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್"/>
+                    <Item CMDID="15" name="ಓಪನ್ ಇನ್ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್"/>
+                    <Item CMDID="16" name="ರಿಲೋಡ್"/>
+					<Item CMDID="17" name="ಕ್ಲೋಸ್ ಆಲ್ ತೋ ತೆ ಲೆಫ್ಟ್"/>
+                    <Item CMDID="18" name="ಕ್ಲೋಸ್ ಆಲ್ ತೋ ತೆ ರೈಟ್"/>
+                    <Item CMDID="19" name="ಓಪನ್ ಕಂಟೇನಿಂಗ್ ಫೋಲ್ಡರ್ ಇನ್ ಎಕ್ಸ್‌ಪ್ಲೋರರ್"/>
+                    <Item CMDID="20" name="ಓಪನ್ ಕಂಟೇನಿಂಗ್ ಫೋಲ್ಡರ್ ಇನ್ cmd"/>
             </TabBar>
         </Menu>
 

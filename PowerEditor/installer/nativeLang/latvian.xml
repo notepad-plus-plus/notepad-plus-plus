@@ -288,27 +288,27 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item CMID="0" name="Aizvērt"/>
-					<Item CMID="1" name="Aizvērt visus, izņemot šo"/>
-					<Item CMID="2" name="Saglabāt"/>
-					<Item CMID="3" name="Saglabāt kā..."/>
-					<Item CMID="4" name="Drukāt"/>
-					<Item CMID="5" name="Pārvietot citā skatā"/>
-					<Item CMID="6" name="Klonēt citā skatā"/>
-					<Item CMID="7" name="Kopēt starpliktuvē faila pilno atrašanās vietu"/>
-					<Item CMID="8" name="Kopēt starpliktuvē faila nosaukumu"/>
-					<Item CMID="9" name="Kopēt starpliktuvē pašreizējās mapes atrašanās vietu"/>
-					<Item CMID="10" name="Pārdēvēt"/>
-					<Item CMID="11" name="Izdzēst"/>
-					<Item CMID="12" name="Tikai-lasāms"/>
-					<Item CMID="13" name="Notīrīt 'tikai-lasāms' iezīmi"/>
-					<Item CMID="14" name="Pārvietot jaunā instancē (programmā)"/>
-					<Item CMID="15" name="Atvērt jaunā instancē (programmā)"/>
-					<Item CMID="16" name="Ielasīt vēlreiz"/>
-					<Item CMID="17" name="Aizvert tos, kuri pa kreisi"/>
-					<Item CMID="18" name="Aizvērt tos, kuri pa labi"/>
-					<Item CMID="19" name="Atvērt doto direktoriju ar „Windows Explorer”"/>
-					<Item CMID="20" name="Atvērt doto direktoriju ar termināli (komandrindā)"/>
+					<Item CMDID="0" name="Aizvērt"/>
+					<Item CMDID="1" name="Aizvērt visus, izņemot šo"/>
+					<Item CMDID="2" name="Saglabāt"/>
+					<Item CMDID="3" name="Saglabāt kā..."/>
+					<Item CMDID="4" name="Drukāt"/>
+					<Item CMDID="5" name="Pārvietot citā skatā"/>
+					<Item CMDID="6" name="Klonēt citā skatā"/>
+					<Item CMDID="7" name="Kopēt starpliktuvē faila pilno atrašanās vietu"/>
+					<Item CMDID="8" name="Kopēt starpliktuvē faila nosaukumu"/>
+					<Item CMDID="9" name="Kopēt starpliktuvē pašreizējās mapes atrašanās vietu"/>
+					<Item CMDID="10" name="Pārdēvēt"/>
+					<Item CMDID="11" name="Izdzēst"/>
+					<Item CMDID="12" name="Tikai-lasāms"/>
+					<Item CMDID="13" name="Notīrīt 'tikai-lasāms' iezīmi"/>
+					<Item CMDID="14" name="Pārvietot jaunā instancē (programmā)"/>
+					<Item CMDID="15" name="Atvērt jaunā instancē (programmā)"/>
+					<Item CMDID="16" name="Ielasīt vēlreiz"/>
+					<Item CMDID="17" name="Aizvert tos, kuri pa kreisi"/>
+					<Item CMDID="18" name="Aizvērt tos, kuri pa labi"/>
+					<Item CMDID="19" name="Atvērt doto direktoriju ar „Windows Explorer”"/>
+					<Item CMDID="20" name="Atvērt doto direktoriju ar termināli (komandrindā)"/>
 			</TabBar>
 		</Menu>
 

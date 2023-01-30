@@ -386,41 +386,41 @@ The comments are here for explanation, it's not necessary to translate them.
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0" name="Stäng"/>
-				<Item CMID="1" name="Stäng alla andra"/>
-				<Item CMID="2" name="Spara"/>
-				<Item CMID="3" name="Spara som..."/>
-				<Item CMID="4" name="Skriv ut..."/>
-				<Item CMID="5" name="Flytta till annan vy"/>
-				<Item CMID="6" name="Klona till annan vy"/>
-				<Item CMID="7" name="Kopiera fullständig sökväg"/>
-				<Item CMID="8" name="Kopiera filens namn"/>
-				<Item CMID="9" name="Kopiera aktuella mappens sökväg"/>
-				<Item CMID="10" name="Byt namn på fil..."/>
-				<Item CMID="11" name="Flytta till papperskorgen"/>
-				<Item CMID="12" name="Aktivera skrivskydd"/>
-				<Item CMID="13" name="Inaktivera skrivskydd"/>
-				<Item CMID="14" name="Flytta till ny instans"/>
-				<Item CMID="15" name="Klona till ny instans"/>
-				<Item CMID="16" name="Ladda om"/>
-				<Item CMID="17" name="Stäng alla åt vänster"/>
-				<Item CMID="18" name="Stäng alla åt höger"/>
-				<Item CMID="19" name="Öppna objektets mapp i utforskaren"/>
-				<Item CMID="20" name="Öppna objektets mapp i kommandotolken"/>
-				<Item CMID="21" name="Öppna i standardprogram"/>
-				<Item CMID="22" name="Stäng alla oförändrade"/>
-				<Item CMID="23" name="Öppna objektets mapp som arbetsyta"/>
-				<Item CMID="24" name="Tillämpa färg 1"/>
-				<Item CMID="25" name="Tillämpa färg 2"/>
-				<Item CMID="26" name="Tillämpa färg 3"/>
-				<Item CMID="27" name="Tillämpa färg 4"/>
-				<Item CMID="28" name="Tillämpa färg 5"/>
-				<Item CMID="29" name="Ta bort färg"/>
-				<Item CMID="30" name="Stäng flera flikar"/>
-				<Item CMID="31" name="Öppna i"/>
-				<Item CMID="32" name="Kopiera till urklipp"/>
-				<Item CMID="33" name="Flytta dokument"/>
-				<Item CMID="34" name="Tillämpa färg på flik"/>
+				<Item CMDID="0" name="Stäng"/>
+				<Item CMDID="1" name="Stäng alla andra"/>
+				<Item CMDID="2" name="Spara"/>
+				<Item CMDID="3" name="Spara som..."/>
+				<Item CMDID="4" name="Skriv ut..."/>
+				<Item CMDID="5" name="Flytta till annan vy"/>
+				<Item CMDID="6" name="Klona till annan vy"/>
+				<Item CMDID="7" name="Kopiera fullständig sökväg"/>
+				<Item CMDID="8" name="Kopiera filens namn"/>
+				<Item CMDID="9" name="Kopiera aktuella mappens sökväg"/>
+				<Item CMDID="10" name="Byt namn på fil..."/>
+				<Item CMDID="11" name="Flytta till papperskorgen"/>
+				<Item CMDID="12" name="Aktivera skrivskydd"/>
+				<Item CMDID="13" name="Inaktivera skrivskydd"/>
+				<Item CMDID="14" name="Flytta till ny instans"/>
+				<Item CMDID="15" name="Klona till ny instans"/>
+				<Item CMDID="16" name="Ladda om"/>
+				<Item CMDID="17" name="Stäng alla åt vänster"/>
+				<Item CMDID="18" name="Stäng alla åt höger"/>
+				<Item CMDID="19" name="Öppna objektets mapp i utforskaren"/>
+				<Item CMDID="20" name="Öppna objektets mapp i kommandotolken"/>
+				<Item CMDID="21" name="Öppna i standardprogram"/>
+				<Item CMDID="22" name="Stäng alla oförändrade"/>
+				<Item CMDID="23" name="Öppna objektets mapp som arbetsyta"/>
+				<Item CMDID="24" name="Tillämpa färg 1"/>
+				<Item CMDID="25" name="Tillämpa färg 2"/>
+				<Item CMDID="26" name="Tillämpa färg 3"/>
+				<Item CMDID="27" name="Tillämpa färg 4"/>
+				<Item CMDID="28" name="Tillämpa färg 5"/>
+				<Item CMDID="29" name="Ta bort färg"/>
+				<Item CMDID="30" name="Stäng flera flikar"/>
+				<Item CMDID="31" name="Öppna i"/>
+				<Item CMDID="32" name="Kopiera till urklipp"/>
+				<Item CMDID="33" name="Flytta dokument"/>
+				<Item CMDID="34" name="Tillämpa färg på flik"/>
 			</TabBar>
 		</Menu>
 

@@ -142,13 +142,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID = "0" name = "اغلقني"/>
-                    <Item CMID = "1" name = "اغلقهم كلهم ماعداي"/>
-                    <Item CMID = "2" name = "احفظني"/>
-                    <Item CMID = "3" name = "احفظني باسم ..."/>
-                    <Item CMID = "4" name = "اطبعني"/>
-                    <Item CMID = "5" name = "اذهب الى منظر آخر"/>
-                    <Item CMID = "6" name = "انسخ الى منظر آخر"/>
+                    <Item CMDID = "0" name = "اغلقني"/>
+                    <Item CMDID = "1" name = "اغلقهم كلهم ماعداي"/>
+                    <Item CMDID = "2" name = "احفظني"/>
+                    <Item CMDID = "3" name = "احفظني باسم ..."/>
+                    <Item CMDID = "4" name = "اطبعني"/>
+                    <Item CMDID = "5" name = "اذهب الى منظر آخر"/>
+                    <Item CMDID = "6" name = "انسخ الى منظر آخر"/>
             </TabBar>
         </Menu>
 

@@ -248,23 +248,23 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="დახურვა"/>
-                    <Item CMID="1" name="ამის გარდა ყველას დახურვა"/>
-                    <Item CMID="2" name="შენახვა"/>
-                    <Item CMID="3" name="შენახვა როგორც..."/>
-                    <Item CMID="4" name="ბეჭდვა"/>
-                    <Item CMID="5" name="სხვა ხედში გადატანა"/>
-                    <Item CMID="6" name="სხვა ხედში კლონირება"/>
-                    <Item CMID="7" name="ფაილის მისამართის ბუფერში კოპირება"/>
-                    <Item CMID="8" name="ფაილის სახელის ბუფერში კოპირება"/>
-                    <Item CMID="9" name="მიმდინარე საქაღალდის მისამარის კოპირება"/>
-                    <Item CMID="10" name="სახელის შეცვლა"/>
-                    <Item CMID="11" name="წაშლა"/>
-                    <Item CMID="12" name="'მხოლოდ წაკითხვა'"/>
-                    <Item CMID="13" name="ატრიბუტის 'მხოლოდ წაკითხვა' წაშლა"/>
-                    <Item CMID="14" name="ახალ ფანჯარაში გადატანა"/>
-                    <Item CMID="15" name="ახალ ფანჯარაში გახსნა"/>
-                    <Item CMID="16" name="განახლება"/>
+                    <Item CMDID="0" name="დახურვა"/>
+                    <Item CMDID="1" name="ამის გარდა ყველას დახურვა"/>
+                    <Item CMDID="2" name="შენახვა"/>
+                    <Item CMDID="3" name="შენახვა როგორც..."/>
+                    <Item CMDID="4" name="ბეჭდვა"/>
+                    <Item CMDID="5" name="სხვა ხედში გადატანა"/>
+                    <Item CMDID="6" name="სხვა ხედში კლონირება"/>
+                    <Item CMDID="7" name="ფაილის მისამართის ბუფერში კოპირება"/>
+                    <Item CMDID="8" name="ფაილის სახელის ბუფერში კოპირება"/>
+                    <Item CMDID="9" name="მიმდინარე საქაღალდის მისამარის კოპირება"/>
+                    <Item CMDID="10" name="სახელის შეცვლა"/>
+                    <Item CMDID="11" name="წაშლა"/>
+                    <Item CMDID="12" name="'მხოლოდ წაკითხვა'"/>
+                    <Item CMDID="13" name="ატრიბუტის 'მხოლოდ წაკითხვა' წაშლა"/>
+                    <Item CMDID="14" name="ახალ ფანჯარაში გადატანა"/>
+                    <Item CMDID="15" name="ახალ ფანჯარაში გახსნა"/>
+                    <Item CMDID="16" name="განახლება"/>
             </TabBar>
         </Menu>
 

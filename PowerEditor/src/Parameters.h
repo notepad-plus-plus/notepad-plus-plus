@@ -147,6 +147,8 @@ const TCHAR nppLogNulContentCorruptionIssue[] = TEXT("nppLogNulContentCorruption
 void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
 void cutStringBy(const TCHAR *str2cut, std::vector<generic_string> & patternVect, char byChar, bool allowEmptyStr);
 
+// style names
+const wchar_t g_npcStyleName[] = L"Non-printing characters custom color";
 
 struct Position
 {
@@ -943,6 +945,10 @@ struct ScintillaViewParams
 	bool _eolShow = false;
 	enum crlfMode {plainText = 0, roundedRectangleText = 1, plainTextCustomColor = 2, roundedRectangleTextCustomColor = 3};
 	crlfMode _eolMode = roundedRectangleText;
+	bool _npcShow = false;
+	enum npcMode { identity = 0, abbreviation = 1, codepoint = 2 };
+	npcMode _npcMode = abbreviation;
+	bool _npcCustomColor = false;
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;

@@ -668,12 +668,13 @@ BEGIN
         MENUITEM SEPARATOR
         POPUP "Show Symbol"
         BEGIN
-            MENUITEM "Show White Space and TAB",    IDM_VIEW_TAB_SPACE
-            MENUITEM "Show End of Line",            IDM_VIEW_EOL
-            MENUITEM "Show All Characters",         IDM_VIEW_ALL_CHARACTERS
+            MENUITEM "Show Space and Tab",              IDM_VIEW_TAB_SPACE
+            MENUITEM "Show End of Line",                IDM_VIEW_EOL
+            MENUITEM "Show Non-Printing Characters",    IDM_VIEW_NPC
+            MENUITEM "Show All Characters",             IDM_VIEW_ALL_CHARACTERS
             MENUITEM SEPARATOR
-            MENUITEM "Show Indent Guide",           IDM_VIEW_INDENT_GUIDE
-            MENUITEM "Show Wrap Symbol",            IDM_VIEW_WRAP_SYMBOL
+            MENUITEM "Show Indent Guide",               IDM_VIEW_INDENT_GUIDE
+            MENUITEM "Show Wrap Symbol",                IDM_VIEW_WRAP_SYMBOL
         END
         POPUP "Zoom"
         BEGIN

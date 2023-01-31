@@ -4707,9 +4707,9 @@ void Notepad_plus::bookmarkNext(bool forwardScan)
 		lineRetry = _pEditView->execute(SCI_GETLINECOUNT);	//If not found, try from the end
 		sci_marker = SCI_MARKERPREVIOUS;
 	}
-	intptr_t nextLine = _pEditView->execute(sci_marker, lineStart, 1 << MARK_BOOKMARK);
+	intptr_t nextLine = _pEditView->execute(sci_marker, lineStart, static_cast<LPARAM>(1 << MARK_BOOKMARK));
 	if (nextLine < 0)
-		nextLine = _pEditView->execute(sci_marker, lineRetry, 1 << MARK_BOOKMARK);
+		nextLine = _pEditView->execute(sci_marker, lineRetry, static_cast<LPARAM>(1 << MARK_BOOKMARK));
 
 	if (nextLine < 0)
 		return;
@@ -4721,32 +4721,17 @@ void Notepad_plus::bookmarkNext(bool forwardScan)
 void Notepad_plus::staticCheckMenuAndTB() const
 {
 	// Visibility of invisible characters
-	bool wsTabShow = _pEditView->isInvisibleCharsShown();
-	bool eolShow = _pEditView->isEolVisible();
+	const bool wsTabShow = _pEditView->isShownSpaceAndTab();
+	const bool eolShow = _pEditView->isShownEol();
+	const bool npcShow = _pEditView->isShownNpc();
 
-	bool onlyWS = false;
-	bool onlyEOL = false;
-	bool bothWSEOL = false;
-	if (wsTabShow)
-	{
-		if (eolShow)
-		{
-			bothWSEOL = true;
-		}
-		else
-		{
-			onlyWS = true;
-		}
-	}
-	else if (eolShow)
-	{
-		onlyEOL = true;
-	}
+	const bool allShow = wsTabShow && eolShow && npcShow;
 
-	checkMenuItem(IDM_VIEW_TAB_SPACE, onlyWS);
-	checkMenuItem(IDM_VIEW_EOL, onlyEOL);
-	checkMenuItem(IDM_VIEW_ALL_CHARACTERS, bothWSEOL);
-	_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, bothWSEOL);
+	checkMenuItem(IDM_VIEW_TAB_SPACE, wsTabShow);
+	checkMenuItem(IDM_VIEW_EOL, eolShow);
+	checkMenuItem(IDM_VIEW_NPC, npcShow);
+	checkMenuItem(IDM_VIEW_ALL_CHARACTERS, allShow);
+	_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allShow);
 
 	// Visibility of the indentation guide line
 	bool b = _pEditView->isShownIndentGuide();

@@ -237,7 +237,19 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
 
-			if (_performanceSubDlg._largeFileRestrictionTip)
+			if (_editingSubDlg._tip != nullptr)
+				NppDarkMode::setDarkTooltips(_editingSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
+
+			for (auto& tip : _editingSubDlg._tips)
+			{
+				if (tip != nullptr)
+				{
+					NppDarkMode::setDarkTooltips(tip, NppDarkMode::ToolTipsType::tooltip);
+				}
+			}
+			if (_delimiterSubDlg._tip != nullptr)
+				NppDarkMode::setDarkTooltips(_delimiterSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
+			if (_performanceSubDlg._largeFileRestrictionTip != nullptr)
 				NppDarkMode::setDarkTooltips(_performanceSubDlg._largeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
 
 			return TRUE;
@@ -903,9 +915,63 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
 
 			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
-			if (_tip)
+
+			const bool isNpcModeAbbrv = svp._npcMode == svp.abbreviation;
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_NPC_ABBREVIATION, BM_SETCHECK, isNpcModeAbbrv, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_NPC_CODEPOINT, BM_SETCHECK, !isNpcModeAbbrv, 0);
+
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_NPC_COLOR, BM_SETCHECK, svp._npcCustomColor, 0);
+
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
+				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
+				L"NOTE:\n"\
+				L"Some characters might already have some representation and are thus visible. "\
+				L"Line separator and paragraph separator are already represented by abbreviation by default.\n\n"\
+				L"Using representation will disable character effects on text.\n\n"\
+				L"For the full list of selected whitespace and non-printing characters check User Manual.\n\n"\
+				L"Click on this button to open website with User Manual.");
+
+			generic_string tipAb2Show = pNativeSpeaker->getLocalizedStrFromID("npcAbbreviation-tip",
+				L"Abbreviation : name\n"\
+				L"NBSP : no-break space\n"\
+				L"ZWSP : zero-width space\n"\
+				L"ZWNBSP : zero-width no-break space\n\n"\
+				L"For the full list check User Manual.\n"\
+				L"Click on \"?\" button on right to open website with User Manual.");
+
+			generic_string tipCp2Show = pNativeSpeaker->getLocalizedStrFromID("npcCodepoint-tip",
+				L"Codepoint : name\n"\
+				L"U+00A0 : no-break space\n"\
+				L"U+200B : zero-width space\n"\
+				L"U+FEFF : zero-width no-break space\n\n"\
+				L"For the full list check User Manual.\n"\
+				L"Click on \"?\" button on right to open website with User Manual.");
+
+			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
+				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
+
+			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
+			
+			_tips.emplace_back(_tipNote);
+			_tips.emplace_back(_tipAbb);
+			_tips.emplace_back(_tipCodepoint);
+			_tips.emplace_back(_tipNpcColor);
+
+			for (auto& tip : _tips)
 			{
-				SendMessage(_tip, TTM_ACTIVATE, TRUE, 0);
+				if (tip != nullptr)
+				{
+					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
+				}
+			}
+
+			if (_tipNote != nullptr)
+			{
+				// Make tip stay 30 seconds
+				::SendMessage(_tipNote, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
 			}
 
 			initScintParam();
@@ -915,11 +981,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (_tip)
-			{
-				NppDarkMode::setDarkTooltips(_tip, NppDarkMode::ToolTipsType::tooltip);
-			}
-
 			if (NppDarkMode::isEnabled())
 			{
 				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
@@ -1055,6 +1116,44 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_CRLFLAUNCHSTYLECONF, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_RADIO_NPC_ABBREVIATION:
+				case IDC_RADIO_NPC_CODEPOINT:
+				{
+					if (wParam == IDC_RADIO_NPC_CODEPOINT)
+					{
+						svp._npcMode = svp.codepoint;
+					}
+					else // if (wParam == IDC_RADIO_NONPRINT_ABBREVIATION)
+					{
+						svp._npcMode = svp.abbreviation;
+					}
+
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_SETNPC, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_BUTTON_NPC_NOTE:
+				{
+					::ShellExecute(NULL, L"open", L"https://npp-user-manual.org/docs/views/#show-symbol", NULL, NULL, SW_SHOWNORMAL);
+					return TRUE;
+				}
+
+				case IDC_CHECK_NPC_COLOR:
+				{
+					svp._npcCustomColor = isCheckedOrNot(IDC_CHECK_NPC_COLOR);
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_NPCFORMCHANGED, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_BUTTON_NPC_LAUNCHSTYLECONF:
+				{
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_NPCLAUNCHSTYLECONF, 0, 0);
 					return TRUE;
 				}
 
@@ -4601,9 +4700,6 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			_tip = CreateToolTip(IDD_WORDCHAR_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
 			if (_tip)
 			{
-				SendMessage(_tip, TTM_ACTIVATE, TRUE, 0);
-				SendMessage(_tip, TTM_SETMAXTIPWIDTH, 0, 200);
-
 				// Make tip stay 30 seconds
 				SendMessage(_tip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
 			}
@@ -4612,11 +4708,6 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (_tip)
-			{
-				NppDarkMode::setDarkTooltips(_tip, NppDarkMode::ToolTipsType::tooltip);
-			}
-
 			if (NppDarkMode::isEnabled())
 			{
 				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));

@@ -265,7 +265,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44022" name="Word wrap"/>
                     <Item id="44023" name="Zoom &amp;In (Ctrl+Mouse Wheel Up)"/>
                     <Item id="44024" name="Zoom &amp;Out (Ctrl+Mouse Wheel Down)"/>
-                    <Item id="44025" name="Show White Space and TAB"/>
+                    <Item id="44025" name="Show Space and Tab"/>
                     <Item id="44026" name="Show End of Line"/>
                     <Item id="44029" name="Unfold All"/>
                     <Item id="44030" name="Fold Current Level"/>
@@ -295,6 +295,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Apply Color 3"/>
                     <Item id="44114" name="Apply Color 4"/>
                     <Item id="44115" name="Apply Color 5"/>
+                    <Item id="44130" name="Show Non-Printing Characters"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -925,6 +926,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Default"/>
                     <Item id="6249" name="Plain Text"/>
                     <Item id="6250" name="Custom Color"/>
+                    <Item id="6252" name="Non-Printing Characters"/>
+                    <Item id="6254" name="Abbreviation"/>
+                    <Item id="6255" name="Codepoint"/>
+                    <Item id="6256" name="Custom Color"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
@@ -1638,6 +1643,31 @@ NOTE:
 1. Modifying options here requires re-open currently opened large files to get proper behavior.
 
 2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
+            <npcNote-tip value="Representation of selected &quot;non-ASCII&quot; whitespace and non-printing (control) characters.
+
+NOTE:
+Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
+
+Using representation will disable character effects on text.
+
+For the full list of selected whitespace and non-printing characters check User Manual.
+
+Click on this button to open website with User Manual." />
+            <npcAbbreviation-tip value="Abbreviation : name
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+For the full list check User Manual.
+Click on &quot;?&quot; button on right to open website with User Manual." />
+            <npcCodepoint-tip value="Codepoint : name
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+For the full list check User Manual.
+Click on &quot;?&quot; button on right to open website with User Manual." />
+            <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -237,6 +237,18 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
 
+			if (_editingSubDlg._tip)
+				NppDarkMode::setDarkTooltips(_editingSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
+
+			for (auto& tip : _editingSubDlg._tips)
+			{
+				if (tip)
+				{
+					NppDarkMode::setDarkTooltips(tip, NppDarkMode::ToolTipsType::tooltip);
+				}
+			}
+			if (_delimiterSubDlg._tip)
+				NppDarkMode::setDarkTooltips(_delimiterSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 			if (_performanceSubDlg._largeFileRestrictionTip)
 				NppDarkMode::setDarkTooltips(_performanceSubDlg._largeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
 
@@ -903,9 +915,81 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
 
 			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
-			if (_tip)
+
+			const bool isNpcModeAbbrv = svp._nonPrintCharMode == svp.abbreviation;
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_NONPRINTCHAR_ABBREVIATION, BM_SETCHECK, isNpcModeAbbrv, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_NONPRINTCHAR_CODEPOINT, BM_SETCHECK, !isNpcModeAbbrv, 0);
+
+			generic_string tipNote2show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsNote-tip",
+				L"Representation of some non-printable characters\n\n"\
+				L"NOTE:\n"\
+				L"Some characters might already have some representation and are thus visible. "\
+				L"Line separator and paragraph separator are already represented by abbreviation by default.\n"\
+				L"Using representation will disable character effects on text.");
+
+			generic_string tipCharList12show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsList1-tip",
+				L"Codepoint : name : abbreviation\n"\
+				L"U+00A0 : no-break space : NBSP\n"\
+				L"U+1680 : ogham space mark : OSPM\n"\
+				L"U+180E : mongolian vowel separator : MVS\n"\
+				L"U+2000 : en quad : ENQD\n"\
+				L"U+2001 : em quad : EMQD\n"\
+				L"U+2002 : en space : ENSP\n"\
+				L"U+2003 : em space : EMSP\n"\
+				L"U+2004 : three-per-em space : EMSP13\n"\
+				L"U+2005 : four-per-em space : EMSP14\n"\
+				L"U+2006 : six-per-em space : EMSP16\n"\
+				L"U+2007 : figure space : NUMSP\n"\
+				L"U+2008 : punctation space : PUNCSP\n"\
+				L"U+2009 : thin space : THINSP\n"\
+				L"U+200A : hair space : HAIRSP\n"\
+				L"U+200B : zero-width space : ZWSP\n"\
+				L"U+200C : zero-width non-joiner : ZWNJ\n"\
+				L"U+200D : zero-width joiner : ZWJ\n"\
+				L"U+200E : left-to-right mark : LRM\n"\
+				L"U+200F : right-to-left mark : RLM\n"\
+				L"U+2028 : line separator : LS\n"\
+				L"U+2029 : paragraph separator : PS");
+
+			generic_string tipCharList22show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsList2-tip",
+				L"Codepoint : name : abbreviation\n"\
+				L"U+202A : left-to-right embedding : LRE\n"\
+				L"U+202B : right-to-left embedding : RLE\n"\
+				L"U+202C : pop directional formatting : PDF\n"\
+				L"U+202D : left-to-right override : LRO\n"\
+				L"U+202E : right-to-left override : RLO\n"\
+				L"U+202F : narrow no-break space : NNBSP\n"\
+				L"U+205F : medium mathematical space : MMSP\n"\
+				L"U+2060 : word joiner : WJ\n"\
+				L"U+2066 : left-to-right isolate : LRI\n"\
+				L"U+2067 : right-to-left isolate : RLI\n"\
+				L"U+2068 : first strong isolate : FSI\n"\
+				L"U+2069 : pop directional isolate : PDI\n"\
+				L"U+206A : inhibit symmetric swapping : ISS\n"\
+				L"U+206B : activate symmetric swapping : ASS\n"\
+				L"U+206C : inhibit arabic form shaping : IAFS\n"\
+				L"U+206D : activate arabic form shaping : AAFS\n"\
+				L"U+206E : national digit shapes : NADS\n"\
+				L"U+206F : nominal digit shapes : NODS\n"\
+				L"U+3000 : ideographic space : ISP\n"\
+				L"U+FEFF : zero-width no-break space : ZWNBSP");
+
+			_tipNote = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_NOTE_TIP, _hSelf, _hInst, const_cast<PTSTR>(tipNote2show.c_str()), pNativeSpeaker->isRTL());
+			_tipCharList1 = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_LIST_TIP1, _hSelf, _hInst, const_cast<PTSTR>(tipCharList12show.c_str()), pNativeSpeaker->isRTL());
+			_tipCharList2 = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_LIST_TIP2, _hSelf, _hInst, const_cast<PTSTR>(tipCharList22show.c_str()), pNativeSpeaker->isRTL());
+			
+			_tips.emplace_back(_tipNote);
+			_tips.emplace_back(_tipCharList1);
+			_tips.emplace_back(_tipCharList2);
+
+			for (auto& tip : _tips)
 			{
-				SendMessage(_tip, TTM_ACTIVATE, TRUE, 0);
+				if (tip)
+				{
+					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
+					// Make tip stay 30 seconds
+					::SendMessage(tip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+				}
 			}
 
 			initScintParam();
@@ -915,11 +999,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (_tip)
-			{
-				NppDarkMode::setDarkTooltips(_tip, NppDarkMode::ToolTipsType::tooltip);
-			}
-
 			if (NppDarkMode::isEnabled())
 			{
 				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
@@ -1055,6 +1134,23 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_CRLFLAUNCHSTYLECONF, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_RADIO_NONPRINTCHAR_ABBREVIATION:
+				case IDC_RADIO_NONPRINTCHAR_CODEPOINT:
+				{
+					if (wParam == IDC_RADIO_NONPRINTCHAR_CODEPOINT)
+					{
+						svp._nonPrintCharMode = svp.codepoint;
+					}
+					else // if (wParam == IDC_RADIO_NONPRINT_ABBREVIATION)
+					{
+						svp._nonPrintCharMode = svp.abbreviation;
+					}
+
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_SETNONPRINTCHARS, 0, 0);
 					return TRUE;
 				}
 
@@ -4601,9 +4697,6 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			_tip = CreateToolTip(IDD_WORDCHAR_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
 			if (_tip)
 			{
-				SendMessage(_tip, TTM_ACTIVATE, TRUE, 0);
-				SendMessage(_tip, TTM_SETMAXTIPWIDTH, 0, 200);
-
 				// Make tip stay 30 seconds
 				SendMessage(_tip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
 			}
@@ -4612,11 +4705,6 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (_tip)
-			{
-				NppDarkMode::setDarkTooltips(_tip, NppDarkMode::ToolTipsType::tooltip);
-			}
-
 			if (NppDarkMode::isEnabled())
 			{
 				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));

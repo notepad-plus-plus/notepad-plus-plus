@@ -2326,13 +2326,29 @@ void Notepad_plus::command(int id)
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_NONPRINT_CHARS, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
 			_mainEditView.showInvisibleChars(isChecked);
 			_subEditView.showInvisibleChars(isChecked);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, isChecked);
 
             ScintillaViewParams & svp1 = (ScintillaViewParams &)(NppParameters::getInstance()).getSVP();
             svp1._whiteSpaceShow = isChecked;
+			svp1._nonPrintCharShow = isChecked;
             svp1._eolShow = isChecked;
+			break;
+		}
+
+		case IDM_VIEW_NONPRINT_CHARS:
+		{
+			bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
+
+			_mainEditView.showNonPrintableChars(isChecked);
+			_subEditView.showNonPrintableChars(isChecked);
+
+			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
+			svp1._nonPrintCharShow = isChecked;
+
 			break;
 		}
 

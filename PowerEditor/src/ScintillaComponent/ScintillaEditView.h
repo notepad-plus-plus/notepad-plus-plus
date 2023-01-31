@@ -120,9 +120,53 @@ const int MARK_HIDELINESUNDERLINE = 17;
 // 20 - 17 reserved for Notepad++ internal used
 // 16 - 0  are free to use for plugins
 
+const std::vector<std::vector<const char*>> g_nonPrintableChars =
+{
+	{"\xC2\xA0", "NBSP", "U+00A0"},          // U+00A0 : no-break space
+	{"\xE1\x9A\x80", "OSPM", "U+1680"},      // U+1680 : ogham space mark
+	{"\xE1\xA0\x8E", "MVS", "U+180E"},       // U+180E : mongolian vowel separator
+	{"\xE2\x80\x80", "ENQD", "U+2000"},      // U+2000 : en quad
+	{"\xE2\x80\x81", "EMQD", "U+2001"},      // U+2001 : em quad
+	{"\xE2\x80\x82", "ENSP", "U+2002"},      // U+2002 : en space
+	{"\xE2\x80\x83", "EMSP", "U+2003"},      // U+2003 : em space
+	{"\xE2\x80\x84", "EMSP13", "U+2004"},    // U+2004 : three-per-em space
+	{"\xE2\x80\x85", "EMSP14", "U+2005"},    // U+2005 : four-per-em space
+	{"\xE2\x80\x86", "EMSP16", "U+2006"},    // U+2006 : six-per-em space
+	{"\xE2\x80\x87", "NUMSP", "U+2007"},     // U+2007 : figure space
+	{"\xE2\x80\x88", "PUNCSP", "U+2008"},    // U+2008 : punctation space
+	{"\xE2\x80\x89", "THINSP", "U+2009"},    // U+2009 : thin space
+	{"\xE2\x80\x8A", "HAIRSP", "U+200A"},    // U+200A : hair space
+	{"\xE2\x80\x8B", "ZWSP", "U+200B"},      // U+200B : zero-width space
+	{"\xE2\x80\x8C", "ZWNJ", "U+200C"},      // U+200C : zero-width non-joiner
+	{"\xE2\x80\x8D", "ZWJ", "U+200D"},       // U+200D : zero-width joiner
+	{"\xE2\x80\x8E", "LRM", "U+200E"},       // U+200E : left-to-right mark
+	{"\xE2\x80\x8F", "RLM", "U+200F"},       // U+200F : right-to-left mark
+	{"\xE2\x80\xA8", "LS", "U+2028"},        // U+2028 : line separator
+	{"\xE2\x80\xA9", "PS", "U+2029"},        // U+2029 : paragraph separator
+	{"\xE2\x80\xAA", "LRE", "U+202A"},       // U+202A : left-to-right embedding
+	{"\xE2\x80\xAB", "RLE", "U+202B"},       // U+202B : right-to-left embedding
+	{"\xE2\x80\xAC", "PDF", "U+202C"},       // U+202C : pop directional formatting
+	{"\xE2\x80\xAD", "LRO", "U+202D"},       // U+202D : left-to-right override
+	{"\xE2\x80\xAE", "RLO", "U+202E"},       // U+202E : right-to-left override
+	{"\xE2\x80\xAF", "NNBSP", "U+202F"},     // U+202F : narrow no-break space
+	{"\xE2\x81\x9F", "MMSP", "U+205F"},      // U+205F : medium mathematical space
+	{"\xE2\x81\xA0", "WJ", "U+2060"},        // U+2060 : word joiner
+	{"\xE2\x81\xA6", "LRI", "U+2066"},       // U+2066 : left-to-right isolate
+	{"\xE2\x81\xA7", "RLI", "U+2067"},       // U+2067 : right-to-left isolate
+	{"\xE2\x81\xA8", "FSI", "U+2068"},       // U+2068 : first strong isolate
+	{"\xE2\x81\xA9", "PDI", "U+2069"},       // U+2069 : pop directional isolate
+	{"\xE2\x81\xAA", "ISS", "U+206A"},       // U+206A : inhibit symmetric swapping
+	{"\xE2\x81\xAB", "ASS", "U+206B"},       // U+206B : activate symmetric swapping
+	{"\xE2\x81\xAC", "IAFS", "U+206C"},      // U+206C : inhibit arabic form shaping
+	{"\xE2\x81\xAD", "AAFS", "U+206D"},      // U+206D : activate arabic form shaping
+	{"\xE2\x81\xAE", "NADS", "U+206E"},      // U+206E : national digit shapes
+	{"\xE2\x81\xAF", "NODS", "U+206F"},      // U+206F : nominal digit shapes
+	{"\xE3\x80\x80", "ISP", "U+3000"},       // U+3000 : ideographic space
+	{"\xEF\xBB\xBF", "ZWNBSP", "U+FEFF"}     // U+FEFF : zero-width no-break space
+};
 
 int getNbDigits(int aNum, int base);
-HMODULE loadSciLexerDll();
+//HMODULE loadSciLexerDll();
 
 TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 
@@ -351,6 +395,27 @@ public:
 		execute(SCI_SETWHITESPACESIZE, 2, 0);
 	};
 
+	void showNonPrintableChars(bool willBeShowed = true) {
+		if (willBeShowed)
+		{
+			auto& svp = NppParameters::getInstance().getSVP();
+			const auto& mode = static_cast<size_t>(svp._nonPrintCharMode);
+			for (const auto& invChar : g_nonPrintableChars)
+			{
+				execute(SCI_SETREPRESENTATION, reinterpret_cast<WPARAM>(invChar.at(0)), reinterpret_cast<LPARAM>(invChar.at(mode)));
+			}
+		}
+		else
+		{
+			execute(SCI_CLEARALLREPRESENTATIONS);
+		}
+	};
+
+	bool isNonPrintCharsShown() {
+		auto& svp = NppParameters::getInstance().getSVP();
+		return svp._nonPrintCharShow;
+	};
+
 	void showEOL(bool willBeShowed = true) {
 		execute(SCI_SETVIEWEOL, willBeShowed);
 	};
@@ -361,6 +426,7 @@ public:
 	void showInvisibleChars(bool willBeShowed = true) {
 		showWSAndTab(willBeShowed);
 		showEOL(willBeShowed);
+		showNonPrintableChars(willBeShowed);
 	};
 
 	bool isInvisibleCharsShown() {

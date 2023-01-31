@@ -4723,6 +4723,7 @@ void Notepad_plus::staticCheckMenuAndTB() const
 	// Visibility of invisible characters
 	bool wsTabShow = _pEditView->isInvisibleCharsShown();
 	bool eolShow = _pEditView->isEolVisible();
+	bool npcShow = _pEditView->isNonPrintCharsShown();
 
 	bool onlyWS = false;
 	bool onlyEOL = false;
@@ -4745,6 +4746,7 @@ void Notepad_plus::staticCheckMenuAndTB() const
 
 	checkMenuItem(IDM_VIEW_TAB_SPACE, onlyWS);
 	checkMenuItem(IDM_VIEW_EOL, onlyEOL);
+	checkMenuItem(IDM_VIEW_NONPRINT_CHARS, npcShow);
 	checkMenuItem(IDM_VIEW_ALL_CHARACTERS, bothWSEOL);
 	_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, bothWSEOL);
 
@@ -6351,10 +6353,18 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	if (view == MAIN_VIEW)
 	{
 		_autoCompleteMain.setLanguage(buf->getLangType());
+		if (_mainEditView.isNonPrintCharsShown())
+		{
+			_mainEditView.showNonPrintableChars();
+		}
 	}
 	else if (view == SUB_VIEW)
 	{
 		_autoCompleteSub.setLanguage(buf->getLangType());
+		if (_subEditView.isNonPrintCharsShown())
+		{
+			_subEditView.showNonPrintableChars();
+		}
 	}
 
 	if (view != currentView())

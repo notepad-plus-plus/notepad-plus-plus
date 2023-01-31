@@ -45,11 +45,33 @@ private :
 
 class EditingSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public :
 	EditingSubDlg() = default;
+	~EditingSubDlg() {
+		if (_tip)
+		{
+			::DestroyWindow(_tip);
+			_tip = nullptr;
+		}
+
+		for (auto& tip : _tips)
+		{
+			if (tip)
+			{
+				::DestroyWindow(tip);
+				tip = nullptr;
+			}
+		}
+	};
 	
 private :
 	HWND _tip = nullptr;
+	HWND _tipNote = nullptr;
+	HWND _tipCharList1 = nullptr;
+	HWND _tipCharList2 = nullptr;
+
+	std::vector<HWND> _tips;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
@@ -213,6 +235,7 @@ private :
 
 class DelimiterSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public :
 	DelimiterSubDlg() = default;
 	~DelimiterSubDlg() {

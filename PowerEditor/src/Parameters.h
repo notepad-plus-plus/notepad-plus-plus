@@ -943,6 +943,9 @@ struct ScintillaViewParams
 	bool _eolShow = false;
 	enum crlfMode {plainText = 0, roundedRectangleText = 1, plainTextCustomColor = 2, roundedRectangleTextCustomColor = 3};
 	crlfMode _eolMode = roundedRectangleText;
+	bool _nonPrintCharShow = false;
+	enum nonPrintCharMode { identity = 0, abbreviation = 1, codepoint = 2 };
+	nonPrintCharMode _nonPrintCharMode = abbreviation;
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;

@@ -259,6 +259,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_TAB_SPACE,                           false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_EOL,                                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_ALL_CHARACTERS,                      false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_NONPRINT_CHARS,                      false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_INDENT_GUIDE,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_WRAP_SYMBOL,                         false, false, false, nullptr },
 //  { VK_NULL,    IDM_VIEW_ZOOMIN,                              false, false, false, nullptr },
@@ -6275,6 +6276,23 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._eolMode = static_cast<ScintillaViewParams::crlfMode>(val);
 	}
 
+	// Unicode non-printable characters visibility State
+	nm = element->Attribute(TEXT("nonPrintCharShow"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("show")))
+			_svp._nonPrintCharShow = true;
+		else //if (!lstrcmp(nm, TEXT("hide")))
+			_svp._nonPrintCharShow = false;
+	}
+
+	nm = element->Attribute(TEXT("nonPrintCharMode"), &val);
+	if (nm)
+	{
+		if (val >= 1 && val <= 2)
+			_svp._nonPrintCharMode = static_cast<ScintillaViewParams::nonPrintCharMode>(val);
+	}
+
 	nm = element->Attribute(TEXT("borderWidth"), &val);
 	if (nm)
 	{
@@ -6567,6 +6585,8 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), _svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), _svp._eolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolMode"), _svp._eolMode);
+	(scintNode->ToElement())->SetAttribute(TEXT("nonPrintCharShow"), _svp._nonPrintCharShow ? TEXT("show") : TEXT("hide"));
+	(scintNode->ToElement())->SetAttribute(TEXT("nonPrintCharMode"), _svp._nonPrintCharMode);
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);

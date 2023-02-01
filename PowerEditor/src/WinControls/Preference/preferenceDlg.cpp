@@ -1178,7 +1178,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						L"U+3000 : ideographic space : ISP\n"\
 						L"U+FEFF : zero-width no-break space : ZWNBSP",
 						L"Representation of non-printable characters",
-						MB_OK | MB_ICONINFORMATION);
+						MB_OK);
 				}
 
 				case IDC_CHECK_VIRTUALSPACE:

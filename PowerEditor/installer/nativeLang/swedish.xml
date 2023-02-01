@@ -158,7 +158,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42042" name="Beskär inledande blanksteg"/>
 					<Item id="42043" name="Beskär inledande och avslutande blanksteg"/>
 					<Item id="42044" name="Omvandla radslut till blanksteg"/>
-					<Item id="42045" name="Beskär alla överflödiga blanksteg och radavslut"/>
+					<Item id="42045" name="Beskär båda och omvandla radslut till blanksteg"/>
 					<Item id="42046" name="Omvandla tabb till blanksteg"/>
 					<Item id="42054" name="Omvandla blanksteg till tabb (alla)"/>
 					<Item id="42053" name="Omvandla blanksteg till tabb (inledande)"/>
@@ -386,41 +386,41 @@ The comments are here for explanation, it's not necessary to translate them.
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0" name="Stäng"/>
-				<Item CMID="1" name="Stäng alla andra"/>
-				<Item CMID="2" name="Spara"/>
-				<Item CMID="3" name="Spara som..."/>
-				<Item CMID="4" name="Skriv ut..."/>
-				<Item CMID="5" name="Flytta till annan vy"/>
-				<Item CMID="6" name="Klona till annan vy"/>
-				<Item CMID="7" name="Kopiera fullständig sökväg"/>
-				<Item CMID="8" name="Kopiera filens namn"/>
-				<Item CMID="9" name="Kopiera aktuella mappens sökväg"/>
-				<Item CMID="10" name="Byt namn på fil..."/>
-				<Item CMID="11" name="Flytta till papperskorgen"/>
-				<Item CMID="12" name="Aktivera skrivskydd"/>
-				<Item CMID="13" name="Inaktivera skrivskydd"/>
-				<Item CMID="14" name="Flytta till ny instans"/>
-				<Item CMID="15" name="Klona till ny instans"/>
-				<Item CMID="16" name="Ladda om"/>
-				<Item CMID="17" name="Stäng alla åt vänster"/>
-				<Item CMID="18" name="Stäng alla åt höger"/>
-				<Item CMID="19" name="Öppna objektets mapp i utforskaren"/>
-				<Item CMID="20" name="Öppna objektets mapp i kommandotolken"/>
-				<Item CMID="21" name="Öppna i standardprogram"/>
-				<Item CMID="22" name="Stäng alla oförändrade"/>
-				<Item CMID="23" name="Öppna objektets mapp som arbetsyta"/>
-				<Item CMID="24" name="Tillämpa färg 1"/>
-				<Item CMID="25" name="Tillämpa färg 2"/>
-				<Item CMID="26" name="Tillämpa färg 3"/>
-				<Item CMID="27" name="Tillämpa färg 4"/>
-				<Item CMID="28" name="Tillämpa färg 5"/>
-				<Item CMID="29" name="Ta bort färg"/>
-				<Item CMID="30" name="Stäng flera flikar"/>
-				<Item CMID="31" name="Öppna i"/>
-				<Item CMID="32" name="Kopiera till urklipp"/>
-				<Item CMID="33" name="Flytta dokument"/>
-				<Item CMID="34" name="Tillämpa färg på flik"/>
+				<Item CMDID="41003" name="Stäng"/>
+				<Item CMDID="0" name="Stäng flera flikar"/>
+				<Item CMDID="41005" name="Stäng alla FÖRUTOM denna"/>
+				<Item CMDID="41009" name="Stäng alla åt vänster"/>
+				<Item CMDID="41018" name="Stäng alla åt höger"/>
+				<Item CMDID="41024" name="Stäng alla oförändrade"/>
+				<Item CMDID="41006" name="Spara"/>
+				<Item CMDID="41008" name="Spara som..."/>
+				<Item CMDID="1" name="Öppna i"/>
+				<Item CMDID="41019" name="Öppna objektets mapp i utforskaren"/>
+				<Item CMDID="41020" name="Öppna objektets mapp i kommandotolken"/>
+				<Item CMDID="41025" name="Öppna objektets mapp som arbetsyta"/>
+				<Item CMDID="41023" name="Öppna i standardprogram"/>
+				<Item CMDID="41017" name="Byt namn..."/>
+				<Item CMDID="41016" name="Flytta till papperskorgen"/>
+				<Item CMDID="41014" name="Ladda om"/>
+				<Item CMDID="41010" name="Skriv ut..."/>
+				<Item CMDID="42028" name="Aktivera skrivskydd"/>
+				<Item CMDID="42033" name="Inaktivera skrivskydd"/>
+				<Item CMDID="2" name="Kopiera till urklipp"/>
+				<Item CMDID="42029" name="Kopiera fullständig sökväg"/>
+				<Item CMDID="42030" name="Kopiera filens namn"/>
+				<Item CMDID="42031" name="Kopiera aktuella mappens sökväg"/>
+				<Item CMDID="3" name="Flytta dokument"/>
+				<Item CMDID="10001" name="Flytta till annan vy"/>
+				<Item CMDID="10002" name="Klona till annan vy"/>
+				<Item CMDID="10003" name="Flytta till ny instans"/>
+				<Item CMDID="10004" name="Öppna i ny instans"/>
+				<Item CMDID="4" name="Tillämpa färg på flik"/>
+				<Item CMDID="44111" name="Tillämpa färg 1"/>
+				<Item CMDID="44112" name="Tillämpa färg 2"/>
+				<Item CMDID="44113" name="Tillämpa färg 3"/>
+				<Item CMDID="44114" name="Tillämpa färg 4"/>
+				<Item CMDID="44115" name="Tillämpa färg 5"/>
+				<Item CMDID="44110" name="Ta bort färg"/>
 			</TabBar>
 		</Menu>
 
@@ -927,7 +927,9 @@ The comments are here for explanation, it's not necessary to translate them.
 				</Scintillas>
 
 				<DarkMode title="Mörkt läge">
-					<Item id="7101" name="Aktivera mörkt läge"/>
+					<Item id="7131" name="Ljust läge"/>
+					<Item id="7132" name="Mörkt läge"/>
+					<Item id="7133" name="Följ Windows"/>
 					<Item id="7102" name="Svart"/>
 					<Item id="7103" name="Röd"/>
 					<Item id="7104" name="Grön"/>
@@ -1143,6 +1145,16 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6171" name="Anpassa datum och tid att infoga"/>
 					<Item id="6175" name="Omvänd standardordning av datum och tid (kort och lång format)"/>
 					<Item id="6172" name="Anpassat format:"/>
+					<Item id="6181" name="Paneltillstånd och [-nosession] *"/>
+					<Item id="6182" name="Kom ihåg paneltillstånd (panelen är öppen) i andra instanser (flera instanser) eller när kommandoradsparameter används [-nosession]"/>
+					<Item id="6183" name="Urklippshistorik"/>
+					<Item id="6184" name="Dokumentlista"/>
+					<Item id="6185" name="Teckenpanel"/>
+					<Item id="6186" name="Mapp som arbetsyta"/>
+					<Item id="6187" name="Projektpaneler"/>
+					<Item id="6188" name="Dokumentkarta"/>
+					<Item id="6189" name="Funktionslista"/>
+					<Item id="6190" name="Insticksprogrampanel"/>
 				</MultiInstance>
 
 				<Delimiter title="Avgränsare">
@@ -1375,6 +1387,7 @@ Notepad++ kommer att startas om när alla åtgärder är avslutade.
 Vill du fortsätta?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att läsa in de insticksprogram du har installerat."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att aktivera ändringshistoriken."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="Notepad++ - Windows-session avslutas" message="Windows-sessionen håller på att avslutas men du har osparad data. Vill du avsluta Notepad++ nu?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1560,6 +1573,7 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<splitter-rotate-left value="Rotera åt vänster"/>
 			<splitter-rotate-right value="Rotera åt höger"/>
 			<recent-file-history-maxfile value="Max. filer:"/>
+			<recent-file-history-customlength value="Längd: "/>
 			<language-tabsize value="Tabb-storlek: "/>
 			<userdefined-title-new value="Skapa nytt språk..."/>
 			<userdefined-title-save value="Spara aktuellt språknamn som..."/>

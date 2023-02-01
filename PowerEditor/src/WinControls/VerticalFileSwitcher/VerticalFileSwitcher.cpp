@@ -89,6 +89,41 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 			return TRUE;
 		}
 
+		case WM_PARENTNOTIFY:
+		{
+			switch ( wParam )
+			{
+				case WM_MBUTTONDOWN:
+				{
+					// Get item ID under cursor
+					LVHITTESTINFO hitInfo{};
+					hitInfo.pt.x = GET_X_LPARAM(lParam);
+					hitInfo.pt.y = GET_Y_LPARAM(lParam);
+
+					::ClientToScreen(getHSelf(), &hitInfo.pt);
+					::ScreenToClient(_fileListView.getHSelf(), &hitInfo.pt);
+					ListView_HitTest(_fileListView.getHSelf(), &hitInfo);
+			
+					if (hitInfo.iItem != -1)
+					{
+						// Get the actual item info from the ID
+						LVITEM item{};
+						item.mask = LVIF_PARAM;
+						item.iItem = hitInfo.iItem;	
+						ListView_GetItem(_fileListView.getHSelf(), &item);
+						TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+
+						// Close the document
+						closeDoc(tlfs);
+
+						return TRUE;
+					}
+				}
+			}
+
+			break;
+		}
+
 		case WM_NOTIFY:
 		{
 			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
@@ -351,9 +386,21 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 	
 	int docPosInfo = static_cast<int32_t>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, reinterpret_cast<WPARAM>(bufferID), view));
 	int view2set = docPosInfo >> 30;
-	int index2Switch = (docPosInfo << 2) >> 2 ;
+	int index2Switch = (docPosInfo << 2) >> 2;
 
 	::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
+}
+
+void VerticalFileSwitcher::closeDoc(TaskLstFnStatus *tlfs) const
+{
+	int view = tlfs->_iView;
+	BufferID bufferID = static_cast<BufferID>(tlfs->_bufID);
+		
+	int docPosInfo = static_cast<int32_t>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, reinterpret_cast<WPARAM>(bufferID), view));
+	int view2set = docPosInfo >> 30;
+	int index2Switch = (docPosInfo << 2) >> 2;
+
+	::SendMessage(_hParent, NPPM_INTERNAL_CLOSEDOC, view2set, index2Switch);
 }
 
 int VerticalFileSwitcher::setHeaderOrder(int columnIndex)

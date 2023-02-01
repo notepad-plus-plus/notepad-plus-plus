@@ -110,7 +110,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 						LVITEM item{};
 						item.mask = LVIF_PARAM;
 						item.iItem = hitInfo.iItem;	
-						ListView_GetItem( _fileListView.getHSelf(), &item);
+						ListView_GetItem(_fileListView.getHSelf(), &item);
 						TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 
 						// Close the document

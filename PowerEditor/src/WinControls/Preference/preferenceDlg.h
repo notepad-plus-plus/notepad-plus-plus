@@ -49,7 +49,7 @@ friend class PreferenceDlg;
 public :
 	EditingSubDlg() = default;
 	~EditingSubDlg() {
-		if (_tip)
+		if (_tip != nullptr)
 		{
 			::DestroyWindow(_tip);
 			_tip = nullptr;
@@ -57,7 +57,7 @@ public :
 
 		for (auto& tip : _tips)
 		{
-			if (tip)
+			if (tip != nullptr)
 			{
 				::DestroyWindow(tip);
 				tip = nullptr;
@@ -68,8 +68,8 @@ public :
 private :
 	HWND _tip = nullptr;
 	HWND _tipNote = nullptr;
-	HWND _tipCharList1 = nullptr;
-	HWND _tipCharList2 = nullptr;
+	HWND _tipAbb = nullptr;
+	HWND _tipCodepoint = nullptr;
 
 	std::vector<HWND> _tips;
 

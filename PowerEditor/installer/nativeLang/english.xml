@@ -1392,6 +1392,53 @@ Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"/>
+            <NonPrintableCharsListInfo title="Representation of non-printable characters" message="NOTE:
+Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
+
+Using representation will disable character effects on text.
+
+Codepoint : name : abbreviation
+U+00A0 : no-break space : NBSP
+U+1680 : ogham space mark : OSPM
+U+180E : mongolian vowel separator : MVS
+U+2000 : en quad : ENQD
+U+2001 : em quad : EMQD
+U+2002 : en space : ENSP
+U+2003 : em space : EMSP
+U+2004 : three-per-em space : EMSP13
+U+2005 : four-per-em space : EMSP14
+U+2006 : six-per-em space : EMSP16
+U+2007 : figure space : NUMSP
+U+2008 : punctation space : PUNCSP
+U+2009 : thin space : THINSP
+U+200A : hair space : HAIRSP
+U+200B : zero-width space : ZWSP
+U+200C : zero-width non-joiner : ZWNJ
+U+200D : zero-width joiner : ZWJ
+U+200E : left-to-right mark : LRM
+U+200F : right-to-left mark : RLM
+U+2028 : line separator : LS
+U+2029 : paragraph separator : PS
+U+202A : left-to-right embedding : LRE
+U+202B : right-to-left embedding : RLE
+U+202C : pop directional formatting : PDF
+U+202D : left-to-right override : LRO
+U+202E : right-to-left override : RLO
+U+202F : narrow no-break space : NNBSP
+U+205F : medium mathematical space : MMSP
+U+2060 : word joiner : WJ
+U+2066 : left-to-right isolate : LRI
+U+2067 : right-to-left isolate : RLI
+U+2068 : first strong isolate : FSI
+U+2069 : pop directional isolate : PDI
+U+206A : inhibit symmetric swapping : ISS
+U+206B : activate symmetric swapping : ASS
+U+206C : inhibit arabic form shaping : IAFS
+U+206D : activate arabic form shaping : AAFS
+U+206E : national digit shapes : NADS
+U+206F : nominal digit shapes : NODS
+U+3000 : ideographic space : ISP
+U+FEFF : zero-width no-break space : ZWNBSP"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1634,50 +1681,22 @@ NOTE:
 
 NOTE:
 Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
-Using representation will disable character effects on text." />
-            <nonPrintableCharsList1-tip value="Codepoint : name : abbreviation
-U+00A0 : no-break space : NBSP
-U+1680 : ogham space mark : OSPM
-U+180E : mongolian vowel separator : MVS
-U+2000 : en quad : ENQD
-U+2001 : em quad : EMQD
-U+2002 : en space : ENSP
-U+2003 : em space : EMSP
-U+2004 : three-per-em space : EMSP13
-U+2005 : four-per-em space : EMSP14
-U+2006 : six-per-em space : EMSP16
-U+2007 : figure space : NUMSP
-U+2008 : punctation space : PUNCSP
-U+2009 : thin space : THINSP
-U+200A : hair space : HAIRSP
-U+200B : zero-width space : ZWSP
-U+200C : zero-width non-joiner : ZWNJ
-U+200D : zero-width joiner : ZWJ
-U+200E : left-to-right mark : LRM
-U+200F : right-to-left mark : RLM
-U+2028 : line separator : LS
-U+2029 : paragraph separator : PS" />
-            <nonPrintableCharsList2-tip value="Codepoint : name : abbreviation
-U+202A : left-to-right embedding : LRE
-U+202B : right-to-left embedding : RLE
-U+202C : pop directional formatting : PDF
-U+202D : left-to-right override : LRO
-U+202E : right-to-left override : RLO
-U+202F : narrow no-break space : NNBSP
-U+205F : medium mathematical space : MMSP
-U+2060 : word joiner : WJ
-U+2066 : left-to-right isolate : LRI
-U+2067 : right-to-left isolate : RLI
-U+2068 : first strong isolate : FSI
-U+2069 : pop directional isolate : PDI
-U+206A : inhibit symmetric swapping : ISS
-U+206B : activate symmetric swapping : ASS
-U+206C : inhibit arabic form shaping : IAFS
-U+206D : activate arabic form shaping : AAFS
-U+206E : national digit shapes : NADS
-U+206F : nominal digit shapes : NODS
-U+3000 : ideographic space : ISP
-U+FEFF : zero-width no-break space : ZWNBSP" />
+
+Using representation will disable character effects on text.
+
+For the full list of selected non-printable characters click on this button." />
+            <nonPrintableCharsAbbreviation-tip value="Abbreviation : name
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+Click on &quot;?&quot; button above for the full list." />
+            <nonPrintableCharsCodepoint-tip value="Codepoint : name
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+Click on &quot;?&quot; button above for the full list." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

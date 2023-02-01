@@ -237,19 +237,19 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
 
-			if (_editingSubDlg._tip)
+			if (_editingSubDlg._tip != nullptr)
 				NppDarkMode::setDarkTooltips(_editingSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 
 			for (auto& tip : _editingSubDlg._tips)
 			{
-				if (tip)
+				if (tip != nullptr)
 				{
 					NppDarkMode::setDarkTooltips(tip, NppDarkMode::ToolTipsType::tooltip);
 				}
 			}
-			if (_delimiterSubDlg._tip)
+			if (_delimiterSubDlg._tip != nullptr)
 				NppDarkMode::setDarkTooltips(_delimiterSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
-			if (_performanceSubDlg._largeFileRestrictionTip)
+			if (_performanceSubDlg._largeFileRestrictionTip != nullptr)
 				NppDarkMode::setDarkTooltips(_performanceSubDlg._largeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
 
 			return TRUE;
@@ -920,76 +920,48 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_NONPRINTCHAR_ABBREVIATION, BM_SETCHECK, isNpcModeAbbrv, 0);
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_NONPRINTCHAR_CODEPOINT, BM_SETCHECK, !isNpcModeAbbrv, 0);
 
-			generic_string tipNote2show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsNote-tip",
-				L"Representation of some non-printable characters\n\n"\
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsNote-tip",
+				L"Representation of non-printable characters\n\n"\
 				L"NOTE:\n"\
 				L"Some characters might already have some representation and are thus visible. "\
-				L"Line separator and paragraph separator are already represented by abbreviation by default.\n"\
-				L"Using representation will disable character effects on text.");
+				L"Line separator and paragraph separator are already represented by abbreviation by default.\n\n"\
+				L"Using representation will disable character effects on text.\n\n"\
+				L"For the full list of selected non-printable characters click on this button.");
 
-			generic_string tipCharList12show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsList1-tip",
-				L"Codepoint : name : abbreviation\n"\
-				L"U+00A0 : no-break space : NBSP\n"\
-				L"U+1680 : ogham space mark : OSPM\n"\
-				L"U+180E : mongolian vowel separator : MVS\n"\
-				L"U+2000 : en quad : ENQD\n"\
-				L"U+2001 : em quad : EMQD\n"\
-				L"U+2002 : en space : ENSP\n"\
-				L"U+2003 : em space : EMSP\n"\
-				L"U+2004 : three-per-em space : EMSP13\n"\
-				L"U+2005 : four-per-em space : EMSP14\n"\
-				L"U+2006 : six-per-em space : EMSP16\n"\
-				L"U+2007 : figure space : NUMSP\n"\
-				L"U+2008 : punctation space : PUNCSP\n"\
-				L"U+2009 : thin space : THINSP\n"\
-				L"U+200A : hair space : HAIRSP\n"\
-				L"U+200B : zero-width space : ZWSP\n"\
-				L"U+200C : zero-width non-joiner : ZWNJ\n"\
-				L"U+200D : zero-width joiner : ZWJ\n"\
-				L"U+200E : left-to-right mark : LRM\n"\
-				L"U+200F : right-to-left mark : RLM\n"\
-				L"U+2028 : line separator : LS\n"\
-				L"U+2029 : paragraph separator : PS");
+			generic_string tipCharAb2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsAbbreviation-tip",
+				L"Abbreviation : name\n"\
+				L"NBSP : no-break space\n"\
+				L"ZWSP : zero-width space\n"\
+				L"ZWNBSP : zero-width no-break space\n\n"\
+				L"Click on \"?\" button above for the full list.");
 
-			generic_string tipCharList22show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsList2-tip",
-				L"Codepoint : name : abbreviation\n"\
-				L"U+202A : left-to-right embedding : LRE\n"\
-				L"U+202B : right-to-left embedding : RLE\n"\
-				L"U+202C : pop directional formatting : PDF\n"\
-				L"U+202D : left-to-right override : LRO\n"\
-				L"U+202E : right-to-left override : RLO\n"\
-				L"U+202F : narrow no-break space : NNBSP\n"\
-				L"U+205F : medium mathematical space : MMSP\n"\
-				L"U+2060 : word joiner : WJ\n"\
-				L"U+2066 : left-to-right isolate : LRI\n"\
-				L"U+2067 : right-to-left isolate : RLI\n"\
-				L"U+2068 : first strong isolate : FSI\n"\
-				L"U+2069 : pop directional isolate : PDI\n"\
-				L"U+206A : inhibit symmetric swapping : ISS\n"\
-				L"U+206B : activate symmetric swapping : ASS\n"\
-				L"U+206C : inhibit arabic form shaping : IAFS\n"\
-				L"U+206D : activate arabic form shaping : AAFS\n"\
-				L"U+206E : national digit shapes : NADS\n"\
-				L"U+206F : nominal digit shapes : NODS\n"\
-				L"U+3000 : ideographic space : ISP\n"\
-				L"U+FEFF : zero-width no-break space : ZWNBSP");
+			generic_string tipCharCp2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsCodepoint-tip",
+				L"Codepoint : name\n"\
+				L"U+00A0 : no-break space\n"\
+				L"U+200B : zero-width space\n"\
+				L"U+FEFF : zero-width no-break space\n\n"\
+				L"Click on \"?\" button above for the full list.");
 
-			_tipNote = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_NOTE_TIP, _hSelf, _hInst, const_cast<PTSTR>(tipNote2show.c_str()), pNativeSpeaker->isRTL());
-			_tipCharList1 = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_LIST_TIP1, _hSelf, _hInst, const_cast<PTSTR>(tipCharList12show.c_str()), pNativeSpeaker->isRTL());
-			_tipCharList2 = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_LIST_TIP2, _hSelf, _hInst, const_cast<PTSTR>(tipCharList22show.c_str()), pNativeSpeaker->isRTL());
+			_tipNote = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_NOTE_LIST, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipAbb = CreateToolTip(IDC_RADIO_NONPRINTCHAR_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipCharAb2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipCodepoint = CreateToolTip(IDC_RADIO_NONPRINTCHAR_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCharCp2Show.c_str()), pNativeSpeaker->isRTL());
 			
 			_tips.emplace_back(_tipNote);
-			_tips.emplace_back(_tipCharList1);
-			_tips.emplace_back(_tipCharList2);
+			_tips.emplace_back(_tipAbb);
+			_tips.emplace_back(_tipCodepoint);
 
 			for (auto& tip : _tips)
 			{
-				if (tip)
+				if (tip != nullptr)
 				{
 					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
-					// Make tip stay 30 seconds
-					::SendMessage(tip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
 				}
+			}
+
+			if (_tipNote != nullptr)
+			{
+				// Make tip stay 30 seconds
+				::SendMessage(_tipNote, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
 			}
 
 			initScintParam();
@@ -1152,6 +1124,61 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_SETNONPRINTCHARS, 0, 0);
 					return TRUE;
+				}
+
+				case IDC_BUTTON_NONPRINTCHAR_NOTE_LIST:
+				{
+					NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+					pNativeSpeaker->messageBox("NonPrintableCharsListInfo",
+						_hSelf,
+						L"NOTE:\n"\
+						L"Some characters might already have some representation and are thus visible. "\
+						L"Line separator and paragraph separator are already represented by abbreviation by default.\n\n"\
+						L"Using representation will disable character effects on text.\n\n"\
+						L"Codepoint : name : abbreviation\n"\
+						L"U+00A0 : no-break space : NBSP\n"\
+						L"U+1680 : ogham space mark : OSPM\n"\
+						L"U+180E : mongolian vowel separator : MVS\n"\
+						L"U+2000 : en quad : ENQD\n"\
+						L"U+2001 : em quad : EMQD\n"\
+						L"U+2002 : en space : ENSP\n"\
+						L"U+2003 : em space : EMSP\n"\
+						L"U+2004 : three-per-em space : EMSP13\n"\
+						L"U+2005 : four-per-em space : EMSP14\n"\
+						L"U+2006 : six-per-em space : EMSP16\n"\
+						L"U+2007 : figure space : NUMSP\n"\
+						L"U+2008 : punctation space : PUNCSP\n"\
+						L"U+2009 : thin space : THINSP\n"\
+						L"U+200A : hair space : HAIRSP\n"\
+						L"U+200B : zero-width space : ZWSP\n"\
+						L"U+200C : zero-width non-joiner : ZWNJ\n"\
+						L"U+200D : zero-width joiner : ZWJ\n"\
+						L"U+200E : left-to-right mark : LRM\n"\
+						L"U+200F : right-to-left mark : RLM\n"\
+						L"U+2028 : line separator : LS\n"\
+						L"U+2029 : paragraph separator : PS\n"
+						L"U+202A : left-to-right embedding : LRE\n"\
+						L"U+202B : right-to-left embedding : RLE\n"\
+						L"U+202C : pop directional formatting : PDF\n"\
+						L"U+202D : left-to-right override : LRO\n"\
+						L"U+202E : right-to-left override : RLO\n"\
+						L"U+202F : narrow no-break space : NNBSP\n"\
+						L"U+205F : medium mathematical space : MMSP\n"\
+						L"U+2060 : word joiner : WJ\n"\
+						L"U+2066 : left-to-right isolate : LRI\n"\
+						L"U+2067 : right-to-left isolate : RLI\n"\
+						L"U+2068 : first strong isolate : FSI\n"\
+						L"U+2069 : pop directional isolate : PDI\n"\
+						L"U+206A : inhibit symmetric swapping : ISS\n"\
+						L"U+206B : activate symmetric swapping : ASS\n"\
+						L"U+206C : inhibit arabic form shaping : IAFS\n"\
+						L"U+206D : activate arabic form shaping : AAFS\n"\
+						L"U+206E : national digit shapes : NADS\n"\
+						L"U+206F : nominal digit shapes : NODS\n"\
+						L"U+3000 : ideographic space : ISP\n"\
+						L"U+FEFF : zero-width no-break space : ZWNBSP",
+						L"Representation of non-printable characters",
+						MB_OK | MB_ICONINFORMATION);
 				}
 
 				case IDC_CHECK_VIRTUALSPACE:

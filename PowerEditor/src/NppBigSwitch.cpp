@@ -1317,6 +1317,21 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_CLOSEDOC:
+		{
+			// Close a document without switching to it
+			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW)) ? currentView() : static_cast<int32_t>(wParam);
+			int index = static_cast<int32_t>(lParam);
+			
+			// Gotta switch to correct view to get the correct buffer ID
+			switchEditViewTo(whichView);
+
+			// Close the document
+			fileClose(_pDocTab->getBufferByIndex(index), whichView);
+			
+			return TRUE;
+		}
+
 		// ADD_ZERO_PADDING == TRUE
 		// 
 		// version  | HIWORD | LOWORD

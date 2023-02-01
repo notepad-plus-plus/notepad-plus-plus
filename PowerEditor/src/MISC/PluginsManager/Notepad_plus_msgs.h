@@ -549,7 +549,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// void* NPPM_GETBOOKMARKID(0, 0)
 	// Returns the bookmark ID
 
-
+	#define NPPM_CLOSEDOC (NPPMSG + 112)
+	//void NPPM_CLOSEDOC(int view, int index2Activate)
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

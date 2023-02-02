@@ -69,7 +69,13 @@ void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppPa
 }
 
 // parseCommandLine() takes command line arguments part string, cuts arguments by using white space as separater.
-// Only white space in double quotes will be kept, such as file path argument or "-settingsDir=" argument (ex.: -settingsDir="c:\my settings\my folder\")
+// Only white space in double quotes will be kept, such as file path argument or '-settingsDir=' argument (ex.: -settingsDir="c:\my settings\my folder\")
+// if '-z' is present, the 3rd argument after -z wont be cut - ie. all the space will also be kept
+// ex.: -notepadStyleCmdline -z "C:\WINDOWS\system32\NOTEPAD.EXE" C:\tmp\my file with whitespace.txt will be separated to: 
+// 1. "-notepadStyleCmdline"
+// 2. "-z"
+// 3. "C:\WINDOWS\system32\NOTEPAD.EXE"
+// 4. "C:\tmp\my file with whitespace.txt" 
 void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 {
 	if (!commandLine)
@@ -83,29 +89,35 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 	bool isInFile = false;
 	bool isStringInArg = false;
 	bool isInWhiteSpace = true;
+	int zArg = 0;
+	bool shouldBeTerminated = false;
 
 	size_t commandLength = lstrlen(cmdLinePtr);
 	std::vector<TCHAR *> args;
-	for (size_t i = 0; i < commandLength; ++i)
+	for (size_t i = 0; i < commandLength && !shouldBeTerminated; ++i)
 	{
 		switch (cmdLinePtr[i])
 		{
 			case '\"': //quoted filename, ignore any following whitespace
 			{
-				if (!isStringInArg && i > 0 && cmdLinePtr[i - 1] == '=')
+				if (!isStringInArg && i > 0 && cmdLinePtr[i-1] == '=')
 				{
 					isStringInArg = true;
 				}
 				else if (isStringInArg)
 				{
 					isStringInArg = false;
-					//cmdLinePtr[i] = 0;
 				}
 				else if (!isInFile)	//" will always be treated as start or end of param, in case the user forgot to add an space
 				{
 					args.push_back(cmdLinePtr + i + 1);	//add next param(since zero terminated original, no overflow of +1)
 					isInFile = true;
 					cmdLinePtr[i] = 0;
+
+					if (zArg == 1)
+					{
+						++zArg; // zArg == 2
+					}
 				}
 				else if (isInFile)
 				{
@@ -122,7 +134,13 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 			{
 				isInWhiteSpace = true;
 				if (!isInFile && !isStringInArg)
-					cmdLinePtr[i] = 0;		//zap spaces into zero terminators, unless its part of a filename	
+				{
+					cmdLinePtr[i] = 0;		//zap spaces into zero terminators, unless its part of a filename
+
+					int64_t argsInd = static_cast<int64_t>(args.size()) - 1;
+					if (argsInd >= 0 && lstrcmp(args[argsInd], L"-z") == 0)
+						++zArg; // zArg == 1
+				}
 			}
 			break;
 
@@ -131,6 +149,12 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 				if (!isInFile && !isStringInArg && isInWhiteSpace)
 				{
 					args.push_back(cmdLinePtr + i);	//add next param
+					if (zArg == 2)
+					{
+						// stop
+						shouldBeTerminated = true;
+					}
+
 					isInWhiteSpace = false;
 				}
 			}
@@ -351,7 +375,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	::CreateMutex(NULL, false, TEXT("nppInstance"));
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
-
 
 	generic_string cmdLineString = pCmdLine ? pCmdLine : _T("");
 	ParamVector params;

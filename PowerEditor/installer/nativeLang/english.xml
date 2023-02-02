@@ -112,6 +112,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Delete"/>
                     <Item id="42007" name="&amp;Select All"/>
                     <Item id="42020" name="Begin/End &amp;Select"/>
+                    <Item id="42089" name="Begin/End Select in Column Mode"/>
                     <Item id="42084" name="Date Time (short)"/>
                     <Item id="42085" name="Date Time (long)"/>
                     <Item id="42086" name="Date Time (customized)"/>
@@ -1317,7 +1318,18 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
             <DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
 you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
             <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
+            <ColumnModeTip title="Column Mode Tip" message="
+There are 3 ways to switch to column-select mode:
+
+1. (Keyboard and Mouse)  Hold Alt while left-click dragging
+
+2. (Keyboard only)  Hold Alt+Shift while using arrow keys
+
+3. (Keyboard or Mouse)
+      Put caret at desired start of column block position, then
+       execute &quot;Begin/End Select in Column Mode&quot; command;
+      Move caret to desired end of column block position, then
+       execute &quot;Begin/End Select in Column Mode&quot; command again"/>
             <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
 Keep this file in editor?"/>

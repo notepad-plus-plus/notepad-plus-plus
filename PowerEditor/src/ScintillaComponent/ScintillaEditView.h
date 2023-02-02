@@ -262,7 +262,7 @@ public:
 	void restoreCurrentPosPreStep();
 	void restoreCurrentPosPostStep();
 
-	void beginOrEndSelect();
+	void beginOrEndSelect(bool isColumnMode);
 	bool beginEndSelectedIsStarted() const {
 		return _beginSelectPosition != -1;
 	};

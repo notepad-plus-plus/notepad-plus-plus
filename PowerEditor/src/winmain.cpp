@@ -71,11 +71,11 @@ void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppPa
 // parseCommandLine() takes command line arguments part string, cuts arguments by using white space as separater.
 // Only white space in double quotes will be kept, such as file path argument or '-settingsDir=' argument (ex.: -settingsDir="c:\my settings\my folder\")
 // if '-z' is present, the 3rd argument after -z wont be cut - ie. all the space will also be kept
-// ex.: -notepadStyleCmdline -z "C:\WINDOWS\system32\NOTEPAD.EXE" C:\tmp\my file with whitespace.txt will be separated to: 
+// ex.: '-notepadStyleCmdline -z "C:\WINDOWS\system32\NOTEPAD.EXE" C:\my folder\my file with whitespace.txt' will be separated to: 
 // 1. "-notepadStyleCmdline"
 // 2. "-z"
 // 3. "C:\WINDOWS\system32\NOTEPAD.EXE"
-// 4. "C:\tmp\my file with whitespace.txt" 
+// 4. "C:\my folder\my file with whitespace.txt" 
 void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 {
 	if (!commandLine)
@@ -89,8 +89,13 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 	bool isInFile = false;
 	bool isStringInArg = false;
 	bool isInWhiteSpace = true;
-	int zArg = 0;
-	bool shouldBeTerminated = false;
+
+	int zArg = 0; // for "-z" argument: Causes Notepad++ to ignore the next command line argument (a single word, or a phrase in quotes).
+	              // The only intended and supported use for this option is for the Notepad Replacement syntax.
+
+	bool shouldBeTerminated = false; // If "-z" argument has been found, zArg value will be increased from 0 to 1.
+	                                 // then after processing next argument of "-z", zArg value will be increased from 1 to 2.
+	                                 // when zArg == 2 shouldBeTerminated will be set to true - it will trigger the treatment which consider the rest as a argument, with or without white space(s).
 
 	size_t commandLength = lstrlen(cmdLinePtr);
 	std::vector<TCHAR *> args;
@@ -137,9 +142,9 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 				{
 					cmdLinePtr[i] = 0;		//zap spaces into zero terminators, unless its part of a filename
 
-					int64_t argsInd = static_cast<int64_t>(args.size()) - 1;
-					if (argsInd >= 0 && lstrcmp(args[argsInd], L"-z") == 0)
-						++zArg; // zArg == 1
+					size_t argsLen = args.size();
+					if (argsLen > 0 && lstrcmp(args[argsLen-1], L"-z") == 0)
+						++zArg; // "-z" argument is found: change zArg value from 0 (initial) to 1
 				}
 			}
 			break;
@@ -151,8 +156,7 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 					args.push_back(cmdLinePtr + i);	//add next param
 					if (zArg == 2)
 					{
-						// stop
-						shouldBeTerminated = true;
+						shouldBeTerminated = true; // stop the processing, and keep the rest string as it in the vector
 					}
 
 					isInWhiteSpace = false;

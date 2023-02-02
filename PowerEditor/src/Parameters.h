@@ -946,6 +946,7 @@ struct ScintillaViewParams
 	bool _nonPrintCharShow = false;
 	enum nonPrintCharMode { identity = 0, abbreviation = 1, codepoint = 2 };
 	nonPrintCharMode _nonPrintCharMode = abbreviation;
+	bool _nonPrintCharSync = false;
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;

@@ -671,7 +671,7 @@ BEGIN
             MENUITEM "Show End of Line",                IDM_VIEW_EOL
             MENUITEM "Show All Characters",             IDM_VIEW_ALL_CHARACTERS
             MENUITEM SEPARATOR
-            MENUITEM "Show Non-Printable Characters",   IDM_VIEW_NONPRINT_CHARS
+            MENUITEM "Show Non-Printing Characters",   IDM_VIEW_NONPRINT_CHARS
             MENUITEM SEPARATOR
             MENUITEM "Show Indent Guide",               IDM_VIEW_INDENT_GUIDE
             MENUITEM "Show Wrap Symbol",                IDM_VIEW_WRAP_SYMBOL

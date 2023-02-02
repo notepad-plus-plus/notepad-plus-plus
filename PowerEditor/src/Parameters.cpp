@@ -6293,6 +6293,15 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._nonPrintCharMode = static_cast<ScintillaViewParams::nonPrintCharMode>(val);
 	}
 
+	nm = element->Attribute(TEXT("nonPrintCharInAllChar"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._nonPrintCharSync = true;
+		else //if (!lstrcmp(nm, TEXT("no")))
+			_svp._nonPrintCharSync = false;
+	}
+
 	nm = element->Attribute(TEXT("borderWidth"), &val);
 	if (nm)
 	{
@@ -6587,6 +6596,7 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("eolMode"), _svp._eolMode);
 	(scintNode->ToElement())->SetAttribute(TEXT("nonPrintCharShow"), _svp._nonPrintCharShow ? TEXT("show") : TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("nonPrintCharMode"), _svp._nonPrintCharMode);
+	(scintNode->ToElement())->SetAttribute(TEXT("nonPrintCharInAllChar"), _svp._nonPrintCharSync ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);

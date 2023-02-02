@@ -260,7 +260,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44010" name="Fold All"/>
                     <Item id="44011" name="Distraction Free Mode"/>
                     <Item id="44019" name="Show All Characters"/>
-                    <Item id="44130" name="Show Non-Printable Characters"/>
+                    <Item id="44130" name="Show Non-Printing Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Word wrap"/>
                     <Item id="44023" name="Zoom &amp;In (Ctrl+Mouse Wheel Up)"/>
@@ -925,9 +925,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Default"/>
                     <Item id="6249" name="Plain Text"/>
                     <Item id="6250" name="Custom Color"/>
-                    <Item id="6252" name="Non-Printable Characters"/>
+                    <Item id="6252" name="Non-Printing Characters"/>
                     <Item id="6254" name="Abbreviation"/>
                     <Item id="6255" name="Codepoint"/>
+                    <Item id="6256" name="Sync with &quot;Show All Character&quot;"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
@@ -1392,7 +1393,7 @@ Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"/>
-            <NonPrintableCharsListInfo title="Representation of non-printable characters" message="NOTE:
+            <NonPrintableCharsListInfo title="Representation of selected whitespace and control characters" message="NOTE:
 Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
 
 Using representation will disable character effects on text.
@@ -1677,26 +1678,29 @@ NOTE:
 1. Modifying options here requires re-open currently opened large files to get proper behavior.
 
 2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
-            <nonPrintableCharsNote-tip value="Representation of some non-printable characters.
+            <nonPrintCharsNote-tip value="Representation of &quot;non-ASCII&quot; whitespace and non-printing (control) characters.
 
 NOTE:
 Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
 
 Using representation will disable character effects on text.
 
-For the full list of selected non-printable characters click on this button." />
-            <nonPrintableCharsAbbreviation-tip value="Abbreviation : name
+For the full list of selected whitespace and non-printing characters click on this button." />
+            <nonPrintCharsAbbreviation-tip value="Abbreviation : name
 NBSP : no-break space
 ZWSP : zero-width space
 ZWNBSP : zero-width no-break space
 
-Click on &quot;?&quot; button above for the full list." />
-            <nonPrintableCharsCodepoint-tip value="Codepoint : name
+Click on &quot;?&quot; button on right for the full list." />
+            <nonPrintCharsCodepoint-tip value="Codepoint : name
 U+00A0 : no-break space
 U+200B : zero-width space
 U+FEFF : zero-width no-break space
 
-Click on &quot;?&quot; button above for the full list." />
+Click on &quot;?&quot; button on right for the full list." />
+			<nonPrintCharsSync-tip value="Will sync &quot;View -> Show Symbol -> Show Non-Printing Character&quot; menu with &quot;View -> Show Symbol -> Show All Character&quot; menu and toolbar button &quot;Show All Character&quot;.
+
+Items will be in sync after toggling menu or toolbar button." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

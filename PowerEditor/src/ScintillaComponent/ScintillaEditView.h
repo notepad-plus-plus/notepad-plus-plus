@@ -120,7 +120,7 @@ const int MARK_HIDELINESUNDERLINE = 17;
 // 20 - 17 reserved for Notepad++ internal used
 // 16 - 0  are free to use for plugins
 
-const std::vector<std::vector<const char*>> g_nonPrintableChars =
+const std::vector<std::vector<const char*>> g_nonPrintingChars =
 {
 	{"\xC2\xA0", "NBSP", "U+00A0"},          // U+00A0 : no-break space
 	{"\xE1\x9A\x80", "OSPM", "U+1680"},      // U+1680 : ogham space mark
@@ -395,12 +395,24 @@ public:
 		execute(SCI_SETWHITESPACESIZE, 2, 0);
 	};
 
-	void showNonPrintableChars(bool willBeShowed = true) {
+	void showEOL(bool willBeShowed = true) {
+		execute(SCI_SETVIEWEOL, willBeShowed);
+	};
+
+	bool isEolVisible() {
+		return (execute(SCI_GETVIEWEOL) != 0);
+	};
+	void showInvisibleChars(bool willBeShowed = true) {
+		showWSAndTab(willBeShowed);
+		showEOL(willBeShowed);
+	};
+
+	void showNonPrintingChars(bool willBeShowed = true) {
 		if (willBeShowed)
 		{
 			auto& svp = NppParameters::getInstance().getSVP();
 			const auto& mode = static_cast<size_t>(svp._nonPrintCharMode);
-			for (const auto& invChar : g_nonPrintableChars)
+			for (const auto& invChar : g_nonPrintingChars)
 			{
 				execute(SCI_SETREPRESENTATION, reinterpret_cast<WPARAM>(invChar.at(0)), reinterpret_cast<LPARAM>(invChar.at(mode)));
 			}
@@ -414,19 +426,6 @@ public:
 	bool isNonPrintCharsShown() {
 		auto& svp = NppParameters::getInstance().getSVP();
 		return svp._nonPrintCharShow;
-	};
-
-	void showEOL(bool willBeShowed = true) {
-		execute(SCI_SETVIEWEOL, willBeShowed);
-	};
-
-	bool isEolVisible() {
-		return (execute(SCI_GETVIEWEOL) != 0);
-	};
-	void showInvisibleChars(bool willBeShowed = true) {
-		showWSAndTab(willBeShowed);
-		showEOL(willBeShowed);
-		showNonPrintableChars(willBeShowed);
 	};
 
 	bool isInvisibleCharsShown() {

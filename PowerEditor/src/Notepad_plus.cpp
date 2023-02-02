@@ -6355,7 +6355,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		_autoCompleteMain.setLanguage(buf->getLangType());
 		if (_mainEditView.isNonPrintCharsShown())
 		{
-			_mainEditView.showNonPrintableChars();
+			_mainEditView.showNonPrintingChars();
 		}
 	}
 	else if (view == SUB_VIEW)
@@ -6363,7 +6363,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		_autoCompleteSub.setLanguage(buf->getLangType());
 		if (_subEditView.isNonPrintCharsShown())
 		{
-			_subEditView.showNonPrintableChars();
+			_subEditView.showNonPrintingChars();
 		}
 	}
 

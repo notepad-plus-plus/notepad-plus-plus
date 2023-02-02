@@ -920,35 +920,43 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_NONPRINTCHAR_ABBREVIATION, BM_SETCHECK, isNpcModeAbbrv, 0);
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_NONPRINTCHAR_CODEPOINT, BM_SETCHECK, !isNpcModeAbbrv, 0);
 
-			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsNote-tip",
-				L"Representation of non-printable characters\n\n"\
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_NONPRINTCHAR_SYNC, BM_SETCHECK, svp._nonPrintCharSync, 0);
+
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintCharsNote-tip",
+				L"Representation of \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
 				L"NOTE:\n"\
 				L"Some characters might already have some representation and are thus visible. "\
 				L"Line separator and paragraph separator are already represented by abbreviation by default.\n\n"\
 				L"Using representation will disable character effects on text.\n\n"\
-				L"For the full list of selected non-printable characters click on this button.");
+				L"For the full list of selected whitespace and non-printing characters click on this button.");
 
-			generic_string tipCharAb2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsAbbreviation-tip",
+			generic_string tipNPCAb2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintCharsAbbreviation-tip",
 				L"Abbreviation : name\n"\
 				L"NBSP : no-break space\n"\
 				L"ZWSP : zero-width space\n"\
 				L"ZWNBSP : zero-width no-break space\n\n"\
-				L"Click on \"?\" button above for the full list.");
+				L"Click on \"?\" button on right for the full list.");
 
-			generic_string tipCharCp2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintableCharsCodepoint-tip",
+			generic_string tipNPCCp2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintCharsCodepoint-tip",
 				L"Codepoint : name\n"\
 				L"U+00A0 : no-break space\n"\
 				L"U+200B : zero-width space\n"\
 				L"U+FEFF : zero-width no-break space\n\n"\
-				L"Click on \"?\" button above for the full list.");
+				L"Click on \"?\" button on right for the full list.");
+
+			generic_string tipNPCSync2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintCharsSync-tip",
+				L"Will sync \"View -> Show Symbol -> Show Non-Printing Character\" menu with \"View -> Show Symbol -> Show All Character\" menu and toolbar button \"Show All Character\".\n\n"\
+				L"Items will be in sync after toggling menu or toolbar button.");
 
 			_tipNote = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_NOTE_LIST, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipAbb = CreateToolTip(IDC_RADIO_NONPRINTCHAR_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipCharAb2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipCodepoint = CreateToolTip(IDC_RADIO_NONPRINTCHAR_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCharCp2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipAbb = CreateToolTip(IDC_RADIO_NONPRINTCHAR_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipNPCAb2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipCodepoint = CreateToolTip(IDC_RADIO_NONPRINTCHAR_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipNPCCp2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipSync = CreateToolTip(IDC_CHECK_NONPRINTCHAR_SYNC, _hSelf, _hInst, const_cast<PTSTR>(tipNPCSync2Show.c_str()), pNativeSpeaker->isRTL());
 			
 			_tips.emplace_back(_tipNote);
 			_tips.emplace_back(_tipAbb);
 			_tips.emplace_back(_tipCodepoint);
+			_tips.emplace_back(_tipSync);
 
 			for (auto& tip : _tips)
 			{
@@ -1129,7 +1137,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDC_BUTTON_NONPRINTCHAR_NOTE_LIST:
 				{
 					NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
-					pNativeSpeaker->messageBox("NonPrintableCharsListInfo",
+					pNativeSpeaker->messageBox("NonPrintCharsListInfo",
 						_hSelf,
 						L"NOTE:\n"\
 						L"Some characters might already have some representation and are thus visible. "\
@@ -1177,8 +1185,14 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						L"U+206F : nominal digit shapes : NODS\n"\
 						L"U+3000 : ideographic space : ISP\n"\
 						L"U+FEFF : zero-width no-break space : ZWNBSP",
-						L"Representation of non-printable characters",
+						L"Representation of selected whitespace and control characters",
 						MB_OK);
+				}
+
+				case IDC_CHECK_NONPRINTCHAR_SYNC:
+				{
+					svp._nonPrintCharSync = isCheckedOrNot(IDC_CHECK_NONPRINTCHAR_SYNC);
+					return TRUE;
 				}
 
 				case IDC_CHECK_VIRTUALSPACE:

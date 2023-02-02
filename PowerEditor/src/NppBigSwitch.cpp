@@ -1743,8 +1743,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_SETNONPRINTCHARS:
 		{
 			const bool isShown = nppParam.getSVP()._nonPrintCharShow;
-			_mainEditView.showNonPrintableChars(isShown);
-			_subEditView.showNonPrintableChars(isShown);
+			_mainEditView.showNonPrintingChars(isShown);
+			_subEditView.showNonPrintingChars(isShown);
 			return TRUE;
 		}
 

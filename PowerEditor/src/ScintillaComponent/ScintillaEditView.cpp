@@ -2520,7 +2520,7 @@ void ScintillaEditView::addText(size_t length, const char *buf)
 	execute(SCI_ADDTEXT, length, reinterpret_cast<LPARAM>(buf));
 }
 
-void ScintillaEditView::beginOrEndSelect()
+void ScintillaEditView::beginOrEndSelect(bool isColumnMode)
 {
 	if (_beginSelectPosition == -1)
 	{
@@ -2528,6 +2528,7 @@ void ScintillaEditView::beginOrEndSelect()
 	}
 	else
 	{
+		execute(SCI_SETSELECTIONMODE, static_cast<WPARAM>(isColumnMode ? SC_SEL_RECTANGLE : SC_SEL_STREAM));
 		execute(SCI_SETANCHOR, static_cast<WPARAM>(_beginSelectPosition));
 		_beginSelectPosition = -1;
 	}

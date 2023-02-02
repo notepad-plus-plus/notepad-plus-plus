@@ -19,6 +19,7 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
         <Item MenuEntryName="Edit" MenuItemName="Delete"/>
         <Item MenuEntryName="Edit" MenuItemName="Select all"/>
         <Item MenuEntryName="Edit" MenuItemName="Begin/End Select"/>
+        <Item MenuEntryName="Edit" MenuItemName="Begin/End Select in Column Mode"/>
 		
 		<!-- id="0" is the separator -->
         <Item id="0"/>

@@ -630,9 +630,13 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_EDIT_BEGINENDSELECT:
+		case IDM_EDIT_BEGINENDSELECT_COLUMNMODE:
 		{
-			::CheckMenuItem(_mainMenuHandle, IDM_EDIT_BEGINENDSELECT, MF_BYCOMMAND | (_pEditView->beginEndSelectedIsStarted() ? MF_UNCHECKED : MF_CHECKED));
-			_pEditView->beginOrEndSelect();
+			_pEditView->beginOrEndSelect(id == IDM_EDIT_BEGINENDSELECT_COLUMNMODE);
+			bool isStarted = _pEditView->beginEndSelectedIsStarted();
+			::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | (isStarted ? MF_CHECKED : MF_UNCHECKED));
+			int otherId = (id == IDM_EDIT_BEGINENDSELECT) ? IDM_EDIT_BEGINENDSELECT_COLUMNMODE : IDM_EDIT_BEGINENDSELECT;
+			::EnableMenuItem(_mainMenuHandle, otherId, MF_BYCOMMAND | (isStarted ? (MF_DISABLED | MF_GRAYED) : MF_ENABLED));
 		}
 		break;
 
@@ -1602,7 +1606,14 @@ void Notepad_plus::command(int id)
 		{
 			_nativeLangSpeaker.messageBox("ColumnModeTip",
 					_pPublicInterface->getHSelf(),
-					TEXT("Please use \"ALT+Mouse Selection\" or \"Alt+Shift+Arrow key\" to switch to column mode."),
+					TEXT("There are 3 ways to switch to column-select mode:\r\n\r\n")
+					TEXT("1. (Keyboard and Mouse)  Hold Alt while left-click dragging\r\n\r\n")
+					TEXT("2. (Keyboard only)  Hold Alt+Shift while using arrow keys\r\n\r\n")
+					TEXT("3. (Keyboard or Mouse)\r\n")
+					TEXT("      Put caret at desired start of column block position, then\r\n")
+					TEXT("       execute \"Begin/End Select in Column Mode\" command;\r\n")
+					TEXT("      Move caret to desired end of column block position, then\r\n")
+					TEXT("       execute \"Begin/End Select in Column Mode\" command again\r\n"),
 					TEXT("Column Mode Tip"),
 					MB_OK|MB_APPLMODAL);
 		}
@@ -3975,6 +3986,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
 			case IDM_EDIT_BEGINENDSELECT:
+			case IDM_EDIT_BEGINENDSELECT_COLUMNMODE:
 			case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING:
 			case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING:
 			case IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_ASCENDING:

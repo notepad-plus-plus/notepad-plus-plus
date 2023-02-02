@@ -102,7 +102,8 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 //	{ VK_NULL,    IDM_EDIT_PASTE,                               false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_DELETE,                              false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_SELECTALL,                           false, false, false, nullptr },
-	{ VK_NULL,    IDM_EDIT_BEGINENDSELECT,                      false, false, false, nullptr },
+	{ VK_B,       IDM_EDIT_BEGINENDSELECT,                      true,  false, true,  nullptr },
+	{ VK_B,       IDM_EDIT_BEGINENDSELECT_COLUMNMODE,           false, true,  true,  nullptr },
 
 	{ VK_NULL,    IDM_EDIT_FULLPATHTOCLIP,                      false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_FILENAMETOCLIP,                      false, false, false, nullptr },

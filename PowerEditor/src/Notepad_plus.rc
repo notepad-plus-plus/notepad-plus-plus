@@ -670,7 +670,6 @@ BEGIN
             MENUITEM "Show Space and Tab",              IDM_VIEW_TAB_SPACE
             MENUITEM "Show End of Line",                IDM_VIEW_EOL
             MENUITEM "Show Non-Printing Characters",    IDM_VIEW_NPC
-            MENUITEM SEPARATOR
             MENUITEM "Show All Characters",             IDM_VIEW_ALL_CHARACTERS
             MENUITEM SEPARATOR
             MENUITEM "Show Indent Guide",               IDM_VIEW_INDENT_GUIDE

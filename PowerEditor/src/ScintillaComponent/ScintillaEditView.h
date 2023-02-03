@@ -125,17 +125,17 @@ const std::vector<std::vector<const char*>> g_nonPrintingChars =
 	{"\xC2\xA0", "NBSP", "U+00A0"},          // U+00A0 : no-break space
 	{"\xE1\x9A\x80", "OSPM", "U+1680"},      // U+1680 : ogham space mark
 	{"\xE1\xA0\x8E", "MVS", "U+180E"},       // U+180E : mongolian vowel separator
-	{"\xE2\x80\x80", "ENQD", "U+2000"},      // U+2000 : en quad
-	{"\xE2\x80\x81", "EMQD", "U+2001"},      // U+2001 : em quad
+	{"\xE2\x80\x80", "NQSP", "U+2000"},      // U+2000 : en quad
+	{"\xE2\x80\x81", "MQSP", "U+2001"},      // U+2001 : em quad
 	{"\xE2\x80\x82", "ENSP", "U+2002"},      // U+2002 : en space
 	{"\xE2\x80\x83", "EMSP", "U+2003"},      // U+2003 : em space
-	{"\xE2\x80\x84", "EMSP13", "U+2004"},    // U+2004 : three-per-em space
-	{"\xE2\x80\x85", "EMSP14", "U+2005"},    // U+2005 : four-per-em space
-	{"\xE2\x80\x86", "EMSP16", "U+2006"},    // U+2006 : six-per-em space
-	{"\xE2\x80\x87", "NUMSP", "U+2007"},     // U+2007 : figure space
-	{"\xE2\x80\x88", "PUNCSP", "U+2008"},    // U+2008 : punctation space
-	{"\xE2\x80\x89", "THINSP", "U+2009"},    // U+2009 : thin space
-	{"\xE2\x80\x8A", "HAIRSP", "U+200A"},    // U+200A : hair space
+	{"\xE2\x80\x84", "3/MSP", "U+2004"},     // U+2004 : three-per-em space
+	{"\xE2\x80\x85", "4/MSP", "U+2005"},     // U+2005 : four-per-em space
+	{"\xE2\x80\x86", "6/MSP", "U+2006"},     // U+2006 : six-per-em space
+	{"\xE2\x80\x87", "FSP", "U+2007"},       // U+2007 : figure space
+	{"\xE2\x80\x88", "PSP", "U+2008"},       // U+2008 : punctation space
+	{"\xE2\x80\x89", "THSP", "U+2009"},      // U+2009 : thin space
+	{"\xE2\x80\x8A", "HSP", "U+200A"},       // U+200A : hair space
 	{"\xE2\x80\x8B", "ZWSP", "U+200B"},      // U+200B : zero-width space
 	{"\xE2\x80\x8C", "ZWNJ", "U+200C"},      // U+200C : zero-width non-joiner
 	{"\xE2\x80\x8D", "ZWJ", "U+200D"},       // U+200D : zero-width joiner
@@ -161,7 +161,7 @@ const std::vector<std::vector<const char*>> g_nonPrintingChars =
 	{"\xE2\x81\xAD", "AAFS", "U+206D"},      // U+206D : activate arabic form shaping
 	{"\xE2\x81\xAE", "NADS", "U+206E"},      // U+206E : national digit shapes
 	{"\xE2\x81\xAF", "NODS", "U+206F"},      // U+206F : nominal digit shapes
-	{"\xE3\x80\x80", "ISP", "U+3000"},       // U+3000 : ideographic space
+	{"\xE3\x80\x80", "IDSP", "U+3000"},      // U+3000 : ideographic space
 	{"\xEF\xBB\xBF", "ZWNBSP", "U+FEFF"}     // U+FEFF : zero-width no-break space
 };
 

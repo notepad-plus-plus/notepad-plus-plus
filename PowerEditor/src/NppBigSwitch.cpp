@@ -1740,9 +1740,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SETNONPRINTCHARS:
+		case NPPM_INTERNAL_SETNPC:
 		{
-			const bool isShown = nppParam.getSVP()._nonPrintCharShow;
+			const bool isShown = nppParam.getSVP()._npcShow;
 			_mainEditView.showNonPrintingChars(isShown);
 			_subEditView.showNonPrintingChars(isShown);
 			return TRUE;
@@ -2921,6 +2921,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_subEditView.setCRLF();
 			return TRUE;
 		}
+		
+		case NPPM_INTERNAL_NPCFORMCHANGED:
+		{
+			_mainEditView.setNPC();
+			_subEditView.setNPC();
+			return TRUE;
+		}
 
 		case NPPM_INTERNAL_ENABLECHANGEHISTORY:
 		{
@@ -2958,6 +2965,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			// go into the section we need
 			_configStyleDlg.goToSection(TEXT("Global Styles:EOL custom color"));
+
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_NPCLAUNCHSTYLECONF:
+		{
+			// Launch _configStyleDlg (create or display it)
+			command(IDM_LANGSTYLE_CONFIG_DLG);
+
+			// go into the section we need
+			_configStyleDlg.goToSection(TEXT("Global Styles:NPC custom color"));
 
 			return TRUE;
 		}

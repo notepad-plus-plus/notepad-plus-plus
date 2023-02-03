@@ -4725,30 +4725,15 @@ void Notepad_plus::staticCheckMenuAndTB() const
 	bool eolShow = _pEditView->isEolVisible();
 	bool npcShow = _pEditView->isNonPrintCharsShown();
 
-	bool onlyWS = false;
-	bool onlyEOL = false;
-	bool bothWSEOL = false;
-	if (wsTabShow)
-	{
-		if (eolShow)
-		{
-			bothWSEOL = true;
-		}
-		else
-		{
-			onlyWS = true;
-		}
-	}
-	else if (eolShow)
-	{
-		onlyEOL = true;
-	}
+	auto& svp = NppParameters::getInstance().getSVP();
+	const bool checkNpcShow = svp._npcSync ? npcShow : true;
+	const bool allShow = wsTabShow && eolShow && checkNpcShow;
 
-	checkMenuItem(IDM_VIEW_TAB_SPACE, onlyWS);
-	checkMenuItem(IDM_VIEW_EOL, onlyEOL);
-	checkMenuItem(IDM_VIEW_NONPRINT_CHARS, npcShow);
-	checkMenuItem(IDM_VIEW_ALL_CHARACTERS, bothWSEOL);
-	_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, bothWSEOL);
+	checkMenuItem(IDM_VIEW_TAB_SPACE, wsTabShow);
+	checkMenuItem(IDM_VIEW_EOL, eolShow);
+	checkMenuItem(IDM_VIEW_NPC, npcShow);
+	checkMenuItem(IDM_VIEW_ALL_CHARACTERS, allShow);
+	_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allShow);
 
 	// Visibility of the indentation guide line
 	bool b = _pEditView->isShownIndentGuide();
@@ -6353,18 +6338,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	if (view == MAIN_VIEW)
 	{
 		_autoCompleteMain.setLanguage(buf->getLangType());
-		if (_mainEditView.isNonPrintCharsShown())
-		{
-			_mainEditView.showNonPrintingChars();
-		}
 	}
 	else if (view == SUB_VIEW)
 	{
 		_autoCompleteSub.setLanguage(buf->getLangType());
-		if (_subEditView.isNonPrintCharsShown())
-		{
-			_subEditView.showNonPrintingChars();
-		}
 	}
 
 	if (view != currentView())

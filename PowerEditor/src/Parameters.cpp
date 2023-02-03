@@ -259,7 +259,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_TAB_SPACE,                           false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_EOL,                                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_ALL_CHARACTERS,                      false, false, false, nullptr },
-	{ VK_NULL,    IDM_VIEW_NONPRINT_CHARS,                      false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_NPC,                                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_INDENT_GUIDE,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_WRAP_SYMBOL,                         false, false, false, nullptr },
 //  { VK_NULL,    IDM_VIEW_ZOOMIN,                              false, false, false, nullptr },
@@ -6027,6 +6027,30 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 {
 	TiXmlElement* element = node->ToElement();
 
+	auto parseYesNoBoolAttribute = [&element](const TCHAR* name, bool defaultValue = false) -> bool {
+		const TCHAR* nm = element->Attribute(name);
+		if (nm)
+		{
+			if (!lstrcmp(nm, TEXT("yes")))
+				return true;
+			else if (!lstrcmp(nm, TEXT("no")))
+				return false;
+		}
+		return defaultValue;
+	};
+
+	auto parseShowHideBoolAttribute = [&element](const TCHAR* name, bool defaultValue = false) -> bool {
+		const TCHAR* nm = element->Attribute(name);
+		if (nm)
+		{
+			if (!lstrcmp(nm, TEXT("show")))
+				return true;
+			else if (!lstrcmp(nm, TEXT("hide")))
+				return false;
+		}
+		return defaultValue;
+	};
+
 	// Line Number Margin
 	const TCHAR *nm = element->Attribute(TEXT("lineNumberMargin"));
 	if (nm)
@@ -6277,30 +6301,17 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	}
 
 	// Unicode non-printable characters visibility State
-	nm = element->Attribute(TEXT("nonPrintCharShow"));
-	if (nm)
-	{
-		if (!lstrcmp(nm, TEXT("show")))
-			_svp._nonPrintCharShow = true;
-		else //if (!lstrcmp(nm, TEXT("hide")))
-			_svp._nonPrintCharShow = false;
-	}
+	_svp._npcShow = parseShowHideBoolAttribute(TEXT("npcShow"));
 
-	nm = element->Attribute(TEXT("nonPrintCharMode"), &val);
+	nm = element->Attribute(TEXT("npcMode"), &val);
 	if (nm)
 	{
 		if (val >= 1 && val <= 2)
-			_svp._nonPrintCharMode = static_cast<ScintillaViewParams::nonPrintCharMode>(val);
+			_svp._npcMode = static_cast<ScintillaViewParams::npcMode>(val);
 	}
 
-	nm = element->Attribute(TEXT("nonPrintCharInAllChar"));
-	if (nm)
-	{
-		if (!lstrcmp(nm, TEXT("yes")))
-			_svp._nonPrintCharSync = true;
-		else //if (!lstrcmp(nm, TEXT("no")))
-			_svp._nonPrintCharSync = false;
-	}
+	_svp._npcCustomColor = parseYesNoBoolAttribute(TEXT("npcCustomColor"));
+	_svp._npcSync = parseYesNoBoolAttribute(TEXT("npcSync"), true);
 
 	nm = element->Attribute(TEXT("borderWidth"), &val);
 	if (nm)
@@ -6555,6 +6566,16 @@ bool NppParameters::writeScintillaParams()
 		(scintNode->ToElement())->SetAttribute(TEXT("name"), pViewName);
 	}
 
+	auto setYesNoBoolAttribute = [&scintNode](const TCHAR* name, bool value) -> void {
+		const TCHAR* pStr = value ? TEXT("yes") : TEXT("no");
+		(scintNode->ToElement())->SetAttribute(name, pStr);
+	};
+
+	auto setShowHideBoolAttribute = [&scintNode](const TCHAR* name, bool value) -> void {
+		const TCHAR* pStr = value ? TEXT("show") : TEXT("hide");
+		(scintNode->ToElement())->SetAttribute(name, pStr);
+	};
+
 	(scintNode->ToElement())->SetAttribute(TEXT("lineNumberMargin"), _svp._lineNumberMarginShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("lineNumberDynamicWidth"), _svp._lineNumberMarginDynamicWidth ?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("bookMarkMargin"), _svp._bookMarkMarginShow?TEXT("show"):TEXT("hide"));
@@ -6594,9 +6615,10 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), _svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), _svp._eolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolMode"), _svp._eolMode);
-	(scintNode->ToElement())->SetAttribute(TEXT("nonPrintCharShow"), _svp._nonPrintCharShow ? TEXT("show") : TEXT("hide"));
-	(scintNode->ToElement())->SetAttribute(TEXT("nonPrintCharMode"), _svp._nonPrintCharMode);
-	(scintNode->ToElement())->SetAttribute(TEXT("nonPrintCharInAllChar"), _svp._nonPrintCharSync ? TEXT("yes") : TEXT("no"));
+	setShowHideBoolAttribute(TEXT("npcShow"), _svp._npcShow);
+	(scintNode->ToElement())->SetAttribute(TEXT("npcMode"), static_cast<int>(_svp._npcMode));
+	setYesNoBoolAttribute(TEXT("npcCustomColor"), _svp._npcCustomColor);
+	setYesNoBoolAttribute(TEXT("npcSync"), _svp._npcSync);
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);

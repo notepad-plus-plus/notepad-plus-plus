@@ -1418,6 +1418,39 @@ void ScintillaEditView::setCRLF(long color)
 	redraw();
 }
 
+void ScintillaEditView::setNPC(long color)
+{
+	NppParameters& nppParams = NppParameters::getInstance();
+	const ScintillaViewParams& svp = nppParams.getSVP();
+
+	COLORREF npcCustomColor = liteGrey;
+
+	if (color == -1)
+	{
+		StyleArray& stylers = nppParams.getMiscStylerArray();
+		Style* pStyle = stylers.findByName(TEXT("NPC custom color"));
+		if (pStyle)
+		{
+			npcCustomColor = pStyle->_fgColor;
+		}
+	}
+	else
+	{
+		npcCustomColor = color;
+	}
+
+	const long appearance = svp._npcCustomColor ? SC_REPRESENTATION_BLOB | SC_REPRESENTATION_COLOUR : SC_REPRESENTATION_BLOB;
+	const long alphaNpcCustomColor = npcCustomColor | 0xFF000000; // add alpha color to make DirectWrite mode work
+
+	for (const auto& invChar : g_nonPrintingChars)
+	{
+		execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(invChar.at(0)), alphaNpcCustomColor);
+		execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(invChar.at(0)), appearance);
+	}
+
+	redraw();
+}
+
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
@@ -2010,7 +2043,13 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	runMarkers(true, 0, true, false);
 
+	if (isNonPrintCharsShown())
+	{
+		showNonPrintingChars();
+	}
+
 	setCRLF();
+	setNPC();
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	const ScintillaViewParams& svp = nppParam.getSVP();
@@ -2783,6 +2822,14 @@ void ScintillaEditView::performGlobalStyles()
 		eolCustomColor = pStyle->_fgColor;
 	}
 	setCRLF(eolCustomColor);
+
+	COLORREF npcCustomColor = liteGrey;
+	pStyle = stylers.findByName(TEXT("NPC custom color"));
+	if (pStyle)
+	{
+		npcCustomColor = pStyle->_fgColor;
+	}
+	setNPC(npcCustomColor);
 }
 
 void ScintillaEditView::showIndentGuideLine(bool willBeShowed)

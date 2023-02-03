@@ -916,47 +916,49 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
 
-			const bool isNpcModeAbbrv = svp._nonPrintCharMode == svp.abbreviation;
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_NONPRINTCHAR_ABBREVIATION, BM_SETCHECK, isNpcModeAbbrv, 0);
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_NONPRINTCHAR_CODEPOINT, BM_SETCHECK, !isNpcModeAbbrv, 0);
+			const bool isNpcModeAbbrv = svp._npcMode == svp.abbreviation;
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_NPC_ABBREVIATION, BM_SETCHECK, isNpcModeAbbrv, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_NPC_CODEPOINT, BM_SETCHECK, !isNpcModeAbbrv, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_NONPRINTCHAR_SYNC, BM_SETCHECK, svp._nonPrintCharSync, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_NPC_COLOR, BM_SETCHECK, svp._npcCustomColor, 0);
 
-			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintCharsNote-tip",
-				L"Representation of \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
+				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
 				L"NOTE:\n"\
 				L"Some characters might already have some representation and are thus visible. "\
 				L"Line separator and paragraph separator are already represented by abbreviation by default.\n\n"\
 				L"Using representation will disable character effects on text.\n\n"\
-				L"For the full list of selected whitespace and non-printing characters click on this button.");
+				L"For the full list of selected whitespace and non-printing characters check User Manual.\n\n"\
+				L"Click on this button to open website with User Manual.");
 
-			generic_string tipNPCAb2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintCharsAbbreviation-tip",
+			generic_string tipAb2Show = pNativeSpeaker->getLocalizedStrFromID("npcAbbreviation-tip",
 				L"Abbreviation : name\n"\
 				L"NBSP : no-break space\n"\
 				L"ZWSP : zero-width space\n"\
 				L"ZWNBSP : zero-width no-break space\n\n"\
-				L"Click on \"?\" button on right for the full list.");
+				L"For the full list check User Manual.\n"\
+				L"Click on \"?\" button on right to open website with User Manual.");
 
-			generic_string tipNPCCp2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintCharsCodepoint-tip",
+			generic_string tipCp2Show = pNativeSpeaker->getLocalizedStrFromID("npcCodepoint-tip",
 				L"Codepoint : name\n"\
 				L"U+00A0 : no-break space\n"\
 				L"U+200B : zero-width space\n"\
 				L"U+FEFF : zero-width no-break space\n\n"\
-				L"Click on \"?\" button on right for the full list.");
+				L"For the full list check User Manual.\n"\
+				L"Click on \"?\" button on right to open website with User Manual.");
 
-			generic_string tipNPCSync2Show = pNativeSpeaker->getLocalizedStrFromID("nonPrintCharsSync-tip",
-				L"Will sync \"View -> Show Symbol -> Show Non-Printing Character\" menu with \"View -> Show Symbol -> Show All Character\" menu and toolbar button \"Show All Character\".\n\n"\
-				L"Items will be in sync after toggling menu or toolbar button.");
+			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
+				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"NPC custom color\").");
 
-			_tipNote = CreateToolTip(IDC_BUTTON_NONPRINTCHAR_NOTE_LIST, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipAbb = CreateToolTip(IDC_RADIO_NONPRINTCHAR_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipNPCAb2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipCodepoint = CreateToolTip(IDC_RADIO_NONPRINTCHAR_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipNPCCp2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipSync = CreateToolTip(IDC_CHECK_NONPRINTCHAR_SYNC, _hSelf, _hInst, const_cast<PTSTR>(tipNPCSync2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
 			
 			_tips.emplace_back(_tipNote);
 			_tips.emplace_back(_tipAbb);
 			_tips.emplace_back(_tipCodepoint);
-			_tips.emplace_back(_tipSync);
+			_tips.emplace_back(_tipNpcColor);
 
 			for (auto& tip : _tips)
 			{
@@ -1117,81 +1119,41 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					return TRUE;
 				}
 
-				case IDC_RADIO_NONPRINTCHAR_ABBREVIATION:
-				case IDC_RADIO_NONPRINTCHAR_CODEPOINT:
+				case IDC_RADIO_NPC_ABBREVIATION:
+				case IDC_RADIO_NPC_CODEPOINT:
 				{
-					if (wParam == IDC_RADIO_NONPRINTCHAR_CODEPOINT)
+					if (wParam == IDC_RADIO_NPC_CODEPOINT)
 					{
-						svp._nonPrintCharMode = svp.codepoint;
+						svp._npcMode = svp.codepoint;
 					}
 					else // if (wParam == IDC_RADIO_NONPRINT_ABBREVIATION)
 					{
-						svp._nonPrintCharMode = svp.abbreviation;
+						svp._npcMode = svp.abbreviation;
 					}
 
 					HWND grandParent = ::GetParent(_hParent);
-					::SendMessage(grandParent, NPPM_INTERNAL_SETNONPRINTCHARS, 0, 0);
+					::SendMessage(grandParent, NPPM_INTERNAL_SETNPC, 0, 0);
 					return TRUE;
 				}
 
-				case IDC_BUTTON_NONPRINTCHAR_NOTE_LIST:
+				case IDC_BUTTON_NPC_NOTE:
 				{
-					NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
-					pNativeSpeaker->messageBox("NonPrintCharsListInfo",
-						_hSelf,
-						L"NOTE:\n"\
-						L"Some characters might already have some representation and are thus visible. "\
-						L"Line separator and paragraph separator are already represented by abbreviation by default.\n\n"\
-						L"Using representation will disable character effects on text.\n\n"\
-						L"Codepoint : name : abbreviation\n"\
-						L"U+00A0 : no-break space : NBSP\n"\
-						L"U+1680 : ogham space mark : OSPM\n"\
-						L"U+180E : mongolian vowel separator : MVS\n"\
-						L"U+2000 : en quad : ENQD\n"\
-						L"U+2001 : em quad : EMQD\n"\
-						L"U+2002 : en space : ENSP\n"\
-						L"U+2003 : em space : EMSP\n"\
-						L"U+2004 : three-per-em space : EMSP13\n"\
-						L"U+2005 : four-per-em space : EMSP14\n"\
-						L"U+2006 : six-per-em space : EMSP16\n"\
-						L"U+2007 : figure space : NUMSP\n"\
-						L"U+2008 : punctation space : PUNCSP\n"\
-						L"U+2009 : thin space : THINSP\n"\
-						L"U+200A : hair space : HAIRSP\n"\
-						L"U+200B : zero-width space : ZWSP\n"\
-						L"U+200C : zero-width non-joiner : ZWNJ\n"\
-						L"U+200D : zero-width joiner : ZWJ\n"\
-						L"U+200E : left-to-right mark : LRM\n"\
-						L"U+200F : right-to-left mark : RLM\n"\
-						L"U+2028 : line separator : LS\n"\
-						L"U+2029 : paragraph separator : PS\n"
-						L"U+202A : left-to-right embedding : LRE\n"\
-						L"U+202B : right-to-left embedding : RLE\n"\
-						L"U+202C : pop directional formatting : PDF\n"\
-						L"U+202D : left-to-right override : LRO\n"\
-						L"U+202E : right-to-left override : RLO\n"\
-						L"U+202F : narrow no-break space : NNBSP\n"\
-						L"U+205F : medium mathematical space : MMSP\n"\
-						L"U+2060 : word joiner : WJ\n"\
-						L"U+2066 : left-to-right isolate : LRI\n"\
-						L"U+2067 : right-to-left isolate : RLI\n"\
-						L"U+2068 : first strong isolate : FSI\n"\
-						L"U+2069 : pop directional isolate : PDI\n"\
-						L"U+206A : inhibit symmetric swapping : ISS\n"\
-						L"U+206B : activate symmetric swapping : ASS\n"\
-						L"U+206C : inhibit arabic form shaping : IAFS\n"\
-						L"U+206D : activate arabic form shaping : AAFS\n"\
-						L"U+206E : national digit shapes : NADS\n"\
-						L"U+206F : nominal digit shapes : NODS\n"\
-						L"U+3000 : ideographic space : ISP\n"\
-						L"U+FEFF : zero-width no-break space : ZWNBSP",
-						L"Representation of selected whitespace and control characters",
-						MB_OK);
+					::ShellExecute(NULL, TEXT("open"), TEXT("https://npp-user-manual.org/"), NULL, NULL, SW_SHOWNORMAL);
+					return TRUE;
 				}
 
-				case IDC_CHECK_NONPRINTCHAR_SYNC:
+				case IDC_CHECK_NPC_COLOR:
 				{
-					svp._nonPrintCharSync = isCheckedOrNot(IDC_CHECK_NONPRINTCHAR_SYNC);
+					svp._npcCustomColor = isCheckedOrNot(IDC_CHECK_NPC_COLOR);
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_NPCFORMCHANGED, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_BUTTON_NPC_LAUNCHSTYLECONF:
+				{
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_NPCLAUNCHSTYLECONF, 0, 0);
 					return TRUE;
 				}
 

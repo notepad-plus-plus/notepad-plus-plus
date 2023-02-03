@@ -2288,110 +2288,105 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_TAB_SPACE:
 		{
-			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
-			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND) == MF_CHECKED);
-			if (svp1._nonPrintCharSync)
-			{
-				::CheckMenuItem(_mainMenuHandle, IDM_VIEW_NONPRINT_CHARS, MF_BYCOMMAND | MF_UNCHECKED);
+			auto setCheckMenuItem = [this](int id, bool check) -> DWORD {
+				return ::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | (check ? MF_CHECKED : MF_UNCHECKED));
+			};
 
-				_mainEditView.showNonPrintingChars(false);
-				_subEditView.showNonPrintingChars(false);
+			const bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
+			setCheckMenuItem(id, isChecked);
 
-				svp1._nonPrintCharShow = false;
-			}
-
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
-			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, false);
-			_mainEditView.showEOL(false);
 			_mainEditView.showWSAndTab(isChecked);
-			_subEditView.showEOL(false);
 			_subEditView.showWSAndTab(isChecked);
 
-            svp1._whiteSpaceShow = isChecked;
-            svp1._eolShow = false;
+			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
+			svp1._whiteSpaceShow = isChecked;
+
+			const bool checkNpcShow = svp1._npcSync ? svp1._npcShow : true;
+			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && checkNpcShow;
+
+			setCheckMenuItem(IDM_VIEW_ALL_CHARACTERS, allChecked);
+			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allChecked);
 
 			break;
 		}
+
 		case IDM_VIEW_EOL:
 		{
-			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
-			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND) == MF_CHECKED);
-			if (svp1._nonPrintCharSync)
-			{
-				::CheckMenuItem(_mainMenuHandle, IDM_VIEW_NONPRINT_CHARS, MF_BYCOMMAND | MF_UNCHECKED);
+			auto setCheckMenuItem = [this](int id, bool check) -> DWORD {
+				return ::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | (check ? MF_CHECKED : MF_UNCHECKED));
+			};
 
-				_mainEditView.showNonPrintingChars(false);
-				_subEditView.showNonPrintingChars(false);
+			const bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
+			setCheckMenuItem(id, isChecked);
 
-				svp1._nonPrintCharShow = false;
-			}
-
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
-			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, false);
 			_mainEditView.showEOL(isChecked);
 			_subEditView.showEOL(isChecked);
-			_mainEditView.showWSAndTab(false);
-			_subEditView.showWSAndTab(false);
 
-            svp1._whiteSpaceShow = false;
-            svp1._eolShow = isChecked;
-
-			break;
-		}
-		case IDM_VIEW_ALL_CHARACTERS:
-		{
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
-			bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
-			if (svp1._nonPrintCharSync)
-			{
-				::CheckMenuItem(_mainMenuHandle, IDM_VIEW_NONPRINT_CHARS, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
+			svp1._eolShow = isChecked;
 
-				_mainEditView.showNonPrintingChars(isChecked);
-				_subEditView.showNonPrintingChars(isChecked);
+			const bool checkNpcShow = svp1._npcSync ? svp1._npcShow : true;
+			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && checkNpcShow;
 
-				svp1._nonPrintCharShow = isChecked;
-			}
-
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
-			_mainEditView.showInvisibleChars(isChecked);
-			_subEditView.showInvisibleChars(isChecked);
-			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, isChecked);
-
-            svp1._whiteSpaceShow = isChecked;
-            svp1._eolShow = isChecked;
+			setCheckMenuItem(IDM_VIEW_ALL_CHARACTERS, allChecked);
+			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allChecked);
 
 			break;
 		}
 
-		case IDM_VIEW_NONPRINT_CHARS:
+		case IDM_VIEW_NPC:
 		{
-			bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
-			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_NONPRINT_CHARS, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
+			auto setCheckMenuItem = [this](int id, bool check) -> DWORD {
+				return ::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | (check ? MF_CHECKED : MF_UNCHECKED));
+			};
+
+			const bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
+			setCheckMenuItem(id, isChecked);
 
 			_mainEditView.showNonPrintingChars(isChecked);
 			_subEditView.showNonPrintingChars(isChecked);
 
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
-			svp1._nonPrintCharShow = isChecked;
+			svp1._npcShow = isChecked;
 
-			if (svp1._nonPrintCharSync)
+			const bool checkNpcShow = svp1._npcSync ? svp1._npcShow : true;
+			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && checkNpcShow;
+
+			setCheckMenuItem(IDM_VIEW_ALL_CHARACTERS, allChecked);
+			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allChecked);
+
+			break;
+		}
+
+		case IDM_VIEW_ALL_CHARACTERS:
+		{
+			auto setCheckMenuItem = [this](int id, bool check) -> DWORD {
+				return ::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | (check ? MF_CHECKED : MF_UNCHECKED));
+			};
+
+			const bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
+			setCheckMenuItem(id, isChecked);
+			setCheckMenuItem(IDM_VIEW_TAB_SPACE, isChecked);
+			setCheckMenuItem(IDM_VIEW_EOL, isChecked);
+			_toolBar.setCheck(id, isChecked);
+
+			_mainEditView.showInvisibleChars(isChecked);
+			_subEditView.showInvisibleChars(isChecked);
+
+			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
+
+			if (svp1._npcSync)
 			{
-				::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
-				::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
-				::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | (isChecked ? MF_CHECKED : MF_UNCHECKED));
-				_mainEditView.showInvisibleChars(isChecked);
-				_subEditView.showInvisibleChars(isChecked);
-				_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, isChecked);
+				setCheckMenuItem(IDM_VIEW_NPC, isChecked);
 
-				svp1._whiteSpaceShow = isChecked;
-				svp1._eolShow = isChecked;
+				_mainEditView.showNonPrintingChars(isChecked);
+				_subEditView.showNonPrintingChars(isChecked);
+
+				svp1._npcShow = isChecked;
 			}
+
+			svp1._whiteSpaceShow = isChecked;
+			svp1._eolShow = isChecked;
 
 			break;
 		}

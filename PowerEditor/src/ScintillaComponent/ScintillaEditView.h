@@ -402,30 +402,42 @@ public:
 	bool isEolVisible() {
 		return (execute(SCI_GETVIEWEOL) != 0);
 	};
-	void showInvisibleChars(bool willBeShowed = true) {
-		showWSAndTab(willBeShowed);
-		showEOL(willBeShowed);
-	};
 
 	void showNonPrintingChars(bool willBeShowed = true) {
+		auto& svp = NppParameters::getInstance().getSVP();
 		if (willBeShowed)
 		{
-			auto& svp = NppParameters::getInstance().getSVP();
-			const auto& mode = static_cast<size_t>(svp._nonPrintCharMode);
+			const auto& mode = static_cast<size_t>(svp._npcMode);
 			for (const auto& invChar : g_nonPrintingChars)
 			{
 				execute(SCI_SETREPRESENTATION, reinterpret_cast<WPARAM>(invChar.at(0)), reinterpret_cast<LPARAM>(invChar.at(mode)));
+			}
+			
+			if (svp._npcCustomColor)
+			{
+				setNPC();
 			}
 		}
 		else
 		{
 			execute(SCI_CLEARALLREPRESENTATIONS);
+
+			if (svp._eolMode != svp.roundedRectangleText)
+			{
+				setCRLF();
+			}
 		}
+		redraw();
 	};
 
 	bool isNonPrintCharsShown() {
 		auto& svp = NppParameters::getInstance().getSVP();
-		return svp._nonPrintCharShow;
+		return svp._npcShow;
+	};
+
+	void showInvisibleChars(bool willBeShowed = true) {
+		showWSAndTab(willBeShowed);
+		showEOL(willBeShowed);
 	};
 
 	bool isInvisibleCharsShown() {
@@ -639,6 +651,7 @@ public:
 	void restoreDefaultWordChars();
 	void setWordChars();
 	void setCRLF(long color = -1);
+	void setNPC(long color = -1);
 
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);

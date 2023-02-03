@@ -260,12 +260,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44010" name="Fold All"/>
                     <Item id="44011" name="Distraction Free Mode"/>
                     <Item id="44019" name="Show All Characters"/>
-                    <Item id="44130" name="Show Non-Printing Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Word wrap"/>
                     <Item id="44023" name="Zoom &amp;In (Ctrl+Mouse Wheel Up)"/>
                     <Item id="44024" name="Zoom &amp;Out (Ctrl+Mouse Wheel Down)"/>
-                    <Item id="44025" name="Show White Space and TAB"/>
+                    <Item id="44025" name="Show Space and Tab"/>
                     <Item id="44026" name="Show End of Line"/>
                     <Item id="44029" name="Unfold All"/>
                     <Item id="44030" name="Fold Current Level"/>
@@ -295,6 +294,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Apply Color 3"/>
                     <Item id="44114" name="Apply Color 4"/>
                     <Item id="44115" name="Apply Color 5"/>
+                    <Item id="44130" name="Show Non-Printing Characters"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -1393,53 +1393,6 @@ Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"/>
-            <NonPrintableCharsListInfo title="Representation of selected whitespace and control characters" message="NOTE:
-Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
-
-Using representation will disable character effects on text.
-
-Codepoint : name : abbreviation
-U+00A0 : no-break space : NBSP
-U+1680 : ogham space mark : OSPM
-U+180E : mongolian vowel separator : MVS
-U+2000 : en quad : ENQD
-U+2001 : em quad : EMQD
-U+2002 : en space : ENSP
-U+2003 : em space : EMSP
-U+2004 : three-per-em space : EMSP13
-U+2005 : four-per-em space : EMSP14
-U+2006 : six-per-em space : EMSP16
-U+2007 : figure space : NUMSP
-U+2008 : punctation space : PUNCSP
-U+2009 : thin space : THINSP
-U+200A : hair space : HAIRSP
-U+200B : zero-width space : ZWSP
-U+200C : zero-width non-joiner : ZWNJ
-U+200D : zero-width joiner : ZWJ
-U+200E : left-to-right mark : LRM
-U+200F : right-to-left mark : RLM
-U+2028 : line separator : LS
-U+2029 : paragraph separator : PS
-U+202A : left-to-right embedding : LRE
-U+202B : right-to-left embedding : RLE
-U+202C : pop directional formatting : PDF
-U+202D : left-to-right override : LRO
-U+202E : right-to-left override : RLO
-U+202F : narrow no-break space : NNBSP
-U+205F : medium mathematical space : MMSP
-U+2060 : word joiner : WJ
-U+2066 : left-to-right isolate : LRI
-U+2067 : right-to-left isolate : RLI
-U+2068 : first strong isolate : FSI
-U+2069 : pop directional isolate : PDI
-U+206A : inhibit symmetric swapping : ISS
-U+206B : activate symmetric swapping : ASS
-U+206C : inhibit arabic form shaping : IAFS
-U+206D : activate arabic form shaping : AAFS
-U+206E : national digit shapes : NADS
-U+206F : nominal digit shapes : NODS
-U+3000 : ideographic space : ISP
-U+FEFF : zero-width no-break space : ZWNBSP"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1678,29 +1631,31 @@ NOTE:
 1. Modifying options here requires re-open currently opened large files to get proper behavior.
 
 2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
-            <nonPrintCharsNote-tip value="Representation of &quot;non-ASCII&quot; whitespace and non-printing (control) characters.
+            <npcNote-tip value="Representation of selected &quot;non-ASCII&quot; whitespace and non-printing (control) characters.
 
 NOTE:
 Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
 
 Using representation will disable character effects on text.
 
-For the full list of selected whitespace and non-printing characters click on this button." />
-            <nonPrintCharsAbbreviation-tip value="Abbreviation : name
+For the full list of selected whitespace and non-printing characters check User Manual.
+
+Click on this button to open website with User Manual." />
+            <npcAbbreviation-tip value="Abbreviation : name
 NBSP : no-break space
 ZWSP : zero-width space
 ZWNBSP : zero-width no-break space
 
-Click on &quot;?&quot; button on right for the full list." />
-            <nonPrintCharsCodepoint-tip value="Codepoint : name
+For the full list check User Manual.
+Click on &quot;?&quot; button on right to open website with User Manual." />
+            <npcCodepoint-tip value="Codepoint : name
 U+00A0 : no-break space
 U+200B : zero-width space
 U+FEFF : zero-width no-break space
 
-Click on &quot;?&quot; button on right for the full list." />
-			<nonPrintCharsSync-tip value="Will sync &quot;View -> Show Symbol -> Show Non-Printing Character&quot; menu with &quot;View -> Show Symbol -> Show All Character&quot; menu and toolbar button &quot;Show All Character&quot;.
-
-Items will be in sync after toggling menu or toolbar button." />
+For the full list check User Manual.
+Click on &quot;?&quot; button on right to open website with User Manual." />
+            <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;NPC custom color&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

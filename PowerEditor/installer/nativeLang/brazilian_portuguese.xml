@@ -2,9 +2,9 @@
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy -->
 <!-- Updated: Jul 2021, for Notepad++ 8.1.2 -->
 <!-- Brazilian Portuguese updated by Marcello -->
-<!-- Updated: 30 Dec 2022, for Notepad++ 8.4.8 -->
+<!-- Updated: 04 Feb 2023, for Notepad++ 8.4.9 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.8">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -113,6 +113,7 @@
                     <Item id="42006" name="&amp;Apagar"/>
                     <Item id="42007" name="Se&amp;lecionar tudo"/>
                     <Item id="42020" name="Selecionar Início/Fim"/>
+                    <Item id="42089" name="Inicia/Finaliza Seleção em Modo Coluna"/>
                     <Item id="42084" name="Data e Hora (curto)"/>
                     <Item id="42085" name="Data e Hora (longo)"/>
                     <Item id="42086" name="Data e Hora (customizado)"/>
@@ -1316,7 +1317,16 @@ Suas configurações na nuvem serão canceladas. Por favor, redefina um valor co
             <DroppingFolderAsProjectModeWarning title="Você só pode soltar arquivos ou pastas, mas não ambos, porque você está soltando Pasta como modo Projeto.
 Você tem que habilitar o &quot;Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho&quot; na seção &quot;Diretório padrão&quot; em Preferências para fazer esta operação funcionar."/>
             <SortingError title="Erro de Classificação" message="Não é possível realizar a classificação numérica devido à linha $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Dica de Modo Coluna" message="Por favor, use &quot;ALT+Seleção com Mouse&quot; ou &quot;Alt+Shift+Seta&quot; para alternar para o modo coluna."/>
+            <!--ColumnModeTip title="Dica de Modo Coluna" message="Por favor, use &quot;ALT+Seleção com Mouse&quot; ou &quot;Alt+Shift+Seta&quot; para alternar para o modo coluna."/ -->
+            <ColumnModeTip title="Dica de Modo Coluna" message="
+Existem 3 maneiras de ativar o modo de seleção em colunas:
+1. (Teclado e Mouse)  Aperte a tecla Alt enquanto clica com o botão esquerdo e arrasta
+2. (Apenas teclado)  Utilize as teclas Alt+Shift enquanto usa as teclas de seta
+3. (Teclado ou Mouse)
+      Coloque o cursor no local onde se deseja o início do bloco a ser selecionado, e depois
+       execute o comando &quot;Inicia/Finaliza Seleção em Modo Coluna&quot; ;
+      Mova o cursor para o ponto desejado do final do bloco a ser selecionado, e depois
+       execute o comando &quot;Inicia/Finaliza Seleção em Modo Coluna&quot; novamente"/>
             <BufferInvalidWarning title="Falha ao salvar" message="Não é possível salvar: o buffer é inválido."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Manter arquivo não existente" message="O arquivo &quot;$STR_REPLACE$&quot; não existe mais.
 Deseja manter este arquivo no editor?"/>

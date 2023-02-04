@@ -1655,7 +1655,7 @@ U+FEFF : zero-width no-break space
 
 For the full list check User Manual.
 Click on &quot;?&quot; button on right to open website with User Manual." />
-            <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;NPC custom color&quot;)." />
+            <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

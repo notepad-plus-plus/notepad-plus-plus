@@ -3884,6 +3884,13 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		}
 	}
 
+	constexpr auto rgbhex = [](COLORREF bbggrr) -> int {
+		return
+			((bbggrr & 0xFF0000) >> 16) |
+			((bbggrr & 0x00FF00)) |
+			((bbggrr & 0x0000FF) << 16);
+	};
+
 	const Style* pStyle = _widgetStyleArray.findByName(TEXT("EOL custom color"));
 	if (!pStyle)
 	{
@@ -3893,6 +3900,30 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		eolColorkNode->ToElement()->SetAttribute(TEXT("fgColor"), TEXT("DADADA"));
 
 		_widgetStyleArray.addStyler(0, eolColorkNode);
+	}
+
+	const Style* pStyleNpc = _widgetStyleArray.findByName(g_npcStyleName);
+	if (!pStyleNpc)
+	{
+		TiXmlNode* npcColorkNode = globalStyleRoot->InsertEndChild(TiXmlElement(TEXT("WidgetStyle")));
+		npcColorkNode->ToElement()->SetAttribute(TEXT("name"), g_npcStyleName);
+		npcColorkNode->ToElement()->SetAttribute(TEXT("styleID"), TEXT("0"));
+
+		// use color from style White space symbol
+		const Style* pStyleWS = _widgetStyleArray.findByName(TEXT("White space symbol"));
+		if (pStyleWS)
+		{
+			constexpr size_t bufSize = 7;
+			wchar_t strColor[bufSize] = { '\0' };
+			swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleWS->_fgColor));
+			npcColorkNode->ToElement()->SetAttribute(L"fgColor", strColor);
+		}
+		else
+		{
+			npcColorkNode->ToElement()->SetAttribute(L"fgColor", L"DADADA");
+		}
+
+		_widgetStyleArray.addStyler(0, npcColorkNode);
 	}
 
 	return true;
@@ -6311,7 +6342,6 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	}
 
 	_svp._npcCustomColor = parseYesNoBoolAttribute(TEXT("npcCustomColor"));
-	_svp._npcSync = parseYesNoBoolAttribute(TEXT("npcSync"), true);
 
 	nm = element->Attribute(TEXT("borderWidth"), &val);
 	if (nm)
@@ -6618,7 +6648,6 @@ bool NppParameters::writeScintillaParams()
 	setShowHideBoolAttribute(TEXT("npcShow"), _svp._npcShow);
 	(scintNode->ToElement())->SetAttribute(TEXT("npcMode"), static_cast<int>(_svp._npcMode));
 	setYesNoBoolAttribute(TEXT("npcCustomColor"), _svp._npcCustomColor);
-	setYesNoBoolAttribute(TEXT("npcSync"), _svp._npcSync);
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);

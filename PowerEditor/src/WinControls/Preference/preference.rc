@@ -105,7 +105,7 @@ BEGIN
     CONTROL         "Indent",IDC_RADIO_LWINDENT,"Button",BS_AUTORADIOBUTTON,317,46,68,10
 
     CONTROL         "Enable smooth font",IDC_CHECK_SMOOTHFONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,81,270,10
-    CONTROL         "Enable virtual space",IDC_CHECK_VIRTUALSPACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,96,266,10
+    CONTROL         "Enable virtual space",IDC_CHECK_VIRTUALSPACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,96,270,10
     CONTROL         "Make current level folding/unfolding commands toggleable",IDC_CHECK_FOLDINGTOGGLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,111,270,10
     CONTROL         "Enable Multi-Editing (Ctrl+Mouse click/selection)",IDC_CHECK_MULTISELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,126,270,10
     CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,141,270,10

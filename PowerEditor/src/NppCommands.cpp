@@ -2301,8 +2301,7 @@ void Notepad_plus::command(int id)
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			svp1._whiteSpaceShow = isChecked;
 
-			const bool checkNpcShow = svp1._npcSync ? svp1._npcShow : true;
-			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && checkNpcShow;
+			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && svp1._npcShow;
 
 			setCheckMenuItem(IDM_VIEW_ALL_CHARACTERS, allChecked);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allChecked);
@@ -2325,8 +2324,7 @@ void Notepad_plus::command(int id)
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			svp1._eolShow = isChecked;
 
-			const bool checkNpcShow = svp1._npcSync ? svp1._npcShow : true;
-			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && checkNpcShow;
+			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && svp1._npcShow;
 
 			setCheckMenuItem(IDM_VIEW_ALL_CHARACTERS, allChecked);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allChecked);
@@ -2343,14 +2341,13 @@ void Notepad_plus::command(int id)
 			const bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
 			setCheckMenuItem(id, isChecked);
 
-			_mainEditView.showNonPrintingChars(isChecked);
-			_subEditView.showNonPrintingChars(isChecked);
+			_mainEditView.showNpc(isChecked);
+			_subEditView.showNpc(isChecked);
 
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			svp1._npcShow = isChecked;
 
-			const bool checkNpcShow = svp1._npcSync ? svp1._npcShow : true;
-			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && checkNpcShow;
+			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && svp1._npcShow;
 
 			setCheckMenuItem(IDM_VIEW_ALL_CHARACTERS, allChecked);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allChecked);
@@ -2368,6 +2365,7 @@ void Notepad_plus::command(int id)
 			setCheckMenuItem(id, isChecked);
 			setCheckMenuItem(IDM_VIEW_TAB_SPACE, isChecked);
 			setCheckMenuItem(IDM_VIEW_EOL, isChecked);
+			setCheckMenuItem(IDM_VIEW_NPC, isChecked);
 			_toolBar.setCheck(id, isChecked);
 
 			_mainEditView.showInvisibleChars(isChecked);
@@ -2375,18 +2373,9 @@ void Notepad_plus::command(int id)
 
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 
-			if (svp1._npcSync)
-			{
-				setCheckMenuItem(IDM_VIEW_NPC, isChecked);
-
-				_mainEditView.showNonPrintingChars(isChecked);
-				_subEditView.showNonPrintingChars(isChecked);
-
-				svp1._npcShow = isChecked;
-			}
-
 			svp1._whiteSpaceShow = isChecked;
 			svp1._eolShow = isChecked;
+			svp1._npcShow = isChecked;
 
 			break;
 		}

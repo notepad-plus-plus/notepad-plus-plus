@@ -1743,8 +1743,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_SETNPC:
 		{
 			const bool isShown = nppParam.getSVP()._npcShow;
-			_mainEditView.showNonPrintingChars(isShown);
-			_subEditView.showNonPrintingChars(isShown);
+			_mainEditView.showNpc(isShown);
+			_subEditView.showNpc(isShown);
 			return TRUE;
 		}
 
@@ -2975,7 +2975,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			command(IDM_LANGSTYLE_CONFIG_DLG);
 
 			// go into the section we need
-			_configStyleDlg.goToSection(TEXT("Global Styles:NPC custom color"));
+			generic_string npcStr = L"Global Styles:";
+			npcStr += g_npcStyleName;
+			_configStyleDlg.goToSection(npcStr.c_str());
 
 			return TRUE;
 		}

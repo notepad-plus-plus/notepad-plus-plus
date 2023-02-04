@@ -395,15 +395,19 @@ public:
 		execute(SCI_SETWHITESPACESIZE, 2, 0);
 	};
 
+	bool isShownSpaceAndTab() {
+		return (execute(SCI_GETVIEWWS) != 0);
+	};
+
 	void showEOL(bool willBeShowed = true) {
 		execute(SCI_SETVIEWEOL, willBeShowed);
 	};
 
-	bool isEolVisible() {
+	bool isShownEol() {
 		return (execute(SCI_GETVIEWEOL) != 0);
 	};
 
-	void showNonPrintingChars(bool willBeShowed = true) {
+	void showNpc(bool willBeShowed = true) {
 		auto& svp = NppParameters::getInstance().getSVP();
 		if (willBeShowed)
 		{
@@ -422,6 +426,7 @@ public:
 		{
 			execute(SCI_CLEARALLREPRESENTATIONS);
 
+			// SCI_CLEARALLREPRESENTATIONS will also reset CRLF
 			if (svp._eolMode != svp.roundedRectangleText)
 			{
 				setCRLF();
@@ -430,19 +435,20 @@ public:
 		redraw();
 	};
 
-	bool isNonPrintCharsShown() {
+	bool isShownNpc() {
 		auto& svp = NppParameters::getInstance().getSVP();
 		return svp._npcShow;
 	};
 
 	void showInvisibleChars(bool willBeShowed = true) {
+		showNpc(willBeShowed);
 		showWSAndTab(willBeShowed);
 		showEOL(willBeShowed);
 	};
 
-	bool isInvisibleCharsShown() {
-		return (execute(SCI_GETVIEWWS) != 0);
-	};
+	//bool isShownInvisibleChars() {
+	//	return isShownSpaceTab() && isShownEol() && isShownNpc();
+	//};
 
 	void showIndentGuideLine(bool willBeShowed = true);
 

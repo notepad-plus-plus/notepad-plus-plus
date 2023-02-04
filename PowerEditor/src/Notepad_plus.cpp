@@ -4707,9 +4707,9 @@ void Notepad_plus::bookmarkNext(bool forwardScan)
 		lineRetry = _pEditView->execute(SCI_GETLINECOUNT);	//If not found, try from the end
 		sci_marker = SCI_MARKERPREVIOUS;
 	}
-	intptr_t nextLine = _pEditView->execute(sci_marker, lineStart, 1 << MARK_BOOKMARK);
+	intptr_t nextLine = _pEditView->execute(sci_marker, lineStart, static_cast<LPARAM>(1 << MARK_BOOKMARK));
 	if (nextLine < 0)
-		nextLine = _pEditView->execute(sci_marker, lineRetry, 1 << MARK_BOOKMARK);
+		nextLine = _pEditView->execute(sci_marker, lineRetry, static_cast<LPARAM>(1 << MARK_BOOKMARK));
 
 	if (nextLine < 0)
 		return;
@@ -4721,13 +4721,11 @@ void Notepad_plus::bookmarkNext(bool forwardScan)
 void Notepad_plus::staticCheckMenuAndTB() const
 {
 	// Visibility of invisible characters
-	bool wsTabShow = _pEditView->isInvisibleCharsShown();
-	bool eolShow = _pEditView->isEolVisible();
-	bool npcShow = _pEditView->isNonPrintCharsShown();
+	const bool wsTabShow = _pEditView->isShownSpaceAndTab();
+	const bool eolShow = _pEditView->isShownEol();
+	const bool npcShow = _pEditView->isShownNpc();
 
-	auto& svp = NppParameters::getInstance().getSVP();
-	const bool checkNpcShow = svp._npcSync ? npcShow : true;
-	const bool allShow = wsTabShow && eolShow && checkNpcShow;
+	const bool allShow = wsTabShow && eolShow && npcShow;
 
 	checkMenuItem(IDM_VIEW_TAB_SPACE, wsTabShow);
 	checkMenuItem(IDM_VIEW_EOL, eolShow);

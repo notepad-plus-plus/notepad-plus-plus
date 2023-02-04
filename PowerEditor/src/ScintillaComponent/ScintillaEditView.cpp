@@ -1428,7 +1428,7 @@ void ScintillaEditView::setNPC(long color)
 	if (color == -1)
 	{
 		StyleArray& stylers = nppParams.getMiscStylerArray();
-		Style* pStyle = stylers.findByName(TEXT("NPC custom color"));
+		Style* pStyle = stylers.findByName(g_npcStyleName);
 		if (pStyle)
 		{
 			npcCustomColor = pStyle->_fgColor;
@@ -2043,9 +2043,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	runMarkers(true, 0, true, false);
 
-	if (isNonPrintCharsShown())
+	if (isShownNpc())
 	{
-		showNonPrintingChars();
+		showNpc();
 	}
 
 	setCRLF();
@@ -2824,7 +2824,7 @@ void ScintillaEditView::performGlobalStyles()
 	setCRLF(eolCustomColor);
 
 	COLORREF npcCustomColor = liteGrey;
-	pStyle = stylers.findByName(TEXT("NPC custom color"));
+	pStyle = stylers.findByName(g_npcStyleName);
 	if (pStyle)
 	{
 		npcCustomColor = pStyle->_fgColor;

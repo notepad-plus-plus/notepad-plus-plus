@@ -984,7 +984,7 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 		result.first = 1;
 		result.second = IDC_CHECK_WITHCUSTOMCOLOR_CRLF;
 	}
-	else if (style._styleDesc == TEXT("NPC custom color"))
+	else if (style._styleDesc == g_npcStyleName)
 	{
 		result.first = 1;
 		result.second = IDC_CHECK_NPC_COLOR;

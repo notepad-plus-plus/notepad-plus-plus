@@ -928,7 +928,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6252" name="Non-Printing Characters"/>
                     <Item id="6254" name="Abbreviation"/>
                     <Item id="6255" name="Codepoint"/>
-                    <Item id="6256" name="Sync with &quot;Show All Character&quot;"/>
+                    <Item id="6256" name="Custom Color"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">

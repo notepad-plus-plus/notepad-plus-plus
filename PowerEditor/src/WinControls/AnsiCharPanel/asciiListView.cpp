@@ -104,8 +104,8 @@ generic_string AsciiListView::getAscii(unsigned char value)
 			return TEXT("DEL");
 		default:
 		{
-			TCHAR charStr[10];
-			char ascii[2];
+			wchar_t charStr[10]{};
+			char ascii[2]{};
 			ascii[0] = value;
 			ascii[1] = '\0';
 			MultiByteToWideChar(_codepage, 0, ascii, -1, charStr, _countof(charStr));
@@ -119,16 +119,124 @@ generic_string AsciiListView::getHtmlName(unsigned char value)
 {
 	switch (value)
 	{
+		case 33:
+			return TEXT("&excl;");
 		case 34:
 			return TEXT("&quot;");
+		case 35:
+			return TEXT("&num;");
+		case 36:
+			return TEXT("&dollar;");
+		case 37:
+			return TEXT("&percnt;");
 		case 38:
 			return TEXT("&amp;");
+		case 39:
+			return TEXT("&apos;");
+		case 40:
+			return TEXT("&lpar;");
+		case 41:
+			return TEXT("&rpar;");
+		case 42:
+			return TEXT("&ast;");
+		case 43:
+			return TEXT("&plus;");
+		case 44:
+			return TEXT("&comma;");
+		case 45:
+			return TEXT("&minus;");
+		case 46:
+			return TEXT("&period;");
+		case 47:
+			return TEXT("&sol;");
+		case 58:
+			return TEXT("&colon;");
+		case 59:
+			return TEXT("&semi;");
 		case 60:
 			return TEXT("&lt;");
+		case 61:
+			return TEXT("&equals;");
 		case 62:
 			return TEXT("&gt;");
+		case 63:
+			return TEXT("&quest;");
+		case 64:
+			return TEXT("&commat;");
+		case 91:
+			return TEXT("&lbrack;");
+		case 92:
+			return TEXT("&bsol;");
+		case 93:
+			return TEXT("&rbrack;");
+		case 94:
+			return TEXT("&Hat;");
+		case 95:
+			return TEXT("&lowbar;");
+		case 96:
+			return TEXT("&grave;");
+		case 123:
+			return TEXT("&lbrace;");
+		case 124:
+			return TEXT("&vert;");
+		case 125:
+			return TEXT("&rbrace;");
+		case 126:
+			return TEXT(""); // ascii tilde
 		case 128:
 			return TEXT("&euro;");
+		case 130:
+			return TEXT("&sbquo;");
+		case 131:
+			return TEXT("&fnof;");
+		case 132:
+			return TEXT("&bdquo;");
+		case 133:
+			return TEXT("&hellip;");
+		case 134:
+			return TEXT("&dagger;");
+		case 135:
+			return TEXT("&Dagger;");
+		case 136:
+			return TEXT("&circ;");
+		case 137:
+			return TEXT("&permil;");
+		case 138:
+			return TEXT("&Scaron;");
+		case 139:
+			return TEXT("&lsaquo;");
+		case 140:
+			return TEXT("&OElig;");
+		case 142:
+			return TEXT("&Zcaron;");
+		case 145:
+			return TEXT("&lsquo;");
+		case 146:
+			return TEXT("&rsquo;");
+		case 147:
+			return TEXT("&ldquo;");
+		case 148:
+			return TEXT("&rdquo;");
+		case 149:
+			return TEXT("&bull;");
+		case 150:
+			return TEXT("&ndash;");
+		case 151:
+			return TEXT("&mdash;");
+		case 152:
+			return TEXT("&tilde;");
+		case 153:
+			return TEXT("&trade;");
+		case 154:
+			return TEXT("&scaron;");
+		case 155:
+			return TEXT("&rsaquo;");
+		case 156:
+			return TEXT("&oelig;");
+		case 158:
+			return TEXT("&zcaron;");
+		case 159:
+			return TEXT("&Yuml;");
 		case 160:
 			return TEXT("&nbsp;");
 		case 161:
@@ -325,7 +433,6 @@ generic_string AsciiListView::getHtmlName(unsigned char value)
 		{
 			return TEXT("");
 		}
-		
 	}
 }
 
@@ -333,6 +440,8 @@ int AsciiListView::getHtmlNumber(unsigned char value)
 {
 	switch (value)
 	{
+		case 45:
+			return 8722;
 		case 128:
 			return 8364;
 		case 130:
@@ -347,12 +456,18 @@ int AsciiListView::getHtmlNumber(unsigned char value)
 			return 8224;
 		case 135:
 			return 8225;
+		case 136:
+			return 710;
 		case 137:
 			return 8240;
 		case 138:
 			return 352;
+		case 139:
+			return 8249;
 		case 140:
 			return 338;
+		case 142:
+			return 381;
 		case 145:
 			return 8216;
 		case 146:
@@ -367,19 +482,24 @@ int AsciiListView::getHtmlNumber(unsigned char value)
 			return 8211;
 		case 151:
 			return 8212;
+		case 152:
+			return 732;
 		case 153:
 			return 8482;
 		case 154:
 			return 353;
+		case 155:
+			return 8250;
 		case 156:
 			return 339;
+		case 158:
+			return 382;
 		case 159:
 			return 376;
 		default:
 		{
 			return -1;
 		}
-		
 	}
 }
 
@@ -390,9 +510,11 @@ void AsciiListView::setValues(int codepage)
 	for (int i = 0 ; i < 256 ; ++i)
 	{
 		constexpr size_t bufSize = 8;
-		TCHAR dec[bufSize];
-		TCHAR hex[bufSize];
-		TCHAR htmlNumber[bufSize];
+		constexpr size_t bufSizeHex = 9;
+		wchar_t dec[bufSize]{};
+		wchar_t hex[bufSize]{};
+		wchar_t htmlNumber[bufSize]{};
+		wchar_t htmlHexNumber[bufSizeHex]{};
 		generic_string htmlName;
 		swprintf(dec, bufSize, TEXT("%d"), i);
 		swprintf(hex, bufSize, TEXT("%02X"), i);
@@ -400,20 +522,23 @@ void AsciiListView::setValues(int codepage)
 
 		if (codepage == 0 || codepage == 1252)
 		{
-			if ((i >= 32 && i <= 126) || (i >= 160 && i <= 255))
+			if ((i >= 32 && i <= 126 && i != 45) || (i >= 160 && i <= 255))
 			{
-				swprintf(htmlNumber, bufSize, TEXT("&#%d"), i);
+				swprintf(htmlNumber, bufSize, TEXT("&#%d;"), i);
+				swprintf(htmlHexNumber, bufSize, TEXT("&#x%x;"), i);
 			}
 			else
 			{
 				int n = getHtmlNumber(static_cast<unsigned char>(i));
 				if (n > -1)
 				{
-					swprintf(htmlNumber, bufSize, TEXT("&#%d"), n);
+					swprintf(htmlNumber, bufSize, TEXT("&#%d;"), n);
+					swprintf(htmlHexNumber, bufSizeHex, TEXT("&#x%x;"), n);
 				}
 				else
 				{
 					swprintf(htmlNumber, bufSize, TEXT(""));
+					swprintf(htmlHexNumber, bufSizeHex, TEXT(""));
 				}
 			}
 
@@ -422,6 +547,7 @@ void AsciiListView::setValues(int codepage)
 		else
 		{
 			swprintf(htmlNumber, bufSize, TEXT(""));
+			swprintf(htmlHexNumber, bufSizeHex, TEXT(""));
 			htmlName = TEXT("");
 		}
 
@@ -430,8 +556,9 @@ void AsciiListView::setValues(int codepage)
 		values2Add.push_back(dec);
 		values2Add.push_back(hex);
 		values2Add.push_back(s);
-		values2Add.push_back(htmlNumber);
 		values2Add.push_back(htmlName);
+		values2Add.push_back(htmlNumber);
+		values2Add.push_back(htmlHexNumber);
 
 		addLine(values2Add);
 	}

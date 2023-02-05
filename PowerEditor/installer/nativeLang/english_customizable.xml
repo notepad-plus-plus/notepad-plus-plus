@@ -1457,8 +1457,9 @@ Do you want to save your changes before switching themes?"/> <!-- HowToReproduce
             <ColumnVal name="Value"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Character"/>
-            <ColumnHtmlNumber name="HTML Number"/>
-            <ColumnHtmlName name="HTML Code"/>
+            <ColumnHtmlName name="HTML Name"/>
+            <ColumnHtmlNumber name="HTML Decimal"/>
+            <ColumnHtmlHexNb name="HTML Hexadecimal"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Document Map"/>

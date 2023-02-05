@@ -38,12 +38,14 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			generic_string charStr = pNativeSpeaker->getAttrNameStr(TEXT("Character"), "AsciiInsertion", "ColumnChar");
 			generic_string htmlNumberStr = pNativeSpeaker->getAttrNameStr(TEXT("HTML Number"), "AsciiInsertion", "ColumnHtmlNumber");
 			generic_string htmlNameStr = pNativeSpeaker->getAttrNameStr(TEXT("HTML Name"), "AsciiInsertion", "ColumnHtmlName");
+			generic_string htmlHexNbStr = pNativeSpeaker->getAttrNameStr(L"HTML Hex Number", "AsciiInsertion", "ColumnHtmlHexNb");
 
 			_listView.addColumn(columnInfo(valStr, nppParam._dpiManager.scaleX(45)));
 			_listView.addColumn(columnInfo(hexStr, nppParam._dpiManager.scaleX(45)));
 			_listView.addColumn(columnInfo(charStr, nppParam._dpiManager.scaleX(70)));
 			_listView.addColumn(columnInfo(htmlNumberStr, nppParam._dpiManager.scaleX(100)));
 			_listView.addColumn(columnInfo(htmlNameStr, nppParam._dpiManager.scaleX(90)));
+			_listView.addColumn(columnInfo(htmlHexNbStr, nppParam._dpiManager.scaleX(120)));
 
 			_listView.init(_hInst, _hSelf);
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
@@ -76,14 +78,14 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case NM_DBLCLK:
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
-					LVHITTESTINFO pInfo;
+					LVHITTESTINFO pInfo{};
 					pInfo.pt = lpnmitem->ptAction;
 					ListView_SubItemHitTest(_listView.getHSelf(), &pInfo);
 
 					int i = pInfo.iItem;
 					int j = pInfo.iSubItem;
-					wchar_t buffer[10];
-					LVITEM item;
+					wchar_t buffer[10]{};
+					LVITEM item{};
 					item.mask = LVIF_TEXT | LVIF_PARAM;
 					item.iItem = i;
 					item.iSubItem = j;
@@ -144,7 +146,7 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 void AnsiCharPanel::insertChar(unsigned char char2insert) const
 {
-	char charStr[2];
+	char charStr[2]{};
 	charStr[0] = char2insert;
 	charStr[1] = '\0';
 	wchar_t wCharStr[10];

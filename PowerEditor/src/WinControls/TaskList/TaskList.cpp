@@ -27,7 +27,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 
 	_currentIndex = index2set;
 
-    INITCOMMONCONTROLSEX icex;
+	INITCOMMONCONTROLSEX icex{};
     
     // Ensure that the common control DLL is loaded. 
     icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -65,7 +65,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
 
 
-	LVCOLUMN lvColumn;
+	LVCOLUMN lvColumn{};
 	lvColumn.mask = LVCF_WIDTH;
 
 	lvColumn.cx = 500;
@@ -91,18 +91,18 @@ void TaskList::destroy()
 
 RECT TaskList::adjustSize()
 {
-	RECT rc;
+	RECT rc{};
 	ListView_GetItemRect(_hSelf, 0, &rc, LVIR_ICON);
 	const int imgWidth = rc.right - rc.left;
 	const int aSpaceWidth = ListView_GetStringWidth(_hSelf, TEXT(" "));
-	const int leftMarge = ::GetSystemMetrics(SM_CXFRAME) * 2 + aSpaceWidth * 4;
+	const int leftMarge = (::GetSystemMetrics(SM_CXFRAME) + ::GetSystemMetrics(SM_CXPADDEDBORDER)) * 2 + aSpaceWidth * 4;
 
 	// Temporary set "selected" font to get the worst case widths
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSelected), 0);
 	int maxwidth = -1;
 
 	_rc = { 0, 0, 0, 0 };
-	TCHAR buf[MAX_PATH];
+	TCHAR buf[MAX_PATH] = { '\0' };
 	for (int i = 0 ; i < _nbItem ; ++i)
 	{
 		ListView_GetItemText(_hSelf, i, 0, buf, MAX_PATH);
@@ -121,10 +121,10 @@ RECT TaskList::adjustSize()
 	{
 		_rc.bottom = ::GetSystemMetrics(SM_CYSCREEN) - 120;
 	}
-	reSizeTo(_rc);
+	reSizeToWH(_rc);
 
 	// Task List's border is 1px smaller than ::GetSystemMetrics(SM_CYFRAME) returns
-	_rc.bottom += (::GetSystemMetrics(SM_CYFRAME) - 1) * 2;
+	_rc.bottom += (::GetSystemMetrics(SM_CYFRAME) + ::GetSystemMetrics(SM_CXPADDEDBORDER) - 1) * 2;
 	return _rc;
 }
 

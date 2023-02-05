@@ -2,7 +2,7 @@
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy -->
 <!-- Updated: Jul 2021, for Notepad++ 8.1.2 -->
 <!-- Brazilian Portuguese updated by Marcello -->
-<!-- Updated: 04 Feb 2023, for Notepad++ 8.4.9 -->
+<!-- Updated: 05 Feb 2023, for Notepad++ 8.4.9 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.9">
         <Menu>
@@ -296,6 +296,7 @@
                     <Item id="44113" name="Aplicar Cor 3"/>
                     <Item id="44114" name="Aplicar Cor 4"/>
                     <Item id="44115" name="Aplicar Cor 5"/>
+		    <Item id="44130" name="Mostre caracteres sem representação"/>
                     <Item id="44032" name="Modo Tela Inteira"/>
                     <Item id="44033" name="Restaurar o zoom padrão"/>
                     <Item id="44034" name="Manter sobre as outras janelas"/>
@@ -927,6 +928,10 @@
                     <Item id="6248" name="Padrão"/>
                     <Item id="6249" name="Texto comum"/>
                     <Item id="6250" name="Cor Customizada"/>
+                    <Item id="6252" name="Caracteres sem representação"/>
+                    <Item id="6254" name="Abreviação"/>
+                    <Item id="6255" name="Ponto de Código"/>
+                    <Item id="6256" name="Cor Personalizada"/>
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
@@ -1626,6 +1631,25 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 OBSERVAÇÃO:
 1. A modificação de opções aqui requerem a reabertura de arquivos grandes já abertos para obter o comportamento desejado.
 2. Se a opção a opção &quot;Desativar quebras de linhas automáticas de forma global&quot; estiver marcada e um arquivo grande for aberto, a opção &quot;Quebrar linhas automaticamente&quot; será desabilitada para todos os arquivos. É possível reativá-la através do menu &quot;Visualizar-&gt;Quebrar linhas automaticamente&quot;." />
+            <npcNote-tip value="Representação de espaços em branco &quot;não-ASCII&quot; e caracteres sem representação (de controle) selecionados.
+NOTA:
+Algum caracteres podem ter algum tipo tipo de representação, e assim serem visíveis. Separadores de linha e de parágrafo já são representados por abreviação e por padrão.
+Usar a representação irá desabilitar os efeitos de caracteres no texto.
+Para a lista completa de caracteres de espaço em branco e caracteres sem representação, consulte o Manual de Usuário.
+Clique neste botão para abrir o site com o Manual do Usuário." />
+            <npcAbbreviation-tip value="Abbreviação : nome
+NBSP : espaço em branco sem quebra
+ZWSP : espaço em branco com largura zero
+ZWNBSP : espaço em branco sem quebra com largura zero
+Para a lista completa consulte o Manual do Usuário.
+Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usuário." />
+            <npcCodepoint-tip value="Ponto de Código : nome
+U+00A0 : espaço em branco sem quebra
+U+200B : espaço em branco com largura zero
+U+FEFF : espaço em branco sem quebra com largura zero
+Para a lista completa consulte o Manual do Usuário.
+Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usuário." />
+            <npcCustomColor-tip value="Acesse o Configurador de Estilos para mudar a cor padrão para espaços em branco e caracteres sem representação selecionados (&quot;Cor padrão para caracteres sem representação&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

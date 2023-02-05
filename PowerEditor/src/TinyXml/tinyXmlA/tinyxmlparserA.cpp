@@ -240,22 +240,22 @@ const char* TiXmlBaseA::GetEntity( const char* p, char* value )
 		{
 			// Short, one value entity.
 			if ( isalpha( *(p+3) ) ) 
-				*value += (static_cast<char>(tolower(*(p + 3))) - 'a' + 10);
+				*value += static_cast<char>(static_cast<char>(tolower(*(p + 3))) - 'a' + 10);
 			else				     
-				*value += (static_cast<char>(*(p + 3)) - '0');
+				*value += static_cast<char>(static_cast<char>(*(p + 3)) - '0');
 
 			return p+5;
 		}
 		else
 		{
 			// two value entity
-			if (isalpha(*(p + 3))) *value += (static_cast<char>(tolower(*(p + 3))) - 'a' + 10) * 16;
-			else				     *value += (static_cast<char>(*(p + 3)) - '0') * 16;
+			if (isalpha(*(p + 3))) *value += static_cast<char>((static_cast<char>(tolower(*(p + 3))) - 'a' + 10) * 16);
+			else				     *value += static_cast<char>((static_cast<char>(*(p + 3)) - '0') * 16);
 
 			if ( isalpha( *(p+4) ) ) 
-				*value += (static_cast<char>(tolower(*(p + 4))) - 'a' + 10);
+				*value += static_cast<char>(static_cast<char>(tolower(*(p + 4))) - 'a' + 10);
 			else				     
-				*value += (static_cast<char>(*(p + 4)) - '0');
+				*value += static_cast<char>(static_cast<char>(*(p + 4)) - '0');
 
 			return p+6;
 		}

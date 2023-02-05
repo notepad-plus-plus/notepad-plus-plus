@@ -635,12 +635,12 @@ void Utf16_Iter::operator++()
                 m_eState = eStart;
             } else if (m_nCur16 < 0x800) {
                 pushout(static_cast<ubyte>(0xC0 | m_nCur16 >> 6));
-                pushout(0x80 | (m_nCur16 & 0x3f));
+                pushout(static_cast<ubyte>(0x80 | (m_nCur16 & 0x3f)));
                 m_eState = eStart;
             } else {
-                pushout(0xE0 | (m_nCur16 >> 12));
-                pushout(0x80 | ((m_nCur16 >> 6) & 0x3f));
-                pushout(0x80 | (m_nCur16 & 0x3f));
+                pushout(static_cast<ubyte>(0xE0 | (m_nCur16 >> 12)));
+                pushout(static_cast<ubyte>(0x80 | ((m_nCur16 >> 6) & 0x3f)));
+                pushout(static_cast<ubyte>(0x80 | (m_nCur16 & 0x3f)));
                 m_eState = eStart;
             }
             break;

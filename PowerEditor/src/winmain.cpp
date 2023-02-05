@@ -378,7 +378,7 @@ void stripIgnoredParams(ParamVector & params)
 
 
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
+int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ PWSTR pCmdLine, _In_ int /*nShowCmd*/)
 {
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);
@@ -585,22 +585,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			{
 				CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
 
-				COPYDATASTRUCT paramData;
+				COPYDATASTRUCT paramData{};
 				paramData.dwData = COPYDATA_PARAMS;
 				paramData.lpData = &dto;
 				paramData.cbData = sizeof(dto);
 				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
 
-				COPYDATASTRUCT cmdLineData;
+				COPYDATASTRUCT cmdLineData{};
 				cmdLineData.dwData = COPYDATA_FULL_CMDLINE;
 				cmdLineData.lpData = (void*)cmdLineString.c_str();
-				cmdLineData.cbData = long(cmdLineString.length() + 1) * (sizeof(TCHAR));
+				cmdLineData.cbData = static_cast<DWORD>((cmdLineString.length() + 1) * sizeof(TCHAR));
 				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&cmdLineData));
 
-				COPYDATASTRUCT fileNamesData;
+				COPYDATASTRUCT fileNamesData{};
 				fileNamesData.dwData = COPYDATA_FILENAMESW;
 				fileNamesData.lpData = (void *)quotFileName.c_str();
-				fileNamesData.cbData = long(quotFileName.length() + 1) * (sizeof(TCHAR));
+				fileNamesData.cbData = static_cast<DWORD>((quotFileName.length() + 1) * sizeof(TCHAR));
 				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
 			}
 			return 0;
@@ -696,7 +696,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 		}
 	}
 
-	MSG msg;
+	MSG msg{};
 	msg.wParam = 0;
 	Win32Exception::installHandler();
 	MiniDumper mdump;	//for debugging purposes.

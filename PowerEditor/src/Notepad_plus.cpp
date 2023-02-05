@@ -4223,7 +4223,7 @@ void Notepad_plus::hideView(int whichOne)
 		return;
 
 	Window * windowToSet = (whichOne == MAIN_VIEW)?&_subDocTab:&_mainDocTab;
-	if (_mainWindowStatus & WindowUserActive)
+	if ((_mainWindowStatus & WindowUserActive) == WindowUserActive)
 	{
 		_pMainSplitter->setWin0(windowToSet);
 	}
@@ -4250,7 +4250,7 @@ void Notepad_plus::hideView(int whichOne)
 	::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 
 	switchEditViewTo(otherFromView(whichOne));
-	int viewToDisable = (whichOne == SUB_VIEW?WindowSubActive:WindowMainActive);
+	auto viewToDisable = static_cast<UCHAR>(whichOne == SUB_VIEW ? WindowSubActive : WindowMainActive);
 	_mainWindowStatus &= ~viewToDisable;
 }
 
@@ -8430,7 +8430,8 @@ void Notepad_plus::createMonitoringThread(Buffer* pBuf)
 {
 	MonitorInfo *monitorInfo = new Notepad_plus::MonitorInfo(pBuf, _pPublicInterface->getHSelf());
 	HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
-	::CloseHandle(hThread);
+	if (hThread != nullptr)
+		::CloseHandle(hThread);
 }
 
 // Fill names into the shortcut list.

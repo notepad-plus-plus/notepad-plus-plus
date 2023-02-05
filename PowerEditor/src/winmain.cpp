@@ -29,7 +29,7 @@ namespace
 {
 
 
-void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppParameters& nppParameters, winVer ver)
+void allowPrivilegeMessages(Notepad_plus_Window& notepad_plus_plus, winVer winVer)
 {
 	#ifndef MSGFLT_ADD
 	const DWORD MSGFLT_ADD = 1;
@@ -37,32 +37,38 @@ void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppPa
 	#ifndef MSGFLT_ALLOW
 	const DWORD MSGFLT_ALLOW = 1;
 	#endif
-	// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA messages to this process (or window)
-	// This allows opening new files to already opened elevated Notepad++ process via explorer context menu.
-	if (ver >= WV_VISTA || ver == WV_UNKNOWN)
+	// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA (or other) messages to this process (or window)
+	// This (WM_COPYDATA) allows opening new files to already opened elevated Notepad++ process via explorer context menu.
+	if (winVer >= WV_VISTA || winVer == WV_UNKNOWN)
 	{
 		HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
 		if (hDll)
 		{
 			// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows,
 			// that is why we use ChangeWindowMessageFilterEx if it is available (windows version >= Win7).
-			if (nppParameters.getWinVersion() == WV_VISTA)
+			if (winVer == WV_VISTA)
 			{
 				typedef BOOL (WINAPI *MESSAGEFILTERFUNC)(UINT message,DWORD dwFlag);
 
 				MESSAGEFILTERFUNC func = (MESSAGEFILTERFUNC)::GetProcAddress( hDll, "ChangeWindowMessageFilter" );
 
 				if (func)
+				{
 					func(WM_COPYDATA, MSGFLT_ADD);
+					func(NPPM_INTERNAL_RESTOREMONOINSTANCE, MSGFLT_ADD);
+				}
 			}
 			else
 			{
 				typedef BOOL (WINAPI *MESSAGEFILTERFUNCEX)(HWND hWnd,UINT message,DWORD action,VOID* pChangeFilterStruct);
 
-				MESSAGEFILTERFUNCEX func = (MESSAGEFILTERFUNCEX)::GetProcAddress( hDll, "ChangeWindowMessageFilterEx" );
+				MESSAGEFILTERFUNCEX funcEx = (MESSAGEFILTERFUNCEX)::GetProcAddress( hDll, "ChangeWindowMessageFilterEx" );
 
-				if (func)
-					func(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL );
+				if (funcEx)
+				{
+					funcEx(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL);
+					funcEx(notepad_plus_plus.getHSelf(), NPPM_INTERNAL_RESTOREMONOINSTANCE, MSGFLT_ALLOW, NULL);
+				}
 			}
 		}
 	}
@@ -683,7 +689,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 	try
 	{
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
-		allowWmCopydataMessages(notepad_plus_plus, nppParameters, ver);
+		allowPrivilegeMessages(notepad_plus_plus, ver);
 		bool going = true;
 		while (going)
 		{

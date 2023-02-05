@@ -4,6 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on February 6th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
@@ -41,7 +42,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.9">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.5.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -150,6 +151,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Squassà"/>
                     <Item id="42007" name="T&amp;uttu selezziunà"/>
                     <Item id="42020" name="Principiu è &amp;fine di a selezzione"/>
+                    <Item id="42089" name="Principiu è fine di a selezzione in modu di culonna"/>
                     <Item id="42084" name="A data è l’ora (corta)"/>
                     <Item id="42085" name="A data è l’ora (longa)"/>
                     <Item id="42086" name="A data è l’ora (furmatu persunalizatu)"/>
@@ -302,7 +304,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44022" name="Ritornu autumaticu à a linea"/>
                     <Item id="44023" name="&amp;Ingrandà u testu (Ctrl+rutulella insù)"/>
                     <Item id="44024" name="&amp;Diminuì u testu (Ctrl+rutulella inghjò)"/>
-                    <Item id="44025" name="Affissà i spazii bianchi è e tabulazioni"/>
+                    <Item id="44025" name="Affissà i spazii è e tabulazioni"/>
                     <Item id="44026" name="Affissà i simbuli di fine di linea"/>
                     <Item id="44029" name="Spiegà tutti i livelli"/>
                     <Item id="44030" name="Ripiegà u livellu attuale"/>
@@ -332,6 +334,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Appiecà u culore 3"/>
                     <Item id="44114" name="Appiecà u culore 4"/>
                     <Item id="44115" name="Appiecà u culore 5"/>
+                    <Item id="44130" name="Affissà i caratteri nonstampevule"/>
                     <Item id="44032" name="Attivà o disattivà u modu di screnu sanu"/>
                     <Item id="44033" name="Risturà l’ingrandamentu predefinitu"/>
                     <Item id="44034" name="Sempre in primu pianu"/>
@@ -959,6 +962,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Predefinitu"/>
                     <Item id="6249" name="Testu in chjaru"/>
                     <Item id="6250" name="Culore persunalizatu"/>
+                    <Item id="6252" name="Caratteri nonstampevule"/>
+                    <Item id="6254" name="Abbreviamentu"/>
+                    <Item id="6255" name="Puntu di codice"/>
+                    <Item id="6256" name="Culore persunalizatu"/>
                 </Scintillas>
 
                 <DarkMode title="Modu scuru">
@@ -1354,7 +1361,17 @@ E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un val
             <DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum’è spaziu di travagliu.
 Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu » in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
             <SortingError title="Sbagliu di classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+selez. cù topu » o « Alt+Maiusc+fleccia » per passà à u modu culonna."/>
+            <ColumnModeTip title="Minichichja di modu culonna" message="
+Ci hè 3 manere di passà à u modu di selezzione da a culonna :
+1. (Tastera è topu)  Mantene u tastu Alt quandu si trascineghja cù un cliccu mancu
+2. (Tastera solu)  Mantene i tasti Alt+Maius quandu s’impiegheghja e fleccie
+3. (Tastera o topu)
+      Piazzà a barra d’inserzione à u locu di principiu sceltu per
+	   a pusizione di u bloccu di culonna, eppò lancià a cumanda
+       « Principiu è fine di a selezzione in modu di culonna » ;
+      Dispiazzà a barra d’inserzione à u locu di fine sceltu per
+	   a pusizione di u bloccu di culonna, eppò lancià a cumanda
+       « Principiu è fine di a selezzione in modu di culonna »"/>
             <BufferInvalidWarning title="Arregistramentu fiascatu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
 Cunservà stu schedariu in l’editore ?"/>
@@ -1661,6 +1678,25 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 NOTA :
 1. Per funziunà bè, a mudificazione di quelle ozzioni richiede d’apre torna i schedarii tamanti chì sò dighjà aperti.
 2. S’è l’ozzione « Disattivà di manera glubale u ritornu autumaticu à a linea » hè attiva è chì un schedariu tamantu hè apertu, tandu u ritornu autumaticu à a linea serà disattivatu per tutti i schedarii. Pudete attivallu torna via l’ozzione di listinu Affissera > Ritornu autumaticu à a linea." />
+            <npcNote-tip value="Riprisentanza di i spazii bianchi « nonASCII » selezziunati è di i caratteri (di cuntrollu) nonstampevule.
+NOTA :
+Certi caratteri ponu avè dighjà una riprisentanza è dunque esse videvule. A predefinizione per u separadore di linea è quellu di paragrafu hè di riprisentallu da un abbreviamentu.
+Impiegà a riprisentanza disattiverà l’effetti nant’à i caratteri in u testu.
+Per ottene a lista sana di i spazii bianchi selezziunati è di i caratteri nonstampevule, fighjate u Manuale di l’utilizatore.
+Impiegà stu buttone per apre u manuale di l’utilizatore nant’à u situ web." />
+            <npcAbbreviation-tip value="Abbreviamentu : nome
+NBSP : spaziu nonspezzevule
+ZWSP : spaziu di larghezza nulla
+ZWNBSP : spaziu nonspezzevule di larghezza nulla
+Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
+Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web." />
+            <npcCodepoint-tip value="Puntu di codice : nome
+U+00A0 : spaziu nonspezzevule
+U+200B : spaziu di larghezza nulla
+U+FEFF : spaziu nonspezzevule di larghezza nulla
+Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
+Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web." />
+            <npcCustomColor-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (« Culore persunalizatu di i caratteri nonstampevule »)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

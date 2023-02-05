@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	German localization for Notepad++
-	last modified: 2022-12-31 by schnurlos
+	last modified: 2023-02-05 by schnurlos
 
 	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
 
@@ -10,7 +10,7 @@
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.9"><!-- basiert auf english.xml vom 31.12.2022 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.9"><!-- basiert auf english.xml vom 05.02.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -119,6 +119,7 @@
 					<Item id="42006" name="&amp;Löschen"/>
 					<Item id="42007" name="&amp;Alles auswählen"/>
 					<Item id="42020" name="Auswa&amp;hl beginnen/beenden"/>
+					<Item id="42089" name="Beginn/Ende der Auswahl im Spaltenmodus"/>
 					<Item id="42084" name="Datum und Uhrzeit (kurz)"/>
 					<Item id="42085" name="Datum und Uhrzeit (lang)"/>
 					<Item id="42086" name="Datum und Uhrzeit (benutzerdefiniert)"/>
@@ -301,6 +302,7 @@
 					<Item id="44113" name="Farbe 3 anwenden"/>
 					<Item id="44114" name="Farbe 4 anwenden"/>
 					<Item id="44115" name="Farbe 5 anwenden"/>
+					<Item id="44130" name="Nicht druckbare Zeichen anzeigen"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -931,6 +933,10 @@
 					<Item id="6248" name="Standard"/>
 					<Item id="6249" name="Klartext"/>
 					<Item id="6250" name="Benutzerdefinierte Farbe"/>
+					<Item id="6252" name="Nicht druckbare Zeichen"/>
+					<Item id="6254" name="Abkürzung"/>
+					<Item id="6255" name="Codepoint"/>
+					<Item id="6256" name="Benutzerdefinierte Farbe"/>
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
@@ -1324,7 +1330,18 @@ Ihre Einstellungen konnten nicht gespeichert werden. Bitte passen Sie die Einste
 			<DroppingFolderAsProjectModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse abgelegt werden, aber nicht beides zugleich, da das Programm im 'Verzeichnis als Projekt'-Modus ist.
 Um dies zu ändern aktivieren Sie die Option &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs."/>
 			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
-			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;Alt+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
+			<ColumnModeTip title="Tip zum Spalten-Modus" message="
+Es gibt 3 Möglichkeiten um in den Spaltenmodus zu wechseln:
+
+1. (Tastatur + Maus)  Alt-Taste beim Ziehen mit der linken Maustaste gedrückt halten
+
+2. (nur Tastatur)  Alt+Umschalttaste gedrückt halten und Pfeiltasten verwenden
+
+3. (Tastatur oder Maus)
+      Setzen Sie den Cursor auf die gewünschte Position am Anfang des Spaltenblocks, dann
+      den Befehl &quot;Beginn/Ende der Auswahl im Spaltenmodus&quot; ausführen;
+      Cursor an die gewünschte Position am Ende des Spaltenblocks bewegen, dann
+      erneut den Befehl &quot;Beginn/Ende der Auswahl im Spaltenmodus&quot; ausführen"/>
 			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Buffer."/>
 			<DoCloseOrNot title="Nicht existierende Datei behalten" message="Die Datei &quot;$STR_REPLACE$&quot; existiert nicht mehr.
 Soll die Datei im Editor behalten werden?"/>
@@ -1633,6 +1650,31 @@ ACHTUNG:
 1. Wenn Sie die Optionen hier ändern, müssen Sie die aktuell geöffneten großen Dateien erneut öffnen um die Änderung zu erhalten.
 
 2. Wenn &quot;Wortumbruch global deaktivieren&quot; aktiv ist und Sie eine große Datei öffnen, wird &quot;Wortumbruch&quot; für alle Dateien deaktiviert. Sie können das aber über das Menü &quot;Ansicht-&gt;Wortumbruch&quot; wieder aktivieren." />
+			<npcNote-tip value="Darstellung ausgewählter &quot;Nicht-ASCII&quot; Leerzeichen und nichtdruckbarer (Steuer-)Zeichen.
+
+HINWEIS:
+Einige Zeichen können bereits eine Darstellung haben und sind daher sichtbar. Zeilentrenner und Absatztrenner werden bereits standardmäßig durch Abkürzungen dargestellt.
+
+Die Verwendung der Darstellung deaktiviert die Zeicheneffekte im Text
+
+Eine vollständige Liste der ausgewählten Leerzeichen und nicht druckbaren Zeichen finden Sie im Benutzerhandbuch.
+
+Hier klicken für die Seite mit dem Benutzerhandbuch." />
+			<npcAbbreviation-tip value="Abkürzung : Name
+NBSP : geschütztes Leerzeichen
+ZWSP : breitenloses Leerzeichen
+ZWNBSP : breitenloses, geschützes Leerzeichen
+
+Für die vollständige Liste bitte im Benutzerhandbuch nachlesen.
+Klicke rechts auf &quot;?&quot; um die Seite mit dem Benutzerhandbuch zu öffnen." />
+            <npcCodepoint-tip value="Codepoint : name
+U+00A0 : geschütztes Leerzeichen
+U+200B : breitenloses Leerzeichen
+U+FEFF : breitenloses, geschützes Leerzeichen
+
+Für die vollständige Liste bitte im Benutzerhandbuch nachlesen.
+Klicke rechts auf &quot;?&quot; um die Seite mit dem Benutzerhandbuch zu öffnen." />
+			<npcCustomColor-tip value="Gehe zum Stil-Konfigurator um die Standardfarbe für gewählte Leerzeichen und nichtdruckbare Zeichen umzustellen(&quot;Nicht druckbare Zeichen anzeigen - Benutzerdefinierte Farbe&quot;)." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

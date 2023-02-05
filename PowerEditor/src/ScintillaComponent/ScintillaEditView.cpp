@@ -332,13 +332,13 @@ LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message
 
 	if (Message == WM_MOUSEWHEEL || Message == WM_MOUSEHWHEEL)
 	{
-		POINT pt;
+		POINT pt{};
 		POINTS pts = MAKEPOINTS(lParam);
 		POINTSTOPOINT(pt, pts);
 		HWND hwndOnMouse = WindowFromPoint(pt);
 
 		//Hack for Synaptics TouchPad Driver
-		char synapticsHack[26];
+		char synapticsHack[26]{};
 		GetClassNameA(hwndOnMouse, (LPSTR)&synapticsHack, 26);
 		bool isSynpnatic = std::string(synapticsHack) == "SynTrackCursorWindowClass";
 		bool makeTouchPadCompetible = ((NppParameters::getInstance()).getSVP())._disableAdvancedScrolling;
@@ -399,9 +399,9 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 			if (wParam == IMR_RECONVERTSTRING)
 			{
-				intptr_t					textLength;
-				intptr_t					selectSize;
-				char				smallTextBuffer[128];
+				intptr_t					textLength = 0;
+				intptr_t					selectSize = 0;
+				char				smallTextBuffer[128] = { '\0' };
 				char			  *	selectedStr = smallTextBuffer;
 				RECONVERTSTRING   *	reconvert = (RECONVERTSTRING *)lParam;
 
@@ -451,7 +451,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 					textLength = ::MultiByteToWideChar(	codepage, 0,
 														selectedStr, (int)selectSize,
 														(LPWSTR)((LPSTR)reconvert + sizeof(RECONVERTSTRING)),
-														reconvert->dwSize - sizeof(RECONVERTSTRING));
+														static_cast<int>(reconvert->dwSize - sizeof(RECONVERTSTRING)));
 
 					// fill the structure
 					reconvert->dwVersion		 = 0;
@@ -1205,7 +1205,7 @@ void ScintillaEditView::setTypeScriptLexer()
 		return basic_string<char>("");
 	};
 
-	auto keywordListInstruction = getKeywordList(LANG_INDEX_INSTR);
+	std::string keywordListInstruction = getKeywordList(LANG_INDEX_INSTR);
 	const char* tsInstructions = getCompleteKeywordList(keywordListInstruction, L_TYPESCRIPT, LANG_INDEX_INSTR);
 
 	string keywordListType = getKeywordList(LANG_INDEX_TYPE);
@@ -2368,12 +2368,12 @@ void ScintillaEditView::getVisibleStartAndEndPosition(intptr_t* startPos, intptr
 {
 	assert(startPos != NULL && endPos != NULL);
 	// Get the position of the 1st and last showing chars from the edit view
-	RECT rcEditView;
+	RECT rcEditView{};
 	getClientRect(rcEditView);
 	LRESULT pos = execute(SCI_POSITIONFROMPOINT, 0, 0);
 	LRESULT line = execute(SCI_LINEFROMPOSITION, pos);
 	*startPos = execute(SCI_POSITIONFROMLINE, line);
-	pos = execute(SCI_POSITIONFROMPOINT, rcEditView.right - rcEditView.left, rcEditView.bottom - rcEditView.top);
+	pos = execute(SCI_POSITIONFROMPOINT, static_cast<WPARAM>(rcEditView.right - rcEditView.left), static_cast<LPARAM>(rcEditView.bottom - rcEditView.top));
 	line = execute(SCI_LINEFROMPOSITION, pos);
 	*endPos = execute(SCI_GETLINEENDPOSITION, line);
 }
@@ -3991,7 +3991,7 @@ pair<size_t, size_t> ScintillaEditView::getSelectedCharsAndLinesCount(long long 
 		}
 		sort(v.begin(), v.end());
 		intptr_t previousSecondLine = -1;
-		for (auto lineRange : v)
+		for (auto& lineRange : v)
 		{
 			selectedCharsAndLines.second += lineRange.second - lineRange.first;
 			if (lineRange.first != static_cast<size_t>(previousSecondLine))
@@ -4091,7 +4091,7 @@ void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= fals
 			TEXT("\r\n----\r\n") : TEXT("\r\n");
 
 		generic_string joined;
-		for (auto item : styledVect)
+		for (auto& item : styledVect)
 		{
 			joined += delim + item.second;
 		}

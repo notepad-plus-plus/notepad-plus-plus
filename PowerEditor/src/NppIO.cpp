@@ -796,6 +796,8 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 			_pDocumentListPanel->closeItem(hiddenBufferID, whichOne);
 	}
 
+	checkSyncState();
+
 	// Notify plugins that current file is closed
 	if (isBufRemoved)
 	{

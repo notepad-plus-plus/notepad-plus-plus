@@ -97,7 +97,8 @@ RECT TaskList::adjustSize()
 	const int aSpaceWidth = ListView_GetStringWidth(_hSelf, TEXT(" "));
 
 	// See https://stackoverflow.com/questions/48128036/why-does-window-geometry-change-when-migrating-from-vs2010-to-vs2017
-	const int leftMarge = (::GetSystemMetrics(SM_CXFRAME) + ::GetSystemMetrics(SM_CXPADDEDBORDER)) * 2 + aSpaceWidth * 4;
+	const int paddedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER);
+	const int leftMarge = (::GetSystemMetrics(SM_CXFRAME) + paddedBorder) * 2 + aSpaceWidth * 4;
 
 	// Temporary set "selected" font to get the worst case widths
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSelected), 0);

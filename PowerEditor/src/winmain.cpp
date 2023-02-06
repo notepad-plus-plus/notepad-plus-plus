@@ -55,7 +55,7 @@ void allowPrivilegeMessages(Notepad_plus_Window& notepad_plus_plus, winVer winVe
 				if (func)
 				{
 					func(WM_COPYDATA, MSGFLT_ADD);
-					func(NPPM_INTERNAL_RESTOREMONOINSTANCE, MSGFLT_ADD);
+					func(NPPM_INTERNAL_RESTOREFROMTRAY, MSGFLT_ADD);
 				}
 			}
 			else
@@ -67,7 +67,7 @@ void allowPrivilegeMessages(Notepad_plus_Window& notepad_plus_plus, winVer winVe
 				if (funcEx)
 				{
 					funcEx(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL);
-					funcEx(notepad_plus_plus.getHSelf(), NPPM_INTERNAL_RESTOREMONOINSTANCE, MSGFLT_ALLOW, NULL);
+					funcEx(notepad_plus_plus.getHSelf(), NPPM_INTERNAL_RESTOREFROMTRAY, MSGFLT_ALLOW, NULL);
 				}
 			}
 		}
@@ -565,7 +565,21 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int)
 			nppParameters.destroyInstance();
 
 			// Restore the window, bring it to front, etc
-			::SendMessage(hNotepad_plus, NPPM_INTERNAL_RESTOREMONOINSTANCE, 0, 0);
+			bool isInSystemTray = ::SendMessage(hNotepad_plus, NPPM_INTERNAL_RESTOREFROMTRAY, 0, 0);
+
+			if (!isInSystemTray)
+			{
+				int sw = 0;
+
+				if (::IsZoomed(hNotepad_plus))
+					sw = SW_MAXIMIZE;
+				else if (::IsIconic(hNotepad_plus))
+					sw = SW_RESTORE;
+
+				if (sw != 0)
+					::ShowWindow(hNotepad_plus, sw);
+			}
+			::SetForegroundWindow(hNotepad_plus);
 
 			if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
 			{

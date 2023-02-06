@@ -2488,31 +2488,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_RESTOREMONOINSTANCE:
+		case NPPM_INTERNAL_RESTOREFROMTRAY:
 		{
 			// When mono instance, bring this one to front
 			if (_pTrayIco != nullptr && _pTrayIco->isInTray())
 			{
 				// We are in tray, restore properly..
 				::SendMessage(hwnd, NPPM_INTERNAL_MINIMIZED_TRAY, 0, WM_LBUTTONUP);
+				return TRUE;
 			}
-			else
-			{
-				// We were not in tray..
-				int sw = 0;
-
-				if (::IsZoomed(hwnd))
-					sw = SW_MAXIMIZE;
-				else if (::IsIconic(hwnd))
-					sw = SW_RESTORE;
-
-				if (sw != 0)
-					::ShowWindow(hwnd, sw);
-
-				::SetForegroundWindow(hwnd);
-			}
-			
-			return TRUE;
+			return FALSE;
 		}
 
 		case WM_SYSCOMMAND:

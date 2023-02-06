@@ -226,6 +226,24 @@ void Buffer::setFileName(const TCHAR *fn)
 			determinatedLang = L_BASH;
 	}
 
+	if (!*ext && determinatedLang == L_TEXT) // unknown file type with no file extension
+	{
+		LangType detectedLang = L_TEXT;
+		// length *must* be compared as a *signed* type: size_t(-1) => 0xFFFFFFFFFFFFFFFF
+		intptr_t docLen = static_cast<intptr_t>(_pManager->docLength(this));
+		if (docLen > 0)
+		{
+			char buf[256] = { 0 };
+			if (_pManager->getFilePrelude(this, buf))
+				detectedLang = _pManager->detectLanguageFromTextBegining((const unsigned char *)buf, docLen);
+		}
+
+		if (detectedLang != L_TEXT) // pattern detected
+			determinatedLang = detectedLang;
+		else // no pattern, no extension: fall back to preferred default
+			determinatedLang = (nppParamInst.getNppGUI().getNewDocDefaultSettings())._lang;
+	}
+
 	updateTimeStamp();
 
 	BufferStatusInfo lang2Change = BufferChangeNone;
@@ -1747,4 +1765,25 @@ size_t FileManager::docLength(Buffer* buffer) const
 	size_t docLen = _pscratchTilla->getCurrentDocLen();
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, curDoc);
 	return docLen;
+}
+
+bool FileManager::getFilePrelude(Buffer* buffer, char *data)
+{
+	Utf8_16_Write UnicodeConvertor;
+	UnicodeConvertor.setEncoding(buffer->getUnicodeMode());
+	if (!UnicodeConvertor.openFile(buffer->getFileName()))
+		return false;
+
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);
+	char *bytes = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);
+	if (!bytes)
+		return false;
+
+	size_t i = 0, maxPreludeLen = 64;
+	do
+		*(data + i) = *(bytes + i);
+	while ((++i < maxPreludeLen) && *bytes);
+
+	UnicodeConvertor.closeFile();
+	return true;
 }

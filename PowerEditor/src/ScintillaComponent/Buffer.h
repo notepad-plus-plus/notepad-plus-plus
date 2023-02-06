@@ -100,6 +100,8 @@ public:
 		static FileManager instance;
 		return instance;
 	};
+	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
+	bool getFilePrelude(Buffer* buffer, char *data);
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
@@ -125,7 +127,6 @@ private:
 
 	int detectCodepage(char* buf, size_t len);
 	bool loadFileData(Document doc, int64_t fileSize, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
-	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 	Notepad_plus* _pNotepadPlus = nullptr;
 	ScintillaEditView* _pscratchTilla = nullptr;

@@ -2331,6 +2331,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 	else if (canHideView(currentView()))
 		hideView(currentView());
 
+	checkSyncState();
+
 	if (_pDocumentListPanel)
 		_pDocumentListPanel->reload();
 

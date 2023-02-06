@@ -95,7 +95,9 @@ RECT TaskList::adjustSize()
 	ListView_GetItemRect(_hSelf, 0, &rc, LVIR_ICON);
 	const int imgWidth = rc.right - rc.left;
 	const int aSpaceWidth = ListView_GetStringWidth(_hSelf, TEXT(" "));
-	const int leftMarge = ::GetSystemMetrics(SM_CXFRAME) * 2 + aSpaceWidth * 4;
+
+	// See https://stackoverflow.com/questions/48128036/why-does-window-geometry-change-when-migrating-from-vs2010-to-vs2017
+	const int leftMarge = (::GetSystemMetrics(SM_CXFRAME) + ::GetSystemMetrics(SM_CXPADDEDBORDER)) * 2 + aSpaceWidth * 4;
 
 	// Temporary set "selected" font to get the worst case widths
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSelected), 0);
@@ -124,7 +126,7 @@ RECT TaskList::adjustSize()
 	reSizeTo(_rc);
 
 	// Task List's border is 1px smaller than ::GetSystemMetrics(SM_CYFRAME) returns
-	_rc.bottom += (::GetSystemMetrics(SM_CYFRAME) - 1) * 2;
+	_rc.bottom += (::GetSystemMetrics(SM_CYFRAME) + paddedBorder - 1) * 2;
 	return _rc;
 }
 

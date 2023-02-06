@@ -6333,7 +6333,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	}
 
 	// Unicode non-printable characters visibility State
-	_svp._npcShow = parseShowHideBoolAttribute(TEXT("npcShow"));
+	_svp._npcShow = parseShowHideBoolAttribute(TEXT("npcShow"), true);
 
 	nm = element->Attribute(TEXT("npcMode"), &val);
 	if (nm)

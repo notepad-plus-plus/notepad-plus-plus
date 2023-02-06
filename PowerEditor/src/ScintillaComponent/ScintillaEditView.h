@@ -122,7 +122,9 @@ const int MARK_HIDELINESUNDERLINE = 17;
 
 const std::vector<std::vector<const char*>> g_nonPrintingChars =
 {
+	{"\xC2\x85", "NEL", "U+0085"},           // U+0085 : next line
 	{"\xC2\xA0", "NBSP", "U+00A0"},          // U+00A0 : no-break space
+	{"\xD8\x9C", "ALM", "U+061C"},           // U+061C : arabic letter mark
 	{"\xE1\x9A\x80", "OSPM", "U+1680"},      // U+1680 : ogham space mark
 	{"\xE1\xA0\x8E", "MVS", "U+180E"},       // U+180E : mongolian vowel separator
 	{"\xE2\x80\x80", "NQSP", "U+2000"},      // U+2000 : en quad

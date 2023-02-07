@@ -226,11 +226,10 @@ void Buffer::setFileName(const TCHAR *fn)
 			determinatedLang = L_BASH;
 	}
 
-	if (!*ext && determinatedLang == L_TEXT) // unknown file type with no file extension
+	if (!*ext && !isUntitled() && determinatedLang == L_TEXT) // existing file with no file extension and unknown type
 	{
 		LangType detectedLang = L_TEXT;
-		// length *must* be compared as a *signed* type: size_t(-1) => 0xFFFFFFFFFFFFFFFF
-		intptr_t docLen = static_cast<intptr_t>(_pManager->docLength(this));
+		size_t docLen = _pManager->docLength(this);
 		if (docLen > 0)
 		{
 			char buf[256] = { 0 };
@@ -1782,7 +1781,7 @@ bool FileManager::getFilePrelude(Buffer* buffer, char *data)
 	size_t i = 0, maxPreludeLen = 64;
 	do
 		*(data + i) = *(bytes + i);
-	while ((++i < maxPreludeLen) && *bytes);
+	while ((++i < maxPreludeLen) && *(bytes + i));
 
 	UnicodeConvertor.closeFile();
 	return true;

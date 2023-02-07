@@ -5531,6 +5531,13 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optName)
 				_nppGUI._autocInsertSelectedUseTAB = (lstrcmp(optName, TEXT("yes")) == 0);
 
+			optName = element->Attribute(TEXT("autoCFilter"));
+			if (optName)
+				_nppGUI._autocFilter = (lstrcmp(optName, TEXT("yes")) == 0);
+
+			optName = element->Attribute(TEXT("autoCRecall"));
+			if (optName)
+				_nppGUI._autocRecall = (lstrcmp(optName, TEXT("yes")) == 0);
 
 			optName = element->Attribute(TEXT("funcParams"));
 			if (optName)
@@ -7012,6 +7019,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = _nppGUI._autocInsertSelectedUseTAB ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("insertSelectedItemUseTAB"), pStr);
+
+		pStr = _nppGUI._autocFilter ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("autoCFilter"), pStr);
+
+		pStr = _nppGUI._autocRecall ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("autoCRecall"), pStr);
 
 		pStr = _nppGUI._funcParams ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("funcParams"), pStr);

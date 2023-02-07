@@ -4023,8 +4023,11 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			::SendDlgItemMessage(_hSelf, selectedID, BM_SETCHECK, BST_CHECKED, 0);
 
 			if (nppGUI._autocStatus == nppGUI.autoc_word || nppGUI._autocStatus == nppGUI.autoc_both)
+			{
+				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FILTER_CHECK), FALSE);
 				::SendDlgItemMessage(_hSelf, IDD_AUTOC_IGNORENUMBERS, BM_SETCHECK, nppGUI._autocIgnoreNumbers ? BST_CHECKED : BST_UNCHECKED, 0);
-				
+			}
+
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_USEENTER, BM_SETCHECK, nppGUI._autocInsertSelectedUseENTER ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_USETAB, BM_SETCHECK, nppGUI._autocInsertSelectedUseTAB ? BST_CHECKED : BST_UNCHECKED, 0);
 
@@ -4040,6 +4043,8 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			}
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
 
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_FILTER_CHECK, BM_SETCHECK, nppGUI._autocFilter ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_RECALL_CHECK, BM_SETCHECK, nppGUI._autocRecall ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDD_FUNC_CHECK, BM_SETCHECK, nppGUI._funcParams ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::SendDlgItemMessage(_hSelf, IDD_AUTOCPARENTHESES_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doParentheses?BST_CHECKED:BST_UNCHECKED, 0);
@@ -4217,6 +4222,10 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 						::SendDlgItemMessage(_hSelf, IDD_AUTOC_FUNCRADIO, BM_SETCHECK, BST_UNCHECKED, 0);
 						::SendDlgItemMessage(_hSelf, IDD_AUTOC_WORDRADIO, BM_SETCHECK, BST_UNCHECKED, 0);
 						::SendDlgItemMessage(_hSelf, IDD_AUTOC_BOTHRADIO, BM_SETCHECK, BST_UNCHECKED, 0);
+						::SendDlgItemMessage(_hSelf, IDD_AUTOC_FILTER_CHECK, BM_SETCHECK, BST_UNCHECKED, 0);
+						nppGUI._autocFilter = false;
+						::SendDlgItemMessage(_hSelf, IDD_AUTOC_RECALL_CHECK, BM_SETCHECK, BST_UNCHECKED, 0);
+						nppGUI._autocRecall = false;
 						nppGUI._autocStatus = nppGUI.autoc_none;
 
 						::SendDlgItemMessage(_hSelf, IDD_AUTOC_IGNORENUMBERS, BM_SETCHECK, BST_UNCHECKED, 0);
@@ -4225,6 +4234,8 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_BOTHRADIO), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FILTER_CHECK), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_RECALL_CHECK), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEKEY_GRP_STATIC), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), isEnableAutoC);
@@ -4241,7 +4252,9 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					::SendDlgItemMessage(_hSelf, IDD_AUTOC_IGNORENUMBERS, BM_SETCHECK, BST_UNCHECKED, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), FALSE);
 					nppGUI._autocIgnoreNumbers = false;
-
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FILTER_CHECK), TRUE);
+					::SendDlgItemMessage(_hSelf, IDD_AUTOC_RECALL_CHECK, BM_SETCHECK, BST_UNCHECKED, 0);
+					nppGUI._autocRecall = false;
 					return TRUE;
 				}
 
@@ -4249,6 +4262,9 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				{
 					nppGUI._autocStatus = nppGUI.autoc_word;
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), TRUE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FILTER_CHECK), FALSE);
+					::SendDlgItemMessage(_hSelf, IDD_AUTOC_FILTER_CHECK, BM_SETCHECK, BST_UNCHECKED, 0);
+					nppGUI._autocFilter = false;
 					return TRUE;
 				}
 
@@ -4256,6 +4272,9 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				{
 					nppGUI._autocStatus = nppGUI.autoc_both;
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), TRUE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FILTER_CHECK), FALSE);
+					::SendDlgItemMessage(_hSelf, IDD_AUTOC_FILTER_CHECK, BM_SETCHECK, BST_UNCHECKED, 0);
+					nppGUI._autocFilter = false;
 					return TRUE;
 				}
 
@@ -4274,6 +4293,18 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				case IDD_AUTOC_IGNORENUMBERS:
 				{
 					nppGUI._autocIgnoreNumbers = isCheckedOrNot(static_cast<int32_t>(wParam));
+					return TRUE;
+				}
+
+				case IDD_AUTOC_FILTER_CHECK :
+				{
+					nppGUI._autocFilter = isCheckedOrNot(static_cast<int32_t>(wParam));
+					return TRUE;
+				}
+
+				case IDD_AUTOC_RECALL_CHECK :
+				{
+					nppGUI._autocRecall = isCheckedOrNot(static_cast<int32_t>(wParam));
 					return TRUE;
 				}
 

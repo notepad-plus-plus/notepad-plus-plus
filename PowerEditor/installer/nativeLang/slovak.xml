@@ -1407,6 +1407,7 @@ Pokračovať?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných doplnkov je potrebné Notepad++ reštartovať."/>
             <ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/>
             <WindowsSessionExit title="Notepad++ - Ukončenie relácie Windowsu" message="Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete Notepad++ ukončiť teraz?"/>
+            <LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>
@@ -1662,7 +1663,9 @@ U+200B : medzera s nulovou šírkou
 U+FEFF : nezalomiteľná medzera s nulovou šírkou
 Úplný zoznam nájdete v používateľskej príručke.
 Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s používateľskou príručkou." />
-            <npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Vlastná farba netlačiteľných znakov&quot;)." />
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Non-printing characters custom color&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

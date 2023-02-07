@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 6th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 7th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
@@ -1131,7 +1131,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 <RecentFilesHistory title="Schedarii recenti">
                     <Item id="6304" name="Cronolugia di i schedarii recenti"/>
                     <Item id="6306" name="Numeru massimu d’elementi :"/>
-                    <Item id="6305" name="Ùn verificà micca à l’avviu"/>
+                    <Item id="6305" name="Ùn verificà micca à u lanciu"/>
                     <Item id="6429" name="Affissera"/>
                     <Item id="6424" name="In sottulistinu"/>
                     <Item id="6425" name="Nome di schedariu solu"/>
@@ -1145,7 +1145,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6819" name="Salvaguardia ogni :"/>
                     <Item id="6821" name="seconde"/>
                     <Item id="6822" name="Chjassu :"/>
-                    <Item id="6309" name="Arricurdassi di a sessione currente per u prossimu avviu"/>
+                    <Item id="6309" name="Arricurdassi di a sessione currente per u prossimu lanciu"/>
                     <Item id="6801" name="Salvaguardia à l’arregistramentu"/>
                     <Item id="6315" name="Alcuna"/>
                     <Item id="6316" name="Salvaguardia simplice"/>
@@ -1442,6 +1442,7 @@ Cuntinuà ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per permette l’affissera di a cronolugia di i cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Fine di a sessione Windows" message="A sessione Windows stà per piantassi ma ci hè qualchì datu chì ùn hè micca arregistratu. Vulete esce di Notepad++ subitu ?"/>
+            <LanguageMenuCompactWarning title="Cumpattà l’affissera di u listinu" message="St’ozzione serà cambiata à u prossimu lanciu."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1696,7 +1697,7 @@ U+200B : spaziu di larghezza nulla
 U+FEFF : spaziu nonspezzevule di larghezza nulla
 Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
 Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web." />
-            <npcCustomColor-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (« Culore persunalizatu di i caratteri nonstampevule »)." />
+            <npcCustomColor-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)." /> <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -147,10 +147,11 @@ bool WordList::Set(const char *s) {
 bool WordList::InList(const char *s) const noexcept {
 	if (!words)
 		return false;
-	const unsigned char firstChar = s[0];
+	const char first = s[0];
+	const unsigned char firstChar = first;
 	int j = starts[firstChar];
 	if (j >= 0) {
-		while (words[j][0] == firstChar) {
+		while (words[j][0] == first) {
 			if (s[1] == words[j][1]) {
 				const char *a = words[j] + 1;
 				const char *b = s + 1;
@@ -189,10 +190,11 @@ bool WordList::InList(const char *s) const noexcept {
 bool WordList::InListAbbreviated(const char *s, const char marker) const noexcept {
 	if (!words)
 		return false;
-	const unsigned char firstChar = s[0];
+	const char first = s[0];
+	const unsigned char firstChar = first;
 	int j = starts[firstChar];
 	if (j >= 0) {
-		while (words[j][0] == firstChar) {
+		while (words[j][0] == first) {
 			bool isSubword = false;
 			int start = 1;
 			if (words[j][1] == marker) {
@@ -243,10 +245,11 @@ bool WordList::InListAbbreviated(const char *s, const char marker) const noexcep
 bool WordList::InListAbridged(const char *s, const char marker) const noexcept {
 	if (!words)
 		return false;
-	const unsigned char firstChar = s[0];
+	const char first = s[0];
+	const unsigned char firstChar = first;
 	int j = starts[firstChar];
 	if (j >= 0) {
-		while (words[j][0] == firstChar) {
+		while (words[j][0] == first) {
 			const char *a = words[j];
 			const char *b = s;
 			while (*a && *a == *b) {

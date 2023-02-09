@@ -30,14 +30,16 @@ class StyleContext {
 		if (multiByteAccess) {
 			chNext = multiByteAccess->GetCharacterAndWidth(currentPos+width, &widthNext);
 		} else {
-			chNext = static_cast<unsigned char>(styler.SafeGetCharAt(currentPos+width, 0));
+			const unsigned char charNext = styler.SafeGetCharAt(currentPos + width, 0);
+			chNext = charNext;
 		}
 		// End of line determined from line end position, allowing CR, LF,
 		// CRLF and Unicode line ends as set by document.
+		const Sci_Position currentPosSigned = currentPos;
 		if (currentLine < lineDocEnd)
-			atLineEnd = static_cast<Sci_Position>(currentPos) >= (lineStartNext-1);
+			atLineEnd = currentPosSigned >= (lineStartNext-1);
 		else // Last line
-			atLineEnd = static_cast<Sci_Position>(currentPos) >= lineStartNext;
+			atLineEnd = currentPosSigned >= lineStartNext;
 	}
 
 public:
@@ -115,11 +117,12 @@ public:
 		styler.ColourTo(currentPos - ((currentPos > lengthDocument) ? 2 : 1), state);
 		state = state_;
 	}
-	Sci_Position LengthCurrent() const {
+	Sci_Position LengthCurrent() const noexcept {
 		return currentPos - styler.GetStartSegment();
 	}
 	int GetRelative(Sci_Position n, char chDefault='\0') {
-		return static_cast<unsigned char>(styler.SafeGetCharAt(currentPos+n, chDefault));
+		const unsigned char chRelative = styler.SafeGetCharAt(currentPos + n, chDefault);
+		return chRelative;
 	}
 	int GetRelativeCharacter(Sci_Position n) {
 		if (n == 0)
@@ -140,25 +143,32 @@ public:
 			return chReturn;
 		} else {
 			// fast version for single byte encodings
-			return static_cast<unsigned char>(styler.SafeGetCharAt(currentPos + n, 0));
+			const unsigned char chRelative = styler.SafeGetCharAt(currentPos + n, 0);
+			return chRelative;
 		}
 	}
 	bool MatchLineEnd() const noexcept {
-		return static_cast<Sci_Position>(currentPos) == lineEnd;
+		const Sci_Position currentPosSigned = currentPos;
+		return currentPosSigned == lineEnd;
 	}
-	bool Match(char ch0) const {
-		return ch == static_cast<unsigned char>(ch0);
+	bool Match(char ch0) const noexcept {
+		const unsigned char uch0 = ch0;
+		return ch == uch0;
 	}
-	bool Match(char ch0, char ch1) const {
-		return (ch == static_cast<unsigned char>(ch0)) && (chNext == static_cast<unsigned char>(ch1));
+	bool Match(char ch0, char ch1) const noexcept {
+		const unsigned char uch0 = ch0;
+		const unsigned char uch1 = ch1;
+		return (ch == uch0) && (chNext == uch1);
 	}
 	bool Match(const char *s) {
-		if (ch != static_cast<unsigned char>(*s))
+		const unsigned char su = *s;
+		if (ch != su)
 			return false;
 		s++;
 		if (!*s)
 			return true;
-		if (chNext != static_cast<unsigned char>(*s))
+		const unsigned char sNext = *s;
+		if (chNext != sNext)
 			return false;
 		s++;
 		for (int n=2; *s; n++) {

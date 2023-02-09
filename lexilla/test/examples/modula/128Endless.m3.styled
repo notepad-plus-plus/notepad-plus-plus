@@ -1,0 +1,15 @@
+{1}(* This file caused an infinite loop in the folder before #128 was fixed.*){0}
+{4}MODULE{0} Form{16};{0}
+  {4}IMPORT{0}  
+
+  {4}PROCEDURE{0} {16}({0}bf{16}:{0} ButtonForm{16}){0} InitializeComponent{16}(),{0} {5}NEW{16};{0}
+  {4}BEGIN{0}
+    bf{16}.{0}SuspendLayout{16}();{0}
+    REGISTER{16}({0}bf{16}.{0}button1{16}.{0}Click{16},{0} bf{16}.{0}button1_Click{16});{0}
+    bf{16}.{0}get_Controls{16}().{0}Add{16}({0}bf{16}.{0}button2{16});{0}
+  {4}END{0} InitializeComponent{16};{0}
+
+{4}BEGIN{0}
+    {5}NEW{16}({0}bf{16});{0}
+    Wfm{16}.{0}Application{16}.{0}Run{16}({0}bf{16});{0}
+{4}END{0} Form{16}.{0}

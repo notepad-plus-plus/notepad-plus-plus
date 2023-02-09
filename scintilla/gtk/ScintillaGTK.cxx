@@ -322,6 +322,10 @@ void ScintillaGTK::RealizeThis(GtkWidget *widget) {
 			 G_CALLBACK(Commit), this);
 	g_signal_connect(G_OBJECT(im_context.get()), "preedit_changed",
 			 G_CALLBACK(PreeditChanged), this);
+	g_signal_connect(G_OBJECT(im_context.get()), "retrieve-surrounding",
+			 G_CALLBACK(RetrieveSurrounding), this);
+	g_signal_connect(G_OBJECT(im_context.get()), "delete-surrounding",
+			 G_CALLBACK(DeleteSurrounding), this);
 	gtk_im_context_set_client_window(im_context.get(), WindowFromWidget(widget));
 
 	GtkWidget *widtxt = PWidget(wText);	//	// No code inside the G_OBJECT macro
@@ -2000,7 +2004,7 @@ gint ScintillaGTK::ScrollEvent(GtkWidget *widget, GdkEventScroll *event) {
 		// where the X11 server already has an adaptive scrolling algorithm
 		// that fights with this one
 		int cLineScroll;
-#if defined(__APPLE__) && !defined(GDK_WINDOWING_QUARTZ)
+#if (defined(__APPLE__) || defined(PLAT_GTK_WIN32)) && !defined(GDK_WINDOWING_QUARTZ)
 		cLineScroll = sciThis->linesPerScroll;
 		if (cLineScroll == 0)
 			cLineScroll = 4;
@@ -2603,6 +2607,65 @@ void ScintillaGTK::PreeditChanged(GtkIMContext *, ScintillaGTK *sciThis) {
 	} else {
 		sciThis->PreeditChangedWindowedThis();
 	}
+}
+
+bool ScintillaGTK::RetrieveSurroundingThis(GtkIMContext *context) {
+	try {
+		const Sci::Position pos = CurrentPosition();
+		const int line = pdoc->LineFromPosition(pos);
+		const Sci::Position startByte = pdoc->LineStart(line);
+		const Sci::Position endByte = pdoc->LineEnd(line);
+
+		std::string utf8Text;
+		gint cursorIndex; // index of the cursor inside utf8Text, in bytes
+		const char *charSetBuffer;
+
+		if (IsUnicodeMode() || ! *(charSetBuffer = CharacterSetID())) {
+			utf8Text = RangeText(startByte, endByte);
+			cursorIndex = pos - startByte;
+		} else {
+			// Need to convert
+			std::string tmpbuf = RangeText(startByte, pos);
+			utf8Text = ConvertText(&tmpbuf[0], tmpbuf.length(), "UTF-8", charSetBuffer, false);
+			cursorIndex = utf8Text.length();
+			if (endByte > pos) {
+				tmpbuf = RangeText(pos, endByte);
+				utf8Text += ConvertText(&tmpbuf[0], tmpbuf.length(), "UTF-8", charSetBuffer, false);
+			}
+		}
+
+		gtk_im_context_set_surrounding(context, &utf8Text[0], utf8Text.length(), cursorIndex);
+
+		return true;
+	} catch (...) {
+		errorStatus = Status::Failure;
+	}
+	return false;
+}
+
+gboolean ScintillaGTK::RetrieveSurrounding(GtkIMContext *context, ScintillaGTK *sciThis) {
+	return sciThis->RetrieveSurroundingThis(context);
+}
+
+bool ScintillaGTK::DeleteSurroundingThis(GtkIMContext *, gint characterOffset, gint characterCount) {
+	try {
+		const Sci::Position startByte = pdoc->GetRelativePosition(CurrentPosition(), characterOffset);
+		if (startByte == INVALID_POSITION)
+			return false;
+
+		const Sci::Position endByte = pdoc->GetRelativePosition(startByte, characterCount);
+		if (endByte == INVALID_POSITION)
+			return false;
+
+		return pdoc->DeleteChars(startByte, endByte - startByte);
+	} catch (...) {
+		errorStatus = Status::Failure;
+	}
+	return false;
+}
+
+gboolean ScintillaGTK::DeleteSurrounding(GtkIMContext *context, gint characterOffset, gint characterCount, ScintillaGTK *sciThis) {
+	return sciThis->DeleteSurroundingThis(context, characterOffset, characterCount);
 }
 
 void ScintillaGTK::StyleSetText(GtkWidget *widget, GtkStyle *, void *) {

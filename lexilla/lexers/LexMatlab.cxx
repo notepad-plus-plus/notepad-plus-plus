@@ -286,7 +286,11 @@ static void ColouriseMatlabOctaveDoc(
 		} else if (sc.state == SCE_MATLAB_NUMBER) {
 			if (!isdigit(sc.ch) && sc.ch != '.'
 			        && !(sc.ch == 'e' || sc.ch == 'E')
-			        && !((sc.ch == '+' || sc.ch == '-') && (sc.chPrev == 'e' || sc.chPrev == 'E'))) {
+			        && !((sc.ch == '+' || sc.ch == '-') && (sc.chPrev == 'e' || sc.chPrev == 'E'))
+			        && !(((sc.ch == 'x' || sc.ch == 'X') && sc.chPrev == '0') || (sc.ch >= 'a' && sc.ch <= 'f') || (sc.ch >= 'A' && sc.ch <= 'F'))
+			        && !(sc.ch == 's' || sc.ch == 'S' || sc.ch == 'u' || sc.ch == 'U')
+			        && !(sc.ch == 'i' || sc.ch == 'I' || sc.ch == 'j' || sc.ch == 'J')
+			        && !(sc.ch == '_')) {
 				sc.SetState(SCE_MATLAB_DEFAULT);
 				transpose = true;
 			}
@@ -297,14 +301,16 @@ static void ColouriseMatlabOctaveDoc(
 				} else {
 					sc.ForwardSetState(SCE_MATLAB_DEFAULT);
 				}
+			} else if (sc.MatchLineEnd()) {
+				sc.SetState(SCE_MATLAB_DEFAULT);
 			}
 		} else if (sc.state == SCE_MATLAB_DOUBLEQUOTESTRING) {
 			if (sc.ch == '\\' && !ismatlab) {
-				if (sc.chNext == '\"' || sc.chNext == '\'' || sc.chNext == '\\') {
-					sc.Forward();
-				}
+				sc.Forward(); // skip escape sequence, new line and others after backlash
 			} else if (sc.ch == '\"') {
 				sc.ForwardSetState(SCE_MATLAB_DEFAULT);
+			} else if (sc.MatchLineEnd()) {
+				sc.SetState(SCE_MATLAB_DEFAULT);
 			}
 		} else if (sc.state == SCE_MATLAB_COMMAND) {
 			if (sc.atLineEnd) {

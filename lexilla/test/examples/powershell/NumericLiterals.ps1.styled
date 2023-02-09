@@ -1,0 +1,35 @@
+{1}# Treat any leading [-+] as default to reduce match complexity{0}
+{1}# https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_numeric_literals?view=powershell-7.3#examples{0}
+{4}100{0}
+{4}100u{0}
+{4}100D{0}
+{4}100l{0}
+{4}100uL{0}
+{4}100us{0}
+{4}100uy{0}
+{4}100y{0}
+{4}1e2{0}
+{4}1.e2{0}
+{4}0x1e2{0}
+{4}0x1e2L{0}
+{4}0x1e2D{0}
+{4}482D{0}
+{4}482gb{0}
+{4}482ngb{0}
+{4}0x1e2lgb{0}
+{4}0b1011011{0}
+{4}0xFFFFs{0}
+{4}0xFFFFFFFF{0}
+{6}-{4}0xFFFFFFFF{0}
+{4}0xFFFFFFFFu{0}
+
+{1}# Float{0}
+{4}0.5{0}
+{4}.5{0}
+
+{1}# Range{0}
+{4}1{6}..{4}100{0}
+
+{1}# Issue118: 7d is numeric while 7z is user defined keyword{0}
+{4}7d{0}
+{12}7z{0}

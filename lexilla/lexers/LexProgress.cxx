@@ -221,6 +221,13 @@ Sci_Position SCI_METHOD LexerABL::WordListSet(int n, const char *wl) {
    return firstModification;
 }
 
+#if defined(__clang__)
+#if __has_warning("-Wunused-but-set-variable")
+// Disable warning for visibleChars
+#pragma clang diagnostic ignored "-Wunused-but-set-variable"
+#endif
+#endif
+
 void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
    LexAccessor styler(pAccess);
 

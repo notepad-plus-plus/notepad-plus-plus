@@ -218,6 +218,54 @@ bool IsFirstNonWhitespace(Sci_Position pos, Accessor &styler) {
 	return true;
 }
 
+unsigned char GetNextNonWhitespaceChar(Accessor &styler, Sci_PositionU pos, Sci_PositionU maxPos, Sci_PositionU *charPosPtr = nullptr) {
+	while (pos < maxPos) {
+		const unsigned char ch = styler.SafeGetCharAt(pos, '\0');
+		if (!(ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r')) {
+			if (charPosPtr != nullptr) {
+				*charPosPtr = pos;
+			}
+			return ch;
+		}
+		pos++;
+	}
+
+	return '\0';
+}
+
+// Returns whether symbol is "match" or "case" and it is an identifier &
+// not a keyword. Does not require the line to end with : so "match\n"
+// and "match (x)\n" return false because match could be a keyword once
+// more text is added
+bool IsMatchOrCaseIdentifier(const StyleContext &sc, Accessor &styler, const char *symbol) {
+	if (strcmp(symbol, "match") != 0 && strcmp(symbol, "case") != 0) {
+		return false;
+	}
+
+	if (!IsFirstNonWhitespace(sc.currentPos - strlen(symbol), styler)) {
+		return true;
+	}
+
+	// The match keyword can be followed by an expression; the case keyword
+	// is a bit more restrictive but not much. Here, we look for the next
+	// char and return false if the char cannot start an expression; for '.'
+	// we look at the following char to see if it's a digit because .1 is a
+	// number
+	Sci_PositionU nextCharPos = 0;
+	const unsigned char nextChar = GetNextNonWhitespaceChar(styler, sc.currentPos, sc.lineEnd, &nextCharPos);
+	if (nextChar == '=' || nextChar == '#') {
+		return true;
+	}
+	if (nextChar == '.' && nextCharPos >= sc.currentPos) {
+		const unsigned char followingChar = GetNextNonWhitespaceChar(styler, nextCharPos+1, sc.lineEnd);
+		if (!IsADigit(followingChar)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 // Options used for LexerPython
 struct OptionsPython {
 	int whingeLevel;
@@ -613,7 +661,7 @@ void SCI_METHOD LexerPython::Lex(Sci_PositionU startPos, Sci_Position length, in
 				int style = SCE_P_IDENTIFIER;
 				if ((kwLast == kwImport) && (strcmp(s, "as") == 0)) {
 					style = SCE_P_WORD;
-				} else if (keywords.InList(s)) {
+				} else if (keywords.InList(s) && !IsMatchOrCaseIdentifier(sc, styler, s)) {
 					style = SCE_P_WORD;
 				} else if (kwLast == kwClass) {
 					style = SCE_P_CLASSNAME;

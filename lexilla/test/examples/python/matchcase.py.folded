@@ -1,0 +1,26 @@
+ 0 400   0   # Match and case as keywords
+ 2 400   0 + match (x):
+ 2 404   0 +     case +1:
+ 0 408   0 |         pass
+ 2 404   0 +     case -1:
+ 0 408   0 |         pass
+ 2 404   0 +     case []:
+ 0 408   0 |         pass
+ 1 408   0 |     
+ 0 400   0   # Match and case as identifiers
+ 0 400   0   match = 1
+ 2 400   0 + def match():
+ 0 404   0 |     pass
+ 0 400   0   match.group()
+ 0 400   0   1 + match
+ 0 400   0   case.attribute
+ 1 400   0   
+ 0 400   0   # Unfortunately wrong classifications; should be rare in real code because
+ 0 400   0   # non-call expressions usually don't begin lines, the exceptions are match(x)
+ 0 400   0   # and case(x)
+ 0 400   0   match(x)
+ 0 400   0   case(x)
+ 0 400   0   match + 1
+ 0 400   0   case + 1
+ 0 400   0   case[1]
+ 1 400   0   

@@ -72,7 +72,7 @@ constexpr int Maximum(int a, int b) noexcept {
 }
 
 // Shut up annoying Visual C++ warnings:
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 #pragma warning(disable: 4244 4456 4457)
 #endif
 

@@ -37,7 +37,9 @@ public:
 
 typedef std::map<FontSpecification, std::unique_ptr<FontRealised>> FontMap;
 
-inline std::optional<ColourRGBA> OptionalColour(Scintilla::uptr_t wParam, Scintilla::sptr_t lParam) {
+using ColourOptional = std::optional<ColourRGBA>;
+
+inline ColourOptional OptionalColour(Scintilla::uptr_t wParam, Scintilla::sptr_t lParam) noexcept {
 	if (wParam) {
 		return ColourRGBA::FromIpRGB(lParam);
 	} else {
@@ -133,8 +135,8 @@ public:
 	XYPOSITION controlCharWidth;
 	ColourRGBA selbar;
 	ColourRGBA selbarlight;
-	std::optional<ColourRGBA> foldmarginColour;
-	std::optional<ColourRGBA> foldmarginHighlightColour;
+	ColourOptional foldmarginColour;
+	ColourOptional foldmarginHighlightColour;
 	bool hotspotUnderline;
 	/// Margins are ordered: Line Numbers, Selection Margin, Spacing Margin
 	int leftMarginWidth;	///< Spacing margin on left of text
@@ -178,7 +180,7 @@ public:
 	int ctrlCharPadding; // the padding around control character text blobs
 	int lastSegItalicsOffset; // the offset so as not to clip italic characters at EOLs
 
-	using ElementMap = std::map<Scintilla::Element, std::optional<ColourRGBA>>;
+	using ElementMap = std::map<Scintilla::Element, ColourOptional>;
 	ElementMap elementColours;
 	ElementMap elementBaseColours;
 	std::set<Scintilla::Element> elementAllowsTranslucent;
@@ -210,7 +212,7 @@ public:
 	void CalcLargestMarkerHeight() noexcept;
 	int GetFrameWidth() const noexcept;
 	bool IsLineFrameOpaque(bool caretActive, bool lineContainsCaret) const;
-	std::optional<ColourRGBA> Background(int marksOfLine, bool caretActive, bool lineContainsCaret) const;
+	ColourOptional Background(int marksOfLine, bool caretActive, bool lineContainsCaret) const;
 	bool SelectionBackgroundDrawn() const noexcept;
 	bool SelectionTextDrawn() const;
 	bool WhitespaceBackgroundDrawn() const;
@@ -218,7 +220,8 @@ public:
 
 	void AddMultiEdge(int column, ColourRGBA colour);
 
-	std::optional<ColourRGBA> ElementColour(Scintilla::Element element) const;
+	ColourOptional ElementColour(Scintilla::Element element) const;
+	ColourRGBA ElementColourForced(Scintilla::Element element) const;
 	bool ElementAllowsTranslucent(Scintilla::Element element) const;
 	bool ResetElement(Scintilla::Element element);
 	bool SetElementColour(Scintilla::Element element, ColourRGBA colour);

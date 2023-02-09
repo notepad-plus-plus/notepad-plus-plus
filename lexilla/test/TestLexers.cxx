@@ -963,7 +963,7 @@ int main() {
 	const std::filesystem::path baseDirectory = FindLexillaDirectory(std::filesystem::current_path());
 	if (!baseDirectory.empty()) {
 		const std::filesystem::path examplesDirectory = baseDirectory / "test" / "examples";
-#ifdef LEXILLA_STATIC
+#if defined(LEXILLA_STATIC)
 		success = AccessLexilla(examplesDirectory);
 #else
 		const std::filesystem::path sharedLibrary = baseDirectory / "bin" / LEXILLA_LIB;

@@ -545,7 +545,7 @@ void SurfaceImpl::DrawTextTransparent(PRectangle rc,
 void SurfaceImpl::SetClip(PRectangle rc)
 {
 	GetPainter()->save();
-	GetPainter()->setClipRect(QRectFFromPRect(rc));
+	GetPainter()->setClipRect(QRectFFromPRect(rc), Qt::IntersectClip);
 }
 
 void SurfaceImpl::PopClip()

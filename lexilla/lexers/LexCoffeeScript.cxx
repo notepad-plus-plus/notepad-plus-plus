@@ -104,6 +104,13 @@ static bool followsKeyword(StyleContext &sc, Accessor &styler) {
 	return styler.StyleAt(pos) == SCE_COFFEESCRIPT_WORD;
 }
 
+#if defined(__clang__)
+#if __has_warning("-Wunused-but-set-variable")
+// Disable warning for visibleChars
+#pragma clang diagnostic ignored "-Wunused-but-set-variable"
+#endif
+#endif
+
 static void ColouriseCoffeeScriptDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
 

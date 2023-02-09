@@ -13,4 +13,9 @@ h=123;
 
 % Octave terminates string at 3rd ", Matlab at 4th
 i="\" "; % " %
+
+% Matlab (unlike Octave) does not allow string continuation with an escape
+b = "multi\
+line"
+
 % end

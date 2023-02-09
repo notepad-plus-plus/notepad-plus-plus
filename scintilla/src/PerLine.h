@@ -75,6 +75,8 @@ public:
 	void ClearLevels();
 	int SetLevel(Sci::Line line, int level, Sci::Line lines);
 	int GetLevel(Sci::Line line) const noexcept;
+	FoldLevel GetFoldLevel(Sci::Line line) const noexcept;
+	Sci::Line GetFoldParent(Sci::Line line) const noexcept;
 };
 
 class LineState : public PerLine {

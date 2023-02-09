@@ -191,6 +191,12 @@ class TestSimple(unittest.TestCase):
 		self.assertEquals(self.ed.Length, 1)
 		self.assertEquals(data, self.ed.ByteRange(0,1))
 
+	def testNewLine(self):
+		self.ed.SetContents(b"12")
+		self.ed.SetSel(1, 1)
+		self.ed.NewLine()
+		self.assertEquals(self.ed.Contents(), b"1\r\n2")
+
 	def testUndoRedo(self):
 		data = b"xy"
 		self.assertEquals(self.ed.Modify, 0)
@@ -580,11 +586,91 @@ class TestSimple(unittest.TestCase):
 		self.ed.SelectionDuplicate()
 		self.assertEquals(self.ed.Contents(), b"1bb2")
 
+	def testLineDuplicate(self):
+		self.ed.SetContents(b"1\r\nb\r\n2")
+		self.ed.SetSel(3, 3)
+		# Duplicates the second line containing 'b'
+		self.ed.LineDuplicate()
+		self.assertEquals(self.ed.Contents(), b"1\r\nb\r\nb\r\n2")
+
+	def testLineDuplicateDifferentLineEnd(self):
+		self.ed.SetContents(b"1\nb\n2")
+		self.ed.SetSel(3, 3)
+		# Duplicates the second line containing 'b'
+		self.ed.LineDuplicate()
+		# Same as above but end of duplicated line is \r\n 
+		self.assertEquals(self.ed.Contents(), b"1\nb\r\nb\n2")
+
 	def testTransposeLines(self):
 		self.ed.AddText(8, b"a1\nb2\nc3")
 		self.ed.SetSel(3,3)
 		self.ed.LineTranspose()
 		self.assertEquals(self.ed.Contents(), b"b2\na1\nc3")
+
+	def testReverseLines(self):
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(0, 8)
+		self.ed.LineReverse()
+		self.assertEquals(self.ed.Contents(), b"c3\nb2\na1")
+
+		self.ed.SetContents(b"a1\nb2\nc3\n")
+		self.ed.SetSel(0, 9)
+		self.ed.LineReverse()
+		self.assertEquals(self.ed.Contents(), b"c3\nb2\na1\n")
+
+	def testMoveSelectedLines(self):
+		lineEndType = self.ed.EOLMode
+		self.ed.EOLMode = self.ed.SC_EOL_LF
+
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(3, 6)
+		self.ed.MoveSelectedLinesDown()
+		self.assertEquals(self.ed.Contents(), b"a1\nc3\nb2")
+
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(3, 6)
+		self.ed.MoveSelectedLinesUp()
+		self.assertEquals(self.ed.Contents(), b"b2\na1\nc3")
+
+		# Exercise the 'appendEol' case as the last line has no EOL characters to copy
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(4, 7)
+		self.ed.MoveSelectedLinesUp()
+		self.assertEquals(self.ed.Contents(), b"b2\nc3\na1")
+
+		# Testing extreme lines
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(6, 7)
+		self.ed.MoveSelectedLinesDown()
+		# No change as moving last line down
+		self.assertEquals(self.ed.Contents(), b"a1\nb2\nc3")
+
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(1, 2)
+		self.ed.MoveSelectedLinesUp()
+		# No change as moving first line up
+		self.assertEquals(self.ed.Contents(), b"a1\nb2\nc3")
+
+		# Moving line to end with different line end uses that line end
+		self.ed.EOLMode = self.ed.SC_EOL_CRLF
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(3, 6)
+		self.ed.MoveSelectedLinesDown()
+		self.assertEquals(self.ed.Contents(), b"a1\nc3\r\nb2")
+
+		# Exercise 'appendEol'
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(4, 7)
+		self.ed.MoveSelectedLinesUp()
+		self.assertEquals(self.ed.Contents(), b"b2\nc3\r\na1")
+
+		self.ed.SetContents(b"a1\nb2\nc3")
+		self.ed.SetSel(1, 2)
+		self.ed.MoveSelectedLinesDown()
+		self.assertEquals(self.ed.Contents(), b"b2\na1\nc3")
+
+		# Restore line end
+		self.ed.EOLMode = lineEndType
 
 	def testGetSet(self):
 		self.ed.SetContents(b"abc")
@@ -2959,6 +3045,49 @@ class TestDirectAccess(unittest.TestCase):
 		rangePointer = self.ed.GetRangePointer(1,3)
 		cpBuffer = ctypes.c_char_p(rangePointer)
 		self.assertEquals(cpBuffer.value, text[1:])
+
+class TestJoin(unittest.TestCase):
+	def setUp(self):
+		self.xite = Xite.xiteFrame
+		self.ed = self.xite.ed
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+
+	def tearDown(self):
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+
+	def testJoin(self):
+		text = b"a\r\nb\r\nc"
+		self.ed.SetContents(text)
+		self.ed.TargetWholeDocument()
+		self.ed.LinesJoin()
+		self.assertEquals(self.ed.Contents(), b"a b c")
+
+	def testJoinEndLine(self):
+		text = b"a\r\nb\r\nc"
+		self.ed.SetContents(text)
+		# Select a..b
+		self.ed.SetTargetRange(0, 4)
+		self.ed.LinesJoin()
+		self.assertEquals(self.ed.Contents(), b"a b\r\nc")
+
+	def testJoinSpace(self):
+		# Demonstration of bug #2372 which produced b"a \r"
+		text = b"a \r\n\r\n"
+		self.ed.SetContents(text)
+		self.ed.TargetWholeDocument()
+		self.ed.LinesJoin()
+		self.assertEquals(self.ed.Contents(), b"a ")
+
+	def testJoinOutOfBounds(self):
+		text = b"a\r\nb\r\nc"
+		self.ed.SetContents(text)
+		# Setting end of target after document end encourages non-termination.
+		self.ed.SetTargetRange(-10, 16)
+		self.ed.LinesJoin()
+		# Out-of-bounds leaves extra space as 'c' is processed
+		self.assertEquals(self.ed.Contents(), b"a b c ")
 
 class TestWordChars(unittest.TestCase):
 	def setUp(self):

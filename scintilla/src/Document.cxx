@@ -225,27 +225,27 @@ void Document::RemoveLine(Sci::Line line) {
 }
 
 LineMarkers *Document::Markers() const noexcept {
-	return dynamic_cast<LineMarkers *>(perLineData[ldMarkers].get());
+	return static_cast<LineMarkers *>(perLineData[ldMarkers].get());
 }
 
 LineLevels *Document::Levels() const noexcept {
-	return dynamic_cast<LineLevels *>(perLineData[ldLevels].get());
+	return static_cast<LineLevels *>(perLineData[ldLevels].get());
 }
 
 LineState *Document::States() const noexcept {
-	return dynamic_cast<LineState *>(perLineData[ldState].get());
+	return static_cast<LineState *>(perLineData[ldState].get());
 }
 
 LineAnnotation *Document::Margins() const noexcept {
-	return dynamic_cast<LineAnnotation *>(perLineData[ldMargin].get());
+	return static_cast<LineAnnotation *>(perLineData[ldMargin].get());
 }
 
 LineAnnotation *Document::Annotations() const noexcept {
-	return dynamic_cast<LineAnnotation *>(perLineData[ldAnnotation].get());
+	return static_cast<LineAnnotation *>(perLineData[ldAnnotation].get());
 }
 
 LineAnnotation *Document::EOLAnnotations() const noexcept {
-	return dynamic_cast<LineAnnotation *>(perLineData[ldEOLAnnotation].get());
+	return static_cast<LineAnnotation *>(perLineData[ldEOLAnnotation].get());
 }
 
 LineEndType Document::LineEndTypesSupported() const {
@@ -512,7 +512,7 @@ Sci::Position Document::VCHomePosition(Sci::Position position) const {
 	const Sci::Position startPosition = LineStart(line);
 	const Sci::Position endLine = LineEnd(line);
 	Sci::Position startText = startPosition;
-	while (startText < endLine && (cb.CharAt(startText) == ' ' || cb.CharAt(startText) == '\t'))
+	while (startText < endLine && IsSpaceOrTab(cb.CharAt(startText)))
 		startText++;
 	if (position == startText)
 		return startPosition;
@@ -558,8 +558,8 @@ int SCI_METHOD Document::GetLevel(Sci_Position line) const {
 	return Levels()->GetLevel(line);
 }
 
-FoldLevel Document::GetFoldLevel(Sci_Position line) const {
-	return static_cast<FoldLevel>(Levels()->GetLevel(line));
+FoldLevel Document::GetFoldLevel(Sci_Position line) const noexcept {
+	return Levels()->GetFoldLevel(line);
 }
 
 void Document::ClearLevels() {
@@ -597,21 +597,8 @@ Sci::Line Document::GetLastChild(Sci::Line lineParent, std::optional<FoldLevel> 
 	return lineMaxSubord;
 }
 
-Sci::Line Document::GetFoldParent(Sci::Line line) const {
-	const FoldLevel level = LevelNumberPart(GetFoldLevel(line));
-	Sci::Line lineLook = line - 1;
-	while ((lineLook > 0) && (
-	            (!LevelIsHeader(GetFoldLevel(lineLook))) ||
-	            (LevelNumberPart(GetFoldLevel(lineLook)) >= level))
-	      ) {
-		lineLook--;
-	}
-	if (LevelIsHeader(GetFoldLevel(lineLook)) &&
-	        (LevelNumberPart(GetFoldLevel(lineLook)) < level)) {
-		return lineLook;
-	} else {
-		return -1;
-	}
+Sci::Line Document::GetFoldParent(Sci::Line line) const noexcept {
+	return Levels()->GetFoldParent(line);
 }
 
 void Document::GetHighlightDelimiters(HighlightDelimiter &highlightDelimiter, Sci::Line line, Sci::Line lastLine) {
@@ -1576,13 +1563,12 @@ Sci::Position Document::SetLineIndentation(Sci::Line line, Sci::Position indent)
 	if (indent < 0)
 		indent = 0;
 	if (indent != indentOfLine) {
-		std::string linebuf = CreateIndentation(indent, tabInChars, !useTabs);
+		const std::string linebuf = CreateIndentation(indent, tabInChars, !useTabs);
 		const Sci::Position thisLineStart = LineStart(line);
 		const Sci::Position indentPos = GetLineIndentPosition(line);
 		UndoGroup ug(this);
 		DeleteChars(thisLineStart, indentPos - thisLineStart);
-		return thisLineStart + InsertString(thisLineStart, linebuf.c_str(),
-			linebuf.length());
+		return thisLineStart + InsertString(thisLineStart, linebuf);
 	} else {
 		return GetLineIndentPosition(line);
 	}
@@ -1719,7 +1705,8 @@ void Document::ConvertLineEnds(EndOfLine eolModeSet) {
 	UndoGroup ug(this);
 
 	for (Sci::Position pos = 0; pos < Length(); pos++) {
-		if (cb.CharAt(pos) == '\r') {
+		const char ch = cb.CharAt(pos);
+		if (ch == '\r') {
 			if (cb.CharAt(pos + 1) == '\n') {
 				// CRLF
 				if (eolModeSet == EndOfLine::Cr) {
@@ -1739,7 +1726,7 @@ void Document::ConvertLineEnds(EndOfLine eolModeSet) {
 					pos--;
 				}
 			}
-		} else if (cb.CharAt(pos) == '\n') {
+		} else if (ch == '\n') {
 			// LF
 			if (eolModeSet == EndOfLine::CrLf) {
 				pos += InsertString(pos, "\r", 1); // Insert CR
@@ -1751,6 +1738,16 @@ void Document::ConvertLineEnds(EndOfLine eolModeSet) {
 		}
 	}
 
+}
+
+std::string_view Document::EOLString() const noexcept {
+	if (eolMode == EndOfLine::CrLf) {
+		return "\r\n";
+	} else if (eolMode == EndOfLine::Cr) {
+		return "\r";
+	} else {
+		return "\n";
+	}
 }
 
 DocumentOption Document::Options() const noexcept {

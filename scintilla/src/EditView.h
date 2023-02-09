@@ -133,32 +133,29 @@ public:
 	Sci::Line DisplayFromPosition(Surface *surface, const EditModel &model, Sci::Position pos, const ViewStyle &vs);
 	Sci::Position StartEndDisplayLine(Surface *surface, const EditModel &model, Sci::Position pos, bool start, const ViewStyle &vs);
 
-	void DrawIndentGuide(Surface *surface, Sci::Line lineVisible, int lineHeight, XYPOSITION start, PRectangle rcSegment, bool highlight);
-	void DrawEOL(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll, PRectangle rcLine,
-		Sci::Line line, Sci::Position lineEnd, int xStart, int subLine, XYACCUMULATOR subLineStart,
-		std::optional<ColourRGBA> background);
+private:
+	void DrawEOL(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
+		Sci::Line line, int xStart, PRectangle rcLine, int subLine, Sci::Position lineEnd, XYPOSITION subLineStart, ColourOptional background);
 	void DrawFoldDisplayText(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
-		Sci::Line line, int xStart, PRectangle rcLine, int subLine, XYACCUMULATOR subLineStart, DrawPhase phase);
+		Sci::Line line, int xStart, PRectangle rcLine, int subLine, XYPOSITION subLineStart, DrawPhase phase);
 	void DrawEOLAnnotationText(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
-		Sci::Line line, int xStart, PRectangle rcLine, int subLine, XYACCUMULATOR subLineStart, DrawPhase phase);
+		Sci::Line line, int xStart, PRectangle rcLine, int subLine, XYPOSITION subLineStart, DrawPhase phase);
 	void DrawAnnotation(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
 		Sci::Line line, int xStart, PRectangle rcLine, int subLine, DrawPhase phase);
-	void DrawCarets(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll, Sci::Line lineDoc,
-		int xStart, PRectangle rcLine, int subLine) const;
-	void DrawBackground(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll, PRectangle rcLine,
-		Range lineRange, Sci::Position posLineStart, int xStart,
-		int subLine, std::optional<ColourRGBA> background) const;
-	void DrawForeground(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll, Sci::Line lineVisible,
-		PRectangle rcLine, Range lineRange, Sci::Position posLineStart, int xStart,
-		int subLine, std::optional<ColourRGBA> background);
+	void DrawCarets(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
+		Sci::Line lineDoc, int xStart, PRectangle rcLine, int subLine) const;
+	void DrawIndentGuide(Surface *surface, XYPOSITION start, PRectangle rcSegment, bool highlight, bool offset);
+	void DrawForeground(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
+		int xStart, PRectangle rcLine, int subLine, Sci::Line lineVisible, Range lineRange, Sci::Position posLineStart,
+		ColourOptional background);
 	void DrawIndentGuidesOverEmpty(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
-		Sci::Line line, Sci::Line lineVisible, PRectangle rcLine, int xStart, int subLine);
-	void DrawLine(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll, Sci::Line line,
-		Sci::Line lineVisible, int xStart, PRectangle rcLine, int subLine, DrawPhase phase);
-	void PaintText(Surface *surfaceWindow, const EditModel &model, PRectangle rcArea, PRectangle rcClient,
-		const ViewStyle &vsDraw);
-	void FillLineRemainder(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
-		Sci::Line line, PRectangle rcArea, int subLine) const;
+		Sci::Line line, int xStart, PRectangle rcLine, int subLine, Sci::Line lineVisible);
+	void DrawLine(Surface *surface, const EditModel &model, const ViewStyle &vsDraw, const LineLayout *ll,
+		Sci::Line line, Sci::Line lineVisible, int xStart, PRectangle rcLine, int subLine, DrawPhase phase);
+
+public:
+	void PaintText(Surface *surfaceWindow, const EditModel &model, const ViewStyle &vsDraw,
+		PRectangle rcArea, PRectangle rcClient);
 	Sci::Position FormatRange(bool draw, CharacterRangeFull chrg, Rectangle rc, Surface *surface, Surface *surfaceMeasure,
 		const EditModel &model, const ViewStyle &vs);
 };

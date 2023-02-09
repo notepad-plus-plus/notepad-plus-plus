@@ -232,16 +232,16 @@ LexerX12::Terminator LexerX12::InitialiseFromISA(IDocument *pAccess)
 	pAccess->GetCharRange(&m_SeparatorElement, 3, 1);
 	pAccess->GetCharRange(&m_SeparatorSubElement, 104, 1);
 
-	// Look for GS, as that's the next segment. Anything between 105 and GS is our segment separator.
-	Sci_Position posGS;
-	char bufGS[3] = { 0 };
-	for (posGS = 105; posGS < length - 2; posGS++)
+	// Look for GS, as that's the next segment. Anything between 105 and GS/IEA is our segment separator.
+	Sci_Position posNextSegment;
+	char bufSegment[3] = { 0 };
+	for (posNextSegment = 105; posNextSegment < length - 3; posNextSegment++)
 	{
-		pAccess->GetCharRange(bufGS, posGS, 2);
-		if (bufGS[0] == 'G' && bufGS[1] == 'S')
+		pAccess->GetCharRange(bufSegment, posNextSegment, 3);
+		if (!memcmp (bufSegment, "GS", 2) || !memcmp(bufSegment, "IEA", 3))
 		{
-			m_SeparatorSegment.resize(posGS - 105);
-			pAccess->GetCharRange(&m_SeparatorSegment.at(0), 105, posGS - 105);
+			m_SeparatorSegment.resize(posNextSegment - 105);
+			pAccess->GetCharRange(&m_SeparatorSegment.at(0), 105, posNextSegment - 105);
 
 			// Is some of that CR+LF?
 			size_t nPos = m_SeparatorSegment.find_last_not_of("\r\n");

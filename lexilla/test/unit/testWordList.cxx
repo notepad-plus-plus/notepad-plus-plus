@@ -28,6 +28,17 @@ TEST_CASE("WordList") {
 		REQUIRE(!wl.InList("class"));
 	}
 
+	SECTION("InListUnicode") {
+		// "cheese" in English
+		// "kase" ('k', 'a with diaeresis', 's', 'e') in German
+		// "syr", ('CYRILLIC SMALL LETTER ES', 'CYRILLIC SMALL LETTER YERU', 'CYRILLIC SMALL LETTER ER') in Russian
+		wl.Set("cheese \x6b\xc3\xa4\x73\x65 \xd1\x81\xd1\x8b\xd1\x80");
+		REQUIRE(3 == wl.Length());
+		REQUIRE(wl.InList("cheese"));
+		REQUIRE(wl.InList("\x6b\xc3\xa4\x73\x65"));
+		REQUIRE(wl.InList("\xd1\x81\xd1\x8b\xd1\x80"));
+	}
+
 	SECTION("Set") {
 		// Check whether Set returns whether it has changed correctly
 		const bool changed = wl.Set("else struct");
@@ -49,7 +60,7 @@ TEST_CASE("WordList") {
 	}
 
 	SECTION("InListAbbreviated") {
-		wl.Set("else stru~ct w~hile");
+		wl.Set("else stru~ct w~hile \xd1\x81~\xd1\x8b\xd1\x80");
 		REQUIRE(wl.InListAbbreviated("else", '~'));
 
 		REQUIRE(wl.InListAbbreviated("struct", '~'));
@@ -62,10 +73,13 @@ TEST_CASE("WordList") {
 		// TODO: Next line fails but should allow single character prefixes
 		//REQUIRE(wl.InListAbbreviated("w", '~'));
 		REQUIRE(!wl.InListAbbreviated("", '~'));
+
+		// Russian syr
+		REQUIRE(wl.InListAbbreviated("\xd1\x81\xd1\x8b\xd1\x80", '~'));
 	}
 
 	SECTION("InListAbridged") {
-		wl.Set("list w.~.active bo~k a~z ~_frozen");
+		wl.Set("list w.~.active bo~k a~z ~_frozen \xd1\x81~\xd1\x80");
 		REQUIRE(wl.InListAbridged("list", '~'));
 
 		REQUIRE(wl.InListAbridged("w.front.active", '~'));
@@ -85,5 +99,8 @@ TEST_CASE("WordList") {
 		REQUIRE(wl.InListAbridged("abcz", '~'));
 		REQUIRE(wl.InListAbridged("abz", '~'));
 		REQUIRE(wl.InListAbridged("az", '~'));
+
+		// Russian syr
+		REQUIRE(wl.InListAbridged("\xd1\x81\xd1\x8b\xd1\x80", '~'));
 	}
 }

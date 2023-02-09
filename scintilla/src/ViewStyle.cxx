@@ -530,8 +530,8 @@ bool ViewStyle::IsLineFrameOpaque(bool caretActive, bool lineContainsCaret) cons
 // display itself (as long as it's not an MarkerSymbol::Empty marker).  These are checked in order
 // with the earlier taking precedence.  When multiple markers cause background override,
 // the colour for the highest numbered one is used.
-std::optional<ColourRGBA> ViewStyle::Background(int marksOfLine, bool caretActive, bool lineContainsCaret) const {
-	std::optional<ColourRGBA> background;
+ColourOptional ViewStyle::Background(int marksOfLine, bool caretActive, bool lineContainsCaret) const {
+	ColourOptional background;
 	if (!caretLine.frame && (caretActive || caretLine.alwaysShow) &&
 		(caretLine.layer == Layer::Base) && lineContainsCaret) {
 		background = ElementColour(Element::CaretLineBack);
@@ -601,7 +601,7 @@ void ViewStyle::AddMultiEdge(int column, ColourRGBA colour) {
 		EdgeProperties(column, colour));
 }
 
-std::optional<ColourRGBA> ViewStyle::ElementColour(Element element) const {
+ColourOptional ViewStyle::ElementColour(Element element) const {
 	ElementMap::const_iterator search = elementColours.find(element);
 	if (search != elementColours.end()) {
 		if (search->second.has_value()) {
@@ -615,6 +615,15 @@ std::optional<ColourRGBA> ViewStyle::ElementColour(Element element) const {
 		}
 	}
 	return {};
+}
+
+ColourRGBA ViewStyle::ElementColourForced(Element element) const {
+	// Like ElementColour but never returns empty - when not found return opaque black.
+	// This method avoids warnings for unwrapping potentially empty optionals from
+	// Visual C++ Code Analysis
+	const ColourOptional colour = ElementColour(element);
+	constexpr ColourRGBA opaqueBlack(0, 0, 0, 0xff);
+	return colour.value_or(opaqueBlack);
 }
 
 bool ViewStyle::ElementAllowsTranslucent(Element element) const {

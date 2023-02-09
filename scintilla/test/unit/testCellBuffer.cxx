@@ -445,7 +445,6 @@ TEST_CASE("CharacterIndex") {
 TEST_CASE("ChangeHistory") {
 
 	ChangeHistory il;
-	const EditionSet empty;
 	struct Spanner {
 		Sci::Position position = 0;
 		Sci::Position length = 0;

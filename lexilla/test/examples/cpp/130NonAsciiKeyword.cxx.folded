@@ -1,0 +1,10 @@
+ 0 400 400   // coding: utf-8
+ 0 400 400   // All three following symbols should highlight as keywords
+ 0 400 400   cheese
+ 0 400 400   käse
+ 0 400 400   сыр
+ 1 400 400   
+ 0 400 400   // Lookalikes with ASCII so should not highlight:
+ 0 400 400   сыp
+ 0 400 400   cыp
+ 1 400 400   

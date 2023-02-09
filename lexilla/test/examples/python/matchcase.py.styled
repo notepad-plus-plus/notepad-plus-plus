@@ -1,0 +1,25 @@
+{1}# Match and case as keywords{0}
+{5}match{0} {10}({11}x{10}):{0}
+    {5}case{0} {10}+{2}1{10}:{0}
+        {5}pass{0}
+    {5}case{0} {10}-{2}1{10}:{0}
+        {5}pass{0}
+    {5}case{0} {10}[]:{0}
+        {5}pass{0}
+    
+{1}# Match and case as identifiers{0}
+{11}match{0} {10}={0} {2}1{0}
+{5}def{0} {9}match{10}():{0}
+    {5}pass{0}
+{11}match{10}.{11}group{10}(){0}
+{2}1{0} {10}+{0} {11}match{0}
+{11}case{10}.{11}attribute{0}
+
+{1}# Unfortunately wrong classifications; should be rare in real code because{0}
+{1}# non-call expressions usually don't begin lines, the exceptions are match(x){0}
+{1}# and case(x){0}
+{5}match{10}({11}x{10}){0}
+{5}case{10}({11}x{10}){0}
+{5}match{0} {10}+{0} {2}1{0}
+{5}case{0} {10}+{0} {2}1{0}
+{5}case{10}[{2}1{10}]{0}

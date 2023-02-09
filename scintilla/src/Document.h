@@ -420,6 +420,7 @@ public:
 	void Indent(bool forwards, Sci::Line lineBottom, Sci::Line lineTop);
 	static std::string TransformLineEnds(const char *s, size_t len, Scintilla::EndOfLine eolModeWanted);
 	void ConvertLineEnds(Scintilla::EndOfLine eolModeSet);
+	std::string_view EOLString() const noexcept;
 	void SetReadOnly(bool set) { cb.SetReadOnly(set); }
 	bool IsReadOnly() const noexcept { return cb.IsReadOnly(); }
 	bool IsLarge() const noexcept { return cb.IsLarge(); }
@@ -461,10 +462,10 @@ public:
 
 	int SCI_METHOD SetLevel(Sci_Position line, int level) override;
 	int SCI_METHOD GetLevel(Sci_Position line) const override;
-	Scintilla::FoldLevel GetFoldLevel(Sci_Position line) const;
+	Scintilla::FoldLevel GetFoldLevel(Sci_Position line) const noexcept;
 	void ClearLevels();
 	Sci::Line GetLastChild(Sci::Line lineParent, std::optional<Scintilla::FoldLevel> level = {}, Sci::Line lastLine = -1);
-	Sci::Line GetFoldParent(Sci::Line line) const;
+	Sci::Line GetFoldParent(Sci::Line line) const noexcept;
 	void GetHighlightDelimiters(HighlightDelimiter &highlightDelimiter, Sci::Line line, Sci::Line lastLine);
 
 	Sci::Position ExtendWordSelect(Sci::Position pos, int delta, bool onlyWordCharacters=false) const;

@@ -169,10 +169,7 @@ int wheelEventYDelta(QWheelEvent *event) {
 void ScintillaEditBase::wheelEvent(QWheelEvent *event)
 {
 	if (isWheelEventHorizontal(event)) {
-		if (horizontalScrollBarPolicy() == Qt::ScrollBarAlwaysOff)
-			event->ignore();
-		else
-			QAbstractScrollArea::wheelEvent(event);
+		QAbstractScrollArea::wheelEvent(event);
 	} else {
 		if (QApplication::keyboardModifiers() & Qt::ControlModifier) {
 			// Zoom! We play with the font sizes in the styles.
@@ -183,13 +180,8 @@ void ScintillaEditBase::wheelEvent(QWheelEvent *event)
 				sqt->KeyCommand(Message::ZoomOut);
 			}
 		} else {
-			// Ignore wheel events when the scroll bars are disabled.
-			if (verticalScrollBarPolicy() == Qt::ScrollBarAlwaysOff) {
-				event->ignore();
-			} else {
-				// Scroll
-				QAbstractScrollArea::wheelEvent(event);
-			}
+			// Scroll
+			QAbstractScrollArea::wheelEvent(event);
 		}
 	}
 }

@@ -36,6 +36,7 @@
 **.jl text
 **.json text
 **.lua text
+**.m3 text
 **.matlab text
 **.ml text
 **.nim text

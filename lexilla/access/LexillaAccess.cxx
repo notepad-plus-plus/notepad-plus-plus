@@ -15,7 +15,7 @@
 #include <vector>
 #include <set>
 
-#if !_WIN32
+#if !defined(_WIN32)
 #include <dlfcn.h>
 #else
 #include <windows.h>
@@ -29,7 +29,7 @@
 
 namespace {
 
-#if _WIN32
+#if defined(_WIN32)
 typedef FARPROC Function;
 typedef HMODULE Module;
 constexpr const char *pathSeparator = "\\";
@@ -49,7 +49,7 @@ T FunctionPointer(Function function) noexcept {
 	return fp;
 }
 
-#if _WIN32
+#if defined(_WIN32)
 
 std::wstring WideStringFromUTF8(std::string_view sv) {
 	const int sLength = static_cast<int>(sv.length());
@@ -85,7 +85,7 @@ std::vector<std::string> lexers;
 std::vector<std::string> libraryProperties;
 
 Function FindSymbol(Module m, const char *symbol) noexcept {
-#if _WIN32
+#if defined(_WIN32)
 	return ::GetProcAddress(m, symbol);
 #else
 	return dlsym(m, symbol);
@@ -149,7 +149,7 @@ bool Lexilla::Load(std::string_view sharedLibraryPaths) {
 			// No '.' in name so add extension
 			path.append(LEXILLA_EXTENSION);
 		}
-#if _WIN32
+#if defined(_WIN32)
 		// Convert from UTF-8 to wide characters
 		std::wstring wsPath = WideStringFromUTF8(path);
 		Module lexillaDL = ::LoadLibraryW(wsPath.c_str());
@@ -246,7 +246,7 @@ Scintilla::ILexer5 *Lexilla::MakeLexer(std::string_view languageName) {
 	if (pCreateLexerDefault) {
 		return pCreateLexerDefault(sLanguageName.c_str());
 	}
-#ifdef LEXILLA_STATIC
+#if defined(LEXILLA_STATIC)
 	Scintilla::ILexer5 *pLexer = CreateLexer(sLanguageName.c_str());
 	if (pLexer) {
 		return pLexer;

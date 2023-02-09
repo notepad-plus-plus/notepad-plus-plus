@@ -129,7 +129,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 15 November 2022 NH</p>
+    <p>Last edited 14 January 2023 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -6891,8 +6891,9 @@ struct Sci_TextToFindFull {
 
     <p><code>SCI_FORMATRANGE</code> can be used to draw the text onto a display surface
     which can include a printer display surface. Printed output shows text styling as on the
-    screen, but it hides all margins except a line number margin. All special marker effects are
-    removed and the selection and caret are hidden.</p>
+    screen, but it hides all margins except a line number margin.
+    Markers do not appear in a margin but will change line background colour.
+    The selection and caret are hidden.</p>
 
     <p>Different platforms use different display surface ID types to print on. On Windows, these are
     <code>HDC</code>s., on GTK 3.x <code>cairo_t *</code>,

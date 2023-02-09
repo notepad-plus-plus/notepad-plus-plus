@@ -466,6 +466,13 @@ void SCI_METHOD LexerVisualProlog::Lex(Sci_PositionU startPos, Sci_Position leng
 // level store to make it easy to pick up with each increment
 // and to make it possible to fiddle the current level for "} else {".
 
+#if defined(__clang__)
+#if __has_warning("-Wunused-but-set-variable")
+// Disable warning for visibleChars
+#pragma clang diagnostic ignored "-Wunused-but-set-variable"
+#endif
+#endif
+
 void SCI_METHOD LexerVisualProlog::Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
 
     LexAccessor styler(pAccess);

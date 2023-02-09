@@ -78,11 +78,12 @@ void ScintillaBase::Finalise() {
 }
 
 void ScintillaBase::InsertCharacter(std::string_view sv, CharacterSource charSource) {
-	const bool isFillUp = ac.Active() && ac.IsFillUpChar(sv[0]);
+	const bool acActive = ac.Active();
+	const bool isFillUp = acActive && ac.IsFillUpChar(sv[0]);
 	if (!isFillUp) {
 		Editor::InsertCharacter(sv, charSource);
 	}
-	if (ac.Active()) {
+	if (acActive) {
 		AutoCompleteCharacterAdded(sv[0]);
 		// For fill ups add the character after the autocompletion has
 		// triggered so containers see the key so can display a calltip.

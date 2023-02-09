@@ -1,0 +1,13 @@
+{1}rem remark and comment bug
+{0}
+{5}findstr{0} /c:"rem this" "file"
+{5}findstr{0} /c:":: this" "file"
+
+{1}:: SingleQuoted command string
+{2}for{0} /f {6}%%A{2} in{0} ('rem this'){2} do echo{0} {6}%%A{0}
+
+{1}:: DoubleQuoted string
+{2}for{0} /f {6}%%A{2} in{0} ("rem this"){2} do echo{0} {6}%%A{0}
+
+{1}:: BackQuote command string
+{2}for{0} /f "usebackq" {6}%%A{2} in{0} (`rem this`){2} do echo{0} {6}%%A{0}

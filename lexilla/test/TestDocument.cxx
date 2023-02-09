@@ -125,7 +125,7 @@ void TestDocument::Set(std::string_view sv) {
 	lineLevels.resize(lineStarts.size(), 0x400);
 }
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 // IDocument interface does not specify noexcept so best to not add it to implementation
 #pragma warning(disable: 26440)
 #endif

@@ -10,7 +10,7 @@
 #define LEXILLA_H
 
 // Define the default Lexilla shared library name for each platform
-#if _WIN32
+#if defined(_WIN32)
 #define LEXILLA_LIB "lexilla"
 #define LEXILLA_EXTENSION ".dll"
 #else
@@ -23,7 +23,7 @@
 #endif
 
 // On Win32 use the stdcall calling convention otherwise use the standard calling convention
-#if _WIN32
+#if defined(_WIN32)
 #define LEXILLA_CALL __stdcall
 #else
 #define LEXILLA_CALL
@@ -41,7 +41,7 @@
 #define DEPRECATE_DEFINITION
 #endif
 
-#ifdef __cplusplus
+#if defined(__cplusplus)
 // Must have already included ILexer.h to have Scintilla::ILexer5 defined.
 using Scintilla::ILexer5;
 #else
@@ -50,7 +50,7 @@ typedef void ILexer5;
 
 typedef ILexer5 *(*LexerFactoryFunction)();
 
-#ifdef __cplusplus
+#if defined(__cplusplus)
 namespace Lexilla {
 #endif
 
@@ -63,7 +63,7 @@ typedef const char *(LEXILLA_CALL *GetLibraryPropertyNamesFn)();
 typedef void(LEXILLA_CALL *SetLibraryPropertyFn)(const char *key, const char *value);
 typedef const char *(LEXILLA_CALL *GetNameSpaceFn)();
 
-#ifdef __cplusplus
+#if defined(__cplusplus)
 }
 #endif
 
@@ -80,7 +80,7 @@ typedef const char *(LEXILLA_CALL *GetNameSpaceFn)();
 
 // Static linking prototypes
 
-#ifdef __cplusplus
+#if defined(__cplusplus)
 extern "C" {
 #endif
 
@@ -93,11 +93,11 @@ const char * LEXILLA_CALL GetLibraryPropertyNames();
 void LEXILLA_CALL SetLibraryProperty(const char *key, const char *value);
 const char *LEXILLA_CALL GetNameSpace();
 
-#ifdef __cplusplus
+#if defined(__cplusplus)
 }
 #endif
 
-#ifdef __cplusplus
+#if defined(__cplusplus)
 namespace Lexilla {
 	class LexerModule;
 }

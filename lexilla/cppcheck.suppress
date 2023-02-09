@@ -55,9 +55,10 @@ constParameter:lexilla/lexers/LexHex.cxx
 knownConditionTrueFalse:lexilla/lexers/LexHex.cxx
 constParameter:lexilla/lexers/LexHTML.cxx
 variableScope:lexilla/lexers/LexInno.cxx
-variableScope:lexilla/lexers/LexJulia.cxx
 constParameter:lexilla/lexers/LexJulia.cxx
+knownConditionTrueFalse:lexilla/lexers/LexJulia.cxx
 unreadVariable:lexilla/lexers/LexJulia.cxx
+variableScope:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexLaTeX.cxx
 constParameter:lexilla/lexers/LexLaTeX.cxx
 constParameter:lexilla/lexers/LexLisp.cxx
@@ -151,6 +152,9 @@ constVariable:lexilla/lexers/LexTACL.cxx
 constVariable:lexilla/lexers/LexTADS3.cxx
 constVariable:lexilla/lexers/LexTAL.cxx
 
+// cppcheck appears wrong as atKeyPath must be remembered between loops
+variableScope:lexilla/lexers/LexRegistry.cxx
+
 // Suppress everything in test example files
 *:lexilla/test/examples/*
 
@@ -159,3 +163,6 @@ constVariable:lexilla/lexers/LexTAL.cxx
 // cppcheck gives up inside catch.hpp
 *:lexilla/test/unit/UnitTester.cxx
 *:lexilla/test/unit/unitTest.cxx
+
+// cppcheck fails REQUIRE from Catch
+comparisonOfFuncReturningBoolError:lexilla/test/unit/*.cxx

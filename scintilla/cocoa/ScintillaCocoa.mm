@@ -2228,6 +2228,10 @@ bool ScintillaCocoa::KeyboardInput(NSEvent *event) {
 	// Handle each entry individually. Usually we only have one entry anyway.
 	for (size_t i = 0; i < input.length; i++) {
 		const UniChar originalKey = [input characterAtIndex: i];
+		// Some Unicode extended Latin characters overlap the Keys enumeration so treat them
+		// only as and not as command keys.
+		if (originalKey >= static_cast<UniChar>(Keys::Down) && originalKey <= static_cast<UniChar>(Keys::Menu))
+			continue;
 		NSEventModifierFlags modifierFlags = event.modifierFlags;
 
 		Keys key = KeyTranslate(originalKey, modifierFlags);

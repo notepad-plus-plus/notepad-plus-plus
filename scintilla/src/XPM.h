@@ -51,8 +51,8 @@ public:
 	int GetHeight() const noexcept { return height; }
 	int GetWidth() const noexcept { return width; }
 	float GetScale() const noexcept { return scale; }
-	float GetScaledHeight() const noexcept { return height / scale; }
-	float GetScaledWidth() const noexcept { return width / scale; }
+	float GetScaledHeight() const noexcept;
+	float GetScaledWidth() const noexcept;
 	int CountBytes() const noexcept;
 	const unsigned char *Pixels() const noexcept;
 	void SetPixel(int x, int y, ColourRGBA colour) noexcept;

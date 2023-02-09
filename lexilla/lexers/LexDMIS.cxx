@@ -255,7 +255,7 @@ void SCI_METHOD LexerDMIS::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, i
 					scCTX.GetCurrent(tmpStr, (MAX_STR_LEN-1));
 					// The following strncpy is copying from a string back onto itself which is weird and causes warnings
 					// but is harmless so turn off the warning
-#if defined(__GNUC__) && !defined(__APPLE__)
+#if defined(__GNUC__) && !defined(__clang__)
 // Disable warning for strncpy
 #pragma GCC diagnostic ignored "-Wrestrict"
 #endif

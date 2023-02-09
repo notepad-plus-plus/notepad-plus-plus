@@ -796,6 +796,8 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 			_pDocumentListPanel->closeItem(hiddenBufferID, whichOne);
 	}
 
+	checkSyncState();
+
 	// Notify plugins that current file is closed
 	if (isBufRemoved)
 	{
@@ -2330,6 +2332,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		hideView(otherView());
 	else if (canHideView(currentView()))
 		hideView(currentView());
+
+	checkSyncState();
 
 	if (_pDocumentListPanel)
 		_pDocumentListPanel->reload();

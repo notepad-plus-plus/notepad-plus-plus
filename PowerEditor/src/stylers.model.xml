@@ -1444,5 +1444,6 @@
         <WidgetStyle name="URL hovered" styleID="0" fgColor="0000FF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="FF8000" bgColor="FFFFFF" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="DADADA" />
+        <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="FFB56A" />
     </GlobalStyles>
 </NotepadPlus>

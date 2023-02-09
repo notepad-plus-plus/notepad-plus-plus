@@ -1189,6 +1189,9 @@ Do you want to go to Notepad++ page to download the latest version?"/> <!-- HowT
             <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
             <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
             <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+            <FileLoadingException title="Exception code: $STR_REPLACE$" message="An error occurred while loading the file!"/>
+            <WantToOpenHugeFile title="Opening huge file warning" message="Opening a huge file of 2GB+ could take several minutes.
+Do you want to open it?"/>
             <CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?"/>
             <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
@@ -1230,6 +1233,9 @@ Do you want to launch Notepad++ in Administrator mode?"/>
 Notepad++ will be restarted after all the operations are terminated.
 Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+            <ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"/>
+            <LanguageMenuCompactWarning title="Compact Language Menu" message="This option will be changed on the next launch."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

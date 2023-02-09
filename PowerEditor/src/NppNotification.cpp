@@ -269,7 +269,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					COPYDATASTRUCT fileNamesData{};
 					fileNamesData.dwData = COPYDATA_FILENAMESW;
 					fileNamesData.lpData = (void *)quotFileName.c_str();
-					fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
+					fileNamesData.cbData = static_cast<DWORD>((quotFileName.length() + 1) * sizeof(TCHAR));
 
 					HWND hWinParent = ::GetParent(hWin);
 					const rsize_t classNameBufferSize = MAX_PATH;

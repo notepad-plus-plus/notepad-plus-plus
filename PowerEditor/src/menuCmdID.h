@@ -170,6 +170,7 @@
     #define    IDM_EDIT_INSERT_DATETIME_CUSTOMIZED              (IDM_EDIT + 86)
     #define    IDM_EDIT_COPY_ALL_NAMES                          (IDM_EDIT + 87)
     #define    IDM_EDIT_COPY_ALL_PATHS                          (IDM_EDIT + 88)
+    #define    IDM_EDIT_BEGINENDSELECT_COLUMNMODE               (IDM_EDIT + 89)
 
     #define    IDM_EDIT_AUTOCOMPLETE                            (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE                (50000 + 1)
@@ -373,6 +374,8 @@
     #define    IDM_VIEW_TAB_COLOUR_3              (IDM_VIEW + 113)
     #define    IDM_VIEW_TAB_COLOUR_4              (IDM_VIEW + 114)
     #define    IDM_VIEW_TAB_COLOUR_5              (IDM_VIEW + 115)
+
+    #define    IDM_VIEW_NPC                       (IDM_VIEW + 130)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002

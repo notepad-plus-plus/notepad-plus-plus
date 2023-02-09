@@ -1755,6 +1755,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_SETNPC:
+		{
+			const bool isShown = nppParam.getSVP()._npcShow;
+			_mainEditView.showNpc(isShown);
+			_subEditView.showNpc(isShown);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETMULTISELCTION:
 		{
 			const NppGUI & nppGUI = nppParam.getNppGUI();
@@ -2495,31 +2503,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_RESTOREMONOINSTANCE:
+		case NPPM_INTERNAL_RESTOREFROMTRAY:
 		{
 			// When mono instance, bring this one to front
 			if (_pTrayIco != nullptr && _pTrayIco->isInTray())
 			{
 				// We are in tray, restore properly..
 				::SendMessage(hwnd, NPPM_INTERNAL_MINIMIZED_TRAY, 0, WM_LBUTTONUP);
+				return TRUE;
 			}
-			else
-			{
-				// We were not in tray..
-				int sw = 0;
-
-				if (::IsZoomed(hwnd))
-					sw = SW_MAXIMIZE;
-				else if (::IsIconic(hwnd))
-					sw = SW_RESTORE;
-
-				if (sw != 0)
-					::ShowWindow(hwnd, sw);
-
-				::SetForegroundWindow(hwnd);
-			}
-			
-			return TRUE;
+			return FALSE;
 		}
 
 		case WM_SYSCOMMAND:
@@ -2928,6 +2921,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_subEditView.setCRLF();
 			return TRUE;
 		}
+		
+		case NPPM_INTERNAL_NPCFORMCHANGED:
+		{
+			_mainEditView.setNPC();
+			_subEditView.setNPC();
+			return TRUE;
+		}
 
 		case NPPM_INTERNAL_ENABLECHANGEHISTORY:
 		{
@@ -2965,6 +2965,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			// go into the section we need
 			_configStyleDlg.goToSection(TEXT("Global Styles:EOL custom color"));
+
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_NPCLAUNCHSTYLECONF:
+		{
+			// Launch _configStyleDlg (create or display it)
+			command(IDM_LANGSTYLE_CONFIG_DLG);
+
+			// go into the section we need
+			generic_string npcStr = L"Global Styles:";
+			npcStr += g_npcStyleName;
+			_configStyleDlg.goToSection(npcStr.c_str());
 
 			return TRUE;
 		}

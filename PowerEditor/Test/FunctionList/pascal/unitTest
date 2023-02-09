@@ -7,6 +7,8 @@ uses
   System.SysUtils, System.Types, System.Classes;
 
 
+{ Free function 1, declaration }
+
 function FreeFunc1(const Param: integer): integer;
 
 
@@ -130,17 +132,18 @@ type
 
 
 // -----------------------------------------------------------------------------
-// Free routines
+// Free routines declarations
 // -----------------------------------------------------------------------------
 
 procedure FreeProc1(AParam: integer);
 
-function  FreeFunc2(const AParam: string): integer;
+function  FreeFunc2(const AParam: string): integer; inline;
 procedure FreeProc2(AParam: integer);
 
 {function  UnusedFreeFunc1(ANum: double): cardinal;}
 
-procedure FreeProc3(AParam: integer);
+procedure FreeProc3(AParam: integer); overload; inline;
+procedure FreeProc3(AParam: string); overload; inline;
 
 (*
 function  UnusedFreeFunc2(ANum: double): cardinal;
@@ -154,15 +157,30 @@ implementation
 {R *.dfm}
 
 
+type
+// -----------------------------------------------------------------------------
+// Internal classes
+// -----------------------------------------------------------------------------
+
+  TInternalClass = class(TObject)
+  public
+    function    Init(Cnt: integer): boolean;
+    procedure   SetValue(Cnt: integer);
+    
+  end;
+  
+
 // -----------------------------------------------------------------------------
 // Free routines
 // -----------------------------------------------------------------------------
+
+{ Free function 3, forward declaration}
 
 function FreeFunc3(const Param: integer): integer; forward;
 
 
 
-{ Free function 1 }
+{ Free function 1, definition }
 
 function FreeFunc1(const Param: integer): integer;
 begin
@@ -173,7 +191,7 @@ end;
 
 
 
-{ Free procedure 1 }
+{ Free procedure 1, definition }
 
 procedure FreeProc1(AParam: integer);
 begin
@@ -182,7 +200,7 @@ end;
 
 
 
-{ Free function 2 }
+{ Free function 2, definition }
 
 function FreeFunc2(const AParam: string): integer;
 begin
@@ -195,7 +213,7 @@ end;
 
 
 {
-// Unused free function 1
+// Unused free function 1, definition
 
 function UnusedFreeFunc1(ANum: double): cardinal;
 begin
@@ -207,7 +225,7 @@ end;
 
 
 
-{ Free procedure 2 }
+{ Free procedure 2, definition }
 procedure FreeProc2(AParam: integer);
 begin
   // Do something
@@ -216,7 +234,7 @@ end;
 
 
 (*
-// Unused free function 2
+// Unused free function 2, definition
 
 function UnusedFreeFunc2(ANum: double): cardinal;
 begin
@@ -227,7 +245,7 @@ end;
 
 
 
-{ Unused free function 3 }
+{ Unused free function 3, definition }
 
 function UnusedFreeFunc3(ANum: double): cardinal;
 begin
@@ -239,7 +257,7 @@ end;
 
 
 
-{ Free procedure 3 }
+{ Free procedure 3 (overloaded), definition }
 
 procedure FreeProc3(AParam: integer);
 begin
@@ -247,6 +265,15 @@ begin
 end;
 
 
+
+procedure FreeProc3(AParam: string);
+begin
+  //
+end;
+
+
+
+{ Free procedure 4, forward declaration}
 
 procedure FreeProc4(const Param: integer); forward;
 
@@ -338,7 +365,7 @@ end;
 // Free routines
 // -----------------------------------------------------------------------------
 
-{ Free function 3 with internal procedure }
+{ Free function 3 with internal procedure, definition }
 
 function FreeFunc3(const Param: integer): integer;
 
@@ -355,7 +382,7 @@ end;
 
 
 
-{ Free procedure 4 with internal function }
+{ Free procedure 4 with internal function, definition }
 
 procedure FreeProc4(const Param: integer);
 
@@ -372,7 +399,7 @@ end;
 
 
 
-{ Free procedure 5 with internal procedure preceeded by a comment }
+{ Free procedure 5 with internal procedure preceeded by a comment, declaration & definition }
 
 procedure FreeProc5;
 
@@ -382,6 +409,15 @@ procedure FreeProc5;
     //
   end;
 
+begin
+  //
+end;
+
+
+
+{ Free procedure 6 (inline), declaration & definition }
+
+procedure FreeProc6; inline;
 begin
   //
 end;
@@ -458,6 +494,23 @@ begin
   Dest.Name  := Name;
   Dest.Id    := Id;
   Dest.Value := Value;
+end;
+
+
+
+// -----------------------------------------------------------------------------
+// TInternalClass
+// -----------------------------------------------------------------------------
+
+function TInternalClass.Init(Cnt: integer): boolean;
+begin
+  Result := true;
+end;
+
+
+procedure TInternalClass.SetValue(Cnt: integer);
+begin
+  //
 end;
 
 

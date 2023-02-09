@@ -458,7 +458,10 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	size_t docLength = _pEditView->execute(SCI_GETLENGTH);
 
-	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
+	int flags = SCFIND_WORDSTART | SCFIND_REGEXP | SCFIND_POSIX;
+
+	if (!_ignoreCase || (!_funcCompletionActive && _curLang == L_TEXT))
+		flags |= SCFIND_MATCHCASE;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	intptr_t posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);

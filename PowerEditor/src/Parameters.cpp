@@ -102,7 +102,8 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 //	{ VK_NULL,    IDM_EDIT_PASTE,                               false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_DELETE,                              false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_SELECTALL,                           false, false, false, nullptr },
-	{ VK_NULL,    IDM_EDIT_BEGINENDSELECT,                      false, false, false, nullptr },
+	{ VK_B,       IDM_EDIT_BEGINENDSELECT,                      true,  false, true,  nullptr },
+	{ VK_B,       IDM_EDIT_BEGINENDSELECT_COLUMNMODE,           false, true,  true,  nullptr },
 
 	{ VK_NULL,    IDM_EDIT_FULLPATHTOCLIP,                      false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_FILENAMETOCLIP,                      false, false, false, nullptr },
@@ -259,6 +260,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_TAB_SPACE,                           false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_EOL,                                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_ALL_CHARACTERS,                      false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_NPC,                                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_INDENT_GUIDE,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_WRAP_SYMBOL,                         false, false, false, nullptr },
 //  { VK_NULL,    IDM_VIEW_ZOOMIN,                              false, false, false, nullptr },
@@ -3883,6 +3885,13 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		}
 	}
 
+	constexpr auto rgbhex = [](COLORREF bbggrr) -> int {
+		return
+			((bbggrr & 0xFF0000) >> 16) |
+			((bbggrr & 0x00FF00)) |
+			((bbggrr & 0x0000FF) << 16);
+	};
+
 	const Style* pStyle = _widgetStyleArray.findByName(TEXT("EOL custom color"));
 	if (!pStyle)
 	{
@@ -3892,6 +3901,30 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		eolColorkNode->ToElement()->SetAttribute(TEXT("fgColor"), TEXT("DADADA"));
 
 		_widgetStyleArray.addStyler(0, eolColorkNode);
+	}
+
+	const Style* pStyleNpc = _widgetStyleArray.findByName(g_npcStyleName);
+	if (!pStyleNpc)
+	{
+		TiXmlNode* npcColorkNode = globalStyleRoot->InsertEndChild(TiXmlElement(TEXT("WidgetStyle")));
+		npcColorkNode->ToElement()->SetAttribute(TEXT("name"), g_npcStyleName);
+		npcColorkNode->ToElement()->SetAttribute(TEXT("styleID"), TEXT("0"));
+
+		// use color from style White space symbol
+		const Style* pStyleWS = _widgetStyleArray.findByName(TEXT("White space symbol"));
+		if (pStyleWS)
+		{
+			constexpr size_t bufSize = 7;
+			wchar_t strColor[bufSize] = { '\0' };
+			swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleWS->_fgColor));
+			npcColorkNode->ToElement()->SetAttribute(L"fgColor", strColor);
+		}
+		else
+		{
+			npcColorkNode->ToElement()->SetAttribute(L"fgColor", L"DADADA");
+		}
+
+		_widgetStyleArray.addStyler(0, npcColorkNode);
 	}
 
 	return true;
@@ -6026,6 +6059,30 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 {
 	TiXmlElement* element = node->ToElement();
 
+	auto parseYesNoBoolAttribute = [&element](const TCHAR* name, bool defaultValue = false) -> bool {
+		const TCHAR* nm = element->Attribute(name);
+		if (nm)
+		{
+			if (!lstrcmp(nm, TEXT("yes")))
+				return true;
+			else if (!lstrcmp(nm, TEXT("no")))
+				return false;
+		}
+		return defaultValue;
+	};
+
+	auto parseShowHideBoolAttribute = [&element](const TCHAR* name, bool defaultValue = false) -> bool {
+		const TCHAR* nm = element->Attribute(name);
+		if (nm)
+		{
+			if (!lstrcmp(nm, TEXT("show")))
+				return true;
+			else if (!lstrcmp(nm, TEXT("hide")))
+				return false;
+		}
+		return defaultValue;
+	};
+
 	// Line Number Margin
 	const TCHAR *nm = element->Attribute(TEXT("lineNumberMargin"));
 	if (nm)
@@ -6274,6 +6331,18 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 		if (val >= 0 && val <= 3)
 			_svp._eolMode = static_cast<ScintillaViewParams::crlfMode>(val);
 	}
+
+	// Unicode non-printable characters visibility State
+	_svp._npcShow = parseShowHideBoolAttribute(TEXT("npcShow"), true);
+
+	nm = element->Attribute(TEXT("npcMode"), &val);
+	if (nm)
+	{
+		if (val >= 1 && val <= 2)
+			_svp._npcMode = static_cast<ScintillaViewParams::npcMode>(val);
+	}
+
+	_svp._npcCustomColor = parseYesNoBoolAttribute(TEXT("npcCustomColor"));
 
 	nm = element->Attribute(TEXT("borderWidth"), &val);
 	if (nm)
@@ -6528,6 +6597,16 @@ bool NppParameters::writeScintillaParams()
 		(scintNode->ToElement())->SetAttribute(TEXT("name"), pViewName);
 	}
 
+	auto setYesNoBoolAttribute = [&scintNode](const TCHAR* name, bool value) -> void {
+		const TCHAR* pStr = value ? TEXT("yes") : TEXT("no");
+		(scintNode->ToElement())->SetAttribute(name, pStr);
+	};
+
+	auto setShowHideBoolAttribute = [&scintNode](const TCHAR* name, bool value) -> void {
+		const TCHAR* pStr = value ? TEXT("show") : TEXT("hide");
+		(scintNode->ToElement())->SetAttribute(name, pStr);
+	};
+
 	(scintNode->ToElement())->SetAttribute(TEXT("lineNumberMargin"), _svp._lineNumberMarginShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("lineNumberDynamicWidth"), _svp._lineNumberMarginDynamicWidth ?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("bookMarkMargin"), _svp._bookMarkMarginShow?TEXT("show"):TEXT("hide"));
@@ -6567,6 +6646,9 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), _svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), _svp._eolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolMode"), _svp._eolMode);
+	setShowHideBoolAttribute(TEXT("npcShow"), _svp._npcShow);
+	(scintNode->ToElement())->SetAttribute(TEXT("npcMode"), static_cast<int>(_svp._npcMode));
+	setYesNoBoolAttribute(TEXT("npcCustomColor"), _svp._npcCustomColor);
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);

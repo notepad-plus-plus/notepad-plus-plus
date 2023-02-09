@@ -310,6 +310,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	::SendMessage(_hSelf, NPPM_INTERNAL_CRLFFORMCHANGED, 0, 0);
 
+	::SendMessage(_hSelf, NPPM_INTERNAL_NPCFORMCHANGED, 0, 0);
+
 	::SendMessage(_hSelf, NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
 
 	// Notify plugins that Notepad++ is ready
@@ -393,6 +395,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	// Make this call later to take effect
 	::SendMessage(_hSelf, NPPM_INTERNAL_SETWORDCHARS, 0, 0);
+	::SendMessage(_hSelf, NPPM_INTERNAL_SETNPC, 0, 0);
 
 	if (nppParams.doFunctionListExport())
 		::SendMessage(_hSelf, NPPM_INTERNAL_EXPORTFUNCLISTANDQUIT, 0, 0);

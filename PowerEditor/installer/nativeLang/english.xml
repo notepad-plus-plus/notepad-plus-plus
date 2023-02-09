@@ -112,6 +112,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Delete"/>
                     <Item id="42007" name="&amp;Select All"/>
                     <Item id="42020" name="Begin/End &amp;Select"/>
+                    <Item id="42089" name="Begin/End Select in Column Mode"/>
                     <Item id="42084" name="Date Time (short)"/>
                     <Item id="42085" name="Date Time (long)"/>
                     <Item id="42086" name="Date Time (customized)"/>
@@ -264,7 +265,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44022" name="Word wrap"/>
                     <Item id="44023" name="Zoom &amp;In (Ctrl+Mouse Wheel Up)"/>
                     <Item id="44024" name="Zoom &amp;Out (Ctrl+Mouse Wheel Down)"/>
-                    <Item id="44025" name="Show White Space and TAB"/>
+                    <Item id="44025" name="Show Space and Tab"/>
                     <Item id="44026" name="Show End of Line"/>
                     <Item id="44029" name="Unfold All"/>
                     <Item id="44030" name="Fold Current Level"/>
@@ -294,6 +295,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Apply Color 3"/>
                     <Item id="44114" name="Apply Color 4"/>
                     <Item id="44115" name="Apply Color 5"/>
+                    <Item id="44130" name="Show Non-Printing Characters"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -924,6 +926,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Default"/>
                     <Item id="6249" name="Plain Text"/>
                     <Item id="6250" name="Custom Color"/>
+                    <Item id="6252" name="Non-Printing Characters"/>
+                    <Item id="6254" name="Abbreviation"/>
+                    <Item id="6255" name="Codepoint"/>
+                    <Item id="6256" name="Custom Color"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
@@ -1317,7 +1323,18 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
             <DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
 you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
             <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
+            <ColumnModeTip title="Column Mode Tip" message="
+There are 3 ways to switch to column-select mode:
+
+1. (Keyboard and Mouse)  Hold Alt while left-click dragging
+
+2. (Keyboard only)  Hold Alt+Shift while using arrow keys
+
+3. (Keyboard or Mouse)
+      Put caret at desired start of column block position, then
+       execute &quot;Begin/End Select in Column Mode&quot; command;
+      Move caret to desired end of column block position, then
+       execute &quot;Begin/End Select in Column Mode&quot; command again"/>
             <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
 Keep this file in editor?"/>
@@ -1388,6 +1405,7 @@ Continue?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"/>
+            <LanguageMenuCompactWarning title="Compact Language Menu" message="This option will be changed on the next launch."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1626,6 +1644,33 @@ NOTE:
 1. Modifying options here requires re-open currently opened large files to get proper behavior.
 
 2. If &quot;Deactivate Word Wrap globally&quot; is checked and you open a large file, &quot;Word Wrap&quot; will be disabled for all files. You can re-enable it via menu &quot;View-&gt;Word Wrap&quot;." />
+            <npcNote-tip value="Representation of selected &quot;non-ASCII&quot; whitespace and non-printing (control) characters.
+
+NOTE:
+Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
+
+Using representation will disable character effects on text.
+
+For the full list of selected whitespace and non-printing characters check User Manual.
+
+Click on this button to open website with User Manual." />
+            <npcAbbreviation-tip value="Abbreviation : name
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+For the full list check User Manual.
+Click on &quot;?&quot; button on right to open website with User Manual." />
+            <npcCodepoint-tip value="Codepoint : name
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+For the full list check User Manual.
+Click on &quot;?&quot; button on right to open website with User Manual." />
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -400,7 +400,7 @@ void VerticalFileSwitcher::closeDoc(TaskLstFnStatus *tlfs) const
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2;
 
-	::SendMessage(_hParent, NPPM_CLOSEDOC, view2set, index2Switch);
+	::SendMessage(_hParent, NPPM_INTERNAL_CLOSEDOC, view2set, index2Switch);
 }
 
 int VerticalFileSwitcher::setHeaderOrder(int columnIndex)

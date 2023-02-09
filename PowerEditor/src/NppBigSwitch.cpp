@@ -1317,7 +1317,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_CLOSEDOC:
+		case NPPM_INTERNAL_CLOSEDOC:
 		{
 			// Close a document without switching to it
 			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW)) ? currentView() : static_cast<int32_t>(wParam);

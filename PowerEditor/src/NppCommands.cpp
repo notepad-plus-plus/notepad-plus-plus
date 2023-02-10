@@ -999,7 +999,12 @@ void Notepad_plus::command(int id)
 			const auto current_index = _pDocTab->getCurrentTabIndex();
 			BufferID buffer_id = _pDocTab->getBufferByIndex(current_index);
 			_pDocTab->setIndividualTabColour(buffer_id, color_id);
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			_pDocTab->redraw();
+
+			if (_pDocumentListPanel != nullptr)
+			{
+				_pDocumentListPanel->setItemColor(buffer_id);
+			}
 		}
 		break;
 
@@ -3112,11 +3117,13 @@ void Notepad_plus::command(int id)
         case IDM_VIEW_GOTO_ANOTHER_VIEW:
             docGotoAnotherEditView(TransferMove);
 			checkSyncState();
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
             break;
 
         case IDM_VIEW_CLONE_TO_ANOTHER_VIEW:
             docGotoAnotherEditView(TransferClone);
 			checkSyncState();
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
             break;
 
         case IDM_VIEW_GOTO_NEW_INSTANCE :

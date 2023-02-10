@@ -31,6 +31,7 @@ typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrie
 #define FS_CLMNNAME					"ColumnName"
 #define FS_CLMNEXT					"ColumnExt"
 #define FS_CLMNPATH					"ColumnPath"
+#define FS_LVGROUPS					"ListGroups"
 
 struct SwitcherFileInfo {
 	BufferID _bufID = 0;
@@ -58,6 +59,7 @@ public:
 	void activateItem(BufferID bufferID, int iView);
 	void setItemIconStatus(BufferID bufferID);
 	generic_string getFullFilePath(size_t i) const;
+	void setItemColor(BufferID bufferID);
 	
 	void insertColumn(const TCHAR *name, int width, int index);
 	void resizeColumns(int totalWidth);
@@ -89,6 +91,9 @@ protected:
 	HIMAGELIST _hImaLst = nullptr;
 
 	int _currentIndex = 0;
+
+	static const int _groupID = 1;
+	static const int _group2ID = 2;
 
 	int find(BufferID bufferID, int iView) const;
 	int add(BufferID bufferID, int iView);

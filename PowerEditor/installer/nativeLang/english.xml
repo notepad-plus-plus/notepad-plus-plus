@@ -1429,6 +1429,7 @@ Do you want to save your changes before switching themes?"/> <!-- HowToReproduce
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
             <ColumnPath name="Path"/>
+            <ListGroups name="Group by View"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Name"/>

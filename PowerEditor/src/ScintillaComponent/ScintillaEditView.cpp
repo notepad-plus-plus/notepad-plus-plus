@@ -902,6 +902,8 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 		return;
 	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(iLex5));
 
+	::SendMessage(_hParent, NPPM_INTERNAL_EXTERNALLEXERBUFFER, 0, 0);
+
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const wchar_t* lexerNameW = wmc.char2wchar(externalLexer._name.c_str(), CP_ACP);
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerNameW);
@@ -2755,7 +2757,8 @@ void ScintillaEditView::performGlobalStyles()
 		edgeColor = pStyle->_fgColor;
 	}
 	execute(SCI_SETEDGECOLOUR, edgeColor);
-	::SendMessage(_hParent, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
+
+	::SendMessage(_hParent, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, (LPARAM)getCurrentBufferID());
 
 	COLORREF foldMarginColor = grey;
 	COLORREF foldMarginHiColor = white;

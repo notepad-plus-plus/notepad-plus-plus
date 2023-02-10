@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.8">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -24,7 +24,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Abrir pasta de conteúdo"/>
-                    <Item subMenuId="file-closeMore" name="Fechar múltiplos documentos"/>
+                    <Item subMenuId="file-closeMore" name="Fechar vários documentos"/>
                     <Item subMenuId="file-recentFiles" name="Ficheiros recentes"/>
                     <Item subMenuId="edit-insert" name="Inserir"/>
                     <Item subMenuId="edit-copyToClipboard" name="Copiar p/ a área de transferência"/>
@@ -32,7 +32,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-convertCaseTo" name="Converter letra para"/>
                     <Item subMenuId="edit-lineOperations" name="Operações de linha"/>					
                     <Item subMenuId="edit-comment" name="Comentário"/>
-                    <Item subMenuId="edit-autoCompletion" name="Conclusão automática"/>
+                    <Item subMenuId="edit-autoCompletion" name="Preenchimento automático"/>
                     <Item subMenuId="edit-eolConversion" name="Conversão EOL (fim da linha)"/>
                     <Item subMenuId="edit-blankOperations" name="Operação em branco"/>
                     <Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
@@ -46,7 +46,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="search-bookmark" name="Marcador"/>
                     <Item subMenuId="view-currentFileIn" name="Ver ficheiro atual em"/>
                     <Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
-                    <Item subMenuId="view-zoom" name="Zoom"/>
+                    <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument" name="Mover/Clonar documento atual"/>
                     <Item subMenuId="view-tab"  name="Separador"/>
                     <Item subMenuId="view-collapseLevel" name="Recolher nível"/>
@@ -112,6 +112,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="E&amp;liminar"/>
                     <Item id="42007" name="Selecionar t&amp;udo"/>
                     <Item id="42020" name="Selecionar Início/Fim"/>
+                    <Item id="42089" name="Selecionar Início/Fim no modo de coluna"/>
                     <Item id="42084" name="Data e Hora (curto)"/>
                     <Item id="42085" name="Data e Hora (longo)"/>
                     <Item id="42086" name="Data e Hora (personalizado)"/>
@@ -201,7 +202,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43019" name="Copiar linhas marcadas"/>
                     <Item id="43020" name="Colar (substituir) linhas marcadas"/>
                     <Item id="43021" name="Remover linhas marcadas"/>
-                    <Item id="43051" name="Remover linhas desmarcadas"/>
+                    <Item id="43051" name="Remover linhas não marcadas"/>
                     <Item id="43050" name="Inverter marcador"/>
                     <Item id="43052" name="Encontrar carateres..."/>
                     <Item id="43053" name="Selecionar tudo entre as chavetas correspondidas"/>
@@ -294,6 +295,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Aplicar cor 3"/>
                     <Item id="44114" name="Aplicar cor 4"/>
                     <Item id="44115" name="Aplicar cor 5"/>
+                    <Item id="44130" name="Mostrar caracteres não impressos"/>
                     <Item id="44032" name="Alternar para modo de ecrã inteiro"/>
                     <Item id="44033" name="Restaurar zoom predefinido"/>
                     <Item id="44034" name="Sempre no topo"/>
@@ -359,13 +361,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="48506" name="Gerar da seleção para a área de transferência"/>
                     <Item id="49000" name="&amp;Executar..."/>
 
-                    <Item id="50000" name="Conclusão da função"/>
-                    <Item id="50001" name="Conclusão da palavra"/>
+                    <Item id="50000" name="Preenchimento da função"/>
+                    <Item id="50001" name="Preenchimento da palavra"/>
                     <Item id="50002" name="Dica dos parâmetros da função"/>
                     <Item id="50010" name="Dica anterior dos parâmetros da função"/>
                     <Item id="50011" name="Dica seguinte dos parâmetros da função"/>
                     <Item id="50005" name="Alternar para gravação de macro"/>
-                    <Item id="50006" name="Conclusão da localização"/>
+                    <Item id="50006" name="Preenchimento da localização"/>
                     <Item id="44042" name="Ocultar linhas"/>
                     <Item id="42040" name="Abrir todos os ficheiros recentes"/>
                     <Item id="42041" name="Limpar a lista dos ficheiros recentes"/>
@@ -387,7 +389,7 @@ The comments are here for explanation, it's not necessary to translate them.
             </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Fechar"/>
-                <Item CMDID="0" name="Fechar múltiplos separadores"/>
+                <Item CMDID="0" name="Fechar vários separadores"/>
                 <Item CMDID="41005" name="Fechar TUDO EXCETO este"/>
                 <Item CMDID="41009" name="Fechar TUDO à esquerda"/>
                 <Item CMDID="41018" name="Fechar TUDO à direita"/>
@@ -590,6 +592,20 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ScintillaCommandsTab name="Comandos de Scintilla"/>
                 <ConflictInfoOk name="Sem conflito de atalhos para este item."/>
                 <ConflictInfoEditing name="Sem conflitos . . ."/>
+                <WindowCategory name="Janela"/>
+                <FileCategory name="Ficheiro"/>
+                <EditCategory name="Editar"/>
+                <SearchCategory name="Procurar"/>
+                <ViewCategory name="Visualização"/>
+                <FormatCategory name="Formato"/>
+                <LangCategory name="Linguagem"/>
+                <AboutCategory name="Acerca"/>
+                <SettingCategory name="Configuração"/>
+                <ToolCategory name="Ferramenta"/>
+                <ExecuteCategory name="Executar"/>
+                <ModifyContextMenu name="Modificar"/>
+                <DeleteContextMenu name="Eliminar"/>
+                <ClearContextMenu name="Limpar"/>
                 <MainCommandNames>
                     <Item id="41019" name="Abrir a pasta de conteúdo no Explorador"/>
                     <Item id="41020" name="Abrir a pasta de conteúdo na Linha de comandos"/>
@@ -706,6 +722,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20011" name="Transparência"/>
                 <Item id="20015" name="Importar..."/>
                 <Item id="20016" name="Exportar..."/>
+                <Item id="20017" name="Remover Inic. rápida"/>
                 <StylerDialog title="Janela do estilo">
                     <Item id="25030" name="Opções do tipo de letra:"/>
                     <Item id="25006" name="Cor do primeiro plano"/>
@@ -924,6 +941,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Predefinição"/>
                     <Item id="6249" name="Texto simples"/>
                     <Item id="6250" name="Cor personalizada"/>
+                    <Item id="6252" name="Caracteres não impressos"/>
+                    <Item id="6254" name="Abreviatura"/>
+                    <Item id="6255" name="Codepoint"/>
+                    <Item id="6256" name="Cor personalizada"/>
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
@@ -1112,20 +1133,20 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6803" name="Pasta: "/>
                 </Backup>
 
-                <AutoCompletion title="Conclusão automática">
+                <AutoCompletion title="Preenchimento automático">
                     <Item id="6115" name="Indentação automática"/>
-                    <Item id="6807" name="Conclusão automática"/>
-                    <Item id="6808" name="Ativar conclusão automática"/>
-                    <Item id="6809" name="Completar função"/>
-                    <Item id="6810" name="Completar palavra"/>
-                    <Item id="6816" name="Completar função e palavra"/>
+                    <Item id="6807" name="Preenchimento automático"/>
+                    <Item id="6808" name="Ativar preenchimento automático"/>
+                    <Item id="6809" name="Preencher função"/>
+                    <Item id="6810" name="Preencher palavra"/>
+                    <Item id="6816" name="Preencher função e palavra"/>
                     <Item id="6869" name="Inserir seleção"/>
                     <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignorar números"/>
                     <Item id="6811" name="De"/>
                     <Item id="6813" name="º. caráter"/>
-                    <Item id="6814" name="Valor válido: 1 - 9"/>
+                    <Item id="6872" name="Tornar a lista de preenchimento automático breve"/>
                     <Item id="6815" name="Sugerir dicas da função ao escrever"/>
                     <Item id="6851" name="Inserir automático"/>
                     <Item id="6857" name="Etiqueta fechar (html/xml)"/>
@@ -1174,7 +1195,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="7144" name="Definir tamanho de ficheiro grande:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
                     <Item id="7147" name="Permitir a coloração simétrica do delimitador"/>
-                    <Item id="7148" name="Permitir conclusão automática"/>
+                    <Item id="7148" name="Permitir preenchimento automático"/>
                     <Item id="7149" name="Permitir destaque inteligente"/>
                     <Item id="7150" name="Desativar Quebra de linha globalmente"/>
                     <Item id="7151" name="Permitir ligação URL clicável"/>
@@ -1289,7 +1310,8 @@ Pode reativar esta janela de diálogo nas preferências mais tarde."/>
                 <Item id="4" name="Sempre Sim"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Editar contextMenu" message="Editar o contextMenu.xml permite-lhe modificar o menu de contexto do Notepad++.
 Tem de reiniciar o seu Notepad++ para que as alterações do contextMenu.xml tenham efeito."/>
             <SaveCurrentModifWarning title="Guardar Modificação atual" message="Deve guardar a modificação atual.
@@ -1317,7 +1339,18 @@ As suas definições na nuvem serão canceladas. Por favor, reponha um valor coe
             <DroppingFolderAsProjectModeWarning title="Ação inválida" message="Só pode largar ficheiros ou pastas, mas não ambos, porque está a largar pasta como Modo projeto.
 tem de ativar &quot;Abrir todos os ficheiros da pasta em vez de lançar pasta a pasta como àrea de trabalho na pasta a largar&quot; na secção de diálogo de Preferências do &quot;Diretório predefinido&quot; para que esta operação funcione."/>
             <SortingError title="Erro de Ordenação" message="Incapaz de efectuar a triagem numérica devido à linha $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Dica de Modo Coluna" message="Usar &quot;Seleção ALT+Rato&quot; ou &quot;Tecla Alt+Shift+Seta&quot; para mudar para o modo coluna."/>
+            <ColumnModeTip title="Dica de Modo Coluna" message="
+Existem 3 maneiras de mudar para o modo de selecção de coluna:
+
+1. (Teclado e Rato)  Manter pressionada a tecla Alt enquanto clica com o botão esquerdo do rato para arrastar
+
+2. (Apenas o Teclado)  Manter pressionadas as teclas Alt+Shift enquanto utiliza as teclas de setas
+
+3. (Teclado ou Rato)
+      Coloque o cursor no início desejado da posição do bloco da coluna, depois
+       execute o comando &quot;Selecionar Início/Fim no modo de coluna&quot;
+      Mova o cursor para o fim desejado da posição do bloco da coluna, depois
+       execute o comando &quot;Selecionar Início/Fim no modo de coluna&quot; novamente"/>
             <BufferInvalidWarning title="Falha ao guardar" message="Não é possível guardar: O Buffer é inválido."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Manter ficheiro não existente" message="O ficheiro &quot;$STR_REPLACE$&quot; já não existe.
 Mantenha este ficheiro no editor?"/>
@@ -1348,6 +1381,8 @@ Deseja abri-lo?"/>
             <CreateNewFileOrNot title="Criar novo ficheiro" message="&quot;$STR_REPLACE$&quot; não existe. Criá-lo?"/>
             <CreateNewFileError title="Criar novo ficheiro" message="Não é possível criar o ficheiro &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERRO" message="Não pode abrir ficheiro &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileNoFolderError title="Não é possível abrir o ficheiro" message="&quot;$STR_REPLACE1$&quot; não pode ser aberto:
+A pasta &quot;$STR_REPLACE2$&quot; não existe."/>
             <FileBackupFailed title="Ficheiro de cópia de segurança falhou" message="A versão anterior do ficheiro não pôde ser guardada no diretório de cópia de segurança em &quot;$STR_REPLACE$&quot;.
 
 Quer guardar o ficheiro atual de qualquer forma?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1388,6 +1423,9 @@ Continuar?"/>
             <NeedToRestartToLoadPlugins title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para carregar os plugins que instalou."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para ativar o histórico de alterações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Sair da sessão do Windows" message="A sessão do Windows está prestes a terminar mas tem alguns dados não guardados. Quer sair do Notepad++ agora?"/>
+            <LanguageMenuCompactWarning title="Menu de linguagem compacta" message="Esta opção será alterada na próxima vez que iniciar."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="As alterações não guardadas estão prestes a ser descartadas!
+Quer guardar as suas alterações antes de mudar de tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1397,6 +1435,7 @@ Continuar?"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Ext."/>
             <ColumnPath name="Localização"/>
+            <ListGroups name="Agrupar por visualização"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
@@ -1492,7 +1531,7 @@ Continuar?"/>
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="Isto permite que inclua caracteres adicionais nos caracteres da palavra atual ao clicar duas vezes para selecionar ou pesquisar com a opção &quot;Corresponder apenas à palavra inteira&quot; marcada."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1574,11 +1613,9 @@ Procurar em todos os ficheiros mas excluir todos os registos de pastas ou regist
             <splitter-rotate-right value="Rodar para a direita"/>
             <recent-file-history-maxfile value="Ficheiro máximo: "/>
             <recent-file-history-customlength value="Comprimento: "/>
-            <language-tabsize value="Tamanho do separador: "/>
             <userdefined-title-new value="Criar nova linguagem..."/>
             <userdefined-title-save value="Guardar o nome da linguagem atual como..."/>
             <userdefined-title-rename value="Renomear nome da linguagem atual"/>
-            <autocomplete-nb-char value="Nº de caracteres: "/>
             <edit-verticaledge-nb-col value="Nº de colunas: "/>
             <summary value="Resumo"/>
             <summary-filepath value="Localização completa: "/>
@@ -1591,6 +1628,8 @@ Procurar em todos os ficheiros mas excluir todos os registos de pastas ou regist
             <summary-nbsel1 value=" caracteres selecionados ("/>
             <summary-nbsel2 value=" bytes) em "/>
             <summary-nbrange value=" intervalo"/>
+            <progress-cancel-button value="Cancelar"/>
+            <progress-cancel-info value="A cancelar a operação, aguarde..."/>
             <find-in-files-progress-title value="Encontrar em ficheiros em curso..."/>
             <replace-in-files-confirm-title value="Tem a certeza?"/>
             <replace-in-files-confirm-directory value="Tem a certeza de que quer substituir todas as ocorrências em: "/>
@@ -1626,6 +1665,33 @@ NOTA:
 1. Modificar as opções de aqui requer a reabertura de ficheiros grandes atualmente abertos para obter um comportamento adequado.
 
 2. If &quot;Desativar a quebra de linha globalmente&quot; é verificada e abre-se um ficheiro grande, a &quot;Quebra de linha&quot; será desativada para todos os ficheiros. Pode voltar a ativá-la através do menu &quot;Visualização-&gt;Quebra de linha&quot;." />
+            <npcNote-tip value="Representação de caracteres selecionados &quot;não-ASCII&quot; espaços em branco e caracteres não impressos (controlo).
+
+NOTA:
+Alguns caracteres podem já ter alguma representação e são assim visíveis. O separador de linhas e o separador de parágrafos já são representados por abreviatura por defeito.
+
+A utilização da representação desactivará os efeitos de caracteres no texto.
+
+Para a lista completa dos espaços em branco selecionados e caracteres não impressos, consulte o Manual do Utilizador.
+
+Clique neste botão para abrir o website com Manual do Utilizador." />
+            <npcAbbreviation-tip value="Abreviatura : nome
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+Para ver a lista completa, consulte o Manual do Utilizador.
+Clique no botão &quot;?&quot; à direita para abrir o website com Manual do Utilizador." />
+            <npcCodepoint-tip value="Codepoint : nome
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+Para ver a lista completa, consulte o Manual do Utilizador.
+Clique no botão &quot;?&quot; à direita para abrir o website com Manual do Utilizador." />
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e caracteres não-impressos (&quot;Cor personalizada de caracteres não impressos&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
@@ -1652,7 +1718,7 @@ João Pereira <joaopereira@openmailbox.org>
 Hugo Carvalho <hugokarvalho@hotmail.com>
 07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4)
 
-Last change: 10/01/2023 (Hugo Carvalho)
+Last modified: 25 Feb 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

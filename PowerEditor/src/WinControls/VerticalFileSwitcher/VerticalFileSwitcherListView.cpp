@@ -33,7 +33,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 
 	// Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT /*| LVS_SINGLESEL*/ | LVS_AUTOARRANGE\
-						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
+						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS | LVS_ALIGNTOP;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW,
                                 TEXT(""),
@@ -54,6 +54,22 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP | LVS_EX_DOUBLEBUFFER);
 	ListView_SetItemCountEx(_hSelf, 50, LVSICF_NOSCROLL);
 	ListView_SetImageList(_hSelf, _hImaLst, LVSIL_SMALL);
+
+	LVGROUP group{};
+	constexpr size_t headerLen = 1;
+	wchar_t header[headerLen] = L"";
+	group.cbSize = sizeof(LVGROUP);
+	group.mask = LVGF_HEADER | LVGF_GROUPID | LVGF_STATE;
+	group.pszHeader = header;
+	group.cchHeader = headerLen;
+	group.iGroupId = _groupID;
+	group.state = LVGS_COLLAPSIBLE;
+
+	LVGROUP group2 = group;
+	group2.iGroupId = _group2ID;
+
+	ListView_InsertGroup(_hSelf, -1, &group);
+	ListView_InsertGroup(_hSelf, -1, &group2);
 }
 
 void VerticalFileSwitcherListView::destroy()
@@ -77,6 +93,9 @@ void VerticalFileSwitcherListView::initList()
 	NppParameters& nppParams = NppParameters::getInstance();
 	NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 	
+	const bool isListViewGroups = !nppParams.getNppGUI()._fileSwitcherDisableListViewGroups;
+	ListView_EnableGroupView(_hSelf, isListViewGroups ? TRUE : FALSE);
+
 	bool isExtColumn = !nppParams.getNppGUI()._fileSwitcherWithoutExtColumn;
 	bool isPathColumn = !nppParams.getNppGUI()._fileSwitcherWithoutPathColumn;
 
@@ -111,7 +130,7 @@ void VerticalFileSwitcherListView::initList()
 	{
 		TaskLstFnStatus & fileNameStatus = taskListInfo._tlfsLst[i];
 
-		TaskLstFnStatus *tl = new TaskLstFnStatus(fileNameStatus._iView, fileNameStatus._docIndex, fileNameStatus._fn, fileNameStatus._status, (void *)fileNameStatus._bufID);
+		TaskLstFnStatus *tl = new TaskLstFnStatus(fileNameStatus);
 
 		TCHAR fn[MAX_PATH] = { '\0' };
 		wcscpy_s(fn, ::PathFindFileName(fileNameStatus._fn.c_str()));
@@ -121,13 +140,14 @@ void VerticalFileSwitcherListView::initList()
 			::PathRemoveExtension(fn);
 		}
 		LVITEM item{};
-		item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
+		item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM | LVIF_GROUPID;
 		
 		item.pszText = fn;
 		item.iItem = static_cast<int32_t>(i);
 		item.iSubItem = 0;
 		item.iImage = fileNameStatus._status;
 		item.lParam = reinterpret_cast<LPARAM>(tl);
+		item.iGroupId = (fileNameStatus._iView == MAIN_VIEW) ? _groupID : _group2ID;
 		ListView_InsertItem(_hSelf, &item);
 		int colIndex = 0;
 		if (isExtColumn)
@@ -229,6 +249,30 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 	}
 }
 
+void VerticalFileSwitcherListView::setItemColor(BufferID bufferID)
+{
+	Buffer* buf = static_cast<Buffer*>(bufferID);
+
+	LVITEM item{};
+	item.mask = LVIF_PARAM;
+
+	int nbItem = ListView_GetItemCount(_hSelf);
+
+	for (int i = 0; i < nbItem; ++i)
+	{
+		item.iItem = i;
+		ListView_GetItem(_hSelf, &item);
+		TaskLstFnStatus* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
+		if (tlfs->_bufID == bufferID)
+		{
+			tlfs->_docColor = buf->getDocColorId();
+			ListView_SetItem(_hSelf, &item);
+			redraw();
+			break;
+		}
+	}
+}
+
 generic_string VerticalFileSwitcherListView::getFullFilePath(size_t i) const
 {
 	size_t nbItem = ListView_GetItemCount(_hSelf);
@@ -270,7 +314,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	Buffer *buf = static_cast<Buffer *>(bufferID);
 	const TCHAR *fileName = buf->getFileName();
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, (void *)bufferID);
+	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, (void *)bufferID, -1);
 
 	TCHAR fn[MAX_PATH] = { '\0' };
 	wcscpy_s(fn, ::PathFindFileName(fileName));
@@ -281,13 +325,14 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 		::PathRemoveExtension(fn);
 	}
 	LVITEM item{};
-	item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
+	item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM | LVIF_GROUPID;
 	
 	item.pszText = fn;
 	item.iItem = _currentIndex;
 	item.iSubItem = 0;
 	item.iImage = buf->isMonitoringOn()?3:(buf->isReadOnly()?2:(buf->isDirty()?1:0));
 	item.lParam = reinterpret_cast<LPARAM>(tl);
+	item.iGroupId = (iView == MAIN_VIEW) ? _groupID : _group2ID;
 	ListView_InsertItem(_hSelf, &item);
 	int colIndex = 0;
 	if (isExtColumn)

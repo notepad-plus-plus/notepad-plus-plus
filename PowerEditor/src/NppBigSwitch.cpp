@@ -3089,14 +3089,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DOCLISTDISABLEPATHCOLUMN:
 		case NPPM_DOCLISTDISABLEEXTCOLUMN:
+		case NPPM_DOCLISTDISABLEGROUPS:
 		{
-			BOOL isOff = static_cast<BOOL>(lParam);
+			bool isOff = static_cast<BOOL>(lParam) == TRUE;
 			NppGUI & nppGUI = nppParam.getNppGUI();
 
 			if (message == NPPM_DOCLISTDISABLEEXTCOLUMN)
-				nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
+				nppGUI._fileSwitcherWithoutExtColumn = isOff;
+			else if (message == NPPM_DOCLISTDISABLEPATHCOLUMN)
+				nppGUI._fileSwitcherWithoutPathColumn = isOff;
 			else
-				nppGUI._fileSwitcherWithoutPathColumn = isOff == TRUE;
+				nppGUI._fileSwitcherDisableListViewGroups = isOff;
 
 			if (_pDocumentListPanel)
 			{

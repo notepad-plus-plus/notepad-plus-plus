@@ -27,6 +27,10 @@
 
 #define CLMNEXT_ID     1
 #define CLMNPATH_ID    2
+#define SEP_POS        3
+#define LVGROUPS_ID    4
+
+COLORREF VerticalFileSwitcher::_bgColor = 0xFFFFFF;
 
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
@@ -83,6 +87,129 @@ void VerticalFileSwitcher::startColumnSort()
 	updateHeaderArrow();
 }
 
+LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	auto lplvcd = reinterpret_cast<LPNMLVCUSTOMDRAW>(lParam);
+
+	switch (lplvcd->nmcd.dwDrawStage)
+	{
+		case CDDS_PREPAINT:
+		{
+			if ((lplvcd->dwItemType == LVCDI_GROUP) && NppDarkMode::isThemeDark())
+			{
+				RECT rcHeader{};
+				ListView_GetGroupRect(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVGGR_HEADER, &rcHeader);
+
+				HBRUSH hBrush = ::CreateSolidBrush(VerticalFileSwitcher::_bgColor);
+				::FillRect(lplvcd->nmcd.hdc, &rcHeader, hBrush);
+				::DeleteObject(hBrush);
+				hBrush = nullptr;
+			}
+			return CDRF_NOTIFYITEMDRAW;
+		}
+
+		case CDDS_ITEMPREPAINT:
+		{
+			const auto isSelected = ListView_GetItemState(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
+			const bool isHot = (lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT;
+			const bool isThemeDark = NppDarkMode::isThemeDark();
+			const int colorID = reinterpret_cast<TaskLstFnStatus*>(lplvcd->nmcd.lItemlParam)->_docColor;
+
+			if (colorID != -1)
+			{
+				if (isThemeDark)
+				{
+					lplvcd->clrText = NppDarkMode::getTextColor();
+				}
+
+				const COLORREF color = NppDarkMode::getIndividualTabColour(colorID, isThemeDark, false);
+				lplvcd->clrTextBk = color;
+
+				HBRUSH hBrush = ::CreateSolidBrush(color);
+				::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, hBrush);
+				::DeleteObject(hBrush);
+				hBrush = nullptr;
+			}
+			else if (isThemeDark)
+			{
+				if (isSelected)
+				{
+					lplvcd->clrText = NppDarkMode::getTextColor();
+					lplvcd->clrTextBk = NppDarkMode::getSofterBackgroundColor();
+					::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getSofterBackgroundBrush());
+				}
+				else if (isHot)
+				{
+					lplvcd->clrText = NppDarkMode::getTextColor();
+					lplvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
+					::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
+				}
+			}
+
+			if (isSelected)
+			{
+				::DrawFocusRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc);
+			} 
+			else if (isHot)
+			{
+				::FrameRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, isThemeDark ? NppDarkMode::getHotEdgeBrush() : ::GetSysColorBrush(COLOR_WINDOWTEXT));
+			}
+
+			return CDRF_NEWFONT;
+		}
+
+		default:
+			break;
+	}
+	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
+LRESULT CALLBACK VerticalFileSwitcher::FileSwitcherNotifySubclass(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR /*dwRefData*/
+)
+{
+	switch (uMsg)
+	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hWnd, VerticalFileSwitcher::FileSwitcherNotifySubclass, uIdSubclass);
+			break;
+		}
+
+		case WM_NOTIFY:
+		{
+			auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
+			switch (nmhdr->code)
+			{
+				case NM_CUSTOMDRAW:
+				{
+					constexpr size_t classNameLen = 16;
+					wchar_t className[classNameLen]{};
+					GetClassName(nmhdr->hwndFrom, className, classNameLen);
+
+					if (wcscmp(className, WC_LISTVIEW) == 0)
+					{
+						return VerticalFileSwitcher::listViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam);
+					}
+					break;
+				}
+			}
+			break;
+		}
+	}
+	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
+void VerticalFileSwitcher::autoSubclassWindowNotify(HWND hParent)
+{
+	::SetWindowSubclass(hParent, VerticalFileSwitcher::FileSwitcherNotifySubclass, _fileSwitcherNotifySubclassID, 0);
+}
+
 intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -99,7 +226,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 			_defaultListViewProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_fileListView.getHSelf(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(listViewStaticProc)));
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+			VerticalFileSwitcher::autoSubclassWindowNotify(_hSelf);
 
 			return TRUE;
 		}
@@ -182,7 +309,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 
 					LVITEM item{};
 					item.mask = LVIF_PARAM;
-					item.iItem = i;	
+					item.iItem = i;
 					ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
 					TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 
@@ -211,7 +338,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 
 						LVITEM item{};
 						item.mask = LVIF_PARAM;
-						item.iItem = i;	
+						item.iItem = i;
 						ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
 						TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 
@@ -222,7 +349,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					{
 						// Redirect NM_RCLICK message to Notepad_plus handle
 						NMHDR nmhdr{};
-						nmhdr.code = NM_RCLICK;
+						nmhdr.code = reinterpret_cast<LPNMHDR>(lParam)->code; //NM_RCLICK
 						nmhdr.hwndFrom = _hSelf;
 						nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
 						::SendMessage(_hParent, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
@@ -357,15 +484,20 @@ void VerticalFileSwitcher::initPopupMenus()
 
 	generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
 	generic_string pathStr = pNativeSpeaker->getAttrNameStr(TEXT("Path"), FS_ROOTNODE, FS_CLMNPATH);
+	generic_string groupStr = pNativeSpeaker->getAttrNameStr(TEXT("Group by View"), FS_ROOTNODE, FS_LVGROUPS);
 
 	_hGlobalMenu = ::CreatePopupMenu();
-	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNEXT_ID, extStr.c_str());
-	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, CLMNPATH_ID, pathStr.c_str());
+	::InsertMenu(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | MF_STRING, CLMNEXT_ID, extStr.c_str());
+	::InsertMenu(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | MF_STRING, CLMNPATH_ID, pathStr.c_str());
+	::InsertMenu(_hGlobalMenu, SEP_POS, MF_BYCOMMAND | MF_SEPARATOR, 0, nullptr);
+	::InsertMenu(_hGlobalMenu, LVGROUPS_ID, MF_BYCOMMAND | MF_STRING, LVGROUPS_ID, groupStr.c_str());
 
 	bool isExtColumn = nppGUI._fileSwitcherWithoutExtColumn;
 	::CheckMenuItem(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | (isExtColumn ? MF_UNCHECKED : MF_CHECKED));
 	bool isPathColumn = nppGUI._fileSwitcherWithoutPathColumn;
 	::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | (isPathColumn ? MF_UNCHECKED : MF_CHECKED));
+	bool isListViewGroups = nppGUI._fileSwitcherDisableListViewGroups;
+	::CheckMenuItem(_hGlobalMenu, LVGROUPS_ID, MF_BYCOMMAND | (isListViewGroups ? MF_UNCHECKED : MF_CHECKED));
 }
 
 void VerticalFileSwitcher::popupMenuCmd(int cmdID)
@@ -385,6 +517,14 @@ void VerticalFileSwitcher::popupMenuCmd(int cmdID)
 			bool& isPathColumn = NppParameters::getInstance().getNppGUI()._fileSwitcherWithoutPathColumn;
 			isPathColumn = !isPathColumn;
 			::CheckMenuItem(_hGlobalMenu, CLMNPATH_ID, MF_BYCOMMAND | (isPathColumn ? MF_UNCHECKED : MF_CHECKED));
+			reload();
+		}
+		break;
+		case LVGROUPS_ID:
+		{
+			bool& isListViewGroups = NppParameters::getInstance().getNppGUI()._fileSwitcherDisableListViewGroups;
+			isListViewGroups = !isListViewGroups;
+			::CheckMenuItem(_hGlobalMenu, LVGROUPS_ID, MF_BYCOMMAND | (isListViewGroups ? MF_UNCHECKED : MF_CHECKED));
 			reload();
 		}
 		break;

@@ -1000,6 +1000,11 @@ void Notepad_plus::command(int id)
 			BufferID buffer_id = _pDocTab->getBufferByIndex(current_index);
 			_pDocTab->setIndividualTabColour(buffer_id, color_id);
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+
+			if (_pDocumentListPanel != nullptr)
+			{
+				_pDocumentListPanel->setItemColor(buffer_id);
+			}
 		}
 		break;
 

@@ -33,7 +33,7 @@ void DocTabView::addBuffer(BufferID buffer)
 	if (getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
 	Buffer * buf = MainFileManager.getBufferByID(buffer);
-	TCITEM tie;
+	TCITEM tie{};
 	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 
 	int index = -1;
@@ -59,6 +59,7 @@ void DocTabView::closeBuffer(BufferID buffer)
 void DocTabView::setIndividualTabColour(BufferID bufferId, int colorId)
 {
 	_tabIndexToColour[bufferId] = colorId;
+	bufferId->setDocColorId(colorId);
 }
 
 int DocTabView::getIndividualTabColour(int tabIndex)
@@ -89,7 +90,7 @@ BufferID DocTabView::activeBuffer()
 
 BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not found, something else otherwise
 {
-	TCITEM tie;
+	TCITEM tie{};
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
 	for (size_t i = 0; i < _nbItem; ++i)
@@ -108,7 +109,7 @@ BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not fo
 
 int DocTabView::getIndexByBuffer(BufferID id)
 {
-	TCITEM tie;
+	TCITEM tie{};
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
 	for (size_t i = 0; i < _nbItem; ++i)
@@ -123,7 +124,7 @@ int DocTabView::getIndexByBuffer(BufferID id)
 
 BufferID DocTabView::getBufferByIndex(size_t index)
 {
-	TCITEM tie;
+	TCITEM tie{};
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
 	::SendMessage(_hSelf, TCM_GETITEM, index, reinterpret_cast<LPARAM>(&tie));
@@ -138,7 +139,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	if (index == -1)
 		return;
 
-	TCITEM tie;
+	TCITEM tie{};
 	tie.lParam = -1;
 	tie.mask = 0;
 
@@ -157,7 +158,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	}
 
 	//We must make space for the added ampersand characters.
-	TCHAR encodedLabel[2 * MAX_PATH];
+	TCHAR encodedLabel[2 * MAX_PATH] = { '\0' };
 
 	if (mask & BufferChangeFilename)
 	{
@@ -200,7 +201,7 @@ void DocTabView::setBuffer(size_t index, BufferID id)
 	if (index < 0 || index >= _nbItem)
 		return;
 
-	TCITEM tie;
+	TCITEM tie{};
 	tie.lParam = reinterpret_cast<LPARAM>(id);
 	tie.mask = TCIF_PARAM;
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));

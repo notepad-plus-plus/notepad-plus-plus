@@ -2132,6 +2132,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_EXTERNALLEXERBUFFER:
+		{
+			// A buffer is just applied to an external lexer, let's send a notification to lexer plugin 
+			// so the concerning plugin can manage it (associate the buffer & lexer instance).
+			SCNotification scnN{};
+			scnN.nmhdr.code = NPPN_EXTERNALLEXERBUFFER;
+			scnN.nmhdr.hwndFrom = hwnd;
+			scnN.nmhdr.idFrom = lParam;
+			_pluginsManager.notify(&scnN);
+			return TRUE;
+		}
+
 		case WM_QUERYENDSESSION:
 		{
 			// app should return TRUE or FALSE immediately upon receiving this message,

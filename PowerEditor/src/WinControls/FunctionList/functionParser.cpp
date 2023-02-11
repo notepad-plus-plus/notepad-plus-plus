@@ -564,7 +564,7 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 	return targetEnd;
 }
 
-void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair<size_t, size_t> > &scannedZones, const std::vector< std::pair<size_t, size_t> > & commentZones, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName)
+void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair<size_t, size_t> > &scannedZones, const std::vector< std::pair<size_t, size_t> > & commentZones, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string /*classStructName*/)
 {
 	if (begin >= end)
 		return;
@@ -582,7 +582,7 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 
 		// Get class name
 		intptr_t foundPos = 0;
-		generic_string classStructName = parseSubLevel(targetStart, targetEnd, _classNameExprArray, foundPos, ppEditView);
+		generic_string subLevelClassStructName = parseSubLevel(targetStart, targetEnd, _classNameExprArray, foundPos, ppEditView);
 		
 
 		if (!_openSymbole.empty() && !_closeSymbole.empty())
@@ -603,7 +603,7 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 		//vector< generic_string > emptyArray;
 		if (!isInZones(targetStart, commentZones))
 		{
-			funcParse(foundInfos, targetStart, targetEnd, ppEditView, classStructName, &commentZones);
+			funcParse(foundInfos, targetStart, targetEnd, ppEditView, subLevelClassStructName, &commentZones);
 		}
 		begin = targetStart + (targetEnd - targetStart);
 		targetStart = (*ppEditView)->searchInTarget(_rangeExpr.c_str(), _rangeExpr.length(), begin, end);

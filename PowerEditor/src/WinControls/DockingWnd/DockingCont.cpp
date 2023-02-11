@@ -376,7 +376,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 
 				if ((_bCaptionTT == TRUE) || (_hoverMPos == posClose))
 				{
-					TRACKMOUSEEVENT tme;
+					TRACKMOUSEEVENT tme{};
 					tme.cbSize = sizeof(tme);
 					tme.hwndTrack = hwnd;
 					tme.dwFlags = TME_LEAVE | TME_HOVER;
@@ -717,7 +717,15 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			int nSelTab = TabCtrl_GetCurSel(hwnd);
 			for (int i = 0; i < nTabs; ++i)
 			{
-				DRAWITEMSTRUCT dis = { ODT_TAB, id, (UINT)i, ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc };
+				DRAWITEMSTRUCT dis{};
+				dis.CtlType = ODT_TAB;
+				dis.CtlID = id;
+				dis.itemID = static_cast<UINT>(i);
+				dis.itemAction = ODA_DRAWENTIRE;
+				dis.itemState = ODS_DEFAULT;
+				dis.hwndItem = hwnd;
+				dis.hDC = hdc;
+
 				TabCtrl_GetItemRect(hwnd, i, &dis.rcItem);
 
 				if (i == nFocusTab)
@@ -857,7 +865,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 				if ((_bTabTTHover == FALSE) && (iItem != iItemSel))
 				{
-					TRACKMOUSEEVENT tme;
+					TRACKMOUSEEVENT tme{};
 					tme.cbSize = sizeof(tme);
 					tme.hwndTrack = hwnd;
 					tme.dwFlags = TME_LEAVE | TME_HOVER;
@@ -1324,7 +1332,7 @@ void DockingCont::onSize()
 							SWP_NOZORDER);
 
 			// Notify switch in
-			NMHDR nmhdr;
+			NMHDR nmhdr{};
 			nmhdr.code		= DMN_FLOATDROPPED;
 			nmhdr.hwndFrom	= _hSelf;
 			nmhdr.idFrom	= 0;
@@ -1543,7 +1551,7 @@ void DockingCont::selectTab(int iTab)
 		::SetFocus(((tTbData*)tcItem.lParam)->hClient);
 
 		// Notify switch in
-		NMHDR nmhdr;
+		NMHDR nmhdr{};
 		nmhdr.code		= DMN_SWITCHIN;
 		nmhdr.hwndFrom	= _hSelf;
 		nmhdr.idFrom	= 0;
@@ -1559,7 +1567,7 @@ void DockingCont::selectTab(int iTab)
 			::ShowWindow(((tTbData*)tcItem.lParam)->hClient, SW_HIDE);
 		
 			// Notify switch off
-			NMHDR nmhdr;
+			NMHDR nmhdr{};
 			nmhdr.code		= DMN_SWITCHOFF;
 			nmhdr.hwndFrom	= _hSelf;
 			nmhdr.idFrom	= 0;

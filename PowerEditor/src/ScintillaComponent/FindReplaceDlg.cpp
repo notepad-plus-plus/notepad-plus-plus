@@ -1256,7 +1256,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			HWND hDirCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO);
 
 			// Change handler of edit element in the comboboxes to support Ctrl+Backspace
-			COMBOBOXINFO cbinfo = { sizeof(COMBOBOXINFO) };
+			COMBOBOXINFO cbinfo{};
+			cbinfo.cbSize = sizeof(COMBOBOXINFO);
 			GetComboBoxInfo(hFindCombo, &cbinfo);
 			if (!cbinfo.hwndItem) return FALSE;
 
@@ -1689,7 +1690,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					const int filterSize = 512;
-					TCHAR filters[filterSize + 1];
+					TCHAR filters[filterSize + 1] = { '\0' };
 					filters[filterSize] = '\0';
 					TCHAR directory[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
@@ -5494,8 +5495,8 @@ int Progress::createProgressWindow()
 	int height = cPBheight + cBTNheight + textHeight + progressBarPadding + morePadding;
 
 
-	POINT center;
-	RECT callerRect;
+	POINT center{};
+	RECT callerRect{};
 	::GetWindowRect(_hCallerWnd, &callerRect);
 	center.x = (callerRect.left + callerRect.right) / 2;
 	center.y = (callerRect.top + callerRect.bottom) / 2;

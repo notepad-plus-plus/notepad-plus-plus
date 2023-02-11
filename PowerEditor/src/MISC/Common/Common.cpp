@@ -785,7 +785,7 @@ bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect)
 	}
 
 	std::vector<generic_string> v = stringSplit(str2convert, TEXT(" "));
-	for (auto i : v)
+	for (const auto& i : v)
 	{
 		// Don't treat empty string and the number greater than 9999
 		if (!i.empty() && i.length() < 5)
@@ -827,7 +827,7 @@ generic_string stringTakeWhileAdmissable(const generic_string& input, const gene
 }
 
 
-double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
+double stodLocale(const generic_string& str, [[maybe_unused]] _locale_t loc, size_t* idx)
 {
 	// Copied from the std::stod implementation but uses _wcstod_l instead of wcstod.
 	const wchar_t* ptr = str.c_str();
@@ -1690,7 +1690,7 @@ void Version::setVersionFrom(const generic_string& filePath)
 			return;
 
 		unsigned char* buffer = new unsigned char[bufferSize];
-		::GetFileVersionInfo(filePath.c_str(), uselessArg, bufferSize, buffer);
+		::GetFileVersionInfo(filePath.c_str(), 0, bufferSize, buffer);
 
 		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
 		UINT cbFileInfo = 0;

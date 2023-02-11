@@ -57,7 +57,7 @@ float CharDistributionAnalysis::GetConfidence(void)
 
   if (mTotalChars != mFreqChars)
   {
-    float r = mFreqChars / ((mTotalChars - mFreqChars) * mTypicalDistributionRatio);
+    float r = static_cast<float>(mFreqChars) / (static_cast<float>(mTotalChars - mFreqChars) * mTypicalDistributionRatio);
 
     if (r < SURE_YES)
       return r;

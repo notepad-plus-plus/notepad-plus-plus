@@ -186,7 +186,7 @@ float  JapaneseContextAnalysis::GetConfidence(void)
 {
   //This is just one way to calculate confidence. It works well for me.
   if (mTotalRel > mDataThreshold)
-    return ((float)(mTotalRel - mRelSample[0]))/mTotalRel;
+    return static_cast<float>(mTotalRel - mRelSample[0]) / static_cast<float>(mTotalRel);
   else 
     return (float)DONT_KNOW;
 }

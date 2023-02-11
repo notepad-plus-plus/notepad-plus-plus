@@ -72,6 +72,7 @@ struct nsPkgInt {
   nsPkgInt(nsIdxSft a,nsSftMsk b, nsBitSft c,nsUnitMsk d,const PRUint32* const  e)
 	  :idxsft(a), sftmsk(b), bitsft(c), unitmsk(d), data(e){}
   nsPkgInt();
+  nsPkgInt(const nsPkgInt&) = default;
   nsPkgInt operator= (const nsPkgInt&);
 };
 

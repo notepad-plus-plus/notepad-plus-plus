@@ -102,8 +102,8 @@ float nsSingleByteCharSetProber::GetConfidence(void)
   float r;
 
   if (mTotalSeqs > 0) {
-    r = ((float)1.0) * mSeqCounters[POSITIVE_CAT] / mTotalSeqs / mModel->mTypicalPositiveRatio;
-    r = r*mFreqChar/mTotalChar;
+    r = static_cast<float>(mSeqCounters[POSITIVE_CAT]) / static_cast<float>(mTotalSeqs) / mModel->mTypicalPositiveRatio;
+    r = r * static_cast<float>(mFreqChar) / static_cast<float>(mTotalChar);
     if (r >= (float)1.00)
       r = (float)0.99;
     return r;

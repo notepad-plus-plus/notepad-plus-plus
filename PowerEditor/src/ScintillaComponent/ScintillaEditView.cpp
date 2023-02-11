@@ -2757,6 +2757,7 @@ void ScintillaEditView::performGlobalStyles()
 		edgeColor = pStyle->_fgColor;
 	}
 	execute(SCI_SETEDGECOLOUR, edgeColor);
+	::SendMessage(_hParent, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 
 	COLORREF foldMarginColor = grey;
 	COLORREF foldMarginHiColor = white;

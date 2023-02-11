@@ -465,10 +465,10 @@ void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
 			{
 				TiXmlElementA *element = childNode->ToElement();
 				int ordre;
-				element->Attribute("CMID", &ordre);
-				if (ordre == 5)
+				element->Attribute("CMDID", &ordre);
+				if (ordre == IDM_VIEW_GOTO_ANOTHER_VIEW)
 					goToViewA = element->Attribute("name");
-				else if (ordre == 6)
+				else if (ordre == IDM_VIEW_CLONE_TO_ANOTHER_VIEW)
 					cloneToViewA = element->Attribute("name");
 			}
 		}

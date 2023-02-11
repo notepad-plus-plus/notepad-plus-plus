@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.4.9">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -109,6 +109,7 @@
                     <Item id="42006" name="削除(&amp;D)"/>
                     <Item id="42007" name="すべて選択(&amp;S)"/>
                     <Item id="42020" name="選択を開始/終了(&amp;S)"/>
+                    <Item id="42089" name="矩形モードで選択を開始/終了"/>
                     <Item id="42084" name="日時(短い形式)"/>
                     <Item id="42085" name="日時(長い形式)"/>
                     <Item id="42086" name="日時(カスタム)"/>
@@ -291,6 +292,7 @@
                     <Item id="44113" name="色3をつける"/>
                     <Item id="44114" name="色4をつける"/>
                     <Item id="44115" name="色5をつける"/>
+                    <Item id="44130" name="非表示文字を表示"/>
                     <Item id="44032" name="全画面表示"/>
                     <Item id="44033" name="標準倍率に戻す"/>
                     <Item id="44034" name="常に手前に表示"/>
@@ -593,6 +595,20 @@
                 <ScintillaCommandsTab name="エディター"/>
                 <ConflictInfoOk name="この項目と競合するショートカットはありません。"/>
                 <ConflictInfoEditing name="競合しません..."/>
+                <WindowCategory name="ウィンドウ管理"/>
+                <FileCategory name="ファイル"/>
+                <EditCategory name="編集"/>
+                <SearchCategory name="検索"/>
+                <ViewCategory name="表示"/>
+                <FormatCategory name="書式"/>
+                <LangCategory name="言語"/>
+                <AboutCategory name="情報"/>
+                <SettingCategory name="設定"/>
+                <ToolCategory name="ツール"/>
+                <ExecuteCategory name="実行"/>
+                <ModifyContextMenu name="編集"/>
+                <DeleteContextMenu name="行を削除"/>
+                <ClearContextMenu name="解除"/>
                 <MainCommandNames>
                     <Item id="41019" name="このファイルのあるフォルダーをエクスプローラーで開く"/>
                     <Item id="41020" name="このファイルのあるフォルダーをコマンドプロンプトで開く"/>
@@ -709,6 +725,7 @@
                 <Item id="20011" name="透明化"/>
                 <Item id="20015" name="インポート..."/>
                 <Item id="20016" name="エクスポート..."/>
+                <Item id="20017" name="ドック解除"/>
                 <StylerDialog title="スタイル設定ダイアログ">
                     <Item id="25030" name="フォント設定:"/>
                     <Item id="25006" name="文字色"/>
@@ -928,6 +945,10 @@
                     <Item id="6248" name="デフォルト"/>
                     <Item id="6249" name="装飾なし"/>
                     <Item id="6250" name="カスタム色"/>
+                    <Item id="6252" name="非表示文字"/>
+                    <Item id="6254" name="略称"/>
+                    <Item id="6255" name="コードポイント"/>
+                    <Item id="6256" name="カスタム色"/>
                 </Scintillas>
 
                 <DarkMode title="ダークモード">
@@ -1130,7 +1151,7 @@
                     <Item id="6824" name="数字は補完しない"/>
                     <Item id="6811" name=" "/>
                     <Item id="6813" name="文字目から"/>
-                    <Item id="6814" name="指定可能な値: 1 - 9"/>
+                    <Item id="6872" name="入力するにつれ候補を絞り込む"/>
                     <Item id="6815" name="入力時の関数パラメータヒント"/>
                     <Item id="6851" name="自動挿入"/>
                     <Item id="6857" name=" html/xmlの終了タグ"/>
@@ -1294,7 +1315,8 @@
                 <Item id="4" name="常に はい"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
 変更を適用するには、保存後、Notepad++を再起動して下さい。"/>
             <SaveCurrentModifWarning title="警告: 現在の変更を保存" message="現在の変更を保存する必要があります。
@@ -1322,7 +1344,16 @@
             <DroppingFolderAsProjectModeWarning title="無効な操作です" message="「フォルダーをプロジェクトとして開く」設定になっているため、ファイルとフォルダーを同時にドロップして開くことはできません。
 この操作を使いたい場合、「環境設定」を開き、「既定のディレクトリ」の「フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く」を有効にして下さい。"/>
             <SortingError title="ソートエラー" message="行番号 $INT_REPLACE$ が原因でソートを実行できませんでした。"/>
-            <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、Altを押しながらマウスで選択するか、Alt+Shift+矢印キー を使用してください。"/>
+
+            <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、次の3つの方法があります：
+1.（キーボードとマウス）Altキーを押しながら左ボタンでドラッグ
+2.（キーボード）Alt＋Shiftキーを押しながら矢印キーを押す
+3.（キーボードかマウス）
+　　矩形の始まりの位置にカーソルを置き、
+　　「矩形モードで選択を開始/終了」コマンドを実行します。
+　　続いて矩形の終わりの位置にカーソルを移動し、
+　　もう一度「矩形モードで選択を開始/終了」を実行します。"/>
+
             <BufferInvalidWarning title="保存に失敗しました" message="バッファーが不正のため保存できませんでした。"/>
             <DoCloseOrNot title="存在しないファイル" message="&quot;$STR_REPLACE$&quot; は存在しません。
 このファイルをエディターで保持し続けますか？"/>
@@ -1353,6 +1384,8 @@ Notepad++ のダウンロードページを開きますか？"/>
             <CreateNewFileOrNot title="新しいファイルを作成" message="&quot;$STR_REPLACE$&quot; は存在しません。作成しますか？"/>
             <CreateNewFileError title="新しいファイルを作成" message="ファイルを作成できませんでした：&quot;$STR_REPLACE$&quot;"/>
             <OpenFileError title="エラー" message="ファイルを開けませんでした：&quot;$STR_REPLACE$&quot;"/>
+            <OpenFileNoFolderError title="ファイルを開けませんでした" message="&quot;$STR_REPLACE1$&quot; を開けませんでした。
+フォルダー &quot;$STR_REPLACE2$&quot; が存在しません。"/>
             <FileBackupFailed title="バックアップに失敗" message="前の版のファイルをバックアップディレクトリーに保存できませんでした：&quot;$STR_REPLACE$&quot;
 
 現在のファイルを保存してもよろしいですか？"/>
@@ -1393,6 +1426,9 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
             <ChangeHistoryEnabledWarning title="Notepad++ を再起動してください" message="編集履歴マーカーを有効にするには、Notepad++ を再起動してください。"/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Windows セッションの終了" message="Windows セッションを終了しようとしていますが、保存されていない文書があります。Notepad++ を終了してもよろしいですか？"/>
+            <LanguageMenuCompactWarning title="言語メニューをまとめる" message="この設定は次回の起動時に反映されます"/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="テーマへの変更が保存されていません。
+テーマを切り替える前に、変更を保存しますか？"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1402,6 +1438,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <ColumnName name="名前"/>
             <ColumnExt name="拡張子"/>
             <ColumnPath name="パス"/>
+            <ListGroups name="ビューでグループ化"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="ファイル名"/>
@@ -1497,7 +1534,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="この機能を使うと、標準の 単語を構成する文字 のリストに文字を追加できます。ダブルクリックでの単語選択や、「単語単位」での検索に影響します。"/>
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
             <eol-custom-color-tip value="スタイル設定を開き、改行文字の色(&quot;EOL custom color&quot;)を変更します"/>
@@ -1577,11 +1614,9 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <splitter-rotate-right value="右回りに回す"/>
             <recent-file-history-maxfile value="最大数:"/>
             <recent-file-history-customlength value="長さ:"/>
-            <language-tabsize value="タブ幅:"/>
             <userdefined-title-new value="新しい言語定義を作成..."/>
             <userdefined-title-save value="言語定義に名前をつけて保存..."/>
             <userdefined-title-rename value="言語定義の名前を変更"/>
-            <autocomplete-nb-char value="数値:"/>
             <edit-verticaledge-nb-col value="桁位置:"/>
             <summary value="概要"/>
             <summary-filepath value="フルパス: "/>
@@ -1594,6 +1629,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <summary-nbsel1 value=" 文字を選択（"/>
             <summary-nbsel2 value=" バイト）/ "/>
             <summary-nbrange value=" 個の選択範囲"/>
+            <progress-cancel-button value="キャンセル"/>
+            <progress-cancel-info value="キャンセルしています。お待ちください..."/>
             <find-in-files-progress-title value="複数ファイル内を検索中..."/>
             <replace-in-files-confirm-title value="本当によろしいですか？"/>
             <replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
@@ -1629,6 +1666,27 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 １．すでに大きなファイルを開いている場合、設定変更を適用するにはファイルを開きなおす必要があります。
 
 ２．「画面端での折り返しをすべての文書でオフにする」を有効にすると、大きなファイルを開いたとき、すべての文書で折り返しがオフになります。メニューの「表示」→「画面端で折り返す」からオンにできます。" />
+            <npcNote-tip value="非ASCIIの空白文字と非表示文字（制御文字）の表示について
+注意：
+いくつかの文字はすでに何らかの形で表示されているかもしれません。デフォルトで、行区切りや段落区切りはすでに略称で表示されます。
+非表示文字を表示させると、非表示文字としての作用はなくなります。
+対象となる空白文字と非表示文字の一覧は、オンラインマニュアルで確認できます。
+このボタンを押すとオンラインマニュアルが開きます。" />
+            <npcAbbreviation-tip value="略称：名称
+NBSP : no-break space（改行をしないスペース）
+ZWSP : zero-width space（ゼロ幅スペース）
+ZWNBSP : zero-width no-break space（ゼロ幅改行なしスペース）
+完全な一覧表はオンラインマニュアルで確認できます。
+右にある「？」を押すとオンラインマニュアルが開きます。" />
+            <npcCodepoint-tip value="コードポイント：名称
+U+00A0 : no-break space（改行をしないスペース）
+U+200B : zero-width space（ゼロ幅スペース）
+U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
+完全な一覧表はオンラインマニュアルで確認できます。
+右にある「？」を押すとオンラインマニュアルが開きます。" />
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="色を変更したい場合は、スタイル設定から変更してください (&quot;Non-printing characters custom color&quot;)。" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

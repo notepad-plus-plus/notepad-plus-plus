@@ -338,7 +338,7 @@ bool AutoCompletion::showAutoComplete(AutocompleteType autocType, bool autoInser
 
 		// Add keywords to word array
 
-		if (autocType == autocFuncFilter || autocType == autocFuncAndWord)
+		if (autocType == autocFuncBrief || autocType == autocFuncAndWord)
 		{
 			for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 
@@ -1010,7 +1010,7 @@ void AutoCompletion::update(int character)
 	}
 
 	//If autocomplete already active, let Scintilla handle it
-	if (!nppGUI._autocRecall && _pEditView->execute(SCI_AUTOCACTIVE) != 0)
+	if (!nppGUI._autocBrief && _pEditView->execute(SCI_AUTOCACTIVE) != 0)
 		return;
 
 	const int wordSize = 64;
@@ -1022,8 +1022,8 @@ void AutoCompletion::update(int character)
 		if (nppGUI._autocStatus == nppGUI.autoc_word)
 			showWordComplete(false);
 		else if (nppGUI._autocStatus == nppGUI.autoc_func)
-			if (nppGUI._autocFilter)
-				showAutoComplete(autocFuncFilter, false);
+			if (nppGUI._autocBrief)
+				showAutoComplete(autocFuncBrief, false);
 			else
 				showApiComplete();
 		else if (nppGUI._autocStatus == nppGUI.autoc_both)

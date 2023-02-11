@@ -1123,7 +1123,6 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6807" name="Auto-Completion"/>
                     <Item id="6808" name="Enable auto-completion on each input"/>
                     <Item id="6809" name="Function completion"/>
-                    <Item id="6872" name="Filter the list items"/>
                     <Item id="6810" name="Word completion"/>
                     <Item id="6816" name="Function and word completion"/>
                     <Item id="6869" name="Insert Selection"/>
@@ -1133,7 +1132,7 @@ You can define several column markers by using white space to separate the diffe
                     <Item id="6811" name="From"/>
                     <Item id="6813" name="th character"/>
                     <Item id="6814" name="Valid value : 1 - 9"/>
-                    <Item id="6873" name="Recall auto-completion on each input"/>
+                    <Item id="6872" name="Make auto-completion list brief"/>
                     <Item id="6815" name="Function parameters hint on input"/>
                     <Item id="6851" name="Auto-Insert"/>
                     <Item id="6857" name=" html/xml close tag"/>

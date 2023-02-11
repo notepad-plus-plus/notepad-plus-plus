@@ -106,7 +106,7 @@ public:
 		auto g = GetGValue(bgColour);
 		auto b = GetBValue(bgColour);
 
-		constexpr int luminenceIncrementBy = 350; // 35 %
+		constexpr int luminenceIncrementBy = 333; // 33.3 %
 
 		// main color is blue
 		// but difference must be high

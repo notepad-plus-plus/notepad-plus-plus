@@ -110,49 +110,100 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 
 		case CDDS_ITEMPREPAINT:
 		{
+			const RECT& rcRow = lplvcd->nmcd.rc;
+
+			const bool isThemeDark = NppDarkMode::isThemeDark();
+
+			const auto hHeader = ListView_GetHeader(lplvcd->nmcd.hdr.hwndFrom);
+			const auto colCount = Header_GetItemCount(hHeader);
+
+			const LONG paddingLeft = isThemeDark ? 1 : 0;
+			const LONG paddingRight = isThemeDark ? 2 : 1;
+
+			RECT rcSubItem{ rcRow };
+			RECT rcSubItem2{};
+			RECT rcSubItem3{};
+
+			rcSubItem.right -= paddingRight;
+
+			auto setRectForSubItem = [hHeader, paddingLeft, paddingRight](RECT& first, RECT& second, int idxSecond) -> void {
+				Header_GetItemRect(hHeader, idxSecond, &second);
+				first.right = second.left - paddingRight;
+
+				second.left -= paddingLeft;
+				second.right -= paddingRight;
+				second.top = first.top;
+				second.bottom = first.bottom;
+			};
+
+			if (colCount >= 2)
+			{
+				setRectForSubItem(rcSubItem, rcSubItem2, 1);
+			}
+
+			if (colCount == 3)
+			{
+				setRectForSubItem(rcSubItem2, rcSubItem3, 2);
+			}
+
 			const auto isSelected = ListView_GetItemState(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
 			const bool isHot = (lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT;
-			const bool isThemeDark = NppDarkMode::isThemeDark();
 			const int colorID = reinterpret_cast<TaskLstFnStatus*>(lplvcd->nmcd.lItemlParam)->_docColor;
 
+			COLORREF bgColor{0xFFFFFF};
+			bool applyColor = false;
+
 			if (colorID != -1)
+			{
+				bgColor = NppDarkMode::getIndividualTabColour(colorID, isThemeDark, false);
+				applyColor = true;
+			}
+			else if (isThemeDark)
+			{
+				if (isSelected)
+				{
+					bgColor = NppDarkMode::getSofterBackgroundColor();
+					applyColor = true;
+				}
+				else if (isHot)
+				{
+					bgColor = NppDarkMode::getHotBackgroundColor();
+					applyColor = true;
+				}
+			}
+
+			if (applyColor)
 			{
 				if (isThemeDark)
 				{
 					lplvcd->clrText = NppDarkMode::getTextColor();
 				}
 
-				const COLORREF color = NppDarkMode::getIndividualTabColour(colorID, isThemeDark, false);
-				lplvcd->clrTextBk = color;
+				lplvcd->clrTextBk = bgColor;
 
-				HBRUSH hBrush = ::CreateSolidBrush(color);
-				::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, hBrush);
+				HBRUSH hBrush = ::CreateSolidBrush(bgColor);
+
+				::FillRect(lplvcd->nmcd.hdc, &rcSubItem, hBrush);
+				if (colCount >= 2)
+				{
+					::FillRect(lplvcd->nmcd.hdc, &rcSubItem2, hBrush);
+				}
+				if (colCount == 3)
+				{
+					::FillRect(lplvcd->nmcd.hdc, &rcSubItem3, hBrush);
+				}
+
 				::DeleteObject(hBrush);
 				hBrush = nullptr;
-			}
-			else if (isThemeDark)
-			{
-				if (isSelected)
-				{
-					lplvcd->clrText = NppDarkMode::getTextColor();
-					lplvcd->clrTextBk = NppDarkMode::getSofterBackgroundColor();
-					::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getSofterBackgroundBrush());
-				}
-				else if (isHot)
-				{
-					lplvcd->clrText = NppDarkMode::getTextColor();
-					lplvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
-					::FillRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
-				}
 			}
 
 			if (isSelected)
 			{
-				::DrawFocusRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc);
+				::DrawFocusRect(lplvcd->nmcd.hdc, &rcRow);
 			} 
 			else if (isHot)
 			{
-				::FrameRect(lplvcd->nmcd.hdc, &lplvcd->nmcd.rc, isThemeDark ? NppDarkMode::getHotEdgeBrush() : ::GetSysColorBrush(COLOR_WINDOWTEXT));
+				::FrameRect(lplvcd->nmcd.hdc, &rcRow, isThemeDark ? NppDarkMode::getHotEdgeBrush() : ::GetSysColorBrush(COLOR_WINDOWTEXT));
 			}
 
 			return CDRF_NEWFONT;

@@ -443,7 +443,7 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 	}
 }
 
-void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
+void NativeLangSpeaker::changeLangTabDropContextMenu(HMENU hCM)
 {
 	const int POS_GO2VIEW = 0;
 	const int POS_CLONE2VIEW = 1;

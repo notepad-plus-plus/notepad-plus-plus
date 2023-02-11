@@ -1803,8 +1803,9 @@ bool NppParameters::isInFontList(const generic_string& fontName2Search) const
 HFONT NppParameters::getDefaultUIFont()
 {
 	static HFONT g_defaultMessageFont = []() {
-		NONCLIENTMETRICS ncm = { sizeof(ncm) };
-		SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);
+		NONCLIENTMETRICS ncm{};
+		ncm.cbSize = sizeof(NONCLIENTMETRICS);
+		SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0);
 
 		return CreateFontIndirect(&ncm.lfMessageFont);
 	}();
@@ -3280,7 +3281,7 @@ void NppParameters::writeDefaultUDL()
 {
 	bool firstCleanDone = false;
 	std::vector<bool> deleteState;
-	for (auto udl : _pXmlUserLangsDoc)
+	for (const auto& udl : _pXmlUserLangsDoc)
 	{
 		if (!_pXmlUserLangDoc)
 		{
@@ -3337,7 +3338,7 @@ void NppParameters::writeDefaultUDL()
 
 void NppParameters::writeNonDefaultUDL()
 {
-	for (auto udl : _pXmlUserLangsDoc)
+	for (auto& udl : _pXmlUserLangsDoc)
 	{
 		if (udl._isDirty && udl._udlXmlDoc != nullptr && udl._udlXmlDoc != _pXmlUserLangDoc)
 		{

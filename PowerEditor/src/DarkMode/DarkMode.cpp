@@ -125,9 +125,10 @@ bool AllowDarkModeForWindow(HWND hWnd, bool allow)
 
 bool IsHighContrast()
 {
-	HIGHCONTRASTW highContrast = { sizeof(highContrast) };
-	if (SystemParametersInfoW(SPI_GETHIGHCONTRAST, sizeof(highContrast), &highContrast, FALSE))
-		return highContrast.dwFlags & HCF_HIGHCONTRASTON;
+	HIGHCONTRASTW highContrast{};
+	highContrast.cbSize = sizeof(HIGHCONTRASTW);
+	if (SystemParametersInfoW(SPI_GETHIGHCONTRAST, sizeof(HIGHCONTRASTW), &highContrast, FALSE))
+		return (highContrast.dwFlags & HCF_HIGHCONTRASTON) == HCF_HIGHCONTRASTON;
 	return false;
 }
 

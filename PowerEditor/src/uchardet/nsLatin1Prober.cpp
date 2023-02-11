@@ -158,8 +158,9 @@ float nsLatin1Prober::GetConfidence(void)
     confidence = 0.0f;
   else
   {
-    confidence = mFreqCounter[3]*1.0f / total;
-    confidence -= mFreqCounter[1]*20.0f/total;
+    const float floatTotal = static_cast<float>(total);
+    confidence = static_cast<float>(mFreqCounter[3]) / floatTotal;
+    confidence -= static_cast<float>(mFreqCounter[1]) * 20.0f / floatTotal;
   }
 
   if (confidence < 0.0f)

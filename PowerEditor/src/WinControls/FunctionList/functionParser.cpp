@@ -564,7 +564,7 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 	return targetEnd;
 }
 
-void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair<size_t, size_t> > &scannedZones, const std::vector< std::pair<size_t, size_t> > & commentZones, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName)
+void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair<size_t, size_t> > &scannedZones, const std::vector< std::pair<size_t, size_t> > & commentZones, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string /*classStructName*/)
 {
 	if (begin >= end)
 		return;

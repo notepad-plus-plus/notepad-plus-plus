@@ -29,6 +29,8 @@ struct sortCompareData {
   int sortDirection = 0;
 };
 
+LRESULT run_listViewProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:
 	VerticalFileSwitcher(): DockingDlgInterface(IDD_DOCLIST) {};
@@ -102,14 +104,21 @@ public:
     };
 protected:
 	HMENU _hGlobalMenu = NULL;
-
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initPopupMenus();
 	void popupMenuCmd(int cmdID);
+
+
+
+	static LRESULT CALLBACK listViewStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
+		const auto dlg = (VerticalFileSwitcher*)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		return (run_listViewProc(dlg->_defaultListViewProc, hwnd, message, wParam, lParam));
+	};
 private:
 	bool colHeaderRClick = false;
 	int _lastSortingColumn = 0;
 	int _lastSortingDirection = SORT_DIRECTION_NONE;
 	VerticalFileSwitcherListView _fileListView;
 	HIMAGELIST _hImaLst = nullptr;
+	WNDPROC _defaultListViewProc = nullptr;
 };

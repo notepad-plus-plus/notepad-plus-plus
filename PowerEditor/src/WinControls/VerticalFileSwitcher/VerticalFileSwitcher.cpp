@@ -45,6 +45,24 @@ int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSo
 	return (0 - result);
 }
 
+LRESULT run_listViewProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+
+		case WM_MBUTTONUP:
+		{
+			// Redirect the message to parent
+			::SendMessage(::GetParent(hwnd), WM_PARENTNOTIFY, WM_MBUTTONUP, lParam);
+			return TRUE;
+		}
+
+		default:
+			break;
+	}
+	return ::CallWindowProc(oldEditProc, hwnd, message, wParam, lParam);
+}
+
 void VerticalFileSwitcher::startColumnSort()
 {
 	// reset sorting if exts column was just disabled
@@ -77,6 +95,9 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 			_fileListView.initList();
 			_fileListView.display();
 
+			::SetWindowLongPtr(_fileListView.getHSelf(), GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+			_defaultListViewProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_fileListView.getHSelf(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(listViewStaticProc)));
+
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
@@ -89,11 +110,13 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 			return TRUE;
 		}
 
+		// Different from WM_MBUTTONDOWN, WM_MBUTTONUP message is not sent to parent hwnd by WIN32 API
+		// So we subclass listview to redirect WM_MBUTTONUP via WM_PARENTNOTIFY (as WM_MBUTTONDOWN)
 		case WM_PARENTNOTIFY:
 		{
 			switch ( wParam )
 			{
-				case WM_MBUTTONDOWN:
+				case WM_MBUTTONUP:
 				{
 					// Get item ID under cursor
 					LVHITTESTINFO hitInfo{};
@@ -123,6 +146,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 
 			break;
 		}
+
 
 		case WM_NOTIFY:
 		{

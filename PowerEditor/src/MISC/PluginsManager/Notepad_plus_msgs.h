@@ -542,7 +542,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// allocate commandLineStr buffer with the return value + 1, then call it again to get the current command line string.
 
 	#define NPPM_CREATELEXER (NPPMSG + 110)
-	// void* NPPN_CREATELEXER(0, const TCHAR *lexer_name)
+	// void* NPPM_CREATELEXER(0, const TCHAR *lexer_name)
 	// Returns the ILexer pointer created by Lexilla
 
 	#define NPPM_GETBOOKMARKID (NPPMSG + 111)

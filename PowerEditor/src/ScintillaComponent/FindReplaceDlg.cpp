@@ -5536,7 +5536,10 @@ int Progress::createProgressWindow()
 		::SendMessage(_hPBar, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getDarkerTextColor()));
 	}
 
-	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), TEXT("Cancel"),
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string cancel = pNativeSpeaker->getLocalizedStrFromID("progress-cancel-button", TEXT("Cancel"));
+
+	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), cancel.c_str(),
 		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | BS_TEXT,
 		(width - cBTNwidth) / 2, yTextPos + textHeight + cPBheight + progressBarPadding,
 		cBTNwidth, cBTNheight,
@@ -5613,7 +5616,9 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 				Progress* pw = reinterpret_cast<Progress*>(static_cast<LONG_PTR>(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
 				::ResetEvent(pw->_hActiveState);
 				::EnableWindow(pw->_hBtn, FALSE);
-				pw->setInfo(TEXT("Cancelling operation, please wait..."));
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+				generic_string info = pNativeSpeaker->getLocalizedStrFromID("progress-cancel-info", TEXT("Cancelling operation, please wait..."));
+				pw->setInfo(info.c_str());
 				return 0;
 			}
 			break;

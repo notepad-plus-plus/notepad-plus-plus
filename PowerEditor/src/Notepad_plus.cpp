@@ -6764,11 +6764,11 @@ bool Notepad_plus::reloadLang()
 	}
 	if (_tabPopupDropMenu.isCreated())
 	{
-		_nativeLangSpeaker.changeLangTabDrapContextMenu(_tabPopupDropMenu.getMenuHandle());
+		_nativeLangSpeaker.changeLangTabDropContextMenu(_tabPopupDropMenu.getMenuHandle());
 	}
 	if (_fileSwitcherMultiFilePopupMenu.isCreated())
 	{
-		//_nativeLangSpeaker.changeLangTabDrapContextMenu(_fileSwitcherMultiFilePopupMenu.getMenuHandle());
+		//_nativeLangSpeaker.changeLangTabDropContextMenu(_fileSwitcherMultiFilePopupMenu.getMenuHandle());
 	}
 	if (_preference.isCreated())
 	{

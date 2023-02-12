@@ -966,12 +966,12 @@ void TiXmlAttributeA::SetDoubleValue( double _value )
 	SetValue (buf);
 }
 
-const int TiXmlAttributeA::IntValue() const
+int TiXmlAttributeA::IntValue() const
 {
 	return atoi (value.c_str ());
 }
 
-const double  TiXmlAttributeA::DoubleValue() const
+double TiXmlAttributeA::DoubleValue() const
 {
 	return atof (value.c_str ());
 }

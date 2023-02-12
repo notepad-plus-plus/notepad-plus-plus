@@ -928,12 +928,12 @@ void TiXmlAttribute::SetDoubleValue( double _value )
 	SetValue (buf);
 }
 
-const int TiXmlAttribute::IntValue() const
+int TiXmlAttribute::IntValue() const
 {
 	return _wtoi (value.c_str ());
 }
 
-const double  TiXmlAttribute::DoubleValue() const
+double  TiXmlAttribute::DoubleValue() const
 {
 	return _wtof(value.c_str ());
 }

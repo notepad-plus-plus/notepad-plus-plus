@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 7th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 12th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
@@ -1168,6 +1168,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6811" name="Da u"/>
                     <Item id="6813" name="u caratteru"/>
                     <Item id="6814" name="Valori accettati : 1 - 9"/>
+                    <Item id="6872" name="Accurtà a lista d’empiimentu autumaticu"/>
                     <Item id="6815" name="Sugerisce i parametri di funzione à l’entrata"/>
                     <Item id="6851" name="Inserzione autumatica"/>
                     <Item id="6857" name=" Chjusura html/xml"/>

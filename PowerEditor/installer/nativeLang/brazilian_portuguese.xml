@@ -2,9 +2,9 @@
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy -->
 <!-- Updated: Jul 2021, for Notepad++ 8.1.2 -->
 <!-- Brazilian Portuguese updated by Marcello -->
-<!-- Updated: 06 Feb 2023, for Notepad++ 8.4.9 -->
+<!-- Updated: 12 Feb 2023, for Notepad++ 8.5.0 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.4.9">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1599,6 +1599,8 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
             <summary-nbsel1 value=" caracteres selecionados ("/>
             <summary-nbsel2 value=" bytes) em "/>
             <summary-nbrange value=" intervalo"/>
+            <progress-cancel-button value="Cancelar"/>
+            <progress-cancel-info value="Cancelando operação, aguarde..."/>
             <find-in-files-progress-title value="Progresso do Localizar nos arquivos..."/>
             <replace-in-files-confirm-title value="Tem certeza?"/>
             <replace-in-files-confirm-directory value="Tem certeza de que deseja substituir todas as ocorrências em :"/>

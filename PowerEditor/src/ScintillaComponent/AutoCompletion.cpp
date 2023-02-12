@@ -372,7 +372,15 @@ bool AutoCompletion::showAutoComplete(AutocompleteType autocType, bool autoInser
 
 		if (autocType == autocWord && wordArray.size() == 1 && autoInsert)
 		{
-			intptr_t replacedLength = _pEditView->replaceTarget(wordArray[0].c_str(), startPos, curPos);
+			size_t typeSeparatorPos = wordArray[0].find(L"\x1E");
+
+			intptr_t replacedLength = _pEditView->replaceTarget(
+				(typeSeparatorPos == std::string::npos) ?
+				wordArray[0].c_str() :
+				wordArray[0].substr(0, typeSeparatorPos).c_str(),
+				startPos, curPos
+			);
+
 			_pEditView->execute(SCI_GOTOPOS, startPos + replacedLength);
 			return true;
 		}
@@ -465,6 +473,9 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	intptr_t posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
 
+	generic_string boxId = TEXT("\x1E") + intToString(BOX_IMG_ID);
+	generic_string funcId = TEXT("\x1E") + intToString(FUNC_IMG_ID);
+
 	while (posFind >= 0)
 	{
 		intptr_t wordStart = _pEditView->execute(SCI_GETTARGETSTART);
@@ -477,8 +488,28 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
 			if (!allChars || (wcsncmp(w, allChars, bufSize) != 0))
 			{
-				if (!isInList(w, wordArray))
-					wordArray.push_back(w);
+				if (_funcCompletionActive)
+				{
+					if (isInList(w + boxId, _keyWordArray))
+					{
+						if (!isInList(w + boxId, wordArray))
+							wordArray.push_back(w + boxId);
+					}
+					else if (isInList(w + funcId, _keyWordArray))
+					{
+						if (!isInList(w + funcId, wordArray))
+							wordArray.push_back(w + funcId);
+					}
+					else if (!isInList(w, wordArray))
+					{
+						wordArray.push_back(w);
+					}
+				}
+				else
+				{
+					if (!isInList(w, wordArray))
+						wordArray.push_back(w);
+				}
 			}
 		}
 		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);

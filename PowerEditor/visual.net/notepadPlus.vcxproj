@@ -100,34 +100,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <PostBuildEvent>
-      <Command>
-copy ..\src\langs.model.xml ..\bin\langs.model.xml
-copy ..\src\stylers.model.xml ..\bin\stylers.model.xml
-copy ..\src\shortcuts.xml ..\bin\shortcuts.xml
-copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
-      </Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <PostBuildEvent>
-      <Command>
-copy ..\src\langs.model.xml ..\bin64\langs.model.xml
-copy ..\src\stylers.model.xml ..\bin64\stylers.model.xml
-copy ..\src\shortcuts.xml ..\bin64\shortcuts.xml
-copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
-      </Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-    <PostBuildEvent>
-      <Command>
-copy ..\src\langs.model.xml ..\binarm64\langs.model.xml
-copy ..\src\stylers.model.xml ..\binarm64\stylers.model.xml
-copy ..\src\shortcuts.xml ..\binarm64\shortcuts.xml
-copy ..\src\contextMenu.xml ..\binarm64\contextMenu.xml
-      </Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DarkMode\DarkMode.cpp" />

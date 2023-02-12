@@ -9,6 +9,11 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(PlatformToolset)'=='ClangCL'">
+    <!-- Clang build has issue with embedding manifest, manifest will be added after build in PostBuildEvent-->
+    <GenerateManifest>false</GenerateManifest>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
+  </PropertyGroup>
   <ItemDefinitionGroup Label="Globals">
     <ClCompile>
       <AdditionalIncludeDirectories>..\src\WinControls\AboutDlg;..\..\scintilla\include;..\..\lexilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScintillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\TreeView;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList;..\src\uchardet;..\src\WinControls\FileBrowser;..\src\WinControls\ReadDirectoryChanges;..\src\MISC\md5;..\src\WinControls\PluginsAdmin;..\src\json;..\src\MISC\sha2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -34,6 +39,12 @@
     <Manifest>
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(PlatformToolset)'=='ClangCL'">
+    <ClCompile>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalOptions>-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-reserved-id-macro -Wno-pragma-pack -Wno-unknown-pragmas -Wno-unused-command-line-argument -Wno-overloaded-virtual %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
@@ -71,6 +82,34 @@
       <ProgramDatabaseFile>$(OutDir)npp.pdb</ProgramDatabaseFile>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
+    <PostBuildEvent>
+      <Command>
+copy "..\src\langs.model.xml" "$(OutDir)langs.model.xml"
+copy "..\src\stylers.model.xml" "$(OutDir)stylers.model.xml"
+copy "..\src\shortcuts.xml" "$(OutDir)shortcuts.xml"
+copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(PlatformToolset)|$(Configuration)'=='ClangCL|Release'">
+    <PostBuildEvent>
+      <Command>
+copy "..\src\langs.model.xml" "$(OutDir)langs.model.xml"
+copy "..\src\stylers.model.xml" "$(OutDir)stylers.model.xml"
+copy "..\src\shortcuts.xml" "$(OutDir)shortcuts.xml"
+copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
+"mt.exe" -nologo -manifest "..\src\notepad++.exe.manifest" -outputresource:"$(OutDir)notepad++.exe"
+"mt.exe" -updateresource:"$(OutDir)notepad++.exe";#1 -manifest "..\src\dpiAware.manifest"
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(PlatformToolset)|$(Configuration)'=='ClangCL|Debug'">
+    <PostBuildEvent>
+      <Command>
+"mt.exe" -nologo -manifest "..\src\notepad++.exe.manifest" -outputresource:"$(OutDir)notepad++.exe"
+"mt.exe" -updateresource:"$(OutDir)notepad++.exe";#1 -manifest "..\src\dpiAware.manifest"
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
     <Link>

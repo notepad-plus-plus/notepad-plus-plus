@@ -107,7 +107,7 @@ public:
 		this->_canModifyName = sc._canModifyName;
 		return *this;
 	}
-	friend inline const bool operator==(const Shortcut & a, const Shortcut & b) {
+	friend inline bool operator==(const Shortcut & a, const Shortcut & b) {
 		return ((lstrcmp(a.getMenuName(), b.getMenuName()) == 0) && 
 			(a._keyCombo._isCtrl == b._keyCombo._isCtrl) && 
 			(a._keyCombo._isAlt == b._keyCombo._isAlt) && 
@@ -116,7 +116,7 @@ public:
 			);
 	};
 
-	friend inline const bool operator!=(const Shortcut & a, const Shortcut & b) {
+	friend inline bool operator!=(const Shortcut & a, const Shortcut & b) {
 		return !(a == b);
 	};
 
@@ -233,7 +233,7 @@ public:
     };
 
 	//only compares the internal KeyCombos, nothing else
-	friend inline const bool operator==(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {
+	friend inline bool operator==(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {
 		bool equal = a._size == b._size;
 		if (!equal)
 			return false;
@@ -250,7 +250,7 @@ public:
 		return equal;
 	};
 
-	friend inline const bool operator!=(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {
+	friend inline bool operator!=(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {
 		return !(a == b);
 	};
 

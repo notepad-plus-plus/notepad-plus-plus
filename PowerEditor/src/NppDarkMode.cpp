@@ -37,9 +37,11 @@
 #define WINAPI_LAMBDA
 #endif
 
-#ifdef _MSC_VER
-#pragma comment(lib, "uxtheme.lib")
-#endif
+// already added in project files
+// keep for plugin authors
+//#ifdef _MSC_VER
+//#pragma comment(lib, "uxtheme.lib")
+//#endif
 
 constexpr COLORREF HEXRGB(DWORD rrggbb) {
 	// from 0xRRGGBB like natural #RRGGBB
@@ -3052,7 +3054,7 @@ namespace NppDarkMode
 	using IndividualTabColours = std::array<HLSColour, 5>;
 
 	static constexpr IndividualTabColours individualTabHuesFor_Dark  { { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
-	static const IndividualTabColours individualTabHues              { { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}}};
+	static constexpr IndividualTabColours individualTabHues          { { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}}};
 
 
 	COLORREF getIndividualTabColour(int colourIndex, bool themeDependant, bool saturated)

@@ -168,7 +168,11 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += buildTime;
 			_debugInfoStr += TEXT("\r\n");
 
-#if defined(__GNUC__)
+#if defined(__clang__)
+			_debugInfoStr += TEXT("Built with : Clang ");
+			_debugInfoStr += wmc.char2wchar(__clang_version__, CP_ACP);
+			_debugInfoStr += TEXT("\r\n");
+#elif defined(__GNUC__)
 			_debugInfoStr += TEXT("Built with : GCC ");
 			_debugInfoStr += wmc.char2wchar(__VERSION__, CP_ACP);
 			_debugInfoStr += TEXT("\r\n");

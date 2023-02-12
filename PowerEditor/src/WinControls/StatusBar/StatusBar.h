@@ -38,7 +38,7 @@ public:
 	virtual void destroy() override;
     virtual void reSizeTo(const RECT& rc);
 
-	int getHeight() const;
+	int getHeight() const override;
 
     bool setText(const TCHAR* str, int whichPart);
 	bool setOwnerDrawText(const TCHAR* str);

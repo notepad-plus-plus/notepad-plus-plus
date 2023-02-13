@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 12th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 13th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
@@ -1647,6 +1647,8 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <summary-nbsel1 value=" caratteri selezziunati ("/>
             <summary-nbsel2 value=" ottetti) in "/>
             <summary-nbrange value=" selezzioni"/>
+            <progress-cancel-button value="Abbandunà"/>
+            <progress-cancel-info value="Abbandonu di l’operazione, aspittate per piacè..."/>
             <find-in-files-progress-title value="Prugressione di a ricerca in i schedarii…"/>
             <replace-in-files-confirm-title value="Cunfirmazione"/>
             <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>

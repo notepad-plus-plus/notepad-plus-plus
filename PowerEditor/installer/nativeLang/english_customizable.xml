@@ -1247,6 +1247,8 @@ Continue?"/>
             <ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"/>
             <LanguageMenuCompactWarning title="Compact Language Menu" message="This option will be changed on the next launch."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Unsaved changes are about to be discarded!
+Do you want to save your changes before switching themes?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

@@ -21,6 +21,7 @@
 #include "documentMap.h"
 #include "AutoCompletion.h"
 #include "preference_rc.h"
+#include "localization.h"
 
 using namespace std;
 
@@ -798,12 +799,14 @@ void WordStyleDlg::switchToTheme()
 		wcscpy_s(themeFileName, prevThemeName.c_str());
 		PathStripPath(themeFileName);
 		PathRemoveExtension(themeFileName);
-		int mb_response =
-			::MessageBox( _hSelf,
-				TEXT(" Unsaved changes are about to be discarded!\n")
-				TEXT(" Do you want to save your changes before switching themes?"),
-				themeFileName,
-				MB_ICONWARNING | MB_YESNO | MB_APPLMODAL | MB_SETFOREGROUND );
+		NativeLangSpeaker *pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
+		int mb_response = pNativeSpeaker->messageBox("SwitchUnsavedThemeWarning",
+			_hSelf,
+			TEXT("Unsaved changes are about to be discarded!\nDo you want to save your changes before switching themes?"),
+			TEXT("$STR_REPLACE$"),
+			MB_ICONWARNING | MB_YESNO | MB_APPLMODAL | MB_SETFOREGROUND,
+			0,
+			themeFileName);
 		if ( mb_response == IDYES )
 			(NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
 	}

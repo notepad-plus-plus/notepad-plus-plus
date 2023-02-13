@@ -112,6 +112,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42006" name="Ra&amp;dera"/>
 					<Item id="42007" name="Markera &amp;allt"/>
 					<Item id="42020" name="Markera &amp;start/slut"/>
+					<Item id="42089" name="Start/slut på markering i kolumnläge"/>
 					<Item id="42084" name="Datum och tid (kort)"/>
 					<Item id="42085" name="Datum och tid (lång)"/>
 					<Item id="42086" name="Datum och tid (anpassad)"/>
@@ -294,6 +295,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44113" name="Tillämpa färg 3"/>
 					<Item id="44114" name="Tillämpa färg 4"/>
 					<Item id="44115" name="Tillämpa färg 5"/>
+					<Item id="44130" name="Visa icke utskrivbara tecken"/>
 					<Item id="44032" name="Helskärmsläge"/>
 					<Item id="44033" name="Återställ zoom"/>
 					<Item id="44034" name="Alltid överst"/>
@@ -924,6 +926,10 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6248" name="Standard"/>
 					<Item id="6249" name="Vanlig text"/>
 					<Item id="6250" name="Anpassad färg"/>
+					<Item id="6252" name="Icke utskrivbara tecken"/>
+					<Item id="6254" name="Förkortning"/>
+					<Item id="6255" name="Kodpunkt"/>
+					<Item id="6256" name="Anpassad färg"/>
 				</Scintillas>
 
 				<DarkMode title="Mörkt läge">
@@ -1126,6 +1132,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6811" name="Efter"/>
 					<Item id="6813" name="tecken"/>
 					<Item id="6814" name="Giltiga värden: 1-9"/>
+					<Item id="6872" name="Korta ned listan med automatisk komplettering"/>
 					<Item id="6815" name="Funktionsparameterhjälp vid inmatning"/>
 					<Item id="6851" name="Infoga automatiskt"/>
 					<Item id="6857" name=" HTML/XML-sluttagg"/>
@@ -1317,7 +1324,18 @@ Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inst�
 			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan endast släppa filer eller mappar men inte båda eftersom du är i läget för att släppa mappar som projekt.
 Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps istället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
 			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<ColumnModeTip title="Tips för kolumnläge" message="Använd &quot;Alt + musmarkering&quot; eller &quot;Alt + Shift + Piltangent&quot; för att växla till kolumnläge."/>
+			<ColumnModeTip title="Tips för kolumnläge" message="
+Det finns 3 sätt att växla till kolumnmarkeringsläget:
+
+1. (Tangentbord och mus)  Håll ned Alt + vänsterklick och dra
+
+2. (Endast tangentbord)  Håll ned Alt + Shift och använd piltangenterna
+
+3. (Tangentbord eller mus)
+      Placera markören vid önskad start på kolumnblockets position, kör
+       sedan kommandot &quot;Start/slut på markering i kolumnläge&quot;;
+      Flytta markören vid önskat slut på kolumnblockets position, kör
+       sedan kommandot &quot;Start/slut på markering i kolumnläge&quot; igen"/>
 			<BufferInvalidWarning title="Misslyckades att spara" message="Kan inte spara: Bufferten är felaktig."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Behålla fil som inte längre finns" message="Filen &quot;$STR_REPLACE$&quot; finns inte längre.
 Ska filen behållas i Notepad++?"/>
@@ -1388,6 +1406,7 @@ Vill du fortsätta?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att läsa in de insticksprogram du har installerat."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att aktivera ändringshistoriken."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Windows-session avslutas" message="Windows-sessionen håller på att avslutas men du har osparad data. Vill du avsluta Notepad++ nu?"/>
+			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer ändras vid nästa uppstart."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1591,6 +1610,8 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<summary-nbsel1 value=" markerade tecken ("/>
 			<summary-nbsel2 value=" byte) i "/>
 			<summary-nbrange value=" intervall"/>
+			<progress-cancel-button value="Avbryt"/>
+			<progress-cancel-info value="Avbryter åtgärd, var god vänta..."/>
 			<find-in-files-progress-title value="Förlopp för &quot;Sök i filer&quot;..."/>
 			<replace-in-files-confirm-title value="Är du säker?"/>
 			<replace-in-files-confirm-directory value="Är du säker på att du vill ersätta alla förekomster i:"/>
@@ -1621,9 +1642,38 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<contextMenu-clearStyle value="Rensa stilsättning" />
 			<contextMenu-PluginCommands value="Kommandon från insticksprogram" />
 			<largeFileRestriction-tip value="Vissa funktioner kan förminska prestandan i stora filer. Dessa funktioner kan inaktiveras automatiskt när en stor fil öppnas. Du kan anpassa de här.
+
 OBS:
 1. När dessa alternativ modifieras måste de öppnade stora filer stängas och öppnas igen för att fungera ordentligt.
+
 2. Om &quot;Inaktivera radbrytning globalt&quot; markeras och du öppnar en stor fil kommer &quot;Radbrytning&quot; inaktiveras för alla filer. Du kan återaktivera detta via menyn &quot;Visa-&gt;Radbrytning&quot;." />
+<npcNote-tip value="Representation av utvalda blanksteg och icke utskrivbara (kontroll)tecken som inte är ASCII.
+
+OBS:
+Vissa tecken kanske redan representeras och är därför synliga. Rad- och styckeavgränsare representeras redan med förkortningar som standard.
+
+När representationer används inaktiveras teckeneffekter hos text.
+
+Se användarmanualen för den fullständiga listan över utvalda blanksteg och icke utskrivbara tecken.
+
+Klicka på denna knapp för att öppna webbplatsen med användarmanualen." />
+			<npcAbbreviation-tip value="Förkortning : namn
+NBSP : hårt blanksteg
+ZWSP : breddlöst mellanslag
+ZWNBSP : breddlöst hårt blanksteg
+
+Se användarmanualen för den fullständiga listan.
+Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen." />
+			<npcCodepoint-tip value="Kodpunkt : namn
+U+00A0 : hårt blanksteg
+U+200B : breddlöst mellanslag
+U+FEFF : breddlöst hårt blanksteg
+
+Se användarmanualen för den fullständiga listan.
+Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen." />
+
+			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcCustomColor-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för utvalda blanksteg och icke utskrivbara tecken (&quot;Non-printing characters custom color&quot;)." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

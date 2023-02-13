@@ -217,6 +217,11 @@
 				<Param name="callback key_compare_func"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="array_is_list" func="yes">
+			<Overload retVal="bool">
+				<Param name="array array"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="array_key_exists" func="yes">
 			<Overload retVal="bool">
 				<Param name="mixed key"/>
@@ -1956,6 +1961,7 @@
 				<Param name="array &amp;array"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="enum"/>
 		<KeyWord name="ereg" func="yes">
 			<Overload retVal="int">
 				<Param name="string pattern"/>
@@ -2444,6 +2450,11 @@
 				<Param name="resource handle"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="fdatasync" func="yes">
+			<Overload retVal="bool">
+				<Param name="resource stream"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="fdf_add_doc_javascript" func="yes">
 			<Overload retVal="bool">
 				<Param name="resource fdfdoc"/>
@@ -2669,6 +2680,12 @@
 			<Overload retVal="bool">
 				<Param name="resource fdfdoc"/>
 				<Param name="string version"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="fdiv" func="yes">
+			<Overload retVal="float">
+				<Param name="float num1"/>
+				<Param name="float num2"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="feof" func="yes">
@@ -2975,6 +2992,11 @@
 				<Param name="resource handle"/>
 				<Param name="int offset"/>
 				<Param name="[int whence=SEEK_SET]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="fsync" func="yes">
+			<Overload retVal="bool">
+				<Param name="resource stream"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="fsockopen" func="yes">
@@ -3452,6 +3474,11 @@
 				<Param name="void"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="get_debug_type" func="yes">
+			<Overload retVal="string">
+				<Param name="mixed value"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="get_declared_classes" func="yes">
 			<Overload retVal="array">
 				<Param name="void"/>
@@ -3533,6 +3560,11 @@
 		<KeyWord name="get_parent_class" func="yes">
 			<Overload retVal="string|false">
 				<Param name="[mixed object]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="get_resource_id" func="yes">
+			<Overload retVal="int">
+				<Param name="resource resource"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="get_resource_type" func="yes">
@@ -5733,6 +5765,11 @@
 				<Param name="[bool details=true]]"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="ini_parse_quantity" func="yes">
+			<Overload retVal="int">
+				<Param name="string shorthand"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="ini_restore" func="yes">
 			<Overload retVal="void">
 				<Param name="string varname"/>
@@ -6387,6 +6424,11 @@
 		</KeyWord>
 		<KeyWord name="libxml_get_errors" func="yes">
 			<Overload retVal="object">
+				<Param name="void"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="libxml_get_external_entity_loader" func="yes">
+			<Overload retVal="?callable">
 				<Param name="void"/>
 			</Overload>
 		</KeyWord>
@@ -8474,6 +8516,7 @@
 				<Param name="array &amp;array"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="never"/>
 		<KeyWord name="next" func="yes">
 			<Overload retVal="mixed">
 				<Param name="array &amp;array"/>
@@ -9363,6 +9406,11 @@
 				<Param name="string ident"/>
 				<Param name="int option"/>
 				<Param name="int facility"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="openssl_cipher_key_length" func="yes">
+			<Overload retVal="int|false">
+				<Param name="string cipher_algo"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="openssl_csr_export" func="yes">
@@ -11013,6 +11061,7 @@
 				<Param name="string path"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="readonly"/>
 		<KeyWord name="realpath" func="yes">
 			<Overload retVal="string|false">
 				<Param name="string path"/>
@@ -12543,6 +12592,18 @@
 				<Param name="mixed var"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="str_contains" func="yes">
+			<Overload retVal="bool">
+				<Param name="string haystack"/>
+				<Param name="string needle"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="str_ends_with" func="yes">
+			<Overload retVal="bool">
+				<Param name="string haystack"/>
+				<Param name="string needle"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="str_getcsv" func="yes">
 			<Overload retVal="array">
 				<Param name="string input"/>
@@ -12595,6 +12656,12 @@
 			<Overload retVal="array|false">
 				<Param name="string str"/>
 				<Param name="[int split_length=1]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="str_starts_with" func="yes">
+			<Overload retVal="bool">
+				<Param name="string haystack"/>
+				<Param name="string needle"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="str_word_count" func="yes">

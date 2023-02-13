@@ -33,6 +33,9 @@
 #define FB_OPENINNPP          TEXT("Open")
 #define FB_SHELLEXECUTE       TEXT("Run by system")
 
+#define FB_REFRESHROOT        TEXT("Refresh")
+#define FB_REFRESHALLROOTS    TEXT("Refresh All")
+
 #define FOLDERASWORKSPACE_NODE "FolderAsWorkspace"
 
 
@@ -56,6 +59,12 @@ private:
 	FolderInfo *_parent = nullptr;
 };
 
+struct FilesToChange {
+	generic_string _commonPath; // Common path between all the files. _rootPath + _linarWithoutLastPathElement
+	generic_string _rootPath;
+	std::vector<generic_string> _linarWithoutLastPathElement;
+	std::vector<generic_string> _files; // file/folder names
+};
 
 class FolderInfo final
 {
@@ -72,9 +81,9 @@ public:
 	void addFile(const generic_string& fn) { _files.push_back(FileInfo(fn, this)); };
 	void addSubFolder(FolderInfo subDirectoryStructure) { _subFolders.push_back(subDirectoryStructure); };
 
-	bool addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray);
-	bool removeFromStructure(std::vector<generic_string> linarPathArray);
-	bool renameInStructure(std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo);
+	void addToStructure(FilesToChange group);
+	void removeFromStructure(FilesToChange group);
+	void renameInStructure(std::vector<generic_string> linarPathArrayFrom, generic_string renameTo);
 
 private:
 	std::vector<FolderInfo> _subFolders;
@@ -188,13 +197,6 @@ protected:
 
 	bool selectCurrentEditingFile() const;
 
-	struct FilesToChange {
-		generic_string _commonPath; // Common path between all the files. _rootPath + _linarWithoutLastPathElement
-		generic_string _rootPath;
-		std::vector<generic_string> _linarWithoutLastPathElement;
-		std::vector<generic_string> _files; // file/folder names
-	};
-
 	std::vector<FilesToChange> getFilesFromParam(LPARAM lParam) const;
 
 	bool addToTree(FilesToChange & group, HTREEITEM node);
@@ -214,4 +216,9 @@ protected:
 	void getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir); 
 	HTREEITEM createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure);
 	static int CALLBACK categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
+ 
+	void refreshFolder(generic_string rootPath, FolderInfo& currentReal, FolderInfo& currentFB);
+	void refreshFolder(FilesToChange group, generic_string nextFolder, FolderInfo& currentReal, FolderInfo& currentFB);
+	void refreshFolderRemoveAll(FilesToChange group, generic_string nextFolder, FolderInfo &currentFB);
+	void refreshFolderAddAll(FilesToChange group, generic_string nextFolder, FolderInfo &currentReal);
 };

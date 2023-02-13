@@ -1956,6 +1956,7 @@
 				<Param name="array &amp;array"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="enum"/>
 		<KeyWord name="ereg" func="yes">
 			<Overload retVal="int">
 				<Param name="string pattern"/>
@@ -8474,6 +8475,7 @@
 				<Param name="array &amp;array"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="never"/>
 		<KeyWord name="next" func="yes">
 			<Overload retVal="mixed">
 				<Param name="array &amp;array"/>
@@ -11013,6 +11015,7 @@
 				<Param name="string path"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="readonly"/>
 		<KeyWord name="realpath" func="yes">
 			<Overload retVal="string|false">
 				<Param name="string path"/>

@@ -414,10 +414,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// VOID NPPM_DOCLISTDISABLEPATHCOLUMN(0, BOOL disableOrNot)
 	// Disable or enable path column of Document List
 
-	#define NPPM_DOCLISTDISABLEGROUPS    (NPPMSG + 112)
-	// VOID NPPM_DOCLISTDISABLEGROUPS(0, BOOL disableOrNot)
-	// Disable or enable groups of Document List
-
 	#define NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR    (NPPMSG + 90)
 	// INT NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR(0, 0)
 	// Return: current editor default foreground color. You should convert the returned value in COLORREF

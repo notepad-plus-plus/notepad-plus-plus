@@ -999,6 +999,7 @@ void Notepad_plus::command(int id)
 			const auto current_index = _pDocTab->getCurrentTabIndex();
 			BufferID buffer_id = _pDocTab->getBufferByIndex(current_index);
 			_pDocTab->setIndividualTabColour(buffer_id, color_id);
+			_pDocTab->redraw();
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 
 			if (_pDocumentListPanel != nullptr)

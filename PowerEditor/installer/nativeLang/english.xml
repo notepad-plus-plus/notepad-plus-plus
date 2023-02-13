@@ -592,6 +592,17 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ScintillaCommandsTab name="Scintilla commands"/>
                 <ConflictInfoOk name="No shortcut conflicts for this item."/>
                 <ConflictInfoEditing name="No conflicts . . ."/>
+                <WindowCategory name="Window"/>
+                <FileCategory name="File"/>
+                <EditCategory name="Edit"/>
+                <SearchCategory name="Search"/>
+                <ViewCategory name="View"/>
+                <FormatCategory name="Format"/>
+                <LangCategory name="Lang"/>
+                <AboutCategory name="About"/>
+                <SettingCategory name="Setting"/>
+                <ToolCategory name="Tool"/>
+                <ExecuteCategory name="Execute"/>
                 <MainCommandNames>
                     <Item id="41019" name="Open containing folder in Explorer"/>
                     <Item id="41020" name="Open containing folder in Command Prompt"/>

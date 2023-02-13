@@ -287,6 +287,7 @@ void ShortcutMapper::fillOutBabyGrid()
 	{
 		case STATE_MENU:
 		{
+			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			vector<CommandShortcut> & cshortcuts = nppParam.getUserShortcuts();
 			cs_index = 1;
 			for (size_t i = 0; i < nbItems; ++i)
@@ -299,7 +300,11 @@ void ShortcutMapper::fillOutBabyGrid()
 					_babygrid.setText(cs_index, 1, cshortcuts[i].getName());
 					if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
 						_babygrid.setText(cs_index, 2, cshortcuts[i].toString().c_str());
-					_babygrid.setText(cs_index, 3, cshortcuts[i].getCategory());
+
+					const TCHAR* category = cshortcuts[i].getCategory();
+					generic_string categoryStr = nativeLangSpeaker->getShortcutMapperLangStr((std::string(wstring2string(category, CP_UTF8)) + "Category").c_str(), category);
+					_babygrid.setText(cs_index, 3, categoryStr.c_str());
+
 					if (isMarker)
 						isMarker = _babygrid.setMarker(false);
 					_shortcutIndex.push_back(i);

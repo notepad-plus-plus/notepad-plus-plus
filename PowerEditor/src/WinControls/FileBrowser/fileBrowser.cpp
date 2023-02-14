@@ -1868,6 +1868,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 							if (!filesToChange.empty()) {
 								processChange(dwPreviousAction, filesToChange, thisFolderUpdater);
 								filesToChange.clear();
+                dwPreviousAction = 0;
 							}
 							
 							processChange(dwAction, { wstrFilename }, thisFolderUpdater);
@@ -1888,6 +1889,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
                 {
                   processChange(dwAction, filesToChange, thisFolderUpdater);
                   filesToChange.clear();
+                  dwPreviousAction = 0;
                 }
               }
               else
@@ -1909,6 +1911,8 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 				if (!filesToChange.empty())
 				{
 					processChange(dwAction, filesToChange, thisFolderUpdater);
+//          filesToChange.clear();
+//          dwPreviousAction = 0;
 				}
 			}
 			break;

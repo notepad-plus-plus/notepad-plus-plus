@@ -640,6 +640,9 @@ The comments are here for explanation, it's not necessary to translate them.
                 <SettingCategory name="Preferenze"/>
                 <ToolCategory name="Attrezzi"/>
                 <ExecuteCategory name="Eseguisce"/>
+                <ModifyContextMenu name="Mudificà"/>
+                <DeleteContextMenu name="Squassà"/>
+                <ClearContextMenu name="Viutà"/>
                 <MainCommandNames>
                     <Item id="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
                     <Item id="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>

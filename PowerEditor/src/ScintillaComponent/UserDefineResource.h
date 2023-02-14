@@ -35,6 +35,7 @@
     #define    IDC_AUTOCOMPLET_STATIC                       (IDD_GLOBAL_USERDEFINE_DLG + 14)
     #define    IDC_IMPORT_BUTTON                            (IDD_GLOBAL_USERDEFINE_DLG + 15)
     #define    IDC_EXPORT_BUTTON                            (IDD_GLOBAL_USERDEFINE_DLG + 16)
+    #define    IDC_UNDOCK_BUTTON                            (IDD_GLOBAL_USERDEFINE_DLG + 17)
 
 #define    IDD_FOLDER_STYLE_DLG   21000 // IDD_GLOBAL_USERDEFINE_DLG + 1000
      #define    IDC_DEFAULT                                 (IDD_FOLDER_STYLE_DLG + 100)

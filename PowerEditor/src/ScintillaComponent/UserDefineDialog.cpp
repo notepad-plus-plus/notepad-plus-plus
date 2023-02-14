@@ -925,9 +925,32 @@ void UserDefineDialog::reloadLangCombo()
 void UserDefineDialog::changeStyle()
 {
     _status = !_status;
-    ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, (_status == DOCK)?TEXT("Undock"):TEXT("Dock"));
+    NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+    TiXmlNodeA *targetNode = nullptr;
+    if (pNativeSpeaker->getNativeLangA())
+    {
+        targetNode = (pNativeSpeaker->getNativeLangA())->FirstChildElement("Dialog");
+        if (targetNode)
+            targetNode = targetNode->FirstChildElement("UserDefine");
+    }
+    generic_string dockButtonLabel;
+    generic_string defauleLabel;
+    string idStr;
+    if (_status == DOCK)
+    {
+        defauleLabel = TEXT("Undock");
+        idStr = std::to_string(IDC_UNDOCK_BUTTON);
+    }
+    else
+    {
+        defauleLabel = TEXT("Dock");
+        idStr = std::to_string(IDC_DOCK_BUTTON);
+    }
 
-	auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
+    dockButtonLabel= pNativeSpeaker->getAttrNameByIdStr(defauleLabel.c_str(), targetNode, idStr.c_str());
+    ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, dockButtonLabel.c_str());
+
+    auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
     if (!style)
         ::MessageBox(NULL, TEXT("GetWindowLongPtr failed in UserDefineDialog::changeStyle()"), TEXT(""), MB_OK);
 

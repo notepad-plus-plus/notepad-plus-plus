@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 13th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 14th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
@@ -629,6 +629,17 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ScintillaCommandsTab name="Cumande Scintilla"/>
                 <ConflictInfoOk name="Nisunu cunflittu d’accurtatoghju per st’elementu."/>
                 <ConflictInfoEditing name="Nisunu cunflittu . . ."/>
+                <WindowCategory name="Finestra"/>
+                <FileCategory name="Schedariu"/>
+                <EditCategory name="Mudificazione"/>
+                <SearchCategory name="Ricerca"/>
+                <ViewCategory name="Affissera"/>
+                <FormatCategory name="Cudificazione"/>
+                <LangCategory name="Linguaghju"/>
+                <AboutCategory name="Apprupositu"/>
+                <SettingCategory name="Preferenze"/>
+                <ToolCategory name="Attrezzi"/>
+                <ExecuteCategory name="Eseguisce"/>
                 <MainCommandNames>
                     <Item id="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
                     <Item id="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
@@ -1444,6 +1455,8 @@ Cuntinuà ?"/>
             <ChangeHistoryEnabledWarning title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per permette l’affissera di a cronolugia di i cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Fine di a sessione Windows" message="A sessione Windows stà per piantassi ma ci hè qualchì datu chì ùn hè micca arregistratu. Vulete esce di Notepad++ subitu ?"/>
             <LanguageMenuCompactWarning title="Cumpattà l’affissera di u listinu" message="St’ozzione serà cambiata à u prossimu lanciu."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="I cambiamenti micca arregistrati stanu per esse squassati !
+Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1453,6 +1466,7 @@ Cuntinuà ?"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Est."/>
             <ColumnPath name="Chjassu"/>
+            <ListGroups name="Gruppà da vista"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
@@ -1648,7 +1662,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <summary-nbsel2 value=" ottetti) in "/>
             <summary-nbrange value=" selezzioni"/>
             <progress-cancel-button value="Abbandunà"/>
-            <progress-cancel-info value="Abbandonu di l’operazione, aspittate per piacè..."/>
+            <progress-cancel-info value="Abbandonu di l’operazione, aspittate per piacè…"/>
             <find-in-files-progress-title value="Prugressione di a ricerca in i schedarii…"/>
             <replace-in-files-confirm-title value="Cunfirmazione"/>
             <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>

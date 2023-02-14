@@ -97,7 +97,6 @@ private :
 	ScintillaEditView *_pView = nullptr;
 	static bool _hideTabBarStatus;
 
-	std::map<BufferID, int> _tabIndexToColour;
 	std::vector<IconList *> _pIconListVector;
 	int _iconListIndexChoice = -1;
 };

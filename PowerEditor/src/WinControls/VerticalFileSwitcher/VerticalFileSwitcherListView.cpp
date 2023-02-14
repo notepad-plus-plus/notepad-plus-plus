@@ -267,10 +267,10 @@ void VerticalFileSwitcherListView::setItemColor(BufferID bufferID)
 		{
 			tlfs->_docColor = buf->getDocColorId();
 			ListView_SetItem(_hSelf, &item);
-			redraw();
-			break;
 		}
 	}
+
+	redraw();
 }
 
 generic_string VerticalFileSwitcherListView::getFullFilePath(size_t i) const

@@ -287,7 +287,6 @@ void ShortcutMapper::fillOutBabyGrid()
 	{
 		case STATE_MENU:
 		{
-			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			vector<CommandShortcut> & cshortcuts = nppParam.getUserShortcuts();
 			cs_index = 1;
 			for (size_t i = 0; i < nbItems; ++i)
@@ -1095,9 +1094,13 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							if (!_rightClickMenu.isCreated())
 							{
 								vector<MenuItemUnit> itemUnitArray;
-								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, TEXT("Modify")));
-								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, TEXT("Delete")));
-								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_CLEAR, TEXT("Clear")));
+								NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+								generic_string modifyStr = nativeLangSpeaker->getShortcutMapperLangStr("ModifyContextMenu", TEXT("Modify"));
+								generic_string deleteStr = nativeLangSpeaker->getShortcutMapperLangStr("DeleteContextMenu", TEXT("Delete"));
+								generic_string clearStr = nativeLangSpeaker->getShortcutMapperLangStr("ClearContextMenu", TEXT("Clear"));
+								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, modifyStr.c_str()));
+								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, deleteStr.c_str()));
+								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_CLEAR, clearStr.c_str()));
 								_rightClickMenu.create(_hSelf, itemUnitArray);
 							}
 

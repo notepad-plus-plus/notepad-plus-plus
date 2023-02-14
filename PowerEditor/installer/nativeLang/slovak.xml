@@ -603,6 +603,9 @@
                 <SettingCategory name="Nastavenia"/>
                 <ToolCategory name="Nástroje"/>
                 <ExecuteCategory name="Spustiť"/>
+                <ModifyContextMenu name="Upraviť"/>
+                <DeleteContextMenu name="Odstrániť"/>
+                <ClearContextMenu name="Vymazať"/>
 		<MainCommandNames>
                     <Item id="41019" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
                     <Item id="41020" name="Otvoriť priečinok súboru Príkazovom riadku"/>
@@ -1431,6 +1434,7 @@ Pokračovať?"/>
             <ColumnName name="Názov"/>
             <ColumnExt name="Prípona"/>
             <ColumnPath name="Cesta"/>
+            <ListGroups name="Zoskupiť podľa zobrazenia"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Názov"/>

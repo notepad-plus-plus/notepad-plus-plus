@@ -592,6 +592,17 @@
                 <ScintillaCommandsTab name="Príkazy editora Scintilla"/>
                 <ConflictInfoOk name="Žiadne konflikty pre túto položku."/>
                 <ConflictInfoEditing name="Žiadne konflikty…"/>
+                <WindowCategory name="Okno"/>
+                <FileCategory name="Súbor"/>
+                <EditCategory name="Upraviť"/>
+                <SearchCategory name="Hľadať"/>
+                <ViewCategory name="Zobraziť"/>
+                <FormatCategory name="Formátovať"/>
+                <LangCategory name="Jazyk"/>
+                <AboutCategory name="O Notepade++"/>
+                <SettingCategory name="Nastavenia"/>
+                <ToolCategory name="Nástroje"/>
+                <ExecuteCategory name="Spustiť"/>
 		<MainCommandNames>
                     <Item id="41019" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
                     <Item id="41020" name="Otvoriť priečinok súboru Príkazovom riadku"/>
@@ -1409,6 +1420,8 @@ Pokračovať?"/>
             <ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/>
             <WindowsSessionExit title="Notepad++ - Ukončenie relácie Windowsu" message="Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete Notepad++ ukončiť teraz?"/>
             <LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené zmeny budú odstránené!
+            Chcete uložiť zmeny pred prepnutím motívu?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>

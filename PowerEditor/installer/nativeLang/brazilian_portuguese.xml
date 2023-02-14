@@ -1399,6 +1399,8 @@ Deseja continuar?"/>
             <ChangeHistoryEnabledWarning title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para habilitar o Hisórico de Modificações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge". -->
             <WindowsSessionExit title="Notepad++ - Fechar sessão no Windows" message="A sessão do Windows está prestes a ser encerrada, mas há dados não salvos. Deseja encerrar o Notepad++ agora?"/>
 	    <LanguageMenuCompactWarning title="Menu Compacto de Linguagem" message="Esta opção será alterada na próxima vez que o programa for aberto."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+	    <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Alterações não salvas estão prestes a serem perdidas!
+Deseja salvar suas alterações antes de alterar os temas?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1408,6 +1410,7 @@ Deseja continuar?"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Ext."/>
             <ColumnPath name="Caminho"/>
+	    <ListGroups name="Agrupar por Visualização"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>

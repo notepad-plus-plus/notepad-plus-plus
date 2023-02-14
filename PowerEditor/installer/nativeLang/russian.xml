@@ -624,6 +624,20 @@ Updated to v8.5.0:
 				<ScintillaCommandsTab name="Scintilla"/>
 				<ConflictInfoOk       name="Конфликта клавиш — не обнаружено."/>
 				<ConflictInfoEditing  name="Свободно для назначения . . ."/>
+				<WindowCategory       name="Вкладки"/>
+				<FileCategory         name="Файл"/>
+				<EditCategory         name="Правка"/>
+				<SearchCategory       name="Поиск"/>
+				<ViewCategory         name="Вид"/>
+				<FormatCategory       name="Кодировки"/>
+				<LangCategory         name="Синтаксисы"/>
+				<AboutCategory        name="О программе"/>
+				<SettingCategory      name="Опции"/>
+				<ToolCategory         name="Инструм."/>
+				<ExecuteCategory      name="Запуск"/>
+				<ModifyContextMenu    name="Изменить"/>
+				<DeleteContextMenu    name="Удалить"/>
+				<ClearContextMenu     name="Очистить"/>
 				<MainCommandNames>
 					<Item id="42018" name="Начать запись Макроса"/>
 					<Item id="42019" name="Остановить запись Макроса"/>
@@ -734,7 +748,7 @@ Updated to v8.5.0:
 				<Item id="5012" name="!!! НАЙДЕН КОНФЛИКТ !!!"/>
 			</ShortcutMapperSubDialg>
 			<UserDefine title="Пользовательское Определение Синтаксиса">
-				<Item id="20001" name="Стыковать"/>
+				<Item id="20001" name="Прикрепить"/>
 				<Item id="20002" name="Новое имя"/>
 				<Item id="20003" name="Создать..."/>
 				<Item id="20004" name="Удалить"/>
@@ -745,6 +759,7 @@ Updated to v8.5.0:
 				<Item id="20011" name="Прозрачность"/>
 				<Item id="20015" name="Импортир..."/>
 				<Item id="20016" name="Экспортир..."/>
+				<Item id="20017" name="Открепить"/>
 				<StylerDialog title="Настройка Стилистики">
 					<Item id="1"     name="ОК"/>
 					<Item id="2"     name="Отмена"/>
@@ -1400,6 +1415,7 @@ Updated to v8.5.0:
 			<ChangeHistoryEnabledWarning         title="Необходимо перезапустить Notepad++"         message="Для включения Истории Изменений, необходимо перезапустить Notepad++."/>
 			<WindowsSessionExit                  title="Notepad++ - Завершение работы Windows"      message="Windows завершает свою работу и у вас есть несохраненные данные. Вы хотите выйти из Notepad++ сейчас?"/>
 			<LanguageMenuCompactWarning          title="Компактное меню Синтаксисов"                message="Этот параметр будет изменен при следующем запуске Notepad++."/> 
+			<SwitchUnsavedThemeWarning           title="$STR_REPLACE$"                              message="Несохраненные изменения будут потеряны!&#x0A;Вы хотите сохранить изменения перед переключением тем?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1409,6 +1425,7 @@ Updated to v8.5.0:
 			<ColumnName name="Имя"/>
 			<ColumnExt  name="Расш."/>
 			<ColumnPath name="Путь"/>
+			<ListGroups name="Сгруппир. по Виду"/>
 		</DocList>
 		<WindowsDlg>
 			<ColumnName   name="Имя"/>

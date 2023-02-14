@@ -1762,6 +1762,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const bool isShown = nppParam.getSVP()._npcShow;
 			_mainEditView.showNpc(isShown);
 			_subEditView.showNpc(isShown);
+			_findReplaceDlg.updateFinderScintillaForNpc();
 			return TRUE;
 		}
 
@@ -2939,8 +2940,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		
 		case NPPM_INTERNAL_NPCFORMCHANGED:
 		{
-			_mainEditView.setNPC();
-			_subEditView.setNPC();
+			NppParameters& nppParam = NppParameters::getInstance();
+			const bool isShown = nppParam.getSVP()._npcShow;
+			if (isShown)
+			{
+				_mainEditView.setNPC();
+				_subEditView.setNPC();
+				_findReplaceDlg.updateFinderScintillaForNpc(true);
+			}
 			return TRUE;
 		}
 

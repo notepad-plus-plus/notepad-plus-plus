@@ -3074,8 +3074,11 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYMBOL, false);
 		_pFinder->_scintView.setMakerStyle(FOLDER_STYLE_SIMPLE);
 
+		NppDarkMode::setBorder(_pFinder->_scintView.getHSelf());
+
 		_pFinder->_scintView.display();
 		_pFinder->setFinderStyle();
+		_pFinder->setFinderStyleForNpc();
 
 		_pFinder->display(false);
 		::UpdateWindow(_hParent);
@@ -3207,7 +3210,9 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->_scintView.display();
 	::UpdateWindow(_hParent);
 
+	NppDarkMode::setBorder(pFinder->_scintView.getHSelf());
 	pFinder->setFinderStyle();
+	pFinder->setFinderStyleForNpc();
 
 	// Send the address of _MarkingsStruct to the lexer
 	char ptrword[sizeof(void*) * 2 + 1];
@@ -4770,7 +4775,7 @@ void Finder::setFinderStyle()
 	// Set global styles for the finder
 	_scintView.performGlobalStyles();
 
-	NppDarkMode::setBorder(_scintView.getHSelf());
+	NppDarkMode::setDarkScrollBar(_scintView.getHSelf());
 
 	// Set current line background color for the finder
 	const TCHAR * lexerName = ScintillaEditView::_langNameInfoArray[L_SEARCHRESULT]._langName;
@@ -4820,6 +4825,20 @@ void Finder::setFinderStyle()
 	// finder fold style follows user preference but use box when user selects none
 	ScintillaViewParams& svp = (ScintillaViewParams&)NppParameters::getInstance().getSVP();
 	_scintView.setMakerStyle(svp._folderStyle == FOLDER_STYLE_NONE ? FOLDER_STYLE_BOX : svp._folderStyle);
+}
+
+void Finder::setFinderStyleForNpc(bool onlyColor)
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	const bool isShown = nppParam.getSVP()._npcShow;
+	if (!onlyColor)
+	{
+		_scintView.showNpc(isShown, true);
+	}
+	else if (isShown)
+	{
+		_scintView.setNPC();
+	}
 }
 
 intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

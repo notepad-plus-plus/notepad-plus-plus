@@ -125,6 +125,7 @@ public:
 	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection);
 	const char* foundLine(FoundInfo fi, SearchResultMarkingLine mi, const TCHAR* foundline, size_t totalLineNumber);
 	void setFinderStyle();
+	void setFinderStyleForNpc(bool onlyColor = false);
 	void removeAll();
 	void openAll();
 	void wrapLongLinesToggle();
@@ -352,6 +353,29 @@ public :
 		if (_pFinder && _pFinder->isCreated())
 		{
 			_pFinder->setFinderStyle();
+
+			if (!_findersOfFinder.empty())
+			{
+				for (const auto& finder : _findersOfFinder)
+				{
+					finder->setFinderStyle();
+				}
+			}
+		}
+	};
+
+	void updateFinderScintillaForNpc(bool onlyColor = false) {
+		if (_pFinder && _pFinder->isCreated())
+		{
+			_pFinder->setFinderStyleForNpc(onlyColor);
+
+			if (!_findersOfFinder.empty())
+			{
+				for (const auto& finder : _findersOfFinder)
+				{
+					finder->setFinderStyleForNpc();
+				}
+			}
 		}
 	};
 

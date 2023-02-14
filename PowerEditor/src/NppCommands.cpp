@@ -2368,6 +2368,8 @@ void Notepad_plus::command(int id)
 			setCheckMenuItem(IDM_VIEW_ALL_CHARACTERS, allChecked);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allChecked);
 
+			_findReplaceDlg.updateFinderScintillaForNpc();
+
 			break;
 		}
 
@@ -2392,6 +2394,8 @@ void Notepad_plus::command(int id)
 			svp1._whiteSpaceShow = isChecked;
 			svp1._eolShow = isChecked;
 			svp1._npcShow = isChecked;
+
+			_findReplaceDlg.updateFinderScintillaForNpc();
 
 			break;
 		}

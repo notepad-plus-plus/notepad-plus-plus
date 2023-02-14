@@ -409,7 +409,7 @@ public:
 		return (execute(SCI_GETVIEWEOL) != 0);
 	};
 
-	void showNpc(bool willBeShowed = true) {
+	void showNpc(bool willBeShowed = true, bool isSearchResult = false) {
 		auto& svp = NppParameters::getInstance().getSVP();
 		if (willBeShowed)
 		{
@@ -429,7 +429,7 @@ public:
 			execute(SCI_CLEARALLREPRESENTATIONS);
 
 			// SCI_CLEARALLREPRESENTATIONS will also reset CRLF
-			if (svp._eolMode != svp.roundedRectangleText)
+			if (!isSearchResult && svp._eolMode != svp.roundedRectangleText)
 			{
 				setCRLF();
 			}

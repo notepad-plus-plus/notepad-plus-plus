@@ -1331,6 +1331,29 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 	return defaultStr;
 }
 
+	generic_string NativeLangSpeaker::getAttrNameByIdStr(const TCHAR *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name, const char *nodeL2Name) const
+{
+	if (!targetNode) return defaultStr;
+
+	for (TiXmlNodeA *childNode = targetNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSibling("Item"))
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		const char *id = element->Attribute(nodeL1Name);
+		if (id && id[0] && !strcmp(id, nodeL1Value))
+		{
+			const char *name = element->Attribute(nodeL2Name);
+			if (name && name[0])
+			{
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+				return wmc.char2wchar(name, _nativeLangEncoding);
+			}
+		}
+	}
+	return defaultStr;
+}
+
 int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *defaultMessage, const TCHAR *defaultTitle, int msgBoxType, int intInfo, const TCHAR *strInfo)
 {
 	if ((NppParameters::getInstance()).isEndSessionCritical())

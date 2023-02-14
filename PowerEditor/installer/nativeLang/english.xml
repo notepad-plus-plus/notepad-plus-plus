@@ -603,6 +603,9 @@ The comments are here for explanation, it's not necessary to translate them.
                 <SettingCategory name="Setting"/>
                 <ToolCategory name="Tool"/>
                 <ExecuteCategory name="Execute"/>
+                <ModifyContextMenu name="Modify"/>
+                <DeleteContextMenu name="Delete"/>
+                <ClearContextMenu name="Clear"/>
                 <MainCommandNames>
                     <Item id="41019" name="Open containing folder in Explorer"/>
                     <Item id="41020" name="Open containing folder in Command Prompt"/>

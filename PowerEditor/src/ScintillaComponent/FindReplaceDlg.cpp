@@ -3074,6 +3074,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		_pFinder->_scintView.display();
 		_pFinder->setFinderStyle();
+		_pFinder->setFinderStyleForNpc();
 
 		_pFinder->display(false);
 		::UpdateWindow(_hParent);
@@ -3206,6 +3207,7 @@ Finder * FindReplaceDlg::createFinder()
 	::UpdateWindow(_hParent);
 
 	pFinder->setFinderStyle();
+	pFinder->setFinderStyleForNpc();
 
 	// Send the address of _MarkingsStruct to the lexer
 	char ptrword[sizeof(void*) * 2 + 1];
@@ -4818,6 +4820,20 @@ void Finder::setFinderStyle()
 	// finder fold style follows user preference but use box when user selects none
 	ScintillaViewParams& svp = (ScintillaViewParams&)NppParameters::getInstance().getSVP();
 	_scintView.setMakerStyle(svp._folderStyle == FOLDER_STYLE_NONE ? FOLDER_STYLE_BOX : svp._folderStyle);
+}
+
+void Finder::setFinderStyleForNpc(bool onlyColor)
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	const bool isShown = nppParam.getSVP()._npcShow;
+	if (!onlyColor)
+	{
+		_scintView.showNpc(isShown, true);
+	}
+	else if (isShown)
+	{
+		_scintView.setNPC();
+	}
 }
 
 intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

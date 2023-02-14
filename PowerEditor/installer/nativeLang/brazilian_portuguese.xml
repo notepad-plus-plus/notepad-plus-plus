@@ -593,6 +593,20 @@
                 <ScintillaCommandsTab name="Comandos Scintilla"/>
                 <ConflictInfoOk name="Não há conflitos de atalho para este item."/>
                 <ConflictInfoEditing name="Sem conflitos . . ."/>
+                <WindowCategory name="Janela"/>
+                <FileCategory name="Arquivo"/>
+                <EditCategory name="Editar"/>
+                <SearchCategory name="Localizar"/>
+                <ViewCategory name="Visualizar"/>
+                <FormatCategory name="Formatar"/>
+                <LangCategory name="Linguagem"/>
+                <AboutCategory name="Sobre"/>
+                <SettingCategory name="Configurações"/>
+                <ToolCategory name="Ferramentas"/>
+                <ExecuteCategory name="Executar"/>
+                <ModifyContextMenu name="Modificar"/>
+                <DeleteContextMenu name="Apagar"/>
+                <ClearContextMenu name="Limpar"/>
                 <MainCommandNames>
                     <Item id="41019" name="Abrir o caminho no Explorer"/>
                     <Item id="41020" name="Abrir o caminho no Prompt de Comando"/>

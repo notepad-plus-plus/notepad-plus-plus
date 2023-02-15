@@ -1018,12 +1018,12 @@ void FileBrowser::refreshFolderRemoveAll(FilesToChange group, generic_string nex
 
 	// add all files to remove
 	for (auto& FileFB : currentFB._files) {
-    group._files.push_back(FileFB.getName());
-  }
-  // for all sub folders rmove lower level and add to files to remove
+		group._files.push_back(FileFB.getName());
+	}
+	// for all sub folders rmove lower level and add to files to remove
 	for (auto& FolderFB : currentFB._subFolders) {
 		refreshFolderRemoveAll(group, FolderFB.getName(), FolderFB);
-    group._files.push_back(FolderFB.getName());
+		group._files.push_back(FolderFB.getName());
 	}
 	// if there are files to remove
 	if (group._files.size() != 0) {
@@ -1045,8 +1045,8 @@ void FileBrowser::refreshFolderAddAll(FilesToChange group, generic_string nextFo
 
 	// add all files to add
 	for (auto& FileReal : currentReal._files) {
-    group._files.push_back(FileReal.getName());
-  }
+		group._files.push_back(FileReal.getName());
+	}
 	// add all folders to add
 	for (auto& FolderReal : currentReal._subFolders) {
 		group._files.push_back(FolderReal.getName());
@@ -1861,50 +1861,50 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 
 					// sometimes the same action is, don't know why, double sent - process only nthe first
 					if (!wstrFilename.empty() && ((wstrFilename != prevWstrFilename) || (dwPreviousAction != dwAction))) {
-            // FILE_ACTION_ADDED and FILE_ACTION_REMOVED are done in batches
-            if (dwAction != FILE_ACTION_ADDED && dwAction != FILE_ACTION_REMOVED)
-            {
+						// FILE_ACTION_ADDED and FILE_ACTION_REMOVED are done in batches
+						if (dwAction != FILE_ACTION_ADDED && dwAction != FILE_ACTION_REMOVED)
+						{
 							// ensure the FIFO processing order - if the batch is not empty process it before the non batchable action
 							if (!filesToChange.empty()) {
 								processChange(dwPreviousAction, filesToChange, thisFolderUpdater);
 								filesToChange.clear();
-                dwPreviousAction = 0;
+								dwPreviousAction = 0;
 							}
 							
 							processChange(dwAction, { wstrFilename }, thisFolderUpdater);
-            }
-            else 
-            {
-              // first iteration
-              if (dwPreviousAction == 0)
-              {
-                dwPreviousAction = dwAction;
-              }
+						}
+						else 
+						{
+							// first iteration
+							if (dwPreviousAction == 0)
+							{
+								dwPreviousAction = dwAction;
+							}
 
-              if (dwPreviousAction == dwAction)
-              {
-                filesToChange.push_back(wstrFilename);
+							if (dwPreviousAction == dwAction)
+							{
+								filesToChange.push_back(wstrFilename);
 
-                if (filesToChange.size() > MAX_BATCH_SIZE) // Process some so the editor doesn't block for too long
-                {
-                  processChange(dwAction, filesToChange, thisFolderUpdater);
-                  filesToChange.clear();
-                  dwPreviousAction = 0;
-                }
-              }
-              else
-              {
-                // Different action. Process the previous batch and start saving a new one
-                processChange(dwPreviousAction, filesToChange, thisFolderUpdater);
-                filesToChange.clear();
+								if (filesToChange.size() > MAX_BATCH_SIZE) // Process some so the editor doesn't block for too long
+								{
+									processChange(dwAction, filesToChange, thisFolderUpdater);
+									filesToChange.clear();
+									dwPreviousAction = 0;
+								}
+							}
+							else
+							{
+								// Different action. Process the previous batch and start saving a new one
+								processChange(dwPreviousAction, filesToChange, thisFolderUpdater);
+								filesToChange.clear();
 
-                dwPreviousAction = dwAction;
-                filesToChange.push_back(wstrFilename);
-              }
-            }
-            // store also the last filename to avoid double brocessing in case of multiple sending
+								dwPreviousAction = dwAction;
+								filesToChange.push_back(wstrFilename);
+							}
+						}
+						// store also the last filename to avoid double brocessing in case of multiple sending
 						prevWstrFilename = wstrFilename;
-          }
+					}
 				}
 
 				// process the last changes

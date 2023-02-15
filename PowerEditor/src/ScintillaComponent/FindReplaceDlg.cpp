@@ -534,6 +534,7 @@ bool Finder::notify(SCNotification *notification)
 				end = lineEndAbsPos;
 			
 			_scintView.execute(SCI_SETSEL, begin, end);
+			_scintView.execute(SCI_SCROLLRANGE, begin, end);
 
 		}
 		break;
@@ -938,7 +939,6 @@ void Finder::gotoNextFoundResult(int direction)
 	}
 
 	_scintView.execute(SCI_ENSUREVISIBLE, lno);
-	_scintView.execute(SCI_SCROLLCARET);
 	std::pair<intptr_t, intptr_t> newPos = gotoFoundLine(n);
 
 	lineStartAbsPos = _scintView.execute(SCI_POSITIONFROMLINE, lno);
@@ -951,6 +951,7 @@ void Finder::gotoNextFoundResult(int direction)
 		end = lineEndAbsPos;
 
 	_scintView.execute(SCI_SETSEL, begin, end);
+	_scintView.execute(SCI_SCROLLRANGE, begin, end);
 
 }
 
@@ -4021,6 +4022,7 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 				end = lineEndAbsPos;
 
 			pFinder->_scintView.execute(SCI_SETSEL, begin, end);
+			pFinder->_scintView.execute(SCI_SCROLLRANGE, begin, end);
 		}
 		else if (wParam == VK_ESCAPE)
 			pFinder->display(false);

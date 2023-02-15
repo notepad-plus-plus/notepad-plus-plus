@@ -1422,6 +1422,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 			{
 				onlyLeading = true;
 			}
+			[[fallthrough]];
 			case space2TabAll:
 			{
 				bool nextChar = false;

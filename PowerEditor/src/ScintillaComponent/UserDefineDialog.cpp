@@ -1543,6 +1543,8 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
             }
             ::SetScrollPos(_hSelf, SB_VERT, _yScrollPos, TRUE);
             ::ScrollWindow(_hSelf, 0, oldy-_yScrollPos, NULL, NULL);
+
+            break;
         }
         case NPPM_MODELESSDIALOG :
             return ::SendMessage(_hParent, NPPM_MODELESSDIALOG, wParam, lParam);

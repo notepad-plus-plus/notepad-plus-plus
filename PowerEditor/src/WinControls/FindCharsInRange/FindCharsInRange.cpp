@@ -117,6 +117,7 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 					break;
 				}
 			}
+			break;
 		}
 		default :
 			return FALSE;

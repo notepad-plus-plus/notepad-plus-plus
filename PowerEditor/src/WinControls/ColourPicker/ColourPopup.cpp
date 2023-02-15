@@ -162,6 +162,7 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 							break;
 					}
 					// *** FALL THROUGH ***
+					[[fallthrough]];
 				case ODA_SELECT:
 					rc = pdis->rcItem;
 					if (pdis->itemState & ODS_SELECTED)
@@ -250,12 +251,13 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
                         ::SendMessage(_hParent, WM_PICKUP_COLOR, _colour, 0);
 					    return TRUE;
 		            }
+					return FALSE;
                 }
-			    
+
                 default :
                     return FALSE;
             }
-		
+
 		case WM_ACTIVATE :
         {
 			if (LOWORD(wParam) == WA_INACTIVE)

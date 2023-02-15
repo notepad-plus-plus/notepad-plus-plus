@@ -123,6 +123,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 				default :
 					break;
 			}
+			break;
 		}
 
 		case WM_DESTROY :
@@ -390,6 +391,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				default:
 					break;
 			}
+			break;
 		}
 
 		case WM_DESTROY:
@@ -538,6 +540,7 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					return TRUE;
 				}
 			}
+			break;
 		}
 		default:
 			return FALSE;
@@ -644,6 +647,7 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				return TRUE;
 			}
 		}
+		break;
 	}
 	default:
 		return FALSE;

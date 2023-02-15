@@ -373,8 +373,8 @@ void Notepad_plus::command(int id)
 				_pEditView->execute(WM_COPY);
 				checkClipboard();
 				_pEditView->execute(SCI_SETSEL, curPos, curPos);
-				break;
 			}
+			break;
 		}
 
 		case IDM_EDIT_COPY_BINARY:

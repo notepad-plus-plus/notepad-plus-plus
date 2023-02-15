@@ -326,6 +326,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			}
 
 			// break; // no break here
+			[[fallthrough]];
 		}
 
 		default :

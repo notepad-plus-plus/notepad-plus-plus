@@ -1458,6 +1458,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			delete _pLinkColorPicker;
 			delete _pHotEdgeColorPicker;
 			delete _pDisabledEdgeColorPicker;
+
+			return TRUE;
 		}
 
 		case WM_COMMAND:
@@ -1471,6 +1473,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					NppDarkMode::handleSettingChange(nullptr, 0, true);
 				}
+				[[fallthrough]];
 				case IDC_RADIO_DARKMODE_LIGHTMODE:
 				case IDC_RADIO_DARKMODE_DARKMODE:
 				{
@@ -2377,6 +2380,8 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					break;
 			}
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_SETCURSEL, j, 0);
+
+			return TRUE;
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -2531,6 +2536,8 @@ intptr_t CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wPara
 			::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), shouldActivated);
 
 			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_CHECK_DRROPFOLDEROPENFILES, BM_SETCHECK, nppGUI._isFolderDroppedOpenFiles ? BST_CHECKED : BST_UNCHECKED, 0);
+
+			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
@@ -2662,6 +2669,8 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 			::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, length, FALSE);
 			_customLenVal.init(_hInst, _hSelf);
 			_customLenVal.create(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), nullptr);
+
+			return TRUE;
 		}
 
 		case WM_CTLCOLORDLG:

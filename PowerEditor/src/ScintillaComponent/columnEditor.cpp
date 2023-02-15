@@ -436,8 +436,10 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						}
 						break;
 					}
+					break;
 				}
 			}
+			break;
 		}
 
 		default :

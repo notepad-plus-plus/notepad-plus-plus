@@ -1220,6 +1220,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							return TRUE;
 						}
 					}
+					break;
 				}
 				case IDC_BABYGRID_FILTER:
 				{
@@ -1229,7 +1230,13 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					}
 					return TRUE;
 				}
+
+				default:
+				{
+					break;
+				}
 			}
+			break;
 		}
 
 		default:

@@ -147,6 +147,7 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 						}
 					}
 					//not enough chars to make parameter, use default method as fallback
+					[[fallthrough]];
 				}
 
 				default:
@@ -1799,7 +1800,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						nppParamInst._isFindReplacing = false;
 					}
 				}
-
+				return TRUE;
 
 				case IDC_REPLACE_OPENEDFILES :
 				{
@@ -5126,6 +5127,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 						return TRUE;
 					}
 					// otherwise, repeat the search
+					[[fallthrough]];
 				case IDM_SEARCH_FINDPREV:		// Accel table: find prev
 				case IDM_SEARCH_FINDNEXT:		// Accel table: find next
 				case IDC_INCFINDPREVOK:
@@ -5158,6 +5160,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 						break;
 					}
 					// treat other edit notifications as unhandled
+					[[fallthrough]];
 				default:
 					return DefWindowProc(getHSelf(), message, wParam, lParam);
 			}

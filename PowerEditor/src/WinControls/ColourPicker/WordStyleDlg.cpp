@@ -572,7 +572,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						//return TRUE;
 				}
 			}
-
+			break;
 		}
 		default :
 			return FALSE;
@@ -582,8 +582,8 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 void WordStyleDlg::move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
 {
-	POINT p;
-	RECT rc;
+	POINT p{};
+	RECT rc{};
 	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
 
 	p.x = rc.right + NppParameters::getInstance()._dpiManager.scaleX(5);

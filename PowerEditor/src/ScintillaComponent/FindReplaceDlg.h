@@ -353,6 +353,14 @@ public :
 		if (_pFinder && _pFinder->isCreated())
 		{
 			_pFinder->setFinderStyle();
+
+			if (!_findersOfFinder.empty())
+			{
+				for (const auto& finder : _findersOfFinder)
+				{
+					finder->setFinderStyle();
+				}
+			}
 		}
 	};
 
@@ -360,6 +368,14 @@ public :
 		if (_pFinder && _pFinder->isCreated())
 		{
 			_pFinder->setFinderStyleForNpc(onlyColor);
+
+			if (!_findersOfFinder.empty())
+			{
+				for (const auto& finder : _findersOfFinder)
+				{
+					finder->setFinderStyleForNpc();
+				}
+			}
 		}
 	};
 

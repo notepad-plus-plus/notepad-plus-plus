@@ -3072,6 +3072,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYMBOL, false);
 		_pFinder->_scintView.setMakerStyle(FOLDER_STYLE_SIMPLE);
 
+		NppDarkMode::setBorder(_pFinder->_scintView.getHSelf());
+
 		_pFinder->_scintView.display();
 		_pFinder->setFinderStyle();
 		_pFinder->setFinderStyleForNpc();
@@ -3206,6 +3208,7 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->_scintView.display();
 	::UpdateWindow(_hParent);
 
+	NppDarkMode::setBorder(pFinder->_scintView.getHSelf());
 	pFinder->setFinderStyle();
 	pFinder->setFinderStyleForNpc();
 
@@ -4770,7 +4773,7 @@ void Finder::setFinderStyle()
 	// Set global styles for the finder
 	_scintView.performGlobalStyles();
 
-	NppDarkMode::setBorder(_scintView.getHSelf());
+	NppDarkMode::setDarkScrollBar(_scintView.getHSelf());
 
 	// Set current line background color for the finder
 	const TCHAR * lexerName = ScintillaEditView::_langNameInfoArray[L_SEARCHRESULT]._langName;

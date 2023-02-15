@@ -927,7 +927,7 @@ void UserDefineDialog::changeStyle()
     _status = !_status;
     NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
     TiXmlNodeA *targetNode = nullptr;
-    pNativeSpeaker->getNativeLangA() && (targetNode = (pNativeSpeaker->getNativeLangA())->FirstChildElement("Dialog")) && (targetNode = targetNode->FirstChildElement("UserDefine"));
+    pNativeSpeaker->getNativeLangA() && ((targetNode = (pNativeSpeaker->getNativeLangA()))->FirstChildElement("Dialog")) && ((targetNode = targetNode->FirstChildElement("UserDefine")));
     generic_string dockStr = pNativeSpeaker->getAttrNameByIdStr(TEXT("Dock"), targetNode, std::to_string(IDC_DOCK_BUTTON).c_str());
     generic_string undockStr = pNativeSpeaker->getAttrNameByIdStr(TEXT("Undock"), targetNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
     ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, (_status == DOCK) ? undockStr.c_str() : dockStr.c_str());

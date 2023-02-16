@@ -2,7 +2,7 @@
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy -->
 <!-- Updated: Jul 2021, for Notepad++ 8.1.2 -->
 <!-- Brazilian Portuguese updated by Marcello -->
-<!-- Updated: 14 Feb 2023, for Notepad++ 8.5.0 -->
+<!-- Updated: 16 Feb 2023, for Notepad++ 8.5.0 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.0">
         <Menu>
@@ -722,7 +722,8 @@
                 <Item id="20012" name="Ignorar maiúsc/minúsc"/>
                 <Item id="20011" name="Transparência"/>
                 <Item id="20015" name="Importar..."/>
-                <Item id="20016" name="Exportar..."/>
+		<Item id="20016" name="Exportar..."/>
+                <Item id="20017" name="Desencaixar"/>
                 <StylerDialog title="Diálogo de Estilos">
                     <Item id="25030" name="Opções de fonte:"/>
                     <Item id="25006" name="Cor da fonte"/>

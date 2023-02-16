@@ -722,6 +722,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="20011" name="Transparencia"/>
 				<Item id="20015" name="Importar..."/>
 				<Item id="20016" name="Exportar..."/>
+				<Item id="20017" name="Desacoplar"/>
 				<StylerDialog title="Estilos">
 					<Item id="25030" name="Opciones de fuente:"/>
 					<Item id="25006" name="Primer plano"/>
@@ -1694,4 +1695,3 @@ Haga clic en el botón de la derecha &quot;?&quot; para abrir el sitio web del m
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

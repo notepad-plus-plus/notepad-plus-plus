@@ -933,9 +933,22 @@ void UserDefineDialog::changeStyle()
         if (targetNode)
             targetNode = targetNode->FirstChildElement("UserDefine");
     }
-    generic_string dockStr = pNativeSpeaker->getAttrNameByIdStr(TEXT("Dock"), targetNode, std::to_string(IDC_DOCK_BUTTON).c_str());
-    generic_string undockStr = pNativeSpeaker->getAttrNameByIdStr(TEXT("Undock"), targetNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
-    ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, (_status == DOCK) ? undockStr.c_str() : dockStr.c_str());
+    generic_string dockButtonLabel;
+    generic_string defauleLabel;
+    string idStr;
+    if (_status == DOCK)
+    {
+        defauleLabel = TEXT("Undock");
+        idStr = std::to_string(IDC_UNDOCK_BUTTON);
+    }
+    else
+    {
+        defauleLabel = TEXT("Dock");
+        idStr = std::to_string(IDC_DOCK_BUTTON);
+    }
+
+    dockButtonLabel= pNativeSpeaker->getAttrNameByIdStr(defauleLabel.c_str(), targetNode, idStr.c_str());
+    ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, dockButtonLabel.c_str());
 
     auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
     if (!style)

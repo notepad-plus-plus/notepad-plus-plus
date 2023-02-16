@@ -643,7 +643,7 @@ BEGIN
             MENUITEM "Copy Bookmarked Lines",                  IDM_SEARCH_COPYMARKEDLINES
             MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
             MENUITEM "Remove Bookmarked Lines",                IDM_SEARCH_DELETEMARKEDLINES
-            MENUITEM "Remove Unmarked Lines",                  IDM_SEARCH_DELETEUNMARKEDLINES
+            MENUITEM "Remove Non-Bookmarked Lines",            IDM_SEARCH_DELETEUNMARKEDLINES
             MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
         END
         MENUITEM SEPARATOR

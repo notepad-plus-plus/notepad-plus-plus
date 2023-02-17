@@ -1378,15 +1378,19 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{
-			TCHAR text2Find[MAX_PATH] = { '\0' };
-			_pEditView->getGenericSelectedText(text2Find, MAX_PATH);
+			const int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize] = { '\0' };
+			_pEditView->getGenericSelectedText(str, strSize);
 
 			FindOption op;
+			op._isMatchCase = false;
 			op._isWholeWord = false;
-			op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT?DIR_DOWN:DIR_UP);
+			op._isWrapAround = true;
+			op._searchType = FindNormal;
+			op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT ? DIR_DOWN : DIR_UP);
 
 			FindStatus status = FSNoMessage;
-			_findReplaceDlg.processFindNext(text2Find, &op, &status);
+			_findReplaceDlg.processFindNext(str, &op, &status);
 			if (status == FSEndReached)
 			{
 				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));

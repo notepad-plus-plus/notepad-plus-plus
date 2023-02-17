@@ -220,7 +220,6 @@ class AutoCompletionSubDlg : public StaticDialog
 public :
 	AutoCompletionSubDlg() = default;
 private :
-	URLCtrl _nbCharVal;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 

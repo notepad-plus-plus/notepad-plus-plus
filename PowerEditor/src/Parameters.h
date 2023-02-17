@@ -851,7 +851,7 @@ struct NppGUI final
 	GlobalOverride _globalOverride;
 	enum AutocStatus{autoc_none, autoc_func, autoc_word, autoc_both};
 	AutocStatus _autocStatus = autoc_both;
-	size_t  _autocFromLen = 1;
+	UINT  _autocFromLen = 1;
 	bool _autocIgnoreNumbers = true;
 	bool _autocInsertSelectedUseENTER = true;
 	bool _autocInsertSelectedUseTAB = true;

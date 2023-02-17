@@ -44,6 +44,10 @@ const int DISTRACTIONFREE_SMALLEST = 3;
 const int DISTRACTIONFREE_LARGEST = 9;
 const int DISTRACTIONFREE_INTERVAL = 1;
 
+constexpr int AUTOCOMPLETEFROMCHAR_SMALLEST = 1;
+constexpr int AUTOCOMPLETEFROMCHAR_LARGEST = 9;
+constexpr int AUTOCOMPLETEFROMCHAR_INTERVAL = 1;
+
 // This int encoding array is built from "EncodingUnit encodings[]" (see EncodingMapper.cpp)
 // And NewDocumentSubDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
 static int encodings[] = {
@@ -4013,9 +4017,13 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 	{
 		case WM_INITDIALOG :
 		{
-			::SetDlgItemInt(_hSelf, IDD_AUTOC_STATIC_N,  static_cast<UINT>(nppGUI._autocFromLen), FALSE);
-			_nbCharVal.init(_hInst, _hSelf);
-			_nbCharVal.create(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), IDD_AUTOC_STATIC_N);
+			::SetDlgItemInt(_hSelf, IDD_AUTOC_STATIC_N,  nppGUI._autocFromLen, FALSE);
+
+			const HWND hNbCharSlider = ::GetDlgItem(_hSelf, IDC_AUTOC_CHAR_SLIDER);
+			::SendMessage(hNbCharSlider, TBM_SETRANGEMIN, TRUE, AUTOCOMPLETEFROMCHAR_SMALLEST);
+			::SendMessage(hNbCharSlider, TBM_SETRANGEMAX, TRUE, AUTOCOMPLETEFROMCHAR_LARGEST);
+			::SendMessage(hNbCharSlider, TBM_SETPAGESIZE, 0, AUTOCOMPLETEFROMCHAR_INTERVAL);
+			::SendMessage(hNbCharSlider, TBM_SETPOS, TRUE, nppGUI._autocFromLen);
 
 			bool isEnableAutoC = nppGUI._autocStatus != nppGUI.autoc_none;
 
@@ -4047,6 +4055,7 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_AUTOC_CHAR_SLIDER), FALSE);
 			}
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
 
@@ -4087,10 +4096,10 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				nbMatchedPair = 3;
 			for (size_t i = 0; i < nbMatchedPair; ++i)
 			{
-				TCHAR openChar[2];
+				TCHAR openChar[2]{};
 				openChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].first;
 				openChar[1] = '\0';
-				TCHAR closeChar[2];
+				TCHAR closeChar[2]{};
 				closeChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].second;
 				closeChar[1] = '\0';
 
@@ -4134,19 +4143,19 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 
 		case WM_CTLCOLORSTATIC:
 		{
-			auto hdcStatic = reinterpret_cast<HDC>(wParam);
-			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			const auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
 
-			bool isStaticText = (dlgCtrlID == IDD_AUTOC_STATIC_FROM ||
+			const bool isStaticText = (dlgCtrlID == IDD_AUTOC_STATIC_FROM ||
 				dlgCtrlID == IDD_AUTOC_STATIC_CHAR ||
-				dlgCtrlID == IDD_AUTOC_STATIC_NOTE);
+				dlgCtrlID == IDD_AUTOC_STATIC_N ||
+				dlgCtrlID == IDD_AUTOC_SLIDER_MIN_STATIC ||
+				dlgCtrlID == IDD_AUTOC_SLIDER_MAX_STATIC);
 			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
 			if (isStaticText)
 			{
-				bool isTextEnabled = isCheckedOrNot(IDD_AUTOC_ENABLECHECK);
-				auto result = NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
-				_nbCharVal.display(isTextEnabled);
-				return result;
+				const bool isTextEnabled = isCheckedOrNot(IDD_AUTOC_ENABLECHECK);
+				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
 
 			if (NppDarkMode::isEnabled())
@@ -4163,6 +4172,18 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				return TRUE;
 			}
 			break;
+		}
+
+		case WM_HSCROLL:
+		{
+			const HWND hNbCharSlider = ::GetDlgItem(_hSelf, IDC_AUTOC_CHAR_SLIDER);
+			if (hNbCharSlider == reinterpret_cast<HWND>(lParam))
+			{
+				nppGUI._autocFromLen = static_cast<UINT>(::SendMessage(hNbCharSlider, TBM_GETPOS, 0, 0));
+				::SetDlgItemInt(_hSelf, IDD_AUTOC_STATIC_N, nppGUI._autocFromLen, FALSE);
+			}
+
+			return 0; //return zero when handled
 		}
 
 		case WM_COMMAND : 
@@ -4243,6 +4264,7 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USETAB), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_IGNORENUMBERS), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_AUTOC_CHAR_SLIDER), isEnableAutoC);
 
 					redraw();
 					return TRUE;
@@ -4301,35 +4323,6 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				case IDD_FUNC_CHECK :
 				{
 					nppGUI._funcParams = isCheckedOrNot(static_cast<int32_t>(wParam));
-					return TRUE;
-				}
-				
-				case IDD_AUTOC_STATIC_N :
-				{
-					const int NB_MIN_CHAR = 1;
-					const int NB_MAX_CHAR = 9;
-
-					NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
-					generic_string strNbChar = pNativeSpeaker->getLocalizedStrFromID("autocomplete-nb-char", TEXT("Nb char : "));
-
-					ValueDlg valDlg;
-					valDlg.init(NULL, _hSelf, static_cast<int32_t>(nppGUI._autocFromLen), strNbChar.c_str());
-					valDlg.setNBNumber(1);
-
-					POINT p;
-					::GetCursorPos(&p);
-
-					int size = valDlg.doDialog(p);
-					if (size != -1)
-					{
-						if (size > NB_MAX_CHAR)
-							size = NB_MAX_CHAR;
-						else if (size < NB_MIN_CHAR)
-							size = NB_MIN_CHAR;
-						
-						nppGUI._autocFromLen = size;
-						::SetDlgItemInt(_hSelf, IDD_AUTOC_STATIC_N, static_cast<int32_t>(nppGUI._autocFromLen), FALSE);
-					}
 					return TRUE;
 				}
 

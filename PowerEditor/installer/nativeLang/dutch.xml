@@ -1670,7 +1670,7 @@ OPMERKING:
 1. Aanpassen van deze opties vereist dat u grote bestanden opnieuw opent om juist gedrag te verkrijgen.
 
 2. Als &quot;Automatische terugloop globaal uitschakelen&quot; aangevinkt is en u een groot bestand opent, zal &quot;automatische terugloop&quot; voor alle bestanden uitgeschakeld worden. U kunt het opnieuw inschakelen via het menu &quot;Beeld-&gt;Automatische terugloop&quot;." />
-            <npcNote-tip value="Weergave van geselecteerde "niet-ASCII" witruimte en niet-afdrukbare (controle)tekens.
+            <npcNote-tip value="Weergave van geselecteerde &quot;niet-ASCII&quot; witruimte en niet-afdrukbare (controle)tekens.
 
 OPMERKING:
 Sommige tekens hebben misschien al enige representatie en zijn dus zichtbaar. Regelscheidingstekens en paragraafscheidingstekens worden standaard al weergegeven door een afkorting.

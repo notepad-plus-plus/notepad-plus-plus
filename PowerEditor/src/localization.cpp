@@ -144,14 +144,14 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
     }
 }
 
-generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName) const
+generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName, const char *attrName, const char *nodeName) const
 {
 	if (!_nativeLangA) return TEXT("");
 	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
 	if (!mainMenu) return TEXT("");
 	mainMenu = mainMenu->FirstChild("Main");
 	if (!mainMenu) return TEXT("");
-	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
+	TiXmlNodeA *entriesRoot = mainMenu->FirstChild(nodeName);
 	if (!entriesRoot) return TEXT("");
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -162,7 +162,7 @@ generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
 	{
 		TiXmlElementA *element = childNode->ToElement();
 
-		const char *idName = element->Attribute("idName");
+		const char *idName = element->Attribute(attrName);
 		if (idName)
 		{
 			const char *name = element->Attribute("name");

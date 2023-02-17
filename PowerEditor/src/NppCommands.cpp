@@ -1335,6 +1335,7 @@ void Notepad_plus::command(int id)
 				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 
 			FindOption op = _findReplaceDlg.getCurrentOptions();
+			op._searchType = FindNormal;
 			op._whichDirection = (id == IDM_SEARCH_SETANDFINDNEXT?DIR_DOWN:DIR_UP);
 
 			FindStatus status = FSNoMessage;

@@ -1991,7 +1991,7 @@ void Notepad_plus::fileOpen()
 	size_t sz = fns.size();
 	for (size_t i = 0 ; i < sz ; ++i)
 	{
-		BufferID test = doOpen(fns.at(i).c_str(), fDlg.isReadOnly());
+		BufferID test = doOpen(fns.at(i).c_str(), false, fDlg.isReadOnly());
 		if (test != BUFFER_INVALID)
 			lastOpened = test;
 	}

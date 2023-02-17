@@ -947,7 +947,7 @@ void UserDefineDialog::changeStyle()
         idStr = std::to_string(IDC_DOCK_BUTTON);
     }
 
-    dockButtonLabel= pNativeSpeaker->getAttrNameByIdStr(defauleLabel.c_str(), targetNode, idStr.c_str());
+    dockButtonLabel = pNativeSpeaker->getAttrNameByIdStr(defauleLabel.c_str(), targetNode, idStr.c_str());
     ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, dockButtonLabel.c_str());
 
     auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);

@@ -45,7 +45,7 @@ public:
 	TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
 	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL, size_t titleMaxSize = 0);
 	void changeLangTabDropContextMenu(HMENU hCM);
-	generic_string getSpecialMenuEntryName(const char *entryName) const;
+	generic_string getSubMenuEntryName(const char *nodeName) const;
 	generic_string getNativeLangMenuString(int itemID) const;
 	generic_string getShortcutNameString(int itemID) const;
 

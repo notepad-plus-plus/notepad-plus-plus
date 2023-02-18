@@ -115,7 +115,7 @@ Function copyCommonFiles
 	SetOutPath "$INSTDIR\localization\"
 	File ".\nativeLang\english.xml"
 
-	; Copy all the language files to the temp directory
+	; Copy all the Notepad++ localization files to the temp directory
 	; than make them installed via option
 	SetOutPath "$PLUGINSDIR\nppLocalization\"
 	File ".\nativeLang\"
@@ -131,6 +131,7 @@ Function copyCommonFiles
 	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
 	IfFileExists "$PLUGINSDIR\gupLocalization\$(langFileName)" 0 +2
 		CopyFiles "$PLUGINSDIR\gupLocalization\$(langFileName)" "$INSTDIR\updater\nativeLang.xml"
+
 FunctionEnd
 
 ; Source from: https://nsis.sourceforge.io/VersionCompare

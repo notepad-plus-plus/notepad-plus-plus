@@ -53,12 +53,12 @@ using namespace boost;
 class BoostRegexSearch : public RegexSearchBase
 {
 public:
-	BoostRegexSearch() : _substituted(NULL) {}
+	BoostRegexSearch() {}
 	
 	virtual ~BoostRegexSearch()
 	{
 		delete[] _substituted;
-		_substituted = NULL;
+		_substituted = nullptr;
 	}
 	
 	virtual Sci::Position FindText(Document* doc, Sci::Position minPos, Sci::Position maxPos, const char *regex,
@@ -243,10 +243,10 @@ private:
 	EncodingDependent<char,    AnsiDocumentIterator> _ansi;
 	EncodingDependent<wchar_t, UTF8DocumentIterator> _utf8;
 	
-	char *_substituted;
+	char *_substituted = nullptr;
 	
 	Match _lastMatch;
-	int _lastDirection;
+	int _lastDirection = 0;
 };
 
 namespace Scintilla::Internal

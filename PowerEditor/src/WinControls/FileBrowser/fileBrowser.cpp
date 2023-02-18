@@ -508,7 +508,7 @@ void FileBrowser::notified(LPNMHDR notification)
 			wcscpy_s(lpttt->szText, _expandAllFolders.c_str());
 		}
 	}
-	else if ((notification->hwndFrom == _treeView.getHSelf()))
+	else if (notification->hwndFrom == _treeView.getHSelf())
 	{
 		TCHAR textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem;

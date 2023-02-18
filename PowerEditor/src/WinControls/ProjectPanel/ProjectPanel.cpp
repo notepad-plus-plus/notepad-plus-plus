@@ -592,7 +592,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_PROJECT_PANEL_1 + _panelID, 0);
 		SetWindowLongPtr (getHSelf(), DWLP_MSGRESULT, _isClosed ? 0 : 1);
 	}
-	else if ((notification->hwndFrom == _treeView.getHSelf()))
+	else if (notification->hwndFrom == _treeView.getHSelf())
 	{
 		TCHAR textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem{};

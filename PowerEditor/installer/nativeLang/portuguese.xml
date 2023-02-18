@@ -32,7 +32,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="edit-convertCaseTo" name="Converter letra para"/>
                     <Item subMenuId="edit-lineOperations" name="Operações de linha"/>					
                     <Item subMenuId="edit-comment" name="Comentário"/>
-                    <Item subMenuId="edit-autoCompletion" name="Conclusão automática"/>
+                    <Item subMenuId="edit-autoCompletion" name="Preenchimento automático"/>
                     <Item subMenuId="edit-eolConversion" name="Conversão EOL (fim da linha)"/>
                     <Item subMenuId="edit-blankOperations" name="Operação em branco"/>
                     <Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
@@ -361,13 +361,13 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="48506" name="Gerar da seleção para a área de transferência"/>
                     <Item id="49000" name="&amp;Executar..."/>
 
-                    <Item id="50000" name="Conclusão da função"/>
-                    <Item id="50001" name="Conclusão da palavra"/>
+                    <Item id="50000" name="Preenchimento da função"/>
+                    <Item id="50001" name="Preenchimento da palavra"/>
                     <Item id="50002" name="Dica dos parâmetros da função"/>
                     <Item id="50010" name="Dica anterior dos parâmetros da função"/>
                     <Item id="50011" name="Dica seguinte dos parâmetros da função"/>
                     <Item id="50005" name="Alternar para gravação de macro"/>
-                    <Item id="50006" name="Conclusão da localização"/>
+                    <Item id="50006" name="Preenchimento da localização"/>
                     <Item id="44042" name="Ocultar linhas"/>
                     <Item id="42040" name="Abrir todos os ficheiros recentes"/>
                     <Item id="42041" name="Limpar a lista dos ficheiros recentes"/>
@@ -592,6 +592,20 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ScintillaCommandsTab name="Comandos de Scintilla"/>
                 <ConflictInfoOk name="Sem conflito de atalhos para este item."/>
                 <ConflictInfoEditing name="Sem conflitos . . ."/>
+                <WindowCategory name="Janela"/>
+                <FileCategory name="Ficheiro"/>
+                <EditCategory name="Editar"/>
+                <SearchCategory name="Procurar"/>
+                <ViewCategory name="Visualização"/>
+                <FormatCategory name="Formato"/>
+                <LangCategory name="Linguagem"/>
+                <AboutCategory name="Acerca"/>
+                <SettingCategory name="Configuração"/>
+                <ToolCategory name="Ferramenta"/>
+                <ExecuteCategory name="Executar"/>
+                <ModifyContextMenu name="Modificar"/>
+                <DeleteContextMenu name="Eliminar"/>
+                <ClearContextMenu name="Limpar"/>
                 <MainCommandNames>
                     <Item id="41019" name="Abrir a pasta de conteúdo no Explorador"/>
                     <Item id="41020" name="Abrir a pasta de conteúdo na Linha de comandos"/>
@@ -708,6 +722,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20011" name="Transparência"/>
                 <Item id="20015" name="Importar..."/>
                 <Item id="20016" name="Exportar..."/>
+                <Item id="20017" name="Remover Inic. rápida"/>
                 <StylerDialog title="Janela do estilo">
                     <Item id="25030" name="Opções do tipo de letra:"/>
                     <Item id="25006" name="Cor do primeiro plano"/>
@@ -1118,13 +1133,13 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6803" name="Pasta: "/>
                 </Backup>
 
-                <AutoCompletion title="Conclusão automática">
+                <AutoCompletion title="Preenchimento automático">
                     <Item id="6115" name="Indentação automática"/>
-                    <Item id="6807" name="Conclusão automática"/>
-                    <Item id="6808" name="Ativar conclusão automática"/>
-                    <Item id="6809" name="Completar função"/>
-                    <Item id="6810" name="Completar palavra"/>
-                    <Item id="6816" name="Completar função e palavra"/>
+                    <Item id="6807" name="Preenchimento automático"/>
+                    <Item id="6808" name="Ativar preenchimento automático"/>
+                    <Item id="6809" name="Preencher função"/>
+                    <Item id="6810" name="Preencher palavra"/>
+                    <Item id="6816" name="Preencher função e palavra"/>
                     <Item id="6869" name="Inserir seleção"/>
                     <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
@@ -1132,6 +1147,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6811" name="De"/>
                     <Item id="6813" name="º. caráter"/>
                     <Item id="6814" name="Valor válido: 1 - 9"/>
+                    <Item id="6872" name="Tornar a lista de preenchimento automático breve"/>
                     <Item id="6815" name="Sugerir dicas da função ao escrever"/>
                     <Item id="6851" name="Inserir automático"/>
                     <Item id="6857" name="Etiqueta fechar (html/xml)"/>
@@ -1180,7 +1196,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="7144" name="Definir tamanho de ficheiro grande:"/>
                     <Item id="7146" name="MB   (1 - 4096)"/>
                     <Item id="7147" name="Permitir a coloração simétrica do delimitador"/>
-                    <Item id="7148" name="Permitir conclusão automática"/>
+                    <Item id="7148" name="Permitir preenchimento automático"/>
                     <Item id="7149" name="Permitir destaque inteligente"/>
                     <Item id="7150" name="Desativar Quebra de linha globalmente"/>
                     <Item id="7151" name="Permitir ligação URL clicável"/>
@@ -1406,6 +1422,8 @@ Continuar?"/>
             <ChangeHistoryEnabledWarning title="O Notepad++ necessita de ser iniciado novamente" message="Tem de reiniciar o Notepad++ para ativar o histórico de alterações."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Sair da sessão do Windows" message="A sessão do Windows está prestes a terminar mas tem alguns dados não guardados. Quer sair do Notepad++ agora?"/>
             <LanguageMenuCompactWarning title="Menu de linguagem compacta" message="Esta opção será alterada na próxima vez que iniciar."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="As alterações não guardadas estão prestes a ser descartadas!
+Quer guardar as suas alterações antes de mudar de tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1415,6 +1433,7 @@ Continuar?"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Ext."/>
             <ColumnPath name="Localização"/>
+            <ListGroups name="Agrupar por visualização"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
@@ -1609,6 +1628,8 @@ Procurar em todos os ficheiros mas excluir todos os registos de pastas ou regist
             <summary-nbsel1 value=" caracteres selecionados ("/>
             <summary-nbsel2 value=" bytes) em "/>
             <summary-nbrange value=" intervalo"/>
+            <progress-cancel-button value="Cancelar"/>
+            <progress-cancel-info value="A cancelar a operação, aguarde..."/>
             <find-in-files-progress-title value="Encontrar em ficheiros em curso..."/>
             <replace-in-files-confirm-title value="Tem a certeza?"/>
             <replace-in-files-confirm-directory value="Tem a certeza de que quer substituir todas as ocorrências em: "/>
@@ -1697,7 +1718,7 @@ João Pereira <joaopereira@openmailbox.org>
 Hugo Carvalho <hugokarvalho@hotmail.com>
 07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4)
 
-Last modified: 10 Feb 2023 by Hugo Carvalho
+Last modified: 18 Feb 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

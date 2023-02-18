@@ -1,4 +1,4 @@
-//  This file was automatically generated on Sun Jun  5 16:50:18 2022
+//  This file was automatically generated on Fri Oct 13 19:09:38 2023
 //  by libs/config/tools/generate.cpp
 //  Copyright John Maddock 2002-21.
 //  Use, modification and distribution are subject to the 
@@ -12,6 +12,9 @@
 #include <boost/config.hpp>
 #include <boost/config/assert_cxx14.hpp>
 
+#ifdef BOOST_NO_CXX17_AUTO_NONTYPE_TEMPLATE_PARAMS
+#  error "Your compiler appears not to be fully C++17 compliant.  Detected via defect macro BOOST_NO_CXX17_AUTO_NONTYPE_TEMPLATE_PARAMS."
+#endif
 #ifdef BOOST_NO_CXX17_DEDUCTION_GUIDES
 #  error "Your compiler appears not to be fully C++17 compliant.  Detected via defect macro BOOST_NO_CXX17_DEDUCTION_GUIDES."
 #endif

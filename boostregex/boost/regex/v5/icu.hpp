@@ -190,8 +190,8 @@ public:
       constexpr char_class_type mask_xdigit = char_class_type(1) << offset_xdigit;
       constexpr char_class_type mask_underscore = char_class_type(1) << offset_underscore;
       constexpr char_class_type mask_unicode = char_class_type(1) << offset_unicode;
-      constexpr char_class_type mask_any = char_class_type(1) << offset_any;
-      constexpr char_class_type mask_ascii = char_class_type(1) << offset_ascii;
+      //constexpr char_class_type mask_any = char_class_type(1) << offset_any;
+      //constexpr char_class_type mask_ascii = char_class_type(1) << offset_ascii;
       constexpr char_class_type mask_horizontal = char_class_type(1) << offset_horizontal;
       constexpr char_class_type mask_vertical = char_class_type(1) << offset_vertical;
 
@@ -365,15 +365,15 @@ private:
 
    static char_class_type lookup_icu_mask(const ::UChar32* p1, const ::UChar32* p2)
    {
-      constexpr char_class_type mask_blank = char_class_type(1) << offset_blank;
-      constexpr char_class_type mask_space = char_class_type(1) << offset_space;
-      constexpr char_class_type mask_xdigit = char_class_type(1) << offset_xdigit;
-      constexpr char_class_type mask_underscore = char_class_type(1) << offset_underscore;
-      constexpr char_class_type mask_unicode = char_class_type(1) << offset_unicode;
+      //constexpr char_class_type mask_blank = char_class_type(1) << offset_blank;
+      //constexpr char_class_type mask_space = char_class_type(1) << offset_space;
+      //constexpr char_class_type mask_xdigit = char_class_type(1) << offset_xdigit;
+      //constexpr char_class_type mask_underscore = char_class_type(1) << offset_underscore;
+      //constexpr char_class_type mask_unicode = char_class_type(1) << offset_unicode;
       constexpr char_class_type mask_any = char_class_type(1) << offset_any;
       constexpr char_class_type mask_ascii = char_class_type(1) << offset_ascii;
-      constexpr char_class_type mask_horizontal = char_class_type(1) << offset_horizontal;
-      constexpr char_class_type mask_vertical = char_class_type(1) << offset_vertical;
+      //constexpr char_class_type mask_horizontal = char_class_type(1) << offset_horizontal;
+      //constexpr char_class_type mask_vertical = char_class_type(1) << offset_vertical;
 
       static const ::UChar32 prop_name_table[] = {
          /* any */  'a', 'n', 'y',

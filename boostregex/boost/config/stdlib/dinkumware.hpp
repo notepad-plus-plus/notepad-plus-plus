@@ -240,6 +240,8 @@
 #    define BOOST_NO_CXX98_RANDOM_SHUFFLE
 #    define BOOST_NO_CXX98_FUNCTION_BASE
 #    define BOOST_NO_CXX98_BINDERS
+#  elif defined(_HAS_DEPRECATED_ADAPTOR_TYPEDEFS) && (_HAS_DEPRECATED_ADAPTOR_TYPEDEFS == 0)
+#    define BOOST_NO_CXX98_BINDERS
 #  endif
 #endif
 //
@@ -284,6 +286,36 @@
 #else
 #  define BOOST_DINKUMWARE_STDLIB 1
 #endif
+
+// BOOST_MSSTL_VERSION: as _MSVC_STL_VERSION, but for earlier releases as well
+
+#if defined(_MSVC_STL_VERSION) // VS2017 (14.1) and above
+#  define BOOST_MSSTL_VERSION _MSVC_STL_VERSION
+
+#elif defined(_CPPLIB_VER) && _CPPLIB_VER >= 650 // VS2015 (14.0)
+#  define BOOST_MSSTL_VERSION 140
+
+#elif defined(_CPPLIB_VER) && _CPPLIB_VER >= 610 // VS2013 (12.0)
+#  define BOOST_MSSTL_VERSION 120
+
+#elif defined(_CPPLIB_VER) && _CPPLIB_VER >= 540 // VS2012 (11.0)
+#  define BOOST_MSSTL_VERSION 110
+
+#elif defined(_CPPLIB_VER) && _CPPLIB_VER >= 520 // VS2010 (10.0)
+#  define BOOST_MSSTL_VERSION 100
+
+#elif defined(_CPPLIB_VER) && _CPPLIB_VER >= 505 // VS2008SP1 (9.0)
+#  define BOOST_MSSTL_VERSION 91
+
+#elif defined(_CPPLIB_VER) && _CPPLIB_VER >= 503 // VS2008 (also 9.0)
+#  define BOOST_MSSTL_VERSION 90
+
+#elif defined(_CPPLIB_VER) && _CPPLIB_VER >= 405 // VS2005 (8.0)
+#  define BOOST_MSSTL_VERSION 80
+
+#endif
+
+//
 
 #ifdef _CPPLIB_VER
 #  define BOOST_STDLIB "Dinkumware standard library version " BOOST_STRINGIZE(_CPPLIB_VER)

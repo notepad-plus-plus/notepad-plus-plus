@@ -2,16 +2,28 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt)
 
-#if !defined(__APPLE__)
+#if !defined(__apple_build_version__)
 
-# define BOOST_CLANG_VERSION (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
+# define BOOST_CLANG_VERSION (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__ % 100)
 
 #else
-# define BOOST_CLANG_REPORTED_VERSION (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
+# define BOOST_CLANG_REPORTED_VERSION (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__ % 100)
 
 // https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 
-# if BOOST_CLANG_REPORTED_VERSION >= 130000
+# if BOOST_CLANG_REPORTED_VERSION >= 150000
+#   define BOOST_CLANG_VERSION 160000
+
+# elif BOOST_CLANG_REPORTED_VERSION >= 140003
+#   define BOOST_CLANG_VERSION 150000
+
+# elif BOOST_CLANG_REPORTED_VERSION >= 140000
+#   define BOOST_CLANG_VERSION 140000
+
+# elif BOOST_CLANG_REPORTED_VERSION >= 130100
+#   define BOOST_CLANG_VERSION 130000
+
+# elif BOOST_CLANG_REPORTED_VERSION >= 130000
 #   define BOOST_CLANG_VERSION 120000
 
 # elif BOOST_CLANG_REPORTED_VERSION >= 120005

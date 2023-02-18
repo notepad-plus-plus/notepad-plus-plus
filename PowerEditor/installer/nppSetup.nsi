@@ -261,26 +261,53 @@ FunctionEnd
 
 !include "nsisInclude\themes.nsh"
 
+!include "StrFunc.nsh"
+${Using:StrFunc} StrStr
+
+Var muiVerbStr
+Var nppSubStrRes
+
 ${MementoSection} "Context Menu Entry" explorerContextMenu
-	SetOverwrite try
-	SetOutPath "$INSTDIR\"
+
+	${If} $WinVer == "11"
+		ReadRegStr $muiVerbStr HKLM "SOFTWARE\Classes\*\shell\pintohome" MUIVerb
+		
+		${StrStr} $nppSubStrRes $muiVerbStr "Notepad++"
+		
+		; Make sure there's no entry before creating it, so we won't override other application if present 
+		${If} $muiVerbStr == ""
+			${OrIf} $nppSubStrRes == "Notepad++"
 	
-	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
-	; But in 32bit installer both the Dlls are required
-	; As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
-	
-	!ifdef ARCH64
-		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-	!else ifdef ARCHARM64
-		File /oname=$INSTDIR\NppShell_06.dll "..\binarm64\NppShell64.dll"
-	!else
-		${If} ${RunningX64}
-			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-		${Else}
-			File "..\bin\NppShell_06.dll"
+			WriteRegStr HKLM "SOFTWARE\Classes\*\shell\pintohome" 'MUIVerb' 'Edit With Notepad++'
+			WriteRegStr HKLM "SOFTWARE\Classes\*\shell\pintohome\command" "" '"$INSTDIR\notepad++.exe" "%1"'
+		
 		${EndIf}
-	!endif
-	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
+
+	${Else}
+
+		SetOverwrite try
+		SetOutPath "$INSTDIR\"
+		
+		; There is no need to keep x86 NppShell_06.dll in 64 bit installer
+		; But in 32bit installer both the Dlls are required
+		; As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
+		
+		!ifdef ARCH64
+			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+		!else ifdef ARCHARM64
+			File /oname=$INSTDIR\NppShell_06.dll "..\binarm64\NppShell64.dll"
+		!else
+			${If} ${RunningX64}
+				File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+			${Else}
+				File "..\bin\NppShell_06.dll"
+			${EndIf}
+		!endif
+		Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
+	
+	
+	${EndIf}
+	
 ${MementoSectionEnd}
 
 ${MementoSectionDone}

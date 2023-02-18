@@ -50,6 +50,12 @@ Function un.onUninstSuccess
 FunctionEnd
 
 
+!include "StrFunc.nsh"
+${Using:StrFunc} UnStrStr
+
+Var muiVerbStrUn
+Var nppSubStrUn
+
 Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
@@ -63,6 +69,17 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_04.dll"
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
+	
+	
+ 	ReadRegStr $muiVerbStrUn HKLM "SOFTWARE\Classes\*\shell\pintohome" MUIVerb
+	${UnStrStr} $nppSubStrUn $muiVerbStrUn "Notepad++"
+	
+	; Make sure there's an entry, and the entry belong to Notepad++ before deleting it
+	${If} $muiVerbStrUn != ""
+		${AndIf} $nppSubStrUn == "Notepad++"
+			DeleteRegKey HKLM "SOFTWARE\Classes\*\shell\pintohome"
+	
+	${EndIf}
 SectionEnd
 
 Section un.UnregisterFileExt

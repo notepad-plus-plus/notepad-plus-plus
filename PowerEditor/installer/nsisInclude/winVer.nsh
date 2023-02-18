@@ -42,14 +42,12 @@ Function GetWindowsVersion
   ClearErrors
  
   ; check if Windows NT family
-  ReadRegStr $R0 HKLM \
-  "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
+  ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
  
   IfErrors 0 lbl_winnt
  
   ; we are not NT
-  ReadRegStr $R0 HKLM \
-  "SOFTWARE\Microsoft\Windows\CurrentVersion" VersionNumber
+  ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion" VersionNumber
  
   StrCpy $R1 $R0 1
   StrCmp $R1 '4' 0 lbl_error
@@ -59,19 +57,19 @@ Function GetWindowsVersion
   StrCmp $R1 '4.0' lbl_win32_95
   StrCmp $R1 '4.9' lbl_win32_ME lbl_win32_98
  
-  lbl_win32_95:
-    StrCpy $R0 '95'
+lbl_win32_95:
+  StrCpy $R0 '95'
   Goto lbl_done
  
-  lbl_win32_98:
-    StrCpy $R0 '98'
+lbl_win32_98:
+  StrCpy $R0 '98'
   Goto lbl_done
  
-  lbl_win32_ME:
-    StrCpy $R0 'ME'
+lbl_win32_ME:
+  StrCpy $R0 'ME'
   Goto lbl_done
  
-  lbl_winnt:
+lbl_winnt:
  
   StrCpy $R1 $R0 1
  
@@ -94,46 +92,56 @@ Function GetWindowsVersion
   StrCmp $R1 '10.0' lbl_winnt_10
   Goto lbl_error
  
-  lbl_winnt_x:
-    StrCpy $R0 "NT $R0" 6
+lbl_winnt_x:
+  StrCpy $R0 "NT $R0" 6
   Goto lbl_done
  
-  lbl_winnt_2000:
-    Strcpy $R0 '2000'
+lbl_winnt_2000:
+  Strcpy $R0 '2000'
   Goto lbl_done
  
-  lbl_winnt_XP:
-    Strcpy $R0 'XP'
+lbl_winnt_XP:
+  Strcpy $R0 'XP'
   Goto lbl_done
  
-  lbl_winnt_2003:
-    Strcpy $R0 '2003'
+lbl_winnt_2003:
+  Strcpy $R0 '2003'
   Goto lbl_done
  
-  lbl_winnt_vista:
-    Strcpy $R0 'Vista'
+lbl_winnt_vista:
+  Strcpy $R0 'Vista'
   Goto lbl_done
  
-  lbl_winnt_7:
-    Strcpy $R0 '7'
+lbl_winnt_7:
+  Strcpy $R0 '7'
   Goto lbl_done
  
-  lbl_winnt_8:
-    Strcpy $R0 '8'
+lbl_winnt_8:
+  Strcpy $R0 '8'
   Goto lbl_done
  
-  lbl_winnt_81:
+lbl_winnt_81:
+lbl_winnt_10:
+  ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentBuildNumber
+  ${If} $R0 >= 17763 ; Windows 10 or later
+      ${If} $R0 >= 22000 ; Windows 11 or later
+        Strcpy $R0 '11'
+        Goto lbl_done
+	  ${Else}
+        Strcpy $R0 '10'
+        Goto lbl_done
+	  ${EndIf}
+
+  ${Else}
     Strcpy $R0 '8.1'
+    Goto lbl_done
+  ${EndIf}
   Goto lbl_done
  
-  lbl_winnt_10:
-    Strcpy $R0 '10.0'
-  Goto lbl_done
- 
-  lbl_error:
-    Strcpy $R0 ''
-  lbl_done:
- 
+lbl_error:
+  Strcpy $R0 ''
+
+lbl_done:
   Pop $R1
   Exch $R0
  

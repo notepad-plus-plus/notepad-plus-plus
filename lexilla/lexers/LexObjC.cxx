@@ -30,7 +30,6 @@
 using namespace Lexilla;
 
 constexpr auto KEYWORD_BOXHEADER = 1;
-constexpr auto KEYWORD_FOLDCONTRACTED = 2;
 
 static bool IsOKBeforeRE(const int ch) {
 	return (ch == '(') || (ch == '=') || (ch == ',');
@@ -57,18 +56,6 @@ static inline bool IsADoxygenChar(const int ch) {
 	        ch == '\\' || ch == '&' || ch == '<' ||
 	        ch == '>' || ch == '#' || ch == '{' ||
 	        ch == '}' || ch == '[' || ch == ']');
-}
-
-static inline bool IsStateComment(const int state) {
-	return ((state == SCE_C_COMMENT) ||
-	        (state == SCE_C_COMMENTLINE) ||
-	        (state == SCE_C_COMMENTDOC) ||
-	        (state == SCE_C_COMMENTDOCKEYWORD) ||
-	        (state == SCE_C_COMMENTDOCKEYWORDERROR));
-}
-
-static inline bool IsStateString(const int state) {
-	return ((state == SCE_C_STRING) || (state == SCE_C_VERBATIM));
 }
 
 static void ColouriseObjCDoc(size_t startPos, int length, int initStyle, WordList *keywordlists[],

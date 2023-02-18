@@ -47,7 +47,6 @@ private :
 	ScintillaEditView *_pSEView = nullptr;
 	size_t _startPos = 0;
 	size_t _endPos = 0;
-	size_t _nbPageTotal =0;
 	bool _isRTL = false;
 };
 

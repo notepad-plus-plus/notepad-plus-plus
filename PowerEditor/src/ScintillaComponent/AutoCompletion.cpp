@@ -250,6 +250,8 @@ const char* xpmboxDark[] = {
 
 using namespace std;
 
+constexpr size_t tagMaxLen = 256;
+
 static bool isInList(const generic_string& word, const vector<generic_string> & wordArray)
 {
 	for (size_t i = 0, len = wordArray.size(); i < len; ++i)

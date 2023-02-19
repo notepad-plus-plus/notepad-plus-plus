@@ -162,13 +162,9 @@ class LanguageSubDlg : public StaticDialog
 {
 public :
 	LanguageSubDlg() = default;
-	virtual void destroy() {
-		_tabSizeVal.destroy();
-	};
 
 private :
-    LexerStylerArray _lsArray;
-	URLCtrl _tabSizeVal;
+	LexerStylerArray _lsArray;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	std::vector<LangMenuItem> _langList;
 };

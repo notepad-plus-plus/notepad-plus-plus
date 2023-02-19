@@ -266,6 +266,7 @@ ${Using:StrFunc} StrStr
 
 Var muiVerbStr
 Var nppSubStrRes
+Var editWithNppLocalStr
 
 ${MementoSection} "Context Menu Entry" explorerContextMenu
 
@@ -273,12 +274,20 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 		ReadRegStr $muiVerbStr HKLM "SOFTWARE\Classes\*\shell\pintohome" MUIVerb
 		
 		${StrStr} $nppSubStrRes $muiVerbStr "Notepad++"
+		;MessageBox MB_OK "entry value: $muiVerbStr"
+		;MessageBox MB_OK "result: $nppSubStrRes"
 		
 		; Make sure there's no entry before creating it, so we won't override other application if present 
 		${If} $muiVerbStr == ""
-			${OrIf} $nppSubStrRes == "Notepad++"
-	
-			WriteRegStr HKLM "SOFTWARE\Classes\*\shell\pintohome" 'MUIVerb' 'Edit With Notepad++'
+			${OrIf} $nppSubStrRes != ""  ; it contains "Notepad++"
+			
+			ReadINIStr $editWithNppLocalStr "$PLUGINSDIR\nppLocalization\explorerContextMenuEntryLocal.ini" $(langFileName) "Edit_with_Notepad++"
+			${If} $editWithNppLocalStr == ""
+				StrCpy $editWithNppLocalStr "Edit with Notepad++"
+				MessageBox MB_OK "translation: $editWithNppLocalStr"
+			${EndIf}
+			
+			WriteRegStr HKLM "SOFTWARE\Classes\*\shell\pintohome" 'MUIVerb' $editWithNppLocalStr
 			WriteRegStr HKLM "SOFTWARE\Classes\*\shell\pintohome\command" "" '"$INSTDIR\notepad++.exe" "%1"'
 		
 		${EndIf}

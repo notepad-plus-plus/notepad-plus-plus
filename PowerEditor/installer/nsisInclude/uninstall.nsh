@@ -76,7 +76,7 @@ Section un.explorerContextMenu
 	
 	; Make sure there's an entry, and the entry belong to Notepad++ before deleting it
 	${If} $muiVerbStrUn != ""
-		${AndIf} $nppSubStrUn == "Notepad++"
+		${AndIf} $nppSubStrUn != ""  ; it contains "Notepad++"
 			DeleteRegKey HKLM "SOFTWARE\Classes\*\shell\pintohome"
 	
 	${EndIf}

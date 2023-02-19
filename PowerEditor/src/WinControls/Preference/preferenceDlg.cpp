@@ -3042,6 +3042,43 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							break;
 						}
 					}
+					break;
+				}
+
+				case EN_KILLFOCUS:
+				{
+					switch (LOWORD(wParam))
+					{
+						case IDC_EDIT_TABSIZEVAL:
+						{
+							const auto tabSize = ::GetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, nullptr, FALSE);
+
+							if (tabSize < 1)
+							{
+								const bool useDefaultTab = isCheckedOrNot(IDC_CHECK_DEFAULTTABVALUE);
+								const size_t index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+								auto prevSize = nppGUI._tabSize;
+								if (!useDefaultTab && index > 0)
+								{
+									Lang* lang = nppParam.getLangFromIndex(index - 1);
+									if (lang != nullptr && lang->_tabSize > 0)
+									{
+										prevSize = lang->_tabSize;
+									}
+								}
+
+								::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, prevSize, FALSE);
+								return TRUE;
+							}
+							return FALSE;
+						}
+
+						default:
+						{
+							break;
+						}
+					}
+					break;
 				}
 
 				default:

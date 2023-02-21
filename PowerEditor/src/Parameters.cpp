@@ -7615,6 +7615,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_USER; break;
 		case L_SQL :
 			id = IDM_LANG_SQL; break;
+		case L_MSSQL :
+			id = IDM_LANG_MSSQL; break;
 		case L_VB :
 			id = IDM_LANG_VB; break;
 		case L_TCL :

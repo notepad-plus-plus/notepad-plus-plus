@@ -3597,6 +3597,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_VB;
         case IDM_LANG_SQL :
             return L_SQL;
+        case IDM_LANG_MSSQL :
+            return L_MSSQL;
         case IDM_LANG_ASCII :
             return L_ASCII;
         case IDM_LANG_TEXT :

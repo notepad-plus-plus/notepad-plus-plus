@@ -943,6 +943,7 @@ BEGIN
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
+        MENUITEM "Microsoft Transact-SQL",  IDM_LANG_MSSQL
         MENUITEM "MMIXAL",                  IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
         MENUITEM "Nim",                     IDM_LANG_NIM
@@ -1069,6 +1070,7 @@ BEGIN
     BEGIN
         MENUITEM "Makefile",              IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                IDM_LANG_MATLAB
+        MENUITEM "Microsoft Transact-SQL",IDM_LANG_MSSQL
         MENUITEM "MMIXAL",                IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",          IDM_LANG_ASCII
     END

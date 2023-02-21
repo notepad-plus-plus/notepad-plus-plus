@@ -204,7 +204,7 @@ void FunctionListPanel::sortOrUnsort()
 		_pTreeView->sort(_pTreeView->getRoot(), true);
 	else
 	{
-		TCHAR text2search[MAX_PATH] ;
+		TCHAR text2search[MAX_PATH] = { '\0' };
 		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 
 		if (text2search[0] == '\0') // main view
@@ -337,7 +337,7 @@ void FunctionListPanel::reload()
 	bool isOK = _treeView.retrieveFoldingStateTo(currentTree, _treeView.getRoot());
 	if (isOK)
 	{
-		TCHAR text2Search[MAX_PATH];
+		TCHAR text2Search[MAX_PATH] = { '\0' };
 		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2Search));
 		bool isSorted =  shouldSort();
 		addInStateArray(currentTree, text2Search, isSorted);
@@ -434,8 +434,8 @@ void FunctionListPanel::initPreferencesMenu()
 
 void FunctionListPanel::showPreferencesMenu()
 {
-	RECT rectToolbar;
-	RECT rectPreferencesButton;
+	RECT rectToolbar{};
+	RECT rectPreferencesButton{};
 	::GetWindowRect(_hToolbarMenu, &rectToolbar);
 	::SendMessage(_hToolbarMenu, TB_GETRECT, IDC_PREFERENCEBUTTON_FUNCLIST, (LPARAM)&rectPreferencesButton);
 
@@ -468,8 +468,8 @@ void FunctionListPanel::markEntry()
 
 void FunctionListPanel::findMarkEntry(HTREEITEM htItem, LONG line)
 {
-	HTREEITEM cItem;
-	TVITEM tvItem;
+	HTREEITEM cItem{};
+	TVITEM tvItem{};
 	for (; htItem != NULL; htItem = _treeView.getNextSibling(htItem))
 	{
 		cItem = _treeView.getChildFrom(htItem);
@@ -556,7 +556,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 
 bool FunctionListPanel::openSelection(const TreeView & treeView)
 {
-	TVITEM tvItem;
+	TVITEM tvItem{};
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 	tvItem.hItem = treeView.getSelection();
 	::SendMessage(treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
@@ -658,7 +658,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 
 void FunctionListPanel::searchFuncAndSwitchView()
 {
-	TCHAR text2search[MAX_PATH] ;
+	TCHAR text2search[MAX_PATH] = { '\0' };
 	::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 
 	if (text2search[0] == '\0')
@@ -734,7 +734,7 @@ static LRESULT CALLBACK funclstSearchEditProc(HWND hwnd, UINT message, WPARAM wP
 
 bool FunctionListPanel::shouldSort()
 {
-	TBBUTTONINFO tbbuttonInfo;
+	TBBUTTONINFO tbbuttonInfo{};
 	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO);
 	tbbuttonInfo.dwMask = TBIF_STATE;
 
@@ -745,7 +745,7 @@ bool FunctionListPanel::shouldSort()
 
 void FunctionListPanel::setSort(bool isEnabled)
 {
-	TBBUTTONINFO tbbuttonInfo;
+	TBBUTTONINFO tbbuttonInfo{};
 	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO);
 	tbbuttonInfo.dwMask = TBIF_STATE;
 	tbbuttonInfo.fsState = isEnabled ? TBSTATE_ENABLED | TBSTATE_CHECKED : TBSTATE_ENABLED;
@@ -759,7 +759,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 		// Make edit field red if not found
 		case WM_CTLCOLOREDIT :
 		{
-			TCHAR text2search[MAX_PATH] ;
+			TCHAR text2search[MAX_PATH] = { '\0' };
 			::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 			bool textFound = false;
 			if (text2search[0] == '\0')
@@ -844,7 +844,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			}
 
 			// Place holder of search text field
-			TBBUTTON tbButtons[1 + nbIcons];
+			TBBUTTON tbButtons[1 + nbIcons]{};
 
 			tbButtons[0].idCommand = 0;
 			tbButtons[0].iBitmap = editWidthSep;
@@ -883,8 +883,8 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 			_preferenceTipStr = pNativeSpeaker->getAttrNameStr(_preferenceTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_PREFERENCESLOCALNODENAME);
 
-			_hSearchEdit = CreateWindowEx(0, L"Edit", NULL,
-								WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL,
+			_hSearchEdit = CreateWindowEx(WS_EX_CLIENTEDGE, L"Edit", NULL,
+								WS_CHILD | WS_VISIBLE | ES_AUTOVSCROLL,
 								2, 2, editWidth, editHeight,
 								_hToolbarMenu, reinterpret_cast<HMENU>(IDC_SEARCHFIELD_FUNCLIST), _hInst, 0 );
 

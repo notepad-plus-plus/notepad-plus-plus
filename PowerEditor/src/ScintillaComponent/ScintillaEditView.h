@@ -770,6 +770,10 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 	};
 
+	void setMSSqlLexer() {
+		setLexer(L_MSSQL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+	};
+
 	void setBashLexer() {
 		setLexer(L_BASH, LIST_0);
 	};

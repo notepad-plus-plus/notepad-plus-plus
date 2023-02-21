@@ -727,6 +727,23 @@
             <WordsStyle name="IDENTIFIER" styleID="7" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLE QUOTE STRING" styleID="8" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
+        <LexerType name="mssql" desc="T-SQL (MS SQL Server)" ext="">
+            <WordsStyle name="STATEMENT" styleID="9" fgColor="0000D0" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="DATA TYPE" styleID="10" fgColor="FF0000" bgColor="FFFFD0" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="SYSTEM TABLE" styleID="11" fgColor="000000" bgColor="D0FFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
+            <WordsStyle name="GLOBAL" styleID="12" fgColor="FF0000" bgColor="FFD0D0" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
+            <WordsStyle name="FUNCTION" styleID="13" fgColor="000000" bgColor="D0FFD0" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
+            <WordsStyle name="SYSTEM STORED PROC" styleID="14" fgColor="FF0000" bgColor="FFD0FF" fontName="" fontStyle="0" fontSize="" keywordClass="type4" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="3" fgColor="308080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="4" fgColor="B000D0" bgColor="FFFFFF" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="5" fgColor="B08000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="6" fgColor="5080E0" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="VARIABLE" styleID="7" fgColor="CC1166" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COL NAME" styleID="8" fgColor="808080" bgColor="F0F0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COL NAME IN []&apos;s" styleID="16" fgColor="D08000" bgColor="FFFFFF" fontName="" fontStyle="2" fontSize="" />
+        </LexerType>
         <LexerType name="mmixal" desc="MMIXAL" ext="">
             <WordsStyle name="DIVSION OF LEADING WHITESPACE IN LINE" styleID="0" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="007F00" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />

@@ -153,6 +153,7 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("visualprolog"),	TEXT("Visual Prolog"),		TEXT("Visual Prolog file"),								L_VISUALPROLOG,	"visualprolog"},
 	{TEXT("typescript"),	TEXT("TypeScript"),			TEXT("TypeScript file"),								L_TYPESCRIPT,	"cpp"},
 	{TEXT("json5"),			TEXT("json5"),				TEXT("JSON5 file"),										L_JSON5,		"json"},
+	{TEXT("mssql"),			TEXT("mssql"),				TEXT("Microsoft Transact-SQL (SQL Server) file"),		L_MSSQL,		"mssql"},
 	{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		"null"}
 };
 
@@ -1625,6 +1626,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_SQL :
 			setSqlLexer(); break;
+
+		case L_MSSQL :
+			setMSSqlLexer(); break;
 
 		case L_VB :
 			setVBLexer(); break;

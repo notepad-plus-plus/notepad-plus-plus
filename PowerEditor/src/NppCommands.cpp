@@ -3483,6 +3483,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_OBJC :
         case IDM_LANG_VB :
         case IDM_LANG_SQL :
+        case IDM_LANG_MSSQL :
         case IDM_LANG_ASCII :
         case IDM_LANG_TEXT :
         case IDM_LANG_RC :

@@ -5335,7 +5335,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 		return;
 
 	_pRebar = rebar;
-	RECT client;
+	RECT client{};
 	getClientRect(client);
 
 	ZeroMemory(&_rbBand, REBARBAND_SIZE);
@@ -5374,7 +5374,7 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 	{
 		_hInst = hInst;
 
-		WNDCLASSEX wcex = {};
+		WNDCLASSEX wcex{};
 		wcex.cbSize = sizeof(wcex);
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
 		wcex.lpfnWndProc = wndProc;
@@ -5385,7 +5385,7 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 
 		::RegisterClassEx(&wcex);
 
-		INITCOMMONCONTROLSEX icex = {};
+		INITCOMMONCONTROLSEX icex{};
 		icex.dwSize = sizeof(icex);
 		icex.dwICC = ICC_STANDARD_CLASSES | ICC_PROGRESS_CLASS;
 
@@ -5487,7 +5487,7 @@ int Progress::thread()
 		return r;
 
 	// Window message loop
-	MSG msg;
+	MSG msg{};
 	while ((r = ::GetMessage(&msg, NULL, 0, 0)) != 0 && r != -1)
 	{
 		::TranslateMessage(&msg);
@@ -5510,13 +5510,14 @@ int Progress::createProgressWindow()
 	if (!_hwnd)
 		return -1;
 
-	int widthPadding = dpiManager.scaleX(15);
+	const int paddedBorder = 3 * ::GetSystemMetrics(SM_CXPADDEDBORDER);
+	int widthPadding = dpiManager.scaleX(15) + paddedBorder;
 	int width = cPBwidth + widthPadding;
 
 	int textHeight = dpiManager.scaleY(20);
 	int progressBarPadding = dpiManager.scaleY(10);
 	int morePadding = dpiManager.scaleY(45);
-	int height = cPBheight + cBTNheight + textHeight + progressBarPadding + morePadding;
+	int height = cPBheight + cBTNheight + textHeight + progressBarPadding + morePadding + paddedBorder;
 
 
 	POINT center{};
@@ -5535,7 +5536,7 @@ int Progress::createProgressWindow()
 	auto ctrlWidth = width - widthPadding - xStartPos;
 
 	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
-		WS_CHILD | WS_VISIBLE | BS_TEXT | SS_PATHELLIPSIS,
+		WS_CHILD | WS_VISIBLE | SS_PATHELLIPSIS,
 		xStartPos, yTextPos,
 		ctrlWidth, textHeight, _hwnd, NULL, _hInst, NULL);
 
@@ -5595,14 +5596,22 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wparam));
+			}
+			break;
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
 			if (NppDarkMode::isEnabled())
 			{
 				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wparam));
 			}
-
-			break;
+			// transparent background for text, same as main window background
+			return reinterpret_cast<LRESULT>(::GetSysColorBrush(NULL_BRUSH));
 		}
 
 		case WM_PRINTCLIENT:
@@ -5621,10 +5630,8 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 				RECT rc = {};
 				GetClientRect(hwnd, &rc);
 				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDarkerBackgroundBrush());
-				return TRUE;
 			}
-
-			break;
+			return TRUE;
 		}
 
 		case WM_SETFOCUS:

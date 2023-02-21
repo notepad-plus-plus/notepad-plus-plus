@@ -1210,6 +1210,8 @@ Do you want to open it?"/>
             <CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?"/>
             <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileNoFolderError title="Cannot open file" message="&quot;$STR_REPLACE1$&quot; cannot be opened:
+Folder &quot;$STR_REPLACE2$&quot; doesn't exist."/>
             <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
 
 Do you want to save the current file anyways?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

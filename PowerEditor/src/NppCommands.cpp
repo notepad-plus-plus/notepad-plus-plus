@@ -3337,8 +3337,12 @@ void Notepad_plus::command(int id)
 
 		case IDM_CMDLINEARGUMENTS:
 		{
-			// No translattable
-			::MessageBox(_pPublicInterface->getHSelf(), COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK | MB_APPLMODAL);
+			generic_string title, msg;
+			_nativeLangSpeaker.getCmdLineArgsStrings(title, msg);
+			int msgBoxType = MB_OK | MB_APPLMODAL;
+			if (_nativeLangSpeaker.isRTL())
+				msgBoxType |= MB_RTLREADING | MB_RIGHT;
+			::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), msgBoxType);
 			break;
 		}
 

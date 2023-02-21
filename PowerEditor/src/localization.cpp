@@ -25,6 +25,92 @@ using namespace std;
 
 
 
+static const TCHAR COMMAND_ARG_HELP_TEMPLATE[] = TEXT("$STR_REPLACE_intro$ :\r\
+\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"$STR_REPLACE_udl_value$\"] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-monitor] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qn=\"$STR_REPLACE_qn_value$\" | -qt=\"$STR_REPLACE_qt_value$\" | -qf=\"$STR_REPLACE_qf_value$\"] [-qSpeed1|2|3] [-quickPrint] [-settingsDir=\"$STR_REPLACE_settingsDir_value$\"] [-openFoldersAsWorkspace] [-titleAdd=\"$STR_REPLACE_titleAdd_value$\"][filePath]\r\
+\r\
+--help : $STR_REPLACE_help_desc$\r\
+-multiInst : $STR_REPLACE_multiInst_desc$\r\
+-noPlugin : $STR_REPLACE_noPlugin_desc$\r\
+-l : $STR_REPLACE_l_desc$\r\
+-udl=\"$STR_REPLACE_udl_value$\": $STR_REPLACE_udl_desc$\r\
+-L : $STR_REPLACE_L_desc$\r\
+-n : $STR_REPLACE_n_desc$\r\
+-c : $STR_REPLACE_c_desc$\r\
+-p : $STR_REPLACE_p_desc$\r\
+-x : $STR_REPLACE_x_desc$\r\
+-y : $STR_REPLACE_y_desc$\r\
+-monitor : $STR_REPLACE_monitor_desc$\r\
+-nosession : $STR_REPLACE_nosession_desc$\r\
+-notabbar : $STR_REPLACE_notabbar_desc$\r\
+-ro : $STR_REPLACE_ro_desc$\r\
+-systemtray : $STR_REPLACE_systemtray_desc$\r\
+-loadingTime : $STR_REPLACE_loadingTime_desc$\r\
+-alwaysOnTop : $STR_REPLACE_alwaysOnTop_desc$\r\
+-openSession : $STR_REPLACE_openSession_desc$\r\
+-r : $STR_REPLACE_r_desc$\r\
+-qn=\"$STR_REPLACE_qn_value$\" : $STR_REPLACE_qn_desc$\r\
+-qt=\"$STR_REPLACE_qt_value$\" : $STR_REPLACE_qt_desc$\r\
+-qf=\"$STR_REPLACE_qf_value$\" : $STR_REPLACE_qf_desc$\r\
+-qSpeed : $STR_REPLACE_qSpeed_desc$\r\
+-quickPrint : $STR_REPLACE_quickPrint_desc$\r\
+-settingsDir=\"$STR_REPLACE_settingsDir_value$\" : $STR_REPLACE_settingsDir_desc$\r\
+-openFoldersAsWorkspace : $STR_REPLACE_openFoldersAsWorkspace_desc$\r\
+-titleAdd=\"$STR_REPLACE_titleAdd_value$\" : $STR_REPLACE_titleAdd_desc$\r\
+filePath : $STR_REPLACE_filePath_desc$\r\
+");
+
+static const char* COMMAND_ARG_HELP_DATA[][3] = {
+//==============================================
+//	{placeholder, defaultText, targetNode},
+//==============================================
+	{"$STR_REPLACE_intro$", "Usage", "intro"},
+
+	{"$STR_REPLACE_help_desc$", "This help message", "arg-help-desc"},
+	{"$STR_REPLACE_multiInst_desc$", "Launch another Notepad++ instance", "arg-multiInst-desc"},
+	{"$STR_REPLACE_noPlugin_desc$", "Launch Notepad++ without loading any plugin", "arg-noPlugin-desc"},
+	{"$STR_REPLACE_l_desc$", "Open file or Ghost type with syntax highlighting of choice", "arg-l-desc"},
+	{"$STR_REPLACE_udl_value$", "My UDL Name", "arg-udl-value"},
+	{"$STR_REPLACE_udl_desc$", "Open file by applying User Defined Language", "arg-udl-desc"},
+
+	{"$STR_REPLACE_L_desc$", "Apply indicated localization, $STR_REPLACE_langCode$ is browser language code", "arg-L-desc"},
+	{"$STR_REPLACE_n_desc$", "Scroll to indicated line on $STR_REPLACE_filePath$", "arg-n-desc"},
+	{"$STR_REPLACE_c_desc$", "Scroll to indicated column on $STR_REPLACE_filePath$", "arg-c-desc"},
+	{"$STR_REPLACE_p_desc$", "Scroll to indicated position on $STR_REPLACE_filePath$", "arg-p-desc"},
+	{"$STR_REPLACE_x_desc$", "Move Notepad++ to indicated left side position on the screen", "arg-x-desc"},
+	{"$STR_REPLACE_y_desc$", "Move Notepad++ to indicated top position on the screen", "arg-y-desc"},
+
+	{"$STR_REPLACE_monitor_desc$", "Open file with file monitoring enabled", "arg-monitor-desc"},
+	{"$STR_REPLACE_nosession_desc$", "Launch Notepad++ without previous session", "arg-nosession-desc"},
+	{"$STR_REPLACE_notabbar_desc$", "Launch Notepad++ without tabbar", "arg-notabbar-desc"},
+	{"$STR_REPLACE_ro_desc$", "Make the $STR_REPLACE_filePath$ read only", "arg-ro-desc"},
+	{"$STR_REPLACE_systemtray_desc$", "Launch Notepad++ directly in system tray", "arg-systemtray-desc"},
+	{"$STR_REPLACE_loadingTime_desc$", "Display Notepad++ loading time", "arg-loadingTime-desc"},
+
+	{"$STR_REPLACE_alwaysOnTop_desc$", "Make Notepad++ always on top", "arg-alwaysOnTop-desc"},
+	{"$STR_REPLACE_openSession_desc$", "Open a session. $STR_REPLACE_filePath$ must be a session file", "arg-openSession-desc"},
+	{"$STR_REPLACE_r_desc$", "Open files recursively. This argument will be ignored if $STR_REPLACE_filePath$ contain no wildcard character", "arg-r-desc"},
+
+	{"$STR_REPLACE_qn_value$", "Easter egg name", "arg-qn-value"},
+	{"$STR_REPLACE_qn_desc$", "Ghost type easter egg via its name", "arg-qn-desc"},
+	{"$STR_REPLACE_qt_value$", "text to display", "arg-qt-value"},
+	{"$STR_REPLACE_qt_desc$", "Ghost type the given text", "arg-qt-desc"},
+	{"$STR_REPLACE_qf_value$", "D:\\my quote.txt", "arg-qf-value"},
+	{"$STR_REPLACE_qf_desc$", "Ghost type a file content via the file path", "arg-qf-desc"},
+	{"$STR_REPLACE_qSpeed_desc$", "Ghost typing speed. Value from 1 to 3 for slow, fast and fastest", "arg-qSpeed-desc"},
+
+	{"$STR_REPLACE_quickPrint_desc$", "Print the file given as $STR_REPLACE_filePath$ then quit Notepad++", "arg-quickPrint-desc"},
+	{"$STR_REPLACE_settingsDir_value$", "D:\\your settings dir", "arg-settingsDir-value"},
+	{"$STR_REPLACE_settingsDir_desc$", "Override the default settings dir", "arg-settingsDir-desc"},
+	{"$STR_REPLACE_openFoldersAsWorkspace_desc$", "Open $STR_REPLACE_filePath$ of folder(s) as workspace", "arg-openFoldersAsWorkspace-desc"},
+	{"$STR_REPLACE_titleAdd_value$", "text to add", "arg-titleAdd-value"},
+	{"$STR_REPLACE_titleAdd_desc$", "Add the given text to Notepad++ title bar", "arg-titleAdd-desc"},
+	{"$STR_REPLACE_filePath_desc$", "File or folder name to open (absolute or relative path name)", "arg-filePath-desc"},
+
+	{"$STR_REPLACE_langCode$", "langCode", nullptr},
+	{"$STR_REPLACE_filePath$", "filePath", nullptr}
+};
+
 MenuPosition menuPos[] = {
 //==============================================
 //	{L0,  L1, L2, id},
@@ -1123,6 +1209,28 @@ bool NativeLangSpeaker::getDoSaveOrNotStrings(generic_string& title, generic_str
 		}
 	}
 	return false;
+}
+
+void NativeLangSpeaker::getCmdLineArgsStrings(generic_string& title, generic_string& msg)
+{
+	const char *rootNode = "CmdLineArgsHelp";
+	title = getAttrNameStr(TEXT("Notepad++ Command Argument Help"), rootNode, "title");
+
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	generic_string msgTemp = COMMAND_ARG_HELP_TEMPLATE;
+	const int cells = sizeof(COMMAND_ARG_HELP_DATA[0]) / sizeof(char*);
+	const int rows = (sizeof(COMMAND_ARG_HELP_DATA) / sizeof(char*)) / cells;
+	for (int i = 0; i < rows; i++)
+	{
+		const generic_string placeholderStr = wmc.char2wchar(COMMAND_ARG_HELP_DATA[i][0], _nativeLangEncoding);
+		const generic_string defaultTextStr = wmc.char2wchar(COMMAND_ARG_HELP_DATA[i][1], _nativeLangEncoding);
+		const char* targetNode = COMMAND_ARG_HELP_DATA[i][2];
+		if (targetNode)
+			msgTemp = stringReplace(msgTemp, placeholderStr, getAttrNameStr(defaultTextStr.c_str(), rootNode, targetNode));
+		else
+			msgTemp = stringReplace(msgTemp, placeholderStr, defaultTextStr);
+	}
+	msg = msgTemp;
 }
 
 bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *title, size_t titleMaxSize)

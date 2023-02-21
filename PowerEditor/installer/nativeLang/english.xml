@@ -1530,6 +1530,45 @@ Do you want to save your changes before switching themes?"/> <!-- HowToReproduce
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <CmdLineArgsHelp>
+            <title name="Notepad++ Command Argument Help"/>
+            <intro name="Usage"/>
+            <arg-help-desc name="This help message"/>
+            <arg-multiInst-desc name="Launch another Notepad++ instance"/>
+            <arg-noPlugin-desc name="Launch Notepad++ without loading any plugin"/>
+            <arg-l-desc name="Open file or Ghost type with syntax highlighting of choice"/>
+            <arg-udl-value name="My UDL Name"/>
+            <arg-udl-desc name="Open file by applying User Defined Language"/>
+            <arg-L-desc name="Apply indicated localization, $STR_REPLACE_langCode$ is browser language code"/>
+            <arg-n-desc name="Scroll to indicated line on $STR_REPLACE_filePath$"/>
+            <arg-c-desc name="Scroll to indicated column on $STR_REPLACE_filePath$"/>
+            <arg-p-desc name="Scroll to indicated position on $STR_REPLACE_filePath$"/>
+            <arg-x-desc name="Move Notepad++ to indicated left side position on the screen"/>
+            <arg-y-desc name="Move Notepad++ to indicated top position on the screen"/>
+            <arg-monitor-desc name="Open file with file monitoring enabled"/>
+            <arg-nosession-desc name="Launch Notepad++ without previous session"/>
+            <arg-notabbar-desc name="Launch Notepad++ without tabbar"/>
+            <arg-ro-desc name="Make the $STR_REPLACE_filePath$ read only"/>
+            <arg-systemtray-desc name="Launch Notepad++ directly in system tray"/>
+            <arg-loadingTime-desc name="Display Notepad++ loading time"/>
+            <arg-alwaysOnTop-desc name="Make Notepad++ always on top"/>
+            <arg-openSession-desc name="Open a session. $STR_REPLACE_filePath$ must be a session file"/>
+            <arg-r-desc name="Open files recursively. This argument will be ignored if $STR_REPLACE_filePath$ contain no wildcard character"/>
+            <arg-qn-value name="Easter egg name"/>
+            <arg-qn-desc name="Ghost type easter egg via its name"/>
+            <arg-qt-value name="text to display"/>
+            <arg-qt-desc name="Ghost type the given text"/>
+            <arg-qf-value name="D:\my quote.txt"/>
+            <arg-qf-desc name="Ghost type a file content via the file path"/>
+            <arg-qSpeed-desc name="Ghost typing speed. Value from 1 to 3 for slow, fast and fastest"/>
+            <arg-quickPrint-desc name="Print the file given as $STR_REPLACE_filePath$ then quit Notepad++"/>
+            <arg-settingsDir-value name="D:\your settings dir"/>
+            <arg-settingsDir-desc name="Override the default settings dir"/>
+            <arg-openFoldersAsWorkspace-desc name="Open $STR_REPLACE_filePath$ of folder(s) as workspace"/>
+            <arg-titleAdd-value name="text to add"/>
+            <arg-titleAdd-desc name="Add the given text to Notepad++ title bar"/>
+            <arg-filePath-desc name="File or folder name to open (absolute or relative path name)"/>
+        </CmdLineArgsHelp>
         <MiscStrings>
             <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->

@@ -484,9 +484,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		cmdLineParams._udlName = udlName;
 	}
 
-	if (showHelp)
-		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
-
 	if (cmdLineParams._localizationPath != TEXT(""))
 	{
 		// setStartWithLocFileName() should be called before parameters are loaded
@@ -494,6 +491,18 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 
 	nppParameters.load();
+
+	if (showHelp)
+	{
+		NativeLangSpeaker nativeLangSpeaker;
+		nativeLangSpeaker.init(nppParameters.getNativeLangA());
+		generic_string title, msg;
+		nativeLangSpeaker.getCmdLineArgsStrings(title, msg);
+		int msgBoxType = MB_OK;
+		if (nativeLangSpeaker.isRTL())
+			msgBoxType |= MB_RTLREADING | MB_RIGHT;
+		::MessageBox(NULL, msg.c_str(), title.c_str(), msgBoxType);
+	}
 
 	NppGUI & nppGui = nppParameters.getNppGUI();
 

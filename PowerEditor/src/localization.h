@@ -59,6 +59,7 @@ public:
 	void changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdminDlg);
 
 	bool getDoSaveOrNotStrings(generic_string& title, generic_string& msg);
+	void getCmdLineArgsStrings(generic_string& title, generic_string& msg);
 
     bool isRTL() const {
         return _isRTL;

@@ -4,7 +4,7 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 14th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 21st, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
@@ -759,6 +759,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20011" name="Trasparenza"/>
                 <Item id="20015" name="Impurtà…"/>
                 <Item id="20016" name="Espurtà…"/>
+                <Item id="20017" name="Staccà"/>
                 <StylerDialog title="Dialogu di u stilu">
                     <Item id="25030" name="Ozzioni di grafia :"/>
                     <Item id="25006" name="Culore di primu pianu"/>
@@ -1181,7 +1182,6 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6824" name="Ignurà i numeri"/>
                     <Item id="6811" name="Da u"/>
                     <Item id="6813" name="u caratteru"/>
-                    <Item id="6814" name="Valori accettati : 1 - 9"/>
                     <Item id="6872" name="Accurtà a lista d’empiimentu autumaticu"/>
                     <Item id="6815" name="Sugerisce i parametri di funzione à l’entrata"/>
                     <Item id="6851" name="Inserzione autumatica"/>
@@ -1651,7 +1651,6 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <userdefined-title-new value="Creà un novu linguaghju…"/>
             <userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
             <userdefined-title-rename value="Rinuminà u linguaghju attuale"/>
-            <autocomplete-nb-char value="N° carat. : "/>
             <edit-verticaledge-nb-col value="N° di culonne :"/>
             <summary value="Statistiche"/>
             <summary-filepath value="Chjassu d’accessu : "/>

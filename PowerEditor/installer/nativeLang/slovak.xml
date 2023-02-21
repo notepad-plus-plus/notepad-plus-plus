@@ -1146,7 +1146,6 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
                     <Item id="6824" name="Ignorovať čísla"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="znaku"/>
-                    <Item id="6814" name="Platná hodnota: 1 - 9"/>
                     <Item id="6872" name="Automaticky skracovať zoznam"/>
                     <Item id="6815" name="Pomôcka pre parametre funkcií"/>
                     <Item id="6851" name="Automatické vkladanie"/>
@@ -1617,7 +1616,6 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <userdefined-title-new value="Vytvoriť nový jazyk"/>
             <userdefined-title-save value="Uložiť aktuálny názov jazyka"/>
             <userdefined-title-rename value="Premenovať aktuálny názov jazyka"/>
-            <autocomplete-nb-char value="č. znaku: "/>
             <edit-verticaledge-nb-col value="č. stĺpca:"/>
             <summary value="Zhrnutie"/>
             <summary-filepath value="Celá cesta k súboru: "/>

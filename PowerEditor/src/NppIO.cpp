@@ -353,12 +353,22 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 			}
 			else
 			{
-				generic_string str2display = TEXT("\"");
-				str2display += longFileName;
-				str2display += TEXT("\" cannot be opened:\nFolder \"");
-				str2display += longFileDir;
-				str2display += TEXT("\" doesn't exist.");
-				::MessageBox(_pPublicInterface->getHSelf(), str2display.c_str(), TEXT("Cannot open file"), MB_OK);
+				generic_string msg, title;
+				if (!_nativeLangSpeaker.getMsgBoxLang("OpenFileNoFolderError", title, msg))
+				{
+					title = TEXT("Cannot open file");
+					msg = TEXT("\"");
+					msg += longFileName;
+					msg += TEXT("\" cannot be opened:\nFolder \"");
+					msg += longFileDir;
+					msg += TEXT("\" doesn't exist.");
+				}
+				else
+				{
+					msg = stringReplace(msg, TEXT("$STR_REPLACE1$"), longFileName);
+					msg = stringReplace(msg, TEXT("$STR_REPLACE2$"), longFileDir);
+				}
+				::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_OK);
 			}
 
 			if (!isCreateFileSuccessful)

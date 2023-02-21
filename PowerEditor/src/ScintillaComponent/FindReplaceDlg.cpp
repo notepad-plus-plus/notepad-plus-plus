@@ -5055,7 +5055,7 @@ void FindIncrementDlg::display(bool toShow) const
 	_pRebar->setIDVisible(_rbBand.wID, toShow);
 }
 
-intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
 {
 	switch (message)
 	{
@@ -5091,11 +5091,6 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (!NppDarkMode::isEnabled())
-			{
-				return DefWindowProc(getHSelf(), message, wParam, lParam);
-			}
-
 			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
@@ -5116,11 +5111,8 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 		case WM_INITDIALOG:
 		{
-			LRESULT lr = DefWindowProc(getHSelf(), message, wParam, lParam);
-
-			NppDarkMode::setBorder(::GetDlgItem(getHSelf(), IDC_INCFINDTEXT));
 			NppDarkMode::autoSubclassAndThemeChildControls(getHSelf());
-			return lr;
+			return TRUE;
 		}
 
 		case WM_COMMAND :
@@ -5183,7 +5175,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					// treat other edit notifications as unhandled
 					[[fallthrough]];
 				default:
-					return DefWindowProc(getHSelf(), message, wParam, lParam);
+					return FALSE;
 			}
 			FindOption fo;
 			fo._isWholeWord = false;
@@ -5243,7 +5235,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			}
 		}
 	}
-	return DefWindowProc(getHSelf(), message, wParam, lParam);
+	return FALSE;
 }
 
 void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)

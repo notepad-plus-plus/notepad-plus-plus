@@ -1372,21 +1372,14 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{
-			bool isFirstTime = !_findReplaceDlg.isCreated();
-			if (isFirstTime)
-			{
-				_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL(), false);
-			}
-
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize] = { '\0' };
 			_pEditView->getGenericSelectedText(str, strSize);
-			if (isFirstTime)
-			{
-				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
-			}
 
-			FindOption op = _findReplaceDlg.getCurrentOptions();
+			FindOption op;
+			op._isMatchCase = false;
+			op._isWholeWord = false;
+			op._isWrapAround = true;
 			op._searchType = FindNormal;
 			op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT ? DIR_DOWN : DIR_UP);
 

@@ -2015,7 +2015,7 @@ void Notepad_plus::fileOpen()
 
 void Notepad_plus::fileNew()
 {
-    BufferID newBufID = MainFileManager.newEmptyDocument();
+    BufferID newBufID = MainFileManager.newEmptyDocument(true);
 
     loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
     switchToFile(newBufID);

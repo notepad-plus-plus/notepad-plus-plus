@@ -1257,16 +1257,16 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 	}
 }
 
-size_t FileManager::nextUntitledNewNumber() const
+size_t FileManager::nextUntitledNewNumber(bool toMainOrSubEditView) const
 {
 	std::vector<size_t> usedNumbers;
 	for (size_t i = 0; i < _buffers.size(); i++)
 	{
 		Buffer *buf = _buffers.at(i);
-		if (buf->isUntitled())
+		// if untitled document is invisible, then don't put its number into array (so its number is available to be used)
+		if (buf->isUntitled() && (buf->_referees[0])->isVisible())
 		{
-			// if untitled document is invisible, then don't put its number into array (so its number is available to be used)
-			if ((buf->_referees[0])->isVisible())
+			if (!toMainOrSubEditView || (buf->indexOfReference(_pNotepadPlus->_pEditView) > -1 || buf->indexOfReference(_pNotepadPlus->_pNonEditView) > -1))
 			{
 				generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 				TCHAR *numberStr = buf->_fileName + newTitle.length();
@@ -1303,12 +1303,12 @@ size_t FileManager::nextUntitledNewNumber() const
 	return newNumber;
 }
 
-BufferID FileManager::newEmptyDocument()
+BufferID FileManager::newEmptyDocument(bool toMainOrSubEditView)
 {
 	generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 
 	TCHAR nb[10];
-	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
+	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber(toMainOrSubEditView)));
 	newTitle += nb;
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager

@@ -78,7 +78,7 @@ public:
 	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
 
 	BufferID loadFile(const TCHAR * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const TCHAR *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
-	BufferID newEmptyDocument();
+	BufferID newEmptyDocument(bool toMainOrSubEditView = false);
 	//create Buffer from existing Scintilla, used from new Scintillas. If dontIncrease = true, then the new document number isnt increased afterwards.
 	//usefull for temporary but neccesary docs
 	//If dontRef = false, then no extra reference is added for the doc. Its the responsibility of the caller to do so
@@ -102,7 +102,7 @@ public:
 	};
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	size_t docLength(Buffer * buffer) const;
-	size_t nextUntitledNewNumber() const;
+	size_t nextUntitledNewNumber(bool toMainOrSubEditView = false) const;
 
 private:
 	struct LoadedFileFormat {

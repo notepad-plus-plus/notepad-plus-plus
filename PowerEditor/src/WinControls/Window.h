@@ -64,20 +64,8 @@ public:
 			::UpdateWindow(_hSelf);
 	}
 
-	virtual void redrawDlgItem(const int nIDDlgItem, bool forceUpdate = false) const
-	{
-		RECT rcDlgItem{};
-		const HWND hDlgItem = ::GetDlgItem(_hSelf, nIDDlgItem);
-		::GetClientRect(hDlgItem, &rcDlgItem);
-		::MapWindowPoints(hDlgItem, _hSelf, reinterpret_cast<LPPOINT>(&rcDlgItem), 2);
-		::InvalidateRect(_hSelf, &rcDlgItem, TRUE);
 
-		if (forceUpdate)
-			::UpdateWindow(hDlgItem);
-	}
-
-
-	virtual void getClientRect(RECT & rc) const
+    virtual void getClientRect(RECT & rc) const
 	{
 		::GetClientRect(_hSelf, &rc);
 	}

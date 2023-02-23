@@ -292,30 +292,28 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 		
 		${EndIf}
 
-	${Else}
-
-		SetOverwrite try
-		SetOutPath "$INSTDIR\"
-		
-		; There is no need to keep x86 NppShell_06.dll in 64 bit installer
-		; But in 32bit installer both the Dlls are required
-		; As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
-		
-		!ifdef ARCH64
-			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-		!else ifdef ARCHARM64
-			File /oname=$INSTDIR\NppShell_06.dll "..\binarm64\NppShell64.dll"
-		!else
-			${If} ${RunningX64}
-				File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-			${Else}
-				File "..\bin\NppShell_06.dll"
-			${EndIf}
-		!endif
-		Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
-	
-	
 	${EndIf}
+
+	SetOverwrite try
+	SetOutPath "$INSTDIR\"
+	
+	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
+	; But in 32bit installer both the Dlls are required
+	; As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
+	
+	!ifdef ARCH64
+		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+	!else ifdef ARCHARM64
+		File /oname=$INSTDIR\NppShell_06.dll "..\binarm64\NppShell64.dll"
+	!else
+		${If} ${RunningX64}
+			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+		${Else}
+			File "..\bin\NppShell_06.dll"
+		${EndIf}
+	!endif
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
+
 	
 ${MementoSectionEnd}
 

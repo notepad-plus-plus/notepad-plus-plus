@@ -1265,13 +1265,25 @@ size_t FileManager::nextUntitledNewNumber() const
 		Buffer *buf = _buffers.at(i);
 		if (buf->isUntitled())
 		{
-			// if untitled document is invisible, then don't put its number into array (so its number is available to be used)
-			if ((buf->_referees[0])->isVisible())
+			bool isVisible = false;
+			for (size_t k = 0; k < buf->_referees.size(); k++)
 			{
-				generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
-				TCHAR *numberStr = buf->_fileName + newTitle.length();
-				int usedNumber = _wtoi(numberStr);
-				usedNumbers.push_back(usedNumber);
+				if (buf->_referees[k]->isVisible())
+				{
+					isVisible = true;
+					break;
+				}
+			}
+
+			if (isVisible)
+			{
+				if (buf->indexOfReference(_pNotepadPlus->_pEditView) > -1 || buf->indexOfReference(_pNotepadPlus->_pNonEditView) > -1)
+				{
+					generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+					TCHAR* numberStr = buf->_fileName + newTitle.length();
+					int usedNumber = _wtoi(numberStr);
+					usedNumbers.push_back(usedNumber);
+				}
 			}
 		}
 	}

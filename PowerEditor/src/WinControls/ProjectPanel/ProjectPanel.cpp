@@ -1187,10 +1187,10 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 {
 	CustomFileDialog fDlg(_hSelf);
-	setFileExtFilter(fDlg);
-	fDlg.setExtIndex(0);		// 0 index for "custom extention" type if any else for "All types *.*"
+	fDlg.initCustomFileDialog(getWorkSpaceFilePath(), _TEXT("Notepad++ Workspace File"));
 
 	const generic_string fn = fDlg.doSaveDlg();
+
 	if (fn.empty())
 		return false;
 

@@ -50,6 +50,7 @@ public:
 	bool getCheckboxState() const;
 	bool isReadOnly() const;
 
+	void initCustomFileDialog(const generic_string& Path, const generic_string& extDescription);
 private:
 	class Impl;
 	std::unique_ptr<Impl> _impl;

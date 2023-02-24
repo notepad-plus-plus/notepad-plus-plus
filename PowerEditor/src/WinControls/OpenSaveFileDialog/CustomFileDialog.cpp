@@ -699,7 +699,7 @@ public:
 		if (SUCCEEDED(hr) && _defExt && _defExt[0] != '\0')
 			hr = _dialog->SetDefaultExtension(_defExt);
 
-		if (SUCCEEDED(hr) && _initialFileName)
+		if (SUCCEEDED(hr) && !_initialFileName.empty())
 		{
 			generic_string newFileName = _initialFileName;
 			if (_fileTypeIndex >= 0 && _fileTypeIndex < static_cast<int>(_filterSpec.size()))
@@ -897,7 +897,7 @@ public:
 	generic_string _initialFolder;
 	generic_string _fallbackFolder;
 	const TCHAR* _checkboxLabel = nullptr;
-	const TCHAR* _initialFileName = nullptr;
+	generic_string _initialFileName;
 	bool _isCheckboxActive = true;
 	std::vector<Filter> _filterSpec;
 	int _fileTypeIndex = -1;	// preferred file type index
@@ -926,6 +926,45 @@ CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{ std::make_unique<Impl>() 
 }
 
 CustomFileDialog::~CustomFileDialog() = default;
+
+void CustomFileDialog::initCustomFileDialog(const generic_string& filePath, const generic_string& extDescription)
+{
+	NppParameters& nppParams = NppParameters::getInstance();
+
+	if(!filePath.empty())
+	{
+		generic_string fileExt;
+		generic_string rootDirectory;
+		generic_string fileName;
+
+		size_t delimPosition = filePath.find_last_of('\\');
+		if(delimPosition != std::string::npos)
+		{
+			rootDirectory = filePath.substr(0, delimPosition);
+			fileName = filePath.substr(delimPosition + 1);
+		}
+		else
+		{
+			rootDirectory = nppParams.getWorkingDir();
+			fileName = filePath;
+		}
+
+		setFolder(rootDirectory.c_str());
+		setDefFileName(fileName.c_str());
+
+		delimPosition = filePath.find_last_of('.');
+		if(delimPosition != std::string::npos)
+		{
+			fileExt = filePath.substr(delimPosition);
+			if(!fileExt.empty())
+			{
+				setExtFilter(extDescription.c_str(), fileExt.c_str());
+				setDefExt(fileExt.c_str());
+				setExtIndex(0);
+			}
+		}
+	}
+}
 
 void CustomFileDialog::setTitle(const TCHAR* title)
 {

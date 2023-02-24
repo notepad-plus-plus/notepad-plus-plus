@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.4.6">
+    <Native-Langue name="English" filename="english.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->

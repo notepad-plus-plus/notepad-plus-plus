@@ -1386,6 +1386,7 @@ Updated to v8.5.0:
 			<CreateNewFileOrNot          title="Создание нового файла"               message="&quot;$STR_REPLACE$&quot; не существует. Создать его?"/>
 			<CreateNewFileError          title="Создание нового файла"               message="Не удается создать файл &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError               title="ОШИБКА"                              message="Невозможно открыть файл &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileNoFolderError       title="Невозможно открыть файл"             message="&quot;$STR_REPLACE1$&quot; нельзя открыть: &#x0A;Папка &quot;$STR_REPLACE2$&quot; не существует."/>
 			<FileBackupFailed            title="Ошибка файла Резервного Копирования" message="Предыдущая версия файла не может быть сохранена в каталоге резервного копирования &quot;$STR_REPLACE$&quot;.&#x0A;&#x0A;Вы хотите сохранить текущий файл так или иначе?"/>
 			<LoadStylersFailed           title="Ошибка загрузки stylers.xml"         message="Ошибка загрузки &quot;$STR_REPLACE$&quot;!"/>
 			<LoadLangsFailed             title="Конфигуратор"                        message="Ошибка загрузки langs.xml!&#x0A;Вы хотите восстановить свой langs.xml?"/>

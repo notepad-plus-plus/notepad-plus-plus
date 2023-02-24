@@ -592,6 +592,20 @@ The comments are here for explanation, it's not necessary to translate them.
 				<ScintillaCommandsTab name="Scintilla-kommandon"/>
 				<ConflictInfoOk name="Inga kortkommandokonflikter hittades här."/>
 				<ConflictInfoEditing name="Inga konflikter..."/>
+				<WindowCategory name="Fönster"/>
+				<FileCategory name="Arkiv"/>
+				<EditCategory name="Redigera"/>
+				<SearchCategory name="Sök"/>
+				<ViewCategory name="Visa"/>
+				<FormatCategory name="Kodning"/>
+				<LangCategory name="Språk"/>
+				<AboutCategory name="Om"/>
+				<SettingCategory name="Inställningar"/>
+				<ToolCategory name="Verktyg"/>
+				<ExecuteCategory name="Kör"/>
+				<ModifyContextMenu name="Modifiera"/>
+				<DeleteContextMenu name="Radera"/>
+				<ClearContextMenu name="Rensa"/>
 				<MainCommandNames>
 					<Item id="41019" name="Öppna objektets mapp i utforskaren"/>
 					<Item id="41020" name="Öppna objektets mapp i kommandotolken"/>
@@ -708,6 +722,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="20011" name="Genomskinlighet"/>
 				<Item id="20015" name="Importera..."/>
 				<Item id="20016" name="Exportera..."/>
+				<Item id="20017" name="Frigör"/>
 				<StylerDialog title="Stilinställning">
 					<Item id="25030" name="Teckensnitt:"/>
 					<Item id="25006" name="Förgrundsfärg"/>
@@ -1131,7 +1146,6 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6824" name="Ignorera siffror"/>
 					<Item id="6811" name="Efter"/>
 					<Item id="6813" name="tecken"/>
-					<Item id="6814" name="Giltiga värden: 1-9"/>
 					<Item id="6872" name="Korta ned listan med automatisk komplettering"/>
 					<Item id="6815" name="Funktionsparameterhjälp vid inmatning"/>
 					<Item id="6851" name="Infoga automatiskt"/>
@@ -1296,7 +1310,8 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 				<Item id="4" name="Alltid"/>
 			</DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
-		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+		<MessageBox>
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title="Redigera högerklicksmenyn" message="Genom att redigera contextMenu.xml kan du anpassa högerklicksmenyn i Notepad++.
 Du måste starta om Notepad++ för att ändringarna i contextMenu.xml ska gälla."/>
 			<SaveCurrentModifWarning title="Spara aktuella ändringar" message="Du bör spara dina aktuella ändringar.
@@ -1366,6 +1381,8 @@ Vill du öppna den?"/>
 			<CreateNewFileOrNot title="Skapa ny fil" message="&quot;$STR_REPLACE$&quot; finns inte. Vill du skapa den?"/>
 			<CreateNewFileError title="Skapa ny fil" message="Kan inte skapa filen &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="FEL" message="Kan inte öppna filen &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileNoFolderError title="Kan inte öppna filen" message="&quot;$STR_REPLACE1$&quot; kan inte öppnas:
+Mappen &quot;$STR_REPLACE2$&quot; finns inte."/>
 			<FileBackupFailed title="Misslyckades att säkerhetskopiera fil" message="Den föregående versionen av filen kunde inte sparas i säkerhetskopieringsmappen &quot;$STR_REPLACE$&quot;.
 
 Vill du spara aktuell fil ändå?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1407,6 +1424,8 @@ Vill du fortsätta?"/>
 			<ChangeHistoryEnabledWarning title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att aktivera ändringshistoriken."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Windows-session avslutas" message="Windows-sessionen håller på att avslutas men du har osparad data. Vill du avsluta Notepad++ nu?"/>
 			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer ändras vid nästa uppstart."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Osparade ändringar håller på att ignoreras!
+Vill du spara dina ändringar innan du byter tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1416,6 +1435,7 @@ Vill du fortsätta?"/>
 			<ColumnName name="Namn"/>
 			<ColumnExt name="Filtyp"/>
 			<ColumnPath name="Sökväg"/>
+			<ListGroups name="Gruppera efter vy"/>
 		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Namn"/>
@@ -1511,7 +1531,7 @@ Vill du fortsätta?"/>
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
-			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders.  -->
 			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söka med alternativet &quot;Matcha enbart hela ord&quot; valt."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 			
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1597,7 +1617,6 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<userdefined-title-new value="Skapa nytt språk..."/>
 			<userdefined-title-save value="Spara aktuellt språknamn som..."/>
 			<userdefined-title-rename value="Byt namn på aktuellt språknamn"/>
-			<autocomplete-nb-char value="Antal tecken: "/>
 			<edit-verticaledge-nb-col value="Antal kolumner:"/>
 			<summary value="Sammanfattning"/>
 			<summary-filepath value="Fullständig filsökväg: "/>

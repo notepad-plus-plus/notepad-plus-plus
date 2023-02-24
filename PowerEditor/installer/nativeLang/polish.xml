@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.4.9 (25.01.2023)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.5 (24.02.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.4.9">
+    <Native-Langue name="polski" filename="polish.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -122,6 +122,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Wyczyść"/>
                     <Item id="42007" name="&amp;Zaznacz wszystko"/>
                     <Item id="42020" name="Rozpocznij lub zakończ zaznaczanie"/>
+                    <Item id="42089" name="Rozpocznij lub zakończ kolumnowe zaznaczanie"/>
                     <Item id="42084" name="Data i godzina (krótka)"/>
                     <Item id="42085" name="Data i godzina (długa)"/>
                     <Item id="42086" name="Data i godzina (niestandardowa)"/>
@@ -274,7 +275,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44022" name="Zawijaj wiersze"/>
                     <Item id="44023" name="Po&amp;większ (Ctrl+Kółko myszy w górę)"/>
                     <Item id="44024" name="Po&amp;mniejsz (Ctrl+Kółko myszy w dół)"/>
-                    <Item id="44025" name="Pokaż znaki niedrukowane"/>
+                    <Item id="44025" name="Pokaż spacje i tabulatory"/>
                     <Item id="44026" name="Pokaż znaki końca linii"/>
                     <Item id="44029" name="Rozwiń wszystko"/>
                     <Item id="44030" name="Zwiń bieżący poziom"/>
@@ -304,6 +305,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Zastosuj kolor 3."/>
                     <Item id="44114" name="Zastosuj kolor 4."/>
                     <Item id="44115" name="Zastosuj kolor 5."/>
+                    <Item id="44130" name="Pokaż znaki niedrukowane"/>
                     <Item id="44032" name="Przełącz tryb pełnoekranowy"/>
                     <Item id="44033" name="Przywróć domyślne"/>
                     <Item id="44034" name="Zawsze na wierzchu"/>
@@ -600,6 +602,20 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ScintillaCommandsTab name="Polecenia Scintilli"/>
                 <ConflictInfoOk name="Brak sprzecznego skrótu dla tej pozycji."/>
                 <ConflictInfoEditing name="Brak sprzeczności."/>
+                <WindowCategory name="Karty"/>
+                <FileCategory name="Plik"/>
+                <EditCategory name="Edycja"/>
+                <SearchCategory name="Szukaj"/>
+                <ViewCategory name="Widok"/>
+                <FormatCategory name="Format"/>
+                <LangCategory name="Składnia"/>
+                <AboutCategory name="O programie (?)"/>
+                <SettingCategory name="Ustawienia"/>
+                <ToolCategory name="Narzędzia"/>
+                <ExecuteCategory name="Uruchom"/>
+                <ModifyContextMenu name="Zmień"/>
+                <DeleteContextMenu name="Usuń"/>
+                <ClearContextMenu name="Wyczyść"/>
                 <MainCommandNames>
                     <Item id="41019" name="Otwórz folder zawierający w eksploratorze plików"/>
                     <Item id="41020" name="Otwórz folder zawierający w wierszu poleceń"/>
@@ -716,6 +732,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20011" name="Przezroczystość"/>
                 <Item id="20015" name="Importuj..."/>
                 <Item id="20016" name="Eksportuj..."/>
+                <Item id="20017" name="Odłącz"/>
                 <StylerDialog title="Stylizowanie">
                     <Item id="25030" name="Opcje czcionki:"/>
                     <Item id="25006" name="Kolor tekstu"/>
@@ -934,6 +951,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Domyślny"/>
                     <Item id="6249" name="Zwykły tekst"/>
                     <Item id="6250" name="Własny kolor"/>
+                    <Item id="6252" name="Znaki niedrukowane"/>
+                    <Item id="6254" name="Skrót"/>
+                    <Item id="6255" name="Kod"/>
+                    <Item id="6256" name="Własny kolor"/>
                 </Scintillas>
 
                 <DarkMode title="Tryb ciemny">
@@ -1135,7 +1156,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                     <Item id="6824" name="Ignoruj numery"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name=". znaku"/>
-                    <Item id="6814" name="Poprawne wartości: 1–9"/>
+                    <Item id="6872" name="Rób krótką listę podpowiedzi"/>
                     <Item id="6815" name="Podpowiadaj parametry funkcji"/>
                     <Item id="6851" name="Autowstawianie"/>
                     <Item id="6857" name="tag zam. HTML/XML"/>
@@ -1299,7 +1320,8 @@ W oknie ustawień możesz przywrócić to potwierdzenie w dowolnym momencie."/>
                 <Item id="4" name="Zawsze tak"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu kontekstowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
 Żeby zmiany dokonane w pliku contextMenu.xml weszły w życie, konieczne jest ponowne uruchomienie Notepad++."/>
             <SaveCurrentModifWarning title="Zapis bieżących zmian" message="Bieżące zmiany muszą zostać zapisane.
@@ -1327,7 +1349,18 @@ Ustawienia chmury zostaną wycofane. Nową ścieżkę można podać w oknie usta
             <DroppingFolderAsProjectModeWarning title="Nieprawidłowe działanie" message="Pliki i foldery muszą być przenoszone do programu osobno, ponieważ aktywny jest tryb obszaru roboczego.
 Żeby to zmienić, należy włączyć opcję „Nie traktuj przenoszonego folderu jako obszaru roboczego, tylko ładuj wszystkie jego pliki” w zakładce „Domyślna ścieżka” w oknie ustawień."/>
             <SortingError title="Błąd sortowania" message="Nie można wykonać sortowania przez linię numer $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Wskazówka dotycząca edycji kolumnowej" message="Alt+LPM oraz Alt+Shift+Strzałka przełączają tryb kolumnowy."/>
+            <ColumnModeTip title="Wskazówka dla kolumnowego trybu zaznaczania" message="
+Istnieją 3 sposoby przejścia do kolumnowego trybu zaznaczania:
+
+1. (Klawiatura i mysz)  Przytrzymaj Alt podczas przeciągania lewym przyciskiem myszy
+
+2. (Klawiatura)  Przytrzymaj Alt+Shift podczas używania klawiszy strzałek
+
+3. (Klawiatura lub mysz)
+    Umieść kursor na początkowej pozycji kolumny, a następnie
+        wywołaj polecenie „Rozpocznij lub zakończ kolumnowe                            zaznaczanie”;
+    Przesuń kursor na konicową pozycję kolumny, a następnie
+        wywołaj polecenie „Rozpocznij lub zakończ kolumnowe                            zaznaczanie”"/>
             <BufferInvalidWarning title="Błąd zapisywania" message="Nie udało się zapisać. Błąd bufora."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Zachowywanie nieistniejącego pliku" message="Plik „$STR_REPLACE$” nie istnieje.
 Czy mimo to zachować go w edytorze?"/>
@@ -1358,6 +1391,8 @@ Na pewno chcesz kontynuować?"/>
             <CreateNewFileOrNot title="Tworzenie nowego pliku" message="Plik „$STR_REPLACE$” nie istnieje. Utworzyć go?"/>
             <CreateNewFileError title="Tworzenie nowego pliku" message="Nie można utworzyć pliku o nazwie „$STR_REPLACE$”."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="Błąd" message="Nie można otworzyć pliku „$STR_REPLACE$”."/>
+            <OpenFileNoFolderError title="Nie można otworzyć pliku" message="&quot;$STR_REPLACE1$&quot; nie może zostać otwarty:
+Folder &quot;$STR_REPLACE2$&quot; Nie istnieje."/>
             <FileBackupFailed title="Błąd kopii zapasowej" message="Nie udało się utworzyć kopii zapasowej poprzedniej wersji pliku w katalogu „$STR_REPLACE$”.
 
 Zapisać bieżący plik bez kopii?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1398,6 +1433,9 @@ Kontynuować?"/>
             <NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ musi zostać ponownie uruchomiony, aby historia zmian zaczęła działać."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - wyjście z sesji systemu Windows" message="Sesja systemu Windows wkrótce zostanie zakończona, ale masz niezapisane dane. Czy chcesz teraz zamknąć Notepad++?"/>
+            <LanguageMenuCompactWarning title="Kompaktowe menu języków" message="Ta opcja zostanie zmieniona po ponownym uruchomieniu Notepad++."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niezapisane zmiany zostaną utracone!
+Czy chcesz zapisać zmiany przed przełączeniem motywu?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
@@ -1407,6 +1445,7 @@ Kontynuować?"/>
             <ColumnName name="Nazwa"/>
             <ColumnExt name="Rozsz."/>
             <ColumnPath name="Ścieżka"/>
+            <ListGroups name="Grupuj dla widoku"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nazwa"/>
@@ -1502,7 +1541,7 @@ Kontynuować?"/>
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="Pozwala to włączać określone znaki do zaznaczenia powstałego w wyniku podwójnego kliknięcia LPM na słowo lub wyszukania frazy z zaznaczoną opcją „Znajdź tylko całe wyrazy”."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1584,11 +1623,9 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
             <splitter-rotate-right value="Obróć w prawo"/>
             <recent-file-history-maxfile value="Maks. plików: "/>
             <recent-file-history-customlength value="Długość: "/>
-            <language-tabsize value="Rozmiar tab.: "/>
             <userdefined-title-new value="Nowy język..."/>
             <userdefined-title-save value="Zapisz bieżący język jako..."/>
             <userdefined-title-rename value="Zmiana nazwy bieżącego języka"/>
-            <autocomplete-nb-char value="Numer znaku: "/>
             <edit-verticaledge-nb-col value="Numer kolumny:"/>
             <summary value="Informacje o pliku"/>
             <summary-filepath value="Pełna ścieżka pliku: "/>
@@ -1601,6 +1638,8 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
             <summary-nbsel1 value=" zaznaczonych znaków ("/>
             <summary-nbsel2 value=" bajtów) w "/>
             <summary-nbrange value=" zakresach"/>
+            <progress-cancel-button value="Anuluj"/>
+            <progress-cancel-info value="Trwa anulowanie operacji, proszę czekać..."/>
             <find-in-files-progress-title value="Szukanie w plikach w toku..."/>
             <replace-in-files-confirm-title value="Na pewno chcesz kontynuować?"/>
             <replace-in-files-confirm-directory value="Czy na pewno chcesz zastąpić wszystkie wystąpienia w:"/>
@@ -1636,6 +1675,33 @@ UWAGI:
 1. Modyfikowanie tych opcji wymaga ponownego otwarcia aktualnie wczytanych dużych plików, aby uzyskać w pełni oczekiwane zachowanie.
 
 2. Jeśli opcja „Wyłącz zawijanie wierszy globalnie” jest zaznaczona i otwierasz duży plik to funkcja „Zawijaj wiersze” zostanie wyłączona dla wszystkich plików. Możesz ją ponownie włączyć za pomocą menu „Widok->Zawijaj wiersze”." />
+            <npcNote-tip value="Reprezentacja wybranych białych znaków i niedrukowanych (kontrolnych) znaków spoza ASCII.
+
+UWAGI:
+Niektóre znaki mogą już mieć jakąś reprezentację i dlatego są widoczne. Separator linii i separator akapitu są domyślnie reprezentowane poprzez skrót.
+
+Użycie reprezentacji wyłącza efekty znaków powodowane na tekście.
+
+Pełną listę wybranych białych znaków i znaków niedrukowalnych znajdziesz w dokumentacji.
+
+Kliknij ten przycisk aby otworzyć stronę z dokumentacją." />
+            <npcAbbreviation-tip value="Skrót : nazwa
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+Pełną listę znajdziesz w dokumentacji.
+Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją." />
+            <npcCodepoint-tip value="Kod : nazwa
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+Pełną listę znajdziesz w dokumentacji.
+Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją." />
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1441,7 +1441,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 				if (!_options._isInSelection)
 				{
-					if (nbSelected <= 1024)
+					if (nbSelected <= FINDREPLACE_INSEL_TEXTSIZE_THRESHOLD)
 					{
 						checkVal = BST_UNCHECKED;
 						_options._isInSelection = false;

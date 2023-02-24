@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.4.8  15/Dec/2022  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.5.0  24/Feb/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.4.8">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -47,7 +47,7 @@
 					<Item subMenuId = "search-jumpUp" name = "S&amp;kočit nahoru"/>
 					<Item subMenuId = "search-jumpDown" name = "S&amp;kočit dolů"/>
 					<Item subMenuId = "search-copyStyledText" name = "Kopírovat te&amp;xt označený stylem"/>
-					<Item subMenuId = "search-bookmark" name = "Zá&amp;ložka"/>
+					<Item subMenuId = "search-bookmark" name = "Zá&amp;ložky"/>
 					<Item subMenuId = "view-currentFileIn" name = "Zobrazit aktuální soubor v"/>
 					<Item subMenuId = "view-showSymbol" name = "Ukázat symboly"/>
 					<Item subMenuId = "view-zoom" name = "Lupa"/>
@@ -126,7 +126,7 @@
 					<Item id = "42017" name = "&amp;malá písmena"/>
 					<Item id = "42018" name = "&amp;Začít nahrávání"/>
 					<Item id = "42019" name = "&amp;Ukončit nahrávání"/>
-					<Item id = "42020" name = "Vy&amp;ber začátek/konec"/>
+					<Item id = "42020" name = "Vy&amp;ber začátek/konec bloku"/>
 					<Item id = "42021" name = "&amp;Přehrát"/>
 					<Item id = "42022" name = "Zakomentovat/odkomentovat jednotlivé řádky"/>
 					<Item id = "42023" name = "Zakomentovat/odkomentovat blok"/>
@@ -148,10 +148,10 @@
 					<Item id = "42039" name = "Vložit RTF-obsah"/>
 					<Item id = "42040" name = "Otevřít všechny nedávné soubory"/>
 					<Item id = "42041" name = "Vymazat seznam nedávno otevřených"/> 
-					<Item id = "42042" name = "Oříznout úvodní mezery"/>
-					<Item id = "42043" name = "Oříznout úvodní a koncové mezery"/>
-					<Item id = "42044" name = "Konce řádků (EOL) na mezery"/>
-					<Item id = "42045" name = "Odstranit nepotřebné prázdné znaky a EOLy"/>
+					<Item id = "42042" name = "Odstranit úvodní mezery"/>
+					<Item id = "42043" name = "Odstranit úvodní i koncové mezery"/>
+					<Item id = "42044" name = "Konce řádků (EOL) konvertovat na mezery"/>
+					<Item id = "42045" name = "Odstranit úvodní i koncové mezery, EOLy konvertovat na mezery"/>
 					<Item id = "42046" name = "Tabulátory na mezery"/>
 					<Item id = "42047" name = "Odstranit blokové komentáře"/>
 					<Item id = "42048" name = "Kopírovat binární obsah"/>
@@ -195,6 +195,7 @@
 					<Item id = "42086" name = "Aktuální čas a datum (přizpůsobený)"/>
 					<Item id = "42087" name = "Kopírovat všechny názvy souborů"/>
 					<Item id = "42088" name = "Kopírovat všechny cesty souborů"/>
+					<Item id = "42089" name = "Vyber začátek/konec bloku v Sloupcovém režimu"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nah&amp;radit..."/>
@@ -244,7 +245,7 @@
 					<Item id = "43048" name = "&amp;Vybrat a najít další"/>
 					<Item id = "43049" name = "&amp;Vybrat a najít předchozí"/>
 					<Item id = "43050" name = "Inverze záložky"/>
-					<Item id = "43051" name = "Odstranit neoznačené řádky"/>
+					<Item id = "43051" name = "Odstranit řádky neoznačené záložkami"/>
 					<Item id = "43052" name = "Najít znaky z rozsa&amp;hu..."/>
 					<Item id = "43053" name = "Vybrat vše &amp;mezi souvisejícími závorkami"/>
 					<Item id = "43054" name = "&amp;Označit..."/>
@@ -272,7 +273,7 @@
 					<Item id = "44022" name = "Zalomit řádky"/>
 					<Item id = "44023" name = "Zvětši&amp;t Ctrl-Myš kolečko nahoru"/>
 					<Item id = "44024" name = "Zme&amp;nšit Ctrl-Myš kolečko dolu"/>
-					<Item id = "44025" name = "Zobrazit mezery a tabulátory"/>
+					<Item id = "44025" name = "Zobrazit prázdné znaky a tabulátory"/>
 					<Item id = "44026" name = "Zobrazit konce řádků"/>
 					<Item id = "44029" name = "Rozbalit vše"/>
 					<Item id = "44030" name = "Sbalit aktuální úroveň"/>
@@ -312,7 +313,8 @@
 					<Item id = "44112" name = "Označit barvou 2"/>
 					<Item id = "44113" name = "Označit barvou 3"/>
 					<Item id = "44114" name = "Označit barvou 4"/>
-					<Item id = "44115" name = "Označit barvou 5"/> 
+					<Item id = "44115" name = "Označit barvou 5"/>
+					<Item id = "44130" name = "Zobrazit netisknutelné znaky"/>
 					<Item id = "45001" name = "Konvertovat do formátu Windows"/>
 					<Item id = "45002" name = "Konvertovat do formátu UNIX"/>
 					<Item id = "45003" name = "Konvertovat do formátu MAC"/>
@@ -490,7 +492,7 @@
 			<FindCharsInRange title = "Najít znaky z rozsahu...">
 				<Item id = "2910" name = "Najít"/>
 				<Item id = "2" name = "Zavřít"/>
-				<Item id = "2901" name = "Non-ASCII znaky (128-255)"/>
+				<Item id = "2901" name = "Ne-ASCII znaky (128-255)"/>
 				<Item id = "2902" name = "ASCII znaky (0-127)"/>
 				<Item id = "2903" name = "Jiný rozsah:"/>
 				<Item id = "2906" name = "Nahoru"/>
@@ -568,7 +570,7 @@
 					<Item id = "2211" name = "Styl:"/>
 					<Item id = "2212" name = "Styl barev"/>
 					<Item id = "2213" name = "Styl písma"/>
-					<Item id = "2214" name = "Standardní přípona:"/>
+					<Item id = "2214" name = "Standardní příp.:"/>
 					<Item id = "2216" name = "Vlastní přípona:"/>
 					<Item id = "2218" name = "Podtrhnout"/>
 					<Item id = "2219" name = "Standardní klíčová slova"/>
@@ -602,6 +604,20 @@
 				<ScintillaCommandsTab name = "Scintilla povely"/>
 				<ConflictInfoOk name = "Nezjištěny žádné kolize pro tuto položku."/>
 				<ConflictInfoEditing name = "Nekoliduje s ničím . . ."/>
+				<WindowCategory name = "Okno"/>
+				<FileCategory name = "Soubor"/>
+				<EditCategory name = "Editace"/>
+				<SearchCategory name = "Vyhledávání"/>
+				<ViewCategory name = "Zobrazení"/>
+				<FormatCategory name = "Formát"/>
+				<LangCategory name = "Syntaxe"/>
+				<AboutCategory name = "O/Nápověda (?)"/>
+				<SettingCategory name = "Nastavení"/>
+				<ToolCategory name = "Nástroj"/>
+				<ExecuteCategory name = "Spuštění"/>
+				<ModifyContextMenu name = "Upravit"/>
+				<DeleteContextMenu name = "Odstranit"/>
+				<ClearContextMenu name = "Vymazat"/>
 				<MainCommandNames>
 					<Item id = "41019" name = "Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
 					<Item id = "41020" name = "Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
@@ -703,17 +719,18 @@
 			</ShortcutMapperSubDialg>
 
 			<UserDefine title = "Uživatelské nastavení">
-				<Item id = "20001" name = "Dokovat"/>
+				<Item id = "20001" name = "Připnout"/>
 				<Item id = "20002" name = "Přejmenovat"/>
 				<Item id = "20003" name = "Vytvořit novou..."/>
 				<Item id = "20004" name = "Odstranit"/>
 				<Item id = "20005" name = "Uložit jako..."/>
 				<Item id = "20007" name = "Uživatelská syntaxe: "/>
 				<Item id = "20009" name = "Přípona:"/>
-				<Item id = "20012" name = "Nerozliš. malá a VELKÁ písmena"/>
+				<Item id = "20012" name = "Nerozl. malá a VELKÁ písmena"/>
 				<Item id = "20011" name = "Průhlednost"/>
 				<Item id = "20015" name = "Import..."/>
 				<Item id = "20016" name = "Export..."/>
+				<Item id = "20017" name = "Odepnout"/>
 				<Item id = "0" name = "Styl barev"/>
 				<Item id = "1" name = "Barva popředí"/>
 				<Item id = "2" name = "Barva pozadí"/>
@@ -963,6 +980,10 @@
 					<Item id = "6248" name = "Implicitní"/>
 					<Item id = "6249" name = "Barva prostého textu"/>
 					<Item id = "6250" name = "Vlastní barva"/>
+					<Item id = "6252" name = "Netisknutelné znaky"/>
+					<Item id = "6254" name = "Zkratka"/>
+					<Item id = "6255" name = "Kód Unicode"/>
+					<Item id = "6256" name = "Vlastní barva"/>
 				</Scintillas>
 				<DarkMode title = "Tmavý režim">
 					<Item id = "7102" name = "Černý"/>
@@ -1010,7 +1031,7 @@
 					<Item id = "6231" name = "Šířka okraje"/>
 					<Item id = "6235" name = "Bez okraje"/>
 					<Item id = "6237" name = "Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo).
-Můžete definovat více značek sloupců použitím více čísel oddělených mezerami."/>
+Můžete definovat více značek sloupců použitím více čísel oddělených prázdnými znaky."/>
 					<Item id = "6291" name = "Číslo řádku"/>
 					<Item id = "6292" name = "Dynamická šířka"/>
 					<Item id = "6293" name = "Konstantní šířka"/>
@@ -1160,7 +1181,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6315" name = "Vypnuto"/>
 					<Item id = "6316" name = "Základní zálohování"/>
 					<Item id = "6317" name = "Zálohování s hlášeními"/>
-					<Item id = "6801" name = "Zálohování"/>
+					<Item id = "6801" name = "Zálohování při ukládání"/>
 					<Item id = "6803" name = "Adresář:"/>
 					<Item id = "6804" name = "Uživatelský adresář pro zálohy"/>
 					<Item id = "6817" name = "Body obnovení a periodické zálohování"/>
@@ -1177,7 +1198,6 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6810" name = "Dokončování slov"/>
 					<Item id = "6811" name = "Od"/>
 					<Item id = "6813" name = ". znaku"/>
-					<Item id = "6814" name = "Platný rozsah : 1 - 9"/>
 					<Item id = "6815" name = "Nápověda k parametrům funkcí při zadávaní"/>
 					<Item id = "6816" name = "Dokončování funkcí i slov"/>
 					<Item id = "6824" name = "Ignorovat čísla"/>
@@ -1191,9 +1211,10 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6869" name = "Vložit vybraný návrh"/>
 					<Item id = "6870" name = "TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
 					<Item id = "6871" name = "ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+					<Item id = "6872" name = "Zkracovat seznam automat. dokončování"/>
 				</AutoCompletion>
 				<MultiInstance title = "Více instancí &amp; Datum">
-					<Item id = "6151" name = "Nastavení víceinstančního módu"/>
+					<Item id = "6151" name = "Nastavení víceinstančního módu *"/>
 					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++ (a při ukončení ji automaticky uložit)"/>
 					<Item id = "6153" name = "Vždy ve víceinstančním módu"/>
 					<Item id = "6154" name = "Implicitní (jedno-instanční) mód"/>
@@ -1201,6 +1222,16 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6171" name = "Přizpůsobení vkládaného aktuálního datumu a času"/>
 					<Item id = "6175" name = "Obrátit implicitní pořadí vkládaných údajů (pro kratší i delší verzi)"/>
 					<Item id = "6172" name = "Přizpůsobený formát:"/>
+					<Item id = "6181" name = "Stav panelů a [-nosession] *"/>
+					<Item id = "6182" name = "Pamatovat si stav panelu (otevření panelu) v dalších instancích (víceinstanční mód) nebo při použití parametru přík. řádky [-nosession]"/>
+					<Item id = "6183" name = "Historie Schránky"/>
+					<Item id = "6184" name = "Seznam dokumentů"/>
+					<Item id = "6185" name = "Panel ASCII znaků"/>
+					<Item id = "6186" name = "Složka jako pracovní plocha"/>
+					<Item id = "6187" name = "Panely projektu"/>
+					<Item id = "6188" name = "Přehledná mapa dokumentu"/>
+					<Item id = "6189" name = "Seznam funkcí"/>
+					<Item id = "6190" name = "Panely pluginů"/>
 				</MultiInstance>
 				<Delimiter title = "Ohraničení">
 					<Item id = "6251" name = "Nastavení pro ohraničující výběr (Ctrl + dvojklik myší)"/>
@@ -1211,7 +1242,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
 					<Item id = "6161" name = "Seznam znaků pro Slova"/>
 					<Item id = "6162" name = "Použít implicitní seznam znaků pro Slova tak, jak je"/>
-					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
+					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást Slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
 				</Delimiter>
 				<Performance title = "Výkon"> 
 					<Item id = "7141" name = "Omezení funkcí pro velké soubory"/> 
@@ -1221,7 +1252,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id = "7147" name = "Povolit párování závorek"/> 
 					<Item id = "7148" name = "Povolit automatické dokončování"/> 
 					<Item id = "7149" name = "Povolit inteligentní zvýrazňování"/> 
-					<Item id = "7150" name = "Deaktivivat (globálně) zalamování řádků"/> 
+					<Item id = "7150" name = "Deaktivovat (globálně) zalamování řádků"/> 
 					<Item id = "7151" name = "Povolit klikatelné URL odkazy"/> 
 				</Performance> 
 				<Cloud title = "Cloud a odkazy">
@@ -1316,7 +1347,7 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 		</Dialog>
 
 		<MessageBox>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title = "Úprava kontextové nabídky" message = "Úpravou souboru contextMenu.xml můžete modifikovat chování vyskakovacího kontextového menu Notepadu++. Po případné změně musíte restartovat Notepad++, aby se změny projevily."/>
 			<SaveCurrentModifWarning title = "Uložit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
 			<LoseUndoAbilityWarning title = "Varování před ztrátou možnosti vrátit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
@@ -1332,7 +1363,22 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 			<SessionFileInvalidError title = "Relace nemohla být zavedena" message = "Soubor relace je buďto poškozen nebo je neplatný."/>
 			<DroppingFolderAsProjectModeWarning title = "Neplatná akce" message = "Můžete přetahovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
 			<SortingError title = "Chyba třídění" message = "Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
-			<ColumnModeTip title = "Tip k sloupcovému režimu" message = "Použijte prosím &quot;výběr ALT+Myš&quot; nebo &quot;Alt+Shift+KurzorováŠipka&quot; k zapnutí sloupcového režimu."/>
+			<ColumnModeTip title = "Tip pro Sloupcový režim" message = "
+Existují 3 způsoby přepnutí do režimu výběru sloupce:
+
+1. (Klávesnice a myš)
+    Při tažení levým tlačítkem myši podržte zároveň klávesu Alt
+
+2. (Pouze klávesnice)
+    Při používání kláves se šipkami podržte zároveň Alt+Shift
+
+3. (Klávesnice nebo myš)
+    Umístěte kurzor na požadovaný začátek pozice sloupového bloku,
+    potom vykonejte příkaz:
+      &quot;Začít/Ukončit výběr v Sloupcovém režimu&quot;.
+    Přesuňte kurzor na požadovanou pozici konce sloupcového bloku,
+    potom znovu vykonejte příkaz:
+      &quot;Začít/Ukončit výběr v Sloupcovém režimu&quot;."/>
 			<BufferInvalidWarning title = "Ukládání selhalo" message = "Nelze uložit: Neplatná vyrovnávací paměť."/>
 			<DoSaveOrNot title = "Ukládání" message = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
 			<DoCloseOrNot title = "Zachování neexistujícího souboru" message = "Soubor &quot;$STR_REPLACE$&quot; již neexistuje (na disku). Chcete zachovat tento soubor v editoru?"/>
@@ -1346,12 +1392,14 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 			<DocTooDirtyToMonitor title = "Chyba sledování stavu" message = "Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
 			<DocNoExistToMonitor title = "Problém se sledováním stavu" message = "Soubor musí existovat, aby jej bylo možné sledovat."/>
 			<FileTooBigToOpen title = "Problém s velikostí souboru" message = "Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>
-			<FileLoadingException title = "Kód vyjímky: $STR_REPLACE$" message = "Při načítání souboru došlo k chybě!"/>
+			<FileLoadingException title = "Kód výjimky: $STR_REPLACE$" message = "Při načítání souboru došlo k chybě!"/>
 			<WantToOpenHugeFile title = "Varování při otevírání velikého souboru" message = "Otevření velikého souboru (2GB+) může trvat i několik minut.
 Opravdu chcete soubor otevřít?"/>
 			<CreateNewFileOrNot title = "Vytvoření nového souboru" message = "&quot;$STR_REPLACE$&quot; neexistuje. Chcete jej vytvořit?"/>
 			<CreateNewFileError title = "Vytvoření nového souboru" message = "Není možné vytvořit soubor &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title = "CHYBA" message = "Není možné otevřít soubor &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileNoFolderError title = "Soubor nelze otevřít" message = "Soubor &quot;$STR_REPLACE1$&quot; nemůže být otevřen:
+Složka &quot;$STR_REPLACE2$&quot; neexistuje."/>
 			<FileBackupFailed title = "Selhání zálohování souboru" message = "Předchozí verzi souboru se nepodařilo uložit do adresáře se zálohami &quot;$STR_REPLACE$&quot;. Budete chtít přesto uložit aktuální verzi souboru?"/>
 			<LoadStylersFailed title = "Selhání načtení stylers.xml" message = "Nepodařilo se načíst &quot;$STR_REPLACE$&quot;!"/>
 			<LoadLangsFailed title = "Konfigurátor" message = "Nepodařilo se načíst langs.xml! Chcete obnovit Váš soubor langs.xml?"/>
@@ -1379,6 +1427,9 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Pro zavedení nainstalovaných zásuvných modulů musíte restartovat Notepad++."/>
 			<ChangeHistoryEnabledWarning title = "Notepad++ potřebuje být znovu spuštěn" message = "Pro aktivaci historie změn souborů musíte restartovat Notepad++."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title = "Notepad++ - Ukončení relace Windows" message = "Relace systému Windows má být ukončena, ale některá data nemáte uložena. Chcete nyní ukončit Notepad++?"/>
+			<LanguageMenuCompactWarning title = "Kompaktní menu pro syntaxe" message = "Ke změně dojde až při příštím spuštění."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<SwitchUnsavedThemeWarning title = "$STR_REPLACE$" message = "Neuložené změny stylu budou zahozeny!
+Chcete své změny uložit před přepnutím stylu?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1390,6 +1441,7 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 			<ColumnName name = "Název"/>
 			<ColumnExt name = "Příp."/>
 			<ColumnPath name = "Cesta"/>
+			<ListGroups name = "Seskupovat podle náhledu"/>
 		</DocList>
 		
 		<WindowsDlg>
@@ -1492,7 +1544,7 @@ Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message pre
 		</ProjectManager>
 		
 		<MiscStrings>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<word-chars-list-tip value = "Toto nastavení Vám dovolí začlenit další znak ke stávajícím znakům slova při výběru dvojklikem nebo při vyhledávání se zaškrtnutou možností &quot;Hledat pouze celá slova&quot;."/>
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value = "Pro změnu předvolené vlastní barvy přejděte do úpravy stylů (&quot;EOL custom color&quot;)."/>
@@ -1572,11 +1624,9 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<splitter-rotate-right value="Otočit doprava"/>
 			<recent-file-history-maxfile value = "Max.souborů: "/>
 			<recent-file-history-customlength value = "Max. délka: "/>
-			<language-tabsize value = "Velikost záložky (Tab): "/>
 			<userdefined-title-new value = "Vytvořit novou syntaxi..."/>
 			<userdefined-title-save value = "Uložit název aktuální syntaxe jako..."/>
 			<userdefined-title-rename value = "Přejmenovat název aktuální syntaxe"/>
-			<autocomplete-nb-char value = "č. znaku: "/>
 			<edit-verticaledge-nb-col value = "č. sloupce: "/>
 			<summary value = "Souhrn"/>
 			<summary-filepath value = "Úplná cesta k souboru: "/>
@@ -1589,6 +1639,8 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<summary-nbsel1 value = " vybraných znaků ("/>
 			<summary-nbsel2 value = " bytů) v "/>
 			<summary-nbrange value = " oblastech"/>
+			<progress-cancel-button value = "Storno"/>
+			<progress-cancel-info value = "Ruším operaci, počkejte prosím ..."/>
 			<find-in-files-progress-title value = "Průběh hledání v souborech ..."/>
 			<replace-in-files-confirm-title value = "Jste si jistí?"/>
 			<replace-in-files-confirm-directory value = "Jste si jistí, že chcete nahradit všechny výskyty v:"/>
@@ -1623,7 +1675,34 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 POZN.:
 1. Pro správnou funkčnost musíte po modifikaci nastavení znovuotevřít aktuálně otevřené velké soubory.
 
-2. Jestliže je povolena možnost &quot;Deaktivivat (globálně) zalamování řádků&quot; a vy otevřete velký soubor, volba &quot;Zalomit řádky&quot; bude vypnuta pro všechny soubory. Můžete ji znovu zapnout v menu &quot;Zobrazit-&gt;Zalomit řádky&quot;." />
+2. Jestliže je povolena možnost &quot;Deaktivovat (globálně) zalamování řádků&quot; a vy otevřete velký soubor, volba &quot;Zalomit řádky&quot; bude vypnuta pro všechny soubory. Můžete ji znovu zapnout v menu &quot;Zobrazit-&gt;Zalomit řádky&quot;." />
+			<npcNote-tip value = "Zobrazení vybraných &quot;ne-ASCII&quot; prázdných a netisknutelných (řídících) znaků.
+
+POZN:
+Některé znaky již mohou mít určitou reprezentaci a jsou tedy viditelné. Oddělovač řádků a oddělovač odstavců jsou již ve výchozím nastavení reprezentovány zkratkou.
+
+Použití grafické reprezentace těchto znaků deaktivuje jejich případné efekty na text.
+
+Úplný seznam těchto vybraných znaků naleznete v Uživatelské příručce.
+
+Kliknutím na toto tlačítko otevřete webovou stránku s Uživatelskou příručkou." />
+			<npcAbbreviation-tip value = "Zkratka : název
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+Úplný seznam naleznete v Uživatelské příručce.
+Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživatelskou příručkou." />
+            <npcCodepoint-tip value = "Kód : název
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+Úplný seznam naleznete v Uživatelské příručce.
+Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživatelskou příručkou." />
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="Přejděte do Úpravy stylu a změňte výchozí vlastní barvu pro vybrané prázdné a netisknutelné znaky. (&quot;Non-printing characters custom color&quot;)." />
 		</MiscStrings>
 
 	</Native-Langue>

@@ -199,7 +199,8 @@ public :
 	BackupSubDlg() = default;
 
 private :
-	void updateBackupGUI();
+	void updateBackupSessionGUI();
+	void updateBackupOnSaveGUI();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 

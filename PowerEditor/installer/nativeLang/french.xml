@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="8.4.6">
+    <Native-Langue name="français" filename="french.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -112,6 +112,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Supprimer"/>
                     <Item id="42007" name="Sélectionner t&amp;out"/>
                     <Item id="42020" name="Début/Fin sélection"/>
+                    <Item id="42089" name="Début/Fin sélection en mode colonne"/>
                     <Item id="42084" name="La date et l'heure (format court)"/>
                     <Item id="42085" name="La date et l'heure (format long)"/>
                     <Item id="42086" name="La date et l'heure (format personnalisé)"/>
@@ -294,6 +295,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Appliquer la couleur 3"/>
                     <Item id="44114" name="Appliquer la couleur 4"/>
                     <Item id="44115" name="Appliquer la couleur 5"/>
+                    <Item id="44130" name="Afficher les caractères non-imprimables"/>
                     <Item id="44032" name="Activer/Désactiver le mode plein écran"/>
                     <Item id="44033" name="Restaurer zoom"/>
                     <Item id="44034" name="Toujours devant"/>
@@ -590,6 +592,20 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ScintillaCommandsTab name="Commandes de Scintilla "/>
                 <ConflictInfoOk name="Pas de conflit pour cet élément."/>
                 <ConflictInfoEditing name="Pas de conflit . . ."/>
+                <WindowCategory name="Fenêtre"/>
+                <FileCategory name="Fichier"/>
+                <EditCategory name="Édition"/>
+                <SearchCategory name="Recherche"/>
+                <ViewCategory name="Affichage"/>
+                <FormatCategory name="Encodage"/>
+                <LangCategory name="Langage"/>
+                <AboutCategory name="À propos"/>
+                <SettingCategory name="Paramètres"/>
+                <ToolCategory name="Outils"/>
+                <ExecuteCategory name="Exécution"/>
+                <ModifyContextMenu name="Modifier"/>
+                <DeleteContextMenu name="Supprimer"/>
+                <ClearContextMenu name="Effacer"/>
                 <MainCommandNames>
                     <Item id="41019" name="Ouvrir le répertoire du fichier dans Explorateur Windows"/>
                     <Item id="41020" name="Ouvrir le répertoire du fichier dans Invite de commande"/>
@@ -666,7 +682,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44105" name="Basculer vers Panneau de Projet 2"/>
                     <Item id="44106" name="Basculer vers Panneau de Projet 3"/>
                     <Item id="44107" name="Basculer vers Dossier en tant qu'Espace de travail"/>
-                    <Item id="44109" name="Basculer vers Liste des documents"/>
+                    <Item id="44109" name="Basculer vers Commutateur de documents"/>
                     <Item id="44108" name="Basculer vers Liste des fonctions"/>
                     <Item id="44110" name="Enlever la couleur d'onglet"/>
                     <Item id="44111" name="Appliquer la couleur d'onglet 1"/>
@@ -706,6 +722,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20011" name="Transparence"/>
                 <Item id="20015" name="Importer..."/>
                 <Item id="20016" name="Exporter..."/>
+                <Item id="20017" name="Désancrer"/>
                 <StylerDialog title="Styler">
                     <Item id="25030" name="Police :"/>
                     <Item id="25006" name="Premier plan"/>
@@ -923,7 +940,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6247" name="Saut de ligne (CRLF)"/>
                     <Item id="6248" name="Défaut"/>
                     <Item id="6249" name="Texte brut"/>
-                    <Item id="6250" name="Couleur personnalisé"/>
+                    <Item id="6250" name="Couleur personnalisée"/>
+                    <Item id="6252" name="Caractères non-imprimables"/>
+                    <Item id="6254" name="Abréviation"/>
+                    <Item id="6255" name="Point de code"/>
+                    <Item id="6256" name="Couleur personnalisée"/>
                 </Scintillas>
 
                 <DarkMode title="Mode Sombre">
@@ -1148,7 +1169,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6181" name="État du panneau et [-nosession] *"/>
                     <Item id="6182" name="Se rappeler de l'état du panneau (panneau ouvert) dans les autres instances (mode multi-instance) ou avec la ligne de commande [-nosession]"/>
                     <Item id="6183" name="Historique du presse-papier"/>
-                    <Item id="6184" name="Liste des documents"/>
+                    <Item id="6184" name="Commutateur de documents"/>
                     <Item id="6185" name="Panneau du caractère"/>
                     <Item id="6186" name="Dossier en tant qu'Espace de travail"/>
                     <Item id="6187" name="Panneaux projet"/>
@@ -1289,7 +1310,8 @@ Vous pouvez réactiver cette boîte de dialogue dans les Préférences ultérieu
                 <Item id="4" name="Toujours Oui"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de &quot;contextMenu.xml&quot; vous permet de modifier la fenêtre de menu contextuel de Notepad++.
 Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devriez enregistrer la modification en cours.
@@ -1317,7 +1339,18 @@ Veuillez réinitialiser une valeur cohérente au dialogue Préférences."/>
             <DroppingFolderAsProjectModeWarning title="Action invalide" message="Vous ne pouvez déposer que des fichiers ou des dossiers mais pas les deux, car vous êtes en mode Projet.
 Pour rendre cette opération possible, vous devez activer &quot;Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier&quot; à la page &quot;Dossier par défaut&quot; du dialogue Préférences."/>
             <SortingError title="Erreur de tri" message="Impossible d'effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/>
-            <ColumnModeTip title="Sélection en mode colonnes" message="Utiliser 'Alt+sélection souris' ou 'Alt+Maj+flèches' pour activer le mode colonne."/>
+            <ColumnModeTip title="Sélection en mode colonnes" message="
+Il existe 3 façons d'activer le mode colonne :
+
+1. (Clavier et Souris)  Maintenir Alt en faisant glisser le clic gauche
+
+2. (Clavier seul)  Maintenir Alt+Maj en utilisant les touches directionnelles
+
+3. (Clavier ou Souris)
+      Mettre le curseur à la position du début désiré du bloc de colonne, puis
+       exécuter la commande &quot;Début/Fin sélection en mode colonne&quot; ;
+      Déplacer le curseur à la position de fin désirée du bloc de colonne, puis
+       exécuter la commande &quot;Début/Fin sélection en mode colonne&quot; à nouveau"/>
             <BufferInvalidWarning title="Échec de sauvegarde" message="Échec de sauvegarde : le tampon des données de fichier est invalide."/>
             <DoCloseOrNot title="Conserver un fichier non existant" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe plus.
 Conserver ce fichier dans l'éditeur ?"/>
@@ -1348,6 +1381,8 @@ Voulez-vous continuer ?"/>
             <CreateNewFileOrNot title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe pas. Le créer ?"/>
             <CreateNewFileError title="Créer un nouveau fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'a pas pu être créé."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="Ouvrir un fichier" message="Le fichier &quot;$STR_REPLACE$&quot; n'a pas pu être ouvert."/>
+            <OpenFileNoFolderError title="Impossible d'ouvrir le fichier" message="&quot;$STR_REPLACE1$&quot; ne peut être ouvert :
+Le dossier &quot;$STR_REPLACE2$&quot; n'existe pas."/>
             <FileBackupFailed title="Échec de sauvegarde" message="La version précédente du fichier n'a pas pu être enregistré dans le répertoire de sauvegarde à &quot;$STR_REPLACE$&quot;.
 
 Voulez-vous quand même enregistrer le fichier actuel ?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1388,6 +1423,9 @@ Continuer ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ a besoin d'être redémarré" message="Vous devez redémarrer Notepad++ pour charger les modules d'extension installés."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ a besoin d'être redémarré" message="Vous devez redémarrer Notepad++ pour activer Historique de Modification."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Fermeture de session Windows" message="La session Windows session est sur le point d'être fermée, mais vous avez des données non-sauvées. Voulez-vous quitter Notepad++ maintenant ?"/>
+            <LanguageMenuCompactWarning title="Menu compact des langages" message="Cette option sera appliquée au prochain lancement."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Les modifications non-enregistrées vont être perdues !
+Voulez-vous enregistrer vos modifications avant de changer de thème ?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papier"/>
@@ -1396,7 +1434,8 @@ Continuer ?"/>
             <PanelTitle name="Commutateur de documents"/>
             <ColumnName name="Nom"/>
             <ColumnExt name="Ext."/>
-            <ColumnPath name="Dossier"/>
+            <ColumnPath name="Chemin"/>
+            <ListGroups name="Grouper par vue"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nom"/>
@@ -1622,10 +1661,37 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <contextMenu-PluginCommands value="Modules d'extension" />
             <largeFileRestriction-tip value="Certaines fonctionnalités peuvent ralentir les performances lors de l'ouverture du fichier volumineux. Ces fonctionnalités peuvent être automatiquement désactivées à l'ouverture d'un fichier volumineux. Vous pouvez les personnaliser ici.
 
-REMARQUE:
-1. Modification les options ici nécessite de rouvrir les fichiers volumineux actuellement ouverts pour obtenir un résultat correct.
+REMARQUE :
+1. Modifier les options ici nécessite de rouvrir les fichiers volumineux actuellement ouverts pour obtenir un résultat correct.
 
-2. Si &quot;Désactiver Retour automatique à la ligne globalement&quot; est cochée et vous ouvrez un fichier volumineux, &quot;Retour automatique à la ligne&quot; sera désactivé pour tous les fichiers. Vous pouvez le réactiver via le menu &quot;Affichage-&gt;Retour automatique à la ligne&quot;." />
+2. Si &quot;Désactiver Retour automatique à la ligne globalement&quot; est coché et que vous ouvrez un fichier volumineux, &quot;Retour automatique à la ligne&quot; sera désactivé pour tous les fichiers. Vous pouvez le réactiver via le menu &quot;Affichage-&gt;Retour automatique à la ligne&quot;." />
+            <npcNote-tip value="Représentation des caractères blancs &quot;non-ASCII&quot; sélectionnés et des caractères (de contrôle) non-imprimables.
+
+REMARQUE :
+Certains caractères peuvent déjà avoir une représentation et donc être visibles. Les séparateurs de ligne et de paragraphe sont déjà représentés par abréviation par défaut.
+
+Utiliser la représentation désactivera les effets de caractère sur le texte.
+
+Pour obtenir la liste complète de la sélection des caractères blancs et des caractères non-imprimables, veuillez consulter le Manuel Utilisateur.
+
+Cliquez sur ce bouton pour ouvrir le site web du Manuel Utilisateur." />
+            <npcAbbreviation-tip value="Abréviation : nom
+NBSP : espace insécable
+ZWSP : espace sans chasse
+ZWNBSP : espace insécable sans chasse
+
+Pour obtenir la liste complète, veuillez consulter le Manuel Utilisateur.
+Cliquez sur le bouton &quot;?&quot; à droite pour ouvrir le site web du Manuel Utilisateur." />
+            <npcCodepoint-tip value="Point de code : nom
+U+00A0 : espace insécable
+U+200B : espace sans chasse
+U+FEFF : espace insécable sans chasse
+
+Pour obtenir la liste complète, veuillez consulter le Manuel Utilisateur.
+Cliquez sur le bouton &quot;?&quot; à droite pour ouvrir le site web du Manuel Utilisateur." />
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="Aller dans le Configurateur de style pour changer la couleur personnalisée par défaut pour la sélection de caractères blancs et de caractères non-imprimables (&quot;Couleur personnalisée des caractères non-imprimables&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -696,10 +696,10 @@ public:
 				isFolderSet = setDialogFolder(_dialog, _fallbackFolder.c_str());
 		}
 
-		if (SUCCEEDED(hr) && _defExt && _defExt[0] != '\0')
-			hr = _dialog->SetDefaultExtension(_defExt);
+		if (SUCCEEDED(hr) && !_defExt.empty())
+			hr = _dialog->SetDefaultExtension(_defExt.c_str());
 
-		if (SUCCEEDED(hr) && _initialFileName)
+		if (SUCCEEDED(hr) && !_initialFileName.empty())
 		{
 			generic_string newFileName = _initialFileName;
 			if (_fileTypeIndex >= 0 && _fileTypeIndex < static_cast<int>(_filterSpec.size()))
@@ -893,11 +893,11 @@ public:
 
 	HWND _hwndOwner = nullptr;
 	const TCHAR* _title = nullptr;
-	const TCHAR* _defExt = nullptr;
+	generic_string _defExt;
 	generic_string _initialFolder;
 	generic_string _fallbackFolder;
 	const TCHAR* _checkboxLabel = nullptr;
-	const TCHAR* _initialFileName = nullptr;
+	generic_string _initialFileName;
 	bool _isCheckboxActive = true;
 	std::vector<Filter> _filterSpec;
 	int _fileTypeIndex = -1;	// preferred file type index

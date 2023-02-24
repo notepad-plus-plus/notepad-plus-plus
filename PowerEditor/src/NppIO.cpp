@@ -2472,30 +2472,56 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, c
 	return NULL;
 }
 
-const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
+const TCHAR* Notepad_plus::fileSaveSession(size_t nbFile, TCHAR** fileNames)
 {
 	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
-	const TCHAR *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
+	NppParameters& nppParams = NppParameters::getInstance();
+	generic_string sessionPath = nppParams.getSessionPath();
 
-	generic_string sessionExt = TEXT("");
-	if (*ext != '\0')
+	if(!sessionPath.empty())
 	{
-		if (*ext != '.')
-			sessionExt += TEXT(".");
-		sessionExt += ext;
-		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str());
-		fDlg.setDefExt(ext);
-		fDlg.setExtIndex(0);		// 0 index for "custom extension types"
-	}
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
-	const bool isCheckboxActive = _pFileBrowser && !_pFileBrowser->isClosed();
-	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("session-save-folder-as-workspace",
-		TEXT("Save Folder as Workspace"));
-	fDlg.setCheckbox(checkboxLabel.c_str(), isCheckboxActive);
-	generic_string sessionFileName = fDlg.doSaveDlg();
+		generic_string sessionFileExt;
+		generic_string sessionRootDirectory;
+		generic_string sessionFileName;
 
-	return fileSaveSession(nbFile, fileNames, sessionFileName.c_str(), fDlg.getCheckboxState());
+		size_t delimPosition = sessionPath.find_last_of('\\');
+		if(delimPosition != std::string::npos)
+		{
+			sessionRootDirectory = sessionPath.substr(0, delimPosition);
+			sessionFileName = sessionPath.substr(delimPosition + 1);
+		}
+		else
+		{
+			sessionRootDirectory = nppParams.getWorkingDir();
+			sessionFileName = sessionPath;
+		}
+
+		delimPosition = sessionPath.find_last_of('.');
+		if(delimPosition != std::string::npos)
+		{
+			sessionFileExt = sessionPath.substr(delimPosition);
+			if(!sessionFileExt.empty())
+			{
+				fDlg.setExtFilter(_TEXT("XML Source File"), sessionFileExt.c_str());
+				fDlg.setDefExt(sessionFileExt.c_str());
+				fDlg.setExtIndex(0);
+			}
+		}
+
+		fDlg.setFolder(sessionRootDirectory.c_str());
+		fDlg.setDefFileName(sessionFileName.c_str());
+	}
+
+	const bool isCheckboxActive = _pFileBrowser && !_pFileBrowser->isClosed();
+	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("session-save-folder-as-workspace", TEXT("Save Folder as Workspace"));
+
+	fDlg.setCheckbox(checkboxLabel.c_str(), isCheckboxActive);
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
+
+	generic_string newSessionFileName = fDlg.doSaveDlg();
+	return fileSaveSession(nbFile, fileNames, newSessionFileName.c_str(), fDlg.getCheckboxState());
 }
+
 
 
 void Notepad_plus::saveSession(const Session & session)

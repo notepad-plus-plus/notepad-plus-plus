@@ -1770,6 +1770,16 @@ public:
 		return _titleBarAdditional;
 	}
 
+	inline generic_string getSessionPath() const
+	{
+		return _sessionPath;
+	}
+
+	inline void setSessionPath(const generic_string& path)
+	{
+		_sessionPath = path;
+	}
+
 	DPIManager _dpiManager;
 
 	generic_string static getSpecialFolderLocation(int folderKind);

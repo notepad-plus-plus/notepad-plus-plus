@@ -116,7 +116,7 @@
                     <Item id="42006" name="&amp;Elimina"/>
                     <Item id="42007" name="Seleziona t&amp;utto"/>
                     <Item id="42020" name="Inizio/Fine selezione"/>
-                    <Item id="42089" name="Inizio/Fine selezione in modalità selezione-colonna"/>
+                    <Item id="42089" name="Inizio/Fine selezione in modalità Selezione-Colonna"/>
                     <Item id="42084" name="Data e ora (formato ridotto)"/>
                     <Item id="42085" name="Data e ora (formato esteso)"/>
                     <Item id="42086" name="Data e ora (formato personalizzato)"/>
@@ -946,8 +946,8 @@
                     <Item id="6249" name="Testo Normale"/>
                     <Item id="6250" name="Colore Personalizzato"/>
                     <Item id="6252" name="Caratteri non stampabili"/>
-                    <Item id="6254" name="Abbreviation"/>
-                    <Item id="6255" name="Codepoint"/>
+                    <Item id="6254" name="Abbreviazioni"/>
+                    <Item id="6255" name="Codifica"/>
                     <Item id="6256" name="Colore Personalizzato"/>
                 </Scintillas>
 
@@ -1314,7 +1314,8 @@ Il messaggio può essere riattivato da Preferenze."/>
                 <Item id="4" name="Sì, sempre"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Modifica menu contestuale" message="La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.
 È richiesto il riavvio di Notepad++ affinché le modifiche a contextMenu.xml abbiano effetto."/>
             <SaveCurrentModifWarning title="Salva modifiche correnti" message="Devi salvare le modifiche correnti.
@@ -1342,8 +1343,8 @@ Le impostazioni del cloud saranno annullate. Reimposta un valore coerente dalle 
             <DroppingFolderAsProjectModeWarning title="Azione non valida" message="Puoi trascinare file o cartelle, ma non entrambi, perché sei in modalità Trascina Cartella come Progetto.
 Devi abilitare &quot;Apri tutti i file della cartella invece di avviare Cartella come Area di Lavoro al trascinamento&quot; nella sezione &quot;Cartella predefinita&quot; delle preferenze per attivare questa funzionalità."/>
             <SortingError title="Errore ordinamento" message="Impossibile effettuare un ordinamento numerico a causa della riga $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Selezione in modalità colonna" message="
-Esistono 3 modi per passare alla modalità selezione-colonna:
+            <ColumnModeTip title="Selezione in Modalità Colonna" message="
+Esistono 3 modi per passare alla modalità Selezione-Colonna:
 
 1. (Tastiera e mouse) Mantenere premuto ALT mentre clicchi con il tasto sinistro del mouse, quindi trascini
 
@@ -1351,9 +1352,9 @@ Esistono 3 modi per passare alla modalità selezione-colonna:
 
 3. (tastiera o mouse) 
       Posiziona il cursore all&apos;inizio del blocco di colonna desiderato, quindi
-       selezionare la funzione &quot;Inizio/Fine selezione in modalità selezione-colonna&quot;;
+       selezionare la funzione &quot;Inizio/Fine selezione in modalità Selezione-Colonna&quot;;
       Spostare il cursore all&apos;estremità del blocco di colonna desiderato, quindi
-       eseguire nuovamente il comando &quot;Inizio/Fine selezione in modalità selezione-colonna&quot;"/>
+       eseguire nuovamente il comando &quot;Inizio/Fine selezione in modalità Selezione-Colonna&quot;"/>
             <BufferInvalidWarning title="Salvataggio fallito" message="Impossibile salvare: il buffer non è valido."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Mantenere file inesistente" message="Il file &quot;$STR_REPLACE$&quot; è inesistente.
 Mantenere il file aperto?"/>
@@ -1384,6 +1385,8 @@ Vuoi proseguire?"/>
             <CreateNewFileOrNot title="Crea nuovo file" message="&quot;$STR_REPLACE$&quot; non esiste. Crearlo??"/>
             <CreateNewFileError title="Crea nuovo file" message="Impossibile creare il file &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="ERRORE" message="Impossibile aprire il file &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileNoFolderError title="Errore nell'apertura del file" message="&quot;$STR_REPLACE1$&quot; non può essere aperto:
+La cartella &quot;$STR_REPLACE2$&quot; non esiste."/>
             <FileBackupFailed title="Backup File Fallito" message="La versione precedente del file non può essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
 
 Vuoi salvare il file ugualmente?"/>
@@ -1424,7 +1427,7 @@ Vuoi continuare?"/>
             <NeedToRestartToLoadPlugins title="Riavvio Notepad++" message="Notepad++ deve essere riavviato per caricare i plugin che sono stati installati."/>
             <ChangeHistoryEnabledWarning title="Riavvio Notepad++" message="Notepad++ deve essere riavviato per abilitare la cronologia delle modifiche."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Chiusura della sessione" message="La sessione Windows sta per essere terminata ma ci sono dati non salvati. Vuoi uscire da Notepad++"/>
-            <LanguageMenuCompactWarning title="Compact Language Menu" message="L&apos;opzione sarà effettiva al riavvio."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <LanguageMenuCompactWarning title="Menù Linguaggio Compatto" message="L&apos;opzione sarà effettiva al riavvio."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Le modifiche non salvate verranno perse!
 Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
@@ -1532,7 +1535,7 @@ Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="Permette di includere caratteri aggiuntivi nell&apos;elenco dei caratteri considerati una parola, quando effettui un doppio clic per selezionare, o effettui una ricerca con l&apos;opzione &quot;Solo parole intere&quot; selezionata"/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1614,7 +1617,6 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
             <splitter-rotate-right value="Ruota a destra"/>
             <recent-file-history-maxfile value="File max: "/>
             <recent-file-history-customlength value="Lunghezza: "/>
-            <language-tabsize value="Dimensione tab: "/>
             <userdefined-title-new value="Crea nuovo linguaggio..."/>
             <userdefined-title-save value="Salva il linguaggio corrente come..."/>
             <userdefined-title-rename value="Rinomina il linguaggio corrente"/>

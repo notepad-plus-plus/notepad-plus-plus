@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.4.6">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1613,7 +1613,6 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<splitter-rotate-right value="Rotera åt höger"/>
 			<recent-file-history-maxfile value="Max. filer:"/>
 			<recent-file-history-customlength value="Längd: "/>
-			<language-tabsize value="Tabb-storlek: "/>
 			<userdefined-title-new value="Skapa nytt språk..."/>
 			<userdefined-title-save value="Spara aktuellt språknamn som..."/>
 			<userdefined-title-rename value="Byt namn på aktuellt språknamn"/>

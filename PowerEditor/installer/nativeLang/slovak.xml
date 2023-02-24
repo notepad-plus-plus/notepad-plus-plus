@@ -1310,7 +1310,8 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
                 <Item id="4" name="Vždy áno"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Úprava kontextovej ponuky" message="Úpravou súboru contextMenu.xml zmeníte kontextovú ponuku programu.
 Bude potrebné reštartovať Notepad++, aby sa zmeny v súbore  prejavili."/>
             <SaveCurrentModifWarning title="Uložiť zmeny" message="Mali by ste uložiť aktuálne zmeny.
@@ -1382,6 +1383,8 @@ Chcete ho otvoriť?"/>
             <CreateNewFileOrNot title="Vytvoriť nový súbor" message="Súbor &quot;$STR_REPLACE$&quot; neexistuje. Chcete ho vytvoriť?"/>
             <CreateNewFileError title="Vytvoriť nový súbor" message="Súbor &quot;$STR_REPLACE$&quot; nie je možné vytvoriť."/>
             <OpenFileError title="CHYBA" message="Súbor &quot;$STR_REPLACE$&quot; nie je možné otvoriť."/>
+            <OpenFileNoFolderError title="Súbor sa nedá otvoriť" message="&quot;$STR_REPLACE1$&quot; sa nedá otvoriť:
+ 		Priečinok &quot;$STR_REPLACE2$&quot; neexistuje."/>
             <FileBackupFailed title="Zálohovanie súboru zlyhalo" message="Predchádzajúcu verziu súboru sa nepodarilo uložiť do priečinka záloh &quot;$STR_REPLACE$&quot;.
 
 Chcete aj napriek tomu uložiť aktuálny súbor?"/>
@@ -1612,9 +1615,8 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <splitter-rotate-right value="Otočiť doprava"/>
             <recent-file-history-maxfile value="Max. počet: "/>
             <recent-file-history-customlength value="Dĺžka: "/>
-            <language-tabsize value="Veľkosť karty: "/>
-            <userdefined-title-new value="Vytvoriť nový jazyk"/>
-            <userdefined-title-save value="Uložiť aktuálny názov jazyka"/>
+            <userdefined-title-new value="Vytvoriť nový jazyk…"/>
+            <userdefined-title-save value="Uložiť aktuálny názov jazyka…"/>
             <userdefined-title-rename value="Premenovať aktuálny názov jazyka"/>
             <edit-verticaledge-nb-col value="č. stĺpca:"/>
             <summary value="Zhrnutie"/>
@@ -1667,19 +1669,24 @@ POZNÁMKA:
             <npcNote-tip value=" Zastúpenie vybraných &quot;nie-ASCII&quot; bielych znakov a netlačiteľných (riadiacich) znakov.
 POZNÁMKA:
 Niektoré znaky už môžu mať nejaké zastúpenie, a preto sú viditeľné. Oddeľovač riadkov a oddeľovač odsekov sú už štandardne reprezentované skratkou.
+
 Použitím reprezentácie sa vypnú efekty znakov na texte.
+
 Úplný zoznam vybraných bielych znakov a netlačiteľných znakov nájdete v používateľskej príručke.
+
 Kliknutím na toto tlačidlo otvoríte webovú stránku s používateľskou príručkou." />
             <npcAbbreviation-tip value="Skratka : názov
 NBSP : nezalomiteľná medzera
 ZWSP : medzera s nulovou šírkou
 ZWNBSP : nezalomiteľná medzera s nulovou šírkou
+
 Úplný zoznam nájdete v používateľskej príručke.
 Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s používateľskou príručkou." />
             <npcCodepoint-tip value="Kódový bod : názov
 U+00A0 : nezalomiteľná medzera
 U+200B : medzera s nulovou šírkou
 U+FEFF : nezalomiteľná medzera s nulovou šírkou
+
 Úplný zoznam nájdete v používateľskej príručke.
 Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s používateľskou príručkou." />
 

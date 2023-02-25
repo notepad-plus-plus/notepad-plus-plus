@@ -1310,7 +1310,7 @@ Pode reactivalo en Preferencias se o desexa."/>
                 <Item id = "7" name = "&amp;Non"/>
                 <Item id = "4" name = "Sempre si"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-		</Dialog>
+        </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title = "Editar menú emerxente" message = "Editar &quot;contextMenu.xml&quot; permítelle modificar o menú contextual emerxente de Notepad++.
 Ten que reiniciar Notepad++ para que teña efecto despois de modificalo."/>

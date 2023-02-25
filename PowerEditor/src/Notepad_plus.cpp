@@ -3195,7 +3195,7 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 		}
 		len = 1;
 		int lMax = textLen - start;
-		while (isUrlSchemeStartChar(text[start+len]) && (len < lMax)) len++;
+		while ((len < lMax) && isUrlSchemeStartChar(text[start+len])) len++;
 		*segmentLen = len;
 		return false;
 	}

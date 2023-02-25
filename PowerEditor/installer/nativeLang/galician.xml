@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name = "Galego" filename="galician.xml" version="8.5.0">
+    <Native-Langue name = "Galego" filename="galician.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1146,7 +1146,6 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
                     <Item id = "6824" name = "Ignorar números"/>
                     <Item id = "6811" name = "Desde"/>
                     <Item id = "6813" name = "º carácter"/>
-                    <Item id = "6814" name = "Valores válidos: 1 a 9"/>
                     <Item id = "6872" name = "Reducir a lista de autocompletado"/>
                     <Item id = "6815" name = "Suxerencias para os parámetros da función"/>
                     <Item id = "6851" name = "Inserción/Peche automático"/>
@@ -1311,7 +1310,8 @@ Pode reactivalo en Preferencias se o desexa."/>
                 <Item id = "4" name = "Sempre si"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
             <ContextMenuXmlEditWarning title = "Editar menú emerxente" message = "Editar &quot;contextMenu.xml&quot; permítelle modificar o menú contextual emerxente de Notepad++.
 Ten que reiniciar Notepad++ para que teña efecto despois de modificalo."/>
             <SaveCurrentModifWarning title = "Gardar modificación actual" message = "Debe gardar a modificación actual.
@@ -1381,6 +1381,8 @@ Desexa abrilo?"/>
             <CreateNewFileOrNot title = "Crear un arquivo novo" message = "&quot;$STR_REPLACE$&quot; non existe. ¿Desexa crealo?"/>
             <CreateNewFileError title = "Crear un arquivo novo" message = "Non se pode crear o arquivo &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title = "Erro" message = "Non se pode abrir o arquivo &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileNoFolderError title="Non se pode abrir o arquivo" message="&quot;$STR_REPLACE1$&quot; non se pode abrir:
+	  		A carpeta &quot;$STR_REPLACE2$&quot; non existe."/>
             <FileBackupFailed title = "Erro na copia de seguridade do arquivo" message = "A versión anterior do arquivo non se puido gardar no directorio de copia de seguridade en &quot;$STR_REPLACE$&quot;.
             
 ¿Desexa gardar o arquivo actual de todos modos?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1529,7 +1531,7 @@ Notepad++ reiniciarase despois de que rematen todas.
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value = "Isto permítelle incluir caracteres adicionais nos caracteres da palabra actual ao facer dobre clic para seleccionar ou buscar coa opción &quot;Só palabras completas&quot; marcada."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1611,11 +1613,9 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
             <splitter-rotate-right value = "Xirar á dereita"/>
             <recent-file-history-maxfile value = "Máx. arquivo: "/>
             <recent-file-history-customlength value="Lonxitude:"/>
-            <language-tabsize value = "Tamaño de pestana: "/>
             <userdefined-title-new value = "Crear nova linguaxe..."/>
             <userdefined-title-save value = "Gardar linguaxe actual como..."/>
-            <userdefined-title-rename value = "Renomear o arquivo de linguaxe"/>
-            <autocomplete-nb-char value = "Nº carácter:"/>
+            <userdefined-title-rename value = "Cambiar o nome da linguaxe actual"/>
             <edit-verticaledge-nb-col value = "Nº columna:"/>
             <summary value = "Resumo"/>
             <summary-filepath value = "Ruta completa do arquivo:"/>

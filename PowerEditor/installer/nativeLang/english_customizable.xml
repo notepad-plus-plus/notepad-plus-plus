@@ -424,6 +424,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID="44115" name="Apply Color 5"/>
                 <Item CMDID="44110" name="Remove Color"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Activate"/>
+                <Item id="43102" name="New"/>
+                <Item id="43103" name="New and Paste"/>
+                <Item id="43104" name="Open..."/>
+                <Item id="43013" name="Find in Files..."/>
+                <Item id="43105" name="Close Tray Icon"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>

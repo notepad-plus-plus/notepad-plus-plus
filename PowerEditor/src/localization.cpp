@@ -489,6 +489,33 @@ void NativeLangSpeaker::changeLangTabDropContextMenu(HMENU hCM)
 	}
 }
 
+void NativeLangSpeaker::changeLangTryIconContexMenu(HMENU hCM)
+{
+	if (!_nativeLangA) return;
+
+	TiXmlNodeA *tryIconMenu = _nativeLangA->FirstChild("Menu");
+	if (!tryIconMenu) return;
+
+	tryIconMenu = tryIconMenu->FirstChild("TrayIcon");
+	if (!tryIconMenu) return;
+
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+	for (TiXmlNodeA *childNode = tryIconMenu->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
+		if (sentinel && (name && name[0]))
+		{
+			const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+			::ModifyMenu(hCM, id, MF_BYCOMMAND, id, nameW);
+		}
+	}
+}
 
 void NativeLangSpeaker::changeConfigLang(HWND hDlg)
 {

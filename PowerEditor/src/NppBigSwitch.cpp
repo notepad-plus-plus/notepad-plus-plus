@@ -2597,6 +2597,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					HMENU hTrayIconMenu;  // shortcut menu
 					hmenu = ::LoadMenu(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_SYSTRAYPOPUP_MENU));
 					hTrayIconMenu = ::GetSubMenu(hmenu, 0);
+					_nativeLangSpeaker.changeLangTryIconContexMenu(hTrayIconMenu);
 					SetForegroundWindow(hwnd);
 					TrackPopupMenu(hTrayIconMenu, TPM_LEFTALIGN, p.x, p.y, 0, hwnd, NULL);
 					PostMessage(hwnd, WM_NULL, 0, 0);

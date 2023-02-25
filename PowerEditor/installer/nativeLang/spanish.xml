@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
     <!--
 The comments are here for explanation, it's not necessary to translate them.
     -->
 <NotepadPlus>
-    <Native-Langue name="Español" filename="spanish.xml" version="8.5.0">
+    <Native-Langue name="Español" filename="spanish.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1146,7 +1146,6 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                     <Item id="6824" name="Ignorar números"/>
                     <Item id="6811" name="Desde"/>
                     <Item id="6813" name="º carácter"/>
-                    <Item id="6814" name="Valores válidos: 1 a 9"/>
                     <Item id="6872" name="Reducir la lista de autocompletado"/>
                     <Item id="6815" name="Sugerencias para los parámetros de la función"/>
                     <Item id="6851" name="Inserción/Cierre automático"/>
@@ -1311,7 +1310,8 @@ Puede reactivarlo en Preferencias si lo desea."/>
                 <Item id="4" name="Siempre sí"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-            <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
             <ContextMenuXmlEditWarning title="Editar menú emergente" message="Editar &quot;contextMenu.xml&quot; le permite modificar el menú contextual emergente de Notepad++.
 Tiene que reiniciar Notepad++ para que surta efecto después de modificarlo."/>
             <SaveCurrentModifWarning title="Guardar modificación actual" message="Debe guardar la modificación actual.
@@ -1350,7 +1350,7 @@ Hay 3 formas de cambiar al modo de selección de columnas:
       Coloque el cursor en la posición deseada de inicio del bloque de columna y
        ejecute el comando &quot;Selección de inicio/fin en modo columna&quot;
       Mueva el cursor a la posición deseada al final del bloque de columnas y
-       a continuación ejecute de nuevo el comando &quot;Selección de inicio/fin en modo columna&quot;."/>"/>
+       a continuación ejecute de nuevo el comando &quot;Selección de inicio/fin en modo columna&quot;."/>
             <BufferInvalidWarning title="Error al guardar" message="No se puede guardar: el búfer no es válido."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Conservar archivo no existente" message="El archivo &quot;$STR_REPLACE$&quot; no existe.
 ¿Mantener este archivo en el editor?"/>
@@ -1381,6 +1381,8 @@ Este archivo ha sido modificado por otro programa.
             <CreateNewFileOrNot title="Crear un archivo nuevo" message="&quot;$STR_REPLACE$&quot; no existe. ¿Desea crearlo?"/>
             <CreateNewFileError title="Crear un archivo nuevo" message="No se puede crear el archivo &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="Error" message="No se puede abrir el archivo &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileNoFolderError title="No se puede abrir el archivo" message="&quot;$STR_REPLACE1$&quot; no se puede abrir:
+	  		La carpeta &quot;$STR_REPLACE2$&quot; no existe."/>
             <FileBackupFailed title="Error en la copia de seguridad del archivo" message="La versión anterior del archivo no se pudo guardar en el directorio de copia de seguridad en &quot;$STR_REPLACE$&quot;.
 
 ¿Desea guardar el archivo actual de todos modos?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1529,7 +1531,7 @@ Notepad++ se reiniciará después de que finalicen todas.
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$ and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <!-- INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="Esto le permite incluir caracteres adicionales en los caracteres de la palabra actual al hacer doble clic para seleccionar o buscar con la opción &quot;Solo palabras completas&quot; marcada."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1611,11 +1613,9 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <splitter-rotate-right value="Girar a la derecha"/>
             <recent-file-history-maxfile value="Máx. archivo:"/>
             <recent-file-history-customlength value="Longitud:"/>
-            <language-tabsize value="Tamaño de pestaña:"/>
             <userdefined-title-new value="Crear nuevo lenguaje..."/>
             <userdefined-title-save value="Guardar lenguaje actual como..."/>
-            <userdefined-title-rename value="Renombrar el archivo de lenguaje"/>
-            <autocomplete-nb-char value="Nº carácter:"/>
+            <userdefined-title-rename value="Cambiar el nombre del idioma actual"/>
             <edit-verticaledge-nb-col value="Nº columna:"/>
             <summary value="Resumen"/>
             <summary-filepath value="Ruta completa del archivo:"/>
@@ -1676,16 +1676,16 @@ Para ver la lista completa de espacios en blanco y caracteres no imprimibles sel
 
 Haga clic en este botón para abrir el sitio web del manual del usuario."/>
             <npcAbbreviation-tip value="Abreviatura: nombre
-NBSP: espacio sin salto de línea
+NBSP: espacio indivisible
 ZWSP: espacio de ancho cero
-ZWNBSP: espacio sin salto de línea de ancho cero
-
+ZWNBSP: sin ancho ni espacio
+ 
 Para ver la lista completa, consulte el manual del usuario.
 Haga clic en el botón de la derecha &quot;?&quot; para abrir el sitio web del manual de usuario."/>
             <npcCodepoint-tip value="Punto de código: nombre
-U+00A0: espacio sin salto de línea
+U+00A0: espacio indivisible
 U+200B: espacio de ancho cero
-U+FEFF: espacio sin salto de línea de ancho cero
+U+FEFF: sin ancho ni espacio
 
 Para ver la lista completa, consulte el manual del usuario.
 Haga clic en el botón de la derecha &quot;?&quot; para abrir el sitio web del manual de usuario."/>

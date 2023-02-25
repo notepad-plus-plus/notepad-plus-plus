@@ -550,7 +550,7 @@ bool UndoHistory::TentativeActive() const noexcept {
 
 int UndoHistory::TentativeSteps() noexcept {
 	// Drop any trailing startAction
-	if (actions[currentAction].at == ActionType::start && currentAction > 0)
+	if (currentAction > 0 && actions[currentAction].at == ActionType::start)
 		currentAction--;
 	if (tentativePoint >= 0)
 		return currentAction - tentativePoint;
@@ -564,12 +564,12 @@ bool UndoHistory::CanUndo() const noexcept {
 
 int UndoHistory::StartUndo() {
 	// Drop any trailing startAction
-	if (actions[currentAction].at == ActionType::start && currentAction > 0)
+	if (currentAction > 0 && actions[currentAction].at == ActionType::start)
 		currentAction--;
 
 	// Count the steps in this action
 	int act = currentAction;
-	while (actions[act].at != ActionType::start && act > 0) {
+	while (act > 0 && actions[act].at != ActionType::start) {
 		act--;
 	}
 	return currentAction - act;

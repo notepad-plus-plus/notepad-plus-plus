@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.4.9">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -46,7 +46,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item subMenuId="search-bookmark" name="Marcador"/>
                     <Item subMenuId="view-currentFileIn" name="Ver ficheiro atual em"/>
                     <Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
-                    <Item subMenuId="view-zoom" name="Zoom"/>
+                    <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument" name="Mover/Clonar documento atual"/>
                     <Item subMenuId="view-tab"  name="Separador"/>
                     <Item subMenuId="view-collapseLevel" name="Recolher nível"/>
@@ -202,7 +202,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43019" name="Copiar linhas marcadas"/>
                     <Item id="43020" name="Colar (substituir) linhas marcadas"/>
                     <Item id="43021" name="Remover linhas marcadas"/>
-                    <Item id="43051" name="Remover linhas desmarcadas"/>
+                    <Item id="43051" name="Remover linhas não marcadas"/>
                     <Item id="43050" name="Inverter marcador"/>
                     <Item id="43052" name="Encontrar carateres..."/>
                     <Item id="43053" name="Selecionar tudo entre as chavetas correspondidas"/>
@@ -1146,7 +1146,6 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                     <Item id="6824" name="Ignorar números"/>
                     <Item id="6811" name="De"/>
                     <Item id="6813" name="º. caráter"/>
-                    <Item id="6814" name="Valor válido: 1 - 9"/>
                     <Item id="6872" name="Tornar a lista de preenchimento automático breve"/>
                     <Item id="6815" name="Sugerir dicas da função ao escrever"/>
                     <Item id="6851" name="Inserir automático"/>
@@ -1311,7 +1310,8 @@ Pode reativar esta janela de diálogo nas preferências mais tarde."/>
                 <Item id="4" name="Sempre Sim"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Editar contextMenu" message="Editar o contextMenu.xml permite-lhe modificar o menu de contexto do Notepad++.
 Tem de reiniciar o seu Notepad++ para que as alterações do contextMenu.xml tenham efeito."/>
             <SaveCurrentModifWarning title="Guardar Modificação atual" message="Deve guardar a modificação atual.
@@ -1381,6 +1381,8 @@ Deseja abri-lo?"/>
             <CreateNewFileOrNot title="Criar novo ficheiro" message="&quot;$STR_REPLACE$&quot; não existe. Criá-lo?"/>
             <CreateNewFileError title="Criar novo ficheiro" message="Não é possível criar o ficheiro &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="ERRO" message="Não pode abrir ficheiro &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileNoFolderError title="Não é possível abrir o ficheiro" message="&quot;$STR_REPLACE1$&quot; não pode ser aberto:
+A pasta &quot;$STR_REPLACE2$&quot; não existe."/>
             <FileBackupFailed title="Ficheiro de cópia de segurança falhou" message="A versão anterior do ficheiro não pôde ser guardada no diretório de cópia de segurança em &quot;$STR_REPLACE$&quot;.
 
 Quer guardar o ficheiro atual de qualquer forma?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1529,7 +1531,7 @@ Quer guardar as suas alterações antes de mudar de tema?"/> <!-- HowToReproduce
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="Isto permite que inclua caracteres adicionais nos caracteres da palavra atual ao clicar duas vezes para selecionar ou pesquisar com a opção &quot;Corresponder apenas à palavra inteira&quot; marcada."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1611,11 +1613,9 @@ Procurar em todos os ficheiros mas excluir todos os registos de pastas ou regist
             <splitter-rotate-right value="Rodar para a direita"/>
             <recent-file-history-maxfile value="Ficheiro máximo: "/>
             <recent-file-history-customlength value="Comprimento: "/>
-            <language-tabsize value="Tamanho do separador: "/>
             <userdefined-title-new value="Criar nova linguagem..."/>
             <userdefined-title-save value="Guardar o nome da linguagem atual como..."/>
             <userdefined-title-rename value="Renomear nome da linguagem atual"/>
-            <autocomplete-nb-char value="Nº de caracteres: "/>
             <edit-verticaledge-nb-col value="Nº de colunas: "/>
             <summary value="Resumo"/>
             <summary-filepath value="Localização completa: "/>
@@ -1718,7 +1718,7 @@ João Pereira <joaopereira@openmailbox.org>
 Hugo Carvalho <hugokarvalho@hotmail.com>
 07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4)
 
-Last modified: 18 Feb 2023 by Hugo Carvalho
+Last modified: 25 Feb 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

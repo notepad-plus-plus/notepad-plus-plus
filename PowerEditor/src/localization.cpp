@@ -489,7 +489,7 @@ void NativeLangSpeaker::changeLangTabDropContextMenu(HMENU hCM)
 	}
 }
 
-void NativeLangSpeaker::changeLangTryIconContexMenu(HMENU hCM)
+void NativeLangSpeaker::changeLangTrayIconContexMenu(HMENU hCM)
 {
 	if (!_nativeLangA) return;
 

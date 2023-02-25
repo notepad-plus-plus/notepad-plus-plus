@@ -814,8 +814,10 @@ bool FileManager::reloadBuffer(BufferID id)
 
 	//Get file size
 	FILE* fp = _wfopen(buf->getFullPathName(), TEXT("rb"));
-	if (!fp)
+	if (!fp) {
+		delete[] data;
 		return false;
+	}
 	_fseeki64(fp, 0, SEEK_END);
 	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);

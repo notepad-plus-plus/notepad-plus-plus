@@ -385,8 +385,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="11009" name="Size Larger to Smaller"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Close"/>
                 <Item CMDID="0" name="Close Multiple Tabs"/>

@@ -19,7 +19,6 @@
 
 #include "ControlsTab.h"
 #include "preference_rc.h"
-#include "URLCtrl.h"
 #include "Parameters.h"
 #include "regExtDlg.h"
 #include "WordStyleDlg.h"

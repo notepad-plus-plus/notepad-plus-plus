@@ -2624,7 +2624,6 @@ intptr_t CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wPara
 
 void RecentFilesHistorySubDlg::setCustomLen(int val)
 {
-	::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, val, FALSE);
 	::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, val, FALSE);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL), val > 0);
 }
@@ -2639,7 +2638,6 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 		case WM_INITDIALOG :
 		{
 			// Max number recent file setting
-			::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, nppParam.getNbMaxRecentFile(), FALSE);
 			::SetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nppParam.getNbMaxRecentFile(), FALSE);
 
 			// Check on launch time settings
@@ -2663,11 +2661,9 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 				id = IDC_RADIO_FULLFILENAMEPATH;
 				length = 0;
 			}
-			setChecked(id);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL), id == IDC_RADIO_CUSTOMIZELENTH);
 
-			::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, length, FALSE);
-			::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, length, FALSE);
+			setChecked(id);
+			setCustomLen(length);
 
 			return TRUE;
 		}
@@ -2687,10 +2683,8 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 			const auto hdcStatic = reinterpret_cast<HDC>(wParam);
 			const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
 
-			const bool isStaticText = (dlgCtrlID == IDC_CUSTOMIZELENGTHVAL_STATIC ||
-				dlgCtrlID == IDC_CUSTOMIZELENGTH_SEP_STATIC);
 			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
-			if (isStaticText)
+			if (dlgCtrlID == IDC_CUSTOMIZELENGTH_RANGE_STATIC)
 			{
 				const bool isTextEnabled = isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH);
 				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
@@ -2734,7 +2728,6 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 
 							const UINT nbMaxFile = std::min<UINT>(::GetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nullptr, FALSE), NB_MAX_LRF_FILE);
 							nppParam.setNbMaxRecentFile(nbMaxFile);
-							::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, nbMaxFile, FALSE);
 
 							// Validate modified value
 							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_HISTORY_SIZE, 0, 0);
@@ -2775,19 +2768,17 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 
 				case IDC_EDIT_CUSTOMIZELENGTHVAL:
 				{
+					if (!isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH))
+					{
+						return FALSE;
+					}
+
 					constexpr int stringSize = 4;
 
 					switch (HIWORD(wParam))
 					{
 						case EN_CHANGE:
 						{
-							if (!isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH))
-							{
-								::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, 0, FALSE);
-								redrawDlgItem(IDC_CUSTOMIZELENGTHVAL_STATIC);
-								return FALSE;
-							}
-
 							wchar_t str[stringSize]{};
 							::GetDlgItemText(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, str, stringSize);
 
@@ -2804,7 +2795,6 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 							}
 
 							nppParam.setRecentFileCustomLength(size);
-							::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, size, FALSE);
 
 							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 
@@ -2862,7 +2852,7 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 					nppParam.setRecentFileCustomLength(0);
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 
-					redrawDlgItem(IDC_CUSTOMIZELENGTH_SEP_STATIC);
+					redrawDlgItem(IDC_CUSTOMIZELENGTH_RANGE_STATIC);
 
 					return TRUE;
 				}
@@ -2873,7 +2863,7 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 					nppParam.setRecentFileCustomLength(-1);
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 
-					redrawDlgItem(IDC_CUSTOMIZELENGTH_SEP_STATIC);
+					redrawDlgItem(IDC_CUSTOMIZELENGTH_RANGE_STATIC);
 
 					return TRUE;
 				}
@@ -2888,7 +2878,7 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 					}
 
-					redrawDlgItem(IDC_CUSTOMIZELENGTH_SEP_STATIC);
+					redrawDlgItem(IDC_CUSTOMIZELENGTH_RANGE_STATIC);
 
 					return TRUE;
 				}

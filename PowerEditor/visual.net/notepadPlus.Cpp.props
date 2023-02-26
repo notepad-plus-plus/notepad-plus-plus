@@ -33,7 +33,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4456;4457;4459</DisableSpecificWarnings>
-      <!--AdditionalOptions>/w15262 %(AdditionalOptions)</AdditionalOptions-->
+      <AdditionalOptions>/w15262 %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>

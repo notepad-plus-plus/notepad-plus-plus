@@ -2263,14 +2263,6 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-
-void RecentFilesHistorySubDlg::setCustomLen(int val)
-{
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0);
-	::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, val, FALSE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0?SW_SHOW:SW_HIDE);
-}
-
 intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -2630,20 +2622,23 @@ intptr_t CALLBACK DefaultDirectorySubDlg::run_dlgProc(UINT message, WPARAM wPara
 	return FALSE;
 }
 
-intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+void RecentFilesHistorySubDlg::setCustomLen(int val)
+{
+	::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, val, FALSE);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL), val > 0);
+}
+
+intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
-	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
+	NppGUI& nppGUI = nppParam.getNppGUI();
 
 	switch (message) 
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			// Max number recent file setting
-			::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, nppParam.getNbMaxRecentFile(), FALSE);
-			_nbHistoryVal.init(_hInst, _hSelf);
-			_nbHistoryVal.create(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), IDC_MAXNBFILEVAL_STATIC);
+			::SetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nppParam.getNbMaxRecentFile(), FALSE);
 
 			// Check on launch time settings
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DONTCHECKHISTORY, BM_SETCHECK, !nppGUI._checkHistoryFiles, 0);
@@ -2666,25 +2661,40 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 				id = IDC_RADIO_FULLFILENAMEPATH;
 				length = 0;
 			}
-			::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, BST_CHECKED, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), id == IDC_RADIO_CUSTOMIZELENTH);
-			::ShowWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), id == IDC_RADIO_CUSTOMIZELENTH?SW_SHOW:SW_HIDE);
-			
-			::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, length, FALSE);
-			_customLenVal.init(_hInst, _hSelf);
-			_customLenVal.create(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), nullptr);
+
+			setChecked(id);
+			setCustomLen(length);
 
 			return TRUE;
 		}
 
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
+			const auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (dlgCtrlID == IDC_CUSTOMIZELENGTH_RANGE_STATIC)
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				const bool isTextEnabled = isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH);
+				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
-			break;
+
+			if (dlgCtrlID == IDC_EDIT_CUSTOMIZELENGTHVAL)
+			{
+				return NppDarkMode::onCtlColor(hdcStatic);
+			}
+			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:
@@ -2696,37 +2706,127 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
+			switch (LOWORD(wParam))
+			{
+				case IDC_EDIT_MAXNBFILEVAL:
+				{
+					switch (HIWORD(wParam))
+					{
+						case EN_KILLFOCUS:
+						{
+							constexpr int stringSize = 3;
+							wchar_t str[stringSize]{};
+							::GetDlgItemText(_hSelf, IDC_EDIT_MAXNBFILEVAL, str, stringSize);
+
+							if (lstrcmp(str, L"") == 0)
+							{
+								::SetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nppParam.getNbMaxRecentFile(), FALSE);
+								return FALSE;
+							}
+
+							UINT nbMaxFile = ::GetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nullptr, FALSE);
+
+							if (nbMaxFile == nppParam.getNbMaxRecentFile())
+							{
+								return FALSE;
+							}
+
+							if (nbMaxFile > NB_MAX_LRF_FILE)
+							{
+								::SetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, NB_MAX_LRF_FILE, FALSE);
+
+								nbMaxFile = NB_MAX_LRF_FILE;
+							}
+
+							nppParam.setNbMaxRecentFile(nbMaxFile);
+							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_HISTORY_SIZE, 0, 0);
+
+							return TRUE;
+						}
+
+						default:
+						{
+							break;
+						}
+					}
+
+					return FALSE;
+				}
+
+				case IDC_EDIT_CUSTOMIZELENGTHVAL:
+				{
+					if (!isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH))
+					{
+						return FALSE;
+					}
+
+					switch (HIWORD(wParam))
+					{
+						case EN_KILLFOCUS:
+						{
+							constexpr int stringSize = 4;
+							wchar_t str[stringSize]{};
+							::GetDlgItemText(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, str, stringSize);
+
+							if (lstrcmp(str, L"") == 0)
+							{
+								::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nppParam.getRecentFileCustomLength(), FALSE);
+								return FALSE;
+							}
+
+							UINT size = ::GetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nullptr, FALSE);
+
+							if (size == static_cast<UINT>(nppParam.getRecentFileCustomLength()))
+							{
+								return FALSE;
+							}
+
+							bool change = false;
+
+							if (size == 0)
+							{
+								size = NB_DEFAULT_LRF_CUSTOMLENGTH;
+								change = true;
+							}
+							else if (size > NB_MAX_LRF_CUSTOMLENGTH)
+							{
+								size = NB_MAX_LRF_CUSTOMLENGTH;
+								change = true;
+							}
+
+							if (change)
+							{
+								::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, size, FALSE);
+							}
+
+							nppParam.setRecentFileCustomLength(size);
+							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
+
+							return TRUE;
+						}
+
+						default:
+						{
+							break;
+						}
+					}
+
+					return FALSE;
+				}
+
+				default:
+				{
+					break;
+				}
+			}
+
 			switch (wParam)
 			{
 				case IDC_CHECK_DONTCHECKHISTORY:
 					nppGUI._checkHistoryFiles = !isCheckedOrNot(IDC_CHECK_DONTCHECKHISTORY);
 					return TRUE;
-
-				case IDC_MAXNBFILEVAL_STATIC:
-				{
-					generic_string staticText = pNativeSpeaker->getLocalizedStrFromID("recent-file-history-maxfile", TEXT("Max File: "));
-					ValueDlg nbFileMaxDlg;
-					nbFileMaxDlg.init(NULL, _hSelf, nppParam.getNbMaxRecentFile(), staticText.c_str());
-					
-					POINT p;
-					::GetCursorPos(&p);
-
-					int nbMaxFile = nbFileMaxDlg.doDialog(p);
-					if (nbMaxFile != -1)
-					{
-						if (nbMaxFile > NB_MAX_LRF_FILE)
-							nbMaxFile = NB_MAX_LRF_FILE;
-						
-						nppParam.setNbMaxRecentFile(nbMaxFile);
-						::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, nbMaxFile, FALSE);
-
-						// Validate modified value
-						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_HISTORY_SIZE, 0, 0);
-					}
-					return TRUE;
-				}
 
 				case IDC_CHECK_INSUBMENU:
 					nppParam.setPutRecentFileInSubMenu(isCheckedOrNot(IDC_CHECK_INSUBMENU));
@@ -2734,46 +2834,42 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 					return TRUE;
 
 				case IDC_RADIO_ONLYFILENAME:
+				{
 					setCustomLen(0);
 					nppParam.setRecentFileCustomLength(0);
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
+
+					redrawDlgItem(IDC_CUSTOMIZELENGTH_RANGE_STATIC);
+
 					return TRUE;
+				}
+
 				case IDC_RADIO_FULLFILENAMEPATH:
+				{
 					setCustomLen(0);
 					nppParam.setRecentFileCustomLength(-1);
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
+
+					redrawDlgItem(IDC_CUSTOMIZELENGTH_RANGE_STATIC);
+
 					return TRUE;
+				}
+
 				case IDC_RADIO_CUSTOMIZELENTH:
 				{
 					int len = nppParam.getRecentFileCustomLength();
 					if (len <= 0)
 					{
-						setCustomLen(100);
-						nppParam.setRecentFileCustomLength(100);
+						setCustomLen(NB_DEFAULT_LRF_CUSTOMLENGTH);
+						nppParam.setRecentFileCustomLength(NB_DEFAULT_LRF_CUSTOMLENGTH);
 						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 					}
+
+					redrawDlgItem(IDC_CUSTOMIZELENGTH_RANGE_STATIC);
+
 					return TRUE;
 				}
 
-				case IDC_CUSTOMIZELENGTHVAL_STATIC:
-				{
-					generic_string staticText = pNativeSpeaker->getLocalizedStrFromID("recent-file-history-customlength", TEXT("Length: "));
-					ValueDlg customLengthDlg;
-					customLengthDlg.init(NULL, _hSelf, nppParam.getRecentFileCustomLength(), staticText.c_str());
-					customLengthDlg.setNBNumber(3);
-
-					POINT p;
-					::GetCursorPos(&p);
-
-					int size = customLengthDlg.doDialog(p);
-					if (size != -1)
-					{
-						::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, size, FALSE);
-						nppParam.setRecentFileCustomLength(size);
-						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
-					}
-					return TRUE;
-				}
 				default:
 					return FALSE;
 			}

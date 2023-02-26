@@ -2412,16 +2412,16 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 	if (!historyRoot) return;
 
 	// nbMaxFile value
-	int nbMaxFile;
+	int nbMaxFile = _nbMaxRecentFile;
 	const TCHAR *strVal = (historyRoot->ToElement())->Attribute(TEXT("nbMaxFile"), &nbMaxFile);
-	if (strVal && (nbMaxFile >= 0) && (nbMaxFile <= 50))
+	if (strVal && (nbMaxFile >= 0) && (nbMaxFile <= NB_MAX_LRF_FILE))
 		_nbMaxRecentFile = nbMaxFile;
 
 	// customLen value
-	int customLen;
+	int customLen = RECENTFILES_SHOWFULLPATH;
 	strVal = (historyRoot->ToElement())->Attribute(TEXT("customLength"), &customLen);
 	if (strVal)
-		_recentFileCustomLength = customLen;
+		_recentFileCustomLength = std::min<int>(customLen, NB_MAX_LRF_CUSTOMLENGTH);
 
 	// inSubMenu value
 	strVal = (historyRoot->ToElement())->Attribute(TEXT("inSubMenu"));

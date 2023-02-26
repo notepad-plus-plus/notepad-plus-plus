@@ -20,29 +20,6 @@
 #include "StaticDialog.h"
 #include "Common.h"
 
-const int DEFAULT_NB_NUMBER = 2;
-class ValueDlg : public StaticDialog
-{
-public :
-        ValueDlg() = default;
-        void init(HINSTANCE hInst, HWND parent, int valueToSet, const TCHAR *text);
-        int doDialog(POINT p, bool isRTL = false);
-		void setNBNumber(int nbNumber) {
-			if (nbNumber > 0)
-				_nbNumber = nbNumber;
-		};
-		int reSizeValueBox();
-		void destroy() {};
-
-protected :
-	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
-
-private :
-	int _nbNumber = DEFAULT_NB_NUMBER;
-    int _defaultValue = 0;
-	generic_string _name;
-	POINT _p = {0, 0};
-};
 
 // 0 : normal window
 // 1 : fullscreen
@@ -55,14 +32,14 @@ const int buttonStatus_distractionFree = 4; // 0000 0100
 
 class ButtonDlg : public StaticDialog
 {
-public :
+public:
     ButtonDlg() = default;
-    void init(HINSTANCE hInst, HWND parent){
+    void init(HINSTANCE hInst, HWND parent) override {
         Window::init(hInst, parent);
     };
 
     void doDialog(bool isRTL = false);
-	void destroy() {};
+    void destroy() override {};
     int getButtonStatus() const {
         return _buttonStatus;
     };
@@ -70,17 +47,16 @@ public :
         _buttonStatus = buttonStatus;
     };
 
-    void display(bool toShow = true) const {
+    void display(bool toShow = true) const override {
         int cmdToShow = toShow?SW_SHOW:SW_HIDE;
         if (!toShow)
         {
             cmdToShow = (_buttonStatus != buttonStatus_nada)?SW_SHOW:SW_HIDE; 
         }
-		::ShowWindow(_hSelf, cmdToShow);
-	};
+        ::ShowWindow(_hSelf, cmdToShow);
+    };
 
-protected :
-	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+protected:
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     int _buttonStatus = buttonStatus_nada;
-
 };

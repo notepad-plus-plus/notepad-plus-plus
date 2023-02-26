@@ -1109,7 +1109,7 @@ You can define several column markers by using white space to separate the diffe
 
                 <RecentFilesHistory title="Recent Files History">
                     <Item id="6304" name="Recent Files History"/>
-                    <Item id="6306" name="Max. number of entries :"/>
+                    <Item id="6306" name="Max. number of entries:"/>
                     <Item id="6305" name="Don't check at launch time"/>
                     <Item id="6429" name="Display"/>
                     <Item id="6424" name="In Submenu"/>
@@ -1611,12 +1611,9 @@ Find in all files but exclude all folders log or logs recursively:
             <tabrename-newname value="New Name: "/>
             <splitter-rotate-left value="Rotate to left"/>
             <splitter-rotate-right value="Rotate to right"/>
-            <recent-file-history-maxfile value="Max File: "/>
-            <recent-file-history-customlength value="Length: "/>
             <userdefined-title-new value="Create New Language..."/>
             <userdefined-title-save value="Save Current Language Name As..."/>
             <userdefined-title-rename value="Rename Current Language Name"/>
-            <edit-verticaledge-nb-col value="Nb of Column:"/>
             <summary value="Summary"/>
             <summary-filepath value="Full file path: "/>
             <summary-filecreatetime value="Created: "/>

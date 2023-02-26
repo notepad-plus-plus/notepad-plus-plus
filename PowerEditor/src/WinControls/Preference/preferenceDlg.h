@@ -147,15 +147,9 @@ class RecentFilesHistorySubDlg : public StaticDialog
 {
 public :
 	RecentFilesHistorySubDlg() = default;
-	virtual void destroy() {
-		_nbHistoryVal.destroy();
-		_customLenVal.destroy();
-	};
 private :
-	URLCtrl _nbHistoryVal;
-	URLCtrl _customLenVal;
 	void setCustomLen(int val);
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 
 class LanguageSubDlg : public StaticDialog

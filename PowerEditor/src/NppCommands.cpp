@@ -1265,6 +1265,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_SEARCH_FINDINPROJECTS:
+		{
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_FINDINPROJECTS, 0, 0);
+			break;
+		}
+
 		case IDM_SEARCH_FINDINCREMENT :
 		{
 			const int strSize = FINDREPLACE_MAXLENGTH;

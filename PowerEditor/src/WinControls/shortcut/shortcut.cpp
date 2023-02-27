@@ -564,9 +564,14 @@ void Accelerator::updateShortcuts()
 			if (std::find(incrFindAccIds.begin(), incrFindAccIds.end(), shortcuts[i].getID()) != incrFindAccIds.end())
 				incrFindAcc.push_back(_pAccelArray[offset]);
 
-			if (shortcuts[i].getID() == IDM_SEARCH_FIND || shortcuts[i].getID() == IDM_SEARCH_REPLACE ||
-				shortcuts[i].getID() == IDM_SEARCH_FINDINFILES || shortcuts[i].getID() == IDM_SEARCH_MARK)
+			if (shortcuts[i].getID() == IDM_SEARCH_FIND || 
+				shortcuts[i].getID() == IDM_SEARCH_REPLACE ||
+				shortcuts[i].getID() == IDM_SEARCH_FINDINFILES || 
+				shortcuts[i].getID() == IDM_SEARCH_FINDINPROJECTS ||
+				shortcuts[i].getID() == IDM_SEARCH_MARK)
+			{
 				findReplaceAcc.push_back(_pAccelArray[offset]);
+			}
 
 			++offset;
 		}

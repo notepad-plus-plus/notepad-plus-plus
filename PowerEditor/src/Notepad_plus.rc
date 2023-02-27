@@ -562,6 +562,7 @@ BEGIN
     BEGIN
         MENUITEM "&Find...",                    IDM_SEARCH_FIND
         MENUITEM "Find in Fi&les...",           IDM_SEARCH_FINDINFILES
+        MENUITEM "Find in Projects...",         IDM_SEARCH_FINDINPROJECTS
         MENUITEM "Find &Next",                  IDM_SEARCH_FINDNEXT
         MENUITEM "Find &Previous",              IDM_SEARCH_FINDPREV
         MENUITEM "&Select and Find Next",       IDM_SEARCH_SETANDFINDNEXT

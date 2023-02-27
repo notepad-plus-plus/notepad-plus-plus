@@ -1627,6 +1627,13 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						enableFindInFilesFunc();
 					return TRUE;
 
+				case IDM_SEARCH_FINDINPROJECTS:
+					if (_currentStatus == FINDINPROJECTS_DLG)
+						goToCenter();
+					else
+						enableFindInProjectsFunc();
+					return TRUE;
+
 				case IDM_SEARCH_MARK:
 					if (_currentStatus == MARK_DLG)
 						goToCenter();
@@ -3923,9 +3930,13 @@ void FindReplaceDlg::enableProjectCheckmarks()
 
 void FindReplaceDlg::setProjectCheckmarks(FindHistory *findHistory, int msk)
 {
-	_options._isProjectPanel_1 = (msk & 1) ? true : false;
-	_options._isProjectPanel_2 = (msk & 2) ? true : false;
-	_options._isProjectPanel_3 = (msk & 4) ? true : false;
+	if (msk != 0)
+	{
+		_options._isProjectPanel_1 = (msk & 1) ? true : false;
+		_options._isProjectPanel_2 = (msk & 2) ? true : false;
+		_options._isProjectPanel_3 = (msk & 4) ? true : false;
+	}
+
 	FindHistory *fh = findHistory;
 	if (! fh)
 	{

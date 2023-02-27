@@ -2421,7 +2421,7 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 	int customLen = RECENTFILES_SHOWFULLPATH;
 	strVal = (historyRoot->ToElement())->Attribute(TEXT("customLength"), &customLen);
 	if (strVal)
-		_recentFileCustomLength = std::min<int>(customLen, MAX_PATH);
+		_recentFileCustomLength = std::min<int>(customLen, NB_MAX_LRF_CUSTOMLENGTH);
 
 	// inSubMenu value
 	strVal = (historyRoot->ToElement())->Attribute(TEXT("inSubMenu"));

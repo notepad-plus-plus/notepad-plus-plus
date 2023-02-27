@@ -2793,9 +2793,9 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 
 								size = NB_DEFAULT_LRF_CUSTOMLENGTH;
 							}
-							else if (size > MAX_PATH)
+							else if (size > NB_MAX_LRF_CUSTOMLENGTH)
 							{
-								size = MAX_PATH;
+								size = NB_MAX_LRF_CUSTOMLENGTH;
 							}
 
 							nppParam.setRecentFileCustomLength(size);
@@ -2826,9 +2826,9 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 									size = NB_DEFAULT_LRF_CUSTOMLENGTH;
 									change = true;
 								}
-								else if (size > MAX_PATH)
+								else if (size > NB_MAX_LRF_CUSTOMLENGTH)
 								{
-									size = MAX_PATH;
+									size = NB_MAX_LRF_CUSTOMLENGTH;
 									change = true;
 								}
 

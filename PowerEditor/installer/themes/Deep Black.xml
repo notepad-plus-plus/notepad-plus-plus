@@ -810,5 +810,6 @@ https://notepad-plus-plus.org/donate/
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="FF8000" bgColor="FFFFFF" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="FF8080" />
     </GlobalStyles>
 </NotepadPlus>

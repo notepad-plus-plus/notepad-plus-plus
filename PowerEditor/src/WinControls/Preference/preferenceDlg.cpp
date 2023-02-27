@@ -2793,6 +2793,10 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 
 								size = NB_DEFAULT_LRF_CUSTOMLENGTH;
 							}
+							else if (size > MAX_PATH)
+							{
+								size = MAX_PATH;
+							}
 
 							nppParam.setRecentFileCustomLength(size);
 
@@ -2812,9 +2816,27 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 								return TRUE;
 							}
 
-							if (isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH) && ::GetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nullptr, FALSE) == 0)
+							if (isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH))
 							{
-								::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, NB_DEFAULT_LRF_CUSTOMLENGTH, FALSE);
+								UINT size = ::GetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nullptr, FALSE);
+								bool change = false;
+
+								if (size == 0)
+								{
+									size = NB_DEFAULT_LRF_CUSTOMLENGTH;
+									change = true;
+								}
+								else if (size > MAX_PATH)
+								{
+									size = MAX_PATH;
+									change = true;
+								}
+
+								if (change)
+								{
+									::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, size, FALSE);
+									return TRUE;
+								}
 							}
 
 							return FALSE;

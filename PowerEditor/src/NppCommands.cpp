@@ -3611,7 +3611,7 @@ void Notepad_plus::command(int id)
 								hImgLst = _docTabIconList.getHandle();
 						}
 						tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
-						tld.doDialog();
+						tld.doDialog(_nativeLangSpeaker.isRTL());
 					}
 				}
 			}

@@ -517,9 +517,9 @@
 //#define IDD_STYLER_DLG    2200
 //#define IDD_GLOBAL_STYLER_DLG    2300
 
-#define IDD_VALUE_DLG       2400
-#define IDC_VALUE_STATIC  2401
-#define IDC_VALUE_EDIT      2402
+//#define IDD_VALUE_DLG       2400
+//#define IDC_VALUE_STATIC  2401
+//#define IDC_VALUE_EDIT      2402
 
 #define IDD_BUTTON_DLG       2410
 #define IDC_RESTORE_BUTTON  2411

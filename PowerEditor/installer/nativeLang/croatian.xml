@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 23 January 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 27 February 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
     Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.4.9">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -117,6 +117,7 @@
                     <Item id="42006" name="Iz&amp;briši"/>
                     <Item id="42007" name="Odaberi s&amp;ve"/>
                     <Item id="42020" name="Po&amp;četak/kraj izbora"/>
+                    <Item id="42089" name="Početak/Kraj odabira u Radu u stupcima"/>
                     <Item id="42084" name="Vrijeme i datum (&amp;kratko)"/>
                     <Item id="42085" name="Vrijeme i datum (&amp;dugo)"/>
                     <Item id="42086" name="Vrijeme i datum (&amp;prilagođeno)"/>
@@ -299,6 +300,7 @@
                     <Item id="44113" name="Primijeni boju 3"/>
                     <Item id="44114" name="Primijeni boju 4"/>
                     <Item id="44115" name="Primijeni boju 5"/>
+                    <Item id="44130" name="Prikaži neispisive znakove"/>
                     <Item id="44032" name="&amp;Cijeli zaslon"/>
                     <Item id="44033" name="Vrati &amp;zadane postavke uvećavanja"/>
                     <Item id="44034" name="Uvijek na vr&amp;hu"/>
@@ -342,7 +344,7 @@
                     <Item id="46035" name="Properties"/>
                     <Item id="46079" name="Registar"/>
 
-                    <Item id="46001" name="Postavke &amp;izgleda..."/>
+                    <Item id="46001" name="Prilagodba &amp;izgleda..."/>
                     <Item id="46250" name="&amp;Definiraj svoj jezik..."/>
                     <Item id="46300" name="&amp;Otvori mapu korisnički definiranih jezika..."/>
                     <Item id="46301" name="Online &amp;zbirka korisnički definiranih jezika"/>
@@ -350,7 +352,7 @@
                     <Item id="47000" name="O programu &amp;Notepad++..."/>
                     <Item id="47010" name="&amp;Argumenti komandne linije..."/>
                     <Item id="47001" name="&amp;Web stranice Notepad++"/>
-                    <Item id="47002" name="&amp;Stranice projekta Notepad++"/>
+                    <Item id="47002" name="&amp;GitHub stranice projekta Notepad++"/>
                     <Item id="47003" name="&amp;Online priručnik za Notepad++"/>
                     <Item id="47004" name="&amp;Forum Notepad++ zajednice"/>
                     <Item id="47012" name="&amp;Debug informacije..."/>
@@ -555,7 +557,7 @@
                 <Item id="2"    name="Zatvori"/>
             </PluginsAdminDlg>
 
-            <StyleConfig title="Prilagodba stilova">
+            <StyleConfig title="Prilagodba izgleda">
                 <Item id="2"    name="Poništi"/>
                 <Item id="2301" name="Spremi i zatvori"/>
                 <Item id="2303" name="Prozirnost"/>
@@ -604,6 +606,20 @@
                 <ScintillaCommandsTab name="Scintilla naredbe"/>
                 <ConflictInfoOk name="Nema konflikata prečaca za ovu stavku."/>
                 <ConflictInfoEditing name="Nema konflikata . . ."/>
+                <WindowCategory name="Prozor"/>
+                <FileCategory name="Datoteka"/>
+                <EditCategory name="Uređivanje"/>
+                <SearchCategory name="Pretraga"/>
+                <ViewCategory name="Prikaz"/>
+                <FormatCategory name="Format"/>
+                <LangCategory name="Jezici"/>
+                <AboutCategory name="O programu"/>
+                <SettingCategory name="Postavke"/>
+                <ToolCategory name="Alati"/>
+                <ExecuteCategory name="Pokretanje"/>
+                <ModifyContextMenu name="Izmijeni"/>
+                <DeleteContextMenu name="Izbriši"/>
+                <ClearContextMenu name="Očisti"/>
                 <MainCommandNames>
                     <Item id="41019" name="Otvori mapu koja sadrži trenutnu datoteku u Eksploreru"/>
                     <Item id="41020" name="Otvori mapu koja sadrži trenutnu datoteku u naredbenom retku"/>
@@ -720,6 +736,7 @@
                 <Item id="20011" name="Prozirnost"/>
                 <Item id="20015" name="Uvoz..."/>
                 <Item id="20016" name="Izvoz..."/>
+                <Item id="20017" name="Odsidri"/>
                 <StylerDialog title="Dijalog stilova">
                     <Item id="25030" name="Opcije fonta:"/>
                     <Item id="25006" name="Boja teksta"/>
@@ -937,6 +954,10 @@
                     <Item id="6248" name="Zadano"/>
                     <Item id="6249" name="Obični tekst"/>
                     <Item id="6250" name="Prilagođena boja"/>
+                    <Item id="6252" name="Neispisivi znakovi"/>
+                    <Item id="6254" name="Skraćenica"/>
+                    <Item id="6255" name="Kod"/>
+                    <Item id="6256" name="Prilagođena boja"/>
                 </Scintillas>
 
                 <DarkMode title="Tamni način">
@@ -1140,6 +1161,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="-og znaka"/>
                     <Item id="6814" name="Moguća vrijednost: 1 - 9"/>
+                    <Item id="6872" name="Kratki popis automatske dopune"/>
                     <Item id="6815" name="Funkcijski parametri pri zadavanju"/>
                     <Item id="6851" name="Automatsko umetanje"/>
                     <Item id="6857" name=" html/xml zatv. tag"/>
@@ -1307,7 +1329,8 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/>
                 <Item id="4" name="&amp;Uvijek da"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Uređivanje contextMenu" message="Uređivanje datoteke contextMenu.xml omogućuje izmjenu Notepad++ skočnog kontekstnog izbornika.
 Nakon izmjene, trebate restartati Notepad++ kako bi se učitao izmijenjeni contextMenu.xml."/>
             <SaveCurrentModifWarning title="Spremi trenutne izmjene" message="Trebate spremiti trenutnu izmjenu.
@@ -1335,9 +1358,18 @@ Vaše postavke oblaka će biti poništene. Molim, resetirajte odgovarajuću vrij
             <DroppingFolderAsProjectModeWarning title="Pogrešna akcija" message="Možete ispustiti samo datoteke ili mape, ali ne oboje, jer ispuštate Mape u Projektnom načinu.
 Morate omogućiti &quot;Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radni prostor' pri prenošenju mape&quot; u odjeljku &quot;Zadana mapa&quot; dijaloga Postavki kako bi ova operacija radila."/>
             <SortingError title="Greška sortiranja" message="Nije moguće izvesti numeričko sortiranje zbog retka $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Savjet za Rad u stupcima" message="Upotrijebite &quot;ALT+izbor mišem&quot; ili &quot;Alt+Shift+strelica&quot;
-za prijelaz na rad u stupcima.
-Vidi Notepad++ online priručnik (Editing) za detalje."/>
+            <ColumnModeTip title="Savjet za Rad u stupcima" message="			
+Postoje 3 načina za prijelaz na rad u stupcima:
+
+1. (Tipkovnica i miš) Držite Alt dok povlačite miša s lijevim klikom
+
+2. (Samo tipkovnica) Držite Alt+Shift dok koristite tipke sa strelicama
+
+3. (Tipkovnica ili miš)
+       Postavite kursor na željeni početak bloka stupca, zatim
+        izvršite naredbu &quot;Početak/Kraj odabira u Radu u stupcima&quot;
+       Pomaknite kursor na željeni kraj bloka stupca, zatim ponovo
+        izvršite naredbu &quot;Početak/Kraj odabira u Radu u stupcima&quot;"/>	   
             <BufferInvalidWarning title="Greška spremanja" message="Ne mogu spremiti: Buffer je neispravan."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Zadrži nepostojeću datoteku" message="Datoteka &quot;$STR_REPLACE$&quot; više ne postoji na disku.
 Želite li ju zadržati u editoru?"/>
@@ -1359,7 +1391,7 @@ Ovu datoteku je izmijenio drugi program.
             <XpUpdaterProblem title="Notepad++ ažuriranje" message="Notepad++ ažuriranje nije kompatibilno s XP zbog zastarjele sigurnosne zaštite pod XP.
 Želite li preuzeti najnoviju verziju s Notepad++ web stranica?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
             <GUpProxyConfNeedAdminMode title="Postavke proxyja" message="Molim restartajte Notepad++ u Administratorskom načinu
-kako bi konfigurirali proxy."/>
+kako bi prilagodili proxy."/>
             <DocTooDirtyToMonitor title="Problem nadgledanja" message="Dokument je nečist. Molim spremite izmijene prije nadgledanja."/>
             <DocNoExistToMonitor title="Problem nadgledanja" message="Datoteka mora postojati da bi se nadgledala."/>
             <FileTooBigToOpen title="Problem s veličinom datoteke" message="Datoteka je prevelika da bi se otvorila u Notepadu++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
@@ -1369,13 +1401,15 @@ kako bi konfigurirali proxy."/>
             <CreateNewFileOrNot title="Kreiraj novu datoteku" message="&quot;$STR_REPLACE$&quot; ne postoji. Kreirati ju?"/>
             <CreateNewFileError title="Kreiraj novu datoteku" message="Ne mogu kreirati datoteku &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="GREŠKA" message="Ne mogu otvoriti datoteku &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileNoFolderError title="Ne mogu otvoriti datoteku" message="&quot;$STR_REPLACE1$&quot; se ne može otvoriti:
+Mapa &quot;$STR_REPLACE2$&quot; ne postoji."/>
             <FileBackupFailed title="Sigurnosna kopija datoteke nije uspjela" message="Prethodna verzija datoteke nije mogla biti spremljena u mapu na &quot;$STR_REPLACE$&quot;.
 
 Želite li svejedno spremiti trenutnu datoteku?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <LoadStylersFailed title="Učitavanje stylers.xml nije uspjelo" message="Učitavanje &quot;$STR_REPLACE$&quot; nije uspjelo!"/>
-            <LoadLangsFailed title="Konfigurator" message="Učitavanje langs.xml nije uspjelo!
+            <LoadLangsFailed title="Prilagodba izgleda" message="Učitavanje langs.xml nije uspjelo!
 Želite li oporaviti langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-            <LoadLangsFailedFinal title="Konfigurator" message="Učitavanje datoteke langs.xml nije uspjelo!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+            <LoadLangsFailedFinal title="Prilagodba izgleda" message="Učitavanje datoteke langs.xml nije uspjelo!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
             <FolderAsWorspaceSubfolderExists title="Problem s dodavanjem mape kao radnog prostora" message="Postoji podmapa mape koju želite dodati.
 Molim da uklonite njen root iz panela prije dodavanja mape &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1409,6 +1443,9 @@ Nastaviti?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi učitali instalirane dodatke."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ treba ponovno pokrenuti" message="Trebate restartati Notepad++ kako bi omogućili povijest promjena."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Izlaz iz Windows sesije" message="Windows sesija će biti prekinuta, ali imate neke podatke koji nisu spremljeni. Želite li sada zatvoriti Notepad++?"/>
+            <LanguageMenuCompactWarning title="Kompaktni izbornik jezika" message="Ova opcija će biti promijenjena pri sljedećem pokretanju."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Nespremljene izmjene će biti odbačene!
+Želite li spremiti izmjene prije promjene teme?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Povijest međuspremnika"/>
@@ -1418,6 +1455,7 @@ Nastaviti?"/>
             <ColumnName name="Ime"/>
             <ColumnExt name="Nast."/>
             <ColumnPath name="Put"/>
+            <ListGroups name="Grupiranje po prikazu"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Ime"/>
@@ -1517,7 +1555,7 @@ Nastaviti?"/>
             <word-chars-list-tip value="Ovo omogućuje da uključite dodatni znak u sadašnje znakove riječi, s dvostrukim klikom na izbor ili označenom opcijom pretrage &quot;Traži samo cijele riječi&quot;."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-            <eol-custom-color-tip value="Idite na Konfigurator stila kako bi promijenili zadanu prilagođenu boju kraja retka (&quot;EOL custom color&quot;).."/>
+            <eol-custom-color-tip value="Idite na Prilagodbu izgleda kako bi promijenili zadanu prilagođenu boju kraja retka (&quot;EOL custom color&quot;).."/>
 
             <word-chars-list-warning-begin value="Budite upozoreni: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ razmak/razmaci"/>
@@ -1612,6 +1650,8 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
             <summary-nbsel1 value=" karaktera odabrano ("/>
             <summary-nbsel2 value=" bajtova) u "/>
             <summary-nbrange value=" blokova"/>
+            <progress-cancel-button value="Poništi"/>
+            <progress-cancel-info value="Poništavanje operacije, molim pričekajte..."/>
             <find-in-files-progress-title value="Napredak traženja u datotekama..."/>
             <replace-in-files-confirm-title value="Jeste li sigurni?"/>
             <replace-in-files-confirm-directory value="Jeste li sigurni da želite zamijeniti sva pojavljivanja u:"/>
@@ -1647,6 +1687,33 @@ NAPOMENE:
 1. Promjena ovih opcija zahtijeva ponovno otvaranje trenutno otvorenih velikih datoteka kako bi se postiglo ispravno ponašanje.
 
 2. Ako je aktivirano &quot;Isključi prijelom teksta globalno&quot; i otvorite veliku datoteku, &quot;Prijelom teksta&quot; će biti onemogućen za sve datoteke. Možete ga ponovno uključiti putem izbornika &quot;Prikaz-&gt;Prijelom teksta&quot;."/>
+            <npcNote-tip value="Prikaz odabranih &quot;ne-ASCII&quot; i neispisivih (kontrolnih) znakova.
+
+NAPOMENA:
+Neki znakovi možda već imaju neki prikaz i stoga su vidljivi. Kraj retka i kraj odlomka već su prema zadanim postavkama predstavljeni skraćenicom.
+
+Korištenje prikaza onemogućit će efekte znakova na tekst.
+
+Potpuni popis odabranih razmaka i neispisivih znakova potražite u Korisničkom priručniku.
+
+Kliknite na ovaj gumb za otvaranje web stranice s Korisničkim priručnikom."/>
+            <npcAbbreviation-tip value="Skraćenica : ime
+NBSP : neprelamajući razmak
+ZWSP : razmak nulte širine
+ZWNBSP : neprelamajući razmak nulte širine
+
+Za potpuni popis pogledajte Korisnički priručnik.
+Kliknite &quot;?&quot; gumb s desne strane za otvaranje web stranice s Korisničkim priručnikom."/>
+            <npcCodepoint-tip value="Kodna točka : ime
+U+00A0 : neprelamajući razmak
+U+200B : razmak nulte širine
+U+FEFF : neprelamajući razmak nulte širine
+
+Za potpuni popis pogledajte Korisnički priručnik.
+Kliknite &quot;?&quot; gumb s desne strane za otvaranje web stranice s Korisničkim priručnikom."/>
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="Idite na Prilagodbu izgleda kako bi promijenili zadanu prilagođenu boju za odabrane razmake i neispisive znakove (&quot;Non-printing characters custom color&quot;)."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

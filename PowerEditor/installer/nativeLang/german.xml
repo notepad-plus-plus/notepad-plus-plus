@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	German localization for Notepad++
-	last modified: 2023-02-05 by schnurlos
 
-	Please e-mail errors, suggestions etc. to schnurlos@gmail.com or janschreiber(at)users.sf.net
+	Please report errors, suggestions etc. here: https://github.com/notepad-plus-plus/notepad-plus-plus/issues
 
 	The most recent version of this file can usually be downloaded from
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/german.xml
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.4.9"><!-- basiert auf english.xml vom 05.02.2023 -->
+	<!-- basiert auf english.xml vom 24.02.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.02.28">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -119,7 +119,7 @@
 					<Item id="42006" name="&amp;Löschen"/>
 					<Item id="42007" name="&amp;Alles auswählen"/>
 					<Item id="42020" name="Auswa&amp;hl beginnen/beenden"/>
-					<Item id="42089" name="Beginn/Ende der Auswahl im Spaltenmodus"/>
+					<Item id="42089" name="Auswahl im Spaltenmodus beginnen/beenden"/>
 					<Item id="42084" name="Datum und Uhrzeit (kurz)"/>
 					<Item id="42085" name="Datum und Uhrzeit (lang)"/>
 					<Item id="42086" name="Datum und Uhrzeit (benutzerdefiniert)"/>
@@ -599,6 +599,20 @@
 				<ScintillaCommandsTab name="Scintilla-Befehle"/>
 				<ConflictInfoOk name="Keine Konflikte mit dieser Tastenkombination."/>
 				<ConflictInfoEditing name="Keine Konflikte."/>
+				<WindowCategory name="Fenster"/>
+				<FileCategory name="Datei"/>
+				<EditCategory name="Bearbeiten"/>
+				<SearchCategory name="Suchen"/>
+				<ViewCategory name="Ansicht"/>
+				<FormatCategory name="Codierung"/>
+				<LangCategory name="Sprache"/>
+				<AboutCategory name="?"/>
+				<SettingCategory name="Einstellungen"/>
+				<ToolCategory name="Werkzeuge"/>
+				<ExecuteCategory name="Ausführen"/>
+				<ModifyContextMenu name="Ändern"/>
+				<DeleteContextMenu name="Löschen"/>
+				<ClearContextMenu name="Entfernen"/>
 				<MainCommandNames>
 					<Item id="41019" name="Ordner im Explorer öffnen"/>
 					<Item id="41020" name="Ordner in der Kommandozeile öffnen"/>
@@ -715,6 +729,7 @@
 				<Item id="20011" name="Transparenz"/>
 				<Item id="20015" name="Importieren …"/>
 				<Item id="20016" name="Exportieren …"/>
+				<Item id="20017" name="Abdocken"/>
 				<StylerDialog title="Stiloptionen für benutzerdefinierte Sprachen">
 					<Item id="25030" name="Schriftoptionen"/>
 					<Item id="25006" name="Vordergrundfarbe:"/>
@@ -1138,7 +1153,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6824" name="Zahlen ignorieren"/>
 					<Item id="6811" name="ab"/>
 					<Item id="6813" name="Zeichen"/>
-					<Item id="6814" name="(mögliche Werte: 1–9)"/>
+					<Item id="6872" name="Kurze Liste für Autovervollständigung"/>
 					<Item id="6815" name="Funktionsparameter anzeigen"/>
 					<Item id="6851" name="Klammern automatisch schließen"/>
 					<Item id="6857" name="HTML/XML-Tags"/>
@@ -1302,7 +1317,7 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="4" name="Ja, immer"/>
 			</DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
-		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+		<MessageBox> <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei 'contextMenu.xml' können Sie das Kontextmenü von Notepad++ anpassen.
 Nach dem Bearbeiten müssen Sie Notepad++ neu starten, damit die Änderungen wirksam werden."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.
@@ -1330,18 +1345,18 @@ Ihre Einstellungen konnten nicht gespeichert werden. Bitte passen Sie die Einste
 			<DroppingFolderAsProjectModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse abgelegt werden, aber nicht beides zugleich, da das Programm im 'Verzeichnis als Projekt'-Modus ist.
 Um dies zu ändern aktivieren Sie die Option &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs."/>
 			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
-			<ColumnModeTip title="Tip zum Spalten-Modus" message="
+			<ColumnModeTip title="Tipp zum Spalten-Modus" message="
 Es gibt 3 Möglichkeiten um in den Spaltenmodus zu wechseln:
 
-1. (Tastatur + Maus)  Alt-Taste beim Ziehen mit der linken Maustaste gedrückt halten
+1. (Tastatur und Maus)  Alt-Taste beim Markieren mittels linker Maustaste gedrückt halten.
 
-2. (nur Tastatur)  Alt+Umschalttaste gedrückt halten und Pfeiltasten verwenden
+2. (Tastatur)  Alt+Umschalttaste gedrückt halten und Pfeiltasten verwenden.
 
 3. (Tastatur oder Maus)
       Setzen Sie den Cursor auf die gewünschte Position am Anfang des Spaltenblocks, dann
-      den Befehl &quot;Beginn/Ende der Auswahl im Spaltenmodus&quot; ausführen;
-      Cursor an die gewünschte Position am Ende des Spaltenblocks bewegen, dann
-      erneut den Befehl &quot;Beginn/Ende der Auswahl im Spaltenmodus&quot; ausführen"/>
+       den Befehl &quot;Auswahl im Spaltenmodus beginnen/beenden&quot; ausführen.
+      Cursor an die gewünschte Position am Ende des Spaltenblocks bewegen, danach
+       erneut den Befehl &quot;Auswahl im Spaltenmodus beginnen/beenden&quot; ausführen."/>
 			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Buffer."/>
 			<DoCloseOrNot title="Nicht existierende Datei behalten" message="Die Datei &quot;$STR_REPLACE$&quot; existiert nicht mehr.
 Soll die Datei im Editor behalten werden?"/>
@@ -1372,6 +1387,8 @@ Soll die Datei trotzdem geöffnet werden?"/>
 			<CreateNewFileOrNot title="Neue Datei erstellen" message="&quot;$STR_REPLACE$&quot; existiert nicht. Soll die Datei erstellt werden?"/>
 			<CreateNewFileError title="Neue Datei erstellen" message="Kann Datei &quot;$STR_REPLACE$&quot; nicht erstellen."/>
 			<OpenFileError title="Fehler" message="Kann Datei &quot;$STR_REPLACE$&quot; nicht öffnen."/>
+			<OpenFileNoFolderError title="Datei kann nicht geöffnet werden" message="Datei &quot;$STR_REPLACE1$&quot; kann nicht geöffnet werden:
+Das Verzeichnis &quot;$STR_REPLACE2$&quot; existiert nicht."/>
 			<FileBackupFailed title="Sicherung fehlgeschlagen" message="Die vorherige Version der Datei konnte nicht in das Sicherungsverzeichnis &quot;$STR_REPLACE$&quot; gespeichert werden.
 
 Soll die Datei trotzdem gespeichert werden?"/>
@@ -1412,6 +1429,9 @@ Fortsetzen?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ ist zum Laden der Plugins erforderlich."/>
 			<ChangeHistoryEnabledWarning title="Notepad++ muss neu gestartet werden" message="Ein Neustart von Notepad++ ist für das Aktivieren der Änderungshistorie erforderlich."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Windows wird beendet" message="Windows wird beendet aber es gibt noch ungespeicherte Daten. Soll Notepad++ jetzt beendet werden?"/>
+			<LanguageMenuCompactWarning title="Verschachteltes Sprachmenü" message="Diese Änderung wird erst nach dem nächsten Start aktiv."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Änderungen wurden nicht gespeichert.
+Möchten Sie die Änderung speichern, bevor Sie das Thema wechseln?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1421,6 +1441,7 @@ Fortsetzen?"/>
 			<ColumnName name="Name"/>
 			<ColumnExt name="Erw."/>
 			<ColumnPath name="Pfad"/>
+			<ListGroups name="Nach Ansicht gruppieren"/>
 		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Name"/>
@@ -1516,7 +1537,7 @@ Fortsetzen?"/>
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
-			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<word-chars-list-tip value="Das erlaubt es, zusätzliche Zeichen zur Liste der Wortzeichen hinzuzufügen. Die Zeichen werden bei der Doppelklick-Auswahl oder mit der aktivierten Option &quot;Übereinstimmung mit ganzem Wort&quot; berücksichtigt."/>
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1598,11 +1619,9 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<splitter-rotate-right value="Nach rechts drehen"/>
 			<recent-file-history-maxfile value="Max. Datei: "/>
 			<recent-file-history-customlength value="Länge: "/>
-			<language-tabsize value="Registergröße: "/>
 			<userdefined-title-new value="Neue Sprache erstellen …"/>
 			<userdefined-title-save value="Akt. Sprache speichern als …"/>
 			<userdefined-title-rename value="Akt. Sprache umbenennen"/>
-			<autocomplete-nb-char value="Anz. Zeichen: "/>
 			<edit-verticaledge-nb-col value="Anz. Spalten: "/>
 			<summary value="Übersicht"/>
 			<summary-filepath value="Ganzer Dateipfad: "/>
@@ -1615,6 +1634,8 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
+			<progress-cancel-button value="Abbrechen"/>
+			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten..."/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Vorkommen ersetzt werden sollen in: "/>
@@ -1650,31 +1671,32 @@ ACHTUNG:
 1. Wenn Sie die Optionen hier ändern, müssen Sie die aktuell geöffneten großen Dateien erneut öffnen um die Änderung zu erhalten.
 
 2. Wenn &quot;Wortumbruch global deaktivieren&quot; aktiv ist und Sie eine große Datei öffnen, wird &quot;Wortumbruch&quot; für alle Dateien deaktiviert. Sie können das aber über das Menü &quot;Ansicht-&gt;Wortumbruch&quot; wieder aktivieren." />
-			<npcNote-tip value="Darstellung ausgewählter &quot;Nicht-ASCII&quot; Leerzeichen und nichtdruckbarer (Steuer-)Zeichen.
+			<npcNote-tip value="Darstellung von ausgewählten &quot;Nicht-ASCII&quot; Leerzeichen und nicht druckbaren (Steuer-)Zeichen.
 
 HINWEIS:
-Einige Zeichen können bereits eine Darstellung haben und sind daher sichtbar. Zeilentrenner und Absatztrenner werden bereits standardmäßig durch Abkürzungen dargestellt.
+Einige Zeichen haben ggf. bereits eine Representation und sind daher schon sichtbar. Zeilen- und Absatztrennzeichen werden bereits standardmäßig durch eine entsprechende Abkürzung dargestellt.
 
-Die Verwendung der Darstellung deaktiviert die Zeicheneffekte im Text
+Die Verwendung der Darstellung deaktiviert die Zeicheneffekte im Text.
 
-Eine vollständige Liste der ausgewählten Leerzeichen und nicht druckbaren Zeichen finden Sie im Benutzerhandbuch.
+Die vollständige Liste der verfügbaren Leerzeichen und nicht druckbaren Zeichen finden Sie im Benutzerhandbuch.
 
-Hier klicken für die Seite mit dem Benutzerhandbuch." />
+Ein Klick hier öffnet die Webseite des Benutzerhandbuches." />
 			<npcAbbreviation-tip value="Abkürzung : Name
 NBSP : geschütztes Leerzeichen
 ZWSP : breitenloses Leerzeichen
-ZWNBSP : breitenloses, geschützes Leerzeichen
+ZWNBSP : geschütztes Leerzeichen ohne eigene Breite
 
-Für die vollständige Liste bitte im Benutzerhandbuch nachlesen.
-Klicke rechts auf &quot;?&quot; um die Seite mit dem Benutzerhandbuch zu öffnen." />
-            <npcCodepoint-tip value="Codepoint : name
+Die vollständige Liste finden Sie im Benutzerhandbuch.
+Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs." />
+            <npcCodepoint-tip value="Codepoint : Name
 U+00A0 : geschütztes Leerzeichen
 U+200B : breitenloses Leerzeichen
-U+FEFF : breitenloses, geschützes Leerzeichen
+U+FEFF : geschütztes Leerzeichen ohne eigene Breite
 
-Für die vollständige Liste bitte im Benutzerhandbuch nachlesen.
-Klicke rechts auf &quot;?&quot; um die Seite mit dem Benutzerhandbuch zu öffnen." />
-			<npcCustomColor-tip value="Gehe zum Stil-Konfigurator um die Standardfarbe für gewählte Leerzeichen und nichtdruckbare Zeichen umzustellen(&quot;Nicht druckbare Zeichen anzeigen - Benutzerdefinierte Farbe&quot;)." />
+Die vollständige Liste finden Sie im Benutzerhandbuch.
+Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs." />
+			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

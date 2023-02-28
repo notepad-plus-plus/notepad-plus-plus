@@ -892,8 +892,8 @@
                 <Global title="Generale">
                     <Item id="6101" name="Barra degli strumenti"/>
                     <Item id="6102" name="Nascondi"/>
-                    <Item id="6103" name="Icone di contorno piccole"/>
-                    <Item id="6104" name="Icone di contorno grandi"/>
+                    <Item id="6103" name="Icone contornate (piccole)"/>
+                    <Item id="6104" name="Icone contornate (grandi)"/>
                     <Item id="6129" name="Icone piene (piccole)"/>
                     <Item id="6130" name="Icone piene (grandi)"/>
                     <Item id="6105" name="Icone standard"/>
@@ -1050,7 +1050,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6353" name="Identifica solo parole intere"/>
                     <Item id="6333" name="Evidenziazione Intelligente"/>
                     <Item id="6326" name="Abilita"/>
-                    <Item id="6354" name="Corrispondente"/>
+                    <Item id="6354" name="Corrispondenze"/>
                     <Item id="6332" name="Distingui tra MAIUSCOLE e minuscole"/>
                     <Item id="6338" name="Identifica solo parole intere"/>
                     <Item id="6339" name="Utilizza impostazioni finestra di ricerca"/>
@@ -1170,8 +1170,8 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6171" name="Inserimento Data e ora personalizzata"/>
                     <Item id="6175" name="Inverti l&apos;ordinamento di date e ora predefinite (formato esteso e ridotto)"/>
                     <Item id="6172" name="Formati personalizzati:"/>
-                    <Item id="6181" name="Pannello di stato e [-nosession] *"/>
-                    <Item id="6182" name="Ricorda il pannello di stato (apertura pannello) in altre istanze (multi-instance mode) or when using command line parameter [-nosession]"/>
+                    <Item id="6181" name="Stato dei Pannelli e [-nosession] *"/>
+                    <Item id="6182" name="Ricorda lo stato dei pannelli (apertura pannelli) nelle altre istanze (modalità multi-istanza) o da linea di comando con il parametro [-nosession]"/>
                     <Item id="6183" name="Cronologia appunti"/>
                     <Item id="6184" name="Elenco Documenti"/>
                     <Item id="6185" name="Pannello caratteri"/>
@@ -1669,7 +1669,7 @@ NOTE:
 1. La modifica di queste opzioni richiede la riapertura dei file di grandi dimensioni.
 
 2. Se &quot;Disattiva il Ritorno A capo automatico globalmente&quot; è selezionato e viene aperto un file di grandi dimensioni, &quot;Ritorno a capo automatico&quot; sarà disabilitato per tutti i file. È possibile riabilitarlo dal menu &quot;Visualizza-&gt;Attiva a capo automatico&quot;." />
-            <npcNote-tip value="Rappresentazione degli spazi &quot;non ASCII&quot; e dei caratteri non stampabili (caretteri di controllo).
+            <npcNote-tip value="Rappresentazione degli spazi &quot;non ASCII&quot; e dei caratteri non stampabili (caratteri di controllo).
 
 NOTA:
 Alcuni caratteri potrebbero avere già qualche rappresentazione e sono quindi visibili. Il separatore di riga e il separatore di paragrafo sono già rappresentati per impostazione predefinita dalla rispettiva abbreviazione.

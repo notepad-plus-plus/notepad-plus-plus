@@ -1463,11 +1463,11 @@ public:
 		return _LRFileList[index];
 	};
 
-	void setNbMaxRecentFile(int nb) {
+	void setNbMaxRecentFile(UINT nb) {
 		_nbMaxRecentFile = nb;
 	};
 
-	int getNbMaxRecentFile() const {return _nbMaxRecentFile;};
+	UINT getNbMaxRecentFile() const {return _nbMaxRecentFile;};
 
 	void setPutRecentFileInSubMenu(bool doSubmenu) {
 		_putRecentFileInSubMenu = doSubmenu;
@@ -1820,7 +1820,7 @@ private:
 	// Recent File History
 	generic_string* _LRFileList[NB_MAX_LRF_FILE] = { nullptr };
 	int _nbRecentFile = 0;
-	int _nbMaxRecentFile = 10;
+	UINT _nbMaxRecentFile = 10;
 	bool _putRecentFileInSubMenu = false;
 	int _recentFileCustomLength = RECENTFILES_SHOWFULLPATH;	//	<0: Full File Path Name
 															//	=0: Only File Name

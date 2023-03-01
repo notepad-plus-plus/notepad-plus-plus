@@ -2723,10 +2723,15 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 							if (lstrcmp(str, L"") == 0)
 							{
 								::SetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nppParam.getNbMaxRecentFile(), FALSE);
-								return TRUE;
+								return FALSE;
 							}
 
 							UINT nbMaxFile = ::GetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nullptr, FALSE);
+
+							if (nbMaxFile == nppParam.getNbMaxRecentFile())
+							{
+								return FALSE;
+							}
 
 							if (nbMaxFile > NB_MAX_LRF_FILE)
 							{
@@ -2768,10 +2773,16 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 							if (lstrcmp(str, L"") == 0)
 							{
 								::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nppParam.getRecentFileCustomLength(), FALSE);
-								return TRUE;
+								return FALSE;
 							}
 
 							UINT size = ::GetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nullptr, FALSE);
+
+							if (size == static_cast<UINT>(nppParam.getRecentFileCustomLength()))
+							{
+								return FALSE;
+							}
+
 							bool change = false;
 
 							if (size == 0)

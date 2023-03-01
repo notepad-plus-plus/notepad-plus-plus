@@ -2635,7 +2635,7 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 
 	switch (message) 
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			// Max number recent file setting
 			::SetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nppParam.getNbMaxRecentFile(), FALSE);
@@ -2706,37 +2706,17 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (LOWORD(wParam))
 			{
 				case IDC_EDIT_MAXNBFILEVAL:
 				{
-					constexpr int stringSize = 3;
-
 					switch (HIWORD(wParam))
 					{
-						case EN_CHANGE:
-						{
-							wchar_t str[stringSize]{};
-							::GetDlgItemText(_hSelf, IDC_EDIT_MAXNBFILEVAL, str, stringSize);
-
-							if (lstrcmp(str, L"") == 0)
-							{
-								return FALSE;
-							}
-
-							const UINT nbMaxFile = std::min<UINT>(::GetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nullptr, FALSE), NB_MAX_LRF_FILE);
-							nppParam.setNbMaxRecentFile(nbMaxFile);
-
-							// Validate modified value
-							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_HISTORY_SIZE, 0, 0);
-
-							return TRUE;
-						}
-
 						case EN_KILLFOCUS:
 						{
+							constexpr int stringSize = 3;
 							wchar_t str[stringSize]{};
 							::GetDlgItemText(_hSelf, IDC_EDIT_MAXNBFILEVAL, str, stringSize);
 
@@ -2746,15 +2726,19 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 								return TRUE;
 							}
 
-							const UINT nbMaxFile = ::GetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nullptr, FALSE);
+							UINT nbMaxFile = ::GetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, nullptr, FALSE);
 
 							if (nbMaxFile > NB_MAX_LRF_FILE)
 							{
 								::SetDlgItemInt(_hSelf, IDC_EDIT_MAXNBFILEVAL, NB_MAX_LRF_FILE, FALSE);
-								return TRUE;
+
+								nbMaxFile = NB_MAX_LRF_FILE;
 							}
 
-							return FALSE;
+							nppParam.setNbMaxRecentFile(nbMaxFile);
+							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_HISTORY_SIZE, 0, 0);
+
+							return TRUE;
 						}
 
 						default:
@@ -2763,7 +2747,7 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 						}
 					}
 
-					break;
+					return FALSE;
 				}
 
 				case IDC_EDIT_CUSTOMIZELENGTHVAL:
@@ -2773,40 +2757,11 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 						return FALSE;
 					}
 
-					constexpr int stringSize = 4;
-
 					switch (HIWORD(wParam))
 					{
-						case EN_CHANGE:
-						{
-							wchar_t str[stringSize]{};
-							::GetDlgItemText(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, str, stringSize);
-
-							UINT size = ::GetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nullptr, FALSE);
-
-							if (size == 0)
-							{
-								if (lstrcmp(str, L"") == 0)
-								{
-									return FALSE;
-								}
-
-								size = NB_DEFAULT_LRF_CUSTOMLENGTH;
-							}
-							else if (size > NB_MAX_LRF_CUSTOMLENGTH)
-							{
-								size = NB_MAX_LRF_CUSTOMLENGTH;
-							}
-
-							nppParam.setRecentFileCustomLength(size);
-
-							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
-
-							return TRUE;
-						}
-
 						case EN_KILLFOCUS:
 						{
+							constexpr int stringSize = 4;
 							wchar_t str[stringSize]{};
 							::GetDlgItemText(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, str, stringSize);
 
@@ -2816,30 +2771,29 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 								return TRUE;
 							}
 
-							if (isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH))
+							UINT size = ::GetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nullptr, FALSE);
+							bool change = false;
+
+							if (size == 0)
 							{
-								UINT size = ::GetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, nullptr, FALSE);
-								bool change = false;
-
-								if (size == 0)
-								{
-									size = NB_DEFAULT_LRF_CUSTOMLENGTH;
-									change = true;
-								}
-								else if (size > NB_MAX_LRF_CUSTOMLENGTH)
-								{
-									size = NB_MAX_LRF_CUSTOMLENGTH;
-									change = true;
-								}
-
-								if (change)
-								{
-									::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, size, FALSE);
-									return TRUE;
-								}
+								size = NB_DEFAULT_LRF_CUSTOMLENGTH;
+								change = true;
+							}
+							else if (size > NB_MAX_LRF_CUSTOMLENGTH)
+							{
+								size = NB_MAX_LRF_CUSTOMLENGTH;
+								change = true;
 							}
 
-							return FALSE;
+							if (change)
+							{
+								::SetDlgItemInt(_hSelf, IDC_EDIT_CUSTOMIZELENGTHVAL, size, FALSE);
+							}
+
+							nppParam.setRecentFileCustomLength(size);
+							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
+
+							return TRUE;
 						}
 
 						default:
@@ -2848,7 +2802,7 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 						}
 					}
 
-					break;
+					return FALSE;
 				}
 
 				default:

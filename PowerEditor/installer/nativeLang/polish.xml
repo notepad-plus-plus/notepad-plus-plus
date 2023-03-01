@@ -1545,7 +1545,7 @@ Czy chcesz zapisać zmiany przed przełączeniem motywu?"/> <!-- HowToReproduce:
             <word-chars-list-tip value="Pozwala to włączać określone znaki do zaznaczenia powstałego w wyniku podwójnego kliknięcia LPM na słowo lub wyszukania frazy z zaznaczoną opcją „Znajdź tylko całe wyrazy”."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-            <eol-custom-color-tip value="Przejdź do okna Konfiguratora stylów, by zmienić domyślny własny kolor EOL („EOL custom color”)."/>
+            <eol-custom-color-tip value="Przejdź do okna Konfiguratora stylów, by zmienić domyślny własny kolor EOL (styl: „EOL custom color”)."/>
 
             <word-chars-list-warning-begin value="Uwaga! W twojej liście są: "/>
             <word-chars-list-space-warning value="spacje ($INT_REPLACE$)"/>
@@ -1701,7 +1701,7 @@ Pełną listę znajdziesz w dokumentacji.
 Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją." />
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-            <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)." />
+            <npcCustomColor-tip value="Przejdź do okna Konfiguratora stylów, by zmienić domyślny własny kolor dla wybranych białych i niedrukowanych znaków (styl: „Non-printing characters custom color”)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

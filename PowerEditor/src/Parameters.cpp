@@ -4262,6 +4262,8 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 
 generic_string NppParameters::getLocPathFromStr(const generic_string & localizationCode)
 {
+	if (localizationCode == TEXT("en") || localizationCode == TEXT("en-au") || localizationCode == TEXT("en-bz") || localizationCode == TEXT("en-ca") || localizationCode == TEXT("en-cb") || localizationCode == TEXT("en-gb") || localizationCode == TEXT("en-ie") || localizationCode == TEXT("en-jm") || localizationCode == TEXT("en-nz") || localizationCode == TEXT("en-ph") || localizationCode == TEXT("en-tt") || localizationCode == TEXT("en-us") || localizationCode == TEXT("en-za") || localizationCode == TEXT("en-zw"))
+		return TEXT("english.xml");
 	if (localizationCode == TEXT("af"))
 		return TEXT("afrikaans.xml");
 	if (localizationCode == TEXT("sq"))

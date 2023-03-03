@@ -1139,6 +1139,23 @@ HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszTe
 	return hwndTip;
 }
 
+void changeToolTipText(int toolID, HWND hDlg, HWND hTip, const TCHAR *newText)
+{
+	if (!toolID || !hDlg || !hTip || !newText) return;
+
+	// Get the window of the tool.
+	HWND hTool = GetDlgItem(hDlg, toolID);
+	if (!hTool) return;
+
+	TOOLINFO toolInfo = {};
+	toolInfo.cbSize = sizeof(toolInfo);
+	toolInfo.hwnd = hDlg;
+	toolInfo.uId = (UINT_PTR)hTool;
+	toolInfo.lpszText = const_cast<PTSTR>(newText);
+
+	SendMessage(hTip, TTM_UPDATETIPTEXT, 0, (LPARAM)&toolInfo);
+}
+
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check)
 {
 	bool isOK = false;

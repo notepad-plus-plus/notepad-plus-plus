@@ -312,6 +312,7 @@ public :
 	bool isProjectPanel_2() const { return _env->_isProjectPanel_2; };
 	bool isProjectPanel_3() const { return _env->_isProjectPanel_3; };
 	void saveFindHistory();
+	void changeAllToolTipsText();
 	void changeTabName(DIALOG_TYPE index, const TCHAR *name2change) {
 		TCITEM tie;
 		tie.mask = TCIF_TEXT;

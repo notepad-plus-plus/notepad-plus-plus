@@ -293,20 +293,21 @@ friend class Notepad_plus;
 public :
 	PreferenceDlg() = default;
 
-    void init(HINSTANCE hInst, HWND parent)	{
-        Window::init(hInst, parent);
+	void init(HINSTANCE hInst, HWND parent)	{
+		Window::init(hInst, parent);
 	};
 
-    void doDialog(bool isRTL = false) {
-    	if (!isCreated())
+	void doDialog(bool isRTL = false) {
+		if (!isCreated())
 		{
 			create(IDD_PREFERENCE_BOX, isRTL);
 			goToCenter();
 		}
-	    display();
-    };
+			display();
+	};
 	bool renameDialogTitle(const TCHAR *internalName, const TCHAR *newName);
-	
+	void changeAllToolTipsText();
+
 	int getListSelectedIndex() const {
 		return static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0));
 	};

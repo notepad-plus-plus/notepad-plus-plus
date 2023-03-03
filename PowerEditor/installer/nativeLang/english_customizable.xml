@@ -1535,7 +1535,7 @@ Do you want to save your changes before switching themes?"/> <!-- HowToReproduce
             <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-            <eol-custom-color-tip value="Go to Style Configurator to change the default EOL custom color (&quot;EOL custom color&quot;).."/>
+            <eol-custom-color-tip value="Go to Style Configurator to change the default EOL custom color (&quot;EOL custom color&quot;)."/>
 
             <word-chars-list-warning-begin value="Be aware: "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>

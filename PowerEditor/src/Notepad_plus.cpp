@@ -4349,7 +4349,7 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 	{
 		if (tabToClose->nbItem() == 1)  //need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
 		{
-			BufferID newID = MainFileManager.newEmptyDocument(true);
+			BufferID newID = MainFileManager.newEmptyDocument();
 			MainFileManager.addBufferReference(newID, viewToClose);
 			tabToClose->setBuffer(0, newID);        //can safely use id 0, last (only) tab open
 			activateBuffer(newID, whichOne);        //activate. DocTab already activated but not a problem

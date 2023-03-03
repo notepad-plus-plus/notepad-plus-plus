@@ -1257,7 +1257,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 	}
 }
 
-size_t FileManager::nextUntitledNewNumber(bool toMainOrSubEditView) const
+size_t FileManager::nextUntitledNewNumber() const
 {
 	std::vector<size_t> usedNumbers;
 	for (size_t i = 0; i < _buffers.size(); i++)
@@ -1274,13 +1274,16 @@ size_t FileManager::nextUntitledNewNumber(bool toMainOrSubEditView) const
 					break;
 				}
 			}
-			// if untitled document is invisible, then don't put its number into array (so its number is available to be used)
-			if (isVisible && (!toMainOrSubEditView || (buf->indexOfReference(_pNotepadPlus->_pEditView) > -1 || buf->indexOfReference(_pNotepadPlus->_pNonEditView) > -1)))
+
+			if (isVisible)
 			{
-				generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
-				TCHAR *numberStr = buf->_fileName + newTitle.length();
-				int usedNumber = _wtoi(numberStr);
-				usedNumbers.push_back(usedNumber);
+				if (buf->indexOfReference(_pNotepadPlus->_pEditView) > -1 || buf->indexOfReference(_pNotepadPlus->_pNonEditView) > -1)
+				{
+					generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+					TCHAR* numberStr = buf->_fileName + newTitle.length();
+					int usedNumber = _wtoi(numberStr);
+					usedNumbers.push_back(usedNumber);
+				}
 			}
 		}
 	}
@@ -1312,12 +1315,12 @@ size_t FileManager::nextUntitledNewNumber(bool toMainOrSubEditView) const
 	return newNumber;
 }
 
-BufferID FileManager::newEmptyDocument(bool toMainOrSubEditView)
+BufferID FileManager::newEmptyDocument()
 {
 	generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 
 	TCHAR nb[10];
-	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber(toMainOrSubEditView)));
+	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
 	newTitle += nb;
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager

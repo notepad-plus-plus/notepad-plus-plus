@@ -649,7 +649,8 @@ public:
 	bool isPythonStyleIndentation(LangType typeDoc) const{
 		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\
 			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||\
-			typeDoc == L_PHP || typeDoc == L_JS || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE || typeDoc == L_ASN1);
+			typeDoc == L_PHP || typeDoc == L_JS || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE ||\
+			typeDoc == L_ASN1 || typeDoc == L_GDSCRIPT);
 	};
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
@@ -794,6 +795,12 @@ protected:
 	void setPythonLexer() {
 		setLexer(L_PYTHON, LIST_0 | LIST_1);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
+	};
+	
+	void setGDScriptLexer() {
+		setLexer(L_GDSCRIPT, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.keywords2.no.sub.identifiers"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.whinge.level"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setBatchLexer() {

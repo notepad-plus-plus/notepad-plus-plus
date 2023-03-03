@@ -187,6 +187,11 @@ SectionGroup "Function List Files" functionListComponent
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\pascal.xml"
 	${MementoSectionEnd}
+	
+	${MementoSection} "GDScript" GDScript
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\gdscript.xml"
+	${MementoSectionEnd}
 
 	${MementoSection} "NppExecScript" NppExecScript
 		SetOutPath "$INSTDIR\functionList"
@@ -341,6 +346,10 @@ SectionGroup un.functionListComponent
 
 	Section un.Pascal
 		Delete "$INSTDIR\functionList\pascal.xml"
+	SectionEnd
+
+	Section un.GDScript
+		Delete "$INSTDIR\functionList\gdscript.xml"
 	SectionEnd
 
 	Section un.NppExecScript

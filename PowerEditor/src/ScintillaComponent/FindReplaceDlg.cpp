@@ -30,6 +30,19 @@ FindOption FindReplaceDlg::_options;
 
 #define SHIFTED 0x8000
 
+const char FINDREPLACE_SHIFTTRICKUPTIP_NODENAME[] = "shift-change-direction-tip";
+const TCHAR FINDREPLACE_SHIFTTRICKUPTIP_TEXT[] = TEXT("Use Shift+Enter to search in the opposite direction.");
+
+const char FINDREPLACE_2BUTTONSTIP_NODENAME[] = "two-find-buttons-tip";
+const TCHAR FINDREPLACE_2BUTTONSTIP_TEXT[] = TEXT("2 find buttons mode");
+
+const char FINDREPLACE_FILTERTIP_NODENAME[] = "find-in-files-filter-tip";
+const TCHAR FINDREPLACE_FILTERTIP_TEXT[] = TEXT("Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\r\
+Find in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log\r\r\
+Find in all files but exclude folders tests, bin && bin64:\r*.* !\\tests !\\bin*\r\r\
+Find in all files but exclude all folders log or logs recursively:\r*.* !+\\log*");
+
+
 void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 {
 	if (!hCombo) return;
@@ -492,6 +505,16 @@ void FindReplaceDlg::updateCombo(int comboID)
 {
 	HWND hCombo = ::GetDlgItem(_hSelf, comboID);
 	addText2Combo(getTextFromCombo(hCombo).c_str(), hCombo);
+}
+
+void FindReplaceDlg::changeAllToolTipsText()
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	HWND hFindReplaceDlg = getHSelf();
+	changeToolTipText(IDOK, hFindReplaceDlg, _shiftTrickUpTip, pNativeSpeaker->getLocalizedStrFromID(FINDREPLACE_SHIFTTRICKUPTIP_NODENAME, FINDREPLACE_SHIFTTRICKUPTIP_TEXT).c_str());
+	changeToolTipText(IDC_2_BUTTONS_MODE, hFindReplaceDlg, _2ButtonsTip, pNativeSpeaker->getLocalizedStrFromID(FINDREPLACE_2BUTTONSTIP_NODENAME, FINDREPLACE_2BUTTONSTIP_TEXT).c_str());
+	changeToolTipText(IDD_FINDINFILES_FILTERS_STATIC, hFindReplaceDlg, _filterTip, pNativeSpeaker->getLocalizedStrFromID(FINDREPLACE_FILTERTIP_NODENAME, FINDREPLACE_FILTERTIP_TEXT).c_str());
 }
 
 FoundInfo Finder::EmptyFoundInfo(0, 0, 0, TEXT(""));
@@ -1368,13 +1391,13 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-			 generic_string searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip", TEXT("Use Shift+Enter to search in the opposite direction."));
+			 generic_string searchButtonTip = pNativeSpeaker->getLocalizedStrFromID(FINDREPLACE_SHIFTTRICKUPTIP_NODENAME, FINDREPLACE_SHIFTTRICKUPTIP_TEXT);
 			 _shiftTrickUpTip = CreateToolTip(IDOK, _hSelf, _hInst, const_cast<PTSTR>(searchButtonTip.c_str()), _isRTL);
 
-			 generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID("two-find-buttons-tip", TEXT("2 find buttons mode"));
+			 generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID(FINDREPLACE_2BUTTONSTIP_NODENAME, FINDREPLACE_2BUTTONSTIP_TEXT);
 			 _2ButtonsTip = CreateToolTip(IDC_2_BUTTONS_MODE, _hSelf, _hInst, const_cast<PTSTR>(checkboxTip.c_str()), _isRTL);
 
-			 generic_string findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-filter-tip", TEXT("Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\rFind in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log\r\rFind in all files but exclude folders tests, bin && bin64:\r*.* !\\tests !\\bin*\r\rFind in all files but exclude all folders log or logs recursively:\r*.* !+\\log*"));
+			 generic_string findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID(FINDREPLACE_FILTERTIP_NODENAME, FINDREPLACE_FILTERTIP_TEXT);
 			 _filterTip = CreateToolTip(IDD_FINDINFILES_FILTERS_STATIC, _hSelf, _hInst, const_cast<PTSTR>(findInFilesFilterTip.c_str()), _isRTL);
 
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));

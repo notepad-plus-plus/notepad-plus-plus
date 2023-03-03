@@ -99,6 +99,47 @@ static int encodings[] = {
 	20866
 };
 
+const char EDITING_TIP_NODENAME[] = "eol-custom-color-tip";
+const TCHAR EDITING_TIP_TEXT[] = TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\").");
+
+const char EDITING_TIPNOTE_NODENAME[] = "npcNote-tip";
+const TCHAR EDITING_TIPNOTE_TEXT[] = TEXT("Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n\
+NOTE:\n\
+Some characters might already have some representation and are thus visible.\
+Line separator and paragraph separator are already represented by abbreviation by default.\n\n\
+Using representation will disable character effects on text.\n\n\
+For the full list of selected whitespace and non-printing characters check User Manual.\n\n\
+Click on this button to open website with User Manual.");
+
+const char EDITING_TIPABB_NODENAME[] = "npcAbbreviation-tip";
+const TCHAR EDITING_TIPABB_TEXT[] = TEXT("Abbreviation : name\n\
+NBSP : no-break space\n\
+ZWSP : zero-width space\n\
+ZWNBSP : zero-width no-break space\n\n\
+For the full list check User Manual.\n\
+Click on \"?\" button on right to open website with User Manual.");
+
+const char EDITING_TIPCODEPOINT_NODENAME[] = "npcCodepoint-tip";
+const TCHAR EDITING_TIPCODEPOINT_TEXT[] = TEXT("Codepoint : name\n\
+U+00A0 : no-break space\n\
+U+200B : zero-width space\n\
+U+FEFF : zero-width no-break space\n\n\
+For the full list check User Manual.\n\
+Click on \"?\" button on right to open website with User Manual.");
+
+const char EDITING_TIPNPCCOLOR_NODENAME[] = "npcCustomColor-tip";
+const TCHAR EDITING_TIPNPCCOLOR_TEXT[] = TEXT("Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
+
+const char DELIMITER_TIP_NODENAME[] = "word-chars-list-tip";
+const TCHAR DELIMITER_TIP_TEXT[] = TEXT("This allows you to include additional character into current word characters while double clicking for selection or searching with \"Match whole word only\" option checked.");
+
+const char PERFORMANCE_LARGEFILERESTRICTIONTIP_NODENAME[] = "largeFileRestriction-tip";
+const TCHAR PERFORMANCE_LARGEFILERESTRICTIONTIP_TEXT[] = TEXT("Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.\n\n\
+NOTE:\n\
+1. Modifying options here requires re-open currently opened large files to get proper behavior.\n\n\
+2. If \"Deactivate Word Wrap globally\" is checked and you open a large file, \"Word Wrap\" will be disabled for all files. You can re-enable it via menu \"View->Word Wrap\"");
+
+
 bool PreferenceDlg::goToSection(size_t iPage, intptr_t ctrlID)
 {
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SETCURSEL, iPage, 0);
@@ -452,6 +493,24 @@ bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *ne
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_INSERTSTRING, i, reinterpret_cast<LPARAM>(newName));
 
 	return true;
+}
+
+void PreferenceDlg::changeAllToolTipsText()
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	HWND hEditSubDlg = _editingSubDlg.getHSelf();
+	changeToolTipText(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, hEditSubDlg, _editingSubDlg._tip, pNativeSpeaker->getLocalizedStrFromID(EDITING_TIP_NODENAME, EDITING_TIP_TEXT).c_str());
+	changeToolTipText(IDC_BUTTON_NPC_NOTE, hEditSubDlg, _editingSubDlg._tipNote, pNativeSpeaker->getLocalizedStrFromID(EDITING_TIPNOTE_NODENAME, EDITING_TIPNOTE_TEXT).c_str());
+	changeToolTipText(IDC_RADIO_NPC_ABBREVIATION, hEditSubDlg, _editingSubDlg._tipAbb, pNativeSpeaker->getLocalizedStrFromID(EDITING_TIPABB_NODENAME, EDITING_TIPABB_TEXT).c_str());
+	changeToolTipText(IDC_RADIO_NPC_CODEPOINT, hEditSubDlg, _editingSubDlg._tipCodepoint, pNativeSpeaker->getLocalizedStrFromID(EDITING_TIPCODEPOINT_NODENAME, EDITING_TIPCODEPOINT_TEXT).c_str());
+	changeToolTipText(IDC_BUTTON_NPC_LAUNCHSTYLECONF, hEditSubDlg, _editingSubDlg._tipNpcColor, pNativeSpeaker->getLocalizedStrFromID(EDITING_TIPCODEPOINT_NODENAME, EDITING_TIPNPCCOLOR_TEXT).c_str());
+
+	HWND hDelimSubDlg = _delimiterSubDlg.getHSelf();
+	changeToolTipText(IDD_WORDCHAR_QUESTION_BUTTON, hDelimSubDlg, _delimiterSubDlg._tip, pNativeSpeaker->getLocalizedStrFromID(DELIMITER_TIP_NODENAME, DELIMITER_TIP_TEXT).c_str());
+
+	HWND hPerfSubDlg = _performanceSubDlg.getHSelf();
+	changeToolTipText(IDD_PERFORMANCE_TIP_QUESTION_BUTTON, hPerfSubDlg, _performanceSubDlg._largeFileRestrictionTip, pNativeSpeaker->getLocalizedStrFromID(PERFORMANCE_LARGEFILERESTRICTIONTIP_NODENAME, PERFORMANCE_LARGEFILERESTRICTIONTIP_TEXT).c_str());
 }
 
 void PreferenceDlg::showDialogByName(const TCHAR *name) const
@@ -916,7 +975,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
+			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID(EDITING_TIP_NODENAME, EDITING_TIP_TEXT);
 
 			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
 
@@ -926,39 +985,16 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_NPC_COLOR, BM_SETCHECK, svp._npcCustomColor, 0);
 
-			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
-				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
-				L"NOTE:\n"\
-				L"Some characters might already have some representation and are thus visible. "\
-				L"Line separator and paragraph separator are already represented by abbreviation by default.\n\n"\
-				L"Using representation will disable character effects on text.\n\n"\
-				L"For the full list of selected whitespace and non-printing characters check User Manual.\n\n"\
-				L"Click on this button to open website with User Manual.");
-
-			generic_string tipAb2Show = pNativeSpeaker->getLocalizedStrFromID("npcAbbreviation-tip",
-				L"Abbreviation : name\n"\
-				L"NBSP : no-break space\n"\
-				L"ZWSP : zero-width space\n"\
-				L"ZWNBSP : zero-width no-break space\n\n"\
-				L"For the full list check User Manual.\n"\
-				L"Click on \"?\" button on right to open website with User Manual.");
-
-			generic_string tipCp2Show = pNativeSpeaker->getLocalizedStrFromID("npcCodepoint-tip",
-				L"Codepoint : name\n"\
-				L"U+00A0 : no-break space\n"\
-				L"U+200B : zero-width space\n"\
-				L"U+FEFF : zero-width no-break space\n\n"\
-				L"For the full list check User Manual.\n"\
-				L"Click on \"?\" button on right to open website with User Manual.");
-
-			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
-				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID(EDITING_TIPNOTE_NODENAME, EDITING_TIPNOTE_TEXT);
+			generic_string tipAb2Show = pNativeSpeaker->getLocalizedStrFromID(EDITING_TIPABB_NODENAME, EDITING_TIPABB_TEXT);
+			generic_string tipCp2Show = pNativeSpeaker->getLocalizedStrFromID(EDITING_TIPCODEPOINT_NODENAME, EDITING_TIPCODEPOINT_TEXT);
+			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID(EDITING_TIPCODEPOINT_NODENAME, EDITING_TIPNPCCOLOR_TEXT);
 
 			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
 			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
 			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
 			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
-			
+
 			_tips.emplace_back(_tipNote);
 			_tips.emplace_back(_tipAbb);
 			_tips.emplace_back(_tipCodepoint);
@@ -4778,7 +4814,7 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			setWarningIfNeed();
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tip", TEXT("This allows you to include additional character into current word characters while double clicking for selection or searching with \"Match whole word only\" option checked."));
+			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID(DELIMITER_TIP_NODENAME, DELIMITER_TIP_TEXT);
 
 			_tip = CreateToolTip(IDD_WORDCHAR_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
 			if (_tip)
@@ -5230,7 +5266,7 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP), largeFileRestrictionEnabled);
 
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string enablePerfTip = pNativeSpeaker->getLocalizedStrFromID("largeFileRestriction-tip", TEXT("Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.\n\nNOTE:\n1. Modifying options here requires re-open currently opened large files to get proper behavior.\n\n2. If \"Deactivate Word Wrap globally\" is checked and you open a large file, \"Word Wrap\" will be disabled for all files. You can re-enable it via menu \"View->Word Wrap\""));
+			generic_string enablePerfTip = pNativeSpeaker->getLocalizedStrFromID(PERFORMANCE_LARGEFILERESTRICTIONTIP_NODENAME, PERFORMANCE_LARGEFILERESTRICTIONTIP_TEXT);
 			_largeFileRestrictionTip = CreateToolTip(IDD_PERFORMANCE_TIP_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(enablePerfTip.c_str()), false);
 		}
 		break;

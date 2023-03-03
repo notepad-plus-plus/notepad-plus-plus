@@ -759,6 +759,7 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 		}
 	}
 	changeDlgLang(findReplaceDlg.getHSelf(), "Find");
+	findReplaceDlg.changeAllToolTipsText();
 }
 
 void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdminDlg)
@@ -835,6 +836,7 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const size_t titreMaxSize = 128;
 	char titre[titreMaxSize];
+
 	changeDlgLang(preference._generalSubDlg.getHSelf(), "Global", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
@@ -975,6 +977,7 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	}
 
 	preference.setListSelection(currentSel);
+	preference.changeAllToolTipsText();
 }
 
 void NativeLangSpeaker::changeShortcutLang()

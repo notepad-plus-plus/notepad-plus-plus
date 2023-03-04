@@ -792,7 +792,14 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			{
 				if ((_whichCloseClickDown == currentTabOn) && _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
-					notify(TCN_TABDELETE, currentTabOn);
+					if ((::GetKeyState(VK_SHIFT) & 0x80000000) == 0)
+					{
+						notify(TCN_TABDELETE, currentTabOn);
+					} 
+					else
+					{
+						notify(TCN_TABDELETE_NO_PROMPT, currentTabOn);
+					}
 					_whichCloseClickDown = -1;
 
 					// Get the next tab at same position

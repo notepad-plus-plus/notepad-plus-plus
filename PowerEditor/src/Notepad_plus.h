@@ -170,7 +170,7 @@ public:
 	void fileOpen();
 	void fileNew();
     bool fileReload();
-	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
+	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1, bool promptIfDirty = true);	//use curView to override view to close from
 	bool fileCloseAll(bool doDeleteBackup, bool isSnapshotMode = false);
 	bool fileCloseAllButCurrent();
 	bool fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes);

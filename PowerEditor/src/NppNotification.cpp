@@ -313,6 +313,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			return TRUE;
 		}
 
+		case TCN_TABDELETE_NO_PROMPT:
 		case TCN_TABDELETE:
 		{
 			int index = tabNotification->_tabOrigin;
@@ -324,7 +325,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufferToClose, iView);
 			}
 
-			if (fileClose(bufferToClose, iView))
+			const bool promptIfDirty = (notification->nmhdr.code != TCN_TABDELETE_NO_PROMPT);
+			if (fileClose(bufferToClose, iView, promptIfDirty))
 				checkDocState();
 
 			break;

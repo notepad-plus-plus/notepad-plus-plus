@@ -35,6 +35,7 @@
 #define TCN_MOUSEHOVERING (TCN_FIRST - 13)
 #define TCN_MOUSELEAVING (TCN_FIRST - 14)
 #define TCN_MOUSEHOVERSWITCHING (TCN_FIRST - 15)
+#define TCN_TABDELETE_NO_PROMPT (TCN_FIRST - 16)  //Same as TCN_TABDELETE but don't show message box if dirty
 
 #define WM_TABSETSTYLE	(WM_APP + 0x024)
 

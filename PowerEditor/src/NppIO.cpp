@@ -975,7 +975,7 @@ int Notepad_plus::setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAl
 }
 
 
-bool Notepad_plus::fileClose(BufferID id, int curView)
+bool Notepad_plus::fileClose(BufferID id, int curView, bool promptIfDirty)
 {
 	BufferID bufferID = id;
 	if (id == BUFFER_INVALID)
@@ -991,7 +991,7 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	{
 		// Do nothing
 	}
-	else if (buf->isDirty())
+	else if (buf->isDirty() && promptIfDirty)
 	{
 		res = doSaveOrNot(fileNamePath);
 		if (res == IDYES)

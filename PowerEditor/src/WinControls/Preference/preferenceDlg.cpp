@@ -5166,7 +5166,7 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 				if (lstrcmp(str, TEXT("")) == 0)
 					return TRUE;
 				
-				size_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
 
 				if (fileLenInMB > 4096)
 				{
@@ -5195,7 +5195,7 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 					return TRUE;
 				}
 
-				size_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
 
 				if (fileLenInMB == 0)
 				{

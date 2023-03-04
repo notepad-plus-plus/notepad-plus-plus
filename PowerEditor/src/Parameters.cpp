@@ -5731,8 +5731,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			int fileSizeLimit4StylingMB = 0;
 			element->Attribute(TEXT("fileSizeMB"), &fileSizeLimit4StylingMB);
-			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB < 4096)
-				_nppGUI._largeFileRestriction._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
+			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB <= 4096)
+				_nppGUI._largeFileRestriction._largeFileSizeDefInByte = (static_cast<int64_t>(fileSizeLimit4StylingMB) * 1024 * 1024);
 
 			const TCHAR* boolVal = element->Attribute(TEXT("isEnabled"));
 			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))

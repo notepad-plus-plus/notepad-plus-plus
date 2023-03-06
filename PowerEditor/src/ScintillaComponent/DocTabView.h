@@ -30,7 +30,7 @@ public :
 	DocTabView():TabBarPlus(), _pView(NULL) {};
 	virtual ~DocTabView(){};
 	
-	virtual void destroy() override {
+	void destroy() override {
 		TabBarPlus::destroy();
 	};
 
@@ -84,7 +84,7 @@ public :
 		return _hideTabBarStatus;
 	};
 
-	virtual void reSizeTo(RECT & rc) override;
+	void reSizeTo(RECT & rc) override;
 
 	const ScintillaEditView* getScintillaEditView() const {
 		return _pView;

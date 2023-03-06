@@ -551,7 +551,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 		execute(SCI_STYLESETSIZE, styleID, styleToSet._fontSize);
 }
 
-void ScintillaEditView::setHotspotStyle(Style& styleToSet)
+void ScintillaEditView::setHotspotStyle(const Style& styleToSet)
 {
 	StyleMap* styleMap;
 	if ( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )

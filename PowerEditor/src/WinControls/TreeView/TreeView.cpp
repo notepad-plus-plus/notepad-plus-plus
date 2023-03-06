@@ -618,7 +618,7 @@ bool TreeView::canDragOut(HTREEITEM targetItem)
 
 
 
-bool TreeView::searchLeafAndBuildTree(TreeView & tree2Build, const generic_string & text2Search, int index2Search)
+bool TreeView::searchLeafAndBuildTree(const TreeView & tree2Build, const generic_string & text2Search, int index2Search)
 {
 	//tree2Build.removeAllItems();
 	//HTREEITEM root = getRoot();

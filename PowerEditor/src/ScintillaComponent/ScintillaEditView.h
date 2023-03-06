@@ -665,7 +665,7 @@ public:
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	};
 
-	void setHotspotStyle(Style& styleToSet);
+	void setHotspotStyle(const Style& styleToSet);
     void setTabSettings(Lang *lang);
 	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
 	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};

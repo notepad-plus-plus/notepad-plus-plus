@@ -116,7 +116,7 @@ public:
 	bool swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp);
 	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
-	bool searchLeafAndBuildTree(TreeView & tree2Build, const generic_string & text2Search, int index2Search);
+	bool searchLeafAndBuildTree(const TreeView & tree2Build, const generic_string & text2Search, int index2Search);
 	void sort(HTREEITEM hTreeItem, bool isRecusive);
 	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive);
 	BOOL setImageList(int w, int h, int nbImage, int image_id, ...);

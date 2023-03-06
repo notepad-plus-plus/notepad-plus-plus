@@ -139,7 +139,7 @@ bool FunctionParsersManager::getUnitPaserParameters(TiXmlNode *functionParser, g
 }
 
 
-bool FunctionParsersManager::loadFuncListFromXmlTree(generic_string & xmlDirPath, LangType lType, const generic_string& overrideId, int udlIndex)
+bool FunctionParsersManager::loadFuncListFromXmlTree(const generic_string & xmlDirPath, LangType lType, const generic_string& overrideId, int udlIndex)
 {
 	generic_string funcListRulePath = xmlDirPath;
 	funcListRulePath += TEXT("\\");
@@ -241,7 +241,7 @@ bool FunctionParsersManager::loadFuncListFromXmlTree(generic_string & xmlDirPath
 	return true;
 }
 
-bool FunctionParsersManager::getOverrideMapFromXmlTree(generic_string & xmlDirPath)
+bool FunctionParsersManager::getOverrideMapFromXmlTree(const generic_string & xmlDirPath)
 {
 	generic_string funcListRulePath = xmlDirPath;
 	funcListRulePath += TEXT("\\overrideMap.xml");

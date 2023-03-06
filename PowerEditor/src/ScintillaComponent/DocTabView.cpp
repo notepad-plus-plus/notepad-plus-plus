@@ -160,7 +160,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	if (mask & BufferChangeFilename)
 	{
 		tie.mask |= TCIF_TEXT;
-		tie.pszText = const_cast<TCHAR *>(encodedLabel);
+		tie.pszText = encodedLabel;
 
 		{
 			const TCHAR* in = buffer->getFileName();

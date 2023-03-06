@@ -385,8 +385,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="11009" name="Taille de grande à petite"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Fermer"/>
                 <Item CMDID="0" name="Fermer plusieurs onglets"/>
@@ -424,6 +422,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID="44115" name="Appliquer la couleur 5"/>
                 <Item CMDID="44110" name="Enlever la couleur"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Activer"/>
+                <Item id="43102" name="Nouveau"/>
+                <Item id="43103" name="Nouveau et coller"/>
+                <Item id="43104" name="Ouvrir..."/>
+                <Item id="43013" name="Trouver dans les fichiers..."/>
+                <Item id="43105" name="Fermer l'icône de la barre des tâches"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -1616,14 +1622,9 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <tabrename-newname value="Nom nouveau : "/>
             <splitter-rotate-left value="Tourner vers la gauche"/>
             <splitter-rotate-right value="Tourner vers la droite"/>
-            <recent-file-history-maxfile value="Max. fichier : "/>
-            <recent-file-history-customlength value="Longueur : "/>
-            <language-tabsize value="Taille tabulation : "/>
             <userdefined-title-new value="Langage nouveau..."/>
             <userdefined-title-save value="Enregistrer langage actuel sous..."/>
             <userdefined-title-rename value="Renommer langage actuel"/>
-            <autocomplete-nb-char value="Caractères : "/>
-            <edit-verticaledge-nb-col value="Colonnes : "/>
             <summary value="Statistiques"/>
             <summary-filepath value="Chemin d'accès : "/>
             <summary-filecreatetime value="Date de Création : "/>
@@ -1635,6 +1636,8 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <summary-nbsel1 value=" caractères sélectionnés ("/>
             <summary-nbsel2 value=" octets) dans "/>
             <summary-nbrange value=" sélections"/>
+            <progress-cancel-button value="Annuler"/>
+            <progress-cancel-info value="Annulation de l'opération, veuillez patienter..."/>
             <find-in-files-progress-title value="Rechercher dans les fichiers en cours..."/>
             <replace-in-files-confirm-title value="Confirmation"/>
             <replace-in-files-confirm-directory value="Voulez-vous remplacer toutes les occurrences dans :"/>

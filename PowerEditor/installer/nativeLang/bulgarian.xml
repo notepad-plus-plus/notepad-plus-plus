@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 24.02.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 12.03.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -448,8 +448,6 @@
 					<Item id="43504" name="Копиране пътищата на избраните"/>
 				</Commands>
 			</Main>
-			<Splitter>
-			</Splitter>
 				<!-- Контекстно меню на раздел -->
 			<TabBar>
 				<Item CMDID="41003" name="Затваряне"/>
@@ -497,6 +495,14 @@
 				<Item CMDID="44115" name="Прилагане на цвят 5"/>
 				<Item CMDID="44110" name="Премахване на цвета"/>
 			</TabBar>
+			<TrayIcon>
+				<Item id="43101" name="Активиране"/>
+				<Item id="43102" name="Нов"/>
+				<Item id="43103" name="Нов и поставяне"/>
+				<Item id="43104" name="Отваряне..."/>
+				<Item id="43013" name="Търсене във файлове..."/>
+				<Item id="43105" name="Затваряне на иконата"/>
+			</TrayIcon>
 		</Menu>
 		<Dialog>
 				<!-- Меню "Редактиране" - "Колонен редактор..." -->
@@ -568,6 +574,12 @@
 				<Item id="1725" name="Копиране маркираното"/>
 				<Item id="1616" name="&amp;Отметка на реда"/>
 				<Item id="1618" name="Изчистване при всяко търсене"/>
+				<!-- Меню за копиране -->
+				<Menu>
+					<Item id="1726" name="⇅ Размяна на &quot;Търсене&quot; със &quot;Замяна&quot;"/>
+					<Item id="1727" name="⤵ Копиране от &quot;Търсене&quot; в &quot;Замяна&quot;"/>
+					<Item id="1728" name="⤴ Копиране от &quot;Замяна&quot; в &quot;Търсене&quot;"/>
+				</Menu>
 			</Find>
 			<!-- Постъпково търсене -->
 			<IncrementalFind title="">
@@ -1505,7 +1517,7 @@
 			<ExpandAllFoldersTip name="Разгъване на всички"/>
 			<CollapseAllFoldersTip name="Свиване на всички"/>
 			<LocateCurrentFileTip name="Намиране на текущият файл"/>
-			<Menus>
+			<Menu>
 				<Item id="3511" name="Премахване"/>
 				<Item id="3512" name="Премахване на всички"/>
 				<Item id="3513" name="Добавяне"/>
@@ -1516,7 +1528,7 @@
 				<Item id="3518" name="Отваряне папката до тук"/>
 				<Item id="3519" name="Отваряне папката в cmd"/>
 				<Item id="3520" name="Копиране името на файла"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 		<MiscStrings>
 		<!-- $INT_REPLACE$ и $STR_REPLACE$ са контейнери, не се превеждат -->
@@ -1678,9 +1690,6 @@ U+FEFF : пространство с нулева ширина без прекъ
 			<cloud-invalid-warning value="Невалиден път"/>
 			<cloud-restart-warning value="Изисква се рестартиране на Notepad++"/>
 			<cloud-select-folder value="Избор на папка, от/в която Notepad++ ще чете/пише настройките си"/>
-					<!-- "История с отваряния" -->
-			<recent-file-history-maxfile value="Макс. файла:"/>
-			<recent-file-history-customlength value="Дължина:"/>
 				<!-- Дясно щракане върху раздел - "Преименуване..." -->
 			<tabrename-title value="Преименуване на раздела"/>
 			<tabrename-newname value="Ново име:"/>

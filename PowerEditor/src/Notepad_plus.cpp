@@ -4738,12 +4738,14 @@ void Notepad_plus::staticCheckMenuAndTB() const
 	const bool wsTabShow = _pEditView->isShownSpaceAndTab();
 	const bool eolShow = _pEditView->isShownEol();
 	const bool npcShow = _pEditView->isShownNpc();
+	const bool ccUniEolShow = _pEditView->isShownCcUniEol();
 
-	const bool allShow = wsTabShow && eolShow && npcShow;
+	const bool allShow = wsTabShow && eolShow && npcShow && ccUniEolShow;
 
 	checkMenuItem(IDM_VIEW_TAB_SPACE, wsTabShow);
 	checkMenuItem(IDM_VIEW_EOL, eolShow);
 	checkMenuItem(IDM_VIEW_NPC, npcShow);
+	checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, ccUniEolShow);
 	checkMenuItem(IDM_VIEW_ALL_CHARACTERS, allShow);
 	_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allShow);
 
@@ -6339,6 +6341,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		setUniModeText();
 		setDisplayFormat(buffer->getEolFormat());
 		enableConvertMenuItems(buffer->getEolFormat());
+	}
+
+	if (mask & (BufferChangeUnicode))
+	{
+		_mainEditView.maintainStateForNpc();
+		_subEditView.maintainStateForNpc();
 	}
 }
 

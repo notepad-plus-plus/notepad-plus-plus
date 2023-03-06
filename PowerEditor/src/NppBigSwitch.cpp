@@ -1759,10 +1759,23 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SETNPC:
 		{
-			const bool isShown = nppParam.getSVP()._npcShow;
-			_mainEditView.showNpc(isShown);
-			_subEditView.showNpc(isShown);
-			_findReplaceDlg.updateFinderScintillaForNpc();
+			const auto& svp = nppParam.getSVP();
+			const bool isFromIncCcUniEolCtrl = wParam == IDC_CHECK_NPC_INCLUDECCUNIEOL;
+			if (isFromIncCcUniEolCtrl || svp._npcIncludeCcUniEol)
+			{
+				const bool isShown = svp._ccUniEolShow;
+				_mainEditView.showCcUniEol(isShown);
+				_subEditView.showCcUniEol(isShown);
+			}
+
+			if (!isFromIncCcUniEolCtrl)
+			{
+				const bool isShown = svp._npcShow;
+				_mainEditView.showNpc(isShown);
+				_subEditView.showNpc(isShown);
+				_findReplaceDlg.updateFinderScintillaForNpc();
+			}
+
 			return TRUE;
 		}
 
@@ -2945,14 +2958,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		
 		case NPPM_INTERNAL_NPCFORMCHANGED:
 		{
-			NppParameters& nppParam = NppParameters::getInstance();
-			const bool isShown = nppParam.getSVP()._npcShow;
-			if (isShown)
+			_mainEditView.setNpcAndCcUniEOL();
+			_subEditView.setNpcAndCcUniEOL();
+
+			const auto& svp = NppParameters::getInstance().getSVP();
+			if (svp._npcShow)
 			{
-				_mainEditView.setNPC();
-				_subEditView.setNPC();
 				_findReplaceDlg.updateFinderScintillaForNpc(true);
 			}
+
 			return TRUE;
 		}
 

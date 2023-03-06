@@ -296,6 +296,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44114" name="Apply Color 4"/>
                     <Item id="44115" name="Apply Color 5"/>
                     <Item id="44130" name="Show Non-Printing Characters"/>
+                    <Item id="44131" name="Show Control Characters &amp; Unicode EOL"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -951,6 +952,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6254" name="Abbreviation"/>
                     <Item id="6255" name="Codepoint"/>
                     <Item id="6256" name="Custom Color"/>
+                    <Item id="6258" name="Apply to C0, C1 &amp; Unicode EOL"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">
@@ -1672,8 +1674,6 @@ NOTE:
             <npcNote-tip value="Representation of selected &quot;non-ASCII&quot; whitespace and non-printing (control) characters.
 
 NOTE:
-Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
-
 Using representation will disable character effects on text.
 
 For the full list of selected whitespace and non-printing characters check User Manual.
@@ -1696,6 +1696,7 @@ Click on &quot;?&quot; button on right to open website with User Manual." />
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)." />
+            <npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

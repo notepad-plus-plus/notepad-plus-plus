@@ -1,25 +1,32 @@
-Notepad++ v8.4.9 bug-fixes and new features:
+Notepad++ v8.5 bug-fixes and new features:
 
-1.  Fix saving 4GB+ files file size cutting off issue.
-2.  Fix v8.4.8 hanging while opening some Pascal files.
-3.  Add JSON5 support - only JSONC currently (with js comment supported). 
-4.  Add configuration for dockable panels to ignore '-nosession'.
-5.  Fix Notepad Replacement display 'Cannot open file " "' regression in v8.4.8.
-6.  Fix Notpad++ hangs while deleting search results results.
-7.  Fix XML tag-matching not be case-sensitive.
-8.  Add support selection for "EOL to Space", "TAB and Space conversion" & "Trim" commands.
-9.  Improve Pascal/Delphi function list performance.
-10. Fix exclude functions in comment zones in C++, PHP, JavaScript and Pascal.    
-11. Use stable sort algorithm instead of standard sort one.
-12. Fix doc switcher not using alternate icon sets.
-13. Several enhancement in dark mode.
-14. Fix under high DPI URL hand cursor too small display issue.
-15. Fix docking GUI regression for plugin in light mode.
-16. Fix cannot undo "Block Uncomment" & "Insert Date/Time" commands in one shot.
-17. Fix sub-menu folder display mess in non-western languages under Macro/Run menu.
+1.  Fix notepad replacement opening file name containing white space regression.
+2.  Fix regression about visual glitch of Find in Files progress window & Document Switcher.
+3.  Update to Scintilla 5.3.3 and Lexilla 5.2.2.
+4.  Add new explorer context menu entry "Edit with Notepad++" for WINDOWS 11.
+5.  Add show non-printable characters command.
+6.  Apply tab colors to document list items, and add groups to document list.
+7.  Add middle mouse click ability to close doc in Document List.
+8.  Add Begin/End Select in Column Mode command.
+9.  Add option to make auto-completion list brief.
+10. Remove duplicate items in function/word list of Auto-completion.
+11. Fix missing items in word autocomplete.
+12. Fix autocomplete to sort case insensitive issue.
+13. Fix wrong value set in Preferences->Performance->"Define Large File Size".
+14. Change behaviour: make Select and Find (Next/Previous) always in normal search mode.
+15. Change behaviour: make volatile Find uses least-strict option settings.
+16. Change behaviour: don't populate in Find what if a stream selection more than 1024 characters.
+17. Fix dock-able panels not restoring for mono instances when Notepad++ is in the tray.
+18. Fix panels not restored from systemtray with "Edit with Notepad++" in admin mode.
+19. Fix hit text in search results not being scrolled in the view issue.
+20. Fix untitled document number jumping or repeated problem.
+21. Add new notification NPPN_EXTERNALLEXERBUFFER for lexer plugin with buffer ID when a new lexer is applied to the buffer in question.
+22. Fix Synch H/V Scrolling commands not sync with 2 views.
+23. Add several GUI enhancement.
+24. Make several GUI items translatable.
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.4.9/
+https://notepad-plus-plus.org/downloads/v8.5/
 
 
 Included plugins:
@@ -31,4 +38,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.2.4
+* WinGup (for Notepad++) v5.2.5

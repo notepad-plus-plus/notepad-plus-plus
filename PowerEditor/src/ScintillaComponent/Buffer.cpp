@@ -754,7 +754,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, isLargeFile);
-		BufferID id = static_cast<BufferID>(newBuf);
+		BufferID id = newBuf;
 		newBuf->_id = id;
 
 		if (backupFileName != NULL)
@@ -1330,7 +1330,7 @@ BufferID FileManager::newEmptyDocument()
 	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
 	newBuf->_lang = ndds._lang;
 
-	BufferID id = static_cast<BufferID>(newBuf);
+	BufferID id = newBuf;
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
 	++_nbBufs;
@@ -1349,7 +1349,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	if (!dontRef)
 		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
-	BufferID id = static_cast<BufferID>(newBuf);
+	BufferID id = newBuf;
 	newBuf->_id = id;
 	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
 	newBuf->_lang = ndds._lang;

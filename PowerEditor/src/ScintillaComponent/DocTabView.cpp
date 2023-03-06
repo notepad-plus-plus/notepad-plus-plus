@@ -81,7 +81,7 @@ bool DocTabView::activateBuffer(BufferID buffer)
 BufferID DocTabView::activeBuffer()
 {
 	int index = getCurrentTabIndex();
-	return static_cast<BufferID>(getBufferByIndex(index));
+	return getBufferByIndex(index);
 }
 
 

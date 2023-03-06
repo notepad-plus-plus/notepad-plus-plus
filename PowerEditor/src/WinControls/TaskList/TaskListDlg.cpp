@@ -146,7 +146,7 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			{
 				case LVN_GETDISPINFO:
 				{
-					LV_ITEM &lvItem = reinterpret_cast<LV_DISPINFO*>(reinterpret_cast<LV_DISPINFO FAR *>(lParam))->item;
+					LV_ITEM &lvItem = reinterpret_cast<LV_DISPINFO FAR *>(lParam)->item;
 
 					TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[lvItem.iItem];
 

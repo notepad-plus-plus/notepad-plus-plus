@@ -150,7 +150,7 @@ LRESULT CALLBACK SplitterContainer::staticWinProc(HWND hwnd, UINT message, WPARA
 	{
 		case WM_NCCREATE:
 		{
-			pSplitterContainer = reinterpret_cast<SplitterContainer *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
+			pSplitterContainer = static_cast<SplitterContainer *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pSplitterContainer->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pSplitterContainer));
 			return TRUE;

@@ -69,7 +69,7 @@ public:
 	size_t getNbDirtyBuffers() const;
 	int getBufferIndexByID(BufferID id);
 	Buffer * getBufferByIndex(size_t index);
-	Buffer * getBufferByID(BufferID id) {return static_cast<Buffer*>(id);}
+	Buffer * getBufferByID(BufferID id) {return id;}
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
 

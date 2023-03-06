@@ -5923,18 +5923,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
 		else if (!lstrcmp(nm, TEXT("DarkMode")))
 		{
-			auto parseYesNoBoolAttribute = [&element](const TCHAR* name, bool defaultValue = false)->bool {
-				const TCHAR* val = element->Attribute(name);
-				if (val)
-				{
-					if (!lstrcmp(val, TEXT("yes")))
-						return true;
-					else if (!lstrcmp(val, TEXT("no")))
-						return false;
-				}
-				return defaultValue;
-			};
-
 			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
 
 			//_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(TEXT("enablePlugin", true));
@@ -6370,6 +6358,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	}
 
 	_svp._npcCustomColor = parseYesNoBoolAttribute(TEXT("npcCustomColor"));
+	_svp._npcIncludeCcUniEol = parseYesNoBoolAttribute(TEXT("npcIncludeCcUniEOL"));
 
 	nm = element->Attribute(TEXT("borderWidth"), &val);
 	if (nm)
@@ -6676,6 +6665,7 @@ bool NppParameters::writeScintillaParams()
 	setShowHideBoolAttribute(TEXT("npcShow"), _svp._npcShow);
 	(scintNode->ToElement())->SetAttribute(TEXT("npcMode"), static_cast<int>(_svp._npcMode));
 	setYesNoBoolAttribute(TEXT("npcCustomColor"), _svp._npcCustomColor);
+	setYesNoBoolAttribute(TEXT("npcIncludeCcUniEOL"), _svp._npcIncludeCcUniEol);
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);

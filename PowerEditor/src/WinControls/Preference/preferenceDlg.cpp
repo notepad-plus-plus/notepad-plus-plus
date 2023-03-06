@@ -919,16 +919,15 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
 
 			const bool isNpcModeAbbrv = svp._npcMode == svp.abbreviation;
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_NPC_ABBREVIATION, BM_SETCHECK, isNpcModeAbbrv, 0);
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_NPC_CODEPOINT, BM_SETCHECK, !isNpcModeAbbrv, 0);
+			setChecked(IDC_RADIO_NPC_ABBREVIATION, isNpcModeAbbrv);
+			setChecked(IDC_RADIO_NPC_CODEPOINT, !isNpcModeAbbrv);
 
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_NPC_COLOR, BM_SETCHECK, svp._npcCustomColor, 0);
+			setChecked(IDC_CHECK_NPC_COLOR, svp._npcCustomColor);
+			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
 
 			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
 				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
 				L"NOTE:\n"\
-				L"Some characters might already have some representation and are thus visible. "\
-				L"Line separator and paragraph separator are already represented by abbreviation by default.\n\n"\
 				L"Using representation will disable character effects on text.\n\n"\
 				L"For the full list of selected whitespace and non-printing characters check User Manual.\n\n"\
 				L"Click on this button to open website with User Manual.");
@@ -949,18 +948,25 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				L"For the full list check User Manual.\n"\
 				L"Click on \"?\" button on right to open website with User Manual.");
 
+			generic_string tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
+				L"Include C0, C1 control and unicode EOL (next line, line separator and paragraph separator) characters.\n\n"\
+				L"If unchecked, menu item \"Show Non-Printing Characters\" will have no effect on these characters and they will be represented by default abbreviations.\n\n"\
+				L"If checked and menu item \"Show Non-Printing Characters\" is unchecked, these characters will be hidden.");
+
 			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
 				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
 
 			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
 			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
 			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipNpcInclude = CreateToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, const_cast<PTSTR>(tipNpcInc2show.c_str()), pNativeSpeaker->isRTL());
 			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
 			
-			_tips.emplace_back(_tipNote);
-			_tips.emplace_back(_tipAbb);
-			_tips.emplace_back(_tipCodepoint);
-			_tips.emplace_back(_tipNpcColor);
+			_tips.push_back(_tipNote);
+			_tips.push_back(_tipAbb);
+			_tips.push_back(_tipCodepoint);
+			_tips.push_back(_tipNpcInclude);
+			_tips.push_back(_tipNpcColor);
 
 			for (auto& tip : _tips)
 			{
@@ -1139,6 +1145,14 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_NPCLAUNCHSTYLECONF, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_NPC_INCLUDECCUNIEOL:
+				{
+					svp._npcIncludeCcUniEol = isCheckedOrNot(IDC_CHECK_NPC_INCLUDECCUNIEOL);
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_SETNPC, !svp._npcIncludeCcUniEol ? TRUE : FALSE, 0);
 					return TRUE;
 				}
 

@@ -1672,8 +1672,6 @@ NOTE:
             <npcNote-tip value="Representation of selected &quot;non-ASCII&quot; whitespace and non-printing (control) characters.
 
 NOTE:
-Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
-
 Using representation will disable character effects on text.
 
 For the full list of selected whitespace and non-printing characters check User Manual.
@@ -1696,6 +1694,12 @@ Click on &quot;?&quot; button on right to open website with User Manual." />
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)." />
+            <!-- "Show Non-Printing Characters" should have same translation as Item id="44130" -->
+            <npcIncludeCcUniEol-tip value="Include C0, C1 control and unicode EOL (next line, line separator and paragraph separator) characters.
+
+If unchecked, menu item &quot;Show Non-Printing Characters&quot; will have no effect on these characters and they will be represented by default abbreviations.
+
+If checked and menu item &quot;Show Non-Printing Characters&quot; is unchecked, these characters will be hidden." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

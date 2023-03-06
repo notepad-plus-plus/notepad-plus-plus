@@ -1454,6 +1454,15 @@ void ScintillaEditView::setNPC(long color)
 		execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(invChar.at(0)), appearance);
 	}
 
+	if (svp._npcIncludeCcUniEol)
+	{
+		for (const auto& invChar : g_ccUniEolChars)
+		{
+			execute(SCI_SETREPRESENTATIONCOLOUR, reinterpret_cast<WPARAM>(invChar.at(0)), alphaNpcCustomColor);
+			execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(invChar.at(0)), appearance);
+		}
+	}
+
 	redraw();
 }
 
@@ -2846,6 +2855,54 @@ void ScintillaEditView::performGlobalStyles()
 		npcCustomColor = pStyle->_fgColor;
 	}
 	setNPC(npcCustomColor);
+}
+
+void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
+{
+	auto& svp = NppParameters::getInstance().getSVP();
+
+	if (willBeShowed)
+	{
+		const auto& mode = static_cast<size_t>(svp._npcMode);
+		for (const auto& invChar : g_nonPrintingChars)
+		{
+			execute(SCI_SETREPRESENTATION, reinterpret_cast<WPARAM>(invChar.at(0)), reinterpret_cast<LPARAM>(invChar.at(mode)));
+		}
+
+		if (svp._npcIncludeCcUniEol)
+		{
+			for (const auto& invChar : g_ccUniEolChars)
+			{
+				execute(SCI_SETREPRESENTATION, reinterpret_cast<WPARAM>(invChar.at(0)), reinterpret_cast<LPARAM>(invChar.at(mode)));
+			}
+		}
+
+		if (svp._npcCustomColor)
+		{
+			setNPC();
+		}
+	}
+	else
+	{
+		execute(SCI_CLEARALLREPRESENTATIONS);
+
+		// SCI_CLEARALLREPRESENTATIONS will also reset CRLF
+		if (!isSearchResult && svp._eolMode != svp.roundedRectangleText)
+		{
+			setCRLF();
+		}
+
+		if (svp._npcIncludeCcUniEol)
+		{
+			for (const auto& invChar : g_ccUniEolChars)
+			{
+				execute(SCI_SETREPRESENTATION, reinterpret_cast<WPARAM>(invChar.at(0)), reinterpret_cast<LPARAM>(g_ZWSP));
+				execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(invChar.at(0)), SC_REPRESENTATION_PLAIN);
+			}
+		}
+	}
+
+	redraw();
 }
 
 void ScintillaEditView::showIndentGuideLine(bool willBeShowed)

@@ -1759,6 +1759,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SETNPC:
 		{
+			if (wParam == TRUE)
+			{
+				_mainEditView.execute(SCI_CLEARALLREPRESENTATIONS);
+				_subEditView.execute(SCI_CLEARALLREPRESENTATIONS);
+
+				// SCI_CLEARALLREPRESENTATIONS will also reset CRLF
+				if (!nppParam.getSVP()._eolMode != ScintillaViewParams::roundedRectangleText)
+				{
+					_mainEditView.setCRLF();
+					_subEditView.setCRLF();
+				}
+			}
+
 			const bool isShown = nppParam.getSVP()._npcShow;
 			_mainEditView.showNpc(isShown);
 			_subEditView.showNpc(isShown);

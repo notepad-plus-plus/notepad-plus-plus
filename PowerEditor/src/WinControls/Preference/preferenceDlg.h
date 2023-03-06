@@ -69,6 +69,7 @@ private :
 	HWND _tipNote = nullptr;
 	HWND _tipAbb = nullptr;
 	HWND _tipCodepoint = nullptr;
+	HWND _tipNpcInclude = nullptr;
 	HWND _tipNpcColor = nullptr;
 
 	std::vector<HWND> _tips;

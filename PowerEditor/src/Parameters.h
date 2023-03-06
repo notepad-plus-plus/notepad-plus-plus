@@ -953,6 +953,7 @@ struct ScintillaViewParams
 	enum npcMode { identity = 0, abbreviation = 1, codepoint = 2 };
 	npcMode _npcMode = abbreviation;
 	bool _npcCustomColor = false;
+	bool _npcIncludeCcUniEol = false;
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;

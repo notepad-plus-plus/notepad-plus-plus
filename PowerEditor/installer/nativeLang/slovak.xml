@@ -385,8 +385,6 @@
                     <Item id="11009" name="Veľkosť ↓"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Zavrieť"/>
                 <Item CMDID="0" name="Zavrieť viacero kariet"/>
@@ -424,6 +422,14 @@
                 <Item CMDID="44115" name="Použiť farbu 5"/>
                 <Item CMDID="44110" name="Odstrániť farbu"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Aktivovať"/>
+                <Item id="43102" name="Nový"/>
+                <Item id="43103" name="Nový a vložiť"/>
+                <Item id="43104" name="Otvoriť…"/>
+                <Item id="43013" name="Hľadať v súboroch…"/>
+                <Item id="43105" name="Zavrieť ikonu"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -1613,12 +1619,9 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <tabrename-newname value="Nový názov: "/>
             <splitter-rotate-left value="Otočiť doľava"/>
             <splitter-rotate-right value="Otočiť doprava"/>
-            <recent-file-history-maxfile value="Max. počet: "/>
-            <recent-file-history-customlength value="Dĺžka: "/>
             <userdefined-title-new value="Vytvoriť nový jazyk…"/>
             <userdefined-title-save value="Uložiť aktuálny názov jazyka…"/>
             <userdefined-title-rename value="Premenovať aktuálny názov jazyka"/>
-            <edit-verticaledge-nb-col value="č. stĺpca:"/>
             <summary value="Zhrnutie"/>
             <summary-filepath value="Celá cesta k súboru: "/>
             <summary-filecreatetime value="Vytvorený: "/>

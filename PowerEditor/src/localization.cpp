@@ -681,10 +681,16 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 				HWND hItem = ::GetDlgItem(hDlg, id);
 				if (hItem)
 				{
-					const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 					if (id == IDC_DOCK_BUTTON && userDefineDlg->isDocked())
-						nameW = getAttrNameByIdStr(TEXT("Undock"), userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str()).c_str();
-					::SetWindowText(hItem, nameW);
+					{
+						generic_string name = getAttrNameByIdStr(TEXT("Undock"), userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
+						::SetWindowText(hItem, name.c_str());
+					}
+					else
+					{
+						const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+						::SetWindowText(hItem, nameW);
+					}
 				}
 			}
 		}

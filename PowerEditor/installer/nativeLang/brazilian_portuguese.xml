@@ -385,8 +385,6 @@
                     <Item id="11009" name="Tamanho, maior para menor"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Fechar"/>
                 <Item CMDID="0" name="Fechar Múltiplas Abas"/>
@@ -424,7 +422,15 @@
                 <Item CMDID="44115" name="Aplicar Cor 5"/>
                 <Item CMDID="44110" name="Remover Cor"/>
             </TabBar>
-        </Menu>
+            <TrayIcon>
+                <Item id="43101" name="Ativar"/>
+                <Item id="43102" name="Novo"/>
+                <Item id="43103" name="Novo e Colar"/>
+                <Item id="43104" name="Abrir..."/>
+                <Item id="43013" name="Localizar em Arquivos..."/>
+                <Item id="43105" name="Fechar Ícone da Bandeja"/>
+            </TrayIcon>
+	</Menu>
 
         <Dialog>
             <Find title="" titleFind="Localizar" titleReplace="Substituir" titleFindInFiles="Localizar nos arquivos" titleFindInProjects="Localizar nos projetos" titleMark="Marcar">

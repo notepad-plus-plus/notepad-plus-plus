@@ -4497,7 +4497,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 
 	if (x)
 	{
-		TCHAR pX[10];
+		TCHAR pX[10]{};
 		_itow(x, pX, 10);
 		command += TEXT(" -x");
 		command += pX;
@@ -4505,7 +4505,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 
 	if (y)
 	{
-		TCHAR pY[10];
+		TCHAR pY[10]{};
 		_itow(y, pY, 10);
 		command += TEXT(" -y");
 		command += pY;

@@ -177,7 +177,7 @@ void AnsiCharPanel::insertChar(unsigned char char2insert) const
 
 void AnsiCharPanel::insertString(LPWSTR string2insert) const
 {
-	char multiByteStr[10];
+	char multiByteStr[10]{};
 	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 	if (codepage == -1)
 	{

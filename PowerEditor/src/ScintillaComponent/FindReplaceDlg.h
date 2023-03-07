@@ -154,7 +154,7 @@ private:
 	enum CurrentPosInLineStatus { pos_infront, pos_between, pos_inside, pos_behind };
 
 	struct CurrentPosInLineInfo {
-		CurrentPosInLineStatus _status;
+		CurrentPosInLineStatus _status = pos_infront;
 		intptr_t auxiliaryInfo = -1; // according the status
 	};
 

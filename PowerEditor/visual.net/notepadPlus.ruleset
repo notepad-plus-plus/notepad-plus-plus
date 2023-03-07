@@ -40,7 +40,7 @@
     <Rule Id="C26435" Action="Warning" />
     <Rule Id="C26436" Action="Warning" />
     <Rule Id="C26437" Action="Warning" />
-    <Rule Id="C26438" Action="Warning" />
+    <Rule Id="C26438" Action="Error" />   <!-- Avoid goto -->
     <Rule Id="C26439" Action="Warning" />
     <Rule Id="C26440" Action="None" />
     <Rule Id="C26441" Action="Warning" />
@@ -48,59 +48,59 @@
     <Rule Id="C26444" Action="Warning" />
     <Rule Id="C26445" Action="Warning" />
     <Rule Id="C26446" Action="None" />
-    <Rule Id="C26447" Action="Hidden" />
+    <Rule Id="C26447" Action="Hidden" />  <!-- The function is declared noexcept but calls function function_name that may throw exceptions -->
     <Rule Id="C26448" Action="Warning" />
     <Rule Id="C26449" Action="Warning" />
     <Rule Id="C26450" Action="Warning" />
-    <Rule Id="C26451" Action="Hidden" />
+    <Rule Id="C26451" Action="Hidden" />  <!-- Arithmetic overflow: Using operator 'operator' on a size-a byte value and then casting the result to a size-b byte value. Cast the value to the wider type before calling operator 'operator' to avoid overflow -->
     <Rule Id="C26452" Action="Warning" />
     <Rule Id="C26453" Action="Warning" />
-    <Rule Id="C26454" Action="Hidden" />
-    <Rule Id="C26455" Action="Hidden" />
+    <Rule Id="C26454" Action="Hidden" />  <!-- Arithmetic overflow: 'operator' operation produces a negative unsigned result at compile time -->
+    <Rule Id="C26455" Action="Hidden" />  <!-- Default constructor should not throw. Declare it 'noexcept' -->
     <Rule Id="C26456" Action="None" />
     <Rule Id="C26459" Action="Warning" />
     <Rule Id="C26460" Action="Warning" />
-    <Rule Id="C26461" Action="Hidden" />
-    <Rule Id="C26462" Action="Hidden" />
+    <Rule Id="C26461" Action="Hidden" />  <!-- The pointer argument 'argument' for function 'function' can be marked as a pointer to const  -->
+    <Rule Id="C26462" Action="Hidden" />  <!-- The value pointed to by 'variable' is assigned only once, mark it as a pointer to const -->
     <Rule Id="C26463" Action="Warning" />
     <Rule Id="C26464" Action="Warning" />
     <Rule Id="C26465" Action="Warning" />
     <Rule Id="C26466" Action="Warning" />
     <Rule Id="C26471" Action="Warning" />
-    <Rule Id="C26472" Action="Hidden" />
+    <Rule Id="C26472" Action="Hidden" />  <!-- Don't use a static_cast for arithmetic conversions. Use brace initialization, gsl::narrow_cast, or gsl::narrow. -->
     <Rule Id="C26473" Action="Warning" />
-    <Rule Id="C26474" Action="Hidden" />
-    <Rule Id="C26475" Action="Hidden" />
+    <Rule Id="C26474" Action="Hidden" />  <!-- Don't cast between pointer types when the conversion could be implicit. -->
+    <Rule Id="C26475" Action="Hidden" />  <!-- Do not use function style C-casts. -->
     <Rule Id="C26476" Action="Warning" />
-    <Rule Id="C26477" Action="Hidden" />
+    <Rule Id="C26477" Action="Hidden" />  <!-- Use 'nullptr' rather than 0 or NULL  -->
     <Rule Id="C26478" Action="Warning" />
     <Rule Id="C26479" Action="Warning" />
-    <Rule Id="C26481" Action="Hidden" />
+    <Rule Id="C26481" Action="Hidden" />  <!-- Don't use pointer arithmetic. Use span instead -->
     <Rule Id="C26482" Action="None" />
     <Rule Id="C26483" Action="Warning" />
     <Rule Id="C26485" Action="None" />
     <Rule Id="C26490" Action="None" />
     <Rule Id="C26491" Action="Warning" />
-    <Rule Id="C26492" Action="Hidden" />
-    <Rule Id="C26493" Action="Hidden" />
-    <Rule Id="C26494" Action="Hidden" />
+    <Rule Id="C26492" Action="Hidden" />  <!-- Don't use const_cast to cast away const. -->
+    <Rule Id="C26493" Action="Hidden" />  <!-- Don't use C-style casts. -->
+    <Rule Id="C26494" Action="Hidden" />  <!-- Variable 'variable' is uninitialized. Always initialize an object. -->
     <Rule Id="C26495" Action="Warning" />
     <Rule Id="C26496" Action="None" />
-    <Rule Id="C26497" Action="Hidden" />
+    <Rule Id="C26497" Action="Hidden" />  <!-- This function function-name could be marked constexpr if compile-time evaluation is desired -->
     <Rule Id="C26498" Action="Warning" />
     <Rule Id="C26800" Action="Warning" />
     <Rule Id="C26810" Action="Warning" />
     <Rule Id="C26811" Action="Warning" />
     <Rule Id="C26812" Action="None" />
-    <Rule Id="C26813" Action="Warning" />
-    <Rule Id="C26814" Action="Hidden" />
-    <Rule Id="C26815" Action="Warning" />
+    <Rule Id="C26813" Action="Hidden" /> <!-- Use 'bitwise and' to check if a flag is set -->
+    <Rule Id="C26814" Action="Hidden" /> <!-- The const variable 'variable' can be computed at compile time. Consider using constexpr -->
+    <Rule Id="C26815" Action="Error" />  <!-- The pointer is dangling because it points at a temporary instance that was destroyed. -->
     <Rule Id="C26816" Action="Warning" />
     <Rule Id="C26817" Action="Warning" />
-    <Rule Id="C26818" Action="Hidden" />
-    <Rule Id="C26819" Action="Error" />
+    <Rule Id="C26818" Action="Hidden" /> <!-- Switch statement does not cover all cases. Consider adding a 'default' label. -->
+    <Rule Id="C26819" Action="Error" />  <!-- Unannotated fallthrough between switch labels -->
     <Rule Id="C26820" Action="Warning" />
-    <Rule Id="C26826" Action="Warning" />
+    <Rule Id="C26826" Action="Hidden" /> <!-- Don't use C-style variable arguments -->
     <Rule Id="C26827" Action="Warning" />
     <Rule Id="C26828" Action="Warning" />
     <Rule Id="C26829" Action="Warning" />
@@ -115,7 +115,7 @@
     <Rule Id="C28125" Action="Warning" />
     <Rule Id="C28137" Action="Warning" />
     <Rule Id="C28138" Action="Warning" />
-    <Rule Id="C28159" Action="Hidden" />
+    <Rule Id="C28159" Action="Hidden" />  <!-- Consider using *function_name_1* instead of *function_name_2*. -->
     <Rule Id="C28160" Action="Warning" />
     <Rule Id="C28163" Action="Warning" />
     <Rule Id="C28164" Action="Warning" />
@@ -201,7 +201,7 @@
     <Rule Id="C33001" Action="Warning" />
     <Rule Id="C33004" Action="Warning" />
     <Rule Id="C33005" Action="Warning" />
-    <Rule Id="C33010" Action="Warning" />
+    <Rule Id="C33010" Action="Hidden" />  <!-- Unchecked lower bound for enum enum_name used as index. -->
     <Rule Id="C33011" Action="Warning" />
     <Rule Id="C33020" Action="Warning" />
     <Rule Id="C6001" Action="Warning" />

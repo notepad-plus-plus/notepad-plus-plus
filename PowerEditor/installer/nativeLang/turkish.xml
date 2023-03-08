@@ -6,7 +6,7 @@
 				<!-- Ana Menü Girişleri -->
 				<Entries>
 					<Item menuId="file" name="&amp;Dosya"/>
-					<Item menuId="edit" name="Dü&amp;zenle"/>
+					<Item menuId="edit" name="Dü&amp;zen"/>
 					<Item menuId="search" name="&amp;Ara"/>
 					<Item menuId="view" name="&amp;Görünüm"/>
 					<Item menuId="encoding" name="&amp;Kodlama"/>
@@ -46,8 +46,8 @@
 					<Item subMenuId="view-zoom" name="&amp;Yakınlaştır"/>
 					<Item subMenuId="view-moveCloneDocument" name="Geçerli Belgeyi Taşı/Kopyala"/>
 					<Item subMenuId="view-tab" name="Sekme"/>
-					<Item subMenuId="view-collapseLevel" name="Bloğu Katla"/>
-					<Item subMenuId="view-uncollapseLevel" name="Bloğu Aç"/>
+					<Item subMenuId="view-collapseLevel" name="Bloku Katla"/>
+					<Item subMenuId="view-uncollapseLevel" name="Bloku Aç"/>
 					<Item subMenuId="view-project" name="Proje"/>
 					<Item subMenuId="encoding-characterSets" name="&amp;Karakter Takımı"/>
 					<Item subMenuId="encoding-arabic" name="Arapça"/>
@@ -176,7 +176,7 @@
 					<Item id="42029" name="Geçerli Dosyanın Yolunu Kopyala"/>
 					<Item id="42030" name="Geçerli Dosya Adını Kopyala"/>
 					<Item id="42031" name="Geçerli Dizin Yolunu Kopyala"/>
-					<Item id="42087" name="Tüm Dosya İsimlerini Kopyala"/>
+					<Item id="42087" name="Tüm Dosya Adlarını Kopyala"/>
 					<Item id="42088" name="Tüm Dosya Yollarını Kopyala"/>
 					<Item id="42032" name="&amp;Makroyu Birden Çok Kez Çalıştır"/>
 					<Item id="42033" name="Salt Okunur İşaretini Kaldır"/>
@@ -251,7 +251,7 @@
 					<Item id="43054" name="İşa&amp;retle…"/>
 					<Item id="43501" name="Seçileni Kapat"/>
 					<Item id="43502" name="Diğerlerini Kapat"/>
-					<Item id="43503" name="Seçili İsimleri Kopyala"/>
+					<Item id="43503" name="Seçili Adları Kopyala"/>
 					<Item id="43504" name="Seçili Yol Adlarını Kopyala"/>
 					<Item id="44009" name="Pencereyi Ekrana Tuttur"/>
 					<Item id="44010" name="Tüm Blokları Kapat"/>
@@ -264,8 +264,8 @@
 					<Item id="44025" name="Beyaz Boşluğu ve Sekmeleri Göster"/>
 					<Item id="44026" name="Satır Sonlarını Göster"/>
 					<Item id="44029" name="Tüm Blokları Geri Aç"/>
-					<Item id="44030" name="Geçerli Bloğu Katla"/>
-					<Item id="44031" name="Geçerli Bloğu Aç"/>
+					<Item id="44030" name="Geçerli Bloku Katla"/>
+					<Item id="44031" name="Geçerli Bloku Aç"/>
 					<Item id="44049" name="Özet…"/>
 					<Item id="44080" name="Belge &amp;Haritası"/>
 					<Item id="44070" name="Dosya Listesi"/>
@@ -357,7 +357,7 @@
 					<Item id="49000" name="&amp;Çalıştır…"/>
 
 					<Item id="50000" name="Fonksiyonu Tamamla"/>
-					<Item id="50001" name="Kelimeyi Tamamla"/>
+					<Item id="50001" name="Sözcüğü Tamamla"/>
 					<Item id="50002" name="Fonksiyon Parametre İpuçlarını Tamamla"/>
 					<Item id="50010" name="Fonksiyon Parametreleri Önceki İpucu"/>
 					<Item id="50011" name="Fonksiyon Parametreleri Sonraki İpucu"/>
@@ -370,8 +370,8 @@
 					<Item id="48017" name="Kısayolu Değiştir/Komutu Sil…"/>
 					
 					<Item id="11001" name="&amp;Pencereler..."/>
-					<Item id="11002" name="İsme Göre A'dan Z'ye"/>
-					<Item id="11003" name="İsme Göre Z'den A'ya"/>
+					<Item id="11002" name="Ada Göre A'dan Z'ye"/>
+					<Item id="11003" name="Ada Göre Z'den A'ya"/>
 					<Item id="11004" name="Dizine Göre A'dan Z'ye"/>
 					<Item id="11005" name="Dizine Göre Z'den A'ya"/>
 					<Item id="11006" name="Türe Göre A'dan Z'ye"/>
@@ -559,8 +559,8 @@
 					<Item id="2214" name="Varsayılan uzantı:"/>
 					<Item id="2216" name="Kullanıcı uzantısı:"/>
 					<Item id="2218" name="Altı çizili"/>
-					<Item id="2219" name="Varsayılan anahtar kelimeler"/>
-					<Item id="2221" name="Kullanıcı tanımlı anahtar kelimeler"/>
+					<Item id="2219" name="Varsayılan anahtar sözcükler"/>
+					<Item id="2221" name="Kullanıcı tanımlı anahtar sözcükler"/>
 					<Item id="2225" name="Dil:"/>
 					<Item id="2226" name="Genel ön plan rengini kullan"/>
 					<Item id="2227" name="Genel arka plan rengini kullan"/>
@@ -579,7 +579,7 @@
                 <Item id="2606" name="Temizle"/>
 				<Item id="2607" name="Filtre: "/>
                 <Item id="1" name="Kapat"/>
-                <ColumnName name="İsim"/>
+                <ColumnName name="Ad"/>
                 <ColumnShortcut name="Kısayol"/>
                 <ColumnCategory name="Kategori"/>
                 <ColumnPlugin name="Eklenti"/>
@@ -674,8 +674,8 @@
                     <Item id="44113" name="Sekmeye 3. Rengi Uygula"/>
                     <Item id="44114" name="Sekmeye 4. Rengi Uygula"/>
                     <Item id="44115" name="Sekmeye 5. Rengi Uygula"/>
-                    <Item id="11002" name="İsme Göre A'dan Z'ye Sırala"/>
-                    <Item id="11003" name="İsme Göre Z'den A'ya Sırala"/>
+                    <Item id="11002" name="Ada Göre A'dan Z'ye Sırala"/>
+                    <Item id="11003" name="Ada Göre Z'den A'ya Sırala"/>
                     <Item id="11004" name="Dizine Göre A'dan Z'ye Sırala"/>
                     <Item id="11005" name="Dizine Göre Z'den A'ya Sırala"/>
                     <Item id="11006" name="Türe Göre A'dan Z'ye Sırala"/>
@@ -687,7 +687,7 @@
             <ShortcutMapperSubDialg title="Kısayol">
                 <Item id="1" name="Tamam"/>
                 <Item id="2" name="İptal"/>
-                <Item id="5006" name="İsim"/>
+                <Item id="5006" name="Ad"/>
                 <Item id="5008" name="Ekle"/>
                 <Item id="5009" name="Kaldır"/>
                 <Item id="5010" name="Uygula"/>
@@ -710,7 +710,7 @@
 						<Item id="25030" name="Yazı Tipi Seçenekleri"/>
 						<Item id="25006" name="Ön plan rengi:"/>
 						<Item id="25007" name="Arka plan rengi:"/>
-						<Item id="25031" name="İsim:"/>
+						<Item id="25031" name="Ad:"/>
 						<Item id="25032" name="Boyut:"/>
 						<Item id="25001" name="Kalın"/>
 						<Item id="25002" name="Eğik"/>
@@ -724,14 +724,14 @@
 						<Item id="25013" name="Sınırlayıcı 6"/>
 						<Item id="25014" name="Sınırlayıcı 7"/>
 						<Item id="25015" name="Sınırlayıcı 8"/>
-						<Item id="25018" name="Anahtar kelime 1"/>
-						<Item id="25019" name="Anahtar kelime 2"/>
-						<Item id="25020" name="Anahtar kelime 3"/>
-						<Item id="25021" name="Anahtar kelime 4"/>
-						<Item id="25022" name="Anahtar kelime 5"/>
-						<Item id="25023" name="Anahtar kelime 6"/>
-						<Item id="25024" name="Anahtar kelime 7"/>
-						<Item id="25025" name="Anahtar kelime 8"/>
+						<Item id="25018" name="Anahtar sözcük 1"/>
+						<Item id="25019" name="Anahtar sözcük 2"/>
+						<Item id="25020" name="Anahtar sözcük 3"/>
+						<Item id="25021" name="Anahtar sözcük 4"/>
+						<Item id="25022" name="Anahtar sözcük 5"/>
+						<Item id="25023" name="Anahtar sözcük 6"/>
+						<Item id="25024" name="Anahtar sözcük 7"/>
+						<Item id="25025" name="Anahtar sözcük 8"/>
 						<Item id="25016" name="Yorum"/>
 						<Item id="25017" name="Yorum satırı"/>
 						<Item id="25026" name="İşleç 1"/>
@@ -764,7 +764,7 @@
 						<Item id="21426" name="Kapat:"/>
 						<Item id="21427" name="Stilci…"/>
 					</Folder>
-					<Keywords title="Anahtar Kelimeler Listesi">
+					<Keywords title="Anahtar Sözcükler Listesi">
 						<Item id="22101" name="1. Grup"/>
 						<Item id="22201" name="2. Grup"/>
 						<Item id="22301" name="3. Grup"/>
@@ -1024,7 +1024,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 				<Highlighting title="Vurgulama">
 					<Item id="6351" name="Eşleşen Tüm İşaretleri Stillendir"/>
 					<Item id="6352" name="Büyük/küçük harf eşleştir"/>
-					<Item id="6353" name="Sadece tüm kelimeyi eşleştir"/>
+					<Item id="6353" name="Sadece tüm sözcüğü eşleştir"/>
 					<Item id="6333" name="Akıllı Vurgulama"/>
 					<Item id="6326" name="Etkinleştir"/>
 					<Item id="6354" name="Eşleştiriliyor"/>
@@ -1085,7 +1085,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
                     <Item id="6906" name="Bul Sonucu Penceresi: Her bulunan satır için sadece tek girdi göster"/>
                     <Item id="6907" name="Bul Diyaloğu Başlatıldığı Zaman"/>
                     <Item id="6908" name="Bul Alanını Seçili Yazı ile Doldur"/>
-                    <Item id="6909" name="Hiçbir Şey Seçilmediyse İşaretçi Altındaki kelimeyi Seç"/>
+                    <Item id="6909" name="Hiçbir Şey Seçilmediyse İşaretçi Altındaki sözcüğü Seç"/>
                 </Searching>
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">
@@ -1119,8 +1119,8 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6807" name="Otomatik Olarak Tamamla"/>
 					<Item id="6808" name="Yazarken otomatik tamamlamayı etkinleştir"/>
 					<Item id="6809" name="Fonksiyonu tamamla"/>
-					<Item id="6810" name="Kelimeyi tamamla"/>
-					<Item id="6816" name="Fonksiyonu ve kelimeyi tamamla"/>
+					<Item id="6810" name="Sözcüğü tamamla"/>
+					<Item id="6816" name="Fonksiyonu ve sözcüğü tamamla"/>
 					<Item id="6869" name="Seçimi Yerleştir"/>
 					<Item id="6870" name="TAB"/> <!-- Klavyedeki TAB tuşu, normal olarak tercümesine gerek yoktur -->
 					<Item id="6871" name="ENTER"/> <!-- Klavyedeki ENTER tuşu, normal olarak tercümesine gerek yoktur -->
@@ -1164,9 +1164,9 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6252" name="Aç"/>
 					<Item id="6255" name="Kapat"/>
 					<Item id="6256" name="Birden çok satıra izin ver"/>
-					<Item id="6161" name="Kelime karakter listesi"/>
-                    <Item id="6162" name="Varsayılan kelime karakter listesini olduğu gibi kullan"/>
-                    <Item id="6163" name="Karakterini kelimenin bir parçası gibi ekle
+					<Item id="6161" name="Sözcük karakter listesi"/>
+                    <Item id="6162" name="Varsayılan sözcük karakter listesini olduğu gibi kullan"/>
+                    <Item id="6163" name="Karakterini sözcüğün bir parçası gibi ekle
 (ne yaptığını bilmiyorsan seçme)"/>
 				</Delimiter>
 
@@ -1266,7 +1266,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
                 <Item id="2"    name="Kapat"/>
                 <Item id="1711" name="Ne &amp;Bulunsun:"/>
                 <Item id="1713" name="Sadece Bulunmuş Satırlarda Ara"/>
-                <Item id="1714" name="Sadece &amp;Tüm Kelimeyi Eşleştir"/>
+                <Item id="1714" name="Sadece &amp;Tüm Sözcüğü Eşleştir"/>
                 <Item id="1715" name="&amp;Harf Eşleştir"/>
                 <Item id="1716" name="Arama Modu"/>
                 <Item id="1717" name="&amp;Normal"/>
@@ -1284,7 +1284,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
             </DoSaveOrNot>
             <DoSaveAll title="Tümünü Kaydet Onaylaması">
                 <Item id="1766" name=" Tüm düzenlenmiş dosyaları kaydetmek istediğinize emin misiniz?
-Bu pencereyi tekrar görmek istemiyorsanız, &quot;Her Zaman Evet&quot; seçeneğini seçin.
+Bu pencereyi tekrar görmek istemiyorsanız &quot;Her Zaman Evet&quot; seçeneğini seçin.
 Bu pencereyi Tercihler içinden tekrar aktif edebilirsiniz."/>
                 <Item id="6" name="&amp;Evet"/>
                 <Item id="7" name="&amp;Hayır"/>
@@ -1306,7 +1306,7 @@ Devam etmek istiyor musunuz?"/>
 			<DocReloadWarning title="Yeniden Yükle" message="Geçerli dosyayı yeniden yüklerseniz yaptığınız değişiklikler kaybolacak. Devam etmek istiyor musunuz?"/>
 			<FileLockedWarning title="Kaydedilemedi" message="Dosyanın başka bir yazılım tarafından kullanılmadığından emin olun."/>
 			<FileAlreadyOpenedInNpp title="Dosya Aç" message="Dosya zaten Notepad++ içinde açık."/>
-			<RenameTabTemporaryNameAlreadyInUse title="Yeniden Adlandırma Başarısız" message="Belirtilen isim başka bir sekmede kullanımda."/>
+			<RenameTabTemporaryNameAlreadyInUse title="Yeniden Adlandırma Başarısız" message="Belirtilen ad başka bir sekmede kullanımda."/>
 			<DeleteFileFailed title="Dosya Sil" message="Dosya silinemedi"/>
 
 			<NbFileToOpenImportantWarning title="Çok Fazla Sayıda Dosya Açıldı" message="$INT_REPLACE$ dosyası açılmak üzere. 
@@ -1369,8 +1369,8 @@ Projeden bu klasörü kaldırmak istediğinize emin misiniz?"/>
             <ProjectPanelReloadError title="Çalışma Alanını Yeniden Yükle" message="Yeniden yüklemek için dosya bulunamadı."/>
             <ProjectPanelReloadDirty title="Çalışma Alanını Yeniden Yükle" message="Şu anki çalışma alanı değiştirildi.Yeniden yüklemek tüm değişimleri iptal edecektir.
 Devam etmek istiyor musunuz?"/>
-			<UDLNewNameError title="UDL Hatası" message="Bu isim başka bir dil tarafından kullanılıyor,
-lütfen yeni bir isim verin."/>
+			<UDLNewNameError title="UDL Hatası" message="Bu ad başka bir dil tarafından kullanılıyor,
+lütfen yeni bir ad verin."/>
             <UDLRemoveCurrentLang title="Şu Anki Dili Kaldır" message="Emin misiniz?"/>
 			<SCMapperDoDeleteOrNot title="Emin misiniz?" message="Bu kısayolu silmek istediğinize emin misiniz?"/>
 			<FindCharRangeValueError title="Aralık Değeri Problemi" message="0 ile 255 arasında bir giriş yapmalısınız."/>
@@ -1380,7 +1380,7 @@ Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
 Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
             <OpenInAdminModeFailed title="Yönetici Olarak Başlatma Başarısız" message="Notepad++ Yönetici olarak başlatılamaz."/>
             <ViewInBrowser title="Şimdiki Dosyayı Tarayıcıda GÖrüntüle" message="Sisteminizde uygulama bulunamadı."/>
-            <ExitToUpdatePlugins title="Notepad++ kapanmak üzere" message="Eğer EVET düğmesine basarsanız, Notepad++ kapanacak ve işlemler devam edecek.
+            <ExitToUpdatePlugins title="Notepad++ kapanmak üzere" message="Eğer EVET düğmesine basarsanız Notepad++ kapanacak ve işlemler devam edecek.
 Notepad++ tüm işlemler bitince yeniden başlatılacak.
 Devam edilsin mi?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ yeniden başlatılmalı" message="Kurduğunuz eklentilerin yüklenmesi için Notepad++ yeniden başlatılmalı."/>
@@ -1392,17 +1392,17 @@ Devam edilsin mi?"/>
 		</ClipboardHistory>
 		<DocList>
 			<PanelTitle name="Belge Listesi"/>
-			<ColumnName name="İsim"/>
+			<ColumnName name="Ad"/>
 			<ColumnExt name="Uzantı"/>
 			<ColumnPath name="Yol"/>
 		</DocList>
         <WindowsDlg>
-            <ColumnName name="İsim"/>
+            <ColumnName name="Ad"/>
             <ColumnPath name="Yol"/>
             <ColumnType name="Tür"/>
             <ColumnSize name="Boyut"/>
             <NbDocsTotal name="toplam dosyalar:"/>
-            <MenuCopyName name="İsim(ler)i Kopyala"/>
+            <MenuCopyName name="Ad(lar)ı Kopyala"/>
             <MenuCopyPath name="Yol Ad(lar)ını Kopyala"/>
         </WindowsDlg>
 		<AsciiInsertion>
@@ -1566,17 +1566,17 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<finder-wrap-long-lines value="Uzun Satırlarda Metin Kaydır"/>
 			<common-ok value="Tamam"/>
 			<common-cancel value="İptal"/>
-			<common-name value="İsim: "/>
+			<common-name value="Ad: "/>
 			<tabrename-title value="Şimdiki Sekmeyi Yeniden Adlandır"/>
-			<tabrename-newname value="Yeni İsim: "/>
+			<tabrename-newname value="Yeni Ad: "/>
 			<splitter-rotate-left value="Sola Döndür"/>
 			<splitter-rotate-right value="Sağa Döndür"/>
 			<recent-file-history-maxfile value="En Fazla Dosya: "/>
 			<recent-file-history-customlength value="Uzunluk: "/>
 			<language-tabsize value="Sekme Ölçüsü: "/>
 			<userdefined-title-new value="Yeni Dil Üret..."/>
-			<userdefined-title-save value="Şimdiki Dil İsmini Şöyle Kaydet..."/>
-			<userdefined-title-rename value="Şimdiki Dil İsmini Yeniden Adlandır"/>
+			<userdefined-title-save value="Geçerli Dil Adını Şöyle Kaydet..."/>
+			<userdefined-title-rename value="Geçerli Dil Adını Yeniden Adlandır"/>
 			<autocomplete-nb-char value="Karakter Sayısı: "/>
 			<edit-verticaledge-nb-col value="Sütun Sayısı:"/>
 			<summary value="Özet"/>
@@ -1584,7 +1584,7 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<summary-filecreatetime value="Oluşturuldu: "/>
 			<summary-filemodifytime value="Düzenlendi: "/>
 			<summary-nbchar value="Karakterler (satır sonu olmadan): "/>
-			<summary-nbword value="Kelimeler: "/>
+			<summary-nbword value="Sözcükler: "/>
 			<summary-nbline value="Satırlar: "/>
 			<summary-nbbyte value="Dosya uzunluğu: "/>
 			<summary-nbsel1 value=" seçili karakterler ("/>
@@ -1623,7 +1623,7 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 NOT:
 1. Burada seçenekleri değiştirmek, kararlı davranışlar elde etmek için şu anda açılmış büyük boyutlu dosyaların tekrar açılmasını gerektirir.
 
-2. Eğer &quot;Sözcük Kaydırmayı Tümden Etkisizleştir&quot; işaretlenmişse ve büyük dosya açarsanız, &quot;Sözcük Kaydır&quot; tüm dosyalar için etkisizleştirilir. Bunu tekrardan &quot;Görünüm-&gt;Sözcük Kaydır&quot; ile etkinleştirebilirsiniz." />
+2. Eğer &quot;Sözcük Kaydırmayı Tümden Etkisizleştir&quot; işaretlenmişse ve büyük dosya açarsanız &quot;Sözcük Kaydır&quot; tüm dosyalar için etkisizleştirilir. Bunu tekrardan &quot;Görünüm-&gt;Sözcük Kaydır&quot; ile etkinleştirebilirsiniz." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

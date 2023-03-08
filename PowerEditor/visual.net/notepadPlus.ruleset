@@ -38,7 +38,7 @@
     <Rule Id="C26433" Action="Hidden" />
     <Rule Id="C26434" Action="Hidden" />
     <Rule Id="C26435" Action="Warning" />
-    <Rule Id="C26436" Action="Warning" />
+    <Rule Id="C26436" Action="Hidden" />  <!-- The type 'symbol' with a virtual function needs either public virtual or protected non-virtual destructor -->
     <Rule Id="C26437" Action="Warning" />
     <Rule Id="C26438" Action="Error" />   <!-- Avoid goto -->
     <Rule Id="C26439" Action="Warning" />
@@ -71,7 +71,7 @@
     <Rule Id="C26473" Action="Warning" />
     <Rule Id="C26474" Action="Hidden" />  <!-- Don't cast between pointer types when the conversion could be implicit. -->
     <Rule Id="C26475" Action="Hidden" />  <!-- Do not use function style C-casts. -->
-    <Rule Id="C26476" Action="Warning" />
+    <Rule Id="C26476" Action="Hidden" />  <!-- Expression/symbol 'name' uses a naked union 'union' with multiple type pointers: Use variant instead -->
     <Rule Id="C26477" Action="Hidden" />  <!-- Use 'nullptr' rather than 0 or NULL  -->
     <Rule Id="C26478" Action="Warning" />
     <Rule Id="C26479" Action="Warning" />
@@ -205,7 +205,7 @@
     <Rule Id="C33011" Action="Warning" />
     <Rule Id="C33020" Action="Warning" />
     <Rule Id="C6001" Action="Warning" />
-    <Rule Id="C6011" Action="Warning" />
+    <Rule Id="C6011" Action="Error" />    <!-- Dereferencing NULL pointer 'pointer-name'. -->
     <Rule Id="C6029" Action="Warning" />
     <Rule Id="C6031" Action="None" />
     <Rule Id="C6053" Action="Warning" />
@@ -255,7 +255,7 @@
     <Rule Id="C6284" Action="Warning" />
     <Rule Id="C6285" Action="Warning" />
     <Rule Id="C6286" Action="Warning" />
-    <Rule Id="C6287" Action="Warning" />
+    <Rule Id="C6287" Action="Hidden" />  <!-- Redundant code: the left and right subexpressions are identical -->
     <Rule Id="C6288" Action="Warning" />
     <Rule Id="C6289" Action="Warning" />
     <Rule Id="C6290" Action="Warning" />

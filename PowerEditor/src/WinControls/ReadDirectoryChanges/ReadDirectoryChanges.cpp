@@ -82,6 +82,9 @@ void CReadDirectoryChanges::AddDirectory( LPCTSTR szDirectory, BOOL bWatchSubtre
 	if (!m_hThread)
 		Init();
 
+	if (!m_hThread)
+		return;
+
 	CReadChangesRequest* pRequest = new CReadChangesRequest(m_pServer, szDirectory, bWatchSubtree, dwNotifyFilter, dwBufferSize);
 	QueueUserAPC(CReadChangesServer::AddDirectoryProc, m_hThread, (ULONG_PTR)pRequest);
 }

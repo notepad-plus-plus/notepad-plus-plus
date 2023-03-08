@@ -443,7 +443,7 @@ void Gripper::doTabReordering(POINT pt)
 			auto iSel = ::SendMessage(_hTab, TCM_GETCURSEL, 0, 0);
 			::SendMessage(_hTab, TCM_DELETEITEM, iSel, 0);
 		}
-		else if (_hTab == hTabOld)
+		else if (_hTab && _hTab == hTabOld)
 		{
 			// delete item on switch between tabs
 			::SendMessage(_hTab, TCM_DELETEITEM, iItemOld, 0);

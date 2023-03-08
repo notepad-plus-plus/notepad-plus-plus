@@ -127,10 +127,10 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 
 bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned char endRange, intptr_t startPos, bool direction, bool wrap)
 {
-	int64_t totalSize = (*_ppEditView)->getCurrentDocLen();
+	size_t totalSize = (*_ppEditView)->getCurrentDocLen();
 	if (startPos == -1)
 		startPos = direction == dirDown ? 0 : totalSize - 1;
-	if (startPos > totalSize)
+	if (startPos > static_cast<intptr_t>(totalSize))
 		return false;
 
 	char *content = new char[totalSize + 1];
@@ -140,12 +140,12 @@ bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned cha
 	size_t found = 0;
 
 	for (int64_t i = startPos - (direction == dirDown ? 0 : 1);
-		(direction == dirDown) ? i < totalSize : i >= 0 ;
+		(direction == dirDown) ? i < static_cast<int64_t>(totalSize) : i >= 0 ;
 		(direction == dirDown) ? (++i) : (--i))
 	{
 		if (static_cast<unsigned char>(content[i]) >= beginRange && static_cast<unsigned char>(content[i]) <= endRange)
 		{
-			found = i;
+			found = static_cast<size_t>(i);
 			isFound = true;
 			break;
 		}
@@ -156,12 +156,12 @@ bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned cha
 		if (wrap)
 		{
 			for (int64_t i = (direction == dirDown ? 0: totalSize - 1); 
-				(direction == dirDown) ? i < totalSize : i >= 0 ;
+				(direction == dirDown) ? i < static_cast<int64_t>(totalSize) : i >= 0 ;
 				(direction == dirDown) ? (++i) : (--i))
 			{
 				if (static_cast<unsigned char>(content[i]) >= beginRange && static_cast<unsigned char>(content[i]) <= endRange)
 				{
-					found = i;
+					found = static_cast<size_t>(i);
 					isFound = true;
 					break;
 				}

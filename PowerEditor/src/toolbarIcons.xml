@@ -2,20 +2,20 @@
 	<!--
 	This file is for customizing your toolbar icons.
 	
-	To override the current toolbar icons, you needs 2 things: this file and your icons set.
+	To override the current toolbar icons, you need 2 things: this file and your icons set.
 	Here are the instructions to customize your toolbar icons:
 	
-	1. Put this file ("toolbarIcons.xml") in the same folder of "config.xml" file (Note 1).
+	1. Put this file ("toolbarIcons.xml") in the same folder as "config.xml" file (Note 1).
 	2. Create a new folder "toolbarIcons" in the folder where you put "toolbarIcons.xml" file.
 	3. Edit this file ("toolbarIcons.xml"): put the icon set name you want in "icoFolderName" attribute (Note 2).
-	   for example: <ToolBarIcons icoFolderName="myAwesomeIcons" />
+	   For example: <ToolBarIcons icoFolderName="myAwesomeIcons" />
 	4. Go into "toolbarIcons" folder and create a new folder with the exact name of the icon set name you provided in "icoFolderName".
 	5. Put all your customized icons into "[toolbarIcons.xml's folder]\toolbarIcons\myAwesomeIcons\".
 	6. Now it's the magic moment: Relaunch Notepad++ and you'll see your icon set instead of the default icons.
 	
 	Note:
 	1. If you find the file "doLocalConf.xml" in the Notepad++ installed directory, you will find the "config.xml" in Notepad++ installed directory. Otherwise it should be in "%APPDATA%\Notepad++\" directory.
-	2. if "icoFolderName" value is an emptty string, the path of icons will be in "[toolbarIcons.xml's folder]\toolbarIcons\default\" folder.
+	2. if "icoFolderName" value is an empty string, the path of icons will be in "[toolbarIcons.xml's folder]\toolbarIcons\default\" folder.
 	
 	Each replacing icon (45 icons) has the fixed and specific name:
 	
@@ -52,7 +52,7 @@
 	31  playback-multiple.ico   playback-multiple_disabled.ico
 	32  save-macro.ico          save-macro_disabled.ico
 	
-	It's not necessary to have all complete set (45 icons). The absent icons won't just be substituted.
+	It's not necessary to have all complete set (45 icons). The absent icons just won't be substituted.
 	-->
 <NotepadPlus>
     <ToolBarIcons icoFolderName="" />

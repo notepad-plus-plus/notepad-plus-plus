@@ -1,13 +1,13 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.5.0
-    Last modified Sat, Feb 18th, 2023.
+    Italian translation for Notepad++ 8.5.1
+    Last modified Thu, March 9th, 2023.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
 
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.5.0">
+    <Native-Langue name = "Italiano" filename = "italian.xml" version = "8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -387,10 +387,8 @@
                     <Item id="11007" name="Tipo dalla Z alla A"/>
                     <Item id="11008" name="Dimensione Crescente"/>
                     <Item id="11009" name="Dimensione Decrescente"/>
-        </Commands>
+                </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Chiudi"/>
                 <Item CMDID="0" name="Chiudi schede multiple"/>
@@ -428,6 +426,14 @@
                 <Item CMDID="44115" name="Applica il Colore 5"/>
                 <Item CMDID="44110" name="Rimuovi il Colore"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Attiva"/>
+                <Item id="43102" name="Nuovo"/>
+                <Item id="43103" name="Nuovo e Incolla"/>
+                <Item id="43104" name="Apri..."/>
+                <Item id="43013" name="Trova nei file..."/>
+                <Item id="43105" name="Chiudi Tray Icon"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -896,7 +902,7 @@
                     <Item id="6104" name="Icone contornate (grandi)"/>
                     <Item id="6129" name="Icone piene (piccole)"/>
                     <Item id="6130" name="Icone piene (grandi)"/>
-                    <Item id="6105" name="Icone standard"/>
+                    <Item id="6105" name="Icone standard (piccole)"/>
 
                     <Item id="6106" name="Barra delle schede"/>
                     <Item id="6107" name="Compatta"/>
@@ -1167,7 +1173,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6153" name="Sempre in modalità multi-istanza"/>
                     <Item id="6154" name="Predefinito (istanza unica)"/>
                     <Item id="6155" name="* La modifica di queste impostazioni richiede il riavvio di Notepad++"/>
-                    <Item id="6171" name="Inserimento Data e ora personalizzata"/>
+                    <Item id="6171" name="Personalizzazione Inserimento Data e ora"/>
                     <Item id="6175" name="Inverti l&apos;ordinamento di date e ora predefinite (formato esteso e ridotto)"/>
                     <Item id="6172" name="Formati personalizzati:"/>
                     <Item id="6181" name="Stato dei Pannelli e [-nosession] *"/>
@@ -1549,7 +1555,7 @@ Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the
             <cloud-invalid-warning value="Percorso non valido."/>
             <cloud-restart-warning value="Riavvia Notepad++ per applicare le modifiche."/>
             <cloud-select-folder value="Seleziona una cartella da dove Notepad++ possa leggere o scrivere le proprie impostazioni"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
-            <default-open-save-select-folder value="Seleziona un percorso per la cartella di default"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+            <default-open-save-select-folder value="Seleziona un percorso per la cartella predefinita"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Utilizza Shift+Invio per cercare nella direzione opposta"/>
             <two-find-buttons-tip value="Modalità ricerca a 2 pulsanti"/>
             <file-rename-title value="Rinomina"/>
@@ -1615,12 +1621,9 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
             <tabrename-newname value="Nuovo nome: "/>
             <splitter-rotate-left value="Ruota a sinistra"/>
             <splitter-rotate-right value="Ruota a destra"/>
-            <recent-file-history-maxfile value="File max: "/>
-            <recent-file-history-customlength value="Lunghezza: "/>
             <userdefined-title-new value="Crea nuovo linguaggio..."/>
             <userdefined-title-save value="Salva il linguaggio corrente come..."/>
             <userdefined-title-rename value="Rinomina il linguaggio corrente"/>
-            <edit-verticaledge-nb-col value="N. colonne:"/>
             <summary value="Sommario"/>
             <summary-filepath value="Percorso completo file: "/>
             <summary-filecreatetime value="Creato: "/>

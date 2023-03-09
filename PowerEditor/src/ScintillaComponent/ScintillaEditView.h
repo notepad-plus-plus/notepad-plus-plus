@@ -117,7 +117,7 @@ const int MARK_BOOKMARK = 20;
 const int MARK_HIDELINESBEGIN = 19;
 const int MARK_HIDELINESEND = 18;
 // 20 - 18 reserved for Notepad++ internal used
-// 16 - 0  are free to use for plugins
+// 17 - 0  are free to use for plugins
 
 const std::vector<std::vector<const char*>> g_nonPrintingChars =
 {

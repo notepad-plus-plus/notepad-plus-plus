@@ -376,15 +376,15 @@ void MarginView::PaintOneMargin(Surface *surface, PRectangle rc, PRectangle rcOn
 					char number[100] = "";
 					if (FlagSet(model.foldFlags, FoldFlag::LevelNumbers)) {
 						const FoldLevel lev = model.pdoc->GetFoldLevel(lineDoc);
-						sprintf(number, "%c%c %03X %03X",
+						snprintf(number,std::size(number), "%c%c %03X %03X",
 							LevelIsHeader(lev) ? 'H' : '_',
 							LevelIsWhitespace(lev) ? 'W' : '_',
 							LevelNumber(lev),
-							static_cast<int>(lev) >> 16
+							static_cast<unsigned int>(lev) >> 16
 						);
 					} else {
 						const int state = model.pdoc->GetLineState(lineDoc);
-						sprintf(number, "%0X", state);
+						snprintf(number, std::size(number), "%0X", state);
 					}
 					sNumber = number;
 				}

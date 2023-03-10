@@ -5,12 +5,12 @@
 // Copyright 2001- by Clemens Wyss <wys@helbling.ch>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cctype>
+#include <cstdio>
+#include <cstdarg>
 
 #include <string>
 #include <string_view>
@@ -28,43 +28,50 @@
 
 using namespace Lexilla;
 
+namespace {
+
 //XXX Identical to Perl, put in common area
-static inline bool isEOLChar(char ch) {
+constexpr bool isEOLChar(char ch) noexcept {
     return (ch == '\r') || (ch == '\n');
 }
 
-#define isSafeASCII(ch) ((unsigned int)(ch) <= 127)
-// This one's redundant, but makes for more readable code
-#define isHighBitChar(ch) ((unsigned int)(ch) > 127)
+constexpr bool isSafeASCII(char ch) noexcept {
+    return static_cast<unsigned char>(ch) <= 127;
+}
 
-static inline bool isSafeAlpha(char ch) {
+// This one's redundant, but makes for more readable code
+constexpr bool isHighBitChar(char ch) noexcept {
+    return static_cast<unsigned char>(ch) > 127;
+}
+
+inline bool isSafeAlpha(char ch) noexcept {
     return (isSafeASCII(ch) && isalpha(ch)) || ch == '_';
 }
 
-static inline bool isSafeAlnum(char ch) {
+inline bool isSafeAlnum(char ch) noexcept {
     return (isSafeASCII(ch) && isalnum(ch)) || ch == '_';
 }
 
-static inline bool isSafeAlnumOrHigh(char ch) {
+inline bool isSafeAlnumOrHigh(char ch) noexcept {
     return isHighBitChar(ch) || isalnum(ch) || ch == '_';
 }
 
-static inline bool isSafeDigit(char ch) {
+inline bool isSafeDigit(char ch) noexcept {
     return isSafeASCII(ch) && isdigit(ch);
 }
 
-static inline bool isSafeWordcharOrHigh(char ch) {
+inline bool isSafeWordcharOrHigh(char ch) noexcept {
     // Error: scintilla's KeyWords.h includes '.' as a word-char
     // we want to separate things that can take methods from the
     // methods.
     return isHighBitChar(ch) || isalnum(ch) || ch == '_';
 }
 
-static bool inline iswhitespace(char ch) {
-    return ch == ' ' || ch == '\t';
+constexpr bool isWhiteSpace(char ch) noexcept {
+    return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n';
 }
 
-static inline bool isQestionMarkChar(char chNext, char chNext2) {
+inline bool isQestionMarkChar(char chNext, char chNext2) noexcept {
     // followed by a single character or escape sequence that corresponds to a single codepoint
     if (isSafeAlnum(chNext)) {
         return !isSafeWordcharOrHigh(chNext2);
@@ -76,12 +83,12 @@ static inline bool isQestionMarkChar(char chNext, char chNext2) {
 #define MAX_KEYWORD_LENGTH 200
 
 #define STYLE_MASK 63
-#define actual_style(style) (style & STYLE_MASK)
+#define actual_style(style) ((style) & STYLE_MASK)
 
-static bool followsDot(Sci_PositionU pos, Accessor &styler) {
+bool followsDot(Sci_PositionU pos, Accessor &styler) {
     styler.Flush();
     for (; pos >= 1; --pos) {
-        int style = actual_style(styler.StyleAt(pos));
+        const int style = actual_style(styler.StyleAt(pos));
         char ch;
         switch (style) {
         case SCE_RB_DEFAULT:
@@ -104,21 +111,21 @@ static bool followsDot(Sci_PositionU pos, Accessor &styler) {
 }
 
 // Forward declarations
-static bool keywordIsAmbiguous(const char *prevWord);
-static bool keywordDoStartsLoop(Sci_Position pos,
-                                Accessor &styler);
-static bool keywordIsModifier(const char *word,
-                              Sci_Position pos,
-                              Accessor &styler);
+bool keywordIsAmbiguous(const char *prevWord) noexcept;
+bool keywordDoStartsLoop(Sci_Position pos, Accessor &styler);
+bool keywordIsModifier(const char *word, Sci_Position pos, Accessor &styler);
 
-static int ClassifyWordRb(Sci_PositionU start, Sci_PositionU end, char ch, WordList &keywords, Accessor &styler, char *prevWord) {
+// pseudo style: prefer regex after identifier
+#define SCE_RB_IDENTIFIER_PREFERRE  SCE_RB_UPPER_BOUND
+
+int ClassifyWordRb(Sci_PositionU start, Sci_PositionU end, char ch, WordList &keywords, Accessor &styler, char *prevWord) {
     char s[MAX_KEYWORD_LENGTH];
-    Sci_PositionU i, j;
+    Sci_PositionU j = 0;
     Sci_PositionU lim = end - start + 1; // num chars to copy
     if (lim >= MAX_KEYWORD_LENGTH) {
         lim = MAX_KEYWORD_LENGTH - 1;
     }
-    for (i = start, j = 0; j < lim; i++, j++) {
+    for (Sci_PositionU i = start; j < lim; i++, j++) {
         s[j] = styler[i];
     }
     s[j] = '\0';
@@ -137,8 +144,7 @@ static int ClassifyWordRb(Sci_PositionU start, Sci_PositionU end, char ch, WordL
                 style = SCE_RB_IDENTIFIER;
             }
         }
-    }
-    else if (keywords.InList(s) && ((start == 0) || !followsDot(start - 1, styler))) {
+    } else if (keywords.InList(s) && ((start == 0) || !followsDot(start - 1, styler))) {
         if (keywordIsAmbiguous(s)
                 && keywordIsModifier(s, start, styler)) {
 
@@ -163,12 +169,20 @@ static int ClassifyWordRb(Sci_PositionU start, Sci_PositionU end, char ch, WordL
         prevWord[0] = 0;
     }
     styler.ColourTo(end, style);
+
+    if (chAttr == SCE_RB_IDENTIFIER) {
+        // find heredoc in lib/ruby folder: rg "\w+\s+<<[\w\-~'\"`]"
+        // Kernel methods
+        if (!strcmp(s, "puts") || !strcmp(s, "print") || !strcmp(s, "warn") || !strcmp(s, "eval")) {
+            chAttr = SCE_RB_IDENTIFIER_PREFERRE;
+        }
+    }
     return chAttr;
 }
 
 
 //XXX Identical to Perl, put in common area
-static bool isMatch(Accessor &styler, Sci_Position lengthDoc, Sci_Position pos, const char *val) {
+bool isMatch(Accessor &styler, Sci_Position lengthDoc, Sci_Position pos, const char *val) {
     if ((pos + static_cast<int>(strlen(val))) >= lengthDoc) {
         return false;
     }
@@ -185,16 +199,12 @@ static bool isMatch(Accessor &styler, Sci_Position lengthDoc, Sci_Position pos, 
 // and then check for leading white space
 
 // Precondition: the here-doc target can be indented
-static bool lookingAtHereDocDelim(Accessor   	&styler,
-                                  Sci_Position 	pos,
-                                  Sci_Position 	lengthDoc,
-                                  const char   *HereDocDelim)
-{
+bool lookingAtHereDocDelim(Accessor &styler, Sci_Position pos, Sci_Position lengthDoc, const char *HereDocDelim) {
     if (!isMatch(styler, lengthDoc, pos, HereDocDelim)) {
         return false;
     }
     while (--pos > 0) {
-        char ch = styler[pos];
+        const char ch = styler[pos];
         if (isEOLChar(ch)) {
             return true;
         } else if (ch != ' ' && ch != '\t') {
@@ -205,7 +215,7 @@ static bool lookingAtHereDocDelim(Accessor   	&styler,
 }
 
 //XXX Identical to Perl, put in common area
-static char opposite(char ch) {
+constexpr char opposite(char ch) noexcept {
     if (ch == '(')
         return ')';
     if (ch == '[')
@@ -220,29 +230,27 @@ static char opposite(char ch) {
 // Null transitions when we see we've reached the end
 // and need to relex the curr char.
 
-static void redo_char(Sci_Position &i, char &ch, char &chNext, char &chNext2,
-                      int &state) {
+void redo_char(Sci_Position &i, char &ch, char &chNext, char &chNext2, int &state) noexcept {
     i--;
     chNext2 = chNext;
     chNext = ch;
     state = SCE_RB_DEFAULT;
 }
 
-static void advance_char(Sci_Position &i, char &ch, char &chNext, char &chNext2) {
+void advance_char(Sci_Position &i, char &ch, char &chNext, char &chNext2) noexcept {
     i++;
     ch = chNext;
     chNext = chNext2;
 }
 
 // precondition: startPos points to one after the EOL char
-static bool currLineContainsHereDelims(Sci_Position &startPos,
-                                       Accessor &styler) {
+bool currLineContainsHereDelims(Sci_Position &startPos, Accessor &styler) {
     if (startPos <= 1)
         return false;
 
     Sci_Position pos;
     for (pos = startPos - 1; pos > 0; pos--) {
-        char ch = styler.SafeGetCharAt(pos);
+        const char ch = styler.SafeGetCharAt(pos);
         if (isEOLChar(ch)) {
             // Leave the pointers where they are -- there are no
             // here doc delims on the current line, even if
@@ -280,53 +288,83 @@ public:
         Up    = '\0';
         Down  = '\0';
     }
-    void Open(char u) {
+    void Open(char u) noexcept {
         Count++;
         Up    = u;
         Down  = opposite(Up);
     }
 };
 
-
-static void enterInnerExpression(int  *p_inner_string_types,
-                                 int  *p_inner_expn_brace_counts,
-                                 QuoteCls *p_inner_quotes,
-                                 int  &inner_string_count,
-                                 int  &state,
-                                 int  &brace_counts,
-                                 QuoteCls curr_quote
-                                ) {
-    p_inner_string_types[inner_string_count] = state;
-    state = SCE_RB_DEFAULT;
-    p_inner_expn_brace_counts[inner_string_count] = brace_counts;
-    brace_counts = 0;
-    p_inner_quotes[inner_string_count] = curr_quote;
-    ++inner_string_count;
+constexpr bool isPercentLiteral(int state) noexcept {
+    return state == SCE_RB_STRING_Q
+           || state == SCE_RB_STRING_QQ
+           // excluded SCE_RB_STRING_QR
+           || state == SCE_RB_STRING_W
+           || state == SCE_RB_STRING_QW
+           || state == SCE_RB_STRING_I
+           || state == SCE_RB_STRING_QI
+           || state == SCE_RB_STRING_QS
+           || state == SCE_RB_STRING_QX;
 }
 
-static void exitInnerExpression(int *p_inner_string_types,
-                                int *p_inner_expn_brace_counts,
-                                QuoteCls *p_inner_quotes,
-                                int &inner_string_count,
-                                int &state,
-                                int  &brace_counts,
-                                QuoteCls &curr_quote
-                               ) {
-    --inner_string_count;
-    state = p_inner_string_types[inner_string_count];
-    brace_counts = p_inner_expn_brace_counts[inner_string_count];
-    curr_quote = p_inner_quotes[inner_string_count];
+constexpr bool isInterpolableLiteral(int state) noexcept {
+    return state != SCE_RB_STRING_Q
+           && state != SCE_RB_STRING_W
+           && state != SCE_RB_STRING_I
+           && state != SCE_RB_STRING_QS
+           && state != SCE_RB_CHARACTER;
 }
 
-static bool isEmptyLine(Sci_Position pos,
-                        Accessor &styler) {
+inline bool isSingleSpecialVariable(char ch) noexcept {
+    // https://docs.ruby-lang.org/en/master/globals_rdoc.html
+    return strchr("~*$?!@/\\;,.=:<>\"&`'+", ch) != nullptr;
+}
+
+void InterpolateVariable(LexAccessor &styler, int state, Sci_Position &i, char &ch, char &chNext, char chNext2) {
+    Sci_Position pos = i;
+    styler.ColourTo(pos - 1, state);
+    styler.ColourTo(pos, SCE_RB_OPERATOR);
+    state = SCE_RB_GLOBAL;
+    pos += 2;
+    unsigned len = 0;
+    if (chNext == '$') {
+        if (chNext2 == '-') {
+            ++pos;
+            len = 2;
+        } else if (isSingleSpecialVariable(chNext2)) {
+            ++pos;
+            len = 1;
+        }
+    } else {
+        state = SCE_RB_INSTANCE_VAR;
+        if (chNext2 == '@') {
+            state = SCE_RB_CLASS_VAR;
+            ++pos;
+        }
+    }
+    while (true) {
+        chNext2 = styler.SafeGetCharAt(pos);
+        --len;
+        if (len == 0 || !isSafeWordcharOrHigh(chNext2)) {
+            break;
+        }
+        ++pos;
+    }
+    --pos;
+    styler.ColourTo(pos, state);
+    i = pos;
+    ch = chNext;
+    chNext = chNext2;
+}
+
+bool isEmptyLine(Sci_Position pos, Accessor &styler) {
     int spaceFlags = 0;
-    Sci_Position lineCurrent = styler.GetLine(pos);
-    int indentCurrent = styler.IndentAmount(lineCurrent, &spaceFlags, NULL);
+    const Sci_Position lineCurrent = styler.GetLine(pos);
+    const int indentCurrent = styler.IndentAmount(lineCurrent, &spaceFlags, nullptr);
     return (indentCurrent & SC_FOLDLEVELWHITEFLAG) != 0;
 }
 
-static bool RE_CanFollowKeyword(const char *keyword) {
+bool RE_CanFollowKeyword(const char *keyword) noexcept {
     if (!strcmp(keyword, "and")
             || !strcmp(keyword, "begin")
             || !strcmp(keyword, "break")
@@ -350,11 +388,9 @@ static bool RE_CanFollowKeyword(const char *keyword) {
 // Look at chars up to but not including endPos
 // Don't look at styles in case we're looking forward
 
-static Sci_Position skipWhitespace(Sci_Position startPos,
-                          Sci_Position endPos,
-                          Accessor &styler) {
+Sci_Position skipWhitespace(Sci_Position startPos, Sci_Position endPos, Accessor &styler) {
     for (Sci_Position i = startPos; i < endPos; i++) {
-        if (!iswhitespace(styler[i])) {
+        if (!IsASpaceOrTab(styler[i])) {
             return i;
         }
     }
@@ -367,26 +403,25 @@ static Sci_Position skipWhitespace(Sci_Position startPos,
 //
 // iPrev points to the start of <<
 
-static bool sureThisIsHeredoc(Sci_Position iPrev,
-                              Accessor &styler,
-                              char *prevWord) {
+bool sureThisIsHeredoc(Sci_Position iPrev, Accessor &styler, char *prevWord) {
 
     // Not so fast, since Ruby's so dynamic.  Check the context
     // to make sure we're OK.
     int prevStyle;
-    Sci_Position lineStart = styler.GetLine(iPrev);
-    Sci_Position lineStartPosn = styler.LineStart(lineStart);
+    const Sci_Position lineStart = styler.GetLine(iPrev);
+    const Sci_Position lineStartPosn = styler.LineStart(lineStart);
     styler.Flush();
 
     // Find the first word after some whitespace
-    Sci_Position firstWordPosn = skipWhitespace(lineStartPosn, iPrev, styler);
+    const Sci_Position firstWordPosn = skipWhitespace(lineStartPosn, iPrev, styler);
     if (firstWordPosn >= iPrev) {
         // Have something like {^     <<}
         //XXX Look at the first previous non-comment non-white line
         // to establish the context.  Not too likely though.
         return true;
     } else {
-        switch (prevStyle = styler.StyleAt(firstWordPosn)) {
+        prevStyle = styler.StyleAt(firstWordPosn);
+        switch (prevStyle) {
         case SCE_RB_WORD:
         case SCE_RB_WORD_DEMOTED:
         case SCE_RB_IDENTIFIER:
@@ -418,16 +453,11 @@ static bool sureThisIsHeredoc(Sci_Position iPrev,
 
 // Routine that saves us from allocating a buffer for the here-doc target
 // targetEndPos points one past the end of the current target
-static bool haveTargetMatch(Sci_Position currPos,
-                            Sci_Position lengthDoc,
-                            Sci_Position targetStartPos,
-                            Sci_Position targetEndPos,
-                            Accessor &styler) {
+bool haveTargetMatch(Sci_Position currPos, Sci_Position lengthDoc, Sci_Position targetStartPos, Sci_Position targetEndPos, Accessor &styler) {
     if (lengthDoc - currPos < targetEndPos - targetStartPos) {
         return false;
     }
-    Sci_Position i, j;
-    for (i = targetStartPos, j = currPos;
+    for (Sci_Position i = targetStartPos, j = currPos;
             i < targetEndPos && j < lengthDoc;
             i++, j++) {
         if (styler[i] != styler[j]) {
@@ -439,14 +469,12 @@ static bool haveTargetMatch(Sci_Position currPos,
 
 // Finds the start position of the expression containing @p pos
 // @p min_pos should be a known expression start, e.g. the start of the line
-static Sci_Position findExpressionStart(Sci_Position pos,
-                                        Sci_Position min_pos,
-                                        Accessor &styler) {
+Sci_Position findExpressionStart(Sci_Position pos, Sci_Position min_pos, Accessor &styler) {
     int depth = 0;
     for (; pos > min_pos; pos -= 1) {
-        int style = styler.StyleAt(pos - 1);
+        const int style = styler.StyleAt(pos - 1);
         if (style == SCE_RB_OPERATOR) {
-            int ch = styler[pos - 1];
+            const int ch = styler[pos - 1];
             if (ch == '}' || ch == ')' || ch == ']') {
                 depth += 1;
             } else if (ch == '{' || ch == '(' || ch == '[') {
@@ -477,18 +505,17 @@ static Sci_Position findExpressionStart(Sci_Position pos,
 
 // return true == yes, we have no heredocs
 
-static bool sureThisIsNotHeredoc(Sci_Position lt2StartPos,
-                                 Accessor &styler) {
+bool sureThisIsNotHeredoc(Sci_Position lt2StartPos, Accessor &styler) {
     // Use full document, not just part we're styling
-    Sci_Position lengthDoc = styler.Length();
-    Sci_Position lineStart = styler.GetLine(lt2StartPos);
-    Sci_Position lineStartPosn = styler.LineStart(lineStart);
+    const Sci_Position lengthDoc = styler.Length();
+    const Sci_Position lineStart = styler.GetLine(lt2StartPos);
+    const Sci_Position lineStartPosn = styler.LineStart(lineStart);
     styler.Flush();
-    const bool definitely_not_a_here_doc = true;
-    const bool looks_like_a_here_doc = false;
+    constexpr bool definitely_not_a_here_doc = true;
+    constexpr bool looks_like_a_here_doc = false;
 
     // find the expression start rather than the line start
-    Sci_Position exprStartPosn = findExpressionStart(lt2StartPos, lineStartPosn, styler);
+    const Sci_Position exprStartPosn = findExpressionStart(lt2StartPos, lineStartPosn, styler);
 
     // Find the first word after some whitespace
     Sci_Position firstWordPosn = skipWhitespace(exprStartPosn, lt2StartPos, styler);
@@ -516,7 +543,7 @@ static bool sureThisIsNotHeredoc(Sci_Position lt2StartPos,
         }
         // Do we have '::' or '.'?
         if (firstWordPosn < lt2StartPos && newStyle == SCE_RB_OPERATOR) {
-            char ch = styler[firstWordPosn];
+            const char ch = styler[firstWordPosn];
             if (ch == '.') {
                 // yes
             } else if (ch == ':') {
@@ -557,7 +584,7 @@ static bool sureThisIsNotHeredoc(Sci_Position lt2StartPos,
         // This shouldn't happen
         return definitely_not_a_here_doc;
     }
-    Sci_Position nextLineStartPosn = styler.LineStart(lineStart + 1);
+    const Sci_Position nextLineStartPosn = styler.LineStart(lineStart + 1);
     if (nextLineStartPosn >= lengthDoc) {
         return definitely_not_a_here_doc;
     }
@@ -566,7 +593,8 @@ static bool sureThisIsNotHeredoc(Sci_Position lt2StartPos,
         return definitely_not_a_here_doc;
     }
     bool allow_indent;
-    Sci_Position target_start, target_end;
+    Sci_Position target_start;
+    Sci_Position target_end;
     // From this point on no more styling, since we're looking ahead
     if (styler[j] == '-' || styler[j] == '~') {
         allow_indent = true;
@@ -612,7 +640,7 @@ static bool sureThisIsNotHeredoc(Sci_Position lt2StartPos,
             if (j >= lengthDoc) {
                 return definitely_not_a_here_doc;
             } else {
-                char ch = styler[j];
+                const char ch = styler[j];
                 if (ch == '#' || isEOLChar(ch) || ch == '.' || ch == ',') {
                     // This is OK, so break and continue;
                     break;
@@ -630,10 +658,9 @@ static bool sureThisIsNotHeredoc(Sci_Position lt2StartPos,
         last_line = lineStart + 50;
     }
     for (Sci_Position line_num = lineStart + 1; line_num <= last_line; line_num++) {
+        j = styler.LineStart(line_num);
         if (allow_indent) {
-            j = skipWhitespace(styler.LineStart(line_num), lengthDoc, styler);
-        } else {
-            j = styler.LineStart(line_num);
+            j = skipWhitespace(j, lengthDoc, styler);
         }
         // target_end is one past the end
         if (haveTargetMatch(j, lengthDoc, target_start, target_end, styler)) {
@@ -648,14 +675,10 @@ static bool sureThisIsNotHeredoc(Sci_Position lt2StartPos,
 // move to the start of the first line that is not in a
 // multi-line construct
 
-static void synchronizeDocStart(Sci_PositionU &startPos,
-                                Sci_Position &length,
-                                int &initStyle,
-                                Accessor &styler,
-                                bool skipWhiteSpace=false) {
+void synchronizeDocStart(Sci_PositionU &startPos, Sci_Position &length, int &initStyle, Accessor &styler, bool skipWhiteSpace=false) {
 
     styler.Flush();
-    int style = actual_style(styler.StyleAt(startPos));
+    const int style = actual_style(styler.StyleAt(startPos));
     switch (style) {
     case SCE_RB_STDIN:
     case SCE_RB_STDOUT:
@@ -674,8 +697,8 @@ static void synchronizeDocStart(Sci_PositionU &startPos,
             lineStart = 0;
             break;
         }
-        char ch = styler.SafeGetCharAt(pos);
-        char chPrev = styler.SafeGetCharAt(pos - 1);
+        const char ch = styler.SafeGetCharAt(pos);
+        const char chPrev = styler.SafeGetCharAt(pos - 1);
         if (ch == '\n' && chPrev == '\r') {
             pos--;
         }
@@ -698,8 +721,7 @@ static void synchronizeDocStart(Sci_PositionU &startPos,
     initStyle = SCE_RB_DEFAULT;
 }
 
-static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
-                           WordList *keywordlists[], Accessor &styler) {
+void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[], Accessor &styler) {
 
     // Lexer for Ruby often has to backtrack to start of current style to determine
     // which characters are being used as quotes, how deeply nested is the
@@ -728,13 +750,12 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
     int numDots = 0;  // For numbers --
     // Don't start lexing in the middle of a num
 
-    synchronizeDocStart(startPos, length, initStyle, styler, // ref args
-                        false);
+    synchronizeDocStart(startPos, length, initStyle, styler, false);
 
     bool preferRE = true;
     bool afterDef = false;
     int state = initStyle;
-    Sci_Position lengthDoc = startPos + length;
+    const Sci_Position lengthDoc = startPos + length;
 
     char prevWord[MAX_KEYWORD_LENGTH + 1] = ""; // 1 byte for zero
     if (length == 0)
@@ -746,14 +767,18 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
     styler.StartAt(startPos);
     styler.StartSegment(startPos);
 
-    static int q_states[] = {SCE_RB_STRING_Q,
-                             SCE_RB_STRING_QQ,
-                             SCE_RB_STRING_QR,
-                             SCE_RB_STRING_QW,
-                             SCE_RB_STRING_QW,
-                             SCE_RB_STRING_QX
-                            };
-    static const char *q_chars = "qQrwWx";
+    static constexpr int q_states[] = {
+        SCE_RB_STRING_Q,
+        SCE_RB_STRING_QQ,
+        SCE_RB_STRING_QR,
+        SCE_RB_STRING_W,
+        SCE_RB_STRING_QW,
+        SCE_RB_STRING_QX,
+        SCE_RB_STRING_I,
+        SCE_RB_STRING_QI,
+        SCE_RB_STRING_QS,
+    };
+    constexpr const char *q_chars = "qQrwWxiIs";
 
     // In most cases a value of 2 should be ample for the code in the
     // Ruby library, and the code the user is likely to enter.
@@ -773,20 +798,41 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
     // is invoked.
 
 #define INNER_STRINGS_MAX_COUNT 5
-    // These vars track our instances of "...#{,,,%Q<..#{,,,}...>,,,}..."
-    int inner_string_types[INNER_STRINGS_MAX_COUNT] {};
-    // Track # braces when we push a new #{ thing
-    int inner_expn_brace_counts[INNER_STRINGS_MAX_COUNT] {};
-    QuoteCls inner_quotes[INNER_STRINGS_MAX_COUNT];
-    int inner_string_count = 0;
-    int brace_counts = 0;   // Number of #{ ... } things within an expression
+    class InnerExpression {
+        // These vars track our instances of "...#{,,,%Q<..#{,,,}...>,,,}..."
+        int inner_string_types[INNER_STRINGS_MAX_COUNT] {};
+        // Track # braces when we push a new #{ thing
+        int inner_expn_brace_counts[INNER_STRINGS_MAX_COUNT] {};
+        QuoteCls inner_quotes[INNER_STRINGS_MAX_COUNT];
+        int inner_string_count = 0;
 
-    Sci_Position i;
-    for (i = 0; i < INNER_STRINGS_MAX_COUNT; i++) {
-        inner_string_types[i] = 0;
-        inner_expn_brace_counts[i] = 0;
-    }
-    for (i = startPos; i < lengthDoc; i++) {
+    public:
+        int brace_counts = 0;   // Number of #{ ... } things within an expression
+
+        bool canEnter() const noexcept {
+            return inner_string_count < INNER_STRINGS_MAX_COUNT;
+        }
+        bool canExit() const noexcept {
+            return inner_string_count > 0;
+        }
+        void enter(int &state, const QuoteCls &curr_quote) noexcept {
+            inner_string_types[inner_string_count] = state;
+            state = SCE_RB_DEFAULT;
+            inner_expn_brace_counts[inner_string_count] = brace_counts;
+            brace_counts = 0;
+            inner_quotes[inner_string_count] = curr_quote;
+            ++inner_string_count;
+        }
+        void exit(int &state, QuoteCls &curr_quote) noexcept {
+            --inner_string_count;
+            state = inner_string_types[inner_string_count];
+            brace_counts = inner_expn_brace_counts[inner_string_count];
+            curr_quote = inner_quotes[inner_string_count];
+        }
+    };
+    InnerExpression innerExpr;
+
+    for (Sci_Position i = startPos; i < lengthDoc; i++) {
         char ch = chNext;
         chNext = styler.SafeGetCharAt(i + 1);
         char chNext2 = styler.SafeGetCharAt(i + 2);
@@ -818,7 +864,14 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
             }
             // Don't check for a missing quote, just jump into
             // the here-doc state
-            state = SCE_RB_HERE_Q;
+            state = SCE_RB_HERE_QQ;
+            if (HereDoc.Quoted) {
+                if (HereDoc.Quote == '\'') {
+                    state = SCE_RB_HERE_Q;
+                } else if (HereDoc.Quote == '`') {
+                    state = SCE_RB_HERE_QX;
+                }
+            }
         }
 
         // Regular transitions
@@ -948,7 +1001,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                     i += 3;
                     ch = styler.SafeGetCharAt(i);
                     chNext = styler.SafeGetCharAt(i+1);
-                } else if (chNext == '$' && strchr("_~*$?!@/\\;,.=:<>\"&`'+", chNext2)) {
+                } else if (chNext == '$' && isSingleSpecialVariable(chNext2)) {
                     // single-character special global variables
                     i += 2;
                     ch = chNext2;
@@ -962,7 +1015,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                     switch (chNext) {
                     case '[':
                         if (chNext2 == ']') {
-                            char ch_tmp = styler.SafeGetCharAt(i + 3);
+                            const char ch_tmp = styler.SafeGetCharAt(i + 3);
                             if (ch_tmp == '=') {
                                 i += 3;
                                 ch = ch_tmp;
@@ -1003,7 +1056,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                             ch = chNext2;
                             chNext = styler.SafeGetCharAt(i + 1);
                         } else if (chNext2 == '=') {
-                            char ch_tmp = styler.SafeGetCharAt(i + 3);
+                            const char ch_tmp = styler.SafeGetCharAt(i + 3);
                             if (ch_tmp == '>') {  // <=> operator
                                 i += 3;
                                 ch = ch_tmp;
@@ -1040,26 +1093,16 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
             } else if (ch == '%' && !afterDef) {
                 styler.ColourTo(i - 1, state);
                 bool have_string = false;
-                if (strchr(q_chars, chNext) && !isSafeWordcharOrHigh(chNext2)) {
+                const char *hit = strchr(q_chars, chNext);
+                if (hit != nullptr && !isSafeWordcharOrHigh(chNext2)) {
                     Quote.New();
-                    const char *hit = strchr(q_chars, chNext);
-                    if (hit != NULL) {
-                        state = q_states[hit - q_chars];
-                        Quote.Open(chNext2);
-                        i += 2;
-                        ch = chNext2;
-                        chNext = styler.SafeGetCharAt(i + 1);
-                        have_string = true;
-                    }
-                } else if (preferRE && !isSafeWordcharOrHigh(chNext)) {
-                    // Ruby doesn't allow high bit chars here,
-                    // but the editor host might
-                    Quote.New();
-                    state = SCE_RB_STRING_QQ;
-                    Quote.Open(chNext);
-                    advance_char(i, ch, chNext, chNext2); // pass by ref
+                    state = q_states[hit - q_chars];
+                    Quote.Open(chNext2);
+                    i += 2;
+                    ch = chNext2;
+                    chNext = styler.SafeGetCharAt(i + 1);
                     have_string = true;
-                } else if (!isSafeWordcharOrHigh(chNext) && !iswhitespace(chNext) && !isEOLChar(chNext)) {
+                } else if ((preferRE || (!isWhiteSpace(chNext) && chNext != '=')) && !isSafeWordcharOrHigh(chNext)) {
                     // Ruby doesn't allow high bit chars here,
                     // but the editor host might
                     Quote.New();
@@ -1120,18 +1163,14 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                 // like : << / are unary operators.
 
                 if (ch == '{') {
-                    ++brace_counts;
+                    ++innerExpr.brace_counts;
                     preferRE = true;
-                } else if (ch == '}' && --brace_counts < 0
-                           && inner_string_count > 0) {
+                } else if (ch == '}' && --innerExpr.brace_counts < 0
+                           && innerExpr.canExit()) {
                     styler.ColourTo(i, SCE_RB_OPERATOR);
-                    exitInnerExpression(inner_string_types,
-                                        inner_expn_brace_counts,
-                                        inner_quotes,
-                                        inner_string_count,
-                                        state, brace_counts, Quote);
+                    innerExpr.exit(state, Quote);
                 } else {
-                    preferRE = (strchr(")}].", ch) == NULL);
+                    preferRE = !AnyOf(ch, ')', '}', ']', '.');
                 }
                 // Stay in default state
             } else if (isEOLChar(ch)) {
@@ -1158,7 +1197,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                 if (ch == '='
                         && isSafeWordcharOrHigh(chPrev)
                         && (chNext == '('
-                            || strchr(" \t\n\r", chNext) != NULL)
+                            || isWhiteSpace(chNext))
                         && (!strcmp(prevWord, "def")
                             || followsDot(styler.GetStartSegment(), styler))) {
                     // <name>= is a name only when being def'd -- Get it the next time
@@ -1166,8 +1205,11 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                     // <name>, (op, =), <name>
                 } else if (ch == ':'
                            && isSafeWordcharOrHigh(chPrev)
-                           && strchr(" \t\n\r", chNext) != NULL) {
-                    state = SCE_RB_SYMBOL;
+                           && isWhiteSpace(chNext)) {
+                    // keyword argument, symbol Hash key
+                    styler.ColourTo(i, SCE_RB_SYMBOL);
+                    state = SCE_RB_DEFAULT;
+                    preferRE = true;
                 } else if ((ch == '?' || ch == '!')
                            && isSafeWordcharOrHigh(chPrev)
                            && !isSafeWordcharOrHigh(chNext)) {
@@ -1183,8 +1225,8 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                     // No need to handle this state -- we'll just move to the end
                     preferRE = false;
                 } else {
-                    Sci_Position wordStartPos = styler.GetStartSegment();
-                    int word_style = ClassifyWordRb(wordStartPos, i - 1, ch, keywords, styler, prevWord);
+                    const Sci_Position wordStartPos = styler.GetStartSegment();
+                    const int word_style = ClassifyWordRb(wordStartPos, i - 1, ch, keywords, styler, prevWord);
                     switch (word_style) {
                     case SCE_RB_WORD:
                         afterDef = strcmp(prevWord, "def") == 0;
@@ -1192,24 +1234,20 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                         break;
 
                     case SCE_RB_WORD_DEMOTED:
+                    case SCE_RB_DEFNAME:
+                    case SCE_RB_IDENTIFIER_PREFERRE:
                         preferRE = true;
                         break;
 
                     case SCE_RB_IDENTIFIER:
-                        if (isMatch(styler, lengthDoc, wordStartPos, "print")) {
-                            preferRE = true;
-                        } else if (isEOLChar(ch)) {
-                            preferRE = true;
-                        } else {
-                            preferRE = false;
-                        }
+                        preferRE = isEOLChar(ch);
                         break;
+
                     default:
                         preferRE = false;
                     }
                     if (ch == '.') {
                         // We might be redefining an operator-method
-                        preferRE = false;
                         afterDef = word_style == SCE_RB_DEFNAME;
                     }
                     // And if it's the first
@@ -1333,14 +1371,33 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                     preferRE = false;
                 }
             }
-        } else if (state == SCE_RB_HERE_Q) {
+        } else if (state == SCE_RB_HERE_Q || state == SCE_RB_HERE_QQ || state == SCE_RB_HERE_QX) {
+            if (ch == '\\' && !isEOLChar(chNext)) {
+                advance_char(i, ch, chNext, chNext2);
+            } else if (ch == '#' && state != SCE_RB_HERE_Q
+                       && (chNext == '{' || chNext == '@' || chNext == '$')) {
+                if (chNext == '{') {
+                    if (innerExpr.canEnter()) {
+                        // process #{ ... }
+                        styler.ColourTo(i - 1, state);
+                        styler.ColourTo(i + 1, SCE_RB_OPERATOR);
+                        innerExpr.enter(state, Quote);
+                        preferRE = true;
+                        // Skip one
+                        advance_char(i, ch, chNext, chNext2);
+                    }
+                } else {
+                    InterpolateVariable(styler, state, i, ch, chNext, chNext2);
+                }
+            }
+
             // Not needed: HereDoc.State == 2
             // Indentable here docs: look backwards
             // Non-indentable: look forwards, like in Perl
             //
             // Why: so we can quickly resolve things like <<-" abc"
 
-            if (!HereDoc.CanBeIndented) {
+            else if (!HereDoc.CanBeIndented) {
                 if (isEOLChar(chPrev)
                         && isMatch(styler, lengthDoc, i, HereDoc.Delimiter)) {
                     styler.ColourTo(i - 1, state);
@@ -1400,7 +1457,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
             }
         } else if (state == SCE_RB_POD) {
             // PODs end with ^=end\s, -- any whitespace can follow =end
-            if (strchr(" \t\n\r", ch) != NULL
+            if (isWhiteSpace(ch)
                     && i > 5
                     && isEOLChar(styler[i - 5])
                     && isMatch(styler, lengthDoc, i - 4, "=end")) {
@@ -1430,21 +1487,18 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                 Quote.Count++;
 
             } else if (ch == '#') {
-                if (chNext == '{'
-                        && inner_string_count < INNER_STRINGS_MAX_COUNT) {
-                    // process #{ ... }
-                    styler.ColourTo(i - 1, state);
-                    styler.ColourTo(i + 1, SCE_RB_OPERATOR);
-                    enterInnerExpression(inner_string_types,
-                                         inner_expn_brace_counts,
-                                         inner_quotes,
-                                         inner_string_count,
-                                         state,
-                                         brace_counts,
-                                         Quote);
-                    preferRE = true;
-                    // Skip one
-                    advance_char(i, ch, chNext, chNext2);
+                if (chNext == '{') {
+                    if (innerExpr.canEnter()) {
+                        // process #{ ... }
+                        styler.ColourTo(i - 1, state);
+                        styler.ColourTo(i + 1, SCE_RB_OPERATOR);
+                        innerExpr.enter(state, Quote);
+                        preferRE = true;
+                        // Skip one
+                        advance_char(i, ch, chNext, chNext2);
+                    }
+                } else if (chNext == '@' || chNext == '$') {
+                    InterpolateVariable(styler, state, i, ch, chNext, chNext2);
                 } else {
                     //todo: distinguish comments from pound chars
                     // for now, handle as comment
@@ -1472,8 +1526,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                 }
             }
             // Quotes of all kinds...
-        } else if (state == SCE_RB_STRING_Q || state == SCE_RB_STRING_QQ ||
-                   state == SCE_RB_STRING_QX || state == SCE_RB_STRING_QW ||
+        } else if (isPercentLiteral(state) ||
                    state == SCE_RB_STRING || state == SCE_RB_CHARACTER ||
                    state == SCE_RB_BACKTICKS) {
             if (!Quote.Down && !isspacechar(ch)) {
@@ -1490,23 +1543,20 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
                 }
             } else if (ch == Quote.Up) {
                 Quote.Count++;
-            } else if (ch == '#' && chNext == '{'
-                       && inner_string_count < INNER_STRINGS_MAX_COUNT
-                       && state != SCE_RB_CHARACTER
-                       && state != SCE_RB_STRING_Q) {
-                // process #{ ... }
-                styler.ColourTo(i - 1, state);
-                styler.ColourTo(i + 1, SCE_RB_OPERATOR);
-                enterInnerExpression(inner_string_types,
-                                     inner_expn_brace_counts,
-                                     inner_quotes,
-                                     inner_string_count,
-                                     state,
-                                     brace_counts,
-                                     Quote);
-                preferRE = true;
-                // Skip one
-                advance_char(i, ch, chNext, chNext2);
+            } else if (ch == '#' && isInterpolableLiteral(state)) {
+                if (chNext == '{') {
+                    if (innerExpr.canEnter()) {
+                        // process #{ ... }
+                        styler.ColourTo(i - 1, state);
+                        styler.ColourTo(i + 1, SCE_RB_OPERATOR);
+                        innerExpr.enter(state, Quote);
+                        preferRE = true;
+                        // Skip one
+                        advance_char(i, ch, chNext, chNext2);
+                    }
+                } else if (chNext == '@' || chNext == '$') {
+                    InterpolateVariable(styler, state, i, ch, chNext, chNext2);
+                }
             }
         }
 
@@ -1518,7 +1568,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
     if (state == SCE_RB_WORD) {
         // We've ended on a word, possibly at EOF, and need to
         // classify it.
-        (void) ClassifyWordRb(styler.GetStartSegment(), lengthDoc - 1, '\0', keywords, styler, prevWord);
+        ClassifyWordRb(styler.GetStartSegment(), lengthDoc - 1, '\0', keywords, styler, prevWord);
     } else {
         styler.ColourTo(lengthDoc - 1, state);
     }
@@ -1527,11 +1577,7 @@ static void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int init
 // Helper functions for folding, disambiguation keywords
 // Assert that there are no high-bit chars
 
-static void getPrevWord(Sci_Position pos,
-                        char *prevWord,
-                        Accessor &styler,
-                        int word_state)
-{
+void getPrevWord(Sci_Position pos, char *prevWord, Accessor &styler, int word_state) {
     Sci_Position i;
     styler.Flush();
     for (i = pos - 1; i > 0; i--) {
@@ -1549,8 +1595,7 @@ static void getPrevWord(Sci_Position pos,
     *dst = 0;
 }
 
-static bool keywordIsAmbiguous(const char *prevWord)
-{
+bool keywordIsAmbiguous(const char *prevWord) noexcept {
     // Order from most likely used to least likely
     // Lots of ways to do a loop in Ruby besides 'while/until'
     if (!strcmp(prevWord, "if")
@@ -1569,14 +1614,11 @@ static bool keywordIsAmbiguous(const char *prevWord)
 // if, while, unless, until modify a statement
 // do after a while or until, as a noise word (like then after if)
 
-static bool keywordIsModifier(const char *word,
-                              Sci_Position pos,
-                              Accessor &styler)
-{
+bool keywordIsModifier(const char *word, Sci_Position pos, Accessor &styler) {
     if (word[0] == 'd' && word[1] == 'o' && !word[2]) {
         return keywordDoStartsLoop(pos, styler);
     }
-    char ch, chPrev, chPrev2;
+    char ch;
     int style = SCE_RB_DEFAULT;
     Sci_Position lineStart = styler.GetLine(pos);
     Sci_Position lineStartPosn = styler.LineStart(lineStart);
@@ -1586,8 +1628,8 @@ static bool keywordIsModifier(const char *word,
     while (lineStartPosn > 0) {
         ch = styler[lineStartPosn-1];
         if (ch == '\n' || ch == '\r') {
-            chPrev  = styler.SafeGetCharAt(lineStartPosn-2);
-            chPrev2 = styler.SafeGetCharAt(lineStartPosn-3);
+            const char chPrev  = styler.SafeGetCharAt(lineStartPosn-2);
+            const char chPrev2 = styler.SafeGetCharAt(lineStartPosn-3);
             lineStart = styler.GetLine(lineStartPosn-1);
             // If we find a continuation line, include it in our analysis.
             if (chPrev == '\\') {
@@ -1606,7 +1648,8 @@ static bool keywordIsModifier(const char *word,
     while (--pos >= lineStartPosn) {
         style = actual_style(styler.StyleAt(pos));
         if (style == SCE_RB_DEFAULT) {
-            if (iswhitespace(ch = styler[pos])) {
+            ch = styler[pos];
+            if (IsASpaceOrTab(ch)) {
                 //continue
             } else if (ch == '\r' || ch == '\n') {
                 // Scintilla's LineStart() and GetLine() routines aren't
@@ -1615,8 +1658,8 @@ static bool keywordIsModifier(const char *word,
 
                 // Also, lineStartPosn may have been moved to more than one
                 // line above word's line while pushing past continuations.
-                chPrev = styler.SafeGetCharAt(pos - 1);
-                chPrev2 = styler.SafeGetCharAt(pos - 2);
+                const char chPrev = styler.SafeGetCharAt(pos - 1);
+                const char chPrev2 = styler.SafeGetCharAt(pos - 2);
                 if (chPrev == '\\') {
                     pos-=1;  // gloss over the "\\"
                     //continue
@@ -1681,17 +1724,15 @@ static bool keywordIsModifier(const char *word,
 // Nothing fancy -- look to see if we follow a while/until somewhere
 // on the current line
 
-static bool keywordDoStartsLoop(Sci_Position pos,
-                                Accessor &styler)
-{
-    char ch;
-    Sci_Position lineStart = styler.GetLine(pos);
-    Sci_Position lineStartPosn = styler.LineStart(lineStart);
+bool keywordDoStartsLoop(Sci_Position pos, Accessor &styler) {
+    const Sci_Position lineStart = styler.GetLine(pos);
+    const Sci_Position lineStartPosn = styler.LineStart(lineStart);
     styler.Flush();
     while (--pos >= lineStartPosn) {
         const int style = actual_style(styler.StyleAt(pos));
         if (style == SCE_RB_DEFAULT) {
-            if ((ch = styler[pos]) == '\r' || ch == '\n') {
+            const char ch = styler[pos];
+            if (ch == '\r' || ch == '\n') {
                 // Scintilla's LineStart() and GetLine() routines aren't
                 // platform-independent, so if we have text prepared with
                 // a different system we can't rely on it.
@@ -1732,11 +1773,11 @@ static bool keywordDoStartsLoop(Sci_Position pos,
     return false;
 }
 
-static bool IsCommentLine(Sci_Position line, Accessor &styler) {
-    Sci_Position pos = styler.LineStart(line);
-    Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
+bool IsCommentLine(Sci_Position line, Accessor &styler) {
+    const Sci_Position pos = styler.LineStart(line);
+    const Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
     for (Sci_Position i = pos; i < eol_pos; i++) {
-        char ch = styler[i];
+        const char ch = styler[i];
         if (ch == '#')
             return true;
         else if (ch != ' ' && ch != '\t')
@@ -1799,14 +1840,12 @@ static bool IsCommentLine(Sci_Position line, Accessor &styler) {
  *  Later offer to fold POD, here-docs, strings, and blocks of comments
  */
 
-static void FoldRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
-                      WordList *[], Accessor &styler) {
+void FoldRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[], Accessor &styler) {
     const bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-    bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
+    const bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 
-    synchronizeDocStart(startPos, length, initStyle, styler, // ref args
-                        false);
-    Sci_PositionU endPos = startPos + length;
+    synchronizeDocStart(startPos, length, initStyle, styler, false);
+    const Sci_PositionU endPos = startPos + length;
     int visibleChars = 0;
     Sci_Position lineCurrent = styler.GetLine(startPos);
     int levelPrev = startPos == 0 ? 0 : (styler.LevelAt(lineCurrent)
@@ -1827,13 +1866,14 @@ static void FoldRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle
     };
     MethodDefinition method_definition = MethodDefinition::None;
     int argument_paren_count = 0;
+    bool heredocOpen = false;
 
     for (Sci_PositionU i = startPos; i < endPos; i++) {
-        char ch = chNext;
+        const char ch = chNext;
         chNext = styler.SafeGetCharAt(i + 1);
-        int style = styleNext;
+        const int style = styleNext;
         styleNext = styler.StyleAt(i + 1);
-        bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
+        const bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 
         /*Mutiline comment patch*/
         if (foldComment && atEOL && IsCommentLine(lineCurrent, styler)) {
@@ -1854,9 +1894,9 @@ static void FoldRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle
                 }
             }
         } else if (style == SCE_RB_OPERATOR) {
-            if (strchr("[{(", ch)) {
+            if (AnyOf(ch, '[', '{', '(')) {
                 levelCurrent++;
-            } else if (strchr(")}]", ch)) {
+            } else if (AnyOf(ch, ']', '}', ')')) {
                 // Don't decrement below 0
                 if (levelCurrent > 0)
                     levelCurrent--;
@@ -1886,16 +1926,18 @@ static void FoldRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle
                       ) {
                 levelCurrent++;
             }
-        } else if (style == SCE_RB_HERE_DELIM) {
-            if (styler.SafeGetCharAt(i-2) == '<' && styler.SafeGetCharAt(i-1) == '<') {
+        } else if (style == SCE_RB_HERE_DELIM && !heredocOpen) {
+            if (stylePrev == SCE_RB_OPERATOR && chPrev == '<' && styler.SafeGetCharAt(i - 2) == '<') {
                 levelCurrent++;
-            } else if (styleNext == SCE_RB_DEFAULT) {
+                heredocOpen = true;
+            } else if (styleNext != SCE_RB_HERE_DELIM) {
                 levelCurrent--;
             }
-        } else if (style == SCE_RB_STRING_QW) {
+        } else if (style == SCE_RB_STRING_QW || style == SCE_RB_STRING_W) {
             if (stylePrev != style) {
                 levelCurrent++;
-            } else if (styleNext != style) {
+            }
+            if (styleNext != style) {
                 levelCurrent--;
             }
         }
@@ -1961,6 +2003,7 @@ static void FoldRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle
             visibleChars = 0;
             method_definition = MethodDefinition::None;
             argument_paren_count = 0;
+            heredocOpen = false;
         } else if (!isspacechar(ch)) {
             visibleChars++;
         }
@@ -1969,9 +2012,11 @@ static void FoldRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle
     }
 }
 
-static const char *const rubyWordListDesc[] = {
+const char *const rubyWordListDesc[] = {
     "Keywords",
-    0
+    nullptr
 };
+
+}
 
 LexerModule lmRuby(SCLEX_RUBY, ColouriseRbDoc, "ruby", FoldRbDoc, rubyWordListDesc);

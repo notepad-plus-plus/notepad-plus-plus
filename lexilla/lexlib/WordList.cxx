@@ -9,6 +9,7 @@
 #include <cassert>
 #include <cstring>
 
+#include <string>
 #include <algorithm>
 #include <iterator>
 #include <memory>
@@ -180,6 +181,12 @@ bool WordList::InList(const char *s) const noexcept {
 		}
 	}
 	return false;
+}
+
+/** convenience overload so can easily call with std::string.
+ */
+bool WordList::InList(const std::string &s) const noexcept {
+	return InList(s.c_str());
 }
 
 /** similar to InList, but word s can be a substring of keyword.

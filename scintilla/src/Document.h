@@ -50,6 +50,10 @@ public:
 		return start == end;
 	}
 
+	[[nodiscard]] Sci::Position Length() const noexcept {
+		return (start <= end) ? (end - start) : (start - end);
+	}
+
 	Sci::Position First() const noexcept {
 		return (start <= end) ? start : end;
 	}
@@ -450,6 +454,7 @@ public:
 	int MarkerNumberFromLine(Sci::Line line, int which) const noexcept;
 	int MarkerHandleFromLine(Sci::Line line, int which) const noexcept;
 	Sci_Position SCI_METHOD LineStart(Sci_Position line) const override;
+	[[nodiscard]] Range LineRange(Sci::Line line) const noexcept;
 	bool IsLineStartPosition(Sci::Position position) const;
 	Sci_Position SCI_METHOD LineEnd(Sci_Position line) const override;
 	Sci::Position LineEndPosition(Sci::Position position) const;

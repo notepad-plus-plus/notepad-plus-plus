@@ -33,6 +33,7 @@ public:
 	void Clear() noexcept;
 	bool Set(const char *s);
 	bool InList(const char *s) const noexcept;
+	bool InList(const std::string &s) const noexcept;
 	bool InListAbbreviated(const char *s, const char marker) const noexcept;
 	bool InListAbridged(const char *s, const char marker) const noexcept;
 	const char *WordAt(int n) const noexcept;

@@ -1,0 +1,9 @@
+ 0 400   0   # Issue 124, disambiguating %= which may be a quote or modulo assignment
+ 0 400   0   # %-quoting with '=' as the quote
+ 0 400   0   s = %=3=
+ 0 400   0   puts s
+ 0 400   0   x = 7
+ 0 400   0   # Modulo assignment, equivalent to x = x % 2
+ 0 400   0   x %=2
+ 0 400   0   puts x
+ 0 400   0   

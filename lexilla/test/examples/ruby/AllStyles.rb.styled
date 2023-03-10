@@ -1,5 +1,5 @@
-{2}# Enumerate all styles where possible: 0..31,40..41{0}
-{2}# 22,23,30,31,40,41 are never set and 1 switches rest of file to error state{0}
+{2}# Enumerate all styles where possible: 0..31,40..45{0}
+{2}# 30,31,40,45 are never set and 1 switches rest of file to error state{0}
 
 {2}#0 whitespace{0}
     {2}#{0}
@@ -63,17 +63,23 @@
 {2}#19:data section at end of file{0}
 
 {2}#20:here delimiter{0}
-{10}<<{20}DELIMITER20{21}
+{10}<<{20}DELIMITER20{22}
 {20}DELIMITER20{0}
 
-{2}#21:here doc{0}
-{10}<<{20}D{21}
-21:here doc
+{2}#21:single quoted heredoc{0}
+{10}<<{20}'D'{21}
+21:here doc #{1 + 1}
 {20}D{0}
 
-{2}#22:here qq never set{0}
+{2}#22:double quoted heredoc{0}
+{10}<<{20}"D"{22}
+22:here doc {10}#{{4}1{0} {10}+{0} {4}1{10}}{22}
+{20}D{0}
 
-{2}#23:here qw never set{0}
+{2}#23:back tick quoted heredoc{0}
+{10}<<{20}`D`{23}
+23:here doc {10}#{{4}1{0} {10}+{0} {4}1{10}}{23}
+{20}D{0}
 
 {2}#24:q quoted string{0}
 {24}%q!24:quotes's!{0}
@@ -87,13 +93,25 @@
 {2}#27:regex{0}
 {27}%r(27[a-z]/[A-Z]+){0}
 
-{2}#28:string array{0}
-{28}%w(28 cgi.rb complex.rb date.rb){0}
+{2}#28:interpolable string array{0}
+{28}%W(28 cgi.rb complex.rb date.rb {10}#{{4}1{10}}{28} ){0}
 
 {2}#29:demoted keyword do{0}
 {5}while{0} {4}1{0} {29}do{0} {5}end{0}
 
-{2}# 30,31,40,41 never set{0}
+{2}# 30,31,40,45 never set{0}
+
+{2}#41:non-interpolable string array{0}
+{41}%w(#{1 + 1}){0}
+
+{2}#42:non-interpolable symbol array{0}
+{42}%i(#{1 + 1}){0}
+
+{2}#43:interpolable symbol array{0}
+{43}%I({10}#{{4}1{0} {10}+{0} {4}1{10}}{43}){0}
+
+{2}#44:symbol{0}
+{44}%s(#{1 + 1}){0}
 
 {2}#19:data section{0}
 {19}__END__

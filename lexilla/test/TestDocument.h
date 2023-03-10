@@ -27,6 +27,8 @@ public:
 	TestDocument &operator=(TestDocument&&) = delete;
 	virtual ~TestDocument() = default;
 
+	Sci_Position MaxLine() const noexcept;
+
 	int SCI_METHOD Version() const override;
 	void SCI_METHOD SetErrorStatus(int status) override;
 	Sci_Position SCI_METHOD Length() const override;

@@ -84,6 +84,15 @@
  0 400 400   // escapesequence=27
  0 400 400   "\001 \b"
  1 400 400   
+ 0 400 400   // identifier substyles.11.1=128
+ 0 400 400   vector
+ 1 400 400   
+ 0 400 400   // identifier substyles.11.2=129
+ 0 400 400   std
+ 1 400 400   
+ 0 400 400   // commentdockeyword substyles.17.1=130
+ 0 400 400   /** @module */
+ 1 400 400   
  0 400 400   // Secondary styles inside preprocessor excluded section
  1 400 400   
  2 400 401 + #if 0
@@ -171,6 +180,15 @@
  1 401 401 | 
  0 401 401 | // escapesequence=27
  0 401 401 | "\001 \b"
+ 1 401 401 | 
+ 0 401 401 | // identifier substyles.75.1=192
+ 0 401 401 | vector
+ 1 401 401 | 
+ 0 401 401 | // identifier substyles.75.2=193
+ 0 401 401 | std
+ 1 401 401 | 
+ 0 401 401 | // commentdockeyword substyles.81.1=194
+ 0 401 401 | /** @module */
  1 401 401 | 
  0 401 400 | #endif
  1 400 400   

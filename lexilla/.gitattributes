@@ -29,6 +29,7 @@
 **.vb text
 **.cmake text
 **.d text
+**.diff text
 **.erl text
 **.gd text
 **.gui text

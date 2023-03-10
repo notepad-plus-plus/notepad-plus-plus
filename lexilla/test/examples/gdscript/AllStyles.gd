@@ -49,3 +49,7 @@ var hilight = 2
 @onready
 var a = 3
 @onready var b = 3
+
+# node-identifier=16
+%node
+$node

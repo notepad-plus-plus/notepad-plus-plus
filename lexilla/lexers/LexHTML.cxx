@@ -1060,10 +1060,7 @@ Sci_Position SCI_METHOD LexerHTML::WordListSet(int n, const char *wl) {
 	}
 	Sci_Position firstModification = -1;
 	if (wordListN) {
-		WordList wlNew;
-		wlNew.Set(wl);
-		if (*wordListN != wlNew) {
-			wordListN->Set(wl);
+		if (wordListN->Set(wl)) {
 			firstModification = 0;
 		}
 	}

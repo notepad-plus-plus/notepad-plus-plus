@@ -91,7 +91,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>WIN32;SCI_EMPTYCATALOGUE;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES;SCI_OWNREGEX;SCI_NAMESPACE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_USRDLL;SCI_OWNREGEX;SCI_NAMESPACE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\include;..\src;..\..\boostregex</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

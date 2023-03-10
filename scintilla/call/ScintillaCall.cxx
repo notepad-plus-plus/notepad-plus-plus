@@ -231,7 +231,7 @@ Position ScintillaCall::GetStyledText(void *tr) {
 	return CallPointer(Message::GetStyledText, 0, tr);
 }
 
-Position ScintillaCall::GetStyledTextFull(void *tr) {
+Position ScintillaCall::GetStyledTextFull(TextRangeFull *tr) {
 	return CallPointer(Message::GetStyledTextFull, 0, tr);
 }
 
@@ -1159,7 +1159,7 @@ Position ScintillaCall::FindText(Scintilla::FindOption searchFlags, void *ft) {
 	return CallPointer(Message::FindText, static_cast<uintptr_t>(searchFlags), ft);
 }
 
-Position ScintillaCall::FindTextFull(Scintilla::FindOption searchFlags, void *ft) {
+Position ScintillaCall::FindTextFull(Scintilla::FindOption searchFlags, TextToFindFull *ft) {
 	return CallPointer(Message::FindTextFull, static_cast<uintptr_t>(searchFlags), ft);
 }
 
@@ -1167,7 +1167,7 @@ Position ScintillaCall::FormatRange(bool draw, void *fr) {
 	return CallPointer(Message::FormatRange, draw, fr);
 }
 
-Position ScintillaCall::FormatRangeFull(bool draw, void *fr) {
+Position ScintillaCall::FormatRangeFull(bool draw, RangeToFormatFull *fr) {
 	return CallPointer(Message::FormatRangeFull, draw, fr);
 }
 
@@ -1235,7 +1235,7 @@ Position ScintillaCall::GetTextRange(void *tr) {
 	return CallPointer(Message::GetTextRange, 0, tr);
 }
 
-Position ScintillaCall::GetTextRangeFull(void *tr) {
+Position ScintillaCall::GetTextRangeFull(TextRangeFull *tr) {
 	return CallPointer(Message::GetTextRangeFull, 0, tr);
 }
 

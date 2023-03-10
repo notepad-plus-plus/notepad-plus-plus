@@ -77,6 +77,13 @@ picture: gives a rough idea of the fold structure: '|' for level greater than 0x
 After checking that the .folded.new file is correct, it can be promoted to .folded and
 committed to the repository.
 
+An interactive file comparison program like WinMerge (https://winmerge.org/) on
+Windows or meld (https://meldmerge.org/) on Linux can help examine differences
+between the .styled and .styled.new files or .folded and .folded.new files.
+
+On Windows, the scripts/PromoteNew.bat script can be run to promote all .new result
+files to their base names without .new.
+
 Styling and folding tests are first performed on the file as a whole, then the file is lexed
 and folded line-by-line. If there are differences between the whole file and line-by-line
 then a message with 'per-line is different' for styling or 'per-line has different folds' will be
@@ -93,6 +100,10 @@ The lexer to be run is defined with a lexer.{filepatterns} statement like:
 Keywords may be defined with keywords settings like:
 	keywords.*.cxx;*.c=int char
 	keywords2.*.cxx=open
+
+Substyles and substyle identifiers may be defined with settings like:
+	substyles.cpp.11=1
+	substylewords.11.1.*.cxx=map string vector
 
 Other settings are treated as lexer or folder properties and forwarded to the lexer/folder:
 	lexer.cpp.track.preprocessor=1

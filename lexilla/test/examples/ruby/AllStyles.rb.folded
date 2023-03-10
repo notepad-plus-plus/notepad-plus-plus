@@ -1,5 +1,5 @@
- 0 400   0   # Enumerate all styles where possible: 0..31,40..41
- 0 400   0   # 22,23,30,31,40,41 are never set and 1 switches rest of file to error state
+ 0 400   0   # Enumerate all styles where possible: 0..31,40..45
+ 0 400   0   # 30,31,40,45 are never set and 1 switches rest of file to error state
  1 400   0   
  0 400   0   #0 whitespace
  0 400   0       #
@@ -66,14 +66,20 @@
  2 400   0 + <<DELIMITER20
  0 401   0 | DELIMITER20
  1 400   0   
- 0 400   0   #21:here doc
- 2 400   0 + <<D
- 0 401   0 | 21:here doc
+ 0 400   0   #21:single quoted heredoc
+ 2 400   0 + <<'D'
+ 0 401   0 | 21:here doc #{1 + 1}
  0 401   0 | D
  1 400   0   
- 0 400   0   #22:here qq never set
+ 0 400   0   #22:double quoted heredoc
+ 2 400   0 + <<"D"
+ 0 401   0 | 22:here doc #{1 + 1}
+ 0 401   0 | D
  1 400   0   
- 0 400   0   #23:here qw never set
+ 0 400   0   #23:back tick quoted heredoc
+ 2 400   0 + <<`D`
+ 0 401   0 | 23:here doc #{1 + 1}
+ 0 401   0 | D
  1 400   0   
  0 400   0   #24:q quoted string
  0 400   0   %q!24:quotes's!
@@ -87,13 +93,25 @@
  0 400   0   #27:regex
  0 400   0   %r(27[a-z]/[A-Z]+)
  1 400   0   
- 0 400   0   #28:string array
- 0 400   0   %w(28 cgi.rb complex.rb date.rb)
+ 0 400   0   #28:interpolable string array
+ 0 400   0   %W(28 cgi.rb complex.rb date.rb #{1} )
  1 400   0   
  0 400   0   #29:demoted keyword do
  0 400   0   while 1 do end
  1 400   0   
- 0 400   0   # 30,31,40,41 never set
+ 0 400   0   # 30,31,40,45 never set
+ 1 400   0   
+ 0 400   0   #41:non-interpolable string array
+ 0 400   0   %w(#{1 + 1})
+ 1 400   0   
+ 0 400   0   #42:non-interpolable symbol array
+ 0 400   0   %i(#{1 + 1})
+ 1 400   0   
+ 0 400   0   #43:interpolable symbol array
+ 0 400   0   %I(#{1 + 1})
+ 1 400   0   
+ 0 400   0   #44:symbol
+ 0 400   0   %s(#{1 + 1})
  1 400   0   
  0 400   0   #19:data section
  0 400   0   __END__

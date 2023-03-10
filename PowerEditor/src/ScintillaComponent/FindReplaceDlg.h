@@ -238,6 +238,8 @@ private:
 	void writeOptions();
 };
 
+LRESULT run_swapButtonProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 class FindReplaceDlg : public StaticDialog
 {
 friend class FindIncrementDlg;
@@ -502,6 +504,14 @@ private :
 	bool replaceInFilesConfirmCheck(generic_string directory, generic_string fileTypes);
 	bool replaceInProjectsConfirmCheck();
 	bool replaceInOpenDocsConfirmCheck(void);
+
+	enum SwapButtonStatus {swap, down, up} _swapButtonStatus = swap;
+	HWND _hSwapButton = nullptr;
+	static LRESULT CALLBACK swapButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
+		const auto dlg = (FindReplaceDlg*)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		return (run_swapButtonProc(dlg->_oldSwapButtonProc, hwnd, message, wParam, lParam));
+	};
+	WNDPROC _oldSwapButtonProc = nullptr;
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

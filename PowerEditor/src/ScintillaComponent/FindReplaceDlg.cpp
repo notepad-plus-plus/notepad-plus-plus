@@ -77,6 +77,22 @@ void delLeftWordInEdit(HWND hEdit)
 	}
 }
 
+LRESULT run_swapButtonProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_RBUTTONUP:
+		{
+			::SendMessage(GetParent(hwnd), message, wParam, lParam);
+			break;
+		}
+
+		default:
+			break;
+	}
+	return ::CallWindowProc(oldEditProc, hwnd, message, wParam, lParam);
+}
+
 int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int length)
 {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;
@@ -1379,17 +1395,47 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), TEXT("▲"));
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), TEXT("▼ Find Next"));
-			::SetWindowTextW(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), TEXT("⇅"));
+
+			_hSwapButton = ::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON);
+			::SetWindowLongPtr(_hSwapButton, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+			_oldSwapButtonProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSwapButton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(swapButtonProc)));
+			::SetWindowTextW(_hSwapButton, TEXT("⇅"));
+
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), TEXT("˄"));
 
 			// "⇅" enlargement
 			_hLargerBolderFont = createFont(TEXT("Courier New"), 14, true, _hSelf);
-			SendMessage(::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON), WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
+			SendMessage(_hSwapButton, WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
 
 			// Make "˄" & "˅" look better
 			_hCourrierNewFont = createFont(TEXT("Courier New"), 12, false, _hSelf);
 			SendMessage(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), WM_SETFONT, (WPARAM)_hCourrierNewFont, MAKELPARAM(true, 0));
 
+			return TRUE;
+		}
+
+		case WM_RBUTTONUP:
+		{
+			wstring swapButtonLabel;
+			if (_swapButtonStatus == swap)
+			{
+				_swapButtonStatus = down;
+				//swapButtonLabel = L"⬇";
+				swapButtonLabel = L"⤵";
+			}
+			else if (_swapButtonStatus == down)
+			{
+				_swapButtonStatus = up;
+				//swapButtonLabel = L"⬆";
+				swapButtonLabel = L"⤴";
+			}
+			else // if (_swapButtonStatus == up)
+			{
+				_swapButtonStatus = swap;
+				swapButtonLabel = L"⇅";
+			}
+			::SetWindowTextW(_hSwapButton, swapButtonLabel.c_str());
+			SendMessage(_hSwapButton, WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
 			return TRUE;
 		}
 
@@ -1598,10 +1644,29 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					generic_string findWhatText = getTextFromCombo(hFindWhat);
 					HWND hPlaceWith = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 					generic_string replaceWithText = getTextFromCombo(hPlaceWith);
-					if ((!findWhatText.empty() || !replaceWithText.empty()) && (findWhatText != replaceWithText))
+
+					
+					if (_swapButtonStatus == swap)
 					{
-						::SendMessage(hFindWhat, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(replaceWithText.c_str()));
-						::SendMessage(hPlaceWith, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(findWhatText.c_str()));
+						if ((!findWhatText.empty() || !replaceWithText.empty()) && (findWhatText != replaceWithText))
+						{
+							::SendMessage(hFindWhat, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(replaceWithText.c_str()));
+							::SendMessage(hPlaceWith, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(findWhatText.c_str()));
+						}
+					}
+					else if (_swapButtonStatus == down)
+					{
+						if (!findWhatText.empty() && (findWhatText != replaceWithText))
+						{
+							::SendMessage(hPlaceWith, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(findWhatText.c_str()));
+						}
+					}
+					else // if (_swapButtonStatus == up)
+					{
+						if (!replaceWithText.empty() && (findWhatText != replaceWithText))
+						{
+							::SendMessage(hFindWhat, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(replaceWithText.c_str()));
+						}
 					}
 				}
 				return TRUE;

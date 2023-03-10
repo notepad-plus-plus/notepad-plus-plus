@@ -5,12 +5,12 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cctype>
+#include <cstdio>
+#include <cstdarg>
 
 #include <string>
 #include <string_view>
@@ -28,16 +28,14 @@
 
 using namespace Lexilla;
 
-static inline bool AtEOL(Accessor &styler, Sci_PositionU i) {
+namespace {
+
+inline bool AtEOL(Accessor &styler, Sci_PositionU i) {
 	return (styler[i] == '\n') ||
 	       ((styler[i] == '\r') && (styler.SafeGetCharAt(i + 1) != '\n'));
 }
 
-#define DIFF_BUFFER_START_SIZE 16
-// Note that ColouriseDiffLine analyzes only the first DIFF_BUFFER_START_SIZE
-// characters of each line to classify the line.
-
-static void ColouriseDiffLine(char *lineBuffer, Sci_Position endLine, Accessor &styler) {
+void ColouriseDiffLine(const char *lineBuffer, Sci_Position endLine, Accessor &styler) {
 	// It is needed to remember the current state to recognize starting
 	// comment lines before the first "diff " or "--- ". If a real
 	// difference starts then each line starting with ' ' is a whitespace
@@ -102,39 +100,30 @@ static void ColouriseDiffLine(char *lineBuffer, Sci_Position endLine, Accessor &
 	}
 }
 
-static void ColouriseDiffDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
-	char lineBuffer[DIFF_BUFFER_START_SIZE] = "";
+void ColouriseDiffDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
+	std::string lineBuffer;
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
-	Sci_PositionU linePos = 0;
 	for (Sci_PositionU i = startPos; i < startPos + length; i++) {
 		if (AtEOL(styler, i)) {
-			if (linePos < DIFF_BUFFER_START_SIZE) {
-				lineBuffer[linePos] = 0;
-			}
-			ColouriseDiffLine(lineBuffer, i, styler);
-			linePos = 0;
-		} else if (linePos < DIFF_BUFFER_START_SIZE - 1) {
-			lineBuffer[linePos++] = styler[i];
-		} else if (linePos == DIFF_BUFFER_START_SIZE - 1) {
-			lineBuffer[linePos++] = 0;
+			ColouriseDiffLine(lineBuffer.c_str(), i, styler);
+			lineBuffer.clear();
+		} else {
+			lineBuffer.push_back(styler[i]);
 		}
 	}
-	if (linePos > 0) {	// Last line does not have ending characters
-		if (linePos < DIFF_BUFFER_START_SIZE) {
-			lineBuffer[linePos] = 0;
-		}
-		ColouriseDiffLine(lineBuffer, startPos + length - 1, styler);
+	if (!lineBuffer.empty()) {	// Last line does not have ending characters
+		ColouriseDiffLine(lineBuffer.c_str(), startPos + length - 1, styler);
 	}
 }
 
-static void FoldDiffDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
+void FoldDiffDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 	Sci_Position curLine = styler.GetLine(startPos);
 	Sci_Position curLineStart = styler.LineStart(curLine);
 	int prevLevel = curLine > 0 ? styler.LevelAt(curLine - 1) : SC_FOLDLEVELBASE;
-	int nextLevel;
 
 	do {
+		int nextLevel = 0;
 		const int lineType = styler.StyleAt(curLineStart);
 		if (lineType == SCE_DIFF_COMMAND)
 			nextLevel = SC_FOLDLEVELBASE | SC_FOLDLEVELHEADERFLAG;
@@ -157,8 +146,10 @@ static void FoldDiffDoc(Sci_PositionU startPos, Sci_Position length, int, WordLi
 	} while (static_cast<Sci_Position>(startPos)+length > curLineStart);
 }
 
-static const char *const emptyWordListDesc[] = {
-	0
+const char *const emptyWordListDesc[] = {
+	nullptr
 };
+
+}
 
 LexerModule lmDiff(SCLEX_DIFF, ColouriseDiffDoc, "diff", FoldDiffDoc, emptyWordListDesc);

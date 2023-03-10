@@ -197,7 +197,6 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 		marginRect.origin.x = x;
 		marginRect.size.width = width;
 		[self addCursorRect: marginRect cursor: cc];
-		[cc setOnMouseEntered: YES];
 		x += width;
 	}
 }
@@ -235,7 +234,15 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 		trackingArea = nil;
 		mMarkedTextRange = NSMakeRange(NSNotFound, 0);
 
-		[self registerForDraggedTypes: @[NSStringPboardType, ScintillaRecPboardType, NSFilenamesPboardType]];
+		if (@available(macOS 10.13, *)) {
+			[self registerForDraggedTypes: @[NSPasteboardTypeString, ScintillaRecPboardType, NSPasteboardTypeFileURL]];
+		} else {
+			// Use old deprecated type
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+			[self registerForDraggedTypes: @[NSPasteboardTypeString, ScintillaRecPboardType, NSFilenamesPboardType]];
+#pragma clang diagnostic pop
+		}
 
 		// Set up accessibility in the text role
 		if ([self respondsToSelector: @selector(setAccessibilityElement:)]) {
@@ -308,7 +315,6 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 	// We only have one cursor rect: our bounds.
 	const NSRect visibleBounds = mOwner.backend->GetBounds();
 	[self addCursorRect: visibleBounds cursor: mCurrentCursor];
-	[mCurrentCursor setOnMouseEntered: YES];
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -365,7 +371,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Gets called by the runtime when the view needs repainting.
  */
 - (void) drawRect: (NSRect) rect {
-	CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
+	CGContextRef context = CGContextCurrent();
 
 	if (!mOwner.backend->Draw(rect, context)) {
 		dispatch_async(dispatch_get_main_queue(), ^ {
@@ -778,14 +784,14 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
 		// Only snap for positions inside the document - allow outside
 		// for overshoot.
 		long lineHeight = mOwner.backend->WndProc(Message::TextHeight, 0, 0);
-		rc.origin.y = std::round(static_cast<XYPOSITION>(rc.origin.y) / lineHeight) * lineHeight;
+		rc.origin.y = std::round(rc.origin.y / lineHeight) * lineHeight;
 	}
 	// Snap to whole points - on retina displays this avoids visual debris
 	// when scrolling horizontally.
 	if ((rc.origin.x > 0) && (NSMaxX(rc) < contentRect.size.width)) {
 		// Only snap for positions inside the document - allow outside
 		// for overshoot.
-		rc.origin.x = std::round(static_cast<XYPOSITION>(rc.origin.x));
+		rc.origin.x = std::round(rc.origin.x);
 	}
 	return rc;
 }
@@ -1828,11 +1834,10 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor) {
  * Specialized property setter for colors.
  */
 - (void) setColorProperty: (int) property parameter: (long) parameter value: (NSColor *) value {
-	if (value.colorSpaceName != NSDeviceRGBColorSpace)
-		value = [value colorUsingColorSpaceName: NSDeviceRGBColorSpace];
-	long red = static_cast<long>(value.redComponent * 255);
-	long green = static_cast<long>(value.greenComponent * 255);
-	long blue = static_cast<long>(value.blueComponent * 255);
+	NSColor *deviceColor = [value colorUsingColorSpace: [NSColorSpace deviceRGBColorSpace]];
+	long red = static_cast<long>(deviceColor.redComponent * 255);
+	long green = static_cast<long>(deviceColor.greenComponent * 255);
+	long blue = static_cast<long>(deviceColor.blueComponent * 255);
 
 	long color = (blue << 16) + (green << 8) + red;
 	mBackend->WndProc(static_cast<Message>(property), parameter, color);

@@ -1,5 +1,5 @@
-# Enumerate all styles where possible: 0..31,40..41
-# 22,23,30,31,40,41 are never set and 1 switches rest of file to error state
+# Enumerate all styles where possible: 0..31,40..45
+# 30,31,40,45 are never set and 1 switches rest of file to error state
 
 #0 whitespace
     #
@@ -66,14 +66,20 @@ module Module15 end
 <<DELIMITER20
 DELIMITER20
 
-#21:here doc
-<<D
-21:here doc
+#21:single quoted heredoc
+<<'D'
+21:here doc #{1 + 1}
 D
 
-#22:here qq never set
+#22:double quoted heredoc
+<<"D"
+22:here doc #{1 + 1}
+D
 
-#23:here qw never set
+#23:back tick quoted heredoc
+<<`D`
+23:here doc #{1 + 1}
+D
 
 #24:q quoted string
 %q!24:quotes's!
@@ -87,13 +93,25 @@ D
 #27:regex
 %r(27[a-z]/[A-Z]+)
 
-#28:string array
-%w(28 cgi.rb complex.rb date.rb)
+#28:interpolable string array
+%W(28 cgi.rb complex.rb date.rb #{1} )
 
 #29:demoted keyword do
 while 1 do end
 
-# 30,31,40,41 never set
+# 30,31,40,45 never set
+
+#41:non-interpolable string array
+%w(#{1 + 1})
+
+#42:non-interpolable symbol array
+%i(#{1 + 1})
+
+#43:interpolable symbol array
+%I(#{1 + 1})
+
+#44:symbol
+%s(#{1 + 1})
 
 #19:data section
 __END__

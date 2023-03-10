@@ -84,6 +84,15 @@
 {2}// escapesequence=27
 {6}"{27}\001{6} {27}\b{6}"{0}
 
+{2}// identifier substyles.11.1=128
+{128}vector{0}
+
+{2}// identifier substyles.11.2=129
+{129}std{0}
+
+{2}// commentdockeyword substyles.17.1=130
+{3}/** {130}@module{3} */{0}
+
 {2}// Secondary styles inside preprocessor excluded section
 {0}
 {9}#if 0
@@ -171,5 +180,14 @@
 
 {66}// escapesequence=27
 {70}"{91}\001{70} {91}\b{70}"{64}
+
+{66}// identifier substyles.75.1=192
+{192}vector{64}
+
+{66}// identifier substyles.75.2=193
+{193}std{64}
+
+{66}// commentdockeyword substyles.81.1=194
+{67}/** {194}@module{67} */{64}
 
 {9}#endif

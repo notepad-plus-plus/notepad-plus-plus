@@ -89,3 +89,14 @@ void StyleContext::GetCurrent(char *s, Sci_PositionU len) {
 void StyleContext::GetCurrentLowered(char *s, Sci_PositionU len) {
 	styler.GetRangeLowered(styler.GetStartSegment(), currentPos, s, len);
 }
+
+void StyleContext::GetCurrentString(std::string &string, Transform transform) {
+	const Sci_PositionU startPos = styler.GetStartSegment();
+	const Sci_PositionU len = currentPos - styler.GetStartSegment();
+	string.resize(len);
+	if (transform == Transform::lower) {
+		styler.GetRange(startPos, currentPos, string.data(), len + 1);
+	} else {
+		styler.GetRangeLowered(startPos, currentPos, string.data(), len + 1);
+	}
+}

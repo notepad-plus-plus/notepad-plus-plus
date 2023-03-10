@@ -414,6 +414,7 @@ PositionCache.o: \
 	../src/CaseFolder.h \
 	../src/Document.h \
 	../src/UniConversion.h \
+	../src/DBCS.h \
 	../src/Selection.h \
 	../src/PositionCache.h
 RESearch.o: \

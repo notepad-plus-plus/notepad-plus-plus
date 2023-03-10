@@ -83,6 +83,8 @@ extern "C" NSString *ScintillaRecPboardType;
 
 namespace Scintilla::Internal {
 
+CGContextRef CGContextCurrent();
+
 /**
  * Main scintilla class, implemented for macOS (Cocoa).
  */
@@ -101,6 +103,8 @@ private:
 	bool isFirstResponder;
 	bool isActive;
 
+	Point sizeClient;
+
 	bool enteredSetScrollingSize;
 
 	bool GetPasteboardData(NSPasteboard *board, SelectionText *selectedText);
@@ -116,6 +120,7 @@ private:
 
 protected:
 	Point GetVisibleOriginInMain() const override;
+	Point ClientSize() const override;
 	PRectangle GetClientRectangle() const override;
 	PRectangle GetClientDrawingRectangle() override;
 	Point ConvertPoint(NSPoint point);

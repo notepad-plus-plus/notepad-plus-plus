@@ -586,6 +586,62 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/lexilla523.zip">Release 5.2.3</a>
+    </h3>
+    <ul>
+	<li>
+	Released 8 March 2023.
+	</li>
+	<li>
+	Add scripts/PromoteNew.bat script to promote .new files after checking.
+	</li>
+	<li>
+	Makefile: Remove 1024-byte line length limit..
+	</li>
+	<li>
+	Ruby: Add new lexical classes for % literals SCE_RB_STRING_W (%w non-interpolable string array),
+	SCE_RB_STRING_I (%i non-interpolable symbol array),
+	SCE_RB_STRING_QI (%I interpolable symbol array),
+	and SCE_RB_STRING_QS (%s symbol).
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/124">Issue #124</a>.
+	</li>
+	<li>
+	Ruby: Disambiguate %= which may be a quote or modulo assignment.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/124">Issue #124</a>,
+	<a href="https://sourceforge.net/p/scintilla/bugs/1255/">Bug #1255</a>,
+	<a href="https://sourceforge.net/p/scintilla/bugs/2182/">Bug #2182</a>.
+	</li>
+	<li>
+	Ruby: Fix additional fold level for single character in SCE_RB_STRING_QW.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/132">Issue #132</a>.
+	</li>
+	<li>
+	Ruby: Set SCE_RB_HERE_QQ for unquoted and double-quoted heredocs and
+	SCE_RB_HERE_QX for backticks-quoted heredocs.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/134">Issue #134</a>.
+	</li>
+	<li>
+	Ruby: Recognise #{} inside SCE_RB_HERE_QQ and SCE_RB_HERE_QX.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/134">Issue #134</a>.
+	</li>
+	<li>
+	Ruby: Improve regex and heredoc recognition.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/136">Issue #136</a>.
+	</li>
+	<li>
+	Ruby: Highlight #@, #@@ and #$ style interpolation.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/140">Issue #140</a>.
+	</li>
+	<li>
+	Ruby: Fix folding for multiple heredocs started on one line.
+	Fix folding when there is a space after heredoc opening delimiter.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/135">Issue #135</a>.
+	</li>
+	<li>
+	YAML: Remove 1024-byte line length limit.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/lexilla522.zip">Release 5.2.2</a>
     </h3>
     <ul>

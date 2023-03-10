@@ -5,12 +5,12 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cctype>
+#include <cstdio>
+#include <cstdarg>
 
 #include <string>
 #include <string_view>
@@ -34,12 +34,12 @@ static inline bool AtEOL(Accessor &styler, Sci_PositionU i) {
 }
 
 static void ColouriseMakeLine(
-    char *lineBuffer,
-    Sci_PositionU lengthLine,
+	const std::string &lineBuffer,
     Sci_PositionU startLine,
     Sci_PositionU endPos,
     Accessor &styler) {
 
+	const Sci_PositionU lengthLine = lineBuffer.length();
 	Sci_PositionU i = 0;
 	Sci_Position lastNonSpace = -1;
 	unsigned int state = SCE_MAKE_DEFAULT;
@@ -118,28 +118,26 @@ static void ColouriseMakeLine(
 }
 
 static void ColouriseMakeDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
-	char lineBuffer[1024];
+	std::string lineBuffer;
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
-	Sci_PositionU linePos = 0;
 	Sci_PositionU startLine = startPos;
 	for (Sci_PositionU i = startPos; i < startPos + length; i++) {
-		lineBuffer[linePos++] = styler[i];
-		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
+		lineBuffer.push_back(styler[i]);
+		if (AtEOL(styler, i)) {
 			// End of line (or of line buffer) met, colourise it
-			lineBuffer[linePos] = '\0';
-			ColouriseMakeLine(lineBuffer, linePos, startLine, i, styler);
-			linePos = 0;
+			ColouriseMakeLine(lineBuffer, startLine, i, styler);
+			lineBuffer.clear();
 			startLine = i + 1;
 		}
 	}
-	if (linePos > 0) {	// Last line does not have ending characters
-		ColouriseMakeLine(lineBuffer, linePos, startLine, startPos + length - 1, styler);
+	if (!lineBuffer.empty()) {	// Last line does not have ending characters
+		ColouriseMakeLine(lineBuffer, startLine, startPos + length - 1, styler);
 	}
 }
 
 static const char *const emptyWordListDesc[] = {
-	0
+	nullptr
 };
 
-LexerModule lmMake(SCLEX_MAKEFILE, ColouriseMakeDoc, "makefile", 0, emptyWordListDesc);
+LexerModule lmMake(SCLEX_MAKEFILE, ColouriseMakeDoc, "makefile", nullptr, emptyWordListDesc);

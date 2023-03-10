@@ -580,6 +580,37 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla534.zip">Release 5.3.4</a>
+    </h3>
+    <ul>
+	<li>
+	Released 8 March 2023.
+	</li>
+	<li>
+	Add multithreaded wrap to significantly improve performance of wrapping large files.
+	</li>
+	<li>
+	More typesafe bindings of *Full APIs in ScintillaCall.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1477/">Feature #1477</a>.
+	</li>
+	<li>
+	Fix overlapping of text with line end wrap marker.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2378/">Bug #2378</a>.
+	</li>
+	<li>
+	Fix clipping of line end wrap symbol for SC_WRAPVISUALFLAGLOC_END_BY_TEXT.
+	</li>
+	<li>
+	Where a multi-byte character contains multiple styles, display each byte as a representation.
+	This makes it easier to see and fix lexers that change styles mid-character, commonly because
+	they use fixed size buffers.
+	</li>
+	<li>
+	Fix a potential crash with autocompletion list fill-ups where a SCN_CHARADDED
+	handler retriggered an autocompletion list, but with no items that match the typed character.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla533.zip">Release 5.3.3</a>
     </h3>
     <ul>

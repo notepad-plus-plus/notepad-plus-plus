@@ -558,7 +558,11 @@
 #define SCE_RB_STDIN 30
 #define SCE_RB_STDOUT 31
 #define SCE_RB_STDERR 40
-#define SCE_RB_UPPER_BOUND 41
+#define SCE_RB_STRING_W 41
+#define SCE_RB_STRING_I 42
+#define SCE_RB_STRING_QI 43
+#define SCE_RB_STRING_QS 44
+#define SCE_RB_UPPER_BOUND 45
 #define SCE_B_DEFAULT 0
 #define SCE_B_COMMENT 1
 #define SCE_B_NUMBER 2

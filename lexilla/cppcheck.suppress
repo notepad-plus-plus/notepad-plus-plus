@@ -61,7 +61,6 @@ unreadVariable:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexLaTeX.cxx
 constParameter:lexilla/lexers/LexLaTeX.cxx
-constParameter:lexilla/lexers/LexLisp.cxx
 constParameter:lexilla/lexers/LexMagik.cxx
 constParameter:lexilla/lexers/LexMatlab.cxx
 unreadVariable:lexilla/lexers/LexMatlab.cxx
@@ -89,8 +88,8 @@ constParameter:lexilla/lexers/LexRaku.cxx
 variableScope:lexilla/lexers/LexRaku.cxx
 redundantInitialization:lexilla/lexers/LexRegistry.cxx
 constParameter:lexilla/lexers/LexRuby.cxx
+knownConditionTrueFalse:lexilla/lexers/LexRuby.cxx
 constParameter:lexilla/lexers/LexRust.cxx
-constParameter:lexilla/lexers/LexScriptol.cxx
 knownConditionTrueFalse:lexilla/lexers/LexScriptol.cxx
 variableScope:lexilla/lexers/LexSpecman.cxx
 unreadVariable:lexilla/lexers/LexSpice.cxx
@@ -127,30 +126,12 @@ constParameterCallback:lexilla/lexers/LexPython.cxx
 constParameterCallback:lexilla/lexers/LexScriptol.cxx
 constParameterCallback:lexilla/lexers/LexVB.cxx
 
-constVariable:lexilla/lexers/LexA68k.cxx
-constVariable:lexilla/lexers/LexAsn1.cxx
-constVariable:lexilla/lexers/LexCLW.cxx
-constVariable:lexilla/lexers/LexCOBOL.cxx
 constVariable:lexilla/lexers/LexCSS.cxx
 constVariable:lexilla/lexers/LexCrontab.cxx
-constVariable:lexilla/lexers/LexEScript.cxx
-constVariable:lexilla/lexers/LexEiffel.cxx
-constVariable:lexilla/lexers/LexForth.cxx
 constVariable:lexilla/lexers/LexGui4Cli.cxx
 constVariable:lexilla/lexers/LexKix.cxx
-constVariable:lexilla/lexers/LexLout.cxx
 constVariable:lexilla/lexers/LexMetapost.cxx
-constVariable:lexilla/lexers/LexModula.cxx
 constVariable:lexilla/lexers/LexOpal.cxx
-constVariable:lexilla/lexers/LexPS.cxx
-constVariable:lexilla/lexers/LexPascal.cxx
-constVariable:lexilla/lexers/LexRebol.cxx
-constVariable:lexilla/lexers/LexRuby.cxx
-constVariable:lexilla/lexers/LexSorcus.cxx
-constVariable:lexilla/lexers/LexStata.cxx
-constVariable:lexilla/lexers/LexTACL.cxx
-constVariable:lexilla/lexers/LexTADS3.cxx
-constVariable:lexilla/lexers/LexTAL.cxx
 
 // cppcheck appears wrong as atKeyPath must be remembered between loops
 variableScope:lexilla/lexers/LexRegistry.cxx

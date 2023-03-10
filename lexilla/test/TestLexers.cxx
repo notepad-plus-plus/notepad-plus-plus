@@ -270,7 +270,9 @@ std::string MarkedDocument(const Scintilla::IDocument *pdoc) {
 	for (Sci_Position pos = 0; pos < pdoc->Length(); pos++) {
 		const char styleNow = pdoc->StyleAt(pos);
 		if (styleNow != prevStyle) {
-			os << "{" << static_cast<unsigned int>(styleNow) << "}";
+			const unsigned char uStyleNow = styleNow;
+			const unsigned int uiStyleNow = uStyleNow;
+			os << "{" << uiStyleNow << "}";
 			prevStyle = styleNow;
 		}
 		char ch = '\0';
@@ -750,10 +752,35 @@ void TestILexer(Scintilla::ILexer5 *plex) {
 	}
 }
 
-bool SetProperties(Scintilla::ILexer5 *plex, const PropertyMap &propertyMap, std::filesystem::path path) {
+bool SetProperties(Scintilla::ILexer5 *plex, const std::string &language, const PropertyMap &propertyMap, std::filesystem::path path) {
 	assert(plex);
 
 	const std::string fileName = path.filename().string();
+
+	if (std::string_view bases = plex->GetSubStyleBases(); !bases.empty()) {
+		// Allocate a substyle for each possible style
+		while (!bases.empty()) {
+			const int baseStyle = bases.front();
+			//	substyles.cpp.11=2
+			const std::string base = std::to_string(baseStyle);
+			const std::string substylesForBase = "substyles." + language + "." + base;
+			std::optional<std::string> substylesN = propertyMap.GetProperty(substylesForBase);
+			if (substylesN) {
+				const int substyles = atoi(substylesN->c_str());
+				const int baseStyleNum = plex->AllocateSubStyles(baseStyle, substyles);
+				//	substylewords.11.1.$(file.patterns.cpp)=std map string vector
+				for (int kw = 0; kw < substyles; kw++) {
+					const std::string substyleWords = "substylewords." + base + "." + std::to_string(kw + 1) + ".*";
+					const std::optional<std::string> keywordN = propertyMap.GetPropertyForFile(substyleWords, fileName);
+					if (keywordN) {
+						plex->SetIdentifiers(baseStyleNum + kw, keywordN->c_str());
+					}
+				}
+			}
+			bases.remove_prefix(1);
+		}
+	}
+
 	// Set keywords, keywords2, ... keywords9, for this file
 	for (int kw = 0; kw < 10; kw++) {
 		std::string kwChoice("keywords");
@@ -790,6 +817,8 @@ bool SetProperties(Scintilla::ILexer5 *plex, const PropertyMap &propertyMap, std
 			// Ignore as processed earlier
 		} else if (key.starts_with("keywords")) {
 			// Ignore as processed earlier
+		} else if (key.starts_with("substyle")) {
+			// Ignore as processed earlier
 		} else {
 			plex->PropertySet(key.c_str(), val.c_str());
 		}
@@ -812,11 +841,11 @@ bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap)
 		return false;
 	}
 
-	if (!SetProperties(plex, propertyMap, path)) {
+	TestILexer(plex);
+
+	if (!SetProperties(plex, *language, propertyMap, path)) {
 		return false;
 	}
-
-	TestILexer(plex);
 
 	std::string text = ReadFile(path);
 	if (text.starts_with(BOM)) {
@@ -880,7 +909,7 @@ bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap)
 
 	if (success) {
 		Scintilla::ILexer5 *plexCRLF = Lexilla::MakeLexer(*language);
-		SetProperties(plexCRLF, propertyMap, path.filename().string());
+		SetProperties(plexCRLF, *language, propertyMap, path.filename().string());
 		success = TestCRLF(path, text, plexCRLF, disablePerLineTests);
 	}
 

@@ -1,0 +1,10 @@
+ 2 400   0 + a = <<XXX # :nodoc:
+ 0 401   0 | heredoc
+ 0 401   0 | XXX
+ 1 400   0   
+ 2 400   0 + puts(<<-ONE, <<-TWO)
+ 0 401   0 | content for heredoc one
+ 0 401   0 | ONE
+ 0 401   0 | content for heredoc two
+ 0 401   0 | TWO
+ 0 400   0   

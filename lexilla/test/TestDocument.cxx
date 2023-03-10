@@ -120,7 +120,9 @@ void TestDocument::Set(std::string_view sv) {
 			lineStarts.push_back(pos + 1);
 		}
 	}
-	lineStarts.push_back(text.length());
+	if (lineStarts.back() != Length()) {
+		lineStarts.push_back(Length());
+	}
 	lineStates.resize(lineStarts.size());
 	lineLevels.resize(lineStarts.size(), 0x400);
 }
@@ -129,6 +131,10 @@ void TestDocument::Set(std::string_view sv) {
 // IDocument interface does not specify noexcept so best to not add it to implementation
 #pragma warning(disable: 26440)
 #endif
+
+Sci_Position TestDocument::MaxLine() const noexcept {
+	return lineStarts.size() - 1;
+}
 
 int SCI_METHOD TestDocument::Version() const {
 	return Scintilla::dvRelease4;
@@ -153,8 +159,8 @@ char SCI_METHOD TestDocument::StyleAt(Sci_Position position) const {
 }
 
 Sci_Position SCI_METHOD TestDocument::LineFromPosition(Sci_Position position) const {
-	if (position >= static_cast<Sci_Position>(text.length())) {
-		return lineStarts.size() - 1 - 1;
+	if (position >= Length()) {
+		return MaxLine();
 	}
 
 	const std::vector<Sci_Position>::const_iterator it = std::lower_bound(lineStarts.begin(), lineStarts.end(), position);
@@ -169,7 +175,7 @@ Sci_Position SCI_METHOD TestDocument::LineStart(Sci_Position line) const {
 		return 0;
 	}
 	if (line >= static_cast<Sci_Position>(lineStarts.size())) {
-		return text.length();
+		return Length();
 	}
 	return lineStarts.at(line);
 }
@@ -179,6 +185,9 @@ int SCI_METHOD TestDocument::GetLevel(Sci_Position line) const {
 }
 
 int SCI_METHOD TestDocument::SetLevel(Sci_Position line, int level) {
+	if (line == static_cast<Sci_Position>(lineLevels.size())) {
+		return 0x400;
+	}
 	return lineLevels.at(line) = level;
 }
 
@@ -243,6 +252,11 @@ int SCI_METHOD TestDocument::GetLineIndentation(Sci_Position) {
 }
 
 Sci_Position SCI_METHOD TestDocument::LineEnd(Sci_Position line) const {
+	const Sci_Position maxLine = MaxLine();
+	if (line == maxLine || line == maxLine+1) {
+		return text.length();
+	}
+	assert(line < maxLine);
 	Sci_Position position = LineStart(line + 1);
 	position--; // Back over CR or LF
 	// When line terminator is CR+LF, may need to go back one more
@@ -288,7 +302,7 @@ Sci_Position SCI_METHOD TestDocument::GetRelativePosition(Sci_Position positionS
 
 int SCI_METHOD TestDocument::GetCharacterAndWidth(Sci_Position position, Sci_Position *pWidth) const {
 	// TODO: invalid UTF-8
-	if (position >= static_cast<Sci_Position>(text.length())) {
+	if (position >= Length()) {
 		// Return NULs after document end
 		if (pWidth) {
 			*pWidth = 1;

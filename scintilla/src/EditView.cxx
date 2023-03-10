@@ -178,13 +178,6 @@ void DrawStyledText(Surface *surface, const ViewStyle &vs, int styleOffset, PRec
 	}
 }
 
-void Hexits(char *hexits, int ch) noexcept {
-	hexits[0] = 'x';
-	hexits[1] = "0123456789ABCDEF"[ch / 0x10];
-	hexits[2] = "0123456789ABCDEF"[ch % 0x10];
-	hexits[3] = 0;
-}
-
 }
 
 EditView::EditView() {
@@ -402,7 +395,7 @@ void LayoutSegments(IPositionCache *pCache,
 * Copy the given @a line and its styles from the document into local arrays.
 * Also determine the x position at which each character starts.
 */
-void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewStyle &vstyle, LineLayout *ll, int width) {
+void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewStyle &vstyle, LineLayout *ll, int width, bool callerMultiThreaded) {
 	if (!ll)
 		return;
 	const Sci::Line line = ll->LineNumber();
@@ -498,7 +491,7 @@ void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewSt
 
 			const size_t threadsForLength = std::max(1, numCharsInLine / bytesPerLayoutThread);
 			size_t threads = std::min<size_t>({ segments.size(), threadsForLength, maxLayoutThreads });
-			if (!surface->SupportsFeature(Supports::ThreadSafeMeasureWidths)) {
+			if (!surface->SupportsFeature(Supports::ThreadSafeMeasureWidths) || callerMultiThreaded) {
 				threads = 1;
 			}
 
@@ -506,6 +499,7 @@ void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewSt
 
 			const bool textUnicode = CpUtf8 == model.pdoc->dbcsCodePage;
 			const bool multiThreaded = threads > 1;
+			const bool multiThreadedContext = multiThreaded || callerMultiThreaded;
 			IPositionCache *pCache = posCache.get();
 
 			// If only 1 thread needed then use the main thread, else spin up multiple
@@ -515,8 +509,8 @@ void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewSt
 			for (size_t th = 0; th < threads; th++) {
 				// Find relative positions of everything except for tabs
 				std::future<void> fut = std::async(policy,
-					[pCache, surface, &vstyle, &ll, &segments, &nextIndex, textUnicode, multiThreaded]() {
-					LayoutSegments(pCache, surface, vstyle, ll, segments, nextIndex, textUnicode, multiThreaded);
+					[pCache, surface, &vstyle, &ll, &segments, &nextIndex, textUnicode, multiThreadedContext]() {
+					LayoutSegments(pCache, surface, vstyle, ll, segments, nextIndex, textUnicode, multiThreadedContext);
 				});
 				futures.push_back(std::move(fut));
 			}
@@ -599,7 +593,7 @@ void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewSt
 			// Check for wrapIndent minimum
 			if ((FlagSet(vstyle.wrap.visualFlags, WrapVisualFlag::Start)) && (ll->wrapIndent < vstyle.aveCharWidth))
 				ll->wrapIndent = vstyle.aveCharWidth; // Indent to show start visual
-			ll->WrapLine(model.pdoc, posLineStart, vstyle.wrap.state);
+			ll->WrapLine(model.pdoc, posLineStart, vstyle.wrap.state, width);
 		}
 		ll->validity = LineLayout::ValidLevel::lines;
 	}
@@ -894,20 +888,6 @@ ColourRGBA TextBackground(const EditModel &model, const ViewStyle &vsDraw, const
 	}
 }
 
-const char *ControlCharacterString(unsigned char ch) noexcept {
-	const char *const reps[] = {
-		"NUL", "SOH", "STX", "ETX", "EOT", "ENQ", "ACK", "BEL",
-		"BS", "HT", "LF", "VT", "FF", "CR", "SO", "SI",
-		"DLE", "DC1", "DC2", "DC3", "DC4", "NAK", "SYN", "ETB",
-		"CAN", "EM", "SUB", "ESC", "FS", "GS", "RS", "US"
-	};
-	if (ch < std::size(reps)) {
-		return reps[ch];
-	} else {
-		return "BAD";
-	}
-}
-
 void DrawTextBlob(Surface *surface, const ViewStyle &vsDraw, PRectangle rcSegment,
 	std::string_view text, ColourRGBA textBack, ColourRGBA textFore, bool fillBackground) {
 	if (rcSegment.Empty())
@@ -1121,14 +1101,15 @@ void EditView::DrawEOL(Surface *surface, const EditModel &model, const ViewStyle
 
 	if (drawWrapMarkEnd) {
 		PRectangle rcPlace = rcSegment;
+		const XYPOSITION maxLeft = rcPlace.right - vsDraw.aveCharWidth;
 
 		if (FlagSet(vsDraw.wrap.visualFlagsLocation, WrapVisualLocation::EndByText)) {
-			rcPlace.left = xEol + xStart + virtualSpace;
+			rcPlace.left = std::min(xEol + xStart + virtualSpace, maxLeft);
 			rcPlace.right = rcPlace.left + vsDraw.aveCharWidth;
 		} else {
 			// rcLine is clipped to text area
 			rcPlace.right = rcLine.right;
-			rcPlace.left = rcPlace.right - vsDraw.aveCharWidth;
+			rcPlace.left = maxLeft;
 		}
 		if (!customDrawWrapMarker) {
 			DrawWrapMarker(surface, rcPlace, true, vsDraw.WrapColour());

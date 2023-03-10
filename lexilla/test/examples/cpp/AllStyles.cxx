@@ -84,6 +84,15 @@ R"( )"
 // escapesequence=27
 "\001 \b"
 
+// identifier substyles.11.1=128
+vector
+
+// identifier substyles.11.2=129
+std
+
+// commentdockeyword substyles.17.1=130
+/** @module */
+
 // Secondary styles inside preprocessor excluded section
 
 #if 0
@@ -171,5 +180,14 @@ R"( )"
 
 // escapesequence=27
 "\001 \b"
+
+// identifier substyles.75.1=192
+vector
+
+// identifier substyles.75.2=193
+std
+
+// commentdockeyword substyles.81.1=194
+/** @module */
 
 #endif

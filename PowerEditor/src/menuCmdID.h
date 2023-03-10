@@ -538,6 +538,7 @@
     #define    IDM_LANG_VISUALPROLOG       (IDM_LANG + 83)
     #define    IDM_LANG_TYPESCRIPT         (IDM_LANG + 84)
     #define    IDM_LANG_JSON5              (IDM_LANG + 85)
+    #define    IDM_LANG_HOLLYWOOD          (IDM_LANG + 86)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 165)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 179)

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ================================================ [ Hollywood ] -->
+
+		<parser
+			displayName="Hollywood"
+			id         ="hollywood_function"
+		>
+			<function
+				mainExpr="((^|\s+|[{,])([A-Za-z_$][\w$]*\.)*[A-Za-z_$][\w$]*\s*[=:]|^|[\s;\}]+)\s*function(\s+[A-Za-z_][\w$:.]*)?\s*\([^\)\(]*\)[\n\s]"
+			>
+				<functionName>
+					<nameExpr expr="[A-Za-z_$][\w$:.]*\s*[=]|[A-Za-z_$][\w$:.]*\s*\(" />
+					<nameExpr expr="([A-Za-z_$][\w$:.]*\.)*[A-Za-z_$][\w$:.]*" />					
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

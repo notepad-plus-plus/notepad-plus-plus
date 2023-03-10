@@ -535,6 +535,23 @@ License:             GPL2
             <WordsStyle name="COMMENT BLOCK2" styleID="15" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT BLOCK3" styleID="16" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
+        <LexerType name="hollywood" desc="Hollywood" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT BLOCK" styleID="2" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="3" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="4" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
+            <WordsStyle name="CORE API" styleID="5" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" keywordClass="instre2"/>
+            <WordsStyle name="PLUGIN API" styleID="6" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" keywordClass="type1"/>
+            <WordsStyle name="PLUGIN METHOD" styleID="7" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" keywordClass="type2"/>
+            <WordsStyle name="STRING" styleID="8" fgColor="C89191" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING BLOCK" styleID="9" fgColor="C89191" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PREPROCESSOR" styleID="10" fgColor="CEDF99" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="11" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="12" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CONSTANT" styleID="13" fgColor="9F9D6D" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEXNUMBER" styleID="14" fgColor="939393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />                                                                                                                                                            
+        </LexerType>	
         <LexerType name="html" desc="HTML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="9" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />

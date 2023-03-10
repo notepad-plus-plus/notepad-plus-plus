@@ -153,6 +153,7 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("visualprolog"),	TEXT("Visual Prolog"),		TEXT("Visual Prolog file"),								L_VISUALPROLOG,	"visualprolog"},
 	{TEXT("typescript"),	TEXT("TypeScript"),			TEXT("TypeScript file"),								L_TYPESCRIPT,	"cpp"},
 	{TEXT("json5"),			TEXT("json5"),				TEXT("JSON5 file"),										L_JSON5,		"json"},
+	{TEXT("hollywood"),		TEXT("Hollywood"),			TEXT("Hollywood script"),								L_HOLLYWOOD,	"hollywood"},
 	{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		"null"}
 };
 
@@ -1804,6 +1805,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_TYPESCRIPT:
 			setTypeScriptLexer(); break;
+			
+		case L_HOLLYWOOD:
+			setHollywoodLexer(); break;			
 
 		case L_TEXT :
 		default :

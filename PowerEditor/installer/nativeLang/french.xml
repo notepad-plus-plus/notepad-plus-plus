@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="français" filename="french.xml" version="8.5">
+    <Native-Langue name="français" filename="french.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -469,6 +469,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Suivant"/>
                 <Item id="1725" name="Copier le texte marqué"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Echanger entre Recherche et Remplacer"/>
+                    <Item id="1727" name="⤵ Copier de Recherche vers Remplacer"/>
+                    <Item id="1728" name="⤴ Copier de Remplacer vers Recherche"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -1470,7 +1475,7 @@ Voulez-vous enregistrer vos modifications avant de changer de thème ?"/> <!-- H
             <ExpandAllFoldersTip name="Déplier tous les dossiers"/>
             <CollapseAllFoldersTip name="Replier tous les dossiers"/>
             <LocateCurrentFileTip name="Localiser le fichier courant"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Effacer"/>
                 <Item id="3512" name="Effacer tout"/>
                 <Item id="3513" name="Ajouter"/>
@@ -1481,7 +1486,7 @@ Voulez-vous enregistrer vos modifications avant de changer de thème ?"/> <!-- H
                 <Item id="3518" name="Explorer depuis ici"/>
                 <Item id="3519" name="CMD depuis ici"/>
                 <Item id="3520" name="Copier le nom du fichier"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projet"/>

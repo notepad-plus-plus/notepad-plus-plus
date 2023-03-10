@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.4.6">
+    <Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -455,6 +455,11 @@
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ 找下一個"/>
                 <Item id="1725" name="複製標記文字"/>
+                <Menu>
+                    <Item id="1726" name="⇅ 交換尋找與取代"/>
+                    <Item id="1727" name="⤵ 從尋找拷貝至取代"/>
+                    <Item id="1728" name="⤴ 從取代拷貝至尋找"/>
+                </Menu>
             </Find>
             <IncrementalFind title="">
                 <Item id="1681" name="搜尋："/>
@@ -1375,7 +1380,7 @@
             <ExpandAllFoldersTip name="展開所有文件夾"/>
             <CollapseAllFoldersTip name="收折所有文件夾"/>
             <LocateCurrentFileTip name="現行文件位置"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="移除"/>
                 <Item id="3512" name="全部移除"/>
                 <Item id="3513" name="加入"/>
@@ -1385,7 +1390,7 @@
                 <Item id="3517" name="在檔案中尋找..."/>
                 <Item id="3518" name="在此開啟檔案總管"/>
                 <Item id="3519" name="在此開啟 CMD"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="專案"/>

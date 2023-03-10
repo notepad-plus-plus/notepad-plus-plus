@@ -79,7 +79,7 @@ public:
 	bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
 	generic_string getShortcutMapperLangStr(const char *nodeName, const TCHAR *defaultStr) const;
 	generic_string getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
-	generic_string getFileBrowserLangMenuStr(int cmdID, const TCHAR *defaultStr) const;
+	generic_string getDlgLangMenuStr(const char* firstLevelNodeName, const char* secondLevelNodeName, int cmdID, const TCHAR *defaultStr) const;
 	generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name = "name") const;
 	generic_string getAttrNameByIdStr(const TCHAR *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name = "id", const char *nodeL2Name = "name") const;
 	generic_string getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const;

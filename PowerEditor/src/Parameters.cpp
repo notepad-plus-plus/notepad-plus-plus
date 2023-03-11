@@ -2525,7 +2525,6 @@ void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
 		_columnEditParam._repeatNum = val;
 
 	strVal = (childNode->ToElement())->Attribute(TEXT("formatChoice"));
-
 	if (strVal)
 	{
 		if (lstrcmp(strVal, TEXT("hex")) == 0)
@@ -2534,13 +2533,23 @@ void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
 			_columnEditParam._formatChoice = 2;
 		else if (lstrcmp(strVal, TEXT("bin")) == 0)
 			_columnEditParam._formatChoice = 3;
-		else // "bin"
+		else // "dec"
 			_columnEditParam._formatChoice = 0;
 	}
 
-	const TCHAR* boolStr = (childNode->ToElement())->Attribute(TEXT("leadingZeros"));
-	if (boolStr)
-		_columnEditParam._isLeadingZeros = (lstrcmp(TEXT("yes"), boolStr) == 0);
+	strVal = (childNode->ToElement())->Attribute(TEXT("leadingChoice"));
+	if (strVal)
+	{
+		_columnEditParam._leadingChoice = ColumnEditorParam::noneLeading;
+		if (lstrcmp(strVal, TEXT("zeros")) == 0)
+		{
+			_columnEditParam._leadingChoice = ColumnEditorParam::zeroLeading;
+		}
+		else if (lstrcmp(strVal, TEXT("spaces")) == 0)
+		{
+			_columnEditParam._leadingChoice = ColumnEditorParam::spaceLeading;
+		}
+	}
 }
 
 void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
@@ -4102,8 +4111,6 @@ bool NppParameters::writeColumnEditorSettings() const
 	(numberNode.ToElement())->SetAttribute(TEXT("initial"), _columnEditParam._initialNum);
 	(numberNode.ToElement())->SetAttribute(TEXT("increase"), _columnEditParam._increaseNum);
 	(numberNode.ToElement())->SetAttribute(TEXT("repeat"), _columnEditParam._repeatNum);
-	(numberNode.ToElement())->SetAttribute(TEXT("leadingZeros"), _columnEditParam._isLeadingZeros ? L"yes" : L"no");
-
 	wstring format = TEXT("dec");
 	if (_columnEditParam._formatChoice == 1)
 		format = TEXT("hex");
@@ -4112,9 +4119,13 @@ bool NppParameters::writeColumnEditorSettings() const
 	else if (_columnEditParam._formatChoice == 3)
 		format = TEXT("bin");
 	(numberNode.ToElement())->SetAttribute(TEXT("formatChoice"), format);
+	wstring leading = TEXT("none");
+	if (_columnEditParam._leadingChoice == ColumnEditorParam::zeroLeading)
+		leading = TEXT("zeros");
+	else if (_columnEditParam._leadingChoice == ColumnEditorParam::spaceLeading)
+		leading = TEXT("spaces");
+	(numberNode.ToElement())->SetAttribute(TEXT("leadingChoice"), leading);
 	(columnEditorRootNode.ToElement())->InsertEndChild(numberNode);
-
-
 
 	// (Re)Insert the Project Panel root
 	(nppRoot->ToElement())->InsertEndChild(columnEditorRootNode);

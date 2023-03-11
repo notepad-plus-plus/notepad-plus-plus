@@ -1209,6 +1209,8 @@ struct FindHistory final
 
 struct ColumnEditorParam final
 {
+	enum leadingChoice : UCHAR { noneLeading, zeroLeading, spaceLeading };
+
 	bool _mainChoice = true; //  true (1): text   false (0): number 
 
 	std::wstring _insertedTextContent;
@@ -1216,8 +1218,8 @@ struct ColumnEditorParam final
 	int _initialNum = -1;
 	int _increaseNum = -1;
 	int _repeatNum = -1;
-	bool _isLeadingZeros = false;
 	int _formatChoice = 0; // 0:Dec 1:Hex 2:Oct 3:Bin
+	leadingChoice _leadingChoice = noneLeading;
 };
 
 class LocalizationSwitcher final

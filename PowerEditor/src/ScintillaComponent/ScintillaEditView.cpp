@@ -3212,15 +3212,15 @@ bool ScintillaEditView::expandWordSelection()
 	return false;
 }
 
-TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading, bool isSpaceLeading)
+TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbDigits, bool isZeroLeading, bool isSpaceLeading)
 {
-	if (nbChiffre >= strLen) return NULL;
+	if (nbDigits >= strLen) return NULL;
 	
 	if (base == 2)
 	{
 		const unsigned int MASK_ULONG_BITFORT = 0x80000000;
 		int nbBits = sizeof(unsigned int) * 8;
-		int nbBit2Shift = (nbChiffre >= nbBits)?nbBits:(nbBits - nbChiffre);
+		int nbBit2Shift = (nbDigits >= nbBits)?nbBits:(nbBits - nbDigits);
 		unsigned long mask = MASK_ULONG_BITFORT >> nbBit2Shift;
 		int i = 0;
 		for (; mask > 0 ; ++i)
@@ -3260,7 +3260,7 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 			
 			// add trailing spaces to pad out to field width
 			int i = lstrlen(str);
-			for (; i < nbChiffre; ++i)
+			for (; i < nbDigits; ++i)
 				str[i] = ' ';
 			str[i] = '\0';
 		}
@@ -3278,16 +3278,16 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 
 		if (isZeroLeading)
 		{
-			swprintf(f, bufSize, TEXT("%%.%d%s"), nbChiffre, fStr);
+			swprintf(f, bufSize, TEXT("%%.%d%s"), nbDigits, fStr);
 		}
 		else if (isSpaceLeading)
 		{
-			swprintf(f, bufSize, TEXT("%%%d%s"), nbChiffre, fStr);
+			swprintf(f, bufSize, TEXT("%%%d%s"), nbDigits, fStr);
 		}
 		else
 		{
 			// left-align within the field width, i.e. pad on right with space
-			swprintf(f, bufSize, TEXT("%%-%d%s"), nbChiffre, fStr);
+			swprintf(f, bufSize, TEXT("%%-%d%s"), nbDigits, fStr);
 		}
 		// use swprintf (or sprintf) instead of wsprintf to make octal format work!
 		swprintf(str, strLen, f, number);

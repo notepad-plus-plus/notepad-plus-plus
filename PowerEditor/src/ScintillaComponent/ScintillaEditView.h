@@ -171,7 +171,7 @@ const std::vector<std::vector<const char*>> g_nonPrintingChars =
 int getNbDigits(int aNum, int base);
 //HMODULE loadSciLexerDll();
 
-TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading, bool isSpaceLeading);
+TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbDigits, bool isZeroLeading, bool isSpaceLeading);
 
 typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
 

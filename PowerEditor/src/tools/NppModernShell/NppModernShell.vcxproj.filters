@@ -1,39 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="CommandHandlers">
+      <UniqueIdentifier>{ff31b0d8-bf03-4a28-945d-cfae6eb365fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Factories">
+      <UniqueIdentifier>{3ce00d49-8c93-43bf-8d92-00c9b7087776}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Installer">
+      <UniqueIdentifier>{ca898efe-24d8-4317-99c9-769e8e80c3aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="EditWithNppExplorerCommandHandler.h">
+      <Filter>CommandHandlers</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ExplorerCommandBase.h">
+      <Filter>CommandHandlers</Filter>
     </ClInclude>
+    <ClInclude Include="Installer.h">
+      <Filter>Installer</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandHandlerFactory.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Helpers.h" />
+    <ClInclude Include="framework.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="EditWithNppExplorerCommandHandler.cpp">
+      <Filter>CommandHandlers</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ExplorerCommandBase.cpp">
+      <Filter>CommandHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="Installer.cpp">
+      <Filter>Installer</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Helpers.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="CommandHandlerFactory.cpp">
+      <Filter>Factories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="source.def">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="packages.config" />
+    <None Include="source.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

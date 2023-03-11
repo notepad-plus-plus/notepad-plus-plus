@@ -10,4 +10,6 @@
 // add headers that you want to pre-compile here
 #include "framework.h"
 
+using namespace std;
+
 #endif //PCH_H

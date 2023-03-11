@@ -1,5 +1,4 @@
 #include "pch.h"
-
 #include "CommandHandlerFactory.h"
 
 #include "EditWithNppExplorerCommandHandler.h"

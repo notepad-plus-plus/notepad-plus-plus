@@ -505,6 +505,7 @@ private :
 	bool replaceInProjectsConfirmCheck();
 	bool replaceInOpenDocsConfirmCheck(void);
 
+	ContextMenu _swapPopupMenu;
 	enum SwapButtonStatus {swap, down, up} _swapButtonStatus = swap;
 	HWND _hSwapButton = nullptr;
 	static LRESULT CALLBACK swapButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {

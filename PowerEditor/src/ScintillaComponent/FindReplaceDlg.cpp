@@ -1416,26 +1416,30 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_RBUTTONUP:
 		{
-			wstring swapButtonLabel;
-			if (_swapButtonStatus == swap)
+			if (!_swapPopupMenu.isCreated())
 			{
-				_swapButtonStatus = down;
-				//swapButtonLabel = L"⬇";
-				swapButtonLabel = L"⤵";
+				vector<MenuItemUnit> itemUnitArray;
+				itemUnitArray.push_back(MenuItemUnit(NPPM_INTERNAL_FINDREPLACESWAP, TEXT("⇅ Swap Find with Replace")));
+				itemUnitArray.push_back(MenuItemUnit(NPPM_INTERNAL_FINDCOPYTOREPLACES, TEXT("⤵ Copy from Find to Replace")));
+				itemUnitArray.push_back(MenuItemUnit(NPPM_INTERNAL_REPLACESCOPYTOFIND, TEXT("⤴ Copy from Replace to Find")));
+
+				NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+				for (auto&& i : itemUnitArray)
+				{
+					const generic_string menuItem = pNativeSpeaker->getNativeLangMenuString(i._cmdID);
+					if (!menuItem.empty())
+						i._itemName = menuItem;
+				}
+
+				_swapPopupMenu.create(_hSelf, itemUnitArray);
 			}
-			else if (_swapButtonStatus == down)
-			{
-				_swapButtonStatus = up;
-				//swapButtonLabel = L"⬆";
-				swapButtonLabel = L"⤴";
-			}
-			else // if (_swapButtonStatus == up)
-			{
-				_swapButtonStatus = swap;
-				swapButtonLabel = L"⇅";
-			}
-			::SetWindowTextW(_hSwapButton, swapButtonLabel.c_str());
-			SendMessage(_hSwapButton, WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
+			RECT rc{};
+			::GetClientRect(_hSwapButton, &rc);
+			POINT p{};
+			::ClientToScreen(_hSwapButton, &p);
+			p.y += rc.bottom;
+			_swapPopupMenu.display(p);
+
 			return TRUE;
 		}
 
@@ -1637,6 +1641,42 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					nppParamInst._isFindReplacing = false;
 				}
 				return TRUE;
+
+				case NPPM_INTERNAL_FINDREPLACESWAP:
+				{
+					if (_swapButtonStatus != swap)
+					{
+						_swapButtonStatus = swap;
+						::SetWindowTextW(_hSwapButton, L"⇅");
+						SendMessage(_hSwapButton, WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
+					}
+					::SendMessage(_hSelf, WM_COMMAND, IDD_FINDREPLACE_SWAP_BUTTON, 0);
+					return TRUE;
+				}
+
+				case NPPM_INTERNAL_FINDCOPYTOREPLACES:
+				{
+					if (_swapButtonStatus != down)
+					{
+						_swapButtonStatus = down;
+						::SetWindowTextW(_hSwapButton, L"⤵");
+						SendMessage(_hSwapButton, WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
+					}
+					::SendMessage(_hSelf, WM_COMMAND, IDD_FINDREPLACE_SWAP_BUTTON, 0);
+					return TRUE;
+				}
+
+				case NPPM_INTERNAL_REPLACESCOPYTOFIND:
+				{
+					if (_swapButtonStatus != up)
+					{
+						_swapButtonStatus = up;
+						::SetWindowTextW(_hSwapButton, L"⤴");
+						SendMessage(_hSwapButton, WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
+					}
+					::SendMessage(_hSelf, WM_COMMAND, IDD_FINDREPLACE_SWAP_BUTTON, 0);
+					return TRUE;
+				}
 
 				case IDD_FINDREPLACE_SWAP_BUTTON:
 				{

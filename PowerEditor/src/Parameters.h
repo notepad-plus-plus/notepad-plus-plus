@@ -1213,8 +1213,8 @@ struct ColumnEditorParam final
 	int _initialNum = -1;
 	int _increaseNum = -1;
 	int _repeatNum = -1;
-	bool _isLeadingZeros = false;
 	int _formatChoice = 0; // 0:Dec 1:Hex 2:Oct 3:Bin
+	int _leadingChoice = 0; // 0:None 1:Zeros 2:Spaces
 };
 
 class LocalizationSwitcher final

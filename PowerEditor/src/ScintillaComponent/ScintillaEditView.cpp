@@ -3212,17 +3212,11 @@ bool ScintillaEditView::expandWordSelection()
 	return false;
 }
 
-TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading)
+TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading, bool isSpaceLeading)
 {
 	if (nbChiffre >= strLen) return NULL;
-	constexpr size_t bufSize = 64;
-	TCHAR f[bufSize] = { '\0' };
-	TCHAR fStr[2] = TEXT("d");
-	if (base == 16)
-		fStr[0] = 'X';
-	else if (base == 8)
-		fStr[0] = 'o';
-	else if (base == 2)
+	
+	if (base == 2)
 	{
 		const unsigned int MASK_ULONG_BITFORT = 0x80000000;
 		int nbBits = sizeof(unsigned int) * 8;
@@ -3235,41 +3229,70 @@ TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, boo
 			mask >>= 1;
 		}
 		str[i] = '\0';
-	}
+		// str is now leading zero padded
 
-	if (!isZeroLeading)
-	{
-		if (base == 2)
+		if (isSpaceLeading)
 		{
-			TCHAR *j = str;
-			for ( ; *j != '\0' ; ++j)
-				if (*j == '1')
+			// replace leading zeros with spaces
+			for (TCHAR* j = str; *j != '\0'; ++j)
+			{
+				if ((*j == '1') || (*(j + 1) == '\0'))
+				{
 					break;
-			wcscpy_s(str, strLen, j);
+				}
+				else
+				{
+					*j = ' ';
+				}
+			}
 		}
-		else
+		else if (!isZeroLeading)
 		{
-			// use sprintf or swprintf instead of wsprintf
-			// to make octal format work
-			swprintf(f, bufSize, TEXT("%%%s"), fStr);
-			swprintf(str, strLen, f, number);
+			// left-align within the field width, i.e. pad on right with space
+			
+			// first, remove leading zeros
+			for (TCHAR* j = str; *j != '\0'; ++j)
+				if (*j == '1' || *(j + 1) == '\0')
+				{
+					wcscpy_s(str, strLen, j);
+					break;
+				}
+			
+			// add trailing spaces to pad out to field width
+			int i = lstrlen(str);
+			for (; i < nbChiffre; ++i)
+				str[i] = ' ';
+			str[i] = '\0';
 		}
-		int i = lstrlen(str);
-		for ( ; i < nbChiffre ; ++i)
-			str[i] = ' ';
-		str[i] = '\0';
 	}
 	else
 	{
-		if (base != 2)
+		constexpr size_t bufSize = 64;
+		TCHAR f[bufSize] = { '\0' };
+		
+		TCHAR fStr[2] = TEXT("d");
+		if (base == 16)
+			fStr[0] = 'X';
+		else if (base == 8)
+			fStr[0] = 'o';
+
+		if (isZeroLeading)
 		{
-			// use sprintf or swprintf instead of wsprintf
-			// to make octal format work
 			swprintf(f, bufSize, TEXT("%%.%d%s"), nbChiffre, fStr);
-			swprintf(str, strLen, f, number);
 		}
-		// else already done.
+		else if (isSpaceLeading)
+		{
+			swprintf(f, bufSize, TEXT("%%%d%s"), nbChiffre, fStr);
+		}
+		else
+		{
+			// left-align within the field width, i.e. pad on right with space
+			swprintf(f, bufSize, TEXT("%%-%d%s"), nbChiffre, fStr);
+		}
+		// use swprintf (or sprintf) instead of wsprintf to make octal format work!
+		swprintf(str, strLen, f, number);
 	}
+
 	return str;
 }
 
@@ -3363,14 +3386,17 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 	// 0000 00 10 : Oct BASE_08
 	// 0000 00 11 : Bin BASE_02
 
-	// 0000 01 00 : 0 leading
+	// 0000 01 00 : 0 zero leading
+	// 0000 10 00 : 0 space leading
 
 	//Defined in ScintillaEditView.h :
 	//const UCHAR MASK_FORMAT = 0x03;
 	//const UCHAR MASK_ZERO_LEADING = 0x04;
+	//const UCHAR MASK_SPACE_LEADING = 0x08;
 
 	UCHAR f = format & MASK_FORMAT;
 	bool isZeroLeading = (MASK_ZERO_LEADING & format) != 0;
+	bool isSpaceLeading = (MASK_SPACE_LEADING & format) != 0;
 
 	int base = 10;
 	if (f == BASE_16)
@@ -3420,7 +3446,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
 
-			int2str(str, stringSize, numbers.at(i), base, kib, isZeroLeading);
+			int2str(str, stringSize, numbers.at(i), base, kib, isZeroLeading, isSpaceLeading);
 
 			const bool hasVirtualSpc = cmi[i]._nbVirtualAnchorSpc > 0;
 			if (hasVirtualSpc) // if virtual space is present, then insert space

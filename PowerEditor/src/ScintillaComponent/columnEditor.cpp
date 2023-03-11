@@ -54,8 +54,11 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			if (colEditParam._repeatNum != -1)
 				::SetDlgItemInt(_hSelf, IDC_COL_REPEATNUM_EDIT, colEditParam._repeatNum, FALSE);
 			
-			::SendDlgItemMessage(_hSelf, IDC_COL_LEADZERO_CHECK, BM_SETCHECK, colEditParam._isLeadingZeros, 0);
-				
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("None")));
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Zeros")));
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Spaces")));
+			::SendMessage(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), CB_SETCURSEL, colEditParam._leadingChoice, 0);
+
 			int format = IDC_COL_DEC_RADIO;
 			if (colEditParam._formatChoice == 1)
 				format = IDC_COL_HEX_RADIO;
@@ -277,6 +280,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 							UCHAR f = format & MASK_FORMAT;
 							bool isZeroLeading = (MASK_ZERO_LEADING & format) != 0;
+							bool isSpaceLeading = (MASK_SPACE_LEADING & format) != 0;
 							
 							int base = 10;
 							if (f == BASE_16)
@@ -311,7 +315,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								//
 								// Calcule generic_string
 								//
-								int2str(str, stringSize, numbers.at(i - cursorLine), base, nb, isZeroLeading);
+								int2str(str, stringSize, numbers.at(i - cursorLine), base, nb, isZeroLeading, isSpaceLeading);
 
 								if (lineEndCol < cursorCol)
 								{
@@ -361,14 +365,6 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					else if (wParam == IDC_COL_BIN_RADIO)
 						colEditParam._formatChoice = 3;
 
-					return TRUE;
-				}
-
-				case IDC_COL_LEADZERO_CHECK:
-				{
-					ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-					bool isLeadingZeros = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_LEADZERO_CHECK, BM_GETCHECK, 0, 0));
-					colEditParam._isLeadingZeros = isLeadingZeros;
 					return TRUE;
 				}
 
@@ -435,6 +431,17 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							}
 						}
 						break;
+
+						case CBN_SELCHANGE:
+						{
+							if (LOWORD(wParam) == IDC_COL_LEADING_COMBO)
+							{
+								ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
+								colEditParam._leadingChoice = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_GETCURSEL, 0, 0));
+								return TRUE;
+							}
+						}
+						break;
 					}
 					break;
 				}
@@ -463,7 +470,8 @@ void ColumnEditorDlg::switchTo(bool toText)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_HEX_RADIO), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_OCT_RADIO), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_BIN_RADIO), !toText);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADZERO_CHECK), !toText);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADING_STATIC), !toText);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), !toText);
 
 	::SetFocus(toText?hText:hNum);
 
@@ -472,7 +480,9 @@ void ColumnEditorDlg::switchTo(bool toText)
 
 UCHAR ColumnEditorDlg::getFormat() 
 {
-	bool isLeadingZeros = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_LEADZERO_CHECK, BM_GETCHECK, 0, 0));
+	int leading = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_GETCURSEL, 0, 0));
+	bool isLeadingZeros = leading == 1;
+	bool isLeadingSpaces = leading == 2;
 	UCHAR f = 0; // Dec by default
 	if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_HEX_RADIO, BM_GETCHECK, 0, 0))
 		f = 1;
@@ -480,5 +490,5 @@ UCHAR ColumnEditorDlg::getFormat()
 		f = 2;
 	else if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_BIN_RADIO, BM_GETCHECK, 0, 0))
 		f = 3;
-	return (f | (isLeadingZeros?MASK_ZERO_LEADING:0));
+	return (f | (isLeadingZeros?MASK_ZERO_LEADING:0) | (isLeadingSpaces ? MASK_SPACE_LEADING : 0));
 }

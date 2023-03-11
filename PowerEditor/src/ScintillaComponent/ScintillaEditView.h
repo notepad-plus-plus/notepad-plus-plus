@@ -107,6 +107,7 @@ enum TextCase : UCHAR
 
 const UCHAR MASK_FORMAT = 0x03;
 const UCHAR MASK_ZERO_LEADING = 0x04;
+const UCHAR MASK_SPACE_LEADING = 0x08;
 const UCHAR BASE_10 = 0x00; // Dec
 const UCHAR BASE_16 = 0x01; // Hex
 const UCHAR BASE_08 = 0x02; // Oct
@@ -170,7 +171,7 @@ const std::vector<std::vector<const char*>> g_nonPrintingChars =
 int getNbDigits(int aNum, int base);
 //HMODULE loadSciLexerDll();
 
-TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
+TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading, bool isSpaceLeading);
 
 typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
 

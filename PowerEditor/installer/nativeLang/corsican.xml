@@ -4,7 +4,8 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
-		- Updated on February 24th, 2023 for version 8.5.0 by Patriccollu di Santa Maria è Sichè
+		- Updated on March 12th, 2023 for version 8.5.1 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 24th, 2023 for version 8.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
@@ -42,7 +43,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.5.0">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -424,8 +425,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="11009" name="Dimensione da maiò à chjuca"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Chjode"/>
                 <Item CMDID="0" name="Chjode parechje unghjette"/>
@@ -463,6 +462,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID="44115" name="Appiecà u culore 5"/>
                 <Item CMDID="44110" name="Caccià u culore"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Attivà l’appiecazione"/>
+                <Item id="43102" name="Creà un schedariu novu"/>
+                <Item id="43103" name="Incullà in un schedariu novu"/>
+                <Item id="43104" name="Apre un schedariu…"/>
+                <Item id="43013" name="Circà in schedarii…"/>
+                <Item id="43105" name="Chjode l’icona di nutificazione"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -508,6 +515,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Circà a seguente"/>
                 <Item id="1725" name="Cupià u testu marcatu"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Permutà trà Circà è Rimpiazzà"/>
+                    <Item id="1727" name="⤵ Cupià da Circà à Rimpiazzà"/>
+                    <Item id="1728" name="⤴ Cupià da Rimpiazzà à Circà"/>
+                </Menu>
             </Find>
             <IncrementalFind title="">
                 <Item id="1681" name="Circà"/>
@@ -1145,7 +1157,6 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 
                 <RecentFilesHistory title="Schedarii recenti">
                     <Item id="6304" name="Cronolugia di i schedarii recenti"/>
-                    <Item id="6306" name="Numeru massimu d’elementi :"/>
                     <Item id="6305" name="Ùn verificà micca à u lanciu"/>
                     <Item id="6429" name="Affissera"/>
                     <Item id="6424" name="In sottulistinu"/>
@@ -1507,7 +1518,7 @@ Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/> <!-- HowT
             <ExpandAllFoldersTip name="Spiegà tutti i cartulari"/>
             <CollapseAllFoldersTip name="Ripiegà tutti i cartulari"/>
             <LocateCurrentFileTip name="Lucalizà u schedariu currente"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Caccià"/>
                 <Item id="3512" name="Caccialli tutti"/>
                 <Item id="3513" name="Aghjunghje"/>
@@ -1518,7 +1529,7 @@ Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/> <!-- HowT
                 <Item id="3518" name="Espluratore quì"/>
                 <Item id="3519" name="CMD quì"/>
                 <Item id="3520" name="Cupià u nome di schedariu"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Prughjettu"/>
@@ -1648,12 +1659,9 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <tabrename-newname value="Novu nome : "/>
             <splitter-rotate-left value="Girà à manca"/>
             <splitter-rotate-right value="Girà à diritta"/>
-            <recent-file-history-maxfile value="Numeru : "/>
-            <recent-file-history-customlength value="Longhezza : "/>
             <userdefined-title-new value="Creà un novu linguaghju…"/>
             <userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
             <userdefined-title-rename value="Rinuminà u linguaghju attuale"/>
-            <edit-verticaledge-nb-col value="N° di culonne :"/>
             <summary value="Statistiche"/>
             <summary-filepath value="Chjassu d’accessu : "/>
             <summary-filecreatetime value="Data di creazione : "/>

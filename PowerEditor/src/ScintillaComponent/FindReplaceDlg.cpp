@@ -1418,17 +1418,16 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			if (!_swapPopupMenu.isCreated())
 			{
+				
 				vector<MenuItemUnit> itemUnitArray;
-				itemUnitArray.push_back(MenuItemUnit(NPPM_INTERNAL_FINDREPLACESWAP, TEXT("⇅ Swap Find with Replace")));
-				itemUnitArray.push_back(MenuItemUnit(NPPM_INTERNAL_FINDCOPYTOREPLACES, TEXT("⤵ Copy from Find to Replace")));
-				itemUnitArray.push_back(MenuItemUnit(NPPM_INTERNAL_REPLACESCOPYTOFIND, TEXT("⤴ Copy from Replace to Find")));
+				itemUnitArray.push_back(MenuItemUnit(IDC_SWAP_FIND_REPLACE, TEXT("⇅ Swap Find with Replace")));
+				itemUnitArray.push_back(MenuItemUnit(IDC_COPY_FIND2REPLACE, TEXT("⤵ Copy from Find to Replace")));
+				itemUnitArray.push_back(MenuItemUnit(IDC_COPY_REPLACE2FIND, TEXT("⤴ Copy from Replace to Find")));
 
 				NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				for (auto&& i : itemUnitArray)
 				{
-					const generic_string menuItem = pNativeSpeaker->getNativeLangMenuString(i._cmdID);
-					if (!menuItem.empty())
-						i._itemName = menuItem;
+					i._itemName = pNativeSpeaker->getDlgLangMenuStr("Dialog", "Find", i._cmdID, i._itemName.c_str());
 				}
 
 				_swapPopupMenu.create(_hSelf, itemUnitArray);
@@ -1641,8 +1640,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					nppParamInst._isFindReplacing = false;
 				}
 				return TRUE;
-
-				case NPPM_INTERNAL_FINDREPLACESWAP:
+					
+				case IDC_SWAP_FIND_REPLACE:
 				{
 					if (_swapButtonStatus != swap)
 					{
@@ -1654,7 +1653,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_FINDCOPYTOREPLACES:
+				case IDC_COPY_FIND2REPLACE:
 				{
 					if (_swapButtonStatus != down)
 					{
@@ -1666,7 +1665,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_REPLACESCOPYTOFIND:
+				case IDC_COPY_REPLACE2FIND:
 				{
 					if (_swapButtonStatus != up)
 					{

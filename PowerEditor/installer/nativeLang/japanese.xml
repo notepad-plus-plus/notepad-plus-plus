@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.5">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -388,8 +388,6 @@
                     <Item id="11009" name="サイズ・大きい順"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="閉じる"/>
                 <Item CMDID="0" name="複数のタブを閉じる"/>
@@ -427,6 +425,14 @@
                 <Item CMDID="44115" name="色5"/>
                 <Item CMDID="44110" name="色を外す"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="アクティブ化する"/>
+                <Item id="43102" name="新規作成"/>
+                <Item id="43103" name="新規作成して貼り付け"/>
+                <Item id="43104" name="開く..."/>
+                <Item id="43013" name="複数ファイル内を検索..."/>
+                <Item id="43105" name="トレイアイコンを閉じる"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -472,6 +478,11 @@
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ 次を検索"/>
                 <Item id="1725" name="マークした文字列をコピー"/>
+                <Menu>
+                    <Item id="1726" name="⇅ 検索文字列と置換文字列を入れ替える"/>
+                    <Item id="1727" name="⤵ 検索文字列を置換文字列にコピー"/>
+                    <Item id="1728" name="⤴ 置換文字列を検索文字列にコピー"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -1473,7 +1484,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <ExpandAllFoldersTip name="すべてのフォルダーを展開する"/>
             <CollapseAllFoldersTip name="すべてのフォルダーを畳む"/>
             <LocateCurrentFileTip name="現在のファイルを見つける"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="取り除く"/>
                 <Item id="3512" name="すべて取り除く"/>
                 <Item id="3513" name="追加"/>
@@ -1484,7 +1495,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
                 <Item id="3518" name="エクスプローラーを開く"/>
                 <Item id="3519" name="コマンドプロンプトを開く"/>
                 <Item id="3520" name="ファイル名をコピー"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="プロジェクト"/>
@@ -1612,12 +1623,9 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <tabrename-newname value="新ﾌｧｲﾙ名: "/>
             <splitter-rotate-left value="左回りに回す"/>
             <splitter-rotate-right value="右回りに回す"/>
-            <recent-file-history-maxfile value="最大数:"/>
-            <recent-file-history-customlength value="長さ:"/>
             <userdefined-title-new value="新しい言語定義を作成..."/>
             <userdefined-title-save value="言語定義に名前をつけて保存..."/>
             <userdefined-title-rename value="言語定義の名前を変更"/>
-            <edit-verticaledge-nb-col value="桁位置:"/>
             <summary value="概要"/>
             <summary-filepath value="フルパス: "/>
             <summary-filecreatetime value="作成日時: "/>

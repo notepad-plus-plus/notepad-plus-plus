@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 24 Feb 2023, for Notepad++ 8.5.0 
+     Last update by Marcello, 12 Mar 2023, for Notepad++ 8.5.1
 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -475,6 +475,11 @@
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Localizar próximo"/>
                 <Item id="1725" name="Copiar texto marcado"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Intercambiar Localizar por Substituir"/>
+                    <Item id="1727" name="⤵ Copiar de Localizar para Substituir"/>
+                    <Item id="1728" name="⤴ Copiar de Substituir para Localizar"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -1467,7 +1472,7 @@ Deseja salvar suas alterações antes de alterar os temas?"/> <!-- HowToReproduc
             <ExpandAllFoldersTip name="Expandir todas as pastas"/>
             <CollapseAllFoldersTip name="Recolher todas as pastas"/>
             <LocateCurrentFileTip name="Localizar arquivo atual"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Remover"/>
                 <Item id="3512" name="Remover tudo"/>
                 <Item id="3513" name="Adicionar"/>
@@ -1478,7 +1483,7 @@ Deseja salvar suas alterações antes de alterar os temas?"/> <!-- HowToReproduc
                 <Item id="3518" name="Explorar aqui"/>
                 <Item id="3519" name="CMD (Prompt de Comando) aqui"/>
                 <Item id="3520" name="Copiar nome do arquivo"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projeto"/>

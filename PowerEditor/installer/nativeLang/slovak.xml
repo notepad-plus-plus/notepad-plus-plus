@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.0">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -475,6 +475,11 @@
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Hľadať ďalší"/>
                 <Item id="1725" name="Kopírovať označený text"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Vymeniť Hľadať a Nahradiť čím"/>
+                    <Item id="1727" name="⤵ Kopírovať z Hľadať do Nahradiť čím"/>
+                    <Item id="1728" name="⤴ Kopírovať z Nahradiť čím do Hľadať"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -1478,7 +1483,7 @@ Pokračovať?"/>
             <ExpandAllFoldersTip name="Rozbaliť všetky priečinky"/>
             <CollapseAllFoldersTip name="Zbaliť všetky priečinky"/>
             <LocateCurrentFileTip name="Zobraziť umiestnenie aktuálneho súboru"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Odstrániť"/>
                 <Item id="3512" name="Odstrániť všetko"/>
                 <Item id="3513" name="Pridať…"/>
@@ -1489,7 +1494,7 @@ Pokračovať?"/>
                 <Item id="3518" name="Otvoriť umiestnenie v Prieskumníkovi"/>
                 <Item id="3519" name="Otvoriť umiestnenie v Príkazovom riadku"/>
                 <Item id="3520" name="Kopírovať názov súboru"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projekt"/>

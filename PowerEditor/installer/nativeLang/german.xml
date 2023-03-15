@@ -9,8 +9,8 @@
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<!-- basiert auf english.xml vom 24.02.2023 -->
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.02.28">
+	<!-- basiert auf english.xml vom 14.03.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.03.15">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -392,8 +392,6 @@
 					<Item id="11009" name="Größe groß bis klein"/>
 				</Commands>
 			</Main>
-			<Splitter>
-			</Splitter>
 			<TabBar>
 				<Item CMDID="41003"  name="S&amp;chließen"/>
 				<Item CMDID="0" name="Mehrere Tabs schließen"/>
@@ -431,6 +429,15 @@
 				<Item CMDID="44115" name="Farbe 5 anwenden"/>
 				<Item CMDID="44110" name="Farbe entfernen"/>
 			</TabBar>
+			<TrayIcon>
+				<Item id="43101" name="Aktivieren"/>
+				<Item id="43102" name="Neu"/>
+				<Item id="43103" name="Neu und Einfügen"/>
+				<Item id="43104" name="Öffnen …"/>
+				<Item id="43013" name="In Dateien suchen …"/>
+				<Item id="43105" name="Taskleistensymbol schließen"/>
+			</TrayIcon>
+
 		</Menu>
 
 		<Dialog>
@@ -476,6 +483,11 @@
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Nächstes finden"/>
 				<Item id="1725" name="Markierten Text kopieren"/>
+				<Menu>
+					<Item id="1726" name="⇅ Suchen mit Ersetzen vertauschen"/>
+					<Item id="1727" name="⤵ Kopiere von Suchen nach Ersetzen"/>
+					<Item id="1728" name="⤴ Kopiere von Ersetzen nach Suchen"/>
+				</Menu>
 			</Find>
 
 			<IncrementalFind title="">
@@ -1431,7 +1443,7 @@ Fortsetzen?"/>
 			<WindowsSessionExit title="Notepad++ - Windows wird beendet" message="Windows wird beendet aber es gibt noch ungespeicherte Daten. Soll Notepad++ jetzt beendet werden?"/>
 			<LanguageMenuCompactWarning title="Verschachteltes Sprachmenü" message="Diese Änderung wird erst nach dem nächsten Start aktiv."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Änderungen wurden nicht gespeichert.
-Möchten Sie die Änderung speichern, bevor Sie das Thema wechseln?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+Möchten Sie die Änderungen speichern, bevor Sie das Thema wechseln?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1476,7 +1488,7 @@ Möchten Sie die Änderung speichern, bevor Sie das Thema wechseln?"/> <!-- HowT
 			<ExpandAllFoldersTip name="Alle Verzeichnisse aufklappen"/>
 			<CollapseAllFoldersTip name="Alle Verzeichnisse zuklappen"/>
 			<LocateCurrentFileTip name="Aktuelle Datei lokalisieren"/>
-			<Menus>
+			<Menu>
 				<Item id="3511" name="Entfernen"/>
 				<Item id="3512" name="Alle entfernen"/>
 				<Item id="3513" name="Hinzufügen …"/>
@@ -1487,7 +1499,7 @@ Möchten Sie die Änderung speichern, bevor Sie das Thema wechseln?"/> <!-- HowT
 				<Item id="3518" name="Explorer hier öffnen"/>
 				<Item id="3519" name="Kommandozeile hier öffnen"/>
 				<Item id="3520" name="Dateinamen kopieren"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Projektverwaltung"/>
@@ -1617,12 +1629,9 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<tabrename-newname value="Neuer Name: "/>
 			<splitter-rotate-left value="Nach links drehen"/>
 			<splitter-rotate-right value="Nach rechts drehen"/>
-			<recent-file-history-maxfile value="Max. Datei: "/>
-			<recent-file-history-customlength value="Länge: "/>
 			<userdefined-title-new value="Neue Sprache erstellen …"/>
 			<userdefined-title-save value="Akt. Sprache speichern als …"/>
 			<userdefined-title-rename value="Akt. Sprache umbenennen"/>
-			<edit-verticaledge-nb-col value="Anz. Spalten: "/>
 			<summary value="Übersicht"/>
 			<summary-filepath value="Ganzer Dateipfad: "/>
 			<summary-filecreatetime value="Erstellt: "/>
@@ -1635,7 +1644,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
 			<progress-cancel-button value="Abbrechen"/>
-			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten..."/>
+			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Vorkommen ersetzt werden sollen in: "/>
@@ -1700,4 +1709,3 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.5.0  24/Feb/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.5.1  16/Mar/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.5">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.5.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -396,8 +396,6 @@
 					<Item id = "11009" name = "Velikosti - od větších k menším"/>
 				</Commands>
 			</Main>
-			<Splitter>
-			</Splitter>
 			<TabBar>
 				<Item CMDID = "41003" name = "Zavřít"/>
 				<Item CMDID = "0" name = "Zavřít vícero souborů/karet"/>
@@ -435,6 +433,14 @@
 				<Item CMDID = "44115" name = "Označit barvou 5"/>
 				<Item CMDID = "44110" name = "Odstranit barevné označení"/>
 			</TabBar>
+			 <TrayIcon>
+				<Item id = "43101" name = "Aktivovat Notepad++"/>
+				<Item id = "43102" name = "Nový soubor/tab"/>
+				<Item id = "43103" name = "Vložit do nového souboru/tabu"/>
+				<Item id = "43104" name = "Otevřít soubor..."/>
+				<Item id = "43013" name = "Najít v souborech..."/>
+				<Item id = "43105" name = "Zavřít Notepad++"/>
+			</TrayIcon>
 		</Menu>
 
 		<Dialog>
@@ -481,6 +487,11 @@
 				<Item id = "1722" name = "Zpětný směr"/>
 				<Item id = "1723" name = "▼ Najít další"/>
 				<Item id = "1725" name = "Kopírovat označený text"/>
+				<Menu>
+					<Item id = "1726" name = "⇅ Prohodit Najít a Nahradit"/>
+					<Item id = "1727" name = "⤵ Kopírovat Najít do Nahradit"/>
+					<Item id = "1728" name = "⤴ Kopírovat Nahradit do Najít"/>
+				</Menu>
 			</Find>
 
 			<IncrementalFind title = "">
@@ -1481,7 +1492,7 @@ Chcete své změny uložit před přepnutím stylu?"/> <!-- HowToReproduce: In t
 			<ExpandAllFoldersTip name = "Rozbalit všechny složky"/>
 			<CollapseAllFoldersTip name = "Sbalit všechny složky"/>
 			<LocateCurrentFileTip name = "Zjistit, kde je aktuální soubor"/>
-			<Menus>
+			<Menu>
 				<Item id = "3511" name = "Odebrat"/>
 				<Item id = "3512" name = "Odebrat vše"/>
 				<Item id = "3513" name = "Přidat"/>
@@ -1492,7 +1503,7 @@ Chcete své změny uložit před přepnutím stylu?"/> <!-- HowToReproduce: In t
 				<Item id = "3518" name = "Průzkumník zde"/>
 				<Item id = "3519" name = "cmd zde"/>
 				<Item id = "3520" name = "Kopírovat název souboru"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 
 		<ProjectManager>
@@ -1622,12 +1633,9 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<tabrename-newname value = "Nový název: "/>
 			<splitter-rotate-left value="Otočit doleva"/>
 			<splitter-rotate-right value="Otočit doprava"/>
-			<recent-file-history-maxfile value = "Max.souborů: "/>
-			<recent-file-history-customlength value = "Max. délka: "/>
 			<userdefined-title-new value = "Vytvořit novou syntaxi..."/>
 			<userdefined-title-save value = "Uložit název aktuální syntaxe jako..."/>
 			<userdefined-title-rename value = "Přejmenovat název aktuální syntaxe"/>
-			<edit-verticaledge-nb-col value = "č. sloupce: "/>
 			<summary value = "Souhrn"/>
 			<summary-filepath value = "Úplná cesta k souboru: "/>
 			<summary-filecreatetime value = "Vytvořeno: "/>

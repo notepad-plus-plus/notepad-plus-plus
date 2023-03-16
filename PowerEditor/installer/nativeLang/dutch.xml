@@ -1473,7 +1473,7 @@ Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/> <!-- HowToReproduc
             <ExpandAllFoldersTip name="Alles uitvouwen"/>
             <CollapseAllFoldersTip name="Alles samenvouwen"/>
             <LocateCurrentFileTip name="Huidig bestand lokaliseren"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Verwijderen"/>
                 <Item id="3512" name="Alles verwijderen"/>
                 <Item id="3513" name="Toevoegen"/>
@@ -1484,7 +1484,7 @@ Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/> <!-- HowToReproduc
                 <Item id="3518" name="Locatie openen in Verkenner"/>
                 <Item id="3519" name="Locatie openen in opdrachtprompt"/>
                 <Item id="3520" name="Bestandsnaam kopiëren"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Project"/>

@@ -1472,7 +1472,7 @@ Apakah Anda ingin menyimpan perubahan sebelum mengganti tema?"/> <!-- HowToRepro
             <ExpandAllFoldersTip name="Buka semua lipatan"/>
             <CollapseAllFoldersTip name="Lipat semua"/>
             <LocateCurrentFileTip name="Temukan lokasi berkas ini"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Hapus"/>
                 <Item id="3512" name="Hapus Semua"/>
                 <Item id="3513" name="Tambah"/>
@@ -1483,7 +1483,7 @@ Apakah Anda ingin menyimpan perubahan sebelum mengganti tema?"/> <!-- HowToRepro
                 <Item id="3518" name="Penjelajah di sini"/>
                 <Item id="3519" name="CMD di sini"/>
                 <Item id="3520" name="Salin nama berkas"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Proyek"/>

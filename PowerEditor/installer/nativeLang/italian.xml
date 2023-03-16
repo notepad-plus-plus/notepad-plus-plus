@@ -1480,7 +1480,7 @@ Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the
             <ExpandAllFoldersTip name="Espandi tutto"/>
             <CollapseAllFoldersTip name="Riduci tutto"/>
             <LocateCurrentFileTip name="Individua il file corrente"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Rimuovi"/>
                 <Item id="3512" name="Rimuovi tutto"/>
                 <Item id="3513" name="Aggiungi"/>
@@ -1491,7 +1491,7 @@ Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the
                 <Item id="3518" name="Apri cartella in Esplora Risorse"/>
                 <Item id="3519" name="Apri cartella nel Prompt dei Comandi"/>
                 <Item id="3520" name="Copia nome file"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Progetto"/>

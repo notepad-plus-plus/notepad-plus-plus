@@ -1069,7 +1069,7 @@ Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Katalogas kaip darbo aplinka"/>
             <SelectFolderFromBrowserString name="Rinktis katalogą pridėjimui į darbo aplinką"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Šalinti"/>
                 <Item id="3512" name="Šalinti visus"/>
                 <Item id="3513" name="Pridėti"/>
@@ -1079,7 +1079,7 @@ Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
                 <Item id="3517" name="Rasti failuose..."/>
                 <Item id="3518" name="Naršyti čia (Explorer)"/>
                 <Item id="3519" name="Komandų eilutė čia (CMD)"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projektas"/>

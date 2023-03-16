@@ -1086,7 +1086,7 @@
         <FolderAsWorkspace>
             <PanelTitle name="مجلد كمساحة عمل"/>
             <SelectFolderFromBrowserString name="حدد مجلد ليتم إضافته إلى لوحة المجلد كمساحة عمل"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="إزالة"/>
                 <Item id="3512" name="إزالة الكل"/>
                 <Item id="3513" name="إضافة"/>
@@ -1097,7 +1097,7 @@
                 <Item id="3518" name="إستعراض هنا"/>
                 <Item id="3519" name="CMD هنا"/>
                 <Item id="3520" name="نسخ اسم الملف"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="مشروع"/>

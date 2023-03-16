@@ -1328,7 +1328,7 @@ Vuto continuare?"/>
             <ExpandAllFoldersTip name="Espandi tute ƚe carteƚe"/>
             <CollapseAllFoldersTip name="Conprimi tute cuante ƚe carteƚe"/>
             <LocateCurrentFileTip name="Ƚocaƚixa el file corente"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Rimovi"/>
                 <Item id="3512" name="Rimovi tuto cuanto"/>
                 <Item id="3513" name="Xonta"/>
@@ -1339,7 +1339,7 @@ Vuto continuare?"/>
                 <Item id="3518" name="Sfojia chive"/>
                 <Item id="3519" name="CMD chive"/>
                 <Item id="3520" name="Còpia nòme file"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Progeti"/>

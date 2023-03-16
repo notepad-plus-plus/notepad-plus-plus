@@ -1470,7 +1470,7 @@ Notepad++ se reiniciará después de que finalicen todas.
             <ExpandAllFoldersTip name="Expandir todas las carpetas"/>
             <CollapseAllFoldersTip name="Contraer todas las carpetas"/>
             <LocateCurrentFileTip name="Ubicar el archivo actual"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Borrar"/>
                 <Item id="3512" name="Borrar todo"/>
                 <Item id="3513" name="Añadir"/>
@@ -1481,7 +1481,7 @@ Notepad++ se reiniciará después de que finalicen todas.
                 <Item id="3518" name="Explorador de archivos aquí"/>
                 <Item id="3519" name="CMD aquí"/>
                 <Item id="3520" name="Copiar nombre de archivo"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Proyecto"/>

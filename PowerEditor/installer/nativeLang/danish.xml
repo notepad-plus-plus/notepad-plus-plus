@@ -1356,7 +1356,7 @@ Vil du fortsætte?"/>
             <ExpandAllFoldersTip name="Udvid alle"/>
             <CollapseAllFoldersTip name="Sammenfold alle"/>
             <LocateCurrentFileTip name="Find aktuel fil"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Fjern"/>
                 <Item id="3512" name="Fjern alle"/>
                 <Item id="3513" name="Tilføj"/>
@@ -1367,7 +1367,7 @@ Vil du fortsætte?"/>
                 <Item id="3518" name="Åbn placering"/>
                 <Item id="3519" name="CMD her"/>
                 <Item id="3520" name="Kopiér filnavn"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projekt"/>

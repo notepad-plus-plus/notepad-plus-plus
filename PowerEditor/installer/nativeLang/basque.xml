@@ -1363,7 +1363,7 @@ Jarraitu?"/>
             <ExpandAllFoldersTip name="Zabaldu karpeta guztiak"/>
             <CollapseAllFoldersTip name="Tolestu karpeta guztiak"/>
             <LocateCurrentFileTip name="Aurkitu oraingo fitxategia"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Kendu"/>
                 <Item id="3512" name="Kendu Guztiak"/>
                 <Item id="3513" name="Gehitu"/>
@@ -1374,7 +1374,7 @@ Jarraitu?"/>
                 <Item id="3518" name="Esploratzailea hemen"/>
                 <Item id="3519" name="Komando lerria hemen"/>
                 <Item id="3520" name="Kopiatu fitxategi izena"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Proiektua"/>

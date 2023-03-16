@@ -1433,7 +1433,7 @@ Nadaljujem?"/>
             <ExpandAllFoldersTip name="Razgrni vse"/>
             <CollapseAllFoldersTip name="Zloži vse"/>
             <LocateCurrentFileTip name="Lociraj trenutno datoteko"/>
-			<Menus>
+			<Menu>
 				<Item id="3511" name="Odstrani"/>
                 <Item id="3512" name="Odstrani vse"/>
                 <Item id="3513" name="Dodaj"/>
@@ -1444,7 +1444,7 @@ Nadaljujem?"/>
                 <Item id="3518" name="Razišči tukaj"/>
                 <Item id="3519" name="CMD tukaj"/>
 				<Item id="3520" name="Kopiraj ime datoteke"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Projekt"/>

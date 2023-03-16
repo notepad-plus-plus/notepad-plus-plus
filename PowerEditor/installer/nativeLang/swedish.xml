@@ -1470,7 +1470,7 @@ Vill du spara dina ändringar innan du byter tema?"/> <!-- HowToReproduce: In th
 			<ExpandAllFoldersTip name="Expandera alla"/>
 			<CollapseAllFoldersTip name="Minimera alla"/>
 			<LocateCurrentFileTip name="Hitta aktuell fil"/>
-			<Menus>
+			<Menu>
 				<Item id="3511" name="Ta bort"/>
 				<Item id="3512" name="Ta bort alla"/>
 				<Item id="3513" name="Lägg till"/>
@@ -1481,7 +1481,7 @@ Vill du spara dina ändringar innan du byter tema?"/> <!-- HowToReproduce: In th
 				<Item id="3518" name="Öppna utforskaren här"/>
 				<Item id="3519" name="Öppna kommandotolken här"/>
 				<Item id="3520" name="Kopiera filnamn"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Projekt"/>

@@ -1045,7 +1045,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 		<FolderAsWorkspace>
 			<PanelTitle name="Dorsièr coma espaci de trabalh"/>
 			<SelectFolderFromBrowserString name="Seleccionar un dorsièr d'ajustar dins lo panèl Select a folder to add in Dorsièr coma espaci de trabalh"/>
-			<Menus>
+			<Menu>
 				<Item id="3511" name="Tirar"/>
 				<Item id="3512" name="Tirar tot"/>
 				<Item id="3513" name="Ajustar"/>
@@ -1055,7 +1055,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 				<Item id="3517" name="Cercar dins los fichièrs..."/>
 				<Item id="3518" name="Explorador aicí"/>
 				<Item id="3519" name="CMD aicí"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Projècte"/>

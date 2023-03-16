@@ -1480,7 +1480,7 @@ Czy chcesz zapisać zmiany przed przełączeniem motywu?"/> <!-- HowToReproduce:
             <ExpandAllFoldersTip name="Rozwiń wszystkie foldery"/>
             <CollapseAllFoldersTip name="Zwiń wszystkie foldery"/>
             <LocateCurrentFileTip name="Zlokalizuj bieżący plik"/> <!-- w obszarze roboczym -->
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Usuń"/>
                 <Item id="3512" name="Usuń wszystkie"/>
                 <Item id="3513" name="Dodaj"/>
@@ -1491,7 +1491,7 @@ Czy chcesz zapisać zmiany przed przełączeniem motywu?"/> <!-- HowToReproduce:
                 <Item id="3518" name="Otwórz w eksploratorze plików"/>
                 <Item id="3519" name="Otwórz w wierszu poleceń"/>
                 <Item id="3520" name="Kopiuj nazwę pliku"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projekt"/>

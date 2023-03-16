@@ -1470,7 +1470,7 @@ Notepad++会在所有安装结束后重新启动。
             <ExpandAllFoldersTip name="全部展开"/>
             <CollapseAllFoldersTip name="全部收起"/>
             <LocateCurrentFileTip name="定位当前文件"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="移除"/>
                 <Item id="3512" name="全部移除"/>
                 <Item id="3513" name="添加"/>
@@ -1481,7 +1481,7 @@ Notepad++会在所有安装结束后重新启动。
                 <Item id="3518" name="文件管理器打开"/>
                 <Item id="3519" name="命令行打开"/>
                 <Item id="3520" name="复制文件名"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="工程"/>

@@ -1105,7 +1105,7 @@ Doriți să lansați Notepad++ în mod Administrator?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Folder ca spațiu de lucru"/>
             <SelectFolderFromBrowserString name="Selectare folder adăugat în panoul [Folder ca spațiu de lucru]"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Eliminare"/>
                 <Item id="3512" name="Eliminare toate"/>
                 <Item id="3513" name="Adăugare"/>
@@ -1115,7 +1115,7 @@ Doriți să lansați Notepad++ în mod Administrator?"/>
                 <Item id="3517" name="Căutare în fișiere..."/>
                 <Item id="3518" name="Explorer aici"/>
                 <Item id="3519" name="CMD aici"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Proiect"/>

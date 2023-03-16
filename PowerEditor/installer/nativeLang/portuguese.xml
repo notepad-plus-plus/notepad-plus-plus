@@ -1470,7 +1470,7 @@ Quer guardar as suas alterações antes de mudar de tema?"/> <!-- HowToReproduce
             <ExpandAllFoldersTip name="Expandir tudo"/>
             <CollapseAllFoldersTip name="Recolher tudo"/>
             <LocateCurrentFileTip name="Localizar ficheiro atual"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Remover"/>
                 <Item id="3512" name="Remover tudo"/>
                 <Item id="3513" name="Adicionar"/>
@@ -1481,7 +1481,7 @@ Quer guardar as suas alterações antes de mudar de tema?"/> <!-- HowToReproduce
                 <Item id="3518" name="Explorar aqui"/>
                 <Item id="3519" name="CMD aqui"/>
                 <Item id="3520" name="Copiar nome do ficheiro"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projeto"/>

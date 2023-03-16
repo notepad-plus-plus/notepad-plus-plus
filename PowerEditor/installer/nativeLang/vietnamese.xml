@@ -1418,7 +1418,7 @@ Tiếp tục không?"/>
             <ExpandAllFoldersTip name="Mở rộng tất cả thư mục"/>
             <CollapseAllFoldersTip name="Duỗi tất cả thư mục"/>
             <LocateCurrentFileTip name="Định vị tệp hiện tại"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Loại bỏ"/>
                 <Item id="3512" name="Loại bỏ tất cả"/>
                 <Item id="3513" name="Thêm"/>
@@ -1429,7 +1429,7 @@ Tiếp tục không?"/>
                 <Item id="3518" name="Explorer ở đây"/>
                 <Item id="3519" name="CMD ở đây"/>
                 <Item id="3520" name="Sao chép tên tệp"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Dự án"/>

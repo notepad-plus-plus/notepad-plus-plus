@@ -1490,7 +1490,7 @@ Nastaviti?"/>
             <ExpandAllFoldersTip name="Raširi sve razine"/>
             <CollapseAllFoldersTip name="Skupi sve razine"/>
             <LocateCurrentFileTip name="Lociraj trenutnu datoteku"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Ukloni"/>
                 <Item id="3512" name="Ukloni sve"/>
                 <Item id="3513" name="Dodaj"/>
@@ -1501,7 +1501,7 @@ Nastaviti?"/>
                 <Item id="3518" name="Eksplorer ovdje"/>
                 <Item id="3519" name="Komandna linija ovdje"/>
                 <Item id="3520" name="Kopiraj naziv datoteke"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projekt"/>

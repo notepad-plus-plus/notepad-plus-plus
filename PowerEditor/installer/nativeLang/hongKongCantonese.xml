@@ -1583,7 +1583,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <ExpandAllFoldersTip name="展開所有資料夾"/> <!-- #new v7.9.2 -->
             <CollapseAllFoldersTip name="摺埋所有資料夾"/> <!-- #new v7.9.2 -->
             <LocateCurrentFileTip name="定位檔案"/> <!-- #new v7.9.2 -->
-            <Menus>
+            <Menu>
                 <Item id="3511" name="剷走"/>
                 <Item id="3512" name="剷走晒佢"/>
                 <Item id="3513" name="加料"/>
@@ -1594,7 +1594,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
                 <Item id="3518" name="喺檔案總管打開資料夾"/>
                 <Item id="3519" name="喺 CMD 打開資料夾"/>
                 <Item id="3520" name="將檔名抄去剪貼簿"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Project"/>

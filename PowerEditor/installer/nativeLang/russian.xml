@@ -123,7 +123,7 @@ Updated to v8.5.0:
 					<Item id="42006" name="Удалить"/>
 					<Item id="42007" name="Выделить всё"/>
 					<Item id="42020" name="Задать выделение (начало/конец)"/>
-					<Item id="42089" name="Задать выделение Столбцом (начало/конец)"/>
+					<Item id="42089" name="Выделение Столбцом (начало/конец)"/>
 
 					<Item id="42029" name="&amp;Путь и Имя файла в буфер"/>
 					<Item id="42030" name="&amp;Имя файла в буфер"/>
@@ -429,8 +429,6 @@ Updated to v8.5.0:
 					<Item id="50005" name="Запись Макроса  (старт/стоп)"/>
 				</Commands>
 			</Main>
-			<Splitter>
-			</Splitter>
 			<TabBar>
 					<Item CMDID="41003" name="Закрыть"/>
 					<Item CMDID="0" name="Закрытие Вкладок"/>
@@ -468,6 +466,14 @@ Updated to v8.5.0:
 					<Item CMDID="44115" name="Применить цвет 5"/>
 					<Item CMDID="44110" name="Убрать Цвет"/>
 			</TabBar>
+			<TrayIcon>
+					<Item id="43101" name="Развернуть"/>
+					<Item id="43102" name="Новый"/>
+					<Item id="43103" name="Новый и Вставить"/>
+					<Item id="43104" name="Открыть..."/>
+					<Item id="43013" name="Найти в Файлах..."/>
+					<Item id="43105" name="Закрыть Notepad++"/>
+			</TrayIcon>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Найти" titleReplace="Замена" titleFindInFiles="Найти в файлах" titleFindInProjects="Найти в Проектах" titleMark="Пометки">
@@ -512,6 +518,11 @@ Updated to v8.5.0:
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼"/>
 				<Item id="1725" name="Коп. Помеченный Текст"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Поменять местами Найти с Заменить"/>
+                    <Item id="1727" name="⤵ Скопировать из Найти в Заменить"/>
+                    <Item id="1728" name="⤴ Скопировать из Заменить в Найти"/>
+                </Menu>
 			</Find>
 			<IncrementalFind title="">
 				<Item id="1681" name="Найти"/>
@@ -1461,7 +1472,7 @@ Updated to v8.5.0:
 			<ExpandAllFoldersTip   name="Развернуть все папки"/>
 			<CollapseAllFoldersTip name="Свернуть все папки"/>
 			<LocateCurrentFileTip  name="Выбрать текущий файл"/>
-			<Menus>
+			<Menu>
 				<Item id="3511" name="Убрать папку"/>
 				<Item id="3512" name="Убрать всё"/>
 				<Item id="3513" name="Добавить папку"/>
@@ -1472,7 +1483,7 @@ Updated to v8.5.0:
 				<Item id="3518" name="Открыть папку объекта"/>
 				<Item id="3519" name="Открыть cmd"/>
 				<Item id="3520" name="Копировать Имя Файла"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle        name="Проект"/>
@@ -1598,13 +1609,13 @@ Updated to v8.5.0:
 			<tabrename-newname           value="Новое имя: "/>
 			<splitter-rotate-left        value="Вращение влево"/>
 			<splitter-rotate-right       value="Вращение вправо"/>
-			<recent-file-history-maxfile value="Файлов: "/>
+
 			<language-tabsize            value="Табуляция: "/>
 			<userdefined-title-new       value="Создать Новый Синтаксис..."/>
 			<userdefined-title-save      value="Сохранить Имя Синтаксиса Как..."/>
 			<userdefined-title-rename    value="Изменить Имя Синтаксиса"/>
 			<autocomplete-nb-char        value="Символ: "/>
-			<edit-verticaledge-nb-col    value="От символа:"/>
+
 			<summary                     value="Информация о Файле"/>
 			<summary-filepath            value="Полный путь к файлу :  "/>
 			<summary-filecreatetime      value="Создан :  "/>
@@ -1619,7 +1630,7 @@ Updated to v8.5.0:
 			<summary-nbrange             value=" диапазоне(ах)"/>
 			<progress-cancel-button      value="Отмена"/>
 			<progress-cancel-info        value="Отмена операции, подождите..."/>
-			<recent-file-history-customlength     value="Длина: "/>
+
 			<find-in-files-progress-title         value="Прогресс поиска в файлах..."/>
 			<replace-in-files-confirm-title       value="Вы уверены?"/>
 			<replace-in-files-confirm-directory   value="Вы точно хотите заменить все совпадения в директории :"/>

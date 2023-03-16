@@ -8,7 +8,7 @@
     type="win32"
 />
 <msix xmlns="urn:schemas-microsoft-com:msix.v1"
-    publisher="CN=Notepad++, O=Notepad++, L=Saint Cloud, S=Ile-de-France, C=FR"
+    publisher="CN=Notepad++"
     packageName="NotepadPlusPlus"
     applicationId="NotepadPlusPlus"
 />

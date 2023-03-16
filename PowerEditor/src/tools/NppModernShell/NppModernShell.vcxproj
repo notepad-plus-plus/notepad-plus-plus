@@ -89,6 +89,9 @@
       <AdditionalDependencies>shlwapi.lib;runtimeobject.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>source.def</ModuleDefinitionFile>
     </Link>
+    <PostBuildEvent>
+      <Command>makeappx pack /d .\Packaging /p $(OutDir)NppModernShell.msix /nv</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
@@ -109,6 +112,9 @@
       <AdditionalDependencies>shlwapi.lib;runtimeobject.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>source.def</ModuleDefinitionFile>
     </Link>
+    <PostBuildEvent>
+      <Command>makeappx pack /d .\Packaging /p $(OutDir)NppModernShell.msix /nv</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -133,6 +139,9 @@
       <AdditionalDependencies>shlwapi.lib;runtimeobject.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>source.def</ModuleDefinitionFile>
     </Link>
+    <PostBuildEvent>
+      <Command>makeappx pack /d .\Packaging /p $(OutDir)NppModernShell.msix /nv</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <ClCompile>
@@ -157,6 +166,9 @@
       <AdditionalDependencies>shlwapi.lib;runtimeobject.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>source.def</ModuleDefinitionFile>
     </Link>
+    <PostBuildEvent>
+      <Command>makeappx pack /d .\Packaging /p $(OutDir)NppModernShell.msix /nv</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EditWithNppExplorerCommandHandler.h" />

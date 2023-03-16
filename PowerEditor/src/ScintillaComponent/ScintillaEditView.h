@@ -494,6 +494,17 @@ public:
 		return svp._npcShow;
 	};
 
+	void maintainStateForNpc() {
+		const auto& svp = NppParameters::getInstance().getSVP();
+		const bool isShownNpc = svp._npcShow;
+		const bool isNpcIncCcUniEol = svp._npcIncludeCcUniEol;
+
+		if (isShownNpc || isNpcIncCcUniEol)
+		{
+			showNpc(isShownNpc);
+		}
+	}
+
 	void showInvisibleChars(bool willBeShowed = true) {
 		showNpc(willBeShowed);
 		showWSAndTab(willBeShowed);

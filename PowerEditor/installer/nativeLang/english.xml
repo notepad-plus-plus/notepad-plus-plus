@@ -956,6 +956,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6254" name="Abbreviation"/>
                     <Item id="6255" name="Codepoint"/>
                     <Item id="6256" name="Custom Color"/>
+                    <Item id="6258" name="Include C0, C1 and unicode EOL"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">

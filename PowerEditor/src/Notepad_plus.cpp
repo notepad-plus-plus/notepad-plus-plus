@@ -6340,6 +6340,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		setDisplayFormat(buffer->getEolFormat());
 		enableConvertMenuItems(buffer->getEolFormat());
 	}
+
+	if (mask & (BufferChangeUnicode))
+	{
+		_mainEditView.maintainStateForNpc();
+		_subEditView.maintainStateForNpc();
+	}
 }
 
 void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)

@@ -2056,6 +2056,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		restyleBuffer();
 	}
 
+	maintainStateForNpc();
+
 	// Everything should be updated, but the language
 	bufferUpdated(_currentBuffer, (BufferChangeMask & ~BufferChangeLanguage));
 
@@ -2067,13 +2069,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	runMarkers(true, 0, true, false);
 
-	if (isShownNpc())
-	{
-		showNpc();
-	}
-
 	setCRLF();
-	setNPC();
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	const ScintillaViewParams& svp = nppParam.getSVP();
@@ -2902,7 +2898,9 @@ void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
 		}
 	}
 
-	redraw();
+	// in some case npc representation is not redrawn correctly on first line
+	// therefore use of showEOL(isShownEol()) instead of redraw()
+	showEOL(isShownEol());
 }
 
 void ScintillaEditView::showIndentGuideLine(bool willBeShowed)

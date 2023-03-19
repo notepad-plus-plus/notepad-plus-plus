@@ -290,6 +290,20 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 			File /oname=$INSTDIR\NppModernShell.dll "..\bin64\NppModernShell.dll"
 		!endif
 		Exec 'rundll32.exe"$INSTDIR\NppModernShell.dll,RegisterSparsePackage"'
+
+		; Make sure old NppShell dll's are unregistered and removed
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_06.dll"'
+		Delete "$INSTDIR\NppShell_01.dll"
+		Delete "$INSTDIR\NppShell_02.dll"
+		Delete "$INSTDIR\NppShell_03.dll"
+		Delete "$INSTDIR\NppShell_04.dll"
+		Delete "$INSTDIR\NppShell_05.dll"
+		Delete "$INSTDIR\NppShell_06.dll"
 		
 	${Else} ; the old "Edit with Notepad++" menu entry still works under Windows 10 and previous OS
 	

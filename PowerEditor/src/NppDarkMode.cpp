@@ -2067,8 +2067,10 @@ namespace NppDarkMode
 				break;
 			}
 
-			case BS_DEFPUSHBUTTON:
 			case BS_PUSHBUTTON:
+			case BS_DEFPUSHBUTTON:
+			case BS_SPLITBUTTON:
+			case BS_DEFSPLITBUTTON:
 			{
 				if (p._theme)
 				{

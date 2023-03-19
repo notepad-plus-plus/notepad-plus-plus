@@ -2540,12 +2540,15 @@ void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
 	strVal = (childNode->ToElement())->Attribute(TEXT("leadingChoice"));
 	if (strVal)
 	{
+		_columnEditParam._leadingChoice = ColumnEditorParam::noneLeading;
 		if (lstrcmp(strVal, TEXT("zeros")) == 0)
-			_columnEditParam._leadingChoice = 1;
+		{
+			_columnEditParam._leadingChoice = ColumnEditorParam::zeroLeading;
+		}
 		else if (lstrcmp(strVal, TEXT("spaces")) == 0)
-			_columnEditParam._leadingChoice = 2;
-		else // "none"
-			_columnEditParam._leadingChoice = 0;
+		{
+			_columnEditParam._leadingChoice = ColumnEditorParam::spaceLeading;
+		}
 	}
 }
 
@@ -4117,9 +4120,9 @@ bool NppParameters::writeColumnEditorSettings() const
 		format = TEXT("bin");
 	(numberNode.ToElement())->SetAttribute(TEXT("formatChoice"), format);
 	wstring leading = TEXT("none");
-	if (_columnEditParam._leadingChoice == 1)
+	if (_columnEditParam._leadingChoice == ColumnEditorParam::zeroLeading)
 		leading = TEXT("zeros");
-	else if (_columnEditParam._leadingChoice == 2)
+	else if (_columnEditParam._leadingChoice == ColumnEditorParam::spaceLeading)
 		leading = TEXT("spaces");
 	(numberNode.ToElement())->SetAttribute(TEXT("leadingChoice"), leading);
 	(columnEditorRootNode.ToElement())->InsertEndChild(numberNode);

@@ -57,7 +57,15 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("None")));
 			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Zeros")));
 			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Spaces")));
-			::SendMessage(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), CB_SETCURSEL, colEditParam._leadingChoice, 0);
+			WPARAM curSel = 0;
+			switch (colEditParam._leadingChoice)
+			{
+				case ColumnEditorParam::noneLeading: { curSel = 0; break; }
+				case ColumnEditorParam::zeroLeading : { curSel = 1; break; }
+				case ColumnEditorParam::spaceLeading : { curSel = 2; break; }
+				default : { curSel = 0; break; }
+			}
+			::SendMessage(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), CB_SETCURSEL, curSel, 0);
 
 			int format = IDC_COL_DEC_RADIO;
 			if (colEditParam._formatChoice == 1)
@@ -241,7 +249,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							if (colInfos.size() > 0)
 							{
 								std::sort(colInfos.begin(), colInfos.end(), SortInPositionOrder());
-								(*_ppEditView)->columnReplace(colInfos, initialNumber, increaseNumber, repeat, format);
+								(*_ppEditView)->columnReplace(colInfos, initialNumber, increaseNumber, repeat, format, getLeading());
 								std::sort(colInfos.begin(), colInfos.end(), SortInSelectOrder());
 								(*_ppEditView)->setMultiSelections(colInfos);
 							}
@@ -277,10 +285,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							int lineAllocatedLen = 1024;
 							TCHAR *line = new TCHAR[lineAllocatedLen];
 
-
 							UCHAR f = format & MASK_FORMAT;
-							bool isZeroLeading = (MASK_ZERO_LEADING & format) != 0;
-							bool isSpaceLeading = (MASK_SPACE_LEADING & format) != 0;
 							
 							int base = 10;
 							if (f == BASE_16)
@@ -315,7 +320,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								//
 								// Calcule generic_string
 								//
-								int2str(str, stringSize, numbers.at(i - cursorLine), base, nb, isZeroLeading, isSpaceLeading);
+								int2str(str, stringSize, numbers.at(i - cursorLine), base, nb, getLeading());
 
 								if (lineEndCol < cursorCol)
 								{
@@ -437,7 +442,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							if (LOWORD(wParam) == IDC_COL_LEADING_COMBO)
 							{
 								ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-								colEditParam._leadingChoice = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_GETCURSEL, 0, 0));
+								colEditParam._leadingChoice = getLeading();
 								return TRUE;
 							}
 						}
@@ -480,9 +485,6 @@ void ColumnEditorDlg::switchTo(bool toText)
 
 UCHAR ColumnEditorDlg::getFormat() 
 {
-	int leading = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_GETCURSEL, 0, 0));
-	bool isLeadingZeros = leading == 1;
-	bool isLeadingSpaces = leading == 2;
 	UCHAR f = 0; // Dec by default
 	if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_HEX_RADIO, BM_GETCHECK, 0, 0))
 		f = 1;
@@ -490,5 +492,31 @@ UCHAR ColumnEditorDlg::getFormat()
 		f = 2;
 	else if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_BIN_RADIO, BM_GETCHECK, 0, 0))
 		f = 3;
-	return (f | (isLeadingZeros?MASK_ZERO_LEADING:0) | (isLeadingSpaces ? MASK_SPACE_LEADING : 0));
+	return f;
+}
+
+ColumnEditorParam::leadingChoice ColumnEditorDlg::getLeading()
+{
+	ColumnEditorParam::leadingChoice leading = ColumnEditorParam::noneLeading;
+	int curSel = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_GETCURSEL, 0, 0));
+	switch (curSel)
+	{
+		case 0:
+		default:
+		{ 
+			leading = ColumnEditorParam::noneLeading; 
+			break; 
+		}
+		case 1: 
+		{ 
+			leading = ColumnEditorParam::zeroLeading; 
+			break; 
+		}
+		case 2: 
+		{
+			leading = ColumnEditorParam::spaceLeading; 
+			break;
+		}
+	}
+	return leading;
 }

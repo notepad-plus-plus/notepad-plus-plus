@@ -70,6 +70,7 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
 	
+	Exec 'rundll32.exe"$INSTDIR\NppModernShell.dll,UnregisterSparsePackage"'
 	
  	ReadRegStr $muiVerbStrUn HKLM "SOFTWARE\Classes\*\shell\pintohome" MUIVerb
 	${UnStrStr} $nppSubStrUn $muiVerbStrUn "Notepad++"

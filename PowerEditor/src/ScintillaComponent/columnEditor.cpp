@@ -66,7 +66,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			::SendDlgItemMessage(_hSelf, format, BM_SETCHECK,  TRUE, 0);
 
-			switchTo(colEditParam._mainChoice);
+			switchToText(colEditParam._mainChoiceIsText);
 			goToCenter();
 
 			return TRUE;
@@ -342,8 +342,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_COL_NUM_RADIO :
 				{
 					ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-					colEditParam._mainChoice = (wParam == IDC_COL_TEXT_RADIO) ? activeText : activeNumeric;
-					switchTo(colEditParam._mainChoice);
+					colEditParam._mainChoiceIsText = (wParam == IDC_COL_TEXT_RADIO);
+					switchToText(colEditParam._mainChoiceIsText);
 					return TRUE;
 				}
 
@@ -448,7 +448,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 	return FALSE;
 }
 
-void ColumnEditorDlg::switchTo(bool toText)
+void ColumnEditorDlg::switchToText(bool toText)
 {
 	HWND hText = ::GetDlgItem(_hSelf, IDC_COL_TEXT_EDIT);
 	::EnableWindow(hText, toText);

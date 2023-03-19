@@ -21,9 +21,6 @@
 
 class ScintillaEditView;
 
-const bool activeText = true;
-const bool activeNumeric = false;
-
 class ColumnEditorDlg : public StaticDialog
 {
 public :
@@ -43,7 +40,7 @@ public :
 	};
 
     virtual void display(bool toShow = true) const;
-	void switchTo(bool toText);
+	void switchToText(bool toText);
 	UCHAR getFormat();
 
 protected :

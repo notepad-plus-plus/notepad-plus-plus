@@ -289,7 +289,7 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 			File /oname=$INSTDIR\NppModernShell.msix "..\bin64\NppModernShell.msix"
 			File /oname=$INSTDIR\NppModernShell.dll "..\bin64\NppModernShell.dll"
 		!endif
-		Exec 'rundll32.exe"$INSTDIR\NppModernShell.dll,RegisterSparsePackage"'
+		Exec 'rundll32.exe "$INSTDIR\NppModernShell.dll",RegisterSparsePackage'
 
 		; Make sure old NppShell dll's are unregistered and removed
 		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'

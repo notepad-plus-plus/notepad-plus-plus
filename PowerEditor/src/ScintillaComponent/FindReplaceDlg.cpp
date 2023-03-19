@@ -320,7 +320,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 
 	//fill min dialog size info
 	getWindowRect(_initialWindowRect);
-	_initialWindowRect.right = _initialWindowRect.right - _initialWindowRect.left;
+	_initialWindowRect.right = _initialWindowRect.right - _initialWindowRect.left + dpiManager.scaleX(10);
 	_initialWindowRect.left = 0;
 	_initialWindowRect.bottom = _initialWindowRect.bottom - _initialWindowRect.top;
 	_initialWindowRect.top = 0;
@@ -1418,34 +1418,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			return TRUE;
 		}
 
-		case WM_RBUTTONUP:
-		{
-			if (!_swapPopupMenu.isCreated())
-			{
-				
-				vector<MenuItemUnit> itemUnitArray;
-				itemUnitArray.push_back(MenuItemUnit(IDC_SWAP_FIND_REPLACE, TEXT("⇅ Swap Find with Replace")));
-				itemUnitArray.push_back(MenuItemUnit(IDC_COPY_FIND2REPLACE, TEXT("⤵ Copy from Find to Replace")));
-				itemUnitArray.push_back(MenuItemUnit(IDC_COPY_REPLACE2FIND, TEXT("⤴ Copy from Replace to Find")));
-
-				NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-				for (auto&& i : itemUnitArray)
-				{
-					i._itemName = pNativeSpeaker->getDlgLangMenuStr("Dialog", "Find", i._cmdID, i._itemName.c_str());
-				}
-
-				_swapPopupMenu.create(_hSelf, itemUnitArray);
-			}
-			RECT rc{};
-			::GetClientRect(_hSwapButton, &rc);
-			POINT p{};
-			::ClientToScreen(_hSwapButton, &p);
-			p.y += rc.bottom;
-			_swapPopupMenu.display(p);
-
-			return TRUE;
-		}
-
 		case WM_DRAWITEM :
 		{
 			drawItem((DRAWITEMSTRUCT *)lParam);
@@ -1469,18 +1441,54 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_NOTIFY:
 		{
-			NMHDR *nmhdr = (NMHDR *)lParam;
-			if (nmhdr->code == TCN_SELCHANGE)
+			auto lpnmhdr = reinterpret_cast<LPNMHDR>(lParam);
+			switch (lpnmhdr->code)
 			{
-				HWND tabHandle = _tab.getHSelf();
-				if (nmhdr->hwndFrom == tabHandle)
+				case TCN_SELCHANGE:
 				{
-					int indexClicked = int(::SendMessage(tabHandle, TCM_GETCURSEL, 0, 0));
-					doDialog((DIALOG_TYPE)indexClicked);
+					const HWND tabHandle = _tab.getHSelf();
+					if (lpnmhdr->hwndFrom == tabHandle)
+					{
+						const auto indexClicked = static_cast<int>(::SendMessage(tabHandle, TCM_GETCURSEL, 0, 0));
+						doDialog(static_cast<DIALOG_TYPE>(indexClicked));
+						return TRUE;
+					}
+					break;
 				}
-				return TRUE;
+
+				case BCN_DROPDOWN:
+				{
+					if (lpnmhdr->hwndFrom == _hSwapButton)
+					{
+						if (!_swapPopupMenu.isCreated())
+						{
+							vector<MenuItemUnit> itemUnitArray;
+							itemUnitArray.push_back(MenuItemUnit(IDC_SWAP_FIND_REPLACE, TEXT("⇅ Swap Find with Replace")));
+							itemUnitArray.push_back(MenuItemUnit(IDC_COPY_FIND2REPLACE, TEXT("⤵ Copy from Find to Replace")));
+							itemUnitArray.push_back(MenuItemUnit(IDC_COPY_REPLACE2FIND, TEXT("⤴ Copy from Replace to Find")));
+
+							NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+							for (auto&& i : itemUnitArray)
+							{
+								i._itemName = pNativeSpeaker->getDlgLangMenuStr("Dialog", "Find", i._cmdID, i._itemName.c_str());
+							}
+
+							_swapPopupMenu.create(_hSelf, itemUnitArray);
+						}
+
+						RECT rc{};
+						::GetClientRect(_hSwapButton, &rc);
+						POINT p{};
+						::ClientToScreen(_hSwapButton, &p);
+						p.y += rc.bottom;
+						_swapPopupMenu.display(p);
+
+						return TRUE;
+					}
+					break;
+				}
 			}
-			break;
+			return FALSE;
 		}
 
 		case WM_ACTIVATE :

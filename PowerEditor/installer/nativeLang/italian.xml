@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.5.1
-    Last modified Thu, March 9th, 2023.
+    Last modified Sun, March 19th, 2023.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
@@ -479,6 +479,11 @@
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Trova successivo"/>
                 <Item id="1725" name= "Copia il testo evidenziato"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Scambia Trova con Sostituisci"/>
+                    <Item id="1727" name="⤵ Copia da Trova a Sostituisci"/>
+                    <Item id="1728" name="⤴ Copia da Sostituisci a Trova"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -1275,30 +1280,35 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                 <Item id="7004" name="Ordina schede"/>
             </Window>
             <ColumnEditor title="Editor a colonne">
-                <Item id="2023" name="Testo da inserire"/>
-                <Item id="2033" name="Numero da inserire"/>
-                <Item id="2030" name="Numero iniziale: "/>
+                <Item id="2023" name="&amp;Testo da inserire"/>
+                <Item id="2033" name="&amp;Numero da inserire"/>
+                <Item id="2030" name="Numero &amp;iniziale: "/>
                 <Item id="2031" name="Incrementa di: "/>
-                <Item id="2035" name="Zeri iniziali"/>
-                <Item id="2036" name="Ripeti: "/>
+                <Item id="2038" name="Inizia&amp;li:"/>
+                <ComboBox id="2039">
+                    <Element name="Niente"/>
+                    <Element name="Zeri"/>
+                    <Element name="Spazi"/>
+                </ComboBox>
+                <Item id="2036" name="&amp;Ripeti: "/>
                 <Item id="2032" name="Formato"/>
-                <Item id="2024" name="Decimale"/>
-                <Item id="2025" name="Ottale"/>
+                <Item id="2024" name="&amp;Decimale"/>
+                <Item id="2025" name="&amp;Ottale"/>
                 <Item id="2026" name="Esadecimale"/>
-                <Item id="2027" name="Binario"/>
+                <Item id="2027" name="&amp;Binario"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Annulla"/>
             </ColumnEditor>
             <FindInFinder title="Trova tra i risultati">
                 <Item id="1" name="Trova tutti"/>
                 <Item id="2" name="Chiudi"/>
-                <Item id="1711" name="Trova:"/>
+                <Item id="1711" name="&amp;Trova:"/>
                 <Item id="1713" name="Cerca solo nelle righe trovate"/>
                 <Item id="1714" name="Solo parole intere"/>
-                <Item id="1715" name="Distingui tra maiuscole e minuscole"/>
+                <Item id="1715" name="Distingui tra maius&amp;cole e minuscole"/>
                 <Item id="1716" name="Tipo di ricerca"/>
-                <Item id="1717" name="Normale"/>
-                <Item id="1719" name="Espressione regolare"/>
+                <Item id="1717" name="&amp;Normale"/>
+                <Item id="1719" name="Espressione re&amp;golare"/>
                 <Item id="1718" name="Estesa (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. significa a capo"/>
             </FindInFinder>
@@ -1461,8 +1471,9 @@ Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the
             <ColumnVal name="Valore"/>
             <ColumnHex name="Esadecimale"/>
             <ColumnChar name="Carattere"/>
-            <ColumnHtmlNumber name="Numero HTML"/>
-            <ColumnHtmlName name="Codice HTML"/>
+            <ColumnHtmlName name="Nome HTML"/>
+            <ColumnHtmlNumber name="Decimale HTML"/>
+            <ColumnHtmlHexNb name="Esadecimale HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mappa Documento"/>
@@ -1635,6 +1646,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
             <summary-nbsel1 value=" caratteri selezionati ("/>
             <summary-nbsel2 value=" byte) in "/>
             <summary-nbrange value=" intervalli"/>
+            <progress-hits-title value="Corrispondenze :"/>
             <progress-cancel-button value="Annulla"/>
             <progress-cancel-info value="Annullamento operazione, attendere..."/>
             <find-in-files-progress-title value="Ricerca nei file in corso..."/>

@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name = "Galego" filename="galician.xml" version="8.5">
+    <Native-Langue name = "Galego" filename="galician.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -261,7 +261,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id = "44010" name = "Contraer todo"/>
                     <Item id = "44011" name = "Modo &quot;Sen distraccións&quot;"/>
                     <Item id = "44019" name = "Mostrar tódolos caracteres"/>
-                    <Item id = "44020" name = "Mostrar guía de sangrías"/>
+                    <Item id = "44020" name = "Mostrar liñas de sangrías"/>
                     <Item id = "44022" name = "Axuste do texto"/>
                     <Item id = "44023" name = "&amp;Aumentar zoom (Ctrl + roda do rato adiante)"/>
                     <Item id = "44024" name = "&amp;Diminuír zoom (Ctrl + roda do rato atrás)"/>
@@ -385,8 +385,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id = "11009" name = "Tamaño maior a menor"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID = "41003" name = "Pechar"/>
                 <Item CMDID = "0" name = "Pechar múltiples pestanas"/>
@@ -424,6 +422,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID = "44115" name = "Aplicar cor 5"/>
                 <Item CMDID = "44110" name="Quitar cor"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Activar"/>
+                <Item id="43102" name="Novo"/>
+                <Item id="43103" name="Novo e pegar"/>
+                <Item id="43104" name="Abrir..."/>
+                <Item id="43013" name="Buscar en arquivos..."/>
+                <Item id="43105" name="Pechar icona da bandexa"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -469,6 +475,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id = "1721" name = "▲"/>
                 <Item id = "1723" name = "▼ Seguinte"/>
                 <Item id = "1725" name = "Copiar o texto marcado"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Cambiar buscar por substituír"/>
+                    <Item id="1727" name="⤵ Copiar de buscar a substituír"/>
+                    <Item id="1728" name="⤴ Copiar de substituír a buscar"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title = "">
@@ -646,7 +657,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id = "43057" name = "Copiar texto marcado co estilo 3"/>
                     <Item id = "43058" name = "Copiar texto marcado co estilo 4"/>
                     <Item id = "43059" name = "Copiar texto marcado co estilo 5"/>
-                    <Item id = "43060" name = "Copiar o texto de tódolos estilos"/>
+                    <Item id = "43060" name = "Copiar o texto marcado de tódolos estilos"/>
                     <Item id = "43061" name = "Copiar o texto co estilo da marca da busca"/>
                     <Item id = "44100" name = "Ver arquivo actual en Firefox"/>
                     <Item id = "44101" name = "Ver arquivo actual en Chrome"/>
@@ -662,7 +673,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id = "44056" name = "Nivel de pregado 6"/>
                     <Item id = "44057" name = "Nivel de pregado 7"/>
                     <Item id = "44058" name = "Nivel de pregado 8"/>
-                    <Item id = "44061" name = "Nivel de despregadol 1"/>
+                    <Item id = "44061" name = "Nivel de despregado 1"/>
                     <Item id = "44062" name = "Nivel de despregado 2"/>
                     <Item id = "44063" name = "Nivel de despregado 3"/>
                     <Item id = "44064" name = "Nivel de despregado 4"/>
@@ -716,7 +727,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id = "20003" name = "Crear novo..."/>
                 <Item id = "20004" name = "Borrar"/>
                 <Item id = "20005" name = "Gardar como..."/>
-                <Item id = "20007" name = "Linguaxe do usuario: "/>
+                <Item id = "20007" name = "Linguaxe"/>
                 <Item id = "20009" name = "Ext.:"/>
                 <Item id = "20012" name = "Ignorar MAIÚS/minús"/>
                 <Item id = "20011" name = "Transparencia"/>
@@ -1087,8 +1098,8 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
                         <Element name = "Nome do arquivo"/>
                         <Element name = "Carpeta do arquivo"/>
                         <Element name = "Páxina"/>
-                        <Element name = "Formato data curto"/>
-                        <Element name = "Formato data longo"/>
+                        <Element name = "Data curta"/>
+                        <Element name = "Data longa"/>
                         <Element name = "Hora"/>
                     </ComboBox>
                     <Item id = "6725" name = "Opcións:"/>
@@ -1197,7 +1208,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
                     <Item id = "7147" name = "Permitir a coincidencia de corchetes"/>
                     <Item id = "7148" name = "Permitir o autocompletado"/>
                     <Item id = "7149" name = "Permitir o resaltado intelixente"/>
-                    <Item id = "7150" name = "Desactivar globalmente o axuste de texto"/>
+                    <Item id = "7150" name = "Desactivar globalmente o axuste do texto"/>
                     <Item id = "7151" name = "Permitir ligazón clicable na URL"/>
                 </Performance>
 
@@ -1390,8 +1401,8 @@ Desexa abrilo?"/>
             <LoadLangsFailed title = "Configurador" message = "A carga de langs.xml fallou.
 ¿Desexa recuperar o seu langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
             <LoadLangsFailedFinal title = "Configurador" message = "A carga de langs.xml fallou"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
-            <FolderAsWorspaceSubfolderExists title = "Carpeta como espazo de traballo indica un problema de carpeta" message = "Existe unha subcarpeta da carpeta que desexa agregar.
-Elimine a súa carpeta raíz do panel antes de agregar &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
+            <FolderAsWorspaceSubfolderExists title = "Problema en &quot;Carpeta como espazo de traballo&quot;" message = "Existe unha subcarpeta da carpeta que desexa engadir.
+Elimine a súa carpeta raíz do panel antes de engadir &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title = "$STR_REPLACE$" message = "O espazo de traballo modificouse. ¿Desexa gardalo?"/>
             <ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Producíuse un erro ao escribir o seu arquivo do espazo de traballo.
@@ -1564,7 +1575,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
             <find-status-top-reached value = "Encontrada a primera coincidencia empezando polo final. Chegouse ao inicio do documento."/>
             <find-status-end-reached value = "Encontrada a primera coincidencia empezando polo inicio. Chegouse ao final do documento."/>
             <find-status-replaceinfiles-1-replaced value = "Substituír en arquivos: cambiado 1 elemento."/>
-            <find-status-replaceinfiles-nb-replaced value = "Substituír en arquivos: $INT_REPLACE$ coincidentes cambiados."/>
+            <find-status-replaceinfiles-nb-replaced value = "Substituír en arquivos: $INT_REPLACE$ coincidencias cambiadas."/>
             <find-status-replaceinfiles-re-malformed value = "Substituír en arquivos abertos: a expresión regular ten un formato incorrecto."/>
             <find-status-replaceinopenedfiles-1-replaced value = "Substituír en arquivos abertos: cambiada 1 coincidencia."/>
             <find-status-replaceinopenedfiles-nb-replaced value = "Substituír en arquivos abertos: $INT_REPLACE$ coincidencias cambiadas."/>
@@ -1579,7 +1590,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
             <find-status-replaceall-re-malformed value = "Atención: a expresión regular ten un formato incorrecto."/>
             <find-status-replaceall-1-replaced value = "1 coincidencia cambiada"/>
             <find-status-replaceall-nb-replaced value = " $INT_REPLACE$ coincidencias cambiadas."/>
-            <find-status-replaceall-readonly value = "Atención: non se pode reemplazar o texto. O documento actual é de só lectura."/>
+            <find-status-replaceall-readonly value = "Atención: non se pode substituír o texto. O documento actual é de só lectura."/>
             <find-status-replace-end-reached value = "Cambiada a primera coincidencia desde o inicio. Chegouse ao final do documento."/>
             <find-status-replace-top-reached value = "Cambiada a primera coincidencia desde o final. Chegouse ao inicio do documento."/>
             <find-status-replaced-next-found value = "Cambiada 1 coincidencia. Encontrada a seguinte."/>
@@ -1606,17 +1617,14 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
             <finder-wrap-long-lines value = "Axustar lonxitude do texto"/>
             <common-ok value = "OK"/>
             <common-cancel value = "Cancelar"/>
-            <common-name value = "Nome: "/>
+            <common-name value = "Nome:"/>
             <tabrename-title value = "Renomear pestana actual"/>
-            <tabrename-newname value = "Novo nome: "/>
+            <tabrename-newname value = "Novo nome:"/>
             <splitter-rotate-left value = "Xirar á esquerda"/>
             <splitter-rotate-right value = "Xirar á dereita"/>
-            <recent-file-history-maxfile value = "Máx. arquivo: "/>
-            <recent-file-history-customlength value="Lonxitude:"/>
             <userdefined-title-new value = "Crear nova linguaxe..."/>
             <userdefined-title-save value = "Gardar linguaxe actual como..."/>
-            <userdefined-title-rename value = "Cambiar o nome da linguaxe actual"/>
-            <edit-verticaledge-nb-col value = "Nº columna:"/>
+            <userdefined-title-rename value = "Renomear o arquivo de linguaxe"/>
             <summary value = "Resumo"/>
             <summary-filepath value = "Ruta completa do arquivo:"/>
             <summary-filecreatetime value = "Creado:"/>
@@ -1632,13 +1640,13 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
             <progress-cancel-info value = "Cancelando operación, por favor espere..."/>
             <find-in-files-progress-title value = "Progreso da busca en arquivos..."/>
             <replace-in-files-confirm-title value = "¿Está seguro?"/>
-            <replace-in-files-confirm-directory value = "¿Está seguro de que desexa reemplazar tódalas coincidencias en:"/>
+            <replace-in-files-confirm-directory value = "¿Está seguro de que desexa substituír tódalas coincidencias en:"/>
             <replace-in-files-confirm-filetype value = "Para tipo de arquivo:"/>
-            <replace-in-files-progress-title value = "Progreso de reemplazar en arquivos..."/>
+            <replace-in-files-progress-title value = "Progreso de substitución en arquivos..."/>
             <replace-in-projects-confirm-title value = "¿Está seguro?"/>
-            <replace-in-projects-confirm-message value = "¿Desexa reemplazar tódalas coincidencias en tódolos documentos no panel de proxecto(s) seleccionado(s)?"/>
+            <replace-in-projects-confirm-message value = "¿Desexa substituír tódalas coincidencias en tódolos documentos no panel de proxecto(s) seleccionado(s)?"/>
             <replace-in-open-docs-confirm-title value = "¿Está seguro?"/>
-            <replace-in-open-docs-confirm-message value = "¿Está seguro de que desexa reemplazar tódalas coincidencias en tódolos documentos abertos?"/>
+            <replace-in-open-docs-confirm-message value = "¿Está seguro de que desexa substituír tódalas coincidencias en tódolos documentos abertos?"/>
             <find-result-caption value = "Buscar resultados"/>
             <find-result-title value = "Buscar"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value = "(Hai $INT_REPLACE1$ coincidencia(s) en $INT_REPLACE2$ arquivo(s) de $INT_REPLACE3$ procura(s))"/>
@@ -1649,7 +1657,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
             <find-regex-zero-length-match value = "coincidencia lonxitude cero"/>
             <session-save-folder-as-workspace value = "Gardar carpeta como espazo de traballo"/>
             <tab-untitled-string value = "novo"/>
-            <file-save-assign-type value = "&amp;Agregar extensión"/>
+            <file-save-assign-type value = "Eng&amp;adir extensión"/>
             <close-panel-tip value = "Pechar"/>
             <IncrementalFind-FSFound value = "$INT_REPLACE$ coinciden"/>
             <IncrementalFind-FSNotFound value = "Frase non encontrada"/>
@@ -1659,12 +1667,12 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
             <contextMenu-styleOneToken value = "Dar estilo a unha coincidencia"/>
             <contextMenu-clearStyle value = "Borrar estilo"/>
             <contextMenu-PluginCommands value = "Comandos de complementos"/>
-            <largeFileRestriction-tip value = "Algunhas funcións poden diminuír o rendemento con arquivos grandes. Estas funcións pódense desactivar automáticamente ao abrir un arquivo grande. Pode personalizalas aquí.
-            
+            <largeFileRestriction-tip value = "Algunhas funcións poden diminuír o rendemento con arquivos grandes. Estas funcións pódense desactivar automaticamente ao abrir un arquivo grande. Pode personalizalas aquí.
+
 NOTA:
 1. A modificación das opcións implica reabrir os arquivos grandes que teña abertos para obter un comportamento adecuado.
 
-2. Si &quot;Desactivar globalmente o axuste do texto&quot; está marcado e abre un arquivo grande, &quot;Axuste do texto&quot; desactivarase para tódolos arquivos. Pode volver a activalo a través do menú Vista en &quot;Axuste do texto&quot;." />
+2. Si &quot;Desactivar globalmente o axuste do texto&quot; está marcado e abre un arquivo grande, &quot;Axuste do texto&quot; desactivarase para tódolos arquivos. Pode volver a activalo a través do menú Vista en &quot;Axuste do texto&quot;."/>
             <npcNote-tip value="Representación de espazos en branco seleccionados &quot;non ASCII&quot; e caracteres non imprimibles (de control).
 
 NOTA:

@@ -34,22 +34,24 @@ const wstring EditWithNppExplorerCommandHandler::GetCommandLine()
     return fileName + L" " + parameters;
 }
 
-IFACEMETHODIMP EditWithNppExplorerCommandHandler::Invoke(_In_opt_ IShellItemArray* selection, _In_opt_ IBindCtx*) noexcept try
+IFACEMETHODIMP EditWithNppExplorerCommandHandler::Invoke(IShellItemArray* psiItemArray, IBindCtx* pbc) noexcept try
 {
-    if (!selection)
+    UNREFERENCED_PARAMETER(pbc);
+
+    if (!psiItemArray)
     {
         return S_OK;
     }
 
     DWORD count;
-    RETURN_IF_FAILED(selection->GetCount(&count));
+    RETURN_IF_FAILED(psiItemArray->GetCount(&count));
 
-    IShellItem* psi;
+    IShellItem* psi = nullptr;
     LPWSTR itemName;
 
     for (DWORD i = 0; i < count; ++i)
     {
-        selection->GetItemAt(i, &psi);
+        psiItemArray->GetItemAt(i, &psi);
         RETURN_IF_FAILED(psi->GetDisplayName(SIGDN_FILESYSPATH, &itemName));
 
         std::wstring cmdline = this->GetCommandLine();

@@ -9,16 +9,16 @@ namespace NppShell::CommandHandlers
         virtual const wstring Title() = 0;
         virtual const wstring Icon() = 0;
         virtual const EXPCMDFLAGS Flags();
-        virtual const EXPCMDSTATE State(_In_opt_ IShellItemArray* selection);
+        virtual const EXPCMDSTATE State(IShellItemArray* psiItemArray);
 
-        IFACEMETHODIMP GetTitle(_In_opt_ IShellItemArray* items, _Outptr_result_nullonfailure_ PWSTR* name);
-        IFACEMETHODIMP GetIcon(_In_opt_ IShellItemArray*, _Outptr_result_nullonfailure_ PWSTR* icon);
-        IFACEMETHODIMP GetToolTip(_In_opt_ IShellItemArray*, _Outptr_result_nullonfailure_ PWSTR* infoTip);
-        IFACEMETHODIMP GetState(_In_opt_ IShellItemArray* selection, _In_ BOOL okToBeSlow, _Out_ EXPCMDSTATE* cmdState);
-        IFACEMETHODIMP GetFlags(_Out_ EXPCMDFLAGS* flags);
-        IFACEMETHODIMP GetCanonicalName(_Out_ GUID* guidCommandName);
-        IFACEMETHODIMP EnumSubCommands(_COM_Outptr_ IEnumExplorerCommand** enumCommands);
+        IFACEMETHODIMP GetTitle(IShellItemArray* psiItemArray, LPWSTR* ppszName);
+        IFACEMETHODIMP GetIcon(IShellItemArray* psiItemArray, LPWSTR* ppszIcon);
+        IFACEMETHODIMP GetToolTip(IShellItemArray* psiItemArray, LPWSTR* ppszInfotip);
+        IFACEMETHODIMP GetState(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState);
+        IFACEMETHODIMP GetFlags(EXPCMDFLAGS* flags);
+        IFACEMETHODIMP GetCanonicalName(GUID* pguidCommandName);
+        IFACEMETHODIMP EnumSubCommands(IEnumExplorerCommand** ppEnum);
 
-        virtual IFACEMETHODIMP Invoke(_In_opt_ IShellItemArray* selection, _In_opt_ IBindCtx*) noexcept = 0;
+        virtual IFACEMETHODIMP Invoke(IShellItemArray* psiItemArray, IBindCtx* pbc) noexcept = 0;
     };
 }

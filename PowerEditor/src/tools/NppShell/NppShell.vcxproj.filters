@@ -4,11 +4,11 @@
     <Filter Include="CommandHandlers">
       <UniqueIdentifier>{ff31b0d8-bf03-4a28-945d-cfae6eb365fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Factories">
-      <UniqueIdentifier>{3ce00d49-8c93-43bf-8d92-00c9b7087776}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Installer">
       <UniqueIdentifier>{ca898efe-24d8-4317-99c9-769e8e80c3aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factories">
+      <UniqueIdentifier>{a0f353df-9c6f-4612-a2d1-98aa7a6d6893}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,12 +21,12 @@
     <ClInclude Include="Installer.h">
       <Filter>Installer</Filter>
     </ClInclude>
-    <ClInclude Include="CommandHandlerFactory.h">
-      <Filter>Factories</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="SimpleFactory.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EditWithNppExplorerCommandHandler.cpp">
@@ -41,9 +41,6 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="CommandHandlerFactory.cpp">
-      <Filter>Factories</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

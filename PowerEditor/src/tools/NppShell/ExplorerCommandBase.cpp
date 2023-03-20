@@ -8,61 +8,62 @@ const EXPCMDFLAGS ExplorerCommandBase::Flags()
     return ECF_DEFAULT;
 }
 
-const EXPCMDSTATE ExplorerCommandBase::State(_In_opt_ IShellItemArray* selection)
+const EXPCMDSTATE ExplorerCommandBase::State(IShellItemArray* psiItemArray)
 {
-    UNREFERENCED_PARAMETER(selection);
+    UNREFERENCED_PARAMETER(psiItemArray);
 
     return ECS_ENABLED;
 }
 
-IFACEMETHODIMP ExplorerCommandBase::GetTitle(_In_opt_ IShellItemArray* items, _Outptr_result_nullonfailure_ PWSTR* name)
+IFACEMETHODIMP ExplorerCommandBase::GetTitle(IShellItemArray* psiItemArray, LPWSTR* ppszName)
 {
-    UNREFERENCED_PARAMETER(items);
+    UNREFERENCED_PARAMETER(psiItemArray);
 
-    *name = nullptr;
-    auto str = wil::make_cotaskmem_string_nothrow(Title().c_str());
-    RETURN_IF_NULL_ALLOC(str);
-    *name = str.release();
+    wstring title = Title();
+    SHStrDup(title.data(), ppszName);
+
     return S_OK;
 }
 
-IFACEMETHODIMP ExplorerCommandBase::GetIcon(_In_opt_ IShellItemArray*, _Outptr_result_nullonfailure_ PWSTR* icon)
+IFACEMETHODIMP ExplorerCommandBase::GetIcon(IShellItemArray* psiItemArray, LPWSTR* ppszIcon)
 {
-    *icon = nullptr;
-    auto str = wil::make_cotaskmem_string_nothrow(Icon().c_str());
-    RETURN_IF_NULL_ALLOC(str);
-    *icon = str.release();
+    UNREFERENCED_PARAMETER(psiItemArray);
+
+    wstring icon = Icon();
+    SHStrDup(icon.data(), ppszIcon);
+
     return S_OK;
 }
 
-IFACEMETHODIMP ExplorerCommandBase::GetToolTip(_In_opt_ IShellItemArray*, _Outptr_result_nullonfailure_ PWSTR* infoTip)
+IFACEMETHODIMP ExplorerCommandBase::GetToolTip(IShellItemArray* psiItemArray, LPWSTR* ppszInfotip)
 {
-    *infoTip = nullptr;
+    UNREFERENCED_PARAMETER(psiItemArray);
+    UNREFERENCED_PARAMETER(ppszInfotip);
+
     return E_NOTIMPL;
 }
 
-IFACEMETHODIMP ExplorerCommandBase::GetState(_In_opt_ IShellItemArray* selection, _In_ BOOL okToBeSlow, _Out_ EXPCMDSTATE* cmdState)
+IFACEMETHODIMP ExplorerCommandBase::GetState(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState)
 {
-    UNREFERENCED_PARAMETER(okToBeSlow);
+    UNREFERENCED_PARAMETER(fOkToBeSlow);
 
-    *cmdState = State(selection);
+    *pCmdState = State(psiItemArray);
     return S_OK;
 }
 
-IFACEMETHODIMP ExplorerCommandBase::GetFlags(_Out_ EXPCMDFLAGS* flags)
+IFACEMETHODIMP ExplorerCommandBase::GetFlags(EXPCMDFLAGS* flags)
 {
     *flags = Flags();
     return S_OK;
 }
 
-IFACEMETHODIMP ExplorerCommandBase::GetCanonicalName(_Out_ GUID* guidCommandName)
-{
-    *guidCommandName = GUID_NULL;
-    return E_NOTIMPL;
+IFACEMETHODIMP ExplorerCommandBase::GetCanonicalName(GUID* pguidCommandName) {
+    *pguidCommandName = GUID_NULL;
+    return S_OK;
 }
 
-IFACEMETHODIMP ExplorerCommandBase::EnumSubCommands(_COM_Outptr_ IEnumExplorerCommand** enumCommands)
+IFACEMETHODIMP ExplorerCommandBase::EnumSubCommands(IEnumExplorerCommand** ppEnum)
 {
-    *enumCommands = nullptr;
+    *ppEnum = nullptr;
     return E_NOTIMPL;
 }

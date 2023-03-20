@@ -33,14 +33,14 @@
         <desktop4:Extension Category="windows.fileExplorerContextMenus">
           <desktop4:FileExplorerContextMenus>
             <desktop5:ItemType Type="*">
-              <desktop5:Verb Id="EditWithNotepadPlusPlus" Clsid="4EACAA14-3B43-4595-A44C-FBA8F0848620" />
+              <desktop5:Verb Id="EditWithNotepadPlusPlus" Clsid="B298D29A-A6ED-11DE-BA8C-A68E55D89593" />
             </desktop5:ItemType>
           </desktop4:FileExplorerContextMenus>
         </desktop4:Extension>
         <com:Extension Category="windows.comServer">
           <com:ComServer>
             <com:SurrogateServer DisplayName="Notepad++ Shell Extension">
-              <com:Class Id="4EACAA14-3B43-4595-A44C-FBA8F0848620" Path="NppShell.dll" ThreadingModel="STA"/>
+              <com:Class Id="B298D29A-A6ED-11DE-BA8C-A68E55D89593" Path="NppShell.dll" ThreadingModel="STA"/>
             </com:SurrogateServer>
           </com:ComServer>
         </com:Extension>

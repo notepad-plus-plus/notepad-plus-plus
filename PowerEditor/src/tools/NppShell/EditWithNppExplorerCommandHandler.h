@@ -5,13 +5,17 @@
 
 namespace NppShell::CommandHandlers
 {
-    class EditWithNppExplorerCommandHandler : public ExplorerCommandBase
+#ifdef WIN64
+    class __declspec(uuid("B298D29A-A6ED-11DE-BA8C-A68E55D89593")) EditWithNppExplorerCommandHandler : public ExplorerCommandBase
+#else
+    class __declspec(uuid("00F3C2EC-A6EE-11DE-A03A-EF8F55D89593")) EditWithNppExplorerCommandHandler : public ExplorerCommandBase
+#endif
     {
     public:
         const wstring Title() override;
         const wstring Icon() override;
 
-        IFACEMETHODIMP Invoke(_In_opt_ IShellItemArray* selection, _In_opt_ IBindCtx*) noexcept override;
+        IFACEMETHODIMP Invoke(IShellItemArray* psiItemArray, IBindCtx* pbc) noexcept override;
 
     private:
         const wstring GetNppExecutableFullPath();

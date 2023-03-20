@@ -1,6 +1,7 @@
 LIBRARY
 EXPORTS
-DllCanUnloadNow           PRIVATE
-DllGetClassObject         PRIVATE
-RegisterSparsePackage
-UnregisterSparsePackage
+DllMain                    PRIVATE
+DllCanUnloadNow            PRIVATE
+DllGetClassObject          PRIVATE
+DllRegisterServer          PRIVATE
+DllUnregisterServer        PRIVATE

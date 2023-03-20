@@ -5,6 +5,12 @@
 
 namespace NppShell::Installer
 {
-    STDAPI RegisterSparsePackage();
-    STDAPI UnregisterSparsePackage();
+    HRESULT RegisterOldContextMenu();
+    HRESULT UnregisterOldContextMenu();
+
+    HRESULT RegisterSparsePackage();
+    HRESULT UnregisterSparsePackage();
+
+    HRESULT Install();
+    HRESULT Uninstall();
 }

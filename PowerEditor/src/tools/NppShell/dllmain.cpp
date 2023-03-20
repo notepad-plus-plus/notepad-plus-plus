@@ -1,17 +1,23 @@
 #include "pch.h"
 
-#include "CommandHandlerFactory.h"
+#include "Installer.h"
+#include "SimpleFactory.h"
+#include "EditWithNppExplorerCommandHandler.h"
 
+using namespace NppShell::CommandHandlers;
 using namespace NppShell::Factories;
+
+HMODULE thisModule;
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
-    UNREFERENCED_PARAMETER(hModule);
     UNREFERENCED_PARAMETER(lpReserved);
 
     switch (ul_reason_for_call)
     {
         case DLL_PROCESS_ATTACH:
+            thisModule = hModule;
+            break;
         case DLL_THREAD_ATTACH:
         case DLL_THREAD_DETACH:
         case DLL_PROCESS_DETACH:
@@ -21,6 +27,16 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
     return TRUE;
 }
 
+STDAPI DllRegisterServer()
+{
+    return NppShell::Installer::Install();
+}
+
+STDAPI DllUnregisterServer()
+{
+    return NppShell::Installer::Uninstall();
+}
+
 __control_entrypoint(DllExport)
 STDAPI DllCanUnloadNow(void)
 {
@@ -28,35 +44,26 @@ STDAPI DllCanUnloadNow(void)
     {
         return S_FALSE;
     }
-
-    winrt::clear_factory_cache();
-    return S_OK;
+    else
+    {
+        return S_OK;
+    }
 }
 
-_Check_return_
-STDAPI DllGetClassObject(_In_ REFCLSID rclsid, _In_ REFIID riid, _Outptr_ LPVOID FAR* ppv)
+_Use_decl_annotations_ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv) try
 {
-    if (!ppv)
-    {
-        return E_POINTER;
-    }
+    *ppv = nullptr;
 
-    if (riid != IID_IClassFactory && riid != IID_IUnknown)
+    if (rclsid == __uuidof(EditWithNppExplorerCommandHandler))
     {
-        return E_NOINTERFACE;
+        return winrt::make<SimpleFactory<EditWithNppExplorerCommandHandler>>().as(riid, ppv);
     }
-
-    if (rclsid != __uuidof(CommandHandlerFactory))
+    else
     {
-        return E_INVALIDARG;
+        return CLASS_E_CLASSNOTAVAILABLE;
     }
-
-    try
-    {
-        return winrt::make<CommandHandlerFactory>()->QueryInterface(riid, ppv);
-    }
-    catch (...)
-    {
-        return winrt::to_hresult();
-    }
+}
+catch (...)
+{
+    return winrt::to_hresult();
 }

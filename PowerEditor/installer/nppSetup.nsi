@@ -283,13 +283,13 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 		
 		; Install the new Windows 11 "Edit with Notepad++" menu entry
 		!ifdef ARCHARM64
-			File /oname=$INSTDIR\NppModernShell.msix "..\binarm64\NppModernShell.msix"
-			File /oname=$INSTDIR\NppModernShell.dll "..\binarm64\NppModernShell.dll"
+			File /oname=$INSTDIR\NppShell.msix "..\binarm64\NppShell.msix"
+			File /oname=$INSTDIR\NppShell.dll "..\binarm64\NppShell.dll"
 		!else ; !ifdef ARCH64
-			File /oname=$INSTDIR\NppModernShell.msix "..\bin64\NppModernShell.msix"
-			File /oname=$INSTDIR\NppModernShell.dll "..\bin64\NppModernShell.dll"
+			File /oname=$INSTDIR\NppShell.msix "..\bin64\NppShell.msix"
+			File /oname=$INSTDIR\NppShell.dll "..\bin64\NppShell.dll"
 		!endif
-		Exec 'rundll32.exe "$INSTDIR\NppModernShell.dll",RegisterSparsePackage'
+		Exec 'rundll32.exe "$INSTDIR\NppShell.dll",RegisterSparsePackage'
 
 		; Make sure old NppShell dll's are unregistered and removed
 		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'

@@ -72,9 +72,9 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
 	
-	Exec 'rundll32.exe "$INSTDIR\NppModernShell.dll",UnregisterSparsePackage'
-	;Delete "$INSTDIR\NppModernShell.dll"
-	;Delete "$INSTDIR\NppModernShell.msix"
+	Exec 'rundll32.exe "$INSTDIR\NppShell.dll",UnregisterSparsePackage'
+	;Delete "$INSTDIR\NppShell.dll"
+	;Delete "$INSTDIR\NppShell.msix"
 	
  	ReadRegStr $muiVerbStrUn HKLM "SOFTWARE\Classes\*\shell\pintohome" MUIVerb
 	${UnStrStr} $nppSubStrUn $muiVerbStrUn "Notepad++"
@@ -307,8 +307,8 @@ Section Uninstall
 	
 	; In order to not delete context menu binary before we unregistered it,
 	; we delete them at the end
-	Delete "$INSTDIR\NppModernShell.dll"
-	Delete "$INSTDIR\NppModernShell.msix"
+	Delete "$INSTDIR\NppShell.dll"
+	Delete "$INSTDIR\NppShell.msix"
 	
 	
 	; Remove remaining directories

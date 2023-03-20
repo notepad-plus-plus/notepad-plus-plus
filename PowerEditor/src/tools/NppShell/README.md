@@ -8,8 +8,8 @@ Doing this requires two new things.
 
 To build this, the following steps needs to be taken:
 
-1. Build a Release dll file (NppModernShell.dll)
-2. Generate a Sparse Package (NppModernShell.msix)
+1. Build a Release dll file (NppShell.dll)
+2. Generate a Sparse Package (NppShell.msix)
 3. Sign both of these with signtool.exe
 4. Make sure they are included in the installer, so they are deployed next to the notepad++.exe program.
 5. The installer should, upon installation, install the package.
@@ -22,28 +22,28 @@ To be able to build this project, the following is needed:
 * [Visual Studio 2022](https://visualstudio.microsoft.com/vs)
 * [Windows 11 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk)
 
-## Build a Release dll file (NppModernShell.dll)
-Just open the NppModernShell.sln Visual Studio solution, select Release as the build type, and do a Rebuild of the solution.
+## Build a Release dll file (NppShell.dll)
+Just open the NppShell.sln Visual Studio solution, select Release as the build type, and do a Rebuild of the solution.
 
-## Generate a Sparse Package (NppModernShell.msix)
+## Generate a Sparse Package (NppShell.msix)
 To generate a Sparse Package, you need to have the makeappx.exe tool in your PATH, the easiest way to do this is to run the `Developer Command Prompt for VS 2022` command prompt, since it sets up the path.
-Once inside the NppModernShell folder, run the following command to generate the Sparse Package:
+Once inside the NppShell folder, run the following command to generate the Sparse Package:
 ```
-makeappx pack /d .\Packaging /p .\NppModernShell.msix /nv
+makeappx pack /d .\Packaging /p .\NppShell.msix /nv
 ```
 This takes the content of the Packaging directory, and packages them up into the msix file.
 
 ## Sign both of these with signtool.exe
-Now we have both the `NppModernShell.dll` and `NppModernShell.msix` files, we need to sign them with a valid certificate.
-To do this, once again run the `Developer Command Prompt for VS 2022` command prompt and change to the NppModernShell folder.
+Now we have both the `NppShell.dll` and `NppShell.msix` files, we need to sign them with a valid certificate.
+To do this, once again run the `Developer Command Prompt for VS 2022` command prompt and change to the NppShell folder.
 The following command expects the following:
 * The pfx certificate is called MyCert.pfx
 * The password for the pfx certificate is: `Test1234`
 
 Make the needed changes to match the real certificate.
 ```
-SignTool.exe sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f .\MyCert.pfx /p Test1234 /d "Notepad++" /du https://notepad-plus-plus.org/ NppModernShell.msix
-SignTool.exe sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f .\MyCert.pfx /p Test1234 /d "Notepad++" /du https://notepad-plus-plus.org/ x64\Release\NppModernShell.dll
+SignTool.exe sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f .\MyCert.pfx /p Test1234 /d "Notepad++" /du https://notepad-plus-plus.org/ NppShell.msix
+SignTool.exe sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f .\MyCert.pfx /p Test1234 /d "Notepad++" /du https://notepad-plus-plus.org/ x64\Release\NppShell.dll
 ```
 Now both files has been signed, and can be used.
 
@@ -54,7 +54,7 @@ They need to be there, since the DLL is looking for notepad++.exe in the same di
 ## The installer should, upon installation, install the package.
 When the installer is running, after all the files has been copied into the program files directory, the follow command should be be run to run the register function to register the package:
 ```
-rundll32.exe .\NppModernShell.dll,RegisterSparsePackage
+rundll32.exe .\NppShell.dll,RegisterSparsePackage
 ```
 
 Remember to wait for the rundll32 process to exit before continuing.
@@ -62,7 +62,7 @@ Remember to wait for the rundll32 process to exit before continuing.
 ## The installer should, upon uninstallation, uninstall the package.
 When the uninstaller is running, it should run this command to unregister the package:
 ```
-rundll32.exe .\NppModernShell.dll,UnregisterSparsePackage
+rundll32.exe .\NppShell.dll,UnregisterSparsePackage
 ```
 
 Here we need to wait for rundll32 to finish, since if it isn't finished, the dll file will be locked by explorer.

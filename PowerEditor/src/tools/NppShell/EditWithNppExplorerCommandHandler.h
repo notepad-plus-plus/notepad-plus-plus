@@ -3,7 +3,7 @@
 
 #include "ExplorerCommandBase.h"
 
-namespace NppModernShell::CommandHandlers
+namespace NppShell::CommandHandlers
 {
     class EditWithNppExplorerCommandHandler : public ExplorerCommandBase
     {

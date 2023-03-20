@@ -3,8 +3,8 @@
 
 #include "EditWithNppExplorerCommandHandler.h"
 
-using namespace NppModernShell::CommandHandlers;
-using namespace NppModernShell::Factories;
+using namespace NppShell::CommandHandlers;
+using namespace NppShell::Factories;
 
 IFACEMETHODIMP CommandHandlerFactory::CreateInstance(_In_opt_ IUnknown* pUnkOuter, _In_ REFIID riid, _COM_Outptr_ void** ppvObject) noexcept
 {

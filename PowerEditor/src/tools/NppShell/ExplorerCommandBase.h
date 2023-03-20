@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 
-namespace NppModernShell::CommandHandlers
+namespace NppShell::CommandHandlers
 {
     class ExplorerCommandBase : public winrt::implements<ExplorerCommandBase, IExplorerCommand>
     {

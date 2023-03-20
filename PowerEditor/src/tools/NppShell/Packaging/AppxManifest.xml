@@ -40,7 +40,7 @@
         <com:Extension Category="windows.comServer">
           <com:ComServer>
             <com:SurrogateServer DisplayName="Notepad++ Shell Extension">
-              <com:Class Id="4EACAA14-3B43-4595-A44C-FBA8F0848620" Path="NppModernShell.dll" ThreadingModel="STA"/>
+              <com:Class Id="4EACAA14-3B43-4595-A44C-FBA8F0848620" Path="NppShell.dll" ThreadingModel="STA"/>
             </com:SurrogateServer>
           </com:ComServer>
         </com:Extension>

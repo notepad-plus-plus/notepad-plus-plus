@@ -40,13 +40,13 @@ If ErrorLevel 1 goto End
 %signArmBinary% ..\binarm64\NppShell64.dll
 If ErrorLevel 1 goto End
 
-%signBinary% ..\bin64\NppModernShell.msix
+%signBinary% ..\bin64\NppShell.msix
 If ErrorLevel 1 goto End
-%signBinary% ..\bin64\NppModernShell.dll
+%signBinary% ..\bin64\NppShell.dll
 If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\NppModernShell.msix
+%signBinary% ..\binarm64\NppShell.msix
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\NppModernShell.dll
+%signArmBinary% ..\binarm64\NppShell.dll
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\plugins\Config\nppPluginList.dll

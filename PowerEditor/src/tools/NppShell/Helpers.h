@@ -3,7 +3,7 @@
 
 #include <filesystem>
 
-namespace NppModernShell::Helpers
+namespace NppShell::Helpers
 {
     const wstring GetInstallationPath();
 }

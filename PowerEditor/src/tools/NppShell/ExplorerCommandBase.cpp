@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ExplorerCommandBase.h"
 
-using namespace NppModernShell::CommandHandlers;
+using namespace NppShell::CommandHandlers;
 
 const EXPCMDFLAGS ExplorerCommandBase::Flags()
 {

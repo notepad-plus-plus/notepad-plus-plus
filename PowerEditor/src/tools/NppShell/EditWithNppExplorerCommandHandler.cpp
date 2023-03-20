@@ -3,8 +3,8 @@
 
 #include "Helpers.h"
 
-using namespace NppModernShell::CommandHandlers;
-using namespace NppModernShell::Helpers;
+using namespace NppShell::CommandHandlers;
+using namespace NppShell::Helpers;
 
 const wstring EditWithNppExplorerCommandHandler::GetNppExecutableFullPath()
 {

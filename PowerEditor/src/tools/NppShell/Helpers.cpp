@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Helpers.h"
 
-using namespace NppModernShell::Helpers;
+using namespace NppShell::Helpers;
 
 const HMODULE GetThisModule()
 {
@@ -17,7 +17,7 @@ const HMODULE GetThisModule()
     return hm;
 }
 
-const wstring NppModernShell::Helpers::GetInstallationPath()
+const wstring NppShell::Helpers::GetInstallationPath()
 {
     HMODULE thisModule = GetThisModule();
 

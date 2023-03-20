@@ -6,18 +6,18 @@ using namespace winrt::Windows::Foundation;
 using namespace winrt::Windows::Foundation::Collections;
 using namespace winrt::Windows::Management::Deployment;
 
-using namespace NppModernShell::Helpers;
-using namespace NppModernShell::Installer;
+using namespace NppShell::Helpers;
+using namespace NppShell::Installer;
 
 const wstring SparsePackageName = L"NotepadPlusPlus";
 
-STDAPI NppModernShell::Installer::RegisterSparsePackage()
+STDAPI NppShell::Installer::RegisterSparsePackage()
 {
     PackageManager packageManager;
     AddPackageOptions options;
 
     const wstring externalLocation = GetInstallationPath();
-    const wstring sparsePkgPath = externalLocation + L"\\NppModernShell.msix";
+    const wstring sparsePkgPath = externalLocation + L"\\NppShell.msix";
 
     Uri externalUri(externalLocation);
     Uri packageUri(sparsePkgPath);
@@ -35,7 +35,7 @@ STDAPI NppModernShell::Installer::RegisterSparsePackage()
     return S_OK;
 }
 
-STDAPI NppModernShell::Installer::UnregisterSparsePackage()
+STDAPI NppShell::Installer::UnregisterSparsePackage()
 {
     PackageManager packageManager;
     IIterable<Package> packages;

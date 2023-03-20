@@ -3,7 +3,7 @@
 
 #include "Helpers.h"
 
-namespace NppModernShell::Installer
+namespace NppShell::Installer
 {
     STDAPI RegisterSparsePackage();
     STDAPI UnregisterSparsePackage();

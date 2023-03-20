@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NppModernShell", "NppModernShell.vcxproj", "{E7539F55-2932-47D0-82B8-46ED5AFCA1C0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NppShell", "NppShell.vcxproj", "{E7539F55-2932-47D0-82B8-46ED5AFCA1C0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{B9E2DBFF-8940-482F-9D07-BA9C4EAE7620}"
 	ProjectSection(SolutionItems) = preProject

@@ -49,7 +49,7 @@ public :
 
 	void redrawDlgItem(const int nIDDlgItem, bool forceUpdate = false) const;
 
-	void goToCenter();
+	void goToCenter(UINT swpFlags = SWP_SHOWWINDOW);
 
 	void display(bool toShow = true, bool enhancedPositioningCheckWhenShowing = false) const;
 

@@ -282,7 +282,7 @@ FindReplaceDlg::~FindReplaceDlg()
 	delete[] _uniFileName;
 }
 
-void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
+void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool toShow)
 {
 	StaticDialog::create(dialogID, isRTL, msgDestParent);
 	fillFindHistory();
@@ -294,7 +294,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 
-	RECT rect;
+	RECT rect{};
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
@@ -325,25 +325,29 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_initialWindowRect.bottom = _initialWindowRect.bottom - _initialWindowRect.top;
 	_initialWindowRect.top = 0;
 
-	RECT dlgRc = {};
+	RECT dlgRc{};
 	getWindowRect(dlgRc);
 
-	RECT countRc = {};
+	RECT countRc{};
 	::GetWindowRect(::GetDlgItem(_hSelf, IDCCOUNTALL), &countRc);
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
+
+	const UINT swpFlags = toShow ? SWP_SHOWWINDOW : SWP_HIDEWINDOW;
 	if (nppGUI._findWindowPos.bottom - nppGUI._findWindowPos.top != 0)  // check height against 0 as a test of valid data from config
 	{
 		RECT rc = getViewablePositionRect(nppGUI._findWindowPos);
-		::SetWindowPos(_hSelf, HWND_TOP, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, SWP_SHOWWINDOW);
+		::SetWindowPos(_hSelf, HWND_TOP, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, swpFlags);
 	}
 	else
 	{
-		goToCenter();
+		goToCenter(swpFlags);
 	}
 
-	_lesssModeHeight = countRc.bottom - dlgRc.top + _statusBar.getHeight() + dpiManager.scaleY(10);
+	RECT rcStatusBar{};
+	::GetClientRect(_statusBar.getHSelf(), &rcStatusBar);
+	_lesssModeHeight = (countRc.bottom - dlgRc.top) + (rcStatusBar.bottom - rcStatusBar.top) + dpiManager.scaleY(10);
 
 	if (nppGUI._findWindowLessMode)
 	{
@@ -4095,7 +4099,7 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 	if (!isCreated())
 	{
 		_isRTL = isRTL;
-		create(IDD_FIND_REPLACE_DLG, isRTL);
+		create(IDD_FIND_REPLACE_DLG, isRTL, true, toShow);
 	}
 
 	if (whichType == FINDINFILES_DLG)
@@ -4107,7 +4111,7 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 	else
 		enableReplaceFunc(whichType == REPLACE_DLG);
 
-	::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
+	::SetFocus(toShow ? ::GetDlgItem(_hSelf, IDFINDWHAT) : (*_ppEditView)->getHSelf());
 	display(toShow, true);
 }
 

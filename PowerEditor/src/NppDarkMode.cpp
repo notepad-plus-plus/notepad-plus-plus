@@ -1805,8 +1805,13 @@ namespace NppDarkMode
 						::DrawText(hdc, buffer, -1, &rcText, DT_NOPREFIX | DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 						delete[] buffer;
 					}
+
+					if (hasFocus && ::SendMessage(hWnd, CB_GETDROPPEDSTATE, 0, 0) == FALSE)
+					{
+						::DrawFocusRect(hdc, &rcTextBg);
+					}
 				}
-				else if ((style & CBS_DROPDOWN) == CBS_DROPDOWN && hwndEdit != NULL)
+				else if ((style & CBS_DROPDOWN) == CBS_DROPDOWN && hwndEdit != nullptr)
 				{
 					hasFocus = ::GetFocus() == hwndEdit;
 				}

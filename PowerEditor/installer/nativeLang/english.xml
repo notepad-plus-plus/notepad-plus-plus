@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="8.5">
+    <Native-Langue name="English" filename="english.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -385,8 +385,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="11009" name="Size Larger to Smaller"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Close"/>
                 <Item CMDID="0" name="Close Multiple Tabs"/>
@@ -424,6 +422,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID="44115" name="Apply Color 5"/>
                 <Item CMDID="44110" name="Remove Color"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Activate"/>
+                <Item id="43102" name="New"/>
+                <Item id="43103" name="New and Paste"/>
+                <Item id="43104" name="Open..."/>
+                <Item id="43013" name="Find in Files..."/>
+                <Item id="43105" name="Close Tray Icon"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -469,6 +475,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Find Next"/>
                 <Item id="1725" name="Copy Marked Text"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Swap Find with Replace"/>
+                    <Item id="1727" name="⤵ Copy from Find to Replace"/>
+                    <Item id="1728" name="⤴ Copy from Replace to Find"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -1109,7 +1120,7 @@ You can define several column markers by using white space to separate the diffe
 
                 <RecentFilesHistory title="Recent Files History">
                     <Item id="6304" name="Recent Files History"/>
-                    <Item id="6306" name="Max. number of entries :"/>
+                    <Item id="6306" name="Max. number of entries:"/>
                     <Item id="6305" name="Don't check at launch time"/>
                     <Item id="6429" name="Display"/>
                     <Item id="6424" name="In Submenu"/>
@@ -1470,7 +1481,7 @@ Do you want to save your changes before switching themes?"/> <!-- HowToReproduce
             <ExpandAllFoldersTip name="Unfold all"/>
             <CollapseAllFoldersTip name="Fold all"/>
             <LocateCurrentFileTip name="Locate current file"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Remove"/>
                 <Item id="3512" name="Remove All"/>
                 <Item id="3513" name="Add"/>
@@ -1481,7 +1492,7 @@ Do you want to save your changes before switching themes?"/> <!-- HowToReproduce
                 <Item id="3518" name="Explorer here"/>
                 <Item id="3519" name="CMD here"/>
                 <Item id="3520" name="Copy file name"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Project"/>
@@ -1611,12 +1622,9 @@ Find in all files but exclude all folders log or logs recursively:
             <tabrename-newname value="New Name: "/>
             <splitter-rotate-left value="Rotate to left"/>
             <splitter-rotate-right value="Rotate to right"/>
-            <recent-file-history-maxfile value="Max File: "/>
-            <recent-file-history-customlength value="Length: "/>
             <userdefined-title-new value="Create New Language..."/>
             <userdefined-title-save value="Save Current Language Name As..."/>
             <userdefined-title-rename value="Rename Current Language Name"/>
-            <edit-verticaledge-nb-col value="Nb of Column:"/>
             <summary value="Summary"/>
             <summary-filepath value="Full file path: "/>
             <summary-filecreatetime value="Created: "/>

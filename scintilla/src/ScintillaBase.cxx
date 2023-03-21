@@ -83,7 +83,7 @@ void ScintillaBase::InsertCharacter(std::string_view sv, CharacterSource charSou
 	if (!isFillUp) {
 		Editor::InsertCharacter(sv, charSource);
 	}
-	if (acActive) {
+	if (acActive && ac.Active()) { // if it was and still is active
 		AutoCompleteCharacterAdded(sv[0]);
 		// For fill ups add the character after the autocompletion has
 		// triggered so containers see the key so can display a calltip.
@@ -581,7 +581,6 @@ public:
 	void PropSet(const char *key, const char *val);
 	const char *PropGet(const char *key) const;
 	int PropGetInt(const char *key, int defaultValue=0) const;
-	size_t PropGetExpanded(const char *key, char *result) const;
 
 	LineEndType LineEndTypesSupported() override;
 	int AllocateSubStyles(int styleBase, int numberStyles);
@@ -699,19 +698,6 @@ int LexState::PropGetInt(const char *key, int defaultValue) const {
 		}
 	}
 	return defaultValue;
-}
-
-size_t LexState::PropGetExpanded(const char *key, char *result) const {
-	if (instance) {
-		const char *value = instance->PropertyGet(key);
-		if (value) {
-			if (result) {
-				strcpy(result, value);
-			}
-			return strlen(value);
-		}
-	}
-	return 0;
 }
 
 LineEndType LexState::LineEndTypesSupported() {
@@ -1055,8 +1041,7 @@ sptr_t ScintillaBase::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		return StringResult(lParam, DocumentLexState()->PropGet(ConstCharPtrFromUPtr(wParam)));
 
 	case Message::GetPropertyExpanded:
-		return DocumentLexState()->PropGetExpanded(ConstCharPtrFromUPtr(wParam),
-			CharPtrFromSPtr(lParam));
+		return StringResult(lParam, DocumentLexState()->PropGet(ConstCharPtrFromUPtr(wParam)));
 
 	case Message::GetPropertyInt:
 		return DocumentLexState()->PropGetInt(ConstCharPtrFromUPtr(wParam), static_cast<int>(lParam));

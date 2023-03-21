@@ -1192,7 +1192,7 @@ Continue?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>
             <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Bain"/>
                 <Item id="3512" name="Bain All"/>
                 <Item id="3513" name="Cuir leis"/>
@@ -1203,7 +1203,7 @@ Continue?"/>
                 <Item id="3518" name="Explorer here"/>
                 <Item id="3519" name="Anseo CMD"/>
                 <Item id="3520" name="Cóipeáil ainm an chomhaid"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Tionscadal"/>

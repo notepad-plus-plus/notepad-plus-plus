@@ -50,3 +50,7 @@
  0 400   0   var a = 3
  0 400   0   @onready var b = 3
  1 400   0   
+ 0 400   0   # node-identifier=16
+ 0 400   0   %node
+ 0 400   0   $node
+ 1 400   0   

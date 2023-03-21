@@ -92,7 +92,7 @@ LRESULT CALLBACK DockingSplitter::staticWinProc(HWND hwnd, UINT message, WPARAM 
 	switch (message)
 	{
 		case WM_NCCREATE :
-			pDockingSplitter = reinterpret_cast<DockingSplitter *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
+			pDockingSplitter = static_cast<DockingSplitter *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pDockingSplitter->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pDockingSplitter));
 			return TRUE;

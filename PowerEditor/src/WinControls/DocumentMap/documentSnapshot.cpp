@@ -40,7 +40,7 @@ intptr_t CALLBACK DocumentPeeker::run_dlgProc(UINT message, WPARAM /*wParam*/, L
 	return FALSE;
 }
 
-void DocumentPeeker::doDialog(POINT p, Buffer *pBuf, ScintillaEditView & scintSource)
+void DocumentPeeker::doDialog(POINT p, Buffer *pBuf, const ScintillaEditView & scintSource)
 {
 	if (!isCreated())
 	{
@@ -58,7 +58,7 @@ void DocumentPeeker::goTo(POINT p)
 }
 
 
-void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
+void DocumentPeeker::syncDisplay(Buffer *buf, const ScintillaEditView & scintSource)
 {
 	if (_pPeekerView)
 	{

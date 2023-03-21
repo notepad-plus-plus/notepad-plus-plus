@@ -4,6 +4,8 @@ The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
     History of Corsican translation for Notepad++
+		- Updated on March 12th, 2023 for version 8.5.1 by Patriccollu di Santa Maria è Sichè
+		- Updated on February 24th, 2023 for version 8.5 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 31st, 2022 for version 8.4.9 by Patriccollu di Santa Maria è Sichè
 		- Updated on December 1st, 2022 for version 8.4.8 by Patriccollu di Santa Maria è Sichè
 		- Updated on October 22nd, 2022 for version 8.4.7 by Patriccollu di Santa Maria è Sichè
@@ -41,7 +43,7 @@ The comments are here for explanation, it's not necessary to translate them.
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.4.9">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -150,6 +152,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42006" name="&amp;Squassà"/>
                     <Item id="42007" name="T&amp;uttu selezziunà"/>
                     <Item id="42020" name="Principiu è &amp;fine di a selezzione"/>
+                    <Item id="42089" name="Principiu è fine di a selezzione in modu di culonna"/>
                     <Item id="42084" name="A data è l’ora (corta)"/>
                     <Item id="42085" name="A data è l’ora (longa)"/>
                     <Item id="42086" name="A data è l’ora (furmatu persunalizatu)"/>
@@ -239,7 +242,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43019" name="Cupià e linee indettate"/>
                     <Item id="43020" name="Incullà (per rimpiazzà) e linee indettate"/>
                     <Item id="43021" name="Caccià e linee indettate"/>
-                    <Item id="43051" name="Caccià e linee senza marca"/>
+                    <Item id="43051" name="Caccià e linee senza indetta"/>
                     <Item id="43050" name="Invertisce l’indette"/>
                     <Item id="43052" name="Circà caratteri in &amp;una stesa…"/>
                     <Item id="43053" name="Tuttu selezziunà trà e parentesi chì currisp&amp;ondenu"/>
@@ -302,7 +305,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44022" name="Ritornu autumaticu à a linea"/>
                     <Item id="44023" name="&amp;Ingrandà u testu (Ctrl+rutulella insù)"/>
                     <Item id="44024" name="&amp;Diminuì u testu (Ctrl+rutulella inghjò)"/>
-                    <Item id="44025" name="Affissà i spazii bianchi è e tabulazioni"/>
+                    <Item id="44025" name="Affissà i spazii è e tabulazioni"/>
                     <Item id="44026" name="Affissà i simbuli di fine di linea"/>
                     <Item id="44029" name="Spiegà tutti i livelli"/>
                     <Item id="44030" name="Ripiegà u livellu attuale"/>
@@ -332,6 +335,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Appiecà u culore 3"/>
                     <Item id="44114" name="Appiecà u culore 4"/>
                     <Item id="44115" name="Appiecà u culore 5"/>
+                    <Item id="44130" name="Affissà i caratteri nonstampevule"/>
                     <Item id="44032" name="Attivà o disattivà u modu di screnu sanu"/>
                     <Item id="44033" name="Risturà l’ingrandamentu predefinitu"/>
                     <Item id="44034" name="Sempre in primu pianu"/>
@@ -421,8 +425,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="11009" name="Dimensione da maiò à chjuca"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Chjode"/>
                 <Item CMDID="0" name="Chjode parechje unghjette"/>
@@ -460,6 +462,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID="44115" name="Appiecà u culore 5"/>
                 <Item CMDID="44110" name="Caccià u culore"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Attivà l’appiecazione"/>
+                <Item id="43102" name="Creà un schedariu novu"/>
+                <Item id="43103" name="Incullà in un schedariu novu"/>
+                <Item id="43104" name="Apre un schedariu…"/>
+                <Item id="43013" name="Circà in schedarii…"/>
+                <Item id="43105" name="Chjode l’icona di nutificazione"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -505,6 +515,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Circà a seguente"/>
                 <Item id="1725" name="Cupià u testu marcatu"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Permutà trà Circà è Rimpiazzà"/>
+                    <Item id="1727" name="⤵ Cupià da Circà à Rimpiazzà"/>
+                    <Item id="1728" name="⤴ Cupià da Rimpiazzà à Circà"/>
+                </Menu>
             </Find>
             <IncrementalFind title="">
                 <Item id="1681" name="Circà"/>
@@ -626,6 +641,20 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ScintillaCommandsTab name="Cumande Scintilla"/>
                 <ConflictInfoOk name="Nisunu cunflittu d’accurtatoghju per st’elementu."/>
                 <ConflictInfoEditing name="Nisunu cunflittu . . ."/>
+                <WindowCategory name="Finestra"/>
+                <FileCategory name="Schedariu"/>
+                <EditCategory name="Mudificazione"/>
+                <SearchCategory name="Ricerca"/>
+                <ViewCategory name="Affissera"/>
+                <FormatCategory name="Cudificazione"/>
+                <LangCategory name="Linguaghju"/>
+                <AboutCategory name="Apprupositu"/>
+                <SettingCategory name="Preferenze"/>
+                <ToolCategory name="Attrezzi"/>
+                <ExecuteCategory name="Eseguisce"/>
+                <ModifyContextMenu name="Mudificà"/>
+                <DeleteContextMenu name="Squassà"/>
+                <ClearContextMenu name="Viutà"/>
                 <MainCommandNames>
                     <Item id="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
                     <Item id="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
@@ -742,6 +771,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20011" name="Trasparenza"/>
                 <Item id="20015" name="Impurtà…"/>
                 <Item id="20016" name="Espurtà…"/>
+                <Item id="20017" name="Staccà"/>
                 <StylerDialog title="Dialogu di u stilu">
                     <Item id="25030" name="Ozzioni di grafia :"/>
                     <Item id="25006" name="Culore di primu pianu"/>
@@ -959,6 +989,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Predefinitu"/>
                     <Item id="6249" name="Testu in chjaru"/>
                     <Item id="6250" name="Culore persunalizatu"/>
+                    <Item id="6252" name="Caratteri nonstampevule"/>
+                    <Item id="6254" name="Abbreviamentu"/>
+                    <Item id="6255" name="Puntu di codice"/>
+                    <Item id="6256" name="Culore persunalizatu"/>
                 </Scintillas>
 
                 <DarkMode title="Modu scuru">
@@ -1123,8 +1157,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 
                 <RecentFilesHistory title="Schedarii recenti">
                     <Item id="6304" name="Cronolugia di i schedarii recenti"/>
-                    <Item id="6306" name="Numeru massimu d’elementi :"/>
-                    <Item id="6305" name="Ùn verificà micca à l’avviu"/>
+                    <Item id="6305" name="Ùn verificà micca à u lanciu"/>
                     <Item id="6429" name="Affissera"/>
                     <Item id="6424" name="In sottulistinu"/>
                     <Item id="6425" name="Nome di schedariu solu"/>
@@ -1138,7 +1171,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6819" name="Salvaguardia ogni :"/>
                     <Item id="6821" name="seconde"/>
                     <Item id="6822" name="Chjassu :"/>
-                    <Item id="6309" name="Arricurdassi di a sessione currente per u prossimu avviu"/>
+                    <Item id="6309" name="Arricurdassi di a sessione currente per u prossimu lanciu"/>
                     <Item id="6801" name="Salvaguardia à l’arregistramentu"/>
                     <Item id="6315" name="Alcuna"/>
                     <Item id="6316" name="Salvaguardia simplice"/>
@@ -1160,7 +1193,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6824" name="Ignurà i numeri"/>
                     <Item id="6811" name="Da u"/>
                     <Item id="6813" name="u caratteru"/>
-                    <Item id="6814" name="Valori accettati : 1 - 9"/>
+                    <Item id="6872" name="Accurtà a lista d’empiimentu autumaticu"/>
                     <Item id="6815" name="Sugerisce i parametri di funzione à l’entrata"/>
                     <Item id="6851" name="Inserzione autumatica"/>
                     <Item id="6857" name=" Chjusura html/xml"/>
@@ -1326,7 +1359,8 @@ Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
                 <Item id="4" name="Sempre sì"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Mudificazione di u listinu cuntestuale" message="A mudificazione di contextMenu.xml vi permette di cambià l’ozzioni di u listinu cuntestuale di Notepad++.
 Ci vole à rilancià Notepad++ per piglià in contu e mudificazioni di contextMenu.xml."/>
             <SaveCurrentModifWarning title="Arregistrà a mudificazione currente" message="Ci vuleria à arregistrà e mudificazioni currente.
@@ -1350,12 +1384,22 @@ Da veru, vulete apreli ?"/> <!-- HowToReproduce: Check "Open all files of folde
 lettura sola, o in un cartulare chì richiede diritti d’accessu di scrittura.
 E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>
             <FilePathNotFoundWarning title="Apertura di schedariu" message="U schedariu chì voi pruvate d’apre ùn esiste micca."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <SessionFileInvalidError title="Ùn pò micca caricà una sessione" message="U schedariu di sessione hè sia alteratu, sia micca accettevule."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+            <SessionFileInvalidError title="Ùn si pò micca caricà una sessione" message="U schedariu di sessione hè sia alteratu, sia inaccettevule."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
             <DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum’è spaziu di travagliu.
 Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu » in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
             <SortingError title="Sbagliu di classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Minichichja di modu culonna" message="Ci vole à impiegà « ALT+selez. cù topu » o « Alt+Maiusc+fleccia » per passà à u modu culonna."/>
-            <BufferInvalidWarning title="Arregistramentu fiascatu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ColumnModeTip title="Minichichja di modu culonna" message="
+Ci hè 3 manere di passà à u modu di selezzione da a culonna :
+1. (Tastera è topu)  Mantene u tastu Alt quandu si trascineghja cù un cliccu mancu
+2. (Tastera solu)  Mantene i tasti Alt+Maius quandu s’impiegheghja e fleccie
+3. (Tastera o topu)
+      Piazzà a barra d’inserzione à u locu di principiu sceltu per
+	   a pusizione di u bloccu di culonna, eppò lancià a cumanda
+       « Principiu è fine di a selezzione in modu di culonna » ;
+      Dispiazzà a barra d’inserzione à u locu di fine sceltu per
+	   a pusizione di u bloccu di culonna, eppò lancià a cumanda
+       « Principiu è fine di a selezzione in modu di culonna »"/>
+            <BufferInvalidWarning title="Arregistramentu fiascatu" message="Ùn si pò micca arregistrà : U stampone hè inaccetevule."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
 Cunservà stu schedariu in l’editore ?"/>
             <DoDeleteOrNot title="Squassà u schedariu" message="U schedariu « $STR_REPLACE$ »
@@ -1383,8 +1427,10 @@ Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?
             <WantToOpenHugeFile title="Avertimentu d’apertura di schedariu maiò" message="L’apertura d’un schedariu più maiò chè 2 Go pò piglià parechji minuti.
 Vulete aprelu ?"/>
             <CreateNewFileOrNot title="Creà un novu schedariu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>
-            <CreateNewFileError title="Creà un novu schedariu" message="Ùn pò micca creà u schedariu « $STR_REPLACE$ »."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <OpenFileError title="SBAGLIU" message="Ùn pò micca apre u schedariu « $STR_REPLACE$ »."/>
+            <CreateNewFileError title="Creà un novu schedariu" message="Ùn si pò micca creà u schedariu « $STR_REPLACE$ »."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <OpenFileError title="SBAGLIU" message="Ùn si pò micca apre u schedariu « $STR_REPLACE$ »."/>
+            <OpenFileNoFolderError title="Ùn si pò micca apre u schedariu" message="« $STR_REPLACE1$ » ùn pò micca esse apertu :
+U cartulare « $STR_REPLACE2$ » ùn esiste micca."/>
             <FileBackupFailed title="Fiascu di salvaguardia di schedariu" message="A versione precedente di u schedariu ùn pò micca esse arregistrata in u cartulare di salvaguardia : « $STR_REPLACE$ ».
 
 Vulete arregistrà u schedariu attuale quantunque ?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1405,7 +1451,7 @@ Pare chì u schedariu à apre ùn hè micca un schedariu di prughjettu accettevu
             <ProjectPanelRemoveFolderFromProject title="Caccià u cartulare da u prughjettu" message="Tutti i sottu-elementi seranu cacciati.
 Da veru, vulete caccià stu cartulare da u prughjettu ?"/>
             <ProjectPanelRemoveFileFromProject title="Caccià u schedariu da u prughjettu" message="Da veru, vulete caccià stu schedariu da u prughjettu ?"/>
-            <ProjectPanelReloadError title="Ricaricà u spaziu di travagliu" message="Ùn pò micca truvà u schedariu à ricaricà."/>
+            <ProjectPanelReloadError title="Ricaricà u spaziu di travagliu" message="Ùn si pò micca truvà u schedariu à ricaricà."/>
             <ProjectPanelReloadDirty title="Ricaricà u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Un ricaricamentu scarterà tutte e mudificazioni.
 Vulete cuntinuà ?"/>
             <UDLNewNameError title="Sbagliu UDL" message="Stu nome hè impiegatu da un altru linguaghju,
@@ -1425,6 +1471,9 @@ Cuntinuà ?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per permette l’affissera di a cronolugia di i cambiamenti."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
             <WindowsSessionExit title="Notepad++ - Fine di a sessione Windows" message="A sessione Windows stà per piantassi ma ci hè qualchì datu chì ùn hè micca arregistratu. Vulete esce di Notepad++ subitu ?"/>
+            <LanguageMenuCompactWarning title="Cumpattà l’affissera di u listinu" message="St’ozzione serà cambiata à u prossimu lanciu."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="I cambiamenti micca arregistrati stanu per esse squassati !
+Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1434,6 +1483,7 @@ Cuntinuà ?"/>
             <ColumnName name="Nome"/>
             <ColumnExt name="Est."/>
             <ColumnPath name="Chjassu"/>
+            <ListGroups name="Gruppà da vista"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Nome"/>
@@ -1468,7 +1518,7 @@ Cuntinuà ?"/>
             <ExpandAllFoldersTip name="Spiegà tutti i cartulari"/>
             <CollapseAllFoldersTip name="Ripiegà tutti i cartulari"/>
             <LocateCurrentFileTip name="Lucalizà u schedariu currente"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Caccià"/>
                 <Item id="3512" name="Caccialli tutti"/>
                 <Item id="3513" name="Aghjunghje"/>
@@ -1479,7 +1529,7 @@ Cuntinuà ?"/>
                 <Item id="3518" name="Espluratore quì"/>
                 <Item id="3519" name="CMD quì"/>
                 <Item id="3520" name="Cupià u nome di schedariu"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Prughjettu"/>
@@ -1529,7 +1579,7 @@ Cuntinuà ?"/>
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="Què permette d’include caratteri addiziunali in i caratteri di parolle currente quandu ci hè un doppiu cliccu per selezziunà o una ricerca cù l’ozzione « Parolla sana deve currisponde » selezziunata."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1609,14 +1659,9 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <tabrename-newname value="Novu nome : "/>
             <splitter-rotate-left value="Girà à manca"/>
             <splitter-rotate-right value="Girà à diritta"/>
-            <recent-file-history-maxfile value="Numeru : "/>
-            <recent-file-history-customlength value="Longhezza : "/>
-            <language-tabsize value="Dimens. tabul. : "/>
             <userdefined-title-new value="Creà un novu linguaghju…"/>
             <userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
             <userdefined-title-rename value="Rinuminà u linguaghju attuale"/>
-            <autocomplete-nb-char value="N° carat. : "/>
-            <edit-verticaledge-nb-col value="N° di culonne :"/>
             <summary value="Statistiche"/>
             <summary-filepath value="Chjassu d’accessu : "/>
             <summary-filecreatetime value="Data di creazione : "/>
@@ -1628,6 +1673,8 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
             <summary-nbsel1 value=" caratteri selezziunati ("/>
             <summary-nbsel2 value=" ottetti) in "/>
             <summary-nbrange value=" selezzioni"/>
+            <progress-cancel-button value="Abbandunà"/>
+            <progress-cancel-info value="Abbandonu di l’operazione, aspittate per piacè…"/>
             <find-in-files-progress-title value="Prugressione di a ricerca in i schedarii…"/>
             <replace-in-files-confirm-title value="Cunfirmazione"/>
             <replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>
@@ -1661,6 +1708,25 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 NOTA :
 1. Per funziunà bè, a mudificazione di quelle ozzioni richiede d’apre torna i schedarii tamanti chì sò dighjà aperti.
 2. S’è l’ozzione « Disattivà di manera glubale u ritornu autumaticu à a linea » hè attiva è chì un schedariu tamantu hè apertu, tandu u ritornu autumaticu à a linea serà disattivatu per tutti i schedarii. Pudete attivallu torna via l’ozzione di listinu Affissera > Ritornu autumaticu à a linea." />
+            <npcNote-tip value="Riprisentanza di i spazii bianchi « nonASCII » selezziunati è di i caratteri (di cuntrollu) nonstampevule.
+NOTA :
+Certi caratteri ponu avè dighjà una riprisentanza è dunque esse videvule. A predefinizione per u separadore di linea è quellu di paragrafu hè di riprisentallu da un abbreviamentu.
+Impiegà a riprisentanza disattiverà l’effetti nant’à i caratteri in u testu.
+Per ottene a lista sana di i spazii bianchi selezziunati è di i caratteri nonstampevule, fighjate u Manuale di l’utilizatore.
+Impiegà stu buttone per apre u manuale di l’utilizatore nant’à u situ web." />
+            <npcAbbreviation-tip value="Abbreviamentu : nome
+NBSP : spaziu nonspezzevule
+ZWSP : spaziu di larghezza nulla
+ZWNBSP : spaziu nonspezzevule di larghezza nulla
+Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
+Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web." />
+            <npcCodepoint-tip value="Puntu di codice : nome
+U+00A0 : spaziu nonspezzevule
+U+200B : spaziu di larghezza nulla
+U+FEFF : spaziu nonspezzevule di larghezza nulla
+Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
+Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web." />
+            <npcCustomColor-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)." /> <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

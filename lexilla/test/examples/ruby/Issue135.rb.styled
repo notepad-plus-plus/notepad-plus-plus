@@ -1,0 +1,9 @@
+{11}a{0} {10}={0} {10}<<{20}XXX{0} {2}# :nodoc:{22}
+heredoc
+{20}XXX{0}
+
+{11}puts{10}(<<{20}-ONE{10},{0} {10}<<{20}-TWO{10}){22}
+content for heredoc one
+ONE
+content for heredoc two
+{20}TWO{0}

@@ -1429,7 +1429,7 @@ Devam edilsin mi?"/>
             <ExpandAllFoldersTip name="Tümünü Aç"/>
             <CollapseAllFoldersTip name="Tümünü Katla"/>
             <LocateCurrentFileTip name="Şu Anki Dosyayı Bul"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Kaldır"/>
                 <Item id="3512" name="Tümünü Kaldır"/>
                 <Item id="3513" name="Ekle"/>
@@ -1440,7 +1440,7 @@ Devam edilsin mi?"/>
                 <Item id="3518" name="Gezginde Göster"/>
                 <Item id="3519" name="Komut Satırında Aç"/>
                 <Item id="3520" name="Dosya Adını Kopyala"/>
-            </Menus>
+            </Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Proje"/>

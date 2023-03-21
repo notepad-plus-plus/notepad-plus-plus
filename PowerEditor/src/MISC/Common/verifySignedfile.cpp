@@ -43,7 +43,7 @@ SecurityGuard::SecurityGuard()
 	_pluginListSha256.push_back(TEXT("1c404fd3578273f5ecde585af82179ff3b63c635fb4fa24be21ebde708e403e4")); // v1.0.8 64 bit (unsigned)
 }
 
-bool SecurityGuard::checkModule(const std::wstring& filePath, NppModule module2check)
+bool SecurityGuard::checkModule([[maybe_unused]] const std::wstring& filePath, [[maybe_unused]] NppModule module2check)
 {
 #ifndef _DEBUG
 	if (_securityMode == sm_certif)
@@ -56,8 +56,6 @@ bool SecurityGuard::checkModule(const std::wstring& filePath, NppModule module2c
 	// Do not check integrity if npp is running in debug mode
 	// This is helpful for developers to skip signature checking
 	// while analyzing issue or modifying the lexer dll
-	(void)filePath;
-	(void)module2check;
 	return true;
 #endif
 }

@@ -947,7 +947,7 @@ void UserDefineDialog::changeStyle()
         idStr = std::to_string(IDC_DOCK_BUTTON);
     }
 
-    dockButtonLabel= pNativeSpeaker->getAttrNameByIdStr(defauleLabel.c_str(), targetNode, idStr.c_str());
+    dockButtonLabel = pNativeSpeaker->getAttrNameByIdStr(defauleLabel.c_str(), targetNode, idStr.c_str());
     ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, dockButtonLabel.c_str());
 
     auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
@@ -1727,7 +1727,7 @@ void StringDlg::HandlePaste(HWND hEdit)
 		HANDLE hClipboardData = GetClipboardData(CF_UNICODETEXT);
 		if (NULL != hClipboardData)
 		{
-			LPTSTR pszText = reinterpret_cast<LPTSTR>(GlobalLock(hClipboardData));
+			LPTSTR pszText = static_cast<LPTSTR>(GlobalLock(hClipboardData));
 			if (NULL != pszText && isAllowed(pszText))
 			{
 				SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(pszText));

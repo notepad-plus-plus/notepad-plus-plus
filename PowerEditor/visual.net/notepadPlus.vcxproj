@@ -232,113 +232,6 @@
     <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadFileChanges.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\src\icons\allChars_off.ico" />
-    <Image Include="..\src\icons\allChars_on.ico" />
-    <Image Include="..\src\icons\closeAll.bmp" />
-    <Image Include="..\src\icons\closefile.bmp" />
-    <Image Include="..\src\icons\closeTabButton.bmp" />
-    <Image Include="..\src\icons\closeTabButton_hover.bmp" />
-    <Image Include="..\src\icons\closeTabButton_inact.bmp" />
-    <Image Include="..\src\icons\closeTabButton_push.bmp" />
-    <Image Include="..\src\icons\copy.bmp" />
-    <Image Include="..\src\icons\cut.bmp" />
-    <Image Include="..\src\icons\cut_dis.ico" />
-    <Image Include="..\src\icons\cut_off.ico" />
-    <Image Include="..\src\icons\cut_on.ico" />
-    <Image Include="..\src\icons\delete.ico" />
-    <Image Include="..\src\icons\dupli_dis.ico" />
-    <Image Include="..\src\icons\dupli_off.ico" />
-    <Image Include="..\src\icons\dupli_on.ico" />
-    <Image Include="..\src\icons\find.bmp" />
-    <Image Include="..\src\icons\find_off.ico" />
-    <Image Include="..\src\icons\find_on.ico" />
-    <Image Include="..\src\icons\findrep_off.ico" />
-    <Image Include="..\src\icons\findrep_on.ico" />
-    <Image Include="..\src\icons\findReplace.bmp" />
-    <Image Include="..\src\icons\findResult.ico" />
-    <Image Include="..\src\icons\imprim_off.ico" />
-    <Image Include="..\src\icons\imprim_on.ico" />
-    <Image Include="..\src\icons\indentGuide.bmp" />
-    <Image Include="..\src\icons\indentGuide_off.ico" />
-    <Image Include="..\src\icons\indentGuide_on.ico" />
-    <Image Include="..\src\icons\invisibleChar.bmp" />
-    <Image Include="..\src\icons\new_off.ico" />
-    <Image Include="..\src\icons\new_on.ico" />
-    <Image Include="..\src\icons\newFile.bmp" />
-    <Image Include="..\src\icons\npp.ico" />
-    <Image Include="..\src\icons\open_off.ico" />
-    <Image Include="..\src\icons\open_on.ico" />
-    <Image Include="..\src\icons\openFile.bmp" />
-    <Image Include="..\src\icons\paste.bmp" />
-    <Image Include="..\src\icons\paste_dis.ico" />
-    <Image Include="..\src\icons\paste_off.ico" />
-    <Image Include="..\src\icons\paste_on.ico" />
-    <Image Include="..\src\icons\playRecord.bmp" />
-    <Image Include="..\src\icons\playrecord_dis.ico" />
-    <Image Include="..\src\icons\playRecord_m.bmp" />
-    <Image Include="..\src\icons\playrecord_m_dis.ico" />
-    <Image Include="..\src\icons\playrecord_m_off.ico" />
-    <Image Include="..\src\icons\playrecord_m_on.ico" />
-    <Image Include="..\src\icons\playrecord_off.ico" />
-    <Image Include="..\src\icons\playrecord_on.ico" />
-    <Image Include="..\src\icons\print.bmp" />
-    <Image Include="..\src\icons\readonly.ico" />
-    <Image Include="..\src\icons\redo.bmp" />
-    <Image Include="..\src\icons\redo_dis.ico" />
-    <Image Include="..\src\icons\redo_off.ico" />
-    <Image Include="..\src\icons\redo_on.ico" />
-    <Image Include="..\src\icons\save_dis.ico" />
-    <Image Include="..\src\icons\save_off.ico" />
-    <Image Include="..\src\icons\save_on.ico" />
-    <Image Include="..\src\icons\saveAll.bmp" />
-    <Image Include="..\src\icons\saveall_dis.ico" />
-    <Image Include="..\src\icons\saveall_off.ico" />
-    <Image Include="..\src\icons\saveall_on.ico" />
-    <Image Include="..\src\icons\saved.ico" />
-    <Image Include="..\src\icons\saveFile.bmp" />
-    <Image Include="..\src\icons\saveRecord.bmp" />
-    <Image Include="..\src\icons\saverecord_dis.ico" />
-    <Image Include="..\src\icons\saverecord_off.ico" />
-    <Image Include="..\src\icons\saverecord_on.ico" />
-    <Image Include="..\src\icons\showPannel.bmp" />
-    <Image Include="..\src\icons\startRecord.bmp" />
-    <Image Include="..\src\icons\startrecord_dis.ico" />
-    <Image Include="..\src\icons\startrecord_off.ico" />
-    <Image Include="..\src\icons\startrecord_on.ico" />
-    <Image Include="..\src\icons\stopRecord.bmp" />
-    <Image Include="..\src\icons\stoprecord_dis.ico" />
-    <Image Include="..\src\icons\stoprecord_off.ico" />
-    <Image Include="..\src\icons\stoprecord_on.ico" />
-    <Image Include="..\src\icons\supp_off.ico" />
-    <Image Include="..\src\icons\supp_on.ico" />
-    <Image Include="..\src\icons\suppall_off.ico" />
-    <Image Include="..\src\icons\suppall_on.ico" />
-    <Image Include="..\src\icons\syncH.bmp" />
-    <Image Include="..\src\icons\syncH_dis.ico" />
-    <Image Include="..\src\icons\syncH_off.ico" />
-    <Image Include="..\src\icons\syncH_on.ico" />
-    <Image Include="..\src\icons\syncV.bmp" />
-    <Image Include="..\src\icons\syncV_dis.ico" />
-    <Image Include="..\src\icons\syncV_off.ico" />
-    <Image Include="..\src\icons\syncV_on.ico" />
-    <Image Include="..\src\icons\undo.bmp" />
-    <Image Include="..\src\icons\undo_dis.ico" />
-    <Image Include="..\src\icons\undo_off.ico" />
-    <Image Include="..\src\icons\undo_on.ico" />
-    <Image Include="..\src\icons\unsaved.ico" />
-    <Image Include="..\src\icons\userDefineDlg_off.ico" />
-    <Image Include="..\src\icons\userDefineDlg_on.ico" />
-    <Image Include="..\src\icons\wrap.bmp" />
-    <Image Include="..\src\icons\wrap_off.ico" />
-    <Image Include="..\src\icons\wrap_on.ico" />
-    <Image Include="..\src\icons\zoomIn.bmp" />
-    <Image Include="..\src\icons\zoomIn_off.ico" />
-    <Image Include="..\src\icons\zoomIn_on.ico" />
-    <Image Include="..\src\icons\zoomOut.bmp" />
-    <Image Include="..\src\icons\zoomOut_off.ico" />
-    <Image Include="..\src\icons\zoomOut_on.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="..\src\MISC\md5\md5Dlgs.rc" />
     <ResourceCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.rc" />
     <ResourceCompile Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.rc" />
@@ -365,11 +258,6 @@
     <ResourceCompile Include="..\src\WinControls\WindowsDlg\WindowsDlg.rc" />
     <ResourceCompile Include="..\src\WinControls\ColourPicker\WordStyleDlg.rc" />
     <ResourceCompile Include="..\src\WinControls\FileBrowser\fileBrowser.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\cursors\drag.cur" />
-    <None Include="..\src\cursors\drag_interdit.cur" />
-    <None Include="..\src\cursors\drag_plus.cur" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\clipboardFormats.h" />
@@ -535,6 +423,7 @@
   <ItemGroup>
     <Manifest Include="..\src\notepad++.exe.manifest" />
   </ItemGroup>
+  <Import Project="notepadPlus.Resource.targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

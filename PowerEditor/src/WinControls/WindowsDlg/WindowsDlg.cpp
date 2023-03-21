@@ -943,7 +943,10 @@ void WindowsDlg::doCount()
 
 void WindowsDlg::doSort()
 {
-	size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;	
+	if (_pTab == NULL)
+		return;
+
+	size_t count =  _pTab->nbItem();	
 	std::vector<UINT> items(count);
 	auto currrentTabIndex = _pTab->getCurrentTabIndex();
 	NMWINDLG nmdlg = {};

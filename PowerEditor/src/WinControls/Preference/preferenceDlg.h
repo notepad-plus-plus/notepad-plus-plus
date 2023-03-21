@@ -19,7 +19,6 @@
 
 #include "ControlsTab.h"
 #include "preference_rc.h"
-#include "URLCtrl.h"
 #include "Parameters.h"
 #include "regExtDlg.h"
 #include "WordStyleDlg.h"
@@ -147,15 +146,9 @@ class RecentFilesHistorySubDlg : public StaticDialog
 {
 public :
 	RecentFilesHistorySubDlg() = default;
-	virtual void destroy() {
-		_nbHistoryVal.destroy();
-		_customLenVal.destroy();
-	};
 private :
-	URLCtrl _nbHistoryVal;
-	URLCtrl _customLenVal;
 	void setCustomLen(int val);
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 
 class LanguageSubDlg : public StaticDialog
@@ -206,7 +199,8 @@ public :
 	BackupSubDlg() = default;
 
 private :
-	void updateBackupGUI();
+	void updateBackupSessionGUI();
+	void updateBackupOnSaveGUI();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 

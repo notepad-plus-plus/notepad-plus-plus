@@ -1114,7 +1114,7 @@
     <FolderAsWorkspace>
       <PanelTitle name="फोल्डर एज वर्कस्पेस"/>
       <SelectFolderFromBrowserString name="फोल्डर अज वर्कस्पेस पैनल में जोड़ने के लिए एक फोल्डर चुनें"/>
-      <Menus>
+      <Menu>
         <Item id="3511" name="हटायें"/>
         <Item id="3512" name="सभी हटायें"/>
         <Item id="3513" name="जोड़ें"/>
@@ -1125,7 +1125,7 @@
         <Item id="3518" name="यहाँ Explorer खोलें"/>
         <Item id="3519" name="यहाँ CMD खोलें"/>
         <Item id="3520" name="फाइल का नाम कॉपी करें"/>
-      </Menus>
+      </Menu>
     </FolderAsWorkspace>
     <ProjectManager>
       <PanelTitle name="प्रोजेक्ट"/>

@@ -29,7 +29,7 @@ namespace
 {
 
 
-void allowPrivilegeMessages(Notepad_plus_Window& notepad_plus_plus, winVer winVer)
+void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer winVer)
 {
 	#ifndef MSGFLT_ADD
 	const DWORD MSGFLT_ADD = 1;
@@ -251,6 +251,7 @@ generic_string getLocalizationPathFromParam(ParamVector & params)
 	generic_string locStr;
 	if (!getParamVal('L', params, locStr))
 		return TEXT("");
+	locStr = stringToLower(stringReplace(locStr, TEXT("_"), TEXT("-"))); // convert to lowercase format with "-" as separator
 	return NppParameters::getLocPathFromStr(locStr.c_str());
 }
 

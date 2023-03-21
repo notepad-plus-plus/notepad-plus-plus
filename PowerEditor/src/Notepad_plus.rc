@@ -926,6 +926,7 @@ BEGIN
         MENUITEM "Fortran (free form)",     IDM_LANG_FORTRAN
         MENUITEM "Fortran (fixed form)",    IDM_LANG_FORTRAN_77
         MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
+        MENUITEM "GDScript",                IDM_LANG_GDSCRIPT
         MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
         MENUITEM "Haskell",                 IDM_LANG_HASKELL
         MENUITEM "HTML",                    IDM_LANG_HTML
@@ -943,6 +944,7 @@ BEGIN
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
+        MENUITEM "Microsoft Transact-SQL",  IDM_LANG_MSSQL
         MENUITEM "MMIXAL",                  IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
         MENUITEM "Nim",                     IDM_LANG_NIM
@@ -1038,7 +1040,11 @@ BEGIN
         MENUITEM "Fortran (fixed form)",  IDM_LANG_FORTRAN_77
         MENUITEM "Freebasic",             IDM_LANG_FREEBASIC
     END
-    MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
+	POPUP "G"
+	BEGIN
+        MENUITEM "GDScript",                  IDM_LANG_GDSCRIPT
+        MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
+	END
     POPUP "H"
     BEGIN
         MENUITEM "Haskell",               IDM_LANG_HASKELL
@@ -1069,6 +1075,7 @@ BEGIN
     BEGIN
         MENUITEM "Makefile",              IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                IDM_LANG_MATLAB
+        MENUITEM "Microsoft Transact-SQL",IDM_LANG_MSSQL
         MENUITEM "MMIXAL",                IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",          IDM_LANG_ASCII
     END
@@ -1327,15 +1334,6 @@ BEGIN
     LTEXT           "0123456789",ID_LASTLINE,100,68,45,8,NOT WS_GROUP
     DEFPUSHBUTTON   "Go",IDOK,181,48,70,14,BS_NOTIFY
     PUSHBUTTON      "I'm going nowhere",IDCANCEL,181,66,70,14,BS_NOTIFY
-END
-
-IDD_VALUE_DLG DIALOGEX 0, 0, 74, 17
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
-FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
-BEGIN
-    LTEXT             "STATIC :",IDC_VALUE_STATIC,6,4,45,8
-    EDITTEXT        IDC_VALUE_EDIT,49,3,18,11,ES_NUMBER
 END
 
 IDD_BUTTON_DLG DIALOGEX 0, 0, 12, 10

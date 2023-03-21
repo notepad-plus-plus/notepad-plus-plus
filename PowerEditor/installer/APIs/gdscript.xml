@@ -1,0 +1,1129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+	<AutoComplete>
+		<Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," additionalWordChar = "." />
+		<!-- builtin keywords -->
+		<KeyWord name="if" />
+		<KeyWord name="elif" />
+		<KeyWord name="else" />
+		<KeyWord name="for" />
+		<KeyWord name="while" />
+		<KeyWord name="match" />
+		<KeyWord name="break" />
+		<KeyWord name="continue" />
+		<KeyWord name="pass" />
+		<KeyWord name="return" />
+		<KeyWord name="class" />
+		<KeyWord name="class_name" />
+		<KeyWord name="extends" />
+		<KeyWord name="is" />
+		<KeyWord name="as" />
+		<KeyWord name="self" />
+		<KeyWord name="tool" />
+		<KeyWord name="signal" />
+		<KeyWord name="func" />
+		<KeyWord name="static" />
+		<KeyWord name="const" />
+		<KeyWord name="enum" />
+		<KeyWord name="var" />
+		<KeyWord name="onready" />
+		<KeyWord name="export" />
+		<KeyWord name="setget" />
+		<KeyWord name="breakpoint" />
+		<KeyWord name="preload" />
+		<KeyWord name="yield" />
+		<KeyWord name="assert" />
+		<KeyWord name="remote" />
+		<KeyWord name="master" />
+		<KeyWord name="puppet" />
+		<KeyWord name="remotesync" />
+		<KeyWord name="mastersync" />
+		<KeyWord name="puppetsync" />
+		<KeyWord name="PI" />
+		<KeyWord name="TAU" />
+		<KeyWord name="INF" />
+		<KeyWord name="NAN" />
+		<!-- builtin functions -->
+		<KeyWord name="Color8" func="yes">
+			<Overload retVal="" descr="Color8 ( int r8, int g8, int b8, int a8=255 )&#x0a;added_in:3.0 &#x0a;Returns a color constructed from integer red, green, blue, and alpha channels. Each channel should have 8 bits of information ranging from 0 to 255.&#x0a;r8 red channel&#x0a;g8 green channel&#x0a;b8 blue channel&#x0a;a8 alpha channel&#x0a;red = Color8(255, 0, 0)&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ColorN" func="yes">
+			<Overload retVal="" descr="ColorN ( String name, float alpha=1.0 )&#x0a;added_in:3.0 &#x0a;Returns a color according to the standardized name with alpha ranging from 0 to 1.&#x0a;red = ColorN(&quot;red&quot;, 1)&#x0a;Supported color names are the same as the constants defined in Color.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="abs" func="yes">
+			<Overload retVal="" descr="abs ( float s )&#x0a;added_in:3.0 &#x0a;Returns the absolute value of parameter s (i.e. positive value).&#x0a;a = abs(-1) # a is 1&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="acos" func="yes">
+			<Overload retVal="" descr="acos ( float s )&#x0a;added_in:3.0 &#x0a;Returns the arc cosine of s in radians. Use to get the angle of cosine s. s must be between -1.0 and 1.0 (inclusive), otherwise, acos will return NAN.&#x0a;# c is 0.523599 or 30 degrees if converted with rad2deg(s)&#x0a;c = acos(0.866025)&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="asin" func="yes">
+			<Overload retVal="" descr="asin ( float s )&#x0a;added_in:3.0 &#x0a;Returns the arc sine of s in radians. Use to get the angle of sine s. s must be between -1.0 and 1.0 (inclusive), otherwise, asin will return NAN.&#x0a;# s is 0.523599 or 30 degrees if converted with rad2deg(s)&#x0a;s = asin(0.5)&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="assert" func="yes">
+			<Overload retVal="" descr="assert ( bool condition, String message=&quot;&quot; )&#x0a;added_in:3.0 &#x0a;Asserts that the condition is true. If the condition is false, an error is generated. When running from the editor, the running project will also be paused until you resume it. This can be used as a stronger form of push_error for reporting errors to project developers or add-on users.&#x0a;Note: For performance reasons, the code inside assert is only executed in debug builds or when running the project from the editor. Don't include code that has side effects in an assert call. Otherwise, the project will behave differently when exported in release mode.&#x0a;The optional message argument, if given, is shown in addition to the generic &quot;Assertion failed&quot; message. You can use this to provide additional details about why the assertion failed.&#x0a;# Imagine we always want speed to be between 0 and 20.&#x0a;var speed = -10&#x0a;assert(speed &lt; 20) # True, the program will continue&#x0a;assert(speed &gt;= 0) # False, the program will stop&#x0a;assert(speed &gt;= 0 and speed &lt; 20) # You can also combine the two conditional statements in one check&#x0a;assert(speed &lt; 20, &quot;speed = %f, but the speed limit is 20&quot; % speed) # Show a message with clarifying details&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="atan" func="yes">
+			<Overload retVal="" descr="atan ( float s )&#x0a;added_in:3.0 &#x0a;Returns the arc tangent of s in radians. Use it to get the angle from an angle's tangent in trigonometry: atan(tan(angle)) == angle.&#x0a;The method cannot know in which quadrant the angle should fall. See atan2 if you have both y and x.&#x0a;a = atan(0.5) # a is 0.463648&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="atan2" func="yes">
+			<Overload retVal="" descr="atan2 ( float y, float x )&#x0a;added_in:3.0 &#x0a;Returns the arc tangent of y/x in radians. Use to get the angle of tangent y/x. To compute the value, the method takes into account the sign of both arguments in order to determine the quadrant.&#x0a;Important note: The Y coordinate comes first, by convention.&#x0a;a = atan2(0, -1) # a is 3.141593&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="bytes2var" func="yes">
+			<Overload retVal="" descr="bytes2var ( PoolByteArray bytes, bool allow_objects=false )&#x0a;added_in:3.0 &#x0a;Decodes a byte array back to a value. When allow_objects is true decoding objects is allowed.&#x0a;WARNING: Deserialized object can contain code which gets executed. Do not use this option if the serialized object comes from untrusted sources to avoid potential security threats (remote code execution).&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="cartesian2polar" func="yes">
+			<Overload retVal="" descr="cartesian2polar ( float x, float y )&#x0a;added_in:3.0 &#x0a;Converts a 2D point expressed in the cartesian coordinate system (X and Y axis) to the polar coordinate system (a distance from the origin and an angle).&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ceil" func="yes">
+			<Overload retVal="" descr="ceil ( float s )&#x0a;added_in:3.0 &#x0a;Rounds s upward (towards positive infinity), returning the smallest whole number that is not less than s.&#x0a;a = ceil(1.45)  # a is 2.0&#x0a;a = ceil(1.001) # a is 2.0&#x0a;See also floor, round, stepify, and int.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="char" func="yes">
+			<Overload retVal="" descr="char ( int code )&#x0a;added_in:3.0 &#x0a;Returns a character as a String of the given Unicode code point (which is compatible with ASCII code).&#x0a;a = char(65)      # a is &quot;A&quot;&#x0a;a = char(65 + 32) # a is &quot;a&quot;&#x0a;a = char(8364)    # a is &quot;€&quot;&#x0a;This is the inverse of ord.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="clamp" func="yes">
+			<Overload retVal="" descr="clamp ( float value, float min, float max )&#x0a;added_in:3.0 &#x0a;Clamps value and returns a value not less than min and not more than max.&#x0a;a = clamp(1000, 1, 20) # a is 20&#x0a;a = clamp(-10, 1, 20)  # a is 1&#x0a;a = clamp(15, 1, 20)   # a is 15&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="convert" func="yes">
+			<Overload retVal="" descr="convert ( Variant what, int type )&#x0a;added_in:3.0 &#x0a;Converts from a type to another in the best way possible. The type parameter uses the Variant.Type values.&#x0a;a = Vector2(1, 0)&#x0a;# Prints 1&#x0a;print(a.length())&#x0a;a = convert(a, TYPE_STRING)&#x0a;# Prints 6 as &quot;(1, 0)&quot; is 6 characters&#x0a;print(a.length())&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="cos" func="yes">
+			<Overload retVal="" descr="cos ( float s )&#x0a;added_in:3.0 &#x0a;Returns the cosine of angle s in radians.&#x0a;a = cos(TAU) # a is 1.0&#x0a;a = cos(PI)  # a is -1.0&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="cosh" func="yes">
+			<Overload retVal="" descr="cosh ( float s )&#x0a;added_in:3.0 &#x0a;Returns the hyperbolic cosine of s in radians.&#x0a;print(cosh(1)) # Prints 1.543081&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="db2linear" func="yes">
+			<Overload retVal="" descr="db2linear ( float db )&#x0a;added_in:3.0 &#x0a;Converts from decibels to linear energy (audio).&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="decimals" func="yes">
+			<Overload retVal="" descr="decimals ( float step )&#x0a;added_in:3.0 &#x0a;Deprecated alias for step_decimals.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="dectime" func="yes">
+			<Overload retVal="" descr="dectime ( float value, float amount, float step )&#x0a;added_in:3.0 &#x0a;Note: dectime has been deprecated and will be removed in Godot 4.0, please use move_toward instead.&#x0a;Returns the result of value decreased by step * amount.&#x0a;a = dectime(60, 10, 0.1)) # a is 59.0&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="deg2rad" func="yes">
+			<Overload retVal="" descr="deg2rad ( float deg )&#x0a;added_in:3.0 &#x0a;Converts an angle expressed in degrees to radians.&#x0a;r = deg2rad(180) # r is 3.141593&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="dict2inst" func="yes">
+			<Overload retVal="" descr="dict2inst ( Dictionary dict )&#x0a;added_in:3.0 &#x0a;Converts a dictionary (previously created with inst2dict) back to an instance. Useful for deserializing.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ease" func="yes">
+			<Overload retVal="" descr="ease ( float s, float curve )&#x0a;added_in:3.0 &#x0a;Returns an &quot;eased&quot; value of x based on an easing function defined with curve. This easing function is based on an exponent. The curve can be any floating-point number, with specific values leading to the following behaviors:&#x0a;- Lower than -1.0 (exclusive): Ease in-out&#x0a;- 1.0: Linear&#x0a;- Between -1.0 and 0.0 (exclusive): Ease out-in&#x0a;- 0.0: Constant&#x0a;- Between 0.0 to 1.0 (exclusive): Ease out&#x0a;- 1.0: Linear&#x0a;- Greater than 1.0 (exclusive): Ease in&#x0a;ease() curve values cheatsheet&#x0a;See also smoothstep. If you need to perform more advanced transitions, use Tween or AnimationPlayer.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="exp" func="yes">
+			<Overload retVal="" descr="exp ( float s )&#x0a;added_in:3.0 &#x0a;The natural exponential function. It raises the mathematical constant e to the power of s and returns it.&#x0a;e has an approximate value of 2.71828, and can be obtained with exp(1).&#x0a;For exponents to other bases use the method pow.&#x0a;a = exp(2) # Approximately 7.39&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="floor" func="yes">
+			<Overload retVal="" descr="floor ( float s )&#x0a;added_in:3.0 &#x0a;Rounds s downward (towards negative infinity), returning the largest whole number that is not more than s.&#x0a;a = floor(2.45)  # a is 2.0&#x0a;a = floor(2.99)  # a is 2.0&#x0a;a = floor(-2.99) # a is -3.0&#x0a;See also ceil, round, stepify, and int.&#x0a;Note: This method returns a float. If you need an integer and s is a non-negative number, you can use int(s) directly.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="fmod" func="yes">
+			<Overload retVal="" descr="fmod ( float a, float b )&#x0a;added_in:3.0 &#x0a;Returns the floating-point remainder of a/b, keeping the sign of a.&#x0a;r = fmod(7, 5.5) # r is 1.5&#x0a;For the integer remainder operation, use the % operator.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="fposmod" func="yes">
+			<Overload retVal="" descr="fposmod ( float a, float b )&#x0a;added_in:3.0 &#x0a;Returns the floating-point modulus of a/b that wraps equally in positive and negative.&#x0a;for i in 7:&#x0a;    var x = 0.5 * i - 1.5&#x0a;    print(&quot;%4.1f %4.1f %4.1f&quot; % [x, fmod(x, 1.5), fposmod(x, 1.5)])&#x0a;Produces:&#x0a;-1.5 -0.0  0.0&#x0a;-1.0 -1.0  0.5&#x0a;-0.5 -0.5  1.0&#x0a; 0.0  0.0  0.0&#x0a; 0.5  0.5  0.5&#x0a; 1.0  1.0  1.0&#x0a; 1.5  0.0  0.0&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="funcref" func="yes">
+			<Overload retVal="" descr="funcref ( Object instance, String funcname )&#x0a;added_in:3.0 &#x0a;Returns a reference to the specified function funcname in the instance node. As functions aren't first-class objects in GDscript, use funcref to store a FuncRef in a variable and call it later.&#x0a;func foo():&#x0a;    return(&quot;bar&quot;)&#x0a;&#x0a;a = funcref(self, &quot;foo&quot;)&#x0a;print(a.call_func()) # Prints bar&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="hash" func="yes">
+			<Overload retVal="" descr="hash ( Variant var )&#x0a;added_in:3.0 &#x0a;Returns the integer hash of the variable passed.&#x0a;print(hash(&quot;a&quot;)) # Prints 177670&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="inst2dict" func="yes">
+			<Overload retVal="" descr="inst2dict ( Object inst )&#x0a;added_in:3.0 &#x0a;Returns the passed instance converted to a dictionary (useful for serializing).&#x0a;var foo = &quot;bar&quot;&#x0a;func _ready():&#x0a;    var d = inst2dict(self)&#x0a;    print(d.keys())&#x0a;    print(d.values())&#x0a;Prints out:&#x0a;[@subpath, @path, foo]&#x0a;[, res://test.gd, bar]&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="instance_from_id" func="yes">
+			<Overload retVal="" descr="instance_from_id ( int instance_id )&#x0a;added_in:3.0 &#x0a;Returns the Object that corresponds to instance_id. All Objects have a unique instance ID.&#x0a;var foo = &quot;bar&quot;&#x0a;func _ready():&#x0a;    var id = get_instance_id()&#x0a;    var inst = instance_from_id(id)&#x0a;    print(inst.foo) # Prints bar&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="inverse_lerp" func="yes">
+			<Overload retVal="" descr="inverse_lerp ( float from, float to, float weight )&#x0a;added_in:3.0 &#x0a;Returns an interpolation or extrapolation factor considering the range specified in from and to, and the interpolated value specified in weight. The returned value will be between 0.0 and 1.0 if weight is between from and to (inclusive). If weight is located outside this range, then an extrapolation factor will be returned (return value lower than 0.0 or greater than 1.0). Use clamp on the result of inverse_lerp if this is not desired.&#x0a;# The interpolation ratio in the `lerp()` call below is 0.75.&#x0a;var middle = lerp(20, 30, 0.75)&#x0a;# `middle` is now 27.5.&#x0a;# Now, we pretend to have forgotten the original ratio and want to get it back.&#x0a;var ratio = inverse_lerp(20, 30, 27.5)&#x0a;# `ratio` is now 0.75.&#x0a;See also lerp which performs the reverse of this operation, and range_lerp to map a continuous series of values to another.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="is_inf" func="yes">
+			<Overload retVal="" descr="is_inf ( float s )&#x0a;added_in:3.0 &#x0a;Returns whether s is an infinity value (either positive infinity or negative infinity).&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="is_nan" func="yes">
+			<Overload retVal="" descr="is_nan ( float s )&#x0a;added_in:3.0 &#x0a;Returns whether s is a NaN (&quot;Not a Number&quot; or invalid) value.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="len" func="yes">
+			<Overload retVal="" descr="len ( Variant var )&#x0a;added_in:3.0 &#x0a;Returns length of Variant var. Length is the character count of String, element count of Array, size of Dictionary, etc.&#x0a;Note: Generates a fatal error if Variant can not provide a length.&#x0a;a = [1, 2, 3, 4]&#x0a;len(a) # Returns 4&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="lerp" func="yes">
+			<Overload retVal="" descr="lerp ( Variant from, Variant to, float weight )&#x0a;added_in:3.0 &#x0a;Linearly interpolates between two values by the factor defined in weight. To perform interpolation, weight should be between 0.0 and 1.0 (inclusive). However, values outside this range are allowed and can be used to perform extrapolation. Use clamp on the result of lerp if this is not desired.&#x0a;If the from and to arguments are of type int or float, the return value is a float.&#x0a;If both are of the same vector type (Vector2, Vector3 or Color), the return value will be of the same type (lerp then calls the vector type's linear_interpolate method).&#x0a;lerp(0, 4, 0.75) # Returns 3.0&#x0a;lerp(Vector2(1, 5), Vector2(3, 2), 0.5) # Returns Vector2(2, 3.5)&#x0a;See also inverse_lerp which performs the reverse of this operation. To perform eased interpolation with lerp, combine it with ease or smoothstep. See also range_lerp to map a continuous series of values to another.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="linear2db" func="yes">
+			<Overload retVal="" descr="linear2db ( float nrg )&#x0a;added_in:3.0 &#x0a;Converts from linear energy to decibels (audio). This can be used to implement volume sliders that behave as expected (since volume isn't linear). Example:&#x0a;# &quot;Slider&quot; refers to a node that inherits Range such as HSlider or VSlider.&#x0a;# Its range must be configured to go from 0 to 1.&#x0a;# Change the bus name if you'd like to change the volume of a specific bus only.&#x0a;AudioServer.set_bus_volume_db(AudioServer.get_bus_index(&quot;Master&quot;), linear2db($Slider.value))&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="load" func="yes">
+			<Overload retVal="" descr="load ( String path )&#x0a;added_in:3.0 &#x0a;Loads a resource from the filesystem located at path. The resource is loaded on the method call (unless it's referenced already elsewhere, e.g. in another script or in the scene), which might cause slight delay, especially when loading scenes. To avoid unnecessary delays when loading something multiple times, either store the resource in a variable or use preload.&#x0a;Note: Resource paths can be obtained by right-clicking on a resource in the FileSystem dock and choosing &quot;Copy Path&quot; or by dragging the file from the FileSystem dock into the script.&#x0a;# Load a scene called main located in the root of the project directory and cache it in a variable.&#x0a;var main = load(&quot;res://main.tscn&quot;) # main will contain a PackedScene resource.&#x0a;Important: The path must be absolute, a local path will just return null.&#x0a;This method is a simplified version of ResourceLoader.load, which can be used for more advanced scenarios.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="log" func="yes">
+			<Overload retVal="" descr="log ( float s )&#x0a;added_in:3.0 &#x0a;Natural logarithm. The amount of time needed to reach a certain level of continuous growth.&#x0a;Note: This is not the same as the &quot;log&quot; function on most calculators, which uses a base 10 logarithm.&#x0a;log(10) # Returns 2.302585&#x0a;Note: The logarithm of 0 returns -inf, while negative values return -nan.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="max" func="yes">
+			<Overload retVal="" descr="max ( float a, float b )&#x0a;added_in:3.0 &#x0a;Returns the maximum of two values.&#x0a;max(1, 2) # Returns 2&#x0a;max(-3.99, -4) # Returns -3.99&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="min" func="yes">
+			<Overload retVal="" descr="min ( float a, float b )&#x0a;added_in:3.0 &#x0a;Returns the minimum of two values.&#x0a;min(1, 2) # Returns 1&#x0a;min(-3.99, -4) # Returns -4&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="nearest_po2" func="yes">
+			<Overload retVal="" descr="nearest_po2 ( int value )&#x0a;added_in:3.0 &#x0a;Returns the nearest equal or larger power of 2 for integer value.&#x0a;In other words, returns the smallest value a where a = pow(2, n) such that value &lt;= a for some non-negative integer n.&#x0a;nearest_po2(3) # Returns 4&#x0a;nearest_po2(4) # Returns 4&#x0a;nearest_po2(5) # Returns 8&#x0a;&#x0a;nearest_po2(0) # Returns 0 (this may not be what you expect)&#x0a;nearest_po2(-1) # Returns 0 (this may not be what you expect)&#x0a;WARNING: Due to the way it is implemented, this function returns 0 rather than 1 for non-positive values of value (in reality, 1 is the smallest integer power of 2).&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="parse_json" func="yes">
+			<Overload retVal="" descr="parse_json ( String json )&#x0a;added_in:3.0 &#x0a;Parse JSON text to a Variant. (Use typeof to check if the Variant's type is what you expect.)&#x0a;Note: The JSON specification does not define integer or float types, but only a number type. Therefore, parsing a JSON text will convert all numerical values to float types.&#x0a;Note: JSON objects do not preserve key order like Godot dictionaries, thus, you should not rely on keys being in a certain order if a dictionary is constructed from JSON. In contrast, JSON arrays retain the order of their elements:&#x0a;var p = JSON.parse('[&quot;hello&quot;, &quot;world&quot;, &quot;!&quot;]')&#x0a;if typeof(p.result) == TYPE_ARRAY:&#x0a;    print(p.result[0]) # Prints &quot;hello&quot;&#x0a;else:&#x0a;    push_error(&quot;Unexpected results.&quot;)&#x0a;See also JSON for an alternative way to parse JSON text.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="polar2cartesian" func="yes">
+			<Overload retVal="" descr="polar2cartesian ( float r, float th )&#x0a;added_in:3.0 &#x0a;Converts a 2D point expressed in the polar coordinate system (a distance from the origin r and an angle th) to the cartesian coordinate system (X and Y axis).&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="pow" func="yes">
+			<Overload retVal="" descr="pow ( float base, float exp )&#x0a;added_in:3.0 &#x0a;Returns the result of base raised to the power of exp.&#x0a;pow(2, 5) # Returns 32.0&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="preload" func="yes">
+			<Overload retVal="" descr="preload ( String path )&#x0a;added_in:3.0 &#x0a;Returns a Resource from the filesystem located at path. The resource is loaded during script parsing, i.e. is loaded with the script and preload effectively acts as a reference to that resource. Note that the method requires a constant path. If you want to load a resource from a dynamic/variable path, use load.&#x0a;Note: Resource paths can be obtained by right clicking on a resource in the Assets Panel and choosing &quot;Copy Path&quot; or by dragging the file from the FileSystem dock into the script.&#x0a;# Instance a scene.&#x0a;var diamond = preload(&quot;res://diamond.tscn&quot;).instance()&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="print" func="yes">
+			<Overload retVal="" descr="print ( ... ) vararg&#x0a;added_in:3.0 &#x0a;Converts one or more arguments of any type to string in the best way possible and prints them to the console.&#x0a;a = [1, 2, 3]&#x0a;print(&quot;a&quot;, &quot;=&quot;, a) # Prints a=[1, 2, 3]&#x0a;Note: Consider using push_error and push_warning to print error and warning messages instead of print. This distinguishes them from print messages used for debugging purposes, while also displaying a stack trace when an error or warning is printed.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="print_stack" func="yes">
+			<Overload retVal="" descr="print_stack ( )&#x0a;added_in:3.0 &#x0a;Prints a stack track at code location, only works when running with debugger turned on.&#x0a;Output in the console would look something like this:&#x0a;Frame 0 - res://test.gd:16 in function '_process'&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="printerr" func="yes">
+			<Overload retVal="" descr="printerr ( ... ) vararg&#x0a;added_in:3.0 &#x0a;Prints one or more arguments to strings in the best way possible to standard error line.&#x0a;printerr(&quot;prints to stderr&quot;)&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="printraw" func="yes">
+			<Overload retVal="" descr="printraw ( ... ) vararg&#x0a;added_in:3.0 &#x0a;Prints one or more arguments to strings in the best way possible to console. No newline is added at the end.&#x0a;printraw(&quot;A&quot;)&#x0a;printraw(&quot;B&quot;)&#x0a;# Prints AB&#x0a;Note: Due to limitations with Godot's built-in console, this only prints to the terminal. If you need to print in the editor, use another method, such as print.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="prints" func="yes">
+			<Overload retVal="" descr="prints ( ... ) vararg&#x0a;added_in:3.0 &#x0a;Prints one or more arguments to the console with a space between each argument.&#x0a;prints(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;) # Prints A B C&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="printt" func="yes">
+			<Overload retVal="" descr="printt ( ... ) vararg&#x0a;added_in:3.0 &#x0a;Prints one or more arguments to the console with a tab between each argument.&#x0a;printt(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;) # Prints A       B       C&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rad2deg" func="yes">
+			<Overload retVal="" descr="rad2deg ( float rad )&#x0a;added_in:3.0 &#x0a;Converts an angle expressed in radians to degrees.&#x0a;rad2deg(0.523599) # Returns 30.0&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rand_range" func="yes">
+			<Overload retVal="" descr="rand_range ( float from, float to )&#x0a;added_in:3.0 &#x0a;Returns a random floating point value between from and to (both endpoints inclusive).&#x0a;prints(rand_range(0, 1), rand_range(0, 1)) # Prints e.g. 0.135591 0.405263&#x0a;Note: This is equivalent to randf() * (to - from) + from.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="rand_seed" func="yes">
+			<Overload retVal="" descr="rand_seed ( int seed )&#x0a;added_in:3.0 &#x0a;Random from seed: pass a seed, and an array with both number and new seed is returned. &quot;Seed&quot; here refers to the internal state of the pseudo random number generator. The internal state of the current implementation is 64 bits.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="randf" func="yes">
+			<Overload retVal="" descr="randf ( )&#x0a;added_in:3.0 &#x0a;Returns a random floating point value on the interval [0, 1].&#x0a;randf() # Returns e.g. 0.375671&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="randi" func="yes">
+			<Overload retVal="" descr="randi ( )&#x0a;added_in:3.0 &#x0a;Returns a random unsigned 32-bit integer. Use remainder to obtain a random value in the interval [0, N - 1] (where N is smaller than 2^32).&#x0a;randi()           # Returns random integer between 0 and 2^32 - 1&#x0a;randi() % 20      # Returns random integer between 0 and 19&#x0a;randi() % 100     # Returns random integer between 0 and 99&#x0a;randi() % 100 + 1 # Returns random integer between 1 and 100&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="randomize" func="yes">
+			<Overload retVal="" descr="randomize ( )&#x0a;added_in:3.0 &#x0a;Randomizes the seed (or the internal state) of the random number generator. Current implementation reseeds using a number based on time.&#x0a;func _ready():&#x0a;    randomize()&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="range" func="yes">
+			<Overload retVal="" descr="range ( ... ) vararg&#x0a;added_in:3.0 &#x0a;Returns an array with the given range. range can be called in three ways:&#x0a;range(n: int): Starts from 0, increases by steps of 1, and stops before n. The argument n is exclusive.&#x0a;range(b: int, n: int): Starts from b, increases by steps of 1, and stops before n. The arguments b and n are inclusive and exclusive, respectively.&#x0a;range(b: int, n: int, s: int): Starts from b, increases/decreases by steps of s, and stops before n. The arguments b and n are inclusive and exclusive, respectively. The argument s can be negative, but not 0. If s is 0, an error message is printed.&#x0a;range converts all arguments to int before processing.&#x0a;Note: Returns an empty array if no value meets the value constraint (e.g. range(2, 5, -1) or range(5, 5, 1)).&#x0a;Examples:&#x0a;print(range(4))        # Prints [0, 1, 2, 3]&#x0a;print(range(2, 5))     # Prints [2, 3, 4]&#x0a;print(range(0, 6, 2))  # Prints [0, 2, 4]&#x0a;print(range(4, 1, -1)) # Prints [4, 3, 2]&#x0a;To iterate over an Array backwards, use:&#x0a;var array = [3, 6, 9]&#x0a;for i in range(array.size(), 0, -1):&#x0a;    print(array[i - 1])&#x0a;Output:&#x0a;9&#x0a;6&#x0a;3&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="range_lerp" func="yes">
+			<Overload retVal="" descr="range_lerp ( float value, float istart, float istop, float ostart, float ostop )&#x0a;added_in:3.0 &#x0a;Maps a value from range [istart, istop] to [ostart, ostop]. See also lerp and inverse_lerp. If value is outside [istart, istop], then the resulting value will also be outside [ostart, ostop]. Use clamp on the result of range_lerp if this is not desired.&#x0a;range_lerp(75, 0, 100, -1, 1) # Returns 0.5&#x0a;For complex use cases where you need multiple ranges, consider using Curve or Gradient instead.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="round" func="yes">
+			<Overload retVal="" descr="round ( float s )&#x0a;added_in:3.0 &#x0a;Rounds s to the nearest whole number, with halfway cases rounded away from zero.&#x0a;a = round(2.49) # a is 2.0&#x0a;a = round(2.5)  # a is 3.0&#x0a;a = round(2.51) # a is 3.0&#x0a;See also floor, ceil, stepify, and int.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="seed" func="yes">
+			<Overload retVal="" descr="seed ( int seed )&#x0a;added_in:3.0 &#x0a;Sets seed for the random number generator.&#x0a;my_seed = &quot;Godot Rocks&quot;&#x0a;seed(my_seed.hash())&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sign" func="yes">
+			<Overload retVal="" descr="sign ( float s )&#x0a;added_in:3.0 &#x0a;Returns the sign of s: -1 or 1. Returns 0 if s is 0.&#x0a;sign(-6) # Returns -1&#x0a;sign(0)  # Returns 0&#x0a;sign(6)  # Returns 1&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sin" func="yes">
+			<Overload retVal="" descr="sin ( float s )&#x0a;added_in:3.0 &#x0a;Returns the sine of angle s in radians.&#x0a;sin(0.523599) # Returns 0.5&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sinh" func="yes">
+			<Overload retVal="" descr="sinh ( float s )&#x0a;added_in:3.0 &#x0a;Returns the hyperbolic sine of s.&#x0a;a = log(2.0) # Returns 0.693147&#x0a;sinh(a) # Returns 0.75&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="sqrt" func="yes">
+			<Overload retVal="" descr="sqrt ( float s )&#x0a;added_in:3.0 &#x0a;Returns the square root of s, where s is a non-negative number.&#x0a;sqrt(9) # Returns 3&#x0a;Note: Negative values of s return NaN. If you need negative inputs, use System.Numerics.Complex in C#.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="stepify" func="yes">
+			<Overload retVal="" descr="stepify ( float s, float step )&#x0a;added_in:3.0 &#x0a;Snaps float value s to a given step. This can also be used to round a floating point number to an arbitrary number of decimals.&#x0a;stepify(100, 32) # Returns 96.0&#x0a;stepify(3.14159, 0.01) # Returns 3.14&#x0a;See also ceil, floor, round, and int.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="str" func="yes">
+			<Overload retVal="" descr="str ( ... ) vararg&#x0a;added_in:3.0 &#x0a;Converts one or more arguments of any type to string in the best way possible.&#x0a;var a = [10, 20, 30]&#x0a;var b = str(a);&#x0a;len(a) # Returns 3&#x0a;len(b) # Returns 12&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="str2var" func="yes">
+			<Overload retVal="" descr="str2var ( String string )&#x0a;added_in:3.0 &#x0a;Converts a formatted string that was returned by var2str to the original value.&#x0a;a = '{ &quot;a&quot;: 1, &quot;b&quot;: 2 }'&#x0a;b = str2var(a)&#x0a;print(b[&quot;a&quot;]) # Prints 1&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="tan" func="yes">
+			<Overload retVal="" descr="tan ( float s )&#x0a;added_in:3.0 &#x0a;Returns the tangent of angle s in radians.&#x0a;tan(deg2rad(45)) # Returns 1&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="tanh" func="yes">
+			<Overload retVal="" descr="tanh ( float s )&#x0a;added_in:3.0 &#x0a;Returns the hyperbolic tangent of s.&#x0a;a = log(2.0) # a is 0.693147&#x0a;b = tanh(a)  # b is 0.6&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="to_json" func="yes">
+			<Overload retVal="" descr="to_json ( Variant var )&#x0a;added_in:3.0 &#x0a;Converts a Variant var to JSON text and return the result. Useful for serializing data to store or send over the network.&#x0a;# Both numbers below are integers.&#x0a;a = { &quot;a&quot;: 1, &quot;b&quot;: 2 }&#x0a;b = to_json(a)&#x0a;print(b) # {&quot;a&quot;:1, &quot;b&quot;:2}&#x0a;# Both numbers above are floats, even if they display without any decimal places.&#x0a;Note: The JSON specification does not define integer or float types, but only a number type. Therefore, converting a Variant to JSON text will convert all numerical values to float types.&#x0a;See also JSON for an alternative way to convert a Variant to JSON text.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="type_exists" func="yes">
+			<Overload retVal="" descr="type_exists ( String type )&#x0a;added_in:3.0 &#x0a;Returns whether the given class exists in ClassDB.&#x0a;type_exists(&quot;Sprite&quot;) # Returns true&#x0a;type_exists(&quot;Variant&quot;) # Returns false&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="typeof" func="yes">
+			<Overload retVal="" descr="typeof ( Variant what )&#x0a;added_in:3.0 &#x0a;Returns the internal type of the given Variant object, using the Variant.Type values.&#x0a;p = parse_json('[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]')&#x0a;if typeof(p) == TYPE_ARRAY:&#x0a;    print(p[0]) # Prints a&#x0a;else:&#x0a;    print(&quot;unexpected results&quot;)&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="validate_json" func="yes">
+			<Overload retVal="" descr="validate_json ( String json )&#x0a;added_in:3.0 &#x0a;Checks that json is valid JSON data. Returns an empty string if valid, or an error message otherwise.&#x0a;j = to_json([1, 2, 3])&#x0a;v = validate_json(j)&#x0a;if not v:&#x0a;    print(&quot;Valid JSON.&quot;)&#x0a;else:&#x0a;    push_error(&quot;Invalid JSON: &quot; + v)&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="var2bytes" func="yes">
+			<Overload retVal="" descr="var2bytes ( Variant var, bool full_objects=false )&#x0a;added_in:3.0 &#x0a;Encodes a variable value to a byte array. When full_objects is true encoding objects is allowed (and can potentially include code).&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="var2str" func="yes">
+			<Overload retVal="" descr="var2str ( Variant var )&#x0a;added_in:3.0 &#x0a;Converts a Variant var to a formatted string that can later be parsed using str2var.&#x0a;a = { &quot;a&quot;: 1, &quot;b&quot;: 2 }&#x0a;print(var2str(a))&#x0a;prints&#x0a;{&#x0a;&quot;a&quot;: 1,&#x0a;&quot;b&quot;: 2&#x0a;}&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="weakref" func="yes">
+			<Overload retVal="" descr="weakref ( Object obj )&#x0a;added_in:3.0 &#x0a;Returns a weak reference to an object.&#x0a;A weak reference to an object is not enough to keep the object alive: when the only remaining references to a referent are weak references, garbage collection is free to destroy the referent and reuse its memory for something else. However, until the object is actually destroyed the weak reference may return the object even if there are no strong references to it.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="wrapf" func="yes">
+			<Overload retVal="" descr="wrapf ( float value, float min, float max )&#x0a;added_in:3.0 &#x0a;Wraps float value between min and max.&#x0a;Usable for creating loop-alike behavior or infinite surfaces.&#x0a;# Infinite loop between 5.0 and 9.9&#x0a;value = wrapf(value + 0.1, 5.0, 10.0)&#x0a;# Infinite rotation (in radians)&#x0a;angle = wrapf(angle + 0.1, 0.0, TAU)&#x0a;# Infinite rotation (in radians)&#x0a;angle = wrapf(angle + 0.1, -PI, PI)&#x0a;Note: If min is 0, this is equivalent to fposmod, so prefer using that instead.&#x0a;wrapf is more flexible than using the fposmod approach by giving the user control over the minimum value.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="wrapi" func="yes">
+			<Overload retVal="" descr="wrapi ( int value, int min, int max )&#x0a;added_in:3.0 &#x0a;Wraps integer value between min and max.&#x0a;Usable for creating loop-alike behavior or infinite surfaces.&#x0a;# Infinite loop between 5 and 9&#x0a;frame = wrapi(frame + 1, 5, 10)&#x0a;# result is -2&#x0a;var result = wrapi(-6, -5, -1)&#x0a;Note: If min is 0, this is equivalent to posmod, so prefer using that instead.&#x0a;wrapi is more flexible than using the posmod approach by giving the user control over the minimum value.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="yield" func="yes">
+			<Overload retVal="" descr="yield ( Object object=null, String signal=&quot;&quot; )&#x0a;added_in:3.0 &#x0a;Stops the function execution and returns the current suspended state to the calling function.&#x0a;From the caller, call GDScriptFunctionState.resume on the state to resume execution. This invalidates the state. Within the resumed function, yield() returns whatever was passed to the resume() function call.&#x0a;If passed an object and a signal, the execution is resumed when the object emits the given signal. In this case, yield() returns the argument passed to emit_signal() if the signal takes only one argument, or an array containing all the arguments passed to emit_signal() if the signal takes multiple arguments.&#x0a;You can also use yield to wait for a function to finish:&#x0a;func _ready():&#x0a;    yield(countdown(), &quot;completed&quot;) # waiting for the countdown() function to complete&#x0a;    print('Ready')&#x0a;&#x0a;func countdown():&#x0a;    yield(get_tree(), &quot;idle_frame&quot;) # returns a GDScriptFunctionState object to _ready()&#x0a;    print(3)&#x0a;    yield(get_tree().create_timer(1.0), &quot;timeout&quot;)&#x0a;    print(2)&#x0a;    yield(get_tree().create_timer(1.0), &quot;timeout&quot;)&#x0a;    print(1)&#x0a;    yield(get_tree().create_timer(1.0), &quot;timeout&quot;)&#x0a;&#x0a;# prints:&#x0a;# 3&#x0a;# 2&#x0a;# 1&#x0a;# Ready&#x0a;When yielding on a function, the completed signal will be emitted automatically when the function returns. It can, therefore, be used as the signal parameter of the yield method to resume.&#x0a;In order to yield on a function, the resulting function should also return a GDScriptFunctionState. Notice yield(get_tree(), &quot;idle_frame&quot;) from the above example.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="get_stack" func="yes">
+			<Overload retVal="" descr="get_stack ( )&#x0a;added_in:3.1 &#x0a;Returns an array of dictionaries representing the current call stack.&#x0a;func _ready():&#x0a;    foo()&#x0a;&#x0a;func foo():&#x0a;    bar()&#x0a;&#x0a;func bar():&#x0a;    print(get_stack())&#x0a;would print&#x0a;[{function:bar, line:12, source:res://script.gd}, {function:foo, line:9, source:res://script.gd}, {function:_ready, line:6, source:res://script.gd}]&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="is_instance_valid" func="yes">
+			<Overload retVal="" descr="is_instance_valid ( Object instance )&#x0a;added_in:3.1 &#x0a;Returns whether instance is a valid object (e.g. has not been deleted from memory).&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="print_debug" func="yes">
+			<Overload retVal="" descr="print_debug ( ... ) vararg&#x0a;added_in:3.1 &#x0a;Like print, but includes the current stack frame when running with the debugger turned on.&#x0a;Output in the console would look something like this:&#x0a;Test print&#x0a;   At: res://test.gd:15:_process()&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="push_error" func="yes">
+			<Overload retVal="" descr="push_error ( String message )&#x0a;added_in:3.1 &#x0a;Pushes an error message to Godot's built-in debugger and to the OS terminal.&#x0a;push_error(&quot;test error&quot;) # Prints &quot;test error&quot; to debugger and terminal as error call&#x0a;Note: Errors printed this way will not pause project execution. To print an error message and pause project execution in debug builds, use assert(false, &quot;test error&quot;) instead.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="push_warning" func="yes">
+			<Overload retVal="" descr="push_warning ( String message )&#x0a;added_in:3.1 &#x0a;Pushes a warning message to Godot's built-in debugger and to the OS terminal.&#x0a;push_warning(&quot;test warning&quot;) # Prints &quot;test warning&quot; to debugger and terminal as warning call&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="smoothstep" func="yes">
+			<Overload retVal="" descr="smoothstep ( float from, float to, float s )&#x0a;added_in:3.1 &#x0a;Returns the result of smoothly interpolating the value of s between 0 and 1, based on the where s lies with respect to the edges from and to.&#x0a;The return value is 0 if s &lt;= from, and 1 if s &gt;= to. If s lies between from and to, the returned value follows an S-shaped curve that maps s between 0 and 1.&#x0a;This S-shaped curve is the cubic Hermite interpolator, given by f(y) = 3*y^2 - 2*y^3 where y = (x-from) / (to-from).&#x0a;smoothstep(0, 2, -5.0) # Returns 0.0&#x0a;smoothstep(0, 2, 0.5) # Returns 0.15625&#x0a;smoothstep(0, 2, 1.0) # Returns 0.5&#x0a;smoothstep(0, 2, 2.0) # Returns 1.0&#x0a;Compared to ease with a curve value of -1.6521, smoothstep returns the smoothest possible curve with no sudden changes in the derivative. If you need to perform more advanced transitions, use Tween or AnimationPlayer.&#x0a;Comparison between smoothstep() and ease(x, -1.6521) return values&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="is_equal_approx" func="yes">
+			<Overload retVal="" descr="is_equal_approx ( float a, float b )&#x0a;added_in:3.2 &#x0a;Returns true if a and b are approximately equal to each other.&#x0a;Here, approximately equal means that a and b are within a small internal epsilon of each other, which scales with the magnitude of the numbers.&#x0a;Infinity values of the same sign are considered equal.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="is_zero_approx" func="yes">
+			<Overload retVal="" descr="is_zero_approx ( float s )&#x0a;added_in:3.2 &#x0a;Returns true if s is zero or almost zero.&#x0a;This method is faster than using is_equal_approx with one value as zero.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="lerp_angle" func="yes">
+			<Overload retVal="" descr="lerp_angle ( float from, float to, float weight )&#x0a;added_in:3.2 &#x0a;Linearly interpolates between two angles (in radians) by a normalized value.&#x0a;Similar to lerp, but interpolates correctly when the angles wrap around TAU. To perform eased interpolation with lerp_angle, combine it with ease or smoothstep.&#x0a;extends Sprite&#x0a;var elapsed = 0.0&#x0a;func _process(delta):&#x0a;    var min_angle = deg2rad(0.0)&#x0a;    var max_angle = deg2rad(90.0)&#x0a;    rotation = lerp_angle(min_angle, max_angle, elapsed)&#x0a;    elapsed += delta&#x0a;Note: This method lerps through the shortest path between from and to. However, when these two angles are approximately PI + k * TAU apart for any integer k, it's not obvious which way they lerp due to floating-point precision errors. For example, lerp_angle(0, PI, weight) lerps counter-clockwise, while lerp_angle(0, PI + 5 * TAU, weight) lerps clockwise.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="move_toward" func="yes">
+			<Overload retVal="" descr="move_toward ( float from, float to, float delta )&#x0a;added_in:3.2 &#x0a;Moves from toward to by the delta value.&#x0a;Use a negative delta value to move away.&#x0a;move_toward(5, 10, 4) # Returns 9&#x0a;move_toward(10, 5, 4) # Returns 6&#x0a;move_toward(10, 5, -1.5) # Returns 11.5&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ord" func="yes">
+			<Overload retVal="" descr="ord ( String char )&#x0a;added_in:3.2 &#x0a;Returns an integer representing the Unicode code point of the given Unicode character char.&#x0a;a = ord(&quot;A&quot;) # a is 65&#x0a;a = ord(&quot;a&quot;) # a is 97&#x0a;a = ord(&quot;€&quot;) # a is 8364&#x0a;This is the inverse of char.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="posmod" func="yes">
+			<Overload retVal="" descr="posmod ( int a, int b )&#x0a;added_in:3.2 &#x0a;Returns the integer modulus of a/b that wraps equally in positive and negative.&#x0a;for i in range(-3, 4):&#x0a;    print(&quot;%2d %2d %2d&quot; % [i, i % 3, posmod(i, 3)])&#x0a;Produces:&#x0a;-3  0  0&#x0a;-2 -2  1&#x0a;-1 -1  2&#x0a; 0  0  0&#x0a; 1  1  1&#x0a; 2  2  2&#x0a; 3  0  0&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="step_decimals" func="yes">
+			<Overload retVal="" descr="step_decimals ( float step )&#x0a;added_in:3.2 &#x0a;Returns the position of the first non-zero digit, after the decimal point. Note that the maximum return value is 10, which is a design decision in the implementation.&#x0a;n = step_decimals(5)           # n is 0&#x0a;n = step_decimals(1.0005)      # n is 4&#x0a;n = step_decimals(0.000000005) # n is 9&#x0a;">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="deep_equal" func="yes">
+			<Overload retVal="" descr="deep_equal ( Variant a, Variant b )&#x0a;added_in:3.5 &#x0a;Compares two values by checking their actual contents, recursing into any Array or Dictionary up to its deepest level.&#x0a;This compares to == in a number of ways:&#x0a;For null, int, float, String, Object and RID both deep_equal and == work the same.&#x0a;For Dictionary, == considers equality if, and only if, both variables point to the very same Dictionary, with no recursion or awareness of the contents at all.&#x0a;For Array, == considers equality if, and only if, each item in the first Array is equal to its counterpart in the second Array, as told by == itself. That implies that == recurses into Array, but not into Dictionary.&#x0a;In short, whenever a Dictionary is potentially involved, if you want a true content-aware comparison, you have to use deep_equal.&#x0a;">
+			</Overload>
+		</KeyWord>
+		<!-- builtin classes -->
+		<KeyWord name="AABB" />
+		<KeyWord name="AcceptDialog" />
+		<KeyWord name="AESContext" />
+		<KeyWord name="AnimatedSprite" />
+		<KeyWord name="AnimatedSprite3D" />
+		<KeyWord name="AnimatedTexture" />
+		<KeyWord name="Animation" />
+		<KeyWord name="AnimationNode" />
+		<KeyWord name="AnimationNodeAdd2" />
+		<KeyWord name="AnimationNodeAdd3" />
+		<KeyWord name="AnimationNodeAnimation" />
+		<KeyWord name="AnimationNodeBlend2" />
+		<KeyWord name="AnimationNodeBlend3" />
+		<KeyWord name="AnimationNodeBlendSpace1D" />
+		<KeyWord name="AnimationNodeBlendSpace2D" />
+		<KeyWord name="AnimationNodeBlendTree" />
+		<KeyWord name="AnimationNodeOneShot" />
+		<KeyWord name="AnimationNodeOutput" />
+		<KeyWord name="AnimationNodeStateMachine" />
+		<KeyWord name="AnimationNodeStateMachinePlayback" />
+		<KeyWord name="AnimationNodeStateMachineTransition" />
+		<KeyWord name="AnimationNodeTimeScale" />
+		<KeyWord name="AnimationNodeTimeSeek" />
+		<KeyWord name="AnimationNodeTransition" />
+		<KeyWord name="AnimationPlayer" />
+		<KeyWord name="AnimationRootNode" />
+		<KeyWord name="AnimationTrackEditPlugin" />
+		<KeyWord name="AnimationTree" />
+		<KeyWord name="AnimationTreePlayer" />
+		<KeyWord name="Area" />
+		<KeyWord name="Area2D" />
+		<KeyWord name="Array" />
+		<KeyWord name="ArrayMesh" />
+		<KeyWord name="ARVRAnchor" />
+		<KeyWord name="ARVRCamera" />
+		<KeyWord name="ARVRController" />
+		<KeyWord name="ARVRInterface" />
+		<KeyWord name="ARVRInterfaceGDNative" />
+		<KeyWord name="ARVROrigin" />
+		<KeyWord name="ARVRPositionalTracker" />
+		<KeyWord name="ARVRServer" />
+		<KeyWord name="AspectRatioContainer" />
+		<KeyWord name="AStar" />
+		<KeyWord name="AStar2D" />
+		<KeyWord name="AtlasTexture" />
+		<KeyWord name="AudioBusLayout" />
+		<KeyWord name="AudioEffect" />
+		<KeyWord name="AudioEffectAmplify" />
+		<KeyWord name="AudioEffectBandLimitFilter" />
+		<KeyWord name="AudioEffectBandPassFilter" />
+		<KeyWord name="AudioEffectCapture" />
+		<KeyWord name="AudioEffectChorus" />
+		<KeyWord name="AudioEffectCompressor" />
+		<KeyWord name="AudioEffectDelay" />
+		<KeyWord name="AudioEffectDistortion" />
+		<KeyWord name="AudioEffectEQ" />
+		<KeyWord name="AudioEffectEQ10" />
+		<KeyWord name="AudioEffectEQ21" />
+		<KeyWord name="AudioEffectEQ6" />
+		<KeyWord name="AudioEffectFilter" />
+		<KeyWord name="AudioEffectHighPassFilter" />
+		<KeyWord name="AudioEffectHighShelfFilter" />
+		<KeyWord name="AudioEffectInstance" />
+		<KeyWord name="AudioEffectLimiter" />
+		<KeyWord name="AudioEffectLowPassFilter" />
+		<KeyWord name="AudioEffectLowShelfFilter" />
+		<KeyWord name="AudioEffectNotchFilter" />
+		<KeyWord name="AudioEffectPanner" />
+		<KeyWord name="AudioEffectPhaser" />
+		<KeyWord name="AudioEffectPitchShift" />
+		<KeyWord name="AudioEffectRecord" />
+		<KeyWord name="AudioEffectReverb" />
+		<KeyWord name="AudioEffectSpectrumAnalyzer" />
+		<KeyWord name="AudioEffectSpectrumAnalyzerInstance" />
+		<KeyWord name="AudioEffectStereoEnhance" />
+		<KeyWord name="AudioServer" />
+		<KeyWord name="AudioStream" />
+		<KeyWord name="AudioStreamGenerator" />
+		<KeyWord name="AudioStreamGeneratorPlayback" />
+		<KeyWord name="AudioStreamMicrophone" />
+		<KeyWord name="AudioStreamMP3" />
+		<KeyWord name="AudioStreamOGGVorbis" />
+		<KeyWord name="AudioStreamPlayback" />
+		<KeyWord name="AudioStreamPlaybackResampled" />
+		<KeyWord name="AudioStreamPlayer" />
+		<KeyWord name="AudioStreamPlayer2D" />
+		<KeyWord name="AudioStreamPlayer3D" />
+		<KeyWord name="AudioStreamRandomPitch" />
+		<KeyWord name="AudioStreamSample" />
+		<KeyWord name="BackBufferCopy" />
+		<KeyWord name="BakedLightmap" />
+		<KeyWord name="BakedLightmapData" />
+		<KeyWord name="BaseButton" />
+		<KeyWord name="Basis" />
+		<KeyWord name="BitMap" />
+		<KeyWord name="BitmapFont" />
+		<KeyWord name="Bone2D" />
+		<KeyWord name="BoneAttachment" />
+		<KeyWord name="bool" />
+		<KeyWord name="BoxContainer" />
+		<KeyWord name="BoxShape" />
+		<KeyWord name="Button" />
+		<KeyWord name="ButtonGroup" />
+		<KeyWord name="CallbackTweener" />
+		<KeyWord name="Camera" />
+		<KeyWord name="Camera2D" />
+		<KeyWord name="CameraFeed" />
+		<KeyWord name="CameraServer" />
+		<KeyWord name="CameraTexture" />
+		<KeyWord name="CanvasItem" />
+		<KeyWord name="CanvasItemMaterial" />
+		<KeyWord name="CanvasLayer" />
+		<KeyWord name="CanvasModulate" />
+		<KeyWord name="CapsuleMesh" />
+		<KeyWord name="CapsuleShape" />
+		<KeyWord name="CapsuleShape2D" />
+		<KeyWord name="CenterContainer" />
+		<KeyWord name="CharFXTransform" />
+		<KeyWord name="CheckBox" />
+		<KeyWord name="CheckButton" />
+		<KeyWord name="CircleShape2D" />
+		<KeyWord name="ClassDB" />
+		<KeyWord name="ClippedCamera" />
+		<KeyWord name="CollisionObject" />
+		<KeyWord name="CollisionObject2D" />
+		<KeyWord name="CollisionPolygon" />
+		<KeyWord name="CollisionPolygon2D" />
+		<KeyWord name="CollisionShape" />
+		<KeyWord name="CollisionShape2D" />
+		<KeyWord name="Color" />
+		<KeyWord name="ColorPicker" />
+		<KeyWord name="ColorPickerButton" />
+		<KeyWord name="ColorRect" />
+		<KeyWord name="ConcavePolygonShape" />
+		<KeyWord name="ConcavePolygonShape2D" />
+		<KeyWord name="ConeTwistJoint" />
+		<KeyWord name="ConfigFile" />
+		<KeyWord name="ConfirmationDialog" />
+		<KeyWord name="Container" />
+		<KeyWord name="Control" />
+		<KeyWord name="ConvexPolygonShape" />
+		<KeyWord name="ConvexPolygonShape2D" />
+		<KeyWord name="CPUParticles" />
+		<KeyWord name="CPUParticles2D" />
+		<KeyWord name="Crypto" />
+		<KeyWord name="CryptoKey" />
+		<KeyWord name="CSGBox" />
+		<KeyWord name="CSGCombiner" />
+		<KeyWord name="CSGCylinder" />
+		<KeyWord name="CSGMesh" />
+		<KeyWord name="CSGPolygon" />
+		<KeyWord name="CSGPrimitive" />
+		<KeyWord name="CSGShape" />
+		<KeyWord name="CSGSphere" />
+		<KeyWord name="CSGTorus" />
+		<KeyWord name="CSharpScript" />
+		<KeyWord name="CubeMap" />
+		<KeyWord name="CubeMesh" />
+		<KeyWord name="CullInstance" />
+		<KeyWord name="Curve" />
+		<KeyWord name="Curve2D" />
+		<KeyWord name="Curve3D" />
+		<KeyWord name="CurveTexture" />
+		<KeyWord name="CylinderMesh" />
+		<KeyWord name="CylinderShape" />
+		<KeyWord name="DampedSpringJoint2D" />
+		<KeyWord name="Dictionary" />
+		<KeyWord name="DirectionalLight" />
+		<KeyWord name="Directory" />
+		<KeyWord name="DTLSServer" />
+		<KeyWord name="DynamicFont" />
+		<KeyWord name="DynamicFontData" />
+		<KeyWord name="EditorExportPlugin" />
+		<KeyWord name="EditorFeatureProfile" />
+		<KeyWord name="EditorFileDialog" />
+		<KeyWord name="EditorFileSystem" />
+		<KeyWord name="EditorFileSystemDirectory" />
+		<KeyWord name="EditorImportPlugin" />
+		<KeyWord name="EditorInspector" />
+		<KeyWord name="EditorInspectorPlugin" />
+		<KeyWord name="EditorInterface" />
+		<KeyWord name="EditorPlugin" />
+		<KeyWord name="EditorProperty" />
+		<KeyWord name="EditorResourceConversionPlugin" />
+		<KeyWord name="EditorResourcePicker" />
+		<KeyWord name="EditorResourcePreview" />
+		<KeyWord name="EditorResourcePreviewGenerator" />
+		<KeyWord name="EditorSceneImporter" />
+		<KeyWord name="EditorSceneImporterFBX" />
+		<KeyWord name="EditorSceneImporterGLTF" />
+		<KeyWord name="EditorScenePostImport" />
+		<KeyWord name="EditorScript" />
+		<KeyWord name="EditorScriptPicker" />
+		<KeyWord name="EditorSelection" />
+		<KeyWord name="EditorSettings" />
+		<KeyWord name="EditorSpatialGizmo" />
+		<KeyWord name="EditorSpatialGizmoPlugin" />
+		<KeyWord name="EditorSpinSlider" />
+		<KeyWord name="EditorVCSInterface" />
+		<KeyWord name="EncodedObjectAsID" />
+		<KeyWord name="Engine" />
+		<KeyWord name="Environment" />
+		<KeyWord name="Expression" />
+		<KeyWord name="ExternalTexture" />
+		<KeyWord name="File" />
+		<KeyWord name="FileDialog" />
+		<KeyWord name="FileSystemDock" />
+		<KeyWord name="float" />
+		<KeyWord name="FlowContainer" />
+		<KeyWord name="Font" />
+		<KeyWord name="FuncRef" />
+		<KeyWord name="GDNative" />
+		<KeyWord name="GDNativeLibrary" />
+		<KeyWord name="GDScript" />
+		<KeyWord name="GDScriptFunctionState" />
+		<KeyWord name="Generic6DOFJoint" />
+		<KeyWord name="Geometry" />
+		<KeyWord name="GeometryInstance" />
+		<KeyWord name="GIProbe" />
+		<KeyWord name="GIProbeData" />
+		<KeyWord name="GLTFAccessor" />
+		<KeyWord name="GLTFAnimation" />
+		<KeyWord name="GLTFBufferView" />
+		<KeyWord name="GLTFCamera" />
+		<KeyWord name="GLTFDocument" />
+		<KeyWord name="GLTFLight" />
+		<KeyWord name="GLTFMesh" />
+		<KeyWord name="GLTFNode" />
+		<KeyWord name="GLTFSkeleton" />
+		<KeyWord name="GLTFSkin" />
+		<KeyWord name="GLTFSpecGloss" />
+		<KeyWord name="GLTFState" />
+		<KeyWord name="GLTFTexture" />
+		<KeyWord name="GodotSharp" />
+		<KeyWord name="Gradient" />
+		<KeyWord name="GradientTexture" />
+		<KeyWord name="GradientTexture2D" />
+		<KeyWord name="GraphEdit" />
+		<KeyWord name="GraphNode" />
+		<KeyWord name="GridContainer" />
+		<KeyWord name="GridMap" />
+		<KeyWord name="GrooveJoint2D" />
+		<KeyWord name="HashingContext" />
+		<KeyWord name="HBoxContainer" />
+		<KeyWord name="HeightMapShape" />
+		<KeyWord name="HFlowContainer" />
+		<KeyWord name="HingeJoint" />
+		<KeyWord name="HMACContext" />
+		<KeyWord name="HScrollBar" />
+		<KeyWord name="HSeparator" />
+		<KeyWord name="HSlider" />
+		<KeyWord name="HSplitContainer" />
+		<KeyWord name="HTTPClient" />
+		<KeyWord name="HTTPRequest" />
+		<KeyWord name="Image" />
+		<KeyWord name="ImageTexture" />
+		<KeyWord name="ImmediateGeometry" />
+		<KeyWord name="Input" />
+		<KeyWord name="InputEvent" />
+		<KeyWord name="InputEventAction" />
+		<KeyWord name="InputEventGesture" />
+		<KeyWord name="InputEventJoypadButton" />
+		<KeyWord name="InputEventJoypadMotion" />
+		<KeyWord name="InputEventKey" />
+		<KeyWord name="InputEventMagnifyGesture" />
+		<KeyWord name="InputEventMIDI" />
+		<KeyWord name="InputEventMouse" />
+		<KeyWord name="InputEventMouseButton" />
+		<KeyWord name="InputEventMouseMotion" />
+		<KeyWord name="InputEventPanGesture" />
+		<KeyWord name="InputEventScreenDrag" />
+		<KeyWord name="InputEventScreenTouch" />
+		<KeyWord name="InputEventWithModifiers" />
+		<KeyWord name="InputMap" />
+		<KeyWord name="InstancePlaceholder" />
+		<KeyWord name="int" />
+		<KeyWord name="InterpolatedCamera" />
+		<KeyWord name="IntervalTweener" />
+		<KeyWord name="IP" />
+		<KeyWord name="ItemList" />
+		<KeyWord name="JavaClass" />
+		<KeyWord name="JavaClassWrapper" />
+		<KeyWord name="JavaScript" />
+		<KeyWord name="JavaScriptObject" />
+		<KeyWord name="JNISingleton" />
+		<KeyWord name="Joint" />
+		<KeyWord name="Joint2D" />
+		<KeyWord name="JSON" />
+		<KeyWord name="JSONParseResult" />
+		<KeyWord name="JSONRPC" />
+		<KeyWord name="KinematicBody" />
+		<KeyWord name="KinematicBody2D" />
+		<KeyWord name="KinematicCollision" />
+		<KeyWord name="KinematicCollision2D" />
+		<KeyWord name="Label" />
+		<KeyWord name="Label3D" />
+		<KeyWord name="LargeTexture" />
+		<KeyWord name="Light" />
+		<KeyWord name="Light2D" />
+		<KeyWord name="LightOccluder2D" />
+		<KeyWord name="Line2D" />
+		<KeyWord name="LineEdit" />
+		<KeyWord name="LineShape2D" />
+		<KeyWord name="LinkButton" />
+		<KeyWord name="Listener" />
+		<KeyWord name="Listener2D" />
+		<KeyWord name="MainLoop" />
+		<KeyWord name="MarginContainer" />
+		<KeyWord name="Marshalls" />
+		<KeyWord name="Material" />
+		<KeyWord name="MenuButton" />
+		<KeyWord name="Mesh" />
+		<KeyWord name="MeshDataTool" />
+		<KeyWord name="MeshInstance" />
+		<KeyWord name="MeshInstance2D" />
+		<KeyWord name="MeshLibrary" />
+		<KeyWord name="MeshTexture" />
+		<KeyWord name="MethodTweener" />
+		<KeyWord name="MobileVRInterface" />
+		<KeyWord name="MultiMesh" />
+		<KeyWord name="MultiMeshInstance" />
+		<KeyWord name="MultiMeshInstance2D" />
+		<KeyWord name="MultiplayerAPI" />
+		<KeyWord name="MultiplayerPeerGDNative" />
+		<KeyWord name="Mutex" />
+		<KeyWord name="NativeScript" />
+		<KeyWord name="Navigation" />
+		<KeyWord name="Navigation2D" />
+		<KeyWord name="Navigation2DServer" />
+		<KeyWord name="NavigationAgent" />
+		<KeyWord name="NavigationAgent2D" />
+		<KeyWord name="NavigationMesh" />
+		<KeyWord name="NavigationMeshGenerator" />
+		<KeyWord name="NavigationMeshInstance" />
+		<KeyWord name="NavigationObstacle" />
+		<KeyWord name="NavigationObstacle2D" />
+		<KeyWord name="NavigationPolygon" />
+		<KeyWord name="NavigationPolygonInstance" />
+		<KeyWord name="NavigationServer" />
+		<KeyWord name="NetworkedMultiplayerCustom" />
+		<KeyWord name="NetworkedMultiplayerENet" />
+		<KeyWord name="NetworkedMultiplayerPeer" />
+		<KeyWord name="NinePatchRect" />
+		<KeyWord name="Node" />
+		<KeyWord name="Node2D" />
+		<KeyWord name="NodePath" />
+		<KeyWord name="NoiseTexture" />
+		<KeyWord name="Object" />
+		<KeyWord name="Occluder" />
+		<KeyWord name="OccluderPolygon2D" />
+		<KeyWord name="OccluderShape" />
+		<KeyWord name="OccluderShapePolygon" />
+		<KeyWord name="OccluderShapeSphere" />
+		<KeyWord name="OmniLight" />
+		<KeyWord name="OpenSimplexNoise" />
+		<KeyWord name="OptionButton" />
+		<KeyWord name="OS" />
+		<KeyWord name="PackedDataContainer" />
+		<KeyWord name="PackedDataContainerRef" />
+		<KeyWord name="PackedScene" />
+		<KeyWord name="PackedSceneGLTF" />
+		<KeyWord name="PacketPeer" />
+		<KeyWord name="PacketPeerDTLS" />
+		<KeyWord name="PacketPeerGDNative" />
+		<KeyWord name="PacketPeerStream" />
+		<KeyWord name="PacketPeerUDP" />
+		<KeyWord name="Panel" />
+		<KeyWord name="PanelContainer" />
+		<KeyWord name="PanoramaSky" />
+		<KeyWord name="ParallaxBackground" />
+		<KeyWord name="ParallaxLayer" />
+		<KeyWord name="Particles" />
+		<KeyWord name="Particles2D" />
+		<KeyWord name="ParticlesMaterial" />
+		<KeyWord name="Path" />
+		<KeyWord name="Path2D" />
+		<KeyWord name="PathFollow" />
+		<KeyWord name="PathFollow2D" />
+		<KeyWord name="PCKPacker" />
+		<KeyWord name="Performance" />
+		<KeyWord name="PHashTranslation" />
+		<KeyWord name="PhysicalBone" />
+		<KeyWord name="Physics2DDirectBodyState" />
+		<KeyWord name="Physics2DDirectSpaceState" />
+		<KeyWord name="Physics2DServer" />
+		<KeyWord name="Physics2DShapeQueryParameters" />
+		<KeyWord name="Physics2DTestMotionResult" />
+		<KeyWord name="PhysicsBody" />
+		<KeyWord name="PhysicsBody2D" />
+		<KeyWord name="PhysicsDirectBodyState" />
+		<KeyWord name="PhysicsDirectSpaceState" />
+		<KeyWord name="PhysicsMaterial" />
+		<KeyWord name="PhysicsServer" />
+		<KeyWord name="PhysicsShapeQueryParameters" />
+		<KeyWord name="PhysicsTestMotionResult" />
+		<KeyWord name="PinJoint" />
+		<KeyWord name="PinJoint2D" />
+		<KeyWord name="Plane" />
+		<KeyWord name="PlaneMesh" />
+		<KeyWord name="PlaneShape" />
+		<KeyWord name="PluginScript" />
+		<KeyWord name="PointMesh" />
+		<KeyWord name="Polygon2D" />
+		<KeyWord name="PolygonPathFinder" />
+		<KeyWord name="PoolByteArray" />
+		<KeyWord name="PoolColorArray" />
+		<KeyWord name="PoolIntArray" />
+		<KeyWord name="PoolRealArray" />
+		<KeyWord name="PoolStringArray" />
+		<KeyWord name="PoolVector2Array" />
+		<KeyWord name="PoolVector3Array" />
+		<KeyWord name="Popup" />
+		<KeyWord name="PopupDialog" />
+		<KeyWord name="PopupMenu" />
+		<KeyWord name="PopupPanel" />
+		<KeyWord name="Portal" />
+		<KeyWord name="Position2D" />
+		<KeyWord name="Position3D" />
+		<KeyWord name="PrimitiveMesh" />
+		<KeyWord name="PrismMesh" />
+		<KeyWord name="ProceduralSky" />
+		<KeyWord name="ProgressBar" />
+		<KeyWord name="ProjectSettings" />
+		<KeyWord name="PropertyTweener" />
+		<KeyWord name="ProximityGroup" />
+		<KeyWord name="ProxyTexture" />
+		<KeyWord name="QuadMesh" />
+		<KeyWord name="Quat" />
+		<KeyWord name="RandomNumberGenerator" />
+		<KeyWord name="Range" />
+		<KeyWord name="RayCast" />
+		<KeyWord name="RayCast2D" />
+		<KeyWord name="RayShape" />
+		<KeyWord name="RayShape2D" />
+		<KeyWord name="Rect2" />
+		<KeyWord name="RectangleShape2D" />
+		<KeyWord name="Reference" />
+		<KeyWord name="ReferenceRect" />
+		<KeyWord name="ReflectionProbe" />
+		<KeyWord name="RegEx" />
+		<KeyWord name="RegExMatch" />
+		<KeyWord name="RemoteTransform" />
+		<KeyWord name="RemoteTransform2D" />
+		<KeyWord name="Resource" />
+		<KeyWord name="ResourceFormatLoader" />
+		<KeyWord name="ResourceFormatSaver" />
+		<KeyWord name="ResourceImporter" />
+		<KeyWord name="ResourceInteractiveLoader" />
+		<KeyWord name="ResourceLoader" />
+		<KeyWord name="ResourcePreloader" />
+		<KeyWord name="ResourceSaver" />
+		<KeyWord name="RichTextEffect" />
+		<KeyWord name="RichTextLabel" />
+		<KeyWord name="RID" />
+		<KeyWord name="RigidBody" />
+		<KeyWord name="RigidBody2D" />
+		<KeyWord name="Room" />
+		<KeyWord name="RoomGroup" />
+		<KeyWord name="RoomManager" />
+		<KeyWord name="RootMotionView" />
+		<KeyWord name="SceneState" />
+		<KeyWord name="SceneTree" />
+		<KeyWord name="SceneTreeTimer" />
+		<KeyWord name="SceneTreeTween" />
+		<KeyWord name="Script" />
+		<KeyWord name="ScriptCreateDialog" />
+		<KeyWord name="ScriptEditor" />
+		<KeyWord name="ScrollBar" />
+		<KeyWord name="ScrollContainer" />
+		<KeyWord name="SegmentShape2D" />
+		<KeyWord name="Semaphore" />
+		<KeyWord name="Separator" />
+		<KeyWord name="Shader" />
+		<KeyWord name="ShaderMaterial" />
+		<KeyWord name="Shape" />
+		<KeyWord name="Shape2D" />
+		<KeyWord name="ShapeCast" />
+		<KeyWord name="ShapeCast2D" />
+		<KeyWord name="ShortCut" />
+		<KeyWord name="Skeleton" />
+		<KeyWord name="Skeleton2D" />
+		<KeyWord name="SkeletonIK" />
+		<KeyWord name="Skin" />
+		<KeyWord name="SkinReference" />
+		<KeyWord name="Sky" />
+		<KeyWord name="Slider" />
+		<KeyWord name="SliderJoint" />
+		<KeyWord name="SoftBody" />
+		<KeyWord name="Spatial" />
+		<KeyWord name="SpatialGizmo" />
+		<KeyWord name="SpatialMaterial" />
+		<KeyWord name="SpatialVelocityTracker" />
+		<KeyWord name="SphereMesh" />
+		<KeyWord name="SphereShape" />
+		<KeyWord name="SpinBox" />
+		<KeyWord name="SplitContainer" />
+		<KeyWord name="SpotLight" />
+		<KeyWord name="SpringArm" />
+		<KeyWord name="Sprite" />
+		<KeyWord name="Sprite3D" />
+		<KeyWord name="SpriteBase3D" />
+		<KeyWord name="SpriteFrames" />
+		<KeyWord name="StaticBody" />
+		<KeyWord name="StaticBody2D" />
+		<KeyWord name="StreamPeer" />
+		<KeyWord name="StreamPeerBuffer" />
+		<KeyWord name="StreamPeerGDNative" />
+		<KeyWord name="StreamPeerSSL" />
+		<KeyWord name="StreamPeerTCP" />
+		<KeyWord name="StreamTexture" />
+		<KeyWord name="String" />
+		<KeyWord name="StyleBox" />
+		<KeyWord name="StyleBoxEmpty" />
+		<KeyWord name="StyleBoxFlat" />
+		<KeyWord name="StyleBoxLine" />
+		<KeyWord name="StyleBoxTexture" />
+		<KeyWord name="SurfaceTool" />
+		<KeyWord name="TabContainer" />
+		<KeyWord name="Tabs" />
+		<KeyWord name="TCP_Server" />
+		<KeyWord name="TextEdit" />
+		<KeyWord name="TextFile" />
+		<KeyWord name="TextMesh" />
+		<KeyWord name="Texture" />
+		<KeyWord name="Texture3D" />
+		<KeyWord name="TextureArray" />
+		<KeyWord name="TextureButton" />
+		<KeyWord name="TextureLayered" />
+		<KeyWord name="TextureProgress" />
+		<KeyWord name="TextureRect" />
+		<KeyWord name="Theme" />
+		<KeyWord name="Thread" />
+		<KeyWord name="TileMap" />
+		<KeyWord name="TileSet" />
+		<KeyWord name="Time" />
+		<KeyWord name="Timer" />
+		<KeyWord name="ToolButton" />
+		<KeyWord name="TorusMesh" />
+		<KeyWord name="TouchScreenButton" />
+		<KeyWord name="Transform" />
+		<KeyWord name="Transform2D" />
+		<KeyWord name="Translation" />
+		<KeyWord name="TranslationServer" />
+		<KeyWord name="Tree" />
+		<KeyWord name="TreeItem" />
+		<KeyWord name="TriangleMesh" />
+		<KeyWord name="Tween" />
+		<KeyWord name="Tweener" />
+		<KeyWord name="UDPServer" />
+		<KeyWord name="UndoRedo" />
+		<KeyWord name="UPNP" />
+		<KeyWord name="UPNPDevice" />
+		<KeyWord name="Variant" />
+		<KeyWord name="VBoxContainer" />
+		<KeyWord name="Vector2" />
+		<KeyWord name="Vector3" />
+		<KeyWord name="VehicleBody" />
+		<KeyWord name="VehicleWheel" />
+		<KeyWord name="VFlowContainer" />
+		<KeyWord name="VideoPlayer" />
+		<KeyWord name="VideoStream" />
+		<KeyWord name="VideoStreamGDNative" />
+		<KeyWord name="VideoStreamTheora" />
+		<KeyWord name="VideoStreamWebm" />
+		<KeyWord name="Viewport" />
+		<KeyWord name="ViewportContainer" />
+		<KeyWord name="ViewportTexture" />
+		<KeyWord name="VisibilityEnabler" />
+		<KeyWord name="VisibilityEnabler2D" />
+		<KeyWord name="VisibilityNotifier" />
+		<KeyWord name="VisibilityNotifier2D" />
+		<KeyWord name="VisualInstance" />
+		<KeyWord name="VisualScript" />
+		<KeyWord name="VisualScriptBasicTypeConstant" />
+		<KeyWord name="VisualScriptBuiltinFunc" />
+		<KeyWord name="VisualScriptClassConstant" />
+		<KeyWord name="VisualScriptComment" />
+		<KeyWord name="VisualScriptComposeArray" />
+		<KeyWord name="VisualScriptCondition" />
+		<KeyWord name="VisualScriptConstant" />
+		<KeyWord name="VisualScriptConstructor" />
+		<KeyWord name="VisualScriptCustomNode" />
+		<KeyWord name="VisualScriptDeconstruct" />
+		<KeyWord name="VisualScriptEditor" />
+		<KeyWord name="VisualScriptEmitSignal" />
+		<KeyWord name="VisualScriptEngineSingleton" />
+		<KeyWord name="VisualScriptExpression" />
+		<KeyWord name="VisualScriptFunction" />
+		<KeyWord name="VisualScriptFunctionCall" />
+		<KeyWord name="VisualScriptFunctionState" />
+		<KeyWord name="VisualScriptGlobalConstant" />
+		<KeyWord name="VisualScriptIndexGet" />
+		<KeyWord name="VisualScriptIndexSet" />
+		<KeyWord name="VisualScriptInputAction" />
+		<KeyWord name="VisualScriptIterator" />
+		<KeyWord name="VisualScriptLists" />
+		<KeyWord name="VisualScriptLocalVar" />
+		<KeyWord name="VisualScriptLocalVarSet" />
+		<KeyWord name="VisualScriptMathConstant" />
+		<KeyWord name="VisualScriptNode" />
+		<KeyWord name="VisualScriptOperator" />
+		<KeyWord name="VisualScriptPreload" />
+		<KeyWord name="VisualScriptPropertyGet" />
+		<KeyWord name="VisualScriptPropertySet" />
+		<KeyWord name="VisualScriptResourcePath" />
+		<KeyWord name="VisualScriptReturn" />
+		<KeyWord name="VisualScriptSceneNode" />
+		<KeyWord name="VisualScriptSceneTree" />
+		<KeyWord name="VisualScriptSelect" />
+		<KeyWord name="VisualScriptSelf" />
+		<KeyWord name="VisualScriptSequence" />
+		<KeyWord name="VisualScriptSubCall" />
+		<KeyWord name="VisualScriptSwitch" />
+		<KeyWord name="VisualScriptTypeCast" />
+		<KeyWord name="VisualScriptVariableGet" />
+		<KeyWord name="VisualScriptVariableSet" />
+		<KeyWord name="VisualScriptWhile" />
+		<KeyWord name="VisualScriptYield" />
+		<KeyWord name="VisualScriptYieldSignal" />
+		<KeyWord name="VisualServer" />
+		<KeyWord name="VisualShader" />
+		<KeyWord name="VisualShaderNode" />
+		<KeyWord name="VisualShaderNodeBooleanConstant" />
+		<KeyWord name="VisualShaderNodeBooleanUniform" />
+		<KeyWord name="VisualShaderNodeColorConstant" />
+		<KeyWord name="VisualShaderNodeColorFunc" />
+		<KeyWord name="VisualShaderNodeColorOp" />
+		<KeyWord name="VisualShaderNodeColorUniform" />
+		<KeyWord name="VisualShaderNodeCompare" />
+		<KeyWord name="VisualShaderNodeCubeMap" />
+		<KeyWord name="VisualShaderNodeCubeMapUniform" />
+		<KeyWord name="VisualShaderNodeCustom" />
+		<KeyWord name="VisualShaderNodeDeterminant" />
+		<KeyWord name="VisualShaderNodeDotProduct" />
+		<KeyWord name="VisualShaderNodeExpression" />
+		<KeyWord name="VisualShaderNodeFaceForward" />
+		<KeyWord name="VisualShaderNodeFresnel" />
+		<KeyWord name="VisualShaderNodeGlobalExpression" />
+		<KeyWord name="VisualShaderNodeGroupBase" />
+		<KeyWord name="VisualShaderNodeIf" />
+		<KeyWord name="VisualShaderNodeInput" />
+		<KeyWord name="VisualShaderNodeIs" />
+		<KeyWord name="VisualShaderNodeOuterProduct" />
+		<KeyWord name="VisualShaderNodeOutput" />
+		<KeyWord name="VisualShaderNodeScalarClamp" />
+		<KeyWord name="VisualShaderNodeScalarConstant" />
+		<KeyWord name="VisualShaderNodeScalarDerivativeFunc" />
+		<KeyWord name="VisualShaderNodeScalarFunc" />
+		<KeyWord name="VisualShaderNodeScalarInterp" />
+		<KeyWord name="VisualShaderNodeScalarOp" />
+		<KeyWord name="VisualShaderNodeScalarSmoothStep" />
+		<KeyWord name="VisualShaderNodeScalarSwitch" />
+		<KeyWord name="VisualShaderNodeScalarUniform" />
+		<KeyWord name="VisualShaderNodeSwitch" />
+		<KeyWord name="VisualShaderNodeTexture" />
+		<KeyWord name="VisualShaderNodeTextureUniform" />
+		<KeyWord name="VisualShaderNodeTextureUniformTriplanar" />
+		<KeyWord name="VisualShaderNodeTransformCompose" />
+		<KeyWord name="VisualShaderNodeTransformConstant" />
+		<KeyWord name="VisualShaderNodeTransformDecompose" />
+		<KeyWord name="VisualShaderNodeTransformFunc" />
+		<KeyWord name="VisualShaderNodeTransformMult" />
+		<KeyWord name="VisualShaderNodeTransformUniform" />
+		<KeyWord name="VisualShaderNodeTransformVecMult" />
+		<KeyWord name="VisualShaderNodeUniform" />
+		<KeyWord name="VisualShaderNodeUniformRef" />
+		<KeyWord name="VisualShaderNodeVec3Constant" />
+		<KeyWord name="VisualShaderNodeVec3Uniform" />
+		<KeyWord name="VisualShaderNodeVectorClamp" />
+		<KeyWord name="VisualShaderNodeVectorCompose" />
+		<KeyWord name="VisualShaderNodeVectorDecompose" />
+		<KeyWord name="VisualShaderNodeVectorDerivativeFunc" />
+		<KeyWord name="VisualShaderNodeVectorDistance" />
+		<KeyWord name="VisualShaderNodeVectorFunc" />
+		<KeyWord name="VisualShaderNodeVectorInterp" />
+		<KeyWord name="VisualShaderNodeVectorLen" />
+		<KeyWord name="VisualShaderNodeVectorOp" />
+		<KeyWord name="VisualShaderNodeVectorRefract" />
+		<KeyWord name="VisualShaderNodeVectorScalarMix" />
+		<KeyWord name="VisualShaderNodeVectorScalarSmoothStep" />
+		<KeyWord name="VisualShaderNodeVectorScalarStep" />
+		<KeyWord name="VisualShaderNodeVectorSmoothStep" />
+		<KeyWord name="VScrollBar" />
+		<KeyWord name="VSeparator" />
+		<KeyWord name="VSlider" />
+		<KeyWord name="VSplitContainer" />
+		<KeyWord name="WeakRef" />
+		<KeyWord name="WebRTCDataChannel" />
+		<KeyWord name="WebRTCDataChannelGDNative" />
+		<KeyWord name="WebRTCMultiplayer" />
+		<KeyWord name="WebRTCPeerConnection" />
+		<KeyWord name="WebRTCPeerConnectionGDNative" />
+		<KeyWord name="WebSocketClient" />
+		<KeyWord name="WebSocketMultiplayerPeer" />
+		<KeyWord name="WebSocketPeer" />
+		<KeyWord name="WebSocketServer" />
+		<KeyWord name="WebXRInterface" />
+		<KeyWord name="WindowDialog" />
+		<KeyWord name="World" />
+		<KeyWord name="World2D" />
+		<KeyWord name="WorldEnvironment" />
+		<KeyWord name="X509Certificate" />
+		<KeyWord name="XMLParser" />
+		<KeyWord name="YSort" />
+	</AutoComplete>
+</NotepadPlus>

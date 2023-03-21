@@ -144,14 +144,14 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
     }
 }
 
-generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName) const
+generic_string NativeLangSpeaker::getSubMenuEntryName(const char *nodeName) const
 {
 	if (!_nativeLangA) return TEXT("");
 	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
 	if (!mainMenu) return TEXT("");
 	mainMenu = mainMenu->FirstChild("Main");
 	if (!mainMenu) return TEXT("");
-	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
+	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("SubEntries");
 	if (!entriesRoot) return TEXT("");
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -162,11 +162,11 @@ generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
 	{
 		TiXmlElementA *element = childNode->ToElement();
 
-		const char *idName = element->Attribute("idName");
+		const char *idName = element->Attribute("subMenuId");
 		if (idName)
 		{
 			const char *name = element->Attribute("name");
-			if (!strcmp(idName, entryName))
+			if (!strcmp(idName, nodeName))
 			{
 				return wmc.char2wchar(name, _nativeLangEncoding);
 			}
@@ -489,6 +489,33 @@ void NativeLangSpeaker::changeLangTabDropContextMenu(HMENU hCM)
 	}
 }
 
+void NativeLangSpeaker::changeLangTrayIconContexMenu(HMENU hCM)
+{
+	if (!_nativeLangA) return;
+
+	TiXmlNodeA *tryIconMenu = _nativeLangA->FirstChild("Menu");
+	if (!tryIconMenu) return;
+
+	tryIconMenu = tryIconMenu->FirstChild("TrayIcon");
+	if (!tryIconMenu) return;
+
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+	for (TiXmlNodeA *childNode = tryIconMenu->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
+		if (sentinel && (name && name[0]))
+		{
+			const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+			::ModifyMenu(hCM, id, MF_BYCOMMAND, id, nameW);
+		}
+	}
+}
 
 void NativeLangSpeaker::changeConfigLang(HWND hDlg)
 {
@@ -654,8 +681,16 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 				HWND hItem = ::GetDlgItem(hDlg, id);
 				if (hItem)
 				{
-					const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
-					::SetWindowText(hItem, nameW);
+					if (id == IDC_DOCK_BUTTON && userDefineDlg->isDocked())
+					{
+						generic_string name = getAttrNameByIdStr(TEXT("Undock"), userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
+						::SetWindowText(hItem, name.c_str());
+					}
+					else
+					{
+						const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+						::SetWindowText(hItem, nameW);
+					}
 				}
 			}
 		}
@@ -702,6 +737,8 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 			}
 		}
 	}
+
+	userDefineDlg->redraw();
 }
 
 void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg)
@@ -1240,14 +1277,20 @@ bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, generic_string 
 	return false;
 }
 
-generic_string NativeLangSpeaker::getFileBrowserLangMenuStr(int cmdID, const TCHAR *defaultStr) const
+generic_string NativeLangSpeaker::getDlgLangMenuStr(const char* firstLevelNodeName, const char* secondLevelNodeName, int cmdID, const TCHAR* defaultStr) const
 {
 	if (!_nativeLangA) return defaultStr;
 
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild(FOLDERASWORKSPACE_NODE);
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild(firstLevelNodeName);
 	if (!targetNode) return defaultStr;
 
-	targetNode = targetNode->FirstChild("Menus");
+	if (secondLevelNodeName && secondLevelNodeName[0])
+	{
+		targetNode = targetNode->FirstChild(secondLevelNodeName);
+		if (!targetNode) return defaultStr;
+	}
+	
+	targetNode = targetNode->FirstChild("Menu");
 	if (!targetNode) return defaultStr;
 
 	const char *name = NULL;

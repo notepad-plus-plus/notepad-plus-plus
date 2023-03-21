@@ -74,20 +74,12 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
@@ -104,12 +96,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				bool isTextEnabled = isCheckedOrNot(IDC_COL_NUM_RADIO);
 				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
-
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(hdcStatic);
-			}
-			return FALSE;
+			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:
@@ -125,7 +112,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -135,6 +122,11 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
+			if (NppDarkMode::isEnabled())
+			{
+				const ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_FORMAT_GRP_STATIC), !colEditParam._mainChoice);
+			}
 			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
 		}
@@ -467,7 +459,15 @@ void ColumnEditorDlg::switchToText(bool toText)
 
 	::SetFocus(toText?hText:hNum);
 
-	redraw();
+	redrawDlgItem(IDC_COL_INITNUM_STATIC);
+	redrawDlgItem(IDC_COL_INCRNUM_STATIC);
+	redrawDlgItem(IDC_COL_REPEATNUM_STATIC);
+
+	if (NppDarkMode::isEnabled())
+	{
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_FORMAT_GRP_STATIC), !toText);
+		redrawDlgItem(IDC_COL_FORMAT_GRP_STATIC);
+	}
 }
 
 UCHAR ColumnEditorDlg::getFormat() 

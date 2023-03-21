@@ -1125,7 +1125,7 @@ Kenderc'hel ganti?"/>
         <FolderAsWorkspace>
             <PanelTitle name="Doser evel spas-labour"/>
             <SelectFolderFromBrowserString name="Diuzit un doser evit ouzhpennañ e-barzh un Doser evel panell Spas-labour"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Dilemel"/>
                 <Item id="3512" name="Dilemel pep-tra"/>
                 <Item id="3513" name="Ouzhpennañ"/>
@@ -1136,7 +1136,7 @@ Kenderc'hel ganti?"/>
                 <Item id="3518" name="Ergerzhout adalek amañ"/>
                 <Item id="3519" name="Urzhiad adalek amañ"/>
                 <Item id="3520" name="Eilañ an anv-restr"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Raktres"/>

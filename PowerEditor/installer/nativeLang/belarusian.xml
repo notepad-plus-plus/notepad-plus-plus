@@ -1416,7 +1416,7 @@ The comments are here for explanation, it's not necessary to translate them.
             <ExpandAllFoldersTip name="Разгарнуць усе"/>
             <CollapseAllFoldersTip name="Згарнуць усе"/>
             <LocateCurrentFileTip name="Знайсці бягучы файл"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Выдаліць"/>
                 <Item id="3512" name="Выдаліць усе"/>
                 <Item id="3513" name="Дадаць"/>
@@ -1427,7 +1427,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="3518" name="Праваднік тут"/>
                 <Item id="3519" name="CMD тут"/>
                 <Item id="3520" name="Капіяваць назву файла"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Праект"/>

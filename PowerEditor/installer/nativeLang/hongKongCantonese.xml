@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.4.9">
+    <Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.5">
         <!--//
         This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
         Welcome issues and pull requests in Github repository:
@@ -118,6 +118,7 @@
                     <Item id="42006" name="剷(&amp;D)"/>
                     <Item id="42007" name="揀晒(&amp;S)"/>
                     <Item id="42020" name="開始揀/揀完(&amp;S)"/>
+                    <Item id="42089" name="開始揀/揀完（欄位模式）"/> <!-- #new v8.5 -->
                     <Item id="42084" name="日期時間（簡短）"/> <!-- #new v8.1.4 -->
                     <Item id="42085" name="日期時間（完整）"/> <!-- #new v8.1.4 -->
                     <Item id="42086" name="日期時間（自訂）"/> <!-- #new v8.1.5 -->
@@ -294,7 +295,7 @@
                     <Item id="44022" name="自動換行"/>
                     <Item id="44023" name="放大(&amp;I)"/>
                     <Item id="44024" name="縮細(&amp;O)"/>
-                    <Item id="44025" name="顯示空格同 tab"/>
+                    <Item id="44025" name="顯示各種空格同 tab"/>
                     <Item id="44026" name="顯示 EOL 字元 (End of Line)"/>
                     <Item id="44029" name="展開所有層級"/>
                     <Item id="44030" name="摺埋呢層"/>
@@ -324,6 +325,7 @@
                     <Item id="44113" name="加顏色 3"/> <!-- #new v8.4.6 -->
                     <Item id="44114" name="加顏色 4"/> <!-- #new v8.4.6 -->
                     <Item id="44115" name="加顏色 5"/> <!-- #new v8.4.6 -->
+                    <Item id="44130" name="顯示非打印字符"/> <!-- #new v8.5 -->
                     <Item id="44032" name="全螢幕模式"/>
                     <Item id="44033" name="回復預設 zoom 大細"/>
                     <Item id="44034" name="保持最上層"/>
@@ -688,6 +690,20 @@
                 <ScintillaCommandsTab name="Scintilla 指令"/>
                 <ConflictInfoOk name="冇同其它快捷鍵發生衝突。"/>
                 <ConflictInfoEditing name="冇同其它快捷鍵發生衝突..."/>
+                <WindowCategory name="視窗"/> <!-- #new v8.5 -->
+                <FileCategory name="檔案"/> <!-- #new v8.5 -->
+                <EditCategory name="編輯"/> <!-- #new v8.5 -->
+                <SearchCategory name="搵"/> <!-- #new v8.5 -->
+                <ViewCategory name="睇"/> <!-- #new v8.5 -->
+                <FormatCategory name="編碼"/> <!-- #new v8.5 -->
+                <LangCategory name="語言"/> <!-- #new v8.5 -->
+                <AboutCategory name="關於"/> <!-- #new v8.5 -->
+                <SettingCategory name="設定"/> <!-- #new v8.5 -->
+                <ToolCategory name="架撐"/> <!-- #new v8.5 -->
+                <ExecuteCategory name="執行"/> <!-- #new v8.5 -->
+                <ModifyContextMenu name="修改"/> <!-- #new v8.5 -->
+                <DeleteContextMenu name="剷走"/> <!-- #new v8.5 -->
+                <ClearContextMenu name="清除"/> <!-- #new v8.5 -->
                 <MainCommandNames>
                     <Item id="41019" name="喺檔案總管打開檔案嘅資料夾"/>
                     <Item id="41020" name="喺 CMD 打開檔案嘅資料夾"/>
@@ -806,6 +822,7 @@
                 <Item id="20011" name="透明度"/>
                 <Item id="20015" name="匯入..."/>
                 <Item id="20016" name="匯出..."/>
+                <Item id="20017" name="唔靠邊"/> <!-- #new v8.5 -->
 
                 <StylerDialog title="樣式對話框">
                     <Item id="25030" name="字型選項："/>
@@ -1029,6 +1046,10 @@
                     <Item id="6248" name="預設"/> <!-- #new v8.4.3 -->
                     <Item id="6249" name="純文字"/> <!-- #new v8.4.3 -->
                     <Item id="6250" name="自訂顏色"/> <!-- #new v8.4.3 -->
+                    <Item id="6252" name="非打印字符"/> <!-- #new v8.5 -->
+                    <Item id="6254" name="Abbreviation"/> <!-- #new v8.5 #review commit aaab190 -->
+                    <Item id="6255" name="Codepoint"/> <!-- #new v8.5 #review commit aaab190 -->
+                    <Item id="6256" name="自訂顏色"/> <!-- #new v8.5 -->
                 </Scintillas>
 
                 <DarkMode title="Dark Mode"> <!-- #new v7.9.6 -->
@@ -1233,7 +1254,8 @@
                     <Item id="6824" name="唔理數字"/>
                     <Item id="6811" name="由第"/>
                     <Item id="6813" name="個字元開始"/>
-                    <Item id="6814" name="有效值：1 - 9"/>
+                    <Item id="6814" name="有效值：1 - 9"/> <!-- #legacy v8.4.9 -->
+                    <Item id="6872" name="簡化自動完成清單"/> <!-- #new v8.5 -->
                     <Item id="6815" name="打字嗰陣顯示函式參數提示"/>
                     <Item id="6851" name="自動補齊"/>
                     <Item id="6857" name="HTML/XML 結束 tag"/>
@@ -1404,7 +1426,8 @@
             </DoSaveAll>
         </Dialog>
 
-        <MessageBox> <!-- $INT_REPLACE$ 係 placeholder 嚟，唔好改啊嗱 -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ 同埋 $STR_REPLACE$ 係 placeholders 嚟，唔好改啊嗱 -->
             <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以修改 Notepad++ 嘅快顯功能表。
 改完記得重新啟動 Notepad++，咁先至會生效。"/>
             <SaveCurrentModifWarning title="Save 而家嘅改動" message="你必須要 save 低而家嘅改動。
@@ -1432,7 +1455,16 @@
             <DroppingFolderAsProjectModeWarning title="操作無效" message="由於你喺「偏好設定：預設資料夾」閂咗「拖放資料夾去視窗嗰陣，會打開資料夾裏面所有檔案，而唔係放入去資料夾工作區」呢個選項，你只能夠拖放文件或者資料夾其中一種。
 有需要就啟用呢個選項，然後再試一次。"/>
             <SortingError title="排次序出錯" message="第 $INT_REPLACE$ 行出問題，無法子以整數排次序。"/>
-            <ColumnModeTip title="欄位模式" message="貼士：用「Alt + 滑鼠拖拉揀選」或者「Alt + Shift + keyboard 方向掣」嚟切換去欄位模式。"/>
+            <ColumnModeTip title="欄位模式" message="
+有三種方法切換去欄位模式：
+
+1. （鍵盤加滑鼠）撳著鍵盤 Alt 掣，再撳著滑鼠左掣嚟拖拉
+
+2. （只用鍵盤）撳著鍵盤 Alt + Shift 掣，再撳方向掣
+
+3. （鍵盤或者滑鼠）
+    浮標喺某個位置，執行「開始揀/揀完（欄位模式）」指令，作為開始。
+    然後移動浮標到另一個位置，再次執行「開始揀/揀完（欄位模式）」指令，作為結束。"/>
             <BufferInvalidWarning title="Save 失敗" message="Save 唔到：緩衝區無效。"/>
             <DoCloseOrNot title="保留唔存在嘅文件" message="個檔案「$STR_REPLACE$」已經唔存在喇。
 仲使唔使 keep 著呢個檔案呢？"/>
@@ -1463,6 +1495,8 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <CreateNewFileOrNot title="開新檔案" message="個檔案「$STR_REPLACE$」唔存在，開唔開新？"/>
             <CreateNewFileError title="開新檔案" message="開唔到新檔案「$STR_REPLACE$」。"/>
             <OpenFileError title="ERROR" message="個檔案「$STR_REPLACE$」打唔開"/>
+            <OpenFileNoFolderError title="開唔到檔案" message="打唔開個檔案「$STR_REPLACE1$」：
+資料夾「$STR_REPLACE2$」唔存在。"/> <!-- #new v8.5 -->
             <FileBackupFailed title="檔案備份失敗" message="備份資料夾「$STR_REPLACE$」存唔到個檔案嘅過往版本。
 
 仲使唔使 save 呢個檔案呢？"/>
@@ -1502,6 +1536,9 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至可以 load 啲外掛。"/>
             <ChangeHistoryEnabledWarning title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 先至會顯示修改紀錄。"/> <!-- #new v8.4.6 -->
             <WindowsSessionExit title="Notepad++ - Windows 工作階段結束" message="Windows 工作階段即將結束，但係你有啲資料未 save，係咪真係就咁閂埋 Notepad++ 佢？"/> <!-- #new v8.4.8 -->
+            <LanguageMenuCompactWarning title="簡化程式語言 menu" message="呢個選項會喺下次開程式嗰陣搞。"/> <!-- #new v8.5 -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="未 save 喎！咁樣會捨棄晒啲改過嘅設定。
+換主題之前使唔使 save 咗佢先啊？"/> <!-- #new v8.5 -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
@@ -1511,6 +1548,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <ColumnName name="檔名"/>
             <ColumnExt name="副檔名"/>
             <ColumnPath name="路徑"/> <!-- #new v8.1.5 -->
+            <ListGroups name="分類檢視"/> <!-- #new v8.5 -->
         </DocList>
         <WindowsDlg>
             <ColumnName name="檔名"/>
@@ -1545,7 +1583,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <ExpandAllFoldersTip name="展開所有資料夾"/> <!-- #new v7.9.2 -->
             <CollapseAllFoldersTip name="摺埋所有資料夾"/> <!-- #new v7.9.2 -->
             <LocateCurrentFileTip name="定位檔案"/> <!-- #new v7.9.2 -->
-            <Menus>
+            <Menu>
                 <Item id="3511" name="剷走"/>
                 <Item id="3512" name="剷走晒佢"/>
                 <Item id="3513" name="加料"/>
@@ -1556,7 +1594,7 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
                 <Item id="3518" name="喺檔案總管打開資料夾"/>
                 <Item id="3519" name="喺 CMD 打開資料夾"/>
                 <Item id="3520" name="將檔名抄去剪貼簿"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Project"/>
@@ -1688,11 +1726,11 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <splitter-rotate-right value="向右旋轉"/> <!-- #new v7.9.4 -->
             <recent-file-history-maxfile value="檔案數量："/>
             <recent-file-history-customlength value="長度："/> <!-- #new v8.4.8 -->
-            <language-tabsize value="縮排大細："/>
+            <language-tabsize value="縮排大細："/> <!-- #legacy v8.4.9 -->
             <userdefined-title-new value="開新語言..."/>
             <userdefined-title-save value="另 Save 而家個語言名..."/>
             <userdefined-title-rename value="改而家個語言名"/>
-            <autocomplete-nb-char value="字元數："/>
+            <autocomplete-nb-char value="字元數："/> <!-- #legacy v8.4.9 -->
             <edit-verticaledge-nb-col value="參考字元數："/>
             <summary value="統計資料"/>
             <summary-filepath value="完整檔案路徑： "/>
@@ -1705,6 +1743,8 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
             <summary-nbsel1 value=" 個揀咗嘅字元（"/>
             <summary-nbsel2 value=" bytes），揀咗 "/>
             <summary-nbrange value=" 個範圍數"/>
+            <progress-cancel-button value="取消"/> <!-- #new v8.5 -->
+            <progress-cancel-info value="取消緊，唔該等一陣..."/> <!-- #new v8.5 -->
             <find-in-files-progress-title value="等我搵搵先啊吓，幫緊你幫緊你..."/> <!-- #new v7.9.3 -->
             <replace-in-files-confirm-title value="係咪真係先？"/>
             <replace-in-files-confirm-directory value="係咪真係要喺呢度執行取代："/>
@@ -1740,6 +1780,33 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 1. 改過呢啲設定之後，要將啲大檔案閂咗佢再重新開過，咁先至會正常。
 
 2. 如果揀咗「將全局自動換行功能閂咗佢」，當你打開大檔案嗰陣，全部開咗嘅檔案都會唔再自動換行，你可以事後喺 menu 度開返佢（「睇」 → 「自動換行」）" /> <!-- #new v8.4.7 -->
+            <npcNote-tip value="Representation of selected &quot;non-ASCII&quot; whitespace and non-printing (control) characters.
+
+NOTE:
+Some characters might already have some representation and are thus visible. Line separator and paragraph separator are already represented by abbreviation by default.
+
+Using representation will disable character effects on text.
+
+For the full list of selected whitespace and non-printing characters check User Manual.
+
+Click on this button to open website with User Manual." /> <!-- #new v8.5 #review commit aaab190 -->
+            <npcAbbreviation-tip value="Abbreviation : name
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+For the full list check User Manual.
+Click on &quot;?&quot; button on right to open website with User Manual." /> <!-- #new v8.5 #review commit aaab190 -->
+            <npcCodepoint-tip value="Codepoint : name
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+For the full list check User Manual.
+Click on &quot;?&quot; button on right to open website with User Manual." /> <!-- #new v8.5 #review commit aaab190 -->
+
+            <!-- 唔好翻譯「(&quot;Non-printing characters custom color&quot;)」 -->
+            <npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)." /> <!-- #new v8.5 #review commit aaab190 -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

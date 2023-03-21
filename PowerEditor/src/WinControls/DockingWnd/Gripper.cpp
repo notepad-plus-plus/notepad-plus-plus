@@ -130,7 +130,7 @@ LRESULT CALLBACK Gripper::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, 
 	switch (message)
 	{
 		case WM_NCCREATE :
-			pDlgMoving = reinterpret_cast<Gripper *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
+			pDlgMoving = static_cast<Gripper *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pDlgMoving->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pDlgMoving));
 			return TRUE;
@@ -443,7 +443,7 @@ void Gripper::doTabReordering(POINT pt)
 			auto iSel = ::SendMessage(_hTab, TCM_GETCURSEL, 0, 0);
 			::SendMessage(_hTab, TCM_DELETEITEM, iSel, 0);
 		}
-		else if (_hTab == hTabOld)
+		else if (_hTab && _hTab == hTabOld)
 		{
 			// delete item on switch between tabs
 			::SendMessage(_hTab, TCM_DELETEITEM, iItemOld, 0);

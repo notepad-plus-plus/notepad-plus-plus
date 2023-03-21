@@ -116,9 +116,8 @@ const UCHAR BASE_02 = 0x03; // Bin
 const int MARK_BOOKMARK = 20;
 const int MARK_HIDELINESBEGIN = 19;
 const int MARK_HIDELINESEND = 18;
-const int MARK_HIDELINESUNDERLINE = 17;
-// 20 - 17 reserved for Notepad++ internal used
-// 16 - 0  are free to use for plugins
+// 20 - 18 reserved for Notepad++ internal used
+// 17 - 0  are free to use for plugins
 
 const std::vector<std::vector<const char*>> g_nonPrintingChars =
 {
@@ -650,7 +649,8 @@ public:
 	bool isPythonStyleIndentation(LangType typeDoc) const{
 		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\
 			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||\
-			typeDoc == L_PHP || typeDoc == L_JS || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE || typeDoc == L_ASN1);
+			typeDoc == L_PHP || typeDoc == L_JS || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE ||\
+			typeDoc == L_ASN1 || typeDoc == L_GDSCRIPT);
 	};
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
@@ -665,7 +665,7 @@ public:
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	};
 
-	void setHotspotStyle(Style& styleToSet);
+	void setHotspotStyle(const Style& styleToSet);
     void setTabSettings(Lang *lang);
 	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
 	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};
@@ -771,6 +771,10 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 	};
 
+	void setMSSqlLexer() {
+		setLexer(L_MSSQL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+	};
+
 	void setBashLexer() {
 		setLexer(L_BASH, LIST_0);
 	};
@@ -791,6 +795,12 @@ protected:
 	void setPythonLexer() {
 		setLexer(L_PYTHON, LIST_0 | LIST_1);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
+	};
+	
+	void setGDScriptLexer() {
+		setLexer(L_GDSCRIPT, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.keywords2.no.sub.identifiers"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.whinge.level"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setBatchLexer() {

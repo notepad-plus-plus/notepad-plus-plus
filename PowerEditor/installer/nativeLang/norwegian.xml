@@ -1350,7 +1350,7 @@ Fortsette?"/>
             <ExpandAllFoldersTip name="Utvid alle mapper"/>
             <CollapseAllFoldersTip name="Skjul alle mapper"/>
             <LocateCurrentFileTip name="Finn gjeldende fil"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Fjern"/>
                 <Item id="3512" name="Fjern alle"/>
                 <Item id="3513" name="Legg til"/>
@@ -1361,7 +1361,7 @@ Fortsette?"/>
                 <Item id="3518" name="Åpne utforsker her"/>
                 <Item id="3519" name="Åpne Kommandolinje her"/>
                 <Item id="3520" name="Kopier filnavn"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Prosjekt"/>

@@ -175,7 +175,7 @@ LRESULT CALLBACK DockingManager::staticWinProc(HWND hwnd, UINT message, WPARAM w
 	switch (message)
 	{
 		case WM_NCCREATE :
-			pDockingManager = reinterpret_cast<DockingManager *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
+			pDockingManager = static_cast<DockingManager *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pDockingManager->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pDockingManager));
 			return TRUE;

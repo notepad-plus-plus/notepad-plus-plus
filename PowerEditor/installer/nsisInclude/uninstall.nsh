@@ -41,11 +41,13 @@ Function un.onUninstSuccess
 	RMDir "$INSTDIR\plugins\"
 	RMDir "$INSTDIR\updater\"
 	RMDir "$INSTDIR\autoCompletion\"
+	RMDir "$INSTDIR\functionList\"
+	RMDir "$INSTDIR\themes\"
 	RMDir "$INSTDIR\"
 
 	RMDir "$APPDATA\${APPNAME}\plugins\"
-	RMDir "$installPath\userDefineLangs\"
 	RMDir "$installPath\themes\"	; if files are kept because of $keepUserData, this will not be deleted
+	RMDir "$installPath\userDefineLangs\"
 	RMDir "$installPath\"
 FunctionEnd
 
@@ -70,6 +72,9 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
 	
+	Exec 'rundll32.exe "$INSTDIR\NppModernShell.dll",UnregisterSparsePackage'
+	;Delete "$INSTDIR\NppModernShell.dll"
+	;Delete "$INSTDIR\NppModernShell.msix"
 	
  	ReadRegStr $muiVerbStrUn HKLM "SOFTWARE\Classes\*\shell\pintohome" MUIVerb
 	${UnStrStr} $nppSubStrUn $muiVerbStrUn "Notepad++"
@@ -299,6 +304,12 @@ Section Uninstall
 		StrCmp $1 "Admin" 0 +2
 			SetShellVarContext all ; make context for all user
 	${endIf}
+	
+	; In order to not delete context menu binary before we unregistered it,
+	; we delete them at the end
+	Delete "$INSTDIR\NppModernShell.dll"
+	Delete "$INSTDIR\NppModernShell.msix"
+	
 	
 	; Remove remaining directories
 	RMDir /r "$INSTDIR\plugins\disabled\"

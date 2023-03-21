@@ -73,10 +73,8 @@ NSRect PRectangleToNSRect(const PRectangle &rc) {
 /**
  * Converts an NSRect as used by the system to a native Scintilla rectangle.
  */
-PRectangle NSRectToPRectangle(NSRect &rc) {
-	return PRectangle(static_cast<XYPOSITION>(rc.origin.x), static_cast<XYPOSITION>(rc.origin.y),
-			  static_cast<XYPOSITION>(NSMaxX(rc)),
-			  static_cast<XYPOSITION>(NSMaxY(rc)));
+PRectangle NSRectToPRectangle(const NSRect &rc) {
+	return PRectangle(rc.origin.x, rc.origin.y, NSMaxX(rc), NSMaxY(rc));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1288,7 +1286,7 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 		// Switched to MacRoman to make work so treat as single byte encoding.
 		for (int i=0; i<text.length(); i++) {
 			CGFloat xPosition = CTLineGetOffsetForStringIndex(mLine, i+1, nullptr);
-			positions[i] = static_cast<XYPOSITION>(xPosition);
+			positions[i] = xPosition;
 		}
 		return;
 	}
@@ -1306,7 +1304,7 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 			const int codeUnits = UTF16LengthFromUTF8ByteCount(byteCount);
 			const CGFloat xPosition = linePositions[ui];
 			for (unsigned int bytePos=0; (bytePos<byteCount) && (i<text.length()); bytePos++) {
-				positions[i++] = static_cast<XYPOSITION>(xPosition);
+				positions[i++] = xPosition;
 			}
 			ui += codeUnits;
 		}
@@ -1322,14 +1320,14 @@ void SurfaceImpl::MeasureWidths(const Font *font_, std::string_view text, XYPOSI
 			size_t lenChar = DBCSIsLeadByte(mode.codePage, text[i]) ? 2 : 1;
 			CGFloat xPosition = CTLineGetOffsetForStringIndex(mLine, ui+1, NULL);
 			for (unsigned int bytePos=0; (bytePos<lenChar) && (i<text.length()); bytePos++) {
-				positions[i++] = static_cast<XYPOSITION>(xPosition);
+				positions[i++] = xPosition;
 			}
 			ui++;
 		}
 	} else {	// Single byte encoding
 		for (int i=0; i<text.length(); i++) {
 			CGFloat xPosition = CTLineGetOffsetForStringIndex(mLine, i+1, NULL);
-			positions[i] = static_cast<XYPOSITION>(xPosition);
+			positions[i] = xPosition;
 		}
 	}
 
@@ -1405,7 +1403,7 @@ void SurfaceImpl::MeasureWidthsUTF8(const Font *font_, std::string_view text, XY
 		// Switched to MacRoman to make work so treat as single byte encoding.
 		for (int i=0; i<text.length(); i++) {
 			CGFloat xPosition = CTLineGetOffsetForStringIndex(mLine, i+1, nullptr);
-			positions[i] = static_cast<XYPOSITION>(xPosition);
+			positions[i] = xPosition;
 		}
 		return;
 	}
@@ -1422,7 +1420,7 @@ void SurfaceImpl::MeasureWidthsUTF8(const Font *font_, std::string_view text, XY
 		const int codeUnits = UTF16LengthFromUTF8ByteCount(byteCount);
 		const CGFloat xPosition = linePositions[ui];
 		for (unsigned int bytePos=0; (bytePos<byteCount) && (i<text.length()); bytePos++) {
-			positions[i++] = static_cast<XYPOSITION>(xPosition);
+			positions[i++] = xPosition;
 		}
 		ui += codeUnits;
 	}
@@ -1546,8 +1544,8 @@ PRectangle Window::GetPosition() const {
 		CGFloat screenHeight = ScreenMax();
 		// Invert screen positions to match Scintilla
 		return PRectangle(
-			       static_cast<XYPOSITION>(NSMinX(rect)), static_cast<XYPOSITION>(screenHeight - NSMaxY(rect)),
-			       static_cast<XYPOSITION>(NSMaxX(rect)), static_cast<XYPOSITION>(screenHeight - NSMinY(rect)));
+			       NSMinX(rect), screenHeight - NSMaxY(rect),
+			       NSMaxX(rect), screenHeight - NSMinY(rect));
 	} else {
 		return PRectangle(0, 0, 1, 1);
 	}
@@ -1686,8 +1684,8 @@ PRectangle Window::GetMonitorRect(Point) {
 			CGFloat screenHeight = rect.origin.y + rect.size.height;
 			// Invert screen positions to match Scintilla
 			PRectangle rcWork(
-				static_cast<XYPOSITION>(NSMinX(rect)), static_cast<XYPOSITION>(screenHeight - NSMaxY(rect)),
-				static_cast<XYPOSITION>(NSMaxX(rect)), static_cast<XYPOSITION>(screenHeight - NSMinY(rect)));
+				NSMinX(rect), screenHeight - NSMaxY(rect),
+				NSMaxX(rect), screenHeight - NSMinY(rect));
 			PRectangle rcMonitor(rcWork.left - rcPosition.left,
 					     rcWork.top - rcPosition.top,
 					     rcWork.right - rcPosition.left,
@@ -2082,7 +2080,7 @@ void ListBoxImpl::Append(char *s, int type) {
 	}
 	NSImage *img = images[@(type)];
 	if (img) {
-		XYPOSITION widthIcon = static_cast<XYPOSITION>(img.size.width);
+		XYPOSITION widthIcon = img.size.width;
 		if (widthIcon > maxIconWidth) {
 			[colIcon setHidden: NO];
 			maxIconWidth = widthIcon;

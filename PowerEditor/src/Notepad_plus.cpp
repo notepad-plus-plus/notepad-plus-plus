@@ -3597,6 +3597,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_VB;
         case IDM_LANG_SQL :
             return L_SQL;
+        case IDM_LANG_MSSQL :
+            return L_MSSQL;
         case IDM_LANG_ASCII :
             return L_ASCII;
         case IDM_LANG_TEXT :
@@ -3723,6 +3725,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_VISUALPROLOG;
         case IDM_LANG_TYPESCRIPT:
             return L_TYPESCRIPT;
+        case IDM_LANG_GDSCRIPT:
+            return L_GDSCRIPT;
         case IDM_LANG_USER:
             return L_USER;
 		default:
@@ -4497,7 +4501,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 
 	if (x)
 	{
-		TCHAR pX[10];
+		TCHAR pX[10]{};
 		_itow(x, pX, 10);
 		command += TEXT(" -x");
 		command += pX;
@@ -4505,7 +4509,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 
 	if (y)
 	{
-		TCHAR pY[10];
+		TCHAR pY[10]{};
 		_itow(y, pY, 10);
 		command += TEXT(" -y");
 		command += pY;
@@ -7562,6 +7566,11 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #197"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("When I am tasked with sorting through a stack of résumés, I throw about half of them in the garbage.\nI do not want unlucky people working in our company.\n") },
 	{TEXT("Anonymous #198"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("The reason why we write SQL commands all in CAPITAL letters is because it stands for Screaming Query Language.\n") },
 	{TEXT("Anonymous #199"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Fly: Hey, bug on my back, are you a mite?\nMite: I mite be.\nFly: Stupidest pun I ever heard.\nMite: What do you expect? I just made it up on the fly.\n\n") },
+	{TEXT("Anonymous #200"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Me: What's the wifi password?\nBartender: You need to buy a drink first.\nMe: OK, I'll have a coke.\nBartender: Is Pepsi OK?\nMe: Sure. How much is that?\nBartender: $3.\nMe: There you go. So what's the wifi password?\nBartender: You need to buy a drink first. No spaces, all lowercase.\n\n") },
+	{TEXT("Anonymous #201"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("People always say software engineers are useless without computers.\nIt's not true.\nSome of them are useless even with computers.\n\n") },
+	{TEXT("Anonymous #202"), QuoteParams::slow , false, SC_CP_UTF8, L_TEXT, TEXT("The plural of regex is regrets.\n\n") },
+	{TEXT("Anonymous #203"), QuoteParams::rapid , false, SC_CP_UTF8, L_TEXT, TEXT("My gynecologist follows me on Instagram, I really do not know what else he want to see.\n\n") },
+	{TEXT("Anonymous #204"), QuoteParams::slow , false, SC_CP_UTF8, L_TEXT, TEXT("The greatest security vulnerability in any computer system is located between the keyboard and the chair.\n\n") },
 	{TEXT("xkcd"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never have I felt so close to another soul\nAnd yet so helplessly alone\nAs when I Google an error\nAnd there's one result\nA thread by someone with the same problem\nAnd no answer\nLast posted to in 2003\n\n\"Who were you, DenverCoder9?\"\n\"What did you see?!\"\n\n(ref: https://xkcd.com/979/)") },
 	{TEXT("A developer"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("No hugs & kisses.\nOnly bugs & fixes.") },
 	{TEXT("Elon Musk"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Don't set your password as your child's name.\nName your child after your password.") },

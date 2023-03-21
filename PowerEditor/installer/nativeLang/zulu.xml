@@ -1072,7 +1072,7 @@ Ingabe ufuna ukuqala i-Notepad ++ kwimodi ye-Administrator?"/>
         <FolderAsWorkspace>
 		  <PanelTitle name="Ifolda njengendawo yokusebenzela"/>
 		  <SelectFolderFromBrowserString name="Khetha ifolda ongayifaka kuFolda njengePaneti yokusebenzela"/>
-		  <Menus>
+		  <Menu>
 			  <Item id="3511" name="Susa"/>
 			  <Item id="3512" name="Susa konke"/>
 			  <Item id="3513" name="Engeza"/>
@@ -1082,7 +1082,7 @@ Ingabe ufuna ukuqala i-Notepad ++ kwimodi ye-Administrator?"/>
 			  <Item id="3517" name="Thola kumafayela..."/>
 			  <Item id="3518" name="I-Explorer lapha"/>
 			  <Item id="3519" name="I-CMD lapha"/>
-		  </Menus>
+		  </Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 		  <PanelTitle name="Iphrojekthi"/>

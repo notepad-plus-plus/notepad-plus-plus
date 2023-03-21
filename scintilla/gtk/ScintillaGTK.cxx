@@ -402,6 +402,7 @@ void ScintillaGTK::MapThis() {
 		wMain.SetCursor(Window::Cursor::arrow);
 		scrollbarv.SetCursor(Window::Cursor::arrow);
 		scrollbarh.SetCursor(Window::Cursor::arrow);
+		SetClientRectangle();
 		ChangeSize();
 		gdk_window_show(PWindow(wMain));
 	} catch (...) {
@@ -1061,8 +1062,12 @@ void ScintillaGTK::FullPaint() {
 	wText.InvalidateAll();
 }
 
+void ScintillaGTK::SetClientRectangle() {
+	rectangleClient = wMain.GetClientPosition();
+}
+
 PRectangle ScintillaGTK::GetClientRectangle() const {
-	PRectangle rc = wMain.GetClientPosition();
+	PRectangle rc = rectangleClient;
 	if (verticalScrollBarVisible)
 		rc.right -= verticalScrollBarWidth;
 	if (horizontalScrollBarVisible && !Wrapping())
@@ -1788,6 +1793,7 @@ void ScintillaGTK::Resize(int width, int height) {
 		gtk_widget_hide(GTK_WIDGET(PWidget(scrollbarv)));
 		verticalScrollBarWidth = 0;
 	}
+	SetClientRectangle();
 	if (IS_WIDGET_MAPPED(PWidget(wMain))) {
 		ChangeSize();
 	} else {

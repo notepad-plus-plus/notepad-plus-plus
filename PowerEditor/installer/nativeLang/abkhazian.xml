@@ -1315,7 +1315,7 @@ Updated to v8.2.1:
 			<ExpandAllFoldersTip   name="Еиҵыхтәуп акаталогқәа зегьы"/>
 			<CollapseAllFoldersTip name="Еикәарҳәтәуп акаталогқәа зегьы"/>
 			<LocateCurrentFileTip  name="Иалхтәуп абри афаил"/>
-			<Menus>
+			<Menu>
 				<Item id="3511" name="Иқәгатәуп акаталог"/>
 				<Item id="3512" name="Иқәгатәуп зегьы"/>
 				<Item id="3513" name="Иацҵатәуп акаталог"/>
@@ -1326,7 +1326,7 @@ Updated to v8.2.1:
 				<Item id="3518" name="Иаарттәуп аобиект акаталог"/>
 				<Item id="3519" name="Иаарттәуп cmd"/>
 				<Item id="3520" name="Икопиатәуп Афаил Ахьӡ"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle        name="Апроект"/>

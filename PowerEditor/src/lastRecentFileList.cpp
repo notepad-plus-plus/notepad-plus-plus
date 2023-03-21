@@ -90,7 +90,7 @@ void LastRecentFileList::updateMenu()
 		//add separators
 		NativeLangSpeaker *pNativeLangSpeaker = nppParam.getNativeLangSpeaker();
 
-		generic_string recentFileList = pNativeLangSpeaker->getSpecialMenuEntryName("RecentFiles");
+		generic_string recentFileList = pNativeLangSpeaker->getSubMenuEntryName("file-recentFiles");
 		generic_string openRecentClosedFile = pNativeLangSpeaker->getNativeLangMenuString(IDM_FILE_RESTORELASTCLOSEDFILE);
 		generic_string openAllFiles = pNativeLangSpeaker->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
 		generic_string cleanFileList = pNativeLangSpeaker->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);

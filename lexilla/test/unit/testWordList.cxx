@@ -1,10 +1,17 @@
 /** @file testWordList.cxx
  ** Unit Tests for Lexilla internal data structures
+ ** Tests WordList, WordClassifier, and SubStyles
  **/
 
 #include <string.h>
 
+#include <string>
+#include <string_view>
+#include <vector>
+#include <map>
+
 #include "WordList.h"
+#include "SubStyles.h"
 
 #include "catch.hpp"
 
@@ -26,6 +33,14 @@ TEST_CASE("WordList") {
 		REQUIRE(2 == wl.Length());
 		REQUIRE(wl.InList("struct"));
 		REQUIRE(!wl.InList("class"));
+	}
+
+	SECTION("StringInList") {
+		wl.Set("else struct");
+		std::string sStruct = "struct";
+		REQUIRE(wl.InList(sStruct));
+		std::string sClass = "class";
+		REQUIRE(!wl.InList(sClass));
 	}
 
 	SECTION("InListUnicode") {
@@ -103,4 +118,94 @@ TEST_CASE("WordList") {
 		// Russian syr
 		REQUIRE(wl.InListAbridged("\xd1\x81\xd1\x8b\xd1\x80", '~'));
 	}
+}
+
+// Test WordClassifier.
+
+TEST_CASE("WordClassifier") {
+
+	constexpr int base = 1;
+	constexpr int key = 10;
+	constexpr int type = 11;
+	constexpr int other = 40;
+
+	WordClassifier wc(1);
+
+	SECTION("Base") {
+		REQUIRE(wc.Base() == base);
+		wc.Allocate(key, 2);
+		REQUIRE(wc.Start() == key);
+		REQUIRE(wc.Last() == type);
+		REQUIRE(wc.Length() == 2);
+		REQUIRE(wc.IncludesStyle(key));
+		REQUIRE(wc.IncludesStyle(type));
+		REQUIRE(!wc.IncludesStyle(other));
+
+		wc.Clear();
+		REQUIRE(wc.Base() == base);
+		REQUIRE(wc.Start() == 0);
+		REQUIRE(wc.Last() == -1);
+		REQUIRE(wc.Length() == 0);
+	}
+
+	SECTION("ValueFor") {
+		wc.Allocate(key, 2);
+		wc.SetIdentifiers(key, "else if then");
+		wc.SetIdentifiers(type, "double float int long");
+		REQUIRE(wc.ValueFor("if") == key);
+		REQUIRE(wc.ValueFor("double") == type);
+		REQUIRE(wc.ValueFor("fish") < 0);
+		wc.RemoveStyle(type);
+		REQUIRE(wc.ValueFor("double") < 0);
+	}
+
+}
+
+// Test SubStyles.
+
+TEST_CASE("SubStyles") {
+
+	constexpr char bases[] = "\002\005";
+	constexpr int base = 2;
+	constexpr int base2 = 5;
+	constexpr int styleFirst = 0x80;
+	constexpr int stylesAvailable = 0x40;
+	constexpr int distanceToSecondary = 0x40;
+
+	SubStyles subStyles(bases, styleFirst, stylesAvailable, distanceToSecondary);
+
+	SECTION("All") {
+		REQUIRE(subStyles.DistanceToSecondaryStyles() == distanceToSecondary);
+		// Before allocation
+		REQUIRE(subStyles.Start(base) == 0);
+
+		const int startSubStyles = subStyles.Allocate(base, 3);
+		REQUIRE(startSubStyles == styleFirst);
+		REQUIRE(subStyles.Start(base) == styleFirst);
+		REQUIRE(subStyles.Length(base) == 3);
+		REQUIRE(subStyles.BaseStyle(128) == 2);
+
+		// Not a substyle so returns argument.
+		REQUIRE(subStyles.BaseStyle(96) == 96);
+
+		REQUIRE(subStyles.FirstAllocated() == styleFirst);
+		REQUIRE(subStyles.LastAllocated() == styleFirst + 3 - 1);
+		subStyles.SetIdentifiers(styleFirst, "int long size_t");
+		const WordClassifier &wc = subStyles.Classifier(base);
+		REQUIRE(wc.ValueFor("int") == styleFirst);
+		REQUIRE(wc.ValueFor("double") < 0);
+
+		// Add second set of substyles which shouldn't affect first
+		const int startSecondSet = subStyles.Allocate(base2, 2);
+		constexpr int expectedStylesSecond = styleFirst + 3;
+		REQUIRE(startSecondSet == expectedStylesSecond);
+		REQUIRE(subStyles.Start(base) == styleFirst);
+		REQUIRE(subStyles.Start(base2) == expectedStylesSecond);
+		REQUIRE(subStyles.LastAllocated() == styleFirst + 5 - 1);
+
+		// Clear and check that earlier call no longer works
+		subStyles.Free();
+		REQUIRE(subStyles.Start(base) == 0);
+	}
+
 }

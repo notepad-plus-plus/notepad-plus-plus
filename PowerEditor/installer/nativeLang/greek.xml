@@ -1269,7 +1269,7 @@ Continue?"/>
             <ExpandAllFoldersTip name="Expand all folders"/>
             <CollapseAllFoldersTip name="Collapse all folders"/>
             <LocateCurrentFileTip name="Locate current file"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Remove"/>
                 <Item id="3512" name="Remove All"/>
                 <Item id="3513" name="Add"/>
@@ -1280,7 +1280,7 @@ Continue?"/>
                 <Item id="3518" name="Explorer here"/>
                 <Item id="3519" name="CMD here"/>
                 <Item id="3520" name="Copy file name"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Project"/>

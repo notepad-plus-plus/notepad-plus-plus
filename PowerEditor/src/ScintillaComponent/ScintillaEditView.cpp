@@ -153,6 +153,8 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("visualprolog"),	TEXT("Visual Prolog"),		TEXT("Visual Prolog file"),								L_VISUALPROLOG,	"visualprolog"},
 	{TEXT("typescript"),	TEXT("TypeScript"),			TEXT("TypeScript file"),								L_TYPESCRIPT,	"cpp"},
 	{TEXT("json5"),			TEXT("json5"),				TEXT("JSON5 file"),										L_JSON5,		"json"},
+	{TEXT("mssql"),			TEXT("mssql"),				TEXT("Microsoft Transact-SQL (SQL Server) file"),		L_MSSQL,		"mssql"},
+	{TEXT("gdscript"),		TEXT("GDScript"),			TEXT("GDScript file"),									L_GDSCRIPT,		"gdscript"},
 	{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		"null"}
 };
 
@@ -227,7 +229,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
 	showMargin(_SC_MARGE_FOLDER, true);
 
-	execute(SCI_SETMARGINMASKN, _SC_MARGE_SYMBOL, (1 << MARK_BOOKMARK) | (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND) | (1 << MARK_HIDELINESUNDERLINE));
+	execute(SCI_SETMARGINMASKN, _SC_MARGE_SYMBOL, (1 << MARK_BOOKMARK) | (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND));
 
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_CHANGEHISTORY, (1 << SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN) | (1 << SC_MARKNUM_HISTORY_SAVED) | (1 << SC_MARKNUM_HISTORY_MODIFIED) | (1 << SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED));
 	COLORREF modifiedColor = RGB(255, 128, 0);
@@ -241,8 +243,9 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
 
-	execute(SCI_MARKERDEFINE, MARK_HIDELINESUNDERLINE, SC_MARK_UNDERLINE);
-	execute(SCI_MARKERSETBACK, MARK_HIDELINESUNDERLINE, 0x77CC77);
+	const COLORREF hiddenLinesGreen = RGB(0x77, 0xCC, 0x77);
+	long hiddenLinesGreenWithAlpha = hiddenLinesGreen | 0xFF000000;
+	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_HIDDEN_LINE, hiddenLinesGreenWithAlpha);
 
 	if (NppParameters::getInstance()._dpiManager.scaleX(100) >= 150)
 	{
@@ -551,7 +554,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 		execute(SCI_STYLESETSIZE, styleID, styleToSet._fontSize);
 }
 
-void ScintillaEditView::setHotspotStyle(Style& styleToSet)
+void ScintillaEditView::setHotspotStyle(const Style& styleToSet)
 {
 	StyleMap* styleMap;
 	if ( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )
@@ -1625,6 +1628,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_SQL :
 			setSqlLexer(); break;
 
+		case L_MSSQL :
+			setMSSqlLexer(); break;
+
 		case L_VB :
 			setVBLexer(); break;
 
@@ -1804,6 +1810,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_TYPESCRIPT:
 			setTypeScriptLexer(); break;
+
+		case L_GDSCRIPT:
+			setGDScriptLexer(); break;
 
 		case L_TEXT :
 		default :
@@ -3521,8 +3530,8 @@ void ScintillaEditView::hideLines()
 	auto removeMarker = [this, &scope, &recentMarkerWasOpen](size_t line)
 	{
 		auto state = execute(SCI_MARKERGET, line);
-		bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);
-		bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+		bool closePresent = (state & (1 << MARK_HIDELINESEND)) != 0;
+		bool openPresent = (state & (1 << MARK_HIDELINESBEGIN)) != 0;
 
 		if (closePresent)
 		{
@@ -3534,7 +3543,6 @@ void ScintillaEditView::hideLines()
 		if (openPresent)
 		{
 			execute(SCI_MARKERDELETE, line, MARK_HIDELINESBEGIN);
-			execute(SCI_MARKERDELETE, line, MARK_HIDELINESUNDERLINE);
 			recentMarkerWasOpen = true;
 			++scope;
 		}
@@ -3574,7 +3582,6 @@ void ScintillaEditView::hideLines()
 	}
 
 	execute(SCI_MARKERADD, startMarker, MARK_HIDELINESBEGIN);
-	execute(SCI_MARKERADD, startMarker, MARK_HIDELINESUNDERLINE);
 	execute(SCI_MARKERADD, endMarker, MARK_HIDELINESEND);
 
 	_currentBuffer->setHideLineChanged(true, startMarker);
@@ -3583,8 +3590,8 @@ void ScintillaEditView::hideLines()
 bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 {
 	auto state = execute(SCI_MARKERGET, lineNumber);
-	bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
-	bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);
+	bool openPresent = (state & (1 << MARK_HIDELINESBEGIN)) != 0;
+	bool closePresent = (state & (1 << MARK_HIDELINESEND)) != 0;
 
 	if (!openPresent && !closePresent)
 		return false;
@@ -3601,7 +3608,7 @@ bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 		for (lineNumber--; lineNumber >= 0 && !openPresent; lineNumber--)
 		{
 			state = execute(SCI_MARKERGET, lineNumber);
-			openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
+			openPresent = (state & (1 << MARK_HIDELINESBEGIN)) != 0;
 		}
 
 		if (openPresent)
@@ -3670,7 +3677,7 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 				}
 				isInSection = false;
 			}
-			if ( ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0) )
+			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
 			{
 				isInSection = true;
 				startHiding = i+1;
@@ -3716,12 +3723,11 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 					isInSection = false;
 				}
 			}
-			if ( ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0) )
+			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
 			{
 				if (doDelete)
 				{
 					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
-					execute(SCI_MARKERDELETE, i, MARK_HIDELINESUNDERLINE);
 				}
 				else
 				{

@@ -5,7 +5,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
+Last modified on 2023-02-16 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
     <Native-Langue name="Nederlands" filename="dutch.xml" version="8.4.6">
@@ -117,6 +117,7 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
                     <Item id="42006" name="&amp;Verwijderen"/>
                     <Item id="42007" name="&amp;Alles selecteren"/>
                     <Item id="42020" name="&amp;Selectie starten/stoppen"/>
+                    <Item id="42089" name="Selectie in kolommodus starten/stoppen"/>
                     <Item id="42084" name="Datum/tijd (kort)"/>
                     <Item id="42085" name="Datum/tijd (lang)"/>
                     <Item id="42086" name="Datum/tijd (aangepast)"/>
@@ -163,7 +164,7 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
                     <Item id="42042" name="Spaties aan het begin wissen"/>
                     <Item id="42043" name="Spaties aan begin en einde wissen"/>
                     <Item id="42044" name="Regeleinden omzetten in spaties"/>
-                    <Item id="42045" name="Regeleinden en overbodige witruimte wissen"/>
+                    <Item id="42045" name="Spaties aan begin en einde wissen en regeleinden omzetten in spaties"/>
                     <Item id="42046" name="Tabs omzetten in spaties"/>
                     <Item id="42054" name="Alle spaties omzetten in tabs"/>
                     <Item id="42053" name="Inspringing omzetten in tabs"/>
@@ -173,8 +174,8 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
                     <Item id="42049" name="Binaire inhoud knippen"/>
                     <Item id="42050" name="Binaire inhoud plakken"/>
                     <Item id="42082" name="Koppeling kopiëren"/>
-                    <Item id="42037" name="Kolom-modus voor selecteren..."/>
-                    <Item id="42034" name="&amp;Kolom-bewerker..."/>
+                    <Item id="42037" name="Kolommodus voor selecteren..."/>
+                    <Item id="42034" name="&amp;Kolombewerker..."/>
                     <Item id="42051" name="ASCII-&amp;tekenvenster"/>
                     <Item id="42052" name="&amp;Geschiedenis van klembord"/>
                     <Item id="42025" name="Momenteel opgenomen macro ops&amp;laan..."/>
@@ -299,6 +300,7 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
                     <Item id="44113" name="Kleur 3 toepassen"/>
                     <Item id="44114" name="Kleur 4 toepassen"/>
                     <Item id="44115" name="Kleur 5 toepassen"/>
+                    <Item id="44130" name="Niet-afdrukbare tekens weergeven"/>
                     <Item id="44032" name="Volledig scherm"/>
                     <Item id="44033" name="Standaardzoom herstellen"/>
                     <Item id="44034" name="Altijd op voorgrond"/>
@@ -391,41 +393,41 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Sluiten"/>
-                    <Item CMID="1" name="Overige documenten sluiten"/>
-                    <Item CMID="2" name="Opslaan"/>
-                    <Item CMID="3" name="Opslaan als..."/>
-                    <Item CMID="4" name="Afdrukken..."/>
-                    <Item CMID="5" name="Naar deelvenster verplaatsen"/>
-                    <Item CMID="6" name="Naar deelvenster kopiëren"/>
-                    <Item CMID="7" name="Volledig bestandspad kopiëren"/>
-                    <Item CMID="8" name="Bestandsnaam kopiëren"/>
-                    <Item CMID="9" name="Pad naar huidige map kopiëren"/>
-                    <Item CMID="10" name="Naam wijzigen..."/>
-                    <Item CMID="11" name="Naar prullenbak verplaatsen"/>
-                    <Item CMID="12" name="Alleen-lezen"/>
-                    <Item CMID="13" name="Alleen-lezen opheffen"/>
-                    <Item CMID="14" name="Naar een nieuw venster verplaatsen"/>
-                    <Item CMID="15" name="Naar een nieuw venster kopiëren"/>
-                    <Item CMID="16" name="Opnieuw laden"/>
-                    <Item CMID="17" name="Documenten aan de linkerkant sluiten"/>
-                    <Item CMID="18" name="Documenten aan de rechterkant sluiten"/>
-                    <Item CMID="19" name="Bevattende map in Verkenner weergeven"/>
-                    <Item CMID="20" name="Bevattende map in opdrachtprompt openen"/>
-                    <Item CMID="21" name="In standaardviewer openen"/>
-                    <Item CMID="22" name="Ongewijzigde documenten sluiten"/>
-                    <Item CMID="23" name="Bevattende map als werkruimte openen"/>
-                    <Item CMID="24" name="Kleur 1 toepassen"/>
-                    <Item CMID="25" name="Kleur 2 toepassen"/>
-                    <Item CMID="26" name="Kleur 3 toepassen"/>
-                    <Item CMID="27" name="Kleur 4 toepassen"/>
-                    <Item CMID="28" name="Kleur 5 toepassen"/>
-                    <Item CMID="29" name="Kleur verwijderen"/>
-                    <Item CMID="30" name="Meerdere tabs sluiten"/>
-                    <Item CMID="31" name="Openen in"/>
-                    <Item CMID="32" name="Naar klembord kopiëren"/>
-                    <Item CMID="33" name="Document verplaatsen"/>
-                    <Item CMID="34" name="Kleur toepassen op tab"/>
+                <Item CMDID="41003" name="Sluiten"/>
+                <Item CMDID="0" name="Meerdere tabs sluiten"/>
+                <Item CMDID="41005" name="Overige documenten sluiten"/>
+                <Item CMDID="41009" name="Documenten aan de linkerkant sluiten"/>
+                <Item CMDID="41018" name="Documenten aan de rechterkant sluiten"/>
+                <Item CMDID="41024" name="Ongewijzigde documenten sluiten"/>
+                <Item CMDID="41006" name="Opslaan"/>
+                <Item CMDID="41008" name="Opslaan als..."/>
+                <Item CMDID="1" name="Openen in"/>
+                <Item CMDID="41019" name="Bevattende map in Verkenner weergeven"/>
+                <Item CMDID="41020" name="Bevattende map in opdrachtprompt openen"/>
+                <Item CMDID="41025" name="Bevattende map als werkruimte openen"/>
+                <Item CMDID="41023" name="In standaardviewer openen"/>
+                <Item CMDID="41017" name="Naam wijzigen..."/>
+                <Item CMDID="41016" name="Naar prullenbak verplaatsen"/>
+                <Item CMDID="41014" name="Opnieuw laden"/>
+                <Item CMDID="41010" name="Afdrukken..."/>
+                <Item CMDID="42028" name="Alleen-lezen"/>
+                <Item CMDID="42033" name="Alleen-lezen opheffen"/>
+                <Item CMDID="2" name="Naar klembord kopiëren"/>
+                <Item CMDID="42029" name="Volledig bestandspad kopiëren"/>
+                <Item CMDID="42030" name="Bestandsnaam kopiëren"/>
+                <Item CMDID="42031" name="Pad naar huidige map kopiëren"/>
+                <Item CMDID="3" name="Document verplaatsen"/>
+                <Item CMDID="10001" name="Naar deelvenster verplaatsen"/>
+                <Item CMDID="10002" name="Naar deelvenster kopiëren"/>
+                <Item CMDID="10003" name="Naar een nieuw venster verplaatsen"/>
+                <Item CMDID="10004" name="In een nieuw venster openen"/>
+                <Item CMDID="4" name="Kleur toepassen op tab"/>
+                <Item CMDID="44111" name="Kleur 1 toepassen"/>
+                <Item CMDID="44112" name="Kleur 2 toepassen"/>
+                <Item CMDID="44113" name="Kleur 3 toepassen"/>
+                <Item CMDID="44114" name="Kleur 4 toepassen"/>
+                <Item CMDID="44115" name="Kleur 5 toepassen"/>
+                <Item CMDID="44110" name="Kleur verwijderen"/>
             </TabBar>
         </Menu>
 
@@ -595,6 +597,20 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
                 <ScintillaCommandsTab name="Scintilla-opdrachten"/>
                 <ConflictInfoOk name="Geen sneltoets-conflicten voor dit item."/>
                 <ConflictInfoEditing name="Geen conflicten..."/>
+                <WindowCategory name="Venster"/>
+                <FileCategory name="Bestand"/>
+                <EditCategory name="Bewerken"/>
+                <SearchCategory name="Zoeken"/>
+                <ViewCategory name="Beeld"/>
+                <FormatCategory name="Indeling"/>
+                <LangCategory name="Syntaxis"/>
+                <AboutCategory name="Over"/>
+                <SettingCategory name="Instelling"/>
+                <ToolCategory name="Gereedschap"/>
+                <ExecuteCategory name="Uitvoeren"/>
+                <ModifyContextMenu name="Wijzigen"/>
+                <DeleteContextMenu name="Verwijderen"/>
+                <ClearContextMenu name="Wissen"/>
                 <MainCommandNames>
                     <Item id="41019" name="Bevattende map in Verkenner openen"/>
                     <Item id="41020" name="Bevattende map in Opdrachtprompt openen"/>
@@ -711,6 +727,7 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
                 <Item id="20011" name="Transparantie"/>
                 <Item id="20015" name="Importeren..."/>
                 <Item id="20016" name="Exporteren..."/>
+                <Item id="20017" name="Losmaken"/>
                 <StylerDialog title="Opmaak">
                     <Item id="25030" name="Lettertype-opties"/>
                     <Item id="25006" name="Kleur voorgrond"/>
@@ -929,10 +946,16 @@ Last modified on 2022-11-03 by Thomas De Rocker (RockyTDR).
                     <Item id="6248" name="Standaard"/>
                     <Item id="6249" name="Platte tekst"/>
                     <Item id="6250" name="Aangepaste kleur"/>
+                    <Item id="6252" name="Niet-afdrukbare tekens"/>
+                    <Item id="6254" name="Afkorting"/>
+                    <Item id="6255" name="Codepoint"/>
+                    <Item id="6256" name="Aangepaste kleur"/>
                 </Scintillas>
 
                 <DarkMode title="Donkere modus">
-                    <Item id="7101" name="Donkere modus inschakelen"/>
+                    <Item id="7131" name="Lichte modus"/>
+                    <Item id="7132" name="Donkere modus"/>
+                    <Item id="7133" name="Windows volgen"/>
                     <Item id="7102" name="Zwart"/>
                     <Item id="7103" name="Rood"/>
                     <Item id="7104" name="Groen"/>
@@ -1129,6 +1152,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6811" name="Vanaf"/>
                     <Item id="6813" name="tekens"/>
                     <Item id="6814" name="Geldige invoer: 1-9"/>
+                    <Item id="6872" name="Lijst voor automatisch aanvullen kort maken"/>
                     <Item id="6815" name="Functie-argumenten weergeven tijdens typen"/>
                     <Item id="6851" name="Automatisch invoegen"/>
                     <Item id="6857" name=" HTML/XML sluit-tag"/>
@@ -1140,7 +1164,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 </AutoCompletion>
 
                 <MultiInstance title="Meerdere instanties en datum">
-                    <Item id="6151" name="Instellingen voor meerdere instanties"/>
+                    <Item id="6151" name="Instellingen voor meerdere instanties *"/>
                     <Item id="6152" name="Sessie openen in een nieuwe instantie (en sessie automatisch opslaan bij afsluiten)"/>
                     <Item id="6153" name="Altijd in modus meerdere instanties"/>
                     <Item id="6154" name="Standaard (enkele instantie)"/>
@@ -1148,6 +1172,16 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6171" name="Datum/tijd invoegen aanpassen"/>
                     <Item id="6175" name="Standaardvolgorde datum/tijd omkeren (korte en lange formaten)"/>
                     <Item id="6172" name="Aangepast formaat:"/>
+                    <Item id="6181" name="Paneelstatus en [-nosession] *"/>
+                    <Item id="6182" name="Paneelstatus onthouden (paneel is open) in andere instanties (modus meerdere instanties) of bij gebruik van opdrachtregelparameter [-nosession]"/>
+                    <Item id="6183" name="Klembordgeschiedenis"/>
+                    <Item id="6184" name="Documentenlijst"/>
+                    <Item id="6185" name="Paneel voor tekens"/>
+                    <Item id="6186" name="Map als werkruimte"/>
+                    <Item id="6187" name="Projectpanelen"/>
+                    <Item id="6188" name="Overzichtskaart van document"/>
+                    <Item id="6189" name="Functielijst"/>
+                    <Item id="6190" name="Plugin-panelen"/>
                 </MultiInstance>
 
                 <Delimiter title="Scheidingstekens">
@@ -1236,7 +1270,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 <Item id="7003" name="S&amp;luiten"/>
                 <Item id="7004" name="&amp;Tabs sorteren"/>
             </Window>
-            <ColumnEditor title="Kolom-bewerker">
+            <ColumnEditor title="Kolombewerker">
                 <Item id="2023" name="&amp;Tekst invoegen"/>
                 <Item id="2033" name="&amp;Nummer invoegen"/>
                 <Item id="2030" name="Beg&amp;innummer:"/>
@@ -1310,7 +1344,18 @@ Uw online instellingen zullen geannuleerd worden. Stel een coherente waarde in v
             <DroppingFolderAsProjectModeWarning title="Ongeldige actie" message="U kunt alleen bestanden of mappen neerzetten, maar niet allebei tegelijk, omdat u in projectmodus map neerzetten zit.
 U moet &quot;vij neerzetten van een map alle bestanden openen in plaats van de map als werkruimte te starten&quot; inschakelen in de sectie &quot;standaardmap&quot; van het voorkeurenvenster om deze handeling te laten werken."/>
             <SortingError title="Sorteerfout" message="Kan numerieke sortering niet uitvoeren vanwege regel $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Tip voor kolom-modus" message="Gebruik &quot;ALT+muisselectie&quot; of &quot;Alt+Shift+pijltoets&quot; om te wisselen naar kolom-modus."/>
+            <ColumnModeTip title="Tip voor kolommodus" message="
+Er zijn 3 manieren om over te schakelen naar de kolomselectie-modus:
+
+1. (Toetsenbord en muis) Houd Alt ingedrukt tijdens het slepen met de linkermuisknop.
+
+2. (Alleen toetsenbord) Houd Alt+Shift ingedrukt terwijl u de pijltjestoetsen gebruikt.
+
+3. (Toetsenbord of Muis)
+      Zet de cursor op het gewenste begin van het kolomblok en
+       voer de opdracht &quot;Begin/Einde selecteren in kolommodus&quot; uit;
+      Beweeg de cursor naar de gewenste positie aan het einde van het kolomblok
+       en voer de opdracht &quot;Begin/Einde selecteren in kolommodus&quot; opnieuw uit."/>
             <BufferInvalidWarning title="Opslaan mislukt" message="Kan niet opslaan: buffer is ongeldig."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Niet-bestaand bestand behouden" message="Het bestand &quot;$STR_REPLACE$&quot; bestaat niet meer.
 Dit bestand in de editor houden?"/>
@@ -1380,6 +1425,10 @@ Notepad++ zal opnieuw starten nadat alle acties afgewerkt zijn.
 Doorgaan?"/>
             <NeedToRestartToLoadPlugins title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om de geïnstalleerde plug-ins te laden."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
             <ChangeHistoryEnabledWarning title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om geschiedenis van wijzigingen in te schakelen."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+            <WindowsSessionExit title="Notepad++ - Windows-session afsluiten" message="De Windows sessie staat op het punt beëindigd te worden, maar u heeft nog wat niet-opgeslagen gegevens. Wilt u Notepad++ nu afsluiten?"/>
+            <LanguageMenuCompactWarning title="Compact taalmenu" message="Deze optie zal bij de volgende start worden gewijzigd."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niet opgeslagen wijzigingen worden weggegooid!
+Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Geschiedenis van klembord"/>
@@ -1389,6 +1438,7 @@ Doorgaan?"/>
             <ColumnName name="Naam"/>
             <ColumnExt name="Ext."/>
             <ColumnPath name="Pad"/>
+            <ListGroups name="Groeperen op weergave"/>
         </DocList>
         <WindowsDlg>
             <ColumnName name="Naam"/>
@@ -1423,7 +1473,7 @@ Doorgaan?"/>
             <ExpandAllFoldersTip name="Alles uitvouwen"/>
             <CollapseAllFoldersTip name="Alles samenvouwen"/>
             <LocateCurrentFileTip name="Huidig bestand lokaliseren"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Verwijderen"/>
                 <Item id="3512" name="Alles verwijderen"/>
                 <Item id="3513" name="Toevoegen"/>
@@ -1434,7 +1484,7 @@ Doorgaan?"/>
                 <Item id="3518" name="Locatie openen in Verkenner"/>
                 <Item id="3519" name="Locatie openen in opdrachtprompt"/>
                 <Item id="3520" name="Bestandsnaam kopiëren"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Project"/>
@@ -1565,6 +1615,7 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
             <splitter-rotate-left value="Linksom draaien"/>
             <splitter-rotate-right value="Rechtsom draaien"/>
             <recent-file-history-maxfile value="Max. bestanden: "/>
+            <recent-file-history-customlength value="Lengte: "/>
             <language-tabsize value="Tabgrootte: "/>
             <userdefined-title-new value="Nieuwe syntaxis aanmaken..."/>
             <userdefined-title-save value="Huidige syntaxis opslaan als..."/>
@@ -1582,6 +1633,8 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
             <summary-nbsel1 value=" geselecteerde tekens ("/>
             <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" selecties"/>
+            <progress-cancel-button value="Annuleren"/>
+            <progress-cancel-info value="Bewerking annuleren. Even geduld..."/>
             <find-in-files-progress-title value="Voortgang van zoeken in bestanden..."/>
             <replace-in-files-confirm-title value="Weet u het zeker?"/>
             <replace-in-files-confirm-directory value="Wilt u alle overeenkomsten vervangen in: "/>
@@ -1617,6 +1670,33 @@ OPMERKING:
 1. Aanpassen van deze opties vereist dat u grote bestanden opnieuw opent om juist gedrag te verkrijgen.
 
 2. Als &quot;Automatische terugloop globaal uitschakelen&quot; aangevinkt is en u een groot bestand opent, zal &quot;automatische terugloop&quot; voor alle bestanden uitgeschakeld worden. U kunt het opnieuw inschakelen via het menu &quot;Beeld-&gt;Automatische terugloop&quot;." />
+            <npcNote-tip value="Weergave van geselecteerde &quot;niet-ASCII&quot; witruimte en niet-afdrukbare (controle)tekens.
+
+OPMERKING:
+Sommige tekens hebben misschien al enige representatie en zijn dus zichtbaar. Regelscheidingstekens en paragraafscheidingstekens worden standaard al weergegeven door een afkorting.
+
+Door representatie te gebruiken worden tekeneffecten op tekst uitgeschakeld.
+
+Raadpleeg de gebruikershandleiding voor de volledige lijst van geselecteerde spaties en niet-afdrukbare tekens.
+
+Klik op deze knop om de website met gebruikershandleiding te openen." />
+            <npcAbbreviation-tip value="Afkorting: naame
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+Kijk voor de volledige lijst in de gebruikershandleiding.
+Klik op de knop &quot;?&quot; rechts om de website met gebruikershandleiding te openen." />
+            <npcCodepoint-tip value="Codepoint: naam
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+Kijk voor de volledige lijst in de gebruikershandleiding.
+Klik op de knop &quot;?&quot; rechts om de website met gebruikershandleiding te openen." />
+
+            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcCustomColor-tip value="Ga naar de stijlconfigurator om de standaard aangepaste kleur voor geselecteerde witruimte en niet-afdrukbare tekens te wijzigen (&quot;Non-printing characters custom color&quot;)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

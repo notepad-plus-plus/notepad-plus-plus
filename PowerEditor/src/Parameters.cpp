@@ -2412,16 +2412,16 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 	if (!historyRoot) return;
 
 	// nbMaxFile value
-	int nbMaxFile;
+	int nbMaxFile = _nbMaxRecentFile;
 	const TCHAR *strVal = (historyRoot->ToElement())->Attribute(TEXT("nbMaxFile"), &nbMaxFile);
-	if (strVal && (nbMaxFile >= 0) && (nbMaxFile <= 50))
+	if (strVal && (nbMaxFile >= 0) && (nbMaxFile <= NB_MAX_LRF_FILE))
 		_nbMaxRecentFile = nbMaxFile;
 
 	// customLen value
-	int customLen;
+	int customLen = RECENTFILES_SHOWFULLPATH;
 	strVal = (historyRoot->ToElement())->Attribute(TEXT("customLength"), &customLen);
 	if (strVal)
-		_recentFileCustomLength = customLen;
+		_recentFileCustomLength = std::min<int>(customLen, NB_MAX_LRF_CUSTOMLENGTH);
 
 	// inSubMenu value
 	strVal = (historyRoot->ToElement())->Attribute(TEXT("inSubMenu"));
@@ -4262,6 +4262,8 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 
 generic_string NppParameters::getLocPathFromStr(const generic_string & localizationCode)
 {
+	if (localizationCode == TEXT("en") || localizationCode == TEXT("en-au") || localizationCode == TEXT("en-bz") || localizationCode == TEXT("en-ca") || localizationCode == TEXT("en-cb") || localizationCode == TEXT("en-gb") || localizationCode == TEXT("en-ie") || localizationCode == TEXT("en-jm") || localizationCode == TEXT("en-nz") || localizationCode == TEXT("en-ph") || localizationCode == TEXT("en-tt") || localizationCode == TEXT("en-us") || localizationCode == TEXT("en-za") || localizationCode == TEXT("en-zw"))
+		return TEXT("english.xml");
 	if (localizationCode == TEXT("af"))
 		return TEXT("afrikaans.xml");
 	if (localizationCode == TEXT("sq"))
@@ -5731,8 +5733,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			int fileSizeLimit4StylingMB = 0;
 			element->Attribute(TEXT("fileSizeMB"), &fileSizeLimit4StylingMB);
-			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB < 4096)
-				_nppGUI._largeFileRestriction._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
+			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB <= 4096)
+				_nppGUI._largeFileRestriction._largeFileSizeDefInByte = (static_cast<int64_t>(fileSizeLimit4StylingMB) * 1024 * 1024);
 
 			const TCHAR* boolVal = element->Attribute(TEXT("isEnabled"));
 			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("no")))
@@ -7615,6 +7617,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_USER; break;
 		case L_SQL :
 			id = IDM_LANG_SQL; break;
+		case L_MSSQL :
+			id = IDM_LANG_MSSQL; break;
 		case L_VB :
 			id = IDM_LANG_VB; break;
 		case L_TCL :
@@ -7760,6 +7764,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 
 		case L_TYPESCRIPT:
 			id = IDM_LANG_TYPESCRIPT; break;
+
+		case L_GDSCRIPT:
+			id = IDM_LANG_GDSCRIPT; break;
 
 		case L_SEARCHRESULT :
 			id = -1;	break;

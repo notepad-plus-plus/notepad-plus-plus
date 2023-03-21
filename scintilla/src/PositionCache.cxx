@@ -51,6 +51,7 @@
 #include "CaseFolder.h"
 #include "Document.h"
 #include "UniConversion.h"
+#include "DBCS.h"
 #include "Selection.h"
 #include "PositionCache.h"
 
@@ -101,6 +102,13 @@ void LineLayout::Resize(int maxLineLength_) {
 	}
 }
 
+void LineLayout::ReSet(Sci::Line lineNumber_, Sci::Position maxLineLength_) {
+	lineNumber = lineNumber_;
+	Resize(static_cast<int>(maxLineLength_));
+	lines = 0;
+	Invalidate(ValidLevel::invalid);
+}
+
 void LineLayout::EnsureBidiData() {
 	if (!bidiData) {
 		bidiData = std::make_unique<BidiData>();
@@ -113,6 +121,7 @@ void LineLayout::Free() noexcept {
 	styles.reset();
 	positions.reset();
 	lineStarts.reset();
+	lenLineStarts = 0;
 	bidiData.reset();
 }
 
@@ -326,7 +335,7 @@ int LineLayout::EndLineStyle() const noexcept {
 	return styles[numCharsBeforeEOL > 0 ? numCharsBeforeEOL-1 : 0];
 }
 
-void LineLayout::WrapLine(const Document *pdoc, Sci::Position posLineStart, Wrap wrapState) {
+void LineLayout::WrapLine(const Document *pdoc, Sci::Position posLineStart, Wrap wrapState, XYPOSITION wrapWidth) {
 	// Document wants document positions but simpler to work in line positions
 	// so take care of adding and subtracting line start in a lambda.
 	auto CharacterBoundary = [=](Sci::Position i, Sci::Position moveDir) noexcept -> Sci::Position {
@@ -335,7 +344,7 @@ void LineLayout::WrapLine(const Document *pdoc, Sci::Position posLineStart, Wrap
 	lines = 0;
 	// Calculate line start positions based upon width.
 	Sci::Position lastLineStart = 0;
-	XYPOSITION startOffset = widthLine;
+	XYPOSITION startOffset = wrapWidth;
 	Sci::Position p = 0;
 	while (p < numCharsInLine) {
 		while (p < numCharsInLine && positions[p + 1] < startOffset) {
@@ -377,7 +386,7 @@ void LineLayout::WrapLine(const Document *pdoc, Sci::Position posLineStart, Wrap
 			AddLineStart(lastLineStart);
 			startOffset = positions[lastLineStart];
 			// take into account the space for start wrap mark and indent
-			startOffset += widthLine - wrapIndent;
+			startOffset += wrapWidth - wrapIndent;
 			p = lastLineStart + 1;
 		}
 	}
@@ -443,6 +452,21 @@ XYPOSITION ScreenLine::RepresentationWidth(size_t position) const {
 
 XYPOSITION ScreenLine::TabPositionAfter(XYPOSITION xPosition) const {
 	return (std::floor((xPosition + TabWidthMinimumPixels()) / TabWidth()) + 1) * TabWidth();
+}
+
+bool SignificantLines::LineMayCache(Sci::Line line) const noexcept {
+	switch (level) {
+	case LineCache::None:
+		return false;
+	case LineCache::Caret:
+		return line == lineCaret;
+	case LineCache::Page:
+		return (abs(line - lineCaret) < linesOnScreen) ||
+			((line >= lineTop) && (line <= (lineTop + linesOnScreen)));
+	case LineCache::Document:
+	default:
+		return true;
+	}
 }
 
 LineLayoutCache::LineLayoutCache() :
@@ -638,6 +662,40 @@ constexpr unsigned int KeyFromString(std::string_view charBytes) noexcept {
 
 constexpr unsigned int representationKeyCrLf = KeyFromString("\r\n");
 
+const char *const repsC0[] = {
+	"NUL", "SOH", "STX", "ETX", "EOT", "ENQ", "ACK", "BEL",
+	"BS", "HT", "LF", "VT", "FF", "CR", "SO", "SI",
+	"DLE", "DC1", "DC2", "DC3", "DC4", "NAK", "SYN", "ETB",
+	"CAN", "EM", "SUB", "ESC", "FS", "GS", "RS", "US"
+};
+
+const char *const repsC1[] = {
+	"PAD", "HOP", "BPH", "NBH", "IND", "NEL", "SSA", "ESA",
+	"HTS", "HTJ", "VTS", "PLD", "PLU", "RI", "SS2", "SS3",
+	"DCS", "PU1", "PU2", "STS", "CCH", "MW", "SPA", "EPA",
+	"SOS", "SGCI", "SCI", "CSI", "ST", "OSC", "PM", "APC"
+};
+
+}
+
+namespace Scintilla::Internal {
+
+const char *ControlCharacterString(unsigned char ch) noexcept {
+	if (ch < std::size(repsC0)) {
+		return repsC0[ch];
+	} else {
+		return "BAD";
+	}
+}
+
+
+void Hexits(char *hexits, int ch) noexcept {
+	hexits[0] = 'x';
+	hexits[1] = "0123456789ABCDEF"[ch / 0x10];
+	hexits[2] = "0123456789ABCDEF"[ch % 0x10];
+	hexits[3] = 0;
+}
+
 }
 
 void SpecialRepresentations::SetRepresentation(std::string_view charBytes, std::string_view value) {
@@ -731,6 +789,40 @@ void SpecialRepresentations::Clear() {
 	crlf = false;
 }
 
+void SpecialRepresentations::SetDefaultRepresentations(int dbcsCodePage) {
+	Clear();
+
+	// C0 control set
+	for (size_t j = 0; j < std::size(repsC0); j++) {
+		const char c[2] = { static_cast<char>(j), 0 };
+		SetRepresentation(std::string_view(c, 1), repsC0[j]);
+	}
+	SetRepresentation("\x7f", "DEL");
+
+	// C1 control set
+	// As well as Unicode mode, ISO-8859-1 should use these
+	if (CpUtf8 == dbcsCodePage) {
+		for (size_t j = 0; j < std::size(repsC1); j++) {
+			const char c1[3] = { '\xc2',  static_cast<char>(0x80 + j), 0 };
+			SetRepresentation(c1, repsC1[j]);
+		}
+		SetRepresentation("\xe2\x80\xa8", "LS");
+		SetRepresentation("\xe2\x80\xa9", "PS");
+	}
+
+	// Invalid as single bytes in multi-byte encodings
+	if (dbcsCodePage) {
+		for (int k = 0x80; k < 0x100; k++) {
+			if ((CpUtf8 == dbcsCodePage) || !IsDBCSValidSingleByte(dbcsCodePage, k)) {
+				const char hiByte[2] = { static_cast<char>(k), 0 };
+				char hexits[4];
+				Hexits(hexits, k);
+				SetRepresentation(hiByte, hexits);
+			}
+		}
+	}
+}
+
 void BreakFinder::Insert(Sci::Position val) {
 	const int posInLine = static_cast<int>(val);
 	if (posInLine > nextBreak) {
@@ -819,11 +911,27 @@ TextSegment BreakFinder::Next() {
 			int charWidth = 1;
 			const char * const chars = &ll->chars[nextBreak];
 			const unsigned char ch = chars[0];
+			bool characterStyleConsistent = true;	// All bytes of character in same style?
 			if (!UTF8IsAscii(ch) && encodingFamily != EncodingFamily::eightBit) {
 				if (encodingFamily == EncodingFamily::unicode) {
 					charWidth = UTF8DrawBytes(chars, lineRange.end - nextBreak);
 				} else {
 					charWidth = pdoc->DBCSDrawBytes(std::string_view(chars, lineRange.end - nextBreak));
+				}
+				for (int trail = 1; trail < charWidth; trail++) {
+					if (ll->styles[nextBreak] != ll->styles[nextBreak + trail]) {
+						characterStyleConsistent = false;
+					}
+				}
+			}
+			if (!characterStyleConsistent) {
+				if (nextBreak == prev) {
+					// Show first character representation bytes since it has inconsistent styles.
+					charWidth = 1;
+				} else {
+					// Return segment before nextBreak but allow to be split up if too long
+					// If not split up, next call will hit the above 'charWidth = 1;' and display bytes.
+					break;
 				}
 			}
 			repr = nullptr;

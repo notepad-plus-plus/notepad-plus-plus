@@ -57,7 +57,7 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 					}
 				}
 			}
-			else
+			else if (lpWchar != nullptr)
 			{
 				int nbBytes = (lstrlenW(lpWchar) + 1) * sizeof(wchar_t);
 				for (int i = 0 ; i < nbBytes ; ++i)

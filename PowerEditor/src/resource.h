@@ -19,12 +19,12 @@
 //
 // Notepad++ version: begin
 //
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.4.9")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.5")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("8.49\0")
-#define VERSION_DIGITALVALUE 8, 4, 9, 0
+#define VERSION_VALUE TEXT("8.5\0")
+#define VERSION_DIGITALVALUE 8, 5, 0, 0
 
 // Notepad++ version: end
 
@@ -517,9 +517,9 @@
 //#define IDD_STYLER_DLG    2200
 //#define IDD_GLOBAL_STYLER_DLG    2300
 
-#define IDD_VALUE_DLG       2400
-#define IDC_VALUE_STATIC  2401
-#define IDC_VALUE_EDIT      2402
+//#define IDD_VALUE_DLG       2400
+//#define IDC_VALUE_STATIC  2401
+//#define IDC_VALUE_EDIT      2402
 
 #define IDD_BUTTON_DLG       2410
 #define IDC_RESTORE_BUTTON  2411

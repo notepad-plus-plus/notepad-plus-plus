@@ -1249,7 +1249,7 @@ Updated to v8.0.0:
             <ExpandAllFoldersTip name="Laajenna kaikki kansiot"/>
             <CollapseAllFoldersTip name="Tiivistä kaikki kansiot"/>
             <LocateCurrentFileTip name="Paikallista nykyinen tiedosto"/>
-			<Menus>
+			<Menu>
                 <Item id="3511" name="Poista"/>
                 <Item id="3512" name="Poista kaikki"/>
                 <Item id="3513" name="Lisää"/>
@@ -1260,7 +1260,7 @@ Updated to v8.0.0:
                 <Item id="3518" name="Avaa resurssienhallinnassa"/>
                 <Item id="3519" name="Avaa komentokehote"/>
                 <Item id="3520" name="Kopioi tiedostonimi"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projekti"/>

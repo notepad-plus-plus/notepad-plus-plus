@@ -20,7 +20,6 @@ CXXFLAGS += --std=$(CXXSTD)
 
 ifdef CLANG
 CXX = clang++
-CXXFLAGS += -D_CRT_SECURE_NO_DEPRECATE
 ifdef USELIBCPP
 # macOS, use libc++ but don't have sanitizers
 CXXFLAGS += --stdlib=libc++

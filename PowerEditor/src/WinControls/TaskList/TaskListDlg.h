@@ -53,10 +53,10 @@ public :
 			_initDir = dir;
         };
         int doDialog(bool isRTL = false);
-		virtual void destroy() {};
+		void destroy() override {};
 
 protected :
-	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	TaskList _taskList;

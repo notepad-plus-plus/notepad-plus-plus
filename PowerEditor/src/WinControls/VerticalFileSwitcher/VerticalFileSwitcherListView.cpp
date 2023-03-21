@@ -205,7 +205,7 @@ int VerticalFileSwitcherListView::newItem(BufferID bufferID, int iView)
 
 void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 {
-	Buffer *buf = static_cast<Buffer *>(bufferID);
+	Buffer *buf = bufferID;
 	
 	TCHAR fn[MAX_PATH] = { '\0' };
 	wcscpy_s(fn, ::PathFindFileName(buf->getFileName()));
@@ -251,7 +251,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 
 void VerticalFileSwitcherListView::setItemColor(BufferID bufferID)
 {
-	Buffer* buf = static_cast<Buffer*>(bufferID);
+	Buffer* buf = bufferID;
 
 	LVITEM item{};
 	item.mask = LVIF_PARAM;
@@ -311,7 +311,7 @@ void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 {
 	_currentIndex = ListView_GetItemCount(_hSelf);
-	Buffer *buf = static_cast<Buffer *>(bufferID);
+	Buffer *buf = bufferID;
 	const TCHAR *fileName = buf->getFileName();
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, (void *)bufferID, -1);

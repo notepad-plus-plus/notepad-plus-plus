@@ -158,6 +158,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		File ".\APIs\powershell.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "GDScript" GDScript
+		SetOutPath "$INSTDIR\autoCompletion"
+		File ".\APIs\gdscript.xml"
+	${MementoSectionEnd}
+
 
 SectionGroupEnd
 
@@ -274,6 +279,10 @@ SectionGroup un.autoCompletionComponent
 
 	Section un.PowerShell
 		Delete "$INSTDIR\autoCompletion\powershell.xml"
+	SectionEnd
+
+	Section un.GDScript
+		Delete "$INSTDIR\autoCompletion\gdscript.xml"
 	SectionEnd
 
 

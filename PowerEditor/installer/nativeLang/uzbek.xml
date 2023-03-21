@@ -1140,7 +1140,7 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
         <FolderAsWorkspace>
             <PanelTitle name="Loyiha tarzidagi Jild"/>
             <SelectFolderFromBrowserString name="Loyiha tarzidagi Jildga qoʻshish uchun jild tanlang"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="Yoʻqotmoq"/>
                 <Item id="3512" name="Barini"/>
                 <Item id="3513" name="Qoʻshmoq"/>
@@ -1150,7 +1150,7 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
                 <Item id="3517" name="Fayllarda izlash..."/>
                 <Item id="3518" name="Obyekt joylashuvi"/>
                 <Item id="3519" name="CMDga kirmoq"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Loyiha"/>

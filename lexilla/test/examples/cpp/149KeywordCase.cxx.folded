@@ -1,0 +1,12 @@
+ 0 400 400   // SCE_C_WORD2 (16)
+ 0 400 400   second
+ 1 400 400   
+ 0 400 400   // SCE_C_IDENTIFIER (11)
+ 0 400 400   Second
+ 1 400 400   
+ 0 400 400   // SCE_C_IDENTIFIER (11)
+ 0 400 400   upper
+ 1 400 400   
+ 0 400 400   // SCE_C_WORD2 (16)
+ 0 400 400   Upper
+ 1 400 400   

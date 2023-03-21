@@ -1418,7 +1418,7 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
             <ExpandAllFoldersTip name="모든 폴더 펼치기"/>
             <CollapseAllFoldersTip name="모든 폴더 접기"/>
             <LocateCurrentFileTip name="현재 파일 위치"/>
-            <Menus>
+            <Menu>
                 <Item id="3511" name="삭제"/>
                 <Item id="3512" name="전부 삭제"/>
                 <Item id="3513" name="추가"/>
@@ -1429,7 +1429,7 @@ langs.xml 파일을 복구하시겠습니까?"/> <!-- HowToReproduce: Close Note
                 <Item id="3518" name="여기에서 탐색기 열기"/>
                 <Item id="3519" name="여기에서 CMD 열기"/>
                 <Item id="3520" name="파일 이름 복사"/>
-            </Menus>
+            </Menu>
         </FolderAsWorkspace>
 <ProjectManager>
   <PanelTitle name="프로젝트"/>

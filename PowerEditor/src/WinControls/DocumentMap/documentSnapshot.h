@@ -33,8 +33,8 @@ public:
 		Window::init(hInst, hPere);
 	};
 
-	void doDialog(POINT p, Buffer *buf, ScintillaEditView & scintSource);
-	void syncDisplay(Buffer *buf, ScintillaEditView & scintSource);
+	void doDialog(POINT p, Buffer *buf, const ScintillaEditView & scintSource);
+	void syncDisplay(Buffer *buf, const ScintillaEditView & scintSource);
 
     void setParent(HWND parent2set){
         _hParent = parent2set;

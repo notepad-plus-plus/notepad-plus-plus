@@ -39,6 +39,7 @@ Opening an issue beforehand allows the administrators and the community to discu
 6. PR of reformatting (changing of ws/TAB, line endings or coding style) of source code won't be accepted. Use issue trackers for your request instead.
 7. Typo fixing and code refactoring won't be accepted - please create issues with title started with `TYPO` to request the changing.
 8. Address the review change requests by pushing new commits to the same PR. Avoid amending a commit and then force pushing it. All the PR commits are squashed before merging to the main branch.
+9. Finally, please test your pull requests, at least once.
 
 In short: The easier the code review is, the better the chance your pull request will get accepted.
 

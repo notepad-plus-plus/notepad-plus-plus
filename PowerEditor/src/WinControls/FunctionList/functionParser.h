@@ -159,8 +159,8 @@ private:
 	ParserInfo* _parsers[L_EXTERNAL + nbMaxUserDefined] = {nullptr};
 	int _currentUDIndex = L_EXTERNAL;
 
-	bool getOverrideMapFromXmlTree(generic_string & xmlDirPath);
-	bool loadFuncListFromXmlTree(generic_string & xmlDirPath, LangType lType, const generic_string& overrideId, int udlIndex = -1);
+	bool getOverrideMapFromXmlTree(const generic_string & xmlDirPath);
+	bool loadFuncListFromXmlTree(const generic_string & xmlDirPath, LangType lType, const generic_string& overrideId, int udlIndex = -1);
 	bool getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray);
 	bool getUnitPaserParameters(TiXmlNode *functionParser, generic_string &mainExprStr, std::vector<generic_string> &functionNameExprArray, std::vector<generic_string> &classNameExprArray);
 	FunctionParser * getParser(const AssociationInfo & assoInfo);

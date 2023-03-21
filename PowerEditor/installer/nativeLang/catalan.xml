@@ -1072,7 +1072,7 @@ By Hiro5 <groccat at gmail>
 		<FolderAsWorkspace>
 			<PanelTitle name="Carpeta com espai de treball"/>
 			<SelectFolderFromBrowserString name="Selecciona una carpeta per afegir al panell de Carpeta com espai de treball"/>
-			<Menus>
+			<Menu>
 				<Item id="3511" name="Esborra"/>
 				<Item id="3512" name="Esborra-ho tot"/>
 				<Item id="3513" name="Afegeix"/>
@@ -1083,7 +1083,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="3518" name="Obre aquí amb l'explorador"/>
 				<Item id="3519" name="Obre aquí amb l'indicador d'ordres"/>
 				<Item id="3520" name="Copia el nom del fitxer"/>
-			</Menus>
+			</Menu>
 		</FolderAsWorkspace>
 		<FileBrowser>
 			<PanelTitle name="Carpetes de treball"/>

@@ -72,19 +72,9 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
 	
-	Exec 'rundll32.exe "$INSTDIR\NppShell.dll",UnregisterSparsePackage'
+	Exec 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
 	;Delete "$INSTDIR\NppShell.dll"
 	;Delete "$INSTDIR\NppShell.msix"
-	
- 	ReadRegStr $muiVerbStrUn HKLM "SOFTWARE\Classes\*\shell\pintohome" MUIVerb
-	${UnStrStr} $nppSubStrUn $muiVerbStrUn "Notepad++"
-	
-	; Make sure there's an entry, and the entry belong to Notepad++ before deleting it
-	${If} $muiVerbStrUn != ""
-		${AndIf} $nppSubStrUn != ""  ; it contains "Notepad++"
-			DeleteRegKey HKLM "SOFTWARE\Classes\*\shell\pintohome"
-	
-	${EndIf}
 SectionEnd
 
 Section un.UnregisterFileExt

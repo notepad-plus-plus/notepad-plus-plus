@@ -8,7 +8,7 @@ Doing this requires two new things.
 
 To build this, the following steps needs to be taken:
 
-1. Build a Release dll file (NppShell.dll)
+1. Build a Release dll file three times (Win32, x64 and ARM64) resulting in three dll files (NppShell.x86.dll, NppShell.x64.dll and NppShell.arm64.dll)
 2. Generate a Sparse Package (NppShell.msix)
 3. Sign both of these with signtool.exe
 4. Make sure they are included in the installer, so they are deployed next to the notepad++.exe program.
@@ -43,7 +43,7 @@ The following command expects the following:
 Make the needed changes to match the real certificate.
 ```
 SignTool.exe sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f .\MyCert.pfx /p Test1234 /d "Notepad++" /du https://notepad-plus-plus.org/ NppShell.msix
-SignTool.exe sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f .\MyCert.pfx /p Test1234 /d "Notepad++" /du https://notepad-plus-plus.org/ x64\Release\NppShell.dll
+SignTool.exe sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f .\MyCert.pfx /p Test1234 /d "Notepad++" /du https://notepad-plus-plus.org/ (ARCH)\Release\NppShell.dll
 ```
 Now both files has been signed, and can be used.
 
@@ -54,15 +54,15 @@ They need to be there, since the DLL is looking for notepad++.exe in the same di
 ## The installer should, upon installation, install the package.
 When the installer is running, after all the files has been copied into the program files directory, the follow command should be be run to run the register function to register the package:
 ```
-rundll32.exe .\NppShell.dll,RegisterSparsePackage
+regsvr32.exe /s .\NppShell.dll
 ```
 
-Remember to wait for the rundll32 process to exit before continuing.
+Remember to wait for the regsvr32 process to exit before continuing.
 
 ## The installer should, upon uninstallation, uninstall the package.
 When the uninstaller is running, it should run this command to unregister the package:
 ```
-rundll32.exe .\NppShell.dll,UnregisterSparsePackage
+regsvr32.exe /s /u .\NppShell.dll
 ```
 
-Here we need to wait for rundll32 to finish, since if it isn't finished, the dll file will be locked by explorer.
+Here we need to wait for regsvr32 to finish, since if it isn't finished, the dll file will be locked by explorer.

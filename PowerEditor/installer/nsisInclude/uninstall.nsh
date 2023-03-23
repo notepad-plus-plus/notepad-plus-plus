@@ -296,8 +296,8 @@ Section Uninstall
 	${endIf}
 	
 	; In order to not delete context menu binary before we unregistered it,
-	; we delete them at the end
-	Delete "$INSTDIR\NppShell.dll"
+	; we delete them at the end, using the CleanupDll function, since it can be locked by explorer.
+	Exec 'rundll32.exe "$INSTDIR\NppShell.dll",CleanupDll'
 	Delete "$INSTDIR\NppShell.msix"
 	
 	

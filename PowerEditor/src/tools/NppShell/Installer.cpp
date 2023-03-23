@@ -13,6 +13,8 @@ using namespace winrt::Windows::Management::Deployment;
 using namespace NppShell::Helpers;
 using namespace NppShell::Installer;
 
+extern HMODULE thisModule;
+
 const wstring SparsePackageName = L"NotepadPlusPlus";
 constexpr int FirstWindows11BuildNumber = 22000;
 
@@ -335,6 +337,37 @@ HRESULT NppShell::Installer::Uninstall()
     }
 
     SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, 0, 0);
+
+    return S_OK;
+}
+
+STDAPI CleanupDll()
+{
+    wstring tempPath(MAX_PATH, L'\0');
+    wstring tempFileName(MAX_PATH, L'\0');
+    wstring currentFilePath(MAX_PATH, L'\0');
+
+    BOOL moveResult;
+
+    GetTempPath(MAX_PATH, &tempPath[0]);
+    GetTempFileName(tempPath.c_str(), L"tempFileName", 0, &tempFileName[0]);
+    GetModuleFileName(thisModule, &currentFilePath[0], MAX_PATH);
+    
+    // Move the file into the temp directory - it can be moved even when it is loaded into memory and locked.
+    moveResult = MoveFileEx(currentFilePath.c_str(), tempFileName.c_str(), MOVEFILE_REPLACE_EXISTING);
+
+    if (!moveResult)
+    {
+        return S_FALSE;
+    }
+
+    // Schedule it to be deleted from the temp directory on the next reboot.
+    moveResult = MoveFileExW(tempFileName.c_str(), NULL, MOVEFILE_DELAY_UNTIL_REBOOT);
+
+    if (!moveResult)
+    {
+        return S_FALSE;
+    }
 
     return S_OK;
 }

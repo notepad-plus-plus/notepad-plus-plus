@@ -1209,7 +1209,7 @@ struct FindHistory final
 
 struct ColumnEditorParam final
 {
-	bool _mainChoice = true; //  true (1): text   false (0): number 
+	bool _mainChoiceIsText = true; //  true (1): text   false (0): number 
 
 	std::wstring _insertedTextContent;
 

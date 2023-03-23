@@ -66,7 +66,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			::SendDlgItemMessage(_hSelf, format, BM_SETCHECK,  TRUE, 0);
 
-			switchTo(colEditParam._mainChoice);
+			switchToTextSection(colEditParam._mainChoiceIsText);
 			goToCenter();
 
 			return TRUE;
@@ -125,7 +125,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			if (NppDarkMode::isEnabled())
 			{
 				const ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-				::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_FORMAT_GRP_STATIC), !colEditParam._mainChoice);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_FORMAT_GRP_STATIC), !colEditParam._mainChoiceIsText);
 			}
 			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;
@@ -334,8 +334,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_COL_NUM_RADIO :
 				{
 					ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-					colEditParam._mainChoice = (wParam == IDC_COL_TEXT_RADIO) ? activeText : activeNumeric;
-					switchTo(colEditParam._mainChoice);
+					colEditParam._mainChoiceIsText = (wParam == IDC_COL_TEXT_RADIO);
+					switchToTextSection(colEditParam._mainChoiceIsText);
 					return TRUE;
 				}
 
@@ -440,7 +440,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 	return FALSE;
 }
 
-void ColumnEditorDlg::switchTo(bool toText)
+void ColumnEditorDlg::switchToTextSection(bool toText)
 {
 	HWND hText = ::GetDlgItem(_hSelf, IDC_COL_TEXT_EDIT);
 	::EnableWindow(hText, toText);

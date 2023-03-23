@@ -556,8 +556,8 @@ void AsciiListView::setValues(int codepage)
 		values2Add.push_back(dec);
 		values2Add.push_back(hex);
 		values2Add.push_back(s);
-		values2Add.push_back(htmlNumber);
 		values2Add.push_back(htmlName);
+		values2Add.push_back(htmlNumber);
 		values2Add.push_back(htmlHexNumber);
 
 		addLine(values2Add);

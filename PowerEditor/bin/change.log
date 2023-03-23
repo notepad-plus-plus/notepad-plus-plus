@@ -1,3 +1,16 @@
+Notepad++ v8.5.1 bug-fixes and new features:
+
+1.  Use new modern shell "Edit with Notepad++" of Windows 11 instead of hijacking "Pin to Quick access".
+2.  Update scintilla to 5.3.4 and lexilla to 5.2.4.
+3.  Add MS Transact-SQL support.
+4.  Add GDScript language support with autocomplete & functionlist.
+5.  Fix UDL empty button regression after changing localization.
+6.  Add ability to copy "Find what" to "Replace with" and vice versa in Find Replace dialog.
+7.  Fix DocSwitcher RTL problem, and use edit field instead of a small popup value dialog.
+8.  GUI visual enhancement: Fix whole dialog items blink when a item value changed.
+9.  Make tray icon context menu translatable.
+
+
 Notepad++ v8.5 bug-fixes and new features:
 
 1.  Fix notepad replacement opening file name containing white space regression.
@@ -26,7 +39,7 @@ Notepad++ v8.5 bug-fixes and new features:
 24. Make several GUI items translatable.
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.5/
+https://notepad-plus-plus.org/downloads/v8.5.1/
 
 
 Included plugins:

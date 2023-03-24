@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 16 Mar 2023, for Notepad++ 8.5.1 
+     Last update by Marcello, 23 Mar 2023, for Notepad++ 8.5.1 
 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.1">
@@ -310,10 +310,10 @@
                     <Item id="45002" name="Converter para formato UNIX"/>
                     <Item id="45003" name="Converter para formato MAC"/>
                     <Item id="45004" name="Codificação em ANSI"/>
-                    <Item id="45005" name="Codificação em UTF-8"/>
-                    <Item id="45006" name="Codificação em UCS-2 Big Endian"/>
-                    <Item id="45007" name="Codificação em UCS-2 Little Endian"/>
-                    <Item id="45008" name="Codificação em UTF-8 (sem BOM)"/>
+                    <Item id="45005" name="Codificação em UTF-8 BOM"/>
+                    <Item id="45006" name="Codificação em UCS-2 Big Endian BOM"/>
+                    <Item id="45007" name="Codificação em UCS-2 Little Endian BOM"/>
+                    <Item id="45008" name="Codificação em UTF-8"/>
                     <Item id="45009" name="Converter para ANSI"/>
                     <Item id="45010" name="Converter para UTF-8"/>
                     <Item id="45011" name="Converter para UTF-8-BOM"/>

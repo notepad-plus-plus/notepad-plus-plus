@@ -5558,12 +5558,29 @@ void Progress::close()
 }
 
 
-void Progress::setPercent(unsigned percent, const TCHAR *fileName) const
+void Progress::setPercent(unsigned percent, const TCHAR* fileName, int nbHitsSoFar) const
 {
 	if (_hwnd)
 	{
 		::PostMessage(_hPBar, PBM_SETPOS, percent, 0);
 		::SendMessage(_hPText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(fileName));
+		const int stringSize = 32;
+		TCHAR str[stringSize];
+		swprintf(str, stringSize, TEXT("%d hits"), nbHitsSoFar);
+		::SendMessage(_hPRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
+	}
+}
+
+
+void Progress::setInfo(const TCHAR* info, int nbHitsSoFar) const
+{
+	if (_hwnd)
+	{
+		::SendMessage(_hPText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
+		const int stringSize = 32;
+		TCHAR str[stringSize];
+		swprintf(str, stringSize, TEXT("%d hits"), nbHitsSoFar);
+		::SendMessage(_hPRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
 	}
 }
 
@@ -5636,9 +5653,17 @@ int Progress::createProgressWindow()
 		xStartPos, yTextPos,
 		ctrlWidth, textHeight, _hwnd, NULL, _hInst, NULL);
 
+	_hPRunningHitsText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
+		WS_CHILD | WS_VISIBLE | SS_PATHELLIPSIS,
+		xStartPos, yTextPos + textHeight * 2,
+		50, textHeight, _hwnd, NULL, _hInst, NULL);
+
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
+	{
 		::SendMessage(_hPText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		::SendMessage(_hPRunningHitsText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+	}
 
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
 		WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
@@ -5746,7 +5771,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 				::EnableWindow(pw->_hBtn, FALSE);
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				generic_string info = pNativeSpeaker->getLocalizedStrFromID("progress-cancel-info", TEXT("Cancelling operation, please wait..."));
-				pw->setInfo(info.c_str());
+				pw->setInfo(info.c_str(), 0);
 				return 0;
 			}
 			break;

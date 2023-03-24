@@ -568,13 +568,8 @@ public:
 		return false;
 	}
 
-	void setInfo(const TCHAR *info) const
-	{
-		if (_hwnd)
-			::SendMessage(_hPText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
-	}
-
-	void setPercent(unsigned percent, const TCHAR *fileName) const;
+	void setInfo(const TCHAR* info, int nbHitsSoFar) const;
+	void setPercent(unsigned percent, const TCHAR* fileName, int nbHitsSoFar) const;
 
 private:
 	static const TCHAR cClassName[];
@@ -600,6 +595,7 @@ private:
 	HANDLE _hThread = nullptr;
 	HANDLE _hActiveState = nullptr;
 	HWND _hPText = nullptr;
+	HWND _hPRunningHitsText = nullptr;
 	HWND _hPBar = nullptr;
 	HWND _hBtn = nullptr;
 };

@@ -9,8 +9,8 @@
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<!-- basiert auf english.xml vom 14.03.2023 -->
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.03.15">
+	<!-- basiert auf english.xml vom 25.03.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.03.25">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1288,7 +1288,12 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 				<Item id="2033" name="&amp;Zahlen einfügen"/>
 				<Item id="2030" name="&amp;Starten mit:"/>
 				<Item id="2031" name="&amp;Erhöhen um:"/>
-				<Item id="2035" name="Führende &amp;Nullen"/>
+				<Item id="2038" name="Führende &amp;Nullen:"/>
+				<ComboBox id="2039">
+					<Element name="Keine"/>
+					<Element name="Nullen"/>
+					<Element name="Leerzeichen"/>
+				</ComboBox>
 				<Item id="2036" name="&amp;Wiederholen:"/>
 				<Item id="2032" name="Format"/>
 				<Item id="2024" name="&amp;Dezimal"/>
@@ -1469,8 +1474,9 @@ Möchten Sie die Änderungen speichern, bevor Sie das Thema wechseln?"/> <!-- Ho
 			<ColumnVal name="Dezimal"/>
 			<ColumnHex name="Hexadezimal"/>
 			<ColumnChar name="Zeichen"/>
-			<ColumnHtmlNumber name="HTML-Zahl"/>
-			<ColumnHtmlName name="HTML-Code"/>
+			<ColumnHtmlName name="HTML Name"/>
+			<ColumnHtmlNumber name="HTML Dezimal"/>
+			<ColumnHtmlHexNb name="HTML Hexadezimal"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Miniaturansicht"/>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 23 Mar 2023, for Notepad++ 8.5.1 
+     Last update by Marcello, 25 Mar 2023, for Notepad++ 8.5.2 
 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.1">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.12">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1453,8 +1453,9 @@ Deseja salvar suas alterações antes de alterar os temas?"/> <!-- HowToReproduc
             <ColumnVal name="Valor"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Caractere"/>
-            <ColumnHtmlNumber name="Número HTML"/>
-            <ColumnHtmlName name="Código HTML"/>
+            <ColumnHtmlName name="Nome HTML"/>
+            <ColumnHtmlNumber name="Decimal HTML"/>
+            <ColumnHtmlHexNb name="Hexadecimal HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa do documento"/>

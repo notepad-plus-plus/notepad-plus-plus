@@ -43,11 +43,13 @@ Function un.onUninstSuccess
 	RMDir "$INSTDIR\autoCompletion\"
 	RMDir "$INSTDIR\functionList\"
 	RMDir "$INSTDIR\themes\"
+	RMDir "$INSTDIR\contextmenu\"
 	RMDir "$INSTDIR\"
 
 	RMDir "$APPDATA\${APPNAME}\plugins\"
 	RMDir "$installPath\themes\"	; if files are kept because of $keepUserData, this will not be deleted
 	RMDir "$installPath\userDefineLangs\"
+	RMDir "$installPath\contextmenu\"
 	RMDir "$installPath\"
 FunctionEnd
 
@@ -72,19 +74,9 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
 	
-	Exec 'rundll32.exe "$INSTDIR\NppModernShell.dll",UnregisterSparsePackage'
-	;Delete "$INSTDIR\NppModernShell.dll"
-	;Delete "$INSTDIR\NppModernShell.msix"
-	
- 	ReadRegStr $muiVerbStrUn HKLM "SOFTWARE\Classes\*\shell\pintohome" MUIVerb
-	${UnStrStr} $nppSubStrUn $muiVerbStrUn "Notepad++"
-	
-	; Make sure there's an entry, and the entry belong to Notepad++ before deleting it
-	${If} $muiVerbStrUn != ""
-		${AndIf} $nppSubStrUn != ""  ; it contains "Notepad++"
-			DeleteRegKey HKLM "SOFTWARE\Classes\*\shell\pintohome"
-	
-	${EndIf}
+	Exec 'regsvr32 /u /s "$INSTDIR\contextmenu\NppShell.dll"'
+	;Delete "$INSTDIR\contextmenu\NppShell.dll"
+	;Delete "$INSTDIR\contextmenu\NppShell.msix"
 SectionEnd
 
 Section un.UnregisterFileExt
@@ -306,9 +298,9 @@ Section Uninstall
 	${endIf}
 	
 	; In order to not delete context menu binary before we unregistered it,
-	; we delete them at the end
-	Delete "$INSTDIR\NppModernShell.dll"
-	Delete "$INSTDIR\NppModernShell.msix"
+	; we delete them at the end, using the CleanupDll function, since it can be locked by explorer.
+	Exec 'rundll32.exe "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
+	Delete "$INSTDIR\contextmenu\NppShell.msix"
 	
 	
 	; Remove remaining directories
@@ -318,6 +310,7 @@ Section Uninstall
 	RMDir "$INSTDIR\themes\"
 	RMDir "$INSTDIR\localization\"
 	RMDir "$INSTDIR\functionList\"
+	RMDir "$INSTDIR\contextmenu\"
 	RMDir "$INSTDIR\"
 	RMDir "$SMPROGRAMS\${APPNAME}"
 

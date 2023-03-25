@@ -33,20 +33,15 @@ If ErrorLevel 1 goto End
 %signArmBinary% ..\binarm64\notepad++.exe
 If ErrorLevel 1 goto End
 
-%signBinary% ..\bin\NppShell_06.dll
+%signBinary% ..\bin\NppShell.x86.dll
 If ErrorLevel 1 goto End
-%signBinary% ..\bin\NppShell64_06.dll
+%signBinary% ..\bin64\NppShell.msix
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\NppShell64.dll
+%signBinary% ..\bin64\NppShell.x64.dll
 If ErrorLevel 1 goto End
-
-%signBinary% ..\bin64\NppModernShell.msix
+%signBinary% ..\binarm64\NppShell.msix
 If ErrorLevel 1 goto End
-%signBinary% ..\bin64\NppModernShell.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\NppModernShell.msix
-If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\NppModernShell.dll
+%signArmBinary% ..\binarm64\NppShell.arm64.dll
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\plugins\Config\nppPluginList.dll

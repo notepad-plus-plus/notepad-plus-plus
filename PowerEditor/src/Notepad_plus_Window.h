@@ -100,6 +100,19 @@ public:
 
 	void setStartupBgColor(COLORREF BgColor);
 
+	static void loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* icon)
+	{
+		if (::LoadIconWithScaleDown(hinst, pszName, cx, cy, icon) != S_OK)
+		{
+			*icon = static_cast<HICON>(::LoadImage(hinst, pszName, IMAGE_ICON, cx, cy, LR_DEFAULTCOLOR));
+		}
+	}
+
+	static void loadTrayIcon(HINSTANCE hinst, HICON* icon)
+	{
+		loadIcon(hinst, MAKEINTRESOURCE(IDI_M30ICON), ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), icon);
+	}
+
 private:
 	Notepad_plus _notepad_plus_plus_core;
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);

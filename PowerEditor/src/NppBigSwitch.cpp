@@ -1357,8 +1357,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETNPPVERSION:
 		{
 			const TCHAR* verStr = VERSION_VALUE;
-			TCHAR mainVerStr[16];
-			TCHAR auxVerStr[16];
+			TCHAR mainVerStr[16]{};
+			TCHAR auxVerStr[16]{};
 			bool isDot = false;
 			int j = 0;
 			int k = 0;
@@ -2537,7 +2537,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if ((nppgui._isMinimizedToTray || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
 			{
 				if (nullptr == _pTrayIco)
-					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, NPPM_INTERNAL_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
+				{
+					HICON icon = nullptr;
+					Notepad_plus_Window::loadTrayIcon(_pPublicInterface->getHinst(), &icon);
+					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, NPPM_INTERNAL_MINIMIZED_TRAY, icon, TEXT(""));
+				}
 
 				_pTrayIco->doTrayIcon(ADD);
 				_dockingManager.showFloatingContainers(false);

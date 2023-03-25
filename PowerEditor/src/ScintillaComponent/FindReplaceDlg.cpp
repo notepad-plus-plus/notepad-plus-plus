@@ -2082,8 +2082,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 				case IDC_COPY_MARKED_TEXT:
 				{
-					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
-					(*_ppEditView)->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
+					::SendMessage(_hParent, WM_COMMAND, IDM_SEARCH_MARKEDTOCLIP, 0);
 				}
 				return TRUE;
 
@@ -3920,12 +3919,6 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 					case IDC_CLEAR_ALL:
 					{
 						clearMarks(*_env);
-						break;
-					}
-
-					case IDC_COPY_MARKED_TEXT:
-					{
-						(*_ppEditView)->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
 						break;
 					}
 

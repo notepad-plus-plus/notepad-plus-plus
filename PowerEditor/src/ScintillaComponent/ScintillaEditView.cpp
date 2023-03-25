@@ -161,7 +161,7 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 
 int getNbDigits(int aNum, int base)
 {
-	int nbChiffre = 1;
+	int nbDigits = 1;
 	int diviseur = base;
 
 	for (;;)
@@ -172,13 +172,11 @@ int getNbDigits(int aNum, int base)
 		else
 		{
 			diviseur *= base;
-			++nbChiffre;
+			++nbDigits;
 		}
 	}
-	if ((base == 16) && (nbChiffre % 2 != 0))
-		nbChiffre += 1;
 
-	return nbChiffre;
+	return nbDigits;
 }
 
 void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)

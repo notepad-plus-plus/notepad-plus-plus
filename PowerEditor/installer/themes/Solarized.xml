@@ -524,6 +524,23 @@ Installation:
             <WordsStyle name="COMMENTBLOCK2" styleID="15" fgColor="586E75" bgColor="002B36" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENTBLOCK3" styleID="16" fgColor="586E75" bgColor="002B36" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
+        <LexerType name="hollywood" desc="Hollywood" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="839496" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="586E75" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT BLOCK" styleID="2" fgColor="586E75" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="3" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="4" fgColor="859900" bgColor="002B36" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
+            <WordsStyle name="CORE API" styleID="5" fgColor="859900" bgColor="002B36" fontName="" fontStyle="1" fontSize="" keywordClass="instre2"/>
+            <WordsStyle name="PLUGIN API" styleID="6" fgColor="859900" bgColor="002B36" fontName="" fontStyle="1" fontSize="" keywordClass="type1"/>
+            <WordsStyle name="PLUGIN METHOD" styleID="7" fgColor="859900" bgColor="002B36" fontName="" fontStyle="1" fontSize="" keywordClass="type2"/>
+            <WordsStyle name="STRING" styleID="8" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING BLOCK" styleID="9" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PREPROCESSOR" styleID="10" fgColor="CB4B16" bgColor="002B36" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="11" fgColor="839496" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="12" fgColor="839496" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CONSTANT" styleID="13" fgColor="DC322F" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEXNUMBER" styleID="14" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />                                                                                                                                                            
+        </LexerType>
         <LexerType name="html" desc="HTML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="839496" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="9" fgColor="586E75" bgColor="002B36" fontName="" fontStyle="2" fontSize="" />

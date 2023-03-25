@@ -97,7 +97,8 @@
 			<association id= "visualprolog.xml"  langID= "84"/>
 			<association id= "typescript.xml"  	 langID= "85"/>
 			<association id= "gdscript.xml"  	 langID= "88"/>
-
+			<association id= "hollywood.xml"  	 langID= "89"/>
+			
 			If you create your own parse rule of supported languages (above) for your specific need,
 			you can copy it without modifying the original one, and make it point to your rule.
 			

@@ -929,6 +929,7 @@ BEGIN
         MENUITEM "GDScript",                IDM_LANG_GDSCRIPT
         MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
         MENUITEM "Haskell",                 IDM_LANG_HASKELL
+        MENUITEM "Hollywood",               IDM_LANG_HOLLYWOOD
         MENUITEM "HTML",                    IDM_LANG_HTML
         MENUITEM "INI file",                IDM_LANG_INI
         MENUITEM "Inno Setup",              IDM_LANG_INNO
@@ -1048,6 +1049,7 @@ BEGIN
     POPUP "H"
     BEGIN
         MENUITEM "Haskell",               IDM_LANG_HASKELL
+        MENUITEM "Hollywood",             IDM_LANG_HOLLYWOOD	
         MENUITEM "HTML",                  IDM_LANG_HTML
     END
     POPUP "I"

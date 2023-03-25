@@ -540,7 +540,8 @@
     #define    IDM_LANG_JSON5              (IDM_LANG + 85)
     #define    IDM_LANG_MSSQL              (IDM_LANG + 86)
     #define    IDM_LANG_GDSCRIPT           (IDM_LANG + 87)
-
+    #define    IDM_LANG_HOLLYWOOD          (IDM_LANG + 88)
+    
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 165)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 179)
 

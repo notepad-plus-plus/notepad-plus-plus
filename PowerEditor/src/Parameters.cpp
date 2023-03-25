@@ -261,6 +261,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_EOL,                                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_ALL_CHARACTERS,                      false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_NPC,                                 false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_NPC_CCUNIEOL,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_INDENT_GUIDE,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_WRAP_SYMBOL,                         false, false, false, nullptr },
 //  { VK_NULL,    IDM_VIEW_ZOOMIN,                              false, false, false, nullptr },

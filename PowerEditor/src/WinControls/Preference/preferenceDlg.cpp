@@ -949,7 +949,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				L"Click on \"?\" button on right to open website with User Manual.");
 
 			generic_string tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
-				L"Include C0, C1 control and unicode EOL (next line, line separator and paragraph separator) characters.\n\n"\
+				L"Include C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.\n\n"\
 				L"If unchecked, menu item \"Show Non-Printing Characters\" will have no effect on these characters and they will be represented by default abbreviations.\n\n"\
 				L"If checked and menu item \"Show Non-Printing Characters\" is unchecked, these characters will be hidden.");
 
@@ -1151,7 +1151,12 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDC_CHECK_NPC_INCLUDECCUNIEOL:
 				{
 					svp._npcIncludeCcUniEol = isCheckedOrNot(IDC_CHECK_NPC_INCLUDECCUNIEOL);
-					HWND grandParent = ::GetParent(_hParent);
+
+					const HWND grandParent = ::GetParent(_hParent);
+
+					auto menu = reinterpret_cast<HMENU>(::SendMessage(grandParent, NPPM_INTERNAL_GETMENU, 0, 0));
+					::CheckMenuItem(menu, IDM_VIEW_NPC_CCUNIEOL, MF_BYCOMMAND | (svp._npcIncludeCcUniEol ? MF_CHECKED : MF_UNCHECKED));
+
 					::SendMessage(grandParent, NPPM_INTERNAL_SETNPC, !svp._npcIncludeCcUniEol ? TRUE : FALSE, 0);
 					return TRUE;
 				}

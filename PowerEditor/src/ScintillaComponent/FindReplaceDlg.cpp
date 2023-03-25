@@ -2090,7 +2090,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 				case IDC_COPY_MARKED_TEXT:
 				{
-					(*_ppEditView)->markedTextToClipboard(SCE_UNIVERSAL_FOUND_STYLE);
+					::SendMessage(_hParent, WM_COMMAND, IDM_SEARCH_MARKEDTOCLIP, 0);
 				}
 				return TRUE;
 

@@ -1,6 +1,0 @@
-LIBRARY
-EXPORTS
-DllCanUnloadNow           PRIVATE
-DllGetClassObject         PRIVATE
-RegisterSparsePackage
-UnregisterSparsePackage

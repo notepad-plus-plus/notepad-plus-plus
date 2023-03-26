@@ -280,6 +280,20 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 
 	switch (Message)
 	{
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			RECT rc{};
+			::GetClientRect(hwnd, &rc);
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+
+			return TRUE;
+		}
+
 		case WM_LBUTTONDOWN:
 		{
 			_isMouseDown = TRUE;
@@ -296,11 +310,11 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 				if (!hookMouse)
 				{
 					DWORD dwError = ::GetLastError();
-					TCHAR  str[128];
+					TCHAR str[128]{};
 					::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
 					::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed on runProcCaption"), MB_OK | MB_ICONERROR);
 				}
-				::RedrawWindow(hwnd, NULL, NULL, TRUE);
+				::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE);
 			}
 
 			focusClient();
@@ -366,7 +380,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 					if (_isMouseOver != isMouseOver)
 					{
 						::SetFocus(NULL);
-						::RedrawWindow(hwnd, NULL, NULL, TRUE);
+						::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE);
 					}
 				}
 			}
@@ -428,7 +442,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 		}
 		case WM_SETTEXT:
 		{
-			::RedrawWindow(hwnd, NULL, NULL, TRUE);
+			::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE);
 			return TRUE;
 		}
 		default:
@@ -681,6 +695,10 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				break;
 			}
 
+			RECT rc{};
+			::GetClientRect(hwnd, &rc);
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+
 			return TRUE;
 		}
 
@@ -697,7 +715,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				break;
 			}
 
-			PAINTSTRUCT ps;
+			PAINTSTRUCT ps{};
 			HDC hdc = ::BeginPaint(hwnd, &ps);
 			::FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
 
@@ -1119,7 +1137,7 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			int tabDpiDynamicalMinWidth = NppParameters::getInstance()._dpiManager.scaleX(24);
 			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiDynamicalMinWidth);
 
-			break;
+			return TRUE;
 		}
 		case WM_NCCALCSIZE:
 		case WM_SIZE:
@@ -1133,10 +1151,16 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			{
 				break;
 			}
-			RECT rc = {};
+			RECT rc{};
 			getClientRect(rc);
 			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_DRAWITEM :

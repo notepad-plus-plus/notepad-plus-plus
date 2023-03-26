@@ -96,7 +96,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 
 	if (!_isRegistered)
 	{
-		WNDCLASS clz;
+		WNDCLASS clz{};
 
 		clz.style = 0;
 		clz.lpfnWndProc = staticWinProc;
@@ -216,6 +216,20 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 {
 	switch (message)
 	{
+		case WM_ERASEBKGND:
+		{
+			if (!NppDarkMode::isEnabled())
+			{
+				break;
+			}
+
+			RECT rc{};
+			::GetClientRect(hwnd, &rc);
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+
+			return TRUE;
+		}
+
 		case WM_NCACTIVATE:
 		{
 			// activate/deactivate titlebar of toolbars
@@ -660,8 +674,17 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 	}
 
 	// attach toolbar
-	if (_vContainer.size() > (size_t)iCont && _vContainer[iCont] != NULL)
+	if (_vContainer.size() > static_cast<size_t>(iCont) && _vContainer[iCont] != nullptr)
+	{
 		_vContainer[iCont]->createToolbar(data);
+		for (const auto& cont : _vContainer)
+		{
+			if (cont->isVisible() && cont != _vContainer[iCont])
+			{
+				::RedrawWindow(cont->getHSelf(), nullptr, nullptr, RDW_INVALIDATE);
+			}
+		}
+	}
 
 	// notify client app
 	if (iCont < DOCKCONT_MAX)
@@ -706,7 +729,7 @@ void DockingManager::showDockableDlg(TCHAR* pszName, BOOL view)
 
 LRESULT DockingManager::SendNotify(HWND hWnd, UINT message)
 {
-	NMHDR	nmhdr;
+	NMHDR nmhdr{};
 	nmhdr.code		= message;
 	nmhdr.hwndFrom	= _hParent;
 	nmhdr.idFrom	= ::GetDlgCtrlID(_hParent);

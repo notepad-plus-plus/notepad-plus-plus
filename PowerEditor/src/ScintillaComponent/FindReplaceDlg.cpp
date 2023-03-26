@@ -983,10 +983,11 @@ void FindInFinderDlg::initFromOptions()
 
 	setChecked(IDC_MATCHLINENUM_CHECK_FIFOLDER, _options._isMatchLineNumber);
 
-	setChecked(IDWHOLEWORD_FIFOLDER, _options._searchType != FindRegex && _options._isWholeWord);
+	setChecked(IDWHOLEWORD_FIFOLDER, firstTimeInit ? false : 
+		_options._searchType != FindRegex && _options._isWholeWord);
 	::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD_FIFOLDER), _options._searchType != FindRegex);
 
-	setChecked(IDMATCHCASE_FIFOLDER, _options._isMatchCase);
+	setChecked(IDMATCHCASE_FIFOLDER, firstTimeInit ? false : _options._isMatchCase);
 
 	setChecked(IDNORMAL_FIFOLDER, _options._searchType == FindNormal);
 	setChecked(IDEXTENDED_FIFOLDER, _options._searchType == FindExtended);
@@ -994,6 +995,8 @@ void FindInFinderDlg::initFromOptions()
 
 	setChecked(IDREDOTMATCHNL_FIFOLDER, _options._dotMatchesNewline);
 	::EnableWindow(::GetDlgItem(_hSelf, IDREDOTMATCHNL_FIFOLDER), _options._searchType == FindRegex);
+
+	firstTimeInit = false;
 }
 
 void FindInFinderDlg::writeOptions()

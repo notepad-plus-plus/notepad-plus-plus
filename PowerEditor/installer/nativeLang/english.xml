@@ -1636,6 +1636,7 @@ Find in all files but exclude all folders log or logs recursively:
             <summary-nbsel1 value=" selected characters ("/>
             <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" ranges"/>
+            <progress-hits-title value="Hits:"/>
             <progress-cancel-button value="Cancel"/>
             <progress-cancel-info value="Cancelling operation, please wait..."/>
             <find-in-files-progress-title value="Find In Files progress..."/>

@@ -5563,11 +5563,11 @@ void Progress::setPercent(unsigned percent, const TCHAR* fileName, int nbHitsSoF
 	if (_hwnd)
 	{
 		::PostMessage(_hPBar, PBM_SETPOS, percent, 0);
-		::SendMessage(_hPText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(fileName));
+		::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(fileName));
 		const int stringSize = 32;
 		TCHAR str[stringSize];
-		swprintf(str, stringSize, TEXT("%d hits"), nbHitsSoFar);
-		::SendMessage(_hPRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
+		_itow(nbHitsSoFar, str, 10);
+		::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
 	}
 }
 
@@ -5576,11 +5576,11 @@ void Progress::setInfo(const TCHAR* info, int nbHitsSoFar) const
 {
 	if (_hwnd)
 	{
-		::SendMessage(_hPText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
+		::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
 		const int stringSize = 32;
 		TCHAR str[stringSize];
-		swprintf(str, stringSize, TEXT("%d hits"), nbHitsSoFar);
-		::SendMessage(_hPRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
+		_itow(nbHitsSoFar, str, 10);
+		::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
 	}
 }
 
@@ -5648,21 +5648,29 @@ int Progress::createProgressWindow()
 	int yTextPos = dpiManager.scaleY(5);
 	auto ctrlWidth = width - widthPadding - xStartPos;
 
-	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
+	_hPathText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE | SS_PATHELLIPSIS,
 		xStartPos, yTextPos,
 		ctrlWidth, textHeight, _hwnd, NULL, _hInst, NULL);
 
-	_hPRunningHitsText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
-		WS_CHILD | WS_VISIBLE | SS_PATHELLIPSIS,
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	generic_string hits = pNativeSpeaker->getLocalizedStrFromID("progress-hits-title", TEXT("Hits:"));
+	_hRunningHitsStaticText = ::CreateWindowEx(0, TEXT("STATIC"), hits.c_str(),
+		WS_CHILD | WS_VISIBLE,
 		xStartPos, yTextPos + textHeight * 2,
-		50, textHeight, _hwnd, NULL, _hInst, NULL);
+		100, textHeight, _hwnd, NULL, _hInst, NULL);
+
+	_hRunningHitsText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
+		WS_CHILD | WS_VISIBLE,
+		xStartPos, yTextPos + textHeight * 3,
+		100, textHeight, _hwnd, NULL, _hInst, NULL);
 
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
 	{
-		::SendMessage(_hPText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hPRunningHitsText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		::SendMessage(_hPathText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		::SendMessage(_hRunningHitsStaticText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		::SendMessage(_hRunningHitsText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 	}
 
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
@@ -5683,7 +5691,6 @@ int Progress::createProgressWindow()
 		::SendMessage(_hPBar, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getDarkerTextColor()));
 	}
 
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	generic_string cancel = pNativeSpeaker->getLocalizedStrFromID("progress-cancel-button", TEXT("Cancel"));
 
 	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), cancel.c_str(),

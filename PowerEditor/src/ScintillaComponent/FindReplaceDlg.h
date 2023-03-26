@@ -594,8 +594,9 @@ private:
 	TCHAR _header[128] = {'\0'};
 	HANDLE _hThread = nullptr;
 	HANDLE _hActiveState = nullptr;
-	HWND _hPText = nullptr;
-	HWND _hPRunningHitsText = nullptr;
+	HWND _hPathText = nullptr;
+	HWND _hRunningHitsStaticText = nullptr;
+	HWND _hRunningHitsText = nullptr;
 	HWND _hPBar = nullptr;
 	HWND _hBtn = nullptr;
 };

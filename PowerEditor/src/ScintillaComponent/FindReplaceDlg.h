@@ -568,8 +568,8 @@ public:
 		return false;
 	}
 
-	void setInfo(const TCHAR* info, int nbHitsSoFar) const;
-	void setPercent(unsigned percent, const TCHAR* fileName, int nbHitsSoFar) const;
+	void updateSearchProgress(unsigned percent, const TCHAR* fileName, int nbHitsSoFar) const;
+	void updateSearchProgressDuringCancel(const TCHAR* info) const;
 
 private:
 	static const TCHAR cClassName[];

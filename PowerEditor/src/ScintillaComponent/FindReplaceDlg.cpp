@@ -5558,30 +5558,34 @@ void Progress::close()
 }
 
 
-void Progress::setPercent(unsigned percent, const TCHAR* fileName, int nbHitsSoFar) const
+void Progress::updateSearchProgress(unsigned percent, const TCHAR* fileName, int nbHitsSoFar) const
 {
+	static int nbHitsAtLastUpdate = 0;
+
 	if (_hwnd)
 	{
-		::PostMessage(_hPBar, PBM_SETPOS, percent, 0);
+		// update progress bar
+		if (percent != 0) { ::PostMessage(_hPBar, PBM_SETPOS, percent, 0); }
+
+		// update filepath currently being searched
 		::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(fileName));
-		const int stringSize = 32;
-		TCHAR str[stringSize];
-		_itow(nbHitsSoFar, str, 10);
-		::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
+		
+		// update running number of hits
+		if (nbHitsSoFar != nbHitsAtLastUpdate)
+		{
+			TCHAR str[16];
+			_itow(nbHitsSoFar, str, 10);
+			::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
+			nbHitsAtLastUpdate = nbHitsSoFar;
+		}
 	}
 }
 
 
-void Progress::setInfo(const TCHAR* info, int nbHitsSoFar) const
+void Progress::updateSearchProgressDuringCancel(const TCHAR* info) const
 {
-	if (_hwnd)
-	{
-		::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
-		const int stringSize = 32;
-		TCHAR str[stringSize];
-		_itow(nbHitsSoFar, str, 10);
-		::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
-	}
+	::PostMessage(_hPBar, PBM_SETPOS, 0, 0);
+	::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
 }
 
 
@@ -5656,21 +5660,24 @@ int Progress::createProgressWindow()
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	generic_string hits = pNativeSpeaker->getLocalizedStrFromID("progress-hits-title", TEXT("Hits:"));
 	_hRunningHitsStaticText = ::CreateWindowEx(0, TEXT("STATIC"), hits.c_str(),
-		WS_CHILD | WS_VISIBLE,
+		WS_CHILD | WS_VISIBLE | SS_RIGHT,
 		xStartPos, yTextPos + textHeight * 2,
-		100, textHeight, _hwnd, NULL, _hInst, NULL);
+		75, textHeight, 
+		_hwnd, NULL, _hInst, NULL);
 
 	_hRunningHitsText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE,
-		xStartPos, yTextPos + textHeight * 3,
-		100, textHeight, _hwnd, NULL, _hInst, NULL);
+		xStartPos + 75 + 2, yTextPos + textHeight * 2,
+		70, textHeight, 
+		_hwnd, NULL, _hInst, NULL);
 
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
 	{
-		::SendMessage(_hPathText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hRunningHitsStaticText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hRunningHitsText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		for (auto const& item : { _hPathText, _hRunningHitsStaticText, _hRunningHitsText })
+		{
+			::SendMessage(item, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		}
 	}
 
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
@@ -5778,7 +5785,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 				::EnableWindow(pw->_hBtn, FALSE);
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				generic_string info = pNativeSpeaker->getLocalizedStrFromID("progress-cancel-info", TEXT("Cancelling operation, please wait..."));
-				pw->setInfo(info.c_str(), 0);
+				pw->updateSearchProgressDuringCancel(info.c_str());
 				return 0;
 			}
 			break;

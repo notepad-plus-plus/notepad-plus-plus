@@ -136,7 +136,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			if (NppDarkMode::isEnabled())
 			{
 				const ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-				::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_FORMAT_GRP_STATIC), !colEditParam._mainChoice);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_FORMAT_GRP_STATIC), colEditParam._mainChoice == activeNumeric);
 			}
 			NppDarkMode::autoThemeChildControls(_hSelf);
 			return TRUE;

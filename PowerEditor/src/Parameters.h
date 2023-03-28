@@ -73,6 +73,8 @@ const int TAB_HIDE = 256;          //0001 0000 0000
 const int TAB_QUITONEMPTY = 512;   //0010 0000 0000
 const int TAB_ALTICONS = 1024;     //0100 0000 0000
 
+const bool activeText = true;
+const bool activeNumeric = false;
 
 enum class EolType: std::uint8_t
 {
@@ -1211,7 +1213,7 @@ struct ColumnEditorParam final
 {
 	enum leadingChoice : UCHAR { noneLeading, zeroLeading, spaceLeading };
 
-	bool _mainChoice = true; //  true (1): text   false (0): number 
+	bool _mainChoice = activeNumeric;
 
 	std::wstring _insertedTextContent;
 

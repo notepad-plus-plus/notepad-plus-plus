@@ -22,8 +22,6 @@
 
 class ScintillaEditView;
 
-const bool activeText = true;
-const bool activeNumeric = false;
 
 class ColumnEditorDlg : public StaticDialog
 {

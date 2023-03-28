@@ -2495,9 +2495,9 @@ void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
 	if (strVal)
 	{
 		if (lstrcmp(strVal, TEXT("text")) == 0)
-			_columnEditParam._mainChoice = false;
+			_columnEditParam._mainChoice = activeText;
 		else
-			_columnEditParam._mainChoice = true;
+			_columnEditParam._mainChoice = activeNumeric;
 	}
 	TiXmlNode *childNode = columnEditorRoot->FirstChildElement(TEXT("text"));
 	if (!childNode) return;
@@ -4101,7 +4101,7 @@ bool NppParameters::writeColumnEditorSettings() const
 
 	// Create the new ColumnEditor root
 	TiXmlElement columnEditorRootNode{TEXT("ColumnEditor")};
-	(columnEditorRootNode.ToElement())->SetAttribute(TEXT("choice"), _columnEditParam._mainChoice ? L"number" : L"text");
+	(columnEditorRootNode.ToElement())->SetAttribute(TEXT("choice"), _columnEditParam._mainChoice == activeNumeric ? L"number" : L"text");
 
 	TiXmlElement textNode{ TEXT("text") };
 	(textNode.ToElement())->SetAttribute(TEXT("content"), _columnEditParam._insertedTextContent.c_str());

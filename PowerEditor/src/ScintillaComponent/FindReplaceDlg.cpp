@@ -386,6 +386,9 @@ void FindReplaceDlg::fillFindHistory()
 	::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, findHistory._searchMode == FindHistory::regExpr, 0);
 	::SendDlgItemMessage(_hSelf, IDREDOTMATCHNL, BM_SETCHECK, findHistory._dotMatchesNewline, 0);
 
+	::SendDlgItemMessage(_hSelf, IDC_MARKLINE_CHECK, BM_SETCHECK, findHistory._isBookmarkLine, 0);
+	::SendDlgItemMessage(_hSelf, IDC_PURGE_CHECK, BM_SETCHECK, findHistory._isPurge, 0);
+
 	::SendDlgItemMessage(_hSelf, IDC_2_BUTTONS_MODE, BM_SETCHECK, findHistory._isSearch2ButtonsMode, 0);
 
 	if (findHistory._searchMode == FindHistory::regExpr)
@@ -2163,14 +2166,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_PURGE_CHECK :
 				{
 					if (_currentStatus == MARK_DLG)
-						_options._doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
+						findHistory._isPurge = _options._doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
 				}
 				return TRUE;
 
 				case IDC_MARKLINE_CHECK :
 				{
 					if (_currentStatus == MARK_DLG)
-						_options._doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
+						findHistory._isBookmarkLine = _options._doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
 				}
 				return TRUE;
 

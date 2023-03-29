@@ -1205,6 +1205,9 @@ struct FindHistory final
 	bool _isFilterFollowDoc = false;
 	bool _isFolderFollowDoc = false;
 
+	bool _isBookmarkLine = false;
+	bool _isPurge = false;
+
 	// Allow regExpr backward search: this option is not present in UI, only to modify in config.xml
 	bool _regexBackward4PowerUser = false;
 };

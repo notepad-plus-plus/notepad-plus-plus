@@ -1654,6 +1654,11 @@ void Notepad_plus::command(int id)
 					_pEditView->execute(SCI_GOTOPOS, braceOpposite);
 				else
 					_pEditView->execute(SCI_SETSEL, std::min<intptr_t>(braceAtCaret, braceOpposite), std::max<intptr_t>(braceAtCaret, braceOpposite) + 1); // + 1 so we always include the ending brace in the selection.
+
+				// Update Scintilla's knowledge about what column the caret is in, so that if user
+				// does up/down arrow as first navigation after the brace-match operation,
+				// the caret doesn't jump to an unexpected column
+				_pEditView->execute(SCI_CHOOSECARETX);
 			}
 		}
 		break;

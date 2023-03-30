@@ -262,11 +262,6 @@ FunctionEnd
 
 !include "nsisInclude\themes.nsh"
 
-!include "StrFunc.nsh"
-${Using:StrFunc} StrStr
-
-Var muiVerbStr
-Var nppSubStr
 
 ${MementoSection} "Context Menu Entry" explorerContextMenu
 

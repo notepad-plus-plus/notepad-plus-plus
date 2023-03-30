@@ -1891,11 +1891,11 @@ bool Notepad_plus::replaceInFilelist(std::vector<generic_string> & fileNames)
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
-			progress.updateSearchProgress(int32_t((i * 100) / filesCount), fileNames.at(i).c_str(), nbTotal);
+			progress.setPercent(int32_t((i * 100) / filesCount), fileNames.at(i).c_str(), nbTotal);
 		}
 		else
 		{
-			progress.updateSearchProgress(0, fileNames.at(i).c_str(), nbTotal);
+			progress.setInfo(fileNames.at(i).c_str(), nbTotal);
 		}
 	}
 
@@ -1976,11 +1976,11 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
-			progress.updateSearchProgress(int32_t((i * 100) / filesCount), fileNames.at(i).c_str(), nbTotal);
+			progress.setPercent(int32_t((i * 100) / filesCount), fileNames.at(i).c_str(), nbTotal);
 		}
 		else
 		{
-			progress.updateSearchProgress(0, fileNames.at(i).c_str(), nbTotal);
+			progress.setInfo(fileNames.at(i).c_str(), nbTotal);
 		}
 	}
 	progress.close();
@@ -2068,11 +2068,11 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
-			progress.updateSearchProgress(int32_t((i * 100) / filesCount), fileNames.at(i).c_str(), nbTotal);
+			progress.setPercent(int32_t((i * 100) / filesCount), fileNames.at(i).c_str(), nbTotal);
 		}
 		else
 		{
-			progress.updateSearchProgress(0, fileNames.at(i).c_str(), nbTotal);
+			progress.setInfo(fileNames.at(i).c_str(), nbTotal);
 		}
 	}
 

@@ -5558,34 +5558,31 @@ void Progress::close()
 }
 
 
-void Progress::updateSearchProgress(unsigned percent, const TCHAR* fileName, int nbHitsSoFar) const
+void Progress::setPercent(unsigned percent, const TCHAR* fileName, int nbHitsSoFar) const
 {
-	static int nbHitsAtLastUpdate = 0;
-
 	if (_hwnd)
 	{
-		// update progress bar
-		if (percent != 0) { ::PostMessage(_hPBar, PBM_SETPOS, percent, 0); }
-
-		// update filepath currently being searched
+		::PostMessage(_hPBar, PBM_SETPOS, percent, 0);
 		::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(fileName));
-		
-		// update running number of hits
-		if (nbHitsSoFar != nbHitsAtLastUpdate)
-		{
-			TCHAR str[16];
-			_itow(nbHitsSoFar, str, 10);
-			::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
-			nbHitsAtLastUpdate = nbHitsSoFar;
-		}
+		TCHAR str[16];
+		_itow(nbHitsSoFar, str, 10);
+		::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
 	}
 }
 
 
-void Progress::updateSearchProgressDuringCancel(const TCHAR* info) const
+void Progress::setInfo(const TCHAR* info, int nbHitsSoFar) const
 {
-	::PostMessage(_hPBar, PBM_SETPOS, 0, 0);
-	::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
+	if (_hwnd)
+	{
+		::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
+		if (nbHitsSoFar != -1)
+		{
+			TCHAR str[16];
+			_itow(nbHitsSoFar, str, 10);
+			::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
+		}
+	}
 }
 
 
@@ -5785,7 +5782,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 				::EnableWindow(pw->_hBtn, FALSE);
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				generic_string info = pNativeSpeaker->getLocalizedStrFromID("progress-cancel-info", TEXT("Cancelling operation, please wait..."));
-				pw->updateSearchProgressDuringCancel(info.c_str());
+				pw->setInfo(info.c_str());
 				return 0;
 			}
 			break;

@@ -5668,15 +5668,6 @@ int Progress::createProgressWindow()
 		70, textHeight, 
 		_hwnd, NULL, _hInst, NULL);
 
-	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
-	if (hf)
-	{
-		for (auto const& item : { _hPathText, _hRunningHitsStaticText, _hRunningHitsText })
-		{
-			::SendMessage(item, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		}
-	}
-
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
 		WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
 		xStartPos, yTextPos + textHeight,
@@ -5703,8 +5694,14 @@ int Progress::createProgressWindow()
 		cBTNwidth, cBTNheight,
 		_hwnd, NULL, _hInst, NULL);
 
+	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
+	{
+		::SendMessage(_hPathText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		::SendMessage(_hRunningHitsStaticText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		::SendMessage(_hRunningHitsText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 		::SendMessage(_hBtn, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+	}
 
 	NppDarkMode::autoSubclassAndThemeChildControls(_hwnd);
 	NppDarkMode::setDarkTitleBar(_hwnd);

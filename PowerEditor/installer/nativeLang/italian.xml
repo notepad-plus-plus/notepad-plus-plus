@@ -1280,30 +1280,35 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                 <Item id="7004" name="Ordina schede"/>
             </Window>
             <ColumnEditor title="Editor a colonne">
-                <Item id="2023" name="Testo da inserire"/>
-                <Item id="2033" name="Numero da inserire"/>
-                <Item id="2030" name="Numero iniziale: "/>
+                <Item id="2023" name="&amp;Testo da inserire"/>
+                <Item id="2033" name="&amp;Numero da inserire"/>
+                <Item id="2030" name="Numero &amp;iniziale: "/>
                 <Item id="2031" name="Incrementa di: "/>
-                <Item id="2035" name="Zeri iniziali"/>
-                <Item id="2036" name="Ripeti: "/>
+                <Item id="2038" name="Inizia&amp;li:"/>
+                <ComboBox id="2039">
+                    <Element name="No"/>
+                    <Element name="Zeri"/>
+                    <Element name="Spazi"/>
+                </ComboBox>
+                <Item id="2036" name="&amp;Ripeti: "/>
                 <Item id="2032" name="Formato"/>
-                <Item id="2024" name="Decimale"/>
-                <Item id="2025" name="Ottale"/>
+                <Item id="2024" name="&amp;Decimale"/>
+                <Item id="2025" name="&amp;Ottale"/>
                 <Item id="2026" name="Esadecimale"/>
-                <Item id="2027" name="Binario"/>
+                <Item id="2027" name="&amp;Binario"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Annulla"/>
             </ColumnEditor>
             <FindInFinder title="Trova tra i risultati">
                 <Item id="1" name="Trova tutti"/>
                 <Item id="2" name="Chiudi"/>
-                <Item id="1711" name="Trova:"/>
+                <Item id="1711" name="&amp;Trova:"/>
                 <Item id="1713" name="Cerca solo nelle righe trovate"/>
                 <Item id="1714" name="Solo parole intere"/>
-                <Item id="1715" name="Distingui tra maiuscole e minuscole"/>
+                <Item id="1715" name="Distingui tra maius&amp;cole e minuscole"/>
                 <Item id="1716" name="Tipo di ricerca"/>
-                <Item id="1717" name="Normale"/>
-                <Item id="1719" name="Espressione regolare"/>
+                <Item id="1717" name="&amp;Normale"/>
+                <Item id="1719" name="Espressione re&amp;golare"/>
                 <Item id="1718" name="Estesa (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. significa a capo"/>
             </FindInFinder>
@@ -1466,8 +1471,9 @@ Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the
             <ColumnVal name="Valore"/>
             <ColumnHex name="Esadecimale"/>
             <ColumnChar name="Carattere"/>
-            <ColumnHtmlNumber name="Numero HTML"/>
-            <ColumnHtmlName name="Codice HTML"/>
+            <ColumnHtmlName name="Nome HTML"/>
+            <ColumnHtmlNumber name="Codice HTML"/>
+            <ColumnHtmlHexNb name="Codice esadecimale HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mappa Documento"/>

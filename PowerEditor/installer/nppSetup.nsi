@@ -271,27 +271,7 @@ Var nppSubStr
 ${MementoSection} "Context Menu Entry" explorerContextMenu
 
 	SetOverwrite try
-	SetOutPath "$INSTDIR\contextmenu\"
-
-	!ifdef ARCH64
-		File /oname=$INSTDIR\contextmenu\NppShell.msix "..\bin64\NppShell.msix"
-		File /oname=$INSTDIR\contextmenu\NppShell.dll "..\bin64\NppShell.x64.dll"
-	!else ifdef ARCHARM64
-		File /oname=$INSTDIR\contextmenu\NppShell.msix "..\binarm64\NppShell.msix"
-		File /oname=$INSTDIR\contextmenu\NppShell.dll "..\binarm64\NppShell.arm64.dll"
-	!else
-		; We need to test which arch we are running on, since 32bit exe can be run on both 32bit and 64bit Windows.
-		${If} ${RunningX64}
-			; We are running on 64bit Windows, so we need the msix as well, since it might be Windows 11.
-			File /oname=$INSTDIR\contextmenu\NppShell.msix "..\bin64\NppShell.msix"
-			File /oname=$INSTDIR\contextmenu\NppShell.dll "..\bin64\NppShell.x64.dll"
-		${Else}
-			; We are running on 32bit Windows, so no need for the msix file, since there is no way this could even be upgraded to Windows 11.
-			File /oname=$INSTDIR\contextmenu\NppShell.dll "..\bin\NppShell.x86.dll"
-		${EndIf}    
-
-	!endif
-	Exec 'regsvr32 /s "$INSTDIR\contextmenu\NppShell.dll"'
+	SetOutPath "$INSTDIR\contextMenu\"
 
 	; Make sure old NppShell dll's are unregistered and removed
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
@@ -306,6 +286,28 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	Delete "$INSTDIR\NppShell_04.dll"
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
+	
+	
+	!ifdef ARCH64
+		File /oname=$INSTDIR\contextMenu\NppShell.msix "..\bin64\NppShell.msix"
+		File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin64\NppShell.x64.dll"
+	!else ifdef ARCHARM64
+		File /oname=$INSTDIR\contextMenu\NppShell.msix "..\binarm64\NppShell.msix"
+		File /oname=$INSTDIR\contextMenu\NppShell.dll "..\binarm64\NppShell.arm64.dll"
+	!else
+		; We need to test which arch we are running on, since 32bit exe can be run on both 32bit and 64bit Windows.
+		${If} ${RunningX64}
+			; We are running on 64bit Windows, so we need the msix as well, since it might be Windows 11.
+			File /oname=$INSTDIR\contextMenu\NppShell.msix "..\bin64\NppShell.msix"
+			File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin64\NppShell.x64.dll"
+		${Else}
+			; We are running on 32bit Windows, so no need for the msix file, since there is no way this could even be upgraded to Windows 11.
+			File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin\NppShell.x86.dll"
+		${EndIf}    
+
+	!endif
+	
+	Exec 'regsvr32 /s "$INSTDIR\contextMenu\NppShell.dll"'
 
 ${MementoSectionEnd}
 

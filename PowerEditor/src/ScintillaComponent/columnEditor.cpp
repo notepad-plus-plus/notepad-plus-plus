@@ -46,7 +46,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			::SetDlgItemText(_hSelf, IDC_COL_TEXT_EDIT, colEditParam._insertedTextContent.c_str());
-			
+
 			if (colEditParam._initialNum != -1)
 				::SetDlgItemInt(_hSelf, IDC_COL_INITNUM_EDIT, colEditParam._initialNum, FALSE);
 			if (colEditParam._increaseNum != -1)
@@ -381,6 +381,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 									colEditParam._insertedTextContent = str;
+									::EnableWindow(::GetDlgItem(_hSelf, IDOK), !colEditParam._insertedTextContent.empty());
 									return TRUE;
 								}
 								case IDC_COL_INITNUM_EDIT:
@@ -471,6 +472,23 @@ void ColumnEditorDlg::switchTo(bool toText)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), !toText);
 
 	::SetFocus(toText?hText:hNum);
+
+	if (toText) 
+	{
+		ColumnEditorParam colEditParam = NppParameters::getInstance()._columnEditParam;
+		if (!colEditParam._insertedTextContent.empty())
+		{
+			::SetDlgItemText(_hSelf, IDC_COL_TEXT_EDIT, colEditParam._insertedTextContent.c_str());
+		}
+		else
+		{
+			::EnableWindow(::GetDlgItem(_hSelf, IDOK), false);
+		}
+	}
+	else 
+	{
+		::EnableWindow(::GetDlgItem(_hSelf, IDOK), true);
+	}
 
 	redrawDlgItem(IDC_COL_INITNUM_STATIC);
 	redrawDlgItem(IDC_COL_INCRNUM_STATIC);

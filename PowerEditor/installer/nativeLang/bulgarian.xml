@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 12.03.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 31.03.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -512,7 +512,12 @@
 				<Item id="2030" name="&amp;Начално число:"/>
 				<Item id="2031" name="&amp;Увеличаване с:"/>
 				<Item id="2036" name="&amp;Повтаряне:"/>
-				<Item id="2035" name="започване с &amp;0"/>
+				<Item id="2038" name="&amp;Водещи:"/>
+				<ComboBox id="2039">
+					<Element name="Нищо"/>
+					<Element name="Нули"/>
+					<Element name="Интервали"/>
+				</ComboBox>
 				<Item id="2032" name="Формат"/>
 				<Item id="2024" name="&amp;Десетичен"/>
 				<Item id="2025" name="&amp;Осмичен"/>
@@ -1455,8 +1460,9 @@
 			<ColumnVal name="Стойност"/>
 			<ColumnHex name="Шестнадесетичен"/>
 			<ColumnChar name="Знак"/>
-			<ColumnHtmlNumber name="HTML номер"/>
-			<ColumnHtmlName name="HTML код"/>
+			<ColumnHtmlName name="HTML име"/>
+			<ColumnHtmlNumber name="HTML десетичен"/>
+			<ColumnHtmlHexNb name="HTML шестнадесетичен"/>
 		</AsciiInsertion>
 			<!-- Меню "Редактиране" - "История на системния буфер" -->
 		<ClipboardHistory>
@@ -1606,6 +1612,7 @@
 			<find-result-line-prefix value="Ред"/>
 			<find-regex-zero-length-match value="повторение с нулева дължина"/>
 			<find-in-files-progress-title value="Намиране във файлове..."/>
+			<progress-hits-title value="Повторения:"/>
 			<progress-cancel-button value="Отказ"/>
 			<progress-cancel-info value="Отмяна на операцията, моля, изчакайте..."/>
 						<!-- "Замяна във файловете" -->

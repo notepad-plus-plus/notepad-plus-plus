@@ -1482,6 +1482,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	if (bufferSizeRequested > INT_MAX)
 	{
+		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 		// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space).
 		if (nppParam.archType() == IMAGE_FILE_MACHINE_I386)
 		{
@@ -1494,7 +1495,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 			fclose(fp);
 			return false;
 		}
-		else // x64
+		else if (!nppGui._suppress2GBWarning) // x64
 		{
 
 			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",

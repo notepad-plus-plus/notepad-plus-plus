@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.5.1">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="8.5.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1285,7 +1285,12 @@
                 <Item id="2033" name="挿入する数値(&amp;N)"/>
                 <Item id="2030" name="初期値(&amp;I):"/>
                 <Item id="2031" name="増分(&amp;Y):"/>
-                <Item id="2035" name="0詰めする(&amp;Z)"/>
+                <Item id="2038" name="右詰め(&amp;L):"/>
+                <ComboBox id="2039">
+                    <Element name="しない"/>
+                    <Element name="ゼロ埋め"/>
+                    <Element name="空白埋め"/>
+                </ComboBox>
                 <Item id="2036" name="反復(&amp;R):"/>
                 <Item id="2032" name="フォーマット"/>
                 <Item id="2024" name="10進数(&amp;D)"/>
@@ -1465,8 +1470,9 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <ColumnVal name="10進数"/>
             <ColumnHex name="16進数"/>
             <ColumnChar name="文字"/>
-            <ColumnHtmlNumber name="HTML番号"/>
-            <ColumnHtmlName name="HTML名称"/>
+            <ColumnHtmlName name="HTML 名称"/>
+            <ColumnHtmlNumber name="HTML 10進数"/>
+            <ColumnHtmlHexNb name="HTML 16進数"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="文書マップ"/>
@@ -1637,6 +1643,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
             <summary-nbsel1 value=" 文字を選択（"/>
             <summary-nbsel2 value=" バイト）/ "/>
             <summary-nbrange value=" 個の選択範囲"/>
+            <progress-hits-title value="一致件数:"/>
             <progress-cancel-button value="キャンセル"/>
             <progress-cancel-info value="キャンセルしています。お待ちください..."/>
             <find-in-files-progress-title value="複数ファイル内を検索中..."/>

@@ -1286,7 +1286,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                 <Item id="2031" name="Incrementa di: "/>
                 <Item id="2038" name="Inizia&amp;li:"/>
                 <ComboBox id="2039">
-                    <Element name="No"/>
+                    <Element name="Niente"/>
                     <Element name="Zeri"/>
                     <Element name="Spazi"/>
                 </ComboBox>
@@ -1472,8 +1472,8 @@ Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the
             <ColumnHex name="Esadecimale"/>
             <ColumnChar name="Carattere"/>
             <ColumnHtmlName name="Nome HTML"/>
-            <ColumnHtmlNumber name="Codice HTML"/>
-            <ColumnHtmlHexNb name="Codice esadecimale HTML"/>
+            <ColumnHtmlNumber name="Decimale HTML"/>
+            <ColumnHtmlHexNb name="Esadecimale HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mappa Documento"/>
@@ -1646,6 +1646,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
             <summary-nbsel1 value=" caratteri selezionati ("/>
             <summary-nbsel2 value=" byte) in "/>
             <summary-nbrange value=" intervalli"/>
+            <progress-hits-title value="Corrispondenze :"/>
             <progress-cancel-button value="Annulla"/>
             <progress-cancel-info value="Annullamento operazione, attendere..."/>
             <find-in-files-progress-title value="Ricerca nei file in corso..."/>

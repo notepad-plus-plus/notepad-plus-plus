@@ -267,7 +267,7 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 
 	SetOverwrite try
 	SetOutPath "$INSTDIR\contextMenu\"
-
+/*
 	; Make sure old NppShell dll's are unregistered and removed
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
@@ -281,7 +281,7 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	Delete "$INSTDIR\NppShell_04.dll"
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
-	
+*/
 	
 	!ifdef ARCH64
 		File /oname=$INSTDIR\contextMenu\NppShell.msix "..\bin64\NppShell.msix"

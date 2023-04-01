@@ -1644,6 +1644,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <summary-nbsel1 value=" označených znakov ("/>
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" oblastiach"/>
+            <progress-hits-title value="Nájdené:"/>
             <progress-cancel-button value="Zrušiť"/>
             <progress-cancel-info value="Ruší sa operácia, čakajte, prosím…"/>
             <find-in-files-progress-title value="Prebieha hľadanie v súboroch…"/>

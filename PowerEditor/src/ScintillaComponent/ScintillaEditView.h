@@ -498,12 +498,22 @@ public:
 		const auto& svp = NppParameters::getInstance().getSVP();
 		const bool isShownNpc = svp._npcShow;
 		const bool isNpcIncCcUniEol = svp._npcIncludeCcUniEol;
+		const bool isShownCcUniEol = svp._ccUniEolShow;
 
 		if (isShownNpc || isNpcIncCcUniEol)
 		{
 			showNpc(isShownNpc);
 		}
+
+		showCcUniEol(isShownCcUniEol);
 	}
+
+	void showCcUniEol(bool willBeShowed = true, bool isSearchResult = false);
+
+	bool isShownCcUniEol() {
+		auto& svp = NppParameters::getInstance().getSVP();
+		return svp._ccUniEolShow;
+	};
 
 	void showInvisibleChars(bool willBeShowed = true) {
 		showNpc(willBeShowed);
@@ -723,7 +733,7 @@ public:
 	void restoreDefaultWordChars();
 	void setWordChars();
 	void setCRLF(long color = -1);
-	void setNPC(long color = -1);
+	void setNpcAndCcUniEOL(long color = -1);
 
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);

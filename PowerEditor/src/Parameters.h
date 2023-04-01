@@ -954,6 +954,7 @@ struct ScintillaViewParams
 	npcMode _npcMode = abbreviation;
 	bool _npcCustomColor = false;
 	bool _npcIncludeCcUniEol = false;
+	bool _ccUniEolShow = true;
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;

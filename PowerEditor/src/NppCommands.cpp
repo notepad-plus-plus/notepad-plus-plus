@@ -2358,11 +2358,12 @@ void Notepad_plus::command(int id)
 			const bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
 			checkMenuItem(id, isChecked);
 
-			_mainEditView.showNpc(isChecked);
-			_subEditView.showNpc(isChecked);
-
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			svp1._npcShow = isChecked;
+
+			// setNpcAndCcUniEOL() in showNpc() uses svp1._npcShow
+			_mainEditView.showNpc(isChecked);
+			_subEditView.showNpc(isChecked);
 
 			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && svp1._npcShow;
 
@@ -2380,14 +2381,11 @@ void Notepad_plus::command(int id)
 			checkMenuItem(id, isChecked);
 
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
-			svp1._npcIncludeCcUniEol = isChecked;
+			svp1._ccUniEolShow = isChecked;
 
-			if (_preference.isCreated())
-			{
-				_preference._editingSubDlg.setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, isChecked);
-			}
-
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SETNPC, !svp1._npcIncludeCcUniEol ? TRUE : FALSE, 0);
+			// setNpcAndCcUniEOL() in showCcUniEol() uses svp1._ccUniEolShow
+			_mainEditView.showCcUniEol(isChecked);
+			_subEditView.showCcUniEol(isChecked);
 
 			break;
 		}
@@ -2401,16 +2399,24 @@ void Notepad_plus::command(int id)
 			checkMenuItem(IDM_VIEW_NPC, isChecked);
 			_toolBar.setCheck(id, isChecked);
 
-			_mainEditView.showInvisibleChars(isChecked);
-			_subEditView.showInvisibleChars(isChecked);
-
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 
 			svp1._whiteSpaceShow = isChecked;
 			svp1._eolShow = isChecked;
 			svp1._npcShow = isChecked;
 
+			_mainEditView.showInvisibleChars(isChecked);
+			_subEditView.showInvisibleChars(isChecked);
+
 			_findReplaceDlg.updateFinderScintillaForNpc();
+
+			if (isChecked)
+			{
+				checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, isChecked);
+				svp1._ccUniEolShow = isChecked;
+				_mainEditView.showCcUniEol(isChecked);
+				_subEditView.showCcUniEol(isChecked);
+			}
 
 			break;
 		}

@@ -4742,7 +4742,7 @@ void Notepad_plus::staticCheckMenuAndTB() const
 	const bool allShow = wsTabShow && eolShow && npcShow;
 
 	const auto& svp = NppParameters::getInstance().getSVP();
-	checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, svp._npcIncludeCcUniEol);
+	checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, svp._ccUniEolShow);
 
 	checkMenuItem(IDM_VIEW_TAB_SPACE, wsTabShow);
 	checkMenuItem(IDM_VIEW_EOL, eolShow);

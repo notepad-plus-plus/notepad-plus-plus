@@ -4958,7 +4958,7 @@ void Finder::setFinderStyleForNpc(bool onlyColor)
 	}
 	else if (isShown)
 	{
-		_scintView.setNPC();
+		_scintView.setNpcAndCcUniEOL();
 	}
 }
 

@@ -948,25 +948,23 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				L"For the full list check User Manual.\n"\
 				L"Click on \"?\" button on right to open website with User Manual.");
 
-			generic_string tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
-				L"Include C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.\n\n"\
-				L"If unchecked, menu item \"Show Non-Printing Characters\" will have no effect on these characters and they will be represented by default abbreviations.\n\n"\
-				L"If checked and menu item \"Show Non-Printing Characters\" is unchecked, these characters will be hidden.");
-
 			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
 				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
+
+			generic_string tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
+				L"Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.");
 
 			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
 			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
 			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipNpcInclude = CreateToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, const_cast<PTSTR>(tipNpcInc2show.c_str()), pNativeSpeaker->isRTL());
 			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
+			_tipNpcInclude = CreateToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, const_cast<PTSTR>(tipNpcInc2show.c_str()), pNativeSpeaker->isRTL());
 			
 			_tips.push_back(_tipNote);
 			_tips.push_back(_tipAbb);
 			_tips.push_back(_tipCodepoint);
-			_tips.push_back(_tipNpcInclude);
 			_tips.push_back(_tipNpcColor);
+			_tips.push_back(_tipNpcInclude);
 
 			for (auto& tip : _tips)
 			{
@@ -1153,11 +1151,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					svp._npcIncludeCcUniEol = isCheckedOrNot(IDC_CHECK_NPC_INCLUDECCUNIEOL);
 
 					const HWND grandParent = ::GetParent(_hParent);
-
-					auto menu = reinterpret_cast<HMENU>(::SendMessage(grandParent, NPPM_INTERNAL_GETMENU, 0, 0));
-					::CheckMenuItem(menu, IDM_VIEW_NPC_CCUNIEOL, MF_BYCOMMAND | (svp._npcIncludeCcUniEol ? MF_CHECKED : MF_UNCHECKED));
-
-					::SendMessage(grandParent, NPPM_INTERNAL_SETNPC, !svp._npcIncludeCcUniEol ? TRUE : FALSE, 0);
+					::SendMessage(grandParent, NPPM_INTERNAL_SETNPC, IDC_CHECK_NPC_INCLUDECCUNIEOL, 0);
 					return TRUE;
 				}
 

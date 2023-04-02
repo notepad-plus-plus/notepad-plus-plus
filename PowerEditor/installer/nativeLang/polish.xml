@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.5 (24.02.2023)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.2 (02.04.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.5">
+    <Native-Langue name="polski" filename="polish.xml" version="8.5.2">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -395,8 +395,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="11009" name="Rozmiaru od większego do mniejszego"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Zamknij"/>
                 <Item CMDID="0" name="Zamknij wiele kart"/>
@@ -434,6 +432,14 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID="44115" name="Zastosuj kolor 5."/>
                 <Item CMDID="44110" name="Usuń kolor"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Pokaż"/>
+                <Item id="43102" name="Nowy"/>
+                <Item id="43103" name="Nowy i wklej ze schowka"/>
+                <Item id="43104" name="Otwórz..."/>
+                <Item id="43013" name="Szukaj w plikach..."/>
+                <Item id="43105" name="Zakończ"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -479,6 +485,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Znajdź następny"/>
                 <Item id="1725" name="Kopiuj oznaczony tekst"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Przełącz „Szukany tekst” i „Zamień na”"/>
+                    <Item id="1727" name="⤵ Kopiuj „Szukany tekst” do „Zamień na”"/>
+                    <Item id="1728" name="⤴ Kopiuj „Zamień na” do „Szukany tekst”"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -1279,7 +1290,12 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                 <Item id="2033" name="Wstaw liczb&amp;y"/>
                 <Item id="2030" name="Z&amp;acznij od:"/>
                 <Item id="2031" name="Z&amp;większaj o:"/>
-                <Item id="2035" name="&amp;Poprzedzaj zerami"/>
+                <Item id="2038" name="&amp;Poprzedzaj :"/>
+                <ComboBox id="2039">
+                    <Element name="Brak"/>
+                    <Element name="Zerami"/>
+                    <Element name="Spacjami"/>
+                </ComboBox>
                 <Item id="2036" name="&amp;Liczba powtórzeń:"/>
                 <Item id="2032" name="Format"/>
                 <Item id="2024" name="&amp;Dec"/>
@@ -1461,8 +1477,9 @@ Czy chcesz zapisać zmiany przed przełączeniem motywu?"/> <!-- HowToReproduce:
             <ColumnVal name="Wartość"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Znak"/>
-            <ColumnHtmlNumber name="Numer HTML"/>
-            <ColumnHtmlName name="Kod HTML"/>
+            <ColumnHtmlName name="HTML Nazwa"/>
+            <ColumnHtmlNumber name="HTML Dec"/>
+            <ColumnHtmlHexNb name="HTML Hex"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa dokumentu"/>
@@ -1621,12 +1638,9 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
             <tabrename-newname value="Nowa nazwa: "/>
             <splitter-rotate-left value="Obróć w lewo"/>
             <splitter-rotate-right value="Obróć w prawo"/>
-            <recent-file-history-maxfile value="Maks. plików: "/>
-            <recent-file-history-customlength value="Długość: "/>
             <userdefined-title-new value="Nowy język..."/>
             <userdefined-title-save value="Zapisz bieżący język jako..."/>
             <userdefined-title-rename value="Zmiana nazwy bieżącego języka"/>
-            <edit-verticaledge-nb-col value="Numer kolumny:"/>
             <summary value="Informacje o pliku"/>
             <summary-filepath value="Pełna ścieżka pliku: "/>
             <summary-filecreatetime value="Utworzony: "/>
@@ -1638,6 +1652,7 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
             <summary-nbsel1 value=" zaznaczonych znaków ("/>
             <summary-nbsel2 value=" bajtów) w "/>
             <summary-nbrange value=" zakresach"/>
+            <progress-hits-title value="Trafień:"/>
             <progress-cancel-button value="Anuluj"/>
             <progress-cancel-info value="Trwa anulowanie operacji, proszę czekać..."/>
             <find-in-files-progress-title value="Szukanie w plikach w toku..."/>

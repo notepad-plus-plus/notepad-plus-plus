@@ -1280,7 +1280,12 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                 <Item id="2033" name="&amp;Nombre à insérer"/>
                 <Item id="2030" name="Nombre &amp;initial :"/>
                 <Item id="2031" name="&amp;Augmenter de :"/>
-                <Item id="2035" name="Nombre de &amp;zéros"/>
+                <Item id="2038" name="Déb&amp;ut de ligne :"/>
+                <ComboBox id="2039">
+                    <Element name="Aucun"/>
+                    <Element name="Zéros"/>
+                    <Element name="Espaces"/>
+                </ComboBox>
                 <Item id="2036" name="&amp;Répéter :"/>
                 <Item id="2032" name="Format"/>
                 <Item id="2024" name="&amp;Déc."/>
@@ -1462,8 +1467,9 @@ Voulez-vous enregistrer vos modifications avant de changer de thème ?"/> <!-- H
             <ColumnVal name="Valeur"/>
             <ColumnHex name="Hexa"/>
             <ColumnChar name="Caractère"/>
-            <ColumnHtmlNumber name="Numéro HTML"/>
             <ColumnHtmlName name="Code HTML"/>
+            <ColumnHtmlNumber name="HTML décimal"/>
+            <ColumnHtmlHexNb name="HTML hexadécimal"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Plan du Document"/>
@@ -1636,6 +1642,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
             <summary-nbsel1 value=" caractères sélectionnés ("/>
             <summary-nbsel2 value=" octets) dans "/>
             <summary-nbrange value=" sélections"/>
+            <progress-hits-title value="Résultats :"/>
             <progress-cancel-button value="Annuler"/>
             <progress-cancel-info value="Annulation de l'opération, veuillez patienter..."/>
             <find-in-files-progress-title value="Rechercher dans les fichiers en cours..."/>

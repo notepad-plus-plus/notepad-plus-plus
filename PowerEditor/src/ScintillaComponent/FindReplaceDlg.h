@@ -228,11 +228,14 @@ public:
 	};
 	void doDialog(Finder *launcher, bool isRTL = false);
 	FindOption & getOption() { return _options; }
+	FindInFinderDlg() {
+		_options._isMatchCase = false;
+		_options._isWholeWord = false;
+	};
 
 private:
 	Finder  *_pFinder2Search = nullptr;
 	FindOption _options;
-	bool firstTimeInit = true;
 	
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initFromOptions();

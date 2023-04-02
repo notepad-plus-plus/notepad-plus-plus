@@ -1766,6 +1766,8 @@ namespace NppDarkMode
 
 				bool hasFocus = false;
 
+				const bool isWindowEnabled = ::IsWindowEnabled(hWnd) == TRUE;
+
 				// CBS_DROPDOWN text is handled by parent by WM_CTLCOLOREDIT
 				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
 				if ((style & CBS_DROPDOWNLIST) == CBS_DROPDOWNLIST)
@@ -1792,7 +1794,7 @@ namespace NppDarkMode
 					auto index = static_cast<int>(::SendMessage(hWnd, CB_GETCURSEL, 0, 0));
 					if (index != CB_ERR)
 					{
-						::SetTextColor(hdc, NppDarkMode::getTextColor());
+						::SetTextColor(hdc, isWindowEnabled ? NppDarkMode::getTextColor() : NppDarkMode::getDisabledTextColor());
 						::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
 						auto bufferLen = static_cast<size_t>(::SendMessage(hWnd, CB_GETLBTEXTLEN, index, 0));
 						TCHAR* buffer = new TCHAR[(bufferLen + 1)];
@@ -1821,8 +1823,6 @@ namespace NppDarkMode
 				::ScreenToClient(hWnd, &ptCursor);
 
 				bool isHot = ::PtInRect(&rc, ptCursor);
-
-				bool isWindowEnabled = ::IsWindowEnabled(hWnd) == TRUE;
 
 				auto colorEnabledText = isHot ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor();
 				::SetTextColor(hdc, isWindowEnabled ? colorEnabledText : NppDarkMode::getDisabledTextColor());

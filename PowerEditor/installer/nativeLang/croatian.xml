@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 12 March 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 2 April 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
     Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.1">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -25,7 +25,6 @@
                     <Item menuId="Plugins" name="Doda&amp;ci"/>
                     <Item menuId="Window" name="&amp;Kartice"/>
                 </Entries>
-
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Otvori mapu s trenutnom &amp;datotekom"/>
@@ -337,7 +336,7 @@
                     <Item id="10004" name="&amp;Otvori u novoj instanci"/>
 
                     <Item id="46015" name="MS-DOS stil"/>
-                    <Item id="46016" name="Obični tekst"/>
+                    <Item id="46016" name="Obični &amp;tekst"/>
                     <Item id="46017" name="Resursi"/>
                     <Item id="46019" name="INI datoteka"/>
                     <Item id="46033" name="Asembler"/>
@@ -502,15 +501,15 @@
             </IncrementalFind>
 
             <FindCharsInRange title="Pronađi znakove u rasponu...">
-                <Item id="2" name="Zatvori"/>
-                <Item id="2901" name="Ne-ASCII znakovi (128-255)"/>
-                <Item id="2902" name="ASCII znakovi (0-127)"/>
-                <Item id="2903" name="Drugi raspon:"/>
-                <Item id="2906" name="Prema gore"/>
-                <Item id="2907" name="Prema dolje"/>
+                <Item id="2" name="&amp;Zatvori"/>
+                <Item id="2901" name="&amp;Ne-ASCII znakovi (128-255)"/>
+                <Item id="2902" name="&amp;ASCII znakovi (0-127)"/>
+                <Item id="2903" name="Drugi &amp;raspon:"/>
+                <Item id="2906" name="Prema &amp;gore"/>
+                <Item id="2907" name="Prema &amp;dolje"/>
                 <Item id="2908" name="Smjer"/>
-                <Item id="2909" name="Omotaj"/>
-                <Item id="2910" name="Pronađi"/>
+                <Item id="2909" name="&amp;Omotaj"/>
+                <Item id="2910" name="Pro&amp;nađi"/>
             </FindCharsInRange>
 
             <GoToLine title="Idi na redak/poziciju...">
@@ -1171,7 +1170,6 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
                     <Item id="6824" name="Ignoriraj brojeve"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="-og znaka"/>
-                    <Item id="6814" name="Moguća vrijednost: 1 - 9"/>
                     <Item id="6872" name="Kratki popis automatske dopune"/>
                     <Item id="6815" name="Funkcijski parametri pri zadavanju"/>
                     <Item id="6851" name="Automatsko umetanje"/>
@@ -1295,11 +1293,17 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
                 <Item id="7004" name="S&amp;ortiraj kartice"/>
             </Window>
             <ColumnEditor title="Uređivanje stupaca">
-                <Item id="2023" name="Tekst za umetnuti"/>
-                <Item id="2033" name="Brojevi za umetnuti"/>
-                <Item id="2030" name="Početni broj:"/>
-                <Item id="2031" name="Povećavanje za:"/>
-                <Item id="2035" name="Vodeće nule"/>
+                <Item id="2023" name="&amp;Tekst za umetnuti"/>
+                <Item id="2033" name="&amp;Brojevi za umetnuti"/>
+                <Item id="2030" name="&amp;Početni broj:"/>
+                <Item id="2031" name="P&amp;ovećavanje za:"/>
+                <Item id="2035" name="Vodeće &amp;nule"/>
+                <Item id="2038" name="&amp;Vodeće:"/>
+                <ComboBox id="2039">
+                    <Element name="N&amp;išta"/>
+                    <Element name="N&amp;ule"/>
+                    <Element name="&amp;Razmaci"/>
+                </ComboBox>
                 <Item id="2036" name="Ponovi:"/>
                 <Item id="2032" name="Format"/>
                 <Item id="2024" name="Dec"/>
@@ -1370,7 +1374,7 @@ Vaše postavke oblaka će biti poništene. Molim, resetirajte odgovarajuću vrij
 Morate omogućiti &quot;Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radni prostor' pri prenošenju mape&quot; u odjeljku &quot;Zadana mapa&quot; dijaloga Postavki kako bi ova operacija radila."/>
             <SortingError title="Greška sortiranja" message="Nije moguće izvesti numeričko sortiranje zbog retka $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="Savjet za Rad u stupcima" message="			
-Postoje 3 načina za prijelaz na rad u stupcima:
+Postoje 3 načina za prijelaz na Rad u stupcima:
 
 1. (Tipkovnica i miš) Držite Alt dok povlačite miša s lijevim klikom
 
@@ -1482,8 +1486,9 @@ Nastaviti?"/>
             <ColumnVal name="Vrijednost"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Znak"/>
-            <ColumnHtmlNumber name="HTML broj"/>
             <ColumnHtmlName name="HTML kod"/>
+            <ColumnHtmlNumber name="HTML broj"/>
+            <ColumnHtmlHexNb name="HTML heksadecimalni broj"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Prikaz dokumenta"/>
@@ -1644,11 +1649,9 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
             <splitter-rotate-right value="Rotiraj desno"/>
             <recent-file-history-maxfile value="Max. stavki: "/>
             <recent-file-history-customlength value="Max. duljina: "/>
-            <language-tabsize value="Veličina kartice: "/>
             <userdefined-title-new value="Kreiraj novi jezik..."/>
             <userdefined-title-save value="Spremi ime trenutnog jezika kao..."/>
             <userdefined-title-rename value="Promijeni ime trenutnog jezika"/>
-            <autocomplete-nb-char value="Br. znakova: "/>
             <edit-verticaledge-nb-col value="Br. stupaca: "/>
             <summary value="Statistika"/>
             <summary-filepath value="Puni put datoteke: "/>
@@ -1661,6 +1664,7 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
             <summary-nbsel1 value=" karaktera odabrano ("/>
             <summary-nbsel2 value=" bajtova) u "/>
             <summary-nbrange value=" blokova"/>
+            <progress-hits-title value="Nađeno:"/>
             <progress-cancel-button value="Poništi"/>
             <progress-cancel-info value="Poništavanje operacije, molim pričekajte..."/>
             <find-in-files-progress-title value="Napredak traženja u datotekama..."/>

@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -475,7 +475,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Localizar seguinte"/>
                 <Item id="1725" name="Copiar texto marcado"/>
-                 <Menu>
+                <Menu>
                     <Item id="1726" name="⇅ Trocar Localizar por Substituir"/>
                     <Item id="1727" name="⤵ Copiar de Localizar para Substituir"/>
                     <Item id="1728" name="⤴ Copiar de Substituir para Localizar"/>
@@ -1276,11 +1276,16 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 <Item id="7004" name="Ordenar separadores"/>
             </Window>
             <ColumnEditor title="Editor de coluna">
-                <Item id="2023" name="Texto a inserir "/>
-                <Item id="2033" name="Número a inserir "/>
-                <Item id="2030" name="Número inicial:"/>
-                <Item id="2031" name="Aumentar em:"/>
-                <Item id="2035" name="Zeros no início"/>
+                <Item id="2023" name="&amp;Texto a inserir "/>
+                <Item id="2033" name="&amp;Número a inserir "/>
+                <Item id="2030" name="Número &amp;inicial:"/>
+                <Item id="2031" name="&amp;Aumentar em:"/>
+                <Item id="2038" name="Iní&amp;cio da linha :"/>
+                <ComboBox id="2039">
+                    <Element name="Nenhum"/>
+                    <Element name="Zeros"/>
+                    <Element name="Espaços"/>
+                </ComboBox>
                 <Item id="2036" name="&amp;Repetir :"/>
                 <Item id="2032" name="Formato"/>
                 <Item id="2024" name="&amp;Dec"/>
@@ -1462,8 +1467,9 @@ Quer guardar as suas alterações antes de mudar de tema?"/> <!-- HowToReproduce
             <ColumnVal name="Valor"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Caráter"/>
-            <ColumnHtmlNumber name="Número HTML"/>
-            <ColumnHtmlName name="Código HTML"/>
+            <ColumnHtmlNumber name="Nome HTML"/>
+            <ColumnHtmlNumber name="HTML decimal"/>
+            <ColumnHtmlHexNb name="HTML hexadecimal"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa de documentos"/>
@@ -1635,7 +1641,8 @@ Pesquisar em todos os ficheiros mas excluir todos os registos de pastas ou regis
             <summary-nbbyte value="Comprimento: "/>
             <summary-nbsel1 value=" caracteres selecionados ("/>
             <summary-nbsel2 value=" bytes) em "/>
-            <summary-nbrange value=" intervalo"/>
+            <summary-nbrange value=" seleções"/>
+            <progress-hits-title value="Resultados:"/>
             <progress-cancel-button value="Cancelar"/>
             <progress-cancel-info value="A cancelar a operação, aguarde..."/>
             <find-in-files-progress-title value="Localizar em ficheiros em curso..."/>
@@ -1724,12 +1731,12 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4)
+07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5)
 
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 27 Mar 2023 by Filipe Mota
+Last modified: 02 Abr 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

@@ -245,6 +245,7 @@ Section Uninstall
 	Delete "$INSTDIR\langs.model.xml"
 	Delete "$INSTDIR\stylers.model.xml"
 	Delete "$INSTDIR\tabContextMenu_example.xml"
+	Delete "$APPDATA\${APPNAME}\tabContextMenu_example.xml"
 	Delete "$INSTDIR\stylers_remove.xml"
 	Delete "$INSTDIR\localization\english.xml"
 	Delete "$INSTDIR\LINEDRAW.TTF"

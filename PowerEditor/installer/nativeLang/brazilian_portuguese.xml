@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 16 Mar 2023, for Notepad++ 8.5.1 
+     Last update by Marcello, 01 Apr 2023, for Notepad++ 8.5.2 
 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.1">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -310,10 +310,10 @@
                     <Item id="45002" name="Converter para formato UNIX"/>
                     <Item id="45003" name="Converter para formato MAC"/>
                     <Item id="45004" name="Codificação em ANSI"/>
-                    <Item id="45005" name="Codificação em UTF-8"/>
-                    <Item id="45006" name="Codificação em UCS-2 Big Endian"/>
-                    <Item id="45007" name="Codificação em UCS-2 Little Endian"/>
-                    <Item id="45008" name="Codificação em UTF-8 (sem BOM)"/>
+                    <Item id="45005" name="Codificação em UTF-8 BOM"/>
+                    <Item id="45006" name="Codificação em UCS-2 Big Endian BOM"/>
+                    <Item id="45007" name="Codificação em UCS-2 Little Endian BOM"/>
+                    <Item id="45008" name="Codificação em UTF-8"/>
                     <Item id="45009" name="Converter para ANSI"/>
                     <Item id="45010" name="Converter para UTF-8"/>
                     <Item id="45011" name="Converter para UTF-8-BOM"/>
@@ -1280,13 +1280,18 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
                 <Item id="2033" name="Número para inserir"/>
                 <Item id="2030" name="Número inicial :"/>
                 <Item id="2031" name="Incrementar em :"/>
-                <Item id="2035" name="Usar zeros"/>
+		<Item id="2038" name="&amp;Preenchimento à Esquerda :"/>
+                <ComboBox id="2039">
+                    <Element name="Nada"/>
+                    <Element name="Zeros"/>
+                    <Element name="Espaços"/>
+                </ComboBox>
                 <Item id="2036" name="Repetir :"/>
                 <Item id="2032" name="Formato"/>
-                <Item id="2024" name="Decimal"/>
-                <Item id="2025" name="Octal"/>
-                <Item id="2026" name="Hexa"/>
-                <Item id="2027" name="Binário"/>
+                <Item id="2024" name="&amp;Decimal"/>
+                <Item id="2025" name="&amp;Octal"/>
+                <Item id="2026" name="&amp;Hexa"/>
+                <Item id="2027" name="&amp;Binário"/>
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Cancelar"/>
             </ColumnEditor>
@@ -1453,8 +1458,9 @@ Deseja salvar suas alterações antes de alterar os temas?"/> <!-- HowToReproduc
             <ColumnVal name="Valor"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Caractere"/>
-            <ColumnHtmlNumber name="Número HTML"/>
-            <ColumnHtmlName name="Código HTML"/>
+            <ColumnHtmlName name="Nome HTML"/>
+            <ColumnHtmlNumber name="Decimal HTML"/>
+            <ColumnHtmlHexNb name="Hexadecimal HTML"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa do documento"/>
@@ -1624,6 +1630,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
             <summary-nbsel1 value=" caracteres selecionados ("/>
             <summary-nbsel2 value=" bytes) em "/>
             <summary-nbrange value=" intervalo"/>
+	    <progress-hits-title value="Ocorrências:"/>
             <progress-cancel-button value="Cancelar"/>
             <progress-cancel-info value="Cancelando operação, aguarde..."/>
             <find-in-files-progress-title value="Progresso do Localizar nos arquivos..."/>

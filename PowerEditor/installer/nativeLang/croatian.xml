@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Croatian localization for Notepad++
-    Updated 27 February 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+    Updated 12 March 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 
     The comments are here for explanation, it's not necessary to translate them.
     Komentari su ovdje radi objašnjenja, nije ih potrebno prevoditi.
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5">
+        <Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -117,7 +117,7 @@
                     <Item id="42006" name="Iz&amp;briši"/>
                     <Item id="42007" name="Odaberi s&amp;ve"/>
                     <Item id="42020" name="Po&amp;četak/kraj izbora"/>
-                    <Item id="42089" name="Početak/Kraj odabira u Radu u stupcima"/>
+                    <Item id="42089" name="Početak/kraj odabira u Radu u stupcima"/>
                     <Item id="42084" name="Vrijeme i datum (&amp;kratko)"/>
                     <Item id="42085" name="Vrijeme i datum (&amp;dugo)"/>
                     <Item id="42086" name="Vrijeme i datum (&amp;prilagođeno)"/>
@@ -398,8 +398,6 @@
                     <Item id="11009" name="Veličina od &amp;većeg do manjeg"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Zatvori"/>
                 <Item CMDID="0" name="Zatvori višestruke kartice"/>
@@ -437,6 +435,14 @@
                 <Item CMDID="44115" name="Primijeni boju 5"/>
                 <Item CMDID="44110" name="Ukloni boju"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Aktiviraj"/>
+                <Item id="43102" name="Novo"/>
+                <Item id="43103" name="Novo i zalijepi"/>
+                <Item id="43104" name="Otvori..."/>
+                <Item id="43013" name="Traži u datotekama..."/>
+                <Item id="43105" name="Zatvori ikonu na paleti"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -482,6 +488,11 @@
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Nađi sljedeće"/>
                 <Item id="1725" name="Kopir&amp;aj označeni tekst"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Obrni Pronađi i Zamijeni"/>
+                    <Item id="1727" name="⤵ Kopiraj iz Pronađi u Zamijeni"/>
+                    <Item id="1728" name="⤴ Kopiraj iz Zamijeni u Pronađi"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -1367,9 +1378,9 @@ Postoje 3 načina za prijelaz na rad u stupcima:
 
 3. (Tipkovnica ili miš)
        Postavite kursor na željeni početak bloka stupca, zatim
-        izvršite naredbu &quot;Početak/Kraj odabira u Radu u stupcima&quot;
+        izvršite naredbu &quot;Početak/kraj odabira u Radu u stupcima&quot;
        Pomaknite kursor na željeni kraj bloka stupca, zatim ponovo
-        izvršite naredbu &quot;Početak/Kraj odabira u Radu u stupcima&quot;"/>	   
+        izvršite naredbu &quot;Početak/kraj odabira u Radu u stupcima&quot;"/>	   
             <BufferInvalidWarning title="Greška spremanja" message="Ne mogu spremiti: Buffer je neispravan."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Zadrži nepostojeću datoteku" message="Datoteka &quot;$STR_REPLACE$&quot; više ne postoji na disku.
 Želite li ju zadržati u editoru?"/>

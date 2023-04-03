@@ -1280,7 +1280,12 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
                 <Item id="2033" name="Vložiť čí&amp;slo"/>
                 <Item id="2030" name="&amp;Začiatočné číslo:"/>
                 <Item id="2031" name="Z&amp;vyšovať po:"/>
-                <Item id="2035" name="&amp;Nuly na začiatku"/>
+                <Item id="2038" name="&amp;Začína:"/>
+                <ComboBox id="2039">
+                    <Element name="Nič"/>
+                    <Element name="Nuly"/>
+                    <Element name="Medzery"/>
+                </ComboBox>
                 <Item id="2036" name="&amp;Počet opakovaní:"/>
                 <Item id="2032" name="Formát"/>
                 <Item id="2024" name="&amp;Dec"/>
@@ -1464,8 +1469,9 @@ Pokračovať?"/>
             <ColumnVal name="Hodnota"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Znak"/>
-            <ColumnHtmlNumber name="HTML číslo"/>
-            <ColumnHtmlName name="HTML kód"/>
+            <ColumnHtmlName name="HTML názov"/>
+            <ColumnHtmlNumber name="HTML decimálne"/>
+            <ColumnHtmlHexNb name="HTML hexadecimálne"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa dokumentu"/>
@@ -1638,6 +1644,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <summary-nbsel1 value=" označených znakov ("/>
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" oblastiach"/>
+            <progress-hits-title value="Nájdené:"/>
             <progress-cancel-button value="Zrušiť"/>
             <progress-cancel-info value="Ruší sa operácia, čakajte, prosím…"/>
             <find-in-files-progress-title value="Prebieha hľadanie v súboroch…"/>

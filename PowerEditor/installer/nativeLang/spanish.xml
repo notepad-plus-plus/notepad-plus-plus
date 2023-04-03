@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
     -->
 <NotepadPlus>
-    <Native-Langue name="Español" filename="spanish.xml" version="8.5">
+    <Native-Langue name="Español" filename="spanish.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -111,7 +111,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42005" name="&amp;Pegar"/>
                     <Item id="42006" name="&amp;Borrar"/>
                     <Item id="42007" name="Seleccionar t&amp;odo"/>
-                    <Item id="42020" name="Selección de inicio/&amp;fin "/>
+                    <Item id="42020" name="Selección de inicio/&amp;fin"/>
                     <Item id="42089" name="Selección de inicio/fin en modo columna"/>
                     <Item id="42084" name="Fecha y hora (corta)"/>
                     <Item id="42085" name="Fecha y hora (larga)"/>
@@ -192,7 +192,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42058" name="Insertar línea en blanco debajo de la actual"/>
                     <Item id="43001" name="&amp;Buscar..."/>
                     <Item id="43002" name="Buscar &amp;siguiente"/>
-                    <Item id="43003" name="&amp;Reemplazar..."/>
+                    <Item id="43003" name="Sustitui&amp;r..."/>
                     <Item id="43004" name="Ir a &amp;línea..."/>
                     <Item id="43005" name="Activar/Desactivar marcadores"/>
                     <Item id="43006" name="Marcador siguiente"/>
@@ -201,8 +201,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43018" name="Cortar líneas marcadas"/>
                     <Item id="43019" name="Copiar líneas marcadas"/>
                     <Item id="43020" name="Reemplazar líneas marcadas"/>
-                    <Item id="43021" name="Borrar líneas marcadas"/>
-                    <Item id="43051" name="Quitar líneas no marcadas"/>
+                    <Item id="43021" name="Eliminar líneas marcadas"/>
+                    <Item id="43051" name="Eliminar líneas no marcadas"/>
                     <Item id="43050" name="Invertir marcas"/>
                     <Item id="43052" name="Buscar caract&amp;eres por tipo..."/>
                     <Item id="43053" name="Seleccio&amp;nar todo lo coincidente"/>
@@ -261,7 +261,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44010" name="Contraer todo"/>
                     <Item id="44011" name="Modo &quot;Sin distracciones&quot;"/>
                     <Item id="44019" name="Mostrar todos los caracteres"/>
-                    <Item id="44020" name="Mostrar guía de sangrías"/>
+                    <Item id="44020" name="Mostrar líneas de sangrías"/>
                     <Item id="44022" name="Ajuste del texto"/>
                     <Item id="44023" name="&amp;Aumentar zoom (Ctrl + rueda del ratón adelante)"/>
                     <Item id="44024" name="&amp;Disminuir zoom (Ctrl + rueda del ratón atrás)"/>
@@ -361,7 +361,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="48506" name="Generar desde la selección al portapapeles"/>
                     <Item id="49000" name="E&amp;jecutar..."/>
 
-                    <Item id="50000" name="Completar función "/>
+                    <Item id="50000" name="Completar función"/>
                     <Item id="50001" name="Completar palabra"/>
                     <Item id="50002" name="Parámetros de la función &quot;sugerencia&quot;"/>
                     <Item id="50010" name="Parámetros de la función &quot;sugerencia anterior&quot;"/>
@@ -385,8 +385,6 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="11009" name="Tamaño mayor a menor"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Cerrar"/>
                 <Item CMDID="0" name="Cerrar múltiples pestañas"/>
@@ -416,7 +414,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID="10002" name="Clonar en otra vista"/>
                 <Item CMDID="10003" name="Mover a una nueva instancia"/>
                 <Item CMDID="10004" name="Abrir en una nueva instancia"/>
-                <Item CMDID="4" name="Aplicar color a pestana"/>
+                <Item CMDID="4" name="Aplicar color a pestaña"/>
                 <Item CMDID="44111" name="Aplicar color 1"/>
                 <Item CMDID="44112" name="Aplicar color 2"/>
                 <Item CMDID="44113" name="Aplicar color 3"/>
@@ -424,30 +422,38 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item CMDID="44115" name="Aplicar color 5"/>
                 <Item CMDID="44110" name="Quitar color"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Activar"/>
+                <Item id="43102" name="Nuevo"/>
+                <Item id="43103" name="Nuevo y pegar"/>
+                <Item id="43104" name="Abrir..."/>
+                <Item id="43013" name="Buscar en archivos..."/>
+                <Item id="43105" name="Cerrar icono de la bandeja"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Buscar" titleReplace="Reemplazar" titleFindInFiles="Buscar en archivos" titleFindInProjects="Buscar en proyectos" titleMark="Marcar">
+            <Find title="" titleFind="Buscar" titleReplace="Sustituir" titleFindInFiles="Buscar en archivos" titleFindInProjects="Buscar en proyectos" titleMark="Marcar">
                 <Item id="1"    name="Encontrar siguiente"/>
                 <Item id="1722" name="Hacia atrás"/>
                 <Item id="2"    name="Cerrar"/>
                 <Item id="1620" name="Qué &amp;buscar:"/>
                 <Item id="1603" name="Solo &amp;palabras completas"/>
                 <Item id="1604" name="Coincidir &amp;mayúsculas y minúsculas"/>
-                <Item id="1605" name="Expresión &amp;regular"/>
+                <Item id="1605" name="Expresión re&amp;gular"/>
                 <Item id="1606" name="Buscar en todo el d&amp;ocumento"/>
                 <Item id="1614" name="Con&amp;tar"/>
                 <Item id="1615" name="Marcar todo"/>
                 <Item id="1616" name="Marcar &amp;línea"/>
                 <Item id="1618" name="Depurar en cada búsqueda"/>
-                <Item id="1611" name="Re&amp;emplazar con:"/>
-                <Item id="1608" name="&amp;Reemplazar"/>
-                <Item id="1609" name="Reemplazar &amp;todo"/>
+                <Item id="1611" name="S&amp;ustituir con:"/>
+                <Item id="1608" name="Sustitui&amp;r"/>
+                <Item id="1609" name="Sustituir &amp;todo"/>
                 <Item id="1687" name="Al perder el foco"/>
                 <Item id="1688" name="Siempre"/>
                 <Item id="1632" name="En la selecc&amp;ión"/>
                 <Item id="1633" name="Borrar marcas"/>
-                <Item id="1635" name="Reemplazar en t&amp;odos los archivos abiertos"/>
+                <Item id="1635" name="Sustituir en t&amp;odos los archivos abiertos"/>
                 <Item id="1636" name="Buscar en todos los &amp;archivos abiertos"/>
                 <Item id="1654" name="Filtro&amp;s:"/>
                 <Item id="1655" name="Car&amp;peta:"/>
@@ -457,8 +463,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1624" name="Modo de búsqueda"/>
                 <Item id="1625" name="&amp;Normal"/>
                 <Item id="1626" name="E&amp;xtendido (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="Reemplazar en archivos"/>
-                <Item id="1665" name="Reemplazar en proyectos"/>
+                <Item id="1660" name="Sustituir en archivos"/>
+                <Item id="1665" name="Sustituir en proyectos"/>
                 <Item id="1661" name="Seguir documento actual"/>
                 <Item id="1662" name="Panel de proyecto 1"/>
                 <Item id="1663" name="Panel de proyecto 2"/>
@@ -469,6 +475,11 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Siguiente"/>
                 <Item id="1725" name="Copiar el texto marcado"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Cambiar buscar por sustituir"/>
+                    <Item id="1727" name="⤵ Copiar de buscar a sustituir"/>
+                    <Item id="1728" name="⤴ Copiar de sustituir a buscar"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -547,7 +558,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2"    name="Cancelar"/>
                 <Item id="2301" name="Guardar &amp;&amp; Cerrar"/>
                 <Item id="2303" name="Transparencia"/>
-                <Item id="2306" name="Seleccionar tema: "/>
+                <Item id="2306" name="Seleccionar tema:"/>
                 <SubDialog>
                     <Item id="2204" name="Negrita"/>
                     <Item id="2205" name="Cursiva"/>
@@ -579,7 +590,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2602" name="Modificar"/>
                 <Item id="2603" name="Borrar"/>
                 <Item id="2606" name="Limpiar"/>
-                <Item id="2607" name="Filtro: "/>
+                <Item id="2607" name="Filtro:"/>
                 <Item id="1" name="Cerrar"/>
                 <ColumnName name="Nombre"/>
                 <ColumnShortcut name="Acceso directo"/>
@@ -921,7 +932,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Intermitencia:"/>
                     <Item id="6221" name="R"/>
                     <Item id="6222" name="L"/>
-                    <Item id="6246" name="Comandos de plegado/desplegado del nivel actual sean conmutables"/>
+                    <Item id="6246" name="Hacer que los comandos de plegado/desplegado del nivel actual sean conmutables"/>
                     <Item id="6225" name="Activar edición múltiple (Ctrl. + clic/selección)"/>
                     <Item id="6227" name="Ajuste de línea"/>
                     <Item id="6228" name="Por defecto"/>
@@ -1035,7 +1046,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                     <Item id="6508" name="Menú de lenguajes"/>
                     <Item id="6301" name="Tabuladores"/>
                     <Item id="6302" name="Sustituir por espacios"/>
-                    <Item id="6303" name="Tamaño: "/>
+                    <Item id="6303" name="Tamaño:"/>
                     <Item id="6510" name="Usar valor por defecto"/>
                     <Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
                 </Language>
@@ -1092,7 +1103,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                         <Element name="Hora"/>
                     </ComboBox>
                     <Item id="6725" name="Opciones:"/>
-                    <Item id="6727" name="Mostrar sus ajustes variables"/>
+                    <Item id="6727" name="Sus ajustes de las variables"/>
                     <Item id="6728" name="Encabezado y pie de página"/>
                 </Print>
 
@@ -1100,7 +1111,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                     <Item id="6902" name="Utilizar una fuente monoespaciada en el cuadro de diálogo &quot;Buscar&quot; (es necesario reiniciar Notepad++)"/>
                     <Item id="6903" name="El cuadro de diálogo permanece abierto después de la búsqueda que muestra la ventana de resultados"/>
                     <Item id="6904" name="Confirmar &quot;Sustituir todo&quot; en todos los documentos abiertos"/>
-                    <Item id="6905" name="Reemplazar: no moverse a la siguiente coincidencia"/>
+                    <Item id="6905" name="Sustituir: no ir a la siguiente coincidencia"/>
                     <Item id="6906" name="Ventana de resultados de búsqueda: mostrar solo una entrada por línea encontrada"/>
                     <Item id="6907" name="Cuando se invoca el diálogo de búsqueda"/>
                     <Item id="6908" name="Rellenar el campo de búsqueda con el texto seleccionado"/>
@@ -1311,7 +1322,7 @@ Puede reactivarlo en Preferencias si lo desea."/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox>
-            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Editar menú emergente" message="Editar &quot;contextMenu.xml&quot; le permite modificar el menú contextual emergente de Notepad++.
 Tiene que reiniciar Notepad++ para que surta efecto después de modificarlo."/>
             <SaveCurrentModifWarning title="Guardar modificación actual" message="Debe guardar la modificación actual.
@@ -1350,7 +1361,7 @@ Hay 3 formas de cambiar al modo de selección de columnas:
       Coloque el cursor en la posición deseada de inicio del bloque de columna y
        ejecute el comando &quot;Selección de inicio/fin en modo columna&quot;
       Mueva el cursor a la posición deseada al final del bloque de columnas y
-       a continuación ejecute de nuevo el comando &quot;Selección de inicio/fin en modo columna&quot;."/>
+       a continuación ejecute de nuevo el comando &quot;Selección de inicio/fin en modo columna&quot;"/>
             <BufferInvalidWarning title="Error al guardar" message="No se puede guardar: el búfer no es válido."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Conservar archivo no existente" message="El archivo &quot;$STR_REPLACE$&quot; no existe.
 ¿Mantener este archivo en el editor?"/>
@@ -1381,8 +1392,8 @@ Este archivo ha sido modificado por otro programa.
             <CreateNewFileOrNot title="Crear un archivo nuevo" message="&quot;$STR_REPLACE$&quot; no existe. ¿Desea crearlo?"/>
             <CreateNewFileError title="Crear un archivo nuevo" message="No se puede crear el archivo &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="Error" message="No se puede abrir el archivo &quot;$STR_REPLACE$&quot;."/>
-            <OpenFileNoFolderError title="No se puede abrir el archivo" message="&quot;$STR_REPLACE1$&quot; no se puede abrir:
-	  		La carpeta &quot;$STR_REPLACE2$&quot; no existe."/>
+            <OpenFileNoFolderError title="No se puede abrir el archivo" message="Es imposible abrir &quot;$STR_REPLACE1$&quot;:
+            La carpeta &quot;$STR_REPLACE2$&quot; no existe."/>
             <FileBackupFailed title="Error en la copia de seguridad del archivo" message="La versión anterior del archivo no se pudo guardar en el directorio de copia de seguridad en &quot;$STR_REPLACE$&quot;.
 
 ¿Desea guardar el archivo actual de todos modos?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1390,7 +1401,7 @@ Este archivo ha sido modificado por otro programa.
             <LoadLangsFailed title="Configurador" message="La carga de langs.xml ha fallado
 ¿Desea recuperar su langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
             <LoadLangsFailedFinal title="Configurador" message="La carga de langs.xml ha fallado"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
-            <FolderAsWorspaceSubfolderExists title="Carpeta como espacio de trabajo indica un problema de carpeta" message="Existe una subcarpeta de la carpeta que desea agregar.
+            <FolderAsWorspaceSubfolderExists title="Problema en &quot;Carpeta como espacio de trabajo&quot;" message="Existe una subcarpeta de la carpeta que desea agregar.
 Elimine su carpeta raíz del panel antes de agregar &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="El espacio de trabajo se modificó. ¿Desea guardarlo?"/>
@@ -1478,8 +1489,8 @@ Notepad++ se reiniciará después de que finalicen todas.
                 <Item id="3515" name="Abrir"/>
                 <Item id="3516" name="Copiar ruta"/>
                 <Item id="3517" name="Encontrar en archivos..."/>
-                <Item id="3518" name="Explorador de archivos aquí"/>
-                <Item id="3519" name="CMD aquí"/>
+                <Item id="3518" name="Abrir Explorador de archivos"/>
+                <Item id="3519" name="Abrir en CMD"/>
                 <Item id="3520" name="Copiar nombre de archivo"/>
             </Menu>
         </FolderAsWorkspace>
@@ -1531,22 +1542,22 @@ Notepad++ se reiniciará después de que finalicen todas.
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="Esto le permite incluir caracteres adicionales en los caracteres de la palabra actual al hacer doble clic para seleccionar o buscar con la opción &quot;Solo palabras completas&quot; marcada."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-            <eol-custom-color-tip value="Ir al &quot;C&quot;onfigurador de estilos&quot; &quot;para cambiar el color personalizado EOL por defecto (&quot;EOL custom color&quot;)."/>
+            <eol-custom-color-tip value="Ir al &quot;Configurador de estilos&quot; para cambiar el color personalizado EOL por defecto (&quot;EOL custom color&quot;)."/>
 
-            <word-chars-list-warning-begin value="Cuidado: "/>
-            <word-chars-list-space-warning value=" $INT_REPLACE$ espacio(s)"/>
-            <word-chars-list-tab-warning value=" $INT_REPLACE$ TAB(s)"/>
+            <word-chars-list-warning-begin value="Cuidado:"/>
+            <word-chars-list-space-warning value="$INT_REPLACE$ espacio(s)"/>
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
             <word-chars-list-warning-end value=" en su lista de caracteres."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
             <backup-select-folder value="Seleccione una carpeta como directorio de copia de seguridad"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Ruta no válida."/>
             <cloud-restart-warning value="Reinicie Notepad++ para que tome efecto."/>
             <cloud-select-folder value="Seleccione una carpeta en la que Notepad++ lea o escriba sus configuraciones"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
             <default-open-save-select-folder value="Seleccionar una carpeta como directorio predeterminado"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
-            <shift-change-direction-tip value="Use May + Enter para buscar en la dirección opuesta"/>
+            <shift-change-direction-tip value="Use Mayús + Enter para buscar en la dirección opuesta"/>
             <two-find-buttons-tip value="Modo de búsqueda de 2 botones"/>
             <file-rename-title value="Renombrar"/>
             <find-in-files-filter-tip value="Buscar cpp, cxx, h, hxx &amp;&amp; hpp:
@@ -1563,11 +1574,11 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <find-in-files-select-folder value="Seleccione la carpeta en la que desea buscar"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Encontrada la primera coincidencia empezando por el final. Se ha llegado al principio del documento."/>
             <find-status-end-reached value="Encontrada la primera coincidencia empezando por el inicio. Se ha llegado al final del documento."/>
-            <find-status-replaceinfiles-1-replaced value="Reemplazar en archivos: se reemplazó 1 elemento."/>
-            <find-status-replaceinfiles-nb-replaced value="Reemplazar en archivos: $INT_REPLACE$ coincidentes reemplazados."/>
-            <find-status-replaceinfiles-re-malformed value="Reemplazar en archivos abiertos: la expresión regular tiene un formato incorrecto."/>
-            <find-status-replaceinopenedfiles-1-replaced value="Reemplazar en archivos abiertos: se reemplazó 1 coincidencia."/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Reemplazar en archivos abiertos: $INT_REPLACE$ coincidencias reemplazadas"/>
+            <find-status-replaceinfiles-1-replaced value="Sustituir en archivos: se cambió 1 elemento."/>
+            <find-status-replaceinfiles-nb-replaced value="Sustituir en archivos: $INT_REPLACE$ coincidencias cambiadas."/>
+            <find-status-replaceinfiles-re-malformed value="Sustituir en archivos abiertos: la expresión regular tiene un formato incorrecto."/>
+            <find-status-replaceinopenedfiles-1-replaced value="Sustituir en archivos abiertos: se cambió 1 coincidencia."/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Sustituir en archivos abiertos: $INT_REPLACE$ coincidencias cambiadas"/>
             <find-status-mark-re-malformed value="Atención: la expresión regular para buscar tiene un formato incorrecto."/>
             <find-status-invalid-re value="Atención: expresión regular no válida."/>
             <find-status-search-failed value="Atención: la búsqueda falló."/>
@@ -1577,16 +1588,16 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <find-status-count-1-match value="Encontrada 1 coincidencia"/>
             <find-status-count-nb-matches value="Encontradas $INT_REPLACE$ coincidencias"/>
             <find-status-replaceall-re-malformed value="Atención: la expresión regular tiene un formato incorrecto."/>
-            <find-status-replaceall-1-replaced value="1 coincidencia reemplazada"/>
-            <find-status-replaceall-nb-replaced value=" $INT_REPLACE$ coincidencias reemplazadas"/>
-            <find-status-replaceall-readonly value="Atención: no se puede reemplazar el texto. El documento actual es de solo lectura."/>
-            <find-status-replace-end-reached value="Reemplazada la primera coincidencia desde el inicio. Se ha llegado al final del documento."/>
-            <find-status-replace-top-reached value="Reemplazada la primera coincidencia desde el final. Se ha llegado al inicio del documento."/>
+            <find-status-replaceall-1-replaced value="1 coincidencia cambiada"/>
+            <find-status-replaceall-nb-replaced value=" $INT_REPLACE$ coincidencias cambiadas"/>
+            <find-status-replaceall-readonly value="Atención: no se puede sustituir el texto. El documento actual es de solo lectura."/>
+            <find-status-replace-end-reached value="Cambiada la primera coincidencia desde el inicio. Se ha llegado al final del documento."/>
+            <find-status-replace-top-reached value="Cambiada la primera coincidencia desde el final. Se ha llegado al inicio del documento."/>
             <find-status-replaced-next-found value="Cambiada 1 coincidencia. Encontrada la siguiente."/>
-            <find-status-replaced-without-continuing value="Se reemplazó 1 coincidencia"/>
-            <find-status-replaced-next-not-found value="Se reemplazó 1 coincidencia. No se han encontrado más."/>
+            <find-status-replaced-without-continuing value="Se cambió 1 coincidencia"/>
+            <find-status-replaced-next-not-found value="Se cambió 1 coincidencia. No se han encontrado más."/>
             <find-status-replace-not-found value="No se encontró ninguna coincidencia."/>
-            <find-status-replace-readonly value="Atención: no se puede reemplazar el texto. El documento actual es de solo lectura."/>
+            <find-status-replace-readonly value="Atención: no se puede sustiuir el texto. El documento actual es de solo lectura."/>
             <find-status-cannot-find value="Atención: no se puede encontrar el texto &quot;$STR_REPLACE$&quot;"/>
             <find-status-scope-selection value="en el texto seleccionado."/>
             <find-status-scope-all value="en todo el archivo."/>
@@ -1611,12 +1622,9 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <tabrename-newname value="Nuevo nombre:"/>
             <splitter-rotate-left value="Girar a la izquierda"/>
             <splitter-rotate-right value="Girar a la derecha"/>
-            <recent-file-history-maxfile value="Máx. archivo:"/>
-            <recent-file-history-customlength value="Longitud:"/>
             <userdefined-title-new value="Crear nuevo lenguaje..."/>
             <userdefined-title-save value="Guardar lenguaje actual como..."/>
-            <userdefined-title-rename value="Cambiar el nombre del idioma actual"/>
-            <edit-verticaledge-nb-col value="Nº columna:"/>
+            <userdefined-title-rename value="Renombrar el archivo de lenguaje"/>
             <summary value="Resumen"/>
             <summary-filepath value="Ruta completa del archivo:"/>
             <summary-filecreatetime value="Creado:"/>
@@ -1632,13 +1640,13 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <progress-cancel-info value="Cancelando operación, por favor espere..."/>
             <find-in-files-progress-title value="Progreso de búsqueda en archivos..."/>
             <replace-in-files-confirm-title value="¿Está seguro?"/>
-            <replace-in-files-confirm-directory value="¿Está seguro de que desea reemplazar todas las coincidencias en:"/>
+            <replace-in-files-confirm-directory value="¿Está seguro de que desea sustituir todas las coincidencias en:"/>
             <replace-in-files-confirm-filetype value="Para tipo de archivo:"/>
-            <replace-in-files-progress-title value="Progreso de reemplazar en archivos..."/>
+            <replace-in-files-progress-title value="Progreso de sustitución en archivos..."/>
             <replace-in-projects-confirm-title value="¿Está seguro?"/>
-            <replace-in-projects-confirm-message value="¿Desea reemplazar todas las coincidencias en todos los documentos en el panel de proyecto(s) seleccionado(s)?"/>
+            <replace-in-projects-confirm-message value="¿Desea sustituir todas las coincidencias en todos los documentos en el panel de proyecto(s) seleccionado(s)?"/>
             <replace-in-open-docs-confirm-title value="¿Está seguro?"/>
-            <replace-in-open-docs-confirm-message value="¿Está seguro de que desea reemplazar todas las coincidencias en todos los documentos abiertos?"/>
+            <replace-in-open-docs-confirm-message value="¿Está seguro de que desea sustituir todas las coincidencias en todos los documentos abiertos?"/>
             <find-result-caption value="Encontrar resultados"/>
             <find-result-title value="Buscar"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="(Hay $INT_REPLACE1$ coincidencia(s) en $INT_REPLACE2$ archivo(s) de $INT_REPLACE3$ búsqueda(s))"/>
@@ -1653,18 +1661,18 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <close-panel-tip value="Cerrar"/>
             <IncrementalFind-FSFound value="$INT_REPLACE$ coinciden"/>
             <IncrementalFind-FSNotFound value="Frase no encontrada"/>
-            <IncrementalFind-FSTopReached value="Se llegó al principio de la página, continúa desde el final" />
-            <IncrementalFind-FSEndReached value="Se llegó al final de la página, continúa desde el principio" />
-            <contextMenu-styleAlloccurrencesOfToken value="Dar estilo a todas las coincidencias" />
-            <contextMenu-styleOneToken value="Dar estilo a una coincidencia" />
-            <contextMenu-clearStyle value="Borrar estilo" />
-            <contextMenu-PluginCommands value="Comandos de complementos" />
+            <IncrementalFind-FSTopReached value="Se llegó al principio de la página, continúa desde el final"/>
+            <IncrementalFind-FSEndReached value="Se llegó al final de la página, continúa desde el principio"/>
+            <contextMenu-styleAlloccurrencesOfToken value="Dar estilo a todas las coincidencias"/>
+            <contextMenu-styleOneToken value="Dar estilo a una coincidencia"/>
+            <contextMenu-clearStyle value="Borrar estilo"/>
+            <contextMenu-PluginCommands value="Comandos de complementos"/>
             <largeFileRestriction-tip value="Algunas funciones pueden ralentizar el rendimiento en archivos grandes. Estas funciones se pueden desactivar automáticamente al abrir un archivo grande. Puede personalizarlas aquí.
 
 NOTA:
 1. La modificación de las opciones implica reabrir los archivos grandes que tenga abiertos para obtener un comportamiento adecuado.
 
-2. Si &quot;Desactivar globalmente el ajuste del texto&quot; está marcado y abre un archivo grande, &quot;Ajuste del texto&quot; se desactivará para todos los archivos. Puede volver a activarlo a través del menú Vista &quot;Ajuste del texto&quot;." />
+2. Si &quot;Desactivar globalmente el ajuste del texto&quot; está marcado y abre un archivo grande, &quot;Ajuste del texto&quot; se desactivará para todos los archivos. Puede volver a activarlo a través del menú Vista &quot;Ajuste del texto&quot;."/>
             <npcNote-tip value="Representación de espacios en blanco seleccionados &quot;no ASCII&quot; y caracteres no imprimibles (de control).
 
 NOTA:
@@ -1676,19 +1684,19 @@ Para ver la lista completa de espacios en blanco y caracteres no imprimibles sel
 
 Haga clic en este botón para abrir el sitio web del manual del usuario."/>
             <npcAbbreviation-tip value="Abreviatura: nombre
-NBSP: espacio indivisible
+NBSP: espacio sin salto de línea
 ZWSP: espacio de ancho cero
-ZWNBSP: sin ancho ni espacio
+ZWNBSP: espacio sin salto de línea de ancho cero
  
 Para ver la lista completa, consulte el manual del usuario.
-Haga clic en el botón de la derecha &quot;?&quot; para abrir el sitio web del manual de usuario."/>
+Haga clic en el botón derecho &quot;?&quot; para abrir el sitio web del manual de usuario."/>
             <npcCodepoint-tip value="Punto de código: nombre
-U+00A0: espacio indivisible
+U+00A0: espacio sin salto de línea
 U+200B: espacio de ancho cero
-U+FEFF: sin ancho ni espacio
+U+FEFF: espacio sin salto de línea de ancho cero
 
 Para ver la lista completa, consulte el manual del usuario.
-Haga clic en el botón de la derecha &quot;?&quot; para abrir el sitio web del manual de usuario."/>
+Haga clic en el botón derecho &quot;?&quot; para abrir el sitio web del manual de usuario."/>
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Vaya al Configurador de estilos para cambiar el color personalizado por defecto de los espacios en blanco y caracteres no imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>

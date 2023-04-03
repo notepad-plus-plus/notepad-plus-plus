@@ -19,7 +19,6 @@
 #include "DockingSplitter.h"
 #include "Notepad_plus_msgs.h"
 #include "Parameters.h"
-#include "NppDarkMode.h"
 
 BOOL DockingSplitter::_isVertReg = FALSE;
 BOOL DockingSplitter::_isHoriReg = FALSE;
@@ -30,7 +29,7 @@ void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags
 	_hMessage = hMessage;
 	_flags = flags;
 
-	WNDCLASS wc;
+	WNDCLASS wc{};
 	DWORD hwndExStyle = (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 	_isRTL = hwndExStyle & WS_EX_LAYOUTRTL;
 
@@ -56,7 +55,7 @@ void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags
 		wc.cbWndExtra = 0;
 		wc.hInstance = _hInst;
 		wc.hIcon = NULL;
-		wc.hbrBackground = (HBRUSH)(COLOR_3DFACE+1);
+		wc.hbrBackground = ::GetSysColorBrush(COLOR_3DFACE);
 		wc.lpszMenuName = NULL;
 
 		if (!::RegisterClass(&wc))
@@ -129,7 +128,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		{
 			if (_isLeftButtonDown == TRUE)
 			{
-				POINT	pt;
+				POINT pt{};
 
 				::GetCursorPos(&pt);
 
@@ -152,9 +151,10 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 				break;
 			}
 
-			RECT rc = {};
-			getClientRect(rc);
-			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getBackgroundBrush());
+			RECT rc{};
+			::GetClientRect(hwnd, &rc);
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+
 			return TRUE;
 		}
 		default :

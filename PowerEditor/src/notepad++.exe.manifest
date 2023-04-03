@@ -7,11 +7,6 @@
     name="Notepad++"
     type="win32"
 />
-<msix xmlns="urn:schemas-microsoft-com:msix.v1"
-    publisher="CN=Notepad++"
-    packageName="NotepadPlusPlus"
-    applicationId="NotepadPlusPlus"
-/>
 <description>Notepad++</description>
 <dependency>
     <dependentAssembly>

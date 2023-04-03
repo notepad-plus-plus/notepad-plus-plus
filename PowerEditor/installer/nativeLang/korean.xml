@@ -386,41 +386,41 @@
   </Commands>
   </Main>
 <TabBar>
-  <Item CMID="41003" name="닫기"/>
-  <Item CMID="0" name="여러 탭 닫기"/>
-  <Item CMID="41005" name="현재 문서만 남기고 닫기"/>
-  <Item CMID="41009" name="왼쪽 탭 모두 닫기"/>
-  <Item CMID="41018" name="오른쪽 탭 모두 닫기"/>
-  <Item CMID="41024" name="바뀌지 않은 문서 모두 닫기"/>
-  <Item CMID="41006" name="저장"/>
-  <Item CMID="41008" name="다른 이름으로 저장..."/>
-  <Item CMID="1" name="열기"/>
-  <Item CMID="41019" name="탐색기로 문서의 폴더 열기"/>
-  <Item CMID="41020" name="CMD에서 문서의 폴더 열기"/>
-  <Item CMID="41025" name="문서의 폴더를 작업 영역으로 열기"/>
-  <Item CMID="41023" name="기본 프로그램으로 열기"/>
-  <Item CMID="41017" name="이름 변경..."/>
-  <Item CMID="41016" name="휴지통으로 이동"/>
-  <Item CMID="41014" name="다시 불러오기"/>
-  <Item CMID="41010" name="인쇄..."/>
-  <Item CMID="42028" name="읽기 전용 설정"/>
-  <Item CMID="42033" name="읽기 전용 해제"/>
-  <Item CMID="2" name="클립보드에 복사"/>
-  <Item CMID="42029" name="전체 파일 경로 복사"/>
-  <Item CMID="42030" name="파일 이름 복사"/>
-  <Item CMID="42031" name="현재 디렉토리 경로 복사"/>
-  <Item CMID="3" name="문서 이동"/>
-  <Item CMID="10001" name="분할 창으로 이동"/>
-  <Item CMID="10002" name="분할 창으로 복사"/>
-  <Item CMID="10003" name="새 창으로 이동"/>
-  <Item CMID="10004" name="새 창에서 열기"/>
-  <Item CMID="4" name="탭에 색 적용"/>
-  <Item CMID="44111" name="색 1 적용"/>
-  <Item CMID="44112" name="색 2 적용"/>
-  <Item CMID="44113" name="색 3 적용"/>
-  <Item CMID="44114" name="색 4 적용"/>
-  <Item CMID="44115" name="색 5 적용"/>
-  <Item CMID="44110" name="색 제거"/>
+  <Item CMDID="41003" name="닫기"/>
+  <Item CMDID="0" name="여러 탭 닫기"/>
+  <Item CMDID="41005" name="현재 문서만 남기고 닫기"/>
+  <Item CMDID="41009" name="왼쪽 탭 모두 닫기"/>
+  <Item CMDID="41018" name="오른쪽 탭 모두 닫기"/>
+  <Item CMDID="41024" name="바뀌지 않은 문서 모두 닫기"/>
+  <Item CMDID="41006" name="저장"/>
+  <Item CMDID="41008" name="다른 이름으로 저장..."/>
+  <Item CMDID="1" name="열기"/>
+  <Item CMDID="41019" name="탐색기로 문서의 폴더 열기"/>
+  <Item CMDID="41020" name="CMD에서 문서의 폴더 열기"/>
+  <Item CMDID="41025" name="문서의 폴더를 작업 영역으로 열기"/>
+  <Item CMDID="41023" name="기본 프로그램으로 열기"/>
+  <Item CMDID="41017" name="이름 변경..."/>
+  <Item CMDID="41016" name="휴지통으로 이동"/>
+  <Item CMDID="41014" name="다시 불러오기"/>
+  <Item CMDID="41010" name="인쇄..."/>
+  <Item CMDID="42028" name="읽기 전용 설정"/>
+  <Item CMDID="42033" name="읽기 전용 해제"/>
+  <Item CMDID="2" name="클립보드에 복사"/>
+  <Item CMDID="42029" name="전체 파일 경로 복사"/>
+  <Item CMDID="42030" name="파일 이름 복사"/>
+  <Item CMDID="42031" name="현재 디렉토리 경로 복사"/>
+  <Item CMDID="3" name="문서 이동"/>
+  <Item CMDID="10001" name="분할 창으로 이동"/>
+  <Item CMDID="10002" name="분할 창으로 복사"/>
+  <Item CMDID="10003" name="새 창으로 이동"/>
+  <Item CMDID="10004" name="새 창에서 열기"/>
+  <Item CMDID="4" name="탭에 색 적용"/>
+  <Item CMDID="44111" name="색 1 적용"/>
+  <Item CMDID="44112" name="색 2 적용"/>
+  <Item CMDID="44113" name="색 3 적용"/>
+  <Item CMDID="44114" name="색 4 적용"/>
+  <Item CMDID="44115" name="색 5 적용"/>
+  <Item CMDID="44110" name="색 제거"/>
   </TabBar>
   <TrayIcon>
      <Item id="43101" name="활성화"/>

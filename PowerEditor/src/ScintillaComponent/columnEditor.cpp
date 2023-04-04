@@ -475,15 +475,10 @@ void ColumnEditorDlg::switchTo(bool toText)
 
 	if (toText) 
 	{
-		ColumnEditorParam colEditParam = NppParameters::getInstance()._columnEditParam;
-		if (!colEditParam._insertedTextContent.empty())
-		{
-			::SetDlgItemText(_hSelf, IDC_COL_TEXT_EDIT, colEditParam._insertedTextContent.c_str());
-		}
-		else
-		{
-			::EnableWindow(::GetDlgItem(_hSelf, IDOK), false);
-		}
+		const int stringSize = 1024;
+		TCHAR str[stringSize];
+		const UINT charsRead = ::GetDlgItemText(_hSelf, IDC_COL_TEXT_EDIT, str, stringSize);
+		::EnableWindow(::GetDlgItem(_hSelf, IDOK), charsRead > 0);
 	}
 	else 
 	{

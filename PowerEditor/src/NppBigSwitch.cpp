@@ -1477,6 +1477,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				int indexMacro = _runMacroDlg.getMacro2Exec();
 				intptr_t deltaLastLine = 0;
 				intptr_t deltaCurrLine = 0;
+				bool cursorMovedUp = false;
 
 				Macro m = _macro;
 
@@ -1498,7 +1499,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					}
 					else // run until eof
 					{
-						bool cursorMovedUp = deltaCurrLine < 0;
+						// the line number must monotonically increase or decrease
+						// if direction ever changes, bail out to avoid infinite loop
+						if ((counter > 1) && ((deltaCurrLine < 0) != cursorMovedUp))
+							break;
+						cursorMovedUp = deltaCurrLine < 0;
 						deltaLastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1 - lastLine;
 						deltaCurrLine = _pEditView->getCurrentLineNumber() - currLine;
 

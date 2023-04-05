@@ -1508,8 +1508,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					deltaLastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1 - lastLine;
 					deltaCurrLine = _pEditView->getCurrentLineNumber() - currLine;
 
-					if (( deltaCurrLine == 0 )	// line no. not changed?
-						&& (deltaLastLine >= 0))  // and no lines removed?
+					bool currLineUnchanged = deltaCurrLine == 0;
+					bool noLinesRemoved = deltaLastLine >= 0;
+					if (currLineUnchanged && noLinesRemoved)
 						break; // exit
 
 					// Update the line count, but only if the number of lines remaining is shrinking.
@@ -1521,8 +1522,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					currLine += deltaCurrLine;
 
 					// eof?
-					if ((currLine > lastLine) || (currLine < 0)
-						|| ((deltaCurrLine == 0) && (currLine == 0) && ((deltaLastLine >= 0) || cursorMovedUp)))
+					if ((currLine > lastLine)
+						|| (currLine < 0)
+						|| (currLineUnchanged
+							&& (currLine == 0)
+							&& (noLinesRemoved || cursorMovedUp)))
 					{
 						break;
 					}

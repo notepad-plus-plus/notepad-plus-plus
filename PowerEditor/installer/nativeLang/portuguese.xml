@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.1">
+    <Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -256,7 +256,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43501" name="Fechar selecionado"/>
                     <Item id="43502" name="Fechar outros"/>
                     <Item id="43503" name="Copiar nomes selecionados"/>
-                    <Item id="43504" name="Copiar nomes de localizações Selecionadas"/>
+                    <Item id="43504" name="Copiar nomes de localizações selecionadas"/>
                     <Item id="44009" name="Anotação"/>
                     <Item id="44010" name="Fechar tudo"/>
                     <Item id="44011" name="Modo sem distração"/>
@@ -295,7 +295,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Aplicar cor 3"/>
                     <Item id="44114" name="Aplicar cor 4"/>
                     <Item id="44115" name="Aplicar cor 5"/>
-                    <Item id="44130" name="Mostrar caracteres não impressos"/>
+                    <Item id="44130" name="Mostrar caracteres sem representação"/>
+                    <Item id="44131" name="Mostrar caracteres de controlo &amp; EOL Unicode"/>
                     <Item id="44032" name="Alternar para modo de ecrã inteiro"/>
                     <Item id="44033" name="Restaurar zoom predefinido"/>
                     <Item id="44034" name="Sempre no topo"/>
@@ -489,15 +490,15 @@ The comments are here for explanation, it's not necessary to translate them.
             </IncrementalFind>
 
             <FindCharsInRange title="Localizar caracteres no alcance...">
-                <Item id="2" name="Fechar"/>
-                <Item id="2901" name="Caracteres Não-ASCII (128-255)"/>
-                <Item id="2902" name="Caracteres ASCII (0-127)"/>
-                <Item id="2903" name="Meu alcance:"/>
+                <Item id="2" name="&amp;Fechar"/>
+                <Item id="2901" name="Caracteres &amp;Não-ASCII (128–255)"/>
+                <Item id="2902" name="Caracteres &amp;ASCII (0–127)"/>
+                <Item id="2903" name="Alcance &amp;personalizado (0–255):"/>
                 <Item id="2906" name="&amp;Cima"/>
                 <Item id="2907" name="&amp;Baixo"/>
                 <Item id="2908" name="Direção"/>
-                <Item id="2909" name="Moldar à volta"/>
-                <Item id="2910" name="Localizar"/>
+                <Item id="2909" name="Mol&amp;dar à volta"/>
+                <Item id="2910" name="&amp;Localizar"/>
             </FindCharsInRange>
 
             <GoToLine title="Ir para...">
@@ -518,27 +519,27 @@ The comments are here for explanation, it's not necessary to translate them.
             </Run>
 
             <MD5FromFilesDlg title="Gerar resumo MD5 de ficheiros">
-                <Item id="1922" name="Escolher ficheiros para gerar MD5..."/>
-                <Item id="1924" name="Copiar p/ a área de transferência"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1922" name="Escolher ficheiros para &amp;gerar MD5..."/>
+                <Item id="1924" name="Co&amp;piar p/ a área de transferência"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Gerar resumo MD5">
-                <Item id="1932" name="Tratar cada linha como uma frase separada"/>
-                <Item id="1934" name="Copiar p/ a área de transferência"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1932" name="Tratar cada linha como uma frase &amp;separada"/>
+                <Item id="1934" name="Co&amp;piar p/ a área de transferência"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Gerar resumo SHA-256 de ficheiros">
-                <Item id="1922" name="Escolher ficheiros para gerar SHA-256..."/>
-                <Item id="1924" name="Copiar p/ a área de transferência"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1922" name="Escolher ficheiros para &amp;gerar SHA-256..."/>
+                <Item id="1924" name="Co&amp;piar p/ a área de transferência"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Gerar resumo SHA-256">
-                <Item id="1932" name="Tratar cada linha como uma frase separada"/>
-                <Item id="1934" name="Copiar p/ a área de transferência"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1932" name="Tratar cada linha como uma frase &amp;separada"/>
+                <Item id="1934" name="Co&amp;piar p/ a área de transferência"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Admin de plugins" titleAvailable="Disponível" titleUpdates="Atualizações" titleInstalled="Instalado" titleIncompatible="Incompatível">
@@ -952,10 +953,11 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6248" name="Predefinição"/>
                     <Item id="6249" name="Texto simples"/>
                     <Item id="6250" name="Cor personalizada"/>
-                    <Item id="6252" name="Caracteres não impressos"/>
+                    <Item id="6252" name="Caracteres sem representação"/>
                     <Item id="6254" name="Abreviatura"/>
                     <Item id="6255" name="Ponto de código"/>
                     <Item id="6256" name="Cor personalizada"/>
+                    <Item id="6258" name="Aplicar a caracteres C0, C1 e EOL Unicode"/>
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
@@ -1069,30 +1071,30 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 </Highlighting>
 
                 <Print title="Impressão">
-                    <Item id="6601" name="Imprimir número da linha"/>
+                    <Item id="6601" name="Imprimir nú&amp;mero da linha"/>
                     <Item id="6602" name="Opções da cor"/>
-                    <Item id="6603" name="Imprimir como no ecrã"/>
-                    <Item id="6604" name="Inverter"/>
-                    <Item id="6605" name="Preto sobre branco"/>
-                    <Item id="6606" name="Sem cor de fundo"/>
+                    <Item id="6603" name="Imp&amp;rimir como no ecrã"/>
+                    <Item id="6604" name="In&amp;verter"/>
+                    <Item id="6605" name="Preto sobre &amp;branco"/>
+                    <Item id="6606" name="Sem cor de &amp;fundo"/>
                     <Item id="6607" name="Definições da margem (mm)"/>
-                    <Item id="6612" name="Esquerda"/>
-                    <Item id="6613" name="Superior"/>
-                    <Item id="6614" name="Direita"/>
-                    <Item id="6615" name="Inferior"/>
-                    <Item id="6706" name="Negrito"/>
-                    <Item id="6707" name="Itálico"/>
+                    <Item id="6612" name="&amp;Esquerda"/>
+                    <Item id="6613" name="&amp;Superior"/>
+                    <Item id="6614" name="&amp;Direita"/>
+                    <Item id="6615" name="&amp;Inferior"/>
+                    <Item id="6706" name="&amp;Negrito"/>
+                    <Item id="6707" name="&amp;Itálico"/>
                     <Item id="6708" name="Cabeçalho"/>
-                    <Item id="6709" name="Esquerda"/>
-                    <Item id="6710" name="Centro"/>
-                    <Item id="6711" name="Direita"/>
-                    <Item id="6717" name="Negrito"/>
-                    <Item id="6718" name="Itálico"/>
+                    <Item id="6709" name="Es&amp;querda"/>
+                    <Item id="6710" name="Cen&amp;tro"/>
+                    <Item id="6711" name="Direi&amp;ta"/>
+                    <Item id="6717" name="&amp;Negrito"/>
+                    <Item id="6718" name="Itáli&amp;co"/>
                     <Item id="6719" name="Rodapé"/>
-                    <Item id="6720" name="Esquerda"/>
-                    <Item id="6721" name="Centro"/>
-                    <Item id="6722" name="Direita"/>
-                    <Item id="6723" name="Adicionar"/>
+                    <Item id="6720" name="E&amp;squerda"/>
+                    <Item id="6721" name="C&amp;entro"/>
+                    <Item id="6722" name="Di&amp;reita"/>
+                    <Item id="6723" name="&amp;Adicionar"/>
                     <ComboBox id="6724">
                         <Element name="Localização do nome completo do ficheiro"/>
                         <Element name="Nome do ficheiro"/>
@@ -1102,7 +1104,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                         <Element name="Data e Hora (longo)"/>
                         <Element name="Hora"/>
                     </ComboBox>
-                    <Item id="6725" name="Variável:"/>
+                    <Item id="6725" name="&amp;Variável:"/>
                     <Item id="6727" name="As variáveis são exibidas aqui"/>
                     <Item id="6728" name="Cabeçalho e Rodapé"/>
                 </Print>
@@ -1263,8 +1265,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
             <MultiMacro title="Executar uma macro várias vezes">
                 <Item id="1" name="Executar"/>
                 <Item id="2" name="Cancelar"/>
-                <Item id="8006" name="Macro a executar:"/>
-                <Item id="8001" name="Executar:"/>
+                <Item id="8006" name="Macro a executar"/>
+                <Item id="8001" name="Executar"/>
                 <Item id="8005" name="vez(es)"/>
                 <Item id="8002" name="Executar até ao fim do ficheiro"/>
             </MultiMacro>
@@ -1280,7 +1282,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 <Item id="2033" name="&amp;Número a inserir "/>
                 <Item id="2030" name="Número &amp;inicial:"/>
                 <Item id="2031" name="&amp;Aumentar em:"/>
-                <Item id="2038" name="Iní&amp;cio da linha :"/>
+                <Item id="2038" name="Iní&amp;cio da linha:"/>
                 <ComboBox id="2039">
                     <Element name="Nenhum"/>
                     <Element name="Zeros"/>
@@ -1442,6 +1444,12 @@ Continuar?"/>
             <LanguageMenuCompactWarning title="Menu de linguagem compacta" message="Esta opção será alterada na próxima vez que iniciar."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="As alterações não guardadas estão prestes a ser descartadas!
 Quer guardar as suas alterações antes de mudar de tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Compatibilidade de macros e comandos de execução" message="Os comandos Macro e Executar guardados no Notepad++ v.8.5.2 (ou anterior) podem não ser compatíveis com a versão atual do Notepad++.
+Teste esses comandos e, se necessário, edite-os novamente.
+
+Em alternativa, pode reverter para o Notepad++ v8.5.2 e restaurar os dados anteriores.
+O Notepad++ fará uma cópia de segurança do seu antigo &quot;shortcuts.xml&quot; e guardá-lo-á como &quot;shortcuts.xml.v8.5.2.backup&quot;.
+A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, os seus comandos devem estar restaurados e a funcionar corretamente."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1641,7 +1649,7 @@ Pesquisar em todos os ficheiros mas excluir todos os registos de pastas ou regis
             <summary-nbbyte value="Comprimento: "/>
             <summary-nbsel1 value=" caracteres selecionados ("/>
             <summary-nbsel2 value=" bytes) em "/>
-            <summary-nbrange value=" seleções"/>
+            <summary-nbrange value=" intervalos"/>
             <progress-hits-title value="Resultados:"/>
             <progress-cancel-button value="Cancelar"/>
             <progress-cancel-info value="A cancelar a operação, aguarde..."/>
@@ -1680,14 +1688,12 @@ NOTA:
 1. Modificar as opções de aqui requer a reabertura de ficheiros grandes atualmente abertos para obter um comportamento adequado.
 
 2. If &quot;Desativar a quebra de linha globalmente&quot; é verificada e abre-se um ficheiro grande, a &quot;Quebra de linha&quot; será desativada para todos os ficheiros. Pode voltar a ativá-la através do menu &quot;Visualização-&gt;Quebra de linha&quot;." />
-            <npcNote-tip value="Representação de caracteres selecionados &quot;não-ASCII&quot; espaços em branco e caracteres não impressos (controlo).
+            <npcNote-tip value="Representação de caracteres selecionados &quot;não-ASCII&quot; espaços em branco e caracteres sem representação (controlo).
 
 NOTA:
-Alguns caracteres podem já ter alguma representação e são assim visíveis. O separador de linhas e o separador de parágrafos já são representados por abreviatura por defeito.
-
 A utilização da representação desactivará os efeitos de caracteres no texto.
 
-Para a lista completa dos espaços em branco selecionados e caracteres não impressos, consulte o Manual do Utilizador.
+Para a lista completa dos espaços em branco selecionados e caracteres sem representação, consulte o Manual do Utilizador.
 
 Clique neste botão para abrir o website com Manual do Utilizador." />
             <npcAbbreviation-tip value="Abreviatura : nome
@@ -1706,7 +1712,8 @@ Para ver a lista completa, consulte o Manual do Utilizador.
 Clique no botão &quot;?&quot; à direita para abrir o website com Manual do Utilizador." />
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-            <npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e caracteres não-impressos (&quot;Cor personalizada de caracteres não impressos&quot;)." />
+            <npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e caracteres não-impressos (&quot;Cor personalizada de caracteres sem representação&quot;)." />
+            <npcIncludeCcUniEol-tip value="Aplicar as definições de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (linha seguinte, separador de linha e separador de parágrafo)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>
@@ -1736,7 +1743,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 02 Abr 2023 by Hugo Carvalho
+Last modified: 02 May 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

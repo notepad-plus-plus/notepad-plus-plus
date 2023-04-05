@@ -1496,35 +1496,35 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					{
 						if ( counter >= times )
 							break;
+						continue;
 					}
-					else // run until eof
+					// else run until eof
+					
+					// the line number must monotonically increase or decrease
+					// if direction ever changes, bail out to avoid infinite loop
+					if ((counter > 1) && ((deltaCurrLine < 0) != cursorMovedUp))
+						break;
+					cursorMovedUp = deltaCurrLine < 0;
+					deltaLastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1 - lastLine;
+					deltaCurrLine = _pEditView->getCurrentLineNumber() - currLine;
+
+					if (( deltaCurrLine == 0 )	// line no. not changed?
+						&& (deltaLastLine >= 0))  // and no lines removed?
+						break; // exit
+
+					// Update the line count, but only if the number of lines remaining is shrinking.
+					// Otherwise, the macro playback may never end.
+					if (deltaLastLine < deltaCurrLine)
+						lastLine += deltaLastLine;
+
+					// save current line
+					currLine += deltaCurrLine;
+
+					// eof?
+					if ((currLine > lastLine) || (currLine < 0)
+						|| ((deltaCurrLine == 0) && (currLine == 0) && ((deltaLastLine >= 0) || cursorMovedUp)))
 					{
-						// the line number must monotonically increase or decrease
-						// if direction ever changes, bail out to avoid infinite loop
-						if ((counter > 1) && ((deltaCurrLine < 0) != cursorMovedUp))
-							break;
-						cursorMovedUp = deltaCurrLine < 0;
-						deltaLastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1 - lastLine;
-						deltaCurrLine = _pEditView->getCurrentLineNumber() - currLine;
-
-						if (( deltaCurrLine == 0 )	// line no. not changed?
-							&& (deltaLastLine >= 0))  // and no lines removed?
-							break; // exit
-
-						// Update the line count, but only if the number of lines remaining is shrinking.
-						// Otherwise, the macro playback may never end.
-						if (deltaLastLine < deltaCurrLine)
-							lastLine += deltaLastLine;
-
-						// save current line
-						currLine += deltaCurrLine;
-
-						// eof?
-						if ((currLine > lastLine) || (currLine < 0)
-							|| ((deltaCurrLine == 0) && (currLine == 0) && ((deltaLastLine >= 0) || cursorMovedUp)))
-						{
-							break;
-						}
+						break;
 					}
 				}
 				_pEditView->execute(SCI_ENDUNDOACTION);

@@ -378,8 +378,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						case EN_CHANGE:
 						{
 							ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-							const int stringSize = MAX_PATH;
-							TCHAR str[stringSize];
+							constexpr int stringSize = MAX_PATH;
+							TCHAR str[stringSize]{};
 
 							switch (LOWORD(wParam))
 							{								
@@ -387,6 +387,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 									colEditParam._insertedTextContent = str;
+									::EnableWindow(::GetDlgItem(_hSelf, IDOK), str[0]);
 									return TRUE;
 								}
 								case IDC_COL_INITNUM_EDIT:
@@ -474,6 +475,7 @@ void ColumnEditorDlg::switchTo(bool toText)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_OCT_RADIO), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_BIN_RADIO), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), !toText);
+	::EnableWindow(::GetDlgItem(_hSelf, IDOK), !toText || !NppParameters::getInstance()._columnEditParam._insertedTextContent.empty());
 
 	::SetFocus(toText?hText:hNum);
 

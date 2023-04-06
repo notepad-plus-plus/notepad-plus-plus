@@ -1,3 +1,20 @@
+Notepad++ v8.5.2 bug-fixes and new features:
+
+1.  Enhance "Edit with Notepad++" context menu and fix several issues.
+2.  Make Find/Replace dialog swap/copy button usage more explicit.
+3.  Fix unexpected caret column jump post brace match.
+4.  Add hits in-progress increased number to Search Progress dialog.
+5.  Add HTML Hexadecimal column and more items to ASCII panel.
+6.  Add ability to do leading spaces with Column Editor.
+7.  Add programming language support for Hollywood.
+8.  Fix dock panels visual glitch while finding in search results.
+9.  Fix Mark dialog's Copy Marked Text button is not macro-able issue.
+10. Dark mode enhancement: make focused combobox more visible.
+11. Fix find dialog flicker issue.
+12. Enhance Notepad++ icon's display in system tray.
+13. Fix some options in Mark dialog not remembered though the session issue.
+
+
 Notepad++ v8.5.1 bug-fixes and new features:
 
 1.  Use new modern shell "Edit with Notepad++" of Windows 11 instead of hijacking "Pin to Quick access".
@@ -39,7 +56,7 @@ Notepad++ v8.5 bug-fixes and new features:
 24. Make several GUI items translatable.
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.5.1/
+https://notepad-plus-plus.org/downloads/v8.5.2/
 
 
 Included plugins:

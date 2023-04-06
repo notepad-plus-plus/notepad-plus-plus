@@ -1387,7 +1387,7 @@ int nbDigitsFromNbLines(size_t nbLines)
 	else // rare case
 	{
 		nbDigits = 7;
-		nbLines /= 1000000;
+		nbLines /= 10000000;
 
 		while (nbLines)
 		{

@@ -5631,8 +5631,11 @@ int Progress::createProgressWindow()
 {
 	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
 	_hwnd = ::CreateWindowEx(
-		WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW,
+		WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW |
+			(pNativeSpeaker->isRTL() ? WS_EX_LAYOUTRTL : 0),
 		cClassName, _header, WS_POPUP | WS_CAPTION,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 		NULL, NULL, _hInst, (LPVOID)this);
@@ -5669,7 +5672,6 @@ int Progress::createProgressWindow()
 		xStartPos, yTextPos,
 		ctrlWidth, textHeight, _hwnd, NULL, _hInst, NULL);
 
-	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	generic_string hits = pNativeSpeaker->getLocalizedStrFromID("progress-hits-title", TEXT("Hits:"));
 	_hRunningHitsStaticText = ::CreateWindowEx(0, TEXT("STATIC"), hits.c_str(),
 		WS_CHILD | WS_VISIBLE | SS_RIGHT,

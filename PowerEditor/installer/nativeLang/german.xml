@@ -9,8 +9,8 @@
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<!-- basiert auf english.xml vom 25.03.2023 -->
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.03.25">
+	<!-- basiert auf english.xml vom 08.04.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.04.08">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1649,6 +1649,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
+			<progress-hits-title value="Treffer:"/>
 			<progress-cancel-button value="Abbrechen"/>
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>

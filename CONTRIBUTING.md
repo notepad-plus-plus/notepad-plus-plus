@@ -38,7 +38,7 @@ Opening an issue beforehand allows the administrators and the community to discu
 7. Typo fixing and code refactoring won't be accepted - please create issues with title started with `TYPO` to request the changing.
 8. Address the review change requests by pushing new commits to the same PR. Avoid amending a commit and then force pushing it. All the PR commits are squashed before merging to the main branch.
 9. When creating new PR, try to base it on latest master.
-10. Don't merge upstream/master (using git or via github sync), if your PR is based on older master. If you need to base it on latest master (e.g. to check and fix merge conflict), use commands `git fetch upstream` to get latest "master" and then `git rebase upstream/master` to rebased it on latest master.
+10. Don't merge `upstream/master` (using git or via github sync), if your PR is based on older `upstream/master`. If you need to base it on latest `master` (e.g. to check and fix merge conflict), use commands `git fetch upstream` to get latest `master` and then `git rebase upstream/master` to rebase it onto this latest `upstream/master`.
 11. Finally, please test your pull requests, at least once.
 
 In short: The easier the code review is, the better the chance your pull request will get accepted.

@@ -119,7 +119,6 @@
     <ClCompile Include="..\src\WinControls\Grid\BabyGrid.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\BabyGridWrapper.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\Buffer.cpp" />
-    <ClCompile Include="..\src\uchardet\CharDistribution.cpp" />
     <ClCompile Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.cpp" />
     <ClCompile Include="..\src\WinControls\ColourPicker\ColourPicker.cpp" />
     <ClCompile Include="..\src\WinControls\ColourPicker\ColourPopup.cpp" />
@@ -144,13 +143,6 @@
     <ClCompile Include="..\src\ScintillaComponent\GoToLineDlg.cpp" />
     <ClCompile Include="..\src\WinControls\DockingWnd\Gripper.cpp" />
     <ClCompile Include="..\src\WinControls\ImageListSet\ImageListSet.cpp" />
-    <ClCompile Include="..\src\uchardet\JpCntx.cpp" />
-    <ClCompile Include="..\src\uchardet\LangBulgarianModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangCyrillicModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangGreekModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangHebrewModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangHungarianModel.cpp" />
-    <ClCompile Include="..\src\uchardet\LangThaiModel.cpp" />
     <ClCompile Include="..\src\lastRecentFileList.cpp" />
     <ClCompile Include="..\src\lesDlgs.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ListView.cpp" />
@@ -162,23 +154,6 @@
     <ClCompile Include="..\src\NppCommands.cpp" />
     <ClCompile Include="..\src\NppIO.cpp" />
     <ClCompile Include="..\src\NppNotification.cpp" />
-    <ClCompile Include="..\src\uchardet\nsBig5Prober.cpp" />
-    <ClCompile Include="..\src\uchardet\nsCharSetProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsEscCharsetProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsEscSM.cpp" />
-    <ClCompile Include="..\src\uchardet\nsEUCJPProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsEUCKRProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsEUCTWProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsGB2312Prober.cpp" />
-    <ClCompile Include="..\src\uchardet\nsHebrewProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsLatin1Prober.cpp" />
-    <ClCompile Include="..\src\uchardet\nsMBCSGroupProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsMBCSSM.cpp" />
-    <ClCompile Include="..\src\uchardet\nsSBCharSetProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsSBCSGroupProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsSJISProber.cpp" />
-    <ClCompile Include="..\src\uchardet\nsUniversalDetector.cpp" />
-    <ClCompile Include="..\src\uchardet\nsUTF8Prober.cpp" />
     <ClCompile Include="..\src\Parameters.cpp" />
     <ClCompile Include="..\src\Misc\PluginsManager\PluginsManager.cpp" />
     <ClCompile Include="..\src\WinControls\Preference\preferenceDlg.cpp" />
@@ -213,7 +188,6 @@
     <ClCompile Include="..\src\WinControls\ToolBar\ToolBar.cpp" />
     <ClCompile Include="..\src\WinControls\ToolTip\ToolTip.cpp" />
     <ClCompile Include="..\src\WinControls\TrayIcon\trayIconControler.cpp" />
-    <ClCompile Include="..\src\uchardet\uchardet.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\URLCtrl.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\UserDefineDialog.cpp" />
     <ClCompile Include="..\src\Utf8_16.cpp" />
@@ -292,7 +266,6 @@
     <ClInclude Include="..\src\WinControls\Grid\BabyGrid.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGridWrapper.h" />
     <ClInclude Include="..\src\ScintillaComponent\Buffer.h" />
-    <ClInclude Include="..\src\uchardet\CharDistribution.h" />
     <ClInclude Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.h" />
     <ClInclude Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel_rc.h" />
     <ClInclude Include="..\src\ScintillaComponent\colors.h" />
@@ -330,7 +303,6 @@
     <ClInclude Include="..\src\WinControls\DockingWnd\Gripper.h" />
     <ClInclude Include="..\src\MISC\PluginsManager\IDAllocator.h" />
     <ClInclude Include="..\src\WinControls\ImageListSet\ImageListSet.h" />
-    <ClInclude Include="..\src\uchardet\JpCntx.h" />
     <ClInclude Include="..\src\lastRecentFileList.h" />
     <ClInclude Include="..\src\lesDlgs.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ListView.h" />
@@ -340,30 +312,11 @@
     <ClInclude Include="..\src\Notepad_plus.h" />
     <ClInclude Include="..\src\MISC\PluginsManager\Notepad_plus_msgs.h" />
     <ClInclude Include="..\src\Notepad_plus_Window.h" />
-    <ClInclude Include="..\src\uchardet\nsBig5Prober.h" />
-    <ClInclude Include="..\src\uchardet\nsCharSetProber.h" />
-    <ClInclude Include="..\src\uchardet\nsCodingStateMachine.h" />
-    <ClInclude Include="..\src\uchardet\nscore.h" />
-    <ClInclude Include="..\src\uchardet\nsEscCharsetProber.h" />
-    <ClInclude Include="..\src\uchardet\nsEUCJPProber.h" />
-    <ClInclude Include="..\src\uchardet\nsEUCKRProber.h" />
-    <ClInclude Include="..\src\uchardet\nsEUCTWProber.h" />
-    <ClInclude Include="..\src\uchardet\nsGB2312Prober.h" />
-    <ClInclude Include="..\src\uchardet\nsHebrewProber.h" />
-    <ClInclude Include="..\src\uchardet\nsLatin1Prober.h" />
-    <ClInclude Include="..\src\uchardet\nsMBCSGroupProber.h" />
-    <ClInclude Include="..\src\uchardet\nsPkgInt.h" />
-    <ClInclude Include="..\src\uchardet\nsSBCharSetProber.h" />
-    <ClInclude Include="..\src\uchardet\nsSBCSGroupProber.h" />
-    <ClInclude Include="..\src\uchardet\nsSJISProber.h" />
-    <ClInclude Include="..\src\uchardet\nsUniversalDetector.h" />
-    <ClInclude Include="..\src\uchardet\nsUTF8Prober.h" />
     <ClInclude Include="..\src\Parameters.h" />
     <ClInclude Include="..\src\MISC\PluginsManager\PluginInterface.h" />
     <ClInclude Include="..\src\MISC\PluginsManager\PluginsManager.h" />
     <ClInclude Include="..\src\WinControls\Preference\preferenceDlg.h" />
     <ClInclude Include="..\src\ScintillaComponent\Printer.h" />
-    <ClInclude Include="..\src\uchardet\prmem.h" />
     <ClInclude Include="..\src\MISC\Process\Processus.h" />
     <ClInclude Include="..\src\WinControls\ProjectPanel\ProjectPanel.h" />
     <ClInclude Include="..\src\WinControls\ProjectPanel\ProjectPanel_rc.h" />
@@ -396,7 +349,6 @@
     <ClInclude Include="..\src\WinControls\ToolBar\ToolBar.h" />
     <ClInclude Include="..\src\WinControls\ToolTip\ToolTip.h" />
     <ClInclude Include="..\src\WinControls\TrayIcon\trayIconControler.h" />
-    <ClInclude Include="..\src\uchardet\uchardet.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\URLCtrl.h" />
     <ClInclude Include="..\src\ScintillaComponent\UserDefineDialog.h" />
     <ClInclude Include="..\src\ScintillaComponent\UserDefineLangReference.h" />
@@ -424,6 +376,7 @@
     <Manifest Include="..\src\notepad++.exe.manifest" />
   </ItemGroup>
   <Import Project="notepadPlus.Resource.targets" />
+  <Import Project="notepadPlus.uchardet.targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

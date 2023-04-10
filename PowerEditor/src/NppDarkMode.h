@@ -220,6 +220,8 @@ namespace NppDarkMode
 
 	bool subclassTabUpDownControl(HWND hwnd);
 
+	void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);
+
 	void setDarkTitleBar(HWND hwnd);
 	void setDarkExplorerTheme(HWND hwnd);
 	void setDarkScrollBar(HWND hwnd);

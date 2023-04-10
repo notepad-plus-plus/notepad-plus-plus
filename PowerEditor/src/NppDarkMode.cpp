@@ -1550,6 +1550,34 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
 	}
 
+	struct BorderMetricsData
+	{
+		UINT _dpi = USER_DEFAULT_SCREEN_DPI;
+		LONG _xEdge = ::GetSystemMetrics(SM_CXEDGE);
+		LONG _yEdge = ::GetSystemMetrics(SM_CYEDGE);
+		LONG _xScroll = ::GetSystemMetrics(SM_CXVSCROLL);
+		LONG _yScroll = ::GetSystemMetrics(SM_CYVSCROLL);
+
+		void setMetricsForDpi(UINT dpi)
+		{
+			_dpi = dpi;
+			if (NppDarkMode::isWindows10())
+			{
+				_xEdge = ::GetSystemMetricsForDpi(SM_CXEDGE, _dpi);
+				_yEdge = ::GetSystemMetricsForDpi(SM_CYEDGE, _dpi);
+				_xScroll = ::GetSystemMetricsForDpi(SM_CXVSCROLL, _dpi);
+				_yScroll = ::GetSystemMetricsForDpi(SM_CYVSCROLL, _dpi);
+			}
+			else
+			{
+				_xEdge = DPIManagerV2::scale(::GetSystemMetrics(SM_CXEDGE), _dpi);
+				_yEdge = DPIManagerV2::scale(::GetSystemMetrics(SM_CYEDGE), _dpi);
+				_xScroll = DPIManagerV2::scale(::GetSystemMetrics(SM_CXVSCROLL), _dpi);
+				_yScroll = DPIManagerV2::scale(::GetSystemMetrics(SM_CYVSCROLL), _dpi);
+			}
+		}
+	};
+
 	constexpr UINT_PTR g_customBorderSubclassID = 42;
 
 	LRESULT CALLBACK CustomBorderSubclass(
@@ -1561,7 +1589,7 @@ namespace NppDarkMode
 		DWORD_PTR dwRefData
 	)
 	{
-		UNREFERENCED_PARAMETER(dwRefData);
+		auto pBorderMetricsData = reinterpret_cast<BorderMetricsData*>(dwRefData);
 
 		static bool isHotStatic = false;
 
@@ -1579,21 +1607,21 @@ namespace NppDarkMode
 				HDC hdc = ::GetWindowDC(hWnd);
 				RECT rcClient{};
 				::GetClientRect(hWnd, &rcClient);
-				rcClient.right += (2 * ::GetSystemMetrics(SM_CXEDGE));
+				rcClient.right += (2 * pBorderMetricsData->_xEdge);
 
 				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
 				bool hasVerScrollbar = (style & WS_VSCROLL) == WS_VSCROLL;
 				if (hasVerScrollbar)
 				{
-					rcClient.right += ::GetSystemMetrics(SM_CXVSCROLL);
+					rcClient.right += pBorderMetricsData->_xScroll;
 				}
 
-				rcClient.bottom += (2 * ::GetSystemMetrics(SM_CYEDGE));
+				rcClient.bottom += (2 * pBorderMetricsData->_yEdge);
 
 				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
 				if (hasHorScrollbar)
 				{
-					rcClient.bottom += ::GetSystemMetrics(SM_CYHSCROLL);
+					rcClient.bottom += pBorderMetricsData->_yScroll;
 				}
 
 				HPEN hPen = ::CreatePen(PS_SOLID, 1, NppDarkMode::getBackgroundColor());
@@ -1619,34 +1647,34 @@ namespace NppDarkMode
 
 				return 0;
 			}
-			break;
+
+			case WM_DPICHANGED:
+			{
+				pBorderMetricsData->setMetricsForDpi(LOWORD(wParam));
+				::SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+				return 0;
+			}
 
 			case WM_NCCALCSIZE:
 			{
-				if (!NppDarkMode::isEnabled())
-				{
-					break;
-				}
-
 				auto lpRect = reinterpret_cast<LPRECT>(lParam);
-				::InflateRect(lpRect, -(::GetSystemMetrics(SM_CXEDGE)), -(::GetSystemMetrics(SM_CYEDGE)));
+				::InflateRect(lpRect, -(pBorderMetricsData->_xEdge), -(pBorderMetricsData->_yEdge));
 
 				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
 				bool hasVerScrollbar = (style & WS_VSCROLL) == WS_VSCROLL;
 				if (hasVerScrollbar)
 				{
-					lpRect->right -= ::GetSystemMetrics(SM_CXVSCROLL);
+					lpRect->right -= pBorderMetricsData->_xScroll;
 				}
 
 				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
 				if (hasHorScrollbar)
 				{
-					lpRect->bottom -= ::GetSystemMetrics(SM_CYHSCROLL);
+					lpRect->bottom -= pBorderMetricsData->_yScroll;
 				}
 
 				return 0;
 			}
-			break;
 
 			case WM_MOUSEMOVE:
 			{
@@ -1700,6 +1728,7 @@ namespace NppDarkMode
 			case WM_NCDESTROY:
 			{
 				RemoveWindowSubclass(hWnd, CustomBorderSubclass, uIdSubclass);
+				delete pBorderMetricsData;
 			}
 			break;
 		}
@@ -1708,7 +1737,8 @@ namespace NppDarkMode
 
 	void subclassCustomBorderForListBoxAndEditControls(HWND hwnd)
 	{
-		SetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, 0);
+		auto pBorderMetricsData = reinterpret_cast<DWORD_PTR>(new BorderMetricsData());
+		SetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, pBorderMetricsData);
 	}
 
 	constexpr UINT_PTR g_comboBoxSubclassID = 42;
@@ -2752,6 +2782,78 @@ namespace NppDarkMode
 
 		return false;
 	}
+
+	// currently send message only to selected buttons; listbox and edit controls with scrollbars
+	void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam)
+	{
+		struct WMessage
+		{
+			UINT _msg = 0;
+			WPARAM _wParam = 0;
+			LPARAM _lParam = 0;
+		};
+
+		struct WMessage p { msg, wParam, lParam };
+
+		::EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM childLParam) WINAPI_LAMBDA -> BOOL {
+			auto& p = *reinterpret_cast<WMessage*>(childLParam);
+			constexpr size_t classNameLen = 32;
+			TCHAR className[classNameLen]{};
+			::GetClassName(hwnd, className, classNameLen);
+			auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+
+			if (wcscmp(className, WC_BUTTON) == 0)
+			{
+				switch (style & BS_TYPEMASK)
+				{
+					case BS_CHECKBOX:
+					case BS_AUTOCHECKBOX:
+					case BS_3STATE:
+					case BS_AUTO3STATE:
+					case BS_RADIOBUTTON:
+					case BS_AUTORADIOBUTTON:
+					{
+						if ((style & BS_PUSHLIKE) != BS_PUSHLIKE)
+						{
+							::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
+						}
+						break;
+					}
+
+					default:
+						break;
+				}
+
+				return TRUE;
+			}
+
+			if (wcscmp(className, WC_EDIT) == 0)
+			{
+				bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
+				if (hasScrollBar)
+				{
+					::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
+				}
+				return TRUE;
+			}
+
+			if (wcscmp(className, WC_LISTBOX) == 0)
+			{
+				if ((style & LBS_COMBOBOX) != LBS_COMBOBOX)
+				{
+					bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
+					if (hasScrollBar)
+					{
+						::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
+					}
+				}
+				return TRUE;
+			}
+
+			return TRUE;
+			}, reinterpret_cast<LPARAM>(&p));
+	}
+
 
 	void setDarkTitleBar(HWND hwnd)
 	{

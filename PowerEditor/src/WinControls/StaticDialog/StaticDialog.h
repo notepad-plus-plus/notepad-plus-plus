@@ -16,6 +16,7 @@
 #pragma once
 #include "Notepad_plus_msgs.h"
 #include "Window.h"
+#include "dpiManagerV2.h"
 
 typedef HRESULT (WINAPI * ETDTProc) (HWND, DWORD);
 
@@ -36,12 +37,14 @@ struct DLGTEMPLATEEX
       // The structure has more fields but are variable length
 };
 
-class StaticDialog : public Window
+class StaticDialog : public Window, public DPIManagerV2
 {
 public :
 	virtual ~StaticDialog();
 
 	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
+
+	virtual void createForDpi(int dialogID, bool isRTL = false, bool msgDestParent = true);
 
     virtual bool isCreated() const {
 		return (_hSelf != NULL);
@@ -65,6 +68,28 @@ public :
 	void setChecked(int checkControlID, bool checkOrNot = true) const
 	{
 		::SendDlgItemMessage(_hSelf, checkControlID, BM_SETCHECK, checkOrNot ? BST_CHECKED : BST_UNCHECKED, 0);
+	}
+
+	void initDpi()
+	{
+		setDpi(_hSelf);
+	}
+
+	void initDpiFromParent()
+	{
+		if (_hParent != nullptr)
+		{
+			setDpi(_hParent);
+		}
+		else
+		{
+			initDpi();
+		}
+	}
+
+	void setPositionDpi(LPARAM lParam)
+	{
+		DPIManagerV2::setPositionDpi(lParam, _hSelf);
 	}
 
 	void destroy() override;

@@ -15,10 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stdio.h>
-#include <windows.h>
 #include "StaticDialog.h"
-#include "Common.h"
-#include "NppDarkMode.h"
 
 StaticDialog::~StaticDialog()
 {
@@ -241,9 +238,24 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 	}
 
 	NppDarkMode::setDarkTitleBar(_hSelf);
+	initDpi();
 
 	// if the destination of message NPPM_MODELESSDIALOG is not its parent, then it's the grand-parent
 	::SendMessage(msgDestParent ? _hParent : (::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, reinterpret_cast<WPARAM>(_hSelf));
+}
+
+void StaticDialog::createForDpi(int dialogID, bool isRTL, bool msgDestParent)
+{
+	if (NppDarkMode::isWindows10())
+	{
+		const auto dpiContext = ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		create(dialogID, isRTL, msgDestParent);
+		::SetThreadDpiAwarenessContext(dpiContext);
+	}
+	else
+	{
+		create(dialogID, isRTL, msgDestParent);
+	}
 }
 
 intptr_t CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)

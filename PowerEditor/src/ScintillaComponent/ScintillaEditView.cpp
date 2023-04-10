@@ -3836,7 +3836,7 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 }
 
 void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort)
-{ // NEW
+{
 	if (fromLine >= toLine)
 	{
 		return;
@@ -3876,43 +3876,6 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 		replaceTarget(joined.c_str(), startPos, endPos);
 	}
 }
-//void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort)
-//{ // OLD
-//	if (fromLine >= toLine)
-//	{
-//		return;
-//	}
-//
-//	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
-//	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
-//	const generic_string text = getGenericTextAsString(startPos, endPos);
-//	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
-//	const size_t lineCount = execute(SCI_GETLINECOUNT);
-//	const bool sortEntireDocument = toLine == lineCount - 1;
-//	if (!sortEntireDocument)
-//	{
-//		if (splitText.rbegin()->empty())
-//		{
-//			splitText.pop_back();
-//		}
-//	}
-//	assert(toLine - fromLine + 1 == splitText.size());
-//	const std::vector<generic_string> sortedText = pSort->sort(splitText);
-//	generic_string joined = stringJoin(sortedText, getEOLString());
-//	if (sortEntireDocument)
-//	{
-//		assert(joined.length() == text.length());
-//	}
-//	else
-//	{
-//		assert(joined.length() + getEOLString().length() == text.length());
-//		joined += getEOLString();
-//	}
-//	if (text != joined)
-//	{
-//		replaceTarget(joined.c_str(), startPos, endPos);
-//	}
-//}
 
 bool ScintillaEditView::isTextDirectionRTL() const
 {

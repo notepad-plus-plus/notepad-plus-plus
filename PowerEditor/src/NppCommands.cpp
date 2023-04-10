@@ -2410,14 +2410,6 @@ void Notepad_plus::command(int id)
 
 			_findReplaceDlg.updateFinderScintillaForNpc();
 
-			if (isChecked)
-			{
-				checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, isChecked);
-				svp1._ccUniEolShow = isChecked;
-				_mainEditView.showCcUniEol(isChecked);
-				_subEditView.showCcUniEol(isChecked);
-			}
-
 			break;
 		}
 

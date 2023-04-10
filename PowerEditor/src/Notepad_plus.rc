@@ -673,7 +673,7 @@ BEGIN
             MENUITEM "Show Non-Printing Characters",    IDM_VIEW_NPC
             MENUITEM "Show All Characters",             IDM_VIEW_ALL_CHARACTERS
             MENUITEM SEPARATOR
-            MENUITEM "Show C0, C1 Control and Unicode EOL Characters", IDM_VIEW_NPC_CCUNIEOL
+            MENUITEM "Render C0, C1 Control and Unicode EOL Characters", IDM_VIEW_NPC_CCUNIEOL
             MENUITEM SEPARATOR
             MENUITEM "Show Indent Guide",               IDM_VIEW_INDENT_GUIDE
             MENUITEM "Show Wrap Symbol",                IDM_VIEW_WRAP_SYMBOL

@@ -296,7 +296,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44114" name="Apply Color 4"/>
                     <Item id="44115" name="Apply Color 5"/>
                     <Item id="44130" name="Show Non-Printing Characters"/>
-                    <Item id="44131" name="Show C0, C1 Control and Unicode EOL Characters"/>
+                    <Item id="44131" name="Render C0, C1 Control and Unicode EOL Characters"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>

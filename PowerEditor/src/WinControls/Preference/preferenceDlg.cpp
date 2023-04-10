@@ -264,6 +264,36 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			_generalSubDlg.setDpi(wParam);
+			_editingSubDlg.setDpi(wParam);
+			_darkModeSubDlg.setDpi(wParam);
+			_marginsBorderEdgeSubDlg.setDpi(wParam);
+			_miscSubDlg.setDpi(wParam);
+			_fileAssocDlg.setDpi(wParam);
+			_languageSubDlg.setDpi(wParam);
+			_highlightingSubDlg.setDpi(wParam);
+			_printSubDlg.setDpi(wParam);
+			_newDocumentSubDlg.setDpi(wParam);
+			_defaultDirectorySubDlg.setDpi(wParam);
+			_recentFilesHistorySubDlg.setDpi(wParam);
+			_backupSubDlg.setDpi(wParam);
+			_autoCompletionSubDlg.setDpi(wParam);
+			_multiInstanceSubDlg.setDpi(wParam);
+			_delimiterSubDlg.setDpi(wParam);
+			_performanceSubDlg.setDpi(wParam);
+			_cloudAndLinkSubDlg.setDpi(wParam);
+			_searchEngineSubDlg.setDpi(wParam);
+			_searchingSubDlg.setDpi(wParam);
+
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+
+			setPositionDpi(lParam);
+			break;
+		}
+
 		case PREF_MSG_SETGUITOOLICONSSET:
 		{
 			const HWND generalSubDlg = _generalSubDlg.getHSelf();
@@ -1261,9 +1291,9 @@ void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2Move
 	NppParameters& nppParam = NppParameters::getInstance();
 
 	if(nppParam.getNativeLangSpeaker()->isRTL())
-		p.x = rc.right + nppParam._dpiManager.scaleX(5) + handle2MoveWidth;
+		p.x = rc.right + DPIManagerV2::scaleX(5) + handle2MoveWidth;
 	else
-		p.x = rc.left - nppParam._dpiManager.scaleX(5) - handle2MoveWidth;
+		p.x = rc.left - DPIManagerV2::scaleX(5) - handle2MoveWidth;
 
 	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
@@ -1343,8 +1373,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pHotEdgeColorPicker->init(_hInst, _hSelf);
 			_pDisabledEdgeColorPicker->init(_hInst, _hSelf);
 
-			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
-			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
+			int cpDynamicalWidth = DPIManagerV2::scaleX(25);
+			int cpDynamicalHeight = DPIManagerV2::scaleY(25);
 
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
@@ -1425,6 +1455,27 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				return TRUE;
 			}
 			break;
+		}
+
+		case WM_DPICHANGED:
+		{
+			const int cpDynamicalWidth = DPIManagerV2::scaleX(25);
+			const int cpDynamicalHeight = DPIManagerV2::scaleY(25);
+
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR3_STATIC, _pSofterBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR4_STATIC, _pBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR5_STATIC, _pErrorBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR6_STATIC, _pTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR7_STATIC, _pDarkerTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR8_STATIC, _pDisabledTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR11_STATIC, _pHotEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+
+			return TRUE;
 		}
 
 		case WM_DESTROY:
@@ -3763,8 +3814,8 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					case IDC_COMBO_HFONTSIZE :
 					case IDC_COMBO_FFONTSIZE :
 					{
-						const size_t intStrLen = 3;
-						TCHAR intStr[intStrLen];
+						constexpr size_t intStrLen = 3;
+						TCHAR intStr[intStrLen]{};
 
 						auto lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXTLEN, iSel, 0);
 						if (static_cast<size_t>(lbTextLen) >= intStrLen)
@@ -3842,8 +3893,8 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						size_t selEnd = 0;
 						::SendDlgItemMessage(_hSelf, _focusedEditCtrl, EM_GETSEL, reinterpret_cast<WPARAM>(&selStart), reinterpret_cast<LPARAM>(&selEnd));
 
-						const int stringSize = 256;
-						TCHAR str[stringSize];
+						constexpr int stringSize = 256;
+						TCHAR str[stringSize]{};
 						::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, stringSize, reinterpret_cast<LPARAM>(str));
 
 						generic_string str2Set(str);
@@ -4775,10 +4826,10 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			//
 			// Delimiter
 			//
-			TCHAR opener[2];
+			TCHAR opener[2]{};
 			opener[0] = nppGUI._leftmostDelimiter;
 			opener[1] = '\0';
-			TCHAR closer[2];
+			TCHAR closer[2]{};
 			closer[0] = nppGUI._rightmostDelimiter;
 			closer[1] = '\0';
 			bool onSeveralLines = nppGUI._delimiterSelectionOnEntireDocument;

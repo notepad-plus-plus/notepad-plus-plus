@@ -1457,7 +1457,7 @@ void ScintillaEditView::setNpcAndCcUniEOL(long color)
 		}
 	}
 
-	if (svp._npcIncludeCcUniEol && svp._npcCustomColor)
+	if (svp._ccUniEolShow && svp._npcIncludeCcUniEol)
 	{
 		for (const auto& invChar : g_ccUniEolChars)
 		{
@@ -2915,10 +2915,7 @@ void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
 		for (const auto& invChar : g_ccUniEolChars)
 		{
 			execute(SCI_SETREPRESENTATION, reinterpret_cast<WPARAM>(invChar.at(0)), reinterpret_cast<LPARAM>(g_ZWSP));
-
-			// for security reasons don't fully hide, but render as thin rectangle
-			// using include in npc and custom color will make it less visible
-			//execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(invChar.at(0)), SC_REPRESENTATION_PLAIN);
+			execute(SCI_SETREPRESENTATIONAPPEARANCE, reinterpret_cast<WPARAM>(invChar.at(0)), SC_REPRESENTATION_PLAIN);
 		}
 
 		// SCI_CLEARALLREPRESENTATIONS will also reset CRLF and NPC
@@ -2930,10 +2927,6 @@ void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
 		if (svp._npcShow)
 		{
 			showNpc();
-		}
-		else if (svp._npcIncludeCcUniEol && svp._npcCustomColor)
-		{
-			setNpcAndCcUniEOL();
 		}
 	}
 

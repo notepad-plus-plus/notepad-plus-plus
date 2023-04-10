@@ -61,16 +61,17 @@ class WordStyleDlg : public StaticDialog
 public :
 	WordStyleDlg() = default;
 
-    void init(HINSTANCE hInst, HWND parent)	{
-        Window::init(hInst, parent);
+	void init(HINSTANCE hInst, HWND parent) override {
+		Window::init(hInst, parent);
 	};
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
+	void createForDpi(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
 
     void doDialog(bool isRTL = false) {
     	if (!isCreated())
 		{
-			create(IDD_STYLER_DLG, isRTL);
+			createForDpi(IDD_STYLER_DLG, isRTL);
 			prepare2Cancel();
 		}
 
@@ -87,7 +88,7 @@ public :
 		_gOverride2restored = (NppParameters::getInstance()).getGlobalOverrideStyle();
 	};
 
-    virtual void redraw(bool forceUpdate = false) const {
+	void redraw(bool forceUpdate = false) const override {
         _pFgColour->redraw(forceUpdate);
 		_pBgColour->redraw(forceUpdate);
 		::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
@@ -112,6 +113,17 @@ public :
 
 	bool goToSection(const TCHAR* sectionNames); // sectionNames is formed as following: "Language name:Style name"
 	                                             // ex: "Global Styles:EOL custom color" will set Language on "Global Styles", then set Style on "EOL custom color" if both are found.
+
+	void destroy() override {
+		_goToSettings.destroy();
+
+		_pFgColour->destroy();
+		_pBgColour->destroy();
+		delete _pFgColour;
+		delete _pBgColour;
+		_pFgColour = nullptr;
+		_pBgColour = nullptr;
+	};
 
 private :
     ColourPicker *_pFgColour = nullptr;
@@ -151,7 +163,7 @@ private :
 	bool _isShownGOCtrls = false;
 
 
-	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 
 
 	Style & getCurrentStyler() {

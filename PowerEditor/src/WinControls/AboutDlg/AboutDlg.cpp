@@ -130,6 +130,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 		case WM_DESTROY :
 		{
+			destroy();
 			return TRUE;
 		}
 	}
@@ -402,6 +403,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 		case WM_DESTROY:
 		{
+			destroy();
 			return TRUE;
 		}
 	}

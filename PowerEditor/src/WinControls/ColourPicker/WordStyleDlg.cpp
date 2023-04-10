@@ -31,10 +31,10 @@ LRESULT CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Messag
 	{
 		case WM_PAINT:
 		{
-			RECT rect;
+			RECT rect{};
 			::GetClientRect(hwnd, &rect);
 
-			PAINTSTRUCT ps;
+			PAINTSTRUCT ps{};
 			HDC hdc = ::BeginPaint(hwnd, &ps);
 
 			::SetTextColor(hdc, _colour);
@@ -44,17 +44,18 @@ LRESULT CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Messag
 				::SetBkColor(hdc, NppDarkMode::getDarkerBackgroundColor());
 			}
 
-			// Get the default GUI font
-			HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
-
-			HANDLE hOld = SelectObject(hdc, hf);
+			auto lFont = DPIManagerV2::getFontDpi(::GetParent(hwnd));
+			HFONT hFont = ::CreateFontIndirect(&lFont);
+			HANDLE hOldFont = ::SelectObject(hdc, hFont);
 
 			// Draw the text!
-			TCHAR text[MAX_PATH];
+			TCHAR text[MAX_PATH]{};
 			::GetWindowText(hwnd, text, MAX_PATH);
 			::DrawText(hdc, text, -1, &rect, DT_LEFT);
 
-			::SelectObject(hdc, hOld);
+			::SelectObject(hdc, hOldFont);
+			::DeleteObject(hFont);
+			hFont = nullptr;
 
 			::EndPaint(hwnd, &ps);
 
@@ -136,8 +137,8 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_pFgColour->init(_hInst, _hSelf);
 			_pBgColour->init(_hInst, _hSelf);
 
-			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
-			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
+			int cpDynamicalWidth = DPIManagerV2::scaleX(25);
+			int cpDynamicalHeight = DPIManagerV2::scaleY(25);
 
 			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
 			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
@@ -159,7 +160,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 
 			return TRUE;
 		}
@@ -183,20 +184,12 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorListbox(wParam, lParam);
-			}
-			break;
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
@@ -268,12 +261,28 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			return TRUE;
 		}
 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+
+			_goToSettings.destroy();
+
+			const int cpDynamicalWidth = DPIManagerV2::scaleX(25);
+			const int cpDynamicalHeight = DPIManagerV2::scaleY(25);
+
+			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+
+			setPositionDpi(lParam);
+			
+			return TRUE;
+		}
+
 		case WM_DESTROY:
 		{
-			_pFgColour->destroy();
-			_pBgColour->destroy();
-			delete _pFgColour;
-			delete _pBgColour;
+			destroy();
 			return TRUE;
 		}
 
@@ -1172,6 +1181,20 @@ void WordStyleDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 		::SendDlgItemMessage(_hSelf, IDC_SC_PERCENTAGE_SLIDER, TBM_SETPOS, TRUE, 150);
 		if (!(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_SC_PERCENTAGE_SLIDER, BM_GETCHECK, 0, 0)))
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_SC_PERCENTAGE_SLIDER), FALSE);
+	}
+}
+
+void WordStyleDlg::createForDpi(int dialogID, bool isRTL, bool msgDestParent)
+{
+	if (NppDarkMode::isWindows10())
+	{
+		const auto dpiContext = ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		WordStyleDlg::create(dialogID, isRTL, msgDestParent);
+		::SetThreadDpiAwarenessContext(dpiContext);
+	}
+	else
+	{
+		WordStyleDlg::create(dialogID, isRTL, msgDestParent);
 	}
 }
 

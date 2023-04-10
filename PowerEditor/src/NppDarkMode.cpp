@@ -1184,6 +1184,13 @@ namespace NppDarkMode
 				{
 					break;
 				}
+
+			case WM_DPICHANGED:
+			{
+				pButtonData->closeTheme();
+				return TRUE;
+			}
+
 			case WM_THEMECHANGED:
 				pButtonData->closeTheme();
 				break;

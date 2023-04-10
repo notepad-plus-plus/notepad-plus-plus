@@ -3846,25 +3846,17 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
 	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
-	const size_t lineCount = execute(SCI_GETLINECOUNT);
-	const bool sortEntireDocument = toLine == lineCount - 1;
-	if (!sortEntireDocument)
+	bool lastLineEmpty = splitText.rbegin()->empty();
+	if (lastLineEmpty)
 	{
-		if (splitText.rbegin()->empty())
-		{
-			splitText.pop_back();
-		}
+		splitText.pop_back();
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
 	const std::vector<generic_string> sortedText = pSort->sort(splitText);
 	generic_string joined = stringJoin(sortedText, getEOLString());
-	if (sortEntireDocument)
+	assert(joined.length() + getEOLString().length() == text.length());
+	if (lastLineEmpty)
 	{
-		assert(joined.length() == text.length());
-	}
-	else
-	{
-		assert(joined.length() + getEOLString().length() == text.length());
 		joined += getEOLString();
 	}
 	if (text != joined)

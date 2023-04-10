@@ -68,11 +68,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -90,14 +86,20 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			return TRUE;
 		}
 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			_pageLink.destroy();
+			return TRUE;
+		}
+
 		case WM_DRAWITEM :
 		{
-			DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
-			int iconSideSize = 80;
-			int w = dpiManager.scaleX(iconSideSize);
-			int h = dpiManager.scaleY(iconSideSize);
+			constexpr int iconSideSize = 80;
+			int w = DPIManagerV2::scaleX(iconSideSize);
+			int h = DPIManagerV2::scaleY(iconSideSize);
 
-			HICON hIcon;
+			HICON hIcon = nullptr;
 			if (NppDarkMode::isEnabled())
 				hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON_DM), IMAGE_ICON, w, h, LR_DEFAULTSIZE);
 			else
@@ -137,14 +139,14 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 void AboutDlg::doDialog()
 {
 	if (!isCreated())
-		create(IDD_ABOUTBOX);
+		createForDpi(IDD_ABOUTBOX);
 
-    // Adjust the position of AboutBox
-	goToCenter();
+	// Adjust the position of AboutBox
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
 
-intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -345,11 +347,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -364,6 +362,14 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			_copyToClipboardLink.destroy();
+			setPositionDpi(lParam);
 			return TRUE;
 		}
 
@@ -405,14 +411,14 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 void DebugInfoDlg::doDialog()
 {
 	if (!isCreated())
-		create(IDD_DEBUGINFOBOX);
+		createForDpi(IDD_DEBUGINFOBOX);
 
 	// Refresh the Debug Information.
 	// For example, the command line parameters may have changed since this dialog was last opened during this session.
 	refreshDebugInfo();
 
 	// Adjust the position of AboutBox
-	goToCenter();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
 void DebugInfoDlg::refreshDebugInfo()
@@ -434,6 +440,7 @@ void DebugInfoDlg::refreshDebugInfo()
 
 void DoSaveOrNotBox::doDialog(bool isRTL)
 {
+	initDpiFromParent();
 
 	if (isRTL)
 	{
@@ -444,6 +451,20 @@ void DoSaveOrNotBox::doDialog(bool isRTL)
 	}
 	else
 		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_DOSAVEORNOTBOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+}
+
+void DoSaveOrNotBox::doDialogForDpi(bool isRTL)
+{
+	if (NppDarkMode::isWindows10())
+	{
+		const auto dpiContext = ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		doDialog(isRTL);
+		::SetThreadDpiAwarenessContext(dpiContext);
+	}
+	else
+	{
+		doDialog(isRTL);
+	}
 }
 
 void DoSaveOrNotBox::changeLang()
@@ -467,7 +488,7 @@ void DoSaveOrNotBox::changeLang()
 	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, msg.c_str());
 }
 
-intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -478,18 +499,14 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			changeLang();
 			::EnableWindow(::GetDlgItem(_hSelf, IDRETRY), _isMulti);
 			::EnableWindow(::GetDlgItem(_hSelf, IDIGNORE), _isMulti);
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 			return TRUE;
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -499,6 +516,13 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				return TRUE;
 			}
 			break;
+		}
+
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			setPositionDpi(lParam);
+			return TRUE;
 		}
 
 		case WM_COMMAND:
@@ -551,6 +575,7 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 void DoSaveAllBox::doDialog(bool isRTL)
 {
+	initDpiFromParent();
 
 	if (isRTL)
 	{
@@ -561,6 +586,20 @@ void DoSaveAllBox::doDialog(bool isRTL)
 	}
 	else
 		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_DOSAVEALLBOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+}
+
+void DoSaveAllBox::doDialogForDpi(bool isRTL)
+{
+	if (NppDarkMode::isWindows10())
+	{
+		const auto dpiContext = ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		doDialog(isRTL);
+		::SetThreadDpiAwarenessContext(dpiContext);
+	}
+	else
+	{
+		doDialog(isRTL);
+	}
 }
 
 void DoSaveAllBox::changeLang()
@@ -583,7 +622,7 @@ void DoSaveAllBox::changeLang()
 	::SetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, msg.c_str());
 }
 
-intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -592,18 +631,14 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 		changeLang();
-		goToCenter();
+		goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 		return TRUE;
 	}
 
 	case WM_CTLCOLORDLG:
 	case WM_CTLCOLORSTATIC:
 	{
-		if (NppDarkMode::isEnabled())
-		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-		}
-		break;
+		return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 	}
 
 	case WM_PRINTCLIENT:
@@ -613,6 +648,13 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			return TRUE;
 		}
 		break;
+	}
+
+	case WM_DPICHANGED:
+	{
+		setDpi(wParam);
+		setPositionDpi(lParam);
+		return TRUE;
 	}
 
 	case WM_COMMAND:

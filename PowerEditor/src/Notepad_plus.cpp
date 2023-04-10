@@ -2272,7 +2272,7 @@ int Notepad_plus::doSaveOrNot(const TCHAR* fn, bool isMulti)
 
 	DoSaveOrNotBox doSaveOrNotBox;
 	doSaveOrNotBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), fn, isMulti);
-	doSaveOrNotBox.doDialog(_nativeLangSpeaker.isRTL());
+	doSaveOrNotBox.doDialogForDpi(_nativeLangSpeaker.isRTL());
 	int buttonID = doSaveOrNotBox.getClickedButtonId();
 	doSaveOrNotBox.destroy();
 
@@ -2292,7 +2292,7 @@ int Notepad_plus::doSaveAll()
 
 	DoSaveAllBox doSaveAllBox;
 	doSaveAllBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
-	doSaveAllBox.doDialog(_nativeLangSpeaker.isRTL());
+	doSaveAllBox.doDialogForDpi(_nativeLangSpeaker.isRTL());
 	int buttonID = doSaveAllBox.getClickedButtonId();
 	doSaveAllBox.destroy();
 

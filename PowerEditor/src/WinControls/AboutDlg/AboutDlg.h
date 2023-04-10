@@ -43,16 +43,16 @@ public :
 
 	void doDialog();
 
-    virtual void destroy() {
-        _emailLink.destroy();
+	void destroy() override {
+		//_emailLink.destroy();
         _pageLink.destroy();
     };
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
-    URLCtrl _emailLink;
+	//URLCtrl _emailLink;
     URLCtrl _pageLink;
 };
 
@@ -72,12 +72,12 @@ public:
 
 	void refreshDebugInfo();
 
-	virtual void destroy() {
+	void destroy() override {
 		_copyToClipboardLink.destroy();
 	};
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	typedef const CHAR * (__cdecl * PWINEGETVERSION)();
@@ -103,8 +103,9 @@ public:
 	};
 
 	void doDialog(bool isRTL = false);
+	void doDialogForDpi(bool isRTL = false);
 
-	virtual void destroy() {};
+	void destroy() override {};
 
 	int getClickedButtonId() const {
 		return clickedButtonId;
@@ -113,7 +114,7 @@ public:
 	void changeLang();
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	int clickedButtonId = -1;
@@ -127,8 +128,9 @@ public:
 	DoSaveAllBox() = default;
 
 	void doDialog(bool isRTL = false);
+	void doDialogForDpi(bool isRTL = false);
 
-	virtual void destroy() {};
+	void destroy() override {};
 
 	int getClickedButtonId() const {
 		return clickedButtonId;
@@ -137,7 +139,7 @@ public:
 	void changeLang();
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	int clickedButtonId = -1;

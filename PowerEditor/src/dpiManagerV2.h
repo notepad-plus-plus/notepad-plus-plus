@@ -69,7 +69,7 @@ public:
 		// _dpiY = HIWORD(wParam);
 	}
 
-	void setDpi(UINT newDpi)
+	void setDpiValue(UINT newDpi)
 	{
 		setDpiPrev();
 		_dpi = newDpi;

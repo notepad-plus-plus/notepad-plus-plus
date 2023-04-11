@@ -1682,6 +1682,7 @@ void Notepad_plus::removeDuplicateLines()
 	env._str2Search = TEXT("^(.*(\\r?\\n|\\r))(\\1)+");
 	env._str4Replace = TEXT("\\1");
 	env._searchType = FindRegex;
+	env._dotMatchesNewline = true;
 	auto mainSelStart = _pEditView->execute(SCI_GETSELECTIONSTART);
 	auto mainSelEnd = _pEditView->execute(SCI_GETSELECTIONEND);
 	auto mainSelLength = mainSelEnd - mainSelStart;

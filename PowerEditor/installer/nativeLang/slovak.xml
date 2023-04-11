@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.1">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -296,6 +296,7 @@
                     <Item id="44114" name="Použiť farbu 4"/>
                     <Item id="44115" name="Použiť farbu 5"/>
                     <Item id="44130" name="Zobraziť netlačiteľné znaky"/>
+                    <Item id="44131" name="Zobraziť riadiace znaky a Unicode EOL"/>
                     <Item id="44032" name="Prepnúť zobrazenie na celú obrazovku"/>
                     <Item id="44033" name="Obnoviť predvolené priblíženie"/>
                     <Item id="44034" name="Vždy navrchu"/>
@@ -956,6 +957,7 @@
                     <Item id="6254" name="Skratka"/>
                     <Item id="6255" name="Kódový bod"/>
                     <Item id="6256" name="Vlastná farba"/>
+                    <Item id="6258" name="Použiť na C0, C1 a Unicode EOL"/>
                 </Scintillas>
 
                 <DarkMode title="Tmavý režim">
@@ -1680,11 +1682,9 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 POZNÁMKA:
 1. Pri zmene týchto možností sa na správne fungovanie vyžaduje opätovné otvorenie aktuálne otvorených veľkých súborov.
 
-2. Ak je povolená možnosť &quot;Globálne zakázať zalamovanie riadkov&quot; a otvoríte veľký súbor, &quot;Zalamovaie riadkov&quot; bude deaktivované pre všetky súbory. Môžete ho znovu aktivovať cez ponuku &quot;Zobrazenie-&gt;Zalomiť riadky&quot;." />
+2. Ak je povolená možnosť &quot;Globálne zakázať zalamovanie riadkov&quot; a otvoríte veľký súbor, &quot;Zalamovanie riadkov&quot; bude deaktivované pre všetky súbory. Môžete ho znovu aktivovať cez ponuku &quot;Zobrazenie-&gt;Zalomiť riadky&quot;." />
             <npcNote-tip value=" Zastúpenie vybraných &quot;nie-ASCII&quot; bielych znakov a netlačiteľných (riadiacich) znakov.
 POZNÁMKA:
-Niektoré znaky už môžu mať nejaké zastúpenie, a preto sú viditeľné. Oddeľovač riadkov a oddeľovač odsekov sú už štandardne reprezentované skratkou.
-
 Použitím reprezentácie sa vypnú efekty znakov na texte.
 
 Úplný zoznam vybraných bielych znakov a netlačiteľných znakov nájdete v používateľskej príručke.
@@ -1707,6 +1707,7 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Non-printing characters custom color&quot;)." />
+            <npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

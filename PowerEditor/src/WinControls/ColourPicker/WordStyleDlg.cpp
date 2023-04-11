@@ -707,7 +707,7 @@ void WordStyleDlg::updateFontSize()
 	if (iFontSizeSel != 0)
 	{
 		const size_t intStrLen = 3;
-		TCHAR intStr[intStrLen];
+		TCHAR intStr[intStrLen]{};
 
 		auto lbTextLen = ::SendMessage(_hFontSizeCombo, CB_GETLBTEXTLEN, iFontSizeSel, 0);
 		if (static_cast<size_t>(lbTextLen) >= intStrLen)
@@ -732,7 +732,7 @@ void WordStyleDlg::updateFontSize()
 void WordStyleDlg::updateExtension()
 {
 	const int NB_MAX = 256;
-	TCHAR ext[NB_MAX];
+	TCHAR ext[NB_MAX]{};
 	::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_GETTEXT, NB_MAX, reinterpret_cast<LPARAM>(ext));
 	_lsArray.getLexerFromIndex(_currentLexerIndex - 1).setLexerUserExt(ext);
 }

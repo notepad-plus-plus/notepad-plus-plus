@@ -15,8 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <vector>
-#include <algorithm>
 #include "columnEditor.h"
 #include "ScintillaEditView.h"
 
@@ -29,7 +27,7 @@ void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEd
 	_ppEditView = ppEditView;
 }
 
-void ColumnEditorDlg::display(bool toShow) const 
+void ColumnEditorDlg::display(bool toShow) const
 {
     Window::display(toShow);
     if (toShow)
@@ -38,7 +36,7 @@ void ColumnEditorDlg::display(bool toShow) const
 
 intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (message) 
+	switch (message)
 	{
 		case WM_INITDIALOG :
 		{
@@ -78,7 +76,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, format, BM_SETCHECK,  TRUE, 0);
 
 			switchTo(colEditParam._mainChoice);
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 
 			return TRUE;
 		}
@@ -148,7 +146,16 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND :
 		{
 			switch (wParam)
 			{
@@ -382,7 +389,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							TCHAR str[stringSize]{};
 
 							switch (LOWORD(wParam))
-							{								
+							{
 								case IDC_COL_TEXT_EDIT:
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
@@ -511,18 +518,18 @@ ColumnEditorParam::leadingChoice ColumnEditorDlg::getLeading()
 	{
 		case 0:
 		default:
-		{ 
-			leading = ColumnEditorParam::noneLeading; 
-			break; 
-		}
-		case 1: 
-		{ 
-			leading = ColumnEditorParam::zeroLeading; 
-			break; 
-		}
-		case 2: 
 		{
-			leading = ColumnEditorParam::spaceLeading; 
+			leading = ColumnEditorParam::noneLeading;
+			break;
+		}
+		case 1:
+		{
+			leading = ColumnEditorParam::zeroLeading;
+			break;
+		}
+		case 2:
+		{
+			leading = ColumnEditorParam::spaceLeading;
 			break;
 		}
 	}

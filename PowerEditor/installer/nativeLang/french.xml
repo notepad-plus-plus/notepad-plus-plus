@@ -296,6 +296,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44114" name="Appliquer la couleur 4"/>
                     <Item id="44115" name="Appliquer la couleur 5"/>
                     <Item id="44130" name="Afficher les caractères non-imprimables"/>
+                    <Item id="44131" name="Afficher les caractères de contrôle &amp; Unicode EOL"/>
                     <Item id="44032" name="Activer/Désactiver le mode plein écran"/>
                     <Item id="44033" name="Restaurer zoom"/>
                     <Item id="44034" name="Toujours devant"/>
@@ -948,7 +949,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6653" name="Colorer l’arrière-plan"/>
                     <Item id="6654" name="Tracer la bordure"/>
                     <Item id="6655" name="Épaisseur :"/>
-                    <Item id="6247" name="Saut de ligne (CRLF)"/>
+                    <Item id="6247" name="Saut de ligne (CRLF)"/> <!-- Don't translate "(CRLF)" -->
                     <Item id="6248" name="Défaut"/>
                     <Item id="6249" name="Texte brut"/>
                     <Item id="6250" name="Couleur personnalisée"/>
@@ -956,6 +957,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6254" name="Abréviation"/>
                     <Item id="6255" name="Point de code"/>
                     <Item id="6256" name="Couleur personnalisée"/>
+                    <Item id="6258" name="Appliquer à C0, C1 &amp; Unicode EOL"/>
                 </Scintillas>
 
                 <DarkMode title="Mode Sombre">
@@ -1152,12 +1154,12 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
                     <Item id="6810" name="Complétion de mot"/>
                     <Item id="6816" name="Complétion de fonction et de mot"/>
                     <Item id="6869" name="Insérer la sélection"/>
-                    <Item id="6870" name="TAB"/>
-                    <Item id="6871" name="ENTRÉE"/>
+                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+                    <Item id="6871" name="ENTRÉE"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
                     <Item id="6824" name="Ignorer les nombres"/>
                     <Item id="6811" name="À partir du"/>
                     <Item id="6813" name="ème caractère"/>
-                    <Item id="6814" name="Valeur possible : de 1 à 9"/>
+                    <Item id="6872" name="Rendre la liste d'auto-complétion brève"/>
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
                     <Item id="6851" name="Insertion automatique"/>
                     <Item id="6857" name="Balise fermante (html/xml)"/>
@@ -1263,7 +1265,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
             <MultiMacro title="Exécuter une macro en boucle">
                 <Item id="1" name="Exécuter"/>
                 <Item id="2" name="Annuler"/>
-                <Item id="8006" name="Macro à exécuter :"/>
+                <Item id="8006" name="Macro à exécuter"/>
                 <Item id="8001" name="L'exécuter"/>
                 <Item id="8005" name="fois"/>
                 <Item id="8002" name="Jusqu'à la fin du fichier"/>
@@ -1327,7 +1329,7 @@ Vous pouvez réactiver cette boîte de dialogue dans les Préférences ultérieu
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
         <MessageBox>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de &quot;contextMenu.xml&quot; vous permet de modifier la fenêtre de menu contextuel de Notepad++.
 Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devriez enregistrer la modification en cours.
@@ -1350,11 +1352,11 @@ Continuer ?"/> <!-- HowToReproduce: when you opened file is modified and saved, 
             <SettingsOnCloudError title="Les paramètres dans le cloud" message="Il semble que les paramètres dans le cloud se trouve sur un lecteur en lecture seule,
 ou à un dossier restreint. Votre paramètres dans le cloud seront annulés.
 Veuillez réinitialiser une valeur cohérente au dialogue Préférences."/>
-            <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
-            <SessionFileInvalidError title="Impossible de charger la session" message="Le fichier de session est endommagé ou non valide."/>
+            <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <SessionFileInvalidError title="Impossible de charger la session" message="Le fichier de session est endommagé ou non valide."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
             <DroppingFolderAsProjectModeWarning title="Action invalide" message="Vous ne pouvez déposer que des fichiers ou des dossiers mais pas les deux, car vous êtes en mode Projet.
 Pour rendre cette opération possible, vous devez activer &quot;Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier&quot; à la page &quot;Dossier par défaut&quot; du dialogue Préférences."/>
-            <SortingError title="Erreur de tri" message="Impossible d'effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/>
+            <SortingError title="Erreur de tri" message="Impossible d'effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ColumnModeTip title="Sélection en mode colonnes" message="
 Il existe 3 façons d'activer le mode colonne :
 
@@ -1367,7 +1369,7 @@ Il existe 3 façons d'activer le mode colonne :
        exécuter la commande &quot;Début/Fin sélection en mode colonne&quot; ;
       Déplacer le curseur à la position de fin désirée du bloc de colonne, puis
        exécuter la commande &quot;Début/Fin sélection en mode colonne&quot; à nouveau"/>
-            <BufferInvalidWarning title="Échec de sauvegarde" message="Échec de sauvegarde : le tampon des données de fichier est invalide."/>
+            <BufferInvalidWarning title="Échec de sauvegarde" message="Échec de sauvegarde : le tampon des données de fichier est invalide."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <DoCloseOrNot title="Conserver un fichier non existant" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe plus.
 Conserver ce fichier dans l'éditeur ?"/>
             <DoDeleteOrNot title="Supprimer fichier" message="Le fichier &quot;$STR_REPLACE$&quot;
@@ -1384,9 +1386,9 @@ Voulez-vous le recharger ?"/>
 
 Ce fichier a été modifié par un autre programme.
 Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++ ?"/>
-            <PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/>
+            <PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
             <XpUpdaterProblem title="Mettre à jour Notepad++" message="Le metteur à jour de Notepad++ est incompatible avec XP en raison de la couche de sécurité obsolète de XP.
-Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/>
+Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
             <GUpProxyConfNeedAdminMode title="Paramétrage de Proxy" message=" Afin de pouvoir configurer le proxy, relancez Notepad++ en mode &quot;Administrateur&quot;."/>
             <DocTooDirtyToMonitor title="Surveillance de Log" message="Le document a été modifié. Veuillez l'enregistrer d'abord."/>
             <DocNoExistToMonitor title="Surveillance de Log" message="Le fichier doit exister pour être surveillé."/>
@@ -1405,9 +1407,9 @@ Voulez-vous quand même enregistrer le fichier actuel ?"/> <!-- HowToReproduce: 
             <LoadStylersFailed title="Échec de chargement des styles" message="Échec de chargement du fichier &quot;$STR_REPLACE$&quot; !"/>
             <LoadLangsFailed title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot;.
 Voulez-vous récupérer &quot;langs.xml&quot; ?"/>
-            <LoadLangsFailedFinal title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot; !"/>
+            <LoadLangsFailedFinal title="Configuration" message="Échec de chargement du fichier &quot;langs.xml&quot; !"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
             <FolderAsWorspaceSubfolderExists title="Dossier en tant qu'Espace de travail" message="Il existe un sous-dossier du dossier que vous souhaitez ajouter.
-Veuillez supprimer le sous-dossier avant d'ajouter &quot;$STR_REPLACE$&quot;."/>
+Veuillez supprimer le sous-dossier avant d'ajouter &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="L'espace de travail a été modifié. Voulez-vous l'enregistrer ?"/>
             <ProjectPanelSaveError title="$STR_REPLACE$" message="Une erreur s'est produite lors de l'écriture de votre fichier d'espace de travail.
@@ -1442,6 +1444,12 @@ Continuer ?"/>
             <LanguageMenuCompactWarning title="Menu compact des langages" message="Cette option sera appliquée au prochain lancement."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Les modifications non-enregistrées vont être perdues !
 Voulez-vous enregistrer vos modifications avant de changer de thème ?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Compatibilité des commandes Macro et Exécuter" message="Vos commandes Macro et Exécuter enregistrées dans Notepad++ v.8.5.2 (ou antérieur) peuvent ne pas être compatibles avec la version courante de Notepad++.
+Veuillez tester ces commandes et, si besoin, ré-éditer celles-ci.
+
+Autrement, vous pouvez revenir vers Notepad++ v8.5.2 et restaurer les données précédentes.
+Notepad++ va sauvegarder votre ancien &quot;shortcuts.xml&quot; et l'enregistrer sous &quot;shortcuts.xml.v8.5.2.backup&quot;.
+En renommant &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vos commandes devraient être proprement restaurées."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papier"/>
@@ -1548,8 +1556,8 @@ Voulez-vous enregistrer vos modifications avant de changer de thème ?"/> <!-- H
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-clic pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+            <word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-clic pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
             <eol-custom-color-tip value="Accéder au Configurateur de coloration syntaxique pour personnaliser la couleur des sauts de ligne (&quot;EOL custom color&quot;)."/>
@@ -1557,12 +1565,12 @@ Voulez-vous enregistrer vos modifications avant de changer de thème ?"/> <!-- H
             <word-chars-list-warning-begin value="Attention : "/>
             <word-chars-list-space-warning value="$INT_REPLACE$ espace(s)"/>
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-            <word-chars-list-warning-end value="  dans votre liste des caractères."/>
-            <backup-select-folder value="Sélectionner un dossier pour le répertoire Sauvegarde (Backup)"/>
+            <word-chars-list-warning-end value="  dans votre liste des caractères."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+            <backup-select-folder value="Sélectionner un dossier pour le répertoire Sauvegarde (Backup)"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Chemin invalide."/>
             <cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
-            <cloud-select-folder value="Sélectionner un répertoire où Notepad++ lit ou écrit ses paramètres"/>
-            <default-open-save-select-folder value="Sélectionner un dossier pour le répertoire par défaut"/>
+            <cloud-select-folder value="Sélectionner un répertoire où Notepad++ lit ou écrit ses paramètres"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+            <default-open-save-select-folder value="Sélectionner un dossier pour le répertoire par défaut"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Utilisez Maj + Entrée pour rechercher dans le sens inverse"/>
             <two-find-buttons-tip value="2 boutons Recherche"/>
             <file-rename-title value="Renommer"/>
@@ -1683,8 +1691,6 @@ REMARQUE :
             <npcNote-tip value="Représentation des caractères blancs &quot;non-ASCII&quot; sélectionnés et des caractères (de contrôle) non-imprimables.
 
 REMARQUE :
-Certains caractères peuvent déjà avoir une représentation et donc être visibles. Les séparateurs de ligne et de paragraphe sont déjà représentés par abréviation par défaut.
-
 Utiliser la représentation désactivera les effets de caractère sur le texte.
 
 Pour obtenir la liste complète de la sélection des caractères blancs et des caractères non-imprimables, veuillez consulter le Manuel Utilisateur.
@@ -1707,6 +1713,7 @@ Cliquez sur le bouton &quot;?&quot; à droite pour ouvrir le site web du Manuel 
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Aller dans le Configurateur de style pour changer la couleur personnalisée par défaut pour la sélection de caractères blancs et de caractères non-imprimables (&quot;Couleur personnalisée des caractères non-imprimables&quot;)." />
+            <npcIncludeCcUniEol-tip value="Applique les paramètres d'apparence des caractères non-imprimables aux contrôles C0, C1 et aux caractères Unicode EOL (ligne suivante, séparateur de ligne et séparateur de paragraphe)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

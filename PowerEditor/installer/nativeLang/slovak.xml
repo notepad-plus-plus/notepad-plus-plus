@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.1">
+    <Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -296,6 +296,7 @@
                     <Item id="44114" name="Použiť farbu 4"/>
                     <Item id="44115" name="Použiť farbu 5"/>
                     <Item id="44130" name="Zobraziť netlačiteľné znaky"/>
+                    <Item id="44131" name="Zobraziť riadiace znaky a Unicode EOL"/>
                     <Item id="44032" name="Prepnúť zobrazenie na celú obrazovku"/>
                     <Item id="44033" name="Obnoviť predvolené priblíženie"/>
                     <Item id="44034" name="Vždy navrchu"/>
@@ -489,15 +490,15 @@
             </IncrementalFind>
 
             <FindCharsInRange title = "Hľadať znaky v rozsahu">
-                <Item id="2" name="Zavrieť"/>
-                <Item id="2901" name="Nie-ASCII znaky (128-255)"/>
-                <Item id="2902" name="ASCII znaky (0 - 127)"/>
-                <Item id="2903" name="Vlastný rozsah:"/>
+                <Item id="2" name="&amp;Zavrieť"/>
+                <Item id="2901" name="&amp;Nie-ASCII znaky (128 – 255)"/>
+                <Item id="2902" name="&amp;ASCII znaky (0 – 127)"/>
+                <Item id="2903" name="Vlastný &amp;rozsah (0 – 255):"/>
                 <Item id="2906" name="&amp;Hore"/>
                 <Item id="2907" name="&amp;Dole"/>
                 <Item id="2908" name="Smer"/>
                 <Item id="2909" name="&amp;Cyklicky"/>
-                <Item id="2910" name="Hľadať"/>
+                <Item id="2910" name="&amp;Hľadať"/>
             </FindCharsInRange>
 
             <GoToLine title="Ísť na…">
@@ -518,27 +519,27 @@
             </Run>
 
             <MD5FromFilesDlg title="Vytvoriť MD5 kontrolný súčet zo súborov">
-                <Item id="1922" name="Vybrať súbory na generovanie MD5…"/>
-                <Item id="1924" name="Skopírovať do schránky"/>
-                <Item id="2"    name="Zavrieť"/>
+                <Item id="1922" name="Vyberte súbory na &amp;generovanie MD5…"/>
+                <Item id="1924" name="Sko&amp;pírovať do schránky"/>
+                <Item id="2"    name="&amp;Zavrieť"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Vytvoriť MD5 kontrolný súčet">
-                <Item id="1932" name="Každý riadok ako samostatný textový reťazec"/>
-                <Item id="1934" name="Skopírovať do schránky"/>
-                <Item id="2"    name="Zavrieť"/>
+                <Item id="1932" name="Každý riadok ako &amp;samostatný textový reťazec"/>
+                <Item id="1934" name="Sko&amp;pírovať do schránky"/>
+                <Item id="2"    name="&amp;Zavrieť"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Vytvoriť SHA-256 kontrolný súčet zo súborov">
-                <Item id="1922" name="Vybrať súbory na generovanie SHA-256…"/>
-                <Item id="1924" name="Skopírovať do schránky"/>
-                <Item id="2" name="Zavrieť"/>
+                <Item id="1922" name="Vyberte súbory na &amp;generovanie hašu…"/>
+                <Item id="1924" name="Sko&amp;pírovať do schránky"/>
+                <Item id="2" name="&amp;Zavrieť"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Vytvoriť SHA-256 kontrolný súčet">
-                <Item id="1932" name="Každý riadok ako samostatný textový reťazec"/>
-                <Item id="1934" name="Skopírovať do schránky"/>
-                <Item id="2" name="Zavrieť"/>
+                <Item id="1932" name="Každý riadok ako &amp;samostatný textový reťazec"/>
+                <Item id="1934" name="Sko&amp;pírovať do schránky"/>
+                <Item id="2" name="&amp;Zavrieť"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné">
@@ -727,7 +728,7 @@
                 <Item id="20003" name="Vytvoriť nový…"/>
                 <Item id="20004" name="Odstrániť…"/>
                 <Item id="20005" name="Uložiť ako…"/>
-                <Item id="20007" name="Jazyk používateľa:"/>
+                <Item id="20007" name="Jazyk používateľa"/>
                 <Item id="20009" name="Prípona:"/>
                 <Item id="20012" name="Ignor. veľkosť písma"/>
                 <Item id="20011" name="Priehľadnosť"/>
@@ -735,7 +736,7 @@
                 <Item id="20016" name="Export…"/>
                 <Item id="20017" name="Odopnúť"/>
                 <StylerDialog title="Nastavenie štýlu">
-                    <Item id="25030" name="Možnosti písma:"/>
+                    <Item id="25030" name="Možnosti písma"/>
                     <Item id="25006" name="Farba popredia"/>
                     <Item id="25007" name="Farba pozadia"/>
                     <Item id="25031" name="Písmo:"/>
@@ -743,7 +744,7 @@
                     <Item id="25001" name="Tučné"/>
                     <Item id="25002" name="Kurzíva"/>
                     <Item id="25003" name="Podčiarknuté"/>
-                    <Item id="25029" name="Skladba:"/>
+                    <Item id="25029" name="Vnorenie"/>
                     <Item id="25008" name="Oddeľovač 1"/>
                     <Item id="25009" name="Oddeľovač 2"/>
                     <Item id="25010" name="Oddeľovač 3"/>
@@ -773,20 +774,20 @@
                 <Folder title="Balenie a predvoľby">
                     <Item id="21101" name="Predvolený štýl"/>
                     <Item id="21102" name="Nastaviť štýl…"/>
-                    <Item id="21105" name="Dokumentácia:"/>
+                    <Item id="21105" name="Dokumentácia"/>
                     <Item id="21104" name="Dočasná stránka s dokumentáciou:"/>
                     <Item id="21106" name="Zbaliť kompaktne (zbaliť aj prázdne riadky)"/>
-                    <Item id="21220" name="Zbalenie v štýle kódu 1:"/>
+                    <Item id="21220" name="Zbalenie v štýle kódu 1"/>
                     <Item id="21224" name="Začiatok:"/>
                     <Item id="21225" name="Stred:"/>
                     <Item id="21226" name="Koniec:"/>
                     <Item id="21227" name="Nastaviť štýl…"/>
-                    <Item id="21320" name="Zbalenie v štýle kódu 2 (vyžaduje oddeľovače):"/>
+                    <Item id="21320" name="Zbalenie v štýle kódu 2 (vyžaduje oddeľovače)"/>
                     <Item id="21324" name="Začiatok:"/>
                     <Item id="21325" name="Stred:"/>
                     <Item id="21326" name="Koniec:"/>
                     <Item id="21327" name="Nastaviť štýl…"/>
-                    <Item id="21420" name="Zbalenie v štýle komentára:"/>
+                    <Item id="21420" name="Zbalenie v štýle komentára"/>
                     <Item id="21424" name="Začiatok:"/>
                     <Item id="21425" name="Stred:"/>
                     <Item id="21426" name="Koniec:"/>
@@ -956,6 +957,7 @@
                     <Item id="6254" name="Skratka"/>
                     <Item id="6255" name="Kódový bod"/>
                     <Item id="6256" name="Vlastná farba"/>
+                    <Item id="6258" name="Použiť na C0, C1 a Unicode EOL"/>
                 </Scintillas>
 
                 <DarkMode title="Tmavý režim">
@@ -1069,30 +1071,30 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
                 </Highlighting>
 
                 <Print title="Tlač">
-                    <Item id="6601" name="Tlačiť čísla riadkov"/>
-                    <Item id="6602" name="Možnosti farieb"/>
-                    <Item id="6603" name="WYSIWYG"/>
-                    <Item id="6604" name="Invertovať"/>
-                    <Item id="6605" name="Čiernobielo"/>
-                    <Item id="6606" name="Žiadna farba pozadia"/>
+                    <Item id="6601" name="Tlačiť čísla &amp;riadkov"/>
+                    <Item id="6602" name="Možnosti &amp;farieb"/>
+                    <Item id="6603" name="&amp;WYSIWYG"/>
+                    <Item id="6604" name="Inv&amp;ertovať"/>
+                    <Item id="6605" name="Čierno&amp;bielo"/>
+                    <Item id="6606" name="Žiadna farba &amp;pozadia"/>
                     <Item id="6607" name="Nastavenie okraja (v milimetroch)"/>
-                    <Item id="6612" name="Vľavo"/>
-                    <Item id="6613" name="Hore"/>
-                    <Item id="6614" name="Vpravo"/>
-                    <Item id="6615" name="Dole"/>
-                    <Item id="6706" name="Tučné"/>
-                    <Item id="6707" name="Kurzíva"/>
+                    <Item id="6612" name="&amp;Vľavo"/>
+                    <Item id="6613" name="&amp;Hore"/>
+                    <Item id="6614" name="Vprav&amp;o"/>
+                    <Item id="6615" name="&amp;Dole"/>
+                    <Item id="6706" name="&amp;Tučné"/>
+                    <Item id="6707" name="&amp;Kurzíva"/>
                     <Item id="6708" name="Hlavička"/>
-                    <Item id="6709" name="Ľavá časť"/>
-                    <Item id="6710" name="Stredná časť"/>
-                    <Item id="6711" name="Pravá časť"/>
-                    <Item id="6717" name="Tučné"/>
-                    <Item id="6718" name="Kurzíva"/>
-                    <Item id="6719" name="Päta"/>
-                    <Item id="6720" name="Ľavá časť"/>
-                    <Item id="6721" name="Stredná časť"/>
-                    <Item id="6722" name="Pravá časť"/>
-                    <Item id="6723" name="Pridať"/>
+                    <Item id="6709" name="&amp;Ľavá časť"/>
+                    <Item id="6710" name="&amp;Stredná časť"/>
+                    <Item id="6711" name="Pravá &amp;časť"/>
+                    <Item id="6717" name="T&amp;učné"/>
+                    <Item id="6718" name="Kur&amp;zíva"/>
+                    <Item id="6719" name="Pät&amp;a"/>
+                    <Item id="6720" name="Ľavá čas&amp;ť"/>
+                    <Item id="6721" name="Stred&amp;ná časť"/>
+                    <Item id="6722" name="Prav&amp;á časť"/>
+                    <Item id="6723" name="Pr&amp;idať"/>
                     <ComboBox id="6724">
                         <Element name="Celá cesta k súboru"/>
                         <Element name="Názov súboru"/>
@@ -1102,7 +1104,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
                         <Element name="Dlhý formát dátumu"/>
                         <Element name="Čas"/>
                     </ComboBox>
-                    <Item id="6725" name="Premenná:"/>
+                    <Item id="6725" name="Pre&amp;menná:"/>
                     <Item id="6727" name="Tu sa zobrazia nastav. premenných"/>
                     <Item id="6728" name="Hlavička a päta"/>
                 </Print>
@@ -1263,7 +1265,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
             <MultiMacro title="Spustiť makro viacnásobne">
                 <Item id="1" name="Spustiť"/>
                 <Item id="2" name="Zrušiť"/>
-                <Item id="8006" name="Makro:"/>
+                <Item id="8006" name="Spustiť makro"/>
                 <Item id="8001" name="Spustiť"/>
                 <Item id="8005" name="krát"/>
                 <Item id="8002" name="Spustiť až po koniec súboru"/>
@@ -1444,6 +1446,11 @@ Pokračovať?"/>
             <LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené zmeny budú odstránené!
             Chcete uložiť zmeny pred prepnutím motívu?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Kompatibilita makier a príkazov cez ponuku Spustiť" message="Vaše makrá a príkazy cez ponuku Spustiť uložené v Notepad++ v.8.5.2 (alebo staršej) nemusia byť kompatibilné s aktuálnou verziou programu Notepad++.
+Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
+Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
+Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>
@@ -1625,9 +1632,9 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <finder-wrap-long-lines value="Zalamovať dlhé riadky"/>
             <common-ok value="OK"/>
             <common-cancel value="Zrušiť"/>
-            <common-name value="Názov: "/>
+            <common-name value="Názov"/>
             <tabrename-title value="Premenovať aktuálnu kartu"/>
-            <tabrename-newname value="Nový názov: "/>
+            <tabrename-newname value="Nový názov"/>
             <splitter-rotate-left value="Otočiť doľava"/>
             <splitter-rotate-right value="Otočiť doprava"/>
             <userdefined-title-new value="Vytvoriť nový jazyk…"/>
@@ -1680,11 +1687,9 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 POZNÁMKA:
 1. Pri zmene týchto možností sa na správne fungovanie vyžaduje opätovné otvorenie aktuálne otvorených veľkých súborov.
 
-2. Ak je povolená možnosť &quot;Globálne zakázať zalamovanie riadkov&quot; a otvoríte veľký súbor, &quot;Zalamovaie riadkov&quot; bude deaktivované pre všetky súbory. Môžete ho znovu aktivovať cez ponuku &quot;Zobrazenie-&gt;Zalomiť riadky&quot;." />
+2. Ak je povolená možnosť &quot;Globálne zakázať zalamovanie riadkov&quot; a otvoríte veľký súbor, &quot;Zalamovanie riadkov&quot; bude deaktivované pre všetky súbory. Môžete ho znovu aktivovať cez ponuku &quot;Zobrazenie-&gt;Zalomiť riadky&quot;." />
             <npcNote-tip value=" Zastúpenie vybraných &quot;nie-ASCII&quot; bielych znakov a netlačiteľných (riadiacich) znakov.
 POZNÁMKA:
-Niektoré znaky už môžu mať nejaké zastúpenie, a preto sú viditeľné. Oddeľovač riadkov a oddeľovač odsekov sú už štandardne reprezentované skratkou.
-
 Použitím reprezentácie sa vypnú efekty znakov na texte.
 
 Úplný zoznam vybraných bielych znakov a netlačiteľných znakov nájdete v používateľskej príručke.
@@ -1707,6 +1712,7 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Non-printing characters custom color&quot;)." />
+            <npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -3846,8 +3846,8 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
 	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
-	bool lastLineEmpty = splitText.rbegin()->empty();
-	int correctLineCount = toLine - fromLine + 1;
+	const bool lastLineEmpty = splitText.rbegin()->empty();
+	auto correctLineCount = toLine - fromLine + 1;
 	if (lastLineEmpty)
 	{
 		splitText.pop_back();

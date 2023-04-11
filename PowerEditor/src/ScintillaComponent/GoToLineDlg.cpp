@@ -18,7 +18,7 @@
 #include "GoToLineDlg.h"
 
 
-intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
@@ -27,27 +27,19 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, TRUE, 0);
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -63,7 +55,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -77,7 +69,16 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -114,7 +115,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						}
 					}
 
-					SCNotification notification = {};
+					SCNotification notification{};
 					notification.nmhdr.code = SCN_PAINTED;
 					notification.nmhdr.hwndFrom = _hSelf;
 					notification.nmhdr.idFrom = ::GetDlgCtrlID(_hSelf);
@@ -127,7 +128,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_RADIO_GOTOLINE :
 				case IDC_RADIO_GOTOOFFSET :
 				{
-				
+
 					bool isLine, isOffset;
 					if (wParam == IDC_RADIO_GOTOLINE)
 					{
@@ -185,8 +186,8 @@ void GoToLineDlg::updateLinesNumbers() const
 		size_t currentDocLength = (*_ppEditView)->getCurrentDocLen();
 		limit = (currentDocLength > 0 ? currentDocLength - 1 : 0);
 	}
-    
-	
+
+
 	::SetDlgItemTextA(_hSelf, ID_CURRLINE, std::to_string(current).c_str());
 	::SetDlgItemTextA(_hSelf, ID_LASTLINE, std::to_string(limit).c_str());
 }

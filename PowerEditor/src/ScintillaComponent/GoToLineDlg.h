@@ -31,28 +31,24 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
-		StaticDialog::create(dialogID, isRTL, msgDestParent);
-	};
-
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
-			create(IDD_GOLINE, isRTL);
+			createForDpi(IDD_GOLINE, isRTL);
 		display();
 	};
 
-    virtual void display(bool toShow = true) const {
+	void display(bool toShow = true) const override {
         Window::display(toShow);
         if (toShow)
             ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
     };
-    
+ 
     void updateLinesNumbers() const;
 
 protected :
 	enum mode {go2line, go2offsset};
 	mode _mode = go2line;
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
     ScintillaEditView **_ppEditView = nullptr;

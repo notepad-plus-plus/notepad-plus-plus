@@ -268,6 +268,11 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\contextMenu\"
 	
+
+	IfFileExists $INSTDIR\contextmenu\NppShell.dll 0 +2
+		ExecWait 'rundll32.exe "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
+
+
 	!ifdef ARCH64
 		File /oname=$INSTDIR\contextMenu\NppShell.msix "..\bin64\NppShell.msix"
 		File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin64\NppShell.x64.dll"
@@ -287,7 +292,7 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 
 	!endif
 	
-	Exec 'regsvr32 /s "$INSTDIR\contextMenu\NppShell.dll"'
+	ExecWait 'regsvr32 /s "$INSTDIR\contextMenu\NppShell.dll"'
 
 ${MementoSectionEnd}
 

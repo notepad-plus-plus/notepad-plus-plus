@@ -55,12 +55,12 @@ FunctionEnd
 
 
 Section un.explorerContextMenu
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_06.dll"'
+	ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
+	ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
+	ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
+	ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
+	ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
+	ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_06.dll"'
 	Delete "$INSTDIR\NppShell_01.dll"
 	Delete "$INSTDIR\NppShell_02.dll"
 	Delete "$INSTDIR\NppShell_03.dll"
@@ -68,9 +68,7 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_05.dll"
 	Delete "$INSTDIR\NppShell_06.dll"
 	
-	Exec 'regsvr32 /u /s "$INSTDIR\contextmenu\NppShell.dll"'
-	;Delete "$INSTDIR\contextmenu\NppShell.dll"
-	;Delete "$INSTDIR\contextmenu\NppShell.msix"
+	ExecWait 'regsvr32 /u /s "$INSTDIR\contextmenu\NppShell.dll"'
 SectionEnd
 
 Section un.UnregisterFileExt
@@ -294,7 +292,7 @@ Section Uninstall
 	
 	; In order to not delete context menu binary before we unregistered it,
 	; we delete them at the end, using the CleanupDll function, since it can be locked by explorer.
-	Exec 'rundll32.exe "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
+	ExecWait 'rundll32.exe "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
 	Delete "$INSTDIR\contextmenu\NppShell.msix"
 	
 	

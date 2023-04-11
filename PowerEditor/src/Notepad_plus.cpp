@@ -1679,7 +1679,7 @@ void Notepad_plus::removeDuplicateLines()
 	// whichPart : line head or line tail
 	FindOption env;
 
-	env._str2Search = TEXT("^(.*(\\r?\\n|\\r))(\\1)+");
+	env._str2Search = TEXT("^([^\\r\\n]*(?>\\r?\\n|\\r))(?>\\1)+");
 	env._str4Replace = TEXT("\\1");
 	env._searchType = FindRegex;
 	auto mainSelStart = _pEditView->execute(SCI_GETSELECTIONSTART);
@@ -1690,7 +1690,7 @@ void Notepad_plus::removeDuplicateLines()
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 
 	// remove the last line if it's a duplicate line.
-	env._str2Search = TEXT("^(.+)(\\r?\\n|\\r)(\\1)$");
+	env._str2Search = TEXT("^([^\\r\\n]+)(?>\\r?\\n|\\r)(?>\\1)$");
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
 }
 

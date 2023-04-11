@@ -296,7 +296,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44114" name="Apply Color 4"/>
                     <Item id="44115" name="Apply Color 5"/>
                     <Item id="44130" name="Show Non-Printing Characters"/>
-                    <Item id="44131" name="Show C0, C1 Control and Unicode EOL Characters"/>
+                    <Item id="44131" name="Show Control Characters &amp; Unicode EOL"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -957,7 +957,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6254" name="Abbreviation"/>
                     <Item id="6255" name="Codepoint"/>
                     <Item id="6256" name="Custom Color"/>
-                    <Item id="6258" name="Apply to C0, C1 and Unicode EOL"/>
+                    <Item id="6258" name="Apply to C0, C1 &amp; Unicode EOL"/>
                 </Scintillas>
 
                 <DarkMode title="Dark Mode">

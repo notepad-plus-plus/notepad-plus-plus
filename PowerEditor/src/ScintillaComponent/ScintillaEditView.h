@@ -517,6 +517,7 @@ public:
 
 	void showInvisibleChars(bool willBeShowed = true) {
 		showNpc(willBeShowed);
+		showCcUniEol(willBeShowed);
 		showWSAndTab(willBeShowed);
 		showEOL(willBeShowed);
 	};

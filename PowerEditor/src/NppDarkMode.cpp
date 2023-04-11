@@ -1484,15 +1484,15 @@ namespace NppDarkMode
 
 					::SendMessage(hWnd, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tci));
 
-					auto dpiManager = NppParameters::getInstance()._dpiManager;
+					const auto dpi = DPIManagerV2::getDpiFromParent(hWnd);
 
 					RECT rcText = rcItem;
-					rcText.left += dpiManager.scaleX(5);
-					rcText.right -= dpiManager.scaleX(3);
+					rcText.left += DPIManagerV2::scale(5, dpi);
+					rcText.right -= DPIManagerV2::scale(3, dpi);
 
 					if (isSelectedTab)
 					{
-						rcText.bottom -= dpiManager.scaleY(4);
+						rcText.bottom -= DPIManagerV2::scale(4, dpi);
 						::InflateRect(&rcFrame, 0, 1);
 					}
 					if (i != nTabs - 1)
@@ -1781,7 +1781,7 @@ namespace NppDarkMode
 
 				auto holdBrush = ::SelectObject(hdc, NppDarkMode::getDarkerBackgroundBrush());
 
-				auto& dpiManager = NppParameters::getInstance()._dpiManager;
+				const auto dpi = DPIManagerV2::getDpiFromParent(hWnd);
 
 				RECT rcArrow{};
 
@@ -1796,7 +1796,7 @@ namespace NppDarkMode
 				else
 				{
 					rcArrow = {
-					rc.right - dpiManager.scaleX(17), rc.top + 1,
+					rc.right - DPIManagerV2::scale(17, dpi), rc.top + 1,
 					rc.right - 1, rc.bottom - 1
 					};
 				}
@@ -1879,7 +1879,7 @@ namespace NppDarkMode
 				};
 				::Polyline(hdc, edge, _countof(edge));
 
-				int roundCornerValue = NppDarkMode::isWindows11() ? dpiManager.scaleX(4) : 0;
+				int roundCornerValue = NppDarkMode::isWindows11() ? DPIManagerV2::scale(4, dpi) : 0;
 				NppDarkMode::paintRoundFrameRect(hdc, rc, hSelectedPen, roundCornerValue, roundCornerValue);
 
 				::SelectObject(hdc, holdPen);
@@ -2264,8 +2264,12 @@ namespace NppDarkMode
 			{
 				if (NppDarkMode::isEnabled())
 				{
-					auto dpiManager = NppParameters::getInstance()._dpiManager;
-					roundCornerValue = NppDarkMode::isWindows11() ? dpiManager.scaleX(5) : 0;
+					if (NppDarkMode::isWindows11())
+					{
+						const auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
+						const auto dpi = DPIManagerV2::getDpiFromParent(nmhdr->hwndFrom);
+						roundCornerValue = DPIManagerV2::scale(5, dpi);
+					}
 
 					::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
 					return CDRF_NOTIFYITEMDRAW;
@@ -2676,7 +2680,7 @@ namespace NppDarkMode
 
 				::FillRect(hdc, &rcClient, NppDarkMode::getDarkerBackgroundBrush());
 
-				auto dpiManager = NppParameters::getInstance()._dpiManager;
+				const auto dpi = DPIManagerV2::getDpiFromParent(hWnd);
 
 				RECT rcArrowLeft = {
 					rcClient.left, rcClient.top,
@@ -2711,11 +2715,11 @@ namespace NppDarkMode
 				LOGFONT lf{};
 				auto font = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
 				::GetObject(font, sizeof(lf), &lf);
-				lf.lfHeight = (dpiManager.scaleY(16) - 5) * -1;
+				lf.lfHeight = (DPIManagerV2::scale(16, dpi) - 5) * -1;
 				auto holdFont = static_cast<HFONT>(::SelectObject(hdc, CreateFontIndirect(&lf)));
 
-				auto mPosX = ((rcArrowLeft.right - rcArrowLeft.left - dpiManager.scaleX(7) + 1) / 2);
-				auto mPosY = ((rcArrowLeft.bottom - rcArrowLeft.top + lf.lfHeight - dpiManager.scaleY(1) - 3) / 2);
+				auto mPosX = ((rcArrowLeft.right - rcArrowLeft.left - DPIManagerV2::scale(7, dpi) + 1) / 2);
+				auto mPosY = ((rcArrowLeft.bottom - rcArrowLeft.top + lf.lfHeight - DPIManagerV2::scale(1, dpi) - 3) / 2);
 
 				::SetTextColor(hdc, isHotLeft ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
 				::ExtTextOut(hdc,
@@ -2728,7 +2732,7 @@ namespace NppDarkMode
 
 				::SetTextColor(hdc, isHotRight ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
 				::ExtTextOut(hdc,
-					rcArrowRight.left + mPosX - dpiManager.scaleX(2) + 3,
+					rcArrowRight.left + mPosX - DPIManagerV2::scale(2, dpi) + 3,
 					rcArrowRight.top + mPosY,
 					ETO_CLIPPED,
 					&rcArrowRight, L">",

@@ -41,8 +41,8 @@ public:
 		}
 		return dpi;
 	}
-    
-    static UINT getDpiFromWindow(HWND hWnd)
+
+	static UINT getDpiFromWindow(HWND hWnd)
 	{
 		if (NppDarkMode::isWindows10())
 		{

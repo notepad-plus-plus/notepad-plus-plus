@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 01 Apr 2023, for Notepad++ 8.5.2 
+     Last update by Marcello, 12 Apr 2023, for Notepad++ 8.5.3 
 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.2">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -296,6 +296,7 @@
                     <Item id="44114" name="Aplicar Cor 4"/>
                     <Item id="44115" name="Aplicar Cor 5"/>
                     <Item id="44130" name="Mostrar caracteres sem representação"/>
+                    <Item id="44131" name="Mostrar Caracteres de Controle &amp; EOL Unicode"/>
                     <Item id="44032" name="Modo Tela Inteira"/>
                     <Item id="44033" name="Restaurar o zoom padrão"/>
                     <Item id="44034" name="Manter sobre as outras janelas"/>
@@ -956,6 +957,7 @@
                     <Item id="6254" name="Abreviação"/>
                     <Item id="6255" name="Ponto de Código"/>
                     <Item id="6256" name="Cor Personalizada"/>
+                    <Item id="6258" name="Aplicar para caracteres C0, C1 e EOL Unicode"/>
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
@@ -1668,7 +1670,6 @@ OBSERVAÇÃO:
 2. Se a opção a opção &quot;Desativar quebras de linhas automáticas de forma global&quot; estiver marcada e um arquivo grande for aberto, a opção &quot;Quebrar linhas automaticamente&quot; será desabilitada para todos os arquivos. É possível reativá-la através do menu &quot;Visualizar-&gt;Quebrar linhas automaticamente&quot;." />
             <npcNote-tip value="Representação de espaços em branco &quot;não-ASCII&quot; e caracteres sem representação (de controle) selecionados.
 NOTA:
-Algum caracteres podem ter algum tipo tipo de representação, e assim serem visíveis. Separadores de linha e de parágrafo já são representados por abreviação e por padrão.
 Usar a representação irá desabilitar os efeitos de caracteres no texto.
 Para a lista completa de caracteres de espaço em branco e caracteres sem representação, consulte o Manual de Usuário.
 Clique neste botão para abrir o site com o Manual do Usuário." />
@@ -1687,6 +1688,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Acesse o Configurador de Estilos para mudar a cor padrão para espaços em branco e caracteres sem representação selecionados (&quot;Cor padrão para caracteres sem representação&quot;)." />
+            <npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -3420,7 +3420,23 @@ void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & mac
 	macroRoot->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
 	macroRoot->ToElement()->SetAttribute(TEXT("Key"), key._key);
 	if (!folderName.empty())
-		macroRoot->ToElement()->SetAttribute(TEXT("FolderName"), folderName);
+	{
+		// W -> A -> W
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char* folderNameA = wmc.wchar2char(folderName.c_str(), SC_CP_UTF8);
+
+		size_t len = strlen(folderNameA);
+		wchar_t* folderNameW = new wchar_t[len+1];
+
+		for (size_t i = 0; i < len; ++i)
+		{
+			folderNameW[i] = folderNameA[i];
+		}
+		folderNameW[len] = '\0';
+
+		macroRoot->ToElement()->SetAttribute(TEXT("FolderName"), folderNameW);
+		delete[] folderNameW;
+	}
 
 	for (size_t i = 0, len = macro._macro.size(); i < len ; ++i)
 	{
@@ -3446,7 +3462,23 @@ void NppParameters::insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & us
 	cmdRoot->ToElement()->SetAttribute(TEXT("Key"), key._key);
 	cmdRoot->InsertEndChild(TiXmlText(userCmd._cmd.c_str()));
 	if (!folderName.empty())
-		cmdRoot->ToElement()->SetAttribute(TEXT("FolderName"), folderName);
+	{
+		// W -> A -> W
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char* folderNameA = wmc.wchar2char(folderName.c_str(), SC_CP_UTF8);
+
+		size_t len = strlen(folderNameA);
+		wchar_t* folderNameW = new wchar_t[len + 1];
+
+		for (size_t i = 0; i < len; ++i)
+		{
+			folderNameW[i] = folderNameA[i];
+		}
+		folderNameW[len] = '\0';
+
+		cmdRoot->ToElement()->SetAttribute(TEXT("FolderName"), folderNameW);
+		delete[] folderNameW;
+	}
 }
 
 

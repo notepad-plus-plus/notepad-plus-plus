@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 01 Apr 2023, for Notepad++ 8.5.2 
+     Last update by Marcello, 01 May 2023, for Notepad++ 8.5.3 
 -->
 <NotepadPlus>
-    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.2">
+    <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -296,6 +296,7 @@
                     <Item id="44114" name="Aplicar Cor 4"/>
                     <Item id="44115" name="Aplicar Cor 5"/>
                     <Item id="44130" name="Mostrar caracteres sem representação"/>
+                    <Item id="44131" name="Mostrar Caracteres de Controle &amp; EOL Unicode"/>
                     <Item id="44032" name="Modo Tela Inteira"/>
                     <Item id="44033" name="Restaurar o zoom padrão"/>
                     <Item id="44034" name="Manter sobre as outras janelas"/>
@@ -518,27 +519,27 @@
             </Run>
 
             <MD5FromFilesDlg title="Gerar MD5 dos arquivos">
-                <Item id="1922" name="Escolher arquivos para gerar MD5..."/>
-                <Item id="1924" name="Copiar"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1922" name="Escolher arquivos para &amp;gerar MD5..."/>
+                <Item id="1924" name="Co&amp;piar"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Gerar MD5">
-                <Item id="1932" name="Tratar cada linha como uma string separada"/>
-                <Item id="1934" name="Copiar"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
+                <Item id="1934" name="Co&amp;piar"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Gerar SHA-256 dos arquivos">
-                <Item id="1922" name="Escolha arquivos para gerar o SHA-256..."/>
-                <Item id="1924" name="Copiar"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1922" name="Escolha arquivos para &amp;gerar o SHA-256..."/>
+                <Item id="1924" name="Co&amp;piar"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Gerar SHA-256">
-                <Item id="1932" name="Tratar cada linha como uma string separada"/>
-                <Item id="1934" name="Copiar"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
+                <Item id="1934" name="Co&amp;piar"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">
@@ -956,6 +957,7 @@
                     <Item id="6254" name="Abreviação"/>
                     <Item id="6255" name="Ponto de Código"/>
                     <Item id="6256" name="Cor Personalizada"/>
+                    <Item id="6258" name="Aplicar para caracteres C0, C1 e EOL Unicode"/>
                 </Scintillas>
 
                 <DarkMode title="Modo Escuro">
@@ -1263,7 +1265,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
             <MultiMacro title="Executar macro múltiplas vezes">
                 <Item id="1" name="Executar"/>
                 <Item id="2" name="Cancelar"/>
-                <Item id="8006" name="Macro a executar :"/>
+                <Item id="8006" name="Macro a executar"/>
                 <Item id="8001" name="Executar"/>
                 <Item id="8005" name="vez(es)"/>
                 <Item id="8002" name="Executar até o final do arquivo"/>
@@ -1433,6 +1435,11 @@ Deseja continuar?"/>
 	    <LanguageMenuCompactWarning title="Menu Compacto de Linguagem" message="Esta opção será alterada na próxima vez que o programa for aberto."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 	    <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Alterações não salvas estão prestes a serem perdidas!
 Deseja salvar suas alterações antes de alterar os temas?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+	    <MacroAndRunCmdlWarning title="Compatibilidade de comandos Macro e Executar" message="Seus comandos Macro e Executar salvos no Notepad++ v.8.5.2 (ou anteriores) podem não ser compatíveis com a versão atual do Notepad++.
+Por favor, teste estes comandos e, se necessário, altere-os.
+Como alternativa, você pode voltar à versão v8.5.2 do Notepad++ e restaurar os dados anteriores.
+O Notepad++ irá efetuar backup do seu arquivo &quot;shortcuts.xml&quot; anterior e salvá-lo como &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Ao renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, seus comandos devem ser restaurados e devem funcionar a contento."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1668,7 +1675,6 @@ OBSERVAÇÃO:
 2. Se a opção a opção &quot;Desativar quebras de linhas automáticas de forma global&quot; estiver marcada e um arquivo grande for aberto, a opção &quot;Quebrar linhas automaticamente&quot; será desabilitada para todos os arquivos. É possível reativá-la através do menu &quot;Visualizar-&gt;Quebrar linhas automaticamente&quot;." />
             <npcNote-tip value="Representação de espaços em branco &quot;não-ASCII&quot; e caracteres sem representação (de controle) selecionados.
 NOTA:
-Algum caracteres podem ter algum tipo tipo de representação, e assim serem visíveis. Separadores de linha e de parágrafo já são representados por abreviação e por padrão.
 Usar a representação irá desabilitar os efeitos de caracteres no texto.
 Para a lista completa de caracteres de espaço em branco e caracteres sem representação, consulte o Manual de Usuário.
 Clique neste botão para abrir o site com o Manual do Usuário." />
@@ -1687,6 +1693,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Acesse o Configurador de Estilos para mudar a cor padrão para espaços em branco e caracteres sem representação selecionados (&quot;Cor padrão para caracteres sem representação&quot;)." />
+            <npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

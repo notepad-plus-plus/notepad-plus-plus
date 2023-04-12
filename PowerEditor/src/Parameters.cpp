@@ -1383,7 +1383,7 @@ bool NppParameters::load()
 	{
 		auto r = addUserDefineLangsFromXmlTree(_pXmlUserLangDoc);
 		if (r.second - r.first > 0)
-			_pXmlUserLangsDoc.push_back(UdlXmlFileState(_pXmlUserLangDoc, false, r));
+			_pXmlUserLangsDoc.push_back(UdlXmlFileState(_pXmlUserLangDoc, false, true, r));
 	}
 
 	for (const auto& i : udlFiles)
@@ -1398,7 +1398,7 @@ bool NppParameters::load()
 		{
 			auto r = addUserDefineLangsFromXmlTree(udlDoc);
 			if (r.second - r.first > 0)
-				_pXmlUserLangsDoc.push_back(UdlXmlFileState(udlDoc, false, r));
+				_pXmlUserLangsDoc.push_back(UdlXmlFileState(udlDoc, false, false, r));
 		}
 	}
 
@@ -3097,7 +3097,7 @@ bool NppParameters::importUDLFromFile(const generic_string& sourceFile)
 		loadOkay = (r.second - r.first) != 0;
 		if (loadOkay)
 		{
-			_pXmlUserLangsDoc.push_back(UdlXmlFileState(nullptr, true, r));
+			_pXmlUserLangsDoc.push_back(UdlXmlFileState(nullptr, true, true, r));
 
 			// imported UDL from xml file will be added into default udl, so we should make default udl dirty
 			setUdlXmlDirtyFromXmlDoc(_pXmlUserLangDoc);
@@ -3298,7 +3298,7 @@ Default UDL + Created + Imported
 void NppParameters::writeDefaultUDL()
 {
 	bool firstCleanDone = false;
-	std::vector<bool> deleteState;
+	std::vector<std::pair<bool, bool>> deleteState; //vector< pair<toDel, isInDefaultSharedContainer> >
 	for (const auto& udl : _pXmlUserLangsDoc)
 	{
 		if (!_pXmlUserLangDoc)
@@ -3310,7 +3310,7 @@ void NppParameters::writeDefaultUDL()
 		}
 
 		bool toDelete = (udl._indexRange.second - udl._indexRange.first) == 0;
-		deleteState.push_back(toDelete);
+		deleteState.push_back(std::pair(toDelete, udl._isInDefaultSharedContainer));
 		if ((!udl._udlXmlDoc || udl._udlXmlDoc == _pXmlUserLangDoc) && udl._isDirty && !toDelete) // new created or/and imported UDL plus _pXmlUserLangDoc (if exist)
 		{
 			TiXmlNode *root = _pXmlUserLangDoc->FirstChild(TEXT("NotepadPlus"));
@@ -3331,11 +3331,11 @@ void NppParameters::writeDefaultUDL()
 	}
 
 	bool deleteAll = true;
-	for (bool del : deleteState)
+	for (std::pair<bool, bool> udlState : deleteState)
 	{
-		if (!del)
+		if (!udlState.first && udlState.second) // if not marked to be delete udl is (&&) in default shared container (ie. "userDefineLang.xml" file) 
 		{
-			deleteAll = false;
+			deleteAll = false; // let's keep "userDefineLang.xml" file
 			break;
 		}
 	}
@@ -3683,7 +3683,7 @@ int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const TC
 	++_nbUserLang;
 	unsigned char iEnd = _nbUserLang;
 
-	_pXmlUserLangsDoc.push_back(UdlXmlFileState(nullptr, true, make_pair(iBegin, iEnd)));
+	_pXmlUserLangsDoc.push_back(UdlXmlFileState(nullptr, true, true, make_pair(iBegin, iEnd)));
 
 	// imported UDL from xml file will be added into default udl, so we should make default udl dirty
 	setUdlXmlDirtyFromXmlDoc(_pXmlUserLangDoc);

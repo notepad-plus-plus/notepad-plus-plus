@@ -31,13 +31,13 @@ public :
 	RunMacroDlg() = default;
 	~RunMacroDlg() = default;
 
-	void init(HINSTANCE hInst, HWND hPere/*, ScintillaEditView **ppEditView*/) {
+	void init(HINSTANCE hInst, HWND hPere/*, ScintillaEditView **ppEditView*/) override {
 		Window::init(hInst, hPere);
 	};
 
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
-			create(IDD_RUN_MACRO_DLG, isRTL);
+			createForDpi(IDD_RUN_MACRO_DLG, isRTL);
 		else
 		{
 			// Shortcut might have been updated for current session
@@ -54,7 +54,7 @@ public :
 	int getMacro2Exec() const;
 
 private :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void check(int);
 
 	int _mode = RM_RUN_MULTI;

@@ -40,7 +40,7 @@ void RunMacroDlg::initMacroList()
 	_macroIndex = 0;
 }
 
-intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {	
 	switch (message) 
 	{
@@ -60,37 +60,25 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					break;
 			}
 			::SendDlgItemMessage(_hSelf, IDC_M_RUN_TIMES, EM_LIMITTEXT, 4, 0);
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -108,7 +96,16 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
 			{

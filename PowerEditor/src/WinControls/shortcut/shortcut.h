@@ -123,7 +123,19 @@ public:
 	virtual intptr_t doDialog()
 	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-    };
+	};
+
+	virtual intptr_t doDialogForDpi()
+	{
+		if (NppDarkMode::isWindows10())
+		{
+			const auto dpiContext = ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+			const auto result = doDialog();
+			::SetThreadDpiAwarenessContext(dpiContext);
+			return result;
+		}
+		return doDialog();
+	}
 
 	virtual bool isValid() const { //valid should only be used in cases where the shortcut isEnabled().
 		if (_keyCombo._key == 0)
@@ -174,7 +186,7 @@ public:
 
 protected :
 	KeyCombo _keyCombo;
-	virtual intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 	bool _canModifyName = false;
 	TCHAR _name[nameLenMax] = {'\0'};		//normal name is plain text (for display purposes)
 	TCHAR _menuName[nameLenMax] = { '\0' };	//menu name has ampersands for quick keys
@@ -227,10 +239,10 @@ public:
 	generic_string toString() const;
 	generic_string toString(size_t index) const;
 
-	intptr_t doDialog()
+	intptr_t doDialog() override
 	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-    };
+	};
 
 	//only compares the internal KeyCombos, nothing else
 	friend inline bool operator==(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {
@@ -264,7 +276,7 @@ private:
 	void showCurrentSettings();
 	void updateListItem(int index);
 protected :
-	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 };
 
 

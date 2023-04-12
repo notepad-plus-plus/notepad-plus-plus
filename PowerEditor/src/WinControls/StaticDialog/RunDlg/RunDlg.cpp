@@ -344,7 +344,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					UserCommand uc(Shortcut(), cmd, cmdID);
 					uc.init(_hInst, _hSelf);
 
-					if (uc.doDialog() != -1)
+					if (uc.doDialogForDpi() != -1)
 					{
 						HMENU mainMenu = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
 						HMENU hRunMenu = ::GetSubMenu(mainMenu, MENUINDEX_RUN);

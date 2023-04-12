@@ -5327,7 +5327,7 @@ bool Notepad_plus::addCurrentMacro()
 	MacroShortcut ms(Shortcut(), _macro, cmdID);
 	ms.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
 
-	if (ms.doDialog() != -1)
+	if (ms.doDialogForDpi() != -1)
 	{
 		HMENU hMacroMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_MACRO);
 		unsigned int posBase = macroMenu.getPosBase();

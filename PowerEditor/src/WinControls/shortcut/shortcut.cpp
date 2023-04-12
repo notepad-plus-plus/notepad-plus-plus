@@ -402,29 +402,25 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			updateConflictState();
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
 			if (NppDarkMode::isEnabled())
@@ -435,7 +431,6 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 				}
 				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-
 			}
 			break;
 		}
@@ -455,7 +450,16 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			auto textlen = ::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
 			switch (wParam)
@@ -485,7 +489,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 					if (_canModifyName)
 					{
-						TCHAR editName[nameLenMax];
+						TCHAR editName[nameLenMax]{};
 						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, reinterpret_cast<LPARAM>(editName));
 						setName(editName);
 					}
@@ -715,7 +719,7 @@ recordedMacroStep::recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam,
 			case IDD_FINDINFILES_FILTERS_COMBO:
 			{
 				char *ch = reinterpret_cast<char *>(_lParameter);
-				TCHAR tch[2];
+				TCHAR tch[2]{};
 				::MultiByteToWideChar(codepage, 0, ch, -1, tch, 2);
 				_sParameter = *tch;
 				_macroType = mtUseSParameter;
@@ -901,7 +905,7 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 			|| (_message == SCI_INSERTTEXT) 
 			|| (_message == SCI_APPENDTEXT) )
 		{
-			SCNotification scnN;
+			SCNotification scnN{};
 			scnN.nmhdr.code = SCN_CHARADDED;
 			scnN.nmhdr.hwndFrom = pEditView->getHSelf();
 			scnN.nmhdr.idFrom = 0;
@@ -1071,29 +1075,25 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorListbox(wParam, lParam);
-			}
-			break;
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
 			if (NppDarkMode::isEnabled())
@@ -1123,7 +1123,16 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{

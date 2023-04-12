@@ -794,7 +794,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
 							CommandShortcut csc = shortcuts[shortcutIndex], prevcsc = shortcuts[shortcutIndex];
 							csc.init(_hInst, _hSelf);
-							if (csc.doDialog() != -1 && prevcsc != csc)
+							if (csc.doDialogForDpi() != -1 && prevcsc != csc)
 							{
 								//shortcut was altered
 								nppParam.addUserModifiedIndex(shortcutIndex);
@@ -820,7 +820,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							vector<MacroShortcut> & shortcuts = nppParam.getMacroList();
 							MacroShortcut msc = shortcuts[shortcutIndex], prevmsc = shortcuts[shortcutIndex];
 							msc.init(_hInst, _hSelf);
-							if (msc.doDialog() != -1 && prevmsc != msc)
+							if (msc.doDialogForDpi() != -1 && prevmsc != msc)
 							{
 								//shortcut was altered
 								shortcuts[shortcutIndex] = msc;
@@ -846,7 +846,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							UserCommand ucmd = shortcuts[shortcutIndex];
 							ucmd.init(_hInst, _hSelf);
 							UserCommand prevucmd = ucmd;
-							if (ucmd.doDialog() != -1 && prevucmd != ucmd)
+							if (ucmd.doDialogForDpi() != -1 && prevucmd != ucmd)
 							{
 								//shortcut was altered
 								shortcuts[shortcutIndex] = ucmd;
@@ -872,7 +872,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							PluginCmdShortcut pcsc = shortcuts[shortcutIndex];
 							pcsc.init(_hInst, _hSelf);
 							PluginCmdShortcut prevpcsc = pcsc;
-							if (pcsc.doDialog() != -1 && prevpcsc != pcsc)
+							if (pcsc.doDialogForDpi() != -1 && prevpcsc != pcsc)
 							{
 								//shortcut was altered
 								nppParam.addPluginModifiedIndex(shortcutIndex);

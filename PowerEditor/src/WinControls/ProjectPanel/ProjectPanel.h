@@ -65,7 +65,7 @@ public:
 		_panelID = panelID;
 	}
 
-	virtual void display(bool toShow = true) const {
+	void display(bool toShow = true) const override {
 		DockingDlgInterface::display(toShow);
 	};
 
@@ -148,21 +148,18 @@ class FileRelocalizerDlg : public StaticDialog
 {
 public :
 	FileRelocalizerDlg() = default;
-	void init(HINSTANCE hInst, HWND parent) {
-		Window::init(hInst, parent);
-	};
 
 	int doDialog(const TCHAR *fn, bool isRTL = false);
+	int doDialogForDpi(const TCHAR *fn, bool isRTL = false);
 
-	virtual void destroy() {
-	};
+	void destroy() override {};
 
 	generic_string getFullFilePath() {
 		return _fullFilePath;
 	};
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	generic_string _fullFilePath;

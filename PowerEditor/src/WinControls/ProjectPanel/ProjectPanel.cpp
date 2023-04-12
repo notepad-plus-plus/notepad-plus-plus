@@ -1165,7 +1165,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				return;
 			generic_string * fn = (generic_string *)tvItem.lParam;
 
-			if (fileRelocalizerDlg.doDialog(fn->c_str()) == 0)
+			if (fileRelocalizerDlg.doDialogForDpi(fn->c_str()) == 0)
 			{
 				generic_string newValue = fileRelocalizerDlg.getFullFilePath();
 				if (*fn == newValue)
@@ -1328,15 +1328,17 @@ void ProjectPanel::addFilesFromDirectory(HTREEITEM hTreeItem)
 	}
 }
 
-intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
-			goToCenter();
 			::SetDlgItemText(_hSelf, IDC_EDIT_FILEFULLPATHNAME, _fullFilePath.c_str());
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+
 			return TRUE;
 		}
 
@@ -1354,11 +1356,12 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1370,7 +1373,15 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -1397,7 +1408,7 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 	return FALSE;
 }
 
-int FileRelocalizerDlg::doDialog(const TCHAR *fn, bool isRTL) 
+int FileRelocalizerDlg::doDialog(const TCHAR *fn, bool isRTL)
 {
 	_fullFilePath = fn;
 
@@ -1410,4 +1421,16 @@ int FileRelocalizerDlg::doDialog(const TCHAR *fn, bool isRTL)
 		return result;
 	}
 	return static_cast<int32_t>(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FILERELOCALIZER_DIALOG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
+}
+
+int FileRelocalizerDlg::doDialogForDpi(const TCHAR* fn, bool isRTL)
+{
+	if (NppDarkMode::isWindows10())
+	{
+		const auto dpiContext = ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		const int result = FileRelocalizerDlg::doDialog(fn, isRTL);
+		::SetThreadDpiAwarenessContext(dpiContext);
+		return result;
+	}
+	return FileRelocalizerDlg::doDialog(fn, isRTL);
 }

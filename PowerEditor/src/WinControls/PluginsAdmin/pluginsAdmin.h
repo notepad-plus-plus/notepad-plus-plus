@@ -99,7 +99,7 @@ public:
 	PluginViewList() = default;
 	~PluginViewList() {
 		_ui.destroy();
-		for (auto i : _list)
+		for (auto& i : _list)
 		{
 			delete i;
 		}
@@ -145,21 +145,12 @@ public :
 	PluginsAdminDlg();
 	~PluginsAdminDlg() = default;
 
-    void init(HINSTANCE hInst, HWND parent)	{
-        Window::init(hInst, parent);
-	};
-
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
 
     void doDialog(bool isRTL = false) {
     	if (!isCreated())
 		{
-			create(IDD_PLUGINSADMIN_DLG, isRTL);
-		}
-
-		if (!::IsWindowVisible(_hSelf))
-		{
-
+			createForDpi(IDD_PLUGINSADMIN_DLG, isRTL);
 		}
 	    display();
     };
@@ -188,7 +179,7 @@ public :
 	};
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	generic_string _updaterDir;

@@ -107,16 +107,18 @@ public:
 
 	static int scale(int x, UINT dpi, UINT dpi2) { return MulDiv(x, dpi, dpi2); }
 	static int scale(int x, UINT dpi) { return scale(x, dpi, USER_DEFAULT_SCREEN_DPI); }
-	static int unScale(int x, UINT dpi) { return scale(x, USER_DEFAULT_SCREEN_DPI, dpi); }
+	static int unscale(int x, UINT dpi) { return scale(x, USER_DEFAULT_SCREEN_DPI, dpi); }
 
 	int scale(int x) { return scale(x, _dpi); }
-	int unScale(int x) { return unScale(x, _dpi); }
+	int unscale(int x) { return unscale(x, _dpi); }
 
 	int scaleX(int x) { return scale(x); }
-	int unScaleX(int x) { return unScale(x); }
+	int unscaleX(int x) { return unscale(x); }
 
 	int scaleY(int y) { return scale(y); }
-	int unScaleY(int y) { return unScale(y); }
+	int unscaleY(int y) { return unscale(y); }
+
+	int scaleWithPrev(int x) { return scale(x, _dpi, _dpiPrev); }
 
 	static int scaleFont(int pt, UINT dpi) { return -(scale(pt, dpi, 72)); }
 	int scaleFont(int pt) { return scaleFont(pt, _dpi); }

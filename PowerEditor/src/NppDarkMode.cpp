@@ -1565,6 +1565,13 @@ namespace NppDarkMode
 		LONG _xScroll = ::GetSystemMetrics(SM_CXVSCROLL);
 		LONG _yScroll = ::GetSystemMetrics(SM_CYVSCROLL);
 
+		BorderMetricsData() {};
+
+		BorderMetricsData(HWND hWnd)
+		{
+			setMetricsForDpi(DPIManagerV2::getDpiFromParent(hWnd));
+		}
+
 		void setMetricsForDpi(UINT dpi)
 		{
 			_dpi = dpi;
@@ -1744,7 +1751,7 @@ namespace NppDarkMode
 
 	void subclassCustomBorderForListBoxAndEditControls(HWND hwnd)
 	{
-		auto pBorderMetricsData = reinterpret_cast<DWORD_PTR>(new BorderMetricsData());
+		auto pBorderMetricsData = reinterpret_cast<DWORD_PTR>(new BorderMetricsData(hwnd));
 		SetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, pBorderMetricsData);
 	}
 

@@ -18,11 +18,8 @@
 #include "localization.h"
 #include "UserDefineDialog.h"
 #include "ScintillaEditView.h"
-#include "Parameters.h"
-#include "resource.h"
 #include "Notepad_plus_msgs.h"
 #include "CustomFileDialog.h"
-#include "Common.h"
 
 using namespace std;
 
@@ -108,21 +105,13 @@ intptr_t CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wPara
 
         case WM_CTLCOLOREDIT:
         {
-            if (NppDarkMode::isEnabled())
-            {
-                return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-            }
-            break;
+            return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_CTLCOLORDLG:
         case WM_CTLCOLORSTATIC:
         {
-            if (NppDarkMode::isEnabled())
-            {
-                return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-            }
-            break;
+            return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_PRINTCLIENT:
@@ -1013,7 +1002,8 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
             _ctrlTab.init(_hInst, _hSelf, false);
             NppDarkMode::subclassTabControl(_ctrlTab.getHSelf());
 
-            int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(13);
+
+            int tabDpiDynamicalHeight = DPIManagerV2::scaleY(13);
             _ctrlTab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
             _folderStyleDlg.init(_hInst, _hSelf);
@@ -1101,30 +1091,18 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 
         case WM_CTLCOLOREDIT:
         {
-            if (NppDarkMode::isEnabled())
-            {
-                return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-            }
-            break;
+            return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_CTLCOLORLISTBOX:
         {
-            if (NppDarkMode::isEnabled())
-            {
-                return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-            }
-            break;
+            return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_CTLCOLORDLG:
         case WM_CTLCOLORSTATIC:
         {
-            if (NppDarkMode::isEnabled())
-            {
-                return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-            }
-            break;
+            return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_PRINTCLIENT:
@@ -1140,6 +1118,22 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
         {
             NppDarkMode::autoThemeChildControls(_hSelf);
             NppDarkMode::setDarkScrollBar(_hSelf);
+            return TRUE;
+        }
+
+        case WM_DPICHANGED:
+        {
+            setDpi(wParam);
+            _folderStyleDlg.setDpi(wParam);
+            _keyWordsStyleDlg.setDpi(wParam);
+            _commentStyleDlg.setDpi(wParam);
+            _symbolsStyleDlg.setDpi(wParam);
+
+            _folderStyleDlg.destroyLink();
+
+            NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+            setPositionDpi(lParam);
+
             return TRUE;
         }
 
@@ -1286,7 +1280,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                         StringDlg strDlg;
                         strDlg.init(_hInst, _hSelf, strTitle.c_str(), strName.c_str(), langName, langNameLenMax - 1);
 
-                        TCHAR *newName = (TCHAR *)strDlg.doDialog();
+                        TCHAR *newName = (TCHAR *)strDlg.doDialogForDpi();
 
                         if (newName)
                         {
@@ -1340,7 +1334,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                         StringDlg strDlg;
 						strDlg.init(_hInst, _hSelf, strTitle.c_str(), strName.c_str(), TEXT(""), langNameLenMax - 1);
 
-                        TCHAR *tmpName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
+                        TCHAR *tmpName = reinterpret_cast<TCHAR *>(strDlg.doDialogForDpi());
 
                         if (tmpName && tmpName[0])
                         {
@@ -1458,6 +1452,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 
         case WM_DESTROY:
         {
+            _folderStyleDlg.destroyLink();
             _folderStyleDlg.destroy();
             _keyWordsStyleDlg.destroy();
             _commentStyleDlg.destroy();
@@ -1553,7 +1548,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
     return FALSE;
 }
 
-intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
     switch (Message)
     {
@@ -1586,28 +1581,20 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			}
 
 			if (_shouldGotoCenter)
-				goToCenter();
+				goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1623,7 +1610,7 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -1637,7 +1624,16 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			return TRUE;
 		}
 
-        case WM_COMMAND :
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+        case WM_COMMAND:
         {
             switch (wParam)
             {
@@ -1746,7 +1742,8 @@ void StylerDlg::move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int h
     RECT rc{};
     ::GetWindowRect(::GetDlgItem(hwndDlg, ctrlID), &rc);
 
-    p.x = rc.right + NppParameters::getInstance()._dpiManager.scaleX(5);
+    const auto dpi = DPIManagerV2::getDpiFromParent(hwndDlg);
+    p.x = rc.right + DPIManagerV2::scale(5, dpi);
     p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
     ::ScreenToClient(hwndDlg, &p);
@@ -1829,8 +1826,9 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             dlg->_pBgColour->setEnabled(isBgEnabled);
             ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_SETCHECK, !isBgEnabled, 0);
 
-            int w = nppParam._dpiManager.scaleX(25);
-            int h = nppParam._dpiManager.scaleY(25);
+            const auto dpi = DPIManagerV2::getDpiFromWindow(hwnd);
+            const int w = DPIManagerV2::scale(25, dpi);
+            const int h = w;
 
             dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), w, h);
             dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), w, h);
@@ -1850,30 +1848,18 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 
         case WM_CTLCOLOREDIT:
         {
-            if (NppDarkMode::isEnabled())
-            {
-                return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-            }
-            break;
+            return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_CTLCOLORLISTBOX:
         {
-            if (NppDarkMode::isEnabled())
-            {
-                return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-            }
-            break;
+            return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_CTLCOLORDLG:
         case WM_CTLCOLORSTATIC:
         {
-            if (NppDarkMode::isEnabled())
-            {
-                return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-            }
-            break;
+            return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_PRINTCLIENT:
@@ -1893,7 +1879,22 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             return TRUE;
         }
 
-        case WM_COMMAND :
+        case WM_DPICHANGED:
+        {
+            const UINT dpi = LOWORD(wParam);
+            const int w = DPIManagerV2::scale(25, dpi);
+            const int h = w;
+
+            dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), w, h);
+            dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), w, h);
+
+            NppDarkMode::sendMessageToChildControls(hwnd, WM_DPICHANGED, wParam, lParam);
+            DPIManagerV2::setPositionDpi(lParam, hwnd);
+
+            return TRUE;
+        }
+
+        case WM_COMMAND:
         {
 			if (dlg == nullptr)
 				return FALSE;

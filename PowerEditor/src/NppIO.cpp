@@ -41,7 +41,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	const TCHAR *fullFileName = (const TCHAR *)buf->getFullPathName();
 
 	//The folder to watch :
-	WCHAR folderToMonitor[MAX_PATH];
+	WCHAR folderToMonitor[MAX_PATH]{};
 	wcscpy_s(folderToMonitor, fullFileName);
 
 	::PathRemoveFileSpecW(folderToMonitor);
@@ -125,9 +125,9 @@ bool resolveLinkFile(generic_string& linkFilePath)
 {
 	bool isResolved = false;
 
-	IShellLink* psl;
-	WCHAR targetFilePath[MAX_PATH];
-	WIN32_FIND_DATA wfd = {};
+	IShellLink* psl = nullptr;
+	WCHAR targetFilePath[MAX_PATH]{};
+	WIN32_FIND_DATA wfd {};
 
 	HRESULT hres = CoInitialize(NULL);
 	if (SUCCEEDED(hres))
@@ -135,7 +135,7 @@ bool resolveLinkFile(generic_string& linkFilePath)
 		hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
 		if (SUCCEEDED(hres))
 		{
-			IPersistFile* ppf;
+			IPersistFile* ppf = nullptr;
 			hres = psl->QueryInterface(IID_IPersistFile, (void**)&ppf);
 			if (SUCCEEDED(hres))
 			{
@@ -657,7 +657,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 
 				if (openInAdminModeRes == IDYES)
 				{
-					TCHAR nppFullPath[MAX_PATH];
+					TCHAR nppFullPath[MAX_PATH]{};
 					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
 					generic_string args = TEXT("-multiInst");
@@ -692,7 +692,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 
 				if (openInAdminModeRes == IDYES)
 				{
-					TCHAR nppFullPath[MAX_PATH];
+					TCHAR nppFullPath[MAX_PATH]{};
 					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
 					BufferID bufferID = _pEditView->getCurrentBufferID();
@@ -1614,7 +1614,7 @@ bool Notepad_plus::fileSave(BufferID id)
 			else if (backup == bak_verbose)
 			{
 				const int temBufLen = 32;
-				TCHAR tmpbuf[temBufLen];
+				TCHAR tmpbuf[temBufLen]{};
 				time_t ltime = time(0);
 				struct tm *today;
 
@@ -1890,7 +1890,7 @@ bool Notepad_plus::fileRename(BufferID id)
 		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));
 		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), langNameLenMax - 1, reservedChars.c_str(), true);
 
-		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
+		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialogForDpi());
 		if (tabNewName)
 		{
 			BufferID sameNamedBufferId = _pDocTab->findBufferByName(tabNewName);
@@ -2399,7 +2399,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 		}
 		if (!isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
 		{
-			TCHAR nppFullPath[MAX_PATH];
+			TCHAR nppFullPath[MAX_PATH]{};
 			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
 

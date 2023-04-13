@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.5.2:
+Updated to v8.5.3:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.5.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.5.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -289,6 +289,7 @@ Updated to v8.5.2:
 					<Item id="43052" name="Найти символы в диапазоне..."/>
 
 					<Item id="44130" name="Отображать Непечатаемые символы"/>
+					<Item id="44131" name="Отображать Управл. Символы и Юникод EOL"/>
 					<Item id="44034" name="&amp;Поверх всех окон"/>
 					<Item id="44032" name="Вкладки на весь Экран"/>
 					<Item id="44009" name="Текстовое поле в размер Окна"/>
@@ -996,6 +997,7 @@ Updated to v8.5.2:
 					<Item id="6254" name="Аббревиатура"/>
 					<Item id="6255" name="Кодовая Точка"/>
 					<Item id="6256" name="Польз. Цвет"/>
+					<Item id="6258" name="Применить к C0, C1 и Юникод EOL"/>
 				</Scintillas>
 
 				<DarkMode title="Тёмный Режим">
@@ -1310,15 +1312,15 @@ Updated to v8.5.2:
 				<ColumnEditor title = "Генератор Столбца">
 				<Item id="2023" name="Текст для вставки"/>
 				<Item id="2033" name="Числа для вставки"/>
-				<Item id="2030" name="Исходное число:"/>
-				<Item id="2031" name="Увеличение на:"/>
-				<Item id="2038" name="&amp;Заполнить :"/>
+				<Item id="2030" name="Исходное число :"/>
+				<Item id="2031" name="Увеличение на :"/>
+				<Item id="2038" name="&amp;Заполнение :"/>
 				<ComboBox id="2039">
 					<Element   name="Нет"/>
-					<Element   name="Нули"/>
-					<Element   name="Пробелы"/>
+					<Element   name="Нулями"/>
+					<Element   name="Пробелами"/>
 				</ComboBox>
-				<Item id="2036" name="Повторить:"/>
+				<Item id="2036" name="Повторений :"/>
 				<Item id="2032" name="Формат"/>
 				<Item id="2024" name="Десятич."/>
 				<Item id="2025" name="Восьм."/>
@@ -1704,7 +1706,8 @@ U+FEFF : неразрывный пробел нулевой ширины
 Полный список смотрите в Руководстве пользователя.
 Нажмите в меню &quot;?&quot; Онлайн Руководство, чтобы открыть веб-сайт."/>
 
-			<npcCustomColor-tip value="Перейдите в Определение Стилей, чтобы задать польз. цвет по умолчанию для выбранных пробелов и непечатаемых символов (&quot;Non-printing characters custom color&quot;)."/>
+			<npcCustomColor-tip      value="Перейдите в Определение Стилей, чтобы задать польз. цвет по умолчанию для выбранных пробелов и непечатаемых символов (&quot;Non-printing characters custom color&quot;)."/>
+			<npcIncludeCcUniEol-tip  value="Примените настройки внешнего вида для непечатаемых символов C0, C1 и Юникод EOL (следующая строка, разделитель строк и разделитель абзацев)." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

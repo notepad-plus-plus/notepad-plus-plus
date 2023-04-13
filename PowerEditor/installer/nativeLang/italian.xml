@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.5.1
-    Last modified Sun, March 19th, 2023.
+    Last modified Tho, May 04th, 2023.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
@@ -300,6 +300,7 @@
                     <Item id="44114" name="Applica il Colore 4"/> 
                     <Item id="44115" name="Applica il Colore 5"/>
                     <Item id="44130" name="Visualizza i caratteri non stampabili"/>
+                    <Item id="44131" name="Visualizza i caratteri di controllo e ritorno a capo Unicode"/>
                     <Item id="44032" name="Visualizzazione a tutto schermo"/>
                     <Item id="44033" name="Ripristina lo zoom predefinito"/>
                     <Item id="44034" name="Sempre in primo piano"/>
@@ -432,7 +433,7 @@
                 <Item id="43103" name="Nuovo e Incolla"/>
                 <Item id="43104" name="Apri..."/>
                 <Item id="43013" name="Trova nei file..."/>
-                <Item id="43105" name="Chiudi Tray Icon"/>
+                <Item id="43105" name="Chiudi icona dall'area di notifica"/>
             </TrayIcon>
         </Menu>
 
@@ -493,11 +494,11 @@
             </IncrementalFind>
 
             <FindCharsInRange title="Trova caratteri...">
-                <Item id="2" name="Chiudi"/>
-                <Item id="2901" name="Caratteri non ASCII (128-255)"/>
-                <Item id="2902" name="Caratteri ASCII (0 - 127)"/>
-                <Item id="2903" name="Intervallo:"/>
-                <Item id="2906" name="Su"/>
+                <Item id="2" name="&amp;Chiudi"/>
+                <Item id="2901" name="Caratteri &amp;non ASCII (128-255)"/>
+                <Item id="2902" name="Caratteri &amp;ASCII (0 - 127)"/>
+                <Item id="2903" name="Intervallo (0-255):"/>
+                <Item id="2906" name="S&amp;u"/>
                 <Item id="2907" name="Giù"/>
                 <Item id="2908" name="Direzione"/>
                 <Item id="2909" name="Torna su se raggiunta la fine"/>
@@ -522,21 +523,21 @@
             </Run>
 
             <MD5FromFilesDlg title="Genera firma MD5 di file">
-                <Item id="1922" name="Scegli i file di cui generare MD5..."/>
-                <Item id="1924" name="Copia negli Appunti"/>
-                <Item id="2"    name="Chiudi"/>
+                <Item id="1922" name="Scegli i file di cui &amp;generare MD5..."/>
+                <Item id="1924" name="Co&amp;pia negli Appunti"/>
+                <Item id="2"    name="&amp;Chiudi"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Genera firma MD5">
-                <Item id="1932" name="Considera ogni riga come una stringa separata"/>
-                <Item id="1934" name="Copia negli Appunti"/>
-                <Item id="2"    name="Chiudi"/>
+                <Item id="1932" name="Considera ogni riga come una stringa &amp;separata"/>
+                <Item id="1934" name="Co&amp;pia negli Appunti"/>
+                <Item id="2"    name="&amp;Chiudi"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Genera firma SHA-256 da file">
                 <Item id="1922" name="Scegli i file da cui generare SHA-256..."/>
-                <Item id="1924" name="Copia negli Appunti"/>
-                <Item id="2"    name="Chiudi"/>
+                <Item id="1924" name="Co&amp;pia negli Appunti"/>
+                <Item id="2"    name="&amp;Chiudi"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Genera firma SHA-256">
@@ -960,6 +961,7 @@
                     <Item id="6254" name="Abbreviazioni"/>
                     <Item id="6255" name="Codifica"/>
                     <Item id="6256" name="Colore Personalizzato"/>
+                    <Item id="6258" name="Applica a C0, C1 e Ritorno a capo Unicode"/>
                 </Scintillas>
 
                 <DarkMode title="Modalità scura">
@@ -1073,10 +1075,10 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                 </Highlighting>
 
                 <Print title="Stampa">
-                    <Item id="6601" name="Numeri di riga"/>
+                    <Item id="6601" name="N&amp;umeri di riga"/>
                     <Item id="6602" name="Opzioni Colore"/>
-                    <Item id="6603" name="WYSIWYG"/>
-                    <Item id="6604" name="Inverti"/>
+                    <Item id="6603" name="W&amp;YSIWYG"/>
+                    <Item id="6604" name="I&amp;nverti"/>
                     <Item id="6605" name="Bianco e nero"/>
                     <Item id="6606" name="Non stampare i colori di sfondo"/>
                     <Item id="6607" name="Impostazione dei Margini (unità: mm)"/>
@@ -1087,16 +1089,16 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                     <Item id="6706" name="Grassetto"/>
                     <Item id="6707" name="Corsivo"/>
                     <Item id="6708" name="Intestazione"/>
-                    <Item id="6709" name="Sezione di sinistra"/>
+                    <Item id="6709" name="S&amp;ezione di sinistra"/>
                     <Item id="6710" name="Sezione centrale"/>
                     <Item id="6711" name="Sezione di destra"/>
                     <Item id="6717" name="Grassetto"/>
-                    <Item id="6718" name="Corsivo"/>
+                    <Item id="6718" name="&amp;Corsivo"/>
                     <Item id="6719" name="Piè di pagina"/>
                     <Item id="6720" name="Sezione di sinistra"/>
                     <Item id="6721" name="Sezione centrale"/>
                     <Item id="6722" name="Sezione di destra"/>
-                    <Item id="6723" name="Aggiungi"/>
+                    <Item id="6723" name="&amp;Aggiungi"/>
                     <ComboBox id="6724">
                         <Element name="Percorso completo"/>
                         <Element name="Nome del file"/>
@@ -1106,7 +1108,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
                         <Element name="Data (estesa)"/>
                         <Element name="Ora"/>
                     </ComboBox>
-                    <Item id="6725" name="Variabile:"/>
+                    <Item id="6725" name="&amp;Variabile:"/>
                     <Item id="6727" name="Seleziona parte"/>
                     <Item id="6728" name="Intestazione e Piè Di Pagina"/>
                 </Print>
@@ -1267,7 +1269,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
             <MultiMacro title="Esegui macro più volte">
                 <Item id="1" name="Esegui"/>
                 <Item id="2" name="Annulla"/>
-                <Item id="8006" name="Macro da eseguire: "/>
+                <Item id="8006" name="Macro da eseguire"/>
                 <Item id="8001" name="Esegui"/>
                 <Item id="8005" name="volte"/>
                 <Item id="8002" name="Esegui fino a fine file"/>
@@ -1446,6 +1448,13 @@ Vuoi continuare?"/>
             <LanguageMenuCompactWarning title="Menù Linguaggio Compatto" message="L&apos;opzione sarà effettiva al riavvio."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Le modifiche non salvate verranno perse!
 Vuoi salvare le modifiche prima di cambiare tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Compatibilità dei Comandi di Macro ed Esegui" message="I salvataggi dei comandi di Macro ed Esegui di Notepad++ v.8.5.2 (o successive) potrebbero non essere compatibili con la versione corrente di Notepad++.
+Testa questi comandi e, se necessario, rimodificali.
+
+Alternativamente, è possibile tornare a Notepad++ v8.5.2 e ripristinare i dati precedenti.
+Notepad++ salverà il vecchio &quot;shortcuts.xml&quot; e salvarlo come &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Rinominando &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i comandi saranno ripristinati e funzioneranno correttamente."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronologia Appunti"/>
@@ -1687,8 +1696,6 @@ NOTE:
             <npcNote-tip value="Rappresentazione degli spazi &quot;non ASCII&quot; e dei caratteri non stampabili (caratteri di controllo).
 
 NOTA:
-Alcuni caratteri potrebbero avere già qualche rappresentazione e sono quindi visibili. Il separatore di riga e il separatore di paragrafo sono già rappresentati per impostazione predefinita dalla rispettiva abbreviazione.
-
 L&apos;uso della rappresentazione disabiliterà l&apos;effetto dei caratteri sul testo.
 
 Per l&apos;elenco completo degli spazi bianchi selezionati e dei caratteri non stampabili, consultare il Manuale dell&apos;utente.
@@ -1711,6 +1718,7 @@ Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Vai a Configura gli Stili per personalizzare il colore predefinito degli spazi e i caratteri non stampabili selezionati" />
+            <npcIncludeCcUniEol-tip value="Applicare le impostazioni dell'aspetto dei caratteri non stampabili ai caratteri di controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore di riga e separatore di paragrafo)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

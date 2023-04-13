@@ -88,7 +88,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:

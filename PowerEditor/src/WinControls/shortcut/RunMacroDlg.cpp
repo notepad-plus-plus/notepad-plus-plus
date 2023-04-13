@@ -72,7 +72,7 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:

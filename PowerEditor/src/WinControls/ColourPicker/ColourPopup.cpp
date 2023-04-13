@@ -98,7 +98,7 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorListbox(wParam, lParam);
 			}
 			return reinterpret_cast<LRESULT>(::GetStockObject(NULL_BRUSH));
 		}
@@ -269,7 +269,7 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 	return FALSE;
 }
 
-uintptr_t CALLBACK ColourPopup::chooseColorDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM) 
+uintptr_t CALLBACK ColourPopup::chooseColorDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -293,6 +293,9 @@ uintptr_t CALLBACK ColourPopup::chooseColorDlgProc(HWND hwnd, UINT message, WPAR
 		}
 
 		case WM_CTLCOLORLISTBOX:
+		{
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
+		}
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{

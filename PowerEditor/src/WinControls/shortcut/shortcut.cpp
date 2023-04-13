@@ -413,7 +413,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:

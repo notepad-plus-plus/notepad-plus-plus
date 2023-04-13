@@ -549,7 +549,7 @@ void GeneralSubDlg::setTabbarAlternateIcons(bool enable)
 	}
 }
 
-intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	
@@ -627,7 +627,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:
@@ -1024,7 +1024,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:
@@ -2030,7 +2030,7 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 const size_t fileUpdateChoiceEnable = 0;
 const size_t fileUpdateChoiceEnable4All = 1;
 const size_t fileUpdateChoiceDisable = 2;
-intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
@@ -2097,7 +2097,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:
@@ -2286,7 +2286,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -2405,7 +2405,7 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:
@@ -3575,7 +3575,7 @@ intptr_t CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	return FALSE;
 }
 
-intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -3680,7 +3680,7 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:

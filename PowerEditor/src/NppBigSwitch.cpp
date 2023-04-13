@@ -375,8 +375,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_LAUNCHFINDINFILESDLG:
 		{
 			// Find in files function code should be here due to the number of parameters (2) cannot be passed via WM_COMMAND
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			constexpr int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize]{};
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
@@ -398,8 +398,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_FINDINPROJECTS:
 		{
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			constexpr int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize]{};
 
 			bool isFirstTime = not _findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
@@ -415,13 +415,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_FINDINFINDERDLG:
 		{
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			constexpr int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize]{};
 			Finder *launcher = reinterpret_cast<Finder *>(wParam);
 
 			bool isFirstTime = !_findInFinderDlg.isCreated();
 
-			_findInFinderDlg.doDialog(launcher, _nativeLangSpeaker.isRTL());
+			_findInFinderDlg.doDialogForDpi(launcher, _nativeLangSpeaker.isRTL());
 
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str);

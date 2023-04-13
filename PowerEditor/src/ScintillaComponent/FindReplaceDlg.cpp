@@ -1010,7 +1010,7 @@ void FindInFinderDlg::writeOptions()
 	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL_FIFOLDER);
 }
 
-intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -1027,22 +1027,19 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
+		{
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
+		}
+
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1058,7 +1055,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -1069,6 +1066,15 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			setDpi(wParam);
+			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+			setPositionDpi(lParam);
+
 			return TRUE;
 		}
 
@@ -1150,7 +1156,7 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 	auto addWidth = newDeltaWidth - _deltaWidth;
 	_deltaWidth = newDeltaWidth;
 
-	RECT rc;
+	RECT rc{};
 	for (int id : resizeWindowIDs)
 	{
 		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
@@ -1211,22 +1217,18 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
+		{
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
+		}
+
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1242,7 +1244,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -4104,6 +4106,21 @@ void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)
 		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FINDINFINDER_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 
 }
+
+void FindInFinderDlg::doDialogForDpi(Finder* launcher, bool isRTL)
+{
+	if (NppDarkMode::isWindows10())
+	{
+		const auto dpiContext = ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		doDialog(launcher, isRTL);
+		::SetThreadDpiAwarenessContext(dpiContext);
+	}
+	else
+	{
+		doDialog(launcher, isRTL);
+	}
+}
+
 
 void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 {

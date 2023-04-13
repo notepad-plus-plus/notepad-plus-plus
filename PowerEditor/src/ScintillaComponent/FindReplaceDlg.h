@@ -145,7 +145,7 @@ public:
 	generic_string getHitsString(int count) const;
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	bool notify(SCNotification *notification);
 
 private:
@@ -223,10 +223,8 @@ struct FindersInfo
 class FindInFinderDlg : public StaticDialog
 {
 public:
-	void init(HINSTANCE hInst, HWND hPere) {
-		Window::init(hInst, hPere);
-	};
 	void doDialog(Finder *launcher, bool isRTL = false);
+	void doDialogForDpi(Finder *launcher, bool isRTL = false);
 	FindOption & getOption() { return _options; }
 	FindInFinderDlg() {
 		_options._isMatchCase = false;
@@ -237,7 +235,7 @@ private:
 	Finder  *_pFinder2Search = nullptr;
 	FindOption _options;
 	
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void initFromOptions();
 	void writeOptions();
 };
@@ -265,7 +263,7 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true, bool toShow = true);
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, bool toShow = true);
 	
 	void initOptionsFromDlg();
 
@@ -320,12 +318,12 @@ public :
 	bool isProjectPanel_3() const { return _env->_isProjectPanel_3; };
 	void saveFindHistory();
 	void changeTabName(DIALOG_TYPE index, const TCHAR *name2change) {
-		TCITEM tie;
+		TCITEM tie{};
 		tie.mask = TCIF_TEXT;
 		tie.pszText = (TCHAR *)name2change;
 		TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
 
-		TCHAR label[MAX_PATH];
+		TCHAR label[MAX_PATH]{};
 		_tab.getCurrentTitle(label, MAX_PATH);
 		::SetWindowText(_hSelf, label);
 	}
@@ -396,7 +394,7 @@ public :
 
 protected :
 	void resizeDialogElements(LONG newWidth);
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	static WNDPROC originalFinderProc;
 	static WNDPROC originalComboEditProc;
 
@@ -525,8 +523,8 @@ class FindIncrementDlg : public StaticDialog
 public :
 	FindIncrementDlg() = default;
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
-	virtual void destroy();
-	virtual void display(bool toShow = true) const;
+	void destroy() override;
+	void display(bool toShow = true) const override;
 
 	void setSearchText(const TCHAR* txt2find, bool) {
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
@@ -547,7 +545,7 @@ private :
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand = {};
 
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
 };
 

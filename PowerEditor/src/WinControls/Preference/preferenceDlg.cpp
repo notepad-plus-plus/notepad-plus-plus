@@ -291,7 +291,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
 
 			setPositionDpi(lParam);
-			break;
+			redraw();
+
+			return TRUE;
 		}
 
 		case PREF_MSG_SETGUITOOLICONSSET:

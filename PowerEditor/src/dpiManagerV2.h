@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 
 #pragma once
@@ -94,7 +94,7 @@ public:
 
 	static void setPositionDpi(LPARAM lParam, HWND hWnd)
 	{
-		auto prcNewWindow = reinterpret_cast<RECT* const>(lParam);
+		const auto prcNewWindow = reinterpret_cast<RECT*>(lParam);
 
 		::SetWindowPos(hWnd,
 			nullptr,

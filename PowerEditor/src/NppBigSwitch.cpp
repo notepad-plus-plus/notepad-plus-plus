@@ -33,8 +33,9 @@
 
 using namespace std;
 
+#ifndef WM_DPICHANGED
 #define WM_DPICHANGED 0x02E0
-
+#endif
 
 struct SortTaskListPred final
 {

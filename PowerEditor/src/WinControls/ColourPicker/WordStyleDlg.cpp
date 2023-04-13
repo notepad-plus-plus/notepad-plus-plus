@@ -276,6 +276,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
 
 			setPositionDpi(lParam);
+			redraw();
 			
 			return TRUE;
 		}

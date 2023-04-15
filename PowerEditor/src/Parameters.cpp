@@ -1471,12 +1471,12 @@ bool NppParameters::load()
 		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
 	}
 
-	_pXmlShortcutDoc = new TiXmlDocument(_shortcutsPath);
-	loadOkay = _pXmlShortcutDoc->LoadFile();
+	_pXmlShortcutDocA = new TiXmlDocumentA();
+	loadOkay = _pXmlShortcutDocA->LoadUnicodeFilePath(_shortcutsPath.c_str());
 	if (!loadOkay)
 	{
-		delete _pXmlShortcutDoc;
-		_pXmlShortcutDoc = nullptr;
+		delete _pXmlShortcutDocA;
+		_pXmlShortcutDocA = nullptr;
 		isAllLaoded = false;
 	}
 	else
@@ -1613,10 +1613,9 @@ void NppParameters::destroyInstance()
 
 	delete _pXmlNativeLangDocA;
 	delete _pXmlToolIconsDoc;
-	delete _pXmlShortcutDoc;
+	delete _pXmlShortcutDocA;
 	delete _pXmlContextMenuDocA;
 	delete _pXmlTabContextMenuDocA;
-	delete _pXmlBlacklistDoc;
 	delete 	getInstancePointer();
 }
 
@@ -1903,10 +1902,10 @@ std::pair<unsigned char, unsigned char> NppParameters::addUserDefineLangsFromXml
 
 bool NppParameters::getShortcutsFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNode *root = _pXmlShortcutDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -1917,10 +1916,10 @@ bool NppParameters::getShortcutsFromXmlTree()
 
 bool NppParameters::getMacrosFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNode *root = _pXmlShortcutDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -1931,10 +1930,10 @@ bool NppParameters::getMacrosFromXmlTree()
 
 bool NppParameters::getUserCmdsFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNode *root = _pXmlShortcutDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -1945,10 +1944,10 @@ bool NppParameters::getUserCmdsFromXmlTree()
 
 bool NppParameters::getPluginCmdsFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNode *root = _pXmlShortcutDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -1959,27 +1958,15 @@ bool NppParameters::getPluginCmdsFromXmlTree()
 
 bool NppParameters::getScintKeysFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNode *root = _pXmlShortcutDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
 	feedScintKeys(root);
 	return true;
-}
-
-bool NppParameters::getBlackListFromXmlTree()
-{
-	if (!_pXmlBlacklistDoc)
-		return false;
-
-	TiXmlNode *root = _pXmlBlacklistDoc->FirstChild(TEXT("NotepadPlus"));
-	if (!root)
-		return false;
-
-	return feedBlacklist(root);
 }
 
 void NppParameters::initMenuKeys()
@@ -1989,7 +1976,7 @@ void NppParameters::initMenuKeys()
 	for (int i = 0; i < nbCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
-		Shortcut sc((wkd.specialName ? wkd.specialName : TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
+		Shortcut sc((wkd.specialName ? wstring2string(wkd.specialName, CP_UTF8).c_str() : ""), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
 		_shortcuts.push_back( CommandShortcut(sc, wkd.functionId) );
 	}
 }
@@ -2016,7 +2003,7 @@ void NppParameters::initScintillaKeys()
 		}
 		else
 		{
-			Shortcut s = Shortcut(skd.name, skd.isCtrl, skd.isAlt, skd.isShift, static_cast<unsigned char>(skd.vKey));
+			Shortcut s = Shortcut(wstring2string(skd.name, CP_UTF8).c_str(), skd.isCtrl, skd.isAlt, skd.isShift, static_cast<unsigned char>(skd.vKey));
 			ScintillaKeyMap sm = ScintillaKeyMap(s, skd.functionId, skd.redirFunctionId);
 			_scintillaKeyCommands.push_back(sm);
 			++prevIndex;
@@ -2712,17 +2699,17 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 		_findHistory._isPurge = (lstrcmp(TEXT("yes"), boolStr) == 0);
 }
 
-void NppParameters::feedShortcut(TiXmlNode *node)
+void NppParameters::feedShortcut(TiXmlNodeA *node)
 {
-	TiXmlNode *shortcutsRoot = node->FirstChildElement(TEXT("InternalCommands"));
+	TiXmlNodeA *shortcutsRoot = node->FirstChildElement("InternalCommands");
 	if (!shortcutsRoot) return;
 
-	for (TiXmlNode *childNode = shortcutsRoot->FirstChildElement(TEXT("Shortcut"));
+	for (TiXmlNodeA *childNode = shortcutsRoot->FirstChildElement("Shortcut");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Shortcut")) )
+		childNode = childNode->NextSibling("Shortcut"))
 	{
 		int id;
-		const TCHAR *idStr = (childNode->ToElement())->Attribute(TEXT("id"), &id);
+		const char* idStr = (childNode->ToElement())->Attribute("id", &id);
 		if (idStr)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
@@ -2739,73 +2726,52 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 	}
 }
 
-void NppParameters::feedMacros(TiXmlNode *node)
+void NppParameters::feedMacros(TiXmlNodeA *node)
 {
-	TiXmlNode *macrosRoot = node->FirstChildElement(TEXT("Macros"));
+	TiXmlNodeA *macrosRoot = node->FirstChildElement("Macros");
 	if (!macrosRoot) return;
 
-	for (TiXmlNode *childNode = macrosRoot->FirstChildElement(TEXT("Macro"));
+	for (TiXmlNodeA *childNode = macrosRoot->FirstChildElement("Macro");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Macro")) )
+		childNode = childNode->NextSibling("Macro"))
 	{
 		Shortcut sc;
-		generic_string fdnm;
+		string fdnm;
 		if (getShortcuts(childNode, sc, &fdnm))
 		{
 			Macro macro;
 			getActions(childNode, macro);
 			int cmdID = ID_MACRO + static_cast<int32_t>(_macros.size());
 			_macros.push_back(MacroShortcut(sc, macro, cmdID));
-
-			// User could add folder name in his/her native language,
-			// so let's make non-western languages displayable here.
-			if (!fdnm.empty())
-			{
-				// The function WideCharToMultiByte with CP_ACP doesn't work.
-				// So we use our way to convert to char from wchar_t:
-				size_t len = fdnm.size();
-				const wchar_t* fdnmW = fdnm.c_str();
-				char* fdnmA = new char[len+1];
-				for (size_t i = 0; i < len; ++i)
-				{
-					fdnmA[i] = (char)fdnmW[i];
-				}
-				fdnmA[len] = '\0';
-
-				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				fdnm = wmc.char2wchar(fdnmA, SC_CP_UTF8);
-
-				delete[] fdnmA;
-			}
-			_macroMenuItems.push_back(MenuItemUnit(cmdID, sc.getName(), fdnm));
+			_macroMenuItems.push_back(MenuItemUnit(cmdID, string2wstring(sc.getName(), CP_UTF8), string2wstring(fdnm, CP_UTF8)));
 		}
 	}
 }
 
 
-void NppParameters::getActions(TiXmlNode *node, Macro & macro)
+void NppParameters::getActions(TiXmlNodeA *node, Macro & macro)
 {
-	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Action"));
+	for (TiXmlNodeA *childNode = node->FirstChildElement("Action");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Action")) )
+		childNode = childNode->NextSibling("Action") )
 	{
 		int type;
-		const TCHAR *typeStr = (childNode->ToElement())->Attribute(TEXT("type"), &type);
+		const char *typeStr = (childNode->ToElement())->Attribute("type", &type);
 		if ((!typeStr) || (type > 3))
 			continue;
 
 		int msg = 0;
-		(childNode->ToElement())->Attribute(TEXT("message"), &msg);
+		(childNode->ToElement())->Attribute("message", &msg);
 
 		int wParam = 0;
-		(childNode->ToElement())->Attribute(TEXT("wParam"), &wParam);
+		(childNode->ToElement())->Attribute("wParam", &wParam);
 
 		int lParam = 0;
-		(childNode->ToElement())->Attribute(TEXT("lParam"), &lParam);
+		(childNode->ToElement())->Attribute("lParam", &lParam);
 
-		const TCHAR *sParam = (childNode->ToElement())->Attribute(TEXT("sParam"));
+		const char *sParam = (childNode->ToElement())->Attribute("sParam");
 		if (!sParam)
-			sParam = TEXT("");
+			sParam = "";
 		recordedMacroStep step(msg, wParam, lParam, sParam, type);
 		if (step.isValid())
 			macro.push_back(step);
@@ -2813,71 +2779,49 @@ void NppParameters::getActions(TiXmlNode *node, Macro & macro)
 	}
 }
 
-void NppParameters::feedUserCmds(TiXmlNode *node)
+void NppParameters::feedUserCmds(TiXmlNodeA *node)
 {
-	TiXmlNode *userCmdsRoot = node->FirstChildElement(TEXT("UserDefinedCommands"));
+	TiXmlNodeA *userCmdsRoot = node->FirstChildElement("UserDefinedCommands");
 	if (!userCmdsRoot) return;
 
-	for (TiXmlNode *childNode = userCmdsRoot->FirstChildElement(TEXT("Command"));
+	for (TiXmlNodeA *childNode = userCmdsRoot->FirstChildElement("Command");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Command")) )
+		childNode = childNode->NextSibling("Command") )
 	{
 		Shortcut sc;
-		generic_string fdnm;
+		string fdnm;
 		if (getShortcuts(childNode, sc, &fdnm))
 		{
-			TiXmlNode *aNode = childNode->FirstChild();
+			TiXmlNodeA *aNode = childNode->FirstChild();
 			if (aNode)
 			{
-				const TCHAR *cmdStr = aNode->Value();
+				const char* cmdStr = aNode->Value();
 				if (cmdStr)
 				{
 					int cmdID = ID_USER_CMD + static_cast<int32_t>(_userCommands.size());
 					_userCommands.push_back(UserCommand(sc, cmdStr, cmdID));
-
-					// User could add folder name in his/her native language,
-					// so let's make non-western languages displayable here.
-					if (!fdnm.empty())
-					{
-						// The function WideCharToMultiByte with CP_ACP doesn't work.
-						// So we use our way to convert to char from wchar_t:
-						size_t len = fdnm.size();
-						const wchar_t* fdnmW = fdnm.c_str();
-						char* fdnmA = new char[len + 1];
-						for (size_t i = 0; i < len; ++i)
-						{
-							fdnmA[i] = (char)fdnmW[i];
-						}
-						fdnmA[len] = '\0';
-
-						WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-						fdnm = wmc.char2wchar(fdnmA, SC_CP_UTF8);
-
-						delete[] fdnmA;
-					}
-
-					_runMenuItems.push_back(MenuItemUnit(cmdID, sc.getName(), fdnm));
+					_runMenuItems.push_back(MenuItemUnit(cmdID, string2wstring(sc.getName(), CP_UTF8), string2wstring(fdnm, CP_UTF8)));
 				}
 			}
 		}
 	}
 }
 
-void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
+void NppParameters::feedPluginCustomizedCmds(TiXmlNodeA *node)
 {
-	TiXmlNode *pluginCustomizedCmdsRoot = node->FirstChildElement(TEXT("PluginCommands"));
+	TiXmlNodeA *pluginCustomizedCmdsRoot = node->FirstChildElement("PluginCommands");
 	if (!pluginCustomizedCmdsRoot) return;
 
-	for (TiXmlNode *childNode = pluginCustomizedCmdsRoot->FirstChildElement(TEXT("PluginCommand"));
+	for (TiXmlNodeA *childNode = pluginCustomizedCmdsRoot->FirstChildElement("PluginCommand");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("PluginCommand")) )
+		childNode = childNode->NextSibling("PluginCommand") )
 	{
-		const TCHAR *moduleName = (childNode->ToElement())->Attribute(TEXT("moduleName"));
+		const char *moduleName = (childNode->ToElement())->Attribute("moduleName");
 		if (!moduleName)
 			continue;
 
 		int internalID = -1;
-		const TCHAR *internalIDStr = (childNode->ToElement())->Attribute(TEXT("internalID"), &internalID);
+		const char *internalIDStr = (childNode->ToElement())->Attribute("internalID", &internalID);
 
 		if (!internalIDStr)
 			continue;
@@ -2887,7 +2831,7 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 		for (size_t i = 0; i < len; ++i)
 		{
 			PluginCmdShortcut & pscOrig = _pluginCommands[i];
-			if (!wcsnicmp(pscOrig.getModuleName(), moduleName, lstrlen(moduleName)) && pscOrig.getInternalID() == internalID)
+			if (!strnicmp(pscOrig.getModuleName(), moduleName, strlen(moduleName)) && pscOrig.getInternalID() == internalID)
 			{
 				//Found matching command
 				getShortcuts(childNode, _pluginCommands[i]);
@@ -2898,22 +2842,22 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 	}
 }
 
-void NppParameters::feedScintKeys(TiXmlNode *node)
+void NppParameters::feedScintKeys(TiXmlNodeA *node)
 {
-	TiXmlNode *scintKeysRoot = node->FirstChildElement(TEXT("ScintillaKeys"));
+	TiXmlNodeA *scintKeysRoot = node->FirstChildElement("ScintillaKeys");
 	if (!scintKeysRoot) return;
 
-	for (TiXmlNode *childNode = scintKeysRoot->FirstChildElement(TEXT("ScintKey"));
+	for (TiXmlNodeA *childNode = scintKeysRoot->FirstChildElement("ScintKey");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("ScintKey")) )
+		childNode = childNode->NextSibling("ScintKey") )
 	{
 		int scintKey;
-		const TCHAR *keyStr = (childNode->ToElement())->Attribute(TEXT("ScintID"), &scintKey);
+		const char *keyStr = (childNode->ToElement())->Attribute("ScintID", &scintKey);
 		if (!keyStr)
 			continue;
 
 		int menuID;
-		keyStr = (childNode->ToElement())->Attribute(TEXT("menuCmdID"), &menuID);
+		keyStr = (childNode->ToElement())->Attribute("menuCmdID", &menuID);
 		if (!keyStr)
 			continue;
 
@@ -2930,27 +2874,27 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 				_scintillaKeyCommands[i].setKeyComboByIndex(0, _scintillaKeyCommands[i].getKeyCombo());
 				addScintillaModifiedIndex(i);
 				KeyCombo kc;
-				for (TiXmlNode *nextNode = childNode->FirstChildElement(TEXT("NextKey"));
+				for (TiXmlNodeA *nextNode = childNode->FirstChildElement("NextKey");
 					nextNode ;
-					nextNode = nextNode->NextSibling(TEXT("NextKey")))
+					nextNode = nextNode->NextSibling("NextKey"))
 				{
-					const TCHAR *str = (nextNode->ToElement())->Attribute(TEXT("Ctrl"));
+					const char *str = (nextNode->ToElement())->Attribute("Ctrl");
 					if (!str)
 						continue;
-					kc._isCtrl = (lstrcmp(TEXT("yes"), str) == 0);
+					kc._isCtrl = (strcmp("yes", str) == 0);
 
-					str = (nextNode->ToElement())->Attribute(TEXT("Alt"));
+					str = (nextNode->ToElement())->Attribute("Alt");
 					if (!str)
 						continue;
-					kc._isAlt = (lstrcmp(TEXT("yes"), str) == 0);
+					kc._isAlt = (strcmp("yes", str) == 0);
 
-					str = (nextNode->ToElement())->Attribute(TEXT("Shift"));
+					str = (nextNode->ToElement())->Attribute("Shift");
 					if (!str)
 						continue;
-					kc._isShift = (lstrcmp(TEXT("yes"), str) == 0);
+					kc._isShift = (strcmp("yes", str) == 0);
 
 					int key;
-					str = (nextNode->ToElement())->Attribute(TEXT("Key"), &key);
+					str = (nextNode->ToElement())->Attribute("Key", &key);
 					if (!str)
 						continue;
 					kc._key = static_cast<unsigned char>(key);
@@ -2962,56 +2906,38 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 	}
 }
 
-bool NppParameters::feedBlacklist(TiXmlNode *node)
-{
-	TiXmlNode *blackListRoot = node->FirstChildElement(TEXT("PluginBlackList"));
-	if (!blackListRoot) return false;
-
-	for (TiXmlNode *childNode = blackListRoot->FirstChildElement(TEXT("Plugin"));
-		childNode ;
-		childNode = childNode->NextSibling(TEXT("Plugin")) )
-	{
-		const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
-		if (name)
-		{
-			_blacklist.push_back(name);
-		}
-	}
-	return true;
-}
-
-bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc, generic_string* folderName)
+bool NppParameters::getShortcuts(TiXmlNodeA *node, Shortcut & sc, string* folderName)
 {
 	if (!node) return false;
 
-	const TCHAR *name = (node->ToElement())->Attribute(TEXT("name"));
+	const char* name = (node->ToElement())->Attribute("name");
 	if (!name)
-		name = TEXT("");
+		name = "";
 
 	bool isCtrl = false;
-	const TCHAR *isCtrlStr = (node->ToElement())->Attribute(TEXT("Ctrl"));
+	const char* isCtrlStr = (node->ToElement())->Attribute("Ctrl");
 	if (isCtrlStr)
-		isCtrl = (lstrcmp(TEXT("yes"), isCtrlStr) == 0);
+		isCtrl = (strcmp("yes", isCtrlStr) == 0);
 
 	bool isAlt = false;
-	const TCHAR *isAltStr = (node->ToElement())->Attribute(TEXT("Alt"));
+	const char* isAltStr = (node->ToElement())->Attribute("Alt");
 	if (isAltStr)
-		isAlt = (lstrcmp(TEXT("yes"), isAltStr) == 0);
+		isAlt = (strcmp("yes", isAltStr) == 0);
 
 	bool isShift = false;
-	const TCHAR *isShiftStr = (node->ToElement())->Attribute(TEXT("Shift"));
+	const char* isShiftStr = (node->ToElement())->Attribute("Shift");
 	if (isShiftStr)
-		isShift = (lstrcmp(TEXT("yes"), isShiftStr) == 0);
+		isShift = (strcmp("yes", isShiftStr) == 0);
 
 	int key;
-	const TCHAR *keyStr = (node->ToElement())->Attribute(TEXT("Key"), &key);
+	const char* keyStr = (node->ToElement())->Attribute("Key", &key);
 	if (!keyStr)
 		return false;
 
 	if (folderName)
 	{
-		const TCHAR* fn = (node->ToElement())->Attribute(TEXT("FolderName"));
-		*folderName = fn ? fn : L"";
+		const char* fn = (node->ToElement())->Attribute("FolderName");
+		*folderName = fn ? fn : "";
 	}
 
 	sc = Shortcut(name, isCtrl, isAlt, isShift, static_cast<unsigned char>(key));
@@ -3261,9 +3187,9 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	// shortcuts.xml
 	generic_string cloudShortcutsPath = cloudSettingsPath;
 	pathAppend(cloudShortcutsPath, TEXT("shortcuts.xml"));
-	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDoc)
+	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDocA)
 	{
-		isOK = _pXmlShortcutDoc->SaveFile(cloudShortcutsPath.c_str());
+		isOK = _pXmlShortcutDocA->SaveUnicodeFilePath(cloudShortcutsPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -3398,115 +3324,87 @@ void NppParameters::writeNeed2SaveUDL()
 }
 
 
-void NppParameters::insertCmd(TiXmlNode *shortcutsRoot, const CommandShortcut & cmd)
+void NppParameters::insertCmd(TiXmlNodeA *shortcutsRoot, const CommandShortcut & cmd)
 {
 	const KeyCombo & key = cmd.getKeyCombo();
-	TiXmlNode *sc = shortcutsRoot->InsertEndChild(TiXmlElement(TEXT("Shortcut")));
-	sc->ToElement()->SetAttribute(TEXT("id"), cmd.getID());
-	sc->ToElement()->SetAttribute(TEXT("Ctrl"), key._isCtrl?TEXT("yes"):TEXT("no"));
-	sc->ToElement()->SetAttribute(TEXT("Alt"), key._isAlt?TEXT("yes"):TEXT("no"));
-	sc->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
-	sc->ToElement()->SetAttribute(TEXT("Key"), key._key);
+	TiXmlNodeA *sc = shortcutsRoot->InsertEndChild(TiXmlElementA("Shortcut"));
+	sc->ToElement()->SetAttribute("id", cmd.getID());
+	sc->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	sc->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	sc->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	sc->ToElement()->SetAttribute("Key", key._key);
 }
 
 
-void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro, const generic_string& folderName)
+void NppParameters::insertMacro(TiXmlNodeA *macrosRoot, const MacroShortcut & macro, const string& folderName)
 {
 	const KeyCombo & key = macro.getKeyCombo();
-	TiXmlNode *macroRoot = macrosRoot->InsertEndChild(TiXmlElement(TEXT("Macro")));
-	macroRoot->ToElement()->SetAttribute(TEXT("name"), macro.getMenuName());
-	macroRoot->ToElement()->SetAttribute(TEXT("Ctrl"), key._isCtrl?TEXT("yes"):TEXT("no"));
-	macroRoot->ToElement()->SetAttribute(TEXT("Alt"), key._isAlt?TEXT("yes"):TEXT("no"));
-	macroRoot->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
-	macroRoot->ToElement()->SetAttribute(TEXT("Key"), key._key);
+	TiXmlNodeA *macroRoot = macrosRoot->InsertEndChild(TiXmlElementA("Macro"));
+	macroRoot->ToElement()->SetAttribute("name", macro.getMenuName());
+	macroRoot->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	macroRoot->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	macroRoot->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	macroRoot->ToElement()->SetAttribute("Key", key._key);
 	if (!folderName.empty())
 	{
-		// W -> A -> W
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char* folderNameA = wmc.wchar2char(folderName.c_str(), SC_CP_UTF8);
-
-		size_t len = strlen(folderNameA);
-		wchar_t* folderNameW = new wchar_t[len+1];
-
-		for (size_t i = 0; i < len; ++i)
-		{
-			folderNameW[i] = folderNameA[i];
-		}
-		folderNameW[len] = '\0';
-
-		macroRoot->ToElement()->SetAttribute(TEXT("FolderName"), folderNameW);
-		delete[] folderNameW;
+		macroRoot->ToElement()->SetAttribute("FolderName", folderName);
 	}
 
 	for (size_t i = 0, len = macro._macro.size(); i < len ; ++i)
 	{
-		TiXmlNode *actionNode = macroRoot->InsertEndChild(TiXmlElement(TEXT("Action")));
+		TiXmlNodeA *actionNode = macroRoot->InsertEndChild(TiXmlElementA("Action"));
 		const recordedMacroStep & action = macro._macro[i];
-		actionNode->ToElement()->SetAttribute(TEXT("type"), action._macroType);
-		actionNode->ToElement()->SetAttribute(TEXT("message"), action._message);
-		actionNode->ToElement()->SetAttribute(TEXT("wParam"), static_cast<int>(action._wParameter));
-		actionNode->ToElement()->SetAttribute(TEXT("lParam"), static_cast<int>(action._lParameter));
-		actionNode->ToElement()->SetAttribute(TEXT("sParam"), action._sParameter.c_str());
+		actionNode->ToElement()->SetAttribute("type", action._macroType);
+		actionNode->ToElement()->SetAttribute("message", action._message);
+		actionNode->ToElement()->SetAttribute("wParam", static_cast<int>(action._wParameter));
+		actionNode->ToElement()->SetAttribute("lParam", static_cast<int>(action._lParameter));
+		actionNode->ToElement()->SetAttribute("sParam", action._sParameter.c_str());
 	}
 }
 
 
-void NppParameters::insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd, const generic_string& folderName)
+void NppParameters::insertUserCmd(TiXmlNodeA *userCmdRoot, const UserCommand & userCmd, const string& folderName)
 {
 	const KeyCombo & key = userCmd.getKeyCombo();
-	TiXmlNode *cmdRoot = userCmdRoot->InsertEndChild(TiXmlElement(TEXT("Command")));
-	cmdRoot->ToElement()->SetAttribute(TEXT("name"), userCmd.getMenuName());
-	cmdRoot->ToElement()->SetAttribute(TEXT("Ctrl"), key._isCtrl?TEXT("yes"):TEXT("no"));
-	cmdRoot->ToElement()->SetAttribute(TEXT("Alt"), key._isAlt?TEXT("yes"):TEXT("no"));
-	cmdRoot->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
-	cmdRoot->ToElement()->SetAttribute(TEXT("Key"), key._key);
-	cmdRoot->InsertEndChild(TiXmlText(userCmd._cmd.c_str()));
+	TiXmlNodeA *cmdRoot = userCmdRoot->InsertEndChild(TiXmlElementA("Command"));
+	cmdRoot->ToElement()->SetAttribute("name", userCmd.getMenuName());
+	cmdRoot->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	cmdRoot->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	cmdRoot->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	cmdRoot->ToElement()->SetAttribute("Key", key._key);
+	cmdRoot->InsertEndChild(TiXmlTextA(userCmd._cmd.c_str()));
 	if (!folderName.empty())
 	{
-		// W -> A -> W
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char* folderNameA = wmc.wchar2char(folderName.c_str(), SC_CP_UTF8);
-
-		size_t len = strlen(folderNameA);
-		wchar_t* folderNameW = new wchar_t[len + 1];
-
-		for (size_t i = 0; i < len; ++i)
-		{
-			folderNameW[i] = folderNameA[i];
-		}
-		folderNameW[len] = '\0';
-
-		cmdRoot->ToElement()->SetAttribute(TEXT("FolderName"), folderNameW);
-		delete[] folderNameW;
+		cmdRoot->ToElement()->SetAttribute("FolderName", folderName);
 	}
 }
 
 
-void NppParameters::insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd)
+void NppParameters::insertPluginCmd(TiXmlNodeA *pluginCmdRoot, const PluginCmdShortcut & pluginCmd)
 {
 	const KeyCombo & key = pluginCmd.getKeyCombo();
-	TiXmlNode *pluginCmdNode = pluginCmdRoot->InsertEndChild(TiXmlElement(TEXT("PluginCommand")));
-	pluginCmdNode->ToElement()->SetAttribute(TEXT("moduleName"), pluginCmd.getModuleName());
-	pluginCmdNode->ToElement()->SetAttribute(TEXT("internalID"), pluginCmd.getInternalID());
-	pluginCmdNode->ToElement()->SetAttribute(TEXT("Ctrl"), key._isCtrl?TEXT("yes"):TEXT("no"));
-	pluginCmdNode->ToElement()->SetAttribute(TEXT("Alt"), key._isAlt?TEXT("yes"):TEXT("no"));
-	pluginCmdNode->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
-	pluginCmdNode->ToElement()->SetAttribute(TEXT("Key"), key._key);
+	TiXmlNodeA *pluginCmdNode = pluginCmdRoot->InsertEndChild(TiXmlElementA("PluginCommand"));
+	pluginCmdNode->ToElement()->SetAttribute("moduleName", pluginCmd.getModuleName());
+	pluginCmdNode->ToElement()->SetAttribute("internalID", pluginCmd.getInternalID());
+	pluginCmdNode->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	pluginCmdNode->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	pluginCmdNode->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	pluginCmdNode->ToElement()->SetAttribute("Key", key._key);
 }
 
 
-void NppParameters::insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap)
+void NppParameters::insertScintKey(TiXmlNodeA *scintKeyRoot, const ScintillaKeyMap & scintKeyMap)
 {
-	TiXmlNode *keyRoot = scintKeyRoot->InsertEndChild(TiXmlElement(TEXT("ScintKey")));
-	keyRoot->ToElement()->SetAttribute(TEXT("ScintID"), scintKeyMap.getScintillaKeyID());
-	keyRoot->ToElement()->SetAttribute(TEXT("menuCmdID"), scintKeyMap.getMenuCmdID());
+	TiXmlNodeA *keyRoot = scintKeyRoot->InsertEndChild(TiXmlElementA("ScintKey"));
+	keyRoot->ToElement()->SetAttribute("ScintID", scintKeyMap.getScintillaKeyID());
+	keyRoot->ToElement()->SetAttribute("menuCmdID", scintKeyMap.getMenuCmdID());
 
 	//Add main shortcut
 	KeyCombo key = scintKeyMap.getKeyComboByIndex(0);
-	keyRoot->ToElement()->SetAttribute(TEXT("Ctrl"), key._isCtrl?TEXT("yes"):TEXT("no"));
-	keyRoot->ToElement()->SetAttribute(TEXT("Alt"), key._isAlt?TEXT("yes"):TEXT("no"));
-	keyRoot->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
-	keyRoot->ToElement()->SetAttribute(TEXT("Key"), key._key);
+	keyRoot->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	keyRoot->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	keyRoot->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	keyRoot->ToElement()->SetAttribute("Key", key._key);
 
 	//Add additional shortcuts
 	size_t size = scintKeyMap.getSize();
@@ -3514,12 +3412,12 @@ void NppParameters::insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMa
 	{
 		for (size_t i = 1; i < size; ++i)
 		{
-			TiXmlNode *keyNext = keyRoot->InsertEndChild(TiXmlElement(TEXT("NextKey")));
+			TiXmlNodeA *keyNext = keyRoot->InsertEndChild(TiXmlElementA("NextKey"));
 			key = scintKeyMap.getKeyComboByIndex(i);
-			keyNext->ToElement()->SetAttribute(TEXT("Ctrl"), key._isCtrl?TEXT("yes"):TEXT("no"));
-			keyNext->ToElement()->SetAttribute(TEXT("Alt"), key._isAlt?TEXT("yes"):TEXT("no"));
-			keyNext->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
-			keyNext->ToElement()->SetAttribute(TEXT("Key"), key._key);
+			keyNext->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+			keyNext->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+			keyNext->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+			keyNext->ToElement()->SetAttribute("Key", key._key);
 		}
 	}
 }
@@ -3633,25 +3531,25 @@ void NppParameters::writeShortcuts()
 {
 	if (!_isAnyShortcutModified) return;
 
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 	{
 		//do the treatment
-		_pXmlShortcutDoc = new TiXmlDocument(_shortcutsPath);
-		TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
-		_pXmlShortcutDoc->LinkEndChild(decl);
+		_pXmlShortcutDocA = new TiXmlDocumentA();
+		TiXmlDeclarationA* decl = new TiXmlDeclarationA("1.0", "UTF-8", "");
+		_pXmlShortcutDocA->LinkEndChild(decl);
 	}
 
-	TiXmlNode *root = _pXmlShortcutDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 	{
-		root = _pXmlShortcutDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+		root = _pXmlShortcutDocA->InsertEndChild(TiXmlElementA("NotepadPlus"));
 	}
 
-	TiXmlNode *cmdRoot = root->FirstChild(TEXT("InternalCommands"));
+	TiXmlNodeA *cmdRoot = root->FirstChild("InternalCommands");
 	if (cmdRoot)
 		root->RemoveChild(cmdRoot);
 
-	cmdRoot = root->InsertEndChild(TiXmlElement(TEXT("InternalCommands")));
+	cmdRoot = root->InsertEndChild(TiXmlElementA("InternalCommands"));
 	for (size_t i = 0, len = _customizedShortcuts.size(); i < len ; ++i)
 	{
 		size_t index = _customizedShortcuts[i];
@@ -3659,48 +3557,48 @@ void NppParameters::writeShortcuts()
 		insertCmd(cmdRoot, csc);
 	}
 
-	TiXmlNode *macrosRoot = root->FirstChild(TEXT("Macros"));
+	TiXmlNodeA *macrosRoot = root->FirstChild("Macros");
 	if (macrosRoot)
 		root->RemoveChild(macrosRoot);
 
-	macrosRoot = root->InsertEndChild(TiXmlElement(TEXT("Macros")));
+	macrosRoot = root->InsertEndChild(TiXmlElementA("Macros"));
 
 	for (size_t i = 0, len = _macros.size(); i < len ; ++i)
 	{
-		insertMacro(macrosRoot, _macros[i], _macroMenuItems.getItemFromIndex(i)._parentFolderName);
+		insertMacro(macrosRoot, _macros[i], wstring2string(_macroMenuItems.getItemFromIndex(i)._parentFolderName, CP_UTF8));
 	}
 
-	TiXmlNode *userCmdRoot = root->FirstChild(TEXT("UserDefinedCommands"));
+	TiXmlNodeA *userCmdRoot = root->FirstChild("UserDefinedCommands");
 	if (userCmdRoot)
 		root->RemoveChild(userCmdRoot);
 
-	userCmdRoot = root->InsertEndChild(TiXmlElement(TEXT("UserDefinedCommands")));
+	userCmdRoot = root->InsertEndChild(TiXmlElementA("UserDefinedCommands"));
 
 	for (size_t i = 0, len = _userCommands.size(); i < len ; ++i)
 	{
-		insertUserCmd(userCmdRoot, _userCommands[i], _runMenuItems.getItemFromIndex(i)._parentFolderName);
+		insertUserCmd(userCmdRoot, _userCommands[i], wstring2string(_runMenuItems.getItemFromIndex(i)._parentFolderName, CP_UTF8));
 	}
 
-	TiXmlNode *pluginCmdRoot = root->FirstChild(TEXT("PluginCommands"));
+	TiXmlNodeA *pluginCmdRoot = root->FirstChild("PluginCommands");
 	if (pluginCmdRoot)
 		root->RemoveChild(pluginCmdRoot);
 
-	pluginCmdRoot = root->InsertEndChild(TiXmlElement(TEXT("PluginCommands")));
+	pluginCmdRoot = root->InsertEndChild(TiXmlElementA("PluginCommands"));
 	for (size_t i = 0, len = _pluginCustomizedCmds.size(); i < len ; ++i)
 	{
 		insertPluginCmd(pluginCmdRoot, _pluginCommands[_pluginCustomizedCmds[i]]);
 	}
 
-	TiXmlNode *scitillaKeyRoot = root->FirstChild(TEXT("ScintillaKeys"));
+	TiXmlNodeA *scitillaKeyRoot = root->FirstChild("ScintillaKeys");
 	if (scitillaKeyRoot)
 		root->RemoveChild(scitillaKeyRoot);
 
-	scitillaKeyRoot = root->InsertEndChild(TiXmlElement(TEXT("ScintillaKeys")));
+	scitillaKeyRoot = root->InsertEndChild(TiXmlElementA("ScintillaKeys"));
 	for (size_t i = 0, len = _scintillaModifiedKeyIndices.size(); i < len ; ++i)
 	{
 		insertScintKey(scitillaKeyRoot, _scintillaKeyCommands[_scintillaModifiedKeyIndices[i]]);
 	}
-	_pXmlShortcutDoc->SaveFile();
+	_pXmlShortcutDocA->SaveUnicodeFilePath(_shortcutsPath.c_str());
 }
 
 

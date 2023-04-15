@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    <!--
+<!--
 The comments are here for explanation, it's not necessary to translate them.
-    -->
+-->
 <NotepadPlus>
-    <Native-Langue name="Español" filename="spanish.xml" version="8.5.1">
+    <Native-Langue name="Español" filename="spanish.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -116,8 +116,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42084" name="Fecha y hora (corta)"/>
                     <Item id="42085" name="Fecha y hora (larga)"/>
                     <Item id="42086" name="Fecha y hora (personalizada)"/>
-                    <Item id="42008" name="Aumentar sangría de línea"/>
-                    <Item id="42009" name="Reducir sangría de línea"/>
+                    <Item id="42008" name="Aumentar"/>
+                    <Item id="42009" name="Reducir"/>
                     <Item id="42010" name="Duplicar línea actual"/>
                     <Item id="42079" name="Eliminar líneas duplicadas"/>
                     <Item id="42077" name="Eliminar líneas consecutivas duplicadas"/>
@@ -206,7 +206,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43050" name="Invertir marcas"/>
                     <Item id="43052" name="Buscar caract&amp;eres por tipo..."/>
                     <Item id="43053" name="Seleccio&amp;nar todo lo coincidente"/>
-                    <Item id="43009" name="Ir al delimitador si&amp;métrico"/>
+                    <Item id="43009" name="Ir al delimi&amp;tador simétrico"/>
                     <Item id="43010" name="Buscar &amp;anterior"/>
                     <Item id="43011" name="Búsqueda &amp;incremental"/>
                     <Item id="43013" name="Buscar en arc&amp;hivos"/>
@@ -296,6 +296,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44114" name="Aplicar color 4"/>
                     <Item id="44115" name="Aplicar color 5"/>
                     <Item id="44130" name="Mostrar caracteres no imprimibles"/>
+                    <Item id="44131" name="Mostrar caracteres de control &amp; EOL de Unicode"/>
                     <Item id="44032" name="Activar el modo de pantalla completa"/>
                     <Item id="44033" name="Restaurar zoom 100%"/>
                     <Item id="44034" name="Siempre visible"/>
@@ -440,20 +441,20 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1620" name="Qué &amp;buscar:"/>
                 <Item id="1603" name="Solo &amp;palabras completas"/>
                 <Item id="1604" name="Coincidir &amp;mayúsculas y minúsculas"/>
-                <Item id="1605" name="Expresión re&amp;gular"/>
+                <Item id="1605" name="Expresión &amp;regular"/>
                 <Item id="1606" name="Buscar en todo el d&amp;ocumento"/>
                 <Item id="1614" name="Con&amp;tar"/>
                 <Item id="1615" name="Marcar todo"/>
                 <Item id="1616" name="Marcar &amp;línea"/>
                 <Item id="1618" name="Depurar en cada búsqueda"/>
                 <Item id="1611" name="S&amp;ustituir con:"/>
-                <Item id="1608" name="Sustitui&amp;r"/>
+                <Item id="1608" name="&amp;Sustituir"/>
                 <Item id="1609" name="Sustituir &amp;todo"/>
                 <Item id="1687" name="Al perder el foco"/>
                 <Item id="1688" name="Siempre"/>
-                <Item id="1632" name="En la selecc&amp;ión"/>
+                <Item id="1632" name="En la sele&amp;cción"/>
                 <Item id="1633" name="Borrar marcas"/>
-                <Item id="1635" name="Sustituir en t&amp;odos los archivos abiertos"/>
+                <Item id="1635" name="Sustituir en to&amp;dos los archivos abiertos"/>
                 <Item id="1636" name="Buscar en todos los &amp;archivos abiertos"/>
                 <Item id="1654" name="Filtro&amp;s:"/>
                 <Item id="1655" name="Car&amp;peta:"/>
@@ -489,10 +490,10 @@ The comments are here for explanation, it's not necessary to translate them.
             </IncrementalFind>
 
             <FindCharsInRange title="Rango de búsqueda de caracteres">
-                <Item id="2"    name="Cerrar"/>
+                <Item id="2" name="Cerrar"/>
                 <Item id="2901" name="Caracteres no-ASCII (128-255)"/>
                 <Item id="2902" name="Caracteres ASCII (0-127)"/>
-                <Item id="2903" name="Mi rango:"/>
+                <Item id="2903" name="Especifique rango"/>
                 <Item id="2906" name="&amp;Arriba"/>
                 <Item id="2907" name="A&amp;bajo"/>
                 <Item id="2908" name="Dirección"/>
@@ -727,7 +728,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20003" name="Crear nuevo..."/>
                 <Item id="20004" name="Borrar"/>
                 <Item id="20005" name="Guardar como..."/>
-                <Item id="20007" name="Lenguaje del usuario: "/>
+                <Item id="20007" name="Lenguaje"/>
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignorar MAYÚS/minús"/>
                 <Item id="20011" name="Transparencia"/>
@@ -738,7 +739,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25030" name="Opciones de fuente:"/>
                     <Item id="25006" name="Primer plano"/>
                     <Item id="25007" name="Fondo"/>
-                    <Item id="25031" name="Nombre:"/>
+                    <Item id="25031" name="Tipo:"/>
                     <Item id="25032" name="Tamaño:"/>
                     <Item id="25001" name="Negrita"/>
                     <Item id="25002" name="Cursiva"/>
@@ -819,7 +820,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="22622" name="Estilo"/>
                 </Keywords>
                 <Comment title="Comentario &amp;&amp; Número">
-                    <Item id="23003" name="Posición de comentario de la línea"/>
+                    <Item id="23003" name="Posición del comentario de línea"/>
                     <Item id="23004" name="Sin límite"/>
                     <Item id="23005" name="Siempre al inicio de línea"/>
                     <Item id="23006" name="Permitir espacios libres previos"/>
@@ -828,7 +829,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="23323" name="Abrir"/>
                     <Item id="23324" name="Continuación"/>
                     <Item id="23325" name="Cerrar"/>
-                    <Item id="23301" name="Estilo de comentario de línea"/>
+                    <Item id="23301" name="Estilo de comentario"/>
                     <Item id="23124" name="Estilo"/>
                     <Item id="23122" name="Abrir"/>
                     <Item id="23123" name="Cerrar"/>
@@ -848,10 +849,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="23247" name="Ambos"/>
                 </Comment>
                 <Operator title="Operadores &amp;&amp; Delimitador">
-                    <Item id="24101" name="Estilo operadores"/>
+                    <Item id="24101" name="Estilo de los operadores"/>
                     <Item id="24113" name="Estilo"/>
-                    <Item id="24116" name="Operadores 1"/>
-                    <Item id="24117" name="Operadores 2 (necesita separadores)"/>
+                    <Item id="24116" name="Operador 1"/>
+                    <Item id="24117" name="Operador 2 (necesita separadores)"/>
                     <Item id="24201" name="Estilo del delimitador 1"/>
                     <Item id="24220" name="Abrir:"/>
                     <Item id="24221" name="Escape:"/>
@@ -921,7 +922,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
                     <Item id="6131" name="Menú"/>
                     <Item id="6122" name="Ocultar barra de opciones (Alt o F10 para activar/desactivar)"/>
-                    <Item id="6132" name="Ocultar atajos＋ ▼ ✕  en la derecha de la barra de menús (es necesario reiniciar Notepad++)"/>
+                    <Item id="6132" name="Ocultar atajos ＋ ▼ ✕ en la derecha de la barra de menús (es necesario reiniciar Notepad++)"/>
                     <Item id="6123" name="Idioma"/>
 
                     <Item id="6128" name="Iconos alternativos"/>
@@ -932,8 +933,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Intermitencia:"/>
                     <Item id="6221" name="R"/>
                     <Item id="6222" name="L"/>
-                    <Item id="6246" name="Hacer que los comandos de plegado/desplegado del nivel actual sean conmutables"/>
-                    <Item id="6225" name="Activar edición múltiple (Ctrl. + clic/selección)"/>
+                    <Item id="6246" name="Comandos de plegado/desplegado del nivel actual conmutables"/>
+                    <Item id="6225" name="Habilitar edición múltiple (Ctrl. + clic/selección)"/>
                     <Item id="6227" name="Ajuste de línea"/>
                     <Item id="6228" name="Por defecto"/>
                     <Item id="6229" name="Alineado"/>
@@ -956,6 +957,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6254" name="Abreviatura"/>
                     <Item id="6255" name="Punto de código"/>
                     <Item id="6256" name="Color personalizado"/>
+                    <Item id="6258" name="Aplicar a C0, C1 &amp; EOL de Unicode"/>
                 </Scintillas>
 
                 <DarkMode title="Modo oscuro">
@@ -1113,7 +1115,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                     <Item id="6904" name="Confirmar &quot;Sustituir todo&quot; en todos los documentos abiertos"/>
                     <Item id="6905" name="Sustituir: no ir a la siguiente coincidencia"/>
                     <Item id="6906" name="Ventana de resultados de búsqueda: mostrar solo una entrada por línea encontrada"/>
-                    <Item id="6907" name="Cuando se invoca el diálogo de búsqueda"/>
+                    <Item id="6907" name="Al abrir el cuadro de búsqueda"/>
                     <Item id="6908" name="Rellenar el campo de búsqueda con el texto seleccionado"/>
                     <Item id="6909" name="Seleccionar la palabra bajo el cursor si no hay nada seleccionado"/>
                 </Searching>
@@ -1280,7 +1282,12 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                 <Item id="2033" name="&amp;Número a insertar"/>
                 <Item id="2030" name="Número &amp;inicial:"/>
                 <Item id="2031" name="Incre&amp;mentar en:"/>
-                <Item id="2035" name="&amp;Ceros delante"/>
+                <Item id="2038" name="&amp;Dirección:"/>
+                <ComboBox id="2039">
+                    <Element name="Ninguno"/>
+                    <Element name="Ceros"/>
+                    <Element name="Espacios"/>
+                </ComboBox>
                 <Item id="2036" name="&amp;Repetir:"/>
                 <Item id="2032" name="Formato"/>
                 <Item id="2024" name="&amp;Decimal"/>
@@ -1291,8 +1298,8 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                 <Item id="2" name="Cancelar"/>
             </ColumnEditor>
             <FindInFinder title="Buscar en los resultados de las búsquedas">
-                <Item id="1" name="Buscar todo"/>
-                <Item id="2" name="Cerrar"/>
+                <Item id="1"    name="Buscar todo"/>
+                <Item id="2"    name="Cerrar"/>
                 <Item id="1711" name="&amp;Buscar:"/>
                 <Item id="1713" name="Buscar solo en las líneas encontradas"/>
                 <Item id="1714" name="Buscar &amp;solo palabra completa"/>
@@ -1404,7 +1411,7 @@ Este archivo ha sido modificado por otro programa.
             <FolderAsWorspaceSubfolderExists title="Problema en &quot;Carpeta como espacio de trabajo&quot;" message="Existe una subcarpeta de la carpeta que desea agregar.
 Elimine su carpeta raíz del panel antes de agregar &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="El espacio de trabajo se modificó. ¿Desea guardarlo?"/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="El espacio de trabajo ha sido modificado. ¿Desea guardarlo?"/>
             <ProjectPanelSaveError title="$STR_REPLACE$" message="Se produjo un error al escribir su archivo del espacio de trabajo.
 Su espacio de trabajo no se ha guardado."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Abrir espacio de trabajo" message="El espacio de trabajo actual se modificó. ¿Desea guardar el proyecto actual?"/>
@@ -1437,6 +1444,12 @@ Notepad++ se reiniciará después de que finalicen todas.
             <LanguageMenuCompactWarning title="Menú compacto de lenguajes" message="Esta opción se cambiará en el siguiente inicio."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="¡Los cambios no guardados serán descartados!
 ¿Quiere guardar los cambios antes de cambiar de tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Compatibilidad de Macro y Ejecutar" message="Los comandos Macro y Ejecutar guardados en Notepad++ v.8.5.2 (o anterior) pueden no ser compatibles con la versión actual de Notepad++.
+Pruebe estos comandos y, si es necesario, vuelva a editarlos.
+
+Alternativamente, puede reinstalar Notepad++ v8.5.2 y restaurar sus datos anteriores.
+Notepad++ hará una copia de seguridad de su antiguo &quot;shortcuts.xml&quot; y lo guardará como &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Cambie el nombre de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; y sus comandos serán restaurados y funcionales de nuevo."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historial del portapapeles"/>
@@ -1462,8 +1475,9 @@ Notepad++ se reiniciará después de que finalicen todas.
             <ColumnVal name="Valor"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Carácter"/>
-            <ColumnHtmlNumber name="Número HTML"/>
-            <ColumnHtmlName name="Código HTML"/>
+            <ColumnHtmlName name="Nombre HTML"/>
+            <ColumnHtmlNumber name="HTML decimal"/>
+            <ColumnHtmlHexNb name="HTML hexadecimal"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa del documento"/>
@@ -1636,6 +1650,7 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <summary-nbsel1 value=" caracteres seleccionados ("/>
             <summary-nbsel2 value=" bytes) en "/>
             <summary-nbrange value=" rangos"/>
+            <progress-hits-title value="Coincidencias:"/>
             <progress-cancel-button value="Cancelar"/>
             <progress-cancel-info value="Cancelando operación, por favor espere..."/>
             <find-in-files-progress-title value="Progreso de búsqueda en archivos..."/>
@@ -1650,7 +1665,7 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <find-result-caption value="Encontrar resultados"/>
             <find-result-title value="Buscar"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="(Hay $INT_REPLACE1$ coincidencia(s) en $INT_REPLACE2$ archivo(s) de $INT_REPLACE3$ búsqueda(s))"/>
-            <find-result-title-info-selections value="(Hay $INT_REPLACE1$ coincidencias en $INT_REPLACE2$ búsquedas de $INT_REPLACE3$)"/>
+            <find-result-title-info-selections value="(Hay $INT_REPLACE1$ coincidencias en $INT_REPLACE2$ selecciones de $INT_REPLACE3$ búsquedas)"/>
             <find-result-title-info-extra value=" - Modo de filtro: mostrar solo los resultados buscados"/>
             <find-result-hits value="($INT_REPLACE$ coincidencias)"/>
             <find-result-line-prefix value="Línea"/> <!-- Must not begin with space or tab character -->
@@ -1676,8 +1691,6 @@ NOTA:
             <npcNote-tip value="Representación de espacios en blanco seleccionados &quot;no ASCII&quot; y caracteres no imprimibles (de control).
 
 NOTA:
-Es posible que algunos caracteres ya tengan alguna representación y, por tanto, sean visibles. El separador de línea y el separador de párrafo ya están representados, por defecto, por abreviatura.
-
 El uso de la representación desactivará los efectos de caracteres en el texto.
 
 Para ver la lista completa de espacios en blanco y caracteres no imprimibles seleccionados, consulte el manual del usuario.
@@ -1700,6 +1713,7 @@ Haga clic en el botón derecho &quot;?&quot; para abrir el sitio web del manual 
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Vaya al Configurador de estilos para cambiar el color personalizado por defecto de los espacios en blanco y caracteres no imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
+            <npcIncludeCcUniEol-tip value="Aplicar ajustes de apariencia de caracteres no imprimibles a los caracteres de control C0, C1 y Unicode EOL (línea siguiente, separador de línea y separador de párrafo)."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

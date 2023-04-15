@@ -1043,9 +1043,7 @@ void NativeLangSpeaker::changeShortcutLang()
 				CommandShortcut & csc = mainshortcuts[index];
 				if (csc.getID() == (unsigned long)id) 
 				{
-					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-					const wchar_t * nameW = wmc.char2wchar(name, _nativeLangEncoding);
-					csc.setName(nameW);
+					csc.setName(name);
 				}
 			}
 		}
@@ -1073,10 +1071,7 @@ void NativeLangSpeaker::changeShortcutLang()
 			{
 				const char *name = element->Attribute("name");
 				ScintillaKeyMap & skm = scinshortcuts[index];
-
-				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				const wchar_t * nameW = wmc.char2wchar(name, _nativeLangEncoding);
-				skm.setName(nameW);
+				skm.setName(name);
 			}
 		}
 	}

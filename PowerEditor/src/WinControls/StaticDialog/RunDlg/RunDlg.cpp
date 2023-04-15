@@ -338,7 +338,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 
 					TCHAR cmd[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
-					UserCommand uc(Shortcut(), cmd, cmdID);
+					UserCommand uc(Shortcut(), wstring2string(cmd, CP_UTF8).c_str(), cmdID);
 					uc.init(_hInst, _hSelf);
 
 					if (uc.doDialog() != -1)
@@ -351,8 +351,8 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 							::InsertMenu(hRunMenu, posBase - 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
 						
 						theUserCmds.push_back(uc);
-						runMenu.push_back(MenuItemUnit(cmdID, uc.getName()));
-						::InsertMenu(hRunMenu, posBase + nbTopLevelItem, MF_BYPOSITION, cmdID, uc.toMenuItemString().c_str());
+						runMenu.push_back(MenuItemUnit(cmdID, string2wstring(uc.getName(), CP_UTF8)));
+						::InsertMenu(hRunMenu, posBase + nbTopLevelItem, MF_BYPOSITION, cmdID, string2wstring(uc.toMenuItemString(), CP_UTF8).c_str());
 
 						NppParameters& nppParams = NppParameters::getInstance();
                         if (nbTopLevelItem == 0)

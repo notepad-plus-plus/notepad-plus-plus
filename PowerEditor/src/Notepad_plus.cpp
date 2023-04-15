@@ -5346,8 +5346,8 @@ bool Notepad_plus::addCurrentMacro()
 			::InsertMenu(hMacroMenu, posBase + nbTopLevelItem + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, nativeLangShortcutMapperMacro.c_str());
         }
 		theMacros.push_back(ms);
-		macroMenu.push_back(MenuItemUnit(cmdID, ms.getName()));
-		::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + nbTopLevelItem), MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
+		macroMenu.push_back(MenuItemUnit(cmdID, string2wstring(ms.getName(), CP_UTF8)));
+		::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + nbTopLevelItem), MF_BYPOSITION, cmdID, string2wstring(ms.toMenuItemString(), CP_UTF8).c_str());
 		_accelerator.updateShortcuts();
 		nppParams.setShortcutDirty();
 		return true;
@@ -8515,7 +8515,7 @@ void Notepad_plus::updateCommandShortcuts()
 				shortcutName = menuName;
 		}
 
-		csc.setName(menuName.c_str(), shortcutName.c_str());
+		csc.setName(wstring2string(menuName, CP_UTF8).c_str(), wstring2string(shortcutName, CP_UTF8).c_str());
 	}
 }
 

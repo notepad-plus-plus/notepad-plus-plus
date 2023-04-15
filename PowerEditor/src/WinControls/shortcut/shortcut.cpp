@@ -28,137 +28,137 @@
 using namespace std;
 
 struct KeyIDNAME {
-	const TCHAR * name = nullptr;
+	const char * name = nullptr;
 	UCHAR id = 0;
 };
 
 KeyIDNAME namedKeyArray[] = {
-{TEXT("None"), VK_NULL},
+{"None", VK_NULL},
 
-{TEXT("Backspace"), VK_BACK},
-{TEXT("Tab"), VK_TAB},
-{TEXT("Enter"), VK_RETURN},
-{TEXT("Esc"), VK_ESCAPE},
-{TEXT("Spacebar"), VK_SPACE},
+{"Backspace", VK_BACK},
+{"Tab", VK_TAB},
+{"Enter", VK_RETURN},
+{"Esc", VK_ESCAPE},
+{"Spacebar", VK_SPACE},
 
-{TEXT("Page up"), VK_PRIOR},
-{TEXT("Page down"), VK_NEXT},
-{TEXT("End"), VK_END},
-{TEXT("Home"), VK_HOME},
-{TEXT("Left"), VK_LEFT},
-{TEXT("Up"), VK_UP},
-{TEXT("Right"), VK_RIGHT},
-{TEXT("Down"), VK_DOWN},
+{"Page up", VK_PRIOR},
+{"Page down", VK_NEXT},
+{"End", VK_END},
+{"Home", VK_HOME},
+{"Left", VK_LEFT},
+{"Up", VK_UP},
+{"Right", VK_RIGHT},
+{"Down", VK_DOWN},
 
-{TEXT("INS"), VK_INSERT},
-{TEXT("DEL"), VK_DELETE},
+{"INS", VK_INSERT},
+{"DEL", VK_DELETE},
 
-{TEXT("0"), VK_0},
-{TEXT("1"), VK_1},
-{TEXT("2"), VK_2},
-{TEXT("3"), VK_3},
-{TEXT("4"), VK_4},
-{TEXT("5"), VK_5},
-{TEXT("6"), VK_6},
-{TEXT("7"), VK_7},
-{TEXT("8"), VK_8},
-{TEXT("9"), VK_9},
-{TEXT("A"), VK_A},
-{TEXT("B"), VK_B},
-{TEXT("C"), VK_C},
-{TEXT("D"), VK_D},
-{TEXT("E"), VK_E},
-{TEXT("F"), VK_F},
-{TEXT("G"), VK_G},
-{TEXT("H"), VK_H},
-{TEXT("I"), VK_I},
-{TEXT("J"), VK_J},
-{TEXT("K"), VK_K},
-{TEXT("L"), VK_L},
-{TEXT("M"), VK_M},
-{TEXT("N"), VK_N},
-{TEXT("O"), VK_O},
-{TEXT("P"), VK_P},
-{TEXT("Q"), VK_Q},
-{TEXT("R"), VK_R},
-{TEXT("S"), VK_S},
-{TEXT("T"), VK_T},
-{TEXT("U"), VK_U},
-{TEXT("V"), VK_V},
-{TEXT("W"), VK_W},
-{TEXT("X"), VK_X},
-{TEXT("Y"), VK_Y},
-{TEXT("Z"), VK_Z},
+{"0", VK_0},
+{"1", VK_1},
+{"2", VK_2},
+{"3", VK_3},
+{"4", VK_4},
+{"5", VK_5},
+{"6", VK_6},
+{"7", VK_7},
+{"8", VK_8},
+{"9", VK_9},
+{"A", VK_A},
+{"B", VK_B},
+{"C", VK_C},
+{"D", VK_D},
+{"E", VK_E},
+{"F", VK_F},
+{"G", VK_G},
+{"H", VK_H},
+{"I", VK_I},
+{"J", VK_J},
+{"K", VK_K},
+{"L", VK_L},
+{"M", VK_M},
+{"N", VK_N},
+{"O", VK_O},
+{"P", VK_P},
+{"Q", VK_Q},
+{"R", VK_R},
+{"S", VK_S},
+{"T", VK_T},
+{"U", VK_U},
+{"V", VK_V},
+{"W", VK_W},
+{"X", VK_X},
+{"Y", VK_Y},
+{"Z", VK_Z},
 
-{TEXT("Numpad 0"), VK_NUMPAD0},
-{TEXT("Numpad 1"), VK_NUMPAD1},
-{TEXT("Numpad 2"), VK_NUMPAD2},
-{TEXT("Numpad 3"), VK_NUMPAD3},
-{TEXT("Numpad 4"), VK_NUMPAD4},
-{TEXT("Numpad 5"), VK_NUMPAD5},
-{TEXT("Numpad 6"), VK_NUMPAD6},
-{TEXT("Numpad 7"), VK_NUMPAD7},
-{TEXT("Numpad 8"), VK_NUMPAD8},
-{TEXT("Numpad 9"), VK_NUMPAD9},
-{TEXT("Num *"), VK_MULTIPLY},
-{TEXT("Num +"), VK_ADD},
-//{TEXT("Num Enter"), VK_SEPARATOR},	//this one doesnt seem to work
-{TEXT("Num -"), VK_SUBTRACT},
-{TEXT("Num ."), VK_DECIMAL},
-{TEXT("Num /"), VK_DIVIDE},
-{TEXT("F1"), VK_F1},
-{TEXT("F2"), VK_F2},
-{TEXT("F3"), VK_F3},
-{TEXT("F4"), VK_F4},
-{TEXT("F5"), VK_F5},
-{TEXT("F6"), VK_F6},
-{TEXT("F7"), VK_F7},
-{TEXT("F8"), VK_F8},
-{TEXT("F9"), VK_F9},
-{TEXT("F10"), VK_F10},
-{TEXT("F11"), VK_F11},
-{TEXT("F12"), VK_F12},
+{"Numpad 0", VK_NUMPAD0},
+{"Numpad 1", VK_NUMPAD1},
+{"Numpad 2", VK_NUMPAD2},
+{"Numpad 3", VK_NUMPAD3},
+{"Numpad 4", VK_NUMPAD4},
+{"Numpad 5", VK_NUMPAD5},
+{"Numpad 6", VK_NUMPAD6},
+{"Numpad 7", VK_NUMPAD7},
+{"Numpad 8", VK_NUMPAD8},
+{"Numpad 9", VK_NUMPAD9},
+{"Num *", VK_MULTIPLY},
+{"Num +", VK_ADD},
+// {"Num Enter"), VK_SEPARATOR},	//this one doesnt seem to work
+{"Num -", VK_SUBTRACT},
+{"Num .", VK_DECIMAL},
+{"Num /", VK_DIVIDE},
+{"F1", VK_F1},
+{"F2", VK_F2},
+{"F3", VK_F3},
+{"F4", VK_F4},
+{"F5", VK_F5},
+{"F6", VK_F6},
+{"F7", VK_F7},
+{"F8", VK_F8},
+{"F9", VK_F9},
+{"F10", VK_F10},
+{"F11", VK_F11},
+{"F12", VK_F12},
 
-{TEXT("~"), VK_OEM_3},
-{TEXT("-"), VK_OEM_MINUS},
-{TEXT("="), VK_OEM_PLUS},
-{TEXT("["), VK_OEM_4},
-{TEXT("]"), VK_OEM_6},
-{TEXT(";"), VK_OEM_1},
-{TEXT("'"), VK_OEM_7},
-{TEXT("\\"), VK_OEM_5},
-{TEXT(","), VK_OEM_COMMA},
-{TEXT("."), VK_OEM_PERIOD},
-{TEXT("/"), VK_OEM_2},
+{"~", VK_OEM_3},
+{"-", VK_OEM_MINUS},
+{"=", VK_OEM_PLUS},
+{"[", VK_OEM_4},
+{"]", VK_OEM_6},
+{";", VK_OEM_1},
+{"'", VK_OEM_7},
+{"\\", VK_OEM_5},
+{",", VK_OEM_COMMA},
+{".", VK_OEM_PERIOD},
+{"/", VK_OEM_2},
 
-{TEXT("<>"), VK_OEM_102},
+{"<>", VK_OEM_102},
 };
 
 #define nbKeys sizeof(namedKeyArray)/sizeof(KeyIDNAME)
 
-generic_string Shortcut::toString() const
+string Shortcut::toString() const
 {
-	generic_string sc = TEXT("");
+	string sc;
 	if (!isEnabled())
 		return sc;
 
 	if (_keyCombo._isCtrl)
-		sc += TEXT("Ctrl+");
+		sc += "Ctrl+";
 	if (_keyCombo._isAlt)
-		sc += TEXT("Alt+");
+		sc += "Alt+";
 	if (_keyCombo._isShift)
-		sc += TEXT("Shift+");
+		sc += "Shift+";
 
-	generic_string keyString;
+	string keyString;
 	getKeyStrFromVal(_keyCombo._key, keyString);
 	sc += keyString;
 	return sc;
 }
 
-void Shortcut::setName(const TCHAR * menuName, const TCHAR * shortcutName)
+void Shortcut::setName(const char* menuName, const char* shortcutName)
 {
-	lstrcpyn(_menuName, menuName, nameLenMax);
-	TCHAR const * name = shortcutName ? shortcutName : menuName;
+	lstrcpynA(_menuName, menuName, nameLenMax);
+	char const * name = shortcutName ? shortcutName : menuName;
 	size_t i = 0, j = 0;
 	while (name[j] != 0 && i < (nameLenMax - 1))
 	{
@@ -181,34 +181,34 @@ void Shortcut::setName(const TCHAR * menuName, const TCHAR * shortcutName)
 	_name[i] = 0;
 }
 
-generic_string ScintillaKeyMap::toString() const
+string ScintillaKeyMap::toString() const
 {
-	generic_string sc = TEXT("");
+	string sc;
 	size_t nbCombos = getSize();
 	for (size_t combo = 0; combo < nbCombos; ++combo)
 	{
 		sc += toString(combo);
 		if (combo < nbCombos - 1)
-			sc += TEXT(" or ");
+			sc += " or ";
 	}
 	return sc;
 }
 
-generic_string ScintillaKeyMap::toString(size_t index) const
+string ScintillaKeyMap::toString(size_t index) const
 {
-	generic_string sc = TEXT("");
+	string sc = "";
 	if (!isEnabled())
 		return sc;
 
 	KeyCombo kc = _keyCombos[index];
 	if (kc._isCtrl)
-		sc += TEXT("Ctrl+");
+		sc += "Ctrl+";
 	if (kc._isAlt)
-		sc += TEXT("Alt+");
+		sc += "Alt+";
 	if (kc._isShift)
-		sc += TEXT("Shift+");
+		sc += "Shift+";
 
-	generic_string keyString;
+	string keyString;
 	getKeyStrFromVal(kc._key, keyString);
 	sc += keyString;
 	return sc;
@@ -268,9 +268,9 @@ size_t ScintillaKeyMap::getSize() const
 	return _size;
 }
 
-void getKeyStrFromVal(UCHAR keyVal, generic_string & str)
+void getKeyStrFromVal(UCHAR keyVal, string & str)
 {
-	str = TEXT("");
+	str = "";
 	bool found = false;
 	size_t i;
 	for (i = 0; i < nbKeys; ++i)
@@ -284,22 +284,22 @@ void getKeyStrFromVal(UCHAR keyVal, generic_string & str)
 	if (found)
 		str = namedKeyArray[i].name;
 	else 
-		str = TEXT("Unlisted");
+		str = "Unlisted";
 }
 
-void getNameStrFromCmd(DWORD cmd, generic_string & str)
+void getNameStrFromCmd(DWORD cmd, wstring & str)
 {
 	if ((cmd >= ID_MACRO) && (cmd < ID_MACRO_LIMIT))
 	{
 		vector<MacroShortcut> & theMacros = (NppParameters::getInstance()).getMacroList();
 		int i = cmd - ID_MACRO;
-		str = theMacros[i].getName();
+		str = string2wstring(theMacros[i].getName(), CP_UTF8);
 	}
 	else if ((cmd >= ID_USER_CMD) && (cmd < ID_USER_CMD_LIMIT))
 	{
 		vector<UserCommand> & userCommands = (NppParameters::getInstance()).getUserCommandList();
 		int i = cmd - ID_USER_CMD;
-		str = userCommands[i].getName();
+		str = string2wstring(userCommands[i].getName(), CP_UTF8);
 	}
 	else if ((cmd >= ID_PLUGINS_CMD) && (cmd < ID_PLUGINS_CMD_LIMIT))
 	{
@@ -313,7 +313,7 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 				break;
 			}
 		}
-		str = pluginCmds[i].getName();
+		str = string2wstring(pluginCmds[i].getName(), CP_UTF8);
 	}
 	else
 	{
@@ -375,7 +375,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _canModifyName ? getMenuName() : getName());	//display the menu name, with ampersands, for macros
+			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _canModifyName ? string2wstring(getMenuName(), CP_UTF8).c_str() : string2wstring(getName(), CP_UTF8).c_str());	//display the menu name, with ampersands, for macros
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
 			auto textlen = ::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
@@ -487,7 +487,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					{
 						TCHAR editName[nameLenMax];
 						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, reinterpret_cast<LPARAM>(editName));
-						setName(editName);
+						setName(wstring2string(editName, CP_UTF8).c_str());
 					}
 					::EndDialog(_hSelf, 0);
 					updateConflictState(true);
@@ -683,10 +683,10 @@ void Accelerator::updateMenuItemByCommand(const CommandShortcut& csc)
 	// Ensure that the menu item state is also maintained
 	UINT cmdFlags = GetMenuState(_hAccelMenu, cmdID, MF_BYCOMMAND );
 	cmdFlags = MF_BYCOMMAND | ((cmdFlags&MF_CHECKED) ? MF_CHECKED : MF_UNCHECKED) | ((cmdFlags&MF_DISABLED) ? MF_DISABLED : MF_ENABLED);
-	::ModifyMenu(_hAccelMenu, cmdID, cmdFlags, cmdID, csc.toMenuItemString().c_str());
+	::ModifyMenu(_hAccelMenu, cmdID, cmdFlags, cmdID, string2wstring(csc.toMenuItemString(), CP_UTF8).c_str());
 }
 
-recordedMacroStep::recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, int codepage)
+recordedMacroStep::recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam)
 	: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(mtUseLParameter)
 { 
 	if (_lParameter)
@@ -715,9 +715,7 @@ recordedMacroStep::recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam,
 			case IDD_FINDINFILES_FILTERS_COMBO:
 			{
 				char *ch = reinterpret_cast<char *>(_lParameter);
-				TCHAR tch[2];
-				::MultiByteToWideChar(codepage, 0, ch, -1, tch, 2);
-				_sParameter = *tch;
+				_sParameter = *ch;
 				_macroType = mtUseSParameter;
 				_lParameter = 0;
 			}
@@ -881,11 +879,14 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 
 		if (_macroType == mtUseSParameter) 
 		{
+			/*
 			int byteBufferLength = ::WideCharToMultiByte(static_cast<UINT>(pEditView->execute(SCI_GETCODEPAGE)), 0, _sParameter.c_str(), -1, NULL, 0, NULL, NULL);
 			auto byteBuffer = std::make_unique< char[] >(byteBufferLength);
 			::WideCharToMultiByte(static_cast<UINT>(pEditView->execute(SCI_GETCODEPAGE)), 0, _sParameter.c_str(), -1, byteBuffer.get(), byteBufferLength, NULL, NULL);
 			auto lParam = reinterpret_cast<LPARAM>(byteBuffer.get());
 			pEditView->execute(_message, _wParameter, lParam);
+			*/
+			pEditView->execute(_message, _wParameter, (LPARAM)_sParameter.c_str());
 		}
 		else
 		{
@@ -974,8 +975,7 @@ void ScintillaAccelerator::updateMenuItemByID(const ScintillaKeyMap& skm, int id
 	if (skm.isEnabled())
 	{
 		menuItem += TEXT("\t");
-		//menuItem += TEXT("Sc:");	//sc: scintilla shortcut
-		menuItem += skm.toString();
+		menuItem += string2wstring(skm.toString(), CP_UTF8);
 	}
 	::ModifyMenu(_hAccelMenu, id, MF_BYCOMMAND, id, menuItem.c_str());
 	::DrawMenuBar(_hMenuParent);
@@ -1049,7 +1049,7 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _name);
+			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, string2wstring(_name, CP_UTF8).c_str());
 			_keyCombo = _keyCombos[0];
 
 			for (size_t i = 0 ; i < nbKeys ; ++i)
@@ -1228,7 +1228,7 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 
 CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)
 {
-	_shortcutName = sc.getName();
+	_shortcutName = string2wstring(sc.getName(), CP_UTF8);
 	if ( _id >= IDM_WINDOW_SORT_FN_ASC and _id <= IDM_WINDOW_SORT_FS_DSC)
 		_category = TEXT("Window");
 	else if ( _id < IDM_EDIT)

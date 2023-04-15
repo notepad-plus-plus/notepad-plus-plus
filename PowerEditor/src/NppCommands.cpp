@@ -48,7 +48,7 @@ void Notepad_plus::macroPlayback(Macro macro)
 		if (step->isScintillaMacro())
 			step->PlayBack(_pPublicInterface, _pEditView);
 		else
-			_findReplaceDlg.execSavedCommand(step->_message, step->_lParameter, step->_sParameter);
+			_findReplaceDlg.execSavedCommand(step->_message, step->_lParameter, string2wstring(step->_sParameter, CP_UTF8));
 	}
 
 	_pEditView->execute(SCI_ENDUNDOACTION);
@@ -3964,7 +3964,7 @@ void Notepad_plus::command(int id)
 				vector<UserCommand> & theUserCommands = (NppParameters::getInstance()).getUserCommandList();
 				UserCommand ucmd = theUserCommands[i];
 
-				Command cmd(ucmd.getCmd());
+				Command cmd(string2wstring(ucmd.getCmd(), CP_UTF8));
 				cmd.run(_pPublicInterface->getHSelf());
 			}
 			else if ((id >= ID_PLUGINS_CMD) && (id < ID_PLUGINS_CMD_LIMIT))

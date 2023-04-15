@@ -5,10 +5,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2023-02-16 by Thomas De Rocker (RockyTDR).
+Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.4.6">
+    <Native-Langue name="Nederlands" filename="dutch.xml" version="8.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -301,6 +301,7 @@ Last modified on 2023-02-16 by Thomas De Rocker (RockyTDR).
                     <Item id="44114" name="Kleur 4 toepassen"/>
                     <Item id="44115" name="Kleur 5 toepassen"/>
                     <Item id="44130" name="Niet-afdrukbare tekens weergeven"/>
+                    <Item id="44131" name="Stuurtekens en unicode-regeleindes weergeven"/>
                     <Item id="44032" name="Volledig scherm"/>
                     <Item id="44033" name="Standaardzoom herstellen"/>
                     <Item id="44034" name="Altijd op voorgrond"/>
@@ -390,8 +391,6 @@ Last modified on 2023-02-16 by Thomas De Rocker (RockyTDR).
                     <Item id="11009" name="Grootte van groot naar klein"/>
                 </Commands>
             </Main>
-            <Splitter>
-            </Splitter>
             <TabBar>
                 <Item CMDID="41003" name="Sluiten"/>
                 <Item CMDID="0" name="Meerdere tabs sluiten"/>
@@ -429,6 +428,14 @@ Last modified on 2023-02-16 by Thomas De Rocker (RockyTDR).
                 <Item CMDID="44115" name="Kleur 5 toepassen"/>
                 <Item CMDID="44110" name="Kleur verwijderen"/>
             </TabBar>
+            <TrayIcon>
+                <Item id="43101" name="Activeren"/>
+                <Item id="43102" name="Nieuw"/>
+                <Item id="43103" name="Nieuw en plakken"/>
+                <Item id="43104" name="Openen..."/>
+                <Item id="43013" name="Zoeken in bestanden..."/>
+                <Item id="43105" name="Systeemvakpictogram sluiten"/>
+            </TrayIcon>
         </Menu>
 
         <Dialog>
@@ -474,6 +481,11 @@ Last modified on 2023-02-16 by Thomas De Rocker (RockyTDR).
                 <Item id="1721" name="▲"/>
                 <Item id="1723" name="▼ Volgende"/>
                 <Item id="1725" name="Gemarkeerde tekst kopiëren"/>
+                <Menu>
+                    <Item id="1726" name="⇅ Zoeken wisselen met vervangen"/>
+                    <Item id="1727" name="⤵ Kopiëren van zoeken naar vervangen"/>
+                    <Item id="1728" name="⤴ Kopiëren van vervangen naar zoeken"/>
+                </Menu>
             </Find>
 
             <IncrementalFind title="">
@@ -950,6 +962,7 @@ Last modified on 2023-02-16 by Thomas De Rocker (RockyTDR).
                     <Item id="6254" name="Afkorting"/>
                     <Item id="6255" name="Codepoint"/>
                     <Item id="6256" name="Aangepaste kleur"/>
+                    <Item id="6258" name="Toepassen op C0, C1 en Unicode-regeleindes"/>
                 </Scintillas>
 
                 <DarkMode title="Donkere modus">
@@ -1151,7 +1164,6 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                     <Item id="6824" name="Nummers negeren"/>
                     <Item id="6811" name="Vanaf"/>
                     <Item id="6813" name="tekens"/>
-                    <Item id="6814" name="Geldige invoer: 1-9"/>
                     <Item id="6872" name="Lijst voor automatisch aanvullen kort maken"/>
                     <Item id="6815" name="Functie-argumenten weergeven tijdens typen"/>
                     <Item id="6851" name="Automatisch invoegen"/>
@@ -1275,7 +1287,12 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
                 <Item id="2033" name="&amp;Nummer invoegen"/>
                 <Item id="2030" name="Beg&amp;innummer:"/>
                 <Item id="2031" name="&amp;Verhogen met:"/>
-                <Item id="2035" name="Voor&amp;loopnullen"/>
+                <Item id="2035" name="Voor&amp;loop"/>
+                <ComboBox id="2039">
+                    <Element name="Geen"/>
+                    <Element name="Nullen"/>
+                    <Element name="Spaties"/>
+                </ComboBox>
                 <Item id="2036" name="He&amp;rhalen:"/>
                 <Item id="2032" name="Indeling"/>
                 <Item id="2024" name="&amp;Decimaal"/>
@@ -1316,7 +1333,8 @@ U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
                 <Item id="4" name="Altijd ja"/>
             </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <ContextMenuXmlEditWarning title="Contextmenu wijzigen" message="Met het wijzigen van het contextmenu kunt u Notepad++ aan uw persoonlijke voorkeur aanpassen.
 Wijzigingen worden zichtbaar na het opnieuw starten van Notepad++."/>
             <SaveCurrentModifWarning title="Huidige wijziging opslaan" message="U moet de huidige wijziging opslaan.
@@ -1386,6 +1404,7 @@ Wilt u het openen?"/>
             <CreateNewFileOrNot title="Nieuw bestand aanmaken" message="&quot;$STR_REPLACE$&quot; bestaat niet. Bestand aanmaken?"/>
             <CreateNewFileError title="Nieuw bestand aanmaken" message="Kan bestand &quot;$STR_REPLACE$&quot; niet aanmaken."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="FOUT" message="Kan bestand &quot;$STR_REPLACE$&quot; niet openen."/>
+            <OpenFileNoFolderError title="Kan bestand niet openen" message="&quot;$STR_REPLACE1$&quot; kan niet worden geopend:
             <FileBackupFailed title="Back-up van bestand mislukt" message="De vorige versie van het bestand kon niet worden opgeslagen in de back-upmap in &quot;$STR_REPLACE$&quot;.
 
 Wilt u het huidige bestand toch opslaan?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1454,8 +1473,9 @@ Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/> <!-- HowToReproduc
             <ColumnVal name="Dec"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Teken"/>
-            <ColumnHtmlNumber name="HTML-nummer"/>
-            <ColumnHtmlName name="HTML-code"/>
+            <ColumnHtmlName name="HTML-naam"/>
+            <ColumnHtmlNumber name="HTML decimaal"/>
+            <ColumnHtmlHexNb name="HTML hexadecimaal"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Overzichtskaart van document"/>
@@ -1534,7 +1554,7 @@ Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/> <!-- HowToReproduc
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are place holders, don't translate these place holders -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
             <word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklikken op een selectie en bij het zoeken met de optie &quot;volledige woorden&quot; aangevinkt."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
             <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1614,14 +1634,9 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
             <tabrename-newname value="Nieuwe naam: "/>
             <splitter-rotate-left value="Linksom draaien"/>
             <splitter-rotate-right value="Rechtsom draaien"/>
-            <recent-file-history-maxfile value="Max. bestanden: "/>
-            <recent-file-history-customlength value="Lengte: "/>
-            <language-tabsize value="Tabgrootte: "/>
             <userdefined-title-new value="Nieuwe syntaxis aanmaken..."/>
             <userdefined-title-save value="Huidige syntaxis opslaan als..."/>
             <userdefined-title-rename value="Huidige syntaxis hernoemen"/>
-            <autocomplete-nb-char value="Tekens: "/>
-            <edit-verticaledge-nb-col value="Kolommen:"/>
             <summary value="Documentinformatie"/>
             <summary-filepath value="Volledig bestandspad: "/>
             <summary-filecreatetime value="Aangemaakt: "/>
@@ -1633,6 +1648,7 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
             <summary-nbsel1 value=" geselecteerde tekens ("/>
             <summary-nbsel2 value=" bytes) in "/>
             <summary-nbrange value=" selecties"/>
+            <progress-hits-title value="Treffers:"/>
             <progress-cancel-button value="Annuleren"/>
             <progress-cancel-info value="Bewerking annuleren. Even geduld..."/>
             <find-in-files-progress-title value="Voortgang van zoeken in bestanden..."/>
@@ -1673,8 +1689,6 @@ OPMERKING:
             <npcNote-tip value="Weergave van geselecteerde &quot;niet-ASCII&quot; witruimte en niet-afdrukbare (controle)tekens.
 
 OPMERKING:
-Sommige tekens hebben misschien al enige representatie en zijn dus zichtbaar. Regelscheidingstekens en paragraafscheidingstekens worden standaard al weergegeven door een afkorting.
-
 Door representatie te gebruiken worden tekeneffecten op tekst uitgeschakeld.
 
 Raadpleeg de gebruikershandleiding voor de volledige lijst van geselecteerde spaties en niet-afdrukbare tekens.
@@ -1697,6 +1711,7 @@ Klik op de knop &quot;?&quot; rechts om de website met gebruikershandleiding te 
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Ga naar de stijlconfigurator om de standaard aangepaste kleur voor geselecteerde witruimte en niet-afdrukbare tekens te wijzigen (&quot;Non-printing characters custom color&quot;)." />
+            <npcIncludeCcUniEol-tip value="Instellingen voor weergave van niet-afdrukbare tekens toepassen op C0, C1 stuurtekens and Unicode-regeleindes (nieuwe regel, regelscheidingsteken en alinea-scheidingsteken)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

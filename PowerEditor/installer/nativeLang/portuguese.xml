@@ -295,7 +295,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44113" name="Aplicar cor 3"/>
                     <Item id="44114" name="Aplicar cor 4"/>
                     <Item id="44115" name="Aplicar cor 5"/>
-                    <Item id="44130" name="Mostrar caracteres não impressos"/>
+                    <Item id="44130" name="Mostrar caracteres sem representação"/>
                     <Item id="44131" name="Mostrar caracteres de controlo &amp; EOL Unicode"/>
                     <Item id="44032" name="Alternar para modo de ecrã inteiro"/>
                     <Item id="44033" name="Restaurar zoom predefinido"/>
@@ -1682,12 +1682,12 @@ NOTA:
 1. Modificar as opções de aqui requer a reabertura de ficheiros grandes atualmente abertos para obter um comportamento adequado.
 
 2. If &quot;Desativar a quebra de linha globalmente&quot; é verificada e abre-se um ficheiro grande, a &quot;Quebra de linha&quot; será desativada para todos os ficheiros. Pode voltar a ativá-la através do menu &quot;Visualização-&gt;Quebra de linha&quot;." />
-            <npcNote-tip value="Representação de caracteres selecionados &quot;não-ASCII&quot; espaços em branco e caracteres não impressos (controlo).
+            <npcNote-tip value="Representação de caracteres selecionados &quot;não-ASCII&quot; espaços em branco e caracteres sem representação (controlo).
 
 NOTA:
 A utilização da representação desactivará os efeitos de caracteres no texto.
 
-Para a lista completa dos espaços em branco selecionados e caracteres não impressos, consulte o Manual do Utilizador.
+Para a lista completa dos espaços em branco selecionados e caracteres sem representação, consulte o Manual do Utilizador.
 
 Clique neste botão para abrir o website com Manual do Utilizador." />
             <npcAbbreviation-tip value="Abreviatura : nome
@@ -1706,7 +1706,7 @@ Para ver a lista completa, consulte o Manual do Utilizador.
 Clique no botão &quot;?&quot; à direita para abrir o website com Manual do Utilizador." />
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-            <npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e caracteres não-impressos (&quot;Cor personalizada de caracteres não impressos&quot;)." />
+            <npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e caracteres não-impressos (&quot;Cor personalizada de caracteres sem representação&quot;)." />
             <npcIncludeCcUniEol-tip value="Aplicar as definições de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (linha seguinte, separador de linha e separador de parágrafo)." />
         </MiscStrings>
     </Native-Langue>
@@ -1737,7 +1737,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 12 Abr 2023 by Hugo Carvalho
+Last modified: 15 Abr 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

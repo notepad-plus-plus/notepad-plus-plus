@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    <!--
+<!--
 The comments are here for explanation, it's not necessary to translate them.
-    -->
+-->
 <NotepadPlus>
-    <Native-Langue name="Español" filename="spanish.xml" version="8.5.1">
+    <Native-Langue name="Español" filename="spanish.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -296,6 +296,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44114" name="Aplicar color 4"/>
                     <Item id="44115" name="Aplicar color 5"/>
                     <Item id="44130" name="Mostrar caracteres no imprimibles"/>
+                    <Item id="44131" name="Mostrar caracteres de control &amp; EOL de Unicode"/>
                     <Item id="44032" name="Activar el modo de pantalla completa"/>
                     <Item id="44033" name="Restaurar zoom 100%"/>
                     <Item id="44034" name="Siempre visible"/>
@@ -489,7 +490,7 @@ The comments are here for explanation, it's not necessary to translate them.
             </IncrementalFind>
 
             <FindCharsInRange title="Rango de búsqueda de caracteres">
-                <Item id="2"    name="Cerrar"/>
+                <Item id="2" name="Cerrar"/>
                 <Item id="2901" name="Caracteres no-ASCII (128-255)"/>
                 <Item id="2902" name="Caracteres ASCII (0-127)"/>
                 <Item id="2903" name="Mi rango:"/>
@@ -727,7 +728,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20003" name="Crear nuevo..."/>
                 <Item id="20004" name="Borrar"/>
                 <Item id="20005" name="Guardar como..."/>
-                <Item id="20007" name="Lenguaje del usuario: "/>
+                <Item id="20007" name="Lenguaje:"/>
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignorar MAYÚS/minús"/>
                 <Item id="20011" name="Transparencia"/>
@@ -956,6 +957,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6254" name="Abreviatura"/>
                     <Item id="6255" name="Punto de código"/>
                     <Item id="6256" name="Color personalizado"/>
+                    <Item id="6258" name="Aplicar a C0, C1 &amp; EOL de Unicode"/>
                 </Scintillas>
 
                 <DarkMode title="Modo oscuro">
@@ -1113,7 +1115,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                     <Item id="6904" name="Confirmar &quot;Sustituir todo&quot; en todos los documentos abiertos"/>
                     <Item id="6905" name="Sustituir: no ir a la siguiente coincidencia"/>
                     <Item id="6906" name="Ventana de resultados de búsqueda: mostrar solo una entrada por línea encontrada"/>
-                    <Item id="6907" name="Cuando se invoca el diálogo de búsqueda"/>
+                    <Item id="6907" name="Al abrir el cuadro de búsqueda"/>
                     <Item id="6908" name="Rellenar el campo de búsqueda con el texto seleccionado"/>
                     <Item id="6909" name="Seleccionar la palabra bajo el cursor si no hay nada seleccionado"/>
                 </Searching>
@@ -1280,7 +1282,12 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                 <Item id="2033" name="&amp;Número a insertar"/>
                 <Item id="2030" name="Número &amp;inicial:"/>
                 <Item id="2031" name="Incre&amp;mentar en:"/>
-                <Item id="2035" name="&amp;Ceros delante"/>
+                <Item id="2038" name="&amp;Dirección:"/>
+                <ComboBox id="2039">
+                    <Element name="Ninguno"/>
+                    <Element name="Ceros"/>
+                    <Element name="Espacios"/>
+                </ComboBox>
                 <Item id="2036" name="&amp;Repetir:"/>
                 <Item id="2032" name="Formato"/>
                 <Item id="2024" name="&amp;Decimal"/>
@@ -1404,7 +1411,7 @@ Este archivo ha sido modificado por otro programa.
             <FolderAsWorspaceSubfolderExists title="Problema en &quot;Carpeta como espacio de trabajo&quot;" message="Existe una subcarpeta de la carpeta que desea agregar.
 Elimine su carpeta raíz del panel antes de agregar &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="El espacio de trabajo se modificó. ¿Desea guardarlo?"/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="El espacio de trabajo ha sido modificado. ¿Desea guardarlo?"/>
             <ProjectPanelSaveError title="$STR_REPLACE$" message="Se produjo un error al escribir su archivo del espacio de trabajo.
 Su espacio de trabajo no se ha guardado."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Abrir espacio de trabajo" message="El espacio de trabajo actual se modificó. ¿Desea guardar el proyecto actual?"/>
@@ -1462,8 +1469,9 @@ Notepad++ se reiniciará después de que finalicen todas.
             <ColumnVal name="Valor"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Carácter"/>
-            <ColumnHtmlNumber name="Número HTML"/>
-            <ColumnHtmlName name="Código HTML"/>
+            <ColumnHtmlName name="Nombre HTML"/>
+            <ColumnHtmlNumber name="HTML decimal"/>
+            <ColumnHtmlHexNb name="HTML hexadecimal"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Mapa del documento"/>
@@ -1636,6 +1644,7 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <summary-nbsel1 value=" caracteres seleccionados ("/>
             <summary-nbsel2 value=" bytes) en "/>
             <summary-nbrange value=" rangos"/>
+            <progress-hits-title value="Aciertos:"/>
             <progress-cancel-button value="Cancelar"/>
             <progress-cancel-info value="Cancelando operación, por favor espere..."/>
             <find-in-files-progress-title value="Progreso de búsqueda en archivos..."/>
@@ -1676,8 +1685,6 @@ NOTA:
             <npcNote-tip value="Representación de espacios en blanco seleccionados &quot;no ASCII&quot; y caracteres no imprimibles (de control).
 
 NOTA:
-Es posible que algunos caracteres ya tengan alguna representación y, por tanto, sean visibles. El separador de línea y el separador de párrafo ya están representados, por defecto, por abreviatura.
-
 El uso de la representación desactivará los efectos de caracteres en el texto.
 
 Para ver la lista completa de espacios en blanco y caracteres no imprimibles seleccionados, consulte el manual del usuario.
@@ -1700,6 +1707,7 @@ Haga clic en el botón derecho &quot;?&quot; para abrir el sitio web del manual 
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Vaya al Configurador de estilos para cambiar el color personalizado por defecto de los espacios en blanco y caracteres no imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
+            <npcIncludeCcUniEol-tip value="Aplicar ajustes de apariencia de caracteres no imprimibles a los caracteres de control C0, C1 y Unicode EOL (línea siguiente, separador de línea y separador de párrafo)."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

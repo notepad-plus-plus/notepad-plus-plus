@@ -387,7 +387,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			int iFound = -1;
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(namedKeyArray[i].name));
+				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(namedKeyArray[i].name, CP_UTF8).c_str()));
 
 				if (_keyCombo._key == namedKeyArray[i].id)
 					iFound = static_cast<int32_t>(i);
@@ -1054,7 +1054,7 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(namedKeyArray[i].name));
+				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(namedKeyArray[i].name, CP_UTF8).c_str()));
 			}
 
 			for (size_t i = 0; i < _size; ++i)

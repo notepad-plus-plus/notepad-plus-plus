@@ -116,8 +116,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42084" name="Fecha y hora (corta)"/>
                     <Item id="42085" name="Fecha y hora (larga)"/>
                     <Item id="42086" name="Fecha y hora (personalizada)"/>
-                    <Item id="42008" name="Aumentar sangría de línea"/>
-                    <Item id="42009" name="Reducir sangría de línea"/>
+                    <Item id="42008" name="Aumentar"/>
+                    <Item id="42009" name="Reducir"/>
                     <Item id="42010" name="Duplicar línea actual"/>
                     <Item id="42079" name="Eliminar líneas duplicadas"/>
                     <Item id="42077" name="Eliminar líneas consecutivas duplicadas"/>
@@ -206,7 +206,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="43050" name="Invertir marcas"/>
                     <Item id="43052" name="Buscar caract&amp;eres por tipo..."/>
                     <Item id="43053" name="Seleccio&amp;nar todo lo coincidente"/>
-                    <Item id="43009" name="Ir al delimitador si&amp;métrico"/>
+                    <Item id="43009" name="Ir al delimi&amp;tador simétrico"/>
                     <Item id="43010" name="Buscar &amp;anterior"/>
                     <Item id="43011" name="Búsqueda &amp;incremental"/>
                     <Item id="43013" name="Buscar en arc&amp;hivos"/>
@@ -441,20 +441,20 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1620" name="Qué &amp;buscar:"/>
                 <Item id="1603" name="Solo &amp;palabras completas"/>
                 <Item id="1604" name="Coincidir &amp;mayúsculas y minúsculas"/>
-                <Item id="1605" name="Expresión re&amp;gular"/>
+                <Item id="1605" name="Expresión &amp;regular"/>
                 <Item id="1606" name="Buscar en todo el d&amp;ocumento"/>
                 <Item id="1614" name="Con&amp;tar"/>
                 <Item id="1615" name="Marcar todo"/>
                 <Item id="1616" name="Marcar &amp;línea"/>
                 <Item id="1618" name="Depurar en cada búsqueda"/>
                 <Item id="1611" name="S&amp;ustituir con:"/>
-                <Item id="1608" name="Sustitui&amp;r"/>
+                <Item id="1608" name="&amp;Sustituir"/>
                 <Item id="1609" name="Sustituir &amp;todo"/>
                 <Item id="1687" name="Al perder el foco"/>
                 <Item id="1688" name="Siempre"/>
-                <Item id="1632" name="En la selecc&amp;ión"/>
+                <Item id="1632" name="En la sele&amp;cción"/>
                 <Item id="1633" name="Borrar marcas"/>
-                <Item id="1635" name="Sustituir en t&amp;odos los archivos abiertos"/>
+                <Item id="1635" name="Sustituir en to&amp;dos los archivos abiertos"/>
                 <Item id="1636" name="Buscar en todos los &amp;archivos abiertos"/>
                 <Item id="1654" name="Filtro&amp;s:"/>
                 <Item id="1655" name="Car&amp;peta:"/>
@@ -493,7 +493,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2" name="Cerrar"/>
                 <Item id="2901" name="Caracteres no-ASCII (128-255)"/>
                 <Item id="2902" name="Caracteres ASCII (0-127)"/>
-                <Item id="2903" name="Mi rango:"/>
+                <Item id="2903" name="Especifique rango"/>
                 <Item id="2906" name="&amp;Arriba"/>
                 <Item id="2907" name="A&amp;bajo"/>
                 <Item id="2908" name="Dirección"/>
@@ -728,7 +728,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20003" name="Crear nuevo..."/>
                 <Item id="20004" name="Borrar"/>
                 <Item id="20005" name="Guardar como..."/>
-                <Item id="20007" name="Lenguaje:"/>
+                <Item id="20007" name="Lenguaje"/>
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignorar MAYÚS/minús"/>
                 <Item id="20011" name="Transparencia"/>
@@ -739,7 +739,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25030" name="Opciones de fuente:"/>
                     <Item id="25006" name="Primer plano"/>
                     <Item id="25007" name="Fondo"/>
-                    <Item id="25031" name="Nombre:"/>
+                    <Item id="25031" name="Tipo:"/>
                     <Item id="25032" name="Tamaño:"/>
                     <Item id="25001" name="Negrita"/>
                     <Item id="25002" name="Cursiva"/>
@@ -820,7 +820,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="22622" name="Estilo"/>
                 </Keywords>
                 <Comment title="Comentario &amp;&amp; Número">
-                    <Item id="23003" name="Posición de comentario de la línea"/>
+                    <Item id="23003" name="Posición del comentario de línea"/>
                     <Item id="23004" name="Sin límite"/>
                     <Item id="23005" name="Siempre al inicio de línea"/>
                     <Item id="23006" name="Permitir espacios libres previos"/>
@@ -829,7 +829,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="23323" name="Abrir"/>
                     <Item id="23324" name="Continuación"/>
                     <Item id="23325" name="Cerrar"/>
-                    <Item id="23301" name="Estilo de comentario de línea"/>
+                    <Item id="23301" name="Estilo de comentario"/>
                     <Item id="23124" name="Estilo"/>
                     <Item id="23122" name="Abrir"/>
                     <Item id="23123" name="Cerrar"/>
@@ -849,10 +849,10 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="23247" name="Ambos"/>
                 </Comment>
                 <Operator title="Operadores &amp;&amp; Delimitador">
-                    <Item id="24101" name="Estilo operadores"/>
+                    <Item id="24101" name="Estilo de los operadores"/>
                     <Item id="24113" name="Estilo"/>
-                    <Item id="24116" name="Operadores 1"/>
-                    <Item id="24117" name="Operadores 2 (necesita separadores)"/>
+                    <Item id="24116" name="Operador 1"/>
+                    <Item id="24117" name="Operador 2 (necesita separadores)"/>
                     <Item id="24201" name="Estilo del delimitador 1"/>
                     <Item id="24220" name="Abrir:"/>
                     <Item id="24221" name="Escape:"/>
@@ -922,7 +922,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
                     <Item id="6131" name="Menú"/>
                     <Item id="6122" name="Ocultar barra de opciones (Alt o F10 para activar/desactivar)"/>
-                    <Item id="6132" name="Ocultar atajos＋ ▼ ✕  en la derecha de la barra de menús (es necesario reiniciar Notepad++)"/>
+                    <Item id="6132" name="Ocultar atajos ＋ ▼ ✕ en la derecha de la barra de menús (es necesario reiniciar Notepad++)"/>
                     <Item id="6123" name="Idioma"/>
 
                     <Item id="6128" name="Iconos alternativos"/>
@@ -933,8 +933,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6219" name="Intermitencia:"/>
                     <Item id="6221" name="R"/>
                     <Item id="6222" name="L"/>
-                    <Item id="6246" name="Hacer que los comandos de plegado/desplegado del nivel actual sean conmutables"/>
-                    <Item id="6225" name="Activar edición múltiple (Ctrl. + clic/selección)"/>
+                    <Item id="6246" name="Comandos de plegado/desplegado del nivel actual conmutables"/>
+                    <Item id="6225" name="Habilitar edición múltiple (Ctrl. + clic/selección)"/>
                     <Item id="6227" name="Ajuste de línea"/>
                     <Item id="6228" name="Por defecto"/>
                     <Item id="6229" name="Alineado"/>
@@ -1298,8 +1298,8 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
                 <Item id="2" name="Cancelar"/>
             </ColumnEditor>
             <FindInFinder title="Buscar en los resultados de las búsquedas">
-                <Item id="1" name="Buscar todo"/>
-                <Item id="2" name="Cerrar"/>
+                <Item id="1"    name="Buscar todo"/>
+                <Item id="2"    name="Cerrar"/>
                 <Item id="1711" name="&amp;Buscar:"/>
                 <Item id="1713" name="Buscar solo en las líneas encontradas"/>
                 <Item id="1714" name="Buscar &amp;solo palabra completa"/>
@@ -1644,7 +1644,7 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <summary-nbsel1 value=" caracteres seleccionados ("/>
             <summary-nbsel2 value=" bytes) en "/>
             <summary-nbrange value=" rangos"/>
-            <progress-hits-title value="Aciertos:"/>
+            <progress-hits-title value="Coincidencias:"/>
             <progress-cancel-button value="Cancelar"/>
             <progress-cancel-info value="Cancelando operación, por favor espere..."/>
             <find-in-files-progress-title value="Progreso de búsqueda en archivos..."/>
@@ -1659,7 +1659,7 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
             <find-result-caption value="Encontrar resultados"/>
             <find-result-title value="Buscar"/> <!-- Must not begin with space or tab character -->
             <find-result-title-info value="(Hay $INT_REPLACE1$ coincidencia(s) en $INT_REPLACE2$ archivo(s) de $INT_REPLACE3$ búsqueda(s))"/>
-            <find-result-title-info-selections value="(Hay $INT_REPLACE1$ coincidencias en $INT_REPLACE2$ búsquedas de $INT_REPLACE3$)"/>
+            <find-result-title-info-selections value="(Hay $INT_REPLACE1$ coincidencias en $INT_REPLACE2$ selecciones de $INT_REPLACE3$ búsquedas)"/>
             <find-result-title-info-extra value=" - Modo de filtro: mostrar solo los resultados buscados"/>
             <find-result-hits value="($INT_REPLACE$ coincidencias)"/>
             <find-result-line-prefix value="Línea"/> <!-- Must not begin with space or tab character -->

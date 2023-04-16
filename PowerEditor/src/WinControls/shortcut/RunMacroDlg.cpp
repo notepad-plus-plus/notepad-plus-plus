@@ -40,9 +40,9 @@ void RunMacroDlg::initMacroList()
 	_macroIndex = 0;
 }
 
-intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {	
-	switch (message) 
+	switch (message)
 	{
 		case WM_INITDIALOG :
 		{
@@ -50,47 +50,42 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			initMacroList();
 			::SetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, _times, FALSE);
-			switch (_mode)
-			{
-				case RM_RUN_MULTI:
-					check(IDC_M_RUN_MULTI);
-					break;
-				case RM_RUN_EOF:
-					check(IDC_M_RUN_EOF);
-					break;
-			}
+			setChecked(IDC_M_RUN_MULTI);
+
 			::SendDlgItemMessage(_hSelf, IDC_M_RUN_TIMES, EM_LIMITTEXT, 4, 0);
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
+			auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+
+			const bool isStaticText = (dlgCtrlID == IDC_TIMES_STATIC);
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (isStaticText)
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				const bool isTextEnabled = isCheckedOrNot(IDC_M_RUN_MULTI);
+				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
-			break;
+			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:
@@ -108,39 +103,34 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
-			if (HIWORD(wParam) == EN_CHANGE)
-			{
-				switch (LOWORD(wParam))
-				{	
-					case IDC_M_RUN_TIMES:
-						check(IDC_M_RUN_MULTI);
-						return TRUE;
-					
-					default:
-						return FALSE;
-				}
-			}
-			
 			switch (wParam)
 			{
-				case IDCANCEL :
+				case IDC_M_RUN_MULTI:
+				case IDC_M_RUN_EOF:
+				{
+					const bool isMulti = (wParam == IDC_M_RUN_MULTI);
+					if (isMulti)
+					{
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_M_RUN_TIMES), TRUE);
+						_times = ::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, NULL, FALSE);
+					}
+					else
+					{
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_M_RUN_TIMES), FALSE);
+					}
+					redrawDlgItem(IDC_TIMES_STATIC);
+
+					return TRUE;
+				}
+
+				case IDCANCEL:
 					::ShowWindow(_hSelf, SW_HIDE);
 					return TRUE;
 
-				case IDOK :
-					if ( isCheckedOrNot(IDC_M_RUN_MULTI) )
-					{
-						_mode = RM_RUN_MULTI;
-						_times = ::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, NULL, FALSE);
-					}
-					else if ( isCheckedOrNot(IDC_M_RUN_EOF) )
-					{
-						_mode = RM_RUN_EOF;
-					}
-
-					if (::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCOUNT, 0, 0))
+				case IDOK:
+					if (::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCOUNT, 0, 0) > 0)
 						::SendMessage(_hParent, WM_MACRODLGRUNMACRO, 0, 0);
 
 					return TRUE;
@@ -155,21 +145,6 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		}
 	}
 	return FALSE;
-}
-
-void RunMacroDlg::check(int id)
-{
-	// IDC_M_RUN_MULTI
-	if ( id == IDC_M_RUN_MULTI )
-		::SendDlgItemMessage(_hSelf, IDC_M_RUN_MULTI, BM_SETCHECK, BST_CHECKED, 0);
-	else
-		::SendDlgItemMessage(_hSelf, IDC_M_RUN_MULTI, BM_SETCHECK, BST_UNCHECKED, 0);
-
-	// IDC_M_RUN_EOF
-	if ( id == IDC_M_RUN_EOF )
-		::SendDlgItemMessage(_hSelf, IDC_M_RUN_EOF, BM_SETCHECK, BST_CHECKED, 0);
-	else
-		::SendDlgItemMessage(_hSelf, IDC_M_RUN_EOF, BM_SETCHECK, BST_UNCHECKED, 0);
 }
 
 int RunMacroDlg::getMacro2Exec() const 

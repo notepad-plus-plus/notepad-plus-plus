@@ -1260,7 +1260,7 @@ You can define several column markers by using white space to separate the diffe
             <MultiMacro title="Run a Macro Multiple Times">
                 <Item id="1" name="&amp;Run"/>
                 <Item id="2" name="&amp;Cancel"/>
-                <Item id="8006" name="Macro to run :"/>
+                <Item id="8006" name="Macro to run"/>
                 <Item id="8001" name="Run"/>
                 <Item id="8005" name="times"/>
                 <Item id="8002" name="Run until the &amp;end of file"/>

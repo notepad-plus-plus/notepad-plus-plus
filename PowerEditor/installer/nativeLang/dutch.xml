@@ -1405,6 +1405,7 @@ Wilt u het openen?"/>
             <CreateNewFileError title="Nieuw bestand aanmaken" message="Kan bestand &quot;$STR_REPLACE$&quot; niet aanmaken."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <OpenFileError title="FOUT" message="Kan bestand &quot;$STR_REPLACE$&quot; niet openen."/>
             <OpenFileNoFolderError title="Kan bestand niet openen" message="&quot;$STR_REPLACE1$&quot; kan niet worden geopend:
+Map &quot;$STR_REPLACE2$&quot; bestaat niet."/>
             <FileBackupFailed title="Back-up van bestand mislukt" message="De vorige versie van het bestand kon niet worden opgeslagen in de back-upmap in &quot;$STR_REPLACE$&quot;.
 
 Wilt u het huidige bestand toch opslaan?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1694,7 +1695,7 @@ Door representatie te gebruiken worden tekeneffecten op tekst uitgeschakeld.
 Raadpleeg de gebruikershandleiding voor de volledige lijst van geselecteerde spaties en niet-afdrukbare tekens.
 
 Klik op deze knop om de website met gebruikershandleiding te openen." />
-            <npcAbbreviation-tip value="Afkorting: naame
+            <npcAbbreviation-tip value="Afkorting: naam
 NBSP : no-break space
 ZWSP : zero-width space
 ZWNBSP : zero-width no-break space

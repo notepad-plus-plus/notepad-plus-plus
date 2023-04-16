@@ -193,6 +193,11 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\gdscript.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "Hollywood" Hollywood_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\hollywood.xml"
+	${MementoSectionEnd}
+
 	${MementoSection} "NppExecScript" NppExecScript_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\nppexec.xml"
@@ -351,6 +356,10 @@ SectionGroup un.functionListComponent
 	Section un.GDScript_FL
 		Delete "$INSTDIR\functionList\gdscript.xml"
 	SectionEnd
+	
+	Section un.Hollywood_FL
+		Delete "$INSTDIR\functionList\hollywood.xml"
+	SectionEnd	
 
 	Section un.NppExecScript_FL
 		Delete "$INSTDIR\functionList\nppexec.xml"

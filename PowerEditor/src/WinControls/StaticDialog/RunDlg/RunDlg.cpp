@@ -187,15 +187,15 @@ HINSTANCE Command::run(HWND hWnd)
 
 HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
 {
-	const int argsIntermediateLen = MAX_PATH*2;
-	const int args2ExecLen = CURRENTWORD_MAXLENGTH+MAX_PATH*2;
+	constexpr int argsIntermediateLen = MAX_PATH * 2;
+	constexpr int args2ExecLen = CURRENTWORD_MAXLENGTH + MAX_PATH * 2;
 
-	TCHAR cmdPure[MAX_PATH];
-	TCHAR cmdIntermediate[MAX_PATH];
-	TCHAR cmd2Exec[MAX_PATH];
-	TCHAR args[MAX_PATH];
-	TCHAR argsIntermediate[argsIntermediateLen];
-	TCHAR args2Exec[args2ExecLen];
+	TCHAR cmdPure[MAX_PATH]{};
+	TCHAR cmdIntermediate[MAX_PATH]{};
+	TCHAR cmd2Exec[MAX_PATH]{};
+	TCHAR args[MAX_PATH]{};
+	TCHAR argsIntermediate[argsIntermediateLen]{};
+	TCHAR args2Exec[args2ExecLen]{};
 
 	extractArgs(cmdPure, MAX_PATH, args, MAX_PATH, _cmdLine.c_str());
 	int nbTchar = ::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, MAX_PATH);
@@ -213,7 +213,7 @@ HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
 	expandNppEnvironmentStrs(cmdIntermediate, cmd2Exec, MAX_PATH, hWnd);
 	expandNppEnvironmentStrs(argsIntermediate, args2Exec, args2ExecLen, hWnd);
 
-	TCHAR cwd2Exec[MAX_PATH];
+	TCHAR cwd2Exec[MAX_PATH]{};
 	expandNppEnvironmentStrs(cwd, cwd2Exec, MAX_PATH, hWnd);
 	
 	HINSTANCE res = ::ShellExecute(hWnd, TEXT("open"), cmd2Exec, args2Exec, cwd2Exec, SW_SHOW);
@@ -253,22 +253,18 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
+		{
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
+		}
+
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -284,7 +280,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -298,7 +294,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -308,7 +304,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				
 				case IDOK :
 				{
-					TCHAR cmd[MAX_PATH];
+					TCHAR cmd[MAX_PATH]{};
 					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
 					_cmdLine = cmd;
 
@@ -336,7 +332,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					DynamicMenu& runMenu = nppParams.getRunMenuItems();
 					int nbTopLevelItem = runMenu.getTopLevelItemNumber();
 
-					TCHAR cmd[MAX_PATH];
+					TCHAR cmd[MAX_PATH]{};
 					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
 					UserCommand uc(Shortcut(), cmd, cmdID);
 					uc.init(_hInst, _hSelf);
@@ -400,7 +396,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 			}
 		}
 	}
-	return FALSE;	
+	return FALSE;
 }
 
 void RunDlg::addTextToCombo(const TCHAR *txt2Add) const
@@ -427,7 +423,7 @@ void RunDlg::doDialog(bool isRTL)
 
 	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-    // Adjust the position in the center
-	goToCenter();
+	// Adjust the position in the center
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 	::SetFocus(::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH));
 }

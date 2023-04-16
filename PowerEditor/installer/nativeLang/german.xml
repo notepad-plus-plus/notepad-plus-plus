@@ -9,8 +9,8 @@
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<!-- basiert auf english.xml vom 25.03.2023 -->
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.03.25">
+	<!-- basiert auf english.xml vom 07.05.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.07">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -303,6 +303,7 @@
 					<Item id="44114" name="Farbe 4 anwenden"/>
 					<Item id="44115" name="Farbe 5 anwenden"/>
 					<Item id="44130" name="Nicht druckbare Zeichen anzeigen"/>
+					<Item id="44131" name="Steuerzeichen &amp; Unicode EOL anzeigen"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -500,7 +501,7 @@
 				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="2901" name="&amp;Nicht-ASCII-Zeichen (128–255)"/>
 				<Item id="2902" name="&amp;ASCII-Zeichen (0–127)"/>
-				<Item id="2903" name="&amp;Benutzerdefiniert:"/>
+				<Item id="2903" name="&amp;Benutzerdefiniert (0-255):"/>
 				<Item id="2906" name="A&amp;ufwärts"/>
 				<Item id="2907" name="Ab&amp;wärts"/>
 				<Item id="2908" name="Suchrichtung"/>
@@ -526,27 +527,27 @@
 			</Run>
 
 			<MD5FromFilesDlg title="MD5-Hashwert aus Dateien erstellen">
-				<Item id="1922" name="Dateien für MD5-Hashes wählen …"/>
-				<Item id="1924" name="In die Zwischenablage"/>
-				<Item id="2"    name="Schließen"/>
+				<Item id="1922" name="Dateien für &amp;MD5-Hashes wählen …"/>
+				<Item id="1924" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="2"    name="S&amp;chließen"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="MD5-Hashwert erstellen">
-				<Item id="1932" name="Jede Zeile als eigene Zeichenkette behandeln"/>
-				<Item id="1934" name="In die Zwischenablage"/>
-				<Item id="2"    name="Schließen"/>
+				<Item id="1932" name="Jede &amp;Zeile als eigene Zeichenkette behandeln"/>
+				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="2"    name="S&amp;chließen"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="SHA-256-Hashwert aus Dateien erstellen">
-				<Item id="1922" name="Dateien für SHA-256-Hashes wählen …"/>
-				<Item id="1924" name="In die Zwischenablage"/>
-				<Item id="2"    name="Schließen"/>
+				<Item id="1922" name="Dateien für &amp;SHA-256-Hashes wählen …"/>
+				<Item id="1924" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="2"    name="S&amp;chließen"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="SHA-256-Hashwert erstellen">
-				<Item id="1932" name="Jede Zeile als eigene Zeichenkette behandeln"/>
-				<Item id="1934" name="In die Zwischenablage"/>
-				<Item id="2"    name="Schließen"/>
+				<Item id="1932" name="Jede &amp;Zeile als eigene Zeichenkette behandeln"/>
+				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="2"    name="S&amp;chließen"/>
 			</SHA256FromTextDlg>
 
 			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel">
@@ -743,7 +744,7 @@
 				<Item id="20016" name="Exportieren …"/>
 				<Item id="20017" name="Abdocken"/>
 				<StylerDialog title="Stiloptionen für benutzerdefinierte Sprachen">
-					<Item id="25030" name="Schriftoptionen"/>
+					<Item id="25030" name="Schriftoptionen:"/>
 					<Item id="25006" name="Vordergrundfarbe:"/>
 					<Item id="25007" name="Hintergrundfarbe:"/>
 					<Item id="25031" name="Schriftart:"/>
@@ -751,7 +752,7 @@
 					<Item id="25001" name="Fett"/>
 					<Item id="25002" name="Kursiv"/>
 					<Item id="25003" name="Unterstrichen"/>
-					<Item id="25029" name="Eingebettete Stile"/>
+					<Item id="25029" name="Eingebettete Stile:"/>
 					<Item id="25008" name="Trennzeichen 1"/>
 					<Item id="25009" name="Trennzeichen 2"/>
 					<Item id="25010" name="Trennzeichen 3"/>
@@ -781,20 +782,20 @@
 				<Folder title="Textblöcke &amp;&amp; Voreinstellung">
 					<Item id="21101" name="Standardschrift"/>
 					<Item id="21102" name="Stil …"/>
-					<Item id="21105" name="Dokumentation"/>
+					<Item id="21105" name="Dokumentation:"/>
 					<Item id="21104" name="Dokumentation online:"/>
 					<Item id="21106" name="Leerzeilen mit einfalten (kompakte Faltung)"/>
-					<Item id="21220" name="Textblöcke im Code 1"/>
+					<Item id="21220" name="Textblöcke im Code 1:"/>
 					<Item id="21224" name="Anfang:"/>
 					<Item id="21225" name="Mitte:"/>
 					<Item id="21226" name="Ende:"/>
 					<Item id="21227" name="Stil …"/>
-					<Item id="21320" name="Textblöcke im Code 2 (mit Trennzeichen)"/>
+					<Item id="21320" name="Textblöcke im Code 2 (mit Trennzeichen):"/>
 					<Item id="21324" name="Anfang:"/>
 					<Item id="21325" name="Mitte:"/>
 					<Item id="21326" name="Ende:"/>
 					<Item id="21327" name="Stil …"/>
-					<Item id="21420" name="Textblöcke in Kommentaren"/>
+					<Item id="21420" name="Textblöcke in Kommentaren:"/>
 					<Item id="21424" name="Anfang:"/>
 					<Item id="21425" name="Mitte:"/>
 					<Item id="21426" name="Ende:"/>
@@ -964,6 +965,7 @@
 					<Item id="6254" name="Abkürzung"/>
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Benutzerdefinierte Farbe"/>
+					<Item id="6258" name="Anwenden auf C0, C1 &amp; Unicode EOL"/>
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
@@ -1077,30 +1079,30 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 				</Highlighting>
 
 				<Print title="Drucken">
-					<Item id="6601" name="Zeilennummern drucken"/>
-					<Item id="6602" name="Farboptionen"/>
-					<Item id="6603" name="Wie angezeigt"/>
-					<Item id="6604" name="Invertieren"/>
-					<Item id="6605" name="Schwarz auf weiß"/>
-					<Item id="6606" name="Keine Hintergrundfarbe"/>
-					<Item id="6607" name="Seitenränder (mm)"/>
-					<Item id="6612" name="Links"/>
-					<Item id="6613" name="Oben"/>
-					<Item id="6614" name="Rechts"/>
-					<Item id="6615" name="Unten"/>
-					<Item id="6706" name="Fett"/>
-					<Item id="6707" name="Kursiv"/>
-					<Item id="6708" name="Kopfzeile"/>
-					<Item id="6709" name="Linke Seite:"/>
-					<Item id="6710" name="Mitte:"/>
-					<Item id="6711" name="Rechte Seite:"/>
-					<Item id="6717" name="Fett"/>
-					<Item id="6718" name="Kursiv"/>
+					<Item id="6601" name="Zeilennu&amp;mmern drucken"/>
+					<Item id="6602" name="Farbo&amp;ptionen"/>
+					<Item id="6603" name="Wie angezeigt (W&amp;YSIWYG"/>
+					<Item id="6604" name="I&amp;nvertieren"/>
+					<Item id="6605" name="Schwarz auf &amp;weiß"/>
+					<Item id="6606" name="Keine &amp;Hintergrundfarbe"/>
+					<Item id="6607" name="Seitenrän&amp;der (mm)"/>
+					<Item id="6612" name="&amp;Links"/>
+					<Item id="6613" name="&amp;Oben"/>
+					<Item id="6614" name="&amp;Rechts"/>
+					<Item id="6615" name="&amp;Unten"/>
+					<Item id="6706" name="&amp;Fett"/>
+					<Item id="6707" name="&amp;Kursiv"/>
+					<Item id="6708" name="Kopf&amp;zeile"/>
+					<Item id="6709" name="L&amp;inke Seite:"/>
+					<Item id="6710" name="Mi&amp;tte:"/>
+					<Item id="6711" name="Re&amp;chte Seite:"/>
+					<Item id="6717" name="F&amp;ett"/>
+					<Item id="6718" name="Kursi&amp;v"/>
 					<Item id="6719" name="Fußzeile"/>
-					<Item id="6720" name="Linke Seite:"/>
+					<Item id="6720" name="Linke &amp;Seite:"/>
 					<Item id="6721" name="Mitte:"/>
-					<Item id="6722" name="Rechte Seite:"/>
-					<Item id="6723" name="Hinzufügen"/>
+					<Item id="6722" name="Rec&amp;hte Seite:"/>
+					<Item id="6723" name="Hinzufü&amp;gen"/>
 					<ComboBox id="6724">
 						<Element name="Pfad &amp; Name"/>
 						<Element name="Dateiname"/>
@@ -1271,7 +1273,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 			<MultiMacro title="Makro mehrfach ausführen">
 				<Item id="1"    name="Ausfüh&amp;ren"/>
 				<Item id="2"    name="A&amp;bbrechen"/>
-				<Item id="8006" name="Makro:"/>
+				<Item id="8006" name="Makro ausführen :"/>
 				<Item id="8001" name="&amp;Makro"/>
 				<Item id="8005" name="Mal ausführen"/>
 				<Item id="8002" name="Bis zum &amp;Ende der Datei ausführen"/>
@@ -1449,6 +1451,12 @@ Fortsetzen?"/>
 			<LanguageMenuCompactWarning title="Verschachteltes Sprachmenü" message="Diese Änderung wird erst nach dem nächsten Start aktiv."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Änderungen wurden nicht gespeichert.
 Möchten Sie die Änderungen speichern, bevor Sie das Thema wechseln?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Kompatibiltät der Makros und Ausführungs-Kommandos" message="Die in Notepad++ gespeicherten Makros und Ausführungs-Kommandos v.8.5.2 (oder älter) könnten ev. mit der aktuellen Version von Notepad++ nicht kompatibel sein.
+Bitte die Kommandos daher testen und falls nötig editieren.
+
+Alternativ dazu kann auch auf die ältere Version Notepad++ v8.5.2 gewechselt und dort die aktuellen Daten gesichert werden.
+Notepad++ wird ein Backup der alten &quot;shortcuts.xml&quot; machen und die Datei als &quot;shortcuts.xml.v8.5.2.backup&quot; speichern.
+Beim darauf folgenden Umbenennen der &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; sollten die Kommandos wiederhergestellt sein und wieder funktionieren."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1649,6 +1657,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
+			<progress-hits-title value="Treffer:"/>
 			<progress-cancel-button value="Abbrechen"/>
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
@@ -1689,8 +1698,6 @@ ACHTUNG:
 			<npcNote-tip value="Darstellung von ausgewählten &quot;Nicht-ASCII&quot; Leerzeichen und nicht druckbaren (Steuer-)Zeichen.
 
 HINWEIS:
-Einige Zeichen haben ggf. bereits eine Representation und sind daher schon sichtbar. Zeilen- und Absatztrennzeichen werden bereits standardmäßig durch eine entsprechende Abkürzung dargestellt.
-
 Die Verwendung der Darstellung deaktiviert die Zeicheneffekte im Text.
 
 Die vollständige Liste der verfügbaren Leerzeichen und nicht druckbaren Zeichen finden Sie im Benutzerhandbuch.
@@ -1712,6 +1719,7 @@ Die vollständige Liste finden Sie im Benutzerhandbuch.
 Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs." />
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)." />
+			<npcIncludeCcUniEol-tip value="Wenden Sie die Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) an." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

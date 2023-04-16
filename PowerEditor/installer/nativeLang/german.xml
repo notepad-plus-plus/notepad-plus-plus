@@ -9,8 +9,8 @@
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<!-- basiert auf english.xml vom 25.03.2023 -->
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.03.25">
+	<!-- basiert auf english.xml vom 15.04.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.04.15">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -303,6 +303,7 @@
 					<Item id="44114" name="Farbe 4 anwenden"/>
 					<Item id="44115" name="Farbe 5 anwenden"/>
 					<Item id="44130" name="Nicht druckbare Zeichen anzeigen"/>
+					<Item id="44131" name="Steuerzeichen &amp; Unicode EOL anzeigen"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -964,6 +965,7 @@
 					<Item id="6254" name="Abkürzung"/>
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Benutzerdefinierte Farbe"/>
+					<Item id="6258" name="Anwenden auf C0, C1 &amp; Unicode EOL"/>
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
@@ -1649,6 +1651,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<summary-nbsel1 value=" gewählte Zeichen ("/>
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
+			<progress-hits-title value="Treffer:"/>
 			<progress-cancel-button value="Abbrechen"/>
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
@@ -1689,8 +1692,6 @@ ACHTUNG:
 			<npcNote-tip value="Darstellung von ausgewählten &quot;Nicht-ASCII&quot; Leerzeichen und nicht druckbaren (Steuer-)Zeichen.
 
 HINWEIS:
-Einige Zeichen haben ggf. bereits eine Representation und sind daher schon sichtbar. Zeilen- und Absatztrennzeichen werden bereits standardmäßig durch eine entsprechende Abkürzung dargestellt.
-
 Die Verwendung der Darstellung deaktiviert die Zeicheneffekte im Text.
 
 Die vollständige Liste der verfügbaren Leerzeichen und nicht druckbaren Zeichen finden Sie im Benutzerhandbuch.
@@ -1712,6 +1713,7 @@ Die vollständige Liste finden Sie im Benutzerhandbuch.
 Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs." />
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)." />
+			<npcIncludeCcUniEol-tip value="Wenden Sie die Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) an." />
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

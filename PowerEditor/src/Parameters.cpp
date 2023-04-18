@@ -1471,12 +1471,12 @@ bool NppParameters::load()
 		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
 	}
 
-	_pXmlShortcutDoc = new TiXmlDocumentA();
-	loadOkay = _pXmlShortcutDoc->LoadUnicodeFilePath(_shortcutsPath.c_str());
+	_pXmlShortcutDocA = new TiXmlDocumentA();
+	loadOkay = _pXmlShortcutDocA->LoadUnicodeFilePath(_shortcutsPath.c_str());
 	if (!loadOkay)
 	{
-		delete _pXmlShortcutDoc;
-		_pXmlShortcutDoc = nullptr;
+		delete _pXmlShortcutDocA;
+		_pXmlShortcutDocA = nullptr;
 		isAllLaoded = false;
 	}
 	else
@@ -1613,10 +1613,9 @@ void NppParameters::destroyInstance()
 
 	delete _pXmlNativeLangDocA;
 	delete _pXmlToolIconsDoc;
-	delete _pXmlShortcutDoc;
+	delete _pXmlShortcutDocA;
 	delete _pXmlContextMenuDocA;
 	delete _pXmlTabContextMenuDocA;
-	delete _pXmlBlacklistDoc;
 	delete 	getInstancePointer();
 }
 
@@ -1903,10 +1902,10 @@ std::pair<unsigned char, unsigned char> NppParameters::addUserDefineLangsFromXml
 
 bool NppParameters::getShortcutsFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNodeA *root = _pXmlShortcutDoc->FirstChild("NotepadPlus");
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -1917,10 +1916,10 @@ bool NppParameters::getShortcutsFromXmlTree()
 
 bool NppParameters::getMacrosFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNodeA *root = _pXmlShortcutDoc->FirstChild("NotepadPlus");
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -1931,10 +1930,10 @@ bool NppParameters::getMacrosFromXmlTree()
 
 bool NppParameters::getUserCmdsFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNodeA *root = _pXmlShortcutDoc->FirstChild("NotepadPlus");
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -1945,10 +1944,10 @@ bool NppParameters::getUserCmdsFromXmlTree()
 
 bool NppParameters::getPluginCmdsFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNodeA *root = _pXmlShortcutDoc->FirstChild("NotepadPlus");
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -1959,10 +1958,10 @@ bool NppParameters::getPluginCmdsFromXmlTree()
 
 bool NppParameters::getScintKeysFromXmlTree()
 {
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 		return false;
 
-	TiXmlNodeA *root = _pXmlShortcutDoc->FirstChild("NotepadPlus");
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 		return false;
 
@@ -3188,9 +3187,9 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	// shortcuts.xml
 	generic_string cloudShortcutsPath = cloudSettingsPath;
 	pathAppend(cloudShortcutsPath, TEXT("shortcuts.xml"));
-	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDoc)
+	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDocA)
 	{
-		isOK = _pXmlShortcutDoc->SaveUnicodeFilePath(cloudShortcutsPath.c_str());
+		isOK = _pXmlShortcutDocA->SaveUnicodeFilePath(cloudShortcutsPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -3532,18 +3531,18 @@ void NppParameters::writeShortcuts()
 {
 	if (!_isAnyShortcutModified) return;
 
-	if (!_pXmlShortcutDoc)
+	if (!_pXmlShortcutDocA)
 	{
 		//do the treatment
-		_pXmlShortcutDoc = new TiXmlDocumentA();
+		_pXmlShortcutDocA = new TiXmlDocumentA();
 		TiXmlDeclarationA* decl = new TiXmlDeclarationA("1.0", "UTF-8", "");
-		_pXmlShortcutDoc->LinkEndChild(decl);
+		_pXmlShortcutDocA->LinkEndChild(decl);
 	}
 
-	TiXmlNodeA *root = _pXmlShortcutDoc->FirstChild("NotepadPlus");
+	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)
 	{
-		root = _pXmlShortcutDoc->InsertEndChild(TiXmlElementA("NotepadPlus"));
+		root = _pXmlShortcutDocA->InsertEndChild(TiXmlElementA("NotepadPlus"));
 	}
 
 	TiXmlNodeA *cmdRoot = root->FirstChild("InternalCommands");
@@ -3599,7 +3598,7 @@ void NppParameters::writeShortcuts()
 	{
 		insertScintKey(scitillaKeyRoot, _scintillaKeyCommands[_scintillaModifiedKeyIndices[i]]);
 	}
-	_pXmlShortcutDoc->SaveUnicodeFilePath(_shortcutsPath.c_str());
+	_pXmlShortcutDocA->SaveUnicodeFilePath(_shortcutsPath.c_str());
 }
 
 

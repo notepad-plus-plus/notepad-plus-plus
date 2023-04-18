@@ -1814,8 +1814,8 @@ private:
 	TiXmlDocument *_pXmlUserLangDoc = nullptr; // userDefineLang.xml
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
 	TiXmlDocument *_pXmlToolIconsDoc = nullptr; // toolbarIcons.xml
-	TiXmlDocumentA *_pXmlShortcutDoc = nullptr; // shortcuts.xml
-	TiXmlDocument *_pXmlBlacklistDoc = nullptr; // not implemented
+
+	TiXmlDocumentA *_pXmlShortcutDocA = nullptr; // shortcuts.xml
 
 	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr; // nativeLang.xml
 	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml

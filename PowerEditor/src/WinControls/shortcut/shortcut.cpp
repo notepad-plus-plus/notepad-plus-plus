@@ -485,7 +485,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 					if (_canModifyName)
 					{
-						TCHAR editName[nameLenMax];
+						TCHAR editName[nameLenMax]{};
 						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, reinterpret_cast<LPARAM>(editName));
 						setName(wstring2string(editName, CP_UTF8).c_str());
 					}

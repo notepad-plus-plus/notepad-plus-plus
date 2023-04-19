@@ -34,7 +34,7 @@ void RunMacroDlg::initMacroList()
 		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Current recorded macro")));
 
 	for (size_t i = 0, len = macroList.size(); i < len ; ++i)
-		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(macroList[i].getName()));
+		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(macroList[i].getName(), CP_UTF8).c_str()));
 
 	::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_SETCURSEL, 0, 0);
 	_macroIndex = 0;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 12 Apr 2023, for Notepad++ 8.5.3 
+     Last update by Marcello, 19 Apr 2023, for Notepad++ 8.5.3 
 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.3">
@@ -1265,7 +1265,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
             <MultiMacro title="Executar macro múltiplas vezes">
                 <Item id="1" name="Executar"/>
                 <Item id="2" name="Cancelar"/>
-                <Item id="8006" name="Macro a executar :"/>
+                <Item id="8006" name="Macro a executar"/>
                 <Item id="8001" name="Executar"/>
                 <Item id="8005" name="vez(es)"/>
                 <Item id="8002" name="Executar até o final do arquivo"/>

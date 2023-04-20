@@ -1265,7 +1265,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
             <MultiMacro title="Spustiť makro viacnásobne">
                 <Item id="1" name="Spustiť"/>
                 <Item id="2" name="Zrušiť"/>
-                <Item id="8006" name="Makro:"/>
+                <Item id="8006" name="Spustiť makro"/>
                 <Item id="8001" name="Spustiť"/>
                 <Item id="8005" name="krát"/>
                 <Item id="8002" name="Spustiť až po koniec súboru"/>

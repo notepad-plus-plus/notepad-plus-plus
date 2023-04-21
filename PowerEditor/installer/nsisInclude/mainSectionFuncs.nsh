@@ -96,14 +96,7 @@ Function copyCommonFiles
 	File "..\..\LICENSE"
 	File "..\bin\change.log"
 	File "..\bin\readme.txt"
-	
-!ifdef ARCH64
-	File "..\bin64\notepad++.exe"
-!else ifdef ARCHARM64
-	File "..\binarm64\notepad++.exe"
-!else
-	File "..\bin\notepad++.exe"
-!endif
+	File "..\${ARCHBINDIR}\notepad++.exe"
 
 	; Markdown in user defined languages
 	SetOutPath "$UPDATE_PATH\userDefineLangs\"

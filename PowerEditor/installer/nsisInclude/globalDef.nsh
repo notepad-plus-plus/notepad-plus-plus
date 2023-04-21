@@ -18,16 +18,17 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
+!ifdef ARCHARM64
+	!define ARCHBINDIR "binarm64"
+!else ifdef ARCH64
+	!define ARCHBINDIR "bin64"
+!else
+	!define ARCHBINDIR "bin"
+!endif
+
 ; ------------------------------------------------------------------------
 ; Get Notepad++ version from the notepad++ binary
-
-!ifdef ARCH64
-	!getdllversion "..\bin64\notepad++.exe" nppVer_
-!else ifdef ARCHARM64
-	!getdllversion "..\binarm64\notepad++.exe" nppVer_
-!else
-	!getdllversion "..\bin\notepad++.exe" nppVer_
-!endif
+!getdllversion "..\${ARCHBINDIR}\notepad++.exe" nppVer_
 
 !define APPVERSION		${nppVer_1}.${nppVer_2}		; 7.5
 !define VERSION_MAJOR		${nppVer_1}			; 7

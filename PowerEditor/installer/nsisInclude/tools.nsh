@@ -69,45 +69,36 @@ FunctionEnd
 
 
 ;Installer Functions
-Var Dialog
 Var NoUserDataCheckboxHandle
 Var ShortcutCheckboxHandle
 Var WinVer
 Var noUserDataChecked
 Var createShortcutChecked
 
-; The definition of "OnChange" event for checkbox
-Function OnChange_NoUserDataCheckBox
+Function ExtraOptionsPageLeave
+	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
 	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
 FunctionEnd
 
-Function OnChange_ShortcutCheckBox
-	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
-FunctionEnd
-
-Function ExtraOptions
+Function ExtraOptionsPageCreate
 	nsDialogs::Create 1018
-	Pop $Dialog
-
-	${If} $Dialog == error
+	Pop $0
+	${If} $0 == error
 		Abort
 	${EndIf}
 
 	${NSD_CreateCheckbox} 0 0 100% 30u "Create Shortcut on Desktop"
 	Pop $ShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
-	${NSD_Check} $ShortcutCheckboxHandle
-	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
+		${NSD_Check} $ShortcutCheckboxHandle
 	
 	${NSD_CreateCheckbox} 0 120 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
 	Pop $NoUserDataCheckboxHandle
-	IfFileExists $INSTDIR\doLocalConf.xml doLocalConfExists doLocalConfDoesNotExists
-	doLocalConfExists:
-		 ; a previous portable N++ installation detected
+	${If} ${FileExists} $INSTDIR\doLocalConf.xml
+		; a previous portable N++ installation detected
 		${NSD_SetState} $NoUserDataCheckboxHandle ${BST_CHECKED}
 		StrCpy $noUserDataChecked ${BST_CHECKED}
-	doLocalConfDoesNotExists:
-	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
+	${EndIf}
 	
 	StrLen $0 $PROGRAMFILES
 	StrCpy $1 $InstDir $0
@@ -115,7 +106,7 @@ Function ExtraOptions
 	StrLen $0 $PROGRAMFILES64
 	StrCpy $2 $InstDir $0
 	${If} $1 == "$PROGRAMFILES"
-	${ORIF} $2 == "$PROGRAMFILES64"
+	${OrIf} $2 == "$PROGRAMFILES64"
 		${NSD_Uncheck} $NoUserDataCheckboxHandle
 		EnableWindow $NoUserDataCheckboxHandle 0
 	${Else}

@@ -234,9 +234,6 @@ Section -"Notepad++" mainSection
 		!insertmacro uninstallDir $diffArchDir2Remove 
 	${endIf}
 
-	; save selected language to registry
-	WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
-
 	Call copyCommonFiles
 
 	Call removeUnstablePlugins

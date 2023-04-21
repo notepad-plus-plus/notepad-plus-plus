@@ -118,47 +118,39 @@ FunctionEnd
 Function checkCompatibility
 
 	${GetWindowsVersion} $WinVer
-	
-	StrCmp $WinVer "95" 0 +3
+
+	${If} $WinVer == "95"
+	${OrIf} $WinVer == "98"
+	${OrIf} $WinVer == "ME"
+	${OrIf} $WinVer == "NT 4.0"
+	${OrIf} $WinVer == "2000"
 		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
 		Abort
-		
-	StrCmp $WinVer "98" 0 +3
-		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
+	${EndIf}
+
+	StrCpy $1 ""
+	${If} $WinVer == "XP"
+		StrCpy $1 "Windows XP"
+		StrCpy $2 "7.9.2"
+	${ElseIf} $WinVer == "2003"
+		StrCpy $1 "Windows Server 2003"
+		StrCpy $2 "7.9.2"
+	/*${ElseIf} $WinVer == "Vista" ; GCC builds still supports Vista?
+		StrCpy $1 "Windows Vista"
+		StrCpy $2 "8.4.6" */
+	${EndIf}
+	${If} $1 != ""
+		MessageBox MB_YESNO|MB_ICONSTOP "This version of Notepad++ doesn't support $1. The installation will be aborted.$\n$\nDo you want to go to the Notepad++ download page for downloading the last version which supports $1 (v$2)?" IDNO oldwin_goQuit
+			ExecShell "open" "https://notepad-plus-plus.org/downloads/v$2/"
+oldwin_goQuit:
 		Abort
-		
-	StrCmp $WinVer "ME" 0 +3
-		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
-		Abort
-		
-	StrCmp $WinVer "2000" 0 +3 ; Windows 2000
-		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
-		Abort
-		
-	StrCmp $WinVer "XP" 0 xp_endTest ; XP
-		MessageBox MB_YESNO|MB_ICONSTOP "This version of Notepad++ doesn't support Windows XP. The installation will be aborted.$\n$\nDo you want to go to Notepad++ download page for downloading the last version which supports XP (v7.9.2)?" IDYES xp_openDlPage IDNO xp_goQuit
-xp_openDlPage:
-		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
-xp_goQuit:
-		Abort
-xp_endTest:
-		
-	StrCmp $WinVer "2003" 0 ws2003_endTest ; Windows Server 2003
-		MessageBox MB_YESNO|MB_ICONSTOP "This version of Notepad++ doesn't support Windows Server 2003. The installation will be aborted.$\n$\nDo you want to go to Notepad++ download page for downloading the last version which supports this OS?" IDYES ws2003_openDlPage IDNO ws2003_goQuit
-ws2003_openDlPage:
-		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
-ws2003_goQuit:
-		Abort
-ws2003_endTest:
+	${EndIf}
 
 !ifdef ARCHARM64
-	${If} ${IsNativeARM64}
-		; OK
-	${Else}
+	${IfNot} ${IsNativeARM64}
 		; we cannot run ARM64 binaries on a x86/x64 CPU (the other way around is possible - x86 on ARM64 CPU)
-		MessageBox MB_YESNO|MB_ICONSTOP "This installer contains ARM64 version of Notepad++ incompatible with your computer processor running, so the installation will be aborted.$\n$\nDo you want to go to the Notepad++ site to download a compatible (x86/x64) installer instead?" IDYES arm64_openDlPage IDNO arm64_goQuit
-arm64_openDlPage:
-		ExecShell "open" "https://notepad-plus-plus.org/downloads/"
+		MessageBox MB_YESNO|MB_ICONSTOP "This installer contains ARM64 version of Notepad++ incompatible with your computer processor running, so the installation will be aborted.$\n$\nDo you want to go to the Notepad++ site to download a compatible (x86/x64) installer instead?" IDNO arm64_goQuit
+			ExecShell "open" "https://notepad-plus-plus.org/downloads/"
 arm64_goQuit:
 		Abort
 	${EndIf}
@@ -171,6 +163,7 @@ Function writeInstallInfoInRegistry
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
 	
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
+	WriteRegStr HKLM "Software\${APPNAME}" 'InstallerLanguage' '$Language'
 	!ifdef ARCH64
 		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (64-bit x64)"
 	!else ifdef ARCHARM64
@@ -190,11 +183,10 @@ Function writeInstallInfoInRegistry
 	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "VersionMinor" ${VERSION_MINOR}
 	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "NoModify" 1
 	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "NoRepair" 1
-	
 	${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
 	IfErrors +3 0
-	IntFmt $0 "0x%08X" $0
-	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "EstimatedSize" "$0"
+		IntFmt $0 "0x%08X" $0
+		WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "EstimatedSize" "$0"
 	
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 FunctionEnd

@@ -17,16 +17,16 @@
 Var installPath
 Var doLocalConf
 Var keepUserData
+
 Function un.onInit
 	StrCpy $keepUserData "false"	; default value(It is must, otherwise few files such as shortcuts.xml, contextMenu.xml etc, will not be removed when $INSTDIR\doLocalConf.xml is not available.)
 	; determinate theme path for uninstall themes
 	StrCpy $installPath "$APPDATA\${APPNAME}"
 	StrCpy $doLocalConf "false"
-	IfFileExists $INSTDIR\doLocalConf.xml doesExist noneExist
-doesExist:
-	StrCpy $installPath $INSTDIR
-	StrCpy $doLocalConf "true"
-noneExist:
+	${If} ${FileExists} $INSTDIR\doLocalConf.xml
+		StrCpy $installPath $INSTDIR
+		StrCpy $doLocalConf "true"
+	${EndIf}
 	;MessageBox MB_OK "doLocalConf == $doLocalConf"
 
 	Call un.setPathAndOptions
@@ -143,9 +143,7 @@ FunctionEnd
 
 !macro uninstallRegKey
 	;Remove from registry...
-!ifdef ARCH64
-	SetRegView 32
-!else ifdef ARCHARM64
+!ifdef ARCH64 || ARCHARM64
 	SetRegView 32
 !else
 	SetRegView 64
@@ -153,9 +151,7 @@ FunctionEnd
 	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
 	;DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
-!ifdef ARCH64
-	SetRegView 64
-!else ifdef ARCHARM64
+!ifdef ARCH64 || ARCHARM64
 	SetRegView 64
 !else
 	SetRegView 32
@@ -182,9 +178,7 @@ FunctionEnd
 
 
 Section Uninstall
-!ifdef ARCH64
-	SetRegView 64
-!else ifdef ARCHARM64
+!ifdef ARCH64 || ARCHARM64
 	SetRegView 64
 !else
 	SetRegView 32

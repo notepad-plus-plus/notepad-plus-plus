@@ -1265,8 +1265,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
             <MultiMacro title="Executar uma macro várias vezes">
                 <Item id="1" name="Executar"/>
                 <Item id="2" name="Cancelar"/>
-                <Item id="8006" name="Macro a executar:"/>
-                <Item id="8001" name="Executar:"/>
+                <Item id="8006" name="Macro a executar"/>
+                <Item id="8001" name="Executar"/>
                 <Item id="8005" name="vez(es)"/>
                 <Item id="8002" name="Executar até ao fim do ficheiro"/>
             </MultiMacro>

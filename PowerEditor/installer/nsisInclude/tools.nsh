@@ -29,15 +29,16 @@ Function LaunchNpp
   ; Max 5 seconds wait here to open change.log
   ; If npp is not available even after 5 seconds, exit without showing change.log
 
-  ${ForEach} $R1 1 5 + 1				; Loop to find opened Npp instance
-	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
-	IntCmp $R0 0 NotYetExecuted
-		System::Call 'kernel32::CloseHandle(i $R0)'
-		Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
-		${Break}
-	NotYetExecuted:
-		Sleep 1000
-  ${Next}
+	${ForEach} $R1 1 5 + 1 ; Loop to find opened Npp instance
+		System::Call 'kernel32::OpenMutex(i 0x100000, i 0, t "nppInstance")p.R0'
+		${If} $R0 P<> 0
+			System::Call 'kernel32::CloseHandle(p $R0)'
+			Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
+			${Break}
+		${Else}
+			Sleep 1000
+		${EndIf}
+	${Next}
 FunctionEnd
 
 ; Check if Notepad++ is running
@@ -49,21 +50,14 @@ FunctionEnd
 !macro CheckIfRunning un
 	Function ${un}CheckIfRunning
 		Check:
-		System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
-		
-		IntCmp $R0 0 NotRunning
-			System::Call 'kernel32::CloseHandle(i $R0)'
-			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: Notepad++ is running.\
-			          $\n$\n\
-                      Please close Notepad++, then click ''Retry''." IDRETRY Retry IDCANCEL Cancel
-			Retry:
-				Goto Check
-			
-			Cancel:
-				Quit
-	
-		NotRunning:
-		
+		System::Call 'kernel32::OpenMutex(i 0x100000, i 0, t "nppInstance")p.R0'
+		${If} $R0 P<> 0
+			System::Call 'kernel32::CloseHandle(p $R0)'
+			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: Notepad++ is running.$\n$\n\
+			  $\n$\n\
+			  Please close Notepad++, then click ''Retry''." IDRETRY Check
+			Quit
+		${EndIf}
 	FunctionEnd
 !macroend
 

@@ -77,11 +77,9 @@ OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !insertmacro MUI_PAGE_LICENSE "..\..\LICENSE"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
-page Custom ExtraOptionsPageCreate ExtraOptionsPageLeave
+Page Custom ExtraOptionsPageCreate ExtraOptionsPageLeave
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "CheckIfRunning"
 !insertmacro MUI_PAGE_INSTFILES
-
-
 !define MUI_FINISHPAGE_RUN
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchNpp"
 !insertmacro MUI_PAGE_FINISH

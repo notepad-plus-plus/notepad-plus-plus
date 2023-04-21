@@ -136,11 +136,34 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					return TRUE;
 
 				default:
-					if ((HIWORD(wParam) == CBN_SELCHANGE) && (LOWORD(wParam) == IDC_MACRO_COMBO))
+				{
+					switch (LOWORD(wParam))
 					{
-						_macroIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCURSEL, 0, 0));
-						return TRUE;
+						case IDC_MACRO_COMBO:
+						{
+							if (HIWORD(wParam) == CBN_SELCHANGE)
+							{
+								_macroIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCURSEL, 0, 0));
+								return TRUE;
+							}
+						}
+
+						case IDC_M_RUN_TIMES:
+						{
+							if (HIWORD(wParam) == EN_CHANGE)
+							{
+								_times = ::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, NULL, FALSE);
+								return TRUE;
+							}
+						}
+
+						default:
+						{
+							break;
+						}
 					}
+					break;
+				}
 			}
 		}
 	}

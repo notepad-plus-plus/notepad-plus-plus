@@ -384,7 +384,7 @@ bool ProjectPanel::saveWorkSpace()
 	} 
 }
 
-bool ProjectPanel::writeWorkSpace(const TCHAR *projectFileName, bool updateName)
+bool ProjectPanel::writeWorkSpace(const TCHAR *projectFileName, bool doUpdateGUI)
 {
 	//write <NotepadPlus>: use the default file name if new file name is not given
 	const TCHAR * fn2write = projectFileName?projectFileName:_workSpaceFilePath.c_str();
@@ -429,7 +429,7 @@ bool ProjectPanel::writeWorkSpace(const TCHAR *projectFileName, bool updateName)
 		return false;
 	}
 	TCHAR * fileName = PathFindFileName(fn2write);
-	if (updateName) 
+	if (doUpdateGUI)
 	{
 		_treeView.renameItem(tvRoot, fileName);
 	}

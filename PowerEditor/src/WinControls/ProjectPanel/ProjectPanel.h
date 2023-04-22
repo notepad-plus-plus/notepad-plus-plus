@@ -125,7 +125,7 @@ protected:
 	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);
 	HTREEITEM addFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
 
-	bool writeWorkSpace(const TCHAR *projectFileName = NULL, bool updateName = true);
+	bool writeWorkSpace(const TCHAR *projectFileName = NULL, bool doUpdateGUI = true);
 	generic_string getRelativePath(const generic_string & fn, const TCHAR *workSpaceFileName);
 	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);
 	NodeType getNodeType(HTREEITEM hItem);

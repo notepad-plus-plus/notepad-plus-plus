@@ -310,7 +310,7 @@ copy /Y ..\src\toolbarIcons.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 
 
-rem Basic Copy needed files into Notepad++ ARM64 package folders
+rem Basic Copy needed files into Notepad++ ARM64-bit package folders
 copy /Y ..\..\LICENSE .\zipped.package.releaseArm64\license.txt
 If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\zipped.package.releaseArm64\
@@ -353,7 +353,7 @@ If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\NppConverter\NppConverter.dll" .\zipped.package.release64\plugins\NppConverter\
 If ErrorLevel 1 goto End
 
-rem Plugins: Copy needed files into Notepad++ 64-bit package folders
+rem Plugins: Copy needed files into Notepad++ ARM64-bit package folders
 copy /Y "..\binarm64\plugins\NppExport\NppExport.dll" .\zipped.package.releaseArm64\plugins\NppExport\
 If ErrorLevel 1 goto End
 copy /Y "..\binarm64\plugins\mimeTools\mimeTools.dll" .\zipped.package.releaseArm64\plugins\mimeTools\
@@ -386,7 +386,7 @@ If ErrorLevel 1 goto End
 copy /Y ".\functionList\*.xml" .\zipped.package.releaseArm64\functionList\
 If ErrorLevel 1 goto End
 
-rem Markdown as UserDefineLanguge: Markdown syntax highlighter into Notepad++ 32-bit/64-bit package folders
+rem Markdown as UserDefineLanguge: Markdown syntax highlighter into Notepad++ 32-bit/64-bit/ARM64-bit package folders
 copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package.release\userDefineLangs\
 If ErrorLevel 1 goto End
 copy /Y "..\bin\userDefineLangs\markdown._preinstalled.udl.xml" .\zipped.package.release64\userDefineLangs\
@@ -400,7 +400,7 @@ If ErrorLevel 1 goto End
 copy /Y "..\bin\userDefineLangs\markdown._preinstalled_DM.udl.xml" .\zipped.package.releaseArm64\userDefineLangs\
 If ErrorLevel 1 goto End
 
-rem theme: Copy all files into Notepad++ 32-bit/64-bit package folders
+rem theme: Copy all files into Notepad++ 32-bit/64-bit/ARM64-bit package folders
 copy /Y ".\themes\*.xml" .\zipped.package.release\themes\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\*.xml" .\zipped.package.release64\themes\

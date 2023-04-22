@@ -3565,7 +3565,18 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 {
 	int booleans = 0;
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_INIT, 0);
-	::SendMessage(_hParent, WM_FRSAVE_STR, IDFINDWHAT,  reinterpret_cast<LPARAM>(cmd == IDC_CLEAR_ALL ? TEXT("") : _options._str2Search.c_str()));
+
+	if (cmd == IDC_CLEAR_ALL) 
+	{
+		::SendMessage(_hParent, WM_FRSAVE_STR, IDFINDWHAT, reinterpret_cast<LPARAM>(""));
+	} 
+	else 
+	{
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char *search = wmc.wchar2char(_options._str2Search.c_str(), CP_ACP);
+		::SendMessage(_hParent, WM_FRSAVE_STR, IDFINDWHAT, reinterpret_cast<LPARAM>(search));
+	}
+	
 	booleans |= _options._isWholeWord?IDF_WHOLEWORD:0;
 	booleans |= _options._isMatchCase?IDF_MATCHCASE:0;
 	booleans |= _options._dotMatchesNewline?IDF_REDOTMATCHNL:0;

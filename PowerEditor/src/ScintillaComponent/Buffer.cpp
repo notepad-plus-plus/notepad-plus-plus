@@ -1385,16 +1385,26 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 		LangType lang;
 	};
 
+	enum class ByteOrder { none, utf8, utf16_be, utf16_le };
+
 	// Is the buffer at least the size of a BOM?
 	if (dataLen <= 3)
 		return L_TEXT;
 
 	// Eliminate BOM if present
 	size_t i = 0;
+	ByteOrder bom = ByteOrder::none;
 	if ((data[0] == 0xEF && data[1] == 0xBB && data[2] == 0xBF) || // UTF8 BOM
-		(data[0] == 0xFE && data[1] == 0xFF && data[2] == 0x00) || // UTF16 BE BOM
-		(data[0] == 0xFF && data[1] == 0xFE && data[2] == 0x00))   // UTF16 LE BOM
+		(data[0] == 0xFE && data[1] == 0xFF && data[2] == 0x00))   // UTF16 BE BOM
+	{
 		i += 3;
+		bom = (*data == 0xFE) ? ByteOrder::utf16_be : ByteOrder::utf8;
+	}
+	else if (data[0] == 0xFF && data[1] == 0xFE && data[3] == 0x00) // UTF16 LE BOM
+	{
+		i += 2;
+		bom = ByteOrder::utf16_le;
+	}
 
 	// Skip any space-like char
 	for (; i < dataLen; ++i)
@@ -1405,14 +1415,27 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 	// Create the buffer to need to test
 	const size_t longestLength = 40; // shebangs can be large
-	std::string buf2Test = std::string((const char *)data + i, longestLength);
+	std::string buf2Test(longestLength, '\0');
+	if (bom > ByteOrder::utf8)
+	{
+		std::vector<unsigned char> bytes;
+		for (size_t j = 0; j < longestLength; j++)
+		{
+			// Skip every other byte
+			if (j % 2 == 0)
+				bytes.push_back(*(data + i + j));
+		}
+		buf2Test = std::string(bytes.begin(), bytes.end());
+	}
+	else
+		buf2Test = std::string((const char *)data + i, longestLength);
 
 	// Is there a \r or \n in the buffer? If so, truncate it
 	auto cr = buf2Test.find("\r");
 	auto nl = buf2Test.find("\n");
 	auto crnl = std::min<size_t>(cr, nl);
 	if (crnl != std::string::npos && crnl < longestLength)
-		buf2Test = std::string((const char *)data + i, crnl);
+		buf2Test = buf2Test.substr(0, crnl);
 
 	// First test for a Unix-like Shebang
 	// See https://en.wikipedia.org/wiki/Shebang_%28Unix%29 for more details about Shebang

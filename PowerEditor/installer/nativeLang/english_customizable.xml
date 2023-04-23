@@ -720,10 +720,10 @@ The comments are here for explanation, it's not necessary to translate them.
             <UserDefine title="User-Defined">
                 <Item id="20001" name="Dock"/>
                 <Item id="20002" name="Rename"/>
-                <Item id="20003" name="Create New..."/>
+                <Item id="20003" name="Create new..."/>
                 <Item id="20004" name="Remove"/>
                 <Item id="20005" name="Save As..."/>
-                <Item id="20007" name="User language: "/>
+                <Item id="20007" name="User language"/>
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignore case"/>
                 <Item id="20011" name="Transparency"/>
@@ -731,7 +731,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20016" name="Export..."/>
                 <Item id="20017" name="Undock"/>
                 <StylerDialog title="Styler Dialog">
-                    <Item id="25030" name="Font options:"/>
+                    <Item id="25030" name="Font options"/>
                     <Item id="25006" name="Foreground color"/>
                     <Item id="25007" name="Background color"/>
                     <Item id="25031" name="Name:"/>
@@ -739,7 +739,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25001" name="Bold"/>
                     <Item id="25002" name="Italic"/>
                     <Item id="25003" name="Underline"/>
-                    <Item id="25029" name="Nesting:"/>
+                    <Item id="25029" name="Nesting"/>
                     <Item id="25008" name="Delimiter 1"/>
                     <Item id="25009" name="Delimiter 2"/>
                     <Item id="25010" name="Delimiter 3"/>
@@ -769,20 +769,20 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Folder title="Folder &amp;&amp; Default">
                     <Item id="21101" name="Default style"/>
                     <Item id="21102" name="Styler"/>
-                    <Item id="21105" name="Documentation:"/>
+                    <Item id="21105" name="Documentation"/>
                     <Item id="21104" name="Temporary doc site:"/>
                     <Item id="21106" name="Fold &amp;compact (fold empty lines too)"/>
-                    <Item id="21220" name="Folding in code 1 style:"/>
+                    <Item id="21220" name="Folding in code 1 style"/>
                     <Item id="21224" name="Open:"/>
                     <Item id="21225" name="Middle:"/>
                     <Item id="21226" name="Close:"/>
                     <Item id="21227" name="Styler"/>
-                    <Item id="21320" name="Folding in code 2 style (separators needed):"/>
+                    <Item id="21320" name="Folding in code 2 style (separators needed)"/>
                     <Item id="21324" name="Open:"/>
                     <Item id="21325" name="Middle:"/>
                     <Item id="21326" name="Close:"/>
                     <Item id="21327" name="Styler"/>
-                    <Item id="21420" name="Folding in comment style:"/>
+                    <Item id="21420" name="Folding in comment style"/>
                     <Item id="21424" name="Open:"/>
                     <Item id="21425" name="Middle:"/>
                     <Item id="21426" name="Close:"/>
@@ -1615,9 +1615,9 @@ Find in all files but exclude all folders log or logs recursively:
             <finder-wrap-long-lines value="Word wrap long lines"/>
             <common-ok value="OK"/>
             <common-cancel value="Cancel"/>
-            <common-name value="Name: "/>
+            <common-name value="Name"/>
             <tabrename-title value="Rename Current Tab"/>
-            <tabrename-newname value="New Name: "/>
+            <tabrename-newname value="New name"/>
             <splitter-rotate-left value="Rotate to left"/>
             <splitter-rotate-right value="Rotate to right"/>
             <userdefined-title-new value="Create New Language..."/>

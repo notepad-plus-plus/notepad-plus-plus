@@ -1884,7 +1884,7 @@ bool Notepad_plus::fileRename(BufferID id)
 		// Reserved characters: < > : " / \ | ? *
 		std::wstring reservedChars = TEXT("<>:\"/\\|\?*");
 
-		generic_string staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", TEXT("New Name: "));
+		generic_string staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", TEXT("New name"));
 
 		StringDlg strDlg;
 		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));

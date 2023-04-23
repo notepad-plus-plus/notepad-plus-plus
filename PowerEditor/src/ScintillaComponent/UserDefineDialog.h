@@ -21,7 +21,6 @@
 #include "ColourPicker.h"
 #include "Parameters.h"
 #include "URLCtrl.h"
-#include "tchar.h"
 #include "SciLexer.h"
 #include <unordered_map>
 
@@ -247,7 +246,7 @@ protected :
     //Shared data
     static UserLangContainer *_pUserLang;
     static ScintillaEditView *_pScintilla;
-    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     bool setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set);
     virtual void setKeywords2List(int ctrlID) = 0;
 };
@@ -256,10 +255,10 @@ class FolderStyleDialog : public SharedParametersDialog
 {
 public:
     FolderStyleDialog() = default;
-    void updateDlg();
+    void updateDlg() override;
 protected :
-    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-    void setKeywords2List(int ctrlID);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
+    void setKeywords2List(int ctrlID) override;
 private :
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
     URLCtrl _pageLink;
@@ -269,20 +268,20 @@ class KeyWordsStyleDialog : public SharedParametersDialog
 {
 public:
     KeyWordsStyleDialog() = default;
-    void updateDlg();
+    void updateDlg() override;
 protected :
-    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-    void setKeywords2List(int id);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
+    void setKeywords2List(int id) override;
 };
 
 class CommentStyleDialog : public SharedParametersDialog
 {
 public :
     CommentStyleDialog() = default;
-    void updateDlg();
+    void updateDlg() override;
 protected :
-    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-    void setKeywords2List(int id);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
+    void setKeywords2List(int id) override;
 private :
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, const TCHAR *prefix) const;
 };
@@ -291,10 +290,10 @@ class SymbolsStyleDialog : public SharedParametersDialog
 {
 public :
     SymbolsStyleDialog() = default;
-    void updateDlg();
+    void updateDlg() override;
 protected :
-    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-    void setKeywords2List(int id);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
+    void setKeywords2List(int id) override;
 private :
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
 };
@@ -315,16 +314,14 @@ public :
     void setScintilla(ScintillaEditView *pScinView) {
         _pScintilla = pScinView;
     };
-     virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
-        StaticDialog::create(dialogID, isRTL, msgDestParent);
-    }
-    void destroy() {
+
+    void destroy() override {
         // A Ajouter les fils...
     };
-    int getWidth() const {
+    int getWidth() const override {
         return _dlgPos.right;
     };
-    int getHeight() const {
+    int getHeight() const override {
         return _dlgPos.bottom;
     };
     void doDialog(bool willBeShown = true, bool isRTL = false) {
@@ -332,7 +329,7 @@ public :
             create(IDD_GLOBAL_USERDEFINE_DLG, isRTL);
         display(willBeShown);
     };
-    virtual void reSizeTo(RECT & rc) // should NEVER be const !!!
+    void reSizeTo(RECT & rc) override// should NEVER be const !!!
     {
         Window::reSizeTo(rc);
         display(false);
@@ -358,7 +355,7 @@ public :
         _ctrlTab.renameTab(index, name2set);
     };
 protected :
-    virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+    intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 private :
     ControlsTab _ctrlTab;
     WindowVector _wVector;
@@ -368,7 +365,7 @@ private :
     CommentStyleDialog      _commentStyleDlg;
     SymbolsStyleDialog      _symbolsStyleDlg;
     bool _status = UNDOCK;
-    RECT _dlgPos = {};
+    RECT _dlgPos{};
     int _currentHight = 0;
     int _yScrollPos = 0;
     int _prevHightVal = 0;
@@ -380,8 +377,8 @@ private :
     void restorePosSize(){reSizeTo(_dlgPos);};
     void enableLangAndControlsBy(size_t index);
 protected :
-    void setKeywords2List(int){};
-    void updateDlg();
+    void setKeywords2List(int) override {};
+    void updateDlg() override;
 };
 
 class StringDlg : public StaticDialog
@@ -405,10 +402,10 @@ public :
         return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
-    virtual void destroy() {};
+    void destroy() override {};
 	
 protected :
-    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+    intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM) override;
 
 	// Custom proc to subclass edit control
 	LRESULT static CALLBACK customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam);

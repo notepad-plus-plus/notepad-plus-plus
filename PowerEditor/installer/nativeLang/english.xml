@@ -490,15 +490,15 @@ The comments are here for explanation, it's not necessary to translate them.
             </IncrementalFind>
 
             <FindCharsInRange title="Find Characters in Range...">
-                <Item id="2" name="Close"/>
-                <Item id="2901" name="Non-ASCII Characters (128-255)"/>
-                <Item id="2902" name="ASCII Characters (0-127)"/>
-                <Item id="2903" name="My range:"/>
+                <Item id="2" name="&amp;Close"/>
+                <Item id="2901" name="&amp;Non-ASCII characters (128–255)"/>
+                <Item id="2902" name="&amp;ASCII characters (0–127)"/>
+                <Item id="2903" name="Custom &amp;range (0–255):"/>
                 <Item id="2906" name="&amp;Up"/>
                 <Item id="2907" name="&amp;Down"/>
                 <Item id="2908" name="Direction"/>
                 <Item id="2909" name="Wra&amp;p around"/>
-                <Item id="2910" name="Find"/>
+                <Item id="2910" name="&amp;Find"/>
             </FindCharsInRange>
 
             <GoToLine title="Go to...">

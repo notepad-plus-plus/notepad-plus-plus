@@ -2160,7 +2160,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// and defer any cleanup operations until it receives WM_ENDSESSION (with WPARAM TRUE)
 
 			// for a bigger tidy-up/save operations we can kick off a background thread here to prepare for shutdown
-			// and when we get the WM_END­SESSION TRUE, we wait there until that background operation completes
+			// and when we get the WM_ENDSESSION TRUE, we wait there until that background operation completes
 			// before telling the system, "ok, you can shut down now...", i.e. returning 0 there
 
 			// whatever we do from here - make sure that it is ok for the operation to occur even if the shutdown

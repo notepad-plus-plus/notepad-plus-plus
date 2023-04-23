@@ -906,7 +906,7 @@ int OrdinalIgnoreCaseCompareStrings(LPCTSTR sz1, LPCTSTR sz2)
 }
 
 std::string CultureSensitiveIgnoreCaseMapString(LPCTSTR s) {
-	int len = wcslen(s);
+	size_t len = wcslen(s);
 	if (len < 1) return "";
 	int lenInt = (len > INT_MAX) ? INT_MAX : (int)len;
 	const int options = LCMAP_SORTKEY | NORM_LINGUISTIC_CASING | LINGUISTIC_IGNORECASE; // | SORT_DIGITSASNUMBERS // can't find this; where is it?

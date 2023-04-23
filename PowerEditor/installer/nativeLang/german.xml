@@ -9,8 +9,8 @@
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<!-- basiert auf english.xml vom 15.04.2023 -->
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.04.15">
+	<!-- basiert auf english.xml vom 23.04.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.04.23">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1273,7 +1273,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 			<MultiMacro title="Makro mehrfach ausführen">
 				<Item id="1"    name="Ausfüh&amp;ren"/>
 				<Item id="2"    name="A&amp;bbrechen"/>
-				<Item id="8006" name="Makro:"/>
+				<Item id="8006" name="Makro ausführen :"/>
 				<Item id="8001" name="&amp;Makro"/>
 				<Item id="8005" name="Mal ausführen"/>
 				<Item id="8002" name="Bis zum &amp;Ende der Datei ausführen"/>

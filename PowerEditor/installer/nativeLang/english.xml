@@ -519,27 +519,27 @@ The comments are here for explanation, it's not necessary to translate them.
             </Run>
 
             <MD5FromFilesDlg title="Generate MD5 digest from files">
-                <Item id="1922" name="Choose files to generate MD5..."/>
-                <Item id="1924" name="Copy to Clipboard"/>
-                <Item id="2"    name="Close"/>
+                <Item id="1922" name="Choose files to &amp;generate MD5..."/>
+                <Item id="1924" name="Co&amp;py to Clipboard"/>
+                <Item id="2"    name="&amp;Close"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generate MD5 digest">
-                <Item id="1932" name="Treat each line as a separate string"/>
-                <Item id="1934" name="Copy to Clipboard"/>
-                <Item id="2"    name="Close"/>
+                <Item id="1932" name="Treat each line as a &amp;separate string"/>
+                <Item id="1934" name="Co&amp;py to Clipboard"/>
+                <Item id="2"    name="&amp;Close"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Generate SHA-256 digest from files">
-                <Item id="1922" name="Choose files to generate SHA-256..."/>
-                <Item id="1924" name="Copy to Clipboard"/>
-                <Item id="2"    name="Close"/>
+                <Item id="1922" name="Choose files to &amp;generate SHA-256..."/>
+                <Item id="1924" name="Co&amp;py to Clipboard"/>
+                <Item id="2"    name="&amp;Close"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Generate SHA-256 digest">
-                <Item id="1932" name="Treat each line as a separate string"/>
-                <Item id="1934" name="Copy to Clipboard"/>
-                <Item id="2"    name="Close"/>
+                <Item id="1932" name="Treat each line as a &amp;separate string"/>
+                <Item id="1934" name="Co&amp;py to Clipboard"/>
+                <Item id="2"    name="&amp;Close"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Plugins Admin" titleAvailable="Available" titleUpdates="Updates" titleInstalled="Installed" titleIncompatible="Incompatible">

@@ -905,6 +905,37 @@ int OrdinalIgnoreCaseCompareStrings(LPCTSTR sz1, LPCTSTR sz2)
 	}
 }
 
+std::string CultureSensitiveIgnoreCaseMapString(LPCTSTR s) {
+	int len = wcslen(s);
+	if (len < 1) return "";
+	int lenInt = (len > INT_MAX) ? INT_MAX : (int)len;
+	const int options = LCMAP_SORTKEY | NORM_LINGUISTIC_CASING | LINGUISTIC_IGNORECASE; // | SORT_DIGITSASNUMBERS // can't find this; where is it?
+	int mapLength = LCMapStringEx(LOCALE_NAME_USER_DEFAULT, options, s, lenInt, 0, 0, 0, 0, 0);
+	std::string sMapped(mapLength, 0);
+	LCMapStringEx(LOCALE_NAME_USER_DEFAULT, options, s, lenInt, (LPWSTR)sMapped.data(), mapLength, 0, 0, 0);
+	return sMapped;
+}
+
+// perform a culture-sensitive case-insensitive comparison of two strings.
+// thus, 'o' and LATIN CAPITAL LETTER O WITH DIAERESIS should both be evaluated
+// as larger than 'n' and less than 'p'.
+// this may depend on the current locale, which can be retreived by GetUserDefaultLocaleName
+int CultureSensitiveIgnoreCaseCompareStrings(LPCTSTR sz1, LPCTSTR sz2)
+{
+	if (sz1 == sz2)
+	{
+		return 0;
+	}
+
+	if (sz1 == nullptr) sz1 = _T("");
+	if (sz2 == nullptr) sz2 = _T("");
+
+	auto sz1Mapped = CultureSensitiveIgnoreCaseMapString(sz1);
+	auto sz2Mapped = CultureSensitiveIgnoreCaseMapString(sz2);
+	
+	return sz1Mapped.compare(sz2Mapped);
+}
+
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 {
 	size_t len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);

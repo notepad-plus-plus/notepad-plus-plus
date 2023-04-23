@@ -171,6 +171,8 @@
     #define    IDM_EDIT_COPY_ALL_NAMES                          (IDM_EDIT + 87)
     #define    IDM_EDIT_COPY_ALL_PATHS                          (IDM_EDIT + 88)
     #define    IDM_EDIT_BEGINENDSELECT_COLUMNMODE               (IDM_EDIT + 89)
+    #define    IDM_EDIT_SORTLINES_LEXICO_CULTURE_SENS_ASCENDING (IDM_EDIT + 90)
+    #define    IDM_EDIT_SORTLINES_LEXICO_CULTURE_SENS_DESCENDING (IDM_EDIT + 91)
 
     #define    IDM_EDIT_AUTOCOMPLETE                            (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE                (50000 + 1)

@@ -155,6 +155,48 @@ public:
 	};
 };
 
+// Implementation of lexicographic sorting of lines, ignoring character casing and respecting culture
+class LexicographicIgnoreCaseCultureSensitiveSorter : public ISorter
+{
+public:
+	LexicographicIgnoreCaseCultureSensitiveSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+
+	std::vector<generic_string> sort(std::vector<generic_string> lines) override {
+		// Note that both branches here are equivalent in the sense that they always give the same answer.
+		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
+		// getSortKey() so many times.
+		if (isSortingSpecificColumns())
+		{
+			std::stable_sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+				{
+					if (isDescending())
+					{
+						return CultureSensitiveIgnoreCaseCompareStrings(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
+					}
+					else
+					{
+						return CultureSensitiveIgnoreCaseCompareStrings(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
+					}
+				});
+		}
+		else
+		{
+			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
+				{
+					if (isDescending())
+					{
+						return CultureSensitiveIgnoreCaseCompareStrings(a.c_str(), b.c_str()) > 0;
+					}
+					else
+					{
+						return CultureSensitiveIgnoreCaseCompareStrings(a.c_str(), b.c_str()) < 0;
+					}
+				});
+		}
+		return lines;
+	};
+};
+
 class IntegerSorter : public ISorter
 {
 public:

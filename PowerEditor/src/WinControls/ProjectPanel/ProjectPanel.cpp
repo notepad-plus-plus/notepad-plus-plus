@@ -18,7 +18,7 @@
 
 #include "ProjectPanel.h"
 #include "resource.h"
-#include "tinyxml.h"
+//#include "tinyxml.h"
 #include "CustomFileDialog.h"
 #include "localization.h"
 #include "Parameters.h"
@@ -125,7 +125,7 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		{
 			int width = LOWORD(lParam);
 			int height = HIWORD(lParam);
-			RECT toolbarMenuRect;
+			RECT toolbarMenuRect{};
 			::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
 
 			::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
@@ -1335,11 +1335,13 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 {
 	switch (Message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
-			goToCenter();
 			::SetDlgItemText(_hSelf, IDC_EDIT_FILEFULLPATHNAME, _fullFilePath.c_str());
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+
 			return TRUE;
 		}
 
@@ -1357,11 +1359,7 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1373,7 +1371,7 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -1400,7 +1398,7 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 	return FALSE;
 }
 
-int FileRelocalizerDlg::doDialog(const TCHAR *fn, bool isRTL) 
+int FileRelocalizerDlg::doDialog(const TCHAR *fn, bool isRTL)
 {
 	_fullFilePath = fn;
 

@@ -177,16 +177,12 @@ updaterDone:
 		
 	; look for previously selected language
 	ClearErrors
-	Var /GLOBAL tempLng
-	ReadRegStr $tempLng HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage'
+	ReadRegStr $0 HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage'
 	${IfNot} ${Errors}
-		StrCpy $LANGUAGE "$tempLng" ; set default language
+		StrCpy $LANGUAGE $0 ; set default language
 	${EndIf}
 	
 	!insertmacro MUI_LANGDLL_DISPLAY
-
-	; save selected language to registry
-	WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
 
 !ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
 	${If} ${RunningX64}
@@ -245,6 +241,9 @@ Section -"Notepad++" mainSection
 	Call removeOldContextMenu
 
 	Call shortcutLinkManagement
+
+	; save selected language to registry
+	WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
 
 SectionEnd
 

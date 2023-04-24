@@ -1302,8 +1302,8 @@ You can define several column markers by using white space to separate the diffe
 			<FindInFinder title="Find in search results">
 				<Item id="1" name="Find All"/>
 				<Item id="2" name="Close"/>
-				<Item id="1711" name="&amp;Find what :"/>
-				<Item id="1713" name="Search only in found lines"/>
+				<Item id="1711" name="&amp;Find what:"/>
+				<Item id="1713" name="Search &amp;only in found lines"/>
 				<Item id="1714" name="Match &amp;whole word only"/>
 				<Item id="1715" name="Match &amp;case"/>
 				<Item id="1716" name="Search Mode"/>

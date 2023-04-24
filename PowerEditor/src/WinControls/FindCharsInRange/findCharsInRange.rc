@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#pragma code_page(65001)
 
 #include <windows.h>
 #include "findCharsInRange_rc.h"

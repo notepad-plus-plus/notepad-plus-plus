@@ -182,6 +182,12 @@ int getNbDigits(int aNum, int base)
 	return nbChiffre;
 }
 
+bool isCharSingleQuote(__inout wchar_t const c)
+{
+    if (c == L'\'' || c == L'\u2019' || c == L'\u2018') return true;
+    else return false;
+}
+
 void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 {
 	if (!_SciInit)
@@ -3167,24 +3173,28 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 			}
 			break; 
 		} //case LOWERCASE
-		case TITLECASE_FORCE:
-		case TITLECASE_BLEND:
+		case PROPERCASE_FORCE:
+		case PROPERCASE_BLEND:
 		{
 			for (int i = 0; i < nbChars; ++i)
 			{
 				if (::IsCharAlphaW(strWToConvert[i]))
 				{
-					if ((i < 1) ? true : !::IsCharAlphaNumericW(strWToConvert[i - 1]))
+					// Exception for single quote and smart single quote
+					if ((i < 2) ? false :
+						(isCharSingleQuote(strWToConvert[i - 1]) && ::IsCharAlphaNumericW(strWToConvert[i - 2])))
+					{
+						if (caseToConvert == PROPERCASE_FORCE)
+							strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+					}
+					else if ((i < 1) ? true : !::IsCharAlphaNumericW(strWToConvert[i - 1]))
 						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
-					else if (caseToConvert == TITLECASE_FORCE)
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
-					//An exception
-					if ((i < 2) ? false : (strWToConvert[i - 1] == L'\'' && ::IsCharAlphaW(strWToConvert[i - 2])))
+					else if (caseToConvert == PROPERCASE_FORCE)
 						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				}
 			}
-			break; 
-		} //case TITLECASE
+			break;
+		} //case PROPERCASE
 		case SENTENCECASE_FORCE:
 		case SENTENCECASE_BLEND:
 		{

@@ -909,7 +909,9 @@ std::string CultureSensitiveIgnoreCaseMapString(LPCTSTR s) {
 	size_t len = wcslen(s);
 	if (len < 1) return "";
 	int lenInt = (len > INT_MAX) ? INT_MAX : (int)len;
-	const int options = LCMAP_SORTKEY | NORM_LINGUISTIC_CASING | LINGUISTIC_IGNORECASE | SORT_DIGITSASNUMBERS;
+	// the value used in WinNls.h to allow, e.g., sorting of "2" before "10"
+	const int sort_digits_as_numbers = 8;
+	const int options = LCMAP_SORTKEY | NORM_LINGUISTIC_CASING | LINGUISTIC_IGNORECASE | sort_digits_as_numbers;
 	int mapLength = LCMapStringEx(LOCALE_NAME_USER_DEFAULT, options, s, lenInt, 0, 0, 0, 0, 0);
 	std::string sMapped(mapLength, 0);
 	LCMapStringEx(LOCALE_NAME_USER_DEFAULT, options, s, lenInt, (LPWSTR)sMapped.data(), mapLength, 0, 0, 0);

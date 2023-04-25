@@ -103,6 +103,16 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			return TRUE;
 		}
 
+		case WM_CHANGEUISTATE:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				redrawDlgItem(IDC_MACRO2RUN_STATIC);
+			}
+
+			return FALSE;
+		}
+
 		case WM_COMMAND:
 		{
 			switch (wParam)

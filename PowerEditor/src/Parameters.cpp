@@ -3538,6 +3538,36 @@ void NppParameters::writeShortcuts()
 		TiXmlDeclarationA* decl = new TiXmlDeclarationA("1.0", "UTF-8", "");
 		_pXmlShortcutDocA->LinkEndChild(decl);
 	}
+	else
+	{
+		wchar_t v852ShortcutsHasBeenBackup[MAX_PATH]{};
+		::wcscpy_s(v852ShortcutsHasBeenBackup, _shortcutsPath.c_str());
+		::PathRemoveFileSpec(v852ShortcutsHasBeenBackup);
+		::PathAppend(v852ShortcutsHasBeenBackup, L"v852ShortcutsCompatibilityWarning.xml");
+
+		if (!::PathFileExists(v852ShortcutsHasBeenBackup))
+		{
+			// Creat empty file v852ShortcutsCompatibilityWarning.xml for not giving warning, neither doing backup, in future use.
+			HANDLE hFile = ::CreateFile(v852ShortcutsHasBeenBackup, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+			::FlushFileBuffers(hFile);
+			::CloseHandle(hFile);
+
+			// backup shortcuts file "shortcuts.xml" to "shortcuts.xml.v8.5.2.backup"
+			// if the backup file already exists, it will not be overwritten.
+			wstring v852ShortcutsBackupPath = _shortcutsPath;
+			v852ShortcutsBackupPath += L".v8.5.2.backup";
+			::CopyFile(_shortcutsPath.c_str(), v852ShortcutsBackupPath.c_str(), TRUE);
+
+			// Warn User about the current shortcut will be changed and it has been backup. If users' the shortcuts.xml has been corrupted
+			// due to recoded macro under v8.5.2 (or previous versions) being modified by v8.5.3 (or later versions),
+			// user can always go back to Notepad++ v8.5.2 and use the backup of shortcuts.xml 
+			_pNativeLangSpeaker->messageBox("MacroAndRunCmdlWarning",
+				nullptr,
+				TEXT("Your Macro and Run commands saved in Notepad++ v.8.5.2 (or older) may not be compatible with the current version of Notepad++.\nPlease test those commands and, if needed, re-edit them.\n\nAlternatively, you can downgrade to Notepad++ v8.5.2 and restore your previous data.\nNotepad++ will backup your old \"shortcuts.xml\" and save it as \"shortcuts.xml.v8.5.2.backup\".\nRenaming \"shortcuts.xml.v8.5.2.backup\" -> \"shortcuts.xml\", your commands should be restored and work properly."),
+				TEXT("Macro and Run Commands Compatibility"),
+				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+		}
+	}
 
 	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)

@@ -20,6 +20,7 @@
 #include "DarkMode/DarkMode.h"
 #include "DarkMode/UAHMenuBar.h"
 
+#include <dwmapi.h>
 #include <uxtheme.h>
 #include <vssym32.h>
 
@@ -33,6 +34,9 @@
 #ifdef __GNUC__
 #include <cmath>
 #define WINAPI_LAMBDA WINAPI
+#ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
+#define DWMWA_USE_IMMERSIVE_DARK_MODE 20
+#endif
 #else
 #define WINAPI_LAMBDA
 #endif
@@ -40,6 +44,7 @@
 // already added in project files
 // keep for plugin authors
 //#ifdef _MSC_VER
+//#pragma comment(lib, "dwmapi.lib")
 //#pragma comment(lib, "uxtheme.lib")
 //#endif
 
@@ -546,6 +551,11 @@ namespace NppDarkMode
 	bool isWindows11()
 	{
 		return IsWindows11();
+	}
+
+	const DWORD getWindowsBuildNumber()
+	{
+		return GetWindowsBuildNumber();
 	}
 
 	COLORREF invertLightness(COLORREF c)
@@ -2511,16 +2521,15 @@ namespace NppDarkMode
 
 			case WM_NOTIFY:
 			{
-				auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
-
-				constexpr size_t classNameLen = 16;
-				TCHAR className[classNameLen]{};
-				GetClassName(nmhdr->hwndFrom, className, classNameLen);
-
+				const auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
 				switch (nmhdr->code)
 				{
 					case NM_CUSTOMDRAW:
 					{
+						constexpr size_t classNameLen = 16;
+						TCHAR className[classNameLen]{};
+						GetClassName(nmhdr->hwndFrom, className, classNameLen);
+
 						if (wcscmp(className, TOOLBARCLASSNAME) == 0)
 						{
 							return NppDarkMode::darkToolBarNotifyCustomDraw(lParam);
@@ -2548,6 +2557,97 @@ namespace NppDarkMode
 	{
 		SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0);
 		NppDarkMode::autoSubclassAndThemeChildControls(hwnd, true, g_isAtLeastWindows10);
+	}
+
+	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags)
+	{
+		// Used on parent of edit, listbox, static text, treeview, listview and toolbar controls.
+		// Should be used only one time on parent control after its creation
+		// even when starting in light mode.
+		// e.g. in WM_INITDIALOG, in WM_CREATE or after CreateWindow.
+		constexpr ULONG dmfSubclassParent =     0x00000001UL;
+		// Should be used only one time on main control/window after initializations of all its children controls
+		// even when starting in light mode.
+		// Will also use dmfSetThemeChildren flag.
+		// e.g. in WM_INITDIALOG, in WM_CREATE or after CreateWindow.
+		constexpr ULONG dmfSubclassChildren =   0x00000002UL;
+		// Will apply theme on buttons with style:
+		// BS_PUSHLIKE, BS_PUSHBUTTON, BS_DEFPUSHBUTTON, BS_SPLITBUTTON or BS_DEFSPLITBUTTON.
+		// Will apply theme for scrollbars on edit, listbox and rich edit controls.
+		// Will apply theme for tooltips on listview, treeview and toolbar buttons.
+		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
+		// Requires at least Windows 10 to work properly.
+		constexpr ULONG dmfSetThemeChildren =   0x00000004UL;
+		// Set dark title bar.
+		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
+		// Requires at least Windows 10 and WS_CAPTION style to work properly.
+		constexpr ULONG dmfSetTitleBar =        0x00000008UL;
+		// Will apply dark explorer theme.
+		// Used mainly for scrollbars and tooltips not handled with dmfSetThemeChildren.
+		// Might also change style for other elements.
+		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
+		// Requires at least Windows 10 to work properly.
+		constexpr ULONG dmfSetThemeDirectly =   0x00000010UL;
+
+		// defined in Notepad_plus_msgs.h
+		//constexpr ULONG dmfInit =             dmfSubclassParent | dmfSubclassChildren | dmfSetTitleBar; // 0x000000BUL
+		//constexpr ULONG dmfHandleChange =     dmfSetThemeChildren | dmfSetTitleBar;                     // 0x000000CUL
+
+		constexpr ULONG dmfRequiredMask =       dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
+		//constexpr ULONG dmfAllMask =          dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
+		
+		if (hwnd == nullptr || (dmFlags & dmfRequiredMask) == 0)
+		{
+			return 0;
+		}
+
+		auto dmfBitwiseCheck = [dmFlags](ULONG flag) -> bool {
+			return (dmFlags & flag) == flag;
+		};
+
+		ULONG result = 0UL;
+
+		if (dmfBitwiseCheck(dmfSubclassParent))
+		{
+			const bool success = ::SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0) == TRUE;
+			if (success)
+			{
+				result |= dmfSubclassParent;
+			}
+		}
+
+		const bool subclassChildren = dmfBitwiseCheck(dmfSubclassChildren);
+		if (dmfBitwiseCheck(dmfSetThemeChildren) || subclassChildren)
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(hwnd, subclassChildren, g_isAtLeastWindows10);
+			result |= dmfSetThemeChildren;
+
+			if (subclassChildren)
+			{
+				result |= dmfSubclassChildren;
+			}
+		}
+
+		if (dmfBitwiseCheck(dmfSetTitleBar))
+		{
+			const auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+			if (NppDarkMode::isExperimentalSupported() && ((style & WS_CAPTION) == WS_CAPTION))
+			{
+				NppDarkMode::setDarkTitleBar(hwnd);
+				result |= dmfSetTitleBar;
+			}
+		}
+
+		if (dmfBitwiseCheck(dmfSetThemeDirectly))
+		{
+			if (NppDarkMode::isWindows10())
+			{
+				NppDarkMode::setDarkExplorerTheme(hwnd);
+				result |= dmfSetThemeDirectly;
+			}
+		}
+
+		return result;
 	}
 
 	constexpr UINT_PTR g_windowNotifySubclassID = 42;
@@ -2760,8 +2860,17 @@ namespace NppDarkMode
 
 	void setDarkTitleBar(HWND hwnd)
 	{
-		NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
-		NppDarkMode::setTitleBarThemeColor(hwnd);
+		constexpr DWORD win10Build2004 = 19041;
+		if (NppDarkMode::getWindowsBuildNumber() >= win10Build2004)
+		{
+			BOOL value = NppDarkMode::isEnabled() ? TRUE : FALSE;
+			::DwmSetWindowAttribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+		}
+		else
+		{
+			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
+			NppDarkMode::setTitleBarThemeColor(hwnd);
+		}
 	}
 
 	void setDarkExplorerTheme(HWND hwnd)

@@ -119,6 +119,7 @@ namespace NppDarkMode
 
 	bool isWindows10();
 	bool isWindows11();
+	const DWORD getWindowsBuildNumber();
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);
@@ -216,6 +217,7 @@ namespace NppDarkMode
 	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam);
 
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
+	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags);
 	void autoSubclassAndThemeWindowNotify(HWND hwnd);
 
 	bool subclassTabUpDownControl(HWND hwnd);

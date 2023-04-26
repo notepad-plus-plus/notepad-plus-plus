@@ -294,7 +294,7 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 
 			for (auto & i : j[nodesLabel])
 			{
-				if (nodeName == i[nameLabel])
+				if (nodeName == std::string{ i[nameLabel] })
 				{
 					i[leavesLabel].push_back(leafName.c_str());
 					isFound = true;

@@ -3110,6 +3110,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return static_cast<LRESULT>(false);
 		}
 
+		case NPPM_DARKMODESUBCLASSANDTHEME:
+		{
+			return static_cast<LRESULT>(NppDarkMode::autoSubclassAndThemePlugin(reinterpret_cast<HWND>(lParam), static_cast<UINT>(wParam)));
+		}
+
 		case NPPM_DOCLISTDISABLEPATHCOLUMN:
 		case NPPM_DOCLISTDISABLEEXTCOLUMN:
 		{

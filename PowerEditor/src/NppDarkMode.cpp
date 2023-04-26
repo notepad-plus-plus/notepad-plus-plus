@@ -2511,16 +2511,15 @@ namespace NppDarkMode
 
 			case WM_NOTIFY:
 			{
-				auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
-
-				constexpr size_t classNameLen = 16;
-				TCHAR className[classNameLen]{};
-				GetClassName(nmhdr->hwndFrom, className, classNameLen);
-
+				const auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
 				switch (nmhdr->code)
 				{
 					case NM_CUSTOMDRAW:
 					{
+						constexpr size_t classNameLen = 16;
+						TCHAR className[classNameLen]{};
+						GetClassName(nmhdr->hwndFrom, className, classNameLen);
+
 						if (wcscmp(className, TOOLBARCLASSNAME) == 0)
 						{
 							return NppDarkMode::darkToolBarNotifyCustomDraw(lParam);
@@ -2548,6 +2547,40 @@ namespace NppDarkMode
 	{
 		SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0);
 		NppDarkMode::autoSubclassAndThemeChildControls(hwnd, true, g_isAtLeastWindows10);
+	}
+
+	bool autoSubclassAndThemePlugin(HWND hwnd, UINT dmFlags)
+	{
+		// defined in Notepad_plus_msgs.h
+		//constexpr int dmfSetParent = 0x01;
+		//constexpr int dmfSetChildren = 0x02;
+		//constexpr int dmfSubclassChildren = 0x04;
+		//constexpr int dmfAll = dmfSetParent | dmfSetChildren | dmfSubclassChildren; // 0x07
+
+		if (hwnd == nullptr || (dmFlags & dmfAll) == 0)
+		{
+			return false;
+		}
+
+		bool result = false;
+
+		if ((dmFlags & dmfSetParent) == dmfSetParent)
+		{
+			result = ::SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0) == TRUE;
+			if (!result)
+			{
+				return false;
+			}
+		}
+
+		if ((dmFlags & dmfSetChildren) == dmfSetChildren)
+		{
+			const bool subclassChildren = ((dmFlags & dmfSubclassChildren) == dmfSubclassChildren);
+			NppDarkMode::autoSubclassAndThemeChildControls(hwnd, subclassChildren, g_isAtLeastWindows10);
+			result = true;
+		}
+
+		return result;
 	}
 
 	constexpr UINT_PTR g_windowNotifySubclassID = 42;

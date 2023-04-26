@@ -216,6 +216,7 @@ namespace NppDarkMode
 	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam);
 
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
+	bool autoSubclassAndThemePlugin(HWND hwnd, UINT dmFlags);
 	void autoSubclassAndThemeWindowNotify(HWND hwnd);
 
 	bool subclassTabUpDownControl(HWND hwnd);

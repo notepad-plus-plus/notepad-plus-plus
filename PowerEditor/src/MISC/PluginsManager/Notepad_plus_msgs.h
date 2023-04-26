@@ -549,6 +549,50 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// void* NPPM_GETBOOKMARKID(0, 0)
 	// Returns the bookmark ID
 
+	#define NPPM_DARKMODESUBCLASSANDTHEME (NPPMSG + 112)
+	// bool NPPM_DARKMODESUBCLASSANDTHEME(UINT dmFlags, HWND hwnd)
+	// Subclass hwnd to add support for generic dark mode.
+	// When applying first time on main hwnd use "dmFlags = NppDarkMode::dmfAll".
+	// In case edit, listbox, static text, treeview, listview and toolbar controls don't have parent as main hwnd,
+	// call NPPM_DARKMODESUBCLASSANDTHEME on their parent and use "dmFlags = NppDarkMode::dmfSetParent".
+	// When handling dark mode change with NPPN_DARKMODECHANGED, use "dmFlags = NppDarkMode::dmfSetChildren".
+	// 
+	// Docking panels don't need to call NPPM_DARKMODESUBCLASSANDTHEME for main hwnd.
+	// Subclassing is applied automatically unless DWS_USEOWNDARKMODE flag is used.
+	//
+	// Might not work properly in C# plugins.
+	//
+	// Returns FALSE if parent subclass was not successful, hwnd == nullptr or dmFlags were invalid, otherwise TRUE.
+	//
+
+	namespace NppDarkMode
+	{
+		constexpr UINT dmfSetParent = 0x01;
+		constexpr UINT dmfSetChildren = 0x02; // without dmfSubclassChildren will only theme
+		constexpr UINT dmfSubclassChildren = 0x04; // should be used only on main hwnd when applying subclass first time
+		constexpr UINT dmfAll = dmfSetParent | dmfSetChildren | dmfSubclassChildren; // 0x07
+	};
+
+	// Examples:
+	//
+	// - first time:
+	//
+	//auto success = static_cast<bool>(::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(NppDarkMode::dmfAll), reinterpret_cast<LPARAM>(mainHwnd)));
+	//
+	// - handling dark mode change:
+	//
+	//extern "C" __declspec(dllexport) void beNotified(SCNotification * notifyCode)
+	//{
+	//	switch (notifyCode->nmhdr.code)
+	//	{
+	//		case NPPN_DARKMODECHANGED:
+	//		{
+	//			::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(NppDarkMode::dmfSetChildren), reinterpret_cast<LPARAM>(mainHwnd));
+	//			::SetWindowPos(mainHwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+	//			break;
+	//		}
+	//	}
+	//}
 
 
 	// For RUNCOMMAND_USER

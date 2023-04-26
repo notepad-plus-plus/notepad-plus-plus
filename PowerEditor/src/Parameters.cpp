@@ -3538,6 +3538,14 @@ void NppParameters::writeShortcuts()
 		TiXmlDeclarationA* decl = new TiXmlDeclarationA("1.0", "UTF-8", "");
 		_pXmlShortcutDocA->LinkEndChild(decl);
 	}
+	else
+	{
+		wstring v852ShortcutsBackupPath = _shortcutsPath;
+		v852ShortcutsBackupPath += L".v8.5.2.backup";
+
+		// backup shortcuts file
+		::CopyFile(_shortcutsPath.c_str(), v852ShortcutsBackupPath.c_str(), TRUE);
+	}
 
 	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");
 	if (!root)

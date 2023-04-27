@@ -105,7 +105,7 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case WM_CHANGEUISTATE:
 		{
-			if (NppDarkMode::isEnabled())
+			if (NppDarkMode::isEnabled() && !NppDarkMode::isWindows11())
 			{
 				redrawDlgItem(IDC_MACRO2RUN_STATIC);
 			}

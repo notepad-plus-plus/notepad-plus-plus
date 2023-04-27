@@ -2557,7 +2557,7 @@ namespace NppDarkMode
 		//constexpr int dmfSubclassChildren = 0x04;
 		//constexpr int dmfAll = dmfSetParent | dmfSetChildren | dmfSubclassChildren; // 0x07
 
-		if (hwnd == nullptr || (dmFlags & dmfAll) == 0)
+		if (hwnd == nullptr || (dmFlags & (dmfSetParent | dmfSetChildren)) == 0)
 		{
 			return false;
 		}

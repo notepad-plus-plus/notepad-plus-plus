@@ -562,7 +562,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//
 	// Might not work properly in C# plugins.
 	//
-	// Returns FALSE if parent subclass was not successful, hwnd == nullptr or dmFlags were invalid, otherwise TRUE.
+	// Returns FALSE if parent subclass was not successful, hwnd == nullptr or none of dmfSetParent and dmfSetChildren flags were set,
+	// otherwise TRUE.
 	//
 
 	namespace NppDarkMode

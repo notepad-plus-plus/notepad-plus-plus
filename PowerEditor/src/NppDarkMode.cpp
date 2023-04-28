@@ -2549,35 +2549,61 @@ namespace NppDarkMode
 		NppDarkMode::autoSubclassAndThemeChildControls(hwnd, true, g_isAtLeastWindows10);
 	}
 
-	bool autoSubclassAndThemePlugin(HWND hwnd, UINT dmFlags)
+	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags)
 	{
 		// defined in Notepad_plus_msgs.h
-		//constexpr int dmfSetParent = 0x01;
-		//constexpr int dmfSetChildren = 0x02;
-		//constexpr int dmfSubclassChildren = 0x04;
-		//constexpr int dmfAll = dmfSetParent | dmfSetChildren | dmfSubclassChildren; // 0x07
+		//constexpr ULONG dmfSetParent =          0x00000001UL;
+		//constexpr ULONG dmfSetChildren =        0x00000002UL;
+		//constexpr ULONG dmfSubclassChildren =   0x00000004UL;
+		//constexpr ULONG dmfSetTitleBar =        0x00000008UL;
+		//constexpr ULONG dmfSetExplorerTheme =   0x00000010UL;
+		//constexpr ULONG dmfMainParent = dmfSetParent | dmfSetChildren | dmfSubclassChildren | dmfSetTitleBar;
+		//constexpr ULONG dmfRequiredMask = dmfSetParent | dmfSetChildren | dmfSetTitleBar | dmfSetExplorerTheme;
+		//constexpr ULONG dmfAllMask = dmfSetParent | dmfSetChildren | dmfSubclassChildren | dmfSetTitleBar;
 
-		if (hwnd == nullptr || (dmFlags & (dmfSetParent | dmfSetChildren)) == 0)
+		if (hwnd == nullptr || (dmFlags & dmfRequiredMask) == 0)
 		{
-			return false;
+			return 0;
 		}
 
-		bool result = false;
+		auto dmfBitwiseCheck = [dmFlags](ULONG flag) -> bool {
+			return (dmFlags & flag) == flag;
+		};
 
-		if ((dmFlags & dmfSetParent) == dmfSetParent)
+		ULONG result = 0UL;
+
+		if (dmfBitwiseCheck(dmfSetParent))
 		{
-			result = ::SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0) == TRUE;
-			if (!result)
+			const bool success = ::SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0) == TRUE;
+			if (success)
 			{
-				return false;
+				result |= dmfSetParent;
 			}
 		}
 
-		if ((dmFlags & dmfSetChildren) == dmfSetChildren)
+		if (dmfBitwiseCheck(dmfSetChildren))
 		{
-			const bool subclassChildren = ((dmFlags & dmfSubclassChildren) == dmfSubclassChildren);
-			NppDarkMode::autoSubclassAndThemeChildControls(hwnd, subclassChildren, g_isAtLeastWindows10);
-			result = true;
+			NppDarkMode::autoSubclassAndThemeChildControls(hwnd, dmfBitwiseCheck(dmfSubclassChildren), g_isAtLeastWindows10);
+			result |= dmfSetChildren;
+		}
+
+		if (dmfBitwiseCheck(dmfSetTitleBar))
+		{
+			const auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+			if (NppDarkMode::isExperimentalSupported() && ((style & WS_CAPTION) == WS_CAPTION))
+			{
+				NppDarkMode::setDarkTitleBar(hwnd);
+				result |= dmfSetTitleBar;
+			}
+		}
+
+		if (dmfBitwiseCheck(dmfSetExplorerTheme))
+		{
+			if (NppDarkMode::isWindows10())
+			{
+				NppDarkMode::setDarkExplorerTheme(hwnd);
+				result |= dmfSetExplorerTheme;
+			}
 		}
 
 		return result;

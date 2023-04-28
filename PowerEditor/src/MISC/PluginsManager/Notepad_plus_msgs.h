@@ -550,7 +550,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Returns the bookmark ID
 
 	#define NPPM_DARKMODESUBCLASSANDTHEME (NPPMSG + 112)
-	// bool NPPM_DARKMODESUBCLASSANDTHEME(UINT dmFlags, HWND hwnd)
+	// ULONG NPPM_DARKMODESUBCLASSANDTHEME(ULONG dmFlags, HWND hwnd)
 	// Subclass hwnd to add support for generic dark mode.
 	// When applying first time on main hwnd use "dmFlags = NppDarkMode::dmfAll".
 	// In case edit, listbox, static text, treeview, listview and toolbar controls don't have parent as main hwnd,
@@ -562,23 +562,42 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//
 	// Might not work properly in C# plugins.
 	//
-	// Returns FALSE if parent subclass was not successful, hwnd == nullptr or none of dmfSetParent and dmfSetChildren flags were set,
-	// otherwise TRUE.
+	// Returns succesful combinations from dmfRequiredMask.
 	//
 
 	namespace NppDarkMode
 	{
-		constexpr UINT dmfSetParent = 0x01;
-		constexpr UINT dmfSetChildren = 0x02; // without dmfSubclassChildren will only theme
-		constexpr UINT dmfSubclassChildren = 0x04; // should be used only on main hwnd when applying subclass first time
-		constexpr UINT dmfAll = dmfSetParent | dmfSetChildren | dmfSubclassChildren; // 0x07
+		// used on parent of edit, listbox, static text, treeview, listview and toolbar controls
+		constexpr ULONG dmfSetParent =          0x00000001UL;
+		// without dmfSubclassChildren will only theme
+		// should be handled on first time and in NPPN_DARKMODECHANGED
+		// only theme requires at least Windows 10
+		constexpr ULONG dmfSetChildren =        0x00000002UL;
+		// should be used only on main hwnd when applying subclass first time
+		constexpr ULONG dmfSubclassChildren =   0x00000004UL;
+		// set dark title bar
+		// should be handled on first time and in NPPN_DARKMODECHANGED
+		// requires at least Windows 10
+		constexpr ULONG dmfSetTitleBar =        0x00000008UL;
+		// set dark explorer theme
+		// used mainly for dark scrollbar not handled with dmfSetChildren
+		// might change style for other elements
+		// should be handled on first time and in NPPN_DARKMODECHANGED
+		// requires at least Windows 10
+		constexpr ULONG dmfSetExplorerTheme =   0x00000010UL;
+		// standard first time flags for main parent
+		constexpr ULONG dmfMainParent = dmfSetParent | dmfSetChildren | dmfSubclassChildren | dmfSetTitleBar; // 0x000000FUL
+		// at least one of these flag should be used
+		constexpr ULONG dmfRequiredMask = dmfSetParent | dmfSetChildren | dmfSetTitleBar | dmfSetExplorerTheme; // 0x0000001BUL
+		// every flags
+		constexpr ULONG dmfAllMask = dmfSetParent | dmfSetChildren | dmfSubclassChildren | dmfSetTitleBar | dmfSetExplorerTheme; // 0x0000001FUL
 	};
 
 	// Examples:
 	//
 	// - first time:
 	//
-	//auto success = static_cast<bool>(::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(NppDarkMode::dmfAll), reinterpret_cast<LPARAM>(mainHwnd)));
+	//auto success = static_cast<ULONG>(::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(NppDarkMode::dmfMainParent), reinterpret_cast<LPARAM>(mainHwnd)));
 	//
 	// - handling dark mode change:
 	//
@@ -588,7 +607,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//	{
 	//		case NPPN_DARKMODECHANGED:
 	//		{
-	//			::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(NppDarkMode::dmfSetChildren), reinterpret_cast<LPARAM>(mainHwnd));
+	//			constexpr auto flags = NppDarkMode::dmfSetChildren | NppDarkMode::dmfSetTitleBar;
+	//			::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(flags), reinterpret_cast<LPARAM>(mainHwnd));
 	//			::SetWindowPos(mainHwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 	//			break;
 	//		}

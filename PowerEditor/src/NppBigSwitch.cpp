@@ -3112,7 +3112,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DARKMODESUBCLASSANDTHEME:
 		{
-			return static_cast<LRESULT>(NppDarkMode::autoSubclassAndThemePlugin(reinterpret_cast<HWND>(lParam), static_cast<UINT>(wParam)));
+			return static_cast<LRESULT>(NppDarkMode::autoSubclassAndThemePlugin(reinterpret_cast<HWND>(lParam), static_cast<ULONG>(wParam)));
 		}
 
 		case NPPM_DOCLISTDISABLEPATHCOLUMN:

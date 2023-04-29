@@ -3540,11 +3540,32 @@ void NppParameters::writeShortcuts()
 	}
 	else
 	{
-		wstring v852ShortcutsBackupPath = _shortcutsPath;
-		v852ShortcutsBackupPath += L".v8.5.2.backup";
+		wchar_t v852ShortcutsHasBeenBackup[MAX_PATH]{};
+		::wcscpy_s(v852ShortcutsHasBeenBackup, _shortcutsPath.c_str());
+		::PathRemoveFileSpec(v852ShortcutsHasBeenBackup);
+		::PathAppend(v852ShortcutsHasBeenBackup, L"v852ShortcutsHasBeenBackup.xml");
 
-		// backup shortcuts file
-		::CopyFile(_shortcutsPath.c_str(), v852ShortcutsBackupPath.c_str(), TRUE);
+		if (!::PathFileExists(v852ShortcutsHasBeenBackup))
+		{
+			// Creat v852ShortcutshasBeenBackup.xml for the future use
+			HANDLE hFile = ::CreateFile(v852ShortcutsHasBeenBackup, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+			::FlushFileBuffers(hFile);
+			::CloseHandle(hFile);
+
+			// backup shortcuts file
+			wstring v852ShortcutsBackupPath = _shortcutsPath;
+			v852ShortcutsBackupPath += L".v8.5.2.backup";
+			::CopyFile(_shortcutsPath.c_str(), v852ShortcutsBackupPath.c_str(), TRUE);
+
+			// Warn User about the current shortcut will be changed and it has been backup. If users' the shortcuts.xml has been corrupted
+			// due to recoded macro under v8.5.2 (or previous versions) being modified by v8.5.3 (or later versions),
+			// user can always go back to Notepad++ v8.5.2 and use the backup of shortcuts.xml 
+			_pNativeLangSpeaker->messageBox("MacroEventualWarning",
+				nullptr,
+				TEXT("Your macro recoded under v8.5.2 or previous versions could be corrupted by this version of Notepad++.\nIf it happens, please delete damaged macro then record it again under the current version of Notepad++; or you can always go back to Notepad++ v8.5.2 then restore \"shortcuts.xml.v8.5.2.backup\" to \"shortcuts.xml\"."),
+				TEXT("Macro eventual incompatible warning"),
+				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+		}
 	}
 
 	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");

@@ -3562,7 +3562,7 @@ void NppParameters::writeShortcuts()
 			// user can always go back to Notepad++ v8.5.2 and use the backup of shortcuts.xml 
 			_pNativeLangSpeaker->messageBox("MacroEventualWarning",
 				nullptr,
-				TEXT("Your macro recoded under v8.5.2 or previous versions could be corrupted by this version of Notepad++.\nIf it happens, please delete damaged macro then record it again under the current version of Notepad++; or you can always go back to Notepad++ v8.5.2 then restore \"shortcuts.xml.v8.5.2.backup\" to \"shortcuts.xml\"."),
+				TEXT("Your macro recorded under v8.5.2 or previous versions could be corrupted by this version of Notepad++.\nIf it happens, please delete damaged macro then record it again under the current version of Notepad++; or you can always go back to Notepad++ v8.5.2 then restore \"shortcuts.xml.v8.5.2.backup\" to \"shortcuts.xml\"."),
 				TEXT("Macro eventual incompatible warning"),
 				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 		}

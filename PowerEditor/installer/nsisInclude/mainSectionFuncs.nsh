@@ -339,31 +339,31 @@ FunctionEnd
 Function removeOldContextMenu
    ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'
 		Delete "$INSTDIR\nppcm.dll"
         
     IfFileExists "$INSTDIR\NppShell.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
 		Delete "$INSTDIR\NppShell.dll"
 		
     IfFileExists "$INSTDIR\NppShell_01.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
 		Delete "$INSTDIR\NppShell_01.dll"
         
     IfFileExists "$INSTDIR\NppShell_02.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
 		Delete "$INSTDIR\NppShell_02.dll"
 		
     IfFileExists "$INSTDIR\NppShell_03.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
 		Delete "$INSTDIR\NppShell_03.dll"
 		
 	IfFileExists "$INSTDIR\NppShell_04.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
 		Delete "$INSTDIR\NppShell_04.dll"
 		
 	IfFileExists "$INSTDIR\NppShell_05.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
 		Delete "$INSTDIR\NppShell_05.dll"
 FunctionEnd
 

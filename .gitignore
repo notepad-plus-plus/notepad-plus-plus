@@ -59,7 +59,7 @@ UpgradeLog*.htm
 PowerEditor/bin/notepad++.exe
 PowerEditor/bin/Notepad++.exp
 PowerEditor/bin/Notepad++.lib
-PowerEditor/bin/SciLexer.dll
+PowerEditor/bin/NppShell.x86.dll
 PowerEditor/bin/config.xml
 PowerEditor/bin/stylers.xml
 PowerEditor/bin/langs.xml

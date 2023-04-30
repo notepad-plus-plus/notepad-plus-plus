@@ -376,6 +376,7 @@
     #define    IDM_VIEW_TAB_COLOUR_5              (IDM_VIEW + 115)
 
     #define    IDM_VIEW_NPC                       (IDM_VIEW + 130)
+    #define    IDM_VIEW_NPC_CCUNIEOL              (IDM_VIEW + 131)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002

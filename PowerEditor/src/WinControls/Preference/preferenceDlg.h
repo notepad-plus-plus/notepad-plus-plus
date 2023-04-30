@@ -70,10 +70,11 @@ private :
 	HWND _tipAbb = nullptr;
 	HWND _tipCodepoint = nullptr;
 	HWND _tipNpcColor = nullptr;
+	HWND _tipNpcInclude = nullptr;
 
 	std::vector<HWND> _tips;
 
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void initScintParam();
 	void changeLineHiliteMode(bool enableSlider);
 };

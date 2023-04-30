@@ -88,6 +88,11 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
+		case WM_CTLCOLORLISTBOX:
+		{
+			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORDLG:
 		{
 			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
@@ -100,7 +105,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			bool isStaticText = (dlgCtrlID == IDC_COL_INITNUM_STATIC ||
 				dlgCtrlID == IDC_COL_INCRNUM_STATIC ||
-				dlgCtrlID == IDC_COL_REPEATNUM_STATIC);
+				dlgCtrlID == IDC_COL_REPEATNUM_STATIC ||
+				dlgCtrlID == IDC_COL_LEADING_STATIC);
 			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
 			if (isStaticText)
 			{
@@ -154,8 +160,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
                 {
 					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
 					
-					const int stringSize = 1024;
-					TCHAR str[stringSize];
+					constexpr int stringSize = 1024;
+					TCHAR str[stringSize]{};
 					
 					bool isTextMode = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_RADIO, BM_GETCHECK, 0, 0));
 					
@@ -372,8 +378,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						case EN_CHANGE:
 						{
 							ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-							const int stringSize = MAX_PATH;
-							TCHAR str[stringSize];
+							constexpr int stringSize = MAX_PATH;
+							TCHAR str[stringSize]{};
 
 							switch (LOWORD(wParam))
 							{								
@@ -381,6 +387,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 									colEditParam._insertedTextContent = str;
+									::EnableWindow(::GetDlgItem(_hSelf, IDOK), str[0]);
 									return TRUE;
 								}
 								case IDC_COL_INITNUM_EDIT:
@@ -467,14 +474,15 @@ void ColumnEditorDlg::switchTo(bool toText)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_HEX_RADIO), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_OCT_RADIO), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_BIN_RADIO), !toText);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADING_STATIC), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), !toText);
+	::EnableWindow(::GetDlgItem(_hSelf, IDOK), !toText || !NppParameters::getInstance()._columnEditParam._insertedTextContent.empty());
 
 	::SetFocus(toText?hText:hNum);
 
 	redrawDlgItem(IDC_COL_INITNUM_STATIC);
 	redrawDlgItem(IDC_COL_INCRNUM_STATIC);
 	redrawDlgItem(IDC_COL_REPEATNUM_STATIC);
+	redrawDlgItem(IDC_COL_LEADING_STATIC);
 
 	if (NppDarkMode::isEnabled())
 	{
@@ -483,7 +491,7 @@ void ColumnEditorDlg::switchTo(bool toText)
 	}
 }
 
-UCHAR ColumnEditorDlg::getFormat() 
+UCHAR ColumnEditorDlg::getFormat()
 {
 	UCHAR f = 0; // Dec by default
 	if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_HEX_RADIO, BM_GETCHECK, 0, 0))

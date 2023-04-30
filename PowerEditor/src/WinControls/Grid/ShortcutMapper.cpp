@@ -197,8 +197,8 @@ bool ShortcutMapper::isFilterValid(Shortcut sc)
 	if (_shortcutFilter.empty())
 		return true;
 
-	generic_string shortcut_name = stringToLower(generic_string(sc.getName()));
-	generic_string shortcut_value = stringToLower(sc.toString());
+	wstring shortcut_name = stringToLower(string2wstring(sc.getName(), CP_UTF8));
+	wstring shortcut_value = stringToLower(string2wstring(sc.toString(), CP_UTF8));
 
 	// test the filter on the shortcut name and value
 	return (shortcut_name.find(_shortcutFilter) != std::string::npos) || 
@@ -210,7 +210,7 @@ bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc)
 	// Do like a classic search on shortcut name, then search on the plugin name.
 	Shortcut shortcut = sc;
 	bool match = false;
-	generic_string module_name = stringToLower(generic_string(sc.getModuleName()));
+	wstring module_name = stringToLower(string2wstring(sc.getModuleName(), CP_UTF8));
 	if (isFilterValid(shortcut)){
 		return true;
 	}
@@ -296,9 +296,9 @@ void ShortcutMapper::fillOutBabyGrid()
 					if (findKeyConflicts(nullptr, cshortcuts[i].getKeyCombo(), i))
 						isMarker = _babygrid.setMarker(true);
 
-					_babygrid.setText(cs_index, 1, cshortcuts[i].getName());
+					_babygrid.setText(cs_index, 1, string2wstring(cshortcuts[i].getName(), CP_UTF8).c_str());
 					if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
-						_babygrid.setText(cs_index, 2, cshortcuts[i].toString().c_str());
+						_babygrid.setText(cs_index, 2, string2wstring(cshortcuts[i].toString(), CP_UTF8).c_str());
 
 					const TCHAR* category = cshortcuts[i].getCategory();
 					generic_string categoryStr = nativeLangSpeaker->getShortcutMapperLangStr((std::string(wstring2string(category, CP_UTF8)) + "Category").c_str(), category);
@@ -328,9 +328,9 @@ void ShortcutMapper::fillOutBabyGrid()
 					if (findKeyConflicts(nullptr, cshortcuts[i].getKeyCombo(), i))
 						isMarker = _babygrid.setMarker(true);
 
-					_babygrid.setText(cs_index, 1, cshortcuts[i].getName());
+					_babygrid.setText(cs_index, 1, string2wstring(cshortcuts[i].getName(), CP_UTF8).c_str());
 					if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
-						_babygrid.setText(cs_index, 2, cshortcuts[i].toString().c_str());
+						_babygrid.setText(cs_index, 2, string2wstring(cshortcuts[i].toString(), CP_UTF8).c_str());
 	
 					if (isMarker)
 						isMarker = _babygrid.setMarker(false);
@@ -357,9 +357,9 @@ void ShortcutMapper::fillOutBabyGrid()
 					if (findKeyConflicts(nullptr, cshortcuts[i].getKeyCombo(), i))
 						isMarker = _babygrid.setMarker(true);
 
-					_babygrid.setText(cs_index, 1, cshortcuts[i].getName());
+					_babygrid.setText(cs_index, 1, string2wstring(cshortcuts[i].getName(), CP_UTF8).c_str());
 					if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
-						_babygrid.setText(cs_index, 2, cshortcuts[i].toString().c_str());
+						_babygrid.setText(cs_index, 2, string2wstring(cshortcuts[i].toString(), CP_UTF8).c_str());
 	
 					if (isMarker)
 						isMarker = _babygrid.setMarker(false);
@@ -387,10 +387,10 @@ void ShortcutMapper::fillOutBabyGrid()
 					if (findKeyConflicts(nullptr, cshortcuts[i].getKeyCombo(), i))
 						isMarker = _babygrid.setMarker(true);
 
-					_babygrid.setText(cs_index, 1, cshortcuts[i].getName());
+					_babygrid.setText(cs_index, 1, string2wstring(cshortcuts[i].getName(), CP_UTF8).c_str());
 					if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
-						_babygrid.setText(cs_index, 2, cshortcuts[i].toString().c_str());
-					_babygrid.setText(cs_index, 3, cshortcuts[i].getModuleName());
+						_babygrid.setText(cs_index, 2, string2wstring(cshortcuts[i].toString(), CP_UTF8).c_str());
+					_babygrid.setText(cs_index, 3, string2wstring(cshortcuts[i].getModuleName(), CP_UTF8).c_str());
 	
 					if (isMarker)
 						isMarker = _babygrid.setMarker(false);
@@ -427,9 +427,9 @@ void ShortcutMapper::fillOutBabyGrid()
 						}
 					}
 
-					_babygrid.setText(cs_index, 1, cshortcuts[i].getName());
+					_babygrid.setText(cs_index, 1, string2wstring(cshortcuts[i].getName(), CP_UTF8).c_str());
 					if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
-						_babygrid.setText(cs_index, 2, cshortcuts[i].toString().c_str());
+						_babygrid.setText(cs_index, 2, string2wstring(cshortcuts[i].toString(), CP_UTF8).c_str());
 	
 					if (isMarker)
 						isMarker = _babygrid.setMarker(false);
@@ -1285,9 +1285,9 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							*keyConflictLocation += TEXT("  |  ");
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
 							*keyConflictLocation += TEXT("   ");
-							*keyConflictLocation += vShortcuts[itemIndex].getName();
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
 							*keyConflictLocation += TEXT("  ( ");
-							*keyConflictLocation += vShortcuts[itemIndex].toString();
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
 							*keyConflictLocation += TEXT(" )");
 						}
 					}
@@ -1319,9 +1319,9 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							*keyConflictLocation += TEXT("  |  ");
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
 							*keyConflictLocation += TEXT("   ");
-							*keyConflictLocation += vShortcuts[itemIndex].getName();
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
 							*keyConflictLocation += TEXT("  ( ");
-							*keyConflictLocation += vShortcuts[itemIndex].toString();
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
 							*keyConflictLocation += TEXT(" )");
 						}
 					}
@@ -1353,9 +1353,9 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							*keyConflictLocation += TEXT("  |  ");
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
 							*keyConflictLocation += TEXT("   ");
-							*keyConflictLocation += vShortcuts[itemIndex].getName();
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
 							*keyConflictLocation += TEXT("  ( ");
-							*keyConflictLocation += vShortcuts[itemIndex].toString();
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
 							*keyConflictLocation += TEXT(" )");
 						}
 					}
@@ -1387,9 +1387,9 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							*keyConflictLocation += TEXT("  |  ");
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
 							*keyConflictLocation += TEXT("   ");
-							*keyConflictLocation += vShortcuts[itemIndex].getName();
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);;
 							*keyConflictLocation += TEXT("  ( ");
-							*keyConflictLocation += vShortcuts[itemIndex].toString();
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
 							*keyConflictLocation += TEXT(" )");
 						}
 					}
@@ -1427,9 +1427,9 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 									*keyConflictLocation += TEXT("*   ");
 								else
 									*keyConflictLocation += TEXT("   ");
-								*keyConflictLocation += vShortcuts[itemIndex].getName();
+								*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
 								*keyConflictLocation += TEXT("  ( ");
-								*keyConflictLocation += vShortcuts[itemIndex].toString(sciIndex);
+								*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(sciIndex), CP_UTF8);
 								*keyConflictLocation += TEXT(" )");
 							}
 						}

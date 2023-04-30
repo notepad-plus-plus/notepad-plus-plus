@@ -91,8 +91,8 @@ struct NumericStringEquivalence
 
 	static int numstrcmp(const TCHAR *str1, const TCHAR *str2)
 	{
-		TCHAR *p1, *p2;
-		int c1, c2, lcmp = 0;
+		TCHAR *p1 = nullptr, *p2 = nullptr;
+		int c1 = 0, c2 = 0, lcmp = 0;
 		for (;;)
 		{
 			if (*str1 == 0 || *str2 == 0)
@@ -132,10 +132,10 @@ struct NumericStringEquivalence
 
 struct BufferEquivalent
 {
-	NumericStringEquivalence _strequiv;
-	DocTabView* _pTab;
-	int _iColumn;
-	bool _reverse;
+	NumericStringEquivalence _strequiv{};
+	DocTabView* _pTab = nullptr;
+	int _iColumn = 0;
+	bool _reverse = false;
 	BufferEquivalent(DocTabView* pTab, int iColumn, bool reverse)
 		: _pTab(pTab), _iColumn(iColumn), _reverse(reverse)
 	{}
@@ -220,7 +220,6 @@ BEGIN_WINDOW_MAP(WindowsDlgMap)
 		BEGINCOLS(WRCT_REST,0,0)                       // Begin list control column
 			BEGINROWS(WRCT_REST,0,0)
 				RCREST(IDC_WINDOWS_LIST)
-				RCSPACE(20)
 			ENDGROUP()
 			RCSPACE(12)
 			BEGINROWS(WRCT_TOFIT,0,0)
@@ -278,11 +277,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -506,7 +501,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				_listMenu.enableItem(IDM_WINDOW_COPY_NAME, enableMenu);
 				_listMenu.enableItem(IDM_WINDOW_COPY_PATH, enableMenu);
 
-				POINT p = {};
+				POINT p{};
 				::GetCursorPos(&p);
 				_listMenu.display(p);
 			}
@@ -520,11 +515,11 @@ void WindowsDlg::doColumnSort()
 	if (_currentColumn == -1)
 		return;
 	
-	size_t i;
+	size_t i = 0;
 	size_t n = _idxMap.size();
 	vector<int> sortMap;
 	sortMap.resize(n);
-	for (i = 0; i < n; ++i)
+	for (; i < n; ++i)
 		sortMap[_idxMap[i]] = ListView_GetItemState(_hList, i, LVIS_SELECTED);
 
 	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
@@ -589,12 +584,11 @@ BOOL WindowsDlg::onInitDialog()
 	ListView_SetTextBkColor(_hList, bgColor);
 	ListView_SetTextColor(_hList, fgColor);
 
-	RECT rc;
+	RECT rc{};
 	GetClientRect(_hList, &rc);
 	LONG width = rc.right - rc.left;
 
-	LVCOLUMN lvColumn;
-	memset(&lvColumn, 0, sizeof(lvColumn));
+	LVCOLUMN lvColumn{};
 	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
 	lvColumn.fmt = LVCFMT_LEFT;
 	
@@ -640,8 +634,7 @@ BOOL WindowsDlg::onInitDialog()
 
 void WindowsDlg::updateColumnNames()
 {
-	LVCOLUMN lvColumn;
-	memset(&lvColumn, 0, sizeof(lvColumn));
+	LVCOLUMN lvColumn{};
 	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
 	lvColumn.fmt = LVCFMT_LEFT;
 
@@ -787,7 +780,7 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 void WindowsDlg::fitColumnsToSize()
 {
 	// perhaps make the path column auto size
-	RECT rc;
+	RECT rc{};
 	if (GetClientRect(_hList, &rc))
 	{
 		int len = (rc.right - rc.left);
@@ -821,14 +814,16 @@ void WindowsDlg::resetSelection()
 
 void WindowsDlg::doSave()
 {
-	NMWINDLG nmdlg;
+	NMWINDLG nmdlg{};
 	nmdlg.type = WDT_SAVE;
 	nmdlg.curSel = ListView_GetNextItem(_hList, -1, LVNI_SELECTED);
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = ListView_GetSelectedCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
-	for (int i=-1, j=0; ; ++j)
+
+	int i = -1;
+	for (UINT j = 0; j < nmdlg.nItems; ++j)
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
@@ -853,7 +848,7 @@ void WindowsDlg::activateCurrent()
 {
 	if (ListView_GetSelectedCount(_hList) == 1)
 	{
-		NMWINDLG nmdlg;
+		NMWINDLG nmdlg{};
 		nmdlg.type = WDT_ACTIVATE;
 		nmdlg.curSel = _idxMap[ListView_GetNextItem(_hList, -1, LVNI_ALL|LVNI_SELECTED)];
 		nmdlg.hwndFrom = _hSelf;
@@ -867,7 +862,7 @@ void WindowsDlg::activateCurrent()
 
 void WindowsDlg::doClose()
 {
-	NMWINDLG nmdlg;
+	NMWINDLG nmdlg{};
 	nmdlg.type = WDT_CLOSE;
 	int index = ListView_GetNextItem(_hList, -1, LVNI_ALL|LVNI_SELECTED);
 	if (index == -1) return;
@@ -879,7 +874,9 @@ void WindowsDlg::doClose()
 	nmdlg.Items = new UINT[nmdlg.nItems];
 	vector<int> key;
 	key.resize(n, 0x7fffffff);
-	for (int i=-1, j=0; ; ++j)
+
+	int i = -1;
+	for (UINT j = 0; j < n; ++j)
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
@@ -946,10 +943,10 @@ void WindowsDlg::doSort()
 	if (_pTab == NULL)
 		return;
 
-	size_t count =  _pTab->nbItem();	
+	size_t count =  _pTab->nbItem();
 	std::vector<UINT> items(count);
 	auto currrentTabIndex = _pTab->getCurrentTabIndex();
-	NMWINDLG nmdlg = {};
+	NMWINDLG nmdlg{};
 	nmdlg.type = WDT_SORT;
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.curSel = currrentTabIndex;
@@ -958,12 +955,12 @@ void WindowsDlg::doSort()
 	nmdlg.Items = items.data();
 	for (size_t i=0; i < count; ++i)
 	{
-		nmdlg.Items[i] = _idxMap[i];		
+		nmdlg.Items[i] = _idxMap[i];
 	}
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
 	if (nmdlg.processed)
 	{
-		_idxMap.clear();		
+		_idxMap.clear();
 		refreshMap();
 	}
 	
@@ -997,7 +994,7 @@ void WindowsDlg::sortFileNameASC()
 
 void WindowsDlg::sortFileNameDSC()
 {
-	sort(0, true);	
+	sort(0, true);
 }
 
 void WindowsDlg::sortFilePathASC()
@@ -1055,7 +1052,7 @@ void WindowsDlg::doSortToTabs()
 	if (curSel == -1)
 		curSel = 0;
 
-	NMWINDLG nmdlg;
+	NMWINDLG nmdlg{};
 	nmdlg.type = WDT_SORT;
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.curSel = _idxMap[curSel];
@@ -1063,7 +1060,8 @@ void WindowsDlg::doSortToTabs()
 	nmdlg.nItems = ListView_GetItemCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
 
-	for (int i=-1, j=0; ; ++j)
+	int i = -1;
+	for (UINT j = 0; j < nmdlg.nItems; ++j)
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_ALL);
 		if (i == -1)
@@ -1085,15 +1083,15 @@ void WindowsDlg::doSortToTabs()
 void WindowsDlg::putItemsToClipboard(bool isFullPath)
 {
 	std::vector<Buffer*> buffers;
-	for (int i = -1, j = 0; ; ++j)
+	int i = -1;
+	do
 	{
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
-		if (i < 0)
-			break;
 		// Get the file name.
 		// Do not use ListView_GetItemText() because 1st column may contain "*" or "[Read Only]".
 		buffers.push_back(getBuffer(i));
 	}
+	while (i >= 0);
 
 	buf2Clipborad(buffers, isFullPath, _hList);
 }

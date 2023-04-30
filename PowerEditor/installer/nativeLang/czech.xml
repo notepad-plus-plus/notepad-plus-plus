@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.5.1  16/Mar/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.5.2  2/Apr/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.5.1">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="8.5.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1316,7 +1316,12 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 				<Item id = "2031" name = "&amp;Inkrementace po:"/>
 				<Item id = "2032" name = "&amp;Formát"/>
 				<Item id = "2033" name = "&amp;Číslo ke vložení"/>
-				<Item id = "2035" name = "&amp;Uvozující nuly"/>
+				<Item id = "2038" name = "&amp;Uvozující znaky:"/>
+				<ComboBox id = "2039">
+					<Element name="Žádné"/>
+					<Element name="Nuly"/>
+					<Element name="Mezery"/>
+				</ComboBox>
 				<Item id = "2036" name = "Opa&amp;kování:"/>
 				<Item id = "1" name = "OK"/>
 				<Item id = "2" name = "Storno"/>
@@ -1470,8 +1475,9 @@ Chcete své změny uložit před přepnutím stylu?"/> <!-- HowToReproduce: In t
 			<ColumnVal name = "Dec"/>
 			<ColumnHex name = "Hex"/>
 			<ColumnChar name = "Znak"/>
-			<ColumnHtmlNumber name = "HTML číslo"/>
-			<ColumnHtmlName name = "HTML kód"/>
+			<ColumnHtmlName name = "HTML"/>
+			<ColumnHtmlNumber name = "HTML Dec"/>
+			<ColumnHtmlHexNb name="HTML Hex"/>
 		</AsciiInsertion>
 		
 		<DocumentMap>
@@ -1647,6 +1653,7 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<summary-nbsel1 value = " vybraných znaků ("/>
 			<summary-nbsel2 value = " bytů) v "/>
 			<summary-nbrange value = " oblastech"/>
+			<progress-hits-title value = "Výskytů:"/>
 			<progress-cancel-button value = "Storno"/>
 			<progress-cancel-info value = "Ruším operaci, počkejte prosím ..."/>
 			<find-in-files-progress-title value = "Průběh hledání v souborech ..."/>

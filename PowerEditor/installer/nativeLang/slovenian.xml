@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.5.1
-        Last modified 28. Mar 2023 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.5.2
+        Last modified 08. Apr 2023 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenščina" filename="slovenian.xml" version="8.5.1">
+    <Native-Langue name="Slovenščina" filename="slovenian.xml" version="8.5.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1281,8 +1281,13 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 				<Item id="2023" name="&amp;Besedilo za vstavljanje"/>
 				<Item id="2033" name="&amp;Številka za vstavljanje"/>
 				<Item id="2030" name="&amp;Začetna številka:"/>
-				<Item id="2031" name="Povečaj z&amp;a:"/>
-				<Item id="2035" name="Vodilne &amp;ničle"/>
+				<Item id="2031" name="Povečaj b&amp;y:"/>
+                <Item id="2038" name="&amp;Vodilno:"/>
+                <ComboBox id="2039">
+                    <Element name="Brez"/>
+                    <Element name="Ničle"/>
+                    <Element name="Presledki"/>
+                </ComboBox>
 	            <Item id="2036" name="&amp;Ponovi:"/>			
 				<Item id="2032" name="Format"/>
 				<Item id="2024" name="&amp;Dec"/>
@@ -1464,8 +1469,9 @@ Ali želite shraniti spremembe, preden zamenjate temo?"/> <!-- HowToReproduce: I
 			<ColumnVal name="Vrednost"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Znak"/>
-			<ColumnHtmlNumber name="HTML število"/>
-			<ColumnHtmlName name="HTML koda"/>
+           <ColumnHtmlName name="HTML Ime"/>
+            <ColumnHtmlNumber name="HTML Decimalno"/>
+            <ColumnHtmlHexNb name="HTML Hexadecimalno"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Mapa dokumenta"/>
@@ -1638,6 +1644,7 @@ Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse
             <summary-nbsel1 value=" izbrani znaki ("/>
             <summary-nbsel2 value=" bajtov) v "/>
             <summary-nbrange value=" razponu"/>
+            <progress-hits-title value="Zadetki:"/>			
 			<progress-cancel-button value="Prekliči"/>
             <progress-cancel-info value="Preklic operacije, počakajte..."/>
             <find-in-files-progress-title value="Potek iskanja v datotekah..."/>

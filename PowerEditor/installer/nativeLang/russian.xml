@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.5.0:
+Updated to v8.5.2:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.5.0">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.5.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -416,7 +416,7 @@ Updated to v8.5.0:
 					<Item id="48014" name="Открыть папку плагинов..."/>
 
 					<Item id="47010" name="Параметры командной строки"/>
-					<Item id="47001" name="Сайт проекта Notepad++"/>
+					<Item id="47001" name="Сайт Notepad++"/>
 					<Item id="47002" name="Страница проекта Notepad++"/>
 					<Item id="47003" name="Руководство онлайн"/>
 					<Item id="47004" name="Форум"/>
@@ -1312,7 +1312,12 @@ Updated to v8.5.0:
 				<Item id="2033" name="Числа для вставки"/>
 				<Item id="2030" name="Исходное число:"/>
 				<Item id="2031" name="Увеличение на:"/>
-				<Item id="2035" name="Добав. 0 слева"/>
+				<Item id="2038" name="&amp;Заполнить :"/>
+				<ComboBox id="2039">
+					<Element   name="Нет"/>
+					<Element   name="Нули"/>
+					<Element   name="Пробелы"/>
+				</ComboBox>
 				<Item id="2036" name="Повторить:"/>
 				<Item id="2032" name="Формат"/>
 				<Item id="2024" name="Десятич."/>
@@ -1453,8 +1458,9 @@ Updated to v8.5.0:
 			<ColumnVal        name="Dec"/>
 			<ColumnHex        name="Hex"/>
 			<ColumnChar       name="Символ"/>
-			<ColumnHtmlNumber name="HTML Номер"/>
-			<ColumnHtmlName   name="HTML Код"/>
+			<ColumnHtmlNumber name="HTML Десятичная"/>
+			<ColumnHtmlName   name="HTML Имя"/>
+			<ColumnHtmlHexNb  name="HTML Шестнадцат."/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Карта Документа"/>
@@ -1628,6 +1634,7 @@ Updated to v8.5.0:
 			<summary-nbsel1              value=" выделенных символов ("/>
 			<summary-nbsel2              value=" байт) в "/>
 			<summary-nbrange             value=" диапазоне(ах)"/>
+			<progress-hits-title         value="Совпадений:"/>
 			<progress-cancel-button      value="Отмена"/>
 			<progress-cancel-info        value="Отмена операции, подождите..."/>
 

@@ -1866,21 +1866,14 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                   }
             break;
 		case BGM_SETGRIDDIM:
-			   if((wParam>=0)&&(wParam<=MAX_ROWS))
-			   {
-				   BGHS[SelfIndex].rows = static_cast<int32_t>(wParam);
-			   }
-			   else
-			   {
-                if(wParam<0)
-                    {
-				     BGHS[SelfIndex].rows = 0;
-                    }
-                else
-                    {
-                     BGHS[SelfIndex].rows = MAX_ROWS;
-                    }
-			   }
+            if (wParam<=MAX_ROWS)
+            {
+	            BGHS[SelfIndex].rows = static_cast<int32_t>(wParam);
+            }
+            else
+            {
+                BGHS[SelfIndex].rows = MAX_ROWS;
+            }
 
 			   if((lParam>0)&&(lParam<=MAX_COLS))
 			   {
@@ -1906,7 +1899,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 
 		case BGM_SETCOLWIDTH:
-			  if((wParam <= MAX_COLS)&&(wParam >= 0) && (lParam >= 0))
+			  if((wParam <= MAX_COLS) && (lParam >= 0))
 			  {
                 RECT rect;
 				BGHS[SelfIndex].columnwidths[wParam] = static_cast<int32_t>(lParam);
@@ -1916,15 +1909,12 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			  }
 			break;
 		case BGM_SETHEADERROWHEIGHT:
-			  if(wParam >= 0)
-			  {
-               RECT rect;
-			   BGHS[SelfIndex].headerrowheight = static_cast<int32_t>(wParam);
-               SizeGrid(hWnd,SelfIndex);
-               GetClientRect(hWnd,&rect);
-               InvalidateRect(hWnd,&rect,FALSE);
-			  }
-			break;
+            RECT rect;
+            BGHS[SelfIndex].headerrowheight = static_cast<int32_t>(wParam);
+            SizeGrid(hWnd, SelfIndex);
+            GetClientRect(hWnd, &rect);
+            InvalidateRect(hWnd, &rect, FALSE);
+            break;
 
         case BGM_GETHOMEROW:
               ReturnValue = BGHS[SelfIndex].homerow;
@@ -2013,8 +2003,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
 
         case BGM_SETTITLEHEIGHT:
-            if(wParam<0){wParam =0;}
-			BGHS[SelfIndex].titleheight = static_cast<int32_t>(wParam);
+            BGHS[SelfIndex].titleheight = static_cast<int32_t>(wParam);
             SetHomeRow(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
             SetHomeCol(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
             {

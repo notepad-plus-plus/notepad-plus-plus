@@ -1313,7 +1313,7 @@ namespace NppDarkMode
 
 			DWORD textFlags = isCenter ? DT_CENTER : DT_LEFT;
 
-			if(::SendMessage(hwnd, WM_QUERYUISTATE, 0, 0) != NULL)
+			if(::SendMessage(hwnd, WM_QUERYUISTATE, 0, 0) != static_cast<LRESULT>(NULL))
 			{
 				textFlags |= DT_HIDEPREFIX;
 			}

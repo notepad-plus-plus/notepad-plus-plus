@@ -70,12 +70,12 @@ size_t Printer::doPrint(bool justDoIt)
 {
 	const NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 
-	POINT ptPage;
-	POINT ptDpi;
+	POINT ptPage{};
+	POINT ptDpi{};
 
-	RECT rectMargins;
-	RECT rectPhysMargins;
-	RECT userMargins;
+	RECT rectMargins{};
+	RECT rectPhysMargins{};
+	RECT userMargins{};
 
 	// Get printer resolution
 	ptDpi.x = GetDeviceCaps(_pdlg.hDC, LOGPIXELSX);    // dpi in X direction
@@ -126,7 +126,7 @@ size_t Printer::doPrint(bool justDoIt)
 	// Convert page size to logical units and we're done!
 	DPtoLP(_pdlg.hDC, &ptPage, 1);
 
-	TEXTMETRIC tm;
+	TEXTMETRIC tm{};
 
 	int fontSize = nppGUI._printSettings._headerFontSize?nppGUI._printSettings._headerFontSize:9;
 	int fontWeight = (nppGUI._printSettings._headerFontStyle & FONTSTYLE_BOLD) ? FW_BOLD : FW_NORMAL;
@@ -172,7 +172,7 @@ size_t Printer::doPrint(bool justDoIt)
 	int printMarge = tm.tmHeight + tm.tmExternalLeading;
 	printMarge = printMarge + printMarge / 2;
 
-	DOCINFO docInfo;
+	DOCINFO docInfo{};
 	docInfo.cbSize = sizeof(DOCINFO);
 	docInfo.fwType = 0;
 	docInfo.lpszDocName = _pSEView->getCurrentBuffer()->getFullPathName();
@@ -205,13 +205,11 @@ size_t Printer::doPrint(bool justDoIt)
 			lengthDoc = _endPos;
 		}
 
-		if (lengthPrinted < 0)
-			lengthPrinted = 0;
 		if (lengthDoc > lengthDocMax)
 			lengthDoc = lengthDocMax;
 	}
 
-	NPP_RangeToFormat frPrint;
+	NPP_RangeToFormat frPrint{};
 	frPrint.hdc = _pdlg.hDC;
 	frPrint.hdcTarget = _pdlg.hDC;
 	frPrint.rc.left = rectMargins.left - rectPhysMargins.left;
@@ -246,7 +244,7 @@ size_t Printer::doPrint(bool justDoIt)
 	TCHAR longDate[bufferSize];
 	TCHAR time[bufferSize];
 
-	SYSTEMTIME st;
+	SYSTEMTIME st{};
 	::GetLocalTime(&st);
 	::GetDateFormat(LOCALE_USER_DEFAULT, DATE_SHORTDATE, &st, NULL, shortDate, bufferSize);
 	::GetDateFormat(LOCALE_USER_DEFAULT, DATE_LONGDATE, &st, NULL, longDate, bufferSize);
@@ -334,7 +332,7 @@ size_t Printer::doPrint(bool justDoIt)
 		if (!justDoIt)
 			printPage = false;
 
-		TCHAR pageString[32];
+		TCHAR pageString[32]{};
 		wsprintf(pageString, TEXT("%0d"), pageNum);
 		
 		if (printPage) 
@@ -354,7 +352,7 @@ size_t Printer::doPrint(bool justDoIt)
 				rcw.bottom = rcw.top + headerLineHeight;
 
 
-				SIZE size;
+				SIZE size{};
 				
 				// Left part
 				if (headerL[0] != '\0')
@@ -421,7 +419,7 @@ size_t Printer::doPrint(bool justDoIt)
 				RECT rcw = {frPrint.rc.left, frPrint.rc.bottom + footerLineHeight / 2,
 					        frPrint.rc.right, frPrint.rc.bottom + footerLineHeight + footerLineHeight / 2};
 
-				SIZE size;
+				SIZE size{};
 				
 				// Left part
 				if (footerL[0] != '\0')
@@ -491,7 +489,7 @@ size_t Printer::doPrint(bool justDoIt)
 	if (fontFooter)
 		::DeleteObject(fontFooter);
 
-	return (pageNum - 1);
+	return (static_cast<size_t>(pageNum) - 1);
 }
 
 

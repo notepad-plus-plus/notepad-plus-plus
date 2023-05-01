@@ -1444,6 +1444,12 @@ Continue?"/>
             <LanguageMenuCompactWarning title="Compact Language Menu" message="This option will be changed on the next launch."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Unsaved changes are about to be discarded!
 Do you want to save your changes before switching themes?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Macro and Run Commands Compatibility" message="Your Macro and Run commands saved in Notepad++ v.8.5.2 (or older) may not be compatible with the current version of Notepad++.
+Please test those commands and, if needed, re-edit them.
+
+Alternatively, you can downgrade to Notepad++ v8.5.2 and restore your previous data.
+Notepad++ will backup your old &quot;shortcuts.xml&quot; and save it as &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Renaming &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, your commands should be restored and work properly.&quot;/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

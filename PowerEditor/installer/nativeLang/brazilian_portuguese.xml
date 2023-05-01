@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 19 Apr 2023, for Notepad++ 8.5.3 
+     Last update by Marcello, 01 May 2023, for Notepad++ 8.5.3 
 -->
 <NotepadPlus>
     <Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.3">
@@ -1435,6 +1435,11 @@ Deseja continuar?"/>
 	    <LanguageMenuCompactWarning title="Menu Compacto de Linguagem" message="Esta opção será alterada na próxima vez que o programa for aberto."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 	    <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Alterações não salvas estão prestes a serem perdidas!
 Deseja salvar suas alterações antes de alterar os temas?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+	    <MacroAndRunCmdlWarning title="Compatibilidade de comandos Macro e Executar" message="Seus comandos Macro e Executar salvos no Notepad++ v.8.5.2 (ou anteriores) podem não ser compatíveis com a versão atual do Notepad++.
+Por favor, teste estes comandos e, se necessário, altere-os.
+Como alternativa, você pode voltar à versão v8.5.2 do Notepad++ e restaurar os dados anteriores.
+O Notepad++ irá efetuar backup do seu arquivo &quot;shortcuts.xml&quot; anterior e salvá-lo como &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Ao renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, seus comandos devem ser restaurados e devem funcionar a contento."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>

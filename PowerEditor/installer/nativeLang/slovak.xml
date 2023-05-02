@@ -490,15 +490,15 @@
             </IncrementalFind>
 
             <FindCharsInRange title = "Hľadať znaky v rozsahu">
-                <Item id="2" name="Zavrieť"/>
-                <Item id="2901" name="Nie-ASCII znaky (128-255)"/>
-                <Item id="2902" name="ASCII znaky (0 - 127)"/>
-                <Item id="2903" name="Vlastný rozsah:"/>
+                <Item id="2" name="&amp;Zavrieť"/>
+                <Item id="2901" name="&amp;Nie-ASCII znaky (128 – 255)"/>
+                <Item id="2902" name="&amp;ASCII znaky (0 – 127)"/>
+                <Item id="2903" name="Vlastný &amp;rozsah (0 – 255):"/>
                 <Item id="2906" name="&amp;Hore"/>
                 <Item id="2907" name="&amp;Dole"/>
                 <Item id="2908" name="Smer"/>
                 <Item id="2909" name="&amp;Cyklicky"/>
-                <Item id="2910" name="Hľadať"/>
+                <Item id="2910" name="&amp;Hľadať"/>
             </FindCharsInRange>
 
             <GoToLine title="Ísť na…">
@@ -1446,6 +1446,11 @@ Pokračovať?"/>
             <LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené zmeny budú odstránené!
             Chcete uložiť zmeny pred prepnutím motívu?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Kompatibilita makier a príkazov cez ponuku Spustiť" message="Vaše makrá a príkazy cez ponuku Spustiť uložené v Notepad++ v.8.5.2 (alebo staršej) nemusia byť kompatibilné s aktuálnou verziou programu Notepad++.
+Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
+Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
+Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="História schránky"/>

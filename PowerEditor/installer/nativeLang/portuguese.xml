@@ -490,15 +490,15 @@ The comments are here for explanation, it's not necessary to translate them.
             </IncrementalFind>
 
             <FindCharsInRange title="Localizar caracteres no alcance...">
-                <Item id="2" name="Fechar"/>
-                <Item id="2901" name="Caracteres Não-ASCII (128-255)"/>
-                <Item id="2902" name="Caracteres ASCII (0-127)"/>
-                <Item id="2903" name="Meu alcance:"/>
+                <Item id="2" name="&amp;Fechar"/>
+                <Item id="2901" name="Caracteres &amp;Não-ASCII (128–255)"/>
+                <Item id="2902" name="Caracteres &amp;ASCII (0–127)"/>
+                <Item id="2903" name="Alcance &amp;personalizado (0–255):"/>
                 <Item id="2906" name="&amp;Cima"/>
                 <Item id="2907" name="&amp;Baixo"/>
                 <Item id="2908" name="Direção"/>
-                <Item id="2909" name="Moldar à volta"/>
-                <Item id="2910" name="Localizar"/>
+                <Item id="2909" name="Mol&amp;dar à volta"/>
+                <Item id="2910" name="&amp;Localizar"/>
             </FindCharsInRange>
 
             <GoToLine title="Ir para...">
@@ -519,27 +519,27 @@ The comments are here for explanation, it's not necessary to translate them.
             </Run>
 
             <MD5FromFilesDlg title="Gerar resumo MD5 de ficheiros">
-                <Item id="1922" name="Escolher ficheiros para gerar MD5..."/>
-                <Item id="1924" name="Copiar p/ a área de transferência"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1922" name="Escolher ficheiros para &amp;gerar MD5..."/>
+                <Item id="1924" name="Co&amp;piar p/ a área de transferência"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Gerar resumo MD5">
-                <Item id="1932" name="Tratar cada linha como uma frase separada"/>
-                <Item id="1934" name="Copiar p/ a área de transferência"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1932" name="Tratar cada linha como uma frase &amp;separada"/>
+                <Item id="1934" name="Co&amp;piar p/ a área de transferência"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Gerar resumo SHA-256 de ficheiros">
-                <Item id="1922" name="Escolher ficheiros para gerar SHA-256..."/>
-                <Item id="1924" name="Copiar p/ a área de transferência"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1922" name="Escolher ficheiros para &amp;gerar SHA-256..."/>
+                <Item id="1924" name="Co&amp;piar p/ a área de transferência"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Gerar resumo SHA-256">
-                <Item id="1932" name="Tratar cada linha como uma frase separada"/>
-                <Item id="1934" name="Copiar p/ a área de transferência"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1932" name="Tratar cada linha como uma frase &amp;separada"/>
+                <Item id="1934" name="Co&amp;piar p/ a área de transferência"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Admin de plugins" titleAvailable="Disponível" titleUpdates="Atualizações" titleInstalled="Instalado" titleIncompatible="Incompatível">
@@ -1444,6 +1444,12 @@ Continuar?"/>
             <LanguageMenuCompactWarning title="Menu de linguagem compacta" message="Esta opção será alterada na próxima vez que iniciar."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="As alterações não guardadas estão prestes a ser descartadas!
 Quer guardar as suas alterações antes de mudar de tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Compatibilidade de macros e comandos de execução" message="Os comandos Macro e Executar guardados no Notepad++ v.8.5.2 (ou anterior) podem não ser compatíveis com a versão atual do Notepad++.
+Teste esses comandos e, se necessário, edite-os novamente.
+
+Em alternativa, pode reverter para o Notepad++ v8.5.2 e restaurar os dados anteriores.
+O Notepad++ fará uma cópia de segurança do seu antigo &quot;shortcuts.xml&quot; e guardá-lo-á como &quot;shortcuts.xml.v8.5.2.backup&quot;.
+A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, os seus comandos devem estar restaurados e a funcionar corretamente."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Histórico da área de transferência"/>
@@ -1737,7 +1743,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 15 Abr 2023 by Hugo Carvalho
+Last modified: 02 May 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

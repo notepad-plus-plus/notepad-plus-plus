@@ -111,6 +111,7 @@ BEGIN
     CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,141,270,10
     CONTROL         "Keep selection when right-click outside of selection",IDC_CHECK_RIGHTCLICKKEEPSSELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,156,270,10
     CONTROL         "Disable advanced scrolling feature due to touchpad issue",IDC_CHECK_DISABLEADVANCEDSCROLL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,171,270,10
+    CONTROL         "Ignore last line of file (if empty) when sorting lines",IDC_CHECK_SORT_LAST_EMPTY_LINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,186,270,10
 END
 
 

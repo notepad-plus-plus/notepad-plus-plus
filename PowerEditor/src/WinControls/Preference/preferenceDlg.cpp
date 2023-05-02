@@ -823,6 +823,7 @@ void EditingSubDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_SETCHECK, svp._scrollBeyondLastLine, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_SETCHECK, svp._rightClickKeepsSelection, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_SORT_LAST_EMPTY_LINE, BM_SETCHECK, !svp._sortLastLineIfEmpty, 0);
 }
 
 void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
@@ -1158,6 +1159,10 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_CHECK_DISABLEADVANCEDSCROLL:
 					svp._disableAdvancedScrolling = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_GETCHECK, 0, 0));
+					return TRUE;
+
+				case IDC_CHECK_SORT_LAST_EMPTY_LINE:
+					svp._sortLastLineIfEmpty = !isCheckedOrNot(IDC_CHECK_SORT_LAST_EMPTY_LINE);
 					return TRUE;
 
                 case IDC_CHECK_MULTISELECTION :

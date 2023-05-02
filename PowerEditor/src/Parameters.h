@@ -961,6 +961,7 @@ struct ScintillaViewParams
 	bool _disableAdvancedScrolling = false;
 	bool _doSmoothFont = false;
 	bool _showBorderEdge = true;
+	bool _sortLastLineIfEmpty = true;
 
 	unsigned char _paddingLeft = 0;  // 0-9 pixel
 	unsigned char _paddingRight = 0; // 0-9 pixel

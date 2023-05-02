@@ -3846,23 +3846,32 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
 	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
-	const bool lastLineEmpty = splitText.rbegin()->empty();
 	auto correctLineCount = toLine - fromLine + 1;
-	if (lastLineEmpty)
+	// some people really dislike having the last empty line of the file be sorted to the top.
+	// if that setting was checked, ignore the last empty line of the file when sorting lines
+	// with no selection.
+	const bool lastLineEmpty = splitText.rbegin()->empty();
+	const size_t lineCount = execute(SCI_GETLINECOUNT);
+	const bool sortEntireDocument = toLine == lineCount - 1;
+
+	NppParameters& nppParams = NppParameters::getInstance();
+	const ScintillaViewParams& svp = nppParams.getSVP();
+	const bool removeLastEmptyLine = lastLineEmpty &&
+		(!sortEntireDocument 
+		|| (sortEntireDocument && !svp._sortLastLineIfEmpty));
+	if (removeLastEmptyLine)
 	{
 		splitText.pop_back();
-		// line count is treated differently for selections and the entire document
-		const size_t lineCount = execute(SCI_GETLINECOUNT);
-		const bool sortEntireDocument = toLine == lineCount - 1;
 		if (sortEntireDocument)
 		{
+			// line count is treated differently for selections vs. the entire document
 			correctLineCount -= 1;
 		}
 	}
 	assert(splitText.size() == correctLineCount);
 	const std::vector<generic_string> sortedText = pSort->sort(splitText);
 	generic_string joined = stringJoin(sortedText, getEOLString());
-	if (lastLineEmpty)
+	if (removeLastEmptyLine)
 	{
 		assert(joined.length() + getEOLString().length() == text.length());
 		joined += getEOLString();

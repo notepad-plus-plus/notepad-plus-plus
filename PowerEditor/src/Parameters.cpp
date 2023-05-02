@@ -562,6 +562,8 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_ROTATESELECTION"),         SCI_ROTATESELECTION,         false, false, false, 0,           0}
 };
 
+#define NONEEDSHORTCUTSXMLBACKUP_FILENAME L"v852NoNeedShortcutsBackup.xml"
+#define SHORTCUTSXML_FILENAME L"shortcuts.xml"
 
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
@@ -1460,15 +1462,22 @@ bool NppParameters::load()
 	//------------------------------//
 	// shortcuts.xml : for per user //
 	//------------------------------//
-	_shortcutsPath = _userPath;
-	pathAppend(_shortcutsPath, TEXT("shortcuts.xml"));
+	wstring v852NoNeedShortcutsBackup;
+	_shortcutsPath = v852NoNeedShortcutsBackup = _userPath;
+	pathAppend(_shortcutsPath, SHORTCUTSXML_FILENAME);
+	pathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
 
 	if (!PathFileExists(_shortcutsPath.c_str()))
 	{
 		generic_string srcShortcutsPath(_nppPath);
-		pathAppend(srcShortcutsPath, TEXT("shortcuts.xml"));
+		pathAppend(srcShortcutsPath, SHORTCUTSXML_FILENAME);
 
 		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
+
+		// Creat empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
+		HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		::FlushFileBuffers(hFile);
+		::CloseHandle(hFile);
 	}
 
 	_pXmlShortcutDocA = new TiXmlDocumentA();
@@ -3186,7 +3195,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 
 	// shortcuts.xml
 	generic_string cloudShortcutsPath = cloudSettingsPath;
-	pathAppend(cloudShortcutsPath, TEXT("shortcuts.xml"));
+	pathAppend(cloudShortcutsPath, SHORTCUTSXML_FILENAME);
 	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDocA)
 	{
 		isOK = _pXmlShortcutDocA->SaveUnicodeFilePath(cloudShortcutsPath.c_str());
@@ -3540,15 +3549,15 @@ void NppParameters::writeShortcuts()
 	}
 	else
 	{
-		wchar_t v852ShortcutsHasBeenBackup[MAX_PATH]{};
-		::wcscpy_s(v852ShortcutsHasBeenBackup, _shortcutsPath.c_str());
-		::PathRemoveFileSpec(v852ShortcutsHasBeenBackup);
-		::PathAppend(v852ShortcutsHasBeenBackup, L"v852ShortcutsCompatibilityWarning.xml");
+		wchar_t v852NoNeedShortcutsBackup[MAX_PATH]{};
+		::wcscpy_s(v852NoNeedShortcutsBackup, _shortcutsPath.c_str());
+		::PathRemoveFileSpec(v852NoNeedShortcutsBackup);
+		::PathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
 
-		if (!::PathFileExists(v852ShortcutsHasBeenBackup))
+		if (!::PathFileExists(v852NoNeedShortcutsBackup))
 		{
-			// Creat empty file v852ShortcutsCompatibilityWarning.xml for not giving warning, neither doing backup, in future use.
-			HANDLE hFile = ::CreateFile(v852ShortcutsHasBeenBackup, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+			// Creat empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
+			HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 			::FlushFileBuffers(hFile);
 			::CloseHandle(hFile);
 

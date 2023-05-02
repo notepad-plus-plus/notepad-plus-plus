@@ -519,27 +519,27 @@
             </Run>
 
             <MD5FromFilesDlg title="Vytvoriť MD5 kontrolný súčet zo súborov">
-                <Item id="1922" name="Vybrať súbory na generovanie MD5…"/>
-                <Item id="1924" name="Skopírovať do schránky"/>
-                <Item id="2"    name="Zavrieť"/>
+                <Item id="1922" name="Vyberte súbory na &amp;generovanie MD5…"/>
+                <Item id="1924" name="Sko&amp;pírovať do schránky"/>
+                <Item id="2"    name="&amp;Zavrieť"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Vytvoriť MD5 kontrolný súčet">
-                <Item id="1932" name="Každý riadok ako samostatný textový reťazec"/>
-                <Item id="1934" name="Skopírovať do schránky"/>
-                <Item id="2"    name="Zavrieť"/>
+                <Item id="1932" name="Každý riadok ako &amp;samostatný textový reťazec"/>
+                <Item id="1934" name="Sko&amp;pírovať do schránky"/>
+                <Item id="2"    name="&amp;Zavrieť"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Vytvoriť SHA-256 kontrolný súčet zo súborov">
-                <Item id="1922" name="Vybrať súbory na generovanie SHA-256…"/>
-                <Item id="1924" name="Skopírovať do schránky"/>
-                <Item id="2" name="Zavrieť"/>
+                <Item id="1922" name="Vyberte súbory na &amp;generovanie hašu…"/>
+                <Item id="1924" name="Sko&amp;pírovať do schránky"/>
+                <Item id="2" name="&amp;Zavrieť"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Vytvoriť SHA-256 kontrolný súčet">
-                <Item id="1932" name="Každý riadok ako samostatný textový reťazec"/>
-                <Item id="1934" name="Skopírovať do schránky"/>
-                <Item id="2" name="Zavrieť"/>
+                <Item id="1932" name="Každý riadok ako &amp;samostatný textový reťazec"/>
+                <Item id="1934" name="Sko&amp;pírovať do schránky"/>
+                <Item id="2" name="&amp;Zavrieť"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné">

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="AddUchardet"
+      AfterTargets="BuildGenerateSources">
+    <ItemGroup>
+      <ClCompile Include="@(_ClCompileUchardet)" />
+      <ClInclude Include="@(_ClIncludeUchardet)" />
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <_ClCompileUchardet Include="..\src\uchardet\CharDistribution.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\JpCntx.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\LangBulgarianModel.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\LangCyrillicModel.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\LangGreekModel.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\LangHebrewModel.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\LangHungarianModel.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\LangThaiModel.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsBig5Prober.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsCharSetProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsEscCharsetProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsEscSM.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsEUCJPProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsEUCKRProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsEUCTWProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsGB2312Prober.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsHebrewProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsLatin1Prober.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsMBCSGroupProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsMBCSSM.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsSBCharSetProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsSBCSGroupProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsSJISProber.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsUniversalDetector.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\nsUTF8Prober.cpp" />
+    <_ClCompileUchardet Include="..\src\uchardet\uchardet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ClIncludeUchardet Include="..\src\uchardet\CharDistribution.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\JpCntx.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsBig5Prober.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsCharSetProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsCodingStateMachine.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nscore.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsEscCharsetProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsEUCJPProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsEUCKRProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsEUCTWProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsGB2312Prober.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsHebrewProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsLatin1Prober.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsMBCSGroupProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsPkgInt.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsSBCharSetProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsSBCSGroupProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsSJISProber.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsUniversalDetector.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\nsUTF8Prober.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\prmem.h" />
+    <_ClIncludeUchardet Include="..\src\uchardet\uchardet.h" />
+  </ItemGroup>
+</Project>

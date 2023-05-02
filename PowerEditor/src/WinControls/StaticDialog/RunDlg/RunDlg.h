@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include <oleacc.h>
 #include "Common.h"
 #include "RunDlg_rc.h"
 
@@ -57,10 +56,10 @@ public :
 	RunDlg() = default;
 
 	void doDialog(bool isRTL = false);
-    virtual void destroy() {};
+	void destroy() override {};
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	void addTextToCombo(const TCHAR *txt2Add) const;

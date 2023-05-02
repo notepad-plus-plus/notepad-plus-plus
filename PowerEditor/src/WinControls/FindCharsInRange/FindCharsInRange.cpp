@@ -20,11 +20,11 @@
 #include "Parameters.h"
 #include "localization.h"
 
-intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
@@ -32,27 +32,40 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			::SendDlgItemMessage(_hSelf, IDC_RANGEEND_EDIT, EM_LIMITTEXT, 3, 0);
 			::SendDlgItemMessage(_hSelf, IDC_NONASCCI_RADIO, BM_SETCHECK, TRUE, 0);
 			::SendDlgItemMessage(_hSelf, ID_FINDCHAR_DIRDOWN, BM_SETCHECK, TRUE, 0);
-			goToCenter();
+
+			::SetDlgItemInt(_hSelf, IDC_RANGESTART_EDIT, 0, FALSE);
+			::SetDlgItemInt(_hSelf, IDC_RANGEEND_EDIT, 255, FALSE);
+
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RANGESTART_EDIT), FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_RANGEEND_EDIT), FALSE);
+
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
+			const auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+
+			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
+			if (dlgCtrlID == IDC_STATIC)
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				const bool isTextEnabled = isCheckedOrNot(IDC_MYRANGE_RADIO);
+				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
-			break;
+			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:
@@ -68,7 +81,7 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -82,11 +95,30 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			return TRUE;
 		}
 
-		case WM_COMMAND :
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
-				case IDCANCEL : // Close
+				case IDC_NONASCCI_RADIO:
+				case IDC_ASCCI_RADIO:
+				{
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RANGESTART_EDIT), FALSE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RANGEEND_EDIT), FALSE);
+					redrawDlgItem(IDC_STATIC);
+
+					return TRUE;
+				}
+
+				case IDC_MYRANGE_RADIO:
+				{
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RANGESTART_EDIT), TRUE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RANGEEND_EDIT), TRUE);
+					redrawDlgItem(IDC_STATIC);
+
+					return TRUE;
+				}
+
+				case IDCANCEL: // Close
 					display(false);
 					return TRUE;
 
@@ -204,7 +236,8 @@ bool FindCharsInRangeDlg::getRangeFromUI(unsigned char & startRange, unsigned ch
 	
 	if (isCheckedOrNot(IDC_MYRANGE_RADIO))
 	{
-		BOOL startBool, endBool;
+		BOOL startBool = FALSE;
+		BOOL endBool = FALSE;
 		int start = ::GetDlgItemInt(_hSelf, IDC_RANGESTART_EDIT, &startBool, FALSE);
 		int end = ::GetDlgItemInt(_hSelf, IDC_RANGEEND_EDIT, &endBool, FALSE);
 

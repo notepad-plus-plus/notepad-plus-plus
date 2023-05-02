@@ -32,25 +32,21 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
-		StaticDialog::create(dialogID, isRTL, msgDestParent);
-	};
-
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
 			create(IDD_FINDCHARACTERS, isRTL);
 		display();
 	};
 
-    virtual void display(bool toShow = true) const {
-        Window::display(toShow);
-    };
+	void display(bool toShow = true) const override {
+		Window::display(toShow);
+	};
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
-    ScintillaEditView **_ppEditView = nullptr;
+	ScintillaEditView **_ppEditView = nullptr;
 	bool findCharInRange(unsigned char beginRange, unsigned char endRange, intptr_t startPos, bool direction, bool wrap);
 	bool getRangeFromUI(unsigned char & startRange, unsigned char & endRange);
 	void getDirectionFromUI(bool & whichDirection, bool & isWrap);

@@ -18,7 +18,6 @@
 #pragma once
 
 #include "SizeableDlg.h"
-#include "Common.h"
 #include "ContextMenu.h"
 
 class DocTabView;
@@ -69,12 +68,12 @@ public :
 	void doRefresh(bool invalidate = false);
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	virtual BOOL onInitDialog();
-	virtual void onSize(UINT nType, int cx, int cy);
-	virtual void onGetMinMaxInfo(MINMAXINFO* lpMMI);
-	virtual LRESULT onWinMgr(WPARAM wp, LPARAM lp);
-	virtual void destroy();
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+	BOOL onInitDialog() override;
+	void onSize(UINT nType, int cx, int cy) override;
+	void onGetMinMaxInfo(MINMAXINFO* lpMMI) override;
+	LRESULT onWinMgr(WPARAM wp, LPARAM lp) override;
+	void destroy() override;
 	void updateColumnNames();
 	void fitColumnsToSize();
 	void resetSelection();
@@ -90,8 +89,8 @@ protected :
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;
-	SIZE _szMinButton = {};
-	SIZE _szMinListCtrl = {};
+	SIZE _szMinButton{};
+	SIZE _szMinListCtrl{};
 	DocTabView* _pTab = nullptr;
 	std::vector<int> _idxMap;
 	int _currentColumn = -1;
@@ -100,7 +99,7 @@ protected :
 	ContextMenu _listMenu;
 
 private:
-	virtual void init(HINSTANCE hInst, HWND parent);	
+	void init(HINSTANCE hInst, HWND parent) override;
 };
 
 class WindowsMenu

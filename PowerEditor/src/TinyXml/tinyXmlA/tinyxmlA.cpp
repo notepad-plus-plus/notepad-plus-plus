@@ -87,6 +87,8 @@ void TiXmlBaseA::PutString( const TIXMLA_STRING& str, TIXMLA_STRING* outString )
 			outString->append( entity[4].str, entity[4].strLength );
 			++i;
 		}
+		// Remove the following code for that attribute value can be human readable if it contains Unicode characters
+		/*
 		else if ( c < 32 || c > 126 )
 		{
 			// Easy pass at non-alpha/numeric/symbol
@@ -96,6 +98,7 @@ void TiXmlBaseA::PutString( const TIXMLA_STRING& str, TIXMLA_STRING* outString )
 			outString->append( buf, strlen( buf ) );
 			++i;
 		}
+		*/
 		else
 		{
 			char realc = static_cast<char>(c);

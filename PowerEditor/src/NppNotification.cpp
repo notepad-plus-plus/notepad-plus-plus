@@ -1025,8 +1025,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				recordedMacroStep(
 					notification->message,
 					notification->wParam,
-					notification->lParam,
-					static_cast<int32_t>(_pEditView->execute(SCI_GETCODEPAGE))
+					notification->lParam
 				)
 			);
 			break;

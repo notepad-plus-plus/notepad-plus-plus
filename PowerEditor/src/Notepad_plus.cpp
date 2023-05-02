@@ -1676,22 +1676,81 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 
 void Notepad_plus::removeDuplicateLines()
 {
-	// whichPart : line head or line tail
-	FindOption env;
+	intptr_t mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
+	intptr_t mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	bool isEntireDoc = (mainSelAnchor == mainSelCaretPos);
 
-	env._str2Search = TEXT("^(.*(\\r?\\n|\\r))(\\1)+");
-	env._str4Replace = TEXT("\\1");
-	env._searchType = FindRegex;
-	auto mainSelStart = _pEditView->execute(SCI_GETSELECTIONSTART);
-	auto mainSelEnd = _pEditView->execute(SCI_GETSELECTIONEND);
-	auto mainSelLength = mainSelEnd - mainSelStart;
-	bool isEntireDoc = mainSelLength == 0;
-	env._isInSelection = !isEntireDoc;
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	intptr_t startLine = 0;
+	intptr_t endLine = _pEditView->lastZeroBasedLineNumber();
 
-	// remove the last line if it's a duplicate line.
-	env._str2Search = TEXT("^(.+)(\\r?\\n|\\r)(\\1)$");
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	if (!isEntireDoc)
+	{
+		intptr_t startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
+		startLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
+		intptr_t endPos = _pEditView->execute(SCI_GETSELECTIONEND);
+		endLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
+		if (endPos == _pEditView->execute(SCI_POSITIONFROMLINE, endLine))
+			endLine -= 1;
+	}
+
+	if (startLine == endLine)
+		return;
+
+	intptr_t firstMatchLineNr = 0;
+	intptr_t lastMatchLineNr = 0;
+	generic_string firstMatchLineStr;
+	generic_string lastMatchLineStr;
+
+	for (intptr_t i = startLine; i <= endLine; i++)
+	{
+		if (firstMatchLineStr.empty())
+		{
+			firstMatchLineNr = lastMatchLineNr = i;
+			firstMatchLineStr = _pEditView->getLine(i);
+			continue;
+		}
+		else
+			lastMatchLineStr = _pEditView->getLine(i);
+
+		if (firstMatchLineStr == lastMatchLineStr)
+		{
+			lastMatchLineNr = i;
+			if (i != endLine)
+				continue;
+		}
+
+		if (firstMatchLineNr != lastMatchLineNr)
+		{
+			intptr_t startPos = _pEditView->execute(SCI_POSITIONFROMLINE, firstMatchLineNr + 1);
+			intptr_t endPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastMatchLineNr) + _pEditView->execute(SCI_LINELENGTH, lastMatchLineNr);
+			_pEditView->execute(SCI_DELETERANGE, startPos, endPos - startPos);
+			intptr_t removedLines = lastMatchLineNr - firstMatchLineNr;
+			i -= removedLines;
+			endLine -= removedLines;
+		}
+
+		firstMatchLineStr = lastMatchLineStr;
+		firstMatchLineNr = lastMatchLineNr = i;
+
+	}
+
+	// correct the last line (without EOL) if it's a duplicate line
+	intptr_t endLineStartPos = _pEditView->execute(SCI_POSITIONFROMLINE, endLine);
+	intptr_t endLineEndPos = _pEditView->execute(SCI_GETLINEENDPOSITION, endLine);
+	intptr_t endLineLength = _pEditView->execute(SCI_LINELENGTH, endLine);
+
+	if (endLine == _pEditView->lastZeroBasedLineNumber() && endLineLength && ((endLineEndPos - endLineStartPos) == endLineLength))
+	{
+		intptr_t prevLine = endLine - 1;
+		intptr_t prevLineStartPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
+		intptr_t prevLineEndPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
+		intptr_t prevLineLength = _pEditView->execute(SCI_LINELENGTH, prevLine);
+		const generic_string endLineStr = _pEditView->getLine(endLine);
+		const generic_string prevLineStr = _pEditView->getGenericTextAsString(prevLineStartPos, prevLineEndPos);
+		if (endLineStr == prevLineStr)
+			_pEditView->execute(SCI_DELETERANGE, prevLineStartPos, prevLineLength);
+	}
+
 }
 
 void Notepad_plus::getMatchedFileNames(const TCHAR *dir, size_t level, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
@@ -4738,12 +4797,14 @@ void Notepad_plus::staticCheckMenuAndTB() const
 	const bool wsTabShow = _pEditView->isShownSpaceAndTab();
 	const bool eolShow = _pEditView->isShownEol();
 	const bool npcShow = _pEditView->isShownNpc();
+	const bool ccUniEolShow = _pEditView->isShownCcUniEol();
 
-	const bool allShow = wsTabShow && eolShow && npcShow;
+	const bool allShow = wsTabShow && eolShow && npcShow && ccUniEolShow;
 
 	checkMenuItem(IDM_VIEW_TAB_SPACE, wsTabShow);
 	checkMenuItem(IDM_VIEW_EOL, eolShow);
 	checkMenuItem(IDM_VIEW_NPC, npcShow);
+	checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, ccUniEolShow);
 	checkMenuItem(IDM_VIEW_ALL_CHARACTERS, allShow);
 	_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allShow);
 
@@ -5344,8 +5405,8 @@ bool Notepad_plus::addCurrentMacro()
 			::InsertMenu(hMacroMenu, posBase + nbTopLevelItem + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, nativeLangShortcutMapperMacro.c_str());
         }
 		theMacros.push_back(ms);
-		macroMenu.push_back(MenuItemUnit(cmdID, ms.getName()));
-		::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + nbTopLevelItem), MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
+		macroMenu.push_back(MenuItemUnit(cmdID, string2wstring(ms.getName(), CP_UTF8)));
+		::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + nbTopLevelItem), MF_BYPOSITION, cmdID, string2wstring(ms.toMenuItemString(), CP_UTF8).c_str());
 		_accelerator.updateShortcuts();
 		nppParams.setShortcutDirty();
 		return true;
@@ -6339,6 +6400,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		setUniModeText();
 		setDisplayFormat(buffer->getEolFormat());
 		enableConvertMenuItems(buffer->getEolFormat());
+	}
+
+	if (mask & (BufferChangeUnicode))
+	{
+		_mainEditView.maintainStateForNpc();
+		_subEditView.maintainStateForNpc();
 	}
 }
 
@@ -8507,7 +8574,7 @@ void Notepad_plus::updateCommandShortcuts()
 				shortcutName = menuName;
 		}
 
-		csc.setName(menuName.c_str(), shortcutName.c_str());
+		csc.setName(wstring2string(menuName, CP_UTF8).c_str(), wstring2string(shortcutName, CP_UTF8).c_str());
 	}
 }
 

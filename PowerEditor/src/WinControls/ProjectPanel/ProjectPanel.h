@@ -65,10 +65,6 @@ public:
 		_panelID = panelID;
 	}
 
-	virtual void display(bool toShow = true) const {
-		DockingDlgInterface::display(toShow);
-	};
-
 	void setParent(HWND parent2set){
 		_hParent = parent2set;
 	};
@@ -96,10 +92,10 @@ public:
 	};
 	bool checkIfNeedSave();
 
-	virtual void setBackgroundColor(COLORREF bgColour) {
+	void setBackgroundColor(COLORREF bgColour) override {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
 	};
-	virtual void setForegroundColor(COLORREF fgColour) {
+	void setForegroundColor(COLORREF fgColour) override {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
 	};
 	bool enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames);
@@ -125,14 +121,14 @@ protected:
 	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);
 	HTREEITEM addFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
 
-	bool writeWorkSpace(const TCHAR *projectFileName = NULL);
+	bool writeWorkSpace(const TCHAR *projectFileName = NULL, bool doUpdateGUI = true);
 	generic_string getRelativePath(const generic_string & fn, const TCHAR *workSpaceFileName);
 	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);
 	NodeType getNodeType(HTREEITEM hItem);
 	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplayPoint(int iButton);
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
@@ -148,21 +144,17 @@ class FileRelocalizerDlg : public StaticDialog
 {
 public :
 	FileRelocalizerDlg() = default;
-	void init(HINSTANCE hInst, HWND parent) {
-		Window::init(hInst, parent);
-	};
 
 	int doDialog(const TCHAR *fn, bool isRTL = false);
 
-	virtual void destroy() {
-	};
+	void destroy() override {};
 
 	generic_string getFullFilePath() {
 		return _fullFilePath;
 	};
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	generic_string _fullFilePath;

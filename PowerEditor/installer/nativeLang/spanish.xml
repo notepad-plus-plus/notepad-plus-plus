@@ -1444,6 +1444,12 @@ Notepad++ se reiniciará después de que finalicen todas.
             <LanguageMenuCompactWarning title="Menú compacto de lenguajes" message="Esta opción se cambiará en el siguiente inicio."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="¡Los cambios no guardados serán descartados!
 ¿Quiere guardar los cambios antes de cambiar de tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Compatibilidad de Macro y Ejecutar" message="Los comandos Macro y Ejecutar guardados en Notepad++ v.8.5.2 (o anterior) pueden no ser compatibles con la versión actual de Notepad++.
+Pruebe estos comandos y, si es necesario, vuelva a editarlos.
+
+Alternativamente, puede reinstalar Notepad++ v8.5.2 y restaurar sus datos anteriores.
+Notepad++ hará una copia de seguridad de su antiguo &quot;shortcuts.xml&quot; y lo guardará como &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Cambie el nombre de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; y sus comandos serán restaurados y funcionales de nuevo."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historial del portapapeles"/>

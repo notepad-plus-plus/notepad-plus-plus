@@ -519,27 +519,27 @@
             </Run>
 
             <MD5FromFilesDlg title="Gerar MD5 dos arquivos">
-                <Item id="1922" name="Escolher arquivos para gerar MD5..."/>
-                <Item id="1924" name="Copiar"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1922" name="Escolher arquivos para &amp;gerar MD5..."/>
+                <Item id="1924" name="Co&amp;piar"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Gerar MD5">
-                <Item id="1932" name="Tratar cada linha como uma string separada"/>
-                <Item id="1934" name="Copiar"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
+                <Item id="1934" name="Co&amp;piar"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Gerar SHA-256 dos arquivos">
-                <Item id="1922" name="Escolha arquivos para gerar o SHA-256..."/>
-                <Item id="1924" name="Copiar"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1922" name="Escolha arquivos para &amp;gerar o SHA-256..."/>
+                <Item id="1924" name="Co&amp;piar"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Gerar SHA-256">
-                <Item id="1932" name="Tratar cada linha como uma string separada"/>
-                <Item id="1934" name="Copiar"/>
-                <Item id="2"    name="Fechar"/>
+                <Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
+                <Item id="1934" name="Co&amp;piar"/>
+                <Item id="2"    name="&amp;Fechar"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">

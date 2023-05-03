@@ -534,7 +534,7 @@ Updated to v8.5.3:
 				<Item id="2"    name="Закрыть"/>
 				<Item id="2901" name="Не-ASCII символы (128-255)"/>
 				<Item id="2902" name="ASCII символы (0 - 127)"/>
-				<Item id="2903" name="Свой диапазон:"/>
+				<Item id="2903" name="Польз. диапазон:"/>
 				<Item id="2906" name="Вверх"/>
 				<Item id="2907" name="Вниз"/>
 				<Item id="2908" name="Направление"/>
@@ -1297,7 +1297,7 @@ Updated to v8.5.3:
 				<MultiMacro title = "Многократный запуск ...">
 				<Item id="1"    name="Запуск"/>
 				<Item id="2"    name="Закрыть"/>
-				<Item id="8006" name="Макрос:"/>
+				<Item id="8006" name="Макрос"/>
 				<Item id="8001" name="Выполнить"/>
 				<Item id="8005" name="раз(а)"/>
 				<Item id="8002" name="Выполнять до конца файла"/>
@@ -1435,6 +1435,12 @@ Updated to v8.5.3:
 			<WindowsSessionExit                  title="Notepad++ - Завершение работы Windows"      message="Windows завершает свою работу и у вас есть несохраненные данные. Вы хотите выйти из Notepad++ сейчас?"/>
 			<LanguageMenuCompactWarning          title="Компактное меню Синтаксисов"                message="Этот параметр будет изменен при следующем запуске Notepad++."/> 
 			<SwitchUnsavedThemeWarning           title="$STR_REPLACE$"                              message="Несохраненные изменения будут потеряны!&#x0A;Вы хотите сохранить изменения перед переключением тем?"/>
+			<MacroAndRunCmdlWarning              title="Macro and Run Commands Compatibility"       message="Ваши команды Макросы и Запуск сохранённые в Notepad++ v.8.5.2 (и старше) могут быть несовместимы с текущей версией Notepad++.
+Пожалуйста, протестируйте эти команды и при необходимости отредактируйте их.
+
+Как альтернатива, вы можете перейти на Notepad++ v8.5.2 и восстановить свои предыдущие данные.
+Notepad++ сделает резервную копию вашего старого &quot;shortcuts.xml&quot; и сохранит его как &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Переименование &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, ваши команды будут восстановлены и работать правильно."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

@@ -3791,7 +3791,11 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					}
 					break;
 
-					//case IDC_COMBO_VARLIST:
+					case IDC_COMBO_VARLIST:
+					{
+						break;
+					}
+
 					default:
 					{
 						break;

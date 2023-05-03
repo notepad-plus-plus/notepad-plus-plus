@@ -1324,11 +1324,11 @@ You can define several column markers by using white space to separate the diffe
 			<DoSaveAll title="Save All Confirmation">
 				<Item id="1766" name="Are you sure you want to save all modified documents?
 
-Choose &quot;Always Yes&quot; if you don't want to see this dialog again.
+Choose &quot;Always yes&quot; if you don't want to see this dialog again.
 You can re-activate this dialog in Preferences later."/>
 				<Item id="6" name="&amp;Yes"/>
 				<Item id="7" name="&amp;No"/>
-				<Item id="4" name="Always Yes"/>
+				<Item id="4" name="&amp;Always yes"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>

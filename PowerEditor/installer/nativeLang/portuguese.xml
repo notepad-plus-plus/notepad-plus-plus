@@ -1071,30 +1071,30 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                 </Highlighting>
 
                 <Print title="Impressão">
-                    <Item id="6601" name="Imprimir número da linha"/>
+                    <Item id="6601" name="Imprimir nú&amp;mero da linha"/>
                     <Item id="6602" name="Opções da cor"/>
-                    <Item id="6603" name="Imprimir como no ecrã"/>
-                    <Item id="6604" name="Inverter"/>
-                    <Item id="6605" name="Preto sobre branco"/>
-                    <Item id="6606" name="Sem cor de fundo"/>
+                    <Item id="6603" name="Imp&amp;rimir como no ecrã"/>
+                    <Item id="6604" name="In&amp;verter"/>
+                    <Item id="6605" name="Preto sobre &amp;branco"/>
+                    <Item id="6606" name="Sem cor de &amp;fundo"/>
                     <Item id="6607" name="Definições da margem (mm)"/>
-                    <Item id="6612" name="Esquerda"/>
-                    <Item id="6613" name="Superior"/>
-                    <Item id="6614" name="Direita"/>
-                    <Item id="6615" name="Inferior"/>
-                    <Item id="6706" name="Negrito"/>
-                    <Item id="6707" name="Itálico"/>
+                    <Item id="6612" name="&amp;Esquerda"/>
+                    <Item id="6613" name="&amp;Superior"/>
+                    <Item id="6614" name="&amp;Direita"/>
+                    <Item id="6615" name="&amp;Inferior"/>
+                    <Item id="6706" name="&amp;Negrito"/>
+                    <Item id="6707" name="&amp;Itálico"/>
                     <Item id="6708" name="Cabeçalho"/>
-                    <Item id="6709" name="Esquerda"/>
-                    <Item id="6710" name="Centro"/>
-                    <Item id="6711" name="Direita"/>
-                    <Item id="6717" name="Negrito"/>
-                    <Item id="6718" name="Itálico"/>
+                    <Item id="6709" name="Es&amp;querda"/>
+                    <Item id="6710" name="Cen&amp;tro"/>
+                    <Item id="6711" name="Direi&amp;ta"/>
+                    <Item id="6717" name="&amp;Negrito"/>
+                    <Item id="6718" name="Itáli&amp;co"/>
                     <Item id="6719" name="Rodapé"/>
-                    <Item id="6720" name="Esquerda"/>
-                    <Item id="6721" name="Centro"/>
-                    <Item id="6722" name="Direita"/>
-                    <Item id="6723" name="Adicionar"/>
+                    <Item id="6720" name="E&amp;squerda"/>
+                    <Item id="6721" name="C&amp;entro"/>
+                    <Item id="6722" name="Di&amp;reita"/>
+                    <Item id="6723" name="&amp;Adicionar"/>
                     <ComboBox id="6724">
                         <Element name="Localização do nome completo do ficheiro"/>
                         <Element name="Nome do ficheiro"/>
@@ -1104,7 +1104,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
                         <Element name="Data e Hora (longo)"/>
                         <Element name="Hora"/>
                     </ComboBox>
-                    <Item id="6725" name="Variável:"/>
+                    <Item id="6725" name="&amp;Variável:"/>
                     <Item id="6727" name="As variáveis são exibidas aqui"/>
                     <Item id="6728" name="Cabeçalho e Rodapé"/>
                 </Print>

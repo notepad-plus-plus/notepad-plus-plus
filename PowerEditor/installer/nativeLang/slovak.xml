@@ -1071,30 +1071,30 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
                 </Highlighting>
 
                 <Print title="Tlač">
-                    <Item id="6601" name="Tlačiť čísla riadkov"/>
-                    <Item id="6602" name="Možnosti farieb"/>
-                    <Item id="6603" name="WYSIWYG"/>
-                    <Item id="6604" name="Invertovať"/>
-                    <Item id="6605" name="Čiernobielo"/>
-                    <Item id="6606" name="Žiadna farba pozadia"/>
+                    <Item id="6601" name="Tlačiť čísla &amp;riadkov"/>
+                    <Item id="6602" name="Možnosti &amp;farieb"/>
+                    <Item id="6603" name="&amp;WYSIWYG"/>
+                    <Item id="6604" name="Inv&amp;ertovať"/>
+                    <Item id="6605" name="Čierno&amp;bielo"/>
+                    <Item id="6606" name="Žiadna farba &amp;pozadia"/>
                     <Item id="6607" name="Nastavenie okraja (v milimetroch)"/>
-                    <Item id="6612" name="Vľavo"/>
-                    <Item id="6613" name="Hore"/>
-                    <Item id="6614" name="Vpravo"/>
-                    <Item id="6615" name="Dole"/>
-                    <Item id="6706" name="Tučné"/>
-                    <Item id="6707" name="Kurzíva"/>
+                    <Item id="6612" name="&amp;Vľavo"/>
+                    <Item id="6613" name="&amp;Hore"/>
+                    <Item id="6614" name="Vprav&amp;o"/>
+                    <Item id="6615" name="&amp;Dole"/>
+                    <Item id="6706" name="&amp;Tučné"/>
+                    <Item id="6707" name="&amp;Kurzíva"/>
                     <Item id="6708" name="Hlavička"/>
-                    <Item id="6709" name="Ľavá časť"/>
-                    <Item id="6710" name="Stredná časť"/>
-                    <Item id="6711" name="Pravá časť"/>
-                    <Item id="6717" name="Tučné"/>
-                    <Item id="6718" name="Kurzíva"/>
-                    <Item id="6719" name="Päta"/>
-                    <Item id="6720" name="Ľavá časť"/>
-                    <Item id="6721" name="Stredná časť"/>
-                    <Item id="6722" name="Pravá časť"/>
-                    <Item id="6723" name="Pridať"/>
+                    <Item id="6709" name="&amp;Ľavá časť"/>
+                    <Item id="6710" name="&amp;Stredná časť"/>
+                    <Item id="6711" name="Pravá &amp;časť"/>
+                    <Item id="6717" name="T&amp;učné"/>
+                    <Item id="6718" name="Kur&amp;zíva"/>
+                    <Item id="6719" name="Pät&amp;a"/>
+                    <Item id="6720" name="Ľavá čas&amp;ť"/>
+                    <Item id="6721" name="Stred&amp;ná časť"/>
+                    <Item id="6722" name="Prav&amp;á časť"/>
+                    <Item id="6723" name="Pr&amp;idať"/>
                     <ComboBox id="6724">
                         <Element name="Celá cesta k súboru"/>
                         <Element name="Názov súboru"/>
@@ -1104,7 +1104,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
                         <Element name="Dlhý formát dátumu"/>
                         <Element name="Čas"/>
                     </ComboBox>
-                    <Item id="6725" name="Premenná:"/>
+                    <Item id="6725" name="Pre&amp;menná:"/>
                     <Item id="6727" name="Tu sa zobrazia nastav. premenných"/>
                     <Item id="6728" name="Hlavička a päta"/>
                 </Print>

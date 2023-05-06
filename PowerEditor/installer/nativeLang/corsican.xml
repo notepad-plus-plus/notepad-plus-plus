@@ -3,27 +3,31 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <!--
-    History of Corsican translation for Notepad++
-
-		- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2)
-		- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
-		          Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
-		          Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
-		- Updated in 2021 by Patriccollu di Santa Maria è Sichè: Jan. 27th (v7.9.3), May 12th (v7.9.6), May 20th (v7.9.6),
-		          June 14th (v8.0.0), July 31st (v8.1.3), Aug. 20th (v8.1.4), Sep. 13th (v8.1.5), Dec. 4th (v8.1.9.3)
-		- Updated in 2020 by Patriccollu di Santa Maria è Sichè: Apr. 19th (v7.8.7), June 28th (v7.8.9), Sep. 16th (v7.9.1),
-		          Nov, 4th (v7.9.2)
-		- Updated in 2019 by Patriccollu di Santa Maria è Sichè: Mar. 29th (v7.6.5), July 7th (v7.7.2), Nov. 2nd (v7.8.1),
-		          Dec. 5th (v7.8.3)
-		- Updated on March 11th, 2018 for version 7.5.5 by Patriccollu di Santa Maria è Sichè
-		- Updated in 2017 by Patriccollu di Santa Maria è Sichè: April 30th (v7.3.3), August 19th (v7.5)
-		- Created on September 14th, 2016 for version 6.9.2 by Patriccollu di Santa Maria è Sichè
-
-    The latest update of Corsican translation file is available here:
+The latest update of Corsican translation file is available here:
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
+
+History of Corsican translation for Notepad++
+
+	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
+			  May 7th (v8.5.3)
+	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
+			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
+			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
+	- Updated in 2021 by Patriccollu di Santa Maria è Sichè: Jan. 27th (v7.9.3), May 12th (v7.9.6), May 20th (v7.9.6),
+			  June 14th (v8.0.0), July 31st (v8.1.3), Aug. 20th (v8.1.4), Sep. 13th (v8.1.5), Dec. 4th (v8.1.9.3)
+	- Updated in 2020 by Patriccollu di Santa Maria è Sichè: Apr. 19th (v7.8.7), June 28th (v7.8.9), Sep. 16th (v7.9.1),
+			  Nov, 4th (v7.9.2)
+	- Updated in 2019 by Patriccollu di Santa Maria è Sichè: Mar. 29th (v7.6.5), July 7th (v7.7.2), Nov. 2nd (v7.8.1),
+			  Dec. 5th (v7.8.3)
+	- Updated on March 11th, 2018 for version 7.5.5 by Patriccollu di Santa Maria è Sichè
+	- Updated in 2017 by Patriccollu di Santa Maria è Sichè: April 30th (v7.3.3), August 19th (v7.5)
+	- Created on September 14th, 2016 for version 6.9.2 by Patriccollu di Santa Maria è Sichè
+
+An additionnal information about Corsican translation for Notepad++ is available here:
+	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="8.5.2">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -36,8 +40,8 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item menuId="language" name="&amp;Linguaghju"/>
                     <Item menuId="settings" name="&amp;Preferenze"/>
                     <Item menuId="tools" name="A&amp;ttrezzi"/>
-                    <Item menuId="macro" name="Macr&amp;o"/>
-                    <Item menuId="run" name="Ese&amp;guisce"/>
+                    <Item menuId="macro" name="Pr&amp;ucedura"/>
+                    <Item menuId="run" name="La&amp;ncià"/>
                     <Item menuId="Plugins" name="&amp;Estensioni"/>
                     <Item menuId="Window" name="&amp;Finestra"/>
                 </Entries>
@@ -193,7 +197,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42034" name="&amp;Mudificazione in modu culonna…"/>
                     <Item id="42051" name="&amp;Pannellu di i caratteri"/>
                     <Item id="42052" name="Cr&amp;onolugia di u preme’papei"/>
-                    <Item id="42025" name="&amp;Arregistrà a macro arricurdata…"/>
+                    <Item id="42025" name="&amp;Arregistrà a prucedura arricurdata…"/>
                     <Item id="42026" name="Testu da diritta à manca"/>
                     <Item id="42027" name="Testu da manca à diritta"/>
                     <Item id="42028" name="&amp;Lettura-sola per u schedariu attuale"/>
@@ -202,7 +206,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
                     <Item id="42087" name="Cupià tutti i nomi di schedariu"/>
                     <Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
-                    <Item id="42032" name="&amp;Eseguisce una macro parechje volte…"/>
+                    <Item id="42032" name="&amp;Lancià una prucedura parechje volte…"/>
                     <Item id="42033" name="Caccià a marca di lettura-sola da u schedariu"/>
                     <Item id="42035" name="Mette in cummentu a linea sola"/>
                     <Item id="42036" name="Caccià u cummentu da a linea sola"/>
@@ -316,6 +320,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44114" name="Appiecà u culore 4"/>
                     <Item id="44115" name="Appiecà u culore 5"/>
                     <Item id="44130" name="Affissà i caratteri nonstampevule"/>
+                    <Item id="44131" name="Affissà i caratteri di cuntrollu è e fine di linea Unicode"/>
                     <Item id="44032" name="Attivà o disattivà u modu di screnu sanu"/>
                     <Item id="44033" name="Risturà l’ingrandamentu predefinitu"/>
                     <Item id="44034" name="Sempre in primu pianu"/>
@@ -379,19 +384,19 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="48504" name="Ingenerà…"/>
                     <Item id="48505" name="Ingenerà per certi schedarii…"/>
                     <Item id="48506" name="Ingenerà in u preme’papei per a selezzione"/>
-                    <Item id="49000" name="&amp;Eseguisce…"/>
+                    <Item id="49000" name="&amp;Lancià…"/>
 
                     <Item id="50000" name="Cumpiimentu di funzione"/>
                     <Item id="50001" name="Cumpiimentu di parolla"/>
                     <Item id="50002" name="Sugestione di parametri di funzione"/>
                     <Item id="50010" name="Sugestione precedente di parametri di funzione"/>
                     <Item id="50011" name="Sugestione seguente di parametri di funzione"/>
-                    <Item id="50005" name="Attivà o disattivà l’arregistramentu d’una macro"/>
+                    <Item id="50005" name="Attivà o disattivà l’arregistramentu d’una prucedura"/>
                     <Item id="50006" name="Cumpiimentu di chjassu"/>
                     <Item id="44042" name="Piattà e linee"/>
                     <Item id="42040" name="Apre tutti i schedarii recenti"/>
                     <Item id="42041" name="Viutà a lista di i schedarii recenti"/>
-                    <Item id="48016" name="Ghjestione di l’accurtatoghji di tastera per e macro…"/>
+                    <Item id="48016" name="Ghjestione di l’accurtatoghji di tastera per e prucedure…"/>
                     <Item id="48017" name="Ghjestione di l’accurtatoghji di tastera per e cumande…"/>
 
                     <Item id="11001" name="&amp;Ducumenti…"/>
@@ -507,15 +512,15 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="1690" name="Tuttu sopralineà"/>
             </IncrementalFind>
             <FindCharsInRange title="Circà caratteri in una stesa…">
-                <Item id="2" name="Chjode"/>
-                <Item id="2901" name="Caratteri micca ASCII (128-255)"/>
-                <Item id="2902" name="Caratteri ASCII (0-127)"/>
-                <Item id="2903" name="A mo stesa :"/>
+                <Item id="2" name="C&amp;hjode"/>
+                <Item id="2901" name="Caratteri &amp;micca ASCII (128-255)"/>
+                <Item id="2902" name="Caratteri &amp;ASCII (0-127)"/>
+                <Item id="2903" name="Seria &amp;persunalizata (0–255) :"/>
                 <Item id="2906" name="In&amp;sù"/>
                 <Item id="2907" name="In&amp;ghjò"/>
                 <Item id="2908" name="Direzzione"/>
-                <Item id="2909" name="&amp;Circunvoglie"/>
-                <Item id="2910" name="Circà"/>
+                <Item id="2909" name="Circun&amp;voglie"/>
+                <Item id="2910" name="&amp;Circà"/>
             </FindCharsInRange>
 
             <GoToLine title="Andà à…">
@@ -528,35 +533,35 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="2006" name="Ùn pudete andà più chè :"/>
             </GoToLine>
 
-            <Run title="Eseguisce…">
-                <Item id="1903" name="U prugramma à eseguisce"/>
-                <Item id="1"    name="Eseguisce"/>
+            <Run title="Lancià…">
+                <Item id="1903" name="U prugramma à lancià"/>
+                <Item id="1"    name="Lancià"/>
                 <Item id="2"    name="Abbandunà"/>
                 <Item id="1904" name="Arregistrà…"/>
             </Run>
 
             <MD5FromFilesDlg title="Ingenerà l’impronta numerica MD5 per certi schedarii">
-                <Item id="1922" name="Sceglie i schedarii à trattà…"/>
-                <Item id="1924" name="Cupià in u preme’papei"/>
-                <Item id="2"    name="Chjode"/>
+                <Item id="1922" name="&amp;Sceglie i schedarii à trattà…"/>
+                <Item id="1924" name="&amp;Cupià in u preme’papei"/>
+                <Item id="2"    name="C&amp;hjode"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Ingenerà l’impronta numerica MD5 per un testu">
-                <Item id="1932" name="Trattà ogni linea cum’è una catena separata"/>
-                <Item id="1934" name="Cupià in u preme’papei"/>
-                <Item id="2"    name="Chjode"/>
+                <Item id="1932" name="&amp;Trattà ogni linea cum’è una catena separata"/>
+                <Item id="1934" name="&amp;Cupià in u preme’papei"/>
+                <Item id="2"    name="C&amp;hjode"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Ingenerà l’impronta numerica SHA-256 per certi schedarii">
-                <Item id="1922" name="Sceglie i schedarii à trattà…"/>
-                <Item id="1924" name="Cupià in u preme’papei"/>
-                <Item id="2"    name="Chjode"/>
+                <Item id="1922" name="&amp;Sceglie i schedarii à trattà…"/>
+                <Item id="1924" name="&amp;Cupià in u preme’papei"/>
+                <Item id="2"    name="C&amp;hjode"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Ingenerà l’impronta numerica SHA-256 per un testu">
-                <Item id="1932" name="Trattà ogni linea cum’è una catena separata"/>
-                <Item id="1934" name="Cupià in u preme’papei"/>
-                <Item id="2"    name="Chjode"/>
+                <Item id="1932" name="&amp;Trattà ogni linea cum’è una catena separata"/>
+                <Item id="1934" name="&amp;Cupià in u preme’papei"/>
+                <Item id="2"    name="C&amp;hjode"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Ghjestione di l’estensioni" titleAvailable = "Dispunibule" titleUpdates = "Rinnovi" titleInstalled = "Installate" titleIncompatible="Incumpatibile">
@@ -615,8 +620,8 @@ The comments are here for explanation, it's not necessary to translate them.
                 <ColumnCategory name="Categuria"/>
                 <ColumnPlugin name="Estensione"/>
                 <MainMenuTab name="Listinu principale"/>
-                <MacrosTab name="Macro"/>
-                <RunCommandsTab name="Cumande d’esecuzione"/>
+                <MacrosTab name="Prucedure"/>
+                <RunCommandsTab name="Cumande di lanciu"/>
                 <PluginCommandsTab name="Cumande d’estensione"/>
                 <ScintillaCommandsTab name="Cumande Scintilla"/>
                 <ConflictInfoOk name="Nisunu cunflittu d’accurtatoghju per st’elementu."/>
@@ -631,7 +636,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <AboutCategory name="Apprupositu"/>
                 <SettingCategory name="Preferenze"/>
                 <ToolCategory name="Attrezzi"/>
-                <ExecuteCategory name="Eseguisce"/>
+                <ExecuteCategory name="Lanciu"/>
                 <ModifyContextMenu name="Mudificà"/>
                 <DeleteContextMenu name="Squassà"/>
                 <ClearContextMenu name="Viutà"/>
@@ -706,7 +711,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44080" name="Attivà o disattivà a cartugrafia di u ducumentu"/>
                     <Item id="44070" name="Attivà o disattivà a lista di i ducumenti"/>
                     <Item id="44084" name="Attivà o disattivà a lista di e funzioni"/>
-                    <Item id="50005" name="Attivà o disattivà l’arregistramentu d’una macro"/>
+                    <Item id="50005" name="Attivà o disattivà l’arregistramentu d’una prucedura"/>
                     <Item id="44104" name="Passà à u pannellu di prughjettu 1"/>
                     <Item id="44105" name="Passà à u pannellu di prughjettu 2"/>
                     <Item id="44106" name="Passà à u pannellu di prughjettu 3"/>
@@ -973,6 +978,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6254" name="Abbreviamentu"/>
                     <Item id="6255" name="Puntu di codice"/>
                     <Item id="6256" name="Culore persunalizatu"/>
+                    <Item id="6258" name="Appiecà à C0, C1 è e fine di linea Unicode"/>
                 </Scintillas>
 
                 <DarkMode title="Modu scuru">
@@ -1086,30 +1092,30 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                 </Highlighting>
 
                 <Print title="Stampà">
-                    <Item id="6601" name="Stampà u numeru di linea"/>
+                    <Item id="6601" name="Stampà u &amp;numeru di linea"/>
                     <Item id="6602" name="Ozzioni di culore"/>
-                    <Item id="6603" name="Tale è quale (WYSIWYG)"/>
-                    <Item id="6604" name="Invertisce"/>
-                    <Item id="6605" name="Neru nant’à biancu"/>
-                    <Item id="6606" name="Senza culore di fondu"/>
+                    <Item id="6603" name="Tale è quale (&amp;WYSIWYG)"/>
+                    <Item id="6604" name="In&amp;vertisce"/>
+                    <Item id="6605" name="Neru nant’à &amp;biancu"/>
+                    <Item id="6606" name="Sen&amp;za culore di fondu"/>
                     <Item id="6607" name="Preferenze di margine (Unita : mm)"/>
-                    <Item id="6612" name="Manca"/>
-                    <Item id="6613" name="Insù"/>
-                    <Item id="6614" name="Diritta"/>
-                    <Item id="6615" name="Inghjò"/>
-                    <Item id="6706" name="Grassu"/>
-                    <Item id="6707" name="Italicu"/>
+                    <Item id="6612" name="&amp;Manca"/>
+                    <Item id="6613" name="In&amp;sù"/>
+                    <Item id="6614" name="&amp;Diritta"/>
+                    <Item id="6615" name="In&amp;ghjò"/>
+                    <Item id="6706" name="Gra&amp;ssu"/>
+                    <Item id="6707" name="&amp;Italicu"/>
                     <Item id="6708" name="Intestatura"/>
-                    <Item id="6709" name="Parte à manu manca"/>
-                    <Item id="6710" name="Parte à u mezu"/>
-                    <Item id="6711" name="Parte à manu diritta"/>
-                    <Item id="6717" name="Grassu"/>
-                    <Item id="6718" name="Italicu"/>
+                    <Item id="6709" name="&amp;Parte à manu manca"/>
+                    <Item id="6710" name="Par&amp;te à u mezu"/>
+                    <Item id="6711" name="Part&amp;e à manu diritta"/>
+                    <Item id="6717" name="Grass&amp;u"/>
+                    <Item id="6718" name="Ita&amp;licu"/>
                     <Item id="6719" name="Bassu di pagina"/>
-                    <Item id="6720" name="Parte à manu manca"/>
-                    <Item id="6721" name="Parte à u mezu"/>
-                    <Item id="6722" name="Parte à manu diritta"/>
-                    <Item id="6723" name="Aghjunghje"/>
+                    <Item id="6720" name="Parte à manu man&amp;ca"/>
+                    <Item id="6721" name="Pa&amp;rte à u mezu"/>
+                    <Item id="6722" name="P&amp;arte à manu diritta"/>
+                    <Item id="6723" name="Ag&amp;hjunghje"/>
                     <ComboBox id="6724">
                         <Element name="Chjassu sanu di u nome di schedariu"/>
                         <Element name="Nome di schedariu"/>
@@ -1119,8 +1125,8 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                         <Element name="Furmatu longu di a data"/>
                         <Element name="Ora"/>
                     </ComboBox>
-                    <Item id="6725" name="Variabile :"/>
-                    <Item id="6727" name="Quì s’affissanu e vostre variabile"/>
+                    <Item id="6725" name="&amp;Variabile :"/>
+                    <Item id="6727" name="S’affissanu quì e vostre variabile"/>
                     <Item id="6728" name="Intestatura è bassu di pagina"/>
                 </Print>
 
@@ -1278,13 +1284,13 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
                     <Item id="6361" name="Attivà u dialogu per cunfirmà l’arregistramentu di tutti i schedarii"/>
                 </MISC>
             </Preference>
-            <MultiMacro title="Eseguisce una macro parechje volte">
-                <Item id="1" name="&amp;Eseguisce"/>
+            <MultiMacro title="Lancià una prucedura parechje volte">
+                <Item id="1" name="&amp;Lancià"/>
                 <Item id="2" name="&amp;Abbandunà"/>
-                <Item id="8006" name="Macro :"/>
-                <Item id="8001" name="Eseguisce"/>
+                <Item id="8006" name="Prucedura à lancià"/>
+                <Item id="8001" name="Lancià"/>
                 <Item id="8005" name="volte"/>
-                <Item id="8002" name="Eseguisce sin’à a &amp;fine di u schedariu"/>
+                <Item id="8002" name="Lancià sin’à a &amp;fine di u schedariu"/>
             </MultiMacro>
             <Window title="Finestre">
                 <Item id="1" name="&amp;Attivà"/>
@@ -1459,6 +1465,12 @@ Cuntinuà ?"/>
             <LanguageMenuCompactWarning title="Cumpattà l’affissera di u listinu" message="St’ozzione serà cambiata à u prossimu lanciu."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="I cambiamenti micca arregistrati stanu per esse squassati !
 Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Cumpatibilità di e cumande Prucedura è Lancià" message="E vostre cumande Prucedura è Lancià arregistrate cù Notepad++ v.8.5.2 (o più vechju) ponu ùn esse micca cumpatibile cù a versione attuale di Notepad++.
+Ci vole à pruvà ste cumande è, s’ella hè bisognu, à mudificalle.
+
+Un altra pussibilità hè di rivene à a versione Notepad++ v8.5.2 è risturà i vostri dati anteriore.
+Notepad++ hà da fà una salvaguardia di u vostru « shortcuts.xml » è arregistrallu cù u nome « shortcuts.xml.v8.5.2.backup ».
+Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vostre cumande duverianu funziunà currettamente."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1508,7 +1520,7 @@ Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/> <!-- HowT
                 <Item id="3511" name="Caccià"/>
                 <Item id="3512" name="Caccialli tutti"/>
                 <Item id="3513" name="Aghjunghje"/>
-                <Item id="3514" name="Eseguitu da u sistema"/>
+                <Item id="3514" name="Lanciatu da u sistema"/>
                 <Item id="3515" name="Apre"/>
                 <Item id="3516" name="Cupià u chjassu"/>
                 <Item id="3517" name="Circà in schedarii…"/>
@@ -1697,7 +1709,6 @@ NOTA :
 2. S’è l’ozzione « Disattivà di manera glubale u ritornu autumaticu à a linea » hè attiva è chì un schedariu tamantu hè apertu, tandu u ritornu autumaticu à a linea serà disattivatu per tutti i schedarii. Pudete attivallu torna via l’ozzione di listinu Affissera > Ritornu autumaticu à a linea." />
             <npcNote-tip value="Riprisentanza di i spazii bianchi « nonASCII » selezziunati è di i caratteri (di cuntrollu) nonstampevule.
 NOTA :
-Certi caratteri ponu avè dighjà una riprisentanza è dunque esse videvule. A predefinizione per u separadore di linea è quellu di paragrafu hè di riprisentallu da un abbreviamentu.
 Impiegà a riprisentanza disattiverà l’effetti nant’à i caratteri in u testu.
 Per ottene a lista sana di i spazii bianchi selezziunati è di i caratteri nonstampevule, fighjate u Manuale di l’utilizatore.
 Impiegà stu buttone per apre u manuale di l’utilizatore nant’à u situ web." />
@@ -1714,6 +1725,7 @@ U+FEFF : spaziu nonspezzevule di larghezza nulla
 Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
 Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web." />
             <npcCustomColor-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)." /> <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+            <npcIncludeCcUniEol-tip value="Appiecà e preferenze d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

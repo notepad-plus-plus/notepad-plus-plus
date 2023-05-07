@@ -728,7 +728,7 @@
                 <Item id="20003" name="Vytvoriť nový…"/>
                 <Item id="20004" name="Odstrániť…"/>
                 <Item id="20005" name="Uložiť ako…"/>
-                <Item id="20007" name="Jazyk používateľa:"/>
+                <Item id="20007" name="Jazyk používateľa"/>
                 <Item id="20009" name="Prípona:"/>
                 <Item id="20012" name="Ignor. veľkosť písma"/>
                 <Item id="20011" name="Priehľadnosť"/>
@@ -736,7 +736,7 @@
                 <Item id="20016" name="Export…"/>
                 <Item id="20017" name="Odopnúť"/>
                 <StylerDialog title="Nastavenie štýlu">
-                    <Item id="25030" name="Možnosti písma:"/>
+                    <Item id="25030" name="Možnosti písma"/>
                     <Item id="25006" name="Farba popredia"/>
                     <Item id="25007" name="Farba pozadia"/>
                     <Item id="25031" name="Písmo:"/>
@@ -744,7 +744,7 @@
                     <Item id="25001" name="Tučné"/>
                     <Item id="25002" name="Kurzíva"/>
                     <Item id="25003" name="Podčiarknuté"/>
-                    <Item id="25029" name="Skladba:"/>
+                    <Item id="25029" name="Vnorenie"/>
                     <Item id="25008" name="Oddeľovač 1"/>
                     <Item id="25009" name="Oddeľovač 2"/>
                     <Item id="25010" name="Oddeľovač 3"/>
@@ -774,20 +774,20 @@
                 <Folder title="Balenie a predvoľby">
                     <Item id="21101" name="Predvolený štýl"/>
                     <Item id="21102" name="Nastaviť štýl…"/>
-                    <Item id="21105" name="Dokumentácia:"/>
+                    <Item id="21105" name="Dokumentácia"/>
                     <Item id="21104" name="Dočasná stránka s dokumentáciou:"/>
                     <Item id="21106" name="Zbaliť kompaktne (zbaliť aj prázdne riadky)"/>
-                    <Item id="21220" name="Zbalenie v štýle kódu 1:"/>
+                    <Item id="21220" name="Zbalenie v štýle kódu 1"/>
                     <Item id="21224" name="Začiatok:"/>
                     <Item id="21225" name="Stred:"/>
                     <Item id="21226" name="Koniec:"/>
                     <Item id="21227" name="Nastaviť štýl…"/>
-                    <Item id="21320" name="Zbalenie v štýle kódu 2 (vyžaduje oddeľovače):"/>
+                    <Item id="21320" name="Zbalenie v štýle kódu 2 (vyžaduje oddeľovače)"/>
                     <Item id="21324" name="Začiatok:"/>
                     <Item id="21325" name="Stred:"/>
                     <Item id="21326" name="Koniec:"/>
                     <Item id="21327" name="Nastaviť štýl…"/>
-                    <Item id="21420" name="Zbalenie v štýle komentára:"/>
+                    <Item id="21420" name="Zbalenie v štýle komentára"/>
                     <Item id="21424" name="Začiatok:"/>
                     <Item id="21425" name="Stred:"/>
                     <Item id="21426" name="Koniec:"/>
@@ -1632,9 +1632,9 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
             <finder-wrap-long-lines value="Zalamovať dlhé riadky"/>
             <common-ok value="OK"/>
             <common-cancel value="Zrušiť"/>
-            <common-name value="Názov: "/>
+            <common-name value="Názov"/>
             <tabrename-title value="Premenovať aktuálnu kartu"/>
-            <tabrename-newname value="Nový názov: "/>
+            <tabrename-newname value="Nový názov"/>
             <splitter-rotate-left value="Otočiť doľava"/>
             <splitter-rotate-right value="Otočiť doprava"/>
             <userdefined-title-new value="Vytvoriť nový jazyk…"/>

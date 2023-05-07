@@ -1467,6 +1467,7 @@ Cuntinuà ?"/>
 Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
             <MacroAndRunCmdlWarning title="Cumpatibilità di e cumande Prucedura è Lancià" message="E vostre cumande Prucedura è Lancià arregistrate cù Notepad++ v.8.5.2 (o più vechju) ponu ùn esse micca cumpatibile cù a versione attuale di Notepad++.
 Ci vole à pruvà ste cumande è, s’ella hè bisognu, à mudificalle.
+
 Un altra pussibilità hè di rivene à a versione Notepad++ v8.5.2 è risturà i vostri dati anteriore.
 Notepad++ hà da fà una salvaguardia di u vostru « shortcuts.xml » è arregistrallu cù u nome « shortcuts.xml.v8.5.2.backup ».
 Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vostre cumande duverianu funziunà currettamente."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->

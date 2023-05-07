@@ -9,7 +9,7 @@ The latest update of Corsican translation file is available here:
 History of Corsican translation for Notepad++
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
-			  May 6th (v8.5.3)
+			  May 7th (v8.5.3)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -515,7 +515,7 @@ An additionnal information about Corsican translation for Notepad++ is available
                 <Item id="2" name="C&amp;hjode"/>
                 <Item id="2901" name="Caratteri &amp;micca ASCII (128-255)"/>
                 <Item id="2902" name="Caratteri &amp;ASCII (0-127)"/>
-                <Item id="2903" name="Seria &persunalizata (0–255) :"/>
+                <Item id="2903" name="Seria &amp;persunalizata (0–255) :"/>
                 <Item id="2906" name="In&amp;sù"/>
                 <Item id="2907" name="In&amp;ghjò"/>
                 <Item id="2908" name="Direzzione"/>

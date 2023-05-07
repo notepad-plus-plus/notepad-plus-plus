@@ -900,10 +900,10 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Global title="Geral">
                     <Item id="6101" name="Barra de ferramentas"/>
                     <Item id="6102" name="Ocultar"/>
-                    <Item id="6103" name="Ícones sem preenchimento: pequenos"/>
-                    <Item id="6104" name="Ícones sem preenchimento: grandes"/>
-                    <Item id="6129" name="Ícones com preenchimento: pequenos"/>
-                    <Item id="6130" name="Ícones com preenchimento: grandes"/>
+                    <Item id="6103" name="Ícones s/ preenchimento: peq."/>
+                    <Item id="6104" name="Ícones s/ preenchimento: grd."/>
+                    <Item id="6129" name="Ícones c/ preenchimento: peq."/>
+                    <Item id="6130" name="Ícones c/ preenchimento: grd."/>
                     <Item id="6105" name="Ícones predefinidos: pequenos"/>
 
                     <Item id="6106" name="Barra do separador"/>

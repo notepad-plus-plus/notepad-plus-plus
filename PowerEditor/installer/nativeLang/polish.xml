@@ -5,7 +5,7 @@ The comments are here for explanation, it's not necessary to translate them.
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.2 (02.04.2023)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.3 (08.05.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +13,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="polski" filename="polish.xml" version="8.5.2">
+    <Native-Langue name="polski" filename="polish.xml" version="8.5.3">
         <Menu>
             <Main>
                 <!-- Główne menu -->
@@ -306,6 +306,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="44114" name="Zastosuj kolor 4."/>
                     <Item id="44115" name="Zastosuj kolor 5."/>
                     <Item id="44130" name="Pokaż znaki niedrukowane"/>
+                    <Item id="44131" name="Pokaż znaki kontrolne i EOL z Unicode"/>
                     <Item id="44032" name="Przełącz tryb pełnoekranowy"/>
                     <Item id="44033" name="Przywróć domyślne"/>
                     <Item id="44034" name="Zawsze na wierzchu"/>
@@ -499,15 +500,15 @@ The comments are here for explanation, it's not necessary to translate them.
             </IncrementalFind>
 
             <FindCharsInRange title="Szukanie znaków z zakresu">
-                <Item id="2" name="Zamknij"/>
-                <Item id="2901" name="Znaki spoza zakresu ASCII (128-255)"/>
-                <Item id="2902" name="Znaki z zakresu ASCII (0-127)"/>
-                <Item id="2903" name="Własny zakres:"/>
+                <Item id="2" name="Zamkni&amp;j"/>
+                <Item id="2901" name="Z&amp;naki spoza zakresu ASCII (128-255)"/>
+                <Item id="2902" name="Znaki z za&amp;kresu ASCII (0-127)"/>
+                <Item id="2903" name="&amp;Własny zakres 0–255):"/>
                 <Item id="2906" name="W &amp;górę"/>
                 <Item id="2907" name="W &amp;dół"/>
                 <Item id="2908" name="Kierunek"/>
                 <Item id="2909" name="Wracaj na &amp;początek pliku"/>
-                <Item id="2910" name="Znajdź"/>
+                <Item id="2910" name="&amp;Znajdź"/>
             </FindCharsInRange>
 
             <GoToLine title="Przechodzenie do">
@@ -528,27 +529,27 @@ The comments are here for explanation, it's not necessary to translate them.
             </Run>
 
             <MD5FromFilesDlg title="Generowanie skrótu MD5 z plików">
-                <Item id="1922" name="Wybierz pliki..."/>
-                <Item id="1924" name="Kopiuj do schowka"/>
-                <Item id="2"    name="Zamknij"/>
+                <Item id="1922" name="&amp;Wybierz pliki..."/>
+                <Item id="1924" name="&amp;Kopiuj do schowka"/>
+                <Item id="2"    name="&amp;Zamknij"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generowanie skrótu MD5">
-                <Item id="1932" name="Generuj dla każdej linii osobny skrót"/>
-                <Item id="1934" name="Kopiuj do schowka"/>
-                <Item id="2"    name="Zamknij"/>
+                <Item id="1932" name="&amp;Generuj dla każdej linii osobny skrót"/>
+                <Item id="1934" name="&amp;Kopiuj do schowka"/>
+                <Item id="2"    name="&amp;Zamknij"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Generowanie skrótu SHA-256 z plików">
-                <Item id="1922" name="Wybierz pliki..."/>
-                <Item id="1924" name="Kopiuj do schowka"/>
-                <Item id="2"    name="Zamknij"/>
+                <Item id="1922" name="&amp;Wybierz pliki..."/>
+                <Item id="1924" name="&amp;Kopiuj do schowka"/>
+                <Item id="2"    name="&amp;Zamknij"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Generowanie skrótu SHA-256">
-                <Item id="1932" name="Generuj dla każdej linii osobny skrót"/>
-                <Item id="1934" name="Kopiuj do schowka"/>
-                <Item id="2"    name="Zamknij"/>
+                <Item id="1932" name="&amp;Generuj dla każdej linii osobny skrót"/>
+                <Item id="1934" name="&amp;Kopiuj do schowka"/>
+                <Item id="2"    name="&amp;Zamknij"/>
             </SHA256FromTextDlg>
 
             <PluginsAdminDlg title="Zarządzanie wtyczkami" titleAvailable="Dostępne" titleUpdates="Aktualizacje" titleInstalled="Zainstalowane" titleIncompatible="Niekompatybilne">
@@ -737,7 +738,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20003" name="Utwórz nowy..."/>
                 <Item id="20004" name="Usuń"/>
                 <Item id="20005" name="Zapisz jako..."/>
-                <Item id="20007" name="Język: "/>
+                <Item id="20007" name="Język"/>
                 <Item id="20009" name="Rozsz.:"/>
                 <Item id="20012" name="Ignoruj wielkość liter"/>
                 <Item id="20011" name="Przezroczystość"/>
@@ -745,7 +746,7 @@ The comments are here for explanation, it's not necessary to translate them.
                 <Item id="20016" name="Eksportuj..."/>
                 <Item id="20017" name="Odłącz"/>
                 <StylerDialog title="Stylizowanie">
-                    <Item id="25030" name="Opcje czcionki:"/>
+                    <Item id="25030" name="Opcje czcionki"/>
                     <Item id="25006" name="Kolor tekstu"/>
                     <Item id="25007" name="Kolor tła"/>
                     <Item id="25031" name="Nazwa:"/>
@@ -753,7 +754,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="25001" name="Pogrubienie"/>
                     <Item id="25002" name="Kursywa"/>
                     <Item id="25003" name="Podkreślenie"/>
-                    <Item id="25029" name="Zagnieżdżenie:"/>
+                    <Item id="25029" name="Zagnieżdżenie"/>
                     <Item id="25008" name="Separator 1"/>
                     <Item id="25009" name="Separator 2"/>
                     <Item id="25010" name="Separator 3"/>
@@ -786,17 +787,17 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="21105" name="Dokumentacja"/>
                     <Item id="21104" name="Tymczasowa strona dok.:"/>
                     <Item id="21106" name="Zawijaj &amp;zwięźle (również puste linie)"/>
-                    <Item id="21220" name="Styl zawijania kodu nr 1:"/>
+                    <Item id="21220" name="Styl zawijania kodu nr 1"/>
                     <Item id="21224" name="Otwarcie:"/>
                     <Item id="21225" name="Środek:"/>
                     <Item id="21226" name="Zamknięcie:"/>
                     <Item id="21227" name="Stylizuj"/>
-                    <Item id="21320" name="Styl zawijania kodu nr 2 (wym. separatory):"/>
+                    <Item id="21320" name="Styl zawijania kodu nr 2 (wym. separatory)"/>
                     <Item id="21324" name="Otwarcie:"/>
                     <Item id="21325" name="Środek:"/>
                     <Item id="21326" name="Zamknięcie:"/>
                     <Item id="21327" name="Stylizuj"/>
-                    <Item id="21420" name="Styl zawijania komentarzy:"/>
+                    <Item id="21420" name="Styl zawijania komentarzy"/>
                     <Item id="21424" name="Otwarcie:"/>
                     <Item id="21425" name="Środek:"/>
                     <Item id="21426" name="Zamknięcie:"/>
@@ -966,6 +967,7 @@ The comments are here for explanation, it's not necessary to translate them.
                     <Item id="6254" name="Skrót"/>
                     <Item id="6255" name="Kod"/>
                     <Item id="6256" name="Własny kolor"/>
+                    <Item id="6258" name="Zastosuj do C0, C1 i EOL z Unicode"/>
                 </Scintillas>
 
                 <DarkMode title="Tryb ciemny">
@@ -1079,29 +1081,29 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                 </Highlighting>
 
                 <Print title="Drukowanie">
-                    <Item id="6601" name="Drukuj numery linii"/>
+                    <Item id="6601" name="Drukuj nu&amp;mery linii"/>
                     <Item id="6602" name="Kolory"/>
-                    <Item id="6603" name="Takie jak na monitorze"/>
-                    <Item id="6604" name="Odwrócone"/>
-                    <Item id="6605" name="Czarne na białym"/>
-                    <Item id="6606" name="Bez koloru tła"/>
+                    <Item id="6603" name="&amp;Takie jak na monitorze"/>
+                    <Item id="6604" name="&amp;Odwrócone"/>
+                    <Item id="6605" name="&amp;Czarne na białym"/>
+                    <Item id="6606" name="&amp;Bez koloru tła"/>
                     <Item id="6607" name="Margines (w milimetrach)"/>
-                    <Item id="6612" name="Lewy"/>
-                    <Item id="6613" name="Górny"/>
-                    <Item id="6614" name="Prawy"/>
-                    <Item id="6615" name="Dolny"/>
-                    <Item id="6706" name="Pogrubienie"/>
-                    <Item id="6707" name="Kursywa"/>
+                    <Item id="6612" name="&amp;Lewy"/>
+                    <Item id="6613" name="&amp;Górny"/>
+                    <Item id="6614" name="&amp;Prawy"/>
+                    <Item id="6615" name="Dol&amp;ny"/>
+                    <Item id="6706" name="Pogr&amp;ubienie"/>
+                    <Item id="6707" name="&amp;Kursywa"/>
                     <Item id="6708" name="Nagłówek"/>
-                    <Item id="6709" name="Lewa sekcja"/>
-                    <Item id="6710" name="Środkowa sekcja"/>
-                    <Item id="6711" name="Prawa sekcja"/>
-                    <Item id="6717" name="Pogrubienie"/>
-                    <Item id="6718" name="Kursywa"/>
+                    <Item id="6709" name="L&amp;ewa sekcja"/>
+                    <Item id="6710" name="Ś&amp;rodkowa sekcja"/>
+                    <Item id="6711" name="Pr&amp;awa sekcja"/>
+                    <Item id="6717" name="Pogrub&amp;ienie"/>
+                    <Item id="6718" name="Kurs&amp;ywa"/>
                     <Item id="6719" name="Stopka"/>
-                    <Item id="6720" name="Lewa sekcja"/>
-                    <Item id="6721" name="Środkowa sekcja"/>
-                    <Item id="6722" name="Prawa sekcja"/>
+                    <Item id="6720" name="Le&amp;wa sekcja"/>
+                    <Item id="6721" name="Śro&amp;dkowa sekcja"/>
+                    <Item id="6722" name="Prawa &amp;sekcja"/>
                     <Item id="6723" name="Dodaj"/>
                     <ComboBox id="6724">
                         <Element name="Pełna ścieżka pliku"/>
@@ -1112,7 +1114,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
                         <Element name="Długi format daty"/>
                         <Element name="Czas"/>
                     </ComboBox>
-                    <Item id="6725" name="Zawartość:"/>
+                    <Item id="6725" name="&amp;Zawartość:"/>
                     <Item id="6727" name="Wybierz miejsce:"/>
                     <Item id="6728" name="Nagłówek i stopka"/>
                 </Print>
@@ -1273,8 +1275,8 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
             <MultiMacro title="Uruchamianie makra wielokrotnie">
                 <Item id="1" name="&amp;Uruchom"/>
                 <Item id="2" name="&amp;Anuluj"/>
-                <Item id="8006" name="Makro:"/>
-                <Item id="8001" name="Uruchom"/>
+                <Item id="8006" name="Makro"/>
+                <Item id="8001" name="Urucho&amp;m"/>
                 <Item id="8005" name="razy"/>
                 <Item id="8002" name="Wykonuj do &amp;końca pliku"/>
             </MultiMacro>
@@ -1452,6 +1454,12 @@ Kontynuować?"/>
             <LanguageMenuCompactWarning title="Kompaktowe menu języków" message="Ta opcja zostanie zmieniona po ponownym uruchomieniu Notepad++."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
             <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niezapisane zmiany zostaną utracone!
 Czy chcesz zapisać zmiany przed przełączeniem motywu?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+            <MacroAndRunCmdlWarning title="Kompatybilność makr i poleceń uruchamiania" message="Twoje makra i polecenia uruchamiania zapisane w Notepad++ 8.5.2 (lub starszych) mogą nie być kompatybilne z bieżącą wersją programu.
+Przetestuj te polecenia i w razie potrzeby edytuj je ponownie.
+
+Alternatywnie możesz powrócić do wersji Notepad++ 8.5.2 i przywrócić poprzednie dane.
+Notepad++ wykona kopię zapasową starego pliku „shortcuts.xml” i zapisze go jako „shortcuts.xml.v8.5.2.backup”.
+Po zmianie nazwy pliku z „shortcuts.xml.v8.5.2.backup” na „shortcuts.xml” twoje polecenia powinny zostać przywrócone i działać poprawnie."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historia schowka"/>
@@ -1633,9 +1641,9 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
             <finder-wrap-long-lines value="Zawijaj długie wiersze"/>
             <common-ok value="OK"/>
             <common-cancel value="Anuluj"/>
-            <common-name value="Nazwa: "/>
+            <common-name value="Nazwa"/>
             <tabrename-title value="Zmiana nazwy bieżącej karty"/>
-            <tabrename-newname value="Nowa nazwa: "/>
+            <tabrename-newname value="Nowa nazwa"/>
             <splitter-rotate-left value="Obróć w lewo"/>
             <splitter-rotate-right value="Obróć w prawo"/>
             <userdefined-title-new value="Nowy język..."/>
@@ -1693,8 +1701,6 @@ UWAGI:
             <npcNote-tip value="Reprezentacja wybranych białych znaków i niedrukowanych (kontrolnych) znaków spoza ASCII.
 
 UWAGI:
-Niektóre znaki mogą już mieć jakąś reprezentację i dlatego są widoczne. Separator linii i separator akapitu są domyślnie reprezentowane poprzez skrót.
-
 Użycie reprezentacji wyłącza efekty znaków powodowane na tekście.
 
 Pełną listę wybranych białych znaków i znaków niedrukowalnych znajdziesz w dokumentacji.
@@ -1717,6 +1723,7 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją." />
 
             <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
             <npcCustomColor-tip value="Przejdź do okna Konfiguratora stylów, by zmienić domyślny własny kolor dla wybranych białych i niedrukowanych znaków (styl: „Non-printing characters custom color”)." />
+            <npcIncludeCcUniEol-tip value="Zastosuj ustawienia wyglądu znaków niedrukowalnych do znaków kontrolnych C0 i C1 oraz znaków EOL (następna linia, separator linii i separator akapitu) z Unicode." />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

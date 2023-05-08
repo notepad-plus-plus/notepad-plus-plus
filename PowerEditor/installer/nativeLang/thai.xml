@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="thai" filename="thai.xml" >
+	<Native-Langue name="thai" filename="thai.xml">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -17,10 +17,9 @@
 					<Item menuId="Plugins" name="ปลั๊กอิน"/>
 					<Item menuId="Window" name="หน้าต่าง"/>
 				</Entries>
-
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="edit-copyToClipboard"  name="คัดลอกไปยังคลิปบอร์ด"/>
+					<Item subMenuId="edit-copyToClipboard" name="คัดลอกไปยังคลิปบอร์ด"/>
 					<Item subMenuId="edit-indent" name="ย่อหน้า"/>
 					<Item subMenuId="edit-convertCaseTo" name="แปลงตัวอักษร"/>
 					<Item subMenuId="edit-lineOperations" name="การทำงานกับบรรทัด"/>
@@ -33,31 +32,30 @@
 					<Item subMenuId="search-jumpUp" name="กระโดดขึ้นไปยัง"/>
 					<Item subMenuId="search-jumpDown" name="กระโดดลงไปยัง"/>
 					<Item subMenuId="search-bookmark" name="บุ๊คมาร์ค"/>
-					<Item subMenuId="view-showSymbol"  name="แสดงสัญลักษณ์"/>
-					<Item subMenuId="view-zoom"  name="ซูม"/>
-					<Item subMenuId="view-moveCloneDocument"  name="ย้าย/สำเนา เอกสารปัจจุบัน"/>
+					<Item subMenuId="view-showSymbol" name="แสดงสัญลักษณ์"/>
+					<Item subMenuId="view-zoom" name="ซูม"/>
+					<Item subMenuId="view-moveCloneDocument" name="ย้าย/สำเนา เอกสารปัจจุบัน"/>
 					<Item subMenuId="view-collapseLevel" name="ย่อชั้นนี้"/>
 					<Item subMenuId="view-uncollapseLevel" name="ยืดชั้นนี้"/>
-					<Item subMenuId="encoding-characterSets"  name="ชุดอักขระ"/>
-					<Item subMenuId="encoding-arabic"  name="Arabic"/>
-					<Item subMenuId="encoding-baltic"  name="Baltic"/>
-					<Item subMenuId="encoding-celtic"  name="Celtic"/>
-					<Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Central European"/>
-					<Item subMenuId="encoding-chinese"  name="Chinese"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
-					<Item subMenuId="encoding-greek"  name="Greek"/>
-					<Item subMenuId="encoding-hebrew"  name="Hebrew"/>
-					<Item subMenuId="encoding-japanese"  name="Japanese"/>
+					<Item subMenuId="encoding-characterSets" name="ชุดอักขระ"/>
+					<Item subMenuId="encoding-arabic" name="Arabic"/>
+					<Item subMenuId="encoding-baltic" name="Baltic"/>
+					<Item subMenuId="encoding-celtic" name="Celtic"/>
+					<Item subMenuId="encoding-cyrillic" name="Cyrillic"/>
+					<Item subMenuId="encoding-centralEuropean" name="Central European"/>
+					<Item subMenuId="encoding-chinese" name="Chinese"/>
+					<Item subMenuId="encoding-easternEuropean" name="Eastern European"/>
+					<Item subMenuId="encoding-greek" name="Greek"/>
+					<Item subMenuId="encoding-hebrew" name="Hebrew"/>
+					<Item subMenuId="encoding-japanese" name="Japanese"/>
 					<Item subMenuId="encoding-korean" name="Korean"/>
 					<Item subMenuId="encoding-northEuropean" name="North European"/>
 					<Item subMenuId="encoding-thai" name="ไทย"/>
 					<Item subMenuId="encoding-turkish" name="Turkish"/>
 					<Item subMenuId="encoding-westernEuropean" name="Western European"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
-					<Item subMenuId="settings-import"  name="นำเข้า"/>
+					<Item subMenuId="settings-import" name="นำเข้า"/>
 				</SubEntries>
-
 				<!-- all menu item -->
 				<Commands>
 					<Item id="41001" name="สร้างใหม่ (&amp;N)"/>
@@ -69,7 +67,7 @@
 					<Item id="41007" name="บันทึกทั้งหมด (&amp;E)"/>
 					<Item id="41008" name="บันทึกเป็น... (&amp;A)"/>
 					<Item id="41010" name="พิมพ์..."/>
-					<Item id="1001"  name="พิมพ์เดี๋ยวนี้"/>
+					<Item id="1001" name="พิมพ์เดี๋ยวนี้"/>
 					<Item id="41011" name="ออก (&amp;X)"/>
 					<Item id="41012" name="โหลดเซสชั่น..."/>
 					<Item id="41013" name="บันทึกเซสชั่น..."/>
@@ -77,7 +75,6 @@
 					<Item id="41015" name="บันทึกสำเนาเป็น..."/>
 					<Item id="41016" name="ลบไฟล์จากดิสก์"/>
 					<Item id="41017" name="เปลี่ยนชื่อ..."/>
-
 					<Item id="42001" name="ตัด (&amp;T)"/>
 					<Item id="42002" name="คัดลอก (&amp;C)"/>
 					<Item id="42003" name="ยกเลิก (&amp;U)"/>
@@ -117,7 +114,6 @@
 					<Item id="42033" name="ยกเลิกตั้งค่าให้อ่านอย่างเดียว"/>
 					<Item id="42035" name="คอมเมนต์บล็อก"/>
 					<Item id="42036" name="ยกเลิกคอมเมนต์บล็อก"/>
-
 					<Item id="43001" name="ค้นหา (&amp;F)"/>
 					<Item id="43002" name="ค้นหาถัดไป (&amp;N)"/>
 					<Item id="43003" name="แทนที่..."/>
@@ -167,7 +163,6 @@
 					<Item id="43048" name="เลือกและค้นหาถัดไป"/>
 					<Item id="43049" name="เลือกและค้นหาก่อนหน้า"/>
 					<Item id="43050" name="กลับบุ๊คมาร์ค"/>
-
 					<Item id="44009" name="โพสต์-อิท"/>
 					<Item id="44010" name="หุบเข้าทั้งหมด"/>
 					<Item id="44011" name="กล่องโต้ตอบที่ผู้ใช้กำหนดเอง..."/>
@@ -189,7 +184,6 @@
 					<Item id="44036" name="ทำให้เลื่อนแนวนอนพร้อมกัน"/>
 					<Item id="44041" name="แสดงสัญลักษณ์ที่ถูกมัดรวม"/>
 					<Item id="44072" name="เลือกที่มุมมองอื่น"/>
-
 					<Item id="45001" name="แปลงเป็นรูปแบบ Windows"/>
 					<Item id="45002" name="แปลงเป็นรูปแบบ UNIX"/>
 					<Item id="45003" name="แปลงเป็นรูปแบบ MAC"/>
@@ -203,13 +197,10 @@
 					<Item id="45011" name="เข้ารหัสข้อมูลแบบ UTF-8"/>
 					<Item id="45012" name="เข้ารหัสข้อมูลแบบ UCS-2 Big Endian"/>
 					<Item id="45013" name="เข้ารหัสข้อมูลแบบ UCS-2 Little Endian"/>
-
 					<Item id="10001" name="ย้ายไปยังมุมมองอื่น"/>
 					<Item id="10002" name="สำเนาไปยังมุมมองอื่น"/>
 					<Item id="10003" name="ย้ายไปยังหน้าต่างใหม่"/>
 					<Item id="10004" name="เปิดในหน้าต่างใหม่"/>
-
-
 					<Item id="46001" name="ตัวตั้งค่ารูปแบบ..."/>
 					<Item id="46180" name="ผู้ใช้กำหนดเอง"/>
 					<Item id="47000" name="เกี่ยวกับ Notepad++..."/>
@@ -220,25 +211,18 @@
 					<Item id="47005" name="หาปลั๊กอินเพิ่มเติม"/>
 					<Item id="47006" name="อัพเดท Notepad++"/>
 					<Item id="47008" name="หัวข้อตัวช่วยเหลือ"/>
-
 					<Item id="48005" name="นำเข้าปลั๊กอิน..."/>
 					<Item id="48006" name="นำเข้าธีม..."/>
 					<Item id="48009" name="ตั้งค่าคีย์ลัด..."/>
 					<Item id="48011" name="กำหนดค่าที่ต้องการ..."/>
-
 					<Item id="49000" name="เรียก (&amp;R)..."/>
-
 					<Item id="50000" name="เติมฟังก์ชันอัตโนมัติ"/>
 					<Item id="50001" name="เติมคำอัตโนมัติ"/>
 					<Item id="50002" name="คำแนะนำพารามิเตอร์ของฟังก์ชัน"/>
-
 					<Item id="42034" name="ตัวแก้ไขคอลัมน์..."/>
-
 					<Item id="44042" name="ซ่อนบรรทัด"/>
-
 					<Item id="42040" name="เปิดไฟล์ล่าสุดทั้งหมด"/>
 					<Item id="42041" name="ล้างรายชื่อไฟล์ล่าสุด"/>
-
 					<Item id="48016" name="ปรับแต่งทางลัด/ลบมาโคร..."/>
 					<Item id="48017" name="ปรับแต่งทางลัด/ลบคำสั่ง..."/>
 					<Item id="48018" name="แก้ไขสภาพแวดล้อมเมนูป๊อบอัพ"/>
@@ -265,20 +249,19 @@
 				<Item CMID="15" name="เปิดในหน้าต่างใหม่"/>
 			</TabBar>
 		</Menu>
-
 		<Dialog>
 			<Find title="" titleFind="ค้นหา" titleReplace="แทนที่" titleFindInFiles="ค้นหาในไฟล์" titleMark="มาร์ค">
-				<Item id="1"    name="ค้นหาถัดไป"/>
-				<Item id="2"    name="ปิด"/>
+				<Item id="1" name="ค้นหาถัดไป"/>
+				<Item id="2" name="ปิด"/>
 				<Item id="1620" name="สิ่งที่ค้นหา:"/>
 				<Item id="1603" name="ตรงกับทั้งคำเท่านั้น (&amp;W)"/>
 				<Item id="1604" name="ตรงกับตัวอักษรเล็ก/ใหญ่ (&amp;C)"/>
-                <Item id="1605" name="Regular &amp;expression"/>
-                <Item id="1606" name="Wrap aroun&amp;d"/>
+				<Item id="1605" name="Regular &amp;expression"/>
+				<Item id="1606" name="Wrap aroun&amp;d"/>
 				<Item id="1614" name="นับ"/>
 				<Item id="1615" name="ค้นหาทั้งหมด"/>
 				<Item id="1616" name="มาร์คบรรทัด"/>
-                <Item id="1618" name="ล้างแต่ละการค้นหา"/>
+				<Item id="1618" name="ล้างแต่ละการค้นหา"/>
 				<Item id="1611" name="แทนที่ด้วย (&amp;P):"/>
 				<Item id="1608" name="แทนที่ (&amp;R)"/>
 				<Item id="1609" name="แทนที่ทั้งหมด (&amp;A)"/>
@@ -305,22 +288,20 @@
 			<GoToLine title="ไปที่...">
 				<Item id="2007" name="บรรทัด"/>
 				<Item id="2008" name="ออฟเซ็ต"/>
-				<Item id="1"    name="ไป (&amp;G)"/>
-				<Item id="2"    name="ยกเลิก"/>
+				<Item id="1" name="ไป (&amp;G)"/>
+				<Item id="2" name="ยกเลิก"/>
 				<Item id="2004" name="คุณอยู่ที่:"/>
 				<Item id="2005" name="คุณจะไปที่:"/>
 				<Item id="2006" name="คุณไปได้ไม่เกิน:"/>
 			</GoToLine>
-
 			<Run title="เรียก...">
 				<Item id="1903" name="โปรแกรมที่เรียก"/>
-				<Item id="1"    name="เรียก"/>
-				<Item id="2"    name="ยกเลิก"/>
+				<Item id="1" name="เรียก"/>
+				<Item id="2" name="ยกเลิก"/>
 				<Item id="1904" name="บันทึก..."/>
 			</Run>
-
 			<StyleConfig title="ตั้งค่ารูปแบบ">
-				<Item id="2"    name="ยกเลิก"/>
+				<Item id="2" name="ยกเลิก"/>
 				<Item id="2301" name="บันทึกและปิด"/>
 				<Item id="2303" name="ความโปร่งแสง"/>
 				<Item id="2306" name="เลือกธีม: "/>
@@ -348,7 +329,6 @@
 					<Item id="2232" name="เปิดใช้ค่าโกลบอลของฟอนท์รูปแบบขีดเส้นใต้"/>
 				</SubDialog>
 			</StyleConfig>
-
 			<UserDefine title="ผู้ใช้กำหนดเอง">
 				<Item id="20002" name="เปลี่ยนชื่อ"/>
 				<Item id="20003" name="สร้างใหม่..."/>
@@ -360,15 +340,15 @@
 				<Item id="20011" name="ความโปร่งแสง"/>
 				<Item id="20016" name="นำเข้า..."/>
 				<Item id="20015" name="ส่งออก..."/>
-				<Item id="0"     name="รูปแบบสี"/>
-				<Item id="1"     name="สีพื้นหน้า"/>
-				<Item id="2"     name="สีพื้นหลัง"/>
-				<Item id="3"     name="รูปแบบฟอนท์"/>
-				<Item id="4"     name="ชื่อฟอนท์:"/>
-				<Item id="5"     name="ขนาดฟอนท์:"/>
-				<Item id="6"     name="ตัวหนา"/>
-				<Item id="7"     name="ตัวเอียง"/>
-				<Item id="8"     name="ขีดเส้นใต้"/>
+				<Item id="0" name="รูปแบบสี"/>
+				<Item id="1" name="สีพื้นหน้า"/>
+				<Item id="2" name="สีพื้นหลัง"/>
+				<Item id="3" name="รูปแบบฟอนท์"/>
+				<Item id="4" name="ชื่อฟอนท์:"/>
+				<Item id="5" name="ขนาดฟอนท์:"/>
+				<Item id="6" name="ตัวหนา"/>
+				<Item id="7" name="ตัวเอียง"/>
+				<Item id="8" name="ขีดเส้นใต้"/>
 				<Folder title="โฟลเดอร์และค่าเริ่มต้น">
 					<Item id="21101" name="การตั้งค่าค่าเริ่มต้นรูปแบบ"/>
 					<Item id="21201" name="การตั้งค่าคีย์เวิร์ดเปิดโฟลเดอร์"/>
@@ -414,20 +394,17 @@
 					<Item id="6103" name="ไอคอนขนาดเล็ก"/>
 					<Item id="6104" name="ไอคอนขนาดใหญ่"/>
 					<Item id="6105" name="ไอคอนมาตรฐาน"/>
-
 					<Item id="6106" name="แถบแท็บ"/>
 					<Item id="6107" name="ลด"/>
 					<Item id="6108" name="ล็อก (ไม่ให้ drag and drop)"/>
 					<Item id="6109" name="ทำแท็บที่ไม่ใช้ให้มืดลง"/>
 					<Item id="6110" name="วาดแถบสีบนแถบที่กำลังใช้"/>
-
 					<Item id="6111" name="แสดงแถบสถานะ"/>
 					<Item id="6112" name="แสดงปุ่มปิดให้แต่ละแท็บ"/>
 					<Item id="6113" name="ดับเบิ้ลคลิ๊กเพื่อปิดเอกสาร"/>
 					<Item id="6118" name="ซ่อน"/>
 					<Item id="6119" name="แสดงหลายบรรทัด"/>
 					<Item id="6120" name="แสดงแนวตั้ง"/>
-
 					<Item id="6121" name="แถบเมนู"/>
 					<Item id="6122" name="ซ่อน (ใช้ปุ่ม Alt หรือ F10 ในการสลับ)"/>
 					<Item id="6123" name="การแปลตามท้องถิ่น"/>
@@ -446,17 +423,14 @@
 					<Item id="6204" name="ต้นไม้แบบวงกลม"/>
 					<Item id="6205" name="ต้นไม้แบบกล่อง"/>
 					<Item id="6226" name="ไม่มี"/>
-
 					<Item id="6227" name="การห่อบรรทัด"/>
 					<Item id="6228" name="ค่าปริยาย"/>
 					<Item id="6229" name="เรียงกัน"/>
 					<Item id="6230" name="ย่อหน้า"/>
-
 					<Item id="6206" name="แสดงหมายเลขบรรทัด"/>
 					<Item id="6207" name="แสดงบุ๊คมาร์ค"/>
 					<Item id="6208" name="แสดงเส้นขอบแนวตั้ง"/>
 					<Item id="6209" name="จำนวนของคอลัมน์: "/>
-
 					<Item id="6211" name="ตั้งค่าเส้นขอบแนวตั้ง"/>
 					<Item id="6212" name="โหมดบรรทัด"/>
 					<Item id="6213" name="โหมดพื้นหลัง"/>
@@ -544,11 +518,9 @@
 					<Item id="6328" name="ไฮไลท์คุณลักษณะของแท็ก"/>
 					<Item id="6330" name="ไฮไลท์โซนของ คอมเมนท์ / PHP / ASP"/>
 					<Item id="6331" name="แสดงเฉพาะชื่อไฟล์ในไตเติ้ลบาร์"/>
-
 					<Item id="6114" name="เปิดใช้"/>
 					<Item id="6115" name="ย่อหน้าอัตโนมัติ"/>
 					<Item id="6117" name="เปิดใช้พฤติกรรมที่ใช้ล่าสุด"/>
-
 				</MISC>
 				<Backup title="การทำสำรอง/การทำให้สมบูรณ์อัตโนมัติ">
 					<Item id="6801" name="การทำสำรอง"/>

@@ -1282,15 +1282,15 @@ You can define several column markers by using white space to separate the diffe
 			<ColumnEditor title="Column Editor">
 				<Item id="2023" name="&amp;Text to Insert"/>
 				<Item id="2033" name="&amp;Number to Insert"/>
-				<Item id="2030" name="&amp;Initial number :"/>
-				<Item id="2031" name="Increase b&amp;y :"/>
-				<Item id="2038" name="&amp;Leading :"/>
+				<Item id="2030" name="&amp;Initial number:"/>
+				<Item id="2031" name="Increase b&amp;y:"/>
+				<Item id="2038" name="&amp;Leading:"/>
 				<ComboBox id="2039">
 					<Element name="None"/>
 					<Element name="Zeros"/>
 					<Element name="Spaces"/>
 				</ComboBox>
-				<Item id="2036" name="&amp;Repeat :"/>
+				<Item id="2036" name="&amp;Repeat:"/>
 				<Item id="2032" name="Format"/>
 				<Item id="2024" name="&amp;Dec"/>
 				<Item id="2025" name="&amp;Oct"/>

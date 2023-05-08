@@ -27,27 +27,19 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, TRUE, 0);
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -63,7 +55,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -77,13 +69,12 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
 				case IDCANCEL : // Close
 					display(false);
-                    cleanLineEdit();
 					return TRUE;
 
 				case IDOK :
@@ -92,7 +83,6 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
                     if (line != -1)
                     {
                         display(false);
-                        cleanLineEdit();
 						if (_mode == go2line)
 						{
 							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, static_cast<WPARAM>(line - 1));
@@ -114,7 +104,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						}
 					}
 
-					SCNotification notification = {};
+					SCNotification notification{};
 					notification.nmhdr.code = SCN_PAINTED;
 					notification.nmhdr.hwndFrom = _hSelf;
 					notification.nmhdr.idFrom = ::GetDlgCtrlID(_hSelf);
@@ -124,40 +114,26 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
                     return TRUE;
                 }
 
-				case IDC_RADIO_GOTOLINE :
-				case IDC_RADIO_GOTOOFFSET :
+				case IDC_RADIO_GOTOLINE:
+				case IDC_RADIO_GOTOOFFSET:
 				{
-				
-					bool isLine, isOffset;
 					if (wParam == IDC_RADIO_GOTOLINE)
 					{
-						isLine = true;
-						isOffset = false;
 						_mode = go2line;
 					}
 					else
 					{
-						isLine = false;
-						isOffset = true;
 						_mode = go2offsset;
 					}
-					::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, isLine, 0);
-					::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOOFFSET, BM_SETCHECK, isOffset, 0);
+
+					setChecked(IDC_RADIO_GOTOLINE, _mode == go2line);
+					setChecked(IDC_RADIO_GOTOOFFSET, _mode == go2offsset);
 					updateLinesNumbers();
 					return TRUE;
 				}
 
-				default :
+				default:
 				{
-					switch (HIWORD(wParam))
-					{
-						case EN_SETFOCUS :
-						case BN_SETFOCUS :
-							updateLinesNumbers();
-							return TRUE;
-						default :
-							return TRUE;
-					}
 					break;
 				}
 			}
@@ -185,8 +161,7 @@ void GoToLineDlg::updateLinesNumbers() const
 		size_t currentDocLength = (*_ppEditView)->getCurrentDocLen();
 		limit = (currentDocLength > 0 ? currentDocLength - 1 : 0);
 	}
-    
-	
+
 	::SetDlgItemTextA(_hSelf, ID_CURRLINE, std::to_string(current).c_str());
 	::SetDlgItemTextA(_hSelf, ID_LASTLINE, std::to_string(limit).c_str());
 }

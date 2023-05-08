@@ -31,45 +31,46 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
-		StaticDialog::create(dialogID, isRTL, msgDestParent);
-	};
-
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
 			create(IDD_GOLINE, isRTL);
 		display();
 	};
 
-    virtual void display(bool toShow = true) const {
-        Window::display(toShow);
-        if (toShow)
-            ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
-    };
-    
-    void updateLinesNumbers() const;
+	void display(bool toShow = true) const override {
+		Window::display(toShow);
+		if (toShow)
+		{
+			updateLinesNumbers();
+			::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+		}
+		else
+		{
+			cleanLineEdit();
+		}
+	};
+
+	void updateLinesNumbers() const;
 
 protected :
 	enum mode {go2line, go2offsset};
 	mode _mode = go2line;
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
-    ScintillaEditView **_ppEditView = nullptr;
+	ScintillaEditView **_ppEditView = nullptr;
 
     void cleanLineEdit() const {
         ::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));
     };
 
-    long long getLine() const {
-		const int maxLen = 256;
+	long long getLine() const {
+		constexpr int maxLen = 256;
 		char goLineEditStr[maxLen] = {'\0'};
 		UINT count = ::GetDlgItemTextA(_hSelf, ID_GOLINE_EDIT, goLineEditStr, maxLen);
 		if (!count)
 			return -1;
-		char* p_end;
+		char* p_end = nullptr;
 		return strtoll(goLineEditStr, &p_end, 10);
-    };
-
+	};
 };
-

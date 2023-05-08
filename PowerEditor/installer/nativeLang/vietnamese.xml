@@ -3,1501 +3,1501 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-    <Native-Langue name="Tiếng Việt" filename="vietnamese.xml" version="8.4.7">
-        <Menu>
-            <Main>
-                <!-- Main Menu Entries -->
-                <Entries>
-                    <Item menuId="file" name="&amp;Tệp"/>
-                    <Item menuId="edit" name="&amp;Sửa"/>
-                    <Item menuId="search" name="Tì&amp;m"/>
-                    <Item menuId="view" name="&amp;Xem"/>
-                    <Item menuId="encoding" name="&amp;Biên mã"/>
-                    <Item menuId="language" name="&amp;Ngôn ngữ"/>
-                    <Item menuId="settings" name="T&amp;hiết đặt"/>
-                    <Item menuId="tools" name="Côn&amp;g cụ"/>
-                    <Item menuId="macro" name="&amp;Vĩ lệnh"/>
-                    <Item menuId="run" name="Chạ&amp;y"/>
-                    <Item menuId="Plugins" name="T&amp;rình cắm"/>
-                    <Item menuId="Window" name="Cử&amp;a sổ"/>
-                </Entries>
-                <!-- Sub Menu Entries -->
-                <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Mở thư mục chứa"/>
-                    <Item subMenuId="file-closeMore" name="Đóng thêm"/>
-                    <Item subMenuId="file-recentFiles" name="Các tệp gần đây"/>
-                    <Item subMenuId="edit-insert" name="Chèn"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Chép vào bảng tạm"/>
-                    <Item subMenuId="edit-indent" name="Thụt lề"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Chuyển hoa thường sang"/>
-                    <Item subMenuId="edit-lineOperations" name="Thao tác dòng"/>
-                    <Item subMenuId="edit-comment" name="Thêm/bỏ chú thích"/>
-                    <Item subMenuId="edit-autoCompletion" name="Tự động hoàn thành"/>
-                    <Item subMenuId="edit-eolConversion" name="Chuyển đổi EOL"/>
-                    <Item subMenuId="edit-blankOperations" name="Thao tác khoảng trống"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Dán đặc biệt"/>
-                    <Item subMenuId="edit-onSelection" name="Ở phần được chọn"/>
-                    <Item subMenuId="search-markAll" name="Đánh dấu tất cả lần xuất hiện dấu hiệu"/>
-                    <Item subMenuId="search-markOne" name="Đánh dấu một dấu hiệu"/>
-                    <Item subMenuId="search-unmarkAll" name="Bỏ đánh dấu"/>
-                    <Item subMenuId="search-jumpUp" name="Nhảy lên"/>
-                    <Item subMenuId="search-jumpDown" name="Nhảy xuống"/>
-                    <Item subMenuId="search-copyStyledText" name="Chép phần văn bản được đánh dấu"/>
-                    <Item subMenuId="search-bookmark" name="Dấu trang"/>
-                    <Item subMenuId="view-currentFileIn" name="Xem tệp hiện tại trong"/>
-                    <Item subMenuId="view-showSymbol"  name="Hiển thị ký tự đặc biệt"/>
-                    <Item subMenuId="view-zoom"  name="Thu phóng"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Di chuyển/Sao tài liệu hiện thời"/>
-                    <Item subMenuId="view-tab"  name="Thẻ"/>
-                    <Item subMenuId="view-collapseLevel" name="Gập cấp độ"/>
-                    <Item subMenuId="view-uncollapseLevel" name="Duỗi cấp độ"/>
-                    <Item subMenuId="view-project" name="Dự án"/>
-                    <Item subMenuId="encoding-characterSets"  name="Tập ký tự"/>
-                    <Item subMenuId="encoding-arabic"  name="Ả Rập"/>
-                    <Item subMenuId="encoding-baltic"  name="Ban-tích"/>
-                    <Item subMenuId="encoding-celtic"  name="Xen-tơ"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Ki-rin"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Trung Âu"/>
-                    <Item subMenuId="encoding-chinese"  name="Hán"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Đông Âu"/>
-                    <Item subMenuId="encoding-greek"  name="Hy Lạp"/>
-                    <Item subMenuId="encoding-hebrew"  name="Do Thái"/>
-                    <Item subMenuId="encoding-japanese"  name="Nhật"/>
-                    <Item subMenuId="encoding-korean" name="Hàn"/>
-                    <Item subMenuId="encoding-northEuropean" name="Bắc Âu"/>
-                    <Item subMenuId="encoding-thai" name="Thái"/>
-                    <Item subMenuId="encoding-turkish" name="Thổ Nhĩ Kỳ"/>
-                    <Item subMenuId="encoding-westernEuropean" name="Tây Âu"/>
-                    <Item subMenuId="encoding-vietnamese" name="Việt"/>
-                    <Item subMenuId="language-userDefinedLanguage" name="Ngôn ngữ người dùng tự định nghĩa"/>
-                    <Item subMenuId="settings-import"  name="Nhập"/>
-                    <Item subMenuId="tools-md5" name="MD5"/>
-                    <Item subMenuId="tools-sha256" name="SHA-256"/>
-                </SubEntries>
+	<Native-Langue name="Tiếng Việt" filename="vietnamese.xml" version="8.4.7">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;Tệp"/>
+					<Item menuId="edit" name="&amp;Sửa"/>
+					<Item menuId="search" name="Tì&amp;m"/>
+					<Item menuId="view" name="&amp;Xem"/>
+					<Item menuId="encoding" name="&amp;Biên mã"/>
+					<Item menuId="language" name="&amp;Ngôn ngữ"/>
+					<Item menuId="settings" name="T&amp;hiết đặt"/>
+					<Item menuId="tools" name="Côn&amp;g cụ"/>
+					<Item menuId="macro" name="&amp;Vĩ lệnh"/>
+					<Item menuId="run" name="Chạ&amp;y"/>
+					<Item menuId="Plugins" name="T&amp;rình cắm"/>
+					<Item menuId="Window" name="Cử&amp;a sổ"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Mở thư mục chứa"/>
+					<Item subMenuId="file-closeMore" name="Đóng thêm"/>
+					<Item subMenuId="file-recentFiles" name="Các tệp gần đây"/>
+					<Item subMenuId="edit-insert" name="Chèn"/>
+					<Item subMenuId="edit-copyToClipboard" name="Chép vào bảng tạm"/>
+					<Item subMenuId="edit-indent" name="Thụt lề"/>
+					<Item subMenuId="edit-convertCaseTo" name="Chuyển hoa thường sang"/>
+					<Item subMenuId="edit-lineOperations" name="Thao tác dòng"/>
+					<Item subMenuId="edit-comment" name="Thêm/bỏ chú thích"/>
+					<Item subMenuId="edit-autoCompletion" name="Tự động hoàn thành"/>
+					<Item subMenuId="edit-eolConversion" name="Chuyển đổi EOL"/>
+					<Item subMenuId="edit-blankOperations" name="Thao tác khoảng trống"/>
+					<Item subMenuId="edit-pasteSpecial" name="Dán đặc biệt"/>
+					<Item subMenuId="edit-onSelection" name="Ở phần được chọn"/>
+					<Item subMenuId="search-markAll" name="Đánh dấu tất cả lần xuất hiện dấu hiệu"/>
+					<Item subMenuId="search-markOne" name="Đánh dấu một dấu hiệu"/>
+					<Item subMenuId="search-unmarkAll" name="Bỏ đánh dấu"/>
+					<Item subMenuId="search-jumpUp" name="Nhảy lên"/>
+					<Item subMenuId="search-jumpDown" name="Nhảy xuống"/>
+					<Item subMenuId="search-copyStyledText" name="Chép phần văn bản được đánh dấu"/>
+					<Item subMenuId="search-bookmark" name="Dấu trang"/>
+					<Item subMenuId="view-currentFileIn" name="Xem tệp hiện tại trong"/>
+					<Item subMenuId="view-showSymbol" name="Hiển thị ký tự đặc biệt"/>
+					<Item subMenuId="view-zoom" name="Thu phóng"/>
+					<Item subMenuId="view-moveCloneDocument" name="Di chuyển/Sao tài liệu hiện thời"/>
+					<Item subMenuId="view-tab" name="Thẻ"/>
+					<Item subMenuId="view-collapseLevel" name="Gập cấp độ"/>
+					<Item subMenuId="view-uncollapseLevel" name="Duỗi cấp độ"/>
+					<Item subMenuId="view-project" name="Dự án"/>
+					<Item subMenuId="encoding-characterSets" name="Tập ký tự"/>
+					<Item subMenuId="encoding-arabic" name="Ả Rập"/>
+					<Item subMenuId="encoding-baltic" name="Ban-tích"/>
+					<Item subMenuId="encoding-celtic" name="Xen-tơ"/>
+					<Item subMenuId="encoding-cyrillic" name="Ki-rin"/>
+					<Item subMenuId="encoding-centralEuropean" name="Trung Âu"/>
+					<Item subMenuId="encoding-chinese" name="Hán"/>
+					<Item subMenuId="encoding-easternEuropean" name="Đông Âu"/>
+					<Item subMenuId="encoding-greek" name="Hy Lạp"/>
+					<Item subMenuId="encoding-hebrew" name="Do Thái"/>
+					<Item subMenuId="encoding-japanese" name="Nhật"/>
+					<Item subMenuId="encoding-korean" name="Hàn"/>
+					<Item subMenuId="encoding-northEuropean" name="Bắc Âu"/>
+					<Item subMenuId="encoding-thai" name="Thái"/>
+					<Item subMenuId="encoding-turkish" name="Thổ Nhĩ Kỳ"/>
+					<Item subMenuId="encoding-westernEuropean" name="Tây Âu"/>
+					<Item subMenuId="encoding-vietnamese" name="Việt"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Ngôn ngữ người dùng tự định nghĩa"/>
+					<Item subMenuId="settings-import" name="Nhập"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+				</SubEntries>
 
-                <!-- all menu item -->
-                <Commands>
-                    <Item id="41001" name="&amp;Mới"/>
-                    <Item id="41002" name="&amp;Mở"/>
-                    <Item id="41019" name="Explorer"/>
-                    <Item id="41020" name="CMD"/>
-                    <Item id="41025" name="Thư mục như là không gian làm việc"/>
-                    <Item id="41003" name="Đóng"/>
-                    <Item id="41004" name="&amp;Đóng tất cả"/>
-                    <Item id="41005" name="Đóng tất cả trừ tài liệu hiện thời"/>
-                    <Item id="41009" name="Đóng tất cả bên trái"/>
-                    <Item id="41018" name="Đóng tất cả bên phải"/>
-                    <Item id="41024" name="Đóng tất cả chưa được lưu"/>
-                    <Item id="41006" name="&amp;Lưu"/>
-                    <Item id="41007" name="&amp;Lưu tất cả"/>
-                    <Item id="41008" name="Lưu &amp;như..."/>
-                    <Item id="41010" name="In..."/>
-                    <Item id="1001"  name="In ngay"/>
-                    <Item id="41011" name="&amp;Thoát"/>
-                    <Item id="41012" name="Nạp phiên làm việc..."/>
-                    <Item id="41013" name="Lưu phiên làm việc..."/>
-                    <Item id="41014" name="Tải lại từ đĩa"/>
-                    <Item id="41015" name="Lưu một bản sao thành..."/>
-                    <Item id="41016" name="Chuyển vào thùng rác"/>
-                    <Item id="41017" name="Đổi tên..."/>
-                    <Item id="41021" name="Khôi phục tệp được đóng gần đây"/>
-                    <Item id="41022" name="Mở thư mục như là không gian làm việc..."/>
-                    <Item id="41023" name="Mở trong trình xem mặc định"/>
-                    <Item id="42001" name="&amp;Cắt"/>
-                    <Item id="42002" name="&amp;Sao chép"/>
-                    <Item id="42003" name="&amp;Hoàn tác"/>
-                    <Item id="42004" name="&amp;Làm lại"/>
-                    <Item id="42005" name="&amp;Dán"/>
-                    <Item id="42006" name="&amp;Xóa"/>
-                    <Item id="42007" name="Chọn &amp;tất cả"/>
-                    <Item id="42020" name="Chọn bắt đầu/kết thúc"/>
-                    <Item id="42084" name="Ngày giờ (ngắn)"/>
-                    <Item id="42085" name="Ngày giờ (dài)"/>
-                    <Item id="42086" name="Ngày giờ (được tuỳ chỉnh)"/>
-                    <Item id="42008" name="Tăng đường thụt lề"/>
-                    <Item id="42009" name="Giảm đường thụt lề"/>
-                    <Item id="42010" name="Nhân đôi dòng hiện tại"/>
-                    <Item id="42079" name="Xoá các dòng trùng lặp"/>
-                    <Item id="42077" name="Xoá các dòng trùng lặp liên tiếp nhau"/>
-                    <Item id="42012" name="Tách dòng"/>
-                    <Item id="42013" name="Nối dòng"/>
-                    <Item id="42014" name="Di chuyển dòng hiện tại lên"/>
-                    <Item id="42015" name="Di chuyển dòng hiện tại xuống"/>
-                    <Item id="42059" name="Sắp xếp các dòng theo kiểu từ điển tăng dần"/>
-                    <Item id="42060" name="Sắp xếp các dòng theo kiểu từ điển giảm dần"/>
-                    <Item id="42080" name="Sắp xếp dòng kiểu từ điển tăng dần bỏ qua hoa thường"/>
-                    <Item id="42081" name="Sắp xếp dòng kiểu từ điển giảm dần bỏ qua hoa thường"/>
-                    <Item id="42061" name="Sắp xếp các dòng như số nguyên tăng dần"/>
-                    <Item id="42062" name="Sắp xếp các dòng như số nguyên giảm dần"/>
-                    <Item id="42063" name="Sắp xếp các dòng như số thập phân (phẩy) tăng dần"/>
-                    <Item id="42064" name="Sắp xếp các dòng như số thập phân (phẩy) giảm dần"/>
-                    <Item id="42065" name="Sắp xếp các dòng như số thập phân (chấm) tăng dần"/>
-                    <Item id="42066" name="Sắp xếp các dòng như số thập phân (chấm) giảm dần"/>
-                    <Item id="42083" name="Đảo ngược thứ tự dòng"/>
-                    <Item id="42078" name="Xáo ngẫu nhiên thứ tự dòng"/>
-                    <Item id="42016" name="CHỮ HOA"/>
-                    <Item id="42017" name="chữ thường"/>
-                    <Item id="42067" name="&amp;Viết Hoa Đầu Từ"/>
-                    <Item id="42068" name="Viết Hoa Đầu Từ (trộn)"/>
-                    <Item id="42069" name="&amp;Viết hoa đầu câu"/>
-                    <Item id="42070" name="Viết hoa đầu câu (trộn)"/>
-                    <Item id="42071" name="&amp;hOA tHƯỜNG đẢO nGƯỢC"/>
-                    <Item id="42072" name="&amp;vIếT HOa nGẪu NHIên"/>
-                    <Item id="42073" name="Mở tệp"/>
-                    <Item id="42074" name="Mở thư mục chứa trong Explorer"/>
-                    <Item id="42075" name="Tìm kiếm trên Internet"/>
-                    <Item id="42076" name="Thay đổi máy tìm kiếm..."/>
-                    <Item id="42018" name="&amp;Bắt đầu ghi"/>
-                    <Item id="42019" name="&amp;Dừng ghi"/>
-                    <Item id="42021" name="&amp;Phát lại"/>
-                    <Item id="42022" name="Bật tắt dòng chú thích đơn"/>
-                    <Item id="42023" name="Khối chú thích"/>
-                    <Item id="42047" name="Bỏ khối chú thích"/>
-                    <Item id="42024" name="Xén bớt khoảng trắng đằng sau"/>
-                    <Item id="42042" name="Xén bớt khoảng trắng đằng trước"/>
-                    <Item id="42043" name="Xén bớt khoảng trắng đằng sau và trước"/>
-                    <Item id="42044" name="EOL thành dấu cách"/>
-                    <Item id="42045" name="Loại bỏ các khoảng trống và EOL không cần thiết"/>
-                    <Item id="42046" name="TAB sang khoảng trắng"/>
-                    <Item id="42054" name="Khoảng trắng sang TAB (tất cả)"/>
-                    <Item id="42053" name="Khoảng trắng sang TAB (đằng trước)"/>
-                    <Item id="42038" name="Dán nội dung HTML"/>
-                    <Item id="42039" name="Dán nội dung RTF"/>
-                    <Item id="42048" name="Sao chép nội dung nhị phân"/>
-                    <Item id="42049" name="Cắt nội dung nhị phân"/>
-                    <Item id="42050" name="Dán nội dung nhị phân"/>
-                    <Item id="42082" name="Sao chép liên kết"/>
-                    <Item id="42037" name="Chế độ cột..."/>
-                    <Item id="42034" name="Chỉnh sửa cột..."/>
-                    <Item id="42051" name="Bảng ký tự"/>
-                    <Item id="42052" name="Lịch sử bảng tạm"/>
-                    <Item id="42025" name="Lưu vĩ lệnh hiện tại"/>
-                    <Item id="42026" name="Hướng văn bản phải sang trái"/>
-                    <Item id="42027" name="Hướng văn bản trái sang phải"/>
-                    <Item id="42028" name="Đặt chỉ-đọc"/>
-                    <Item id="42029" name="Đường dẫn tệp hiện tại vào bảng tạm"/>
-                    <Item id="42030" name="Tên tập tin hiện tại vào bảng tạm"/>
-                    <Item id="42031" name="Đường dẫn tệp hiện tại vào bảng tạm"/>
-                    <Item id="42087" name="Sao chép tất cả tên tệp"/>
-                    <Item id="42088" name="Sao chép tất cả đường dẫn tệp "/>
-                    <Item id="42032" name="Chạy một vĩ lệnh nhiều lần..."/>
-                    <Item id="42033" name="Xóa cờ chỉ-đọc"/>
-                    <Item id="42035" name="Chú thích dòng đơn"/>
-                    <Item id="42036" name="Bỏ chú thích dòng đơn"/>
-                    <Item id="42055" name="Loại bỏ dòng trống"/>
-                    <Item id="42056" name="Loại bỏ dòng trống (chứa các kí tự trống)"/>
-                    <Item id="42057" name="Chèn dòng trống ở trên"/>
-                    <Item id="42058" name="Chèn dòng trống ở dưới"/>
-                    <Item id="43001" name="&amp;Tìm..."/>
-                    <Item id="43002" name="&amp;Tìm tiếp"/>
-                    <Item id="43003" name="Thay thế..."/>
-                    <Item id="43004" name="Đi tới..."/>
-                    <Item id="43005" name="Bật/tắt dấu trang"/>
-                    <Item id="43006" name="Dấu trang kế tiếp"/>
-                    <Item id="43007" name="Dấu trang trước đó"/>
-                    <Item id="43008" name="Xóa tất cả dấu trang"/>
-                    <Item id="43018" name="Cắt các dòng được đánh dấu trang"/>
-                    <Item id="43019" name="Chép các dòng được đánh dấu trang"/>
-                    <Item id="43020" name="Dán (để thay thế) các dòng được đánh dấu trang"/>
-                    <Item id="43021" name="Loại bỏ các dòng được đánh dấu trang"/>
-                    <Item id="43051" name="Loại bỏ các dòng không được đánh dấu"/>
-                    <Item id="43050" name="Nghịch đảo dấu trang"/>
-                    <Item id="43052" name="Tìm các ký tự trong phạm vi..."/>
-                    <Item id="43053" name="Chọn tất cả giữa cặp ngoặc khớp nhau"/>
-                    <Item id="43009" name="Đi đến dấu ngoặc tương ứng"/>
-                    <Item id="43010" name="Tìm trước đó"/>
-                    <Item id="43011" name="&amp;Tìm kiếm tăng dần"/>
-                    <Item id="43013" name="Tìm trong các tập tin"/>
-                    <Item id="43014" name="Tìm (không ổn đinh) kế tiếp"/>
-                    <Item id="43015" name="Tìm (không ổn đinh) trước đó"/>
-                    <Item id="43022" name="Sử dụng kiểu dáng thứ nhất"/>
-                    <Item id="43023" name="Dọn sạch kiểu dáng thứ nhất"/>
-                    <Item id="43024" name="Sử dụng kiểu dáng thứ 2"/>
-                    <Item id="43025" name="Dọn sạch kiểu dáng thứ 2"/>
-                    <Item id="43026" name="Sử dụng kiểu dáng thứ 3"/>
-                    <Item id="43027" name="Dọn sạch kiểu dáng thứ 3"/>
-                    <Item id="43028" name="Sử dụng kiểu dáng thứ 4"/>
-                    <Item id="43029" name="Dọn sạch kiểu dáng thứ 4"/>
-                    <Item id="43030" name="Sử dụng kiểu dáng thứ 5"/>
-                    <Item id="43031" name="Dọn sạch kiểu dáng thứ 5"/>
-                    <Item id="43032" name="Dọn sạch tất cả kiểu dáng"/>
-                    <Item id="43033" name="Kiểu dáng thứ nhất"/>
-                    <Item id="43034" name="Kiểu dáng thứ 2"/>
-                    <Item id="43035" name="Kiểu dáng thứ 3"/>
-                    <Item id="43036" name="Kiểu dáng thứ 4"/>
-                    <Item id="43037" name="Kiểu dáng thứ 5"/>
-                    <Item id="43038" name="Kiểu dáng đánh dấu tìm kiếm"/>
-                    <Item id="43039" name="Kiểu dáng thứ nhất"/>
-                    <Item id="43040" name="Kiểu dáng thứ 2"/>
-                    <Item id="43041" name="Kiểu dáng thứ 3"/>
-                    <Item id="43042" name="Kiểu dáng thứ 4"/>
-                    <Item id="43043" name="Kiểu dáng thứ 5"/>
-                    <Item id="43044" name="Kiểu dáng đánh dấu tìm kiếm"/>
-                    <Item id="43055" name="Kiểu dáng thứ nhất"/>
-                    <Item id="43056" name="Kiểu dáng thứ 2"/>
-                    <Item id="43057" name="Kiểu dáng thứ 3"/>
-                    <Item id="43058" name="Kiểu dáng thứ 4"/>
-                    <Item id="43059" name="Kiểu dáng thứ 5"/>
-                    <Item id="43060" name="Tất cả kiểu dáng"/>
-                    <Item id="43061" name="Kiểu dáng đánh dấu tìm kiếm"/>
-                    <Item id="43062" name="Sử dụng kiểu dáng thứ nhất"/>
-                    <Item id="43063" name="Sử dụng kiểu dáng thứ 2"/>
-                    <Item id="43064" name="Sử dụng kiểu dáng thứ 3"/>
-                    <Item id="43065" name="Sử dụng kiểu dáng thứ 4"/>
-                    <Item id="43066" name="Sử dụng kiểu dáng thứ 5"/>
-                    <Item id="43045" name="Cửa sổ kết quả tìm kiếm"/>
-                    <Item id="43046" name="Kết quả tìm kiếm tiếp theo"/>
-                    <Item id="43047" name="Kết quả tìm kiếm trước"/>
-                    <Item id="43048" name="Chọn và tìm tiếp theo"/>                    
-                    <Item id="43049" name="Chọn và tìm trước đó"/>
-                    <Item id="43054" name="Đánh dấu..."/>
-                    <Item id="43501" name="Đóng cái được chọn"/>
-                    <Item id="43502" name="Đóng những cái khác"/>
-                    <Item id="43503" name="Sao chép những tên được chọn"/>
-                    <Item id="43504" name="Sao chép những tên tệp được chọn"/>
-                    <Item id="44009" name="Post-It"/>
-                    <Item id="44010" name="Gập tất cả"/>
-                    <Item id="44011" name="Chế độ không gây xao lãng"/>
-                    <Item id="44019" name="Hiện tất cả kí tự"/>
-                    <Item id="44020" name="Hiển thị hướng dẫn thụt lề"/>
-                    <Item id="44022" name="Bọc văn bản"/>
-                    <Item id="44023" name="Phóng to (Ctrl+Lăn chuột lên)"/>
-                    <Item id="44024" name="Thu nhỏ  (Ctrl+Lăn chuột xuống)"/>
-                    <Item id="44025" name="Hiện khoảng trắng và TAB"/>
-                    <Item id="44026" name="Hiện cuối dòng"/>
-                    <Item id="44029" name="Duỗi tất cả"/>
-                    <Item id="44030" name="Gập cấp độ hiện tại"/>
-                    <Item id="44031" name="Duỗi cấp độ hiện tại"/>
-                    <Item id="44049" name="Tóm tắt..."/>
-                    <Item id="44080" name="Bản đồ tài liệu"/>
-                    <Item id="44070" name="Danh sách tài liệu"/>
-                    <Item id="44084" name="Danh sách hàm"/>
-                    <Item id="44085" name="Thư mục như là không gian tài liệu"/>
-                    <Item id="44086" name="Thẻ thứ nhất"/>
-                    <Item id="44087" name="Thẻ thứ 2"/>
-                    <Item id="44088" name="Thẻ thứ 3"/>
-                    <Item id="44089" name="Thẻ thứ 4"/>
-                    <Item id="44090" name="Thẻ thứ 5"/>
-                    <Item id="44091" name="Thẻ thứ 6"/>
-                    <Item id="44092" name="Thẻ thứ 7"/>
-                    <Item id="44093" name="Thẻ thứ 8"/>
-                    <Item id="44094" name="Thẻ thứ 9"/>
-                    <Item id="44095" name="Thẻ tiếp theo"/>
-                    <Item id="44096" name="Thẻ trước đó"/>
-                    <Item id="44097" name="Giám sát (tail -f)"/>
-                    <Item id="44098" name="Di chuyển thẻ về phía trước"/>
-                    <Item id="44099" name="Di chuyển thẻ về phía sau"/>
-                    <Item id="44110" name="Loại bỏ màu"/>
-                    <Item id="44111" name="Áp dụng màu 1"/>
-                    <Item id="44112" name="Áp dụng màu 2"/>
-                    <Item id="44113" name="Áp dụng màu 3"/>
-                    <Item id="44114" name="Áp dụng màu 4"/>
-                    <Item id="44115" name="Áp dụng màu 5"/>
-                    <Item id="44032" name="Bật tắt chế độ toàn màn hình"/>
-                    <Item id="44033" name="Khôi phục mức thu phóng mặc định"/>
-                    <Item id="44034" name="Luôn nổi lên đầu"/>
-                    <Item id="44035" name="Đồng bộ hóa cuộn dọc"/>
-                    <Item id="44036" name="Đồng bộ hoá cuộn ngang"/>
-                    <Item id="44041" name="Hiện kí hiệu bọc"/>
-                    <Item id="44072" name="Tập trung vào một khung nhìn khác"/>
-                    <Item id="44081" name="Bảng điều khiển dự án 1"/>
-                    <Item id="44082" name="Bảng điều khiển dự án 2"/>
-                    <Item id="44083" name="Bảng điều khiển dự án 3"/>
-                    <Item id="45001" name="Windows (CR LF)"/>
-                    <Item id="45002" name="Unix (LF)"/>
-                    <Item id="45003" name="Macintosh (CR)"/>
-                    <Item id="45004" name="ANSI"/>
-                    <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UTF-16 BE BOM"/>
-                    <Item id="45007" name="UTF-16 LE BOM"/>
-                    <Item id="45008" name="UTF-8"/>
-                    <Item id="45009" name="Chuyển đổi sang ANSI"/>
-                    <Item id="45010" name="Chuyển đổi sang UTF-8"/>
-                    <Item id="45011" name="Chuyển đổi sang UTF-8-BOM"/>
-                    <Item id="45012" name="Chuyển đổi sang UTF-16 BE BOM"/>
-                    <Item id="45013" name="Chuyển đổi sang UTF-16 LE BOM"/>
-                    <Item id="45060" name="Big5 (Phồn thể)"/>
-                    <Item id="45061" name="GB2312 (Giản thể)"/>
-                    <Item id="45054" name="OEM 861: Ai-xơ-len"/>
-                    <Item id="45057" name="OEM 865: Bắc Âu"/>
-                    <Item id="45053" name="OEM 860: Bồ Đào Nha"/>
-                    <Item id="45056" name="OEM 863: Pháp"/>
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="&amp;Mới"/>
+					<Item id="41002" name="&amp;Mở"/>
+					<Item id="41019" name="Explorer"/>
+					<Item id="41020" name="CMD"/>
+					<Item id="41025" name="Thư mục như là không gian làm việc"/>
+					<Item id="41003" name="Đóng"/>
+					<Item id="41004" name="&amp;Đóng tất cả"/>
+					<Item id="41005" name="Đóng tất cả trừ tài liệu hiện thời"/>
+					<Item id="41009" name="Đóng tất cả bên trái"/>
+					<Item id="41018" name="Đóng tất cả bên phải"/>
+					<Item id="41024" name="Đóng tất cả chưa được lưu"/>
+					<Item id="41006" name="&amp;Lưu"/>
+					<Item id="41007" name="&amp;Lưu tất cả"/>
+					<Item id="41008" name="Lưu &amp;như..."/>
+					<Item id="41010" name="In..."/>
+					<Item id="1001" name="In ngay"/>
+					<Item id="41011" name="&amp;Thoát"/>
+					<Item id="41012" name="Nạp phiên làm việc..."/>
+					<Item id="41013" name="Lưu phiên làm việc..."/>
+					<Item id="41014" name="Tải lại từ đĩa"/>
+					<Item id="41015" name="Lưu một bản sao thành..."/>
+					<Item id="41016" name="Chuyển vào thùng rác"/>
+					<Item id="41017" name="Đổi tên..."/>
+					<Item id="41021" name="Khôi phục tệp được đóng gần đây"/>
+					<Item id="41022" name="Mở thư mục như là không gian làm việc..."/>
+					<Item id="41023" name="Mở trong trình xem mặc định"/>
+					<Item id="42001" name="&amp;Cắt"/>
+					<Item id="42002" name="&amp;Sao chép"/>
+					<Item id="42003" name="&amp;Hoàn tác"/>
+					<Item id="42004" name="&amp;Làm lại"/>
+					<Item id="42005" name="&amp;Dán"/>
+					<Item id="42006" name="&amp;Xóa"/>
+					<Item id="42007" name="Chọn &amp;tất cả"/>
+					<Item id="42020" name="Chọn bắt đầu/kết thúc"/>
+					<Item id="42084" name="Ngày giờ (ngắn)"/>
+					<Item id="42085" name="Ngày giờ (dài)"/>
+					<Item id="42086" name="Ngày giờ (được tuỳ chỉnh)"/>
+					<Item id="42008" name="Tăng đường thụt lề"/>
+					<Item id="42009" name="Giảm đường thụt lề"/>
+					<Item id="42010" name="Nhân đôi dòng hiện tại"/>
+					<Item id="42079" name="Xoá các dòng trùng lặp"/>
+					<Item id="42077" name="Xoá các dòng trùng lặp liên tiếp nhau"/>
+					<Item id="42012" name="Tách dòng"/>
+					<Item id="42013" name="Nối dòng"/>
+					<Item id="42014" name="Di chuyển dòng hiện tại lên"/>
+					<Item id="42015" name="Di chuyển dòng hiện tại xuống"/>
+					<Item id="42059" name="Sắp xếp các dòng theo kiểu từ điển tăng dần"/>
+					<Item id="42060" name="Sắp xếp các dòng theo kiểu từ điển giảm dần"/>
+					<Item id="42080" name="Sắp xếp dòng kiểu từ điển tăng dần bỏ qua hoa thường"/>
+					<Item id="42081" name="Sắp xếp dòng kiểu từ điển giảm dần bỏ qua hoa thường"/>
+					<Item id="42061" name="Sắp xếp các dòng như số nguyên tăng dần"/>
+					<Item id="42062" name="Sắp xếp các dòng như số nguyên giảm dần"/>
+					<Item id="42063" name="Sắp xếp các dòng như số thập phân (phẩy) tăng dần"/>
+					<Item id="42064" name="Sắp xếp các dòng như số thập phân (phẩy) giảm dần"/>
+					<Item id="42065" name="Sắp xếp các dòng như số thập phân (chấm) tăng dần"/>
+					<Item id="42066" name="Sắp xếp các dòng như số thập phân (chấm) giảm dần"/>
+					<Item id="42083" name="Đảo ngược thứ tự dòng"/>
+					<Item id="42078" name="Xáo ngẫu nhiên thứ tự dòng"/>
+					<Item id="42016" name="CHỮ HOA"/>
+					<Item id="42017" name="chữ thường"/>
+					<Item id="42067" name="&amp;Viết Hoa Đầu Từ"/>
+					<Item id="42068" name="Viết Hoa Đầu Từ (trộn)"/>
+					<Item id="42069" name="&amp;Viết hoa đầu câu"/>
+					<Item id="42070" name="Viết hoa đầu câu (trộn)"/>
+					<Item id="42071" name="&amp;hOA tHƯỜNG đẢO nGƯỢC"/>
+					<Item id="42072" name="&amp;vIếT HOa nGẪu NHIên"/>
+					<Item id="42073" name="Mở tệp"/>
+					<Item id="42074" name="Mở thư mục chứa trong Explorer"/>
+					<Item id="42075" name="Tìm kiếm trên Internet"/>
+					<Item id="42076" name="Thay đổi máy tìm kiếm..."/>
+					<Item id="42018" name="&amp;Bắt đầu ghi"/>
+					<Item id="42019" name="&amp;Dừng ghi"/>
+					<Item id="42021" name="&amp;Phát lại"/>
+					<Item id="42022" name="Bật tắt dòng chú thích đơn"/>
+					<Item id="42023" name="Khối chú thích"/>
+					<Item id="42047" name="Bỏ khối chú thích"/>
+					<Item id="42024" name="Xén bớt khoảng trắng đằng sau"/>
+					<Item id="42042" name="Xén bớt khoảng trắng đằng trước"/>
+					<Item id="42043" name="Xén bớt khoảng trắng đằng sau và trước"/>
+					<Item id="42044" name="EOL thành dấu cách"/>
+					<Item id="42045" name="Loại bỏ các khoảng trống và EOL không cần thiết"/>
+					<Item id="42046" name="TAB sang khoảng trắng"/>
+					<Item id="42054" name="Khoảng trắng sang TAB (tất cả)"/>
+					<Item id="42053" name="Khoảng trắng sang TAB (đằng trước)"/>
+					<Item id="42038" name="Dán nội dung HTML"/>
+					<Item id="42039" name="Dán nội dung RTF"/>
+					<Item id="42048" name="Sao chép nội dung nhị phân"/>
+					<Item id="42049" name="Cắt nội dung nhị phân"/>
+					<Item id="42050" name="Dán nội dung nhị phân"/>
+					<Item id="42082" name="Sao chép liên kết"/>
+					<Item id="42037" name="Chế độ cột..."/>
+					<Item id="42034" name="Chỉnh sửa cột..."/>
+					<Item id="42051" name="Bảng ký tự"/>
+					<Item id="42052" name="Lịch sử bảng tạm"/>
+					<Item id="42025" name="Lưu vĩ lệnh hiện tại"/>
+					<Item id="42026" name="Hướng văn bản phải sang trái"/>
+					<Item id="42027" name="Hướng văn bản trái sang phải"/>
+					<Item id="42028" name="Đặt chỉ-đọc"/>
+					<Item id="42029" name="Đường dẫn tệp hiện tại vào bảng tạm"/>
+					<Item id="42030" name="Tên tập tin hiện tại vào bảng tạm"/>
+					<Item id="42031" name="Đường dẫn tệp hiện tại vào bảng tạm"/>
+					<Item id="42087" name="Sao chép tất cả tên tệp"/>
+					<Item id="42088" name="Sao chép tất cả đường dẫn tệp "/>
+					<Item id="42032" name="Chạy một vĩ lệnh nhiều lần..."/>
+					<Item id="42033" name="Xóa cờ chỉ-đọc"/>
+					<Item id="42035" name="Chú thích dòng đơn"/>
+					<Item id="42036" name="Bỏ chú thích dòng đơn"/>
+					<Item id="42055" name="Loại bỏ dòng trống"/>
+					<Item id="42056" name="Loại bỏ dòng trống (chứa các kí tự trống)"/>
+					<Item id="42057" name="Chèn dòng trống ở trên"/>
+					<Item id="42058" name="Chèn dòng trống ở dưới"/>
+					<Item id="43001" name="&amp;Tìm..."/>
+					<Item id="43002" name="&amp;Tìm tiếp"/>
+					<Item id="43003" name="Thay thế..."/>
+					<Item id="43004" name="Đi tới..."/>
+					<Item id="43005" name="Bật/tắt dấu trang"/>
+					<Item id="43006" name="Dấu trang kế tiếp"/>
+					<Item id="43007" name="Dấu trang trước đó"/>
+					<Item id="43008" name="Xóa tất cả dấu trang"/>
+					<Item id="43018" name="Cắt các dòng được đánh dấu trang"/>
+					<Item id="43019" name="Chép các dòng được đánh dấu trang"/>
+					<Item id="43020" name="Dán (để thay thế) các dòng được đánh dấu trang"/>
+					<Item id="43021" name="Loại bỏ các dòng được đánh dấu trang"/>
+					<Item id="43051" name="Loại bỏ các dòng không được đánh dấu"/>
+					<Item id="43050" name="Nghịch đảo dấu trang"/>
+					<Item id="43052" name="Tìm các ký tự trong phạm vi..."/>
+					<Item id="43053" name="Chọn tất cả giữa cặp ngoặc khớp nhau"/>
+					<Item id="43009" name="Đi đến dấu ngoặc tương ứng"/>
+					<Item id="43010" name="Tìm trước đó"/>
+					<Item id="43011" name="&amp;Tìm kiếm tăng dần"/>
+					<Item id="43013" name="Tìm trong các tập tin"/>
+					<Item id="43014" name="Tìm (không ổn đinh) kế tiếp"/>
+					<Item id="43015" name="Tìm (không ổn đinh) trước đó"/>
+					<Item id="43022" name="Sử dụng kiểu dáng thứ nhất"/>
+					<Item id="43023" name="Dọn sạch kiểu dáng thứ nhất"/>
+					<Item id="43024" name="Sử dụng kiểu dáng thứ 2"/>
+					<Item id="43025" name="Dọn sạch kiểu dáng thứ 2"/>
+					<Item id="43026" name="Sử dụng kiểu dáng thứ 3"/>
+					<Item id="43027" name="Dọn sạch kiểu dáng thứ 3"/>
+					<Item id="43028" name="Sử dụng kiểu dáng thứ 4"/>
+					<Item id="43029" name="Dọn sạch kiểu dáng thứ 4"/>
+					<Item id="43030" name="Sử dụng kiểu dáng thứ 5"/>
+					<Item id="43031" name="Dọn sạch kiểu dáng thứ 5"/>
+					<Item id="43032" name="Dọn sạch tất cả kiểu dáng"/>
+					<Item id="43033" name="Kiểu dáng thứ nhất"/>
+					<Item id="43034" name="Kiểu dáng thứ 2"/>
+					<Item id="43035" name="Kiểu dáng thứ 3"/>
+					<Item id="43036" name="Kiểu dáng thứ 4"/>
+					<Item id="43037" name="Kiểu dáng thứ 5"/>
+					<Item id="43038" name="Kiểu dáng đánh dấu tìm kiếm"/>
+					<Item id="43039" name="Kiểu dáng thứ nhất"/>
+					<Item id="43040" name="Kiểu dáng thứ 2"/>
+					<Item id="43041" name="Kiểu dáng thứ 3"/>
+					<Item id="43042" name="Kiểu dáng thứ 4"/>
+					<Item id="43043" name="Kiểu dáng thứ 5"/>
+					<Item id="43044" name="Kiểu dáng đánh dấu tìm kiếm"/>
+					<Item id="43055" name="Kiểu dáng thứ nhất"/>
+					<Item id="43056" name="Kiểu dáng thứ 2"/>
+					<Item id="43057" name="Kiểu dáng thứ 3"/>
+					<Item id="43058" name="Kiểu dáng thứ 4"/>
+					<Item id="43059" name="Kiểu dáng thứ 5"/>
+					<Item id="43060" name="Tất cả kiểu dáng"/>
+					<Item id="43061" name="Kiểu dáng đánh dấu tìm kiếm"/>
+					<Item id="43062" name="Sử dụng kiểu dáng thứ nhất"/>
+					<Item id="43063" name="Sử dụng kiểu dáng thứ 2"/>
+					<Item id="43064" name="Sử dụng kiểu dáng thứ 3"/>
+					<Item id="43065" name="Sử dụng kiểu dáng thứ 4"/>
+					<Item id="43066" name="Sử dụng kiểu dáng thứ 5"/>
+					<Item id="43045" name="Cửa sổ kết quả tìm kiếm"/>
+					<Item id="43046" name="Kết quả tìm kiếm tiếp theo"/>
+					<Item id="43047" name="Kết quả tìm kiếm trước"/>
+					<Item id="43048" name="Chọn và tìm tiếp theo"/>
+					<Item id="43049" name="Chọn và tìm trước đó"/>
+					<Item id="43054" name="Đánh dấu..."/>
+					<Item id="43501" name="Đóng cái được chọn"/>
+					<Item id="43502" name="Đóng những cái khác"/>
+					<Item id="43503" name="Sao chép những tên được chọn"/>
+					<Item id="43504" name="Sao chép những tên tệp được chọn"/>
+					<Item id="44009" name="Post-It"/>
+					<Item id="44010" name="Gập tất cả"/>
+					<Item id="44011" name="Chế độ không gây xao lãng"/>
+					<Item id="44019" name="Hiện tất cả kí tự"/>
+					<Item id="44020" name="Hiển thị hướng dẫn thụt lề"/>
+					<Item id="44022" name="Bọc văn bản"/>
+					<Item id="44023" name="Phóng to (Ctrl+Lăn chuột lên)"/>
+					<Item id="44024" name="Thu nhỏ  (Ctrl+Lăn chuột xuống)"/>
+					<Item id="44025" name="Hiện khoảng trắng và TAB"/>
+					<Item id="44026" name="Hiện cuối dòng"/>
+					<Item id="44029" name="Duỗi tất cả"/>
+					<Item id="44030" name="Gập cấp độ hiện tại"/>
+					<Item id="44031" name="Duỗi cấp độ hiện tại"/>
+					<Item id="44049" name="Tóm tắt..."/>
+					<Item id="44080" name="Bản đồ tài liệu"/>
+					<Item id="44070" name="Danh sách tài liệu"/>
+					<Item id="44084" name="Danh sách hàm"/>
+					<Item id="44085" name="Thư mục như là không gian tài liệu"/>
+					<Item id="44086" name="Thẻ thứ nhất"/>
+					<Item id="44087" name="Thẻ thứ 2"/>
+					<Item id="44088" name="Thẻ thứ 3"/>
+					<Item id="44089" name="Thẻ thứ 4"/>
+					<Item id="44090" name="Thẻ thứ 5"/>
+					<Item id="44091" name="Thẻ thứ 6"/>
+					<Item id="44092" name="Thẻ thứ 7"/>
+					<Item id="44093" name="Thẻ thứ 8"/>
+					<Item id="44094" name="Thẻ thứ 9"/>
+					<Item id="44095" name="Thẻ tiếp theo"/>
+					<Item id="44096" name="Thẻ trước đó"/>
+					<Item id="44097" name="Giám sát (tail -f)"/>
+					<Item id="44098" name="Di chuyển thẻ về phía trước"/>
+					<Item id="44099" name="Di chuyển thẻ về phía sau"/>
+					<Item id="44110" name="Loại bỏ màu"/>
+					<Item id="44111" name="Áp dụng màu 1"/>
+					<Item id="44112" name="Áp dụng màu 2"/>
+					<Item id="44113" name="Áp dụng màu 3"/>
+					<Item id="44114" name="Áp dụng màu 4"/>
+					<Item id="44115" name="Áp dụng màu 5"/>
+					<Item id="44032" name="Bật tắt chế độ toàn màn hình"/>
+					<Item id="44033" name="Khôi phục mức thu phóng mặc định"/>
+					<Item id="44034" name="Luôn nổi lên đầu"/>
+					<Item id="44035" name="Đồng bộ hóa cuộn dọc"/>
+					<Item id="44036" name="Đồng bộ hoá cuộn ngang"/>
+					<Item id="44041" name="Hiện kí hiệu bọc"/>
+					<Item id="44072" name="Tập trung vào một khung nhìn khác"/>
+					<Item id="44081" name="Bảng điều khiển dự án 1"/>
+					<Item id="44082" name="Bảng điều khiển dự án 2"/>
+					<Item id="44083" name="Bảng điều khiển dự án 3"/>
+					<Item id="45001" name="Windows (CR LF)"/>
+					<Item id="45002" name="Unix (LF)"/>
+					<Item id="45003" name="Macintosh (CR)"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8-BOM"/>
+					<Item id="45006" name="UTF-16 BE BOM"/>
+					<Item id="45007" name="UTF-16 LE BOM"/>
+					<Item id="45008" name="UTF-8"/>
+					<Item id="45009" name="Chuyển đổi sang ANSI"/>
+					<Item id="45010" name="Chuyển đổi sang UTF-8"/>
+					<Item id="45011" name="Chuyển đổi sang UTF-8-BOM"/>
+					<Item id="45012" name="Chuyển đổi sang UTF-16 BE BOM"/>
+					<Item id="45013" name="Chuyển đổi sang UTF-16 LE BOM"/>
+					<Item id="45060" name="Big5 (Phồn thể)"/>
+					<Item id="45061" name="GB2312 (Giản thể)"/>
+					<Item id="45054" name="OEM 861: Ai-xơ-len"/>
+					<Item id="45057" name="OEM 865: Bắc Âu"/>
+					<Item id="45053" name="OEM 860: Bồ Đào Nha"/>
+					<Item id="45056" name="OEM 863: Pháp"/>
                     
-                    <Item id="10001" name="Di chuyển đến khung nhìn khác"/>
-                    <Item id="10002" name="Sao đôi sang khung nhìn khác"/>
-                    <Item id="10003" name="Di chuyển đến hiện thể mới"/>
-                    <Item id="10004" name="Mở trong hiện thể mới"/>
+					<Item id="10001" name="Di chuyển đến khung nhìn khác"/>
+					<Item id="10002" name="Sao đôi sang khung nhìn khác"/>
+					<Item id="10003" name="Di chuyển đến hiện thể mới"/>
+					<Item id="10004" name="Mở trong hiện thể mới"/>
 
-                    <Item id="46001" name="Cấu hình kiểu dáng..."/>
-                    <Item id="46250" name="Định nghĩa ngôn ngữ của bạn..."/>
-                    <Item id="46300" name="Mở thư mục ngôn ngữ người dùng tự định nghĩa..."/>
-                    <Item id="46301" name="Bộ sưu tập ngôn ngữ tự định nghĩa Notepad++"/>
-                    <Item id="46180" name="Người dùng tự định nghĩa"/>
-                    <Item id="47000" name="Về Notepad ++..."/>
-                    <Item id="47010" name="Các đối số dòng lệnh..."/>
-                    <Item id="47001" name="Trang chủ Notepad++"/>
-                    <Item id="47002" name="Trang dự án Notepad++"/>
-                    <Item id="47003" name="Tài liệu trực tuyến"/>
-                    <Item id="47004" name="Diễn đàn"/>
-                    <Item id="47012" name="Thông tin gỡ lỗi..."/>
-                    <Item id="47005" name="Lấy thêm trình cắm"/>
-                    <Item id="47006" name="Cập nhật Notepad++"/>
-                    <Item id="47009" name="Thiết lập proxy cập nhật..."/>
-                    <Item id="48005" name="Nhập trình cắm..."/>
-                    <Item id="48006" name="Nhập chủ đề kiểu dáng..."/>
-                    <Item id="48018" name="Chỉnh sửa bảng chọn ngữ cảnh bật lên"/>
-                    <Item id="48009" name="Ánh xạ phím tắt..."/>
-                    <Item id="48011" name="Sở thích..."/>
-                    <Item id="48014" name="Mở thư mục trình cắm..."/>
-                    <Item id="48015" name="Quản trị trình cắm..."/>
-                    <Item id="48501" name="Sinh mã..."/>
-                    <Item id="48502" name="Sinh mã từ các tệp..."/>
-                    <Item id="48503" name="Sinh mã từ phần được chọn vào bảng tạm"/>
-                    <Item id="48504" name="Sinh mã..."/>
-                    <Item id="48505" name="Sinh mã từ các tệp..."/>
-                    <Item id="48506" name="Sinh mã từ phần được chọn vào bảng tạm"/>
-                    <Item id="49000" name="&amp;Chạy..."/>
+					<Item id="46001" name="Cấu hình kiểu dáng..."/>
+					<Item id="46250" name="Định nghĩa ngôn ngữ của bạn..."/>
+					<Item id="46300" name="Mở thư mục ngôn ngữ người dùng tự định nghĩa..."/>
+					<Item id="46301" name="Bộ sưu tập ngôn ngữ tự định nghĩa Notepad++"/>
+					<Item id="46180" name="Người dùng tự định nghĩa"/>
+					<Item id="47000" name="Về Notepad ++..."/>
+					<Item id="47010" name="Các đối số dòng lệnh..."/>
+					<Item id="47001" name="Trang chủ Notepad++"/>
+					<Item id="47002" name="Trang dự án Notepad++"/>
+					<Item id="47003" name="Tài liệu trực tuyến"/>
+					<Item id="47004" name="Diễn đàn"/>
+					<Item id="47012" name="Thông tin gỡ lỗi..."/>
+					<Item id="47005" name="Lấy thêm trình cắm"/>
+					<Item id="47006" name="Cập nhật Notepad++"/>
+					<Item id="47009" name="Thiết lập proxy cập nhật..."/>
+					<Item id="48005" name="Nhập trình cắm..."/>
+					<Item id="48006" name="Nhập chủ đề kiểu dáng..."/>
+					<Item id="48018" name="Chỉnh sửa bảng chọn ngữ cảnh bật lên"/>
+					<Item id="48009" name="Ánh xạ phím tắt..."/>
+					<Item id="48011" name="Sở thích..."/>
+					<Item id="48014" name="Mở thư mục trình cắm..."/>
+					<Item id="48015" name="Quản trị trình cắm..."/>
+					<Item id="48501" name="Sinh mã..."/>
+					<Item id="48502" name="Sinh mã từ các tệp..."/>
+					<Item id="48503" name="Sinh mã từ phần được chọn vào bảng tạm"/>
+					<Item id="48504" name="Sinh mã..."/>
+					<Item id="48505" name="Sinh mã từ các tệp..."/>
+					<Item id="48506" name="Sinh mã từ phần được chọn vào bảng tạm"/>
+					<Item id="49000" name="&amp;Chạy..."/>
 
-                    <Item id="50000" name="Hoàn thành chức năng"/>
-                    <Item id="50001" name="Hoàn thành từ"/>
-                    <Item id="50002" name="Gợi ý tham số hàm"/>
-                    <Item id="50010" name="Gợi ý tham số hàm trước đó"/>
-                    <Item id="50011" name="Gợi ý tham số hàm tiếp theo"/>
-                    <Item id="50005" name="Bật tắt ghi vĩ lệnh"/>
-                    <Item id="50006" name="Hoàn thành đường dẫn"/>
-                    <Item id="44042" name="Ẩn dòng"/>
-                    <Item id="42040" name="Mở tất cả các tệp gần đây"/>
-                    <Item id="42041" name="Danh sách tệp gần đây rỗng"/>
-                    <Item id="48016" name="Sửa phím tắt / xoá vĩ lệnh..."/>
-                    <Item id="48017" name="Sửa phím tắt / xoá lệnh..."/>
+					<Item id="50000" name="Hoàn thành chức năng"/>
+					<Item id="50001" name="Hoàn thành từ"/>
+					<Item id="50002" name="Gợi ý tham số hàm"/>
+					<Item id="50010" name="Gợi ý tham số hàm trước đó"/>
+					<Item id="50011" name="Gợi ý tham số hàm tiếp theo"/>
+					<Item id="50005" name="Bật tắt ghi vĩ lệnh"/>
+					<Item id="50006" name="Hoàn thành đường dẫn"/>
+					<Item id="44042" name="Ẩn dòng"/>
+					<Item id="42040" name="Mở tất cả các tệp gần đây"/>
+					<Item id="42041" name="Danh sách tệp gần đây rỗng"/>
+					<Item id="48016" name="Sửa phím tắt / xoá vĩ lệnh..."/>
+					<Item id="48017" name="Sửa phím tắt / xoá lệnh..."/>
                     
-                    <Item id="11001" name="&amp;Cửa sổ..."/>
-                    <Item id="11002" name="Tên A đến Z"/>
-                    <Item id="11003" name="Tên Z đến A"/>
-                    <Item id="11004" name="Đường dẫn A đến Z"/>
-                    <Item id="11005" name="Đường dẫn Z đến A"/>
-                    <Item id="11006" name="Loại A đến Z"/>
-                    <Item id="11007" name="Loại Z đến A"/>
-                    <Item id="11008" name="Kích cỡ nhỏ hơn đến lớn hơn"/>
-                    <Item id="11009" name="Kích cỡ lớn hơn đến nhỏ hơn"/>
-                </Commands>
-            </Main>
-            <Splitter>
-            </Splitter>
-            <TabBar>
-                    <Item CMID="0" name="Đóng"/>
-                    <Item CMID="1" name="Đóng tất cả trừ cái này"/>
-                    <Item CMID="2" name="Lưu"/>
-                    <Item CMID="3" name="Lưu như..."/>
-                    <Item CMID="4" name="In..."/>
-                    <Item CMID="5" name="Di chuyển đến khung nhìn khác"/>
-                    <Item CMID="6" name="Sao đôi sang khung nhìn khác"/>
-                    <Item CMID="7" name="Đường dẫn tệp đầy đủ vào bảng tạm"/>
-                    <Item CMID="8" name="Tên tập tin vào bảng tạm"/>
-                    <Item CMID="9" name="Đường dẫn thư mục hiện tại vào bảng tạm"/>
-                    <Item CMID="10" name="Đổi tên..."/>
-                    <Item CMID="11" name="Di chuyển đến thùng rác"/>
-                    <Item CMID="12" name="Chỉ đọc"/>
-                    <Item CMID="13" name="Xóa cờ chỉ-đọc"/>
-                    <Item CMID="14" name="Di chuyển đến hiện thể mới"/>
-                    <Item CMID="15" name="Mở trong hiện thể mới"/>
-                    <Item CMID="16" name="Tải lại"/>
-                    <Item CMID="17" name="Đóng tất cả bên trái"/>
-                    <Item CMID="18" name="Đóng tất cả bên phải"/>
-                    <Item CMID="19" name="Mở thư mục chứa trong Explorer"/>
-                    <Item CMID="20" name="Mở thư mục chứa trong CMD"/>
-                    <Item CMID="21" name="Mở trong trình xem mặc định"/>
-                    <Item CMID="22" name="Đóng tất cả không thay đổi"/>
-                    <Item CMID="23" name="Mở thư mục chứa như là không gian làm việc"/>
-                    <Item CMID="24" name="Áp dụng màu 1"/>
-                    <Item CMID="25" name="Áp dụng màu 2"/>
-                    <Item CMID="26" name="Áp dụng màu 3"/>
-                    <Item CMID="27" name="Áp dụng màu 4"/>
-                    <Item CMID="28" name="Áp dụng màu 5"/>
-                    <Item CMID="29" name="Loại bỏ màu"/>
-                    <Item CMID="30" name="Đóng nhiều thẻ"/>
-                    <Item CMID="31" name="Mở vào"/>
-                    <Item CMID="32" name="Sao chép vào bảng tạm"/>
-                    <Item CMID="33" name="Di chuyển tài liệu"/>
-                    <Item CMID="34" name="Áp dụng màu vào thẻ"/>
-            </TabBar>
-        </Menu>
+					<Item id="11001" name="&amp;Cửa sổ..."/>
+					<Item id="11002" name="Tên A đến Z"/>
+					<Item id="11003" name="Tên Z đến A"/>
+					<Item id="11004" name="Đường dẫn A đến Z"/>
+					<Item id="11005" name="Đường dẫn Z đến A"/>
+					<Item id="11006" name="Loại A đến Z"/>
+					<Item id="11007" name="Loại Z đến A"/>
+					<Item id="11008" name="Kích cỡ nhỏ hơn đến lớn hơn"/>
+					<Item id="11009" name="Kích cỡ lớn hơn đến nhỏ hơn"/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Đóng"/>
+				<Item CMID="1" name="Đóng tất cả trừ cái này"/>
+				<Item CMID="2" name="Lưu"/>
+				<Item CMID="3" name="Lưu như..."/>
+				<Item CMID="4" name="In..."/>
+				<Item CMID="5" name="Di chuyển đến khung nhìn khác"/>
+				<Item CMID="6" name="Sao đôi sang khung nhìn khác"/>
+				<Item CMID="7" name="Đường dẫn tệp đầy đủ vào bảng tạm"/>
+				<Item CMID="8" name="Tên tập tin vào bảng tạm"/>
+				<Item CMID="9" name="Đường dẫn thư mục hiện tại vào bảng tạm"/>
+				<Item CMID="10" name="Đổi tên..."/>
+				<Item CMID="11" name="Di chuyển đến thùng rác"/>
+				<Item CMID="12" name="Chỉ đọc"/>
+				<Item CMID="13" name="Xóa cờ chỉ-đọc"/>
+				<Item CMID="14" name="Di chuyển đến hiện thể mới"/>
+				<Item CMID="15" name="Mở trong hiện thể mới"/>
+				<Item CMID="16" name="Tải lại"/>
+				<Item CMID="17" name="Đóng tất cả bên trái"/>
+				<Item CMID="18" name="Đóng tất cả bên phải"/>
+				<Item CMID="19" name="Mở thư mục chứa trong Explorer"/>
+				<Item CMID="20" name="Mở thư mục chứa trong CMD"/>
+				<Item CMID="21" name="Mở trong trình xem mặc định"/>
+				<Item CMID="22" name="Đóng tất cả không thay đổi"/>
+				<Item CMID="23" name="Mở thư mục chứa như là không gian làm việc"/>
+				<Item CMID="24" name="Áp dụng màu 1"/>
+				<Item CMID="25" name="Áp dụng màu 2"/>
+				<Item CMID="26" name="Áp dụng màu 3"/>
+				<Item CMID="27" name="Áp dụng màu 4"/>
+				<Item CMID="28" name="Áp dụng màu 5"/>
+				<Item CMID="29" name="Loại bỏ màu"/>
+				<Item CMID="30" name="Đóng nhiều thẻ"/>
+				<Item CMID="31" name="Mở vào"/>
+				<Item CMID="32" name="Sao chép vào bảng tạm"/>
+				<Item CMID="33" name="Di chuyển tài liệu"/>
+				<Item CMID="34" name="Áp dụng màu vào thẻ"/>
+			</TabBar>
+		</Menu>
 
-        <Dialog>
-            <Find title="" titleFind="Tìm" titleReplace="Thay thế" titleFindInFiles="Tìm trong các tệp" titleFindInProjects="Tìm trong các dự án" titleMark="Đánh dấu">
-                <Item id="1"    name="Tìm tiếp"/>
-                <Item id="1722" name="Hướng ngược lại"/>
-                <Item id="2"    name="Đóng"/>
-                <Item id="1620" name="Tìm gì:"/>
-                <Item id="1603" name="Khớp &amp;toàn bộ từ"/>
-                <Item id="1604" name="Phân biệt &amp;hoa thường"/>
-                <Item id="1605" name="&amp;Biểu thức chính quy"/>
-                <Item id="1606" name="Tìm xung quanh"/>
-                <Item id="1614" name="Đếm"/>
-                <Item id="1615" name="Đánh dấu tất cả"/>
-                <Item id="1616" name="Đánh dấu trang dòng"/>
-                <Item id="1618" name="Tẩy sạch cho mỗi lần tìm kiếm"/>
-                <Item id="1611" name="Thay bằng:"/>
-                <Item id="1608" name="&amp;Thay thế"/>
-                <Item id="1609" name="Thay thế &amp;tất cả"/>
-                <Item id="1687" name="Khi bị mất tập trung"/>
-                <Item id="1688" name="Luôn luôn"/>
-                <Item id="1632" name="Trong phần được chọn"/>
-                <Item id="1633" name="Dọn sạch phần đánh dấu"/>
-                <Item id="1635" name="Thay thế tất cả trong tất cả tài liệu đang mở"/>
-                <Item id="1636" name="Tìm tất cả trong tất cả tài liệu đang mở"/>
-                <Item id="1654" name="Bộ lọc:"/>
-                <Item id="1655" name="Thư mục:"/>
-                <Item id="1656" name="Tìm tất cả"/>
-                <Item id="1658" name="Trong tất cả các thư mục con"/>
-                <Item id="1659" name="Trong thư mục ẩn"/>
-                <Item id="1624" name="Chế độ tìm kiếm"/>
-                <Item id="1625" name="Bình thường"/>
-                <Item id="1626" name="Mở rộng (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="Thay thế trong tệp"/>
-                <Item id="1665" name="Thay thế trong các dự án"/>
-                <Item id="1661" name="Theo tài liệu hiện tại."/>
-                <Item id="1662" name="Bảng dự án 1"/>
-                <Item id="1663" name="Bảng dự án 2"/>
-                <Item id="1664" name="Bảng dự án 3"/>
-                <Item id="1641" name="Tìm tất cả trong tài liệu hiện thời"/>
-                <Item id="1686" name="Trong suốt"/>
-                <Item id="1703" name="&amp;. khớp cả dòng mới"/>
-                <Item id="1721" name="▲"/>
-                <Item id="1723" name="▼ Tìm tiếp"/>
-                <Item id="1725" name="Sao chép văn bản được đánh dấu"/>
-            </Find>
+		<Dialog>
+			<Find title="" titleFind="Tìm" titleReplace="Thay thế" titleFindInFiles="Tìm trong các tệp" titleFindInProjects="Tìm trong các dự án" titleMark="Đánh dấu">
+				<Item id="1" name="Tìm tiếp"/>
+				<Item id="1722" name="Hướng ngược lại"/>
+				<Item id="2" name="Đóng"/>
+				<Item id="1620" name="Tìm gì:"/>
+				<Item id="1603" name="Khớp &amp;toàn bộ từ"/>
+				<Item id="1604" name="Phân biệt &amp;hoa thường"/>
+				<Item id="1605" name="&amp;Biểu thức chính quy"/>
+				<Item id="1606" name="Tìm xung quanh"/>
+				<Item id="1614" name="Đếm"/>
+				<Item id="1615" name="Đánh dấu tất cả"/>
+				<Item id="1616" name="Đánh dấu trang dòng"/>
+				<Item id="1618" name="Tẩy sạch cho mỗi lần tìm kiếm"/>
+				<Item id="1611" name="Thay bằng:"/>
+				<Item id="1608" name="&amp;Thay thế"/>
+				<Item id="1609" name="Thay thế &amp;tất cả"/>
+				<Item id="1687" name="Khi bị mất tập trung"/>
+				<Item id="1688" name="Luôn luôn"/>
+				<Item id="1632" name="Trong phần được chọn"/>
+				<Item id="1633" name="Dọn sạch phần đánh dấu"/>
+				<Item id="1635" name="Thay thế tất cả trong tất cả tài liệu đang mở"/>
+				<Item id="1636" name="Tìm tất cả trong tất cả tài liệu đang mở"/>
+				<Item id="1654" name="Bộ lọc:"/>
+				<Item id="1655" name="Thư mục:"/>
+				<Item id="1656" name="Tìm tất cả"/>
+				<Item id="1658" name="Trong tất cả các thư mục con"/>
+				<Item id="1659" name="Trong thư mục ẩn"/>
+				<Item id="1624" name="Chế độ tìm kiếm"/>
+				<Item id="1625" name="Bình thường"/>
+				<Item id="1626" name="Mở rộng (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Thay thế trong tệp"/>
+				<Item id="1665" name="Thay thế trong các dự án"/>
+				<Item id="1661" name="Theo tài liệu hiện tại."/>
+				<Item id="1662" name="Bảng dự án 1"/>
+				<Item id="1663" name="Bảng dự án 2"/>
+				<Item id="1664" name="Bảng dự án 3"/>
+				<Item id="1641" name="Tìm tất cả trong tài liệu hiện thời"/>
+				<Item id="1686" name="Trong suốt"/>
+				<Item id="1703" name="&amp;. khớp cả dòng mới"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Tìm tiếp"/>
+				<Item id="1725" name="Sao chép văn bản được đánh dấu"/>
+			</Find>
 
-            <IncrementalFind title="">
-                <Item id="1681" name="Tìm"/>
-                <Item id="1685" name="Phân biệt hoa thường"/>
-                <Item id="1690" name="Tô sáng tất cả"/>
-            </IncrementalFind>
+			<IncrementalFind title="">
+				<Item id="1681" name="Tìm"/>
+				<Item id="1685" name="Phân biệt hoa thường"/>
+				<Item id="1690" name="Tô sáng tất cả"/>
+			</IncrementalFind>
 
-            <FindCharsInRange title="Tìm tất cả kí tự trong khoảng...">
-                <Item id="2" name="Đóng"/>
-                <Item id="2901" name="Kí tự khác ASCII (128-255)"/>
-                <Item id="2902" name="Kí tự ASCII (0-127)"/>
-                <Item id="2903" name="Khoảng của tôi:"/>
-                <Item id="2906" name="&amp;Lên"/>
-                <Item id="2907" name="&amp;Xuống"/>
-                <Item id="2908" name="Hướng"/>
-                <Item id="2909" name="Tìm xung quanh"/>
-                <Item id="2910" name="Tìm"/>
-            </FindCharsInRange>
+			<FindCharsInRange title="Tìm tất cả kí tự trong khoảng...">
+				<Item id="2" name="Đóng"/>
+				<Item id="2901" name="Kí tự khác ASCII (128-255)"/>
+				<Item id="2902" name="Kí tự ASCII (0-127)"/>
+				<Item id="2903" name="Khoảng của tôi:"/>
+				<Item id="2906" name="&amp;Lên"/>
+				<Item id="2907" name="&amp;Xuống"/>
+				<Item id="2908" name="Hướng"/>
+				<Item id="2909" name="Tìm xung quanh"/>
+				<Item id="2910" name="Tìm"/>
+			</FindCharsInRange>
             
-            <GoToLine title="Đi tới...">
-                <Item id="2007" name="Dòng"/>
-                <Item id="2008" name="Độ lệch"/>
-                <Item id="1"    name="&amp;Đi"/>
-                <Item id="2"    name="Tôi không đi đến đâu cả"/>
-                <Item id="2004" name="Bạn đang ở đây:"/>
-                <Item id="2005" name="Bạn muốn đến:"/>
-                <Item id="2006" name="Bạn không thể đi xa hơn:"/>
-            </GoToLine>
+			<GoToLine title="Đi tới...">
+				<Item id="2007" name="Dòng"/>
+				<Item id="2008" name="Độ lệch"/>
+				<Item id="1" name="&amp;Đi"/>
+				<Item id="2" name="Tôi không đi đến đâu cả"/>
+				<Item id="2004" name="Bạn đang ở đây:"/>
+				<Item id="2005" name="Bạn muốn đến:"/>
+				<Item id="2006" name="Bạn không thể đi xa hơn:"/>
+			</GoToLine>
 
-            <Run title="Chạy...">
-                <Item id="1903" name="Chương trình để chạy"/>
-                <Item id="1"    name="Chạy"/>
-                <Item id="2"    name="Hủy"/>
-                <Item id="1904" name="Lưu..."/>
-            </Run>
+			<Run title="Chạy...">
+				<Item id="1903" name="Chương trình để chạy"/>
+				<Item id="1" name="Chạy"/>
+				<Item id="2" name="Hủy"/>
+				<Item id="1904" name="Lưu..."/>
+			</Run>
 
-            <MD5FromFilesDlg title="Sinh mã MD5 từ các tệp">
-                <Item id="1922" name="Chọn các tệp để sinh mã MD5..."/>
-                <Item id="1924" name="Chép vào bảng tạm"/>
-                <Item id="2"    name="Đóng"/>
-            </MD5FromFilesDlg>
+			<MD5FromFilesDlg title="Sinh mã MD5 từ các tệp">
+				<Item id="1922" name="Chọn các tệp để sinh mã MD5..."/>
+				<Item id="1924" name="Chép vào bảng tạm"/>
+				<Item id="2" name="Đóng"/>
+			</MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="Sinh mã MD5">
-                <Item id="1932" name="Coi mỗi dòng là một xâu riêng"/>
-                <Item id="1934" name="Chép vào bảng tạm"/>
-                <Item id="2"    name="Đóng"/>
-            </MD5FromTextDlg>
+			<MD5FromTextDlg title="Sinh mã MD5">
+				<Item id="1932" name="Coi mỗi dòng là một xâu riêng"/>
+				<Item id="1934" name="Chép vào bảng tạm"/>
+				<Item id="2" name="Đóng"/>
+			</MD5FromTextDlg>
 
-            <SHA256FromFilesDlg title="Sinh mã SHA-256 từ các tệp">
-                <Item id="1922" name="Chọn các tệp để sinh mã SHA-256..."/>
-                <Item id="1924" name="Chép vào bảng tạm"/>
-                <Item id="2"    name="Đóng"/>
-            </SHA256FromFilesDlg>
+			<SHA256FromFilesDlg title="Sinh mã SHA-256 từ các tệp">
+				<Item id="1922" name="Chọn các tệp để sinh mã SHA-256..."/>
+				<Item id="1924" name="Chép vào bảng tạm"/>
+				<Item id="2" name="Đóng"/>
+			</SHA256FromFilesDlg>
 
-            <SHA256FromTextDlg title="Sinh mã SHA-256">
-                <Item id="1932" name="Coi mỗi dòng là một xâu riêng"/>
-                <Item id="1934" name="Chép vào bảng tạm"/>
-                <Item id="2"    name="Đóng"/>
-            </SHA256FromTextDlg>
+			<SHA256FromTextDlg title="Sinh mã SHA-256">
+				<Item id="1932" name="Coi mỗi dòng là một xâu riêng"/>
+				<Item id="1934" name="Chép vào bảng tạm"/>
+				<Item id="2" name="Đóng"/>
+			</SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="Quản trị trình cắm" titleAvailable = "Có sẵn" titleUpdates = "Cập nhật" titleInstalled = "Đã được cài">
-                <ColumnPlugin   name="Trình cắm"/>
-                <ColumnVersion  name="Phiên bản"/>
-                <Item id="5501" name="Tìm kiếm:"/>
-                <Item id="5503" name="Cài đặt"/>
-                <Item id="5504" name="Cập nhật"/>
-                <Item id="5505" name="Loại bỏ"/>
-                <Item id="5508" name="Tiếp"/>
-                <Item id="5509" name="Phiên bản danh sách trình cắm: "/>
-                <Item id="5511" name="Kho chứa danh sách trình cắm"/>
-                <Item id="2"    name="Đóng"/>
-            </PluginsAdminDlg>
+			<PluginsAdminDlg title="Quản trị trình cắm" titleAvailable="Có sẵn" titleUpdates="Cập nhật" titleInstalled="Đã được cài">
+				<ColumnPlugin name="Trình cắm"/>
+				<ColumnVersion name="Phiên bản"/>
+				<Item id="5501" name="Tìm kiếm:"/>
+				<Item id="5503" name="Cài đặt"/>
+				<Item id="5504" name="Cập nhật"/>
+				<Item id="5505" name="Loại bỏ"/>
+				<Item id="5508" name="Tiếp"/>
+				<Item id="5509" name="Phiên bản danh sách trình cắm: "/>
+				<Item id="5511" name="Kho chứa danh sách trình cắm"/>
+				<Item id="2" name="Đóng"/>
+			</PluginsAdminDlg>
 
-            <StyleConfig title="Trình cấu hình kiểu dáng">
-                <Item id="2"    name="Hủy"/>
-                <Item id="2301" name="Lưu &amp;&amp; đóng"/>
-                <Item id="2303" name="Trong suốt"/>
-                <Item id="2306" name="Chọn chủ đề: "/>
-                <SubDialog>
-                    <Item id="2204" name="Đậm"/>
-                    <Item id="2205" name="Nghiêng"/>
-                    <Item id="2206" name="Màu tiền cảnh"/>
-                    <Item id="2207" name="Màu nền"/>
-                    <Item id="2208" name="Tên phông:"/>
-                    <Item id="2209" name="Cỡ chữ:"/>
-                    <Item id="2211" name="Kiểu dáng:"/>
-                    <Item id="2212" name="Kiểu dáng màu"/>
-                    <Item id="2213" name="Kiểu dáng phông"/>
-                    <Item id="2214" name="Đuôi tệp mặc định:"/>
-                    <Item id="2216" name="Đuôi tập người dùng:"/>
-                    <Item id="2218" name="Gạch chân"/>
-                    <Item id="2219" name="Từ khóa mặc định"/>
-                    <Item id="2221" name="Từ khóa do người dùng định nghĩa"/>
-                    <Item id="2225" name="Ngôn ngữ:"/>
-                    <Item id="2226" name="Bật màu tiền cảnh toàn cục"/>
-                    <Item id="2227" name="Bật màu nền toàn cục"/>
-                    <Item id="2228" name="Bật phông toàn cục"/>
-                    <Item id="2229" name="Bật cỡ chữ toàn cục"/>
-                    <Item id="2230" name="Bật kiểu dáng phông đậm toàn cục"/>
-                    <Item id="2231" name="Bật kiểu dáng phông nghiêng toàn cục"/>
-                    <Item id="2232" name="Bật kiểu dáng phông gạch chân toàn cục"/>
-                    <Item id="2234" name="Đi đến thiết đặt"/>
-                </SubDialog>
-            </StyleConfig>
+			<StyleConfig title="Trình cấu hình kiểu dáng">
+				<Item id="2" name="Hủy"/>
+				<Item id="2301" name="Lưu &amp;&amp; đóng"/>
+				<Item id="2303" name="Trong suốt"/>
+				<Item id="2306" name="Chọn chủ đề: "/>
+				<SubDialog>
+					<Item id="2204" name="Đậm"/>
+					<Item id="2205" name="Nghiêng"/>
+					<Item id="2206" name="Màu tiền cảnh"/>
+					<Item id="2207" name="Màu nền"/>
+					<Item id="2208" name="Tên phông:"/>
+					<Item id="2209" name="Cỡ chữ:"/>
+					<Item id="2211" name="Kiểu dáng:"/>
+					<Item id="2212" name="Kiểu dáng màu"/>
+					<Item id="2213" name="Kiểu dáng phông"/>
+					<Item id="2214" name="Đuôi tệp mặc định:"/>
+					<Item id="2216" name="Đuôi tập người dùng:"/>
+					<Item id="2218" name="Gạch chân"/>
+					<Item id="2219" name="Từ khóa mặc định"/>
+					<Item id="2221" name="Từ khóa do người dùng định nghĩa"/>
+					<Item id="2225" name="Ngôn ngữ:"/>
+					<Item id="2226" name="Bật màu tiền cảnh toàn cục"/>
+					<Item id="2227" name="Bật màu nền toàn cục"/>
+					<Item id="2228" name="Bật phông toàn cục"/>
+					<Item id="2229" name="Bật cỡ chữ toàn cục"/>
+					<Item id="2230" name="Bật kiểu dáng phông đậm toàn cục"/>
+					<Item id="2231" name="Bật kiểu dáng phông nghiêng toàn cục"/>
+					<Item id="2232" name="Bật kiểu dáng phông gạch chân toàn cục"/>
+					<Item id="2234" name="Đi đến thiết đặt"/>
+				</SubDialog>
+			</StyleConfig>
 
-            <ShortcutMapper title="Trình ánh xạ phím tắt">
-                <Item id="2602" name="Sửa"/>
-                <Item id="2603" name="Xoá bỏ"/>
-                <Item id="2606" name="Xoá sạch"/>
-                <Item id="2607" name="Bộ lọc: "/>
-                <Item id="1" name="Đóng"/>
-                <ColumnName name="Tên"/>
-                <ColumnShortcut name="Phím tắt"/>
-                <ColumnCategory name="Hạng mục"/>
-                <ColumnPlugin name="Trình cắm"/>
-                <MainMenuTab name="Bảng chọn chính"/>
-                <MacrosTab name="Vĩ lệnh"/>
-                <RunCommandsTab name="Lệnh chạy"/>
-                <PluginCommandsTab name="Lệnh của trình cắm"/>
-                <ScintillaCommandsTab name="Lệnh Scintilla"/>
-                <ConflictInfoOk name="Không có xung đột phím tắt nào về mục này."/>
-                <ConflictInfoEditing name="Không có xung đột. . ."/>
-                <MainCommandNames>
-                    <Item id="41019" name="Mở thư mục chứa trong Explorer"/>
-                    <Item id="41020" name="Mở thư mục chứa trong Command Prompt"/>
-                    <Item id="41021" name="Khôi phục tệp bị đóng gần đây"/>
-                    <Item id="45001" name="Chuyển đổi EOL sang Windows (CR LF)"/>
-                    <Item id="45002" name="Chuyển đổi EOL sang Unix (LF)"/>
-                    <Item id="45003" name="Chuyển đổi EOL sang Macintosh (CR)"/>
-                    <Item id="43022" name="Đánh dấu tất cả bằng kiểu dáng thứ nhất"/>
-                    <Item id="43024" name="Đánh dấu tất cả bằng kiểu dáng thứ 2"/>
-                    <Item id="43026" name="Đánh dấu tất cả bằng kiểu dáng thứ 3"/>
-                    <Item id="43028" name="Đánh dấu tất cả bằng kiểu dáng thứ 4"/>
-                    <Item id="43030" name="Đánh dấu tất cả bằng kiểu dáng thứ 5"/>
-                    <Item id="43062" name="Đánh dấu một bằng kiểu dáng thứ nhất"/>
-                    <Item id="43063" name="Đánh dấu một bằng kiểu dáng thứ 2"/>
-                    <Item id="43064" name="Đánh dấu một bằng kiểu dáng thứ 3"/>
-                    <Item id="43065" name="Đánh dấu một bằng kiểu dáng thứ 4"/>
-                    <Item id="43066" name="Đánh dấu một bằng kiểu dáng thứ 5"/>
-                    <Item id="43023" name="Dọn sạch kiểu dáng thứ nhất"/>
-                    <Item id="43025" name="Dọn sạch kiểu dáng thứ 2"/>
-                    <Item id="43027" name="Dọn sạch kiểu dáng thứ 3"/>
-                    <Item id="43029" name="Dọn sạch kiểu dáng thứ 4"/>
-                    <Item id="43031" name="Dọn sạch kiểu dáng thứ 5"/>
-                    <Item id="43032" name="Dọn sạch tất cả kiểu dáng"/>
-                    <Item id="43033" name="Kiểu dáng trước của kiểu dáng thứ nhất"/>
-                    <Item id="43034" name="Kiểu dáng trước của kiểu dáng thứ 2"/>
-                    <Item id="43035" name="Kiểu dáng trước của kiểu dáng thứ 3"/>
-                    <Item id="43036" name="Kiểu dáng trước của kiểu dáng thứ 4"/>
-                    <Item id="43037" name="Kiểu dáng trước của kiểu dáng thứ 5"/>
-                    <Item id="43038" name="Kiểu dáng trước của kiểu dáng đánh dấu tìm kiếm"/>
-                    <Item id="43039" name="Kiểu dáng sau của kiểu dáng thứ nhất"/>
-                    <Item id="43040" name="Kiểu dáng sau của kiểu dáng thứ 2"/>
-                    <Item id="43041" name="Kiểu dáng sau của kiểu dáng thứ 3"/>
-                    <Item id="43042" name="Kiểu dáng sau của kiểu dáng thứ 4"/>
-                    <Item id="43043" name="Kiểu dáng sau của kiểu dáng thứ 5"/>
-                    <Item id="43044" name="Kiểu dáng sau của kiểu dáng đánh dấu tìm kiếm"/>
-                    <Item id="43055" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ nhất"/>
-                    <Item id="43056" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ 2"/>
-                    <Item id="43057" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ 3"/>
-                    <Item id="43058" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ 4"/>
-                    <Item id="43059" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ 5"/>
-                    <Item id="43060" name="Sao chép văn bản được đánh dấu của tất cả các kiểu dáng"/>
-                    <Item id="43061" name="Sao chép văn bản được đánh dấu của kiểu dáng đánh dấu tìm kiếm"/>
-                    <Item id="44100" name="Xem tệp hiện tại trong Firefox"/>
-                    <Item id="44101" name="Xem tệp hiện tại trong Chrome"/>
-                    <Item id="44103" name="Xem tệp hiện tại trong IE"/>
-                    <Item id="44102" name="Xem tệp hiện tại trong Edge"/>
-                    <Item id="50003" name="Chuyển sang tài liệu trước đó"/>
-                    <Item id="50004" name="Chuyển sang tài liệu sau đó"/>
-                    <Item id="44051" name="Gập cấp độ 1"/>
-                    <Item id="44052" name="Gập cấp độ 2"/>
-                    <Item id="44053" name="Gập cấp độ 3"/>
-                    <Item id="44054" name="Gập cấp độ 4"/>
-                    <Item id="44055" name="Gập cấp độ 5"/>
-                    <Item id="44056" name="Gập cấp độ 6"/>
-                    <Item id="44057" name="Gập cấp độ 7"/>
-                    <Item id="44058" name="Gập cấp độ 8"/>
-                    <Item id="44061" name="Duỗi cấp độ 1"/>
-                    <Item id="44062" name="Duỗi cấp độ 2"/>
-                    <Item id="44063" name="Duỗi cấp độ 3"/>
-                    <Item id="44064" name="Duỗi cấp độ 4"/>
-                    <Item id="44065" name="Duỗi cấp độ 5"/>
-                    <Item id="44066" name="Duỗi cấp độ 6"/>
-                    <Item id="44067" name="Duỗi cấp độ 7"/>
-                    <Item id="44068" name="Duỗi cấp độ 8"/>
-                    <Item id="44081" name="Bật tắt bảng dự án 1"/>
-                    <Item id="44082" name="Bật tắt bảng dự án 2"/>
-                    <Item id="44083" name="Bật tắt bảng dự án 3"/>
-                    <Item id="44085" name="Bật tắt Thư mục như là không gian làm việc"/>
-                    <Item id="44080" name="Bật tắt bản đồ tài liệu"/>
-                    <Item id="44070" name="Bật tắt danh sách tài liệu"/>
-                    <Item id="44084" name="Bật tắt danh sách hàm"/>
-                    <Item id="50005" name="Bật tắt ghi vĩ lệnh"/>
-                    <Item id="44104" name="Chuyển sang bảng dự án 1"/>
-                    <Item id="44105" name="Chuyển sang bảng dự án 2"/>
-                    <Item id="44106" name="Chuyển sang bảng dự án 3"/>
-                    <Item id="44107" name="Chuyển sang Thư mục như là không gian làm việc"/>
-                    <Item id="44109" name="Chuyển sang danh sách tài liệu"/>
-                    <Item id="44108" name="Chuyển sang danh sách hàm"/>
-                    <Item id="44110" name="Loại bỏ màu thẻ"/>
-                    <Item id="44111" name="Áp dụng màu thẻ 1"/>
-                    <Item id="44112" name="Áp dụng màu thẻ 2"/>
-                    <Item id="44113" name="Áp dụng màu thẻ 3"/>
-                    <Item id="44114" name="Áp dụng màu thẻ 4"/>
-                    <Item id="44115" name="Áp dụng màu thẻ 5"/>
-                    <Item id="11002" name="Sắp xếp theo tên A đến Z"/>
-                    <Item id="11003" name="Sắp xếp theo tên Z đến A"/>
-                    <Item id="11004" name="Sắp xếp theo đường dẫn Path A đến Z"/>
-                    <Item id="11005" name="Sắp xếp theo đường dẫn Z đến A"/>
-                    <Item id="11006" name="Sắp xếp theo loại A đến Z"/>
-                    <Item id="11007" name="Sắp xếp theo loại Z đến A"/>
-                    <Item id="11008" name="Sắp xếp theo kích cỡ nhỏ hơn đến lớn hơn"/>
-                    <Item id="11009" name="Sắp xếp theo kích cỡ lớn hơn đến nhỏ hơn"/>
-                </MainCommandNames>
-            </ShortcutMapper>
-            <ShortcutMapperSubDialg title="Phím tắt">
-                <Item id="1" name="OK"/>
-                <Item id="2" name="Huỷ"/>
-                <Item id="5006" name="Tên"/>
-                <Item id="5008" name="Thêm"/>
-                <Item id="5009" name="Loại bỏ"/>
-                <Item id="5010" name="Áp dụng"/>
-                <Item id="5007" name="Việc này sẽ loại bỏ phím tắt từ lệnh này"/>
-                <Item id="5012" name="PHÁT HIỆN XUNG ĐỘT!"/>
-            </ShortcutMapperSubDialg>
-            <UserDefine title="Người dùng định nghĩa">
-                <Item id="20001" name="Giá đỡ"/>
-                <Item id="20002" name="Đổi tên"/>
-                <Item id="20003" name="Tạo mới..."/>
-                <Item id="20004" name="Loại bỏ"/>
-                <Item id="20005" name="Lưu như..."/>
-                <Item id="20007" name="Ngôn ngữ người dùng: "/>
-                <Item id="20009" name="Đuôi tệp:"/>
-                <Item id="20012" name="Bỏ qua hoa thường"/>
-                <Item id="20011" name="Trong suốt"/>
-                <Item id="20015" name="Nhập..."/>
-                <Item id="20016" name="Xuất..."/>
-                <StylerDialog title="Hộp thoại định kiểu">
-                    <Item id="25030" name="Tuỳ chọn phông:"/>
-                    <Item id="25006" name="Màu tiền cảnh"/>
-                    <Item id="25007" name="Màu nền"/>
-                    <Item id="25031" name="Tên:"/>
-                    <Item id="25032" name="Cỡ:"/>
-                    <Item id="25001" name="Đậm"/>
-                    <Item id="25002" name="Nghiêng"/>
-                    <Item id="25003" name="Gạch chân"/>
-                    <Item id="25029" name="Lồng:"/>
-                    <Item id="25008" name="Dấu ngăn cách 1"/>
-                    <Item id="25009" name="Dấu ngăn cách 2"/>
-                    <Item id="25010" name="Dấu ngăn cách 3"/>
-                    <Item id="25011" name="Dấu ngăn cách 4"/>
-                    <Item id="25012" name="Dấu ngăn cách 5"/>
-                    <Item id="25013" name="Dấu ngăn cách 6"/>
-                    <Item id="25014" name="Dấu ngăn cách 7"/>
-                    <Item id="25015" name="Dấu ngăn cách 8"/>
-                    <Item id="25018" name="Từ khoá 1"/>
-                    <Item id="25019" name="Từ khoá 2"/>
-                    <Item id="25020" name="Từ khoá 3"/>
-                    <Item id="25021" name="Từ khoá 4"/>
-                    <Item id="25022" name="Từ khoá 5"/>
-                    <Item id="25023" name="Từ khoá 6"/>
-                    <Item id="25024" name="Từ khoá 7"/>
-                    <Item id="25025" name="Từ khoá 8"/>
-                    <Item id="25016" name="Chú thích"/>
-                    <Item id="25017" name="Dòng chú thích"/>
-                    <Item id="25026" name="Toán tử 1"/>
-                    <Item id="25027" name="Toán tử 2"/>
-                    <Item id="25028" name="Số"/>
-                    <Item id="25033" name="Trong suốt"/>
-                    <Item id="25034" name="Trong suốt"/>
-                    <Item id="1" name="OK"/>
-                    <Item id="2" name="Huỷ"/>
-                </StylerDialog>
-                <Folder title="Thư mục &amp;&amp; mặc định">
-                    <Item id="21101" name="Kiểu dáng mặc định"/>
-                    <Item id="21102" name="Định kiểu"/>
-                    <Item id="21105" name="Tài liệu:"/>
-                    <Item id="21104" name="Trang tài liệu tạm thời:"/>
-                    <Item id="21106" name="&amp;Gập gọn (gập cả các dòng trống)"/>
-                    <Item id="21220" name="Kiểu dáng gập trong mã 1:"/>
-                    <Item id="21224" name="Mở:"/>
-                    <Item id="21225" name="Giữa:"/>
-                    <Item id="21226" name="Đóng:"/>
-                    <Item id="21227" name="Định kiểu"/>
-                    <Item id="21320" name="Kiểu dáng gập trong mã (cần dấu ngăn cách):"/>
-                    <Item id="21324" name="Mở:"/>
-                    <Item id="21325" name="Giữa:"/>
-                    <Item id="21326" name="Đóng:"/>
-                    <Item id="21327" name="Định kiểu"/>
-                    <Item id="21420" name="Kiểu dáng gập trong chú thích:"/>
-                    <Item id="21424" name="Mở:"/>
-                    <Item id="21425" name="Giữa:"/>
-                    <Item id="21426" name="Đóng:"/>
-                    <Item id="21427" name="Định kiểu"/>
-                </Folder>
-                <Keywords title="Danh sách từ khoá">
-                    <Item id="22101" name="Nhóm thứ nhất"/>
-                    <Item id="22201" name="Nhóm thứ 2"/>
-                    <Item id="22301" name="Nhóm thứ 3"/>
-                    <Item id="22401" name="Nhóm thứ 4"/>
-                    <Item id="22451" name="Nhóm thứ 5"/>
-                    <Item id="22501" name="Nhóm thứ 6"/>
-                    <Item id="22551" name="Nhóm thứ 7"/>
-                    <Item id="22601" name="Nhóm thứ 8"/>
-                    <Item id="22121" name="Chế độ tiền tố"/>
-                    <Item id="22221" name="Chế độ tiền tố"/>
-                    <Item id="22321" name="Chế độ tiền tố"/>
-                    <Item id="22421" name="Chế độ tiền tố"/>
-                    <Item id="22471" name="Chế độ tiền tố"/>
-                    <Item id="22521" name="Chế độ tiền tố"/>
-                    <Item id="22571" name="Chế độ tiền tố"/>
-                    <Item id="22621" name="Chế độ tiền tố"/>
-                    <Item id="22122" name="Định kiểu"/>
-                    <Item id="22222" name="Định kiểu"/>
-                    <Item id="22322" name="Định kiểu"/>
-                    <Item id="22422" name="Định kiểu"/>
-                    <Item id="22472" name="Định kiểu"/>
-                    <Item id="22522" name="Định kiểu"/>
-                    <Item id="22572" name="Định kiểu"/>
-                    <Item id="22622" name="Định kiểu"/>
-                </Keywords>
-                <Comment title="Chú thích &amp;&amp; số">
-                    <Item id="23003" name="Vị trí chú thích dòng"/>
-                    <Item id="23004" name="Cho phép ở mọi nơi"/>
-                    <Item id="23005" name="Bắt buộc ở đầu dòng"/>
-                    <Item id="23006" name="Cho phép khoảng trống ở trước"/>
-                    <Item id="23001" name="Cho phép gập chú giải"/>
-                    <Item id="23326" name="Định kiểu"/>
-                    <Item id="23323" name="Mở"/>
-                    <Item id="23324" name="Kí tự kế tiếp"/>
-                    <Item id="23325" name="Đóng"/>
-                    <Item id="23301" name="Kiểu dáng dòng chú thích"/>
-                    <Item id="23124" name="Định kiểu"/>
-                    <Item id="23122" name="Mở"/>
-                    <Item id="23123" name="Đóng"/>
-                    <Item id="23101" name="Kiểu dáng chú thích"/>
-                    <Item id="23201" name="Kiểu dáng số"/>
-                    <Item id="23220" name="Định kiểu"/>
-                    <Item id="23230" name="Tiền tố 1"/>
-                    <Item id="23232" name="Tiền tố 2"/>
-                    <Item id="23234" name="Bổ sung 1"/>
-                    <Item id="23236" name="Bổ sung 2"/>
-                    <Item id="23238" name="Hậu tố 1"/>
-                    <Item id="23240" name="Hậu tố 2"/>
-                    <Item id="23242" name="Khoảng:"/>
-                    <Item id="23244" name="Dấu ngăn cách thập phân"/>
-                    <Item id="23245" name="Chấm"/>
-                    <Item id="23246" name="Phẩy"/>
-                    <Item id="23247" name="Cả hai"/>
-                </Comment>
-                <Operator title="Toán tử &amp;&amp; Dấu ngăn cách">
-                    <Item id="24101" name="Kiểu dáng toán tử"/>
-                    <Item id="24113" name="Định kiểu"/>
-                    <Item id="24116" name="Toán tử 1"/>
-                    <Item id="24117" name="Toán tử 2 (cần dấu phân cách)"/>
-                    <Item id="24201" name="Kiểu dáng dấu ngăn cách 1"/>
-                    <Item id="24220" name="Mở:"/>
-                    <Item id="24221" name="Thoát:"/>
-                    <Item id="24222" name="Đóng:"/>
-                    <Item id="24223" name="Định kiểu"/>
-                    <Item id="24301" name="Kiểu dáng dấu ngăn cách 2"/>
-                    <Item id="24320" name="Mở:"/>
-                    <Item id="24321" name="Thoát:"/>
-                    <Item id="24322" name="Đóng:"/>
-                    <Item id="24323" name="Định kiểu"/>
-                    <Item id="24401" name="Kiểu dáng dấu ngăn cách 3"/>
-                    <Item id="24420" name="Mở:"/>
-                    <Item id="24421" name="Thoát:"/>
-                    <Item id="24422" name="Đóng:"/>
-                    <Item id="24423" name="Định kiểu"/>
-                    <Item id="24451" name="Kiểu dáng dấu ngăn cách 4"/>
-                    <Item id="24470" name="Mở:"/>
-                    <Item id="24471" name="Thoát:"/>
-                    <Item id="24472" name="Đóng:"/>
-                    <Item id="24473" name="Định kiểu"/>
-                    <Item id="24501" name="Kiểu dáng dấu ngăn cách 5"/>
-                    <Item id="24520" name="Mở:"/>
-                    <Item id="24521" name="Thoát:"/>
-                    <Item id="24522" name="Đóng:"/>
-                    <Item id="24523" name="Định kiểu"/>
-                    <Item id="24551" name="Kiểu dáng dấu ngăn cách 6"/>
-                    <Item id="24570" name="Mở:"/>
-                    <Item id="24571" name="Thoát:"/>
-                    <Item id="24572" name="Đóng:"/>
-                    <Item id="24573" name="Định kiểu"/>
-                    <Item id="24601" name="Kiểu dáng dấu ngăn cách 7"/>
-                    <Item id="24620" name="Mở:"/>
-                    <Item id="24621" name="Thoát:"/>
-                    <Item id="24622" name="Đóng:"/>
-                    <Item id="24623" name="Định kiểu"/>
-                    <Item id="24651" name="Kiểu dáng dấu ngăn cách 8"/>
-                    <Item id="24670" name="Mở:"/>
-                    <Item id="24671" name="Thoát:"/>
-                    <Item id="24672" name="Đóng:"/>
-                    <Item id="24673" name="Định kiểu"/>
-                </Operator>
-            </UserDefine>
-            <Preference title="Sở thích">
-                <Item id="6001" name="Đóng"/>
-                <Global title="Tổng quát">
-                    <Item id="6101" name="Thanh công cụ"/>
-                    <Item id="6102" name="Ẩn"/>
-                    <Item id="6103" name="Fluent UI: nhỏ"/>
-                    <Item id="6104" name="Fluent UI: lớn"/>
-                    <Item id="6129" name="Fluent UI Đặc: nhỏ"/>
-                    <Item id="6130" name="Fluent UI Đặc: lớn"/>
-                    <Item id="6105" name="Biểu tượng chuẩn: nhỏ"/>
+			<ShortcutMapper title="Trình ánh xạ phím tắt">
+				<Item id="2602" name="Sửa"/>
+				<Item id="2603" name="Xoá bỏ"/>
+				<Item id="2606" name="Xoá sạch"/>
+				<Item id="2607" name="Bộ lọc: "/>
+				<Item id="1" name="Đóng"/>
+				<ColumnName name="Tên"/>
+				<ColumnShortcut name="Phím tắt"/>
+				<ColumnCategory name="Hạng mục"/>
+				<ColumnPlugin name="Trình cắm"/>
+				<MainMenuTab name="Bảng chọn chính"/>
+				<MacrosTab name="Vĩ lệnh"/>
+				<RunCommandsTab name="Lệnh chạy"/>
+				<PluginCommandsTab name="Lệnh của trình cắm"/>
+				<ScintillaCommandsTab name="Lệnh Scintilla"/>
+				<ConflictInfoOk name="Không có xung đột phím tắt nào về mục này."/>
+				<ConflictInfoEditing name="Không có xung đột. . ."/>
+				<MainCommandNames>
+					<Item id="41019" name="Mở thư mục chứa trong Explorer"/>
+					<Item id="41020" name="Mở thư mục chứa trong Command Prompt"/>
+					<Item id="41021" name="Khôi phục tệp bị đóng gần đây"/>
+					<Item id="45001" name="Chuyển đổi EOL sang Windows (CR LF)"/>
+					<Item id="45002" name="Chuyển đổi EOL sang Unix (LF)"/>
+					<Item id="45003" name="Chuyển đổi EOL sang Macintosh (CR)"/>
+					<Item id="43022" name="Đánh dấu tất cả bằng kiểu dáng thứ nhất"/>
+					<Item id="43024" name="Đánh dấu tất cả bằng kiểu dáng thứ 2"/>
+					<Item id="43026" name="Đánh dấu tất cả bằng kiểu dáng thứ 3"/>
+					<Item id="43028" name="Đánh dấu tất cả bằng kiểu dáng thứ 4"/>
+					<Item id="43030" name="Đánh dấu tất cả bằng kiểu dáng thứ 5"/>
+					<Item id="43062" name="Đánh dấu một bằng kiểu dáng thứ nhất"/>
+					<Item id="43063" name="Đánh dấu một bằng kiểu dáng thứ 2"/>
+					<Item id="43064" name="Đánh dấu một bằng kiểu dáng thứ 3"/>
+					<Item id="43065" name="Đánh dấu một bằng kiểu dáng thứ 4"/>
+					<Item id="43066" name="Đánh dấu một bằng kiểu dáng thứ 5"/>
+					<Item id="43023" name="Dọn sạch kiểu dáng thứ nhất"/>
+					<Item id="43025" name="Dọn sạch kiểu dáng thứ 2"/>
+					<Item id="43027" name="Dọn sạch kiểu dáng thứ 3"/>
+					<Item id="43029" name="Dọn sạch kiểu dáng thứ 4"/>
+					<Item id="43031" name="Dọn sạch kiểu dáng thứ 5"/>
+					<Item id="43032" name="Dọn sạch tất cả kiểu dáng"/>
+					<Item id="43033" name="Kiểu dáng trước của kiểu dáng thứ nhất"/>
+					<Item id="43034" name="Kiểu dáng trước của kiểu dáng thứ 2"/>
+					<Item id="43035" name="Kiểu dáng trước của kiểu dáng thứ 3"/>
+					<Item id="43036" name="Kiểu dáng trước của kiểu dáng thứ 4"/>
+					<Item id="43037" name="Kiểu dáng trước của kiểu dáng thứ 5"/>
+					<Item id="43038" name="Kiểu dáng trước của kiểu dáng đánh dấu tìm kiếm"/>
+					<Item id="43039" name="Kiểu dáng sau của kiểu dáng thứ nhất"/>
+					<Item id="43040" name="Kiểu dáng sau của kiểu dáng thứ 2"/>
+					<Item id="43041" name="Kiểu dáng sau của kiểu dáng thứ 3"/>
+					<Item id="43042" name="Kiểu dáng sau của kiểu dáng thứ 4"/>
+					<Item id="43043" name="Kiểu dáng sau của kiểu dáng thứ 5"/>
+					<Item id="43044" name="Kiểu dáng sau của kiểu dáng đánh dấu tìm kiếm"/>
+					<Item id="43055" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ nhất"/>
+					<Item id="43056" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ 2"/>
+					<Item id="43057" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ 3"/>
+					<Item id="43058" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ 4"/>
+					<Item id="43059" name="Sao chép văn bản được đánh dấu của kiểu dáng thứ 5"/>
+					<Item id="43060" name="Sao chép văn bản được đánh dấu của tất cả các kiểu dáng"/>
+					<Item id="43061" name="Sao chép văn bản được đánh dấu của kiểu dáng đánh dấu tìm kiếm"/>
+					<Item id="44100" name="Xem tệp hiện tại trong Firefox"/>
+					<Item id="44101" name="Xem tệp hiện tại trong Chrome"/>
+					<Item id="44103" name="Xem tệp hiện tại trong IE"/>
+					<Item id="44102" name="Xem tệp hiện tại trong Edge"/>
+					<Item id="50003" name="Chuyển sang tài liệu trước đó"/>
+					<Item id="50004" name="Chuyển sang tài liệu sau đó"/>
+					<Item id="44051" name="Gập cấp độ 1"/>
+					<Item id="44052" name="Gập cấp độ 2"/>
+					<Item id="44053" name="Gập cấp độ 3"/>
+					<Item id="44054" name="Gập cấp độ 4"/>
+					<Item id="44055" name="Gập cấp độ 5"/>
+					<Item id="44056" name="Gập cấp độ 6"/>
+					<Item id="44057" name="Gập cấp độ 7"/>
+					<Item id="44058" name="Gập cấp độ 8"/>
+					<Item id="44061" name="Duỗi cấp độ 1"/>
+					<Item id="44062" name="Duỗi cấp độ 2"/>
+					<Item id="44063" name="Duỗi cấp độ 3"/>
+					<Item id="44064" name="Duỗi cấp độ 4"/>
+					<Item id="44065" name="Duỗi cấp độ 5"/>
+					<Item id="44066" name="Duỗi cấp độ 6"/>
+					<Item id="44067" name="Duỗi cấp độ 7"/>
+					<Item id="44068" name="Duỗi cấp độ 8"/>
+					<Item id="44081" name="Bật tắt bảng dự án 1"/>
+					<Item id="44082" name="Bật tắt bảng dự án 2"/>
+					<Item id="44083" name="Bật tắt bảng dự án 3"/>
+					<Item id="44085" name="Bật tắt Thư mục như là không gian làm việc"/>
+					<Item id="44080" name="Bật tắt bản đồ tài liệu"/>
+					<Item id="44070" name="Bật tắt danh sách tài liệu"/>
+					<Item id="44084" name="Bật tắt danh sách hàm"/>
+					<Item id="50005" name="Bật tắt ghi vĩ lệnh"/>
+					<Item id="44104" name="Chuyển sang bảng dự án 1"/>
+					<Item id="44105" name="Chuyển sang bảng dự án 2"/>
+					<Item id="44106" name="Chuyển sang bảng dự án 3"/>
+					<Item id="44107" name="Chuyển sang Thư mục như là không gian làm việc"/>
+					<Item id="44109" name="Chuyển sang danh sách tài liệu"/>
+					<Item id="44108" name="Chuyển sang danh sách hàm"/>
+					<Item id="44110" name="Loại bỏ màu thẻ"/>
+					<Item id="44111" name="Áp dụng màu thẻ 1"/>
+					<Item id="44112" name="Áp dụng màu thẻ 2"/>
+					<Item id="44113" name="Áp dụng màu thẻ 3"/>
+					<Item id="44114" name="Áp dụng màu thẻ 4"/>
+					<Item id="44115" name="Áp dụng màu thẻ 5"/>
+					<Item id="11002" name="Sắp xếp theo tên A đến Z"/>
+					<Item id="11003" name="Sắp xếp theo tên Z đến A"/>
+					<Item id="11004" name="Sắp xếp theo đường dẫn Path A đến Z"/>
+					<Item id="11005" name="Sắp xếp theo đường dẫn Z đến A"/>
+					<Item id="11006" name="Sắp xếp theo loại A đến Z"/>
+					<Item id="11007" name="Sắp xếp theo loại Z đến A"/>
+					<Item id="11008" name="Sắp xếp theo kích cỡ nhỏ hơn đến lớn hơn"/>
+					<Item id="11009" name="Sắp xếp theo kích cỡ lớn hơn đến nhỏ hơn"/>
+				</MainCommandNames>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Phím tắt">
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Huỷ"/>
+				<Item id="5006" name="Tên"/>
+				<Item id="5008" name="Thêm"/>
+				<Item id="5009" name="Loại bỏ"/>
+				<Item id="5010" name="Áp dụng"/>
+				<Item id="5007" name="Việc này sẽ loại bỏ phím tắt từ lệnh này"/>
+				<Item id="5012" name="PHÁT HIỆN XUNG ĐỘT!"/>
+			</ShortcutMapperSubDialg>
+			<UserDefine title="Người dùng định nghĩa">
+				<Item id="20001" name="Giá đỡ"/>
+				<Item id="20002" name="Đổi tên"/>
+				<Item id="20003" name="Tạo mới..."/>
+				<Item id="20004" name="Loại bỏ"/>
+				<Item id="20005" name="Lưu như..."/>
+				<Item id="20007" name="Ngôn ngữ người dùng: "/>
+				<Item id="20009" name="Đuôi tệp:"/>
+				<Item id="20012" name="Bỏ qua hoa thường"/>
+				<Item id="20011" name="Trong suốt"/>
+				<Item id="20015" name="Nhập..."/>
+				<Item id="20016" name="Xuất..."/>
+				<StylerDialog title="Hộp thoại định kiểu">
+					<Item id="25030" name="Tuỳ chọn phông:"/>
+					<Item id="25006" name="Màu tiền cảnh"/>
+					<Item id="25007" name="Màu nền"/>
+					<Item id="25031" name="Tên:"/>
+					<Item id="25032" name="Cỡ:"/>
+					<Item id="25001" name="Đậm"/>
+					<Item id="25002" name="Nghiêng"/>
+					<Item id="25003" name="Gạch chân"/>
+					<Item id="25029" name="Lồng:"/>
+					<Item id="25008" name="Dấu ngăn cách 1"/>
+					<Item id="25009" name="Dấu ngăn cách 2"/>
+					<Item id="25010" name="Dấu ngăn cách 3"/>
+					<Item id="25011" name="Dấu ngăn cách 4"/>
+					<Item id="25012" name="Dấu ngăn cách 5"/>
+					<Item id="25013" name="Dấu ngăn cách 6"/>
+					<Item id="25014" name="Dấu ngăn cách 7"/>
+					<Item id="25015" name="Dấu ngăn cách 8"/>
+					<Item id="25018" name="Từ khoá 1"/>
+					<Item id="25019" name="Từ khoá 2"/>
+					<Item id="25020" name="Từ khoá 3"/>
+					<Item id="25021" name="Từ khoá 4"/>
+					<Item id="25022" name="Từ khoá 5"/>
+					<Item id="25023" name="Từ khoá 6"/>
+					<Item id="25024" name="Từ khoá 7"/>
+					<Item id="25025" name="Từ khoá 8"/>
+					<Item id="25016" name="Chú thích"/>
+					<Item id="25017" name="Dòng chú thích"/>
+					<Item id="25026" name="Toán tử 1"/>
+					<Item id="25027" name="Toán tử 2"/>
+					<Item id="25028" name="Số"/>
+					<Item id="25033" name="Trong suốt"/>
+					<Item id="25034" name="Trong suốt"/>
+					<Item id="1" name="OK"/>
+					<Item id="2" name="Huỷ"/>
+				</StylerDialog>
+				<Folder title="Thư mục &amp;&amp; mặc định">
+					<Item id="21101" name="Kiểu dáng mặc định"/>
+					<Item id="21102" name="Định kiểu"/>
+					<Item id="21105" name="Tài liệu:"/>
+					<Item id="21104" name="Trang tài liệu tạm thời:"/>
+					<Item id="21106" name="&amp;Gập gọn (gập cả các dòng trống)"/>
+					<Item id="21220" name="Kiểu dáng gập trong mã 1:"/>
+					<Item id="21224" name="Mở:"/>
+					<Item id="21225" name="Giữa:"/>
+					<Item id="21226" name="Đóng:"/>
+					<Item id="21227" name="Định kiểu"/>
+					<Item id="21320" name="Kiểu dáng gập trong mã (cần dấu ngăn cách):"/>
+					<Item id="21324" name="Mở:"/>
+					<Item id="21325" name="Giữa:"/>
+					<Item id="21326" name="Đóng:"/>
+					<Item id="21327" name="Định kiểu"/>
+					<Item id="21420" name="Kiểu dáng gập trong chú thích:"/>
+					<Item id="21424" name="Mở:"/>
+					<Item id="21425" name="Giữa:"/>
+					<Item id="21426" name="Đóng:"/>
+					<Item id="21427" name="Định kiểu"/>
+				</Folder>
+				<Keywords title="Danh sách từ khoá">
+					<Item id="22101" name="Nhóm thứ nhất"/>
+					<Item id="22201" name="Nhóm thứ 2"/>
+					<Item id="22301" name="Nhóm thứ 3"/>
+					<Item id="22401" name="Nhóm thứ 4"/>
+					<Item id="22451" name="Nhóm thứ 5"/>
+					<Item id="22501" name="Nhóm thứ 6"/>
+					<Item id="22551" name="Nhóm thứ 7"/>
+					<Item id="22601" name="Nhóm thứ 8"/>
+					<Item id="22121" name="Chế độ tiền tố"/>
+					<Item id="22221" name="Chế độ tiền tố"/>
+					<Item id="22321" name="Chế độ tiền tố"/>
+					<Item id="22421" name="Chế độ tiền tố"/>
+					<Item id="22471" name="Chế độ tiền tố"/>
+					<Item id="22521" name="Chế độ tiền tố"/>
+					<Item id="22571" name="Chế độ tiền tố"/>
+					<Item id="22621" name="Chế độ tiền tố"/>
+					<Item id="22122" name="Định kiểu"/>
+					<Item id="22222" name="Định kiểu"/>
+					<Item id="22322" name="Định kiểu"/>
+					<Item id="22422" name="Định kiểu"/>
+					<Item id="22472" name="Định kiểu"/>
+					<Item id="22522" name="Định kiểu"/>
+					<Item id="22572" name="Định kiểu"/>
+					<Item id="22622" name="Định kiểu"/>
+				</Keywords>
+				<Comment title="Chú thích &amp;&amp; số">
+					<Item id="23003" name="Vị trí chú thích dòng"/>
+					<Item id="23004" name="Cho phép ở mọi nơi"/>
+					<Item id="23005" name="Bắt buộc ở đầu dòng"/>
+					<Item id="23006" name="Cho phép khoảng trống ở trước"/>
+					<Item id="23001" name="Cho phép gập chú giải"/>
+					<Item id="23326" name="Định kiểu"/>
+					<Item id="23323" name="Mở"/>
+					<Item id="23324" name="Kí tự kế tiếp"/>
+					<Item id="23325" name="Đóng"/>
+					<Item id="23301" name="Kiểu dáng dòng chú thích"/>
+					<Item id="23124" name="Định kiểu"/>
+					<Item id="23122" name="Mở"/>
+					<Item id="23123" name="Đóng"/>
+					<Item id="23101" name="Kiểu dáng chú thích"/>
+					<Item id="23201" name="Kiểu dáng số"/>
+					<Item id="23220" name="Định kiểu"/>
+					<Item id="23230" name="Tiền tố 1"/>
+					<Item id="23232" name="Tiền tố 2"/>
+					<Item id="23234" name="Bổ sung 1"/>
+					<Item id="23236" name="Bổ sung 2"/>
+					<Item id="23238" name="Hậu tố 1"/>
+					<Item id="23240" name="Hậu tố 2"/>
+					<Item id="23242" name="Khoảng:"/>
+					<Item id="23244" name="Dấu ngăn cách thập phân"/>
+					<Item id="23245" name="Chấm"/>
+					<Item id="23246" name="Phẩy"/>
+					<Item id="23247" name="Cả hai"/>
+				</Comment>
+				<Operator title="Toán tử &amp;&amp; Dấu ngăn cách">
+					<Item id="24101" name="Kiểu dáng toán tử"/>
+					<Item id="24113" name="Định kiểu"/>
+					<Item id="24116" name="Toán tử 1"/>
+					<Item id="24117" name="Toán tử 2 (cần dấu phân cách)"/>
+					<Item id="24201" name="Kiểu dáng dấu ngăn cách 1"/>
+					<Item id="24220" name="Mở:"/>
+					<Item id="24221" name="Thoát:"/>
+					<Item id="24222" name="Đóng:"/>
+					<Item id="24223" name="Định kiểu"/>
+					<Item id="24301" name="Kiểu dáng dấu ngăn cách 2"/>
+					<Item id="24320" name="Mở:"/>
+					<Item id="24321" name="Thoát:"/>
+					<Item id="24322" name="Đóng:"/>
+					<Item id="24323" name="Định kiểu"/>
+					<Item id="24401" name="Kiểu dáng dấu ngăn cách 3"/>
+					<Item id="24420" name="Mở:"/>
+					<Item id="24421" name="Thoát:"/>
+					<Item id="24422" name="Đóng:"/>
+					<Item id="24423" name="Định kiểu"/>
+					<Item id="24451" name="Kiểu dáng dấu ngăn cách 4"/>
+					<Item id="24470" name="Mở:"/>
+					<Item id="24471" name="Thoát:"/>
+					<Item id="24472" name="Đóng:"/>
+					<Item id="24473" name="Định kiểu"/>
+					<Item id="24501" name="Kiểu dáng dấu ngăn cách 5"/>
+					<Item id="24520" name="Mở:"/>
+					<Item id="24521" name="Thoát:"/>
+					<Item id="24522" name="Đóng:"/>
+					<Item id="24523" name="Định kiểu"/>
+					<Item id="24551" name="Kiểu dáng dấu ngăn cách 6"/>
+					<Item id="24570" name="Mở:"/>
+					<Item id="24571" name="Thoát:"/>
+					<Item id="24572" name="Đóng:"/>
+					<Item id="24573" name="Định kiểu"/>
+					<Item id="24601" name="Kiểu dáng dấu ngăn cách 7"/>
+					<Item id="24620" name="Mở:"/>
+					<Item id="24621" name="Thoát:"/>
+					<Item id="24622" name="Đóng:"/>
+					<Item id="24623" name="Định kiểu"/>
+					<Item id="24651" name="Kiểu dáng dấu ngăn cách 8"/>
+					<Item id="24670" name="Mở:"/>
+					<Item id="24671" name="Thoát:"/>
+					<Item id="24672" name="Đóng:"/>
+					<Item id="24673" name="Định kiểu"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="Sở thích">
+				<Item id="6001" name="Đóng"/>
+				<Global title="Tổng quát">
+					<Item id="6101" name="Thanh công cụ"/>
+					<Item id="6102" name="Ẩn"/>
+					<Item id="6103" name="Fluent UI: nhỏ"/>
+					<Item id="6104" name="Fluent UI: lớn"/>
+					<Item id="6129" name="Fluent UI Đặc: nhỏ"/>
+					<Item id="6130" name="Fluent UI Đặc: lớn"/>
+					<Item id="6105" name="Biểu tượng chuẩn: nhỏ"/>
 
-                    <Item id="6106" name="Thanh thẻ"/>
-                    <Item id="6107" name="Giảm"/>
-                    <Item id="6108" name="Khóa (không có kéo và thả)"/>
-                    <Item id="6109" name="Làm tối các thẻ không hoạt động"/>
-                    <Item id="6110" name="Vẽ một thanh có màu lên thẻ đang hoạt động"/>
+					<Item id="6106" name="Thanh thẻ"/>
+					<Item id="6107" name="Giảm"/>
+					<Item id="6108" name="Khóa (không có kéo và thả)"/>
+					<Item id="6109" name="Làm tối các thẻ không hoạt động"/>
+					<Item id="6110" name="Vẽ một thanh có màu lên thẻ đang hoạt động"/>
 
-                    <Item id="6111" name="Hiển thị thanh trạng thái"/>
-                    <Item id="6112" name="Hiện nút đóng trên mỗi thẻ"/>
-                    <Item id="6113" name="Nháy đúp để đóng tài liệu"/>
-                    <Item id="6118" name="Ẩn"/>
-                    <Item id="6119" name="Nhiều dòng"/>
-                    <Item id="6120" name="Thẳng đứng"/>
-                    <Item id="6121" name="Thoát khi đóng thẻ cuối cùng"/>
+					<Item id="6111" name="Hiển thị thanh trạng thái"/>
+					<Item id="6112" name="Hiện nút đóng trên mỗi thẻ"/>
+					<Item id="6113" name="Nháy đúp để đóng tài liệu"/>
+					<Item id="6118" name="Ẩn"/>
+					<Item id="6119" name="Nhiều dòng"/>
+					<Item id="6120" name="Thẳng đứng"/>
+					<Item id="6121" name="Thoát khi đóng thẻ cuối cùng"/>
 
-                    <Item id="6131" name="Bảng chọn"/>
-                    <Item id="6122" name="Ẩn thanh bảng chọn (dùng phím Alt hay F10 để bật tắt)"/>
-                    <Item id="6132" name="Ẩn các lối tắt bên phải ＋ ▼ ✕ từ thanh bảng chọn (Cần khởi động lại Notepad++)"/>
-                    <Item id="6123" name="Địa phương hoá"/>
+					<Item id="6131" name="Bảng chọn"/>
+					<Item id="6122" name="Ẩn thanh bảng chọn (dùng phím Alt hay F10 để bật tắt)"/>
+					<Item id="6132" name="Ẩn các lối tắt bên phải ＋ ▼ ✕ từ thanh bảng chọn (Cần khởi động lại Notepad++)"/>
+					<Item id="6123" name="Địa phương hoá"/>
 
-                    <Item id="6128" name="Biểu tượng thay thế"/>
-                </Global>
-                <Scintillas title="Chỉnh sửa">
-                    <Item id="6216" name="Thiết đặt con trỏ văn bản"/>
-                    <Item id="6217" name="Chiều rộng:"/>
-                    <Item id="6219" name="Tốc độ nhấp nháy:"/>
-                    <Item id="6221" name="Nhanh"/>
-                    <Item id="6222" name="Chậm"/>
-                    <Item id="6246" name="Làm cho lệnh gập/duỗi cấp độ hiện tại bật tắt được"/>
-                    <Item id="6225" name="Thiết đặt đa-chỉnh-sửa"/>
-                    <Item id="6227" name="Bọc dòng"/>
-                    <Item id="6228" name="Mặc định"/>
-                    <Item id="6229" name="Được căn chỉnh"/>
-                    <Item id="6230" name="Thụt lề"/>
-                    <Item id="6234" name="Vô hiệu hoá tính năng cuộn nâng cao do vấn đề cảm ứng"/>
-                    <Item id="6215" name="Bật phông mượt mà"/>
-                    <Item id="6236" name="Cho phép cuộn xuống dưới dòng cuối cùng"/>
-                    <Item id="6239" name="Giữ phần được chọn khi nháy chuột phải bên ngoài phần được chọn"/>
-                    <Item id="6245" name="Kích hoạt không gian ảo"/>
-                    <Item id="6651" name="Chỉ thị dòng hiện tại"/>
-                    <Item id="6652" name="Không"/>
-                    <Item id="6653" name="Tô sáng nền"/>
-                    <Item id="6654" name="Khung"/>
-                    <Item id="6655" name="Chiều rộng"/>
-                    <Item id="6247" name="EOL (CRLF)"/> <!-- Don't translate "(CRLF)" -->
-                    <Item id="6248" name="Mặc định"/>
-                    <Item id="6249" name="Văn bản thuần"/>
-                    <Item id="6250" name="Màu tuỳ chỉnh"/>
-                </Scintillas>
+					<Item id="6128" name="Biểu tượng thay thế"/>
+				</Global>
+				<Scintillas title="Chỉnh sửa">
+					<Item id="6216" name="Thiết đặt con trỏ văn bản"/>
+					<Item id="6217" name="Chiều rộng:"/>
+					<Item id="6219" name="Tốc độ nhấp nháy:"/>
+					<Item id="6221" name="Nhanh"/>
+					<Item id="6222" name="Chậm"/>
+					<Item id="6246" name="Làm cho lệnh gập/duỗi cấp độ hiện tại bật tắt được"/>
+					<Item id="6225" name="Thiết đặt đa-chỉnh-sửa"/>
+					<Item id="6227" name="Bọc dòng"/>
+					<Item id="6228" name="Mặc định"/>
+					<Item id="6229" name="Được căn chỉnh"/>
+					<Item id="6230" name="Thụt lề"/>
+					<Item id="6234" name="Vô hiệu hoá tính năng cuộn nâng cao do vấn đề cảm ứng"/>
+					<Item id="6215" name="Bật phông mượt mà"/>
+					<Item id="6236" name="Cho phép cuộn xuống dưới dòng cuối cùng"/>
+					<Item id="6239" name="Giữ phần được chọn khi nháy chuột phải bên ngoài phần được chọn"/>
+					<Item id="6245" name="Kích hoạt không gian ảo"/>
+					<Item id="6651" name="Chỉ thị dòng hiện tại"/>
+					<Item id="6652" name="Không"/>
+					<Item id="6653" name="Tô sáng nền"/>
+					<Item id="6654" name="Khung"/>
+					<Item id="6655" name="Chiều rộng"/>
+					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Mặc định"/>
+					<Item id="6249" name="Văn bản thuần"/>
+					<Item id="6250" name="Màu tuỳ chỉnh"/>
+				</Scintillas>
 
-                <DarkMode title="Chế độ tối">
-                    <Item id="7101" name="Kích hoạt chế độ tối"/>
-                    <Item id="7102" name="Đen"/>
-                    <Item id="7103" name="Đỏ"/>
-                    <Item id="7104" name="Lục"/>
-                    <Item id="7105" name="Lam"/>
-                    <Item id="7107" name="Tía"/>
-                    <Item id="7108" name="Xanh lơ"/>
-                    <Item id="7109" name="Màu ôliu"/>
-                    <Item id="7115" name="Tuỳ chỉnh"/>
-                    <Item id="7116" name="Đầu"/>
-                    <Item id="7117" name="Thanh bảng chọn"/>
-                    <Item id="7118" name="Hoạt động"/>
-                    <Item id="7119" name="Chính"/>
-                    <Item id="7120" name="Lỗi"/>
-                    <Item id="7121" name="Văn bản"/>
-                    <Item id="7122" name="Văn bản tối hơn"/>
-                    <Item id="7123" name="Văn bản bị vô hiệu"/>
-                    <Item id="7124" name="Cạnh"/>
-                    <Item id="7130" name="Đặt lại"/>
-                    <Item id="7126" name="Cạnh tô sáng"/>
-                    <Item id="7127" name="Cạnh bị vô hiệu"/>
-                    <Item id="7130" name="Đặt lại"/>
-                    <Item id="7135" name="Tông màu"/>
-                </DarkMode>
+				<DarkMode title="Chế độ tối">
+					<Item id="7101" name="Kích hoạt chế độ tối"/>
+					<Item id="7102" name="Đen"/>
+					<Item id="7103" name="Đỏ"/>
+					<Item id="7104" name="Lục"/>
+					<Item id="7105" name="Lam"/>
+					<Item id="7107" name="Tía"/>
+					<Item id="7108" name="Xanh lơ"/>
+					<Item id="7109" name="Màu ôliu"/>
+					<Item id="7115" name="Tuỳ chỉnh"/>
+					<Item id="7116" name="Đầu"/>
+					<Item id="7117" name="Thanh bảng chọn"/>
+					<Item id="7118" name="Hoạt động"/>
+					<Item id="7119" name="Chính"/>
+					<Item id="7120" name="Lỗi"/>
+					<Item id="7121" name="Văn bản"/>
+					<Item id="7122" name="Văn bản tối hơn"/>
+					<Item id="7123" name="Văn bản bị vô hiệu"/>
+					<Item id="7124" name="Cạnh"/>
+					<Item id="7130" name="Đặt lại"/>
+					<Item id="7126" name="Cạnh tô sáng"/>
+					<Item id="7127" name="Cạnh bị vô hiệu"/>
+					<Item id="7130" name="Đặt lại"/>
+					<Item id="7135" name="Tông màu"/>
+				</DarkMode>
                 
-                <MarginsBorderEdge title="Mép/Viền/Cạnh">
-                    <Item id="6201" name="Kiểu dáng mép thư mục"/>
-                    <Item id="6202" name="Đơn giản"/>
-                    <Item id="6203" name="Mũi tên"/>
-                    <Item id="6204" name="Tròn"/>
-                    <Item id="6205" name="Hộp"/>
-                    <Item id="6226" name="Không có"/>
-                    <Item id="6291" name="Số của dòng"/>
-                    <Item id="6206" name="Hiển thị"/>
-                    <Item id="6292" name="Độ rộng động"/>
-                    <Item id="6293" name="Độ rộng hằng số"/>
-                    <Item id="6207" name="Hiển thị dấu trang"/>
-                    <Item id="6223" name="Hiển thị thay đổi lịch sử"/>
-                    <Item id="6211" name="Thiết đặt cạnh dọc"/>
-                    <Item id="6213" name="Chế độ nền"/>
-                    <Item id="6237" name="Thêm mốc đánh dấu cột bằng cách chỉ rõ vị trí với một số thập phân.
+				<MarginsBorderEdge title="Mép/Viền/Cạnh">
+					<Item id="6201" name="Kiểu dáng mép thư mục"/>
+					<Item id="6202" name="Đơn giản"/>
+					<Item id="6203" name="Mũi tên"/>
+					<Item id="6204" name="Tròn"/>
+					<Item id="6205" name="Hộp"/>
+					<Item id="6226" name="Không có"/>
+					<Item id="6291" name="Số của dòng"/>
+					<Item id="6206" name="Hiển thị"/>
+					<Item id="6292" name="Độ rộng động"/>
+					<Item id="6293" name="Độ rộng hằng số"/>
+					<Item id="6207" name="Hiển thị dấu trang"/>
+					<Item id="6223" name="Hiển thị thay đổi lịch sử"/>
+					<Item id="6211" name="Thiết đặt cạnh dọc"/>
+					<Item id="6213" name="Chế độ nền"/>
+					<Item id="6237" name="Thêm mốc đánh dấu cột bằng cách chỉ rõ vị trí với một số thập phân.
 Bạn có thể định nghĩa một vài mốc đánh dấu bằng cách sử dụng khoảng trắng để ngăn cách các số khác nhau."/>
-                    <Item id="6231" name="Độ rộng viền"/>
-                    <Item id="6235" name="Không cạnh"/>
-                    <Item id="6208" name="Đệm"/>
-                    <Item id="6209" name="Trái"/>
-                    <Item id="6210" name="Phải"/>
-                    <Item id="6212" name="Không làm xao lãng"/>
-                </MarginsBorderEdge>
+					<Item id="6231" name="Độ rộng viền"/>
+					<Item id="6235" name="Không cạnh"/>
+					<Item id="6208" name="Đệm"/>
+					<Item id="6209" name="Trái"/>
+					<Item id="6210" name="Phải"/>
+					<Item id="6212" name="Không làm xao lãng"/>
+				</MarginsBorderEdge>
                 
-                <NewDoc title="Tài liệu mới)">
-                    <Item id="6401" name="Định dạng (đuôi dòng)"/>
-                    <Item id="6402" name="Windows (CR LF)"/>
-                    <Item id="6403" name="Unix (LF)"/>
-                    <Item id="6404" name="Macintosh (CR)"/>
-                    <Item id="6405" name="Biên mã"/>
-                    <Item id="6406" name="ANSI"/>
-                    <Item id="6407" name="UTF-8"/>
-                    <Item id="6408" name="UTF-8 với BOM"/>
-                    <Item id="6409" name="UTF-16 Thứ tự đầu lớn với BOM"/>
-                    <Item id="6410" name="UTF-16 Thứ tự đầu nhỏ với BOM"/>
-                    <Item id="6411" name="Ngôn ngữ mặc định:"/>
-                    <Item id="6419" name="Tài liệu mới"/>
-                    <Item id="6420" name="Áp dụng cho các tệp ANSI được mở"/>
-                </NewDoc>
+				<NewDoc title="Tài liệu mới)">
+					<Item id="6401" name="Định dạng (đuôi dòng)"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Macintosh (CR)"/>
+					<Item id="6405" name="Biên mã"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 với BOM"/>
+					<Item id="6409" name="UTF-16 Thứ tự đầu lớn với BOM"/>
+					<Item id="6410" name="UTF-16 Thứ tự đầu nhỏ với BOM"/>
+					<Item id="6411" name="Ngôn ngữ mặc định:"/>
+					<Item id="6419" name="Tài liệu mới"/>
+					<Item id="6420" name="Áp dụng cho các tệp ANSI được mở"/>
+				</NewDoc>
 
-                <DefaultDir title="Thư mục mặc định">
-                    <Item id="6413" name="Thư mục mở/lưu tệp mặc định"/>
-                    <Item id="6414" name="Thực hiện theo tài liệu hiện thời"/>
-                    <Item id="6415" name="Nhớ thư mục được sử dụng cuối"/>
-                    <Item id="6431" name="Mở tất cả các tệp của thư mục thay vì chạy Thư mục như là không gian làm việc khi thả thư mục"/>
-                </DefaultDir>
+				<DefaultDir title="Thư mục mặc định">
+					<Item id="6413" name="Thư mục mở/lưu tệp mặc định"/>
+					<Item id="6414" name="Thực hiện theo tài liệu hiện thời"/>
+					<Item id="6415" name="Nhớ thư mục được sử dụng cuối"/>
+					<Item id="6431" name="Mở tất cả các tệp của thư mục thay vì chạy Thư mục như là không gian làm việc khi thả thư mục"/>
+				</DefaultDir>
 
-                <FileAssoc title="Liên kết tệp">
-                    <Item id="4008" name="Xin hãy thoát Notepad++ ra và chạy lại Notepad++ trong chế độ quản trị viên để sử dụng tính năng này."/>
-                    <Item id="4009" name="Phần mở rộng được hỗ trợ:"/>
-                    <Item id="4010" name="Phần mở rộng đã đăng ký:"/>
-                </FileAssoc>
-                <Language title="Ngôn ngữ">
-                    <Item id="6505" name="Mục có sẵn"/>
-                    <Item id="6506" name="Mục không có sẵn"/>
-                    <Item id="6507" name="Làm gọn bảng chọn ngôn ngữ"/>
-                    <Item id="6508" name="Bảng chọn ngôn ngữ"/>
-                    <Item id="6301" name="Thiết đặt Tab"/>
-                    <Item id="6302" name="Thay thế bằng dấu cách"/>
-                    <Item id="6303" name="Cỡ tab: "/>
-                    <Item id="6510" name="Dùng giá trị mặc định"/>
-                    <Item id="6335" name="Coi dấu chéo ngược là kí tự thoát cho SQL"/>
-                </Language>
+				<FileAssoc title="Liên kết tệp">
+					<Item id="4008" name="Xin hãy thoát Notepad++ ra và chạy lại Notepad++ trong chế độ quản trị viên để sử dụng tính năng này."/>
+					<Item id="4009" name="Phần mở rộng được hỗ trợ:"/>
+					<Item id="4010" name="Phần mở rộng đã đăng ký:"/>
+				</FileAssoc>
+				<Language title="Ngôn ngữ">
+					<Item id="6505" name="Mục có sẵn"/>
+					<Item id="6506" name="Mục không có sẵn"/>
+					<Item id="6507" name="Làm gọn bảng chọn ngôn ngữ"/>
+					<Item id="6508" name="Bảng chọn ngôn ngữ"/>
+					<Item id="6301" name="Thiết đặt Tab"/>
+					<Item id="6302" name="Thay thế bằng dấu cách"/>
+					<Item id="6303" name="Cỡ tab: "/>
+					<Item id="6510" name="Dùng giá trị mặc định"/>
+					<Item id="6335" name="Coi dấu chéo ngược là kí tự thoát cho SQL"/>
+				</Language>
                 
-                <Highlighting title="Tô sáng">
-                    <Item id="6351" name="Đánh dấu tất cả trường hợp của dấu hiệu"/>
-                    <Item id="6352" name="Phân biệt hoa thường"/>
-                    <Item id="6353" name="Chỉ khớp cả từ"/>
-                    <Item id="6333" name="Tô sáng thông minh"/>
-                    <Item id="6326" name="Bật"/>
-                    <Item id="6354" name="Khớp"/>
-                    <Item id="6332" name="Phân biệt hoa thường"/>
-                    <Item id="6338" name="Chỉ khớp cả từ"/>
-                    <Item id="6339" name="Dùng thiết đặt hộp thoại Tìm"/>
-                    <Item id="6340" name="Tô sáng khung nhìn khác"/>
-                    <Item id="6329" name="Tô sáng các thẻ khớp nhau"/>
-                    <Item id="6327" name="Bật"/>
-                    <Item id="6328" name="Tô sáng các thuộc tính của thẻ"/>
-                    <Item id="6330" name="Tô sáng khu vực chú thích / php / asp"/>
-                </Highlighting>
+				<Highlighting title="Tô sáng">
+					<Item id="6351" name="Đánh dấu tất cả trường hợp của dấu hiệu"/>
+					<Item id="6352" name="Phân biệt hoa thường"/>
+					<Item id="6353" name="Chỉ khớp cả từ"/>
+					<Item id="6333" name="Tô sáng thông minh"/>
+					<Item id="6326" name="Bật"/>
+					<Item id="6354" name="Khớp"/>
+					<Item id="6332" name="Phân biệt hoa thường"/>
+					<Item id="6338" name="Chỉ khớp cả từ"/>
+					<Item id="6339" name="Dùng thiết đặt hộp thoại Tìm"/>
+					<Item id="6340" name="Tô sáng khung nhìn khác"/>
+					<Item id="6329" name="Tô sáng các thẻ khớp nhau"/>
+					<Item id="6327" name="Bật"/>
+					<Item id="6328" name="Tô sáng các thuộc tính của thẻ"/>
+					<Item id="6330" name="Tô sáng khu vực chú thích / php / asp"/>
+				</Highlighting>
 
-                <Print title="In">
-                    <Item id="6601" name="In số của dòng"/>
-                    <Item id="6602" name="Tùy chọn màu"/>
-                    <Item id="6603" name="WYSIWYG"/>
-                    <Item id="6604" name="Đảo ngược"/>
-                    <Item id="6605" name="Màu đen trên nền trắng"/>
-                    <Item id="6606" name="Không có màu nền"/>
-                    <Item id="6607" name="Thiết đặt mép (Đơn vị: mm)"/>
-                    <Item id="6612" name="Trái"/>
-                    <Item id="6613" name="Trên"/>
-                    <Item id="6614" name="Phải"/>
-                    <Item id="6615" name="Dưới"/>
-                    <Item id="6706" name="Đậm"/>
-                    <Item id="6707" name="Nghiêng"/>
-                    <Item id="6708" name="Đầu trang"/>
-                    <Item id="6709" name="Phần bên trái"/>
-                    <Item id="6710" name="Phần giữa"/>
-                    <Item id="6711" name="Phần bên phải"/>
-                    <Item id="6717" name="Đậm"/>
-                    <Item id="6718" name="Nghiêng"/>
-                    <Item id="6719" name="Chân trang"/>
-                    <Item id="6720" name="Phần bên trái"/>
-                    <Item id="6721" name="Phần giữa"/>
-                    <Item id="6722" name="Phần bên phải"/>
-                    <Item id="6723" name="Thêm"/>
-                    <ComboBox id="6724">
-                        <Element name="Đường dẫn tên tệp đầy đủ"/>
-                        <Element name="Tên tệp"/>
-                        <Element name="Thư mục tệp"/>
-                        <Element name="Trang"/>
-                        <Element name="Định dạng ngày ngắn"/>
-                        <Element name="Định dạng ngày dài"/>
-                        <Element name="Thời gian"/>
-                    </ComboBox>
-                    <Item id="6725" name="Biến:"/>
-                    <Item id="6727" name="Nơi này hiển thị các thiết đặt biến của bạn"/>
-                    <Item id="6728" name="Đầu và chân trang"/>
-                </Print>
+				<Print title="In">
+					<Item id="6601" name="In số của dòng"/>
+					<Item id="6602" name="Tùy chọn màu"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="Đảo ngược"/>
+					<Item id="6605" name="Màu đen trên nền trắng"/>
+					<Item id="6606" name="Không có màu nền"/>
+					<Item id="6607" name="Thiết đặt mép (Đơn vị: mm)"/>
+					<Item id="6612" name="Trái"/>
+					<Item id="6613" name="Trên"/>
+					<Item id="6614" name="Phải"/>
+					<Item id="6615" name="Dưới"/>
+					<Item id="6706" name="Đậm"/>
+					<Item id="6707" name="Nghiêng"/>
+					<Item id="6708" name="Đầu trang"/>
+					<Item id="6709" name="Phần bên trái"/>
+					<Item id="6710" name="Phần giữa"/>
+					<Item id="6711" name="Phần bên phải"/>
+					<Item id="6717" name="Đậm"/>
+					<Item id="6718" name="Nghiêng"/>
+					<Item id="6719" name="Chân trang"/>
+					<Item id="6720" name="Phần bên trái"/>
+					<Item id="6721" name="Phần giữa"/>
+					<Item id="6722" name="Phần bên phải"/>
+					<Item id="6723" name="Thêm"/>
+					<ComboBox id="6724">
+						<Element name="Đường dẫn tên tệp đầy đủ"/>
+						<Element name="Tên tệp"/>
+						<Element name="Thư mục tệp"/>
+						<Element name="Trang"/>
+						<Element name="Định dạng ngày ngắn"/>
+						<Element name="Định dạng ngày dài"/>
+						<Element name="Thời gian"/>
+					</ComboBox>
+					<Item id="6725" name="Biến:"/>
+					<Item id="6727" name="Nơi này hiển thị các thiết đặt biến của bạn"/>
+					<Item id="6728" name="Đầu và chân trang"/>
+				</Print>
 
-                <Searching title="Tìm kiếm">
-                    <Item id="6902" name="Dùng phông đơn cách trong hộp thoại Tìm (Cần khởi động lại Notepad++)"/>
-                    <Item id="6903" name="Vẫn mở hộp thoại Tìm sau khi tìm kiếm mà đầu ra nằm ở cửa sổ kết quả"/>
-                    <Item id="6904" name="Xác nhận Thay thế tất cả trong tất cả các tài liệu được mở"/>
-                    <Item id="6905" name="Thay thế: Đừng di chuyển đến trường hợp tiếp theo"/>
-                    <Item id="6906" name="Cửa sổ kết quả tìm kiếm: chỉ hiện một mục mỗi dòng tìm thấy"/>
-                    <Item id="6907" name="Khi hộp thoại Tìm kiếm được kích hoạt"/>
-                    <Item id="6908" name="Điền văn bản được chọn vào trường Tìm"/>
-                    <Item id="6909" name="Chọn từ dưới con trỏ văn bản nếu không chọn gì"/>
-                </Searching>
+				<Searching title="Tìm kiếm">
+					<Item id="6902" name="Dùng phông đơn cách trong hộp thoại Tìm (Cần khởi động lại Notepad++)"/>
+					<Item id="6903" name="Vẫn mở hộp thoại Tìm sau khi tìm kiếm mà đầu ra nằm ở cửa sổ kết quả"/>
+					<Item id="6904" name="Xác nhận Thay thế tất cả trong tất cả các tài liệu được mở"/>
+					<Item id="6905" name="Thay thế: Đừng di chuyển đến trường hợp tiếp theo"/>
+					<Item id="6906" name="Cửa sổ kết quả tìm kiếm: chỉ hiện một mục mỗi dòng tìm thấy"/>
+					<Item id="6907" name="Khi hộp thoại Tìm kiếm được kích hoạt"/>
+					<Item id="6908" name="Điền văn bản được chọn vào trường Tìm"/>
+					<Item id="6909" name="Chọn từ dưới con trỏ văn bản nếu không chọn gì"/>
+				</Searching>
 
-                <RecentFilesHistory title="Lịch sử các tệp gần đây">
-                    <Item id="6304" name="Lịch sử các tệp gần đây"/>
-                    <Item id="6306" name="Số lượng mục tối đa:"/>
-                    <Item id="6305" name="Không kiểm tra tại thời gian khởi động"/>
-                    <Item id="6429" name="Hiển thị"/>
-                    <Item id="6424" name="Trong bảng chọn con"/>
-                    <Item id="6425" name="Chỉ tên tệp"/>
-                    <Item id="6426" name="Đường dẫn tên tệp đầy đủ"/>
-                    <Item id="6427" name="Tuỳ chỉnh độ dài tối đa:"/>
-                </RecentFilesHistory>
+				<RecentFilesHistory title="Lịch sử các tệp gần đây">
+					<Item id="6304" name="Lịch sử các tệp gần đây"/>
+					<Item id="6306" name="Số lượng mục tối đa:"/>
+					<Item id="6305" name="Không kiểm tra tại thời gian khởi động"/>
+					<Item id="6429" name="Hiển thị"/>
+					<Item id="6424" name="Trong bảng chọn con"/>
+					<Item id="6425" name="Chỉ tên tệp"/>
+					<Item id="6426" name="Đường dẫn tên tệp đầy đủ"/>
+					<Item id="6427" name="Tuỳ chỉnh độ dài tối đa:"/>
+				</RecentFilesHistory>
 
-                <Backup title="Sao lưu">
-                    <Item id="6817" name="Bản chụp phiên và sao lưu định kì"/>
-                    <Item id="6818" name="Kích hoạt bản chụp phiên và sao lưu định kì"/>
-                    <Item id="6819" name="Sao lưu mỗi"/>
-                    <Item id="6821" name="giây"/>
-                    <Item id="6822" name="Đường dẫn sao lưu:"/>
-                    <Item id="6309" name="Ghi nhớ phiên hiện tại cho lần chạy sau"/>
-                    <Item id="6801" name="Sao lưu khi lưu"/>
-                    <Item id="6315" name="Không có"/>
-                    <Item id="6316" name="Sao lưu đơn giản"/>
-                    <Item id="6317" name="Sao lưu dài dòng"/>
-                    <Item id="6804" name="Thư mục sao lưu tuỳ chỉnh"/>
-                    <Item id="6803" name="Thư mục:"/>
-                </Backup>
+				<Backup title="Sao lưu">
+					<Item id="6817" name="Bản chụp phiên và sao lưu định kì"/>
+					<Item id="6818" name="Kích hoạt bản chụp phiên và sao lưu định kì"/>
+					<Item id="6819" name="Sao lưu mỗi"/>
+					<Item id="6821" name="giây"/>
+					<Item id="6822" name="Đường dẫn sao lưu:"/>
+					<Item id="6309" name="Ghi nhớ phiên hiện tại cho lần chạy sau"/>
+					<Item id="6801" name="Sao lưu khi lưu"/>
+					<Item id="6315" name="Không có"/>
+					<Item id="6316" name="Sao lưu đơn giản"/>
+					<Item id="6317" name="Sao lưu dài dòng"/>
+					<Item id="6804" name="Thư mục sao lưu tuỳ chỉnh"/>
+					<Item id="6803" name="Thư mục:"/>
+				</Backup>
 
-                <AutoCompletion title="Tự động hoàn thành">
-                    <Item id="6115" name="Tự động thụt lề"/>
-                    <Item id="6807" name="Tự động hoàn thành"/>
-                    <Item id="6808" name="Bật tự động hoàn thành mỗi khi nhập"/>
-                    <Item id="6809" name="Hoàn thành hàm"/>
-                    <Item id="6810" name="Hoàn thành từ"/>
-                    <Item id="6816" name="Hoàn thành từ và hàm"/>
-                    <Item id="6869" name="Chèn phần được chọn"/>
-                    <Item id="6870" name="TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
-                    <Item id="6871" name="ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
-                    <Item id="6824" name="Mặc kệ số"/>
-                    <Item id="6811" name="Từ"/>
-                    <Item id="6813" name="kí tự thứ"/>
-                    <Item id="6814" name="Giá trị hợp lệ: 1 - 9"/>
-                    <Item id="6815" name="Gợi ý các tham số hàm khi nhập"/>
-                    <Item id="6851" name="Tự động chèm"/>
-                    <Item id="6857" name=" thẻ đóng html/xml"/>
-                    <Item id="6858" name="Mở"/>
-                    <Item id="6859" name="Đóng"/>
-                    <Item id="6860" name="Cặp khớp 1:"/>
-                    <Item id="6863" name="Cặp khớp 2:"/>
-                    <Item id="6866" name="Cặp khớp 3:"/>
-                </AutoCompletion>
+				<AutoCompletion title="Tự động hoàn thành">
+					<Item id="6115" name="Tự động thụt lề"/>
+					<Item id="6807" name="Tự động hoàn thành"/>
+					<Item id="6808" name="Bật tự động hoàn thành mỗi khi nhập"/>
+					<Item id="6809" name="Hoàn thành hàm"/>
+					<Item id="6810" name="Hoàn thành từ"/>
+					<Item id="6816" name="Hoàn thành từ và hàm"/>
+					<Item id="6869" name="Chèn phần được chọn"/>
+					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6824" name="Mặc kệ số"/>
+					<Item id="6811" name="Từ"/>
+					<Item id="6813" name="kí tự thứ"/>
+					<Item id="6814" name="Giá trị hợp lệ: 1 - 9"/>
+					<Item id="6815" name="Gợi ý các tham số hàm khi nhập"/>
+					<Item id="6851" name="Tự động chèm"/>
+					<Item id="6857" name=" thẻ đóng html/xml"/>
+					<Item id="6858" name="Mở"/>
+					<Item id="6859" name="Đóng"/>
+					<Item id="6860" name="Cặp khớp 1:"/>
+					<Item id="6863" name="Cặp khớp 2:"/>
+					<Item id="6866" name="Cặp khớp 3:"/>
+				</AutoCompletion>
 
-                <MultiInstance title="Đa-hiện-thể &amp; Ngày giờ">
-                    <Item id="6151" name="Thiết đặt đa-hiện-thể"/>
-                    <Item id="6152" name="Mở phiên trong một hiện thể Notepad++ mới"/>
-                    <Item id="6153" name="Luôn ở trong chế độ đa-hiện-thể"/>
-                    <Item id="6154" name="Mặc định (đơn-hiện-thể)"/>
-                    <Item id="6155" name="* Việc chỉnh sửa thiết đặt này yêu cầu khởi động lại Notepad++"/>
-                    <Item id="6171" name="Tuỳ chỉnh chèn ngày giờ"/>
-                    <Item id="6175" name="Đảo ngược thứ tự ngày giờ mặc định (định dạng ngắn &amp;&amp; dài)"/>
-                    <Item id="6172" name="Định dạng tuỳ chỉnh:"/>
-                </MultiInstance>
+				<MultiInstance title="Đa-hiện-thể &amp; Ngày giờ">
+					<Item id="6151" name="Thiết đặt đa-hiện-thể"/>
+					<Item id="6152" name="Mở phiên trong một hiện thể Notepad++ mới"/>
+					<Item id="6153" name="Luôn ở trong chế độ đa-hiện-thể"/>
+					<Item id="6154" name="Mặc định (đơn-hiện-thể)"/>
+					<Item id="6155" name="* Việc chỉnh sửa thiết đặt này yêu cầu khởi động lại Notepad++"/>
+					<Item id="6171" name="Tuỳ chỉnh chèn ngày giờ"/>
+					<Item id="6175" name="Đảo ngược thứ tự ngày giờ mặc định (định dạng ngắn &amp;&amp; dài)"/>
+					<Item id="6172" name="Định dạng tuỳ chỉnh:"/>
+				</MultiInstance>
 
-                <Delimiter title="Dấu ngăn cách">
-                    <Item id="6251" name="Thiết đặt chọn dấu ngăn cách (Ctrl + nháy chuột giữa)"/>
-                    <Item id="6252" name="Mở"/>
-                    <Item id="6255" name="Đóng"/>
-                    <Item id="6256" name="Cho phép trên một vài dòng"/>
-                    <Item id="6161" name="Danh sách kí tự từ"/>
-                    <Item id="6162" name="Sử dụng danh sách kí tự từ như ban đầu"/>
-                    <Item id="6163" name="Thêm kí tự của bạn như là một phần của từ
+				<Delimiter title="Dấu ngăn cách">
+					<Item id="6251" name="Thiết đặt chọn dấu ngăn cách (Ctrl + nháy chuột giữa)"/>
+					<Item id="6252" name="Mở"/>
+					<Item id="6255" name="Đóng"/>
+					<Item id="6256" name="Cho phép trên một vài dòng"/>
+					<Item id="6161" name="Danh sách kí tự từ"/>
+					<Item id="6162" name="Sử dụng danh sách kí tự từ như ban đầu"/>
+					<Item id="6163" name="Thêm kí tự của bạn như là một phần của từ
 (đừng chọn trừ khi bạn biết mình đang làm gì)"/>
-                </Delimiter>
+				</Delimiter>
                 
-                <Performance title="Hiệu năng">
-                    <Item id="7141" name="Giới hạn tệp lớn"/>
-                    <Item id="7142" name="Khi mở một tệp lớn, một số tính năng sẽ bị tắt đi để cải thiện hiệu năng. Bạn có thể tuỳ chỉnh chúng ở đây."/>
-                    <Item id="7143" name="Bật giới hạn tệp lớn (không tô sáng cú pháp)"/>
-                    <Item id="7144" name="Định nghĩa kích cỡ tệp lớn:"/>
-                    <Item id="7146" name="MB   (1 - 4096)"/>
-                    <Item id="7147" name="Cho phép khớp dấu ngoặc"/>
-                    <Item id="7148" name="Cho phép tự động hoàn thành"/>
-                    <Item id="7149" name="Cho phép tô sáng thông minh"/>
-                    <Item id="7150" name="Vô hiệu hoá bọc từ ở mọi nơi"/>
-                    <Item id="7151" name="Cho phép liên kết URL nháy chuột được"/>
-                </Performance>
+				<Performance title="Hiệu năng">
+					<Item id="7141" name="Giới hạn tệp lớn"/>
+					<Item id="7142" name="Khi mở một tệp lớn, một số tính năng sẽ bị tắt đi để cải thiện hiệu năng. Bạn có thể tuỳ chỉnh chúng ở đây."/>
+					<Item id="7143" name="Bật giới hạn tệp lớn (không tô sáng cú pháp)"/>
+					<Item id="7144" name="Định nghĩa kích cỡ tệp lớn:"/>
+					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7147" name="Cho phép khớp dấu ngoặc"/>
+					<Item id="7148" name="Cho phép tự động hoàn thành"/>
+					<Item id="7149" name="Cho phép tô sáng thông minh"/>
+					<Item id="7150" name="Vô hiệu hoá bọc từ ở mọi nơi"/>
+					<Item id="7151" name="Cho phép liên kết URL nháy chuột được"/>
+				</Performance>
                 
-                <Cloud title="Đám mây &amp; liên kết">
-                    <Item id="6262" name="Thiết đặt về đám mây"/>
-                    <Item id="6263" name="Không có đám mây"/>
-                    <Item id="6267" name="Đặt đường dẫn đám mây của bạn tại đây:"/>
-                    <Item id="6318" name="Thiết đặt liên kết nháy được"/>
-                    <Item id="6319" name="Bật"/>
-                    <Item id="6320" name="Không gạch chân"/>
-                    <Item id="6350" name="Bật chế độ phủ toàn hộp"/>
-                    <Item id="6264" name="Các xếp đặt URI tuỳ chỉnh:"/>
-                </Cloud>
+				<Cloud title="Đám mây &amp; liên kết">
+					<Item id="6262" name="Thiết đặt về đám mây"/>
+					<Item id="6263" name="Không có đám mây"/>
+					<Item id="6267" name="Đặt đường dẫn đám mây của bạn tại đây:"/>
+					<Item id="6318" name="Thiết đặt liên kết nháy được"/>
+					<Item id="6319" name="Bật"/>
+					<Item id="6320" name="Không gạch chân"/>
+					<Item id="6350" name="Bật chế độ phủ toàn hộp"/>
+					<Item id="6264" name="Các xếp đặt URI tuỳ chỉnh:"/>
+				</Cloud>
 
-                <SearchEngine title="Máy tìm kiếm">
-                    <Item id="6271" name="Máy tìm kiếm (dành cho lệnh &quot;Tìm kiếm trên Internet&quot;)"/>
-                    <Item id="6272" name="DuckDuckGo"/>
-                    <Item id="6273" name="Google"/>
-                    <Item id="6274" name="Bing"/>
-                    <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="Đặt máy tìm kiếm của bạn tại đây:"/>
-                    <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="Ví dụ: https://www.google.com/search?q=$(CURRENT_WORD)"/>
-                </SearchEngine>
+				<SearchEngine title="Máy tìm kiếm">
+					<Item id="6271" name="Máy tìm kiếm (dành cho lệnh &quot;Tìm kiếm trên Internet&quot;)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Đặt máy tìm kiếm của bạn tại đây:"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="Ví dụ: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
 
-                <MISC title="KHÁC">
-                    <ComboBox id="6347">
-                        <Element name="Bật"/>
-                        <Element name="Bật cho mọi tệp được mở"/>
-                        <Element name="Tắt"/>
-                    </ComboBox>
-                    <Item id="6308" name="Thu nhỏ hẳn vào khay hệ thống"/>
-                    <Item id="6312" name="Tự phát hiện trạng thái tệp"/>
-                    <Item id="6313" name="Lặng lẽ cập nhật"/>
-                    <Item id="6325" name="Cuộn xuống dòng cuối sau khi cập nhật"/>
-                    <Item id="6322" name="Đuôi tệp phiên:"/>
-                    <Item id="6323" name="Bật trình tự cập nhật Notepad++"/>
-                    <Item id="6324" name="Khung chuyển tài liệu (Ctrl+TAB)"/>
-                    <Item id="6331" name="Chỉ hiện tên tệp trong thanh tiêu đề"/>
-                    <Item id="6334" name="Tự động phát hiện biên mã kí tự"/>
-                    <Item id="6349" name="Sử dụng DirectWrite (Có thể cải thiện kết xuất các kí tự đặc biệt, cần khởi động lại Notepad++)"/>
-                    <Item id="6337" name="Đuôi tệp không gian làm việc:"/>
-                    <Item id="6114" name="Bật"/>
-                    <Item id="6117" name="Bật hành vi DGĐN (dùng gần đây nhất)"/>
-                    <Item id="6344" name="Ngó trước tài liệu"/>
-                    <Item id="6345" name="Ngó trước trên thẻ"/>
-                    <Item id="6346" name="Ngó trước trên bản đồ tài liệu"/>
-                    <Item id="6360" name="Tắt tất cả âm thanh"/>
-                    <Item id="6361" name="Bật hộp thoại xác nhận Lưu tất cả"/>
-                </MISC>
-            </Preference>
-            <MultiMacro title="Chạy một vĩ lệnh nhiều lần">
-                <Item id="1" name="&amp;Chạy"/>
-                <Item id="2" name="&amp;Huỷ"/>
-                <Item id="8006" name="Vĩ lệnh để chạy:"/>
-                <Item id="8001" name="Chạy"/>
-                <Item id="8005" name="lần"/>
-                <Item id="8002" name="Chạy cho đến cuối &amp;tệp"/>
-            </MultiMacro>
-            <Window title="Cửa sổ">
-                <Item id="1" name="&amp;Kích hoạt"/>
-                <Item id="2" name="&amp;OK"/>
-                <Item id="7002" name="&amp;Lưu"/>
-                <Item id="7003" name="Đón&amp;g (các) cửa sổ"/>
-                <Item id="7004" name="&amp;Sắp xếp các thẻ"/>
-            </Window>
-            <ColumnEditor title="Trình chỉnh sửa cột">
-                <Item id="2023" name="&amp;Văn bản để chèn"/>
-                <Item id="2033" name="&amp;Số để chèn"/>
-                <Item id="2030" name="Số &amp;ban đầu:"/>
-                <Item id="2031" name="&amp;Tăng lên:"/>
-                <Item id="2035" name="Số &amp;không theo sau"/>
-                <Item id="2036" name="&amp;Lặp lại :"/>
-                <Item id="2032" name="Định dạng"/>
-                <Item id="2024" name="&amp;Dec"/>
-                <Item id="2025" name="&amp;Oct"/>
-                <Item id="2026" name="&amp;Hex"/>
-                <Item id="2027" name="Bi&amp;n"/>
-                <Item id="1" name="OK"/>
-                <Item id="2" name="Huỷ"/>
-            </ColumnEditor>
-            <FindInFinder title="Tìm trong các kết quả tìm kiếm">
-                <Item id="1"    name="Tìm tất cả"/>
-                <Item id="2"    name="Đóng"/>
-                <Item id="1711" name="&amp;Tìm gì:"/>
-                <Item id="1713" name="Chỉ tìm kiếm trong những dòng được tìm thấy"/>
-                <Item id="1714" name="&amp;Chỉ khớp cả từ"/>
-                <Item id="1715" name="&amp;Phân biệt hoa thường"/>
-                <Item id="1716" name="Chế độ tìm kiếm"/>
-                <Item id="1717" name="&amp;Bình thường"/>
-                <Item id="1719" name="Biểu thức &amp;chính quy"/>
-                <Item id="1718" name="&amp;Mở rộng (\n, \r, \t, \0, \x...)"/>
-                <Item id="1720" name="&amp;. khớp xuống dòng"/>
-            </FindInFinder>
-            <DoSaveOrNot title="Lưu">
-                <Item id="1761" name="Có lưu tệp &quot;$STR_REPLACE$&quot; không?"/>
-                <Item id="6" name="&amp;Có"/>
-                <Item id="7" name="&amp;Không"/>
-                <Item id="2" name="&amp;Huỷ"/>
-                <Item id="4" name="Có với &amp;tất cả"/>
-                <Item id="5" name="Không &amp;với tất cả"/>
-            </DoSaveOrNot>
-            <DoSaveAll title="Xác nhận lưu tất cả">
-                <Item id="1766" name="Bạn có chắc là muốn lưu tất cả các tài liệu được sửa đổi hay không?
+				<MISC title="KHÁC">
+					<ComboBox id="6347">
+						<Element name="Bật"/>
+						<Element name="Bật cho mọi tệp được mở"/>
+						<Element name="Tắt"/>
+					</ComboBox>
+					<Item id="6308" name="Thu nhỏ hẳn vào khay hệ thống"/>
+					<Item id="6312" name="Tự phát hiện trạng thái tệp"/>
+					<Item id="6313" name="Lặng lẽ cập nhật"/>
+					<Item id="6325" name="Cuộn xuống dòng cuối sau khi cập nhật"/>
+					<Item id="6322" name="Đuôi tệp phiên:"/>
+					<Item id="6323" name="Bật trình tự cập nhật Notepad++"/>
+					<Item id="6324" name="Khung chuyển tài liệu (Ctrl+TAB)"/>
+					<Item id="6331" name="Chỉ hiện tên tệp trong thanh tiêu đề"/>
+					<Item id="6334" name="Tự động phát hiện biên mã kí tự"/>
+					<Item id="6349" name="Sử dụng DirectWrite (Có thể cải thiện kết xuất các kí tự đặc biệt, cần khởi động lại Notepad++)"/>
+					<Item id="6337" name="Đuôi tệp không gian làm việc:"/>
+					<Item id="6114" name="Bật"/>
+					<Item id="6117" name="Bật hành vi DGĐN (dùng gần đây nhất)"/>
+					<Item id="6344" name="Ngó trước tài liệu"/>
+					<Item id="6345" name="Ngó trước trên thẻ"/>
+					<Item id="6346" name="Ngó trước trên bản đồ tài liệu"/>
+					<Item id="6360" name="Tắt tất cả âm thanh"/>
+					<Item id="6361" name="Bật hộp thoại xác nhận Lưu tất cả"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="Chạy một vĩ lệnh nhiều lần">
+				<Item id="1" name="&amp;Chạy"/>
+				<Item id="2" name="&amp;Huỷ"/>
+				<Item id="8006" name="Vĩ lệnh để chạy:"/>
+				<Item id="8001" name="Chạy"/>
+				<Item id="8005" name="lần"/>
+				<Item id="8002" name="Chạy cho đến cuối &amp;tệp"/>
+			</MultiMacro>
+			<Window title="Cửa sổ">
+				<Item id="1" name="&amp;Kích hoạt"/>
+				<Item id="2" name="&amp;OK"/>
+				<Item id="7002" name="&amp;Lưu"/>
+				<Item id="7003" name="Đón&amp;g (các) cửa sổ"/>
+				<Item id="7004" name="&amp;Sắp xếp các thẻ"/>
+			</Window>
+			<ColumnEditor title="Trình chỉnh sửa cột">
+				<Item id="2023" name="&amp;Văn bản để chèn"/>
+				<Item id="2033" name="&amp;Số để chèn"/>
+				<Item id="2030" name="Số &amp;ban đầu:"/>
+				<Item id="2031" name="&amp;Tăng lên:"/>
+				<Item id="2035" name="Số &amp;không theo sau"/>
+				<Item id="2036" name="&amp;Lặp lại :"/>
+				<Item id="2032" name="Định dạng"/>
+				<Item id="2024" name="&amp;Dec"/>
+				<Item id="2025" name="&amp;Oct"/>
+				<Item id="2026" name="&amp;Hex"/>
+				<Item id="2027" name="Bi&amp;n"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Huỷ"/>
+			</ColumnEditor>
+			<FindInFinder title="Tìm trong các kết quả tìm kiếm">
+				<Item id="1" name="Tìm tất cả"/>
+				<Item id="2" name="Đóng"/>
+				<Item id="1711" name="&amp;Tìm gì:"/>
+				<Item id="1713" name="Chỉ tìm kiếm trong những dòng được tìm thấy"/>
+				<Item id="1714" name="&amp;Chỉ khớp cả từ"/>
+				<Item id="1715" name="&amp;Phân biệt hoa thường"/>
+				<Item id="1716" name="Chế độ tìm kiếm"/>
+				<Item id="1717" name="&amp;Bình thường"/>
+				<Item id="1719" name="Biểu thức &amp;chính quy"/>
+				<Item id="1718" name="&amp;Mở rộng (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. khớp xuống dòng"/>
+			</FindInFinder>
+			<DoSaveOrNot title="Lưu">
+				<Item id="1761" name="Có lưu tệp &quot;$STR_REPLACE$&quot; không?"/>
+				<Item id="6" name="&amp;Có"/>
+				<Item id="7" name="&amp;Không"/>
+				<Item id="2" name="&amp;Huỷ"/>
+				<Item id="4" name="Có với &amp;tất cả"/>
+				<Item id="5" name="Không &amp;với tất cả"/>
+			</DoSaveOrNot>
+			<DoSaveAll title="Xác nhận lưu tất cả">
+				<Item id="1766" name="Bạn có chắc là muốn lưu tất cả các tài liệu được sửa đổi hay không?
 
 Chọn &quot;Luôn có&quot; nếu bạn không muốn thấy hộp thoại này nữa.
 Bạn có thể mở lại hộp thoại này ở phần Thiết đặt về sau."/>
-                <Item id="6" name="&amp;Có"/>
-                <Item id="7" name="&amp;Không"/>
-                <Item id="4" name="Luôn có"/>
-            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-        </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="Chỉnh sửa contextMenu" message="Chỉnh sửa contextMenu.xml cho phép bạn chỉnh sửa bảng chọn ngữ cảnh bật lên Notepad++ của bạn.
+				<Item id="6" name="&amp;Có"/>
+				<Item id="7" name="&amp;Không"/>
+				<Item id="4" name="Luôn có"/>
+			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+		</Dialog>
+		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<ContextMenuXmlEditWarning title="Chỉnh sửa contextMenu" message="Chỉnh sửa contextMenu.xml cho phép bạn chỉnh sửa bảng chọn ngữ cảnh bật lên Notepad++ của bạn.
 Bạn phải khởi động lại Notepad++ để nó có hiệu lực sau khi sửa contextMenu.xml."/>
-            <SaveCurrentModifWarning title="Lưu chỉnh sửa hiện tại" message="Bạn nên lưu chỉnh sửa hiện tại lại.
+			<SaveCurrentModifWarning title="Lưu chỉnh sửa hiện tại" message="Bạn nên lưu chỉnh sửa hiện tại lại.
 Tất cả chỉnh sửa được lưu sẽ không thể được làm lại.
 
-Tiếp tục chứ?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
-            <LoseUndoAbilityWarning title="Cảnh báo mất khả năng hoàn tác" message="Bạn nên lưu chỉnh sửa hiện tại lại.
+Tiếp tục chứ?"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
+			<LoseUndoAbilityWarning title="Cảnh báo mất khả năng hoàn tác" message="Bạn nên lưu chỉnh sửa hiện tại lại.
 Tất cả chỉnh sửa được lưu sẽ không thể được làm lại.
 
-Tiếp tục chứ?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-            <CannotMoveDoc title="Di chuyển sang hiện thể Notepad++ mới" message="Tài liệu đã được chỉnh sửa, hãy lưu nó và thử lại."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
-            <DocReloadWarning title="Reload" message="Bạn có chắc là muốn tải lại tệp hiện tại và để mất các thay đổi ở trong Notepad++ không?"/>
-            <FileLockedWarning title="Lưu thất bại" message="Xin hãy kiểm tra xem liệu tệp này có được mở trong chương trình khác hay không"/>
-            <FileAlreadyOpenedInNpp title="" message="Tệp này đã được mở trong Notepad++ rồi."/>
-            <RenameTabTemporaryNameAlreadyInUse title="Đổi tên thất bại" message="Tên được chỉ định đã được sử dụng trong một thẻ khác."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-            <DeleteFileFailed title="Xoá tệp" message="Xoá tệp thất bại"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+Tiếp tục chứ?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+			<CannotMoveDoc title="Di chuyển sang hiện thể Notepad++ mới" message="Tài liệu đã được chỉnh sửa, hãy lưu nó và thử lại."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Reload" message="Bạn có chắc là muốn tải lại tệp hiện tại và để mất các thay đổi ở trong Notepad++ không?"/>
+			<FileLockedWarning title="Lưu thất bại" message="Xin hãy kiểm tra xem liệu tệp này có được mở trong chương trình khác hay không"/>
+			<FileAlreadyOpenedInNpp title="" message="Tệp này đã được mở trong Notepad++ rồi."/>
+			<RenameTabTemporaryNameAlreadyInUse title="Đổi tên thất bại" message="Tên được chỉ định đã được sử dụng trong một thẻ khác."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<DeleteFileFailed title="Xoá tệp" message="Xoá tệp thất bại"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             
-            <NbFileToOpenImportantWarning title="Số lượng tệp cần mở là quá lớn" message="$INT_REPLACE$ tệp sắp sửa được mở.
-Bạn có chắc là muốn mở chúng không?"/> <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-            <SettingsOnCloudError title="Thiết đặt đám mây" message="Trông có vẻ như đường dẫn của của phần thiết đặt đám mây được đặt trên một ổ đĩa chỉ đọc,
+			<NbFileToOpenImportantWarning title="Số lượng tệp cần mở là quá lớn" message="$INT_REPLACE$ tệp sắp sửa được mở.
+Bạn có chắc là muốn mở chúng không?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+			<SettingsOnCloudError title="Thiết đặt đám mây" message="Trông có vẻ như đường dẫn của của phần thiết đặt đám mây được đặt trên một ổ đĩa chỉ đọc,
 hoặc trên một thư mục cần đúng đặc quyền về truy cập ghi.
 Các thiết đặt đám mây của bạn sẽ bị huỷ. Xin hãy đặt lại một giá trị mạch lạc thông qua hộp thoại Sở thích."/>
-            <FilePathNotFoundWarning title="Mở tệp" message="Tệp bạn muốn mở không tồn tại."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <SessionFileInvalidError title="Không thể tải phiên" message="Tệp phiên bị hỏng hoặc không hợp lệ."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
-            <DroppingFolderAsProjectModeWarning title="Hành động không hợp lệ" message="Bạn chỉ có thể thả tệp hoặc thư mục chứ không phải cả hai, bởi vì bạn đang ở chế độ thả Thư mục như là dự án.
+			<FilePathNotFoundWarning title="Mở tệp" message="Tệp bạn muốn mở không tồn tại."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SessionFileInvalidError title="Không thể tải phiên" message="Tệp phiên bị hỏng hoặc không hợp lệ."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+			<DroppingFolderAsProjectModeWarning title="Hành động không hợp lệ" message="Bạn chỉ có thể thả tệp hoặc thư mục chứ không phải cả hai, bởi vì bạn đang ở chế độ thả Thư mục như là dự án.
 bạn phải bật &quot;Mở tất cả các tệp của thư mục thay vì chạy Thư mục như là không gian làm việc khi thả thư mục&quot; trong mục &quot;Thư mục mặc định&quot; của hộp thoại Thiết đặt để làm cho thao tác này hoạt động được."/>
-            <SortingError title="Lỗi sắp xếp" message="Không thể thực hiện sắp xếp số do dòng $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ColumnModeTip title="Mẹo chế độ cột" message="Hãy dùng &quot;ALT+Chọn bằng chuột&quot; hoặc &quot;Alt+Shift+Phím mũi tên&quot; để chuyển sang chế độ cột."/>
-            <BufferInvalidWarning title="Lưu thất bại" message="Không thể lưu: Bộ đệm không hợp lệ."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <DoCloseOrNot title="Giữ tệp không tồn tại" message="Tệp &quot;$STR_REPLACE$&quot; không còn tồn tại nữa.
+			<SortingError title="Lỗi sắp xếp" message="Không thể thực hiện sắp xếp số do dòng $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<ColumnModeTip title="Mẹo chế độ cột" message="Hãy dùng &quot;ALT+Chọn bằng chuột&quot; hoặc &quot;Alt+Shift+Phím mũi tên&quot; để chuyển sang chế độ cột."/>
+			<BufferInvalidWarning title="Lưu thất bại" message="Không thể lưu: Bộ đệm không hợp lệ."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<DoCloseOrNot title="Giữ tệp không tồn tại" message="Tệp &quot;$STR_REPLACE$&quot; không còn tồn tại nữa.
 Có giữ tệp này trong trình chỉnh sửa không?"/>
-            <DoDeleteOrNot title="Xoá tệp" message="Tệp &quot;$STR_REPLACE$&quot;
+			<DoDeleteOrNot title="Xoá tệp" message="Tệp &quot;$STR_REPLACE$&quot;
 sẽ được di chuyển vào thùng rác của bạn và tài liệu này sẽ bị đóng lại.
 Tiếp tục chứ?"/>
-            <NoBackupDoSaveFile title="Lưu" message="Tệp sao lưu không thể được tìm thấy (bị xoá từ bên ngoài).
+			<NoBackupDoSaveFile title="Lưu" message="Tệp sao lưu không thể được tìm thấy (bị xoá từ bên ngoài).
 Lưu nó lại hoặc dữ liệu của bạn sẽ bị mất
 Bạn có muốn lưu tệp &quot;$STR_REPLACE$&quot; không?"/>
-            <DoReloadOrNot title="Tải lại" message="&quot;$STR_REPLACE$&quot;
+			<DoReloadOrNot title="Tải lại" message="&quot;$STR_REPLACE$&quot;
 
 Tệp này đã bị một chương trình khác chỉnh sửa.
 Bạn có muốn tải lại nó không?"/>
-            <DoReloadOrNotAndLooseChange title="Tải lại" message="&quot;$STR_REPLACE$&quot;
+			<DoReloadOrNotAndLooseChange title="Tải lại" message="&quot;$STR_REPLACE$&quot;
 
 Tệp này đã bị một chương trình khác chỉnh sửa.
 Bạn có muốm tải lại nó và mất đi các thay đổi được tạo ra trong Notepad++ không?"/>
-            <PrehistoricSystemDetected title="Phát hiện hệ thống cổ đại" message="Có vẻ như bạn vẫn đang sử dụng một hệ thống cổ đại. Tính năng này chỉ hoạt động trên một hệ thống hiện đại, xin lỗi."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-            <XpUpdaterProblem title="Trình cập nhật Notepad++" message="Trình cập nhật Notepad++ không tườn thích với XP do các lớp bảo mật lỗi thời trên XP.
-Bạn có muốn đi đến trang Notepad++ để tải xuống phiên bản mới nhất không?"/> <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-            <GUpProxyConfNeedAdminMode title="Thiết đặt proxy" message="Xin hãy chạy lại Notepad++ trong chế độ quản trị viên để cấu hình proxy."/>
-            <DocTooDirtyToMonitor title="Vấn đề theo dõi" message="Tài liệu này bị 'bẩn'. Xin hãy lưu các chỉnh sửa lại trước khi theo dõi nó."/>
-            <DocNoExistToMonitor title="Vấn đề theo dõi" message="Tệp nên tồn tại để có thể được theo dõi."/>
-            <FileTooBigToOpen title="Vấn đề kích cỡ tệp" message="Tệp này là quá lớn để Notepad++ có thể mở được."/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
-            <FileLoadingException title="Mã ngoại lệ: $STR_REPLACE$" message="Một lỗi đã xảy ra khi đang tải tệp!"/>
-            <WantToOpenHugeFile title="Opening huge file warning" message="Mở một tệp lớn 2GB+ sẽ mất vài phút.
+			<PrehistoricSystemDetected title="Phát hiện hệ thống cổ đại" message="Có vẻ như bạn vẫn đang sử dụng một hệ thống cổ đại. Tính năng này chỉ hoạt động trên một hệ thống hiện đại, xin lỗi."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+			<XpUpdaterProblem title="Trình cập nhật Notepad++" message="Trình cập nhật Notepad++ không tườn thích với XP do các lớp bảo mật lỗi thời trên XP.
+Bạn có muốn đi đến trang Notepad++ để tải xuống phiên bản mới nhất không?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+			<GUpProxyConfNeedAdminMode title="Thiết đặt proxy" message="Xin hãy chạy lại Notepad++ trong chế độ quản trị viên để cấu hình proxy."/>
+			<DocTooDirtyToMonitor title="Vấn đề theo dõi" message="Tài liệu này bị 'bẩn'. Xin hãy lưu các chỉnh sửa lại trước khi theo dõi nó."/>
+			<DocNoExistToMonitor title="Vấn đề theo dõi" message="Tệp nên tồn tại để có thể được theo dõi."/>
+			<FileTooBigToOpen title="Vấn đề kích cỡ tệp" message="Tệp này là quá lớn để Notepad++ có thể mở được."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileLoadingException title="Mã ngoại lệ: $STR_REPLACE$" message="Một lỗi đã xảy ra khi đang tải tệp!"/>
+			<WantToOpenHugeFile title="Opening huge file warning" message="Mở một tệp lớn 2GB+ sẽ mất vài phút.
 Bạn có muốn mở tệp không?"/>
-            <CreateNewFileOrNot title="Tạo tệp mới" message="&quot;$STR_REPLACE$&quot; không tồn tại. Tạo mới chứ?"/>
-            <CreateNewFileError title="Tạo tệp mới" message="Không thể tạo tệp &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <OpenFileError title="LỖI" message="Không thể mở tệp &quot;$STR_REPLACE$&quot;."/>
-            <FileBackupFailed title="Sao lưu tệp thất bại" message="Phiên bản trước của tệp không thể được lưu lại vào thư mục sao lưu tại &quot;$STR_REPLACE$&quot;.
+			<CreateNewFileOrNot title="Tạo tệp mới" message="&quot;$STR_REPLACE$&quot; không tồn tại. Tạo mới chứ?"/>
+			<CreateNewFileError title="Tạo tệp mới" message="Không thể tạo tệp &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<OpenFileError title="LỖI" message="Không thể mở tệp &quot;$STR_REPLACE$&quot;."/>
+			<FileBackupFailed title="Sao lưu tệp thất bại" message="Phiên bản trước của tệp không thể được lưu lại vào thư mục sao lưu tại &quot;$STR_REPLACE$&quot;.
 
-Bạn vẫn muốn lưu tệp hiện tại chứ?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <LoadStylersFailed title="Tải stylers.xml thất bại" message="Tải &quot;$STR_REPLACE$&quot; thất bại!"/>
-            <LoadLangsFailed title="Trình cấu hình" message="Tải langs.xml thất bại!
-Bạn có muốn khôi phục tệp langs.xml của bạn không?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-            <LoadLangsFailedFinal title="Trình cấu hình" message="Tải langs.xml thất bại!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
-            <FolderAsWorspaceSubfolderExists title="vấn đề thêm thư mục của Thư mục như là không gian làm việc" message="Một thư mục con của thư mục bạn muốn thêm tồn tại.
-Xin hãy loại bỏ gốc của nó từ bảng trước khi bạn thêm thư mục &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
+Bạn vẫn muốn lưu tệp hiện tại chứ?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<LoadStylersFailed title="Tải stylers.xml thất bại" message="Tải &quot;$STR_REPLACE$&quot; thất bại!"/>
+			<LoadLangsFailed title="Trình cấu hình" message="Tải langs.xml thất bại!
+Bạn có muốn khôi phục tệp langs.xml của bạn không?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+			<LoadLangsFailedFinal title="Trình cấu hình" message="Tải langs.xml thất bại!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+			<FolderAsWorspaceSubfolderExists title="vấn đề thêm thư mục của Thư mục như là không gian làm việc" message="Một thư mục con của thư mục bạn muốn thêm tồn tại.
+Xin hãy loại bỏ gốc của nó từ bảng trước khi bạn thêm thư mục &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="Không gian làm việc đã được chỉnh sửa. Bạn có muốn lưu nó không?"/>
-            <ProjectPanelSaveError title="$STR_REPLACE$" message="Một lỗi đã xảy ra trong khi ghi tệp không gian làm việc của bạn.
-Không gian làm việc của bạn chưa được lưu."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Mở không gian làm việc" message="Không gian làm việc hiện tại đã được chỉnh sửa. Bạn có muốn lưu dự án hiện tại không?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="Không gian làm việc mới" message="Không gian làm việc hiện tại đã được chỉnh sửa. Bạn có muốn lưu dự án hiện tại không?"/>
-            <ProjectPanelOpenFailed title="Mở không gian làm việc" message="Không gian làm việc không thể được mở.
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Không gian làm việc đã được chỉnh sửa. Bạn có muốn lưu nó không?"/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="Một lỗi đã xảy ra trong khi ghi tệp không gian làm việc của bạn.
+Không gian làm việc của bạn chưa được lưu."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Mở không gian làm việc" message="Không gian làm việc hiện tại đã được chỉnh sửa. Bạn có muốn lưu dự án hiện tại không?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Không gian làm việc mới" message="Không gian làm việc hiện tại đã được chỉnh sửa. Bạn có muốn lưu dự án hiện tại không?"/>
+			<ProjectPanelOpenFailed title="Mở không gian làm việc" message="Không gian làm việc không thể được mở.
 Có vẻ như tệp này khong phải là một tệp dự án hợp lệ."/>
-            <ProjectPanelRemoveFolderFromProject title="Loại bỏ thư mục ra khỏi dự án" message="Tất cả các mục con sẽ bị loại bỏ.
+			<ProjectPanelRemoveFolderFromProject title="Loại bỏ thư mục ra khỏi dự án" message="Tất cả các mục con sẽ bị loại bỏ.
 Bạn có chắc là muốn loại bỏ thư mục này ra khỏi dự án hay không?"/>
-            <ProjectPanelRemoveFileFromProject title="Loại bỏ tệp ra khỏi dự án" message="Bạn có chắc là muốn loại bỏ tệp này ra khỏi dự án hay không?"/>
-            <ProjectPanelReloadError title="Tải lại không gian làm việc" message="Không thể tìm thấy tệp để tải lại."/>
-            <ProjectPanelReloadDirty title="Tải lại không gian làm việc" message="Không gian làm việc hiện tại của bạn đã được chỉnh sửa. Tải lại sẽ làm mất tất cả chỉnh sửa.
+			<ProjectPanelRemoveFileFromProject title="Loại bỏ tệp ra khỏi dự án" message="Bạn có chắc là muốn loại bỏ tệp này ra khỏi dự án hay không?"/>
+			<ProjectPanelReloadError title="Tải lại không gian làm việc" message="Không thể tìm thấy tệp để tải lại."/>
+			<ProjectPanelReloadDirty title="Tải lại không gian làm việc" message="Không gian làm việc hiện tại của bạn đã được chỉnh sửa. Tải lại sẽ làm mất tất cả chỉnh sửa.
 Bạn có muốn tiếp tục không?"/>
-            <UDLNewNameError title="Lỗi UDL" message="Tên này đã được một ngôn ngữ khác sử dụng,
+			<UDLNewNameError title="Lỗi UDL" message="Tên này đã được một ngôn ngữ khác sử dụng,
 xin hãy chọn tên khác."/>
-            <UDLRemoveCurrentLang title="Loại bỏ ngôn ngữ hiện tại" message="Bạn chắc chưa?"/>
-            <SCMapperDoDeleteOrNot title="Bạn chắc chưa?" message="Bạn có chắc là muốn xoá phím tắt này không?"/>
-            <FindCharRangeValueError title="Vấn đề giá trị khoảng" message="Bạn nên nhập trong khoảng từ 0 đến 255."/>
-            <OpenInAdminMode title="Lưu thất bại" message="Tệp không thể được lưu và có thể nó đã được bảo vệ.
+			<UDLRemoveCurrentLang title="Loại bỏ ngôn ngữ hiện tại" message="Bạn chắc chưa?"/>
+			<SCMapperDoDeleteOrNot title="Bạn chắc chưa?" message="Bạn có chắc là muốn xoá phím tắt này không?"/>
+			<FindCharRangeValueError title="Vấn đề giá trị khoảng" message="Bạn nên nhập trong khoảng từ 0 đến 255."/>
+			<OpenInAdminMode title="Lưu thất bại" message="Tệp không thể được lưu và có thể nó đã được bảo vệ.
 Bạn có muốn chạy Notepad++ trong chế độ quản trị viên không?"/>
-            <OpenInAdminModeWithoutCloseCurrent title="Lưu thất bại" message="Tệp không thể được lưu và có thể nó đã được bảo vệ.
+			<OpenInAdminModeWithoutCloseCurrent title="Lưu thất bại" message="Tệp không thể được lưu và có thể nó đã được bảo vệ.
 Bạn có muốn chạy Notepad++ trong chế độ quản trị viên không?"/>
-            <OpenInAdminModeFailed title="Mở trong chế độ quản trị viên thất bại" message="Notepad++ không thể được mở trong chế độ quản trị viên."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
-            <ViewInBrowser title="Xem tệp hiện tại trong trình duyệt" message="Ứng dụng không thể được tìm thấy trong hệ thống của bạn."/>
-            <ExitToUpdatePlugins title="Notepad++ sắp sửa thoát ra" message="Nếu bạn nháy vào CÓ, bạn sẽ thoát Notepad++ để tiếp tục thao tác.
+			<OpenInAdminModeFailed title="Mở trong chế độ quản trị viên thất bại" message="Notepad++ không thể được mở trong chế độ quản trị viên."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+			<ViewInBrowser title="Xem tệp hiện tại trong trình duyệt" message="Ứng dụng không thể được tìm thấy trong hệ thống của bạn."/>
+			<ExitToUpdatePlugins title="Notepad++ sắp sửa thoát ra" message="Nếu bạn nháy vào CÓ, bạn sẽ thoát Notepad++ để tiếp tục thao tác.
 Notepad++ sẽ được khởi động lại sau khi tất cả các thao tác được chấm dứt.
 Tiếp tục không?"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ cần phải được chạy lại" message="Bạn phải khởi động lại Notepad++ để tải các trình cắm mà bạn đã cài đặt."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-            <ChangeHistoryEnabledWarning title="Notepad++ cần được chạy lại" message="Bạn phải khởi động lại Notepad++ to để bật Thay đổi lịch sử."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-        </MessageBox>
-        <ClipboardHistory>
-            <PanelTitle name="Lịch sử bảng tạm"/>
-        </ClipboardHistory>
-        <DocList>
-            <PanelTitle name="Danh sách tài liệu"/>
-            <ColumnName name="Tên"/>
-            <ColumnExt name="Đuôi"/>
-            <ColumnPath name="Đường dẫn"/>
-        </DocList>
-        <WindowsDlg>
-            <ColumnName name="Tên"/>
-            <ColumnPath name="Đường dẫn"/>
-            <ColumnType name="Loại"/>
-            <ColumnSize name="Kích cỡ"/>
-            <NbDocsTotal name="tổng số tài liệu:"/>
-            <MenuCopyName name="Sao chép (các) tên"/>
-            <MenuCopyPath name="Sao chép (các) tên đường dẫn"/>
-        </WindowsDlg>
-        <AsciiInsertion>
-            <PanelTitle name="Bảng chèn ASCII"/>
-            <ColumnVal name="Giá trị"/>
-            <ColumnHex name="Hex"/>
-            <ColumnChar name="Kí tự"/>
-            <ColumnHtmlNumber name="Số HTML"/>
-            <ColumnHtmlName name="Mã HTML"/>
-        </AsciiInsertion>
-        <DocumentMap>
-            <PanelTitle name="Bản đồ tài liệu"/>
-        </DocumentMap>
-        <FunctionList>
-            <PanelTitle name="Danh sách hàm"/>
-            <SortTip name="Sắp xếp" />
-            <ReloadTip name="Tải lại" />
-            <PreferencesTip name="Preferences"/>
-            <PreferencesInitialSort name="Sort functions (A to Z) by default"/>
-        </FunctionList>
-        <FolderAsWorkspace>
-            <PanelTitle name="Thư mục như là không gian làm việc"/>
-            <SelectFolderFromBrowserString name="Chọn một thư mục để thêm vào bảng Thư mục như là không gian làm việc"/>
-            <ExpandAllFoldersTip name="Mở rộng tất cả thư mục"/>
-            <CollapseAllFoldersTip name="Duỗi tất cả thư mục"/>
-            <LocateCurrentFileTip name="Định vị tệp hiện tại"/>
-            <Menu>
-                <Item id="3511" name="Loại bỏ"/>
-                <Item id="3512" name="Loại bỏ tất cả"/>
-                <Item id="3513" name="Thêm"/>
-                <Item id="3514" name="Chạy bằng hệ thống"/>
-                <Item id="3515" name="Mở"/>
-                <Item id="3516" name="Sao chép đường dẫn"/>
-                <Item id="3517" name="Tìm trong các tệp..."/>
-                <Item id="3518" name="Explorer ở đây"/>
-                <Item id="3519" name="CMD ở đây"/>
-                <Item id="3520" name="Sao chép tên tệp"/>
-            </Menu>
-        </FolderAsWorkspace>
-        <ProjectManager>
-            <PanelTitle name="Dự án"/>
-            <WorkspaceRootName name="Không gian làm việc"/>
-            <NewProjectName name="Tên dự án"/>
-            <NewFolderName name="Tên thư mục"/>
-            <Menus>
-                <Entries>
-                    <Item id="0" name="Không gian làm việc"/>
-                    <Item id="1" name="Chỉnh sửa"/>
-                </Entries>
-                <WorkspaceMenu>
-                    <Item id="3122" name="Không gian làm việc mới"/>
-                    <Item id="3123" name="Mở không gian làm việc"/>
-                    <Item id="3124" name="Tải lại không gian làm việc"/>
-                    <Item id="3125" name="Lưu"/>
-                    <Item id="3126" name="Lưu thành..."/>
-                    <Item id="3127" name="Lưu thành bản sao..."/>
-                    <Item id="3121" name="Thêm dự án mới"/>
-                    <Item id="3128" name="Tìm trong các dự án..."/>
-                </WorkspaceMenu>
-                <ProjectMenu>
-                    <Item id="3111" name="Đổi tên"/>
-                    <Item id="3112" name="Thêm thư mục"/>
-                    <Item id="3113" name="Thêm tệp..."/>
-                    <Item id="3117" name="Thêm tệp từ thư mục..."/>
-                    <Item id="3114" name="Loại bỏ"/>
-                    <Item id="3118" name="Chuyển lên"/>
-                    <Item id="3119" name="Chuyển xuống"/>
-                </ProjectMenu>
-                <FolderMenu>
-                    <Item id="3111" name="Đổi tên"/>
-                    <Item id="3112" name="Thêm thư mục"/>
-                    <Item id="3113" name="Thêm tệp..."/>
-                    <Item id="3117" name="Thêm tệp từ thư mục..."/>
-                    <Item id="3114" name="Loại bỏ"/>
-                    <Item id="3118" name="Chuyển lên"/>
-                    <Item id="3119" name="Chuyển xuống"/>
-                </FolderMenu>
-                <FileMenu>
-                    <Item id="3111" name="Đổi tên"/>
-                    <Item id="3115" name="Loại bỏ"/>
-                    <Item id="3116" name="Sửa đường dẫn tệp"/>
-                    <Item id="3118" name="Chuyển lên"/>
-                    <Item id="3119" name="Chuyển xuống"/>
-                </FileMenu>
-            </Menus>
-        </ProjectManager>
-        <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Điều này cho phép bạn bao gồm các kí tự bổ sung vào cấc kí tự từ hiện tại khi nháy đúp chuột để chọn hoặc tìm kiếm với tuỳ chọn &quot;Chỉ khớp cả từ&quot; được tích."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<NeedToRestartToLoadPlugins title="Notepad++ cần phải được chạy lại" message="Bạn phải khởi động lại Notepad++ để tải các trình cắm mà bạn đã cài đặt."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="Notepad++ cần được chạy lại" message="Bạn phải khởi động lại Notepad++ to để bật Thay đổi lịch sử."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Lịch sử bảng tạm"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Danh sách tài liệu"/>
+			<ColumnName name="Tên"/>
+			<ColumnExt name="Đuôi"/>
+			<ColumnPath name="Đường dẫn"/>
+		</DocList>
+		<WindowsDlg>
+			<ColumnName name="Tên"/>
+			<ColumnPath name="Đường dẫn"/>
+			<ColumnType name="Loại"/>
+			<ColumnSize name="Kích cỡ"/>
+			<NbDocsTotal name="tổng số tài liệu:"/>
+			<MenuCopyName name="Sao chép (các) tên"/>
+			<MenuCopyPath name="Sao chép (các) tên đường dẫn"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="Bảng chèn ASCII"/>
+			<ColumnVal name="Giá trị"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Kí tự"/>
+			<ColumnHtmlNumber name="Số HTML"/>
+			<ColumnHtmlName name="Mã HTML"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Bản đồ tài liệu"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Danh sách hàm"/>
+			<SortTip name="Sắp xếp"/>
+			<ReloadTip name="Tải lại"/>
+			<PreferencesTip name="Preferences"/>
+			<PreferencesInitialSort name="Sort functions (A to Z) by default"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Thư mục như là không gian làm việc"/>
+			<SelectFolderFromBrowserString name="Chọn một thư mục để thêm vào bảng Thư mục như là không gian làm việc"/>
+			<ExpandAllFoldersTip name="Mở rộng tất cả thư mục"/>
+			<CollapseAllFoldersTip name="Duỗi tất cả thư mục"/>
+			<LocateCurrentFileTip name="Định vị tệp hiện tại"/>
+			<Menu>
+				<Item id="3511" name="Loại bỏ"/>
+				<Item id="3512" name="Loại bỏ tất cả"/>
+				<Item id="3513" name="Thêm"/>
+				<Item id="3514" name="Chạy bằng hệ thống"/>
+				<Item id="3515" name="Mở"/>
+				<Item id="3516" name="Sao chép đường dẫn"/>
+				<Item id="3517" name="Tìm trong các tệp..."/>
+				<Item id="3518" name="Explorer ở đây"/>
+				<Item id="3519" name="CMD ở đây"/>
+				<Item id="3520" name="Sao chép tên tệp"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="Dự án"/>
+			<WorkspaceRootName name="Không gian làm việc"/>
+			<NewProjectName name="Tên dự án"/>
+			<NewFolderName name="Tên thư mục"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Không gian làm việc"/>
+					<Item id="1" name="Chỉnh sửa"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Không gian làm việc mới"/>
+					<Item id="3123" name="Mở không gian làm việc"/>
+					<Item id="3124" name="Tải lại không gian làm việc"/>
+					<Item id="3125" name="Lưu"/>
+					<Item id="3126" name="Lưu thành..."/>
+					<Item id="3127" name="Lưu thành bản sao..."/>
+					<Item id="3121" name="Thêm dự án mới"/>
+					<Item id="3128" name="Tìm trong các dự án..."/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Đổi tên"/>
+					<Item id="3112" name="Thêm thư mục"/>
+					<Item id="3113" name="Thêm tệp..."/>
+					<Item id="3117" name="Thêm tệp từ thư mục..."/>
+					<Item id="3114" name="Loại bỏ"/>
+					<Item id="3118" name="Chuyển lên"/>
+					<Item id="3119" name="Chuyển xuống"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Đổi tên"/>
+					<Item id="3112" name="Thêm thư mục"/>
+					<Item id="3113" name="Thêm tệp..."/>
+					<Item id="3117" name="Thêm tệp từ thư mục..."/>
+					<Item id="3114" name="Loại bỏ"/>
+					<Item id="3118" name="Chuyển lên"/>
+					<Item id="3119" name="Chuyển xuống"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Đổi tên"/>
+					<Item id="3115" name="Loại bỏ"/>
+					<Item id="3116" name="Sửa đường dẫn tệp"/>
+					<Item id="3118" name="Chuyển lên"/>
+					<Item id="3119" name="Chuyển xuống"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+			<word-chars-list-tip value="Điều này cho phép bạn bao gồm các kí tự bổ sung vào cấc kí tự từ hiện tại khi nháy đúp chuột để chọn hoặc tìm kiếm với tuỳ chọn &quot;Chỉ khớp cả từ&quot; được tích."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
             
-            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-            <eol-custom-color-tip value="Go to Style Configurator to change the default EOL custom color (&quot;EOL custom color&quot;).."/>
+			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+			<eol-custom-color-tip value="Go to Style Configurator to change the default EOL custom color (&quot;EOL custom color&quot;).."/>
 
-            <word-chars-list-warning-begin value="Hãy coi chừng: "/>
-            <word-chars-list-space-warning value="$INT_REPLACE$ dấu cách"/>
-            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
-            <word-chars-list-warning-end value="  trong danh sách kí tự của bạn."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
-            <backup-select-folder value="Chọn một thư mục làm thư mục sao lưu"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
-            <cloud-invalid-warning value="Đường dẫn không hợp lệ."/>
-            <cloud-restart-warning value="Xin hãy khởi động lại Notepad++ để nó có hiệu lực."/>
-            <cloud-select-folder value="Chọn một thư mục từ/đến nơi Notepad++ đọc/viết các thiết đặt của nó"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
-            <default-open-save-select-folder value="Chọn một thư mục làm thư mục mặc định"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
-            <shift-change-direction-tip value="Sử dụng Shift+Enter để tìm theo chiều ngược lại"/>
-            <two-find-buttons-tip value="Chế độ hai nút tìm kiếm"/>
-            <file-rename-title value="Đổi tên"/>
-            <find-in-files-filter-tip value="Tìm trong cpp, cxx, h, hxx &amp;&amp; hpp:
+			<word-chars-list-warning-begin value="Hãy coi chừng: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ dấu cách"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
+			<word-chars-list-warning-end value="  trong danh sách kí tự của bạn."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+			<backup-select-folder value="Chọn một thư mục làm thư mục sao lưu"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+			<cloud-invalid-warning value="Đường dẫn không hợp lệ."/>
+			<cloud-restart-warning value="Xin hãy khởi động lại Notepad++ để nó có hiệu lực."/>
+			<cloud-select-folder value="Chọn một thư mục từ/đến nơi Notepad++ đọc/viết các thiết đặt của nó"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Chọn một thư mục làm thư mục mặc định"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+			<shift-change-direction-tip value="Sử dụng Shift+Enter để tìm theo chiều ngược lại"/>
+			<two-find-buttons-tip value="Chế độ hai nút tìm kiếm"/>
+			<file-rename-title value="Đổi tên"/>
+			<find-in-files-filter-tip value="Tìm trong cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Tìm trong tất cả các tệp ngoại trừ exe, obj &amp;&amp; log:
@@ -1507,114 +1507,114 @@ Tìm trong tất cả các tệp nhưng loại trừ các thư mục tests, bin 
 *.* !\tests !\bin*
 
 Tìm trong tất cả các tệp nhưng loại trừ tất cả thư mục log hoặc logs một cách đệ quy:
-*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
-            <find-in-files-select-folder value="Chọn một thư mục để tìm kiếm"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
-            <find-status-top-reached value="Tìm: Đã tìm thấy trường hợp đầu tiên từ phía dưới. Đã đi đến phần đầu của tài liệu."/>
-            <find-status-end-reached value="Tìm: Đã tìm thấy trường hợp đầu tiên từ phía trên. Đã đi đến phần cuối của tài liệu."/>
-            <find-status-replaceinfiles-1-replaced value="Thay thế trong các tệp: 1 trường hợp đã được thay thế"/>
-            <find-status-replaceinfiles-nb-replaced value="Thay thế trong các tệp: $INT_REPLACE$ trường hợp đã được thay thế"/>
-            <find-status-replaceinfiles-re-malformed value="Thay thế trong các tệp được mở: Biểu thức chính quy này không hợp định dạng"/>
-            <find-status-replaceinopenedfiles-1-replaced value="Thay thế trong các tệp được mở: 1 trường hợp đã được thay thế"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Thay thế trong các tệp được mở: $INT_REPLACE$ trường hợp đã được thay thế"/>
-            <find-status-mark-re-malformed value="Đánh dấu: Biểu thức chính quy này không hợp định dạng"/>
-            <find-status-invalid-re value="Tìm: Biểu thức chính quy không hợp lệ"/>
-            <find-status-search-failed value="Tìm: Tìm kiếm thất bại"/>
-            <find-status-mark-1-match value="Đánh dấu: có 1 kết quả là khớp"/>
-            <find-status-mark-nb-matches value="Đánh dấu: có $INT_REPLACE$ kết quả là khớp"/>
-            <find-status-count-re-malformed value="Đếm: Biểu thức chính quy này không hợp định dạng"/>
-            <find-status-count-1-match value="Đếm: có 1 kết quả là khớp"/>
-            <find-status-count-nb-matches value="Đếm: có $INT_REPLACE$ kết quả là khớp"/>
-            <find-status-replaceall-re-malformed value="Thay thế tất cả: Biểu thức chính quy này không hợp định dạng"/>
-            <find-status-replaceall-1-replaced value="Thay thế tất cả: 1 trường hợp đã được thay thế"/>
-            <find-status-replaceall-nb-replaced value="Thay thế tất cả: $INT_REPLACE$ trường hợp đã được thay thế"/>
-            <find-status-replaceall-readonly value="Thay thế tất cả: Không thể thay thế văn bản. Tài liệu hiện tại đang ở chế độ chỉ đọc"/>
-            <find-status-replace-end-reached value="Thay thế: Đã thay thế trường hợp đầu tiên từ phía trên. Đã đi đến phần cuối của tài liệu"/>
-            <find-status-replace-top-reached value="Thay thế: Đã thay thế trường hợp đầu tiên từ phía dưới. Đã đi đến phần đầu của tài liệu"/>
-            <find-status-replaced-next-found value="Thay thế: 1 trường hợp đã được thay thế. Đã tìm thấy trường hợp tiếp theo."/>
-            <find-status-replaced-without-continuing value="Thay thế: 1 trường hợp đã được thay thế."/>
-            <find-status-replaced-next-not-found value="Thay thế: 1 trường hợp đã được thay thế. Không thấy thêm trường hợp nào nữa."/>
-            <find-status-replace-not-found value="Thay thế: không tìm thấy trường hợp nào cả"/>
-            <find-status-replace-readonly value="Thay thế: Không thể thay thế văn bản. Tài liệu hiện tại đang ở chế độ chỉ đọc"/>
-            <find-status-cannot-find value="Tìm: Không thể tìm văn bản &quot;$STR_REPLACE$&quot;"/>
-            <find-status-scope-selection value="trong phần văn bản được chọn"/>
-            <find-status-scope-all value="trong cả tệp"/>
-            <find-status-scope-backward value="từ bắt-đầu-của-tệp đến con trỏ văn bản"/>
-            <find-status-scope-forward value="từ con trỏ văn bản đến kết-thúc-của-tệp"/>
-            <finder-find-in-finder value="Tìm trong các kết quả tìm kiếm này..."/>
-            <finder-close-this value="Đóng các kết quả tìm kiếm này"/>
-            <finder-collapse-all value="Gập tất cả"/>
-            <finder-uncollapse-all value="Duỗi tất cả"/>
-            <finder-copy value="Sao chép các dòng được chọn"/>
-            <finder-copy-verbatim value="Sao chép"/>
-            <finder-copy-paths value="Sao chép tên đường dẫn"/>
-            <finder-select-all value="Sao chép tất cả"/>
-            <finder-clear-all value="Xoá sạch tất cả"/>
-            <finder-open-all value="Mở tất cả"/>
-            <finder-purge-for-every-search value="Tẩy sạch cho mỗi lần tìm kiếm"/>
-            <finder-wrap-long-lines value="Bọc từ ở các dòng dài"/>
-            <common-ok value="OK"/>
-            <common-cancel value="Huỷ"/>
-            <common-name value="Tên: "/>
-            <tabrename-title value="Đổi tên thẻ hiện tại"/>
-            <tabrename-newname value="Tên mới: "/>
-            <splitter-rotate-left value="Xoay sang trái"/>
-            <splitter-rotate-right value="Xoay sang phải"/>
-            <recent-file-history-maxfile value="Số tệp tối đa: "/>
-            <language-tabsize value="Cỡ Tab: "/>
-            <userdefined-title-new value="Tạo ngôn ngữ mới..."/>
-            <userdefined-title-save value="Lưu tên ngôn ngữ hiện tại thành..."/>
-            <userdefined-title-rename value="Đổi tên ngôn ngữ hiện tại"/>
-            <autocomplete-nb-char value="Số lượng kí tự: "/>
-            <edit-verticaledge-nb-col value="Số lương cột:"/>
-            <summary value="Tóm tắt"/>
-            <summary-filepath value="Đường dẫn tệp đầy đủ: "/>
-            <summary-filecreatetime value="Được tạo vào: "/>
-            <summary-filemodifytime value="Được sửa vào: "/>
-            <summary-nbchar value="Số lượng kí tự (không tính cuối dòng): "/>
-            <summary-nbword value="Số lượng từ: "/>
-            <summary-nbline value="Số lượng dòng: "/>
-            <summary-nbbyte value="Độ dài tài liệu: "/>
-            <summary-nbsel1 value=" các kí tự được chọn ("/>
-            <summary-nbsel2 value=" byte) trong "/>
-            <summary-nbrange value=" khoảng"/>
-            <find-in-files-progress-title value="Tiến độ Tìm trong các tệp..."/>
-            <replace-in-files-confirm-title value="Bạn chắc chứ?"/>
-            <replace-in-files-confirm-directory value="Bạn có chắc là muốn thay thế tất cả trường hợp trong:"/>
-            <replace-in-files-confirm-filetype value="Cho loại tệp :"/>
-            <replace-in-files-progress-title value="Tiến độ Thay thế trong các tệp..."/>
-            <replace-in-projects-confirm-title value="Bạn chắc chứ?"/>
-            <replace-in-projects-confirm-message value="Bạn có muốn thay thế mọi trường hợp trong mọi tài liệu trong (các) Bảng dự án được chọn không?"/>
-            <replace-in-open-docs-confirm-title value="Bạn chắc chứ?"/>
-            <replace-in-open-docs-confirm-message value="Bạn có chắc là muốn thay thế tất cả trường hợp trong tất cả tài liệu được mở không?"/>
-            <find-result-caption value="Kết quả tìm kiếm"/>
-            <find-result-title value="Tìm kiếm"/> <!-- Must not begin with space or tab character -->
-            <find-result-title-info value="($INT_REPLACE1$ kết quả trong $INT_REPLACE2$ tệp của $INT_REPLACE3$ được tìm kiếm)"/>
-            <find-result-title-info-selections value="($INT_REPLACE1$ kết quả trong $INT_REPLACE2$ phần được chọn trong $INT_REPLACE3$ được tìm kiếm)"/>
-            <find-result-title-info-extra value=" - Chế độ lọc dòng: chỉ hiển thị các kết quả được lọc ra"/>
-            <find-result-hits value="($INT_REPLACE$ kết quả)"/>
-            <find-result-line-prefix value="Dòng"/> <!-- Must not begin with space or tab character -->
-            <find-regex-zero-length-match value="phần khớp có độ dài là không" />
-            <session-save-folder-as-workspace value="Lưu thư mục như là không gian làm việc" />
-            <tab-untitled-string value="mới " />
-            <file-save-assign-type value="&amp;Thêm phần mở rộng vào sau" />
-            <close-panel-tip value="Đóng" />
-            <IncrementalFind-FSFound value="$INT_REPLACE$ kết quả so khớp" />
-            <IncrementalFind-FSNotFound value="Không tìm thấy cụm từ" />
-            <IncrementalFind-FSTopReached value="Đã đi tới đầu trang, tiếp tục từ bên dưới" />
-            <IncrementalFind-FSEndReached value="Đã đi tới cuối trang, tiếp tục từ bên trên" />
-            <contextMenu-styleAlloccurrencesOfToken value="Đặt kiểu dáng tất cả trường hợp của từ tố" />
-            <contextMenu-styleOneToken value="Đặt kiểu dáng một từ tố" />
-            <contextMenu-clearStyle value="Dọn sạch kiểu dáng" />
-            <enable-disable-largeFileRestriction-tip value="Bật tắt &quot;Bật giới hạn tệp lớn&quot; chỉ có tác dụng sau khi tắt đi mở lại tệp lớn đó" />
-            <change-largeFileRestriction_fileLength-tip value="Chỉnh sửa giá trị kích cỡ tệp chỉ có tác dụng sau khi tắt đi mở lại tệp lớn đó" />
-            <contextMenu-PluginCommands value="Plugin commands" />
-            <largeFileRestriction-tip value="Một số tính năng có thể làm giảm hiệu suất ở những tệp lớn. Những tính năng này có thể được tự động tắt khi mở một tệp lớn. Bạn có thể tuỳ chỉnh chúng ở đây.
+*.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+			<find-in-files-select-folder value="Chọn một thư mục để tìm kiếm"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-status-top-reached value="Tìm: Đã tìm thấy trường hợp đầu tiên từ phía dưới. Đã đi đến phần đầu của tài liệu."/>
+			<find-status-end-reached value="Tìm: Đã tìm thấy trường hợp đầu tiên từ phía trên. Đã đi đến phần cuối của tài liệu."/>
+			<find-status-replaceinfiles-1-replaced value="Thay thế trong các tệp: 1 trường hợp đã được thay thế"/>
+			<find-status-replaceinfiles-nb-replaced value="Thay thế trong các tệp: $INT_REPLACE$ trường hợp đã được thay thế"/>
+			<find-status-replaceinfiles-re-malformed value="Thay thế trong các tệp được mở: Biểu thức chính quy này không hợp định dạng"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Thay thế trong các tệp được mở: 1 trường hợp đã được thay thế"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Thay thế trong các tệp được mở: $INT_REPLACE$ trường hợp đã được thay thế"/>
+			<find-status-mark-re-malformed value="Đánh dấu: Biểu thức chính quy này không hợp định dạng"/>
+			<find-status-invalid-re value="Tìm: Biểu thức chính quy không hợp lệ"/>
+			<find-status-search-failed value="Tìm: Tìm kiếm thất bại"/>
+			<find-status-mark-1-match value="Đánh dấu: có 1 kết quả là khớp"/>
+			<find-status-mark-nb-matches value="Đánh dấu: có $INT_REPLACE$ kết quả là khớp"/>
+			<find-status-count-re-malformed value="Đếm: Biểu thức chính quy này không hợp định dạng"/>
+			<find-status-count-1-match value="Đếm: có 1 kết quả là khớp"/>
+			<find-status-count-nb-matches value="Đếm: có $INT_REPLACE$ kết quả là khớp"/>
+			<find-status-replaceall-re-malformed value="Thay thế tất cả: Biểu thức chính quy này không hợp định dạng"/>
+			<find-status-replaceall-1-replaced value="Thay thế tất cả: 1 trường hợp đã được thay thế"/>
+			<find-status-replaceall-nb-replaced value="Thay thế tất cả: $INT_REPLACE$ trường hợp đã được thay thế"/>
+			<find-status-replaceall-readonly value="Thay thế tất cả: Không thể thay thế văn bản. Tài liệu hiện tại đang ở chế độ chỉ đọc"/>
+			<find-status-replace-end-reached value="Thay thế: Đã thay thế trường hợp đầu tiên từ phía trên. Đã đi đến phần cuối của tài liệu"/>
+			<find-status-replace-top-reached value="Thay thế: Đã thay thế trường hợp đầu tiên từ phía dưới. Đã đi đến phần đầu của tài liệu"/>
+			<find-status-replaced-next-found value="Thay thế: 1 trường hợp đã được thay thế. Đã tìm thấy trường hợp tiếp theo."/>
+			<find-status-replaced-without-continuing value="Thay thế: 1 trường hợp đã được thay thế."/>
+			<find-status-replaced-next-not-found value="Thay thế: 1 trường hợp đã được thay thế. Không thấy thêm trường hợp nào nữa."/>
+			<find-status-replace-not-found value="Thay thế: không tìm thấy trường hợp nào cả"/>
+			<find-status-replace-readonly value="Thay thế: Không thể thay thế văn bản. Tài liệu hiện tại đang ở chế độ chỉ đọc"/>
+			<find-status-cannot-find value="Tìm: Không thể tìm văn bản &quot;$STR_REPLACE$&quot;"/>
+			<find-status-scope-selection value="trong phần văn bản được chọn"/>
+			<find-status-scope-all value="trong cả tệp"/>
+			<find-status-scope-backward value="từ bắt-đầu-của-tệp đến con trỏ văn bản"/>
+			<find-status-scope-forward value="từ con trỏ văn bản đến kết-thúc-của-tệp"/>
+			<finder-find-in-finder value="Tìm trong các kết quả tìm kiếm này..."/>
+			<finder-close-this value="Đóng các kết quả tìm kiếm này"/>
+			<finder-collapse-all value="Gập tất cả"/>
+			<finder-uncollapse-all value="Duỗi tất cả"/>
+			<finder-copy value="Sao chép các dòng được chọn"/>
+			<finder-copy-verbatim value="Sao chép"/>
+			<finder-copy-paths value="Sao chép tên đường dẫn"/>
+			<finder-select-all value="Sao chép tất cả"/>
+			<finder-clear-all value="Xoá sạch tất cả"/>
+			<finder-open-all value="Mở tất cả"/>
+			<finder-purge-for-every-search value="Tẩy sạch cho mỗi lần tìm kiếm"/>
+			<finder-wrap-long-lines value="Bọc từ ở các dòng dài"/>
+			<common-ok value="OK"/>
+			<common-cancel value="Huỷ"/>
+			<common-name value="Tên: "/>
+			<tabrename-title value="Đổi tên thẻ hiện tại"/>
+			<tabrename-newname value="Tên mới: "/>
+			<splitter-rotate-left value="Xoay sang trái"/>
+			<splitter-rotate-right value="Xoay sang phải"/>
+			<recent-file-history-maxfile value="Số tệp tối đa: "/>
+			<language-tabsize value="Cỡ Tab: "/>
+			<userdefined-title-new value="Tạo ngôn ngữ mới..."/>
+			<userdefined-title-save value="Lưu tên ngôn ngữ hiện tại thành..."/>
+			<userdefined-title-rename value="Đổi tên ngôn ngữ hiện tại"/>
+			<autocomplete-nb-char value="Số lượng kí tự: "/>
+			<edit-verticaledge-nb-col value="Số lương cột:"/>
+			<summary value="Tóm tắt"/>
+			<summary-filepath value="Đường dẫn tệp đầy đủ: "/>
+			<summary-filecreatetime value="Được tạo vào: "/>
+			<summary-filemodifytime value="Được sửa vào: "/>
+			<summary-nbchar value="Số lượng kí tự (không tính cuối dòng): "/>
+			<summary-nbword value="Số lượng từ: "/>
+			<summary-nbline value="Số lượng dòng: "/>
+			<summary-nbbyte value="Độ dài tài liệu: "/>
+			<summary-nbsel1 value=" các kí tự được chọn ("/>
+			<summary-nbsel2 value=" byte) trong "/>
+			<summary-nbrange value=" khoảng"/>
+			<find-in-files-progress-title value="Tiến độ Tìm trong các tệp..."/>
+			<replace-in-files-confirm-title value="Bạn chắc chứ?"/>
+			<replace-in-files-confirm-directory value="Bạn có chắc là muốn thay thế tất cả trường hợp trong:"/>
+			<replace-in-files-confirm-filetype value="Cho loại tệp :"/>
+			<replace-in-files-progress-title value="Tiến độ Thay thế trong các tệp..."/>
+			<replace-in-projects-confirm-title value="Bạn chắc chứ?"/>
+			<replace-in-projects-confirm-message value="Bạn có muốn thay thế mọi trường hợp trong mọi tài liệu trong (các) Bảng dự án được chọn không?"/>
+			<replace-in-open-docs-confirm-title value="Bạn chắc chứ?"/>
+			<replace-in-open-docs-confirm-message value="Bạn có chắc là muốn thay thế tất cả trường hợp trong tất cả tài liệu được mở không?"/>
+			<find-result-caption value="Kết quả tìm kiếm"/>
+			<find-result-title value="Tìm kiếm"/><!-- Must not begin with space or tab character -->
+			<find-result-title-info value="($INT_REPLACE1$ kết quả trong $INT_REPLACE2$ tệp của $INT_REPLACE3$ được tìm kiếm)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ kết quả trong $INT_REPLACE2$ phần được chọn trong $INT_REPLACE3$ được tìm kiếm)"/>
+			<find-result-title-info-extra value=" - Chế độ lọc dòng: chỉ hiển thị các kết quả được lọc ra"/>
+			<find-result-hits value="($INT_REPLACE$ kết quả)"/>
+			<find-result-line-prefix value="Dòng"/><!-- Must not begin with space or tab character -->
+			<find-regex-zero-length-match value="phần khớp có độ dài là không"/>
+			<session-save-folder-as-workspace value="Lưu thư mục như là không gian làm việc"/>
+			<tab-untitled-string value="mới "/>
+			<file-save-assign-type value="&amp;Thêm phần mở rộng vào sau"/>
+			<close-panel-tip value="Đóng"/>
+			<IncrementalFind-FSFound value="$INT_REPLACE$ kết quả so khớp"/>
+			<IncrementalFind-FSNotFound value="Không tìm thấy cụm từ"/>
+			<IncrementalFind-FSTopReached value="Đã đi tới đầu trang, tiếp tục từ bên dưới"/>
+			<IncrementalFind-FSEndReached value="Đã đi tới cuối trang, tiếp tục từ bên trên"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Đặt kiểu dáng tất cả trường hợp của từ tố"/>
+			<contextMenu-styleOneToken value="Đặt kiểu dáng một từ tố"/>
+			<contextMenu-clearStyle value="Dọn sạch kiểu dáng"/>
+			<enable-disable-largeFileRestriction-tip value="Bật tắt &quot;Bật giới hạn tệp lớn&quot; chỉ có tác dụng sau khi tắt đi mở lại tệp lớn đó"/>
+			<change-largeFileRestriction_fileLength-tip value="Chỉnh sửa giá trị kích cỡ tệp chỉ có tác dụng sau khi tắt đi mở lại tệp lớn đó"/>
+			<contextMenu-PluginCommands value="Plugin commands"/>
+			<largeFileRestriction-tip value="Một số tính năng có thể làm giảm hiệu suất ở những tệp lớn. Những tính năng này có thể được tự động tắt khi mở một tệp lớn. Bạn có thể tuỳ chỉnh chúng ở đây.
 
 CHÚ Ý:
 1. Chỉnh sửa các tuỳ chọn ở đây yêu cầu việc mở lại tệp lớn vừa mở để có hiệu lực.
 
-2. Nếu &quot;Vô hiệu hoá bọc từ ở mọi nơi&quot; được tích và bạn mở một tệp lớn, &quot;Bọc văn bản&quot; sẽ bị vô hiệu hoá đối với mọi tệp. Bạn có thể bật lại nó thông qua bảng chọn &quot;Xem-&gt;Bọc văn bản&quot;." />
-        </MiscStrings>
-    </Native-Langue>
+2. Nếu &quot;Vô hiệu hoá bọc từ ở mọi nơi&quot; được tích và bạn mở một tệp lớn, &quot;Bọc văn bản&quot; sẽ bị vô hiệu hoá đối với mọi tệp. Bạn có thể bật lại nó thông qua bảng chọn &quot;Xem-&gt;Bọc văn bản&quot;."/>
+		</MiscStrings>
+	</Native-Langue>
 </NotepadPlus>
 
